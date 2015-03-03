@@ -16,5 +16,8 @@ module.exports = {
 	},
 	StoreEvents: {
 		CHANGE_EVENT: 'CHANGE_EVENT'
+	},
+	General: {
+		ENTER_KEY_CODE: 13
 	}
 };

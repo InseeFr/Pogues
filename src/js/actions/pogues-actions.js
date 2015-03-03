@@ -16,8 +16,14 @@ var PoguesActions = {
 			actionType: PoguesConstants.ActionTypes.SELECT_EXISTING_QUESTIONNAIRE,
 			index: index
 		})
+	},
+	// Questionnaire selected in questionnaire picker
+	createModule: function(name) {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.CREATE_MODULE,
+			name: name
+		})
 	}
-
 };
 
 module.exports = PoguesActions;

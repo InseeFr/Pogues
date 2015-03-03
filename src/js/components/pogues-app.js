@@ -3,6 +3,7 @@ var React = require('react');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var QuestionnairePicker = require('../components/questionnaire-picker');
 var Questionnaire = require('../components/questionnaire');
+var QuestionnaireOutlook = require('../components/questionnaire-outlook');
 
 function getStateFromStore() {
 	return {
@@ -30,7 +31,12 @@ var PoguesApp = React.createClass({
 		else {
 			var title = QuestionnaireListStore.getCurrentQuestionnaire(this.state.current).name;
 			console.log('PoguesApp calling Questionnaire with title', title);
-			return (<Questionnaire title={title} language={this.props.language}/>);
+			return (
+				<div>
+					<QuestionnaireOutlook language={this.props.language}/>
+					<Questionnaire title={title} language={this.props.language}/>
+				</div>
+			);
 		}
 	}
 });

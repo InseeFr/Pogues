@@ -1,5 +1,6 @@
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
+var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
@@ -9,12 +10,17 @@ var ActionTypes = PoguesConstants.ActionTypes;
 var _questionnaire = null;
 var _modules = [];
 
-function _removeModule(index) {
-	_modules.splice(index, 1);
+function _setQuestionnaire(index) {
+	_questionnaire = QuestionnaireListStore.getQuestionnaire(index);
+	_questionnaire['modules'] = [];
 }
 
-function _addModule(module) {
-	_modules.push(module);
+function _removeModule(index) {
+	_questionnaire['modules'].splice(index, 1);
+}
+
+function _addModule(name) {
+	_questionnaire['modules'].push(_createModule(name));
 }
 
 function _createModule(name) {
@@ -43,7 +49,10 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 		var action = payload.action; // action from HandleViewAction
 		switch(action.actionType) {
 			case ActionTypes.CREATE_MODULE:
-				_addModule(_createModule(payload.action.name));
+				_addModule(payload.action.name);
+				break;
+			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
+				_setQuestionnaire(payload.action.index);
 				break;
 			default:
 				return true;

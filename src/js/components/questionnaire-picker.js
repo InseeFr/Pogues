@@ -6,12 +6,16 @@ var PoguesActions = require('../actions/pogues-actions');
 var welcome = {'en': 'Welcome to Pogues', 'fr': 'Bienvenue dans Pogues'};
 var introduction = {'en': 'I am the questionnaire picker', 'fr': 'Je suis le sélecteur de questionnaire'};
 
+function getStateFromStore() {
+	return {
+		questionnaires: QuestionnaireListStore.getQuestionnaires()
+	}
+}
+
 var QuestionnairePicker = React.createClass({
 
 	getInitialState: function() {
-		return {
-			questionnaires: QuestionnaireListStore.getQuestionnaires()
-		}
+		return getStateFromStore();
 	},
 	selectIndex: function(event) {
 		console.log('QuestionnairePicker.selectIndex', event.target.value);
