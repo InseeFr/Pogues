@@ -3,7 +3,7 @@ GenericInput test suite
 */
 jest.dontMock('../generic-input.js');
 
-describe('GenericInput i16l management', function() {
+describe('GenericInput i18n management', function() {
   it('Should show the hint corresponding to the user language', function() {
     var React = require('react/addons'),
       GenericInput = require('../generic-input.js'),
