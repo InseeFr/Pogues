@@ -12,4 +12,4 @@ DataUtils.loadQuestionnaires();
 
 React.render(
 	<PoguesApp language={language}/>,
-	document.getElementById('main'));
+	document.getElementById('base'));

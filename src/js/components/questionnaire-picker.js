@@ -3,8 +3,8 @@ var React = require('react');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var PoguesActions = require('../actions/pogues-actions');
 
-var welcome = {'en': 'Welcome to Pogues', 'fr': 'Bienvenue dans Pogues'};
-var introduction = {'en': 'I am the questionnaire picker', 'fr': 'Je suis le sélecteur de questionnaire'};
+var tagline = {'en': 'Questionnaire design and test', 'fr': 'Conception et test de questionnaires'};
+var invite = {'en': 'Select your questionnaire', 'fr': 'Sélectionnez votre questionnaire'};
 
 function getStateFromStore() {
 	return {
@@ -25,13 +25,20 @@ var QuestionnairePicker = React.createClass({
 		console.log('QuestionnairePicker state', this.state);
 		return (
 			<div>
-				<h1>{welcome[this.props.language]}</h1>
-				<h2>{introduction[this.props.language]}</h2>
-				<select onChange={this.selectIndex}>
-					{this.state.questionnaires.map(function(questionnaire, index) {
-						return (<option key={index} value={index}>{questionnaire.name}</option>)
-					})}
-				</select>
+				<div className="bs-docs-header">
+					<div className="container">
+						<h1>Pogues</h1>
+						<p>{tagline[this.props.language]}</p>
+					</div>
+				</div>
+				<div className="container bs-docs-container">
+					<h1 className="page-header">{invite[this.props.language]}</h1>
+					<select onChange={this.selectIndex}>
+						{this.state.questionnaires.map(function(questionnaire, index) {
+							return (<option key={index} value={index}>{questionnaire.name}</option>)
+						})}
+					</select>
+				</div>
 			</div>
 		)
 	}

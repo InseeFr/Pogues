@@ -32,9 +32,18 @@ var PoguesApp = React.createClass({
 			var title = QuestionnaireListStore.getCurrentQuestionnaire(this.state.current).name;
 			console.log('PoguesApp calling Questionnaire with title', title);
 			return (
-				<div>
-					<QuestionnaireOutlook language={this.props.language}/>
-					<Questionnaire title={title} language={this.props.language}/>
+				<div>				
+					<div className="bs-docs-header">
+						<div className="container">
+							<h1>{title}</h1>
+						</div>
+					</div>
+					<div className="container bs-docs-container">
+						<div className="row">
+							<Questionnaire language={this.props.language}/>
+							<QuestionnaireOutlook language={this.props.language}/>
+						</div>
+					</div>
 				</div>
 			);
 		}

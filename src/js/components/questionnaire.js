@@ -29,11 +29,10 @@ var Questionnaire = React.createClass({
 	render: function() {
 		console.log('Questionnaire rendering with state', this.state);
 		return (
-			<div className='main'>
-				<h1>{this.props.title}</h1>
-				<h2>{introduction[this.props.language]}</h2>
-				{this.state.questionnaire.modules.map(function(module, index) {
-					return (<p>{index+1}. {module.name}</p>)
+			<div className="col-md-9">
+				<h1>{introduction[this.props.language]}</h1>
+				{this.state.questionnaire.modules.map(function(module) {
+					return (<h2>{module.name}</h2>)
 				})}
 				<GenericInput language={this.props.language}/>
 			</div>

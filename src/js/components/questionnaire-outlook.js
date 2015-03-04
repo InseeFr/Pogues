@@ -2,8 +2,6 @@
 var React = require('react');
 var QuestionnaireStore = require('../stores/questionnaire-store');
 
-var title = {'en': 'Questionnaire outlook', 'fr': 'Aperçu du questionnaire'};
-
 function getStateFromStore() {
 	console.log('QuestionnaireOutlook getting state from store');
 	return {
@@ -27,11 +25,14 @@ var QuestionnaireOutlook = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className='outlook'>
-				<h4>{title[this.props.language]}</h4>
-				{this.state.questionnaire.modules.map(function(module) {
-					return (<p>{module.name}</p>)
-				})}
+			<div className="col-md-3">
+				<nav className="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+					<ul className="nav bs-docs-sidenav">
+						{this.state.questionnaire.modules.map(function(module) {
+							return (<li>{module.name}</li>)
+						})}
+					</ul>
+				</nav>
 			</div>
 		)
 	}
