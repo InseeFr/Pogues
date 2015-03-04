@@ -28,6 +28,10 @@
     "build": "gulp",
     "test": "jest"
   },
+  "jest": {
+    "scriptPreprocessor": "./preprocessor.js",
+    "unmockedModulePathPatterns": ["./node_modules/react"]
+  },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
     {
