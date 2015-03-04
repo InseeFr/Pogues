@@ -19,13 +19,14 @@
     "gulp": "^3.8.11",
     "jest": "^0.1.37",
     "jest-cli": "^0.4.0",
+    "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
     "vinyl-source-stream": "^1.0.0"
   },
   "scripts": {
     "build-ini": "gulp build",
     "build": "gulp",
-    "test" : "jest"
+    "test": "jest"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
