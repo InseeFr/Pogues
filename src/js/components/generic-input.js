@@ -13,6 +13,9 @@ var GenericInput = React.createClass({
 	handleChange: function(event) {
 		this.setState({value: event.target.value})
 	},
+	componentDidMount: function() {
+		this.refs.input.getDOMNode().focus();
+	},
 	handleKeyDown: function(event) {
 		if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
 			var text = this.state.value.trim();
@@ -25,7 +28,12 @@ var GenericInput = React.createClass({
 	},
 	render: function() {
 		var hint = hints[this.props.language];
-		return <input className="generic" type="text" value={this.state.value} placeholder={hint} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>;
+		return (
+			<div className="generic bs-example">
+				<ul className="nav nav-tabs"><li class="active">Séquence</li><li>Question</li></ul>
+				<input className="form-control" type="text" ref="input" value={this.state.value} placeholder={hint} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+			</div>
+			)
 	}
 });
 

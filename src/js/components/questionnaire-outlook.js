@@ -28,8 +28,8 @@ var QuestionnaireOutlook = React.createClass({
 			<div className="col-md-3">
 				<nav className="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
 					<ul className="nav bs-docs-sidenav">
-						{this.state.questionnaire.modules.map(function(module) {
-							return (<li>{module.name}</li>)
+						{this.state.questionnaire.modules.map(function(module, index) {
+							return (<li key={index}>{module.name}</li>)
 						})}
 					</ul>
 				</nav>

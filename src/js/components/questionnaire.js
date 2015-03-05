@@ -28,11 +28,13 @@ var Questionnaire = React.createClass({
 	},
 	render: function() {
 		console.log('Questionnaire rendering with state', this.state);
+		var invite = introduction[this.props.language];
+		if (this.state.questionnaire.modules.length > 0) invite = '';
 		return (
 			<div className="col-md-9">
-				<h1>{introduction[this.props.language]}</h1>
-				{this.state.questionnaire.modules.map(function(module) {
-					return (<h2>{module.name}</h2>)
+				<h1>{invite}</h1>
+				{this.state.questionnaire.modules.map(function(module, index) {
+					return (<h2 key={index}>{module.name}</h2>)
 				})}
 				<GenericInput language={this.props.language}/>
 			</div>
