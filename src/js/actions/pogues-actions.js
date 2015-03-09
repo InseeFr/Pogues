@@ -4,10 +4,16 @@ var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = {
 
 	// Questionnaire list loaded from the server
-	receiveQuestionnaires: function(data) {
+	receiveQuestionnaireList: function(data) {
 		PoguesDispatcher.handleServerAction({
-			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRES_LOADED,
+			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LIST_LOADED,
 			questionnaires: data.questionnaires
+		})
+	},
+	loadQuestionnaireListFailed: function(error) {
+		PoguesDispatcher.handleServerAction({
+			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED,
+			error: error
 		})
 	},
 	// Questionnaire selected in questionnaire picker

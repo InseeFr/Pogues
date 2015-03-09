@@ -67,7 +67,7 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 		console.log('QuestionnaireListStore received dispatched payload', payload);
 		var action = payload.action;
 		switch(action.actionType) {
-			case ActionTypes.QUESTIONNAIRES_LOADED:
+			case ActionTypes.QUESTIONNAIRE_LIST_LOADED:
 				_setQuestionnaires(payload.action.questionnaires);
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:

@@ -14,12 +14,18 @@ function getStateFromStore() {
 
 var QuestionnairePicker = React.createClass({
 
+	_onChange: function() {
+		this.setState(getStateFromStore());
+	},
 	getInitialState: function() {
 		return getStateFromStore();
 	},
 	selectIndex: function(event) {
 		console.log('QuestionnairePicker.selectIndex', event.target.value);
 		PoguesActions.selectQuestionnaire(event.target.value);
+	},
+	componentDidMount: function() {
+		QuestionnaireListStore.addChangeListener(this._onChange);
 	},
 	render: function() {
 		console.log('QuestionnairePicker state', this.state);
@@ -33,7 +39,7 @@ var QuestionnairePicker = React.createClass({
 				</div>
 				<div className="container bs-docs-container">
 					<h1 className="page-header">{invite[this.props.language]}</h1>
-					<select onChange={this.selectIndex}>
+					<select className="form-control" onChange={this.selectIndex}>
 						{this.state.questionnaires.map(function(questionnaire, index) {
 							return (<option key={index} value={index}>{questionnaire.name}</option>)
 						})}

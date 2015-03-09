@@ -8,7 +8,8 @@ var language = (navigator.language || navigator.browserLanguage).split('-')[0];
 if (language !== 'fr') language = 'en';
 
 // Load questionnaire list
-DataUtils.loadQuestionnaires();
+// Should rather be done in the ComponentIsMounted function
+DataUtils.loadQuestionnaireList();
 
 React.render(
 	<PoguesApp language={language}/>,
