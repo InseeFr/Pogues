@@ -30,7 +30,7 @@ var GenericInput = React.createClass({
 		var hint = hints[this.props.language];
 		return (
 			<div className="generic bs-example">
-				<ul className="nav nav-tabs"><li class="active">Séquence</li><li>Question</li></ul>
+				<ul className="nav nav-tabs"><li className="active">Séquence</li><li>Question</li></ul>
 				<input className="form-control" type="text" ref="input" value={this.state.value} placeholder={hint} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
 			</div>
 			)

@@ -2,6 +2,7 @@
 var React = require('react');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var PoguesActions = require('../actions/pogues-actions');
+var DataUtils = require('../utils/data-utils');
 
 var tagline = {'en': 'Questionnaire design and test', 'fr': 'Conception et test de questionnaires'};
 var invite = {'en': 'Select your questionnaire', 'fr': 'Sélectionnez votre questionnaire'};
@@ -26,9 +27,14 @@ var QuestionnairePicker = React.createClass({
 	},
 	componentDidMount: function() {
 		QuestionnaireListStore.addChangeListener(this._onChange);
+		// Load questionnaire list
+		DataUtils.loadQuestionnaireList();
+	},
+	componentWillUnmount: function() {
+		QuestionnaireListStore.removeChangeListener(this._onChange);
 	},
 	render: function() {
-		console.log('QuestionnairePicker state', this.state);
+		console.log('QuestionnairePicker rendering with state', this.state);
 		return (
 			<div>
 				<div className="bs-docs-header">
