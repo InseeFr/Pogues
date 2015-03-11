@@ -15,6 +15,15 @@ function _setQuestionnaire(index) {
 	_questionnaire['modules'] = [];
 }
 
+function _createQuestionnaire(name) {
+	return {
+		name: name,
+		creationDate: Date.now(),
+		modules: []
+		// TODO Add other properties
+	}
+}
+
 function _removeModule(index) {
 	_questionnaire['modules'].splice(index, 1);
 }
@@ -54,9 +63,13 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
 				_setQuestionnaire(payload.action.index);
 				break;
+			case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
+				_questionnaire = _createQuestionnaire(payload.action.name);
+				break;
 			default:
 				return true;
 		}
+		console.log('QuestionnaireStore will emit change, questionnaire is', _questionnaire);
 		QuestionnaireStore.emitChange();
 		return true;
 	})

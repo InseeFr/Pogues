@@ -19,6 +19,7 @@ function _removeQuestionnaire(index) {
 }
 
 function _addQuestionnaire(questionnaire) {
+	questionnaire.id = 'q' + _questionnaires.length,
 	_questionnaires.push(questionnaire);
 }
 
@@ -73,8 +74,9 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
 				_setCurrentQuestionnaire(payload.action.index);
 				break;
-			case ActionTypes.SELECT_NEW_QUESTIONNAIRE:
+			case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
 				_addQuestionnaire(_createQuestionnaire(payload.action.name));
+				_currentQuestionnaireIndex = _questionnaires.length - 1;
 				break;
 			default:
 				return true;

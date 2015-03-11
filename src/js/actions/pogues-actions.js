@@ -16,6 +16,13 @@ var PoguesActions = {
 			error: error
 		})
 	},
+	// Questionnaire created in the questionnaire editor
+	createQuestionnaire: function(name) {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.CREATE_NEW_QUESTIONNAIRE,
+			name: name
+		})
+	},
 	// Questionnaire selected in questionnaire picker
 	selectQuestionnaire: function(index) {
 		PoguesDispatcher.handleViewAction({
