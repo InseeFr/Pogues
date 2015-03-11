@@ -1,6 +1,7 @@
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
+var DataUtils = require('../utils/data-utils');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
@@ -62,9 +63,13 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
 				_setQuestionnaire(payload.action.index);
+				DataUtils.loadQuestionnaire(payload.action.index);
 				break;
 			case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
 				_questionnaire = _createQuestionnaire(payload.action.name);
+				break;
+			case ActionTypes.QUESTIONNAIRE_LOADED:
+				_setQuestionnaire(payload.action.questionnaire);
 				break;
 			default:
 				return true;

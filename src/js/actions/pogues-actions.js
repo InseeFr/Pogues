@@ -3,7 +3,7 @@ var PoguesConstants = require('../constants/pogues-constants');
 
 var PoguesActions = {
 
-	// Questionnaire list loaded from the server
+	// Questionnaire list loaded or not from the server
 	receiveQuestionnaireList: function(data) {
 		PoguesDispatcher.handleServerAction({
 			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LIST_LOADED,
@@ -13,6 +13,19 @@ var PoguesActions = {
 	loadQuestionnaireListFailed: function(error) {
 		PoguesDispatcher.handleServerAction({
 			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED,
+			error: error
+		})
+	},
+	// Questionnaire loaded or not from the server
+	receiveQuestionnaire: function(data) {
+		PoguesDispatcher.handleServerAction({
+			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LOADED,
+			questionnaires: data.questionnaires
+		})
+	},
+	loadQuestionnaireFailed: function(error) {
+		PoguesDispatcher.handleServerAction({
+			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LOADING_FAILED,
 			error: error
 		})
 	},
@@ -30,7 +43,7 @@ var PoguesActions = {
 			index: index
 		})
 	},
-	// Questionnaire selected in questionnaire picker
+	// TODO Rest of the actions
 	createModule: function(name) {
 		PoguesDispatcher.handleViewAction({
 			actionType: PoguesConstants.ActionTypes.CREATE_MODULE,
