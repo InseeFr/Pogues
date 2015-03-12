@@ -41,6 +41,7 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 		return _questionnaires;
 	},
 	getQuestionnaire: function(index) {
+		console.log('getQuestionnaire called in QuestionnaireListStore, index is', index);
 		if (_currentQuestionnaireIndex === null) return null;
 		else return _questionnaires[index];
 	},

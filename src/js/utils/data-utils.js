@@ -46,10 +46,10 @@ var DataUtils = {
 					}
 					modules.push({id: 'm' + moduleIndex, name: 'Module numéro ' + moduleIndex, questions: questions});
 				}
-				questionnaire['modules'] = modules;
+				questionnaire.modules = modules;
+				console.log('DataUtils.loadQuestionnaire will return questionnaire', questionnaire);
 				PoguesActions.receiveQuestionnaire(questionnaire);
 			}
-
 		}, timeout);
 	}
 };

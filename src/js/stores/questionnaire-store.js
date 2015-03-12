@@ -11,9 +11,16 @@ var ActionTypes = PoguesConstants.ActionTypes;
 var _questionnaire = null;
 var _modules = [];
 
-function _setQuestionnaire(index) {
+function _setQuestionnaireByIndex(index) {
 	_questionnaire = QuestionnaireListStore.getQuestionnaire(index);
-	_questionnaire['modules'] = [];
+	console.log('Questionnaire', _questionnaire);
+	_questionnaire.modules = [];
+}
+
+function _setQuestionnaire(questionnaire) {
+	// We must keep id and we can keep name
+	_questionnaire.modules = questionnaire.modules;
+	console.log('Questionnaire in questionnaire store is now', _questionnaire);
 }
 
 function _createQuestionnaire(name) {
@@ -62,7 +69,7 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 				_addModule(payload.action.name);
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
-				_setQuestionnaire(payload.action.index);
+				_setQuestionnaireByIndex(payload.action.index);
 				DataUtils.loadQuestionnaire(payload.action.index);
 				break;
 			case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
