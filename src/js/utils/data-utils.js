@@ -18,7 +18,7 @@ var DataUtils = {
 					questionnaires.push({id: 'q' + index, name: 'Questionnaire numéro ' + index});
 				}
 				var fakeList = {
-					questionnaires: questionnaires,
+					questionnaires: questionnaires
 				};
 				PoguesActions.receiveQuestionnaireList(fakeList);
 			}
@@ -47,8 +47,11 @@ var DataUtils = {
 					modules.push({id: 'm' + moduleIndex, name: 'Module numéro ' + moduleIndex, questions: questions});
 				}
 				questionnaire.modules = modules;
-				console.log('DataUtils.loadQuestionnaire will return questionnaire', questionnaire);
-				PoguesActions.receiveQuestionnaire(questionnaire);
+				var fakeQuestionnaire = {
+					questionnaire: questionnaire
+				};
+				console.log('DataUtils.loadQuestionnaire will return questionnaire', fakeQuestionnaire);
+				PoguesActions.receiveQuestionnaire(fakeQuestionnaire);
 			}
 		}, timeout);
 	}

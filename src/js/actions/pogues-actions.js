@@ -20,7 +20,7 @@ var PoguesActions = {
 	receiveQuestionnaire: function(data) {
 		PoguesDispatcher.handleServerAction({
 			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LOADED,
-			questionnaire: data // TODO Fix that
+			questionnaire: data.questionnaire
 		})
 	},
 	loadQuestionnaireFailed: function(error) {
