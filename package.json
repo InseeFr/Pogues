@@ -24,8 +24,8 @@
     "vinyl-source-stream": "^1.0.0"
   },
   "scripts": {
-    "build-ini": "gulp build",
-    "build": "gulp",
+    "build": "gulp build",
+    "default": "gulp",
     "test": "jest"
   },
   "jest": {
