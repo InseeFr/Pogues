@@ -5,7 +5,12 @@ var source = require('vinyl-source-stream');
 var reactify = require('reactify');
 
 gulp.task('del:dist', function (callback) {
-  del(['./dist'], callback);
+  del([
+    './dist/index.html',
+    './dist/css/**',
+    './dist/js/**'
+    ],
+     callback);
 });
 
 gulp.task('copy:index', function() {
