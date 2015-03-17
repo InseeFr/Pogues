@@ -8,7 +8,8 @@ gulp.task('del:dist', function (callback) {
   del([
     './dist/index.html',
     './dist/css/**',
-    './dist/js/**'
+    './dist/js/**',
+    './dist/img/**'
     ],
      callback);
 });
@@ -18,7 +19,8 @@ gulp.task('copy:index', function() {
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('copy:css', function() {
+// Adding del:dist dependencies, assuring both tasks won't collide
+gulp.task('copy:css', ['del:dist'], function() {
 	gulp.src('./src/css/*.*')
 		.pipe(gulp.dest('./dist/css'));
 });
