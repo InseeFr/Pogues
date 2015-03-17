@@ -20,4 +20,4 @@ class Sequence extends Component {
   }
 }
 
-exports default Sequence;
+export default Sequence;
