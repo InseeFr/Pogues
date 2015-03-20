@@ -14,14 +14,14 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A Sequence
 */
 
-var Component = _interopRequire(require("./Component.es6.js"));
+var Component = _interopRequire(require("./Component.js"));
 
 var Sequence = (function (_Component) {
   function Sequence() {
     _classCallCheck(this, Sequence);
 
     _get(Object.getPrototypeOf(Sequence.prototype), "constructor", this).call(this);
-
+    this.genericName = "";
     this.children = [];
   }
 
@@ -36,6 +36,11 @@ var Sequence = (function (_Component) {
         } else {
           return false;
         }
+      }
+    },
+    sayYo: {
+      value: function sayYo() {
+        return "YO";
       }
     }
   });

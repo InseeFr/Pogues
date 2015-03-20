@@ -12,13 +12,17 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A Question
 */
 
-var Component = _interopRequire(require("./Component.es6.js"));
+var Component = _interopRequire(require("./Component.js"));
 
 var Question = (function (_Component) {
   function Question() {
     _classCallCheck(this, Question);
 
     _get(Object.getPrototypeOf(Question.prototype), "constructor", this).call(this);
+    this.simple = true;
+    this.mandatory = true;
+    this.filter;
+    this.response;
   }
 
   _inherits(Question, _Component);

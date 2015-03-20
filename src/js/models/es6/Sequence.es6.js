@@ -1,12 +1,12 @@
 /**
 A Sequence
 */
-import Component from './Component.es6.js'
+import Component from './Component.js'
 
 class Sequence extends Component {
   constructor() {
     super();
-
+    this.genericName = '';
     this.children = [];
   }
 
@@ -17,6 +17,10 @@ class Sequence extends Component {
     } else {
       return false;
     }
+  }
+
+  sayYo() {
+    return "YO";
   }
 }
 

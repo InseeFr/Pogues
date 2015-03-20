@@ -16,7 +16,7 @@ gulp.task('del:dist', function (callback) {
      callback);
 });
 
-gulp.task('copy:index', function() {
+gulp.task('copy:index', ['del:dist'], function() {
 	gulp.src('./src/index.html')
 		.pipe(gulp.dest('./dist'));
 });
@@ -27,7 +27,7 @@ gulp.task('copy:css', ['del:dist'], function() {
 		.pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('browserify', function() {
+gulp.task('browserify', ['del:dist'], function() {
 	var bundler = browserify('./src/js/main.js');
 	bundler.transform(reactify);
 
@@ -36,7 +36,7 @@ gulp.task('browserify', function() {
 		.pipe(gulp.dest('./dist/js'));
 });
 
-gulp.task('es6toes5', function () {
+gulp.task('es6transpile', function () {
   gulp.src('./src/js/models/es6/*.js')
     .pipe(rename(function(path) {
       path.basename = path.basename.replace(/.es6/, '')
@@ -45,7 +45,7 @@ gulp.task('es6toes5', function () {
     .pipe(gulp.dest('./src/js/models'));
 });
 
-gulp.task('build', ['del:dist', 'browserify', 'copy:index', 'copy:css']);
+gulp.task('build', ['del:dist', 'es6transpile', 'browserify', 'copy:index', 'copy:css']);
 
 gulp.task('default', ['browserify', 'copy:index']);
 
