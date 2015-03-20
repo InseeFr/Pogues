@@ -8,7 +8,8 @@ var Module = React.createClass({
 
 		if (this.props.module.questions) {
 			return (
-				<div>
+				<div className="module">					
+					<p className="sub-module">COUCOU</p>
 					<h2>{this.props.module.name}</h2>
 					{this.props.module.questions.map(function(question, index) {
 						return (<h4 key={index}>{question.name}</h4>)

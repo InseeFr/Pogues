@@ -9,3 +9,15 @@ div.main {
 input.generic {
 	width: 500px;
 }
+
+.module {
+
+}
+
+.sub-module {
+	visibility : hidden;
+}
+
+.module:hover .sub-module {
+	visibility : visible;
+}
