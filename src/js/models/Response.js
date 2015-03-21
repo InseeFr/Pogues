@@ -9,3 +9,5 @@ var Response = function Response() {
   this.predefinedLabel = "";
   this.value;
 };
+
+module.exports = Response;

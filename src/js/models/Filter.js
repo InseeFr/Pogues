@@ -5,3 +5,5 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 var Filter = function Filter() {
   _classCallCheck(this, Filter);
 };
+
+module.exports = Filter;

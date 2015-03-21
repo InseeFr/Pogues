@@ -31,3 +31,5 @@ class Declaration {
     this.text = text;
   }
 }
+
+export default Declaration;

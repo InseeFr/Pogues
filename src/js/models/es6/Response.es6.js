@@ -5,3 +5,5 @@ class Response {
     this.value;
   }
 }
+
+export default Response;

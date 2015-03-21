@@ -45,3 +45,5 @@ var Declaration = (function () {
 
   return Declaration;
 })();
+
+module.exports = Declaration;
