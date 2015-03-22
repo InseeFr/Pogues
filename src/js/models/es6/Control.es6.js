@@ -1,4 +1,4 @@
-class Controle {
+class Control {
   constructor() {
     this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     this.description = '';
@@ -6,4 +6,4 @@ class Controle {
   }
 }
 
-export default Controle;
+export default Control;

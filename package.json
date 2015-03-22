@@ -4,7 +4,7 @@
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FranckCo/Pogues"
+    "url": "https://github.com/InseeFr/Pogues"
   },
   "main": "js/pogues.js",
   "dependencies": {
@@ -42,6 +42,10 @@
     {
       "name": "Franck Cotton",
       "email": "franck.cotton@insee.fr"
+    },
+    {
+      "name": "Romain Tailhurat",
+      "email": "romain.tailhurat@insee.fr"
     }
   ]
 }
