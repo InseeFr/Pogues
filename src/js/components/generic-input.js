@@ -3,15 +3,21 @@ var React = require('react');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
 
-var hints = {'en': 'Enter a question title', 'fr': 'Entrez un intitulé de question'};
+var hints = {'en': 'Enter a title', 'fr': 'Entrez un intitulé'};
+var labels = {'en': ['Sequence', 'Question'], 'fr': ['Séquence', 'Question']}
 
 var GenericInput = React.createClass({
 
 	getInitialState: function() {
-		return {value: ''}
+		return {value: '', sequence: true, depth: 1}
 	},
 	handleChange: function(event) {
 		this.setState({value: event.target.value})
+	},
+	toggleType: function(event) {
+		event.preventDefault();
+		this.setState({sequence: !this.state.sequence});
+		console.log('GenericInput toggled type', this.state);
 	},
 	componentDidMount: function() {
 		this.refs.input.getDOMNode().focus();
@@ -28,21 +34,32 @@ var GenericInput = React.createClass({
 	},
 	render: function() {
 		var hint = hints[this.props.language];
+		var inputClass = (this.state.sequence ? "gi-sequence" : "gi-question");
+		var activeIndex = (this.state.sequence ? 0 : 1);
 		return (
-			<div className="generic bs-example">
-				<div >
-					<ul className="nav nav-tabs">
-						<li role="presentation" className="active">
-							<a href="#">Séquence</a>
-						</li>
-						<li role="presentation">
-							<a href="#">Question</a>
-						</li>
-					</ul>
-				</div>
-				<div >&nbsp;</div>
-				<div >
+			<div className={inputClass}>
+				<ul className="nav nav-tabs">
+					{labels[this.props.language].map(function(label, index) {
+						if(index === activeIndex) {
+							return(
+								<li key={index} role="presentation" className="active">
+									<a href="#">{label}</a>
+								</li>
+							)
+						} else {
+							return(
+								<li key={index} role="presentation"  className="toto">
+									<a href="#" onClick={this.toggleType}>{label}</a>
+								</li>
+							)
+						}
+					})}
+				</ul>
+				// FIXME onClick works on <span/> or <p/> but not on <a/> 
+				<div className="input-group">
+					<span className="input-group-addon">{this.state.depth}</span>
 					<input className="form-control" type="text" ref="input" value={this.state.value} placeholder={hint} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+					<span className="input-group-addon" onClick={this.toggleType}>O</span>
 				</div>
 			</div>
 			)

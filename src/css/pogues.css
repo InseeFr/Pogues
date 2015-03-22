@@ -6,6 +6,15 @@ div.outlook {
 div.main {
 	background-color: #BFF5E9;
 }
+
+div.gi-question input {
+	background-color: #BFFBFF;
+}
+
+div.gi-sequence input {
+	background-color: #FBBFBB;
+}
+
 input.generic {
 	width: 500px;
 }
