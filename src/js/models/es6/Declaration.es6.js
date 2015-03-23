@@ -1,6 +1,8 @@
-
+/**
+Textual material associated to a sequence or question
+*/
 // FIXME do we put that in constants dir ?
-const TYPES = ['INSTRUCTION','COMMENT','HELP'];
+const TYPES = ['INSTRUCTION', 'COMMENT', 'HELP'];
 
 class Declaration {
 
@@ -25,7 +27,7 @@ class Declaration {
   }
 
   set setText(text) {
-    if(!(typeof bool === 'string')) {
+    if(!(typeof text === 'string')) {
       throw new Error('Declaration text must be a string !');
     }
     this.text = text;

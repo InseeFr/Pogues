@@ -1,5 +1,5 @@
 /**
-A Component is the base class for the Questionnaire element
+A Component is the base class for the Questionnaire questions and sequences
 */
 import Declaration from './Declaration.js'
 

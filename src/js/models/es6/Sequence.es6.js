@@ -1,11 +1,12 @@
 /**
-A Sequence
+A Sequence of questions or other sequences
 */
 import Component from './Component.js'
 
 class Sequence extends Component {
   constructor() {
     super();
+	this.depth = 0;
     this.genericName = '';
     this.children = [];
   }
@@ -17,10 +18,6 @@ class Sequence extends Component {
     } else {
       return false;
     }
-  }
-
-  sayYo() {
-    return "YO";
   }
 }
 
