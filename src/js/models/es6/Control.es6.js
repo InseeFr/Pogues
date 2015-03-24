@@ -7,6 +7,28 @@ class Control {
     this.description = '';
     this.expression = '';
   }
+
+  get getDescription() {
+    return this.description;
+  }
+
+  get getExpression() {
+    return this.expression;
+  }
+
+  set setDescription(description) {
+    if(!(typeof description === 'string')) {
+      throw new Error('The parameter must be a string');
+    }
+    this.description = description;
+  }
+
+  set setExpression(expression) {
+    if(!(typeof expression === 'string')) {
+      throw new Error('The parameter must be a string');
+    }
+    this.expression = expression;
+  }
 }
 
 export default Control;
