@@ -46,15 +46,15 @@ class Sequence extends Component {
       this.children.length(initialSize);
       throw new Error('All arguments must be of type Component');
     }
+  }
 
-    set setChildren(children) {
-      children.map(function(child) {
-        if(!(child instanceof Component)) {
-          throw new Error('All arguments must be of type Component');
-        }
-      });
-      this.children = children;
-    }
+  set setChildren(children) {
+    children.map(function(child) {
+      if(!(child instanceof Component)) {
+        throw new Error('All arguments must be of type Component');
+      }
+    });
+    this.children = children;
   }
 
 }

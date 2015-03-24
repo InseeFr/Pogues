@@ -4,7 +4,10 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-// FIXME do we put that in constants dir ?
+/**
+Textual material associated to a sequence or question
+*/
+// FIXME do we put that in constants dir?
 var TYPES = ["INSTRUCTION", "COMMENT", "HELP"];
 
 var Declaration = (function () {
@@ -20,7 +23,7 @@ var Declaration = (function () {
     setType: {
       set: function (type) {
         if (!(type in TYPES)) {
-          throw new Error("You must choose a valid declaration type !");
+          throw new Error(type + "is not a valid declaration type");
         }
         this.type = type;
       }
@@ -28,15 +31,15 @@ var Declaration = (function () {
     setDisjoinable: {
       set: function (bool) {
         if (!(typeof bool === "boolean")) {
-          throw new Error("Disjoinable must be a boolean !");
+          throw new Error("The parameter must be a boolean");
         }
         this.disjoinable = bool;
       }
     },
     setText: {
       set: function (text) {
-        if (!(typeof bool === "string")) {
-          throw new Error("Declaration text must be a string !");
+        if (!(typeof text === "string")) {
+          throw new Error("The parameter must be a string");
         }
         this.text = text;
       }

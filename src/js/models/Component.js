@@ -7,7 +7,7 @@ var _createClass = (function () { function defineProperties(target, props) { for
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 /**
-A Component is the base class for the Questionnaire element
+A Component is the base class for the Questionnaire questions and sequences
 */
 
 var Declaration = _interopRequire(require("./Declaration.js"));
@@ -23,22 +23,75 @@ var Component = (function () {
   }
 
   _createClass(Component, {
+    getId: {
+      get: function () {
+        return this.id;
+      }
+    },
+    getName: {
+      get: function () {
+        return this.name;
+      }
+    },
+    getLabel: {
+      get: function () {
+        return this.label;
+      }
+    },
+    getDeclarations: {
+      get: function () {
+        return this.declarations;
+      }
+    },
     setName: {
+
+      // TODO do we need a setter for id?
+
       set: function (name) {
+        if (!(typeof name === "string")) {
+          throw new Error("The parameter must be a string");
+        }
         this.name = name;
       }
     },
     setLabel: {
       set: function (label) {
+        if (!(typeof label === "string")) {
+          throw new Error("The parameter must be a string");
+        }
         this.label = label;
       }
     },
     addDeclaration: {
       value: function addDeclaration(declaration) {
         if (!(declaration instanceof Declaration)) {
-          throw new Error("The type of the argument is not Declaration !");
+          throw new Error("The argument must be a Declaration");
         }
         this.declarations.push(declaration);
+      }
+    },
+    addDeclarations: {
+      value: function addDeclarations(declarations) {
+        // Save current size in case something goes wrong
+        initialSize = this.declarations.length;
+        try {
+          declarations.map(function (declaration) {
+            this.addDeclaration(declaration);
+          });
+        } catch (e) {
+          this.declarations.length(initialSize);
+          throw new Error("All arguments must be of type Declaration");
+        }
+      }
+    },
+    setDeclarations: {
+      set: function (declarations) {
+        children.map(function (declaration) {
+          if (!(declaration instanceof Declaration)) {
+            throw new Error("All arguments must be of type Declaration");
+          }
+        });
+        this.declarations = declarations;
       }
     }
   });

@@ -1,16 +1,16 @@
 /**
 A Question
 */
-import Component from './Component.js'
-import Filter from './Filter.js'
-import Response from './Response.js'
+import Component from './Component.js';
+import Filter from './Filter.js';
+import Response from './Response.js';
 
 class Question extends Component {
   constructor() {
     super();
     this.simple = true;
     this.mandatory = false;
-    this.filter new Filter();
+    this.filter = new Filter();
     this.response = new Response();
   }
 
