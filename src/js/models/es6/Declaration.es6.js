@@ -1,7 +1,7 @@
 /**
 Textual material associated to a sequence or question
 */
-// FIXME do we put that in constants dir ?
+// FIXME do we put that in constants dir?
 const TYPES = ['INSTRUCTION', 'COMMENT', 'HELP'];
 
 class Declaration {

@@ -31,6 +31,20 @@ class Question extends Component {
     return this.response;
   }
 
+  set setSimple(bool) {
+    if(!(typeof bool === 'boolean')) {
+      throw new Error('The parameter must be a boolean');
+    }
+    this.simple = bool;
+  }
+
+  set setMandatory(bool) {
+    if(!(typeof bool === 'boolean')) {
+      throw new Error('The parameter must be a boolean');
+    }
+    this.mandatory = bool;
+  }
+
   set setFilter(filter) {
     if(!(filter instanceof Filter)) {
       throw new Error('The argument must be a Filter');
