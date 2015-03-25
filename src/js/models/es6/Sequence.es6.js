@@ -1,10 +1,10 @@
 /**
 A Sequence of questions or other sequences
 */
-import Component from './Component.js'
+import Component from './Component.js';
 
 // FIXME Internationalize
-const GENERIC_NAMES = ['Module', 'Paragraphe', 'Séquence'];
+const GENERIC_NAMES = ['Questionnaire', 'Module', 'Paragraphe', 'Séquence'];
 
 class Sequence extends Component {
   constructor() {

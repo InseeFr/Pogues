@@ -17,7 +17,7 @@ A Sequence of questions or other sequences
 var Component = _interopRequire(require("./Component.js"));
 
 // FIXME Internationalize
-var GENERIC_NAMES = ["Module", "Paragraphe", "Séquence"];
+var GENERIC_NAMES = ["Questionnaire", "Module", "Paragraphe", "Séquence"];
 
 var Sequence = (function (_Component) {
   function Sequence() {

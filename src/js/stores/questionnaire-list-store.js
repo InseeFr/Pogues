@@ -1,6 +1,7 @@
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var EventEmitter = require('events').EventEmitter;
+var Questionnaire = require("../models/Questionnaire");
 var assign = require('object-assign');
 
 var CHANGE_EVENT = "change";
@@ -19,7 +20,7 @@ function _removeQuestionnaire(index) {
 }
 
 function _addQuestionnaire(questionnaire) {
-	questionnaire.id = 'q' + _questionnaires.length,
+	//questionnaire.id = 'q' + _questionnaires.length,
 	_questionnaires.push(questionnaire);
 }
 
@@ -28,11 +29,11 @@ function _setCurrentQuestionnaire(index) {
 }
 
 function _createQuestionnaire(name) {
-	return {
-		name: name,
-		creationDate: Date.now()
-		// TODO Add other properties
-	}
+	_questionnaire = new Questionnaire();
+	_questionnaire.name = name;
+	// FIXME getName does not work
+	console.log('questionnaire-list-store created questionnaire', _questionnaire);
+	return _questionnaire;
 }
 
 var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
@@ -71,6 +72,9 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 		switch(action.actionType) {
 			case ActionTypes.QUESTIONNAIRE_LIST_LOADED:
 				_setQuestionnaires(payload.action.questionnaires);
+				break;
+			case ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED:
+				_setQuestionnaires(null);
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
 				_setCurrentQuestionnaire(payload.action.index);

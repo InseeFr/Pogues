@@ -17,6 +17,7 @@ var Component = (function () {
     _classCallCheck(this, Component);
 
     this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    console.log("Component creating new instance with id " + this.id);
     this.name = "";
     this.label = "";
     this.declarations = [];

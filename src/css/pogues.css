@@ -19,6 +19,12 @@ input.generic {
 	width: 500px;
 }
 
+span.error-list {
+	margin-left: 10px;
+	color: darksalmon;
+	font-weight: bold;
+}
+
 .module {
 
 }

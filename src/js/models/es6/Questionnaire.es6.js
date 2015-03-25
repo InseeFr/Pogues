@@ -1,11 +1,11 @@
 /**
 The class for a Questionnaire
 */
-import Sequence from './Sequence.js'
-import Survey from './Survey.js'
+import Sequence from './Sequence.js';
+import Survey from './Survey.js';
 
 class Questionnaire extends Sequence {
-  constructor(name) {
+  constructor() {
     super();
     this.survey = new Survey();
   }

@@ -1,11 +1,12 @@
 /**
 A Component is the base class for the Questionnaire questions and sequences
 */
-import Declaration from './Declaration.js'
+import Declaration from './Declaration.js';
 
 class Component {
   constructor() {
     this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    console.log('Component creating new instance with id ' + this.id);
     this.name = "";
     this.label = "";
     this.declarations = [];

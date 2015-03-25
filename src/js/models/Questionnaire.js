@@ -19,7 +19,7 @@ var Sequence = _interopRequire(require("./Sequence.js"));
 var Survey = _interopRequire(require("./Survey.js"));
 
 var Questionnaire = (function (_Sequence) {
-  function Questionnaire(name) {
+  function Questionnaire() {
     _classCallCheck(this, Questionnaire);
 
     _get(Object.getPrototypeOf(Questionnaire.prototype), "constructor", this).call(this);

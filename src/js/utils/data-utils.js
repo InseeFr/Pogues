@@ -3,11 +3,11 @@ var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 
 var DataUtils = {
 	// TODO Load data from server source
-	// Mock function will return from 0 to 29 questionnaires in 0 to 1 second, and a 10% possibility of error
+	// Mock function will return from 0 to 29 questionnaires in 0 to 5 seconds, and a 10% possibility of error
 	loadQuestionnaireList: function() {
 
 		var numberOfQuestionnaires = Math.floor(Math.random() * 30);
-		var timeout = Math.random() * 1000;
+		var timeout = Math.random() * 5000;
 		var fail = (Math.random() < 0.1);
 		console.log('Creating ' + numberOfQuestionnaires + ' questionnaires in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
 		setTimeout(function() {
