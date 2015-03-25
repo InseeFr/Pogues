@@ -6,6 +6,8 @@ var reactify = require('reactify');
 var babel = require('gulp-babel');
 var rename = require('gulp-rename');
 
+
+// DEL
 gulp.task('del:dist', function (callback) {
   del([
     './dist/index.html',
@@ -16,18 +18,23 @@ gulp.task('del:dist', function (callback) {
      callback);
 });
 
-gulp.task('copy:index', ['del:dist'], function() {
+// BUILD
+gulp.task('build:copy:index', ['del:dist'], function() {
 	gulp.src('./src/index.html')
 		.pipe(gulp.dest('./dist'));
 });
 
-// Adding del:dist dependencies, assuring both tasks won't collide
-gulp.task('copy:css', ['del:dist'], function() {
+gulp.task('build:copy:css', ['del:dist'], function() {
 	gulp.src('./src/css/*.*')
 		.pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('browserify', ['del:dist'], function() {
+gulp.task('build:copy:img', ['del:dist'], function() {
+	gulp.src('./src/img/*.*')
+		.pipe(gulp.dest('./dist/img'));
+});
+
+gulp.task('build:browserify', ['del:dist'], function() {
 	var bundler = browserify('./src/js/main.js');
 	bundler.transform(reactify);
 
@@ -36,7 +43,22 @@ gulp.task('browserify', ['del:dist'], function() {
 		.pipe(gulp.dest('./dist/js'));
 });
 
-gulp.task('es6transpile', function () {
+// SIMPLE
+gulp.task('copy:index', function() {
+	gulp.src('./src/index.html')
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('browserify', function() {
+	var bundler = browserify('./src/js/main.js');
+	bundler.transform(reactify);
+
+	return bundler.bundle()
+		.pipe(source('pogues.js'))
+		.pipe(gulp.dest('./dist/js'));
+});
+
+gulp.task('build:es6transpile', ['del:dist'], function () {
   gulp.src('./src/js/models/es6/*.js')
     .pipe(rename(function(path) {
       path.basename = path.basename.replace(/.es6/, '')
@@ -45,9 +67,16 @@ gulp.task('es6transpile', function () {
     .pipe(gulp.dest('./src/js/models'));
 });
 
-gulp.task('build', ['del:dist', 'es6transpile', 'browserify', 'copy:index', 'copy:css']);
+gulp.task('build',
+  ['del:dist',
+   'build:es6transpile',
+   'build:browserify',
+   'build:copy:index',
+   'build:copy:css']);
 
-gulp.task('default', ['browserify', 'copy:index']);
+gulp.task('default',
+  ['browserify',
+  'copy:index']);
 
 gulp.task('watch', function() {
 	gulp.watch('src/**/*.*', ['default']);
