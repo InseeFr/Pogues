@@ -9,52 +9,60 @@ const GENERIC_NAMES = ['Questionnaire', 'Module', 'Paragraphe', 'Séquence'];
 class Sequence extends Component {
   constructor() {
     super();
-    this.depth = 0;
+    this._depth = 0;
     // Module, paragraph, etc. Should really not be a member, in fact.
-    this.genericName = GENERIC_NAMES[0];
-    this.children = [];
+    this._genericName = GENERIC_NAMES[0];
+    this._children = [];
   }
 
-  get getDepth() {
-    return this.depth;
+  get depth() {
+    return this._depth;
   }
 
-  set setDepth(depth) {
+  get genericName() {
+    return this._genericName;
+  }
+
+  get children() {
+    return this._children;
+  }
+
+  set depth(depth) {
     // TODO Add type check
-    this.depth = depth;
-    if (depth < GENERIC_NAMES.length - 1) this.genericName = GENERIC_NAMES[depth];
-    else this.genericName = GENERIC_NAMES[GENERIC_NAMES.length - 1] + '-' + depth;
+    this._depth = depth;
+    if (depth < GENERIC_NAMES.length - 1) this._genericName = GENERIC_NAMES[depth];
+    else this._genericName = GENERIC_NAMES[GENERIC_NAMES.length - 1] + '-' + depth;
   }
 
   addChild(child) {
-    if(!(child instanceof Component)) {
+    if (!(child instanceof Component)) {
       throw new Error('The argument must be a Component');
     }
-    if (child instanceof Sequence) child.setDepth(this.depth + 1);
+    if (child instanceof Sequence) child.setDepth(this._depth + 1);
 
-    this.children.push(child);
+    this._children.push(child);
   }
 
   addChildren(children) {
     // Save current size in case something goes wrong
-    initialSize = this.declarations.length;
+    var initialSize = this._children.length;
     try {
       children.map(function(child) {
         this.addChild(child);
       });
     } catch (e) {
-      this.children.length(initialSize);
+      this._children.length(initialSize);
       throw new Error('All arguments must be of type Component');
     }
   }
 
-  set setChildren(children) {
+  set children(children) {
     children.map(function(child) {
-      if(!(child instanceof Component)) {
+      if (!(child instanceof Component)) {
         throw new Error('All arguments must be of type Component');
       }
     });
-    this.children = children;
+    this._children = children;
   }
 
 }

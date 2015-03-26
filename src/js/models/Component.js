@@ -16,35 +16,23 @@ var Component = (function () {
   function Component() {
     _classCallCheck(this, Component);
 
-    this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    console.log("Component creating new instance with id " + this.id);
-    this.name = "";
-    this.label = "";
-    this.declarations = [];
+    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    console.log("Component creating new instance with id " + this._id);
+    this._name = "";
+    this._label = "";
+    this._declarations = [];
   }
 
   _createClass(Component, {
-    getId: {
+    id: {
       get: function () {
-        return this.id;
+        return this._id;
       }
     },
-    getName: {
+    name: {
       get: function () {
-        return this.name;
-      }
-    },
-    getLabel: {
-      get: function () {
-        return this.label;
-      }
-    },
-    getDeclarations: {
-      get: function () {
-        return this.declarations;
-      }
-    },
-    setName: {
+        return this._name;
+      },
 
       // TODO do we need a setter for id?
 
@@ -52,15 +40,31 @@ var Component = (function () {
         if (!(typeof name === "string")) {
           throw new Error("The parameter must be a string");
         }
-        this.name = name;
+        this._name = name;
       }
     },
-    setLabel: {
+    label: {
+      get: function () {
+        return this._label;
+      },
       set: function (label) {
         if (!(typeof label === "string")) {
           throw new Error("The parameter must be a string");
         }
-        this.label = label;
+        this._label = label;
+      }
+    },
+    declarations: {
+      get: function () {
+        return this._declarations;
+      },
+      set: function (declarations) {
+        children.map(function (declaration) {
+          if (!(declaration instanceof Declaration)) {
+            throw new Error("All arguments must be of type Declaration");
+          }
+        });
+        this._declarations = declarations;
       }
     },
     addDeclaration: {
@@ -68,31 +72,21 @@ var Component = (function () {
         if (!(declaration instanceof Declaration)) {
           throw new Error("The argument must be a Declaration");
         }
-        this.declarations.push(declaration);
+        this._declarations.push(declaration);
       }
     },
     addDeclarations: {
       value: function addDeclarations(declarations) {
         // Save current size in case something goes wrong
-        initialSize = this.declarations.length;
+        initialSize = this._declarations.length;
         try {
           declarations.map(function (declaration) {
             this.addDeclaration(declaration);
           });
         } catch (e) {
-          this.declarations.length(initialSize);
+          this._declarations.length(initialSize);
           throw new Error("All arguments must be of type Declaration");
         }
-      }
-    },
-    setDeclarations: {
-      set: function (declarations) {
-        children.map(function (declaration) {
-          if (!(declaration instanceof Declaration)) {
-            throw new Error("All arguments must be of type Declaration");
-          }
-        });
-        this.declarations = declarations;
       }
     }
   });

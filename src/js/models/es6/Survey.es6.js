@@ -3,37 +3,37 @@ A Survey
 */
 class Survey {
   constructor() {
-    this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    this.agency = 'fr.insee';
-    this.name = '';
+    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    this._agency = 'fr.insee';
+    this._name = '';
   }
 
-  get getId() {
-    return this.id;
+  get id() {
+    return this._id;
   }
 
-  get getName() {
-    return this.name;
+  get name() {
+    return this._name;
   }
 
-  get getAgency() {
-    return this.name;
+  get agency() {
+    return this._agency;
   }
 
   // TODO do we need a setter for id?
 
-  set setName(name) {
-    if(!(typeof name === 'string')) {
+  set name(name) {
+    if (typeof name !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this.name = name;
+    this._name = name;
   }
 
-  set setAgency(agency) {
-    if(!(typeof agency === 'string')) {
+  set agency(agency) {
+    if (typeof agency === 'string') {
       throw new Error('The parameter must be a string');
     }
-    this.agency = agency;
+    this._agency = agency;
   }
 }
 

@@ -8,55 +8,54 @@ import Response from './Response.js';
 class Question extends Component {
   constructor() {
     super();
-    this.simple = true;
-    this.mandatory = false;
-    this.filter = new Filter();
-    this.response = new Response();
+    this._simple = true;
+    this._mandatory = false;
+    this._filter = new Filter();
+    this._response = new Response();
   }
 
-  // TODO Should it be 'get' or 'is' for booleans?
-  get getSimple() {
-    return this.simple;
+  get simple() {
+    return this._simple;
   }
 
-  get getMandatory() {
-    return this.mandatory;
+  get mandatory() {
+    return this._mandatory;
   }
 
-  get getFilter() {
-    return this.filter;
+  get filter() {
+    return this._filter;
   }
 
-  get getResponse() {
-    return this.response;
+  get response() {
+    return this._response;
   }
 
-  set setSimple(bool) {
-    if(!(typeof bool === 'boolean')) {
+  set simple(bool) {
+    if (typeof bool !== 'boolean') {
       throw new Error('The parameter must be a boolean');
     }
-    this.simple = bool;
+    this._simple = bool;
   }
 
-  set setMandatory(bool) {
-    if(!(typeof bool === 'boolean')) {
+  set mandatory(bool) {
+    if (typeof bool !== 'boolean') {
       throw new Error('The parameter must be a boolean');
     }
-    this.mandatory = bool;
+    this._mandatory = bool;
   }
 
-  set setFilter(filter) {
-    if(!(filter instanceof Filter)) {
+  set filter(filter) {
+    if (!(filter instanceof Filter)) {
       throw new Error('The argument must be a Filter');
     }
-    this.filter = filter;
+    this._filter = filter;
   }
 
-  set setResponse(response) {
-    if(!(response instanceof Response)) {
+  set response(response) {
+    if (!(response instanceof Response)) {
       throw new Error('The argument must be a Response');
     }
-    this.response = response;
+    this._response = response;
   }
 }
 

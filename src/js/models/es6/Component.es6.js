@@ -5,72 +5,72 @@ import Declaration from './Declaration.js';
 
 class Component {
   constructor() {
-    this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    console.log('Component creating new instance with id ' + this.id);
-    this.name = "";
-    this.label = "";
-    this.declarations = [];
+    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    console.log('Component creating new instance with id ' + this._id);
+    this._name = "";
+    this._label = "";
+    this._declarations = [];
   }
 
-  get getId() {
-    return this.id;
+  get id() {
+    return this._id;
   }
 
-  get getName() {
-    return this.name;
+  get name() {
+    return this._name;
   }
 
-  get getLabel() {
-    return this.label;
+  get label() {
+    return this._label;
   }
 
-  get getDeclarations() {
-    return this.declarations;
+  get declarations() {
+    return this._declarations;
   }
 
   // TODO do we need a setter for id?
 
-  set setName(name) {
-    if(!(typeof name === 'string')) {
+  set name(name) {
+    if (typeof name !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this.name = name;
+    this._name = name;
   }
 
-  set setLabel(label) {
-    if(!(typeof label === 'string')) {
+  set label(label) {
+    if (typeof label !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this.label = label;
+    this._label = label;
   }
 
   addDeclaration(declaration) {
-    if(!(declaration instanceof Declaration)) {
+    if (!(declaration instanceof Declaration)) {
       throw new Error('The argument must be a Declaration');
     }
-    this.declarations.push(declaration);
+    this._declarations.push(declaration);
   }
 
   addDeclarations(declarations) {
     // Save current size in case something goes wrong
-    initialSize = this.declarations.length;
+    var initialSize = this._declarations.length;
     try {
       declarations.map(function(declaration) {
         this.addDeclaration(declaration);
       });
     } catch (e) {
-      this.declarations.length(initialSize);
+      this._declarations.length(initialSize);
       throw new Error('All arguments must be of type Declaration');
     }
   }
 
-  set setDeclarations(declarations) {
-    children.map(function(declaration) {
-      if(!(declaration instanceof Declaration)) {
+  set declarations(declarations) {
+    declarations.map(function(declaration) {
+      if (!(declaration instanceof Declaration)) {
         throw new Error('All arguments must be of type Declaration');
       }
     });
-    this.declarations = declarations;
+    this._declarations = declarations;
   }
 }
 

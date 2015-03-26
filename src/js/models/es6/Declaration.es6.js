@@ -7,30 +7,42 @@ const TYPES = ['INSTRUCTION', 'COMMENT', 'HELP'];
 class Declaration {
 
   constructor() {
-    this.type = '';
-    this.disjoinable = true;
-    this.text = '';
+    this._type = '';
+    this._disjoinable = true;
+    this._text = '';
   }
 
-  set setType(type) {
+  get type() {
+    return this._type;
+  }
+
+  get disjoinable() {
+    return this._disjoinable;
+  }
+
+  get text() {
+    return this._text;
+  }
+
+  set type(type) {
     if (!(type in TYPES)) {
       throw new Error(type + 'is not a valid declaration type');
     }
-    this.type = type;
+    this._type = type;
   }
 
-  set setDisjoinable(bool) {
-    if(!(typeof bool === 'boolean')) {
+  set disjoinable(bool) {
+    if (typeof bool !== 'boolean') {
       throw new Error('The parameter must be a boolean');
     }
-    this.disjoinable = bool;
+    this._disjoinable = bool;
   }
 
-  set setText(text) {
-    if(!(typeof text === 'string')) {
+  set text(text) {
+    if (typeof text !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this.text = text;
+    this._text = text;
   }
 }
 

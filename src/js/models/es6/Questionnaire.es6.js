@@ -7,18 +7,18 @@ import Survey from './Survey.js';
 class Questionnaire extends Sequence {
   constructor() {
     super();
-    this.survey = new Survey();
+    this._survey = new Survey();
   }
 
-  get getSurvey() {
-    return this.survey;
+  get survey() {
+    return this._survey;
   }
 
-  set setSurvey(name) {
-    if(!(survey instanceof Survey)) {
+  set survey(survey) {
+    if (!(survey instanceof Survey)) {
       throw new Error('The argument must be a Survey');
     }
-    this.survey = survey;
+    this._survey = survey;
   }
 }
 

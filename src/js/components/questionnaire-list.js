@@ -41,7 +41,7 @@ var QuestionnaireList = React.createClass({
 				<span className="error-list">{errorMessage[this.props.language]}</span>
 			</div>
 		)
-		if (this.state.questionnaires.length === 0) return (
+		else if (this.state.questionnaires.length === 0) return (
 			<div>
 				<span className = "fa fa-spinner fa-pulse fa-3x"></span>
 			</div>

@@ -3,31 +3,35 @@ A control on a response or several responses
 */
 class Control {
   constructor() {
-    this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    this.description = '';
-    this.expression = '';
+    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    this._description = '';
+    this._expression = '';
   }
 
-  get getDescription() {
-    return this.description;
+  get id() {
+    return this._id;
   }
 
-  get getExpression() {
-    return this.expression;
+  get description() {
+    return this._description;
   }
 
-  set setDescription(description) {
-    if(!(typeof description === 'string')) {
+  get expression() {
+    return this._expression;
+  }
+
+  set description(description) {
+    if (typeof description !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this.description = description;
+    this._description = description;
   }
 
-  set setExpression(expression) {
-    if(!(typeof expression === 'string')) {
+  set expression(expression) {
+    if (typeof expression !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this.expression = expression;
+    this._expression = expression;
   }
 }
 
