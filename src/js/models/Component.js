@@ -37,7 +37,7 @@ var Component = (function () {
       // TODO do we need a setter for id?
 
       set: function (name) {
-        if (!(typeof name === "string")) {
+        if (typeof name !== "string") {
           throw new Error("The parameter must be a string");
         }
         this._name = name;
@@ -48,7 +48,7 @@ var Component = (function () {
         return this._label;
       },
       set: function (label) {
-        if (!(typeof label === "string")) {
+        if (typeof label !== "string") {
           throw new Error("The parameter must be a string");
         }
         this._label = label;
@@ -59,7 +59,7 @@ var Component = (function () {
         return this._declarations;
       },
       set: function (declarations) {
-        children.map(function (declaration) {
+        declarations.map(function (declaration) {
           if (!(declaration instanceof Declaration)) {
             throw new Error("All arguments must be of type Declaration");
           }
@@ -78,7 +78,7 @@ var Component = (function () {
     addDeclarations: {
       value: function addDeclarations(declarations) {
         // Save current size in case something goes wrong
-        initialSize = this._declarations.length;
+        var initialSize = this._declarations.length;
         try {
           declarations.map(function (declaration) {
             this.addDeclaration(declaration);

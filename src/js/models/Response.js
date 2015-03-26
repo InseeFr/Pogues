@@ -12,47 +12,71 @@ var Response = (function () {
   function Response() {
     _classCallCheck(this, Response);
 
-    this.simple = true;
-    this.predefinedLabels = [];
-    this.values = [];
+    this._simple = true;
+    this._predefinedLabels = [];
+    this._values = [];
   }
 
   _createClass(Response, {
-    getSimple: {
-
-      // TODO Should it be 'get' or 'is' for booleans?
-
+    simple: {
       get: function () {
-        return this.simple;
-      }
-    },
-    setSimple: {
+        return this._simple;
+      },
       set: function (bool) {
-        if (!(typeof bool === "boolean")) {
+        if (typeof bool !== "boolean") {
           throw new Error("The parameter must be a boolean");
         }
-        this.simple = bool;
+        this._simple = bool;
+      }
+    },
+    predefinedLabels: {
+      get: function () {
+        return this._predefinedLabels;
+      },
+      set: function (predefinedLabels) {
+        try {
+          predefinedLabels.map(function (predefinedLabel) {
+            if (typeof predefinedLabel !== "string") {
+              throw new Error("All arguments must be of type string");
+            }
+          });
+        } catch (e) {
+          throw new Error("All arguments must be strings");
+        }
+        this._predefinedLabels = predefinedLabels;
+      }
+    },
+    values: {
+      get: function () {
+        return this._values;
+      },
+      set: function (values) {
+        // We just check that 'values' is an array
+        if (!Array.isArray(values)) {
+          throw new Error("The argument must be an array");
+        }
+        this._values = values;
       }
     },
     addPredefinedLabel: {
       value: function addPredefinedLabel(predefinedLabel) {
-        if (!(typeof predefinedLabel === "string")) {
+        if (typeof predefinedLabel !== "string") {
           throw new Error("The argument must be a string");
         }
-        this.predefinedLabels.push(predefinedLabel);
+        this._predefinedLabels.push(predefinedLabel);
       }
     },
-    setPredefinedLabels: {
-      set: function (predefinedLabel) {
+    addPredefinedLabels: {
+      value: function addPredefinedLabels(predefinedLabels) {
         // Save current size in case something goes wrong
-        initialSize = this.predefinedLabels.length;
+        var initialSize = this._predefinedLabels.length;
         try {
           predefinedLabels.map(function (predefinedLabel) {
             this.addPredefinedLabel(predefinedLabel);
           });
         } catch (e) {
-          this.predefinedLabels.length(initialSize);
-          throw new Error("All arguments must be strings");
+          this._predefinedLabels.length(initialSize);
+          throw new Error("All arguments must be of type string");
         }
       }
     },
@@ -68,16 +92,7 @@ var Response = (function () {
         if (!Array.isArray(values)) {
           throw new Error("The argument must be an array");
         }
-        this.values.concat(values);
-      }
-    },
-    setValues: {
-      set: function (declarations) {
-        // We just check that 'values' is an array
-        if (!Array.isArray(values)) {
-          throw new Error("The argument must be an array");
-        }
-        this.values = values;
+        this._values.concat(values);
       }
     }
   });

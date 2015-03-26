@@ -12,44 +12,40 @@ var Survey = (function () {
   function Survey() {
     _classCallCheck(this, Survey);
 
-    this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    this.agency = "fr.insee";
-    this.name = "";
+    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    this._agency = "fr.insee";
+    this._name = "";
   }
 
   _createClass(Survey, {
-    getId: {
+    id: {
       get: function () {
-        return this.id;
+        return this._id;
       }
     },
-    getName: {
+    name: {
       get: function () {
-        return this.name;
-      }
-    },
-    getAgency: {
-      get: function () {
-        return this.name;
-      }
-    },
-    setName: {
+        return this._name;
+      },
 
       // TODO do we need a setter for id?
 
       set: function (name) {
-        if (!(typeof name === "string")) {
+        if (typeof name !== "string") {
           throw new Error("The parameter must be a string");
         }
-        this.name = name;
+        this._name = name;
       }
     },
-    setAgency: {
+    agency: {
+      get: function () {
+        return this._agency;
+      },
       set: function (agency) {
-        if (!(typeof agency === "string")) {
+        if (typeof agency === "string") {
           throw new Error("The parameter must be a string");
         }
-        this.agency = agency;
+        this._agency = agency;
       }
     }
   });

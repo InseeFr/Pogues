@@ -25,68 +25,57 @@ var Question = (function (_Component) {
     _classCallCheck(this, Question);
 
     _get(Object.getPrototypeOf(Question.prototype), "constructor", this).call(this);
-    this.simple = true;
-    this.mandatory = false;
-    this.filter = new Filter();
-    this.response = new Response();
+    this._simple = true;
+    this._mandatory = false;
+    this._filter = new Filter();
+    this._response = new Response();
   }
 
   _inherits(Question, _Component);
 
   _createClass(Question, {
-    getSimple: {
-
-      // TODO Should it be 'get' or 'is' for booleans?
-
+    simple: {
       get: function () {
-        return this.simple;
-      }
-    },
-    getMandatory: {
-      get: function () {
-        return this.mandatory;
-      }
-    },
-    getFilter: {
-      get: function () {
-        return this.filter;
-      }
-    },
-    getResponse: {
-      get: function () {
-        return this.response;
-      }
-    },
-    setSimple: {
+        return this._simple;
+      },
       set: function (bool) {
-        if (!(typeof bool === "boolean")) {
+        if (typeof bool !== "boolean") {
           throw new Error("The parameter must be a boolean");
         }
-        this.simple = bool;
+        this._simple = bool;
       }
     },
-    setMandatory: {
+    mandatory: {
+      get: function () {
+        return this._mandatory;
+      },
       set: function (bool) {
-        if (!(typeof bool === "boolean")) {
+        if (typeof bool !== "boolean") {
           throw new Error("The parameter must be a boolean");
         }
-        this.mandatory = bool;
+        this._mandatory = bool;
       }
     },
-    setFilter: {
+    filter: {
+      get: function () {
+        return this._filter;
+      },
       set: function (filter) {
         if (!(filter instanceof Filter)) {
           throw new Error("The argument must be a Filter");
         }
-        this.filter = filter;
+        this._filter = filter;
       }
     },
-    setResponse: {
+    response: {
+      get: function () {
+        return this._response;
+      },
       set: function (response) {
         if (!(response instanceof Response)) {
           throw new Error("The argument must be a Response");
         }
-        this.response = response;
+        this._response = response;
       }
     }
   });

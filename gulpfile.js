@@ -24,8 +24,9 @@ gulp.task('build:copy:index', ['del:dist'], function() {
 		.pipe(gulp.dest('./dist'));
 });
 
+// FIXME excludes less and scss directories
 gulp.task('build:copy:css', ['del:dist'], function() {
-	gulp.src('./src/css/*.*')
+	gulp.src('./src/css/**/*.*')
 		.pipe(gulp.dest('./dist/css'));
 });
 

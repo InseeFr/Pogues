@@ -33,6 +33,10 @@ span.error-list {
 	visibility : hidden;
 }
 
+.module:hover {
+	border-left: 3px solid #56CDFC;
+}
+
 .module:hover .sub-module {
 	visibility : visible;
 }

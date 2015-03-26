@@ -12,36 +12,37 @@ var Control = (function () {
   function Control() {
     _classCallCheck(this, Control);
 
-    this.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    this.description = "";
-    this.expression = "";
+    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    this._description = "";
+    this._expression = "";
   }
 
   _createClass(Control, {
-    getDescription: {
+    id: {
       get: function () {
-        return this.description;
+        return this._id;
       }
     },
-    getExpression: {
+    description: {
       get: function () {
-        return this.expression;
-      }
-    },
-    setDescription: {
+        return this._description;
+      },
       set: function (description) {
-        if (!(typeof description === "string")) {
+        if (typeof description !== "string") {
           throw new Error("The parameter must be a string");
         }
-        this.description = description;
+        this._description = description;
       }
     },
-    setExpression: {
+    expression: {
+      get: function () {
+        return this._expression;
+      },
       set: function (expression) {
-        if (!(typeof expression === "string")) {
+        if (typeof expression !== "string") {
           throw new Error("The parameter must be a string");
         }
-        this.expression = expression;
+        this._expression = expression;
       }
     }
   });

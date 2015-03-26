@@ -23,23 +23,21 @@ var Questionnaire = (function (_Sequence) {
     _classCallCheck(this, Questionnaire);
 
     _get(Object.getPrototypeOf(Questionnaire.prototype), "constructor", this).call(this);
-    this.survey = new Survey();
+    this._survey = new Survey();
   }
 
   _inherits(Questionnaire, _Sequence);
 
   _createClass(Questionnaire, {
-    getSurvey: {
+    survey: {
       get: function () {
-        return this.survey;
-      }
-    },
-    setSurvey: {
-      set: function (name) {
+        return this._survey;
+      },
+      set: function (survey) {
         if (!(survey instanceof Survey)) {
           throw new Error("The argument must be a Survey");
         }
-        this.survey = survey;
+        this._survey = survey;
       }
     }
   });

@@ -14,34 +14,43 @@ var Declaration = (function () {
   function Declaration() {
     _classCallCheck(this, Declaration);
 
-    this.type = "";
-    this.disjoinable = true;
-    this.text = "";
+    this._type = "";
+    this._disjoinable = true;
+    this._text = "";
   }
 
   _createClass(Declaration, {
-    setType: {
+    type: {
+      get: function () {
+        return this._type;
+      },
       set: function (type) {
         if (!(type in TYPES)) {
           throw new Error(type + "is not a valid declaration type");
         }
-        this.type = type;
+        this._type = type;
       }
     },
-    setDisjoinable: {
+    disjoinable: {
+      get: function () {
+        return this._disjoinable;
+      },
       set: function (bool) {
-        if (!(typeof bool === "boolean")) {
+        if (typeof bool !== "boolean") {
           throw new Error("The parameter must be a boolean");
         }
-        this.disjoinable = bool;
+        this._disjoinable = bool;
       }
     },
-    setText: {
+    text: {
+      get: function () {
+        return this._text;
+      },
       set: function (text) {
-        if (!(typeof text === "string")) {
+        if (typeof text !== "string") {
           throw new Error("The parameter must be a string");
         }
-        this.text = text;
+        this._text = text;
       }
     }
   });
