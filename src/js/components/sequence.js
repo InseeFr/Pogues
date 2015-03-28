@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
+var Component = require('../components/component');
 
 var Sequence = React.createClass({
 
@@ -12,7 +13,7 @@ var Sequence = React.createClass({
 					<div className="col-md-10">
 					 <h2 >{this.props.sequence.name}</h2>
 					  {this.props.sequence.children.map(function(child, index) {
-						  return (<h4 key={index}>{child.name}</h4>)
+						  return (<div><h4 key={index}>{child.name}</h4><Component component={child}/></div>);
 					  })}
 					</div>
 					<div className="col-md-2 sub-module">

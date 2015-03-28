@@ -4,7 +4,7 @@ var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
 
 var hints = {'en': 'Enter a title', 'fr': 'Entrez un intitulé'};
-var labels = {'en': ['Sequence', 'Question'], 'fr': ['Séquence', 'Question']}
+var labels = {'en': ['Sequence', 'Question'], 'fr': ['Séquence', 'Question']};
 
 var GenericInput = React.createClass({
 
