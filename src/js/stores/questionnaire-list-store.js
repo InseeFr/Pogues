@@ -1,7 +1,7 @@
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var EventEmitter = require('events').EventEmitter;
-var Questionnaire = require("../models/Questionnaire");
+var QuestionnaireModel = require("../models/Questionnaire");
 var assign = require('object-assign');
 
 var CHANGE_EVENT = "change";
@@ -29,7 +29,7 @@ function _setCurrentQuestionnaire(index) {
 }
 
 function _createQuestionnaire(name) {
-	_questionnaire = new Questionnaire();
+	_questionnaire = new QuestionnaireModel();
 	_questionnaire.name = name;
 	// FIXME getName does not work
 	console.log('questionnaire-list-store created questionnaire', _questionnaire);

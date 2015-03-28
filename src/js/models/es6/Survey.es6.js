@@ -1,7 +1,7 @@
 /**
 A Survey
 */
-class Survey {
+class SurveyModel {
   constructor() {
     this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     this._agency = 'fr.insee';
@@ -37,4 +37,4 @@ class Survey {
   }
 }
 
-export default Survey;
+export default SurveyModel;

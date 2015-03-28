@@ -10,16 +10,16 @@ Textual material associated to a sequence or question
 // FIXME do we put that in constants dir?
 var TYPES = ["INSTRUCTION", "COMMENT", "HELP"];
 
-var Declaration = (function () {
-  function Declaration() {
-    _classCallCheck(this, Declaration);
+var DeclarationModel = (function () {
+  function DeclarationModel() {
+    _classCallCheck(this, DeclarationModel);
 
     this._type = "";
     this._disjoinable = true;
     this._text = "";
   }
 
-  _createClass(Declaration, {
+  _createClass(DeclarationModel, {
     type: {
       get: function () {
         return this._type;
@@ -55,7 +55,7 @@ var Declaration = (function () {
     }
   });
 
-  return Declaration;
+  return DeclarationModel;
 })();
 
-module.exports = Declaration;
+module.exports = DeclarationModel;

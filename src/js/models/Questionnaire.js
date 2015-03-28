@@ -14,27 +14,27 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 The class for a Questionnaire
 */
 
-var Sequence = _interopRequire(require("./Sequence.js"));
+var SequenceModel = _interopRequire(require("./Sequence.js"));
 
-var Survey = _interopRequire(require("./Survey.js"));
+var SurveyModel = _interopRequire(require("./Survey.js"));
 
-var Questionnaire = (function (_Sequence) {
-  function Questionnaire() {
-    _classCallCheck(this, Questionnaire);
+var QuestionnaireModel = (function (_SequenceModel) {
+  function QuestionnaireModel() {
+    _classCallCheck(this, QuestionnaireModel);
 
-    _get(Object.getPrototypeOf(Questionnaire.prototype), "constructor", this).call(this);
-    this._survey = new Survey();
+    _get(Object.getPrototypeOf(QuestionnaireModel.prototype), "constructor", this).call(this);
+    this._survey = new SurveyModel();
   }
 
-  _inherits(Questionnaire, _Sequence);
+  _inherits(QuestionnaireModel, _SequenceModel);
 
-  _createClass(Questionnaire, {
+  _createClass(QuestionnaireModel, {
     survey: {
       get: function () {
         return this._survey;
       },
       set: function (survey) {
-        if (!(survey instanceof Survey)) {
+        if (!(survey instanceof SurveyModel)) {
           throw new Error("The argument must be a Survey");
         }
         this._survey = survey;
@@ -42,7 +42,7 @@ var Questionnaire = (function (_Sequence) {
     }
   });
 
-  return Questionnaire;
-})(Sequence);
+  return QuestionnaireModel;
+})(SequenceModel);
 
-module.exports = Questionnaire;
+module.exports = QuestionnaireModel;

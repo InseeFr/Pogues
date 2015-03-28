@@ -1,7 +1,7 @@
 /**
 A response to a question
 */
-class Response {
+class ResponseModel {
   constructor() {
     this._simple = true;
     this._predefinedLabels = [];
@@ -82,4 +82,4 @@ class Response {
   }
 }
 
-export default Response;
+export default ResponseModel;

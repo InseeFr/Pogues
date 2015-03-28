@@ -1,12 +1,12 @@
 /**
 A Sequence of questions or other sequences
 */
-import Component from './Component.js';
+import ComponentModel from './Component.js';
 
 // FIXME Internationalize
 const GENERIC_NAMES = ['Questionnaire', 'Module', 'Paragraphe', 'Séquence'];
 
-class Sequence extends Component {
+class SequenceModel extends ComponentModel {
   constructor() {
     super();
     this._depth = 0;
@@ -35,10 +35,10 @@ class Sequence extends Component {
   }
 
   addChild(child) {
-    if (!(child instanceof Component)) {
+    if (!(child instanceof ComponentModel)) {
       throw new Error('The argument must be a Component');
     }
-    if (child instanceof Sequence) child.setDepth(this._depth + 1);
+    if (child instanceof SequenceModel) child.setDepth(this._depth + 1);
 
     this._children.push(child);
   }
@@ -58,7 +58,7 @@ class Sequence extends Component {
 
   set children(children) {
     children.map(function(child) {
-      if (!(child instanceof Component)) {
+      if (!(child instanceof ComponentModel)) {
         throw new Error('All arguments must be of type Component');
       }
     });
@@ -67,4 +67,4 @@ class Sequence extends Component {
 
 }
 
-export default Sequence;
+export default SequenceModel;

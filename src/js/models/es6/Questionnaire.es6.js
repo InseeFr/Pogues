@@ -1,13 +1,13 @@
 /**
 The class for a Questionnaire
 */
-import Sequence from './Sequence.js';
-import Survey from './Survey.js';
+import SequenceModel from './Sequence.js';
+import SurveyModel from './Survey.js';
 
-class Questionnaire extends Sequence {
+class QuestionnaireModel extends SequenceModel {
   constructor() {
     super();
-    this._survey = new Survey();
+    this._survey = new SurveyModel();
   }
 
   get survey() {
@@ -15,11 +15,11 @@ class Questionnaire extends Sequence {
   }
 
   set survey(survey) {
-    if (!(survey instanceof Survey)) {
+    if (!(survey instanceof SurveyModel)) {
       throw new Error('The argument must be a Survey');
     }
     this._survey = survey;
   }
 }
 
-export default Questionnaire;
+export default QuestionnaireModel;

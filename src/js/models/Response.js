@@ -8,16 +8,16 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A response to a question
 */
 
-var Response = (function () {
-  function Response() {
-    _classCallCheck(this, Response);
+var ResponseModel = (function () {
+  function ResponseModel() {
+    _classCallCheck(this, ResponseModel);
 
     this._simple = true;
     this._predefinedLabels = [];
     this._values = [];
   }
 
-  _createClass(Response, {
+  _createClass(ResponseModel, {
     simple: {
       get: function () {
         return this._simple;
@@ -97,7 +97,7 @@ var Response = (function () {
     }
   });
 
-  return Response;
+  return ResponseModel;
 })();
 
-module.exports = Response;
+module.exports = ResponseModel;

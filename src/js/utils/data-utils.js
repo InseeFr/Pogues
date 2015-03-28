@@ -1,5 +1,9 @@
 var PoguesActions = require('../actions/pogues-actions');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
+var QuestionnaireModel = require('../models/questionnaire');
+var SequenceModel = require('../models/sequence');
+var QuestionModel = require('../models/question');
+
 
 var DataUtils = {
 	// TODO Load data from server source
@@ -15,7 +19,9 @@ var DataUtils = {
 			else {
 				var questionnaires = [];
 				for (var index = 1; index <= numberOfQuestionnaires; index++) {
-					questionnaires.push({id: 'q' + index, name: 'Questionnaire numéro ' + index});
+					var questionnaire = new QuestionnaireModel();
+					questionnaire.name = 'Questionnaire numéro ' + index;
+					questionnaires.push(questionnaire);
 				}
 				var fakeList = {
 					questionnaires: questionnaires
@@ -25,28 +31,31 @@ var DataUtils = {
 
 		}, timeout);
 	},
-	// Mock function will return a questionnaire with from 1 to 10 modules containing 1 to 5 questions in 0 to 1 second, and a 5% possibility of error
+	// Mock function will return a questionnaire with from 1 to 10 sequences containing 1 to 5 questions in 0 to 1 second, and a 5% possibility of error
 	loadQuestionnaire: function(index) {
 
-		var numberOfModules = Math.floor(Math.random() * 10);
+		var numberOfSequences = Math.floor(Math.random() * 10);
 		var timeout = Math.random() * 1000;
 		var fail = (Math.random() < 0.05);
 		var questionnaire = QuestionnaireListStore.getCurrentQuestionnaire();
-		console.log('Creating ' + numberOfModules + ' modules in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
+		console.log('Creating ' + numberOfSequences + ' sequences in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
 		setTimeout(function() {
 			if (fail) PoguesActions.loadQuestionnaireFailed();
 			else {
-				var modules = [];
-				for (var moduleIndex = 1; moduleIndex <= numberOfModules; moduleIndex++) {
+				for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
+					var sequence = new SequenceModel();
+					sequence.name = 'Séquence numéro ' + sequenceIndex;
+					sequence.depth = 1;
 					var numberOfQuestions = Math.floor(Math.random() * 5);
-					var questions = [];
-					for (var questionIndex = 1; moduleIndex <= numberOfQuestions; moduleIndex++) {
-						var questionNumber = moduleIndex * 10 + questionIndex;
-						questions.push({id: 'q' + questionNumber, name: 'Question numéro ' + questionNumber, text: 'Énoncé de la question numéro ' + questionNumber});
+					for (var questionIndex = 1; questionIndex <= numberOfQuestions; questionIndex++) {
+						var questionNumber = sequenceIndex * 10 + questionIndex;
+						var question = new QuestionModel();
+						question.name = 'Question numéro ' + questionNumber;
+						question.label = 'Énoncé de la question numéro ' + questionNumber;
+						sequence.addChild(question);
 					}
-					modules.push({id: 'm' + moduleIndex, name: 'Module numéro ' + moduleIndex, questions: questions});
+					questionnaire.addChild(sequence);
 				}
-				questionnaire.modules = modules;
 				var fakeQuestionnaire = {
 					questionnaire: questionnaire
 				};

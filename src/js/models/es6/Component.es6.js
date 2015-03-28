@@ -1,9 +1,9 @@
 /**
 A Component is the base class for the Questionnaire questions and sequences
 */
-import Declaration from './Declaration.js';
+import DeclarationModel from './Declaration.js';
 
-class Component {
+class ComponentModel {
   constructor() {
     this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     console.log('Component creating new instance with id ' + this._id);
@@ -45,7 +45,7 @@ class Component {
   }
 
   addDeclaration(declaration) {
-    if (!(declaration instanceof Declaration)) {
+    if (!(declaration instanceof DeclarationModel)) {
       throw new Error('The argument must be a Declaration');
     }
     this._declarations.push(declaration);
@@ -66,7 +66,7 @@ class Component {
 
   set declarations(declarations) {
     declarations.map(function(declaration) {
-      if (!(declaration instanceof Declaration)) {
+      if (!(declaration instanceof DeclarationModel)) {
         throw new Error('All arguments must be of type Declaration');
       }
     });
@@ -74,4 +74,4 @@ class Component {
   }
 }
 
-export default Component;
+export default ComponentModel;

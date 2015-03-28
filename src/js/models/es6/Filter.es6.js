@@ -1,8 +1,8 @@
 /**
 Filter (place-holder for now)
 */
-class Filter {
+class FilterModel {
   constructor() {}
 }
 
-export default Filter;
+export default FilterModel;

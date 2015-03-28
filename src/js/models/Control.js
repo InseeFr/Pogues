@@ -8,16 +8,16 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A control on a response or several responses
 */
 
-var Control = (function () {
-  function Control() {
-    _classCallCheck(this, Control);
+var ControlModel = (function () {
+  function ControlModel() {
+    _classCallCheck(this, ControlModel);
 
     this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     this._description = "";
     this._expression = "";
   }
 
-  _createClass(Control, {
+  _createClass(ControlModel, {
     id: {
       get: function () {
         return this._id;
@@ -47,7 +47,7 @@ var Control = (function () {
     }
   });
 
-  return Control;
+  return ControlModel;
 })();
 
-module.exports = Control;
+module.exports = ControlModel;

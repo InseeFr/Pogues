@@ -14,25 +14,25 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A Sequence of questions or other sequences
 */
 
-var Component = _interopRequire(require("./Component.js"));
+var ComponentModel = _interopRequire(require("./Component.js"));
 
 // FIXME Internationalize
 var GENERIC_NAMES = ["Questionnaire", "Module", "Paragraphe", "Séquence"];
 
-var Sequence = (function (_Component) {
-  function Sequence() {
-    _classCallCheck(this, Sequence);
+var SequenceModel = (function (_ComponentModel) {
+  function SequenceModel() {
+    _classCallCheck(this, SequenceModel);
 
-    _get(Object.getPrototypeOf(Sequence.prototype), "constructor", this).call(this);
+    _get(Object.getPrototypeOf(SequenceModel.prototype), "constructor", this).call(this);
     this._depth = 0;
     // Module, paragraph, etc. Should really not be a member, in fact.
     this._genericName = GENERIC_NAMES[0];
     this._children = [];
   }
 
-  _inherits(Sequence, _Component);
+  _inherits(SequenceModel, _ComponentModel);
 
-  _createClass(Sequence, {
+  _createClass(SequenceModel, {
     depth: {
       get: function () {
         return this._depth;
@@ -54,7 +54,7 @@ var Sequence = (function (_Component) {
       },
       set: function (children) {
         children.map(function (child) {
-          if (!(child instanceof Component)) {
+          if (!(child instanceof ComponentModel)) {
             throw new Error("All arguments must be of type Component");
           }
         });
@@ -63,10 +63,10 @@ var Sequence = (function (_Component) {
     },
     addChild: {
       value: function addChild(child) {
-        if (!(child instanceof Component)) {
+        if (!(child instanceof ComponentModel)) {
           throw new Error("The argument must be a Component");
         }
-        if (child instanceof Sequence) child.setDepth(this._depth + 1);
+        if (child instanceof SequenceModel) child.setDepth(this._depth + 1);
 
         this._children.push(child);
       }
@@ -87,7 +87,7 @@ var Sequence = (function (_Component) {
     }
   });
 
-  return Sequence;
-})(Component);
+  return SequenceModel;
+})(ComponentModel);
 
-module.exports = Sequence;
+module.exports = SequenceModel;

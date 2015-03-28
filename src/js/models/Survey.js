@@ -8,16 +8,16 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A Survey
 */
 
-var Survey = (function () {
-  function Survey() {
-    _classCallCheck(this, Survey);
+var SurveyModel = (function () {
+  function SurveyModel() {
+    _classCallCheck(this, SurveyModel);
 
     this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     this._agency = "fr.insee";
     this._name = "";
   }
 
-  _createClass(Survey, {
+  _createClass(SurveyModel, {
     id: {
       get: function () {
         return this._id;
@@ -50,7 +50,7 @@ var Survey = (function () {
     }
   });
 
-  return Survey;
+  return SurveyModel;
 })();
 
-module.exports = Survey;
+module.exports = SurveyModel;

@@ -10,11 +10,11 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A Component is the base class for the Questionnaire questions and sequences
 */
 
-var Declaration = _interopRequire(require("./Declaration.js"));
+var DeclarationModel = _interopRequire(require("./Declaration.js"));
 
-var Component = (function () {
-  function Component() {
-    _classCallCheck(this, Component);
+var ComponentModel = (function () {
+  function ComponentModel() {
+    _classCallCheck(this, ComponentModel);
 
     this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     console.log("Component creating new instance with id " + this._id);
@@ -23,7 +23,7 @@ var Component = (function () {
     this._declarations = [];
   }
 
-  _createClass(Component, {
+  _createClass(ComponentModel, {
     id: {
       get: function () {
         return this._id;
@@ -60,7 +60,7 @@ var Component = (function () {
       },
       set: function (declarations) {
         declarations.map(function (declaration) {
-          if (!(declaration instanceof Declaration)) {
+          if (!(declaration instanceof DeclarationModel)) {
             throw new Error("All arguments must be of type Declaration");
           }
         });
@@ -69,7 +69,7 @@ var Component = (function () {
     },
     addDeclaration: {
       value: function addDeclaration(declaration) {
-        if (!(declaration instanceof Declaration)) {
+        if (!(declaration instanceof DeclarationModel)) {
           throw new Error("The argument must be a Declaration");
         }
         this._declarations.push(declaration);
@@ -91,7 +91,7 @@ var Component = (function () {
     }
   });
 
-  return Component;
+  return ComponentModel;
 })();
 
-module.exports = Component;
+module.exports = ComponentModel;

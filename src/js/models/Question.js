@@ -14,26 +14,26 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 A Question
 */
 
-var Component = _interopRequire(require("./Component.js"));
+var ComponentModel = _interopRequire(require("./Component.js"));
 
-var Filter = _interopRequire(require("./Filter.js"));
+var FilterModel = _interopRequire(require("./Filter.js"));
 
-var Response = _interopRequire(require("./Response.js"));
+var ResponseModel = _interopRequire(require("./Response.js"));
 
-var Question = (function (_Component) {
-  function Question() {
-    _classCallCheck(this, Question);
+var QuestionModel = (function (_ComponentModel) {
+  function QuestionModel() {
+    _classCallCheck(this, QuestionModel);
 
-    _get(Object.getPrototypeOf(Question.prototype), "constructor", this).call(this);
+    _get(Object.getPrototypeOf(QuestionModel.prototype), "constructor", this).call(this);
     this._simple = true;
     this._mandatory = false;
-    this._filter = new Filter();
-    this._response = new Response();
+    this._filter = new FilterModel();
+    this._response = new ResponseModel();
   }
 
-  _inherits(Question, _Component);
+  _inherits(QuestionModel, _ComponentModel);
 
-  _createClass(Question, {
+  _createClass(QuestionModel, {
     simple: {
       get: function () {
         return this._simple;
@@ -61,7 +61,7 @@ var Question = (function (_Component) {
         return this._filter;
       },
       set: function (filter) {
-        if (!(filter instanceof Filter)) {
+        if (!(filter instanceof FilterModel)) {
           throw new Error("The argument must be a Filter");
         }
         this._filter = filter;
@@ -72,7 +72,7 @@ var Question = (function (_Component) {
         return this._response;
       },
       set: function (response) {
-        if (!(response instanceof Response)) {
+        if (!(response instanceof ResponseModel)) {
           throw new Error("The argument must be a Response");
         }
         this._response = response;
@@ -80,7 +80,7 @@ var Question = (function (_Component) {
     }
   });
 
-  return Question;
-})(Component);
+  return QuestionModel;
+})(ComponentModel);
 
-module.exports = Question;
+module.exports = QuestionModel;

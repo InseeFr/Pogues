@@ -1,7 +1,7 @@
 /**
 A control on a response or several responses
 */
-class Control {
+class ControlModel {
   constructor() {
     this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     this._description = '';
@@ -35,4 +35,4 @@ class Control {
   }
 }
 
-export default Control;
+export default ControlModel;

@@ -4,7 +4,7 @@ Textual material associated to a sequence or question
 // FIXME do we put that in constants dir?
 const TYPES = ['INSTRUCTION', 'COMMENT', 'HELP'];
 
-class Declaration {
+class DeclarationModel {
 
   constructor() {
     this._type = '';
@@ -46,4 +46,4 @@ class Declaration {
   }
 }
 
-export default Declaration;
+export default DeclarationModel;

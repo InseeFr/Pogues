@@ -6,8 +6,8 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 Filter (place-holder for now)
 */
 
-var Filter = function Filter() {
-  _classCallCheck(this, Filter);
+var FilterModel = function FilterModel() {
+  _classCallCheck(this, FilterModel);
 };
 
-module.exports = Filter;
+module.exports = FilterModel;

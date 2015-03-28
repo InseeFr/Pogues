@@ -1,17 +1,17 @@
 /**
 A Question
 */
-import Component from './Component.js';
-import Filter from './Filter.js';
-import Response from './Response.js';
+import ComponentModel from './Component.js';
+import FilterModel from './Filter.js';
+import ResponseModel from './Response.js';
 
-class Question extends Component {
+class QuestionModel extends ComponentModel {
   constructor() {
     super();
     this._simple = true;
     this._mandatory = false;
-    this._filter = new Filter();
-    this._response = new Response();
+    this._filter = new FilterModel();
+    this._response = new ResponseModel();
   }
 
   get simple() {
@@ -45,18 +45,18 @@ class Question extends Component {
   }
 
   set filter(filter) {
-    if (!(filter instanceof Filter)) {
+    if (!(filter instanceof FilterModel)) {
       throw new Error('The argument must be a Filter');
     }
     this._filter = filter;
   }
 
   set response(response) {
-    if (!(response instanceof Response)) {
+    if (!(response instanceof ResponseModel)) {
       throw new Error('The argument must be a Response');
     }
     this._response = response;
   }
 }
 
-export default Question;
+export default QuestionModel;
