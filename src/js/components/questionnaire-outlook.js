@@ -25,21 +25,22 @@ var QuestionnaireOutlook = React.createClass({
 	},
 	render: function() {
 		// FIXME couldn't we be cleaner ???
+		console.log('QuestionnaireOutlook rendering with state', this.state);
 		return (
 			<div className="col-md-3">
 				<nav className="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
 					<ul className="nav bs-docs-sidenav">
-						{this.state.questionnaire.modules.map(function(module, index) {
-							if( module.questions === undefined || module.questions.length == 0 ) {
+						{this.state.questionnaire.children.map(function(child, index) {
+							if( child.children === undefined || child.children.length == 0 ) {
 								return (
-									<li key={index}>{ module.name }</li>
+									<li key={index}>{ child.name }</li>
 								);
 							} else {
 								return (
 									<li key={index}>
-										{ module.name }
+										{ child.name }
 										<ul>
-										{ module.questions.map(function(question, index) {
+										{ child.children.map(function(question, index) {
 												return(
 													<li>{question.name}</li>
 													)

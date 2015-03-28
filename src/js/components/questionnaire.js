@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var QuestionnaireStore = require('../stores/questionnaire-store');
-var Module = require('../components/module');
+var Sequence = require('../components/sequence');
 var GenericInput = require('../components/generic-input');
 
 var introduction = {'en': 'Please specify your questionnaire', 'fr': 'Veuillez spécifier votre questionnaire'};
@@ -30,12 +30,12 @@ var Questionnaire = React.createClass({
 	render: function() {
 		console.log('Questionnaire rendering with state', this.state);
 		var invite = introduction[this.props.language];
-		if (this.state.questionnaire.modules.length > 0) invite = '';
+		if (this.state.questionnaire.children.length > 0) invite = '';
 		return (
 			<div className="col-md-9">
 				<h1>{invite}</h1>
-				{this.state.questionnaire.modules.map(function(module, index) {
-					return (<Module key={index} module={module}/>)
+				{this.state.questionnaire.children.map(function(sequence, index) {
+					return (<Sequence key={index} sequence={sequence}/>)
 				})}
 				<GenericInput language={this.props.language}/>
 			</div>
