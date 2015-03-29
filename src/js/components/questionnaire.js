@@ -3,6 +3,7 @@ var React = require('react');
 var QuestionnaireStore = require('../stores/questionnaire-store');
 var Sequence = require('../components/sequence');
 var GenericInput = require('../components/generic-input');
+var PoguesMenu = require('../components/pogues-menu');
 
 var introduction = {'en': 'Please specify your questionnaire', 'fr': 'Veuillez spécifier votre questionnaire'};
 
@@ -33,6 +34,7 @@ var Questionnaire = React.createClass({
 		if (this.state.questionnaire.children.length > 0) invite = '';
 		return (
 			<div className="col-md-9">
+				<PoguesMenu language={this.props.language}/>
 				<h1>{invite}</h1>
 				{this.state.questionnaire.children.map(function(sequence, index) {
 					return (<Sequence key={index} sequence={sequence}/>)

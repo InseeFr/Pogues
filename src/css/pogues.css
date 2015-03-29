@@ -1,6 +1,6 @@
 div.outlook {
-	font-size: 75%;
-	background-color: #43A28C;
+    background-color: rgba(255, 203, 0, 0.1);
+    border-left: 6px solid rgba(255, 203, 0, 0.5);
 }
 
 div.main {

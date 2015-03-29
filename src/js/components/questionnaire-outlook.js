@@ -27,7 +27,7 @@ var QuestionnaireOutlook = React.createClass({
 		// FIXME couldn't we be cleaner ???
 		console.log('QuestionnaireOutlook rendering with state', this.state);
 		return (
-			<div className="col-md-3">
+			<div className="col-md-3 outlook">
 				<nav className="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
 					<ul className="nav bs-docs-sidenav">
 						{this.state.questionnaire.children.map(function(child, index) {
