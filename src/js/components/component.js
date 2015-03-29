@@ -8,9 +8,15 @@ var Component = React.createClass({
 
 	render: function() {
 
-		if (this.props.component instanceof SequenceModel)
-			return(<Sequence sequence={this.props.component}/>);
-		else return(<Question question={this.props.component}/>);
+		if (this.props.component instanceof SequenceModel) {
+			return(
+				  <Sequence sequence={this.props.component}/>
+				);
+		} else {
+			return(
+				  <Question question={this.props.component}/>
+				);
+		}
 	}
 });
 

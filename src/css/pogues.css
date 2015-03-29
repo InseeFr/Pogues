@@ -25,18 +25,18 @@ span.error-list {
 	font-weight: bold;
 }
 
-.module {
-
+.component {
+  border-left: 3px solid #FFFFFF;
 }
 
-.sub-module {
+.edit {
 	visibility : hidden;
 }
 
-.module:hover {
+.component:hover {
 	border-left: 3px solid #56CDFC;
 }
 
-.module:hover .sub-module {
+.component:hover + .edit {
 	visibility : visible;
 }

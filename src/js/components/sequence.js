@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Component = require('../components/component');
+var Edit = require('../components/edit');
 
 var Sequence = React.createClass({
 
@@ -9,22 +10,22 @@ var Sequence = React.createClass({
 
 		if (this.props.sequence.children) {
 			return (
-				<div className="row module">
+				<div className="row component">
 					<div className="col-md-10">
 					 <h2 >{this.props.sequence.name}</h2>
 					  {this.props.sequence.children.map(function(child, index) {
-						  return (<div><h4 key={index}>{child.name}</h4><Component component={child}/></div>);
+						  return (<div><Component component={child}/></div>);
 					  })}
 					</div>
-					<div className="col-md-2 sub-module">
-					  <span className="fa fa-pencil fa-2x"></span>
-					</div>
+					<Edit />
 				</div>
 			);
 		} else {
 			return(
-				<div>
-					<h2>{this.props.sequence.name}</h2>
+				<div className="row component">
+					<div className="col-md-10">
+						<h2>{this.props.sequence.name}</h2>
+					</div>
 				</div>
 			);
 		}

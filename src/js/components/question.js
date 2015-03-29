@@ -1,11 +1,19 @@
 /** @jsx React.DOM */
 var React = require('react');
+var Edit = require('../components/edit');
 
 var Question = React.createClass({
 
 	render: function() {
 
-		return(<h4>{this.props.question.name}</h4>);
+		return(
+			<div className="row">
+				<div className="col-md-10 component">
+			    <h4>{this.props.question.name}</h4>
+				</div>
+				<Edit />
+			</div>
+			);
 	}
 });
 
