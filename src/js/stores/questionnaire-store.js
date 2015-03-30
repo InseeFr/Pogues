@@ -29,22 +29,22 @@ function _createQuestionnaire(name) {
 		creationDate: Date.now(),
 		modules: []
 		// TODO Add other properties
-	}
+	};
 }
 
 function _removeModule(index) {
-	_questionnaire['modules'].splice(index, 1);
+	_questionnaire.modules.splice(index, 1);
 }
 
 function _addModule(name) {
-	_questionnaire['modules'].push(_createModule(name));
+	_questionnaire.modules.push(_createModule(name));
 }
 
 function _createModule(name) {
 	return {
 		name: name
 		// TODO Add other properties
-	}
+	};
 }
 
 var QuestionnaireStore = assign({}, EventEmitter.prototype, {
@@ -53,13 +53,13 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 	},
 	emitChange: function() {
 		console.log('QuestionnaireStore emitting event', CHANGE_EVENT);
-		this.emit(CHANGE_EVENT)
+		this.emit(CHANGE_EVENT);
 	},
 	addChangeListener: function(callback) {
-		this.on(CHANGE_EVENT, callback)
+		this.on(CHANGE_EVENT, callback);
 	},
 	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback)
+		this.removeListener(CHANGE_EVENT, callback);
 	},
 	dispatcherIndex: PoguesDispatcher.register(function(payload) {
 		console.log('QuestionnaireStore received dispatched payload', payload);
@@ -85,6 +85,6 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 		QuestionnaireStore.emitChange();
 		return true;
 	})
-})
+});
 
 module.exports = QuestionnaireStore;

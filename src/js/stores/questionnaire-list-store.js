@@ -58,13 +58,13 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 	},
 	emitChange: function() {
 		console.log('QuestionnaireListStore emitting event', CHANGE_EVENT);
-		this.emit(CHANGE_EVENT)
+		this.emit(CHANGE_EVENT);
 	},
 	addChangeListener: function(callback) {
-		this.on(CHANGE_EVENT, callback)
+		this.on(CHANGE_EVENT, callback);
 	},
 	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback)
+		this.removeListener(CHANGE_EVENT, callback);
 	},
 	dispatcherIndex: PoguesDispatcher.register(function(payload) {
 		console.log('QuestionnaireListStore received dispatched payload', payload);
@@ -90,6 +90,6 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 		QuestionnaireListStore.emitChange();
 		return true;
 	})
-})
+});
 
 module.exports = QuestionnaireListStore;
