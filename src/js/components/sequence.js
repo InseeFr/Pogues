@@ -8,7 +8,6 @@ var Sequence = React.createClass({
 	render: function() {
 		console.log('Sequence rendering with props', this.props);
 
-		if (this.props.sequence.children) {
 			return (
 				<div className="row component">
 					<div className="col-md-10">
@@ -20,15 +19,7 @@ var Sequence = React.createClass({
 					<Edit />
 				</div>
 			);
-		} else {
-			return(
-				<div className="row component">
-					<div className="col-md-10">
-						<h2>{this.props.sequence.name}</h2>
-					</div>
-				</div>
-			);
-		}
+
 	}
 });
 

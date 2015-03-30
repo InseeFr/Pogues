@@ -66,7 +66,7 @@ var SequenceModel = (function (_ComponentModel) {
         if (!(child instanceof ComponentModel)) {
           throw new Error("The argument must be a Component");
         }
-        if (child instanceof SequenceModel) child.setDepth(this._depth + 1);
+        if (child instanceof SequenceModel) child.depth = this._depth + 1;
 
         this._children.push(child);
       }
