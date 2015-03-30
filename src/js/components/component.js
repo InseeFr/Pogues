@@ -2,7 +2,7 @@
 var React = require('react');
 var Sequence = require('../components/sequence');
 var Question = require('../components/question');
-var SequenceModel = require('../models/sequence');
+var SequenceModel = require('../models/Sequence');
 
 var Component = React.createClass({
 

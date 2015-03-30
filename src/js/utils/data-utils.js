@@ -1,8 +1,8 @@
 var PoguesActions = require('../actions/pogues-actions');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
-var QuestionnaireModel = require('../models/questionnaire');
-var SequenceModel = require('../models/sequence');
-var QuestionModel = require('../models/question');
+var QuestionnaireModel = require('../models/Questionnaire');
+var SequenceModel = require('../models/Sequence');
+var QuestionModel = require('../models/Question');
 
 
 var DataUtils = {
