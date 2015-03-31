@@ -73,7 +73,8 @@ gulp.task('build',
    'build:es6transpile',
    'build:browserify',
    'build:copy:index',
-   'build:copy:css']);
+   'build:copy:css',
+   'build:copy:img']);
 
 gulp.task('default',
   ['browserify',
