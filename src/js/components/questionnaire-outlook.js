@@ -42,7 +42,7 @@ var QuestionnaireOutlook = React.createClass({
 										<ul>
 										{ child.children.map(function(question, index) {
 												return(
-													<li>{question.name}</li>
+													<li key={index}>{question.name}</li>
 													)
 										}) }
 										</ul>

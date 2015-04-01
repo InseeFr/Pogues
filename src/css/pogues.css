@@ -40,3 +40,12 @@ span.error-list {
 .component:hover + .edit {
 	visibility : visible;
 }
+
+/* EDIT TEST */
+.visible {
+  visibility : visible;
+}
+
+.invisible {
+  visibility : hidden;
+}
