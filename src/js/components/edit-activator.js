@@ -1,12 +1,14 @@
 /** @jsx React.DOM */
 var React = require('react');
+var PoguesActions = require('../actions/pogues-actions');
 
 var EditActivator = React.createClass({
   // TODO props : attached component id
 
   _handleClick : function() {
-    // TODO send ActivateAction
-    console.log('attached component key is : ' + this.props.componentId);
+    var id = this.props.componentId
+    console.log('attached component key is : ' + id);
+    PoguesActions.editComponent(id);
   },
 
   render: function() {

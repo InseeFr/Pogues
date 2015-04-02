@@ -60,6 +60,7 @@ var DataUtils = {
 					questionnaire: questionnaire
 				};
 				console.log('DataUtils.loadQuestionnaire will return questionnaire', fakeQuestionnaire);
+				console.dir(fakeQuestionnaire);
 				PoguesActions.receiveQuestionnaire(fakeQuestionnaire);
 			}
 		}, timeout);

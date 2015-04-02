@@ -49,6 +49,13 @@ var PoguesActions = {
 			actionType: PoguesConstants.ActionTypes.CREATE_MODULE,
 			name: name
 		});
+	},
+	// A Component is made editable
+	editComponent: function(id) {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.EDIT_COMPONENT,
+			id : id
+		});
 	}
 };
 

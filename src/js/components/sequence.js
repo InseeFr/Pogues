@@ -20,7 +20,7 @@ var Sequence = React.createClass({
   },
 
   render: function() {
-    console.log('Sequence rendering with props', this.props);
+    //console.log('Sequence rendering with props', this.props);
 
     var Tag = 'h' + this.props.sequence.depth;
     return (
