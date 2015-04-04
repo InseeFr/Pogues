@@ -16,6 +16,6 @@ describe('GenericInput i18n management', function() {
     var giFR = TestUtils.findRenderedDOMComponentWithTag(genericInput, 'input');
 
     // FIXME hard-coded french label !!!
-    expect(giFR.getDOMNode().getAttribute('placeholder')).toBe('Entrez un intitulé de question');
+    expect(giFR.getDOMNode().getAttribute('placeholder')).toBe('Entrez un intitulé');
   });
 });
