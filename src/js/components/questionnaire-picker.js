@@ -3,7 +3,6 @@ var React = require('react');
 var QuestionnaireEditor = require('../components/questionnaire-editor');
 var QuestionnaireList = require('../components/questionnaire-list');
 
-var tagline = {'en': 'Questionnaire design and test', 'fr': 'Conception et test de questionnaires'};
 var inviteNew = {'en': 'Create a new questionnaire', 'fr': 'Créer un nouveau questionnaire'};
 
 var QuestionnairePicker = React.createClass({
@@ -11,12 +10,6 @@ var QuestionnairePicker = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<div className="bs-docs-header">
-					<div className="container">
-						<h1>Pogues</h1>
-						<p>{tagline[this.props.language]}</p>
-					</div>
-				</div>
 				<div className="container bs-docs-container">
 					<div className="form-group">
 						<h1>{inviteNew[this.props.language]}</h1>
