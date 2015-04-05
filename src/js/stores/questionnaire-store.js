@@ -10,7 +10,7 @@ var assign = require('object-assign');
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
-var _questionnaire = undefined;
+var _questionnaire = null;
 var _modules = [];
 
 function _setQuestionnaireByIndex(index) {

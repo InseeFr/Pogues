@@ -39,7 +39,7 @@ var Questionnaire = React.createClass({
 				<span className="error-message">{errorMessage[this.props.language]}</span>
 			</div>
 		);
-		else if (this.state.questionnaire === undefined) return (
+		else if (!this.state.questionnaire) return (
 			<div>
 				<span className = "fa fa-spinner fa-pulse fa-2x"></span>
 			</div>
