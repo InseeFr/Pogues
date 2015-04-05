@@ -44,9 +44,9 @@ var PoguesActions = {
 		});
 	},
 	// TODO Rest of the actions
-	createModule: function(name) {
+	addSequence: function(name) {
 		PoguesDispatcher.handleViewAction({
-			actionType: PoguesConstants.ActionTypes.CREATE_MODULE,
+			actionType: PoguesConstants.ActionTypes.ADD_SEQUENCE,
 			name: name
 		});
 	},

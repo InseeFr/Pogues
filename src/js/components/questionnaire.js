@@ -6,6 +6,8 @@ var GenericInput = require('../components/generic-input');
 var PoguesMenu = require('../components/pogues-menu');
 
 var introduction = {'en': 'Please specify your questionnaire', 'fr': 'Veuillez spécifier votre questionnaire'};
+var errorMessage = {'en': 'Could not retrieve the questionnaire', 'fr': 'Impossible de récupérer le questionnaire'};
+
 
 function getStateFromStore() {
 	console.log('Questionnaire getting state from store');
@@ -31,6 +33,17 @@ var Questionnaire = React.createClass({
 	render: function() {
 		console.log('Questionnaire rendering with state', this.state);
 		var invite = introduction[this.props.language];
+		if (this.state.questionnaire === null) return (
+			<div>
+				<span className="fa fa-exclamation-triangle fa-3"></span>
+				<span className="error-list">{errorMessage[this.props.language]}</span>
+			</div>
+		);
+		else if (this.state.questionnaire === undefined) return (
+			<div>
+				<span className = "fa fa-spinner fa-pulse fa-2x"></span>
+			</div>
+		);
 		if (this.state.questionnaire.children.length > 0) invite = '';
 		return (
 			<div className="col-md-9">

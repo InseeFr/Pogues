@@ -28,7 +28,7 @@ var GenericInput = React.createClass({
 			var text = this.state.value.trim();
 			if (text) {
 				console.log('GenericInput value', text);
-				PoguesActions.createModule(text);
+				PoguesActions.addSequence(text);
 			}
 			this.setState({value: ''});
 		}

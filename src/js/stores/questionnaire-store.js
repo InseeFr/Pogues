@@ -1,6 +1,8 @@
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
+var QuestionnaireModel = require("../models/Questionnaire");
+var SequenceModel = require("../models/Sequence");
 var DataUtils = require('../utils/data-utils');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
@@ -8,7 +10,7 @@ var assign = require('object-assign');
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
-var _questionnaire = null;
+var _questionnaire = undefined;
 var _modules = [];
 
 function _setQuestionnaireByIndex(index) {
@@ -24,27 +26,15 @@ function _setQuestionnaire(questionnaire) {
 }
 
 function _createQuestionnaire(name) {
-	return {
-		name: name,
-		creationDate: Date.now(),
-		modules: []
-		// TODO Add other properties
-	};
+	var questionnaire = new QuestionnaireModel();
+	questionnaire.name = name;
+	return questionnaire;
 }
 
-function _removeModule(index) {
-	_questionnaire.modules.splice(index, 1);
-}
-
-function _addModule(name) {
-	_questionnaire.modules.push(_createModule(name));
-}
-
-function _createModule(name) {
-	return {
-		name: name
-		// TODO Add other properties
-	};
+function _addSequence(name) {
+	var child = new SequenceModel();
+	child.name = name;
+	_questionnaire.addChild(child);
 }
 
 /* Mark a component (sequence or question) as editable */
@@ -93,8 +83,8 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 		console.log('QuestionnaireStore received dispatched payload', payload);
 		var action = payload.action; // action from HandleViewAction
 		switch(action.actionType) {
-			case ActionTypes.CREATE_MODULE:
-				_addModule(payload.action.name);
+			case ActionTypes.ADD_SEQUENCE:
+				_addSequence(payload.action.name);
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
 				_setQuestionnaireByIndex(payload.action.index);
@@ -105,6 +95,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 				break;
 			case ActionTypes.QUESTIONNAIRE_LOADED:
 				_setQuestionnaire(payload.action.questionnaire);
+				break;
+			case ActionTypes.QUESTIONNAIRE_LOADING_FAILED:
+				_questionnaire = null;
 				break;
 			case ActionTypes.EDIT_COMPONENT:
 				_setComponentEditable(payload.action.id);
