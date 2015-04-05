@@ -12,7 +12,8 @@ var errorMessage = {'en': 'Could not retrieve the questionnaire', 'fr': 'Impossi
 function getStateFromStore() {
 	console.log('Questionnaire getting state from store');
 	return {
-		questionnaire: QuestionnaireStore.getQuestionnaire()
+		questionnaire: QuestionnaireStore.getQuestionnaire(),
+		components: QuestionnaireStore.getComponents()
 	}
 }
 
@@ -44,12 +45,12 @@ var Questionnaire = React.createClass({
 				<span className = "fa fa-spinner fa-pulse fa-2x"></span>
 			</div>
 		);
-		if (this.state.questionnaire.children.length > 0) invite = '';
+		if (this.state.components.length > 0) invite = '';
 		return (
 			<div className="col-md-9">
 				<PoguesMenu language={this.props.language}/>
 				<h1>{invite}</h1>
-				{this.state.questionnaire.children.map(function(sequence, index) {
+				{this.state.components.map(function(sequence, index) {
 					return (<Sequence key={index} sequence={sequence}/>)
 				})}
 				<GenericInput language={this.props.language}/>
