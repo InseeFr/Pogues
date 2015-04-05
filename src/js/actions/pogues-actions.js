@@ -56,6 +56,18 @@ var PoguesActions = {
 			actionType: PoguesConstants.ActionTypes.EDIT_COMPONENT,
 			id : id
 		});
+	},
+	filterComponents: function(filter) {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.FILTER_COMPONENTS,
+			filter: filter
+		})
+	},
+	filterQuestionnaires: function(filter) {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.FILTER_QUESTIONNAIRES,
+			filter: filter
+		})
 	}
 };
 
