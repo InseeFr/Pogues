@@ -23,7 +23,7 @@ var QuestionnaireList = React.createClass({
 	},
 	selectIndex: function(event) {
 		console.log('QuestionnairePicker.selectIndex', event.target.value);
-		PoguesActions.selectQuestionnaire(event.target.value);
+		PoguesActions.selectQuestionnaire(event.target.value); // Value is index
 	},
 	componentDidMount: function() {
 		QuestionnaireListStore.addChangeListener(this._onChange);
@@ -38,14 +38,14 @@ var QuestionnaireList = React.createClass({
 		if (this.state.questionnaires === null) return (
 			<div>
 				<span className="fa fa-exclamation-triangle fa-3"></span>
-				<span className="error-list">{errorMessage[this.props.language]}</span>
+				<span className="error-message">{errorMessage[this.props.language]}</span>
 			</div>
-		)
+		);
 		else if (this.state.questionnaires.length === 0) return (
 			<div>
-				<span className = "fa fa-spinner fa-pulse fa-3x"></span>
+				<span className="fa fa-spinner fa-pulse fa-3x"></span>
 			</div>
-		)
+		);
 		else return (
 			<div>
 				<h1 className="page-header">{inviteExisting[this.props.language]}</h1>
@@ -55,7 +55,7 @@ var QuestionnaireList = React.createClass({
 					})}
 				</select>
 			</div>
-		)
+		);
 	}
 });
 

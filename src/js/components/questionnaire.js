@@ -36,7 +36,7 @@ var Questionnaire = React.createClass({
 		if (this.state.questionnaire === null) return (
 			<div>
 				<span className="fa fa-exclamation-triangle fa-3"></span>
-				<span className="error-list">{errorMessage[this.props.language]}</span>
+				<span className="error-message">{errorMessage[this.props.language]}</span>
 			</div>
 		);
 		else if (this.state.questionnaire === undefined) return (

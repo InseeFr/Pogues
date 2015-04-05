@@ -19,7 +19,7 @@ input.generic {
 	width: 500px;
 }
 
-span.error-list {
+span.error-message {
 	margin-left: 10px;
 	color: darksalmon;
 	font-weight: bold;

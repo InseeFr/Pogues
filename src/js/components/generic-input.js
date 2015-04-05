@@ -9,10 +9,16 @@ var labels = {'en': ['Sequence', 'Question'], 'fr': ['Séquence', 'Question']};
 var GenericInput = React.createClass({
 
 	getInitialState: function() {
-		return {value: '', sequence: true, depth: 1}
+		return {value: '', sequence: true, depth: 1, refDepth: 1};
 	},
 	handleChange: function(event) {
-		this.setState({value: event.target.value})
+		this.setState({value: event.target.value});
+	},
+	decreaseDepth: function() {
+		if (this.state.depth > 1) this.setState({depth: this.state.depth - 1});
+	},
+	increaseDepth: function() {
+		if (this.state.depth <= this.state.refDepth) this.setState({depth: this.state.depth + 1});
 	},
 	toggleType: function(event) {
 		// FIXME onClick works on <span/> or <p/> but not on <a/> 
@@ -38,11 +44,14 @@ var GenericInput = React.createClass({
 		var inputClass = (this.state.sequence ? "gi-sequence" : "gi-question");
 		var activeIndex = (this.state.sequence ? 0 : 1);
 		var iconClass = (this.state.sequence ? "fa fa-list" : "fa fa-question-circle");
+		var leftSymbol = ((this.state.sequence) && (this.state.depth > 1)) ?  'fa fa-chevron-left' : 'fa fa-square';
+		var rightSymbol = ((this.state.sequence) && (this.state.depth <= this.state.refDepth)) ?  'fa fa-chevron-right' : 'fa fa-square';
+
 		return (
 			<div className={inputClass}>
 				<ul className="nav nav-tabs">
 					{labels[this.props.language].map(function(label, index) {
-						if(index === activeIndex) {
+						if (index === activeIndex) {
 							return(
 								<li key={index} role="presentation" className="active">
 									<a href="#">{label}</a>
@@ -50,7 +59,7 @@ var GenericInput = React.createClass({
 							)
 						} else {
 							return(
-								<li key={index} role="presentation"  className="toto">
+								<li key={index} role="presentation">
 									<a href="#" onClick={this.toggleType}>{label}</a>
 								</li>
 							)
@@ -58,7 +67,11 @@ var GenericInput = React.createClass({
 					})}
 				</ul>
 				<div className="input-group">
-					<span className="input-group-addon">{this.state.depth}</span>
+					<span className="input-group-addon">
+						<span className={leftSymbol} onClick={this.decreaseDepth}></span>
+						<span>{this.state.depth}</span>
+						<span className={rightSymbol} onClick={this.increaseDepth}></span>
+					</span>
 					<input className="form-control" type="text" ref="input" value={this.state.value} placeholder={hint} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
 					<span className="input-group-addon" onClick={this.toggleType}><span className={iconClass}></span></span>
 				</div>

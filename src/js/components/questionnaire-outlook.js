@@ -26,6 +26,7 @@ var QuestionnaireOutlook = React.createClass({
 	render: function() {
 		// FIXME couldn't we be cleaner ???
 		console.log('QuestionnaireOutlook rendering with state', this.state);
+		if ((this.state.questionnaire === null) || (this.state.questionnaire === undefined)) return;
 		return (
 			<div className="col-md-3 outlook">
 				<nav className="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
