@@ -11,12 +11,35 @@ var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
 var _questionnaire = null;
+var _filter = null;
+var _rFilter;
 var _modules = [];
 
 function _setQuestionnaireByIndex(index) {
 	_questionnaire = QuestionnaireListStore.getQuestionnaire(index);
 	console.log('Questionnaire', _questionnaire);
 	_questionnaire.modules = [];
+}
+/**
+ * Set current filter for the questionnaire
+ * @param {String} filter Components labels will be test against filter
+ */
+function _setFilter(filter) {
+	_filter = filter;
+	// an empty string or null, no filtering
+	_rFilter = filter ? new RegExp(filter) : null;
+}
+
+/**
+ * Return components from the current questionnaire matching filter
+ * @return {Array}
+ */
+function _getComponents() {
+	var rFilter
+	if (!_rFilter) return _questionnaire.children
+	return _questionnaire.children.filter(function (component) {
+		return component.label.test(rFilter)
+	})
 }
 
 function _setQuestionnaire(questionnaire) {
@@ -69,6 +92,7 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 	getQuestionnaire: function() {
 		return _questionnaire;
 	},
+	getComponents: _getComponents,
 	emitChange: function() {
 		console.log('QuestionnaireStore emitting event', CHANGE_EVENT);
 		this.emit(CHANGE_EVENT);
@@ -101,6 +125,11 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 				break;
 			case ActionTypes.EDIT_COMPONENT:
 				_setComponentEditable(payload.action.id);
+				break;
+			case ActionTypes.FILTER_COMPONENTS:
+				_setFilter(payload.filter);
+				QuestionnaireStore.emitChange();
+				break;
 			default:
 				return true;
 		}
