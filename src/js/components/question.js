@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var EditActivator = require('../components/edit-activator');
+var classNames = require('classnames');
 
 var Question = React.createClass({
 
@@ -17,8 +18,13 @@ var Question = React.createClass({
   },
 
 	render: function() {
+		var hh = this.state.filter;
+	    var classes = classNames({
+	      'row': true,
+	      'highlight': hh ? hh.test(this.props.sequence.name) : false
+	    });
 		return(
-			<div className="row" onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
+			<div className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
 				<div className="col-md-10">
 			    <h4>{this.props.question.name}</h4>
 				</div>
