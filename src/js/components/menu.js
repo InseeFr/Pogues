@@ -1,6 +1,5 @@
 /** @jsx React.DOM */
 var React = require('react');
-var PoguesActions = require('../actions/pogues-actions');
 
 var search = {'en': 'Search', 'fr': 'Chercher'};
 
@@ -17,7 +16,7 @@ var Menu = React.createClass({
         })
     },
     _filter: function() {
-        PoguesActions.filterComponents(this.state.filter);
+        this.props.handleFilter(this.state.filter);
     },
 
 	render: function() {

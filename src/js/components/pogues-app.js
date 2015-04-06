@@ -3,6 +3,7 @@ var React = require('react');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var QuestionnairePicker = require('../components/questionnaire-picker');
 var Questionnaire = require('../components/questionnaire');
+var PoguesActions = require('../actions/pogues-actions');
 var QuestionnaireOutlook = require('../components/questionnaire-outlook');
 var Menu = require('./menu.js');
 
@@ -32,13 +33,16 @@ var PoguesApp = React.createClass({
 	render: function() {
 		console.log('PoguesApp state', this.state);
 		var child,
-			title;
+			title,
+			filter;
 		if (!this.state.questionnaire) {
+			filter = PoguesActions.filterQuestionnaires;
 			child = <QuestionnairePicker language={this.props.language}/>; 
 			title = tagline[this.props.language];
 		}
 		else {
-			var title = this.state.questionnaire.name;
+			filter = PoguesActions.filterComponents;
+			title = this.state.questionnaire.name;
 			console.log('PoguesApp calling Questionnaire with title', title);
 			child = 
 				<div className="container bs-docs-container">
@@ -50,7 +54,7 @@ var PoguesApp = React.createClass({
 		}
 		return (
 			<div>
-				<Menu search="" title={title} language={this.props.language}/>
+				<Menu handleFilter={filter} title={title} language={this.props.language}/>
 				{child}
 			</div>)
 	}
