@@ -9,8 +9,9 @@ var Menu = require('./menu.js');
 var tagline = {'en': 'Questionnaire design and test', 'fr': 'Conception et test de questionnaires'};
 
 function getStateFromStore() {
+	var current = QuestionnaireListStore.getCurrentQuestionnaireIndex();
 	return {
-		current: QuestionnaireListStore.getCurrentQuestionnaireIndex()
+		questionnaire: QuestionnaireListStore.getCurrentQuestionnaire(current)
 	}
 }
 
@@ -32,12 +33,12 @@ var PoguesApp = React.createClass({
 		console.log('PoguesApp state', this.state);
 		var child,
 			title;
-		if (this.state.current === null) {
+		if (!this.state.questionnaire) {
 			child = <QuestionnairePicker language={this.props.language}/>; 
 			title = tagline[this.props.language];
 		}
 		else {
-			var title = QuestionnaireListStore.getCurrentQuestionnaire(this.state.current).name;
+			var title = this.state.questionnaire.name;
 			console.log('PoguesApp calling Questionnaire with title', title);
 			child = 
 				<div className="container bs-docs-container">
