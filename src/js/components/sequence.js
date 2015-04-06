@@ -4,6 +4,7 @@ var Component = require('../components/component');
 var Question = require('../components/question');
 var SequenceModel = require('../models/Sequence');
 var EditActivator = require('../components/edit-activator');
+var classNames = require('classnames');
 
 var Sequence = React.createClass({
 
@@ -21,16 +22,22 @@ var Sequence = React.createClass({
 
   render: function() {
     //console.log('Sequence rendering with props', this.props);
-
     var Tag = 'h' + this.props.sequence.depth;
+    var hh = this.props.highlightHandler;
+    var classes = classNames({
+      'row': true,
+      'highlight': hh ? hh.test(this.props.sequence.name) : false
+    });
     return (
-      <div className="row" onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
+      <div className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
         <div className="col-md-10">
          <Tag>{this.props.sequence.name}</Tag>
           {this.props.sequence.children.map(function(child, index) {
             //return (<Component component={child}/>);
-            if (child instanceof SequenceModel) return(<Sequence key={index} sequence={child}/>);
-            else return(<Question key={index} question={child}/>);
+            if (child instanceof SequenceModel) return(
+              <Sequence highlightHandler={hh} key={index} sequence={child}/>);
+            else return(
+              <Question highlightHandler={hh} key={index} question={child}/>);
           })}
         </div>
         <EditActivator componentId={this.props.sequence.id} componentOver={this.state.over}/>

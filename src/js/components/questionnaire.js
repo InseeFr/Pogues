@@ -4,7 +4,7 @@ var QuestionnaireStore = require('../stores/questionnaire-store');
 var Sequence = require('../components/sequence');
 var GenericInput = require('../components/generic-input');
 var PoguesMenu = require('../components/pogues-menu');
-
+var classNames = require('classnames');
 var introduction = {'en': 'Please specify your questionnaire', 'fr': 'Veuillez spécifier votre questionnaire'};
 var errorMessage = {'en': 'Could not retrieve the questionnaire', 'fr': 'Impossible de récupérer le questionnaire'};
 
@@ -13,7 +13,7 @@ function getStateFromStore() {
 	console.log('Questionnaire getting state from store');
 	return {
 		questionnaire: QuestionnaireStore.getQuestionnaire(),
-		components: QuestionnaireStore.getComponents()
+		filter       : QuestionnaireStore.getFilter()
 	}
 }
 
@@ -33,7 +33,9 @@ var Questionnaire = React.createClass({
 	},
 	render: function() {
 		console.log('Questionnaire rendering with state', this.state);
-		var invite = introduction[this.props.language];
+		var invite = introduction[this.props.language],
+			filter = this.state.filter;
+
 		if (this.state.questionnaire === null) return (
 			<div>
 				<span className="fa fa-exclamation-triangle fa-3"></span>
@@ -45,13 +47,21 @@ var Questionnaire = React.createClass({
 				<span className = "fa fa-spinner fa-pulse fa-2x"></span>
 			</div>
 		);
-		if (this.state.components.length > 0) invite = '';
+		if (this.state.questionnaire.children.length > 0) invite = '';
 		return (
 			<div className="col-md-9">
 				<PoguesMenu language={this.props.language}/>
 				<h1>{invite}</h1>
-				{this.state.components.map(function(sequence, index) {
-					return (<Sequence key={index} sequence={sequence}/>)
+				{this.state.questionnaire.children.map(function(sequence, index) {
+				    var classes = classNames({
+				      'row': true,
+				      'highlight': filter ? filter.test(sequence.name) : false
+				    });
+					return (<Sequence 
+						className={classes}
+						highlightHandler={filter}
+						key={index}
+						sequence={sequence}/>)
 				})}
 				<GenericInput language={this.props.language}/>
 			</div>
