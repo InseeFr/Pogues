@@ -30,17 +30,6 @@ function _setFilter(filter) {
 	_rFilter = filter ? new RegExp(filter) : null;
 }
 
-/**
- * Return components from the current questionnaire matching filter
- * @return {Array}
- */
-function _getComponents() {
-	if (!_rFilter) return _questionnaire.children
-	return _questionnaire.children.filter(function (component) {
-		return _rFilter.test(component.name);
-	})
-}
-
 function _setQuestionnaire(questionnaire) {
 	// We must keep id and we can keep name
 	_questionnaire.modules = questionnaire.modules;
@@ -91,7 +80,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 	getQuestionnaire: function() {
 		return _questionnaire;
 	},
-	getComponents: _getComponents,
+	getFilter: function () {
+		return _rFilter;
+	},
 	emitChange: function() {
 		console.log('QuestionnaireStore emitting event', CHANGE_EVENT);
 		this.emit(CHANGE_EVENT);
