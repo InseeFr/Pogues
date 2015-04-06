@@ -35,10 +35,9 @@ function _setFilter(filter) {
  * @return {Array}
  */
 function _getComponents() {
-	var rFilter
 	if (!_rFilter) return _questionnaire.children
 	return _questionnaire.children.filter(function (component) {
-		return component.label.test(rFilter)
+		return _rFilter.test(component.name);
 	})
 }
 
@@ -127,7 +126,7 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 				_setComponentEditable(payload.action.id);
 				break;
 			case ActionTypes.FILTER_COMPONENTS:
-				_setFilter(payload.filter);
+				_setFilter(payload.action.filter);
 				QuestionnaireStore.emitChange();
 				break;
 			default:
