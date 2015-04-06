@@ -35,13 +35,13 @@ var Menu = React.createClass({
                         <ul className="nav navbar-nav">
                             <li><em className="navbar-text">{this.props.title}</em></li>
                         </ul>
-                        <form className="navbar-form navbar-left" role="search">
-                        <div className="form-group">
-                          <input type="text" className="form-control" placeholder={search[this.props.language]}
-                            value={this.state.filter} onChange={this._setFilter}/>
+                        <div className="navbar-form navbar-left" role="search">
+                            <div className="form-group">
+                              <input type="text" className="form-control" placeholder={search[this.props.language]}
+                                value={this.state.filter} onChange={this._setFilter}/>
+                            </div>
+                            <button className="btn btn-default" onClick={this._filter}>{search[this.props.language]}</button>
                         </div>
-                        <button type="submit" className="btn btn-default" onClick={this._filter}>{search[this.props.language]}</button>
-                        </form>
                         <ul className="nav navbar-nav navbar-right">
                         <li className="dropdown">
                           <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Me, myself and I <span className="caret"></span></a>
