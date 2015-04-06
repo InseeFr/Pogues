@@ -49,3 +49,7 @@ span.error-message {
 .invisible {
   visibility : hidden;
 }
+
+.highlight {
+	background-color: yellow;
+}
