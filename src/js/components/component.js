@@ -1,8 +1,5 @@
 /** @jsx React.DOM */
 var React = require('react');
-var Sequence = require('../components/sequence');
-var Question = require('../components/question');
-var SequenceModel = require('../models/Sequence');
 
 var Component = React.createClass({
 
@@ -23,3 +20,7 @@ var Component = React.createClass({
 });
 
 module.exports = Component;
+
+var Sequence = require('../components/sequence');
+var Question = require('../components/question');
+var SequenceModel = require('../models/Sequence');

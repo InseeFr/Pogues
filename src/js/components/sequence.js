@@ -1,10 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
-var Component = require('../components/component');
-var Question = require('../components/question');
-var SequenceModel = require('../models/Sequence');
-var EditActivator = require('../components/edit-activator');
-var classNames = require('classnames');
+
 
 var Sequence = React.createClass({
 
@@ -33,11 +29,7 @@ var Sequence = React.createClass({
         <div className="col-md-10">
          <Tag>{this.props.sequence.name}</Tag>
           {this.props.sequence.children.map(function(child, index) {
-            //return (<Component component={child}/>);
-            if (child instanceof SequenceModel) return(
-              <Sequence highlightHandler={hh} key={index} sequence={child}/>);
-            else return(
-              <Question highlightHandler={hh} key={index} question={child}/>);
+            return (<Component highlightHandler={hh} component={child}/>);
           })}
         </div>
         <EditActivator componentId={this.props.sequence.id} componentOver={this.state.over}/>
@@ -47,3 +39,9 @@ var Sequence = React.createClass({
 });
 
 module.exports = Sequence;
+
+var Component = require('../components/component');
+var Question = require('../components/question');
+var SequenceModel = require('../models/Sequence');
+var EditActivator = require('../components/edit-activator');
+var classNames = require('classnames');
