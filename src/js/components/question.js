@@ -25,7 +25,7 @@ var Question = React.createClass({
 	      'highlight': highlightHandler ? highlightHandler.test(question.name) : false
 	    });
 		return(
-			<div className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
+			<div id={question.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
 				<div className="col-md-10">
 			    <h4>{this.props.question.name}</h4>
 				</div>

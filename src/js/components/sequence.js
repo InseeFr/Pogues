@@ -26,7 +26,7 @@ var Sequence = React.createClass({
       'highlight': highlightHandler ? highlightHandler.test(sequence.name) : false
     });
     return (
-      <div className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
+      <div id={sequence.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
         <div className="col-md-10">
          <Tag>{sequence.name}</Tag>
           {sequence.children.map(function(child, index) {
