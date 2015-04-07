@@ -18,10 +18,11 @@ var Question = React.createClass({
   },
 
 	render: function() {
-		var hh = this.props.handleFilter;
+		var highlightHandler = this.props.highlightHandler;
+		var question = this.props.question;
 	    var classes = classNames({
 	      'row': true,
-	      'highlight': hh ? hh.test(this.props.question.name) : false
+	      'highlight': highlightHandler ? highlightHandler.test(question.name) : false
 	    });
 		return(
 			<div className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
