@@ -9,11 +9,11 @@ var Component = React.createClass({
 
 		if (this.props.component instanceof SequenceModel) {
 			return(
-				  <Sequence highlight={this.props.highlight} sequence={this.props.component}/>
+				  <Sequence highlightHandler={this.props.highlightHandler} sequence={this.props.component}/>
 				);
 		} else {
 			return(
-				  <Question highlight={this.props.highlight} question={this.props.component}/>
+				  <Question highlightHandler={this.props.highlightHandler} question={this.props.component}/>
 				);
 		}
 	}

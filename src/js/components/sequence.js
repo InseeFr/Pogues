@@ -19,20 +19,21 @@ var Sequence = React.createClass({
   render: function() {
     //console.log('Sequence rendering with props', this.props);
     var Tag = 'h' + this.props.sequence.depth;
-    var hh = this.props.highlightHandler;
+    var highlightHandler = this.props.highlightHandler;
+    var sequence = this.props.sequence;
     var classes = classNames({
       'row': true,
-      'highlight': hh ? hh.test(this.props.sequence.name) : false
+      'highlight': highlightHandler ? highlightHandler.test(sequence.name) : false
     });
     return (
-      <div className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
+      <div id={sequence.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
         <div className="col-md-10">
-         <Tag>{this.props.sequence.name}</Tag>
-          {this.props.sequence.children.map(function(child, index) {
-            return (<Component highlightHandler={hh} component={child}/>);
+         <Tag>{sequence.name}</Tag>
+          {sequence.children.map(function(child, index) {
+            return (<Component highlightHandler={highlightHandler} component={child}/>);
           })}
         </div>
-        <EditActivator componentId={this.props.sequence.id} componentOver={this.state.over}/>
+        <EditActivator componentId={sequence.id} componentOver={this.state.over}/>
       </div>
     );
   }
