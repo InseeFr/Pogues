@@ -6,6 +6,7 @@ var SequenceModel = require("../models/Sequence");
 var DataUtils = require('../utils/data-utils');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var QUtils = require('../utils/questionnaire-utils');
 
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
@@ -54,27 +55,28 @@ function _addSequence(name) {
 function _setComponentEditable(id) {
 	console.log('Component with id ' + id + ' is now editable');
 	// First level sequences
-	_questionnaire.children.forEach(function(firstLevelComponent) {
-		if (firstLevelComponent.id === id) {
-			console.log('Found the component !');
-			return;
-			}
-		// Second level sequences, could be questions
-		else firstLevelComponent.children.forEach(function(secondLevelComponent){
-			if (secondLevelComponent.id === id) {
-				console.log('Found the component !');
-				return;
-				}
-			// Third level, that is questions  :)
-			if (secondLevelComponent.children != undefined &&
-				  secondLevelComponent.children.length > 0) {
-
-					secondLevelComponent.children.forEach(function(thirdLevelComponent){
-						if (thirdLevelComponent.id === id) { console.log('Found the component !');return;}
-					});
-			  }
-		})
-	});
+	// _questionnaire.children.forEach(function(firstLevelComponent) {
+	// 	if (firstLevelComponent.id === id) {
+	// 		console.log('Found the component !');
+	// 		return;
+	// 		}
+	// 	// Second level sequences, could be questions
+	// 	else firstLevelComponent.children.forEach(function(secondLevelComponent){
+	// 		if (secondLevelComponent.id === id) {
+	// 			console.log('Found the component !');
+	// 			return;
+	// 			}
+	// 		// Third level, that is questions  :)
+	// 		if (secondLevelComponent.children != undefined &&
+	// 			  secondLevelComponent.children.length > 0) {
+	//
+	// 				secondLevelComponent.children.forEach(function(thirdLevelComponent){
+	// 					if (thirdLevelComponent.id === id) { console.log('Found the component !');return;}
+	// 				});
+	// 		  }
+	// 	})
+	// });
+	QUtils.searchAndApply(_questionnaire.children,'id', id, function(e) { console.log('ping ' + e.id + ' !'); });
 }
 
 var QuestionnaireStore = assign({}, EventEmitter.prototype, {
