@@ -64,7 +64,7 @@ var GenericInput = React.createClass({
 								</li>
 							)
 						}
-					})}
+					}, this)}
 				</ul>
 				<div className="input-group">
 					<span className="input-group-addon">
