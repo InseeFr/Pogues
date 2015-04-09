@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var PoguesApp = require('./components/pogues-app');
 var React = require('react');
 

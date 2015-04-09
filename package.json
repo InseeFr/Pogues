@@ -24,13 +24,16 @@
     "jest-cli": "^0.4.0",
     "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "babelify": "~6.0.2"
   },
   "scripts": {
     "build": "gulp build",
     "default": "gulp",
     "test": "jest",
-    "es6toes5": "gulp es6toes5"
+    "es6toes5": "gulp es6toes5",
+    "browsersync": "browser-sync start --startPath src/ --server --files 'src/css/*.css,src/index.html,src/js/pogues.js'",
+    "watchify": "watchify -d -t babelify src/js/main.js -o src/js/pogues.js"
   },
   "jest": {
     "scriptPreprocessor": "./preprocessor.js",

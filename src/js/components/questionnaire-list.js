@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var PoguesActions = require('../actions/pogues-actions');

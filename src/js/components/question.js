@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var EditActivator = require('../components/edit-activator');
 var classNames = require('classnames');

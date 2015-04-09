@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var QuestionnaireEditor = require('../components/questionnaire-editor');
 var QuestionnaireList = require('../components/questionnaire-list');

@@ -2,8 +2,7 @@ var gulp = require('gulp');
 var del = require('del');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-var reactify = require('reactify');
-var babel = require('gulp-babel');
+var babelify = require('babelify');
 var rename = require('gulp-rename');
 
 
@@ -37,7 +36,7 @@ gulp.task('build:copy:img', ['del:dist'], function() {
 
 gulp.task('build:browserify', ['del:dist'], function() {
 	var bundler = browserify('./src/js/main.js');
-	bundler.transform(reactify);
+	bundler.transform(babelify);
 
 	return bundler.bundle()
 		.pipe(source('pogues.js'))
@@ -52,25 +51,15 @@ gulp.task('copy:index', function() {
 
 gulp.task('browserify', function() {
 	var bundler = browserify('./src/js/main.js');
-	bundler.transform(reactify);
+	bundler.transform(babelify);
 
 	return bundler.bundle()
 		.pipe(source('pogues.js'))
 		.pipe(gulp.dest('./dist/js'));
 });
 
-gulp.task('build:es6transpile', ['del:dist'], function () {
-  gulp.src('./src/js/models/es6/*.js')
-    .pipe(rename(function(path) {
-      path.basename = path.basename.replace(/.es6/, '')
-    }))
-    .pipe(babel())
-    .pipe(gulp.dest('./src/js/models'));
-});
-
 gulp.task('build',
   ['del:dist',
-   'build:es6transpile',
    'build:browserify',
    'build:copy:index',
    'build:copy:css',

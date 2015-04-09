@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var QuestionnaireStore = require('../stores/questionnaire-store');
 var Sequence = require('../components/sequence');

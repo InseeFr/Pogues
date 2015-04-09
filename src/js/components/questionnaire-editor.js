@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
