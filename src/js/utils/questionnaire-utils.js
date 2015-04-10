@@ -9,8 +9,11 @@ var QuestionnaireUtils = {
    @param value : the *unique* value use to select a component
    @param func : the function to apply to the found element
    */
+   //TODO currying ! functionnal !
+   //TODO struct.flatMap.filter( checkId ).apply( func )
   searchAndApply : function (struct, key, value, func) {
     console.log('searching for key :' + key + ' and value : ' + value);
+
     for (var i in struct) {
       var component = struct[i];
       if (component instanceof QuestionModel) {
