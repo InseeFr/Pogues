@@ -25,7 +25,6 @@
     "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
-    "browser-sync": "~2.5.3",
     "bower": "~1.4.1",
     "babelify": "~6.0.2",
     "gulp-bower": "0.0.10",
@@ -37,8 +36,6 @@
     "default": "gulp",
     "test": "jest",
     "es6toes5": "gulp es6toes5",
-    "browsersync": "browser-sync start --directory --startPath src/ --server --files 'src/css/*.css,src/index.html,src/js/pogues.js'",
-    "watchify": "watchify -d -t babelify src/js/main.js -o src/js/pogues.js"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
