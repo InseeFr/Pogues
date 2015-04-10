@@ -35,7 +35,7 @@
     "build": "gulp build",
     "default": "gulp",
     "test": "jest",
-    "es6toes5": "gulp es6toes5",
+    "es6toes5": "gulp es6toes5"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
