@@ -5,6 +5,7 @@ var Questionnaire = require('../components/questionnaire');
 var PoguesActions = require('../actions/pogues-actions');
 var QuestionnaireOutlook = require('../components/questionnaire-outlook');
 var Menu = require('./menu.js');
+var config = require('../config/config');
 
 var tagline = {'en': 'Questionnaire design and test', 'fr': 'Conception et test de questionnaires'};
 
@@ -31,19 +32,20 @@ var PoguesApp = React.createClass({
 	},
 	render: function() {
 		console.log('PoguesApp state', this.state);
+		console.log('ENV : ' + (config.dev ? 'dev' : 'prod'));
 		var child,
 			title,
 			filter;
 		if (!this.state.questionnaire) {
 			filter = PoguesActions.filterQuestionnaires;
-			child = <QuestionnairePicker language={this.props.language}/>; 
+			child = <QuestionnairePicker language={this.props.language}/>;
 			title = tagline[this.props.language];
 		}
 		else {
 			filter = PoguesActions.filterComponents;
 			title = this.state.questionnaire.name;
 			console.log('PoguesApp calling Questionnaire with title', title);
-			child = 
+			child =
 				<div className="container bs-docs-container">
 					<div className="row">
 						<Questionnaire language={this.props.language}/>
