@@ -33,7 +33,7 @@ var GenericInput = React.createClass({
 			var text = this.state.value.trim();
 			if (text) {
 				console.log('GenericInput value', text);
-				PoguesActions.addSequence(text);
+				PoguesActions.addComponent({sequence: this.state.sequence, depth: this.state.depth, text: text});
 			}
 			this.setState({value: ''});
 		}

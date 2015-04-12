@@ -100,8 +100,8 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 		console.log('QuestionnaireStore received dispatched payload', payload);
 		var action = payload.action; // action from HandleViewAction
 		switch(action.actionType) {
-			case ActionTypes.ADD_SEQUENCE:
-				_addSequence(payload.action.name);
+			case ActionTypes.ADD_COMPONENT:
+				_addSequence(payload.action.spec.text);
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
 				_setQuestionnaireByIndex(payload.action.index);

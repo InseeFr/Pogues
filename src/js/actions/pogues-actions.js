@@ -43,11 +43,11 @@ var PoguesActions = {
 			index: index
 		});
 	},
-	// TODO Rest of the actions
-	addSequence: function(name) {
+	// A Component is added with the GenericInput (spec is {sequence, depth, text})
+	addComponent: function(spec) {
 		PoguesDispatcher.handleViewAction({
-			actionType: PoguesConstants.ActionTypes.ADD_SEQUENCE,
-			name: name
+			actionType: PoguesConstants.ActionTypes.ADD_COMPONENT,
+			spec: spec
 		});
 	},
 	// A Component is made editable
