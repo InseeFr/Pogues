@@ -50,6 +50,10 @@ function _addSequence(name) {
 	_questionnaire.addChild(child);
 }
 
+function _addComponent(spec) {
+	QUtils.appendComponent(_questionnaire, spec.sequence, spec.depth, spec.text);
+}
+
 /* Mark a component (sequence or question) as editable */
 //FIXME refactor the algo
 function _setComponentEditable(id) {
@@ -101,7 +105,8 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 		var action = payload.action; // action from HandleViewAction
 		switch(action.actionType) {
 			case ActionTypes.ADD_COMPONENT:
-				_addSequence(payload.action.spec.text);
+				//_addSequence(payload.action.spec.text);
+				_addComponent(payload.action.spec);
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
 				_setQuestionnaireByIndex(payload.action.index);

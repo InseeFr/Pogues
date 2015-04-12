@@ -51,7 +51,7 @@ var QuestionnaireUtils = {
       if (sequence.children.length === 0) return;
       for (var index = sequence.children.length - 1; index >= 0; index--) {
         if (sequence.children[index] instanceof SequenceModel) {
-          appendComponent(sequence.children[index], isSequence, depth - 1, title);
+          QuestionnaireUtils.appendComponent(sequence.children[index], isSequence, depth - 1, title);
           return;
         }
       }
