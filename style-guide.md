@@ -6,6 +6,12 @@ This document is where choices regarding styling should live.
 
 See : https://color.adobe.com/fr/Maybelline-color-theme-4115683/
 
-Sequence : #30B38A
+Sequence 1 : #30B38A
+
+Sequence 2 : #1F7359
 
 Question : #EF2B4D
+
+Menu : same as it is...
+
+Questionnaire outlook : #FDED52
