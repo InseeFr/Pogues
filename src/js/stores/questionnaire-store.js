@@ -55,31 +55,8 @@ function _addComponent(spec) {
 }
 
 /* Mark a component (sequence or question) as editable */
-//FIXME refactor the algo
 function _setComponentEditable(id) {
 	console.log('Component with id ' + id + ' is now editable');
-	// First level sequences
-	// _questionnaire.children.forEach(function(firstLevelComponent) {
-	// 	if (firstLevelComponent.id === id) {
-	// 		console.log('Found the component !');
-	// 		return;
-	// 		}
-	// 	// Second level sequences, could be questions
-	// 	else firstLevelComponent.children.forEach(function(secondLevelComponent){
-	// 		if (secondLevelComponent.id === id) {
-	// 			console.log('Found the component !');
-	// 			return;
-	// 			}
-	// 		// Third level, that is questions  :)
-	// 		if (secondLevelComponent.children != undefined &&
-	// 			  secondLevelComponent.children.length > 0) {
-	//
-	// 				secondLevelComponent.children.forEach(function(thirdLevelComponent){
-	// 					if (thirdLevelComponent.id === id) { console.log('Found the component !');return;}
-	// 				});
-	// 		  }
-	// 	})
-	// });
 	QUtils.searchAndApply(_questionnaire.children,'id', id, function(e) { console.log('ping ' + e.id + ' !'); });
 }
 
