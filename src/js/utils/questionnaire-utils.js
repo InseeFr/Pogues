@@ -30,6 +30,33 @@ var QuestionnaireUtils = {
         }
       }
     }
+  },
+
+  /*
+   Appends a component (sequence or question) to a sequence at a certain depth.
+   @param sequence The sequence (or questionnaire) to which the component is added
+   @param isSequence Boolean indicating if the component to create is a sequence or a question
+   @param depth Integer giving the distance from the root where the component should be added
+   @param title Title of the component to append
+   */
+  appendComponent: function(sequence, isSequence, depth, title) {
+
+    if (depth === 1) {
+      var newChild = (isSequence) ? new SequenceModel() : new QuestionModel();
+      newChild.name = title;
+      sequence.addChild(newChild);
+      return;
+    } else if (depth > 1) {
+      // find last sequence child of sequence
+      if (sequence.children.length === 0) return;
+      for (var index = sequence.children.length - 1; index >= 0; index--) {
+        if (sequence.children[index] instanceof SequenceModel) {
+          appendComponent(sequence.children[index], isSequence, depth - 1, title);
+          return;
+        }
+      }
+    }
+    return;
   }
 };
 
