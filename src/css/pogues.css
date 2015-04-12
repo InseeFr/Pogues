@@ -53,3 +53,11 @@ span.error-message {
 .highlight {
 	background-color: yellow;
 }
+
+.sequence-header:first-letter {
+  color : #30B38A;
+}
+
+.question-header:first-letter {
+  color : #EF2B4D
+}

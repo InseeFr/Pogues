@@ -26,7 +26,7 @@ var Question = React.createClass({
 		return(
 			<div id={question.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
 				<div className="col-md-10">
-			    <h4>{this.props.question.name}</h4>
+			    <h4 className="question-header">{this.props.question.name}</h4>
 				</div>
 				<EditActivator componentId={this.props.question.id} componentOver={this.state.over}/>
 			</div>

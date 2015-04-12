@@ -21,13 +21,14 @@ var Sequence = React.createClass({
     var highlightHandler = this.props.highlightHandler;
     var sequence = this.props.sequence;
     var classes = classNames({
+      'sequence' : true,
       'row': true,
       'highlight': highlightHandler ? highlightHandler.test(sequence.name) : false
     });
     return (
       <div id={sequence.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
         <div className="col-md-10">
-         <Tag>{sequence.name}</Tag>
+         <Tag className="sequence-header">{sequence.name}</Tag>
           {sequence.children.map(function(child, index) {
             return (<Component highlightHandler={highlightHandler} component={child}/>);
           })}
