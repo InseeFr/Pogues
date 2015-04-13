@@ -3,13 +3,25 @@
 
     <!-- TODO Internationalization -->
 
+    <xs:element name="Survey">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Name" type="xs:token"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="agency" type="xs:token"/>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="Questionnaire" type="QuestionnaireType"/>
     
     <xs:complexType name="QuestionnaireType">
         <xs:complexContent>
             <xs:extension base="SequenceType">
+                <xs:sequence>
+                    <xs:element ref="Survey"/>
+                </xs:sequence>
                 <xs:attribute name="agency" type="xs:token"/>
-                <xs:attribute name="studyId" type="xs:token"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
