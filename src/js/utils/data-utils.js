@@ -96,7 +96,7 @@ var DataUtils = {
       }, timeout);
     },
     // Mock function will return a questionnaire with from 0 to 9 sequences containing 0 to 4 sequences (with 0-4 child questions) or questions in 0 to 1 second, and a 5% possibility of error
-    loadDeepQuestionnaire: function() {
+    loadDeepQuestionnaire: function(index) {
 
       var numberOfSequences = Math.floor(Math.random() * 10);
       var timeout = Math.random() * 1;
