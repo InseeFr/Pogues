@@ -29,7 +29,7 @@ function _setCurrentQuestionnaire(index) {
 }
 
 function _createQuestionnaire(name) {
-	_questionnaire = new QuestionnaireModel();
+	var _questionnaire = new QuestionnaireModel();
 	_questionnaire.name = name;
 	// FIXME getName does not work
 	console.log('questionnaire-list-store created questionnaire', _questionnaire);
