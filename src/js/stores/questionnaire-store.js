@@ -11,7 +11,7 @@ var QUtils = require('../utils/questionnaire-utils');
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
-var _questionnaire = undefined;
+var _questionnaire;
 var _filter = null;
 var _rFilter;
 
@@ -31,6 +31,7 @@ function _setFilter(filter) {
 
 function _setQuestionnaire(questionnaire) {
 	// We must keep id and we can keep name
+	_questionnaire = questionnaire;
 	console.log('Questionnaire in questionnaire store is now', _questionnaire);
 }
 
@@ -82,14 +83,14 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 				_addComponent(payload.action.spec);
 				break;
 			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
-				_setQuestionnaireByIndex(payload.action.index);
-				DataUtils.loadDeepQuestionnaire(payload.action.index); //loadQuestionnaire() for shallow questionnaire
+				DataUtils.loadQuestionnaire(payload.action.index); //loadQuestionnaire() for shallow questionnaire
 				break;
 			case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
 				_questionnaire = _createQuestionnaire(payload.action.name);
 				break;
 			case ActionTypes.QUESTIONNAIRE_LOADED:
 				_setQuestionnaire(payload.action.questionnaire);
+				QuestionnaireStore.emitChange();
 				break;
 			case ActionTypes.QUESTIONNAIRE_LOADING_FAILED:
 				_questionnaire = null;
@@ -100,6 +101,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 			case ActionTypes.FILTER_COMPONENTS:
 				_setFilter(payload.action.filter);
 				QuestionnaireStore.emitChange();
+				break;
+			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
+				_setQuestionnaire(payload.action.index);
 				break;
 			default:
 				return true;

@@ -54,12 +54,10 @@ var QuestionnaireOutlook = React.createClass({
     QuestionnaireStore.removeChangeListener(this._onChange);
   },
   render: function() {
-    // FIXME couldn't we be cleaner ???
     console.log('QuestionnaireOutlook rendering with state', this.state);
-    if ((this.state.questionnaire === null) || (this.state.questionnaire === undefined)) return;
     return (
       <div className="col-md-3">
-        <nav ref="affix" data-offset-top="50" className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+        <nav ref="affix" className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
           {recursiveOutlook(this.state.questionnaire.children, true)}
         </nav>
       </div>

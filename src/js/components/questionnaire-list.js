@@ -18,11 +18,19 @@ var QuestionnaireList = React.createClass({
 		this.setState(getStateFromStore());
 	},
 	getInitialState: function() {
-		return getStateFromStore();
+		return {
+			pending: true,
+			questionnaires: null
+		}
 	},
-	selectIndex: function(event) {
-		console.log('QuestionnairePicker.selectIndex', event.target.value);
-		PoguesActions.selectQuestionnaire(event.target.value); // Value is index
+	selectIndex: function(index, event) {
+		console.log('QuestionnairePicker.selectIndex', index);
+		this.props.setAppState();
+		PoguesActions.selectQuestionnaire(index); // Value is index
+	},
+	componentWillMount: function() {
+		// TODO passer l'action pour charger le questionnaire list store
+		PoguesActions.loadQuestionnaireList();
 	},
 	componentDidMount: function() {
 		QuestionnaireListStore.addChangeListener(this._onChange);
@@ -32,6 +40,7 @@ var QuestionnaireList = React.createClass({
 	componentWillUnmount: function() {
 		QuestionnaireListStore.removeChangeListener(this._onChange);
 	},
+
 	render: function() {
 		console.log('QuestionnaireList rendering with state', this.state);
 		if (this.state.questionnaires === null) return (
@@ -48,11 +57,11 @@ var QuestionnaireList = React.createClass({
 		else return (
 			<div>
 				<h1 className="page-header">{inviteExisting[this.props.language]}</h1>
-				<select className="form-control" onChange={this.selectIndex}>
+				<ul>
 					{this.state.questionnaires.map(function(questionnaire, index) {
-						return (<option key={index} value={index}>{questionnaire.name}</option>)
-					})}
-				</select>
+						return (<li key={index} onClick={this.selectIndex.bind(this, index)}>{questionnaire.name}</li>)
+					}, this)}
+				</ul>
 			</div>
 		);
 	}

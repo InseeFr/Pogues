@@ -1,3 +1,5 @@
+require('./bootstrap');
+
 var PoguesApp = require('./components/pogues-app');
 var React = require('react');
 

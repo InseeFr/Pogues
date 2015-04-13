@@ -10,6 +10,12 @@ var PoguesActions = {
 			questionnaires: data.questionnaires
 		});
 	},
+	loadQuestionnaireList: function () {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.LOAD_QUESTIONNAIRE_LISTE			
+		})
+
+	},
 	loadQuestionnaireListFailed: function(error) {
 		PoguesDispatcher.handleServerAction({
 			actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED,

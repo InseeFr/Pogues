@@ -26,5 +26,9 @@ module.exports = {
 	},
 	General: {
 		ENTER_KEY_CODE: 13
+	},
+	ViewTypes: {
+		'PICKER': 'PICKER',
+		'QUESTIONNAIRE': 'QUESTIONNAIRE'
 	}
 };

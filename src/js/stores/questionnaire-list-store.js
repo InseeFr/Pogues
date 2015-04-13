@@ -8,7 +8,6 @@ var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
 var _questionnaires = [];
-var _currentQuestionnaireIndex = null;
 
 function _setQuestionnaires(questionnaires) {
 	_questionnaires = questionnaires;
@@ -24,10 +23,6 @@ function _addQuestionnaire(questionnaire) {
 	_questionnaires.push(questionnaire);
 }
 
-function _setCurrentQuestionnaire(index) {
-	if ((index >= 0) && (index < _questionnaires.length)) _currentQuestionnaireIndex = index;
-}
-
 function _createQuestionnaire(name) {
 	var _questionnaire = new QuestionnaireModel();
 	_questionnaire.name = name;
@@ -41,20 +36,8 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 	getQuestionnaires: function() {
 		return _questionnaires;
 	},
-	getQuestionnaire: function(index) {
-		console.log('getQuestionnaire called in QuestionnaireListStore, index is', index);
-		if (_currentQuestionnaireIndex === null) return null;
-		else return _questionnaires[index];
-	},
-	getCurrentQuestionnaire: function() {
-		if (_currentQuestionnaireIndex === null) return null;
-		else return _questionnaires[_currentQuestionnaireIndex];
-	},
-	getCurrentQuestionnaireIndex: function() {
-		return _currentQuestionnaireIndex;
-	},
-	isCurrentQuestionnnaireSelected: function() {
-		return (_currentQuestionnaireIndex !== null);
+	getQuestionnaire: function (index) {
+		return _questionnaires[index];
 	},
 	emitChange: function() {
 		console.log('QuestionnaireListStore emitting event', CHANGE_EVENT);
@@ -76,12 +59,11 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 			case ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED:
 				_setQuestionnaires(null);
 				break;
-			case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
-				_setCurrentQuestionnaire(payload.action.index);
-				break;
 			case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
 				_addQuestionnaire(_createQuestionnaire(payload.action.name));
-				_currentQuestionnaireIndex = _questionnaires.length - 1;
+				break;
+			case ActionTypes.LOAD_QUSETIONNAIRE_LIST:
+				DataUtils.loadQuestionnaireList();
 				break;
 			default:
 				return true;
@@ -93,3 +75,4 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 });
 
 module.exports = QuestionnaireListStore;
+var DataUtils = require('../utils/data-utils');
