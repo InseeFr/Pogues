@@ -31,6 +31,7 @@
             <xs:element name="Name" type="xs:token"/>
             <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
             <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>

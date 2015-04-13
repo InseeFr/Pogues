@@ -2,6 +2,7 @@
 A Component is the base class for the Questionnaire questions and sequences
 */
 import DeclarationModel from './Declaration.js';
+import ControlModel from './Control.js';
 
 class ComponentModel {
   constructor() {
@@ -10,6 +11,7 @@ class ComponentModel {
     this._name = "";
     this._label = "";
     this._declarations = [];
+    this._controls = [];
   }
 
   get id() {
@@ -26,6 +28,10 @@ class ComponentModel {
 
   get declarations() {
     return this._declarations;
+  }
+
+  get controls() {
+    return this._controls;
   }
 
   // TODO do we need a setter for id?
@@ -72,6 +78,37 @@ class ComponentModel {
     });
     this._declarations = declarations;
   }
+
+
+  addControl(control) {
+    if (!(control instanceof ControlModel)) {
+      throw new Error('The argument must be a Control');
+    }
+    this._controls.push(control);
+  }
+
+  addControls(controls) {
+    // Save current size in case something goes wrong
+    var initialSize = this._controls.length;
+    try {
+      controls.map(function(control) {
+        this.addControl(control);
+      });
+    } catch (e) {
+      this._controls.length(initialSize);
+      throw new Error('All arguments must be of type Control');
+    }
+  }
+
+  set controls(controls) {
+    controls.map(function(control) {
+      if (!(control instanceof ControlModel)) {
+        throw new Error('All arguments must be of type Control');
+      }
+    });
+    this._controls = controls;
+  }
+
 }
 
 export default ComponentModel;
