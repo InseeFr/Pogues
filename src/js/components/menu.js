@@ -11,7 +11,6 @@ var Menu = React.createClass({
             filter: ''
         }
     },
-
     _filter: function(event) {
         var filter = event.target.value;
         this.setState({
@@ -23,11 +22,11 @@ var Menu = React.createClass({
       // Mock Questionnaire FIXME
       console.log('click on save questionnaire button');
       PoguesActions.saveQuestionnaire(QuestionnaireStore.getQuestionnaire());
+      event.preventDefault();
     },
 
 	render: function() {
-        // FIXME: add bootstrap javascript dependency for toggling behavior
-        // TODO: handle connected user properly
+    // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var saveButton = null;
     if(isQuestionnaireView) {
