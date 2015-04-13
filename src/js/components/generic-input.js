@@ -1,9 +1,7 @@
 var React = require('react');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
-
-var hints = {'en': 'Enter a title', 'fr': 'Entrez un intitulé'};
-var labels = {'en': ['Sequence', 'Question'], 'fr': ['Séquence', 'Question']};
+var locale = require('../stores/dictionary-store').getDictionary();
 
 var GenericInput = React.createClass({
 
@@ -39,7 +37,6 @@ var GenericInput = React.createClass({
 		}
 	},
 	render: function() {
-		var hint = hints[this.props.language];
 		var inputClass = (this.state.sequence ? "gi-sequence" : "gi-question");
 		var activeIndex = (this.state.sequence ? 0 : 1);
 		var iconClass = (this.state.sequence ? "fa fa-list" : "fa fa-question-circle");
@@ -49,7 +46,7 @@ var GenericInput = React.createClass({
 		return (
 			<div className={inputClass}>
 				<ul className="nav nav-tabs">
-					{labels[this.props.language].map(function(label, index) {
+					{[locale.sequence, locale.question].map(function(label, index) {
 						if (index === activeIndex) {
 							return(
 								<li key={index} role="presentation" className="active">
@@ -71,7 +68,9 @@ var GenericInput = React.createClass({
 						<span>{this.state.depth}</span>
 						<span className={rightSymbol} onClick={this.increaseDepth}></span>
 					</span>
-					<input className="form-control" type="text" ref="input" value={this.state.value} placeholder={hint} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+					<input className="form-control" type="text" ref="input"
+						 value={this.state.value} placeholder={locale.enterTitle}
+						 onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
 					<span className="input-group-addon" onClick={this.toggleType}><span className={iconClass}></span></span>
 				</div>
 			</div>

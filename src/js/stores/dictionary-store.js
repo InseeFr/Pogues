@@ -18,7 +18,10 @@ var _dictionary = {
 	errorMessageQuest: {'en': 'Could not retrieve the questionnaire', 'fr': 'Impossible de récupérer le questionnaire'},
 	search: {'en': 'Search', 'fr': 'Chercher'},
 	inviteExisting: {'en': 'Select an existing questionnaire', 'fr': 'Sélectionner un questionnaire existant'},
-	errorMessageQuestList: {'en': 'Could not retrieve questionnaire list', 'fr': 'Impossible de récupérer la liste des questionnaires'}
+	errorMessageQuestList: {'en': 'Could not retrieve questionnaire list', 'fr': 'Impossible de récupérer la liste des questionnaires'},
+	enterTitle: {'en': 'Enter a title', 'fr': 'Entrez un intitulé'},
+	sequence: {'en': 'Sequence', 'fr': 'Séquence'},
+	question: {'en': 'Question', 'fr': 'Question'}
 };
 
 function setDictionary(language) {
