@@ -1,6 +1,6 @@
 var config = {
   dev :  true,
-  mockURL : 'http://example.com'
+  poguesURL : 'http://s90datalift.ad.intra.intra:9000/exist/pogues';
 };
 
 module.exports = config;
