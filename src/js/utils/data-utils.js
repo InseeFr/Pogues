@@ -22,7 +22,7 @@ var DataUtils = {
 
     // } else return this.mock.loadDeepQuestionnaire();
     // For now we don't mock this function
-    this.mock.loadDeepQuestionnaire();
+    this.mock.loadDeepQuestionnaire(index);
   },
 
   createQuestionnaireOnServer: function(questionnaire) {
