@@ -7,7 +7,12 @@ import SurveyModel from './Survey.js';
 class QuestionnaireModel extends SequenceModel {
   constructor() {
     super();
+    this._agency = 'fr.insee';
     this._survey = new SurveyModel();
+  }
+
+  get agency() {
+    return this._agency;
   }
 
   get survey() {
@@ -19,6 +24,13 @@ class QuestionnaireModel extends SequenceModel {
       throw new Error('The argument must be a Survey');
     }
     this._survey = survey;
+  }
+
+  set agency(agency) {
+    if (typeof agency === 'string') {
+      throw new Error('The parameter must be a string');
+    }
+    this._agency = agency;
   }
 }
 

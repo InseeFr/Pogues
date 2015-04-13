@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!-- TODO Internationalization -->
+
+    <xs:element name="Survey">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Name" type="xs:token"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="agency" type="xs:token"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Questionnaire" type="QuestionnaireType"/>
+    
+    <xs:complexType name="QuestionnaireType">
+        <xs:complexContent>
+            <xs:extension base="SequenceType">
+                <xs:sequence>
+                    <xs:element ref="Survey"/>
+                </xs:sequence>
+                <xs:attribute name="agency" type="xs:token"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ComponentType" abstract="true">
+        <xs:sequence>
+            <xs:element name="Name" type="xs:token"/>
+            <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
+            <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="QuestionType">
+        <xs:complexContent>
+            <xs:extension base="ComponentType">
+                <xs:sequence>
+                    <xs:element name="Filter" type="FilterType"/>
+                    <xs:element name="Response" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="PredifinedLabel" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+                                <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                            <xs:attribute name="simple" type="xs:boolean"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="open" type="xs:boolean"/>
+                <xs:attribute name="simple" type="xs:boolean"/>
+                <xs:attribute name="mandatory" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SequenceType">
+        <xs:complexContent>
+            <xs:extension base="ComponentType">
+                <xs:sequence maxOccurs="unbounded">
+                    <xs:choice>
+                        <xs:element name="Question" type="QuestionType"/>
+                        <xs:element name="Sequence" type="SequenceType"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="depth" type="xs:positiveInteger"/>
+                <xs:attribute name="genericName" type="xs:token"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DeclarationType">
+        <xs:sequence>
+            <xs:element name="Text" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="type" type="DeclarationTypeEnum"/>
+        <xs:attribute name="disjoinable" type="xs:boolean"/> <!-- or isolable -->
+    </xs:complexType>
+
+    <xs:simpleType name="DeclarationTypeEnum">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="INSTRUCTION"/>
+            <xs:enumeration value="COMMENT"/>
+            <xs:enumeration value="HELP"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="FilterType"><!-- TBD --></xs:complexType>
+
+    <xs:complexType name="ControlType">
+        <xs:sequence>
+            <xs:element name="Description" type="xs:string"/>
+            <xs:element name="Expression" type="xs:anyURI"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+</xs:schema>
