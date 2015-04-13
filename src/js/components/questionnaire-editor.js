@@ -7,26 +7,30 @@ var hints = {'en': 'Enter a questionnaire title', 'fr': 'Entrez un intitulé de 
 var QuestionnaireEditor = React.createClass({
 
 	getInitialState: function() {
-		return {value: '', active: false}
-	},
-	handleChange: function(event) {
-		this.setState({value: event.target.value})
+		return {
+			value: ''
+		};
 	},
 	componentDidMount: function() {
 		this.refs.input.getDOMNode().focus();
 	},
-	handleKeyDown: function(event) {
+	// TODO Reintegrate ENTER KEY handling (taking care of conflict
+	// with _handleChange). Removed for the sake of simplicity.
+/*	_handleKeyDown: function(event) {
 		if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
-			var text = this.state.value.trim();
-			if (text) {
-				console.log('QuestionnaireEditor value', text);
-				PoguesActions.createQuestionnaire(text);
-			}
-			this.setState({value: ''});
+			this._addQuestionnaire(this.state.name);
 		}
+	},*/
+	_handleChange: function(event) {
+		this.setState({
+			value: event.target.value
+		});
 	},
-	activate: function () {
-		this.setState({active: true});
+	_addQuestionnaire: function () {
+		PoguesActions.createQuestionnaire(this.state.value)
+		this.setState({
+			value: ''
+		});
 	},
 	render: function() {
 		var hint = hints[this.props.language];
@@ -35,9 +39,13 @@ var QuestionnaireEditor = React.createClass({
 		return (
 			<div>
 				<div className="input-group">
-					<input className="form-control" type="text" ref="input" value={this.state.value} placeholder={hint} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+					<input className="form-control"
+						type="text" ref="input" value={this.state.value}
+						placeholder={hint} onChange={this._handleChange}
+						onKeyDown={this._handleKeyDown}/>
 					<span className="input-group-btn">
-						<button className="btn btn-default" type="button" onClick={this.activate}>+</button>
+						<button className="btn btn-default" type="button"
+							 onClick={this._addQuestionnaire}>+</button>
 					</span>
 				</div>
 				<div><h3>{additionalControls}</h3></div>

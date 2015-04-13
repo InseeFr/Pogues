@@ -14,7 +14,7 @@ var PoguesApp = React.createClass({
 
 	_switchPicklerView: function() {
 		this.setState({
-			view: ViewTypes.PICKER		
+			view: ViewTypes.PICKER
 		});
 	},
 	_switchQuestionnaireView: function () {
@@ -22,7 +22,6 @@ var PoguesApp = React.createClass({
 			view: ViewTypes.QUESTIONNAIRE
 		});
 	},
-
 	getInitialState: function() {
 		return {
 			view: ViewTypes.PICKER
