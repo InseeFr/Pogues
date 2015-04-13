@@ -49,7 +49,7 @@ var PoguesApp = React.createClass({
 		// we are rendering a questionnaire:
 		return (
 			<div>
-				<Menu handleFilter={filter} title={title}/>
+				<Menu handleFilter={filter} title={title} view={this.state.view}/>
 				{child}
 			</div>)
 	}

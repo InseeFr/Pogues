@@ -80,6 +80,12 @@ var PoguesActions = {
 			actionType: PoguesConstants.ActionTypes.FILTER_QUESTIONNAIRES,
 			filter: filter
 		})
+	},
+	saveQuestionnaire: function(questionnaire) {
+		PoguesDispatcher.handleServerAction({
+			actionType: PoguesConstants.ActionTypes.SAVE_QUESTIONNAIRE,
+			questionnaire: questionnaire
+		});
 	}
 };
 

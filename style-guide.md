@@ -4,7 +4,7 @@ This document is where choices regarding styling should live.
 
 ## Colors
 
-See : https://color.adobe.com/fr/Maybelline-color-theme-4115683/
+The base color scheme is now : http://primercss.io/colors/
 
 Sequence 1 : #30B38A
 
