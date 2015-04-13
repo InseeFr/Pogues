@@ -11,13 +11,13 @@ var Menu = React.createClass({
             filter: ''
         }
     },
-    _setFilter: function(event) {
+
+    _filter: function(event) {
+        var filter = event.target.value;
         this.setState({
-            filter: event.target.value
+            filter: filter
         })
-    },
-    _filter: function() {
-        this.props.handleFilter(this.state.filter);
+        this.props.handleFilter(filter);
     },
     _clickToSave: function() {
       // Mock Questionnaire FIXME
@@ -55,7 +55,7 @@ var Menu = React.createClass({
                         <div className="navbar-form navbar-left" role="search">
                             <div className="form-group">
                               <input type="text" className="form-control" placeholder={locale.search}
-                                value={this.state.filter} onChange={this._setFilter}/>
+                                value={this.state.filter} onChange={this._filter}/>
                             </div>
                         </div>
                         {saveButton}
