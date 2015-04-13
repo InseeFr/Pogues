@@ -36,7 +36,7 @@ var DataUtils = {
         console.log(res.body);
       }
     });
-  }
+  },
 
   mock: {
 
