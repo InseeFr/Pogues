@@ -1,5 +1,6 @@
 var React = require('react');
 var QuestionnaireStore = require('../stores/questionnaire-store');
+var QuestionnaireOutlook = require('./questionnaire-outlook');
 var Sequence = require('../components/sequence');
 var GenericInput = require('../components/generic-input');
 var classNames = require('classnames');
@@ -42,25 +43,32 @@ var Questionnaire = React.createClass({
 		);
 		else if (this.state.questionnaire === undefined) return (
 			<div>
-				<span className = "fa fa-spinner fa-pulse fa-2x"></span>
+				<span className="fa fa-spinner fa-pulse fa-2x"></span>
 			</div>
 		);
 		if (this.state.questionnaire.children.length > 0) invite = '';
 		return (
-			<div className="col-md-9">
-				<h1>{invite}</h1>
-				{this.state.questionnaire.children.map(function(sequence, index) {
-				    var classes = classNames({
-				      'row': true,
-				      'highlight': filter ? filter.test(sequence.name) : false
-				    });
-					return (<Sequence 
-						className={classes}
-						highlightHandler={filter}
-						key={index}
-						sequence={sequence}/>)
-				})}
-				<GenericInput language={this.props.language}/>
+			<div className="container bs-docs-container">
+				<div className="row">
+					<div className="col-md-9">
+						<h1>{invite}</h1>
+						{this.state.questionnaire.children.map(function(sequence, index) {
+						    var classes = classNames({
+						      'row': true,
+						      'highlight': filter ? filter.test(sequence.name) : false
+						    });
+							return (<Sequence
+								className={classes}
+								highlightHandler={filter}
+								key={index}
+								sequence={sequence}/>)
+						})}
+						<GenericInput language={this.props.language}/>
+					</div>
+					<div className="col-md-3">
+						<QuestionnaireOutlook/>
+					</div>
+				</div>
 			</div>
 		)
 	}

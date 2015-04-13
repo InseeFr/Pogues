@@ -45,11 +45,7 @@ var PoguesApp = React.createClass({
 			title = '';
 			console.log('PoguesApp calling Questionnaire with title', title);
 			child =
-				<div className="container bs-docs-container">
-					<div className="row">
-						<Questionnaire language={this.props.language}/>
-					</div>
-				</div>
+				<Questionnaire language={this.props.language}/>
 		}
 		// FIXME title should be read from Questionnaire Store when
 		// we are rendering a questionnaire:
