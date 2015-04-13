@@ -1,6 +1,5 @@
 var React = require('react');
-
-var search = {'en': 'Search', 'fr': 'Chercher'};
+var locale = require('../stores/dictionary-store').getDictionary();
 
 var Menu = React.createClass({
 
@@ -36,10 +35,10 @@ var Menu = React.createClass({
                         </ul>
                         <div className="navbar-form navbar-left" role="search">
                             <div className="form-group">
-                              <input type="text" className="form-control" placeholder={search[this.props.language]}
+                              <input type="text" className="form-control" placeholder={locale.search}
                                 value={this.state.filter} onChange={this._setFilter}/>
                             </div>
-                            <button className="btn btn-default" onClick={this._filter}>{search[this.props.language]}</button>
+                            <button className="btn btn-default" onClick={this._filter}>{locale.search}</button>
                         </div>
                         <ul className="nav navbar-nav navbar-right">
                         <li className="dropdown">

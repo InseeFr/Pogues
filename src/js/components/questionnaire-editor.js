@@ -1,14 +1,16 @@
 var React = require('react');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
+var locale = require('../stores/dictionary-store').getDictionary();
 
-var hints = {'en': 'Enter a questionnaire title', 'fr': 'Entrez un intitulé de questionnaire'};
-
+// TODO add change listener on dictionary store  to have a clean
+// process, even if you don't expect changes in language settings
 var QuestionnaireEditor = React.createClass({
 
 	getInitialState: function() {
 		return {
-			value: ''
+			label: '',
+			name: ''
 		};
 	},
 	componentDidMount: function() {
@@ -21,36 +23,46 @@ var QuestionnaireEditor = React.createClass({
 			this._addQuestionnaire(this.state.name);
 		}
 	},*/
-	_handleChange: function(event) {
+	_handleLabelChange: function(event) {
 		this.setState({
-			value: event.target.value
+			label: event.target.value
+		});
+	},
+	_handleNameChange: function(event) {
+		this.setState({
+			name: event.target.value
 		});
 	},
 	_addQuestionnaire: function () {
-		PoguesActions.createQuestionnaire(this.state.value)
+		PoguesActions.createQuestionnaire(this.state)
 		this.setState({
 			value: ''
 		});
 	},
 	render: function() {
-		var hint = hints[this.props.language];
 		var additionalControls = '';
 		if (this.state.active) additionalControls = 'More controls here';
 		return (
 			<div>
-				<div className="input-group">
+				<div className="form-group">
+	    			<label for="name">{locale.label}</label>
 					<input className="form-control"
 						type="text" ref="input" value={this.state.value}
-						placeholder={hint} onChange={this._handleChange}
-						onKeyDown={this._handleKeyDown}/>
-					<span className="input-group-btn">
-						<button className="btn btn-default" type="button"
-							 onClick={this._addQuestionnaire}>+</button>
-					</span>
+						placeholder={locale.phLabel} onChange={this._handleLabelChange}/>
 				</div>
-				<div><h3>{additionalControls}</h3></div>
+				<div className="form-group">
+	    			<label for="name">{locale.name}</label>
+					<input className="form-control"
+						type="text" value={this.state.value}
+						placeholder={locale.phName} onChange={this._handleNameChange}/>
+				</div>
+				<button className="btn btn-default" type="button"
+						onClick={this._addQuestionnaire}>
+						{locale.add}
+				</button>
+				<h3>{additionalControls}</h3>
 			</div>
-			)
+		);
 	}
 });
 

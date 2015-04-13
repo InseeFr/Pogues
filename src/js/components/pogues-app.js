@@ -7,8 +7,7 @@ var PoguesActions = require('../actions/pogues-actions');
 var QuestionnaireOutlook = require('../components/questionnaire-outlook');
 var Menu = require('./menu.js');
 var config = require('../config/config');
-
-var tagline = {'en': 'Questionnaire design and test', 'fr': 'Conception et test de questionnaires'};
+var locale = require('../stores/dictionary-store');
 
 var PoguesApp = React.createClass({
 
@@ -37,20 +36,20 @@ var PoguesApp = React.createClass({
 		if (this.state.view === ViewTypes.PICKER) {
 			filter = PoguesActions.filterQuestionnaires;
 			child = <QuestionnairePicker setAppState={this._switchQuestionnaireView} language={this.props.language}/>;
-			title = tagline[this.props.language];
+			title = locale.tagline;
 		}
 		else if (this.state.view === ViewTypes.QUESTIONNAIRE) {
 			filter = PoguesActions.filterComponents;
 			title = '';
 			console.log('PoguesApp calling Questionnaire with title', title);
 			child =
-				<Questionnaire language={this.props.language}/>
+				<Questionnaire/>
 		}
 		// FIXME title should be read from Questionnaire Store when
 		// we are rendering a questionnaire:
 		return (
 			<div>
-				<Menu handleFilter={filter} title={title} language={this.props.language}/>
+				<Menu handleFilter={filter} title={title}/>
 				{child}
 			</div>)
 	}

@@ -23,9 +23,10 @@ function _addQuestionnaire(questionnaire) {
 	_questionnaires.push(questionnaire);
 }
 
-function _createQuestionnaire(name) {
+function _createQuestionnaire(name, label) {
 	var _questionnaire = new QuestionnaireModel();
 	_questionnaire.name = name;
+	_questionnaire.label = label;
 	// FIXME getName does not work
 	console.log('questionnaire-list-store created questionnaire', _questionnaire);
 	return _questionnaire;
@@ -60,7 +61,8 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 				_setQuestionnaires(null);
 				break;
 			case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
-				_addQuestionnaire(_createQuestionnaire(payload.action.name));
+				_addQuestionnaire(
+					_createQuestionnaire(payload.action.name, payload.action.label));
 				break;
 			case ActionTypes.LOAD_QUSETIONNAIRE_LIST:
 				DataUtils.loadQuestionnaireList();

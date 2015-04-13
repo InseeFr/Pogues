@@ -4,8 +4,7 @@ var QuestionnaireOutlook = require('./questionnaire-outlook');
 var Sequence = require('../components/sequence');
 var GenericInput = require('../components/generic-input');
 var classNames = require('classnames');
-var introduction = {'en': 'Please specify your questionnaire', 'fr': 'Veuillez spécifier votre questionnaire'};
-var errorMessage = {'en': 'Could not retrieve the questionnaire', 'fr': 'Impossible de récupérer le questionnaire'};
+var locale = require('../stores/dictionary-store').getDictionary();
 
 
 function getStateFromStore() {
@@ -32,13 +31,13 @@ var Questionnaire = React.createClass({
 	},
 	render: function() {
 		console.log('Questionnaire rendering with state', this.state);
-		var invite = introduction[this.props.language],
+		var invite = locale.introduction,
 			filter = this.state.filter;
 
 		if (this.state.questionnaire === null) return (
 			<div>
 				<span className="fa fa-exclamation-triangle fa-3"></span>
-				<span className="error-message">{errorMessage[this.props.language]}</span>
+				<span className="error-message">{locale.errorMessageQuest}</span>
 			</div>
 		);
 		else if (this.state.questionnaire === undefined) return (

@@ -2,7 +2,12 @@ var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 
 var PoguesActions = {
-
+	setLanguage: function (language) {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.LANGUAGE_CHANGED,
+			language: language
+		});
+	},
 	// Questionnaire list loaded or not from the server
 	receiveQuestionnaireList: function(data) {
 		PoguesDispatcher.handleServerAction({
@@ -12,7 +17,7 @@ var PoguesActions = {
 	},
 	loadQuestionnaireList: function () {
 		PoguesDispatcher.handleViewAction({
-			actionType: PoguesConstants.ActionTypes.LOAD_QUESTIONNAIRE_LISTE			
+			actionType: PoguesConstants.ActionTypes.LOAD_QUESTIONNAIRE_LISTE
 		})
 
 	},
@@ -36,10 +41,11 @@ var PoguesActions = {
 		});
 	},
 	// Questionnaire created in the questionnaire editor
-	createQuestionnaire: function(name) {
+	createQuestionnaire: function(props) {
 		PoguesDispatcher.handleViewAction({
 			actionType: PoguesConstants.ActionTypes.CREATE_NEW_QUESTIONNAIRE,
-			name: name
+			name: props.name,
+			label: props.label
 		});
 	},
 	// Questionnaire selected in questionnaire picker

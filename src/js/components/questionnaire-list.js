@@ -2,9 +2,7 @@ var React = require('react');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var PoguesActions = require('../actions/pogues-actions');
 var DataUtils = require('../utils/data-utils');
-
-var inviteExisting = {'en': 'Select an existing questionnaire', 'fr': 'Sélectionner un questionnaire existant'};
-var errorMessage = {'en': 'Could not retrieve questionnaire list', 'fr': 'Impossible de récupérer la liste des questionnaires'};
+var locale = require('../stores/dictionary-store').getDictionary();
 
 function getStateFromStore() {
 	return {
@@ -46,7 +44,7 @@ var QuestionnaireList = React.createClass({
 		if (this.state.questionnaires === null) return (
 			<div>
 				<span className="fa fa-exclamation-triangle fa-3"></span>
-				<span className="error-message">{errorMessage[this.props.language]}</span>
+				<span className="error-message">{locale.errorMessageQuestList}</span>
 			</div>
 		);
 		else if (this.state.questionnaires.length === 0) return (
@@ -56,7 +54,7 @@ var QuestionnaireList = React.createClass({
 		);
 		else return (
 			<div>
-				<h1 className="page-header">{inviteExisting[this.props.language]}</h1>
+				<h1 className="page-header">{locale.inviteExisting}</h1>
 				<ul>
 					{this.state.questionnaires.map(function(questionnaire, index) {
 						return (<li key={index} onClick={this.selectIndex.bind(this, index)}>{questionnaire.name}</li>)
