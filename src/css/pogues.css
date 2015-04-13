@@ -1,6 +1,10 @@
-div.outlook {
+.outlook {
     background-color: rgba(255, 203, 0, 0.1);
     border-left: 6px solid rgba(255, 203, 0, 0.5);
+}
+
+.outlook.affix {
+	top: 50px;
 }
 
 div.main {
@@ -60,4 +64,12 @@ span.error-message {
 
 .question-header:first-letter {
   color : #EF2B4D
+}
+
+.nav .active .active > a {
+  padding-left: 18px;
+  font-weight: 700;
+  color: #563d7c;
+  background-color: transparent;
+  border-left: 1px solid #563d7c;
 }

@@ -15,7 +15,7 @@ function getStateFromStore() {
 
 function recursiveOutlook(components, root) {
   if (!components || components.length === 0) return;
-  var classname = root && "nav bs-docs-sidenav";
+  var classname = root ? "nav bs-docs-sidenav" : "nav";
   var bullets = components.map(function(child, index) {
     var anchor = '#' + child.id;
     var childElements;
@@ -44,6 +44,11 @@ var QuestionnaireOutlook = React.createClass({
   },
   componentDidMount: function() {
     QuestionnaireStore.addChangeListener(this._onChange);
+     $(this.refs.affix.getDOMNode())
+      .affix({
+        offset: {
+          top: 100
+      }});
   },
   componentWillUnmount: function() {
     QuestionnaireStore.removeChangeListener(this._onChange);
@@ -53,8 +58,8 @@ var QuestionnaireOutlook = React.createClass({
     console.log('QuestionnaireOutlook rendering with state', this.state);
     if ((this.state.questionnaire === null) || (this.state.questionnaire === undefined)) return;
     return (
-      <div className="col-md-3 outlook">
-        <nav className="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+      <div className="col-md-3">
+        <nav ref="affix" data-offset-top="50" className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
           {recursiveOutlook(this.state.questionnaire.children, true)}
         </nav>
       </div>
