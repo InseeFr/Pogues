@@ -15,12 +15,9 @@ var _questionnaire = undefined;
 var _filter = null;
 var _rFilter;
 
-var _modules = [];
-
 function _setQuestionnaireByIndex(index) {
 	_questionnaire = QuestionnaireListStore.getQuestionnaire(index);
 	console.log('Questionnaire', _questionnaire);
-	_questionnaire.modules = [];
 }
 /**
  * Set current filter for the questionnaire
@@ -34,7 +31,6 @@ function _setFilter(filter) {
 
 function _setQuestionnaire(questionnaire) {
 	// We must keep id and we can keep name
-	_questionnaire.modules = questionnaire.modules;
 	console.log('Questionnaire in questionnaire store is now', _questionnaire);
 }
 
