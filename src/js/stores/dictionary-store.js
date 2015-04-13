@@ -21,7 +21,8 @@ var _dictionary = {
 	errorMessageQuestList: {'en': 'Could not retrieve questionnaire list', 'fr': 'Impossible de récupérer la liste des questionnaires'},
 	enterTitle: {'en': 'Enter a title', 'fr': 'Entrez un intitulé'},
 	sequence: {'en': 'Sequence', 'fr': 'Séquence'},
-	question: {'en': 'Question', 'fr': 'Question'}
+	question: {'en': 'Question', 'fr': 'Question'},
+	save: {'en': 'Save', 'fr': 'Sauvegarder'}
 };
 
 function setDictionary(language) {

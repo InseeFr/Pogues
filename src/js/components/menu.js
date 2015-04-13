@@ -33,7 +33,7 @@ var Menu = React.createClass({
       saveButton =
       <div className="nav navbar-nav navbar-left">
         <form className="navbar-form navbar-right">
-          <button className="btn btn-primary" onClick={this._clickToSave}>Sauvegarder</button>
+          <button className="btn btn-primary" onClick={this._clickToSave}>{locale.save}</button>
         </form>
       </div>
     }
