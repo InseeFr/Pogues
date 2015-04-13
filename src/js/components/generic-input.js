@@ -14,13 +14,18 @@ var GenericInput = React.createClass({
 		this.setState({value: event.target.value});
 	},
 	decreaseDepth: function() {
-		if (this.state.depth > 1) this.setState({depth: this.state.depth - 1});
+		if (this.state.depth > 1) {
+			this.setState({depth: this.state.depth - 1});
+			return true;
+		} else return false;
 	},
 	increaseDepth: function() {
-		if (this.state.depth <= this.state.refDepth) this.setState({depth: this.state.depth + 1});
+		if (this.state.depth <= this.state.refDepth) {
+			this.setState({depth: this.state.depth + 1});
+			return true;
+		} else return false;
 	},
 	toggleType: function(event) {
-		// FIXME onClick works on <span/> or <p/> but not on <a/> 
 		event.preventDefault();
 		this.setState({sequence: !this.state.sequence});
 		console.log('GenericInput toggled type', this.state);
@@ -29,13 +34,23 @@ var GenericInput = React.createClass({
 		this.refs.input.getDOMNode().focus();
 	},
 	handleKeyDown: function(event) {
+		var text = this.state.value.trim();
 		if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
-			var text = this.state.value.trim();
 			if (text) {
 				console.log('GenericInput value', text);
 				PoguesActions.addComponent({sequence: this.state.sequence, depth: this.state.depth, text: text});
 			}
 			this.setState({value: ''});
+			return;
+		}
+		if (text === '/') {
+			this.setState({sequence: !this.state.sequence, value: ''});
+		}
+		if (text === '+') {
+			if ((this.state.sequence) && (this.increaseDepth)) this.setState({value: ''});
+		}
+		if (text === '-') {
+			if ((this.state.sequence) && (this.decreaseDepth)) this.setState({value: ''});
 		}
 	},
 	render: function() {
