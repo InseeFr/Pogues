@@ -65,7 +65,7 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
           _createQuestionnaire(payload.action.name, payload.action.label));
         break;
       case ActionTypes.LOAD_QUSETIONNAIRE_LIST:
-        DataUtils.loadQuestionnaireList();
+        DataUtils.getQuestionnaireList();
         break;
       default:
         return true;

@@ -15,13 +15,13 @@ var PoguesActions = {
       questionnaires: data.questionnaires
     });
   },
-  loadQuestionnaireList: function () {
+  getQuestionnaireList: function () {
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.LOAD_QUESTIONNAIRE_LISTE
     })
 
   },
-  loadQuestionnaireListFailed: function(error) {
+  getQuestionnaireListFailed: function(error) {
     PoguesDispatcher.handleServerAction({
       actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED,
       error: error
@@ -34,7 +34,7 @@ var PoguesActions = {
       questionnaire: data.questionnaire
     });
   },
-  loadQuestionnaireFailed: function(error) {
+  getQuestionnaireFailed: function(error) {
     PoguesDispatcher.handleServerAction({
       actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LOADING_FAILED,
       error: error

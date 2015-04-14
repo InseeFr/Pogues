@@ -8,15 +8,15 @@ var request = require('superagent');
 
 var DataUtils = {
 
-  loadQuestionnaireList: function() {
+  getQuestionnaireList: function() {
 
     if (!Config.poguesURL) {
 
 
-    } else return this.mock.loadQuestionnaireList();
+    } else return this.mock.getQuestionnaireList();
   },
 
-  loadQuestionnaire: function(index) {
+  getQuestionnaire: function(index) {
 
     // if (!Config.poguesURL) {
 
@@ -40,13 +40,13 @@ var DataUtils = {
 
   mock: {
 
-    loadQuestionnaireList: function() {
+    getQuestionnaireList: function() {
       var numberOfQuestionnaires = Math.floor(Math.random() * 30);
       var timeout = Math.random() * 5;
       var fail = (Math.random() < 0.001);
       console.log('Creating ' + numberOfQuestionnaires + ' questionnaires in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
       setTimeout(function() {
-        if (fail) PoguesActions.loadQuestionnaireListFailed();
+        if (fail) PoguesActions.getQuestionnaireListFailed();
         else {
           var questionnaires = [];
           for (var index = 1; index <= numberOfQuestionnaires; index++) {
@@ -62,7 +62,7 @@ var DataUtils = {
       }, timeout);
     },
     // Mock function will return a questionnaire with from 1 to 10 sequences containing 1 to 5 questions in 0 to 1 second, and a 5% possibility of error
-    loadQuestionnaire: function(index) {
+    getQuestionnaire: function(index) {
 
       var numberOfSequences = Math.floor(Math.random() * 10) + 5;
       var timeout = Math.random() * 1;
@@ -70,7 +70,7 @@ var DataUtils = {
       var questionnaire = QuestionnaireListStore.getQuestionnaire(index);
       console.log('Creating ' + numberOfSequences + ' sequences in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
       setTimeout(function() {
-        if (fail) PoguesActions.loadQuestionnaireFailed();
+        if (fail) PoguesActions.getQuestionnaireFailed();
         else {
           for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
             var sequence = new SequenceModel();
@@ -89,7 +89,7 @@ var DataUtils = {
           var fakeQuestionnaire = {
             questionnaire: questionnaire
           };
-          console.log('DataUtils.loadQuestionnaire will return questionnaire', fakeQuestionnaire);
+          console.log('DataUtils.getQuestionnaire will return questionnaire', fakeQuestionnaire);
           console.dir(fakeQuestionnaire);
           PoguesActions.receiveQuestionnaire(fakeQuestionnaire);
         }
@@ -104,7 +104,7 @@ var DataUtils = {
       var questionnaire = QuestionnaireListStore.getQuestionnaire(index);
       console.log('Creating ' + numberOfSequences + ' sequences in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
       setTimeout(function() {
-        if (fail) PoguesActions.loadQuestionnaireFailed();
+        if (fail) PoguesActions.getQuestionnaireFailed();
         else {
           for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
             var sequence = new SequenceModel();
@@ -138,7 +138,7 @@ var DataUtils = {
           var fakeQuestionnaire = {
             questionnaire: questionnaire
           };
-          console.log('DataUtils.loadQuestionnaire will return questionnaire', fakeQuestionnaire);
+          console.log('DataUtils.getQuestionnaire will return questionnaire', fakeQuestionnaire);
           PoguesActions.receiveQuestionnaire(fakeQuestionnaire);
         }
       }, timeout);

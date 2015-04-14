@@ -28,12 +28,12 @@ var QuestionnaireList = React.createClass({
   },
   componentWillMount: function() {
     // TODO passer l'action pour charger le questionnaire list store
-    PoguesActions.loadQuestionnaireList();
+    PoguesActions.getQuestionnaireList();
   },
   componentDidMount: function() {
     QuestionnaireListStore.addChangeListener(this._onChange);
     // Load questionnaire list
-    DataUtils.loadQuestionnaireList();
+    DataUtils.getQuestionnaireList();
   },
   componentWillUnmount: function() {
     QuestionnaireListStore.removeChangeListener(this._onChange);

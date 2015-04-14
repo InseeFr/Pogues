@@ -83,7 +83,7 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         _addComponent(payload.action.spec);
         break;
       case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
-        DataUtils.loadQuestionnaire(payload.action.index); //loadQuestionnaire() for shallow questionnaire
+        DataUtils.getQuestionnaire(payload.action.index); //getQuestionnaire() for shallow questionnaire
         break;
       case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
         _questionnaire = _createQuestionnaire(payload.action.name);
