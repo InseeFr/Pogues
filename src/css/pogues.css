@@ -73,3 +73,7 @@ span.error-message {
   background-color: transparent;
   border-left: 1px solid #563d7c;
 }
+
+.id {
+  color: #555;
+}

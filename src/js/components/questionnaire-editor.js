@@ -49,20 +49,20 @@ var QuestionnaireEditor = React.createClass({
     return (
       <div>
         <div className="form-group">
-            <label for="name">{locale.label}</label>
-          <input className="form-control"
-            type="text" ref="input" value={this.state.label}
-            placeholder={locale.phLabel} onChange={this._handleLabelChange}/>
-        </div>
-        <div className="form-group">
             <label for="name">{locale.name}</label>
           <input className="form-control"
             type="text" value={this.state.name}
             placeholder={locale.phName} onChange={this._handleNameChange}/>
         </div>
-        <button className="btn btn-default" type="button"
+        <div className="form-group">
+            <label for="name">{locale.label}</label>
+          <input className="form-control"
+            type="text" ref="input" value={this.state.label}
+            placeholder={locale.phLabel} onChange={this._handleLabelChange}/>
+        </div>
+        <button className="btn btn-primary" type="button"
             onClick={this._addQuestionnaire}>
-            {locale.add}
+            {locale.create}
         </button>
         <h3>{additionalControls}</h3>
       </div>

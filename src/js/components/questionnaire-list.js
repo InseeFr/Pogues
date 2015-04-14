@@ -53,14 +53,18 @@ var QuestionnaireList = React.createClass({
       </div>
     );
     else return (
-      <div>
-        <h1 className="page-header">{locale.inviteExisting}</h1>
-        <ul>
+        <ul className="list-group">
           {this.state.questionnaires.map(function(questionnaire, index) {
-            return (<li key={index} onClick={this.selectIndex.bind(this, index)}>{questionnaire.name}</li>)
+            return (<li className="list-group-item"
+                  key={index}>
+                    <a href="#" onClick={this.selectIndex.bind(this, index)}>
+                      <span>{questionnaire.label}</span>
+                      <span className="id">({questionnaire.name})</span>
+                      <span className="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    </a>
+                  </li>)
           }, this)}
         </ul>
-      </div>
     );
   }
 });
