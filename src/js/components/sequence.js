@@ -3,6 +3,12 @@ var React = require('react');
 
 var Sequence = React.createClass({
 
+  propTypes: {
+    // This function enable the highlighting of a component, see Menu component
+    highlightHandler: React.PropTypes.func,
+    sequence: React.PropTypes.object
+  },
+
   getInitialState: function() {
     return {over: false};
   },

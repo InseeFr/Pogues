@@ -47,9 +47,7 @@ var GenericInput = React.createClass({
 		this.setState({sequence: !this.state.sequence});
 		console.log('GenericInput toggled type', this.state);
 	},
-	componentDidMount: function() {
-		this.refs.input.getDOMNode().focus();
-	},
+	componentDidMount: function() {},
 	handleKeyDown: function(event) {
 		var text = this.state.value;
 		if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {

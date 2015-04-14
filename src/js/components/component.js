@@ -4,8 +4,6 @@ var Component = React.createClass({
 
 	render: function() {
 
-		console.log('Component rendering with props', this.props);
-
 		if (this.props.component instanceof SequenceModel) {
 			return(
 				  <Sequence highlightHandler={this.props.highlightHandler} sequence={this.props.component}/>
