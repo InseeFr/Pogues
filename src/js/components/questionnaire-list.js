@@ -1,6 +1,7 @@
 var React = require('react');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var PoguesActions = require('../actions/pogues-actions');
+var AppStateStore = require('../stores/appstate-store');
 var DataUtils = require('../utils/data-utils');
 var locale = require('../stores/dictionary-store').getDictionary();
 
@@ -23,7 +24,6 @@ var QuestionnaireList = React.createClass({
 	},
 	selectIndex: function(index, event) {
 		console.log('QuestionnairePicker.selectIndex', index);
-		this.props.setAppState();
 		PoguesActions.selectQuestionnaire(index); // Value is index
 	},
 	componentWillMount: function() {

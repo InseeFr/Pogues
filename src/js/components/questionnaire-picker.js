@@ -13,7 +13,7 @@ var QuestionnairePicker = React.createClass({
 						<h1>{inviteNew[this.props.language]}</h1>
 						<QuestionnaireEditor language={this.props.language}/>
 					</div>
-					<QuestionnaireList setAppState={this.props.setAppState} language={this.props.language}/>
+					<QuestionnaireList language={this.props.language}/>
 				</div>
 			</div>
 		)

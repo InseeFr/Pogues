@@ -54,6 +54,7 @@ var PoguesActions = {
 			actionType: PoguesConstants.ActionTypes.SELECT_EXISTING_QUESTIONNAIRE,
 			index: index
 		});
+		PoguesActions.switchToQuestionnaire();
 	},
 	// A Component is added with the GenericInput (spec is {sequence, depth, text})
 	addComponent: function(spec) {
@@ -86,6 +87,16 @@ var PoguesActions = {
 			actionType: PoguesConstants.ActionTypes.SAVE_QUESTIONNAIRE,
 			questionnaire: questionnaire
 		});
+	},
+	switchToQuestionnaire: function() {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_QUESTIONNAIRE
+		})
+	},
+	switchToPicker: function() {
+		PoguesDispatcher.handleViewAction({
+			actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_PICKER
+		})
 	}
 };
 

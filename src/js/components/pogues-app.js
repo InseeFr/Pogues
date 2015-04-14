@@ -1,6 +1,7 @@
 var React = require('react');
 var ViewTypes = require('../constants/pogues-constants').ViewTypes;
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
+var AppStateStore = require('../stores/appstate-store');
 var QuestionnairePicker = require('../components/questionnaire-picker');
 var Questionnaire = require('../components/questionnaire');
 var PoguesActions = require('../actions/pogues-actions');
@@ -9,24 +10,28 @@ var Menu = require('./menu.js');
 var config = require('../config/config');
 var locale = require('../stores/dictionary-store');
 
+
+function getStateFromStore(){
+	return {
+		view: AppStateStore.getView()
+	}
+}
+
 var PoguesApp = React.createClass({
 
-	_switchPicklerView: function() {
-		this.setState({
-			view: ViewTypes.PICKER
-		});
-	},
-	_switchQuestionnaireView: function () {
-		this.setState({
-			view: ViewTypes.QUESTIONNAIRE
-		});
-	},
-	getInitialState: function() {
-		return {
-			view: ViewTypes.PICKER
-		}
-	},
 
+	getInitialState: function() {
+		return getStateFromStore();
+	},
+	_onChange: function() {
+		this.setState(getStateFromStore());
+	},
+	componentDidMount: function() {
+		AppStateStore.addChangeListener(this._onChange);
+	},
+	componentWillUnmount: function() {
+		AppStateStore.removeChangeListener(this._onChange);
+	},
 	render: function() {
 		console.log('PoguesApp state', this.state);
 		console.log('ENV : ' + (config.dev ? 'dev' : 'prod'));
