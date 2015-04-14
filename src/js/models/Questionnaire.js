@@ -8,7 +8,10 @@ class QuestionnaireModel extends SequenceModel {
   constructor() {
     super();
     this._agency = 'fr.insee';
-    this._survey = new SurveyModel();
+    // This is temporary
+    var popoSurvey = new SurveyModel();
+    popoSurvey.name = 'POPO';
+    this._survey = popoSurvey;
   }
 
   get agency() {
