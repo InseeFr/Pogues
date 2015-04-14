@@ -14,7 +14,7 @@
     "flux": "^2.0.1",
     "jquery": "~2.1.3",
     "object-assign": "^2.0.0",
-    "react": "^0.12.2",
+    "react": "~0.13.1",
     "superagent": "^1.1.0"
   },
   "devDependencies": {
@@ -64,6 +64,10 @@
     {
       "name": "Romain Tailhurat",
       "email": "romain.tailhurat@insee.fr"
+    },
+    {
+      "name": "Jean-Baptiste Rudant",
+      "email": "boogaloojb@gmail.com"
     }
   ]
 }
