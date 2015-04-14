@@ -40,15 +40,20 @@ var Menu = React.createClass({
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var saveButton = null;
+    var title = null;
     if(isQuestionnaireView) {
-      saveButton =
+      saveButton = (
       <div className="nav navbar-nav navbar-left">
         <form className="navbar-form navbar-right">
           <button className="btn btn-primary" onClick={this._clickToSave}>{locale.save}</button>
         </form>
       </div>
+      );
+      title = (<QuestionnaireTitle />);
+    } else {
+      title = <span className="navbar-text">{locale.tagline}</span>;
     }
-    var title = locale.tagLine;
+
 		return(
       <nav className="navbar navbar-default">
           <div className="container-fluid">
@@ -61,7 +66,7 @@ var Menu = React.createClass({
 
               <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul className="nav navbar-nav">
-                      <li><QuestionnaireTitle title="TITRE" /></li>
+                      <li>{title}</li>
                   </ul>
                   <div className="navbar-form navbar-left" role="search">
                       <div className="form-group">
