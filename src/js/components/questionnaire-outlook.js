@@ -10,7 +10,7 @@ function getStateFromStore() {
 /**
  * Generate nested lists for the questionnaire-outlook
  * @param  {Array of components} components A list of components
- * @return {[Array of elements]}         
+ * @return {[Array of elements]}
  */
 
 function recursiveOutlook(components, root) {
@@ -19,7 +19,7 @@ function recursiveOutlook(components, root) {
   var bullets = components.map(function(child, index) {
     var anchor = '#' + child.id;
     var childElements;
-    
+
     return(
       <li key={index}>
         <a href={anchor}> {child.name}</a>
