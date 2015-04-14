@@ -4,6 +4,7 @@ var PoguesActions = require('../actions/pogues-actions');
 var ViewTypes = require('../constants/pogues-constants').ViewTypes;
 var QuestionnaireStore = require('../stores/questionnaire-store');
 var AppStateStore = require('../stores/appstate-store');
+var QuestionnaireTitle = require('./questionnaire-title.js');
 
 function getStateFromStore() {
   return AppStateStore.getView();
@@ -60,7 +61,7 @@ var Menu = React.createClass({
 
               <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul className="nav navbar-nav">
-                      <li><em className="navbar-text">{title}</em></li>
+                      <li><QuestionnaireTitle title="TITRE" /></li>
                   </ul>
                   <div className="navbar-form navbar-left" role="search">
                       <div className="form-group">
