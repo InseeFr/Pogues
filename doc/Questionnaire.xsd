@@ -40,7 +40,6 @@
         <xs:complexContent>
             <xs:extension base="ComponentType">
                 <xs:sequence>
-                    <xs:element name="Filter" type="FilterType"/>
                     <xs:element name="Response" type="ResponseType" maxOccurs="unbounded"/>
                 </xs:sequence>
                 <xs:attribute name="open" type="xs:boolean"/>
@@ -123,7 +122,7 @@
                 <xs:sequence>
                     <xs:element name="Minimum" type="xs:integer"/>
                     <xs:element name="Maximum" type="xs:integer"/>
-                    <xs:element name="Decimals" type="xs:positiveInteger"/>
+                    <xs:element name="Decimals" type="xs:nonNegativeInteger"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
