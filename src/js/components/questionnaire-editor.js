@@ -4,7 +4,11 @@ var PoguesActions = require('../actions/pogues-actions');
 var locale = require('../stores/dictionary-store').getDictionary();
 //  Short name rule
 var rName = /^[a-z0-9_]*$/i;
+var rNameNeg = /[^a-z0-9_]/gi;
 
+function nameFromLabel(label) {
+  return label.replace(rNameNeg, '').toUpperCase().slice(0, 10);
+}
 // TODO add change listener on dictionary store  to have a clean
 // process, even if you don't expect changes in language settings
 var QuestionnaireEditor = React.createClass({
@@ -12,7 +16,8 @@ var QuestionnaireEditor = React.createClass({
   getInitialState: function() {
     return {
       label: '',
-      name: ''
+      name: '',
+      nameEdited: false
     };
   },
   componentDidMount: function() {
@@ -26,8 +31,18 @@ var QuestionnaireEditor = React.createClass({
     }
   },*/
   _handleLabelChange: function(event) {
+    var label = event.target.value,
+        name = this.state.nameEdited ? this.state.name : nameFromLabel(label);
     this.setState({
-      label: event.target.value
+      label: label,
+      name: name
+    });
+  },
+  _disableNameGeneration: function() {
+    this.setState({
+      label: this.state.label,
+      name: this.state.name,
+      nameEdited: true
     });
   },
   _handleNameChange: function(event) {
@@ -38,7 +53,7 @@ var QuestionnaireEditor = React.createClass({
     });
   },
   _addQuestionnaire: function () {
-    PoguesActions.createQuestionnaire(this.state)
+    PoguesActions.showNewQuestionnaire(this.state);
     this.setState({
       value: ''
     });
@@ -50,14 +65,16 @@ var QuestionnaireEditor = React.createClass({
       <div>
         <div className="form-group">
             <label for="name">{locale.name}</label>
-          <input className="form-control"
-            type="text" value={this.state.name}
-            placeholder={locale.phName} onChange={this._handleNameChange}/>
+            <input className="form-control"
+              type="text" value={this.state.name}
+              ref="input"
+              placeholder={locale.phName} onChange={this._handleNameChange}
+              onKeyPress={this._disableNameGeneration}/>
         </div>
         <div className="form-group">
             <label for="name">{locale.label}</label>
           <input className="form-control"
-            type="text" ref="input" value={this.state.label}
+            type="text" value={this.state.label}
             placeholder={locale.phLabel} onChange={this._handleLabelChange}/>
         </div>
         <button className="btn btn-primary" type="button"
