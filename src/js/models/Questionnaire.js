@@ -5,13 +5,18 @@ import SequenceModel from './Sequence.js';
 import SurveyModel from './Survey.js';
 
 class QuestionnaireModel extends SequenceModel {
-  constructor() {
-    super();
-    this._agency = 'fr.insee';
-    // This is temporary
-    var popoSurvey = new SurveyModel();
-    popoSurvey.name = 'POPO';
-    this._survey = popoSurvey;
+  constructor(object) {
+    super(object);
+    if (object) {
+      this._agency = object._agency;
+      this._survey = new SurveyModel(object._survey);
+    } else {
+      this._agency = 'fr.insee';
+      // This is temporary
+      var popoSurvey = new SurveyModel();
+      popoSurvey.name = 'POPO';
+      this._survey = popoSurvey;
+    }
   }
 
   get agency() {

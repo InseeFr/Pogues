@@ -7,12 +7,6 @@ import ControlModel from './Control.js';
 class ComponentModel {
   constructor(object) {
     if (object) {
-      this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-      this._name = "";
-      this._label = "";
-      this._declarations = [];
-      this._controls = [];
-    } else {
       this._id = object._id;
       this._name = object._name;
       this._label = object._label;
@@ -22,6 +16,12 @@ class ComponentModel {
       this._controls = object._controls.map(function(control) {
         return new ControlModel(control);
       });
+    } else {
+      this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+      this._name = "";
+      this._label = "";
+      this._declarations = [];
+      this._controls = [];
     }
   }
 

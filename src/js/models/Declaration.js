@@ -8,13 +8,13 @@ class DeclarationModel {
 
   constructor(object) {
     if (object) {
+      this._type = object._type;
+      this._disjoinable = object._disjoinable;
+      this._text = object._text; 
+    } else {
       this._type = '';
       this._disjoinable = true;
       this._text = '';
-    } else {
-      this._type = object._type;
-      this._disjoinable = object._disjoinable;
-      this._text = object._text;      
     }
   }
 

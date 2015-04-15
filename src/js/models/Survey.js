@@ -2,10 +2,16 @@
 A Survey
 */
 class SurveyModel {
-  constructor() {
-    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    this._agency = 'fr.insee';
-    this._name = '';
+  constructor(object) {
+    if (object) {
+      this._id = object._id;
+      this._agency = object._agency;
+      this._name = object._name;
+    } else {
+      this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+      this._agency = 'fr.insee';
+      this._name = '';
+    }
   }
 
   get id() {

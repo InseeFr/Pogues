@@ -6,12 +6,19 @@ import FilterModel from './Filter.js';
 import ResponseModel from './Response.js';
 
 class QuestionModel extends ComponentModel {
-  constructor() {
+  constructor(object) {
     super();
-    this._simple = true;
-    this._mandatory = false;
-    this._filter = new FilterModel();
-    this._response = new ResponseModel();
+    if (object) {
+      this._simple = object._simple;
+      this._mandatory = object._mandatory;
+      this._filter = new FilterModel(object._filter);
+      this._response = new ResponseModel(object._response);
+    } else {
+      this._simple = true;
+      this._mandatory = false;
+      this._filter = new FilterModel();
+      this._response = new ResponseModel();
+    }
   }
 
   get simple() {
