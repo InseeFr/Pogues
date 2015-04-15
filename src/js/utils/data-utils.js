@@ -13,6 +13,9 @@ function extractId(uri) {
   return uri.substr(uri.lastIndexOf('/') + 1);
 }
 
+var rName = /^[a-z0-9_]*$/i;
+var rNameNeg = /[^a-z0-9_]/gi;
+
 function populateFakeQuestionnaire(questionnaire) {
     var numberOfSequences = 15;
     for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
@@ -50,7 +53,9 @@ function populateFakeQuestionnaire(questionnaire) {
 var DataUtils = {
   populateFakeQuestionnaire: populateFakeQuestionnaire,
 
-
+  nameFromLabel: function(label) {
+    return label.replace(rNameNeg, '').toUpperCase().slice(0, 10);
+  },
   /*
   Send a GET request to the remote API to fetch the list of questionnaires.
   */
