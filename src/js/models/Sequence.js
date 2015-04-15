@@ -15,7 +15,7 @@ class SequenceModel extends ComponentModel {
       // Module, paragraph, etc. Should really not be a member, in fact.
       this._genericName = object._genericName;
       this._children = object._children.map(function(child) {
-        return (child.depth > 0) ? new SequenceModel(child) : new QuestionModel(child);
+        return (child._depth > 0) ? new SequenceModel(child) : new QuestionModel(child);
       });
     } else {
       this._depth = 0;
