@@ -108,6 +108,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
       case ActionTypes.SAVE_QUESTIONNAIRE:
         DataUtils.saveQuestionnaire(payload.action.questionnaire);
         break;
+      case ActionTypes.EDIT_QUESTIONNAIRE:
+        _questionnaire[payload.action.k] = payload.action.v;
+        break;
       default:
         return true;
     }

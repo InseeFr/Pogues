@@ -6,12 +6,12 @@ This document is where choices regarding styling should live.
 
 The base color scheme is now : http://primercss.io/colors/
 
-Sequence 1 : #30B38A
+Sequence 1 : #4183C4
 
-Sequence 2 : #1F7359
+Sequence 2 : #4183C4
 
-Question : #EF2B4D
+Question : #6CC644
 
 Menu : same as it is...
 
-Questionnaire outlook : #FDED52
+Questionnaire outlook : #...

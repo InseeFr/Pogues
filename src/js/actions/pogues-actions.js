@@ -119,6 +119,15 @@ var PoguesActions = {
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_PICKER
     })
+  },
+  // Edit the current questionnaire prop giving the prop key and the new value
+  editQuestionnaire: function(key, value) {
+    console.warn('Edit action. ' + key + ' : ' + value);
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.EDIT_QUESTIONNAIRE,
+      k : key,
+      v : value
+    });
   }
 };
 
