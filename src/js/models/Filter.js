@@ -2,7 +2,7 @@
 Filter (place-holder for now)
 */
 class FilterModel {
-  constructor() {}
+  constructor(object) {}
 }
 
 export default FilterModel;
