@@ -9,6 +9,10 @@ basePath: /exist
 
 schemes:
  - http
+consumes:
+  - application/json
+produces:
+  - application/json
 paths:
   /pogues/questionnaires:
   
@@ -28,13 +32,11 @@ paths:
         Creates a new `Questionnaire`.
       parameters:
         - name: questionnaire
-          in: query
-          description: The questionnaire to create
+          in: body
+          description: The new questionnaire to create
           required: true
-          type: array
-          items:
-            type: string
-          collectionFormat: csv
+          schema:
+            $ref: '#/definitions/Questionnaire'
       responses:
         201:
           description: The questionnaire was created
@@ -55,12 +57,11 @@ paths:
         Creates or replaces the `QuestionnaireList` object.
       parameters:
         - name: list
-          in: query
+          in: body
           description: List of questionnaires to save
           required: true
-          type: array
-          items:
-            type: string
+          schema:
+            $ref: '#/definitions/QuestionnaireList'
       responses:
         201:
           description: The questionnaire list was created or updated
@@ -83,9 +84,9 @@ paths:
         200:
           description: Successful response
           schema:
-            $ref: '#/definitions/QuestionnaireList'
+            $ref: '#/definitions/Questionnaire'
         404:
-          description: List not found
+          description: Questionnaire not found
 
     put:
       description:
@@ -96,12 +97,11 @@ paths:
           description: The identifier of the questionnaire to create or save
           type: string
         - name: questionnaire
-          in: query
+          in: body
           description: The questionnaire to save
           required: true
-          type: array
-          items:
-            type: string
+          schema:
+            $ref: '#/definitions/Questionnaire'
       responses:
         201:
           description: The questionnaire was created or updated
@@ -116,15 +116,19 @@ paths:
         Publishes a `Questionnaire` as a web resource.
       parameters:
         - name: questionnaire
-          in: query
+          in: body
           description: The questionnaire to publish
           required: true
-          type: array
-          items:
-            type: string
-          collectionFormat: csv
+          schema:
+            $ref: '#/definitions/Questionnaire'
       responses:
-        201:
+        202:
+          description: The questionnaire will be published
+          headers:
+            Location:
+              description: The URI where the questionnaire will be published
+              type: string
+        303:
           description: The questionnaire was published
           headers:
             Location:
@@ -137,15 +141,15 @@ paths:
 
 definitions:
   QuestionnaireList:
-    description: A questionnaire list
+    description: A list of questionnaires
     type: object
     properties:
       id:
         type: string
-      status:
+      questionnaire:
         $ref: '#/definitions/Questionnaire'
   Questionnaire:
-    description: A questionnaire list
+    description: A questionnaire
     type: object
     properties:
       id:
