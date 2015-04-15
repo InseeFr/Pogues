@@ -20,20 +20,20 @@ var Component = React.createClass({
   },
 
   render: function() {
-
     var highlightHandler = this.props.highlightHandler;
     var classes;
+    var component = component;
 
     if (this.state.active) {
-      if (this.props.component instanceof SequenceModel) {
+      if (component instanceof SequenceModel) {
         classes = classNames({
           'active-sequence' : true,
           'row': true,
           'highlight': highlightHandler ? highlightHandler.test(component.name) : false
         });
         return(
-          <div id={this.props.component.id} className={classes}>
-            <Sequence highlightHandler={this.props.highlightHandler} sequence={this.props.component} active={true}/>
+          <div id={component.id} className={classes}>
+            <Sequence highlightHandler={this.props.highlightHandler} sequence={component} active={true}/>
           </div>
           );
       } else {
@@ -43,22 +43,22 @@ var Component = React.createClass({
           'highlight': highlightHandler ? highlightHandler.test(component.name) : false,
         });
         return(
-          <div id={this.props.component.id} className={classes}>
-            <Question highlightHandler={this.props.highlightHandler} question={this.props.component} active={true}/>
+          <div id={component.id} className={classes}>
+            <Question highlightHandler={this.props.highlightHandler} question={component} active={true}/>
           </div>
           );
       }
     } else {
-      if (this.props.component instanceof SequenceModel) {
+      if (component instanceof SequenceModel) {
           classes = classNames({
             'sequence' : true,
             'row': true,
             'highlight': highlightHandler ? highlightHandler.test(component.name) : false
           });
           return(
-            <div id={this.props.component.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
-              <EditActivator componentId={this.props.component.id} componentOver={this.state.over} toggleActive={this._toggleActive}/>
-              <Sequence highlightHandler={this.props.highlightHandler} sequence={this.props.component}/>
+            <div id={component.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
+              <EditActivator componentId={component.id} componentOver={this.state.over} toggleActive={this._toggleActive}/>
+              <Sequence highlightHandler={this.props.highlightHandler} sequence={component}/>
             </div>
             );
         } else {
@@ -67,9 +67,9 @@ var Component = React.createClass({
             'highlight': highlightHandler ? highlightHandler.test(component.name) : false
           });
           return(
-            <div id={this.props.component.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
-              <EditActivator componentId={this.props.component.id} componentOver={this.state.over} toggleActive={this._toggleActive}/>
-              <Question highlightHandler={this.props.highlightHandler} question={this.props.component}/>
+            <div id={component.id} className={classes} onMouseOver={this._handleMouseOver} onMouseLeave={this._handleMouseLeave}>
+              <EditActivator componentId={component.id} componentOver={this.state.over} toggleActive={this._toggleActive}/>
+              <Question highlightHandler={this.props.highlightHandler} question={component}/>
             </div>
             );
         }
