@@ -132,7 +132,8 @@ var DataUtils = {
     console.log('Target URL is ' + targetURL);
     request
     .put(targetURL)
-    .send(JSON.stringify(questionnaire)).set('Content-Type', 'text/html')
+    .set('Content-Type', 'text/html')
+    .send(JSON.stringify(questionnaire))
     .end(function(err, res) {
       if (err) PoguesActions.getQuestionnaireFailed();
       if (res.ok) {

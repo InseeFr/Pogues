@@ -1,6 +1,6 @@
 var config = {
   dev :  true,
-  remote : true,
+  remote : false,
   baseURL : 'http://s90datalift.ad.insee.intra:9150',
   poguesPath : '/exist/pogues',
   persistPath : '/exist/restxq',
