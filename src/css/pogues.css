@@ -77,3 +77,15 @@ span.error-message {
 .id {
   color: #555;
 }
+
+.active-question {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #BFFBFF;
+}
+
+.active-sequence {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #FBBFBB;
+}
