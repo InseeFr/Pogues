@@ -4,6 +4,8 @@ var PoguesActions = require('../actions/pogues-actions');
 var EventEmitter = require('events').EventEmitter;
 var QuestionnaireModel = require("../models/Questionnaire");
 var assign = require('object-assign');
+var Config = require('../config/config');
+var Utils = require('../utils/data-utils');
 
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
@@ -54,7 +56,11 @@ function _createQuestionnaireLocal(name, label) {
     var _questionnaire = new QuestionnaireModel();
     _questionnaire.name = name;
     _questionnaire.label = label;
-    Utils.populateQuestionnaire(_questionnaire);
+    // mock : populate questionnaire
+    // FIXME remove when not needed anymore
+    if (!Config.poguesURL) {
+      Utils.populateFakeQuestionnaire(_questionnaire);
+    }
     // FIXME getName does not work
     console.log('questionnaire-list-store created questionnaire', _questionnaire);
     setTimeout(PoguesActions.selectQuestionnaire.bind(null, _questionnaire), 0);
@@ -121,4 +127,3 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
 });
 
 module.exports = QuestionnaireListStore;
-var Utils = require('../utils/data-utils');
