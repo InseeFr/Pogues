@@ -104,7 +104,7 @@ var DataUtils = {
         .end(function (err, res){
             if (err) return;
             if (res.ok) {
-              newId = extractId(res.headers.Location);//extrat from uri
+              newId = extractId(res.headers.location);//extrat from uri
               console.log('DataUtils.createQuestionnaireDistant will return new id for questionnaire', questionnaire);
               // TODO check in  header slug is the same as oldId
               PoguesActions.receiveNewIdFromServer(questionnaire.id, newId);
