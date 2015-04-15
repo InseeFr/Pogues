@@ -44,17 +44,32 @@ function populateFakeQuestionnaire(questionnaire) {
             questionnaire.addChild(sequence);
         }
     }
+    questionnaire.name = "YOQUEST";
   }
 
 var DataUtils = {
   populateFakeQuestionnaire: populateFakeQuestionnaire,
 
 
+  /*
+  Send a GET request to the remote API to fetch the list of questionnaires.
+  */
   getQuestionnaireList: function() {
-
-    if (Config.poguesURL) {
-      return this.mock.getQuestionnaireList();
-    } else return this.mock.getQuestionnaireList();
+    var targetURL = Config.baseURL + Config.persistPath + '/questionnaires';
+    if(Config.remote) {
+      console.info('Fetching the questionnaire list at ' + targetURL);
+      request
+        .get(targetURL)
+        .set('Accept', 'text/plain')
+        .end(function(err, res) {
+          if(res.ok) {
+            console.log('Questionnaire list from server -->');
+            console.log(res.body);
+          }
+        });
+    } else {
+      // TODO local mock
+    }
   },
 
   getQuestionnaire: function(index) {
@@ -80,9 +95,10 @@ var DataUtils = {
 
   createQuestionnaireDistant: function(questionnaire) {
     var newId;
-    if (Config.poguesURL) {
+    var targetURL = Config.baseURL + Config.persistPath + '/questionnaires';
+    if (Config.remote) {
       request
-        .post(Config.poguesURL + '/questionnaires')
+        .post(targetURL)
         .set('Content-Type', 'text/html')
         .send(JSON.stringify(questionnaire))
         .end(function (err, res){
@@ -99,7 +115,7 @@ var DataUtils = {
     }
     else {
       setTimeout(PoguesActions.receiveNewIdFromServer.bind(null, 'NEW_' + questionnaire.id, questionnaire.id), 0);
-      }
+    }
   },
 
   saveQuestionnaire: function(questionnaire) {
