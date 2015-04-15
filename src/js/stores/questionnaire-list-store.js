@@ -39,7 +39,7 @@ function _addNewQuestionnaire(questionnaire) {
 Call when a questionnaire has been posted
 The server returns a definitive id for the questionnaire
  */
-function _updateId(newId, oldId) {
+function _updateId(oldId, newId) {
     var questionnaire;
     // FIXME maybe not a good idea, we could try to
     // wait for the server response before creating
@@ -58,7 +58,7 @@ function _createQuestionnaireLocal(name, label) {
     _questionnaire.label = label;
     // mock : populate questionnaire
     // FIXME remove when not needed anymore
-    if (!Config.poguesURL) {
+    if (!Config.remote) {
       Utils.populateFakeQuestionnaire(_questionnaire);
     }
     // FIXME getName does not work
@@ -79,7 +79,7 @@ var dispatcherIndex = PoguesDispatcher.register(function(payload) {
     var action = payload.action;
     var questionnaire;
     switch (action.actionType) {
-        case ActionTypes.QUESTIONNAIRE_LIST_LOADED:
+        case ActionTypes.RECEIVE_QUESTIONNAIRE_LIST:
             _setQuestionnaires(payload.action.questionnaires);
             break;
         case ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED:

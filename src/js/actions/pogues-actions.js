@@ -9,10 +9,10 @@ var PoguesActions = {
     });
   },
   // Questionnaire list loaded or not from the server
-  receiveQuestionnaireList: function(data) {
+  receiveQuestionnaireList: function(questionnaires) {
     PoguesDispatcher.handleServerAction({
-      actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LIST_LOADED,
-      questionnaires: data.questionnaires
+      actionType: PoguesConstants.ActionTypes.RECEIVE_QUESTIONNAIRE_LIST,
+      questionnaires: questionnaires
     });
   },
   getQuestionnaireList: function () {

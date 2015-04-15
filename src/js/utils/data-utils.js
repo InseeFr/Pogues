@@ -60,11 +60,12 @@ var DataUtils = {
       console.info('Fetching the questionnaire list at ' + targetURL);
       request
         .get(targetURL)
-        .set('Accept', 'text/plain')
+        .set('Accept', 'application/json')
         .end(function(err, res) {
+          if (err) return;
           if(res.ok) {
             console.log('Questionnaire list from server -->');
-            console.log(res.body);
+            PoguesActions.receiveQuestionnaireList(JSON.parse(res.body));
           }
         });
     } else {
@@ -74,16 +75,19 @@ var DataUtils = {
 
   getQuestionnaire: function(index) {
     var questionnaire;
-    if (Config.poguesURL) {
+    var targetURL = Config.baseURL + Config.persistPath + '/questionnaire' + index;
+    if (Config.remote) {
       request
-        .get(Config.poguesURL + '/questionnaire/' + index)
+        .get(targetURL)
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err) return;
           if (res.ok) {
             // FIXME rebuild a questionnaire, not a literal object representing
             // the questionaire
-            questionnaire = JSON.parse(res.body);
+            // FIXME if content-type is not set properly in the response headers
+            // res.body is null
+            questionnaire = JSON.parse(res.text);
             console.log('DataUtils.getQuestionnaire will return questionnaire', questionnaire);
             PoguesActions.receiveQuestionnaire(questionnaire);
           } else {
@@ -104,7 +108,7 @@ var DataUtils = {
         .end(function (err, res){
             if (err) return;
             if (res.ok) {
-              newId = extractId(res.headers.Location);//extrat from uri
+              newId = extractId(res.headers.location);//extrat from uri
               console.log('DataUtils.createQuestionnaireDistant will return new id for questionnaire', questionnaire);
               // TODO check in  header slug is the same as oldId
               PoguesActions.receiveNewIdFromServer(questionnaire.id, newId);
