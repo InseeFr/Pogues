@@ -13,7 +13,7 @@ function extractId(questionnaire) {
 }
 
 var DataUtils = {
-  populateQuestionnaire: function(questionnaire) {
+  populateFakeQuestionnaire: function(questionnaire) {
     var numberOfSequences = 15;
     for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
         var sequence = new SequenceModel();
@@ -74,29 +74,28 @@ var DataUtils = {
         });
     } else return this.mock.loadDeepQuestionnaire(index);
   },
+
   createQuestionnaireDistant: function(questionnaire) {
     var questionnaireId;
-    // HACK mock
-    setTimeout(function () {
-      questionnaireId = extractId(questionnaire);//extrat from uri
-      console.log('DataUtils.getQuestionnaire will return questionnaire', questionnaire);
-      PoguesActions.receiveNewIdFromServer(questionnaire.id, questionnaire.id);
-    }, 1000);
-    return;
-/*    request
-      .post(Config.poguesURL + '/questionnaires')
-      .set('Content-Type', 'text/html')
-      .send(JSON.stringify(questionnaire))
-      .end(function (err, res){
-          if (err) return;
-          if (res.ok) {
-            questionnaireId = extractId(questionnaire);//extrat from uri
-            console.log('DataUtils.getQuestionnaire will return questionnaire', questionnaire);
-            PoguesActions.receiveNewIdFromServer(questionnaire.id, questionnaire.id);
-          } else {
-            console.log(res.body);
-          }
-      })*/
+    if (Config.poguesURL) {
+      request
+        .post(Config.poguesURL + '/questionnaires')
+        .set('Content-Type', 'text/html')
+        .send(JSON.stringify(questionnaire))
+        .end(function (err, res){
+            if (err) return;
+            if (res.ok) {
+              questionnaireId = extractId(questionnaire);//extrat from uri
+              console.log('DataUtils.createQuestionnaireDistant will return new id for questionnaire', questionnaire);
+              PoguesActions.receiveNewIdFromServer(questionnaire.id, questionnaire.id);
+            } else {
+              console.log(res.body);
+            }
+      });
+    }
+    else {
+      setTimeout(PoguesActions.receiveNewIdFromServer.bind(null, 'NEW_' + questionnaire.id, questionnaire.id), 0);
+      }
   },
 
   saveQuestionnaire: function(questionnaire) {
@@ -148,37 +147,9 @@ var DataUtils = {
       setTimeout(function() {
         if (fail) PoguesActions.getQuestionnaireFailed();
         else {
-          for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
-            var sequence = new SequenceModel();
-            sequence.name = 'Séquence numéro ' + sequenceIndex;
-            sequence.depth = 1;
-            var numberOfChildren = Math.floor(Math.random() * 5);
-            for (var childIndex = 1; childIndex <= numberOfChildren; childIndex++) {
-              var childNumber = sequenceIndex * 10 + childIndex;
-              var child = null;
-              if (Math.random() < 0.5) {
-                child = new QuestionModel();
-                child.name = 'Question numéro ' + childNumber;
-                child.label = 'Énoncé de la question numéro ' + childNumber;
-                sequence.addChild(child);
-              } else {
-                child = new SequenceModel();
-                child.name = 'Séquence numéro ' + childNumber;
-                var numberOfQuestions = Math.floor(Math.random() * 5);
-                for (var questionIndex = 1; questionIndex <= numberOfQuestions; questionIndex++) {
-                  var questionNumber = childNumber * 10 + questionIndex;
-                  var question = new QuestionModel();
-                  question.name = 'Question numéro ' + questionNumber;
-                  question.label = 'Énoncé de la question numéro ' + questionNumber;
-                  child.addChild(question);
-                }
-                sequence.addChild(child);
-              }
-            }
-            questionnaire.addChild(sequence);
-          }
-          var fakeQuestionnaire = {
-            questionnaire: questionnaire
+            populateFakeQuestionnaire(questionnaire);
+            var fakeQuestionnaire = {
+              questionnaire: questionnaire
           };
           console.log('DataUtils.getQuestionnaire will return questionnaire', fakeQuestionnaire);
           PoguesActions.receiveQuestionnaire(fakeQuestionnaire);
