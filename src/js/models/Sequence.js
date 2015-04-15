@@ -2,17 +2,27 @@
 A Sequence of questions or other sequences
 */
 import ComponentModel from './Component.js';
+import QuestionModel from './Question.js';
 
 // FIXME Internationalize
 const GENERIC_NAMES = ['Questionnaire', 'Module', 'Paragraphe', 'Séquence'];
 
 class SequenceModel extends ComponentModel {
-  constructor() {
-    super();
-    this._depth = 0;
-    // Module, paragraph, etc. Should really not be a member, in fact.
-    this._genericName = GENERIC_NAMES[0];
-    this._children = [];
+  constructor(object) {
+    super(object);
+    if (object) {
+      this._depth = object._depth;
+      // Module, paragraph, etc. Should really not be a member, in fact.
+      this._genericName = object._genericName;
+      this._children = object._children.map(function(child) {
+        return (child.depth > 0) ? new SequenceModel(child) : new QuestionModel(child);
+      });
+    } else {
+      this._depth = 0;
+      // Module, paragraph, etc. Should really not be a member, in fact.
+      this._genericName = GENERIC_NAMES[0];
+      this._children = [];
+    }
   }
 
   get depth() {

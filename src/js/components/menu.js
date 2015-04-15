@@ -29,7 +29,7 @@ var Menu = React.createClass({
         })
         this.props.handleFilter(filter);
     },
-    _clickToSave: function() {
+    _clickToSave: function(event) {
       // Mock Questionnaire FIXME
       console.log('click on save questionnaire button');
       PoguesActions.saveQuestionnaire(QuestionnaireStore.getQuestionnaire());

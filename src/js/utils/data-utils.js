@@ -65,12 +65,13 @@ var DataUtils = {
       console.info('Fetching the questionnaire list at ' + targetURL);
       request
         .get(targetURL)
-        .set('Accept', 'application/json')
+        .set('Accept', 'text/plain')
         .end(function(err, res) {
           if (err) return;
           if(res.ok) {
             console.log('Questionnaire list from server -->');
-            PoguesActions.receiveQuestionnaireList(JSON.parse(res.body));
+            console.log(JSON.parse(res.text));
+            PoguesActions.receiveQuestionnaireList(JSON.parse(res.text));
           }
         });
     } else {
@@ -127,10 +128,16 @@ var DataUtils = {
     }
   },
 
+  /*
+  Save the questionnaire, i.e. persist it in the remote server data store.
+  */
   saveQuestionnaire: function(questionnaire) {
+    console.info('Saving questionnaire ' + questionnaire.id + ' in remote server.');
+    var targetURL = Config.baseURL + Config.persistPath + '/questionnaire/' + questionnaire.id;
+    console.log('Target URL is ' + targetURL);
     request
-    .put(Config.poguesURL + '/questionnaire/' + questionnaire.id)
-    .send(questionnaire).set('Content-Type', 'text/html')
+    .put(targetURL)
+    .send(JSON.stringify(questionnaire)).set('Content-Type', 'text/html')
     .end(function(err, res) {
       if (err) PoguesActions.getQuestionnaireFailed();
       if (res.ok) {

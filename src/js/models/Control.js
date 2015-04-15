@@ -2,10 +2,16 @@
 A control on a response or several responses
 */
 class ControlModel {
-  constructor() {
-    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    this._description = '';
-    this._expression = '';
+  constructor(object) {
+    if (object) {
+      this._id = object._id;
+      this._description = object._description;
+      this._expression = object._expression;
+    } else {
+      this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+      this._description = '';
+      this._expression = '';
+    }
   }
 
   get id() {

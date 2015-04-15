@@ -2,10 +2,16 @@
 A response to a question
 */
 class ResponseModel {
-  constructor() {
-    this._simple = true;
-    this._predefinedLabels = [];
-    this._values = [];
+  constructor(object) {
+    if (object) {
+      this._simple = object._simple;
+      this._predefinedLabels = object._predefinedLabels;
+      this._values = object._values;
+    } else {
+      this._simple = true;
+      this._predefinedLabels = [];
+      this._values = [];
+    }
   }
 
   get simple() {
