@@ -57,6 +57,11 @@ function _setComponentEditable(id) {
   QUtils.searchAndApply(_questionnaire.children,'id', id, function(e) { console.log('ping ' + e.id + ' !'); });
 }
 
+function _updateId(newId, oldId){
+  // update id only if we are still working on the current questionnaire
+  if (oldId !== _questionnaire.id) return;
+}
+
 var QuestionnaireStore = assign({}, EventEmitter.prototype, {
   getQuestionnaire: function() {
     return _questionnaire;
@@ -78,18 +83,18 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
     console.log('QuestionnaireStore received dispatched payload', payload);
     var action = payload.action; // action from HandleViewAction
     switch(action.actionType) {
+      case ActionTypes.RECEIVE_NEW_ID_FROM_SERVER:
+        // no action, but we want to emit change
+        break;
       case ActionTypes.ADD_COMPONENT:
         //_addSequence(payload.action.spec.text);
         _addComponent(payload.action.spec);
         break;
-      case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
-        DataUtils.getQuestionnaire(payload.action.index); //getQuestionnaire() for shallow questionnaire
-        break;
-      case ActionTypes.CREATE_NEW_QUESTIONNAIRE:
-        _questionnaire = _createQuestionnaire(payload.action.name);
+      case ActionTypes.SELECT_QUESTIONNAIRE:
+        _setQuestionnaire(payload.action.questionnaire);
         break;
       case ActionTypes.QUESTIONNAIRE_LOADED:
-        _setQuestionnaire(payload.action.questionnaire);
+        // no action, but we want to emit change
         break;
       case ActionTypes.QUESTIONNAIRE_LOADING_FAILED:
         _questionnaire = null;
@@ -99,9 +104,6 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         break;
       case ActionTypes.FILTER_COMPONENTS:
         _setFilter(payload.action.filter);
-        break;
-      case ActionTypes.SELECT_EXISTING_QUESTIONNAIRE:
-        _setQuestionnaire(payload.action.index);
         break;
       case ActionTypes.SAVE_QUESTIONNAIRE:
         DataUtils.saveQuestionnaire(payload.action.questionnaire);

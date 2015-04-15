@@ -36,7 +36,7 @@ var Menu = React.createClass({
       event.preventDefault();
     },
 
-	render: function() {
+  render: function() {
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var saveButton = null;
@@ -54,7 +54,7 @@ var Menu = React.createClass({
       title = <span className="navbar-text">{locale.tagline}</span>;
     }
 
-		return(
+    return(
       <nav className="navbar navbar-default">
           <div className="container-fluid">
               <div className="navbar-header">
@@ -86,8 +86,8 @@ var Menu = React.createClass({
               </div>
           </div>
       </nav>
-		);
-	}
+    );
+  }
 });
 
 module.exports = Menu;

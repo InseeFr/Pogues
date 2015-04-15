@@ -40,19 +40,41 @@ var PoguesActions = {
       error: error
     });
   },
-  // Questionnaire created in the questionnaire editor
-  createQuestionnaire: function(props) {
-    PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.CREATE_NEW_QUESTIONNAIRE,
-      name: props.name,
-      label: props.label
+  receiveNewIdFromServer: function(oldId, newId) {
+    PoguesDispatcher.handleServerAction({
+      actionType: PoguesConstants.ActionTypes.RECEIVE_NEW_ID_FROM_SERVER,
+      newId: newId,
+      oldId: oldId
     });
   },
-  // Questionnaire selected in questionnaire picker
-  selectQuestionnaire: function(index) {
+  createQuestionnaireLocal: function(name, label) {
     PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.SELECT_EXISTING_QUESTIONNAIRE,
-      index: index
+      actionType: PoguesConstants.ActionTypes.CREATE_QUESTIONNAIRE_LOCAL,
+      name: name,
+      label: label
+    });
+  },
+  // questionnaire-list-store will ask the server for an id
+  createQuestionnaireDistant: function(questionnaire) {
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.CREATE_QUESTIONNAIRE_DISTANT,
+      questionnaire: questionnaire
+    });
+  },
+  // posts the questionnaire on the server which returns a new id
+  // questionnaire list store will take care of asking the server
+  getQuestionnaire: function() {
+    PoguesDispatcher.handleServerAction({
+      actionType: PoguesConstants.ActionType.GET_QUESTIONNAIRE
+    })
+
+  },
+  // Questionnaire selected in questionnaire picker or newly created
+  // questionnaire (after create questionnaire)
+  selectQuestionnaire: function(questionnaire) {
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.SELECT_QUESTIONNAIRE,
+      questionnaire: questionnaire
     });
     PoguesActions.switchToQuestionnaire();
   },
