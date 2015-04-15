@@ -112,6 +112,24 @@ var DataUtils = {
     });
   },
 
+  // Send a questionnaire to the publish service.
+  publishQuestionnaire: function(questionnaire) {
+    var targetURL = Config.baseURL + Config.stromaePath;
+    console.log('Publishing questionnaire ' + questionnaire.id + ' to ' + targetURL);
+    request
+      .post(targetURL)
+      .set('Content-Type','text/html')
+      .send(JSON.stringify(questionnaire))
+      .end(function(err, res) {
+        if (res.ok) {
+          console.info('Publish OK');
+        } else {
+          console.error('Error trying to publish the questionnaire');
+        }
+      });
+  },
+
+  // Contains mock functions
   mock: {
 
     getQuestionnaireList: function() {

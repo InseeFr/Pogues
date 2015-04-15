@@ -2,6 +2,7 @@ var React = require('react');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
 var locale = require('../stores/dictionary-store').getDictionary();
+var DataUtils = require('../utils/data-utils');
 // start of hack
 var request = require('superagent');
 var Config = require('../config/config');
@@ -72,6 +73,13 @@ var QuestionnaireEditor = React.createClass({
             nameEdited: false
         });
     },
+    // FIXME hack function, temporary
+    _hack: function(event) {
+      var fakeQ = new QuestionnaireModel();
+      DataUtils.populateFakeQuestionnaire(fakeQ);
+      DataUtils.publishQuestionnaire(fakeQ);
+      event.preventDefault();
+    },
     render: function() {
         var additionalControls = '';
         if (this.state.active) additionalControls = 'More controls here';
@@ -94,6 +102,10 @@ var QuestionnaireEditor = React.createClass({
             <button className="btn btn-primary" type="button"
                 onClick={this._addQuestionnaire}>
                 {locale.create}
+            </button>
+            <button className="btn btn-danger" type="button"
+                onClick={this._hack}>
+                Hack generate
             </button>
             <h3>{additionalControls}</h3>
       </div>
