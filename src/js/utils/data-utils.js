@@ -85,7 +85,9 @@ var DataUtils = {
           if (res.ok) {
             // FIXME rebuild a questionnaire, not a literal object representing
             // the questionaire
-            questionnaire = JSON.parse(res.body);
+            // FIXME if content-type is not set properly in the response headers
+            // res.body is null
+            questionnaire = JSON.parse(res.text);
             console.log('DataUtils.getQuestionnaire will return questionnaire', questionnaire);
             PoguesActions.receiveQuestionnaire(questionnaire);
           } else {
