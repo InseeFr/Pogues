@@ -79,7 +79,7 @@ var dispatcherIndex = PoguesDispatcher.register(function(payload) {
     var action = payload.action;
     var questionnaire;
     switch (action.actionType) {
-        case ActionTypes.QUESTIONNAIRE_LIST_LOADED:
+        case ActionTypes.RECEIVE_QUESTIONNAIRE_LIST:
             _setQuestionnaires(payload.action.questionnaires);
             break;
         case ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED:

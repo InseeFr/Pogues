@@ -60,11 +60,12 @@ var DataUtils = {
       console.info('Fetching the questionnaire list at ' + targetURL);
       request
         .get(targetURL)
-        .set('Accept', 'text/plain')
+        .set('Accept', 'application/json')
         .end(function(err, res) {
+          if (err) return;
           if(res.ok) {
             console.log('Questionnaire list from server -->');
-            console.log(res.body);
+            PoguesActions.receiveQuestionnaireList(JSON.parse(res.body));
           }
         });
     } else {
@@ -74,9 +75,10 @@ var DataUtils = {
 
   getQuestionnaire: function(index) {
     var questionnaire;
-    if (Config.poguesURL) {
+    var targetURL = Config.baseURL + Config.persistPath + '/questionnaire' + index;
+    if (Config.remote) {
       request
-        .get(Config.poguesURL + '/questionnaire/' + index)
+        .get(targetURL)
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err) return;
