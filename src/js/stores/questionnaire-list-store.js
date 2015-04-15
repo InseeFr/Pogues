@@ -85,7 +85,7 @@ var dispatcherIndex = PoguesDispatcher.register(function(payload) {
         case ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED:
             _setQuestionnaires(null);
             break;
-        case ActionTypes.LOAD_QUSETIONNAIRE_LIST:
+        case ActionTypes.LOAD_QUESTIONNAIRE_LIST:
             Utils.getQuestionnaireList();
             break;
         case ActionTypes.CREATE_QUESTIONNAIRE_LOCAL:
