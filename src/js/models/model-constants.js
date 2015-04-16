@@ -8,5 +8,8 @@ module.exports = {
   },
   DeclarationModel: {
     DECLARATION_TYPES: ['INSTRUCTION', 'COMMENT', 'HELP']
+  },
+  ControlModel: {
+    CONTROL_CRITICITY: ['INFO', 'WARN', 'ERROR']
   }
 };
