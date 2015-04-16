@@ -3,6 +3,9 @@ var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var QuestionnaireModel = require('../models/Questionnaire');
 var SequenceModel = require('../models/Sequence');
 var QuestionModel = require('../models/Question');
+var DeclarationModel = require('../models/Declaration');
+//var ControlModel = require('../models/Control');
+//var GoToModel = require('../models/GoToModel');
 var Config = require('../config/config');
 var request = require('superagent');
 
@@ -27,6 +30,7 @@ function populateFakeQuestionnaire(questionnaire) {
                 child = new QuestionModel();
                 child.name = 'question_' + childNumber;
                 child.label = 'question_' + childNumber;
+                populateFakeComponent(child);
                 sequence.addChild(child);
             } else {
                 child = new SequenceModel();
@@ -37,15 +41,33 @@ function populateFakeQuestionnaire(questionnaire) {
                     var question = new QuestionModel();
                     question.name = 'question_' + questionNumber;
                     question.label = 'question_' + questionNumber;
+                    populateFakeComponent(question);
                     child.addChild(question);
                 }
+                populateFakeComponent(child);
                 sequence.addChild(child);
             }
+            populateFakeComponent(sequence);
             questionnaire.addChild(sequence);
         }
     }
     questionnaire.name = "YOQUEST";
   }
+
+// Adds some declarations, controls and go-tos to a component
+function populateFakeComponent(component) {
+  // Adding zero to 3 declarations
+  var numberOfDeclarations = Math.floor(Math.random() * 4);
+    for (var declarationIndex = 1; declarationIndex <= numberOfDeclarations; declarationIndex++) {
+      var declaration = new DeclarationModel();
+      var typeOfDeclarationIndex = Math.floor(Math.random() * 3);
+      declaration.type = typeOfDeclarationIndex.DECLARATION_TYPES[typeOfDeclarationIndex];
+      declaration.disjoinable = (Math.random() < 0.5);
+      declaration.text = 'Declation ' + declarationIndex + ' for ' + component.name;
+      component.declarations.push(declaration);
+    }
+
+}
 
 var DataUtils = {
   populateFakeQuestionnaire: populateFakeQuestionnaire,
