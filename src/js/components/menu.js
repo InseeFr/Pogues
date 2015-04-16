@@ -32,6 +32,7 @@ var Menu = React.createClass({
     _clickToSave: function(event) {
       // Mock Questionnaire FIXME
       console.log('Click on save questionnaire button');
+      console.dir(QuestionnaireStore.getQuestionnaire());
       PoguesActions.saveQuestionnaire(QuestionnaireStore.getQuestionnaire());
       event.preventDefault();
     },
@@ -58,7 +59,7 @@ var Menu = React.createClass({
       publishButton = (
       <div className="nav navbar-nav navbar-left">
         <form className="navbar-form navbar-right">
-          <button className="btn btn-primary" onClick={this._clickToPublish}>{locale.publish}</button>
+          <button className="btn btn-primary" disabled="disabled" onClick={this._clickToPublish}>{locale.publish}</button>
         </form>
       </div>
       );
@@ -66,7 +67,7 @@ var Menu = React.createClass({
     } else {
       title = <span className="navbar-text">{locale.tagline}</span>;
     }
-
+  
     return(
       <nav className="navbar navbar-default">
           <div className="container-fluid">

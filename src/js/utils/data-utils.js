@@ -165,20 +165,23 @@ var DataUtils = {
   */
   saveQuestionnaire: function(questionnaire) {
     console.info('Saving questionnaire ' + questionnaire.id + ' in remote server.');
+    console.dir(questionnaire);
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaire/' + questionnaire.id;
     console.log('Target URL is ' + targetURL);
     request
-    .put(targetURL)
-    .set('Content-Type', 'text/html')
-    .send(JSON.stringify(questionnaire))
-    .end(function(err, res) {
-      if (err) PoguesActions.getQuestionnaireFailed();
-      if (res.ok) {
-        console.log(res.body);
-      } else {
-        console.log(res.body);
-      }
-    });
+      .put(targetURL)
+      .set('Content-Type', 'text/html')
+      .send(JSON.stringify(questionnaire))
+      .end(function(err, res) {
+        if (err) PoguesActions.getQuestionnaireFailed();
+        if (res.ok) {
+          // FIXME
+          console.log(res.text);
+        } else {
+          // FIXME
+          console.log(res.text);
+        }
+      });
   },
 
   // Send a questionnaire to the publish service.
