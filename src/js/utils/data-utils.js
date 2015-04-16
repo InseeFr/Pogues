@@ -65,7 +65,7 @@ var DataUtils = {
           if (err) return;
           if(res.ok) {
             console.log('Questionnaire list from server -->');
-            console.log(JSON.parse(res.text));
+            console.dir(JSON.parse(res.text));
             PoguesActions.receiveQuestionnaireList(JSON.parse(res.text));
           }
         });
@@ -102,6 +102,7 @@ var DataUtils = {
     var newId;
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaires';
     if (Config.remote) {
+      console.log('Remote creation of questionnaire ' + questionnaire.id);
       request
         .post(targetURL)
         .set('Content-Type', 'text/html')

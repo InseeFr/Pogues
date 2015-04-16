@@ -23,6 +23,7 @@ var _dictionary = {
   sequence: {'en': 'Sequence', 'fr': 'Séquence'},
   question: {'en': 'Question', 'fr': 'Question'},
   save: {'en': 'Save', 'fr': 'Sauvegarder'},
+  publish: {'en': 'Publish', 'fr': 'Publier'},
   create: {'en': 'Create', 'fr': 'Créer'},
   create_questionnaire: {'en': 'Create a questionnaire', 'fr': 'Créer un questionnaire'},
   select_questionnaire: {'en': 'Select a questionnaire', 'fr': 'Sélectionner un questionnaire'}

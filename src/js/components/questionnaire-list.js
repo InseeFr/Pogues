@@ -7,6 +7,7 @@ var locale = require('../stores/dictionary-store').getDictionary();
 
 function getStateFromStore() {
   return {
+    pending: false,
     questionnaires: QuestionnaireListStore.getQuestionnaires()
   }
 }
@@ -15,6 +16,16 @@ var QuestionnaireList = React.createClass({
 
   _onChange: function() {
     this.setState(getStateFromStore());
+  },
+  // Get an array of questionnaires object from payload
+  _questionnaireToArray: function(questionnaires) {
+    var questArray = [];
+    for (var key in questionnaires) {
+      if (questionnaires.hasOwnProperty(key)) {
+          questArray.push(questionnaires[key]);
+      }
+    }
+    return questArray;
   },
   getInitialState: function() {
     return {
@@ -27,13 +38,13 @@ var QuestionnaireList = React.createClass({
     PoguesActions.selectQuestionnaire(index); // Value is index
   },
   componentWillMount: function() {
-    // TODO passer l'action pour charger le questionnaire list store
+    console.log('QuestionnaireList component will mount');
     PoguesActions.getQuestionnaireList();
   },
   componentDidMount: function() {
     QuestionnaireListStore.addChangeListener(this._onChange);
     // Load questionnaire list
-    DataUtils.getQuestionnaireList();
+    // FIXME what ??? DataUtils.getQuestionnaireList();
   },
   componentWillUnmount: function() {
     QuestionnaireListStore.removeChangeListener(this._onChange);
@@ -41,31 +52,26 @@ var QuestionnaireList = React.createClass({
 
   render: function() {
     console.log('QuestionnaireList rendering with state', this.state);
-    if (this.state.questionnaires === null) return (
-      <div>
-        <span className="fa fa-exclamation-triangle fa-3"></span>
-        <span className="error-message">{locale.errorMessageQuestList}</span>
-      </div>
-    );
-    else if (this.state.questionnaires.length === 0) return (
-      <div>
-        <span className="fa fa-spinner fa-pulse fa-3x"></span>
-      </div>
-    );
-    else return (
+    console.dir(this.state);
+    if(this.state.questionnaires) {
+      var questArray = this._questionnaireToArray(this.state.questionnaires);
+      return(
         <ul className="list-group">
-          {this.state.questionnaires.map(function(questionnaire, index) {
+          {questArray.map(function(questionnaire, index) {
             return (<li className="list-group-item"
                   key={index}>
                     <a href="#" onClick={this.selectIndex.bind(this, index)}>
-                      <span>{questionnaire.label}</span>
-                      <span className="id">({questionnaire.name})</span>
+                      <span>{questionnaire._label}</span>
+                      <span className="id">({questionnaire._name})</span>
                       <span className="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                     </a>
                   </li>)
           }, this)}
         </ul>
-    );
+        );
+    } else {
+      return(<div>EMPTY</div>);
+    }
   }
 });
 
