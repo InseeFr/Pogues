@@ -73,6 +73,7 @@ var QuestionnaireList = React.createClass({
         </ul>
         );
     } else {
+      // FIXME manage that view !
       return(<div>EMPTY</div>);
     }
   }
