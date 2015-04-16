@@ -12,8 +12,8 @@ class TextDatatypeModel extends DatatypeModel {
      } else {
       this._maxLength = 0;
       this._pattern = '';
-      this._typeName = DATATYPE_TYPES[2];
     }
+    this._typeName = DATATYPE_TYPES[2];
   }
 
   get maxLength() {

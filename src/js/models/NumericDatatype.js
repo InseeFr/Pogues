@@ -14,8 +14,8 @@ class NumericDatatypeModel extends DatatypeModel {
       this._minimum = 0;
       this._maximum = 100;
       this._decimals = 2;
-      this._typeName = DATATYPE_TYPES[1];
     }
+    this._typeName = DATATYPE_TYPES[1];
   }
 
   get minimum() {

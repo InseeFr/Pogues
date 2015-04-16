@@ -4,7 +4,7 @@ A control on a response or several responses
 import ExpressionModel from './Expression';
 import ModelConstants from './model-constants';
 
-var CONTROL_CRITICITY = ModelConstants.DatatypeModel.CONTROL_CRITICITY;
+var CONTROL_CRITICITY = ModelConstants.ControlModel.CONTROL_CRITICITY;
 
 class ControlModel {
   constructor(object) {

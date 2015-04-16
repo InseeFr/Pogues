@@ -14,8 +14,8 @@ class DateDatatypeModel extends DatatypeModel {
       this._minimum = new Date();
       this._maximum = new Date();
       this._format = '';
-      this._typeName = DATATYPE_TYPES[0];
     }
+    this._typeName = DATATYPE_TYPES[0];
   }
 
   get minimum() {
