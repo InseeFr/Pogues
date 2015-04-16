@@ -149,6 +149,18 @@
         </xs:complexContent>
     </xs:complexType>
 
+    <xs:complexType name="DateDatatypeType">
+        <xs:complexContent>
+            <xs:extension base="DatatypeType">
+                <xs:sequence>
+                    <xs:element name="Minimum" type="xs:integer"/>
+                    <xs:element name="Maximum" type="xs:integer"/>
+                    <xs:element name="Format" type="xs:token"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
     <xs:simpleType name="DatatypeTypeEnum">
         <xs:restriction base="xs:token">
             <xs:enumeration value="NUMERIC"/>
