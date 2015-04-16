@@ -1,7 +1,7 @@
 /**
 A numeric response datatype
 */
-import DatatypeModel from './Control.js';
+import DatatypeModel from './Datatype.js';
 
 class NumericDatatypeModel extends DatatypeModel {
   constructor(object) {
