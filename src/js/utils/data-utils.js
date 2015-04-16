@@ -38,7 +38,7 @@ function populateFakeQuestionnaire(questionnaire) {
                 sequence.addChild(child);
             } else {
                 child = new SequenceModel();
-                child.name = 'sequence_ ' + childNumber;
+                child.name = 'sequence_' + childNumber;
                 var numberOfQuestions = Math.floor(Math.random() * 5);
                 for (var questionIndex = 1; questionIndex <= numberOfQuestions; questionIndex++) {
                     var questionNumber = childNumber * 10 + questionIndex;
@@ -63,6 +63,16 @@ function populateFakeComponent(component) {
   // Adding zero to 3 declarations
   var numberOfDeclarations = Math.floor(Math.random() * 4);
     for (var declarationIndex = 1; declarationIndex <= numberOfDeclarations; declarationIndex++) {
+      var declaration = new DeclarationModel();
+      var typeOfDeclarationIndex = Math.floor(Math.random() * 3);
+      declaration.type = ModelConstants.DeclarationModel.DECLARATION_TYPES[typeOfDeclarationIndex];
+      declaration.disjoinable = (Math.random() < 0.5);
+      declaration.text = 'Declaration ' + declarationIndex + ' for ' + component.name;
+      component.declarations.push(declaration);
+    }
+  // Adding zero to 2 controls
+  var numberOfControls = Math.floor(Math.random() * 3);
+    for (var controlIndex = 1; controlIndex <= numberOfDeclarations; controlIndex++) {
       var declaration = new DeclarationModel();
       var typeOfDeclarationIndex = Math.floor(Math.random() * 3);
       declaration.type = ModelConstants.DeclarationModel.DECLARATION_TYPES[typeOfDeclarationIndex];
