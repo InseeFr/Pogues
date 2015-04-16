@@ -55,8 +55,6 @@ class CodeListModel {
     }
     this._categories.push(category);
   }
-
-
 }
 
 export default ComponentModel;

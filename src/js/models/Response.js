@@ -11,7 +11,7 @@ class ResponseModel {
     } else {
       this._simple = true;
       this._predefinedLabels = [];
-      this._datatype = '';
+      this._datatype = new DatatypeModel();
       this._values = [];
     }
   }
@@ -22,6 +22,10 @@ class ResponseModel {
 
   get predefinedLabels() {
     return this._predefinedLabels;
+  }
+
+  get datatype() {
+    return this._datatype;
   }
 
   get values() {
@@ -66,6 +70,13 @@ class ResponseModel {
       throw new Error('All arguments must be strings');
     }
     this._predefinedLabels = predefinedLabels;
+  }
+
+  set datatype(datatype) {
+    if (!(datatype instanceof DatatypeModel)) {
+      throw new Error('The argument must be a Datatype');
+    }
+    this._datatype = datatype;
   }
 
   addValue(value) {

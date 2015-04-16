@@ -3,6 +3,7 @@ A Component is the base class for the Questionnaire questions and sequences
 */
 import DeclarationModel from './Declaration.js';
 import ControlModel from './Control.js';
+import GoToModel from './GoTo.js';
 
 class ComponentModel {
   constructor(object) {
@@ -16,12 +17,17 @@ class ComponentModel {
       this._controls = object._controls.map(function(control) {
         return new ControlModel(control);
       });
+      this._goTos = object._controls.map(function(goTo) {
+        return new GoToModel(goTo);
+      });
+
     } else {
       this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
       this._name = "";
       this._label = "";
       this._declarations = [];
       this._controls = [];
+      this._goTos = [];
     }
   }
 
@@ -43,6 +49,10 @@ class ComponentModel {
 
   get controls() {
     return this._controls;
+  }
+
+  get goTos() {
+    return this._goTos;
   }
 
   set id(id) {
@@ -105,7 +115,6 @@ class ComponentModel {
     this._declarations = declarations;
   }
 
-
   addControl(control) {
     if (!(control instanceof ControlModel)) {
       throw new Error('The argument must be a Control');
@@ -135,6 +144,34 @@ class ComponentModel {
     this._controls = controls;
   }
 
+  addGoTo(goTo) {
+    if (!(goTo instanceof GoToModel)) {
+      throw new Error('The argument must be a GoTo');
+    }
+    this._goTos.push(goTo);
+  }
+
+  addGoTos(goTos) {
+    // Save current size in case something goes wrong
+    var initialSize = this._goTos.length;
+    try {
+      goTos.map(function(goTo) {
+        this.addGoTo(goTo);
+      });
+    } catch (e) {
+      this._goTos.length(initialSize);
+      throw new Error('All arguments must be of type GoTo');
+    }
+  }
+
+  set goTos(goTos) {
+    goTos.map(function(goTo) {
+      if (!(goTo instanceof GoToModel)) {
+        throw new Error('All arguments must be of type GoTo');
+      }
+    });
+    this._goTos = goTos;
+  }
 }
 
 export default ComponentModel;

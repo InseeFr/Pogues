@@ -10,7 +10,7 @@ class DatatypeModel {
     if (object) {
       this._typeName = object._typeName;
     } else {
-      this._typeName = object._typeName;
+      this._typeName = DATATYPE_TYPES[0]; // First value by default
     }
   }
 
@@ -20,7 +20,7 @@ class DatatypeModel {
 
   set typeName(typeName) {
     if (DATATYPE_TYPES.indexOf(typeName) === -1) {
-      throw new Error(typeName + 'is not a valid declaration type');
+      throw new Error(typeName + ' is not a valid declaration type');
     }
     this._typeName = typeName;
   }

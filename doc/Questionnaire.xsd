@@ -14,7 +14,7 @@
     </xs:element>
 
     <xs:element name="Questionnaire" type="QuestionnaireType"/>
-    
+
     <xs:complexType name="QuestionnaireType">
         <xs:complexContent>
             <xs:extension base="SequenceType">
@@ -104,10 +104,10 @@
     <xs:complexType name="GoToType">
         <xs:sequence>
             <xs:element name="Description" type="xs:string" minOccurs="0"/>
-            <xs:element name="If" type="ExpressionType"/>
-            <xs:element name="Then" type="ComponentType"/>
+            <xs:element name="Expression" type="ExpressionType"/>
+            <xs:element name="IfTrue" type="ComponentType"/>
             <xs:choice minOccurs="0">
-                <xs:element name="Else" type="ComponentType"/>
+                <xs:element name="IfFalse" type="ComponentType"/>
                 <xs:element name="Next" type="GoToType"/>
             </xs:choice>
         </xs:sequence>

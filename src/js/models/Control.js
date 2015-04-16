@@ -1,6 +1,8 @@
 /**
 A control on a response or several responses
 */
+import ExpressionModel from './Expression';
+
 class ControlModel {
   constructor(object) {
     if (object) {
@@ -10,7 +12,7 @@ class ControlModel {
     } else {
       this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
       this._description = '';
-      this._expression = '';
+      this._expression = new ExpressionModel();
     }
   }
 

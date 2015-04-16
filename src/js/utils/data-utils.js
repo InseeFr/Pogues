@@ -72,13 +72,11 @@ function populateFakeComponent(component) {
     }
   // Adding zero to 2 controls
   var numberOfControls = Math.floor(Math.random() * 3);
-    for (var controlIndex = 1; controlIndex <= numberOfDeclarations; controlIndex++) {
-      var declaration = new DeclarationModel();
-      var typeOfDeclarationIndex = Math.floor(Math.random() * 3);
-      declaration.type = ModelConstants.DeclarationModel.DECLARATION_TYPES[typeOfDeclarationIndex];
-      declaration.disjoinable = (Math.random() < 0.5);
-      declaration.text = 'Declation ' + declarationIndex + ' for ' + component.name;
-      component.declarations.push(declaration);
+    for (var controlIndex = 1; controlIndex <= numberOfControls; controlIndex++) {
+      var control = new ControlModel();
+      control.description = 'Description of control ' + controlIndex + ' for ' + component.name;
+      control.expression = 'http://controls.org/' + component.name + '/' + controlIndex;
+      component.controls.push(control);
     }
 
 }
