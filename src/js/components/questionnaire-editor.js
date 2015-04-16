@@ -80,10 +80,6 @@ var QuestionnaireEditor = React.createClass({
       DataUtils.publishQuestionnaire(fakeQ);
       event.preventDefault();
     },
-    _hackList: function(event) {
-      DataUtils.getQuestionnaireList();
-      event.preventDefault();
-    },
     render: function() {
         var additionalControls = '';
         if (this.state.active) additionalControls = 'More controls here';
@@ -110,10 +106,6 @@ var QuestionnaireEditor = React.createClass({
             <button className="btn btn-danger" type="button"
                 onClick={this._hack}>
                 [HACK] Publish
-            </button>
-            <button className="btn btn-danger" type="button"
-                onClick={this._hackList}>
-                [HACK] Questionnaires List
             </button>
             <h3>{additionalControls}</h3>
       </div>
