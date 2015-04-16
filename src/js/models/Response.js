@@ -1,6 +1,8 @@
 /**
 A response to a question
 */
+import DatatypeModel from './Datatype';
+
 class ResponseModel {
   constructor(object) {
     if (object) {
