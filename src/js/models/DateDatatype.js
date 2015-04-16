@@ -3,6 +3,10 @@ A date response datatype
 */
 import DatatypeModel from './Datatype.js';
 
+import ModelConstants from './model-constants';
+
+var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+
 class DateDatatypeModel extends DatatypeModel {
   constructor(object) {
     super(object);
