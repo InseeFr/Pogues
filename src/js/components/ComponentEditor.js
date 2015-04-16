@@ -3,6 +3,7 @@ var ComponentModel = require('../models/Component');
 var nameFromLabel = require('../utils/data-utils').nameFromLabel;
 var Declaration = require('./Declaration');
 var Control = require('./Control');
+var GoTo = require('./GoTo');
 var DeclarationModel = require('../models/Declaration');
 var QuestionEditor = require('./question-editor');
 var locale = require('../stores/dictionary-store').getDictionary();
@@ -25,7 +26,8 @@ var ComponentEditor = React.createClass({
       name: component.name,
       label: component.label,
       declarations: component.declarations,
-      controls: component.controls
+      controls: component.controls,
+      goTos: component.goTos
     });
   },
   _handleNameChange: function(event) {
@@ -46,6 +48,8 @@ var ComponentEditor = React.createClass({
   // TODO implement
   _addControl: function() {},
   _removeControl: function() {},
+  _addGoTo: function() {},
+  _removeGoTo: function() {},
 
   _addDeclaration: function () {
     this.props.component.addDeclaration(new DeclarationModel({_text: 'A funky declaration'}));
@@ -71,11 +75,14 @@ var ComponentEditor = React.createClass({
     this.props.close();
   },
   render: function() {
-    var component = component,
+    var component = this.props.component,
         declarations =  this.state.declarations,
         controls = this.state.controls,
+        goTos = this.state.goTos,
         declarationsEls,
-        controlsEls;
+        controlsEls,
+        questionEl,
+        goTosEl;
 
     // TODO DRY
     if (declarations.length > 0) {
@@ -96,6 +103,20 @@ var ComponentEditor = React.createClass({
       controlsEls = <span>No control yet</span>;
     }
 
+    if (goTos.length > 0) {
+      controlsEls = controls.map(function (goTo) {
+        return <GoTo delete={this._removeGoTo.bind(this, goTo)}
+               key={goTo.id} control={goTo}/>;
+      }, this);
+    } else {
+      controlsEls = <span>No goTo yet</span>;
+    }
+    // TODO handle distinction between question and sequence in a different manner
+    // we're dealing with a question
+    if (!component.depth) {
+      questionEl = <QuestionEditor question={component}/>;
+    }
+
     return (
       <div className="form-horizontal">
         <div className="form-group">
@@ -105,10 +126,13 @@ var ComponentEditor = React.createClass({
                 type="text" className="form-control" id="label" placeholder={locale.label}/>
           </div>
           <label htmlFor="name" className="control-label sr-only">{locale.name}</label>
-          <div className="col-sm-4">
+          <div className="col-sm-3">
             <input value={this.state.name} onChange={this._handleNameChange}
                type="text" className="form-control" id="name" placeholder={locale.name}/>
           </div>
+            <div className="col-sm-1">
+              <button onClick={this._save} className="btn btn-default">&times;</button>
+            </div>
         </div>
         <div className="panel panel-default">
           <div className="panel-heading clearfix">
@@ -128,11 +152,15 @@ var ComponentEditor = React.createClass({
             {controlsEls}
           </div>
         </div>
-        <QuestionEditor/>
-        <div className="form-group">
-         <div className="row">
-           <button onClick={this._save} className="btn btn-primary">{locale.save}</button>
-         </div>
+        {questionEl}
+        <div className="panel panel-default">
+          <div className="panel-heading clearfix">
+            <h3 className="panel-title pull-left">{locale.goTo}</h3>
+            <button onClick={this._addGoTo} className="btn btn-sm btn-primary pull-right">{locale.defineGoTo}</button>
+          </div>
+          <div className="panel-body">
+            {goTosEl}
+          </div>
         </div>
     </div>
     );
