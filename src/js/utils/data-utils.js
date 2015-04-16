@@ -62,23 +62,30 @@ function populateFakeQuestionnaire(questionnaire) {
 function populateFakeComponent(component) {
   // Adding zero to 3 declarations
   var numberOfDeclarations = Math.floor(Math.random() * 4);
-    for (var declarationIndex = 1; declarationIndex <= numberOfDeclarations; declarationIndex++) {
-      var declaration = new DeclarationModel();
-      var typeOfDeclarationIndex = Math.floor(Math.random() * 3);
-      declaration.type = ModelConstants.DeclarationModel.DECLARATION_TYPES[typeOfDeclarationIndex];
-      declaration.disjoinable = (Math.random() < 0.5);
-      declaration.text = 'Declaration ' + declarationIndex + ' for ' + component.name;
-      component.declarations.push(declaration);
-    }
+  for (var declarationIndex = 1; declarationIndex <= numberOfDeclarations; declarationIndex++) {
+    var declaration = new DeclarationModel();
+    var typeOfDeclarationIndex = Math.floor(Math.random() * 3);
+    declaration.type = ModelConstants.DeclarationModel.DECLARATION_TYPES[typeOfDeclarationIndex];
+    declaration.disjoinable = (Math.random() < 0.5);
+    declaration.text = 'Declaration ' + declarationIndex + ' for ' + component.name;
+    component.declarations.push(declaration);
+  }
   // Adding zero to 2 controls
   var numberOfControls = Math.floor(Math.random() * 3);
-    for (var controlIndex = 1; controlIndex <= numberOfControls; controlIndex++) {
-      var control = new ControlModel();
-      control.description = 'Description of control ' + controlIndex + ' for ' + component.name;
-      control.expression = 'http://controls.org/' + component.name + '/' + controlIndex;
-      component.controls.push(control);
-    }
-
+  for (var controlIndex = 1; controlIndex <= numberOfControls; controlIndex++) {
+    var control = new ControlModel();
+    control.description = 'Description of control ' + controlIndex + ' for ' + component.name;
+    control.expression = 'http://controls.org/' + component.name + '/' + controlIndex;
+    component.controls.push(control);
+  }
+  // Adding zero or one go-to's
+  if (Math.random() < 0.5) {
+    var goTo = new GoToModel();
+    goTo.description = 'Description of go to for ' + component.name;
+    goTo.expression = 'http://gotos.org/' + component.name + '/goto';
+    goTo.ifTrue = new QuestionModel(); // TODO Direct to an existing component
+    component.goTos.push(goTo);
+  }
 }
 
 var DataUtils = {
