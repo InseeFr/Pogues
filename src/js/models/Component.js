@@ -73,6 +73,16 @@ class ComponentModel {
     this._declarations.push(declaration);
   }
 
+  removeDeclaration(declaration) {
+    var index = this._declarations.indexOf(declaration);
+    if (index > -1) {
+      this._declarations.splice(index, 1);
+    } else {
+      throw new Error('Declaration not in component');
+    }
+
+  }
+
   addDeclarations(declarations) {
     // Save current size in case something goes wrong
     var initialSize = this._declarations.length;

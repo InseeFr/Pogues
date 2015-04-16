@@ -2,7 +2,8 @@ var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-var _language = null;
+var _language = 'en';
+
 var _localDictionary;
 var ActionTypes = PoguesConstants.ActionTypes;
 var CHANGE_EVENT = "change";
@@ -24,9 +25,18 @@ var _dictionary = {
   question: {'en': 'Question', 'fr': 'Question'},
   save: {'en': 'Save', 'fr': 'Sauvegarder'},
   create: {'en': 'Create', 'fr': 'Créer'},
+  declaration: {'en': 'Instruction', 'fr': 'Instruction'},
   create_questionnaire: {'en': 'Create a questionnaire', 'fr': 'Créer un questionnaire'},
-  select_questionnaire: {'en': 'Select a questionnaire', 'fr': 'Sélectionner un questionnaire'}
+  select_questionnaire: {'en': 'Select a questionnaire', 'fr': 'Sélectionner un questionnaire'},
+  addDeclaration: {'en': 'Add an instruction', 'fr': 'Ajouter une instruction'},
+  addControl: {'en': 'Add a control', 'fr': 'Ajouter un contrôle'},
+  declarations: {'en': 'Instructions', 'fr': 'Instructions'},
+  controls: {'en': 'Controls', 'fr': 'Controls'}
 };
+
+//initialization
+
+setDictionary(_language);
 
 function setDictionary(language) {
   var locale = {};

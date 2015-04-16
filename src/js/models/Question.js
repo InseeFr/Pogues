@@ -7,7 +7,7 @@ import ResponseModel from './Response.js';
 
 class QuestionModel extends ComponentModel {
   constructor(object) {
-    super();
+    super(object);
     if (object) {
       this._simple = object._simple;
       this._mandatory = object._mandatory;
