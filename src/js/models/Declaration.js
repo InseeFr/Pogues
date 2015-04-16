@@ -2,7 +2,7 @@
 Textual material associated to a sequence or question
 */
 // FIXME do we put that in constants dir?
-const TYPES = ['INSTRUCTION', 'COMMENT', 'HELP'];
+const DECLARATION_TYPES = ['INSTRUCTION', 'COMMENT', 'HELP'];
 
 class DeclarationModel {
 
@@ -31,7 +31,7 @@ class DeclarationModel {
   }
 
   set type(type) {
-    if (!(type in TYPES)) {
+    if (!(type in DECLARATION_TYPES)) {
       throw new Error(type + 'is not a valid declaration type');
     }
     this._type = type;

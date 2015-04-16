@@ -80,12 +80,15 @@ var dispatcherIndex = PoguesDispatcher.register(function(payload) {
     var questionnaire;
     switch (action.actionType) {
         case ActionTypes.RECEIVE_QUESTIONNAIRE_LIST:
+            console.log('QuestionnaireListStore has received the questionnaires list');
+            console.dir(payload.action.questionnaires);
             _setQuestionnaires(payload.action.questionnaires);
             break;
         case ActionTypes.QUESTIONNAIRE_LIST_LOADING_FAILED:
             _setQuestionnaires(null);
             break;
         case ActionTypes.LOAD_QUESTIONNAIRE_LIST:
+            console.log('QuestionnaireListStore will ask the server for questionnaire list');
             Utils.getQuestionnaireList();
             break;
         case ActionTypes.CREATE_QUESTIONNAIRE_LOCAL:

@@ -106,6 +106,8 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         _setFilter(payload.action.filter);
         break;
       case ActionTypes.SAVE_QUESTIONNAIRE:
+        console.log('Action SAVE_QUESTIONNAIRE caught in QuestionnaireStore with questionnaire -->');
+        console.dir(payload.action.questionnaire);
         DataUtils.saveQuestionnaire(payload.action.questionnaire);
         break;
       case ActionTypes.EDIT_QUESTIONNAIRE:

@@ -22,7 +22,7 @@ var Component = React.createClass({
   render: function() {
     var highlightHandler = this.props.highlightHandler;
     var classes;
-    var component = component;
+    var component = this.props.component;
 
     if (this.state.active) {
       if (component instanceof SequenceModel) {

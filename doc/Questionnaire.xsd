@@ -32,6 +32,7 @@
             <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
             <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="GoTo" type="GoToType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
@@ -94,9 +95,29 @@
     <xs:complexType name="ControlType">
         <xs:sequence>
             <xs:element name="Description" type="xs:string"/>
-            <xs:element name="Expression" type="xs:anyURI"/>
+            <xs:element name="Expression" type="ExpressionType"/>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="criticity" type="ControlCriticityEnum"/>
+    </xs:complexType>
+
+    <xs:complexType name="GoToType">
+        <xs:sequence>
+            <xs:element name="Description" type="xs:string" minOccurs="0"/>
+            <xs:element name="If" type="ExpressionType"/>
+            <xs:element name="Then" type="ComponentType"/>
+            <xs:choice minOccurs="0">
+                <xs:element name="Else" type="ComponentType"/>
+                <xs:element name="Next" type="GoToType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="ExpressionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:anyURI"/>
+        </xs:simpleContent>
     </xs:complexType>
 
     <!-- Data types -->
@@ -133,6 +154,15 @@
             <xs:enumeration value="NUMERIC"/>
             <xs:enumeration value="TEXT"/>
             <xs:enumeration value="DATE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="ControlCriticityEnum">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="INFO"/>
+            <xs:enumeration value="WARN"/>
+            <xs:enumeration value="ERROR"/>
         </xs:restriction>
     </xs:simpleType>
 

@@ -16,8 +16,9 @@ var PoguesActions = {
     });
   },
   getQuestionnaireList: function () {
+    console.log('PoguesActions, getQuestionnaireList');
     PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.LOAD_QUESTIONNAIRE_LISTE
+      actionType: PoguesConstants.ActionTypes.LOAD_QUESTIONNAIRE_LIST
     })
 
   },

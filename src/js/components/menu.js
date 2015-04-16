@@ -31,8 +31,13 @@ var Menu = React.createClass({
     },
     _clickToSave: function(event) {
       // Mock Questionnaire FIXME
-      console.log('click on save questionnaire button');
+      console.log('Click on save questionnaire button');
       PoguesActions.saveQuestionnaire(QuestionnaireStore.getQuestionnaire());
+      event.preventDefault();
+    },
+    _clickToPublish: function(event) {
+      console.log('Click on publish questionnaire button');
+      PoguesActions.publishQuestionnaire(QuestionnaireStore.getQuestionnaire());
       event.preventDefault();
     },
 
@@ -40,12 +45,20 @@ var Menu = React.createClass({
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var saveButton = null;
+    var publishButton = null;
     var title = null;
     if(isQuestionnaireView) {
       saveButton = (
       <div className="nav navbar-nav navbar-left">
         <form className="navbar-form navbar-right">
           <button className="btn btn-primary" onClick={this._clickToSave}>{locale.save}</button>
+        </form>
+      </div>
+      );
+      publishButton = (
+      <div className="nav navbar-nav navbar-left">
+        <form className="navbar-form navbar-right">
+          <button className="btn btn-primary" onClick={this._clickToPublish}>{locale.publish}</button>
         </form>
       </div>
       );
@@ -75,6 +88,7 @@ var Menu = React.createClass({
                       </div>
                   </div>
                   {saveButton}
+                  {publishButton}
                     <ul className="nav navbar-nav navbar-right">
                     <li className="dropdown">
                       <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Me, myself and I <span className="caret"></span></a>
