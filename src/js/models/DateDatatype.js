@@ -30,7 +30,7 @@ class DateDatatypeModel extends DatatypeModel {
   }
 
   set minimum(minimum) {
-    if (!(minimum instanceof Date) {
+    if (!(minimum instanceof Date)) {
       throw new Error('The parameter must be a Date object');
     }
     this._minimum = minimum;

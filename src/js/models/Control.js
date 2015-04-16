@@ -37,7 +37,7 @@ class ControlModel {
 
   set expression(expression) {
     if (!(expression instanceof ExpressionModel)) {
-      throw new Error('The parameter must be a string');
+      throw new Error('The parameter must be an Expression');
     }
     this._expression = expression;
   }
