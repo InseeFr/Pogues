@@ -7,6 +7,7 @@ var DeclarationModel = require('../models/Declaration');
 //var ControlModel = require('../models/Control');
 //var GoToModel = require('../models/GoToModel');
 var Config = require('../config/config');
+var ModelConstants = require('../models/model-constants');
 var request = require('superagent');
 
 // FIXME extrat from uri found in res.header.Location
@@ -61,7 +62,7 @@ function populateFakeComponent(component) {
     for (var declarationIndex = 1; declarationIndex <= numberOfDeclarations; declarationIndex++) {
       var declaration = new DeclarationModel();
       var typeOfDeclarationIndex = Math.floor(Math.random() * 3);
-      declaration.type = typeOfDeclarationIndex.DECLARATION_TYPES[typeOfDeclarationIndex];
+      declaration.type = ModelConstants.DeclarationModel.DECLARATION_TYPES[typeOfDeclarationIndex];
       declaration.disjoinable = (Math.random() < 0.5);
       declaration.text = 'Declation ' + declarationIndex + ' for ' + component.name;
       component.declarations.push(declaration);

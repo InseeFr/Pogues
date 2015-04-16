@@ -3,9 +3,9 @@ A Sequence of questions or other sequences
 */
 import ComponentModel from './Component.js';
 import QuestionModel from './Question.js';
+import ModelConstants from './model-constants';
 
-// FIXME Internationalize
-const GENERIC_NAMES = ['Questionnaire', 'Module', 'Paragraphe', 'Séquence'];
+var GENERIC_NAMES = ModelConstants.SequenceModel.GENERIC_NAMES;
 
 class SequenceModel extends ComponentModel {
   constructor(object) {

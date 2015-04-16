@@ -1,8 +1,9 @@
 /**
 A response Datatype
 */
+import ModelConstants from './model-constants';
 
-const DATATYPE_TYPES = ['DATE', 'NUMERIC', 'TEXT'];
+var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
 
 class DatatypeModel {
   constructor(object) {
@@ -18,7 +19,7 @@ class DatatypeModel {
   }
 
   set typeName(typeName) {
-    if (!(typeName in TYPES)) {
+    if (DATATYPE_TYPES.indexOf(typeName) === -1) {
       throw new Error(typeName + 'is not a valid declaration type');
     }
     this._typeName = typeName;

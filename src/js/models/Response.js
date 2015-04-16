@@ -6,10 +6,12 @@ class ResponseModel {
     if (object) {
       this._simple = object._simple;
       this._predefinedLabels = object._predefinedLabels;
+      this._datatype = object._datatype;
       this._values = object._values;
     } else {
       this._simple = true;
       this._predefinedLabels = [];
+      this._datatype = '';
       this._values = [];
     }
   }

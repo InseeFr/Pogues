@@ -1,8 +1,9 @@
 /**
 Textual material associated to a sequence or question
 */
-// FIXME do we put that in constants dir?
-const DECLARATION_TYPES = ['INSTRUCTION', 'COMMENT', 'HELP'];
+import ModelConstants from './model-constants';
+
+var DECLARATION_TYPES = ModelConstants.DeclarationModel.DECLARATION_TYPES;
 
 class DeclarationModel {
 
@@ -31,7 +32,7 @@ class DeclarationModel {
   }
 
   set type(type) {
-    if (!(type in DECLARATION_TYPES)) {
+    if (DECLARATION_TYPES.indexOf(type) === -1) {
       throw new Error(type + 'is not a valid declaration type');
     }
     this._type = type;
