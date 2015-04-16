@@ -39,12 +39,15 @@ var QuestionnaireList = React.createClass({
   },
   componentWillMount: function() {
     console.log('QuestionnaireList component will mount');
-    PoguesActions.getQuestionnaireList();
+    //PoguesActions.getQuestionnaireList();
   },
   componentDidMount: function() {
+    console.log('QuestionnaireList component did mount.');
     QuestionnaireListStore.addChangeListener(this._onChange);
-    // Load questionnaire list
-    // FIXME what ??? DataUtils.getQuestionnaireList();
+    // FIXME doesn't work
+    PoguesActions.getQuestionnaireList();
+    // FIXME this one works, but its a hack
+    //DataUtils.getQuestionnaireList();
   },
   componentWillUnmount: function() {
     QuestionnaireListStore.removeChangeListener(this._onChange);
