@@ -2,6 +2,7 @@
 A control on a response or several responses
 */
 import ExpressionModel from './Expression';
+import ComponentModel from './Component';
 
 class GoToModel {
   constructor(object) {
@@ -83,4 +84,4 @@ class GoToModel {
 
 }
 
-export default ControlModel;
+export default GoToModel;

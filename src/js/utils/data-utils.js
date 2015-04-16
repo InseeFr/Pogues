@@ -4,8 +4,8 @@ var QuestionnaireModel = require('../models/Questionnaire');
 var SequenceModel = require('../models/Sequence');
 var QuestionModel = require('../models/Question');
 var DeclarationModel = require('../models/Declaration');
-//var ControlModel = require('../models/Control');
-//var GoToModel = require('../models/GoToModel');
+var ControlModel = require('../models/Control');
+var GoToModel = require('../models/GoTo');
 var Config = require('../config/config');
 var ModelConstants = require('../models/model-constants');
 var request = require('superagent');
@@ -21,7 +21,7 @@ var rName = /^[a-z0-9_]*$/i;
 var rNameNeg = /[^a-z0-9_]/gi;
 
 function populateFakeQuestionnaire(questionnaire) {
-    var numberOfSequences = 15;
+    var numberOfSequences = 10;
     for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
         var sequence = new SequenceModel();
         sequence.name = 'sequence_' + sequenceIndex;
