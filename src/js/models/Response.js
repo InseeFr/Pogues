@@ -7,11 +7,13 @@ class ResponseModel {
   constructor(object) {
     if (object) {
       this._simple = object._simple;
+      this._mandatory = object._mandatory;
       this._predefinedLabels = object._predefinedLabels;
       this._datatype = object._datatype;
       this._values = object._values;
     } else {
       this._simple = true;
+      this._mandatory = false;
       this._predefinedLabels = [];
       this._datatype = new DatatypeModel();
       this._values = [];
@@ -20,6 +22,10 @@ class ResponseModel {
 
   get simple() {
     return this._simple;
+  }
+
+  get mandatory() {
+    return this._mandatory;
   }
 
   get predefinedLabels() {
@@ -39,6 +45,13 @@ class ResponseModel {
       throw new Error('The parameter must be a boolean');
     }
     this._simple = bool;
+  }
+
+  set mandatory(bool) {
+    if (typeof bool !== 'boolean') {
+      throw new Error('The parameter must be a boolean');
+    }
+    this._mandatory = bool;
   }
 
   addPredefinedLabel(predefinedLabel) {
