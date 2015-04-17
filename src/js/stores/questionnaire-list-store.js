@@ -52,24 +52,9 @@ function _updateId(oldId, newId) {
     }
 }
 
-function _createQuestionnaireLocal(name, label) {
-    var _questionnaire = new QuestionnaireModel();
-    _questionnaire.name = name;
-    _questionnaire.label = label;
-    // mock : populate questionnaire
-    // FIXME remove when not needed anymore
-    if (!Config.remote) {
-      DataUtils.populateFakeQuestionnaire(_questionnaire);
-    }
-    // FIXME getName does not work
-    console.log('questionnaire-list-store created questionnaire', _questionnaire);
-    setTimeout(PoguesActions.selectQuestionnaire.bind(null, _questionnaire), 0);
-    setTimeout(PoguesActions.createQuestionnaireDistant.bind(null, _questionnaire), 0);
-    return _questionnaire;
-}
 
-function _createQuestionnaireDistant(questionnaire){
-    DataUtils.createQuestionnaireDistant(questionnaire);
+function _createQuestionnaire(questionnaire){
+  DataUtils.createQuestionnaire(questionnaire);
   return questionnaire;
 }
 
@@ -92,12 +77,8 @@ var dispatcherIndex = PoguesDispatcher.register(function(payload) {
             console.dir(DataUtils);
             DataUtils.getQuestionnaireList();
             break;
-        case ActionTypes.CREATE_QUESTIONNAIRE_LOCAL:
-            questionnaire = _createQuestionnaireLocal(payload.action.name, payload.action.label);
-            _addNewQuestionnaire(questionnaire);
-            break;
-        case ActionTypes.CREATE_QUESTIONNAIRE_DISTANT:
-            _createQuestionnaireDistant(payload.action.questionnaire);
+        case ActionTypes.CREATE_QUESTIONNAIRE:
+            _createQuestionnaire(payload.action.questionnaire);
             break;
         case ActionTypes.RECEIVE_NEW_ID_FROM_SERVER:
             _updateId(payload.action.oldId, payload.action.newId);

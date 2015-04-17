@@ -48,17 +48,10 @@ var PoguesActions = {
       oldId: oldId
     });
   },
-  createQuestionnaireLocal: function(name, label) {
-    PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.CREATE_QUESTIONNAIRE_LOCAL,
-      name: name,
-      label: label
-    });
-  },
   // questionnaire-list-store will ask the server for an id
-  createQuestionnaireDistant: function(questionnaire) {
+  createQuestionnaire: function(questionnaire) {
     PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.CREATE_QUESTIONNAIRE_DISTANT,
+      actionType: PoguesConstants.ActionTypes.CREATE_QUESTIONNAIRE,
       questionnaire: questionnaire
     });
   },
@@ -111,9 +104,16 @@ var PoguesActions = {
       questionnaire: questionnaire
     });
   },
-  switchToQuestionnaire: function() {
+  switchToQuestionnaire: function(id) {
     PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_QUESTIONNAIRE
+      actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_QUESTIONNAIRE,
+      idQuestionnaire: id
+    })
+  },
+  switchToEdition: function(id) {
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_EDITION,
+      idComponent: id
     })
   },
   switchToPicker: function() {

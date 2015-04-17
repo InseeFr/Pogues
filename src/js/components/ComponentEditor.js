@@ -7,7 +7,7 @@ var GoTo = require('./GoTo');
 var DeclarationModel = require('../models/Declaration');
 var QuestionEditor = require('./question-editor');
 var locale = require('../stores/dictionary-store').getDictionary();
-
+var GoToModel = require('../models/GoTo');
 var ComponentEditor = React.createClass({
 
   propTypes: {
@@ -40,6 +40,14 @@ var ComponentEditor = React.createClass({
       label: event.target.value
     })
   },
+  // HACK because we manipulate props
+  _update: function() {
+    this.setState({
+      declarations: this.props.component.declarations,
+      goTos: this.props.component.goTos,
+      controls: this.props.component.controls
+    })
+  },
   _updateDeclarations: function() {
     this.setState({
       declarations: this.props.component.declarations
@@ -48,8 +56,14 @@ var ComponentEditor = React.createClass({
   // TODO implement
   _addControl: function() {},
   _removeControl: function() {},
-  _addGoTo: function() {},
-  _removeGoTo: function() {},
+  _addGoTo: function() {
+    this.props.component.addGoTo(new GoToModel({_description: 'My funky goTo'}));
+    this._update();
+  },
+  _removeGoTo: function(goTo) {
+    this.props.component.removeGoTo(goTo);
+    this._update();
+  },
 
   _addDeclaration: function () {
     this.props.component.addDeclaration(new DeclarationModel({_text: 'A funky declaration'}));
@@ -82,7 +96,7 @@ var ComponentEditor = React.createClass({
         declarationsEls,
         controlsEls,
         questionEl,
-        goTosEl;
+        goTosEls;
 
     // TODO DRY
     if (declarations.length > 0) {
@@ -104,12 +118,12 @@ var ComponentEditor = React.createClass({
     }
 
     if (goTos.length > 0) {
-      controlsEls = controls.map(function (goTo) {
+      goTosEls = goTos.map(function (goTo) {
         return <GoTo delete={this._removeGoTo.bind(this, goTo)}
                key={goTo.id} control={goTo}/>;
       }, this);
     } else {
-      controlsEls = <span>No goTo yet</span>;
+      goTosEls = <span>No goTo yet</span>;
     }
     // TODO handle distinction between question and sequence in a different manner
     // we're dealing with a question
@@ -131,7 +145,7 @@ var ComponentEditor = React.createClass({
                type="text" className="form-control" id="name" placeholder={locale.name}/>
           </div>
             <div className="col-sm-1">
-              <button onClick={this._save} className="btn btn-default">&times;</button>
+              <button onClick={this._save} className="btn btn-default">&#10003;</button>
             </div>
         </div>
         <div className="panel panel-default">
@@ -159,7 +173,7 @@ var ComponentEditor = React.createClass({
             <button onClick={this._addGoTo} className="btn btn-sm btn-primary pull-right">{locale.defineGoTo}</button>
           </div>
           <div className="panel-body">
-            {goTosEl}
+            {goTosEls}
           </div>
         </div>
     </div>

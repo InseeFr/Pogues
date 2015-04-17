@@ -31,13 +31,14 @@ var QuestionEditor = React.createClass({
   propTypes: {
     question: React.PropTypes.instanceOf(QuestionModel)
   },
+  // FIXME process only the first response model for now
   componentWillMount: function() {
     var question = this.props.question;
     this.setState({
       name: question.name,
       label: question.label,
-      datatypeType: question.response.datatype.typeName,
-      datatype: question.response.datatype
+      datatypeType: question.responses[0].datatype.typeName,
+      datatype: question.responses[0].datatype
     });
   },
   _save: function() {
@@ -46,30 +47,33 @@ var QuestionEditor = React.createClass({
 
   _handleDatatypeTypeChange: function(datatypeType) {
     // change question datatype
+    // ensure that the new datatypeType is different before changing the model
+    if (datatypeType === this.state.datatypeType) return;
+    // changing the model
+    var newDatatype = new datatypeToModel[datatypeType]();
+    this.props.question.responses[0].datatype = newDatatype;
     this.setState({
       datatypeType: datatypeType,
+      datatype: newDatatype
     })
   },
-  _handleDatatatTypePropertiesChange: function(datatypeProps){
-    // TODO ugly, think again about model constructors
-    var type = {_type: this.state.datatypeType};
-    this.setState({
-      datatype: new datatypeToModel(assign(type, datatypeProps))
-    });
-  },
-
 
   render: function() {
+    var datatypeEditor = datatypeToComponent[this.state.datatypeType]({
+          handleChange: this._handleDatatypeChange,
+          datatype: this.state.datatype
+        });
     return (
       <div className="panel panel-default">
         <div className="panel-heading clearfix">
           <h3 className="panel-title pull-left">{locale.questionEdition}</h3>
           <div className="pull-right">
-            <DatatypePicker datatypeType={this.state.datatypeType} handleChange={this._handleDatatypeTypeChange}/>
+            <DatatypePicker handleChange={this._handleDatatypeTypeChange} 
+              datatypeType={this.state.datatypeType}/>
           </div>
         </div>
         <div className="panel-body">
-          {datatypeToComponent[this.state.datatypeType].call()}
+          {datatypeEditor}
         </div>
       </div>
     );

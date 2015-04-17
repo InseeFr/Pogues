@@ -1,4 +1,5 @@
 var React = require('react');
+var PoguesActions = require('../actions/pogues-actions');
 
 var Component = React.createClass({
 
@@ -17,6 +18,7 @@ var Component = React.createClass({
   _toggleActive: function() {
     console.log('Changing state for component ' + this.props.component.id, this.state);
     this.setState({active: !this.state.active});
+    PoguesActions.editComponent(this.props.component.id);
   },
 
   render: function() {

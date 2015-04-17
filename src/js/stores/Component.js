@@ -1,57 +1,25 @@
+var EventEmitter = require('events').EventEmitter;
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var QuestionnaireModel = require("../models/Questionnaire");
 var SequenceModel = require("../models/Sequence");
 var DataUtils = require('../utils/data-utils');
-var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-
+var QUtils = require('../utils/questionnaire-utils');
+// FIXME CHANGE_EVENT should be a constant
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
-var _components = []
+var _component;
 
-
-function getComponents(questionnaire, filter) {
-
-}
-
-
-function _filter(filter) {
-  component.label 
-}:
-
-function _setQuestionnaireByIndex(index) {
-  _questionnaire = QuestionnaireListStore.getQuestionnaire(index);
-  console.log('Questionnaire', _questionnaire);
-  _questionnaire.modules = [];
-}
-
-function _setQuestionnaire(questionnaire) {
-  // We must keep id and we can keep name
-  _questionnaire.modules = questionnaire.modules;
-  console.log('Questionnaire in questionnaire store is now', _questionnaire);
-}
-
-function _createQuestionnaire(name) {
-  var questionnaire = new QuestionnaireModel();
-  questionnaire.name = name;
-  return questionnaire;
-}
-
-function _addSequence(name) {
-  var child = new SequenceModel();
-  child.name = name;
-  _questionnaire.addChild(child);
-}
 
 var ComponentStore = assign({}, EventEmitter.prototype, {
-  getQuestionnaire: function() {
-    return _questionnaire;
+  getComponent: function() {
+    return _component;
   },
   emitChange: function() {
-    console.log('ComponentStore emiting event', CHANGE_EVENT);
+    console.log('ComponentStore emitting event', CHANGE_EVENT);
     this.emit(CHANGE_EVENT);
   },
   addChangeListener: function(callback) {
@@ -64,16 +32,18 @@ var ComponentStore = assign({}, EventEmitter.prototype, {
     console.log('ComponentStore received dispatched payload', payload);
     var action = payload.action; // action from HandleViewAction
     switch(action.actionType) {
-      case ActionTypes.EDIT_COMPONENT:
-        _addSequence(payload.action.name);
+      case ActionTypes.RECEIVE_NEW_ID_FROM_SERVER:
+        // no action, but we want to emit change
         break;
+
       default:
         return true;
     }
-    console.log('ComponentStore will emit change, component is', _component);
+    console.log('Component will emit change, component is', _component);
     ComponentStore.emitChange();
     return true;
   })
 });
 
 module.exports = ComponentStore;
+

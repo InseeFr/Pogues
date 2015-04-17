@@ -3,10 +3,6 @@ var DeclarationModel = require('../models/Declaration');
 var locale = require('../stores/dictionary-store').getDictionary();
 var declarationTypes = require('../models/model-constants').DeclarationModel.DECLARATION_TYPES;
 
-  DeclarationModel: {
-    DECLARATION_TYPES: ['INSTRUCTION', 'COMMENT', 'HELP']
-  }
-
 var Declaration = React.createClass({
   propTypes: {
     declaration: React.PropTypes.instanceOf(DeclarationModel)

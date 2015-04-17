@@ -68,7 +68,7 @@ var QuestionnaireEditor = React.createClass({
     questionnaire.label = this.state.label;
     questionnaire.name = this.state.name;
     console.log('[QuestionnaireEditor] Creating a questionnaire with name :' + questionnaire.name);
-    PoguesActions.createQuestionnaireDistant(questionnaire);
+    PoguesActions.createQuestionnaire(questionnaire);
     // go to questionnaire view
     // FIXME ROM1704 suppress when refacto is finished 
     //PoguesActions.switchToQuestionnaire();

@@ -4,7 +4,7 @@ var QuestionnaireModel = require('../models/Questionnaire');
 
 function flatten(quesr) {
     return quesr.children.reduce(function(a, b) {
-        return a.concat(b.children ? flatten(b) : [b]);
+        return a.concat(b.children ? [b].concat(flatten(b)) : [b]);
     }, []);
   }
 
@@ -38,6 +38,15 @@ var QuestionnaireUtils = {
       }
     }
   },
+
+
+  getComponentFromId: function (questionnaire, idComponent) {
+    var candidate;
+    return (flatten(questionnaire).some(function (c) {
+      return (candidate = c, c.id === idComponent)
+    }), candidate || null);
+  },
+
   pickComponent: function pickComponent(quesr){
     return quesr.children[0];
   },
@@ -50,7 +59,6 @@ var QuestionnaireUtils = {
         return (candidate = el, !el.depth);
       }, this), candidate);
   },
-
 
   /*
    Appends a component (sequence or question) to a sequence at a certain depth.

@@ -25,6 +25,14 @@ function extractId(uri) {
 var rName = /^[a-z0-9_]*$/i;
 var rNameNeg = /[^a-z0-9_]/gi;
 
+function createFakeQuestionnaire() {
+  var questionnaire = new QuestionnaireModel();
+  questionnaire.label = 'FAKEQ_458';
+  questionnaire.name = 'My fake questionnaire';
+  populateFakeQuestionnaire(questionnaire);
+  return questionnaire;
+}
+
 function populateFakeQuestionnaire(questionnaire) {
     var numberOfSequences = 10;
     for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
@@ -175,12 +183,11 @@ var DataUtils = {
           }
         });
     } else {
-      // FIXME use the populateFakeQuestionnaire instead.
-      return this.mock.loadDeepQuestionnaire(index) 
-    };
+      setTimeout(PoguesActions.receiveQuestionnaire.bind(null, createFakeQuestionnaire()));
+    }
   },
 
-  createQuestionnaireDistant: function(questionnaire) {
+  createQuestionnaire: function(questionnaire) {
     var newId;
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaires';
     if (Config.remote) {
@@ -204,7 +211,7 @@ var DataUtils = {
       });
     }
     else {
-      setTimeout(PoguesActions.receiveNewIdFromServer.bind(null, 'NEW_' + questionnaire.id, questionnaire.id), 0);
+      setTimeout(PoguesActions.selectQuestionnaire.bind(null, 'NEW_' + questionnaire.id), 0);
     }
   },
 

@@ -51,7 +51,10 @@ var _dictionary = {
   pattern: {'en': 'Pattern', 'fr': 'Motif'},
   disjoignable: {'en': 'Detachable instruction', 'fr': 'Instruction détachable'},
   goTo: {'en': 'Goto', 'fr': 'Redirections'},
-  defineGoTo: {'en': 'Define a goto', 'fr': 'Définir une redirection'}
+  defineGoTo: {'en': 'Define a goto', 'fr': 'Définir une redirection'},
+  maximum: {'en': 'Maximum', 'fr': 'Maximum'},
+  minimum: {'en': 'Minimum', 'fr': 'Minimum'},
+  decimals: {'en': 'Decoùams', 'fr': 'Précision'}
 };
 
 //initialization
