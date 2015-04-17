@@ -29,7 +29,8 @@ function populateFakeQuestionnaire(questionnaire) {
     TextDatatypeModel.bind(null, {_maxLength: 10, _pattern: 'my_pattern'}),
     NumericDatatypeModel.bind(null, {_minimum: 0, _maximum: 120, _decimals: 3}),
     DateDatatypeModel.bind(null, {_minimum: new Date(), _maximum: new Date(), _format: 'ddmmyyyy'})
-    ];
+    ],
+    chooseDatatype;
     var numberOfSequences = 10;
     for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
         var sequence = new SequenceModel();
@@ -43,6 +44,8 @@ function populateFakeQuestionnaire(questionnaire) {
                 child = new QuestionModel();
                 child.name = 'question_' + childNumber;
                 child.label = 'question_' + childNumber;
+                chooseDatatype = Math.floor(Math.random() * 3);
+                question.response.datatype = new chooseDatatypeConstructor[chooseDatatype]();								
                 populateFakeComponent(child);
                 sequence.addChild(child);
             } else {
@@ -54,7 +57,7 @@ function populateFakeQuestionnaire(questionnaire) {
                     var question = new QuestionModel();
                     question.name = 'question_' + questionNumber;
                     question.label = 'question_' + questionNumber;
-                    var chooseDatatype = Math.floor(Math.random() * 3);
+                    chooseDatatype = Math.floor(Math.random() * 3);
                     question.response.datatype = new chooseDatatypeConstructor[chooseDatatype]();
                     populateFakeComponent(question);
                     child.addChild(question);
