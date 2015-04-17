@@ -2,7 +2,7 @@
 A Component is the base class for the Questionnaire questions and sequences
 */
 import ComponentModel from './Component.js';
-import DeclarationModel from './Declaation.js';
+import DeclarationModel from './Declaration.js';
 
 class ComponentGroupModel {
   constructor(object) {
@@ -10,6 +10,9 @@ class ComponentGroupModel {
       this._id = object._id;
       this._name = object._name;
       this._label = object._label;
+      this._declarations = object._declarations.map(function(declaration) {
+        return new DeclarationModel(declaration);
+      });
       this._members = object._members.map(function(member) {
         return new ComponentModel(member);
       });
@@ -32,6 +35,10 @@ class ComponentGroupModel {
 
   get label() {
     return this._label;
+  }
+
+  get declarations() {
+    return this._declarations;
   }
 
   get members() {

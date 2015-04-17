@@ -17,7 +17,7 @@ var _rFilter;
 
 function _setQuestionnaireById(id) {
 
-  _questionnaire = DataUtils.getQuestionnaire(id);
+  DataUtils.getQuestionnaire(id);
   console.log('Questionnaire', _questionnaire);
   // FIXME nothing is done with the questionnaire in param.
   //setTimeout(PoguesActions.receiveQuestionnaire.bind(null, _questionnaire), 0);
@@ -97,8 +97,10 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         console.log('[QLSTORE] Receiving SELECT_QUESTIONNAIRE action');
         _setQuestionnaireById(payload.action.id);
         break;
-      case ActionTypes.QUESTIONNAIRE_LOADED:
-        // no action, but we want to emit change
+      case ActionTypes.RECEIVE_QUESTIONNAIRE:
+        console.log('[QSTORE] Receiving questionnaire');
+        console.dir(payload.action.questionnaire);
+        _setQuestionnaire(payload.action.questionnaire);
         break;
       case ActionTypes.QUESTIONNAIRE_LOADING_FAILED:
         _questionnaire = null;

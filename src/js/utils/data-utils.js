@@ -147,14 +147,15 @@ var DataUtils = {
             // res.body is null
             questionnaire = new QuestionnaireModel(JSON.parse(res.text));
             console.log('DataUtils.getQuestionnaire will return questionnaire', questionnaire);
-            // FIXME return a questionnaire instead of sending an action
             PoguesActions.receiveQuestionnaire(questionnaire);
           } else {
             console.log(res.body);
           }
         });
-        return questionnaire;
-    } else return this.mock.loadDeepQuestionnaire(index);
+    } else {
+      // FIXME use the populateFakeQuestionnaire instead.
+      return this.mock.loadDeepQuestionnaire(index) 
+    };
   },
 
   createQuestionnaireDistant: function(questionnaire) {

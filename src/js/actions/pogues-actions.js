@@ -31,7 +31,7 @@ var PoguesActions = {
   // Questionnaire loaded or not from the server
   receiveQuestionnaire: function(questionnaire) {
     PoguesDispatcher.handleServerAction({
-      actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LOADED,
+      actionType: PoguesConstants.ActionTypes.RECEIVE_QUESTIONNAIRE,
       questionnaire: questionnaire
     });
   },
