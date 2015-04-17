@@ -59,7 +59,7 @@ function _createQuestionnaireLocal(name, label) {
     // mock : populate questionnaire
     // FIXME remove when not needed anymore
     if (!Config.remote) {
-      Utils.populateFakeQuestionnaire(_questionnaire);
+      DataUtils.populateFakeQuestionnaire(_questionnaire);
     }
     // FIXME getName does not work
     console.log('questionnaire-list-store created questionnaire', _questionnaire);
@@ -69,7 +69,7 @@ function _createQuestionnaireLocal(name, label) {
 }
 
 function _createQuestionnaireDistant(questionnaire){
-    Utils.createQuestionnaireDistant(questionnaire);
+    DataUtils.createQuestionnaireDistant(questionnaire);
   return questionnaire;
 }
 
