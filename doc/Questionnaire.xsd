@@ -20,6 +20,7 @@
             <xs:extension base="SequenceType">
                 <xs:sequence>
                     <xs:element ref="Survey"/>
+                    <xs:element ref="ComponentGroup" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
                 <xs:attribute name="agency" type="xs:token"/>
             </xs:extension>
@@ -42,6 +43,7 @@
             <xs:sequence>
                 <xs:element name="Name" type="xs:token"/>
                 <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
+                <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element name="Member" type="ComponentType" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="id" type="xs:ID"/>
