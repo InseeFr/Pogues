@@ -33,9 +33,9 @@ var QuestionnaireList = React.createClass({
       questionnaires: null
     }
   },
-  selectIndex: function(index, event) {
-    console.log('QuestionnairePicker.selectIndex', index);
-    PoguesActions.selectQuestionnaire(index); // Value is index
+  selectWithId: function(id, event) {
+    console.log('QuestionnairePicker.selectIndex', id);
+    PoguesActions.selectQuestionnaire(id);
   },
   componentWillMount: function() {
     console.log('QuestionnaireList component will mount');
@@ -63,10 +63,11 @@ var QuestionnaireList = React.createClass({
           {questArray.map(function(questionnaire, index) {
             return (<li className="list-group-item"
                   key={index}>
-                    <a href="#" onClick={this.selectIndex.bind(this, index)}>
+                    <a href="#" onClick={this.selectWithId.bind(this, questionnaire._id)}>
                       <span>{questionnaire._label}</span>
                       <span className="id">({questionnaire._name})</span>
-                      <span className="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                      <span ><kbd>[{questionnaire._id}]</kbd></span>
+                      <span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span>
                     </a>
                   </li>)
           }, this)}
