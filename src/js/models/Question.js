@@ -11,11 +11,11 @@ class QuestionModel extends ComponentModel {
     if (object) {
       this._simple = object._simple;
       this._filter = new FilterModel(object._filter);
-      this._response = object._response.map(ResponseModel.bind(null, object));
+      this._responses = object._responses.map(ResponseModel.bind(null, object));
     } else {
       this._simple = true;
       this._filter = new FilterModel();
-      this._response = [];
+      this._responses = [];
     }
   }
 
@@ -27,8 +27,8 @@ class QuestionModel extends ComponentModel {
     return this._filter;
   }
 
-  get response() {
-    return this._response;
+  get responses() {
+    return this._responses;
   }
 
   set simple(bool) {
@@ -45,21 +45,44 @@ class QuestionModel extends ComponentModel {
     this._filter = filter;
   }
 
-  set response(response) {
-    // TODO check response is an array
-    response.map(function(child) {
-      if (!(child instanceof ResponseModel)) {
+  addResponse(response) {
+    if (!(response instanceof ResponseModel)) {
+      throw new Error('The argument must be a Response');
+    }
+    this._responses.push(response);
+  }
+
+  addResponses(responses) {
+    // Save current size in case something goes wrong
+    var initialSize = this._responses.length;
+    try {
+      responses.map(function(response) {
+        this.addResponse(response);
+      });
+    } catch (e) {
+      this._responses.length(initialSize);
+      throw new Error('All arguments must be of type Response');
+    }
+  }
+
+  removeResponse(response) {
+    var index = this._responses.indexOf(response);
+    if (index > -1) {
+      this._responses.splice(index, 1);
+    } else {
+      throw new Error('Response is not in response array');
+    }
+  }
+
+  set responses(responses) {
+    if (!(Array.isArray(responses))) throw new Error('The argument must be an array');
+    responses.map(function(response) {
+      if (!(response instanceof ResponseModel)) {
         throw new Error('All arguments must be of type Response');
       }
     });
-    this._response = response;
+    this._responses = responses;
   }
-  // TODO remove response model
-  // 
-  addResponse(response) {
-    this._response.push(response)
-  }
-
 }
 
 export default QuestionModel;
