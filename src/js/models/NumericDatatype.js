@@ -3,6 +3,10 @@ A numeric response datatype
 */
 import DatatypeModel from './Datatype.js';
 
+import ModelConstants from './model-constants';
+
+var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+
 class NumericDatatypeModel extends DatatypeModel {
   constructor(object) {
     super(object);
@@ -15,6 +19,7 @@ class NumericDatatypeModel extends DatatypeModel {
       this._maximum = 100;
       this._decimals = 2;
     }
+    this._typeName = DATATYPE_TYPES[1];
   }
 
   get minimum() {

@@ -4,11 +4,15 @@ var QuestionnaireModel = require('../models/Questionnaire');
 var SequenceModel = require('../models/Sequence');
 var QuestionModel = require('../models/Question');
 var DeclarationModel = require('../models/Declaration');
+var ExpressionModel = require('../models/Expression');
 var ControlModel = require('../models/Control');
 var GoToModel = require('../models/GoTo');
 var Config = require('../config/config');
 var ModelConstants = require('../models/model-constants');
 var request = require('superagent');
+var TextDatatypeModel = require('../models/TextDatatype');
+var DateDatatypeModel = require('../models/DateDatatype');
+var NumericDatatypeModel = require('../models/NumericDatatype');
 
 // FIXME extrat from uri found in res.header.Location
 function extractId(uri) {
@@ -21,6 +25,11 @@ var rName = /^[a-z0-9_]*$/i;
 var rNameNeg = /[^a-z0-9_]/gi;
 
 function populateFakeQuestionnaire(questionnaire) {
+  var chooseDatatypeConstructor = [
+    TextDatatypeModel.bind(null, {_maxLength: 10, _pattern: 'my_pattern'}),
+    NumericDatatypeModel.bind(null, {_minimum: 0, _maximum: 120, _decimals: 3}),
+    DateDatatypeModel.bind(null, {_minimum: new Date(), _maximum: new Date(), _format: 'ddmmyyyy'})
+    ];
     var numberOfSequences = 10;
     for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
         var sequence = new SequenceModel();
@@ -45,6 +54,8 @@ function populateFakeQuestionnaire(questionnaire) {
                     var question = new QuestionModel();
                     question.name = 'question_' + questionNumber;
                     question.label = 'question_' + questionNumber;
+                    var chooseDatatype = Math.floor(Math.random() * 3);
+                    question.response.datatype = new chooseDatatypeConstructor[chooseDatatype]();
                     populateFakeComponent(question);
                     child.addChild(question);
                 }
@@ -75,14 +86,14 @@ function populateFakeComponent(component) {
   for (var controlIndex = 1; controlIndex <= numberOfControls; controlIndex++) {
     var control = new ControlModel();
     control.description = 'Description of control ' + controlIndex + ' for ' + component.name;
-    control.expression = 'http://controls.org/' + component.name + '/' + controlIndex;
+    control.expression = new ExpressionModel({_text: 'http://controls.org/' + component.name + '/' + controlIndex});
     component.controls.push(control);
   }
   // Adding zero or one go-to's
   if (Math.random() < 0.5) {
     var goTo = new GoToModel();
     goTo.description = 'Description of go to for ' + component.name;
-    goTo.expression = 'http://gotos.org/' + component.name + '/goto';
+    goTo.expression = new ExpressionModel({_text: 'http://gotos.org/' + component.name + '/goto'});
     goTo.ifTrue = new QuestionModel(); // TODO Direct to an existing component
     component.goTos.push(goTo);
   }

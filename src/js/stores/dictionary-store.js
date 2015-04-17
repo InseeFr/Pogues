@@ -32,7 +32,26 @@ var _dictionary = {
   addDeclaration: {'en': 'Add an instruction', 'fr': 'Ajouter une instruction'},
   addControl: {'en': 'Add a control', 'fr': 'Ajouter un contrôle'},
   declarations: {'en': 'Instructions', 'fr': 'Instructions'},
-  controls: {'en': 'Controls', 'fr': 'Controls'}
+  controls: {'en': 'Controls', 'fr': 'Controls'},
+  questionEdition: {'en': 'Edit question properties', 'fr' : 'Éditer les caractéristiques de la question'},
+  numType: {'en': 'Number', 'fr': 'Nomber'},
+  stringType: {'en': 'String', 'fr': 'Chaîne de caractères'},
+  choiceType: {'en': 'Choice', 'fr': 'Choix'},
+  QUESTIONNAIRE: {'en': 'Questionnaire', 'fr': 'Questionnaire'},
+  MODULE: {'en': 'Module', 'fr': 'Module'},
+  PARAGRAPH: {'en': 'Paragraph', 'fr': 'Paragraphe'},
+  SEQUENCE: {'en': 'Module', 'fr': 'Module'},
+  DATE: {'en': 'Date', 'fr': 'Date'},
+  NUMERIC: {'en': 'Number', 'fr': 'Nombre'},
+  TEXT: {'en': 'Text', 'fr': 'Texte'},
+  INSTRUCTION: {'en': 'Instruction', 'fr': 'Instruction'},
+  COMMENT: {'en': 'Comment', 'fr': 'Commentaire'},
+  HELP: {'en': 'Help', 'fr': 'Aide'},
+  maxLength: {'en': 'Length', 'fr': 'Taille'},
+  pattern: {'en': 'Pattern', 'fr': 'Motif'},
+  disjoignable: {'en': 'Detachable instruction', 'fr': 'Instruction détachable'},
+  goTo: {'en': 'Goto', 'fr': 'Redirections'},
+  defineGoTo: {'en': 'Define a goto', 'fr': 'Définir une redirection'}
 };
 
 //initialization

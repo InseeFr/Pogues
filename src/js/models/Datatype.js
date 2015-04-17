@@ -10,7 +10,7 @@ class DatatypeModel {
     if (object) {
       this._typeName = object._typeName;
     } else {
-      this._typeName = DATATYPE_TYPES[0]; // First value by default
+      this._typeName = DATATYPE_TYPES[2]; // TEXT by default
     }
   }
 

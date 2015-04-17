@@ -3,6 +3,10 @@ A numeric response datatype
 */
 import DatatypeModel from './Datatype.js';
 
+import ModelConstants from './model-constants';
+
+var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+
 class TextDatatypeModel extends DatatypeModel {
   constructor(object) {
     super(object);
@@ -13,6 +17,7 @@ class TextDatatypeModel extends DatatypeModel {
       this._maxLength = 0;
       this._pattern = '';
     }
+    this._typeName = DATATYPE_TYPES[2];
   }
 
   get maxLength() {

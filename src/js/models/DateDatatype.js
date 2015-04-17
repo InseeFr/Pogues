@@ -3,6 +3,10 @@ A date response datatype
 */
 import DatatypeModel from './Datatype.js';
 
+import ModelConstants from './model-constants';
+
+var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+
 class DateDatatypeModel extends DatatypeModel {
   constructor(object) {
     super(object);
@@ -15,6 +19,7 @@ class DateDatatypeModel extends DatatypeModel {
       this._maximum = new Date();
       this._format = '';
     }
+    this._typeName = DATATYPE_TYPES[0];
   }
 
   get minimum() {
@@ -30,7 +35,7 @@ class DateDatatypeModel extends DatatypeModel {
   }
 
   set minimum(minimum) {
-    if (!(minimum instanceof Date) {
+    if (!(minimum instanceof Date)) {
       throw new Error('The parameter must be a Date object');
     }
     this._minimum = minimum;

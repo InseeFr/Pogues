@@ -37,6 +37,17 @@
         <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
+    <xs:element name="ComponentGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Name" type="xs:token"/>
+                <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
+                <xs:element name="Member" type="ComponentType" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+        </xs:complexType>
+    </xs:element>
+
     <xs:complexType name="QuestionType">
         <xs:complexContent>
             <xs:extension base="ComponentType">
@@ -96,6 +107,7 @@
         <xs:sequence>
             <xs:element name="Description" type="xs:string"/>
             <xs:element name="Expression" type="ExpressionType"/>
+            <xs:element name="FailMessage" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="criticity" type="ControlCriticityEnum"/>
@@ -144,6 +156,18 @@
                     <xs:element name="Minimum" type="xs:integer"/>
                     <xs:element name="Maximum" type="xs:integer"/>
                     <xs:element name="Decimals" type="xs:nonNegativeInteger"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DateDatatypeType">
+        <xs:complexContent>
+            <xs:extension base="DatatypeType">
+                <xs:sequence>
+                    <xs:element name="Minimum" type="xs:integer"/>
+                    <xs:element name="Maximum" type="xs:integer"/>
+                    <xs:element name="Format" type="xs:token"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
