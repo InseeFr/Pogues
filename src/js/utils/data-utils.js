@@ -184,7 +184,7 @@ var DataUtils = {
     var newId;
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaires';
     if (Config.remote) {
-      console.log('Remote creation of questionnaire ' + questionnaire.id);
+      console.log('[DataUtils] Remote creation of questionnaire ' + questionnaire.id);
       request
         .post(targetURL)
         .set('Content-Type', 'text/html')
@@ -193,9 +193,11 @@ var DataUtils = {
             if (err) return;
             if (res.ok) {
               newId = extractId(res.headers.location);//extrat from uri
-              console.log('DataUtils.createQuestionnaireDistant will return new id for questionnaire', questionnaire);
+              console.log('[DataUtils] will return new id for questionnaire', questionnaire);
+              console.log('[DataUtils] New id is : ' + newId);
               // TODO check in  header slug is the same as oldId
-              PoguesActions.receiveNewIdFromServer(questionnaire.id, newId);
+              //PoguesActions.receiveNewIdFromServer(questionnaire.id, newId);
+              PoguesActions.selectQuestionnaire(newId);
             } else {
               console.log(res.body);
             }
