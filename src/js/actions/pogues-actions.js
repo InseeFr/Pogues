@@ -29,10 +29,10 @@ var PoguesActions = {
     });
   },
   // Questionnaire loaded or not from the server
-  receiveQuestionnaire: function(data) {
+  receiveQuestionnaire: function(questionnaire) {
     PoguesDispatcher.handleServerAction({
       actionType: PoguesConstants.ActionTypes.QUESTIONNAIRE_LOADED,
-      questionnaire: data.questionnaire
+      questionnaire: questionnaire
     });
   },
   getQuestionnaireFailed: function(error) {
@@ -72,10 +72,10 @@ var PoguesActions = {
   },
   // Questionnaire selected in questionnaire picker or newly created
   // questionnaire (after create questionnaire)
-  selectQuestionnaire: function(questionnaire) {
+  selectQuestionnaire: function(id) {
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.SELECT_QUESTIONNAIRE,
-      questionnaire: questionnaire
+      id: id
     });
     PoguesActions.switchToQuestionnaire();
   },
