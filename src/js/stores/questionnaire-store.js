@@ -1,10 +1,10 @@
+var EventEmitter = require('events').EventEmitter;
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var QuestionnaireModel = require("../models/Questionnaire");
 var SequenceModel = require("../models/Sequence");
 var DataUtils = require('../utils/data-utils');
-var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var QUtils = require('../utils/questionnaire-utils');
 // FIXME CHANGE_EVENT should be a constant
@@ -15,9 +15,12 @@ var _questionnaire;
 var _filter = null;
 var _rFilter;
 
-function _setQuestionnaireByIndex(index) {
-  _questionnaire = QuestionnaireListStore.getQuestionnaire(index);
+function _setQuestionnaireById(id) {
+
+  _questionnaire = DataUtils.getQuestionnaire(id);
   console.log('Questionnaire', _questionnaire);
+  // FIXME nothing is done with the questionnaire in param.
+  //setTimeout(PoguesActions.receiveQuestionnaire.bind(null, _questionnaire), 0);
 }
 /**
  * Set current filter for the questionnaire
@@ -91,7 +94,8 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         _addComponent(payload.action.spec);
         break;
       case ActionTypes.SELECT_QUESTIONNAIRE:
-        _setQuestionnaire(payload.action.questionnaire);
+        console.log('[QLSTORE] Receiving SELECT_QUESTIONNAIRE action');
+        _setQuestionnaireById(payload.action.id);
         break;
       case ActionTypes.QUESTIONNAIRE_LOADED:
         // no action, but we want to emit change
@@ -107,7 +111,6 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         break;
       case ActionTypes.SAVE_QUESTIONNAIRE:
         console.log('Action SAVE_QUESTIONNAIRE caught in QuestionnaireStore with questionnaire -->');
-        console.dir(payload.action.questionnaire);
         DataUtils.saveQuestionnaire(payload.action.questionnaire);
         break;
       case ActionTypes.EDIT_QUESTIONNAIRE:
@@ -123,3 +126,4 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 });
 
 module.exports = QuestionnaireStore;
+

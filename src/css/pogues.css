@@ -89,3 +89,7 @@ span.error-message {
   border-style: solid;
   border-color: #FBBFBB;
 }
+
+.list-group-item:hover {
+  background-color: #EDEDED;
+}

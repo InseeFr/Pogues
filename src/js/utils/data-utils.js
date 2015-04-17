@@ -130,7 +130,7 @@ var DataUtils = {
 
   getQuestionnaire: function(index) {
     var questionnaire;
-    var targetURL = Config.baseURL + Config.persistPath + '/questionnaire' + index;
+    var targetURL = Config.baseURL + Config.persistPath + '/questionnaire/' + index;
     if (Config.remote) {
       request
         .get(targetURL)
@@ -142,13 +142,15 @@ var DataUtils = {
             // the questionaire
             // FIXME if content-type is not set properly in the response headers
             // res.body is null
-            questionnaire = JSON.parse(res.text);
+            questionnaire = new QuestionnaireModel(JSON.parse(res.text));
             console.log('DataUtils.getQuestionnaire will return questionnaire', questionnaire);
+            // FIXME return a questionnaire instead of sending an action
             PoguesActions.receiveQuestionnaire(questionnaire);
           } else {
             console.log(res.body);
           }
         });
+        return questionnaire;
     } else return this.mock.loadDeepQuestionnaire(index);
   },
 
