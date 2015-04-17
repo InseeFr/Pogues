@@ -90,7 +90,6 @@ class ComponentModel {
     } else {
       throw new Error('Declaration not in component');
     }
-
   }
 
   addDeclarations(declarations) {
@@ -122,6 +121,15 @@ class ComponentModel {
     this._controls.push(control);
   }
 
+  removeControl(control) {
+    var index = this._controls.indexOf(control);
+    if (index > -1) {
+      this._controls.splice(index, 1);
+    } else {
+      throw new Error('Control not in component');
+    }
+  }
+
   addControls(controls) {
     // Save current size in case something goes wrong
     var initialSize = this._controls.length;
@@ -149,6 +157,15 @@ class ComponentModel {
       throw new Error('The argument must be a GoTo');
     }
     this._goTos.push(goTo);
+  }
+
+  removeGoTo(goTo) {
+    var index = this._goTos.indexOf(goTo);
+    if (index > -1) {
+      this._goTos.splice(index, 1);
+    } else {
+      throw new Error('GoTo not in component');
+    }
   }
 
   addGoTos(goTos) {
