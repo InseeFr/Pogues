@@ -56,7 +56,6 @@
                 </xs:sequence>
                 <xs:attribute name="open" type="xs:boolean"/>
                 <xs:attribute name="simple" type="xs:boolean"/>
-                <xs:attribute name="mandatory" type="xs:boolean"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -67,7 +66,8 @@
             <xs:element name="Datatype" type="DatatypeType"/>
             <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="simple" type="xs:boolean"/>        
+        <xs:attribute name="simple" type="xs:boolean"/>
+        <xs:attribute name="mandatory" type="xs:boolean"/>
     </xs:complexType>
 
     <xs:complexType name="SequenceType">
