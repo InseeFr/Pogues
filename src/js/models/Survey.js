@@ -26,7 +26,12 @@ class SurveyModel {
     return this._agency;
   }
 
-  // TODO do we need a setter for id?
+  set id(id) {
+    if (typeof id !== 'string') {
+      throw new Error('The parameter must be a string');
+    }
+    this._id = id;
+  }
 
   set name(name) {
     if (typeof name !== 'string') {

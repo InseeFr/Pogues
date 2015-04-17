@@ -83,6 +83,7 @@ class ComponentGroupModel {
   }
 
   addDeclarations(declarations) {
+    if (!(Array.isArray(declarations))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
     var initialSize = this._declarations.length;
     try {
@@ -96,6 +97,7 @@ class ComponentGroupModel {
   }
 
   set declarations(declarations) {
+    if (!(Array.isArray(declarations))) throw new Error('The argument must be an array');
     declarations.map(function(declaration) {
       if (!(declaration instanceof DeclarationModel)) {
         throw new Error('All arguments must be of type Declaration');
@@ -121,6 +123,7 @@ class ComponentGroupModel {
   }
 
   addMembers(members) {
+    if (!(Array.isArray(members))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
     var initialSize = this._members.length;
     try {
@@ -134,6 +137,7 @@ class ComponentGroupModel {
   }
 
   set members(members) {
+    if (!(Array.isArray(members))) throw new Error('The argument must be an array');
     members.map(function(member) {
       if (!(member instanceof ComponentModel)) {
         throw new Error('All arguments must be of type Component');

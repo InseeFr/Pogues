@@ -103,8 +103,6 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="FilterType"><!-- TBD --></xs:complexType>
-
     <xs:complexType name="ControlType">
         <xs:sequence>
             <xs:element name="Description" type="xs:string"/>

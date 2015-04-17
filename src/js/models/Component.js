@@ -131,6 +131,7 @@ class ComponentModel {
   }
 
   addControls(controls) {
+    if (!(Array.isArray(controls))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
     var initialSize = this._controls.length;
     try {
@@ -144,6 +145,7 @@ class ComponentModel {
   }
 
   set controls(controls) {
+    if (!(Array.isArray(controls))) throw new Error('The argument must be an array');
     controls.map(function(control) {
       if (!(control instanceof ControlModel)) {
         throw new Error('All arguments must be of type Control');
@@ -169,6 +171,7 @@ class ComponentModel {
   }
 
   addGoTos(goTos) {
+    if (!(Array.isArray(goTos))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
     var initialSize = this._goTos.length;
     try {
@@ -182,6 +185,7 @@ class ComponentModel {
   }
 
   set goTos(goTos) {
+    if (!(Array.isArray(goTos))) throw new Error('The argument must be an array');
     goTos.map(function(goTo) {
       if (!(goTo instanceof GoToModel)) {
         throw new Error('All arguments must be of type GoTo');
