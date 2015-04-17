@@ -3,6 +3,7 @@ var QuestionnaireListStore = require('../stores/questionnaire-list-store');
 var QuestionnaireModel = require('../models/Questionnaire');
 var SequenceModel = require('../models/Sequence');
 var QuestionModel = require('../models/Question');
+var ResponseModel = require('../models/Response');
 var DeclarationModel = require('../models/Declaration');
 var ExpressionModel = require('../models/Expression');
 var ControlModel = require('../models/Control');
@@ -25,12 +26,6 @@ var rName = /^[a-z0-9_]*$/i;
 var rNameNeg = /[^a-z0-9_]/gi;
 
 function populateFakeQuestionnaire(questionnaire) {
-  var chooseDatatypeConstructor = [
-    TextDatatypeModel.bind(null, {_maxLength: 10, _pattern: 'my_pattern'}),
-    NumericDatatypeModel.bind(null, {_minimum: 0, _maximum: 120, _decimals: 3}),
-    DateDatatypeModel.bind(null, {_minimum: new Date(), _maximum: new Date(), _format: 'ddmmyyyy'})
-    ],
-    chooseDatatype;
     var numberOfSequences = 10;
     for (var sequenceIndex = 1; sequenceIndex <= numberOfSequences; sequenceIndex++) {
         var sequence = new SequenceModel();
@@ -44,8 +39,6 @@ function populateFakeQuestionnaire(questionnaire) {
                 child = new QuestionModel();
                 child.name = 'question_' + childNumber;
                 child.label = 'question_' + childNumber;
-                chooseDatatype = Math.floor(Math.random() * 3);
-                question.response.datatype = new chooseDatatypeConstructor[chooseDatatype]();								
                 populateFakeComponent(child);
                 sequence.addChild(child);
             } else {
@@ -57,8 +50,6 @@ function populateFakeQuestionnaire(questionnaire) {
                     var question = new QuestionModel();
                     question.name = 'question_' + questionNumber;
                     question.label = 'question_' + questionNumber;
-                    chooseDatatype = Math.floor(Math.random() * 3);
-                    question.response.datatype = new chooseDatatypeConstructor[chooseDatatype]();
                     populateFakeComponent(question);
                     child.addChild(question);
                 }
@@ -99,6 +90,35 @@ function populateFakeComponent(component) {
     goTo.expression = new ExpressionModel({_text: 'http://gotos.org/' + component.name + '/goto'});
     goTo.ifTrue = new QuestionModel(); // TODO Direct to an existing component
     component.goTos.push(goTo);
+  }
+  if (component instanceof QuestionModel) populateFakeQuestion(component);
+}
+
+function populateFakeQuestion(question) {
+  // In 80% of the cases, the question will be simple
+  question.simple = (Math.random() < 0.8);
+  // In 80% of the cases, there will be one unique answer
+  var numberOfResponses = (Math.random() < 0.9) ? 1 : 2;
+  for (var responseIndex = 1; responseIndex <= numberOfResponses; responseIndex++) {
+    var response = new ResponseModel();
+    response.mandatory = (Math.random() < 0.5);
+    var datatypeTypeIndex = Math.floor(Math.random() * 3);
+    var datatype = null;
+    switch (datatypeTypeIndex) {
+        case 0:
+            datatype = new DateDatatypeModel();
+            datatype.format = 'ddmmyyyy';
+            break;
+        case 1:
+            datatype = new NumericDatatype();
+            break;
+        case 2:
+            datatype = new TextDatatype();
+            datatype.maxLengh = 15;
+            datatype.pattern = '[A-Z]*';
+            break;
+    }
+    response.datatype = datatype;
   }
 }
 
