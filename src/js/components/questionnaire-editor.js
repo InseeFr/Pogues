@@ -63,15 +63,20 @@ var QuestionnaireEditor = React.createClass({
     },
     _addQuestionnaire: function() {
         // TODO check if name and label are not empty
-    PoguesActions.createQuestionnaireLocal(this.state.name, this.state.label);
-    //PoguesActions.createQuestionnaireDistant();
+    //PoguesActions.createQuestionnaireLocal(this.state.name, this.state.label);
+    var questionnaire =  new QuestionnaireModel();
+    questionnaire.label = this.state.label;
+    questionnaire.name = this.state.name;
+    console.log('[QuestionnaireEditor] Creating a questionnaire with name :' + questionnaire.name);
+    PoguesActions.createQuestionnaireDistant(questionnaire);
     // go to questionnaire view
-    PoguesActions.switchToQuestionnaire();
-        this.setState({
-            label: '',
-            name: '',
-            nameEdited: false
-        });
+    // FIXME ROM1704 suppress when refacto is finished 
+    //PoguesActions.switchToQuestionnaire();
+    this.setState({
+        label: '',
+        name: '',
+        nameEdited: false
+    });
     },
     // FIXME hack function, temporary
     _hack: function(event) {
