@@ -49,7 +49,7 @@ class DateDatatypeModel extends DatatypeModel {
   }
 
   set format(format) {
-    if (typeof typeName !== 'string') {
+    if (typeof format !== 'string') {
       throw new Error('The parameter must be a string');
     }
     this._format = format;

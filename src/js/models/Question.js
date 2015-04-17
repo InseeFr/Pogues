@@ -11,11 +11,11 @@ class QuestionModel extends ComponentModel {
     if (object) {
       this._simple = object._simple;
       this._filter = new FilterModel(object._filter);
-      this._response = new ResponseModel(object._response);
+      this._response = object._response.map(ResponseModel.bind(null, object));
     } else {
       this._simple = true;
       this._filter = new FilterModel();
-      this._response = new ResponseModel();
+      this._response = [];
     }
   }
 
@@ -46,11 +46,20 @@ class QuestionModel extends ComponentModel {
   }
 
   set response(response) {
-    if (!(response instanceof ResponseModel)) {
-      throw new Error('The argument must be a Response');
-    }
+    // TODO check response is an array
+    response.map(function(child) {
+      if (!(child instanceof ResponseModel)) {
+        throw new Error('All arguments must be of type Response');
+      }
+    });
     this._response = response;
   }
+  // TODO remove response model
+  // 
+  addResponse(response) {
+    this._response.push(response)
+  }
+
 }
 
 export default QuestionModel;

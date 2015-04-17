@@ -95,12 +95,13 @@ function populateFakeComponent(component) {
 }
 
 function populateFakeQuestion(question) {
+  var response;
   // In 80% of the cases, the question will be simple
   question.simple = (Math.random() < 0.8);
   // In 80% of the cases, there will be one unique answer
   var numberOfResponses = (Math.random() < 0.9) ? 1 : 2;
-  for (var responseIndex = 1; responseIndex <= numberOfResponses; responseIndex++) {
-    var response = new ResponseModel();
+  for (var responseIndex = 0; responseIndex <= numberOfResponses; responseIndex++) {
+    response = new ResponseModel();
     response.mandatory = (Math.random() < 0.5);
     var datatypeTypeIndex = Math.floor(Math.random() * 3);
     var datatype = null;
@@ -110,15 +111,16 @@ function populateFakeQuestion(question) {
             datatype.format = 'ddmmyyyy';
             break;
         case 1:
-            datatype = new NumericDatatype();
+            datatype = new NumericDatatypeModel();
             break;
         case 2:
-            datatype = new TextDatatype();
+            datatype = new TextDatatypeModel();
             datatype.maxLengh = 15;
             datatype.pattern = '[A-Z]*';
             break;
     }
     response.datatype = datatype;
+    question.addResponse(response);
   }
 }
 
