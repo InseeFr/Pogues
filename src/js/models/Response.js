@@ -99,6 +99,15 @@ class ResponseModel {
     this.values.push(value);
   }
 
+  removeValue(value) {
+    var index = this._values.indexOf(value);
+    if (index > -1) {
+      this._values.splice(index, 1);
+    } else {
+      throw new Error('Value not in response');
+    }
+  }
+
   addValues(values) {
     // We just check that 'values' is an array
     if (!(Array.isArray(values))) {

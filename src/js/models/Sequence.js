@@ -53,7 +53,17 @@ class SequenceModel extends ComponentModel {
     this._children.push(child);
   }
 
+  removeChild(child) {
+    var index = this._children.indexOf(child);
+    if (index > -1) {
+      this._children.splice(index, 1);
+    } else {
+      throw new Error('Component is not in sequence');
+    }
+  }
+
   addChildren(children) {
+    if (!(Array.isArray(children))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
     var initialSize = this._children.length;
     try {
@@ -67,6 +77,7 @@ class SequenceModel extends ComponentModel {
   }
 
   set children(children) {
+    if (!(Array.isArray(children))) throw new Error('The argument must be an array');
     children.map(function(child) {
       if (!(child instanceof ComponentModel)) {
         throw new Error('All arguments must be of type Component');
@@ -74,7 +85,6 @@ class SequenceModel extends ComponentModel {
     });
     this._children = children;
   }
-
 }
 
 export default SequenceModel;

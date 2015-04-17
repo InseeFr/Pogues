@@ -52,7 +52,17 @@ class QuestionModel extends ComponentModel {
     this._responses.push(response);
   }
 
+  removeResponse(response) {
+    var index = this._responses.indexOf(response);
+    if (index > -1) {
+      this._responses.splice(index, 1);
+    } else {
+      throw new Error('Response is not in response array');
+    }
+  }
+
   addResponses(responses) {
+    if (!(Array.isArray(responses))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
     var initialSize = this._responses.length;
     try {
@@ -62,15 +72,6 @@ class QuestionModel extends ComponentModel {
     } catch (e) {
       this._responses.length(initialSize);
       throw new Error('All arguments must be of type Response');
-    }
-  }
-
-  removeResponse(response) {
-    var index = this._responses.indexOf(response);
-    if (index > -1) {
-      this._responses.splice(index, 1);
-    } else {
-      throw new Error('Response is not in response array');
     }
   }
 

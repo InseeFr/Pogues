@@ -68,6 +68,7 @@ class QuestionnaireModel extends SequenceModel {
   }
 
   addComponentGroups(groups) {
+    if (!(Array.isArray(groups))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
     var initialSize = this._componentGroups.length;
     try {
@@ -81,6 +82,7 @@ class QuestionnaireModel extends SequenceModel {
   }
 
   set componentGroups(groups) {
+    if (!(Array.isArray(groups))) throw new Error('The argument must be an array');
     groups.map(function(group) {
       if (!(group instanceof ComponentGroupModel)) {
         throw new Error('All arguments must be of type ComponentGroup');
