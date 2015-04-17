@@ -32,13 +32,15 @@
     "jest-cli": "^0.4.0",
     "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^3.1.1"
   },
   "scripts": {
     "build": "gulp build",
     "default": "gulp",
     "test": "jest",
-    "es6toes5": "gulp es6toes5"
+    "es6toes5": "gulp es6toes5",
+    "watchify": "watchify -d -t babelify src/js/main.js -o src/js/pogues.js"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
