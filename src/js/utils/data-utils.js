@@ -26,7 +26,7 @@ var rNameNeg = /[^a-z0-9_]/gi;
 
 function populateFakeQuestionnaire(questionnaire) {
   var chooseDatatypeConstructor = [
-    TextDatatypeModel.bind(null, {_maxLength: 10, pattern: 'my_pattern'}),
+    TextDatatypeModel.bind(null, {_maxLength: 10, _pattern: 'my_pattern'}),
     NumericDatatypeModel.bind(null, {_minimum: 0, _maximum: 120, _decimals: 3}),
     DateDatatypeModel.bind(null, {_minimum: new Date(), _maximum: new Date(), _format: 'ddmmyyyy'})
     ];
