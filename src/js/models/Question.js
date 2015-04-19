@@ -2,7 +2,6 @@
 A Question
 */
 import ComponentModel from './Component.js';
-import FilterModel from './Filter.js';
 import ResponseModel from './Response.js';
 
 class QuestionModel extends ComponentModel {
@@ -10,21 +9,15 @@ class QuestionModel extends ComponentModel {
     super(object);
     if (object) {
       this._simple = object._simple;
-      this._filter = new FilterModel(object._filter);
       this._responses = object._responses.map(ResponseModel.bind(null, object));
     } else {
       this._simple = true;
-      this._filter = new FilterModel();
       this._responses = [];
     }
   }
 
   get simple() {
     return this._simple;
-  }
-
-  get filter() {
-    return this._filter;
   }
 
   get responses() {
@@ -36,13 +29,6 @@ class QuestionModel extends ComponentModel {
       throw new Error('The parameter must be a boolean');
     }
     this._simple = bool;
-  }
-
-  set filter(filter) {
-    if (!(filter instanceof FilterModel)) {
-      throw new Error('The argument must be a Filter');
-    }
-    this._filter = filter;
   }
 
   addResponse(response) {
