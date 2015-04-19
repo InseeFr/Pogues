@@ -4,6 +4,7 @@ var PoguesActions = require('../actions/pogues-actions');
 var locale = require('../stores/dictionary-store').getDictionary();
 var DataUtils = require('../utils/data-utils');
 // start of hack
+var DataXMLUtils = require('../utils/data-xml-utils');
 var request = require('superagent');
 var Config = require('../config/config');
 var QuestionnaireModel = require("../models/Questionnaire");
@@ -85,6 +86,13 @@ var QuestionnaireEditor = React.createClass({
       DataUtils.publishQuestionnaire(fakeQ);
       event.preventDefault();
     },
+    _xmlHack: function(event) {
+      var fakeQ = new QuestionnaireModel();
+      DataUtils.populateFakeQuestionnaire(fakeQ);
+      var xmlQuestionnaire = DataXMLUtils.questionnaireToXMLString(fakeQ);
+      console.log(xmlQuestionnaire);
+      event.preventDefault();
+    },
     render: function() {
         var additionalControls = '';
         if (this.state.active) additionalControls = 'More controls here';
@@ -111,6 +119,10 @@ var QuestionnaireEditor = React.createClass({
             <button className="btn btn-danger" type="button"
                 onClick={this._hack}>
                 [HACK] Publish
+            </button>
+            <button className="btn btn-danger" type="button"
+                onClick={this._xmlHack}>
+                [HACK] Marshall
             </button>
             <h3>{additionalControls}</h3>
       </div>
