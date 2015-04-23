@@ -27,7 +27,16 @@ var QuestionnaireTitle =  React.createClass({
   },
 
   componentDidMount: function() {
+    console.log('[QuestionnaireTitle] Component did mount.');
     QuestionnaireStore.addChangeListener(this._onChange);
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    console.log('[QuestionnaireTitle] Component did update');
+    if(this.state.editMode) {
+      console.log('[QuestionnaireTitle] Focus on title input');
+      React.findDOMNode(this.refs.titleInput).focus();
+    }
   },
 
   _getTitle: function() {
@@ -40,21 +49,30 @@ var QuestionnaireTitle =  React.createClass({
       editMode: true,
       title : this._getTitle()
     });
+
   },
 
   _handleKeyDown: function(event) {
     var value = event.target.value;
     if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
-      console.warn(value);
       PoguesActions.editQuestionnaire('label', value);
     }
+  },
+
+  _handleInputChange: function(event) {
+    var value = event.target.value;
+    this.setState({title:value});
   },
 
   render: function() {
     if(this.state.editMode) {
       return(
-        <input className="navbar nav" type="text"
-        onKeyDown={this._handleKeyDown} placeholder={this.state.title} />
+        <div className="navbar-form navbar-left">
+          <div className="form-group">
+            <input ref="titleInput" type="text" className="form-control"
+            onKeyDown={this._handleKeyDown} value={this.state.title} onChange={this._handleInputChange}/>
+          </div>
+        </div>
       );
     } else {
       return (

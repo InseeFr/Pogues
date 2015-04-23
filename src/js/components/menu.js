@@ -18,7 +18,7 @@ var Menu = React.createClass({
             filter: ''
         }
     },
-    _goHome: function() {
+    _goHome: function(event) {
       PoguesActions.switchToPicker();
       event.preventDefault();
     },
@@ -67,7 +67,7 @@ var Menu = React.createClass({
     } else {
       title = <span className="navbar-text">{locale.tagline}</span>;
     }
-  
+
     return(
       <nav className="navbar navbar-default">
           <div className="container-fluid">
@@ -79,9 +79,7 @@ var Menu = React.createClass({
               </div>
 
               <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul className="nav navbar-nav">
-                      <li>{title}</li>
-                  </ul>
+                  {title}                  
                   <div className="navbar-form navbar-left" role="search">
                       <div className="form-group">
                         <input type="text" className="form-control" placeholder={locale.search}
