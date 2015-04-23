@@ -9,7 +9,7 @@ var QuestionnairePicker = React.createClass({
   render: function() {
     return (
         <div className="container bs-docs-container">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <div>
               <h1 className="page-header">{locale.create_questionnaire}</h1>
               <QuestionnaireEditor/>
