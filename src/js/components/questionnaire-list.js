@@ -59,19 +59,15 @@ var QuestionnaireList = React.createClass({
     if(this.state.questionnaires) {
       var questArray = this._questionnaireToArray(this.state.questionnaires);
       return(
-        <ul className="list-group">
+        <div className="list-group">
           {questArray.map(function(questionnaire, index) {
-            return (<li className="list-group-item"
-                  key={index}>
-                    <a href="#" onClick={this.selectWithId.bind(this, questionnaire._id)}>
+            return (<a href="#" key={index} className="list-group-item" onClick={this.selectWithId.bind(this, questionnaire._id)}>
                       <span>{questionnaire._label}</span>
-                      <span className="id">({questionnaire._name})</span>
-                      <span ><kbd>[{questionnaire._id}]</kbd></span>
+                      <span className="text-muted"><small> [ {questionnaire._name} ] </small></span>
                       <span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span>
-                    </a>
-                  </li>)
+                    </a>)
           }, this)}
-        </ul>
+        </div>
         );
     } else {
       // FIXME manage that view !
