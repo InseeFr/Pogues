@@ -54,7 +54,7 @@
       "es6"
     ],
     "unmockedModulePathPatterns": [
-      "./node_modules/react"
+      "react"
     ]
   },
   "author": "INSEE (http://www.insee.fr)",
