@@ -56,7 +56,7 @@ var QuestionnaireOutlook = React.createClass({
   render: function() {
     console.log('QuestionnaireOutlook rendering with state', this.state);
     return (
-      <div className="col-md-3">
+      <div className="row">
         <nav ref="affix" className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
           {recursiveOutlook(this.state.questionnaire.children, true)}
         </nav>
