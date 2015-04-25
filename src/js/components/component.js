@@ -1,5 +1,6 @@
 var React = require('react');
 var PoguesActions = require('../actions/pogues-actions');
+var ComponentEditor = require('./ComponentEditor');
 
 var Component = React.createClass({
 
@@ -18,7 +19,6 @@ var Component = React.createClass({
   _toggleActive: function() {
     console.log('Changing state for component ' + this.props.component.id, this.state);
     this.setState({active: !this.state.active});
-    PoguesActions.editComponent(this.props.component.id);
   },
 
   render: function() {
@@ -27,29 +27,7 @@ var Component = React.createClass({
     var component = this.props.component;
 
     if (this.state.active) {
-      if (component instanceof SequenceModel) {
-        classes = classNames({
-          'active-sequence' : true,
-          'row': true,
-          'highlight': highlightHandler ? highlightHandler.test(component.name) : false
-        });
-        return(
-          <div id={component.id} className={classes}>
-            <Sequence highlightHandler={this.props.highlightHandler} sequence={component} active={true}/>
-          </div>
-          );
-      } else {
-        classes = classNames({
-          'active-question': true,
-          'row': true,
-          'highlight': highlightHandler ? highlightHandler.test(component.name) : false,
-        });
-        return(
-          <div id={component.id} className={classes}>
-            <Question highlightHandler={this.props.highlightHandler} question={component} active={true}/>
-          </div>
-          );
-      }
+      return <ComponentEditor component={component} close={this._toggleActive}/>;
     } else {
       if (component instanceof SequenceModel) {
           classes = classNames({
