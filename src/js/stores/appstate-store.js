@@ -8,7 +8,6 @@ var CHANGE_EVENT = "change";
 // TODO quick hack for handling app state, but not satisfactory
 var _view = ViewTypes.PICKER;
 var _idQuestionnaire = null;
-var _idComponent = null;
 
 
 function switchToPicker() {
@@ -18,13 +17,8 @@ function switchToPicker() {
 function switchToQuestionnaire(id) {
   _view = ViewTypes.QUESTIONNAIRE;
   _idQuestionnaire = id;
-  _idComponent = null;
 }
 
-function switchToEdition(id) {
-  _view = ViewTypes.EDITION;
-  _idComponent = id;
-}
 
 function inPicker() {
   return _view === ViewTypes.PICKER;
@@ -43,7 +37,6 @@ var AppStateStore = assign({}, EventEmitter.prototype, {
     //FIXME
     return {
       view: _view,
-      componentId: _idComponent,
       questionnaireId: _idQuestionnaire
     }
   },
@@ -66,9 +59,6 @@ var AppStateStore = assign({}, EventEmitter.prototype, {
         break;
       case ActionTypes.SWITCH_VIEW_PICKER:
         switchToPicker();
-        break;
-      case ActionTypes.EDIT_COMPONENT:
-        switchToEdition(payload.action.id);
         break;
       default:
         return true;

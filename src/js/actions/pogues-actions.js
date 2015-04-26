@@ -110,12 +110,6 @@ var PoguesActions = {
       idQuestionnaire: id
     })
   },
-  switchToEdition: function(id) {
-    PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_EDITION,
-      idComponent: id
-    })
-  },
   switchToPicker: function() {
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_PICKER
