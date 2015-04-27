@@ -1,6 +1,6 @@
 .outlook {
-    background-color: rgba(255, 203, 0, 0.1);
-    border-left: 6px solid rgba(255, 203, 0, 0.5);
+    background-color: #FFFCD7;
+    border-left: 6px solid #E7E092;
 }
 
 .outlook.affix {
