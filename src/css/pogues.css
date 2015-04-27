@@ -58,12 +58,20 @@ span.error-message {
 	background-color: yellow;
 }
 
-.sequence-header:first-letter {
-  color : #4183C4;
+.question-header {
+  color: #A73B4E;
 }
 
-.question-header:first-letter {
-  color : #6CC644;
+h1.sequence-header {
+  color: #513179;
+}
+
+h2.sequence-header {
+  color: #684C8C;
+}
+
+h3.sequence-header {
+  color: #9785AD;
 }
 
 .nav .active .active > a {
