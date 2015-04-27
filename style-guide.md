@@ -18,7 +18,7 @@ Questions
 
 Questionnaire outlook
 - border: #E7E092
-- background: #7F689D
+- background: #FFFCD7
 
 Buttons
 - main or positive action: #2B5A71
