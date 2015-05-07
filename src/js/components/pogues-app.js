@@ -11,6 +11,9 @@ var config = require('../config/config');
 var locale = require('../stores/dictionary-store');
 var QuestionnaireUtils = require('../utils/questionnaire-utils');
 var QuestionnaireStore = require('../stores/questionnaire-store');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('PoguesApp', 'Components');
 
 function getStateFromStore(){
   return AppStateStore.getState();
@@ -32,7 +35,7 @@ var PoguesApp = React.createClass({
     AppStateStore.removeChangeListener(this._onChange);
   },
   render: function() {
-    console.log('PoguesApp state', this.state);
+    logger.debug('Rendering Pogues main UI');
     console.log('ENV : ' + (config.dev ? 'dev' : 'prod'));
     var child,
       title,
