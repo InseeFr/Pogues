@@ -139,8 +139,8 @@
         <xs:complexContent>
             <xs:extension base="DatatypeType">
                 <xs:sequence>
-                    <xs:element name="MaxLength" type="xs:positiveInteger"/>
-                    <xs:element name="Pattern" type="xs:token"/>
+                    <xs:element name="MaxLength" type="xs:positiveInteger" minOccurs="0"/>
+                    <xs:element name="Pattern" type="xs:token" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -150,9 +150,9 @@
         <xs:complexContent>
             <xs:extension base="DatatypeType">
                 <xs:sequence>
-                    <xs:element name="Minimum" type="xs:integer"/>
-                    <xs:element name="Maximum" type="xs:integer"/>
-                    <xs:element name="Decimals" type="xs:nonNegativeInteger"/>
+                    <xs:element name="Minimum" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="Maximum" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="Decimals" type="xs:nonNegativeInteger" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -162,9 +162,9 @@
         <xs:complexContent>
             <xs:extension base="DatatypeType">
                 <xs:sequence>
-                    <xs:element name="Minimum" type="xs:integer"/>
-                    <xs:element name="Maximum" type="xs:integer"/>
-                    <xs:element name="Format" type="xs:token"/>
+                    <xs:element name="Minimum" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="Maximum" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="Format" type="xs:token" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
