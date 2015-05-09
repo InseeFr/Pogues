@@ -104,7 +104,7 @@
         <xs:sequence>
             <xs:element name="Description" type="xs:string"/>
             <xs:element name="Expression" type="ExpressionType"/>
-            <xs:element name="FailMessage" type="xs:string"/>
+            <xs:element name="FailMessage" type="xs:string" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="criticity" type="ControlCriticityEnum"/>
