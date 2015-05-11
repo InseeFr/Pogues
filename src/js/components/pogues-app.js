@@ -35,8 +35,8 @@ var PoguesApp = React.createClass({
     AppStateStore.removeChangeListener(this._onChange);
   },
   render: function() {
-    logger.debug('Rendering Pogues main UI');
-    console.log('ENV : ' + (config.dev ? 'dev' : 'prod'));
+    logger.info('Rendering Pogues main UI');
+    logger.debug('ENV : ' + (config.dev ? 'dev' : 'prod'));
     var child,
       title,
       filter;
