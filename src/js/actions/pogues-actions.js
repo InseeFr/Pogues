@@ -1,8 +1,12 @@
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('PoguesActions', 'Actions');
 
 var PoguesActions = {
   setLanguage: function (language) {
+    logger.info('Setting language action');
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.LANGUAGE_CHANGED,
       language: language
@@ -10,6 +14,7 @@ var PoguesActions = {
   },
   // Questionnaire list loaded or not from the server
   receiveQuestionnaireList: function(questionnaires) {
+    logger.info('Receiving questionnaire list');
     PoguesDispatcher.handleServerAction({
       actionType: PoguesConstants.ActionTypes.RECEIVE_QUESTIONNAIRE_LIST,
       questionnaires: questionnaires
