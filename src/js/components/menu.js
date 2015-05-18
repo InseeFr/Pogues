@@ -16,7 +16,7 @@ var Menu = React.createClass({
     handleFilter : React.PropTypes.func,
     title : React.PropTypes.string,
     view : React.PropTypes.string
-  }
+  },
 
   getInitialState: function() {
     return {
