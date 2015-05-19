@@ -17,7 +17,6 @@ var QuestionModel = require('../../models/Question');
 
 describe('QuestionnaireUtils search function', function() {
   it('should find an element by id in a simple questionnaire', function() {
-    var simpleQuestionnaire = new QuestionnaireModel();
     var seq = new SequenceModel();
     var quest = new QuestionModel();
     var qid = quest.id;
@@ -34,4 +33,24 @@ describe('QuestionnaireUtils search function', function() {
     expect(seq.children[0].name).toBe('nouveau nom');
   });
   // TODO test case with a deep nesting
+  it('should find an element by id in a deep questionnaire', function() {
+    var seq = new SequenceModel();
+    var seq2 = new SequenceModel();
+    var quest = new QuestionModel();
+    var quest2 = new QuestionModel();
+    var qid = quest2.id;
+
+    seq2.addChild(quest);
+    seq2.addChild(quest2);
+    seq.addChild(seq2);
+
+    var searchOK = QuestionnaireUtils
+      .searchAndApply(
+        seq.children,
+        'id',
+        qid,
+        function(e) { e.name = 'nom quest2'; });
+
+    expect(seq.children[0].children[1].name).toBe('nom quest2');
+  });
 })
