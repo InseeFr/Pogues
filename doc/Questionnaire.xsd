@@ -64,7 +64,7 @@
 
     <xs:complexType name="ResponseType">
         <xs:sequence>
-            <xs:element name="PredifinedLabel" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="PredefinedLabel" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="Datatype" type="DatatypeType"/>
             <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
