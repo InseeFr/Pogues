@@ -54,7 +54,8 @@ var _dictionary = {
   defineGoTo: {'en': 'Define a goto', 'fr': 'Définir une redirection'},
   maximum: {'en': 'Maximum', 'fr': 'Maximum'},
   minimum: {'en': 'Minimum', 'fr': 'Minimum'},
-  decimals: {'en': 'Decoùams', 'fr': 'Précision'}
+  decimals: {'en': 'Decoùams', 'fr': 'Précision'},
+  edit_settings: {'en': 'Edit settings', 'fr': 'Éditer les paramètres'}
 };
 
 //initialization

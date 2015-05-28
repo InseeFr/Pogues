@@ -47,6 +47,10 @@ var Menu = React.createClass({
     PoguesActions.publishQuestionnaire(QuestionnaireStore.getQuestionnaire());
     event.preventDefault();
   },
+  _clickToEditSettings: function(event) {
+    PoguesActions.switchToSettings();
+    event.preventDefault();
+  },
 
   render: function() {
     // TODO: handle connected user properly
@@ -75,7 +79,7 @@ var Menu = React.createClass({
       title = <span className="navbar-text">{locale.tagline}</span>;
       settingsButton =
         <li className="navbar-form">
-          <button className="btn btn-default">
+          <button className="btn btn-default" onClick={this._clickToEditSettings}>
              <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
           </button>
         </li>

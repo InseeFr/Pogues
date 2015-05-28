@@ -19,6 +19,9 @@ function switchToQuestionnaire(id) {
   _idQuestionnaire = id;
 }
 
+function switchToSettings() {
+  _view = ViewTypes.SETTINGS;
+}
 
 function inPicker() {
   return _view === ViewTypes.PICKER;
@@ -59,6 +62,9 @@ var AppStateStore = assign({}, EventEmitter.prototype, {
         break;
       case ActionTypes.SWITCH_VIEW_PICKER:
         switchToPicker();
+        break;
+      case ActionTypes.SWITCH_VIEW_SETTINGS:
+        switchToSettings();
         break;
       default:
         return true;

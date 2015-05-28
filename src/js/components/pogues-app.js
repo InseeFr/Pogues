@@ -6,6 +6,7 @@ var QuestionnairePicker = require('../components/questionnaire-picker');
 var Questionnaire = require('../components/questionnaire');
 var PoguesActions = require('../actions/pogues-actions');
 var ComponentEditor = require('../components/ComponentEditor');
+var SettingsEditor = require('../components/SettingsEditor');
 var Menu = require('./menu.js');
 var config = require('../config/config');
 var locale = require('../stores/dictionary-store');
@@ -60,6 +61,8 @@ var PoguesApp = React.createClass({
       var questionnaire = QuestionnaireStore.getQuestionnaire();
       var component = QuestionnaireUtils.getComponentFromId(questionnaire, this.state.componentId);
       child = <ComponentEditor component={component}/>;
+    } else if (this.state.view === ViewTypes.SETTINGS) {
+      child = <SettingsEditor/>
     }
     // FIXME title should be read from Questionnaire Store when
     // we are rendering a questionnaire:

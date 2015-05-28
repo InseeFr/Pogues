@@ -120,6 +120,11 @@ var PoguesActions = {
       actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_PICKER
     })
   },
+  switchToSettings: function() {
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.SWITCH_VIEW_SETTINGS
+    })
+  },
   // Edit the current questionnaire prop giving the prop key and the new value
   editQuestionnaire: function(key, value) {
     console.warn('Edit action. ' + key + ' : ' + value);
