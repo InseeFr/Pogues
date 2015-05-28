@@ -53,6 +53,7 @@ var Menu = React.createClass({
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var saveButton = null;
     var publishButton = null;
+    var settingsButton;
     var title = null;
     if(isQuestionnaireView) {
       saveButton = (
@@ -72,6 +73,12 @@ var Menu = React.createClass({
       title = (<QuestionnaireTitle />);
     } else {
       title = <span className="navbar-text">{locale.tagline}</span>;
+      settingsButton =
+        <li className="navbar-form">
+          <button className="btn btn-default">
+             <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          </button>
+        </li>
     }
 
     return(
@@ -96,6 +103,7 @@ var Menu = React.createClass({
             {saveButton}
             {publishButton}
             <ul className="nav navbar-nav navbar-right">
+              {settingsButton}
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Me, myself and I <span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
