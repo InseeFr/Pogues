@@ -5,6 +5,9 @@ var ViewTypes = require('../constants/pogues-constants').ViewTypes;
 var QuestionnaireStore = require('../stores/questionnaire-store');
 var AppStateStore = require('../stores/appstate-store');
 var QuestionnaireTitle = require('./questionnaire-title.js');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('Menu', 'Components');
 
 function getStateFromStore() {
   return AppStateStore.getView();
@@ -20,7 +23,6 @@ var Menu = React.createClass({
 
   getInitialState: function() {
     return {
-      view: getStateFromStore(),
       filter: ''
     }
   },
@@ -53,6 +55,7 @@ var Menu = React.createClass({
   },
 
   render: function() {
+    logger.info('Rendering the menu with view : ' + this.props.view);
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var saveButton = null;
