@@ -13,6 +13,61 @@ function getStateFromStore() {
   return AppStateStore.getView();
 }
 
+/*
+UI component encapsulating the saving questionnaire feature.
+*/
+class SaveButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.saveFunction = props.saveFunction;
+    this.saveLabel = props.buttonLabel;
+  }
+
+  render() {
+    return(
+      <div className="nav navbar-nav navbar-left">
+        <form className="navbar-form navbar-right">
+          <button className="btn btn-primary" onClick={this.saveFunction}>{this.buttonLabel}</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+SaveButton.propTypes = {
+  saveFunction: React.PropTypes.func,
+  buttonLabel: React.PropTypes.string
+};
+
+/*
+UI component encapsulating the publishing of a questionnaire.
+*/
+class PublishButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.publishFunction = props.publishFunction;
+    this.buttonLabel = props.buttonLabel;
+  }
+
+  render() {
+    return(
+      <div className="nav navbar-nav navbar-left">
+        <form className="navbar-form navbar-right">
+          <button className="btn btn-primary" disabled="disabled" onClick={this.publishFunction}>{this.buttonLabel}</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+PublishButton.propTypes = {
+  publishFunction: React.PropTypes.func,
+  buttonLabel: React.PropTypes.string
+};
+
+/*
+Menu Component, share between all views.
+*/
 var Menu = React.createClass({
 
   propTypes : {
@@ -63,20 +118,8 @@ var Menu = React.createClass({
     var settingsButton;
     var title = null;
     if(isQuestionnaireView) {
-      saveButton = (
-        <div className="nav navbar-nav navbar-left">
-        <form className="navbar-form navbar-right">
-        <button className="btn btn-primary" onClick={this._clickToSave}>{locale.save}</button>
-        </form>
-        </div>
-      );
-      publishButton = (
-        <div className="nav navbar-nav navbar-left">
-        <form className="navbar-form navbar-right">
-        <button className="btn btn-primary" disabled="disabled" onClick={this._clickToPublish}>{locale.publish}</button>
-        </form>
-        </div>
-      );
+      saveButton = (<SaveButton  saveFunction={this._clickToSave} buttonLabel={locale.save}/>);
+      publishButton = (<PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} />);
       title = (<QuestionnaireTitle />);
     } else {
       title = <span className="navbar-text">{locale.tagline}</span>;
