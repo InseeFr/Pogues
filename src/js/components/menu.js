@@ -20,7 +20,7 @@ class SaveButton extends React.Component {
   constructor(props) {
     super(props);
     this.saveFunction = props.saveFunction;
-    this.saveLabel = props.buttonLabel;
+    this.buttonLabel = props.buttonLabel;
   }
 
   render() {
@@ -93,9 +93,7 @@ var Menu = React.createClass({
     this.props.handleFilter(filter);
   },
   _clickToSave: function(event) {
-    // Mock Questionnaire FIXME
-    console.log('Click on save questionnaire button');
-    console.dir(QuestionnaireStore.getQuestionnaire());
+    logger.info('Clicking on the save button');
     PoguesActions.saveQuestionnaire(QuestionnaireStore.getQuestionnaire());
     event.preventDefault();
   },
@@ -113,23 +111,13 @@ var Menu = React.createClass({
     logger.info('Rendering the menu with view : ' + this.props.view);
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
-    var saveButton = null;
-    var publishButton = null;
-    var settingsButton;
-    var title = null;
-    if(isQuestionnaireView) {
-      saveButton = (<SaveButton  saveFunction={this._clickToSave} buttonLabel={locale.save}/>);
-      publishButton = (<PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} />);
-      title = (<QuestionnaireTitle />);
-    } else {
-      title = <span className="navbar-text">{locale.tagline}</span>;
-      settingsButton =
-        <li className="navbar-form">
-          <button className="btn btn-default" onClick={this._clickToEditSettings}>
-             <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
-          </button>
-        </li>
-    }
+    var settingsButton = (
+      <li className="navbar-form">
+        <button className="btn btn-default" onClick={this._clickToEditSettings}>
+          <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+        </button>
+      </li>
+      );
 
     return(
       <nav className="navbar navbar-default">
@@ -142,7 +130,9 @@ var Menu = React.createClass({
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            {title}
+
+            {isQuestionnaireView ? <QuestionnaireTitle /> : <span className="navbar-text">{locale.tagline}</span>}
+
             <div className="navbar-form navbar-left" role="search">
               <div className="form-group">
                 <input
@@ -150,12 +140,16 @@ var Menu = React.createClass({
                   value={this.state.filter} onChange={this._filter}/>
               </div>
             </div>
-            {saveButton}
-            {publishButton}
+
+            {isQuestionnaireView ? <SaveButton saveFunction={this._clickToSave} buttonLabel={locale.save}/> : null}
+            {isQuestionnaireView ? <PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} /> : null}
+
             <ul className="nav navbar-nav navbar-right">
-              {settingsButton}
+              {isQuestionnaireView ? null : settingsButton}
               <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Me, myself and I <span className="caret"></span></a>
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                Me, myself and i
+                <span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="#">Disconnect</a></li>
                 </ul>
