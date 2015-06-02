@@ -256,6 +256,8 @@ var DataUtils = {
       });
   },
 
+  createFakeQuestionnaire: createFakeQuestionnaire,
+
   // Contains mock functions
   mock: {
 
