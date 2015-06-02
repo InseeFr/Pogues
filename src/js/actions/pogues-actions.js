@@ -92,6 +92,7 @@ var PoguesActions = {
     });
   },
   filterComponents: function(filter) {
+    logger.info('Filter action sent to dispatcher with value : ' + filter);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.FILTER_COMPONENTS,
       filter: filter

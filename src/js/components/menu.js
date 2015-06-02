@@ -66,6 +66,37 @@ PublishButton.propTypes = {
 };
 
 /*
+SearchField
+*/
+class SearchField extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {filter : ''};
+    //this.filterFunction = props.filterFunction;
+    this.filterLabel = props.filterLabel;
+  }
+  handleChange(filterFunction, event) {
+    logger.info('Handling change with value : ' + event.target.value);
+    this.setState({
+      filter:event.target.value
+      });
+    // Using props to ensure we have the latest function passed throught props
+    filterFunction(event.target.value);
+  }
+  render() {
+    return(
+      <div className="navbar-form navbar-left" role="search">
+        <div className="form-group">
+          <input
+            type="text" className="form-control" placeholder={this.filterLabel}
+            value={this.state.filter} onChange={this.handleChange.bind(this, this.props.filterFunction)}/>
+        </div>
+      </div>
+    );
+  }
+}
+
+/*
 Menu Component, share between all views.
 */
 var Menu = React.createClass({
@@ -98,7 +129,7 @@ var Menu = React.createClass({
     event.preventDefault();
   },
   _clickToPublish: function(event) {
-    console.log('Click on publish questionnaire button');
+    logger.info('Click on publish questionnaire button');
     PoguesActions.publishQuestionnaire(QuestionnaireStore.getQuestionnaire());
     event.preventDefault();
   },
@@ -108,7 +139,8 @@ var Menu = React.createClass({
   },
 
   render: function() {
-    logger.info('Rendering the menu with view : ' + this.props.view);
+    logger.info('Rendering the menu for the view : ' + this.props.view);
+    console.dir(this.props.handleFilter);
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var settingsButton = (
@@ -133,15 +165,10 @@ var Menu = React.createClass({
 
             {isQuestionnaireView ? <QuestionnaireTitle /> : <span className="navbar-text">{locale.tagline}</span>}
 
-            <div className="navbar-form navbar-left" role="search">
-              <div className="form-group">
-                <input
-                  type="text" className="form-control" placeholder={locale.search}
-                  value={this.state.filter} onChange={this._filter}/>
-              </div>
-            </div>
+            <SearchField filterFunction={this.props.handleFilter} filterLabel={locale.search}/>
 
             {isQuestionnaireView ? <SaveButton saveFunction={this._clickToSave} buttonLabel={locale.save}/> : null}
+
             {isQuestionnaireView ? <PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} /> : null}
 
             <ul className="nav navbar-nav navbar-right">

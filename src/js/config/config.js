@@ -7,7 +7,7 @@ var config = {
   stromaePath : '/exist/stromae/generator',
   log : {
     level : 'DEBUG',
-    activeNamespaces : ['Components']
+    activeNamespaces : ['Components', 'Actions']
   }
 };
 
