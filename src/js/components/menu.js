@@ -5,6 +5,7 @@ var ViewTypes = require('../constants/pogues-constants').ViewTypes;
 var QuestionnaireStore = require('../stores/questionnaire-store');
 var AppStateStore = require('../stores/appstate-store');
 var QuestionnaireTitle = require('./questionnaire-title.js');
+var _ = require('lodash');
 var Logger = require('../logger/Logger');
 
 var logger = new Logger('Menu', 'Components');
@@ -175,7 +176,7 @@ var Menu = React.createClass({
               {isQuestionnaireView ? null : settingsButton}
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                Me, myself and i
+                {_.shuffle(['Thomas','JB','Franck','Eric','François','Will','Jérémie','Guillaume','Romain','Roaming Lena Monster']).pop()}
                 <span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="#">Disconnect</a></li>
