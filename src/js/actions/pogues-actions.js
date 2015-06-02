@@ -92,13 +92,14 @@ var PoguesActions = {
     });
   },
   filterComponents: function(filter) {
-    logger.info('Filter action sent to dispatcher with value : ' + filter);
+    logger.info('Filter components action sent to dispatcher with value : ' + filter);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.FILTER_COMPONENTS,
       filter: filter
     })
   },
   filterQuestionnaires: function(filter) {
+    logger.info('Filter questionnaires action sent to dispatcher with value : ' + filter);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.FILTER_QUESTIONNAIRES,
       filter: filter

@@ -6,6 +6,9 @@ var QuestionnaireModel = require("../models/Questionnaire");
 var assign = require('object-assign');
 var Config = require('../config/config');
 var DataUtils = require('../utils/data-utils');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('QuestionnaireListStore', 'Stores');
 
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
@@ -14,6 +17,10 @@ var _questionnaires = {};
 // TODO think about using a collection of recently created
 // questionnaires which to need to be created on server
 var _newQuestionnaires = {};
+
+// Hold the filter string that is used by the QuestionnaireList component
+// to render a subset of the questionnaires
+var _filter = '';
 
 function _setQuestionnaires(questionnaires) {
     _questionnaires = questionnaires;
@@ -83,6 +90,10 @@ var dispatcherIndex = PoguesDispatcher.register(function(payload) {
         case ActionTypes.RECEIVE_NEW_ID_FROM_SERVER:
             _updateId(payload.action.oldId, payload.action.newId);
             break;
+        case ActionTypes.FILTER_QUESTIONNAIRES:
+          logger.debug('Receiving action FILTER_QUESTIONNAIRES, setting _filter to ' + payload.action.filter);
+          _filter = payload.action.filter;
+          break;
         default:
             return true;
     }
@@ -98,6 +109,9 @@ var QuestionnaireListStore = assign({}, EventEmitter.prototype, {
     },
     getQuestionnaire: function(index) {
         return _questionnaires[index];
+    },
+    getFilter() {
+      return _filter;
     },
     emitChange: function() {
         console.log('QuestionnaireListStore emitting event', CHANGE_EVENT);

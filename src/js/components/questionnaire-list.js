@@ -4,11 +4,16 @@ var PoguesActions = require('../actions/pogues-actions');
 var AppStateStore = require('../stores/appstate-store');
 var DataUtils = require('../utils/data-utils');
 var locale = require('../stores/dictionary-store').getDictionary();
+var _ = require('lodash');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('QuestionnaireList', 'Components');
 
 function getStateFromStore() {
   return {
     pending: false,
-    questionnaires: QuestionnaireListStore.getQuestionnaires()
+    questionnaires: QuestionnaireListStore.getQuestionnaires(),
+    filter: QuestionnaireListStore.getFilter()
   }
 }
 
@@ -54,21 +59,23 @@ var QuestionnaireList = React.createClass({
   },
 
   render: function() {
-    console.log('QuestionnaireList rendering with state', this.state);
-    console.dir(this.state);
+    logger.info('Rendering the questionnaires list.')
     if(this.state.questionnaires) {
       var questArray = this._questionnaireToArray(this.state.questionnaires);
-      return(
-        <div className="list-group">
-          {questArray.map(function(questionnaire, index) {
-            return (<a href="#" key={index} className="list-group-item" onClick={this.selectWithId.bind(this, questionnaire._id)}>
-                      <span>{questionnaire._label}</span>
-                      <span className="text-muted"><small> [ {questionnaire._name} ] </small></span>
-                      <span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span>
-                    </a>)
-          }, this)}
-        </div>
-        );
+      if (this.state.filter) {
+        questArray = _.filter(questArray, questionnaire => questionnaire._label.indexOf(this.state.filter) !== -1);
+    }
+    return(
+      <div className="list-group">
+        {questArray.map(function(questionnaire, index) {
+          return (<a href="#" key={index} className="list-group-item" onClick={this.selectWithId.bind(this, questionnaire._id)}>
+                    <span>{questionnaire._label}</span>
+                    <span className="text-muted"><small> [ {questionnaire._name} ] </small></span>
+                    <span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span>
+                  </a>)
+        }, this)}
+      </div>
+    );
     } else {
       // FIXME manage that view !
       return(<div>EMPTY</div>);
