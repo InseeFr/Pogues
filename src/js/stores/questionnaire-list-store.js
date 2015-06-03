@@ -4,7 +4,6 @@ var PoguesActions = require('../actions/pogues-actions');
 var EventEmitter = require('events').EventEmitter;
 var QuestionnaireModel = require("../models/Questionnaire");
 var assign = require('object-assign');
-var Config = require('../config/config');
 var DataUtils = require('../utils/data-utils');
 var Logger = require('../logger/Logger');
 

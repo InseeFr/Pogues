@@ -8,7 +8,7 @@ var PoguesActions = require('../actions/pogues-actions');
 var ComponentEditor = require('../components/ComponentEditor');
 var SettingsEditor = require('../components/SettingsEditor');
 var Menu = require('./menu.js');
-var config = require('../config/config');
+var ConfigStore = require('../stores/config-store');
 var locale = require('../stores/dictionary-store');
 var QuestionnaireUtils = require('../utils/questionnaire-utils');
 var QuestionnaireStore = require('../stores/questionnaire-store');
@@ -17,7 +17,9 @@ var Logger = require('../logger/Logger');
 var logger = new Logger('PoguesApp', 'Components');
 
 function getStateFromStore(){
-  return AppStateStore.getState();
+  var state = AppStateStore.getState();
+  state.config = ConfigStore.getConfig();
+  return state;
 }
 
 var PoguesApp = React.createClass({
@@ -31,9 +33,11 @@ var PoguesApp = React.createClass({
   },
   componentDidMount: function() {
     AppStateStore.addChangeListener(this._onChange);
+    ConfigStore.addChangeListener(this._onChange);
   },
   componentWillUnmount: function() {
     AppStateStore.removeChangeListener(this._onChange);
+    ConfigStore.removeChangeListener(this._onChange);
   },
   render: function() {
     logger.info('Rendering Pogues main UI with view : ' + this.state.view);
