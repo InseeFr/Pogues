@@ -56,6 +56,14 @@ var _dictionary = {
   minimum: {'en': 'Minimum', 'fr': 'Minimum'},
   decimals: {'en': 'Decoùams', 'fr': 'Précision'},
   edit_config: {'en': 'Edit config', 'fr': 'Éditer les paramètres'},
+  dev: {'en': 'dev', 'fr': 'dev'},
+  remote: {'en': 'remote', 'fr': 'remote'},
+  baseURL: {'en': 'baseURL', 'fr': 'baseURL'},
+  poguesPath: {'en': 'poguesPath', 'fr': 'poguesPath'},
+  persistPath: {'en': 'persistPath', 'fr': 'persistPath'},
+  stromaePath: {'en': 'stromaePath', 'fr': 'stromaePath'},
+  logLevel: {'en': 'logLevel', 'fr': 'logLevel'},
+  logActiveNamespaces: {'en': 'logActiveNamespaces', 'fr': 'logActiveNamespaces'}
 };
 
 //initialization
