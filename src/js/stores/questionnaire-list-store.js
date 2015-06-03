@@ -83,6 +83,9 @@ var dispatcherIndex = PoguesDispatcher.register(function(payload) {
             console.dir(DataUtils);
             DataUtils.getQuestionnaireList();
             break;
+        // FIXME ActionTypes.CREATE_QUESTIONNAIRE doesn't exist
+        // so this catches undefined (CREATE_QUESTIONNAIRE_LOCAL and
+        // CREATE_QUESTIONNAIRE_DISTANT exist)
         case ActionTypes.CREATE_QUESTIONNAIRE:
             _createQuestionnaire(payload.action.questionnaire);
             break;
