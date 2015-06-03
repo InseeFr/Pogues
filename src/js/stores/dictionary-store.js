@@ -55,7 +55,7 @@ var _dictionary = {
   maximum: {'en': 'Maximum', 'fr': 'Maximum'},
   minimum: {'en': 'Minimum', 'fr': 'Minimum'},
   decimals: {'en': 'Decoùams', 'fr': 'Précision'},
-  edit_settings: {'en': 'Edit settings', 'fr': 'Éditer les paramètres'}
+  edit_config: {'en': 'Edit config', 'fr': 'Éditer les paramètres'},
 };
 
 //initialization

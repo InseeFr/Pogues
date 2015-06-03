@@ -2,7 +2,7 @@ var React = require('react');
 var PoguesActions = require('../actions/pogues-actions');
 var locale = require('../stores/dictionary-store').getDictionary();
 
-var SettingsEditor = React.createClass({
+var ConfigEditor = React.createClass({
 
   propTypes: {
   },
@@ -26,7 +26,7 @@ var SettingsEditor = React.createClass({
     return (
         <div className="container bs-docs-container">
           <div className="col-md-12">
-            <h1 className="page-header">{locale.edit_settings}</h1>
+            <h1 className="page-header">{locale.edit_config}</h1>
             <button className="btn btn-primary" onClick={this._clickToPicker}>
               Back to questionnaire picker
             </button>
@@ -36,4 +36,4 @@ var SettingsEditor = React.createClass({
   }
 })
 
-module.exports = SettingsEditor;
+module.exports = ConfigEditor;

@@ -134,8 +134,8 @@ var Menu = React.createClass({
     PoguesActions.publishQuestionnaire(QuestionnaireStore.getQuestionnaire());
     event.preventDefault();
   },
-  _clickToEditSettings: function(event) {
-    PoguesActions.switchToSettings();
+  _clickToEditConfig: function(event) {
+    PoguesActions.switchToConfig();
     event.preventDefault();
   },
 
@@ -144,9 +144,9 @@ var Menu = React.createClass({
     console.dir(this.props.handleFilter);
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
-    var settingsButton = (
+    var configButton = (
       <li className="navbar-form">
-        <button className="btn btn-default" onClick={this._clickToEditSettings}>
+        <button className="btn btn-default" onClick={this._clickToEditConfig}>
           <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
         </button>
       </li>
@@ -173,7 +173,7 @@ var Menu = React.createClass({
             {isQuestionnaireView ? <PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} /> : null}
 
             <ul className="nav navbar-nav navbar-right">
-              {isQuestionnaireView ? null : settingsButton}
+              {isQuestionnaireView ? null : configButton}
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 {_.shuffle(['Thomas','JB','Franck','Eric','François','Will','Jérémie','Guillaume','Romain','Roaming Lena Monster']).pop()}
