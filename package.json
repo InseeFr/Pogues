@@ -23,6 +23,7 @@
     "babel-jest": "~5.0.1",
     "babelify": "~6.0.2",
     "bower": "~1.4.1",
+    "browser-sync": "^2.7.6",
     "browserify": "^9.0.3",
     "del": "^1.1.1",
     "gulp": "^3.8.11",
@@ -41,6 +42,7 @@
     "default": "gulp",
     "test": "jest",
     "es6toes5": "gulp es6toes5",
+    "browsersync": "browser-sync start --server --no-open --files 'src/index.html,src/js/pogues.js'",
     "watchify": "watchify -d -t babelify src/js/main.js -o src/js/pogues.js"
   },
   "jest": {
