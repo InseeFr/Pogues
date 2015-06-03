@@ -63,7 +63,9 @@ var _dictionary = {
   persistPath: {'en': 'persistPath', 'fr': 'persistPath'},
   stromaePath: {'en': 'stromaePath', 'fr': 'stromaePath'},
   logLevel: {'en': 'logLevel', 'fr': 'logLevel'},
-  logActiveNamespaces: {'en': 'logActiveNamespaces', 'fr': 'logActiveNamespaces'}
+  logActiveNamespaces: {'en': 'logActiveNamespaces', 'fr': 'logActiveNamespaces'},
+  trueWord: {'en': 'True', 'fr': 'Vrai'},
+  falseWord: {'en': 'False', 'fr': 'Faux'}
 };
 
 //initialization
