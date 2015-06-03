@@ -19,8 +19,7 @@ function getComponents(questionnaire, filter) {
 
 
 function _filter(filter) {
-  component.label 
-}:
+}
 
 function _setQuestionnaireByIndex(index) {
   _questionnaire = QuestionnaireListStore.getQuestionnaire(index);
