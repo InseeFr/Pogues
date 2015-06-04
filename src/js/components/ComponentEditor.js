@@ -9,6 +9,7 @@ var QuestionEditor = require('./question-editor');
 var locale = require('../stores/dictionary-store').getDictionary();
 var GoToModel = require('../models/GoTo');
 var QuestionnaireStore = require('../stores/questionnaire-store')
+var QuestionnaireUtils = require('../utils/questionnaire-utils')
 
 // TODO Sould we listen to Questionnaire Store ? If the questionnaire
 // changes, this component becomes meaningless, but this change would
@@ -99,6 +100,7 @@ var ComponentEditor = React.createClass({
   },
   render: function() {
     var component = this.props.component,
+        questionnaire = this.state.questionnaire,
         declarations =  this.state.declarations,
         controls = this.state.controls,
         goTos = this.state.goTos,
@@ -125,8 +127,8 @@ var ComponentEditor = React.createClass({
     } else {
       controlsEls = <span>No control yet</span>;
     }
-
-    var candidates = []
+    // FIXME duplicate entries in candidates
+    var candidates = QuestionnaireUtils.after(questionnaire, component)
     if (goTos.length > 0) {
       goTosEls = goTos.map(function (goTo) {
         return <GoTo candidates={candidates} delete={this._removeGoTo.bind(this, goTo)}
