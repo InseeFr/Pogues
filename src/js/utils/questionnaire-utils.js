@@ -47,6 +47,10 @@ var QuestionnaireUtils = {
     }), candidate || null);
   },
 
+  getComponentByName: function (questionnaire, cmpntName) {
+    var candidate;
+    return (flatten(questionnaire).some(function (c) {
+      return (candidate = c, c.name === cmpntName)
     }), candidate || null);
   },
 
