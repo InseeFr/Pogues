@@ -40,10 +40,13 @@ var QuestionnaireUtils = {
   },
 
 
-  getComponentFromId: function (questionnaire, idComponent) {
+  getComponentById: function (questionnaire, cmpntId) {
     var candidate;
     return (flatten(questionnaire).some(function (c) {
-      return (candidate = c, c.id === idComponent)
+      return (candidate = c, c.id === cmpntId)
+    }), candidate || null);
+  },
+
     }), candidate || null);
   },
 
