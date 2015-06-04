@@ -21,29 +21,29 @@ var Target = React.createClass({
       target: target
     })
   },
-	render: function() {
+  render: function() {
 
     // TODO remove target.id from cmpntName (debugging purposes)
     var cmpntName = this.state.target ?
                       this.state.target.label + ' (' + this.state.target.id + ')' :
                       ""
-		return (
+    return (
       <div className="form-group has-success has-feedback">
-  			<label className="col-sm-4 control-label">{this.props.text}</label>
-      		<div className="col-sm-4">
-        	<ComponentPicker
+        <label className="col-sm-4 control-label">{this.props.text}</label>
+          <div className="col-sm-4">
+          <ComponentPicker
             initialValue={this.props.initialValue}
             candidates={this.props.candidates}
-        		handleChange={this._handleChange}/>
-        	<span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-      	</div>
-      	<div className="col-sm-4">
-        	<input disabled className="form-control"
+            handleChange={this._handleChange}/>
+          <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div className="col-sm-4">
+          <input disabled className="form-control"
             value={cmpntName}/>
-      	</div>
+        </div>
       </div>
-		);
-	}
+    );
+  }
 });
 
 module.exports = Target
