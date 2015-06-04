@@ -25,7 +25,7 @@ var Target = React.createClass({
 
     // TODO remove target.id from cmpntName (debugging purposes)
     var cmpntName = this.state.target ?
-                      this.state.target.label + '(' + this.state.target.id + ')' :
+                      this.state.target.label + ' (' + this.state.target.id + ')' :
                       ""
 		return (
       <div className="form-group has-success has-feedback">
@@ -38,7 +38,7 @@ var Target = React.createClass({
         	<span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
       	</div>
       	<div className="col-sm-4">
-        	<input enabled={false} className="form-control"
+        	<input disabled className="form-control"
             value={cmpntName}/>
       	</div>
       </div>

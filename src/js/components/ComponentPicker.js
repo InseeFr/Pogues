@@ -2,6 +2,7 @@ var React = require('react')
 var ComponentModel = require('../models/Component')
 var locale = require('../stores/dictionary-store').getDictionary();
 var QuestionnaireStore = require('../stores/questionnaire-store')
+var QuestionnaireUtils = require('../utils/questionnaire-utils')
 // TODO think about relying on QuestionnaireStore to retrieve questionnaire
 //var ComponentStore = require('../stores/component-store')
 
@@ -19,7 +20,8 @@ var ComponentPicker = React.createClass({
     }
   },
   _handleChange: function(event) {
-    var target = QuestionnaireUtils.getComponentByName(qusetionnaire, event.target.value)
+    var target = QuestionnaireUtils.getComponentByName(
+                    this.state.questionnaire, event.target.value)
     this.setState({
       value: event.target.value
     })
