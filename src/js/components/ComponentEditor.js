@@ -128,6 +128,8 @@ var ComponentEditor = React.createClass({
       controlsEls = <span>No control yet</span>;
     }
     // FIXME duplicate entries in candidates
+    // TODO make after a method of QuestionnaireStore to avoid
+    // multiple flattening of the same questionnaire
     var candidates = QuestionnaireUtils.after(questionnaire, component)
     if (goTos.length > 0) {
       goTosEls = goTos.map(function (goTo) {
