@@ -3,7 +3,7 @@ var GoToModel = require('../models/GoTo');
 var locale = require('../stores/dictionary-store').getDictionary();
 var ComponentModel = require('../models/Component')
 var QuestionnaireModel = require('../models/Questionnaire')
-var ComponentPicker = require('./ComponentPicker')
+var Target = require('./target')
 
 
 var GoTo = React.createClass({
@@ -36,14 +36,14 @@ var GoTo = React.createClass({
       description: null
     })
   },
-  _handleIfTrueChange: function(value) {
+  _handleIfTrueChange: function(target) {
     this.setState({
-      ifTrue: value
+      ifTrue: target
     });
   },
-  _handleIfFalseChange: function(value) {
+  _handleIfFalseChange: function(target) {
     this.setState({
-      ifFalse: value
+      ifFalse: target
     });
   },
   _handleTypeChange: function(event) {
@@ -68,42 +68,37 @@ var GoTo = React.createClass({
 
   render: function() {
     return (
-      // description / expression / ifTrue / ifFalse
-     <div>
+      <div>
         <datalist id="candidates">
            {this.props.candidates.map(function (cmpnt) {
-             return <option value={cmpnt.name + ' - ' + cmpnt.id}/>;
+             return <option key={cmpnt.id} value={cmpnt.name}/>;
            }, this)}
-       </datalist>
-       <div className="form-horizontal">
-         <div className="form-group">
-           <div className="col-sm-12">
-             <input type="text" placeholder={locale.description}
-                    className="form-control"/>
-           </div>
-         </div>
-         <div className="form-group">
-           <div className="col-sm-12">
-             <input type="text" placeholder={locale.expression}
-                    className="form-control"/>
-             </div>
-         </div>
-         <div className="form-group">
-           <label className="col-sm-4 control-label">{locale.ifTrue}</label>
-           <div className="col-sm-8">
-             <ComponentPicker initialValue={this.state.ifTrue} candidates={this.props.candidates}
-               handleChange={this._handleIfTrueChange}/>
-           </div>
-         </div>
-         <div className="form-group">
-           <label className="col-sm-4 control-label">{locale.ifFalse}</label>
-           <div className="col-sm-8">
-             <ComponentPicker initialValue={this.state.ifTrue} candidates={this.props.candidates}
-               handleChange={this._handleIfTrueChange}/>
-           </div>
-         </div>
-       </div>
-     </div>
+        </datalist>
+        <div className="form-horizontal">
+          <div className="form-group">
+            <div className="col-sm-12">
+              <input type="text" placeholder={locale.description}
+                      className="form-control"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-12">
+              <input type="text" placeholder={locale.expression}
+                      className="form-control"/>
+            </div>
+          </div>
+          <Target
+            text={locale.ifTrue}
+            handleChange={this._handleIfTrueChange}
+            initialTarget={this.state.ifTrue}
+            candidates={this.props.candidates}/>
+          <Target
+            text={locale.ifFalse}
+            handleChange={this._handleIfFalseChange}
+            initialTarget={this.state.ifFalse}
+            candidates={this.props.candidates}/>
+        </div>
+      </div>
   )}
 
 });
