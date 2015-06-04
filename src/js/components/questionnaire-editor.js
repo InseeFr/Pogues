@@ -99,7 +99,7 @@ var QuestionnaireEditor = React.createClass({
         return (
           <div>
             <div className="form-group">
-                <label for="name">{locale.name}</label>
+                <label htmlFor="name">{locale.name}</label>
                 <input className="form-control"
                   type="text" value={this.state.name}
                   ref="input"
@@ -107,7 +107,7 @@ var QuestionnaireEditor = React.createClass({
                   onKeyPress={this._disableNameGeneration}/>
             </div>
             <div className="form-group">
-                <label for="name">{locale.label}</label>
+                <label htmlFor="name">{locale.label}</label>
               <input className="form-control"
                 type="text" value={this.state.label}
                 placeholder={locale.phLabel} onChange={this._handleLabelChange}/>
