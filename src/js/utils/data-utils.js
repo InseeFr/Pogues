@@ -64,9 +64,9 @@ function populateFakeQuestionnaire(questionnaire) {
                 populateFakeComponent(child);
                 sequence.addChild(child);
             }
-            populateFakeComponent(sequence);
-            questionnaire.addChild(sequence);
         }
+        populateFakeComponent(sequence);
+        questionnaire.addChild(sequence);
     }
     questionnaire.name = "YOQUEST";
   }
