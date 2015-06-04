@@ -11,7 +11,7 @@ var Sequence = React.createClass({
       <div>
         <Tag className="sequence-header">{sequence.name}</Tag>
         {sequence.children.map(function(child, index) {
-          return (<Component highlightHandler={this.props.highlightHandler} component={child}/>);
+          return (<Component key={child.id} highlightHandler={this.props.highlightHandler} component={child}/>);
         }, this)}
       </div>
     );
