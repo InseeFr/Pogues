@@ -8,6 +8,14 @@ var DeclarationModel = require('../models/Declaration');
 var QuestionEditor = require('./question-editor');
 var locale = require('../stores/dictionary-store').getDictionary();
 var GoToModel = require('../models/GoTo');
+var QuestionnaireStore = require('../stores/questionnaire-store')
+
+// TODO Sould we listen to Questionnaire Store ? If the questionnaire
+// changes, this component becomes meaningless, but this change would
+// be catched at a higher level and this component won't be rendered
+// anymore. So it feels weird to listen to
+// Questionnaire Store. But the use of QuestionnaireStore.getQuestionnaire
+// could tempt us to do so for the sake of consistency.
 var ComponentEditor = React.createClass({
 
   propTypes: {
@@ -17,7 +25,8 @@ var ComponentEditor = React.createClass({
 
   getInitialState: function() {
     return {
-      nameEdited: false,
+      questionnaire: QuestionnaireStore.getQuestionnaire(),
+      nameEdited: false
     }
   },
   componentWillMount: function() {
@@ -117,10 +126,11 @@ var ComponentEditor = React.createClass({
       controlsEls = <span>No control yet</span>;
     }
 
+    var candidates = []
     if (goTos.length > 0) {
       goTosEls = goTos.map(function (goTo) {
-        return <GoTo delete={this._removeGoTo.bind(this, goTo)}
-               key={goTo.id} control={goTo}/>;
+        return <GoTo candidates={candidates} delete={this._removeGoTo.bind(this, goTo)}
+               key={goTo.id} goTo={goTo}/>;
       }, this);
     } else {
       goTosEls = <span>No goTo yet</span>;

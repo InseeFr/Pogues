@@ -62,8 +62,9 @@ var PoguesApp = React.createClass({
       console.log('PoguesApp editing component', this.state.idComponent);
       // FIXME shouldn't call questionnaire store
       var questionnaire = QuestionnaireStore.getQuestionnaire();
+      var candidates = QuestionnaireUtils.after(questionnaire, component);
       var component = QuestionnaireUtils.getComponentFromId(questionnaire, this.state.componentId);
-      child = <ComponentEditor component={component}/>;
+      child = <ComponentEditor component={component} candidates={candidates}/>;
     } else if (this.state.view === ViewTypes.CONFIG) {
       child = <ConfigEditor/>
     }

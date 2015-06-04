@@ -1,21 +1,49 @@
 var React = require('react');
 var GoToModel = require('../models/GoTo');
 var locale = require('../stores/dictionary-store').getDictionary();
+var ComponentModel = require('../models/Component')
+var QuestionnaireModel = require('../models/Questionnaire')
+var ComponentPicker = require('./ComponentPicker')
+
 
 var GoTo = React.createClass({
   propTypes: {
-    goTo: React.PropTypes.instanceOf(GoToModel)
+    goTo: React.PropTypes.instanceOf(GoToModel).isRequired,
+    candidates: React.PropTypes.arrayOf(
+      React.PropTypes.instanceOf(ComponentModel)).isRequired,
+    delete: React.PropTypes.func.isRequired
   },
 
   componentWillMount: function() {
     var goTo = this.props.goTo;
     this.setState({
+      description: "",
+      expression: "",
+      ifTrue: "",
+      ifFalse: ""
     });
   },
-
-  _handleTextChange: function(event) {
+  getInitialState: function() {
+    return {}
+  },
+  _handleExpressionChange: function(event) {
     this.setState({
-      text: event.target.value
+      expression: null
+    })
+  },
+  _handleDescriptionChange: function(event) {
+    this.setState({
+      description: null
+    })
+  },
+  _handleIfTrueChange: function(value) {
+    this.setState({
+      ifTrue: value
+    });
+  },
+  _handleIfFalseChange: function(value) {
+    this.setState({
+      ifFalse: value
     });
   },
   _handleTypeChange: function(event) {
@@ -41,38 +69,41 @@ var GoTo = React.createClass({
   render: function() {
     return (
       // description / expression / ifTrue / ifFalse
-      <div className="form-horizontal">
-        <div className="form-group">
-          <label for="description" class="col-sm-4 control-label">Description</label>
-          <div className="col-sm-8">
-            <div className="input-group">
-              <input value={this.state.text} onChange={this._handleTextChange}
-                onBlur={this._save}
-                type="text" className="form-control" placeholder={locale.goTo}/>
-              <span className="input-group-btn">
-                <button onClick={this._delete} className="btn btn-default" type="button">&times;</button>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="col-sm-6">
-            <select onChange={this._handleTypeChange}
-               value={this.state.type} className="form-control input-block-level">
-            </select>
-          </div>
-          <div className="col-sm-6">
-            <div className="input-group">
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" value={this.state.disjoinable}/>
-                    {locale.disjoignable}
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     <div>
+        <datalist id="candidates">
+           {this.props.candidates.map(function (cmpnt) {
+             return <option value={cmpnt.name + ' - ' + cmpnt.id}/>;
+           }, this)}
+       </datalist>
+       <div className="form-horizontal">
+         <div className="form-group">
+           <div className="col-sm-12">
+             <input type="text" placeholder={locale.description}
+                    className="form-control"/>
+           </div>
+         </div>
+         <div className="form-group">
+           <div className="col-sm-12">
+             <input type="text" placeholder={locale.expression}
+                    className="form-control"/>
+             </div>
+         </div>
+         <div className="form-group">
+           <label className="col-sm-4 control-label">{locale.ifTrue}</label>
+           <div className="col-sm-8">
+             <ComponentPicker initialValue={this.state.ifTrue} candidates={this.props.candidates}
+               handleChange={this._handleIfTrueChange}/>
+           </div>
+         </div>
+         <div className="form-group">
+           <label className="col-sm-4 control-label">{locale.ifFalse}</label>
+           <div className="col-sm-8">
+             <ComponentPicker initialValue={this.state.ifTrue} candidates={this.props.candidates}
+               handleChange={this._handleIfTrueChange}/>
+           </div>
+         </div>
+       </div>
+     </div>
   )}
 
 });

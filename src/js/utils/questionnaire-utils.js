@@ -53,6 +53,13 @@ var QuestionnaireUtils = {
 
   flatten: flatten,
 
+  after: function (questionnaire, component) {
+    var cmpnts = flatten(questionnaire)
+    var i = cmpnts.indexOf(component)
+    if (i !== -1) return cmpnts.slice(i + 1)
+    return []
+  },
+
   pickQuestion: function pickQuestion(quesr){
     var candidate;
     return (flatten(quesr).some(function (el) {
