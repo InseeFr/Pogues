@@ -65,10 +65,10 @@ var ConfigEditor = React.createClass({
                 <label className="col-sm-4 control-label">{locale.remote}</label>
                 <div className="col-sm-8">
                     <label className="radio-inline">
-                      <input type="radio" name="Remote" checked={this.state.Remote} onChange={this._switchRemote}/>{locale.trueWord}
+                      <input type="radio" name="Remote" checked={this.state.remote} onChange={this._switchRemote}/>{locale.trueWord}
                     </label>
                     <label className="radio-inline">
-                      <input type="radio" name="Remote" checked={!this.state.Remote} onChange={this._switchRemote}/>{locale.falseWord}
+                      <input type="radio" name="Remote" checked={!this.state.remote} onChange={this._switchRemote}/>{locale.falseWord}
                     </label>
                 </div>
               </div>
