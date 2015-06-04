@@ -1,6 +1,10 @@
 var React = require('react');
+var SequenceModel = require('../models/Sequence')
 
 var Sequence = React.createClass({
+  propTypes: {
+    sequence: React.PropTypes.instanceOf(SequenceModel)
+  },
 
   render: function() {
     //console.log('Sequence rendering with props', this.props);
@@ -11,7 +15,8 @@ var Sequence = React.createClass({
       <div>
         <Tag className="sequence-header">{sequence.name}</Tag>
         {sequence.children.map(function(child, index) {
-          return (<Component key={child.id} highlightHandler={this.props.highlightHandler} component={child}/>);
+          return (<Component key={child.id} highlightHandler={this.props.highlightHandler}
+             component={child}/>);
         }, this)}
       </div>
     );
