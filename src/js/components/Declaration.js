@@ -44,7 +44,7 @@ var Declaration = React.createClass({
 
   render: function() {
     var typeChoices =  declarationTypes.map(function (key) {
-          return <option value={key}>{locale[key]}</option>;
+          return <option key={key} value={key}>{locale[key]}</option>;
         });
     return (
       <div className="form-horizontal">
