@@ -1,11 +1,13 @@
 /*
 Deployment script to an eXist container.
-username and password must be completed.
+username and password must be provided through a JSON File.
 */
-// TODO read the authentication information from a file
 var fs = require('fs');
 var request = require('request');
-request.debug = true;
+var authInfo = require('./deploy-auth.json');
+
+// In case of trouble, set to true
+request.debug = false;
 
 var PATH = './dist';
 var TARGET = 'http://s90datalift.ad.insee.intra:9150/exist/rest/db/pogues';
@@ -24,7 +26,7 @@ function deployToServer(deployURL, file, filePath) {
     .pipe(
       noProxyReq
         .put(deployURL)
-        .auth('<write-username-here>','<write-password-here>')
+        .auth(authInfo.user, authInfo.password)
         .on('error', function(err) { console.log('<!> ERROR ', err); })
         .on('response', function(resp) { console.log('<O> Status : ' + resp.statusCode); })
       );
