@@ -34,6 +34,7 @@
     "jest-cli": "^0.4.0",
     "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
+    "request": "^2.57.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^3.1.1"
   },
