@@ -12,7 +12,8 @@ gulp.task('del:dist', function (callback) {
     './dist/index.html',
     './dist/css/**',
     './dist/js/**',
-    './dist/img/**'
+    './dist/img/**',
+    './dist/fonts/**'
     ],
      callback);
 });
@@ -32,6 +33,11 @@ gulp.task('build:copy:css', ['del:dist'], function() {
 gulp.task('build:copy:img', ['del:dist'], function() {
 	gulp.src('./src/img/*.*')
 		.pipe(gulp.dest('./dist/img'));
+});
+
+gulp.task('build:copy:fonts', ['del:dist'], function() {
+	gulp.src('./src/fonts/*.*')
+		.pipe(gulp.dest('./dist/fonts'));
 });
 
 gulp.task('build:browserify', ['del:dist'], function() {
@@ -63,7 +69,8 @@ gulp.task('build',
    'build:browserify',
    'build:copy:index',
    'build:copy:css',
-   'build:copy:img']);
+   'build:copy:img',
+   'build:copy:fonts']);
 
 gulp.task('default',
   ['browserify',
