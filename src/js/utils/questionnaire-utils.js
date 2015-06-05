@@ -42,16 +42,16 @@ var QuestionnaireUtils = {
 
   getComponentById: function (questionnaire, cmpntId) {
     var candidate;
-    return (flatten(questionnaire).some(function (c) {
+    return flatten(questionnaire).some(function (c) {
       return (candidate = c, c.id === cmpntId)
-    }), candidate || null);
+    }) ? candidate : null;
   },
 
   getComponentByName: function (questionnaire, cmpntName) {
     var candidate;
-    return (flatten(questionnaire).some(function (c) {
+    return flatten(questionnaire).some(function (c) {
       return (candidate = c, c.name === cmpntName)
-    }), candidate || null);
+    }) ? candidate : null;
   },
 
   pickComponent: function pickComponent(quesr){
