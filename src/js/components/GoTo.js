@@ -14,17 +14,14 @@ var GoTo = React.createClass({
     delete: React.PropTypes.func.isRequired
   },
 
-  componentWillMount: function() {
-    var goTo = this.props.goTo;
-    this.setState({
-      description: "",
-      expression: "",
-      ifTrue: "",
-      ifFalse: ""
-    });
-  },
   getInitialState: function() {
-    return {}
+    var goTo = this.props.goTo;
+    return {
+      description: goTo.description,
+      expression: goTo.expression,
+      ifTrue: goTo.ifTrue,
+      ifFalse: goTo.ifFalse
+    }
   },
   _handleExpressionChange: function(event) {
     this.setState({
@@ -39,7 +36,7 @@ var GoTo = React.createClass({
   _handleIfTrueChange: function(target) {
     this.setState({
       ifTrue: target
-    });
+    })
   },
   _handleIfFalseChange: function(target) {
     this.setState({

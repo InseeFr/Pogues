@@ -15,21 +15,20 @@ var ComponentPicker = React.createClass({
   },
   getInitialState: function() {
     return {
-      value: this.props.initialValue,
+      cmpntName: this.props.initialValue,
       questionnaire: QuestionnaireStore.getQuestionnaire()
     }
   },
   _handleChange: function(event) {
-    var target = QuestionnaireUtils.getComponentByName(
-                    this.state.questionnaire, event.target.value)
+    var cmpntName = event.target.value
     this.setState({
-      value: event.target.value
+      cmpntName: cmpntName
     })
-    this.props.handleChange(target)
+    this.props.handleChange(cmpntName)
   },
   render: function() {
     return (
-          <input value={this.state.value}
+          <input value={this.state.cmpntName}
             onChange={this._handleChange}
               type="text" className="form-control" placeholder={locale.target}
         list="candidates" />

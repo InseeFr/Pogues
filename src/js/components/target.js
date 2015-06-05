@@ -1,6 +1,14 @@
 var React = require('react')
 var ComponentPicker = require('./ComponentPicker')
 var ComponentModel = require('../models/Component')
+var QuestionnaireStore = require('../stores/questionnaire-store')
+var QuestionnaireUtils = require('../utils/questionnaire-utils')
+var classNames = require('classnames')
+// constants for status identification
+var NON_EXISTING = 'NON_EXISTING'
+var AFTER = 'AFTER'
+var BEFORE = 'BEFORE'
+var EMPTY = 'EMPTY'
 
 var Target = React.createClass({
   propTypes: {
@@ -8,17 +16,37 @@ var Target = React.createClass({
     handleChange: React.PropTypes.func.isRequired,
     initialTarget: React.PropTypes.instanceOf(ComponentModel),
     candidates: React.PropTypes.arrayOf(
-      React.PropTypes.instanceOf(ComponentModel)).isRequired
+      React.PropTypes.instanceOf(ComponentModel)).isRequired,
   },
   getInitialState: function() {
     return {
-      target: this.props.initialTarget
+      target: this.props.initialTarget,
+      questionnaire: QuestionnaireStore.getQuestionnaire()
     }
   },
-  _handleChange: function(target) {
+  _handleChange: function(cmpntName) {
+    var status
+    if (!cmpntName) {
+      this.setState({
+        target: null,
+        status: EMPTY
+      })
+      return;
+    }
+    var target = QuestionnaireUtils.getComponentByName(
+                    this.state.questionnaire, event.target.value)
+    // TODO make status determination consistent
+    if (!target) {
+      status = NON_EXISTING
+    } else if (this.props.candidates.indexOf(target) !== -1) {
+      status = AFTER
+    } else {
+      status = BEFORE
+    }
     this.props.handleChange(target)
     this.setState({
-      target: target
+      target: target,
+      status: status
     })
   },
   render: function() {
@@ -27,15 +55,30 @@ var Target = React.createClass({
     var cmpntName = this.state.target ?
                       this.state.target.label + ' (' + this.state.target.id + ')' :
                       ""
+    var status = this.state.status
+    var divCn = classNames({
+        'form-group': true,
+        'has-feedback': true,
+        'has-success': status === AFTER,
+        'has-warning': status === NON_EXISTING,
+        'has-error': status === BEFORE
+      });
+    var spanCn = classNames({
+      'glyphicon': true,
+      'form-control-feedback': true,
+      'glyphicon-ok': status === AFTER,
+      'glyphicon-warning-sign': status === NON_EXISTING,
+      'glyphicon-remove': status === BEFORE
+    })
     return (
-      <div className="form-group has-success has-feedback">
+      <div className={divCn}>
         <label className="col-sm-4 control-label">{this.props.text}</label>
           <div className="col-sm-4">
           <ComponentPicker
             initialValue={this.props.initialValue}
             candidates={this.props.candidates}
             handleChange={this._handleChange}/>
-          <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+          <span className={spanCn} aria-hidden="true"></span>
         </div>
         <div className="col-sm-4">
           <input disabled className="form-control"
