@@ -26,7 +26,7 @@ describe('Instantiate Logger', function() {
     var customNameSpace = 'components';
 
     var testLogger = new Logger(customModule, customNameSpace);
-    
-    expect(testLogger.getPrefix()).toBe('[components][my-module] '); // yes, with a trailing whitespace
+
+    expect(testLogger.getPrefix()).toBe('[components][my-module]');
   });
 });

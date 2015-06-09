@@ -22,7 +22,7 @@ class Logger {
 
   getPrefix() {
     // Keep the trailing space, please
-    return '['+ this.namespace +']['+ this.moduleName +'] ';
+    return '['+ this.namespace +']['+ this.moduleName +']';
   }
 
   getCurrentLevel() {
@@ -36,21 +36,22 @@ class Logger {
   /* Generic logging method that tests the general logging level
   and the active namespace*/
   // TODO add remote / local write test
-  logWrapper(testLevel,message) {
+  logWrapper(testLevel, messageArray) {
+    messageArray.unshift(this.getPrefix());
     if(LEVELS[testLevel] >= LEVELS[this.getCurrentLevel()]
       && Config.log.activeNamespaces.indexOf(this.namespace) >= 0) {
       switch(testLevel) {
         case 'DEBUG':
-          console.log(this.getPrefix() + message);
+          console.log.apply(console, messageArray);
           break;
         case 'INFO':
-          console.info(this.getPrefix() + message);
+          console.info.apply(console, messageArray);
           break;
         case 'WARN':
-          console.warn(this.getPrefix() + message);
+          console.warn.apply(console, messageArray);
           break;
         case 'ERROR':
-          console.error(this.getPrefix() + message);
+          console.error.apply(console, messageArray);
           break
         default:
           //no-op
@@ -59,21 +60,24 @@ class Logger {
     }
   }
 
-  // FIXME use 'log' instead ? Or support both ?
   debug(message) {
-    this.logWrapper('DEBUG', message);
+    var messageArray = Array.prototype.slice.call(arguments);
+    this.logWrapper('DEBUG', messageArray);
   }
 
   info(message) {
-    this.logWrapper('INFO', message);
+    var messageArray = Array.prototype.slice.call(arguments);
+    this.logWrapper('INFO', messageArray);
   }
 
   warn(message) {
-    this.logWrapper('WARN', message);
+    var messageArray = Array.prototype.slice.call(arguments);
+    this.logWrapper('WARN', messageArray);
   }
 
   error(message) {
-    this.logWrapper('ERROR', message);
+    var messageArray = Array.prototype.slice.call(arguments);
+    this.logWrapper('ERROR', messageArray);
   }
 
 }

@@ -40,7 +40,7 @@ var PoguesApp = React.createClass({
     ConfigStore.removeChangeListener(this._onChange);
   },
   render: function() {
-    logger.info('Rendering Pogues main UI with view : ' + this.state.view);
+    logger.info('Rendering Pogues main UI with view : ', this.state.view);
     var child,
       title,
       filter;
