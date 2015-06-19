@@ -17,6 +17,7 @@ var logger = new Logger('QuestionnaireStore', 'Stores');
 var _questionnaire;
 var _filter = null;
 var _rFilter;
+var _publishURL = '';
 
 function _setQuestionnaireById(id) {
 
@@ -33,6 +34,10 @@ function _setFilter(filter) {
   _filter = filter;
   // an empty string or null, no filtering
   _rFilter = filter ? new RegExp(filter) : null;
+}
+
+function _setPublicationURL(url) {
+  _publishURL = url;
 }
 
 function _setQuestionnaire(questionnaire) {
@@ -74,6 +79,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
   },
   getFilter: function () {
     return _rFilter;
+  },
+  getPublicationURL: function() {
+    return _publishURL;
   },
   emitChange: function() {
     console.log('QuestionnaireStore emitting event', CHANGE_EVENT);
@@ -124,6 +132,8 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
       case ActionTypes.PUBLISH_QUESTIONNAIRE:
         logger.debug('Handling PUBLISH_QUESTIONNAIRE action.');
         DataUtils.publishQuestionnaire(payload.action.questionnaire);
+      case ActionTypes.GET_PUBLICATION_URL:
+        _setPublicationURL(payload.action.url);
       default:
         return true;
     }

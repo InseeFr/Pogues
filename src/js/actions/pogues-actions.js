@@ -142,6 +142,13 @@ var PoguesActions = {
       actionType: PoguesConstants.ActionTypes.PUBLISH_QUESTIONNAIRE,
       questionnaire: questionnaire
     });
+  },
+  getPublicationURL: function(url) {
+    logger.info('Pushing publication URL to UI.');
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.GET_PUBLICATION_URL,
+      url: url
+    });
   }
 };
 

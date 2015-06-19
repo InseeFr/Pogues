@@ -110,9 +110,16 @@ var Menu = React.createClass({
 
   getInitialState: function() {
     return {
-      filter: ''
+      filter: '',
+      url: ''
     }
   },
+
+  componentDidMount: function() {
+    // TODO display publication URL
+    QuestionnaireStore.addChangeListener(() => this.setState({url: QuestionnaireStore.getPublicationURL()}));
+  },
+
   _goHome: function(event) {
     PoguesActions.switchToPicker();
     event.preventDefault();
@@ -171,6 +178,8 @@ var Menu = React.createClass({
             {isQuestionnaireView ? <SaveButton saveFunction={this._clickToSave} buttonLabel={locale.save}/> : null}
 
             {isQuestionnaireView ? <PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} /> : null}
+
+            {this.state.url}
 
             <ul className="nav navbar-nav navbar-right">
               {isQuestionnaireView ? null : configButton}
