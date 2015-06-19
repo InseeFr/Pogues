@@ -14,6 +14,9 @@ var request = require('superagent');
 var TextDatatypeModel = require('../models/TextDatatype');
 var DateDatatypeModel = require('../models/DateDatatype');
 var NumericDatatypeModel = require('../models/NumericDatatype');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('DataUtils', 'Utils');
 
 // FIXME extrat from uri found in res.header.Location
 function extractId(uri) {
@@ -242,16 +245,16 @@ var DataUtils = {
   // Send a questionnaire to the publish service.
   publishQuestionnaire: function(questionnaire) {
     var targetURL = Config.baseURL + Config.stromaePath;
-    console.log('Publishing questionnaire ' + questionnaire.id + ' to ' + targetURL);
+    logger.info('Publishing questionnaire ' + questionnaire.id + ' to ' + targetURL);
     request
       .post(targetURL)
       .set('Content-Type','text/html')
       .send(JSON.stringify(questionnaire))
       .end(function(err, res) {
         if (res.ok) {
-          console.info('Publish OK');
+          logger.info('Publish OK');
         } else {
-          console.error('Error trying to publish the questionnaire');
+          logger.error('Error trying to publish the questionnaire');
         }
       });
   },

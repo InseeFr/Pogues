@@ -54,7 +54,7 @@ class PublishButton extends React.Component {
     return(
       <div className="nav navbar-nav navbar-left">
         <form className="navbar-form navbar-right">
-          <button className="btn btn-primary" disabled="disabled" onClick={this.publishFunction}>{this.buttonLabel}</button>
+          <button className="btn btn-primary" onClick={this.publishFunction}>{this.buttonLabel}</button>
         </form>
       </div>
     );

@@ -1,6 +1,9 @@
 var PoguesConstants = require('../constants/pogues-constants');
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('PoguesDispatcher','Dispatcher');
 
 var PayloadSources = PoguesConstants.PayloadSources;
 
@@ -11,7 +14,7 @@ var PoguesDispatcher = assign(new Dispatcher(), {
       source: PayloadSources.SERVER_SOURCE,
       action: action
     };
-    console.log('PoguesDispatcher dispatching SERVER_SOURCE payload', payload);
+    logger.info('PoguesDispatcher dispatching SERVER_SOURCE payload', payload);
     this.dispatch(payload);
   },
   handleViewAction: function(action) {
@@ -19,7 +22,7 @@ var PoguesDispatcher = assign(new Dispatcher(), {
       source: PayloadSources.VIEW_SOURCE,
       action: action
     };
-    console.log('PoguesDispatcher dispatching VIEW_SOURCE payload', payload);
+    logger.info('PoguesDispatcher dispatching VIEW_SOURCE payload', payload);
     this.dispatch(payload);
   },
 

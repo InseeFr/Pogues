@@ -135,6 +135,12 @@ var PoguesActions = {
       k : key,
       v : value
     });
+  },
+  publishQuestionnaire: function(questionnaire) {
+    logger.info('Publishing questionnaire');
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.PUBLISH_QUESTIONNAIRE
+    });
   }
 };
 
