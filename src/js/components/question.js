@@ -7,7 +7,6 @@ var Question = React.createClass({
   },
 
   render: function() {
-    console.log('Question rendering with state', this.state);
     return(
       <div>
         <h4 className="question-header">{this.props.question.name}</h4>
