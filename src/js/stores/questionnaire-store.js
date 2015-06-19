@@ -7,9 +7,12 @@ var SequenceModel = require("../models/Sequence");
 var DataUtils = require('../utils/data-utils');
 var assign = require('object-assign');
 var QUtils = require('../utils/questionnaire-utils');
+var Logger = require('../logger/Logger');
 // FIXME CHANGE_EVENT should be a constant
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
+
+var logger = new Logger('QuestionnaireStore', 'Stores');
 
 var _questionnaire;
 var _filter = null;
@@ -118,6 +121,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
       case ActionTypes.EDIT_QUESTIONNAIRE:
         _questionnaire[payload.action.k] = payload.action.v;
         break;
+      case ActionTypes.PUBLISH_QUESTIONNAIRE:
+        logger.debug('Handling PUBLISH_QUESTIONNAIRE action.');
+        DataUtils.publishQuestionnaire(payload.action.questionnaire);
       default:
         return true;
     }
@@ -128,4 +134,3 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
 });
 
 module.exports = QuestionnaireStore;
-

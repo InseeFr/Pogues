@@ -139,7 +139,8 @@ var PoguesActions = {
   publishQuestionnaire: function(questionnaire) {
     logger.info('Publishing questionnaire');
     PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.PUBLISH_QUESTIONNAIRE
+      actionType: PoguesConstants.ActionTypes.PUBLISH_QUESTIONNAIRE,
+      questionnaire: questionnaire
     });
   }
 };

@@ -246,13 +246,20 @@ var DataUtils = {
   publishQuestionnaire: function(questionnaire) {
     var targetURL = Config.baseURL + Config.stromaePath;
     logger.info('Publishing questionnaire ' + questionnaire.id + ' to ' + targetURL);
+    var start = new Date().getTime();
     request
       .post(targetURL)
       .set('Content-Type','text/html')
       .send(JSON.stringify(questionnaire))
       .end(function(err, res) {
         if (res.ok) {
-          logger.info('Publish OK');
+          var end = new Date().getTime();
+          var execTimeMillis = (end - start) / 1000;
+          // FIXME its a hack ! we should use the Header Location that is not available
+          // FIXME in the superagent response object !
+          var url = res.text.substring(res.text.indexOf('http'), res.text.indexOf('</DEBUG>'));
+          logger.info('Publish OK', ' - URL is :', url);
+          logger.debug('Response timing : ', execTimeMillis, ' ms');
         } else {
           logger.error('Error trying to publish the questionnaire');
         }
