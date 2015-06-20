@@ -36,7 +36,14 @@ function _setFilter(filter) {
   _rFilter = filter ? new RegExp(filter) : null;
 }
 
+/**
+ * After sending a questionnaire to publishing, we store
+ * the publishing URL returned by the server in the store. 
+ * TODO each time we load a questionnaire in the store we must
+ * erase that property  
+ */
 function _setPublicationURL(url) {
+  logger.debug('Setting publication URL in store.')
   _publishURL = url;
 }
 
@@ -133,9 +140,10 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         logger.debug('Handling PUBLISH_QUESTIONNAIRE action.');
         DataUtils.publishQuestionnaire(payload.action.questionnaire);
       case ActionTypes.GET_PUBLICATION_URL:
+        logger.debug('Handling GET_PUBLICATION_URL action.');
         _setPublicationURL(payload.action.url);
       default:
-        return true;
+        //no op;
     }
     console.log('QuestionnaireStore will emit change, questionnaire is', _questionnaire);
     QuestionnaireStore.emitChange();

@@ -114,12 +114,18 @@ var Menu = React.createClass({
       url: ''
     }
   },
-
   componentDidMount: function() {
     // TODO display publication URL
-    QuestionnaireStore.addChangeListener(() => this.setState({url: QuestionnaireStore.getPublicationURL()}));
+    logger.debug('Component did mount, adding change listener.');
+    QuestionnaireStore.addChangeListener(this._onQStoreChange);
   },
-
+  componentDidUpdate: function() {
+    logger.debug('Component did update, state is ', this.state);
+  },
+  _onQStoreChange: function() {
+    logger.info('Handling change, state is : ', this.state);
+    this.setState({url: QuestionnaireStore.getPublicationURL()});
+  },
   _goHome: function(event) {
     PoguesActions.switchToPicker();
     event.preventDefault();
@@ -179,7 +185,7 @@ var Menu = React.createClass({
 
             {isQuestionnaireView ? <PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} /> : null}
 
-            {this.state.url}
+            {this.state.url !== '' ? <a href={this.state.url} target="_blank">Votre questionnaire</a> : ''}
 
             <ul className="nav navbar-nav navbar-right">
               {isQuestionnaireView ? null : configButton}
