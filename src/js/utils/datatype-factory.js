@@ -10,9 +10,7 @@ const datatypeToModel = {
 };
 
 // Simply return the class ; you should then instanciate it.
-let getClassFromDatatype = (typeName) => datatypeToModel[typeName];
+export let getClassFromDatatype = (typeName) => datatypeToModel[typeName];
 
 // Instanciate the class
-let createDatatype = (typeName, data = {}) => new datatypeToModel[typeName](data);
-
-export default createDatatype;
+export let createDatatype = (typeName, data = {}) => new datatypeToModel[typeName](data);

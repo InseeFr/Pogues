@@ -3,7 +3,7 @@ A response to a question
 */
 import DatatypeModel from './Datatype';
 import CodeListModel from './CodeList';
-import createDatatype from '../utils/datatype-factory'
+import { createDatatype } from '../utils/datatype-factory'
 
 class ResponseModel {
   constructor(object) {
