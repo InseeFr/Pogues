@@ -2,7 +2,6 @@
 A response to a question
 */
 import DatatypeModel from './Datatype';
-import CodeListModel from './CodeList';
 import createDatatype from '../utils/datatype-factory'
 
 class ResponseModel {
@@ -31,8 +30,8 @@ class ResponseModel {
     return this._mandatory;
   }
 
-  get predefinedLabels() {
-    return this._predefinedLabels;
+  get codeListReference() {
+    return this._codeListReference;
   }
 
   get datatype() {
@@ -57,37 +56,12 @@ class ResponseModel {
     this._mandatory = bool;
   }
 
-  addPredefinedLabel(predefinedLabel) {
-    if (typeof predefinedLabel !== 'string') {
+
+  set codeListReference(codeListReference) {
+    if (typeof codeListReference !== 'string') {
       throw new Error('The argument must be a string');
     }
-    this._predefinedLabels.push(predefinedLabel);
-  }
-
-  addPredefinedLabels(predefinedLabels) {
-    // Save current size in case something goes wrong
-    var initialSize = this._predefinedLabels.length;
-    try {
-      predefinedLabels.map(function(predefinedLabel) {
-        this.addPredefinedLabel(predefinedLabel);
-      });
-    } catch (e) {
-      this._predefinedLabels.length(initialSize);
-      throw new Error('All arguments must be of type string');
-    }
-  }
-
-  set predefinedLabels(predefinedLabels) {
-    try {
-      predefinedLabels.map(function(predefinedLabel) {
-        if (typeof predefinedLabel !== 'string') {
-          throw new Error('All arguments must be of type string');
-        }
-      });
-    } catch (e) {
-      throw new Error('All arguments must be strings');
-    }
-    this._predefinedLabels = predefinedLabels;
+    this._codeListReference = codeListReference;
   }
 
   set datatype(datatype) {
