@@ -2,6 +2,7 @@
 A response to a question
 */
 import DatatypeModel from './Datatype';
+import createDatatype from '../utils/datatypeModel-factory'
 
 class ResponseModel {
   constructor(object) {
@@ -9,7 +10,7 @@ class ResponseModel {
       this._simple = object._simple;
       this._mandatory = object._mandatory;
       this._predefinedLabels = object._predefinedLabels;
-      this._datatype = object._datatype;
+      this._datatype = createDatatype(object._datatype._typeName, object._datatype);  
       this._values = object._values;
     } else {
       this._simple = true;
