@@ -3,6 +3,7 @@ A response to a question
 */
 import DatatypeModel from './Datatype';
 import CodeListModel from './CodeList';
+import createDatatype from '../utils/datatype-factory'
 
 class ResponseModel {
   constructor(object) {
@@ -11,6 +12,7 @@ class ResponseModel {
       this._mandatory = object._mandatory;
       this._codeListReference = object._codeListReference;
       this._datatype = object._datatype;
+      this._datatype = createDatatype(object._datatype._typeName, object._datatype);  
       this._values = object._values;
     } else {
       this._simple = true;

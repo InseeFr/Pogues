@@ -3,13 +3,16 @@ A Question
 */
 import ComponentModel from './Component.js';
 import ResponseModel from './Response.js';
+import Logger from '../logger/Logger'
+
+const logger = new Logger('QuestionModel', 'Models');
 
 class QuestionModel extends ComponentModel {
   constructor(object) {
     super(object);
     if (object) {
       this._simple = object._simple;
-      this._responses = object._responses.map(ResponseModel.bind(null, object));
+      this._responses = object._responses.map(response => new ResponseModel(response));
     } else {
       this._simple = true;
       this._responses = [new ResponseModel()];
