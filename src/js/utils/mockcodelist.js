@@ -20,4 +20,4 @@ var CodelistRepository = {
     })
   }
 
-modules.exports = CodelistRepository;
+module.exports = CodelistRepository;
