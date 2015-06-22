@@ -40,6 +40,8 @@ var QuestionnaireTitle =  React.createClass({
   },
 
   _getTitle: function() {
+    // FIXME problem when workin locally, _getTitle is called
+    // before current questionnaire is set in Questionnaire Store
     var currentLabel = QuestionnaireStore.getQuestionnaire().label;
     return currentLabel == "" ? "EDIT ME" : currentLabel;
   },
