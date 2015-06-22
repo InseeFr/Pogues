@@ -12,7 +12,7 @@ class QuestionModel extends ComponentModel {
       this._responses = object._responses.map(ResponseModel.bind(null, object));
     } else {
       this._simple = true;
-      this._responses = [];
+      this._responses = [new ResponseModel()];
     }
   }
 
