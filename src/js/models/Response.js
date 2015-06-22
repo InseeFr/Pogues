@@ -2,19 +2,20 @@
 A response to a question
 */
 import DatatypeModel from './Datatype';
+import CodeListModel from './CodeList';
 
 class ResponseModel {
   constructor(object) {
     if (object) {
       this._simple = object._simple;
       this._mandatory = object._mandatory;
-      this._predefinedLabels = object._predefinedLabels;
+      this._codeListReference = object._codeListReference;
       this._datatype = object._datatype;
       this._values = object._values;
     } else {
       this._simple = true;
       this._mandatory = false;
-      this._predefinedLabels = [];
+      this._codeListReference = null;
       this._datatype = new DatatypeModel();
       this._values = [];
     }
