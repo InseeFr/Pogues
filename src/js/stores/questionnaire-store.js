@@ -139,9 +139,11 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
       case ActionTypes.PUBLISH_QUESTIONNAIRE:
         logger.debug('Handling PUBLISH_QUESTIONNAIRE action.');
         DataUtils.publishQuestionnaire(payload.action.questionnaire);
+        break;
       case ActionTypes.GET_PUBLICATION_URL:
         logger.debug('Handling GET_PUBLICATION_URL action.');
         _setPublicationURL(payload.action.url);
+        break;
       default:
         //no op;
     }
