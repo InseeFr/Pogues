@@ -1,14 +1,20 @@
 /**
 A CodeList represents a list of strings that will be used as answer categories
 */
+import Logger from '../logger/Logger'
+const logger = new Logger('CodeListModel', 'Models')
 
 class CodeListModel {
-  constructor() {
-    this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    console.log('Component creating new instance with id ' + this._id);
-    this._name = '';
-    this._label = '';
-    this._categories = [];
+  constructor(object) {
+    if (object) {
+      // TODO
+    } else {
+      this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+      logger.debug('CodeList created with id ', this._id);
+      this._name = '';
+      this._label = '';
+      this._codes = []; // codes : [{"value": 1, "label": "Oui"}, {"value": 2, "label": "Non"}]
+    }
   }
 
   get id() {
@@ -23,8 +29,8 @@ class CodeListModel {
     return this._label;
   }
 
-  get categories() {
-    return this._categories;
+  get codes() {
+    return this._codes;
   }
 
 
@@ -49,12 +55,14 @@ class CodeListModel {
     this._label = label;
   }
 
-  addCategory(category) {
-    if (!typeof label !== 'string') {
-      throw new Error('The argument must be a string');
+  addCode(code) {
+    if (!(typeof code == 'object' &&
+          code.hasOwnProperty('value') &&
+          code.hasOwnProperty('label'))) {
+      throw new Error('The argument must be an object with a label and a value');
     }
-    this._categories.push(category);
+    this._categories.push(code);
   }
 }
 
-export default ComponentModel;
+export default CodeListModel;
