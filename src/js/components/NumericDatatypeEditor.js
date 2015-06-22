@@ -1,6 +1,9 @@
 var React = require('react');
 var DatatypeModel = require('../models/Datatype');
 var locale = require('../stores/dictionary-store').getDictionary();
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('NumericDatatypeEditor', 'Components');
 
 var NumericDatatypeEditor = React.createClass({
   //pattern and maxLength
@@ -19,7 +22,7 @@ var NumericDatatypeEditor = React.createClass({
   _handleMinimumChange: function(event) {
     // FIXME don't change model in views
     // with this approach other component won't be informed of any changement
-    var minimum = event.target.value;
+    var minimum = parseInt(event.target.value);
     this.props.datatype.minimum = minimum;
     // Since we're modifying the model directly, we don't really need to handle
     // the state. But in the long run, that's the way we'll handle changes, so
@@ -31,7 +34,7 @@ var NumericDatatypeEditor = React.createClass({
   _handleMaximumChange: function(event) {
     // FIXME don't change model in views
     // with this approach other component won't be informed of any changement
-    var maximum = event.target.value;
+    var maximum = parseInt(event.target.value);
     this.props.datatype.maximum = maximum;
     // Since we're modifying the model directly, we don't really need to handle
     // the state. But in the long run, that's the way we'll handle changes, so
@@ -43,7 +46,7 @@ var NumericDatatypeEditor = React.createClass({
   _handleDecimalsChange: function(event) {
     // FIXME don't change model in views
     // with this approach other component won't be informed of any changement
-    var decimals = event.target.value;
+    var decimals = parseInt(event.target.value);
     this.props.datatype.decimals = decimals;
     // Since we're modifying the model directly, we don't really need to handle
     // the state. But in the long run, that's the way we'll handle changes, so
