@@ -4,6 +4,7 @@ The class for a Questionnaire
 import SequenceModel from './Sequence.js';
 import SurveyModel from './Survey.js';
 import ComponentGroupModel from './ComponentGroup.js';
+import CodeList from './CodeList';
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {
@@ -13,8 +14,8 @@ class QuestionnaireModel extends SequenceModel {
       this._survey = new SurveyModel(object._survey);
       this._componentGroups = object._componentGroups.map(function(group) {
         return new ComponentGroupModel(group);
-      });
-
+      })
+      this._codeLists = {}
     } else {
       this._agency = 'fr.insee';
       // This is temporary
@@ -22,6 +23,7 @@ class QuestionnaireModel extends SequenceModel {
       popoSurvey.name = 'POPO';
       this._survey = popoSurvey;
       this._componentGroups = [];
+      this._codeLists = {};
     }
   }
 
@@ -49,6 +51,21 @@ class QuestionnaireModel extends SequenceModel {
       throw new Error('The parameter must be a string');
     }
     this._agency = agency;
+  }
+
+  addCodeList(codeList) {
+    if (!(codeList instanceof CodeListModel)) {
+      throw new Error('The argument must be a CodeList');
+    }
+    this._codeLists.push(codeList)
+  }
+
+  removeCodeListById(id) {
+    delete this._codeLists[id]
+  }
+
+  getCodeListById(id) {
+    return this._codeLists[id]
   }
 
   addComponentGroup(group) {

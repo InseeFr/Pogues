@@ -70,7 +70,10 @@ var _dictionary = {
   logLevel: {'en': 'logLevel', 'fr': 'logLevel'},
   logActiveNamespaces: {'en': 'logActiveNamespaces', 'fr': 'logActiveNamespaces'},
   trueWord: {'en': 'True', 'fr': 'Vrai'},
-  falseWord: {'en': 'False', 'fr': 'Faux'}
+  falseWord: {'en': 'False', 'fr': 'Faux'},
+  datatypeEdition: {'en': 'Expected datatype', 'fr' : 'Type de données attendu'},
+  responsesEdition: {'en': 'Responses', 'fr': 'Réponses'},
+  addResponse: {'en': 'Add a response', 'fr': 'Ajouter une réponse'}
 };
 
 //initialization

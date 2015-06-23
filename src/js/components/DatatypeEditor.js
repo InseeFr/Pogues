@@ -8,6 +8,21 @@ var Logger = require('../logger/Logger');
 
 var logger = new Logger('DatatypeEditor', 'Components');
 
+function switchEditor(datatype, setDatatype) {
+    var datatypeComponent = {
+      NUMERIC: <NumericDatatypeEditor
+                change={setDatatype}
+                datatype={datatype}/>,
+      TEXT: <TextDatatypeEditor
+              change={setDatatype}
+              datatype={datatype}/>,
+      DATE: <DateDatatypeEditor
+              change={setDatatype}
+              datatype={datatype}/>
+      };
+    return datatypeComponent[datatype.typeName];
+  }
+
 var DatatypeEditor =  React.createClass({
 
 	propTypes: {
@@ -15,18 +30,23 @@ var DatatypeEditor =  React.createClass({
 		datatype: React.PropTypes.instanceOf(DatatypeModel)
 	},
 
-	switchEditor: function(typeName) {
-		var datatypeComponent = {
-			NUMERIC: <NumericDatatypeEditor datatype={this.props.datatype}/>,
-			TEXT: <TextDatatypeEditor datatype={this.props.datatype}/>,
-			DATE: <DateDatatypeEditor datatype={this.props.datatype}/>
-		};
-		return datatypeComponent[typeName];
-	},
+  componentWillMount: function() {
+    this.setState({
+      datatype: this.props.datatype
+    })
+  },
+
+  _setDatatype: function (datatype) {
+    this.setState({
+      datatype: datatype
+    })
+    this.props.change(datatype)
+  },
+
 
 	render: function() {
-		var el = this.switchEditor(this.props.datatype);
-		logger.debug('Editor will be ', el);
+		var el = switchEditor(this.state.datatype, this._setDatatype.bind(this))
+		logger.debug('Editor will be ', el)
 		return (el);
 	}
 });
