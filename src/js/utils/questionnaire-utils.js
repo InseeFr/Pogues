@@ -1,6 +1,7 @@
 var SequenceModel = require('../models/Sequence');
 var QuestionModel = require('../models/Question');
 var QuestionnaireModel = require('../models/Questionnaire');
+var nameFromLabel = require('../utils/name-utils').nameFromLabel;
 
 function flatten(quesr) {
     return quesr.children.reduce(function(a, b) {
@@ -79,13 +80,16 @@ var QuestionnaireUtils = {
    @param sequence The sequence (or questionnaire) to which the component is added
    @param isSequence Boolean indicating if the component to create is a sequence or a question
    @param depth Integer giving the distance from the root where the component should be added
-   @param title Title of the component to append
+   @param label Title of the component to append
    */
-  appendComponent: function(sequence, isSequence, depth, title) {
+  appendComponent: function(sequence, isSequence, depth, label) {
 
     if (depth === 1) {
       var newChild = (isSequence) ? new SequenceModel() : new QuestionModel();
-      newChild.name = title;
+      newChild.label = label;
+      // TODO generate newChild.name !
+      newChild.name = nameFromLabel(label);
+      console.log('The child to append ==> ', newChild);
       sequence.addChild(newChild);
       return;
     } else if (depth > 1) {
@@ -93,7 +97,7 @@ var QuestionnaireUtils = {
       if (sequence.children.length === 0) return;
       for (var index = sequence.children.length - 1; index >= 0; index--) {
         if (sequence.children[index] instanceof SequenceModel) {
-          QuestionnaireUtils.appendComponent(sequence.children[index], isSequence, depth - 1, title);
+          QuestionnaireUtils.appendComponent(sequence.children[index], isSequence, depth - 1, label);
           return;
         }
       }

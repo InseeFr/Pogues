@@ -13,7 +13,7 @@ var Sequence = React.createClass({
 
     return(
       <div>
-        <Tag className="sequence-header">{sequence.name}</Tag>
+        <Tag className="sequence-header">{sequence.label}</Tag>
         {sequence.children.map(function(child, index) {
           return (<Component key={child.id} highlightHandler={this.props.highlightHandler}
              component={child}/>);

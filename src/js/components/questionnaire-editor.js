@@ -13,8 +13,8 @@ var SequenceModel = require("../models/Sequence");
 var nameFromLabel = require('../utils/name-utils').nameFromLabel;
 // end of hack
 
-    // TODO add change listener on dictionary store  to have a clean
-    // process, even if you don't expect changes in language settings
+// TODO add change listener on dictionary store  to have a clean
+// process, even if you don't expect changes in language settings
 var QuestionnaireEditor = React.createClass({
 
     getInitialState: function() {
