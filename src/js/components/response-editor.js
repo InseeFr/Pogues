@@ -1,10 +1,10 @@
 var React = require('react');
-var ResponseModel = require('../models/Response');
-var DatatypePicker = require('./DatatypePicker');
-var CodeListPicker = require('./CodeListPicker');
+var ResponseModel = require('../models/response');
+var DatatypePicker = require('./datatype-picker');
+var CodeListPicker = require('./code-list-picker');
 var locale = require('../stores/dictionary-store').getDictionary();
 var assign = require('object-assign');
-var DataypeEditor = require('./DatatypeEditor');
+var DataypeEditor = require('./datatype-editor');
 
 
 var ResponseEditor = React.createClass({

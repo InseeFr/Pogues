@@ -1,6 +1,6 @@
 var React = require('react');
 var Component = require('../components/component');
-var CodeListModel = require('../models/CodeList');
+var CodeListModel = require('../models/code-list');
 var classNames = require('classnames');
 
 

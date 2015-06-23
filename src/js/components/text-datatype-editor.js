@@ -1,5 +1,5 @@
 var React = require('react');
-var TextDatatypeModel = require('../models/TextDatatype');
+var TextDatatypeModel = require('../models/text-datatype');
 var locale = require('../stores/dictionary-store').getDictionary();
 var assign = require('object-assign')
 

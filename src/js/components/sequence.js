@@ -1,5 +1,5 @@
 var React = require('react');
-var SequenceModel = require('../models/Sequence')
+var SequenceModel = require('../models/sequence')
 
 var Sequence = React.createClass({
   propTypes: {

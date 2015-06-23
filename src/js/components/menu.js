@@ -6,7 +6,7 @@ var QuestionnaireStore = require('../stores/questionnaire-store');
 var AppStateStore = require('../stores/appstate-store');
 var QuestionnaireTitle = require('./questionnaire-title.js');
 var _ = require('lodash');
-var Logger = require('../logger/Logger');
+var Logger = require('../logger/logger');
 
 var logger = new Logger('Menu', 'Components');
 

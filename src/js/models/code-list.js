@@ -1,7 +1,7 @@
 /**
 A CodeList represents a list of strings that will be used as answer categories
 */
-import Logger from '../logger/Logger'
+import Logger from '../logger/logger'
 const logger = new Logger('CodeListModel', 'Models')
 
 class CodeListModel {

@@ -1,6 +1,6 @@
 var React = require('react');
 var PoguesActions = require('../actions/pogues-actions');
-var ComponentEditor = require('./ComponentEditor');
+var ComponentEditor = require('./component-editor');
 
 var Component = React.createClass({
 
@@ -61,6 +61,6 @@ module.exports = Component;
 
 var Sequence = require('../components/sequence');
 var Question = require('../components/question');
-var SequenceModel = require('../models/Sequence');
+var SequenceModel = require('../models/sequence');
 var EditActivator = require('../components/edit-activator');
 var classNames = require('classnames');

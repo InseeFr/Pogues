@@ -7,15 +7,15 @@ QuestionnaireUtils test suite
 
 // Whats need not to be mock
 // jest.dontMock('../questionnaire-utils.js');
-// jest.dontMock('../../models/Questionnaire.js');
-// jest.dontMock('../../models/Component.js');
-// jest.dontMock('../../models/Sequence.js');
-// jest.dontMock('../../models/Question.js');
+// jest.dontMock('../../models/questionnaire.js');
+// jest.dontMock('../../models/component.js');
+// jest.dontMock('../../models/sequence.js');
+// jest.dontMock('../../models/question.js');
 //
 // var QuestionnaireUtils = require('../questionnaire-utils.js');
-// var QuestionnaireModel = require('../../models/Questionnaire');
-// var SequenceModel = require('../../models/Sequence');
-// var QuestionModel = require('../../models/Question');
+// var QuestionnaireModel = require('../../models/questionnaire');
+// var SequenceModel = require('../../models/sequence');
+// var QuestionModel = require('../../models/question');
 //
 // // describe('QuestionnaireUtils search function', function() {
 // //   it('should find an element by id in a simple questionnaire', function() {

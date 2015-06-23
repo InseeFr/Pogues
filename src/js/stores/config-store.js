@@ -4,7 +4,7 @@ var ViewTypes = require('../constants/pogues-constants').ViewTypes;
 var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var ActionTypes = require('../constants/pogues-constants').ActionTypes;
 var CHANGE_EVENT = "change";
-var Logger = require('../logger/Logger');
+var Logger = require('../logger/logger');
 var logger = new Logger('ConfigStore', 'Stores');
 
 var _config = require('../config/config')

@@ -1,8 +1,8 @@
 /**
 A control on a response or several responses
 */
-import ExpressionModel from './Expression';
-import ComponentModel from './Component';
+import ExpressionModel from './expression';
+import ComponentModel from './component';
 
 class GoToModel {
   constructor(object) {

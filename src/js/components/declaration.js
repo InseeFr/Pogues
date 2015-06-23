@@ -1,5 +1,5 @@
 var React = require('react');
-var DeclarationModel = require('../models/Declaration');
+var DeclarationModel = require('../models/declaration');
 var locale = require('../stores/dictionary-store').getDictionary();
 var declarationTypes = require('../models/model-constants').DeclarationModel.DECLARATION_TYPES;
 

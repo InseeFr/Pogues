@@ -1,9 +1,9 @@
 /**
 A Question
 */
-import ComponentModel from './Component.js';
-import ResponseModel from './Response.js';
-import Logger from '../logger/Logger'
+import ComponentModel from './component';
+import ResponseModel from './response';
+import Logger from '../logger/logger'
 
 const logger = new Logger('QuestionModel', 'Models');
 

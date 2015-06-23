@@ -1,8 +1,8 @@
 /**
 A Sequence of questions or other sequences
 */
-import ComponentModel from './Component.js';
-import QuestionModel from './Question.js';
+import ComponentModel from './component.js';
+import QuestionModel from './question.js';
 import ModelConstants from './model-constants';
 
 var GENERIC_NAMES = ModelConstants.SequenceModel.GENERIC_NAMES;

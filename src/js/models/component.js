@@ -1,9 +1,9 @@
 /**
 A Component is the base class for the Questionnaire questions and sequences
 */
-import DeclarationModel from './Declaration.js';
-import ControlModel from './Control.js';
-import GoToModel from './GoTo.js';
+import DeclarationModel from './declaration.js';
+import ControlModel from './control.js';
+import GoToModel from './go-to.js';
 
 class ComponentModel {
   constructor(object) {

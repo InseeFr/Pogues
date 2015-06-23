@@ -1,7 +1,7 @@
 var React = require('react');
-var NumericDatatypeModel = require('../models/NumericDatatype')
+var NumericDatatypeModel = require('../models/numeric-datatype')
 var locale = require('../stores/dictionary-store').getDictionary();
-var Logger = require('../logger/Logger');
+var Logger = require('../logger/logger');
 var assign = require('object-assign')
 var logger = new Logger('NumericDatatypeEditor', 'Components');
 

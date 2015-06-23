@@ -1,10 +1,10 @@
 /**
 The class for a Questionnaire
 */
-import SequenceModel from './Sequence.js';
-import SurveyModel from './Survey.js';
-import ComponentGroupModel from './ComponentGroup.js';
-import CodeList from './CodeList';
+import SequenceModel from './sequence.js';
+import SurveyModel from './survey.js';
+import ComponentGroupModel from './component-group.js';
+import CodeList from './code-list';
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {

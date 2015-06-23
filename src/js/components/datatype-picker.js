@@ -1,6 +1,6 @@
 var React = require('react');
 var locale = require('../stores/dictionary-store').getDictionary();
-var DatatypeModel = require('../models/Datatype');
+var DatatypeModel = require('../models/datatype');
 var classNames = require('classnames');
 
 import { getClassFromDatatype, getDatatypeTypes, createDatatype} from '../utils/datatype-factory'

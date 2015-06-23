@@ -1,7 +1,7 @@
 /**
 A control on a response or several responses
 */
-import ExpressionModel from './Expression';
+import ExpressionModel from './expression';
 import ModelConstants from './model-constants';
 
 var CONTROL_CRITICITY = ModelConstants.ControlModel.CONTROL_CRITICITY;

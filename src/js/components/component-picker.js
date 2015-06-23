@@ -1,5 +1,5 @@
 var React = require('react')
-var ComponentModel = require('../models/Component')
+var ComponentModel = require('../models/component')
 var locale = require('../stores/dictionary-store').getDictionary();
 var QuestionnaireStore = require('../stores/questionnaire-store')
 var QuestionnaireUtils = require('../utils/questionnaire-utils')
