@@ -1,7 +1,7 @@
 var React = require('react');
 var locale = require('../stores/dictionary-store').getDictionary();
 // TODO remove,temporary
-var clr = require('../utils/mockcodelist');
+var clr = require('../utils/code-list-repository');
 var assign = require('object-assign');
 var CodeListModel = require('../models/CodeList')
 
