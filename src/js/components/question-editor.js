@@ -1,79 +1,66 @@
 var React = require('react');
 var DatatypePicker = require('./DatatypePicker');
 var QuestionModel = require('../models/Question');
+var ResponseModel = require('../models/Response');
 var datatypes = require('../models/model-constants').DatatypeModel.DATA_TYPES;
 var locale = require('../stores/dictionary-store').getDictionary();
 var NumericDatatypeEditor = require('./NumericDatatypeEditor');
 var TextDatatypeEditor = require('./TextDatatypeEditor');
 var DateDatatypeEditor = require('./DateDatatypeEditor');
+var ResponseEditor = require('./response-editor');
 var NumericDatatypeModel = require('../models/NumericDatatype');
 var TextDatatypeModel = require('../models/TextDatatype');
 var DateDatatypeModel = require('../models/DateDatatype');
 var assign = require('object-assign');
 
-//TODO fragile, think about it
-//mapping between response types and components
-var datatypeToComponent = {
-  NUMERIC:  React.createFactory(NumericDatatypeEditor),
-  TEXT:  React.createFactory(TextDatatypeEditor),
-  DATE:  React.createFactory(DateDatatypeEditor)
-};
-
-var datatypeToModel = {
-  NUMERIC: NumericDatatypeModel,
-  TEXT: TextDatatypeModel,
-  DATE: DateDatatypeModel
-};
-
-
 var QuestionEditor = React.createClass({
-  // TODO save
+
   propTypes: {
     question: React.PropTypes.instanceOf(QuestionModel)
   },
-  // FIXME process only the first response model for now
+
   componentWillMount: function() {
     var question = this.props.question;
     this.setState({
       name: question.name,
       label: question.label,
-      datatypeType: question.responses[0].datatype.typeName,
-      datatype: question.responses[0].datatype
+      responses: question.responses
     });
   },
   _save: function() {
-    // TODO 
+    // TODO
   },
 
-  _handleDatatypeTypeChange: function(datatypeType) {
-    // change question datatype
-    // ensure that the new datatypeType is different before changing the model
-    if (datatypeType === this.state.datatypeType) return;
-    // changing the model
-    var newDatatype = new datatypeToModel[datatypeType]();
-    this.props.question.responses[0].datatype = newDatatype;
+  _addResponse: function() {
+    var question = this.props.question;
+    question.addResponse(new ResponseModel())
     this.setState({
-      datatypeType: datatypeType,
-      datatype: newDatatype
+      responses: question.responses
     })
   },
 
   render: function() {
-    var datatypeEditor = datatypeToComponent[this.state.datatypeType]({
-          handleChange: this._handleDatatypeChange,
-          datatype: this.state.datatype
-        });
+    var question = this.props.question
+    // FIXME wrong response removed (check Response model code)
     return (
       <div className="panel panel-default">
         <div className="panel-heading clearfix">
-          <h3 className="panel-title pull-left">{locale.questionEdition}</h3>
-          <div className="pull-right">
-            <DatatypePicker handleChange={this._handleDatatypeTypeChange} 
-              datatypeType={this.state.datatypeType}/>
-          </div>
+          <h3 className="panel-title pull-left">{locale.responsesEdition}</h3>
+          <button
+            onClick={this._addResponse}
+            className="btn btn-sm btn-primary pull-right">
+            {locale.addResponse}</button>
         </div>
         <div className="panel-body">
-          {datatypeEditor}
+            {
+              this.props.question.responses.map(function (response) {
+                return (
+                    <ResponseEditor
+                      response={response}
+                      remove={question.removeResponse.bind(question, response)}/>
+                  )
+              }, this)
+            }
         </div>
       </div>
     );
