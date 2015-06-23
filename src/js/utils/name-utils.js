@@ -3,7 +3,7 @@ Contains utilities functions for name manipulation.
 */
 
 // Short name rule
-const rName = /^[a-z0-9_]*$/i;
+export const rName = /^[a-z0-9_]*$/i;
 const rNameNeg = /[^a-z0-9_]/gi;
 
 /* 

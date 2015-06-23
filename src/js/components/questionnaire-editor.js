@@ -11,6 +11,7 @@ var QuestionnaireModel = require("../models/Questionnaire");
 var QuestionModel = require("../models/Question");
 var SequenceModel = require("../models/Sequence");
 var nameFromLabel = require('../utils/name-utils').nameFromLabel;
+var rName = require('../utils/name-utils').rName;
 // end of hack
 
 // TODO add change listener on dictionary store  to have a clean
