@@ -73,7 +73,8 @@ var _dictionary = {
   falseWord: {'en': 'False', 'fr': 'Faux'},
   datatypeEdition: {'en': 'Expected datatype', 'fr' : 'Type de données attendu'},
   responsesEdition: {'en': 'Responses', 'fr': 'Réponses'},
-  addResponse: {'en': 'Add a response', 'fr': 'Ajouter une réponse'}
+  addResponse: {'en': 'Add a response', 'fr': 'Ajouter une réponse'},
+  visualizationHint : {'en': 'Visualization hint', 'fr': 'Type de saisie'}
 };
 
 //initialization

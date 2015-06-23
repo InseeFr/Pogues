@@ -5,7 +5,9 @@ import DatatypeModel from './Datatype.js';
 
 import ModelConstants from './model-constants';
 
-var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+const DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+
+const HINTS = ['checkbox', 'radio', 'dropdown'];
 
 class TextDatatypeModel extends DatatypeModel {
   constructor(object) {
@@ -26,6 +28,10 @@ class TextDatatypeModel extends DatatypeModel {
 
   get pattern() {
     return this._pattern;
+  }
+
+  get vizHintsList() {
+    return HINTS;
   }
 
   set maxLength(maxLength) {
