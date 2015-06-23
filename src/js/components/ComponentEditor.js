@@ -159,7 +159,9 @@ var ComponentEditor = React.createClass({
                type="text" className="form-control" id="name" placeholder={locale.name}/>
           </div>
             <div className="col-sm-1">
-              <button onClick={this._save} className="btn btn-default">&#10003;</button>
+              <button onClick={this._save} className="btn btn-default">
+                <span className="glyphicon glyphicon-ok"/>
+              </button>
             </div>
         </div>
         <div className="panel panel-default">
