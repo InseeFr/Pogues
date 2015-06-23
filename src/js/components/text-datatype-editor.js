@@ -1,7 +1,10 @@
 var React = require('react');
 var TextDatatypeModel = require('../models/text-datatype');
 var locale = require('../stores/dictionary-store').getDictionary();
-var assign = require('object-assign')
+var assign = require('object-assign');
+var Logger = require('../logger/Logger');
+
+var logger = new Logger('', '');
 
 var TextDatatypeEditor = React.createClass({
   //pattern and maxLength
@@ -14,7 +17,8 @@ var TextDatatypeEditor = React.createClass({
     var datatype = this.props.datatype;
     this.setState({
       _maxLength: datatype.maxLength,
-      _pattern: datatype.pattern
+      _pattern: datatype.pattern,
+      _visualizationHint: datatype.visualizationHint
     });
   },
 
@@ -40,6 +44,13 @@ var TextDatatypeEditor = React.createClass({
     })
   },
 
+  _handleVisualizationHintChange: function(event) {
+    var vizHint = event.target.value;
+    this._newDatatype({
+      _visualizationHint: vizHint
+    });
+  },
+
   render: function() {
     return (
       <div className="form-horizontal">
@@ -59,6 +70,16 @@ var TextDatatypeEditor = React.createClass({
                   className="form-control" id="pattern"
                   placeholder={locale.pattern}
                   onChange={this._handlePatternChange}/>
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="visualizationHint" className="col-sm-2 control-label">{locale.visualizationHint}</label>
+          <div className="col-sm-10">
+            <select onChange={this._handleVisualizationHintChange} 
+                  className="form-control"
+                  value={this.state._visualizationHint}>
+              {this.props.datatype.vizHintsList.map(hint => <option value={hint}>{hint}</option>)}
+            </select>
           </div>
         </div>
       </div>
