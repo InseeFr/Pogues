@@ -9,7 +9,7 @@ var CodeListModel = require('../models/CodeList')
 var CodeListPicker = React.createClass({
   propTypes: {
     select: React.PropTypes.func,
-    codeList: React.PropTypes.instanceOf(CodeListModel).isRequired
+    codeList: React.PropTypes.instanceOf(CodeListModel)
   },
 
   componentWillMount: function() {
