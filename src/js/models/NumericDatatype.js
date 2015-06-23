@@ -35,21 +35,21 @@ class NumericDatatypeModel extends DatatypeModel {
   }
 
   set minimum(minimum) {
-    if (typeof typeName !== 'number') {
+    if (typeof minimum !== 'number') {
       throw new Error('The parameter must be a number');
     }
     this._minimum = minimum;
   }
 
   set maximum(maximum) {
-    if (typeof typeName !== 'number') {
+    if (typeof maximum !== 'number') {
       throw new Error('The parameter must be a number');
     }
     this._maximum = maximum;
   }
 
   set decimals(decimals) {
-    if (typeof typeName !== 'number') {
+    if (typeof decimals !== 'number') {
       // TODO Sould in fact be an integer
       throw new Error('The parameter must be a number');
     }

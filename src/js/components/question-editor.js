@@ -4,14 +4,12 @@ var QuestionModel = require('../models/Question');
 var ResponseModel = require('../models/Response');
 var datatypes = require('../models/model-constants').DatatypeModel.DATA_TYPES;
 var locale = require('../stores/dictionary-store').getDictionary();
-var NumericDatatypeEditor = require('./NumericDatatypeEditor');
-var TextDatatypeEditor = require('./TextDatatypeEditor');
-var DateDatatypeEditor = require('./DateDatatypeEditor');
 var ResponseEditor = require('./response-editor');
-var NumericDatatypeModel = require('../models/NumericDatatype');
-var TextDatatypeModel = require('../models/TextDatatype');
-var DateDatatypeModel = require('../models/DateDatatype');
 var assign = require('object-assign');
+var Logger = require('../logger/Logger');
+var DatatypeEditor = require('./DatatypeEditor');
+
+var logger = new Logger('QuestionEditor', 'Components');
 
 var QuestionEditor = React.createClass({
 
@@ -21,6 +19,7 @@ var QuestionEditor = React.createClass({
 
   componentWillMount: function() {
     var question = this.props.question;
+    logger.debug('Props question first response datatype typeName ', question.responses[0].datatype.typeName);
     this.setState({
       name: question.name,
       label: question.label,
@@ -42,6 +41,8 @@ var QuestionEditor = React.createClass({
   render: function() {
     var question = this.props.question
     // FIXME wrong response removed (check Response model code)
+    logger.debug('Current datatypeType is ', this.state.datatypeType);
+
     return (
       <div className="panel panel-default">
         <div className="panel-heading clearfix">
