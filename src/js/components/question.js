@@ -9,7 +9,7 @@ var Question = React.createClass({
   render: function() {
     return(
       <div>
-        <h4 className="question-header">{this.props.question.name}</h4>
+        <h4 className="question-header">{this.props.question.label}</h4>
       </div>
     );
   }
