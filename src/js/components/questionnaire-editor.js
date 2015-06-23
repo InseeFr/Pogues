@@ -10,15 +10,9 @@ var Config = require('../config/config');
 var QuestionnaireModel = require("../models/Questionnaire");
 var QuestionModel = require("../models/Question");
 var SequenceModel = require("../models/Sequence");
+var nameFromLabel = require('../utils/name-utils').nameFromLabel;
 // end of hack
-//  Short name rule
-var rName = /^[a-z0-9_]*$/i;
-var rNameNeg = /[^a-z0-9_]/gi;
 
-
-function nameFromLabel(label) {
-        return label.replace(rNameNeg, '').toUpperCase().slice(0, 10);
-    }
     // TODO add change listener on dictionary store  to have a clean
     // process, even if you don't expect changes in language settings
 var QuestionnaireEditor = React.createClass({
