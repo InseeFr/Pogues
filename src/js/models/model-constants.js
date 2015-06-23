@@ -4,7 +4,8 @@ module.exports = {
     GENERIC_NAMES: ['QUESTIONNAIRE', 'MODULE', 'PARAGRAPH', 'SEQUENCE']
   },
   DatatypeModel: {
-    DATATYPE_TYPES: ['DATE', 'NUMERIC', 'TEXT']
+    DATATYPE_TYPES: ['DATE', 'NUMERIC', 'TEXT'],
+    VISUALIZATION_HINTS: ['checkbox', 'radio', 'dropdown']
   },
   DeclarationModel: {
     DECLARATION_TYPES: ['INSTRUCTION', 'COMMENT', 'HELP']

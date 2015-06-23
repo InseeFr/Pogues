@@ -23,9 +23,8 @@ var TextDatatypeEditor = React.createClass({
   },
 
   _newDatatype: function(chgmt) {
-    var datatypeLiteral = assign(this.state, chgmt)
-    var datatype = new TextDatatypeModel(this.state)
-    this.setState(chgmt)
+    var datatypeLiteral = assign(this.state, chgmt);
+    var datatype = new TextDatatypeModel(datatypeLiteral);
     this.props.change(datatype)
     return datatype
   },
