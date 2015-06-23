@@ -1,35 +1,68 @@
 var React = require('react');
 var locale = require('../stores/dictionary-store').getDictionary();
-var datatypeTypes = require('../models/model-constants').DatatypeModel.DATATYPE_TYPES;
+var DatatypeModel = require('../models/Datatype');
+var classNames = require('classnames');
+
+import { getClassFromDatatype, getDatatypeTypes, createDatatype} from '../utils/datatype-factory'
 
 var DataTypePicker = React.createClass({
 
   propTypes: {
+    edition: React.PropTypes.bool,
+    edit: React.PropTypes.func,
     change: React.PropTypes.func,
-    datatypeType: React.PropTypes.string
+    datatype: React.PropTypes.instanceOf(DatatypeModel)
   },
 
   componentWillMount: function() {
     this.setState({
-      datatypeType: this.props.datatypeType
+      datatype: this.props.datatype,
     });
   },
+
+  _edit: function() {
+    this.props.edit();
+  },
+
   _handleChange: function(event) {
+    // TODO keep track of last datatype description for a given datatype type
+    var datatype = createDatatype(event.target.value)
     this.setState({
-      datatypeType: event.target.value
+      datatype: datatype
     });
-    this.props.handleChange(event.target.value);
+    this.props.change(datatype);
   },
+
   render: function() {
+    var datatypeTypes = getDatatypeTypes();
     var typeChoices =  datatypeTypes.map(function (key) {
-          return <option value={key}>{locale[key]}</option>;
+          return (
+            <option value={key}>
+              {locale[key]}
+            </option>
+            );
         });
 
+    var btnClass = classNames({
+      'btn': true,
+      'btn-default': !this.props.edition,
+      'btn-primary': this.props.edition
+    });
+
     return (
-      <select onChange={this._handleChange}
-         value={this.state.datatypeType} className="form-control">
-        {typeChoices}
-      </select>
+      <div>
+        <div className="col-sm-2">
+          <select onChange={this._handleChange}
+             value={this.state.datatype.typeName} className="form-control">
+            {typeChoices}
+          </select>
+        </div>
+        <div className="col-sm-1">
+          <button className={btnClass} onClick={this._edit}>
+            <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
     );
   }
 

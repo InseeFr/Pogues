@@ -32,7 +32,7 @@ var Component = React.createClass({
       if (component instanceof SequenceModel) {
           classes = classNames({
             'sequence' : true,
-            'row': true,
+            'row': false,
             'highlight': highlightHandler ? highlightHandler.test(component.name) : false
           });
           return(
@@ -43,7 +43,7 @@ var Component = React.createClass({
             );
         } else {
           classes = classNames({
-            'row': true,
+            'row': false,
             'highlight': highlightHandler ? highlightHandler.test(component.name) : false
           });
           return(
