@@ -10,6 +10,10 @@ var NumericDatatypeModel = require('../models/NumericDatatype');
 var TextDatatypeModel = require('../models/TextDatatype');
 var DateDatatypeModel = require('../models/DateDatatype');
 var assign = require('object-assign');
+var Logger = require('../logger/Logger');
+var DatatypeEditor = require('./DatatypeEditor');
+
+var logger = new Logger('QuestionEditor', 'Components');
 
 //TODO fragile, think about it
 //mapping between response types and components
@@ -34,6 +38,7 @@ var QuestionEditor = React.createClass({
   // FIXME process only the first response model for now
   componentWillMount: function() {
     var question = this.props.question;
+    logger.debug('Props question first response datatype typeName ', question.responses[0].datatype.typeName);
     this.setState({
       name: question.name,
       label: question.label,
@@ -59,9 +64,10 @@ var QuestionEditor = React.createClass({
   },
 
   render: function() {
+    logger.debug('Current datatypeType is ', this.state.datatypeType);
     var datatypeEditor = datatypeToComponent[this.state.datatypeType]({
           handleChange: this._handleDatatypeChange,
-          datatype: this.state.datatype
+          datatype : this.state.datatype
         });
     return (
       <div className="panel panel-default">
@@ -73,7 +79,7 @@ var QuestionEditor = React.createClass({
           </div>
         </div>
         <div className="panel-body">
-          {datatypeEditor}
+          <DatatypeEditor change={() => 'yo'} datatype="NUMERIC" />
         </div>
       </div>
     );
