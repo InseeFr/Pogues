@@ -1,7 +1,7 @@
 // DatatypeModel factory
 import NumericDatatypeModel from '../models/numeric-datatype'
 import TextDatatypeModel from '../models/text-datatype'
-import DateDatatypeModel from '../models/data-datatype'
+import DateDatatypeModel from '../models/date-datatype'
 var datatypeTypes = require('../models/model-constants').DatatypeModel.DATATYPE_TYPES;
 
 const datatypeToModel = {

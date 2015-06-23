@@ -12,7 +12,7 @@ var Config = require('../stores/config-store').getConfig();
 var ModelConstants = require('../models/model-constants');
 var request = require('superagent');
 var TextDatatypeModel = require('../models/text-datatype');
-var DateDatatypeModel = require('../models/data-datatype');
+var DateDatatypeModel = require('../models/date-datatype');
 var NumericDatatypeModel = require('../models/numeric-datatype');
 
 var DataXMLUtils = {
