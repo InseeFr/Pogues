@@ -5,7 +5,7 @@ var AppStateStore = require('../stores/appstate-store');
 var DataUtils = require('../utils/data-utils');
 var locale = require('../stores/dictionary-store').getDictionary();
 var _ = require('lodash');
-var Logger = require('../logger/Logger');
+var Logger = require('../logger/logger');
 
 var logger = new Logger('QuestionnaireList', 'Components');
 

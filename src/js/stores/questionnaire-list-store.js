@@ -2,10 +2,10 @@ var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
 var EventEmitter = require('events').EventEmitter;
-var QuestionnaireModel = require("../models/Questionnaire");
+var QuestionnaireModel = require("../models/questionnaire");
 var assign = require('object-assign');
 var DataUtils = require('../utils/data-utils');
-var Logger = require('../logger/Logger');
+var Logger = require('../logger/logger');
 
 var logger = new Logger('QuestionnaireListStore', 'Stores');
 

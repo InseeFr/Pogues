@@ -7,9 +7,9 @@ var DataUtils = require('../utils/data-utils');
 var DataXMLUtils = require('../utils/data-xml-utils');
 var request = require('superagent');
 var Config = require('../config/config');
-var QuestionnaireModel = require("../models/Questionnaire");
-var QuestionModel = require("../models/Question");
-var SequenceModel = require("../models/Sequence");
+var QuestionnaireModel = require("../models/questionnaire");
+var QuestionModel = require("../models/question");
+var SequenceModel = require("../models/sequence");
 var nameFromLabel = require('../utils/name-utils').nameFromLabel;
 // end of hack
 

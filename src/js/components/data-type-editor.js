@@ -1,8 +1,8 @@
 //DatatypeEditor
 var React = require('react');
-var DatatypeModel = require('../models/Datatype');
-var NumericDatatypeEditor = require('./numeric-datatypeEditor');
-var TextDatatypeEditor = require('./text-datatypeEditor');
+var DatatypeModel = require('../models/datatype');
+var NumericDatatypeEditor = require('./numeric-datatype-editor');
+var TextDatatypeEditor = require('./text-datatype-editor');
 var DateDatatypeEditor = require('./date-datatype-editor');
 var Logger = require('../logger/logger');
 

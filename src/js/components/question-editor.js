@@ -1,13 +1,13 @@
 var React = require('react');
-var DatatypePicker = require('./DatatypePicker');
-var QuestionModel = require('../models/Question');
-var ResponseModel = require('../models/Response');
+var DatatypePicker = require('./datatype-picker');
+var QuestionModel = require('../models/question');
+var ResponseModel = require('../models/response');
 var datatypes = require('../models/model-constants').DatatypeModel.DATA_TYPES;
 var locale = require('../stores/dictionary-store').getDictionary();
 var ResponseEditor = require('./response-editor');
 var assign = require('object-assign');
-var Logger = require('../logger/Logger');
-var DatatypeEditor = require('./DatatypeEditor');
+var Logger = require('../logger/logger');
+var DatatypeEditor = require('./datatype-editor');
 
 var logger = new Logger('QuestionEditor', 'Components');
 

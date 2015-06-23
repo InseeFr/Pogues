@@ -1,9 +1,9 @@
 /**
 The class for a Questionnaire
 */
-import SequenceModel from './sequence';
-import SurveyModel from './survey';
-import ComponentGroupModel from './component-group';
+import SequenceModel from './sequence.js';
+import SurveyModel from './survey.js';
+import ComponentGroupModel from './component-group.js';
 import CodeList from './code-list';
 
 class QuestionnaireModel extends SequenceModel {

@@ -1,7 +1,7 @@
 var PoguesConstants = require('../constants/pogues-constants');
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
-var Logger = require('../logger/Logger');
+var Logger = require('../logger/logger');
 
 var logger = new Logger('PoguesDispatcher','Dispatcher');
 

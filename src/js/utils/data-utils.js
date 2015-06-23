@@ -1,20 +1,20 @@
 var PoguesActions = require('../actions/pogues-actions');
 var QuestionnaireListStore = require('../stores/questionnaire-list-store');
-var QuestionnaireModel = require('../models/Questionnaire');
-var SequenceModel = require('../models/Sequence');
-var QuestionModel = require('../models/Question');
-var ResponseModel = require('../models/Response');
-var DeclarationModel = require('../models/Declaration');
-var ExpressionModel = require('../models/Expression');
-var ControlModel = require('../models/Control');
-var GoToModel = require('../models/GoTo');
+var QuestionnaireModel = require('../models/questionnaire');
+var SequenceModel = require('../models/sequence');
+var QuestionModel = require('../models/question');
+var ResponseModel = require('../models/response');
+var DeclarationModel = require('../models/declaration');
+var ExpressionModel = require('../models/expression');
+var ControlModel = require('../models/control');
+var GoToModel = require('../models/go-to');
 var Config = require('../stores/config-store').getConfig();
 var ModelConstants = require('../models/model-constants');
 var request = require('superagent');
-var TextDatatypeModel = require('../models/TextDatatype');
-var DateDatatypeModel = require('../models/DateDatatype');
-var NumericDatatypeModel = require('../models/NumericDatatype');
-var Logger = require('../logger/Logger');
+var TextDatatypeModel = require('../models/text-datatype');
+var DateDatatypeModel = require('../models/data-datatype');
+var NumericDatatypeModel = require('../models/numeric-datatype');
+var Logger = require('../logger/logger');
 
 var logger = new Logger('DataUtils', 'Utils');
 
@@ -98,7 +98,7 @@ function populateFakeComponent(component) {
   if (Math.random() < 0.5) {
     var goTo = new GoToModel();
     goTo.description = 'Description of go to for ' + component.name;
-    goTo.expression = new ExpressionModel({_text: 'http://gotos.org/' + component.name + '/goto'});
+    goTo.expression = new ExpressionModel({_text: 'http://go-tos.org/' + component.name + '/go-to'});
     goTo.ifTrue = new QuestionModel(); // TODO Direct to an existing component
     component.goTos.push(goTo);
   }
@@ -258,7 +258,7 @@ var DataUtils = {
           logger.debug('Response timing : ', execTimeMillis, ' ms');
           // FIXME its a hack ! we should use the Header Location that is not available
           // FIXME in the superagent response object !
-          var url = res.text.substring(res.text.indexOf('http'), res.text.indexOf('</DEBUG>'));
+          var url = res.text.substring(res.text.indexOf('http'), res.text.indexOf('</deBUG>'));
           logger.info('Publish OK', ' - URL is :', url);
           PoguesActions.getPublicationURL(url);
         } else {

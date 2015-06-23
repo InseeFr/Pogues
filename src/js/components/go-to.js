@@ -1,8 +1,8 @@
 var React = require('react');
-var GoToModel = require('../models/GoTo');
+var GoToModel = require('../models/go-to');
 var locale = require('../stores/dictionary-store').getDictionary();
-var ComponentModel = require('../models/Component')
-var QuestionnaireModel = require('../models/Questionnaire')
+var ComponentModel = require('../models/component')
+var QuestionnaireModel = require('../models/questionnaire')
 var Target = require('./target')
 
 

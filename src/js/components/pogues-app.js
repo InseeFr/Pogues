@@ -5,14 +5,14 @@ var AppStateStore = require('../stores/appstate-store');
 var QuestionnairePicker = require('../components/questionnaire-picker');
 var Questionnaire = require('../components/questionnaire');
 var PoguesActions = require('../actions/pogues-actions');
-var ComponentEditor = require('../components/ComponentEditor');
-var ConfigEditor = require('../components/ConfigEditor');
+var ComponentEditor = require('../components/component-editor');
+var ConfigEditor = require('../components/config-editor');
 var Menu = require('./menu.js');
 var ConfigStore = require('../stores/config-store');
 var locale = require('../stores/dictionary-store');
 var QuestionnaireUtils = require('../utils/questionnaire-utils');
 var QuestionnaireStore = require('../stores/questionnaire-store');
-var Logger = require('../logger/Logger');
+var Logger = require('../logger/logger');
 
 var logger = new Logger('PoguesApp', 'Components');
 

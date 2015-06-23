@@ -1,8 +1,8 @@
 /**
 A Component is the base class for the Questionnaire questions and sequences
 */
-import ComponentModel from './Component.js';
-import DeclarationModel from './Declaration.js';
+import ComponentModel from './component.js';
+import DeclarationModel from './declaration.js';
 
 class ComponentGroupModel {
   constructor(object) {

@@ -1,6 +1,6 @@
-var SequenceModel = require('../models/Sequence');
-var QuestionModel = require('../models/Question');
-var QuestionnaireModel = require('../models/Questionnaire');
+var SequenceModel = require('../models/sequence');
+var QuestionModel = require('../models/question');
+var QuestionnaireModel = require('../models/questionnaire');
 var nameFromLabel = require('../utils/name-utils').nameFromLabel;
 
 function flatten(quesr) {
