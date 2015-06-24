@@ -74,7 +74,9 @@ var _dictionary = {
   datatypeEdition: {'en': 'Expected datatype', 'fr' : 'Type de données attendu'},
   responsesEdition: {'en': 'Responses', 'fr': 'Réponses'},
   addResponse: {'en': 'Add a response', 'fr': 'Ajouter une réponse'},
-  visualizationHint : {'en': 'Visualization hint', 'fr': 'Type de saisie'}
+  visualizationHint : {'en': 'Visualization hint', 'fr': 'Type de saisie'},
+  newCode: {'en': 'New code', 'fr' : 'Nouvelle catégorie'},
+  typeNewCode: {'en': 'Type a new code', 'fr': 'Entrez une nouvelle catégorie'}
 };
 
 //initialization
