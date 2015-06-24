@@ -203,8 +203,7 @@ var DataUtils = {
             if (err) return;
             if (res.ok) {
               newId = extractId(res.headers.location);//extrat from uri
-              console.log('[DataUtils] will return new id for questionnaire', questionnaire);
-              console.log('[DataUtils] New id is : ' + newId);
+              logger.debug('New id is : ' + newId);
               // TODO check in  header slug is the same as oldId
               //PoguesActions.receiveNewIdFromServer(questionnaire.id, newId);
               PoguesActions.selectQuestionnaire(newId);
@@ -222,10 +221,10 @@ var DataUtils = {
   Save the questionnaire, i.e. persist it in the remote server data store.
   */
   saveQuestionnaire: function(questionnaire) {
-    console.info('Saving questionnaire ' + questionnaire.id + ' in remote server.');
-    console.dir(questionnaire);
+    logger.info('Saving questionnaire ' + questionnaire.id + ' in remote server.');
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaire/' + questionnaire.id;
-    console.log('Target URL is ' + targetURL);
+    logger.debug('Target URL is ' + targetURL);
+    logger.debug('Serialization would be', questionnaire.serialize(), JSON.parse(questionnaire.serialize()));
     request
       .put(targetURL)
       .set('Content-Type', 'text/html')

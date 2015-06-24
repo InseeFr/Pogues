@@ -5,6 +5,12 @@ import SequenceModel from './sequence.js';
 import SurveyModel from './survey.js';
 import ComponentGroupModel from './component-group.js';
 import CodeList from './code-list';
+import { stripLeadingUnderscore } from '../utils/name-utils';
+
+const SIMPLE_FIELDS = ['_agency'];
+const CLASS_FIELDS = ['_survey'];
+const ARRAY_FIELDS = ['_componentGroups'];
+const OBJECT_FIELDS = ['_codeLists'];
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {
@@ -25,6 +31,30 @@ class QuestionnaireModel extends SequenceModel {
       this._componentGroups = [];
       this._codeLists = {};
     }
+  }
+
+  /* Produce the JSON serialization of the questionnaire */
+  serialize() {
+    let o = {};
+    o.Questionnaire = super.serialize();
+    // Handling simple fields
+    let simpleFields = Object.keys(this)
+                            .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
+    simpleFields.forEach(simpleField => o.Questionnaire[stripLeadingUnderscore(simpleField)] = this[simpleField]);
+    // Handling class fields
+    let classFields = Object.keys(this)
+                            .filter(k => CLASS_FIELDS.indexOf(k) > -1);
+    classFields.forEach(field => o[stripLeadingUnderscore(field)] = this[field].serialize());
+    // Handling array fields
+    let arrayFields = Object.keys(this)
+                            .filter(k => ARRAY_FIELDS.indexOf(k) > -1);
+    arrayFields.forEach(field => o[stripLeadingUnderscore(field)] = this[field].map(element => element.serialize()));
+    // Handling objectFields
+    let objectFields = Object.keys(this)
+                            .filter(k => OBJECT_FIELDS.indexOf(k) > -1);
+    objectFields.forEach(field => o[stripLeadingUnderscore(field)] = Object.keys(this[field])
+                                                  .map(element => this[field][element].serialize()));
+    return JSON.stringify(o);
   }
 
   get agency() {

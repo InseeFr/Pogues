@@ -4,6 +4,9 @@ A Component is the base class for the Questionnaire questions and sequences
 import ComponentModel from './component.js';
 import DeclarationModel from './declaration.js';
 
+const SIMPLE_FIELDS = ['_id', '_name', '_label'];
+const ARRAY_FIELDS = ['_declarations', '_members'];
+
 class ComponentGroupModel {
   constructor(object) {
     if (object) {
@@ -23,6 +26,16 @@ class ComponentGroupModel {
       this._declarations = [];
       this._members = [];
     }
+  }
+
+  //TODO finish
+  serialize() {
+    let o = {};
+        // Handling simple fields
+    let simpleFields = Object.keys(this)
+                            .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
+    simpleFields.forEach(simpleField => o.Questionnaire[stripLeadingUnderscore(simpleField)] = this[simpleField]);
+    return o;
   }
 
   get id() {

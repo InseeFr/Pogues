@@ -20,6 +20,11 @@ class QuestionModel extends ComponentModel {
     }
   }
 
+  serialize() {
+    var o = super.serialize();
+    return o;
+  }
+
   get simple() {
     return this._simple;
   }
