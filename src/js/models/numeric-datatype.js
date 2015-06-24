@@ -5,7 +5,9 @@ import DatatypeModel from './datatype.js';
 
 import ModelConstants from './model-constants';
 
-var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+const DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
+
+const VIZ_HINTS = ModelConstants.DatatypeModel.VISUALIZATION_HINTS;
 
 class NumericDatatypeModel extends DatatypeModel {
   constructor(object) {
@@ -32,6 +34,10 @@ class NumericDatatypeModel extends DatatypeModel {
 
   get decimals() {
     return this._decimals;
+  }
+
+  get vizHintsList() {
+    return VIZ_HINTS;
   }
 
   set minimum(minimum) {

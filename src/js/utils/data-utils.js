@@ -253,12 +253,11 @@ var DataUtils = {
       .send(JSON.stringify(questionnaire))
       .end(function(err, res) {
         if (res.ok) {
+          var url = res.headers.location;
           var end = new Date().getTime();
-          var execTimeMillis = (end - start) / 1000;
-          logger.debug('Response timing : ', execTimeMillis, ' ms');
-          // FIXME its a hack ! we should use the Header Location that is not available
-          // FIXME in the superagent response object !
-          var url = res.text.substring(res.text.indexOf('http'), res.text.indexOf('</deBUG>'));
+          var execTimeSec = (end - start) / 1000;
+          logger.debug('Response timing : ', execTimeSec, ' sec');
+          logger.debug('Location header is : ', url);
           logger.info('Publish OK', ' - URL is :', url);
           PoguesActions.getPublicationURL(url);
         } else {

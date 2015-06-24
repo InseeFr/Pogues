@@ -7,7 +7,7 @@ import ModelConstants from './model-constants';
 
 const DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
 
-const HINTS = ['checkbox', 'radio', 'dropdown'];
+const VIZ_HINTS = ModelConstants.DatatypeModel.VISUALIZATION_HINTS;
 
 class TextDatatypeModel extends DatatypeModel {
   constructor(object) {
@@ -31,7 +31,7 @@ class TextDatatypeModel extends DatatypeModel {
   }
 
   get vizHintsList() {
-    return HINTS;
+    return VIZ_HINTS;
   }
 
   set maxLength(maxLength) {

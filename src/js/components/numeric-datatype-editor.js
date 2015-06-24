@@ -20,16 +20,16 @@ var NumericDatatypeEditor = React.createClass({
     this.setState({
       _minimum: datatype.minimum,
       _maximum: datatype.maximum,
-      _decimals: datatype.decimals
+      _decimals: datatype.decimals,
+      _visualizationHint: datatype.visualizationHint
     });
   },
 
   _newDatatype: function(chgmt) {
-    var datatypeLiteral = assign(this.state, chgmt)
-    var datatype = new NumericDatatypeModel(this.state)
-    this.setState(chgmt)
-    this.props.change(datatype)
-    return datatype
+    var datatypeLiteral = assign(this.state, chgmt);
+    var datatype = new NumericDatatypeModel(datatypeLiteral);
+    this.props.change(datatype);
+    return datatype;
   },
 
   _handleMinimumChange: function(event) {
@@ -80,6 +80,16 @@ var NumericDatatypeEditor = React.createClass({
             <input value={this.state._decimals} onChange={this._handleDecimalsChange}
                type="number" className="form-control" id="minimum"
                placeholder={locale.decimals}/>
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="visualizationHint" className="col-sm-2 control-label">{locale.visualizationHint}</label>
+          <div className="col-sm-10">
+            <select onChange={this._handleVisualizationHintChange} 
+                  className="form-control"
+                  value={this.state._visualizationHint}>
+              {this.props.datatype.vizHintsList.map(hint => <option value={hint}>{hint}</option>)}
+            </select>
           </div>
         </div>
       </div>
