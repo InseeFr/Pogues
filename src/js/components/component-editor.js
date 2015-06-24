@@ -149,7 +149,7 @@ var ComponentEditor = React.createClass({
       <div className="form-horizontal">
         <div className="form-group">
           <label htmlFor="label" className="control-label sr-only">{locale.label}</label>
-          <div className="col-sm-8">
+          <div className="col-sm-7">
             <input value={this.state.label} onChange={this._handleLabelChange}
                 type="text" className="form-control" id="label" placeholder={locale.label}/>
           </div>
@@ -158,8 +158,8 @@ var ComponentEditor = React.createClass({
             <input value={this.state.name} onChange={this._handleNameChange}
                type="text" className="form-control" id="name" placeholder={locale.name}/>
           </div>
-            <div className="col-sm-1">
-              <button onClick={this._save} className="btn btn-default">
+            <div className="col-sm-2">
+              <button onClick={this._save} className="btn btn-default pull-right">
                 <span className="glyphicon glyphicon-ok"/>
               </button>
             </div>
