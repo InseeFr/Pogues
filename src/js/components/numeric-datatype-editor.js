@@ -70,7 +70,7 @@ var NumericDatatypeEditor = React.createClass({
           <label htmlFor="maximum" className="col-sm-2 control-label">{locale.maximum}</label>
           <div className="col-sm-10">
             <input value={this.state._maximum} onChange={this._handleMaximumChange}
-               type="number" className="form-control" id="length"
+               type="number" className="form-control" id="maximum"
                placeholder={locale.maximum}/>
           </div>
         </div>
@@ -78,7 +78,7 @@ var NumericDatatypeEditor = React.createClass({
           <label htmlFor="decimals" className="col-sm-2 control-label">{locale.decimals}</label>
           <div className="col-sm-10">
             <input value={this.state._decimals} onChange={this._handleDecimalsChange}
-               type="number" className="form-control" id="length"
+               type="number" className="form-control" id="minimum"
                placeholder={locale.decimals}/>
           </div>
         </div>
