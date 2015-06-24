@@ -2,6 +2,7 @@
 A response to a question
 */
 import DatatypeModel from './datatype';
+import TextDatatypeModel from './text-datatype'
 import { createDatatype } from '../utils/datatype-factory'
 
 
@@ -12,13 +13,13 @@ class ResponseModel {
       this._mandatory = object._mandatory;
       this._codeListReference = object._codeListReference;
       this._datatype = object._datatype;
-      this._datatype = createDatatype(object._datatype._typeName, object._datatype);  
+      this._datatype = createDatatype(object._datatype._typeName, object._datatype);
       this._values = object._values;
     } else {
       this._simple = true;
       this._mandatory = false;
       this._codeListReference = null;
-      this._datatype = new DatatypeModel();
+      this._datatype = new TextDatatypeModel();
       this._values = [];
     }
   }
