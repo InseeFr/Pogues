@@ -1,7 +1,7 @@
 /**
 A numeric response datatype
 */
-import DatatypeModel from './Datatype.js';
+import DatatypeModel from './datatype.js';
 
 import ModelConstants from './model-constants';
 

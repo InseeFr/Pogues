@@ -1,8 +1,8 @@
-jest.dontMock('../Logger');
+jest.dontMock('../logger');
 
 describe('Instantiate Logger', function() {
   it('must have a module name and the default namespace', function() {
-    var Logger = require('../Logger');
+    var Logger = require('../logger');
     var customModule = 'my-module';
 
     var testLogger = new Logger('my-module');
@@ -12,7 +12,7 @@ describe('Instantiate Logger', function() {
   });
 
   it('must have a custom namespace', function() {
-    var Logger = require('../Logger');
+    var Logger = require('../logger');
     var customNameSpace = 'components';
 
     var testLogger = new Logger('second-module', customNameSpace);
@@ -21,7 +21,7 @@ describe('Instantiate Logger', function() {
   });
 
   it('should compute the right prefix', function() {
-    var Logger = require('../Logger');
+    var Logger = require('../logger');
     var customModule = 'my-module';
     var customNameSpace = 'components';
 

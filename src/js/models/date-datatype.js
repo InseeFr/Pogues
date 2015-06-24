@@ -1,7 +1,7 @@
 /**
 A date response datatype
 */
-import DatatypeModel from './Datatype.js';
+import DatatypeModel from './datatype';
 
 import ModelConstants from './model-constants';
 

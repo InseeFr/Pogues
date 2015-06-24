@@ -1,7 +1,7 @@
 /**
 A response to a question
 */
-import DatatypeModel from './Datatype';
+import DatatypeModel from './datatype';
 import { createDatatype } from '../utils/datatype-factory'
 
 
