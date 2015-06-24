@@ -154,7 +154,6 @@ var Menu = React.createClass({
 
   render: function() {
     logger.info('Rendering the menu for the view : ' + this.props.view);
-    console.dir(this.props.handleFilter);
     // TODO: handle connected user properly
     var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
     var configButton = (
