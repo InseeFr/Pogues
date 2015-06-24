@@ -101,3 +101,16 @@ h3.sequence-header {
 .list-group-item:hover {
   background-color: #EDEDED;
 }
+
+.code input {
+  border: none;
+  border-bottom: solid #888 1px;
+  border-radius: 0;
+  box-shadow: none;
+}
+.code input:focus {
+  border: none;
+  border-bottom: solid #888 1px;
+  border-radius: 0;
+  box-shadow: none;
+}
