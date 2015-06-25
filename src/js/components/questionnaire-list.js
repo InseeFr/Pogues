@@ -67,6 +67,7 @@ var QuestionnaireList = React.createClass({
     }
     return(
       <div className="list-group">
+        <div>{questArray.length} questionnaire(s)</div>
         {questArray.map(function(questionnaire, index) {
           return (<a href="#" key={index} className="list-group-item" onClick={this.selectWithId.bind(this, questionnaire._id)}>
                     <span>{questionnaire._label}</span>

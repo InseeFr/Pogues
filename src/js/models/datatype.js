@@ -7,6 +7,9 @@ var DATATYPE_TYPES = ModelConstants.DatatypeModel.DATATYPE_TYPES;
 
 class DatatypeModel {
   constructor(object) {
+    if (new.target === DatatypeModel) {
+      throw new TypeError('This class is abstract, you cannot construct an instance directly.');
+    }
     if (object) {
       this._typeName = object._typeName;
       this._visualizationHint = object._visualizationHint;
