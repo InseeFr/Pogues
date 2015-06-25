@@ -51,16 +51,11 @@ var DataTypePicker = React.createClass({
 
     return (
       <div>
-        <div className="col-sm-2">
+        <div className="col-sm-3">
           <select onChange={this._handleChange}
              value={this.state.datatype.typeName} className="form-control">
             {typeChoices}
           </select>
-        </div>
-        <div className="col-sm-1">
-          <button className={btnClass} onClick={this._edit}>
-            <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-          </button>
         </div>
       </div>
     );

@@ -52,34 +52,25 @@ var TextDatatypeEditor = React.createClass({
 
   render: function() {
     return (
-      <div className="form-horizontal">
-        <div className="form-group">
-          <label htmlFor="length" className="col-sm-2 control-label">{locale.maxLength}</label>
-          <div className="col-sm-10">
-            <input value={this.state._maxLength} type="number"
-                   className="form-control" id="length"
-                   placeholder={locale.maxLength}
-                   onChange={this._handleMaxLengthChange}/>
-          </div>
+      <div>
+        <div className="col-sm-2">
+          <input value={this.state._maxLength} type="number"
+                 className="form-control" id="length"
+                 placeholder={locale.maxLength}
+                 onChange={this._handleMaxLengthChange}/>
         </div>
-        <div className="form-group">
-          <label htmlFor="pattern" className="col-sm-2 control-label">{locale.pattern}</label>
-          <div className="col-sm-10">
-            <input type="text" value={this.state._pattern} 
-                  className="form-control" id="pattern"
-                  placeholder={locale.pattern}
-                  onChange={this._handlePatternChange}/>
-          </div>
+        <div className="col-sm-3">
+          <input type="text" value={this.state._pattern} 
+                className="form-control" id="pattern"
+                placeholder={locale.pattern}
+                onChange={this._handlePatternChange}/>
         </div>
-        <div className="form-group">
-          <label htmlFor="visualizationHint" className="col-sm-2 control-label">{locale.visualizationHint}</label>
-          <div className="col-sm-10">
-            <select onChange={this._handleVisualizationHintChange} 
-                  className="form-control"
-                  value={this.state._visualizationHint}>
-              {this.props.datatype.vizHintsList.map(hint => <option value={hint}>{hint}</option>)}
-            </select>
-          </div>
+        <div className="col-sm-3">
+          <select onChange={this._handleVisualizationHintChange}
+                className="form-control"
+                value={this.state._visualizationHint}>
+            {this.props.datatype.vizHintsList.map(hint => <option value={hint}>{hint}</option>)}
+          </select>
         </div>
       </div>
     );

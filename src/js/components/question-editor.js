@@ -42,7 +42,7 @@ var QuestionEditor = React.createClass({
     var question = this.props.question
     // FIXME wrong response removed (check Response model code)
     logger.debug('Current datatypeType is ', this.state.datatypeType);
-
+    var nbResponses = question.responses.length
     return (
       <div className="panel panel-default">
         <div className="panel-heading clearfix">
@@ -54,11 +54,14 @@ var QuestionEditor = React.createClass({
         </div>
         <div className="panel-body">
             {
-              this.props.question.responses.map(function (response) {
+              this.props.question.responses.map(function (response, i) {
                 return (
+                  <div>
                     <ResponseEditor
                       response={response}
                       remove={question.removeResponse.bind(question, response)}/>
+                    { i < nbResponses -1 && <hr/> }
+                  </div>
                   )
               }, this)
             }
