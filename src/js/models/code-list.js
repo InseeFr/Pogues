@@ -7,7 +7,7 @@ const logger = new Logger('CodeListModel', 'Models')
 class CodeListModel {
   constructor(object) {
     if (object) {
-      this._id = object._id;
+      this._id = object._id || (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
       this._name = object._name;
       this._label = object._label;
       this._codes = object._codes;
