@@ -70,6 +70,12 @@ var CodeListEditor = React.createClass({
       codes: cl ? cl.codes : []
     })
   },
+  _handleNameChange: function (event) {
+    this.setState({
+      name: event.target.value,
+      label: event.target.value
+    })
+  },
 
   _changeCode: function (index, code) {
     // see removeCode comment
@@ -112,7 +118,9 @@ var CodeListEditor = React.createClass({
       _name: this.state.name,
       _codes: this.state.codes
     }
-    this.props.after(new CodeListModel(clLiteral))
+    var cl = new CodeListModel(clLiteral)
+    clr.add(cl)
+    this.props.after(cl.id)
   },
 
   render: function() {
@@ -122,22 +130,22 @@ var CodeListEditor = React.createClass({
     // TODO desactivate up or down buttons for first and last code
     return (
       <div>
-        <h1>Code List Editor</h1>
         <div className="form-horizontal">
           <div className="form-group">
             <label htmlFor="label"
               className="col-sm-2 control-label">{locale.label}</label>
-              <div className="col-sm-9">
+              <div className="col-sm-7">
                   <input type="text" id="label"
+                    value={this.state.name}
+                    onChange={this._handleNameChange}
                     className="form-control"
                     placeholder="Code list name"
                     />
               </div>
             <div className="col-sm-1">
-              <button className="btn btn-default">
+              <button className="btn btn-default" onClick={this._save}>
                 <span
-                  className="glyphicon glyphicon-ok"
-                  onClick={this._save}></span>
+                  className="glyphicon glyphicon-ok"></span>
               </button>
             </div>
           </div>

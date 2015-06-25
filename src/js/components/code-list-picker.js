@@ -1,46 +1,35 @@
 var React = require('react');
 var locale = require('../stores/dictionary-store').getDictionary();
 // TODO remove,temporary
-var clr = require('../utils/code-list-repository');
 var assign = require('object-assign');
 var CodeListModel = require('../models/code-list')
-
 
 var CodeListPicker = React.createClass({
   propTypes: {
     select: React.PropTypes.func,
-    codeList: React.PropTypes.instanceOf(CodeListModel)
+    create: React.PropTypes.func,
+    clRef: React.PropTypes.string,
+    codeLists: React.PropTypes.array
   },
 
-  componentWillMount: function() {
-    this.setState({
-      codeList : this.props.codeList
-    });
-  },
-
-  _setCodeList: function (event) {
+  _selectCl: function (event) {
     var id = event.target.value
-    // empty option
-    if (!id) return;
-    var cl = clr.getFromId(id)
-    this.setState({
-      codeList: cl
-    })
-    this.props.select(cl)
+    if (id === '_new') this.props.create()
+    else this.props.select(id)
   },
 
   render: function() {
     // TODO implement code list selection
-    var cl = this.state.codeList
     return (
-      <div className="col-sm-6">
+      <div className="col-sm-4">
         <select
           className="form-control"
-          onChange={this._setCodeList}
-          value={cl ? cl.id : ''}>
-          <option value={'none'}></option>
+          onChange={this._selectCl}
+          value={this.props.clRef}>
+          <option value={''}></option>
+          <option value={'_new'}>{locale.newCl}</option>
           {
-            clr.getAll().map(function (cl) {
+            this.props.codeLists.map(function (cl) {
               return <option value={cl.id}>{cl.label}</option>
             })
           }
