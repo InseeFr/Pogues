@@ -76,7 +76,8 @@ var _dictionary = {
   addResponse: {'en': 'Add a response', 'fr': 'Ajouter une réponse'},
   visualizationHint : {'en': 'Visualization hint', 'fr': 'Type de saisie'},
   newCode: {'en': 'New code', 'fr' : 'Nouvelle catégorie'},
-  typeNewCode: {'en': 'Type a new code', 'fr': 'Entrez une nouvelle catégorie'}
+  typeNewCode: {'en': 'Type a new code', 'fr': 'Entrez une nouvelle catégorie'},
+  newCl: {'en': 'New code list', 'fr': 'Nouvelle liste de codes'}
 };
 
 //initialization
