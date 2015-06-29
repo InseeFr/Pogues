@@ -6,11 +6,13 @@ import SurveyModel from './survey.js';
 import ComponentGroupModel from './component-group.js';
 import CodeList from './code-list';
 import { stripLeadingUnderscore } from '../utils/name-utils';
+import { normalizeField } from '../utils/data-json-utils';
 
 const SIMPLE_FIELDS = ['_agency'];
 const CLASS_FIELDS = ['_survey'];
 const ARRAY_FIELDS = ['_componentGroups'];
 const OBJECT_FIELDS = ['_codeLists'];
+const CAPS = ['_name'];
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {
@@ -40,11 +42,11 @@ class QuestionnaireModel extends SequenceModel {
     // Handling simple fields
     let simpleFields = Object.keys(this)
                             .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
-    simpleFields.forEach(simpleField => o.Questionnaire[stripLeadingUnderscore(simpleField)] = this[simpleField]);
+    simpleFields.forEach(simpleField => o.Questionnaire[normalizeField(simpleField)] = this[simpleField]);
     // Handling class fields
     let classFields = Object.keys(this)
                             .filter(k => CLASS_FIELDS.indexOf(k) > -1);
-    classFields.forEach(field => o[stripLeadingUnderscore(field)] = this[field].serialize());
+    classFields.forEach(field => o[normalizeField(field)] = this[field].serialize());
     // Handling array fields
     let arrayFields = Object.keys(this)
                             .filter(k => ARRAY_FIELDS.indexOf(k) > -1);
