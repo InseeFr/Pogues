@@ -92,7 +92,8 @@ class ComponentModel {
     if (typeof label !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this._label = label;
+    // FIXME The schema wants an array for the label field for i18n purpose...
+    this._label = [label];
   }
 
   addDeclaration(declaration) {

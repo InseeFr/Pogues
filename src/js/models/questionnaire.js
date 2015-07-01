@@ -49,11 +49,11 @@ class QuestionnaireModel extends SequenceModel {
     // Handling array fields
     let arrayFields = Object.keys(this)
                             .filter(k => ARRAY_FIELDS.indexOf(k) > -1);
-    arrayFields.forEach(field => o[stripLeadingUnderscore(field)] = this[field].map(element => element.serialize()));
+    arrayFields.forEach(field => o[normalizeField(field)] = this[field].map(element => element.serialize()));
     // Handling objectFields
     let objectFields = Object.keys(this)
                             .filter(k => OBJECT_FIELDS.indexOf(k) > -1);
-    objectFields.forEach(field => o[stripLeadingUnderscore(field)] = Object.keys(this[field])
+    objectFields.forEach(field => o[normalizeField(field)] = Object.keys(this[field])
                                                   .map(element => this[field][element].serialize()));
     return JSON.stringify(o);
   }
