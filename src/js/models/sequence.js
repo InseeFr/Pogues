@@ -4,7 +4,7 @@ A Sequence of questions or other sequences
 import ComponentModel from './component.js';
 import QuestionModel from './question.js';
 import ModelConstants from './model-constants';
-import { stripLeadingUnderscore } from '../utils/name-utils';
+import { normalizeField } from '../utils/data-json-utils';
 
 var GENERIC_NAMES = ModelConstants.SequenceModel.GENERIC_NAMES;
 
@@ -34,12 +34,12 @@ class SequenceModel extends ComponentModel {
     // Handling simple fields
     let simpleFields = Object.keys(this)
                             .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
-    simpleFields.forEach(simpleField => o[stripLeadingUnderscore(simpleField)] = this[simpleField]);
+    simpleFields.forEach(simpleField => o[normalizeField(simpleField)] = this[simpleField]);
     // Handling array fields
     let arrayFields = Object.keys(this)
                             .filter(k => ARRAY_FIELDS.indexOf(k) > -1);
     // TODO implements serialize in _children !
-    arrayFields.forEach(field => o[stripLeadingUnderscore(field)] = this[field].map(element => element.serialize()));
+    arrayFields.forEach(field => o[normalizeField(field)] = this[field].map(element => element.serialize()));
     return o;
   }
 

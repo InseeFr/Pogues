@@ -55,7 +55,8 @@ class QuestionnaireModel extends SequenceModel {
                             .filter(k => OBJECT_FIELDS.indexOf(k) > -1);
     objectFields.forEach(field => o[normalizeField(field)] = Object.keys(this[field])
                                                   .map(element => this[field][element].serialize()));
-    return JSON.stringify(o);
+    // FIXME return to simple stringify(o) when debug is finished
+    return JSON.stringify(o, null, 2);
   }
 
   get agency() {
