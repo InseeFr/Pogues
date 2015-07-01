@@ -4,7 +4,7 @@ A Component is the base class for the Questionnaire questions and sequences
 import DeclarationModel from './declaration.js';
 import ControlModel from './control.js';
 import GoToModel from './go-to.js';
-import { stripLeadingUnderscore } from '../utils/name-utils';
+import { normalizeField } from '../utils/data-json-utils';
 
 const SIMPLE_FIELDS = ['_id', '_name', '_label'];
 const CLASS_FIELDS = [];
@@ -41,12 +41,12 @@ class ComponentModel {
     // Handling simple fields
     let simpleFields = Object.keys(this)
                             .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
-    simpleFields.forEach(simpleField => o[stripLeadingUnderscore(simpleField)] = this[simpleField]);
+    simpleFields.forEach(simpleField => o[normalizeField(simpleField)] = this[simpleField]);
     // Handling collection fields
     let collectionFields = Object.keys(this)
                                 .filter(k => COLLECTION_FIELDS.indexOf(k) > -1);
     let finals = collectionFields.map(k => this[k].map(klass => klass.serialize()));
-    collectionFields.forEach(collField => o[stripLeadingUnderscore(collField)] = this[collField]);
+    collectionFields.forEach(collField => o[normalizeField(collField)] = this[collField]);
     return o;
   }
 

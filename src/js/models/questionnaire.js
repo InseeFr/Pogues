@@ -12,7 +12,6 @@ const SIMPLE_FIELDS = ['_agency'];
 const CLASS_FIELDS = ['_survey'];
 const ARRAY_FIELDS = ['_componentGroups'];
 const OBJECT_FIELDS = ['_codeLists'];
-const CAPS = ['_name'];
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {
@@ -26,7 +25,7 @@ class QuestionnaireModel extends SequenceModel {
       this._codeLists = {}
     } else {
       this._agency = 'fr.insee';
-      // This is temporary
+      // FIXME This is temporary
       var popoSurvey = new SurveyModel();
       popoSurvey.name = 'POPO';
       this._survey = popoSurvey;
