@@ -21,3 +21,39 @@ export function normalizeField(field) {
     return stripLeadingUnderscore(field);
   }
 };
+
+export function serializeQuestionnaire(questionnaire) {
+  // TODO recursively implements serialization
+
+  // FIXME rename SIMPLE, SCALAR ?
+  const mapping = {
+    '_agency': 'SIMPLE',
+    '_depth': 'SIMPLE',
+    '_genericName': 'SIMPLE',
+    '_id': 'SIMPLE',
+    '_label': 'SIMPLE',
+    '_name': 'SIMPLE',
+    '_survey': 'CLASS',
+    '_children': 'ARRAY',
+    '_controls': 'ARRAY',
+    '_componentGroups': 'ARRAY',
+    '_declarations': 'ARRAY',
+    '_goTos': 'ARRAY',
+    '_codeLists': 'OBJECT'
+  };
+  const fns = {
+    'SIMPLE': field => questionnaire[field],
+    'CLASS': field => field,
+    'ARRAY': field => field,
+    'OBJECT': field => field // make something with the field
+  };
+  let o = {};
+  o.Questionnaire = {};
+  for (let i in Object.keys(questionnaire)) {
+    let field = Object.keys(questionnaire)[i];
+    console.log('Field is ', field);
+    console.log('Mapping is ', mapping[field]);
+    o[normalizeField(field)] = fns[mapping[field]](field);
+  }
+  return o;
+}
