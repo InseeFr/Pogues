@@ -11,6 +11,34 @@ const CAPS = ['_name','_survey', '_label', '_declarations'];
 const RENAME = ['_children'];
 const RENAME_MAPPING = {'_children':'Child'};
 
+// Factory and mapping
+// FIXME rename SIMPLE, SCALAR ?
+const MAPPING = {
+  '_agency': 'SIMPLE',
+  '_depth': 'SIMPLE',
+  '_disjoinable': 'SIMPLE',
+  '_genericName': 'SIMPLE',
+  '_id': 'SIMPLE',
+  '_label': 'SIMPLE',
+  '_name': 'SIMPLE',
+  '_text': 'SIMPLE',
+  '_type': 'SIMPLE',
+  '_survey': 'CLASS',
+  '_children': 'ARRAY',
+  '_controls': 'ARRAY',
+  '_componentGroups': 'ARRAY',
+  '_declarations': 'ARRAY',
+  '_goTos': 'ARRAY',
+  '_codeLists': 'OBJECT'
+};
+
+const factory = {
+  'SIMPLE': (field, obj) => obj[field],
+  'CLASS': (field, obj) => serializeObject(obj[field]),
+  'ARRAY': (field, obj) => serializeArray(obj[field]),
+  'OBJECT': (field, obj) => serializeObject(obj[field])
+};
+
 /* Handle every field manipulation for schema compatibility. */
 export function normalizeField(field) {
   if (CAPS.indexOf(field) > -1) {
@@ -24,36 +52,27 @@ export function normalizeField(field) {
 
 export function serializeQuestionnaire(questionnaire) {
   // TODO recursively implements serialization
-
-  // FIXME rename SIMPLE, SCALAR ?
-  const mapping = {
-    '_agency': 'SIMPLE',
-    '_depth': 'SIMPLE',
-    '_genericName': 'SIMPLE',
-    '_id': 'SIMPLE',
-    '_label': 'SIMPLE',
-    '_name': 'SIMPLE',
-    '_survey': 'CLASS',
-    '_children': 'ARRAY',
-    '_controls': 'ARRAY',
-    '_componentGroups': 'ARRAY',
-    '_declarations': 'ARRAY',
-    '_goTos': 'ARRAY',
-    '_codeLists': 'OBJECT'
-  };
-  const fns = {
-    'SIMPLE': field => questionnaire[field],
-    'CLASS': field => field,
-    'ARRAY': field => field,
-    'OBJECT': field => field // make something with the field
-  };
   let o = {};
-  o.Questionnaire = {};
-  for (let i in Object.keys(questionnaire)) {
-    let field = Object.keys(questionnaire)[i];
+  o.Questionnaire = serializeObject(questionnaire);
+  return o;
+}
+
+function serializeObject(obj) {
+  let o = {};
+  for (let i in Object.keys(obj)) {
+    let field = Object.keys(obj)[i];
     console.log('Field is ', field);
-    console.log('Mapping is ', mapping[field]);
-    o[normalizeField(field)] = fns[mapping[field]](field);
+    console.log('Mapping is ', MAPPING[field]);
+    o[normalizeField(field)] = factory[MAPPING[field]](field, obj);
   }
   return o;
+}
+
+function serializeArray(arr) {
+  let a = [];
+  for (let i in arr) {
+    console.log('Array item is ', arr[i]);
+    a.push(serializeObject(arr[i]));
+  }
+  return a;
 }
