@@ -7,7 +7,7 @@ const ARRAY_FIELDS = ['_componentGroups'];
 const OBJECT_FIELDS = ['_codeLists'];
 
 // Constants use for normalization
-const CAPS = ['_name','_survey', '_label', '_declarations'];
+const CAPS = ['_name', '_survey', '_label', '_declarations'];
 const RENAME = ['_children'];
 const RENAME_MAPPING = {'_children':'Child'};
 
@@ -15,21 +15,40 @@ const RENAME_MAPPING = {'_children':'Child'};
 // FIXME rename SIMPLE, SCALAR ?
 const MAPPING = {
   '_agency': 'SIMPLE',
+  '_codeListReference': 'SIMPLE',
+  '_criticity': 'SIMPLE',
+  '_decimals': 'SIMPLE',
   '_depth': 'SIMPLE',
+  '_description': 'SIMPLE',
   '_disjoinable': 'SIMPLE',
+  '_failMessage': 'SIMPLE',
+  '_format': 'SIMPLE',
   '_genericName': 'SIMPLE',
   '_id': 'SIMPLE',
   '_label': 'SIMPLE',
+  '_mandatory': 'SIMPLE',
+  '_maximum': 'SIMPLE',
+  '_maxLength': 'SIMPLE',
+  '_minimum': 'SIMPLE',
   '_name': 'SIMPLE',
+  '_pattern': 'SIMPLE',
+  '_simple': 'SIMPLE',
   '_text': 'SIMPLE',
   '_type': 'SIMPLE',
+  '_typeName': 'SIMPLE',
+  '_visualizationHint': 'SIMPLE',
+  '_expression' : 'CLASS',
+  '_ifTrue': 'CLASS',
   '_survey': 'CLASS',
   '_children': 'ARRAY',
   '_controls': 'ARRAY',
   '_componentGroups': 'ARRAY',
   '_declarations': 'ARRAY',
   '_goTos': 'ARRAY',
-  '_codeLists': 'OBJECT'
+  '_responses': 'ARRAY',
+  '_values': 'ARRAY',
+  '_codeLists': 'OBJECT',
+  '_datatype': 'OBJECT'
 };
 
 const factory = {
@@ -50,7 +69,7 @@ export function normalizeField(field) {
   }
 };
 
-export function serializeQuestionnaire(questionnaire) {
+export default function serializeQuestionnaire(questionnaire) {
   // TODO recursively implements serialization
   let o = {};
   o.Questionnaire = serializeObject(questionnaire);
