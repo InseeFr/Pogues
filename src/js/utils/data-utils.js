@@ -126,7 +126,7 @@ function populateFakeQuestion(question) {
             break;
         case 2:
             datatype = new TextDatatypeModel();
-            datatype.maxLengh = 15;
+            datatype.maxLength = 15;
             datatype.pattern = '[A-Z]*';
             break;
     }
