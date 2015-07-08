@@ -21,11 +21,13 @@ class SequenceModel extends ComponentModel {
       this._children = object._children.map(function(child) {
         return (child._depth > 0) ? new SequenceModel(child) : new QuestionModel(child);
       });
+      this._type = object._type;
     } else {
       this._depth = 0;
       // Module, paragraph, etc. Should really not be a member, in fact.
       this._genericName = GENERIC_NAMES[0];
       this._children = [];
+      this._type = 'SequenceType';
     }
   }
 

@@ -19,6 +19,7 @@ class TextDatatypeModel extends DatatypeModel {
       this._maxLength = 0;
       this._pattern = '';
     }
+    this._type = 'TextDatatypeType';
     this._typeName = DATATYPE_TYPES[2];
   }
 

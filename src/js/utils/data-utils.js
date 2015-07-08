@@ -15,6 +15,7 @@ var TextDatatypeModel = require('../models/text-datatype');
 var DateDatatypeModel = require('../models/date-datatype');
 var NumericDatatypeModel = require('../models/numeric-datatype');
 var Logger = require('../logger/logger');
+import serializeQuestionnaire from './data-json-utils';
 
 var logger = new Logger('DataUtils', 'Utils');
 
@@ -245,11 +246,13 @@ var DataUtils = {
   publishQuestionnaire: function(questionnaire) {
     var targetURL = Config.baseURL + Config.stromaePath;
     logger.info('Publishing questionnaire ' + questionnaire.id + ' to ' + targetURL);
+    var serializedQuestionnaire = serializeQuestionnaire(questionnaire);
+    logger.debug('Serialized questionnaire is ', serializedQuestionnaire, JSON.stringify(serializedQuestionnaire));
     var start = new Date().getTime();
     request
       .post(targetURL)
       .set('Content-Type','text/html')
-      .send(JSON.stringify(questionnaire))
+      .send(JSON.stringify(serializedQuestionnaire))
       .end(function(err, res) {
         if (res.ok) {
           var url = res.headers.location;

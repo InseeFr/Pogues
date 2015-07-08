@@ -59,7 +59,14 @@ class ComponentModel {
   }
 
   get label() {
-    return this._label;
+    // FIXME Schema is waiting for an array for the label field
+    // FIXME for the moment we need to handle that in a dirty fashion
+    if (Object.prototype.toString.call( this._label ) === '[object Array]') {
+      return this._label[0];
+    } else {
+      return this._label;
+    }
+
   }
 
   get declarations() {

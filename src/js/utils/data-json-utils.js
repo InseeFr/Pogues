@@ -7,9 +7,25 @@ const ARRAY_FIELDS = ['_componentGroups'];
 const OBJECT_FIELDS = ['_codeLists'];
 
 // Constants use for normalization
-const CAPS = ['_name', '_survey', '_label', '_declarations'];
-const RENAME = ['_children'];
-const RENAME_MAPPING = {'_children':'Child'};
+const CAPS = ['_name', '_survey', '_label', '_datatype', '_codeListReference', '_codeLists', '_codeList',
+'_maxLength', '_pattern', '_ifTrue', '_ifFalse', '_next', '_expression', '_failMessage'];
+
+// Field to rename
+// Mainly fields in plural in Pogues model that need to be singular to be schema valid
+//FIXME only the RENAME_MAPPING is useful, the RENAME const could be replace by Object.keys()
+const RENAME = ['_children', '_responses', '_declarations', '_componentGroups', '_goTos', '_members', '_values', '_codes',
+'_controls'];
+const RENAME_MAPPING = {
+  '_children':'Child',
+  '_codes': 'Code',
+  '_componentGroups': 'ComponentGroup',
+  '_controls': 'Control',
+  '_declarations': 'Declaration',
+  '_goTos' : 'GoTo',
+  '_members': 'Member',
+  '_responses': 'Response',
+  '_values': 'Value'
+  };
 
 // Factory and mapping
 // FIXME rename SIMPLE, SCALAR ?
@@ -39,12 +55,16 @@ const MAPPING = {
   '_visualizationHint': 'SIMPLE',
   '_expression' : 'CLASS',
   '_ifTrue': 'CLASS',
+  '_ifFalse': 'CLASS',
+  '_next': 'CLASS',
   '_survey': 'CLASS',
   '_children': 'ARRAY',
+  '_codes': 'ARRAY',
   '_controls': 'ARRAY',
   '_componentGroups': 'ARRAY',
   '_declarations': 'ARRAY',
   '_goTos': 'ARRAY',
+  '_members': 'ARRAY',
   '_responses': 'ARRAY',
   '_values': 'ARRAY',
   '_codeLists': 'OBJECT',
@@ -80,8 +100,8 @@ function serializeObject(obj) {
   let o = {};
   for (let i in Object.keys(obj)) {
     let field = Object.keys(obj)[i];
-    console.log('Field is ', field);
-    console.log('Mapping is ', MAPPING[field]);
+    // console.log('Field is ', field);
+    // console.log('Mapping is ', MAPPING[field]);
     o[normalizeField(field)] = factory[MAPPING[field]](field, obj);
   }
   return o;
@@ -90,7 +110,7 @@ function serializeObject(obj) {
 function serializeArray(arr) {
   let a = [];
   for (let i in arr) {
-    console.log('Array item is ', arr[i]);
+    // console.log('Array item is ', arr[i]);
     a.push(serializeObject(arr[i]));
   }
   return a;
