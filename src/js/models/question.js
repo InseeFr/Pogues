@@ -13,11 +13,18 @@ class QuestionModel extends ComponentModel {
     if (object) {
       this._simple = object._simple;
       this._responses = object._responses.map(response => new ResponseModel(response));
+      this._type = object._type;
       logger.debug(`QuestionModel ${this._id} -- response array `, this._responses);
     } else {
       this._simple = true;
       this._responses = [new ResponseModel()];
+      this._type = 'QuestionType';
     }
+  }
+
+  serialize() {
+    var o = super.serialize();
+    return o;
   }
 
   get simple() {

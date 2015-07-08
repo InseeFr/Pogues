@@ -5,6 +5,13 @@ import SequenceModel from './sequence.js';
 import SurveyModel from './survey.js';
 import ComponentGroupModel from './component-group.js';
 import CodeList from './code-list';
+import { stripLeadingUnderscore } from '../utils/name-utils';
+import { normalizeField } from '../utils/data-json-utils';
+
+const SIMPLE_FIELDS = ['_agency'];
+const CLASS_FIELDS = ['_survey'];
+const ARRAY_FIELDS = ['_componentGroups'];
+const OBJECT_FIELDS = ['_codeLists'];
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {
@@ -18,13 +25,38 @@ class QuestionnaireModel extends SequenceModel {
       this._codeLists = {}
     } else {
       this._agency = 'fr.insee';
-      // This is temporary
+      // FIXME This is temporary
       var popoSurvey = new SurveyModel();
       popoSurvey.name = 'POPO';
       this._survey = popoSurvey;
       this._componentGroups = [];
       this._codeLists = {};
     }
+  }
+
+  /* Produce the JSON serialization of the questionnaire */
+  serialize() {
+    let o = {};
+    o.Questionnaire = super.serialize();
+    // Handling simple fields
+    let simpleFields = Object.keys(this)
+                            .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
+    simpleFields.forEach(simpleField => o.Questionnaire[normalizeField(simpleField)] = this[simpleField]);
+    // Handling class fields
+    let classFields = Object.keys(this)
+                            .filter(k => CLASS_FIELDS.indexOf(k) > -1);
+    classFields.forEach(field => o[normalizeField(field)] = this[field].serialize());
+    // Handling array fields
+    let arrayFields = Object.keys(this)
+                            .filter(k => ARRAY_FIELDS.indexOf(k) > -1);
+    arrayFields.forEach(field => o[normalizeField(field)] = this[field].map(element => element.serialize()));
+    // Handling objectFields
+    let objectFields = Object.keys(this)
+                            .filter(k => OBJECT_FIELDS.indexOf(k) > -1);
+    objectFields.forEach(field => o[normalizeField(field)] = Object.keys(this[field])
+                                                  .map(element => this[field][element].serialize()));
+    // FIXME return to simple stringify(o) when debug is finished
+    return JSON.stringify(o, null, 2);
   }
 
   get agency() {

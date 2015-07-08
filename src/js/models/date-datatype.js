@@ -19,6 +19,7 @@ class DateDatatypeModel extends DatatypeModel {
       this._maximum = new Date();
       this._format = '';
     }
+    this._type = 'DateDatatypeType';
     this._typeName = DATATYPE_TYPES[0];
   }
 

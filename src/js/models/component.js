@@ -4,6 +4,11 @@ A Component is the base class for the Questionnaire questions and sequences
 import DeclarationModel from './declaration.js';
 import ControlModel from './control.js';
 import GoToModel from './go-to.js';
+import { normalizeField } from '../utils/data-json-utils';
+
+const SIMPLE_FIELDS = ['_id', '_name', '_label'];
+const CLASS_FIELDS = [];
+const COLLECTION_FIELDS = ['_declarations'];
 
 class ComponentModel {
   constructor(object) {
@@ -31,6 +36,20 @@ class ComponentModel {
     }
   }
 
+  serialize() {
+    let o = {};
+    // Handling simple fields
+    let simpleFields = Object.keys(this)
+                            .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
+    simpleFields.forEach(simpleField => o[normalizeField(simpleField)] = this[simpleField]);
+    // Handling collection fields
+    let collectionFields = Object.keys(this)
+                                .filter(k => COLLECTION_FIELDS.indexOf(k) > -1);
+    let finals = collectionFields.map(k => this[k].map(klass => klass.serialize()));
+    collectionFields.forEach(collField => o[normalizeField(collField)] = this[collField]);
+    return o;
+  }
+
   get id() {
     return this._id;
   }
@@ -40,7 +59,14 @@ class ComponentModel {
   }
 
   get label() {
-    return this._label;
+    // FIXME Schema is waiting for an array for the label field
+    // FIXME for the moment we need to handle that in a dirty fashion
+    if (Object.prototype.toString.call( this._label ) === '[object Array]') {
+      return this._label[0];
+    } else {
+      return this._label;
+    }
+
   }
 
   get declarations() {
@@ -73,7 +99,8 @@ class ComponentModel {
     if (typeof label !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this._label = label;
+    // FIXME The schema wants an array for the label field for i18n purpose...
+    this._label = [label];
   }
 
   addDeclaration(declaration) {

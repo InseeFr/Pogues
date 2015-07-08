@@ -4,8 +4,12 @@ A Sequence of questions or other sequences
 import ComponentModel from './component.js';
 import QuestionModel from './question.js';
 import ModelConstants from './model-constants';
+import { normalizeField } from '../utils/data-json-utils';
 
 var GENERIC_NAMES = ModelConstants.SequenceModel.GENERIC_NAMES;
+
+const SIMPLE_FIELDS = ['_depth', '_genericName'];
+const ARRAY_FIELDS = ['_children'];
 
 class SequenceModel extends ComponentModel {
   constructor(object) {
@@ -17,12 +21,28 @@ class SequenceModel extends ComponentModel {
       this._children = object._children.map(function(child) {
         return (child._depth > 0) ? new SequenceModel(child) : new QuestionModel(child);
       });
+      this._type = object._type;
     } else {
       this._depth = 0;
       // Module, paragraph, etc. Should really not be a member, in fact.
       this._genericName = GENERIC_NAMES[0];
       this._children = [];
+      this._type = 'SequenceType';
     }
+  }
+
+  serialize() {
+    var o = super.serialize();
+    // Handling simple fields
+    let simpleFields = Object.keys(this)
+                            .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
+    simpleFields.forEach(simpleField => o[normalizeField(simpleField)] = this[simpleField]);
+    // Handling array fields
+    let arrayFields = Object.keys(this)
+                            .filter(k => ARRAY_FIELDS.indexOf(k) > -1);
+    // TODO implements serialize in _children !
+    arrayFields.forEach(field => o[normalizeField(field)] = this[field].map(element => element.serialize()));
+    return o;
   }
 
   get depth() {

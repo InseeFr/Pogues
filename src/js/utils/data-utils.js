@@ -15,6 +15,7 @@ var TextDatatypeModel = require('../models/text-datatype');
 var DateDatatypeModel = require('../models/date-datatype');
 var NumericDatatypeModel = require('../models/numeric-datatype');
 var Logger = require('../logger/logger');
+import serializeQuestionnaire from './data-json-utils';
 
 var logger = new Logger('DataUtils', 'Utils');
 
@@ -126,7 +127,7 @@ function populateFakeQuestion(question) {
             break;
         case 2:
             datatype = new TextDatatypeModel();
-            datatype.maxLengh = 15;
+            datatype.maxLength = 15;
             datatype.pattern = '[A-Z]*';
             break;
     }
@@ -203,8 +204,7 @@ var DataUtils = {
             if (err) return;
             if (res.ok) {
               newId = extractId(res.headers.location);//extrat from uri
-              console.log('[DataUtils] will return new id for questionnaire', questionnaire);
-              console.log('[DataUtils] New id is : ' + newId);
+              logger.debug('New id is : ' + newId);
               // TODO check in  header slug is the same as oldId
               //PoguesActions.receiveNewIdFromServer(questionnaire.id, newId);
               PoguesActions.selectQuestionnaire(newId);
@@ -222,10 +222,10 @@ var DataUtils = {
   Save the questionnaire, i.e. persist it in the remote server data store.
   */
   saveQuestionnaire: function(questionnaire) {
-    console.info('Saving questionnaire ' + questionnaire.id + ' in remote server.');
-    console.dir(questionnaire);
+    logger.info('Saving questionnaire ' + questionnaire.id + ' in remote server.');
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaire/' + questionnaire.id;
-    console.log('Target URL is ' + targetURL);
+    logger.debug('Target URL is ' + targetURL);
+    logger.debug('Serialization would be', questionnaire.serialize(), JSON.parse(questionnaire.serialize()));
     request
       .put(targetURL)
       .set('Content-Type', 'text/html')
@@ -246,11 +246,13 @@ var DataUtils = {
   publishQuestionnaire: function(questionnaire) {
     var targetURL = Config.baseURL + Config.stromaePath;
     logger.info('Publishing questionnaire ' + questionnaire.id + ' to ' + targetURL);
+    var serializedQuestionnaire = serializeQuestionnaire(questionnaire);
+    logger.debug('Serialized questionnaire is ', serializedQuestionnaire, JSON.stringify(serializedQuestionnaire));
     var start = new Date().getTime();
     request
       .post(targetURL)
       .set('Content-Type','text/html')
-      .send(JSON.stringify(questionnaire))
+      .send(JSON.stringify(serializedQuestionnaire))
       .end(function(err, res) {
         if (res.ok) {
           var url = res.headers.location;

@@ -21,6 +21,7 @@ class NumericDatatypeModel extends DatatypeModel {
       this._maximum = 100;
       this._decimals = 2;
     }
+    this._type = 'NumericDatatypeType';
     this._typeName = DATATYPE_TYPES[1];
   }
 

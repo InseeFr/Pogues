@@ -2,8 +2,11 @@
 Textual material associated to a sequence or question
 */
 import ModelConstants from './model-constants';
+import { normalizeField } from '../utils/data-json-utils';
 
 var DECLARATION_TYPES = ModelConstants.DeclarationModel.DECLARATION_TYPES;
+
+const SIMPLE_FIELDS = ['_type', '_disjoinable', '_text'];
 
 class DeclarationModel {
 
@@ -11,12 +14,21 @@ class DeclarationModel {
     if (object) {
       this._type = object._type;
       this._disjoinable = object._disjoinable;
-      this._text = object._text; 
+      this._text = object._text;
     } else {
       this._type = '';
       this._disjoinable = true;
       this._text = '';
     }
+  }
+
+  serialize() {
+    let o = {};
+    // Handling simple fields
+    let simpleFields = Object.keys(this)
+                            .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
+    simpleFields.forEach(simpleField => o[normalizeField(simpleField)] = this[simpleField]);
+    return o;
   }
 
   get type() {

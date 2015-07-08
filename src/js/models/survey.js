@@ -1,6 +1,8 @@
 /**
 A Survey
 */
+import { stripLeadingUnderscore } from '../utils/name-utils';
+
 class SurveyModel {
   constructor(object) {
     if (object) {
@@ -12,6 +14,13 @@ class SurveyModel {
       this._agency = 'fr.insee';
       this._name = '';
     }
+  }
+
+  serialize() {
+    let o = {};
+    let fields = Object.keys(this);
+    fields.forEach(field => o[stripLeadingUnderscore(field)] = this[stripLeadingUnderscore(field)]);
+    return o;
   }
 
   get id() {
