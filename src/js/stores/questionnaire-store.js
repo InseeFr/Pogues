@@ -18,6 +18,7 @@ var _questionnaire;
 var _filter = null;
 var _rFilter;
 var _publishURL = '';
+var _publishTimestamp = null;
 
 function _setQuestionnaireById(id) {
 
@@ -45,6 +46,8 @@ function _setFilter(filter) {
 function _setPublicationURL(url) {
   logger.debug('Setting publication URL in store.', url);
   _publishURL = url;
+  var date = new Date();
+  _publishTimestamp = date.getHours() + ':' + date.getMinutes() + ':'  + date.getSeconds();
 }
 
 function _setQuestionnaire(questionnaire) {
@@ -90,6 +93,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
   },
   getPublicationURL: function() {
     return _publishURL;
+  },
+  getPublicationTimestamp: function() {
+    return _publishTimestamp;
   },
   emitChange: function() {
     console.log('QuestionnaireStore emitting event', CHANGE_EVENT);

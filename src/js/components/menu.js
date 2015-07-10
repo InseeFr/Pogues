@@ -67,6 +67,34 @@ PublishButton.propTypes = {
 };
 
 /*
+Link of the published questionnaire
+*/
+class PublishLink extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return(
+      <div className="nav navbar-nav navbar-left">
+        <form className="navbar-form navbar-right">
+          <button type="button" className="btn btn-link">
+            <a href={this.props.publishURL} target="_blank">Visualisez !  </a>
+            <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+          </button>
+          <small>[ {this.props.publishTimestamp} ]</small>
+        </form>
+      </div>
+    );
+  }
+}
+
+PublishLink.propTypes = {
+  publishURL : React.PropTypes.string,
+  publishTimestamp : React.PropTypes.string
+};
+
+/*
 SearchField
 */
 class SearchField extends React.Component {
@@ -111,7 +139,8 @@ var Menu = React.createClass({
   getInitialState: function() {
     return {
       filter: '',
-      url: ''
+      url: '',
+      timestamp: null
     }
   },
   componentDidMount: function() {
@@ -124,7 +153,10 @@ var Menu = React.createClass({
   },
   _onQStoreChange: function() {
     logger.info('Handling change, state is : ', this.state);
-    this.setState({url: QuestionnaireStore.getPublicationURL()});
+    this.setState({
+      url: QuestionnaireStore.getPublicationURL(),
+      timestamp : QuestionnaireStore.getPublicationTimestamp()
+    });
   },
   _goHome: function(event) {
     PoguesActions.switchToPicker();
@@ -184,7 +216,7 @@ var Menu = React.createClass({
 
             {isQuestionnaireView ? <PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} /> : null}
 
-            {this.state.url !== '' ? <a href={this.state.url} target="_blank">Votre questionnaire</a> : ''}
+            {this.state.url !== '' ? <PublishLink publishURL={this.state.url} publishTimestamp={this.state.timestamp}/>  : ''}
 
             <ul className="nav navbar-nav navbar-right">
               {isQuestionnaireView ? null : configButton}
