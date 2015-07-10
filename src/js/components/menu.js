@@ -78,10 +78,8 @@ class PublishLink extends React.Component {
     return(
       <div className="nav navbar-nav navbar-left">
         <form className="navbar-form navbar-right">
-          <button type="button" className="btn btn-link">
             <a href={this.props.publishURL} target="_blank">Visualisez !  </a>
             <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-          </button>
           <small>[ {this.props.publishTimestamp} ]</small>
         </form>
       </div>

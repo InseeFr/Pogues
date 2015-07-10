@@ -53,12 +53,15 @@ var GenericInput = React.createClass({
 	handleKeyDown: function(event) {
 		logger.debug('Handling keydown.');
 		var text = this.state.value;
+		// FIXME a bit of a hack to handle the right level for questions inside of sequences
+		// we increment the level seen in the UI if we know it's a question we're adding
+		var realDepth = this.state.sequence ? this.state.depth : (this.state.depth + 1);
 		if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
 			if (text) {
-				logger.debug('Value is', text, ' -- depth is', this.state.depth);
+				logger.debug('Value is', text, ' -- real depth is', realDepth);
 				PoguesActions.addComponent({
 					sequence: this.state.sequence,
-					depth: this.state.depth,
+					depth: realDepth,
 					text: text});
 			}
 			this.setState({value: ''});
