@@ -66,7 +66,7 @@ var QuestionnaireEditor = React.createClass({
     console.log('[QuestionnaireEditor] Creating a questionnaire with name :' + questionnaire.name);
     PoguesActions.createQuestionnaire(questionnaire);
     // go to questionnaire view
-    // FIXME ROM1704 suppress when refacto is finished 
+    // FIXME ROM1704 suppress when refacto is finished
     //PoguesActions.switchToQuestionnaire();
     this.setState({
         label: '',
@@ -110,14 +110,6 @@ var QuestionnaireEditor = React.createClass({
             <button className="btn btn-primary" type="button"
                 onClick={this._addQuestionnaire}>
                 {locale.create}
-            </button>
-            <button className="btn btn-danger" type="button"
-                onClick={this._hack}>
-                [HACK] Publish
-            </button>
-            <button className="btn btn-danger" type="button"
-                onClick={this._xmlHack}>
-                [HACK] Marshall
             </button>
             <h3>{additionalControls}</h3>
       </div>
