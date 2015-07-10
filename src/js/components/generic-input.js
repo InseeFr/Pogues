@@ -2,18 +2,19 @@ var React = require('react');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
 var locale = require('../stores/dictionary-store').getDictionary();
+var Logger = require('../logger/logger');
+
+var logger = new Logger('GenericInput', 'Components');
 
 var SLASH = /\//,
 	PLUS = /\+/,
 	MINUS = /\-/;
 
 var GenericInput = React.createClass({
-
 	getInitialState: function() {
 		return {value: '', sequence: true, depth: 1, refDepth: 1};
 	},
 	handleChange: function(event) {
-		console.log(event.keyCode);
 		var text = event.target.value;
 		if (text.match(SLASH)) {
 			this.setState({sequence: !this.state.sequence, value: ''});
@@ -45,15 +46,20 @@ var GenericInput = React.createClass({
 	toggleType: function(event) {
 		event.preventDefault();
 		this.setState({sequence: !this.state.sequence});
-		console.log('GenericInput toggled type', this.state);
 	},
-	componentDidMount: function() {},
+	componentDidMount: function() {
+
+	},
 	handleKeyDown: function(event) {
+		logger.debug('Handling keydown.');
 		var text = this.state.value;
 		if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
 			if (text) {
-				console.log('GenericInput value', text);
-				PoguesActions.addComponent({sequence: this.state.sequence, depth: this.state.depth, text: text});
+				logger.debug('Value is', text, ' -- depth is', this.state.depth);
+				PoguesActions.addComponent({
+					sequence: this.state.sequence,
+					depth: this.state.depth,
+					text: text});
 			}
 			this.setState({value: ''});
 			return;

@@ -54,15 +54,19 @@ var ResponseEditor = React.createClass({
   },
 
   render: function() {
-    var response = this.props.response
+    var response = this.props.response;
     return (
       <div className="form-horizontal">
+
         <div className="form-group">
           <DatatypePicker
             edition={this.state.editDatatype}
             edit={this._editDatatype}
             change={this._datatypeChange}
             datatype={response.datatype}/>
+        </div>
+
+        <div className="form-group">
           <DataypeEditor
             change={this._datatypeChange}
             datatype={response.datatype}/>
@@ -72,6 +76,7 @@ var ResponseEditor = React.createClass({
             </button>
           </div>
         </div>
+
         <div className="form-group">
           <CodeListPicker
               clRef={this.state.clRef || ''}

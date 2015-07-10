@@ -38,12 +38,12 @@ function _setFilter(filter) {
 
 /**
  * After sending a questionnaire to publishing, we store
- * the publishing URL returned by the server in the store. 
+ * the publishing URL returned by the server in the store.
  * TODO each time we load a questionnaire in the store we must
- * erase that property  
+ * erase that property
  */
 function _setPublicationURL(url) {
-  logger.debug('Setting publication URL in store.')
+  logger.debug('Setting publication URL in store.', url);
   _publishURL = url;
 }
 
@@ -66,6 +66,7 @@ function _addSequence(name) {
 }
 
 function _addComponent(spec) {
+  logger.info('Adding a component to the questionnaire.');
   QUtils.appendComponent(_questionnaire, spec.sequence, spec.depth, spec.text);
 }
 

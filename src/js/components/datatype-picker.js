@@ -2,6 +2,9 @@ var React = require('react');
 var locale = require('../stores/dictionary-store').getDictionary();
 var DatatypeModel = require('../models/datatype');
 var classNames = require('classnames');
+var Logger = require('../logger/logger');
+
+var logger = new Logger('DataTypePicker', 'Components');
 
 import { getClassFromDatatype, getDatatypeTypes, createDatatype} from '../utils/datatype-factory'
 
@@ -27,6 +30,7 @@ var DataTypePicker = React.createClass({
   _handleChange: function(event) {
     // TODO keep track of last datatype description for a given datatype type
     var datatype = createDatatype(event.target.value)
+    logger.debug('Change in the picker with value', event.target.value);
     this.setState({
       datatype: datatype
     });

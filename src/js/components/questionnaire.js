@@ -58,7 +58,7 @@ var Questionnaire = React.createClass({
                 });
               return (<Component className={classes} highlightHandler={filter} key={index} component={sequence}/>)
             })}
-            <GenericInput language={this.props.language}/>
+            <GenericInput />
           </div>
           <div className="col-md-3">
             <QuestionnaireOutlook/>
