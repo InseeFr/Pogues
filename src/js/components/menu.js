@@ -201,7 +201,7 @@ var Menu = React.createClass({
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
               <span className="sr-only">Toggle navigation</span>
             </button>
-            <a href="#" className="navbar-brand" onClick={this._goHome}>Pogues</a>
+            <a href="#" className="navbar-brand" onClick={this._goHome}><span className="pogues-logo font-effect-shadow-multiple">pogues</span></a>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
