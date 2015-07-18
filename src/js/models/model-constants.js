@@ -8,7 +8,7 @@ module.exports = {
     VISUALIZATION_HINTS: ['checkbox', 'radio', 'dropdown']
   },
   DeclarationModel: {
-    DECLARATION_TYPES: ['INSTRUCTION', 'COMMENT', 'HELP']
+    DECLARATION_TYPES: ['INSTRUCTION', 'COMMENT', 'HELP', 'WARNING']
   },
   ControlModel: {
     CONTROL_CRITICITY: ['INFO', 'WARN', 'ERROR']

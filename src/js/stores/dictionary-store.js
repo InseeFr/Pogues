@@ -47,6 +47,7 @@ var _dictionary = {
   INSTRUCTION: {'en': 'Instruction', 'fr': 'Instruction'},
   COMMENT: {'en': 'Comment', 'fr': 'Commentaire'},
   HELP: {'en': 'Help', 'fr': 'Aide'},
+  WARNING: {'en': 'Warning', 'fr': 'Avertissement'},
   maxLength: {'en': 'Length', 'fr': 'Taille'},
   pattern: {'en': 'Pattern', 'fr': 'Motif'},
   disjoignable: {'en': 'Detachable instruction', 'fr': 'Instruction détachable'},
