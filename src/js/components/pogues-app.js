@@ -52,14 +52,15 @@ var PoguesApp = React.createClass({
     else if (this.state.view === ViewTypes.QUESTIONNAIRE) {
       filter = PoguesActions.filterComponents;
       title = '';
-      console.log('PoguesApp calling Questionnaire with title', title);
+      logger.debug('Calling Questionnaire component');
       child =
         <Questionnaire/>
     } else if (this.state.view === ViewTypes.EDITION) {
       // HACK this view should be embeded in the questionnaire view
       filter = null;// TODO desactivate search in menu bar for this state
+      // FIXME Title should be internationalized
       title = 'Édition d`un composant';
-      console.log('PoguesApp editing component', this.state.idComponent);
+      logger.debug('Editing component ', this.state.idComponent);
       // FIXME shouldn't call questionnaire store
       var questionnaire = QuestionnaireStore.getQuestionnaire();
       var candidates = QuestionnaireUtils.after(questionnaire, component);

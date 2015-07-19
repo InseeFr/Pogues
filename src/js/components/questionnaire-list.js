@@ -39,15 +39,15 @@ var QuestionnaireList = React.createClass({
     }
   },
   selectWithId: function(id, event) {
-    console.log('QuestionnairePicker.selectIndex', id);
+    logger.debug('Select questionnaire with id: ', id);
     PoguesActions.selectQuestionnaire(id);
   },
   componentWillMount: function() {
-    console.log('QuestionnaireList component will mount');
+    logger.debug('QuestionnaireList component will mount');
     //PoguesActions.getQuestionnaireList();
   },
   componentDidMount: function() {
-    console.log('QuestionnaireList component did mount.');
+    logger.debug('QuestionnaireList component did mount');
     QuestionnaireListStore.addChangeListener(this._onChange);
     // FIXME doesn't work
     PoguesActions.getQuestionnaireList();

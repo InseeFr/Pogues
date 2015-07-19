@@ -13,6 +13,9 @@ var SequenceModel = require("../models/sequence");
 var nameFromLabel = require('../utils/name-utils').nameFromLabel;
 var rName = require('../utils/name-utils').rName;
 // end of hack
+var Logger = require('../logger/logger');
+
+var logger = new Logger('QuestionnaireEditor', 'Components');
 
 // TODO add change listener on dictionary store  to have a clean
 // process, even if you don't expect changes in language settings
@@ -63,7 +66,7 @@ var QuestionnaireEditor = React.createClass({
     var questionnaire =  new QuestionnaireModel();
     questionnaire.label = this.state.label;
     questionnaire.name = this.state.name;
-    console.log('[QuestionnaireEditor] Creating a questionnaire with name :' + questionnaire.name);
+    logger.debug('Creating questionnaire: ' + questionnaire);
     PoguesActions.createQuestionnaire(questionnaire);
     // go to questionnaire view
     // FIXME ROM1704 suppress when refacto is finished
@@ -85,7 +88,7 @@ var QuestionnaireEditor = React.createClass({
       var fakeQ = new QuestionnaireModel();
       DataUtils.populateFakeQuestionnaire(fakeQ);
       var xmlQuestionnaire = DataXMLUtils.questionnaireToXMLString(fakeQ);
-      console.log(xmlQuestionnaire);
+      logger.debug('Questionnaire converted to XML: ', xmlQuestionnaire);
       event.preventDefault();
     },
     render: function() {

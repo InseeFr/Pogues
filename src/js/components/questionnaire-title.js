@@ -2,9 +2,12 @@ var React = require('react');
 var PoguesConstants = require('../constants/pogues-constants');
 var PoguesActions = require('../actions/pogues-actions');
 var QuestionnaireStore = require('../stores/questionnaire-store');
+var Logger = require('../logger/logger');
+
+var logger = new Logger('QuestionnaireTitle', 'Components');
 
 function getStateFromStore() {
-  console.log('QuestionnaireOutlook getting state from store');
+  logger.debug('Getting state from store');
   return {
     questionnaire: QuestionnaireStore.getQuestionnaire()
   }
@@ -27,14 +30,13 @@ var QuestionnaireTitle =  React.createClass({
   },
 
   componentDidMount: function() {
-    console.log('[QuestionnaireTitle] Component did mount.');
+    logger.debug('Component did mount');
     QuestionnaireStore.addChangeListener(this._onChange);
   },
 
   componentDidUpdate: function(prevProps, prevState) {
-    console.log('[QuestionnaireTitle] Component did update');
-    if(this.state.editMode) {
-      console.log('[QuestionnaireTitle] Focus on title input');
+    logger.debug('Component did update, state is: ', this.state);
+    if (this.state.editMode) {
       React.findDOMNode(this.refs.titleInput).focus();
     }
   },

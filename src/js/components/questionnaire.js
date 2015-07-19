@@ -5,10 +5,12 @@ var Component = require('../components/component');
 var GenericInput = require('../components/generic-input');
 var classNames = require('classnames');
 var locale = require('../stores/dictionary-store').getDictionary();
+var Logger = require('../logger/logger');
 
+var logger = new Logger('Questionnaire', 'Components');
 
 function getStateFromStore() {
-  console.log('Questionnaire getting state from store');
+  logger.debug('Getting state from store');
   return {
     questionnaire: QuestionnaireStore.getQuestionnaire(),
     filter       : QuestionnaireStore.getFilter()
@@ -30,7 +32,7 @@ var Questionnaire = React.createClass({
     QuestionnaireStore.removeChangeListener(this._onChange);
   },
   render: function() {
-    console.log('Questionnaire rendering with state', this.state);
+    logger.debug('Questionnaire rendering with state: ', this.state);
     var invite = locale.introduction,
       filter = this.state.filter;
 

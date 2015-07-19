@@ -1,18 +1,21 @@
 var React = require('react');
 var QuestionnaireStore = require('../stores/questionnaire-store');
+var Logger = require('../logger/logger');
+
+var logger = new Logger('QuestionnaireOutlook', 'Components');
 
 function getStateFromStore() {
-  console.log('QuestionnaireOutlook getting state from store');
+  logger.debug('Getting state from QuestionnaireStore');
   return {
     questionnaire: QuestionnaireStore.getQuestionnaire()
   }
 }
+
 /**
- * Generate nested lists for the questionnaire-outlook
+ * Generates nested lists for the questionnaire-outlook
  * @param  {Array of components} components A list of components
  * @return {[Array of elements]}
  */
-
 function recursiveOutlook(components, root) {
   if (!components || components.length === 0) return;
   var classname = root ? "nav bs-docs-sidenav" : "nav";
@@ -54,7 +57,7 @@ var QuestionnaireOutlook = React.createClass({
     QuestionnaireStore.removeChangeListener(this._onChange);
   },
   render: function() {
-    console.log('QuestionnaireOutlook rendering with state', this.state);
+    logger.debug('Rendering with state ', this.state);
     return (
       <div className="row">
         <nav ref="affix" className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
