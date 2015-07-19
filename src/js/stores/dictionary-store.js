@@ -2,8 +2,11 @@ var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
 var PoguesConstants = require('../constants/pogues-constants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-var _language = 'en';
+var Logger = require('../logger/logger');
 
+var logger = new Logger('DictionaryStore', 'Stores');
+
+var _language = 'en';
 var _localDictionary;
 var ActionTypes = PoguesConstants.ActionTypes;
 var CHANGE_EVENT = "change";
@@ -98,10 +101,9 @@ function setLanguage(language) {
   setDictionary(language);
 }
 
-
 var DictionaryStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
-    console.log('DictionaryStore emitting event', CHANGE_EVENT);
+    logger.debug('Store emitting change event');
     this.emit(CHANGE_EVENT);
   },
   getDictionary: function () {
@@ -109,7 +111,7 @@ var DictionaryStore = assign({}, EventEmitter.prototype, {
   },
   setLanguage: setLanguage,
   dispatcherIndex: PoguesDispatcher.register(function(payload) {
-    console.log('QuestionnaireStore received dispatched payload', payload);
+    logger.debug('Received dispatched payload: ', payload);
     var action = payload.action; // action from HandleViewAction
     switch(action.actionType) {
       case ActionTypes.LANGUAGE_CHANGED:
@@ -120,7 +122,7 @@ var DictionaryStore = assign({}, EventEmitter.prototype, {
       default:
         return true;
     }
-    console.log('DictionaryStore will emit change, language is', _language);
+    logger.debug('Store will emit change, language is: ', _language);
     DictionaryStore.emitChange();
     return true;
   })

@@ -23,7 +23,7 @@ var _publishTimestamp = null;
 function _setQuestionnaireById(id) {
 
   DataUtils.getQuestionnaire(id);
-  console.log('Questionnaire', _questionnaire);
+  logger.debug('Setting questionnaire by id ' + id + ', questionnaire is: ', _questionnaire);
   // FIXME nothing is done with the questionnaire in param.
   //setTimeout(PoguesActions.receiveQuestionnaire.bind(null, _questionnaire), 0);
 }
@@ -53,7 +53,7 @@ function _setPublicationURL(url) {
 function _setQuestionnaire(questionnaire) {
   // We must keep id and we can keep name
   _questionnaire = questionnaire;
-  console.log('Questionnaire in questionnaire store is now', _questionnaire);
+  logger.debug('Setting questionnaire in store, questionnaire is now: ', _questionnaire);
 }
 
 function _createQuestionnaire(name) {
@@ -69,13 +69,13 @@ function _addSequence(name) {
 }
 
 function _addComponent(spec) {
-  logger.info('Adding a component to the questionnaire.');
+  logger.debug('Adding a component to the questionnaire.');
   QUtils.appendComponent(_questionnaire, spec.sequence, spec.depth, spec.text);
 }
 
 /* Mark a component (sequence or question) as editable */
 function _setComponentEditable(id) {
-  console.log('Component with id ' + id + ' is now editable');
+  logger.debug('Component with id ' + id + ' is now editable');
   QUtils.searchAndApply(_questionnaire.children,'id', id, function(e) { console.log('ping ' + e.id + ' !'); });
 }
 
@@ -98,7 +98,7 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
     return _publishTimestamp;
   },
   emitChange: function() {
-    console.log('QuestionnaireStore emitting event', CHANGE_EVENT);
+    logger.debug('Store emitting change event');
     this.emit(CHANGE_EVENT);
   },
   addChangeListener: function(callback) {
@@ -108,7 +108,7 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   dispatcherIndex: PoguesDispatcher.register(function(payload) {
-    console.log('QuestionnaireStore received dispatched payload', payload);
+    logger.debug('Received dispatched payload: ', payload);
     var action = payload.action; // action from HandleViewAction
     switch(action.actionType) {
       case ActionTypes.RECEIVE_NEW_ID_FROM_SERVER:
@@ -119,12 +119,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         _addComponent(payload.action.spec);
         break;
       case ActionTypes.SELECT_QUESTIONNAIRE:
-        console.log('[QLSTORE] Receiving SELECT_QUESTIONNAIRE action');
         _setQuestionnaireById(payload.action.id);
         break;
       case ActionTypes.RECEIVE_QUESTIONNAIRE:
-        console.log('[QSTORE] Receiving questionnaire');
-        console.dir(payload.action.questionnaire);
         _setQuestionnaire(payload.action.questionnaire);
         break;
       case ActionTypes.QUESTIONNAIRE_LOADING_FAILED:
@@ -137,7 +134,6 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         _setFilter(payload.action.filter);
         break;
       case ActionTypes.SAVE_QUESTIONNAIRE:
-        console.log('Action SAVE_QUESTIONNAIRE caught in QuestionnaireStore with questionnaire -->');
         DataUtils.saveQuestionnaire(payload.action.questionnaire);
         break;
       case ActionTypes.EDIT_QUESTIONNAIRE:
@@ -154,7 +150,7 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
       default:
         //no op;
     }
-    console.log('QuestionnaireStore will emit change, questionnaire is', _questionnaire);
+    logger.debug('Store will emit change, questionnaire is: ', _questionnaire);
     QuestionnaireStore.emitChange();
     return true;
   })

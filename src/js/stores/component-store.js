@@ -6,31 +6,31 @@ var SequenceModel = require("../models/sequence");
 var DataUtils = require('../utils/data-utils');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var Logger = require('../logger/logger');
+
+var logger = new Logger('ComponentStore', 'Stores');
 
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
 var _components = []
 
-
 function getComponents(questionnaire, filter) {
-
 }
-
 
 function _filter(filter) {
 }
 
 function _setQuestionnaireByIndex(index) {
   _questionnaire = QuestionnaireListStore.getQuestionnaire(index);
-  console.log('Questionnaire', _questionnaire);
+  logger.debug('Setting questionnaire by index ' + index + ', questionnaire is: ', _questionnaire);
   _questionnaire.modules = [];
 }
 
 function _setQuestionnaire(questionnaire) {
   // We must keep id and we can keep name
   _questionnaire.modules = questionnaire.modules;
-  console.log('Questionnaire in questionnaire store is now', _questionnaire);
+  logger.debug('Setting questionnaire in store, questionnaire is now: ', _questionnaire);
 }
 
 function _createQuestionnaire(name) {
@@ -50,7 +50,7 @@ var ComponentStore = assign({}, EventEmitter.prototype, {
     return _questionnaire;
   },
   emitChange: function() {
-    console.log('ComponentStore emiting event', CHANGE_EVENT);
+    logger.debug('Store emitting change event');
     this.emit(CHANGE_EVENT);
   },
   addChangeListener: function(callback) {
@@ -60,7 +60,7 @@ var ComponentStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   dispatcherIndex: PoguesDispatcher.register(function(payload) {
-    console.log('ComponentStore received dispatched payload', payload);
+    logger.debug('Received dispatched payload: ', payload);
     var action = payload.action; // action from HandleViewAction
     switch(action.actionType) {
       case ActionTypes.EDIT_COMPONENT:
@@ -69,7 +69,7 @@ var ComponentStore = assign({}, EventEmitter.prototype, {
       default:
         return true;
     }
-    console.log('ComponentStore will emit change, component is', _component);
+    logger.debug('Store will emit change, component is: ', _component);
     ComponentStore.emitChange();
     return true;
   })
