@@ -16,14 +16,14 @@ var GenericInput = React.createClass({
 	},
 	handleChange: function(event) {
 		var text = event.target.value;
-		if (text.match(SLASH)) {
+		if (text.startsWith('/')) {
 			this.setState({sequence: !this.state.sequence, value: ''});
 		}
-		else if (text.match(PLUS) && this.state.sequence) {
+		else if (text.startsWith('+') && this.state.sequence) {
 			this.increaseDepth();
 			this.setState({value: ''});
 		}
-		else if (text.match(MINUS) && this.state.sequence) {
+		else if (text.startsWith('-') && this.state.sequence) {
 			this.decreaseDepth();
 			this.setState({value: ''});
 		}
