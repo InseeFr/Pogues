@@ -2,6 +2,9 @@ var SequenceModel = require('../models/sequence');
 var QuestionModel = require('../models/question');
 var QuestionnaireModel = require('../models/questionnaire');
 var nameFromLabel = require('../utils/name-utils').nameFromLabel;
+var Logger = require('../logger/logger');
+
+var logger = new Logger('QuestionnaireUtils', 'Utils');
 
 function flatten(quesr) {
     return quesr.children.reduce(function(a, b) {
@@ -20,13 +23,13 @@ var QuestionnaireUtils = {
    //TODO currying ! functionnal !
    //TODO struct.flatMap.filter( checkId ).apply( func )
   searchAndApply : function (struct, key, value, func) {
-    console.log('searching for key :' + key + ' and value : ' + value);
+    logger.debug('searching for key :' + key + ' and value :' + value);
 
     for (var i in struct) {
       var component = struct[i];
       if (component instanceof QuestionModel) {
         if (component[key] === value) {
-          console.log('found!');
+          logger.debug('Found key ' + key + ' in component:', component);
           func(component);
         }
       }
@@ -89,7 +92,7 @@ var QuestionnaireUtils = {
       newChild.label = label;
       // TODO generate newChild.name !
       newChild.name = nameFromLabel(label);
-      console.log('The child to append ==> ', newChild);
+      logger.debug('Appending new child: ', newChild);
       sequence.addChild(newChild);
       return;
     } else if (depth > 1) {

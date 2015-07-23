@@ -16,11 +16,8 @@ describe('Questionnaire serialization', function() {
     // quest.name = 'ROM_QUEST';
     // quest.addDeclaration(dec);
     //
-    // console.log(JSON.stringify(test));
-    // console.log(typeof serializeQuestionnaire);
     //
     // var serQuest = serializeQuestionnaire(quest);
-    // console.log(serQuest);
     //
     // expect(serQuest.Questionnaire).toBeDefined();
     // expect(serQuest.Survey).toBeDefined();

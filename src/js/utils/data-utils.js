@@ -148,15 +148,14 @@ var DataUtils = {
   getQuestionnaireList: function() {
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaires';
     if(Config.remote) {
-      console.info('Fetching the questionnaire list at ' + targetURL);
+      logger.debug('Fetching the questionnaire list at ' + targetURL);
       request
         .get(targetURL)
         .set('Accept', 'text/plain')
         .end(function(err, res) {
           if (err) return;
           if(res.ok) {
-            console.log('Questionnaire list from server -->');
-            console.dir(JSON.parse(res.text));
+            logger.debug('GET questionnaire list from server returned: ', JSON.parse(res.text));
             PoguesActions.receiveQuestionnaireList(JSON.parse(res.text));
           }
         });
@@ -175,15 +174,13 @@ var DataUtils = {
         .end(function(err, res) {
           if (err) return;
           if (res.ok) {
-            // FIXME rebuild a questionnaire, not a literal object representing
-            // the questionaire
-            // FIXME if content-type is not set properly in the response headers
-            // res.body is null
+            // FIXME rebuild a questionnaire, not a literal object representing the questionaire
+            // FIXME if content-type is not set properly in the response headers res.body is null
             questionnaire = new QuestionnaireModel(JSON.parse(res.text));
-            console.log('DataUtils.getQuestionnaire will return questionnaire', questionnaire);
+            logger.debug('DataUtils.getQuestionnaire will return questionnaire: ', questionnaire);
             PoguesActions.receiveQuestionnaire(questionnaire);
           } else {
-            console.log(res.body);
+            logger.error('GET questionnaire not OK, returned: ', res.body);
           }
         });
     } else {
@@ -195,7 +192,7 @@ var DataUtils = {
     var newId;
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaires';
     if (Config.remote) {
-      console.log('[DataUtils] Remote creation of questionnaire ' + questionnaire.id);
+      logger.debug('Remote creation of questionnaire ' + questionnaire.id + ' with a POST request');
       request
         .post(targetURL)
         .set('Content-Type', 'text/html')
@@ -209,7 +206,7 @@ var DataUtils = {
               //PoguesActions.receiveNewIdFromServer(questionnaire.id, newId);
               PoguesActions.selectQuestionnaire(newId);
             } else {
-              console.log(res.body);
+              logger.error('POST questionnaire not OK, returned: ', res.body);
             }
       });
     }
@@ -222,7 +219,7 @@ var DataUtils = {
   Save the questionnaire, i.e. persist it in the remote server data store.
   */
   saveQuestionnaire: function(questionnaire) {
-    logger.info('Saving questionnaire ' + questionnaire.id + ' in remote server.');
+    logger.info('Saving questionnaire ' + questionnaire.id + ' with a PUT request');
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaire/' + questionnaire.id;
     logger.debug('Target URL is ' + targetURL);
     logger.debug('Serialization would be', questionnaire.serialize(), JSON.parse(questionnaire.serialize()));
@@ -234,10 +231,10 @@ var DataUtils = {
         if (err) PoguesActions.getQuestionnaireFailed();
         if (res.ok) {
           // FIXME
-          console.log(res.text);
+          logger.debug('PUT questionnaire OK, returned: ', res.body);
         } else {
           // FIXME
-          console.log(res.text);
+          logger.error('PUT questionnaire not OK, returned: ', res.body);
         }
       });
   },
@@ -277,7 +274,7 @@ var DataUtils = {
       var numberOfQuestionnaires = Math.floor(Math.random() * 30);
       var timeout = Math.random() * 5;
       var fail = (Math.random() < 0.001);
-      console.log('Creating ' + numberOfQuestionnaires + ' questionnaires in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
+      logger.debug('Creating ' + numberOfQuestionnaires + ' questionnaires in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
       setTimeout(function() {
         if (fail) PoguesActions.getQuestionnaireListFailed();
         else {
@@ -302,7 +299,7 @@ var DataUtils = {
       var timeout = Math.random() * 1;
       var fail = (Math.random() < 0.005);
       var questionnaire = QuestionnaireListStore.getQuestionnaire(index);
-      console.log('Creating ' + numberOfSequences + ' sequences in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
+      logger.debug('Creating ' + numberOfSequences + ' sequences in ' + timeout + ' ms will ' + (fail ? 'fail' : 'succeed'));
       setTimeout(function() {
         if (fail) PoguesActions.getQuestionnaireFailed();
         else {
@@ -310,7 +307,7 @@ var DataUtils = {
             var fakeQuestionnaire = {
               questionnaire: questionnaire
           };
-          console.log('DataUtils.getQuestionnaire will return questionnaire', fakeQuestionnaire);
+          logger.debug('DataUtils.getQuestionnaire will return questionnaire: ', fakeQuestionnaire);
           PoguesActions.receiveQuestionnaire(fakeQuestionnaire);
         }
       }, timeout);

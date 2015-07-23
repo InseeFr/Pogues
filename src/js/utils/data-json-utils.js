@@ -100,8 +100,6 @@ function serializeObject(obj) {
   let o = {};
   for (let i in Object.keys(obj)) {
     let field = Object.keys(obj)[i];
-    // console.log('Field is ', field);
-    // console.log('Mapping is ', MAPPING[field]);
     o[normalizeField(field)] = factory[MAPPING[field]](field, obj);
   }
   return o;
@@ -110,7 +108,6 @@ function serializeObject(obj) {
 function serializeArray(arr) {
   let a = [];
   for (let i in arr) {
-    // console.log('Array item is ', arr[i]);
     a.push(serializeObject(arr[i]));
   }
   return a;

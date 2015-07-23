@@ -73,10 +73,11 @@ function _addComponent(spec) {
   QUtils.appendComponent(_questionnaire, spec.sequence, spec.depth, spec.text);
 }
 
+// TODO Check if this is used
 /* Mark a component (sequence or question) as editable */
 function _setComponentEditable(id) {
   logger.debug('Component with id ' + id + ' is now editable');
-  QUtils.searchAndApply(_questionnaire.children,'id', id, function(e) { console.log('ping ' + e.id + ' !'); });
+  QUtils.searchAndApply(_questionnaire.children,'id', id, function(e) {}); // Passing empty function
 }
 
 function _updateId(newId, oldId){
