@@ -8,7 +8,7 @@ const OBJECT_FIELDS = ['_codeLists'];
 
 // Constants use for normalization
 const CAPS = ['_name', '_survey', '_label', '_datatype', '_codeListReference', '_codeLists', '_codeList',
-'_maxLength', '_pattern', '_ifTrue', '_ifFalse', '_next', '_expression', '_failMessage','_maximum', '_minimum'];
+'_maxLength', '_pattern', '_ifTrue', '_ifFalse', '_next', '_expression', '_failMessage','_maximum', '_minimum', '_text'];
 
 // Field to rename
 // Mainly fields in plural in Pogues model that need to be singular to be schema valid
