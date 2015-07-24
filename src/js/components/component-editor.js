@@ -8,8 +8,12 @@ var DeclarationModel = require('../models/declaration');
 var QuestionEditor = require('./question-editor');
 var locale = require('../stores/dictionary-store').getDictionary();
 var GoToModel = require('../models/go-to');
-var QuestionnaireStore = require('../stores/questionnaire-store')
-var QuestionnaireUtils = require('../utils/questionnaire-utils')
+var QuestionnaireStore = require('../stores/questionnaire-store');
+var QuestionnaireUtils = require('../utils/questionnaire-utils');
+var locale = require('../stores/dictionary-store').getDictionary();
+var Logger = require('../logger/logger');
+
+var logger = new Logger('ComponentEditor', 'Components');
 
 // TODO Sould we listen to Questionnaire Store ? If the questionnaire
 // changes, this component becomes meaningless, but this change would
@@ -76,7 +80,7 @@ var ComponentEditor = React.createClass({
   },
 
   _addDeclaration: function () {
-    this.props.component.addDeclaration(new DeclarationModel({_text: 'A funky declaration'}));
+    this.props.component.addDeclaration(new DeclarationModel({_text: locale.placeholderDeclarationText}));
     this._updateDeclarations();
   },
 
@@ -93,6 +97,7 @@ var ComponentEditor = React.createClass({
     var component = this.props.component;
     component.name = this.state.name;
     component.label = this.state.label;
+    logger.debug('Declarations object in state', this.state.declarations);
     component.declarations = this.state.declarations;
     component.controls = this.state.controls;
     // say questionnaire edidtor we're done

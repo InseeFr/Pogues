@@ -2,6 +2,9 @@ var React = require('react');
 var DeclarationModel = require('../models/declaration');
 var locale = require('../stores/dictionary-store').getDictionary();
 var declarationTypes = require('../models/model-constants').DeclarationModel.DECLARATION_TYPES;
+var Logger = require('../logger/logger');
+
+var logger = new Logger('Declaration', 'Components');
 
 var Declaration = React.createClass({
   propTypes: {
@@ -18,23 +21,32 @@ var Declaration = React.createClass({
   },
 
   _handleTextChange: function(event) {
+    var text = event.target.value;
+    this._save('text', text)
     this.setState({
-      text: event.target.value
+      text: text
     });
   },
   _handleTypeChange: function(event) {
+    var type = event.target.value;
+    this._save('type', type);
     this.setState({
-      type: event.target.value
+      type: type
     });
   },
   _handleDisjoignableChange: function(event) {
+    var disjoinable = event.target.value;
+    this._save('disjoignable', disjoinable);
     this.setState({
-      disjoignable: event.target.value
+      disjoignable: disjoignable
     });
   },
-  _save: function(event) {
+  _save: function(declarationProp, value) {
+    logger.info(`Saving ${declarationProp} with value ${value}`);
     // FIXME not ok with react philosphy
-    this.props.declaration.text = this.state.text;
+    //this.props.declaration.text = this.state.text;
+    //this.props.declaration.type = this.state.type;
+    this.props.declaration[declarationProp] = value;
   },
 
   _delete: function() {
@@ -52,7 +64,7 @@ var Declaration = React.createClass({
           <div className="col-sm-12">
             <div className="input-group">
               <input value={this.state.text} onChange={this._handleTextChange}
-                onBlur={this._save}
+                //onBlur={this._save}
                 type="text" className="form-control" placeholder={locale.instruction}/>
               <span className="input-group-btn">
                 <button onClick={this._delete} className="btn btn-default" type="button">&times;</button>
