@@ -7,7 +7,7 @@ var logger = new Logger('NumericDatatypeEditor', 'Components');
 
 // TODO things like this.state._minimum are ugly, but with this
 // convention, we can benefit from the very covenient constructors
-// form object literals. maybe we should 
+// form object literals. maybe we should
 var NumericDatatypeEditor = React.createClass({
   //pattern and maxLength
   propTypes: {
@@ -26,6 +26,7 @@ var NumericDatatypeEditor = React.createClass({
   },
 
   _newDatatype: function(chgmt) {
+    logger.info('Creation of a new datatype')
     var datatypeLiteral = assign(this.state, chgmt);
     var datatype = new NumericDatatypeModel(datatypeLiteral);
     this.props.change(datatype);
@@ -85,7 +86,7 @@ var NumericDatatypeEditor = React.createClass({
         <div className="form-group">
           <label htmlFor="visualizationHint" className="col-sm-2 control-label">{locale.visualizationHint}</label>
           <div className="col-sm-10">
-            <select onChange={this._handleVisualizationHintChange} 
+            <select onChange={this._handleVisualizationHintChange}
                   className="form-control"
                   value={this.state._visualizationHint}>
               {this.props.datatype.vizHintsList.map(hint => <option value={hint}>{hint}</option>)}

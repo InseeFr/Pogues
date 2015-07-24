@@ -44,8 +44,6 @@ var Declaration = React.createClass({
   _save: function(declarationProp, value) {
     logger.info(`Saving ${declarationProp} with value ${value}`);
     // FIXME not ok with react philosphy
-    //this.props.declaration.text = this.state.text;
-    //this.props.declaration.type = this.state.type;
     this.props.declaration[declarationProp] = value;
   },
 
@@ -64,7 +62,6 @@ var Declaration = React.createClass({
           <div className="col-sm-12">
             <div className="input-group">
               <input value={this.state.text} onChange={this._handleTextChange}
-                //onBlur={this._save}
                 type="text" className="form-control" placeholder={locale.instruction}/>
               <span className="input-group-btn">
                 <button onClick={this._delete} className="btn btn-default" type="button">&times;</button>
