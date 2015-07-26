@@ -66,7 +66,7 @@ var QuestionnaireEditor = React.createClass({
     var questionnaire =  new QuestionnaireModel();
     questionnaire.label = this.state.label;
     questionnaire.name = this.state.name;
-    logger.debug('Creating questionnaire: ' + questionnaire);
+    logger.debug('Creating questionnaire: ', questionnaire);
     PoguesActions.createQuestionnaire(questionnaire);
     // go to questionnaire view
     // FIXME ROM1704 suppress when refacto is finished
