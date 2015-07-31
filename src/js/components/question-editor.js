@@ -19,7 +19,6 @@ var QuestionEditor = React.createClass({
 
   componentWillMount: function() {
     var question = this.props.question;
-    logger.debug('Props question first response datatype typeName ', question.responses[0].datatype.typeName);
     this.setState({
       name: question.name,
       label: question.label,
