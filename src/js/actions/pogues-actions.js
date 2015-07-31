@@ -152,6 +152,10 @@ var PoguesActions = {
   },
   createCodeList: function(codeList) {
     logger.info('Create code list action', codeList);
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.CREATE_CODE_LIST,
+      codeList: codeList
+    });
   }
 };
 

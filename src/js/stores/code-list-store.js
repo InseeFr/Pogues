@@ -3,9 +3,11 @@ import assign from 'object-assign'
 import PoguesDispatcher from '../dispatchers/pogues-dispatcher'
 import CodeListModel from '../models/code-list'
 import Logger from '../logger/logger'
+import PoguesConstants from '../constants/pogues-constants'
 
 const CHANGE_EVENT = "change";
 const logger = new Logger('CodeListStore', 'Stores');
+const ActionTypes = PoguesConstants.ActionTypes;
 
 /* Private array containing all the known code lists */
 const _codeLists = [];
@@ -36,7 +38,7 @@ export function getCodeListsFromStore() {
 
 const CodeListStore = assign({}, EventEmitter.prototype,  {
   emitChange: function() {
-    logger.debug('Store emitting change event');
+    logger.debug('Store emitting change event, state is now', _codeLists);
     this.emit(CHANGE_EVENT);
   },
   addChangeListener: function(callback) {
@@ -47,10 +49,17 @@ const CodeListStore = assign({}, EventEmitter.prototype,  {
   },
   dispatcherIndex: PoguesDispatcher.register(function(payload) {
     logger.debug('Received dispatched payload: ', payload);
-    var action = payload.action; // action from HandleViewAction
+    var action = payload.action;
     switch(action.actionType) {
-      //
+      case ActionTypes.CREATE_CODE_LIST:
+        _codeLists.push(action.codeList);
+        break;
+      default:
+        //no-op
     }
+    logger.info('Will emit change.');
+    CodeListStore.emitChange();
+    return true;
   })
 });
 
