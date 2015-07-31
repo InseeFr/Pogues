@@ -18,8 +18,6 @@ var ResponseEditor = React.createClass({
   },
 
   componentWillMount: function() {
-    console.log('Code lists from CodeListStore', getCodeListsFromStore());
-    console.log('Code lists from Code List registry', clr.getAll());
     this.setState({
       datatype: this.props.response.datatype,
       clRef : this.props.response.codeListReference,
@@ -46,13 +44,14 @@ var ResponseEditor = React.createClass({
   _setNewCodeList: function (clRef) {
     this._setCodeList(clRef)
     this.setState({
-      codeLists: clr.getAll(),
+      codeLists: getCodeListsFromStore(),
       clEdition: false,
       clRef: clRef
     })
   },
 
   _createCodeList: function() {
+    //FIXME Rename the function, it is not 'create' but 'switchToEditView'
     this.setState({
       clEdition: true
     })

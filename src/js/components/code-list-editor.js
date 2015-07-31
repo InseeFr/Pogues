@@ -6,6 +6,7 @@ var CodeEditor = require('./code-editor')
 var CodeCreator = require('./code-creator')
 var clr = require('../utils/code-list-repository')
 var Logger = require('../logger/logger');
+import PoguesActions from '../actions/pogues-actions'
 
 var logger = new Logger('CodeListEditor', 'Components');
 
@@ -123,6 +124,8 @@ var CodeListEditor = React.createClass({
     }
     logger.debug('Saving code list with', clLiteral);
     var cl = new CodeListModel(clLiteral)
+    //TODO use an action
+    PoguesActions.createCodeList(cl)
     clr.add(cl)
     this.props.after(cl.id)
   },
