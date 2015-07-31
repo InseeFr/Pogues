@@ -6,7 +6,7 @@ var logger = new Logger('PoguesActions', 'Actions');
 
 var PoguesActions = {
   setLanguage: function (language) {
-    logger.debug('Set language to: ', language);
+    logger.info('Set language to: ', language);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.LANGUAGE_CHANGED,
       language: language
@@ -14,14 +14,14 @@ var PoguesActions = {
   },
   // Questionnaire list loaded or not from the server
   receiveQuestionnaireList: function(questionnaires) {
-    logger.debug('Receive questionnaire list');
+    logger.info('Receive questionnaire list');
     PoguesDispatcher.handleServerAction({
       actionType: PoguesConstants.ActionTypes.RECEIVE_QUESTIONNAIRE_LIST,
       questionnaires: questionnaires
     });
   },
   getQuestionnaireList: function () {
-    logger.debug('Get questionnaire list');
+    logger.info('Get questionnaire list');
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.LOAD_QUESTIONNAIRE_LIST
     })
@@ -92,14 +92,14 @@ var PoguesActions = {
     });
   },
   filterComponents: function(filter) {
-    logger.debug('Filter components action sent to dispatcher with value: ' + filter);
+    logger.info('Filter components action sent to dispatcher with value: ' + filter);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.FILTER_COMPONENTS,
       filter: filter
     })
   },
   filterQuestionnaires: function(filter) {
-    logger.debug('Filter questionnaires action sent to dispatcher with value: ' + filter);
+    logger.info('Filter questionnaires action sent to dispatcher with value: ' + filter);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.FILTER_QUESTIONNAIRES,
       filter: filter
@@ -129,7 +129,7 @@ var PoguesActions = {
   },
   // Edit the current questionnaire prop giving the prop key and the new value
   editQuestionnaire: function(key, value) {
-    logger.debug('Edit questionnaire with key/value: ' + key + ' - ' + value);
+    logger.info('Edit questionnaire with key/value: ' + key + ' - ' + value);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.EDIT_QUESTIONNAIRE,
       k : key,
@@ -137,18 +137,21 @@ var PoguesActions = {
     });
   },
   publishQuestionnaire: function(questionnaire) {
-    logger.debug('Publish questionnaire: ', questionnaire);
+    logger.info('Publish questionnaire: ', questionnaire);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.PUBLISH_QUESTIONNAIRE,
       questionnaire: questionnaire
     });
   },
   getPublicationURL: function(url) {
-    logger.debug('Push publication URL to the interface: ', url);
+    logger.info('Push publication URL to the interface: ', url);
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.GET_PUBLICATION_URL,
       url: url
     });
+  },
+  createCodeList: function(codeList) {
+    logger.info('Create code list action', codeList);
   }
 };
 
