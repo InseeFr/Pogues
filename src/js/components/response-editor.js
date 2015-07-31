@@ -7,6 +7,8 @@ var assign = require('object-assign');
 var DataypeEditor = require('./datatype-editor');
 var CodeListEditor = require('./code-list-editor')
 var clr = require('../utils/code-list-repository');
+import CodeListStore from '../stores/code-list-store'
+import { getCodeListsFromStore } from '../stores/code-list-store'
 
 var ResponseEditor = React.createClass({
 
@@ -16,11 +18,13 @@ var ResponseEditor = React.createClass({
   },
 
   componentWillMount: function() {
+    console.log('Code lists from CodeListStore', getCodeListsFromStore());
+    console.log('Code lists from Code List registry', clr.getAll());
     this.setState({
       datatype: this.props.response.datatype,
       clRef : this.props.response.codeListReference,
       clEdition: false,
-      codeLists: clr.getAll()
+      codeLists: getCodeListsFromStore()
     })
   },
 
@@ -32,6 +36,7 @@ var ResponseEditor = React.createClass({
   },
 
   _setCodeList: function (clRef) {
+    // TODO Save the code list in the CodeListStore through the proper action
     this.setState({
       clRef: clRef
     })
