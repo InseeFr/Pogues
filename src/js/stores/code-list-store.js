@@ -32,6 +32,16 @@ _codeLists.push(new CodeListModel({
   ]
 }));
 
+_codeLists.push(new CodeListModel({
+  _id: 'cl_ouinon',
+  _name: 'cl_ouinon',
+  _label: 'Oui / Non',
+  _codes: [
+    {value: 1, label: 'Oui'},
+    {value: 0, label: 'Non'}
+  ]
+}));
+
 export function getCodeListsFromStore() {
   return _codeLists;
 }
