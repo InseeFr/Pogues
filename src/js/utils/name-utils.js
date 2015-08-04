@@ -16,7 +16,6 @@ export function nameFromLabel(label) {
 }
 
 export function stripLeadingUnderscore(stringToStrip) {
-	console.error('String to strip', stringToStrip);
 	return /_(\w+)/.exec(stringToStrip).pop();
 }
 
