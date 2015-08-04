@@ -95,6 +95,7 @@ var ComponentEditor = React.createClass({
   },
 
   _save: function () {
+    //FIXME Here, we should call each subcomponent _save method
     //update component
     //FIXME : Not ok with react philosophy, only a hack
     var component = this.props.component;
@@ -102,9 +103,12 @@ var ComponentEditor = React.createClass({
     component.label = this.state.label;
     component.declarations = this.state.declarations;
     component.controls = this.state.controls;
-    component.responses.forEach(response => {
-      PoguesActions.addCodeListToQuestionnaire(getCodeListById(response.codeListReference));
-    });
+    // If the component is a question, we add codelists to the questionnaire
+    if (component.responses !== undefined) {
+      component.responses.forEach(response => {
+        PoguesActions.addCodeListToQuestionnaire(getCodeListById(response.codeListReference));
+      });
+    }
     // say questionnaire edidtor we're done
     this.props.close();
   },
