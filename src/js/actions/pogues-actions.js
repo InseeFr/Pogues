@@ -156,6 +156,13 @@ var PoguesActions = {
       actionType: PoguesConstants.ActionTypes.CREATE_CODE_LIST,
       codeList: codeList
     });
+  },
+  addCodeListToQuestionnaire: function(codeList) {
+    logger.info('Add code list action', codeList);
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.ADD_CODE_LIST,
+      codeList: codeList
+    });
   }
 };
 

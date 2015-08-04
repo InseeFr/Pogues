@@ -40,7 +40,6 @@ var QuestionEditor = React.createClass({
   render: function() {
     var question = this.props.question
     // FIXME wrong response removed (check Response model code)
-    logger.debug('Current datatypeType is ', this.state.datatypeType);
     var nbResponses = question.responses.length
     return (
       <div className="panel panel-default">

@@ -124,9 +124,7 @@ var CodeListEditor = React.createClass({
     }
     logger.debug('Saving code list with', clLiteral);
     var cl = new CodeListModel(clLiteral)
-    //TODO use an action
-    PoguesActions.createCodeList(cl)
-    clr.add(cl)
+    PoguesActions.createCodeList(cl);
     this.props.after(cl.id)
   },
 

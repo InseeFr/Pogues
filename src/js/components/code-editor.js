@@ -15,8 +15,8 @@ var CodeEditor = React.createClass({
     var code = this.props.code
     this.setState({
       existing: code ? true : false,
-      value: code.value,
-      label:  code.label
+      value: code._value,
+      label:  code._label
     })
   },
 

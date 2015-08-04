@@ -10,25 +10,25 @@ var CodeCreator = React.createClass({
 
   componentWillMount: function() {
     this.setState({
-      value: '',
-      label: ''
+      _value: '',
+      _label: ''
     })
   },
 
   _change: function (event) {
     this.setState({
-      label: event.target.value
+      _label: event.target.value
     })
   },
 
 
   _handleKeyDown: function (event) {
     if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
-      if (!this.state.label) return;
+      if (!this.state._label) return;
       this.props.add(this.state)
       this.setState({
-        value: '',
-        label: ''
+        _value: '',
+        _label: ''
       })
     }
   },
@@ -42,7 +42,7 @@ var CodeCreator = React.createClass({
         <div className="col-sm-9">
           <input
             id="label"
-            value={this.state.label}
+            value={this.state._label}
             className="form-control"
             placeholder={locale.typeNewCode}
             onChange={this._change}

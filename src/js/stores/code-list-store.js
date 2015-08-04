@@ -18,8 +18,8 @@ _codeLists.push(new CodeListModel({
   _name: 'cl_propsal',
   _label: 'Proportion de salaire',
   _codes: [
-    {value: 0, label: 'La moitié ou plus'},
-    {value: 1, label: 'Moins de la moitié'}
+    {_value: 0, _label: 'La moitié ou plus'},
+    {_value: 1, _label: 'Moins de la moitié'}
   ]}));
 
 _codeLists.push(new CodeListModel({
@@ -27,8 +27,8 @@ _codeLists.push(new CodeListModel({
   _name: 'cl_sexe',
   _label: 'Sexe',
   _codes: [
-    {value: 0, label: 'Homme'},
-    {value: 1, label: 'Femme'}
+    {_value: 0, _label: 'Homme'},
+    {_value: 1, _label: 'Femme'}
   ]
 }));
 
@@ -37,13 +37,17 @@ _codeLists.push(new CodeListModel({
   _name: 'cl_ouinon',
   _label: 'Oui / Non',
   _codes: [
-    {value: 1, label: 'Oui'},
-    {value: 0, label: 'Non'}
+    {_value: 1, _label: 'Oui'},
+    {_value: 0, _label: 'Non'}
   ]
 }));
 
 export function getCodeListsFromStore() {
   return _codeLists;
+}
+
+export function getCodeListById(id) {
+  return _codeLists.filter(codeList => codeList.id === id).pop();
 }
 
 const CodeListStore = assign({}, EventEmitter.prototype,  {

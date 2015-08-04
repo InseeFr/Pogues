@@ -13,6 +13,9 @@ var QuestionnaireUtils = require('../utils/questionnaire-utils');
 var locale = require('../stores/dictionary-store').getDictionary();
 var Logger = require('../logger/logger');
 
+import { getCodeListById } from '../stores/code-list-store'
+import PoguesActions from '../actions/pogues-actions'
+
 var logger = new Logger('ComponentEditor', 'Components');
 
 // TODO Sould we listen to Questionnaire Store ? If the questionnaire
@@ -97,9 +100,11 @@ var ComponentEditor = React.createClass({
     var component = this.props.component;
     component.name = this.state.name;
     component.label = this.state.label;
-    logger.debug('Declarations object in state', this.state.declarations);
     component.declarations = this.state.declarations;
     component.controls = this.state.controls;
+    component.responses.forEach(response => {
+      PoguesActions.addCodeListToQuestionnaire(getCodeListById(response.codeListReference));
+    });
     // say questionnaire edidtor we're done
     this.props.close();
   },

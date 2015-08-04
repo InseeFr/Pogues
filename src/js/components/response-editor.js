@@ -50,8 +50,7 @@ var ResponseEditor = React.createClass({
     })
   },
 
-  _createCodeList: function() {
-    //FIXME Rename the function, it is not 'create' but 'switchToEditView'
+  _switchToCodeListEdition: function() {
     this.setState({
       clEdition: true
     })
@@ -85,7 +84,7 @@ var ResponseEditor = React.createClass({
           <CodeListPicker
               clRef={this.state.clRef || ''}
               select={this._setCodeList}
-              create={this._createCodeList}
+              create={this._switchToCodeListEdition}
               codeLists={this.state.codeLists}
               />
         </div>

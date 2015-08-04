@@ -7,7 +7,7 @@ const ARRAY_FIELDS = ['_componentGroups'];
 const OBJECT_FIELDS = ['_codeLists'];
 
 // Constants use for normalization
-const CAPS = ['_name', '_survey', '_label', '_datatype', '_codeListReference', '_codeLists', '_codeList',
+const CAPS = ['_name', '_survey', '_label', '_datatype', '_codeListReference', '_codeLists', '_codeList', '_codeListSpecification',
 '_maxLength', '_pattern', '_ifTrue', '_ifFalse', '_next', '_expression', '_failMessage','_maximum', '_minimum', '_text'];
 
 // Field to rename
@@ -52,6 +52,7 @@ const MAPPING = {
   '_text': 'SIMPLE',
   '_type': 'SIMPLE',
   '_typeName': 'SIMPLE',
+  '_value': 'SIMPLE',
   '_visualizationHint': 'SIMPLE',
   '_expression' : 'CLASS',
   '_ifTrue': 'CLASS',
@@ -59,6 +60,8 @@ const MAPPING = {
   '_next': 'CLASS',
   '_survey': 'CLASS',
   '_children': 'ARRAY',
+  '_codeList': 'ARRAY',
+  '_codeListSpecification': 'ARRAY',
   '_codes': 'ARRAY',
   '_controls': 'ARRAY',
   '_componentGroups': 'ARRAY',
