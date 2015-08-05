@@ -94,6 +94,19 @@ var ComponentEditor = React.createClass({
     this._updateDeclarations();
   },
 
+  _saveCodeList: function(responses) {
+    logger.debug('Saving responses codelist(s)', responses);
+    responses.forEach(response => {
+      let isCodeListReferencePresent =
+          response.codeListReference !== undefined &&
+          response.codeListReference !== '' &&
+          response.codeListReference !== null
+      if (isCodeListReferencePresent) {
+          PoguesActions.addCodeListToQuestionnaire(getCodeListById(response.codeListReference));
+      }
+    });
+  },
+
   _save: function () {
     //FIXME Here, we should call each subcomponent _save method
     //update component
@@ -105,9 +118,7 @@ var ComponentEditor = React.createClass({
     component.controls = this.state.controls;
     // If the component is a question, we add codelists to the questionnaire
     if (component.responses !== undefined) {
-      component.responses.forEach(response => {
-        PoguesActions.addCodeListToQuestionnaire(getCodeListById(response.codeListReference));
-      });
+      this._saveCodeList(component.responses);
     }
     // say questionnaire edidtor we're done
     this.props.close();

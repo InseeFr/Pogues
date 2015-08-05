@@ -93,6 +93,7 @@ class QuestionnaireModel extends SequenceModel {
       throw new Error('The argument must be a CodeList');
     }
     // We're only adding codeList if not present in questionnaire
+    console.log('Filtered codeList', this._codeLists._codeList.filter(cl => cl.id === codeList.id));
     let notPresent = this._codeLists._codeList.filter(cl => cl.id === codeList.id).length === 0;
     if (notPresent) {
       this._codeLists._codeList.push(codeList);
