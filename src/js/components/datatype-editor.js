@@ -47,7 +47,6 @@ var DatatypeEditor =  React.createClass({
 
 	render: function() {
 		var el = switchEditor(this.props.datatype, this._setDatatype)
-		logger.debug('Editor will be ', el)
 		return (el);
 	}
 });

@@ -13,6 +13,9 @@ var QuestionnaireUtils = require('../utils/questionnaire-utils');
 var locale = require('../stores/dictionary-store').getDictionary();
 var Logger = require('../logger/logger');
 
+import { getCodeListById } from '../stores/code-list-store'
+import PoguesActions from '../actions/pogues-actions'
+
 var logger = new Logger('ComponentEditor', 'Components');
 
 // TODO Sould we listen to Questionnaire Store ? If the questionnaire
@@ -91,15 +94,32 @@ var ComponentEditor = React.createClass({
     this._updateDeclarations();
   },
 
+  _saveCodeList: function(responses) {
+    logger.debug('Saving responses codelist(s)', responses);
+    responses.forEach(response => {
+      let isCodeListReferencePresent =
+          response.codeListReference !== undefined &&
+          response.codeListReference !== '' &&
+          response.codeListReference !== null
+      if (isCodeListReferencePresent) {
+          PoguesActions.addCodeListToQuestionnaire(getCodeListById(response.codeListReference));
+      }
+    });
+  },
+
   _save: function () {
+    //FIXME Here, we should call each subcomponent _save method
     //update component
     //FIXME : Not ok with react philosophy, only a hack
     var component = this.props.component;
     component.name = this.state.name;
     component.label = this.state.label;
-    logger.debug('Declarations object in state', this.state.declarations);
     component.declarations = this.state.declarations;
     component.controls = this.state.controls;
+    // If the component is a question, we add codelists to the questionnaire
+    if (component.responses !== undefined) {
+      this._saveCodeList(component.responses);
+    }
     // say questionnaire edidtor we're done
     this.props.close();
   },

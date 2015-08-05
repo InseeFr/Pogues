@@ -1,6 +1,9 @@
 var React = require('react');
 var locale = require('../stores/dictionary-store').getDictionary();
 var assign = require('object-assign');
+var Logger = require('../logger/logger');
+
+var logger = new Logger('CodeEditor', 'Components');
 
 var CodeEditor = React.createClass({
   propTypes: {
@@ -12,8 +15,8 @@ var CodeEditor = React.createClass({
     var code = this.props.code
     this.setState({
       existing: code ? true : false,
-      value: code.value,
-      label:  code.label
+      value: code._value,
+      label:  code._label
     })
   },
 
@@ -24,6 +27,7 @@ var CodeEditor = React.createClass({
   },
 
   _add: function () {
+    logger.debug('Adding a code');
     this.props.add(this.state)
   },
 

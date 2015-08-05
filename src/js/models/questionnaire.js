@@ -4,7 +4,7 @@ The class for a Questionnaire
 import SequenceModel from './sequence.js';
 import SurveyModel from './survey.js';
 import ComponentGroupModel from './component-group.js';
-import CodeList from './code-list';
+import CodeListModel from './code-list';
 import { stripLeadingUnderscore } from '../utils/name-utils';
 import { normalizeField } from '../utils/data-json-utils';
 
@@ -22,7 +22,10 @@ class QuestionnaireModel extends SequenceModel {
       this._componentGroups = object._componentGroups.map(function(group) {
         return new ComponentGroupModel(group);
       })
-      this._codeLists = {}
+      this._codeLists = {};
+      this._codeLists._codeListSpecification = object._codeLists._codeListSpecification;
+      this._codeLists._codeList = [];
+      object._codeLists._codeList.forEach(cl => this._codeLists._codeList.push(new CodeListModel(cl)));
     } else {
       this._agency = 'fr.insee';
       // FIXME This is temporary
@@ -30,7 +33,10 @@ class QuestionnaireModel extends SequenceModel {
       popoSurvey.name = 'POPO';
       this._survey = popoSurvey;
       this._componentGroups = [];
-      this._codeLists = {};
+      this._codeLists = {
+        _codeList: [],
+        _codeListSpecification: []
+      };
     }
   }
 
@@ -89,7 +95,13 @@ class QuestionnaireModel extends SequenceModel {
     if (!(codeList instanceof CodeListModel)) {
       throw new Error('The argument must be a CodeList');
     }
-    this._codeLists.push(codeList)
+    // We're only adding codeList if not present in questionnaire
+    let matchingCodeLists = this._codeLists._codeList.filter(cl => {
+      if (cl.id === codeList.id) return cl;
+    });
+    if (matchingCodeLists.length === 0) {
+      this._codeLists._codeList.push(codeList);
+    }
   }
 
   removeCodeListById(id) {

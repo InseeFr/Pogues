@@ -221,8 +221,7 @@ var DataUtils = {
   saveQuestionnaire: function(questionnaire) {
     logger.info('Saving questionnaire ' + questionnaire.id + ' with a PUT request');
     var targetURL = Config.baseURL + Config.persistPath + '/questionnaire/' + questionnaire.id;
-    logger.debug('Target URL is ' + targetURL);
-    logger.debug('Serialization would be', questionnaire.serialize(), JSON.parse(questionnaire.serialize()));
+    logger.debug('Target URL is ' + targetURL);    
     request
       .put(targetURL)
       .set('Content-Type', 'text/html')
