@@ -22,7 +22,10 @@ class QuestionnaireModel extends SequenceModel {
       this._componentGroups = object._componentGroups.map(function(group) {
         return new ComponentGroupModel(group);
       })
-      this._codeLists = object._codeLists;
+      this._codeLists = {};
+      this._codeLists._codeListSpecification = object._codeLists._codeListSpecification;
+      this._codeLists._codeList = [];
+      object._codeLists._codeList.forEach(cl => this._codeLists._codeList.push(new CodeListModel(cl)));
     } else {
       this._agency = 'fr.insee';
       // FIXME This is temporary
@@ -93,13 +96,9 @@ class QuestionnaireModel extends SequenceModel {
       throw new Error('The argument must be a CodeList');
     }
     // We're only adding codeList if not present in questionnaire
-    console.log('This questionnaire codelists', this._codeLists);
     let matchingCodeLists = this._codeLists._codeList.filter(cl => {
-      //FIXME the existing codelists have an _id but not an id, must fix the codelist constructor
-      console.log('Testing for matching ids', cl._id, codeList.id);
-      if (cl._id === codeList.id) return cl;
+      if (cl.id === codeList.id) return cl;
     });
-    console.log('Matching codeLists', matchingCodeLists);
     if (matchingCodeLists.length === 0) {
       this._codeLists._codeList.push(codeList);
     }
