@@ -93,9 +93,14 @@ class QuestionnaireModel extends SequenceModel {
       throw new Error('The argument must be a CodeList');
     }
     // We're only adding codeList if not present in questionnaire
-    console.log('Filtered codeList', this._codeLists._codeList.filter(cl => cl.id === codeList.id));
-    let notPresent = this._codeLists._codeList.filter(cl => cl.id === codeList.id).length === 0;
-    if (notPresent) {
+    console.log('This questionnaire codelists', this._codeLists);
+    let matchingCodeLists = this._codeLists._codeList.filter(cl => {
+      //FIXME the existing codelists have an _id but not an id, must fix the codelist constructor
+      console.log('Testing for matching ids', cl._id, codeList.id);
+      if (cl._id === codeList.id) return cl;
+    });
+    console.log('Matching codeLists', matchingCodeLists);
+    if (matchingCodeLists.length === 0) {
       this._codeLists._codeList.push(codeList);
     }
   }
