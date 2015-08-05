@@ -148,6 +148,9 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         logger.debug('Handling GET_PUBLICATION_URL action.');
         _setPublicationURL(payload.action.url);
         break;
+      case ActionTypes.ADD_CODE_LIST:
+        logger.debug('Handling ' + action.actionType);
+        _questionnaire.addCodeList(action.codeList);
       default:
         //no op;
     }

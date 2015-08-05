@@ -5,6 +5,10 @@ var CodeListModel = require('../models/code-list')
 var CodeEditor = require('./code-editor')
 var CodeCreator = require('./code-creator')
 var clr = require('../utils/code-list-repository')
+var Logger = require('../logger/logger');
+import PoguesActions from '../actions/pogues-actions'
+
+var logger = new Logger('CodeListEditor', 'Components');
 
 
 function remove(index) {
@@ -118,8 +122,9 @@ var CodeListEditor = React.createClass({
       _name: this.state.name,
       _codes: this.state.codes
     }
+    logger.debug('Saving code list with', clLiteral);
     var cl = new CodeListModel(clLiteral)
-    clr.add(cl)
+    PoguesActions.createCodeList(cl);
     this.props.after(cl.id)
   },
 

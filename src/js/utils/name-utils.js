@@ -6,7 +6,7 @@ Contains utilities functions for name manipulation.
 export const rName = /^[a-z0-9_]*$/i;
 const rNameNeg = /[^a-z0-9_]/gi;
 
-/* 
+/*
 This function create a name from a label.
 It can be use for names and labels in for questionnaires
 as well as sequences and questions.
@@ -19,8 +19,8 @@ export function stripLeadingUnderscore(stringToStrip) {
 	return /_(\w+)/.exec(stringToStrip).pop();
 }
 
-/* 
-Capitalize a string. 
+/*
+Capitalize a string.
 See here for a choice of algos : http://bit.ly/1LtxsIp
  */
 export function capitalize(str) {

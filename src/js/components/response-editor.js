@@ -7,6 +7,8 @@ var assign = require('object-assign');
 var DataypeEditor = require('./datatype-editor');
 var CodeListEditor = require('./code-list-editor')
 var clr = require('../utils/code-list-repository');
+import CodeListStore from '../stores/code-list-store'
+import { getCodeListsFromStore } from '../stores/code-list-store'
 
 var ResponseEditor = React.createClass({
 
@@ -20,7 +22,7 @@ var ResponseEditor = React.createClass({
       datatype: this.props.response.datatype,
       clRef : this.props.response.codeListReference,
       clEdition: false,
-      codeLists: clr.getAll()
+      codeLists: getCodeListsFromStore()
     })
   },
 
@@ -32,6 +34,7 @@ var ResponseEditor = React.createClass({
   },
 
   _setCodeList: function (clRef) {
+    // TODO Save the code list in the CodeListStore through the proper action
     this.setState({
       clRef: clRef
     })
@@ -41,13 +44,13 @@ var ResponseEditor = React.createClass({
   _setNewCodeList: function (clRef) {
     this._setCodeList(clRef)
     this.setState({
-      codeLists: clr.getAll(),
+      codeLists: getCodeListsFromStore(),
       clEdition: false,
       clRef: clRef
     })
   },
 
-  _createCodeList: function() {
+  _switchToCodeListEdition: function() {
     this.setState({
       clEdition: true
     })
@@ -81,7 +84,7 @@ var ResponseEditor = React.createClass({
           <CodeListPicker
               clRef={this.state.clRef || ''}
               select={this._setCodeList}
-              create={this._createCodeList}
+              create={this._switchToCodeListEdition}
               codeLists={this.state.codeLists}
               />
         </div>

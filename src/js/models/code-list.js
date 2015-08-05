@@ -16,7 +16,7 @@ class CodeListModel {
       logger.debug('CodeList created with id ', this._id);
       this._name = '';
       this._label = '';
-      this._codes = []; // codes : [{"value": 1, "label": "Oui"}, {"value": 2, "label": "Non"}]
+      this._codes = []; // codes : [{"_value": 1, "_label": "Oui"}, {"_value": 2, "_label": "Non"}]
     }
   }
 
