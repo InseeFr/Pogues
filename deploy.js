@@ -27,9 +27,9 @@ function deployToServer(deployURL, file, filePath) {
       noProxyReq
         .put(deployURL)
         .auth(authInfo.user, authInfo.password)
-        .on('error', function(err) { console.log('<!> ERROR '.bold.red, err); })
+        .on('error', function(err) { console.log('<!> ERROR '.bold.red, err, 'URL was', deployURL); })
         .on('response', function(resp) {
-          console.log('<O> Status : '.green + resp.statusCode);
+          console.log('<O> Status : '.green + resp.statusCode, 'URL was', deployURL);
           })
       );
 }

@@ -24,7 +24,7 @@ var ComponentPicker = React.createClass({
     this.setState({
       cmpntName: cmpntName
     })
-    this.props.handleChange(cmpntName)
+    this.props.handleChange(cmpntName, event);
   },
   render: function() {
     return (

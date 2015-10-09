@@ -9,7 +9,6 @@ var Logger = require('../logger/logger');
 var logger = new Logger('DatatypeEditor', 'Components');
 
 function switchEditor(datatype, setDatatype) {
-  logger.debug('Switching editor for', datatype);
     var datatypeComponent = {
       NUMERIC: <NumericDatatypeEditor
                 change={setDatatype}

@@ -24,7 +24,7 @@ var Target = React.createClass({
       questionnaire: QuestionnaireStore.getQuestionnaire()
     }
   },
-  _handleChange: function(cmpntName) {
+  _handleChange: function(cmpntName, event) {
     var status
     if (!cmpntName) {
       this.setState({
