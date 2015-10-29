@@ -73,12 +73,19 @@ var ComponentEditor = React.createClass({
   // TODO implement
   _addControl: function() {},
   _removeControl: function() {},
+
   _addGoTo: function() {
-    this.props.component.addGoTo(new GoToModel({_description: 'My funky goTo'}));
+    let goTo = new GoToModel();
+    this.props.component.addGoTo(goTo);
     this._update();
   },
   _removeGoTo: function(goTo) {
     this.props.component.removeGoTo(goTo);
+    this._update();
+  },
+  _updateGoto: function(oldGoTo, newGoTo) {
+    logger.debug('Updating a GoTo', 'Olg GoTo', oldGoTo, 'New GoTo', newGoTo);
+    this.props.component.updateGoto(oldGoTo, newGoTo);
     this._update();
   },
 
@@ -107,6 +114,11 @@ var ComponentEditor = React.createClass({
     });
   },
 
+  _saveGoTos: function(goTos) {
+    logger.debug('Saving GoTos', goTos);
+    goTos.forEach(goTo => { PoguesActions.addGoToToQuestionnaire(goTo); });
+  },
+
   _save: function () {
     //FIXME Here, we should call each subcomponent _save method
     //update component
@@ -119,6 +131,9 @@ var ComponentEditor = React.createClass({
     // If the component is a question, we add codelists to the questionnaire
     if (component.responses !== undefined) {
       this._saveCodeList(component.responses);
+    }
+    if (component.goTos !== undefined) {
+      this._saveGoTos(component.goTos);
     }
     // say questionnaire edidtor we're done
     this.props.close();
@@ -158,8 +173,12 @@ var ComponentEditor = React.createClass({
     var candidates = QuestionnaireUtils.after(questionnaire, component)
     if (goTos.length > 0) {
       goTosEls = goTos.map(function (goTo) {
-        return <GoTo candidates={candidates} delete={this._removeGoTo.bind(this, goTo)}
-               key={goTo.id} goTo={goTo}/>;
+        return <GoTo
+                  candidates={candidates}
+                  delete={this._removeGoTo.bind(this, goTo)}
+                  update={this._updateGoto}
+                  key={goTo.id}
+                  goTo={goTo}/>;
       }, this);
     } else {
       goTosEls = <span>No goTo yet</span>;

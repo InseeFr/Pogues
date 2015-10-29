@@ -43,9 +43,11 @@ var Target = React.createClass({
     } else {
       status = BEFORE
     }
-    this.props.handleChange(target)
+    //FIXME For now, we're just setting the value of the field as a ref
+    // for the ifTrue component
+    this.props.handleChange(target.id);
     this.setState({
-      target: target,
+      target: event.target.value,
       status: status
     })
   },
@@ -54,7 +56,7 @@ var Target = React.createClass({
     // TODO remove target.id from cmpntName (debugging purposes)
     var cmpntName = this.state.target ?
                       this.state.target.label + ' (' + this.state.target.id + ')' :
-                      ""
+                      "";
     var status = this.state.status
     var divCn = classNames({
         'form-group': true,

@@ -1,17 +1,21 @@
 var React = require('react');
 var GoToModel = require('../models/go-to');
 var locale = require('../stores/dictionary-store').getDictionary();
+var ExpressionModel = require('../models/expression');
 var ComponentModel = require('../models/component')
 var QuestionnaireModel = require('../models/questionnaire')
 var Target = require('./target')
+var Logger = require('../logger/logger');
 
+var logger = new Logger('GoTo', 'Components');
 
 var GoTo = React.createClass({
   propTypes: {
     goTo: React.PropTypes.instanceOf(GoToModel).isRequired,
     candidates: React.PropTypes.arrayOf(
       React.PropTypes.instanceOf(ComponentModel)).isRequired,
-    delete: React.PropTypes.func.isRequired
+    delete: React.PropTypes.func.isRequired,
+    update: React.PropTypes.func.isRequired
   },
 
   getInitialState: function() {
@@ -24,23 +28,39 @@ var GoTo = React.createClass({
     }
   },
   _handleExpressionChange: function(event) {
+    var oldGoTo = this.props.goTo;
+    var newGoTo = new GoToModel(oldGoTo);
+    newGoTo.expression = event.target.value;
+    this.props.update(oldGoTo, newGoTo);
     this.setState({
       expression: null
     })
   },
   _handleDescriptionChange: function(event) {
+    var oldGoTo = this.props.goTo;
+    var newGoTo = new GoToModel(oldGoTo);
+    newGoTo.description = event.target.value;
+    this.props.update(oldGoTo, newGoTo);
     this.setState({
       description: null
     })
   },
-  _handleIfTrueChange: function(target) {
+  _handleIfTrueChange: function(id) {
+    var oldGoTo = this.props.goTo;
+    var newGoTo = new GoToModel(oldGoTo);
+    newGoTo.ifTrue = id;
+    this.props.update(oldGoTo, newGoTo);
     this.setState({
-      ifTrue: target
+      ifTrue: value
     })
   },
-  _handleIfFalseChange: function(target) {
+  _handleIfFalseChange: function(id) {
+    var oldGoTo = this.props.goTo;
+    var newGoTo = new GoToModel(oldGoTo);
+    newGoTo.ifFalse = id;
+    this.props.update(oldGoTo, newGoTo);
     this.setState({
-      ifFalse: target
+      ifFalse: value
     });
   },
   _handleTypeChange: function(event) {
@@ -56,6 +76,7 @@ var GoTo = React.createClass({
   _save: function(event) {
     // FIXME not ok with react philosphy
     this.props.declaration.text = this.state.text;
+    this.props.ifTrue = this.state.ifTrue;
   },
 
   _delete: function() {
@@ -75,13 +96,13 @@ var GoTo = React.createClass({
           <div className="form-group">
             <div className="col-sm-12">
               <input type="text" placeholder={locale.description}
-                      className="form-control"/>
+                      className="form-control" onChange={this._handleDescriptionChange}/>
             </div>
           </div>
           <div className="form-group">
             <div className="col-sm-12">
               <input type="text" placeholder={locale.expression}
-                      className="form-control"/>
+                      className="form-control" onChange={this._handleExpressionChange}/>
             </div>
           </div>
           <Target

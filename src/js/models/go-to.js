@@ -16,8 +16,10 @@ class GoToModel {
     } else {
       this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
       this._description = '';
-      this._expression = new ExpressionModel();
-      this._ifTrue = new ComponentModel();
+      //FIXME we're turning to simple text for expression, ifTrue and ifFalse
+      //it seems inline with the Pogues Model
+      this._expression = '';
+      this._ifTrue = '';
       // GoTos are created without '_ifFalse' or '_ifTrue' member
     }
   }
@@ -54,23 +56,23 @@ class GoToModel {
   }
 
   set expression(expression) {
-    if (!(expression instanceof ExpressionModel)) {
-      throw new Error('The argument must be an Expression');
+    if (typeof expression !== 'string') {
+      throw new Error('The parameter must be a string');
     }
     this._expression = expression;
   }
 
   set ifTrue(ifTrue) {
-    if (!(ifTrue instanceof ComponentModel)) {
-      throw new Error('The argument must be a Component');
+    if (typeof ifTrue !== 'string') {
+      throw new Error('The parameter must be a string');
     }
     this._ifTrue = ifTrue;
   }
 
   // TODO Add integrity control: only one of else or next should be valued
   set ifFalse(ifFalse) {
-    if (!(ifFalse instanceof ComponentModel)) {
-      throw new Error('The argument must be a Component');
+    if (typeof ifFalse !== 'string') {
+      throw new Error('The parameter must be a string');
     }
     this._ifFalse = ifFalse;
   }

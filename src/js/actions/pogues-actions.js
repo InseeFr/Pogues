@@ -163,6 +163,13 @@ var PoguesActions = {
       actionType: PoguesConstants.ActionTypes.ADD_CODE_LIST,
       codeList: codeList
     });
+  },
+  addGoToToQuestionnaire: function(goTo) {
+    logger.info('Add goto action', goTo);
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.ADD_GOTO,
+      goTo: goTo
+    });
   }
 };
 
