@@ -197,6 +197,16 @@ class ComponentModel {
     }
   }
 
+  updateGoto(oldGoto, newGoTo) {
+    // Replace an existing goTo by a new one
+    var index = this._goTos.indexOf(oldGoto);
+    if (index > -1) {
+      this._goTos.splice(index,1,newGoTo);
+    } else {
+      throw new Error('GoTo not in component');
+    }
+  }
+
   addGoTos(goTos) {
     if (!(Array.isArray(goTos))) throw new Error('The argument must be an array');
     // Save current size in case something goes wrong
