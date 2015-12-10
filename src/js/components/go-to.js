@@ -51,7 +51,7 @@ var GoTo = React.createClass({
     newGoTo.ifTrue = id;
     this.props.update(oldGoTo, newGoTo);
     this.setState({
-      ifTrue: value
+      ifTrue: id
     })
   },
   _handleIfFalseChange: function(id) {
@@ -60,7 +60,7 @@ var GoTo = React.createClass({
     newGoTo.ifFalse = id;
     this.props.update(oldGoTo, newGoTo);
     this.setState({
-      ifFalse: value
+      ifFalse: id
     });
   },
   _handleTypeChange: function(event) {

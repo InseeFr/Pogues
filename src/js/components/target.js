@@ -45,18 +45,19 @@ var Target = React.createClass({
     }
     //FIXME For now, we're just setting the value of the field as a ref
     // for the ifTrue component
-    this.props.handleChange(target.id);
+    if (target !== null) this.props.handleChange(target.id) ;
     this.setState({
       target: event.target.value,
       status: status
     })
   },
   render: function() {
-
-    // TODO remove target.id from cmpntName (debugging purposes)
-    var cmpntName = this.state.target ?
-                      this.state.target.label + ' (' + this.state.target.id + ')' :
-                      "";
+    var componentId;
+    if (this.state.target) {
+      componentId = QuestionnaireUtils.getComponentByName(this.state.questionnaire, this.state.target).id;
+    } else {
+      componentId = '';
+    }
     var status = this.state.status
     var divCn = classNames({
         'form-group': true,
@@ -84,7 +85,7 @@ var Target = React.createClass({
         </div>
         <div className="col-sm-4">
           <input disabled className="form-control"
-            value={cmpntName}/>
+            value={componentId}/>
         </div>
       </div>
     );
