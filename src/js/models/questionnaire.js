@@ -5,8 +5,6 @@ import SequenceModel from './sequence.js';
 import SurveyModel from './survey.js';
 import ComponentGroupModel from './component-group.js';
 import CodeListModel from './code-list';
-import { stripLeadingUnderscore } from '../utils/name-utils';
-import { normalizeField } from '../utils/data-json-utils';
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {
