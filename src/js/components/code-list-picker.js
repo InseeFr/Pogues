@@ -19,7 +19,6 @@ var CodeListPicker = React.createClass({
   },
 
   render: function() {
-    // TODO implement code list selection
     return (
       <div className="col-sm-4">
         <select
