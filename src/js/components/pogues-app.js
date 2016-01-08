@@ -34,6 +34,7 @@ var PoguesApp = React.createClass({
   componentDidMount: function() {
     AppStateStore.addChangeListener(this._onChange);
     ConfigStore.addChangeListener(this._onChange);
+    PoguesActions.getExternalCodeLists();
   },
   componentWillUnmount: function() {
     AppStateStore.removeChangeListener(this._onChange);

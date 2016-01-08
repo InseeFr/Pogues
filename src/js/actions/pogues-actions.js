@@ -170,6 +170,12 @@ var PoguesActions = {
       actionType: PoguesConstants.ActionTypes.ADD_GOTO,
       goTo: goTo
     });
+  },
+  getExternalCodeLists: function() {
+    logger.info('Get external code lists action');
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.GET_EXTERNAL_CODELISTS
+    });
   }
 };
 

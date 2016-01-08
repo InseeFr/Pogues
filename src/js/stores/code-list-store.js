@@ -5,6 +5,7 @@ import CodeListModel from '../models/code-list'
 import CodeListSpecificationModel from '../models/code-list-specification'
 import Logger from '../logger/logger'
 import PoguesConstants from '../constants/pogues-constants'
+import DataUtils from '../utils/data-utils'
 
 const CHANGE_EVENT = "change";
 const logger = new Logger('CodeListStore', 'Stores');
@@ -74,6 +75,8 @@ const CodeListStore = assign({}, EventEmitter.prototype,  {
       case ActionTypes.CREATE_CODE_LIST:
         _codeLists.push(action.codeList);
         break;
+      case ActionTypes.GET_EXTERNAL_CODELISTS:
+        DataUtils.getExternalCodeLists();
       default:
         //no-op
     }
