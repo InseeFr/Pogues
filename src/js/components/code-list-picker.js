@@ -30,7 +30,12 @@ var CodeListPicker = React.createClass({
           <option value={'_new'}>{locale.newCl}</option>
           {
             this.props.codeLists.map(function (cl) {
-              return <option value={cl.id}>{cl.label}</option>
+              let icon = cl instanceof CodeListModel ? "[U]" : "[R]";
+              return (
+                <option value={cl.id}>
+                  {icon} {cl.label}
+                </option>
+              );
             })
           }
         </select>
