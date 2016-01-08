@@ -176,6 +176,13 @@ var PoguesActions = {
     PoguesDispatcher.handleViewAction({
       actionType: PoguesConstants.ActionTypes.GET_EXTERNAL_CODELISTS
     });
+  },
+  storeExternalCodeLists: function(codeLists) {
+    logger.info('Store external code lists action', codeLists);
+    PoguesDispatcher.handleViewAction({
+      actionType: PoguesConstants.ActionTypes.STORE_EXTERNAL_CODELISTS,
+      codeLists: codeLists
+    });
   }
 };
 

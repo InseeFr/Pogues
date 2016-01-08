@@ -44,10 +44,11 @@ _codeLists.push(new CodeListModel({
   ]
 }));
 
-_codeLists.push(new CodeListSpecificationModel({
-  _id: 'cl_naf',
-  _label: 'NAF',
-  _uri: 'http://naf.naf'}));
+function storeCodeListSpecifications(codeLists) {
+  codeLists.forEach((cl) => {
+    _codeLists.push(new CodeListSpecificationModel(cl));
+  });
+}
 
 export function getCodeListsFromStore() {
   return _codeLists;
@@ -77,6 +78,8 @@ const CodeListStore = assign({}, EventEmitter.prototype,  {
         break;
       case ActionTypes.GET_EXTERNAL_CODELISTS:
         DataUtils.getExternalCodeLists();
+      case ActionTypes.STORE_EXTERNAL_CODELISTS:
+        storeCodeListSpecifications(action.codeLists);
       default:
         //no-op
     }

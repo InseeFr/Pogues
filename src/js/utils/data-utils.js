@@ -265,7 +265,7 @@ var DataUtils = {
   },
 
   getExternalCodeLists: function() {
-    let repoURL = "http://dvrmessnclas01.ad.insee.intra:8080/sparql?query=PREFIX+skos%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0APREFIX+xkos%3A%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fxkos%23%3E%0D%0A+%0D%0ASELECT+%3Fsigle+%3Fintitule+WHERE+%7B%0D%0A+%3Fscheme+a+skos%3AConceptScheme+%3B+xkos%3AnumberOfLevels+%3Fnumber+%3B+skos%3Anotation+%3Fsigle+%3B+skos%3AprefLabel+%3Fintitule+.%0D%0A%7D%0D%0A&_=1452084319865&max=500";
+    let repoURL = "http://dvrmessnclas01.ad.insee.intra:8080/sparql?query=PREFIX+skos%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0APREFIX+xkos%3A%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fxkos%23%3E%0D%0A+%0D%0ASELECT+%3Fniveau+%3Flabel+WHERE+%7B%0D%0A+%3Fniveau+a+xkos%3AClassificationLevel+%3B+skos%3AprefLabel+%3Flabel+.%0D%0A%7D+ORDER+BY+%3Flabel%0D%0A&max=500";
     logger.info('Fetching codelists from repo');
     logger.debug('URL is', repoURL);
     request
@@ -274,7 +274,15 @@ var DataUtils = {
       .end(function(err, res) {
         if (res.ok) {
           logger.debug('data fetched is', res.body);
-          // TODO PoguesActions.storeExternalCodeList(res.body.results);
+          let data = res.body.results.bindings;
+          let rawCodeListSpecifications = data.map((entry) => {
+            return {
+              _id:123,
+              _uri: entry.niveau.value,
+              _label: entry.label.value
+            };
+          });
+          PoguesActions.storeExternalCodeLists(rawCodeListSpecifications);
         } else {
           logger.error('Fail to fetch external code lists, HTTP status is', res.status);
         }
