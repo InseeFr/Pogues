@@ -5,6 +5,7 @@ import SequenceModel from './sequence.js';
 import SurveyModel from './survey.js';
 import ComponentGroupModel from './component-group.js';
 import CodeListModel from './code-list';
+import CodeListSpecificationModel from './code-list-specification';
 
 class QuestionnaireModel extends SequenceModel {
   constructor(object) {
@@ -60,16 +61,28 @@ class QuestionnaireModel extends SequenceModel {
   }
 
   addCodeList(codeList) {
-    if (!(codeList instanceof CodeListModel)) {
-      throw new Error('The argument must be a CodeList');
+    if (!(codeList instanceof CodeListModel) &&
+        !(codeList instanceof CodeListSpecificationModel)) {
+      throw new Error('The argument must be a CodeList or a CodeListSpecification');
     }
-    // We're only adding codeList if not present in questionnaire
-    let matchingCodeLists = this._codeLists._codeList.filter(cl => {
-      if (cl.id === codeList.id) return cl;
-    });
-    if (matchingCodeLists.length === 0) {
-      this._codeLists._codeList.push(codeList);
+
+    if (codeList instanceof CodeListModel) {
+      // We're only adding codeList if not present in questionnaire
+      let matchingCodeLists = this._codeLists._codeList.filter(cl => {
+        if (cl.id === codeList.id) return cl;
+      });
+      if (matchingCodeLists.length === 0) {
+        this._codeLists._codeList.push(codeList);
+      }
+    } else if (codeList instanceof CodeListSpecificationModel) {
+      let matchingCodeListsSpec = this._codeLists._codeListSpecification.filter(cl => {
+        if (cl.id === codeList.id) return cl;
+      });
+      if (matchingCodeListsSpec.length === 0) {
+        this._codeLists._codeListSpecification.push(codeList);
+      }
     }
+
   }
 
   removeCodeListById(id) {

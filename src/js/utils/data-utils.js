@@ -277,7 +277,7 @@ var DataUtils = {
           let data = res.body.results.bindings;
           let rawCodeListSpecifications = data.map((entry) => {
             return {
-              _id:123,
+              _id:(+new Date() + Math.floor(Math.random() * 999999)).toString(36),
               _uri: entry.niveau.value,
               _label: entry.label.value
             };
