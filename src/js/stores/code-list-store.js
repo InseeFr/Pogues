@@ -2,6 +2,7 @@ import EventEmitter from 'events'
 import assign from 'object-assign'
 import PoguesDispatcher from '../dispatchers/pogues-dispatcher'
 import CodeListModel from '../models/code-list'
+import CodeListSpecificationModel from '../models/code-list-specification'
 import Logger from '../logger/logger'
 import PoguesConstants from '../constants/pogues-constants'
 
@@ -41,6 +42,11 @@ _codeLists.push(new CodeListModel({
     {_value: 0, _label: 'Non'}
   ]
 }));
+
+_codeLists.push(new CodeListSpecificationModel({
+  _id: 'cl_naf',
+  _label: 'NAF',
+  _uri: 'http://naf.naf'}));
 
 export function getCodeListsFromStore() {
   return _codeLists;
