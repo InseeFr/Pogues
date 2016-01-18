@@ -58,7 +58,7 @@ var _dictionary = {
   defineGoTo: {'en': 'Define a goto', 'fr': 'Définir une redirection'},
   maximum: {'en': 'Maximum', 'fr': 'Maximum'},
   minimum: {'en': 'Minimum', 'fr': 'Minimum'},
-  decimals: {'en': 'Decoùams', 'fr': 'Précision'},
+  decimals: {'en': 'Precision', 'fr': 'Précision'},
   edit_config: {'en': 'Edit config', 'fr': 'Éditer les paramètres'},
   description: {'en': 'Description', 'fr': 'Description'},
   expression: {'en': 'Condition', 'fr': 'Condition'},
