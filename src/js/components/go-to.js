@@ -101,8 +101,11 @@ var GoTo = React.createClass({
           </div>
           <div className="form-group">
             <div className="col-sm-12">
-              <input type="text" placeholder={locale.expression}
-                      className="form-control" onChange={this._handleExpressionChange}/>
+              <input type="text"
+                     placeholder={locale.expression}
+                     className="form-control"
+                     value={this.state.expression}
+                     onChange={this._handleExpressionChange}/>
             </div>
           </div>
           <Target
