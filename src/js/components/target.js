@@ -54,7 +54,9 @@ var Target = React.createClass({
   render: function() {
     var componentId;
     if (this.state.target) {
-      componentId = QuestionnaireUtils.getComponentByName(this.state.questionnaire, this.state.target).id;
+      console.error('TARGET', this.state.target);
+      //componentId = QuestionnaireUtils.getComponentByName(this.state.questionnaire, this.state.target).id;
+      componentId = this.state.target;
     } else {
       componentId = '';
     }
