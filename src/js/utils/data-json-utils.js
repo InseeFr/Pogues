@@ -101,11 +101,9 @@ export default function serializeQuestionnaire(questionnaire) {
 }
 
 function serializeObject(obj) {
-  console.log('SERIALIZING', obj);
   let o = {};
   for (let i in Object.keys(obj)) {
     let field = Object.keys(obj)[i];
-    console.log('FIELD IS', field);
     o[normalizeField(field)] = factory[MAPPING[field]](field, obj);
   }
   return o;
