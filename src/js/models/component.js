@@ -22,7 +22,7 @@ class ComponentModel {
       this._controls = object._controls.map(function(control) {
         return new ControlModel(control);
       });
-      this._goTos = object._controls.map(function(goTo) {
+      this._goTos = object._goTos.map(function(goTo) {
         return new GoToModel(goTo);
       });
 
@@ -36,19 +36,7 @@ class ComponentModel {
     }
   }
 
-  serialize() {
-    let o = {};
-    // Handling simple fields
-    let simpleFields = Object.keys(this)
-                            .filter(k => SIMPLE_FIELDS.indexOf(k) > -1);
-    simpleFields.forEach(simpleField => o[normalizeField(simpleField)] = this[simpleField]);
-    // Handling collection fields
-    let collectionFields = Object.keys(this)
-                                .filter(k => COLLECTION_FIELDS.indexOf(k) > -1);
-    let finals = collectionFields.map(k => this[k].map(klass => klass.serialize()));
-    collectionFields.forEach(collField => o[normalizeField(collField)] = this[collField]);
-    return o;
-  }
+
 
   get id() {
     return this._id;
