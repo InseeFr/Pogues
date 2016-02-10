@@ -45,7 +45,8 @@
     "test": "jest",
     "es6toes5": "gulp es6toes5",
     "browsersync": "browser-sync start --server --no-open --files 'src/index.html,src/js/pogues.js'",
-    "watchify": "watchify -d -t babelify src/js/main.js -o src/js/pogues.js"
+    "watchify": "watchify -d -t babelify src/js/main.js -o src/js/pogues.js",
+    "deploy": "node deploy.js"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
