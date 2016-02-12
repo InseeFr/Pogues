@@ -183,13 +183,6 @@ var PoguesActions = {
       actionType: PoguesConstants.ActionTypes.STORE_EXTERNAL_CODELISTS,
       codeLists: codeLists
     });
-  },
-  deleteGoTo: function(goTo) {
-    logger.info('Delete GoTo with id :', goTo.id);
-    PoguesDispatcher.handleViewAction({
-      actionType: PoguesConstants.ActionTypes.DELETE_GOTO,
-      goTo: goTo
-    });
   }
 };
 

@@ -16,11 +16,12 @@ class GoToDeleteButton extends React.Component {
     super(props);
     // The GoTo we want to delete
     this.target = props.target;
+    this.delete = props.delete;
   }
 
   _handleClick() {
     logger.debug(`Target GoTo id ${this.target.id}`);
-    PoguesActions.deleteGoTo(this.target);
+    this.delete();
   }
 
   render() {
@@ -35,6 +36,11 @@ class GoToDeleteButton extends React.Component {
     );
   }
 }
+
+GoToDeleteButton.propTypes = {
+  target: React.PropTypes.instanceOf(GoToModel),
+  delete: React.PropTypes.func
+};
 
 var GoTo = React.createClass({
   propTypes: {
@@ -107,7 +113,6 @@ var GoTo = React.createClass({
   },
 
   _delete: function() {
-    // FIXME not ok with react philosphy
     this.props.delete();
   },
 
@@ -146,7 +151,7 @@ var GoTo = React.createClass({
                   initialTarget={this.state.ifFalse}
                   candidates={this.props.candidates}/>
         </div>
-        <GoToDeleteButton target={this.props.goTo} />
+        <GoToDeleteButton target={this.props.goTo} delete={this.props.delete}/>
       </div>
   )}
 
