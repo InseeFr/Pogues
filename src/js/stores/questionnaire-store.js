@@ -153,6 +153,8 @@ var QuestionnaireStore = assign({}, EventEmitter.prototype, {
         _questionnaire.addCodeList(action.codeList);
       case ActionTypes.ADD_GOTO:
         logger.debug('Handling' + action.actionType);
+      case ActionTypes.DELETE_GOTO:
+        logger.debug('Handling' + action.actionType);
       default:
         //no op;
     }

@@ -7,7 +7,34 @@ var QuestionnaireModel = require('../models/questionnaire')
 var Target = require('./target')
 var Logger = require('../logger/logger');
 
+import PoguesActions from '../actions/pogues-actions'
+
 var logger = new Logger('GoTo', 'Components');
+
+class GoToDeleteButton extends React.Component {
+  constructor(props) {
+    super(props);
+    // The GoTo we want to delete
+    this.target = props.target;
+  }
+
+  _handleClick() {
+    logger.debug(`Target GoTo id ${this.target.id}`);
+    PoguesActions.deleteGoTo(this.target);
+  }
+
+  render() {
+    return (
+      <div>
+        <button type="button"
+                className="btn btn-danger"
+                onClick={this._handleClick.bind(this)}>
+                {locale.deleteGoTo}
+        </button>
+      </div>
+    );
+  }
+}
 
 var GoTo = React.createClass({
   propTypes: {
@@ -95,8 +122,10 @@ var GoTo = React.createClass({
         <div className="form-horizontal">
           <div className="form-group">
             <div className="col-sm-12">
-              <input type="text" placeholder={locale.description}
-                      className="form-control" onChange={this._handleDescriptionChange}/>
+              <input type="text"
+                     placeholder={locale.description}
+                     className="form-control"
+                     onChange={this._handleDescriptionChange}/>
             </div>
           </div>
           <div className="form-group">
@@ -108,17 +137,16 @@ var GoTo = React.createClass({
                      onChange={this._handleExpressionChange}/>
             </div>
           </div>
-          <Target
-            text={locale.ifTrue}
-            handleChange={this._handleIfTrueChange}
-            initialTarget={this.state.ifTrue}
-            candidates={this.props.candidates}/>
-          <Target
-            text={locale.ifFalse}
-            handleChange={this._handleIfFalseChange}
-            initialTarget={this.state.ifFalse}
-            candidates={this.props.candidates}/>
+          <Target text={locale.ifTrue}
+                  handleChange={this._handleIfTrueChange}
+                  initialTarget={this.state.ifTrue}
+                  candidates={this.props.candidates}/>
+          <Target text={locale.ifFalse}
+                  handleChange={this._handleIfFalseChange}
+                  initialTarget={this.state.ifFalse}
+                  candidates={this.props.candidates}/>
         </div>
+        <GoToDeleteButton target={this.props.goTo} />
       </div>
   )}
 
