@@ -6,10 +6,6 @@ import ControlModel from './control.js';
 import GoToModel from './go-to.js';
 import { normalizeField } from '../utils/data-json-utils';
 
-const SIMPLE_FIELDS = ['_id', '_name', '_label'];
-const CLASS_FIELDS = [];
-const COLLECTION_FIELDS = ['_declarations'];
-
 class ComponentModel {
   constructor(object) {
     if (object) {
