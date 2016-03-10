@@ -1,16 +1,16 @@
 /*
-A CodeListSpecification is a reference to an external codelist, the reference being an URI.
+A CodeListSpecification is a reference to an external codelist, the reference being an retrievalQuery.
 */
 
 class CodeListSpecificationModel {
   constructor(object) {
     if(object) {
       this._id = object._id;
-      this._uri = object._uri;
+      this._retrievalQuery = object._retrievalQuery;
       this._label = object._label;
     } else {
       this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-      this._uri = '';
+      this._retrievalQuery = '';
       this._label = '';
     }
   }
@@ -19,8 +19,8 @@ class CodeListSpecificationModel {
     return this._id;
   }
 
-  get uri() {
-    return this._uri;
+  get retrievalQuery() {
+    return this._retrievalQuery;
   }
 
   get label() {
@@ -34,13 +34,13 @@ class CodeListSpecificationModel {
     this._id = id;
   }
 
-  set uri(uri) {
-    if (typeof uri !== 'string') {
+  set retrievalQuery(retrievalQuery) {
+    if (typeof retrievalQuery !== 'string') {
       throw new Error('The parameter must be a string');
     }
-    this._uri = uri;
+    this._retrievalQuery = retrievalQuery;
   }
-  
+
   set label(label) {
     if (typeof label !== 'string') {
       throw new Error('The parameter must be a string');
