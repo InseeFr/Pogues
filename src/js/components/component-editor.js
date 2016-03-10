@@ -47,6 +47,7 @@ var ComponentEditor = React.createClass({
       goTos: component.goTos
     });
   },
+
   _handleNameChange: function(event) {
     this.setState({
       name: event.target.value
@@ -75,11 +76,13 @@ var ComponentEditor = React.createClass({
   _removeControl: function() {},
 
   _addGoTo: function() {
+    logger.debug('Adding a GoTo, component GoTos are :', this.props.component.goTos);
     let goTo = new GoToModel();
     this.props.component.addGoTo(goTo);
     this._update();
   },
   _removeGoTo: function(goTo) {
+    logger.debug('Removing goTo', goTo);
     this.props.component.removeGoTo(goTo);
     this._update();
   },

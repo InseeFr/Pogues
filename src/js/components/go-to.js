@@ -20,7 +20,7 @@ class GoToDeleteButton extends React.Component {
   }
 
   _handleClick() {
-    logger.debug(`Target GoTo id ${this.target.id}`);
+    logger.debug(`Target to-be-remove GoTo id is : ${this.target.id}`);
     this.delete();
   }
 
