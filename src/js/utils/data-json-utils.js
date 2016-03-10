@@ -57,7 +57,7 @@ const MAPPING = {
   '_typeName': 'SIMPLE',
   '_value': 'SIMPLE',
   '_visualizationHint': 'SIMPLE',
-  '_uri': 'SIMPLE',
+  '_retrievalQuery': 'SIMPLE',
   '_next': 'CLASS',
   '_survey': 'CLASS',
   '_children': 'ARRAY',
