@@ -8,10 +8,12 @@ class CodeListSpecificationModel {
       this._id = object._id;
       this._retrievalQuery = object._retrievalQuery;
       this._label = object._label;
+      this._name = object._name;
     } else {
       this._id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
       this._retrievalQuery = '';
       this._label = '';
+      this._name = '';
     }
   }
 
@@ -25,6 +27,10 @@ class CodeListSpecificationModel {
 
   get label() {
     return this._label;
+  }
+
+  get name() {
+    return this._name;
   }
 
   set id(id) {
@@ -46,6 +52,13 @@ class CodeListSpecificationModel {
       throw new Error('The parameter must be a string');
     }
     this._label = label;
+  }
+
+  set name(name) {
+    if (typeof name !== 'string') {
+      throw new Error('The parameter must be a string');
+    }
+    this._name = name;
   }
 }
 

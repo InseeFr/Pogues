@@ -278,8 +278,9 @@ var DataUtils = {
           let rawCodeListSpecifications = data.map((entry) => {
             return {
               _id:(+new Date() + Math.floor(Math.random() * 999999)).toString(36),
-              _uri: entry.niveau.value,
-              _label: entry.label.value
+              _retrievalQuery: entry.niveau.value,
+              _label: entry.label.value,
+              _name: 'donne-moi-un-nom'
             };
           });
           PoguesActions.storeExternalCodeLists(rawCodeListSpecifications);
