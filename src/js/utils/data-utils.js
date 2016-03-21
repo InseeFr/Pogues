@@ -265,11 +265,23 @@ var DataUtils = {
   },
 
   getExternalCodeLists: function() {
-    let repoURL = "http://dvrmessnclas01.ad.insee.intra:8080/sparql?query=PREFIX+skos%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0APREFIX+xkos%3A%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fxkos%23%3E%0D%0A+%0D%0ASELECT+%3Fniveau+%3Flabel+WHERE+%7B%0D%0A+%3Fniveau+a+xkos%3AClassificationLevel+%3B+skos%3AprefLabel+%3Flabel+.%0D%0A%7D+ORDER+BY+%3Flabel%0D%0A&max=500";
+    let repo = 'http://dvrmessnclas01.ad.insee.intra:8080';
+    let query = `
+    PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+    PREFIX xkos:<http://rdf-vocabulary.ddialliance.org/xkos#>
+
+    SELECT ?niveau ?label ?retrievalQuery WHERE {
+      ?niveau a xkos:ClassificationLevel ; skos:prefLabel ?label .
+      BIND(CONCAT("SELECT ?code ?intitule  WHERE {<", STR(?niveau), "> skos:member ?poste . ?poste skos:notation ?code ; skos:prefLabel ?intitule .} ORDER BY ?code") AS ?retrievalQuery)
+    }
+    `;
+    let url = `${repo}/sparql?query=${encodeURIComponent(query)}`;
+
     logger.info('Fetching codelists from repo');
-    logger.debug('URL is', repoURL);
+    logger.debug('URL is', url);
+
     request
-      .get(repoURL)
+      .get(url)
       .set('Accept', 'application/json')
       .end(function(err, res) {
         if (res.ok) {
@@ -278,7 +290,7 @@ var DataUtils = {
           let rawCodeListSpecifications = data.map((entry) => {
             return {
               _id:(+new Date() + Math.floor(Math.random() * 999999)).toString(36),
-              _retrievalQuery: entry.niveau.value,
+              _retrievalQuery: entry.retrievalQuery.value,
               _label: entry.label.value,
               _name: 'donne-moi-un-nom'
             };
