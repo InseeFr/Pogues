@@ -6,7 +6,8 @@ var CodeEditor = require('./code-editor')
 var CodeCreator = require('./code-creator')
 var clr = require('../utils/code-list-repository')
 var Logger = require('../logger/logger');
-import PoguesActions from '../actions/pogues-actions'
+import PoguesActions from '../actions/pogues-actions';
+import { nameFromLabel } from '../utils/name-utils';
 
 var logger = new Logger('CodeListEditor', 'Components');
 
@@ -118,6 +119,7 @@ var CodeListEditor = React.createClass({
 
   _save: function () {
     var clLiteral = {
+      _id: nameFromLabel(this.state.name) + this.state.codes.length.toString(),
       _label: this.state.label,
       _name: this.state.name,
       _codes: this.state.codes
