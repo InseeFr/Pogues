@@ -16,6 +16,7 @@ var DateDatatypeModel = require('../models/date-datatype');
 var NumericDatatypeModel = require('../models/numeric-datatype');
 var Logger = require('../logger/logger');
 import serializeQuestionnaire from './data-json-utils';
+import { nameFromLabel } from './name-utils';
 
 var logger = new Logger('DataUtils', 'Utils');
 
@@ -289,10 +290,10 @@ var DataUtils = {
           let data = res.body.results.bindings;
           let rawCodeListSpecifications = data.map((entry) => {
             return {
-              _id:(+new Date() + Math.floor(Math.random() * 999999)).toString(36),
+              _id: entry.niveau.value,
               _retrievalQuery: entry.retrievalQuery.value,
               _label: entry.label.value,
-              _name: 'donne-moi-un-nom'
+              _name: nameFromLabel(entry.label.value)
             };
           });
           PoguesActions.storeExternalCodeLists(rawCodeListSpecifications);
