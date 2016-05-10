@@ -273,7 +273,7 @@ var DataUtils = {
 
     SELECT ?niveau ?label ?retrievalQuery WHERE {
       ?niveau a xkos:ClassificationLevel ; skos:prefLabel ?label .
-      BIND(CONCAT("SELECT ?code ?intitule  WHERE {<", STR(?niveau), "> skos:member ?poste . ?poste skos:notation ?code ; skos:prefLabel ?intitule .} ORDER BY ?code") AS ?retrievalQuery)
+      BIND(CONCAT("PREFIX skos:<http://www.w3.org/2004/02/skos/core#> PREFIX xkos:<http://rdf-vocabulary.ddialliance.org/xkos#> SELECT ?code ?intitule  WHERE {<", STR(?niveau), "> skos:member ?poste . ?poste skos:notation ?code ; skos:prefLabel ?intitule .} ORDER BY ?code") AS ?retrievalQuery)
     }
     `;
     let url = `${repo}/sparql?query=${encodeURIComponent(query)}`;
