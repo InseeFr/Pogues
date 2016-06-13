@@ -47,7 +47,7 @@ var QuestionnaireOutlook = React.createClass({
   },
   componentDidMount: function() {
     QuestionnaireStore.addChangeListener(this._onChange);
-     $(this.refs.affix.getDOMNode())
+     $(this.affix)
       .affix({
         offset: {
           top: 100
@@ -60,7 +60,7 @@ var QuestionnaireOutlook = React.createClass({
     logger.debug('Rendering with state ', this.state);
     return (
       <div className="row">
-        <nav ref="affix" className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+        <nav ref={ref => this.affix = ref} className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
           {recursiveOutlook(this.state.questionnaire.children, true)}
         </nav>
       </div>
