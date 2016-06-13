@@ -1,11 +1,12 @@
-var React = require('react');
-var QuestionnaireListStore = require('../stores/questionnaire-list-store');
-var PoguesActions = require('../actions/pogues-actions');
-var AppStateStore = require('../stores/appstate-store');
-var DataUtils = require('../utils/data-utils');
-var locale = require('../stores/dictionary-store').getDictionary();
-var _ = require('lodash');
-var Logger = require('../logger/logger');
+import React from 'react';
+import QuestionnaireListStore from '../stores/questionnaire-list-store';;
+import PoguesActions from '../actions/pogues-actions';
+import AppStateStore from '../stores/appstate-store';;
+import DataUtils from '../utils/data-utils';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import _ from 'lodash';
+import Logger from '../logger/logger';
 
 var logger = new Logger('QuestionnaireList', 'Components');
 
@@ -84,4 +85,4 @@ var QuestionnaireList = React.createClass({
   }
 });
 
-module.exports = QuestionnaireList;
+export default QuestionnaireList;
