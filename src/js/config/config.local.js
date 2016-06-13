@@ -2,22 +2,22 @@
 //urls
 var config = {
   dev :  true,
-  baseURL : 'http://s90datalift.ad.insee.intra:9050',
+  baseURL : 'http://localhost:4000',
   poguesPath : '/exist/pogues',
-  persistPath : '/exist/restxq',
-  stromaePath : '/exist/stromae/publisher',
+  persistPath : '',
+  stromaePath : '/stromae/publisher', 
   log : {
     level : 'DEBUG',
     activeNamespaces : ['Components', 'Actions', 'Stores', 'Utils', 'Models']
   },
   codeLists: {
-    //repoURLCList not implemented
-    repoURLSpecs: makeRepoURLSpecs(),
+    repoURLSpecs: 'http://localhost:4000/repo/specs',
+    repoURLCList: 'http://localhost:4000/repo/clist'
   }
 }
 
-//TODO see if this all the parameters should be exposed and modifiabl//from the
-// config editor
+//TODO see if this all the parameters should be exposed and modifiable
+//from the config editor
 function makeRepoURLSpecs() {
   const repoURL = 'http://dvrmessnclas01.ad.insee.intra:80s80'
   const query = `
@@ -30,6 +30,5 @@ function makeRepoURLSpecs() {
     // }`
   return `${repoURL}/sparql?query=${encodeURIComponent(query)}`
 }
-
 
 export default config
