@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import Target from './target'
 import Logger from '../logger/logger';
-import { chronology } from '../utils/tree-utils'
 import { GOTO_CONSISTENCY} from '../constants/pogues-constants'
 
 const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
