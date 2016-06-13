@@ -56,6 +56,7 @@
     "react-tools": "^0.12.2",
     "reactify": "^1.0.0",
     "request": "^2.57.0",
+    "restify": "^4.1.0",
     "style-loader": "^0.13.1",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^3.1.1",
