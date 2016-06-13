@@ -63,6 +63,3 @@ gulp.task('default',
   ['webpack',
   'copy:index']);
 
-gulp.task('watch', function() {
-	gulp.watch('src/**/*.*', ['default']);
-});
