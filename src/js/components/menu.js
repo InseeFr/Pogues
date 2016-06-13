@@ -129,7 +129,7 @@ function Menu({
   clickToSave, clickToPublish, clickToEditConfig, handleChange, locale }) {
   logger.info('Rendering the menu for the view : ' + view);
   // TODO: handle connected user properly
-  let handleFilter
+  let handleFilter, searchField
   // child components, depending of the view (undefined when not relevant)
   let saveButton, publishButton, publishLink, questionnaireTitle
   const configButton = <ConfigButton clickToEditConfig={clickToEditConfig} /> 
@@ -143,6 +143,10 @@ function Menu({
   } else {
     handleFilter = handleQuestionnaireListFilter
     questionnaireTitle = <span className="navbar-text">{locale.tagline}</span>
+  }
+  if (view === QUESTIONNAIRE || view === PICKER) {
+    searchField = <SearchField filter={filter}
+      handleChange={handleFilter} locale={locale} />
   }
   publishLink = url ? 
     <PublishLink publishURL={url} publishTimestamp={timestamp}/> : ''
@@ -171,8 +175,7 @@ function Menu({
         <div className="collapse navbar-collapse"
           id="bs-example-navbar-collapse-1">
           { questionnaireTitle }
-          <SearchField filter={filter}
-            handleChange={handleFilter} locale={locale} />
+          { searchField }
           { saveButton }
           { publishButton }
           { publishLink }
