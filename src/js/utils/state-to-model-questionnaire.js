@@ -50,7 +50,7 @@ export default function toModel(state, qrId) {
 
   // Switch from local id to remoteId if this id is set (set when the
   // questionnaire is creater on the server)
-  if (qr.remoteId) cmpnt._id = qr.remoteId
+  if (qr.remoteId) cmpnt.id = qr.remoteId
   
   //TODO only serialize code list specifications that are really used within
   //the questionnaire (we should take care before serialization to load the
