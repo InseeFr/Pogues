@@ -1,11 +1,9 @@
 var gulp = require('gulp');
 var del = require('del');
-var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-var babelify = require('babelify');
 var rename = require('gulp-rename');
-
-
+var webpack = require('webpack-stream');
+var webpackConfig = require('./webpack.production.config');
 // DEL
 gulp.task('del:dist', function (callback) {
   del([
@@ -40,40 +38,29 @@ gulp.task('build:copy:fonts', ['del:dist'], function() {
 		.pipe(gulp.dest('./dist/fonts'));
 });
 
-gulp.task('build:browserify', ['del:dist'], function() {
-	var bundler = browserify('./src/js/main.js');
-	bundler.transform(babelify);
-
-	return bundler.bundle()
-		.pipe(source('pogues.js'))
-		.pipe(gulp.dest('./dist/js'));
-});
-
 // SIMPLE
 gulp.task('copy:index', function() {
 	gulp.src('./src/index.html')
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('browserify', function() {
-	var bundler = browserify('./src/js/main.js');
-	bundler.transform(babelify);
 
-	return bundler.bundle()
-		.pipe(source('pogues.js'))
-		.pipe(gulp.dest('./dist/js'));
+gulp.task('build:webpack', function() {
+  return gulp.src('./src/js/main.js')
+    .pipe(webpack(webpackConfig))
+    .pipe(gulp.dest('dist/js/'));
 });
 
 gulp.task('build',
   ['del:dist',
-   'build:browserify',
+   'build:webpack',
    'build:copy:index',
    'build:copy:css',
    'build:copy:img',
    'build:copy:fonts']);
 
 gulp.task('default',
-  ['browserify',
+  ['webpack',
   'copy:index']);
 
 gulp.task('watch', function() {
