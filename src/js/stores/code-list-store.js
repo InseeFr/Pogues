@@ -8,7 +8,7 @@ import PoguesConstants from '../constants/pogues-constants'
 import DataUtils from '../utils/data-utils'
 
 const CHANGE_EVENT = "change";
-const logger = new Logger('CodeListStore', 'Stores');
+const logger = new Logger('CodeListstore', 'Stores');
 const ActionTypes = PoguesConstants.ActionTypes;
 
 /* Private array containing all the known code lists */
@@ -78,8 +78,10 @@ const CodeListStore = assign({}, EventEmitter.prototype,  {
         break;
       case ActionTypes.GET_EXTERNAL_CODELISTS:
         DataUtils.getExternalCodeLists();
+        break;
       case ActionTypes.STORE_EXTERNAL_CODELISTS:
         storeCodeListSpecifications(action.codeLists);
+        break;
       default:
         //no-op
     }
