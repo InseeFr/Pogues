@@ -1,5 +1,5 @@
-var React = require('react');
-var PoguesActions = require('../actions/pogues-actions');
+import React from 'react';
+import PoguesActions from '../actions/pogues-actions';
 
 var EditActivator = React.createClass({
 
@@ -18,4 +18,4 @@ var EditActivator = React.createClass({
   }
 });
 
-module.exports = EditActivator;
+export default EditActivator;

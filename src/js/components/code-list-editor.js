@@ -1,13 +1,13 @@
-var React = require('react');
-var locale = require('../stores/dictionary-store').getDictionary();
-var assign = require('object-assign');
-var CodeListModel = require('../models/code-list')
-var CodeEditor = require('./code-editor')
-var CodeCreator = require('./code-creator')
-var clr = require('../utils/code-list-repository')
-var Logger = require('../logger/logger');
-import PoguesActions from '../actions/pogues-actions';
-import { nameFromLabel } from '../utils/name-utils';
+import React from 'react';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import assign from 'object-assign';
+import CodeListModel from '../models/code-list'
+import CodeEditor from './code-editor'
+import CodeCreator from './code-creator'
+import clr from '../utils/code-list-repository'
+import Logger from '../logger/logger';
+import PoguesActions from '../actions/pogues-actions'
 
 var logger = new Logger('CodeListEditor', 'Components');
 
@@ -119,7 +119,6 @@ var CodeListEditor = React.createClass({
 
   _save: function () {
     var clLiteral = {
-      _id: nameFromLabel(this.state.name) + this.state.codes.length.toString(),
       _label: this.state.label,
       _name: this.state.name,
       _codes: this.state.codes

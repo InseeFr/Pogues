@@ -1,11 +1,12 @@
-var React = require('react');
-var QuestionnaireStore = require('../stores/questionnaire-store');
-var QuestionnaireOutlook = require('./questionnaire-outlook');
-var Component = require('../components/component');
-var GenericInput = require('../components/generic-input');
-var classNames = require('classnames');
-var locale = require('../stores/dictionary-store').getDictionary();
-var Logger = require('../logger/logger');
+import React from 'react';
+import QuestionnaireStore from '../stores/questionnaire-store';;
+import QuestionnaireOutlook from './questionnaire-outlook';
+import Component from '../components/component';
+import GenericInput from '../components/generic-input';
+import classNames from 'classnames';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import Logger from '../logger/logger';
 
 var logger = new Logger('Questionnaire', 'Components');
 
@@ -71,4 +72,4 @@ var Questionnaire = React.createClass({
   }
 });
 
-module.exports = Questionnaire;
+export default Questionnaire;

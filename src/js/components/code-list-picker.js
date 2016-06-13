@@ -1,8 +1,9 @@
-var React = require('react');
-var locale = require('../stores/dictionary-store').getDictionary();
+import React from 'react';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
 // TODO remove,temporary
-var assign = require('object-assign');
-var CodeListModel = require('../models/code-list')
+import assign from 'object-assign';
+import CodeListModel from '../models/code-list'
 
 var CodeListPicker = React.createClass({
   propTypes: {

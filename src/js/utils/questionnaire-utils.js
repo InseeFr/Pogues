@@ -1,8 +1,8 @@
-var SequenceModel = require('../models/sequence');
-var QuestionModel = require('../models/question');
-var QuestionnaireModel = require('../models/questionnaire');
-var nameFromLabel = require('../utils/name-utils').nameFromLabel;
-var Logger = require('../logger/logger');
+import SequenceModel from '../models/sequence';
+import QuestionModel from '../models/question';
+import QuestionnaireModel from '../models/questionnaire';
+import {nameFromLabel} from '../utils/name-utils';
+import Logger from '../logger/logger';
 
 var logger = new Logger('QuestionnaireUtils', 'Utils');
 

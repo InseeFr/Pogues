@@ -2,7 +2,7 @@ jest.dontMock('../questionnaire-title.js');
 
 describe('Questionnaire title component test', function() {
   it('should render the title pass through props', function() {
-    var React = require('react/addons'),
+    import React from 'react/addons',
       // QuestionnaireTitle = require('../questionnaire-title.js'),
       TestUtils = React.addons.TestUtils;
 

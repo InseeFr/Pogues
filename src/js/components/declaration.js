@@ -1,9 +1,10 @@
-var React = require('react');
-var DeclarationModel = require('../models/declaration');
-var locale = require('../stores/dictionary-store').getDictionary();
-var declarationTypes = require('../models/model-constants').DeclarationModel.DECLARATION_TYPES;
-var Logger = require('../logger/logger');
-
+import React from 'react';
+import DeclarationModel from '../models/declaration';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import Logger from '../logger/logger';
+import ModelConstants from '../models/model-constants'
+const { DeclarationModel: { DECLARATION_TYPES: declarationTypes }} = ModelConstants
 var logger = new Logger('Declaration', 'Components');
 
 var Declaration = React.createClass({
@@ -92,4 +93,4 @@ var Declaration = React.createClass({
 
 });
 
-module.exports = Declaration;
+export default Declaration;

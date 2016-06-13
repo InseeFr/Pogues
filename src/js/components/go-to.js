@@ -1,11 +1,12 @@
-var React = require('react');
-var GoToModel = require('../models/go-to');
-var locale = require('../stores/dictionary-store').getDictionary();
-var ExpressionModel = require('../models/expression');
-var ComponentModel = require('../models/component')
-var QuestionnaireModel = require('../models/questionnaire')
-var Target = require('./target')
-var Logger = require('../logger/logger');
+import React from 'react';
+import GoToModel from '../models/go-to';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import ExpressionModel from '../models/expression';
+import ComponentModel from '../models/component'
+import QuestionnaireModel from '../models/questionnaire'
+import Target from './target'
+import Logger from '../logger/logger';
 
 import PoguesActions from '../actions/pogues-actions'
 
@@ -157,4 +158,4 @@ var GoTo = React.createClass({
 
 });
 
-module.exports = GoTo;
+export default GoTo;

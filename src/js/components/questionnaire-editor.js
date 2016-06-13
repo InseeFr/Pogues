@@ -1,19 +1,20 @@
-var React = require('react');
-var PoguesConstants = require('../constants/pogues-constants');
-var PoguesActions = require('../actions/pogues-actions');
-var locale = require('../stores/dictionary-store').getDictionary();
-var DataUtils = require('../utils/data-utils');
+import React from 'react';
+import PoguesConstants from '../constants/pogues-constants';
+import PoguesActions from '../actions/pogues-actions';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import DataUtils from '../utils/data-utils';
 // start of hack
-var DataXMLUtils = require('../utils/data-xml-utils');
-var request = require('superagent');
-var Config = require('../config/config');
-var QuestionnaireModel = require("../models/questionnaire");
-var QuestionModel = require("../models/question");
-var SequenceModel = require("../models/sequence");
-var nameFromLabel = require('../utils/name-utils').nameFromLabel;
-var rName = require('../utils/name-utils').rName;
+import DataXMLUtils from '../utils/data-xml-utils';
+import request from 'superagent';
+import Config from '../config/config';
+import QuestionnaireModel from '../models/questionnaire'
+import QuestionModel from '../models/question'
+import SequenceModel from '../models/sequence'
+import {nameFromLabel} from '../utils/name-utils';
+import {rName} from '../utils/name-utils';
 // end of hack
-var Logger = require('../logger/logger');
+import Logger from '../logger/logger';
 
 var logger = new Logger('QuestionnaireEditor', 'Components');
 
@@ -29,7 +30,7 @@ var QuestionnaireEditor = React.createClass({
         };
     },
     componentDidMount: function() {
-        this.refs.input.getDOMNode().focus();
+        this.inputName.focus();
     },
     // TODO Reintegrate ENTER KEY handling (taking care of conflict
     // with _handleChange). Removed for the sake of simplicity.
@@ -100,7 +101,7 @@ var QuestionnaireEditor = React.createClass({
                 <label htmlFor="name">{locale.name}</label>
                 <input className="form-control"
                   type="text" value={this.state.name}
-                  ref="input"
+                  ref={ref => this.inputName = ref}
                   placeholder={locale.phName} onChange={this._handleNameChange}
                   onKeyPress={this._disableNameGeneration}/>
             </div>
@@ -120,4 +121,4 @@ var QuestionnaireEditor = React.createClass({
 }
 });
 
-module.exports = QuestionnaireEditor;
+export default QuestionnaireEditor;

@@ -1,14 +1,15 @@
-var React = require('react');
-var ResponseModel = require('../models/response');
-var DatatypePicker = require('./datatype-picker');
-var CodeListPicker = require('./code-list-picker');
-var locale = require('../stores/dictionary-store').getDictionary();
-var assign = require('object-assign');
-var DataypeEditor = require('./datatype-editor');
-var CodeListEditor = require('./code-list-editor')
-var clr = require('../utils/code-list-repository');
-import CodeListStore from '../stores/code-list-store'
-import { getCodeListsFromStore } from '../stores/code-list-store'
+import React from 'react';
+import ResponseModel from '../models/response';
+import DatatypePicker from './datatype-picker';
+import CodeListPicker from './code-list-picker';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import assign from 'object-assign';
+import DataypeEditor from './datatype-editor';
+import CodeListEditor from './code-list-editor'
+import clr from '../utils/code-list-repository';
+import CodeListStore from '../stores/code-list-store';
+import { getCodeListsFromStore } from '../stores/code-list-store';
 
 var ResponseEditor = React.createClass({
 
@@ -97,4 +98,4 @@ var ResponseEditor = React.createClass({
 
 });
 
-module.exports = ResponseEditor;
+export default ResponseEditor;

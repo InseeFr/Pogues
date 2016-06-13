@@ -3,7 +3,7 @@ Logger utility.
 Manage remote or local logging, levels and namespacing.
 'Beauty is in the eye of the beholder'
 */
-var Config = require('../config/config');
+import Config from '../config/config';
 
 const DEFAULT_LEVEL = 'DEBUG';
 

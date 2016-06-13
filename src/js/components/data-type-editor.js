@@ -1,10 +1,10 @@
 //DatatypeEditor
-var React = require('react');
-var DatatypeModel = require('../models/datatype');
-var NumericDatatypeEditor = require('./numeric-datatype-editor');
-var TextDatatypeEditor = require('./text-datatype-editor');
-var DateDatatypeEditor = require('./date-datatype-editor');
-var Logger = require('../logger/logger');
+import React from 'react';
+import DatatypeModel from '../models/datatype';
+import NumericDatatypeEditor from './numeric-datatype-editor';
+import TextDatatypeEditor from './text-datatype-editor';
+import DateDatatypeEditor from './date-datatype-editor';
+import Logger from '../logger/logger';
 
 var logger = new Logger('DatatypeEditor', 'Components');
 
@@ -51,4 +51,4 @@ var DatatypeEditor =  React.createClass({
 	}
 });
 
-module.exports = DatatypeEditor;
+export default DatatypeEditor;

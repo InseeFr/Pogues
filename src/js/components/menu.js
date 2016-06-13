@@ -1,12 +1,13 @@
-var React = require('react');
-var locale = require('../stores/dictionary-store').getDictionary();
-var PoguesActions = require('../actions/pogues-actions');
-var ViewTypes = require('../constants/pogues-constants').ViewTypes;
-var QuestionnaireStore = require('../stores/questionnaire-store');
-var AppStateStore = require('../stores/appstate-store');
-var QuestionnaireTitle = require('./questionnaire-title.js');
-var _ = require('lodash');
-var Logger = require('../logger/logger');
+import React from 'react';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import PoguesActions from '../actions/pogues-actions';
+import {ViewTypes} from '../constants/pogues-constants';
+import QuestionnaireStore from '../stores/questionnaire-store';;
+import AppStateStore from '../stores/appstate-store';;
+import QuestionnaireTitle from './questionnaire-title.js';
+import _ from 'lodash';
+import Logger from '../logger/logger';
 
 var logger = new Logger('Menu', 'Components');
 
@@ -234,4 +235,4 @@ var Menu = React.createClass({
   }
 });
 
-module.exports = Menu;
+export default Menu;

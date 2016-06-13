@@ -1,5 +1,6 @@
-var React = require('react');
-var SequenceModel = require('../models/sequence')
+import React from 'react';
+import SequenceModel from '../models/sequence'
+import Component from '../components/component'
 
 var Sequence = React.createClass({
   propTypes: {
@@ -22,6 +23,4 @@ var Sequence = React.createClass({
   }
 });
 
-module.exports = Sequence;
-
-var Component = require('../components/component');
+export default Sequence;

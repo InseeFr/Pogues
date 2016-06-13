@@ -1,7 +1,8 @@
-var React = require('react');
-var locale = require('../stores/dictionary-store').getDictionary();
-var assign = require('object-assign');
-var PoguesConstants = require('../constants/pogues-constants')
+import React from 'react';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary();
+import assign from 'object-assign';
+import PoguesConstants from '../constants/pogues-constants'
 
 var CodeCreator = React.createClass({
   propTypes: {
@@ -54,4 +55,4 @@ var CodeCreator = React.createClass({
 
 });
 
-module.exports = CodeCreator;
+export default CodeCreator;

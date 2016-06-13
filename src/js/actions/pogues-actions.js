@@ -1,6 +1,6 @@
-var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
-var PoguesConstants = require('../constants/pogues-constants');
-var Logger = require('../logger/logger');
+import PoguesDispatcher from '../dispatchers/pogues-dispatcher';
+import PoguesConstants from '../constants/pogues-constants';
+import Logger from '../logger/logger';
 
 var logger = new Logger('PoguesActions', 'Actions');
 

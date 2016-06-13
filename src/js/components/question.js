@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 var Question = React.createClass({
 
@@ -15,4 +15,4 @@ var Question = React.createClass({
   }
 });
 
-module.exports = Question;
+export default Question;

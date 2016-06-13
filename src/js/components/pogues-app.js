@@ -1,18 +1,18 @@
-var React = require('react');
-var ViewTypes = require('../constants/pogues-constants').ViewTypes;
-var QuestionnaireListStore = require('../stores/questionnaire-list-store');
-var AppStateStore = require('../stores/appstate-store');
-var QuestionnairePicker = require('../components/questionnaire-picker');
-var Questionnaire = require('../components/questionnaire');
-var PoguesActions = require('../actions/pogues-actions');
-var ComponentEditor = require('../components/component-editor');
-var ConfigEditor = require('../components/config-editor');
-var Menu = require('./menu.js');
-var ConfigStore = require('../stores/config-store');
-var locale = require('../stores/dictionary-store');
-var QuestionnaireUtils = require('../utils/questionnaire-utils');
-var QuestionnaireStore = require('../stores/questionnaire-store');
-var Logger = require('../logger/logger');
+import React from 'react';
+import {ViewTypes} from '../constants/pogues-constants';
+import QuestionnaireListStore from '../stores/questionnaire-list-store';;
+import AppStateStore from '../stores/appstate-store';;
+import QuestionnairePicker from '../components/questionnaire-picker';
+import Questionnaire from '../components/questionnaire';
+import PoguesActions from '../actions/pogues-actions';
+import ComponentEditor from '../components/component-editor';
+import ConfigEditor from '../components/config-editor';
+import Menu from './menu.js';
+import ConfigStore from '../stores/config-store';;
+import locale from '../stores/dictionary-store';;
+import QuestionnaireUtils from '../utils/questionnaire-utils';
+import QuestionnaireStore from '../stores/questionnaire-store';;
+import Logger from '../logger/logger';
 
 var logger = new Logger('PoguesApp', 'Components');
 
@@ -80,4 +80,4 @@ var PoguesApp = React.createClass({
   }
 });
 
-module.exports = PoguesApp;
+export default PoguesApp;

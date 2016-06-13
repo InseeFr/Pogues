@@ -1,4 +1,4 @@
-var ModelConstants = require('../models/model-constants');
+import ModelConstants from '../models/model-constants';
 
 //mapping between response types and dictionary store
 var responseTypes = {

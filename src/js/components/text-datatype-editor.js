@@ -1,8 +1,9 @@
-var React = require('react');
-var TextDatatypeModel = require('../models/text-datatype');
-var locale = require('../stores/dictionary-store').getDictionary();
-var assign = require('object-assign');
-var Logger = require('../logger/logger');
+import React from 'react';
+import TextDatatypeModel from '../models/text-datatype';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import assign from 'object-assign';
+import Logger from '../logger/logger';
 
 var logger = new Logger('', '');
 
@@ -78,4 +79,4 @@ var TextDatatypeEditor = React.createClass({
 
 });
 
-module.exports = TextDatatypeEditor;
+export default TextDatatypeEditor;

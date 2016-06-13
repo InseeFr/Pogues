@@ -1,8 +1,9 @@
-var React = require('react');
-var NumericDatatypeModel = require('../models/numeric-datatype')
-var locale = require('../stores/dictionary-store').getDictionary();
-var Logger = require('../logger/logger');
-var assign = require('object-assign')
+import React from 'react';
+import NumericDatatypeModel from '../models/numeric-datatype'
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import Logger from '../logger/logger';
+import assign from 'object-assign'
 var logger = new Logger('NumericDatatypeEditor', 'Components');
 
 // TODO things like this.state._minimum are ugly, but with this
@@ -99,4 +100,4 @@ var NumericDatatypeEditor = React.createClass({
 
 });
 
-module.exports = NumericDatatypeEditor;
+export default NumericDatatypeEditor;

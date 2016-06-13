@@ -1,12 +1,12 @@
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var ViewTypes = require('../constants/pogues-constants').ViewTypes;
-var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
-var ActionTypes = require('../constants/pogues-constants').ActionTypes;
+import {EventEmitter} from 'events';
+import assign from 'object-assign';
+import {ViewTypes} from '../constants/pogues-constants';
+import PoguesDispatcher from '../dispatchers/pogues-dispatcher';
+import {ActionTypes} from '../constants/pogues-constants';
 var CHANGE_EVENT = "change";
-var Logger = require('../logger/logger');
+import Logger from '../logger/logger';
 
-var logger = new Logger('AppStateStore', 'Stores');
+var logger = new Logger('AppStatestore', 'Stores');
 
 // TODO quick hack for handling app state, but not satisfactory
 var _view = ViewTypes.PICKER;

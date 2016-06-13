@@ -1,8 +1,9 @@
-var React = require('react/addons');
-var PoguesActions = require('../actions/pogues-actions');
-var ConfigStore = require('../stores/config-store');
-var locale = require('../stores/dictionary-store').getDictionary();
-var assign = require('object-assign')
+import React from 'react';
+import PoguesActions from '../actions/pogues-actions';
+import ConfigStore from '../stores/config-store';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import assign from 'object-assign'
 
 function getStateFromStore() {
   var config = assign({}, ConfigStore.getConfig())
@@ -13,7 +14,8 @@ function getStateFromStore() {
 }
 
 var ConfigEditor = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+  //removed when switching to react 0.15
+  //mixins: [React.addons.LinkedStateMixin],
 
   propTypes: {
   },
@@ -106,4 +108,4 @@ var ConfigEditor = React.createClass({
   }
 })
 
-module.exports = ConfigEditor;
+export default ConfigEditor;

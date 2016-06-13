@@ -1,13 +1,15 @@
-var React = require('react');
-var DatatypePicker = require('./datatype-picker');
-var QuestionModel = require('../models/question');
-var ResponseModel = require('../models/response');
-var datatypes = require('../models/model-constants').DatatypeModel.DATA_TYPES;
-var locale = require('../stores/dictionary-store').getDictionary();
-var ResponseEditor = require('./response-editor');
-var assign = require('object-assign');
-var Logger = require('../logger/logger');
-var DatatypeEditor = require('./datatype-editor');
+import React from 'react';
+import DatatypePicker from './datatype-picker';
+import QuestionModel from '../models/question';
+import ResponseModel from '../models/response';
+import {DatatypeModel}  from '../models/model-constants';
+var datatypes = DatatypeModel.DATA_TYPES;
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import ResponseEditor from './response-editor';
+import assign from 'object-assign';
+import Logger from '../logger/logger';
+import DatatypeEditor from './datatype-editor';
 
 var logger = new Logger('QuestionEditor', 'Components');
 

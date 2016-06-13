@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 var DateDatatypeEditor = React.createClass({
 
@@ -10,4 +10,4 @@ var DateDatatypeEditor = React.createClass({
 
 });
 
-module.exports = DateDatatypeEditor;
+export default DateDatatypeEditor;

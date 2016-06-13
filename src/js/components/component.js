@@ -1,7 +1,12 @@
-var React = require('react');
-var PoguesActions = require('../actions/pogues-actions');
-var ComponentEditor = require('./component-editor');
-var Logger = require('../logger/logger');
+import React from 'react';
+import PoguesActions from '../actions/pogues-actions';
+import ComponentEditor from './component-editor';
+import Logger from '../logger/logger';
+import Sequence from '../components/sequence';
+import Question from '../components/question';
+import SequenceModel from '../models/sequence';
+import EditActivator from '../components/edit-activator';
+import classNames from 'classnames';
 
 var logger = new Logger('Component', 'Components');
 
@@ -60,10 +65,5 @@ var Component = React.createClass({
   }
 });
 
-module.exports = Component;
+export default Component;
 
-var Sequence = require('../components/sequence');
-var Question = require('../components/question');
-var SequenceModel = require('../models/sequence');
-var EditActivator = require('../components/edit-activator');
-var classNames = require('classnames');

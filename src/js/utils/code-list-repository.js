@@ -1,5 +1,5 @@
 // FIXME This has to be destroy after the refactoring of the code lists lifecycle see 
-var CodeListModel = require('../models/code-list')
+import CodeListModel from '../models/code-list'
 
 var _codeLists = {
 

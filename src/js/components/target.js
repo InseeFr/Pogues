@@ -1,9 +1,9 @@
-var React = require('react')
-var ComponentPicker = require('./component-picker')
-var ComponentModel = require('../models/component')
-var QuestionnaireStore = require('../stores/questionnaire-store')
-var QuestionnaireUtils = require('../utils/questionnaire-utils')
-var classNames = require('classnames')
+import React from 'react'
+import ComponentPicker from './component-picker'
+import ComponentModel from '../models/component'
+import QuestionnaireStore from '../stores/questionnaire-store';
+import QuestionnaireUtils from '../utils/questionnaire-utils'
+import classNames from 'classnames'
 // constants for status identification
 var NON_EXISTING = 'NON_EXISTING'
 var AFTER = 'AFTER'
@@ -92,4 +92,4 @@ var Target = React.createClass({
   }
 });
 
-module.exports = Target
+export default Target

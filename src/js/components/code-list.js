@@ -1,7 +1,7 @@
-var React = require('react');
-var Component = require('../components/component');
-var CodeListModel = require('../models/code-list');
-var classNames = require('classnames');
+import React from 'react';
+import Component from '../components/component';
+import CodeListModel from '../models/code-list';
+import classNames from 'classnames';
 
 
 var CodeList = React.createClass({

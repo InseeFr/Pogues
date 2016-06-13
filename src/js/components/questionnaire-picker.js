@@ -1,8 +1,9 @@
-var React = require('react');
-var QuestionnaireEditor = require('../components/questionnaire-editor');
-var QuestionnaireList = require('../components/questionnaire-list');
+import React from 'react';
+import QuestionnaireEditor from '../components/questionnaire-editor';
+import QuestionnaireList from '../components/questionnaire-list';
 var inviteNew = {'en': 'Create a new questionnaire', 'fr': 'Créer un nouveau questionnaire'};
-var locale = require('../stores/dictionary-store').getDictionary();
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
 
 var QuestionnairePicker = React.createClass({
 
@@ -24,4 +25,4 @@ var QuestionnairePicker = React.createClass({
   }
 });
 
-module.exports = QuestionnairePicker;
+export default QuestionnairePicker;

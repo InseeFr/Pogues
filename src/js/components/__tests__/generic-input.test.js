@@ -10,7 +10,7 @@ jest.dontMock('object-assign');
 
 describe('GenericInput i18n management', function() {
   it('Should show the hint corresponding to the default language', function() {
-    var React = require('react/addons'),
+    import React from 'react/addons',
       GenericInput = require('../generic-input.js'),
       TestUtils = React.addons.TestUtils,
       DictStore = require('../../stores/dictionary-store.js');

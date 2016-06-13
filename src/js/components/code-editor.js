@@ -1,7 +1,8 @@
-var React = require('react');
-var locale = require('../stores/dictionary-store').getDictionary();
-var assign = require('object-assign');
-var Logger = require('../logger/logger');
+import React from 'react';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import assign from 'object-assign';
+import Logger from '../logger/logger';
 
 var logger = new Logger('CodeEditor', 'Components');
 

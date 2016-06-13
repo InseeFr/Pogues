@@ -12,10 +12,10 @@ QuestionnaireUtils test suite
 // jest.dontMock('../../models/sequence.js');
 // jest.dontMock('../../models/question.js');
 //
-// var QuestionnaireUtils = require('../questionnaire-utils.js');
-// var QuestionnaireModel = require('../../models/questionnaire');
-// var SequenceModel = require('../../models/sequence');
-// var QuestionModel = require('../../models/question');
+// import QuestionnaireUtils from '../questionnaire-utils.js';
+// import QuestionnaireModel from '../../models/questionnaire';
+// import SequenceModel from '../../models/sequence';
+// import QuestionModel from '../../models/question';
 //
 // // describe('QuestionnaireUtils search function', function() {
 // //   it('should find an element by id in a simple questionnaire', function() {

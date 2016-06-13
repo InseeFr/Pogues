@@ -1,10 +1,10 @@
-var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
-var PoguesConstants = require('../constants/pogues-constants');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var Logger = require('../logger/logger');
+import PoguesDispatcher from '../dispatchers/pogues-dispatcher';
+import PoguesConstants from '../constants/pogues-constants';
+import {EventEmitter} from 'events';
+import assign from 'object-assign';
+import Logger from '../logger/logger';
 
-var logger = new Logger('DictionaryStore', 'Stores');
+var logger = new Logger('Dictionarystore', 'Stores');
 
 var _language = 'en';
 var _localDictionary;

@@ -1,19 +1,19 @@
-var React = require('react');
-var ComponentModel = require('../models/component');
-var nameFromLabel = require('../utils/data-utils').nameFromLabel;
-var Declaration = require('./declaration');
-var Control = require('./control');
-var GoTo = require('./go-to');
-var DeclarationModel = require('../models/declaration');
-var QuestionEditor = require('./question-editor');
-var locale = require('../stores/dictionary-store').getDictionary();
-var GoToModel = require('../models/go-to');
-var QuestionnaireStore = require('../stores/questionnaire-store');
-var QuestionnaireUtils = require('../utils/questionnaire-utils');
-var locale = require('../stores/dictionary-store').getDictionary();
-var Logger = require('../logger/logger');
+import React from 'react';
+import ComponentModel from '../models/component';
+import {nameFromLabel} from '../utils/data-utils';
+import Declaration from './declaration';
+import Control from './control';
+import GoTo from './go-to';
+import DeclarationModel from '../models/declaration';
+import QuestionEditor from './question-editor';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import GoToModel from '../models/go-to';
+import QuestionnaireStore from '../stores/questionnaire-store';;
+import QuestionnaireUtils from '../utils/questionnaire-utils';
+import Logger from '../logger/logger';
 
-import { getCodeListById } from '../stores/code-list-store'
+import { getCodeListById } from '../stores/code-list-store';
 import PoguesActions from '../actions/pogues-actions'
 
 var logger = new Logger('ComponentEditor', 'Components');

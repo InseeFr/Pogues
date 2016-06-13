@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 var Control = React.createClass({
   render: function() {
@@ -7,4 +7,4 @@ var Control = React.createClass({
 
 });
 
-module.exports = Control;
+export default Control;

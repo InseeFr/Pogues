@@ -8,9 +8,9 @@ describe('Questionnaire serialization', function() {
     // TODO that test suite must be launched by bootstrapping correctly ES6
     // import declarations don't seem to work properly
 
-    // var QuestionnaireModel = require('../questionnaire');
-    // var DeclarationModel = require('../declaration');
-    // var test = require('../../utils/data-json-utils');
+    // import QuestionnaireModel from '../questionnaire';
+    // import DeclarationModel from '../declaration';
+    // import test from '../../utils/data-json-utils';
     // var quest = new QuestionnaireModel();
     // var dec = new DeclarationModel({_type:'MYTYPE', _disjoinable:true, _text:'A simple text'});
     // quest.name = 'ROM_QUEST';

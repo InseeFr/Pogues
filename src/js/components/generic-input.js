@@ -1,8 +1,9 @@
-var React = require('react');
-var PoguesConstants = require('../constants/pogues-constants');
-var PoguesActions = require('../actions/pogues-actions');
-var locale = require('../stores/dictionary-store').getDictionary();
-var Logger = require('../logger/logger');
+import React from 'react';
+import PoguesConstants from '../constants/pogues-constants';
+import PoguesActions from '../actions/pogues-actions';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import Logger from '../logger/logger';
 
 var logger = new Logger('GenericInput', 'Components');
 
@@ -110,4 +111,4 @@ var GenericInput = React.createClass({
 	}
 });
 
-module.exports = GenericInput;
+export default GenericInput;

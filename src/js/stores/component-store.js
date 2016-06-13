@@ -1,14 +1,14 @@
-var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
-var PoguesConstants = require('../constants/pogues-constants');
-var QuestionnaireListStore = require('../stores/questionnaire-list-store');
+import PoguesDispatcher from '../dispatchers/pogues-dispatcher';
+import PoguesConstants from '../constants/pogues-constants';
+import QuestionnaireListStore from '../stores/questionnaire-list-store';;
 var QuestionnaireModel = require("../models/questionnaire");
 var SequenceModel = require("../models/sequence");
-var DataUtils = require('../utils/data-utils');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var Logger = require('../logger/logger');
+import DataUtils from '../utils/data-utils';
+import {EventEmitter} from 'events';
+import assign from 'object-assign';
+import Logger from '../logger/logger';
 
-var logger = new Logger('ComponentStore', 'Stores');
+var logger = new Logger('Componentstore', 'Stores');
 
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;

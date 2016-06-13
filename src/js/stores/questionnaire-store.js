@@ -1,18 +1,18 @@
-var EventEmitter = require('events').EventEmitter;
-var PoguesDispatcher = require('../dispatchers/pogues-dispatcher');
-var PoguesConstants = require('../constants/pogues-constants');
-var QuestionnaireListStore = require('../stores/questionnaire-list-store');
+import {EventEmitter} from 'events';
+import PoguesDispatcher from '../dispatchers/pogues-dispatcher';
+import PoguesConstants from '../constants/pogues-constants';
+import QuestionnaireListStore from '../stores/questionnaire-list-store';;
 var QuestionnaireModel = require("../models/questionnaire");
 var SequenceModel = require("../models/sequence");
-var DataUtils = require('../utils/data-utils');
-var assign = require('object-assign');
-var QUtils = require('../utils/questionnaire-utils');
-var Logger = require('../logger/logger');
+import DataUtils from '../utils/data-utils';
+import assign from 'object-assign';
+import QUtils from '../utils/questionnaire-utils';
+import Logger from '../logger/logger';
 // FIXME CHANGE_EVENT should be a constant
 var CHANGE_EVENT = "change";
 var ActionTypes = PoguesConstants.ActionTypes;
 
-var logger = new Logger('QuestionnaireStore', 'Stores');
+var logger = new Logger('Questionnairestore', 'Stores');
 
 var _questionnaire;
 var _filter = null;

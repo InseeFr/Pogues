@@ -1,10 +1,11 @@
-var React = require('react')
-var ComponentModel = require('../models/component')
-var locale = require('../stores/dictionary-store').getDictionary();
-var QuestionnaireStore = require('../stores/questionnaire-store')
-var QuestionnaireUtils = require('../utils/questionnaire-utils')
+import React from 'react'
+import ComponentModel from '../models/component'
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import QuestionnaireStore from '../stores/questionnaire-store';
+import QuestionnaireUtils from '../utils/questionnaire-utils'
 // TODO think about relying on QuestionnaireStore to retrieve questionnaire
-//var ComponentStore = require('../stores/component-store')
+//import ComponentStore from '../stores/component-store';
 
 var ComponentPicker = React.createClass({
   propTypes: {

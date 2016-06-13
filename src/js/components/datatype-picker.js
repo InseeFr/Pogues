@@ -1,8 +1,9 @@
-var React = require('react');
-var locale = require('../stores/dictionary-store').getDictionary();
-var DatatypeModel = require('../models/datatype');
-var classNames = require('classnames');
-var Logger = require('../logger/logger');
+import React from 'react';
+import {getDictionary} from '../stores/dictionary-store';
+var locale = getDictionary()
+import DatatypeModel from '../models/datatype';
+import classNames from 'classnames';
+import Logger from '../logger/logger';
 
 var logger = new Logger('DataTypePicker', 'Components');
 
@@ -67,4 +68,4 @@ var DataTypePicker = React.createClass({
 
 });
 
-module.exports = DataTypePicker;
+export default DataTypePicker;

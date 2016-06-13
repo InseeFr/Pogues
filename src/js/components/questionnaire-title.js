@@ -1,8 +1,8 @@
-var React = require('react');
-var PoguesConstants = require('../constants/pogues-constants');
-var PoguesActions = require('../actions/pogues-actions');
-var QuestionnaireStore = require('../stores/questionnaire-store');
-var Logger = require('../logger/logger');
+import React from 'react';
+import PoguesConstants from '../constants/pogues-constants';
+import PoguesActions from '../actions/pogues-actions';
+import QuestionnaireStore from '../stores/questionnaire-store';;
+import Logger from '../logger/logger';
 
 var logger = new Logger('QuestionnaireTitle', 'Components');
 
@@ -44,8 +44,8 @@ var QuestionnaireTitle =  React.createClass({
   _getTitle: function() {
     // FIXME problem when workin locally, _getTitle is called
     // before current questionnaire is set in Questionnaire Store
-    var currentLabel = QuestionnaireStore.getQuestionnaire().label;
-    return currentLabel == "" ? "EDIT ME" : currentLabel;
+    var questionnaire = QuestionnaireStore.getQuestionnaire();
+    return questionnaire ? questionnaire.label : 'EDIT ME';
   },
 
   _handleClick: function() {
@@ -86,4 +86,4 @@ var QuestionnaireTitle =  React.createClass({
   }
 });
 
-module.exports = QuestionnaireTitle;
+export default QuestionnaireTitle;
