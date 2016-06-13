@@ -1,17 +1,4 @@
-import PoguesDispatcher from '../dispatchers/pogues-dispatcher';
-import PoguesConstants from '../constants/pogues-constants';
-import {EventEmitter} from 'events';
-import assign from 'object-assign';
-import Logger from '../logger/logger';
-
-var logger = new Logger('Dictionarystore', 'Stores');
-
-var _language = 'en';
-var _localDictionary;
-var ActionTypes = PoguesConstants.ActionTypes;
-var CHANGE_EVENT = "change";
-
-var _dictionary = {
+export default {
   phLabel: {'en': 'Enter a title for the questionnaire', 'fr': 'Entrez un titre pour le questionnaire'},
   phName:  {'en': 'Enter an ID for the questionnaire', 'fr': 'Entrez un identifiant pour le questionnaire'},
   label: {'en': 'Title', 'fr': 'Titre'},
@@ -84,50 +71,4 @@ var _dictionary = {
   newCl: {'en': 'New code list', 'fr': 'Nouvelle liste de codes'},
   placeholderDeclarationText: {'en': 'Here, your declaration', 'fr' : 'Ici, votre déclaration'},
   deleteGoTo: {'en': 'Delete GoTo', 'fr': 'Supprimer la redirection'}
-};
-
-//initialization
-
-setDictionary(_language);
-
-function setDictionary(language) {
-  var locale = {};
-  for (var k in _dictionary) {
-    locale[k] = _dictionary[k][language]
-  }
-  _localDictionary = locale;
 }
-
-function setLanguage(language) {
-  _language = language;
-  setDictionary(language);
-}
-
-var DictionaryStore = assign({}, EventEmitter.prototype, {
-  emitChange: function() {
-    logger.debug('Store emitting change event');
-    this.emit(CHANGE_EVENT);
-  },
-  getDictionary: function () {
-    return _localDictionary;
-  },
-  setLanguage: setLanguage,
-  dispatcherIndex: PoguesDispatcher.register(function(payload) {
-    logger.debug('Received dispatched payload: ', payload);
-    var action = payload.action; // action from HandleViewAction
-    switch(action.actionType) {
-      case ActionTypes.LANGUAGE_CHANGED:
-        //_addSequence(payload.action.spec.text);
-        setLanguage(payload.action.language);
-        break;
-
-      default:
-        return true;
-    }
-    logger.debug('Store will emit change, language is: ', _language);
-    DictionaryStore.emitChange();
-    return true;
-  })
-});
-
-module.exports = DictionaryStore;
