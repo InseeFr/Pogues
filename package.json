@@ -72,6 +72,7 @@
   "scripts": {
     "build": "gulp build",
     "default": "gulp",
+    "dev": "webpack-dev-server -d --hot --inline --content-base ./dist/",
     "start": "npm run start:http | npm run start:backend",
     "start:backend": "node utils/backend/server.js",
     "start:http": "http-server ./dist",
