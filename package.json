@@ -48,6 +48,7 @@
     "gulp-babel": "^4.0.0",
     "gulp-bower": "0.0.10",
     "gulp-rename": "^1.2.0",
+    "http-server": "^0.9.0",
     "mocha": "^2.4.5",
     "normalize.css": "^4.1.1",
     "postcss-gradientfixer": "0.0.6",
@@ -71,6 +72,9 @@
   "scripts": {
     "build": "gulp build",
     "default": "gulp",
+    "start": "npm run start:http | npm run start:backend",
+    "start:backend": "node utils/backend/server.js",
+    "start:http": "http-server ./dist",
     "test": "mocha --compilers js:babel-core/register --require ./src/js/test_helper.js 'src/js/**/__tests__/*.@(js|jsx)'",
     "test:watch": "npm run test -- --watch --watch-extensions jsx",
     "deploy": "node deploy.js"
