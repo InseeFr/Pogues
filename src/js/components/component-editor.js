@@ -60,10 +60,10 @@ function ComponentEditor({
             </button>
             </div>
         </div>
+        <DeclarationPanel declarations={declarations} cmpntId={id}
+          locale={locale} />        
         <ControlPanel structure={structure} controls={controls}
           cmpntId={id} locale={locale} />
-        <DeclarationPanel declarations={declarations} cmpntId={id}
-          locale={locale} />
          { questionEl }
         <GoToPanel structure={structure} goTos={goTos} cmpntId={id}
           locale={locale} />
