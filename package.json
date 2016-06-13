@@ -51,6 +51,12 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-stream": "^3.2.0"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
   "scripts": {
     "build": "gulp build",
     "default": "gulp",
