@@ -10,29 +10,29 @@ span.pogues-logo {
 }
 
 .outlook.affix {
-	top: 50px;
+  top: 50px;
 }
 
 div.main {
-	background-color: #BFF5E9;
+  background-color: #BFF5E9;
 }
 
 div.gi-question input {
-	background-color: #BFFBFF;
+  background-color: #BFFBFF;
 }
 
 div.gi-sequence input {
-	background-color: #FBBFBB;
+  background-color: #FBBFBB;
 }
 
 input.generic {
-	width: 500px;
+  width: 500px;
 }
 
 span.error-message {
-	margin-left: 10px;
-	color: darksalmon;
-	font-weight: bold;
+  margin-left: 10px;
+  color: darksalmon;
+  font-weight: bold;
 }
 
 .component {
@@ -40,15 +40,15 @@ span.error-message {
 }
 
 .edit {
-	visibility : hidden;
+  visibility : hidden;
 }
 
 .component:hover {
-	border-left: 3px solid #56CDFC;
+  border-left: 3px solid #56CDFC;
 }
 
 .component:hover + .edit {
-	visibility : visible;
+  visibility : visible;
 }
 
 /* EDIT TEST */
@@ -60,8 +60,8 @@ span.error-message {
   visibility : hidden;
 }
 
-.highlight {
-	background-color: yellow;
+.highlighted {
+  background-color: lightgray;
 }
 
 .question-header {
@@ -70,14 +70,21 @@ span.error-message {
 
 h1.sequence-header {
   color: #513179;
+  display: inline-block;
 }
 
 h2.sequence-header {
   color: #684C8C;
+  display: inline-block;
 }
 
 h3.sequence-header {
   color: #9785AD;
+  display: inline-block;
+}
+
+h4.question-header {
+  display: inline-block;
 }
 
 .nav .active .active > a {
@@ -120,3 +127,26 @@ h3.sequence-header {
   border-radius: 0;
   box-shadow: none;
 }
+
+.tools-activator {
+  display: none;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.tools-activator-container:hover > .tools-activator {
+  display: inline-block;
+}
+
+.sequence {
+  /*border-left: solid gray 1px;*/
+  margin-left: 10px;
+  padding-left: 5px;
+}
+
+.tools-activator > .fa {
+  margin: 5px;
+}
+
+
+
