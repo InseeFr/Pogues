@@ -1,5 +1,5 @@
 import {
-  CREATE_COMPONENT, EDIT_COMPONENT, REMOVE_COMPONENT 
+  CREATE_COMPONENT, EDIT_COMPONENT
 } from '../actions/component'
 
 import {
@@ -23,7 +23,7 @@ import {
 } from '../actions/response'
 
 
-import { appendComponent, removeCmpntSmart } from '../utils/tree-utils'
+import { appendComponent } from '../utils/tree-utils'
 import * as cmpntUtils from './component-utils'
 
 import { COMPONENT_UTIL } from '../constants/pogues-constants'
@@ -42,7 +42,6 @@ const subs = [
 
 const actionsHndlrs = {
   CREATE_COMPONENT: createComponent,
-  REMOVE_COMPONENT: removeComponent,
   CREATE_QUESTIONNAIRE: createQuestionnaire,
   EDIT_COMPONENT: editComponent,
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess,
@@ -57,10 +56,6 @@ export default function (state={}, action) {
   return hndlr ? hndlr(state, payload, action) : state
 }
 
-function removeComponent(cmpntsById, { id }) {
-  const { [id]: toRemove, ...toKeep } = cmpntsById
-  return toKeep
-}
 
 function createQuestionnaire(cmpntsById, { id, name, label }) {
   return {

@@ -69,9 +69,6 @@ Questionnaire.propTypes = {
   qrId: PropTypes.string.isRequired,
   createComponent: PropTypes.func.isRequired,
   structure: PropTypes.object.isRequired,
-  removeComponent: PropTypes.func.isRequired,
-  // moveComponentUp: PropTypes.func.isRequired,
-  // moveComponentDown: PropTypes.func.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,
   qr: PropTypes.array.isRequired,
   locale: PropTypes.object.isRequired 

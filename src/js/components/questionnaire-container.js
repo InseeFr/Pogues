@@ -100,7 +100,6 @@ QuestionnaireContainer.propTypes = {
 
 const mapDispatchToProps = {
   createComponent,
-  removeComponent,
   toggleActiveComponent,
   loadQuestionnaireIfNeeded
 }

@@ -39,10 +39,7 @@ QuestionOrSequence.propTypes = {
   label: PropTypes.string.isRequired,
   highlighted: PropTypes.bool.isRequired,
   createComponent: PropTypes.func.isRequired,
-  toggleActiveComponent: PropTypes.func.isRequired,
-  removeComponent: PropTypes.func.isRequired
-  // moveComponentUp: PropTypes.func.isRequired,
-  // moveComponentDown: PropTypes.func.isRequired,
+  toggleActiveComponent: PropTypes.func.isRequired
 }
 
 export default QuestionOrSequence
