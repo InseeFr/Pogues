@@ -42,7 +42,8 @@ function PublishButton({ publishFunction, buttonLabel }) {
   return(
     <div className="nav navbar-nav navbar-left">
       <form className="navbar-form navbar-right">
-        <button className="btn btn-primary" onClick={publishFunction}>
+        <button className="btn btn-primary"
+          onClick={e => {e.preventDefault();publishFunction()}}>
           {buttonLabel}
         </button>
       </form>
@@ -202,7 +203,7 @@ Menu.propTypes = {
   clickToSave: PropTypes.func.isRequired,
   clickToPublish: PropTypes.func.isRequired,
   clickToEditConfig: PropTypes.func.isRequired,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   locale: PropTypes.object.isRequired
 }
 
