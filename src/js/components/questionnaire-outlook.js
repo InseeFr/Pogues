@@ -1,11 +1,11 @@
-var React = require('react');
-var QuestionnaireStore = require('../stores/questionnaire-store');
-var Logger = require('../logger/logger');
+import React from 'react';
+import QuestionnaireStore from '../stores/questionnaire-store';
+import Logger from '../logger/logger';
 
 var logger = new Logger('QuestionnaireOutlook', 'Components');
 
 function getStateFromStore() {
-  logger.debug('Getting state from QuestionnaireStore');
+  logger.debug('Getting state from Questionnairestore');
   return {
     questionnaire: QuestionnaireStore.getQuestionnaire()
   }
@@ -68,4 +68,4 @@ var QuestionnaireOutlook = React.createClass({
   }
 });
 
-module.exports = QuestionnaireOutlook;
+export default QuestionnaireOutlook;
