@@ -4,6 +4,7 @@ A control on a response or several responses
 import ExpressionModel from './expression';
 import ComponentModel from './component';
 
+
 class GoToModel {
   constructor(object) {
     if (object) {
@@ -56,23 +57,23 @@ class GoToModel {
   }
 
   set expression(expression) {
-    if (typeof expression !== 'string') {
-      throw new Error('The parameter must be a string');
+    if (!(expression instanceof ExpressionModel)) {
+      throw new Error('The parameter must be an Expression');
     }
     this._expression = expression;
   }
 
   set ifTrue(ifTrue) {
-    if (typeof ifTrue !== 'string') {
-      throw new Error('The parameter must be a string');
+    if (!(ifTrue instanceof ComponentModel)) {
+      throw new Error('The parameter must be a Component');
     }
     this._ifTrue = ifTrue;
   }
 
   // TODO Add integrity control: only one of else or next should be valued
   set ifFalse(ifFalse) {
-    if (typeof ifFalse !== 'string') {
-      throw new Error('The parameter must be a string');
+    if (!(ifFalse instanceof ComponentModel)) {
+      throw new Error('The parameter must be a Component');
     }
     this._ifFalse = ifFalse;
   }
