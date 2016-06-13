@@ -75,7 +75,7 @@ var PoguesActions = {
       actionType: PoguesConstants.ActionTypes.SELECT_QUESTIONNAIRE,
       id: id
     });
-    PoguesActions.switchToQuestionnaire();
+    PoguesActions.switchToQuestionnaire(id);
   },
   // A Component is added with the GenericInput (spec is {sequence, depth, text})
   addComponent: function(spec) {
