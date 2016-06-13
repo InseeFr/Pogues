@@ -1,39 +1,33 @@
-import React from 'react';
-import {getDictionary} from '../stores/dictionary-store';
-var locale = getDictionary()
-import PoguesActions from '../actions/pogues-actions';
-import {ViewTypes} from '../constants/pogues-constants';
-import QuestionnaireStore from '../stores/questionnaire-store';;
-import AppStateStore from '../stores/appstate-store';;
-import QuestionnaireTitle from './questionnaire-title.js';
+import React, { PropTypes } from 'react';
+import { VIEW_TYPE} from '../constants/pogues-constants';
+import QuestionnaireTitle from './questionnaire-title'
 import _ from 'lodash';
 import Logger from '../logger/logger';
-
 var logger = new Logger('Menu', 'Components');
-
-function getStateFromStore() {
-  return AppStateStore.getView();
-}
-
+import { connect } from 'react-redux'
+const { QUESTIONNAIRE, PICKER } = VIEW_TYPE
+// action creators
+import { switchToConfig, switchToPicker } from '../actions/app-state'
+import {
+  saveQuestionnaire, publishQuestionnaire 
+} from '../actions/questionnaire.js'
+import { setQuestionnaireListFilter } from '../actions/questionnaire-list'
+import { setQuestionnaireFilter } from '../actions/questionnaire'
 /*
 UI component encapsulating the saving questionnaire feature.
 */
-class SaveButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.saveFunction = props.saveFunction;
-    this.buttonLabel = props.buttonLabel;
-  }
 
-  render() {
-    return(
-      <div className="nav navbar-nav navbar-left">
-        <form className="navbar-form navbar-right">
-          <button className="btn btn-primary" onClick={this.saveFunction}>{this.buttonLabel}</button>
-        </form>
-      </div>
-    );
-  }
+function SaveButton({ saveFunction, buttonLabel }) {
+  return(
+    <div className="nav navbar-nav navbar-left">
+      <form className="navbar-form navbar-right">
+        <button className="btn btn-primary" 
+          onClick={e => {e.preventDefault();saveFunction()}}>
+          {buttonLabel}
+        </button>
+      </form>
+    </div>
+  );
 }
 
 SaveButton.propTypes = {
@@ -44,22 +38,16 @@ SaveButton.propTypes = {
 /*
 UI component encapsulating the publishing of a questionnaire.
 */
-class PublishButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.publishFunction = props.publishFunction;
-    this.buttonLabel = props.buttonLabel;
-  }
-
-  render() {
-    return(
-      <div className="nav navbar-nav navbar-left">
-        <form className="navbar-form navbar-right">
-          <button className="btn btn-primary" onClick={this.publishFunction}>{this.buttonLabel}</button>
-        </form>
-      </div>
-    );
-  }
+function PublishButton({ publishFunction, buttonLabel }) {
+  return(
+    <div className="nav navbar-nav navbar-left">
+      <form className="navbar-form navbar-right">
+        <button className="btn btn-primary" onClick={publishFunction}>
+          {buttonLabel}
+        </button>
+      </form>
+    </div>
+  )
 }
 
 PublishButton.propTypes = {
@@ -70,22 +58,16 @@ PublishButton.propTypes = {
 /*
 Link of the published questionnaire
 */
-class PublishLink extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return(
-      <div className="nav navbar-nav navbar-left">
-        <form className="navbar-form navbar-right">
-            <a href={this.props.publishURL} target="_blank">Visualisez !  </a>
-            <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-          <small>[ {this.props.publishTimestamp} ]</small>
-        </form>
-      </div>
-    );
-  }
+function PublishLink({ publishURL, publishTimestamp }) {
+  return(
+    <div className="nav navbar-nav navbar-left">
+      <form className="navbar-form navbar-right">
+          <a href={publishURL} target="_blank">Visualisez !  </a>
+          <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        <small>[ {publishTimestamp} ]</small>
+      </form>
+    </div>
+  )
 }
 
 PublishLink.propTypes = {
@@ -96,143 +78,181 @@ PublishLink.propTypes = {
 /*
 SearchField
 */
-class SearchField extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {filter : ''};
-    //this.filterFunction = props.filterFunction;
-    this.filterLabel = props.filterLabel;
-  }
-  handleChange(filterFunction, event) {
-    logger.info('Handling change with value : ' + event.target.value);
-    this.setState({
-      filter:event.target.value
-      });
-    // Using props to ensure we have the latest function passed throught props
-    filterFunction(event.target.value);
-  }
-  render() {
-    return(
-      <div className="navbar-form navbar-left" role="search">
-        <div className="form-group">
-          <input
-            type="text" className="form-control" placeholder={this.filterLabel}
-            value={this.state.filter} onChange={this.handleChange.bind(this, this.props.filterFunction)}/>
-        </div>
+function SearchField ({ filter, handleChange, locale }) {
+  return (
+    <div className="navbar-form navbar-left" role="search">
+      <div className="form-group">
+        <input
+          type="text" className="form-control" placeholder={locale.search}
+          value={filter}
+          onChange={e => handleChange(e.target.value)}/>
       </div>
-    );
-  }
+    </div>
+  )
+}
+SearchField.propTypes = {
+  filter: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired
 }
 
 /*
-Menu Component, share between all views.
+ConfigButton
+ */
+function ConfigButton({ clickToEditConfig }) {
+  return (
+    <li className="navbar-form">
+      <button className="btn btn-default" onClick={clickToEditConfig}>
+        <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      </button>
+    </li>
+  )
+}
+ConfigButton.propTypes = {
+  clickToEditConfig: PropTypes.func.isRequired
+}
+/*
+Menu Component, shared between all views.
 */
-var Menu = React.createClass({
+//TODO saveButton and publishButton should be connected to the store to retrieve
+// the questionnaire id (for now there's an `id` property in props that is not
+// set if we are not in questionnaire view)
 
-  propTypes : {
-    handleFilter : React.PropTypes.func,
-    title : React.PropTypes.string,
-    view : React.PropTypes.string
-  },
+//TODO find a cleaner way to manage the rendering of the menu based on the type
+//of view (migh be in the `connect` phase)
 
-  getInitialState: function() {
-    return {
-      filter: '',
-      url: '',
-      timestamp: null
-    }
-  },
-  componentDidMount: function() {
-    // TODO display publication URL
-    logger.debug('Component did mount, adding change listener.');
-    QuestionnaireStore.addChangeListener(this._onQStoreChange);
-  },
-  componentDidUpdate: function() {
-    logger.debug('Component did update, state is ', this.state);
-  },
-  _onQStoreChange: function() {
-    logger.info('Handling change, state is : ', this.state);
-    this.setState({
-      url: QuestionnaireStore.getPublicationURL(),
-      timestamp : QuestionnaireStore.getPublicationTimestamp()
-    });
-  },
-  _goHome: function(event) {
-    PoguesActions.switchToPicker();
-    event.preventDefault();
-  },
-  _filter: function(event) {
-    var filter = event.target.value;
-    this.setState({
-      filter: filter
-    })
-    this.props.handleFilter(filter);
-  },
-  _clickToSave: function(event) {
-    logger.info('Clicking on the save button');
-    PoguesActions.saveQuestionnaire(QuestionnaireStore.getQuestionnaire());
-    event.preventDefault();
-  },
-  _clickToPublish: function(event) {
-    logger.info('Click on publish questionnaire button');
-    PoguesActions.publishQuestionnaire(QuestionnaireStore.getQuestionnaire());
-    event.preventDefault();
-  },
-  _clickToEditConfig: function(event) {
-    PoguesActions.switchToConfig();
-    event.preventDefault();
-  },
-
-  render: function() {
-    logger.info('Rendering the menu for the view : ' + this.props.view);
-    // TODO: handle connected user properly
-    var isQuestionnaireView = this.props.view === ViewTypes.QUESTIONNAIRE;
-    var configButton = (
-      <li className="navbar-form">
-        <button className="btn btn-default" onClick={this._clickToEditConfig}>
-          <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
-        </button>
-      </li>
-      );
-
-    return(
-      <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span className="sr-only">Toggle navigation</span>
-            </button>
-            <a href="#" className="navbar-brand" onClick={this._goHome}><span className="pogues-logo font-effect-shadow-multiple">pogues</span></a>
-          </div>
-
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-            {isQuestionnaireView ? <QuestionnaireTitle /> : <span className="navbar-text">{locale.tagline}</span>}
-
-            <SearchField filterFunction={this.props.handleFilter} filterLabel={locale.search}/>
-
-            {isQuestionnaireView ? <SaveButton saveFunction={this._clickToSave} buttonLabel={locale.save}/> : null}
-
-            {isQuestionnaireView ? <PublishButton publishFunction={this._clickToPublish} buttonLabel={locale.publish} /> : null}
-
-            {this.state.url !== '' ? <PublishLink publishURL={this.state.url} publishTimestamp={this.state.timestamp}/>  : ''}
-
-            <ul className="nav navbar-nav navbar-right">
-              {isQuestionnaireView ? null : configButton}
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                {_.shuffle(['Thomas','JB','Franck','Eric','François','Will','Jérémie','Guillaume','Romain','Roaming Lena Monster']).pop()}
-                <span className="caret"></span></a>
-                <ul className="dropdown-menu" role="menu">
-                  <li><a href="#">Disconnect</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    );
+//TODO refactor
+function Menu({
+  id, view, url, timestamp, filter,
+  goHome, handleQuestionnaireFilter, handleQuestionnaireListFilter,
+  clickToSave, clickToPublish, clickToEditConfig, handleChange, locale }) {
+  logger.info('Rendering the menu for the view : ' + view);
+  // TODO: handle connected user properly
+  let handleFilter
+  // child components, depending of the view (undefined when not relevant)
+  let saveButton, publishButton, publishLink, questionnaireTitle
+  const configButton = <ConfigButton clickToEditConfig={clickToEditConfig} /> 
+  if (view === QUESTIONNAIRE) {
+    handleFilter = filter => handleQuestionnaireFilter(id, filter)
+    saveButton = <SaveButton saveFunction={() => clickToSave(id)}
+                    buttonLabel={locale.save}/>
+    publishButton = <PublishButton publishFunction={() => clickToPublish(id)} 
+                      buttonLabel={locale.publish} /> 
+    questionnaireTitle = <QuestionnaireTitle />
+  } else {
+    handleFilter = handleQuestionnaireListFilter
+    questionnaireTitle = <span className="navbar-text">{locale.tagline}</span>
   }
-});
+  publishLink = url ? 
+    <PublishLink publishURL={url} publishTimestamp={timestamp}/> : ''
 
-export default Menu;
+  const names = [
+    'Thomas','JB','Franck','Eric','François','Will','Jérémie','Guillaume',
+    'Romain','Roaming Lena Monster'
+  ]
+  return (
+    <nav className="navbar navbar-default">
+      <div className="container-fluid">
+        <div className="navbar-header">
+          <button type="button" className="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1">
+            <span className="sr-only">
+              Toggle navigation
+            </span>
+          </button>
+          <a href="#" className="navbar-brand" onClick={goHome}>
+            <span className="pogues-logo font-effect-shadow-multiple">
+              pogues
+            </span>
+          </a>
+        </div>
+        <div className="collapse navbar-collapse"
+          id="bs-example-navbar-collapse-1">
+          { questionnaireTitle }
+          <SearchField filter={filter}
+            handleChange={handleFilter} locale={locale} />
+          { saveButton }
+          { publishButton }
+          { publishLink }
+          <ul className="nav navbar-nav navbar-right">
+            { configButton }
+            <li className="dropdown">
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown"
+                role="button" aria-expanded="false">
+                {_.shuffle(names).pop()}
+              <span className="caret"></span></a>
+              <ul className="dropdown-menu" role="menu">
+                <li><a href="#">Disconnect</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  )
+}
+
+Menu.propTypes = {
+  id: PropTypes.string,
+  goHome: PropTypes.func.isRequired,
+  filter: PropTypes.string,
+  handleQuestionnaireFilter: PropTypes.func.isRequired,
+  handleQuestionnaireListFilter: PropTypes.func.isRequired,
+  clickToSave: PropTypes.func.isRequired,
+  clickToPublish: PropTypes.func.isRequired,
+  clickToEditConfig: PropTypes.func.isRequired,
+  url: PropTypes.string.isRequired,
+  locale: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => {
+  const { locale, appState: { view } } = state
+  if (view === QUESTIONNAIRE) {
+    const qrId = state.appState.questionnaire
+    const qrState = state.appState.questionnaireById[qrId]
+    const { filter, url, timestamp } = qrState
+    return {
+      id: qrId,//TODO id is set in app state only on questionnaire view
+      filter,
+      view,
+      url,
+      timestamp,
+      locale
+    }
+  }
+  else if (view === PICKER) {
+    const filter = state.appState.questionnaireListFilter
+    return {
+      filter,
+      locale
+    }
+  }
+  else return {
+    locale
+  }
+}
+
+//TODO think about conventions for mapDispatchToProps : functions should not
+//be aware of the ui behavoir (for instance, things like
+//`event.preventDefault() or `event.target.value`), but the naming conventions
+//should inform on how to user the ation handler (do we need to call it every
+//time a key is pressed, or only when the ENTER key is pressed ?)
+//Try to avoid calling `event.preventDefault()` on each event, but it does not
+//make since the mapDispatchToProps should return functions unaware of the
+//inner workings of the ui.
+const preventDefault = fn => (e, ...rest) => { 
+  e.preventDefault()
+  return fn(...rest)
+}
+
+const mapDispatchToProps = {
+  goHome: switchToPicker,
+  handleQuestionnaireFilter: setQuestionnaireFilter,
+  handleQuestionnaireListFilter: setQuestionnaireListFilter,
+  clickToSave: saveQuestionnaire,
+  clickToPublish: publishQuestionnaire,
+  clickToEditConfig: switchToConfig
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

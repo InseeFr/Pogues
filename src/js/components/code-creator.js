@@ -1,40 +1,16 @@
-import React from 'react';
-import {getDictionary} from '../stores/dictionary-store';
-var locale = getDictionary();
-import assign from 'object-assign';
-import PoguesConstants from '../constants/pogues-constants'
-
-var CodeCreator = React.createClass({
-  propTypes: {
-    add: React.PropTypes.func,
-  },
-
-  componentWillMount: function() {
-    this.setState({
-      _value: '',
-      _label: ''
-    })
-  },
-
-  _change: function (event) {
-    this.setState({
-      _label: event.target.value
-    })
-  },
+import React, { Component, PropTypes } from 'react';
+import { GENERAL } from '../constants/pogues-constants'
 
 
-  _handleKeyDown: function (event) {
-    if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
-      if (!this.state._label) return;
-      this.props.add(this.state)
-      this.setState({
-        _value: '',
-        _label: ''
-      })
-    }
-  },
 
-  render: function() {
+export default class CodeCreator extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { locale, hndlEnterKey } = this.props
     return (
       <div className="form-group code">
         <label htmlFor="label" className="col-sm-3 control-label">
@@ -43,16 +19,20 @@ var CodeCreator = React.createClass({
         <div className="col-sm-9">
           <input
             id="label"
-            value={this.state._label}
             className="form-control"
             placeholder={locale.typeNewCode}
-            onChange={this._change}
-            onKeyDown={this._handleKeyDown} />
+            onKeyDown={e => {
+              if (e.keyCode !== GENERAL.ENTER_KEY_CODE) return;
+              hndlEnterKey(e.target.value)
+              e.target.value = ''
+            }} />
         </div>
       </div>
-    );
+    )
   }
+}
 
-});
-
-export default CodeCreator;
+CodeCreator.propTypes = {
+  hndlEnterKey: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired
+}

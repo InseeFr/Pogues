@@ -1,89 +1,109 @@
-import React from 'react';
-import PoguesConstants from '../constants/pogues-constants';
-import PoguesActions from '../actions/pogues-actions';
-import QuestionnaireStore from '../stores/questionnaire-store';;
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
+import { GENERAL } from '../constants/pogues-constants';
 import Logger from '../logger/logger';
+import { 
+  editComponent
+} from '../actions/component'
 
 var logger = new Logger('QuestionnaireTitle', 'Components');
 
-function getStateFromStore() {
-  logger.debug('Getting state from store');
-  return {
-    questionnaire: QuestionnaireStore.getQuestionnaire()
+class QuestionnaireTitle extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      editMode: false,
+      title: this.props.label
+    }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleOnBlur = this.handleOnBlur.bind(this)
   }
-}
 
-var QuestionnaireTitle =  React.createClass({
-
-  getInitialState: function() {
-    return {
-      editMode: false,
-      title: ''
-    };
-  },
-
-  _onChange: function() {
-    this.setState({
-      editMode: false,
-      title: this._getTitle()
-    });
-  },
-
-  componentDidMount: function() {
-    logger.debug('Component did mount');
-    QuestionnaireStore.addChangeListener(this._onChange);
-  },
-
-  componentDidUpdate: function(prevProps, prevState) {
-    logger.debug('Component did update, state is: ', this.state);
-    if (this.state.editMode) {
-      React.findDOMNode(this.refs.titleInput).focus();
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.editMode) {
+      this.setState({ title: nextProps.label })
     }
-  },
+  }
 
-  _getTitle: function() {
-    // FIXME problem when workin locally, _getTitle is called
-    // before current questionnaire is set in Questionnaire Store
-    var questionnaire = QuestionnaireStore.getQuestionnaire();
-    return questionnaire ? questionnaire.label : 'EDIT ME';
-  },
 
-  _handleClick: function() {
-    this.setState({
-      editMode: true,
-      title : this._getTitle()
-    });
+  componentDidUpdate() {
+    if (this.state.editMode) this.titleInput.focus()
+  }
 
-  },
+  handleClick() {
+    this.setState({editMode: true })
+  }
 
-  _handleKeyDown: function(event) {
-    var value = event.target.value;
-    if (event.keyCode === PoguesConstants.General.ENTER_KEY_CODE) {
-      PoguesActions.editQuestionnaire('label', value);
+  handleKeyDown(event) {
+    //TODO handle on blur might be enough
+    if (event.keyCode === GENERAL.ENTER_KEY_CODE) {
+      this.setState({ editMode: false })
+      this.props.handleEnterKeyDown(this.props.id, { label: this.state.title })
     }
-  },
+  }
 
-  _handleInputChange: function(event) {
-    var value = event.target.value;
-    this.setState({title:value});
-  },
+  handleOnBlur(event) {
+    this.setState({editMode: false})
+    this.props.handleEnterKeyDown(this.props.id, this.state.title)
+  }
 
-  render: function() {
-    if(this.state.editMode) {
+  handleInputChange(event) {
+    this.setState({title: event.target.value});
+  }
+
+  render() {
+    const { title, editMode } = this.state
+    const { id, handleEnterKeyDown, handleInputChange, handleClick } =
+      this.props
+    if (editMode) {
       return(
         <div className="navbar-form navbar-left">
           <div className="form-group">
-            <input ref="titleInput" type="text" className="form-control"
-            onKeyDown={this._handleKeyDown} value={this.state.title} onChange={this._handleInputChange}/>
+            <input ref={node => this.titleInput = node }
+              type="text" className="form-control"
+              value={title}
+              onKeyDown={this.handleKeyDown} onChange={this.handleInputChange}
+              onBlur={this.handleOnBlur} />
           </div>
         </div>
       );
     } else {
       return (
-        <span className="navbar-text" onClick={this._handleClick}>{this.state.title}</span>
+        <span className="navbar-text" onClick={this.handleClick}>
+          {title}
+        </span>
       );
     }
   }
-});
+}
 
-export default QuestionnaireTitle;
+QuestionnaireTitle.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  handleEnterKeyDown: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => {
+  //TODO should not need appState to know the questionnaire
+  const id = state.appState.questionnaire // questionnaire id
+  const qrState = state.appState.questionnaireById[id]
+  let label
+  if (!qrState.loaded) label='(...)'
+  // a questionnaire is a component : that's where save properties like
+  // label
+  else label = state.componentById[id].label
+  return {
+    id,
+    label: label || 'EDIT ME'
+  }
+}
+
+const mapDispatchToProps = {
+  handleEnterKeyDown: editComponent
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireTitle)

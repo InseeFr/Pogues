@@ -1,71 +1,25 @@
-import React from 'react';
-import {getDictionary} from '../stores/dictionary-store';
-var locale = getDictionary()
-import DatatypeModel from '../models/datatype';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Logger from '../logger/logger';
 
 var logger = new Logger('DataTypePicker', 'Components');
+import { DATATYPE_NAME } from '../constants/pogues-constants'
 
-import { getClassFromDatatype, getDatatypeTypes, createDatatype} from '../utils/datatype-factory'
+export default function DataTypePicker({ typeName, select, locale }) {
+  const typeChoices =  Object.keys(DATATYPE_NAME).map(type => 
+    <option value={DATATYPE_NAME[type]} key={type}>
+      {locale[DATATYPE_NAME[type]]}
+    </option>)
 
-var DataTypePicker = React.createClass({
-
-  propTypes: {
-    edition: React.PropTypes.bool,
-    edit: React.PropTypes.func,
-    change: React.PropTypes.func,
-    datatype: React.PropTypes.instanceOf(DatatypeModel)
-  },
-
-  componentWillMount: function() {
-    this.setState({
-      datatype: this.props.datatype,
-    });
-  },
-
-  _edit: function() {
-    this.props.edit();
-  },
-
-  _handleChange: function(event) {
-    // TODO keep track of last datatype description for a given datatype type
-    var datatype = createDatatype(event.target.value)
-    logger.debug('Change in the picker with value', event.target.value);
-    this.setState({
-      datatype: datatype
-    });
-    this.props.change(datatype);
-  },
-
-  render: function() {
-    var datatypeTypes = getDatatypeTypes();
-    var typeChoices =  datatypeTypes.map(function (key) {
-          return (
-            <option value={key}>
-              {locale[key]}
-            </option>
-            );
-        });
-
-    var btnClass = classNames({
-      'btn': true,
-      'btn-default': !this.props.edition,
-      'btn-primary': this.props.edition
-    });
-
-    return (
-      <div>
-        <div className="col-sm-3">
-          <select onChange={this._handleChange}
-             value={this.state.datatype.typeName} className="form-control">
-            {typeChoices}
-          </select>
-        </div>
+  return (
+    <div>
+      <div className="col-sm-3">
+        <select onChange={e => select(e.target.value)}
+          value={typeName} className="form-control">
+          {typeChoices}
+        </select>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-});
-
-export default DataTypePicker;

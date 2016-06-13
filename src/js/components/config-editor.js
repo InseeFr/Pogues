@@ -1,111 +1,120 @@
-import React from 'react';
-import PoguesActions from '../actions/pogues-actions';
-import ConfigStore from '../stores/config-store';
-import {getDictionary} from '../stores/dictionary-store';
-var locale = getDictionary()
-import assign from 'object-assign'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { switchToPicker } from '../actions/app-state'
 
-function getStateFromStore() {
-  var config = assign({}, ConfigStore.getConfig())
-  config.logLevel = config.log.level
-  config.logActiveNamespaces = config.log.activeNamespaces
-  delete config.log
-  return config
+
+// function getStateFromStore() {
+//   var config = assign({}, ConfigStore.getConfig())
+//   config.logLevel = config.log.level
+//   config.logActiveNamespaces = config.log.activeNamespaces
+//   delete config.log
+//   return config
+// }
+
+//TODO WIP updates not implemented
+function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
+    switchDev, switchRemote, close, locale }) {
+  return (
+    <div className="container bs-docs-container">
+      <div className="col-md-12">
+        <h1 className="page-header">{locale.edit_config}</h1>
+        <div className="form-horizontal">
+          <div className="form-group">
+            <label className="col-sm-4 control-label">{locale.dev}</label>
+            <div className="col-sm-8">
+              <label className="radio-inline">
+                <input type="radio" name="dev" checked={dev}
+                  onChange={switchDev}/>{locale.trueWord}
+              </label>
+              <label className="radio-inline">
+                <input type="radio" name="dev" checked={!dev}
+                  onChange={switchDev}/>{locale.falseWord}
+              </label>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-sm-4 control-label">{locale.remote}</label>
+            <div className="col-sm-8">
+              <label className="radio-inline">
+                <input type="radio" name="Remote" checked={remote}
+                  onChange={switchRemote}/>
+                  {locale.trueWord}
+              </label>
+              <label className="radio-inline">
+                <input type="radio" name="Remote" checked={!remote}
+                  onChange={switchRemote}/>{locale.falseWord}
+              </label>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-sm-4 control-label">{locale.baseURL}</label>
+            <div className="col-sm-8">
+              <input type="text" placeholder={locale.baseURL}
+                value={baseURL}
+                className="form-control"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-sm-4 control-label">
+              {locale.poguesPath}
+            </label>
+            <div className="col-sm-8">
+              <input type="text" placeholder={locale.poguesPath}
+                value={poguesPath}
+                className="form-control"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-sm-4 control-label">
+              {locale.stromaePath}
+            </label>
+            <div className="col-sm-8">
+              <input type="text" placeholder={locale.stromaePath}
+                value={stromaePath}
+                className="form-control"/>
+            </div>
+          </div>
+        </div>
+        <button className="btn btn-primary" onClick={close}>
+          {locale.save}
+        </button>
+      </div>
+    </div>
+  )
 }
 
-var ConfigEditor = React.createClass({
-  //removed when switching to react 0.15
-  //mixins: [React.addons.LinkedStateMixin],
+ConfigEditor.propTypes = {
+  dev: PropTypes.bool.isRequired,
+  remote: PropTypes.bool.isRequired,
+  baseURL: PropTypes.string.isRequired,
+  poguesPath: PropTypes.string.isRequired,
+  stromaePath: PropTypes.string.isRequired,
+  switchDev: PropTypes.func.isRequired,
+  switchRemote: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
+  editPoguesPath: PropTypes.func.isRequired,
+  editStromaePath: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired
+}
 
-  propTypes: {
-  },
-
-  getInitialState: function() {
-    return getStateFromStore();
-  },
-
-  componentWillMount: function() {
-    this.setState({
-
-    });
-  },
-
-  _clickToPicker: function (event) {
-    PoguesActions.switchToPicker();
-    event.preventDefault();
-  },
-  _switchDev: function() {
-    this.setState({
-      'dev': !this.state.dev
-    });
-  },
-  _switchRemote: function() {
-    this.setState({
-      'remote': !this.state.remote
-    });
-  },
-
-  render: function() {
-    // TODO update store
-    return (
-        <div className="container bs-docs-container">
-          <div className="col-md-12">
-            <h1 className="page-header">{locale.edit_config}</h1>
-            <div className="form-horizontal">
-              <div className="form-group">
-                <label className="col-sm-4 control-label">{locale.dev}</label>
-                <div className="col-sm-8">
-                    <label className="radio-inline">
-                      <input type="radio" name="dev" checked={this.state.dev} onChange={this._switchDev}/>{locale.trueWord}
-                    </label>
-                    <label className="radio-inline">
-                      <input type="radio" name="dev" checked={!this.state.dev} onChange={this._switchDev}/>{locale.falseWord}
-                    </label>
-                </div>
-              </div>
-              <div className="form-group">
-                <label className="col-sm-4 control-label">{locale.remote}</label>
-                <div className="col-sm-8">
-                    <label className="radio-inline">
-                      <input type="radio" name="Remote" checked={this.state.remote} onChange={this._switchRemote}/>{locale.trueWord}
-                    </label>
-                    <label className="radio-inline">
-                      <input type="radio" name="Remote" checked={!this.state.remote} onChange={this._switchRemote}/>{locale.falseWord}
-                    </label>
-                </div>
-              </div>
-              <div className="form-group">
-                <label className="col-sm-4 control-label">{locale.baseURL}</label>
-                <div className="col-sm-8">
-                  <input type="text" placeholder={locale.baseURL}
-                         valueLink={this.linkState('baseURL')}
-                         className="form-control"/>
-                </div>
-              </div>
-              <div className="form-group">
-                <label className="col-sm-4 control-label">{locale.poguesPath}</label>
-                <div className="col-sm-8">
-                  <input type="text" placeholder={locale.poguesPath}
-                          valueLink={this.linkState('poguesPath')}
-                         className="form-control"/>
-                </div>
-              </div>
-              <div className="form-group">
-                <label className="col-sm-4 control-label">{locale.stromaePath}</label>
-                <div className="col-sm-8">
-                  <input type="text" placeholder={locale.stromaePath}
-                          valueLink={this.linkState('stromaePath')}
-                         className="form-control"/>
-                </div>
-              </div>
-            </div>
-          <button className="btn btn-primary" onClick={this._clickToPicker}>
-            {locale.save}
-          </button>
-        </div>
-      </div>
-      );
+const mapStateToProps = ({ config }) => {
+  return {
+    dev: config.dev,
+    remote: config.remote,
+    baseURL: config.baseURL,
+    poguesPath: config.poguesPath,
+    stromaePath: config.stromaePath
   }
-})
+}
 
-export default ConfigEditor;
+const mapDispatchToProps = dispatch => {
+  return {
+    close: () => dispatch(switchToPicker()),
+    switchDev: () => {},
+    switchRemote: () => {},
+    editPoguesPath: () => {},
+    editStromaePath: () => {}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfigEditor)

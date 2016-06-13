@@ -1,95 +1,41 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ComponentPicker from './component-picker'
-import ComponentModel from '../models/component'
-import QuestionnaireStore from '../stores/questionnaire-store';
-import QuestionnaireUtils from '../utils/questionnaire-utils'
 import classNames from 'classnames'
-// constants for status identification
-var NON_EXISTING = 'NON_EXISTING'
-var AFTER = 'AFTER'
-var BEFORE = 'BEFORE'
-var EMPTY = 'EMPTY'
+import { GOTO_CONSISTENCY } from '../constants/pogues-constants'
 
-var Target = React.createClass({
-  propTypes: {
-    text: React.PropTypes.string.isRequired,
-    handleChange: React.PropTypes.func.isRequired,
-    initialTarget: React.PropTypes.instanceOf(ComponentModel),
-    candidates: React.PropTypes.arrayOf(
-      React.PropTypes.instanceOf(ComponentModel)).isRequired,
-  },
-  getInitialState: function() {
-    return {
-      target: this.props.initialTarget,
-      questionnaire: QuestionnaireStore.getQuestionnaire()
-    }
-  },
-  _handleChange: function(cmpntName, event) {
-    var status
-    if (!cmpntName) {
-      this.setState({
-        target: null,
-        status: EMPTY
-      })
-      return;
-    }
-    var target = QuestionnaireUtils.getComponentByName(
-                    this.state.questionnaire, event.target.value)
-    // TODO make status determination consistent
-    if (!target) {
-      status = NON_EXISTING
-    } else if (this.props.candidates.indexOf(target) !== -1) {
-      status = AFTER
-    } else {
-      status = BEFORE
-    }
-    //FIXME For now, we're just setting the value of the field as a ref
-    // for the ifTrue component
-    if (target !== null) this.props.handleChange(target.id) ;
-    this.setState({
-      target: event.target.value,
-      status: status
-    })
-  },
-  render: function() {
-    var componentId;
-    if (this.state.target) {
-      componentId = this.state.target;
-    } else {
-      componentId = '';
-    }
-    var status = this.state.status
-    var divCn = classNames({
-        'form-group': true,
-        'has-feedback': true,
-        'has-success': status === AFTER,
-        'has-warning': status === NON_EXISTING,
-        'has-error': status === BEFORE
-      });
-    var spanCn = classNames({
-      'glyphicon': true,
-      'form-control-feedback': true,
-      'glyphicon-ok': status === AFTER,
-      'glyphicon-warning-sign': status === NON_EXISTING,
-      'glyphicon-remove': status === BEFORE
-    })
-    return (
-      <div className={divCn}>
-        <label className="col-sm-4 control-label">{this.props.text}</label>
-          <div className="col-sm-4">
-          <ComponentPicker
-            initialValue={this.props.initialValue}
-            candidates={this.props.candidates}
-            handleChange={this._handleChange}/>
-          <span className={spanCn} aria-hidden="true"></span>
-        </div>
-        <div className="col-sm-4">
-          <input disabled className="form-control"
-            value={componentId}/>
-        </div>
+const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
+
+export default function Target({ label, text, status, select, locale }) {
+
+  const divCn = classNames({
+    'form-group': true,
+    'has-feedback': true,
+    'has-success': status === AFTER,
+    'has-warning': status === NON_EXISTING,
+    'has-error': status === BEFORE
+  })
+  const spanCn = classNames({
+    'glyphicon': true,
+    'form-control-feedback': true,
+    'glyphicon-ok': status === AFTER,
+    'glyphicon-warning-sign': status === NON_EXISTING,
+    'glyphicon-remove': status === BEFORE
+  })
+  return (
+    <div className={divCn}>
+      <label className="col-sm-4 control-label">{text}</label>
+      <div className="col-sm-8">
+        <ComponentPicker label={label} select={select} locale={locale}/>
+        <span className={spanCn} aria-hidden="true"></span>
       </div>
-    );
-  }
-});
+    </div>
+  );
+}
 
-export default Target
+Target.propTypes = {
+  label: PropTypes.string.isRequired, 
+  text: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  select: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired
+}

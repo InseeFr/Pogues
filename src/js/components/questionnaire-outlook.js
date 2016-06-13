@@ -1,15 +1,8 @@
-import React from 'react';
-import QuestionnaireStore from '../stores/questionnaire-store';
+import React, { Component, PropTypes } from 'react';
 import Logger from '../logger/logger';
 
 var logger = new Logger('QuestionnaireOutlook', 'Components');
 
-function getStateFromStore() {
-  logger.debug('Getting state from Questionnairestore');
-  return {
-    questionnaire: QuestionnaireStore.getQuestionnaire()
-  }
-}
 
 /**
  * Generates nested lists for the questionnaire-outlook
@@ -18,18 +11,18 @@ function getStateFromStore() {
  */
 function recursiveOutlook(components, root) {
   if (!components || components.length === 0) return;
-  var classname = root ? "nav bs-docs-sidenav" : "nav";
+  var classname = root ? 'nav bs-docs-sidenav' : 'nav';
   var bullets = components.map(function(child, index) {
     var anchor = '#' + child.id;
     var childElements;
 
-    return(
+    return (
       <li key={index}>
         <a href={anchor}> {child.name}</a>
-        {recursiveOutlook(child.children)}
+        {recursiveOutlook(child.childCmpnts)}
       </li>
-    );
-  });
+    ) 
+  })
   return (
     <ul className={classname}>
       {bullets}
@@ -37,35 +30,28 @@ function recursiveOutlook(components, root) {
   );
 }
 
-var QuestionnaireOutlook = React.createClass({
+class QuestionnaireOutlook extends Component {
 
-  _onChange: function() {
-    this.setState(getStateFromStore());
-  },
-  getInitialState: function() {
-    return getStateFromStore();
-  },
-  componentDidMount: function() {
-    QuestionnaireStore.addChangeListener(this._onChange);
-     $(this.affix)
-      .affix({
-        offset: {
-          top: 100
-      }});
-  },
-  componentWillUnmount: function() {
-    QuestionnaireStore.removeChangeListener(this._onChange);
-  },
-  render: function() {
-    logger.debug('Rendering with state ', this.state);
+  componentDidMount() {
+    $(this.affix).affix({
+      offset: { top: 100 }
+    })
+  }
+
+  render() {
+    const { childCmpnts } = this.props
     return (
       <div className="row">
         <nav ref={ref => this.affix = ref} className="outlook bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
-          {recursiveOutlook(this.state.questionnaire.children, true)}
+          {recursiveOutlook(childCmpnts, true)}
         </nav>
       </div>
     )
   }
-});
+}
+
+QuestionnaireOutlook.propTypes = {
+  childCmpnts: PropTypes.array.isRequired
+}
 
 export default QuestionnaireOutlook;

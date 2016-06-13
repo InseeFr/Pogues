@@ -1,161 +1,89 @@
-import React from 'react';
-import GoToModel from '../models/go-to';
-import {getDictionary} from '../stores/dictionary-store';
-var locale = getDictionary()
-import ExpressionModel from '../models/expression';
-import ComponentModel from '../models/component'
-import QuestionnaireModel from '../models/questionnaire'
+import React, { PropTypes } from 'react';
 import Target from './target'
 import Logger from '../logger/logger';
+import { chronology } from '../utils/tree-utils'
+import { GOTO_CONSISTENCY} from '../constants/pogues-constants'
 
-import PoguesActions from '../actions/pogues-actions'
+const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
 
 var logger = new Logger('GoTo', 'Components');
 
-class GoToDeleteButton extends React.Component {
-  constructor(props) {
-    super(props);
-    // The GoTo we want to delete
-    this.target = props.target;
-    this.delete = props.delete;
-  }
-
-  _handleClick() {
-    logger.debug(`Target to-be-remove GoTo id is : ${this.target.id}`);
-    this.delete();
-  }
-
-  render() {
-    return (
-      <div>
-        <button type="button"
-                className="btn btn-danger"
-                onClick={this._handleClick.bind(this)}>
-                {locale.deleteGoTo}
-        </button>
-      </div>
-    );
-  }
+function GoToDeleteButton({ remove, locale }) {
+  return (
+    <button type="button" className="btn btn-danger"
+      onClick={remove}>
+      {locale.deleteGoTo}
+    </button>
+  )
 }
 
 GoToDeleteButton.propTypes = {
-  target: React.PropTypes.instanceOf(GoToModel),
-  delete: React.PropTypes.func
-};
+  remove: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired
+}
 
-var GoTo = React.createClass({
-  propTypes: {
-    goTo: React.PropTypes.instanceOf(GoToModel).isRequired,
-    candidates: React.PropTypes.arrayOf(
-      React.PropTypes.instanceOf(ComponentModel)).isRequired,
-    delete: React.PropTypes.func.isRequired,
-    update: React.PropTypes.func.isRequired
-  },
+//TODO see how to deal with components with an empty label : it breaks the 
+//component picker since we cannot differentiate the selection of an empty
+//label component from the situation where no label has be typed in for the
+//goTo. And if we allow the label to be `null` (to differentiate it from ''),
+//we encounter that kind of error :
+//ReactDOMInput.js:132 Warning: ComponentPicker is changing a uncontrolled
+//input of type text to be controlled. Input elements should not switch from
+//uncontrolled to controlled (or vice versa). Decide between using a controlled
+//or uncontrolled input element for the lifetime of the component. 
+//since `null` as a value is handled as if there is no value given.
 
-  getInitialState: function() {
-    var goTo = this.props.goTo;
-    return {
-      description: goTo.description,
-      expression: goTo.expression,
-      ifTrue: goTo.ifTrue,
-      ifFalse: goTo.ifFalse
-    }
-  },
-  _handleExpressionChange: function(event) {
-    var oldGoTo = this.props.goTo;
-    var newGoTo = new GoToModel(oldGoTo);
-    newGoTo.expression = event.target.value;
-    this.props.update(oldGoTo, newGoTo);
-    this.setState({
-      expression: null
-    })
-  },
-  _handleDescriptionChange: function(event) {
-    var oldGoTo = this.props.goTo;
-    var newGoTo = new GoToModel(oldGoTo);
-    newGoTo.description = event.target.value;
-    this.props.update(oldGoTo, newGoTo);
-    this.setState({
-      description: null
-    })
-  },
-  _handleIfTrueChange: function(id) {
-    var oldGoTo = this.props.goTo;
-    var newGoTo = new GoToModel(oldGoTo);
-    newGoTo.ifTrue = id;
-    this.props.update(oldGoTo, newGoTo);
-    this.setState({
-      ifTrue: id
-    })
-  },
-  _handleIfFalseChange: function(id) {
-    var oldGoTo = this.props.goTo;
-    var newGoTo = new GoToModel(oldGoTo);
-    newGoTo.ifFalse = id;
-    this.props.update(oldGoTo, newGoTo);
-    this.setState({
-      ifFalse: id
-    });
-  },
-  _handleTypeChange: function(event) {
-    this.setState({
-      type: event.target.value
-    });
-  },
-  _handleDisjoignableChange: function(event) {
-    this.setState({
-      disjoignable: event.target.value
-    });
-  },
-  _save: function(event) {
-    // FIXME not ok with react philosphy
-    this.props.declaration.text = this.state.text;
-    this.props.ifTrue = this.state.ifTrue;
-  },
-
-  _delete: function() {
-    this.props.delete();
-  },
-
-  render: function() {
-    return (
-      <div>
-        <datalist id="candidates">
-           {this.props.candidates.map(function (cmpnt) {
-             return <option key={cmpnt.id} value={cmpnt.name}/>;
-           }, this)}
-        </datalist>
-        <div className="form-horizontal">
-          <div className="form-group">
-            <div className="col-sm-12">
-              <input type="text"
-                     placeholder={locale.description}
-                     className="form-control"
-                     onChange={this._handleDescriptionChange}/>
-            </div>
+export default function GoTo(
+  { after, before, description, expression,
+    ifTrueLabel, ifTrueStatus,
+    ifFalseLabel, ifFalseStatus,
+    edit, remove, changeTargetTrue, changeTargetFalse,
+    locale }) {
+ 
+  
+  return (
+    <div>
+      <div className="form-horizontal">
+        <div className="form-group">
+          <div className="col-sm-12">
+            <input type="text" value={description}
+              placeholder={locale.description}
+              className="form-control"
+              onChange={e => edit({ description: e.target.value })}/>
           </div>
-          <div className="form-group">
-            <div className="col-sm-12">
-              <input type="text"
-                     placeholder={locale.expression}
-                     className="form-control"
-                     value={this.state.expression}
-                     onChange={this._handleExpressionChange}/>
-            </div>
-          </div>
-          <Target text={locale.ifTrue}
-                  handleChange={this._handleIfTrueChange}
-                  initialTarget={this.state.ifTrue}
-                  candidates={this.props.candidates}/>
-          <Target text={locale.ifFalse}
-                  handleChange={this._handleIfFalseChange}
-                  initialTarget={this.state.ifFalse}
-                  candidates={this.props.candidates}/>
         </div>
-        <GoToDeleteButton target={this.props.goTo} delete={this.props.delete}/>
+        <div className="form-group">
+          <div className="col-sm-12">
+            <input type="text" value={expression}
+              placeholder={locale.expression}
+              className="form-control"
+              onChange={e => edit({ expression: e.target.value })}/>
+          </div>
+        </div>
+        <Target text={locale.ifTrue} label={ifTrueLabel || ''}
+          status={ifTrueStatus}
+          select={val => changeTargetTrue(val)} locale={locale} />
+        <Target text={locale.ifFalse} label={ifFalseLabel || ''}
+          status={ifFalseStatus}
+          select={val => changeTargetFalse(val)} locale={locale} />
       </div>
-  )}
+      <GoToDeleteButton remove={remove} locale={locale} />
+    </div>
+  )
+}
 
-});
-
-export default GoTo;
+GoTo.propTypes = {
+  ifTrueLabel: PropTypes.string, // can be null`
+  ifTrueStatus: PropTypes.string.isRequired,
+  ifFalseLabel: PropTypes.string, // can be `null`
+  ifFalseStatus: PropTypes.string.isRequired,
+  edit: PropTypes.func.isRequired,
+  changeTargetTrue: PropTypes.func.isRequired,
+  changeTargetFalse: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
+  expression: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  locale: PropTypes.object.isRequired,
+  after: PropTypes.array.isRequired,
+  before: PropTypes.array.isRequired
+}
