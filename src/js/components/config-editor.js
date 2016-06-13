@@ -12,8 +12,8 @@ import { switchToPicker } from '../actions/app-state'
 // }
 
 //TODO WIP updates not implemented
-function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
-    switchDev, switchRemote, editPoguesPath, editStromaePath, editBaseURL,
+function ConfigEditor({ dev, baseURL, poguesPath, stromaePath,
+    switchDev, editPoguesPath, editStromaePath, editBaseURL,
     close, locale }) {
   return (
     <div className="container bs-docs-container">
@@ -30,20 +30,6 @@ function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
               <label className="radio-inline">
                 <input type="radio" name="dev" checked={!dev}
                   onChange={switchDev}/>{locale.falseWord}
-              </label>
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="col-sm-4 control-label">{locale.remote}</label>
-            <div className="col-sm-8">
-              <label className="radio-inline">
-                <input type="radio" name="Remote" checked={remote}
-                  onChange={switchRemote}/>
-                  {locale.trueWord}
-              </label>
-              <label className="radio-inline">
-                <input type="radio" name="Remote" checked={!remote}
-                  onChange={switchRemote}/>{locale.falseWord}
               </label>
             </div>
           </div>
@@ -89,12 +75,10 @@ function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
 
 ConfigEditor.propTypes = {
   dev: PropTypes.bool.isRequired,
-  remote: PropTypes.bool.isRequired,
   baseURL: PropTypes.string.isRequired,
   poguesPath: PropTypes.string.isRequired,
   stromaePath: PropTypes.string.isRequired,
   switchDev: PropTypes.func.isRequired,
-  switchRemote: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   editPoguesPath: PropTypes.func.isRequired,
   editStromaePath: PropTypes.func.isRequired,
@@ -105,7 +89,6 @@ ConfigEditor.propTypes = {
 const mapStateToProps = ({ config }) => {
   return {
     dev: config.dev,
-    remote: config.remote,
     baseURL: config.baseURL,
     poguesPath: config.poguesPath,
     stromaePath: config.stromaePath
