@@ -13,7 +13,8 @@ import { switchToPicker } from '../actions/app-state'
 
 //TODO WIP updates not implemented
 function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
-    switchDev, switchRemote, close, locale }) {
+    switchDev, switchRemote, editPoguesPath, editStromaePath, editBaseURL,
+    close, locale }) {
   return (
     <div className="container bs-docs-container">
       <div className="col-md-12">
@@ -51,6 +52,7 @@ function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
             <div className="col-sm-8">
               <input type="text" placeholder={locale.baseURL}
                 value={baseURL}
+                onChange={e => editBaseURL(e.target.value)}
                 className="form-control"/>
             </div>
           </div>
@@ -61,6 +63,7 @@ function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
             <div className="col-sm-8">
               <input type="text" placeholder={locale.poguesPath}
                 value={poguesPath}
+                onChange={e => editPoguesPath(e.target.value)}
                 className="form-control"/>
             </div>
           </div>
@@ -71,6 +74,7 @@ function ConfigEditor({ dev, remote, baseURL, poguesPath, stromaePath,
             <div className="col-sm-8">
               <input type="text" placeholder={locale.stromaePath}
                 value={stromaePath}
+                onChange={e => editStromaePath(e.target.value)}
                 className="form-control"/>
             </div>
           </div>
@@ -94,6 +98,7 @@ ConfigEditor.propTypes = {
   close: PropTypes.func.isRequired,
   editPoguesPath: PropTypes.func.isRequired,
   editStromaePath: PropTypes.func.isRequired,
+  editBaseURL: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired
 }
 
@@ -113,7 +118,8 @@ const mapDispatchToProps = dispatch => {
     switchDev: () => {},
     switchRemote: () => {},
     editPoguesPath: () => {},
-    editStromaePath: () => {}
+    editStromaePath: () => {},
+    editBaseURL: () => {}
   }
 }
 
