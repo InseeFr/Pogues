@@ -70,15 +70,17 @@ server.get('/repo/clist/:retrievalQuery', function (req, res, next) {
 server.post('/stromae/publisher', function (req, res, next) {
   const publishedQr = JSON.parse(req.body)
   const id = uuid()
+
   published[id] = publishedQr
-  res.header('Location', 'http://localhost:4000/stromae/publisher/'
+  res.header('Location', '//' + req.headers.host + '/stromae/publisher/'
          + id)
   res.send()
-  res.next()
+  next()
 })
 
 server.get('/stromae/publisher/:id', function (req, res, next) {
   res.send(JSON.stringify(published[req.params.id]))
+  next()
 })
 
 
@@ -105,7 +107,7 @@ server.post('/questionnaire', function (req, res, next) {
   qr._id = id
   questionnaires[id] = qr
   save()
-  res.header('Location', 'http://localhost:4000/questionnaire/' + id)
+  res.header('Location', '//' + req.headers.host + '/questionnaires/' + id)
   res.send()
   next()
 })
