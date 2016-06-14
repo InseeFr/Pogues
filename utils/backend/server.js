@@ -114,4 +114,4 @@ function save() {
   fs.writeFile(__dirname + '/questionnaires.json', JSON.stringify(questionnaires))
 }
 
-server.listen(4000)
+server.listen(process.env.PORT || 4000)
