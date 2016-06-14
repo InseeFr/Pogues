@@ -210,7 +210,8 @@ function copyCmpnts(child, cmpnts, cmpntsUpdated) {
  * supposed to be already present in the cmpnts).
  *
  * It takes care of unconsistencies about depth (for instance, adding a question
- * at depth `3` when there is no opened sequence).
+ * at depth `3` when there is no opened sequence) by ignoring the operation (by
+ * returning { parentId: undefined })
  *
  * `cmpnts` will not be modifed, so we do not need to make a copy of it before
  * calling this function.
@@ -228,29 +229,30 @@ export function appendComponent(main, cmpnt, cmpnts, depth) {
   //sequence based on depth.
   switch (depth) {
     case 1:
-      parentId = main
+      // only a sequence can be created at the root of the questionnaire
+      if (cmpnt.type === SEQUENCE) parentId = main
       break;
   case 2:
     // If there is an opened sequence in main, we append to this sequence. If
     // not, we append to the main sequence.
     parentId = cmpnts[main].childCmpnts.slice(-1).pop()
-    if (!parentId || cmpnts[parentId].type !== SEQUENCE) parentId = main
+    // We cannot create at depth 2 if there is no opened sequence
+    if (!parentId || cmpnts[parentId].type !== SEQUENCE) parentId = undefined
     break;
   case 3:
-    // Only a question can have a depth of 3. We add it to the last subsequence
-    // of the last sequence of the main sequene. If there is no such sub 
-    // sequence, we add it to the last sequence. If there is no such sequence, we
-    // add it to the main sequence.
+    // Only a question can have a depth of 3. It there is no grand parent and
+    // parent for this question, do nothing
     if (cmpnt.type === QUESTION) {
       grandParentId = cmpnts[main].childCmpnts.slice(-1).pop()
-      if (!grandParentId || cmpnts[grandParentId].type !== SEQUENCE) {
-       grandParentId = main
-      }
-      parentId = cmpnts[grandParentId].childCmpnts.slice(-1).pop()
-      if (!parentId || cmpnts[parentId].type !== SEQUENCE) {
-        parentId = grandParentId
+      if (grandParentId && cmpnts[grandParentId].type !== SEQUENCE) {
+        parentId = cmpnts[grandParentId].childCmpnts.slice(-1).pop()
+        if (!parentId || cmpnts[parentId].type !== SEQUENCE)
+            parentId = undefined
       }
     }
+  }
+  if (!parentId) return {
+    parentId: undefined
   }
   const parent = cmpnts[parentId]
   return {

@@ -72,7 +72,7 @@ function createComponent(cmpntsById, { id, label, type, parent, depth }) {
   const cmpnt = cmpntUtils.createComponent({ id, label, type})
   const { parentId, childCmpnts } =
     appendComponent(parent, cmpnt, cmpntsById, depth)
-  return {  
+  if (parentId) return {  
     ...cmpntsById,
     [id]: cmpnt,
     [parentId]: {
@@ -80,7 +80,8 @@ function createComponent(cmpntsById, { id, label, type, parent, depth }) {
       childCmpnts
     }
   }
-  return 
+  // nothing to do, cannot create a component here
+  return cmpntsById
 }
 
 function editComponent(cmpntsById, { id, update }) {
