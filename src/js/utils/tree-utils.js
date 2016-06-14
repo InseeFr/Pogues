@@ -232,24 +232,24 @@ export function appendComponent(main, cmpnt, cmpnts, depth) {
       // only a sequence can be created at the root of the questionnaire
       if (cmpnt.type === SEQUENCE) parentId = main
       break;
-  case 2:
-    // If there is an opened sequence in main, we append to this sequence. If
-    // not, we append to the main sequence.
-    parentId = cmpnts[main].childCmpnts.slice(-1).pop()
-    // We cannot create at depth 2 if there is no opened sequence
-    if (!parentId || cmpnts[parentId].type !== SEQUENCE) parentId = undefined
-    break;
-  case 3:
-    // Only a question can have a depth of 3. It there is no grand parent and
-    // parent for this question, do nothing
-    if (cmpnt.type === QUESTION) {
-      grandParentId = cmpnts[main].childCmpnts.slice(-1).pop()
-      if (grandParentId && cmpnts[grandParentId].type !== SEQUENCE) {
-        parentId = cmpnts[grandParentId].childCmpnts.slice(-1).pop()
-        if (!parentId || cmpnts[parentId].type !== SEQUENCE)
-            parentId = undefined
+    case 2:
+      // If there is an opened sequence in main, we append to this sequence. If
+      // not, we append to the main sequence.
+      parentId = cmpnts[main].childCmpnts.slice(-1).pop()
+      // We cannot create at depth 2 if there is no opened sequence
+      if (!parentId || cmpnts[parentId].type !== SEQUENCE) parentId = undefined
+      break;
+    case 3:
+      // Only a question can have a depth of 3. It there is no grand parent and
+      // parent for this question, do nothing
+      if (cmpnt.type === QUESTION) {
+        grandParentId = cmpnts[main].childCmpnts.slice(-1).pop()
+        if (grandParentId && cmpnts[grandParentId].type === SEQUENCE) {
+          parentId = cmpnts[grandParentId].childCmpnts.slice(-1).pop()
+          if (!parentId || cmpnts[parentId].type !== SEQUENCE)
+              parentId = undefined
+        }
       }
-    }
   }
   if (!parentId) return {
     parentId: undefined
