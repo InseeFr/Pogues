@@ -23,21 +23,23 @@ var logger = new Logger('Questionnaire', 'Components');
 
 //It's easier to take care of recursion here than in the questionOrSequence
 //component since we can put the GenericInput at the right place more easily.
-
-const childCmpntsAndGenericInput = (childCmpntsFromParent, props) =>
-  childCmpntsFromParent.map(child => {
-    if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
-    const { id, active, label, depth, highlighted, type, childCmpnts } = child
-    const children = childCmpnts ?
-      childCmpntsAndGenericInput(childCmpnts, props) : null
-    return (
-      <QuestionOrSequence {...props} // utility functions from parent
-        key={id}
-        id={id} active={active} label={label} highlighted={highlighted}
-        type={type} depth={depth}
-        children={children} />
-      )
-  })
+// Only the first sequence will have isFirst set to true
+const childCmpntsAndGenericInput = 
+  (childCmpntsFromParent, props, first=true) => {
+    return childCmpntsFromParent.map((child, i) => {
+      if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
+      const { id, active, label, depth, highlighted, type, childCmpnts } = child
+      const children = childCmpnts ?
+        childCmpntsAndGenericInput(childCmpnts, props, false) : null
+      return (
+        <QuestionOrSequence {...props} // utility functions from parent
+          key={id}
+          id={id} active={active} label={label} highlighted={highlighted}
+          type={type} depth={depth}
+          children={children} removeAllowed={!(first && (i === 0))} />
+        )
+    })
+  }
 
 //TODO We could try to connect each QuestionOrSequence to the store in order to
 //avoid useless re-rendering of sequences when the generic input position
