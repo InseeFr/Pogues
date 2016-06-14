@@ -162,7 +162,7 @@ function moveChildren(parent, parentChildren, ownChildren,
         // sibling).
         const lastInPrevSibling = 
           cmpntsUpdated[prevSibling.childCmpnts.slice(-1).pop()]
-        if (lastInPrevSibling.type === SEQUENCE) {
+        if (lastInPrevSibling && lastInPrevSibling.type === SEQUENCE) {
           // PrevSibling ends with a sequence, we append to this sequence.
           lastInPrevSibling.childCmpnts.push(child)
         }
