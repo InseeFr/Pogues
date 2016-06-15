@@ -10,6 +10,7 @@ const QUESTION_OR_SEQUENCE = 'QUESTION_OR_SEQUENCE'
 const BEFORE = 'avant'
 const AFTER = 'après'
 const ONTO = 'ONTO'
+const NOWHERE = 'NOWHERE'
 //TODO see how to use beginDrag, creating a closure to keep track of the dragged
 //component might not be useful (at least, we could keep track of this in the
 //state)
@@ -18,11 +19,13 @@ export function linkSourceAndTarget() {
 
   let idOfDraggedCmpnt 
   let pathOfDraggedCmpnt
+  let depthOfDraggedComponent
 
   const QuestionOrSequenceSource = {
-    beginDrag({ id, path }) {
+    beginDrag({ id, path, depth }) {
       idOfDraggedCmpnt = id
       pathOfDraggedCmpnt = path
+      depthOfDraggedComponent = depth
       return { id }
     }
   }
@@ -39,11 +42,12 @@ export function linkSourceAndTarget() {
     QuestionOrSequenceTarget,
     idOfDraggedCmpnt: () => idOfDraggedCmpnt,
     pathOfDraggedCmpnt: () => pathOfDraggedCmpnt,
+    depthOfDraggedComponent: () => depthOfDraggedComponent
   }
 }
 
 const { QuestionOrSequenceSource, QuestionOrSequenceTarget, idOfDraggedCmpnt,
- pathOfDraggedCmpnt} = linkSourceAndTarget()
+ pathOfDraggedCmpnt, depthOfDraggedComponent } = linkSourceAndTarget()
 
 
 function collectForSource(connect, monitor) {
@@ -59,7 +63,8 @@ function collectForTarget(connect, monitor) {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
     idOfDraggedCmpnt: idOfDraggedCmpnt(),
-    pathOfDraggedCmpnt: pathOfDraggedCmpnt()
+    pathOfDraggedCmpnt: pathOfDraggedCmpnt(),
+    depthOfDraggedComponent: depthOfDraggedComponent()
   }
 }
 
@@ -68,11 +73,14 @@ function QuestionOrSequence(props) {
     structure, id, active, label, depth, type, highlighted, children, path,
     removeAllowed, removeComponent, moveComponent, qrId,
     connectDragSource, connectDropTarget, connectDragPreview, isDragging,
-    isOver, idOfDraggedCmpnt, pathOfDraggedCmpnt  } = props
+    isOver, idOfDraggedCmpnt, pathOfDraggedCmpnt, depthOfDraggedComponent  } = props
   
-  const whereToDrop = pathOfDraggedCmpnt < path ? AFTER :
-                pathOfDraggedCmpnt > path ? BEFORE :
-                ONTO
+  const whereToDrop = (
+    path === '0.0' && (depthOfDraggedComponent > 1) ? NOWHERE :
+    pathOfDraggedCmpnt < path ? AFTER :
+    pathOfDraggedCmpnt > path ? BEFORE :
+    ONTO
+  )
 
   const placeholder = <div className="placeholder">{whereToDrop} {label}</div>
   const afterPlaceholder = isOver && whereToDrop === AFTER && placeholder
@@ -111,7 +119,9 @@ QuestionOrSequence.propTypes = {
   toggleActiveComponent: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
-  removeAllowed: PropTypes.bool.isRequired
+  removeAllowed: PropTypes.bool.isRequired,
+  pathOfDraggedCmpnt: PropTypes.string,
+  depthOfDraggedComponent: PropTypes.number
   // moveComponentUp: PropTypes.func.isRequired,
   // moveComponentDown: PropTypes.func.isRequired,
 }
