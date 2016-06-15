@@ -4,6 +4,10 @@ import {
 } from '../actions/questionnaire-list'
 
 
+import {
+  REMOVE_QUESTIONNAIRE_SUCCESS
+} from '../actions/questionnaire'
+
 //TODO check consistency with questionnaires that have been already loaded
 export default function (state={}, action) {
   if (!action) return state
@@ -13,6 +17,10 @@ export default function (state={}, action) {
     //TODO might be safer to replace state, and not just update it with the
     //questionnaire list (but if the questionnaire label has been edited and
     //the questionnaire not saved, the new label would not appear).
+  }
+  if (action.type === REMOVE_QUESTIONNAIRE_SUCCESS) {
+    const { [action.payload]: toRemove, ...toKeep } = state
+    return toKeep
   }
   return state
 }

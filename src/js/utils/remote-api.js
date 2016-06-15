@@ -18,6 +18,7 @@ const {
 const urlGetQuestionnaire         = baseURL + persistPath + '/questionnaire'
 const urlPostQuestionnaire        = baseURL + persistPath + '/questionnaire'
 const urlPutQuestionnaire         = baseURL + persistPath + '/questionnaire'
+const urlDeleteQuestionnaire      = baseURL + persistPath + '/questionnaire'
 const urlGetQuestionnaireList     = baseURL + persistPath + '/questionnaires'
 const urlStromaePostQuestionnaire = baseURL + stromaePath
 //TODO ivestigate repo API
@@ -69,6 +70,16 @@ export const putQuestionnaire = (id, qr) =>
       else throw new Error('Network request failed :' + res.statusText)
     })
 
+export const deleteQuestionnaire = id =>
+  fetch(urlDeleteQuestionnaire + '/' + id, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'text/html'
+    }
+  }).then(res => {
+    if (res.ok) return res
+    else throw new Error('Network request failed :' + res.statusText)
+  })
 /**
  * Publish questionnaire
  * path like '/publisher/questionnaire'

@@ -23,9 +23,7 @@ Origin 'http://localhost:8080' is therefore not allowed access.
 */
 restify.CORS.ALLOW_HEADERS.push('authorization');
 restify.CORS.ALLOW_HEADERS.push('Location');
-server.use(restify.CORS({
-  headers: ['Access-Control-Allow-Origin', 'Location', 'authorization']
-}))
+server.use(restify.CORS())
 server.use(restify.bodyParser())
 
 
@@ -86,6 +84,12 @@ server.get('/stromae/publisher/:id', function (req, res, next) {
 
 server.get('/questionnaires', function (req, res, next) {
   res.send(JSON.stringify(questionnaires))
+  next()
+})
+
+server.del('/questionnaire/:id', function (req, res, next) {
+  delete questionnaires[req.params.id]
+  res.send(204)
   next()
 })
 

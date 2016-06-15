@@ -11,7 +11,7 @@ var logger = new Logger('Questionnaire', 'Reducer');
 
 import {
   getQuestionnaire, postQuestionnaire, putQuestionnaire,
-  stromaePostQuestionnaire
+  stromaePostQuestionnaire, deleteQuestionnaire
 } from '../utils/remote-api'
 
 export const EDIT_QUESTIONNAIRE = 'EDIT_QUESTIONNAIRE'
@@ -20,6 +20,9 @@ export const CREATE_QUESTIONNAIRE = 'CREATE_QUESTIONNAIRE'
 export const CREATE_QUESTIONNAIRE_SUCCESS = 'CREATE_QUESTIONNAIRE_SUCCESS'
 export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE'
 
+export const REMOVE_QUESTIONNAIRE = 'REMOVE_QUESTIONNAIRE'
+export const REMOVE_QUESTIONNAIRE_SUCCESS = 'REMOVE_QUESTIONNAIRE_SUCCESS'
+export const REMOVE_QUESTIONNAIRE_FAILURE = 'REMOVE_QUESTIONNAIRE_FAILURE'
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE'
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS'
 export const LOAD_QUESTIONNAIRE_FAILURE = 'LOAD_QUESTIONNAIRE_FAILURE'
@@ -214,3 +217,28 @@ export function setQuestionnaireFilter(id, filter) {
     }
   }
 }
+
+export const removeQuestionnaire = id =>
+  dispatch => {
+    dispatch({
+      type: REMOVE_QUESTIONNAIRE,
+      payload: {
+        id  
+      }
+    })
+    deleteQuestionnaire(id)
+      .then(() => dispatch(removeQuestionnaireSuccess(id)))
+      .catch(err => dispatch(removeQuestionnaireFailure(id, err)))
+  }
+
+export const removeQuestionnaireSuccess = id => ({
+  type: REMOVE_QUESTIONNAIRE_SUCCESS,
+  payload: id
+})
+
+export const removeQuestionnaireFailure = (id, err) => ({
+  type: REMOVE_QUESTIONNAIRE_FAILURE,
+  payload: {
+    id, err
+  }
+})
