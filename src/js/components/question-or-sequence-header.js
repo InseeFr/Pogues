@@ -14,11 +14,11 @@ export default function QuestionOrSequenceHeader(props) {
 
   const cl = classnames(
     'header-container tools-activator-container',
-    isDragging && 'isDragging')
+    isDragging && 'drag')
   const Label = type === QUESTION ? QuestionLabel : SequenceLabel
   return (
     <div className={cl} >
-      <ToolsActivator {...props} /> 
+      { !isDragging && <ToolsActivator {...props} /> }
       {connectDragSource(
         <span>
           <Label {...props} />

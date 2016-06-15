@@ -156,4 +156,11 @@ h4.question-header {
   padding-right: 5px;
 }
 
+.drag {
+  font-style: italic;
+  background: #aca;
+  opacity: 0.5;
+}
+
+
 
