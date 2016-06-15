@@ -83,12 +83,7 @@ function QuestionOrSequence(props) {
   const labelElDrop = connectDropTarget(
     <div>
       { isOver && beforePlaceholder }
-      <QuestionOrSequenceHeader
-        id={id} qrId={qrId} type={type}
-        isDragging={isDragging} connectDragSource={connectDragSource}
-        highlighted={highlighted}
-        label={label} depth={depth}
-        removeAllowed={removeAllowed} removeComponent={removeComponent} />
+      <QuestionOrSequenceHeader {...props} />
       { isOver && afterPlaceholder }
     </div>)
 
