@@ -1,7 +1,7 @@
 //TODO Divide into a container component and a presentational component
 
 
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import QuestionnaireOutlook from './questionnaire-outlook';
 import QuestionOrSequence from './question-or-sequence'
 import GenericInput from '../components/generic-input';
@@ -53,26 +53,26 @@ const childCmpntsAndGenericInput =
 //TODO We could try to connect each QuestionOrSequence to the store in order to
 //avoid useless re-rendering of sequences when the generic input position
 //changes but without impacting the sequence
-function Questionnaire(props) {
-
-  const { qr, locale } = props
-  let invite = locale.introduction
-  
-  return (
-    <div className="container bs-docs-container">
-      <div className="row">
-        <div className="col-md-9">
-          <h1>{ invite }</h1>
-          <div className="questionnaire">
-            { childCmpntsAndGenericInput(qr, props, '0') }
+class Questionnaire extends Component {
+  render() {
+    const { qr, locale } = this.props
+    let invite = locale.introduction
+    return (
+      <div className="container bs-docs-container">
+        <div className="row">
+          <div className="col-md-9">
+            <h1>{ invite }</h1>
+            <div className="questionnaire">
+              { childCmpntsAndGenericInput(qr, this.props, '0') }
+            </div>
+          </div>
+          <div className="col-md-3">
+            <QuestionnaireOutlook childCmpnts={qr}/>
           </div>
         </div>
-        <div className="col-md-3">
-          <QuestionnaireOutlook childCmpnts={qr}/>
-        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 
