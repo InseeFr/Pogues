@@ -13,7 +13,7 @@ var HTML5Backend = require('react-dnd-html5-backend');
 const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
 import { 
-  toggleActiveComponent, createComponent, removeComponent
+  toggleActiveComponent, createComponent, removeComponent, moveComponent
 } from '../actions/component'
 
 import Logger from '../logger/logger'
@@ -81,6 +81,7 @@ Questionnaire.propTypes = {
   createComponent: PropTypes.func.isRequired,
   structure: PropTypes.object.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  moveComponent: PropTypes.func.isRequired,
   // moveComponentUp: PropTypes.func.isRequired,
   // moveComponentDown: PropTypes.func.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,

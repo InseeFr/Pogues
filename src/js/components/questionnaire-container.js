@@ -15,7 +15,7 @@ const { FAILED, LOADED, PENDING } = REMOTE_EVENT
 const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
 import { 
-  toggleActiveComponent, createComponent, removeComponent
+  toggleActiveComponent, createComponent, removeComponent, moveComponent
 } from '../actions/component'
 
 import {
@@ -101,6 +101,7 @@ QuestionnaireContainer.propTypes = {
 const mapDispatchToProps = {
   createComponent,
   removeComponent,
+  moveComponent,
   toggleActiveComponent,
   loadQuestionnaireIfNeeded
 }

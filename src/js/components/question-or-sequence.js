@@ -28,8 +28,9 @@ export function linkSourceAndTarget() {
   }
 
   const QuestionOrSequenceTarget = {
-    drop: function ({ id, moveCmpnt }) {
-      console.log('dragged : ',idOfDraggedCmpnt, ' - anchor: ', id)
+    drop: function (props) {
+      const { qrId, id, moveComponent } = props
+      moveComponent(qrId, idOfDraggedCmpnt, id)
     }
   }
 
@@ -65,7 +66,7 @@ function collectForTarget(connect, monitor) {
 function QuestionOrSequence(props) {
   const { 
     structure, id, active, label, depth, type, highlighted, children, path,
-    removeAllowed, removeComponent, qrId,
+    removeAllowed, removeComponent, moveComponent, qrId,
     connectDragSource, connectDropTarget, connectDragPreview, isDragging,
     isOver, idOfDraggedCmpnt, pathOfDraggedCmpnt  } = props
   
@@ -114,6 +115,7 @@ QuestionOrSequence.propTypes = {
   createComponent: PropTypes.func.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  moveComponent: PropTypes.func.isRequired,
   removeAllowed: PropTypes.bool.isRequired
   // moveComponentUp: PropTypes.func.isRequired,
   // moveComponentDown: PropTypes.func.isRequired,
