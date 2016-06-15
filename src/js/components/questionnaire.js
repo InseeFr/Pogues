@@ -26,13 +26,7 @@ var logger = new Logger('Questionnaire', 'Components');
 // Only the first sequence will have isFirst set to true
 const childCmpntsAndGenericInput = 
   (childCmpntsFromParent, props, first=true) => {
-<<<<<<< technoupgrade
-    return childCmpntsFromParent.map((child, i) => {
-      if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
-      const { id, active, label, depth, highlighted, type, childCmpnts } = child
-      const children = childCmpnts ?
-        childCmpntsAndGenericInput(childCmpnts, props, false) : null
-=======
+
     let mightBeFirstSequence = first
     return childCmpntsFromParent.map(child => {
       if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
@@ -42,18 +36,13 @@ const childCmpntsAndGenericInput =
       const children = childCmpnts ?
         childCmpntsAndGenericInput(childCmpnts, props, false) : null
 
->>>>>>> Fix removal of  first sequence when questionnaire starts with a question
       return (
         <QuestionOrSequence {...props} // utility functions from parent
           key={id}
           id={id} active={active} label={label} highlighted={highlighted}
           type={type} depth={depth}
-<<<<<<< technoupgrade
-          children={children} removeAllowed={!(first && (i === 0))} />
-=======
           children={children}
           removeAllowed={!isFirstSequence} />
->>>>>>> Fix removal of  first sequence when questionnaire starts with a question
         )
     })
   }
