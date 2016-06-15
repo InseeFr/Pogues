@@ -2,8 +2,9 @@
 //urls
 var config = {
   dev :  true,
+  allowRemovalOfQuestionnaire: true,
   baseURL : 'http://localhost:4000',
-  poguesPath : '/exist/pogues',
+  poguesPath : '',
   persistPath : '',
   stromaePath : '/stromae/publisher', 
   log : {
