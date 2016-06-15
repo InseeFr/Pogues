@@ -149,4 +149,11 @@ h4.question-header {
 }
 
 
+.placeholder {
+  background: #999;
+  /*text-align: center;*/
+  text-align: right;
+  padding-right: 5px;
+}
+
 

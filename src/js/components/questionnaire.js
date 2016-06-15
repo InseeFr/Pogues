@@ -7,6 +7,8 @@ import QuestionOrSequence from './question-or-sequence'
 import GenericInput from '../components/generic-input';
 import classNames from 'classnames';
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
+var DragDropContext = require('react-dnd').DragDropContext;
+var HTML5Backend = require('react-dnd-html5-backend');
 
 const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
@@ -25,23 +27,24 @@ var logger = new Logger('Questionnaire', 'Components');
 //component since we can put the GenericInput at the right place more easily.
 // Only the first sequence will have isFirst set to true
 const childCmpntsAndGenericInput = 
-  (childCmpntsFromParent, props, first=true) => {
+  (childCmpntsFromParent, props, path, first=true) => {
 
     let mightBeFirstSequence = first
-    return childCmpntsFromParent.map(child => {
+    return childCmpntsFromParent.map((child, i) => {
       if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
       const { id, active, label, depth, highlighted, type, childCmpnts } = child
       const isFirstSequence = mightBeFirstSequence && type === SEQUENCE
       mightBeFirstSequence = mightBeFirstSequence && !isFirstSequence
       const children = childCmpnts ?
-        childCmpntsAndGenericInput(childCmpnts, props, false) : null
+        childCmpntsAndGenericInput(
+          childCmpnts, props, path + '.' + i, false) : null
 
       return (
         <QuestionOrSequence {...props} // utility functions from parent
           key={id}
           id={id} active={active} label={label} highlighted={highlighted}
           type={type} depth={depth}
-          children={children}
+          children={children} path={path + '.' + i} 
           removeAllowed={!isFirstSequence} />
         )
     })
@@ -50,7 +53,7 @@ const childCmpntsAndGenericInput =
 //TODO We could try to connect each QuestionOrSequence to the store in order to
 //avoid useless re-rendering of sequences when the generic input position
 //changes but without impacting the sequence
-export default function Questionnaire(props) {
+function Questionnaire(props) {
 
   const { qr, locale } = props
   let invite = locale.introduction
@@ -61,7 +64,7 @@ export default function Questionnaire(props) {
         <div className="col-md-9">
           <h1>{ invite }</h1>
           <div className="questionnaire">
-            { childCmpntsAndGenericInput(qr, props) }
+            { childCmpntsAndGenericInput(qr, props, '0') }
           </div>
         </div>
         <div className="col-md-3">
@@ -84,6 +87,9 @@ Questionnaire.propTypes = {
   qr: PropTypes.array.isRequired,
   locale: PropTypes.object.isRequired 
 }
+
+
+export default DragDropContext(HTML5Backend)(Questionnaire)
 
 
 
