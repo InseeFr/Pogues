@@ -57,7 +57,7 @@ function GoToPanel(
         changeTargetTrue={changeTargetByName(true, id)}
         changeTargetFalse={changeTargetByName(false, id)} />
     }) :
-    <span>No goTo yet</span>
+    <span>{locale.noGoToYet}</span>
 
     return (
       <div>

@@ -14,7 +14,7 @@ function Declaration({ text, type, disjoignable, remove, edit, locale}) {
             <div className="input-group">
               <input value={text} type="text" className="form-control"
                 onChange={e => edit({ text: e.target.value})}
-                placeholder={locale.instruction}/>
+                placeholder={locale.placeholderDeclarationText}/>
               <span className="input-group-btn">
                 <button className="btn btn-default" type="button"
                   onClick={remove}>
