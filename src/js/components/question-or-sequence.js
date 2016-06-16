@@ -32,8 +32,10 @@ export function linkSourceAndTarget() {
 
   const QuestionOrSequenceTarget = {
     drop: function (props) {
-      const { qrId, id, moveComponent } = props
-      moveComponent(qrId, idOfDraggedCmpnt, id)
+      const { qrId, id, path, moveComponent } = props
+
+      const canDrop = !(path === '0.0' && (depthOfDraggedComponent > 1))
+      if (canDrop) moveComponent(qrId, idOfDraggedCmpnt, id)
     }
   }
 
