@@ -29,7 +29,7 @@ export function flatten(register, main) {
     // user, it should not be offered as an option for operations like control
     // or goTo edition).
     if (rank > 0) labelToId[label] = main
-    const k = { id: main, type, label, depth, start: rank }
+    const k = { id: main, type, label, depth, start: rank, cmpnt }
     flat.push(k)
     if (type === SEQUENCE) {
       depth++
@@ -55,18 +55,21 @@ export function unflatten(flat) {
   
   // Initialisation
   let childCmpnts = []
-  const { id, type, label } = flat.shift() // main sequence
-  register[id] = { id, type, childCmpnts }
+  const { cmpnt: main } = flat.shift() // main sequence
+  register[main.id] = {
+    ...main,
+    childCmpnts
+  }
   const path = [childCmpnts] // depth = 0
 
-  return flat.reduce((register, { id, type, label, depth }) => {
+  return flat.reduce((register, { id, type, label, depth, cmpnt }) => {
     if (type === QUESTION) {
       childCmpnts.push(id)
-      register[id] = { id, type, label }
+      register[id] = cmpnt
     }
     else {
       childCmpnts = []
-      register[id] = { id, type, label, childCmpnts }
+      register[id] = { ...cmpnt, childCmpnts }
       // path.length represents current depth
       if (depth >= path.length) {
         // In most cases, path.length === depth (same depth as the last opened
