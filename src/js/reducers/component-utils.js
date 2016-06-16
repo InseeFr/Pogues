@@ -2,6 +2,8 @@ import {
   COMPONENT_TYPE, COMPONENT_UTIL
 } from '../constants/pogues-constants'
 
+import { nameFromLabel } from '../utils/name-utils'
+
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 const { CREATE, REMOVE } = COMPONENT_UTIL
 
@@ -46,7 +48,8 @@ export function createComponent({ id, label, type }) {
   return {
     ...emptyCmpnt,
     ...questionOrSequence,
-    id, label, type
+    id, label, type,
+    name: nameFromLabel(label)
   }
 }
 
