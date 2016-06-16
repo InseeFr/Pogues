@@ -22,7 +22,7 @@ function ControlPanel(
         edit={update => editControl(id, update)}
         locale={locale} />
     ) :
-    <span>No control yet</span>
+    <span>{locale.noControlYet}</span>
 
     return <GenericPanel add={() => createControl(cmpntId)} children={ctrlEls} 
       localeAdd={locale.addControl} localeTitle={locale.controls}  />

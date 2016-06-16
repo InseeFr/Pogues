@@ -19,7 +19,7 @@ function DeclarationlPanel(
         edit={update => editDeclaration(id, update)}
         locale={locale} />
     ) :
-    <span>No declaration yet</span>
+    <span>{locale.noDeclarationYet}</span>
 
     return <GenericPanel add={() => createDeclaration(cmpntId)} children={dclEls} 
     	localeAdd={locale.addDeclaration} localeTitle={locale.declarations}  />
