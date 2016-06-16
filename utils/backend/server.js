@@ -23,7 +23,9 @@ Origin 'http://localhost:8080' is therefore not allowed access.
 */
 restify.CORS.ALLOW_HEADERS.push('authorization');
 restify.CORS.ALLOW_HEADERS.push('Location');
-server.use(restify.CORS())
+server.use(restify.CORS({
+  headers: ['Location']   
+}))
 server.use(restify.bodyParser())
 
 
