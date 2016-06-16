@@ -4,6 +4,7 @@
 import React, { PropTypes, Component } from 'react';
 import QuestionnaireOutlook from './questionnaire-outlook';
 import QuestionOrSequence from './question-or-sequence'
+import IntegrityControl from './integrity-control'
 import GenericInput from '../components/generic-input';
 import classNames from 'classnames';
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
@@ -59,6 +60,9 @@ class Questionnaire extends Component {
     let invite = locale.introduction
     return (
       <div className="container bs-docs-container">
+        <div className="row">
+          <IntegrityControl />
+        </div>
         <div className="row">
           <div className="col-md-9">
             <h1>{ invite }</h1>
