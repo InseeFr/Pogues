@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import classnames from 'classnames'
 
-function IntegrityControl({ errors }) {
+function IntegrityControl({ errors, locale }) {
   const nbErrors = errors.length
   const cl = classnames('panel',
      nbErrors > 0 ? 'panel-danger' : 'panel-warning')
@@ -27,7 +27,7 @@ function IntegrityControl({ errors }) {
           { errors.map(({ params, message }, i) => 
               <div key={i} >
                 <span>[{params[0]}]</span>
-                <span>{message}</span>
+                <span>{locale[message]}</span>
               </div>) }
         </div>
       }
@@ -39,7 +39,8 @@ IntegrityControl.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  errors: state.integrity.errors
+  errors: state.integrity.errors,
+  locale: state.locale
 })
 
 export default connect(mapStateToProps)(IntegrityControl)
