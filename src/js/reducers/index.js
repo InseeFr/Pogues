@@ -10,6 +10,7 @@ import responseById from './response-by-id'
 import codeById from './code-by-id'
 import config from './config'
 import integrityChecker from './integrity-checker'
+import checker from './checkers'
 
 import locale from './dictionary'
 import questionnaireList from './questionnaire-list'
@@ -21,7 +22,7 @@ const { PENDING, LOADED, FAILED } = REMOTE_EVENT
 // pass locale through the context (but risky if we want to change the language
 // during the session ?)
 // 
-const ic = integrityChecker(combineReducers({
+export default integrityChecker(combineReducers({
   locale,
   config,
   appState,
@@ -34,6 +35,4 @@ const ic = integrityChecker(combineReducers({
   controlById,
   responseById,
   codeById
-}))
-
-export default ic
+}), checker)

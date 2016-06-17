@@ -1,22 +1,78 @@
 import { flatten } from '../utils/data-utils'
 
+const errorGoToNonExistingTgt = 'errorGoToNonExistingTgt'
+const errorGoToUndefinedTgt = 'errorGoToUndefinedTgt'
+const errorGoToEarlierTgt = 'errorGoToEarlierTgt'
 /**
  * A checker analyses the state and returns a number of errors and a list
  * of error descriptions
  */
 
-export function nbQuestionsChecker(state) {
+//TODO for now we use a closure to avoid unnecessary calls to flatten but the
+//questionnaire structure should really be part of the main reducer (we should
+//not have to process it) (we could also pass structure to all checkers, but
+//we will try to avoid such boilerplate)
+export default function (state) {
+
   const {
-    componentById, appState: { questionnaire, questionnaireById }
+    componentById, goToById, appState: { questionnaire, questionnaireById }
   } = state
   if (!questionnaire || !questionnaireById[questionnaire].loaded) return null
+  
   const { flat, idToRank, labelToId, idToLabel } =
     flatten(componentById, questionnaire)
-  if (flat.length < 3) return {
-    nbErrors: 1,
-    errors: ['Your questionnaire is way too short']
+  
+  function nbQuestionsChecker() {
+    if (flat.length < 3) return [{
+      params: ['QUESTIONNAIRE'],
+      message: 'Your questionnaire is way too short'
+    }]
+    else return []
   }
-  else return {
-    nbErrors: 0
+
+  function goTosChecker() {
+    return flat.reduce((errors, { cmpnt }, rank) => {
+      const { name } = cmpnt
+      cmpnt.goTos.forEach(goToId => {
+        const { ifTrue, ifTrueIsALabel } = goToById[goToId]
+        if (!ifTrue) errors.push({
+          params: [name],
+          message: errorGoToUndefinedTgt,
+        })
+        else if (ifTrueIsALabel) {
+          const id = labelToId[ifTrue]
+          if (!id) {
+            errors.push({
+              params: [name],
+              message: errorGoToNonExistingTgt
+            })
+          }
+          else {
+            const id = labelToId
+            if (idToRank[id] < rank) {
+              errors.push({
+                params: [name],
+                message: errorGoToEarlierTgt
+              })
+            }
+          }
+        }
+        else if (idToRank[ifTrue] < rank) {
+          errors.push({
+            params: [name],
+            message: errorGoToEarlierTgt
+          })
+        }
+      })
+      return errors
+    }, [])
   }
+
+  return [nbQuestionsChecker, goTosChecker].reduce((errors, checker) => {
+    const check = checker()
+    return errors.concat(check)
+  }, [] )
+
 }
+
+

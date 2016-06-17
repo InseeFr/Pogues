@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 
 import classnames from 'classnames'
 
-function IntegrityControl({ nbErrors, errors }) {
+function IntegrityControl({ errors }) {
+  const nbErrors = errors.length
   const cl = classnames('panel',
      nbErrors > 0 ? 'panel-danger' : 'panel-warning')
 
@@ -23,19 +24,21 @@ function IntegrityControl({ nbErrors, errors }) {
       </div>
       { nbErrors > 0 && 
         <div className="panel-body">
-          { errors.map(err => <span>{err}</span>) }
+          { errors.map(({ params, message }, i) => 
+              <div key={i} >
+                <span>[{params[0]}]</span>
+                <span>{message}</span>
+              </div>) }
         </div>
       }
     </div>)
 }
 
 IntegrityControl.propTypes = {
-  nbErrors: PropTypes.number,
   errors: PropTypes.array
 }
 
 const mapStateToProps = state => ({
-  nbErrors: state.integrity.nbErrors,
   errors: state.integrity.errors
 })
 
