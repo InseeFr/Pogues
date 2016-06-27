@@ -10,7 +10,7 @@ import { removeLeading_ } from '../utils/data-utils'
  * Creates an update to apply to the reducer when receiving a questionnaire
  *
  * model is a representation of a questionnaire
- * 
+ *
  * @param  {object} qr questionnaire description (from remote API)
  * @return {object}    update to merge into the reducer to import
  *                              this questionnaire
@@ -23,18 +23,20 @@ export default function toState(_model) {
   const goToById = {}
   const declarationById = {}
   const codeListById = {}
+  const codeListByQuestionnaire = {}
   const codeById = {}
   const responseById = {}
 
   const { agency, survey, componentGroups, codeLists } =  model
-  
+
 
   const id = toComponent(model) // id === model.id
+  const qrId  = id
+  codeListByQuestionnaire[qrId] = []
 
   const questionnaire = {
     id, agency, survey, componentGroups,
     codeLists: {
-      //TODO implement codeListSpecification
       codeListSpecification: codeLists.codeListSpecification,
       codeList: codeLists.codeList.map(toCodeList)
     }
@@ -47,6 +49,7 @@ export default function toState(_model) {
     declarationById,
     controlById,
     codeListById,
+    codeListByQuestionnaire,
     codeById,
     responseById
   }
@@ -63,7 +66,7 @@ export default function toState(_model) {
       controls: controls.map(toControl),
     }
     //enhance componentById[_id] to make it a question or a sequence}
-    if (type === 'SequenceType') toSequence(cmpnt) 
+    if (type === 'SequenceType') toSequence(cmpnt)
     else toQuestion(cmpnt)
     return id
   }
@@ -111,7 +114,7 @@ export default function toState(_model) {
   }
 
   function toControl(ctrl) {
-    const { id, description, expression, failMessage, criticity } = 
+    const { id, description, expression, failMessage, criticity } =
       ctrl
     controlById[id] = {
       id, description, expression, failMessage, criticity
@@ -145,6 +148,7 @@ export default function toState(_model) {
       clState.loaded = true
     }
     codeListById[id] = clState
+    codeListByQuestionnaire[qrId].push(id)
     return id
   }
 

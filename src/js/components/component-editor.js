@@ -18,19 +18,20 @@ import { editComponent, toggleActiveComponent } from '../actions/component'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
-function ComponentEditor({ 
+function ComponentEditor({
     id, name, label, type,// component properties
+    qrId,
     structure, // structure of the questionnaire
     changeName, changeLabel, quitEdition, // component utilities
-    goTos, declarations, controls, 
+    goTos, declarations, controls,
     responses, //for questions only
     locale }) {
-    
+
     let questionEl
     if (type === QUESTION) {
       questionEl = <ResponsePanel responses={responses} cmpntId={id}
-        locale={locale} />
-    }  
+        locale={locale} qrId={qrId}/>
+    }
 
     return (
       <div className="form-horizontal">
@@ -61,7 +62,7 @@ function ComponentEditor({
             </div>
         </div>
         <DeclarationPanel declarations={declarations} cmpntId={id}
-          locale={locale} />        
+          locale={locale} />
         <ControlPanel structure={structure} controls={controls}
           cmpntId={id} locale={locale} />
          { questionEl }
@@ -72,6 +73,7 @@ function ComponentEditor({
 }
 
 ComponentEditor.propTypes = {
+  qrId: PropTypes.string.isRequired,
   changeName: PropTypes.func.isRequired,
   changeLabel: PropTypes.func.isRequired,
   quitEdition: PropTypes.func.isRequired,
@@ -88,11 +90,11 @@ ComponentEditor.propTypes = {
 // and the component id (‘id‘)
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps
-  const { name, label, type, goTos, controls, declarations, responses } = 
+  const { name, label, type, goTos, controls, declarations, responses } =
     state.componentById[id]
 
   return {
-    id, 
+    id,
     name,
     label,
     type,

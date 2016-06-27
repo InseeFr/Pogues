@@ -15,11 +15,7 @@ export const emptyQr = {
     agency: 'fr.insee',
     name: 'POP0'
   },
-  componentGroups: [],
-  codeLists: {
-    codeList: [],
-    codeListSpecification: []
-  }
+  componentGroups: []
 }
 
 export default function (state=emptyQr, action) {
@@ -29,11 +25,11 @@ export default function (state=emptyQr, action) {
     case CREATE_QUESTIONNAIRE:
       // create an empty questionnaire with the given attributes
       return {
-        ...state, // empty questionnaire  
+        ...state, // empty questionnaire
         ...payload, // id, name, label
       }
     case LOAD_QUESTIONNAIRE_SUCCESS:
-      //TODO check if the information about the questionnaire is consistent 
+      //TODO check if the information about the questionnaire is consistent
       //with the information retrieve via Questionnaire List
       return {
         ...emptyQr,

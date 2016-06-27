@@ -3,14 +3,14 @@ import GenericPanel from './generic-panel'
 import Response from './response';
 import Logger from '../logger/logger';
 import { connect } from 'react-redux'
-import { 
+import {
   createResponse, removeResponse, editResponse, changeDatatypeName,
   changeDatatypeParam, editResponseChooseCodeList
 } from '../actions/response'
 
 var logger = new Logger('ResponsePanel', 'Components');
 
-function ResponsePanel({ cmpntId, detailedResponses, removeResponse,
+function ResponsePanel({ qrId, cmpntId, detailedResponses, removeResponse,
     createResponse,  editResponse, editResponseChooseCodeList,
     changeDatatypeName, changeDatatypeParam,
     locale }) {
@@ -19,6 +19,7 @@ function ResponsePanel({ cmpntId, detailedResponses, removeResponse,
     ({ id, simple, codeListReference, mandatory, datatype }) =>
     <Response key={id} id={id} simple={simple} mandatory={mandatory}
       datatype={datatype} codeListReference={codeListReference}
+      qrId={qrId}
       remove={() => removeResponse(id, cmpntId) }
       edit={update => editResponse(id, update)}
       editChooseCodeList={clId => editResponseChooseCodeList(id, clId)}
@@ -26,11 +27,12 @@ function ResponsePanel({ cmpntId, detailedResponses, removeResponse,
       changeDatatypeParam={update => changeDatatypeParam(id, update)}
       locale={locale} /> )
 
-  return <GenericPanel add={() => createResponse(cmpntId)} children={rspnsEls} 
+  return <GenericPanel add={() => createResponse(cmpntId)} children={rspnsEls}
     localeAdd={locale.addResponse} localeTitle={locale.responsesEdition}  />
 }
 
 ResponsePanel.propTypes = {
+  qrId: PropTypes.string.isRequired,
   detailedResponses: PropTypes.array.isRequired,
   removeResponse: PropTypes.func.isRequired,
   createResponse: PropTypes.func.isRequired,

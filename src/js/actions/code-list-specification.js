@@ -16,14 +16,8 @@ export const loadCodeListSpecs = () =>
         dispatch(loadCodeListSpecsSuccess(specs))
         return specs
       })
-      //HACK for now code list specifications need to be serialized with the
-      //questionnaire, so we fetch codes for all of them (we might better load
-      //only the codes needed before save or publish, but easier this way, and
-      //anyway, it should not be needed)
-      .then(specs => Object.keys(specs).forEach(clId =>
-          dispatch(loadCodeListIfNeeded(clId))))
       .catch(err => dispatch(loadCodeListSpecsFailure(err)))
-  } 
+  }
 
 // rawCodeLists has not yet been processed
 export const loadCodeListSpecsSuccess = rawCListSpecs => ({

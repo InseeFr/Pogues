@@ -9,11 +9,12 @@ import { codeListToState } from '../utils/model-to-state-code-list.js'
 
 import { uuid } from '../utils/data-utils'
 
-export const createCodeList = (name, responseId) => ({
+export const createCodeList = (name, responseId, qrId) => ({
   type: CREATE_CODE_LIST,
   payload: {
     id: uuid(),
     responseId,
+    qrId,
     name: name
   }
 })
@@ -38,7 +39,7 @@ export const loadCodeListIfNeeded = id =>
   (dispatch, getState) => {
     const state = getState()
     const cl = state.codeListById[id]
-    if (!cl.loaded) dispatch(loadCodeList(id, cl.retrievalQuery))
+    if (cl.isSpec && !cl.loaded) dispatch(loadCodeList(id, cl.retrievalQuery))
   }
 
 export const loadCodeList = (id, retrievalQuery) =>

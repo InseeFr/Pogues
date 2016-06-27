@@ -10,7 +10,7 @@ import { COMPONENT_TYPE } from '../constants/pogues-constants'
 
 const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
-import { 
+import {
   toggleActiveComponent, createComponent, removeComponent
 } from '../actions/component'
 
@@ -27,7 +27,9 @@ var logger = new Logger('Questionnaire', 'Components');
 const childCmpntsAndGenericInput = (childCmpntsFromParent, props) =>
   childCmpntsFromParent.map(child => {
     if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
-    const { id, active, label, depth, highlighted, type, childCmpnts } = child
+    const {
+      id, active, label, depth, highlighted, type, childCmpnts
+   } = child
     const children = childCmpnts ?
       childCmpntsAndGenericInput(childCmpnts, props) : null
     return (
@@ -46,7 +48,7 @@ export default function Questionnaire(props) {
 
   const { qr, locale } = props
   let invite = locale.introduction
-  
+
   return (
     <div className="container bs-docs-container">
       <div className="row">
@@ -71,7 +73,7 @@ Questionnaire.propTypes = {
   structure: PropTypes.object.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,
   qr: PropTypes.array.isRequired,
-  locale: PropTypes.object.isRequired 
+  locale: PropTypes.object.isRequired
 }
 
 

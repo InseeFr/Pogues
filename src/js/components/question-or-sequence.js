@@ -7,9 +7,12 @@ import ComponentEditor from './component-editor'
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 function QuestionOrSequence(props) {
-  const { structure, id, active, label, depth, type, highlighted, children } = props
-  
-  if (active) return <ComponentEditor structure={structure} id={id} />
+  const {
+    structure, id, active, label, depth, type, highlighted, children, qrId
+  } = props
+
+  if (active) return (
+    <ComponentEditor structure={structure} id={id} qrId={qrId}/>)
   const isSequence = type === SEQUENCE
   const labelEl = isSequence ?
     <SequenceLabel highlighted={highlighted} label={label} depth={depth} /> :
@@ -19,7 +22,7 @@ function QuestionOrSequence(props) {
     <div>
       <div className="tools-activator-container">
         {/* visible only when we are over QuestionOrSequenceLabel */}
-        <ToolsActivator {...props} /> 
+        <ToolsActivator {...props} />
         {labelEl}
       </div>
       <div className={isSequence ? 'sequence' : '' }>

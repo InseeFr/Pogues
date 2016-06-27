@@ -17,8 +17,8 @@ const editors = {
 export default function Response(
   { id, simple, codeListReference, mandatory, datatype, remove, edit,
     editChooseCodeList,
-    changeDatatypeName, changeDatatypeParam, locale }) {
-  const editDatatype = update => edit({ datatype: update }) 
+    changeDatatypeName, changeDatatypeParam, locale, qrId }) {
+  const editDatatype = update => edit({ datatype: update })
   const Editor = editors[datatype.typeName]
   return (
     <div className="form-horizontal">
@@ -37,6 +37,7 @@ export default function Response(
         </div>
       </div>
       <CodeListPicker
+        qrId={qrId}
         codeListId={codeListReference}
         responseId={id}
         select={clId => editChooseCodeList(clId)}
@@ -47,6 +48,7 @@ export default function Response(
 
 Response.propTypes = {
   id: PropTypes.string.isRequired,
+  qrId: PropTypes.string.isRequired,
   simple: PropTypes.bool.isRequired,
   codeListReference: PropTypes.string, // default to null`
   mandatory: PropTypes.bool.isRequired,

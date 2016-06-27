@@ -34,7 +34,7 @@ class CodeListEditor extends Component {
             className="col-sm-2 control-label">{locale.label}</label>
             <div className="col-sm-7">
               <input type="text" id="label" disabled={!editable}
-                value={label}
+                value={label || ''}
                 onChange={e => editCodeListLabel(e.target.value)}
                 className="form-control"
                 placeholder="Code list name"
@@ -45,7 +45,7 @@ class CodeListEditor extends Component {
               <button className="btn btn-default"
                 onClick={close}>
                 <span className="glyphicon glyphicon-ok"></span>
-              </button> 
+              </button>
             </div>
           }
         </div>
@@ -55,7 +55,7 @@ class CodeListEditor extends Component {
           <CodeEditor key={codeId} id={codeId} label={label} value={value}
             editLabel={label => editCode(codeId, { label })}
             editValue={value => editCode(codeId, { value })}
-            remove={() => removeCode(codeId, id)} 
+            remove={() => removeCode(codeId, id)}
             editable={editable} />) }
       </div>
     )
@@ -80,7 +80,7 @@ CodeListEditor.propTypes = {
 
 const mapStateToProps = (state, { id }) => {
   const codeList = state.codeListById[id]
-  if (!codeList.loaded) return {
+  if (codeList.isSpec && !codeList.loaded) return {
     loaded: false
   }
   return {
