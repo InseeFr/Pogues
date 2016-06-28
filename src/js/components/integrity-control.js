@@ -10,7 +10,7 @@ function IntegrityControl({ toggleShowControls, showControls, errors, locale }) 
 
   let title
   if (nbErrors === 0) {
-    title = 'Votre questionnaire est top'
+    title = locale.questionnaireValid
   }
   else {
     title = `Votre questionnaire comporte ${nbErrors} erreur(s)`

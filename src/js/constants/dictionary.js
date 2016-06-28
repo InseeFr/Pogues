@@ -101,5 +101,9 @@ export default {
   errorQuestionnaireTooShort: {
     'en': 'Your questionnaire is way too short',
     'fr': 'Votre questionnaire est bien trop court'
+  },
+  questionnaireValid: {
+    'en': 'Your questionnaire is valid',
+    'fr': 'Votre questionnaire ne comporte aucune erreur'
   }
 }
