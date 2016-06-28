@@ -18,7 +18,7 @@ export default function (state) {
   const {
     componentById, goToById, appState: { questionnaire, questionnaireById }
   } = state
-  if (!questionnaire || !questionnaireById[questionnaire].loaded) return null
+  if (!questionnaire || !questionnaireById[questionnaire].loaded) return []
 
   const { flat, idToRank, labelToId, idToLabel } =
     flatten(componentById, questionnaire)

@@ -9,7 +9,7 @@ const { QUESTIONNAIRE, PICKER } = VIEW_TYPE
 // action creators
 import { switchToConfig, switchToPicker } from '../actions/app-state'
 import {
-  saveQuestionnaire, publishQuestionnaire 
+  saveQuestionnaire, publishQuestionnaire
 } from '../actions/questionnaire.js'
 import { setQuestionnaireListFilter } from '../actions/questionnaire-list'
 import { setQuestionnaireFilter } from '../actions/questionnaire'
@@ -21,7 +21,7 @@ function SaveButton({ saveFunction, buttonLabel }) {
   return(
     <div className="nav navbar-nav navbar-left">
       <form className="navbar-form navbar-right">
-        <button className="btn btn-primary" 
+        <button className="btn btn-primary"
           onClick={e => {e.preventDefault();saveFunction()}}>
           {buttonLabel}
         </button>
@@ -38,12 +38,14 @@ SaveButton.propTypes = {
 /*
 UI component encapsulating the publishing of a questionnaire.
 */
-function PublishButton({ publishFunction, buttonLabel }) {
+function PublishButton({ errors, publishFunction, buttonLabel }) {
   return(
     <div className="nav navbar-nav navbar-left">
       <form className="navbar-form navbar-right">
         <button className="btn btn-primary"
-          onClick={e => {e.preventDefault();publishFunction()}}>
+          disabled={errors.length > 0}
+          onClick={e => {e.preventDefault();publishFunction()}}
+          alt="message">
           {buttonLabel}
         </button>
       </form>
@@ -52,8 +54,9 @@ function PublishButton({ publishFunction, buttonLabel }) {
 }
 
 PublishButton.propTypes = {
-  publishFunction: React.PropTypes.func,
-  buttonLabel: React.PropTypes.string
+  publishFunction: PropTypes.func.isRequired,
+  buttonLabel: PropTypes.string.isRequired,
+  errors: PropTypes.array.isRequired,
 };
 
 /*
@@ -125,20 +128,20 @@ Menu Component, shared between all views.
 //TODO refactor
 function Menu({
   id, view, url, timestamp, filter,
-  goHome, handleQuestionnaireFilter, handleQuestionnaireListFilter,
+  goHome, handleQuestionnaireFilter, handleQuestionnaireListFilter, errors,
   clickToSave, clickToPublish, clickToEditConfig, handleChange, locale }) {
   logger.info('Rendering the menu for the view : ' + view);
   // TODO: handle connected user properly
   let handleFilter, searchField
   // child components, depending of the view (undefined when not relevant)
   let saveButton, publishButton, publishLink, questionnaireTitle
-  const configButton = <ConfigButton clickToEditConfig={clickToEditConfig} /> 
+  const configButton = <ConfigButton clickToEditConfig={clickToEditConfig} />
   if (view === QUESTIONNAIRE) {
     handleFilter = filter => handleQuestionnaireFilter(id, filter)
     saveButton = <SaveButton saveFunction={() => clickToSave(id)}
                     buttonLabel={locale.save}/>
-    publishButton = <PublishButton publishFunction={() => clickToPublish(id)} 
-                      buttonLabel={locale.publish} /> 
+    publishButton = <PublishButton publishFunction={() => clickToPublish(id)}
+                      buttonLabel={locale.publish} errors={errors}/>
     questionnaireTitle = <QuestionnaireTitle />
   } else {
     handleFilter = handleQuestionnaireListFilter
@@ -148,7 +151,7 @@ function Menu({
     searchField = <SearchField filter={filter}
       handleChange={handleFilter} locale={locale} />
   }
-  publishLink = url ? 
+  publishLink = url ?
     <PublishLink publishURL={url} publishTimestamp={timestamp}/> : ''
 
   const names = [
@@ -201,6 +204,7 @@ Menu.propTypes = {
   id: PropTypes.string,
   goHome: PropTypes.func.isRequired,
   filter: PropTypes.string,
+  errors: PropTypes.array,
   handleQuestionnaireFilter: PropTypes.func.isRequired,
   handleQuestionnaireListFilter: PropTypes.func.isRequired,
   clickToSave: PropTypes.func.isRequired,
@@ -214,12 +218,14 @@ const mapStateToProps = state => {
   const { locale, appState: { view } } = state
   if (view === QUESTIONNAIRE) {
     const qrId = state.appState.questionnaire
+    const errors = state.integrity.errors
     const qrState = state.appState.questionnaireById[qrId]
     const { filter, url, timestamp } = qrState
     return {
       id: qrId,//TODO id is set in app state only on questionnaire view
       filter,
       view,
+      errors,
       url,
       timestamp,
       locale
@@ -245,7 +251,7 @@ const mapStateToProps = state => {
 //Try to avoid calling `event.preventDefault()` on each event, but it does not
 //make since the mapDispatchToProps should return functions unaware of the
 //inner workings of the ui.
-const preventDefault = fn => (e, ...rest) => { 
+const preventDefault = fn => (e, ...rest) => {
   e.preventDefault()
   return fn(...rest)
 }
