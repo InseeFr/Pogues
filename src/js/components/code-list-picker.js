@@ -8,14 +8,14 @@ import className from 'classnames'
 
 function CodeListPicker(
   { responseId, edition, codeListId, isSpec, detailedCodeLists, select, locale,
-    toggleCListEdition, createCodeList, editCodeList }) {
+    toggleCListEdition, createCodeList, editCodeList, qrId }) {
   const clSeeEdit = className('fa', isSpec ? 'fa-eye' : 'fa-pencil')
   const smartSelect = val => {
     switch (val) {
       case '_new':
-        createCodeList('', responseId)
+        createCodeList('', responseId, qrId)
         break
-      case '': 
+      case '':
         break
       default:
         select(val)
@@ -39,12 +39,9 @@ function CodeListPicker(
               }
             </select>
             {
-              codeListId && 
+              codeListId &&
                <span className="input-group-addon"
-                  onClick={() => {
-                    console.log('toggle')
-                    toggleCListEdition(responseId)
-                  }}>
+                  onClick={() => toggleCListEdition(responseId)}>
                 <span className={clSeeEdit}></span>
               </span>
             }
@@ -71,20 +68,24 @@ CodeListPicker.propTypes = {
   locale: PropTypes.object.isRequired,
   toggleCListEdition: PropTypes.func.isRequired,
   createCodeList: PropTypes.func.isRequired,
-  editCodeList: PropTypes.func.isRequired
+  editCodeList: PropTypes.func.isRequired,
+  qrId: PropTypes.string.isRequired
 }
 
 //TODO filter codeListById to keep only the code lists attached to this
 //questionnaire (unless we are sure that in the current state we keep only
 //entities pertaining to the current questionnaire) (but code list references
 //are loaded once for all the questionnaires)
-const mapStateToProps = (state, { responseId, codeListId }) => {
-  const codeListById = state.codeListById
+const mapStateToProps = (state, { qrId, responseId, codeListId }) => {
+  const { codeListById, codeListByQuestionnaire } = state
   // from object to array
-  const cls = Object.keys(codeListById).reduce((cls, clId) => {
-    cls.push(codeListById[clId])
+  const codeListIds = codeListByQuestionnaire[qrId]
+  const cls = Object.keys(codeListById).reduce((cls, id) => {
+    if (codeListIds.indexOf(id) > -1 || codeListById[id].isSpec)
+      cls.push(codeListById[id])
     return cls
   }, [])
+
   return {
     isSpec: codeListId ? state.codeListById[codeListId].isSpec : false,
     detailedCodeLists: cls,

@@ -1,6 +1,4 @@
 //TODO Divide into a container component and a presentational component
-
-
 import React, { PropTypes, Component } from 'react';
 import QuestionnaireOutlook from './questionnaire-outlook';
 import QuestionOrSequence from './question-or-sequence'
@@ -13,8 +11,9 @@ var HTML5Backend = require('react-dnd-html5-backend');
 
 const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
-import { 
+import {
   toggleActiveComponent, createComponent, removeComponent, moveComponent
+
 } from '../actions/component'
 
 import Logger from '../logger/logger'
@@ -22,12 +21,10 @@ import { connect } from 'react-redux'
 
 var logger = new Logger('Questionnaire', 'Components');
 
-
-
 //It's easier to take care of recursion here than in the questionOrSequence
 //component since we can put the GenericInput at the right place more easily.
 // Only the first sequence will have isFirst set to true
-const childCmpntsAndGenericInput = 
+const childCmpntsAndGenericInput =
   (childCmpntsFromParent, props, path, first=true) => {
 
     let mightBeFirstSequence = first
@@ -45,11 +42,12 @@ const childCmpntsAndGenericInput =
           key={id}
           id={id} active={active} label={label} highlighted={highlighted}
           type={type} depth={depth}
-          children={children} path={path + '.' + i} 
+          children={children} path={path + '.' + i}
           removeAllowed={!isFirstSequence} />
         )
     })
   }
+
 
 //TODO We could try to connect each QuestionOrSequence to the store in order to
 //avoid useless re-rendering of sequences when the generic input position
@@ -90,7 +88,7 @@ Questionnaire.propTypes = {
   // moveComponentDown: PropTypes.func.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,
   qr: PropTypes.array.isRequired,
-  locale: PropTypes.object.isRequired 
+  locale: PropTypes.object.isRequired
 }
 
 

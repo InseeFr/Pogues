@@ -35,7 +35,6 @@ export const getQuestionnaireList = () =>
     headers: { 'Content-Type': 'text/html' }
   })
     .then(res => res.json())
-    .then(json => JSON.parse(json))
 
 
 /**
@@ -111,7 +110,6 @@ export const getQuestionnaire = id =>
   fetch(urlGetQuestionnaire + '/' + id, {
     headers: { 'Content-Type': 'text/html' }
   }).then(res => res.json())
-    .then(json => JSON.parse(json))
 
 /**
  * Retrieve code list specifications
@@ -120,7 +118,6 @@ export const getCodeListSpecs = () =>
   fetch(urlGetSpecs, {
       'Accept': 'application/json'
   }).then(res => res.json())
-    .then(json => JSON.parse(json))
 
 /** 
  * Retrieve code list
@@ -129,4 +126,3 @@ export const getCodeList = retrievalQuery =>
   fetch(urlGetCList + '/' + retrievalQuery, {
     'Accept': 'application/json'
   }).then(res => res.json())
-    .then(json => JSON.parse(json))

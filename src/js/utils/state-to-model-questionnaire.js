@@ -1,12 +1,12 @@
 /**
  * Creates a questionnaire model from state
  *
- * In the ui, we're dealing with a flat structure to represent our 
+ * In the ui, we're dealing with a flat structure to represent our
  * questionnaires. For the remote calls, we need to deal with a representation
  * of the questionnaire consistent with the model. This function takes the state
  * and returns a function which returns the questionnaire model from the
  * questionnaire id.
- * 
+ *
  */
 
 import { putLeading_ } from '../utils/data-utils'
@@ -21,11 +21,12 @@ export default function toModel(state, qrId) {
   state for the sake of conciseness (so we do not need to pass state to each
   function)
   */
- 
+
   const {
     questionnaireById,
     componentById,
     codeListById,
+    codeListByQuestionnaire,
     goToById,
     declarationById,
     controlById,
@@ -33,10 +34,15 @@ export default function toModel(state, qrId) {
     responseById
   } = state
 
-  // keep track of used code list to avoid serialization of code list
-  // that come from code list specification and that would not be used in the
-  // questionnaire
-  const usedCodeListById = {}
+
+  //Code list specification used by within the questionnaire will be detected
+  //during response serialization.
+  const codeListSpecificationUsed = new Set()
+  //utility function to choose if a code list needs to be added to
+  //`codeListSpecificationUsed`
+  const updateCodeListSpecificationUsed = id =>
+    codeListById[id].isSpec && codeListSpecificationUsed.add(id)
+
   const qr = questionnaireById[qrId]
   const { agency, survey, componentGroups } = qr
   let depthOfSequences = calculateDepths(componentById, qrId)
@@ -51,22 +57,22 @@ export default function toModel(state, qrId) {
   // Switch from local id to remoteId if this id is set (set when the
   // questionnaire is creater on the server)
   if (qr.remoteId) cmpnt.id = qr.remoteId
-  
-  //TODO only serialize code list specifications that are really used within
-  //the questionnaire (we should take care before serialization to load the
-  //codes for all these code list specifications)
+  //Once a code list has been created within a questionnaire, it will be
+  //serialized, even if no question uses it anymore (we cannot delete a code
+  //list for now).
+  //HACK to allow comparision with initial model during tests, we need
+  //to sort code lists by `id`
+  const codeList = codeListByQuestionnaire[qrId].sort().map(fromCodeList)
+
+
   return putLeading_({
     ...cmpnt,
     agency,
     survey,
     componentGroups: componentGroups.map(fromComponentGroup),
     codeLists: {
-      //HACK to allow comparision with initial model during tests
-      codeList: Object.keys(usedCodeListById).sort().reduce((_, id) => {
-        _.push(id)
-        return _
-      }, [] ).map(fromCodeList),
-      codeListSpecification:[]
+      codeList,
+      codeListSpecification: Array.from(codeListSpecificationUsed)
     }
   })
 
@@ -90,7 +96,7 @@ export default function toModel(state, qrId) {
   function fromCodeListSpecification(clSpecId) {
     return { dscr: 'not implemented yet' }
   }
-                                             
+
   function fromComponentGroup(cpntGroupId) {
     return {
       dscr: 'not implemented yet'
@@ -112,7 +118,7 @@ export default function toModel(state, qrId) {
       ...qnOrSeq
     }
   }
-    
+
 
   function fromSequence(sequenceId) {
     const { genericName, childCmpnts } = componentById[sequenceId]
@@ -138,9 +144,8 @@ export default function toModel(state, qrId) {
   function fromResponse(responseId) {
     const { simple, mandatory, codeListReference, datatype } =
               responseById[responseId]
-    if (codeListReference) {
-      usedCodeListById[codeListReference] = codeListById[codeListReference]
-    }
+
+    updateCodeListSpecificationUsed(codeListReference)
     return {
       simple, mandatory, codeListReference, datatype,
       values: []
@@ -168,7 +173,7 @@ export default function toModel(state, qrId) {
   }
 
   function fromControl(ctrlId) {
-    const { id, description, expression, failMessage, criticity } = 
+    const { id, description, expression, failMessage, criticity } =
       controlById[ctrlId]
     return {
       id, description, expression, failMessage, criticity
@@ -182,14 +187,14 @@ export default function toModel(state, qrId) {
  * Calculates the depth of each sequence descendant of a main sequence
  *
  * We do not keep track of the depth within the reducers (we could, but it
- * seemed difficult to manage it properly and we do not need it for the ui). 
- * 
+ * seemed difficult to manage it properly and we do not need it for the ui).
+ *
  * @param  {[type]} cmpnts [description]
  * @param  {[type]} main   [description]
  * @return {[type]}        [description]
  */
 function calculateDepths(cmpnts, mainId, depth=0, cmpntsDepth={}) {
-  if (cmpnts[mainId].type !== SEQUENCE) 
+  if (cmpnts[mainId].type !== SEQUENCE)
       throw new Error('Can only calculate the depth from a main sequence')
   cmpntsDepth[mainId] = depth
   cmpnts[mainId].childCmpnts.forEach(childId => {

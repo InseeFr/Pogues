@@ -17,7 +17,7 @@ const NOWHERE = 'NOWHERE'
 
 export function linkSourceAndTarget() {
 
-  let idOfDraggedCmpnt 
+  let idOfDraggedCmpnt
   let pathOfDraggedCmpnt
   let depthOfDraggedComponent
 
@@ -71,12 +71,13 @@ function collectForTarget(connect, monitor) {
 }
 
 function QuestionOrSequence(props) {
-  const { 
+  const {
     structure, id, active, label, depth, type, highlighted, children, path,
     removeAllowed, removeComponent, moveComponent, qrId,
     connectDragSource, connectDropTarget, connectDragPreview, isDragging,
-    isOver, idOfDraggedCmpnt, pathOfDraggedCmpnt, depthOfDraggedComponent  } = props
-  
+    isOver, idOfDraggedCmpnt, pathOfDraggedCmpnt, depthOfDraggedComponent
+    } = props
+
   const whereToDrop = (
     path === '0.0' && (depthOfDraggedComponent > 1) ? NOWHERE :
     pathOfDraggedCmpnt < path ? AFTER :
@@ -88,7 +89,8 @@ function QuestionOrSequence(props) {
   const afterPlaceholder = isOver && whereToDrop === AFTER && placeholder
   const beforePlaceholder= isOver && whereToDrop === BEFORE && placeholder
 
-  if (active) return <ComponentEditor structure={structure} id={id} />
+  if (active) return (
+    <ComponentEditor structure={structure} id={id} qrId={qrId}/>)
   const  isSequence = type === SEQUENCE
   const labelElDrop = connectDropTarget(
     <div>
@@ -134,7 +136,7 @@ const dropTargetForQuestionOrSequence = DropTarget(
 const dragSourceForQuestionOrSequence = DragSource(
   QUESTION_OR_SEQUENCE, QuestionOrSequenceSource, collectForSource)
 
-export default 
+export default
   dropTargetForQuestionOrSequence(
     dragSourceForQuestionOrSequence(QuestionOrSequence))
 

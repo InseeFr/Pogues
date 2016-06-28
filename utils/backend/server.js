@@ -58,12 +58,12 @@ function shapeSpecs() {
 }
 
 server.get('/repo/specs', function (req, res, next) {
-  res.send(JSON.stringify(shapeSpecs()))
+  res.send(shapeSpecs())
   next()
 })
 
 server.get('/repo/clist/:retrievalQuery', function (req, res, next) {
-  res.send(JSON.stringify(repo.cLists[req.params.retrievalQuery]))
+  res.send(repo.cLists[req.params.retrievalQuery])
   next()
 })
 
@@ -79,13 +79,13 @@ server.post('/stromae/publisher', function (req, res, next) {
 })
 
 server.get('/stromae/publisher/:id', function (req, res, next) {
-  res.send(JSON.stringify(published[req.params.id]))
+  res.send(published[req.params.id])
   next()
 })
 
 
 server.get('/questionnaires', function (req, res, next) {
-  res.send(JSON.stringify(questionnaires))
+  res.send(questionnaires)
   next()
 })
 
@@ -96,7 +96,7 @@ server.del('/questionnaire/:id', function (req, res, next) {
 })
 
 server.get('/questionnaire/:id', function (req, res, next) {
-  res.send(JSON.stringify(questionnaires[req.params.id]))
+  res.send(questionnaires[req.params.id])
   next()
 })
 
