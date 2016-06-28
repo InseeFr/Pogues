@@ -86,16 +86,20 @@ export default {
     'en':
 `The target defined in the filter question is not avalaible. Please fill in the
  target with an existing element of the questionnaire.`,
-    'fr': 
+    'fr':
 `Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
  à un élément connu du questionnaire.`
   },
-  errorGoToEarlierTarget: {
+  errorGoToEarlierTgt: {
     'en':
 `The target defined in the filter question is not avalaible. Please fill in the
  target with a further element of the questionnaire.`,
     'fr':
 `Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
  à un élément postérieur du questionnaire.`
+  },
+  errorQuestionnaireTooShort: {
+    'en': 'Your questionnaire is way too short',
+    'fr': 'Votre questionnaire est bien trop court'
   }
 }

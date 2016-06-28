@@ -3,6 +3,7 @@ import { flatten } from '../utils/data-utils'
 const errorGoToNonExistingTgt = 'errorGoToNonExistingTgt'
 const errorGoToUndefinedTgt = 'errorGoToUndefinedTgt'
 const errorGoToEarlierTgt = 'errorGoToEarlierTgt'
+const errorQuestionnaireTooShort = 'errorQuestionnaireTooShort'
 /**
  * A checker analyses the state and returns a number of errors and a list
  * of error descriptions
@@ -18,14 +19,14 @@ export default function (state) {
     componentById, goToById, appState: { questionnaire, questionnaireById }
   } = state
   if (!questionnaire || !questionnaireById[questionnaire].loaded) return null
-  
+
   const { flat, idToRank, labelToId, idToLabel } =
     flatten(componentById, questionnaire)
-  
+
   function nbQuestionsChecker() {
     if (flat.length < 3) return [{
       params: ['QUESTIONNAIRE'],
-      message: 'Your questionnaire is way too short'
+      message: errorQuestionnaireTooShort
     }]
     else return []
   }
