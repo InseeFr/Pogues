@@ -1,14 +1,15 @@
 //TODO this reduce could be partly replaced by react-router
 
 import {
-  SWITCH_TO_QUESTIONNAIRE, SWITCH_TO_PICKER, SWITCH_TO_CONFIG
+  SWITCH_TO_QUESTIONNAIRE, SWITCH_TO_PICKER, SWITCH_TO_CONFIG,
+  TOGGLE_SHOW_CONTROLS
 } from '../../actions/app-state'
 
 import {
   CREATE_QUESTIONNAIRE, CREATE_QUESTIONNAIRE_SUCCESS
 } from '../../actions/questionnaire'
 
-import { 
+import {
   SET_QLIST_FILTER
 } from '../../actions/questionnaire-list'
 
@@ -28,8 +29,9 @@ const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 const { FAILED, LOADED, PENDING } = REMOTE_EVENT
 const { QUESTIONNAIRE, EDITION, PICKER, CONFIG } = VIEW_TYPE
 
-const defaultAppState = { 
+const defaultAppState = {
   view: PICKER,
+  showControls: true,
   questionnaireListFilter: '',
   questionnaire: null,
   clEditionByResponseId: {},
@@ -62,8 +64,16 @@ const actionsHnlrs = {
   // CREATE_QUESTIONNAIRE_SUCCESS: changeIdAfterCreation,
   SET_QLIST_FILTER: setQuestionnaireListFilter,
   TOGGLE_CLIST_EDITION: toggleCListEdition,
+  TOGGLE_SHOW_CONTROLS: toggleShowControls,
   //EDIT_RESPONSE_CHOOSE_CODE_LIST: editResponseChooseCodeList,
   CREATE_CODE_LIST: toggleCListEditionAfterCreate
+}
+
+function toggleShowControls(state) {
+  return {
+    ...state,
+    showControls: !state.showControls
+  }
 }
 
 function toggleCListEdition(state, id) {
@@ -111,7 +121,7 @@ function switchToConfig(state) {
     ...state,
     questionnaire: null,
     view: CONFIG
-  }  
+  }
 }
 
 //payload shape differs from SWITCH_TO_QUESTIONNAIRE

@@ -162,5 +162,15 @@ h4.question-header {
   opacity: 0.5;
 }
 
+.integrity-entity-name {
+    color: #a94442;
+}
 
+.integrity-messages > li {
+  list-style-type: none;
+}
 
+.panel-btn {
+  font-weight: normal;
+  
+}
