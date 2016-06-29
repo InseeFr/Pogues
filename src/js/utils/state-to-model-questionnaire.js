@@ -41,7 +41,7 @@ export default function toModel(state, qrId) {
   //utility function to choose if a code list needs to be added to
   //`codeListSpecificationUsed`
   const updateCodeListSpecificationUsed = id =>
-    codeListById[id].isSpec && codeListSpecificationUsed.add(id)
+    codeListById[id] && codeListById[id].isSpec && codeListSpecificationUsed.add(id)
 
   const qr = questionnaireById[qrId]
   const { agency, survey, componentGroups } = qr
