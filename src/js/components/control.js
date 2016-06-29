@@ -53,7 +53,7 @@ export default function Control({ id, description,
             <select value={criticity}
               placeholder={locale.failMessage}
               className="form-control"
-              onChange={e => edit({ failMessage: e.target.value })}>
+              onChange={e => edit({ criticity: e.target.value })}>
               { criticityChoices }
             </select>
           </div>
