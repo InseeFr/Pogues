@@ -11,11 +11,9 @@ import {
 //ATTENTION : never update text expression in place !!!
 const emptyControl = {
   description: '',
-  expression: {
-    text: ''
-  },
+  expression: '', // we return simple text, see comment on goto expression
   failMessage: '',
-  criticity: CONTROL_CRITICITY.INFO // INFO by default
+  criticity: CONTROL_CRITICITY.CRITICITY1 // level 1 by default
 }
 
 export default function (state={}, action) {
@@ -40,8 +38,8 @@ export default function (state={}, action) {
     case REMOVE_CONTROL:
       const { [payload.id]: toRemove, ...toKeep } = state
       return toKeep
-    case LOAD_QUESTIONNAIRE_SUCCESS: 
-      return payload.update.controlById      
+    case LOAD_QUESTIONNAIRE_SUCCESS:
+      return payload.update.controlById
     default:
       return state
   }

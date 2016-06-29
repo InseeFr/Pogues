@@ -64,6 +64,9 @@ span.error-message {
   background-color: lightgray;
 }
 
+.question-header, .sequence-header {
+  cursor: move;
+}
 .question-header {
   color: #A73B4E;
 }
@@ -172,5 +175,5 @@ h4.question-header {
 
 .panel-btn {
   font-weight: normal;
-  
+
 }

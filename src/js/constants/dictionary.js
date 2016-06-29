@@ -23,7 +23,7 @@ export default {
   create_questionnaire: {'en': 'Create a questionnaire', 'fr': 'Créer un questionnaire'},
   select_questionnaire: {'en': 'Select a questionnaire', 'fr': 'Sélectionner un questionnaire'},
   addDeclaration: {'en': 'Add a statement', 'fr': 'Ajouter une déclaration'},
-  addControl: {'en': 'Add a control', 'fr': 'Ajouter un contrôle'},
+  addControl: {'en': 'Add a control', 'fr': 'Définir un contrôle'},
   declarations: {'en': 'Statements', 'fr': 'Déclarations'},
   controls: {'en': 'Controls', 'fr': 'Contrôles'},
   questionEdition: {'en': 'Edit question properties', 'fr' : 'Éditer les caractéristiques de la question'},
@@ -74,6 +74,7 @@ export default {
   newCl: {'en': 'New code list', 'fr': 'Nouvelle liste de codes'},
   placeholderDeclarationText: {'en': 'Here, your declaration', 'fr' : 'Ici, votre déclaration'},
   deleteGoTo: {'en': 'Delete GoTo', 'fr': 'Supprimer la redirection'},
+  deleteControl: {'en': 'Delete control', 'fr': 'Supprimer le contrôle'},
   errorGoToUndefinedTgt: {
     'en':
 `The target defined in the filter question is not avalaible. Please fill in the
@@ -105,5 +106,25 @@ export default {
   questionnaireValid: {
     'en': 'Your questionnaire is valid',
     'fr': 'Votre questionnaire ne comporte aucune erreur'
+  },
+  failMessage: {
+    'en': 'Error message',
+    'fr': 'Message d\'erreur'
+  },
+  criticity: {
+    'en': 'Criticity',
+    'fr': 'Criticité'
+  },
+  INFO: {
+    'en': 'Information',
+    'fr': 'Information'
+  },
+  WARN: {
+    'en': 'Warning',
+    'fr': 'Avertissement'
+  },
+  ERROR: {
+    'en': 'Error',
+    'fr': 'Erreur'
   }
 }
