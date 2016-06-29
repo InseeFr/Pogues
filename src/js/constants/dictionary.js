@@ -115,16 +115,16 @@ export default {
     'en': 'Criticity',
     'fr': 'Criticité'
   },
-  CRITICITY1: {
-    'en': 'Level 1',
-    'fr': 'Niveau 1'
+  INFO: {
+    'en': 'Information',
+    'fr': 'Information'
   },
-  CRITICITY2: {
-    'en': 'Level 2',
-    'fr': 'Niveau 2'
+  WARN: {
+    'en': 'Warning',
+    'fr': 'Avertissement'
   },
-  CRITICITY3: {
-    'en': 'Level 3',
-    'fr': 'Niveau 3'
+  ERROR: {
+    'en': 'Error',
+    'fr': 'Erreur'
   }
 }
