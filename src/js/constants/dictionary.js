@@ -73,5 +73,37 @@ export default {
   typeNewCode: {'en': 'Type a new code', 'fr': 'Entrez une nouvelle catégorie'},
   newCl: {'en': 'New code list', 'fr': 'Nouvelle liste de codes'},
   placeholderDeclarationText: {'en': 'Here, your declaration', 'fr' : 'Ici, votre déclaration'},
-  deleteGoTo: {'en': 'Delete GoTo', 'fr': 'Supprimer la redirection'}
+  deleteGoTo: {'en': 'Delete GoTo', 'fr': 'Supprimer la redirection'},
+  errorGoToUndefinedTgt: {
+    'en':
+`The target defined in the filter question is not avalaible. Please fill in the
+ target for each GoTo item.`,
+    'fr':
+`Le filtre comporte une cible invalide (non renseignée). Merci de renseigner le
+ champ « Cible » pour chaque redirection.`
+  },
+  errorGoToNonExistingTgt: {
+    'en':
+`The target defined in the filter question is not avalaible. Please fill in the
+ target with an existing element of the questionnaire.`,
+    'fr':
+`Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
+ à un élément connu du questionnaire.`
+  },
+  errorGoToEarlierTgt: {
+    'en':
+`The target defined in the filter question is not avalaible. Please fill in the
+ target with a further element of the questionnaire.`,
+    'fr':
+`Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
+ à un élément postérieur du questionnaire.`
+  },
+  errorQuestionnaireTooShort: {
+    'en': 'Your questionnaire is way too short',
+    'fr': 'Votre questionnaire est bien trop court'
+  },
+  questionnaireValid: {
+    'en': 'Your questionnaire is valid',
+    'fr': 'Votre questionnaire ne comporte aucune erreur'
+  }
 }

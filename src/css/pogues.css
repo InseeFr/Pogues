@@ -149,4 +149,28 @@ h4.question-header {
 }
 
 
+.placeholder {
+  background: #999;
+  /*text-align: center;*/
+  text-align: right;
+  padding-right: 5px;
+}
 
+.drag {
+  font-style: italic;
+  background: #aca;
+  opacity: 0.5;
+}
+
+.integrity-entity-name {
+    color: #a94442;
+}
+
+.integrity-messages > li {
+  list-style-type: none;
+}
+
+.panel-btn {
+  font-weight: normal;
+  
+}

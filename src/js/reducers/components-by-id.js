@@ -1,5 +1,5 @@
 import {
-  CREATE_COMPONENT, EDIT_COMPONENT
+  CREATE_COMPONENT, EDIT_COMPONENT, REMOVE_COMPONENT 
 } from '../actions/component'
 
 import {
@@ -22,8 +22,9 @@ import {
   CREATE_RESPONSE, REMOVE_RESPONSE
 } from '../actions/response'
 
+import { flatten, unflatten } from '../utils/data-utils'
 
-import { appendComponent } from '../utils/tree-utils'
+import { appendComponent, removeCmpntSmart } from '../utils/tree-utils'
 import * as cmpntUtils from './component-utils'
 
 import { COMPONENT_UTIL } from '../constants/pogues-constants'
@@ -42,6 +43,8 @@ const subs = [
 
 const actionsHndlrs = {
   CREATE_COMPONENT: createComponent,
+  REMOVE_COMPONENT: removeComponent,
+  MOVE_COMPONENT: moveComponent,
   CREATE_QUESTIONNAIRE: createQuestionnaire,
   EDIT_COMPONENT: editComponent,
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess,
@@ -56,6 +59,25 @@ export default function (state={}, action) {
   return hndlr ? hndlr(state, payload, action) : state
 }
 
+function removeComponent(cmpntsById, { id, parent: qrId }) {
+  return removeCmpntSmart(qrId, id, cmpntsById)
+}
+
+
+function moveComponent(cmpntsById, { qrId, origin, dest }) {
+  let { flat, idToRank } = flatten(cmpntsById, qrId)
+  const rankOrigin = idToRank[origin]
+  let rankDest = idToRank[dest]
+  const { start, end } = flat[rankOrigin]
+  const sizeOfOrigin = end-start+1
+  // When we move up, we insert before `dest` ; when we move down, we insert after `dest`.
+  if (rankDest > rankOrigin) rankDest = rankDest - sizeOfOrigin + 1
+   // 1. `dest` is after origin => its rank will be impacted by the removal (- sizeOrigin) ;
+   // 2. we move down within the questionnaire : in this situation, we insert after `dest` (+ 1).
+  const removed = flat.splice(start, sizeOfOrigin)
+  Array.prototype.splice.apply(flat, [rankDest, 0].concat(removed))
+  return unflatten(flat)
+}
 
 function createQuestionnaire(cmpntsById, { id, name, label }) {
   return {
@@ -68,7 +90,7 @@ function createComponent(cmpntsById, { id, label, type, parent, depth }) {
   const cmpnt = cmpntUtils.createComponent({ id, label, type})
   const { parentId, childCmpnts } =
     appendComponent(parent, cmpnt, cmpntsById, depth)
-  return {  
+  if (parentId) return {  
     ...cmpntsById,
     [id]: cmpnt,
     [parentId]: {
@@ -76,7 +98,8 @@ function createComponent(cmpntsById, { id, label, type, parent, depth }) {
       childCmpnts
     }
   }
-  return 
+  // nothing to do, cannot create a component here
+  return cmpntsById
 }
 
 function editComponent(cmpntsById, { id, update }) {

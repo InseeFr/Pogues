@@ -44,6 +44,16 @@ export const removeComponent = (id, parent) => ({
   }
 })
 
+export const MOVE_COMPONENT = 'MOVE_COMPONENT'
+export const moveComponent = (qrId, origin, dest) => ({
+  type: MOVE_COMPONENT,
+  payload: {
+    origin,
+    dest,
+    qrId
+  }
+})
+
 export const MOVE_UP_COMPONENT = 'MOVE_UP_COMPONENT'
 export const moveUpComponent = (id, parent) => ({
   type: MOVE_UP_COMPONENT,

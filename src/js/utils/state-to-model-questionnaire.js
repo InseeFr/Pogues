@@ -63,7 +63,9 @@ export default function toModel(state, qrId) {
   //HACK to allow comparision with initial model during tests, we need
   //to sort code lists by `id`
   const codeList = codeListByQuestionnaire[qrId].sort().map(fromCodeList)
-
+  const codeListSpecification =  Array.from(codeListSpecificationUsed).map(
+    fromCodeListSpecification
+  )
 
   return putLeading_({
     ...cmpnt,
@@ -72,7 +74,7 @@ export default function toModel(state, qrId) {
     componentGroups: componentGroups.map(fromComponentGroup),
     codeLists: {
       codeList,
-      codeListSpecification: Array.from(codeListSpecificationUsed)
+      codeListSpecification
     }
   })
 
@@ -94,7 +96,8 @@ export default function toModel(state, qrId) {
   }
 
   function fromCodeListSpecification(clSpecId) {
-    return { dscr: 'not implemented yet' }
+    const { label, name, retrievalQuery } = codeListById[clSpecId]
+    return { id: clSpecId, label, name, retrievalQuery }
   }
 
   function fromComponentGroup(cpntGroupId) {

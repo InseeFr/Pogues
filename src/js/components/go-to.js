@@ -21,16 +21,18 @@ GoToDeleteButton.propTypes = {
   locale: PropTypes.object.isRequired
 }
 
-//TODO see how to deal with components with an empty label : it breaks the 
+//TODO see how to deal with components with an empty label : it breaks the
 //component picker since we cannot differentiate the selection of an empty
-//label component from the situation where no label has be typed in for the
+//label component from the situation where no label has been typed in for the
 //goTo. And if we allow the label to be `null` (to differentiate it from ''),
 //we encounter that kind of error :
 //ReactDOMInput.js:132 Warning: ComponentPicker is changing a uncontrolled
 //input of type text to be controlled. Input elements should not switch from
 //uncontrolled to controlled (or vice versa). Decide between using a controlled
-//or uncontrolled input element for the lifetime of the component. 
+//or uncontrolled input element for the lifetime of the component.
 //since `null` as a value is handled as if there is no value given.
+
+//TODO rely on integrity checker to deal with errors
 
 export default function GoTo(
   { after, before, description, expression,
@@ -38,8 +40,8 @@ export default function GoTo(
     ifFalseLabel, ifFalseStatus,
     edit, remove, changeTargetTrue, changeTargetFalse,
     locale }) {
- 
-  
+
+
   return (
     <div>
       <div className="form-horizontal">
