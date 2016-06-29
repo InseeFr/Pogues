@@ -20,7 +20,7 @@ export default function (state) {
   } = state
   if (!questionnaire || !questionnaireById[questionnaire].loaded) return []
 
-  const { flat, idToRank, labelToId, idToLabel } =
+  const { flat, idToRank, nameToId, idToName } =
     flatten(componentById, questionnaire)
 
   function nbQuestionsChecker() {
@@ -35,13 +35,13 @@ export default function (state) {
     return flat.reduce((errors, { cmpnt }, rank) => {
       const { name } = cmpnt
       cmpnt.goTos.forEach(goToId => {
-        const { ifTrue, ifTrueIsALabel } = goToById[goToId]
+        const { ifTrue, ifTrueIsAName } = goToById[goToId]
         if (!ifTrue) errors.push({
           params: [name],
           message: errorGoToUndefinedTgt,
         })
-        else if (ifTrueIsALabel) {
-          const id = labelToId[ifTrue]
+        else if (ifTrueIsAName) {
+          const id = nameToId[ifTrue]
           if (!id) {
             errors.push({
               params: [name],
@@ -49,7 +49,6 @@ export default function (state) {
             })
           }
           else {
-            const id = labelToId
             if (idToRank[id] < rank) {
               errors.push({
                 params: [name],

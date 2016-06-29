@@ -9,27 +9,27 @@ const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
 export const extractId = uri => uri.substr(uri.lastIndexOf('/') + 1)
 
-export const  uuid = () => 
+export const  uuid = () =>
   (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
 
 export function flatten(register, main) {
   let rank = -1
   const idToRank = {}
-  const labelToId = {}
-  const idToLabel = {}
+  const nameToId = {}
+  const idToName = {}
   const flat = []
 
   function flatten_(main, depth) {
     const cmpnt = register[main]
-    const { type, label } = cmpnt
+    const { type, name } = cmpnt
     idToRank[main] = ++rank
-    idToLabel[main] = label
+    idToName[main] = name
     //HACK `nameToId` should not have an entry for the main sequence
     // of the questionnaire (a questionnaire is a sequence, but for the end
     // user, it should not be offered as an option for operations like control
     // or goTo edition).
-    if (rank > 0) labelToId[label] = main
-    const k = { id: main, type, label, depth, start: rank, cmpnt }
+    if (rank > 0) nameToId[name] = main
+    const k = { id: main, type, name, depth, start: rank, cmpnt }
     flat.push(k)
     if (type === SEQUENCE) {
       depth++
@@ -43,8 +43,8 @@ export function flatten(register, main) {
   return {
     flat,
     idToRank,
-    labelToId,
-    idToLabel
+    nameToId,
+    idToName
   }
 }
 
@@ -52,7 +52,7 @@ export function flatten(register, main) {
 //copy of register to keep also components outside the questionnaire
 export function unflatten(flat) {
   const register = {}
-  
+
   // Initialisation
   let childCmpnts = []
   const { cmpnt: main } = flat.shift() // main sequence

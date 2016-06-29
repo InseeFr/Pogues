@@ -36,8 +36,8 @@ GoToDeleteButton.propTypes = {
 
 export default function GoTo(
   { after, before, description, expression,
-    ifTrueLabel, ifTrueStatus,
-    ifFalseLabel, ifFalseStatus,
+    ifTrueName, ifTrueStatus,
+    ifFalseName, ifFalseStatus,
     edit, remove, changeTargetTrue, changeTargetFalse,
     locale }) {
 
@@ -61,10 +61,10 @@ export default function GoTo(
               onChange={e => edit({ expression: e.target.value })}/>
           </div>
         </div>
-        <Target text={locale.ifTrue} label={ifTrueLabel || ''}
+        <Target text={locale.ifTrue} name={ifTrueName || ''}
           status={ifTrueStatus}
           select={val => changeTargetTrue(val)} locale={locale} />
-        <Target text={locale.ifFalse} label={ifFalseLabel || ''}
+        <Target text={locale.ifFalse} name={ifFalseName || ''}
           status={ifFalseStatus}
           select={val => changeTargetFalse(val)} locale={locale} />
       </div>
@@ -74,9 +74,9 @@ export default function GoTo(
 }
 
 GoTo.propTypes = {
-  ifTrueLabel: PropTypes.string, // can be null`
+  ifTrueName: PropTypes.string, // can be null`
   ifTrueStatus: PropTypes.string.isRequired,
-  ifFalseLabel: PropTypes.string, // can be `null`
+  ifFalseName: PropTypes.string, // can be `null`
   ifFalseStatus: PropTypes.string.isRequired,
   edit: PropTypes.func.isRequired,
   changeTargetTrue: PropTypes.func.isRequired,

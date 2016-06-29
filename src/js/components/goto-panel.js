@@ -14,32 +14,32 @@ const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
  */
 function GoToPanel(
     { cmpntId, detailedGoTos, createGoTo, removeGoTo, editGoTo,
-      before, after, labelToId, idToLabel, idToRank, locale }) {
+      before, after, nameToId, idToName, idToRank, locale }) {
 
   const changeTargetByName = (trueOrFalse, goToId) => name => {
-    const id = labelToId[name]
+    const id = nameToId[name]
     editGoTo(goToId, {
       [trueOrFalse ? 'ifTrue' : 'ifFalse']: id || name,
-      [trueOrFalse ? 'ifTrueIsALabel' : 'ifFalseIsALabel']: !(id)
+      [trueOrFalse ? 'ifTrueIsAName' : 'ifFalseIsAName']: !(id)
     })
   }
-  // Event if ifTrueIsALabel is set to true, it doesn't mean that the target
+  // Event if ifTrueIsAName is set to true, it doesn't mean that the target
   // does not exist : it might not exist when the goto was defined, but
   // having been created later.
 
   let goToEls = detailedGoTos.length > 0 ?
   	detailedGoTos.map(({ id, description, expression, ifTrue, ifFalse,
-          ifTrueIsALabel, ifFalseIsALabel }) => {
+          ifTrueIsAName, ifFalseIsAName }) => {
       const cmpntRank = idToRank[cmpntId]
 
-      const ifTrueId = ifTrueIsALabel ? labelToId[ifTrue] : ifTrue
-      const ifTrueLabel = ifTrueIsALabel ? ifTrue : idToLabel[ifTrue]
+      const ifTrueId = ifTrueIsAName ? nameToId[ifTrue] : ifTrue
+      const ifTrueName = ifTrueIsAName ? ifTrue : idToName[ifTrue]
       const ifTrueStatus = ifTrueId ?
         (idToRank[ifTrueId] > cmpntRank ? AFTER : BEFORE) :
         NON_EXISTING
-      
-      const ifFalseId = ifFalseIsALabel ? labelToId[ifFalse] : ifFalse
-      const ifFalseLabel = ifFalseIsALabel ? ifFalse : idToLabel[ifFalse]
+
+      const ifFalseId = ifFalseIsAName ? nameToId[ifFalse] : ifFalse
+      const ifFalseName = ifFalseIsAName ? ifFalse : idToName[ifFalse]
       const ifFalseStatus = ifFalseId ?
         (idToRank[ifFalseId] > cmpntRank ? AFTER : BEFORE) :
         NON_EXISTING
@@ -47,8 +47,8 @@ function GoToPanel(
       return <GoTo key={id} id={id}
         before={before} after={after}
         expression={expression} description={description}
-        ifTrueLabel={ifTrueLabel}
-        ifFalseLabel={ifFalseLabel}
+        ifTrueName={ifTrueName}
+        ifFalseName={ifFalseName}
         ifTrueStatus={ifTrueStatus}
         ifFalseStatus={ifFalseStatus}
         remove={() => removeGoTo(id, cmpntId)}
@@ -62,14 +62,14 @@ function GoToPanel(
     return (
       <div>
         <datalist id="candidates">
-          {after.map(({ id, label }) => <option key={id} value={label} />)}
+          {after.map(({ id, name }) => <option key={id} value={name} />)}
         </datalist>
         <GenericPanel add={() => createGoTo(cmpntId)}
-          children={goToEls} 
+          children={goToEls}
     	    localeAdd={locale.defineGoTo} localeTitle={locale.goTo}  />
       </div>
     )
-  } 
+  }
 
 GoToPanel.propTypes = {
   detailedGoTos: PropTypes.array.isRequired,
@@ -79,19 +79,19 @@ GoToPanel.propTypes = {
   before: PropTypes.array.isRequired,
   after: PropTypes.array.isRequired,
   locale: PropTypes.object.isRequired,
-  labelToId: PropTypes.object.isRequired,
-  idToLabel: PropTypes.object.isRequired,
+  nameToId: PropTypes.object.isRequired,
+  idToName: PropTypes.object.isRequired,
   idToRank: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, { goTos, structure, cmpntId }) => {
-  const { flat, idToRank, labelToId, idToLabel } = structure
+  const { flat, idToRank, nameToId, idToName } = structure
   return {
     detailedGoTos: goTos.map(id => state.goToById[id]),
     before: flat.slice(0, idToRank[cmpntId]),
     after: flat.slice(idToRank[cmpntId]+1),
-    labelToId,
-    idToLabel,
+    nameToId,
+    idToName,
     idToRank,
     locale: state.locale
   }

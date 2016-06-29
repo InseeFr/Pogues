@@ -5,7 +5,7 @@ import { GOTO_CONSISTENCY } from '../constants/pogues-constants'
 
 const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
 
-export default function Target({ label, text, status, select, locale }) {
+export default function Target({ name, text, status, select, locale }) {
 
   const divCn = classNames({
     'form-group': true,
@@ -25,7 +25,7 @@ export default function Target({ label, text, status, select, locale }) {
     <div className={divCn}>
       <label className="col-sm-4 control-label">{text}</label>
       <div className="col-sm-8">
-        <ComponentPicker label={label} select={select} locale={locale}/>
+        <ComponentPicker name={name} select={select} locale={locale}/>
         <span className={spanCn} aria-hidden="true"></span>
       </div>
     </div>
@@ -33,7 +33,7 @@ export default function Target({ label, text, status, select, locale }) {
 }
 
 Target.propTypes = {
-  label: PropTypes.string.isRequired, 
+  name: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   select: PropTypes.func.isRequired,

@@ -11,8 +11,8 @@ const emptyGoTo = {
   ifTrue: null, //ifTrue and ifFalse can be used to store a label, which can be
                 //an empty string, so we use `null` as a default value
   ifFalse: null,
-  ifTrueIsALabel: false,
-  ifFalseIsALabael: false
+  ifTrueIsAName: false,
+  ifFalseIsAName: false
 }
 
 export default function (state={}, action) {
@@ -40,8 +40,8 @@ export default function (state={}, action) {
     case REMOVE_GOTO:
       const { [payload.id]: toRemove, ...toKeep } = state
       return toKeep
-    case LOAD_QUESTIONNAIRE_SUCCESS: 
-      return payload.update.goToById    
+    case LOAD_QUESTIONNAIRE_SUCCESS:
+      return payload.update.goToById
     default:
       return state
   }
