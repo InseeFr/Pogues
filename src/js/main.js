@@ -1,15 +1,30 @@
 require('./bootstrap');
-var PoguesActions = require('./actions/pogues-actions.js');
-var React = require('react');
-var DictionaryStore = require('./stores/dictionary-store');
-// Should be done on the server
-var language = (navigator.language || navigator.browserLanguage).split('-')[0];
-if (language !== 'fr') language = 'en';
-PoguesActions.setLanguage(language);
+// require('../css/bootstrap.min.css')
+// require('../css/docs.min.css')
+// require('../css/fa/css/font-awesome.min.css')
+require('../css/pogues.css')
 
-// Set language has to be calle before requiring components
-var PoguesApp = require('./components/pogues-app');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Root from './components/Root'
 
-React.render(
-	<PoguesApp/>,
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    'use strict';
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+    
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
+}
+
+ReactDOM.render(
+	<Root/>,
 	document.getElementById('base'));
+
+

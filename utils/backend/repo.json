@@ -1,0 +1,48 @@
+{
+	"specs": {
+		"cl_hommefemme": {
+			"id": "cl_hommefemme",
+			"label": "homme ou femme",
+			"retrievalQuery": "getHommeFemme"
+		},
+		"cl_ouinon": {
+			"id": "cl_ouinon",
+			"label": "oui ou non",
+			"retrievalQuery": "getOuiNon"
+		},
+		"proposal": {
+			"id": "cl_proposal",
+			"label": "Proportion de salaire",
+			"retrievalQuery": "getProposal"
+		}
+	},
+	"cLists": {
+		"getHommeFemme": {
+			"id": "cl_sexe",
+			"name": "cl_sexe",
+			"label": "Sexe",
+			"codes": [
+				{ "value": 0, "label": "Homme"},
+				{ "value": 1, "label": "Femme"}
+			]
+		},
+		"getOuiNon": {
+			"id": "cl_ouinon",
+			"name": "cl_ouinon",
+			"label": "Oui ou Non",
+			"codes": [
+				{ "value": 0, "label": "Non" },
+				{ "value": 1, "label": "Oui" }
+			]
+		},
+		"getProposal": {
+			"id": "cl_proposal",
+			"name": "cl_proposal",
+			"label": "Proportion de salaire",
+			"codes": [
+				{ "value": 0, "label": "La moitié ou plus" },
+				{ "value": 1, "label": "Moins de la moitié" }
+			]
+		}
+	}
+}

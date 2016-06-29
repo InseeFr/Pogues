@@ -10,29 +10,29 @@ span.pogues-logo {
 }
 
 .outlook.affix {
-	top: 50px;
+  top: 50px;
 }
 
 div.main {
-	background-color: #BFF5E9;
+  background-color: #BFF5E9;
 }
 
 div.gi-question input {
-	background-color: #BFFBFF;
+  background-color: #BFFBFF;
 }
 
 div.gi-sequence input {
-	background-color: #FBBFBB;
+  background-color: #FBBFBB;
 }
 
 input.generic {
-	width: 500px;
+  width: 500px;
 }
 
 span.error-message {
-	margin-left: 10px;
-	color: darksalmon;
-	font-weight: bold;
+  margin-left: 10px;
+  color: darksalmon;
+  font-weight: bold;
 }
 
 .component {
@@ -40,15 +40,15 @@ span.error-message {
 }
 
 .edit {
-	visibility : hidden;
+  visibility : hidden;
 }
 
 .component:hover {
-	border-left: 3px solid #56CDFC;
+  border-left: 3px solid #56CDFC;
 }
 
 .component:hover + .edit {
-	visibility : visible;
+  visibility : visible;
 }
 
 /* EDIT TEST */
@@ -60,24 +60,34 @@ span.error-message {
   visibility : hidden;
 }
 
-.highlight {
-	background-color: yellow;
+.highlighted {
+  background-color: lightgray;
 }
 
+.question-header, .sequence-header {
+  cursor: move;
+}
 .question-header {
   color: #A73B4E;
 }
 
 h1.sequence-header {
   color: #513179;
+  display: inline-block;
 }
 
 h2.sequence-header {
   color: #684C8C;
+  display: inline-block;
 }
 
 h3.sequence-header {
   color: #9785AD;
+  display: inline-block;
+}
+
+h4.question-header {
+  display: inline-block;
 }
 
 .nav .active .active > a {
@@ -119,4 +129,51 @@ h3.sequence-header {
   border-bottom: solid #888 1px;
   border-radius: 0;
   box-shadow: none;
+}
+
+.tools-activator {
+  display: none;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.tools-activator-container:hover > .tools-activator {
+  display: inline-block;
+}
+
+.sequence {
+  /*border-left: solid gray 1px;*/
+  margin-left: 10px;
+  padding-left: 5px;
+}
+
+.tools-activator > .fa {
+  margin: 5px;
+}
+
+
+.placeholder {
+  background: #999;
+  /*text-align: center;*/
+  text-align: right;
+  padding-right: 5px;
+}
+
+.drag {
+  font-style: italic;
+  background: #aca;
+  opacity: 0.5;
+}
+
+.integrity-entity-name {
+    color: #a94442;
+}
+
+.integrity-messages > li {
+  list-style-type: none;
+}
+
+.panel-btn {
+  font-weight: normal;
+
 }

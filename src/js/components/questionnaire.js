@@ -1,74 +1,98 @@
-var React = require('react');
-var QuestionnaireStore = require('../stores/questionnaire-store');
-var QuestionnaireOutlook = require('./questionnaire-outlook');
-var Component = require('../components/component');
-var GenericInput = require('../components/generic-input');
-var classNames = require('classnames');
-var locale = require('../stores/dictionary-store').getDictionary();
-var Logger = require('../logger/logger');
+//TODO Divide into a container component and a presentational component
+import React, { PropTypes, Component } from 'react';
+import QuestionnaireOutlook from './questionnaire-outlook';
+import QuestionOrSequence from './question-or-sequence'
+import IntegrityControl from './integrity-control'
+import GenericInput from '../components/generic-input';
+import classNames from 'classnames';
+import { COMPONENT_TYPE } from '../constants/pogues-constants'
+var DragDropContext = require('react-dnd').DragDropContext;
+var HTML5Backend = require('react-dnd-html5-backend');
+
+const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
+
+import {
+  toggleActiveComponent, createComponent, removeComponent, moveComponent
+
+} from '../actions/component'
+
+import Logger from '../logger/logger'
+import { connect } from 'react-redux'
 
 var logger = new Logger('Questionnaire', 'Components');
 
-function getStateFromStore() {
-  logger.debug('Getting state from store');
-  return {
-    questionnaire: QuestionnaireStore.getQuestionnaire(),
-    filter       : QuestionnaireStore.getFilter()
+//It's easier to take care of recursion here than in the questionOrSequence
+//component since we can put the GenericInput at the right place more easily.
+// Only the first sequence will have isFirst set to true
+const childCmpntsAndGenericInput =
+  (childCmpntsFromParent, props, path, first=true) => {
+
+    let mightBeFirstSequence = first
+    return childCmpntsFromParent.map((child, i) => {
+      if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
+      const { id, active, label, depth, highlighted, type, childCmpnts } = child
+      const isFirstSequence = mightBeFirstSequence && type === SEQUENCE
+      mightBeFirstSequence = mightBeFirstSequence && !isFirstSequence
+      const children = childCmpnts ?
+        childCmpntsAndGenericInput(
+          childCmpnts, props, path + '.' + i, false) : null
+
+      return (
+        <QuestionOrSequence {...props} // utility functions from parent
+          key={id}
+          id={id} active={active} label={label} highlighted={highlighted}
+          type={type} depth={depth}
+          children={children} path={path + '.' + i}
+          removeAllowed={!isFirstSequence} />
+        )
+    })
   }
-}
 
-var Questionnaire = React.createClass({
 
-  _onChange: function() {
-    this.setState(getStateFromStore());
-  },
-  getInitialState: function() {
-    return getStateFromStore();
-  },
-  componentDidMount: function() {
-    QuestionnaireStore.addChangeListener(this._onChange);
-  },
-  componentWillUnmount: function() {
-    QuestionnaireStore.removeChangeListener(this._onChange);
-  },
-  render: function() {
-    logger.debug('Questionnaire rendering with state: ', this.state);
-    var invite = locale.introduction,
-      filter = this.state.filter;
-
-    if (this.state.questionnaire === null) return (
-      <div>
-        <span className="fa fa-exclamation-triangle fa-3"></span>
-        <span className="error-message">{locale.errorMessageQuest}</span>
-      </div>
-    );
-    else if (this.state.questionnaire === undefined) return (
-      <div>
-        <span className="fa fa-spinner fa-pulse fa-2x"></span>
-      </div>
-    );
-    if (this.state.questionnaire.children.length > 0) invite = '';
+//TODO We could try to connect each QuestionOrSequence to the store in order to
+//avoid useless re-rendering of sequences when the generic input position
+//changes but without impacting the sequence
+class Questionnaire extends Component {
+  render() {
+    const { qr, locale } = this.props
+    let invite = locale.introduction
     return (
       <div className="container bs-docs-container">
         <div className="row">
+          <IntegrityControl />
+        </div>
+        <div className="row">
           <div className="col-md-9">
-            <h1>{invite}</h1>
-            {this.state.questionnaire.children.map(function(sequence, index) {
-                var classes = classNames({
-                  'row': true,
-                  'highlight': filter ? filter.test(sequence.name) : false
-                });
-              return (<Component className={classes} highlightHandler={filter} key={index} component={sequence}/>)
-            })}
-            <GenericInput />
+            <h1>{ invite }</h1>
+            <div className="questionnaire">
+              { childCmpntsAndGenericInput(qr, this.props, '0') }
+            </div>
           </div>
           <div className="col-md-3">
-            <QuestionnaireOutlook/>
+            <QuestionnaireOutlook childCmpnts={qr}/>
           </div>
         </div>
       </div>
     )
   }
-});
+}
 
-module.exports = Questionnaire;
+
+Questionnaire.propTypes = {
+  qrId: PropTypes.string.isRequired,
+  createComponent: PropTypes.func.isRequired,
+  structure: PropTypes.object.isRequired,
+  removeComponent: PropTypes.func.isRequired,
+  moveComponent: PropTypes.func.isRequired,
+  // moveComponentUp: PropTypes.func.isRequired,
+  // moveComponentDown: PropTypes.func.isRequired,
+  toggleActiveComponent: PropTypes.func.isRequired,
+  qr: PropTypes.array.isRequired,
+  locale: PropTypes.object.isRequired
+}
+
+
+export default DragDropContext(HTML5Backend)(Questionnaire)
+
+
+

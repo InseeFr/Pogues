@@ -1,87 +1,93 @@
-var React = require('react');
-var QuestionnaireListStore = require('../stores/questionnaire-list-store');
-var PoguesActions = require('../actions/pogues-actions');
-var AppStateStore = require('../stores/appstate-store');
-var DataUtils = require('../utils/data-utils');
-var locale = require('../stores/dictionary-store').getDictionary();
-var _ = require('lodash');
-var Logger = require('../logger/logger');
+import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
+import Logger from '../logger/logger';
+
+import { connect } from 'react-redux'
+import { switchToQuestionnaire } from '../actions/app-state'
+import { loadQuestionnaireList } from '../actions/questionnaire-list'
+import { loadCodeListSpecs } from '../actions/code-list-specification'
+import { removeQuestionnaire } from '../actions/questionnaire'
 
 var logger = new Logger('QuestionnaireList', 'Components');
 
-function getStateFromStore() {
-  return {
-    pending: false,
-    questionnaires: QuestionnaireListStore.getQuestionnaires(),
-    filter: QuestionnaireListStore.getFilter()
+class QuestionnaireList extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
+  componentWillMount() {
+    this.props.loadQuestionnaireList()
+    this.props.loadCodeListSpecs()
+  }
+
+  render() {
+    const { questionnaires, viewQuestionnaire, removeQuestionnaire,
+      allowRemoval } =  this.props
+    logger.info('Rendering the questionnaires list.')
+    return questionnaires ?
+      <div className="list-group">
+        <div>{questionnaires.length} questionnaire(s)</div>
+        {_.map(questionnaires, ({id, label, name}) => (
+          <span key={id} className="list-group-item">
+            <a href="#" key={id} 
+              onClick={() => viewQuestionnaire(id)}>
+              {label}
+              <span className="text-muted">
+               <small> [ {name} ] </small>
+              </span>
+              <i className="fa fa-arrow-circle-right"></i>
+            </a>
+            { allowRemoval && 
+            <a href="#" className="pull-right"
+              onClick={e => {
+                removeQuestionnaire(id)
+                console.log('something')
+                e.preventDefault()}}>
+              <i className="fa fa-trash"></i>
+            </a>
+          }
+          </span>
+          ))}
+      </div> :
+      // FIXME manage that view !
+      <div>EMPTY</div>
   }
 }
 
-var QuestionnaireList = React.createClass({
+QuestionnaireList.propTypes = {
+  loadQuestionnaireList: PropTypes.func.isRequired,
+  loadCodeListSpecs: PropTypes.func.isRequired,
+  viewQuestionnaire: PropTypes.func.isRequired,
+  questionnaires: PropTypes.object.isRequired,
+  allowRemoval: PropTypes.bool.isRequired
+}
 
-  _onChange: function() {
-    this.setState(getStateFromStore());
-  },
-  // Get an array of questionnaires object from payload
-  _questionnaireToArray: function(questionnaires) {
-    var questArray = [];
-    for (var key in questionnaires) {
-      if (questionnaires.hasOwnProperty(key)) {
-          questArray.push(questionnaires[key]);
-      }
-    }
-    return questArray;
-  },
-  getInitialState: function() {
-    return {
-      pending: true,
-      questionnaires: null
-    }
-  },
-  selectWithId: function(id, event) {
-    logger.debug('Select questionnaire with id: ', id);
-    PoguesActions.selectQuestionnaire(id);
-  },
-  componentWillMount: function() {
-    logger.debug('QuestionnaireList component will mount');
-    //PoguesActions.getQuestionnaireList();
-  },
-  componentDidMount: function() {
-    logger.debug('QuestionnaireList component did mount');
-    QuestionnaireListStore.addChangeListener(this._onChange);
-    // FIXME doesn't work
-    PoguesActions.getQuestionnaireList();
-    // FIXME this one works, but its a hack
-    //DataUtils.getQuestionnaireList();
-  },
-  componentWillUnmount: function() {
-    QuestionnaireListStore.removeChangeListener(this._onChange);
-  },
+/**
+ * Filter the questionnaire list
+ * @param  {object} questionnaires questionnaires by id
+ * @param  {string} filter         filter to apply
+ * @return {object}                questionnaires by id filtered
+ */
+function filterQuestionnaires(questionnaires, filter) {
+  return _.pick(questionnaires, (qr, id) => 
+                  qr.label.toLowerCase().includes(filter))
+}
 
-  render: function() {
-    logger.info('Rendering the questionnaires list.')
-    if(this.state.questionnaires) {
-      var questArray = this._questionnaireToArray(this.state.questionnaires);
-      if (this.state.filter) {
-        questArray = _.filter(questArray, questionnaire => questionnaire._label.indexOf(this.state.filter) !== -1);
-    }
-    return(
-      <div className="list-group">
-        <div>{questArray.length} questionnaire(s)</div>
-        {questArray.map(function(questionnaire, index) {
-          return (<a href="#" key={index} className="list-group-item" onClick={this.selectWithId.bind(this, questionnaire._id)}>
-                    <span>{questionnaire._label}</span>
-                    <span className="text-muted"><small> [ {questionnaire._name} ] </small></span>
-                    <span className="pull-right"><i className="fa fa-arrow-circle-right"></i></span>
-                  </a>)
-        }, this)}
-      </div>
-    );
-    } else {
-      // FIXME manage that view !
-      return(<div>EMPTY</div>);
-    }
-  }
-});
+// TODO retri
+const mapStateToProps = state => ({
+  questionnaires: 
+    filterQuestionnaires(
+      state.questionnaireList,
+      state.appState.questionnaireListFilter.toLowerCase()),
+  allowRemoval: state.config.allowRemovalOfQuestionnaire
+})
 
-module.exports = QuestionnaireList;
+const mapDispatchToProps = {
+  viewQuestionnaire: switchToQuestionnaire,
+  loadQuestionnaireList,
+  loadCodeListSpecs,
+  removeQuestionnaire
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireList)

@@ -2,8 +2,8 @@
 import NumericDatatypeModel from '../models/numeric-datatype'
 import TextDatatypeModel from '../models/text-datatype'
 import DateDatatypeModel from '../models/date-datatype'
-var datatypeTypes = require('../models/model-constants').DatatypeModel.DATATYPE_TYPES;
-
+import {DatatypeModel} from '../models/model-constants';
+var datatypeTypes = DatatypeModel.DATATYPE_TYPES
 const datatypeToModel = {
   NUMERIC: NumericDatatypeModel,
   TEXT: TextDatatypeModel,
