@@ -10,13 +10,13 @@ function ControlPanel(
   { cmpntId,
     detailedControls, createControl, removeControl, editControl,
     locale }) {
-  
+
   const ctrlEls = detailedControls.length > 0 ?
     detailedControls.map(
-      ({ id, description, expression: { text: textExpression }, failMessage,
+      ({ id, description, expression, failMessage,
          criticity }) =>
       <Control key={id} description={description}
-        textExpression={textExpression} failMessage={failMessage}
+        expression={expression} failMessage={failMessage}
         criticity={criticity}
         remove={() => removeControl(id, cmpntId) }
         edit={update => editControl(id, update)}
@@ -24,7 +24,7 @@ function ControlPanel(
     ) :
     <span>{locale.noControlYet}</span>
 
-    return <GenericPanel add={() => createControl(cmpntId)} children={ctrlEls} 
+    return <GenericPanel add={() => createControl(cmpntId)} children={ctrlEls}
       localeAdd={locale.addControl} localeTitle={locale.controls}  />
   }
 
