@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import QuestionLabel from './question-label'
 import SequenceLabel from './sequence-label'
 import ToolsActivator from './tools-activator'
+import DeleteActivator from './delete-activator'
+
 import classnames from 'classnames'
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
@@ -24,6 +26,7 @@ export default function QuestionOrSequenceHeader(props) {
           <Label {...props} />
         </span>
       )}
+      { !isDragging && <DeleteActivator {...props} /> }
     </div>
   )
 }
