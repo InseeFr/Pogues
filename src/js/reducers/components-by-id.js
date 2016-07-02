@@ -22,9 +22,9 @@ import {
   CREATE_RESPONSE, REMOVE_RESPONSE
 } from '../actions/response'
 
-import { flatten, unflatten } from '../utils/data-utils'
 
-import { appendComponent, removeCmpntSmart } from '../utils/tree-utils'
+
+import * as treeUtils from '../utils/tree-utils'
 import * as cmpntUtils from './component-utils'
 
 import { COMPONENT_UTIL } from '../constants/pogues-constants'
@@ -60,23 +60,12 @@ export default function (state={}, action) {
 }
 
 function removeComponent(cmpntsById, { id, parent: qrId }) {
-  return removeCmpntSmart(qrId, id, cmpntsById)
+  return treeUtils.removeComponent(qrId, id, cmpntsById)
 }
 
 
 function moveComponent(cmpntsById, { qrId, origin, dest }) {
-  let { flat, idToRank } = flatten(cmpntsById, qrId)
-  const rankOrigin = idToRank[origin]
-  let rankDest = idToRank[dest]
-  const { start, end } = flat[rankOrigin]
-  const sizeOfOrigin = end-start+1
-  // When we move up, we insert before `dest` ; when we move down, we insert after `dest`.
-  if (rankDest > rankOrigin) rankDest = rankDest - sizeOfOrigin + 1
-   // 1. `dest` is after origin => its rank will be impacted by the removal (- sizeOrigin) ;
-   // 2. we move down within the questionnaire : in this situation, we insert after `dest` (+ 1).
-  const removed = flat.splice(start, sizeOfOrigin)
-  Array.prototype.splice.apply(flat, [rankDest, 0].concat(removed))
-  return unflatten(flat)
+  return treeUtils.moveComponent(cmpntsById, qrId, origin, dest)
 }
 
 function createQuestionnaire(cmpntsById, { id, name, label }) {
@@ -89,8 +78,8 @@ function createQuestionnaire(cmpntsById, { id, name, label }) {
 function createComponent(cmpntsById, { id, label, type, parent, depth }) {
   const cmpnt = cmpntUtils.createComponent({ id, label, type})
   const { parentId, childCmpnts } =
-    appendComponent(parent, cmpnt, cmpntsById, depth)
-  if (parentId) return {  
+    treeUtils.appendComponent(parent, cmpnt, cmpntsById, depth)
+  if (parentId) return {
     ...cmpntsById,
     [id]: cmpnt,
     [parentId]: {

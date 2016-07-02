@@ -1,48 +1,5 @@
-import { COMPONENT_TYPE } from '../constants/pogues-constants'
+import { COMPONENT_TYPE } from '../../constants/pogues-constants'
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
-
-/**
- * Remove a component and all its children ** not used for now **
- *
- * It returns all the components kept after the removal. Each component
- * impacted by the removal will have its childCmpnts property update.
- * `cmpnts` will not be modifed, so we do not need to make a copy of it before
- * calling this function.
- *
- * @param  {string} main          main sequence
- * @param  {string} id            id of the component id to remove
- * @param  {object} cmpnts        dictionary of all the components
- * @param  {object} cmpntsUpdated copy of all the components to keep
- * @return {object}               the copy of all the components kept
- */
-export function removeCmpnt(main, id, cmpnts, cmpntsUpdated={}) {
-  // The idea : we look for the key recursively. when we find it, we remove the
-  // component from its parent, and we do not add this component and its
-  // children to the components to be kept.
-  //If cmpntsUpdated is unitialized, we are dealing with the main sequence and
-  //we need to initialize cmpntsUpdated with this component
-  cmpntsUpdated[main] = {
-    ...cmpnts[main]
-  }
-  //Safety check
-  if (main === id) throw 'Cannot remove main sequence'
-  //main can be a question since removeCmpnt is called recursively
-  //If main is a question, we are on a leaf, and there is nothing to do (if we
-  //reached a leaf, it means we have to keep it, since the condition is checked
-  //when dealing with the parent)
-  if (cmpnts[main].type === QUESTION) return cmpntsUpdated
-  //We're dealing with a sequence
-  cmpntsUpdated[main].childCmpnts = cmpnts[main].childCmpnts.reduce(
-    (after, child) => {
-      //We ignore the child. It won't be added to childCmpnts and to
-      //cmpntsUpdated
-      if (child === id) return after //component not added
-      after.push(child)
-      cmpntsUpdated = removeCmpnt(child, id, cmpnts, cmpntsUpdated)
-      return after
-    }, [])
-  return cmpntsUpdated
-}
 
 /**
  * Remove a component but keep its children
@@ -71,12 +28,12 @@ export function removeCmpnt(main, id, cmpnts, cmpntsUpdated={}) {
  * @param  {object} cmpntsUpdated dictionary with all the components to keep
  * @return {object}               the copy of all the components kept
  */
-export function removeCmpntSmart(main, id, cmpnts, cmpntsUpdated={}) {
+export function removeComponent(main, id, cmpnts, cmpntsUpdated={}) {
   // If cmpntsUpdated is unitialized, we are dealing with the root of the
   // questionnaire
   //Safety check, it shouldn't happen...
   if (main === id) throw 'Cannot remove main sequence'
-  // since if we reached `main`, we have to keep it
+  // since if we reached `main`, we have to keep it :
   cmpntsUpdated[main] = {
     ...cmpnts[main]
   }
@@ -115,9 +72,53 @@ export function removeCmpntSmart(main, id, cmpnts, cmpntsUpdated={}) {
       // `removeComponentSmart` recursively to deal with situations where the
       // component to remove is in its descendants.
       after.push(child)
-      cmpntsUpdated = removeCmpntSmart(child, id, cmpnts, cmpntsUpdated)
+      cmpntsUpdated = removeComponent(child, id, cmpnts, cmpntsUpdated)
       return after
     }, cmpntsUpdated[main].childCmpnts)
+  return cmpntsUpdated
+}
+
+/**
+ * Remove a component and all its children ** not used for now **
+ *
+ * It returns all the components kept after the removal. Each component
+ * impacted by the removal will have its childCmpnts property update.
+ * `cmpnts` will not be modifed, so we do not need to make a copy of it before
+ * calling this function.
+ *
+ * @param  {string} main          main sequence
+ * @param  {string} id            id of the component id to remove
+ * @param  {object} cmpnts        dictionary of all the components
+ * @param  {object} cmpntsUpdated copy of all the components to keep
+ * @return {object}               the copy of all the components kept
+ */
+
+export function removeComponentAndChildren(main, id, cmpnts, cmpntsUpdated={}) {
+  // The idea : we look for the key recursively. when we find it, we remove the
+  // component from its parent, and we do not add this component and its
+  // children to the components to be kept.
+  //If cmpntsUpdated is unitialized, we are dealing with the main sequence and
+  //we need to initialize cmpntsUpdated with this component
+  cmpntsUpdated[main] = {
+    ...cmpnts[main]
+  }
+  //Safety check
+  if (main === id) throw 'Cannot remove main sequence'
+  //main can be a question since removeCmpnt is called recursively
+  //If main is a question, we are on a leaf, and there is nothing to do (if we
+  //reached a leaf, it means we have to keep it, since the condition is checked
+  //when dealing with the parent)
+  if (cmpnts[main].type === QUESTION) return cmpntsUpdated
+  //We're dealing with a sequence
+  cmpntsUpdated[main].childCmpnts = cmpnts[main].childCmpnts.reduce(
+    (after, child) => {
+      //We ignore the child. It won't be added to childCmpnts and to
+      //cmpntsUpdated
+      if (child === id) return after //component not added
+      after.push(child)
+      cmpntsUpdated = removeCmpnt(child, id, cmpnts, cmpntsUpdated)
+      return after
+    }, [])
   return cmpntsUpdated
 }
 
@@ -200,65 +201,6 @@ function copyCmpnts(child, cmpnts, cmpntsUpdated) {
   if (cmpnts[child].type === SEQUENCE) {
     cmpnts[child].childCmpnts.forEach(childChild =>
       copyCmpnts(childChild, cmpnts, cmpntsUpdated))
-  }
-}
-/**
- * Append a component to a sequence
- *
- * This function takes care of adding its `id` at the right position in the
- * child components of a sequence upper in the hierarchy, and add the component
- * in the newly created dictionary of components (the component to add is not
- * supposed to be already present in the cmpnts).
- *
- * It takes care of unconsistencies about depth (for instance, adding a question
- * at depth `3` when there is no opened sequence) by ignoring the operation (by
- * returning { parentId: undefined })
- *
- * `cmpnts` will not be modifed, so we do not need to make a copy of it before
- * calling this function.
- *
- * @param  {string} main   id of the main sequence
- * @param  {object} cmpnt  the component to append
- * @param  {object} cmpnts dictionary with all the components
- * @param  {number} depth  where to add the component
- * @return {object}        a dictionary with all the components after the update
- */
-export function appendComponent(main, cmpnt, cmpnts, depth) {
-  let parentId, grandParentId
-
-  //We append to the main sequence. We are looking for the right parent
-  //sequence based on depth.
-  switch (depth) {
-    case 1:
-      // only a sequence can be created at the root of the questionnaire
-      if (cmpnt.type === SEQUENCE) parentId = main
-      break;
-    case 2:
-      // If there is an opened sequence in main, we append to this sequence. If
-      // not, we append to the main sequence.
-      parentId = cmpnts[main].childCmpnts.slice(-1).pop()
-      // We cannot create at depth 2 if there is no opened sequence
-      if (!parentId || cmpnts[parentId].type !== SEQUENCE) parentId = undefined
-      break;
-    case 3:
-      // Only a question can have a depth of 3. It there is no grand parent and
-      // parent for this question, do nothing
-      if (cmpnt.type === QUESTION) {
-        grandParentId = cmpnts[main].childCmpnts.slice(-1).pop()
-        if (grandParentId && cmpnts[grandParentId].type === SEQUENCE) {
-          parentId = cmpnts[grandParentId].childCmpnts.slice(-1).pop()
-          if (!parentId || cmpnts[parentId].type !== SEQUENCE)
-              parentId = undefined
-        }
-      }
-  }
-  if (!parentId) return {
-    parentId: undefined
-  }
-  const parent = cmpnts[parentId]
-  return {
-    parentId,
-    childCmpnts: [...parent.childCmpnts, cmpnt.id]
   }
 }
 
