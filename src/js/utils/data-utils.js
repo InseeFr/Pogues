@@ -75,7 +75,7 @@ export function unflatten(flat) {
         // In most cases, path.length === depth (same depth as the last opened
         // sequence) or path.length + 1 === depth (we are openig a new sequence
         // within the current sequence). But sometimes there might be some
-        // unconsistencies in depth (depth > path.length + 1) due to the
+        // inconsistencies in depth (depth > path.length + 1) due to the
         // removal of a sequence (especially when you remove the first sequence
         // of the questionnaire).
         path[path.length-1].push(id)
