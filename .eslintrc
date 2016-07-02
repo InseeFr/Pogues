@@ -6,7 +6,8 @@
     "browser": true,
     // in CommonJS
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   // To give you an idea how to override rule options:
   "rules": {
