@@ -5,7 +5,11 @@ import { removeComponent } from '../remove'
 //questionnaire.
 import deepFreeze from 'deep-freeze'
 
-const qIni = createQuestionnaireFromText(`
+
+
+describe('tree utils remove', () => {
+
+  const qIni = createQuestionnaireFromText(`
 s/SEQ1/Séquence sur le thème 1
  q/Q11/Plutôt 1a ou 1b ?
  s/SSEQ1A/Sous-séquence sur le sujet 1a
@@ -16,10 +20,8 @@ s/SEQ1/Séquence sur le thème 1
 s/SEQ2/Séquence sur le thème 2
  s/SSEQ2A/Sous-séquence sur le sujet 2a
 `)
+  deepFreeze(qIni)
 
-deepFreeze(qIni)
-
-describe('tree utils', () => {
 
   describe('removeComponent', () => {
 
@@ -27,11 +29,11 @@ describe('tree utils', () => {
       const qAfter = removeComponent('root', 'Q1B1', qIni)
 
       it('should remove the component from the dictionary', () => {
-        expect(qAfter['Q1B1']).to.be.undefined
+        expect(qAfter.Q1B1).to.be.undefined
       })
 
       it('should remove the component from its parent children list', () => {
-        expect(qAfter['SSEQ1B'].childCmpnts).to.deep.equal(['Q1B2'])
+        expect(qAfter.SSEQ1B.childCmpnts).to.deep.equal(['Q1B2'])
       })
     })
 
@@ -39,7 +41,7 @@ describe('tree utils', () => {
 
       it('should add its children to the last open sequence', () => {
         const qAfter = removeComponent('root', 'SSEQ1B', qIni)
-        expect(qAfter['SSEQ1A'].childCmpnts).to.deep.equal(['Q1B1', 'Q1B2'])
+        expect(qAfter.SSEQ1A.childCmpnts).to.deep.equal(['Q1B1', 'Q1B2'])
       })
 
     })
@@ -51,9 +53,8 @@ describe('tree utils', () => {
 
         expect(qAfter.SEQ2).to.be.undefined
 
-        expect(qAfter['SEQ1'].childCmpnts).to.deep.equal(
+        expect(qAfter.SEQ1.childCmpnts).to.deep.equal(
           ['Q11', 'SSEQ1A', 'SSEQ1B', 'SSEQ1C', 'SSEQ2A'])
-        })
       })
 
       it('should add its children to root if no opened sequence', () => {
@@ -62,5 +63,7 @@ describe('tree utils', () => {
         expect(qAfter.root.childCmpnts).to.deep.equal(
           ['Q11', 'SSEQ1A', 'SSEQ1B', 'SSEQ1C', 'SEQ2'])
       })
+    })
+
   })
 })
