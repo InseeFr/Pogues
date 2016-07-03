@@ -12,16 +12,36 @@ export const extractId = uri => uri.substr(uri.lastIndexOf('/') + 1)
 export const  uuid = () =>
   (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
 
-//TODO we should avoid unnecessary calls to flatten ; two options:
-//1. questionnaire structure should be part of the main reducer (we should
-//not have to process it)
-//2. memoization
+//TODO flattened questionnaire structure might be part of the main reducer,
+//because this information is used in multiple places ; we might choose to keep
+//this representation instead of the regular parent/child relationships
+
+/**
+ * Build a flat representation of the questionnaire
+ *
+ * It returns multiple objects, including an array representing the
+ * questionnaire in chronological order, where each component is assigned a
+ * depth.
+ *
+ * @param  {object} register dictionary with all the components
+ * @param  {string@} main    the id of the main sequence (the questionnaire id)
+ * @return {object}          information to proccess the questionnaire structure
+ *                           as an array
+ */
 export function flatten(register, main) {
   let rank = -1
   const idToRank = {}
   const nameToId = {}
   const idToName = {}
   const flat = []
+
+  // Check if arguments have changed since last call. The common use cases of
+  // `flatten` can make it call multiple times with the same arguments. We only
+  // do memoization of the last arguments because there's no reason to find
+  // these arguements in the call history of flatten if there are not the last
+  // arguments used.
+  const { lastRegister, lastMain, lastValue } = flatten.lastResult
+  if (lastRegister === register && lastMain === main) return lastValue
 
   function flatten_(main, depth) {
     const cmpnt = register[main]
@@ -44,14 +64,25 @@ export function flatten(register, main) {
 
   flatten_(main, 0)
 
-  return {
+  const result = {
     flat,
     idToRank,
     nameToId,
     idToName
   }
+  flatten.lastResult = {
+    lastValue: result,
+    lastRegister: register,
+    lastMain: main
+  }
+  return result
 }
-
+// memoization
+flatten.lastResult = {
+  lastRegister: null,
+  lastMain: null,
+  lastValue: null
+}
 //TODO We keep only used components ; see if it's necessary to start with a
 //copy of register to keep also components outside the questionnaire
 export function unflatten(flat) {
