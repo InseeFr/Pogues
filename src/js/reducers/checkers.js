@@ -5,8 +5,7 @@ const errorGoToUndefinedTgt = 'errorGoToUndefinedTgt'
 const errorGoToEarlierTgt = 'errorGoToEarlierTgt'
 const errorQuestionnaireTooShort = 'errorQuestionnaireTooShort'
 /**
- * A checker analyses the state and returns a number of errors and a list
- * of error descriptions
+ * A checker analyzes the state and returns a list of error descriptions
  */
 
 //TODO for now we use a closure to avoid unnecessary calls to flatten but the
@@ -18,6 +17,7 @@ export default function (state) {
   const {
     componentById, goToById, appState: { questionnaire, questionnaireById }
   } = state
+
   if (!questionnaire || !questionnaireById[questionnaire].loaded) return []
 
   const { flat, idToRank, nameToId, idToName } =
