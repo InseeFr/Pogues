@@ -12,6 +12,10 @@ export const extractId = uri => uri.substr(uri.lastIndexOf('/') + 1)
 export const  uuid = () =>
   (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
 
+//TODO we should avoid unnecessary calls to flatten ; two options:
+//1. questionnaire structure should be part of the main reducer (we should
+//not have to process it)
+//2. memoization
 export function flatten(register, main) {
   let rank = -1
   const idToRank = {}
