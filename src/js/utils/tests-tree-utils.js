@@ -2,12 +2,10 @@
  * Utility functions to experiment with tree like structures
  */
 
-let _nbPrec = -1 //root
 const levels = []
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
-const root = { id: 'root', label: 'root', childCmpnts: [], type: SEQUENCE }
-const path = [root]
+
 
 /**
  * Create a tree from an array of strings
@@ -23,6 +21,8 @@ const path = [root]
  * @return {object}     the main sequence of the questionnaire
  */
 function createTree(arr) {
+  const root = { id: 'root', label: 'root', childCmpnts: [], type: SEQUENCE }
+  const path = [root]
   arr.forEach(child => {
     let _nb = nbLeadingSpaces(child)
     //let rawNameArr = child.trim().match(/^([q-s]?)(?:\/([^\/\n]*))*/)
