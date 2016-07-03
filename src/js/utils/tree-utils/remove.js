@@ -37,7 +37,7 @@ export function removeComponent(main, id, cmpnts, cmpntsUpdated={}) {
   cmpntsUpdated[main] = {
     ...cmpnts[main]
   }
-  // `main` can be a question since removeCmpnt is called recursively.
+  // `main` can be a question since removeComponent is called recursively.
   // If main is a question, we're dealing with a leaf, and there is nothing to
   // do (if we reached a leaf, it means we have to keep it, since the condition
   // is checked when dealing with the parent)
@@ -69,7 +69,7 @@ export function removeComponent(main, id, cmpnts, cmpntsUpdated={}) {
         return after //component not added
       }
       // We need to keep this child. We add it to `main` children. We call
-      // `removeComponentSmart` recursively to deal with situations where the
+      // `removeComponent` recursively to deal with situations where the
       // component to remove is in its descendants.
       after.push(child)
       cmpntsUpdated = removeComponent(child, id, cmpnts, cmpntsUpdated)
@@ -116,7 +116,7 @@ export function removeComponentAndChildren(main, id, cmpnts, cmpntsUpdated={}) {
       //cmpntsUpdated
       if (child === id) return after //component not added
       after.push(child)
-      cmpntsUpdated = removeCmpnt(child, id, cmpnts, cmpntsUpdated)
+      cmpntsUpdated = removeComponent(child, id, cmpnts, cmpntsUpdated)
       return after
     }, [])
   return cmpntsUpdated
