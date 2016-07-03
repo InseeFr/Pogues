@@ -11,8 +11,9 @@ import responseById from './response-by-id'
 import codeById from './code-by-id'
 import config from './config'
 import integrityChecker from './integrity-checker'
-import checker from './checkers'
-
+import combineCheckers from './checkers'
+import goTosChecker from '../utils/goTosChecker'
+import questionnaireLengthChecker from '../utils/questionnaireLengthChecker'
 import locale from './dictionary'
 import questionnaireList from './questionnaire-list'
 import { REMOTE_EVENT } from '../constants/pogues-constants'
@@ -24,7 +25,6 @@ const { PENDING, LOADED, FAILED } = REMOTE_EVENT
 // during the session ?)
 
 export default integrityChecker(combineReducers({
-
   locale,
   config,
   appState,
@@ -38,4 +38,4 @@ export default integrityChecker(combineReducers({
   controlById,
   responseById,
   codeById
-}), checker)
+}), combineCheckers(goTosChecker, questionnaireLengthChecker))
