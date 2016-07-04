@@ -15,34 +15,47 @@ const emptyGoTo = {
   ifFalseIsAName: false
 }
 
+const actionsHndlrs = {
+  CREATE_GOTO: createGoTo,
+  REMOVE_GOTO: removeGoTo,
+  EDIT_GOTO: editGoTo,
+  LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
+}
+
+
 export default function (state={}, action) {
+  if (!action) return state
   const { type, payload } = action
-  switch (type) {
-    case CREATE_GOTO:
-      return {
-        ...state,
-        [payload.id]: {
-          id: payload.id,
-          ...emptyGoTo
-        }
-      }
-    case EDIT_GOTO:
-      //TODO inspect ifTrue and ifFalse to replace empty strings by `null`.
-      //Anyway, we should decide how to handle components with no label in
-      //goTo edition
-      return {
-        ...state,
-        [payload.id]: {
-          ...state[payload.id],
-          ...payload.update
-        }
-      }
-    case REMOVE_GOTO:
-      const { [payload.id]: toRemove, ...toKeep } = state
-      return toKeep
-    case LOAD_QUESTIONNAIRE_SUCCESS:
-      return payload.update.goToById
-    default:
-      return state
+  const hndlr = actionsHndlrs[type]
+  return hndlr ? hndlr(state, payload, action) : state
+}
+
+
+function removeGoTo(goTos, { id }) {
+  const { [id]: toRemove, ...toKeep } = goTos
+  return toKeep
+}
+
+function createGoTo(goTos, { id }) {
+  return {
+    ...goTos,
+    [id]: {
+      id,
+      ...emptyGoTo
+    }
   }
+}
+
+function editGoTo(goTos, { id, update }) {
+  return {
+    ...goTos,
+    [id]: {
+      ...goTos[id],
+      ...update
+    }
+  }
+}
+
+function loadQuestionnaireSuccess(goTos, { update: { goToById }}) {
+  return goToById
 }
