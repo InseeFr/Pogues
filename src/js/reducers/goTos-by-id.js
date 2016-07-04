@@ -4,7 +4,14 @@ import {
 import {
   LOAD_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
+import { REMOVE_COMPONENT } from '../actions/component'
 
+//TODO needs to know how to handle ifTrue/ifFalse defined as a name (not a
+//component id) when a component with its name is then created : to we need to
+//map ifTrue to this component and set `ifTrueIsAName` to false, or keep
+//`ifTrueIsAName` rto `true`. With first option, if the component is then
+//renamed, the mapping will be kept ; with second option, it will be lost since
+//the goTo will point towards a component with `ifTrue` as a name.
 const emptyGoTo = {
   description: '',
   expression: '',
@@ -19,6 +26,7 @@ const actionsHndlrs = {
   CREATE_GOTO: createGoTo,
   REMOVE_GOTO: removeGoTo,
   EDIT_GOTO: editGoTo,
+  REMOVE_COMPONENT: removeComponent,
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
 }
 
@@ -54,6 +62,30 @@ function editGoTo(goTos, { id, update }) {
       ...update
     }
   }
+}
+// When we remove a component, we need to remove the target of each goTo pointing
+// towards it
+function removeComponent(goTos, { id: cmpntId }) {
+  const update = Object.keys(goTos).reduce((update, id) => {
+    const goTo = goTos[id]
+    const { ifTrue, ifTrueIsAName } = goTo
+    if (!ifTrueIsAName && ifTrue === cmpntId) {
+      //remove the target
+      update[id] = {
+        ...goTo,
+        ifTrue: null
+      }
+    }
+    return update
+    //TODO handle `ìfFalse` in the same waye
+  }, {})
+  if (Object.keys(update).length > 0) { //avoid unecessary copies if nothing changed
+    return {
+      ...goTos,
+      ...update
+    }
+  }
+  else return goTos
 }
 
 function loadQuestionnaireSuccess(goTos, { update: { goToById }}) {
