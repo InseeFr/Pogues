@@ -2,6 +2,7 @@
 //urls
 var config = {
   dev :  true,
+  allowRemovalOfQuestionnaire: false,
   baseURL : 'http://s90datalift.ad.insee.intra:9050',
   poguesPath : '/exist/pogues',
   persistPath : '/exist/restxq',
