@@ -19,7 +19,7 @@ var config = {
 //TODO see if this all the parameters should be exposed and modifiabl//from the
 // config editor
 function makeRepoURLSpecs() {
-  const repoURL = 'http://dvrmessnclas01.ad.insee.intra:80s80'
+  const repoURL = 'http://dvrmessnclas01.ad.insee.intra:8080'
   const query = `
     // PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
     // PREFIX xkos:<http://rdf-vocabulary.ddialliance.org/xkos#>
