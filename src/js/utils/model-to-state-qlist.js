@@ -6,7 +6,7 @@
 export function qListToState(model) {
   return Object.keys(model).reduce((update, qrId) => {
     const {
-       _id, _name, _label, _agency, 
+       _id, _name, _label, _agency,
       _survey: {
         _id: _surveyId,
         name: _surveyName, //TODO investigate, survey name seems to be the only
@@ -17,7 +17,8 @@ export function qListToState(model) {
     update[qrId] = {
       id: _id,
       name: _name,
-      label: _label[0],
+      label: _label, // in the questionnaire list, _label is a string not
+                    // an array
       agency: _agency,
       survey: {
         id: _surveyId,
