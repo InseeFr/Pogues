@@ -85,7 +85,18 @@ server.get('/stromae/publisher/:id', function (req, res, next) {
 
 
 server.get('/questionnaires', function (req, res, next) {
-  res.send(questionnaires)
+  const questionnaireList = Object.keys(questionnaires).reduce((_qL, id) => {
+    const qr = questionnaires[id]
+    _qL[id] = {
+      _id: qr._id,
+      _name: qr._name,
+      _label: qr._label[0],
+      _agency: qr._agency,
+      _survey: qr._survey
+    }
+    return _qL
+  }, {})
+  res.send(questionnaireList)
   next()
 })
 
