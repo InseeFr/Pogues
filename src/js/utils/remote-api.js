@@ -1,4 +1,4 @@
-/* 
+/*
 This module should stay as much as possible ignorant of the inner workings of
 the API, and especially the shape of the returned objects.
 Yet, it does not seem relevant to return raw responses objects to the reducer. The option chosen consists of returning javascript objects extracted from headers or response body, but not processing them.
@@ -10,7 +10,7 @@ import { nameFromLabel } from './name-utils'
 
 var logger = new Logger('RemoteApi', 'Remote')
 
-const { 
+const {
   baseURL, persistPath, stromaePath,
   codeLists: { repoURLSpecs, repoURLCList }
 } = config
@@ -32,7 +32,9 @@ const urlGetCList                 = repoURLCList
 
 export const getQuestionnaireList = () =>
   fetch(urlGetQuestionnaireList, {
-    headers: { 'Content-Type': 'text/html' }
+    headers: {
+      'Accept': 'application/json'
+    }
   })
     .then(res => res.json())
 
@@ -46,22 +48,24 @@ export const postQuestionnaire = qr =>
  fetch(urlPostQuestionnaire, {
   method: 'POST',
   headers: {
-    'Content-Type': 'text/html'
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
   },
   body: JSON.stringify(qr)
   }).then(res => {
       // TODO check in header slug is the same as qr._id
       if (res.ok) return res.headers.get('location')
       else throw new Error('Network request failed :' + res.statusText)
-  }) 
+  })
 
 //TODO better use of fetch API (use of `new Request(...)` instead of building
 //a string with the url)
-export const putQuestionnaire = (id, qr) => 
+export const putQuestionnaire = (id, qr) =>
   fetch(urlPutQuestionnaire + '/' + id, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'text/html'
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr)
   }).then(res => {
@@ -73,7 +77,7 @@ export const deleteQuestionnaire = id =>
   fetch(urlDeleteQuestionnaire + '/' + id, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'text/html'
+      'Accept': 'application/json'
     }
   }).then(res => {
     if (res.ok) return res
@@ -88,7 +92,8 @@ export const stromaePostQuestionnaire = serializedQuestionnaire => {
   return fetch(urlStromaePostQuestionnaire, {
       method: 'POST',
       headers: {
-        'Content-Type': 'text/html'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify(serializedQuestionnaire)
     }).then(res => {
@@ -108,7 +113,9 @@ export const stromaePostQuestionnaire = serializedQuestionnaire => {
  */
 export const getQuestionnaire = id =>
   fetch(urlGetQuestionnaire + '/' + id, {
-    headers: { 'Content-Type': 'text/html' }
+    headers: {
+      'Accept': 'application/json'
+    }
   }).then(res => res.json())
 
 /**
@@ -116,13 +123,17 @@ export const getQuestionnaire = id =>
  */
 export const getCodeListSpecs = () =>
   fetch(urlGetSpecs, {
+    headers: {
       'Accept': 'application/json'
+    }
   }).then(res => res.json())
 
-/** 
+/**
  * Retrieve code list
  */
 export const getCodeList = retrievalQuery =>
   fetch(urlGetCList + '/' + retrievalQuery, {
-    'Accept': 'application/json'
+    headers: {
+      'Accept': 'application/json'
+    }
   }).then(res => res.json())
