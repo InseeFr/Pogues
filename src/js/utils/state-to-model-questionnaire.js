@@ -10,7 +10,7 @@
  */
 
 import { putLeading_ } from '../utils/data-utils'
-
+import { DATATYPE_TYPE_FROM_NAME } from '../constants/pogues-constants'
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
 
@@ -150,7 +150,11 @@ export default function toModel(state, qrId) {
 
     updateCodeListSpecificationUsed(codeListReference)
     return {
-      simple, mandatory, codeListReference, datatype,
+      simple, mandatory, codeListReference,
+      datatype: {
+        ...datatype,
+        type: DATATYPE_TYPE_FROM_NAME[datatype.typeName],
+      },
       values: []
     }
 

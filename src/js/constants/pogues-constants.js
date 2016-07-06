@@ -48,7 +48,9 @@ export const DATATYPE_NAME = {
   TEXT: 'TEXT'
 }
 
-export const DATATYPE_TYPE = {
+//mapping to convert a type to a type when we serialize a
+//questionnaire
+export const DATATYPE_TYPE_FROM_NAME = {
   DATE: 'DateDataTypeType',
   NUMERIC: 'NumericDatatypeType',
   TEXT: 'TextDatatypeType'
