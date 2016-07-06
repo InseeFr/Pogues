@@ -75,6 +75,7 @@ export default {
   placeholderDeclarationText: {'en': 'Here, your declaration', 'fr' : 'Ici, votre déclaration'},
   deleteGoTo: {'en': 'Delete GoTo', 'fr': 'Supprimer la redirection'},
   deleteControl: {'en': 'Delete control', 'fr': 'Supprimer le contrôle'},
+  deleteDeclaration: {'en': 'Delete statement', 'fr': 'Supprimer la déclaration' },
   errorGoToUndefinedTgt: {
     'en':
 `The target defined in the filter question is not avalaible. Please fill in the
