@@ -66,8 +66,9 @@ export const putQuestionnaire = (id, qr) =>
   fetch(urlPutQuestionnaire + '/' + id, {
     method: 'PUT',
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
+      // 'Accept': 'application/json'
+      //HACK needs to set content-type to text/html ; if not, server returns a 500 error
+      'Content-Type': 'text/html'
     },
     body: JSON.stringify(qr)
   }).then(res => {
