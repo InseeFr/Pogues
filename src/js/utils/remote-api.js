@@ -48,8 +48,10 @@ export const postQuestionnaire = qr =>
  fetch(urlPostQuestionnaire, {
   method: 'POST',
   headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    // 'Accept': 'application/json'
+    //HACK needs to set content-type to text/html ; if not, server returns a 405
+    //error
+    'Content-Type': 'text/html'
   },
   body: JSON.stringify(qr)
   }).then(res => {
@@ -92,8 +94,9 @@ export const stromaePostQuestionnaire = serializedQuestionnaire => {
   return fetch(urlStromaePostQuestionnaire, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        // 'Accept': 'application/json'
+        //HACK needs to set content-type to text/html ; if not, server returns a 405 error
+        'Content-Type': 'text/html'
       },
       body: JSON.stringify(serializedQuestionnaire)
     }).then(res => {
