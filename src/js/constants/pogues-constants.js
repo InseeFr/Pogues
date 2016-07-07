@@ -51,7 +51,7 @@ export const DATATYPE_NAME = {
 //mapping to convert a type to a type when we serialize a
 //questionnaire
 export const DATATYPE_TYPE_FROM_NAME = {
-  DATE: 'DateDataTypeType',
+  DATE: 'DateDatatypeType',
   NUMERIC: 'NumericDatatypeType',
   TEXT: 'TextDatatypeType'
 }
