@@ -118,7 +118,7 @@ server.put('/questionnaire/:id', function (req, res, next) {
   next()
 })
 
-server.post('/questionnaire', function (req, res, next) {
+server.post('/questionnaires', function (req, res, next) {
   const id = uuid()
   const qr = JSON.parse(req.body)
   qr._id = id

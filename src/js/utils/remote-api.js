@@ -16,7 +16,7 @@ const {
 } = config
 
 const urlGetQuestionnaire         = baseURL + persistPath + '/questionnaire'
-const urlPostQuestionnaire        = baseURL + persistPath + '/questionnaire'
+const urlPostQuestionnaire        = baseURL + persistPath + '/questionnaires'
 const urlPutQuestionnaire         = baseURL + persistPath + '/questionnaire'
 const urlDeleteQuestionnaire      = baseURL + persistPath + '/questionnaire'
 const urlGetQuestionnaireList     = baseURL + persistPath + '/questionnaires'
