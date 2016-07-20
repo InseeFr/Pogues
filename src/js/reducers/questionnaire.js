@@ -13,7 +13,7 @@ export const emptyQr = {
   agency: 'fr.insee',
   survey: {
     agency: 'fr.insee',
-    name: 'POP0'
+    name: 'POPO'
   },
   componentGroups: []
 }
