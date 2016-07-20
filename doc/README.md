@@ -1,0 +1,1 @@
+Schema for a questionnaire can be found [here](https://github.com/InseeFr/Pogues-Model/blob/master/src/main/resources/xsd/Questionnaire.xsd)
