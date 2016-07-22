@@ -128,5 +128,21 @@ export default {
   ERROR: {
     'en': 'Error',
     'fr': 'Erreur'
+  },
+  responseFormatSimple: {
+    'fr': 'Réponse simple',
+    'en': 'Simple response'
+  },
+  responseFormatSingle: {
+    'fr': 'Réponse unique',
+    'en': 'Single response'
+  },
+  responseFormatMultiple: {
+    'fr': 'Réponse multiple',
+    'en': 'Multiple response'
+  },
+  responseFormatTable: {
+    'fr': 'Tableau',
+    'en': 'Table'
   }
 }

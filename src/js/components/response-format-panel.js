@@ -4,55 +4,36 @@ import ResponseFormat from './response-format';
 import Logger from '../logger/logger';
 import { connect } from 'react-redux'
 import {
-  createResponse, removeResponse, editResponse, changeDatatypeName,
-  changeDatatypeParam, editResponseChooseCodeList
-} from '../actions/response'
+  switchFormat
+} from '../actions/response-format'
 
 var logger = new Logger('ResponsePanel', 'Components');
 
-function ResponseFormatPanel({ qrId, cmpntId, responseFormat, removeResponse,
-    createResponse,  editResponse, editResponseChooseCodeList,
-    changeDatatypeName, changeDatatypeParam,
-    locale }) {
+function ResponseFormatPanel({ id, qrId, format, switchFormat,  locale }) {
 
-  const {
-    id, simple, codeListReference, mandatory, datatype
-  } = responseFormat
-  const rspnsEls =
-    <ResponseFormat key={id} id={id} simple={simple} mandatory={mandatory}
-      datatype={datatype} codeListReference={codeListReference}
-      qrId={qrId}
-      remove={() => removeResponse(id, cmpntId) }
-      edit={update => editResponse(id, update)}
-      editChooseCodeList={clId => editResponseChooseCodeList(id, clId)}
-      changeDatatypeName={typeName => changeDatatypeName(id, typeName)}
-      changeDatatypeParam={update => changeDatatypeParam(id, update)}
-      locale={locale} />
+  const responseFormatEl =
+    <ResponseFormat id={id}
+      switchFormat={switchFormat}
+      format={format} qrId={qrId} locale={locale} />
 
-  return <GenericPanel add={() => createResponse(cmpntId)} children={rspnsEls}
+  return <GenericPanel add={null}
+    children={responseFormatEl}
     localeAdd={locale.addResponse} localeTitle={locale.responsesEdition}  />
 }
 
 ResponseFormatPanel.propTypes = {
   qrId: PropTypes.string.isRequired,
-  responseFormat: PropTypes.object.isRequired,
-  removeResponse: PropTypes.func.isRequired,
-  createResponse: PropTypes.func.isRequired,
-  editResponse: PropTypes.func.isRequired,
-  editResponseChooseCodeList: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  format: PropTypes.object.isRequired,
   locale: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, { cmpntId, responseFormat }) => ({
-  responseFormat: state.responseFormatById[responseFormat]
+const mapStateToProps = (state, { id }) => ({
+  // if of the response format is the question id
+  format: state.responseFormatById[id]
 })
 
 const mapDispatchToProps = {
-  createResponse,
-  removeResponse,
-  editResponse,
-  editResponseChooseCodeList,
-  changeDatatypeName,
-  changeDatatypeParam
+  switchFormat
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ResponseFormatPanel)

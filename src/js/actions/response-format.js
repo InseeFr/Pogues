@@ -1,28 +1,17 @@
-export const CREATE_RESPONSE = 'CREATE_RESPONSE'
-export const REMOVE_RESPONSE = 'REMOVE_RESPONSE'
 export const EDIT_RESPONSE = 'EDIT_RESPONSE'
 export const CHANGE_DATATYPE_NAME = 'CHANGE_DATATYPE_NAME'
 export const CHANGE_DATATYPE_PARAM = 'CHANGE_DATATYPE_PARAM'
-export const TOGGLE_CLIST_EDITION = 'TOGGLE_CLIST_EDITION'
 export const EDIT_RESPONSE_CHOOSE_CODE_LIST = 'EDIT_RESPONSE_CHOOSE_CODE_LIST'
+export const SWITCH_FORMAT = 'SWITCH_FORMAT'
 
-import { uuid } from '../utils/data-utils'
-
-export const createResponse = cmpntId => ({
-  type: CREATE_RESPONSE,
-  payload: {
-    id: uuid(),
-    cmpntId
-  }
-})
-
-export const removeResponse = (id, cmpntId) => ({
-  type: REMOVE_RESPONSE,
+export const switchFormat = (id, format) => ({
+  type: SWITCH_FORMAT,
   payload: {
     id,
-    cmpntId
+    format
   }
 })
+
 
 export const editResponse = (id, update) => ({
   type: EDIT_RESPONSE,
@@ -54,9 +43,4 @@ export const changeDatatypeParam = (id, update) => ({
     id,
     update
   }
-})
-
-export const toggleCListEdition = id => ({
-  type: TOGGLE_CLIST_EDITION,
-  payload: id
 })

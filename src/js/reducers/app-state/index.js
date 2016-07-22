@@ -17,9 +17,9 @@ import {
   COMPONENT_TYPE, REMOTE_EVENT, VIEW_TYPE
 } from '../../constants/pogues-constants'
 
-import {
-  EDIT_RESPONSE_CHOOSE_CODE_LIST
-} from '../../actions/response'
+// import {
+//   EDIT_RESPONSE_CHOOSE_CODE_LIST
+// } from '../../actions/response-format'
 
 import activeCmpnts from './active-components-by-id'
 import questionnaires from './questionnaires-by-id'
@@ -63,7 +63,7 @@ const actionsHnlrs = {
   CREATE_QUESTIONNAIRE: switchToQuestionnaireAfterCreation,
   // CREATE_QUESTIONNAIRE_SUCCESS: changeIdAfterCreation,
   SET_QLIST_FILTER: setQuestionnaireListFilter,
-  TOGGLE_CLIST_EDITION: toggleCListEdition,
+  // TOGGLE_CLIST_EDITION: toggleCListEdition,
   TOGGLE_SHOW_CONTROLS: toggleShowControls,
   //EDIT_RESPONSE_CHOOSE_CODE_LIST: editResponseChooseCodeList,
   CREATE_CODE_LIST: toggleCListEditionAfterCreate

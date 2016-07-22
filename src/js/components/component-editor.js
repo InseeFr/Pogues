@@ -29,7 +29,9 @@ function ComponentEditor({
 
     let questionEl
     if (type === QUESTION) {
-      questionEl = <ResponseFormatPanel responseFormat={responseFormat} cmpntId={id}
+      questionEl = <ResponseFormatPanel
+        id={id}
+        responseFormat={responseFormat}
         locale={locale} qrId={qrId}/>
     }
 
@@ -90,7 +92,7 @@ ComponentEditor.propTypes = {
 // and the component id (‘id‘)
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps
-  const { name, label, type, goTos, controls, declarations, responses } =
+  const { name, label, type, goTos, controls, declarations, responseFormat } =
     state.componentById[id]
 
   return {
@@ -101,7 +103,7 @@ const mapStateToProps = (state, ownProps) => {
     goTos,
     controls,
     declarations,
-    responseFormat: responses[0], // for questions only
+    responseFormat, // for questions only
     locale: state.locale
   }
 }

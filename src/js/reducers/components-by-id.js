@@ -1,5 +1,5 @@
 import {
-  CREATE_COMPONENT, EDIT_COMPONENT, REMOVE_COMPONENT 
+  CREATE_COMPONENT, EDIT_COMPONENT, REMOVE_COMPONENT
 } from '../actions/component'
 
 import {
@@ -15,14 +15,8 @@ import {
 } from '../actions/questionnaire'
 
 import {
-  CREATE_CONTROL, REMOVE_CONTROL  
+  CREATE_CONTROL, REMOVE_CONTROL
 } from '../actions/control'
-
-import {
-  CREATE_RESPONSE, REMOVE_RESPONSE
-} from '../actions/response'
-
-
 
 import * as treeUtils from '../utils/tree-utils'
 import * as cmpntUtils from './component-utils'
@@ -34,11 +28,9 @@ const subs = [
   [CREATE_DECLARATION, 'declarations', CREATE],
   [CREATE_GOTO, 'goTos', CREATE],
   [CREATE_CONTROL, 'controls', CREATE],
-  [CREATE_RESPONSE, 'responses', CREATE],
   [REMOVE_DECLARATION, 'declarations', REMOVE],
   [REMOVE_GOTO, 'goTos', REMOVE],
   [REMOVE_CONTROL, 'controls', REMOVE],
-  [REMOVE_RESPONSE, 'responses', REMOVE]
 ]
 
 const actionsHndlrs = {

@@ -12,37 +12,25 @@
 //   this._values = [];
 
 import {
-  CREATE_RESPONSE, EDIT_RESPONSE, REMOVE_RESPONSE,
-  CHANGE_DATATYPE_NAME, CHANGE_DATATYPE_PARAM, EDIT_RESPONSE_CHOOSE_CODE_LIST
-} from '../actions/response'
+  SWITCH_FORMAT
+} from '../actions/response-format'
 
 import {
   LOAD_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
 
-
-import { CREATE_CODE_LIST } from '../actions/code-list'
-
-import { COMPONENT_TYPE } from '../constants/pogues-constants'
+import { RESPONSE_FORMAT, COMPONENT_TYPE } from '../constants/pogues-constants'
 import { emptyTextDatatype, emptyDatatypeFactory } from './datatype-utils'
 
-const emptyResponse = {
-  simple: true,
-  mandatory: false,
-  codeListReference: '',
-  values: [],
-  datatype: emptyTextDatatype
+const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
+
+const emptyFormat = {
+  type: SIMPLE
 }
 
 const actionsHndlrs = {
   CREATE_COMPONENT: createComponent,
-  CREATE_RESPONSE: createResponse,
-  CREATE_CODE_LIST: createCodeList,
-  EDIT_RESPONSE: editResponse,
-  EDIT_RESPONSE_CHOOSE_CODE_LIST: editResponseChooseCodeList,
-  REMOVE_RESPONSE: removeResponse,
-  CHANGE_DATATYPE_NAME: changeDatatypeName,
-  CHANGE_DATATYPE_PARAM: changeDatatypeParam,
+  SWITCH_FORMAT: switchFormat,
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
 }
 
@@ -53,49 +41,44 @@ export default function (state={}, action) {
   return hndlr ? hndlr(state, payload, action) : state
 }
 
-function createComponent(responses, { id, type }) {
-  if (type !== COMPONENT_TYPE.QUESTION) return responses
+function switchFormat(formats, { id, format }) {
+  return {
+    ...formats,
+    [id]: {
+      type: format
+    }
+  }
+}
+
+function createComponent(formats, { id, type }) {
+  if (type !== COMPONENT_TYPE.QUESTION) return formats
   // We use the `id` of the question for the default datatype
   return {
-    ...responses,
+    ...formats,
     [id]: {
       id,
-      ...emptyResponse
+      ...emptyFormat
     }
   }
 }
 
-function createResponse(responses, { id }) {
-  return {
-    ...responses,
-    [id]: {
-      id,
-      ...emptyResponse
-    }
-  }
-}
 
-function editResponse(responses, { id, update }) {
+function editResponse(formats, { id, update }) {
   return {
-    ...responses,
+    ...formats,
     [id]: {
-      ...responses[id],
+      ...formats[id],
       ...update
     }
   }
 }
 
-function editResponseChooseCodeList(responses, { id, codeListId }) {
+function editResponseChooseCodeList(formats, { id, codeListId }) {
   return editResponse(
-    responses,
+    formats,
     { id,
       update: { codeListReference: codeListId }
     })
-}
-
-function removeResponse(responses, { id }) {
-  const { [id]: toRemove, ...toKeep } = responses
-  return toKeep
 }
 
 function changeDatatypeName(responses, { id, typeName }) {

@@ -145,19 +145,10 @@ export default function toModel(state, qrId) {
   }
 
   function fromResponseFormat(responseFormatId) {
-    const { simple, mandatory, codeListReference, datatype } =
-              responseFormatById[responseFormatId]
-
-    updateCodeListSpecificationUsed(codeListReference)
+    const { type } = responseFormatById[responseFormatId]
     return {
-      simple, mandatory, codeListReference,
-      datatype: {
-        ...datatype,
-        type: DATATYPE_TYPE_FROM_NAME[datatype.typeName],
-      },
-      values: []
+      type
     }
-
   }
 
   function fromGoTo(goToId) {

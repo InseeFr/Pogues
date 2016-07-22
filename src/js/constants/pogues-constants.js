@@ -49,6 +49,13 @@ export const DATATYPE_NAME = {
   BOOLEAN: 'BOOLEAN'
 }
 
+//TODO use a set to guarantee appearance order in the ui
+export const RESPONSE_FORMAT = {
+  SIMPLE: 'SIMPLE',
+  SINGLE: 'SINGLE',
+  MULTIPLE: 'MULTIPLE',
+  TABLE: 'TABLE'
+}
 //mapping to convert a type to a type when we serialize a
 //questionnaire
 export const DATATYPE_TYPE_FROM_NAME = {
