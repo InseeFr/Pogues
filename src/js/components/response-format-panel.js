@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import GenericPanel from './generic-panel'
-import Response from './response';
+import ResponseFormat from './response-format';
 import Logger from '../logger/logger';
 import { connect } from 'react-redux'
 import {
@@ -10,14 +10,16 @@ import {
 
 var logger = new Logger('ResponsePanel', 'Components');
 
-function ResponsePanel({ qrId, cmpntId, detailedResponses, removeResponse,
+function ResponseFormatPanel({ qrId, cmpntId, responseFormat, removeResponse,
     createResponse,  editResponse, editResponseChooseCodeList,
     changeDatatypeName, changeDatatypeParam,
     locale }) {
 
-  const rspnsEls = detailedResponses.map(
-    ({ id, simple, codeListReference, mandatory, datatype }) =>
-    <Response key={id} id={id} simple={simple} mandatory={mandatory}
+  const {
+    id, simple, codeListReference, mandatory, datatype
+  } = responseFormat
+  const rspnsEls =
+    <ResponseFormat key={id} id={id} simple={simple} mandatory={mandatory}
       datatype={datatype} codeListReference={codeListReference}
       qrId={qrId}
       remove={() => removeResponse(id, cmpntId) }
@@ -25,15 +27,15 @@ function ResponsePanel({ qrId, cmpntId, detailedResponses, removeResponse,
       editChooseCodeList={clId => editResponseChooseCodeList(id, clId)}
       changeDatatypeName={typeName => changeDatatypeName(id, typeName)}
       changeDatatypeParam={update => changeDatatypeParam(id, update)}
-      locale={locale} /> )
+      locale={locale} />
 
   return <GenericPanel add={() => createResponse(cmpntId)} children={rspnsEls}
     localeAdd={locale.addResponse} localeTitle={locale.responsesEdition}  />
 }
 
-ResponsePanel.propTypes = {
+ResponseFormatPanel.propTypes = {
   qrId: PropTypes.string.isRequired,
-  detailedResponses: PropTypes.array.isRequired,
+  responseFormat: PropTypes.object.isRequired,
   removeResponse: PropTypes.func.isRequired,
   createResponse: PropTypes.func.isRequired,
   editResponse: PropTypes.func.isRequired,
@@ -41,8 +43,8 @@ ResponsePanel.propTypes = {
   locale: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, { cmpntId, responses }) => ({
-  detailedResponses: responses.map(id => state.responseById[id])
+const mapStateToProps = (state, { cmpntId, responseFormat }) => ({
+  responseFormat: state.responseFormatById[responseFormat]
 })
 
 const mapDispatchToProps = {
@@ -53,4 +55,4 @@ const mapDispatchToProps = {
   changeDatatypeName,
   changeDatatypeParam
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ResponsePanel)
+export default connect(mapStateToProps, mapDispatchToProps)(ResponseFormatPanel)

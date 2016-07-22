@@ -31,7 +31,7 @@ export default function toModel(state, qrId) {
     declarationById,
     controlById,
     codeById,
-    responseById
+    responseFormatById
   } = state
 
 
@@ -139,14 +139,14 @@ export default function toModel(state, qrId) {
     return {
       simple,
       //TODO implement responses to model (need a response reducer first)
-      responses: responses.map(fromResponse),
+      responseFormat: fromResponseFormat(questionId),
       type: 'QuestionType'
     }
   }
 
-  function fromResponse(responseId) {
+  function fromResponseFormat(responseFormatId) {
     const { simple, mandatory, codeListReference, datatype } =
-              responseById[responseId]
+              responseFormatById[responseFormatId]
 
     updateCodeListSpecificationUsed(codeListReference)
     return {

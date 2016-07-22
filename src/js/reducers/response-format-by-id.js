@@ -11,7 +11,7 @@
 //   this._datatype = new TextDatatypeModel();
 //   this._values = [];
 
-import { 
+import {
   CREATE_RESPONSE, EDIT_RESPONSE, REMOVE_RESPONSE,
   CHANGE_DATATYPE_NAME, CHANGE_DATATYPE_PARAM, EDIT_RESPONSE_CHOOSE_CODE_LIST
 } from '../actions/response'
@@ -138,6 +138,6 @@ function createCodeList(responses, { responseId, id }) {
   }
 }
 
-function loadQuestionnaireSuccess(responses, { update: { responseById } }) {
-  return responseById
+function loadQuestionnaireSuccess(responses, { update: { responseFormatById } }) {
+  return responseFormatById
 }

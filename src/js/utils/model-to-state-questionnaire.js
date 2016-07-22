@@ -25,7 +25,7 @@ export default function toState(_model) {
   const codeListById = {}
   const codeListByQuestionnaire = {}
   const codeById = {}
-  const responseById = {}
+  const responseFormatById = {}
 
   const { agency, survey, componentGroups, codeLists } =  model
 
@@ -51,7 +51,7 @@ export default function toState(_model) {
     codeListById,
     codeListByQuestionnaire,
     codeById,
-    responseById
+    responseFormatById
   }
 
   function toComponent(cmpnt) {
@@ -86,20 +86,20 @@ export default function toState(_model) {
   function toQuestion(question) {
     //TODO solve unconsistencies between QuestionType/SequenceType in the model
     //and QUESTION and SEQUENCE constants elsewhere in Pogues
-    const { id, simple, responses } = question
+    const { id, simple, responseFormat } = question
+    toResponseFormat(responseFormat)
     componentById[id] = {
       ...componentById[id],// already a component
       simple,
-      responses: responses.map(toResponse), //TODO implement responses
       type: QUESTION
     }
     return id
   }
 
-  function toResponse(response) {
-    const { simple, mandatory, codeListReference, datatype } = response
+  function toResponseFormat(responseFormat) {
+    const { simple, mandatory, codeListReference, datatype } = responseFormat
     const id = uuid()
-    responseById[id] = {
+    responseFormatById[id] = {
       id, simple, mandatory, codeListReference, datatype
     }
     return id

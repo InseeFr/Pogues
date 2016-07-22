@@ -7,7 +7,7 @@ import declarationById from './declarations-by-id'
 import controlById from './controls-by-id'
 import codeListById from './code-list-by-id'
 import codeListByQuestionnaire from './code-list-by-questionnaire'
-import responseById from './response-by-id'
+import responseFormatById from './response-format-by-id'
 import codeById from './code-by-id'
 import config from './config'
 import integrityChecker from './integrity-checker'
@@ -36,6 +36,6 @@ export default integrityChecker(combineReducers({
   goToById,
   declarationById,
   controlById,
-  responseById,
+  responseFormatById,
   codeById
 }), combineCheckers(goTosChecker, questionnaireLengthChecker))

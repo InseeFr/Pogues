@@ -14,7 +14,7 @@ const editors = {
   [DATATYPE_NAME.DATE]: DateDatatypeEditor
 }
 
-export default function Response(
+export default function ResponseFormat(
   { id, simple, codeListReference, mandatory, datatype, remove, edit,
     editChooseCodeList,
     changeDatatypeName, changeDatatypeParam, locale, qrId }) {
@@ -46,7 +46,7 @@ export default function Response(
   );
 }
 
-Response.propTypes = {
+ResponseFormat.propTypes = {
   id: PropTypes.string.isRequired,
   qrId: PropTypes.string.isRequired,
   simple: PropTypes.bool.isRequired,

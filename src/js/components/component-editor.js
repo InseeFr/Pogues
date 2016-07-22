@@ -8,7 +8,7 @@ import Logger from '../logger/logger';
 import { flatten } from '../utils/data-utils'
 var logger = new Logger('ComponentEditor', 'Components');
 
-import ResponsePanel from './response-panel';
+import ResponseFormatPanel from './response-format-panel';
 import DeclarationPanel from './declaration-panel'
 import GoToPanel from './goto-panel'
 import ControlPanel from './control-panel'
@@ -24,12 +24,12 @@ function ComponentEditor({
     structure, // structure of the questionnaire
     changeName, changeLabel, quitEdition, // component utilities
     goTos, declarations, controls,
-    responses, //for questions only
+    responseFormat, //for questions only
     locale }) {
 
     let questionEl
     if (type === QUESTION) {
-      questionEl = <ResponsePanel responses={responses} cmpntId={id}
+      questionEl = <ResponseFormatPanel responseFormat={responseFormat} cmpntId={id}
         locale={locale} qrId={qrId}/>
     }
 
@@ -81,7 +81,7 @@ ComponentEditor.propTypes = {
   goTos: PropTypes.array.isRequired,
   declarations: PropTypes.array.isRequired,
   controls: PropTypes.array.isRequired,
-  responses: PropTypes.array, // not required for sequences
+  responseFormat: PropTypes.string, // not required for sequences
   structure: PropTypes.object.isRequired,
   locale: PropTypes.object.isRequired
 }
@@ -101,7 +101,7 @@ const mapStateToProps = (state, ownProps) => {
     goTos,
     controls,
     declarations,
-    responses, // for questions only
+    responseFormat: responses[0], // for questions only
     locale: state.locale
   }
 }

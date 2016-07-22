@@ -6,16 +6,18 @@ export default function genericPanel(
 		<div className="panel panel-default">
       <div className="panel-heading clearfix">
         <h3 className="panel-title pull-left">{localeTitle}</h3>
-        <button onClick={add} className="btn btn-sm btn-primary pull-right">
-          {localeAdd}
-        </button>
+        { add &&
+          <button onClick={add} className="btn btn-sm btn-primary pull-right">
+            {localeAdd}
+          </button>
+        }
       </div>
       <div className="panel-body">
       	<div className="form">{children}</div>
     	</div>
     </div>
     )
-	}	
+	}
 
 genericPanel.PropTypes = {
   add: PropTypes.func.isRequired,
