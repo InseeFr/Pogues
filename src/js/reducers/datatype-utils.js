@@ -15,24 +15,24 @@ import {
 export const emptyTextDatatype = {
   typeName: DATATYPE_NAME.TEXT,
   visualizationHint: DATATYPE_VIZ_HINT.CHECKBOX,
-  maxLength: undefined,
-  pattern: undefined
+  maxLength: 1,
+  pattern: ''
 }
 
 export const emptyNumericDatatype = {
   typeName: DATATYPE_NAME.NUMERIC,
   visualizationHint: DATATYPE_VIZ_HINT.CHECKBOX,
-  minimum: undefined,
-  maximum: undefined,
-  decimals: undefined 
+  minimum: '',
+  maximum: '',
+  decimals: ''
 }
 
 export const emptyDateDatatype = {
   typeName: DATATYPE_NAME.DATE,
   visualizationHint: DATATYPE_VIZ_HINT.CHECKBOX,
-  minimum: undefined,
-  maximum: undefined,
-  format: undefined
+  minimum: '',
+  maximum: '',
+  format: ''
 }
 
 export const emptyDatatypeFactory = {
