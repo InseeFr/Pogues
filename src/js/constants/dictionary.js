@@ -37,6 +37,7 @@ export default {
   DATE: {'en': 'Date', 'fr': 'Date'},
   NUMERIC: {'en': 'Number', 'fr': 'Nombre'},
   TEXT: {'en': 'Text', 'fr': 'Texte'},
+  BOOLEAN: {'en': 'Boolean', 'fr': 'Booléen'},
   INSTRUCTION: {'en': 'Instruction', 'fr': 'Consigne'},
   COMMENT: {'en': 'Comment', 'fr': 'Commentaire'},
   HELP: {'en': 'Help', 'fr': 'Aide'},

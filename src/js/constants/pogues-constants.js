@@ -45,7 +45,8 @@ export const SEQUENCE_GENERIC_NAME = {
 export const DATATYPE_NAME = {
   DATE: 'DATE',
   NUMERIC: 'NUMERIC',
-  TEXT: 'TEXT'
+  TEXT: 'TEXT',
+  BOOLEAN: 'BOOLEAN'
 }
 
 //mapping to convert a type to a type when we serialize a
@@ -53,7 +54,8 @@ export const DATATYPE_NAME = {
 export const DATATYPE_TYPE_FROM_NAME = {
   DATE: 'DateDatatypeType',
   NUMERIC: 'NumericDatatypeType',
-  TEXT: 'TextDatatypeType'
+  TEXT: 'TextDatatypeType',
+  BOOLEAN: 'BooleanDatatypeType'
 }
 
 export const DATATYPE_VIZ_HINT = {
