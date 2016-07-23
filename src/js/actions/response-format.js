@@ -4,11 +4,11 @@ export const CHANGE_DATATYPE_PARAM = 'CHANGE_DATATYPE_PARAM'
 export const EDIT_RESPONSE_CHOOSE_CODE_LIST = 'EDIT_RESPONSE_CHOOSE_CODE_LIST'
 export const SWITCH_FORMAT = 'SWITCH_FORMAT'
 
-export const switchFormat = (id, format) => ({
+export const switchFormat = (id, type) => ({
   type: SWITCH_FORMAT,
   payload: {
     id,
-    format
+    type
   }
 })
 

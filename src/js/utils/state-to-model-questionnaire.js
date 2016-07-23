@@ -145,10 +145,7 @@ export default function toModel(state, qrId) {
   }
 
   function fromResponseFormat(responseFormatId) {
-    const { type } = responseFormatById[responseFormatId]
-    return {
-      type
-    }
+    return responseFormatById[responseFormatId]
   }
 
   function fromGoTo(goToId) {

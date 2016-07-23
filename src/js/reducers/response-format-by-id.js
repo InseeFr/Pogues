@@ -1,18 +1,5 @@
-//   this._simple = object._simple;
-//   this._mandatory = object._mandatory;
-//   this._codeListReference = object._codeListReference;
-//   this._datatype = object._datatype;
-//   this._datatype = createDatatype(object._datatype._typeName, object._datatype);
-//   this._values = object._values;
-// } else {
-//   this._simple = true;
-//   this._mandatory = false;
-//   this._codeListReference = null;
-//   this._datatype = new TextDatatypeModel();
-//   this._values = [];
-
 import {
-  SWITCH_FORMAT
+  SWITCH_FORMAT, CHANGE_DATATYPE_PARAM
 } from '../actions/response-format'
 
 import {
@@ -24,13 +11,66 @@ import { emptyTextDatatype, emptyDatatypeFactory } from './datatype-utils'
 
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 
+/**
+ * Default value for a response format. We create an entry for each type of
+ * format. This will allow recovering of previously filled parameters if the
+ * user mistakenly switches between format types.
+ * @type {Object}
+ */
 const emptyFormat = {
-  type: SIMPLE
+  type: SIMPLE,
+  [SIMPLE]: emptyTextDatatype,
+  [SINGLE]: {
+    codeListReference: '',
+    hint: ''
+  },
+  [MULTIPLE]: {
+
+  },
+  [TABLE]: {
+
+  }
+}
+
+/**
+ * Produce a reducing function from a format update function
+ *
+ * It takes a function that updates a format based on an action payload and
+ * produces a reducing function that takes all the response formats and updates
+ * only the format corresponding to the current `id` (extracted from the
+ * payload) and the relevant format based on the current type (SIMPLE, SINGLE,
+ * MULTIPLE or TABLE) for this response format.
+ *
+ * The reducing function is not attached to a special type of format: if an
+ * action assigned to this function is dispatched, then it should make sense for
+ * the current type. An other option would be to process not the format
+ * corresponding to the current type, but the format this function has been
+ * registered for.
+ *
+ * @param  {Function} fn Function that updates a format based on a payload
+ * @return {Function}    A reducing function for the `response-format-by-id`
+ *                       reducer
+ */
+function fromFormatHndlr(fn) {
+  return function (formats, payload) {
+    const { id } = payload
+    const format = formats[id]
+    const { type } = format
+    return {
+      ...formats,
+      [id]: {
+        ...format,
+        [type]: fn(format[type], payload)
+      }
+    }
+  }
 }
 
 const actionsHndlrs = {
   CREATE_COMPONENT: createComponent,
   SWITCH_FORMAT: switchFormat,
+  CHANGE_DATATYPE_PARAM: fromFormatHndlr(changeDatatypeParam),
+  CHANGE_DATATYPE_NAME: fromFormatHndlr(changeDatatypeName),
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
 }
 
@@ -41,11 +81,12 @@ export default function (state={}, action) {
   return hndlr ? hndlr(state, payload, action) : state
 }
 
-function switchFormat(formats, { id, format }) {
+function switchFormat(formats, { id, type }) {
   return {
     ...formats,
     [id]: {
-      type: format
+      ...formats[id],
+      type
     }
   }
 }
@@ -81,41 +122,27 @@ function editResponseChooseCodeList(formats, { id, codeListId }) {
     })
 }
 
-function changeDatatypeName(responses, { id, typeName }) {
-  const response = responses[id]
-  const { datatype } = response
-  if (datatype.typeName === typeName) return responses
+function changeDatatypeName(format, { typeName }) {
+  if (format.typeName === typeName) return format
   return {
-    ...responses,
-    [id]: {
-      ...response,
-      datatype: {
-        typeName,
-        ...emptyDatatypeFactory[typeName]
-      }
-    }
+    typeName,
+    ...emptyDatatypeFactory[typeName]
   }
 }
 
-function changeDatatypeParam(responses, { id, update }) {
+function changeDatatypeParam(format, { update }) {
   return {
-    ...responses,
-    [id]: {
-      ...responses[id],
-      datatype: {
-        ...responses[id].datatype,
-        ...update
-      }
-    }
+    ...format,
+    ...update
   }
 }
 
 // id is the code list id
-function createCodeList(responses, { responseId, id }) {
+function createCodeList(formats, { responseId, id }) {
   return {
-    ...responses,
+    ...formats,
     [responseId]: {
-      ...responses[responseId],
+      ...formats[responseId],
       codeListReference: id
     }
   }

@@ -97,10 +97,7 @@ export default function toState(_model) {
   }
 
   function toResponseFormat(id, responseFormat) {
-    const { type } = responseFormat
-    responseFormatById[id] = {
-      type
-    }
+    responseFormatById[id] = responseFormat
     return id
   }
 

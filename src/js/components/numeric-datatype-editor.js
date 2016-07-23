@@ -50,24 +50,6 @@ export default function NumericDatatypeEditor(
             placeholder={locale.decimals}/>
         </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="visualizationHint" className="col-sm-2 control-label">
-          {locale.visualizationHint}
-        </label>
-        <div className="col-sm-10">
-          <select onChange={e => edit({ visualizationHint: e.target.value })}
-                className="form-control"
-                value={visualizationHint}>
-            {
-              Object.keys(DATATYPE_VIZ_HINT).map(hint => {
-                const val = DATATYPE_VIZ_HINT[hint]
-                const text = vizHintsToText[hint]
-                return <option key={hint} value={val}>{text}</option>
-              })
-            }
-          </select>
-        </div>
-      </div>
     </div>
   );
 }

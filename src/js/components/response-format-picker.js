@@ -8,19 +8,19 @@ import {
 import { RESPONSE_FORMAT } from '../constants/pogues-constants'
 
 export default function ResponseFormatPicker(
-  { format, select, locale }) {
+  { type, select, locale }) {
 
-  const formatChoices = _.map(RESPONSE_FORMAT, formatName => (
-      <option key={formatName} value={formatName}>
-        { locale[resFormatMap[formatName]]}
+  const typeChoices = _.map(RESPONSE_FORMAT, typeName => (
+      <option key={typeName} value={typeName}>
+        { locale[resFormatMap[typeName]]}
       </option>
   ))
 
   return (
       <div className="col-sm-6">
-        <select className="form-control" value={format}
+        <select className="form-control" value={type}
           onChange={e => select(e.target.value)}>
-          { formatChoices }
+          { typeChoices }
         </select>
       </div>
   )
@@ -28,6 +28,6 @@ export default function ResponseFormatPicker(
 
 ResponseFormatPicker.propTypes = {
   select: PropTypes.func.isRequired,
-  format: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   locale: PropTypes.object.isRequired,
 }

@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Logger from '../logger/logger';
+import _ from 'lodash'
 
 var logger = new Logger('DataTypePicker', 'Components');
 import { DATATYPE_NAME } from '../constants/pogues-constants'
 
 export default function DataTypePicker({ typeName, select, locale }) {
-  const typeChoices =  Object.keys(DATATYPE_NAME).map(type => 
-    <option value={DATATYPE_NAME[type]} key={type}>
-      {locale[DATATYPE_NAME[type]]}
+  const typeChoices =  _.map(DATATYPE_NAME, (type, val) =>
+    <option value={val} key={type}>
+      {locale[val]}
     </option>)
 
   return (
@@ -23,3 +24,8 @@ export default function DataTypePicker({ typeName, select, locale }) {
   );
 }
 
+DataTypePicker.propTypes = {
+  typeName: PropTypes.string.isRequired,
+  select: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired
+}
