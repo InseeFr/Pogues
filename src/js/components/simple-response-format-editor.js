@@ -30,10 +30,8 @@ function SimpleResponseFormatEditor(
           locale={locale} />
       </div>
       { DatatypeEditor &&
-        <div className="form-group">
         <DatatypeEditor datatype={format}
           edit={update => changeDatatypeParam(id, update)} locale={locale} />
-      </div>
       }
     </div>
   )

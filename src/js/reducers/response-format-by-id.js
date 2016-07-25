@@ -1,7 +1,6 @@
 import {
-  SWITCH_FORMAT, CHANGE_DATATYPE_PARAM
+  SWITCH_FORMAT, CHANGE_DATATYPE_PARAM, UPDATE_SINGLE
 } from '../actions/response-format'
-
 import {
   LOAD_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
@@ -22,7 +21,7 @@ const emptyFormat = {
   [SIMPLE]: emptyTextDatatype,
   [SINGLE]: {
     codeListReference: '',
-    hint: ''
+    visualizationHint: ''
   },
   [MULTIPLE]: {
 
@@ -71,6 +70,8 @@ const actionsHndlrs = {
   SWITCH_FORMAT: switchFormat,
   CHANGE_DATATYPE_PARAM: fromFormatHndlr(changeDatatypeParam),
   CHANGE_DATATYPE_NAME: fromFormatHndlr(changeDatatypeName),
+  UPDATE_SINGLE: fromFormatHndlr(updateSingle),
+  NEW_CODE_LIST_SINGLE: fromFormatHndlr(newCodeListSingle),
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
 }
 
@@ -103,25 +104,29 @@ function createComponent(formats, { id, type }) {
   }
 }
 
-
-function editResponse(formats, { id, update }) {
+/**
+ * Update SINGLE format
+ *
+ * Properties to update can include `codeListReference` and `visualizationHint`
+ *
+ * @param  {Object} format             initial format
+ * @param  {Object} payload            action payload
+ * @param  {String} payload.update     properties to update
+ * @return {Object}                    updated format
+ */
+function updateSingle(format, { update }) {
   return {
-    ...formats,
-    [id]: {
-      ...formats[id],
-      ...update
-    }
+    ...format,
+    ...update
   }
 }
 
-function editResponseChooseCodeList(formats, { id, codeListId }) {
-  return editResponse(
-    formats,
-    { id,
-      update: { codeListReference: codeListId }
-    })
+function newCodeListSingle(format, { createdClId }) {
+  return {
+    ...format,
+    codeListReference: createdClId
+  }
 }
-
 function changeDatatypeName(format, { typeName }) {
   if (format.typeName === typeName) return format
   return {

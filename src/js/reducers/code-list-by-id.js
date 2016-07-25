@@ -2,6 +2,7 @@ import {
   CREATE_CODE_LIST, REMOVE_CODE_LIST, LOAD_CODE_LIST_SUCCESS, EDIT_CODE_LIST
 } from '../actions/code-list'
 
+import { NEW_CODE_LIST_SINGLE } from '../actions/response-format'
 import { CREATE_CODE, REMOVE_CODE } from '../actions/code'
 import {
   LOAD_CLIST_SPECS_SUCCESS
@@ -24,13 +25,12 @@ const emptyCodeList = {
 export default function (state={}, action) {
   const { type, payload } = action
   switch (type) {
-    case CREATE_CODE_LIST:
+    case NEW_CODE_LIST_SINGLE:
       return {
         ...state,
-        [payload.id]: {
+        [payload.createdClId]: {
           ...emptyCodeList,
-          id: payload.id,
-          label: payload.label
+          id: payload.createdClId
         }
       }
     case CREATE_CODE:
@@ -47,7 +47,7 @@ export default function (state={}, action) {
       //TODO switch to object with aciton handler to avoid conflicts in
       //variables names when we use a `switch` statement
       const codeListIdForRemove = payload.codeListId
-      const codeListForRemove = state[codeListIdForRemove]    
+      const codeListForRemove = state[codeListIdForRemove]
       const codes = [...codeListForRemove.codes]
       const codeId = payload.id
       codes.splice(codes.indexOf(codeId), 1)
@@ -97,7 +97,7 @@ export default function (state={}, action) {
     case REMOVE_CODE_LIST:
       const { [payload.id]: toRemove, ...toKeep } = state
       return toKeep
-    case LOAD_QUESTIONNAIRE_SUCCESS: 
+    case LOAD_QUESTIONNAIRE_SUCCESS:
       return {
         ...state, // to keep code list specifiations
         ...payload.update.codeListById
