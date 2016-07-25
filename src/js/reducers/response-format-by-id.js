@@ -1,9 +1,11 @@
 import {
   SWITCH_FORMAT, CHANGE_DATATYPE_PARAM, UPDATE_SINGLE
+  SWITCH_FORMAT, CHANGE_DATATYPE_PARAM, CHANGE_DATATYPE_NAME,
+  UPDATE_SINGLE, NEW_CODE_LIST_SINGLE,
 } from '../actions/response-format'
-import {
-  LOAD_QUESTIONNAIRE_SUCCESS
-} from '../actions/questionnaire'
+
+import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
+import { CREATE_COMPONENT } from '../actions/component'
 
 import { RESPONSE_FORMAT, COMPONENT_TYPE } from '../constants/pogues-constants'
 import { emptyTextDatatype, emptyDatatypeFactory } from './datatype-utils'
@@ -73,6 +75,13 @@ const actionsHndlrs = {
   UPDATE_SINGLE: fromFormatHndlr(updateSingle),
   NEW_CODE_LIST_SINGLE: fromFormatHndlr(newCodeListSingle),
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
+  [CREATE_COMPONENT]: createComponent,
+  [SWITCH_FORMAT]: switchFormat,
+  [CHANGE_DATATYPE_PARAM]: fromFormatHndlr(changeDatatypeParam),
+  [CHANGE_DATATYPE_NAME]: fromFormatHndlr(changeDatatypeName),
+  [UPDATE_SINGLE]: fromFormatHndlr(updateSingle),
+  [NEW_CODE_LIST_SINGLE]: fromFormatHndlr(newCodeListSingle),
+  [LOAD_QUESTIONNAIRE_SUCCESS]: loadQuestionnaireSuccess
 }
 
 export default function (state={}, action) {
