@@ -29,27 +29,30 @@ class CodeListEditor extends Component {
     } = this.props
     if (!loaded) return <span className="fa fa-spinner fa-pulse fa-2x"></span>
     return (
-        <div className="form-group">
-          <label htmlFor="label"
-            className="col-sm-2 control-label">{locale.label}</label>
-            <div className="col-sm-7">
+      <div className="panel panel-default">
+        <div className="panel-body bg-primary">
+          <div className="form-group">
+            <label htmlFor="label"
+              className="col-sm-2 control-label">{locale.label}
+            </label>
+            <div className="col-sm-10">
               <input type="text" id="label" disabled={!editable}
                 value={label || ''}
                 onChange={e => editCodeList(id, { label: e.target.value })}
                 className="form-control"
-                placeholder="Code list name"
-                />
+                placeholder="Code list name" />
+            </div>
           </div>
-        </div>
-        { editable && <CodeCreator locale={locale}
-          hndlEnterKey={val => createCode(id, val)} /> }
-        { detailedCodes.map(({ id: codeId, label, value }) =>
-          <CodeEditor key={codeId} id={codeId} label={label} value={value}
-            editLabel={label => editCode(codeId, { label })}
-            editValue={value => editCode(codeId, { value })}
-            remove={() => removeCode(codeId, id)}
-            editable={editable} />) }
+          { editable && <CodeCreator locale={locale}
+            hndlEnterKey={val => createCode(id, val)} /> }
+          { detailedCodes.map(({ id: codeId, label, value }) =>
+            <CodeEditor key={codeId} id={codeId} label={label} value={value}
+              editLabel={label => editCode(codeId, { label })}
+              editValue={value => editCode(codeId, { value })}
+              remove={() => removeCode(codeId, id)}
+              editable={editable} />) }
       </div>
+    </div>
     )
   }
 }

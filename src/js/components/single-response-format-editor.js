@@ -19,6 +19,7 @@ function SingleResponseFormatEditor(
         create={() => newCodeListSingle(id, qrId)}
         locale={locale} />
       <VisualizationHintPicker visualizationHint={visualizationHint}
+        locale={locale}
         select={visualizationHint => updateSingle(id, { visualizationHint})}/>
     </div>
 

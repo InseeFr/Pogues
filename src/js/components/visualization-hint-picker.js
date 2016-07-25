@@ -7,12 +7,17 @@ const vizHintsToText = {
   [DATATYPE_VIZ_HINT.DROPDOWN]: 'dropdown'
 }
 
-export default function VisualizationHintPicker({ visualizationHint, select }) {
+export default function VisualizationHintPicker({ visualizationHint, select,
+  locale }) {
   return (
     <div className="form-group">
+      <label htmlFor="visualizationHint" className="col-sm-3 control-label">
+        {locale.visualizationHint}
+      </label>
       <div className="col-sm-3">
         <select onChange={e => select(e.target.value)}
-          className="form-control" value={visualizationHint}>
+          className="form-control" value={visualizationHint}
+          id="visualizationHint">
           {
             _.map(DATATYPE_VIZ_HINT, (hint, value) => {
               const text = vizHintsToText[value]
@@ -27,5 +32,6 @@ export default function VisualizationHintPicker({ visualizationHint, select }) {
 
 VisualizationHintPicker.propTypes = {
   visualizationHint: PropTypes.string.isRequired,
-  select: PropTypes.func.isRequired
+  select: PropTypes.func.isRequired,
+  locale: PropTypes.string.isRequired
 }

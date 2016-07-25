@@ -17,8 +17,8 @@ export default function CodeListPicker(
   }
   return (
     <select className="form-control"
-    onChange={e => smartSelect(e.target.value)}
-    value={id}>
+      onChange={e => smartSelect(e.target.value)}
+      value={id} id="codeList">
       <option key={''} value={''}>
         {locale.selectCl}
       </option>

@@ -48,6 +48,9 @@ export default class CodeListSelector extends Component {
     return (
       <div>
         <div className="form-group">
+          <label htmlFor="codeList" className="col-sm-3 control-label">
+            {locale.cl}
+          </label>
           <div className="col-sm-6">
            <div className="input-group">
               <CodeListPicker id={id} codeLists={codeLists}
@@ -114,9 +117,7 @@ const mapStateToProps = (state, { id }) => {
   }, [])
 
   return {
-    //isSpec: codeListId ? state.codeListById[codeListId].isSpec : false,
-    isSpec: false,
-    edited: false,
+    isSpec: id ? state.codeListById[id].isSpec : false,
     questionnaire,
     codeLists
   }

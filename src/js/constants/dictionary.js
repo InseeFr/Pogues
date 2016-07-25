@@ -73,6 +73,7 @@ export default {
   visualizationHint : {'en': 'Visualization hint', 'fr': 'Type de saisie'},
   newCode: {'en': 'New code', 'fr' : 'Nouvelle catégorie'},
   typeNewCode: {'en': 'Type a new code', 'fr': 'Entrez une nouvelle catégorie'},
+  cl: {'en': 'Code list', 'fr': 'Liste de codes'},
   newCl: {'en': 'New code list', 'fr': 'Nouvelle liste de codes'},
   selectCl: {'en': 'Select a code list', 'fr': 'Sélectionnez une liste de codes'},
   placeholderDeclarationText: {'en': 'Here, your statement', 'fr' : 'Ici, votre déclaration'},
