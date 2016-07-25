@@ -1,5 +1,4 @@
 import {
-  SWITCH_FORMAT, CHANGE_DATATYPE_PARAM, UPDATE_SINGLE
   SWITCH_FORMAT, CHANGE_DATATYPE_PARAM, CHANGE_DATATYPE_NAME,
   UPDATE_SINGLE, NEW_CODE_LIST_SINGLE,
 } from '../actions/response-format'
@@ -74,7 +73,7 @@ const actionsHndlrs = {
   CHANGE_DATATYPE_NAME: fromFormatHndlr(changeDatatypeName),
   UPDATE_SINGLE: fromFormatHndlr(updateSingle),
   NEW_CODE_LIST_SINGLE: fromFormatHndlr(newCodeListSingle),
-  LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
+  LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess,
   [CREATE_COMPONENT]: createComponent,
   [SWITCH_FORMAT]: switchFormat,
   [CHANGE_DATATYPE_PARAM]: fromFormatHndlr(changeDatatypeParam),
