@@ -14,7 +14,7 @@ export default function DataTypePicker({ typeName, select, locale }) {
 
   return (
     <div className="form-group">
-      <label htmlFor="format" className="col-sm-2 control-label">
+      <label htmlFor="format" className="col-sm-3 control-label">
         {locale.responseType}
       </label>
       <div className="col-sm-3">
