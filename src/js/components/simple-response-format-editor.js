@@ -24,15 +24,15 @@ function SimpleResponseFormatEditor(
   const DatatypeEditor = datatypeEditors[typeName]
   return (
     <div>
-      <div className="form-group">
-        <DatatypePicker typeName={typeName}
-          select={typeName => changeDatatypeName(id, typeName)}
-          locale={locale} />
-      </div>
-      { DatatypeEditor &&
-        <DatatypeEditor datatype={format}
-          edit={update => changeDatatypeParam(id, update)} locale={locale} />
-      }
+      <DatatypePicker typeName={typeName}
+        select={typeName => changeDatatypeName(id, typeName)}
+        locale={locale} />
+      <div className="col-sm-offset-1">
+        { DatatypeEditor &&
+          <DatatypeEditor datatype={format}
+            edit={update => changeDatatypeParam(id, update)} locale={locale} />
+        }
+    </div>
     </div>
   )
 }
