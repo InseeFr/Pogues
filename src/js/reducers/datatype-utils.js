@@ -1,5 +1,5 @@
 import {
-  DATATYPE_NAME, DATATYPE_VIZ_HINT
+  DATATYPE_NAME, DATATYPE_VIS_HINT
 } from '../constants/pogues-constants'
 
 //Initially, empty datatypes assigned default values to each property. But in
@@ -14,14 +14,14 @@ import {
 
 export const emptyTextDatatype = {
   typeName: DATATYPE_NAME.TEXT,
-  visualizationHint: DATATYPE_VIZ_HINT.CHECKBOX,
+  visHint: DATATYPE_VIS_HINT.CHECKBOX,
   maxLength: 1,
   pattern: ''
 }
 
 export const emptyNumericDatatype = {
   typeName: DATATYPE_NAME.NUMERIC,
-  visualizationHint: DATATYPE_VIZ_HINT.CHECKBOX,
+  visHint: DATATYPE_VIS_HINT.CHECKBOX,
   minimum: '',
   maximum: '',
   decimals: ''
@@ -29,7 +29,7 @@ export const emptyNumericDatatype = {
 
 export const emptyDateDatatype = {
   typeName: DATATYPE_NAME.DATE,
-  visualizationHint: DATATYPE_VIZ_HINT.CHECKBOX,
+  visHint: DATATYPE_VIS_HINT.CHECKBOX,
   minimum: '',
   maximum: '',
   format: ''

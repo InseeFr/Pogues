@@ -1,18 +1,18 @@
 import React from 'react';
-import  { DATATYPE_VIZ_HINT } from '../constants/pogues-constants'
+import  { DATATYPE_VIS_HINT } from '../constants/pogues-constants'
 
 //TODO internationalization + make constants
 const vizHintsToText = {
-  [DATATYPE_VIZ_HINT.CHECKBOX]: 'checkbox',
-  [DATATYPE_VIZ_HINT.RADIO]: 'radio',
-  [DATATYPE_VIZ_HINT.DROPDOWN]: 'dropdown'
+  [DATATYPE_VIS_HINT.CHECKBOX]: 'checkbox',
+  [DATATYPE_VIS_HINT.RADIO]: 'radio',
+  [DATATYPE_VIS_HINT.DROPDOWN]: 'dropdown'
 }
 
 // TODO things like this.state._minimum are ugly, but with this
 // convention, we can benefit from the very covenient constructors
 // form object literals. maybe we should
 export default function NumericDatatypeEditor(
-    { datatype: { minimum, maximum, decimals, visualizationHint },
+    { datatype: { minimum, maximum, decimals, visHint },
     edit, locale }) {
 //pattern and maxLength
   return (

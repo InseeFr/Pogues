@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import CodeListSelector from './code-list-selector'
-import VisualizationHintPicker from './visualization-hint-picker'
+import VisHintPicker from './vis-hint-picker'
 
 import {
   updateSingle, newCodeListSingle
@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux'
 
 function SingleResponseFormatEditor(
-  { id, qrId, format: { codeListReference, visualizationHint },
+  { id, qrId, format: { codeListReference, visHint },
   updateSingle, newCodeListSingle, locale }) {
   return (
     <div>
@@ -18,9 +18,9 @@ function SingleResponseFormatEditor(
         select={codeListReference => updateSingle(id, { codeListReference })}
         create={() => newCodeListSingle(id, qrId)}
         locale={locale} />
-      <VisualizationHintPicker visualizationHint={visualizationHint}
+      <VisHintPicker visHint={visHint}
         locale={locale}
-        select={visualizationHint => updateSingle(id, { visualizationHint})}/>
+        select={visHint => updateSingle(id, { visHint})}/>
     </div>
 
   )

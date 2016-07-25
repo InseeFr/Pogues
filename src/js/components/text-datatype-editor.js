@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import  { DATATYPE_VIZ_HINT } from '../constants/pogues-constants'
+import  { DATATYPE_VIS_HINT } from '../constants/pogues-constants'
 
 //TODO internationalization + make constants
 const vizHintsToText = {
-  [DATATYPE_VIZ_HINT.CHECKBOX]: 'checkbox',
-  [DATATYPE_VIZ_HINT.RADIO]: 'radio',
-  [DATATYPE_VIZ_HINT.DROPDOWN]: 'dropdown'
+  [DATATYPE_VIS_HINT.CHECKBOX]: 'checkbox',
+  [DATATYPE_VIS_HINT.RADIO]: 'radio',
+  [DATATYPE_VIS_HINT.DROPDOWN]: 'dropdown'
 }
 
 export default function TextDatatypeEditor(

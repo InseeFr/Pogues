@@ -70,7 +70,7 @@ export default {
   responsesEdition: {'en': 'Response format', 'fr': 'Format des réponses'},
   responseType: {'en': 'Response type', 'fr': 'Type de réponses'},
   addResponse: {'en': 'Add a response', 'fr': 'Ajouter une réponse'},
-  visualizationHint : {'en': 'Visualization hint', 'fr': 'Type de saisie'},
+  visHint : {'en': 'Visualization hint', 'fr': 'Type de saisie'},
   newCode: {'en': 'New code', 'fr' : 'Nouvelle catégorie'},
   typeNewCode: {'en': 'Type a new code', 'fr': 'Entrez une nouvelle catégorie'},
   cl: {'en': 'Code list', 'fr': 'Liste de codes'},

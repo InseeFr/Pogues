@@ -23,7 +23,7 @@ const emptyFormat = {
   [SIMPLE]: emptyTextDatatype,
   [SINGLE]: {
     codeListReference: '',
-    visualizationHint: ''
+    visHint: ''
   },
   [MULTIPLE]: {
 
@@ -116,7 +116,7 @@ function createComponent(formats, { id, type }) {
 /**
  * Update SINGLE format
  *
- * Properties to update can include `codeListReference` and `visualizationHint`
+ * Properties to update can include `codeListReference` and `visHint`
  *
  * @param  {Object} format             initial format
  * @param  {Object} payload            action payload

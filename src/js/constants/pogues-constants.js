@@ -65,7 +65,7 @@ export const DATATYPE_TYPE_FROM_NAME = {
   BOOLEAN: 'BooleanDatatypeType'
 }
 
-export const DATATYPE_VIZ_HINT = {
+export const DATATYPE_VIS_HINT = {
   CHECKBOX: 'CHECKBOX',
   RADIO: 'RADIO',
   DROPDOWN: 'DROPDOWN'
