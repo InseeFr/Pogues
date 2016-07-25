@@ -16,7 +16,7 @@ export default class CodeCreator extends Component {
         <label htmlFor="label" className="col-sm-3 control-label">
           {locale.newCode}
         </label>
-        <div className="col-sm-9">
+        <div className="col-sm-6">
           <input
             id="label"
             className="form-control"

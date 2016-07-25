@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import CodeEditor from './code-editor'
 import CodeCreator from './code-creator'
 import Logger from '../logger/logger'
-import { loadCodeListIfNeeded } from '../actions/code-list'
+import { editCodeList, loadCodeListIfNeeded } from '../actions/code-list'
 import { connect } from 'react-redux'
 import { createCode, editCode, removeCode } from '../actions/code'
 var logger = new Logger('CodeListEditor', 'Components');
@@ -24,7 +24,7 @@ class CodeListEditor extends Component {
 
   render() {
     const { id, loaded, label, detailedCodes, createCode, removeCode, editCode,
-        close, locale, editCodeListLabel, editable }
+        close, locale, editCodeList, editable }
       = this.props
     if (!loaded) return <span className="fa fa-spinner fa-pulse fa-2x"></span>
     return (
@@ -35,7 +35,7 @@ class CodeListEditor extends Component {
             <div className="col-sm-7">
               <input type="text" id="label" disabled={!editable}
                 value={label || ''}
-                onChange={e => editCodeListLabel(e.target.value)}
+                onChange={e => editCodeList(id, { label: e.target.value })}
                 className="form-control"
                 placeholder="Code list name"
                 />
@@ -72,7 +72,7 @@ CodeListEditor.propTypes = {
   removeCode: PropTypes.func.isRequired,
   editCode: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  editCodeListLabel: PropTypes.func.isRequired,
+  editCodeList: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired,
   label: PropTypes.string,
   editable: PropTypes.bool.isRequired
@@ -86,15 +86,16 @@ const mapStateToProps = (state, { id }) => {
   return {
     loaded: true,
     label: codeList.label,
-    detailedCodes: codeList.codes.map(codeId =>
-        state.codeById[codeId])
+    editable: !codeList.isSpec,
+    detailedCodes: codeList.codes.map(codeId => state.codeById[codeId])
   }
 }
  const mapDispatchToProps = {
   loadCodeListIfNeeded,
   createCode,
   removeCode,
-  editCode
+  editCode,
+  editCodeList
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeListEditor)
