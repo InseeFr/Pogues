@@ -27,7 +27,7 @@ function SimpleResponseFormatEditor(
       <DatatypePicker typeName={typeName}
         select={typeName => changeDatatypeName(id, typeName)}
         locale={locale} />
-      <div className="col-sm-offset-1">
+      <div className="col-sm-offset-2">
         { DatatypeEditor &&
           <DatatypeEditor datatype={format}
             edit={update => changeDatatypeParam(id, update)} locale={locale} />
