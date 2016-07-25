@@ -85,10 +85,6 @@ CodeListSelector.propTypes = {
    */
   isSpec: PropTypes.bool.isRequired,
   /**
-   * Is the selected code list currently edited here ?
-   */
-  edited: PropTypes.bool.isRequired,
-  /**
    * callback function when a code list is selected
    */
   select: PropTypes.func.isRequired,
