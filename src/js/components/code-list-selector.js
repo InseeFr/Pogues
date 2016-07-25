@@ -117,7 +117,7 @@ const mapStateToProps = (state, { id }) => {
   }, [])
 
   return {
-    isSpec: id ? state.codeListById[id].isSpec : false,
+    isSpec: id && state.codeListById[id].isSpec || false,
     questionnaire,
     codeLists
   }
