@@ -23,12 +23,12 @@ class CodeListEditor extends Component {
   }
 
   render() {
-    const { id, loaded, label, detailedCodes, createCode, removeCode, editCode,
-        close, locale, editCodeList, editable }
-      = this.props
+    const {
+      id, loaded, label, detailedCodes, createCode, removeCode, editCode,
+      locale, editCodeList, editable
+    } = this.props
     if (!loaded) return <span className="fa fa-spinner fa-pulse fa-2x"></span>
     return (
-      <div>
         <div className="form-group">
           <label htmlFor="label"
             className="col-sm-2 control-label">{locale.label}</label>
@@ -40,14 +40,6 @@ class CodeListEditor extends Component {
                 placeholder="Code list name"
                 />
           </div>
-          { editable &&
-            <div className="col-sm-1">
-              <button className="btn btn-default"
-                onClick={close}>
-                <span className="glyphicon glyphicon-ok"></span>
-              </button>
-            </div>
-          }
         </div>
         { editable && <CodeCreator locale={locale}
           hndlEnterKey={val => createCode(id, val)} /> }
@@ -67,7 +59,6 @@ CodeListEditor.propTypes = {
   loadCodeListIfNeeded: PropTypes.func.isRequired,
   detailedCodes: PropTypes.array, // not required since the codes might not be
                                  // loaded yet
-  close: PropTypes.func.isRequired,
   createCode: PropTypes.func.isRequired,
   removeCode: PropTypes.func.isRequired,
   editCode: PropTypes.func.isRequired,

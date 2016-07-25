@@ -60,8 +60,7 @@ export default class CodeListSelector extends Component {
             </div>
         </div>
         { this.state.edited && id &&
-          <CodeListEditor id={id} locale={locale}
-            close={() => this.setState({ edited: false })}/>
+          <CodeListEditor id={id} locale={locale} />
         }
       </div>
     )
