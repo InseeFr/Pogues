@@ -71,6 +71,10 @@ export const DATATYPE_VIS_HINT = {
   DROPDOWN: 'DROPDOWN'
 }
 
+export const AXIS = {
+  INFO: 'INFO',
+  MEASURE: 'MEASURE'
+}
 export const DECLARATION_TYPE = {
   INSTRUCTION: 'INSTRUCTION',
   COMMENT: 'COMMENT',

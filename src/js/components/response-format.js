@@ -3,12 +3,13 @@ import ResponseFormatPicker from './response-format-picker'
 import { RESPONSE_FORMAT } from '../constants/pogues-constants'
 import SimpleResponseFormatEditor from './simple-response-format-editor'
 import SingleResponseFormatEditor from './single-response-format-editor'
+import MultipleResponseFormatEditor from './multiple-response-format-editor'
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 
 const Editors = {
   SIMPLE: SimpleResponseFormatEditor,
   SINGLE: SingleResponseFormatEditor,
-  MULTIPLE: () => <div>multiple</div>,
+  MULTIPLE: MultipleResponseFormatEditor,
   TABLE: () => <div>table</div>,
 }
 

@@ -8,30 +8,34 @@
 //TODO implement remove code list (with integrity controls to check if the
 //code list is not used by any response)
 import { CREATE_CODE_LIST } from '../actions/code-list'
-import { NEW_CODE_LIST_SINGLE } from '../actions/response-format'
+import {
+  NEW_CODE_LIST_SINGLE, NEW_CODE_LIST_MULTIPLE
+} from '../actions/response-format'
+
 import {
   CREATE_QUESTIONNAIRE, LOAD_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
 
 export default function (state={}, action) {
-  if (action.type === CREATE_QUESTIONNAIRE) {
-    return {
-      ...state,
-    }
-  }
-  else if (action.type === NEW_CODE_LIST_SINGLE) {
-    const { createdClId, qrId } = action.payload
-    return {
-     ...state,
-      [qrId]: [...state[qrId], createdClId]
-    }
-  }
-  else if (action.type === LOAD_QUESTIONNAIRE_SUCCESS) {
+  const { type, payload } = action
+  switch (type) {
+    case CREATE_QUESTIONNAIRE:
+      return {
+        ...state,
         [payload.id]: []
+      }
+    case NEW_CODE_LIST_SINGLE:
+    case NEW_CODE_LIST_MULTIPLE:
+      return {
+       ...state,
+        [payload.qrId]: [...state[payload.qrId], payload.createdClId]
+      }
+  case LOAD_QUESTIONNAIRE_SUCCESS:
     return {
       ...state,
-      ...action.payload.update.codeListByQuestionnaire
+      ...payload.update.codeListByQuestionnaire
     }
+  default:
+    return state
   }
-  return state
 }
