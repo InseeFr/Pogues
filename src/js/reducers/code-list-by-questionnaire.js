@@ -17,7 +17,6 @@ export default function (state={}, action) {
   if (action.type === CREATE_QUESTIONNAIRE) {
     return {
       ...state,
-      [action.payload.qrId]: []
     }
   }
   else if (action.type === NEW_CODE_LIST_SINGLE) {
@@ -28,6 +27,7 @@ export default function (state={}, action) {
     }
   }
   else if (action.type === LOAD_QUESTIONNAIRE_SUCCESS) {
+        [payload.id]: []
     return {
       ...state,
       ...action.payload.update.codeListByQuestionnaire
