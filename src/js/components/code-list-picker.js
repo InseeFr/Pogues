@@ -19,7 +19,7 @@ export default function CodeListPicker(
     <select className="form-control"
       disabled={disabled}
       onChange={e => smartSelect(e.target.value)}
-      value={disabled ? '' : id} id="codeList">
+      value={id} id="codeList">
       <option key={''} value={''}>
         {locale.selectCl}
       </option>
