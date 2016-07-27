@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import CodeListEditor from './code-list-editor'
 
 export default function CodeListPicker(
-  { id, codeLists, select, create, locale }) {
+  { id, codeLists, select, create, disabled, locale }) {
 
   const smartSelect = val => {
     switch (val) {
@@ -17,8 +17,9 @@ export default function CodeListPicker(
   }
   return (
     <select className="form-control"
+      disabled={disabled}
       onChange={e => smartSelect(e.target.value)}
-      value={id} id="codeList">
+      value={disabled ? '' : id} id="codeList">
       <option key={''} value={''}>
         {locale.selectCl}
       </option>
@@ -40,4 +41,5 @@ CodeListPicker.propTypes = {
   select: PropTypes.func.isRequired,
   create: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired
 }

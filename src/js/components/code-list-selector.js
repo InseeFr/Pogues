@@ -32,7 +32,7 @@ export default class CodeListSelector extends Component {
     }
     //TODO handle `edited` in the reducer ; needs to define where to store this
     //information (a code list can be edited in multiple places, so it's not
-    //trivial to store in the reducer the 'position' of a code list that are
+    //trivial to store in the reducer the 'position' of a code list that is
     //currently edited). For instance : code list used as the `second measure`
     //in the question xxx which accepts a TABLE response.
     this.toggleEdit = () => this.setState({ edited: !this.state.edited})
@@ -43,30 +43,38 @@ export default class CodeListSelector extends Component {
   }
 
   render() {
-    const { codeLists, id, isSpec, edited, locale, select, create } = this.props
+    const {
+      codeLists, id, title, isSpec, edited, locale, select, create, disabled
+    } = this.props
 
     return (
       <div>
         <div className="form-group">
-          <label htmlFor="codeList" className="col-sm-3 control-label">
-            {locale.cl}
+          <label htmlFor="codeList" className="col-sm-5 control-label">
+            {title}
           </label>
           <div className="col-sm-6">
-           <div className="input-group">
+          {/* do not add `input-group` class if there is no addon since the
+              input width won't be 100% */}
+           <div className={ id && 'input-group'}>
               <CodeListPicker id={id} codeLists={codeLists}
                 select={select}
+                disabled={disabled}
                 create={this.create} locale={locale} />
-              <EditCodeListButton
-                edited={this.state.edited} isSpec={isSpec}
-                toggle={this.toggleEdit} />
-              </div>
+              {
+              id &&
+                <EditCodeListButton
+                  edited={this.state.edited} isSpec={isSpec}
+                  toggle={this.toggleEdit} />
+              }
             </div>
+          </div>
         </div>
-        { this.state.edited && id &&
-          <CodeListEditor id={id} locale={locale} />
-        }
+      { this.state.edited && id &&
+        <CodeListEditor id={id} locale={locale} />
+      }
       </div>
-    )
+  )
   }
 
 }
@@ -84,6 +92,10 @@ CodeListSelector.propTypes = {
    * Does the selected code list comes from a code list spec ?
    */
   isSpec: PropTypes.bool.isRequired,
+  /**
+   * Is the code list disabled ?
+   */
+  disabled: PropTypes.bool,
   /**
    * callback function when a code list is selected
    */
