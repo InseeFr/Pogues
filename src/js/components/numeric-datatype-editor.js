@@ -24,7 +24,7 @@ export default function NumericDatatypeEditor(
         <div className="col-sm-2">
           <input value={minimum}
             onChange={e => edit({ minimum: e.target.value })}
-            type="number" className="form-control" id="length"
+            type="number" className="form-control" id="minimum"
             placeholder={locale.minimum}/>
         </div>
       </div>
