@@ -15,6 +15,7 @@ function SingleResponseFormatEditor(
     <div>
       <CodeListSelector
         id={codeListReference}
+        title={locale.selectCl}
         select={codeListReference => updateSingle(id, { codeListReference })}
         create={() => newCodeListSingle(id, qrId)}
         locale={locale} />
