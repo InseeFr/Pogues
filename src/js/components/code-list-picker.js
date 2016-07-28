@@ -41,5 +41,5 @@ CodeListPicker.propTypes = {
   select: PropTypes.func.isRequired,
   create: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool
 }

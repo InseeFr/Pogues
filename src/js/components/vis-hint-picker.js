@@ -34,6 +34,6 @@ export default function VisHintPicker(
 VisHintPicker.propTypes = {
   visHint: PropTypes.string.isRequired,
   select: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   locale: PropTypes.object.isRequired
 }
