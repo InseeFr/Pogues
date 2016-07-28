@@ -14,7 +14,7 @@ const Editors = {
 }
 
 export default function ResponseFormat(
-  { id, format, locale, qrId, switchFormat, update }) {
+  { id, format, locale, switchFormat, update }) {
   const { type } = format
   const ResponseFormatEditor = Editors[type]
   return (
@@ -33,7 +33,6 @@ export default function ResponseFormat(
 
 ResponseFormat.propTypes = {
   id: PropTypes.string.isRequired,
-  qrId: PropTypes.string.isRequired,
   format: PropTypes.object.isRequired,
   switchFormat: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired,
