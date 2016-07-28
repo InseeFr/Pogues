@@ -44,9 +44,16 @@ function MultipleResponseFormatEditor(
           Boolean
         </label>
         <div className="col-sm-2">
-          <input type="checkbox" className="form-control"
+          <div className="checkbox">
+            {/* we use class "checkbox" to have the proper vertical
+                alignment (`padding: 7px;`) but we need to remove
+                `margin-left` since the class `chekbox` is intended
+                to make the label appear on the right side of the box
+            */}
+            <input type="checkbox" style={{ marginLeft: 0 }}
             checked={measureBoolean}
             onChange={e => switchBooleanMultiple(id) }/>
+          </div>
         </div>
       </div>
     </div>
