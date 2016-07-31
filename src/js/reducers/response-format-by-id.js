@@ -10,8 +10,9 @@ import { CREATE_COMPONENT } from '../actions/component'
 
 import { RESPONSE_FORMAT, COMPONENT_TYPE } from '../constants/pogues-constants'
 import { emptyDatatypeFactory } from './datatype-utils'
-import { AXIS } from '../constants/pogues-constants'
+import { AXIS, DATATYPE_VIS_HINT } from '../constants/pogues-constants'
 
+const { CHECKBOX } = DATATYPE_VIS_HINT
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { INFO, MEASURE, FIRST_INFO, SCND_INFO } = AXIS
 
@@ -25,13 +26,13 @@ const emptyFormat = {
   [SIMPLE]: emptyDatatypeFactory,
   [SINGLE]: {
     codeListReference: '',
-    visHint: ''
+    visHint: CHECKBOX
   },
   [MULTIPLE]: {
     infoCodeList: '',
     measureBoolean: false,
     measureCodeList: '',
-    measureVisHint: false
+    measureVisHint: CHECKBOX
   },
   [TABLE]: {
     firstInfoCodeList: '',
@@ -46,7 +47,7 @@ const emptyFormat = {
       [SIMPLE]: emptyDatatypeFactory,
       [SINGLE]: {
         codeListReference: '',
-        visHint: ''
+        visHint: CHECKBOX
       }
     }]
   }
@@ -322,7 +323,7 @@ function addMeasure(format, { index }) {
       [SIMPLE]: emptyDatatypeFactory,
       [SINGLE]: {
         codeListReference: '',
-        visHint: ''
+        visHint: CHECKBOX
       }
     }]
   }
