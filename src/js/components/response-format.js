@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import {
   switchFormat, updateFormat, newCodeListFormat,
   updateDatatype,
+  updateMeasure, updateMeasureFormat,
+  addMeasure, removeMeasure
 } from '../actions/response-format'
 
 import { RESPONSE_FORMAT } from '../constants/pogues-constants'
@@ -18,13 +20,15 @@ const Editors = {
   SIMPLE: SimpleResponseFormatEditor,
   SINGLE: SingleResponseFormatEditor,
   MULTIPLE: MultipleResponseFormatEditor,
-  TABLE: () => <div>table</div>,
+  TABLE: TableResponseFormatEditor
 }
 
 function ResponseFormat(
   { id, qrId, formats,
     switchFormat, updateFormat, newCodeListFormat,
     updateDatatype,
+    updateMeasure, updateMeasureFormat,
+    addMeasure, removeMeasure,
     locale }) {
   const { type } = formats
   const ResponseFormatEditor = Editors[type]
@@ -43,7 +47,12 @@ function ResponseFormat(
         qrId={qrId}
         updateFormat={update => updateFormat(id, update)}
         newCodeListFormat={() => newCodeListFormat(id, qrId)}
+        updateMeasure={(index, update) => updateMeasure(id, index, update)}
         updateDatatype={(update, ctx) => updateDatatype(id, update, ctx)}
+        updateMeasureFormat={(index, update) =>
+          updateMeasureFormat(id, index, update)}
+        addMeasure={index => addMeasure(id, index)}
+        removeMeasure={index => removeMeasure(id, index)}
         locale={locale} />
     </div>
   );
@@ -60,6 +69,10 @@ const mapDispatchToProps = {
   updateFormat,
   updateDatatype,
   newCodeListFormat,
+  updateMeasure,
+  updateMeasureFormat,
+  addMeasure,
+  removeMeasure
 }
 
 ResponseFormat.propTypes = {
@@ -69,6 +82,10 @@ ResponseFormat.propTypes = {
   updateFormat: PropTypes.func.isRequired,
   updateDatatype: PropTypes.func.isRequired,
   newCodeListFormat: PropTypes.func.isRequired,
+  updateMeasure: PropTypes.func.isRequired,
+  updateMeasureFormat: PropTypes.func.isRequired,
+  addMeasure: PropTypes.func.isRequired,
+  removeMeasure: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired,
 }
 

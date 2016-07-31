@@ -14,14 +14,12 @@ import {
 
 export const emptyTextDatatype = {
   typeName: DATATYPE_NAME.TEXT,
-  visHint: DATATYPE_VIS_HINT.CHECKBOX,
   maxLength: 1,
   pattern: ''
 }
 
 export const emptyNumericDatatype = {
   typeName: DATATYPE_NAME.NUMERIC,
-  visHint: DATATYPE_VIS_HINT.CHECKBOX,
   minimum: '',
   maximum: '',
   decimals: ''
@@ -29,14 +27,19 @@ export const emptyNumericDatatype = {
 
 export const emptyDateDatatype = {
   typeName: DATATYPE_NAME.DATE,
-  visHint: DATATYPE_VIS_HINT.CHECKBOX,
   minimum: '',
   maximum: '',
   format: ''
 }
 
+export const emptyBooleanDatatype = {
+  typeName: DATATYPE_NAME.BOOLEAN
+}
+
 export const emptyDatatypeFactory = {
+  typeName: DATATYPE_NAME.TEXT,
   [DATATYPE_NAME.TEXT]: emptyTextDatatype,
   [DATATYPE_NAME.NUMERIC]: emptyNumericDatatype,
-  [DATATYPE_NAME.DATE]: emptyDateDatatype
+  [DATATYPE_NAME.DATE]: emptyDateDatatype,
+  [DATATYPE_NAME.BOOLEAN]: emptyBooleanDatatype
 }

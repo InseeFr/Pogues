@@ -1,6 +1,8 @@
 import {
   SWITCH_FORMAT, UPDATE_FORMAT, UPDATE_DATATYPE,
   NEW_CODE_LIST_FORMAT,
+  UPDATE_MEASURE, UPDATE_MEASURE_FORMAT,
+  ADD_MEASURE, REMOVE_MEASURE
 } from '../actions/response-format'
 
 import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
@@ -11,7 +13,7 @@ import { emptyDatatypeFactory } from './datatype-utils'
 import { AXIS } from '../constants/pogues-constants'
 
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
-const { INFO, MEASURE } = AXIS
+const { INFO, MEASURE, FIRST_INFO, SCND_INFO } = AXIS
 
 /**
  * Default value for a response format. We create an entry for each type of
@@ -32,8 +34,21 @@ const emptyFormat = {
     measureVisHint: false
   },
   [TABLE]: {
-    infos: [],
-    measures: []
+    firstInfoCodeList: '',
+    firstInfoAsAList: false,
+    firstInfoMin: '',
+    firstInfoMax: '',
+    hasTwoInfoAxes: false,
+    scndInfoCodeList: '',
+    measures: [{
+      type: SIMPLE,
+      label: '',
+      [SIMPLE]: emptyDatatypeFactory,
+      [SINGLE]: {
+        codeListReference: '',
+        visHint: ''
+      }
+    }]
   }
 }
 
@@ -75,6 +90,10 @@ const actionsHndlrs = {
   [UPDATE_DATATYPE]: fromFormatHndlr(updateDatatype),
   [UPDATE_FORMAT]: fromFormatHndlr(updateFormat),
   [NEW_CODE_LIST_FORMAT]: fromFormatHndlr(newCodeListFormat),
+  [UPDATE_MEASURE]: fromFormatHndlr(updateMeasure),
+  [UPDATE_MEASURE_FORMAT]: fromFormatHndlr(updateMeasureFormat),
+  [ADD_MEASURE]: fromFormatHndlr(addMeasure),
+  [REMOVE_MEASURE]: fromFormatHndlr(removeMeasure),
   [LOAD_QUESTIONNAIRE_SUCCESS]: loadQuestionnaireSuccess,
 }
 
@@ -141,97 +160,179 @@ function updateFormat(format, { update  }) {
 }
 
 /**
- * Update MULTIPLE format
+ * Create a new code list and assign it to a format
  *
- * Updatable properties are `infoCodeList`, `measureCodeList` and
- * `measureVisualizationHint`.
+ * Valid values for `ctx`:
+ * - SIMPLE: not relevant ;
+ * - SINGLE: not used ;
+ * - MULTIPLE: 'INFO' or 'MEASURE' ;
+ * - TABLE: the index of the targeted measure.
  *
- * To switch `measureBoolean`, use `switchBooleanMultiple`.
- *
- * In practice, only one property will be present in `update`.
- *
- * @param  {Object} format             initial format
- * @param  {Object} payload            action payload
- * @param  {String} payload.update     properties to update
- * @return {Object}                    updated format
+ * @param  {Object}        format               initial format
+ * @param  {Object}        payload              action payload
+ * @param  {String}        payload.createdClId  id of the code list to create
+ * @param  {String|Number} payload.ctx          which code list is targeted
+ * @return {Object}                             updated format
  */
-function updateMultiple(format, { update }) {
-  return {
+function newCodeListFormat(format, { createdClId, ctx }, type) {
+  if (type === SINGLE) return {
     ...format,
-    ...update
+    codeListReference: createdClId
   }
-}
-/**
- * Switch measure boolean
- *
- * Toggle `measureCodeList`. `measureCodeList` and `measureVisHint`
- * will keep their value (but it's supposed to be hidden in the ui), so if the
- * user changes it mind, they will be restored.
- *
- * In fact, since we do not reinitialize anything, there's no logic here and we
- * could have used instead the simple `updateMultiple` handler.
- *
- * @param  {Object} format             initial format
- * @return {Object}                    updated format
- */
-function switchBooleanMultiple(format) {
-  let { measureCodeList, measureVisualizationHint, measureBoolean } = format
-  measureBoolean = !measureBoolean
-  return {
-    ...format,
-    measureBoolean,
-  }
-}
-
-/**
- * Create a new code list and assign it to a MULTIPLE format
- *
- * We specify what the code list will be used for via `forWhat`.
- * Valid values for `forWhat` are `'INFO'` or `'MEASURE'`.
- *
- * @param  {Object}        format                 initial format
- * @param  {Object}        payload                action payload
- * @param  {String}        payload.createdClId    id of the code list to create
- * @param  {String}        payload.forWhat        for each property will the
- *                                                created code list be used for
- * @return {Object}                               updated format
- */
-function newCodeListMultiple(format, { createdClId, forWhat }) {
-  const newFormat = {...format}
-  if (forWhat === INFO) return {
-    ...format,
-    infoCodeList: createdClId
-  }
-  // `forWhat` is MEASURE
-  else return {
-    ...format,
-    measureCodeList: createdClId
-  }
-}
-
-function changeDatatypeName(format, { typeName }) {
-  if (format.typeName === typeName) return format
-  return {
-    typeName,
-    ...emptyDatatypeFactory[typeName]
-  }
-}
-
-function changeDatatypeParam(format, { update }) {
-  return {
-    ...format,
-    ...update
-  }
-}
-
-// id is the code list id
-function createCodeList(formats, { responseId, id }) {
-  return {
-    ...formats,
-    [responseId]: {
-      ...formats[responseId],
-      codeListReference: id
+  if (type === MULTIPLE) {
+    if (ctx === INFO) return {
+      ...format,
+      infoCodeList: createdClId
     }
+    if (ctx === MEASURE) return {
+      ...format,
+      measureCodeList: createdClId
+    }
+  }
+  if (type === MULTIPLE) {
+    return updateCodeListTable(format, createdClId, ctx)
+  }
+  return format
+}
+
+/**
+ * Update a datatype
+ *
+ * Can be use for SIMPLE resonse format (`index` will not be set) and for measures
+ * defined within a TABLE response format (`index` will) be a number
+ * representing the measure targeted.
+ *
+ * @param  {Object}  format          initial format
+ * @param  {Object}  payload         action payload
+ * @param  {String}  payload.update  udate to apply to the format
+ * @param  {Number}  payload.index   which measure is targeted (TABLE format
+ *                                   only)
+ * @return {Object}                  updated format
+ */
+function updateDatatype(format, { update, index }, type) {
+  if (type === SIMPLE) return {
+    ...format,
+    // we update the current datatype
+    [format.typeName]: {
+      ...format[format.typeName],
+      ...update
+    }
+  }
+  if (type === TABLE) {
+    return {
+      ...format,
+      // we will update the measure at position `index`
+      measures: replaceMeasure(_updateDatatype, format.measures, index, update)
+    }
+  }
+  return format
+}
+
+/**
+ * Update a datatype within a measure
+ *
+ * @param  {Object} measure a measure object
+ * @param  {Object} update  the update to apply to the SIMPLE format (a
+ *                          datatype) held by the measure
+ * @return {Object}         the updated measure
+ */
+function _updateDatatype(measure, update) {
+  return {
+    ...measure,
+    [SIMPLE]: {
+      ...measure[SIMPLE],
+      [measure[SIMPLE].typeName]: {
+        ...measure[SIMPLE][measure[SIMPLE].typeName],
+        ...update
+      }
+    }
+  }
+}
+
+function updateCodeListTable(format, clId, ctx) {
+  if (ctx === 'FIRST_INFO') return {
+    ...format,
+    firstInfoCodeList: clId
+  }
+  if (ctx === 'SCND_INFO') return {
+    ...format,
+    scndInfoCodeList: clId
+  }
+  //ctx should be a number incated the index of the measure concerned
+  return {
+    ...format,
+    measures: replaceMeasure(_updateCodeListMeasure, format.measures, ctx, clId)
+  }
+}
+
+function updateMeasure(format, { index, update }) {
+  return {
+    ...format,
+    measures: replaceMeasure(_updateMeasure, format.measures, index, update)
+  }
+}
+
+function updateMeasureFormat(format, { index, update }) {
+  return {
+    ...format,
+    measures: replaceMeasure(_updateMeasureFormat, format.measures, index, update)
+  }
+}
+
+function _updateMeasure(measure, update) {
+  return {
+    ...measure,
+    ...update
+  }
+}
+
+function _updateMeasureFormat(measure, update) {
+  return {
+    ...measure,
+    [measure.type]: {
+      ...measure[measure.type],
+      ...update
+    }
+  }
+}
+
+function _updateCodeListMeasure(measure, codeListReference) {
+  return {
+    ...measure,
+    [SINGLE]: {
+      ...measure[SINGLE],
+      codeListReference
+    }
+  }
+}
+
+function replaceMeasure(fn, measures, index, ...args) {
+  return measures
+    .slice(0, index)
+    .concat(fn(measures[index], ...args))
+    .concat(measures.slice(index + 1))
+}
+
+function addMeasure(format, { index }) {
+  return {
+    ...format,
+    measures: [...format.measures, {
+      type: SIMPLE,
+      label: '',
+      [SIMPLE]: emptyDatatypeFactory,
+      [SINGLE]: {
+        codeListReference: '',
+        visHint: ''
+      }
+    }]
+  }
+}
+
+function removeMeasure(format, { index }) {
+  const { measures } = format
+  return {
+    ...format,
+    measures: [...measures.slice(0, index), ...measures.slice(index + 1)]
   }
 }
 

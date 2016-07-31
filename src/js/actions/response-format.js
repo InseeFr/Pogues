@@ -1,13 +1,14 @@
-export const EDIT_RESPONSE = 'EDIT_RESPONSE'
-export const CHANGE_DATATYPE_NAME = 'CHANGE_DATATYPE_NAME'
-export const CHANGE_DATATYPE_PARAM = 'CHANGE_DATATYPE_PARAM'
-export const EDIT_RESPONSE_CHOOSE_CODE_LIST = 'EDIT_RESPONSE_CHOOSE_CODE_LIST'
 export const SWITCH_FORMAT = 'SWITCH_FORMAT'
-export const UPDATE_SINGLE = 'UPDATE_SINGLE'
-export const UPDATE_MULTIPLE = 'UPDATE_MULTIPLE'
-export const NEW_CODE_LIST_SINGLE = 'NEW_CODE_LIST_SINGLE'
-export const NEW_CODE_LIST_MULTIPLE = 'NEW_CODE_LIST_MULTIPLE'
-export const SWITCH_BOOLEAN_MULTIPLE = 'SWITCH_BOOLEAN_MULTIPLE'
+export const UPDATE_FORMAT = 'UPDATE_FORMAT'
+export const UPDATE_DATATYPE = 'UPDATE_DATATYPE'
+
+export const NEW_CODE_LIST_FORMAT = 'NEW_CODE_LIST_FORMAT'
+
+export const UPDATE_MEASURE = 'UPDATE_MEASURE'
+export const UPDATE_MEASURE_FORMAT = 'UPDATE_MEASURE_FORMAT'
+
+export const ADD_MEASURE = 'ADD_MEASURE'
+export const REMOVE_MEASURE = 'REMOVE_MEASURE'
 
 import { uuid } from '../utils/data-utils'
 
@@ -19,16 +20,25 @@ export const switchFormat = (id, type) => ({
   }
 })
 
-export const updateSingle = (id, update) => ({
-  type: UPDATE_SINGLE,
+export const updateFormat = (id, update) => ({
+  type: UPDATE_FORMAT,
   payload: {
     id,
     update
   }
 })
 
-export const newCodeListSingle = (id, qrId) => ({
-  type: NEW_CODE_LIST_SINGLE,
+export const updateDatatype = (id, update, ctx) => ({
+  type: UPDATE_DATATYPE,
+  payload: {
+    id,
+    update,
+    ctx
+  }
+})
+
+export const newCodeListFormat = (id, qrId, ctx) => ({
+  type: NEW_CODE_LIST_FORMAT,
   payload: {
     id,
     qrId,
@@ -36,45 +46,32 @@ export const newCodeListSingle = (id, qrId) => ({
   }
 })
 
-
-export const updateMultiple = (id, update) => ({
-  type: UPDATE_MULTIPLE,
+export const updateMeasure = (id, index, update) => ({
+  type: UPDATE_MEASURE,
   payload: {
-    id,
-    update
+    id, index, update
   }
 })
 
-export const changeDatatypeName = (id, typeName) => ({
-  type: CHANGE_DATATYPE_NAME,
+export const updateMeasureFormat = (id, update, index) => ({
+  type: UPDATE_MEASURE_FORMAT,
   payload: {
-    id,
-    typeName
+    id, index, update
   }
 })
 
-export const changeDatatypeParam = (id, update) => ({
-  type: CHANGE_DATATYPE_PARAM,
+export const addMeasure = (id, index) => ({
+  type: ADD_MEASURE,
   payload: {
     id,
-    update
+    index
   }
 })
 
-export const newCodeListMultiple = (id, qrId, forWhat) => ({
-  type: NEW_CODE_LIST_MULTIPLE,
+export const removeMeasure = (id, index) => ({
+  type: REMOVE_MEASURE,
   payload: {
     id,
-    qrId,
-    forWhat,
-    createdClId: uuid()
+    index
   }
-})
-
-export const switchBooleanMultiple = id => ({
-  type: SWITCH_BOOLEAN_MULTIPLE,
-  //usually we would have passed `id` as a payload (not a property of a paylaod
-  //object), but we use a generic handler in the reducer which expects `id` to
-  //be a property of the payload
-  payload: { id }
 })

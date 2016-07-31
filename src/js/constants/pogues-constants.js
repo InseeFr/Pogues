@@ -70,9 +70,15 @@ export const DATATYPE_VIS_HINT = {
   RADIO: 'RADIO',
   DROPDOWN: 'DROPDOWN'
 }
-
+/**
+ * Generic constants to represent a dimension for MULTIPLE and TABLE reponse
+ * formats. They can be used within an action payload to designate which
+ * dimension the action is related to.
+ */
 export const AXIS = {
   INFO: 'INFO',
+  FIRST_INFO: 'FIRST_INFO',
+  SCND_INFO: 'SCND_INFO',
   MEASURE: 'MEASURE'
 }
 export const DECLARATION_TYPE = {
