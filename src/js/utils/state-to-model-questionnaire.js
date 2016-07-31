@@ -10,7 +10,13 @@
  */
 
 import { putLeading_ } from '../utils/data-utils'
-import { DATATYPE_TYPE_FROM_NAME } from '../constants/pogues-constants'
+import {
+  DATATYPE_TYPE_FROM_NAME, RESPONSE_FORMAT, DIMENSION_TYPE
+} from '../constants/pogues-constants'
+import { emptyTextDatatype, emptyBooleanDatatype } from '../reducers/datatype-utils'
+import { nbCodesFromId } from './code-list-utils'
+const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
+const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
 
@@ -138,14 +144,171 @@ export default function toModel(state, qrId) {
     const { simple, responses } = componentById[questionId]
     return {
       simple,
-      //TODO implement responses to model (need a response reducer first)
-      responseFormat: fromResponseFormat(questionId),
+      // create `responses` and `responseStructures` entries (these will be
+      // transformed into `Response` and `QuestionStructure` elements in the
+      // XML representation of Pogues Model)
+      ...fromResponseFormat(questionId),
       type: 'QuestionType'
     }
   }
 
   function fromResponseFormat(responseFormatId) {
-    return responseFormatById[responseFormatId]
+    const responseFormat = responseFormatById[responseFormatId]
+    const { type, [type]: format } = responseFormat
+    if (type === SIMPLE) {
+      const { typeName, [typeName]: datatype } = format
+      return {
+        responses: [{
+          // `simple` and `mandatory` are not exposed in the ui for now. These
+          // attributes are not required, so we do not create them here, but they
+          // could be added if the backend needs them.
+          datatype: {
+            //TODO the `VisualizationHint` attribute of a datatype will not be
+            //set : it's not exposed in the ui, and it is not required by the
+            //model, so we do not create these properties. Check if it is ok
+            //with the backend.
+            ...datatype,
+            //TODO document the use of `type` property ; it seems to be a
+            //convention used in Pogues to represent in JSON which derived type
+            //of an abstract type (in the XML Schema) is used. This property is
+            //not represented in the reducer since it can be inferred.
+            type: DATATYPE_TYPE_FROM_NAME[format.typeName]
+          }
+        }]
+      }
+    }
+    if (type === SINGLE) {
+      const { codeListReference, visHint } = format
+      return {
+        responses: [{
+          // `codeListReference` and `visHint`
+          codeListReference,
+          datatype: {
+            //no information held by the datatype except for the
+            //VisualizationHint ; by default we use a `TextDatatypeType` (
+            //`DatatypeType` is an abstract type in the model).
+            ...emptyTextDatatype,
+            type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
+            visHint
+          }
+        }]
+      }
+    }
+    if (type === MULTIPLE) {
+      const { infoCodeList } = format
+      const nbRows = nbCodesFromId(codeListById, infoCodeList)
+      const { measureVisHint: visHint, measureBoolean } = format
+      let response
+      // the measure is a boolean
+      if (measureBoolean) response = {
+        datatype: {
+          ...emptyBooleanDatatype,
+          type: DATATYPE_TYPE_FROM_NAME[emptyBooleanDatatype.typeName]
+        }
+      }
+      // the measure is a code list
+      else {
+        response = {
+          // by default use a text datatype, but it holds no information
+          datatype: {
+            ...emptyTextDatatype,
+            type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
+            visHint
+          },
+          codeListReference: format.measureCodeList,
+        }
+      }
+      return {
+        responses: Array(nbRows).fill(response),
+        responseStructures: {
+          dimensions: [{
+            type: PRIMARY,
+            dynamic: 0,
+            codeListReference: infoCodeList
+          }, {
+            type: MEASURE,
+            dynamic: 0
+          }]
+        }
+      }
+    }
+    if (type === TABLE) {
+      const { firstInfoAsAList, measures } = format
+      let nbRowsPerMeasure, infoResponseStructures
+      //TODO check this asumption: if `firstInfoAsAList` is set to true, there
+      //cannot be any second information axis
+      if (firstInfoAsAList) {
+        const { firstInfoMin, firstInfoMax } = format
+        nbRowsPerMeasure = Number(firstInfoMax)
+        infoResponseStructures = [{
+          type: PRIMARY,
+          dynamic: `${firstInfoMin}-${firstInfoMax}`
+        }]
+      }
+      else {
+        const { firstInfoCodeList: codeListReference } = format
+        infoResponseStructures = [{
+          type: PRIMARY,
+          dynamic: 0,
+          codeListReference
+        }]
+        nbRowsPerMeasure = nbCodesFromId(codeListById, codeListReference)
+        if (format.hasTwoInfoAxes) {
+          const { scndInfoCodeList: codeListReference } = format
+          infoResponseStructures.push({
+            type: SECONDARY,
+            dynamic: 0,
+            codeListReference
+          })
+          nbRowsPerMeasure =
+            nbRowsPerMeasure * nbCodesFromId(codeListById, codeListReference)
+        }
+      }
+
+      const { responses, responseStructures } = measures.reduce(
+        ({ responses, responseStructures }, measure) => {
+        return {
+          responses: responses.concat(
+            Array(nbRowsPerMeasure).fill(oneResponseFromMeasure(measure))),
+          responseStructures: responseStructures.concat({
+            type: MEASURE,
+            dynamic: 0,
+            label: measure.label
+          })
+        }
+      }, { responses: [], responseStructures: infoResponseStructures })
+
+      return {
+        responses,
+        responseStructures
+      }
+    }
+
+  }
+
+  function oneResponseFromMeasure(measure) {
+    const { type, [type]: format } = measure
+    if (type === SIMPLE) {
+      const { typeName, [typeName]: datatype } = format
+      return {
+        datatype: {
+          ...datatype,
+          type: DATATYPE_TYPE_FROM_NAME[typeName]
+        }
+      }
+    }
+    // SINGLE
+    else {
+      const { codeListReference, visHint } = format
+      return {
+        codeListReference,
+        datatype: {
+          ...emptyTextDatatype,
+          type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
+          visHint
+        }
+      }
+    }
   }
 
   function fromGoTo(goToId) {

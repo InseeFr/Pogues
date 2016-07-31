@@ -24,7 +24,9 @@ const RENAME_MAPPING = {
   '_goTos' : 'GoTo',
   '_members': 'Member',
   '_responses': 'Response',
-  '_values': 'Value'
+  '_responseStructures': 'ResponseStructure',
+  '_values': 'Value',
+  '_visHint': 'VisualizationHint'
   };
 
 // Factory and mapping
@@ -70,6 +72,7 @@ const MAPPING = {
   '_goTos': 'ARRAY',
   '_members': 'ARRAY',
   '_responses': 'ARRAY',
+  '_responseStructures': 'ARRAY',
   '_values': 'ARRAY',
   '_codeLists': 'OBJECT',
   '_datatype': 'OBJECT'
