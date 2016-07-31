@@ -47,10 +47,10 @@ function ResponseFormat(
         qrId={qrId}
         updateFormat={update => updateFormat(id, update)}
         newCodeListFormat={() => newCodeListFormat(id, qrId)}
-        updateMeasure={(index, update) => updateMeasure(id, index, update)}
+        updateMeasure={(update, index) => updateMeasure(id, update, index)}
         updateDatatype={(update, ctx) => updateDatatype(id, update, ctx)}
-        updateMeasureFormat={(index, update) =>
-          updateMeasureFormat(id, index, update)}
+        updateMeasureFormat={(update, index) =>
+          updateMeasureFormat(id, update, index)}
         addMeasure={index => addMeasure(id, index)}
         removeMeasure={index => removeMeasure(id, index)}
         locale={locale} />

@@ -28,12 +28,12 @@ export const updateFormat = (id, update) => ({
   }
 })
 
-export const updateDatatype = (id, update, ctx) => ({
+export const updateDatatype = (id, update, index) => ({
   type: UPDATE_DATATYPE,
   payload: {
     id,
     update,
-    ctx
+    index
   }
 })
 
@@ -46,7 +46,7 @@ export const newCodeListFormat = (id, qrId, ctx) => ({
   }
 })
 
-export const updateMeasure = (id, index, update) => ({
+export const updateMeasure = (id, update, index) => ({
   type: UPDATE_MEASURE,
   payload: {
     id, index, update

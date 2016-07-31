@@ -99,9 +99,9 @@ export default function TableResponseFormatEditor(
             addMeasure={() => addMeasure(index)}
             removeMeasure={() => removeMeasure(index)}
             newCodeListFormat={() => newCodeListFormat(index)}
-            updateFormat={update => updateMeasureFormat(index, update)}
+            updateFormat={update => updateMeasureFormat(update, index)}
             updateDatatype={update => updateDatatype(update, index)}
-            update={update => updateMeasure(index, update)}
+            update={update => updateMeasure(update, index)}
             locale={locale}/>
           <hr/>
         </div>
