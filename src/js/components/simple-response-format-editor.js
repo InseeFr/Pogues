@@ -1,9 +1,5 @@
 import React, { PropTypes } from 'react'
 
-import {
-  changeDatatypeName, changeDatatypeParam
-} from '../actions/response-format'
-
 import DatatypePicker from './datatype-picker';
 import NumericDatatypeEditor from './numeric-datatype-editor';
 import TextDatatypeEditor from './text-datatype-editor';
@@ -17,38 +13,30 @@ const datatypeEditors = {
   // no additional parameters for date and boolean datatype types
 }
 
-function SimpleResponseFormatEditor(
-  { id, format, changeDatatypeName, changeDatatypeParam, locale }) {
+export default function SimpleResponseFormatEditor(
+  { format, updateFormat, updateDatatype, locale }) {
 
   const { typeName } = format
   const DatatypeEditor = datatypeEditors[typeName]
   return (
     <div>
       <DatatypePicker typeName={typeName}
-        select={typeName => changeDatatypeName(id, typeName)}
+        select={typeName => updateFormat({ typeName })}
         locale={locale} />
       <div className="col-sm-offset-2">
         { DatatypeEditor &&
           <DatatypeEditor datatype={format}
-            edit={update => changeDatatypeParam(id, update)} locale={locale} />
+            edit={update => updateDatatype(update)} locale={locale} />
         }
     </div>
     </div>
   )
 }
 
-const mapStateToProps = () => ({})
-
-const mapDispatchToProps = {
-  changeDatatypeParam,
-  changeDatatypeName
-}
-
 SimpleResponseFormatEditor.propTypes = {
-  locale: PropTypes.object.isRequired,
-  changeDatatypeName: PropTypes.func.isRequired,
-  changeDatatypeParam: PropTypes.func.isRequired
+  format: PropTypes.object.isRequired,
+  updateFormat: PropTypes.func.isRequired,
+  updateDatatype: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(SimpleResponseFormatEditor)
 

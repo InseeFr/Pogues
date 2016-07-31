@@ -8,9 +8,7 @@
 //TODO implement remove code list (with integrity controls to check if the
 //code list is not used by any response)
 import { CREATE_CODE_LIST } from '../actions/code-list'
-import {
-  NEW_CODE_LIST_SINGLE, NEW_CODE_LIST_MULTIPLE
-} from '../actions/response-format'
+import { NEW_CODE_LIST_FORMAT } from '../actions/response-format'
 
 import {
   CREATE_QUESTIONNAIRE, LOAD_QUESTIONNAIRE_SUCCESS
@@ -24,8 +22,7 @@ export default function (state={}, action) {
         ...state,
         [payload.id]: []
       }
-    case NEW_CODE_LIST_SINGLE:
-    case NEW_CODE_LIST_MULTIPLE:
+    case NEW_CODE_LIST_FORMAT:
       return {
        ...state,
         [payload.qrId]: [...state[payload.qrId], payload.createdClId]

@@ -2,9 +2,7 @@ import {
   CREATE_CODE_LIST, REMOVE_CODE_LIST, LOAD_CODE_LIST_SUCCESS, EDIT_CODE_LIST
 } from '../actions/code-list'
 
-import {
-  NEW_CODE_LIST_SINGLE, NEW_CODE_LIST_MULTIPLE
-} from '../actions/response-format'
+import {  NEW_CODE_LIST_FORMAT } from '../actions/response-format'
 import { CREATE_CODE, REMOVE_CODE } from '../actions/code'
 import {
   LOAD_CLIST_SPECS_SUCCESS
@@ -27,8 +25,7 @@ const emptyCodeList = {
 export default function (state={}, action) {
   const { type, payload } = action
   switch (type) {
-    case NEW_CODE_LIST_SINGLE:
-    case NEW_CODE_LIST_MULTIPLE:
+    case NEW_CODE_LIST_FORMAT:
       return {
         ...state,
         [payload.createdClId]: {

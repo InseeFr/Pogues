@@ -31,7 +31,7 @@ function ComponentEditor({
     if (type === QUESTION) {
       questionEl = <ResponseFormatPanel
         id={id}
-        responseFormat={responseFormat}
+        formats={responseFormat}
         locale={locale} qrId={qrId}/>
     }
 

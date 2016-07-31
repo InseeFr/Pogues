@@ -1,27 +1,26 @@
 import {
-  SWITCH_FORMAT, CHANGE_DATATYPE_PARAM, CHANGE_DATATYPE_NAME,
-  UPDATE_SINGLE, NEW_CODE_LIST_SINGLE,
-  UPDATE_MULTIPLE, NEW_CODE_LIST_MULTIPLE, SWITCH_BOOLEAN_MULTIPLE
+  SWITCH_FORMAT, UPDATE_FORMAT, UPDATE_DATATYPE,
+  NEW_CODE_LIST_FORMAT,
 } from '../actions/response-format'
 
 import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
 import { CREATE_COMPONENT } from '../actions/component'
 
 import { RESPONSE_FORMAT, COMPONENT_TYPE } from '../constants/pogues-constants'
-import { emptyTextDatatype, emptyDatatypeFactory } from './datatype-utils'
+import { emptyDatatypeFactory } from './datatype-utils'
 import { AXIS } from '../constants/pogues-constants'
 
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { INFO, MEASURE } = AXIS
+
 /**
  * Default value for a response format. We create an entry for each type of
  * format. This will allow recovering of previously filled parameters if the
  * user mistakenly switches between format types.
- * @type {Object}
  */
 const emptyFormat = {
   type: SIMPLE,
-  [SIMPLE]: emptyTextDatatype,
+  [SIMPLE]: emptyDatatypeFactory,
   [SINGLE]: {
     codeListReference: '',
     visHint: ''
@@ -39,7 +38,7 @@ const emptyFormat = {
 }
 
 /**
- * Produce a reducing function from a format update function
+ * Produce a reducing function from a function that updates a response format
  *
  * It takes a function that updates a format based on an action payload and
  * produces a reducing function that takes all the response formats and updates
@@ -49,9 +48,7 @@ const emptyFormat = {
  *
  * The reducing function is not attached to a special type of format: if an
  * action assigned to this function is dispatched, then it should make sense for
- * the current type. An other option would be to process not the format
- * corresponding to the current type, but the format this function has been
- * registered for.
+ * the current type.
  *
  * @param  {Function} fn Function that updates a format based on a payload
  * @return {Function}    A reducing function for the `response-format-by-id`
@@ -66,7 +63,7 @@ function fromFormatHndlr(fn) {
       ...formats,
       [id]: {
         ...format,
-        [type]: fn(format[type], payload)
+        [type]: fn(format[type], payload, type)
       }
     }
   }
@@ -75,14 +72,10 @@ function fromFormatHndlr(fn) {
 const actionsHndlrs = {
   [CREATE_COMPONENT]: createComponent,
   [SWITCH_FORMAT]: switchFormat,
-  [CHANGE_DATATYPE_PARAM]: fromFormatHndlr(changeDatatypeParam),
-  [CHANGE_DATATYPE_NAME]: fromFormatHndlr(changeDatatypeName),
-  [UPDATE_SINGLE]: fromFormatHndlr(updateSingle),
-  [UPDATE_MULTIPLE]: fromFormatHndlr(updateMultiple),
-  [SWITCH_BOOLEAN_MULTIPLE]: fromFormatHndlr(switchBooleanMultiple),
-  [NEW_CODE_LIST_SINGLE]: fromFormatHndlr(newCodeListSingle),
-  [NEW_CODE_LIST_MULTIPLE]: fromFormatHndlr(newCodeListMultiple),
-  [LOAD_QUESTIONNAIRE_SUCCESS]: loadQuestionnaireSuccess
+  [UPDATE_DATATYPE]: fromFormatHndlr(updateDatatype),
+  [UPDATE_FORMAT]: fromFormatHndlr(updateFormat),
+  [NEW_CODE_LIST_FORMAT]: fromFormatHndlr(newCodeListFormat),
+  [LOAD_QUESTIONNAIRE_SUCCESS]: loadQuestionnaireSuccess,
 }
 
 export default function (state={}, action) {
@@ -90,16 +83,6 @@ export default function (state={}, action) {
   const { type, payload } = action
   const hndlr = actionsHndlrs[type]
   return hndlr ? hndlr(state, payload, action) : state
-}
-
-function switchFormat(formats, { id, type }) {
-  return {
-    ...formats,
-    [id]: {
-      ...formats[id],
-      type
-    }
-  }
 }
 
 function createComponent(formats, { id, type }) {
@@ -114,31 +97,43 @@ function createComponent(formats, { id, type }) {
   }
 }
 
-/**
- * Create a new code list and assign it to a SIMPLE format
- * @param  {Object} format               initial format
- * @param  {Object} payload              action payload
- * @param  {String} payload.createdClId  id of the code list to create
- * @return {Object}                      updated format
- */
-function newCodeListSingle(format, { createdClId }) {
+function switchFormat(formats, { id, type }) {
   return {
-    ...format,
-    codeListReference: createdClId
+    ...formats,
+    [id]: {
+      ...formats[id],
+      type
+    }
   }
 }
 
 /**
- * Update SINGLE format
+ * Update format
  *
- * Properties to update can include `codeListReference` and `visHint`
+ * Properties that can be updated depend on the target.
+ *
+ * For a SIMPLE format:
+ * - `typeName` ;
+ * - `length` when dealing with `TextDatatype` ;
+ * - `pattern` when dealing with `TextDatatype` ;
+ * - `min` when dealing with `NumericDatatype` ;
+ * - `max` when dealing with `NumericDatatype` ;
+ * - `precision` when dealing with `NumericDatatype`.
+ *
+ * For a single format: `visHint`.
+ *
+ * For a MUTLIPLE format: `infoCodeList`, `measureCodeList`,
+ *  `measureVisHint` and `switchBooleanMultiple`.
+ *
+ * For a TABLE format
  *
  * @param  {Object} format             initial format
  * @param  {Object} payload            action payload
  * @param  {String} payload.update     properties to update
  * @return {Object}                    updated format
  */
-function updateSingle(format, { update }) {
+
+function updateFormat(format, { update  }) {
   return {
     ...format,
     ...update

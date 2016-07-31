@@ -5,12 +5,10 @@ import {
 } from '../utils/constants-mapping'
 
 
-import { RESPONSE_FORMAT } from '../constants/pogues-constants'
-
 export default function ResponseFormatPicker(
-  { type, select, locale }) {
+  { type, types, select, locale }) {
 
-  const typeChoices = _.map(RESPONSE_FORMAT, typeName => (
+  const typeChoices = _.map(types, typeName => (
       <option key={typeName} value={typeName}>
         { locale[resFormatMap[typeName]]}
       </option>
@@ -29,5 +27,6 @@ export default function ResponseFormatPicker(
 ResponseFormatPicker.propTypes = {
   select: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
+  types: PropTypes.object.isRequired,
   locale: PropTypes.object.isRequired,
 }
