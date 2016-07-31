@@ -65,11 +65,13 @@ export function editComponent(cmpnt, { update }) {
 export function createOrRemoveSubEntity(arrName, op) {
   return function(cmpnt, id) {
     const ids = cmpnt[arrName]
+    let index
+    if (op === REMOVE) index = ids.indexOf(id)
     return {
       ...cmpnt,
       [arrName]: op === CREATE ?
-          [...ids, id] :
-          (ids.splice(ids.indexOf(id), 1), ids)
+        [...ids, id] :
+        [...ids.slice(0, index), ...ids.slice(index + 1)]
     }
   }
 }
