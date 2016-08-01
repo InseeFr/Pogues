@@ -190,7 +190,7 @@ function newCodeListFormat(format, { createdClId, ctx }, type) {
       measureCodeList: createdClId
     }
   }
-  if (type === MULTIPLE) {
+  if (type === TABLE) {
     return updateCodeListTable(format, createdClId, ctx)
   }
   return format
