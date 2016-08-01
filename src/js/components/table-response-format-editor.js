@@ -103,7 +103,6 @@ export default function TableResponseFormatEditor(
             updateDatatype={update => updateDatatype(update, index)}
             update={update => updateMeasure(update, index)}
             locale={locale}/>
-          <hr/>
         </div>
       ))
     }
