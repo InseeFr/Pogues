@@ -24,11 +24,8 @@ export default function Measure({
   //   <SingleMeasure measure={measure.single} />
   const selectFormat = type => update({ type })
   return (
-    <div className="panel panel-default">
-      <div className="panel-heading clearfix">
-        <h3 className="panel-title pull-left">Measure {index + 1}</h3>
-      </div>
-      <div className="panel-body">
+      <div>
+        <hr/>
         <div className="form-group">
           <label htmlFor="label" className="col-sm-3 control-label">
             Measure {index + 1}
@@ -49,10 +46,12 @@ export default function Measure({
           }
         </div>
         <div className="form-group">
-          <ResponseFormatPicker
-            type={type} types={RESPONSE_FORMAT_FOR_TABLE}
-            select={selectFormat}
-            locale={locale}/>
+          <div className="col-sm-5">
+            <ResponseFormatPicker
+              type={type} types={RESPONSE_FORMAT_FOR_TABLE}
+              select={selectFormat}
+              locale={locale} />
+          </div>
         </div>
         {
           type === SIMPLE ?
@@ -75,7 +74,6 @@ export default function Measure({
           </div>
         }
       </div>
-    </div>
   )
 }
 

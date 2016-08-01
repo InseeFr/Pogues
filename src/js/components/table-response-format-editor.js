@@ -20,74 +20,89 @@ export default function TableResponseFormatEditor(
 
   return (
     <div>
-      <CodeListSelector
-        id={firstInfoCodeList}
-        disabled={firstInfoAsAList}
-        title={"Axe d'information"}
-        select={firstInfoCodeList => updateFormat({ firstInfoCodeList })}
-        create={() => newCodeListFormat(FIRST_INFO)}
-        locale={locale} />
       <div className="form-group">
         <label htmlFor="firstInfoAsAList" className="col-sm-5 control-label">
-          Axis as a list
+          Format de l'axe principal
         </label>
-        <div className="col-sm-2">
-          <div className="checkbox">
-            <input type="checkbox" style={{ marginLeft: 0 }}
-              checked={firstInfoAsAList}
-              onChange={e =>
+        <div className="col-sm-7">
+          <label className="radio-inline">
+            <input type="radio" checked={!firstInfoAsAList}
+              onClick={e =>
+                updateFormat({ firstInfoAsAList: !e.target.checked })} />
+            Liste de codes
+          </label>
+          <label className="radio-inline">
+            <input type="radio" checked={firstInfoAsAList}
+              onClick={e =>
                 updateFormat({ firstInfoAsAList: e.target.checked })} />
+            Liste
+          </label>          
+        </div>
+      </div>{
+        !firstInfoAsAList &&
+        <CodeListSelector
+          id={firstInfoCodeList}
+          disabled={firstInfoAsAList}
+          title={"Axe principal"}
+          select={firstInfoCodeList => updateFormat({ firstInfoCodeList })}
+          create={() => newCodeListFormat(FIRST_INFO)}
+          locale={locale} />  
+      }
+
+      { firstInfoAsAList &&
+      <div>
+        <div className="form-group">
+          <label htmlFor="minimum"
+            className="col-sm-5 control-label">
+            {"Number of lines min."}
+          </label>
+          <div className="col-sm-2">
+            <input value={firstInfoMin}
+              disabled={!firstInfoAsAList}
+              onChange={e => updateFormat({ firstInfoMin: e.target.value })}
+              type="number" className="form-control" id="minimum" />
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="maximum"
+            className="col-sm-5 control-label">
+            {"Number of lines max."}
+          </label>
+          <div className="col-sm-2">
+            <input value={firstInfoMax}
+              disabled={!firstInfoAsAList}
+              onChange={e => updateFormat({ firstInfoMax: e.target.value })}
+              type="number" className="form-control" id="maximum" />
           </div>
         </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="minimum"
-          className="col-sm-offset-1 col-sm-5 control-label">
-          {"Number of lines min."}
-        </label>
-        <div className="col-sm-2">
-          <input value={firstInfoMin}
-            disabled={!firstInfoAsAList}
-            onChange={e => updateFormat({ firstInfoMin: e.target.value })}
-            type="number" className="form-control" id="minimum"
-            placeholder={5}/>
+    }
+    {
+     !firstInfoAsAList &&
+     <div className="form-group">
+      <label htmlFor="hasTwoInfoAxes" className="col-sm-5 control-label">
+      {"Ajouter un deuxième axe"}
+      </label>
+      <div className="col-sm-2">
+        <div className="checkbox">
+          <input type="checkbox" style={{ marginLeft: 0 }}
+            id="hasTwoInfoAxes"
+            checked={hasTwoInfoAxes}
+            onChange={e =>
+              updateFormat({ hasTwoInfoAxes: e.target.checked})}/>
         </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="maximum"
-          className="col-sm-offset-1 col-sm-5 control-label">
-          {"Number of lines max."}
-        </label>
-        <div className="col-sm-2">
-          <input value={firstInfoMax}
-            disabled={!firstInfoAsAList}
-            onChange={e => updateFormat({ firstInfoMax: e.target.value })}
-            type="number" className="form-control" id="maximum"
-            placeholder={10}/>
-        </div>
-      </div>
-    <hr/>
-      <div className="form-group">
-        <label htmlFor="firstInfoAsAList" className="col-sm-5 control-label">
-        {"Two informartion axes"}
-        </label>
-        <div className="col-sm-2">
-          <div className="checkbox">
-            <input type="checkbox" style={{ marginLeft: 0 }}
-              checked={hasTwoInfoAxes}
-              onChange={e =>
-                updateFormat({ hasTwoInfoAxes: e.target.checked})}/>
-          </div>
-        </div>
-      </div>
-      <CodeListSelector
-        id={scndInfoCodeList}
-        disabled={!hasTwoInfoAxes}
-        title={"Second information axis"}
-        select={scndInfoCodeList => updateFormat({ scndInfoCodeList })}
-        create={() => newCodeListFormat(SCND_INFO)}
-        locale={locale} />
-    <hr/>
+    </div>
+    }
+    { !firstInfoAsAList && hasTwoInfoAxes && 
+    <CodeListSelector
+      id={scndInfoCodeList}
+      disabled={!hasTwoInfoAxes}
+      title={"Second information axis"}
+      select={scndInfoCodeList => updateFormat({ scndInfoCodeList })}
+      create={() => newCodeListFormat(SCND_INFO)}
+      locale={locale} />
+    }
     {
       measures.map((measure, index) => (
         <div key={index}>

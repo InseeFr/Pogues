@@ -22,38 +22,40 @@ export default function MultipleResponseFormatEditor(
         select={infoCodeList => updateFormat({ infoCodeList })}
         create={() => newCodeListFormat(INFO)}
         locale={locale} />
-      <hr/>
-      <CodeListSelector
-        id={measureCodeList}
-        disabled={measureBoolean}
-        title={"Information mesurée"}
-        select={measureCodeList => updateFormat({ measureCodeList })}
-        create={() => newCodeListFormat(MEASURE)}
-        locale={locale} />
-      <VisHintPicker visHint={measureVisHint}
-        disabled={measureBoolean}
-        locale={locale}
-        select={measureVisHint => updateFormat({ measureVisHint })}/>
       <div className="form-group">
         <label htmlFor="visHint" className="col-sm-5 control-label">
-          Boolean
+          Format de l'information mesurée
         </label>
-        <div className="col-sm-2">
-          <div className="checkbox">
-            {/*
-              TODO improve style management
-                we use class "checkbox" to have the proper vertical
-                alignment (`padding: 7px;`) but we need to remove
-                `margin-left` since the class `chekbox` is intended
-                to make the label appear on the right side of the box
-            */}
-            <input type="checkbox" style={{ marginLeft: 0 }}
-              checked={measureBoolean}
-              onChange={e =>
+        <div className="col-sm-7">
+          <label className="radio-inline">
+            <input type="radio" checked={!measureBoolean}
+              onClick={e =>
+                updateFormat({ measureBoolean: !e.target.checked}) }/>
+            Liste de codes
+          </label>
+          <label className="radio-inline">
+            <input type="radio" checked={measureBoolean}
+              onClick={e =>
                 updateFormat({ measureBoolean: e.target.checked}) }/>
-          </div>
+            Booléen
+          </label>
         </div>
       </div>
+      { !measureBoolean && 
+      <div>
+        <CodeListSelector
+          id={measureCodeList}
+          disabled={measureBoolean}
+          title={"Information mesurée"}
+          select={measureCodeList => updateFormat({ measureCodeList })}
+          create={() => newCodeListFormat(MEASURE)}
+          locale={locale} />
+        <VisHintPicker visHint={measureVisHint}
+          disabled={measureBoolean}
+          locale={locale}
+          select={measureVisHint => updateFormat({ measureVisHint })}/>        
+      </div>
+      }
     </div>
   )
 }

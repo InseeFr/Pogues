@@ -28,7 +28,7 @@ export default function TextDatatypeEditor(
         <label htmlFor="length" className="col-sm-2 control-label">
           {locale.pattern}
         </label>
-        <div className="col-sm-3">
+        <div className="col-sm-5">
           <input type="text" value={pattern} 
                 className="form-control" id="pattern"
                 placeholder={locale.pattern}

@@ -177,3 +177,7 @@ h4.question-header {
   font-weight: normal;
 
 }
+
+hr {
+  border-top: 2px solid #bbb;
+}

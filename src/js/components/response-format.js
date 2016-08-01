@@ -37,10 +37,15 @@ function ResponseFormat(
   return (
     <div className="form-horizontal">
       <div className="form-group">
-        <ResponseFormatPicker
-          types={RESPONSE_FORMAT}
-          type={type} locale={locale}
-          select={type => switchFormat(id, type)} />
+        <label className="col-sm-3 control-label">
+          Format des réponses
+        </label>
+        <div className="col-sm-4">
+          <ResponseFormatPicker
+            types={RESPONSE_FORMAT}
+            type={type} locale={locale}
+            select={type => switchFormat(id, type)} />
+        </div>
       </div>
       <ResponseFormatEditor format={format}
         id={id}

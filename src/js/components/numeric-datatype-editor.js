@@ -21,7 +21,7 @@ export default function NumericDatatypeEditor(
         <label htmlFor="minimum" className="col-sm-2 control-label">
           {locale.minimum}
         </label>
-        <div className="col-sm-2">
+        <div className="col-sm-5">
           <input value={minimum}
             onChange={e => edit({ minimum: e.target.value })}
             type="number" className="form-control" id="minimum"
@@ -32,7 +32,7 @@ export default function NumericDatatypeEditor(
         <label htmlFor="maximum" className="col-sm-2 control-label">
           {locale.maximum}
         </label>
-        <div className="col-sm-2">
+        <div className="col-sm-5">
           <input value={maximum}
             onChange={e => edit({ maximum: e.target.value })}
             type="number" className="form-control" id="maximum"
@@ -43,7 +43,7 @@ export default function NumericDatatypeEditor(
         <label htmlFor="decimals" className="col-sm-2 control-label">
           {locale.decimals}
         </label>
-        <div className="col-sm-2">
+        <div className="col-sm-5">
           <input value={decimals}
             onChange={e => edit({ decimals: e.target.value })}
             type="number" className="form-control" id="minimum"

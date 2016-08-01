@@ -15,12 +15,10 @@ export default function ResponseFormatPicker(
   ))
 
   return (
-      <div className="col-sm-6">
-        <select className="form-control" value={type}
-          onChange={e => select(e.target.value)}>
-          { typeChoices }
-        </select>
-      </div>
+    <select className="form-control" value={type}
+      onChange={e => select(e.target.value)}>
+      { typeChoices }
+    </select>
   )
 }
 
