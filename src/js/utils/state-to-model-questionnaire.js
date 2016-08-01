@@ -220,7 +220,7 @@ export default function toModel(state, qrId) {
       }
       return {
         responses: Array(nbRows).fill(response),
-        responseStructures: {
+        responseStructure: {
           dimensions: [{
             type: PRIMARY,
             dynamic: 0,
@@ -234,20 +234,20 @@ export default function toModel(state, qrId) {
     }
     if (type === TABLE) {
       const { firstInfoAsAList, measures } = format
-      let nbRowsPerMeasure, infoResponseStructures
+      let nbRowsPerMeasure, infoDimensions
       //TODO check this asumption: if `firstInfoAsAList` is set to true, there
       //cannot be any second information axis
       if (firstInfoAsAList) {
         const { firstInfoMin, firstInfoMax } = format
         nbRowsPerMeasure = Number(firstInfoMax)
-        infoResponseStructures = [{
+        infoDimensions = [{
           type: PRIMARY,
           dynamic: `${firstInfoMin}-${firstInfoMax}`
         }]
       }
       else {
         const { firstInfoCodeList: codeListReference } = format
-        infoResponseStructures = [{
+        infoDimensions = [{
           type: PRIMARY,
           dynamic: 0,
           codeListReference
@@ -255,7 +255,7 @@ export default function toModel(state, qrId) {
         nbRowsPerMeasure = nbCodesFromId(codeListById, codeListReference)
         if (format.hasTwoInfoAxes) {
           const { scndInfoCodeList: codeListReference } = format
-          infoResponseStructures.push({
+          infoDimensions.push({
             type: SECONDARY,
             dynamic: 0,
             codeListReference
@@ -265,22 +265,24 @@ export default function toModel(state, qrId) {
         }
       }
 
-      const { responses, responseStructures } = measures.reduce(
-        ({ responses, responseStructures }, measure) => {
+      const { responses, dimensions } = measures.reduce(
+        ({ responses, dimensions }, measure) => {
         return {
           responses: responses.concat(
             Array(nbRowsPerMeasure).fill(oneResponseFromMeasure(measure))),
-          responseStructures: responseStructures.concat({
+          dimensions: dimensions.concat({
             type: MEASURE,
             dynamic: 0,
             label: measure.label
           })
         }
-      }, { responses: [], responseStructures: infoResponseStructures })
+      }, { responses: [], dimensions: infoDimensions })
 
       return {
         responses,
-        responseStructures
+        responseStructure: {
+          dimensions
+        }
       }
     }
 
