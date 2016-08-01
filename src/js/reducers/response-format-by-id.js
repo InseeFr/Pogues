@@ -5,6 +5,7 @@ import {
   ADD_MEASURE, REMOVE_MEASURE
 } from '../actions/response-format'
 
+import { emptyFormat } from '../utils/format-utils'
 import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
 import { CREATE_COMPONENT } from '../actions/component'
 
@@ -15,43 +16,6 @@ import { AXIS, DATATYPE_VIS_HINT } from '../constants/pogues-constants'
 const { CHECKBOX } = DATATYPE_VIS_HINT
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { INFO, MEASURE, FIRST_INFO, SCND_INFO } = AXIS
-
-/**
- * Default value for a response format. We create an entry for each type of
- * format. This will allow recovering of previously filled parameters if the
- * user mistakenly switches between format types.
- */
-const emptyFormat = {
-  type: SIMPLE,
-  [SIMPLE]: emptyDatatypeFactory,
-  [SINGLE]: {
-    codeListReference: '',
-    visHint: CHECKBOX
-  },
-  [MULTIPLE]: {
-    infoCodeList: '',
-    measureBoolean: false,
-    measureCodeList: '',
-    measureVisHint: CHECKBOX
-  },
-  [TABLE]: {
-    firstInfoCodeList: '',
-    firstInfoAsAList: false,
-    firstInfoMin: '',
-    firstInfoMax: '',
-    hasTwoInfoAxes: false,
-    scndInfoCodeList: '',
-    measures: [{
-      type: SIMPLE,
-      label: '',
-      [SIMPLE]: emptyDatatypeFactory,
-      [SINGLE]: {
-        codeListReference: '',
-        visHint: CHECKBOX
-      }
-    }]
-  }
-}
 
 /**
  * Produce a reducing function from a function that updates a response format

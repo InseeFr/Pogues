@@ -1,10 +1,9 @@
 import { uuid } from '../utils/data-utils'
-
+import { removeLeading_ } from '../utils/data-utils'
+import { parseResponseFormat } from '../utils/parse-response-format'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
-import { removeLeading_ } from '../utils/data-utils'
-
 
 /**
  * Creates an update to apply to the reducer when receiving a questionnaire
@@ -17,6 +16,7 @@ import { removeLeading_ } from '../utils/data-utils'
  */
 export default function toState(_model) {
   // We use a closure around ...ById to avoid repetition
+
   const model = removeLeading_(_model)
   const componentById = {}
   const controlById = {}
@@ -86,8 +86,8 @@ export default function toState(_model) {
   function toQuestion(question) {
     //TODO solve unconsistencies between QuestionType/SequenceType in the model
     //and QUESTION and SEQUENCE constants elsewhere in Pogues
-    const { id, simple, responseFormat } = question
-    toResponseFormat(id, responseFormat)
+    const { id, simple } = question
+    toResponseFormat(id, question)
     componentById[id] = {
       ...componentById[id],// already a component
       simple,
@@ -96,10 +96,11 @@ export default function toState(_model) {
     return id
   }
 
-  function toResponseFormat(id, responseFormat) {
-    responseFormatById[id] = responseFormat
-    return id
-  }
+function toResponseFormat(id, question) {
+  responseFormatById[id] = parseResponseFormat(question)
+  return id
+}
+
 
   function toGoTo(goTo) {
     const { id, description, expression, ifTrue } = goTo
