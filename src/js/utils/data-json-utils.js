@@ -24,7 +24,8 @@ const RENAME_MAPPING = {
   '_goTos' : 'GoTo',
   '_members': 'Member',
   '_responses': 'Response',
-  '_responseStructures': 'ResponseStructure',
+  '_responseStructure': 'ResponseStructure',
+  '_dimensions': 'Dimension',
   '_values': 'Value',
   '_visHint': 'VisualizationHint'
   };
@@ -72,7 +73,7 @@ const MAPPING = {
   '_goTos': 'ARRAY',
   '_members': 'ARRAY',
   '_responses': 'ARRAY',
-  '_responseStructures': 'ARRAY',
+  '_dimensions': 'ARRAY',
   '_values': 'ARRAY',
   '_codeLists': 'OBJECT',
   '_datatype': 'OBJECT'
