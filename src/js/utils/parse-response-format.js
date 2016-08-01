@@ -21,6 +21,11 @@ const { BOOLEAN } = DATATYPE_NAME
 const { CHECKBOX } = DATATYPE_VIS_HINT
 
 export function parseResponseFormat(question) {
+  // some old questionnaires do not have any response, but it is not possible
+  // after we add support for complex response formats.
+  if (!question.responses || question.responses.length === 0) {
+    return emptyFormat
+  }
   // if there is no `ResponseStructure`, it is a SIMPLE or SINGLE response
   // format
   if (!question.hasOwnProperty('responseStructure')) {
