@@ -25,7 +25,7 @@ export default function SimpleResponseFormatEditor(
         locale={locale} />
       <div className="col-sm-offset-2">
         { DatatypeEditor &&
-          <DatatypeEditor datatype={format}
+          <DatatypeEditor datatype={format[typeName]}
             edit={update => updateDatatype(update)} locale={locale} />
         }
     </div>
