@@ -239,7 +239,12 @@ export default function toModel(state, qrId) {
       //cannot be any second information axis
       if (firstInfoAsAList) {
         const { firstInfoMin, firstInfoMax } = format
-        nbRowsPerMeasure = Number(firstInfoMax)
+        // The maximum number of lines is used to generate the right number of
+        // responses. If this information has not been filled in, of if it is
+        // zero, we will still generate one resopnse per measure to be able to
+        // recover information about the dataype and the possible code list
+        // reference assigned to this measure.
+        nbRowsPerMeasure = Number(firstInfoMax) || 1
         infoDimensions = [{
           type: PRIMARY,
           dynamic: `${firstInfoMin}-${firstInfoMax}`
