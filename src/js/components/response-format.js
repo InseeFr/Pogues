@@ -46,7 +46,7 @@ function ResponseFormat(
         id={id}
         qrId={qrId}
         updateFormat={update => updateFormat(id, update)}
-        newCodeListFormat={() => newCodeListFormat(id, qrId)}
+        newCodeListFormat={ctx => newCodeListFormat(id, qrId, ctx)}
         updateMeasure={(update, index) => updateMeasure(id, update, index)}
         updateDatatype={(update, ctx) => updateDatatype(id, update, ctx)}
         updateMeasureFormat={(update, index) =>

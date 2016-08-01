@@ -42,6 +42,7 @@ export const newCodeListFormat = (id, qrId, ctx) => ({
   payload: {
     id,
     qrId,
+    ctx,
     createdClId: uuid()
   }
 })
