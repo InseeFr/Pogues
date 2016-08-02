@@ -20,15 +20,20 @@ export default function SimpleResponseFormatEditor(
   const DatatypeEditor = datatypeEditors[typeName]
   return (
     <div>
-      <DatatypePicker typeName={typeName}
-        select={typeName => updateFormat({ typeName })}
-        locale={locale} />
-      <div className="col-sm-offset-2">
-        { DatatypeEditor &&
+      <div className="form-group">
+        <label className="col-sm-5 control-label">
+          {locale.responseType}
+        </label>
+        <div className="col-sm-4">
+          <DatatypePicker typeName={typeName}
+            select={typeName => updateFormat({ typeName })}
+            locale={locale} />
+        </div>
+      </div>
+      { DatatypeEditor &&
           <DatatypeEditor datatype={format[typeName]}
             edit={update => updateDatatype(update)} locale={locale} />
-        }
-    </div>
+      }
     </div>
   )
 }
