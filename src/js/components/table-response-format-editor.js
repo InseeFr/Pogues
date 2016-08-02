@@ -24,27 +24,27 @@ export default function TableResponseFormatEditor(
     <div>
       <div className="form-group">
         <label htmlFor="firstInfoAsAList" className="col-sm-5 control-label">
-          Format de l'axe principal
+          {locale.primaryFormat}
         </label>
         <div className="col-sm-7">
           <label className="radio-inline">
             <input type="radio" checked={!firstInfoAsAList}
               onChange={e =>
                 updateFormat({ firstInfoAsAList: !e.target.checked })} />
-            Liste de codes
+            {locale.codeList}
           </label>
           <label className="radio-inline">
             <input type="radio" checked={firstInfoAsAList}
               onChange={e =>
                 updateFormat({ firstInfoAsAList: e.target.checked })} />
-            Liste
+            {locale.list}
           </label>          
         </div>
       </div>{
         !firstInfoAsAList &&
         <div className="form-group">
           <label htmlFor="codeList" className="col-sm-5 control-label">
-            Axe principal
+            {locale.primaryAxis}
           </label>
           <div className="col-sm-7">
             <CodeListSelector
@@ -62,7 +62,7 @@ export default function TableResponseFormatEditor(
         <div className="form-group">
           <label htmlFor="minimum"
             className="col-sm-5 control-label">
-            {"Number of lines min."}
+            {locale.minRowNb}
           </label>
           <div className="col-sm-2">
             <input value={firstInfoMin}
@@ -74,7 +74,7 @@ export default function TableResponseFormatEditor(
         <div className="form-group">
           <label htmlFor="maximum"
             className="col-sm-5 control-label">
-            {"Number of lines max."}
+            {locale.maxRowNb}
           </label>
           <div className="col-sm-2">
             <input value={firstInfoMax}
@@ -87,27 +87,27 @@ export default function TableResponseFormatEditor(
     }
     <div className="form-group">
      <label className="col-sm-5 control-label">
-       Total en ligne
+       {locale.rowTotal}
      </label>
      <div className="col-sm-7">
        <label className="radio-inline">
          <input type="radio" checked={firstInfoTotal}
            onChange={e =>
              updateFormat({ firstInfoTotal: e.target.checked })} />
-         Oui
+         {locale.yes}
        </label>
        <label className="radio-inline">
          <input type="radio" checked={!firstInfoTotal}
            onChange={e =>
              updateFormat({ firstInfoTotal: !e.target.checked })} />
-         Non
+         {locale.no}
        </label>          
      </div>
     </div>
     { firstInfoTotal && 
       <div className="form-group">
        <label className="col-sm-5 control-label">
-         Libellé du total en ligne
+         {locale.rowTotalLabel}
        </label>
        <div className="col-sm-7">
          <input type="text" value={firstInfoTotalLabel} 
@@ -122,7 +122,7 @@ export default function TableResponseFormatEditor(
      !firstInfoAsAList &&
      <div className="form-group">
       <label htmlFor="hasTwoInfoAxes" className="col-sm-5 control-label">
-      {"Ajouter un deuxième axe"}
+      {locale.addScndAxis}
       </label>
       <div className="col-sm-2">
         <div className="checkbox">
@@ -139,7 +139,7 @@ export default function TableResponseFormatEditor(
       <div>
         <div className="form-group">
           <label htmlFor="codeList" className="col-sm-5 control-label">
-            Second information axis
+            {locale.scndInfoAxis}
           </label>
           <div className="col-sm-7">
             <CodeListSelector
@@ -152,27 +152,27 @@ export default function TableResponseFormatEditor(
         </div>
         <div className="form-group">
          <label className="col-sm-5 control-label">
-           Total en colonne
+           {locale.columnTotal}
          </label>
          <div className="col-sm-7">
            <label className="radio-inline">
              <input type="radio" checked={scndInfoTotal}
                onChange={e =>
                  updateFormat({ scndInfoTotal: e.target.checked })} />
-             Oui
+             {locale.yes}
            </label>
            <label className="radio-inline">
              <input type="radio" checked={!scndInfoTotal}
                onChange={e =>
                  updateFormat({ scndInfoTotal: !e.target.checked })} />
-             Non
+             {locale.no}
            </label>          
          </div>
         </div>
         { scndInfoTotal && 
           <div className="form-group">
            <label className="col-sm-5 control-label">
-             Libellé du total en colonne
+             {locale.columnTotalLabel}
            </label>
            <div className="col-sm-7">
              <input type="text" value={scndInfoTotalLabel} 

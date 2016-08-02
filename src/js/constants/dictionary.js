@@ -147,5 +147,85 @@ export default {
   responseFormatTable: {
     'fr': 'Tableau',
     'en': 'Table'
+  },
+  primaryFormat: {
+    'fr': 'Format de l\'axe principal',
+    'en': 'Primary axis format'
+  },
+  primaryAxis: {
+    'fr': 'Axe principal',
+    'en': 'Primary axis'
+  },
+  codeList: {
+    'fr': 'Liste de codes',
+    'en': 'Code list'
+  },
+  list: {
+    'fr': 'Liste',
+    'en': 'List'
+  },
+  minRowNb: {
+    'fr': 'Nombre de lignes min.',
+    'en': 'Number of lines min.'
+  },
+  maxRowNb: {
+    'fr': 'Nombre de lignes max.',
+    'en': 'Number of lines max.'
+  },
+  rowTotal: {
+    'fr': 'Total ligne',
+    'en': 'Row total'
+  },
+  rowTotalLabel: {
+    'fr': 'Libellé du total en ligne',
+    'en': 'Row total label'
+  },
+  columnTotal: {
+    'fr': 'Total colonne',
+    'en': 'Column total'
+  },
+  columnTotalLabel: {
+    'fr': 'Libellé du total en colonne',
+    'en': 'Column total label'
+  },
+  addScndAxis: {
+    'fr': 'Ajouter un axe secondaire',
+    'en': 'Add a secondary axis'
+  },
+  scndInfoAxis: {
+    'fr': 'Axe d\'information secondaire',
+    'en': 'Second information axis'
+  },
+  yes: {
+    'fr': 'Oui',
+    'en': 'Yes'
+  },
+  no: {
+    'fr': 'Non',
+    'en': 'No'
+  },
+  infoAxis: {
+    'fr': 'Axe d\'information',
+    'en': 'Information axis'
+  },
+  measureFormat: {
+    'fr': 'Format de l\'information mesurée',
+    'en': 'Measure format'
+  },
+  boolean: {
+    'fr': 'Booléen',
+    'en': 'Boolean'
+  },
+  measureInfo: {
+    'fr': 'Information mesurée',
+    'en': 'Measure'
+  },
+  responseFormats: {
+    'fr': 'Format des réponses',
+    'en': 'Response formats'
+  },
+  addMeasure: {
+    'fr': 'Ajouter une mesure',
+    'en': 'Add a measure'
   }
 }

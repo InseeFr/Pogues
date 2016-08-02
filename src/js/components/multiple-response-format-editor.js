@@ -18,7 +18,7 @@ export default function MultipleResponseFormatEditor(
     <div>
       <div className="form-group">
         <label htmlFor="codeList" className="col-sm-5 control-label">
-          Axe d'information
+          {locale.infoAxis}
         </label>
         <div className="col-sm-7">
           <CodeListSelector
@@ -31,20 +31,20 @@ export default function MultipleResponseFormatEditor(
 
       <div className="form-group">
         <label htmlFor="visHint" className="col-sm-5 control-label">
-          Format de l'information mesurée
+          {locale.measureFormat}
         </label>
         <div className="col-sm-7">
           <label className="radio-inline">
             <input type="radio" checked={!measureBoolean}
               onChange={e =>
                 updateFormat({ measureBoolean: !e.target.checked}) }/>
-            Liste de codes
+            {locale.codeList}
           </label>
           <label className="radio-inline">
             <input type="radio" checked={measureBoolean}
               onChange={e =>
                 updateFormat({ measureBoolean: e.target.checked}) }/>
-            Booléen
+            {locale.boolean}
           </label>
         </div>
       </div>
@@ -52,7 +52,7 @@ export default function MultipleResponseFormatEditor(
       <div>
         <div className="form-group">
           <label htmlFor="codeList" className="col-sm-5 control-label">
-            Information mesurée
+            {locale.measureInfo}
           </label>
           <div className="col-sm-7">
             <CodeListSelector

@@ -38,7 +38,7 @@ function ResponseFormat(
     <div className="form-horizontal">
       <div className="form-group">
         <label className="col-sm-3 control-label">
-          Format des réponses
+          {locale.responseFormats}
         </label>
         <div className="col-sm-4">
           <ResponseFormatPicker

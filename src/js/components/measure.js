@@ -28,7 +28,7 @@ export default function Measure({
         <hr/>
         <div className="form-group">
           <label htmlFor="label" className="col-sm-5 control-label">
-            Measure {index + 1}
+            {locale.measureInfo} {index + 1}
           </label>
           <div className="col-sm-5">
             <input value={label}
@@ -47,7 +47,7 @@ export default function Measure({
         </div>
         <div className="form-group">
           <label htmlFor="label" className="col-sm-5 control-label">
-            Format des réponses
+            {locale.responseFormats}
           </label>
           <div className="col-sm-5">
             <ResponseFormatPicker
@@ -71,7 +71,7 @@ export default function Measure({
             <div className="col-sm-offset-9 col-sm-3">
               <button className="btn btn-default form-control"
                 onClick={addMeasure}>
-              {"Add a measure"}
+              {locale.addMeasure}
               </button>
             </div>
           </div>
