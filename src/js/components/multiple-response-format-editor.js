@@ -16,12 +16,19 @@ export default function MultipleResponseFormatEditor(
 
   return (
     <div>
-      <CodeListSelector
-        id={infoCodeList}
-        title={"Axe d'information"}
-        select={infoCodeList => updateFormat({ infoCodeList })}
-        create={() => newCodeListFormat(INFO)}
-        locale={locale} />
+      <div className="form-group">
+        <label htmlFor="codeList" className="col-sm-5 control-label">
+          Axe d'information
+        </label>
+        <div className="col-sm-7">
+          <CodeListSelector
+            id={infoCodeList}
+            select={infoCodeList => updateFormat({ infoCodeList })}
+            create={() => newCodeListFormat(INFO)}
+            locale={locale} />
+        </div>
+      </div>
+
       <div className="form-group">
         <label htmlFor="visHint" className="col-sm-5 control-label">
           Format de l'information mesurée
@@ -43,13 +50,19 @@ export default function MultipleResponseFormatEditor(
       </div>
       { !measureBoolean && 
       <div>
-        <CodeListSelector
-          id={measureCodeList}
-          disabled={measureBoolean}
-          title={"Information mesurée"}
-          select={measureCodeList => updateFormat({ measureCodeList })}
-          create={() => newCodeListFormat(MEASURE)}
-          locale={locale} />
+        <div className="form-group">
+          <label htmlFor="codeList" className="col-sm-5 control-label">
+            Information mesurée
+          </label>
+          <div className="col-sm-7">
+            <CodeListSelector
+              id={measureCodeList}
+              disabled={measureBoolean}
+              select={measureCodeList => updateFormat({ measureCodeList })}
+              create={() => newCodeListFormat(MEASURE)}
+              locale={locale} />
+            </div>
+        </div>
         <VisHintPicker visHint={measureVisHint}
           disabled={measureBoolean}
           locale={locale}

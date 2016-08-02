@@ -44,31 +44,24 @@ export default class CodeListSelector extends Component {
 
   render() {
     const {
-      codeLists, id, title, isSpec, edited, locale, select, create, disabled
+      codeLists, id, isSpec, edited, locale, select, create, disabled
     } = this.props
 
     return (
       <div>
-        <div className="form-group">
-          <label htmlFor="codeList" className="col-sm-5 control-label">
-            {title}
-          </label>
-          <div className="col-sm-6">
-          {/* do not add `input-group` class if there is no addon since the
-              input width won't be 100% */}
-           <div className={ id && 'input-group'}>
-              <CodeListPicker id={id} codeLists={codeLists}
-                select={select}
-                disabled={disabled}
-                create={this.create} locale={locale} />
-              {
-              id &&
-                <EditCodeListButton
-                  edited={this.state.edited} isSpec={isSpec}
-                  toggle={this.toggleEdit} />
-              }
-            </div>
-          </div>
+        {/* do not add `input-group` class if there is no addon since the
+            input width won't be 100% */}
+         <div className={ id && 'input-group'}>
+            <CodeListPicker id={id} codeLists={codeLists}
+              select={select}
+              disabled={disabled}
+              create={this.create} locale={locale} />
+            {
+            id &&
+              <EditCodeListButton
+                edited={this.state.edited} isSpec={isSpec}
+                toggle={this.toggleEdit} />
+            }
         </div>
       { this.state.edited && id &&
         <CodeListEditor id={id} locale={locale} />

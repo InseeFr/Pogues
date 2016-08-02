@@ -40,13 +40,19 @@ export default function TableResponseFormatEditor(
         </div>
       </div>{
         !firstInfoAsAList &&
-        <CodeListSelector
-          id={firstInfoCodeList}
-          disabled={firstInfoAsAList}
-          title={"Axe principal"}
-          select={firstInfoCodeList => updateFormat({ firstInfoCodeList })}
-          create={() => newCodeListFormat(FIRST_INFO)}
-          locale={locale} />  
+        <div className="form-group">
+          <label htmlFor="codeList" className="col-sm-5 control-label">
+            Axe principal
+          </label>
+          <div className="col-sm-7">
+            <CodeListSelector
+              id={firstInfoCodeList}
+              disabled={firstInfoAsAList}
+              select={firstInfoCodeList => updateFormat({ firstInfoCodeList })}
+              create={() => newCodeListFormat(FIRST_INFO)}
+              locale={locale} />
+          </div>
+        </div>
       }
 
       { firstInfoAsAList &&
@@ -95,13 +101,19 @@ export default function TableResponseFormatEditor(
     </div>
     }
     { !firstInfoAsAList && hasTwoInfoAxes && 
-    <CodeListSelector
-      id={scndInfoCodeList}
-      disabled={!hasTwoInfoAxes}
-      title={"Second information axis"}
-      select={scndInfoCodeList => updateFormat({ scndInfoCodeList })}
-      create={() => newCodeListFormat(SCND_INFO)}
-      locale={locale} />
+      <div className="form-group">
+        <label htmlFor="codeList" className="col-sm-5 control-label">
+          Second information axis
+        </label>
+        <div className="col-sm-7">
+          <CodeListSelector
+            id={scndInfoCodeList}
+            disabled={!hasTwoInfoAxes}
+            select={scndInfoCodeList => updateFormat({ scndInfoCodeList })}
+            create={() => newCodeListFormat(SCND_INFO)}
+            locale={locale} />
+        </div>
+      </div>
     }
     {
       measures.map((measure, index) => (

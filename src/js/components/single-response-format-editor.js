@@ -8,12 +8,18 @@ export default function SingleResponseFormatEditor(
   updateFormat, newCodeListFormat, locale }) {
   return (
     <div>
-      <CodeListSelector
-        id={codeListReference}
-        title={locale.selectCl}
-        select={codeListReference => updateFormat({ codeListReference })}
-        create={() => newCodeListFormat()}
-        locale={locale} />
+      <div className="form-group">
+        <label htmlFor="codeList" className="col-sm-5 control-label">
+          {locale.selectCl}
+        </label>
+        <div className="col-sm-7">
+          <CodeListSelector
+            id={codeListReference}
+            select={codeListReference => updateFormat({ codeListReference })}
+            create={() => newCodeListFormat()}
+            locale={locale} />
+        </div>
+      </div>
       <VisHintPicker visHint={visHint}
         locale={locale}
         select={visHint => updateFormat({ visHint })}/>
