@@ -141,9 +141,8 @@ export default function toModel(state, qrId) {
   }
 
   function fromQuestion(questionId) {
-    const { simple, responses } = componentById[questionId]
+    const { responses } = componentById[questionId]
     return {
-      simple,
       // create `responses` and `responseStructures` entries (these will be
       // transformed into `Response` and `QuestionStructure` elements in the
       // XML representation of Pogues Model)

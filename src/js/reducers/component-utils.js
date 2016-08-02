@@ -23,7 +23,6 @@ const emptySequence = {
 }
 
 const emptyQuestion = {
-  simple: true,
   type: QUESTION
   // responses will be initialized when we create a question 
 }
