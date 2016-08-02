@@ -86,11 +86,9 @@ export default function toState(_model) {
   function toQuestion(question) {
     //TODO solve unconsistencies between QuestionType/SequenceType in the model
     //and QUESTION and SEQUENCE constants elsewhere in Pogues
-    const { id, simple } = question
     toResponseFormat(id, question)
     componentById[id] = {
       ...componentById[id],// already a component
-      simple,
       type: QUESTION
     }
     return id
