@@ -29,13 +29,13 @@ export default function MultipleResponseFormatEditor(
         <div className="col-sm-7">
           <label className="radio-inline">
             <input type="radio" checked={!measureBoolean}
-              onClick={e =>
+              onChange={e =>
                 updateFormat({ measureBoolean: !e.target.checked}) }/>
             Liste de codes
           </label>
           <label className="radio-inline">
             <input type="radio" checked={measureBoolean}
-              onClick={e =>
+              onChange={e =>
                 updateFormat({ measureBoolean: e.target.checked}) }/>
             Booléen
           </label>
