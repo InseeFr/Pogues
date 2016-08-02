@@ -78,7 +78,8 @@ const MAPPING = {
   '_dimensions': 'ARRAY',
   '_values': 'ARRAY',
   '_codeLists': 'OBJECT',
-  '_datatype': 'OBJECT'
+  '_datatype': 'OBJECT',
+  '_totalLabel': 'SIMPLE'
 };
 
 const factory = {

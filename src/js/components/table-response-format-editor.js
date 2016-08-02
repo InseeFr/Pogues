@@ -14,6 +14,8 @@ export default function TableResponseFormatEditor(
 
   const {
     firstInfoCodeList, firstInfoAsAList, firstInfoMin, firstInfoMax,
+    firstInfoTotal, firstInfoTotalLabel,
+    scndInfoTotal, scndInfoTotalLabel,
     hasTwoInfoAxes, scndInfoCodeList,
     measures
   } = format
@@ -83,6 +85,39 @@ export default function TableResponseFormatEditor(
         </div>
       </div>
     }
+    <div className="form-group">
+     <label className="col-sm-5 control-label">
+       Total en ligne
+     </label>
+     <div className="col-sm-7">
+       <label className="radio-inline">
+         <input type="radio" checked={firstInfoTotal}
+           onChange={e =>
+             updateFormat({ firstInfoTotal: e.target.checked })} />
+         Oui
+       </label>
+       <label className="radio-inline">
+         <input type="radio" checked={!firstInfoTotal}
+           onChange={e =>
+             updateFormat({ firstInfoTotal: !e.target.checked })} />
+         Non
+       </label>          
+     </div>
+    </div>
+    { firstInfoTotal && 
+      <div className="form-group">
+       <label className="col-sm-5 control-label">
+         Libellé du total en ligne
+       </label>
+       <div className="col-sm-7">
+         <input type="text" value={firstInfoTotalLabel} 
+           className="form-control" id="pattern"
+           placeholder={locale.label}
+           onChange={e => updateFormat({ firstInfoTotalLabel: e.target.value })}
+        />
+      </div>
+    </div>
+    }
     {
      !firstInfoAsAList &&
      <div className="form-group">
@@ -101,18 +136,53 @@ export default function TableResponseFormatEditor(
     </div>
     }
     { !firstInfoAsAList && hasTwoInfoAxes && 
-      <div className="form-group">
-        <label htmlFor="codeList" className="col-sm-5 control-label">
-          Second information axis
-        </label>
-        <div className="col-sm-7">
-          <CodeListSelector
-            id={scndInfoCodeList}
-            disabled={!hasTwoInfoAxes}
-            select={scndInfoCodeList => updateFormat({ scndInfoCodeList })}
-            create={() => newCodeListFormat(SCND_INFO)}
-            locale={locale} />
+      <div>
+        <div className="form-group">
+          <label htmlFor="codeList" className="col-sm-5 control-label">
+            Second information axis
+          </label>
+          <div className="col-sm-7">
+            <CodeListSelector
+              id={scndInfoCodeList}
+              disabled={!hasTwoInfoAxes}
+              select={scndInfoCodeList => updateFormat({ scndInfoCodeList })}
+              create={() => newCodeListFormat(SCND_INFO)}
+              locale={locale} />
+          </div>
         </div>
+        <div className="form-group">
+         <label className="col-sm-5 control-label">
+           Total en colonne
+         </label>
+         <div className="col-sm-7">
+           <label className="radio-inline">
+             <input type="radio" checked={scndInfoTotal}
+               onChange={e =>
+                 updateFormat({ scndInfoTotal: e.target.checked })} />
+             Oui
+           </label>
+           <label className="radio-inline">
+             <input type="radio" checked={!scndInfoTotal}
+               onChange={e =>
+                 updateFormat({ scndInfoTotal: !e.target.checked })} />
+             Non
+           </label>          
+         </div>
+        </div>
+        { scndInfoTotal && 
+          <div className="form-group">
+           <label className="col-sm-5 control-label">
+             Libellé du total en colonne
+           </label>
+           <div className="col-sm-7">
+             <input type="text" value={scndInfoTotalLabel} 
+               className="form-control" id="pattern"
+               placeholder={locale.label}
+               onChange={e => updateFormat({ scndInfoTotalLabel: e.target.value })}
+            />
+          </div>
+        </div>
+        }
       </div>
     }
     {
@@ -134,7 +204,7 @@ export default function TableResponseFormatEditor(
       ))
     }
     </div>
-  )
+    )
 }
 
 TableResponseFormatEditor.propTypes = {

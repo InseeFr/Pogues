@@ -233,7 +233,8 @@ export default function toModel(state, qrId) {
       }
     }
     if (type === TABLE) {
-      const { firstInfoAsAList, measures } = format
+      const { firstInfoAsAList, firstInfoTotal, firstInfoTotalLabel,
+        measures } = format
       let nbRowsPerMeasure, infoDimensions
       //TODO check this asumption: if `firstInfoAsAList` is set to true, there
       //cannot be any second information axis
@@ -245,26 +246,33 @@ export default function toModel(state, qrId) {
         // recover information about the dataype and the possible code list
         // reference assigned to this measure.
         nbRowsPerMeasure = Number(firstInfoMax) || 1
-        infoDimensions = [{
+        const primary = {
           type: PRIMARY,
           dynamic: `${firstInfoMin}-${firstInfoMax}`
-        }]
+        }
+        if (firstInfoTotal) primary.totalLabel = firstInfoTotalLabel
+        infoDimensions = [primary]
       }
       else {
         const { firstInfoCodeList: codeListReference } = format
-        infoDimensions = [{
+        const primary = {
           type: PRIMARY,
           dynamic: 0,
           codeListReference
-        }]
+        }
+        if (firstInfoTotal) primary.totalLabel = firstInfoTotalLabel
+        infoDimensions = [primary]
         nbRowsPerMeasure = nbCodesFromId(codeListById, codeListReference)
         if (format.hasTwoInfoAxes) {
-          const { scndInfoCodeList: codeListReference } = format
-          infoDimensions.push({
+          const { scndInfoCodeList: codeListReference,
+            scndInfoTotal, scndInfoTotalLabel} = format
+          const secondary = {
             type: SECONDARY,
             dynamic: 0,
             codeListReference
-          })
+          }
+          if (scndInfoTotal) secondary.totalLabel = scndInfoTotalLabel
+          infoDimensions.push(secondary)
           nbRowsPerMeasure =
             nbRowsPerMeasure * nbCodesFromId(codeListById, codeListReference)
         }

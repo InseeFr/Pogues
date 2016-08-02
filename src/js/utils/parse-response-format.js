@@ -167,15 +167,27 @@ function parseTable({ responses, responseStructure }) {
     firstInfoMin: '',
     firstInfoMax: '',
     hasTwoInfoAxes: false,
-    scndInfoCodeList: ''
+    scndInfoCodeList: '',
+    firstInfoTotal: false,
+    firstInfoTotalLabel: '',
+    scndInfoTotal: false,
+    scndInfoTotalLabel: ''
   }
-
+  
+  if (primary.hasOwnProperty('totalLabel')) {
+    formatTable.firstInfoTotal = true
+    formatTable.firstInfoTotalLabel = primary.totalLabel
+  }
   if (primary.hasOwnProperty('codeListReference')) {
     _.assign(formatTable, {
       firstInfoCodeList: primary.codeListReference
     })
     // two information axes
     if (secondary) {
+      if (secondary.hasOwnProperty('totalLabel')) {
+        formatTable.scndInfoTotal = true
+        formatTable.scndInfoTotalLabel = secondary.totalLabel
+      }
       _.assign(formatTable, {
         hasTwoInfoAxes: true,
         scndInfoCodeList: secondary.codeListReference

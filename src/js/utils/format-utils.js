@@ -30,6 +30,10 @@ export const emptyFormat = {
     firstInfoMax: '',
     hasTwoInfoAxes: false,
     scndInfoCodeList: '',
+    firstInfoTotal: false,
+    firstInfoTotalLabel: '',
+    scndInfoTotal: false,
+    scndInfoTotalLabel: '',
     measures: [{
       type: SIMPLE,
       label: '',
