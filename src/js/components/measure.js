@@ -30,7 +30,7 @@ export default function Measure({
           <label htmlFor="label" className="col-sm-5 control-label">
             Measure {index + 1}
           </label>
-          <div className="col-sm-7">
+          <div className="col-sm-5">
             <input value={label}
               onChange={e => update({ label: e.target.value })}
               type="text" className="form-control" id="minimum"
