@@ -27,7 +27,7 @@ export default function Measure({
       <div>
         <hr/>
         <div className="form-group">
-          <label htmlFor="label" className="col-sm-3 control-label">
+          <label htmlFor="label" className="col-sm-5 control-label">
             Measure {index + 1}
           </label>
           <div className="col-sm-7">
@@ -46,6 +46,9 @@ export default function Measure({
           }
         </div>
         <div className="form-group">
+          <label htmlFor="label" className="col-sm-5 control-label">
+            Format des réponses
+          </label>
           <div className="col-sm-5">
             <ResponseFormatPicker
               type={type} types={RESPONSE_FORMAT_FOR_TABLE}
