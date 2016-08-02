@@ -13,7 +13,7 @@ export default function TextDatatypeEditor(
   return (
     <div>
       <div className="form-group">
-        <label htmlFor="length" className="col-sm-2 control-label">
+        <label htmlFor="length" className="col-sm-5 control-label">
           {locale.maxLength}
         </label>
         <div className="col-sm-2">
@@ -25,7 +25,7 @@ export default function TextDatatypeEditor(
         </div>
       </div>
       <div className="form-group">
-        <label htmlFor="length" className="col-sm-2 control-label">
+        <label htmlFor="length" className="col-sm-5 control-label">
           {locale.pattern}
         </label>
         <div className="col-sm-5">

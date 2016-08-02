@@ -18,7 +18,7 @@ export default function NumericDatatypeEditor(
   return (
     <div>
       <div className="form-group">
-        <label htmlFor="minimum" className="col-sm-2 control-label">
+        <label htmlFor="minimum" className="col-sm-5 control-label">
           {locale.minimum}
         </label>
         <div className="col-sm-5">
@@ -29,7 +29,7 @@ export default function NumericDatatypeEditor(
         </div>
       </div>
       <div className="form-group">
-        <label htmlFor="maximum" className="col-sm-2 control-label">
+        <label htmlFor="maximum" className="col-sm-5 control-label">
           {locale.maximum}
         </label>
         <div className="col-sm-5">
@@ -40,7 +40,7 @@ export default function NumericDatatypeEditor(
         </div>
       </div>
       <div className="form-group">
-        <label htmlFor="decimals" className="col-sm-2 control-label">
+        <label htmlFor="decimals" className="col-sm-5 control-label">
           {locale.decimals}
         </label>
         <div className="col-sm-5">
