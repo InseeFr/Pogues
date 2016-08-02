@@ -240,7 +240,7 @@ export default function toModel(state, qrId) {
       if (firstInfoAsAList) {
         const { firstInfoMin, firstInfoMax } = format
         // The maximum number of lines is used to generate the right number of
-        // responses. If this information has not been filled in, of if it is
+        // responses. If this information has not been filled in, or if it is
         // zero, we will still generate one resopnse per measure to be able to
         // recover information about the dataype and the possible code list
         // reference assigned to this measure.
