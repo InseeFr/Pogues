@@ -141,7 +141,6 @@ export default function toModel(state, qrId) {
   }
 
   function fromQuestion(questionId) {
-    const { responses } = componentById[questionId]
     return {
       // create `responses` and `responseStructures` entries (these will be
       // transformed into `Response` and `QuestionStructure` elements in the
