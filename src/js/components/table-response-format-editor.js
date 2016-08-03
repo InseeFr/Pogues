@@ -183,7 +183,7 @@ export default class TableResponseFormatEditor extends Component{
             </div>
           </div>
           <div>  
-            { codeListSelectorSecondary }
+            { codeListEditorSecondary }
           </div>
           <div className="form-group">
            <label className="col-sm-5 control-label">
