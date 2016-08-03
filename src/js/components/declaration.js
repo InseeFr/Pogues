@@ -10,18 +10,16 @@ function Declaration({ text, type, disjoignable, remove, edit, locale}) {
     return (
       <div className="form-horizontal">
         <div className="form-group">
-          <div className="col-sm-12">
-            <div className="input-group">
-              <input value={text} type="text" className="form-control"
-                onChange={e => edit({ text: e.target.value})}
-                placeholder={locale.placeholderDeclarationText}/>
-              <span className="input-group-btn">
-                <button className="btn btn-default" type="button"
-                  onClick={remove}>
-                  &times;
-                </button>
-              </span>
-            </div>
+          <div className="col-sm-10">
+            <input value={text} type="text" className="form-control"
+              onChange={e => edit({ text: e.target.value})}
+              placeholder={locale.placeholderDeclarationText}/>
+          </div>
+          <div className="col-sm-2">
+            <button className="btn btn-default form-control" type="button"
+              onClick={remove}>
+              <span className="fa fa-trash"/>
+            </button>
           </div>
         </div>
         <div className="form-group">

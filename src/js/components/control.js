@@ -2,20 +2,6 @@ import React, { PropTypes } from 'react';
 import { CONTROL_CRITICITY } from '../constants/pogues-constants'
 import _ from 'lodash'
 
-function ControlDeleteButton({ remove, locale }) {
-  return (
-    <button type="button" className="btn btn-danger"
-      onClick={remove}>
-      {locale.deleteControl}
-    </button>
-  )
-}
-
-ControlDeleteButton.propTypes = {
-  remove: PropTypes.func.isRequired,
-  locale: PropTypes.object.isRequired
-}
-
 export default function Control({ id, description,
   expression, failMessage, criticity,
   remove, edit, locale }) {
@@ -25,11 +11,17 @@ export default function Control({ id, description,
     <div>
       <div className="form-horizontal">
         <div className="form-group">
-          <div className="col-sm-12">
+          <div className="col-sm-10">
             <input type="text" value={description}
               placeholder={locale.description}
               className="form-control"
               onChange={e => edit({ description: e.target.value })}/>
+          </div>
+          <div className="col-sm-2">
+            <button className="btn btn-default form-control" type="button"
+              onClick={remove}>
+              <span className="fa fa-trash"/>
+            </button>
           </div>
         </div>
         <div className="form-group">
@@ -59,7 +51,6 @@ export default function Control({ id, description,
           </div>
         </div>
       </div>
-      <ControlDeleteButton remove={remove} locale={locale} />
     </div>
   )
 }

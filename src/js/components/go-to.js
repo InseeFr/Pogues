@@ -7,20 +7,6 @@ const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
 
 var logger = new Logger('GoTo', 'Components');
 
-function GoToDeleteButton({ remove, locale }) {
-  return (
-    <button type="button" className="btn btn-danger"
-      onClick={remove}>
-      {locale.deleteGoTo}
-    </button>
-  )
-}
-
-GoToDeleteButton.propTypes = {
-  remove: PropTypes.func.isRequired,
-  locale: PropTypes.object.isRequired
-}
-
 //TODO see how to deal with components with an empty label : it breaks the
 //component picker since we cannot differentiate the selection of an empty
 //label component from the situation where no label has been typed in for the
@@ -46,12 +32,18 @@ export default function GoTo(
     <div>
       <div className="form-horizontal">
         <div className="form-group">
-          <div className="col-sm-12">
+          <div className="col-sm-10">
             <input type="text" value={description}
               placeholder={locale.description}
               className="form-control"
               onChange={e => edit({ description: e.target.value })}/>
           </div>
+          <div className="col-sm-2">
+            <button className="btn btn-default form-control" type="button"
+              onClick={remove}>
+              <span className="fa fa-trash"/>
+            </button>
+          </div>          
         </div>
         <div className="form-group">
           <div className="col-sm-12">
@@ -68,7 +60,6 @@ export default function GoTo(
           status={ifFalseStatus}
           select={val => changeTargetFalse(val)} locale={locale} />
       </div>
-      <GoToDeleteButton remove={remove} locale={locale} />
     </div>
   )
 }
