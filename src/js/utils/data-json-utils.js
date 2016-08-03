@@ -14,7 +14,8 @@ const CAPS = ['_name', '_survey', '_label', '_datatype', '_codeListReference', '
 // Mainly fields in plural in Pogues model that need to be singular to be schema valid
 //FIXME only the RENAME_MAPPING is useful, the RENAME const could be replace by Object.keys()
 const RENAME = ['_children', '_responses', '_declarations', '_componentGroups', '_goTos', '_members', '_values', '_codes',
-'_controls'];
+'_controls', '_visHint'];
+
 const RENAME_MAPPING = {
   '_children':'Child',
   '_codes': 'Code',
