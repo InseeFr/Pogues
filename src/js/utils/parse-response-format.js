@@ -62,13 +62,21 @@ function parseSingle(response) {
 function parseSimple(response) {
   const { datatype } = response
   const { typeName } = datatype
-  const format = {
-    ...emptyFormat,
-    type: SIMPLE
+  const emptySimple = emptyFormat[SIMPLE]
+  const emptyDatatype = emptySimple[typeName]
+  const simpleFormat = {
+    ...emptySimple,
+    typeName,
+    [typeName]: {
+      ...emptyDatatype,
+      ...datatype
+    }
   }
-  format[SIMPLE].typeName = typeName
-  Object.assign(format[SIMPLE][typeName], datatype)
-  return format
+  return {
+    ...emptyFormat,
+    type: SIMPLE,
+    [SIMPLE]: simpleFormat
+  }
 }
 
 function parseMultipleOrTable({ responses, responseStructure }) {
@@ -230,11 +238,18 @@ function measureFromResponse(response) {
   }
   else {
     measure.type = SIMPLE
-    const { [SIMPLE]: simpleFormat } = measure
     const { datatype } = response
     const { typeName } = datatype
-    simpleFormat.typeName = typeName
-    simpleFormat[typeName] = datatype
+    const emptySimple = emptyFormat[SIMPLE]
+    const emptyDatatype = emptySimple[typeName]
+    measure[SIMPLE] = {
+      ...emptySimple,
+      typeName,
+      [typeName]: {
+        ...emptyDatatype,
+        ...datatype
+      }
+    }
   }
   return measure
 }
