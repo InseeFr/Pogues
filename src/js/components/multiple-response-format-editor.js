@@ -1,76 +1,103 @@
-import React, { PropTypes } from 'react'
-import CodeListSelector from './code-list-selector'
+import React, { Component, PropTypes } from 'react'
 import VisHintPicker from './vis-hint-picker'
+import coupleEditorSelector from './couple-code-list-selector-editor'
 import { AXIS } from '../constants/pogues-constants'
 const { INFO, MEASURE } = AXIS
 
-export default function MultipleResponseFormatEditor(
-  { format,
+export default class MultipleResponseFormatEditor extends Component{
+  constructor(props) {
+    super(props)
+    this.state = { edited: false, editedMeasure: false }
+    this.toggleOrSet = edited => 
+      edited !== undefined ?
+        this.setState({ edited }) :
+        this.setState({ edited: !this.state.edited })
+    
+    this.toggleOrSetMeasure = edited => 
+      edited !== undefined ?
+        this.setState({ editedMeasure: edited }) :
+        this.setState({ editedMeasure: !this.state.editedMeasure })       
+  }
+  
+  render() {
+    const { format,
     updateFormat, newCodeListFormat, updateMeasureTable,
     updateMeasureFormatTable,
-    locale }) {
+    locale } = this.props
 
-  const {
-    infoCodeList, measureCodeList, measureBoolean, measureVisHint
-  } = format
+    const {
+      infoCodeList, measureCodeList, measureBoolean, measureVisHint
+    } = format
+    const { codeListSelector, codeListEditor } = coupleEditorSelector({
+      id: infoCodeList,
+      select: infoCodeList => updateFormat({ infoCodeList }),
+      create: () => newCodeListFormat(INFO),
+      edited: this.state.edited,
+      locale }, this.toggleOrSet)
 
-  return (
-    <div>
-      <div className="form-group">
-        <label htmlFor="codeList" className="col-sm-5 control-label">
-          {locale.infoAxis}
-        </label>
-        <div className="col-sm-7">
-          <CodeListSelector
-            id={infoCodeList}
-            select={infoCodeList => updateFormat({ infoCodeList })}
-            create={() => newCodeListFormat(INFO)}
-            locale={locale} />
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="visHint" className="col-sm-5 control-label">
-          {locale.measureFormat}
-        </label>
-        <div className="col-sm-7">
-          <label className="radio-inline">
-            <input type="radio" checked={!measureBoolean}
-              onChange={e =>
-                updateFormat({ measureBoolean: !e.target.checked}) }/>
-            {locale.codeList}
-          </label>
-          <label className="radio-inline">
-            <input type="radio" checked={measureBoolean}
-              onChange={e =>
-                updateFormat({ measureBoolean: e.target.checked}) }/>
-            {locale.boolean}
-          </label>
-        </div>
-      </div>
-      { !measureBoolean && 
+    const { 
+      codeListSelector: codeListSelectorMeasure,
+      codeListEditor: codeListEditorMeasure 
+    } = coupleEditorSelector({
+      id: measureCodeList,
+      disabled: measureBoolean,
+      select: measureCodeList => updateFormat({ measureCodeList }),
+      create: () => newCodeListFormat(MEASURE),
+      edited: this.state.editedMeasure,
+      locale }, this.toggleOrSetMeasure)
+              
+    return (
       <div>
         <div className="form-group">
           <label htmlFor="codeList" className="col-sm-5 control-label">
-            {locale.measureInfo}
+            {locale.infoAxis}
           </label>
           <div className="col-sm-7">
-            <CodeListSelector
-              id={measureCodeList}
-              disabled={measureBoolean}
-              select={measureCodeList => updateFormat({ measureCodeList })}
-              create={() => newCodeListFormat(MEASURE)}
-              locale={locale} />
-            </div>
+            { codeListSelector }
+          </div>
         </div>
-        <VisHintPicker visHint={measureVisHint}
-          disabled={measureBoolean}
-          locale={locale}
-          select={measureVisHint => updateFormat({ measureVisHint })}/>        
+        <div>
+          { codeListEditor }
+        </div>
+        <div className="form-group">
+          <label htmlFor="visHint" className="col-sm-5 control-label">
+            {locale.measureFormat}
+          </label>
+          <div className="col-sm-7">
+            <label className="radio-inline">
+              <input type="radio" checked={!measureBoolean}
+                onChange={e =>
+                  updateFormat({ measureBoolean: !e.target.checked}) }/>
+              {locale.codeList}
+            </label>
+            <label className="radio-inline">
+              <input type="radio" checked={measureBoolean}
+                onChange={e =>
+                  updateFormat({ measureBoolean: e.target.checked}) }/>
+              {locale.boolean}
+            </label>
+          </div>
+        </div>
+        { !measureBoolean && 
+        <div>
+          <div className="form-group">
+            <label htmlFor="codeList" className="col-sm-5 control-label">
+              {locale.measureInfo}
+            </label>
+            <div className="col-sm-7">
+              { codeListSelectorMeasure }
+              </div>
+          </div>
+          { codeListEditorMeasure }
+          <VisHintPicker visHint={measureVisHint}
+            disabled={measureBoolean}
+            locale={locale}
+            select={measureVisHint => updateFormat({ measureVisHint })}/>        
+        </div>
+        }
       </div>
-      }
-    </div>
-  )
+    )
+  }
 }
 
 MultipleResponseFormatEditor.propTypes = {

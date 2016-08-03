@@ -25,7 +25,7 @@ class CodeListEditor extends Component {
   render() {
     const {
       id, loaded, label, detailedCodes, createCode, removeCode, editCode,
-      locale, editCodeList, editable
+      locale, editCodeList, editable,
     } = this.props
     if (!loaded) return <span className="fa fa-spinner fa-pulse fa-2x"></span>
     return (
@@ -69,7 +69,7 @@ CodeListEditor.propTypes = {
   editCodeList: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired,
   label: PropTypes.string,
-  editable: PropTypes.bool.isRequired
+  editable: PropTypes.bool
 }
 
 const mapStateToProps = (state, { id }) => {

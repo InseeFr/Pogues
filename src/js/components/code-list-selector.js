@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 // import CodeListEditor from './code-list-editor'
 import CodeListPicker from './code-list-picker'
 import EditCodeListButton from './edit-code-list-button'
-import CodeListEditor from './code-list-editor'
 
 import { connect } from 'react-redux'
 /**
@@ -30,12 +29,7 @@ export default class CodeListSelector extends Component {
     this.state = {
       edited: false
     }
-    //TODO handle `edited` in the reducer ; needs to define where to store this
-    //information (a code list can be edited in multiple places, so it's not
-    //trivial to store in the reducer the 'position' of a code list that is
-    //currently edited). For instance : code list used as the `second measure`
-    //in the question xxx which accepts a TABLE response.
-    this.toggleEdit = () => this.setState({ edited: !this.state.edited})
+
     this.create = () => {
       this.props.create()
       this.setState({ edited: true })
@@ -44,7 +38,7 @@ export default class CodeListSelector extends Component {
 
   render() {
     const {
-      codeLists, id, isSpec, edited, locale, select, create, disabled
+      codeLists, id, isSpec, toggle, edited, locale, select, create, disabled
     } = this.props
 
     return (
@@ -60,12 +54,9 @@ export default class CodeListSelector extends Component {
             id &&
               <EditCodeListButton
                 edited={this.state.edited} isSpec={isSpec}
-                toggle={this.toggleEdit} />
+                toggle={toggle} />
             }
         </div>
-      { this.state.edited && id &&
-        <CodeListEditor id={id} locale={locale} />
-      }
       </div>
   )
   }
@@ -100,7 +91,7 @@ CodeListSelector.propTypes = {
   /**
    * Callback function when edit button is clicked
    */
-  // toggleEdit: PropTypes.func.isRequired
+  toggle: PropTypes.func.isRequired
 }
 
 

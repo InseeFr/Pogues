@@ -6,8 +6,10 @@ export default function EditCodeListButton({ edited, isSpec, toggle }) {
     edited ? isSpec ?  'fa-check' : 'fa-save' :
              isSpec ?  'fa-eye' : 'fa-pencil'
   )
+  // `toggle` can take a boolean as argument (in fact it is a toggle or set
+  // function), so we should take of not passing the event to it.
   return (
-    <span className="input-group-addon" onClick={toggle}>
+    <span className="input-group-addon" onClick={() => toggle()}>
      <span className={clEditable}></span>
    </span>
   )
