@@ -17,7 +17,15 @@ function CodeEditor({ editable, label, remove, moveUp, moveDown,
       </div>
       { editable &&
         <div className="col-sm-3">
-          <div className="btn-group btn-group-sm">
+          <div className="btn-group btn-group-sm pull-right"> 
+            <button className="btn btn-default" disabled={!moveUp}
+                    onClick={moveUp}> 
+              <span className="glyphicon glyphicon-arrow-up"/> 
+            </button> 
+            <button className="btn btn-default" disabled={!moveDown}
+                    onClick={moveDown}> 
+              <span className="glyphicon glyphicon-arrow-down"/> 
+            </button> 
             <button className="btn btn-default" onClick={remove}>
               <span className="glyphicon glyphicon-trash"/>
             </button>
@@ -33,9 +41,9 @@ CodeEditor.propTypes = {
   editLabel: PropTypes.func.isRequired,
   editValue: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  editable: PropTypes.bool.isRequired
-  //moveUp: PropTypes.func.isRequired,
-  //moveDown: PropTypes.func.isRequired,
+  editable: PropTypes.bool.isRequired,
+  moveUp: PropTypes.func,
+  moveDown: PropTypes.func,
 
 }
 

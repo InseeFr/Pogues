@@ -3,7 +3,9 @@ import {
 } from '../actions/code-list'
 
 import {  NEW_CODE_LIST_FORMAT } from '../actions/response-format'
-import { CREATE_CODE, REMOVE_CODE } from '../actions/code'
+import {
+  CREATE_CODE, REMOVE_CODE, MOVE_UP_CODE, MOVE_DOWN_CODE
+} from '../actions/code'
 import {
   LOAD_CLIST_SPECS_SUCCESS
 } from '../actions/code-list-specification'
@@ -58,6 +60,22 @@ export default function (state={}, action) {
           codes: codes
         }
       }
+    case MOVE_UP_CODE:
+      return {
+        ...state,
+        [payload.codeListId]: {
+          ...state[payload.codeListId],
+          codes: moveUpCode(state[payload.codeListId].codes, payload.id)
+        }
+      }
+    case MOVE_DOWN_CODE:
+    return {
+      ...state,
+      [payload.codeListId]: {
+        ...state[payload.codeListId],
+        codes: moveDownCode(state[payload.codeListId].codes, payload.id)
+      }
+    }    
     case LOAD_CLIST_SPECS_SUCCESS:
       // `payload` is an object of code list specification
       //TODO needs extra information about the api (-> swagger)
@@ -105,4 +123,26 @@ export default function (state={}, action) {
     default:
       return state
   }
+}
+
+function moveUpCode(codes, id) {
+  const index = codes.findIndex(_id => id === _id )
+  if (index > 0) return [
+    ...codes.slice(0, index - 1),
+    codes[index],
+    codes[index - 1],
+    ...codes.slice(index + 1)
+  ]
+  return codes
+}
+
+function moveDownCode(codes, id) {
+  const index = codes.findIndex(_id => id === _id )
+  if (index < codes.length - 1) return [
+    ...codes.slice(0, index),
+    codes[index + 1],
+    codes[index],
+    ...codes.slice(index + 2)
+  ]
+  return codes
 }

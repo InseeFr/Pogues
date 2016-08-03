@@ -4,7 +4,9 @@ import CodeCreator from './code-creator'
 import Logger from '../logger/logger'
 import { editCodeList, loadCodeListIfNeeded } from '../actions/code-list'
 import { connect } from 'react-redux'
-import { createCode, editCode, removeCode } from '../actions/code'
+import {
+  createCode, editCode, removeCode, moveUpCode, moveDownCode
+} from '../actions/code'
 var logger = new Logger('CodeListEditor', 'Components');
 
 class CodeListEditor extends Component {
@@ -25,7 +27,7 @@ class CodeListEditor extends Component {
   render() {
     const {
       id, loaded, label, detailedCodes, createCode, removeCode, editCode,
-      locale, editCodeList, editable,
+      locale, editCodeList, editable, moveUpCode, moveDownCode
     } = this.props
     if (!loaded) return <span className="fa fa-spinner fa-pulse fa-2x"></span>
     return (
@@ -50,6 +52,8 @@ class CodeListEditor extends Component {
               editLabel={label => editCode(codeId, { label })}
               editValue={value => editCode(codeId, { value })}
               remove={() => removeCode(codeId, id)}
+              moveUp={() => moveUpCode(codeId, id)}
+              moveDown={() => moveDownCode(codeId, id)}
               editable={editable} />) }
       </div>
     </div>
@@ -64,6 +68,8 @@ CodeListEditor.propTypes = {
                                  // loaded yet
   createCode: PropTypes.func.isRequired,
   removeCode: PropTypes.func.isRequired,
+  moveUpCode: PropTypes.func.isRequired,
+  moveDownCode: PropTypes.func.isRequired,
   editCode: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
   editCodeList: PropTypes.func.isRequired,
@@ -88,6 +94,8 @@ const mapStateToProps = (state, { id }) => {
   loadCodeListIfNeeded,
   createCode,
   removeCode,
+  moveUpCode,
+  moveDownCode,
   editCode,
   editCodeList
 }
