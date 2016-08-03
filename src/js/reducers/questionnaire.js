@@ -7,14 +7,14 @@ import {
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
+import { uuid } from '../utils/data-utils'
 
-
+export const emptySurvey = {
+  agency: 'fr.insee',
+  name: 'POPO'
+}
 export const emptyQr = {
   agency: 'fr.insee',
-  survey: {
-    agency: 'fr.insee',
-    name: 'POPO'
-  },
   componentGroups: []
 }
 
@@ -24,10 +24,16 @@ export default function (state=emptyQr, action) {
   switch (type) {
     case CREATE_QUESTIONNAIRE:
       // create an empty questionnaire with the given attributes
-      return {
+      const questionnaire = {
         ...state, // empty questionnaire
         ...payload, // id, name, label
+        survey: {
+          ...emptySurvey,
+          id: uuid()
+        }
       }
+      return questionnaire
+      
     case LOAD_QUESTIONNAIRE_SUCCESS:
       //TODO check if the information about the questionnaire is consistent
       //with the information retrieve via Questionnaire List
