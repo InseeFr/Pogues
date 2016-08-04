@@ -37,6 +37,7 @@ export default function toModel(state, qrId) {
     declarationById,
     controlById,
     codeById,
+    conditionById,
     responseFormatById
   } = state
 
@@ -146,10 +147,46 @@ export default function toModel(state, qrId) {
       // transformed into `Response` and `QuestionStructure` elements in the
       // XML representation of Pogues Model)
       ...fromResponseFormat(questionId),
+      label: [labelFromConditions(questionId)],
       type: 'QuestionType'
     }
   }
-
+  
+  // Conditions has to be serialized as a velocity template string that will
+  // be supplied as a label (the backend will take care of parsing this
+  // string). For now, since we did not have a VTL parser in javascript, we
+  // will serialize the label and the conditons with JSON.stringify, and put
+  // this string as a comment line at the beginning of the VTL string.
+  // The VTL string has hence the shape
+  // ## JSON.stringify({ label: ..., conditions : [...]})
+  // #if(condition1)
+  // label if condition 1 is true
+  // #elseif condition 2
+  // label if condition 2 is true
+  // #end
+  function labelFromConditions(questionId) {
+    const { label, conditions: conditionIds } = componentById[questionId]
+    const conditions = conditionIds.map(id => conditionById[id])
+    return [
+      '##' + JSON.stringify({
+        label,
+        conditions
+      })
+    ].concat(conditionsToVTLArr(label, conditions)).join('\n')
+  }
+  // if there is no condition, the VTL representation is only the label.
+  function conditionsToVTLArr(label, conditions) {
+    if (conditions.length === 0) return [label]
+    const vtl = conditions.reduce((vtl, { condition, label }, i) => {
+      if (i === 0) vtl.push(`#if(${condition})`)
+      else vtl.push(`#elseif(${condition})`)
+      vtl.push(label)
+      return vtl
+    }, [])
+    vtl.push('#end')
+    return vtl
+  }
+  
   function fromResponseFormat(responseFormatId) {
     const responseFormat = responseFormatById[responseFormatId]
     const { type, [type]: format } = responseFormat

@@ -23,7 +23,8 @@ const emptySequence = {
 }
 
 const emptyQuestion = {
-  type: QUESTION
+  type: QUESTION,
+  conditions: [] // conditions for the label
   // responses will be initialized when we create a question 
 }
 

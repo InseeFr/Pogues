@@ -25,6 +25,7 @@ export default function toState(_model) {
   const codeListById = {}
   const codeListByQuestionnaire = {}
   const codeById = {}
+  const conditionById = {}
   const responseFormatById = {}
 
   const { agency, survey, componentGroups, codeLists } =  model
@@ -49,6 +50,7 @@ export default function toState(_model) {
     declarationById,
     controlById,
     codeListById,
+    conditionById,
     codeListByQuestionnaire,
     codeById,
     responseFormatById
@@ -86,14 +88,36 @@ export default function toState(_model) {
   function toQuestion(question) {
     //TODO solve unconsistencies between QuestionType/SequenceType in the model
     //and QUESTION and SEQUENCE constants elsewhere in Pogues
+    let { id, label: [rawLabel] } = question
+    const { conditionIds, label } = conditionsFromLabel(rawLabel)
     toResponseFormat(id, question)
     componentById[id] = {
       ...componentById[id],// already a component
+      label,
+      conditions: conditionIds,
       type: QUESTION
     }
     return id
   }
 
+// see state to model transformation to know how to deserialize the label string
+// provided to build the current label and the conditions defined within the
+// question.
+function conditionsFromLabel(rawLabel) {
+  //extract first comment line
+  const regExpCmt = /##([^\n]*)/
+  const { label, conditions } = JSON.parse(rawLabel.match(regExpCmt)[1])
+  const conditionIds = conditions.map(condition => {
+    const { id } = condition
+    conditionById[id] = condition
+    return id
+  })
+  return {
+    label,
+    conditionIds
+  }
+}
+  
 function toResponseFormat(id, question) {
   responseFormatById[id] = parseResponseFormat(question)
   return id
@@ -123,6 +147,15 @@ function toResponseFormat(id, question) {
     declarationById[id] = {
       id, type, text,
       disjoignable: true, //TODO not implemented yet in the backend
+    }
+    return id
+  }
+  
+  function toCondition(cnd) {
+    const { label, condition } = cnd
+    const id = uuid()
+    conditionById[id] = {
+      id, label, condition
     }
     return id
   }

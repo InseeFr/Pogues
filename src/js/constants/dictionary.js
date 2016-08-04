@@ -227,5 +227,17 @@ export default {
   addMeasure: {
     'fr': 'Ajouter une mesure',
     'en': 'Add a measure'
+  },
+  addCondition: {
+    'fr': 'Ajouter une condition',
+    'en': 'Add a condition'
+  },
+  conditions: {
+    'fr': 'Conditions',
+    'en': 'Conditions'
+  },
+  deleteCondition: {
+    'fr': 'Supprimer la condition',
+    'en': 'Remove condition'
   }
 }

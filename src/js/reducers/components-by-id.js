@@ -1,7 +1,10 @@
 import {
-  CREATE_COMPONENT, EDIT_COMPONENT, REMOVE_COMPONENT
+  CREATE_COMPONENT, EDIT_COMPONENT, REMOVE_COMPONENT,
 } from '../actions/component'
 
+import {
+  CREATE_CONDITION, REMOVE_CONDITION
+} from '../actions/condition.js'
 import {
   CREATE_GOTO, REMOVE_GOTO
 } from '../actions/goTo'
@@ -31,6 +34,8 @@ const subs = [
   [REMOVE_DECLARATION, 'declarations', REMOVE],
   [REMOVE_GOTO, 'goTos', REMOVE],
   [REMOVE_CONTROL, 'controls', REMOVE],
+  [CREATE_CONDITION, 'conditions', CREATE],
+  [REMOVE_CONDITION, 'conditions', REMOVE]
 ]
 
 const actionsHndlrs = {

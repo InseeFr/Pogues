@@ -12,6 +12,7 @@ import ResponseFormatPanel from './response-format-panel';
 import DeclarationPanel from './declaration-panel'
 import GoToPanel from './goto-panel'
 import ControlPanel from './control-panel'
+import ConditionPanel from './condition-panel'
 
 import { editComponent, toggleActiveComponent } from '../actions/component'
 
@@ -23,16 +24,19 @@ function ComponentEditor({
     qrId,
     structure, // structure of the questionnaire
     changeName, changeLabel, quitEdition, // component utilities
-    goTos, declarations, controls,
+    goTos, declarations, controls, conditions,
     responseFormat, //for questions only
     locale }) {
 
-    let questionEl
+    let questionEl, conditionEl
     if (type === QUESTION) {
       questionEl = <ResponseFormatPanel
         id={id}
         formats={responseFormat}
         locale={locale} qrId={qrId}/>
+      conditionEl = <ConditionPanel 
+        id={id} conditions={conditions} cmpntId={id}
+        locale={locale} />
     }
 
     return (
@@ -63,6 +67,7 @@ function ComponentEditor({
             </button>
             </div>
         </div>
+        { conditionEl }
         <DeclarationPanel declarations={declarations} cmpntId={id}
           locale={locale} />
         <ControlPanel structure={structure} controls={controls}
@@ -83,6 +88,7 @@ ComponentEditor.propTypes = {
   goTos: PropTypes.array.isRequired,
   declarations: PropTypes.array.isRequired,
   controls: PropTypes.array.isRequired,
+  conditions: PropTypes.array.isRequired,
   responseFormat: PropTypes.string, // not required for sequences
   structure: PropTypes.object.isRequired,
   locale: PropTypes.object.isRequired
@@ -92,8 +98,8 @@ ComponentEditor.propTypes = {
 // and the component id (‘id‘)
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps
-  const { name, label, type, goTos, controls, declarations, responseFormat } =
-    state.componentById[id]
+  const { name, label, type, goTos, controls, declarations, responseFormat,
+    conditions } =  state.componentById[id]
 
   return {
     id,
@@ -103,6 +109,7 @@ const mapStateToProps = (state, ownProps) => {
     goTos,
     controls,
     declarations,
+    conditions,
     responseFormat, // for questions only
     locale: state.locale
   }
