@@ -28,7 +28,7 @@ const RENAME_MAPPING = {
   '_responses': 'Response',
   '_dimensions': 'Dimension',
   '_values': 'Value',
-  '_visHint': 'VisualizationHint'
+  '_visHint': 'visualizationHint'
   };
 
 // Factory and mapping
