@@ -6,8 +6,10 @@ import {
   LOAD_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
 
+import { DECLARATION_TYPE } from '../constants/pogues-constants'
+const { INSTRUCTION } = DECLARATION_TYPE
 const emptyDeclaration = {
-  type: '',
+  type: INSTRUCTION,
   disjoignable: true,
   text: ''
 }
