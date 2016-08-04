@@ -53,7 +53,7 @@ function parseSingle(response) {
     ...emptyFormat,
     type: SINGLE,
     [SINGLE]: {
-      codeListReference,
+      codeListReference: codeListReference || '',
       visHint
     }
   }
@@ -106,9 +106,9 @@ function parseMultipleOrTable({ responses, responseStructure }) {
             ...emptyFormat,
             type: MULTIPLE,
             [MULTIPLE]: {
-              infoCodeList: primaryDimension.codeListReference,
+              infoCodeList: primaryDimension.codeListReference || '',
               measureBoolean: false,
-              measureCodeList: response.codeListReference,
+              measureCodeList: response.codeListReference || '',
               measureVisHint: response.datatype.visHint
             }
           }
@@ -118,7 +118,7 @@ function parseMultipleOrTable({ responses, responseStructure }) {
             ...emptyFormat,
             type: MULTIPLE,
             [MULTIPLE]: {
-              infoCodeList: primaryDimension.codeListReference,
+              infoCodeList: primaryDimension.codeListReference || '',
               measureBoolean: true,
               measureCodeList: '',
               measureVisHint: CHECKBOX
@@ -188,7 +188,7 @@ function parseTable({ responses, responseStructure }) {
   }
   if (primary.hasOwnProperty('codeListReference')) {
     _.assign(formatTable, {
-      firstInfoCodeList: primary.codeListReference
+      firstInfoCodeList: primary.codeListReference || ''
     })
     // two information axes
     if (secondary) {
@@ -198,7 +198,7 @@ function parseTable({ responses, responseStructure }) {
       }
       _.assign(formatTable, {
         hasTwoInfoAxes: true,
-        scndInfoCodeList: secondary.codeListReference
+        scndInfoCodeList: secondary.codeListReference || ''
       })
     }
   }
@@ -232,7 +232,7 @@ function measureFromResponse(response) {
   if (response.hasOwnProperty('codeListReference')) {
     measure.type = SINGLE
     measure[SINGLE] = {
-      codeListReference: response.codeListReference,
+      codeListReference: response.codeListReference || '',
       visHint: response.datatype.visHint
     }
   }

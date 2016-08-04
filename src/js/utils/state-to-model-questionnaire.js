@@ -217,7 +217,7 @@ export default function toModel(state, qrId) {
       return {
         responses: [{
           // `codeListReference` and `visHint`
-          codeListReference,
+          codeListReference: codeListReference || null,
           datatype: {
             //no information held by the datatype except for the
             //VisualizationHint ; by default we use a `TextDatatypeType` (
@@ -250,7 +250,7 @@ export default function toModel(state, qrId) {
             type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
             visHint
           },
-          codeListReference: format.measureCodeList,
+          codeListReference: format.measureCodeList || null,
         }
       }
       return {
@@ -259,7 +259,7 @@ export default function toModel(state, qrId) {
           dimensions: [{
             type: PRIMARY,
             dynamic: 0,
-            codeListReference: infoCodeList
+            codeListReference: infoCodeList || null
           }, {
             type: MEASURE,
             dynamic: 0
@@ -293,7 +293,7 @@ export default function toModel(state, qrId) {
         const primary = {
           type: PRIMARY,
           dynamic: 0,
-          codeListReference
+          codeListReference: codeListReference || null
         }
         if (firstInfoTotal) primary.totalLabel = firstInfoTotalLabel
         infoDimensions = [primary]
@@ -304,7 +304,7 @@ export default function toModel(state, qrId) {
           const secondary = {
             type: SECONDARY,
             dynamic: 0,
-            codeListReference
+            codeListReference: codeListReference || null
           }
           if (scndInfoTotal) secondary.totalLabel = scndInfoTotalLabel
           infoDimensions.push(secondary)
@@ -351,7 +351,7 @@ export default function toModel(state, qrId) {
     else {
       const { codeListReference, visHint } = format
       return {
-        codeListReference,
+        codeListReference: codeListReference || null,
         datatype: {
           ...emptyTextDatatype,
           type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
@@ -364,7 +364,8 @@ export default function toModel(state, qrId) {
   function fromGoTo(goToId) {
     const { id, description, expression, ifTrue } = goToById[goToId]
     return {
-      id, description, expression, ifTrue
+      id, description, expression,
+      ifTrue: ifTrue || null
     }
   }
 

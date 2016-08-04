@@ -127,7 +127,8 @@ function toResponseFormat(id, question) {
   function toGoTo(goTo) {
     const { id, description, expression, ifTrue } = goTo
     goToById[id] = {
-      id, description, expression, ifTrue,
+      id, description, expression,
+      ifTrue: ifTrue || '',
     }
     return id
   }
