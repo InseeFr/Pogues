@@ -80,7 +80,11 @@ const MAPPING = {
   '_values': 'ARRAY',
   '_codeLists': 'OBJECT',
   '_datatype': 'OBJECT',
-  '_totalLabel': 'SIMPLE'
+  '_totalLabel': 'SIMPLE',
+  '_special': 'OBJECT',
+  '_code': 'SIMPLE',
+  '_behaviour': 'SIMPLE',
+  '_message': 'SIMPLE'
 };
 
 const factory = {

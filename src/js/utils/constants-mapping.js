@@ -9,10 +9,21 @@
  * type), but we could have the same value used elsewhere in `pogues-constants`
  * to represent another kind of concept.
 **/
+import {
+  RESPONSE_FORMAT as respFormCst, UI_BEHAVIOUR as uiBhvrCst
+} from '../constants/pogues-constants'
+
+const { SIMPLE, SINGLE, MULTIPLE, TABLE } = respFormCst
+const { FIRST_INTENTION, SECOND_INTENTION } = uiBhvrCst
 
 export const RESPONSE_FORMAT = {
-  SIMPLE: 'responseFormatSimple',
-  SINGLE: 'responseFormatSingle',
-  MULTIPLE: 'responseFormatMultiple',
-  TABLE: 'responseFormatTable'
+  [SIMPLE]: 'responseFormatSimple',
+  [SINGLE]: 'responseFormatSingle',
+  [MULTIPLE]: 'responseFormatMultiple',
+  [TABLE]: 'responseFormatTable'
+}
+
+export const UI_BEHAVIOUR = {
+  [FIRST_INTENTION]: 'rankUiBehaviour1',
+  [SECOND_INTENTION]: 'rankUiBehaviour2'
 }

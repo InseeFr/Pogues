@@ -1,10 +1,19 @@
 import {
-  RESPONSE_FORMAT, DATATYPE_VIS_HINT
+  RESPONSE_FORMAT, DATATYPE_VIS_HINT, UI_BEHAVIOUR
 } from '../constants/pogues-constants'
 import { emptyDatatypeFactory } from '../reducers/datatype-utils'
 
+const { FIRST_INTENTION } = UI_BEHAVIOUR
 const { CHECKBOX } = DATATYPE_VIS_HINT
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
+
+export const defaultSpecial = {
+  hasSpecialCode: false,
+  specialLabel: '',
+  specialCode: '',
+  specialUiBehaviour: FIRST_INTENTION,
+  specialFollowUpMessage: ''
+}
 /**
  * Default value for a response format. We create an entry for each type of
  * format. This will allow recovering of previously filled parameters if the
@@ -15,7 +24,8 @@ export const emptyFormat = {
   [SIMPLE]: emptyDatatypeFactory,
   [SINGLE]: {
     codeListReference: '',
-    visHint: CHECKBOX
+    visHint: CHECKBOX,
+    ...defaultSpecial
   },
   [MULTIPLE]: {
     infoCodeList: '',

@@ -239,5 +239,37 @@ export default {
   deleteCondition: {
     'fr': 'Supprimer la condition',
     'en': 'Remove condition'
+  },
+  addSpecialCode: {
+    'fr': 'Ajout d\'une modalité spécifique',
+    'en': 'Add special code'
+  },
+  codeLabel: {
+    'fr': 'Libellé de la modalité',
+    'en': 'Code label'
+  },
+  code: {
+    'fr': 'Code de la modalité', 
+    'en': 'Code'
+  },
+  codePh: {
+    'fr': 'Code', 
+    'en': 'Code'
+  },
+  uiBehaviour: {
+    'fr': 'Comportement d\'affichage',
+    'en': 'Ui behaviour'
+  },
+  followUpMsg : {
+    'fr': 'Message de relance',
+    'en': 'Follow-up message'
+  },
+  rankUiBehaviour1: {
+    'fr': 'En première intention',
+    'en': 'Immediately'
+  },
+  rankUiBehaviour2: {
+    'fr': 'En deuxième intention',
+    'en': 'Later'
   }
 }

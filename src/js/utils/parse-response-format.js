@@ -49,12 +49,24 @@ function parseSimpleOrSingle(responses) {
 
 function parseSingle(response) {
   const { codeListReference, datatype: { visHint } } = response
+  let special
+  if (response.hasOwnProperty('special')) {
+    const { code, label, behaviour, message } = response.special
+    special = {
+      hasSpecialCode: true,
+      specialCode: code,
+      specialLabel: label,
+      specialUiBehaviour: behaviour,
+      specialFollowUpMessage: message
+    }
+  }
   return {
     ...emptyFormat,
     type: SINGLE,
     [SINGLE]: {
       codeListReference: codeListReference || '',
-      visHint
+      visHint,
+      ...special
     }
   }
 }

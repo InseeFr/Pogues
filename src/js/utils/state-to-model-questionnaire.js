@@ -213,7 +213,17 @@ export default function toModel(state, qrId) {
       }
     }
     if (type === SINGLE) {
-      const { codeListReference, visHint } = format
+      const { codeListReference, visHint,
+        hasSpecialCode, specialLabel, specialCode, specialUiBehaviour,
+        specialFollowUpMessage
+       } = format
+       const special = hasSpecialCode &&
+          {
+            code: specialCode,
+            label: specialLabel,
+            behaviour: specialUiBehaviour,
+            message: specialFollowUpMessage
+          }
       return {
         responses: [{
           // `codeListReference` and `visHint`
@@ -225,7 +235,8 @@ export default function toModel(state, qrId) {
             ...emptyTextDatatype,
             type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
             visHint
-          }
+          },
+          special
         }]
       }
     }
@@ -312,8 +323,12 @@ export default function toModel(state, qrId) {
             nbRowsPerMeasure * nbCodesFromId(codeListById, codeListReference)
         }
       }
-
-      const { responses, dimensions } = measures.reduce(
+      // if there is two information axes (and they are operational, so
+      // `firstInfoAsAList` is set to `false`)
+      const realMeasures = (!format.firstInfoAsAList && format.hasTwoInfoAxes) ?
+        [measures[0]] : measures
+        
+      const { responses, dimensions } = realMeasures.reduce(
         ({ responses, dimensions }, measure) => {
         return {
           responses: responses.concat(
