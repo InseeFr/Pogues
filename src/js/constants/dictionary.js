@@ -271,5 +271,9 @@ export default {
   rankUiBehaviour2: {
     'fr': 'En deuxième intention',
     'en': 'Later'
+  },
+  mandatory: {
+    'fr': 'Obligatoire',
+    'en': 'Mandatory'
   }
 }

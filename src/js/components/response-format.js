@@ -7,7 +7,7 @@ import TableResponseFormatEditor from './table-response-format-editor'
 import { connect } from 'react-redux'
 import {
   switchFormat, updateFormat, newCodeListFormat,
-  updateDatatype,
+  updateDatatype, updateResponse,
   updateMeasure, updateMeasureFormat,
   addMeasure, removeMeasure
 } from '../actions/response-format'
@@ -25,12 +25,12 @@ const Editors = {
 
 function ResponseFormat(
   { id, qrId, formats,
-    switchFormat, updateFormat, newCodeListFormat,
+    switchFormat, updateResponse, updateFormat, newCodeListFormat,
     updateDatatype,
     updateMeasure, updateMeasureFormat,
     addMeasure, removeMeasure,
     locale }) {
-  const { type } = formats
+  const { type, mandatory } = formats
   const ResponseFormatEditor = Editors[type]
   const format = formats[type]
 
@@ -50,6 +50,8 @@ function ResponseFormat(
       <ResponseFormatEditor format={format}
         id={id}
         qrId={qrId}
+        mandatory={mandatory}
+        toggleMandatory={() => updateResponse(id, { mandatory: !mandatory })}
         updateFormat={update => updateFormat(id, update)}
         newCodeListFormat={ctx => newCodeListFormat(id, qrId, ctx)}
         updateMeasure={(update, index) => updateMeasure(id, update, index)}
@@ -71,6 +73,7 @@ const mapStateToProps = (state, { id }) => ({
 
 const mapDispatchToProps = {
   switchFormat,
+  updateResponse,
   updateFormat,
   updateDatatype,
   newCodeListFormat,

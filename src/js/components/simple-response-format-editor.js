@@ -14,9 +14,13 @@ const datatypeEditors = {
 }
 
 export default function SimpleResponseFormatEditor(
-  { format, updateFormat, updateDatatype, locale }) {
-
+  { format, mandatory, toggleMandatory, updateFormat, updateDatatype, locale }) {
   const { typeName } = format
+  
+  //TODO pass a dedicated prop to know if we are within a table response
+  //format editor
+  const notATable = mandatory !== undefined
+  
   const DatatypeEditor = datatypeEditors[typeName]
   return (
     <div>
@@ -34,12 +38,28 @@ export default function SimpleResponseFormatEditor(
           <DatatypeEditor datatype={format[typeName]}
             edit={update => updateDatatype(update)} locale={locale} />
       }
+      { notATable &&
+        <div className="form-group">
+          <label className="col-sm-5 control-label">
+            {locale.mandatory}
+          </label>
+          <div className="col-sm-4">
+            <div className="checkbox">
+              <input type="checkbox" style={{ marginLeft: 0 }}
+                checked={mandatory}
+                onChange={toggleMandatory} />
+            </div>
+          </div>        
+        </div>
+      }
     </div>
   )
 }
 
 SimpleResponseFormatEditor.propTypes = {
   format: PropTypes.object.isRequired,
+  mandatory: PropTypes.bool, // not required for table response
+  toggleMandatory: PropTypes.func, // not required for table response
   updateFormat: PropTypes.func.isRequired,
   updateDatatype: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired

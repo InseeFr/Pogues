@@ -21,6 +21,7 @@ export const defaultSpecial = {
  */
 export const emptyFormat = {
   type: SIMPLE,
+  mandatory: false,
   [SIMPLE]: emptyDatatypeFactory,
   [SINGLE]: {
     codeListReference: '',

@@ -189,7 +189,7 @@ export default function toModel(state, qrId) {
   
   function fromResponseFormat(responseFormatId) {
     const responseFormat = responseFormatById[responseFormatId]
-    const { type, [type]: format } = responseFormat
+    const { type, [type]: format, mandatory } = responseFormat
     if (type === SIMPLE) {
       const { typeName, [typeName]: datatype } = format
       return {
@@ -197,6 +197,7 @@ export default function toModel(state, qrId) {
           // `simple` and `mandatory` are not exposed in the ui for now. These
           // attributes are not required, so we do not create them here, but they
           // could be added if the backend needs them.
+          mandatory,
           datatype: {
             //TODO the `VisualizationHint` attribute of a datatype will not be
             //set : it's not exposed in the ui, and it is not required by the
@@ -217,27 +218,31 @@ export default function toModel(state, qrId) {
         hasSpecialCode, specialLabel, specialCode, specialUiBehaviour,
         specialFollowUpMessage
        } = format
-       const special = hasSpecialCode &&
-          {
-            code: specialCode,
-            label: specialLabel,
-            behaviour: specialUiBehaviour,
-            message: specialFollowUpMessage
-          }
+       let special 
+       if (hasSpecialCode) {
+         special = {
+           code: specialCode,
+           label: specialLabel,
+           behaviour: specialUiBehaviour,
+           message: specialFollowUpMessage
+         }
+       }
+      const response = {
+        // `codeListReference` and `visHint`
+        codeListReference: codeListReference || null,
+        mandatory,
+        datatype: {
+          //no information held by the datatype except for the
+          //VisualizationHint ; by default we use a `TextDatatypeType` (
+          //`DatatypeType` is an abstract type in the model).
+          ...emptyTextDatatype,
+          type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
+          visHint
+        }
+      }
+      if (hasSpecialCode) response.special = special  
       return {
-        responses: [{
-          // `codeListReference` and `visHint`
-          codeListReference: codeListReference || null,
-          datatype: {
-            //no information held by the datatype except for the
-            //VisualizationHint ; by default we use a `TextDatatypeType` (
-            //`DatatypeType` is an abstract type in the model).
-            ...emptyTextDatatype,
-            type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
-            visHint
-          },
-          special
-        }]
+        responses: [response]
       }
     }
     if (type === MULTIPLE) {

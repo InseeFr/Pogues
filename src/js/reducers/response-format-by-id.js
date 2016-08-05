@@ -1,6 +1,6 @@
 import {
   SWITCH_FORMAT, UPDATE_FORMAT, UPDATE_DATATYPE,
-  NEW_CODE_LIST_FORMAT,
+  NEW_CODE_LIST_FORMAT, UPDATE_RESPONSE,
   UPDATE_MEASURE, UPDATE_MEASURE_FORMAT,
   ADD_MEASURE, REMOVE_MEASURE
 } from '../actions/response-format'
@@ -52,6 +52,7 @@ function fromFormatHndlr(fn) {
 const actionsHndlrs = {
   [CREATE_COMPONENT]: createComponent,
   [SWITCH_FORMAT]: switchFormat,
+  [UPDATE_RESPONSE]: updateResponse,
   [UPDATE_DATATYPE]: fromFormatHndlr(updateDatatype),
   [UPDATE_FORMAT]: fromFormatHndlr(updateFormat),
   [NEW_CODE_LIST_FORMAT]: fromFormatHndlr(newCodeListFormat),
@@ -91,6 +92,15 @@ function switchFormat(formats, { id, type }) {
   }
 }
 
+function updateResponse(responses, { id, update }) {
+  return {
+    ...responses,
+    [id]: {
+      ...responses[id],
+      ...update
+    }
+  }
+}
 /**
  * Update format
  *

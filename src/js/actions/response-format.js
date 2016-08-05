@@ -4,6 +4,7 @@ export const UPDATE_DATATYPE = 'UPDATE_DATATYPE'
 
 export const NEW_CODE_LIST_FORMAT = 'NEW_CODE_LIST_FORMAT'
 
+export const UPDATE_RESPONSE = 'UPDATE_RESPONSE'
 export const UPDATE_MEASURE = 'UPDATE_MEASURE'
 export const UPDATE_MEASURE_FORMAT = 'UPDATE_MEASURE_FORMAT'
 
@@ -19,6 +20,15 @@ export const switchFormat = (id, type) => ({
     type
   }
 })
+
+export const updateResponse = (id, update) => ({
+  type: UPDATE_RESPONSE,
+  payload: {
+    id,
+    update
+  }
+})
+
 
 export const updateFormat = (id, update) => ({
   type: UPDATE_FORMAT,

@@ -48,8 +48,8 @@ function parseSimpleOrSingle(responses) {
 }
 
 function parseSingle(response) {
-  const { codeListReference, datatype: { visHint } } = response
   let special
+  const { codeListReference, datatype: { visHint }, mandatory } = response
   if (response.hasOwnProperty('special')) {
     const { code, label, behaviour, message } = response.special
     special = {
@@ -63,6 +63,7 @@ function parseSingle(response) {
   return {
     ...emptyFormat,
     type: SINGLE,
+    mandatory: mandatory || false, //ensure compatibility with old qrs
     [SINGLE]: {
       codeListReference: codeListReference || '',
       visHint,
@@ -72,7 +73,7 @@ function parseSingle(response) {
 }
 
 function parseSimple(response) {
-  const { datatype } = response
+  const { mandatory, datatype } = response
   const { typeName } = datatype
   const emptySimple = emptyFormat[SIMPLE]
   const emptyDatatype = emptySimple[typeName]
@@ -86,6 +87,7 @@ function parseSimple(response) {
   }
   return {
     ...emptyFormat,
+    mandatory: mandatory || false, //ensure compatibility with old qrs
     type: SIMPLE,
     [SIMPLE]: simpleFormat
   }

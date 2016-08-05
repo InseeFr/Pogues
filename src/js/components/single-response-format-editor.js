@@ -14,7 +14,9 @@ export default class SingleResponseFormatEditor extends Component {
   }
   
   render() {
-    const { format, updateFormat, newCodeListFormat, locale } = this.props
+    const {
+      format, mandatory, toggleMandatory, updateFormat, newCodeListFormat, locale
+    } = this.props
     const {
       codeListReference, visHint,
       hasSpecialCode, specialLabel, specialCode,
@@ -34,7 +36,9 @@ export default class SingleResponseFormatEditor extends Component {
       create: () => newCodeListFormat(),
       edited: this.state.edited,
       locale }, this.toggleOrSet)
-    
+    //TODO pass a dedicated prop to know if we are within a table response
+    //format editor
+    const notATable = mandatory !== undefined
     return (
       <div>
         <div className="form-group">
@@ -51,7 +55,24 @@ export default class SingleResponseFormatEditor extends Component {
         <VisHintPicker visHint={visHint}
           locale={locale}
           select={visHint => updateFormat({ visHint })}/>
-        <SpecialCode update={updateFormat} locale={locale} {...special} />
+        
+        { notATable &&
+          <div>
+            <SpecialCode update={updateFormat} locale={locale} {...special} />
+            <div className="form-group">
+              <label className="col-sm-5 control-label">
+                {locale.mandatory}
+              </label>
+              <div className="col-sm-4">
+                <div className="checkbox">
+                  <input type="checkbox" style={{ marginLeft: 0 }}
+                    checked={mandatory}
+                    onChange={toggleMandatory} />
+                </div>
+              </div>        
+            </div>
+          </div>
+        }       
       </div>
     )
   }
@@ -60,6 +81,8 @@ export default class SingleResponseFormatEditor extends Component {
 SingleResponseFormatEditor.propTypes = {
   format: PropTypes.object.isRequired,
   locale: PropTypes.object.isRequired,
+  mandatory: PropTypes.bool,
+  toggleMandatory: PropTypes.func,
   updateFormat: PropTypes.func.isRequired,
   newCodeListFormat: PropTypes.func.isRequired
 }
