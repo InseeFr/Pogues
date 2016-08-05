@@ -8,7 +8,7 @@
  */
 //TODO see to only import relevant modules from lodash
 import _ from 'lodash'
-import { emptyFormat } from '../utils/format-utils'
+import { emptyFormat, defaultSpecial } from '../utils/format-utils'
 
 import {
   RESPONSE_FORMAT, DIMENSION_TYPE, DATATYPE_NAME, DATATYPE_VIS_HINT
@@ -48,11 +48,12 @@ function parseSimpleOrSingle(responses) {
 }
 
 function parseSingle(response) {
-  let special
   const { codeListReference, datatype: { visHint }, mandatory } = response
+  let special = defaultSpecial
   if (response.hasOwnProperty('special')) {
     const { code, label, behaviour, message } = response.special
     special = {
+      ...special,
       hasSpecialCode: true,
       specialCode: code,
       specialLabel: label,
