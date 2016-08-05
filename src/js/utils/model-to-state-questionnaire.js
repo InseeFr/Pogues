@@ -106,7 +106,12 @@ export default function toState(_model) {
 function conditionsFromLabel(rawLabel) {
   //extract first comment line
   const regExpCmt = /##([^\n]*)/
-  const { label, conditions } = JSON.parse(rawLabel.match(regExpCmt)[1])
+  const hasComment = rawLabel.match(regExpCmt)
+  if (!hasComment) return {
+    label: rawLabel,
+    conditionIds: []
+  }
+  const { label, conditions } = JSON.parse(hasComment[1])
   const conditionIds = conditions.map(condition => {
     const { id } = condition
     conditionById[id] = condition
