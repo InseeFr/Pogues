@@ -56,7 +56,8 @@ export default class TableResponseFormatEditor extends Component{
        create: () => newCodeListFormat(SCND_INFO),
        edited: this.state.secondaryEdited,
        locale }, this.toggleOrSetSecondary )
-      
+    
+    const allowMltplMsrs = (firstInfoAsAList || !hasTwoInfoAxes)
     return (
       <div>
         <div className="form-group">
@@ -202,7 +203,7 @@ export default class TableResponseFormatEditor extends Component{
                    updateFormat({ scndInfoTotal: !e.target.checked })} />
                {locale.no}
              </label>          
-           </div>
+           </div> 
           </div>
           { scndInfoTotal && 
             <div className="form-group">
@@ -221,12 +222,14 @@ export default class TableResponseFormatEditor extends Component{
         </div>
       }
       {
-        measures.map((measure, index) => (
-          <div key={index}>
-            <Measure
-              allowRemoval={measures.length > 1}
+        measures.map((measure, index) => {
+          if (!allowMltplMsrs && index > 0) return null
+          return (
+            <div key={index}>
+              <Measure
+              allowRemoval={measures.length > 1 && allowMltplMsrs}
               index={index}
-              allowAddition={index === measures.length - 1}
+              allowAddition={index === measures.length - 1 && allowMltplMsrs}
               measure={measure}
               addMeasure={() => addMeasure(index)}
               removeMeasure={() => removeMeasure(index)}
@@ -235,11 +238,12 @@ export default class TableResponseFormatEditor extends Component{
               updateDatatype={update => updateDatatype(update, index)}
               update={update => updateMeasure(update, index)}
               locale={locale}/>
-          </div>
-        ))
+            </div>
+          )
+        })
       }
-      </div>
-      )
+    </div>
+    )
   }
 }
 
