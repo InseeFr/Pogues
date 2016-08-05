@@ -40,4 +40,4 @@ export default integrityChecker(combineReducers({
   responseFormatById,
   codeById,
   conditionById
-}), combineCheckers(goTosChecker))
+}), combineCheckers(questionnaireLengthChecker, goTosChecker))
