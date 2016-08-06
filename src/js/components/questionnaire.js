@@ -30,7 +30,9 @@ const childCmpntsAndGenericInput =
     let mightBeFirstSequence = first
     return childCmpntsFromParent.map((child, i) => {
       if (child === GENERIC_INPUT) return <GenericInput key={GENERIC_INPUT}/>
-      const { id, active, label, depth, highlighted, type, childCmpnts } = child
+      const { 
+        id, active, label, depth, highlighted, type, childCmpnts, hasPageBreak
+      } = child
       const isFirstSequence = mightBeFirstSequence && type === SEQUENCE
       mightBeFirstSequence = mightBeFirstSequence && !isFirstSequence
       const children = childCmpnts ?
@@ -40,6 +42,7 @@ const childCmpntsAndGenericInput =
       return (
         <QuestionOrSequence {...props} // utility functions from parent
           key={id}
+          hasPageBreak={hasPageBreak}
           id={id} active={active} label={label} highlighted={highlighted}
           type={type} depth={depth}
           children={children} path={path + '.' + i}
@@ -84,6 +87,8 @@ Questionnaire.propTypes = {
   structure: PropTypes.object.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
+  addPageBreak: PropTypes.func.isRequired,
+  removePageBreak: PropTypes.func.isRequired,
   // moveComponentUp: PropTypes.func.isRequired,
   // moveComponentDown: PropTypes.func.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,

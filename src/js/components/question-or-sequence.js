@@ -4,6 +4,7 @@ import { COMPONENT_TYPE } from '../constants/pogues-constants'
 import ComponentEditor from './component-editor'
 import { DragSource, DropTarget } from 'react-dnd'
 import QuestionOrSequenceHeader from './question-or-sequence-header'
+import PageBreak from './page-break'
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 const QUESTION_OR_SEQUENCE = 'QUESTION_OR_SEQUENCE'
@@ -32,10 +33,14 @@ export function linkSourceAndTarget() {
 
   const QuestionOrSequenceTarget = {
     drop: function (props) {
-      const { qrId, id, path, moveComponent } = props
+      const { qrId, id, path, moveComponent, structure } = props
 
       const canDrop = !(path === '0.0' && (depthOfDraggedComponent > 1))
-      if (canDrop) moveComponent(qrId, idOfDraggedCmpnt, id)
+      if (canDrop) {
+        const previous = 
+          structure.flat[structure.idToRank[idOfDraggedCmpnt] - 1].id
+        moveComponent(qrId, idOfDraggedCmpnt, id, previous)
+      }
     }
   }
 
@@ -74,6 +79,7 @@ function QuestionOrSequence(props) {
   const {
     structure, id, active, label, depth, type, highlighted, children, path,
     removeAllowed, removeComponent, moveComponent, qrId,
+    hasPageBreak, addPageBreak, removePageBreak,
     connectDragSource, connectDropTarget, connectDragPreview, isDragging,
     isOver, idOfDraggedCmpnt, pathOfDraggedCmpnt, depthOfDraggedComponent
     } = props
@@ -90,13 +96,18 @@ function QuestionOrSequence(props) {
   const beforePlaceholder= isOver && whereToDrop === BEFORE && placeholder
 
   if (active) return (
-    <ComponentEditor structure={structure} id={id} qrId={qrId}/>)
+    <div>
+        <ComponentEditor structure={structure} id={id} qrId={qrId}/>
+        { hasPageBreak && PageBreak(() => removePageBreak(id))}
+    </div>
+    )
   const  isSequence = type === SEQUENCE
   const labelElDrop = connectDropTarget(
     <div>
       { isOver && beforePlaceholder }
       <QuestionOrSequenceHeader {...props} />
       { isOver && afterPlaceholder }
+      { hasPageBreak && PageBreak(() => removePageBreak(id))}
     </div>)
 
   return (
@@ -119,9 +130,13 @@ QuestionOrSequence.propTypes = {
   active: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   highlighted: PropTypes.bool.isRequired,
+  hasPageBreak: PropTypes.bool.isRequired,
+  addPageBreak: PropTypes.func.isRequired,
+  removePageBreak: PropTypes.bool.isRequired,
   createComponent: PropTypes.func.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  removePageBreak: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
   removeAllowed: PropTypes.bool.isRequired,
   pathOfDraggedCmpnt: PropTypes.string,

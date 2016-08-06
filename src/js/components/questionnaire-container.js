@@ -19,6 +19,10 @@ import {
 } from '../actions/component'
 
 import {
+  addPageBreak, removePageBreak
+} from '../actions/page-break'
+
+import {
   loadQuestionnaireIfNeeded
 } from '../actions/questionnaire'
 
@@ -66,7 +70,8 @@ const mapStateToProps = state => {
       appState: { 
         activecomponentById,
         giById: { [id]: { parent, before } }
-      }
+      },
+      pageBreakById
     } = state
     return {
       loaded: true,
@@ -80,6 +85,7 @@ const mapStateToProps = state => {
       qr: labelTreeFromFlat(
         cmpnts,
         activecomponentById,
+        pageBreakById,
         id, qrState.filter,
         parent || id, // if gi.parent is not set, use the main sequence
         before // if empty, after the last child of the parent sequence
@@ -102,6 +108,8 @@ const mapDispatchToProps = {
   createComponent,
   removeComponent,
   moveComponent,
+  addPageBreak,
+  removePageBreak,
   toggleActiveComponent,
   loadQuestionnaireIfNeeded
 }
@@ -121,8 +129,9 @@ const mapDispatchToProps = {
  * @return {object}        tree view representation
  */
 function labelTreeFromFlat(
-    cmpnts, activeCmpnts, main, filter, parent, before, depth=0) {
+    cmpnts, activeCmpnts, pageBreakById, main, filter, parent, before, depth=0) {
   const { type, label, name } = cmpnts[main]
+  const hasPageBreak = pageBreakById.hasOwnProperty(main)
   const _filter = filter.toLowerCase()
   const tree = {
     id: main,
@@ -130,6 +139,7 @@ function labelTreeFromFlat(
     label,
     name,
     depth,
+    hasPageBreak,
     active: !!activeCmpnts[main],
     highlighted: !!(filter && label.toLowerCase().includes(_filter))
   }
@@ -137,7 +147,7 @@ function labelTreeFromFlat(
     const childCmpnts = cmpnts[main].childCmpnts
     const childCmpntsNodes = childCmpnts
       .map(id => 
-        labelTreeFromFlat(cmpnts, activeCmpnts, id, filter, parent, before, depth + 1)
+        labelTreeFromFlat(cmpnts, activeCmpnts, pageBreakById, id, filter, parent, before, depth + 1)
       )
     if (parent === main) {
       //genric input stays in this sequence

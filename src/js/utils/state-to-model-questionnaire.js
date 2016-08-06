@@ -38,7 +38,8 @@ export default function toModel(state, qrId) {
     controlById,
     codeById,
     conditionById,
-    responseFormatById
+    responseFormatById,
+    pageBreakById
   } = state
 
 
@@ -51,15 +52,28 @@ export default function toModel(state, qrId) {
     codeListById[id] && codeListById[id].isSpec && codeListSpecificationUsed.add(id)
 
   const qr = questionnaireById[qrId]
-  const { agency, survey, componentGroups } = qr
+  const { agency, survey } = qr
   let depthOfSequences = calculateDepths(componentById, qrId)
-
+  // component groups will be feed by `fromComponent`: for each component with
+  // a page break, a new component group wil be created
+  const makePageBreakGroup = index => ({
+    name: `PAGE_${index}`,
+    label: `Components for page ${index}`,
+    Member: []
+  })  
+  let activePage = 1
+  let activeGroup = makePageBreakGroup(activePage) 
+  
+  
+  let componentGroups = [activeGroup]
+  
+  
   //TODO Does a questionnaire really need to be a sequence ? It needs to hold
   //a sequence (the main sequence of the questionnaire), but do goTos,
   //controls and declarations make sense for a questionnaire ? For now, we
   //stay with composition (but in the model, the questionnaire will look like
   //a sequence).
-  const cmpnt = fromComponent(qrId)
+  const cmpnt = fromComponent(qrId, true)
 
   // Switch from local id to remoteId if this id is set (set when the
   // questionnaire is creater on the server)
@@ -78,7 +92,7 @@ export default function toModel(state, qrId) {
     ...cmpnt,
     agency,
     survey,
-    componentGroups: componentGroups.map(fromComponentGroup),
+    componentGroups,
     codeLists: {
       codeList,
       codeListSpecification
@@ -107,16 +121,21 @@ export default function toModel(state, qrId) {
     return { id: clSpecId, label, name, retrievalQuery }
   }
 
-  function fromComponentGroup(cpntGroupId) {
-    return {
-      dscr: 'not implemented yet'
-    }
-  }
-
-  function fromComponent(cmpntId) {
+  function fromComponent(cmpntId, isRoot) {
     // id, name, label, declarations, controls, goTos
     const { id, name, label, declarations, controls, goTos, type } =
       componentById[cmpntId]
+    // do not add the questionnaire component to the first page group
+    // remark: check against true with no type coercion since `fromComponent`
+    // can be called from `map`, so with an integer as second argument
+    if (!(isRoot === true)) {
+        const pageBreak = pageBreakById.hasOwnProperty(cmpntId)
+        activeGroup.Member.push(cmpntId)
+        if (pageBreak) {
+          activeGroup = makePageBreakGroup(++activePage)
+          componentGroups.push(activeGroup)
+        }
+    }
     const qnOrSeq = type === SEQUENCE ?
       fromSequence(cmpntId) : fromQuestion(cmpntId)
     return {

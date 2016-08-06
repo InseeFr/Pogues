@@ -84,7 +84,9 @@ const MAPPING = {
   '_special': 'OBJECT',
   '_code': 'SIMPLE',
   '_behaviour': 'SIMPLE',
-  '_message': 'SIMPLE'
+  '_message': 'SIMPLE',
+  '_componentGroups': 'ARRAY',
+  '_Member': 'ARRAY'
 };
 
 const factory = {
@@ -124,7 +126,8 @@ function serializeObject(obj) {
 function serializeArray(arr) {
   let a = [];
   for (let i in arr) {
-    a.push(serializeObject(arr[i]));
+    //TODO make serialization of arrays more robust
+    a.push(typeof arr[i] === 'string' ? arr[i] : serializeObject(arr[i]));
   }
   return a;
 }

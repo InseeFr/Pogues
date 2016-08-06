@@ -10,6 +10,7 @@ import codeListByQuestionnaire from './code-list-by-questionnaire'
 import responseFormatById from './response-format-by-id'
 import codeById from './code-by-id'
 import conditionById from './condition-by-id'
+import pageBreakById from './page-break-by-id'
 import config from './config'
 import integrityChecker from './integrity-checker'
 import combineCheckers from './checkers'
@@ -39,5 +40,6 @@ export default integrityChecker(combineReducers({
   controlById,
   responseFormatById,
   codeById,
-  conditionById
+  conditionById,
+  pageBreakById
 }), combineCheckers(questionnaireLengthChecker, goTosChecker))

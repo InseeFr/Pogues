@@ -181,3 +181,19 @@ h4.question-header {
 hr {
   border-top: 2px solid #bbb;
 }
+
+.page-break {
+  position: relative;
+  margin-left: -20px;
+  height: 0px;
+  border-bottom: 2px solid #bbb;
+}
+
+.page-break > span {
+  position: absolute;
+  top: -20px;
+  color: #bbb;
+  cursor: pointer;
+}
+
+}

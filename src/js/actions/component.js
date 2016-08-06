@@ -45,11 +45,12 @@ export const removeComponent = (id, parent) => ({
 })
 
 export const MOVE_COMPONENT = 'MOVE_COMPONENT'
-export const moveComponent = (qrId, origin, dest) => ({
+export const moveComponent = (qrId, origin, dest, previous) => ({
   type: MOVE_COMPONENT,
   payload: {
     origin,
     dest,
+    previous,
     qrId
   }
 })
