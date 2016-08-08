@@ -14,7 +14,7 @@ import {
 
 export const emptyTextDatatype = {
   typeName: DATATYPE_NAME.TEXT,
-  maxLength: '1',
+  maxLength: 1,
   pattern: ''
 }
 
