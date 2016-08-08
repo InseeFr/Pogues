@@ -11,17 +11,20 @@
 
 import { putLeading_ } from '../utils/data-utils'
 import {
-  DATATYPE_TYPE_FROM_NAME, RESPONSE_FORMAT, DIMENSION_TYPE
+  DATATYPE_TYPE_FROM_NAME, RESPONSE_FORMAT, DIMENSION_TYPE, UI_BEHAVIOUR
 } from '../constants/pogues-constants'
+const { FIRST_INTENTION } = UI_BEHAVIOUR
+
 import {  
   emptyTextDatatype, emptyBooleanDatatype, processDatatypeForSerialization 
 } from '../reducers/datatype-utils' 
 import { nbCodesFromId } from './code-list-utils'
-const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
 import { uuid } from '../utils/data-utils'
+import { QUESTION_TYPE_ENUM } from '../constants/schema'
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM
 
 export default function toModel(state, qrId) {
 
@@ -213,9 +216,10 @@ export default function toModel(state, qrId) {
   function fromResponseFormat(responseFormatId) {
     const responseFormat = responseFormatById[responseFormatId]
     const { type, [type]: format, mandatory } = responseFormat
-    if (type === SIMPLE) {
+    if (type === RESPONSE_FORMAT.SIMPLE) {
       const { typeName, [typeName]: datatype } = format
       return {
+        questionType: SIMPLE,
         responses: [{
           // `simple` and `mandatory` are not exposed in the ui for now. These
           // attributes are not required, so we do not create them here, but they
@@ -236,7 +240,7 @@ export default function toModel(state, qrId) {
         }]
       }
     }
-    if (type === SINGLE) {
+    if (type === RESPONSE_FORMAT.SINGLE) {
       const { codeListReference, visHint,
         hasSpecialCode, specialLabel, specialCode, specialUiBehaviour,
         specialFollowUpMessage
@@ -244,10 +248,10 @@ export default function toModel(state, qrId) {
        let special 
        if (hasSpecialCode) {
          special = {
-           code: specialCode,
-           label: specialLabel,
-           behaviour: specialUiBehaviour,
-           message: specialFollowUpMessage
+           Value: specialCode,
+           Label: specialLabel,
+           firstIntentionDisplay: specialUiBehaviour === FIRST_INTENTION,
+           Invite: specialFollowUpMessage
          }
        }
       const response = {
@@ -263,12 +267,13 @@ export default function toModel(state, qrId) {
           visHint
         }
       }
-      if (hasSpecialCode) response.special = special  
+      if (hasSpecialCode) response.NonResponseModality = special  
       return {
+        questionType: SINGLE_CHOICE,
         responses: [response]
       }
     }
-    if (type === MULTIPLE) {
+    if (type === RESPONSE_FORMAT.MULTIPLE) {
       const { infoCodeList } = format
       const nbRows = nbCodesFromId(codeListById, infoCodeList)
       const { measureVisHint: visHint, measureBoolean } = format
@@ -293,20 +298,21 @@ export default function toModel(state, qrId) {
         }
       }
       return {
+        questionType: MULTIPLE_CHOICE,
         responses: Array(nbRows).fill(response),
         responseStructure: {
           dimensions: [{
-            type: PRIMARY,
+            dimensionType: PRIMARY,
             dynamic: 0,
             codeListReference: infoCodeList || null
           }, {
-            type: MEASURE,
+            dimensionType: MEASURE,
             dynamic: 0
           }]
         }
       }
     }
-    if (type === TABLE) {
+    if (type === RESPONSE_FORMAT.TABLE) {
       const { firstInfoAsAList, firstInfoTotal, firstInfoTotalLabel,
         measures } = format
       let nbRowsPerMeasure, infoDimensions
@@ -321,7 +327,7 @@ export default function toModel(state, qrId) {
         // reference assigned to this measure.
         nbRowsPerMeasure = Number(firstInfoMax) || 1
         const primary = {
-          type: PRIMARY,
+          dimensionType: PRIMARY,
           dynamic: `${firstInfoMin}-${firstInfoMax}`
         }
         if (firstInfoTotal) primary.totalLabel = firstInfoTotalLabel
@@ -330,7 +336,7 @@ export default function toModel(state, qrId) {
       else {
         const { firstInfoCodeList: codeListReference } = format
         const primary = {
-          type: PRIMARY,
+          dimensionType: PRIMARY,
           dynamic: 0,
           codeListReference: codeListReference || null
         }
@@ -341,7 +347,7 @@ export default function toModel(state, qrId) {
           const { scndInfoCodeList: codeListReference,
             scndInfoTotal, scndInfoTotalLabel} = format
           const secondary = {
-            type: SECONDARY,
+            dimensionType: SECONDARY,
             dynamic: 0,
             codeListReference: codeListReference || null
           }
@@ -359,10 +365,11 @@ export default function toModel(state, qrId) {
       const { responses, dimensions } = realMeasures.reduce(
         ({ responses, dimensions }, measure) => {
         return {
+          questionType: TABLE,
           responses: responses.concat(
             Array(nbRowsPerMeasure).fill(oneResponseFromMeasure(measure))),
           dimensions: dimensions.concat({
-            type: MEASURE,
+            dimensionType: MEASURE,
             dynamic: 0,
             label: measure.label
           })
@@ -370,6 +377,7 @@ export default function toModel(state, qrId) {
       }, { responses: [], dimensions: infoDimensions })
 
       return {
+        questionType: TABLE,
         responses,
         responseStructure: {
           dimensions
@@ -417,7 +425,9 @@ export default function toModel(state, qrId) {
     const {
       type, isQuestion, text
     } = declaration
-    const _declaration = { type, text }
+    const _declaration = { 
+      declarationType: type,
+      text }
     if (isQuestion) {
       _declaration.position = declaration.position
     }

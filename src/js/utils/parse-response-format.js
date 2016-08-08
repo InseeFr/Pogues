@@ -11,7 +11,8 @@ import _ from 'lodash'
 import { emptyFormat, defaultSpecial } from '../utils/format-utils'
 
 import {
-  RESPONSE_FORMAT, DIMENSION_TYPE, DATATYPE_NAME, DATATYPE_VIS_HINT
+  RESPONSE_FORMAT, DIMENSION_TYPE, DATATYPE_NAME, DATATYPE_VIS_HINT,
+  UI_BEHAVIOUR
 } from '../constants/pogues-constants'
 import { emptyDatatypeFactory, parseDatatype } from '../reducers/datatype-utils'
 
@@ -19,6 +20,7 @@ const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
 const { BOOLEAN } = DATATYPE_NAME
 const { CHECKBOX } = DATATYPE_VIS_HINT
+const { FIRST_INTENTION, SECOND_INTENTION } = UI_BEHAVIOUR
 
 export function parseResponseFormat(question) {
   // some old questionnaires do not have any response, but it is not possible
@@ -50,15 +52,15 @@ function parseSimpleOrSingle(responses) {
 function parseSingle(response) {
   const { codeListReference, datatype: { visHint }, mandatory } = response
   let special = defaultSpecial
-  if (response.hasOwnProperty('special')) {
-    const { code, label, behaviour, message } = response.special
+  if (response.hasOwnProperty('NonResponseModality')) {
+    const { Value, Label, firstIntentionDisplay, Invite } = response.NonResponseModality
     special = {
       ...special,
       hasSpecialCode: true,
-      specialCode: code,
-      specialLabel: label,
-      specialUiBehaviour: behaviour,
-      specialFollowUpMessage: message
+      specialCode: Value,
+      specialLabel: Label,
+      specialUiBehaviour: firstIntentionDisplay ? FIRST_INTENTION : SECOND_INTENTION,
+      specialFollowUpMessage: Invite
     }
   }
   return {
@@ -109,7 +111,7 @@ function parseMultipleOrTable({ responses, responseStructure }) {
   // throw an error if not.
   if (dimensions.length === 2) {
     const [ primaryDimension, measureDimension ] = dimensions
-    if (measureDimension.type === MEASURE &&
+    if (measureDimension.dimensionType === MEASURE &&
         !measureDimension.hasOwnProperty('label')) {
         const response = responses[0]
         // ohter checks could be:
@@ -153,9 +155,9 @@ function parseTable({ responses, responseStructure }) {
   const { dimensions } = responseStructure
   const measureDimensions = dimensions
     // ignore PRIMARY or SECONDARY dimensions
-    .filter(({ type }) => type === MEASURE)
+    .filter(({ dimensionType }) => dimensionType === MEASURE)
     // label is supposed to be set
-    .map(({ label, type }) => ({ label, type }))
+    .map(({ label, dimensionType }) => ({ label, dimensionType }))
 
   //We need one question for each measure to extract information about the
   //response format for this measure. It is a bit tricky to know the position
@@ -181,8 +183,8 @@ function parseTable({ responses, responseStructure }) {
   const measures = _.merge(measureDimensions, measureFormats)
 
   // at most two axes
-  const [ primary, secondary ] = dimensions.filter(({ type }) =>
-    type === PRIMARY || type === SECONDARY )
+  const [ primary, secondary ] = dimensions.filter(({ dimensionType }) =>
+    dimensionType === PRIMARY || dimensionType === SECONDARY )
 
   let formatTable = {
     firstInfoCodeList: '',

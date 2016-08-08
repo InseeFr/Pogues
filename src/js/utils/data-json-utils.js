@@ -87,7 +87,17 @@ const MAPPING = {
   '_message': 'SIMPLE',
   '_componentGroups': 'ARRAY',
   '_Member': 'ARRAY',
-  '_position': 'SIMPLE'
+  '_position': 'SIMPLE',
+  '_NonResponseModality': 'OBJECT',
+  '_firstIntentionDisplay': 'SIMPLE',
+  '_Invite': 'SIMPLE',
+  '_Label': 'SIMPLE',
+  '_Value': 'SIMPLE',
+  '_declarationType': 'SIMPLE',
+  '_questionType': 'SIMPLE',
+  '_dimensionType': 'SIMPLE'
+  
+  
 };
 
 const factory = {

@@ -161,10 +161,11 @@ function toResponseFormat(id, question) {
   }
 
   function toDeclaration(dcl) {
-    const { type, text, position } = dcl
+    const { declarationType, text, position } = dcl
     const id = uuid()
     const declaration = {
-      id, type, text,
+      id, text,
+      type: declarationType,
       // we rely on the presence of the property `position` to know if are
       // delaing with a question; we could do it in a more robust by passing
       // an extra arguement to `toDeclaration`
