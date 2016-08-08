@@ -157,12 +157,17 @@ export default function toModel(state, qrId) {
 
 
   function fromSequence(sequenceId) {
-    const { genericName, childCmpnts } = componentById[sequenceId]
-
+    const { childCmpnts } = componentById[sequenceId]
+    const depth = depthOfSequences[sequenceId]
+    const genericName = 
+      depth === 0 ? 'QUESTIONNAIRE' :
+      depth === 1 ? 'MODULE' :
+      'SUBMODULE'
+      
     return {
       genericName,
       children: childCmpnts.map(fromComponent),
-      depth: depthOfSequences[sequenceId],
+      depth,
       type: 'SequenceType'
     }
   }
@@ -427,7 +432,8 @@ export default function toModel(state, qrId) {
     } = declaration
     const _declaration = { 
       declarationType: type,
-      text }
+      text
+    }
     if (isQuestion) {
       _declaration.position = declaration.position
     }

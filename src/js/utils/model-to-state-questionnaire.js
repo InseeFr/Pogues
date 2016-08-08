@@ -83,14 +83,9 @@ export default function toState(_model) {
 
   function toSequence(sequence) {
     const { id, depth, children } = sequence
-    const genericName = 
-      depth === 0 ? 'QUESTIONNAIRE' :
-      depth === 1 ? 'MODULE' :
-      'SUBMODULE'
       
     componentById[id] = {
       ...componentById[id],// already a component
-      genericName,
       depth, //TODO do we keep track of depth ?
       type: SEQUENCE,
       childCmpnts: children.map(toComponent)
