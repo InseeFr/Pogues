@@ -88,7 +88,7 @@ ComponentEditor.propTypes = {
   goTos: PropTypes.array.isRequired,
   declarations: PropTypes.array.isRequired,
   controls: PropTypes.array.isRequired,
-  conditions: PropTypes.array.isRequired,
+  conditions: PropTypes.array,
   responseFormat: PropTypes.string, // not required for sequences
   structure: PropTypes.object.isRequired,
   locale: PropTypes.object.isRequired
