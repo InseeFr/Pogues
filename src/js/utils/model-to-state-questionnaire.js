@@ -29,20 +29,27 @@ export default function toState(_model) {
   const responseFormatById = {}
 
   const { agency, survey, componentGroups, codeLists } =  model
-
+  let pageBreakById = {}
+  
+  if (componentGroups.length > 1) {
+    pageBreakById = componentGroups.slice(0, -1).reduce((pbById, group) => {
+      if (group.Member.length > 0) pbById[group.Member[group.Member.length-1]] = true
+      return pbById
+    }, {})
+  }
 
   const id = toComponent(model) // id === model.id
   const qrId  = id
   codeListByQuestionnaire[qrId] = []
 
   const questionnaire = {
-    id, agency, survey, componentGroups,
+    id, agency, survey,
     codeLists: {
       codeListSpecification: codeLists.codeListSpecification,
       codeList: codeLists.codeList.map(toCodeList)
     }
   }
-
+  
   return {
     questionnaire,
     componentById,
@@ -53,7 +60,8 @@ export default function toState(_model) {
     conditionById,
     codeListByQuestionnaire,
     codeById,
-    responseFormatById
+    responseFormatById,
+    pageBreakById
   }
 
   function toComponent(cmpnt) {

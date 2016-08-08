@@ -14,8 +14,7 @@ export const emptySurvey = {
   name: 'POPO'
 }
 export const emptyQr = {
-  agency: 'fr.insee',
-  componentGroups: []
+  agency: 'fr.insee'
 }
 
 export default function (state=emptyQr, action) {

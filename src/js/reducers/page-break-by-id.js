@@ -1,10 +1,12 @@
 import { ADD_PAGE_BREAK, REMOVE_PAGE_BREAK } from '../actions/page-break'
 import { MOVE_COMPONENT } from '../actions/component'
+import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
 
 const actionsHndlrs = {
   ADD_PAGE_BREAK: createPageBreak,
   REMOVE_PAGE_BREAK: removePageBreak,
-  MOVE_COMPONENT: changePageBreakAnchor
+  MOVE_COMPONENT: changePageBreakAnchor,
+  LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
 }
 
 export default function (state={}, action) {
@@ -30,4 +32,8 @@ function changePageBreakAnchor(pageBreaks, { origin, previous }) {
   const { [origin]: toRemove, ...toKeep } = pageBreaks
   toKeep[previous] = true
   return toKeep
+}
+
+function loadQuestionnaireSuccess(pageBreaks, { update: { pageBreakById } }) {
+  return pageBreakById
 }
