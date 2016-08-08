@@ -19,6 +19,7 @@ const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
+import { uuid } from '../utils/data-utils'
 
 export default function toModel(state, qrId) {
 
@@ -59,7 +60,8 @@ export default function toModel(state, qrId) {
   const makePageBreakGroup = index => ({
     name: `PAGE_${index}`,
     label: `Components for page ${index}`,
-    Member: []
+    Member: [],
+    id: uuid()
   })  
   let activePage = 1
   let activeGroup = makePageBreakGroup(activePage) 
