@@ -17,7 +17,6 @@ const emptyCmpnt = {
 
 const emptySequence = {
   depth: 0,
-  genericName: 'TODO:GENERIC_NAMES[0]', //GENERIC_NAMES[0],
   childCmpnts: [],
   type: COMPONENT_TYPE.SEQUENCE
 }

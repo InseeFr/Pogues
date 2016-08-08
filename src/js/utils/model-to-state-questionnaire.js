@@ -82,7 +82,12 @@ export default function toState(_model) {
   }
 
   function toSequence(sequence) {
-    const { id, genericName, depth, children } = sequence
+    const { id, depth, children } = sequence
+    const genericName = 
+      depth === 0 ? 'QUESTIONNAIRE' :
+      depth === 1 ? 'MODULE' :
+      'SUBMODULE'
+      
     componentById[id] = {
       ...componentById[id],// already a component
       genericName,

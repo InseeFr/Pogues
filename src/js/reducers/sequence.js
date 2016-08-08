@@ -7,7 +7,6 @@ const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 const emptySequence = {
   depth: 0,
-  genericName: 'TODO:GENERIC_NAMES[0]', //GENERIC_NAMES[0],
   childCmpnts: [],
   type: SEQUENCE
 }
