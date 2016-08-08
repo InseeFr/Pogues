@@ -36,11 +36,12 @@ export const createComponent = (parent, label, type, depth) => {
 
 
 export const REMOVE_COMPONENT = 'REMOVE_COMPONENT'
-export const removeComponent = (id, parent) => ({
+export const removeComponent = (id, parent, previous) => ({
   type: REMOVE_COMPONENT,
   payload: {
     parent,
-    id
+    id,
+    previous
   }
 })
 

@@ -1,11 +1,12 @@
 import { ADD_PAGE_BREAK, REMOVE_PAGE_BREAK } from '../actions/page-break'
-import { MOVE_COMPONENT } from '../actions/component'
+import { MOVE_COMPONENT, REMOVE_COMPONENT } from '../actions/component'
 import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
 
 const actionsHndlrs = {
   ADD_PAGE_BREAK: createPageBreak,
   REMOVE_PAGE_BREAK: removePageBreak,
-  MOVE_COMPONENT: changePageBreakAnchor,
+  MOVE_COMPONENT: changePageBreakAfterMove,
+  REMOVE_COMPONENT: changePageBreakAfterRemove,
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
 }
 
@@ -28,9 +29,18 @@ function removePageBreak(pageBreaks, id) {
   return toKeep
 }
 
-function changePageBreakAnchor(pageBreaks, { origin, previous }) {
-  const { [origin]: toRemove, ...toKeep } = pageBreaks
-  toKeep[previous] = true
+function changePageBreakAfterMove(pageBreaks, { origin, previous }) {
+  return changePageBreakAnchor(pageBreaks, origin, previous)
+}
+
+function changePageBreakAfterRemove(pageBreaks, { id, previous}) {
+  return changePageBreakAnchor(pageBreaks, id, previous)
+}
+
+function changePageBreakAnchor(pageBreaks, id, previous) {
+  const { [id]: toRemove, ...toKeep } = pageBreaks
+  //if there was a page break, we put it after the previous component
+  if (toRemove) toKeep[previous] = true
   return toKeep
 }
 
