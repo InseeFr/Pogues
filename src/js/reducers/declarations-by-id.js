@@ -13,7 +13,8 @@ const { AFTER_QUESTION_TEXT } = DECLARATION_POSITION
 const emptyDeclaration = {
   type: INSTRUCTION,
   position: AFTER_QUESTION_TEXT,
-  text: ''
+  text: '',
+  isQuestion: false
 }
 
 export default function (state={}, action) {
@@ -25,6 +26,7 @@ export default function (state={}, action) {
         [payload.id]: {
           id: payload.id,
           ...emptyDeclaration,
+          isQuestion: payload.isQuestion
         }
       }
     case EDIT_DECLARATION:

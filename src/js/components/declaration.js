@@ -8,7 +8,7 @@ import {
 import { DECLARATION_POS as dclPosMap } from '../utils/constants-mapping'
 var logger = new Logger('Declaration', 'Components');
 
-function Declaration({ text, type, position, remove, edit, locale}) {
+function Declaration({ text, type, position, remove, edit, isQuestion, locale}) {
   const typeChoices =  Object.keys(DECLARATION_TYPE).map(key =>
      <option key={key} value={key}>{locale[key]}</option>)
      
@@ -37,12 +37,14 @@ function Declaration({ text, type, position, remove, edit, locale}) {
               {typeChoices}
             </select>
           </div>
+          { isQuestion && 
           <div className="col-sm-6">
             <select onChange={e => edit({ position: e.target.value })}
                value={position} className="form-control input-block-level">
               {posChoices}
             </select>          
           </div>
+        }
         </div>
       </div>
   )
@@ -51,9 +53,10 @@ function Declaration({ text, type, position, remove, edit, locale}) {
 Declaration.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  position: PropTypes.string.isRequired,
+  position: PropTypes.string, // not required for sequences
   remove: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
+  isQuestion: PropTypes.bool.isRequired,
   locale: PropTypes.object.isRequired
 }
 export default Declaration;

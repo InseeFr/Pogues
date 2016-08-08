@@ -4,13 +4,13 @@ export const CREATE_DECLARATION = 'ADD_DECLARATION'
 export const EDIT_DECLARATION = 'EDIT_DECLARATION'
 export const REMOVE_DECLARATION = 'REMOVE_DECLARATION'
 
-export function createDeclaration(cmpntId, declarationDscr) {
+export function createDeclaration(cmpntId, isQuestion) {
   return {
     type: CREATE_DECLARATION,
     payload: {
       id: uuid(),
       cmpntId,
-      declarationDscr      
+      isQuestion,
     }
   }
 }

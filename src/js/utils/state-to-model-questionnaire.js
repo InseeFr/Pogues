@@ -413,10 +413,15 @@ export default function toModel(state, qrId) {
   }
 
   function fromDeclaration(dclId) {
-    const { type, position, text } = declarationById[dclId]
-    return {
-      type, text, position
+    const declaration = declarationById[dclId]
+    const {
+      type, isQuestion, text
+    } = declaration
+    const _declaration = { type, text }
+    if (isQuestion) {
+      _declaration.position = declaration.position
     }
+    return _declaration
   }
 
   function fromControl(ctrlId) {

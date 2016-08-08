@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import {
   createDeclaration, removeDeclaration, editDeclaration
 } from '../actions/declaration'
+import { COMPONENT_TYPE } from '../constants/pogues-constants'
+const { QUESTION } = COMPONENT_TYPE
 import Declaration from './declaration'
 
 function DeclarationlPanel(
-  { cmpntId,
+  { cmpntId, isQuestion,
     detailedDeclarations, createDeclaration, removeDeclaration, editDeclaration,
     locale }) {
   
@@ -15,13 +17,14 @@ function DeclarationlPanel(
   	detailedDeclarations.map(({ id, type, position, text }) =>
       <Declaration key={id} text={text} type={type}
         position={position}
+        isQuestion={isQuestion}
         remove={() => removeDeclaration(id, cmpntId) }
         edit={update => editDeclaration(id, update)}
         locale={locale} />
     ) :
     <span>{locale.noDeclarationYet}</span>
 
-    return <GenericPanel add={() => createDeclaration(cmpntId)} children={dclEls} 
+    return <GenericPanel add={() => createDeclaration(cmpntId, isQuestion)} children={dclEls} 
     	localeAdd={locale.addDeclaration} localeTitle={locale.declarations}  />
   }
 
@@ -32,11 +35,14 @@ DeclarationlPanel.PropTypes = {
   createDeclaration: PropTypes.func.isRequired,
   removeDeclaration: PropTypes.func.isRequired,
   editDeclaration: PropTypes.func.isRequired,
+  isQuestion: PropTypes.bool.isRequired,
   locale: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, { declarations, cmpntId }) => {
+  const cmpnt = state.componentById[cmpntId]
   return {
+    isQuestion: cmpnt.type === QUESTION,
     detailedDeclarations: declarations.map(id => state.declarationById[id])
   }
 }

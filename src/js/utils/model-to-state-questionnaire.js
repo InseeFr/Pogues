@@ -163,9 +163,15 @@ function toResponseFormat(id, question) {
   function toDeclaration(dcl) {
     const { type, text, position } = dcl
     const id = uuid()
-    declarationById[id] = {
-      id, type, text, position
+    const declaration = {
+      id, type, text,
+      // we rely on the presence of the property `position` to know if are
+      // delaing with a question; we could do it in a more robust by passing
+      // an extra arguement to `toDeclaration`
+      isQuestion: dcl.hasOwnProperty('position')
     }
+    if (declaration.isQuestion) declaration.position = position
+    declarationById[id] = declaration
     return id
   }
   
