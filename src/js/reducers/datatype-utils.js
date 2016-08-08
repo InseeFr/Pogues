@@ -14,7 +14,7 @@ import {
 
 export const emptyTextDatatype = {
   typeName: DATATYPE_NAME.TEXT,
-  maxLength: 1,
+  maxLength: '1',
   pattern: ''
 }
 
@@ -42,4 +42,54 @@ export const emptyDatatypeFactory = {
   [DATATYPE_NAME.NUMERIC]: emptyNumericDatatype,
   [DATATYPE_NAME.DATE]: emptyDateDatatype,
   [DATATYPE_NAME.BOOLEAN]: emptyBooleanDatatype
+}
+
+//TODO think again (see #112 and #123) ; see how it works with `NaN`x
+export function processDatatypeForSerialization(datatype) { 
+  const { typeName } = datatype 
+  if (typeName === DATATYPE_NAME.NUMERIC) { 
+    const { minimum, maximum, decimals } = datatype 
+    return { 
+      typeName, 
+      minimum: parseFloat(minimum), 
+      maximum: parseFloat(maximum), 
+      decimals: parseFloat(decimals) 
+    } 
+  } 
+  if (typeName === DATATYPE_NAME.TEXT) return { 
+    ...datatype, 
+    maxLength: parseFloat(datatype.maxLength) 
+  } 
+  return datatype 
+}
+
+export function parseDatatype(datatype) {
+  const { typeName } = datatype
+  if (typeName === DATATYPE_NAME.NUMERIC) {
+    const { minimum, maximum, decimals } = datatype
+    return {
+      typeName,
+      minimum: toNumber(minimum),
+      maximum: toNumber(maximum),
+      decimals: toNumber(decimals)
+    }
+  }
+  if (typeName === DATATYPE_NAME.TEXT) {
+    const { maxLength } = datatype
+    return {
+      ...datatype,
+      maxLength: toNumber(maxLength)
+    }
+  }
+}
+/**
+ * Convert invalid number strings to empty strings
+ *
+ * Invalid strings and `null` will return an empty string
+ * @param  {[type]} rawNumber [description]
+ * @return {[type]}           [description]
+ */
+function toNumber(rawNumber) {
+  const n = parseFloat(rawNumber)
+  return isNaN(n) ? '' : n.toString()
 }

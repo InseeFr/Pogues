@@ -13,7 +13,9 @@ import { putLeading_ } from '../utils/data-utils'
 import {
   DATATYPE_TYPE_FROM_NAME, RESPONSE_FORMAT, DIMENSION_TYPE
 } from '../constants/pogues-constants'
-import { emptyTextDatatype, emptyBooleanDatatype } from '../reducers/datatype-utils'
+import {  
+  emptyTextDatatype, emptyBooleanDatatype, processDatatypeForSerialization 
+} from '../reducers/datatype-utils' 
 import { nbCodesFromId } from './code-list-utils'
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
@@ -224,7 +226,7 @@ export default function toModel(state, qrId) {
             //set : it's not exposed in the ui, and it is not required by the
             //model, so we do not create these properties. Check if it is ok
             //with the backend.
-            ...datatype,
+            ...processDatatypeForSerialization(datatype),
             //TODO document the use of `type` property ; it seems to be a
             //convention used in Pogues to represent in JSON which derived type
             //of an abstract type (in the XML Schema) is used. This property is
@@ -383,7 +385,7 @@ export default function toModel(state, qrId) {
       const { typeName, [typeName]: datatype } = format
       return {
         datatype: {
-          ...datatype,
+          ...processDatatypeForSerialization(datatype),
           type: DATATYPE_TYPE_FROM_NAME[typeName]
         }
       }

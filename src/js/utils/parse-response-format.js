@@ -13,7 +13,7 @@ import { emptyFormat, defaultSpecial } from '../utils/format-utils'
 import {
   RESPONSE_FORMAT, DIMENSION_TYPE, DATATYPE_NAME, DATATYPE_VIS_HINT
 } from '../constants/pogues-constants'
-import { emptyDatatypeFactory } from '../reducers/datatype-utils'
+import { emptyDatatypeFactory, parseDatatype } from '../reducers/datatype-utils'
 
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
@@ -83,7 +83,7 @@ function parseSimple(response) {
     typeName,
     [typeName]: {
       ...emptyDatatype,
-      ...datatype
+      ...parseDatatype(datatype)
     }
   }
   return {
