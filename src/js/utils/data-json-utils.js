@@ -86,7 +86,8 @@ const MAPPING = {
   '_behaviour': 'SIMPLE',
   '_message': 'SIMPLE',
   '_componentGroups': 'ARRAY',
-  '_Member': 'ARRAY'
+  '_Member': 'ARRAY',
+  '_position': 'SIMPLE'
 };
 
 const factory = {

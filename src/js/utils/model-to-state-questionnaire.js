@@ -148,11 +148,10 @@ function toResponseFormat(id, question) {
   }
 
   function toDeclaration(dcl) {
-    const { type, text } = dcl
+    const { type, text, position } = dcl
     const id = uuid()
     declarationById[id] = {
-      id, type, text,
-      disjoignable: true, //TODO not implemented yet in the backend
+      id, type, text, position
     }
     return id
   }

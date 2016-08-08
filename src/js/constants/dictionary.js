@@ -275,5 +275,21 @@ export default {
   mandatory: {
     'fr': 'Obligatoire',
     'en': 'Mandatory'
+  },
+  dclPosAfterQuestion: {
+    'fr': 'Après le libellé de question',
+    'en': 'After question label'
+  },
+  dclPosAfterAnswer: {
+    'fr': 'Après les champs de réponse',
+    'en': 'After response fields'
+  },
+  dclPosBeforeText: {
+    'fr': 'Avant le libellé de question',
+    'en': 'Before question label'
+  },
+  dclPosDetachable: {
+    'fr': 'Note de bas de page',
+    'en': 'Foot note'
   }
 }

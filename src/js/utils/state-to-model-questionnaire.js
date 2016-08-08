@@ -409,14 +409,9 @@ export default function toModel(state, qrId) {
   }
 
   function fromDeclaration(dclId) {
-    const { type, disjoignable, text } = declarationById[dclId]
-    //TODO sometimes there is no type in the json file -> investigate
-    if (type !== undefined) return {
-      type, text
-     // disjoignable: disjoignable,
-    }
-    else return {
-      text
+    const { type, position, text } = declarationById[dclId]
+    return {
+      type, text, position
     }
   }
 

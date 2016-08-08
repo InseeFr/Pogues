@@ -1,12 +1,20 @@
 import React, { PropTypes } from 'react';
 import Logger from '../logger/logger';
-import { DECLARATION_TYPE } from '../constants/pogues-constants'
+import _ from 'lodash'
 
+import {
+  DECLARATION_TYPE, DECLARATION_POSITION
+} from '../constants/pogues-constants'
+import { DECLARATION_POS as dclPosMap } from '../utils/constants-mapping'
 var logger = new Logger('Declaration', 'Components');
 
-function Declaration({ text, type, disjoignable, remove, edit, locale}) {
+function Declaration({ text, type, position, remove, edit, locale}) {
   const typeChoices =  Object.keys(DECLARATION_TYPE).map(key =>
      <option key={key} value={key}>{locale[key]}</option>)
+     
+  const posChoices =  _.map(DECLARATION_POSITION, pos => 
+    <option key={pos} value={pos}>{locale[dclPosMap[pos]]}</option>
+  )
     return (
       <div className="form-horizontal">
         <div className="form-group">
@@ -30,15 +38,10 @@ function Declaration({ text, type, disjoignable, remove, edit, locale}) {
             </select>
           </div>
           <div className="col-sm-6">
-            <div className="input-group">
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" checked={disjoignable}
-                    onChange={e => edit({ disjoignable: e.target.checked })} />
-                    {locale.disjoignable}
-                </label>
-              </div>
-            </div>
+            <select onChange={e => edit({ position: e.target.value })}
+               value={position} className="form-control input-block-level">
+              {posChoices}
+            </select>          
           </div>
         </div>
       </div>
@@ -48,7 +51,7 @@ function Declaration({ text, type, disjoignable, remove, edit, locale}) {
 Declaration.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  disjoignable: PropTypes.bool.isRequired,
+  position: PropTypes.string.isRequired,
   remove: PropTypes.func.isRequired,
   edit: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired

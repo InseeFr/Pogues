@@ -10,11 +10,15 @@
  * to represent another kind of concept.
 **/
 import {
-  RESPONSE_FORMAT as respFormCst, UI_BEHAVIOUR as uiBhvrCst
+  RESPONSE_FORMAT as respFormCst, UI_BEHAVIOUR as uiBhvrCst,
+  DECLARATION_POSITION as dclPostCst
 } from '../constants/pogues-constants'
 
 const { SIMPLE, SINGLE, MULTIPLE, TABLE } = respFormCst
 const { FIRST_INTENTION, SECOND_INTENTION } = uiBhvrCst
+const {
+  AFTER_QUESTION_TEXT, AFTER_RESPONSE, BEFORE_QUESTION_TEXT, DETACHABLE
+} = dclPostCst
 
 export const RESPONSE_FORMAT = {
   [SIMPLE]: 'responseFormatSimple',
@@ -26,4 +30,11 @@ export const RESPONSE_FORMAT = {
 export const UI_BEHAVIOUR = {
   [FIRST_INTENTION]: 'rankUiBehaviour1',
   [SECOND_INTENTION]: 'rankUiBehaviour2'
+}
+
+export const DECLARATION_POS = {
+  [AFTER_QUESTION_TEXT]: 'dclPosAfterQuestion',
+  [AFTER_RESPONSE]: 'dclPosAfterAnswer',
+  [BEFORE_QUESTION_TEXT]: 'dclPosBeforeText',
+  [DETACHABLE]: 'dclPosDetachable'
 }

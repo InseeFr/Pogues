@@ -12,9 +12,9 @@ function DeclarationlPanel(
     locale }) {
   
   const dclEls = detailedDeclarations.length > 0 ?
-  	detailedDeclarations.map(({ id, type, disjoignable, text }) =>
+  	detailedDeclarations.map(({ id, type, position, text }) =>
       <Declaration key={id} text={text} type={type}
-        disjoignable={disjoignable}
+        position={position}
         remove={() => removeDeclaration(id, cmpntId) }
         edit={update => editDeclaration(id, update)}
         locale={locale} />

@@ -6,11 +6,13 @@ import {
   LOAD_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
 
-import { DECLARATION_TYPE } from '../constants/pogues-constants'
+import { DECLARATION_TYPE, DECLARATION_POSITION } from '../constants/pogues-constants'
 const { INSTRUCTION } = DECLARATION_TYPE
+const { AFTER_QUESTION_TEXT } = DECLARATION_POSITION
+
 const emptyDeclaration = {
   type: INSTRUCTION,
-  disjoignable: true,
+  position: AFTER_QUESTION_TEXT,
   text: ''
 }
 
