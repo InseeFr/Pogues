@@ -15,7 +15,7 @@ function DeleteActivator({ qrId, id, removeComponent, structure, removeAllowed }
 DeleteActivator.propTypes = {
   id: PropTypes.string.isRequired,
   removeComponent: PropTypes.func.isRequired,
-  structure: PropTypes.func.isRequired,
+  structure: PropTypes.object.isRequired,
   removeAllowed: PropTypes.bool.isRequired
 }
 export default DeleteActivator;
