@@ -141,8 +141,8 @@ export default {
     'en': 'Single choice response'
   },
   responseFormatMultiple: {
-    'fr': 'Réponse multiple',
-    'en': 'Multiple response'
+    'fr': 'Réponse à choix multiples',
+    'en': 'Multiple choice response'
   },
   responseFormatTable: {
     'fr': 'Tableau',
