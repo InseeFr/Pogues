@@ -17,7 +17,7 @@ export default {
   sequence: {'en': 'Sequence', 'fr': 'Séquence'},
   question: {'en': 'Question', 'fr': 'Question'},
   save: {'en': 'Save', 'fr': 'Sauvegarder'},
-  publish: {'en': 'Publish', 'fr': 'Publier'},
+  publish: {'en': 'Visualize', 'fr': 'Visualiser'},
   create: {'en': 'Create', 'fr': 'Créer'},
   declaration: {'en': 'Statement', 'fr': 'Déclaration'},
   create_questionnaire: {'en': 'Create a questionnaire', 'fr': 'Créer un questionnaire'},
