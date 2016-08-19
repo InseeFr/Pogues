@@ -137,8 +137,8 @@ export default {
     'en': 'Simple response'
   },
   responseFormatSingle: {
-    'fr': 'Réponse unique',
-    'en': 'Single response'
+    'fr': 'Réponse à choix unique',
+    'en': 'Single choice response'
   },
   responseFormatMultiple: {
     'fr': 'Réponse multiple',
