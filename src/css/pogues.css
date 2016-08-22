@@ -195,3 +195,42 @@ hr {
   color: #bbb;
   cursor: pointer;
 }
+
+.form-control.focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+
+.rich-label {
+  position: relative;
+}
+
+.rich-label-control-group {
+  position: absolute;
+  display: inline-block;
+  top: -28px;
+  left: 3px;
+}
+
+.rich-label-contextual-input {
+  display: inline-block;
+}
+
+.rich-label-contextual-input input {
+  border: none;
+  outline: none;
+  margin-left: 5px;
+  border-bottom: solid #ccc 1px;
+  
+}
+
+.rich-label-form-group {
+  padding-top: 27px;
+  /*padding-bottom: 25px;*/
+}
+
+.form-control.multiline {
+  height: 100px;
+}

@@ -10,6 +10,9 @@
   "dependencies": {
     "bootstrap": "~3.3.4",
     "classnames": "~1.2.0",
+    "draft-js": "^0.7.0",
+    "draft-js-export-markdown": "^0.2.0",
+    "draft-js-import-markdown": "^0.1.6",
     "events": "^1.0.2",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "~2.1.3",

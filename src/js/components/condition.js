@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { CONTROL_CRITICITY } from '../constants/pogues-constants'
 import _ from 'lodash'
+import RichLabel from './rich-label'
 
 export default function Condition({ id, condition, label,
   remove, edit, locale }) {
@@ -21,12 +22,13 @@ export default function Condition({ id, condition, label,
             </button>
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group rich-label-form-group">
           <div className="col-sm-12">
-            <input type="text" value={label}
-              placeholder={locale.label}
-              className="form-control"
-              onChange={e => edit({ label: e.target.value })}/>
+            <RichLabel placeholder={locale.label}
+              initialValue={label}
+              canPaste={true}
+              multiline={false}
+              onChange={label => edit({ label })}/>
           </div>
         </div>
       </div>

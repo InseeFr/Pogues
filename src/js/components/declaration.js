@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Logger from '../logger/logger';
 import _ from 'lodash'
+import RichLabel from './rich-label'
 
 import {
   DECLARATION_TYPE, DECLARATION_POSITION
@@ -17,11 +18,14 @@ function Declaration({ text, type, position, remove, edit, isQuestion, locale}) 
   )
     return (
       <div className="form-horizontal">
-        <div className="form-group">
+        <div className="form-group rich-label-form-group">
           <div className="col-sm-10">
-            <input value={text} type="text" className="form-control"
-              onChange={e => edit({ text: e.target.value})}
-              placeholder={locale.placeholderDeclarationText}/>
+            <RichLabel 
+              placeholder={locale.placeholderDeclarationText}
+              initialValue={text}
+              canPaste={true}
+              multiline={true}
+              onChange={text => edit({ text })} />
           </div>
           <div className="col-sm-2">
             <button className="btn btn-default form-control" type="button"

@@ -3,6 +3,7 @@ import { nameFromLabel } from '../utils/name-utils';
 import Declaration from './declaration';
 import Control from './control';
 import GoTo from './go-to';
+import RichLabel from './rich-label'
 import { connect } from 'react-redux'
 import Logger from '../logger/logger';
 import { flatten } from '../utils/data-utils'
@@ -28,7 +29,7 @@ function ComponentEditor({
     responseFormat, //for questions only
     locale }) {
 
-    let questionEl, conditionEl
+    let questionEl, conditionEl, labelEditor
     if (type === QUESTION) {
       questionEl = <ResponseFormatPanel
         id={id}
@@ -37,19 +38,26 @@ function ComponentEditor({
       conditionEl = <ConditionPanel 
         id={id} conditions={conditions} cmpntId={id}
         locale={locale} />
+      labelEditor = <RichLabel 
+        placeholder={locale.label}
+        initialValue={label}
+        canPaste={true}
+        multiline={false}
+        onChange={label => changeLabel(id, label)} />
     }
+    else labelEditor = <input value={label} 
+        onChange={e => changeLabel(id, e.target.value)} 
+        type="text" className="form-control" id="label" 
+        placeholder={locale.label}/> 
 
     return (
       <div className="form-horizontal">
-        <div className="form-group">
+        <div className="form-group rich-label-form-group">
           <label htmlFor="label" className="control-label sr-only">
             {locale.label}
           </label>
           <div className="col-sm-7">
-            <input value={label}
-              onChange={e => changeLabel(id, e.target.value)}
-              type="text" className="form-control" id="label"
-              placeholder={locale.label}/>
+            { labelEditor }
           </div>
           <label htmlFor="name" className="control-label sr-only">
             {locale.name}
