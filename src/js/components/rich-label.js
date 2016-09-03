@@ -67,7 +67,6 @@ export default class RichLabel extends Component {
       this.setState({ editorState })
       const newContent = editorState.getCurrentContent()
       if (newContent === this.state.content) return
-      props.onChange(stateToMarkdown(newContent))
     }
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.linkFocus = () => {}
@@ -144,7 +143,6 @@ export default class RichLabel extends Component {
       }, () => {
         setTimeout(() => {
           this.refs.editor.focus()
-          console.log(convertToRaw(newEditorState.getCurrentContent()))
         }, 0)
       });
     }
@@ -169,6 +167,7 @@ export default class RichLabel extends Component {
     }
     this.linkInfoChange = text => this.setState({ linkInfo: text })
     this.iconInfoChange = text => this.setState({ iconInfo: text })
+    this.handleBlur = this.handleBlur.bind(this)
   }
   
   toggleInlineStyle(inlineStyle) {
@@ -188,7 +187,12 @@ export default class RichLabel extends Component {
     }
     return false;
   } 
-     
+  
+  handleBlur() {
+    this.setState({ focus: false })
+    this.props.onChange(stateToMarkdown(this.state.editorState.getCurrentContent()))
+  }
+
   render() {
     const {
       editorState, focus, linkEdited, linkInfo, iconEdited, iconInfo
@@ -228,7 +232,7 @@ export default class RichLabel extends Component {
         </div>
         <div className={classnames('form-control', { multiline, focus })}
           onFocus={() => this.setState({ focus: true })}
-          onBlur={() => this.setState({ focus: false})}>
+          onBlur={this.handleBlur}>
           <Editor 
             blockStyleFn={multiline ? multilineFn : singleLineFn}
             handlePastedText={(text, html) => {
@@ -241,6 +245,14 @@ export default class RichLabel extends Component {
             placeholder={placeholder}
             ref='editor'
             editorState={this.state.editorState}
+            //We want to avoid editor state serialization each time a key is
+            //pressed, so `onChange` will not throw an aciton to the store). The
+            //content will be saved when the editor loses focus (which neccarily
+            //happens when we click on the save button for the questionnaire).
+            //At first, we threw an action each time the editor state changed,
+            //but sometimes the ui was not responding very well (but we
+            //serialized a markdown representation of the state, ant it might
+            //be this part of the serialiaztion which took too much time).
             onChange={this.onChange}
             handleKeyCommand={this.handleKeyCommand}/>
         </div>
