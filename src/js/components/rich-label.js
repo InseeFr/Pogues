@@ -22,8 +22,19 @@ const STYLES = {
 const { BOLD, ITALIC } = STYLES
 const LINK = 'LINK'
 
-// console.log(convertToRaw(this.state.editorState.getCurrentContent()))
-// console.log(stateToMarkdown(this.state.editorState.getCurrentContent()))
+function replaceText(editorState, text) {
+  var newContent = Modifier.replaceText(
+    editorState.getCurrentContent(),
+    editorState.getSelection(),
+    text
+  );
+  return EditorState.push(
+    editorState,
+    newContent,
+    'replace-text'
+  );
+}
+
 //Add the `singleline` class to the block wrapper (in order to disable white
 //space wrapping and hide overflow)
 //We do it whatever the block is (we should only have one block if we use
@@ -167,6 +178,7 @@ export default class RichLabel extends Component {
     }
     this.linkInfoChange = text => this.setState({ linkInfo: text })
     this.iconInfoChange = text => this.setState({ iconInfo: text })
+    this.pasteRawText = this.pasteRawText.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
   }
   
@@ -177,6 +189,12 @@ export default class RichLabel extends Component {
         inlineStyle
       )
     );
+  }
+  
+  pasteRawText(text, removeNewLines) {
+    ///see draft-js/src/component/handlers/edit/editOnPaste.js
+    text = removeNewLines ? text.replace(/[\n\r]/g, ' ') : text
+    this.setState({ editorState: replaceText(this.state.editorState, text) })
   }
   
   handleKeyCommand(command) {
@@ -236,9 +254,8 @@ export default class RichLabel extends Component {
           <Editor 
             blockStyleFn={multiline ? multilineFn : singleLineFn}
             handlePastedText={(text, html) => {
-              //TODO replace with newlines with whitespaces, and then update
-              //editorState
-              return false
+              this.pasteRawText(text, true)
+              return true
             }}
             // disable new lines
             handleReturn={() => !multiline}
@@ -260,6 +277,8 @@ export default class RichLabel extends Component {
     )
   }
 }
+
+
 
 RichLabel.propTypes = {
   onChange: PropTypes.func.isRequired,
