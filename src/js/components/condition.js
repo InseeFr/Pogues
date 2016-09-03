@@ -28,7 +28,8 @@ export default function Condition({ id, condition, label,
               initialValue={label}
               canPaste={true}
               multiline={false}
-              onChange={label => edit({ label })}/>
+              onChange={label => edit({ label })}
+              locale={locale} />
           </div>
         </div>
       </div>

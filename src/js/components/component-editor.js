@@ -43,7 +43,8 @@ function ComponentEditor({
         initialValue={label}
         canPaste={true}
         multiline={false}
-        onChange={label => changeLabel(id, label)} />
+        onChange={label => changeLabel(id, label)}
+        locale={locale} />
     }
     else labelEditor = <input value={label} 
         onChange={e => changeLabel(id, e.target.value)} 

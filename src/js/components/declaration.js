@@ -25,7 +25,8 @@ function Declaration({ text, type, position, remove, edit, isQuestion, locale}) 
               initialValue={text}
               canPaste={true}
               multiline={true}
-              onChange={text => edit({ text })} />
+              onChange={text => edit({ text })} 
+              locale={locale} />
           </div>
           <div className="col-sm-2">
             <button className="btn btn-default form-control" type="button"
