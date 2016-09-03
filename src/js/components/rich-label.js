@@ -228,7 +228,8 @@ export default class RichLabel extends Component {
                 placeholder={'Entrez une url'}
                 onChange={this.linkInfoChange}
                 onEnter={this.confirmLink} />
-              <a className="btn btn-xs btn-default" onClick={this.confirmLink}
+              <a href="#" className="btn btn-xs btn-default" 
+                onClick={e => { e.preventDefault(); this.confirmLink() }}
                 style={{ marginLeft: '5px' }}>
                 <i className="fa fa-check"></i>
               </a>
