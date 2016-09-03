@@ -9,6 +9,7 @@ import RichControlGroup from './rich-control-group'
 import ContextualInput from './contextual-input'
 import Link, { createLinkEntity, findLinkEntities } from './rich-label-link'
 import Icon, { createIconEntity, findIconEntities } from './rich-label-icon'
+//default styles for the editor (we need this at least to make the placeholder behave as expected)
 import '../../css/Draft.css'
 import classnames from 'classnames'
 import _ from 'lodash'
