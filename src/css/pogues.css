@@ -234,3 +234,22 @@ hr {
 .form-control.multiline {
   height: 100px;
 }
+
+.singleline .public-DraftStyleDefault-block {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.multiline .public-DraftStyleDefault-block {
+  overflow: hidden;
+}
+
+/*HACK was not able to use `height: inherit;` because of the padding
+within the parent element */
+.DraftEditor-root {
+  height: 100%;
+}
+.public-DraftEditor-content {
+  max-height: 100px;
+  overflow: auto;
+}

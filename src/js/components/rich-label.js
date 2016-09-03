@@ -24,6 +24,17 @@ const LINK = 'LINK'
 
 // console.log(convertToRaw(this.state.editorState.getCurrentContent()))
 // console.log(stateToMarkdown(this.state.editorState.getCurrentContent()))
+//Add the `singleline` class to the block wrapper (in order to disable white
+//space wrapping and hide overflow)
+//We do it whatever the block is (we should only have one block if we use
+//a single line input).
+function singleLineFn() {
+  return 'singleline'
+}
+
+function multilineFn() {
+  return 'multiline'
+}
 /**
  * We decoupled the Editor and the controls to enable fine grained positioning.
  */
@@ -219,13 +230,14 @@ export default class RichLabel extends Component {
           onFocus={() => this.setState({ focus: true })}
           onBlur={() => this.setState({ focus: false})}>
           <Editor 
+            blockStyleFn={multiline ? multilineFn : singleLineFn}
             handlePastedText={(text, html) => {
               //TODO replace with newlines with whitespaces, and then update
               //editorState
               return false
             }}
             // disable new lines
-            //handleReturn={() => multiline}
+            handleReturn={() => !multiline}
             placeholder={placeholder}
             ref='editor'
             editorState={this.state.editorState}
