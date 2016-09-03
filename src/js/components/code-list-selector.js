@@ -22,7 +22,7 @@ import { connect } from 'react-redux'
  * information has to be saved elsewhere (in other words, an actions needs to be
  * triggered), hence the `edit` callback.
  */
-export default class CodeListSelector extends Component {
+class CodeListSelector extends Component {
 
   constructor(props) {
     super(props)
