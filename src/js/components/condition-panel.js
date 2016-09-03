@@ -14,9 +14,9 @@ function ConditionPanel(
   const ctrlEls = detailedConditions.length > 0 ?
     detailedConditions.map(
       ({ id, condition, label }, i) =>
-      <div>
+      <div key={id}>
         { i > 0 && <hr/> }
-        <Condition key={id} 
+        <Condition 
           condition={condition}
           label={label}
           remove={() => removeCondition(id, cmpntId) }
