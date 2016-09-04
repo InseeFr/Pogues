@@ -1,6 +1,6 @@
 import { uuid } from '../utils/data-utils'
 import { removeLeading_ } from '../utils/data-utils'
-import { parseResponseFormat } from '../utils/parse-response-format'
+import { parseResponseFormat } from '../utils/response-format/parse'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
@@ -108,33 +108,33 @@ export default function toState(_model) {
     return id
   }
 
-// see state to model transformation to know how to deserialize the label string
-// provided to build the current label and the conditions defined within the
-// question.
-function conditionsFromLabel(rawLabel) {
-  //extract first comment line
-  const regExpCmt = /##([^\n]*)/
-  const hasComment = rawLabel.match(regExpCmt)
-  if (!hasComment) return {
-    label: rawLabel,
-    conditionIds: []
+  // see state to model transformation to know how to deserialize the label string
+  // provided to build the current label and the conditions defined within the
+  // question.
+  function conditionsFromLabel(rawLabel) {
+    //extract first comment line
+    const regExpCmt = /##([^\n]*)/
+    const hasComment = rawLabel.match(regExpCmt)
+    if (!hasComment) return {
+      label: rawLabel,
+      conditionIds: []
+    }
+    const { label, conditions } = JSON.parse(hasComment[1])
+    const conditionIds = conditions.map(condition => {
+      const { id } = condition
+      conditionById[id] = condition
+      return id
+    })
+    return {
+      label,
+      conditionIds
+    }
   }
-  const { label, conditions } = JSON.parse(hasComment[1])
-  const conditionIds = conditions.map(condition => {
-    const { id } = condition
-    conditionById[id] = condition
-    return id
-  })
-  return {
-    label,
-    conditionIds
-  }
-}
   
-function toResponseFormat(id, question) {
-  responseFormatById[id] = parseResponseFormat(question)
-  return id
-}
+  function toResponseFormat(id, question) {
+    responseFormatById[id] = parseResponseFormat(question)
+    return id
+  }
 
 
   function toGoTo(goTo) {

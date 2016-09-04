@@ -12,14 +12,14 @@ import {
   addMeasure, removeMeasure
 } from '../actions/response-format'
 
-import { RESPONSE_FORMAT } from '../constants/pogues-constants'
-const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
+import { QUESTION_TYPE_ENUM } from '../constants/schema'
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM
 
 
 const Editors = {
   SIMPLE: SimpleResponseFormatEditor,
-  SINGLE: SingleResponseFormatEditor,
-  MULTIPLE: MultipleResponseFormatEditor,
+  SINGLE_CHOICE: SingleResponseFormatEditor,
+  MULTIPLE_CHOICE: MultipleResponseFormatEditor,
   TABLE: TableResponseFormatEditor
 }
 
@@ -42,7 +42,7 @@ function ResponseFormat(
         </label>
         <div className="col-sm-4">
           <ResponseFormatPicker
-            types={RESPONSE_FORMAT}
+            types={QUESTION_TYPE_ENUM}
             type={type} locale={locale}
             select={type => switchFormat(id, type)} />
         </div>

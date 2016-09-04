@@ -9,12 +9,13 @@ import { emptyFormat } from '../utils/format-utils'
 import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
 import { CREATE_COMPONENT } from '../actions/component'
 
-import { RESPONSE_FORMAT, COMPONENT_TYPE } from '../constants/pogues-constants'
+import { COMPONENT_TYPE } from '../constants/pogues-constants'
+import { QUESTION_TYPE_ENUM } from '../constants/schema'
 import { emptyDatatypeFactory } from './datatype-utils'
 import { AXIS, DATATYPE_VIS_HINT } from '../constants/pogues-constants'
 
 const { CHECKBOX } = DATATYPE_VIS_HINT
-const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM
 const { INFO, MEASURE, FIRST_INFO, SCND_INFO } = AXIS
 
 /**
@@ -150,11 +151,11 @@ function updateFormat(format, { update  }) {
  * @return {Object}                             updated format
  */
 function newCodeListFormat(format, { createdClId, ctx }, type) {
-  if (type === SINGLE) return {
+  if (type === SINGLE_CHOICE) return {
     ...format,
     codeListReference: createdClId
   }
-  if (type === MULTIPLE) {
+  if (type === MULTIPLE_CHOICE) {
     if (ctx === INFO) return {
       ...format,
       infoCodeList: createdClId
@@ -274,8 +275,8 @@ function _updateMeasureFormat(measure, update) {
 function _updateCodeListMeasure(measure, codeListReference) {
   return {
     ...measure,
-    [SINGLE]: {
-      ...measure[SINGLE],
+    [SINGLE_CHOICE]: {
+      ...measure[SINGLE_CHOICE],
       codeListReference
     }
   }
@@ -295,7 +296,7 @@ function addMeasure(format, { index }) {
       type: SIMPLE,
       label: '',
       [SIMPLE]: emptyDatatypeFactory,
-      [SINGLE]: {
+      [SINGLE_CHOICE]: {
         codeListReference: '',
         visHint: CHECKBOX
       }

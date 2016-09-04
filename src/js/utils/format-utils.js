@@ -1,11 +1,12 @@
 import {
-  RESPONSE_FORMAT, DATATYPE_VIS_HINT, UI_BEHAVIOUR
+  DATATYPE_VIS_HINT, UI_BEHAVIOUR
 } from '../constants/pogues-constants'
+import { QUESTION_TYPE_ENUM } from '../constants/schema'
 import { emptyDatatypeFactory } from '../reducers/datatype-utils'
 
 const { FIRST_INTENTION } = UI_BEHAVIOUR
 const { CHECKBOX } = DATATYPE_VIS_HINT
-const { SIMPLE, SINGLE, MULTIPLE, TABLE } = RESPONSE_FORMAT
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM
 
 export const defaultSpecial = {
   hasSpecialCode: false,
@@ -23,12 +24,12 @@ export const emptyFormat = {
   type: SIMPLE,
   mandatory: false,
   [SIMPLE]: emptyDatatypeFactory,
-  [SINGLE]: {
+  [SINGLE_CHOICE]: {
     codeListReference: '',
     visHint: CHECKBOX,
     ...defaultSpecial
   },
-  [MULTIPLE]: {
+  [MULTIPLE_CHOICE]: {
     infoCodeList: '',
     measureBoolean: false,
     measureCodeList: '',
@@ -49,7 +50,7 @@ export const emptyFormat = {
       type: SIMPLE,
       label: '',
       [SIMPLE]: emptyDatatypeFactory,
-      [SINGLE]: {
+      [SINGLE_CHOICE]: {
         codeListReference: '',
         visHint: CHECKBOX
       }

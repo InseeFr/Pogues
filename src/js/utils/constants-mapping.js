@@ -10,20 +10,23 @@
  * to represent another kind of concept.
 **/
 import {
-  RESPONSE_FORMAT as respFormCst, UI_BEHAVIOUR as uiBhvrCst,
+  UI_BEHAVIOUR as uiBhvrCst,
   DECLARATION_POSITION as dclPostCst
 } from '../constants/pogues-constants'
+import {
+  QUESTION_TYPE_ENUM as respFormCst
+} from '../constants/schema'
 
-const { SIMPLE, SINGLE, MULTIPLE, TABLE } = respFormCst
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = respFormCst
 const { FIRST_INTENTION, SECOND_INTENTION } = uiBhvrCst
 const {
   AFTER_QUESTION_TEXT, AFTER_RESPONSE, BEFORE_QUESTION_TEXT, DETACHABLE
 } = dclPostCst
 
-export const RESPONSE_FORMAT = {
+export const QUESTION_TYPE_ENUM = {
   [SIMPLE]: 'responseFormatSimple',
-  [SINGLE]: 'responseFormatSingle',
-  [MULTIPLE]: 'responseFormatMultiple',
+  [SINGLE_CHOICE]: 'responseFormatSingle',
+  [MULTIPLE_CHOICE]: 'responseFormatMultiple',
   [TABLE]: 'responseFormatTable'
 }
 

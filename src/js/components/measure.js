@@ -4,11 +4,11 @@ import SingleMeasure from './single-measure'
 import ResponseFormatPicker from './response-format-picker'
 import SimpleResponseFormatEditor from './simple-response-format-editor'
 import SingleResponseFormatEditor from './single-response-format-editor'
-import { RESPONSE_FORMAT } from '../constants/pogues-constants'
-const { SIMPLE, SINGLE } = RESPONSE_FORMAT
-const RESPONSE_FORMAT_FOR_TABLE = {
+import { QUESTION_TYPE_ENUM } from '../constants/schema'
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM
+const QUESTION_TYPE_FOR_TABLE = {
   SIMPLE,
-  SINGLE
+  SINGLE_CHOICE
 }
 
 export default function Measure({
@@ -51,7 +51,7 @@ export default function Measure({
           </label>
           <div className="col-sm-5">
             <ResponseFormatPicker
-              type={type} types={RESPONSE_FORMAT_FOR_TABLE}
+              type={type} types={QUESTION_TYPE_FOR_TABLE}
               select={selectFormat}
               locale={locale} />
           </div>

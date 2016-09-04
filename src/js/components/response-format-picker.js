@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import {
-  RESPONSE_FORMAT as resFormatMap
+  QUESTION_TYPE_ENUM as qtMap
 } from '../utils/constants-mapping'
 
 
@@ -10,7 +10,7 @@ export default function ResponseFormatPicker(
 
   const typeChoices = _.map(types, typeName => (
       <option key={typeName} value={typeName}>
-        { locale[resFormatMap[typeName]]}
+        { locale[qtMap[typeName]]}
       </option>
   ))
 
