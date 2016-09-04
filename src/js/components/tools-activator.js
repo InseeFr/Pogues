@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 function ToolsActivator({ qrId, id, toggleActiveComponent,
-   moveUpComponent, moveDownComponent, addPageBreak, hasPageBreak }) {
+    addPageBreak, hasPageBreak }) {
   // qrId is also the id of the main sequene
   return (
       <span className="tools-activator">

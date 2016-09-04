@@ -11,7 +11,9 @@ const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 export default function QuestionOrSequenceHeader(props) {
   const {
-   type, isDragging, id, label, depth, connectDragSource
+   type, isDragging, id, label, depth, connectDragSource,
+   qrId, toggleActiveComponent, addPageBreak, hasPageBreak,
+   flat, idToRank, removeAllowed, removeComponent
   } = props
 
   const cl = classnames(
@@ -20,13 +22,20 @@ export default function QuestionOrSequenceHeader(props) {
   const Label = type === QUESTION ? QuestionLabel : SequenceLabel
   return (
     <div className={cl} >
-      { !isDragging && <ToolsActivator {...props} /> }
+      { !isDragging && 
+        <ToolsActivator 
+            id={id} 
+            qrId={qrId} toggleActiveComponent={toggleActiveComponent} 
+            addPageBreak={addPageBreak} hasPageBreak={hasPageBreak} /> }
       {connectDragSource(
         <span>
           <Label {...props} />
         </span>
       )}
-      { !isDragging && <DeleteActivator {...props} /> }
+      { !isDragging && 
+        <DeleteActivator
+          qrId={qrId} id={id} removeComponent={removeComponent}
+          flat={flat} idToRank={idToRank} removeAllowed={removeAllowed}/> }
     </div>
   )
 }

@@ -23,7 +23,6 @@ const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 function ComponentEditor({
     id, name, label, type,// component properties
     qrId,
-    structure, // structure of the questionnaire
     changeName, changeLabel, quitEdition, // component utilities
     goTos, declarations, controls, conditions,
     responseFormat, //for questions only
@@ -79,10 +78,10 @@ function ComponentEditor({
         { conditionEl }
         <DeclarationPanel declarations={declarations} cmpntId={id}
           locale={locale} />
-        <ControlPanel structure={structure} controls={controls}
+        <ControlPanel controls={controls}
           cmpntId={id} locale={locale} />
          { questionEl }
-        <GoToPanel structure={structure} goTos={goTos} cmpntId={id}
+        <GoToPanel goTos={goTos} cmpntId={id}
           locale={locale} />
       </div>
     )
@@ -99,9 +98,8 @@ ComponentEditor.propTypes = {
   controls: PropTypes.array.isRequired,
   conditions: PropTypes.array,
   responseFormat: PropTypes.string, // not required for sequences
-  structure: PropTypes.object.isRequired,
   locale: PropTypes.object.isRequired
-}
+} 
 
 // ownProps contains the questionnaire id (’qrId')
 // and the component id (‘id‘)

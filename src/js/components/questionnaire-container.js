@@ -73,11 +73,13 @@ const mapStateToProps = state => {
       },
       pageBreakById
     } = state
+    const { idToRank, flat } = flatten(state.componentById, id)
     return {
       loaded: true,
       qrId: id,
       locale: state.locale,
-      structure: flatten(state.componentById, id),
+      idToRank,
+      flat,
       //TODO enable positionning of generic input based on parent and before
       // Generic input has to behave like a question or a sequence (be in the
       // right place in the tree view, with some children if we create a 

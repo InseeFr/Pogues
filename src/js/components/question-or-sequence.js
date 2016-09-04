@@ -125,7 +125,8 @@ QuestionOrSequence.propTypes = {
   path: React.PropTypes.string.isRequired,
   type: React.PropTypes.string.isRequired,
   qrId: PropTypes.string.isRequired,
-  structure: PropTypes.object.isRequired,
+  flat: PropTypes.array.isRequired,
+  idToRank: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired, //id used by tools activator
   active: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,

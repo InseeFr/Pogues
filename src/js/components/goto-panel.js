@@ -3,6 +3,7 @@ import GoTo from './go-to'
 import { connect } from 'react-redux'
 import React, { PropTypes } from 'react'
 import { createGoTo, removeGoTo, editGoTo } from '../actions/goTo'
+import { flatten } from '../utils/data-utils.js'
 import { GOTO_CONSISTENCY } from '../constants/pogues-constants'
 const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
 
@@ -84,7 +85,8 @@ GoToPanel.propTypes = {
   idToRank: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, { goTos, structure, cmpntId }) => {
+const mapStateToProps = (state, { goTos, cmpntId }) => {
+  const structure = flatten(state.componentById, state.appState.questionnaire)
   const { flat, idToRank, nameToId, idToName } = structure
   return {
     detailedGoTos: goTos.map(id => state.goToById[id]),

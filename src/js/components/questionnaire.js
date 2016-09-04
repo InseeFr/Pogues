@@ -38,15 +38,27 @@ const childCmpntsAndGenericInput =
       const children = childCmpnts ?
         childCmpntsAndGenericInput(
           childCmpnts, props, path + '.' + i, false) : null
-
+      const {
+        qrId, idToRank, flat, addPageBreak, removePageBreak,
+        createComponent, removeComponent, moveComponent, 
+        toggleActiveComponent
+      } = props
       return (
-        <QuestionOrSequence {...props} // utility functions from parent
+        <QuestionOrSequence  // utility functions from parent
           key={id}
+          qrId={qrId}
+          moveComponent={moveComponent}
+          createComponent={createComponent}
+          removeComponent={removeComponent}
           hasPageBreak={hasPageBreak}
           id={id} active={active} label={label} highlighted={highlighted}
           type={type} depth={depth}
           children={children} path={path + '.' + i}
-          removeAllowed={!isFirstSequence} />
+          removeAllowed={!isFirstSequence}
+          idToRank={idToRank} flat={flat}
+          toggleActiveComponent={toggleActiveComponent}
+          removePageBreak={removePageBreak}
+          addPageBreak={addPageBreak} hasPageBreak={hasPageBreak}/>
         )
     })
   }
@@ -84,13 +96,10 @@ class Questionnaire extends Component {
 Questionnaire.propTypes = {
   qrId: PropTypes.string.isRequired,
   createComponent: PropTypes.func.isRequired,
-  structure: PropTypes.object.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
   addPageBreak: PropTypes.func.isRequired,
   removePageBreak: PropTypes.func.isRequired,
-  // moveComponentUp: PropTypes.func.isRequired,
-  // moveComponentDown: PropTypes.func.isRequired,
   toggleActiveComponent: PropTypes.func.isRequired,
   qr: PropTypes.array.isRequired,
   locale: PropTypes.object.isRequired
