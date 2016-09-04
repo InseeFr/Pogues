@@ -5,7 +5,7 @@ const icons = {
   BOLD: 'bold',
   ITALIC: 'italic',
   LINK: 'link',
-  ICONE: 'question'
+  INFO: 'question'
 }   
  
 export default function RichControl({ identifier, toggle, isSet }){

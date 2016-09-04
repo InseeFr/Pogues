@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react'
 import { Entity, CompositeDecorator } from 'draft-js'
 
-const style = {
+const styleLink = {
   color: '#3b5998',
+  textDecoration: 'underline',
+}
+
+const styleInfo = {
+  color: 'green',
   textDecoration: 'underline',
 }
 
@@ -24,15 +29,16 @@ export function findLinkEntities(contentBlock, callback) {
   );
 }
 
-export function createLinkEntity(url) {
-  return Entity.create('LINK', 'IMMUTABLE', { url });
+export function createLinkEntity({ url, title }) {
+  return Entity.create('LINK', 'IMMUTABLE', { url, title });
 }
 
 export default function Link({ entityKey, children }) {
-  const { url } = Entity.get(entityKey).getData();
+  const { url, title } = Entity.get(entityKey).getData();
+  const style = url ? styleLink : styleInfo
   return (
-    <a href={url} style={style}>
+    <span style={style}>
       {children}
-    </a>
+    </span>
   );
 };

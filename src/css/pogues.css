@@ -223,7 +223,7 @@ hr {
   outline: none;
   margin-left: 5px;
   border-bottom: solid #ccc 1px;
-  
+  min-width: 250px;
 }
 
 .rich-label-form-group {

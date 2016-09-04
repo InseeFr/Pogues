@@ -8,7 +8,6 @@ import { stateFromMarkdown } from 'draft-js-import-markdown'
 import RichControlGroup from './rich-control-group'
 import ContextualInput from './contextual-input'
 import Link, { createLinkEntity, findLinkEntities } from './rich-label-link'
-import Icon, { createIconEntity, findIconEntities } from './rich-label-icon'
 //default styles for the editor (we need this at least to make the placeholder behave as expected)
 import '../../css/Draft.css'
 import classnames from 'classnames'
@@ -21,6 +20,11 @@ const STYLES = {
 }
 const { BOLD, ITALIC } = STYLES
 const LINK = 'LINK'
+
+//type LINK entities to distinguish real links (with an url) and contextual
+//information (no url, but a title)
+const URL = 'URL'
+const INFO = 'INFO'
 
 function replaceText(editorState, text) {
   var newContent = Modifier.replaceText(
@@ -58,53 +62,58 @@ export default class RichLabel extends Component {
       new CompositeDecorator([{
         strategy: findLinkEntities,
         component: Link
-      }, {
-        strategy: findIconEntities,
-        component: Icon
       }])
     )
-    const content = editorState.getCurrentContent()
+    const lastContent = editorState.getCurrentContent()
       
     this.state = {
       focus: false,
       editorState,
       linkEdited: false,
-      linkInfo: '',
-      iconEdited: false,
-      iconInfo: '',
-      content
+      //we use LINK for both links and contextual information, since they
+      //are almost the same entity (when we serialize them, they will be both
+      //represented as a markown link; contextual information won't have an url
+      //but only a title). 
+      linkData: '', //might be an URL or a contextual information
+      linkType: URL, // URL or INFO
+      lastContent
     }
     this.onChange = (editorState) => {
       this.setState({ editorState })
-      const newContent = editorState.getCurrentContent()
-      if (newContent === this.state.content) return
     }
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    //TODO give focus back to the editor after a link has been added
     this.linkFocus = () => {}
-    this.iconFocus = () => {}
     
-    this.toggleLink = () => {
+    this.toggleLink = (type) => {
       const { editorState } = this.state;
       const selection = editorState.getSelection()
       const content = editorState.getCurrentContent()
       const entityKey = getEntityAtCursor(editorState)
-      let url = ''
+      let data = ''
       if (entityKey) {
         const entity = Entity.get(entityKey)
-        if (entity.getType() === 'LINK') url = entity.getData().url
+        if (entity.getType() === 'LINK') {
+          //TODO handle situation where a regular link is edited as a contextual
+          //information and vice versa
+          data = type === URL ? entity.getData().url : entity.getData()
+        }
       }
       if (!selection.isCollapsed()) {
         this.setState({
           linkEdited: true,
-          linkInfo: url,
+          linkData: data,
+          linkType: type
         }, () => {
           setTimeout(this.linkFocus(), 0);
         });
       }
     }
     this.confirmLink = () => {
-      const { editorState, linkInfo } = this.state
-      const entityKey = createLinkEntity(linkInfo)
+      const { editorState, linkData, linkType } = this.state
+      const entityData = linkType === URL ?
+        { url: linkData } : { title: linkData }
+      const entityKey = createLinkEntity(entityData)
       this.setState({
         editorState: RichUtils.toggleLink(
           editorState,
@@ -112,7 +121,8 @@ export default class RichLabel extends Component {
           entityKey
         ),
         linkEdited: false,
-        linkInfo: '',
+        linkaData: '',
+        linkType: URL
       }, () => {
         setTimeout(() => {
           this.refs.editor.focus()
@@ -120,43 +130,6 @@ export default class RichLabel extends Component {
       });
     }
     
-    this.toggleIcon = () => {
-      const { editorState } = this.state;
-      const selection = editorState.getSelection()
-      const content = editorState.getCurrentContent()
-      const entityKey = getEntityAtCursor(editorState)
-      let info = ''
-      if (entityKey) {
-        const entity = Entity.get(entityKey)
-        if (entity.getType() === 'ICON') info = entity.getData().info
-      }
-      if (!selection.isCollapsed()) {
-        this.setState({
-          iconEdited: true,
-          iconInfo: info,
-        }, () => {
-          setTimeout(this.iconFocus(), 0);
-        });
-      }
-    }
-    this.confirmIcon = () => {  
-      const { editorState, iconInfo } = this.state
-      const entityKey = createIconEntity(iconInfo)
-      const modif = Modifier.applyEntity(
-        editorState.getCurrentContent(),
-        editorState.getSelection(),
-        entityKey)
-      const newEditorState = EditorState.push(editorState, modif, 'apply-entity')
-      this.setState({
-        editorState: newEditorState,
-        iconEdited: false,
-        iconInfo: '',
-      }, () => {
-        setTimeout(() => {
-          this.refs.editor.focus()
-        }, 0)
-      });
-    }
     
     this.controlActions = {
       BOLD: {
@@ -168,16 +141,16 @@ export default class RichLabel extends Component {
         isSet: () => this.state.editorState.getCurrentInlineStyle().has(ITALIC)
       },
       LINK: {
-        toggle: this.toggleLink,
-        isSet: () => this.state.linkEdited
+        toggle: () => this.toggleLink(URL),
+        isSet: () => this.state.linkEdited && this.state.linkType === URL
       },
-      ICONE: {
-        toggle: this.toggleIcon,
-        isSet: () => this.state.iconEdited
+      INFO: {
+        toggle: () => this.toggleLink(INFO),
+        //TODO handle contextual information edition
+        isSet: () => this.state.linkEdited && this.state.linkType === INFO
       }
     }
-    this.linkInfoChange = text => this.setState({ linkInfo: text })
-    this.iconInfoChange = text => this.setState({ iconInfo: text })
+    this.linkDataChange = text => this.setState({ linkData: text })
     this.pasteRawText = this.pasteRawText.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
   }
@@ -207,13 +180,18 @@ export default class RichLabel extends Component {
   } 
   
   handleBlur() {
-    this.setState({ focus: false })
-    this.props.onChange(stateToMarkdown(this.state.editorState.getCurrentContent()))
+    //if nothing has changed, there's no need to dispatch an action just because
+    //the editor lost focus
+    const newContent = this.state.editorState.getCurrentContent()
+    if (newContent !== this.state.lastContent) {
+      this.props.onChange(stateToMarkdown(newContent))
+    }
+    this.setState({ focus: false, lastContent: newContent })
   }
 
   render() {
     const {
-      editorState, focus, linkEdited, linkInfo, iconEdited, iconInfo
+      editorState, focus, linkEdited, linkData, linkType, iconEdited, iconInfo
     } = this.state
     const { locale, placeholder, canPaste, multiline } = this.props
     return (
@@ -224,9 +202,10 @@ export default class RichLabel extends Component {
             { linkEdited &&
             <div className="rich-label-contextual-input">
               <ContextualInput
-                text={linkInfo}
-                placeholder={'Entrez une url'}
-                onChange={this.linkInfoChange}
+                text={linkData}
+                placeholder={linkType === URL ?
+                  'Entrez une url' : 'Entrer un message d\'information'}
+                onChange={this.linkDataChange}
                 onEnter={this.confirmLink} />
               <a href="#" className="btn btn-xs btn-default" 
                 onClick={e => { e.preventDefault(); this.confirmLink() }}
@@ -235,19 +214,6 @@ export default class RichLabel extends Component {
               </a>
             </div>
             }
-            { iconEdited &&
-              <div className="rich-label-contextual-input">
-                <ContextualInput
-                  text={iconInfo}
-                  placeholder={'Entrez une information'}
-                  onChange={this.iconInfoChange}
-                  onEnter={this.confirmIcon} />
-                <a className="btn btn-xs btn-default" onClick={this.confirmIcon}
-                  style={{ marginLeft: '5px' }}>
-                  <i className="fa fa-check"></i>
-                </a>
-              </div>
-            }     
         </div>
         <div className={classnames('form-control', { multiline, focus })}
           onFocus={() => this.setState({ focus: true })}
