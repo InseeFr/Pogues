@@ -65,7 +65,7 @@ class QuestionnaireEditor extends Component {
             onKeyPress={this.disableNameGeneration}/>
         </div>
         <div className="form-group">
-          <label htmlFor="name">{locale.label}</label>
+          <label htmlFor="name">{locale.title}</label>
           <input className="form-control"
             type="text" value={label}
             placeholder={locale.phLabel} onChange={this.handleLabelChange}/>

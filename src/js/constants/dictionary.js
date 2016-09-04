@@ -1,7 +1,8 @@
 export default {
   phLabel: {'en': 'Enter a title for the questionnaire', 'fr': 'Entrez un titre pour le questionnaire'},
   phName:  {'en': 'Enter an ID for the questionnaire', 'fr': 'Entrez un identifiant pour le questionnaire'},
-  label: {'en': 'Title', 'fr': 'Titre'},
+  title: {'en': 'Title', 'fr': 'Titre'},
+  label: {'en': 'Label', 'fr': 'Libellé'},
   name:  {'en': 'Id', 'fr': 'Identifiant'},
   add: {'en': 'Add', 'fr': 'Ajouter'},
   noDeclarationYet: { 'en': 'No statement yet', 'fr': 'Aucune déclaration définie' },
