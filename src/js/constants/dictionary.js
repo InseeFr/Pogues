@@ -292,5 +292,17 @@ export default {
   dclPosDetachable: {
     'fr': 'Note de bas de page',
     'en': 'Foot note'
+  },
+  dropdown: {
+    'fr': 'Liste déroulante',
+    'en': 'Dropdown'
+  },
+  radio: {
+    'fr': 'Bouton radio',
+    'en': 'Radio'
+  },
+  checkbox: {
+    'fr': 'Case à cohcer',
+    'en': 'Checkbox'
   }
 }

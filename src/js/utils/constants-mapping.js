@@ -41,3 +41,9 @@ export const DECLARATION_POS = {
   [BEFORE_QUESTION_TEXT]: 'dclPosBeforeText',
   [DETACHABLE]: 'dclPosDetachable'
 }
+
+export const DATATYPE_VIS_HINT = {
+  CHECKBOX: 'checkbox',
+  RADIO: 'radio',
+  DROPDOWN: 'dropdown'
+}
