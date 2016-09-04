@@ -50,13 +50,16 @@ class GenericInput extends Component {
 						if (index === activeIndex) {
 							return(
 								<li key={index} role="presentation" className="active">
-									<a href="#">{label}</a>
+									<a>{label}</a>
 								</li>
 							)
 						} else {
 							return(
 								<li key={index} role="presentation">
-									<a href="#" onClick={() => hndlClickType(qrId)}>{label}</a>
+									<a href="#" onClick={e => {
+										e.preventDefault()
+										hndlClickType(qrId)
+									}}>{label}</a>
 								</li>
 							)
 						}
