@@ -10,7 +10,7 @@
  */
 
 import { putLeading_ } from '../utils/data-utils'
-
+import { nameFromLabel } from './name-utils'
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
 import { uuid } from '../utils/data-utils'
@@ -100,9 +100,14 @@ export default function toModel(state, qrId) {
   })
 
   function fromCodeList(clId) {
-    //FIXME We do not handle name in the ui, so we set in the same value as
-    //label
-    const { id, name, label, codes } = codeListById[clId]
+    //FWe do not handle name in the ui for now, so we build in from label if no
+    //name exists (ie if the questionnaire has not been loaded from the server,
+    //because the name is created when the questionnaire is saved to the server
+    //and given back when the questionnaire is loaded).
+    const codeList = codeListById[clId]
+    const { id, label, codes } = codeList
+    const name = codeList.hasOwnProperty('name') ?
+      codeList.name : nameFromLabel(label)
     return {
       id, name, label,
       codes: codes.map(fromCode)
