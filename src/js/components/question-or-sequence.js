@@ -33,12 +33,12 @@ export function linkSourceAndTarget() {
 
   const QuestionOrSequenceTarget = {
     drop: function (props) {
-      const { qrId, id, path, moveComponent, structure } = props
+      const { qrId, id, path, moveComponent, flat, idToRank } = props
 
       const canDrop = !(path === '0.0' && (depthOfDraggedComponent > 1))
       if (canDrop) {
         const previous = 
-          structure.flat[structure.idToRank[idOfDraggedCmpnt] - 1].id
+          flat[idToRank[idOfDraggedCmpnt] - 1].id
         moveComponent(qrId, idOfDraggedCmpnt, id, previous)
       }
     }
@@ -97,7 +97,7 @@ function QuestionOrSequence(props) {
 
   if (active) return (
     <div>
-        <ComponentEditor structure={structure} id={id} qrId={qrId}/>
+        <ComponentEditor id={id} qrId={qrId}/>
         { hasPageBreak && PageBreak(() => removePageBreak(id))}
     </div>
     )
