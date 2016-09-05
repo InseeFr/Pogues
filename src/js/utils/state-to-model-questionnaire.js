@@ -39,18 +39,21 @@ export default function toModel(state, qrId) {
   } = state
 
 
-  //Code list specification used by within the questionnaire will be detected
+  //Code list specification used within the questionnaire will be detected
   //during response serialization.
   const codeListSpecificationUsed = new Set()
   //utility function to choose if a code list needs to be added to
   //`codeListSpecificationUsed`
-  const updateCodeListSpecificationUsed = id =>
-    codeListById[id] && codeListById[id].isSpec && codeListSpecificationUsed.add(id)
+  const updateCodeListSpecificationUsed = id => {
+    if (!id) return null
+    if (codeListById[id].isSpec) codeListSpecificationUsed.add(id)
+    return id
+  }
 
   const qr = questionnaireById[qrId]
   const { agency, survey } = qr
   let depthOfSequences = calculateDepths(componentById, qrId)
-  // component groups will be feed by `fromComponent`: for each component with
+  // component groups will be fed by `fromComponent`: for each component with
   // a page break, a new component group wil be created
   const makePageBreakGroup = index => ({
     name: `PAGE_${index}`,
@@ -210,7 +213,8 @@ export default function toModel(state, qrId) {
   
   function fromResponseFormat(responseFormatId) {
     const responseFormat = responseFormatById[responseFormatId]
-    return serializeResponseFormat(responseFormat, codeListById)
+    return serializeResponseFormat(
+      responseFormat, codeListById, updateCodeListSpecificationUsed)
   }
 
   function fromGoTo(goToId) {

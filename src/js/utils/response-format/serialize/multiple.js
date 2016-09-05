@@ -9,7 +9,8 @@ import {
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
 const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM
 
-export default function multipleResponseFormat(format, mandatory, codeListById) {
+export default function multipleResponseFormat(
+    format, mandatory, codeListById, updateSpec) {
   const { infoCodeList } = format
   const nbRows = nbCodesFromId(codeListById, infoCodeList)
   const { measureVisHint: visHint, measureBoolean } = format
@@ -30,7 +31,7 @@ export default function multipleResponseFormat(format, mandatory, codeListById) 
         type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],
         visHint
       },
-      codeListReference: format.measureCodeList || null,
+      codeListReference: updateSpec(format.measureCodeList),
     }
   }
   return {
@@ -40,7 +41,7 @@ export default function multipleResponseFormat(format, mandatory, codeListById) 
       dimensions: [{
         dimensionType: PRIMARY,
         dynamic: 0,
-        codeListReference: infoCodeList || null
+        codeListReference: updateSpec(infoCodeList)
       }, {
         dimensionType: MEASURE,
         dynamic: 0

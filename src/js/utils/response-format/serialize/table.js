@@ -9,7 +9,8 @@ import {
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
 const { SIMPLE, TABLE } = QUESTION_TYPE_ENUM
 
-export default function tableResponseFormat(format, mandatory, codeListById) {
+export default function tableResponseFormat(
+    format, mandatory, codeListById, updateSpec) {
   const { firstInfoAsAList, firstInfoTotal, firstInfoTotalLabel,
     measures } = format
   let nbRowsPerMeasure, infoDimensions
@@ -35,7 +36,7 @@ export default function tableResponseFormat(format, mandatory, codeListById) {
     const primary = {
       dimensionType: PRIMARY,
       dynamic: 0,
-      codeListReference: codeListReference || null
+      codeListReference: updateSpec(codeListReference)
     }
     if (firstInfoTotal) primary.totalLabel = firstInfoTotalLabel
     infoDimensions = [primary]
@@ -46,7 +47,7 @@ export default function tableResponseFormat(format, mandatory, codeListById) {
       const secondary = {
         dimensionType: SECONDARY,
         dynamic: 0,
-        codeListReference: codeListReference || null
+        codeListReference: updateSpec(codeListReference)
       }
       if (scndInfoTotal) secondary.totalLabel = scndInfoTotalLabel
       infoDimensions.push(secondary)
@@ -64,7 +65,8 @@ export default function tableResponseFormat(format, mandatory, codeListById) {
     return {
       questionType: TABLE,
       responses: responses.concat(
-        Array(nbRowsPerMeasure).fill(oneResponseFromMeasure(measure))),
+        Array(nbRowsPerMeasure).fill(
+          oneResponseFromMeasure(measure, updateSpec))),
       dimensions: dimensions.concat({
         dimensionType: MEASURE,
         dynamic: 0,
@@ -83,7 +85,7 @@ export default function tableResponseFormat(format, mandatory, codeListById) {
 }
 
 
-function oneResponseFromMeasure(measure) {
+function oneResponseFromMeasure(measure, updateSpec) {
   const { type, [type]: format } = measure
   if (type === SIMPLE) {
     const { typeName, [typeName]: datatype } = format
@@ -98,7 +100,7 @@ function oneResponseFromMeasure(measure) {
   else {
     const { codeListReference, visHint } = format
     return {
-      codeListReference: codeListReference || null,
+      codeListReference: updateSpec(codeListReference),
       datatype: {
         ...emptyTextDatatype,
         type: DATATYPE_TYPE_FROM_NAME[emptyTextDatatype.typeName],

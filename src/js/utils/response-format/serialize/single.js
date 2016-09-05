@@ -8,7 +8,7 @@ import {
 const { FIRST_INTENTION } = UI_BEHAVIOUR
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM
 
-export default function singleResponseFormat(format, mandatory) {
+export default function singleResponseFormat(format, mandatory, updateSpec) {
   const { codeListReference, visHint,
     hasSpecialCode, specialLabel, specialCode, specialUiBehaviour,
     specialFollowUpMessage
@@ -24,7 +24,7 @@ export default function singleResponseFormat(format, mandatory) {
    }
   const response = {
     // `codeListReference` and `visHint`
-    codeListReference: codeListReference || null,
+    codeListReference: updateSpec(codeListReference),
     mandatory,
     datatype: {
       //no information held by the datatype except for the
