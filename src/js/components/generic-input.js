@@ -72,7 +72,7 @@ class GenericInput extends Component {
 						<span className={rightSymbol} onClick={() => hndlClickRight(qrId)}></span>
 					</span>
 					<input className="form-control" type="text" autoFocus ref={ref => this.input = ref}
-						value={label} placeholder={locale.enterTitle}
+						value={label} placeholder={locale.enterLabel}
 						onChange={e => hndlChange(qrId, e.target.value)}
 						onKeyDown={
 							e => {

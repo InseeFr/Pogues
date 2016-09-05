@@ -14,7 +14,7 @@ export default {
   search: {'en': 'Search', 'fr': 'Chercher'},
   inviteExisting: {'en': 'Select an existing questionnaire', 'fr': 'Sélectionner un questionnaire existant'},
   errorMessageQuestList: {'en': 'Could not retrieve questionnaire list', 'fr': 'Impossible de récupérer la liste des questionnaires'},
-  enterTitle: {'en': 'Enter a title', 'fr': 'Entrez un intitulé'},
+  enterLabel: {'en': 'Enter a label', 'fr': 'Entrez un libellé'},
   sequence: {'en': 'Sequence', 'fr': 'Séquence'},
   question: {'en': 'Question', 'fr': 'Question'},
   save: {'en': 'Save', 'fr': 'Sauvegarder'},
