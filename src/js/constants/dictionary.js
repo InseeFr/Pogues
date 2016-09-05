@@ -302,7 +302,7 @@ export default {
     'en': 'Radio'
   },
   checkbox: {
-    'fr': 'Case à cohcer',
+    'fr': 'Case à cocher',
     'en': 'Checkbox'
   }
 }
