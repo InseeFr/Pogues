@@ -237,7 +237,9 @@ hr {
 
 .singleline .public-DraftStyleDefault-block {
   overflow: hidden;
-  white-space: nowrap;
+  /*white-space: nowrap;*/ /* it seems to break the editor after inserting a
+                                link */
+                              
 }
 
 .multiline .public-DraftStyleDefault-block {

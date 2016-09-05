@@ -40,7 +40,6 @@ function ComponentEditor({
       labelEditor = <RichLabel 
         placeholder={locale.label}
         initialValue={label}
-        canPaste={true}
         multiline={false}
         onChange={label => changeLabel(id, label)}
         locale={locale} />

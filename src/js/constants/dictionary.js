@@ -304,5 +304,13 @@ export default {
   checkbox: {
     'fr': 'Case à cocher',
     'en': 'Checkbox'
+  },
+  enterURL: {
+    'fr': 'Entrez une url' ,
+    'en': 'Url'
+  },
+  enterInfo: {
+    'fr': 'Entrer un message d\'information',
+    'en': 'Contextual information'
   }
 }

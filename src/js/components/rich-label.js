@@ -11,9 +11,9 @@ import Link, { createLinkEntity, findLinkEntities } from './rich-label-link'
 //default styles for the editor (we need this at least to make the placeholder behave as expected)
 import '../../css/Draft.css'
 import classnames from 'classnames'
-import _ from 'lodash'
-import { getEntitySelectionState } from '../utils/get-entity-selection'
-import { getEntityAtCursor } from '../utils/get-entity-at-cursor'
+import { getEntityAtCursor } from '../utils/draft-js/get-entity-at-cursor'
+import { getEntitySelectionState } from '../utils/draft-js/get-entity-selection-state'
+
 const STYLES = {
   BOLD: 'BOLD',
   ITALIC: 'ITALIC'
@@ -39,6 +39,20 @@ function replaceText(editorState, text) {
   );
 }
 
+function getCurrentEntity(editorState) {
+  const entityKey = getEntityAtCursor(editorState)
+  if (!entityKey) return
+  const entity = Entity.get(entityKey)
+  if (entity.getType() === 'LINK') return entityKey
+}
+
+const isLinkOrInfo = entityKey => {
+  if (!entityKey) return [false, false]
+  const entity = Entity.get(entityKey)
+  const isLink = Boolean(entity.getData().url !== undefined)
+  return [isLink, !isLink]
+}
+
 //Add the `singleline` class to the block wrapper (in order to disable white
 //space wrapping and hide overflow)
 //We do it whatever the block is (we should only have one block if we use
@@ -54,7 +68,6 @@ function multilineFn() {
  * We decoupled the Editor and the controls to enable fine grained positioning.
  */
 export default class RichLabel extends Component {
-  
   constructor(props) {
     super(props)
     const editorState = EditorState.createWithContent(
@@ -65,7 +78,7 @@ export default class RichLabel extends Component {
       }])
     )
     const lastContent = editorState.getCurrentContent()
-      
+    
     this.state = {
       focus: false,
       editorState,
@@ -78,81 +91,101 @@ export default class RichLabel extends Component {
       linkType: URL, // URL or INFO
       lastContent
     }
-    this.onChange = (editorState) => {
-      this.setState({ editorState })
-    }
+    
+    this.onChange = this.onChange.bind(this)
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
-    //TODO give focus back to the editor after a link has been added
-    this.linkFocus = () => {}
-    
-    this.toggleLink = (type) => {
-      const { editorState } = this.state;
-      const selection = editorState.getSelection()
-      const content = editorState.getCurrentContent()
-      const entityKey = getEntityAtCursor(editorState)
-      let data = ''
-      if (entityKey) {
-        const entity = Entity.get(entityKey)
-        if (entity.getType() === 'LINK') {
-          //TODO handle situation where a regular link is edited as a contextual
-          //information and vice versa
-          data = type === URL ? entity.getData().url : entity.getData()
-        }
-      }
-      if (!selection.isCollapsed()) {
-        this.setState({
-          linkEdited: true,
-          linkData: data,
-          linkType: type
-        }, () => {
-          setTimeout(this.linkFocus(), 0);
-        });
-      }
-    }
-    this.confirmLink = () => {
-      const { editorState, linkData, linkType } = this.state
-      const entityData = linkType === URL ?
-        { url: linkData } : { title: linkData }
-      const entityKey = createLinkEntity(entityData)
-      this.setState({
-        editorState: RichUtils.toggleLink(
-          editorState,
-          editorState.getSelection(),
-          entityKey
-        ),
-        linkEdited: false,
-        linkaData: '',
-        linkType: URL
-      }, () => {
-        setTimeout(() => {
-          this.refs.editor.focus()
-        }, 0)
-      });
-    }
-    
-    
-    this.controlActions = {
-      BOLD: {
-        toggle: this.toggleInlineStyle.bind(this, BOLD),
-        isSet: () => this.state.editorState.getCurrentInlineStyle().has(BOLD)
-      },
-      ITALIC: {
-        toggle: this.toggleInlineStyle.bind(this, ITALIC),
-        isSet: () => this.state.editorState.getCurrentInlineStyle().has(ITALIC)
-      },
-      LINK: {
-        toggle: () => this.toggleLink(URL),
-        isSet: () => this.state.linkEdited && this.state.linkType === URL
-      },
-      INFO: {
-        toggle: () => this.toggleLink(INFO),
-        //TODO handle contextual information edition
-        isSet: () => this.state.linkEdited && this.state.linkType === INFO
-      }
-    }
+    this.toggleLink = this.toggleLink.bind(this)
+    this.confirmLink = this.confirmLink.bind(this)
     this.linkDataChange = text => this.setState({ linkData: text })
     this.pasteRawText = this.pasteRawText.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    
+    this.controlActions = {
+      BOLD: this.toggleInlineStyle.bind(this, BOLD),
+      ITALIC: this.toggleInlineStyle.bind(this, ITALIC),
+      LINK: () => this.toggleLink(URL),
+      INFO: () => this.toggleLink(INFO)
+    }
+  }
+  
+  onChange(editorState) {
+    this.setState({ editorState })
+  }
+  
+  linkInputFocus() {
+    
+  }
+  toggleLink(type) {
+    const { editorState } = this.state;
+    const selection = editorState.getSelection()
+    const content = editorState.getCurrentContent()
+    const entityKey = getCurrentEntity(editorState)
+    let data = ''
+    if (entityKey) {
+      const entity = Entity.get(entityKey)
+      //TODO handle situations where a regular link is edited as a contextual
+      //information and vice versa
+      const entityData = entity.getData()
+      if (entityData.url) {
+        //link
+        data = (type === URL) ? entityData.url : ''
+      }
+      else {
+        //contextual information
+        data = (type === INFO) ? entityData.title : ''
+      }
+    }
+    if (!selection.isCollapsed()) {
+      this.setState({
+        linkEdited: true,
+        linkData: data,
+        linkType: type
+      }, () => {
+        setTimeout(this.linkInputFocus(), 0);
+      });
+    }
+  }
+  
+  cancelLink() {
+    this.setState({
+      linkEdited: false,
+      linkaData: '',
+      linkType: URL
+    })
+  } 
+  
+  confirmLink(entityKey) {
+    const { editorState, linkData, linkType } = this.state
+    const entityData = linkType === URL ?
+      { url: linkData } : { title: linkData }
+    
+    // if (entityKey) {
+    //   const entity = Entity.get(entityKey)
+    //   const contentState = editorState.getCurrentContent()
+    //   const newEntityKey = Entity.replaceData(entityKey, entityData)
+    //   const selectionState = getEntitySelectionState(newEntityKey)
+    //   const update = Modifier.applyEntity(
+    //     contentState,
+    //     selectionState,
+    //     newEntityKey
+    //   );
+    // 
+    //   return EditorState.push(
+    //     editorState,
+    //     update,
+    //     'apply-entity'
+    //   );
+    // }
+    entityKey = createLinkEntity(entityData)
+    this.setState({
+      editorState: RichUtils.toggleLink(
+        editorState,
+        editorState.getSelection(),
+        entityKey
+      )
+    }, () => setTimeout(() => this.refs.editor.focus(), 0))
+    this.cancelLink()
   }
   
   toggleInlineStyle(inlineStyle) {
@@ -188,27 +221,46 @@ export default class RichLabel extends Component {
     }
     this.setState({ focus: false, lastContent: newContent })
   }
+  
+  handleFocus() {
+    this.setState({ focus: true })
+    this.cancelLink()
+  }
 
   render() {
     const {
-      editorState, focus, linkEdited, linkData, linkType, iconEdited, iconInfo
+      editorState, focus, linkEdited, linkData, linkType,
     } = this.state
-    const { locale, placeholder, canPaste, multiline } = this.props
+    
+    const currentStyle = editorState.getCurrentInlineStyle()
+    const currentEntityKey = getCurrentEntity(editorState)
+    const [isLink, isInfo] = isLinkOrInfo(currentEntityKey)
+    const controlStates = {
+      BOLD: currentStyle.has(BOLD),
+      ITALIC: currentStyle.has(ITALIC),
+      LINK: isLink,
+      INFO: isInfo
+    }
+    
+    const { locale, placeholder
+      , multiline } = this.props
     return (
       <div className="rich-label">
         <div className="rich-label-control-group">
           <RichControlGroup className="btn-group btn-group-xs"
-            controls={this.controlActions} locale={locale} />
+            controlActions={this.controlActions}
+            controlStates={controlStates}
+            locale={locale} />
             { linkEdited &&
             <div className="rich-label-contextual-input">
               <ContextualInput
                 text={linkData}
                 placeholder={linkType === URL ?
-                  'Entrez une url' : 'Entrer un message d\'information'}
+                   locale.enterURL : locale.enterInfo }
                 onChange={this.linkDataChange}
-                onEnter={this.confirmLink} />
+                onEnter={() => this.confirmLink(currentEntityKey)} />
               <a href="#" className="btn btn-xs btn-default" 
-                onClick={e => { e.preventDefault(); this.confirmLink() }}
+                onClick={e => { e.preventDefault(); this.confirmLink(currentEntityKey) }}
                 style={{ marginLeft: '5px' }}>
                 <i className="fa fa-check"></i>
               </a>
@@ -216,7 +268,7 @@ export default class RichLabel extends Component {
             }
         </div>
         <div className={classnames('form-control', { multiline, focus })}
-          onFocus={() => this.setState({ focus: true })}
+          onFocus={this.handleFocus}
           onBlur={this.handleBlur}>
           <Editor 
             blockStyleFn={multiline ? multilineFn : singleLineFn}
@@ -230,8 +282,8 @@ export default class RichLabel extends Component {
             ref='editor'
             editorState={this.state.editorState}
             //We want to avoid editor state serialization each time a key is
-            //pressed, so `onChange` will not throw an aciton to the store). The
-            //content will be saved when the editor loses focus (which neccarily
+            //pressed, so `onChange` will not throw an action to the store). The
+            //content will be saved when the editor loses focus (which necessarily
             //happens when we click on the save button for the questionnaire).
             //At first, we threw an action each time the editor state changed,
             //but sometimes the ui was not responding very well (but we
@@ -251,7 +303,6 @@ RichLabel.propTypes = {
   onChange: PropTypes.func.isRequired,
   initialValue: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  canPaste: PropTypes.bool.isRequired,
   multiline: PropTypes.bool.isRequired,
   locale: PropTypes.object.isRequired
 }

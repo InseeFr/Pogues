@@ -10,7 +10,7 @@ const icons = {
  
 export default function RichControl({ identifier, toggle, isSet }){
   return (
-    <a className={classnames('btn btn-default', { active: isSet() })}
+    <a className={classnames('btn btn-default', { active: isSet })}
        onMouseDown={e => {
          e.preventDefault()
          toggle()
@@ -23,5 +23,5 @@ export default function RichControl({ identifier, toggle, isSet }){
 RichControl.propTypes = {
     identifier: PropTypes.string.isRequired,
     toggle: PropTypes.func.isRequired,
-    isSet: PropTypes.func.isRequired
+    isSet: PropTypes.bool.isRequired
 }
