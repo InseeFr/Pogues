@@ -35,7 +35,7 @@ export function createLinkEntity({ url, title }) {
 
 export default function Link({ entityKey, children }) {
   const { url, title } = Entity.get(entityKey).getData();
-  const style = url ? styleLink : styleInfo
+  const style = url !== '.' ? styleLink : styleInfo
   return (
     <span style={style}>
       {children}

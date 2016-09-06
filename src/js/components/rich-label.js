@@ -49,7 +49,7 @@ function getCurrentEntity(editorState) {
 const isLinkOrInfo = entityKey => {
   if (!entityKey) return [false, false]
   const entity = Entity.get(entityKey)
-  const isLink = Boolean(entity.getData().url !== undefined)
+  const isLink = Boolean(entity.getData().url !== '.')
   return [isLink, !isLink]
 }
 
@@ -127,7 +127,7 @@ export default class RichLabel extends Component {
       //TODO handle situations where a regular link is edited as a contextual
       //information and vice versa
       const entityData = entity.getData()
-      if (entityData.url) {
+      if (entityData.url !== '.') {
         //link
         data = (type === URL) ? entityData.url : ''
       }
@@ -158,7 +158,7 @@ export default class RichLabel extends Component {
   confirmLink(entityKey) {
     const { editorState, linkData, linkType } = this.state
     const entityData = linkType === URL ?
-      { url: linkData } : { title: linkData }
+      { url: linkData, title: '' } : { url: '.', title: linkData }
     
     // if (entityKey) {
     //   const entity = Entity.get(entityKey)
