@@ -99,6 +99,9 @@ function QuestionOrSequence(props) {
     <div>
         <ComponentEditor id={id} qrId={qrId}/>
         { hasPageBreak && PageBreak(() => removePageBreak(id))}
+        <div className={isSequence ? 'sequence' : '' }>
+          {children}
+        </div>
     </div>
     )
   const  isSequence = type === SEQUENCE
