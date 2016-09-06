@@ -248,10 +248,10 @@ hr {
 
 /*HACK was not able to use `height: inherit;` because of the padding
 within the parent element */
-.DraftEditor-root {
+.form-control .DraftEditor-root {
   height: 100%;
 }
-.public-DraftEditor-content {
+.form-control .public-DraftEditor-content {
   max-height: 100px;
   overflow: auto;
 }
