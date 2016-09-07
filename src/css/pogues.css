@@ -248,6 +248,9 @@ hr {
 
 /*HACK was not able to use `height: inherit;` because of the padding
 within the parent element */
+/*.form-control selector allow to override rules defined in Draft.css. CSS are
+imported in the right order with webpack, so it's not mandatory, but it's safer
+to ensure that these rules take precedence over the one in Draft.css */
 .form-control .DraftEditor-root {
   height: 100%;
 }

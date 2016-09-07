@@ -9,7 +9,7 @@ import RichControlGroup from './rich-control-group'
 import ContextualInput from './contextual-input'
 import Link, { createLinkEntity, findLinkEntities } from './rich-label-link'
 //default styles for the editor (we need this at least to make the placeholder behave as expected)
-//import '../../css/Draft.css'
+import '../../css/Draft.css'
 import classnames from 'classnames'
 import { getEntityAtCursor } from '../utils/draft-js/get-entity-at-cursor'
 import { getEntitySelectionState } from '../utils/draft-js/get-entity-selection-state'
