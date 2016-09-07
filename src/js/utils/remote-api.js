@@ -68,7 +68,7 @@ export const putQuestionnaire = (id, qr) =>
     headers: {
       // 'Accept': 'application/json'
       //HACK needs to set content-type to text/html ; if not, server returns a 500 error
-      'Content-Type': 'text/html'
+       'Content-Type': 'text/html; charset=UTF-8'
     },
     body: JSON.stringify(qr)
   }).then(res => {
