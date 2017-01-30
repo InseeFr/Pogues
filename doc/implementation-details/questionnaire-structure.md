@@ -1,0 +1,12 @@
+# Questionnaire structure
+
+At some places in the source code we need to work with a flat representation of the questionnaire (an array where each component appears in chronological order):
+- to process [on the fly checks](https://github.com/InseeFr/Pogues/blob/4ef8d01e46cecc9343bede2a3f9a0d1406abfdf7/src/js/components/goto-panel.js#L89) and [integrity checks](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/goTosChecker.js) on goTos;
+- when we modify the questionnaire structure ([component removal](https://github.com/InseeFr/Pogues/blob/4ef8d01e46cecc9343bede2a3f9a0d1406abfdf7/src/js/components/delete-activator.js), [drag and drop](https://github.com/InseeFr/Pogues/blob/4ef8d01e46cecc9343bede2a3f9a0d1406abfdf7/src/js/components/question-or-sequence.js#L36));
+- to attach page breaks to the right component when the questionnaire structure changes.
+
+This information is passed to some components in order to build "smart" actions that know where the component stays in the questionnaire and which component should be impacted by the action. For instance, when we remove a component with a page break after it, we need to know what is the previous component in the questionnaire (previous here means "last component before it in the questionnaire chronology", it is not necessarily a sibling or a parent) in order to attach the page break to this component.
+
+The `flatten` function in [src/utils/data-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-utils.js) processes information to deal with this flat chronological representation of the questionnaire. In the long run, this information could be part of the application state: this representation of the questionnaire is useful and more optimal for many operations. But for now, it's just calculated by the components that need it. We use a simple memoization technique to avoid processing multiple times this information if the questionnaire structure has not changed.
+
+In order to take advantage of pure components rendering with React and react-redux (avoid re-rendering of a component if its props have not changed), only the required part of this information will be passed to the components  (mainly, ignore id to name mapping if not needed, to avoid re-rendering each time a component name changes).

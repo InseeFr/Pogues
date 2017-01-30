@@ -5,27 +5,40 @@ var postcssGradientFixer = require('postcss-gradientfixer')
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080/', //inline mode for
-                                                        //webpack-dev-server
+    //inline mode for webpack-dev-server
+    'webpack-dev-server/client?http://localhost:8080/', 
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/js/main.js'
   ],
   module: {
     loaders: [
-      //{ test: /\.css$/, loader: 'style-loader!css-loader?sourceMap' },
-      { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader?sourceMap' },
+      //css will be transformed according to the postcss configuration (see
+      //below), and embedded in a `link` tag in the `html` `head` section.
+      { 
+        test: /\.css$/,
+        loader: 'style-loader!css-loader!postcss-loader?sourceMap' },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        //loaders: ['react-hot', 'babel']
         loader: ['babel'],
         query: {
+          //we can use ES2015 features and JSX
           'presets': ['react', 'es2015'],
-          'plugins': ['transform-object-rest-spread', 'import-asserts']
+          'plugins': [
+            //We can use the spread operator to easily update objects in and
+            //immutable way.
+            'transform-object-rest-spread',
+            //It will throw an error (shown in the console) if what you try
+            //import does not exist in the orginal module. It can catch a lot of
+            //typos for us (only useful during development)
+            'import-asserts'
+          ]
         }
       }
     ]
   },
+  //process css files to avoid the need of prefixing special css rules and
+  //improving cross browser compatibility
   postcss: function () {
     return [precss, autoprefixer({ browsers: ['> 5%'] }), postcssGradientFixer]
   },  
