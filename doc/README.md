@@ -42,7 +42,7 @@
   * [Stack](/doc/application/stack.md)
 * [Javascript related stuff](/doc/javascript/REAME.md)
   * [Javascript notes](/doc/javascript/syntax.md)
-  * [Debugging](/doc/javascript/debugging)
+  * [Debugging](/doc/javascript/debugging.md)
 * [Implementation details](/doc/implementation-details/README.md)
   * [Labels](/doc/implementation-details/labels.md)
   * [Questionnaire structure](/doc/implementation-details/questionnaire-structure.md)
