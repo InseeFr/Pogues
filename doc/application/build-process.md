@@ -2,7 +2,7 @@
 
 This operation consist of transforming and combining all the application resources to make them usable in web browsers. This process is taken care of by [webpack](https://webpack.github.io/), and can be launched with `npm run dev` during development, and `npm run build` for production.
 
-Mainly, it will take all the `javascript` files and combine them in a giant bundle file. Thanks to the `babel` plugin for `webpack`, we can make use in our code of some `javascript` [features](/doc/implementation-details/javascript.md#ES2015) which are not widely supported: `babel` will transform the code you write to make it work in all major browsers. 
+Mainly, it will take all the `javascript` files and combine them in a giant bundle file. Thanks to the `babel` plugin for `webpack`, we can make use in our code of some `javascript` [features](/doc/javascript/syntax.md#ES2015) which are not widely supported: `babel` will transform the code you write to make it work in all major browsers. 
 
 Webpack will also process the main `css` file to make it load faster and work consistently across browsers (see [how to import `css` from `javascript`](https://github.com/InseeFr/Pogues/blob/4ef8d01e46cecc9343bede2a3f9a0d1406abfdf7/src/js/main.js#L6) with `webpack`).
 
