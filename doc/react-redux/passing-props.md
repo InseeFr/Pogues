@@ -61,7 +61,7 @@ When called, a component described as a function will receive as its first and o
 }
 ```
 
-Most of the time, we will use [object destructuring](/doc/implementation-details/javascript.md#destructuring) to extract data from props. Our component can then be rewritten this way:
+Most of the time, we will use [object destructuring](/doc/javascript/syntax.md#destructuring) to extract data from props. Our component can then be rewritten this way:
 
 ```javascript
 function CodeEditor({ label }) {

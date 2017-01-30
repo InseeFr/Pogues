@@ -117,7 +117,7 @@ class CodeListEditor extends React.Component {
 }
 ```
 
-We intitialize the state of the `CodeListEditor` component with the 3 already created codes. We then define a `addCode` function (see [arrow functions](/doc/implementation-details/javascript.md#arrow-functions)) which will make a copy of the codes.
+We intitialize the state of the `CodeListEditor` component with the 3 already created codes. We then define a `addCode` function (see [arrow functions](/doc/javascript/syntax.md#arrow-functions)) which will make a copy of the codes.
 
 - we create an `id` for the newly created code;
 - we create a copy of the initial codes with a new code at the end (see [spread operator]()) ;
