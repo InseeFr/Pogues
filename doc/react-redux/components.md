@@ -44,7 +44,7 @@ export default function CodeEditor() {
 
 We notice that:
 - the `CodeEditor` component is represented as a function;
-- this function returns some `html` like syntax; this is called `JSX` and provides a convenient way to write components; [during the compilation process](/doc/implementation-details/build-process.md), `JSX` will be transformed to regular `javascript`, and this function will eventually return a `React` element;
+- this function returns some `html` like syntax; this is called `JSX` and provides a convenient way to write components; [during the compilation process](/doc/application/build-process.md), `JSX` will be transformed to regular `javascript`, and this function will eventually return a `React` element;
 - there are some small differences between `JSX` and `html` (here, the attribute `className` in place of the regular `class` attribute in `html`, and the attribute `defaultValue` instead of `value`);
 - we export (read more about [exports](/doc/javascript/syntax.md#export-and-import)) the component in order to use it to build the `CodeListEditor` component.
 

@@ -1,3 +1,3 @@
-# Retrieve code list
+# Retrieve code list and code list specifications
 
-TODO
+For now, it only provides some minimal functionalities to m

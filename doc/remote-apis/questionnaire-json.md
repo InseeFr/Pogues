@@ -1,6 +1,23 @@
 # JSON representation of a questionnaire
 
-To be visualized, a questionnaire needs to comply to the following [XML schema](./schema.md). In `json`, it will be represented as follows:
+To be visualized, a questionnaire needs to comply to the following [XML schema](./schema.md). The transformation from `json` to `xml` by the backend relies on the following rules:
+- names are transformed to lowercase and prefixed by '_';
+- elements with `maxMaxOccurs` set to `unbounded` are represented as an array and the name is pluralized.
+
+For instance, if if we expect in the schema the follwoing element:
+```xml
+<xs:element name="Child" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
+```
+it will represented in `json` like this:
+```json
+{
+  "_children": [...]
+}
+```
+
+TODO validate from a server perspective, these rules do not seem to work for labels, which should be serialized as `_labels` and not `_label`
+
+Hence, in `json`, it can be represented as follows:
 
 ```json
 {  

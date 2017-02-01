@@ -123,6 +123,25 @@ const newObject = {
 }
 ```
 
+## Shorthand property names
+
+ES2015 provides a [shorthand](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Object_initializer#Creating_objects) to create an object from variables when the object keys match the variables names shorter.
+
+```javascript
+var firstname = 'john'
+var lastname = 'doe'
+//Before ES2015
+var person = {
+  firstname: firstname,
+  lastname: lastname
+}
+//With ES2015
+var person = {
+  firstname,
+  lastname
+}
+```
+
 ## Arrow functions
 
 [Arrow functions](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are a short and convenient way to write small anonymous functions. They look like this:

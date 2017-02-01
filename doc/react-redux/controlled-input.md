@@ -1,6 +1,6 @@
 # Control the input
 
-In order to make a code label editable, we will need to pass to each `CodeEditor` a function that will update the codes held by the `CodeListEditor` state. For this, we will add a new method to our component:
+In order to make a code label editable, we will need to pass to each `CodeEditor` a function that will update the codes held by the `CodeListEditor` state. For this, we will add the new method `editCodeLabel` to the `CodeListEditor` component:
 
 ```javascript
  class CodeListEditor extends React.Component {
@@ -32,8 +32,8 @@ In order to make a code label editable, we will need to pass to each `CodeEditor
         <div>
         {
           codes.map(({ id, label }, i) => 
-            /* `editCodeLabel` method will be used internally by the
-                `CodeEditor` component */
+            //`editCodeLabel` method will be used internally by the
+            //`CodeEditor` component
             <CodeEditor 
               key={id} label={label}
               handleChange={value => this.editCodeLabel(i, value)}  />)
@@ -72,7 +72,7 @@ We could in the same way implement the remove, move up and move down functionali
 We did not cover how the `CodeListEditor` will receive the initial codes. Obviously, in a real world scenario, these won't be hard coded in the constructor. It is part of the next sections.
 
 <p
-  data-height="434"
+  data-height="700"
   data-theme-id="dark"
   data-slug-hash="LxezaL"
   data-default-tab="js,result"

@@ -20,3 +20,7 @@ pre[class*="language-"] {
 .token.operator {
   background: none;
 }
+
+figure {
+  text-align: center;
+}

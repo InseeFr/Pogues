@@ -40,4 +40,4 @@ Hence, the state of our application can be represented like this:
   }
 }
 ```
-Notice that instead of a nested structure where a code list would contain some codes, we opted for a database like representation, where each code list references some code ids, and the actual code descriptions are held in the dedicated `codeById` object. We will see in the [reducers section](todo) why this choice make writing the application easier.
+Notice that instead of a nested structure where a code list would contain some codes, we opted for a database like representation, where each code list references some code ids, and the actual code descriptions are held in the dedicated `codeById` object. We will see in the [split and combine reducers section](./reducers-split-combine.md) why this choice make writing the application easier.

@@ -31,7 +31,7 @@ Play with this [pen](http://codepen.io/BoogalooJB/pen/ggGXvp).
 <!-- Add script to embed codepens -->
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 <p
-  data-height="434"
+  data-height="700"
   data-theme-id="dark"
   data-slug-hash="ggGXvp"
   data-default-tab="js,result"

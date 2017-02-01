@@ -20,7 +20,8 @@ Note that you will probably first need to update the [config file](https://githu
 
 If you're new to javascript, you might need to first install [node and npm](https://nodejs.org/en/download/) on your computer. Any recent version should work.
 
-`npm` is the `Node.js` package manager. `npm install` will download all the dependencies needed by the project, as described in the `dependencies` and `devDepedencies` sections of the [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json) file. `npm run dev` will launch the `dev` command defined in the `scripts` section of the same `package.json` file. This command will launch a local web server serving the main html file ([src/js/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html)) and all the relevant assets. Read more about [webpack usage](./implementation-details/build-process.md).
+`npm` is the `Node.js` package manager. `npm install` will download all the dependencies needed by the project, as described in the `dependencies` and `devDepedencies` sections of the [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json) file. `npm run dev` will launch the `dev` command defined in the `scripts` section of the same `package.json` file. This command will launch a local web server serving the main html file ([src/js/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html)) and all the relevant assets. Read more about [webpack usage](./application/build-process.md).
 
 
 
+  

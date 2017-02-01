@@ -4,8 +4,27 @@ This section presents some additional information you might find useful if you a
 
 ## Proptypes
 
-TODO 
-A good way to document React components.
+We use [PropTypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html) to document what React components expect as props. For the `CodeEditor`, it looks like:
+
+```javascript
+import React, { PropTypes } from 'react'
+
+fuction CodeEditor({ label, handleChange, remove, moveUp, moveDown }) {
+  ...
+}
+
+CodeEditor.propTypes = {
+  label: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
+  moveUp: PropTypes.func.isRequired,
+  moveDown: PropTypes.func.isRequired,
+}
+```
+
+For the `CodeListEditor`, we could document:
+- what the `CodeListEditorDumb` expects (codes for instance);
+- what the exported component expects (the code list id for instance).
 
 ## Design process
 

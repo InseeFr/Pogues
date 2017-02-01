@@ -30,7 +30,7 @@ function CodeListEditor() {
 ```
 
 Notice that:
-- we mixed `JSX` and regular `javascript`; `{ codes.map(...)} ` will return an array of `CodeEditor` that will be inserted in the `div` (more about the [destructuring assignment](/doc/implementation-details/javascript.md#destructuring) used in the `map` call);
+- we mixed `JSX` and regular `javascript`; `{ codes.map(...)} ` will return an array of `CodeEditor` that will be inserted in the `div` (more about the [destructuring assignment](/doc/javascript/syntax.md#destructuring) used in the `map` call);
 - we passed some props to the `CodeEditor` component the same way we set attributes to an `HTML` element.
 - we pass a property named `key` to each `CodeEditor`: `React` requires [each component in an array to have a key attribute](https://facebook.github.io/react/docs/lists-and-keys.html#basic-list-component) with a unique value.
 

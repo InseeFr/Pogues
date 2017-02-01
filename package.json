@@ -51,7 +51,6 @@
     "deep-freeze": "0.0.1",
     "del": "^1.1.1",
     "eslint": "^2.9.0",
-    "gitbook-plugin-codepen": "^0.1.2",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
     "gulp-bower": "0.0.10",
