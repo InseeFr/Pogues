@@ -23,27 +23,31 @@ This module exports some functions which return a [Promise](https://developer.mo
 - the raw response if no data needs to be extracted from the response;
 - value of a header field if relevant.
 
-This file mix calls for all of the three services:
-- persistence (`getQuestionnaire`, `putQuestionnaire`, `getQuestionnaireList`...);
-- visualization (`stromaePostQuestionnaire`);
-- repository (`getCodeListSpecs`,  `getCodeList`).
+This file mixes calls for all of the three services:
+- [visualization](./visualization.md) (`stromaePostQuestionnaire`);
+- [persistence](./persistence.md) (`getQuestionnaire`, `putQuestionnaire`, `getQuestionnaireList`...);
+- [repository](./repository.md) (`getCodeListSpecs`,  `getCodeList`).
 
 ## Action creators
 
 To trigger remote calls, we use action creators in combination with [Redux Thunk middleware](https://github.com/gaearon/redux-thunk). We follow the pattern for [asyncrhonous actions](http://redux.js.org/docs/advanced/AsyncActions.html#async-action-creators) from the Redux documentation.
 
-With Redux Thunk, action creators can return a function instead of a plain javascript object. Hence, we can write asynchronous action creators with a function which:
+With Redux Thunk, action creators can return a function instead of a plain javascript object. Hence, we can write asynchronous actions with a function which:
 - synchronously dispatches a plain javascript object action to indicate that the request has been registered; action type follows the `LOAD_SOMETHING` naming convention;
-- sends the request (with functions from the `remote-api.js` mentioned above, like `getQuestionnaire`);
+- sends the request (with functions from the aforementioned [src/js/utils/remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/remote-api.js) file, like `getQuestionnaire`);
 - asynchronously dispatches a `LOAD_SOMETHING_SUCCESS` action if the Promise returned by the fetch call succeeds (`then` handler), or a `LOAD_SOMETHING_FAILURE` if it fails (`catch` handler);
 - returns the Promise for possible further processing.
 
-Example:
+Example from [src/js/actions/questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/actions/questionnaire.js) (in the initial code we use arrow functions instead of the regular `function` definitions shown here):
 ```javascript
 import { getQuestionnaire } from '(...)/remote-api'
 
-export const loadQuestionnaire = id =>
-  dispatch => {
+export function loadQuestionnaire(id) {
+  //Thanks to Redux Thunk, we can return a function from our action creator.
+  //This function will be passed two arguments by the Redux Thunk middleware:
+  //a `dispatch` function to dispatch to the store, and a `getState` function
+  //(not used here) to read the current application state.
+  return function (dispatch, getState) {
     dispatch({
       type: LOAD_QUESTIONNAIRE,
       payload: id
@@ -56,18 +60,21 @@ export const loadQuestionnaire = id =>
         dispatch(loadQuestionnaireFailure(id, err.toString()))
       })
   }
+}
 
-export const loadQuestionnaireSuccess = (id, update) => (
-  {
+export function loadQuestionnaireSuccess(id, update) {
+  return {
     type: LOAD_QUESTIONNAIRE_SUCCESS,
     payload: { id, update }
-  })
+  }
+}
 
-export const loadQuestionnaireFailure = (id, err) => (
-  {
+export function loadQuestionnaireFailure(id, err) {
+  return {
     type: LOAD_QUESTIONNAIRE_FAILURE,
     payload: { id, err }
-  })  
+  }
+}  
 ```
 
 Note: we should probably avoid usage of `catch` here (see [#146](https://github.com/InseeFr/Pogues/issues/146))
@@ -80,12 +87,13 @@ TODO screenshot devtools
 We also use Redux Thunk to define some action creators that will take care of not loading a resource again if it is available locally from the application state:
 
 ```javascript
-export const loadQuestionnaireIfNeeded = id =>
-  (dispatch, getState) => {
+export function loadQuestionnaireIfNeeded(id) {
+  return function (dispatch, getState) {
     const state = getState()
     const qr = state.questionnaireById[id]
-    if (!qr) dispatch(loadQuestionnaire(id))
+    if (!qr) return dispatch(loadQuestionnaire(id))
   }
+} 
 ```
 
 These `loadSomethingIfNeeded` action creators can be called from React `componentWillMount` and `componentWillReceiveProps` life cycle methods.
