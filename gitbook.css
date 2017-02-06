@@ -24,3 +24,7 @@ pre[class*="language-"] {
 figure {
   text-align: center;
 }
+
+.markdown-section code:after, .markdown-section code:before {
+  content: "";
+}

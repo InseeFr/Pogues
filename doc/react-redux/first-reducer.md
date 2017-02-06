@@ -79,19 +79,20 @@ function CodeListEditorDumb({ codes }) {
   )
 }
 
-//We extract the codes from the state. The second argument passed to
-//`mapStateToProps` are the component props. Here, it will be the props passed
-//to the `CodeListEditor` in the set up. Hence, it is an object with one entry
-//called `id`. We will use this id to extract the relevant information from the
-//state.
-//For a code list with a given id, we first need to extract an array with
-//the ids this code list is made of, and then, for each code, extract some
-//detailed information from the state through the `codesById` entry. Since
-//`CodeEditor` will expect a code to look like
-//`{id: 'code_1', label: 'unhappy' }`, we build the codes according to
-//this requirement.
+//`mapStateToProps` will extract the codes from the state. Its second argument
+//(`ownProps`) is the component props. These props were passed through
+// `<CodeListEditor id="code_list_1" />`in the set up. Hence, it is an object
+//with an entry called `id`.
 const mapStateToProps = (state, ownProps) => {
-  const codeIds = state.codeListById[ownProps.id].codes
+  //code list id
+  const codeListId = ownProps.id
+  //For a code list with a given id, we first need to extract an array with
+  //the ids this code list is made of.
+  const codeIds = state.codeListById[codeListId].codes
+  //Then, for each code, we extract some detailed information from the state
+  //through the `codesById` entry. Since `CodeEditor` expects a code to look
+  //like `{id: 'code_1', label: 'unhappy' }`, we build the codes according to
+  //this requirement.
   return codeIds.map(id => ({
     id: id,
     label: state.codeById[id].label
@@ -102,10 +103,9 @@ export default connect(mapStateToProps)(CodeListEditorDumb)
 ```
 
 Notice that the `CodeListEditorDumb` expects to be passed an array of `codes`, but
-when we instantiate the `CodeListEditor` within the `Provider`, we passed it the
-id of the code list. Taking this `id` and returning the corresponding list of codes is what `mapStateToProps` will take care of. Then, `connect` will wrap the initial component into a higher order component, which given some `id`, will retrieve the codes from the application state, and render the initial component with these codes passed as a prop.
+when we instantiate the `CodeListEditor` within the `Provider` with `<CodeListEditor id="code_list_1" />`, we passed it the id of the code list. Taking this `id` and returning the corresponding list of codes is what `mapStateToProps` will take care of. Then, `connect` will use `mapStateToProps`to wrap the initial component into a higher order component, which given some `id`, will retrieve the codes from the application state, and render the initial component with these codes passed as a prop.
 
-In practice, we won't rename our initial component `CodeListEditorDumb`, since this name is only used locally (in the last line). See [export default](/doc/javascript/syntax.md#exports) to learn more about how exports work.
+In practice, we don't need to rename our initial component `CodeListEditorDumb`, since this name is only used locally (in the connect call at the end of the file). See [export default](/doc/javascript/syntax.md#exports) to learn more about how exports work.
 
 Our `CodeListEditor` will now be able to get the information directly from the store. But when we try to add or edit a code, nothing happens except for the logged information in the console. In the next sections, we will see how to use actions to make things happen.
 

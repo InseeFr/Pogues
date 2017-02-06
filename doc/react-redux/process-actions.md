@@ -56,7 +56,7 @@ function simpleReducer(state, action) {
       //track of code ids, not code lables
       codeListById: state.codeListById,
       codeById: {
-        //see notes above if the syntax bothers you
+        //see notes below if the syntax bothers you
         //we keep all the codes unchanged...
         ...state.codeById,
         //...except for the code which was edited, which needs to be updated to
@@ -84,11 +84,11 @@ function simpleReducer(state, action){
 }
 ```
 
-It returns the expected new state (with the label 'regular happy' for `code_2`), 
+It returns the expected new state (with the label "regular happy" for `code_2`), 
 but it mutated the initial state (in fact, the initial state and the next state
 are the same object).
 
-The reducer implementation uses [the spread operator with objects](/doc/javascript/syntax.md#spread-operator-with-objects)  and [computed property names](/doc/javascript/syntax.md#computed-property-names) to make writing immutable update shorter.
+The reducer implementation uses [the spread operator with objects](/doc/javascript/syntax.md#spread-operator-with-objects)  and [computed property names](/doc/javascript/syntax.md#computed-property-names) to make writing immutable updates shorter.
 
 ## Initial state
 

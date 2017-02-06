@@ -64,7 +64,7 @@ We passed a new prop to the `CodeEditor` components: `handleChange` is the funct
 }
 ```
 
-We added the `onChange` event handler. The function will be passed a [synthetic event](https://facebook.github.io/react/docs/handling-events.html), which just work like regular `DOM` events. So we use this event to get the value of the current input.
+We added the `onChange` event handler. The function will be passed a [synthetic event](https://facebook.github.io/react/docs/handling-events.html), which just works like regular `DOM` events. So we use this event to get the value of the current input.
 We also had to swtich the `defaultValue` attribute of the `input` field to `value` to say to `React` that this input will be updated from the code.
 
 We could in the same way implement the remove, move up and move down functionalities.

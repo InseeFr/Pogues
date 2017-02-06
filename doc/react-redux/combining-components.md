@@ -11,7 +11,7 @@ export default function CodeListEditor() {
     <div>
       {/* 
         We won't implement the edition of the code list Label.
-        Notice that comments look like different from HTML in JSX.
+        Notice that comments look different from HTML in JSX.
       */}
       <button>Add a code</button>
       <div>

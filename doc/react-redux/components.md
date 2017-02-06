@@ -57,7 +57,7 @@ ReactDOM.render(
 )
 ```
 
-If you want to experience with the code, you can start with this [pen](http://codepen.io/BoogalooJB/pen/PWJOEP) (all the code stays in one pen, so there is no `import` or `export` statements).
+If you want to experience with the code, you can start with this [pen](http://codepen.io/BoogalooJB/pen/PWJOEP) (all the code stays in one pen, so there is no `import` or `export` statements). 
 
 <!-- Add script to embed codepens -->
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>

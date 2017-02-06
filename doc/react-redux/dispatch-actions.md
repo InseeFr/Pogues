@@ -1,6 +1,6 @@
 # Dispatch actions
 
-In the last section, we built a reducer which given the following action, returned a new state where the label for the corresponding code had been updated.
+In the last section, we built a reducer which given the following action, returned a new state where the label for the corresponding code had been updated:
 
 ```javascript
 const anAction = {
@@ -21,7 +21,7 @@ The missing part here consists of telling to the store that an action occurred, 
 First, let's wrap our action with a function, which given a code id and a value, will return the corresponding action:
 
 ```javascript
-function editCode(id, label) {
+function editCodeLabel(id, label) {
   return {
     type: 'EDIT_CODE_LABEL',
     payload: {
@@ -32,7 +32,7 @@ function editCode(id, label) {
 }
 ```
 
-*Read more about the [shorthand]((/doc/javascript/syntax.md#shorthand-property-names)) notation.*
+*Read more about the [shorthand]((/doc/javascript/syntax.md#shorthand-property-names) notation.*
 
 Then, our action can be created with:
 
@@ -79,7 +79,7 @@ const mapStateToProps = ...
 //simplest version, it is an object where each key represents an action
 //creator (ie a function which returns an action)
 const mapDispatchToProps = {
-  editCode: editCode //we could use ES2015 shorthand notation
+  editCodeLabel: editCodeLabel //we could use ES2015 shorthand notation
 }
 
 export default 
@@ -87,6 +87,15 @@ export default
 ```
 
 When the `editCodeLabel` function is called from the `CodeListEditor` component (more precisely from a `CodeEditor` component), the returned value of the raw `editCodeLabel` function will be dispatched to the store. In other words, the [connect](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) mechanism wraps the action creator with a dispatch call to the store.
+
+To help you grasp what `connect` did to the initial `editCodeLabel` function, you can consider that it replaced it with the following `editCodeLabelAfterConnect` function:
+
+```javascript 
+function editCodeLabelAfterConnect(id, value) {
+  //the connect mechanism can access the store
+  store.dispatch(editCodeLabel(id, value))
+} 
+```
 
 You can play with this [pen](http://codepen.io/BoogalooJB/pen/ZLrYev). Notice that the codes are updated and the UI re-rendered.
 
