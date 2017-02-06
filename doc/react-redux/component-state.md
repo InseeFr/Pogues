@@ -125,6 +125,8 @@ We intitialize the state of the `CodeListEditor` component with the 3 already cr
 
 Now, when we click on the "Add a code" button, the UI updates accordingly.
 
+Play with this [pen](http://codepen.io/BoogalooJB/pen/VPMQby).
+
 <!-- Add script to embed codepens -->
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 <p

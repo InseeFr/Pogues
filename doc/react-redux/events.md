@@ -15,7 +15,7 @@ function CodeListEditor() {
 }
 ```
 
-If you open a console and you click on the "Add a code button", the message will be shown. In the next section, we will try to make something more useful happen when a user clicks the button.
+If you open a console (open the developer tools for your browser or open the pen in Code Pen and use the console button at the bottom of the screen) and you click on the "Add a code button", the message will be shown. In the next section, we will try to make something more useful happen when a user clicks the button.
 
 Play with this [pen](http://codepen.io/BoogalooJB/pen/LxzOMo).
 
