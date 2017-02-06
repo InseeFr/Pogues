@@ -48,7 +48,16 @@ We notice that:
 - there are some small differences between `JSX` and `html` (here, the attribute `className` in place of the regular `class` attribute in `html`, and the attribute `defaultValue` instead of `value`);
 - we export (read more about [exports](/doc/javascript/syntax.md#export-and-import)) the component in order to use it to build the `CodeListEditor` component.
 
-If you want to experience with the code, you can start with this [pen](http://codepen.io/BoogalooJB/pen/PWJOEP) (for now, you can ignore the code needed to bootstrap the application, and all the code stays in one pen, so there is no `import` or `export` statements).
+We need to tell React to render the application into an existing `div` of the [src/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html). That's what the `ReactDOM.render` is used for (more in [bootstrap the application](doc/application/bootstrap.md)).
+
+```javascript
+ReactDOM.render(
+  <CodeEditor />,
+  document.getElementById('base')
+)
+```
+
+If you want to experience with the code, you can start with this [pen](http://codepen.io/BoogalooJB/pen/PWJOEP) (all the code stays in one pen, so there is no `import` or `export` statements).
 
 <!-- Add script to embed codepens -->
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
