@@ -1,3 +1,0 @@
-# Directory structure
-
-TODO
