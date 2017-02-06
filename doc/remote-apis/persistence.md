@@ -2,15 +2,15 @@
 
 This service service is used to store and retrieve questionnaires.
 
-## configuration
+## Configuration
 
 This service shares the same `baseURL` URL as the visualization service and relies on the `basePath` from the same [configuration file]([src/js/config/config.js](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js). In the long run, the configuration of these two services should be decoupled.
 
 ## Serialization
 
-For now, representation of questionnaires within this web service is slightly different from the formal description provided by [pogues model](./schema.md). 
+For now, representation of questionnaires for this web service is slightly different from the formal description provided by [pogues model](./schema.md). These two representations should be merged in the future (to keep only the one which complies with the formal description).
 
-This representation is closer from the naming conventions you will find in the javascript code of Pogues. To know more about the differences between these two representations, you can compare the following `json` to the one provided in the [questionnaire in json](/doc/remote-apis/questionnaire-json.md) section.
+This representation (with underscores at the beginning of each key) was at some time a requirement for the persistence service. The naming conventions are closer from the one used in the implementation of Pogues (for instance, we use plural when we deal with an array of elements). To know more about the differences between these two representations, you can compare the following `json` to the one provided in the [questionnaire in json](/doc/remote-apis/questionnaire-json.md) section.
 
 The code used by Pogues to go from this representation to the formal description (used for visualization) stays in [src/js/utils/data-json-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-json-utils.js).
 

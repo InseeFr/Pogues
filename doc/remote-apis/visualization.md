@@ -1,6 +1,6 @@
 # Visualize questionnaires
 
-This services takes a questionnaire description and returns an URL to visualize the questionnaire.
+This service takes a questionnaire description and returns an URL to visualize the questionnaire.
 
 ## Configuration
 
