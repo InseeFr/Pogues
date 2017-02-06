@@ -4,7 +4,7 @@ import { GENERAL } from '../constants/pogues-constants'
 
 var logger = new Logger('CodeEditor', 'Components');
 
-function CodeEditor({ editable, label, remove, moveUp, moveDown,
+export default function CodeEditor({ editable, label, remove, moveUp, moveDown,
     editLabel}) {
   return (
     <div className="form-group code">
@@ -47,4 +47,3 @@ CodeEditor.propTypes = {
 
 }
 
-module.exports = CodeEditor;
