@@ -9,4 +9,5 @@ For now, Pogues is tightly coupled to the implementation of the services within 
 
 Have a look at the [swagger documentation](./swagger.md) to know more about what these services provide (it does not include the "repository" service).
 
+A fake server [implementation](https://github.com/InseeFr/Pogues/tree/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/utils/backend) is provided to illustrate the expected behavior of these services. This server can be launched with `npm run start:backend`.
 
