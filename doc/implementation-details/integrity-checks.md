@@ -1,14 +1,11 @@
 # Integrity checks
 
-TODO
+This functionality checks the questionnaire integrity after each modification. These checks will generate error messages that will appear at the top of the questionnaire in a dedicated panel.
 
-This functionality checks the questionnaire integrity after each modification. For now, only checks of goTos consistency have been implemented, but this functionality is modular and other checks can be added easily. A supplementary check of the questionnaire length has been implemented as an example of how to extend this functionality.
+It has been implemented with the [integrity checker reducer](https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/reducers/integrity-checker.js), which is called when [the main reducer is built](https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/reducers/index.js#L29). It takes as its first argument the application reducer, so it can [first process]((https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/reducers/integrity-checker.js#L28) the new state to take modifications into account, and a `checker` which, given the new state, will check the questionnaire integrity. The checker can be built by combining multiple checkers with the [combineCheckers](https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/reducers/checkers.js#L16) function. 
 
-These checks will generate error messages that will appear at the top of the questionnaire in a dedicated panel. This panel can be folded and unfolded to show or hide these messages.
+The integrity checker will add an `errors` key to the application state.
 
-For now, some redundant checks of goTos consistency are implemented at the user interface level. These checks allow to tag inconsistencies (target not defined, not existing or earlier in the questionnaire) directly in front of the entity concerned. In the long run, these checks should disappear and tagging entities with errors should rely on the global integrity checks produced by this functionality.
+For now, only checks of [goTos consistency](https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/utils/goTosChecker.js) and [questionnaire length](https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/utils/questionnaireLengthChecker.js) have been implemented.
 
 
-To check integrity, we need to analyze simultaneously multiple entities. For instance, to check if a goTo is valid, we need to know where the component holding this goTo and where the target defined by this goTo stand within the questionnaire. For that, we need, in addition to the information about the goTo, information about the questionnaire structure which is held by the componentById reducer.
-
-These checks have been implemented in a reducer that enhances the former main reducer by adding an integrity property to it. The code of this reducer is executed after an action has been processed by the former main reducer, so it knows everything it needs about the questionnaire.

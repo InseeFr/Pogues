@@ -52,6 +52,6 @@
   * [Questionnaire structure](/doc/implementation-details/questionnaire-structure.md)
   * [Page breaks](/doc/implementation-details/page-breaks.md)
   * [Response format](/doc/implementation-details/response-formats.md)
-  * [Move component](/doc/implementation-details/move-component.md)
+  * [Move component](/doc/implementation-details/drag-n-drop.md)
   * [Integrity checks](/doc/implementation-details/integrity-checks.md)
 

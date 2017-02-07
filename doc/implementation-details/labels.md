@@ -17,9 +17,9 @@ Even if the application does not provide the option to define multilingual versi
 
 ## Conditions
 
-A question can have multiple labels depending on conditions. The conditions and the labels they are associated to will be represented as a [Velocity Template Language](http://velocity.apache.org/) string. This option was chosen in order to represent the structured related to conditions as a regular string that fits into the model. 
+A question can have multiple labels depending on conditions. The conditions and the labels they are associated to will be represented as a [Velocity Template Language](http://velocity.apache.org/) string. This option was chosen in order to represent the structured data related to conditions as a regular string that fits into the model. 
 
-The first line of the VTL string will be a VTL single line comment with a `json` representation of the conditions as they are represented within Pogues. This first line will be parsed by the application to build back the conditions without having to process the body of the VTL string (to avoid the need of a `VTL` parser in javascript):
+The first line of the VTL string will be a VTL single line comment with a `json` representation of the conditions as they are represented within Pogues. This first line will be parsed by the application to build back the conditions without having to process the body of the VTL string (to avoid the need of a `VTL` parser in `JavaScript`):
 
 ```
 ##{\"label\":\"initial label\",\"conditions\":[{\"id\":\...
@@ -51,10 +51,9 @@ first label
 #elseif(second_condition)
 second label
 #end
-Each label can be a markdown string (see above).
 ```
 
-Remark: we keep track in the first line of the VTL string of the initial label. This label will not be valued in the questionnaire visualisation process, so it does not appear in the VTL string (except for its first line).
+Remark: we keep track in the first line of the VTL string of the initial label. This label will not be valued in the questionnaire visualisation process, so it does not appear elsewhere in the VTL string.
 
 
 ## Rich text
@@ -74,4 +73,4 @@ The last item (`[links with a title and a simple dot as url](. "a message")`) is
 
 Other elements of the markdown syntax are not handled by the component for rich text edition.
 
-Additional information can be found here: #142
+Additional information can be found in [#142](https://github.com/InseeFr/Pogues/issues/142).
