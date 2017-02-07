@@ -43,7 +43,7 @@
   * [XML Schema](remote-apis/schema.md)
   * [A questionnaire in json](remote-apis/questionnaire-json.md)
 * [Discover the app](application/REAME.md)
-  * [Bootstrap the application](application/bootstrap.md)
+  * [Amorcer l'application](application/bootstrap.md)
   * [How the data flows](application/loading-questionnaire.md)
   * [Build process](application/build-process.md)
   * [Code organization](application/code-organization.md)

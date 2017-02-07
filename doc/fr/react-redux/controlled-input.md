@@ -12,7 +12,7 @@ Afin de rendre le libellé d'un code éditable, il est nécessaire de passer à 
        const newCodes = [...this.state.codes]
        //édition du code à la position `i`
        newCodes[i] = {
-         //on utiliser l'opérateur ... pour réaliser une copie du code (bonne
+         //on utilise l'opérateur ... pour réaliser une copie du code (bonne
          //pratique pour s'habituer à éviter les mutations des objets)
          ...newCodes[i],
          //on met à jour le libellé
@@ -68,7 +68,7 @@ Nous avons ajouté le gestionnaire d'événements `onChange`. Cette fonction rec
 
 On pourrait de façon analogue implémenter les fonctions supprimer et déplacer un code.
 
-Nous n'avons pas indiquer comment le composant `CodeListEditor` recevra les codes initiaux. En pratique, bien sûr, ces codes ne seront pas codés en dur au sein du composant.
+Nous n'avons pas indiqué pour l'instant comment le composant `CodeListEditor` recevra les codes initiaux. En pratique, bien sûr, ces codes ne seront pas codés en dur au sein du composant.
 
 <p
   data-height="700"

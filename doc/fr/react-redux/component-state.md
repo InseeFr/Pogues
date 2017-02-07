@@ -2,7 +2,7 @@
 
 ## La mauvaise approche
 
-Essayons d'abord d'ajouter simplement un code en actualiser le tableau contenant les codes, et affichant ensuite dans la log ce table. On s'attend à ce que le nouveau code apparaisse en dessous du troisième code.
+Essayons d'abord d'ajouter simplement un code en actualisant le tableau contenant les codes, et en affichant ensuite dans la log ce tableau. On s'attend au niveau de l'interface à ce que le nouveau code apparaisse en dessous du troisième code.
 
 ```javascript
 function CodeListEditor() {
@@ -30,7 +30,7 @@ function CodeListEditor() {
 ```
 
 <p
-  data-height="434"
+  data-height="700"
   data-theme-id="dark"
   data-slug-hash="dNzZxG"
   data-default-tab="js,result"
@@ -42,11 +42,11 @@ function CodeListEditor() {
 
 On remarque que cette approche ne fonctionne pas: les codes semblent avoir été actualisés (il y a maintenant 4 codes dans le tableau), mais l'interface n'a pas changé.
 
-C'est une caractéristique essentielle de Reac: **l'application est actualisée seulement lorsque la méthode `setState` d'un composant est appelée**. Pour utiliser cette méthode `setState`, nous devons au préalable effectuer quelques ajustements au composant `CodeListEditor`.
+C'est une caractéristique essentielle de React: **l'application est actualisée seulement lorsque la méthode `setState` d'un composant est appelée**.
 
 ## La bonne approche
 
-Pour utiliser la méthode `setState`, il est nécessaire d'utiliser une [syntaxe différente]((https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components) pour décrire le composant:
+ Pour utiliser cette méthode `setState`, nous devons au préalable effectuer quelques ajustements au composant `CodeListEditor` et utiliser une [syntaxe différente]((https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components) pour décrire le composant:
 
 ```javascript
 import React from 'react'
@@ -118,9 +118,9 @@ class CodeListEditor extends React.Component {
 }
 ```
 
-On initialise l'état du composant `CodeListEditor` avec les 3 codes déjà existants. Puis, on définit la fonction `addCode` (cf [arrow functions](/javascript/syntax.md#arrow-functions) qui:
+On initialise l'état du composant `CodeListEditor` avec les 3 codes déjà existants. Puis, on définit la fonction `addCode` (cf. [fonctions flêchées](/javascript/syntax.md#arrow-functions)) qui:
 - crée un identifiant pour le nouveau code;
-- réalise une copie des codes précédents et ajoute le nouveau code à la fin (cf. [spread operator with arrays](javascript/syntax.html#spread-operator-with-arrays))
+- réalise une copie des codes précédents et ajoute le nouveau code à la fin (cf. [utilisation de l'opérateur ... avec les tableaux](javascript/syntax.html#spread-operator-with-arrays));
 - appelle `setState` pour mettre à jour l'état du composant; cet appel à `setState` va déclencher un réaffichage du composant.
 
 Désormais, lorsque l'on clique sur le bouton "Add a code", l'interface est actualisée de manière cohérente.

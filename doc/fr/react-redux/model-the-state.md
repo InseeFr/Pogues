@@ -1,6 +1,6 @@
 # Modéliser l'état de l'application
 
-Avant d'aller plus loin, il est nécessaire de réfléchir à la façon de modéliser l'état de l'applcation. Les choix présentés ici ne seront pas discutés, mais pour en savoir plus, cette [ressource (normalizing state shape)](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) peut être intéressante. Hyypothèses:
+Avant d'aller plus loin, il est nécessaire de réfléchir à la façon de modéliser l'état de l'applcation. Les choix présentés ici ne seront pas discutés, mais pour en savoir plus, cette [ressource (normalizing state shape)](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) peut être intéressante. Hypothèses:
 - chaque code a un identifiant unique `id` et un libellé `label`;
 - chaque liste de codes a un identifiant unique `id` et un libellé `label`;
 - chaque liste de code contient un tableau `codes` avec les identifiants des codes utilisés.

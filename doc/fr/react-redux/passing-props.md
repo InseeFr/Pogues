@@ -1,6 +1,6 @@
 # Passer des paramètres aux composants
 
-Faisons l'hypothèse que nous avons déjà créé 3 codes, et que chaque code a un `id` et un `label`. Nous les coderons en dure dans le composant `CodeListEditor` pour l'instant. Voyons comment afficher le bon libellé au sein de chaque `CodeEditor`.
+Faisons l'hypothèse que nous avons déjà créé 3 codes, et que chaque code a un `id` et un `label`. Nous les coderons en dur dans le composant `CodeListEditor` pour l'instant. Voyons comment afficher le bon libellé au sein de chaque `CodeEditor`.
 
 ```javascript
 //on ignore les `import` et les `export` pour simplifier
@@ -30,9 +30,9 @@ function CodeListEditor() {
 ```
 
 Remarquons que:
-- nous avons mélangé du `JSX` et du `JavaScript`; `{ codes.map(...)} ` renvoie un tableau de `CodeEditor`s qui seront insérés dans la balise `div` (pour en savoir plus à propos de l'[affectation par décomposition](/javascript/syntax.md#destructuring) utilisée dans l'appel à la fonctoin `map`);
+- nous avons mélangé du `JSX` et du `JavaScript`; `{ codes.map(...)} ` renvoie un tableau de `CodeEditor`s qui seront insérés dans la balise `div` (en savoir plus à propos de l'[affectation par décomposition](/javascript/syntax.md#destructuring) utilisée dans l'appel à la fonctoin `map`);
 - nous avons passé des paramètres au composant `CodeEditor` de la même façon que l'on définit des attributs pour un élément `html`;
-- nous avons passé un paramètre `key` à chaque `CodeEditor`: `React` requiert que [chaque composant dans un tableau ait un attribut `key`](https://facebook.github.io/react/docs/lists-and-keys.html#basic-list-component) avec une valeur unique.
+- nous avons passé un paramètre `key` à chaque `CodeEditor`: `React` requiert que [chaque composant dans un tableau ait un attribut key](https://facebook.github.io/react/docs/lists-and-keys.html#basic-list-component) avec une valeur unique.
 
 Pour l'instant, le composant `CodeListEditor` n'a pas changé visuellement. Il présente toujours le même libellé "unhappy" pour chaque code. Afin de valoriser le paramètre `label` au sein du `CodeEditor`, il est nécessaire de modifier ce composant:
 
@@ -52,7 +52,7 @@ function CodeEditor(props) {
 }
 ```
 
-Lorsqu'il est appelé, un composant décrit grâce à une fonction recevra en tant que premier et unique arguement un objet avec toutes les paramètres passés par son paranet. Cet objet est appelé [props](https://facebook.github.io/react/docs/components-and-props.html). Pour le premier des 3 `CodeEditor`s, il prend la forme suivante:
+Lorsqu'il est appelé, un composant décrit grâce à une fonction recevra en tant que premier et unique argument un objet avec tous les paramètres passés par son parent. Cet objet est appelé [props](https://facebook.github.io/react/docs/components-and-props.html). Pour le premier des 3 `CodeEditor`s, il prend la forme suivante:
 
 ```javascript
 {

@@ -10,8 +10,8 @@ export default function CodeListEditor() {
   return (
     <div>
       {/* 
-        We won't implement the edition of the code list Label.
-        Notice that comments look different from HTML in JSX.
+        Nous n'implémenterons pas l'édtion du libellé de la liste de codes.
+        Remarquons que les commentaires en JSX diffèrent des commentaires HTML.
       */}
       <button>Add a code</button>
       <div>
@@ -24,7 +24,7 @@ export default function CodeListEditor() {
 }
 ```
 
-Jusqu'à maintenant, chaque `CodeEditor` est identique, avec comme label `unhappy`. Dans la section suivante, nous verrons comment passer des paramètres à un composant pour le personnaliser.
+Jusqu'à maintenant, chaque `CodeEditor` est identique, avec comme libellé "unhappy". Dans la section suivante, nous verrons comment passer des paramètres à un composant pour le personnaliser.
 
 Essayez le code avec ce [pen](http://codepen.io/BoogalooJB/pen/ggGXvp).
 

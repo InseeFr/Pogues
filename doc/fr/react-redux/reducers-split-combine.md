@@ -4,7 +4,7 @@ Nous pouvons désormais implémenter la fonctionnalité pour ajouter un code. Po
 - de définir un créateur d'actions;
 - de traiter l'action correspondante au sein du reducer.
 
-Le créateur d'actions doit connaître la liste du codes à laquelle le code doit être ajouté:
+Le créateur d'actions doit connaître la liste de codes à laquelle le code doit être ajouté:
 
 ```javascript
 let lastId = 0
@@ -31,7 +31,7 @@ function simpleReducer(state, action) {
   else if (action.type === 'ADD_CODE') {
     //récupérer la liste de codes concernée
     const codeList = state.codeListById[payload.codeListId]
-    //récupérer les identifiants des codes de cette liste de code
+    //récupérer les identifiants des codes de cette liste de codes
     const codes = codeList.codes
     //ajouter un nouveau code à la fin, sans modifier l'objet initial
     const newCodesIds = [...codeIds, payload.id]
@@ -62,7 +62,7 @@ function simpleReducer(state, action) {
 }
 ```
 
-Le code devient rapidement assez long: il est nécessaire de traiter les effets sur les différentes parties de l'état, sans modifier l'état initial (ce qui aurait permis d'avoir une syntaxe plus concise). Grâce à la façon dont nous avons modélisé l'état (une entrée par type d'entité avec des entres entre entités grâce aux identifiants, et non pas une structure arborescente où les listes de codes contiendraient la description des codes), on peut facilement scinder le reducer princiapl en deux plus petits reducers, qui travailleront indépendamment l'un de l'autre:
+Le code devient rapidement assez long: il est nécessaire de traiter les effets sur les différentes parties de l'état, sans modifier l'état initial (ce qui aurait permis d'avoir une syntaxe plus concise). Grâce à la façon dont nous avons modélisé l'état (une entrée par type d'entité avec des références entre entités grâce aux identifiants, et non pas une structure arborescente où les listes de codes contiendraient la description des codes), on peut facilement scinder le reducer principal en deux plus petits reducers, qui travailleront indépendamment l'un de l'autre:
 - un reducer pour gérer les listes de codes;
 - un reducer pour gérer les codes.
 
@@ -115,14 +115,14 @@ const mainReducer = combineReducers({
 })
 ```
 
-On peut maintenant mettre à jour le composant `CodeListEditor` afin qu'il reçoive en paramètre la fonction `addCode` (le créateur d'actions enveloppé dans une fonction qui permet d'envoyer l'action directement au storengrâce à la fonction `connect`):
+On peut maintenant mettre à jour le composant `CodeListEditor` afin qu'il reçoive en paramètre la fonction `addCode` (le créateur d'actions enveloppé dans une fonction qui permet d'envoyer l'action directement au store):
 
 ```javascript
 //Le créateur d'action `addCode` a besoin de l'identifiant de la liste de
-//la listed de code à laquelle le code est ajouté. La fonction `addCode``
+//la liste de codes à laquelle le code est ajouté. La fonction `addCode``
 //qui est passée au composant `CodeListEditorDumb` a donc besoin de cet 
 //identifiant également. Il est récupérable à partir du paramère `id`:
-//lorsque de l'on appelle `<CodeListEditor id='code_list_1' />`, le
+//lorsque l'on appelle `<CodeListEditor id='code_list_1' />`, le
 //paramètre `id` est passé au `CodeListEditor`, et la fonction `connect``
 //le fait suivre au composant `CodeListEditorDumb`
 function CodeListEditorDumb({ id, codes, editCodeLabel, addCode }) {

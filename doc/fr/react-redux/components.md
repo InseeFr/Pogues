@@ -1,12 +1,12 @@
 # Les composants avec React
 
-Un élément visuel avec React est appelé un composant. Nous travaillerons dans un premier temps à partir d'une vesrion simplifiée du composant `CodeEditor` défini dans le fichier [src/js/components/code-editor.js](https://github.com/InseeFr/Pogues/blob/master/src/js/components/code-editor.js):
+Un élément visuel avec React est appelé un composant. Nous travaillerons dans un premier temps à partir d'une version simplifiée du composant `CodeEditor` défini dans le fichier [src/js/components/code-editor.js](https://github.com/InseeFr/Pogues/blob/master/src/js/components/code-editor.js):
 
 !["Le composant CodeEditor"](../img/code-editor.png "Le composant CodeEditor")
 
 Afin de promouvoir la conception de composants réutilisables et l'écriture de code modulaire, les composants doivent être aussi élémentaires que possible. Avec cette approche, on peut ensuite construire des composants de plus haut niveau en [associant des composants simples](./combining-components.md). De ce point de vue, le composant `CodeEditor` devrait être considéré comme l'association de plusieurs composants élémentaires:
 - le champ de saisie;
-- le groupe de bouton, qui devrait lui même être scindé en plusieurs composants, un pour chaque bouton.
+- le groupe de boutons, qui devrait lui même être scindé en plusieurs composants, un pour chaque bouton.
 
 Cela étant, afin de simplifier et de rester proche du code existant, nous considérerons le composant `CodeEditor` comme un bloc élémentaire.
 
@@ -43,12 +43,12 @@ export default function CodeEditor() {
 ```
 
 Remarquons que:
-- le composant `CodeEditor` est représentée par une fonction;
+- le composant `CodeEditor` est représenté par une fonction;
 - cette fonction retourne ce qui ressemble à de l'`html`; cette syntaxe s'appelle `JSX` et est pratique pour décrire des composants; au cours de la [compilation](/application/build-process.md), ce code `JSX` sera transformé en code `JavaScript`, et, au final, cette fonction renverra un élément React;
-- il y a de légères différences entre `JSX` et `html` (ici, l'attribut `className` est utilié au lieu de l'attribut `class`, and l'attribut `defaultValue` à la place de `value`);
-- on exporte (cf [exports](/javascript/syntax.md#export-and-import)) le composants afin de pouvoir l'utiliser pour construire le composant `CodeListEditor`.
+- il y a de légères différences entre `JSX` et `html` (ici, l'attribut `className` est utilié au lieu de l'attribut `class`, et l'attribut `defaultValue` à la place de `value`);
+- on exporte (cf. [exports](/javascript/syntax.md#export-and-import)) le composant afin de pouvoir l'utiliser ultérieurement pour construire le composant `CodeListEditor`.
 
-Il est nécessaire d'indiquer à React que l'application doit être affichée au sein d'une balise `div` de la page [src/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html). On utilise pour cela la méthode `ReactDOM.render` (cf. [bootstrap the application](doc/application/bootstrap.md)).
+Il est nécessaire d'indiquer à React que l'application doit être affichée au sein d'une balise `div` de la page [src/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html). On utilise pour cela la méthode `ReactDOM.render` (cf. [amorcer l'application](doc/application/bootstrap.md)).
 
 ```javascript
 ReactDOM.render(

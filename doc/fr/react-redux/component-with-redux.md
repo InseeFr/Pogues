@@ -26,9 +26,9 @@ Le composant `CodeEditor` n'est pas modifié (il s'agissait déjà d'un composan
 
 On remarque que le composant `CodeListEditor`:
 - est désormais un composant sans état représenté par une fonction;
-- doit recevoir des paramètres: les codes constituant la liste de codes, une fonction pour ajouter un code et une fonction pour mettre à jour un code (pour aller au bout de la démarche, il faudrait également lui passer des fonctions permmetant de supprimer un code ou de la déplacer).
+- doit recevoir des paramètres: les codes constituant la liste de codes, une fonction pour ajouter un code et une fonction pour mettre à jour un code (pour aller au bout de la démarche, il faudrait également lui passer des fonctions permmetant de supprimer un code ou de le déplacer).
 
-Dans les chapitres suivantes, nous verrons:
+Dans les chapitres suivants, nous verrons:
 - comment modéliser l'état de l'application;
 - comment utiliser au sein d'un composant de l'information issue de l'état de l'application;
 - comment actualiser l'état de l'application quand un changement a lieu.

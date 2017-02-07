@@ -2,4 +2,4 @@
 
 Avant d'explorer Redux, faisons un bref rappel des différences entre un composant avec état et un composant sans état:
 - Le composant `CodeEditor` est un composant sans état décrit par une fonction. Un composant sans état peut également être décrit par une classe: c'est ce que nous avons fait dans un premier temps lorsque nous avons écrit le `CodeListEditor` sans appeler la fonction `setState`. Si un composant est sans état, son apparence et son comportement sont entièrement déterminés par les paramètres initiaux qui lui ont été passés.
-- Le composant `CodeListEditor` est au final un composant avec état: nous l'avons décrit avec une classe, nous avons initialisé l'état dans le constructeur, et nous avons défini des méthodes qui utilisent `setState` pour mettre à jour l'état et déclenché une actualisation du composant.
+- Le composant `CodeListEditor` est au final un composant avec état: nous l'avons décrit avec une classe, nous avons initialisé l'état dans le constructeur, et nous avons défini des méthodes qui utilisent `setState` pour mettre à jour l'état et déclencher une actualisation du composant.

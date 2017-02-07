@@ -1,3 +1,3 @@
 # Introduction
 
-Pogues is a questionnaire design and test tool.
+Pogues est un outil pour concevoir et tester des questionnaires.

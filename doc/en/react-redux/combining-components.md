@@ -24,7 +24,7 @@ export default function CodeListEditor() {
 }
 ```
 
-Until now, each `CodeEditor` looks exactly the same, with `unhappy` as a label. In the next section, we will see how to give some parameters to a component.
+Until now, each `CodeEditor` looks exactly the same, with "unhappy" as a label. In the next section, we will see how to give some parameters to a component.
 
 Play with this [pen](http://codepen.io/BoogalooJB/pen/ggGXvp).
 

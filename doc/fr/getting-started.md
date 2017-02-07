@@ -1,31 +1,32 @@
-# Getting started
+# Démarrage
 
-Pogues is a Single Page Application built with React and Redux. To run the application in development mode, run the following commands from a shell prompt in the local directory, and then navigate to [http://localhost:8080](http://localhost:8080):
+Pogues est une application Web monopage construite avec [React](https://facebook.github.io/react/) et [Redux](https://github.com/reactjs/reduxreact). Pour lancer l'application en développement, vous pouvez exécuter les commandes suivantes à partir d'un terminal dans le dossier Pouges, et visualiser ensuite la page [http://localhost:8080](http://localhost:8080):
 
 ```
-# Download all the dependencies needed by the application
+# Téléchargement des dépendances
 npm install
-# Needed to copy some assets to the `dist` folder (this step should disappear
-# over time, # see #144)
+# Nécessaire pour copier certaines ressources dans le dossier `dist` (cette
+# étape devrait disparaître à term, cf. #144)
 npm run build
-# Compiles the code and starts a minimal web server (see below)
+# Compilation du code et démarrage d'un serveur de développement (cf. infra)
 npm run dev 
 ```
 
-You will only be able to create and edit a questionnaire locally. You won't be able to save it, visualize it or use some external resources (like some list of codes) within your questionnaire: `Pogues` serves only as a front-end application to design questionnaires and relies on tiers Web services to process these operations. More information on this in [remote APIs](./remote-apis/README.md).
+Vous serez uniquement en mesure de créer et d'éditer un questionnaire localement. Vous ne pourez pas le sauvegarder, le visualiser ou utiliser des ressources exeternes (comme des listes de codes): Pogues est une application front-end pour concervoir des questionnaires et s'appuie sur des Web services externes pour réaliser ces opérations. Plus d'information à ce sujet au chapitre [appels distants](./remote-apis/README.md). 
 
 ## Build
 
-To build the application, run `npm run build`. You can now serve the content of the `dist` folder with the HTTP server of your choice.
+Pour produire la version de production, lancez la commande `npm run build`. Vous pouvez désormais servir le contenu du dossier `dist` avec le serveur web de votre choix.
 
-Note that you will probably first need to update the [config file](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js) to point to the proper URLs and paths for the web services Pogues will rely on.
+Remarquez que vous aurez vraisemblablement besoin dans un premier temps de mettre à jour le [fichier de configuration](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js) pour pointer vers les bonnes URLs et les bons chemins pour les services Web qui seront utilisés par Pogues.
 
-## New to javascript and Node.js
+## Débuter avec JavaScript et Node.js
 
-If you're new to javascript, you might need to first install [node and npm](https://nodejs.org/en/download/) on your computer. Any recent version should work.
+Si vous débutez avec ces technologies, vous aurez vraisemblablement besoin d'installer dans un premier temps sur votre ordinateur [node and npm](https://nodejs.org/en/download/). N'importe quelle version récente devrait fonctionner.
 
-`npm` is the `Node.js` package manager. `npm install` will download all the dependencies needed by the project, as described in the `dependencies` and `devDepedencies` sections of the [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json) file.
 
-`npm run dev` will launch the `dev` command defined in the `scripts` section of the same `package.json` file. This command will launch a local web server serving the main html file ([src/js/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html)) and all the relevant assets. Read more about [webpack usage](./application/build-process.md).
+`npm` est un gestionnaire de modules pour `Node.js`. `npm install` téléchargera toutes les dépendances du projet, décrites dans la section `dependencies` et `devDepedencies` du fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json).
 
-`npm run build` will launch the compilation with some optimizations for production. It copies all the static assets and the resulting bundle file in the `dist` folder.
+`npm run dev` lancera la commande `dev` décrite dans la section `scripts` du même fichier `package.json`. Cette commande démarre un serveur de développement qui sert la page d'accueil de l'application ([src/js/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html)) et toutes les ressources nécessaires. En savoir plus: [utilisation de webpack](./application/build-process.md).
+
+`npm run build` lance la compilation du code avec des optimisations pour la mise en production. Elle copie toutes les ressources statiques et le fichier `JavaScript` compilé dans le dossier `dist`.
