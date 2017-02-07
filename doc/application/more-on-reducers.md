@@ -45,7 +45,9 @@ export default function (state={}, action) {
 //a handler for the `CREATE_CODE` action
 function createCode(codes, { id, label, value }) {
   return {
+    //start with a fresh copy of the state
     ...codes,
+    //add the new entry
     [id]: {
       id, label, value
     }
@@ -57,7 +59,7 @@ function createCode(codes, { id, label, value }) {
 
 The generic utility function could benefit to be shared by all the reducers (instead of being defined inline in each reducer).
 
-## Reducers are collections
+## Reducers handle collections of entities
 
 Most reducers handle a piece of state which consist in a collection of entities. For instance, the `codes-by-id` reducer is a collection (a `JavaScript` object literal) where each key represents a code id, and each value, information about the code corresponding to this id.
 
@@ -102,28 +104,6 @@ function editCode(codes, { id, update }) {
   }
 }
 ```
-
-## Loading a questionnaire
-
-When the user selects a questionnaire from the questionnaire list, there are many elementary steps to process, from switching the view and sending the request, to updating the UI. Here is a global picture:
-
-1. The application shows the `QuestionnairePicker` component.
-2. The user selects a questionnaire in the questionnaire list.
-3. The `switchQuestionnaire` action [creator](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/components/questionnaire-list.js#L34)  is called.
-4. The `SWITCH_TO_QUESTIONNAIRE` [action](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/app-state.js#L7) is dispatched. It contains the questionnaire id in its payload.
-5. The [switchToQuestionnaire](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/reducers/app-state/index.js#L111) handler from the `appState` reducer updates the `view` entry and set it to `QUESTIONNAIRE`.
-6. The application re-renders.
-7. When rendering the main `PoguesApp` component, the `view` entry is checked, and the `QuestionnaireContainer` component is [rendered](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/components/pogues-app.js#L27-L30), in place of the previous `QuestionnairePicker` component.
-8. In its `componentWillMount` method, the [loadQuestionnaireIfNeeded](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/questionnaire.js#L94) function is [called](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/components/pogues-app.js#L27-L30). It takes the questionnaire id as an argument.
-9. Assuming the questionnaire has not been already loaded, the `loadQuestionnaire` action creator is [called](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/questionnaire.js#L98).
-10. The component renders a spinner to indicate that the questionnaire is loading.
-11. The `LOAD_QUESTIONNAIRE` action will be [dispatched](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/questionnaire.js#L103), with the questionnaire id in its payload.
-12. The [getQuestionnaire](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/utils/remote-api.js#L118) function is called. The browser tries to fetch the given resource and returns a Promise.
-. The fetch call succeeds and the Promise resolves to a `json` representation of the questionnaire.
-13. The `then` [handler](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/questionnaire.js#L101) in the action creators file is executed.
-14. It calls the [toSate](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/utils/model-to-state-questionnaire.js#L17) function and dispatches the `LOAD_QUESTIONNAIRE_SUCCESS` action with the result of this function in its payload.
-15. The `LOAD_QUESTIONNAIRE_SUCCESS` is processed by many reducers to update the application state: to add an entry in the `questionnaires-by-id` reducer, to add multiple entries in the `components-by-id` reducer (one for each sequence and each question in the questionnaire), to add multiple entries in the `code-by-id` reducer (one for each code in every code list in the questionnaire)...
-16. The application re renders. The questionnaire content is now visible.
 
 ## Integrity checks
 
