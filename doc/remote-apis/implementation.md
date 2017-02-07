@@ -1,5 +1,7 @@
 # Implementation
 
+Network requests are triggered by React components which need remote resources. These components use some `loadSomethingIfNeeded` like function in their `componentWillMount` life cycle method. For instance, the `QuestionnaireContainer` component calls `loadQuestionnaireIfNeeded` when it is [mounted](https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/components/questionnaire-container.js#L38). This section explains how this process works. 
+
 ## Network requests
 
 The network requests are written in the [src/js/utils/remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/remote-api.js) file. They rely on the [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). A polyfill is provided for browsers which do not support it, via the [babel-polyfill](https://github.com/InseeFr/Pogues/blob/d28a7f67894479807f6b3d1c45b1b24883a556c4/src/js/main.js#L11).

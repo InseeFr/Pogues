@@ -8,4 +8,4 @@ URL and path for this service are configured in [src/js/config/config.js](https:
 
 ## Serialization
 
-The questionnaires are serialized in `json` and comply to the [schema](/doc/remote-apis/schema.md). Read more about [json representation of questionnaires]((/doc/remote-apis/questionnaire-json.md).
+The questionnaires are serialized in `json` and comply to the [schema](/doc/remote-apis/schema.md). Read more about [json representation of questionnaires](/doc/remote-apis/questionnaire-json.md).

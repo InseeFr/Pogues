@@ -17,7 +17,7 @@ Even if the application does not provide the option to define multilingual versi
 
 ## Conditions
 
-A question can have multiple labels depending on conditions. The conditions and the labels they are associated to will be represented as a Velocity Template Language string. This option was chosen in order to represent the structured related to conditions as a regular string that fits into the model. 
+A question can have multiple labels depending on conditions. The conditions and the labels they are associated to will be represented as a [Velocity Template Language](http://velocity.apache.org/) string. This option was chosen in order to represent the structured related to conditions as a regular string that fits into the model. 
 
 The first line of the VTL string will be a VTL single line comment with a `json` representation of the conditions as they are represented within Pogues. This first line will be parsed by the application to build back the conditions without having to process the body of the VTL string (to avoid the need of a `VTL` parser in javascript):
 

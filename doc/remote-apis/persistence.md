@@ -6,7 +6,7 @@ This service service is used to store and retrieve questionnaires.
 
 This service shares the same `baseURL` URL as the visualization service and relies on the `basePath` from the same [configuration file]([src/js/config/config.js](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js). In the long run, the configuration of these two services should be decoupled.
 
-## Serialization
+## Json representation
 
 For now, representation of questionnaires for this web service is slightly different from the formal description provided by [pogues model](./schema.md). These two representations should be merged in the future (to keep only the one which complies with the formal description).
 

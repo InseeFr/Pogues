@@ -4,12 +4,11 @@ This file does not intend to provide an extensive presentation of all the javasc
 
 ## ES2015
 
-TODO
-ES2015 and more thanks to babel
+We use ES2015 syntax thanks to the [babel plugin](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/webpack.config.js#L23-L36) for Webpack. Most of the highlights in this file are related to ES2015 syntax.
 
 ## Destructuring
 
-Destructuring assignments](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) allow to extract some information from an object or an array. They look like this:
+[Destructuring assignments](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) allow to extract some information from an object or an array. They look like this:
 
 ```javascript
 const person = { firstname: 'john', lastname: 'doe' }
@@ -64,8 +63,17 @@ codes.map(({id, label}) => ) {
 
 ## Spread operator with arrays
 
-TODO
+It can be useful to update an array without mutating the initial one:
 
+```javascript
+const initialArray = ['john', 'jack', 'bob']
+
+//keep all except the first one
+const [dontCare, ...withoutFirst] = initialArray
+
+//add an entry
+const withOneMore = [...initialArray, 'kate']
+```
 
 ## Spread operator with objects
 
@@ -88,6 +96,23 @@ const newObject = {
 // const newObject = Object.assign(initialObject, { id2: 'deux' })
 ```
 
+We can also use the spread operator to keep all the entries except one (useful to remove an entry):
+
+```javascript
+const initialObject = {
+  john: 25,
+  jack: 65,
+  bob: 35
+}
+
+//we want to remove the "jack" entry
+const {
+  jack: dontCare,
+  ...withoutJack
+} = initialObject
+
+//`withoutJack` is the new object
+````
 
 ## Computed property names
 
