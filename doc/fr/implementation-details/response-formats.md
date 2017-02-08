@@ -1,7 +1,7 @@
-# Response formats
+# Format des réponses
 
-The parsing/serialising process of response format is not trivial: the translation between Pogues model (the xml schema) and the user interface concepts is not straightforward. Hence, the source code has been divided into multiple files for each operation, parsing and serialising: it stays in the [src/js/utils/response-format](https://github.com/InseeFr/Pogues/tree/master/src/js/utils/response-format) directory and is called by [src/js/model-to-state-questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/model-to-state-questionnaire.js) (parsing) and [state-to-model-questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/state-to-model-questionnaire.js) (serializing).
+La sérialisation et désérialisation des formats de réponse n'est pas triviale: la traduction du modèle de données Pogues vers les concepts présentés dans l'interface utilisateur n'est pas immédiate. Ainsi, le code source a été divisé en plusieurs fichiers, un pour chaque type d'opération (sérialisation et désérialisation): le code se trouve dans le dossier [src/js/utils/response-format](https://github.com/InseeFr/Pogues/tree/master/src/js/utils/response-format) et est appelé par [src/js/model-to-state-questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/model-to-state-questionnaire.js) (désérialisation) et [state-to-model-questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/state-to-model-questionnaire.js) (sérialiastion).
 
-Related information about the model can be found [here](/remote-apis/schema.md).
+Plus d'information à propos du [modèle de données](/remote-apis/schema.md).
 
-Response format information is handled by the `response-format-by-id` reducer. We don't drop information when the user chooses a format instead of another. We just tag the current format to valued the right description. Keeping the old data in memory allows to switch back to the previous format with no lost of information.
+L'information relative aux formats de réponse est gérée par le reducer `response-format-by-id`. Lorsque l'utilisateur modifie le format de réponse, on conserve l'information asssociée au format de réponse précédent, ce qui permet de restituer cette information si l'utlisateur revient au final sur l'option précédente.

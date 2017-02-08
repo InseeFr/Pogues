@@ -1,10 +1,10 @@
-# Page breaks
+# Sauts de pages
 
-Pogues will build groups of components (one group per page) based on page breaks. This is additional information to the regular questionnaire representation (a tree of components).
+Pogues construit des groupes de composants (un groupe par page) afin de décrire les sauts de pages. Cette information complète la représentation par défaut du questionnaire sous la forme d'une structure arborescente.
 
-Internally, Pogues stores information about the last component before each page break. When a component is moved or removed, the page break will then reference the component before the one that has just been moved or removed.
+En interne, Pogues sauvegarde le dernier composant avant chaque saut de page. Lorsqu'un composant est déplacé ou supprimé, le saut de page référencera le composant précédent.
 
-Outside of Pogues, this information is represented conforming to this part of the schema:
+En dehors de Pogues, cette information est représentée grâce à cette partie du modèle:
 
 ```xml
 <xs:element name="ComponentGroup">
@@ -19,7 +19,7 @@ Outside of Pogues, this information is represented conforming to this part of th
 </xs:element>
 ```
 
-Names and labels are based on the page rank. In `json`, this information will look like this, where member references for the first page include all the components (no matter their depth) that should appear on the first page:
+Les noms et les libellés sont construits à partir du rang du saut de page. En `JSON`, cette information prendra la forme suivante, où les références aux éléments d'une page incluent tous les composants (quelque soit leur profondeur) qui doivent apparaître sur cette page:
 
 ```json
 "ComponentGroup": [

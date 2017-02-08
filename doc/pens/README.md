@@ -13,7 +13,7 @@ https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.2/react-redux.min.js
 
 ## HTML
 
-The following `html` should suffice for all the pens.
+The following `HTML` should suffice for all the pens.
 
 ```html
 <div id="base">

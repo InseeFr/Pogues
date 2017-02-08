@@ -1,6 +1,6 @@
-# Javascript
+# JavaScript
 
-This file does not intend to provide an extensive presentation of all the javascript background needed to start coding the application, but it rather tries to give the minimal information and some external references to avoid confusing the developer who would not be familiar with some features of the language.
+This file does not intend to provide an extensive presentation of all the `JavaScript` background needed to start coding the application, but it rather tries to give the minimal information and some external references to avoid confusing the developer who would not be familiar with some features of the language.
 
 ## ES2015
 
@@ -18,8 +18,6 @@ console.log(lastname) // 'doe'
 ```
 
 This approach can be used for destructuring function arguments. We use them a lot when defining `React` components:
-
-Hence:
 
 ```javascript
 function CodeEditor(props) {
@@ -77,7 +75,7 @@ const withOneMore = [...initialArray, 'kate']
 
 ## Spread operator with objects
 
-This syntax is not part of ES2015, but might be part of future javascript versions. Like ES2015 syntax, it is supported thanks to babel, with the [transform-object-rest-spread](https://babeljs.io/docs/plugins/transform-object-rest-spread/) plugin.
+This syntax is not part of ES2015, but might be part of future `JavaScript` versions. Like ES2015 syntax, it is supported thanks to babel, with the [transform-object-rest-spread](https://babeljs.io/docs/plugins/transform-object-rest-spread/) plugin.
 
 It allows to make a copy of some object before updating some properties:
 ```javascript
@@ -227,6 +225,7 @@ import mainPurposeOfThisFile from '...'
 When we import a default export, the name we give to the local variable does not need to match the name defined in the module. The code above could be re-written like this:
 
 ```javascript
+//We use `aRelevantName` in place of `mainPurposeOfThisFile`
 import aRelevantName from '...'
 ```
 
@@ -241,14 +240,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(ComponentEditor)
 ```
 ## Import css
 
-This application uses [style-loader](https://github.com/webpack-contrib/style-loader) in combination with webpack. It allows to import `css` files from javascript. Hence, in [src/js/main.js](https://github.com/InseeFr/Pogues/blob/master/src/js/main.js), we import the main css files the application will need:
+This application uses [style-loader](https://github.com/webpack-contrib/style-loader) in combination with Webpack. It allows to import `css` files from JavaScript. Hence, in [src/js/main.js](https://github.com/InseeFr/Pogues/blob/master/src/js/main.js), we import the main css files the application will need:
 
 ```javascript
 require('../css/pogues.css')
 ```
 
 It is convenient:
-- to mark some particular `css` file as a dependency for some `javascript` code to run properly;
-- to process the file to make performance optimizations (inline css rules in the `html head` section) and compatibility adjustments (for instance by adding prefixes when needed);
-- to make webpack taking care of copying this asset to the `dist` folder.
+- to mark some particular `css` file as a dependency for some `JavaScript` code to run properly;
+- to process the file to make performance optimizations (inline `css` rules in the `head` section of the `html` file) and compatibility adjustments (for instance by adding prefixes when needed);
+- to make Webpack taking care of copying this asset to the `dist` folder.
 

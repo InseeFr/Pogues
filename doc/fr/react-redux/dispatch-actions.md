@@ -32,7 +32,7 @@ function editCodeLabel(id, label) {
 }
 ```
 
-*Plus d'inforamtion à propos de la [notation raccourcie]((/javascript/syntax.md#shorthand-property-names).*
+*Plus d'inforamtion à propos de la [notation raccourcie](/javascript/syntax.md#raccourci-pour-laffectation-de-propriétés).*
 
 Ainsi, notre action peut être créée de la manière suivante:
 

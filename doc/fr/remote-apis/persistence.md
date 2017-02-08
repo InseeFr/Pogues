@@ -1,18 +1,18 @@
-# Store and retrieve questionnaires
+# Sauvegarder et récupérer des questionnaires
 
-This service service is used to store and retrieve questionnaires.
+Ce service est utilisé pour sauvegarder et récupérer les questionnaires.
 
 ## Configuration
 
-This service shares the same `baseURL` URL as the visualization service and relies on the `basePath` from the same [configuration file]([src/js/config/config.js](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js). In the long run, the configuration of these two services should be decoupled.
+Ce service partage l'URL `baseURL` avec le service de visualisation et utilise le chemin `basePath` défini dans le même [fichier de configuration]([src/js/config/config.js](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js). À l'avenir, la configuration de ces deux services devra être séparée.
 
-## Json representation
+## Représentation en JSON
 
-For now, representation of questionnaires for this web service is slightly different from the formal description provided by [pogues model](./schema.md). These two representations should be merged in the future (to keep only the one which complies with the formal description).
+Pour l'instant, la représentation du questionnaire pour ce service Web est légèrement différente de la description formelle fournie par le [modèle de données Pogues](./schema.md). Ces deux représentations devront fusionner dans le futur (pour ne conserver que la représentation qui satisfait le modèle de données).
 
-This representation (with underscores at the beginning of each key) was at some time a requirement for the persistence service. The naming conventions are closer from the one used in the implementation of Pogues (for instance, we use plural when we deal with an array of elements). To know more about the differences between these two representations, you can compare the following `json` to the one provided in the [questionnaire in json](/remote-apis/questionnaire-json.md) section.
+Cette représentation (avec des blancs soulignées au début de chaque entrée) était à une époque requise pour le service de persistence. Les conventions de nommages sont plus proches de celles utilisées dans le code de Pogues (par exemple, on utilise des pluriels pour nommer des tableaux). Pour en savoir plus sur les différences entre ces deux représentations, vous pouvez comparer le `JSON` ci-dessous avec celui fourni dans la section [questionnaire en JSON](/remote-apis/questionnaire-json.md).
 
-The code used by Pogues to go from this representation to the formal description (used for visualization) stays in [src/js/utils/data-json-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-json-utils.js).
+Le code utilisé par Pogues pour passer de cette représentation à la représentation formelle (utilisée pour la visualisation) se trouve dans le fichier  [src/js/utils/data-JSON-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-JSON-utils.js).
 
 
 ```json

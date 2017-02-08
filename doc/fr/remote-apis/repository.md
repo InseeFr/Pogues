@@ -1,14 +1,14 @@
-# Retrieve code list and code list specifications
+# Récuperer des descriptions de listes de codes
 
-For now, this service only provides some minimal functionalities to retrieve some code list specifications.
+Pour l'instant, ce service fourni uniquement quelques fonctionnalités minimalistes pour récupérer des descriptions de listes de codes.
 
 ## Configuration
 
-It relies on the `makeRepoURLSpecs` function from the [src/js/utils/data-json-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-json-utils.js) to build the URL for the requests.
+Elle s'appuie sur la fonction `makeRepoURLSpecs` du fichier [src/js/utils/data-JSON-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-JSON-utils.js) pour constuire l'URL à utiliser pour les requêtes.
 
-## Json representation
+## Représentation en JSON
 
-The results for `GET repo/specs` to retrieve a list of code list specifications are raw `sparql` results which look like this:
+Les résultats de la requête `GET repo/specs` pour récupérer des descriptions de listes de codes sont des résultats `sparql` bruts qui prennent la forme suivante:
 
 ```json
 {
@@ -42,7 +42,7 @@ The results for `GET repo/specs` to retrieve a list of code list specifications 
 }
 ```
 
-The results for request like `GET repo/clist/getMaleFemale` to retrieve the codes from a query look like this:
+Les résultats pour les requêtes du type `GET repo/clist/getMaleFemale` pour récupérer les codes d'une liste de codes prennent la forme suivante:
 
 ```json
 {

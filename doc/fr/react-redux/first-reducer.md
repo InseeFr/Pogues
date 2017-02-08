@@ -106,7 +106,7 @@ export default connect(mapStateToProps)(CodeListEditorDumb)
 
 Nous remarquons que le composant `CodeListEditorDumb` attend en paramètre un tableau de `codes`, mais lorsque l'on instancie le composant `CodeListEditor` (cf. `<CodeListEditor id="code_list_1" />` au sein du Provider), on ne lui passe des codes mais l'identifiant d'une liste de codes. Valoriser cet identifient et retourner les codes correspondants est pris en chage par la fonction `mapStateToProps`. Ensuite, `connect` utilisera `mapStateToProps` pour envelopper le composant initial dans un composant de plus haut niveau, qui, à partir d'un identifiant, va récupérer les codes grâce à l'état de l'application, et appeler le composant initial en lui passant ces codes en paramètre.
 
-En pratique, il n'est pas nécessaire de renommer le composant initial en `CodeListEditorDumb`, puisque ce nom est uniquement utiliés localement (dans l'appel à `connect`). Cf. [export default](/javascript/syntax.md#exports) pour en savoir plus sur le fonctionnement des exports.
+En pratique, il n'est pas nécessaire de renommer le composant initial en `CodeListEditorDumb`, puisque ce nom est uniquement utiliés localement (dans l'appel à `connect`). Cf. [export default](/javascript/syntax.md#export-et-import) pour en savoir plus sur le fonctionnement des exports.
 
 Le composant `CodeListEditor` est désormais capable d'aller chercher l'information directement dans le store. Mais lorsque nous essayons d'ajouter ou d'éditer un code, rien ne se passe, à part le message dans la console. Dans les prochains chapitres, nous verrons comment utiliser des actions pour produire des changements.
 

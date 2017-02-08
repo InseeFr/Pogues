@@ -17,7 +17,7 @@ function myReducer(state, action) {
 }
 ```
 
-À mesure que l'application s'est étendue, cette implémentation ne s'est pas toujours révélée très lisible (dans certaines situations, chaque clause comporte des traitements logiques), en une approche s'appuyant sur un dictionnaire de fonctions a été privilégiée. Chaque entrée représente un type d'action, chaque value, une fonction a appelée lorsqu'une action du type correspodnant est à traiter. Cette fonction:
+Cette implémentation ne s'est pas toujours révélée très lisible (dans certaines situations, chaque clause comporte des traitements de plusieurs lignes qui pourraient justifier d'être regroupés sous forme de fonction). Ainsi, une approche s'appuyant sur un dictionnaire de fonctions a été privilégiée. Chaque entrée représente un type d'actions, chaque valeur, une fonction à appeler lorsqu'une action du type correspodant est à traiter. Cette fonction:
 - prend en premier argument l'état géré par le reducer (par exemple, les codes pour le reducer `codes-by-id`);
 - prend le contenu de l'action en deuxième argument;
 - renvoie un nouvel état.
@@ -25,7 +25,7 @@ function myReducer(state, action) {
 Extrait du reducer [code-by-id](https://github.com/InseeFr/Pogues/blob/master/src/js/reducers/code-by-id.js):
 
 ```javascript
-//un dictionnaire avec toutes les types d'actions qui sont à traitées par ce
+//un dictionnaire avec tous les types d'actions qui sont à traiter par ce
 //reducer, avec pour chaque type, la fonction à utiliser
 const actionsHndlrs = {
   CREATE_CODE: createCode,
@@ -57,7 +57,7 @@ function createCode(codes, { id, label, value }) {
 ...
 ```
 
-La fonction générique pourrait utilement partagée par les différents reducers (au lieu d'être définie au sein de chaque reducer).
+La fonction générique pourrait utilement être partagée par les différents reducers (au lieu d'être définie au sein de chaque reducer).
 
 ## Les reducers gèrent des collections
 
@@ -87,7 +87,7 @@ function removeCode(codes, { id }) {
 }
 ```
 
-Update an existing code:
+Mettre à jour une entrée:
 ```javascript
 function editCode(codes, { id, update }) {
   return {

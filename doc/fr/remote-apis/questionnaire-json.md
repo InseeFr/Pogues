@@ -1,12 +1,12 @@
-# JSON representation of a questionnaire
+# Représentation en JSON des questionnaires
 
-To be visualized, a questionnaire needs to comply to the following [XML schema](./schema.md). In `json`, elements with `maxMaxOccurs` set to `unbounded` are represented as an array.
+Pour être visalisé, un questionnaire doit satisfaire le [schéma XML](./schema.md). En `JSON`, les éléments où `maxMaxOccurs` à la valeur `unbounded` sont représentés par des tableaux.
 
-For instance, if we expect in the schema the following element:
+Par exemple, cet élément défini dans le schéma:
 ```xml
 <xs:element name="Child" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
 ```
-it will be represented in `json` like this:
+sera représenté en `JSON` de la façon suivante:
 ```json
 {
   "Child": [...]
@@ -15,7 +15,7 @@ it will be represented in `json` like this:
 
 TODO validate from a server perspective
 
-Hence, in `json`, it can be represented as follows:
+Ainsi, en `JSON`, le questionnaire est représenté ressemble à:
 
 ```json
 {

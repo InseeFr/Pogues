@@ -85,7 +85,7 @@ function simpleReducer(state, action){
 
 Elle renvoie bien l'état attendu (avec le libellé "regular happy" pour `code_2`), mais elle a modifié l'état initial (en fait, l'état initial et le nouvel état sont représentés par le même objet).
 
-L'implémentation du reducer utilise [l'opérateur ...](/javascript/syntax.md#spread-operator-with-objects) et les [propriétés dynamiques](/javascript/syntax.md#computed-property-names) pour faciliter l'écriture de mises à jour sans modification de l'objet initial.
+L'implémentation du reducer utilise [l'opérateur ...](/javascript/syntax.md#opérateur-spread-avec-les-objets) et les [propriétés dynamiques](/javascript/syntax.md#propriétés-dynamiques) pour faciliter l'écriture de mises à jour sans modification de l'objet initial.
 
 ## L'état initial
 

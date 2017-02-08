@@ -20,12 +20,12 @@ To build the application, run `npm run build`. You can now serve the content of 
 
 Note that you will probably first need to update the [config file](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js) to point to the proper URLs and paths for the web services Pogues will rely on.
 
-## New to javascript and Node.js
+## New to JavaScript and Node.js
 
-If you're new to javascript, you might need to first install [node and npm](https://nodejs.org/en/download/) on your computer. Any recent version should work.
+If you're new to JavaScript, you might need to first install [node and npm](https://nodejs.org/en/download/) on your computer. Any recent version should work.
 
 `npm` is the `Node.js` package manager. `npm install` will download all the dependencies needed by the project, as described in the `dependencies` and `devDepedencies` sections of the [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json) file.
 
-`npm run dev` will launch the `dev` command defined in the `scripts` section of the same `package.json` file. This command will launch a local web server serving the main html file ([src/js/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html)) and all the relevant assets. Read more about [webpack usage](./application/build-process.md).
+`npm run dev` will launch the `dev` command defined in the `scripts` section of the same `package.json` file. This command will launch a local web server serving the main HTML file ([src/js/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html)) and all the relevant assets. Read more about [Webpack usage](./application/build-process.md).
 
 `npm run build` will launch the compilation with some optimizations for production. It copies all the static assets and the resulting bundle file in the `dist` folder.

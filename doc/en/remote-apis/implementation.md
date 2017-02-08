@@ -15,13 +15,13 @@ Example:
 export const getQuestionnaire = id =>
   fetch(urlGetQuestionnaire + '/' + id, {
     headers: {
-      'Accept': 'application/json'
+      'Accept': 'application/JSON'
     }
-  }).then(res => res.json())
+  }).then(res => res.JSON())
 ```
 
 This module exports some functions which return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). It the remote call succeeds, the Promise will resolve to:
-- the expected raw data (`res.json()`) for `GET` operations;
+- the expected raw data (`res.JSON()`) for `GET` operations;
 - the raw response if no data needs to be extracted from the response;
 - value of a header field if relevant.
 
@@ -34,8 +34,8 @@ This file mixes calls for all of the three services:
 
 To trigger remote calls, we use action creators in combination with [Redux Thunk middleware](https://github.com/gaearon/redux-thunk). We follow the pattern for [asyncrhonous actions](http://redux.js.org/docs/advanced/AsyncActions.html#async-action-creators) from the Redux documentation.
 
-With Redux Thunk, action creators can return a function instead of a plain javascript object. Hence, we can write asynchronous actions with a function which:
-- synchronously dispatches a plain javascript object action to indicate that the request has been registered; action type follows the `LOAD_SOMETHING` naming convention;
+With Redux Thunk, action creators can return a function instead of a plain JavaScript object. Hence, we can write asynchronous actions with a function which:
+- synchronously dispatches a plain JavaScript object action to indicate that the request has been registered; action type follows the `LOAD_SOMETHING` naming convention;
 - sends the request (with functions from the aforementioned [src/js/utils/remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/remote-api.js) file, like `getQuestionnaire`);
 - asynchronously dispatches a `LOAD_SOMETHING_SUCCESS` action if the Promise returned by the fetch call succeeds (`then` handler), or a `LOAD_SOMETHING_FAILURE` if it fails (`catch` handler);
 - returns the Promise for possible further processing.

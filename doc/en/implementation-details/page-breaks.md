@@ -19,7 +19,7 @@ Outside of Pogues, this information is represented conforming to this part of th
 </xs:element>
 ```
 
-Names and labels are based on the page rank. In `json`, this information will look like this, where member references for the first page include all the components (no matter their depth) that should appear on the first page:
+Names and labels are based on the page rank. In `JSON`, this information will look like this, where member references for the first page include all the components (no matter their depth) that should appear on the first page:
 
 ```json
 "ComponentGroup": [

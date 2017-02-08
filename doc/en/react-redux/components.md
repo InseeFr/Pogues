@@ -2,7 +2,7 @@
 
 A piece of UI in React is called a component. We will start working with a simplified version of the `CodeEditor` component from the [src/js/components/code-editor.js](https://github.com/InseeFr/Pogues/blob/master/src/js/components/code-editor.js) file:
 
-![CodeEditor component](../img/code-editor.png, "CodeEditor component")
+![CodeEditor component](../img/code-editor.png "CodeEditor component")
 
 In order to promote design of reusable components and enforce a modular coding style, components should be as elementary as possible. Then, we can build more complex components by [composing simple ones](./combining-components.md). From this perspective, our `CodeEditor` should be seen as a composition of two different components:
 - the input field;
@@ -10,7 +10,7 @@ In order to promote design of reusable components and enforce a modular coding s
 
 Yet, to keep things simple and to stick to the code, we will consider the `CodeEditor` as an elementary block.
 
-If we ignore layout and style instructions, `html` for this editor looks like this:
+If we ignore layout and style instructions, `HTML` for this editor looks like this:
 
 ```html
 <div>
@@ -44,8 +44,8 @@ export default function CodeEditor() {
 
 We notice that:
 - the `CodeEditor` component is represented as a function;
-- this function returns some `html` like syntax; this is called `JSX` and provides a convenient way to write components; [during the compilation process](/application/build-process.md), `JSX` will be transformed to regular `javascript`, and this function will eventually return a `React` element;
-- there are some small differences between `JSX` and `html` (here, the attribute `className` in place of the regular `class` attribute in `html`, and the attribute `defaultValue` instead of `value`);
+- this function returns some `HTML` like syntax; this is called `JSX` and provides a convenient way to write components; [during the compilation process](/application/build-process.md), `JSX` will be transformed to regular `JavaScript`, and this function will eventually return a `React` element;
+- there are some small differences between `JSX` and `HTML` (here, the attribute `className` in place of the regular `class` attribute in `HTML`, and the attribute `defaultValue` instead of `value`);
 - we export (read more about [exports](/javascript/syntax.md#export-and-import)) the component in order to use it to build the `CodeListEditor` component.
 
 We need to tell React to render the application into an existing `div` of the [src/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html). That's what the `ReactDOM.render` is used for (more in [bootstrap the application](doc/application/bootstrap.md)).

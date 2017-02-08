@@ -10,7 +10,7 @@ Afin de promouvoir la conception de composants réutilisables et l'écriture de 
 
 Cela étant, afin de simplifier et de rester proche du code existant, nous considérerons le composant `CodeEditor` comme un bloc élémentaire.
 
-Si l'on ignore les instructions relatives au style et à la mise en page, le code `html`pour l'éditeur de code ressemble à:
+Si l'on ignore les instructions relatives au style et à la mise en page, le code `HTML`pour l'éditeur de code ressemble à:
 
 ```html
 <div>
@@ -44,9 +44,9 @@ export default function CodeEditor() {
 
 Remarquons que:
 - le composant `CodeEditor` est représenté par une fonction;
-- cette fonction retourne ce qui ressemble à de l'`html`; cette syntaxe s'appelle `JSX` et est pratique pour décrire des composants; au cours de la [compilation](/application/build-process.md), ce code `JSX` sera transformé en code `JavaScript`, et, au final, cette fonction renverra un élément React;
-- il y a de légères différences entre `JSX` et `html` (ici, l'attribut `className` est utilié au lieu de l'attribut `class`, et l'attribut `defaultValue` à la place de `value`);
-- on exporte (cf. [exports](/javascript/syntax.md#export-and-import)) le composant afin de pouvoir l'utiliser ultérieurement pour construire le composant `CodeListEditor`.
+- cette fonction retourne ce qui ressemble à de l'`HTML`; cette syntaxe s'appelle `JSX` et est pratique pour décrire des composants; au cours de la [compilation](/application/build-process.md), ce code `JSX` sera transformé en code `JavaScript`, et, au final, cette fonction renverra un élément React;
+- il y a de légères différences entre `JSX` et `HTML` (ici, l'attribut `className` est utilié au lieu de l'attribut `class`, et l'attribut `defaultValue` à la place de `value`);
+- on exporte (cf. [exports](/javascript/syntax.md#export-et-import)) le composant afin de pouvoir l'utiliser ultérieurement pour construire le composant `CodeListEditor`.
 
 Il est nécessaire d'indiquer à React que l'application doit être affichée au sein d'une balise `div` de la page [src/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html). On utilise pour cela la méthode `ReactDOM.render` (cf. [amorcer l'application](doc/application/bootstrap.md)).
 

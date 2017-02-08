@@ -15,9 +15,9 @@ basePath: /exist
 schemes:
  - http
 consumes:
-  - application/json
+  - application/JSON
 produces:
-  - application/json
+  - application/JSON
 paths:
   /pogues/questionnaires:
   

@@ -1,6 +1,6 @@
-# Swagger documentation
+# Documentation Swagger
 
-Here is the online version of the [swagger documentation](https://github.com/InseeFr/Pogues/blob/master/doc/pogues-swagger.yaml) for the two coexisting services for questionnaires persistance and visualisation.
+Vous pouvez consulter la version en ligne de la [documentation Swagger](https://github.com/InseeFr/Pogues/blob/master/doc/pogues-swagger.yaml) pour les deux services Web de persistence et de visualisation (les deux services sont décrits dans le même fichier).
 
 ```yaml
 swagger: '2.0'
@@ -15,9 +15,9 @@ basePath: /exist
 schemes:
  - http
 consumes:
-  - application/json
+  - application/JSON
 produces:
-  - application/json
+  - application/JSON
 paths:
   /pogues/questionnaires:
   

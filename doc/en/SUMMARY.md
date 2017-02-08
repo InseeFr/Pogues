@@ -1,16 +1,5 @@
 # Table of contents
 
-## About
-
-* [Pogues](./README.md)
-
-## Developer guide
-# Table of contents
-
-## About
-
-* [Pogues](README.md)
-
 ## Developer guide
 
 * [Getting started](getting-started.md)
@@ -41,7 +30,7 @@
   * [Repository](remote-apis/repository.md)
   * [Swagger documentation](remote-apis/swagger.md)
   * [XML Schema](remote-apis/schema.md)
-  * [A questionnaire in json](remote-apis/questionnaire-json.md)
+  * [A questionnaire in JSON](remote-apis/questionnaire-json.md)
 * [Discover the app](application/REAME.md)
   * [Bootstrap the application](application/bootstrap.md)
   * [How the data flows](application/loading-questionnaire.md)
@@ -51,7 +40,7 @@
   * [Internationalization](application/internationalization.md)
   * [Components](application/components.md)  
   * [Stack](application/stack.md)
-* [Javascript usage](javascript/REAME.md)
+* [JavaScript usage](javascript/REAME.md)
   * [Syntax](javascript/syntax.md)
   * [Debugging](javascript/debugging.md)
 * [Implementation details](implementation-details/README.md)

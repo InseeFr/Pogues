@@ -119,7 +119,7 @@ class CodeListEditor extends React.Component {
 
 We intitialize the state of the `CodeListEditor` component with the 3 already created codes. We then define a `addCode` function (see [arrow functions](/javascript/syntax.md#arrow-functions)) which:
 - creates an `id` for the newly created code;
-- creates a copy of the initial codes with a new code at the end (see [spread operator](javascript/syntax.html#spread-operator-with-arrays)) ;
+- creates a copy of the initial codes with a new code at the end (see [spread operator](JavaScript/syntax.html#spread-operator-with-arrays)) ;
 - calls `setState` to update the state of the component; the `setState` call will trigger a re-rendering of the component.
 
 Now, when we click on the "Add a code" button, the UI updates accordingly.

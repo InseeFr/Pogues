@@ -1,11 +1,11 @@
-# Visualize questionnaires
+# Visualiser des questionnaires
 
-This service takes a questionnaire description and returns an URL to visualize the questionnaire.
+Ce service prend en entrée la description d'un questionnaire et retourne une URL qui permet de visualiser le questionnaire.
 
 ## Configuration
 
-URL and path for this service are configured in [src/js/config/config.js](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js), with `baseURL` and `stromaePath` entries. 
+L'URL et le chemin pour ce service sont configurés dans le fichier [src/js/config/config.js](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js), grâce aux entrées `baseURL` et `stromaePath`. 
 
-## Serialization
+## Représentation en JSON
 
-The questionnaires are serialized in `json` and comply to the [schema](/remote-apis/schema.md). Read more about [json representation of questionnaires](/remote-apis/questionnaire-json.md).
+Les questionnaires sont représentés en `JSON` conformément au [modèle de données Pogues](/remote-apis/schema.md). Pour en savoir plus à propos de la [représentation en JSON des questionnaires](/remote-apis/questionnaire-json.md).

@@ -2,7 +2,7 @@
 
 The reducer we used in the last section was trivial: the state  never changes. As a consequence, we were not able to process user actions. In order to build a more useful reducer, we need to have a closer look at the reducer second argument: the action.
 
-An action is a plain javascript object describing what happened. For instance, the following action can be used to describe what the user did when he edited a code label:
+An action is a plain JavaScript object describing what happened. For instance, the following action can be used to describe what the user did when he edited a code label:
 
 ```javascript
 const anAction = {

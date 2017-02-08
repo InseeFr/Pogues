@@ -4,9 +4,9 @@ For now, this service only provides some minimal functionalities to retrieve som
 
 ## Configuration
 
-It relies on the `makeRepoURLSpecs` function from the [src/js/utils/data-json-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-json-utils.js) to build the URL for the requests.
+It relies on the `makeRepoURLSpecs` function from the [src/js/utils/data-JSON-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-JSON-utils.js) to build the URL for the requests.
 
-## Json representation
+## JSON representation
 
 The results for `GET repo/specs` to retrieve a list of code list specifications are raw `sparql` results which look like this:
 

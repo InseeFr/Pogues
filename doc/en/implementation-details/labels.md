@@ -2,7 +2,7 @@
 
 ## Internationalisation
 
-Even if the application does not provide the option to define multilingual versions of labels, they are represented as a sequence (an array in `json`):
+Even if the application does not provide the option to define multilingual versions of labels, they are represented as a sequence (an array in `JSON`):
 
 ```xml
   <xs:complexType name="ComponentType" abstract="true">
@@ -19,7 +19,7 @@ Even if the application does not provide the option to define multilingual versi
 
 A question can have multiple labels depending on conditions. The conditions and the labels they are associated to will be represented as a [Velocity Template Language](http://velocity.apache.org/) string. This option was chosen in order to represent the structured data related to conditions as a regular string that fits into the model. 
 
-The first line of the VTL string will be a VTL single line comment with a `json` representation of the conditions as they are represented within Pogues. This first line will be parsed by the application to build back the conditions without having to process the body of the VTL string (to avoid the need of a `VTL` parser in `JavaScript`):
+The first line of the VTL string will be a VTL single line comment with a `JSON` representation of the conditions as they are represented within Pogues. This first line will be parsed by the application to build back the conditions without having to process the body of the VTL string (to avoid the need of a `VTL` parser in `JavaScript`):
 
 ```
 ##{\"label\":\"initial label\",\"conditions\":[{\"id\":\...
@@ -53,7 +53,7 @@ second label
 #end
 ```
 
-Remark: we keep track in the first line of the VTL string of the initial label. This label will not be valued in the questionnaire visualisation process, so it does not appear elsewhere in the VTL string.
+Remark: we keep track in the first line of the VTL string of the initial label (input for instance with the `GenericInput`, before conditions have been added). This label will not be valued in the questionnaire visualisation process, so it does not appear elsewhere in the VTL string.
 
 
 ## Rich text

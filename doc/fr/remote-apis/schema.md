@@ -1,6 +1,6 @@
 # XML Schema
 
-The questionnaire schema is maintained in the [Pogues Model repo](https://github.com/InseeFr/Pogues-Model/blob/master/src/main/resources/xsd/Questionnaire.xsd).
+Le modèle de données Pogues est maintenu dans le [répertoire Pogues Model](https://github.com/InseeFr/Pogues-Model/blob/master/src/main/resources/xsd/Questionnaire.xsd).
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

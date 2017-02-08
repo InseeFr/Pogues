@@ -30,8 +30,8 @@ function CodeListEditor() {
 ```
 
 Remarquons que:
-- nous avons mélangé du `JSX` et du `JavaScript`; `{ codes.map(...)} ` renvoie un tableau de `CodeEditor`s qui seront insérés dans la balise `div` (en savoir plus à propos de l'[affectation par décomposition](/javascript/syntax.md#destructuring) utilisée dans l'appel à la fonctoin `map`);
-- nous avons passé des paramètres au composant `CodeEditor` de la même façon que l'on définit des attributs pour un élément `html`;
+- nous avons mélangé du `JSX` et du `JavaScript`; `{ codes.map(...)} ` renvoie un tableau de `CodeEditor`s qui seront insérés dans la balise `div` (en savoir plus à propos de l'[affectation par décomposition](/javascript/syntax.md#décomposition) utilisée dans l'appel à la fonctoin `map`);
+- nous avons passé des paramètres au composant `CodeEditor` de la même façon que l'on définit des attributs pour un élément `HTML`;
 - nous avons passé un paramètre `key` à chaque `CodeEditor`: `React` requiert que [chaque composant dans un tableau ait un attribut key](https://facebook.github.io/react/docs/lists-and-keys.html#basic-list-component) avec une valeur unique.
 
 Pour l'instant, le composant `CodeListEditor` n'a pas changé visuellement. Il présente toujours le même libellé "unhappy" pour chaque code. Afin de valoriser le paramètre `label` au sein du `CodeEditor`, il est nécessaire de modifier ce composant:
@@ -61,7 +61,7 @@ Lorsqu'il est appelé, un composant décrit grâce à une fonction recevra en ta
 }
 ```
 
-La plupart du temps, nous utiliserons l'[affectation par décomposition](/javascript/syntax.md#destructuring) pour extraire l'information des props. Notre composant peut ainsi être ré-écrit de la façon suivante:
+La plupart du temps, nous utiliserons l'[affectation par décomposition](/javascript/syntax.md#décomposition) pour extraire l'information des props. Notre composant peut ainsi être ré-écrit de la façon suivante:
 
 ```javascript
 function CodeEditor({ label }) {

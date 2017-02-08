@@ -1,8 +1,8 @@
-# Labels
+# Libellés
 
 ## Internationalisation
 
-Even if the application does not provide the option to define multilingual versions of labels, they are represented as a sequence (an array in `json`):
+Même si l'application n'offre pas la possibilité de définir une version disponible en plusieurs langues des questionnaires, les libellés sont représentés sous forme de séquence (tableau en `JSON`):
 
 ```xml
   <xs:complexType name="ComponentType" abstract="true">
@@ -17,16 +17,16 @@ Even if the application does not provide the option to define multilingual versi
 
 ## Conditions
 
-A question can have multiple labels depending on conditions. The conditions and the labels they are associated to will be represented as a [Velocity Template Language](http://velocity.apache.org/) string. This option was chosen in order to represent the structured data related to conditions as a regular string that fits into the model. 
+Le libellé d'une question peut dépendre de conditions. Ces conditions et les libellés associés sont représentés sous la forme d'une chaîne de caractères dans le langage [Velocity Templage Language](http://velocity.apache.org/) . Cette solution a été choisie afin de représenter l'information permettant d'exprimer ces conditions sous la forme d'une simple chaîne de caractères, comme attendu dans le modèle de données.
 
-The first line of the VTL string will be a VTL single line comment with a `json` representation of the conditions as they are represented within Pogues. This first line will be parsed by the application to build back the conditions without having to process the body of the VTL string (to avoid the need of a `VTL` parser in `JavaScript`):
+La première ligne de la chaîne VTL est un commentaire de type ligne avec une représentation en `JSON` des conditions comme elles sont représentées au sein de Pogues. Cette première ligne sera analysée par l'application pour reconstruire les conditions sans avoir à analyser le corps de la chaîne VTL (pour éviter d'avoir à utiliser un parser `VTL` en `JavasScript`):
 
 ```
 ##{\"label\":\"initial label\",\"conditions\":[{\"id\":\...
 #if ....
 ```
 
-It is built with the result of `JSON.stringify` called on that kind of object:
+Cette chaîne est le résultat de la fonctoin `JSON.stringify` appelée sur ce type d'objet:
 ```javascript
 {
   label: "initial label",
@@ -42,7 +42,7 @@ It is built with the result of `JSON.stringify` called on that kind of object:
 }
 ```
 
-The body of the VTL string represents the conditions with VTL `#if` and `#elseif` directives. With the conditions from the previous example, the whole string will look like:
+Le corps de la chaîne `VTL` représente les conditions with `VTL` `#if` and `#elseif` directives. Avec les conditions de l'exemple précédent, la chaîne complète prend la forme suivante:
 
 ```
 ##{\"label\":\"initial label\",\"conditions\":[{\"id\":\...
@@ -53,24 +53,23 @@ second label
 #end
 ```
 
-Remark: we keep track in the first line of the VTL string of the initial label. This label will not be valued in the questionnaire visualisation process, so it does not appear elsewhere in the VTL string.
+Remarque: on garde trace dans la première ligne de la chaîne `VTL` du libellé initial (saisi par exemple à partir du `GenericInput`, avant l'ajout de conditions). Ce libellé ne sera pas valorisé lors de la visualisation du questionnaire, il n'apparaît donc pas dans le corps de la chaîne `VTL`.
 
+## Texte enrichi
 
-## Rich text
+Certains libellés peuvent contenir du texte enrichi: les libellés de questions, les libellés des question qui utilisent des conditions, et les libellés des déclarations.
 
-Some labels can hold rich text: question labels, question labels that use conditions and statement labels.
+On utilise l'éditeur [draft.js](https://facebook.github.io/draft-js/) pour permettre aux utilisateurs de saisir du texte enrichi, et Markdown pour représenter ce texte riche de façon cohérente avec le modèle (i.e. une simple chaîne de caractères). L'objectif est d'avoir une représentation commune entre Pogues et le serveur de visualisation, mais pas d'offrir un support complet du Markdown. Le Markdown ne sera pas rendu en l'état, mais il sera traité lors de la génération du questionaire.
 
-We use [draft.js](https://facebook.github.io/draft-js/) editor to let users type in some rich text, and Markdown to represent this structured text in a way which complies to the Pogues model (i.e. a regular string). The purpose is to have a common representation between Pogues and the rendering server, not to offer a fully compliant markdown editor. Markdown won't be rendered as is, but will be further processed to generate the questionnaire.
+Ces éléments sont utilisés:
+- `_italique_`
+- `**gras**`
+_ `**gras et italique**`
+- `[liens avec une URL et un titre\](http://example.com)`
+- `[liens avec un titre et un simple . en tant qu'URL\](. "un message")`.
 
-These elements are used:
-- `_italic_`
-- `**bold**`
-_ `**bold and italic**`
-- `[links with an url and no title\](http://example.com)`
-- `[links with a title and a simple dot as url\](. "a message")`.
+Le dernier élément (`[liens avec un titre et un simple . en tant qu'URL\](. "un message")`) est une convention interne pour représenter de l'information contextuelle qui sera rendue dans le questionnaire en tant que texte avec de l'information associée (par exemple, avec une bulle de survol).
 
-The last item (`[links with a title and a simple dot as url](. "a message")`) is an internal convention to represent contextual information intended to be rendered in the questionnaire as some text with some information attached (for instance, with a tooltip on mouseover).
+Les autres éléments de la syntaxe Markdonw ne sont pas gérés par le composant de saisie de texte enrichi.
 
-Other elements of the markdown syntax are not handled by the component for rich text edition.
-
-Additional information can be found in [#142](https://github.com/InseeFr/Pogues/issues/142).
+De l'information complémentaire est disponible ici: [#142](https://github.com/InseeFr/Pogues/issues/142).

@@ -1,5 +1,5 @@
-# Implementation details
+# Implémentation de certaines fonctionnalités
 
-This section provides information about some functionalities whose implementation might require external comments to make completely sense.
+Ce chapitre fournit de l'information complémentaire pour certaines fonctionnalités complexes dont l'appropriation uniquement à partir du code peut être délicate.
 
-It can serve as an introduction before diving into the code.
+Il peut servir d'introduction avant de vous plonger dans le code.

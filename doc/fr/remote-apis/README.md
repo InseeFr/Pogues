@@ -1,13 +1,13 @@
-# Remote APIs
+# APIs distantes
 
-Pogues serves as a front-end application to design questionnaires and represent them in a [formal way](./schema.md). It relies on tiers web services to:
-- [visualize](./visualization.md) questionnaires;
-- [store and retrieve](./persistence.md) questionnaires;
-- use existing objects from an external [repository](./repository.md).
+Pogues est un client Web pour concevoir des questionnaires et les représenter suivant le [modèle de données Pogues](./schema.md). Il s'appuie sur des Web services externes pour:
+- [visualiser](./visualization.md) les questionnaires;
+- [sauvegarder et récupérer](./persistence.md) les questionnaires;
+- utiliser des objets issus d'un [référentiel externe](./repository.md).
 
-For now, Pogues is tightly coupled to the implementation of the services within its original organization (INSEE). In a near future, a more modular and documented approach will be provided to facilitate its re-use by other organizations. 
+Pour l'instant, Pogues dépend de l'implémentation de ces services utilisée en interne dans l'organisation où il a été développé (INSEE). Dans un avenir proche, une approche modulaire et documentée sera mise en place pour faciliter son intégration au sein d'autres organisations.
 
-Have a look at the [swagger documentation](./swagger.md) to know more about what these services provide (it does not include the "repository" service).
+Vous pouvez vous référer à la [documentation swagger](./swagger.md) pour savoir ce que ces services fournissent (la partie "référentiel externe" n'est pas documentée).
 
-A fake server [implementation](https://github.com/InseeFr/Pogues/tree/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/utils/backend) is provided to illustrate the expected behavior of these services. This server can be launched with `npm run start:backend`.
+Un [serveur minimaliste](https://github.com/InseeFr/Pogues/tree/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/utils/backend) est fourni à titre d'exemple: il illsutre le comportement attendu de ces services. Ce serveur peut être lancé avec la commande `npm run start:backend`.
 

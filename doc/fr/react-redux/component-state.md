@@ -118,9 +118,9 @@ class CodeListEditor extends React.Component {
 }
 ```
 
-On initialise l'état du composant `CodeListEditor` avec les 3 codes déjà existants. Puis, on définit la fonction `addCode` (cf. [fonctions flêchées](/javascript/syntax.md#arrow-functions)) qui:
+On initialise l'état du composant `CodeListEditor` avec les 3 codes déjà existants. Puis, on définit la fonction `addCode` (cf. [fonctions flêchées](/javascript/syntax.md#fonctions-flêchées)) qui:
 - crée un identifiant pour le nouveau code;
-- réalise une copie des codes précédents et ajoute le nouveau code à la fin (cf. [utilisation de l'opérateur ... avec les tableaux](javascript/syntax.html#spread-operator-with-arrays));
+- réalise une copie des codes précédents et ajoute le nouveau code à la fin (cf. [utilisation de l'opérateur ... avec les tableaux](JavaScript/syntax.html#spread-operator-with-arrays));
 - appelle `setState` pour mettre à jour l'état du composant; cet appel à `setState` va déclencher un réaffichage du composant.
 
 Désormais, lorsque l'on clique sur le bouton "Add a code", l'interface est actualisée de manière cohérente.

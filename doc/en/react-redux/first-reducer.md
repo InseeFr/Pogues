@@ -105,7 +105,7 @@ export default connect(mapStateToProps)(CodeListEditorDumb)
 Notice that the `CodeListEditorDumb` expects to be passed an array of `codes`, but
 when we instantiate the `CodeListEditor` within the `Provider` with `<CodeListEditor id="code_list_1" />`, we passed it the id of the code list. Taking this `id` and returning the corresponding list of codes is what `mapStateToProps` will take care of. Then, `connect` will use `mapStateToProps` to wrap the initial component into a higher order component, which given some `id`, will retrieve the codes from the application state, and render the initial component with these codes passed as a prop.
 
-In practice, we don't need to rename our initial component `CodeListEditorDumb`, since this name is only used locally (in the connect call at the end of the file). See [export default](/javascript/syntax.md#exports) to learn more about how exports work.
+In practice, we don't need to rename our initial component `CodeListEditorDumb`, since this name is only used locally (in the connect call at the end of the file). See [export default](/javascript/syntax.md#export-and-import) to learn more about how exports work.
 
 Our `CodeListEditor` will now be able to get the information directly from the store. But when we try to add or edit a code, nothing happens except for the logged information in the console. In the next sections, we will see how to use actions to make things happen.
 
