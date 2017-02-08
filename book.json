@@ -5,7 +5,7 @@
   "root": "./doc",
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/InseeFr/Pogues/tree/master",
+      "base": "https://github.com/InseeFr/Pogues/tree/master/doc",
       "label": "Edit This Page"
     },
     "github": {
