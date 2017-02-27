@@ -34,7 +34,6 @@ const defaultAppState = {
   showControls: true,
   questionnaireListFilter: '',
   questionnaire: null,
-  clEditionByResponseId: {},
   clLoadedById: {}
 }
 
@@ -63,40 +62,13 @@ const actionsHnlrs = {
   CREATE_QUESTIONNAIRE: switchToQuestionnaireAfterCreation,
   // CREATE_QUESTIONNAIRE_SUCCESS: changeIdAfterCreation,
   SET_QLIST_FILTER: setQuestionnaireListFilter,
-  // TOGGLE_CLIST_EDITION: toggleCListEdition,
-  TOGGLE_SHOW_CONTROLS: toggleShowControls,
-  //EDIT_RESPONSE_CHOOSE_CODE_LIST: editResponseChooseCodeList,
-  CREATE_CODE_LIST: toggleCListEditionAfterCreate
+  TOGGLE_SHOW_CONTROLS: toggleShowControls
 }
 
 function toggleShowControls(state) {
   return {
     ...state,
     showControls: !state.showControls
-  }
-}
-
-function toggleCListEdition(state, id) {
-  // if an `id` entry exists, the code list in the response `id` is being edited
-  const { [id]: response, ...others} = state.clEditionByResponseId
-  if (!response) others[id] = true
-  return {
-    ...state,
-    clEditionByResponseId: others
-  }
-}
-
-function editResponseChooseCodeList(state, { id }) {
-  return toggleCListEdition(state, id)
-}
-
-function toggleCListEditionAfterCreate(state, { responseId: id }) {
-  // if an `id` entry exists, the code list in the response `id` is being edited
-  const { [id]: response, ...others} = state.clEditionByResponseId
-  if (!response) others[id] = true
-  return {
-    ...state,
-    clEditionByResponseId: others
   }
 }
 

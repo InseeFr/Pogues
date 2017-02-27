@@ -27,11 +27,10 @@ export const editCodeList =  (id, update) => ({
   }
 })
 
-export const removeCodeList = (id, cmpntId) => ({
+export const removeCodeList = id => ({
   type: REMOVE_CODE_LIST,
   payload: {
-    id,
-    cmpntId
+    id
   }
 })
 
