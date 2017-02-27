@@ -5,12 +5,13 @@ export const EDIT_CONTROL = 'EDIT_CONTROL'
 export const REMOVE_CONTROL = 'REMOVE_CONTROL'
 
 export function createControl(cmpntId, controlDscr) {
+export function createControl(cmpntId) {
   return {
     type: CREATE_CONTROL,
     payload: {
       id: uuid(),
       cmpntId,
-      controlDscr
+      controlDscr: ''
     }
   }
 }
