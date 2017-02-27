@@ -1,4 +1,4 @@
-import { TOGGLE_ACTIVE_COMPONENT } from '../../actions/component'
+import { TOGGLE_ACTIVE_COMPONENT } from '../../actions/app-state'
 
 export default function (state={}, action) {
   if (action.type !== TOGGLE_ACTIVE_COMPONENT) return state

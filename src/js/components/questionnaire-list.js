@@ -60,7 +60,7 @@ QuestionnaireList.propTypes = {
   loadQuestionnaireList: PropTypes.func.isRequired,
   loadCodeListSpecs: PropTypes.func.isRequired,
   viewQuestionnaire: PropTypes.func.isRequired,
-  questionnaires: PropTypes.object.isRequired,
+  questionnaires: PropTypes.array.isRequired,
   allowRemoval: PropTypes.bool.isRequired
 }
 

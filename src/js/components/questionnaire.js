@@ -11,11 +11,6 @@ var HTML5Backend = require('react-dnd-html5-backend');
 
 const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
-import {
-  toggleActiveComponent, createComponent, removeComponent, moveComponent
-
-} from '../actions/component'
-
 import Logger from '../logger/logger'
 import { connect } from 'react-redux'
 

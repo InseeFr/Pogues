@@ -15,8 +15,10 @@ const { FAILED, LOADED, PENDING } = REMOTE_EVENT
 const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
 import { 
-  toggleActiveComponent, createComponent, removeComponent, moveComponent
+  createComponent, removeComponent, moveComponent
 } from '../actions/component'
+
+import { toggleActiveComponent } from '../actions/app-state'
 
 import {
   addPageBreak, removePageBreak

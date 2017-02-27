@@ -7,7 +7,6 @@
 //list.
 //TODO implement remove code list (with integrity controls to check if the
 //code list is not used by any response)
-import { CREATE_CODE_LIST } from '../actions/code-list'
 import { NEW_CODE_LIST_FORMAT } from '../actions/response-format'
 
 import {

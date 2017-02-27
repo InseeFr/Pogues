@@ -11,7 +11,7 @@ import {
 
 import {
   SET_QLIST_FILTER
-} from '../../actions/questionnaire-list'
+} from '../../actions/app-state'
 
 import {
   COMPONENT_TYPE, REMOTE_EVENT, VIEW_TYPE

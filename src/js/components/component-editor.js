@@ -15,7 +15,8 @@ import GoToPanel from './goto-panel'
 import ControlPanel from './control-panel'
 import ConditionPanel from './condition-panel'
 
-import { editComponent, toggleActiveComponent } from '../actions/component'
+import { editComponent } from '../actions/component'
+import { toggleActiveComponent } from '../actions/app-state'
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE

@@ -127,7 +127,6 @@ function updateResponse(responses, { id, update }) {
  * @param  {String} payload.update     properties to update
  * @return {Object}                    updated format
  */
-
 function updateFormat(format, { update  }) {
   return {
     ...format,
@@ -174,8 +173,8 @@ function newCodeListFormat(format, { createdClId, ctx }, type) {
 /**
  * Update a datatype
  *
- * Can be use for SIMPLE resonse format (`index` will not be set) and for measures
- * defined within a TABLE response format (`index` will) be a number
+ * Can be used for SIMPLE resonse format (`index` will not be set) and for
+ * measures defined within a TABLE response format (`index` will) be a number
  * representing the measure targeted.
  *
  * @param  {Object}  format          initial format

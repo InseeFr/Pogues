@@ -11,7 +11,7 @@ import { switchToConfig, switchToPicker } from '../actions/app-state'
 import {
   saveQuestionnaire, publishQuestionnaire
 } from '../actions/questionnaire.js'
-import { setQuestionnaireListFilter } from '../actions/questionnaire-list'
+import { setQuestionnaireListFilter } from '../actions/app-state'
 import { setQuestionnaireFilter } from '../actions/questionnaire'
 /*
 UI component encapsulating the saving questionnaire feature.

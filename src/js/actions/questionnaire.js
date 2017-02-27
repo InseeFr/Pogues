@@ -176,16 +176,13 @@ export const publishQuestionnaire = id =>
       type: PUBLISH_QUESTIONNAIRE,
       payload: id
     })
-    // We retrieve the questionnaire from the reducer
-    // thanks to getState, available as a second argument when 
-    // creating a middleware with redux-thunk
+    // We retrieve the questionnaire from the reducer thanks to getState
+    // available as a second argument when creating a middleware with
+    // Redux Thunk
     const qr = questionnaireToModel(getState(), id)
-    // Send it to the server, and dispatch asynchronously the relevant
-    // actions
+    // Send it to the server, and dispatch asynchronously the relevant actions
     return stromaePostQuestionnaire(serializeQuestionnaire(qr))
       .then(url => {
-        logger.debug('Location header is : ', url)
-        logger.info('Publish OK', ' - URL is :', url)
         return dispatch(publishQuestionnaireSuccess(id, url, qr))
       })
       .catch(err => dispatch(
