@@ -4,6 +4,7 @@ export const SWITCH_TO_PICKER = 'SWITCH_TO_PICKER'
 export const SWITCH_TO_CONFIG = 'SWITCH_TO_CONFIG'
 export const TOGGLE_SHOW_CONTROLS = 'TOGGLE_SHOW_CONTROLS'
 export const SET_QLIST_FILTER = 'SET_QLIST_FILTER'
+export const SET_QUESTIONNAIRE_FILTER = 'SET_QUESTIONNAIRE_FILTER'
 export const TOGGLE_ACTIVE_COMPONENT = 'TOGGLE_ACTIVE_COMPONENT'
 
 export const switchToQuestionnaire = id => (
@@ -33,5 +34,15 @@ export function setQuestionnaireListFilter(filter) {
   return {
     type: SET_QLIST_FILTER,
     payload: filter
+  }
+}
+
+export function setQuestionnaireFilter(id, filter) {
+  return {
+    type: SET_QUESTIONNAIRE_FILTER,
+    payload: {
+      id,
+      filter
+    }
   }
 }

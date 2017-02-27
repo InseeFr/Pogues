@@ -12,7 +12,7 @@ import {
   saveQuestionnaire, publishQuestionnaire
 } from '../actions/questionnaire.js'
 import { setQuestionnaireListFilter } from '../actions/app-state'
-import { setQuestionnaireFilter } from '../actions/questionnaire'
+import { setQuestionnaireFilter } from '../actions/app-state'
 /*
 UI component encapsulating the saving questionnaire feature.
 */

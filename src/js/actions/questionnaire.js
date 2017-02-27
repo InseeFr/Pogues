@@ -205,15 +205,6 @@ export const publishQuestionnaireFailure = (id, data, err) => (
     payload: { id, data, err }
   })
 
-export function setQuestionnaireFilter(id, filter) {
-  return {
-    type: SET_QUESTIONNAIRE_FILTER,
-    payload: {
-      id,
-      filter
-    }
-  }
-}
 
 export const removeQuestionnaire = id =>
   dispatch => {
