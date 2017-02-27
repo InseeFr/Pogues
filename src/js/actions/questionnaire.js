@@ -35,8 +35,6 @@ export const PUBLISH_QUESTIONNAIRE = 'PUBLISH_QUESTIONNAIRE'
 export const PUBLISH_QUESTIONNAIRE_SUCCESS = 'PUBLISH_QUESTIONNAIRE_SUCCESS'
 export const PUBLISH_QUESTIONNAIRE_FAILURE = 'PUBLISH_QUESTIONNAIRE_FAILURE'
 
-export const SET_QUESTIONNAIRE_FILTER = 'SET_QUESTIONNAIRE_FILTER'
-
 export const editQuestionnaire = (id, label) => ({
   type: EDIT_QUESTIONNAIRE,
   payload: {
@@ -44,8 +42,18 @@ export const editQuestionnaire = (id, label) => ({
     label
   }
 })
-//TODO see how to test private functions which should not be exported
 
+/**
+ * Create a new questionnaire
+ * 
+ * Asynchronous, relies on Redux Thunk to be processed.
+ * 
+ * Create the new questionnaire locally AND remotely.
+ * 
+ * @param   {string}   name  questionnaire name
+ * @param   {string}   label questionnaire label
+ * @returns {function}       CREATE_QUESTIONNAIRE action
+ */
 export const createQuestionnaire = (name, label) =>
   (dispatch, getState) => {
     // We need to create an empty questionnaire in order to call the remote api,
@@ -65,17 +73,22 @@ export const createQuestionnaire = (name, label) =>
       }
     })
     // We can now retrieve the empty questionnaire from the reducer thanks to
-    // getState, and build an object representation of thequestionnaire
+    // getState, and build an object representation of the questionnaire
     // consistent with the remote API.
     const qr = questionnaireToModel(getState(), id)
-    // Send it to the server, and dispatch asynchronously the relevant
-    // actions
+    // Send it to the server, and dispatch asynchronously the relevant actions
     return postQuestionnaire(qr)
       .then(newId => dispatch(createQuestionnaireSuccess(id, newId)))
       .catch(err => dispatch(createQuestionnaireFailure(id, err.toString())))
   }
 
-    
+/**
+ * Value success when the questionnaire has been created remotely
+ * 
+ * @param   {id}       id       local id for the new questionnaire
+ * @param   {location} location questionnaire URI
+ * @returns {object}            CREATE_QUESTIONNAIRE_SUCCESS action
+ */    
 export const createQuestionnaireSuccess = (id, location) => (
   {
     type: CREATE_QUESTIONNAIRE_SUCCESS,
@@ -85,12 +98,27 @@ export const createQuestionnaireSuccess = (id, location) => (
     }
   })
 
+/**
+ * Track when remote creation of a questionnaire failed
+ * 
+ * @param   {id}     id  local id for the new questionnaire
+ * @param   {string} err error message 
+ * @returns {object}     CREATE_QUESTIONNAIRE_FAILURE action
+ */
 export const createQuestionnaireFailure = (id, err) => (
   {
     type: CREATE_QUESTIONNAIRE_FAILURE,
     payload: { id, err }
   })
 
+/**
+ * Load the questionnaire if not present in the state
+ * 
+ * Relies on Redux Thunk
+ * 
+ * @param {id} id questionnaire id
+ * @returns {function} thunk which may dispatch LOAD_QUESTIONNAIRE
+ */
 export const loadQuestionnaireIfNeeded = id =>
   (dispatch, getState) => {
     const state = getState()
@@ -98,6 +126,18 @@ export const loadQuestionnaireIfNeeded = id =>
     if (!qr) dispatch(loadQuestionnaire(id))
   }
 
+/**
+ * Load the questionnaire
+ * 
+ * Asynchronous, relies on Redux Thunk.
+ * 
+ * The questionnaire returned by the server will be processed to comply with
+ * the reducers requirements.
+ * 
+ * @param   {string} id questionnaire id
+ * @returns {function}  thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or
+ *                      LOAD_QUESTIONNAIRE_FAILURE 
+ */
 export const loadQuestionnaire = id =>
   dispatch => {
     dispatch({
@@ -114,20 +154,49 @@ export const loadQuestionnaire = id =>
   }
 
 
-// update will be apply to the reducer to add the questionnaire
+/**
+ * Value the questionnaire returned to update the state
+ *      
+ * `update` is a complex object. Entries correspond to reducers, they contain
+ * an update to apply to the piece of state handled by the reducer to
+ * represent locally the questionnaire.
+ * 
+ * @param   {string} id     questionnaire id
+ * @param   {object} update update to apply to the state in order to store the
+ *                          questionnaire
+ * @returns {object}        LOAD_QUESTIONNAIRE_SUCCESS action
+ */
 export const loadQuestionnaireSuccess = (id, update) => (
   {
     type: LOAD_QUESTIONNAIRE_SUCCESS,
     payload: { id, update }
   })
 
+/**
+ * Track error when loading questionnaire failed 
+ * 
+ * @param   {string} id    questionnaire id
+ * @param   {string} err   error message
+ * @returns {object}       LOAD_QUESTIONNAIRE_FAILURE action
+ */
 export const loadQuestionnaireFailure = (id, err) => (
   {
     type: LOAD_QUESTIONNAIRE_FAILURE,
     payload: { id, err }
   })
 
-// save the questionnaire
+/**
+ * Save a questionnaire
+ * 
+ * Asynchronous, relies on Redux Thunk.
+ * 
+ * A representation of the questionnaire as a nested object will be first
+ * produced base on the information contained in the store.
+ * 
+ * @param   {id} id questionnaire id
+ * @returns {function} thunk which may dispatch SAVE_QUESTIONNAIRE_SUCCESS or
+ *                     SAVE_QUESTIONNAIRE_FAILURE
+ */
 export const saveQuestionnaire = id =>
   (dispatch, getState) => {
     dispatch({
@@ -155,6 +224,13 @@ export const saveQuestionnaire = id =>
       .catch(err => dispatch(saveQuestionnaireFailure(id, qr, err.toString())))
   }
 
+/**
+ * Process success when saving a questionnaire
+ * 
+ * @param   {string} id   questionnaire id
+ * @param   {object} data questionnaire as a nested object
+ * @returns {object}      SAVE_QUESTIONNAIRE_SUCCESS action
+ */
 export const saveQuestionnaireSuccess = (id, data) => (
   {
     type: SAVE_QUESTIONNAIRE_SUCCESS,
@@ -164,12 +240,32 @@ export const saveQuestionnaireSuccess = (id, data) => (
     }
   })
 
+/**
+ * Track error when saving a questionnaire
+ * 
+ * @param   {string} id   questionnaire id
+ * @param   {object} data questionnaire as a nested object
+ * @param   {string} err  error message
+ * @returns {object}      SAVE_QUESTIONNAIRE_FAILURE action
+ */
 export const saveQuestionnaireFailure = (id, data, err) => (
   {
     type: SAVE_QUESTIONNAIRE_FAILURE,
     payload: { id, data, err }
   })
 
+/**
+ * Publish a questionnaire
+ * 
+ * Asynchronous, relies on Redux Thunk.
+ * 
+ * A representation of the questionnaire as a nested object will be first
+ * produced base on the information contained in the store.
+ * 
+ * @param   {id} id    questionnaire id
+ * @returns {function} thunk which may dispatch PUBLISH_QUESTIONNAIRE_SUCCESS or
+ *                     PUBLISH_QUESTIONNAIRE_FAILURE
+ */
 export const publishQuestionnaire = id =>
   (dispatch, getState) => {
     dispatch({
@@ -189,6 +285,14 @@ export const publishQuestionnaire = id =>
           publishQuestionnaireFailure(id, qr, err.toString())))
   }
 
+/**
+ * Process a successful publishing of a questionnaire
+ * 
+ * @param   {string} id   questionnaire id
+ * @param   {string} url  URL for questionnaire visualization
+ * @param   {object} data questionnaire as a nested object
+ * @returns {object}      PUBLISH_QUESTIONNAIRE_SUCCESS action
+ */
 export const publishQuestionnaireSuccess = (id, url, data) => (
   {
     type: PUBLISH_QUESTIONNAIRE_SUCCESS,
@@ -199,6 +303,14 @@ export const publishQuestionnaireSuccess = (id, url, data) => (
     }
   })
 
+/**
+ * Track error when publishing a questionnaire
+ * 
+ * @param   {string} id   questionnaire id
+ * @param   {object} data questionnaire as a nested object
+ * @param   {string} err  error message
+ * @returns {object}      PUBLISH_QUESTIONNAIRE_FAILURE action
+ */
 export const publishQuestionnaireFailure = (id, data, err) => (
   {
     type: PUBLISH_QUESTIONNAIRE_FAILURE,
@@ -206,6 +318,16 @@ export const publishQuestionnaireFailure = (id, data, err) => (
   })
 
 
+
+/**
+ * Remove a questionnaire
+ * 
+ * Asynchronous, relies on Redux Thunk.
+ * 
+ * @param   {string}   id questionnaire id
+ * @returns {function}    thunk which may dispatch REMOVE_QUESTIONNAIRE_SUCCESS
+ *                        or REMOVE_QUESTIONNAIRE_FAILURE actions
+ */
 export const removeQuestionnaire = id =>
   dispatch => {
     dispatch({
@@ -219,11 +341,24 @@ export const removeQuestionnaire = id =>
       .catch(err => dispatch(removeQuestionnaireFailure(id, err)))
   }
 
+/**
+ * Process success when removing a questionnaire
+ * 
+ * @param   {string} id questionnaire id
+ * @returns {object}    SAVE_QUESTIONNAIRE_SUCCESS action
+ */
 export const removeQuestionnaireSuccess = id => ({
   type: REMOVE_QUESTIONNAIRE_SUCCESS,
   payload: id
 })
 
+/**
+ * Track error when removing a questionnaire
+ * 
+ * @param   {string} id  questionnaire id
+ * @param   {string} err error message
+ * @returns {object}     SAVE_QUESTIONNAIRE_FAILURE action
+ */
 export const removeQuestionnaireFailure = (id, err) => ({
   type: REMOVE_QUESTIONNAIRE_FAILURE,
   payload: {
