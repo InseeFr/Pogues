@@ -7,6 +7,7 @@ import { switchToQuestionnaire } from '../actions/app-state'
 import { loadQuestionnaireList } from '../actions/questionnaire-list'
 import { loadCodeListSpecs } from '../actions/code-list-specification'
 import { removeQuestionnaire } from '../actions/questionnaire'
+import { toArray, buildSortByKey } from '../utils/array-utils'
 
 var logger = new Logger('QuestionnaireList', 'Components');
 
@@ -65,21 +66,23 @@ QuestionnaireList.propTypes = {
 
 /**
  * Filter the questionnaire list
- * @param  {object} questionnaires questionnaires by id
+ * @param  {array}  questionnaires questionnaire array to filter
  * @param  {string} filter         filter to apply
  * @return {object}                questionnaires by id filtered
  */
 function filterQuestionnaires(questionnaires, filter) {
-  return _.pick(questionnaires, (qr, id) => 
-                  qr.label.toLowerCase().includes(filter))
+  return questionnaires.filter(qr => qr.label.toLowerCase().includes(filter))
 }
 
-// TODO retri
+const sortByLabel = buildSortByKey('label'); 
+
 const mapStateToProps = state => ({
   questionnaires: 
-    filterQuestionnaires(
-      state.questionnaireList,
-      state.appState.questionnaireListFilter.toLowerCase()),
+    sortByLabel(
+      filterQuestionnaires(
+        toArray(state.questionnaireList),
+        state.appState.questionnaireListFilter.toLowerCase()
+      )),
   allowRemoval: state.config.allowRemovalOfQuestionnaire
 })
 
