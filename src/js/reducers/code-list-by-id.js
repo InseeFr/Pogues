@@ -1,5 +1,5 @@
 import {
-  CREATE_CODE_LIST, REMOVE_CODE_LIST, LOAD_CODE_LIST_SUCCESS, EDIT_CODE_LIST
+  REMOVE_CODE_LIST, LOAD_CODE_LIST_SUCCESS, EDIT_CODE_LIST
 } from '../actions/code-list'
 
 import {  NEW_CODE_LIST_FORMAT } from '../actions/response-format'

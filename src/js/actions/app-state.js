@@ -34,4 +34,4 @@ export function setQuestionnaireListFilter(filter) {
     type: SET_QLIST_FILTER,
     payload: filter
   }
-
+}

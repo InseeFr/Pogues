@@ -1,12 +1,15 @@
 import {
-  LOAD_QLIST, LOAD_QLIST_SUCCESS, LOAD_QLIST_FAILURE,
-  SET_QLIST_FILTER
+  LOAD_QLIST, LOAD_QLIST_SUCCESS, LOAD_QLIST_FAILURE
 } from '../actions/questionnaire-list'
 
 
 import {
   REMOVE_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
+
+import {
+  SET_QLIST_FILTER
+} from '../actions/app-state'
 
 //TODO check consistency with questionnaires that have been already loaded
 export default function (state={}, action) {

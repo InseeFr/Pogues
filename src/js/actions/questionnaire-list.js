@@ -2,7 +2,6 @@
 export const LOAD_QLIST = 'LOAD_QLIST'
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS'
 export const LOAD_QLIST_FAILURE = 'LOAD_QLIST_FAILURE'
-export const SET_QLIST_FILTER = 'SET_QLIST_FILTER'
 import { getQuestionnaireList } from '../utils/remote-api'
 import { qListToState } from '../utils/model-to-state-qlist'
 
@@ -31,12 +30,5 @@ export function loadQuestionnaireListFailure(err) {
   return {
     type: LOAD_QLIST_FAILURE,
     payload: err
-  }
-}
-
-export function setQuestionnaireListFilter(filter) {
-  return {
-    type: SET_QLIST_FILTER,
-    payload: filter
   }
 }
