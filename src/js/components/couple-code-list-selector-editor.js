@@ -13,6 +13,7 @@ export default function ({ id, disabled, select, create, locale, edited },
   return {
     codeListSelector: <CodeListSelector id={id} select={select} 
     disabled={disabled} 
+    edited={edited}
     create={() => {
       toggleOrSet(true)
       create()

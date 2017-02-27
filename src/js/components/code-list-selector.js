@@ -26,13 +26,9 @@ class CodeListSelector extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      edited: false
-    }
 
     this.create = () => {
       this.props.create()
-      this.setState({ edited: true })
     }
   }
 
@@ -53,7 +49,7 @@ class CodeListSelector extends Component {
             {
             id &&
               <EditCodeListButton
-                edited={this.state.edited} isSpec={isSpec}
+                edited={edited} isSpec={isSpec}
                 toggle={toggle} />
             }
         </div>
@@ -80,6 +76,10 @@ CodeListSelector.propTypes = {
    * Is the code list disabled ?
    */
   disabled: PropTypes.bool,
+  /**
+   * Is the code list being edited ?
+   */
+  edited: PropTypes.bool.isRequired,
   /**
    * callback function when a code list is selected
    */
