@@ -23,8 +23,7 @@ var logger = new Logger('GoTo', 'Components');
 export default function GoTo(
   { after, before, description, expression,
     ifTrueName, ifTrueStatus,
-    ifFalseName, ifFalseStatus,
-    edit, remove, changeTargetTrue, changeTargetFalse,
+    edit, remove, changeTarget,
     locale }) {
 
 
@@ -53,12 +52,9 @@ export default function GoTo(
               onChange={e => edit({ expression: e.target.value })}/>
           </div>
         </div>
-        <Target text={locale.ifTrue} name={ifTrueName || ''}
+        <Target text={locale.ifCondition} name={ifTrueName || ''}
           status={ifTrueStatus}
-          select={val => changeTargetTrue(val)} locale={locale} />
-        <Target text={locale.ifFalse} name={ifFalseName || ''}
-          status={ifFalseStatus}
-          select={val => changeTargetFalse(val)} locale={locale} />
+          select={val => changeTarget(val)} locale={locale} />
       </div>
     </div>
   )
@@ -67,11 +63,8 @@ export default function GoTo(
 GoTo.propTypes = {
   ifTrueName: PropTypes.string, // can be null`
   ifTrueStatus: PropTypes.string.isRequired,
-  ifFalseName: PropTypes.string, // can be `null`
-  ifFalseStatus: PropTypes.string.isRequired,
   edit: PropTypes.func.isRequired,
-  changeTargetTrue: PropTypes.func.isRequired,
-  changeTargetFalse: PropTypes.func.isRequired,
+  changeTarget: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   expression: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

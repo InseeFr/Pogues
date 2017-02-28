@@ -8,7 +8,7 @@ const OBJECT_FIELDS = ['_codeLists'];
 
 // Constants use for normalization
 const CAPS = ['_name', '_survey', '_label', '_datatype', '_codeListReference', '_codeLists', '_codeList', '_codeListSpecification',
-'_maxLength', '_pattern', '_ifTrue', '_ifFalse', '_next', '_expression', '_failMessage','_maximum', '_minimum', '_text', '_responseStructure',
+'_maxLength', '_pattern', '_ifTrue', '_next', '_expression', '_failMessage','_maximum', '_minimum', '_text', '_responseStructure',
 '_totalLabel', '_decimals', '_value', '_format'];
 
 // Field to rename
@@ -47,7 +47,6 @@ const MAPPING = {
   '_genericName': 'SIMPLE',
   '_id': 'SIMPLE',
   '_ifTrue': 'SIMPLE',
-  '_ifFalse': 'SIMPLE',
   '_label': 'SIMPLE',
   '_mandatory': 'SIMPLE',
   '_maximum': 'SIMPLE',

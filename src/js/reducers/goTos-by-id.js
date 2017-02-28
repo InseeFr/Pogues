@@ -6,7 +6,7 @@ import {
 } from '../actions/questionnaire'
 import { REMOVE_COMPONENT } from '../actions/component'
 
-//TODO needs to know how to handle ifTrue/ifFalse defined as a name (not a
+//TODO needs to know how to handle ifTrue defined as a name (not a
 //component id) when a component with its name is then created : to we need to
 //map ifTrue to this component and set `ifTrueIsAName` to false, or keep
 //`ifTrueIsAName` rto `true`. With first option, if the component is then
@@ -15,11 +15,9 @@ import { REMOVE_COMPONENT } from '../actions/component'
 const emptyGoTo = {
   description: '',
   expression: '',
-  ifTrue: null, //ifTrue and ifFalse can be used to store a label, which can be
-                //an empty string, so we use `null` as a default value
-  ifFalse: null,
-  ifTrueIsAName: false,
-  ifFalseIsAName: false
+  ifTrue: null, //ifTrue can be used to store a label, which can be an empty
+                //string, so we use `null` as a default value
+  ifTrueIsAName: false
 }
 
 const actionsHndlrs = {
@@ -77,7 +75,6 @@ function removeComponent(goTos, { id: cmpntId }) {
       }
     }
     return update
-    //TODO handle `ìfFalse` in the same waye
   }, {})
   if (Object.keys(update).length > 0) { //avoid unecessary copies if nothing changed
     return {
