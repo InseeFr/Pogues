@@ -17,7 +17,7 @@ export function qListToState(model) {
     update[qrId] = {
       id: id,
       name: name,
-      label: label, // in the questionnaire list, label is a string not
+      label: label[0], // in the questionnaire list, label is a string not
                     // an array
       agency: agency,
       survey: {
