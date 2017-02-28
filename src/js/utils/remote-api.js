@@ -51,7 +51,7 @@ export const postQuestionnaire = qr =>
     // 'Accept': 'application/json'
     //HACK needs to set content-type to text/html ; if not, server returns a 405
     //error
-    'Content-Type': 'text/html'
+    'Content-Type': 'application/json'
   },
   body: JSON.stringify(qr)
   }).then(res => {
@@ -68,7 +68,7 @@ export const putQuestionnaire = (id, qr) =>
     headers: {
       // 'Accept': 'application/json'
       //HACK needs to set content-type to text/html ; if not, server returns a 500 error
-       'Content-Type': 'text/html; charset=UTF-8'
+       'Content-Type': 'application/json'
     },
     body: JSON.stringify(qr)
   }).then(res => {
