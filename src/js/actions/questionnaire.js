@@ -219,7 +219,7 @@ export const saveQuestionnaire = id =>
     // actions.
     // qr.id might be different from id if it's a newly created questionnaire
     // that still has a `remoteId` property
-    return  putQuestionnaire(qr._id, qr)
+    return  putQuestionnaire(qr.id, qr)
       .then(res => dispatch(saveQuestionnaireSuccess(id, qr)))
       .catch(err => dispatch(saveQuestionnaireFailure(id, qr, err.toString())))
   }

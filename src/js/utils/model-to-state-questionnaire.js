@@ -1,5 +1,4 @@
 import { uuid } from '../utils/data-utils'
-import { removeLeading_ } from '../utils/data-utils'
 import { parseResponseFormat } from '../utils/response-format/parse'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 
@@ -14,10 +13,9 @@ const { QUESTION, SEQUENCE } = COMPONENT_TYPE
  * @return {object}    update to merge into the reducer to import
  *                              this questionnaire
  */
-export default function toState(_model) {
+export default function toState(model) {
   // We use a closure around ...ById to avoid repetition
 
-  const model = removeLeading_(_model)
   const componentById = {}
   const controlById = {}
   const goToById = {}

@@ -9,7 +9,6 @@
  *
  */
 
-import { putLeading_ } from '../utils/data-utils'
 import { nameFromLabel } from './name-utils'
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
@@ -88,7 +87,7 @@ export default function toModel(state, qrId) {
     fromCodeListSpecification
   )
 
-  return putLeading_({
+  return {
     ...cmpnt,
     agency,
     survey,
@@ -97,7 +96,7 @@ export default function toModel(state, qrId) {
       codeList,
       codeListSpecification
     }
-  })
+  }
 
   function fromCodeList(clId) {
     //FWe do not handle name in the ui for now, so we build in from label if no
@@ -253,8 +252,6 @@ export default function toModel(state, qrId) {
     }
   }
 }
-
-
 
 /**
  * Calculates the depth of each sequence descendant of a main sequence

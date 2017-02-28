@@ -127,26 +127,3 @@ export function unflatten(flat) {
     return register
   }, register)
 }
-
-const r_ = /^_/
-export function removeLeading_(obj) {
-  if (obj && typeof obj === 'object') {
-    if (Array.isArray(obj)) return obj.map(removeLeading_)
-    else return Object.keys(obj).reduce((_, k) => {
-      _[k.replace(r_, '')] = removeLeading_(obj[k])
-      return _
-    }, {})
-  }
-  else return obj
-}
-
-export function putLeading_(obj) {
-  if (obj && typeof obj === 'object') {
-    if (Array.isArray(obj)) return obj.map(putLeading_)
-    return Object.keys(obj).reduce((_, k) => {
-      _['_' + k] = putLeading_(obj[k])
-      return _
-    }, {})
-  }
-  else return obj
-}
