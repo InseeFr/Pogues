@@ -10,7 +10,7 @@ const defaultGiState = {
   before: '',
   depth: 1,
   label: '',
-  type: SEQUENCE
+  type: QUESTION
 }
 
 const actionsHndlrs = {

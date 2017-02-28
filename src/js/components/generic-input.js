@@ -39,14 +39,14 @@ class GenericInput extends Component {
 			rightAllowed, locale } = this.props
 		const sequence = type === SEQUENCE
 		const inputClass = (sequence ? 'gi-sequence' : 'gi-question');
-		const activeIndex = (sequence ? 0 : 1);
+		const activeIndex = (sequence ? 1 : 0);
 		const iconClass = (sequence ? 'fa fa-list' : 'fa fa-question-circle');
 		const leftSymbol = leftAllowed ?  'fa fa-chevron-left' : 'fa fa-square';
 		const rightSymbol = rightAllowed ?  'fa fa-chevron-right' : 'fa fa-square';
 		return (
 			<div className={inputClass}>
 				<ul className="nav nav-tabs">
-					{[locale.sequence, locale.question].map((label, index) => {
+					{[locale.question, locale.sequence].map((label, index) => {
 						if (index === activeIndex) {
 							return(
 								<li key={index} role="presentation" className="active">
