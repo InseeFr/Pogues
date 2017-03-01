@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { VIEW_TYPE} from '../constants/pogues-constants';
 import QuestionnaireTitle from './questionnaire-title'
-import _ from 'lodash';
 import Logger from '../logger/logger';
 var logger = new Logger('Menu', 'Components');
 import { connect } from 'react-redux'
@@ -154,10 +153,6 @@ function Menu({
   publishLink = url ?
     <PublishLink publishURL={url} publishTimestamp={timestamp}/> : ''
 
-  const names = [
-    'Thomas','JB','Franck','Eric','François','Will','Jérémie','Guillaume',
-    'Romain','Roaming Lena Monster'
-  ]
   return (
     <nav className="navbar navbar-default">
       <div className="container-fluid">
@@ -187,7 +182,7 @@ function Menu({
             <li className="dropdown">
               <a href="#" className="dropdown-toggle" data-toggle="dropdown"
                 role="button" aria-expanded="false">
-                {_.shuffle(names).pop()}
+                User
               <span className="caret"></span></a>
               <ul className="dropdown-menu" role="menu">
                 <li><a href="#">Disconnect</a></li>
