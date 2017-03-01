@@ -3,7 +3,7 @@ import { COMPONENT_TYPE, GENERAL } from '../constants/pogues-constants'
 import Logger from '../logger/logger';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
-import { 
+import {
 	update, toggleType, increaseDepth, decreaseDepth
 }	from '../actions/generic-input'
 
@@ -21,11 +21,11 @@ var logger = new Logger('GenericInput', 'Components');
 // directly at the end of the main sequence.
 // The goal is to make the generic input smart enough to add
 // components everywhere in the questionnaire, and to show only
-// accessible depths (ie: desactivate INCREASE_DEPTH if there is 
-// no subsequence to add a component to). 
+// accessible depths (ie: desactivate INCREASE_DEPTH if there is
+// no subsequence to add a component to).
 class GenericInput extends Component {
 	//TODO autofocus might be enough, so this could become a stateless component
-	
+
 	constructor(props) {
 		super(props)
 	}
@@ -68,7 +68,8 @@ class GenericInput extends Component {
 				<div className="input-group">
 					<span className="input-group-addon">
 						<span className={leftSymbol} onClick={() => hndlClickLeft(qrId)}></span>
-						<span>{depth}</span>
+						{/* HACK ensure question depth equals 2 */}
+						<span>{sequence ? depth : Math.max(depth, 2)}</span>
 						<span className={rightSymbol} onClick={() => hndlClickRight(qrId)}></span>
 					</span>
 					<input className="form-control" type="text" autoFocus ref={ref => this.input = ref}
@@ -108,7 +109,7 @@ GenericInput.propTypes = {
 
 // label, type, parent, before
 //TODO choose best option to retrieve questionnaire id : from `ownProps` or from
-//app state. 
+//app state.
 const mapStateToProps = (state) => {
 	const { appState } = state
 	const id = appState.questionnaire
