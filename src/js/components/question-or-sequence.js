@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 import ComponentEditor from './component-editor'
 import { DragSource, DropTarget } from 'react-dnd'
 import QuestionOrSequenceHeader from './question-or-sequence-header'
 import PageBreak from './page-break'
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE
+const { SEQUENCE } = COMPONENT_TYPE
 
 const QUESTION_OR_SEQUENCE = 'QUESTION_OR_SEQUENCE'
 const BEFORE = 'avant'
@@ -77,11 +77,11 @@ function collectForTarget(connect, monitor) {
 
 function QuestionOrSequence(props) {
   const {
-    structure, id, active, label, depth, type, highlighted, children, path,
-    removeAllowed, removeComponent, moveComponent, qrId,
-    hasPageBreak, addPageBreak, removePageBreak,
-    connectDragSource, connectDropTarget, connectDragPreview, isDragging,
-    isOver, idOfDraggedCmpnt, pathOfDraggedCmpnt, depthOfDraggedComponent
+    id, active, label, type, children, path,
+    qrId,
+    hasPageBreak, removePageBreak,
+    connectDropTarget, isDragging,
+    isOver, pathOfDraggedCmpnt, depthOfDraggedComponent
     } = props
 
   const whereToDrop = (

@@ -13,15 +13,15 @@ export default function singleResponseFormat(format, mandatory, updateSpec) {
     hasSpecialCode, specialLabel, specialCode, specialUiBehaviour,
     specialFollowUpMessage
    } = format
-   let special 
-   if (hasSpecialCode) {
-     special = {
-       Value: specialCode,
-       Label: specialLabel,
-       firstIntentionDisplay: specialUiBehaviour === FIRST_INTENTION,
-       Invite: specialFollowUpMessage
-     }
-   }
+  let special 
+  if (hasSpecialCode) {
+    special = {
+      Value: specialCode,
+      Label: specialLabel,
+      firstIntentionDisplay: specialUiBehaviour === FIRST_INTENTION,
+      Invite: specialFollowUpMessage
+    }
+  }
   const response = {
     // `codeListReference` and `visHint`
     codeListReference: updateSpec(codeListReference),

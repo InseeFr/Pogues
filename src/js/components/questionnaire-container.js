@@ -1,18 +1,11 @@
 //TODO Divide into a container component and a presentational component
 
-
 import React, { Component, PropTypes } from 'react';
-import QuestionnaireOutlook from './questionnaire-outlook';
-import QuestionOrSequence from './question-or-sequence'
-import GenericInput from '../components/generic-input';
-import classNames from 'classnames';
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 import Questionnaire from './questionnaire'
 import { flatten } from '../utils/data-utils'
 
-import { REMOTE_EVENT } from '../constants/pogues-constants'
-const { FAILED, LOADED, PENDING } = REMOTE_EVENT
-const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
+const { SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
 import { 
   createComponent, removeComponent, moveComponent
@@ -30,6 +23,9 @@ import {
 
 import { connect } from 'react-redux'
 
+/**
+ * Container component for Questionnaire
+ */
 class QuestionnaireContainer extends Component {
 
   constructor(props) {
@@ -46,7 +42,7 @@ class QuestionnaireContainer extends Component {
   }
 
   render() {
-    const { loaded, qr, locale } = this.props
+    const { loaded, qr } = this.props
     if (!loaded) return <span className="fa fa-spinner fa-pulse fa-2x"></span>
     return <Questionnaire qr={qr} {...this.props} />
   }
@@ -100,25 +96,10 @@ const mapStateToProps = state => {
 }
 
 
-const sequenceType = PropTypes.shape({
-    active: PropTypes.bool.isRequired,
-    childCmpnts: PropTypes.array.isRequired,
-    depth: PropTypes.number.isRequired,
-    hasPageBreak: PropTypes.bool.isRequired,
-    highlighted: PropTypes.bool.isRequired,
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([QUESTION, SEQUENCE])
-})
-
-const qrType = PropTypes.arrayOf(
-  PropTypes.oneOfType([sequenceType, PropTypes.string])
-)
-
 QuestionnaireContainer.propTypes = {
   loaded: PropTypes.bool.isRequired,
   qrId: PropTypes.string.isRequired,
-  qr: qrType,
+  qr: PropTypes.array,
   locale: PropTypes.object.isRequired
 }
 
@@ -136,7 +117,7 @@ const mapDispatchToProps = {
 //TODO implement genric input position
 
 /**
- * Create a tree representation of the questionnaire
+ * Create a tree representation of the questionnaire from the state
  *
  * Each node or leaf holds all the properties needed to render the component
  * (label, depth...).

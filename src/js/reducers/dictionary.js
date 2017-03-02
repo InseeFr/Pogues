@@ -14,6 +14,6 @@ const locale = Object.keys(dictionary).reduce((locale, k) => {
   return locale
 }, {})
 
-export default function(state, action) {
+export default function() {
   return locale
 }

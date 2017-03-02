@@ -15,6 +15,7 @@ function toggleActiveCmpnt(state, id) {
   }
   else {
     // Remove the entry for `id`
+    // eslint-disable-next-line
     const { [id]: toRemove, ...toKeep } = state
     return toKeep
   }

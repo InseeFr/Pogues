@@ -1,13 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import CodeEditor from './code-editor'
 import CodeCreator from './code-creator'
-import Logger from '../logger/logger'
 import { editCodeList, loadCodeListIfNeeded } from '../actions/code-list'
 import { connect } from 'react-redux'
 import {
   createCode, editCode, removeCode, moveUpCode, moveDownCode
 } from '../actions/code'
-var logger = new Logger('CodeListEditor', 'Components');
 
 /**
  * Manage code list label and codes
@@ -85,16 +83,65 @@ CodeListEditor.propTypes = {
     label: PropTypes.number.isRequired,
     value: PropTypes.string.isRequired
   })), // not required since the codes might not be loaded yet
-  createCode: PropTypes.func.isRequired,
-  removeCode: PropTypes.func.isRequired,
-  moveUpCode: PropTypes.func.isRequired,
-  moveDownCode: PropTypes.func.isRequired,
-  editCode: PropTypes.func.isRequired,
-  loaded: PropTypes.bool.isRequired,
-  editCodeList: PropTypes.func.isRequired,
-  locale: PropTypes.object.isRequired,
+  /**
+   * Code list label
+   */
   label: PropTypes.string,
-  editable: PropTypes.bool
+  /**
+   * Is the code list editable ? (a code list specification is not editable)
+   */
+  editable: PropTypes.bool,
+  /**
+   * Add code to the code list
+   * 
+   * Takes the code list id as its first argument and the code label
+   * as its second argument.
+   */
+  createCode: PropTypes.func.isRequired,
+  /**
+   * Remove a code from a code list.
+   * 
+   * Takes the code list id as its only argument.
+   */
+  removeCode: PropTypes.func.isRequired,
+  /**
+   * Move a code up
+   * 
+   * Take the code list id as its first argument and the code id as its
+   * second argument.
+   */
+  moveUpCode: PropTypes.func.isRequired,
+  /**
+  * Move a code down
+  * 
+  * Take the code list id as its first argument and the code id as its
+  * second argument.
+  */
+  moveDownCode: PropTypes.func.isRequired,
+  /**
+   * Edit a code
+   * 
+   * Takes the code id as its first argument and an object with the properties
+   * to update as its second argument.
+   */
+  editCode: PropTypes.func.isRequired,
+  /**
+   * Is the code list loaded ?
+   * 
+   * Only relevant for code list specification.
+   */
+  loaded: PropTypes.bool.isRequired,
+  /**
+   * Edit a code list
+   * 
+   * Takes the code list id as its first argument and an object with the
+   * properties to update as its second argument.
+   */
+  editCodeList: PropTypes.func.isRequired,
+  /**
+   * Dictionary
+   */
+  locale: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, { id }) => {
@@ -109,7 +156,7 @@ const mapStateToProps = (state, { id }) => {
     detailedCodes: codeList.codes.map(codeId => state.codeById[codeId])
   }
 }
- const mapDispatchToProps = {
+const mapDispatchToProps = {
   loadCodeListIfNeeded,
   createCode,
   removeCode,

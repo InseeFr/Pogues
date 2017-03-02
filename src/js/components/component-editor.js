@@ -1,25 +1,16 @@
 import React, { PropTypes } from 'react';
-import { nameFromLabel } from '../utils/name-utils';
-import Declaration from './declaration';
-import Control from './control';
-import GoTo from './go-to';
 import RichLabel from './rich-label'
 import { connect } from 'react-redux'
-import Logger from '../logger/logger';
-import { flatten } from '../utils/data-utils'
-var logger = new Logger('ComponentEditor', 'Components');
 
 import ResponseFormatPanel from './response-format-panel';
 import DeclarationPanel from './declaration-panel'
 import GoToPanel from './goto-panel'
 import ControlPanel from './control-panel'
 import ConditionPanel from './condition-panel'
-
+import { COMPONENT_TYPE } from '../constants/pogues-constants'
+const { QUESTION } = COMPONENT_TYPE
 import { editComponent } from '../actions/component'
 import { toggleActiveComponent } from '../actions/app-state'
-
-import { COMPONENT_TYPE } from '../constants/pogues-constants'
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 function ComponentEditor({
     id, name, label, type,// component properties
@@ -29,28 +20,28 @@ function ComponentEditor({
     responseFormat, //for questions only
     locale }) {
 
-    let questionEl, conditionEl, labelEditor
-    if (type === QUESTION) {
-      questionEl = <ResponseFormatPanel
+  let questionEl, conditionEl, labelEditor
+  if (type === QUESTION) {
+    questionEl = <ResponseFormatPanel
         id={id}
         formats={responseFormat}
         locale={locale} qrId={qrId}/>
-      conditionEl = <ConditionPanel 
+    conditionEl = <ConditionPanel 
         id={id} conditions={conditions} cmpntId={id}
         locale={locale} />
-      labelEditor = <RichLabel 
+    labelEditor = <RichLabel 
         placeholder={locale.label}
         initialValue={label}
         multiline={false}
         onChange={label => changeLabel(id, label)}
         locale={locale} />
-    }
-    else labelEditor = <input value={label} 
+  }
+  else labelEditor = <input value={label} 
         onChange={e => changeLabel(id, e.target.value)} 
         type="text" className="form-control" id="label" 
         placeholder={locale.label}/> 
 
-    return (
+  return (
       <div className="form-horizontal">
         <div className="form-group rich-label-form-group">
           <label htmlFor="label" className="control-label sr-only">

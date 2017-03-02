@@ -1,18 +1,7 @@
 /**
 A response Datatype
 */
-
-import {
-  EDIT_DATATYPE
-} from '../actions/datatype'
-
-import {
-  CREATE_RESPONSE
-} from '../actions/response'
-
-import {
-  emptyTextDatatype, emptyDateDatatype, emptyNumericDatatype
-} from './datatype-utils'
+import { emptyTextDatatype } from './datatype-utils'
 
 const actionsHndlrs = {
   CREATE_RESPONSE: createResponse,
@@ -36,6 +25,7 @@ function createResponse(datatypes, { id }) {
 }
 
 function removeResponse(datatypes, { id }) {
+  // eslint-disable-next-line
   const { [id]: toRemove, ...toKeep } = datatypes
   return toKeep
 }

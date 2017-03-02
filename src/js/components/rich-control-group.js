@@ -9,7 +9,7 @@ import _ from 'lodash'
  * css selectors.
  */
 export default function RichControlGroup({ 
-  className, controlActions, controlStates, locale }) {
+  className, controlActions, controlStates }) {
   return (
     <div className={className}>
       {

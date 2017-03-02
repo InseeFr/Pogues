@@ -203,16 +203,3 @@ function copyCmpnts(child, cmpnts, cmpntsUpdated) {
       copyCmpnts(childChild, cmpnts, cmpntsUpdated))
   }
 }
-
-//TODO memoization
-//TODO not implemented yet (empty shell)
-export function chronology(mainId, cmpnts, anchorId) {
-  const before = []
-  const after = []
-  let found = false
-  const main = cmpnts[mainId]
-  const anchor = cmpnts[anchorId]
-  if (mainId === anchorId) found = true
-  const cmpnt = cmpnts[main]
-  return { before, after }
-}

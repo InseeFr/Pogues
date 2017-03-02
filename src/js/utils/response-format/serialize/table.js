@@ -4,7 +4,7 @@ import {
 import { QUESTION_TYPE_ENUM } from '../../../constants/schema'
 import { nbCodesFromId } from '../../code-list-utils'
 import {  
-  emptyTextDatatype, emptyBooleanDatatype, processDatatypeForSerialization 
+  emptyTextDatatype, processDatatypeForSerialization 
 } from '../../../reducers/datatype-utils' 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
 const { SIMPLE, TABLE } = QUESTION_TYPE_ENUM
@@ -62,18 +62,18 @@ export default function tableResponseFormat(
     
   const { responses, dimensions } = realMeasures.reduce(
     ({ responses, dimensions }, measure) => {
-    return {
-      questionType: TABLE,
-      responses: responses.concat(
+      return {
+        questionType: TABLE,
+        responses: responses.concat(
         Array(nbRowsPerMeasure).fill(
           oneResponseFromMeasure(measure, updateSpec))),
-      dimensions: dimensions.concat({
-        dimensionType: MEASURE,
-        dynamic: 0,
-        label: measure.label
-      })
-    }
-  }, { responses: [], dimensions: infoDimensions })
+        dimensions: dimensions.concat({
+          dimensionType: MEASURE,
+          dynamic: 0,
+          label: measure.label
+        })
+      }
+    }, { responses: [], dimensions: infoDimensions })
 
   return {
     questionType: TABLE,

@@ -1,11 +1,3 @@
-import {
-  CREATE_GOTO, REMOVE_GOTO, EDIT_GOTO
-} from '../actions/goTo'
-import {
-  LOAD_QUESTIONNAIRE_SUCCESS
-} from '../actions/questionnaire'
-import { REMOVE_COMPONENT } from '../actions/component'
-
 //TODO needs to know how to handle ifTrue defined as a name (not a
 //component id) when a component with its name is then created : to we need to
 //map ifTrue to this component and set `ifTrueIsAName` to false, or keep
@@ -16,9 +8,9 @@ const emptyGoTo = {
   description: '',
   expression: '',
   ifTrue: null, //ifTrue can be used to store a label, which can be an empty
-                //string, so we use `null` as a default value
+  //string, so we use `null` as a default value
   ifTrueIsAName: false
-}
+};
 
 const actionsHndlrs = {
   CREATE_GOTO: createGoTo,
@@ -26,20 +18,19 @@ const actionsHndlrs = {
   EDIT_GOTO: editGoTo,
   REMOVE_COMPONENT: removeComponent,
   LOAD_QUESTIONNAIRE_SUCCESS: loadQuestionnaireSuccess
+};
+
+export default function(state = {}, action) {
+  if (!action) return state;
+  const { type, payload } = action;
+  const hndlr = actionsHndlrs[type];
+  return hndlr ? hndlr(state, payload, action) : state;
 }
-
-
-export default function (state={}, action) {
-  if (!action) return state
-  const { type, payload } = action
-  const hndlr = actionsHndlrs[type]
-  return hndlr ? hndlr(state, payload, action) : state
-}
-
 
 function removeGoTo(goTos, { id }) {
-  const { [id]: toRemove, ...toKeep } = goTos
-  return toKeep
+  // eslint-disable-next-line
+  const { [id]: toRemove, ...toKeep } = goTos;
+  return toKeep;
 }
 
 function createGoTo(goTos, { id }) {
@@ -49,7 +40,7 @@ function createGoTo(goTos, { id }) {
       id,
       ...emptyGoTo
     }
-  }
+  };
 }
 
 function editGoTo(goTos, { id, update }) {
@@ -59,32 +50,36 @@ function editGoTo(goTos, { id, update }) {
       ...goTos[id],
       ...update
     }
-  }
+  };
 }
 // When we remove a component, we need to remove the target of each goTo pointing
 // towards it
 function removeComponent(goTos, { id: cmpntId }) {
-  const update = Object.keys(goTos).reduce((update, id) => {
-    const goTo = goTos[id]
-    const { ifTrue, ifTrueIsAName } = goTo
-    if (!ifTrueIsAName && ifTrue === cmpntId) {
-      //remove the target
-      update[id] = {
-        ...goTo,
-        ifTrue: null
+  const update = Object.keys(goTos).reduce(
+    (update, id) => {
+      const goTo = goTos[id];
+      const { ifTrue, ifTrueIsAName } = goTo;
+      if (!ifTrueIsAName && ifTrue === cmpntId) {
+        //remove the target
+        update[id] = {
+          ...goTo,
+          ifTrue: null
+        };
       }
-    }
-    return update
-  }, {})
-  if (Object.keys(update).length > 0) { //avoid unecessary copies if nothing changed
+      return update;
+    },
+    {}
+  );
+  if (Object.keys(update).length > 0) {
+    //avoid unecessary copies if nothing changed
     return {
       ...goTos,
       ...update
-    }
-  }
-  else return goTos
+    };
+  } else
+    return goTos;
 }
 
-function loadQuestionnaireSuccess(goTos, { update: { goToById }}) {
-  return goToById
+function loadQuestionnaireSuccess(goTos, { update: { goToById } }) {
+  return goToById;
 }

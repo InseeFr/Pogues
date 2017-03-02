@@ -32,15 +32,15 @@ function GoToPanel(
   	detailedGoTos.map(({ 
           id, description, expression, ifTrue,
           ifTrueIsAName }) => {
-      const cmpntRank = idToRank[cmpntId]
+    const cmpntRank = idToRank[cmpntId]
 
-      const ifTrueId = ifTrueIsAName ? nameToId[ifTrue] : ifTrue
-      const ifTrueName = ifTrueIsAName ? ifTrue : idToName[ifTrue]
-      const ifTrueStatus = ifTrueId ?
+    const ifTrueId = ifTrueIsAName ? nameToId[ifTrue] : ifTrue
+    const ifTrueName = ifTrueIsAName ? ifTrue : idToName[ifTrue]
+    const ifTrueStatus = ifTrueId ?
         (idToRank[ifTrueId] > cmpntRank ? AFTER : BEFORE) :
         NON_EXISTING
 
-      return <GoTo key={id} id={id}
+    return <GoTo key={id} id={id}
         before={before} after={after}
         expression={expression} description={description}
         ifTrueName={ifTrueName}
@@ -49,10 +49,10 @@ function GoToPanel(
         locale={locale}
         edit={update => editGoTo(id, update)}
         changeTarget={changeTargetByName(id)} />
-    }) :
+  }) :
     <span>{locale.noGoToYet}</span>
 
-    return (
+  return (
       <div>
         <datalist id="candidates">
           {after.map(({ id, name }) => <option key={id} value={name} />)}
@@ -62,7 +62,7 @@ function GoToPanel(
     	    localeAdd={locale.defineGoTo} localeTitle={locale.goTo}  />
       </div>
     )
-  }
+}
 
 GoToPanel.propTypes = {
   detailedGoTos: PropTypes.array.isRequired,

@@ -11,5 +11,5 @@ export function codeListSpecsToState(rawCListSpecs) {
       name: nameFromLabel(entry.label.value)
     }
     return specs
-    }, {})
+  }, {})
 }

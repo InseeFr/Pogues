@@ -47,7 +47,7 @@ export function appendComponent(main, cmpnt, cmpnts, depth) {
         if (grandParentId && cmpnts[grandParentId].type === SEQUENCE) {
           parentId = cmpnts[grandParentId].childCmpnts.slice(-1).pop()
           if (!parentId || cmpnts[parentId].type !== SEQUENCE)
-              parentId = undefined
+            parentId = undefined
         }
       }
   }

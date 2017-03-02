@@ -1,8 +1,4 @@
-import React, { PropTypes, Component } from 'react';
-import Logger from '../logger/logger';
-import { GENERAL } from '../constants/pogues-constants'
-
-var logger = new Logger('CodeEditor', 'Components');
+import React, { PropTypes } from 'react';
 
 /**
  * Edition of a code, made of an input field and action buttons

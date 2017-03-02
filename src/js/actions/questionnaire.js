@@ -1,13 +1,8 @@
-import fetch from 'isomorphic-fetch'
-import Config from '../config/config'
 import { extractId, uuid } from '../utils/data-utils'
 //TODO use named exports in data utils
 import serializeQuestionnaire from '../utils/data-json-utils'
 import questionnaireToModel from '../utils/state-to-model-questionnaire'
 import questionnaireToState from '../utils/model-to-state-questionnaire'
-
-import Logger from '../logger/logger';
-var logger = new Logger('Questionnaire', 'Reducer');
 
 import {
   getQuestionnaire, postQuestionnaire, putQuestionnaire,
@@ -220,7 +215,7 @@ export const saveQuestionnaire = id =>
     // qr.id might be different from id if it's a newly created questionnaire
     // that still has a `remoteId` property
     return  putQuestionnaire(qr.id, qr)
-      .then(res => dispatch(saveQuestionnaireSuccess(id, qr)))
+      .then(() => dispatch(saveQuestionnaireSuccess(id, qr)))
       .catch(err => dispatch(saveQuestionnaireFailure(id, qr, err.toString())))
   }
 

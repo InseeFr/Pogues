@@ -1,7 +1,3 @@
-import { ADD_PAGE_BREAK, REMOVE_PAGE_BREAK } from '../actions/page-break'
-import { MOVE_COMPONENT, REMOVE_COMPONENT } from '../actions/component'
-import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
-
 const actionsHndlrs = {
   ADD_PAGE_BREAK: createPageBreak,
   REMOVE_PAGE_BREAK: removePageBreak,
@@ -25,6 +21,7 @@ function createPageBreak(pageBreaks, id) {
 }
 
 function removePageBreak(pageBreaks, id) {
+  // eslint-disable-next-line
   const { [id]: toRemove, ...toKeep } = pageBreaks
   return toKeep
 }

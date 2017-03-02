@@ -1,9 +1,8 @@
-import component from './component'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 import { CREATE_COMPONENT } from '../actions/component'
 import { CREATE_QUESTIONNAIRE } from '../actions/questionnaire'
 
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE
+const { SEQUENCE } = COMPONENT_TYPE
 
 const emptySequence = {
   depth: 0,
@@ -12,7 +11,7 @@ const emptySequence = {
 }
 
 export default (state, action) => {
-  const { type, paylaod } = action
+  const { type } = action
   switch (type) {
     case CREATE_COMPONENT:
     case CREATE_QUESTIONNAIRE:

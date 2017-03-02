@@ -1,6 +1,4 @@
-import {
-  DATATYPE_NAME, DATATYPE_VIS_HINT
-} from '../constants/pogues-constants'
+import { DATATYPE_NAME } from '../constants/pogues-constants'
 
 //Initially, empty datatypes assigned default values to each property. But in
 //the ui, we wanted the datatype editor properties to start empty so it seemed

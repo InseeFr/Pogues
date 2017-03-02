@@ -4,17 +4,11 @@ import QuestionnaireOutlook from './questionnaire-outlook';
 import QuestionOrSequence from './question-or-sequence'
 import IntegrityControl from './integrity-control'
 import GenericInput from '../components/generic-input';
-import classNames from 'classnames';
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 var DragDropContext = require('react-dnd').DragDropContext;
 var HTML5Backend = require('react-dnd-html5-backend');
 
-const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
-
-import Logger from '../logger/logger'
-import { connect } from 'react-redux'
-
-var logger = new Logger('Questionnaire', 'Components');
+const { SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
 
 //It's easier to take care of recursion here than in the questionOrSequence
 //component since we can put the GenericInput at the right place more easily.

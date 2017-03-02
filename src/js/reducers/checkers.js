@@ -1,5 +1,3 @@
-import { flatten } from '../utils/data-utils'
-
 /**
  * A checker analyzes the state and returns a list of error descriptions
  */

@@ -1,10 +1,6 @@
 import { COMPONENT_TYPE } from '../../constants/pogues-constants'
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
-import {
-  INCREASE_DEPTH, DECREASE_DEPTH, TOGGLE_TYPE, UPDATE_GI
-} from '../../actions/generic-input'
-
 const defaultGiState = {
   parent: '',
   before: '',

@@ -1,8 +1,5 @@
 import React from 'react';
-import Component from '../components/component';
 import CodeListModel from '../models/code-list';
-import classNames from 'classnames';
-
 
 var CodeList = React.createClass({
 
@@ -16,8 +13,6 @@ var CodeList = React.createClass({
 
 
   render: function() {
-    var classes = classNames({
-    });
     return (
       <div>
       </div>

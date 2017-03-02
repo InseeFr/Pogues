@@ -1,15 +1,9 @@
-import {
-  LOAD_QLIST, LOAD_QLIST_SUCCESS, LOAD_QLIST_FAILURE
-} from '../actions/questionnaire-list'
+import { LOAD_QLIST_SUCCESS } from '../actions/questionnaire-list'
 
 
 import {
   REMOVE_QUESTIONNAIRE_SUCCESS
 } from '../actions/questionnaire'
-
-import {
-  SET_QLIST_FILTER
-} from '../actions/app-state'
 
 //TODO check consistency with questionnaires that have been already loaded
 export default function (state={}, action) {
@@ -22,6 +16,7 @@ export default function (state={}, action) {
     //the questionnaire not saved, the new label would not appear).
   }
   if (action.type === REMOVE_QUESTIONNAIRE_SUCCESS) {
+    // eslint-disable-next-line
     const { [action.payload]: toRemove, ...toKeep } = state
     return toKeep
   }

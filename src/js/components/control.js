@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import { CONTROL_CRITICITY } from '../constants/pogues-constants'
-import _ from 'lodash'
 
-export default function Control({ id, description,
+export default function Control({ description,
   expression, failMessage, criticity,
   remove, edit, locale }) {
   const criticityChoices =  Object.keys(CONTROL_CRITICITY).map(key =>

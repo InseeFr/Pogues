@@ -168,15 +168,6 @@ export default function toState(model) {
     declarationById[id] = declaration
     return id
   }
-  
-  function toCondition(cnd) {
-    const { label, condition } = cnd
-    const id = uuid()
-    conditionById[id] = {
-      id, label, condition
-    }
-    return id
-  }
 
   //TODO check if code list ids are unique (not the same id in different
   //questionnaire)

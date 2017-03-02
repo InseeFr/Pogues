@@ -16,7 +16,7 @@ import { AXIS, DATATYPE_VIS_HINT } from '../constants/pogues-constants'
 
 const { CHECKBOX } = DATATYPE_VIS_HINT
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM
-const { INFO, MEASURE, FIRST_INFO, SCND_INFO } = AXIS
+const { INFO, MEASURE } = AXIS
 
 /**
  * Produce a reducing function from a function that updates a response format
@@ -288,7 +288,7 @@ function replaceMeasure(fn, measures, index, ...args) {
     .concat(measures.slice(index + 1))
 }
 
-function addMeasure(format, { index }) {
+function addMeasure(format) {
   return {
     ...format,
     measures: [...format.measures, {

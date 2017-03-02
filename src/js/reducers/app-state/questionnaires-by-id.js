@@ -1,5 +1,3 @@
-import { REMOTE_EVENT } from '../../constants/pogues-constants'
-
 // const { FAILED, LOADED, PENDING } = REMOTE_EVENT
 
 const defaultQrState = {
@@ -122,7 +120,7 @@ export function publishQuestionnaireSuccess(state, { id, url }) {
     ...state,
     [id]: {
       ...qrState,
-       url,
+      url,
       timestamp:
           `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`
     }

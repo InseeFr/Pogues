@@ -1,10 +1,3 @@
-import {
-  CREATE_CODE, REMOVE_CODE, EDIT_CODE
-} from '../actions/code'
-
-import { LOAD_QUESTIONNAIRE_SUCCESS } from '../actions/questionnaire'
-import { LOAD_CODE_LIST_SUCCESS } from '../actions/code-list'
-
 const actionsHndlrs = {
   CREATE_CODE: createCode,
   REMOVE_CODE: removeCode,
@@ -30,6 +23,7 @@ function createCode(codes, { id, label, value }) {
 }
 
 function removeCode(codes, { id }) {
+  // eslint-disable-next-line
   const { [id]: toRemove, ...toKeep } = codes
   return toKeep
 }
@@ -46,9 +40,9 @@ function editCode(codes, { id, update }) {
 // payload is a codeList (an object with a `codes` property)
 function loadCodeList(codes, { codes: newCodes }) {
   return newCodes.reduce((codes, code) => {
-      codes[code.id] = code
-      return codes
-    }, {...codes})
+    codes[code.id] = code
+    return codes
+  }, {...codes})
 }
 
 function loadQuestionnaireSuccess(codes, { update: { codeById } }) {

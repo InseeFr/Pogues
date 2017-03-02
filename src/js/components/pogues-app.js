@@ -7,9 +7,6 @@ import Menu from './menu.js';
 import Logger from '../logger/logger';
 
 import { connect } from 'react-redux'
-import {
- switchToQuestionnaire, switchToPicker, switchToConfig
-} from '../actions/app-state'
 
 var logger = new Logger('PoguesApp', 'Components');
 
@@ -34,7 +31,7 @@ function PoguesApp({ view, locale }) {
       //TODO internationalize
       title= 'Config editor';
       break;
-    }
+  }
 
   return (
     <div>

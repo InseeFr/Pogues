@@ -10,7 +10,6 @@
  */
 
 import { nameFromLabel } from './name-utils'
-const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
 import { uuid } from '../utils/data-utils'
 import { serializeResponseFormat } from './response-format/serialize'
@@ -133,12 +132,12 @@ export default function toModel(state, qrId) {
     // remark: check against true with no type coercion since `fromComponent`
     // can be called from `map`, so with an integer as second argument
     if (!(isRoot === true)) {
-        const pageBreak = pageBreakById.hasOwnProperty(cmpntId)
-        activeGroup.Member.push(cmpntId)
-        if (pageBreak) {
-          activeGroup = makePageBreakGroup(++activePage)
-          componentGroups.push(activeGroup)
-        }
+      const pageBreak = pageBreakById.hasOwnProperty(cmpntId)
+      activeGroup.Member.push(cmpntId)
+      if (pageBreak) {
+        activeGroup = makePageBreakGroup(++activePage)
+        componentGroups.push(activeGroup)
+      }
     }
     const qnOrSeq = type === SEQUENCE ?
       fromSequence(cmpntId) : fromQuestion(cmpntId)
@@ -265,7 +264,7 @@ export default function toModel(state, qrId) {
  */
 function calculateDepths(cmpnts, mainId, depth=0, cmpntsDepth={}) {
   if (cmpnts[mainId].type !== SEQUENCE)
-      throw new Error('Can only calculate the depth from a main sequence')
+    throw new Error('Can only calculate the depth from a main sequence')
   cmpntsDepth[mainId] = depth
   cmpnts[mainId].childCmpnts.forEach(childId => {
     const child = cmpnts[childId]

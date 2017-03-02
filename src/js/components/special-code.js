@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { UI_BEHAVIOUR } from '../constants/pogues-constants'
-const { FIRST_INTENTION, SECOND_INTENTION } = UI_BEHAVIOUR
 import _ from 'lodash'
 
 import { UI_BEHAVIOUR as uiBehaviourMap } from '../utils/constants-mapping'

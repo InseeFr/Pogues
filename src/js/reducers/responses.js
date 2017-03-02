@@ -31,6 +31,7 @@ export default function (state=emptyResponse, action) {
         }
       }
     case REMOVE_RESPONSE:
+      // eslint-disable-next-line
       const { [id]: responseToRemove, ...responsesToKeep } = state
       return responsesToKeep
     default:

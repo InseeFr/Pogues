@@ -1,9 +1,6 @@
 import React, { PropTypes } from 'react';
-import classNames from 'classnames';
-import Logger from '../logger/logger';
 import _ from 'lodash'
 
-var logger = new Logger('DataTypePicker', 'Components');
 import { DATATYPE_NAME } from '../constants/pogues-constants'
 
 export default function DataTypePicker({ typeName, select, locale }) {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames'
 // active was passed to the component, but it doesn't seem to be used
-function QuestionLabel({ label, highlighted, isDragging }) {
+function QuestionLabel({ label, highlighted }) {
   const classes = classNames('question-header', highlighted && 'highlighted')
   return <h4 className={classes}>{label}</h4>
 }

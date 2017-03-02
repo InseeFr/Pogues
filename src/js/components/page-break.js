@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 export default function PageBreak(remove) {
-    return (
+  return (
       <div className="page-break">
         <span onClick={remove}>&times;</span>
       </div>

@@ -13,8 +13,6 @@ import {
 } from '../actions/response-format'
 
 import { QUESTION_TYPE_ENUM } from '../constants/schema'
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM
-
 
 const Editors = {
   SIMPLE: SimpleResponseFormatEditor,

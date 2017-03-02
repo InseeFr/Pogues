@@ -51,6 +51,6 @@ export function nbCodesFromId(codeListById, id) {
  * @param  {Array}  codes     codes of the code list
  * @return {Number}           number of codes in the code list
  */
-function nbCodes({ isSpec, isLoaded, codes }) {
+function nbCodes({ isSpec, codes }) {
   return isSpec ? 1 : codes.length
 }

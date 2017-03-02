@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react'
-import SimpleMeasure from './simple-measure'
-import SingleMeasure from './single-measure'
 import ResponseFormatPicker from './response-format-picker'
 import SimpleResponseFormatEditor from './simple-response-format-editor'
 import SingleResponseFormatEditor from './single-response-format-editor'

@@ -1,8 +1,5 @@
+/* eslint-env jquery */
 import React, { Component, PropTypes } from 'react';
-import Logger from '../logger/logger';
-
-var logger = new Logger('QuestionnaireOutlook', 'Components');
-
 
 /**
  * Generates nested lists for the questionnaire-outlook
@@ -14,7 +11,6 @@ function recursiveOutlook(components, root) {
   var classname = root ? 'nav bs-docs-sidenav' : 'nav';
   var bullets = components.map(function(child, index) {
     var anchor = '#' + child.id;
-    var childElements;
 
     return (
       <li key={index}>

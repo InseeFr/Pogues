@@ -18,8 +18,6 @@ import goTosChecker from '../utils/goTosChecker'
 import questionnaireLengthChecker from '../utils/questionnaireLengthChecker'
 import locale from './dictionary'
 import questionnaireList from './questionnaire-list'
-import { REMOTE_EVENT } from '../constants/pogues-constants'
-const { PENDING, LOADED, FAILED } = REMOTE_EVENT
 
 //TODO think again
 // A lot of boilerplate in the ui with a `locale` reducer, it might be better to

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import {
-  Editor, EditorState, RichUtils, convertToRaw, Entity, Modifier,
+  Editor, EditorState, RichUtils, Entity, Modifier,
   CompositeDecorator
 } from 'draft-js'
 import { stateToMarkdown } from 'draft-js-export-markdown'
@@ -12,14 +12,12 @@ import Link, { createLinkEntity, findLinkEntities } from './rich-label-link'
 import '../../css/Draft.css'
 import classnames from 'classnames'
 import { getEntityAtCursor } from '../utils/draft-js/get-entity-at-cursor'
-import { getEntitySelectionState } from '../utils/draft-js/get-entity-selection-state'
 
 const STYLES = {
   BOLD: 'BOLD',
   ITALIC: 'ITALIC'
 }
 const { BOLD, ITALIC } = STYLES
-const LINK = 'LINK'
 
 //type LINK entities to distinguish real links (with an url) and contextual
 //information (no url, but a title)
@@ -119,7 +117,6 @@ export default class RichLabel extends Component {
   toggleLink(type) {
     const { editorState } = this.state;
     const selection = editorState.getSelection()
-    const content = editorState.getCurrentContent()
     const entityKey = getCurrentEntity(editorState)
     let data = ''
     if (entityKey) {
@@ -272,7 +269,7 @@ export default class RichLabel extends Component {
           onBlur={this.handleBlur}>
           <Editor 
             blockStyleFn={multiline ? multilineFn : singleLineFn}
-            handlePastedText={(text, html) => {
+            handlePastedText={(text) => {
               this.pasteRawText(text, true)
               return true
             }}

@@ -1,11 +1,5 @@
 import React, { PropTypes } from 'react';
 import Target from './target'
-import Logger from '../logger/logger';
-import { GOTO_CONSISTENCY} from '../constants/pogues-constants'
-
-const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
-
-var logger = new Logger('GoTo', 'Components');
 
 //TODO see how to deal with components with an empty label : it breaks the
 //component picker since we cannot differentiate the selection of an empty
@@ -21,7 +15,7 @@ var logger = new Logger('GoTo', 'Components');
 //TODO rely on integrity checker to deal with errors
 
 export default function GoTo(
-  { after, before, description, expression,
+  { description, expression,
     ifTrueName, ifTrueStatus,
     edit, remove, changeTarget,
     locale }) {
