@@ -18,6 +18,7 @@ export function qListToState(model) {
       id: id,
       name: name,
       label: label[0], // in the questionnaire list, label is a string not
+      label: label, // in the questionnaire list, label is a string not
                     // an array
       agency: agency,
       survey: {
