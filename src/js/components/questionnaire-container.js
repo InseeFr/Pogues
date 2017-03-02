@@ -100,10 +100,25 @@ const mapStateToProps = state => {
 }
 
 
+const sequenceType = PropTypes.shape({
+    active: PropTypes.bool.isRequired,
+    childCmpnts: PropTypes.array.isRequired,
+    depth: PropTypes.number.isRequired,
+    hasPageBreak: PropTypes.bool.isRequired,
+    highlighted: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([QUESTION, SEQUENCE])
+})
+
+const qrType = PropTypes.arrayOf(
+  PropTypes.oneOfType([sequenceType, PropTypes.string])
+)
+
 QuestionnaireContainer.propTypes = {
   loaded: PropTypes.bool.isRequired,
   qrId: PropTypes.string.isRequired,
-  qr: PropTypes.array,
+  qr: qrType,
   locale: PropTypes.object.isRequired
 }
 

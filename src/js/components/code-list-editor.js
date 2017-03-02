@@ -9,6 +9,9 @@ import {
 } from '../actions/code'
 var logger = new Logger('CodeListEditor', 'Components');
 
+/**
+ * Manage code list label and codes
+ */
 class CodeListEditor extends Component {
 
   constructor(props){
@@ -62,10 +65,26 @@ class CodeListEditor extends Component {
 }
 
 CodeListEditor.propTypes = {
-  id: PropTypes.string, // not required, if we cre
+  /**
+   * Code list id
+   */
+  id: PropTypes.string.isRequired,
+  /**
+   * Load code list 
+   * 
+   * Only for code list specification which have not been retrieved.
+   */
   loadCodeListIfNeeded: PropTypes.func.isRequired,
-  detailedCodes: PropTypes.array, // not required since the codes might not be
-                                 // loaded yet
+  /**
+   * Codes the code list is made of
+   * 
+   * An array of codes
+   */
+  detailedCodes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired
+  })), // not required since the codes might not be loaded yet
   createCode: PropTypes.func.isRequired,
   removeCode: PropTypes.func.isRequired,
   moveUpCode: PropTypes.func.isRequired,
