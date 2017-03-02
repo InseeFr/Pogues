@@ -48,7 +48,9 @@ class GenericInput extends Component {
       rightAllowed,
       locale
     } = this.props;
+    // HACK ensure question depth is more than 2
     const sequence = type === SEQUENCE;
+    const fixedDepth = sequence ? depth : Math.max(depth, 2)
     const inputClass = sequence ? 'gi-sequence' : 'gi-question';
     const activeIndex = sequence ? 1 : 0;
     const iconClass = sequence ? 'fa fa-list' : 'fa fa-question-circle';
@@ -82,8 +84,7 @@ class GenericInput extends Component {
         <div className="input-group">
           <span className="input-group-addon">
             <span className={leftSymbol} onClick={() => hndlClickLeft(qrId)} />
-            {/* HACK ensure question depth equals 2 */}
-            <span>{sequence ? depth : Math.max(depth, 2)}</span>
+            <span>{fixedDepth}</span>
             <span
               className={rightSymbol}
               onClick={() => hndlClickRight(qrId)}
@@ -99,7 +100,7 @@ class GenericInput extends Component {
             onChange={e => hndlChange(qrId, e.target.value)}
             onKeyDown={e => {
               e.keyCode === GENERAL.ENTER_KEY_CODE &&
-                hndlEnterKeyDown(qrId, label, type, depth);
+                hndlEnterKeyDown(qrId, label, type, fixedDepth);
             }}
           />
           <span
