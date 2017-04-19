@@ -1,11 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import {nameFromLabel} from '../utils/name-utils';
 import {rName} from '../utils/name-utils';
-import Logger from '../logger/logger';
 import { connect } from 'react-redux'
 import { createQuestionnaire } from '../actions/questionnaire'
-
-var logger = new Logger('QuestionnaireEditor', 'Components');
 
 // TODO add change listener on dictionary store  to have a clean
 // process, even if you don't expect changes in language settings
@@ -37,7 +34,7 @@ class QuestionnaireEditor extends Component {
   */
   handleLabelChange(event) {
     var label = event.target.value,
-        name = this.state.nameEdited ? this.state.name : nameFromLabel(label);
+      name = this.state.nameEdited ? this.state.name : nameFromLabel(label);
     this.setState({ name, label })
   }
 

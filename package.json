@@ -25,6 +25,8 @@
     "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "redux-devtools": "^3.3.2",
+    "redux-devtools-extension": "^2.13.0",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1"
   },
@@ -51,6 +53,7 @@
     "deep-freeze": "0.0.1",
     "del": "^1.1.1",
     "eslint": "^2.9.0",
+    "eslint-plugin-react": "^6.10.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
     "gulp-bower": "0.0.10",
@@ -91,7 +94,8 @@
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build",
-    "docs:publish": "npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:InseeFr/Pogues gh-pages --force"
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'Update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'Update book' && git push git@github.com:InseeFr/Pogues gh-pages --force",
+    "lint": "eslint src"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [

@@ -36,6 +36,7 @@ export default function (state={}, action) {
         }
       }
     case REMOVE_CONTROL:
+      // eslint-disable-next-line
       const { [payload.id]: toRemove, ...toKeep } = state
       return toKeep
     case LOAD_QUESTIONNAIRE_SUCCESS:

@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
 import { GENERAL } from '../constants/pogues-constants';
-import Logger from '../logger/logger';
 import { 
   editComponent
 } from '../actions/component'
-
-var logger = new Logger('QuestionnaireTitle', 'Components');
 
 class QuestionnaireTitle extends Component {
 
@@ -46,7 +43,7 @@ class QuestionnaireTitle extends Component {
     }
   }
 
-  handleOnBlur(event) {
+  handleOnBlur() {
     this.setState({editMode: false})
     this.props.handleEnterKeyDown(this.props.id, this.state.title)
   }
@@ -57,8 +54,6 @@ class QuestionnaireTitle extends Component {
 
   render() {
     const { title, editMode } = this.state
-    const { id, handleEnterKeyDown, handleInputChange, handleClick } =
-      this.props
     if (editMode) {
       return(
         <div className="navbar-form navbar-left">

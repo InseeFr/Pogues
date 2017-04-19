@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import coupleEditorSelector from './couple-code-list-selector-editor'
-import VisHintPicker from './vis-hint-picker'
 import { AXIS } from '../constants/pogues-constants'
 const { FIRST_INFO, SCND_INFO } = AXIS
 

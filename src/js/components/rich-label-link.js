@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { Entity, CompositeDecorator } from 'draft-js'
 
 const styleLink = {
@@ -34,7 +34,7 @@ export function createLinkEntity({ url, title }) {
 }
 
 export default function Link({ entityKey, children }) {
-  const { url, title } = Entity.get(entityKey).getData();
+  const { url } = Entity.get(entityKey).getData();
   const style = url !== '.' ? styleLink : styleInfo
   return (
     <span style={style}>

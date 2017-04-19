@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
-import { CONTROL_CRITICITY } from '../constants/pogues-constants'
-import _ from 'lodash'
 import RichLabel from './rich-label'
 
-export default function Condition({ id, condition, label,
+export default function Condition({ condition, label,
   remove, edit, locale }) {
   return (
     <div>

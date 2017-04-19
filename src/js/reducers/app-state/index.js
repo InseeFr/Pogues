@@ -1,33 +1,11 @@
 //TODO this reduce could be partly replaced by react-router
 
-import {
-  SWITCH_TO_QUESTIONNAIRE, SWITCH_TO_PICKER, SWITCH_TO_CONFIG,
-  TOGGLE_SHOW_CONTROLS
-} from '../../actions/app-state'
-
-import {
-  CREATE_QUESTIONNAIRE, CREATE_QUESTIONNAIRE_SUCCESS
-} from '../../actions/questionnaire'
-
-import {
-  SET_QLIST_FILTER
-} from '../../actions/app-state'
-
-import {
-  COMPONENT_TYPE, REMOTE_EVENT, VIEW_TYPE
-} from '../../constants/pogues-constants'
-
-// import {
-//   EDIT_RESPONSE_CHOOSE_CODE_LIST
-// } from '../../actions/response-format'
-
 import activeCmpnts from './active-components-by-id'
 import questionnaires from './questionnaires-by-id'
 import gi from './generic-input-by-questionnaire-id'
 
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE
-const { FAILED, LOADED, PENDING } = REMOTE_EVENT
-const { QUESTIONNAIRE, EDITION, PICKER, CONFIG } = VIEW_TYPE
+import { VIEW_TYPE } from '../../constants/pogues-constants'
+const { QUESTIONNAIRE, PICKER, CONFIG } = VIEW_TYPE
 
 const defaultAppState = {
   view: PICKER,

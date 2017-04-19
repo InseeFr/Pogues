@@ -12,11 +12,11 @@ It can be use for names and labels in for questionnaires
 as well as sequences and questions.
  */
 export function nameFromLabel(label) {
-	return label.replace(rNameNeg, '').toUpperCase().slice(0, 10);
+  return label.replace(rNameNeg, '').toUpperCase().slice(0, 10);
 }
 
 export function stripLeadingUnderscore(stringToStrip) {
-	return /_(\w+)/.exec(stringToStrip).pop();
+  return /_(\w+)/.exec(stringToStrip).pop();
 }
 
 /*
@@ -24,5 +24,5 @@ Capitalize a string.
 See here for a choice of algos : http://bit.ly/1LtxsIp
  */
 export function capitalize(str) {
-	return str.charAt(0).toUpperCase() + str.substring(1);
+  return str.charAt(0).toUpperCase() + str.substring(1);
 }

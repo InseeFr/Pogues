@@ -2,7 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { GENERAL } from '../constants/pogues-constants'
 
 
-
+/**
+ * Simple input field for code creation
+ * 
+ * Handle enter key events.
+ */
 export default class CodeCreator extends Component {
 
   constructor(props) {
@@ -33,6 +37,12 @@ export default class CodeCreator extends Component {
 }
 
 CodeCreator.propTypes = {
+  /**
+   * Enter key event handler
+   */
   hndlEnterKey: PropTypes.func.isRequired,
+  /**
+   * Dictionary
+   */
   locale: PropTypes.object.isRequired
 }

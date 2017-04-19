@@ -23,6 +23,7 @@ export default function integrityChecker(reducer, checker) {
     // remove `integrity` entry (which is the former integrity checks) and which
     // bothers the main reducer (`combineReducers` does not allow complementary
     // entry)
+    // eslint-disable-next-line
     const { integrity: oldIntegrity, ...stateMinusIntegrity } = state
     // proccess the new state without integrity checks
     const stateToCheck = reducer(stateMinusIntegrity, action)

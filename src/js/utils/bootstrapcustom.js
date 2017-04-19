@@ -1,5 +1,5 @@
 /* global $ */
 $('body').scrollspy({
-    target: '.bs-docs-container',
-    offset: 40
+  target: '.bs-docs-container',
+  offset: 40
 });

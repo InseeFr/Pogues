@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { VIEW_TYPE} from '../constants/pogues-constants';
 import QuestionnaireTitle from './questionnaire-title'
-import _ from 'lodash';
 import Logger from '../logger/logger';
 var logger = new Logger('Menu', 'Components');
 import { connect } from 'react-redux'
@@ -129,7 +128,7 @@ Menu Component, shared between all views.
 function Menu({
   id, view, url, timestamp, filter,
   goHome, handleQuestionnaireFilter, handleQuestionnaireListFilter, errors,
-  clickToSave, clickToPublish, clickToEditConfig, handleChange, locale }) {
+  clickToSave, clickToPublish, clickToEditConfig, locale }) {
   logger.info('Rendering the menu for the view : ' + view);
   // TODO: handle connected user properly
   let handleFilter, searchField
@@ -154,10 +153,6 @@ function Menu({
   publishLink = url ?
     <PublishLink publishURL={url} publishTimestamp={timestamp}/> : ''
 
-  const names = [
-    'Thomas','JB','Franck','Eric','François','Will','Jérémie','Guillaume',
-    'Romain','Roaming Lena Monster'
-  ]
   return (
     <nav className="navbar navbar-default">
       <div className="container-fluid">
@@ -187,7 +182,7 @@ function Menu({
             <li className="dropdown">
               <a href="#" className="dropdown-toggle" data-toggle="dropdown"
                 role="button" aria-expanded="false">
-                {_.shuffle(names).pop()}
+                User
               <span className="caret"></span></a>
               <ul className="dropdown-menu" role="menu">
                 <li><a href="#">Disconnect</a></li>
@@ -241,19 +236,6 @@ const mapStateToProps = state => {
   else return {
     locale
   }
-}
-
-//TODO think about conventions for mapDispatchToProps : functions should not
-//be aware of the ui behavoir (for instance, things like
-//`event.preventDefault() or `event.target.value`), but the naming conventions
-//should inform on how to user the ation handler (do we need to call it every
-//time a key is pressed, or only when the ENTER key is pressed ?)
-//Try to avoid calling `event.preventDefault()` on each event, but it does not
-//make since the mapDispatchToProps should return functions unaware of the
-//inner workings of the ui.
-const preventDefault = fn => (e, ...rest) => {
-  e.preventDefault()
-  return fn(...rest)
 }
 
 const mapDispatchToProps = {

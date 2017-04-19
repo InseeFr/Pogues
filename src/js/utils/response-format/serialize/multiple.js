@@ -6,7 +6,7 @@ import { QUESTION_TYPE_ENUM } from '../../../constants/schema'
 import {  
   emptyTextDatatype, emptyBooleanDatatype 
 } from '../../../reducers/datatype-utils' 
-const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE
+const { PRIMARY, MEASURE } = DIMENSION_TYPE
 const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM
 
 export default function multipleResponseFormat(

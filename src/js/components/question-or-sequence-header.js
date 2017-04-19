@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
 import QuestionLabel from './question-label'
 import SequenceLabel from './sequence-label'
 import ToolsActivator from './tools-activator'
@@ -7,11 +7,11 @@ import DeleteActivator from './delete-activator'
 import classnames from 'classnames'
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE
+const { QUESTION } = COMPONENT_TYPE
 
 export default function QuestionOrSequenceHeader(props) {
   const {
-   type, isDragging, id, label, depth, connectDragSource,
+   type, isDragging, id, connectDragSource,
    qrId, toggleActiveComponent, addPageBreak, hasPageBreak,
    flat, idToRank, removeAllowed, removeComponent
   } = props

@@ -6,23 +6,23 @@ const TEXT = { DATATYPE_TYPE }
 const emptyQuestion = {
   simple: true,
   responses: [{
-      simple: true,
-      mandatory: false,
-      codeListReference: null,
-      values: [],
+    simple: true,
+    mandatory: false,
+    codeListReference: null,
+    values: [],
       //TODO datatype should be externalized
-      datatype: {
-        type: 'TextDATATYPE_TYPE',
-        typeName: TEXT,
-        maxLength: 0,
-        pattern: ''
-      }
+    datatype: {
+      type: 'TextDATATYPE_TYPE',
+      typeName: TEXT,
+      maxLength: 0,
+      pattern: ''
+    }
   }],
   type: QUESTION
 }
 
 export default (state, action) => {
-  const { type, paylaod } = action
+  const { type } = action
   switch (type) {
     case CREATE_COMPONENT:
       //enhance the component state to make it a question

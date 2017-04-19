@@ -24,9 +24,9 @@ function ControlPanel(
     ) :
     <span>{locale.noControlYet}</span>
 
-    return <GenericPanel add={() => createControl(cmpntId)} children={ctrlEls}
+  return <GenericPanel add={() => createControl(cmpntId)} children={ctrlEls}
       localeAdd={locale.addControl} localeTitle={locale.controls}  />
-  }
+}
 
 
 ControlPanel.PropTypes = {
@@ -38,7 +38,7 @@ ControlPanel.PropTypes = {
   locale: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, { controls, cmpntId }) => ({
+const mapStateToProps = (state, { controls }) => ({
   detailedControls: controls.map(id => state.controlById[id])
 })
 

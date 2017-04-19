@@ -2,7 +2,6 @@
  * Utility functions to experiment with tree like structures
  */
 
-const levels = []
 const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
 
@@ -110,7 +109,6 @@ export function createQuestionnaireFromText(txt) {
 export function compareObjects(obj1, obj2) {
   function complexCompare(obj1, obj2, path, differences) {
     const sharedKeys =[]
-    const nonSharedKeys = []
     // compare keys
     const keys1 = Object.keys(obj1).sort()
     const keys2 = Object.keys(obj2).sort()
@@ -121,21 +119,21 @@ export function compareObjects(obj1, obj2) {
     let l2 = keys2.length
     while (i1 < l1 || i2 < l2) {
       if (i1 >= l1) differences.push({
-          error: 'KEY_DIFF',
-          key: keys2[i2++],
-          path,
-          missing: 'left',
-          obj1,
-          obj2
-        })
+        error: 'KEY_DIFF',
+        key: keys2[i2++],
+        path,
+        missing: 'left',
+        obj1,
+        obj2
+      })
       else if (i2 >= l2) differences.push({
-          error: 'KEY_DIFF',
-          key: keys1[i1++],
-          path,
-          missing: 'right',
-          obj1,
-          obj2
-        })
+        error: 'KEY_DIFF',
+        key: keys1[i1++],
+        path,
+        missing: 'right',
+        obj1,
+        obj2
+      })
       else if (keys1[i1] === keys2[i2]) {
         sharedKeys.push(keys1[i1])
         i1++
@@ -203,15 +201,12 @@ export function compareObjects(obj1, obj2) {
 
   function printError(difference) {
     const { error, path, type1, type2, obj1, obj2, key, missing } = difference
-    let objWith
-    let objWithout
     switch (error) {
       case 'TYPE_DIFF':
         return `${error} - ${path} - ${type1} vs ${type2} - ${obj1} vs ${obj2}`
       case 'PRIMITIVE_DIFF':
         return `${error} - ${path} - ${obj1} vs ${obj2}`
       case 'KEY_DIFF':
-        [objWith, objWithout] = missing === 'right' ? [obj1, obj2] : [obj2, obj1]
         return `${error} - ${path} - key ${key} missing in ${missing}`
     }
     return `${error} - ${path} - ${type1} vs ${type2} - ${obj1} vs ${obj2}`

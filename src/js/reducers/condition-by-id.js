@@ -1,5 +1,3 @@
-import { CONTROL_CRITICITY } from '../constants/pogues-constants'
-
 import {
   CREATE_CONDITION, REMOVE_CONDITION, EDIT_CONDITION
 } from '../actions/condition'
@@ -35,6 +33,7 @@ export default function (state={}, action) {
         }
       }
     case REMOVE_CONDITION:
+      // eslint-disable-next-line
       const { [payload.id]: toRemove, ...toKeep } = state
       return toKeep
     case LOAD_QUESTIONNAIRE_SUCCESS:

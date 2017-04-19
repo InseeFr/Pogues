@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
 
-const { QUESTION, SEQUENCE, GENERIC_INPUT } = COMPONENT_TYPE
+const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 
 // FIXME extract from uri found in res.header.Location
@@ -97,7 +97,7 @@ export function unflatten(flat) {
   }
   const path = [childCmpnts] // depth = 0
 
-  return flat.reduce((register, { id, type, label, depth, cmpnt }) => {
+  return flat.reduce((register, { id, type, depth, cmpnt }) => {
     if (type === QUESTION) {
       childCmpnts.push(id)
       register[id] = cmpnt
@@ -126,27 +126,4 @@ export function unflatten(flat) {
     }
     return register
   }, register)
-}
-
-const r_ = /^_/
-export function removeLeading_(obj) {
-  if (obj && typeof obj === 'object') {
-    if (Array.isArray(obj)) return obj.map(removeLeading_)
-    else return Object.keys(obj).reduce((_, k) => {
-      _[k.replace(r_, '')] = removeLeading_(obj[k])
-      return _
-    }, {})
-  }
-  else return obj
-}
-
-export function putLeading_(obj) {
-  if (obj && typeof obj === 'object') {
-    if (Array.isArray(obj)) return obj.map(putLeading_)
-    return Object.keys(obj).reduce((_, k) => {
-      _['_' + k] = putLeading_(obj[k])
-      return _
-    }, {})
-  }
-  else return obj
 }

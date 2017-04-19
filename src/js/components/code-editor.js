@@ -1,9 +1,10 @@
-import React, { PropTypes, Component } from 'react';
-import Logger from '../logger/logger';
-import { GENERAL } from '../constants/pogues-constants'
+import React, { PropTypes } from 'react';
 
-var logger = new Logger('CodeEditor', 'Components');
-
+/**
+ * Edition of a code, made of an input field and action buttons
+ * 
+ * A code can be edited, removed, moved down, moved up
+ */
 export default function CodeEditor({ editable, label, remove, moveUp, moveDown,
     editLabel}) {
   return (
@@ -37,13 +38,30 @@ export default function CodeEditor({ editable, label, remove, moveUp, moveDown,
 }
 
 CodeEditor.propTypes = {
+  /**
+   * Click on trash icon handler
+   */
   remove: PropTypes.func.isRequired,
+  /**
+   * Edit input field (code label)
+   */
   editLabel: PropTypes.func.isRequired,
-  editValue: PropTypes.func.isRequired,
+  /**
+   * Input field value (code label)
+   */
   label: PropTypes.string.isRequired,
+  /**
+   * Set to false is a code belongs to a code list specification which can not
+   * be edited
+   */
   editable: PropTypes.bool.isRequired,
+  /**
+   * Click handler for the arrow up button
+   */
   moveUp: PropTypes.func,
+  /**
+   * Click handler for the arrow down button
+   */
   moveDown: PropTypes.func,
-
 }
 

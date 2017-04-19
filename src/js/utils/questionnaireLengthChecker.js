@@ -2,7 +2,7 @@ import { flatten } from '../utils/data-utils'
 const errorQuestionnaireTooShort = 'errorQuestionnaireTooShort'
 
 export default function questionnaireLengthChecker({
-  componentById, goToById, appState: { questionnaire, questionnaireById }
+  componentById, appState: { questionnaire, questionnaireById }
 }) {
 
   if (!questionnaire || !questionnaireById[questionnaire].loaded) return []

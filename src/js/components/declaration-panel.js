@@ -24,9 +24,9 @@ function DeclarationlPanel(
     ) :
     <span>{locale.noDeclarationYet}</span>
 
-    return <GenericPanel add={() => createDeclaration(cmpntId, isQuestion)} children={dclEls} 
+  return <GenericPanel add={() => createDeclaration(cmpntId, isQuestion)} children={dclEls} 
     	localeAdd={locale.addDeclaration} localeTitle={locale.declarations}  />
-  }
+}
 
 
 DeclarationlPanel.PropTypes = {

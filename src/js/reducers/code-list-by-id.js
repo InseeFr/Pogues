@@ -69,13 +69,13 @@ export default function (state={}, action) {
         }
       }
     case MOVE_DOWN_CODE:
-    return {
-      ...state,
-      [payload.codeListId]: {
-        ...state[payload.codeListId],
-        codes: moveDownCode(state[payload.codeListId].codes, payload.id)
-      }
-    }    
+      return {
+        ...state,
+        [payload.codeListId]: {
+          ...state[payload.codeListId],
+          codes: moveDownCode(state[payload.codeListId].codes, payload.id)
+        }
+      }    
     case LOAD_CLIST_SPECS_SUCCESS:
       // `payload` is an object of code list specification
       //TODO needs extra information about the api (-> swagger)
@@ -113,6 +113,7 @@ export default function (state={}, action) {
         }
       }
     case REMOVE_CODE_LIST:
+      // eslint-disable-next-line    
       const { [payload.id]: toRemove, ...toKeep } = state
       return toKeep
     case LOAD_QUESTIONNAIRE_SUCCESS:

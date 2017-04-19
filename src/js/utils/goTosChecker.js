@@ -11,7 +11,7 @@ export default function goTosChecker({
   if (!questionnaire || !questionnaireById[questionnaire].loaded) return []
 
   const {
-    flat, idToRank, nameToId, idToName
+    flat, idToRank, nameToId
   } = flatten(componentById, questionnaire)
 
   return flat.reduce((errors, { cmpnt }, rank) => {

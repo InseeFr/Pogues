@@ -6,7 +6,6 @@ Yet, it does not seem relevant to return raw responses objects to the reducer. T
 import fetch from 'isomorphic-fetch'
 import config from '../config/config'
 import Logger from '../logger/logger'
-import { nameFromLabel } from './name-utils'
 
 var logger = new Logger('RemoteApi', 'Remote')
 
@@ -47,19 +46,19 @@ export const getQuestionnaireList = () =>
 
 export const postQuestionnaire = qr =>
  fetch(urlPostQuestionnaire, {
-  method: 'POST',
-  headers: {
+   method: 'POST',
+   headers: {
     // 'Accept': 'application/json'
     //HACK needs to set content-type to text/html ; if not, server returns a 405
     //error
-    'Content-Type': 'text/html'
-  },
-  body: JSON.stringify(qr)
-  }).then(res => {
+     'Content-Type': 'application/json'
+   },
+   body: JSON.stringify(qr)
+ }).then(res => {
       // TODO check in header slug is the same as qr._id
-      if (res.ok) return res.headers.get('location')
-      else throw new Error('Network request failed :' + res.statusText)
-  })
+   if (res.ok) return res.headers.get('location')
+   else throw new Error('Network request failed :' + res.statusText)
+ })
 
 //TODO better use of fetch API (use of `new Request(...)` instead of building
 //a string with the url)
@@ -69,13 +68,13 @@ export const putQuestionnaire = (id, qr) =>
     headers: {
       // 'Accept': 'application/json'
       //HACK needs to set content-type to text/html ; if not, server returns a 500 error
-       'Content-Type': 'text/html; charset=UTF-8'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(qr)
   }).then(res => {
-      if (res.ok) return res
-      else throw new Error('Network request failed :' + res.statusText)
-    })
+    if (res.ok) return res
+    else throw new Error('Network request failed :' + res.statusText)
+  })
 
 export const deleteQuestionnaire = id =>
   fetch(urlDeleteQuestionnaire + '/' + id, {
@@ -94,23 +93,23 @@ export const deleteQuestionnaire = id =>
 export const stromaePostQuestionnaire = serializedQuestionnaire => {
   const start = new Date().getTime();
   return fetch(urlStromaePostQuestionnaire, {
-      method: 'POST',
-      headers: {
+    method: 'POST',
+    headers: {
         // 'Accept': 'application/json'
         //HACK needs to set content-type to text/html ; if not, server returns a 405 error
-        'Content-Type': 'text/html'
-      },
-      body: JSON.stringify(serializedQuestionnaire)
-    }).then(res => {
-      if (res.ok) {
-        var end = new Date().getTime();
-        var execTimeSec = (end - start) / 1000;
-        logger.debug('Response timing : ', execTimeSec, ' sec');
-        return res.headers.get('location')
-      }
-      else throw new Error('Network request failed :' + res.statusText)
-    })
-  }
+      'Content-Type': 'text/html'
+    },
+    body: JSON.stringify(serializedQuestionnaire)
+  }).then(res => {
+    if (res.ok) {
+      var end = new Date().getTime();
+      var execTimeSec = (end - start) / 1000;
+      logger.debug('Response timing : ', execTimeSec, ' sec');
+      return res.headers.get('location')
+    }
+    else throw new Error('Network request failed :' + res.statusText)
+  })
+}
 
 /**
  * Retrieve questionnaire

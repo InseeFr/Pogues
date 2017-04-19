@@ -17,7 +17,7 @@ import { qListToState } from '../utils/model-to-state-qlist'
  *                            LOAD_QLIST_FAILURE actions
  */
 export const loadQuestionnaireList = () =>
-  (dispatch, getState) => {
+  dispatch => {
     dispatch({
       type: LOAD_QLIST,
       payload: null

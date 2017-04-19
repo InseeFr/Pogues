@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 import { expect } from 'chai'
 /*
 Dummy test to validate tests =)

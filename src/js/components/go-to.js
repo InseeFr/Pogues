@@ -1,11 +1,5 @@
 import React, { PropTypes } from 'react';
 import Target from './target'
-import Logger from '../logger/logger';
-import { GOTO_CONSISTENCY} from '../constants/pogues-constants'
-
-const { AFTER, BEFORE, NON_EXISTING } = GOTO_CONSISTENCY
-
-var logger = new Logger('GoTo', 'Components');
 
 //TODO see how to deal with components with an empty label : it breaks the
 //component picker since we cannot differentiate the selection of an empty
@@ -21,10 +15,9 @@ var logger = new Logger('GoTo', 'Components');
 //TODO rely on integrity checker to deal with errors
 
 export default function GoTo(
-  { after, before, description, expression,
+  { description, expression,
     ifTrueName, ifTrueStatus,
-    ifFalseName, ifFalseStatus,
-    edit, remove, changeTargetTrue, changeTargetFalse,
+    edit, remove, changeTarget,
     locale }) {
 
 
@@ -53,12 +46,9 @@ export default function GoTo(
               onChange={e => edit({ expression: e.target.value })}/>
           </div>
         </div>
-        <Target text={locale.ifTrue} name={ifTrueName || ''}
+        <Target text={locale.ifCondition} name={ifTrueName || ''}
           status={ifTrueStatus}
-          select={val => changeTargetTrue(val)} locale={locale} />
-        <Target text={locale.ifFalse} name={ifFalseName || ''}
-          status={ifFalseStatus}
-          select={val => changeTargetFalse(val)} locale={locale} />
+          select={val => changeTarget(val)} locale={locale} />
       </div>
     </div>
   )
@@ -67,11 +57,8 @@ export default function GoTo(
 GoTo.propTypes = {
   ifTrueName: PropTypes.string, // can be null`
   ifTrueStatus: PropTypes.string.isRequired,
-  ifFalseName: PropTypes.string, // can be `null`
-  ifFalseStatus: PropTypes.string.isRequired,
   edit: PropTypes.func.isRequired,
-  changeTargetTrue: PropTypes.func.isRequired,
-  changeTargetFalse: PropTypes.func.isRequired,
+  changeTarget: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   expression: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

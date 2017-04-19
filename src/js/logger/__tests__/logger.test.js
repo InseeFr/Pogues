@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 import Logger from '../logger';
 import { expect } from 'chai';
 

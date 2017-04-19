@@ -5,8 +5,6 @@ Manage remote or local logging, levels and namespacing.
 */
 import Config from '../config/config';
 
-const DEFAULT_LEVEL = 'DEBUG';
-
 const LEVELS = {
   'DEBUG' : 0,
   'INFO' : 1,
@@ -60,22 +58,22 @@ class Logger {
     }
   }
 
-  debug(message) {
+  debug() {
     var messageArray = Array.prototype.slice.call(arguments);
     this.logWrapper('DEBUG', messageArray);
   }
 
-  info(message) {
+  info() {
     var messageArray = Array.prototype.slice.call(arguments);
     this.logWrapper('INFO', messageArray);
   }
 
-  warn(message) {
+  warn() {
     var messageArray = Array.prototype.slice.call(arguments);
     this.logWrapper('WARN', messageArray);
   }
 
-  error(message) {
+  error() {
     var messageArray = Array.prototype.slice.call(arguments);
     this.logWrapper('ERROR', messageArray);
   }

@@ -1,8 +1,4 @@
 import {
-  CREATE_COMPONENT, EDIT_COMPONENT, REMOVE_COMPONENT,
-} from '../actions/component'
-
-import {
   CREATE_CONDITION, REMOVE_CONDITION
 } from '../actions/condition.js'
 import {
@@ -12,10 +8,6 @@ import {
 import {
   CREATE_DECLARATION, REMOVE_DECLARATION
 } from '../actions/declaration'
-
-import {
-  CREATE_QUESTIONNAIRE, LOAD_QUESTIONNAIRE_SUCCESS, CREATE_QUESTIONNAIRE_SUCCESS
-} from '../actions/questionnaire'
 
 import {
   CREATE_CONTROL, REMOVE_CONTROL

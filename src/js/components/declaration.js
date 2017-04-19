@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Logger from '../logger/logger';
 import _ from 'lodash'
 import RichLabel from './rich-label'
 
@@ -7,7 +6,6 @@ import {
   DECLARATION_TYPE, DECLARATION_POSITION
 } from '../constants/pogues-constants'
 import { DECLARATION_POS as dclPosMap } from '../utils/constants-mapping'
-var logger = new Logger('Declaration', 'Components');
 
 function Declaration({ text, type, position, remove, edit, isQuestion, locale}) {
   const typeChoices =  Object.keys(DECLARATION_TYPE).map(key =>
@@ -16,7 +14,7 @@ function Declaration({ text, type, position, remove, edit, isQuestion, locale}) 
   const posChoices =  _.map(DECLARATION_POSITION, pos => 
     <option key={pos} value={pos}>{locale[dclPosMap[pos]]}</option>
   )
-    return (
+  return (
       <div className="form-horizontal">
         <div className="form-group rich-label-form-group">
           <div className="col-sm-10">

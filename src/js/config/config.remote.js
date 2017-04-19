@@ -3,7 +3,7 @@
 var config = {
   dev :  true,
   allowRemovalOfQuestionnaire: false,
-  baseURL : 'http://s90datalift.ad.insee.intra:9050',
+  baseURL : 'http://s90datalift.ad.insee.intra:9250',
   poguesPath : '/exist/pogues',
   persistPath : '/exist/restxq',
   stromaePath : '/exist/stromae/publisher',

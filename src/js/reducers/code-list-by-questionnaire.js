@@ -23,15 +23,15 @@ export default function (state={}, action) {
       }
     case NEW_CODE_LIST_FORMAT:
       return {
-       ...state,
+        ...state,
         [payload.qrId]: [...state[payload.qrId], payload.createdClId]
       }
-  case LOAD_QUESTIONNAIRE_SUCCESS:
-    return {
-      ...state,
-      ...payload.update.codeListByQuestionnaire
-    }
-  default:
-    return state
+    case LOAD_QUESTIONNAIRE_SUCCESS:
+      return {
+        ...state,
+        ...payload.update.codeListByQuestionnaire
+      }
+    default:
+      return state
   }
 }

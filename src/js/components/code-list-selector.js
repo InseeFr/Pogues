@@ -34,7 +34,7 @@ class CodeListSelector extends Component {
 
   render() {
     const {
-      codeLists, id, isSpec, toggle, edited, locale, select, create, disabled
+      codeLists, id, isSpec, toggle, edited, locale, select, disabled
     } = this.props
 
     return (

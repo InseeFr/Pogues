@@ -21,7 +21,7 @@ export default function RichControl({ identifier, toggle, isSet }){
 }
 
 RichControl.propTypes = {
-    identifier: PropTypes.string.isRequired,
-    toggle: PropTypes.func.isRequired,
-    isSet: PropTypes.bool.isRequired
+  identifier: PropTypes.string.isRequired,
+  toggle: PropTypes.func.isRequired,
+  isSet: PropTypes.bool.isRequired
 }

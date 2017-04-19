@@ -1,4 +1,3 @@
-import { nameFromLabel } from '../utils/name-utils'
 import { uuid } from '../utils/data-utils'
 
 export function codeListToState(rawCodeList) {

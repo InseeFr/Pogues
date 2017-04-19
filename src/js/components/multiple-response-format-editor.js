@@ -21,9 +21,7 @@ export default class MultipleResponseFormatEditor extends Component{
   
   render() {
     const { format,
-    updateFormat, newCodeListFormat, updateMeasureTable,
-    updateMeasureFormatTable,
-    locale } = this.props
+    updateFormat, newCodeListFormat, locale } = this.props
 
     const {
       infoCodeList, measureCodeList, measureBoolean, measureVisHint

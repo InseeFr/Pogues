@@ -3,8 +3,6 @@ import React, { PropTypes } from 'react'
 import DatatypePicker from './datatype-picker';
 import NumericDatatypeEditor from './numeric-datatype-editor';
 import TextDatatypeEditor from './text-datatype-editor';
-import DateDatatypeEditor from './date-datatype-editor';
-import { connect } from 'react-redux'
 import { DATATYPE_NAME } from '../constants/pogues-constants'
 
 const datatypeEditors = {

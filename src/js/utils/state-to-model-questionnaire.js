@@ -9,9 +9,7 @@
  *
  */
 
-import { putLeading_ } from '../utils/data-utils'
 import { nameFromLabel } from './name-utils'
-const QUESTION = 'QUESTION'
 const SEQUENCE = 'SEQUENCE'
 import { uuid } from '../utils/data-utils'
 import { serializeResponseFormat } from './response-format/serialize'
@@ -88,7 +86,7 @@ export default function toModel(state, qrId) {
     fromCodeListSpecification
   )
 
-  return putLeading_({
+  return {
     ...cmpnt,
     agency,
     survey,
@@ -97,7 +95,7 @@ export default function toModel(state, qrId) {
       codeList,
       codeListSpecification
     }
-  })
+  }
 
   function fromCodeList(clId) {
     //FWe do not handle name in the ui for now, so we build in from label if no
@@ -134,12 +132,12 @@ export default function toModel(state, qrId) {
     // remark: check against true with no type coercion since `fromComponent`
     // can be called from `map`, so with an integer as second argument
     if (!(isRoot === true)) {
-        const pageBreak = pageBreakById.hasOwnProperty(cmpntId)
-        activeGroup.Member.push(cmpntId)
-        if (pageBreak) {
-          activeGroup = makePageBreakGroup(++activePage)
-          componentGroups.push(activeGroup)
-        }
+      const pageBreak = pageBreakById.hasOwnProperty(cmpntId)
+      activeGroup.Member.push(cmpntId)
+      if (pageBreak) {
+        activeGroup = makePageBreakGroup(++activePage)
+        componentGroups.push(activeGroup)
+      }
     }
     const qnOrSeq = type === SEQUENCE ?
       fromSequence(cmpntId) : fromQuestion(cmpntId)
@@ -254,8 +252,6 @@ export default function toModel(state, qrId) {
   }
 }
 
-
-
 /**
  * Calculates the depth of each sequence descendant of a main sequence
  *
@@ -268,7 +264,7 @@ export default function toModel(state, qrId) {
  */
 function calculateDepths(cmpnts, mainId, depth=0, cmpntsDepth={}) {
   if (cmpnts[mainId].type !== SEQUENCE)
-      throw new Error('Can only calculate the depth from a main sequence')
+    throw new Error('Can only calculate the depth from a main sequence')
   cmpntsDepth[mainId] = depth
   cmpnts[mainId].childCmpnts.forEach(childId => {
     const child = cmpnts[childId]

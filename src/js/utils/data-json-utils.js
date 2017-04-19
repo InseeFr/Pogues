@@ -1,14 +1,9 @@
 // data-json-utils
 import { stripLeadingUnderscore, capitalize } from '../utils/name-utils';
 
-const SIMPLE_FIELDS = ['_agency'];
-const CLASS_FIELDS = ['_survey'];
-const ARRAY_FIELDS = ['_componentGroups'];
-const OBJECT_FIELDS = ['_codeLists'];
-
 // Constants use for normalization
 const CAPS = ['_name', '_survey', '_label', '_datatype', '_codeListReference', '_codeLists', '_codeList', '_codeListSpecification',
-'_maxLength', '_pattern', '_ifTrue', '_ifFalse', '_next', '_expression', '_failMessage','_maximum', '_minimum', '_text', '_responseStructure',
+'_maxLength', '_pattern', '_ifTrue', '_next', '_expression', '_failMessage','_maximum', '_minimum', '_text', '_responseStructure',
 '_totalLabel', '_decimals', '_value', '_format'];
 
 // Field to rename
@@ -29,7 +24,7 @@ const RENAME_MAPPING = {
   '_dimensions': 'Dimension',
   '_values': 'Value',
   '_visHint': 'visualizationHint'
-  };
+};
 
 // Factory and mapping
 // FIXME rename SIMPLE, SCALAR ?
@@ -47,7 +42,6 @@ const MAPPING = {
   '_genericName': 'SIMPLE',
   '_id': 'SIMPLE',
   '_ifTrue': 'SIMPLE',
-  '_ifFalse': 'SIMPLE',
   '_label': 'SIMPLE',
   '_mandatory': 'SIMPLE',
   '_maximum': 'SIMPLE',

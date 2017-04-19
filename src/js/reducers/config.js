@@ -1,5 +1,5 @@
 import defaultConfig from '../config/config'
 
-export default function(state=defaultConfig, action) {
+export default function(state=defaultConfig) {
   return state
 }

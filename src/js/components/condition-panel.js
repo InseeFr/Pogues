@@ -26,9 +26,9 @@ function ConditionPanel(
     ) :
     <span>{locale.noConditionYet}</span>
 
-    return <GenericPanel add={() => createCondition(cmpntId)} children={ctrlEls}
+  return <GenericPanel add={() => createCondition(cmpntId)} children={ctrlEls}
       localeAdd={locale.addCondition} localeTitle={locale.conditions}  />
-  }
+}
 
 
 ConditionPanel.PropTypes = {
@@ -40,7 +40,7 @@ ConditionPanel.PropTypes = {
   locale: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, { conditions, cmpntId }) => ({
+const mapStateToProps = (state, { conditions }) => ({
   detailedConditions: conditions.map(id => state.conditionById[id])
 })
 

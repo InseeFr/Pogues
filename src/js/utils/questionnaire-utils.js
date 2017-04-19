@@ -1,8 +1,3 @@
-import {nameFromLabel} from '../utils/name-utils';
-import Logger from '../logger/logger';
-
-var logger = new Logger('QuestionnaireUtils', 'Utils');
-
 //TODO if useful, make it work with reducer
 /*
  Search a component by id and apply a function to it.

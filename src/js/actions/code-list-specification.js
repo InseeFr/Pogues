@@ -3,7 +3,6 @@ export const LOAD_CLIST_SPECS_SUCCESS = 'LOAD_CLIST_SPECS_SUCCESS'
 export const LOAD_CLIST_SPECS_FAILURE = 'LOAD_CLIST_SPECS_FAILURE'
 import { getCodeListSpecs } from '../utils/remote-api'
 import { codeListSpecsToState } from '../utils/model-to-state-code-list-specs'
-import { loadCodeListIfNeeded } from './code-list'
 
 /**
  * Load code list specifications

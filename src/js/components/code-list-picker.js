@@ -1,6 +1,9 @@
-import React, { PropTypes, Component } from 'react';
-import CodeListEditor from './code-list-editor'
+import React, { PropTypes } from 'react';
 
+/**
+ * 
+ * @param {*} param0 
+ */
 export default function CodeListPicker(
   { id, codeLists, select, create, disabled, locale }) {
 

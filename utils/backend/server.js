@@ -3,7 +3,7 @@ var server = restify.createServer()
 var fs = require('fs')
 
 const  uuid = () => 
-  (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
+  (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + '_'
 
 var questionnaires = JSON.parse(
     fs.readFileSync(__dirname + '/questionnaires.json', 'utf8'))
@@ -26,6 +26,8 @@ restify.CORS.ALLOW_HEADERS.push('Location');
 server.use(restify.CORS({
   headers: ['Location']   
 }))
+
+
 server.use(restify.bodyParser())
 
 
@@ -85,16 +87,16 @@ server.get('/stromae/publisher/:id', function (req, res, next) {
 
 
 server.get('/questionnaires', function (req, res, next) {
-  const questionnaireList = Object.keys(questionnaires).reduce((_qL, id) => {
+  const questionnaireList = Object.keys(questionnaires).reduce((qL, id) => {
     const qr = questionnaires[id]
-    _qL[id] = {
-      _id: qr._id,
-      _name: qr._name,
-      _label: qr._label[0],
-      _agency: qr._agency,
-      _survey: qr._survey
+    qL[id] = {
+      id: qr.id,
+      name: qr.name,
+      label: qr.label[0],
+      agency: qr.agency,
+      survey: qr.survey
     }
-    return _qL
+    return qL
   }, {})
   res.send(questionnaireList)
   next()
