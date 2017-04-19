@@ -4,6 +4,8 @@ export default {
   title: {'en': 'Title', 'fr': 'Titre'},
   label: {'en': 'Label', 'fr': 'Libellé'},
   name:  {'en': 'Id', 'fr': 'Identifiant'},
+  idRMeS:  {'en': 'Id', 'fr': 'Identifiant RMéS'},
+  labelImportRMeS:  {'en': 'Enter the ID for the questionnaire', 'fr': 'Entrez l\'identifiant RMéS du questionnaire'},
   add: {'en': 'Add', 'fr': 'Ajouter'},
   noDeclarationYet: { 'en': 'No statement yet', 'fr': 'Aucune déclaration définie' },
   noControlYet: { 'en': 'No control yet', 'fr': 'Aucun contrôle défini' },
@@ -18,10 +20,12 @@ export default {
   sequence: {'en': 'Sequence', 'fr': 'Séquence'},
   question: {'en': 'Question', 'fr': 'Question'},
   save: {'en': 'Save', 'fr': 'Sauvegarder'},
-  publish: {'en': 'Visualize', 'fr': 'Visualiser'},
+  publish: {'en': 'Generate', 'fr': 'Générer'},
   create: {'en': 'Create', 'fr': 'Créer'},
+  import: {'en': 'Import', 'fr': 'Importer'},
   declaration: {'en': 'Statement', 'fr': 'Déclaration'},
   create_questionnaire: {'en': 'Create a questionnaire', 'fr': 'Créer un questionnaire'},
+  import_questionnaire: {'en': 'Import a questionnaire', 'fr': 'Importer un questionnaire'},
   select_questionnaire: {'en': 'Select a questionnaire', 'fr': 'Sélectionner un questionnaire'},
   addDeclaration: {'en': 'Add a statement', 'fr': 'Ajouter une déclaration'},
   addControl: {'en': 'Add a control', 'fr': 'Ajouter un contrôle'},
@@ -249,11 +253,11 @@ export default {
     'en': 'Code label'
   },
   code: {
-    'fr': 'Code de la modalité', 
+    'fr': 'Code de la modalité',
     'en': 'Code'
   },
   codePh: {
-    'fr': 'Code', 
+    'fr': 'Code',
     'en': 'Code'
   },
   uiBehaviour: {
