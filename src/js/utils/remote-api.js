@@ -11,11 +11,12 @@ import { nameFromLabel } from './name-utils'
 var logger = new Logger('RemoteApi', 'Remote')
 
 const {
-  baseURL, persistPath, stromaePath,
+  baseURL,poguesBOBaseURL, persistPath, stromaePath, importRMeSPath,
   codeLists: { repoURLSpecs, repoURLCList }
 } = config
 
 const urlGetQuestionnaire         = baseURL + persistPath + '/questionnaire'
+const urlRMeSQuestionnaire        = poguesBOBaseURL + importRMeSPath + '/questionnaire'
 const urlPostQuestionnaire        = baseURL + persistPath + '/questionnaires'
 const urlPutQuestionnaire         = baseURL + persistPath + '/questionnaire'
 const urlDeleteQuestionnaire      = baseURL + persistPath + '/questionnaire'
@@ -36,7 +37,7 @@ export const getQuestionnaireList = () =>
       'Accept': 'application/json'
     }
   })
-    .then(res => res.json())
+  .then(res => res.json())
 
 
 /**
@@ -121,6 +122,20 @@ export const getQuestionnaire = id =>
       'Accept': 'application/json'
     }
   }).then(res => res.json())
+
+
+  /**
+   * Retrieve questionnaire from repo
+   * path like '/pogues/rmes/questionnaire:id'
+   */
+  export const importQuestionnaireFromRepo = id =>
+    fetch(urlRMeSQuestionnaire + '/' + id, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(res => res.json())
+
+
 
 /**
  * Retrieve code list specifications
