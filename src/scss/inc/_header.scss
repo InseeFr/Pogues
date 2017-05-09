@@ -1,0 +1,44 @@
+#header {
+  @extend .container;
+  background-color: white;
+
+  @include headings(){
+    padding: 0;
+    margin: 0;
+  }
+
+  a, span {
+    color: $color-grey_01;
+    text-transform: uppercase;
+  }
+
+  .header-brand {
+    @include make-xs-column(8);
+    .header-logo {
+      text-align: center;
+      @include make-xs-column(2);
+    }
+    h2 {
+      margin-top: 35px;
+      @include make-xs-column(10);
+    }
+    h6 {
+      @include make-xs-column(10);
+    }
+  }
+
+  .header-help {
+    @include make-xs-column(1);
+    text-align: center;
+    padding-top: 25px;
+    font-weight: bold;
+
+    span {
+      font-size: $font-xl;
+    }
+  }
+
+  .header-user {
+    @include make-xs-column(3);
+  }
+}

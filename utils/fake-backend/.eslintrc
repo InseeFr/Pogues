@@ -1,0 +1,14 @@
+extends:
+  - eslint:recommended
+  - plugin:node/recommended
+
+plugins:
+  - node
+
+env:
+  node: true
+
+rules:
+  no-console: 0
+  node/no-unpublished-require: 0
+  node/exports-style: ["error", "module.exports"]
