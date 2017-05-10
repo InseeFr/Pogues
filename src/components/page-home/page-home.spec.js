@@ -1,19 +1,21 @@
-jest.dontMock('./homepage');
+jest.dontMock('./index.jsx');
 
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import HomePage from './homepage';
+import PageHome from './index';
 
-describe('<HomePage />', () => {
-  const wrapper = shallow(<HomePage />);
+describe('<PageHome />', () => {
+  const wrapper = shallow(<PageHome />);
 
   test('should render without throwing an error', () => {
-    expect(wrapper.is('#homepage')).toBe(true);
+    expect(wrapper.is('#page-home')).toBe(true);
   });
 
-  test('should render <QuestionnaireList /> component', () => {
-    expect(wrapper.find('QuestionnaireList').length).toBe(1);
+  // @TODO: Find the way to test if the plain component is presented. Avoid the
+  // testing for the connected component.
+  test.skip('should render <QuestionnaireListContainer /> component', () => {
+    expect(wrapper.find('QuestionnaireListContainer').length).toBe(1);
   });
 
   test('should render a "new questionnaire button"', () => {

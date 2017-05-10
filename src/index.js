@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer as Root } from 'react-hot-loader';
+import { HashRouter as Router } from 'react-router-dom';
 
 import configureStore from 'store/configure-store';
 // import AppContainerLegacy from 'components/pogues-app';
@@ -12,9 +13,11 @@ const store = configureStore();
 const renderApp = Component => {
   ReactDOM.render(
     <Provider store={store}>
-      <Root>
-        <Component />
-      </Root>
+      <Router>
+        <Root>
+          <Component />
+        </Root>
+      </Router>
     </Provider>,
     document.getElementById('base')
   );

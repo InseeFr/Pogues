@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import logo from './logo-insee.png';
 import UserConnection from 'components/user/user-connection';
 
@@ -16,15 +18,15 @@ function Header() {
           <img alt="" src={logo} />
         </div>
         <h2>
-          <a className="header-homepage" href="/">Pogues</a>
+          <Link className="header-homepage" to="/">Pogues</Link>
         </h2>
         <h6>Lorem ipsum dolor sit amet</h6>
       </div>
       <div className="header-help">
-        <a href="/help">
+        <Link to="/help">
           <span className="glyphicon glyphicon-question-sign" /><br />
           Aide
-        </a>
+        </Link>
       </div>
       <div className="header-user">
         <UserConnection user={mockUser} />

@@ -3,13 +3,13 @@ import React from 'react';
 import Logger from 'utils/logger/logger';
 import QuestionnaireListContainer from 'containers/questionnaire/questionnaire-list';
 
-const logger = new Logger('HomePage', 'Components');
+const logger = new Logger('PageHome', 'Components');
 
-function HomePage() {
+function PageHome() {
   logger.debug('Rendering HomePage component');
 
   return (
-    <div id="homepage">
+    <div id="page-home">
       <h1>Bienvenue dans POGUES</h1>
 
       <div className="box home-questionnaires">
@@ -53,4 +53,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default PageHome;
