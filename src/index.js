@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { AppContainer as Root } from 'react-hot-loader';
 
 import configureStore from 'store/configure-store';
-import AppContainer from 'components/pogues-app';
+// import AppContainerLegacy from 'components/pogues-app';
+import AppContainer from 'containers/app';
 
 const store = configureStore();
 
@@ -19,9 +20,11 @@ const renderApp = Component => {
   );
 };
 
+// renderApp(AppContainerLegacy);
 renderApp(AppContainer);
 
 // Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('components/pogues-app', () => renderApp(AppContainer));
+  // module.hot.accept('components/pogues-app', () => renderApp(AppContainerLegacy));
 }
