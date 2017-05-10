@@ -36,16 +36,16 @@ describe('<QuestionnaireList />', () => {
   const wrapperWithoutQuestionnaires = shallow(<QuestionnaireList />);
   const wrapperWithQuestionnaires = shallow(<QuestionnaireList questionnaires={mockQuestionnaires} />);
 
-  it('should render without throwing an error', () => {
+  test('should render without throwing an error', () => {
     expect(wrapperWithoutQuestionnaires.is('#questionnaire-list')).toBe(true);
   });
 
-  it('should render as many <QuestionnaireListItem /> as questionnaires passed', () => {
+  test('should render as many <QuestionnaireListItem /> as questionnaires passed', () => {
     expect(wrapperWithQuestionnaires.find('QuestionnaireListItem').length).toBe(mockQuestionnaires.length);
   });
 
-  it('should render "No results" message only if no questionnaries are passed', () => {
-    expect(wrapperWithoutQuestionnaires.find('.list-noresults').length).toBe(1);
-    expect(wrapperWithQuestionnaires.find('.list-noresults').length).toBe(0);
+  test('should render "No results" message only if no questionnaries are passed', () => {
+    expect(wrapperWithoutQuestionnaires.find('.questionnaire-list_noresults').length).toBe(1);
+    expect(wrapperWithQuestionnaires.find('.questionnaire-list_noresults').length).toBe(0);
   });
 });

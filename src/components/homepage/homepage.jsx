@@ -1,8 +1,13 @@
 import React from 'react';
 
-import QuestionnaireList from 'components/questionnaire/questionnaire-list';
+import Logger from 'utils/logger/logger';
+import QuestionnaireListContainer from 'containers/questionnaire/questionnaire-list';
+
+const logger = new Logger('HomePage', 'Components');
 
 function HomePage() {
+  logger.debug('Rendering HomePage component');
+
   return (
     <div id="homepage">
       <h1>Bienvenue dans POGUES</h1>
@@ -10,7 +15,7 @@ function HomePage() {
       <div className="box home-questionnaires">
         <h3>Questionnaires en cours de conception par votre équipe</h3>
         <h4>Timbre : F302</h4>
-        <QuestionnaireList />
+        <QuestionnaireListContainer />
       </div>
       <div className="home-sidebar">
         <div className="box">
