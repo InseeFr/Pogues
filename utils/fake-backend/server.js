@@ -13,8 +13,6 @@ var questionnaires = JSON.parse(
 var repo = JSON.parse(
     fs.readFileSync(__dirname + '/repo.json', 'utf8'))
 
-// var published = JSON.parse(
-//     fs.readFileSync(__dirname + '/published.json', 'utf8'))
 var published = {}
 
 // allow  cross origin request
@@ -87,16 +85,16 @@ server.get('/stromae/publisher/:id', function (req, res, next) {
 
 
 server.get('/questionnaires', function (req, res, next) {
-  var questionnaireList = Object.keys(questionnaires).reduce(function(_qL, id) {
+  var questionnaireList = Object.keys(questionnaires).reduce(function(qL, id) {
     var qr = questionnaires[id]
-    _qL[id] = {
-      _id: qr._id,
-      _name: qr._name,
-      _label: qr._label[0],
-      _agency: qr._agency,
-      _survey: qr._survey
+    qL[id] = {
+      id: qr.id,
+      name: qr.name,
+      label: qr.label[0],
+      agency: qr.agency,
+      survey: qr.survey
     }
-    return _qL
+    return qL
   }, {})
   res.send(questionnaireList)
   next()
@@ -123,11 +121,34 @@ server.put('/questionnaire/:id', function (req, res, next) {
 server.post('/questionnaires', function (req, res, next) {
   var id = uuid()
   var qr = JSON.parse(req.body)
-  qr._id = id
-  questionnaires[id] = qr
-  save()
-  res.header('Location', 'http://' + req.headers.host + '/questionnaires/' + id)
-  res.send()
+  var errors = {
+    _error: []
+  }
+  var statusCode
+
+  // Example of the server validation
+
+  // Validate name and label are not empty
+  // @TODO: Validate the rest of restrictions
+  if(qr.name === '') errors['name'] = 'Required'
+  if(qr.label === '') errors['label'] = 'Required'
+
+  // Validate that the questionnaire name doesn't exist already
+  var nameExist = Object.keys(questionnaires).filter(function(qId){
+    return questionnaires[qId].name === qr.name
+  }).length > 0
+
+  if(nameExist) errors._error.push('There is a questionnaire with the same name')
+
+  if(Object.keys(errors).length > 1 || errors._error.length > 0) {
+    statusCode = 400;
+  } else {
+    statusCode = 200;
+    questionnaires[id] = qr
+    save()
+  }
+
+  res.send(statusCode, errors)
   next()
 })
 

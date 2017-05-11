@@ -1,11 +1,14 @@
 jest.dontMock('./questionnaire-list');
+jest.dontMock('./questionnaire-new');
 
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
+import { QuestionnaireNew } from './questionnaire-new';
 
 describe('<QuestionnaireList />', () => {
+  // @TODO: Remove mock
   const mockQuestionnaires = [
     {
       id: 1,
@@ -47,5 +50,12 @@ describe('<QuestionnaireList />', () => {
   test('should render "No results" message only if no questionnaries are passed', () => {
     expect(wrapperWithoutQuestionnaires.find('.questionnaire-list_noresults').length).toBe(1);
     expect(wrapperWithQuestionnaires.find('.questionnaire-list_noresults').length).toBe(0);
+  });
+});
+
+describe('<QuestionnarieNew />', () => {
+  test('should render without throw an error', () => {
+    const wrapperQuestionnarieNew = shallow(<QuestionnaireNew />);
+    expect(wrapperQuestionnarieNew.is('#questionnaire-new')).toBe(true);
   });
 });

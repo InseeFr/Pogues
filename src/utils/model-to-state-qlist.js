@@ -7,21 +7,24 @@ import { toArray } from 'utils/array-utils';
 export function qListToState(model) {
   return toArray(model).reduce((update, qr) => {
     const {
-       _id, _name, _label, _agency,
-      _survey: {
-        _id: surveyId,
-        _name: surveyName, //TODO investigate, survey name seems to be the only
+      id,
+      name,
+      label,
+      agency,
+      survey: {
+        id: surveyId,
+        name: surveyName, //TODO investigate, survey name seems to be the only
                            //property not prefixed by ``
-        _agency: surveyAgency
+        agency: surveyAgency
       }
     } = qr
-    update[_id] = {
-      id: _id,
-      name: _name,
+    update[id] = {
+      id: id,
+      name: name,
       // label: label[0], // in the questionnaire list, label is a string not
-      label: _label, // in the questionnaire list, label is a string not
+      label: label, // in the questionnaire list, label is a string not
                     // an array
-      agency: _agency,
+      agency: agency,
       survey: {
         id: surveyId,
         name: surveyName,

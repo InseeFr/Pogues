@@ -6,6 +6,7 @@ Yet, it does not seem relevant to return raw responses objects to the reducer. T
 import fetch from 'isomorphic-fetch'
 import config from '../config/config'
 import Logger from 'utils/logger/logger'
+import ValidationError from 'components/forms/validation-error';
 
 var logger = new Logger('RemoteApi', 'Remote')
 
@@ -49,15 +50,18 @@ export const postQuestionnaire = qr =>
    method: 'POST',
    headers: {
     // 'Accept': 'application/json'
-    //HACK needs to set content-type to text/html ; if not, server returns a 405
-    //error
+    // HACK needs to set content-type to text/html ; if not, server returns a 405 error
+    //  'Content-Type': 'text/html',
      'Content-Type': 'application/json'
    },
    body: JSON.stringify(qr)
  }).then(res => {
-      // TODO check in header slug is the same as qr._id
+   // @TODO check in header slug is the same as qr._id
    if (res.ok) return res.headers.get('location')
-   else throw new Error('Network request failed :' + res.statusText)
+   else if(res.status === 400) return res.json()
+   throw new ValidationError(`Network request failed : ${res.statusText}`);
+ }).then(json => {
+   if(json) throw new ValidationError('Validation error', json);
  })
 
 //TODO better use of fetch API (use of `new Request(...)` instead of building

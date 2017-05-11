@@ -18,6 +18,7 @@ import goTosChecker from '../utils/goTosChecker'
 import questionnaireLengthChecker from '../utils/questionnaireLengthChecker'
 import locale from './dictionary'
 import questionnaireList from './questionnaire-list'
+import { reducer as form } from 'redux-form';
 
 //TODO think again
 // A lot of boilerplate in the ui with a `locale` reducer, it might be better to
@@ -39,5 +40,6 @@ export default integrityChecker(combineReducers({
   responseFormatById,
   codeById,
   conditionById,
-  pageBreakById
+  pageBreakById,
+  form
 }), combineCheckers(questionnaireLengthChecker, goTosChecker))

@@ -84,7 +84,7 @@ export const createQuestionnaire = (name, label) =>
     // Send it to the server, and dispatch asynchronously the relevant actions
     return postQuestionnaire(qr)
       .then(newId => dispatch(createQuestionnaireSuccess(id, newId)))
-      .catch(err => dispatch(createQuestionnaireFailure(id, err.toString())))
+      .catch(err => dispatch(createQuestionnaireFailure(id, err.toString(), err.errors)))
   }
 
 /**
@@ -108,12 +108,13 @@ export const createQuestionnaireSuccess = (id, location) => (
  *
  * @param   {id}     id  local id for the new questionnaire
  * @param   {string} err error message
+ * @param   {object} validation validation messages
  * @returns {object}     CREATE_QUESTIONNAIRE_FAILURE action
  */
-export const createQuestionnaireFailure = (id, err) => (
+export const createQuestionnaireFailure = (id, err, validation) => (
   {
     type: CREATE_QUESTIONNAIRE_FAILURE,
-    payload: { id, err }
+    payload: { id, err, validation }
   })
 
 /**
