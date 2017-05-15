@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Logger from 'utils/logger/logger';
@@ -8,18 +9,24 @@ import QuestionnaireNew from 'containers/questionnaire/questionnaire-new';
 
 const logger = new Logger('PageHome', 'Components');
 
+const mapStateToProps = state => ({
+  locale: state.locale,
+});
+
 class PageHome extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
+    locale: PropTypes.object.isRequired,
   };
 
-  constructor({ history }) {
+  constructor({ history, locale }) {
     super();
     this.state = {
       showModal: false,
     };
 
     this.history = history;
+    this.locale = locale;
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleQuestionnnarieCreated = this.handleQuestionnnarieCreated.bind(this);
@@ -44,19 +51,20 @@ class PageHome extends Component {
   render() {
     return (
       <div id="page-home">
-        <h1>Bienvenue dans POGUES</h1>
+        <h1>{this.locale.welcome}</h1>
         <div className="box home-questionnaires">
-          <h3>Questionnaires en cours de conception par votre équipe</h3>
-          <h4>Timbre : F302</h4>
+          <h3>{this.locale.homeQuestionnairesInProgress}</h3>
+          {/* Mock stamp */}
+          <h4>{this.locale.stamp} : F302</h4>
           <QuestionnaireListContainer />
         </div>
         <div className="home-sidebar">
           <div className="box">
-            <h3>Créer un questionnaire</h3>
+            <h3>{this.locale.createQuestionnaire}</h3>
             <ul className="menu-navigation">
               <li>
                 <button id="questionnaire-new" className="btn-yellow" onClick={this.handleOpenModal}>
-                  <strong>Questionnaire vide</strong>
+                  <strong>{this.locale.emptyQuestionnaire}</strong>
                 </button>
               </li>
             </ul>
@@ -64,20 +72,20 @@ class PageHome extends Component {
           <ul className="menu-navigation">
             <li>
               <button id="questionnaires-search" className="btn-search">
-                Rechercher un questionnaire
+                {this.locale.searchQuestionnaire}
               </button>
             </li>
 
             <li>
               <button id="questionnaires-team" className="btn-blue">
-                <strong>De mon équipe</strong><br />
-                En cours et publiés
+                <strong>{this.locale.fromMyTeam}</strong><br />
+                {this.locale.inProgressAndPublished}
               </button>
             </li>
             <li>
               <button id="questionnaires-insee" className="btn-blue">
-                <strong>Du référentiel</strong><br />
-                Publiés par l'Insee
+                <strong>{this.locale.fromRepository}</strong><br />
+                {this.locale.publishedByInsee}
               </button>
             </li>
           </ul>
@@ -85,15 +93,16 @@ class PageHome extends Component {
         <ReactModal
           isOpen={this.state.showModal}
           onRequestClose={this.handleCloseModal}
-          contentLabel="Créer un questionnaire vide"
+          contentLabel={this.locale.newEmptyQuestionnaire}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>Créer un questionnaire vide</h3>
+              <h3>{this.locale.newEmptyQuestionnaire}</h3>
               <button onClick={this.handleCloseModal}><span>X</span></button>
             </div>
             <div className="popup-body">
-              <QuestionnaireNew onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnnarieCreated} />
+              <QuestionnaireNew onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnnarieCreated}
+              />
             </div>
           </div>
         </ReactModal>
@@ -102,4 +111,4 @@ class PageHome extends Component {
   }
 }
 
-export default PageHome;
+export default connect(mapStateToProps)(PageHome);

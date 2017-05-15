@@ -10,7 +10,7 @@ export default function QuestionnairePicker({ locale }) {
         <div className="col-md-12">
           <div className="functions">
             <div id="col1">
-            <h1 className="page-header">{locale.create_questionnaire}</h1>
+            <h1 className="page-header">{locale.createQuestionnaire}</h1>
             <QuestionnaireEditor/>
             </div>
             <div id="col2">

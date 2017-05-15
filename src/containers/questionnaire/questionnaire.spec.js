@@ -20,3 +20,7 @@ describe('<QuestionnaireListContainer />', () => {
     expect(mockLoadCodeListSpecs).toHaveBeenCalled();
   });
 });
+
+describe('<QuestionnaireDetailContainer />', () => {
+  test('should render a spinner if the questionnaire is loading');
+});

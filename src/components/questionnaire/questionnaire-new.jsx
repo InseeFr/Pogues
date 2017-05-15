@@ -8,7 +8,7 @@ import ListRadioButtons from 'components/forms/list-radio-buttons';
 import { required } from 'components/forms/validation-rules';
 import { questionnaireName } from 'components/forms/normalize-inputs';
 
-export function QuestionnaireNew({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
+export function QuestionnaireNew({ handleSubmit, pristine, submitting, invalid, locale, error, onCancel }) {
   // @TODO: Remove the mocks
   const mockCampaigns = [
     {
@@ -51,9 +51,9 @@ export function QuestionnaireNew({ handleSubmit, pristine, submitting, invalid, 
         <Field
           name="campaign"
           component={SelectWithAddNew}
-          label="Campagne de collecte"
+          label={locale.collectionCampaign}
           options={mockCampaigns}
-          labelButton="Créer une campagne"
+          labelButton={locale.collectionCampaignNew}
           required
         />
 
@@ -61,31 +61,31 @@ export function QuestionnaireNew({ handleSubmit, pristine, submitting, invalid, 
           name="name"
           type="text"
           component={Input}
-          label="Name"
+          label={locale.name}
           validate={[required]}
           normalize={questionnaireName}
           required
         />
 
-        <Field name="label" type="text" component={Input} label="Label" validate={[required]} required />
+        <Field name="label" type="text" component={Input} label={locale.label} validate={[required]} required />
 
-        <div>Vous allez maintenant pouvoir préciser le <strong>contexte</strong></div><br />
+        <div>{locale.newQuestionnaireLegend}</div><br />
 
         <Field
           name="stamp"
           type="text"
           component={Input}
-          label="Timbre"
+          label={locale.stamp}
           validate={[required]}
           normalize={questionnaireName}
           required
         />
 
-        <Field name="context" component={ListRadioButtons} label="Modèle de contexte" radios={mockContext} required />
+        <Field name="context" component={ListRadioButtons} label={locale.contextModel} radios={mockContext} required />
 
         <div className="form-footer">
-          {onCancel ? <button className="cancel" disabled={submitting} onClick={onCancel}>Annuler</button> : ''}
-          <button type="submit" disabled={pristine || submitting}>Valider</button>
+          {onCancel ? <button className="cancel" disabled={submitting} onClick={onCancel}>{locale.cancel}</button> : ''}
+          <button type="submit" disabled={pristine || submitting}>{locale.validate}</button>
         </div>
       </form>
     </div>
@@ -97,6 +97,7 @@ QuestionnaireNew.propTypes = {
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
+  locale: PropTypes.object.isRequired,
   error: PropTypes.array,
   onCancel: PropTypes.func,
 };

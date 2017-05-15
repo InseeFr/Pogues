@@ -1,5 +1,5 @@
 import dictionary from '../constants/dictionary'
-// Should be done on the server ? 
+// Should be done on the server ?
 //TODO we cannot change language for now (see if it's important).
 //TODO To avoid some boilerplate with passing `locale` to each component, we
 // could pass it from context :
@@ -8,6 +8,8 @@ import dictionary from '../constants/dictionary'
 
 var language = (navigator.language || navigator.browserLanguage).split('-')[0]
 if (language !== 'fr') language = 'en';
+
+language = 'en';
 
 const locale = Object.keys(dictionary).reduce((locale, k) => {
   locale[k] = dictionary[k][language]

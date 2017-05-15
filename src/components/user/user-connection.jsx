@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import defaultPicture from './user-picture-default.png';
 import _ from 'lodash';
 
-function UserConnection({ user }) {
+function UserConnection({ user, locale }) {
   const isLogged = !_.isEmpty(user);
 
   return (
@@ -17,10 +17,10 @@ function UserConnection({ user }) {
                     <img alt="" className="default-picture" src={defaultPicture} />
                   </div>}
               <div className="user-name"><strong>{user.name}</strong></div>
-              <div className="user-stamp">Timbre: {user.stamp}</div>
+              <div className="user-stamp">{locale.stamp}: {user.stamp}</div>
             </div>
             <div className="user-logout">
-              <a><span className="glyphicon glyphicon-remove-sign" />Se déconnecter</a>
+              <a><span className="glyphicon glyphicon-remove-sign" />{locale.logout}</a>
             </div>
           </div>
         : <div className="user-login" />}
@@ -30,6 +30,7 @@ function UserConnection({ user }) {
 
 UserConnection.propTypes = {
   user: PropTypes.object,
+  locale: PropTypes.object.isRequired,
 };
 
 UserConnection.defaultProps = {

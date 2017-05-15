@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import logo from './logo-insee.png';
 import UserConnection from 'components/user/user-connection';
 
-function Header() {
+function Header({ locale }) {
   // @TODO: Remove this mock when a service is ready
   const mockUser = {
     name: 'Dupond-Martin .C',
@@ -15,24 +16,28 @@ function Header() {
     <nav id="header">
       <div className="header-brand">
         <div className="header-logo">
-          <img alt="" src={logo} />
+          <img alt="{locale.homepage}" src={logo} />
         </div>
         <h2>
           <Link className="header-homepage" to="/">Pogues</Link>
         </h2>
-        <h6>Lorem ipsum dolor sit amet</h6>
+        <h6>{locale.headerSubtitle}</h6>
       </div>
       <div className="header-help">
         <Link to="/help">
           <span className="glyphicon glyphicon-question-sign" /><br />
-          Aide
+          {locale.HELP}
         </Link>
       </div>
       <div className="header-user">
-        <UserConnection user={mockUser} />
+        <UserConnection user={mockUser} locale={locale} />
       </div>
     </nav>
   );
 }
+
+Header.propTypes = {
+  locale: PropTypes.object.isRequired,
+};
 
 export default Header;

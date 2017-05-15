@@ -6,12 +6,16 @@ import { SubmissionError } from 'redux-form';
 import { createQuestionnaire, CREATE_QUESTIONNAIRE_FAILURE } from 'actions/questionnaire';
 import QuestionnaireNew from 'components/questionnaire/questionnaire-new';
 
+const mapStateToProps = state => ({
+  locale: state.locale,
+});
+
 const mapDispatchToProps = {
   createQuestionnaire,
 };
 
 // eslint-disable-next-line no-shadow
-function QuestionnaireNewContainer({ createQuestionnaire, onSuccess, onCancel }) {
+function QuestionnaireNewContainer({ createQuestionnaire, locale, onSuccess, onCancel }) {
   const submit = values => {
     return createQuestionnaire(values.name, values.label).then(result => {
       const { type, payload: { id, validation } } = result;
@@ -21,11 +25,12 @@ function QuestionnaireNewContainer({ createQuestionnaire, onSuccess, onCancel })
     });
   };
 
-  return <QuestionnaireNew onSubmit={submit} onCancel={onCancel} />;
+  return <QuestionnaireNew locale={locale} onSubmit={submit} onCancel={onCancel} />;
 }
 
 QuestionnaireNewContainer.propTypes = {
   createQuestionnaire: PropTypes.func.isRequired,
+  locale: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
 };
@@ -35,4 +40,4 @@ QuestionnaireNewContainer.defaultProps = {
   onCancel: undefined,
 };
 
-export default connect(undefined, mapDispatchToProps)(QuestionnaireNewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireNewContainer);

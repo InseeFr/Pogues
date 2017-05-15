@@ -6,7 +6,7 @@ import QuestionnaireListItem from './questionnaire-list-item';
 
 const logger = new Logger('QuestionnaireList', 'Components');
 
-function QuestionnaireList({ questionnaires }) {
+function QuestionnaireList({ questionnaires, locale }) {
   logger.debug('Rendering QuestionnaireList component.');
 
   const list = questionnaires.map(q => {
@@ -19,17 +19,18 @@ function QuestionnaireList({ questionnaires }) {
         ? <div>
             <div className="questionnaire-list_header">
               <div />
-              <div>Mode de collecte</div>
-              <div>Dernière mise à jour</div>
+              <div>{locale.collectionMode}</div>
+              <div>{locale.lastUpdate}</div>
             </div>
             {list}
           </div>
-        : <div className="questionnaire-list_noresults">Aucun questionnaire</div>}
+        : <div className="questionnaire-list_noresults">{locale.noQuestionnnaires}</div>}
     </div>
   );
 }
 
 QuestionnaireList.propTypes = {
+  locale: PropTypes.object.isRequired,
   questionnaires: PropTypes.array,
 };
 
