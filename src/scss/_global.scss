@@ -71,3 +71,31 @@ body {
   padding-left: 50px;
   line-height: 1.8em;
 }
+
+// Modal/Pop-up styles
+
+.popup {
+  @extend .container;
+
+  .popup-header {
+    @include make-row();
+    text-transform: uppercase;
+    color: $color-blue_02;
+
+    h3 {
+      @include make-xs-column(11);
+      margin-top: 0;
+    }
+
+    button {
+      @include make-xs-column(1);
+      background: none;
+      border: none;
+      text-align: right;
+
+      &:hover {
+        color: darken($color-blue_02, 50%);
+      }
+    }
+  }
+}

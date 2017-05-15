@@ -51,8 +51,8 @@ export const postQuestionnaire = qr =>
    headers: {
     // 'Accept': 'application/json'
     // HACK needs to set content-type to text/html ; if not, server returns a 405 error
-    //  'Content-Type': 'text/html',
-     'Content-Type': 'application/json'
+     'Content-Type': 'text/html',
+    //  'Content-Type': 'application/json'
    },
    body: JSON.stringify(qr)
  }).then(res => {
@@ -60,8 +60,9 @@ export const postQuestionnaire = qr =>
    if (res.ok) return res.headers.get('location')
    else if(res.status === 400) return res.json()
    throw new ValidationError(`Network request failed : ${res.statusText}`);
- }).then(json => {
-   if(json) throw new ValidationError('Validation error', json);
+ }).then(res => {
+   if(res.validation) throw new ValidationError('Validation error', res.validation);
+   return res;
  })
 
 //TODO better use of fetch API (use of `new Request(...)` instead of building

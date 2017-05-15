@@ -11,20 +11,28 @@ const mapDispatchToProps = {
 };
 
 // eslint-disable-next-line no-shadow
-function QuestionnaireNewContainer({ createQuestionnaire }) {
+function QuestionnaireNewContainer({ createQuestionnaire, onSuccess, onCancel }) {
   const submit = values => {
     return createQuestionnaire(values.name, values.label).then(result => {
-      const { type, payload: { validation } } = result;
+      const { type, payload: { id, validation } } = result;
 
       if (type === CREATE_QUESTIONNAIRE_FAILURE) throw new SubmissionError(validation);
+      else if (onSuccess) onSuccess(id);
     });
   };
 
-  return <QuestionnaireNew onSubmit={submit} />;
+  return <QuestionnaireNew onSubmit={submit} onCancel={onCancel} />;
 }
 
 QuestionnaireNewContainer.propTypes = {
   createQuestionnaire: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func,
+  onCancel: PropTypes.func,
+};
+
+QuestionnaireNewContainer.defaultProps = {
+  onSuccess: undefined,
+  onCancel: undefined,
 };
 
 export default connect(undefined, mapDispatchToProps)(QuestionnaireNewContainer);

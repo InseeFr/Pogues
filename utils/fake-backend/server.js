@@ -121,8 +121,10 @@ server.put('/questionnaire/:id', function (req, res, next) {
 server.post('/questionnaires', function (req, res, next) {
   var id = uuid()
   var qr = JSON.parse(req.body)
-  var errors = {
-    _error: []
+  var response = {
+    validation: {
+      _error: []
+    }
   }
   var statusCode
 
@@ -130,17 +132,17 @@ server.post('/questionnaires', function (req, res, next) {
 
   // Validate name and label are not empty
   // @TODO: Validate the rest of restrictions
-  if(qr.name === '') errors['name'] = 'Required'
-  if(qr.label === '') errors['label'] = 'Required'
+  if(qr.name === '') response.validation['name'] = 'Required'
+  if(qr.label === '') response.validation['label'] = 'Required'
 
   // Validate that the questionnaire name doesn't exist already
   var nameExist = Object.keys(questionnaires).filter(function(qId){
     return questionnaires[qId].name === qr.name
   }).length > 0
 
-  if(nameExist) errors._error.push('There is a questionnaire with the same name')
+  if(nameExist) response.validation._error.push('There is a questionnaire with the same name')
 
-  if(Object.keys(errors).length > 1 || errors._error.length > 0) {
+  if(Object.keys(response.validation).length > 1 || response.validation._error.length > 0) {
     statusCode = 400;
   } else {
     statusCode = 200;
@@ -148,7 +150,9 @@ server.post('/questionnaires', function (req, res, next) {
     save()
   }
 
-  res.send(statusCode, errors)
+  // @TODO: Confirm that the real server return the id in a header attributte
+  res.header('Location', 'http://' + req.headers.host + '/questionnaires/' + id)
+  res.send(statusCode, response)
   next()
 })
 
