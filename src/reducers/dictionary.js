@@ -9,8 +9,6 @@ import dictionary from '../constants/dictionary'
 var language = (navigator.language || navigator.browserLanguage).split('-')[0]
 if (language !== 'fr') language = 'en';
 
-language = 'en';
-
 const locale = Object.keys(dictionary).reduce((locale, k) => {
   locale[k] = dictionary[k][language]
   return locale
