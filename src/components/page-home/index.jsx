@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
   locale: state.locale,
 });
 
-class PageHome extends Component {
+export class PageHome extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     locale: PropTypes.object.isRequired,
@@ -101,8 +101,7 @@ class PageHome extends Component {
               <button onClick={this.handleCloseModal}><span>X</span></button>
             </div>
             <div className="popup-body">
-              <QuestionnaireNew onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnnarieCreated}
-              />
+              <QuestionnaireNew onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnnarieCreated} />
             </div>
           </div>
         </ReactModal>

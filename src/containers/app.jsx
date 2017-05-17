@@ -7,7 +7,7 @@ import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
 import PageHome from 'components/page-home';
 import PageHelp from 'components/page-help';
-import PageQuestionnaire from 'components/questionnaire/page-questionnaire';
+import PageQuestionnaire from 'components/page-questionnaire';
 
 import 'scss/pogues.scss';
 

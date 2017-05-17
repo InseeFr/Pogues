@@ -567,8 +567,8 @@ export default {
     en: 'Logout',
   },
   headerSubtitle: {
-    fr: 'Lorem ipsum dolor sit amet',
-    en: 'Lorem ipsum dolor sit amet',
+    fr: 'Conception et test de questionnaires',
+    en: 'Design and testing of questionnaires',
   },
   homepage: {
     fr: 'Accueil',
@@ -649,5 +649,9 @@ export default {
   contextModel: {
     fr: 'Modèle de contexte',
     en: 'Context Model',
+  },
+  showDetail: {
+    fr: 'Voir le détail',
+    en: 'Show the detail',
   },
 };
