@@ -84,7 +84,7 @@ export const createQuestionnaire = (name, label) =>
     // Send it to the server, and dispatch asynchronously the relevant actions
     return postQuestionnaire(qr)
       .then(newId => dispatch(createQuestionnaireSuccess(id, newId)))
-      .catch(err => dispatch(createQuestionnaireFailure(id, err.toString(), err.errors)))
+      .catch(err => dispatch(createQuestionnaireFailure(id, err, err.errors)))
   }
 
 /**
@@ -161,7 +161,7 @@ export const loadQuestionnaireIfNeeded = id =>
       //   dispatch(switchToQuestionnaire(idToImport))
       // })
       .catch(err => {
-          dispatch(importQuestionnaireFailure(idToImport, err.toString()))
+          dispatch(importQuestionnaireFailure(idToImport, err))
       })
 }
 
@@ -188,7 +188,7 @@ export const loadQuestionnaire = id =>
         dispatch(loadQuestionnaireSuccess(id, questionnaireToState(qr)))
       })
       .catch(err => {
-        dispatch(loadQuestionnaireFailure(id, err.toString()))
+        dispatch(loadQuestionnaireFailure(id, err))
       })
   }
 
@@ -291,7 +291,7 @@ export const saveQuestionnaire = id =>
     // that still has a `remoteId` property
     return  putQuestionnaire(qr.id, qr)
       .then(() => dispatch(saveQuestionnaireSuccess(id, qr)))
-      .catch(err => dispatch(saveQuestionnaireFailure(id, qr, err.toString())))
+      .catch(err => dispatch(saveQuestionnaireFailure(id, qr, err)))
   }
 
 /**
@@ -352,7 +352,7 @@ export const publishQuestionnaire = id =>
         return dispatch(publishQuestionnaireSuccess(id, url, qr))
       })
       .catch(err => dispatch(
-          publishQuestionnaireFailure(id, qr, err.toString())))
+          publishQuestionnaireFailure(id, qr, err)))
   }
 
 /**
