@@ -24,7 +24,6 @@ class Questionnaire extends Component {
   }
 
   toggleSelect(elementId) {
-    debugger
     const newSelectedElementId = this.state.selectedElementId === elementId ? undefined : elementId;
 
     this.setState({

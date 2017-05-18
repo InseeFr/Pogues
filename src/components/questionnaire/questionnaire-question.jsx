@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classSet from 'react-classset';
 
 function QuestionnaireQuestion({ id, label, name, getSelected, toggleSelect }) {
   return (
     <div
-      className="question questionnaire-element-info"
+      className={classSet({
+        'questionnaire-element-info': true,
+        question: true,
+        selected: id === getSelected(),
+      })}
       onClick={() => toggleSelect(id)}
     >
       <div className="questionnaire-element-name">

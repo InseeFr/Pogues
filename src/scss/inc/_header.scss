@@ -1,6 +1,7 @@
 #header {
-  @extend .container;
+  @extend .container-fluid;
   background-color: white;
+  padding-bottom: 15px;
 
   @include headings(){
     padding: 0;

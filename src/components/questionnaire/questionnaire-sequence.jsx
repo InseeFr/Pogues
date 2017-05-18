@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classSet from 'react-classset';
 
 import QuestionnaireElement from 'components/questionnaire/questionnaire-element';
 
@@ -18,7 +19,10 @@ function QuestionnaireSequence({ childCmpnts, id, label, name, getSelected, togg
   return (
     <div className="questionnaire-sequence">
       <div
-        className="questionnaire-element-info"
+        className={classSet({
+          'questionnaire-element-info': true,
+          selected: id === getSelected(),
+        })}
         role="button"
         onClick={() => toggleSelect(id)}
       >

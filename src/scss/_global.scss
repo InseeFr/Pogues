@@ -24,6 +24,11 @@ body {
   }
 }
 
+.row .no-float {
+  display: table-cell;
+  float: none;
+}
+
 // Button styles
 
 .btn-yellow {
