@@ -1,0 +1,38 @@
+#page-home {
+  @extend .container;
+  &>h1 {
+    color: $color-blue_01;
+    background-color: $color-blue_03;
+    padding: 40px 30px;
+  }
+
+  .home-questionnaires {
+    @include make-xs-column(9);
+    min-height: 425px;
+  }
+
+  .home-sidebar {
+    @include make-xs-column(3);
+
+    h3 {
+      text-align: center;
+    }
+
+    ul.menu-navigation {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 20px;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .box {
+    margin-bottom: 40px;
+  }
+}

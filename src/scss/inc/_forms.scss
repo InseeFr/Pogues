@@ -1,0 +1,34 @@
+form {
+  .form-footer {
+    @include make-row();
+    text-align: center;
+
+    button {
+      @extend .btn;
+      margin-left: 10px;
+      margin-right: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: 175px;
+
+      &[type="submit"] {
+        @extend .btn-yellow;
+      }
+
+      &.cancel {
+        background: none;
+      }
+    }
+  }
+
+  .form-error, .form-warm {
+    display: inline-block;
+    margin: 5px 0 0 5px;
+    font-size: $font-xxs;
+    font-weight: bold;
+  }
+
+  .form-error {
+    color: red;
+  }
+}

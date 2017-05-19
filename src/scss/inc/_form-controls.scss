@@ -1,0 +1,60 @@
+.ctrl-select-with-add-new, .ctrl-input, .ctrl-list-radios-buttons {
+  @extend .form-group;
+  @include make-row();
+
+  & > label {
+    @include make-xs-column(3);
+  }
+}
+
+
+.ctrl-select-with-add-new, .ctrl-input {
+  label + div {
+    @include make-xs-column(6);
+
+    select, input {
+      @extend .form-control;
+    }
+  }
+}
+
+.ctrl-select-with-add-new .form-actions {
+  @include make-xs-column(3);
+
+  button {
+    margin: 0 10px;
+  }
+}
+
+.ctrl-list-radios-buttons {
+  label + div {
+    @include make-xs-column(9);
+
+    .form-check-inline {
+      display: inline-block;
+      position: relative;
+      margin-bottom: .5rem;
+      margin-right: 15px;
+
+      label {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 1.25rem;
+        margin-bottom: 0;
+        cursor: pointer;
+        font-weight: normal;
+
+        input {
+          position: absolute;
+          margin-top: .25rem;
+          margin-left: -1.25rem;
+          margin-right: 10px;
+
+          &:only-child {
+            position: static;
+          }
+        }
+      }
+    }
+  }
+}

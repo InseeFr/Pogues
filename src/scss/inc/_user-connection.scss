@@ -1,0 +1,52 @@
+#user-connection {
+  @include clearfix;
+  width: 300px;
+  background-color: $color-grey_03;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 1px solid $color-grey_02;
+  padding: 10px;
+
+  .user,
+  .user-logout {
+    @include make-row(0);
+  }
+
+  .user {
+    color: $color-grey_01;
+
+    .user-picture {
+      @include make-xs-column(2, 0px);
+
+      img {
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+      }
+    }
+
+    .user-name,
+    .user-stamp {
+      @include make-xs-column(10, 0px);
+    }
+  }
+
+  .user-logout {
+    border-top: 1px solid $color-grey_02;
+    text-transform: uppercase;
+    padding-top: 10px;
+    margin-top: 10px;
+
+    span {
+      padding-right: 8px;
+    }
+
+    span, a {
+      color: $color-blue_01;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

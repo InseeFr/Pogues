@@ -1,0 +1,101 @@
+// Global styles
+
+body {
+  font-size: $font-base !important;
+  background-color: $color-white_01;
+}
+
+// Override Bootstrap styles
+
+.container {
+  max-width: none !important;
+  width:1280px;
+}
+
+// Common styles
+
+.box {
+  background-color: white;
+  border: 1px solid $color-grey_02;
+  padding: 10px;
+  margin: 10px 0;
+  & > h3 {
+    color: $color-blue_01
+  }
+}
+
+// Button styles
+
+.btn-yellow {
+  @extend .btn;
+  text-align: center;
+  background-color: $color-yellow_01;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($color-yellow_01, 20%);
+  }
+
+  strong {
+    text-transform: uppercase;
+  }
+}
+
+.btn-blue {
+  @extend .btn;
+  font-size: $font-xs;
+  text-align: left;
+  background-color: $color-blue_02;
+  color: white;
+  padding: 18px 25px;
+  border-radius: 0;
+
+  &:hover {
+    background-color: lighten($color-blue_02, 20%);
+    color: white;
+  }
+
+  strong {
+    font-size: $font-l;
+    font-weight: normal;
+  }
+}
+
+.btn-search {
+  @extend .btn;
+  background: none;
+  background-image: url('images/search-icon.png');
+  background-repeat: no-repeat;
+  color: $color-blue_02;
+  font-size: $font-s;
+  padding-left: 50px;
+  line-height: 1.8em;
+}
+
+// Modal/Pop-up styles
+
+.popup {
+  @extend .container;
+
+  .popup-header {
+    @include make-row();
+    text-transform: uppercase;
+    color: $color-blue_02;
+
+    h3 {
+      @include make-xs-column(11);
+      margin-top: 0;
+    }
+
+    button {
+      @include make-xs-column(1);
+      background: none;
+      border: none;
+      text-align: right;
+
+      &:hover {
+        color: darken($color-blue_02, 50%);
+      }
+    }
+  }
+}
