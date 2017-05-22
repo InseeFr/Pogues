@@ -5,7 +5,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
-import { QuestionnaireNew } from './questionnaire-new';
+import { QuestionnaireNew } from './questionnaire-new-edit';
 
 describe('<QuestionnaireList />', () => {
   // @TODO: Remove mock

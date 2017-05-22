@@ -18,6 +18,7 @@ function QuestionnaireSequence({ childCmpnts, id, label, name, getSelected, togg
 
   return (
     <div className="questionnaire-sequence">
+      {/* eslint-disable jsx-a11y/no-static-element-interactions */}
       <div
         className={classSet({
           'questionnaire-element-info': true,

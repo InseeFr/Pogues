@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Logger from 'utils/logger/logger';
 import QuestionnaireListContainer from 'containers/questionnaire/questionnaire-list';
-import QuestionnaireNew from 'containers/questionnaire/questionnaire-new';
+import QuestionnaireNewContainer from 'containers/questionnaire/questionnaire-new';
 
 const logger = new Logger('PageHome', 'Components');
 
@@ -101,7 +101,7 @@ export class PageHome extends Component {
               <button onClick={this.handleCloseModal}><span>X</span></button>
             </div>
             <div className="popup-body">
-              <QuestionnaireNew onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnnarieCreated} />
+              <QuestionnaireNewContainer onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnnarieCreated} />
             </div>
           </div>
         </ReactModal>
