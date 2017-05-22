@@ -1,4 +1,4 @@
-export default function removeUnderscore(model, result) {
+export function removeUnderscore(model, result) {
   let newKey;
 
   if (!model) return result;
@@ -20,3 +20,23 @@ export default function removeUnderscore(model, result) {
 
   return result;
 }
+
+export function normalizeElements(elements, childIds, parent) {
+  parent = parent || '';
+  if (!childIds) return {};
+  return childIds.reduce((acc, childId) => {
+    acc = { ...normalizeElements(elements, elements[childId].childCmpnts, childId), ...acc };
+    acc[childId] = {
+      id: elements[childId].id,
+      name: elements[childId].name,
+      label: elements[childId].label,
+      type: elements[childId].type,
+      parent: parent,
+      children: elements[childId].childCmpnts || [],
+    };
+
+    return acc;
+  }, {});
+}
+
+export default undefined;

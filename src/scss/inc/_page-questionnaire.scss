@@ -78,25 +78,25 @@
             border-left: 1px solid $color-grey_02;
             padding: 10px;
           }
+        }
 
-          &.selected {
-            border-color: $color-blue_01;
+        &.selected > .questionnaire-element-info {
+          border-color: $color-blue_01;
 
-            .questionnaire-element-name {
-              background-color: $color-blue_01;
-              color: white;
-            }
+          .questionnaire-element-name {
+            background-color: $color-blue_01;
+            color: white;
+          }
 
-            .questionnaire-element-label {
-              @include make-xs-column(6);
-            }
+          .questionnaire-element-label {
+            @include make-xs-column(6);
+          }
 
-            .questionnaire-element-actions {
-              @include make-xs-column(4, 0px);
-              text-align: right;
-              button {
-                margin: 5px  5px 0 0;
-              }
+          .questionnaire-element-actions {
+            @include make-xs-column(4, 0px);
+            text-align: right;
+            button {
+              margin: 5px  5px 0 0;
             }
           }
         }
@@ -105,12 +105,32 @@
           .questionnaire-element-info {
             color: $color-blue_02;
             font-weight: normal;
+          }
+          &.selected > .questionnaire-element-info {
+            border-color: $color-blue_02;
 
-            &.selected {
-              border-color: $color-blue_02;
+            .questionnaire-element-name {
+              background-color: $color-blue_02;
+            }
+
+            .questionnaire-element-label {
+              @include make-xs-column(6);
+            }
+
+            .questionnaire-element-actions {
+              @include make-xs-column(4, 0px);
+            }
+          }
+          .questionnaire-element {
+            .questionnaire-element-info {
+              color: black;
+            }
+            &.selected > .questionnaire-element-info {
+              border-color: $color-grey_01;
 
               .questionnaire-element-name {
-                background-color: $color-blue_02;
+                background-color: $color-grey_01;
+                color: white;
               }
 
               .questionnaire-element-label {
@@ -119,29 +139,6 @@
 
               .questionnaire-element-actions {
                 @include make-xs-column(4, 0px);
-              }
-            }
-          }
-
-          .questionnaire-element {
-            .questionnaire-element-info {
-              color: black;
-
-              &.selected {
-                border-color: $color-grey_01;
-
-                .questionnaire-element-name {
-                  background-color: $color-grey_01;
-                  color: white;
-                }
-
-                .questionnaire-element-label {
-                  @include make-xs-column(6);
-                }
-
-                .questionnaire-element-actions {
-                  @include make-xs-column(4, 0px);
-                }
               }
             }
           }
