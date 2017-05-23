@@ -96,7 +96,6 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
           component={Input}
           label={locale.stamp}
           validate={[required]}
-          normalize={questionnaireName}
           required
         />
 
