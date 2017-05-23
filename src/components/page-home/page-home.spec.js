@@ -3,19 +3,20 @@ jest.dontMock('./index.jsx');
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import PageHome from './index';
+import { PageHome } from './index';
+import { getLocale } from 'utils/test/test-utils';
+
+const locale = getLocale();
 
 describe('<PageHome />', () => {
-  const wrapper = shallow(<PageHome />);
+  const props = {
+    locale: locale,
+    history: {},
+  };
+  const wrapper = shallow(<PageHome {...props} />);
 
   test('should render without throwing an error', () => {
     expect(wrapper.is('#page-home')).toBe(true);
-  });
-
-  // @TODO: Find the way to test if the plain component is presented. Avoid the
-  // testing for the connected component.
-  test.skip('should render <QuestionnaireListContainer /> component', () => {
-    expect(wrapper.find('QuestionnaireListContainer').length).toBe(1);
   });
 
   test('should render a "new questionnaire button"', () => {

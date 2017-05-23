@@ -567,8 +567,8 @@ export default {
     en: 'Logout',
   },
   headerSubtitle: {
-    fr: 'Lorem ipsum dolor sit amet',
-    en: 'Lorem ipsum dolor sit amet',
+    fr: 'Conception et test de questionnaires',
+    en: 'Design and testing of questionnaires',
   },
   homepage: {
     fr: 'Accueil',
@@ -635,7 +635,7 @@ export default {
     en: 'New empty questionnaire',
   },
   newQuestionnaireLegend: {
-    fr: 'Vous allez maintenant pouvoir préciser le contexte',
+    fr: 'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
     en: 'You will now be able to specify the context',
   },
   collectionCampaign: {
@@ -649,5 +649,29 @@ export default {
   contextModel: {
     fr: 'Modèle de contexte',
     en: 'Context Model',
+  },
+  showDetail: {
+    fr: 'Voir le détail',
+    en: 'Show the detail',
+  },
+  questionnaireDetail: {
+    fr: 'Détail du questionnaire',
+    en: 'Questionnaire detail',
+  },
+  collection: {
+    fr: 'Série',
+    en: 'Collection',
+  },
+  operationStat: {
+    fr: 'Opération statisque',
+    en: 'Stat operation',
+  },
+  model: {
+    fr: 'Modèle',
+    en: 'Model',
+  },
+  modelNew: {
+    fr: 'Créer un modèle',
+    en: 'New model',
   },
 };

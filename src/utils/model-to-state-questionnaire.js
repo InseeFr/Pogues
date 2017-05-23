@@ -1,7 +1,7 @@
 import { uuid } from '../utils/data-utils'
 import { parseResponseFormat } from '../utils/response-format/parse'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
-
+import { removeUnderscore } from 'utils/model/model-utils';
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 /**
@@ -15,6 +15,7 @@ const { QUESTION, SEQUENCE } = COMPONENT_TYPE
  */
 export default function toState(model) {
   // We use a closure around ...ById to avoid repetition
+  model = removeUnderscore(model, {});
 
   const componentById = {}
   const controlById = {}
@@ -26,9 +27,9 @@ export default function toState(model) {
   const conditionById = {}
   const responseFormatById = {}
 
-  const { agency, survey, componentGroups, codeLists } =  model
+  const { agency, label, survey, componentGroups, codeLists } =  model
   let pageBreakById = {}
-  
+
   if (componentGroups.length > 1) {
     pageBreakById = componentGroups.slice(0, -1).reduce((pbById, group) => {
       if (group.Member.length > 0) pbById[group.Member[group.Member.length-1]] = true
@@ -42,12 +43,13 @@ export default function toState(model) {
 
   const questionnaire = {
     id, agency, survey,
+    label: label[0],
     codeLists: {
       codeListSpecification: codeLists.codeListSpecification,
       codeList: codeLists.codeList.map(toCodeList)
     }
   }
-  
+
   return {
     questionnaire,
     componentById,
@@ -81,7 +83,7 @@ export default function toState(model) {
 
   function toSequence(sequence) {
     const { id, depth, children } = sequence
-      
+
     componentById[id] = {
       ...componentById[id],// already a component
       depth, //TODO do we keep track of depth ?
@@ -128,7 +130,7 @@ export default function toState(model) {
       conditionIds
     }
   }
-  
+
   function toResponseFormat(id, question) {
     responseFormatById[id] = parseResponseFormat(question)
     return id

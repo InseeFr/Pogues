@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
 import { createQuestionnaire, CREATE_QUESTIONNAIRE_FAILURE } from 'actions/questionnaire';
-import QuestionnaireNew from 'components/questionnaire/questionnaire-new';
+import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
 
 const mapStateToProps = state => ({
   locale: state.locale,
@@ -25,7 +25,7 @@ function QuestionnaireNewContainer({ createQuestionnaire, locale, onSuccess, onC
     });
   };
 
-  return <QuestionnaireNew locale={locale} onSubmit={submit} onCancel={onCancel} />;
+  return <QuestionnaireNewEdit locale={locale} onSubmit={submit} onCancel={onCancel} />;
 }
 
 QuestionnaireNewContainer.propTypes = {

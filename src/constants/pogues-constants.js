@@ -104,3 +104,7 @@ export const DECLARATION_POSITION = {
   BEFORE_QUESTION_TEXT: 'BEFORE_QUESTION_TEXT',
   DETACHABLE: 'DETACHABLE'
 }
+
+export const DEFAULT_LANG = 'fr';
+
+export const ENV_TEST = 'test';

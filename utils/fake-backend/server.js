@@ -15,6 +15,16 @@ var repo = JSON.parse(
 
 var published = {}
 
+var questionnairesDetail = {}
+
+Object.keys(questionnaires).forEach(function(qId) {
+  var questionnaireDetailPath = __dirname + '/questionnaire-' + qId + '.json'
+  if(fs.existsSync(questionnaireDetailPath)) {
+    questionnairesDetail[qId] = JSON.parse(
+      fs.readFileSync(questionnaireDetailPath, 'utf8'))
+  }
+});
+
 // allow  cross origin request
 /*
 MLHttpRequest cannot load http://localhost:4000/questionnaires.
@@ -85,18 +95,7 @@ server.get('/stromae/publisher/:id', function (req, res, next) {
 
 
 server.get('/questionnaires', function (req, res, next) {
-  var questionnaireList = Object.keys(questionnaires).reduce(function(qL, id) {
-    var qr = questionnaires[id]
-    qL[id] = {
-      id: qr.id,
-      name: qr.name,
-      label: qr.label[0],
-      agency: qr.agency,
-      survey: qr.survey
-    }
-    return qL
-  }, {})
-  res.send(questionnaireList)
+  res.send(questionnaires)
   next()
 })
 
@@ -107,7 +106,7 @@ server.del('/questionnaire/:id', function (req, res, next) {
 })
 
 server.get('/questionnaire/:id', function (req, res, next) {
-  res.send(questionnaires[req.params.id])
+  res.send(questionnairesDetail[req.params.id])
   next()
 })
 

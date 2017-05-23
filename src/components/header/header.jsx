@@ -15,9 +15,9 @@ function Header({ locale }) {
   return (
     <nav id="header">
       <div className="header-brand">
-        <div className="header-logo">
+        <dipv className="header-logo">
           <img alt="{locale.homepage}" src={logo} />
-        </div>
+        </dipv>
         <h2>
           <Link className="header-homepage" to="/">Pogues</Link>
         </h2>

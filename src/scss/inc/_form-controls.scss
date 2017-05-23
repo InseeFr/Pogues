@@ -1,4 +1,4 @@
-.ctrl-select-with-add-new, .ctrl-input, .ctrl-list-radios-buttons {
+.ctrl-select-with-add-new, .ctrl-select, .ctrl-input, .ctrl-list-radios-buttons {
   @extend .form-group;
   @include make-row();
 
@@ -8,7 +8,7 @@
 }
 
 
-.ctrl-select-with-add-new, .ctrl-input {
+.ctrl-select-with-add-new, .ctrl-select, .ctrl-input {
   label + div {
     @include make-xs-column(6);
 
