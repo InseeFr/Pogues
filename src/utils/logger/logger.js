@@ -4,6 +4,7 @@ Manage remote or local logging, levels and namespacing.
 'Beauty is in the eye of the beholder'
 */
 import Config from 'config/config';
+import { ENV_TEST } from 'constants/pogues-constants';
 
 const LEVELS = {
   DEBUG: 0,
@@ -35,6 +36,8 @@ class Logger {
   and the active namespace*/
   // TODO add remote / local write test
   logWrapper(testLevel, messageArray) {
+    if (process.env.NODE_ENV === ENV_TEST) return;
+
     messageArray.unshift(this.getPrefix());
     if (
       LEVELS[testLevel] >= LEVELS[Logger.getCurrentLevel()] &&

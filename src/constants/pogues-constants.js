@@ -106,3 +106,5 @@ export const DECLARATION_POSITION = {
 }
 
 export const DEFAULT_LANG = 'fr';
+
+export const ENV_TEST = 'test';

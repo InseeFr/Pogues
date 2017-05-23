@@ -1,7 +1,7 @@
 jest.dontMock('./index.jsx');
 
 import React from 'react';
-import { shallow, } from 'enzyme';
+import { shallow } from 'enzyme';
 
 // Not connected to store
 import { PageQuestionnaire } from './index';
@@ -11,7 +11,7 @@ describe('<PageQuestionnaire />', () => {
   const props = {
     match: { params: { id: 1 } },
     switchToQuestionnaire: spy,
-  }
+  };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);
 
@@ -25,5 +25,5 @@ describe('<PageQuestionnaire />', () => {
 
   test('should call switchToQuestionnaire in render', () => {
     expect(spy).toBeCalled();
-  })
+  });
 });
