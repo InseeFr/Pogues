@@ -9,7 +9,7 @@ import { toArray, buildSortByKey } from 'utils/array-utils';
 import QuestionnaireList from 'components/questionnaire/questionnaire-list';
 
 function filterQuestionnaires(questionnaires, filter) {
-  return questionnaires.filter(qr => qr.label.toLowerCase().includes(filter));
+  return questionnaires.filter(qr => qr.label.toLowerCase().indexOf(filter) !== -1);
 }
 
 const sortByLabel = buildSortByKey('label');
