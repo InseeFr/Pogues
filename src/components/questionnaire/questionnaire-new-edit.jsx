@@ -142,18 +142,22 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
 }
 
 QuestionnaireNewEdit.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
   locale: PropTypes.object.isRequired,
-  error: PropTypes.array,
+  handleSubmit: PropTypes.func,
   onCancel: PropTypes.func,
+  pristine: PropTypes.bool,
+  submitting: PropTypes.bool,
+  invalid: PropTypes.bool,
+  error: PropTypes.array,
 };
 
 QuestionnaireNewEdit.defaultProps = {
-  error: [],
+  handleSubmit: undefined,
   onCancel: undefined,
+  pristine: false,
+  submitting: false,
+  invalid: false,
+  error: [],
 };
 
 export default reduxForm({

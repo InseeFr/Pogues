@@ -10,7 +10,7 @@ import { normalizeElements } from 'utils/model/model-utils';
 
 const mapStateToProps = (state, { id }) => {
   const questionnaireState = state.appState.questionnaireById[id];
-  const loaded = questionnaireState ? questionnaireState.loaded : false;
+  const loaded = questionnaireState && questionnaireState.loaded ? questionnaireState.loaded : false;
 
   const props = {
     locale: state.locale,

@@ -4,6 +4,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import UserConnection from './user-connection';
+import { getLocale } from 'utils/test/test-utils';
+
+const locale = getLocale();
 
 describe('<UserConnection />', () => {
   const userWithPicture = {
@@ -13,9 +16,20 @@ describe('<UserConnection />', () => {
   const userWithoutPicture = {
     name: 'John',
   };
-  const wrapperNotLogged = shallow(<UserConnection />);
-  const wrapperLogged = shallow(<UserConnection user={userWithPicture} />);
-  const wrapperLoggedWithoutPicture = shallow(<UserConnection user={userWithoutPicture} />);
+  const propsNoUser = {
+    locale: locale,
+  };
+  const propsUserWithPicture = {
+    user: userWithPicture,
+    locale: locale,
+  };
+  const propsUserWithoutPicture = {
+    user: userWithoutPicture,
+    locale: locale,
+  };
+  const wrapperNotLogged = shallow(<UserConnection {...propsNoUser} />);
+  const wrapperLogged = shallow(<UserConnection {...propsUserWithPicture} />);
+  const wrapperLoggedWithoutPicture = shallow(<UserConnection {...propsUserWithoutPicture} />);
 
   test('should render without throwing an error', () => {
     expect(wrapperNotLogged.is('#user-connection')).toBe(true);

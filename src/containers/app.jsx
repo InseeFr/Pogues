@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   locale: state.locale,
 });
 
-const App = ({ locale }) => {
+export const App = ({ locale }) => {
   return (
     <div id="app">
       <Header locale={locale} />

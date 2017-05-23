@@ -1,22 +1,29 @@
 jest.dontMock('./index.jsx');
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, } from 'enzyme';
 
-import PageQuestionnaire from './index';
+// Not connected to store
+import { PageQuestionnaire } from './index';
 
 describe('<PageQuestionnaire />', () => {
-  const wrapper = shallow(<PageQuestionnaire />);
+  const spy = jest.fn();
+  const props = {
+    match: { params: { id: 1 } },
+    switchToQuestionnaire: spy,
+  }
+
+  const wrapper = shallow(<PageQuestionnaire {...props} />);
 
   test('should render without throwing an error', () => {
     expect(wrapper.is('#page-questionnaire')).toBe(true);
   });
 
-  // test('should render <Questionnaire /> component', () => {
-  //   expect(wrapper.find('Questionnaire').length).toBe(1);
-  // });
-  //
-  // test('should render <QuestionnaireNav /> component', () => {
-  //   expect(wrapper.find('QuestionnaireNav').length).toBe(1);
-  // });
+  test('should render <QuestionnaireNav /> component', () => {
+    expect(wrapper.find('QuestionnaireNav').length).toBe(1);
+  });
+
+  test('should call switchToQuestionnaire in render', () => {
+    expect(spy).toBeCalled();
+  })
 });

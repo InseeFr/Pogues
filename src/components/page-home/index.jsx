@@ -19,14 +19,11 @@ export class PageHome extends Component {
     locale: PropTypes.object.isRequired,
   };
 
-  constructor({ history, locale }) {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showModal: false,
     };
-
-    this.history = history;
-    this.locale = locale;
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleQuestionnnarieCreated = this.handleQuestionnnarieCreated.bind(this);
@@ -45,26 +42,28 @@ export class PageHome extends Component {
   }
 
   handleQuestionnnarieCreated(questionnaireId) {
-    this.history.push(`/questionnaire/${questionnaireId}`);
+    this.props.history.push(`/questionnaire/${questionnaireId}`);
   }
 
   render() {
+    const { locale } = this.props;
+    console.log(locale.newEmptyQuestionnaire);
     return (
       <div id="page-home">
-        <h1>{this.locale.welcome}</h1>
+        <h1>{locale.welcome}</h1>
         <div className="box home-questionnaires">
-          <h3>{this.locale.homeQuestionnairesInProgress}</h3>
+          <h3>{locale.homeQuestionnairesInProgress}</h3>
           {/* Mock stamp */}
-          <h4>{this.locale.stamp} : F302</h4>
+          <h4>{locale.stamp} : F302</h4>
           <QuestionnaireListContainer />
         </div>
         <div className="home-sidebar">
           <div className="box">
-            <h3>{this.locale.createQuestionnaire}</h3>
+            <h3>{locale.createQuestionnaire}</h3>
             <ul className="menu-navigation">
               <li>
                 <button id="questionnaire-new" className="btn-yellow" onClick={this.handleOpenModal}>
-                  <strong>{this.locale.emptyQuestionnaire}</strong>
+                  <strong>{locale.emptyQuestionnaire}</strong>
                 </button>
               </li>
             </ul>
@@ -72,20 +71,20 @@ export class PageHome extends Component {
           <ul className="menu-navigation">
             <li>
               <button id="questionnaires-search" className="btn-search">
-                {this.locale.searchQuestionnaire}
+                {locale.searchQuestionnaire}
               </button>
             </li>
 
             <li>
               <button id="questionnaires-team" className="btn-blue">
-                <strong>{this.locale.fromMyTeam}</strong><br />
-                {this.locale.inProgressAndPublished}
+                <strong>{locale.fromMyTeam}</strong><br />
+                {locale.inProgressAndPublished}
               </button>
             </li>
             <li>
               <button id="questionnaires-insee" className="btn-blue">
-                <strong>{this.locale.fromRepository}</strong><br />
-                {this.locale.publishedByInsee}
+                <strong>{locale.fromRepository}</strong><br />
+                {locale.publishedByInsee}
               </button>
             </li>
           </ul>
@@ -93,11 +92,11 @@ export class PageHome extends Component {
         <ReactModal
           isOpen={this.state.showModal}
           onRequestClose={this.handleCloseModal}
-          contentLabel={this.locale.newEmptyQuestionnaire}
+          contentLabel={locale.newEmptyQuestionnaire}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{this.locale.newEmptyQuestionnaire}</h3>
+              <h3>{locale.newEmptyQuestionnaire}</h3>
               <button onClick={this.handleCloseModal}><span>X</span></button>
             </div>
             <div className="popup-body">

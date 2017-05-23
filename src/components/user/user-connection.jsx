@@ -29,8 +29,11 @@ function UserConnection({ user, locale }) {
 }
 
 UserConnection.propTypes = {
-  user: PropTypes.object,
   locale: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    picture: PropTypes.string,
+  }),
 };
 
 UserConnection.defaultProps = {

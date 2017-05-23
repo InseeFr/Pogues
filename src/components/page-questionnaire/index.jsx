@@ -13,16 +13,11 @@ const mapDispatchToProps = {
   switchToQuestionnaire,
 };
 
-class PageQuestionnaire extends Component {
+export class PageQuestionnaire extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
     switchToQuestionnaire: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.id = props.match.params.id;
-  }
 
   componentWillMount() {
     logger.debug('Rendering PageQuestionnaire component');
@@ -31,10 +26,11 @@ class PageQuestionnaire extends Component {
   }
 
   render() {
+    const { match } = this.props;
     return (
       <div id="page-questionnaire">
-        <QuestionnaireNav id={this.id} />
-        <QuestionnaireContainer id={this.id} />
+        <QuestionnaireNav id={match.params.id} />
+        <QuestionnaireContainer id={match.params.id} />
       </div>
     );
   }
