@@ -14,23 +14,25 @@ function Header({ locale }) {
 
   return (
     <nav id="header">
-      <div className="header-brand">
-        <dipv className="header-logo">
-          <img alt="{locale.homepage}" src={logo} />
-        </dipv>
-        <h2>
-          <Link className="header-homepage" to="/">Pogues</Link>
-        </h2>
-        <h6>{locale.headerSubtitle}</h6>
-      </div>
-      <div className="header-help">
-        <Link to="/help">
-          <span className="glyphicon glyphicon-question-sign" /><br />
-          {locale.HELP}
-        </Link>
-      </div>
-      <div className="header-user">
-        <UserConnection user={mockUser} locale={locale} />
+      <div id="header-wrapper">
+        <div className="header-brand">
+          <dipv className="header-logo">
+            <img alt="{locale.homepage}" src={logo} />
+          </dipv>
+          <h2>
+            <Link className="header-homepage" to="/">Pogues</Link>
+          </h2>
+          <h6>{locale.headerSubtitle}</h6>
+        </div>
+        <div className="header-help">
+          <Link to="/help">
+            <span className="glyphicon glyphicon-question-sign" /><br />
+            {locale.HELP}
+          </Link>
+        </div>
+        <div className="header-user">
+          <UserConnection user={mockUser} locale={locale} />
+        </div>
       </div>
     </nav>
   );

@@ -44,6 +44,11 @@ body {
   strong {
     text-transform: uppercase;
   }
+
+  .glyphicon {
+    font-size: 0.8em;
+    margin-left: 8px;
+  }
 }
 
 .btn-blue {
@@ -51,18 +56,28 @@ body {
   font-size: $font-xs;
   text-align: left;
   background-color: $color-blue_02;
-  color: white;
   padding: 18px 25px;
   border-radius: 0;
+  position: relative;
 
-  &:hover {
-    background-color: lighten($color-blue_02, 20%);
+  &:visited, &:focus {
     color: white;
+  }
+
+  &:hover, &:active {
+    background-color: $color-yellow_01;
+    color: $color-grey_01;
   }
 
   strong {
     font-size: $font-l;
     font-weight: normal;
+  }
+
+  .glyphicon {
+    position: absolute;
+    right: 5%;
+    top:  45%;
   }
 }
 

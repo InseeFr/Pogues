@@ -37,8 +37,8 @@ class QuestionnaireElement extends Component {
           {selected
             ? <div className="questionnaire-element-actions">
                 <button className="btn-yellow" onClick={onClickDetail}>Voir le détail</button>
-                <button className="btn-yellow">Dupliquer</button>
-                <button className="btn-yellow">Supprimer</button>
+                <button className="btn-yellow">Dupliquer<span className="glyphicon glyphicon-duplicate" /></button>
+                <button className="btn-yellow">Supprimer<span className="glyphicon glyphicon-trash" /></button>
               </div>
             : ''}
         </div>
