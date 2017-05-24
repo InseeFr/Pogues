@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Logger from 'utils/logger/logger';
 import QuestionnaireListContainer from 'containers/questionnaire/questionnaire-list';
@@ -76,16 +77,18 @@ export class PageHome extends Component {
             </li>
 
             <li>
-              <button id="questionnaires-team" className="btn-blue">
+              <Link to="/" id="questionnaires-team" className="btn-blue">
+                <span className="glyphicon glyphicon-chevron-right" />
                 <strong>{locale.fromMyTeam}</strong><br />
                 {locale.inProgressAndPublished}
-              </button>
+              </Link>
             </li>
             <li>
-              <button id="questionnaires-insee" className="btn-blue">
+              <Link to="/" id="questionnaires-insee" className="btn-blue">
+                <span className="glyphicon glyphicon-chevron-right" />
                 <strong>{locale.fromRepository}</strong><br />
                 {locale.publishedByInsee}
-              </button>
+              </Link>
             </li>
           </ul>
         </div>

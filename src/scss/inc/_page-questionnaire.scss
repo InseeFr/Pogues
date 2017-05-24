@@ -89,11 +89,11 @@
           }
 
           .questionnaire-element-label {
-            @include make-xs-column(6);
+            @include make-xs-column(5);
           }
 
           .questionnaire-element-actions {
-            @include make-xs-column(4, 0px);
+            @include make-xs-column(5, 0px);
             text-align: right;
             button {
               margin: 5px  5px 0 0;
@@ -114,11 +114,11 @@
             }
 
             .questionnaire-element-label {
-              @include make-xs-column(6);
+              @include make-xs-column(5);
             }
 
             .questionnaire-element-actions {
-              @include make-xs-column(4, 0px);
+              @include make-xs-column(5, 0px);
             }
           }
           .questionnaire-element {
@@ -134,11 +134,11 @@
               }
 
               .questionnaire-element-label {
-                @include make-xs-column(6);
+                @include make-xs-column(5);
               }
 
               .questionnaire-element-actions {
-                @include make-xs-column(4, 0px);
+                @include make-xs-column(5, 0px);
               }
             }
           }

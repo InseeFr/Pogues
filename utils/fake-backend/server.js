@@ -127,27 +127,41 @@ server.post('/questionnaires', function (req, res, next) {
   }
   var statusCode
 
-  // Example of the server validation
+  // // Example of the server validation
+  //
+  // // Validate name and label are not empty
+  // // @TODO: Validate the rest of restrictions
+  // if(qr.name === '') response.validation['name'] = 'Required'
+  // if(qr.label === '') response.validation['label'] = 'Required'
+  //
+  // // Validate that the questionnaire name doesn't exist already
+  // var nameExist = Object.keys(questionnaires).filter(function(qId){
+  //   return questionnaires[qId].name === qr.name
+  // }).length > 0
+  //
+  // if(nameExist) response.validation._error.push('There is a questionnaire with the same name')
+  //
+  // if(Object.keys(response.validation).length > 1 || response.validation._error.length > 0) {
+  //   statusCode = 400;
+  // } else {
+  //   statusCode = 200;
+  //   questionnaires[id] = qr
+  //   save()
+  // }
 
-  // Validate name and label are not empty
-  // @TODO: Validate the rest of restrictions
-  if(qr.name === '') response.validation['name'] = 'Required'
-  if(qr.label === '') response.validation['label'] = 'Required'
-
-  // Validate that the questionnaire name doesn't exist already
-  var nameExist = Object.keys(questionnaires).filter(function(qId){
-    return questionnaires[qId].name === qr.name
-  }).length > 0
-
-  if(nameExist) response.validation._error.push('There is a questionnaire with the same name')
-
-  if(Object.keys(response.validation).length > 1 || response.validation._error.length > 0) {
-    statusCode = 400;
-  } else {
-    statusCode = 200;
-    questionnaires[id] = qr
-    save()
+  statusCode = 200;
+  questionnaires[id] = {
+    _agency: "fr.insee",
+    _id: id,
+    _label: qr['label'][0],
+    _name: qr['name'],
+    _survey: {
+      _id: id,
+      _agency: "fr.insee",
+      _name: "POPO"
+    }
   }
+  save()
 
   // @TODO: Confirm that the real server return the id in a header attributte
   res.header('Location', 'http://' + req.headers.host + '/questionnaires/' + id)

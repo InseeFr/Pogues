@@ -6,7 +6,10 @@ function QuestionnaireListItem({ id, label }) {
   // @TODO: Remove the mocked data
   return (
     <div className="questionnaire-list_item">
-      <div><Link to={`/questionnaire/${id}`}>{label}</Link></div>
+      <div>
+        <span className="glyphicon glyphicon-chevron-right" />
+        <Link to={`/questionnaire/${id}`}>{label}</Link>
+      </div>
       <div>Téléphone</div>
       <div>10/10/2016</div>
     </div>

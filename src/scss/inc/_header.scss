@@ -13,11 +13,14 @@
     text-transform: uppercase;
   }
 
-  .header-brand {
-    @include make-xs-column(8);
+  #header-wrapper {
+    @extend .container;
+
+    .header-brand {
+    @include make-xs-column(8, 0);
     .header-logo {
       text-align: center;
-      @include make-xs-column(2);
+      @include make-xs-column(2, 0);
     }
     h2 {
       margin-top: 35px;
@@ -28,18 +31,19 @@
     }
   }
 
-  .header-help {
-    @include make-xs-column(1);
-    text-align: center;
-    padding-top: 25px;
-    font-weight: bold;
+    .header-help {
+      @include make-xs-column(1);
+      text-align: center;
+      padding-top: 25px;
+      font-weight: bold;
 
-    span {
-      font-size: $font-xl;
+      span {
+        font-size: $font-xl;
+      }
     }
-  }
 
-  .header-user {
-    @include make-xs-column(3);
+    .header-user {
+      @include make-xs-column(3);
+    }
   }
 }
