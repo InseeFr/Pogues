@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 
 import { createComponent, removeComponent, moveComponent } from 'actions/component';
 import { addPageBreak, removePageBreak } from 'actions/page-break';
-import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
+import { loadQuestionnaireIfNeeded } from 'actions/_questionnaire';
 import Questionnaire from 'components/questionnaire/questionnaire';
-import { normalizeElements } from 'utils/model/model-utils';
 
 const mapStateToProps = (state, { id }) => {
   const questionnaireState = state.appState.questionnaireById[id];
@@ -17,7 +16,7 @@ const mapStateToProps = (state, { id }) => {
     id: id,
     loaded: loaded,
     questionnaire: state.questionnaireById[id],
-    elements: loaded ? normalizeElements(state.componentById, state.componentById[id].childCmpnts) : {},
+    components: loaded ? state.componentById : {},
   };
 
   return props;
@@ -38,7 +37,7 @@ class QuestionnaireContainer extends Component {
     id: PropTypes.string.isRequired,
     loaded: PropTypes.bool.isRequired,
     questionnaire: PropTypes.object,
-    elements: PropTypes.object,
+    components: PropTypes.object,
     loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
     createComponent: PropTypes.func.isRequired,
     removeComponent: PropTypes.func.isRequired,
@@ -49,7 +48,7 @@ class QuestionnaireContainer extends Component {
 
   static defaultProps = {
     questionnaire: {},
-    elements: {},
+    components: {},
   };
 
   componentWillMount() {
@@ -66,7 +65,7 @@ class QuestionnaireContainer extends Component {
       <Questionnaire
         locale={this.props.locale}
         questionnaire={this.props.questionnaire}
-        elements={this.props.elements}
+        components={this.props.components}
         createComponent={this.props.createComponent}
         removeComponent={this.props.removeComponent}
         moveComponent={this.props.moveComponent}

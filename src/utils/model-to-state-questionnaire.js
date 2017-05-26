@@ -1,7 +1,7 @@
 import { uuid } from '../utils/data-utils'
 import { parseResponseFormat } from '../utils/response-format/parse'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
-import { removeUnderscore } from 'utils/model/model-utils';
+import { removeUnderscore } from 'utils/model/questionnaire-model-utils';
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 /**
@@ -15,7 +15,7 @@ const { QUESTION, SEQUENCE } = COMPONENT_TYPE
  */
 export default function toState(model) {
   // We use a closure around ...ById to avoid repetition
-  model = removeUnderscore(model, {});
+  model = removeUnderscore(model);
 
   const componentById = {}
   const controlById = {}
