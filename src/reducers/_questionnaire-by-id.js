@@ -1,4 +1,4 @@
-import { LOAD_QUESTIONNAIRE_SUCCESS } from 'actions/_questionnaire';
+import { LOAD_QUESTIONNAIRE_SUCCESS, CREATE_QUESTIONNAIRE_SUCCESS } from 'actions/_questionnaire';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 import { defaultQuestionnaire } from 'utils/reducer/default-states';
 
@@ -11,6 +11,14 @@ export function loadQuestionnaireSuccess(state, { id, update }) {
   };
 }
 
+export function createQuestionnaireSuccess(state, { id, newQuestionnaire }) {
+  return {
+    ...state,
+    [id]: newQuestionnaire,
+  };
+}
+
 actionHandlers[LOAD_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
+actionHandlers[CREATE_QUESTIONNAIRE_SUCCESS] = createQuestionnaireSuccess;
 
 export default createActionHandlers(actionHandlers);

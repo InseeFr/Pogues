@@ -2,7 +2,7 @@ export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
 export const LOAD_QLIST_FAILURE = 'LOAD_QLIST_FAILURE';
 import { getQuestionnaireList } from 'utils/remote-api';
-import { removeUnderscore } from 'utils/model/questionnaire-model-utils';
+import { removeUnderscore } from 'utils/model/model-to-state-utils';
 
 /**
  * Value the questionnaire list returned by the remote call

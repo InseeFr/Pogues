@@ -3,6 +3,10 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
+export function getQuestionnaireIdFromUri(uri) {
+  return uri.substr(uri.lastIndexOf('/') + 1);
+}
+
 export function removeUnderscore(wholeModel) {
   function remove(model, result) {
     let newKey;
@@ -48,7 +52,7 @@ export function getCondiditionsIdsFromRaw(rawLabel) {
   return getConditionsFromRaw(rawLabel).map(c => c.id);
 }
 
-export function getConditions(components) {
+export function getConditionsFromComponents(components) {
   return Object.keys(components)
     .filter(key => {
       return components[key].type === QUESTION && components[key].conditions.length > 0;
@@ -97,7 +101,7 @@ export function normalizeQuestionnaire(questionnaire) {
   const { id, label: [label], children } = questionnaire;
   const componentById = normalizeNestedComponents(children, id);
   componentById[id] = normalizeComponent(questionnaire);
-  const conditionById = getConditions(componentById);
+  const conditionById = getConditionsFromComponents(componentById);
   return {
     questionnaire: {
       id,

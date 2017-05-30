@@ -1,7 +1,7 @@
 import { uuid } from '../utils/data-utils'
 import { parseResponseFormat } from '../utils/response-format/parse'
 import { COMPONENT_TYPE } from '../constants/pogues-constants'
-import { removeUnderscore } from 'utils/model/questionnaire-model-utils';
+import { removeUnderscore } from 'utils/model/model-to-state-utils';
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE
 
 /**

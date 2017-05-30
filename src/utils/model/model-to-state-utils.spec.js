@@ -1,4 +1,4 @@
-jest.dontMock('./questionnaire-model-utils.js');
+jest.dontMock('./model-to-state-utils.js');
 
 import {
   removeUnderscore,
@@ -6,7 +6,7 @@ import {
   normalizeNestedComponents,
   normalizeComponent,
   getNumNestedChildren,
-} from './questionnaire-model-utils';
+} from './model-to-state-utils';
 import fakeQuestionnaireModel from './fake-questionnaire-model';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
