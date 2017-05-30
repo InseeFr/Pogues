@@ -26,7 +26,7 @@ export const loadQuestionnaireSuccess = (id, update) => ({
  * Track error when loading questionnaire failed
  *
  * @param   {string} id    questionnaire id
- * @param   {string} err   error message
+ * @param   {string} err   error object
  * @returns {object}       LOAD_QUESTIONNAIRE_FAILURE action
  */
 export const loadQuestionnaireFailure = (id, err) => ({
@@ -51,13 +51,12 @@ export const loadQuestionnaire = id => dispatch => {
     type: LOAD_QUESTIONNAIRE,
     payload: id,
   });
+  // @TODO: removeUnderscore should be removed after model changes.
   return getQuestionnaire(id)
     .then(qr => {
-      // dispatch(loadQuestionnaireSuccess(id, normalizeQuestionnaire(qr)));
       dispatch(loadQuestionnaireSuccess(id, normalizeQuestionnaire(removeUnderscore(qr))));
     })
     .catch(err => {
-      debugger;
       dispatch(loadQuestionnaireFailure(id, err));
     });
 };

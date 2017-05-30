@@ -75,9 +75,14 @@ describe('<QuestionnarieNew />', () => {
 });
 
 describe('<GenericInput />', () => {
+  const wrapper = shallow(<QuestionnaireGenericInput />);
   test('should render without throw an error', () => {
     const wrapper = shallow(<QuestionnaireGenericInput />);
     expect(wrapper.is('#questionnaire-generic-input')).toBe(true);
   });
-  test('should render disabled the "Question" button if there ')
+  test('should render enabled the "Question" button only when the prop "newQuestionPlaceholder" is defined', () => {
+    const wrapperWithQuestionPlaceholder = shallow(<QuestionnaireGenericInput newQuestionPlaceholder="XXXXXXX" />);
+    expect(wrapper.find('#add-question[disabled]').exists()).toBe(true);
+    expect(wrapperWithQuestionPlaceholder.find('#add-question[disabled]').exists()).toBe(false);
+  });
 });

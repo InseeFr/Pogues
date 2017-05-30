@@ -1,3 +1,4 @@
+// @TODO: Documentation
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
@@ -24,18 +25,63 @@ export function removeUnderscore(wholeModel) {
   return remove(wholeModel, {});
 }
 
-export function normalizeComponent({ id, name, label: [label], children, type }, parent) {
-  return {
-    id,
-    name,
-    label,
-    parent,
-    children: children ? children.map(c => c.id) : [],
-    type: type === SEQUENCE_TYPE_NAME ? SEQUENCE : QUESTION,
-  };
+export function containsComment(str) {
+  const regExpCmt = /##([^\n]*)/;
+  return str.match(regExpCmt);
 }
 
-export function normalizeNestedComponents(components, root) {
+export function getQuestionLabelFromRaw(rawLabel) {
+  const hasComment = containsComment(rawLabel);
+  if (!hasComment) return rawLabel;
+  const { label } = JSON.parse(hasComment[1]);
+  return label;
+}
+
+export function getConditionsFromRaw(rawLabel) {
+  const hasComment = containsComment(rawLabel);
+  if (!hasComment) return [];
+  const { conditions } = JSON.parse(hasComment[1]);
+  return conditions;
+}
+
+export function getCondiditionsIdsFromRaw(rawLabel) {
+  return getConditionsFromRaw(rawLabel).map(c => c.id);
+}
+
+export function getConditions(components) {
+  return Object.keys(components)
+    .filter(key => {
+      return components[key].type === QUESTION && components[key].conditions.length > 0;
+    })
+    .reduce((acc, key) => {
+      const conditionsById = {};
+      getConditionsFromRaw(components[key].rawLabel).forEach(c => (conditionsById[c.id] = c));
+      return { ...acc, ...conditionsById };
+    }, {});
+}
+
+export function normalizeComponent({ id, name, label: [label], children, type }, parent) {
+  const component = {
+    id,
+    name,
+    parent,
+  };
+
+  if (type === SEQUENCE_TYPE_NAME) {
+    component.type = SEQUENCE;
+    component.label = label;
+    component.children = children.map(c => c.id);
+  } else {
+    component.type = QUESTION;
+    component.rawLabel = label;
+    component.label = getQuestionLabelFromRaw(label);
+    component.conditions = getCondiditionsIdsFromRaw(label);
+  }
+
+  return component;
+}
+
+export function normalizeNestedComponents(components, questionnaireId) {
   function normalize(objs, parent, carry) {
     objs.forEach(o => {
       carry[o.id] = normalizeComponent(o, parent);
@@ -44,16 +90,21 @@ export function normalizeNestedComponents(components, root) {
 
     return carry;
   }
-  return normalize(components, root, {});
+  return normalize(components, questionnaireId, {});
 }
 
-export function normalizeQuestionnaire({ id, label: [label], children }) {
+export function normalizeQuestionnaire(questionnaire) {
+  const { id, label: [label], children } = questionnaire;
+  const componentById = normalizeNestedComponents(children, id);
+  componentById[id] = normalizeComponent(questionnaire);
+  const conditionById = getConditions(componentById);
   return {
     questionnaire: {
       id,
       label,
     },
-    componentById: normalizeNestedComponents(children, id),
+    componentById,
+    conditionById,
   };
 }
 

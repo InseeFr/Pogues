@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import QuestionnaireElement from 'components/questionnaire/questionnaire-element';
 import QuestionnaireEditContainer from 'containers/questionnaire/questionnaire-edit';
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
@@ -13,15 +13,18 @@ class Questionnaire extends Component {
     locale: PropTypes.object.isRequired,
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object,
+    activeComponent: PropTypes.string,
+    setActiveComponent: PropTypes.func.isRequired,
   };
   static defaultProps = {
+    questionnaireComponentsIds: [],
     components: {},
+    activeComponent: '',
   };
   constructor() {
     super();
 
     this.state = {
-      selectedElementId: undefined,
       showQuestionnaireModal: false,
       showElementModal: false,
       idElementInModal: undefined,
@@ -39,9 +42,8 @@ class Questionnaire extends Component {
   handleElementSelect(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
-    const newSelected = idElement !== this.state.selectedElementId ? idElement : undefined;
-    const newState = { ...this.state, selectedElementId: newSelected };
-    this.setState(newState);
+    const newSelected = idElement !== this.props.activeComponent ? idElement : '';
+    this.props.setActiveComponent(newSelected);
   }
 
   handleOpenElementDetail(event, idElement) {
@@ -86,7 +88,7 @@ class Questionnaire extends Component {
 
   renderComponentsByParent(components, parent) {
     const renderComponentsByParent = this.renderComponentsByParent;
-    const selected = this.state.selectedElementId;
+    const selected = this.props.activeComponent;
 
     return Object.keys(components).filter(key => components[key].parent === parent).map(key => {
       const subTree = renderComponentsByParent(components, key);

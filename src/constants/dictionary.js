@@ -674,4 +674,8 @@ export default {
     fr: 'Créer un modèle',
     en: 'New model',
   },
+  addObject: {
+    fr: 'Ajouter un objet',
+    en: 'Add object',
+  },
 };

@@ -26,7 +26,7 @@ describe('normalizeQuestionnaire', () => {
 });
 
 describe('normalizeNestedComponents', () => {
-  test('should return as many components as nested children in the questionnaire model', () => {
+  test('should return as many component as nested children in the questionnaire model', () => {
     const expectedNumComponents = getNumNestedChildren(model.children);
     const components = normalizeNestedComponents(model.children);
     expect(Object.keys(components).length).toBe(expectedNumComponents);

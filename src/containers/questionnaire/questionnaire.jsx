@@ -2,33 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { createComponent, removeComponent, moveComponent } from 'actions/component';
-import { addPageBreak, removePageBreak } from 'actions/page-break';
 import { loadQuestionnaireIfNeeded } from 'actions/_questionnaire';
+import { setActiveComponent } from 'actions/_app-state';
 import Questionnaire from 'components/questionnaire/questionnaire';
 
 const mapStateToProps = (state, { id }) => {
   const questionnaireState = state.appState.questionnaireById[id];
-  const loaded = questionnaireState && questionnaireState.loaded ? questionnaireState.loaded : false;
+  const activeComponent = state.appState.activeComponent;
+  const questionnaire = state.questionnaireById[id];
+  const loaded = questionnaireState.loaded ? questionnaireState.loaded : false;
+  let components = {};
+
+  if (loaded) {
+    components = state.appState.componentListByQuestionnaire[id];
+  }
 
   const props = {
     locale: state.locale,
-    id: id,
-    loaded: loaded,
-    questionnaire: state.questionnaireById[id],
-    components: loaded ? state.componentById : {},
+    id,
+    loaded,
+    questionnaire,
+    components,
+    activeComponent,
   };
 
   return props;
 };
 
 const mapDispatchToProps = {
-  createComponent,
-  removeComponent,
-  moveComponent,
-  addPageBreak,
-  removePageBreak,
   loadQuestionnaireIfNeeded,
+  setActiveComponent,
 };
 
 class QuestionnaireContainer extends Component {
@@ -38,21 +41,20 @@ class QuestionnaireContainer extends Component {
     loaded: PropTypes.bool.isRequired,
     questionnaire: PropTypes.object,
     components: PropTypes.object,
+    activeComponent: PropTypes.string,
     loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
-    createComponent: PropTypes.func.isRequired,
-    removeComponent: PropTypes.func.isRequired,
-    moveComponent: PropTypes.func.isRequired,
-    addPageBreak: PropTypes.func.isRequired,
-    removePageBreak: PropTypes.func.isRequired,
+    setActiveComponent: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     questionnaire: {},
     components: {},
+    activeComponent: undefined,
   };
 
   componentWillMount() {
     this.props.loadQuestionnaireIfNeeded(this.props.id);
+    if (this.props.activeComponent !== '') this.props.setActiveComponent('');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,11 +68,8 @@ class QuestionnaireContainer extends Component {
         locale={this.props.locale}
         questionnaire={this.props.questionnaire}
         components={this.props.components}
-        createComponent={this.props.createComponent}
-        removeComponent={this.props.removeComponent}
-        moveComponent={this.props.moveComponent}
-        addPageBreak={this.props.addPageBreak}
-        removePageBreak={this.props.removePageBreak}
+        setActiveComponent={this.props.setActiveComponent}
+        activeComponent={this.props.activeComponent}
       />
     );
   }

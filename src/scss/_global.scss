@@ -81,6 +81,27 @@ body {
   }
 }
 
+.btn-white {
+  @extend .btn;
+  text-align: center;
+  background-color: white;
+  border-radius: 0;
+  border: 1px solid $color-grey_02;
+
+  &:hover {
+    background-color: darken(white, 20%);
+  }
+
+  strong {
+    text-transform: uppercase;
+  }
+
+  .glyphicon {
+    font-size: 0.8em;
+    margin-right: 8px;
+  }
+}
+
 .btn-search {
   @extend .btn;
   background: none;
