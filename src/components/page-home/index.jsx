@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import Logger from 'utils/logger/logger';
 import QuestionnaireListContainer from 'containers/questionnaire/questionnaire-list';
@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 
 export class PageHome extends Component {
   static propTypes = {
-    history: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
     locale: PropTypes.object.isRequired,
   };
 
@@ -43,7 +43,7 @@ export class PageHome extends Component {
   }
 
   handleQuestionnnarieCreated(questionnaireId) {
-    this.props.history.push(`/questionnaire/${questionnaireId}`);
+    this.props.router.push(`/questionnaire/${questionnaireId}`);
   }
 
   render() {

@@ -16,13 +16,13 @@ const mapDispatchToProps = {
 
 export class PageQuestionnaire extends Component {
   static propTypes = {
-    match: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired,
     setDefaultStateQuestionnaire: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    this.questionnaireId = props.match.params.id;
+    this.questionnaireId = props.params.id;
   }
 
   componentWillMount() {

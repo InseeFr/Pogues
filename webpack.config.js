@@ -206,7 +206,7 @@ module.exports = function(env) {
     },
     output: {
       path: buildDirectory,
-      publicPath: '/',
+      publicPath: '',
       filename: '[name]-[hash:8].js',
       chunkFilename: '[name]-[chunkhash:8].js',
     },
