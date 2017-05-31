@@ -75,9 +75,33 @@ export default {
     en: 'Sequence',
     fr: 'Séquence',
   },
+  subSequence: {
+    en: 'sub-sequence',
+    fr: 'Sous-séquence',
+  },
   question: {
     en: 'Question',
     fr: 'Question',
+  },
+  pageBreak: {
+    en: 'Page break',
+    fr: 'Saut de page',
+  },
+  visualise: {
+    en: 'Visualise',
+    fr: 'Visualiser',
+  },
+  publishQuestionnaire: {
+    en: 'Publish',
+    fr: 'Publier',
+  },
+  duplicate: {
+    en: 'Duplicate',
+    fr: 'Dupliquer',
+  },
+  remove: {
+    en: 'Remove',
+    fr: 'Supprimer',
   },
   save: {
     en: 'Save',
