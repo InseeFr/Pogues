@@ -1,10 +1,12 @@
 jest.dontMock('./questionnaire-list');
 jest.dontMock('./questionnaire-new-edit');
+jest.dontMock('./questionnaire-generic-input');
 
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
+import QuestionnaireGenericInput from './questionnaire-generic-input';
 import { QuestionnaireNewEdit as QuestionnaireNew } from './questionnaire-new-edit';
 import { getLocale } from 'utils/test/test-utils';
 
@@ -69,5 +71,18 @@ describe('<QuestionnarieNew />', () => {
   test('should render without throw an error', () => {
     const wrapperQuestionnarieNew = shallow(<QuestionnaireNew {...props} />);
     expect(wrapperQuestionnarieNew.is('#questionnaire-new')).toBe(true);
+  });
+});
+
+describe('<GenericInput />', () => {
+  const wrapper = shallow(<QuestionnaireGenericInput />);
+  test('should render without throw an error', () => {
+    const wrapper = shallow(<QuestionnaireGenericInput />);
+    expect(wrapper.is('#questionnaire-generic-input')).toBe(true);
+  });
+  test('should render enabled the "Question" button only when the prop "newQuestionPlaceholder" is defined', () => {
+    const wrapperWithQuestionPlaceholder = shallow(<QuestionnaireGenericInput newQuestionPlaceholder="XXXXXXX" />);
+    expect(wrapper.find('#add-question[disabled]').exists()).toBe(true);
+    expect(wrapperWithQuestionPlaceholder.find('#add-question[disabled]').exists()).toBe(false);
   });
 });

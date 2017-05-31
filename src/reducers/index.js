@@ -32,14 +32,14 @@ export default integrityChecker(combineReducers({
   questionnaireList,
   questionnaireById,
   componentById,
-  codeListByQuestionnaire,
-  codeListById,
-  goToById,
-  declarationById,
-  controlById,
-  responseFormatById,
-  codeById,
-  conditionById,
-  pageBreakById,
+  // codeListByQuestionnaire,
+  // codeListById,²
+  // goToById,
+  // declarationById,
+  // controlById,
+  // responseFormatById,
+  // codeById,
+  // conditionById,
+  // pageBreakById,
   form
 }), combineCheckers(questionnaireLengthChecker, goTosChecker))

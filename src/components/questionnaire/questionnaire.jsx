@@ -4,21 +4,27 @@ import PropTypes from 'prop-types';
 
 import QuestionnaireElement from 'components/questionnaire/questionnaire-element';
 import QuestionnaireEditContainer from 'containers/questionnaire/questionnaire-edit';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
 class Questionnaire extends Component {
   static propTypes = {
     locale: PropTypes.object.isRequired,
     questionnaire: PropTypes.object.isRequired,
-    elements: PropTypes.object,
+    components: PropTypes.object,
+    activeComponent: PropTypes.string,
+    setActiveComponent: PropTypes.func.isRequired,
   };
   static defaultProps = {
-    elements: {},
+    questionnaireComponentsIds: [],
+    components: {},
+    activeComponent: '',
   };
   constructor() {
     super();
 
     this.state = {
-      selectedElementId: undefined,
       showQuestionnaireModal: false,
       showElementModal: false,
       idElementInModal: undefined,
@@ -29,16 +35,15 @@ class Questionnaire extends Component {
     this.handleCloseElementDetail = this.handleCloseElementDetail.bind(this);
     this.handleOpenQuestionnaireDetail = this.handleOpenQuestionnaireDetail.bind(this);
     this.handleCloseQuestionnaireDetail = this.handleCloseQuestionnaireDetail.bind(this);
-    this.renderElementsByParent = this.renderElementsByParent.bind(this);
+    this.renderComponentsByParent = this.renderComponentsByParent.bind(this);
     this.handleQuestionnnarieUpdated = this.handleQuestionnnarieUpdated.bind(this);
   }
 
   handleElementSelect(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
-    const newSelected = idElement !== this.state.selectedElementId ? idElement : undefined;
-    const newState = { ...this.state, selectedElementId: newSelected };
-    this.setState(newState);
+    const newSelected = idElement !== this.props.activeComponent ? idElement : '';
+    this.props.setActiveComponent(newSelected);
   }
 
   handleOpenElementDetail(event, idElement) {
@@ -81,21 +86,20 @@ class Questionnaire extends Component {
     this.handleCloseQuestionnaireDetail();
   }
 
-  renderElementsByParent(elements, parent) {
-    parent = parent || '';
-    const renderElementsByParent = this.renderElementsByParent;
-    const selected = this.state.selectedElementId;
+  renderComponentsByParent(components, parent) {
+    const renderComponentsByParent = this.renderComponentsByParent;
+    const selected = this.props.activeComponent;
 
-    return Object.keys(elements).filter(key => elements[key].parent === parent).map(key => {
-      const subTree = renderElementsByParent(elements, key);
+    return Object.keys(components).filter(key => components[key].parent === parent).map(key => {
+      const subTree = renderComponentsByParent(components, key);
       const isSelected = key === selected;
       return (
         <QuestionnaireElement
           key={key}
           id={key}
-          name={elements[key].name}
-          type={elements[key].type}
-          label={elements[key].label}
+          name={components[key].name}
+          type={components[key].type}
+          label={components[key].label}
           selected={isSelected}
           onClickElement={event => this.handleElementSelect(event, key)}
           onClickDetail={event => this.handleOpenElementDetail(event, key)}
@@ -107,16 +111,16 @@ class Questionnaire extends Component {
   }
 
   render() {
-    const { locale, elements, questionnaire } = this.props;
-    const tree = this.renderElementsByParent(elements);
+    const { locale, components, questionnaire } = this.props;
+    const tree = this.renderComponentsByParent(components, questionnaire.id);
     let typeLocaleCurrentElement;
     let labelElementModal = '';
-    if (elements && this.state.idElementInModal) {
-      switch (elements[this.state.idElementInModal].type) {
-        case 'SEQUENCE':
+    if (components && this.state.idElementInModal) {
+      switch (components[this.state.idElementInModal].type) {
+        case SEQUENCE:
           typeLocaleCurrentElement = locale.sequence;
           break;
-        case 'QUESTION':
+        case QUESTION:
           typeLocaleCurrentElement = locale.question;
           break;
         default:
@@ -124,7 +128,7 @@ class Questionnaire extends Component {
           break;
       }
 
-      labelElementModal = `${typeLocaleCurrentElement} ${elements[this.state.idElementInModal].name}`;
+      labelElementModal = `${typeLocaleCurrentElement} ${components[this.state.idElementInModal].name}`;
     }
 
     return (

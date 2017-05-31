@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loadQuestionnaireList } from 'actions/questionnaire-list';
-import { loadCodeListSpecs } from 'actions/code-list-specification';
-import { removeQuestionnaire } from 'actions/questionnaire';
+import { loadQuestionnaireList } from 'actions/_questionnaire-list';
+// import { loadCodeListSpecs } from 'actions/code-list-specification';
+// import { removeQuestionnaire } from 'actions/questionnaire';
 import { toArray, buildSortByKey } from 'utils/array-utils';
 import QuestionnaireList from 'components/questionnaire/questionnaire-list';
 
+// @TODO: Extract from the container these methods
 function filterQuestionnaires(questionnaires, filter) {
   return questionnaires.filter(qr => qr.label.toLowerCase().indexOf(filter) !== -1);
 }
@@ -19,21 +20,21 @@ const mapStateToProps = state => ({
     filterQuestionnaires(toArray(state.questionnaireList), state.appState.questionnaireListFilter.toLowerCase())
   ),
   locale: state.locale,
-  allowRemoval: state.config.allowRemovalOfQuestionnaire,
+  // allowRemoval: state.config.allowRemovalOfQuestionnaire,
 });
 
 const mapDispatchToProps = {
   loadQuestionnaireList,
-  loadCodeListSpecs,
-  removeQuestionnaire,
+  // loadCodeListSpecs,
+  // removeQuestionnaire,
 };
 
 export class QuestionnaireListContainer extends Component {
   static propTypes = {
-    loadQuestionnaireList: PropTypes.func.isRequired,
-    loadCodeListSpecs: PropTypes.func.isRequired,
+    // loadCodeListSpecs: PropTypes.func.isRequired,
     locale: PropTypes.object.isRequired,
     questionnaires: PropTypes.array,
+    loadQuestionnaireList: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -42,7 +43,7 @@ export class QuestionnaireListContainer extends Component {
 
   componentWillMount() {
     this.props.loadQuestionnaireList();
-    this.props.loadCodeListSpecs();
+    // this.props.loadCodeListSpecs();
   }
 
   render() {

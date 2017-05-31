@@ -14,8 +14,7 @@
     "react": "^15.5.4",
     "react-modal": "^1.7.7",
     "react-redux": "^5.0.4",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
+    "react-router": "^3.0.5",
     "redux": "^3.6.0",
     "redux-form": "^6.7.0",
     "redux-thunk": "^2.2.0"
@@ -92,7 +91,7 @@
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build",
     "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'Update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'Update book' && git push git@github.com:Zenika/Pogues gh-pages --force",
-    "test": "cross-env NODE_ENV=test jest --env.test=true || true",
+    "test": "jest || true",
     "test:watch": "jest --watch",
     "dev": "webpack-dev-server",
     "server": "node ./utils/fake-backend/server.js",

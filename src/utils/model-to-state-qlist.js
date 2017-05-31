@@ -3,10 +3,10 @@
 // `agency` and `survey` as values. A survey is made of an `id`, a
 // `name` and an `agency`
 import { toArray } from 'utils/array-utils';
-import { removeUnderscore } from 'utils/model/model-utils';
+import { removeUnderscore } from 'utils/model/model-to-state-utils';
 
 export function qListToState(model) {
-  model = removeUnderscore(model, {});
+  model = removeUnderscore(model);
   return toArray(model).reduce((update, qr) => {
     const {
       id,
