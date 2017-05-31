@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Logger from 'utils/logger/logger';
 import QuestionnaireContainer from 'containers/questionnaire/questionnaire';
 import QuestionnaireNav from 'components/questionnaire/questionnaire-nav';
-import QuestionnaireGenericInputContainer from 'containers/questionnaire/questionnaire-generic-input';
+import GenericInputContainer from 'containers/generic-input/generic-input';
 import { setDefaultStateQuestionnaire } from 'actions/_app-state';
 
 const logger = new Logger('PageQuestionnaire', 'Components');
@@ -35,7 +35,7 @@ export class PageQuestionnaire extends Component {
       <div id="page-questionnaire">
         <QuestionnaireNav id={this.questionnaireId} />
         <QuestionnaireContainer id={this.questionnaireId} />
-        <QuestionnaireGenericInputContainer />
+        <GenericInputContainer questionnaireId={this.questionnaireId} />
       </div>
     );
   }

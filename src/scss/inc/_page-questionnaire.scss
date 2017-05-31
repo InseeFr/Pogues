@@ -8,6 +8,7 @@
   #questionnaire {
     @include make-xs-column(10);
     margin-top: 20px;
+    margin-bottom: 80px;
     padding-top: 20px;
     border: 1px solid $color-grey_02;
     border-radius: 5px;

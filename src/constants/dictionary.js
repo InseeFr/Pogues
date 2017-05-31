@@ -1,4 +1,8 @@
-export default {
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+
+const dictionary = {
   phLabel: {
     en: 'Enter a title for the questionnaire',
     fr: 'Entrez un titre pour le questionnaire',
@@ -703,3 +707,22 @@ export default {
     en: 'Add object',
   },
 };
+
+// Dynamic translations
+
+dictionary[`genericInputNew${QUESTION}`] = {
+  fr: 'Nouvelle question',
+  er: 'New question',
+};
+
+dictionary[`genericInputNew${SEQUENCE}`] = {
+  fr: 'Nouvelle sequence',
+  er: 'New sequence',
+};
+
+dictionary[`genericInputNew${SUBSEQUENCE}`] = {
+  fr: 'Nouvelle sub-séquence',
+  er: 'New sub-sequence',
+};
+
+export default dictionary;

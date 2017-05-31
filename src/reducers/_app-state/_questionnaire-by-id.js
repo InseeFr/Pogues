@@ -1,4 +1,4 @@
-import { SET_DEFAULT_STATE_QUESTIONNAIRE } from 'actions/_app-state';
+import { SET_DEFAULT_STATE_QUESTIONNAIRE, SET_LAST_COMPONENT_EDITED } from 'actions/_app-state';
 import { LOAD_QUESTIONNAIRE_SUCCESS, LOAD_QUESTIONNAIRE_FAILURE } from 'actions/_questionnaire';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 import { defaultQuestionnaireState } from 'utils/reducer/default-states';
@@ -35,8 +35,19 @@ export function loadQuestionnaireFailure(state, { id }) {
   };
 }
 
+export function setLastComponentEdited(state, { questionnaireId, componentId }) {
+  return {
+    ...state,
+    [questionnaireId]: {
+      ...state[questionnaireId],
+      lastComponentEdited: componentId,
+    },
+  };
+}
+
 actionHandlers[SET_DEFAULT_STATE_QUESTIONNAIRE] = setDefaultStateQuestionnaire;
 actionHandlers[LOAD_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
 actionHandlers[LOAD_QUESTIONNAIRE_FAILURE] = loadQuestionnaireFailure;
+actionHandlers[SET_LAST_COMPONENT_EDITED] = setLastComponentEdited;
 
 export default createActionHandlers(actionHandlers);
