@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { createComponent } from 'actions/_component';
-import { setLastComponentEdited } from 'actions/_app-state';
+import { setActiveComponent } from 'actions/_app-state';
 import GenericInputNew from 'components/generic-input/generic-input-new';
 
 const mapStateToProps = state => ({
@@ -12,14 +12,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   createComponent,
-  setLastComponentEdited,
+  setActiveComponent,
 };
 
 function GenericInputNewContainer({
   // eslint-disable-next-line no-shadow
   createComponent,
   // eslint-disable-next-line no-shadow
-  setLastComponentEdited,
+  setActiveComponent,
   locale,
   questionnaireId,
   parentId,
@@ -29,7 +29,7 @@ function GenericInputNewContainer({
 }) {
   const submit = values => {
     const { payload: { component } } = createComponent(questionnaireId, parentId, typeComponent, values.label);
-    setLastComponentEdited(questionnaireId, component.id);
+    setActiveComponent(component.id);
     onSuccess();
   };
 
@@ -38,7 +38,7 @@ function GenericInputNewContainer({
 
 GenericInputNewContainer.propTypes = {
   createComponent: PropTypes.func.isRequired,
-  setLastComponentEdited: PropTypes.func.isRequired,
+  setActiveComponent: PropTypes.func.isRequired,
   locale: PropTypes.object.isRequired,
   questionnaireId: PropTypes.string.isRequired,
   parentId: PropTypes.string.isRequired,

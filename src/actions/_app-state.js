@@ -1,6 +1,5 @@
 export const SET_DEFAULT_STATE_QUESTIONNAIRE = 'SET_DEFAULT_STATE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENT = 'SET_ACTIVE_COMPONENT';
-export const SET_LAST_COMPONENT_EDITED = 'SET_LAST_COMPONENT_EDITED';
 
 /**
  * Set a the default state of a questionnaire
@@ -22,16 +21,4 @@ export const setDefaultStateQuestionnaire = id => ({
 export const setActiveComponent = id => ({
   type: SET_ACTIVE_COMPONENT,
   payload: id,
-});
-
-/**
- * Set the last component edited or created
- *
- * @param  {string} questionnaireId questionnaire id
- * @param  {string} componentId component id
- * @return {object}    SET_LAST_COMPONENT_EDITED action
- */
-export const setLastComponentEdited = (questionnaireId, componentId) => ({
-  type: SET_LAST_COMPONENT_EDITED,
-  payload: { questionnaireId, componentId },
 });

@@ -15,6 +15,21 @@ class QuestionnaireElement extends Component {
   static defaultProps = {
     children: [],
   };
+  componentDidMount() {
+    this.ensureSelected();
+  }
+
+  componentDidUpdate() {
+    this.ensureSelected();
+  }
+
+  ensureSelected() {
+    if (this.props.selected) {
+      debugger;
+      this.node.scrollIntoView();
+    }
+  }
+
   render() {
     const { name, type, label, selected, children, onClickElement, onClickDetail } = this.props;
     return (
@@ -25,6 +40,7 @@ class QuestionnaireElement extends Component {
           'questionnaire-sequence': type === 'SEQUENCE',
           'questionnaire-question': type === 'QUESTION',
         })}
+        ref={node => (this.node = node)}
       >
         {/* eslint-disable jsx-a11y/no-static-element-interactions */}
         <div className="questionnaire-element-info" onClick={onClickElement}>
