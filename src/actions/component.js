@@ -35,14 +35,16 @@ export const createComponent = (questionnaireId, parentId, type, label) => ({
  * `update` is an object holding all the properties to update and their new
  * value.
  *
- * @param   {string} id     component id
- * @param   {object} update properties which need to be updated
+ * @param   {string}  componentId     component id
+ * @param   {string}  questionnaireId questionnaire component id
+ * @param   {object}  update properties which need to be updated
  * @returns {object}        EDIT_COMPONENT action
  */
-export const editComponent = (id, update) => ({
+export const editComponent = (componentId, questionnaireId, update) => ({
   type: EDIT_COMPONENT,
   payload: {
-    id,
+    componentId,
+    questionnaireId,
     update,
   },
 });
