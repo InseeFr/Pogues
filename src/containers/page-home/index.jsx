@@ -10,6 +10,8 @@ import QuestionnaireNewContainer from 'containers/questionnaire/questionnaire-ne
 
 const logger = new Logger('PageHome', 'Components');
 
+import Dictionary from '../../utils/dictionary/dictionary';
+
 const mapStateToProps = state => ({
   locale: state.locale,
 });
@@ -47,24 +49,22 @@ export class PageHome extends Component {
   }
 
   render() {
-    const { locale } = this.props;
-    console.log(locale.newEmptyQuestionnaire);
     return (
       <div id="page-home">
-        <h1>{locale.welcome}</h1>
+        <h1>{Dictionary.welcome}</h1>
         <div className="box home-questionnaires">
-          <h3>{locale.homeQuestionnairesInProgress}</h3>
+          <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
           {/* Mock stamp */}
-          <h4>{locale.stamp} : F302</h4>
+          <h4>{Dictionary.stamp} : F302</h4>
           <QuestionnaireListContainer />
         </div>
         <div className="home-sidebar">
           <div className="box">
-            <h3>{locale.createQuestionnaire}</h3>
+            <h3>{Dictionary.createQuestionnaire}</h3>
             <ul className="menu-navigation">
               <li>
                 <button id="questionnaire-new" className="btn-yellow" onClick={this.handleOpenModal}>
-                  <strong>{locale.emptyQuestionnaire}</strong>
+                  <strong>{Dictionary.emptyQuestionnaire}</strong>
                 </button>
               </li>
             </ul>
@@ -72,22 +72,22 @@ export class PageHome extends Component {
           <ul className="menu-navigation">
             <li>
               <button id="questionnaires-search" className="btn-search">
-                {locale.searchQuestionnaire}
+                {Dictionary.searchQuestionnaire}
               </button>
             </li>
 
             <li>
               <Link to="/" id="questionnaires-team" className="btn-blue">
                 <span className="glyphicon glyphicon-chevron-right" />
-                <strong>{locale.fromMyTeam}</strong><br />
-                {locale.inProgressAndPublished}
+                <strong>{Dictionary.fromMyTeam}</strong><br />
+                {Dictionary.inProgressAndPublished}
               </Link>
             </li>
             <li>
               <Link to="/" id="questionnaires-insee" className="btn-blue">
                 <span className="glyphicon glyphicon-chevron-right" />
-                <strong>{locale.fromRepository}</strong><br />
-                {locale.publishedByInsee}
+                <strong>{Dictionary.fromRepository}</strong><br />
+                {Dictionary.publishedByInsee}
               </Link>
             </li>
           </ul>
@@ -95,11 +95,11 @@ export class PageHome extends Component {
         <ReactModal
           isOpen={this.state.showModal}
           onRequestClose={this.handleCloseModal}
-          contentLabel={locale.newEmptyQuestionnaire}
+          contentLabel={Dictionary.newEmptyQuestionnaire}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{locale.newEmptyQuestionnaire}</h3>
+              <h3>{Dictionary.newEmptyQuestionnaire}</h3>
               <button onClick={this.handleCloseModal}><span>X</span></button>
             </div>
             <div className="popup-body">
