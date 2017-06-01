@@ -6,7 +6,7 @@ import Logger from 'utils/logger/logger';
 import QuestionnaireContainer from 'containers/questionnaire/questionnaire';
 import QuestionnaireNav from 'components/questionnaire/questionnaire-nav';
 import GenericInputContainer from 'containers/generic-input/generic-input';
-import { setDefaultStateQuestionnaire } from 'actions/_app-state';
+import { setDefaultStateQuestionnaire } from 'actions/app-state';
 
 const logger = new Logger('PageQuestionnaire', 'Components');
 

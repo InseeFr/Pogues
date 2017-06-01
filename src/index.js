@@ -23,5 +23,5 @@ renderApp(RouterContainer);
 
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('components/pogues-app', () => renderApp(RouterContainer));
+  module.hot.accept('containers/app', () => renderApp(RouterContainer));
 }

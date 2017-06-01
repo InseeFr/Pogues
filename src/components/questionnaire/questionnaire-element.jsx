@@ -25,7 +25,6 @@ class QuestionnaireElement extends Component {
 
   ensureSelected() {
     if (this.props.selected) {
-      debugger;
       this.node.scrollIntoView();
     }
   }

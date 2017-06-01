@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createComponent } from 'actions/_component';
-import { setActiveComponent } from 'actions/_app-state';
+import { createComponent } from 'actions/component';
+import { setActiveComponent } from 'actions/app-state';
 import GenericInputNew from 'components/generic-input/generic-input-new';
 
 const mapStateToProps = state => ({

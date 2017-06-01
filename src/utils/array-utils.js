@@ -4,8 +4,8 @@
  * @param   {string}   key the key to sort by
  * @returns {function}     sort an array by the given key
  */
-export const buildSortByKey = key =>
-  /**
+export const buildSortByKey = (
+  key /**
    * Sort an array by a given key
    * 
    * If `desc` is set to true, descending order will be used
@@ -14,13 +14,10 @@ export const buildSortByKey = key =>
    * @param   {boolean}    desc true if descending order required
    * @returns {array}           the array sorted by the given key
    */
-
-  (arr, desc = false) => {
-    const order = desc ? 1 : -1;
-    return arr.sort(
-      (a, b) => b[key] > a[key] ? order : b[key] === a[key] ? 0 : -order
-    );
-  };
+) => (arr, desc = false) => {
+  const order = desc ? 1 : -1;
+  return arr.sort((a, b) => (b[key] > a[key] ? order : b[key] === a[key] ? 0 : -order));
+};
 
 /**
  * 
@@ -33,22 +30,15 @@ export const buildSortByKey = key =>
  */
 export const toArray = (obj, idName) => {
   if (idName)
-    return Object.keys(obj).reduce(
-      (_, k) => {
-        _.push({
-          ...obj[k],
-          [idName]: k
-        });
-        return _;
-      },
-      []
-    );
-  else
-    return Object.keys(obj).reduce(
-      (_, k) => {
-        _.push(obj[k]);
-        return _;
-      },
-      []
-    );
+    return Object.keys(obj).reduce((_, k) => {
+      _.push({
+        ...obj[k],
+        [idName]: k,
+      });
+      return _;
+    }, []);
+  return Object.keys(obj).reduce((_, k) => {
+    _.push(obj[k]);
+    return _;
+  }, []);
 };
