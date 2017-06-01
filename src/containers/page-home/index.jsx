@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
@@ -12,14 +11,9 @@ const logger = new Logger('PageHome', 'Components');
 
 import Dictionary from '../../utils/dictionary/dictionary';
 
-const mapStateToProps = state => ({
-  locale: state.locale,
-});
-
 export class PageHome extends Component {
   static propTypes = {
     router: PropTypes.object.isRequired,
-    locale: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -112,4 +106,4 @@ export class PageHome extends Component {
   }
 }
 
-export default connect(mapStateToProps)(PageHome);
+export default PageHome;
