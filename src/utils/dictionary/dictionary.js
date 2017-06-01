@@ -1,4 +1,4 @@
-import Dictionary from '../../constants/dictionary';
+import Dictionary from 'constants/dictionary';
 
 /**
  * Based on the locale passed as a paremeter, this function will return 

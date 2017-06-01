@@ -9,7 +9,7 @@ import QuestionnaireNewContainer from 'containers/questionnaire/questionnaire-ne
 
 const logger = new Logger('PageHome', 'Components');
 
-import Dictionary from '../../utils/dictionary/dictionary';
+import Dictionary from 'utils/dictionary/dictionary';
 
 export class PageHome extends Component {
   static propTypes = {
