@@ -4,15 +4,21 @@ import PropTypes from 'prop-types';
 
 import Input from 'components/forms/controls/input';
 import { required } from 'components/forms/validation-rules';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-export function GenericInputNew({ handleSubmit, pristine, submitting, invalid, locale, error, onCancel }) {
+const { QUESTION } = COMPONENT_TYPE;
+
+export function ComponentNewEdit({ handleSubmit, pristine, submitting, type, edit, invalid, locale, error, onCancel }) {
   return (
     <div id="generic-input-new">
-      <ul display={invalid}>
-        {/* eslint-disable react/no-array-index-key */}
-        {error.map((e, index) => <li key={`validation-error-${index}`}>{e}</li>)}
-      </ul>
+      {/* <ul display={invalid}>*/}
+      {/* /!* eslint-disable react/no-array-index-key *!/*/}
+      {/* {error.map((e, index) => <li key={`validation-error-${index}`}>{e}</li>)}*/}
+      {/* </ul>*/}
       <form onSubmit={handleSubmit}>
+        {edit
+          ? <Field name="name" type="text" component={Input} label={locale.name} validate={[required]} required />
+          : ''}
 
         <Field name="label" type="text" component={Input} label={locale.title} validate={[required]} required />
 
@@ -25,8 +31,10 @@ export function GenericInputNew({ handleSubmit, pristine, submitting, invalid, l
   );
 }
 
-GenericInputNew.propTypes = {
+ComponentNewEdit.propTypes = {
   locale: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  edit: PropTypes.bool,
   handleSubmit: PropTypes.func,
   onCancel: PropTypes.func,
   pristine: PropTypes.bool,
@@ -35,15 +43,16 @@ GenericInputNew.propTypes = {
   error: PropTypes.array,
 };
 
-GenericInputNew.defaultProps = {
+ComponentNewEdit.defaultProps = {
   handleSubmit: undefined,
   onCancel: undefined,
   pristine: false,
   submitting: false,
   invalid: false,
   error: [],
+  edit: false,
 };
 
 export default reduxForm({
   form: 'questionnaire-new',
-})(GenericInputNew);
+})(ComponentNewEdit);

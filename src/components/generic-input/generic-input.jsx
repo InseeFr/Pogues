@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import GenericInputNewContainer from 'containers/generic-input/generic-input-new';
+import ComponentNewContainer from 'containers/component/component-new';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -85,15 +85,15 @@ class GenericInput extends Component {
         <ReactModal
           isOpen={this.state.showNewComponentModal}
           onRequestClose={this.handleCloseNewComponent}
-          contentLabel={this.state.typeNewComponent ? locale[`genericInputNew${this.state.typeNewComponent}`] : ''}
+          contentLabel={this.state.typeNewComponent ? locale[`componentNew${this.state.typeNewComponent}`] : ''}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{this.state.typeNewComponent ? locale[`genericInputNew${this.state.typeNewComponent}`] : ''}</h3>
+              <h3>{this.state.typeNewComponent ? locale[`componentNew${this.state.typeNewComponent}`] : ''}</h3>
               <button onClick={this.handleCloseNewComponent}><span>X</span></button>
             </div>
             <div className="popup-body">
-              <GenericInputNewContainer
+              <ComponentNewContainer
                 questionnaireId={questionnaireId}
                 parentId={questionnaireId}
                 typeComponent={this.state.typeNewComponent}

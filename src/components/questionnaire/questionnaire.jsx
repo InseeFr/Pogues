@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 
 import QuestionnaireElement from 'components/questionnaire/questionnaire-element';
 import QuestionnaireEditContainer from 'containers/questionnaire/questionnaire-edit';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
+import ComponentEditContainer from 'containers/component/component-edit';
 
 class Questionnaire extends Component {
   static propTypes = {
@@ -28,6 +26,7 @@ class Questionnaire extends Component {
       showQuestionnaireModal: false,
       showElementModal: false,
       idElementInModal: undefined,
+      typeElementInModal: undefined,
     };
 
     this.handleElementSelect = this.handleElementSelect.bind(this);
@@ -53,6 +52,7 @@ class Questionnaire extends Component {
       ...this.state,
       showElementModal: true,
       idElementInModal: idElement,
+      typeElementInModal: this.props.components[idElement].type,
     };
     this.setState(newState);
   }
@@ -62,6 +62,7 @@ class Questionnaire extends Component {
       ...this.state,
       showElementModal: false,
       idElementInModal: undefined,
+      typeElementInModal: undefined,
     };
     this.setState(newState);
   }
@@ -113,23 +114,6 @@ class Questionnaire extends Component {
   render() {
     const { locale, components, questionnaire } = this.props;
     const tree = this.renderComponentsByParent(components, questionnaire.id);
-    let typeLocaleCurrentElement;
-    let labelElementModal = '';
-    if (components && this.state.idElementInModal) {
-      switch (components[this.state.idElementInModal].type) {
-        case SEQUENCE:
-          typeLocaleCurrentElement = locale.sequence;
-          break;
-        case QUESTION:
-          typeLocaleCurrentElement = locale.question;
-          break;
-        default:
-          typeLocaleCurrentElement = '';
-          break;
-      }
-
-      labelElementModal = `${typeLocaleCurrentElement} ${components[this.state.idElementInModal].name}`;
-    }
 
     return (
       <div id="questionnaire">
@@ -164,15 +148,20 @@ class Questionnaire extends Component {
         <ReactModal
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
-          contentLabel={labelElementModal}
+          contentLabel={this.state.typeElementInModal ? locale[`componentEdit${this.state.typeElementInModal}`] : ''}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{labelElementModal}</h3>
+              <h3>{this.state.typeElementInModal ? locale[`componentEdit${this.state.typeElementInModal}`] : ''}</h3>
               <button onClick={this.handleCloseElementDetail}><span>X</span></button>
             </div>
             <div className="popup-body">
-              {labelElementModal}
+              <ComponentEditContainer
+                questionnaireId={questionnaire.id}
+                componentId={this.state.idElementInModal}
+                onCancel={this.handleCloseElementDetail}
+                onSuccess={this.handleCloseElementDetail}
+              />
             </div>
           </div>
         </ReactModal>
