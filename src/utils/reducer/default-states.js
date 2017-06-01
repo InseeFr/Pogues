@@ -8,6 +8,7 @@ export const defaultQuestionnaireState = {
   publishUrl: '',
   publishTimestamp: '',
   loaded: false,
+  lastComponentEdited: '',
 };
 
 // @TODO: Probably should change

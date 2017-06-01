@@ -6,7 +6,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
-import QuestionnaireGenericInput from './questionnaire-generic-input';
+import QuestionnaireGenericInput from '../generic-input/questionnaire-generic-input';
 import { QuestionnaireNewEdit as QuestionnaireNew } from './questionnaire-new-edit';
 import { getLocale } from 'utils/test/test-utils';
 

@@ -126,7 +126,7 @@ export const createQuestionnaire = (name, label) => dispatch => {
 
   // @TODO: We have to create a function to do this job in state-to-model-utils
   const newQuestionnaire = {
-    id: '',
+    id: 'Thisisatest',
     name: name,
     label: [label],
     declarations: [],

@@ -22,4 +22,3 @@ export const setActiveComponent = id => ({
   type: SET_ACTIVE_COMPONENT,
   payload: id,
 });
-

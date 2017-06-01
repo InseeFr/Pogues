@@ -52,6 +52,28 @@ export function getCondiditionsIdsFromRaw(rawLabel) {
   return getConditionsFromRaw(rawLabel).map(c => c.id);
 }
 
+export function createComponent({ id, name, label, children, type }, parent) {
+  const component = {
+    id,
+    name,
+    parent,
+  };
+
+  // @TODO: It will be necessary refactor
+  if (type === SEQUENCE_TYPE_NAME || type === SEQUENCE) {
+    component.type = SEQUENCE;
+    component.label = label;
+    component.children = children ? children.map(c => c.id) : [];
+  } else {
+    component.type = QUESTION;
+    component.rawLabel = label;
+    component.label = getQuestionLabelFromRaw(label);
+    component.conditions = getCondiditionsIdsFromRaw(label);
+  }
+
+  return component;
+}
+
 export function getConditionsFromComponents(components) {
   return Object.keys(components)
     .filter(key => {
@@ -65,24 +87,7 @@ export function getConditionsFromComponents(components) {
 }
 
 export function normalizeComponent({ id, name, label: [label], children, type }, parent) {
-  const component = {
-    id,
-    name,
-    parent,
-  };
-
-  if (type === SEQUENCE_TYPE_NAME) {
-    component.type = SEQUENCE;
-    component.label = label;
-    component.children = children.map(c => c.id);
-  } else {
-    component.type = QUESTION;
-    component.rawLabel = label;
-    component.label = getQuestionLabelFromRaw(label);
-    component.conditions = getCondiditionsIdsFromRaw(label);
-  }
-
-  return component;
+  return createComponent({ id, name, label, children, type }, parent);
 }
 
 export function normalizeNestedComponents(components, questionnaireId) {
@@ -121,5 +126,3 @@ export function getNumNestedChildren(children) {
     return result + carry;
   }, 0);
 }
-
-export default undefined;
