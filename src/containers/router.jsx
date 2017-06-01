@@ -2,9 +2,9 @@ import React from 'react';
 import { Router, hashHistory, Route, IndexRoute, Redirect } from 'react-router';
 
 import App from 'containers/app';
-import PageHome from 'components/page-home';
-import PageHelp from 'components/page-help';
-import PageQuestionnaire from 'components/page-questionnaire';
+import PageHome from 'containers/page-home';
+import PageHelp from 'containers/page-help';
+import PageQuestionnaire from 'containers/page-questionnaire';
 
 function RouterContainer() {
   return (

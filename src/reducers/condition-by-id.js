@@ -1,44 +1,15 @@
-import {
-  CREATE_CONDITION, REMOVE_CONDITION, EDIT_CONDITION
-} from '../actions/condition'
+import { LOAD_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
+import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
-import {
-  LOAD_QUESTIONNAIRE_SUCCESS
-} from '../actions/questionnaire'
+const actionHandlers = {};
 
-
-//ATTENTION : never update text expression in place !!!
-const emptyCondition = {
-  label: '',
-  condition: ''
+export function loadQuestionnaireSuccess(state, { update }) {
+  return {
+    ...state,
+    ...update.conditionById,
+  };
 }
 
-export default function (state={}, action) {
-  const { type, payload } = action
-  switch (type) {
-    case CREATE_CONDITION:
-      return {
-        ...state,
-        [payload.id]: {
-          id: payload.id,
-          ...emptyCondition,
-        }
-      }
-    case EDIT_CONDITION:
-      return {
-        ...state,
-        [payload.id]: {
-          ...state[payload.id],
-          ...payload.update
-        }
-      }
-    case REMOVE_CONDITION:
-      // eslint-disable-next-line
-      const { [payload.id]: toRemove, ...toKeep } = state
-      return toKeep
-    case LOAD_QUESTIONNAIRE_SUCCESS:
-      return payload.update.conditionById
-    default:
-      return state
-  }
-}
+actionHandlers[LOAD_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
+
+export default createActionHandlers(actionHandlers);

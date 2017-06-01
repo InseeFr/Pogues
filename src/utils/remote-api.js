@@ -3,28 +3,32 @@ This module should stay as much as possible ignorant of the inner workings of
 the API, and especially the shape of the returned objects.
 Yet, it does not seem relevant to return raw responses objects to the reducer. The option chosen consists of returning javascript objects extracted from headers or response body, but not processing them.
 */
-import fetch from 'isomorphic-fetch'
-import config from '../config/config'
-import Logger from 'utils/logger/logger'
+import fetch from 'isomorphic-fetch';
+import config from '../config/config';
+import Logger from 'utils/logger/logger';
 import ValidationError from 'components/forms/validation-error';
 
-var logger = new Logger('RemoteApi', 'Remote')
+const logger = new Logger('RemoteApi', 'Remote');
 
 const {
-  baseURL,poguesBOBaseURL, persistPath, stromaePath, importRMeSPath,
-  codeLists: { repoURLSpecs, repoURLCList }
-} = config
+  baseURL,
+  poguesBOBaseURL,
+  persistPath,
+  stromaePath,
+  importRMeSPath,
+  codeLists: { repoURLSpecs, repoURLCList },
+} = config;
 
-const urlGetQuestionnaire         = baseURL + persistPath + '/questionnaire'
-const urlRMeSQuestionnaire        = poguesBOBaseURL + importRMeSPath + '/questionnaire'
-const urlPostQuestionnaire        = baseURL + persistPath + '/questionnaires'
-const urlPutQuestionnaire         = baseURL + persistPath + '/questionnaire'
-const urlDeleteQuestionnaire      = baseURL + persistPath + '/questionnaire'
-const urlGetQuestionnaireList     = baseURL + persistPath + '/questionnaires'
-const urlStromaePostQuestionnaire = baseURL + stromaePath
-//TODO ivestigate repo API
-const urlGetSpecs                 = repoURLSpecs
-const urlGetCList                 = repoURLCList
+const urlGetQuestionnaire = `${baseURL + persistPath}/questionnaire`;
+const urlRMeSQuestionnaire = `${poguesBOBaseURL + importRMeSPath}/questionnaire`;
+const urlPostQuestionnaire = `${baseURL + persistPath}/questionnaires`;
+const urlPutQuestionnaire = `${baseURL + persistPath}/questionnaire`;
+const urlDeleteQuestionnaire = `${baseURL + persistPath}/questionnaire`;
+const urlGetQuestionnaireList = `${baseURL + persistPath}/questionnaires`;
+const urlStromaePostQuestionnaire = baseURL + stromaePath;
+// TODO ivestigate repo API
+const urlGetSpecs = repoURLSpecs;
+const urlGetCList = repoURLCList;
 
 /**
  * Questionnaire List
@@ -34,11 +38,9 @@ const urlGetCList                 = repoURLCList
 export const getQuestionnaireList = () =>
   fetch(urlGetQuestionnaireList, {
     headers: {
-      'Accept': 'application/json'
-    }
-  })
-  .then(res => res.json())
-
+      Accept: 'application/json',
+    },
+  }).then(res => res.json());
 
 /**
  * Questionnaire
@@ -46,51 +48,53 @@ export const getQuestionnaireList = () =>
  */
 
 export const postQuestionnaire = qr =>
- fetch(urlPostQuestionnaire, {
-   method: 'POST',
-   headers: {
-    // 'Accept': 'application/json'
-    // HACK needs to set content-type to text/html ; if not, server returns a 405 error
-     'Content-Type': 'text/html',
-    //  'Content-Type': 'application/json'
-   },
-   body: JSON.stringify(qr)
- }).then(res => {
-   // @TODO check in header slug is the same as qr._id
-   if (res.ok) return res.headers.get('location')
-   else if(res.status === 400) return res.json()
-   throw new ValidationError(`Network request failed : ${res.statusText}`);
- }).then(res => {
-   if(res.validation) throw new ValidationError('Validation error', res.validation);
-   return res;
- })
+  fetch(urlPostQuestionnaire, {
+    method: 'POST',
+    headers: {
+      // 'Accept': 'application/json'
+      // HACK needs to set content-type to text/html ; if not, server returns a 405 error
+      'Content-Type': 'text/html',
+      //  'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(qr),
+  })
+    .then(res => {
+      // @TODO check in header slug is the same as qr._id
+      if (res.ok) return res.headers.get('location');
+      else if (res.status === 400) return res.json();
+      throw new ValidationError(`Network request failed : ${res.statusText}`);
+    })
+    .then(res => {
+      if (res.validation) throw new ValidationError('Validation error', res.validation);
+      return res;
+    });
 
-//TODO better use of fetch API (use of `new Request(...)` instead of building
-//a string with the url)
+// TODO better use of fetch API (use of `new Request(...)` instead of building
+// a string with the url)
 export const putQuestionnaire = (id, qr) =>
-  fetch(urlPutQuestionnaire + '/' + id, {
+  fetch(`${urlPutQuestionnaire}/${id}`, {
     method: 'PUT',
     headers: {
       // 'Accept': 'application/json'
-      //HACK needs to set content-type to text/html ; if not, server returns a 500 error
-      'Content-Type': 'application/json'
+      // HACK needs to set content-type to text/html ; if not, server returns a 500 error
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(qr)
+    body: JSON.stringify(qr),
   }).then(res => {
-    if (res.ok) return res
-    else throw new Error('Network request failed :' + res.statusText)
-  })
+    if (res.ok) return res;
+    throw new Error(`Network request failed :${res.statusText}`);
+  });
 
 export const deleteQuestionnaire = id =>
-  fetch(urlDeleteQuestionnaire + '/' + id, {
+  fetch(`${urlDeleteQuestionnaire}/${id}`, {
     method: 'DELETE',
     headers: {
-      'Accept': 'application/json'
-    }
+      Accept: 'application/json',
+    },
   }).then(res => {
-    if (res.ok) return res
-    else throw new Error('Network request failed :' + res.statusText)
-  })
+    if (res.ok) return res;
+    throw new Error(`Network request failed :${res.statusText}`);
+  });
 /**
  * Publish questionnaire
  * path like '/publisher/questionnaire'
@@ -100,46 +104,43 @@ export const stromaePostQuestionnaire = serializedQuestionnaire => {
   return fetch(urlStromaePostQuestionnaire, {
     method: 'POST',
     headers: {
-        // 'Accept': 'application/json'
-        //HACK needs to set content-type to text/html ; if not, server returns a 405 error
-      'Content-Type': 'text/html'
+      // 'Accept': 'application/json'
+      // HACK needs to set content-type to text/html ; if not, server returns a 405 error
+      'Content-Type': 'text/html',
     },
-    body: JSON.stringify(serializedQuestionnaire)
+    body: JSON.stringify(serializedQuestionnaire),
   }).then(res => {
     if (res.ok) {
-      var end = new Date().getTime();
-      var execTimeSec = (end - start) / 1000;
+      const end = new Date().getTime();
+      const execTimeSec = (end - start) / 1000;
       logger.debug('Response timing : ', execTimeSec, ' sec');
-      return res.headers.get('location')
+      return res.headers.get('location');
     }
-    else throw new Error('Network request failed :' + res.statusText)
-  })
-}
+    throw new Error(`Network request failed :${res.statusText}`);
+  });
+};
 
 /**
  * Retrieve questionnaire
  * path like '/pogues/questionnaire:id'
  */
 export const getQuestionnaire = id =>
-  fetch(urlGetQuestionnaire + '/' + id, {
+  fetch(`${urlGetQuestionnaire}/${id}`, {
     headers: {
-      'Accept': 'application/json'
-    }
-  }).then(res => res.json())
+      Accept: 'application/json',
+    },
+  }).then(res => res.json());
 
-
-  /**
+/**
    * Retrieve questionnaire from repo
    * path like '/pogues/rmes/questionnaire:id'
    */
-  export const importQuestionnaireFromRepo = id =>
-    fetch(urlRMeSQuestionnaire + '/' + id, {
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then(res => res.json())
-
-
+export const importQuestionnaireFromRepo = id =>
+  fetch(`${urlRMeSQuestionnaire}/${id}`, {
+    headers: {
+      Accept: 'application/json',
+    },
+  }).then(res => res.json());
 
 /**
  * Retrieve code list specifications
@@ -147,16 +148,16 @@ export const getQuestionnaire = id =>
 export const getCodeListSpecs = () =>
   fetch(urlGetSpecs, {
     headers: {
-      'Accept': 'application/json'
-    }
-  }).then(res => res.json())
+      Accept: 'application/json',
+    },
+  }).then(res => res.json());
 
 /**
  * Retrieve code list
  */
 export const getCodeList = retrievalQuery =>
-  fetch(urlGetCList + '/' + retrievalQuery, {
+  fetch(`${urlGetCList}/${retrievalQuery}`, {
     headers: {
-      'Accept': 'application/json'
-    }
-  }).then(res => res.json())
+      Accept: 'application/json',
+    },
+  }).then(res => res.json());

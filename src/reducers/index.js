@@ -1,45 +1,24 @@
-import { combineReducers } from 'redux'
-import appState from './app-state'
-import questionnaireById from './questionnaires-by-id'
-import componentById from './components-by-id'
-import goToById from './goTos-by-id'
-import declarationById from './declarations-by-id'
-import controlById from './controls-by-id'
-import codeListById from './code-list-by-id'
-import codeListByQuestionnaire from './code-list-by-questionnaire'
-import responseFormatById from './response-format-by-id'
-import codeById from './code-by-id'
-import conditionById from './condition-by-id'
-import pageBreakById from './page-break-by-id'
-import config from './config'
-import integrityChecker from './integrity-checker'
-import combineCheckers from './checkers'
-import goTosChecker from '../utils/goTosChecker'
-import questionnaireLengthChecker from '../utils/questionnaireLengthChecker'
-import locale from './dictionary'
-import questionnaireList from './questionnaire-list'
+import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 
-//TODO think again
-// A lot of boilerplate in the ui with a `locale` reducer, it might be better to
-// pass locale through the context (but risky if we want to change the language
-// during the session ?)
+import appState from './app-state';
+import questionnaireById from './questionnaire-by-id';
+import componentById from './component-by-id';
+import conditionById from './condition-by-id';
+import questionnaireList from './questionnaire-list';
+import locale from './dictionary';
+import integrityChecker from 'utils/reducer/integrity-checker';
+import combineCheckers from 'utils/reducer/combine-checkers';
 
-export default integrityChecker(combineReducers({
-  locale,
-  config,
-  appState,
-  questionnaireList,
-  questionnaireById,
-  componentById,
-  // codeListByQuestionnaire,
-  // codeListById,²
-  // goToById,
-  // declarationById,
-  // controlById,
-  // responseFormatById,
-  // codeById,
-  // conditionById,
-  // pageBreakById,
-  form
-}), combineCheckers(questionnaireLengthChecker, goTosChecker))
+export default integrityChecker(
+  combineReducers({
+    locale,
+    appState,
+    questionnaireList,
+    questionnaireById,
+    componentById,
+    conditionById,
+    form,
+  }),
+  combineCheckers()
+);

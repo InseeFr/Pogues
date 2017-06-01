@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loadQuestionnaireList } from 'actions/_questionnaire-list';
+import { loadQuestionnaireList } from 'actions/questionnaire-list';
 // import { loadCodeListSpecs } from 'actions/code-list-specification';
 // import { removeQuestionnaire } from 'actions/questionnaire';
 import { toArray, buildSortByKey } from 'utils/array-utils';

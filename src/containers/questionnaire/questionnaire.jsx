@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { loadQuestionnaireIfNeeded } from 'actions/_questionnaire';
-import { setActiveComponent } from 'actions/_app-state';
+import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
+import { setActiveComponent } from 'actions/app-state';
 import Questionnaire from 'components/questionnaire/questionnaire';
 
 const mapStateToProps = (state, { id }) => {

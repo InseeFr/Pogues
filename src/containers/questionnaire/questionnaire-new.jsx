@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
-import { createQuestionnaire, CREATE_QUESTIONNAIRE_FAILURE } from 'actions/_questionnaire';
+import { createQuestionnaire, CREATE_QUESTIONNAIRE_FAILURE } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
 
 const mapStateToProps = state => ({

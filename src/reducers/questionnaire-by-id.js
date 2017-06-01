@@ -1,4 +1,4 @@
-import { LOAD_QUESTIONNAIRE_SUCCESS, CREATE_QUESTIONNAIRE_SUCCESS } from 'actions/_questionnaire';
+import { LOAD_QUESTIONNAIRE_SUCCESS, CREATE_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 import { defaultQuestionnaire } from 'utils/reducer/default-states';
 
