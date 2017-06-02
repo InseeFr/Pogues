@@ -111,3 +111,4 @@ export const DEFAULT_LANG = 'fr';
 export const ENV_TEST = 'test';
 
 export const SEQUENCE_TYPE_NAME = 'SequenceType';
+export const QUESTION_TYPE_NAME = 'QuestionType';

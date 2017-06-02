@@ -5,6 +5,7 @@ import appState from './app-state';
 import questionnaireById from './questionnaire-by-id';
 import componentById from './component-by-id';
 import conditionById from './condition-by-id';
+import responseFormatById from './response-format-by-id';
 import questionnaireList from './questionnaire-list';
 import locale from './dictionary';
 import integrityChecker from 'utils/reducer/integrity-checker';
@@ -18,6 +19,7 @@ export default integrityChecker(
     questionnaireById,
     componentById,
     conditionById,
+    responseFormatById,
     form,
   }),
   combineCheckers()
