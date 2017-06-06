@@ -7,7 +7,6 @@ import { setActiveComponent } from 'actions/app-state';
 import ComponentNewEdit from 'components/component/component-new-edit';
 
 const mapStateToProps = (state, { questionnaireId, componentId }) => ({
-  locale: state.locale,
   component: state.appState.componentListByQuestionnaire[questionnaireId][componentId],
   questionnaireId,
 });
@@ -20,7 +19,6 @@ const mapDispatchToProps = {
 function ComponentEditContainer({
   // eslint-disable-next-line no-shadow
   editComponent,
-  locale,
   component,
   questionnaireId,
   onSuccess,
@@ -37,7 +35,8 @@ function ComponentEditContainer({
   return (
     <ComponentNewEdit
       {...initialValues}
-      locale={locale}
+      componentId={component.id}
+      questionnaireId={questionnaireId}
       edit
       type={component.type}
       onSubmit={submit}
@@ -48,7 +47,6 @@ function ComponentEditContainer({
 
 ComponentEditContainer.propTypes = {
   editComponent: PropTypes.func.isRequired,
-  locale: PropTypes.object.isRequired,
   component: PropTypes.object.isRequired,
   questionnaireId: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,

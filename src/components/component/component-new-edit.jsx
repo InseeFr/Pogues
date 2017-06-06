@@ -2,13 +2,36 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
+import ResponseFormatContainer from 'containers/response-format/response-format';
 import Input from 'components/forms/controls/input';
+import Tabs from 'components/widget/tabs';
 import { required } from 'components/forms/validation-rules';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-export function ComponentNewEdit({ handleSubmit, pristine, submitting, type, edit, invalid, locale, error, onCancel }) {
+export function ComponentNewEdit({
+  componentId,
+  questionnaireId,
+  handleSubmit,
+  pristine,
+  submitting,
+  type,
+  edit,
+  // invalid,
+  // error,
+  onCancel,
+}) {
+  const panels = [];
+
+  if (type === QUESTION && edit) {
+    panels.push({
+      label: Dictionary.responsesEdition,
+      content: <ResponseFormatContainer questionId={componentId} questionnaireId={questionnaireId} />,
+    });
+  }
+
   return (
     <div id="generic-input-new">
       {/* <ul display={invalid}>*/}
@@ -17,14 +40,18 @@ export function ComponentNewEdit({ handleSubmit, pristine, submitting, type, edi
       {/* </ul>*/}
       <form onSubmit={handleSubmit}>
         {edit
-          ? <Field name="name" type="text" component={Input} label={locale.name} validate={[required]} required />
+          ? <Field name="name" type="text" component={Input} label={Dictionary.name} validate={[required]} required />
           : ''}
 
-        <Field name="label" type="text" component={Input} label={locale.title} validate={[required]} required />
+        <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
+
+        {panels.length > 0 ? <Tabs components={panels} /> : ''}
 
         <div className="form-footer">
-          {onCancel ? <button className="cancel" disabled={submitting} onClick={onCancel}>{locale.cancel}</button> : ''}
-          <button type="submit" disabled={pristine || submitting}>{locale.validate}</button>
+          {onCancel
+            ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>
+            : ''}
+          <button type="submit" disabled={pristine || submitting}>{Dictionary.validate}</button>
         </div>
       </form>
     </div>
@@ -32,15 +59,16 @@ export function ComponentNewEdit({ handleSubmit, pristine, submitting, type, edi
 }
 
 ComponentNewEdit.propTypes = {
-  locale: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
+  componentId: PropTypes.string,
+  questionnaireId: PropTypes.string,
   edit: PropTypes.bool,
   handleSubmit: PropTypes.func,
   onCancel: PropTypes.func,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
-  invalid: PropTypes.bool,
-  error: PropTypes.array,
+  // invalid: PropTypes.bool,
+  // error: PropTypes.array,
 };
 
 ComponentNewEdit.defaultProps = {
@@ -51,6 +79,8 @@ ComponentNewEdit.defaultProps = {
   invalid: false,
   error: [],
   edit: false,
+  componentId: undefined,
+  questionnaireId: undefined,
 };
 
 export default reduxForm({

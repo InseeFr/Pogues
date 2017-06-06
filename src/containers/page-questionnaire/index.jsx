@@ -7,17 +7,20 @@ import QuestionnaireContainer from 'containers/questionnaire/questionnaire';
 import QuestionnaireNav from 'components/questionnaire/questionnaire-nav';
 import GenericInputContainer from 'containers/generic-input/generic-input';
 import { setDefaultStateQuestionnaire } from 'actions/app-state';
+import { loadCodeListSpecs } from 'actions/code-list-specification';
 
 const logger = new Logger('PageQuestionnaire', 'Components');
 
 const mapDispatchToProps = {
   setDefaultStateQuestionnaire,
+  loadCodeListSpecs,
 };
 
 export class PageQuestionnaire extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
     setDefaultStateQuestionnaire: PropTypes.func.isRequired,
+    loadCodeListSpecs: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -28,6 +31,7 @@ export class PageQuestionnaire extends Component {
   componentWillMount() {
     logger.debug('Rendering PageQuestionnaire component');
     this.props.setDefaultStateQuestionnaire(this.questionnaireId);
+    this.props.loadCodeListSpecs();
   }
 
   render() {

@@ -1,6 +1,7 @@
 // @TODO: Documentation
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import parseResponseFormat from './response-format/parse-response-format';
+import { uuid } from 'utils/data-utils';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
@@ -222,6 +223,56 @@ export function getRawComponentsFromNested(questionnaireChildren, questionnaireI
   return getRawComponents(questionnaireChildren, questionnaireId, {});
 }
 
+function normalizeCodes(preNormalizedCodesLists) {
+  return preNormalizedCodesLists.reduce((acc, cl) => {
+    return {
+      ...acc,
+      ...cl.codes,
+    };
+  }, {});
+}
+
+function preNormalizeCodesLists(codesLists) {
+  return codesLists.map(cl => {
+    cl.codes = cl.codes.reduce((acc, code) => {
+      const id = uuid();
+      const { label, value } = code;
+      return {
+        ...acc,
+        [id]: {
+          id,
+          label,
+          value,
+        },
+      };
+    }, {});
+    return cl;
+  });
+}
+
+function normalizeCodesLists(preNormalizedCodesLists) {
+  return preNormalizedCodesLists.reduce((acc, cl) => {
+    const { id, name, label, codes } = cl;
+    const clState = {
+      id,
+      name,
+      label,
+      codes: Object.keys(codes),
+    };
+    // HACK for now, it's not possible to distinguish between code list created
+    // by the user from code list that come from code list specification when
+    // we load the questionnaire.
+    if (name.startsWith('cl_')) {
+      clState.spec = true;
+      clState.loaded = true;
+    }
+    return {
+      ...acc,
+      [id]: clState,
+    };
+  }, {});
+}
+
 /**
  * Normalize questionnaire
  *
@@ -231,7 +282,7 @@ export function getRawComponentsFromNested(questionnaireChildren, questionnaireI
  * @return {object} normalized data from the questionnaire
  */
 export function normalizeQuestionnaire(questionnaire) {
-  const { id, label: [label], children } = questionnaire;
+  const { id, label: [label], children, codeLists: { codeListSpecification, codeList } } = questionnaire;
   const rawComponents = getRawComponentsFromNested(children, id);
   const rawQuestions = {};
   const normalizedQuestions = {};
@@ -258,16 +309,38 @@ export function normalizeQuestionnaire(questionnaire) {
 
   // CONDITION_BY_ID
   const conditionById = getConditionsFromNormalizedQuestions(normalizedQuestions);
+
   // RESPONSE_FORMAT_BY_ID
   const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
+
+  // CODE_BY_ID
+  const preNormalizedCodesLists = preNormalizeCodesLists(codeList);
+
+  const codeById = normalizeCodes(preNormalizedCodesLists);
+
+  // CODE_LIST_BY_ID
+  const codeListById = normalizeCodesLists(preNormalizedCodesLists);
+
+  // CODE_LIST_BY_QUESTIONNAIRE
+  const codeListByQuestionnaire = {
+    [id]: Object.keys(codeListById),
+  };
+
   return {
     questionnaire: {
       id,
       label,
+      codeLists: {
+        codeListSpecification,
+        codeList: codeList.map(cl => cl.id),
+      },
     },
     componentById,
     conditionById,
     responseFormatById,
+    codeListById,
+    codeListByQuestionnaire,
+    codeById,
   };
 }
 

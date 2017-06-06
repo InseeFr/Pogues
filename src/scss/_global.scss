@@ -140,3 +140,21 @@ body {
     }
   }
 }
+
+// Widget styles
+
+.tabs {
+  .nav-link {
+    color: #464a4c;
+    background-color: #fff;
+    border-color: #ddd #ddd #fff;
+  }
+  .nav-content {
+    display: none;
+    margin-top: 20px;
+
+    &.active {
+      display: block;
+    }
+  }
+}

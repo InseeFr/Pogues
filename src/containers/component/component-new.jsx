@@ -6,10 +6,6 @@ import { createComponent } from 'actions/component';
 import { setActiveComponent } from 'actions/app-state';
 import ComponentNewEdit from 'components/component/component-new-edit';
 
-const mapStateToProps = state => ({
-  locale: state.locale,
-});
-
 const mapDispatchToProps = {
   createComponent,
   setActiveComponent,
@@ -20,7 +16,6 @@ function ComponentNewContainer({
   createComponent,
   // eslint-disable-next-line no-shadow
   setActiveComponent,
-  locale,
   questionnaireId,
   parentId,
   typeComponent,
@@ -33,13 +28,12 @@ function ComponentNewContainer({
     onSuccess();
   };
 
-  return <ComponentNewEdit locale={locale} type={typeComponent} onSubmit={submit} onCancel={onCancel} />;
+  return <ComponentNewEdit type={typeComponent} onSubmit={submit} onCancel={onCancel} />;
 }
 
 ComponentNewContainer.propTypes = {
   createComponent: PropTypes.func.isRequired,
   setActiveComponent: PropTypes.func.isRequired,
-  locale: PropTypes.object.isRequired,
   questionnaireId: PropTypes.string.isRequired,
   parentId: PropTypes.string.isRequired,
   typeComponent: PropTypes.string.isRequired,
@@ -52,4 +46,4 @@ ComponentNewContainer.defaultProps = {
   onCancel: undefined,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComponentNewContainer);
+export default connect(undefined, mapDispatchToProps)(ComponentNewContainer);
