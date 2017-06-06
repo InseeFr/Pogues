@@ -223,6 +223,14 @@ export function getRawComponentsFromNested(questionnaireChildren, questionnaireI
   return getRawComponents(questionnaireChildren, questionnaireId, {});
 }
 
+/**
+ * Normalize codes
+ *
+ * Normalize codes from pretreated codes lists
+ *
+ * @param  {array}  preNormalizedCodesLists   lists of codes prenormalized
+ * @return {object} normalized codes
+ */
 function normalizeCodes(preNormalizedCodesLists) {
   return preNormalizedCodesLists.reduce((acc, cl) => {
     return {
@@ -232,6 +240,14 @@ function normalizeCodes(preNormalizedCodesLists) {
   }, {});
 }
 
+/**
+ * Prenormalize codes lists
+ *
+ * Prepare the list of codes to obtain codeListById, codeById and codeListByQuestionnaire
+ *
+ * @param  {array}  codesLists   lists of codes
+ * @return {array}  prenormalized lists of codes
+ */
 function preNormalizeCodesLists(codesLists) {
   return codesLists.map(cl => {
     cl.codes = cl.codes.reduce((acc, code) => {
@@ -250,6 +266,14 @@ function preNormalizeCodesLists(codesLists) {
   });
 }
 
+/**
+ * Normalize codes lists
+ *
+ * Get a plain list with all the list of codes
+ *
+ * @param  {array}  preNormalizedCodesLists   lists of codes prenormalized
+ * @return {object} normalized lists of codes
+ */
 function normalizeCodesLists(preNormalizedCodesLists) {
   return preNormalizedCodesLists.reduce((acc, cl) => {
     const { id, name, label, codes } = cl;
