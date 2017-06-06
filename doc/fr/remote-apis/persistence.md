@@ -44,6 +44,19 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
           "_goTos": [],
           "_controls": [],
           "_questionType": "SIMPLE",
+          "calculatedVariables": [
+            {
+              "label": "label",
+              "name": "name",
+              "formula": "formula"
+            }
+          ],
+          "collectedVariables": [
+            {
+              "label": "label",
+              "name": "name"
+            }
+          ],
           "_responses": [
             {
               "_mandatory": false,
