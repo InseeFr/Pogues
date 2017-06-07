@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import GenericInputNewContainer from 'containers/generic-input/generic-input-new';
+import ComponentNewContainer from 'containers/component/component-new';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 class GenericInput extends Component {
   static propTypes = {
-    locale: PropTypes.object.isRequired,
     questionnaireId: PropTypes.string,
   };
   static defaultProps = {
@@ -43,10 +43,10 @@ class GenericInput extends Component {
     this.setState(newState);
   }
   render() {
-    const { locale, questionnaireId } = this.props;
+    const { questionnaireId } = this.props;
     return (
       <div id="questionnaire-generic-input" style={{ display: !this.state.showNewComponentModal ? 'block' : 'none' }}>
-        <span>{locale.addObject}</span>
+        <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
           className="btn-white"
@@ -54,7 +54,7 @@ class GenericInput extends Component {
             this.handleOpenNewComponent(QUESTION);
           }}
         >
-          <span className="glyphicon glyphicon-plus" />{locale.question}
+          <span className="glyphicon glyphicon-plus" />{Dictionary.question}
         </button>
         <button
           id="add-sequence"
@@ -63,7 +63,7 @@ class GenericInput extends Component {
             this.handleOpenNewComponent(SEQUENCE);
           }}
         >
-          <span className="glyphicon glyphicon-plus" />{locale.sequence}
+          <span className="glyphicon glyphicon-plus" />{Dictionary.sequence}
         </button>
         <button
           id="add-subsequence"
@@ -72,28 +72,28 @@ class GenericInput extends Component {
             this.handleOpenNewComponent(SUBSEQUENCE);
           }}
         >
-          <span className="glyphicon glyphicon-plus" />{locale.subSequence}
+          <span className="glyphicon glyphicon-plus" />{Dictionary.subSequence}
         </button>
-        <button className="btn-white"><span className="glyphicon glyphicon-plus" />{locale.pageBreak}</button>
-        <button className="btn-yellow">{locale.save}<span className="glyphicon glyphicon-floppy-disk" /></button>
-        <button className="btn-yellow">{locale.visualise}<span className="glyphicon glyphicon-eye-open" /></button>
+        <button className="btn-white"><span className="glyphicon glyphicon-plus" />{Dictionary.pageBreak}</button>
+        <button className="btn-yellow">{Dictionary.save}<span className="glyphicon glyphicon-floppy-disk" /></button>
+        <button className="btn-yellow">{Dictionary.visualise}<span className="glyphicon glyphicon-eye-open" /></button>
         <button className="btn-yellow">
-          {locale.publishQuestionnaire}<span className="glyphicon glyphicon-share-alt" />
+          {Dictionary.publishQuestionnaire}<span className="glyphicon glyphicon-share-alt" />
         </button>
-        <button className="btn-yellow">{locale.duplicate}<span className="glyphicon glyphicon-duplicate" /></button>
-        <button className="btn-yellow">{locale.remove}<span className="glyphicon glyphicon-trash" /></button>
+        <button className="btn-yellow">{Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" /></button>
+        <button className="btn-yellow">{Dictionary.remove}<span className="glyphicon glyphicon-trash" /></button>
         <ReactModal
           isOpen={this.state.showNewComponentModal}
           onRequestClose={this.handleCloseNewComponent}
-          contentLabel={this.state.typeNewComponent ? locale[`genericInputNew${this.state.typeNewComponent}`] : ''}
+          contentLabel={this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{this.state.typeNewComponent ? locale[`genericInputNew${this.state.typeNewComponent}`] : ''}</h3>
+              <h3>{this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}</h3>
               <button onClick={this.handleCloseNewComponent}><span>X</span></button>
             </div>
             <div className="popup-body">
-              <GenericInputNewContainer
+              <ComponentNewContainer
                 questionnaireId={questionnaireId}
                 parentId={questionnaireId}
                 typeComponent={this.state.typeNewComponent}

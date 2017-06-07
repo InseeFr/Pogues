@@ -174,5 +174,9 @@
       font-size: $font-xs;
       margin: 10px;
     }
+
+    body.ReactModal__Body--open & {
+      z-index: -100;
+    }
   }
 }

@@ -7,7 +7,6 @@ import { EDIT_QUESTIONNAIRE_FAILURE } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
 
 const mapStateToProps = (state, { id }) => ({
-  locale: state.locale,
   questionnaire: state.questionnaireById[id],
 });
 
@@ -17,7 +16,7 @@ const mapDispatchToProps = {
 };
 
 // eslint-disable-next-line no-shadow
-function QuestionnaireEditContainer({ editQuestionnaire, locale, questionnaire, onSuccess, onCancel }) {
+function QuestionnaireEditContainer({ editQuestionnaire, questionnaire, onSuccess, onCancel }) {
   const submit = values => {
     return editQuestionnaire(values.name, values.label).then(result => {
       const { type, payload: { id, validation } } = result;
@@ -31,12 +30,11 @@ function QuestionnaireEditContainer({ editQuestionnaire, locale, questionnaire, 
     initialValues: questionnaire,
   };
 
-  return <QuestionnaireNewEdit {...initialValues} locale={locale} onSubmit={submit} onCancel={onCancel} />;
+  return <QuestionnaireNewEdit {...initialValues} onSubmit={submit} onCancel={onCancel} />;
 }
 
 QuestionnaireEditContainer.propTypes = {
   editQuestionnaire: PropTypes.func.isRequired,
-  locale: PropTypes.object.isRequired,
   questionnaire: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,

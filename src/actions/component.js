@@ -2,6 +2,7 @@ import { uuid } from 'utils/data-utils';
 import { nameFromLabel } from 'utils/name-utils';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
+export const EDIT_COMPONENT = 'EDIT_COMPONENT';
 
 /**
  * Create component
@@ -25,5 +26,25 @@ export const createComponent = (questionnaireId, parentId, type, label) => ({
       label,
     },
     parentId,
+  },
+});
+
+/**
+ * Edit component
+ *
+ * `update` is an object holding all the properties to update and their new
+ * value.
+ *
+ * @param   {string}  componentId     component id
+ * @param   {string}  questionnaireId questionnaire component id
+ * @param   {object}  update properties which need to be updated
+ * @returns {object}        EDIT_COMPONENT action
+ */
+export const editComponent = (componentId, questionnaireId, update) => ({
+  type: EDIT_COMPONENT,
+  payload: {
+    componentId,
+    questionnaireId,
+    update,
   },
 });

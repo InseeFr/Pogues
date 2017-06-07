@@ -18,7 +18,6 @@ const mapStateToProps = (state, { id }) => {
   }
 
   const props = {
-    locale: state.locale,
     id,
     loaded,
     questionnaire,
@@ -36,7 +35,6 @@ const mapDispatchToProps = {
 
 class QuestionnaireContainer extends Component {
   static propTypes = {
-    locale: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     loaded: PropTypes.bool.isRequired,
     questionnaire: PropTypes.object,
@@ -65,7 +63,6 @@ class QuestionnaireContainer extends Component {
     if (!this.props.loaded) return <span className="fa fa-spinner fa-pulse fa-2x" />;
     return (
       <Questionnaire
-        locale={this.props.locale}
         questionnaire={this.props.questionnaire}
         components={this.props.components}
         setActiveComponent={this.props.setActiveComponent}

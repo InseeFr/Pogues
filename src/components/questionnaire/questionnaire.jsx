@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 
 import QuestionnaireElement from 'components/questionnaire/questionnaire-element';
 import QuestionnaireEditContainer from 'containers/questionnaire/questionnaire-edit';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
+import ComponentEditContainer from 'containers/component/component-edit';
+import Dictionary from 'utils/dictionary/dictionary';
 
 class Questionnaire extends Component {
   static propTypes = {
-    locale: PropTypes.object.isRequired,
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object,
     activeComponent: PropTypes.string,
@@ -28,6 +26,7 @@ class Questionnaire extends Component {
       showQuestionnaireModal: false,
       showElementModal: false,
       idElementInModal: undefined,
+      typeElementInModal: undefined,
     };
 
     this.handleElementSelect = this.handleElementSelect.bind(this);
@@ -53,6 +52,7 @@ class Questionnaire extends Component {
       ...this.state,
       showElementModal: true,
       idElementInModal: idElement,
+      typeElementInModal: this.props.components[idElement].type,
     };
     this.setState(newState);
   }
@@ -62,6 +62,7 @@ class Questionnaire extends Component {
       ...this.state,
       showElementModal: false,
       idElementInModal: undefined,
+      typeElementInModal: undefined,
     };
     this.setState(newState);
   }
@@ -111,32 +112,15 @@ class Questionnaire extends Component {
   }
 
   render() {
-    const { locale, components, questionnaire } = this.props;
+    const { components, questionnaire } = this.props;
     const tree = this.renderComponentsByParent(components, questionnaire.id);
-    let typeLocaleCurrentElement;
-    let labelElementModal = '';
-    if (components && this.state.idElementInModal) {
-      switch (components[this.state.idElementInModal].type) {
-        case SEQUENCE:
-          typeLocaleCurrentElement = locale.sequence;
-          break;
-        case QUESTION:
-          typeLocaleCurrentElement = locale.question;
-          break;
-        default:
-          typeLocaleCurrentElement = '';
-          break;
-      }
-
-      labelElementModal = `${typeLocaleCurrentElement} ${components[this.state.idElementInModal].name}`;
-    }
 
     return (
       <div id="questionnaire">
         <div id="questionnaire-head">
           <h4>{questionnaire.label}</h4>
           <div>
-            <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>{locale.showDetail}</button>
+            <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>{Dictionary.showDetail}</button>
           </div>
         </div>
         <div id="questionnaire-items">
@@ -145,11 +129,11 @@ class Questionnaire extends Component {
         <ReactModal
           isOpen={this.state.showQuestionnaireModal}
           onRequestClose={this.handleCloseQuestionnaireDetail}
-          contentLabel={locale.questionnaireDetail}
+          contentLabel={Dictionary.questionnaireDetail}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{locale.questionnaireDetail}</h3>
+              <h3>{Dictionary.questionnaireDetail}</h3>
               <button onClick={this.handleCloseQuestionnaireDetail}><span>X</span></button>
             </div>
             <div className="popup-body">
@@ -164,15 +148,20 @@ class Questionnaire extends Component {
         <ReactModal
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
-          contentLabel={labelElementModal}
+          contentLabel={this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{labelElementModal}</h3>
+              <h3>{this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''}</h3>
               <button onClick={this.handleCloseElementDetail}><span>X</span></button>
             </div>
             <div className="popup-body">
-              {labelElementModal}
+              <ComponentEditContainer
+                questionnaireId={questionnaire.id}
+                componentId={this.state.idElementInModal}
+                onCancel={this.handleCloseElementDetail}
+                onSuccess={this.handleCloseElementDetail}
+              />
             </div>
           </div>
         </ReactModal>

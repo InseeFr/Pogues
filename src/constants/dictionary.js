@@ -710,19 +710,34 @@ const dictionary = {
 
 // Dynamic translations
 
-dictionary[`genericInputNew${QUESTION}`] = {
+dictionary[`componentNew${QUESTION}`] = {
   fr: 'Nouvelle question',
   er: 'New question',
 };
 
-dictionary[`genericInputNew${SEQUENCE}`] = {
+dictionary[`componentNew${SEQUENCE}`] = {
   fr: 'Nouvelle sequence',
   er: 'New sequence',
 };
 
-dictionary[`genericInputNew${SUBSEQUENCE}`] = {
+dictionary[`componentNew${SUBSEQUENCE}`] = {
   fr: 'Nouvelle sub-séquence',
   er: 'New sub-sequence',
+};
+
+dictionary[`componentEdit${QUESTION}`] = {
+  fr: 'Modififier la question',
+  er: 'Eidt question',
+};
+
+dictionary[`componentEdit${SEQUENCE}`] = {
+  fr: 'Modifier la sequence',
+  er: 'Edit sequence',
+};
+
+dictionary[`componentEdit${SUBSEQUENCE}`] = {
+  fr: 'Modifier la sub-séquence',
+  er: 'Edit sub-sequence',
 };
 
 export default dictionary;
