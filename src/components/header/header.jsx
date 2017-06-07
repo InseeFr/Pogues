@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-
 import logo from './logo-insee.png';
 import UserConnection from 'components/user/user-connection';
 import Dictionary from 'utils/dictionary/dictionary';
