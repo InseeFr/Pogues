@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { loadUser } from 'actions/user';
 
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
@@ -11,11 +12,23 @@ const mapStateToProps = state => ({
   locale: state.locale,
 });
 
+const mapDispatchToProps = {
+  loadUser,
+};
+
+
 class AppContainer extends Component {
   static propTypes = {
     locale: PropTypes.object.isRequired,
     children: PropTypes.object.isRequired,
+    loadUser: PropTypes.func.isRequired,
   };
+
+  componentWillMount() {
+    this.props.loadUser().then(user => {
+      console.log('finish', user);
+    });
+  }
 
   render() {
     return (
@@ -28,4 +41,4 @@ class AppContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps)(AppContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

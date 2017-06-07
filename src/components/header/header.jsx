@@ -1,16 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import logo from './logo-insee.png';
 import UserConnection from 'components/user/user-connection';
 
-function Header({ locale }) {
+const mapStateToProps = state => ({
+  user: state.appState.user,
+});
+
+function Header({ locale, user }) {
   // @TODO: Remove this mock when a service is ready
-  const mockUser = {
+  /*const mockUser = {
     name: 'Dupond-Martin .C',
     stamp: 'F302',
-  };
+  };*/
 
   return (
     <nav id="header">
@@ -31,7 +35,7 @@ function Header({ locale }) {
           </Link>
         </div>
         <div className="header-user">
-          <UserConnection user={mockUser} locale={locale} />
+          <UserConnection user={user} locale={locale} />
         </div>
       </div>
     </nav>
@@ -40,6 +44,7 @@ function Header({ locale }) {
 
 Header.propTypes = {
   locale: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
-export default Header;
+export default connect(mapStateToProps)(Header);
