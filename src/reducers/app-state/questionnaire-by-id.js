@@ -6,7 +6,7 @@ import { defaultQuestionnaireState } from 'utils/reducer/default-states';
 const actionHandlers = {};
 
 export function setDefaultStateQuestionnaire(state, id) {
-  if (Object.prototype.hasOwnProperty.call(state, 'id')) return state;
+  if (Object.prototype.hasOwnProperty.call(state, id)) return state;
   return {
     ...state,
     [id]: defaultQuestionnaireState,
