@@ -6,10 +6,9 @@ import { Link } from 'react-router';
 import Logger from 'utils/logger/logger';
 import QuestionnaireListContainer from 'containers/questionnaire/questionnaire-list';
 import QuestionnaireNewContainer from 'containers/questionnaire/questionnaire-new';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const logger = new Logger('PageHome', 'Components');
-
-import Dictionary from 'utils/dictionary/dictionary';
 
 export class PageHome extends Component {
   static propTypes = {
@@ -97,7 +96,10 @@ export class PageHome extends Component {
               <button onClick={this.handleCloseModal}><span>X</span></button>
             </div>
             <div className="popup-body">
-              <QuestionnaireNewContainer onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnnarieCreated} />
+              <QuestionnaireNewContainer
+                onCancel={this.handleCloseModal}
+                onSuccess={this.handleQuestionnnarieCreated}
+              />
             </div>
           </div>
         </ReactModal>

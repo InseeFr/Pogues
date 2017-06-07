@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import QuestionnaireElement from 'components/questionnaire/questionnaire-element';
 import QuestionnaireEditContainer from 'containers/questionnaire/questionnaire-edit';
 import ComponentEditContainer from 'containers/component/component-edit';
+import Dictionary from 'utils/dictionary/dictionary';
 
 class Questionnaire extends Component {
   static propTypes = {
-    locale: PropTypes.object.isRequired,
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object,
     activeComponent: PropTypes.string,
@@ -112,7 +112,7 @@ class Questionnaire extends Component {
   }
 
   render() {
-    const { locale, components, questionnaire } = this.props;
+    const { components, questionnaire } = this.props;
     const tree = this.renderComponentsByParent(components, questionnaire.id);
 
     return (
@@ -120,7 +120,7 @@ class Questionnaire extends Component {
         <div id="questionnaire-head">
           <h4>{questionnaire.label}</h4>
           <div>
-            <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>{locale.showDetail}</button>
+            <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>{Dictionary.showDetail}</button>
           </div>
         </div>
         <div id="questionnaire-items">
@@ -129,11 +129,11 @@ class Questionnaire extends Component {
         <ReactModal
           isOpen={this.state.showQuestionnaireModal}
           onRequestClose={this.handleCloseQuestionnaireDetail}
-          contentLabel={locale.questionnaireDetail}
+          contentLabel={Dictionary.questionnaireDetail}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{locale.questionnaireDetail}</h3>
+              <h3>{Dictionary.questionnaireDetail}</h3>
               <button onClick={this.handleCloseQuestionnaireDetail}><span>X</span></button>
             </div>
             <div className="popup-body">
@@ -148,11 +148,11 @@ class Questionnaire extends Component {
         <ReactModal
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
-          contentLabel={this.state.typeElementInModal ? locale[`componentEdit${this.state.typeElementInModal}`] : ''}
+          contentLabel={this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''}
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{this.state.typeElementInModal ? locale[`componentEdit${this.state.typeElementInModal}`] : ''}</h3>
+              <h3>{this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''}</h3>
               <button onClick={this.handleCloseElementDetail}><span>X</span></button>
             </div>
             <div className="popup-body">
