@@ -32,7 +32,7 @@ export const loadCodeListSpecsFailure = err => ({
 /**
  * Load code list specifications
  *
- * Asyncrhonous, relies on Redux Thunk to be processed.
+ * Asynchronous, relies on Redux Thunk to be processed.
  *
  * The raw specifications returned by the remote call will be processed
  * to comply to the state requirements.
