@@ -1,14 +1,14 @@
 export const LOAD_USER = 'LOAD_USER';
-export const LOAD_USER_SUCCESS = 'LOAD_QLIST_USER';
-export const LOAD_USER_FAILURE = 'LOAD_QLIST_USER';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
 /**
  * Value the questionnaire list returned by the remote call
  *
- * @param   {string} qrList   questionnaire list returned by the remote API
+ * @param   {object} user   questionnaire list returned by the remote API
  * @returns {object}          LOAD_QLIST_SUCCESS action
- */ 
-export const loadUserSuccess = user => ({
+ */
+export const loadUserSuccess = ({ user }) => ({
   type: LOAD_USER_SUCCESS,
   payload: user,
 });
@@ -40,10 +40,11 @@ export const loadUser = () => dispatch => {
     type: LOAD_USER,
     payload: null,
   });
+  // @TODO: Mock User. The service is not ready yet.
   return Promise.resolve({
-    name: 'Manu',
-    stamp: 'BLBLA',
+    name: 'Dupond-Martin C.',
+    stamp: 'F302',
   })
-    .then(user => dispatch(loadUserSuccess(user)))
+    .then(user => dispatch(loadUserSuccess({ user })))
     .catch(err => dispatch(loadUserFailure(err)));
 };

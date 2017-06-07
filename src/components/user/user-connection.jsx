@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import defaultPicture from './user-picture-default.png';
 import _ from 'lodash';
-
 import Dictionary from 'utils/dictionary/dictionary';
 
 function UserConnection({ user }) {
@@ -33,6 +33,7 @@ function UserConnection({ user }) {
 UserConnection.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
+    stamp: PropTypes.string,
     picture: PropTypes.string,
   }),
 };

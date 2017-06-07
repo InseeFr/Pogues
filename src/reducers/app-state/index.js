@@ -6,10 +6,10 @@ import { LOAD_USER_SUCCESS } from 'actions/user';
 
 const actionHandlers = {};
 
-export function setUser(state, user) {
+export function loadUserSuccess(state, user) {
   return {
     ...state,
-    [user]: user,
+    user: user,
   };
 }
 
@@ -20,7 +20,7 @@ export function setActiveComponent(state, id) {
   };
 }
 
-actionHandlers[LOAD_USER_SUCCESS] = setUser;
+actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_COMPONENT] = setActiveComponent;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
