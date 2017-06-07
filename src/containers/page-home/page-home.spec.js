@@ -24,10 +24,10 @@ describe('<PageHome />', () => {
   });
 
   test('should render a "show my team questionnaires button"', () => {
-    expect(wrapper.find('button#questionnaires-team').length).toBe(1);
+    expect(wrapper.find('#questionnaires-team').length).toBe(1);
   });
 
   test('should render a "show Insee questionnaires button"', () => {
-    expect(wrapper.find('button#questionnaires-insee').length).toBe(1);
+    expect(wrapper.find('#questionnaires-insee').length).toBe(1);
   });
 });
