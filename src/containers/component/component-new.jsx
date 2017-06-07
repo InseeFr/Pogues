@@ -4,23 +4,18 @@ import { connect } from 'react-redux';
 
 import { createComponent } from 'actions/component';
 import { setActiveComponent } from 'actions/app-state';
-import GenericInputNew from 'components/generic-input/generic-input-new';
-
-const mapStateToProps = state => ({
-  locale: state.locale,
-});
+import ComponentNewEdit from 'components/component/component-new-edit';
 
 const mapDispatchToProps = {
   createComponent,
   setActiveComponent,
 };
 
-function GenericInputNewContainer({
+function ComponentNewContainer({
   // eslint-disable-next-line no-shadow
   createComponent,
   // eslint-disable-next-line no-shadow
   setActiveComponent,
-  locale,
   questionnaireId,
   parentId,
   typeComponent,
@@ -33,13 +28,12 @@ function GenericInputNewContainer({
     onSuccess();
   };
 
-  return <GenericInputNew locale={locale} onSubmit={submit} onCancel={onCancel} />;
+  return <ComponentNewEdit type={typeComponent} onSubmit={submit} onCancel={onCancel} />;
 }
 
-GenericInputNewContainer.propTypes = {
+ComponentNewContainer.propTypes = {
   createComponent: PropTypes.func.isRequired,
   setActiveComponent: PropTypes.func.isRequired,
-  locale: PropTypes.object.isRequired,
   questionnaireId: PropTypes.string.isRequired,
   parentId: PropTypes.string.isRequired,
   typeComponent: PropTypes.string.isRequired,
@@ -47,9 +41,9 @@ GenericInputNewContainer.propTypes = {
   onCancel: PropTypes.func,
 };
 
-GenericInputNewContainer.defaultProps = {
+ComponentNewContainer.defaultProps = {
   onSuccess: undefined,
   onCancel: undefined,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenericInputNewContainer);
+export default connect(undefined, mapDispatchToProps)(ComponentNewContainer);

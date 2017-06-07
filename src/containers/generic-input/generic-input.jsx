@@ -8,7 +8,6 @@ import { getNewQuestionPlaceholder } from 'utils/model/generic-input-utils';
 const mapStateToProps = (state, { questionnaireId }) => {
   const componentListByQuestionnaire = state.appState.componentListByQuestionnaire;
   return {
-    locale: state.locale,
     questionnaire: state.questionnaireById[questionnaireId],
     components: Object.prototype.hasOwnProperty.call(componentListByQuestionnaire, questionnaireId)
       ? componentListByQuestionnaire[questionnaireId]
@@ -16,14 +15,13 @@ const mapStateToProps = (state, { questionnaireId }) => {
   };
 };
 
-function GenericInputContainer({ locale, questionnaire, components }) {
+function GenericInputContainer({ questionnaire, components }) {
   const newQuestionPlaceholder = getNewQuestionPlaceholder(components, questionnaire.id);
 
-  return <GenericInput locale={locale} questionnaireId={questionnaire.id} />;
+  return <GenericInput questionnaireId={questionnaire.id} />;
 }
 
 GenericInputContainer.propTypes = {
-  locale: PropTypes.object.isRequired,
   questionnaire: PropTypes.object,
   components: PropTypes.object,
 };

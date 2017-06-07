@@ -19,7 +19,6 @@ const mapStateToProps = state => ({
   questionnaires: sortByLabel(
     filterQuestionnaires(toArray(state.questionnaireList), state.appState.questionnaireListFilter.toLowerCase())
   ),
-  locale: state.locale,
   // allowRemoval: state.config.allowRemovalOfQuestionnaire,
 });
 
@@ -32,7 +31,6 @@ const mapDispatchToProps = {
 export class QuestionnaireListContainer extends Component {
   static propTypes = {
     // loadCodeListSpecs: PropTypes.func.isRequired,
-    locale: PropTypes.object.isRequired,
     questionnaires: PropTypes.array,
     loadQuestionnaireList: PropTypes.func.isRequired,
   };
@@ -47,8 +45,8 @@ export class QuestionnaireListContainer extends Component {
   }
 
   render() {
-    const { questionnaires, locale } = this.props;
-    return <QuestionnaireList locale={locale} questionnaires={questionnaires} />;
+    const { questionnaires } = this.props;
+    return <QuestionnaireList questionnaires={questionnaires} />;
   }
 }
 

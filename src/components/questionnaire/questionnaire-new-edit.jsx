@@ -8,8 +8,9 @@ import ListRadioButtons from 'components/forms/controls/list-radio-buttons';
 import Select from 'components/forms/controls/select';
 import { required } from 'components/forms/validation-rules';
 import { questionnaireName } from 'components/forms/normalize-inputs';
+import Dictionary from 'utils/dictionary/dictionary';
 
-export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, locale, error, onCancel }) {
+export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
   // @TODO: Remove the mocks
   const mockCampaigns = [
     {
@@ -78,13 +79,13 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
       </ul>
       <form onSubmit={handleSubmit}>
 
-        <Field name="label" type="text" component={Input} label={locale.title} validate={[required]} required />
+        <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
 
         <Field
           name="name"
           type="text"
           component={Input}
-          label={locale.name}
+          label={Dictionary.name}
           validate={[required]}
           normalize={questionnaireName}
           required
@@ -94,46 +95,46 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
           name="stamp"
           type="text"
           component={Input}
-          label={locale.stamp}
+          label={Dictionary.stamp}
           validate={[required]}
           required
         />
 
-        <div>{locale.newQuestionnaireLegend}</div><br />
+        <div>{Dictionary.newQuestionnaireLegend}</div><br />
 
-        <Field name="collection" component={Select} label={locale.collection} options={mockCollections} required />
+        <Field name="collection" component={Select} label={Dictionary.collection} options={mockCollections} required />
 
-        <Field name="operation" component={Select} label={locale.operationStat} options={mockOperations} required />
+        <Field name="operation" component={Select} label={Dictionary.operationStat} options={mockOperations} required />
 
         <Field
           name="campaign"
           component={SelectWithAddNew}
-          label={locale.collectionCampaign}
+          label={Dictionary.collectionCampaign}
           options={mockCampaigns}
-          labelButton={locale.collectionCampaignNew}
+          labelButton={Dictionary.collectionCampaignNew}
           required
         />
 
         <Field
           name="model"
           component={SelectWithAddNew}
-          label={locale.model}
+          label={Dictionary.model}
           options={mockModels}
-          labelButton={locale.modelNew}
+          labelButton={Dictionary.modelNew}
           required
         />
 
         <Field
           name="context"
           component={ListRadioButtons}
-          label={locale.collectionMode}
+          label={Dictionary.collectionMode}
           radios={mockContext}
           required
         />
 
         <div className="form-footer">
-          {onCancel ? <button className="cancel" disabled={submitting} onClick={onCancel}>{locale.cancel}</button> : ''}
-          <button type="submit" disabled={pristine || submitting}>{locale.validate}</button>
+          {onCancel ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button> : ''}
+          <button type="submit" disabled={pristine || submitting}>{Dictionary.validate}</button>
         </div>
       </form>
     </div>
@@ -141,7 +142,6 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
 }
 
 QuestionnaireNewEdit.propTypes = {
-  locale: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func,
   onCancel: PropTypes.func,
   pristine: PropTypes.bool,
