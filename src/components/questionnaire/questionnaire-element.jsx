@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 
+import Dictionary from 'utils/dictionary/dictionary';
+
 class QuestionnaireElement extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -51,9 +53,13 @@ class QuestionnaireElement extends Component {
           </div>
           {selected
             ? <div className="questionnaire-element-actions">
-                <button className="btn-yellow" onClick={onClickDetail}>Voir le détail</button>
-                <button className="btn-yellow">Dupliquer<span className="glyphicon glyphicon-duplicate" /></button>
-                <button className="btn-yellow">Supprimer<span className="glyphicon glyphicon-trash" /></button>
+                <button className="btn-yellow" onClick={onClickDetail}>{Dictionary.showDetail}</button>
+                <button className="btn-yellow">
+                  {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+                </button>
+                <button className="btn-yellow">
+                  {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
+                </button>
               </div>
             : ''}
         </div>
