@@ -80,7 +80,7 @@ const dictionary = {
     fr: 'Séquence',
   },
   subSequence: {
-    en: 'sub-sequence',
+    en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
   question: {
@@ -591,7 +591,7 @@ const dictionary = {
     en: 'Contextual information',
   },
   logout: {
-    fr: 'Sé déconnecter',
+    fr: 'Se déconnecter',
     en: 'Logout',
   },
   headerSubtitle: {
