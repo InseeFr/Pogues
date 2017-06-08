@@ -1,6 +1,7 @@
 export const defaultAppState = {
   activeComponent: '',
   questionnaireListFilter: '',
+  user: {},
 };
 
 export const defaultQuestionnaireState = {
