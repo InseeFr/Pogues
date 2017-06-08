@@ -4,9 +4,11 @@ const config = {
   dev: true,
   allowRemovalOfQuestionnaire: true,
   baseURL: 'http://localhost:4000',
+  baseUserServiceURL: 'http://localhost:4000',
   poguesPath: '',
   persistPath: '',
   stromaePath: '/stromae/publisher',
+  userAttributesPath: '/user/attributes',
   log: {
     level: 'DEBUG',
     activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],

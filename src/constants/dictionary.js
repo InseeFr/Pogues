@@ -727,7 +727,7 @@ dictionary[`componentNew${SUBSEQUENCE}`] = {
 
 dictionary[`componentEdit${QUESTION}`] = {
   fr: 'Modifier la question',
-  en: 'Eidt question',
+  en: 'Edit question',
 };
 
 dictionary[`componentEdit${SEQUENCE}`] = {
