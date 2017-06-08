@@ -4,9 +4,11 @@ const config = {
   dev: true,
   allowRemovalOfQuestionnaire: false,
   baseURL: 'http://s90datalift.ad.insee.intra:9250',
+  baseUserServiceURL: 'http://dvrmspogfolht01.ad.insee.intra',
   poguesPath: '/exist/pogues',
   persistPath: '/exist/restxq',
   stromaePath: '/exist/stromae/publisher',
+  userAttributesPath: '/rmspogfo/pogues/user/attributes',
   log: {
     level: 'DEBUG',
     activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],

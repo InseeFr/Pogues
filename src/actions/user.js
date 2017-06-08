@@ -1,3 +1,5 @@
+import { getUserAttributes } from 'utils/remote-api';
+
 export const LOAD_USER = 'LOAD_USER';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
@@ -40,11 +42,9 @@ export const loadUser = () => dispatch => {
     type: LOAD_USER,
     payload: null,
   });
-  // @TODO: Mock User. The service is not ready yet.
-  return Promise.resolve({
-    name: 'Dupond-Martin C.',
-    stamp: 'F302',
-  })
-    .then(user => dispatch(loadUserSuccess({ user })))
+  return getUserAttributes()
+    .then(user => {
+      return dispatch(loadUserSuccess({ user }))
+    })
     .catch(err => dispatch(loadUserFailure(err)));
 };

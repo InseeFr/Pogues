@@ -12,9 +12,11 @@ const logger = new Logger('RemoteApi', 'Remote');
 
 const {
   baseURL,
+  baseUserServiceURL,
   poguesBOBaseURL,
   persistPath,
   stromaePath,
+  userAttributesPath,
   importRMeSPath,
   codeLists: { repoURLSpecs, repoURLCList },
 } = config;
@@ -26,6 +28,8 @@ const urlPutQuestionnaire = `${baseURL + persistPath}/questionnaire`;
 const urlDeleteQuestionnaire = `${baseURL + persistPath}/questionnaire`;
 const urlGetQuestionnaireList = `${baseURL + persistPath}/questionnaires`;
 const urlStromaePostQuestionnaire = baseURL + stromaePath;
+const urlUserGetAttributes = baseUserServiceURL + userAttributesPath;
+
 // TODO ivestigate repo API
 const urlGetSpecs = repoURLSpecs;
 const urlGetCList = repoURLCList;
@@ -161,3 +165,16 @@ export const getCodeList = retrievalQuery =>
       Accept: 'application/json',
     },
   }).then(res => res.json());
+
+/**
+ * Retrieve user attributes
+ */
+export const getUserAttributes = () =>
+  fetch(urlUserGetAttributes, {
+    headers: {
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then(res => {
+    res.json();
+  });
