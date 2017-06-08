@@ -172,9 +172,10 @@ export const getCodeList = retrievalQuery =>
 export const getUserAttributes = () =>
   fetch(urlUserGetAttributes, {
     headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     },
+    credentials: 'include'
   }).then(res => {
     res.json();
   });
