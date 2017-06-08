@@ -4,7 +4,7 @@ the API, and especially the shape of the returned objects.
 Yet, it does not seem relevant to return raw responses objects to the reducer. The option chosen consists of returning javascript objects extracted from headers or response body, but not processing them.
 */
 import fetch from 'isomorphic-fetch';
-import config from '../config/config';
+import config from 'config/config';
 import Logger from 'utils/logger/logger';
 import ValidationError from 'components/forms/validation-error';
 

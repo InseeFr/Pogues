@@ -2,16 +2,10 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import logo from './logo-insee.png';
-import UserConnection from 'components/user/user-connection';
+import UserConnectionContainer from 'containers/user/user-connection';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function Header() {
-  // @TODO: Remove this mock when a service is ready
-  const mockUser = {
-    name: 'Dupond-Martin .C',
-    stamp: 'F302',
-  };
-
   return (
     <nav id="header">
       <div id="header-wrapper">
@@ -31,7 +25,7 @@ function Header() {
           </Link>
         </div>
         <div className="header-user">
-          <UserConnection user={mockUser} />
+          <UserConnectionContainer />
         </div>
       </div>
     </nav>
