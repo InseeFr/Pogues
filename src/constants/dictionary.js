@@ -80,7 +80,7 @@ const dictionary = {
     fr: 'Séquence',
   },
   subSequence: {
-    en: 'sub-sequence',
+    en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
   question: {
@@ -591,7 +591,7 @@ const dictionary = {
     en: 'Contextual information',
   },
   logout: {
-    fr: 'Sé déconnecter',
+    fr: 'Se déconnecter',
     en: 'Logout',
   },
   headerSubtitle: {
@@ -717,27 +717,27 @@ dictionary[`componentNew${QUESTION}`] = {
 
 dictionary[`componentNew${SEQUENCE}`] = {
   fr: 'Nouvelle sequence',
-  er: 'New sequence',
+  en: 'New sequence',
 };
 
 dictionary[`componentNew${SUBSEQUENCE}`] = {
   fr: 'Nouvelle sub-séquence',
-  er: 'New sub-sequence',
+  en: 'New sub-sequence',
 };
 
 dictionary[`componentEdit${QUESTION}`] = {
-  fr: 'Modififier la question',
-  er: 'Eidt question',
+  fr: 'Modifier la question',
+  en: 'Eidt question',
 };
 
 dictionary[`componentEdit${SEQUENCE}`] = {
   fr: 'Modifier la sequence',
-  er: 'Edit sequence',
+  en: 'Edit sequence',
 };
 
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
   fr: 'Modifier la sub-séquence',
-  er: 'Edit sub-sequence',
+  en: 'Edit sub-sequence',
 };
 
 export default dictionary;
