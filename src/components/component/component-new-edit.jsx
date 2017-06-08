@@ -51,7 +51,7 @@ export function ComponentNewEdit({
           {onCancel
             ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>
             : ''}
-          <button type="submit" disabled={pristine || submitting}>{Dictionary.validate}</button>
+          <button type="submit" disabled={!edit ? pristine || submitting : false}>{Dictionary.validate}</button>
         </div>
       </form>
     </div>
