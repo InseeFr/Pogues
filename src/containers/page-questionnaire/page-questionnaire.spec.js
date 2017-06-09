@@ -1,10 +1,10 @@
-jest.dontMock('./index.jsx');
+jest.dontMock('./page-questionnaire.jsx');
 
 import React from 'react';
 import { shallow } from 'enzyme';
 
 // Not connected to store
-import { PageQuestionnaire } from './index';
+import { PageQuestionnaire } from './page-questionnaire';
 
 describe('<PageQuestionnaire />', () => {
   const spy = jest.fn();

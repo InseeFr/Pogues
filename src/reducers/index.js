@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 
+import appState from './app-state/app-state';
 import locale from './dictionary';
 import questionnaireById from './questionnaire-by-id';
 import componentByQuestionnaire from './component-by-questionnaire';
 import componentById from './component-by-id';
-import appState from './app-state';
 import conditionById from './condition-by-id';
 import responseFormatById from './response-format-by-id';
 import codeListById from './code-list-by-id';

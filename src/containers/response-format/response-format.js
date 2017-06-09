@@ -107,7 +107,7 @@ function ResponseFormatContainer({
   );
 }
 
-ResponseFormatContainer.ropTypes = {
+ResponseFormatContainer.propTypes = {
   questionId: PropTypes.string.isRequired,
   formats: PropTypes.object.isRequired,
   switchFormat: PropTypes.func.isRequired,

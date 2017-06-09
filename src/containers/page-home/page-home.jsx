@@ -22,7 +22,7 @@ export class PageHome extends Component {
     };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleQuestionnnarieCreated = this.handleQuestionnnarieCreated.bind(this);
+    this.handleQuestionnaryCreated = this.handleQuestionnaryCreated.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +37,7 @@ export class PageHome extends Component {
     this.setState({ showModal: false });
   }
 
-  handleQuestionnnarieCreated(questionnaireId) {
+  handleQuestionnaryCreated(questionnaireId) {
     this.props.router.push(`/questionnaire/${questionnaireId}`);
   }
 
@@ -96,10 +96,7 @@ export class PageHome extends Component {
               <button onClick={this.handleCloseModal}><span>X</span></button>
             </div>
             <div className="popup-body">
-              <QuestionnaireNewContainer
-                onCancel={this.handleCloseModal}
-                onSuccess={this.handleQuestionnnarieCreated}
-              />
+              <QuestionnaireNewContainer onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnaryCreated} />
             </div>
           </div>
         </ReactModal>
