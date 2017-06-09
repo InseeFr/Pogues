@@ -44,7 +44,7 @@ export const loadUser = () => dispatch => {
   });
   return getUserAttributes()
     .then(user => {
-      return dispatch(loadUserSuccess({ user }))
+      return dispatch(loadUserSuccess({ user }));
     })
     .catch(err => dispatch(loadUserFailure(err)));
 };
