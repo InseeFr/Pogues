@@ -19,7 +19,7 @@ function UserConnection({ user }) {
                     <img alt="" className="default-picture" src={defaultPicture} />
                   </div>}
               <div className="user-name"><strong>{user.name}</strong></div>
-              <div className="user-stamp">{Dictionary.stamp}: {user.stamp}</div>
+              <div className="user-stamp">{Dictionary.stamp}: {user.permission}</div>
             </div>
             <div className="user-logout">
               <a><span className="glyphicon glyphicon-remove-sign" />{Dictionary.logout}</a>
@@ -33,7 +33,8 @@ function UserConnection({ user }) {
 UserConnection.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
-    stamp: PropTypes.string,
+    permission: PropTypes.string,
+    id: PropTypes.string,
     picture: PropTypes.string,
   }),
 };
