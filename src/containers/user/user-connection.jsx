@@ -17,7 +17,8 @@ class UserConnectionContainer extends Component {
   static propTypes = {
     user: PropTypes.shape({
       name: PropTypes.string,
-      stamp: PropTypes.string,
+      permission: PropTypes.string,
+      id: PropTypes.string,
       picture: PropTypes.string,
     }),
     loadUser: PropTypes.func.isRequired,
