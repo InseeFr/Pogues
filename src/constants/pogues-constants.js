@@ -8,6 +8,7 @@ export const COMPONENT_TYPE = {
   QUESTION: 'QUESTION',
   SEQUENCE: 'SEQUENCE',
   SUBSEQUENCE: 'SUBSEQUENCE',
+  QUESTIONNAIRE: 'QUESTIONNAIRE',
   // used as a placeholder to place the generic input within the questionnaire
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
