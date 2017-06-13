@@ -5,6 +5,12 @@ import { createComponent as createComp } from 'utils/model/model-to-state-utils'
 
 const actionHandlers = {};
 
+function compare(a, b) {
+  if (a < b) return -1;
+  if (a > b) return 1;
+  return 0;
+}
+
 export function loadQuestionnaireSuccess(state, { id, update }) {
   return {
     ...state,
@@ -12,12 +18,26 @@ export function loadQuestionnaireSuccess(state, { id, update }) {
   };
 }
 
-export function createComponent(state, { questionnaireId, component, parentId }) {
+export function createComponent(state, { questionnaireId, component, parentId, weight }) {
+  const siblings = state[questionnaireId][parentId].children;
+  const components = { ...state[questionnaireId] };
+
+  // Updating the siblings weights
+  for (let i = 0; i < siblings.length; i += 1) {
+    const key = siblings[i];
+    if (components[key].weight >= weight) {
+      components[key] = {
+        ...components[key],
+        weight: components[key].weight + 1,
+      };
+    }
+  }
+
   return {
     ...state,
     [questionnaireId]: {
-      ...state[questionnaireId],
-      [component.id]: createComp(component, parentId),
+      ...components,
+      [component.id]: createComp(component, parentId, weight),
       [parentId]: {
         ...state[questionnaireId][parentId],
         children: [...state[questionnaireId][parentId].children, component.id],

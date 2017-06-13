@@ -3,7 +3,7 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constant
 import parseResponseFormat from './response-format/parse-response-format';
 import { uuid } from 'utils/data-utils';
 
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export function getQuestionnaireIdFromUri(uri) {
   return uri.substr(uri.lastIndexOf('/') + 1);
@@ -120,22 +120,23 @@ export function getQuestionLabelFromRaw(rawQuestionLabel) {
  * @param  {string}             component.name        component name
  * @param  {string}             component.label       component label
  * @param  {array|undefined}    component.children    component children
- * @param  {string}             parent      component parent
+ * @param  {string}             parent                component parent
+ * @param  {number}             weight                component weight in the branch
  * @return {object} component
  */
-export function createComponent({ id, type, name, label, children }, parent) {
+export function createComponent({ id, type, name, label, children }, parent, weight) {
   const component = {
     id,
     parent,
+    weight,
     type,
     name,
   };
 
-  // @TODO: It will be necessary refactor
-  if (type === SEQUENCE_TYPE_NAME || type === SEQUENCE) {
-    component.type = SEQUENCE;
+  if (type === SUBSEQUENCE || type === SEQUENCE || type === QUESTIONNAIRE) {
+    component.type = type;
     component.label = label;
-    component.children = children;
+    component.children = children || [];
   } else {
     component.type = QUESTION;
     component.rawLabel = label;
@@ -153,6 +154,7 @@ export function createComponent({ id, type, name, label, children }, parent) {
  *
  * @param  {object}             component             raw component
  * @param  {string}             component.id          component id
+ * @param  {string}             component.weight      component weight in the branch
  * @param  {string}             component.parent      component parent
  * @param  {SEQUENCE|QUESTION}  component.type        component type
  * @param  {string}             component.name        component name
@@ -160,8 +162,17 @@ export function createComponent({ id, type, name, label, children }, parent) {
  * @param  {array|undefined}    component.children    component children
  * @return {object} normalized component
  */
-export function normalizeComponent({ id, parent, type, name, label: [label], children }) {
-  return createComponent({ id, type, name, label, children }, parent);
+export function normalizeComponent({ id, weight, parent, type, name, depth, label: [label], children }) {
+  if (type === SEQUENCE_TYPE_NAME) {
+    if (parent === '') {
+      type = QUESTIONNAIRE;
+    } else if (depth === 1) {
+      type = SEQUENCE;
+    } else {
+      type = SUBSEQUENCE;
+    }
+  }
+  return createComponent({ id, type, name, label, children }, parent, weight);
 }
 
 /**
@@ -185,14 +196,16 @@ export function normalizeListComponents(components) {
  *
  * It adds hierarchy to a raw component
  *
- * @param  {object}   component   raw component
- * @param  {string}   parentId         questionnaire id
+ * @param  {object}   component       raw component
+ * @param  {number}   weight          the component weight in the branch
+ * @param  {string}   parentId        questionnaire id
  * @return {object} raw component with a parent attribute and maybe a children attribute
  */
-export function getRawComponentWithHierarchy(component, parentId = '') {
+export function getRawComponentWithHierarchy(component, weight = 0, parentId = '') {
   const rawComponent = {
     ...component,
     parent: parentId,
+    weight: weight,
   };
   if (component.children) {
     rawComponent.children = component.children.map(c => c.id);
@@ -211,9 +224,11 @@ export function getRawComponentWithHierarchy(component, parentId = '') {
  */
 export function getRawComponentsFromNested(questionnaireChildren, questionnaireId) {
   function getRawComponents(components, parent, carry) {
+    let weight = 0;
     components.forEach(component => {
-      const rawComponent = getRawComponentWithHierarchy(component, parent);
+      const rawComponent = getRawComponentWithHierarchy(component, weight, parent);
       carry[component.id] = rawComponent;
+      weight += 1;
       if (component.children) getRawComponents(component.children, component.id, carry);
       return carry;
     });
