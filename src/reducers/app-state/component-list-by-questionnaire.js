@@ -5,12 +5,6 @@ import { createComponent as createComp } from 'utils/model/model-to-state-utils'
 
 const actionHandlers = {};
 
-function compare(a, b) {
-  if (a < b) return -1;
-  if (a > b) return 1;
-  return 0;
-}
-
 export function loadQuestionnaireSuccess(state, { id, update }) {
   return {
     ...state,
