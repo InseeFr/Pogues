@@ -1,23 +1,36 @@
-export function addUnderscore(wholeModel) {
-  function add(model, result) {
-    let newKey;
-    if (!model) return result;
-    Object.keys(model).forEach(key => {
-      newKey = `_${key}`;
-      if (Array.isArray(model[key])) {
-        result[newKey] = model[key].map(item => {
-          if (typeof item === 'string') return item;
-          return add(item, {});
-        });
-      } else if (typeof model[key] === 'object') {
-        result[newKey] = add(model[key], {});
-      } else {
-        result[newKey] = model[key];
-      }
-    });
-    return result;
-  }
-  return add(wholeModel, {});
+import questionnaireModelTmpl from './questionnaire-model-tmpl';
+import { uuid } from 'utils/data-utils';
+
+export function serializeNewQuestionnaire(name, label) {
+  return {
+    ...questionnaireModelTmpl,
+    id: uuid(),
+    name: name,
+    label: [label],
+    survery: {
+      ...questionnaireModelTmpl.survey,
+      id: uuid(),
+    },
+    componentGroups: {
+      ...questionnaireModelTmpl.componentGroups,
+      id: uuid(),
+    },
+  };
 }
 
-export default undefined;
+export function serializeUpdateQuestionnaire(id, name, label) {
+  return {
+    ...questionnaireModelTmpl,
+    id: id,
+    name: name,
+    label: [label],
+    survery: {
+      ...questionnaireModelTmpl.survey,
+      id: uuid(),
+    },
+    componentGroups: {
+      ...questionnaireModelTmpl.componentGroups,
+      id: uuid(),
+    },
+  };
+}

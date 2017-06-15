@@ -1,35 +1,8 @@
-// @TODO: Documentation
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import parseResponseFormat from './response-format/parse-response-format';
 import { uuid } from 'utils/data-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
-
-export function getQuestionnaireIdFromUri(uri) {
-  return uri.substr(uri.lastIndexOf('/') + 1);
-}
-
-export function removeUnderscore(wholeModel) {
-  function remove(model, result) {
-    let newKey;
-    if (!model) return result;
-    Object.keys(model).forEach(key => {
-      newKey = key.replace(/(_)(.+)/, '$2');
-      if (Array.isArray(model[key])) {
-        result[newKey] = model[key].map(item => {
-          if (typeof item === 'string') return item;
-          return remove(item, {});
-        });
-      } else if (typeof model[key] === 'object') {
-        result[newKey] = remove(model[key], {});
-      } else {
-        result[newKey] = model[key];
-      }
-    });
-    return result;
-  }
-  return remove(wholeModel, {});
-}
 
 /**
  * Get response formats from raw questions
@@ -321,22 +294,22 @@ function normalizeCodesLists(preNormalizedCodesLists) {
  * @return {object} normalized data from the questionnaire
  */
 export function normalizeQuestionnaire(questionnaire) {
-  const { id, label: [label], children, codeLists: { codeListSpecification, codeList } } = questionnaire;
+  const { id, name, agency, survey, label: [label], children, codeLists: { codeList } } = questionnaire;
   const rawComponents = getRawComponentsFromNested(children, id);
-  const rawQuestions = {};
+
+  // COMPONENT BY ID
+  const componentById = {
+    ...normalizeListComponents(rawComponents),
+    [id]: normalizeComponent(getRawComponentWithHierarchy(questionnaire)),
+  };
+
+  // COMPONENT BY QUESTIONNAIRE
+  const componentByQuestionnaire = {
+    [id]: componentById,
+  };
+
+  // Filter the list of normalized components by the type QUESTION
   const normalizedQuestions = {};
-
-  Object.keys(rawComponents)
-    .filter(key => {
-      return rawComponents[key].type === QUESTION_TYPE_NAME;
-    })
-    .forEach(key => {
-      rawQuestions[key] = rawComponents[key];
-    });
-
-  // COMPONENT_BY_ID
-  const componentById = normalizeListComponents(rawComponents);
-  componentById[id] = normalizeComponent(getRawComponentWithHierarchy(questionnaire));
 
   Object.keys(componentById)
     .filter(key => {
@@ -346,49 +319,61 @@ export function normalizeQuestionnaire(questionnaire) {
       normalizedQuestions[key] = componentById[key];
     });
 
-  // CONDITION_BY_ID
-  const conditionById = getConditionsFromNormalizedQuestions(normalizedQuestions);
-
-  // RESPONSE_FORMAT_BY_ID
-  const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
-
-  // CODE_BY_ID
+  // Get the pre-normalized codes lists
   const preNormalizedCodesLists = preNormalizeCodesLists(codeList);
-
-  const codeById = normalizeCodes(preNormalizedCodesLists);
 
   // CODE_LIST_BY_ID
   const codeListById = normalizeCodesLists(preNormalizedCodesLists);
 
-  // CODE_LIST_BY_QUESTIONNAIRE
-  const codeListByQuestionnaire = {
-    [id]: Object.keys(codeListById),
+  // CODE_BY_ID
+  const codeById = normalizeCodes(preNormalizedCodesLists);
+
+  // CONDITION_BY_ID
+  const conditionById = getConditionsFromNormalizedQuestions(normalizedQuestions);
+
+  // QUESTIONNAIRE_BY_ID
+  const questionnaireById = {
+    [id]: {
+      id,
+      name,
+      label,
+      agency,
+      survey,
+      components: Object.keys(componentById),
+      codeLists: Object.keys(codeListById),
+      conditions: Object.keys(conditionById),
+    },
   };
 
+  // Filter the raw questions from raw compopnents
+  const rawQuestions = {};
+
+  Object.keys(rawComponents)
+    .filter(key => {
+      return rawComponents[key].type === QUESTION_TYPE_NAME;
+    })
+    .forEach(key => {
+      rawQuestions[key] = rawComponents[key];
+    });
+
+  // RESPONSE_FORMAT_BY_ID
+  const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
+
   return {
-    questionnaire: {
-      id,
-      label,
-      codeLists: {
-        codeListSpecification,
-        codeList: codeList.map(cl => cl.id),
-      },
-    },
     componentById,
-    conditionById,
-    responseFormatById,
+    componentByQuestionnaire,
     codeListById,
-    codeListByQuestionnaire,
     codeById,
+    conditionById,
+    questionnaireById,
+    responseFormatById,
   };
 }
 
-export function getNumNestedChildren(children) {
-  return children.reduce((carry, value) => {
-    let result = 1;
-    if (value.children) {
-      result = getNumNestedChildren(value.children) + result;
-    }
-    return result + carry;
-  }, 0);
+export function normalizeListQuestionnaires(questionnairesList) {
+  return questionnairesList.map(questionnaire => normalizeQuestionnaire(questionnaire));
+}
+
+export function getQuestionnaireIdFromUri(uri) {
+  return uri.substr(uri.lastIndexOf('/') + 1);
 }
