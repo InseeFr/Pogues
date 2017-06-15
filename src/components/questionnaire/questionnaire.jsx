@@ -10,14 +10,9 @@ import Dictionary from 'utils/dictionary/dictionary';
 class Questionnaire extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,
-    components: PropTypes.object,
-    activeComponent: PropTypes.string,
-    setActiveComponent: PropTypes.func.isRequired,
-  };
-  static defaultProps = {
-    questionnaireComponentsIds: [],
-    components: {},
-    activeComponent: '',
+    components: PropTypes.object.isRequired,
+    selectedComponent: PropTypes.string.isRequired,
+    setSelectedComponent: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -41,8 +36,9 @@ class Questionnaire extends Component {
   handleElementSelect(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
-    const newSelected = idElement !== this.props.activeComponent ? idElement : '';
-    this.props.setActiveComponent(newSelected);
+    // Toggle the selection
+    const newSelected = idElement !== this.props.selectedComponent ? idElement : '';
+    this.props.setSelectedComponent(newSelected);
   }
 
   handleOpenElementDetail(event, idElement) {
@@ -89,7 +85,7 @@ class Questionnaire extends Component {
 
   renderComponentsByParent(components, parent) {
     const renderComponentsByParent = this.renderComponentsByParent;
-    const selected = this.props.activeComponent;
+    const selected = this.props.selectedComponent;
 
     return Object.keys(components)
       .filter(key => components[key].parent === parent)
@@ -146,7 +142,6 @@ class Questionnaire extends Component {
             </div>
             <div className="popup-body">
               <QuestionnaireEditContainer
-                id={questionnaire.id}
                 onCancel={this.handleCloseQuestionnaireDetail}
                 onSuccess={this.handleQuestionnnarieUpdated}
               />
@@ -156,9 +151,7 @@ class Questionnaire extends Component {
         <ReactModal
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
-          contentLabel={
-            typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''
-          }
+          contentLabel={typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
         >
           <div className="popup">
             <div className="popup-header">

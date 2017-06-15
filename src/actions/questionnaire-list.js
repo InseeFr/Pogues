@@ -1,5 +1,5 @@
 import { getQuestionnaireList } from 'utils/remote-api';
-import { removeUnderscore } from 'utils/model/model-to-state-utils';
+import { normalizeListQuestionnaires } from 'utils/model/model-to-state-utils';
 
 export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
@@ -8,12 +8,12 @@ export const LOAD_QLIST_FAILURE = 'LOAD_QLIST_FAILURE';
 /**
  * Value the questionnaire list returned by the remote call
  *
- * @param   {string} qrList   questionnaire list returned by the remote API
- * @returns {object}          LOAD_QLIST_SUCCESS action
+ * @param   {object} updatesList   questionnaire list returned by the remote API
+ * @returns {object}               LOAD_QLIST_SUCCESS action
  */
-export const loadQuestionnaireListSuccess = qrList => ({
+export const loadQuestionnaireListSuccess = updatesList => ({
   type: LOAD_QLIST_SUCCESS,
-  payload: qrList,
+  payload: updatesList,
 });
 
 /**
@@ -44,7 +44,6 @@ export const loadQuestionnaireList = () => dispatch => {
     payload: null,
   });
   return getQuestionnaireList()
-    .then(removeUnderscore) // @TODO: removeUnderscore should be removed after model changes.
-    .then(qrList => dispatch(loadQuestionnaireListSuccess(qrList)))
+    .then(qrList => dispatch(loadQuestionnaireListSuccess(normalizeListQuestionnaires(qrList))))
     .catch(err => dispatch(loadQuestionnaireListFailure(err)));
 };

@@ -4,9 +4,7 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 const actionHandlers = {};
 
 export function setActiveComponents(state, activeComponents) {
-  return {
-    activeComponents,
-  };
+  return activeComponents;
 }
 
 actionHandlers[SET_ACTIVE_COMPONENTS] = setActiveComponents;

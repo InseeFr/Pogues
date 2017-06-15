@@ -10,12 +10,10 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 class GenericInput extends Component {
   static propTypes = {
-    questionnaireId: PropTypes.string,
+    questionnaire: PropTypes.object.isRequired,
     placeholders: PropTypes.object.isRequired,
   };
-  static defaultProps = {
-    questionnaireId: undefined,
-  };
+
   constructor(props) {
     super(props);
 
@@ -27,6 +25,7 @@ class GenericInput extends Component {
     this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
     this.handleCloseNewComponent = this.handleCloseNewComponent.bind(this);
   }
+
   handleOpenNewComponent(componentType) {
     const newState = {
       ...this.state,
@@ -35,6 +34,7 @@ class GenericInput extends Component {
     };
     this.setState(newState);
   }
+
   handleCloseNewComponent() {
     const newState = {
       ...this.state,
@@ -43,14 +43,15 @@ class GenericInput extends Component {
     };
     this.setState(newState);
   }
+
   render() {
-    const { questionnaireId, placeholders } = this.props;
+    const { questionnaire, placeholders } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
     const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
 
     return (
-      <div id="questionnaire-generic-input" style={{ display: !this.state.showNewComponentModal ? 'block' : 'none' }}>
+      <div id="questionnaire-generic-input" style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}>
         <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
@@ -102,7 +103,7 @@ class GenericInput extends Component {
             </div>
             <div className="popup-body">
               <ComponentNewContainer
-                questionnaireId={questionnaireId}
+                questionnaireId={questionnaire.id}
                 parentId={newComponentParent}
                 weight={newComponentWeight}
                 typeComponent={this.state.typeNewComponent}

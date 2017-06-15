@@ -1,28 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SubmissionError } from 'redux-form';
 
-import { EDIT_QUESTIONNAIRE_FAILURE } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
+import { updateQuestionnaire } from 'actions/questionnaire';
 
-const mapStateToProps = (state, { id }) => ({
-  questionnaire: state.questionnaireById[id],
+const mapStateToProps = state => ({
+  questionnaire: state.appState.activeQuestionnaire,
 });
 
 // @TODO: We need the service
 const mapDispatchToProps = {
-  editQuestionnaire() {},
+  updateQuestionnaire,
 };
 
 // eslint-disable-next-line no-shadow
-function QuestionnaireEditContainer({ editQuestionnaire, questionnaire, onSuccess, onCancel }) {
+function QuestionnaireEditContainer({ updateQuestionnaire, questionnaire, onSuccess, onCancel }) {
   const submit = values => {
-    return editQuestionnaire(values.name, values.label).then(result => {
-      const { type, payload: { id, validation } } = result;
+    return updateQuestionnaire(questionnaire.id, values.name, values.label).then(result => {
+      const { payload: { id } } = result;
 
-      if (type === EDIT_QUESTIONNAIRE_FAILURE) throw new SubmissionError(validation);
-      else if (onSuccess) onSuccess(id);
+      if (onSuccess) onSuccess(id);
     });
   };
 
@@ -34,7 +32,7 @@ function QuestionnaireEditContainer({ editQuestionnaire, questionnaire, onSucces
 }
 
 QuestionnaireEditContainer.propTypes = {
-  editQuestionnaire: PropTypes.func.isRequired,
+  updateQuestionnaire: PropTypes.func.isRequired,
   questionnaire: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,

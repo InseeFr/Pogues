@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { editComponent } from 'actions/component';
-import { setActiveComponent } from 'actions/app-state';
 import ComponentNewEdit from 'components/component/component-new-edit';
 
-const mapStateToProps = (state, { questionnaireId, componentId }) => ({
-  component: state.appState.componentListByQuestionnaire[questionnaireId][componentId],
-  questionnaireId,
+const mapStateToProps = (state, { componentId }) => ({
+  component: state.appState.activeComponentsById[componentId],
 });
 
 const mapDispatchToProps = {
   editComponent,
-  setActiveComponent,
 };
 
 function ComponentEditContainer({
@@ -24,10 +21,13 @@ function ComponentEditContainer({
   onSuccess,
   onCancel,
 }) {
+  const componentId = component.id;
+
   const submit = values => {
-    editComponent(component.id, questionnaireId, { ...values });
+    editComponent(componentId, questionnaireId, { ...values });
     onSuccess();
   };
+
   const initialValues = {
     initialValues: component,
   };
@@ -35,7 +35,7 @@ function ComponentEditContainer({
   return (
     <ComponentNewEdit
       {...initialValues}
-      componentId={component.id}
+      componentId={componentId}
       questionnaireId={questionnaireId}
       edit
       type={component.type}

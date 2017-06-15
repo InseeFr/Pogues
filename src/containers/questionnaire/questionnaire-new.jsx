@@ -1,23 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SubmissionError } from 'redux-form';
 
-import { createQuestionnaire, CREATE_QUESTIONNAIRE_FAILURE } from 'actions/questionnaire';
+import { createQuestionnaire } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
 
 const mapDispatchToProps = {
   createQuestionnaire,
 };
 
-// eslint-disable-next-line no-shadow
 function QuestionnaireNewContainer({ createQuestionnaire, onSuccess, onCancel }) {
   const submit = values => {
     return createQuestionnaire(values.name, values.label).then(result => {
-      const { type, payload: { id, validation } } = result;
-
-      if (type === CREATE_QUESTIONNAIRE_FAILURE) throw new SubmissionError(validation);
-      else if (onSuccess) onSuccess(id);
+      const { payload: { id } } = result;
+      if (onSuccess) onSuccess(id);
     });
   };
 

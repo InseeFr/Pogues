@@ -300,10 +300,10 @@ function removeMeasure(format, { index }) {
   };
 }
 
-export function loadQuestionnaireSuccess(state, { update }) {
+export function loadQuestionnaireSuccess(state, { update: { responseFormatById } }) {
   return {
     ...state,
-    ...update.responseFormatById,
+    ...responseFormatById,
   };
 }
 

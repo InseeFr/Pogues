@@ -6,40 +6,32 @@ import Logger from 'utils/logger/logger';
 import QuestionnaireContainer from 'containers/questionnaire/questionnaire';
 import QuestionnaireNav from 'components/questionnaire/questionnaire-nav';
 import GenericInputContainer from 'containers/generic-input/generic-input';
-import { setDefaultStateQuestionnaire } from 'actions/app-state';
-import { loadCodeListSpecs } from 'actions/code-list-specification';
+import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
 
 const logger = new Logger('PageQuestionnaire', 'Components');
 
 const mapDispatchToProps = {
-  setDefaultStateQuestionnaire,
-  loadCodeListSpecs,
+  loadQuestionnaireIfNeeded,
 };
 
 export class PageQuestionnaire extends Component {
   static propTypes = {
+    loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
-    setDefaultStateQuestionnaire: PropTypes.func.isRequired,
-    loadCodeListSpecs: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.questionnaireId = props.params.id;
-  }
 
   componentWillMount() {
     logger.debug('Rendering PageQuestionnaire component');
-    this.props.setDefaultStateQuestionnaire(this.questionnaireId);
-    this.props.loadCodeListSpecs();
+    this.props.loadQuestionnaireIfNeeded(this.props.params.id);
   }
 
   render() {
+    const questionnaireId = this.props.params.id;
     return (
       <div id="page-questionnaire">
-        <QuestionnaireNav id={this.questionnaireId} />
-        <QuestionnaireContainer id={this.questionnaireId} />
-        <GenericInputContainer questionnaireId={this.questionnaireId} />
+        <QuestionnaireNav />
+        <QuestionnaireContainer questionnaireId={questionnaireId} />
+        <GenericInputContainer />
       </div>
     );
   }

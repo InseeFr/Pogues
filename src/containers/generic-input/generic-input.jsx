@@ -12,37 +12,27 @@ import {
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
-const mapStateToProps = (state, { questionnaireId }) => {
-  const componentListByQuestionnaire = state.appState.componentListByQuestionnaire;
-  return {
-    questionnaireId: questionnaireId,
-    activeComponent: state.appState.activeComponent,
-    components: Object.prototype.hasOwnProperty.call(componentListByQuestionnaire, questionnaireId)
-      ? componentListByQuestionnaire[questionnaireId]
-      : {},
-  };
-};
+const mapStateToProps = state => ({
+  questionnaire: state.appState.activeQuestionnaire,
+  components: state.appState.activeComponentsById,
+  selectedComponentId: state.appState.selectedComponent,
+});
 
-function GenericInputContainer({ questionnaireId, activeComponent, components }) {
+function GenericInputContainer({ questionnaire, components, selectedComponentId }) {
   const placeholders = {};
-  const activeComponentObj = activeComponent !== '' ? components[activeComponent] : undefined;
+  const selectedComponent = components[selectedComponentId];
 
-  placeholders[SEQUENCE] = getNewSequencePlaceholder(components, questionnaireId, activeComponentObj);
-  placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, activeComponentObj);
-  placeholders[QUESTION] = getNewQuestionPlaceholder(components, activeComponentObj);
+  placeholders[SEQUENCE] = getNewSequencePlaceholder(components, questionnaire.id, selectedComponent);
+  placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, selectedComponent);
+  placeholders[QUESTION] = getNewQuestionPlaceholder(components, selectedComponent);
 
-  return <GenericInput questionnaireId={questionnaireId} placeholders={placeholders} />;
+  return <GenericInput questionnaire={questionnaire} placeholders={placeholders} />;
 }
 
 GenericInputContainer.propTypes = {
-  questionnaireId: PropTypes.string.isRequired,
-  activeComponent: PropTypes.string,
-  components: PropTypes.object,
-};
-
-GenericInputContainer.defaultProps = {
-  activeComponent: '',
-  components: {},
+  questionnaire: PropTypes.object.isRequired,
+  components: PropTypes.object.isRequired,
+  selectedComponentId: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(GenericInputContainer);
