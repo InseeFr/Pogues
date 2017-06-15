@@ -18,12 +18,13 @@ function ComponentNewContainer({
   setActiveComponent,
   questionnaireId,
   parentId,
+  weight,
   typeComponent,
   onSuccess,
   onCancel,
 }) {
   const submit = values => {
-    const { payload: { component } } = createComponent(questionnaireId, parentId, typeComponent, values.label);
+    const { payload: { component } } = createComponent(questionnaireId, parentId, weight, typeComponent, values.label);
     setActiveComponent(component.id);
     onSuccess();
   };
@@ -36,6 +37,7 @@ ComponentNewContainer.propTypes = {
   setActiveComponent: PropTypes.func.isRequired,
   questionnaireId: PropTypes.string.isRequired,
   parentId: PropTypes.string.isRequired,
+  weight: PropTypes.number.isRequired,
   typeComponent: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,

@@ -91,29 +91,37 @@ class Questionnaire extends Component {
     const renderComponentsByParent = this.renderComponentsByParent;
     const selected = this.props.activeComponent;
 
-    return Object.keys(components).filter(key => components[key].parent === parent).map(key => {
-      const subTree = renderComponentsByParent(components, key);
-      const isSelected = key === selected;
-      return (
-        <QuestionnaireElement
-          key={key}
-          id={key}
-          name={components[key].name}
-          type={components[key].type}
-          label={components[key].label}
-          selected={isSelected}
-          onClickElement={event => this.handleElementSelect(event, key)}
-          onClickDetail={event => this.handleOpenElementDetail(event, key)}
-        >
-          {subTree}
-        </QuestionnaireElement>
-      );
-    }, {});
+    return Object.keys(components)
+      .filter(key => components[key].parent === parent)
+      .sort((key, nextKey) => {
+        if (components[key].weight < components[nextKey].weight) return -1;
+        if (components[key].weight > components[nextKey].weight) return 1;
+        return 0;
+      })
+      .map(key => {
+        const subTree = renderComponentsByParent(components, key);
+        const isSelected = key === selected;
+        return (
+          <QuestionnaireElement
+            key={key}
+            id={key}
+            name={components[key].name}
+            type={components[key].type}
+            label={components[key].label}
+            selected={isSelected}
+            onClickElement={event => this.handleElementSelect(event, key)}
+            onClickDetail={event => this.handleOpenElementDetail(event, key)}
+          >
+            {subTree}
+          </QuestionnaireElement>
+        );
+      }, {});
   }
 
   render() {
     const { components, questionnaire } = this.props;
     const tree = this.renderComponentsByParent(components, questionnaire.id);
+    const typeElementInModal = this.state.typeElementInModal;
 
     return (
       <div id="questionnaire">
@@ -148,11 +156,15 @@ class Questionnaire extends Component {
         <ReactModal
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
-          contentLabel={this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''}
+          contentLabel={
+            typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''
+          }
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''}</h3>
+              <h3>
+                {typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
+              </h3>
               <button onClick={this.handleCloseElementDetail}><span>X</span></button>
             </div>
             <div className="popup-body">

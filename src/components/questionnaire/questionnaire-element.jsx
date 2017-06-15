@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 
 import Dictionary from 'utils/dictionary/dictionary';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 class QuestionnaireElement extends Component {
   static propTypes = {
@@ -38,8 +41,9 @@ class QuestionnaireElement extends Component {
         className={ClassSet({
           'questionnaire-element': true,
           selected: selected,
-          'questionnaire-sequence': type === 'SEQUENCE',
-          'questionnaire-question': type === 'QUESTION',
+          'questionnaire-sequence': type === SEQUENCE,
+          'questionnaire-subsequence': type === SUBSEQUENCE,
+          'questionnaire-question': type === QUESTION,
         })}
         ref={node => (this.node = node)}
       >

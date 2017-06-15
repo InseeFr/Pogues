@@ -11,11 +11,12 @@ export const EDIT_COMPONENT = 'EDIT_COMPONENT';
  *
  * @param   {string}  questionnaireId questionnaire component id
  * @param   {string}  parentId parent component id
+ * @param   {number}  weight position in the corresponding branch
  * @param   {string}  type   type (question, sequence or sub-sequence)
  * @param   {string}  label  label for the newly created component
  * @returns {object}         CREATE_COMPONENT action
  */
-export const createComponent = (questionnaireId, parentId, type, label) => ({
+export const createComponent = (questionnaireId, parentId, weight, type, label) => ({
   type: CREATE_COMPONENT,
   payload: {
     questionnaireId,
@@ -26,6 +27,7 @@ export const createComponent = (questionnaireId, parentId, type, label) => ({
       label,
     },
     parentId,
+    weight,
   },
 });
 
