@@ -1,26 +1,3 @@
-// TODO create a reducer with config if we want to allow hot updates of remote
-// urls
-const config = {
-  dev: true,
-  allowRemovalOfQuestionnaire: false,
-  baseURL: 'http://s90datalift.ad.insee.intra:9250',
-  baseUserServiceURL: 'http://dvrmspogfolht01.ad.insee.intra',
-  poguesPath: '/exist/pogues',
-  persistPath: '/exist/restxq',
-  stromaePath: '/exist/stromae/publisher',
-  userAttributesPath: '/rmspogfo/pogues/user/attributes',
-  log: {
-    level: 'DEBUG',
-    activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],
-  },
-  codeLists: {
-    // repoURLCList not implemented
-    repoURLSpecs: makeRepoURLSpecs(),
-  },
-};
-
-// TODO see if this all the parameters should be exposed and modifiabl//from the
-// config editor
 function makeRepoURLSpecs() {
   const repoURL = 'http://dvrmessnclas01.ad.insee.intra:8080';
   const query = `
@@ -33,5 +10,20 @@ function makeRepoURLSpecs() {
      }`;
   return `${repoURL}/sparql?query=${encodeURIComponent(query)}`;
 }
+
+const config = {
+  dev: true,
+  allowRemovalOfQuestionnaire: false,
+  baseURL: 'http://dvrmspogfolht01.ad.insee.intra/rmspogfo/pogues',
+  persistancePath: '/persistence',
+  userPath: '/user',
+  log: {
+    level: 'DEBUG',
+    activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],
+  },
+  codeLists: {
+    repoURLSpecs: makeRepoURLSpecs(),
+  },
+};
 
 export default config;
