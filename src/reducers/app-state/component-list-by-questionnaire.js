@@ -20,10 +20,7 @@ export function createComponent(state, { questionnaireId, component, parentId, w
   for (let i = 0; i < siblings.length; i += 1) {
     const key = siblings[i];
     if (components[key].weight >= weight) {
-      components[key] = {
-        ...components[key],
-        weight: components[key].weight + 1,
-      };
+      components[key].weight += 1;
     }
   }
 

@@ -121,6 +121,7 @@ class Questionnaire extends Component {
   render() {
     const { components, questionnaire } = this.props;
     const tree = this.renderComponentsByParent(components, questionnaire.id);
+    const typeElementInModal = this.state.typeElementInModal;
 
     return (
       <div id="questionnaire">
@@ -156,13 +157,13 @@ class Questionnaire extends Component {
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
           contentLabel={
-            this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''
+            typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''
           }
         >
           <div className="popup">
             <div className="popup-header">
               <h3>
-                {this.state.typeElementInModal ? Dictionary[`componentEdit${this.state.typeElementInModal}`] : ''}
+                {typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
               </h3>
               <button onClick={this.handleCloseElementDetail}><span>X</span></button>
             </div>

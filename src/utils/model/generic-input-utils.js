@@ -40,8 +40,7 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
   let heavyComponentId = '';
   if (subgroupIds.length > 0) {
     heavyComponentId = subgroupIds.reduce((acc, key) => {
-      acc = components[key].weight > components[acc].weight ? key : acc;
-      return acc;
+      return components[key].weight > components[acc].weight ? key : acc;
     });
   }
   return heavyComponentId;
@@ -70,7 +69,7 @@ function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
 /**
  * Get weight
  *
- * It calculate the next component weight from a component passed
+ * It calculates the current weight from the weight of a component passed
  *
  * @param  {object} components  List of components
  * @param  {string} siblingId   Component id
