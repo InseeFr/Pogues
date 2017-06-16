@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
-import { updateQuestionnaire } from 'actions/questionnaire';
+import { updateActiveQuestionnaire } from 'actions/app-state';
 
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
@@ -11,17 +11,14 @@ const mapStateToProps = state => ({
 
 // @TODO: We need the service
 const mapDispatchToProps = {
-  updateQuestionnaire,
+  updateActiveQuestionnaire,
 };
 
 // eslint-disable-next-line no-shadow
-function QuestionnaireEditContainer({ updateQuestionnaire, questionnaire, onSuccess, onCancel }) {
+function QuestionnaireEditContainer({ updateActiveQuestionnaire, questionnaire, onSuccess, onCancel }) {
   const submit = values => {
-    return updateQuestionnaire(questionnaire.id, values.name, values.label).then(result => {
-      const { payload: { id } } = result;
-
-      if (onSuccess) onSuccess(id);
-    });
+    updateActiveQuestionnaire(questionnaire.id, values.name, values.label);
+    if (onSuccess) onSuccess(questionnaire.id);
   };
 
   const initialValues = {
@@ -32,7 +29,7 @@ function QuestionnaireEditContainer({ updateQuestionnaire, questionnaire, onSucc
 }
 
 QuestionnaireEditContainer.propTypes = {
-  updateQuestionnaire: PropTypes.func.isRequired,
+  updateActiveQuestionnaire: PropTypes.func.isRequired,
   questionnaire: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,

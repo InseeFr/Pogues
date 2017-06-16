@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import GenericInput from 'components/generic-input/generic-input';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { saveActiveQuestionnaire } from 'actions/app-state';
 import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
@@ -18,7 +19,11 @@ const mapStateToProps = state => ({
   selectedComponentId: state.appState.selectedComponent,
 });
 
-function GenericInputContainer({ questionnaire, components, selectedComponentId }) {
+const mapDispatchToProps = {
+  saveActiveQuestionnaire,
+};
+
+function GenericInputContainer({ questionnaire, components, selectedComponentId, saveActiveQuestionnaire }) {
   const placeholders = {};
   const selectedComponent = components[selectedComponentId];
 
@@ -26,13 +31,14 @@ function GenericInputContainer({ questionnaire, components, selectedComponentId 
   placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, selectedComponent);
   placeholders[QUESTION] = getNewQuestionPlaceholder(components, selectedComponent);
 
-  return <GenericInput placeholders={placeholders} />;
+  return <GenericInput placeholders={placeholders} saveActiveQuestionnaire={saveActiveQuestionnaire} />;
 }
 
 GenericInputContainer.propTypes = {
   questionnaire: PropTypes.object.isRequired,
   components: PropTypes.object.isRequired,
   selectedComponentId: PropTypes.string.isRequired,
+  saveActiveQuestionnaire: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(GenericInputContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GenericInputContainer);

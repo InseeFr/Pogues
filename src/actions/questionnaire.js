@@ -1,6 +1,6 @@
-import { getQuestionnaire, postQuestionnaire, putQuestionnaire } from 'utils/remote-api';
+import { getQuestionnaire, postQuestionnaire } from 'utils/remote-api';
 import { normalizeQuestionnaire } from 'utils/model/model-to-state-utils';
-import { serializeNewQuestionnaire, serializeUpdateQuestionnaire } from 'utils/model/state-to-model-utils';
+import { serializeNewQuestionnaire } from 'utils/model/state-to-model-utils';
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
@@ -8,9 +8,6 @@ export const LOAD_QUESTIONNAIRE_FAILURE = 'LOAD_QUESTIONNAIRE_FAILURE';
 export const CREATE_QUESTIONNAIRE = 'CREATE_QUESTIONNAIRE';
 export const CREATE_QUESTIONNAIRE_SUCCESS = 'CREATE_QUESTIONNAIRE_SUCCESS';
 export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE';
-export const UPDATE_QUESTIONNAIRE = 'UPDATE_QUESTIONNAIRE';
-export const UPDATE_QUESTIONNAIRE_SUCCESS = 'UPDATE_QUESTIONNAIRE_SUCCESS';
-export const UPDATE_QUESTIONNAIRE_FAILURE = 'UPDATE_QUESTIONNAIRE_FAILURE';
 
 /**
  * Value the questionnaire returned to update the state
@@ -139,63 +136,5 @@ export const createQuestionnaire = (name, label) => dispatch => {
     })
     .catch(err => {
       return dispatch(createQuestionnaireFailure(err, err.errors));
-    });
-};
-
-/**
- * Value success when the questionnaire has been created remotely
- *
- * @param   {id}       id       local id for the new questionnaire
- * @param   {object}   newQuestionnaire the questionnaire created
- * @returns {object}            CREATE_QUESTIONNAIRE_SUCCESS action
- */
-export const updateQuestionnaireSuccess = (id, update) => ({
-  type: UPDATE_QUESTIONNAIRE_SUCCESS,
-  payload: {
-    id,
-    update,
-  },
-});
-
-/**
- * Track when remote creation of a questionnaire failed
- *
- * @param   {string} err error message
- * @param   {object} validation validation messages
- * @returns {object}     CREATE_QUESTIONNAIRE_FAILURE action
- */
-export const updateQuestionnaireFailure = (err, validation) => ({
-  type: UPDATE_QUESTIONNAIRE_FAILURE,
-  payload: { err, validation },
-});
-
-/**
- * Create a new questionnaire
- *
- * Asynchronous, relies on Redux Thunk to be processed.
- *
- * Create the new questionnaire locally AND remotely.
- *
- * @param   {string}   name  questionnaire name
- * @param   {string}   label questionnaire label
- * @returns {function}       CREATE_QUESTIONNAIRE action
- */
-
-export const updateQuestionnaire = (id, name, label) => dispatch => {
-  dispatch({
-    type: UPDATE_QUESTIONNAIRE,
-    payload: null,
-  });
-
-  const serializedQuestionnaire = serializeUpdateQuestionnaire(id, name, label);
-
-  return putQuestionnaire(id, serializedQuestionnaire)
-    .then(() => {
-      return dispatch(
-        updateQuestionnaireSuccess(serializedQuestionnaire.id, normalizeQuestionnaire(serializedQuestionnaire))
-      );
-    })
-    .catch(err => {
-      return dispatch(updateQuestionnaireFailure(err, err.errors));
     });
 };

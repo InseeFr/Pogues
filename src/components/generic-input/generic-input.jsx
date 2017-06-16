@@ -11,6 +11,7 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 class GenericInput extends Component {
   static propTypes = {
     placeholders: PropTypes.object.isRequired,
+    saveActiveQuestionnaire: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -83,7 +84,9 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />{Dictionary.subSequence}
         </button>
         <button className="btn-white"><span className="glyphicon glyphicon-plus" />{Dictionary.pageBreak}</button>
-        <button className="btn-yellow">{Dictionary.save}<span className="glyphicon glyphicon-floppy-disk" /></button>
+        <button className="btn-yellow" onClick={this.props.saveActiveQuestionnaire}>
+          {Dictionary.save}<span className="glyphicon glyphicon-floppy-disk" />
+        </button>
         <button className="btn-yellow">{Dictionary.visualise}<span className="glyphicon glyphicon-eye-open" /></button>
         <button className="btn-yellow">
           {Dictionary.publishQuestionnaire}<span className="glyphicon glyphicon-share-alt" />

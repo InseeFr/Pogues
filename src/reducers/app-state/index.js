@@ -1,5 +1,5 @@
 import activeComponentsById from './active-components-by-id';
-import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT } from 'actions/app-state';
+import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
 const actionHandlers = {};
@@ -27,6 +27,16 @@ export function setActiveQuestionnaire(state, questionnaire) {
   };
 }
 
+export function updateActiveQuestionnaire(state, updatedQuestionnaire) {
+  return {
+    ...state,
+    activeQuestionnaire: {
+      ...state.activeQuestionnaire,
+      ...updatedQuestionnaire,
+    },
+  };
+}
+
 export function setSelectedComponent(state, id) {
   return {
     ...state,
@@ -36,6 +46,7 @@ export function setSelectedComponent(state, id) {
 
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
+actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponent;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method

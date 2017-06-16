@@ -106,12 +106,13 @@ export function createComponent({ id, type, name, label, children }, parent, wei
     name,
   };
 
-  if (type === SUBSEQUENCE || type === SEQUENCE || type === QUESTIONNAIRE) {
-    component.type = type;
-    component.label = label;
-    component.children = children || [];
-  } else {
-    component.type = QUESTION;
+  component.type = type;
+  component.children = children || [];
+  component.rawLabel = '';
+  component.label = label;
+  component.conditions = [];
+
+  if (type === QUESTION) {
     component.rawLabel = label;
     component.label = getQuestionLabelFromRaw(label);
     component.conditions = getConditionsFromRawQuestionLabel(label).map(c => c.id);
