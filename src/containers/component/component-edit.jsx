@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { editComponent } from 'actions/component';
+import { updateComponent } from 'actions/component';
 import ComponentNewEdit from 'components/component/component-new-edit';
 
 const mapStateToProps = (state, { componentId }) => ({
@@ -10,22 +10,15 @@ const mapStateToProps = (state, { componentId }) => ({
 });
 
 const mapDispatchToProps = {
-  editComponent,
+  updateComponent,
 };
 
-function ComponentEditContainer({
-  // eslint-disable-next-line no-shadow
-  editComponent,
-  component,
-  questionnaireId,
-  onSuccess,
-  onCancel,
-}) {
+function ComponentEditContainer({ updateComponent, component, questionnaireId, onSuccess, onCancel }) {
   const componentId = component.id;
 
   const submit = values => {
-    editComponent(componentId, questionnaireId, { ...values });
-    onSuccess();
+    updateComponent(componentId, { ...values });
+    if (onSuccess) onSuccess();
   };
 
   const initialValues = {
@@ -46,7 +39,7 @@ function ComponentEditContainer({
 }
 
 ComponentEditContainer.propTypes = {
-  editComponent: PropTypes.func.isRequired,
+  updateComponent: PropTypes.func.isRequired,
   component: PropTypes.object.isRequired,
   questionnaireId: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,

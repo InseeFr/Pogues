@@ -1,5 +1,5 @@
 import { SET_ACTIVE_COMPONENTS } from 'actions/app-state';
-import { CREATE_COMPONENT } from 'actions/component';
+import { CREATE_COMPONENT, UPDATE_COMPONENT } from 'actions/component';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 import { createComponent as createComponentState } from 'utils/model/model-to-state-utils';
 
@@ -31,7 +31,18 @@ export function createComponent(state, { component, parentId, weight }) {
   };
 }
 
+export function updateComponent(state, { componentId, update }) {
+  return {
+    ...state,
+    [componentId]: {
+      ...state[componentId],
+      ...update,
+    },
+  };
+}
+
 actionHandlers[SET_ACTIVE_COMPONENTS] = setActiveComponents;
 actionHandlers[CREATE_COMPONENT] = createComponent;
+actionHandlers[UPDATE_COMPONENT] = updateComponent;
 
 export default createActionHandlers(actionHandlers);
