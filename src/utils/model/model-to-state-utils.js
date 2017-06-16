@@ -137,6 +137,7 @@ export function createComponent({ id, type, name, label, children }, parent, wei
  * @return {object} normalized component
  */
 export function normalizeComponent({ id, weight, parent, type, name, depth, label: [label], children }) {
+  // The component types received from the model are differents to the types used in the state
   if (type === SEQUENCE_TYPE_NAME) {
     if (parent === '') {
       type = QUESTIONNAIRE;
@@ -145,6 +146,9 @@ export function normalizeComponent({ id, weight, parent, type, name, depth, labe
     } else {
       type = SUBSEQUENCE;
     }
+  }
+  if (type === QUESTION_TYPE_NAME) {
+    type = QUESTION;
   }
   return createComponent({ id, type, name, label, children }, parent, weight);
 }
