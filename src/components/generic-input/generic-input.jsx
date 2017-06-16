@@ -10,7 +10,6 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 class GenericInput extends Component {
   static propTypes = {
-    questionnaire: PropTypes.object.isRequired,
     placeholders: PropTypes.object.isRequired,
   };
 
@@ -45,7 +44,7 @@ class GenericInput extends Component {
   }
 
   render() {
-    const { questionnaire, placeholders } = this.props;
+    const { placeholders } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
     const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
@@ -103,7 +102,6 @@ class GenericInput extends Component {
             </div>
             <div className="popup-body">
               <ComponentNewContainer
-                questionnaireId={questionnaire.id}
                 parentId={newComponentParent}
                 weight={newComponentWeight}
                 typeComponent={this.state.typeNewComponent}

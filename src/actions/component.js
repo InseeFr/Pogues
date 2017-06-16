@@ -16,10 +16,9 @@ export const EDIT_COMPONENT = 'EDIT_COMPONENT';
  * @param   {string}  label  label for the newly created component
  * @returns {object}         CREATE_COMPONENT action
  */
-export const createComponent = (questionnaireId, parentId, weight, type, label) => ({
+export const createComponent = (parentId, weight, type, label) => ({
   type: CREATE_COMPONENT,
   payload: {
-    questionnaireId,
     component: {
       id: uuid(),
       name: nameFromLabel(label),

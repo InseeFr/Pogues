@@ -3,20 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { createComponent } from 'actions/component';
-import { setActiveComponent } from 'actions/app-state';
+import { setSelectedComponent } from 'actions/app-state';
 import ComponentNewEdit from 'components/component/component-new-edit';
 
 const mapDispatchToProps = {
   createComponent,
-  setActiveComponent,
+  setSelectedComponent,
 };
 
 function ComponentNewContainer({
-  // eslint-disable-next-line no-shadow
   createComponent,
-  // eslint-disable-next-line no-shadow
-  setActiveComponent,
-  questionnaireId,
+  setSelectedComponent,
   parentId,
   weight,
   typeComponent,
@@ -24,9 +21,9 @@ function ComponentNewContainer({
   onCancel,
 }) {
   const submit = values => {
-    const { payload: { component } } = createComponent(questionnaireId, parentId, weight, typeComponent, values.label);
-    setActiveComponent(component.id);
-    onSuccess();
+    const { payload: { component } } = createComponent(parentId, weight, typeComponent, values.label);
+    setSelectedComponent(component.id);
+    if (onSuccess) onSuccess(component.id);
   };
 
   return <ComponentNewEdit type={typeComponent} onSubmit={submit} onCancel={onCancel} />;
@@ -34,8 +31,7 @@ function ComponentNewContainer({
 
 ComponentNewContainer.propTypes = {
   createComponent: PropTypes.func.isRequired,
-  setActiveComponent: PropTypes.func.isRequired,
-  questionnaireId: PropTypes.string.isRequired,
+  setSelectedComponent: PropTypes.func.isRequired,
   parentId: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,
   typeComponent: PropTypes.string.isRequired,

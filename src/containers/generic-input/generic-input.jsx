@@ -26,7 +26,7 @@ function GenericInputContainer({ questionnaire, components, selectedComponentId 
   placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, selectedComponent);
   placeholders[QUESTION] = getNewQuestionPlaceholder(components, selectedComponent);
 
-  return <GenericInput questionnaire={questionnaire} placeholders={placeholders} />;
+  return <GenericInput placeholders={placeholders} />;
 }
 
 GenericInputContainer.propTypes = {

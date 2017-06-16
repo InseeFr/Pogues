@@ -21,8 +21,6 @@ class ComponentNewEdit extends Component {
     onCancel: PropTypes.func,
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
-    // invalid: PropTypes.bool,
-    // error: PropTypes.array,
   };
   static defaultProps = {
     handleSubmit: undefined,
@@ -39,18 +37,7 @@ class ComponentNewEdit extends Component {
     this.labelInput.focus();
   }
   render() {
-    const {
-      componentId,
-      questionnaireId,
-      handleSubmit,
-      pristine,
-      submitting,
-      type,
-      edit,
-      // invalid,
-      // error,
-      onCancel,
-    } = this.props;
+    const { componentId, questionnaireId, handleSubmit, pristine, submitting, type, edit, onCancel } = this.props;
 
     const panels = [];
 
@@ -63,10 +50,6 @@ class ComponentNewEdit extends Component {
 
     return (
       <div id="generic-input-new">
-        {/* <ul display={invalid}>*/}
-        {/* /!* eslint-disable react/no-array-index-key *!/*/}
-        {/* {error.map((e, index) => <li key={`validation-error-${index}`}>{e}</li>)}*/}
-        {/* </ul>*/}
         <form onSubmit={handleSubmit}>
           {edit
             ? <Field name="name" type="text" component={Input} label={Dictionary.name} validate={[required]} required />
