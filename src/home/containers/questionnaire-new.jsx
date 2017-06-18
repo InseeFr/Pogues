@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createQuestionnaire } from 'actions/questionnaire';
-import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
+import { createQuestionnaire } from 'home/actions/questionnaire';
+import QuestionnaireNewEdit from 'home/components/questionnaire-new-edit';
 
 const mapDispatchToProps = {
   createQuestionnaire,

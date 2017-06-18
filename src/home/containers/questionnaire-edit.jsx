@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import QuestionnaireNewEdit from 'components/questionnaire/questionnaire-new-edit';
+import QuestionnaireNewEdit from 'home/components/questionnaire-new-edit';
 import { updateActiveQuestionnaire } from 'actions/app-state';
 
 const mapStateToProps = state => ({

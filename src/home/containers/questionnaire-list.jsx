@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loadQuestionnaireList } from 'actions/questionnaire-list';
-import QuestionnaireList from 'components/questionnaire/questionnaire-list';
+import { loadQuestionnaireList } from 'home/actions/questionnaire-list';
+import QuestionnaireList from 'home/components/questionnaire-list';
 
 const mapStateToProps = state => {
   const questionnaires = Object.keys(state.questionnaireById).map(key => state.questionnaireById[key]);

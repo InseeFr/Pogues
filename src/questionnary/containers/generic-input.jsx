@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import GenericInput from 'components/generic-input/generic-input';
+import GenericInput from 'questionnary/components/generic-input';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { saveActiveQuestionnaire } from 'actions/app-state';
 import {

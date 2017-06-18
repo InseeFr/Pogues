@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { editComponent } from 'actions/component';
-import ComponentNewEdit from 'components/component/component-new-edit';
+import ComponentNewEdit from 'questionnary/components/component-new-edit';
 
 const mapStateToProps = (state, { componentId }) => ({
   component: state.appState.activeComponentsById[componentId],

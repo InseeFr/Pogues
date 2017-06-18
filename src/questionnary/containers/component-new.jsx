@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { createComponent } from 'actions/component';
 import { setSelectedComponent } from 'actions/app-state';
-import ComponentNewEdit from 'components/component/component-new-edit';
+import ComponentNewEdit from 'questionnary/components/component-new-edit';
 
 const mapDispatchToProps = {
   createComponent,

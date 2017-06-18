@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { setSelectedComponent } from 'actions/app-state';
-import Questionnaire from 'components/questionnaire/questionnaire';
+import Questionnaire from 'questionnary/components/questionnaire';
 
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,

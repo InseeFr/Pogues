@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import Logger from 'utils/logger/logger';
-import QuestionnaireNewContainer from './containers/questionnaire-new';
-import QuestionnaireListContainer from './containers/questionnaire-list';
+import QuestionnaireNewContainer from 'home/containers/questionnaire-new';
+import QuestionnaireListContainer from 'home/containers/questionnaire-list';
 import Dictionary from 'utils/dictionary/dictionary';
 
 const logger = new Logger('PageHome', 'Components');
