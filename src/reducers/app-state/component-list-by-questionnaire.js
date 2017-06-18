@@ -1,4 +1,4 @@
-import { LOAD_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
+import { LOAD_QUESTIONNAIRE_SUCCESS } from 'home/actions/questionnaire';
 import { CREATE_COMPONENT, EDIT_COMPONENT } from 'actions/component';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 import { createComponent as createComp } from 'utils/model/model-to-state-utils';

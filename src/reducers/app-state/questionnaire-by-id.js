@@ -1,5 +1,5 @@
 import { SET_DEFAULT_STATE_QUESTIONNAIRE } from 'actions/app-state';
-import { LOAD_QUESTIONNAIRE_SUCCESS, LOAD_QUESTIONNAIRE_FAILURE } from 'actions/questionnaire';
+import { LOAD_QUESTIONNAIRE_SUCCESS, LOAD_QUESTIONNAIRE_FAILURE } from 'home/actions/questionnaire';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 import { defaultQuestionnaireState } from 'utils/reducer/default-states';
 

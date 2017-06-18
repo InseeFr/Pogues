@@ -1,10 +1,10 @@
 import React from 'react';
 import { Router, hashHistory, Route, IndexRoute, Redirect } from 'react-router';
 
-import App from 'containers/app';
-import PageHome from 'containers/page-home/page-home';
-import PageHelp from 'containers/page-help/page-help';
-import PageQuestionnaire from 'containers/page-questionnaire/page-questionnaire';
+import App from 'layout/app';
+import PageHome from 'home/page-home';
+import PageHelp from 'help/page-help';
+import PageQuestionnaire from 'questionnary/page-questionnaire';
 
 function RouterContainer() {
   return (

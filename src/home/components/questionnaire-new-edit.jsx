@@ -10,7 +10,7 @@ import { required } from 'components/forms/validation-rules';
 import { questionnaireName } from 'components/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 
-export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
+function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
   // @TODO: Remove the mocks
   const mockCampaigns = [
     {
@@ -79,7 +79,7 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
       </ul>
       <form onSubmit={handleSubmit}>
 
-        <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
+        <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required/>
 
         <Field
           name="name"
@@ -100,7 +100,8 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
           required
         />
 
-        <div>{Dictionary.newQuestionnaireLegend}</div><br />
+        <div>{Dictionary.newQuestionnaireLegend}</div>
+        <br />
 
         <Field name="collection" component={Select} label={Dictionary.collection} options={mockCollections} required />
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Header from 'components/header/header';
-import Footer from 'components/footer/footer';
+import Header from 'layout/header/header';
+import Footer from 'layout/footer/footer';
 
 import 'scss/pogues.scss';
 

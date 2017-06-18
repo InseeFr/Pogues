@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import ResponseFormatContainer from 'containers/response-format/response-format';
 import Input from 'components/forms/controls/input';
-import Tabs from 'components/widget/tabs';
+import Tabs from 'layout/widget/tabs';
 import { required } from 'components/forms/validation-rules';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';

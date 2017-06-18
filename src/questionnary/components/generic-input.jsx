@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import ComponentNewContainer from 'containers/component/component-new';
+import ComponentNewContainer from '../containers/component-new';
 import Dictionary from 'utils/dictionary/dictionary';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;

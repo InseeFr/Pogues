@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
-import QuestionnaireElement from 'components/questionnaire/questionnaire-element';
-import QuestionnaireEditContainer from 'containers/questionnaire/questionnaire-edit';
-import ComponentEditContainer from 'containers/component/component-edit';
+import QuestionnaireElement from '../components/questionnaire-element';
+import QuestionnaireEditContainer from '../../home/containers/questionnaire-edit';
+import ComponentEditContainer from '../containers/component-edit';
 import Dictionary from 'utils/dictionary/dictionary';
 
 class Questionnaire extends Component {
