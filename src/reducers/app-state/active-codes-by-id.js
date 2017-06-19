@@ -3,10 +3,10 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function setActiveCodeLists(state, { activeCodeLists }) {
-  return activeCodeLists;
+export function setActiveCodes(state, { activeCodes }) {
+  return activeCodes;
 }
 
-actionHandlers[SET_ACTIVE_CODE_LISTS] = setActiveCodeLists;
+actionHandlers[SET_ACTIVE_CODE_LISTS] = setActiveCodes;
 
 export default createActionHandlers(actionHandlers);

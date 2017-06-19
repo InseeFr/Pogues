@@ -15,6 +15,7 @@ const mapStateToProps = (state, { params: { id } }) => ({
   questionnaire: state.questionnaireById[id],
   components: state.componentByQuestionnaire[id],
   codeLists: state.codeListByQuestionnaire[id],
+  codes: state.codeByQuestionnaire[id],
 });
 
 const mapDispatchToProps = {
@@ -34,30 +35,32 @@ export class PageQuestionnaire extends Component {
     questionnaire: PropTypes.object,
     components: PropTypes.object,
     codeLists: PropTypes.object,
+    codes: PropTypes.object,
   };
 
   static defaultProps = {
     questionnaire: {},
     components: {},
     codeLists: {},
+    codes: {},
   };
 
   componentWillMount() {
     logger.debug('Rendering PageQuestionnaire component');
     this.props.loadQuestionnaireIfNeeded(this.props.params.id);
-    this.setActive(this.props.questionnaire, this.props.components, this.props.codeLists);
+    this.setActive(this.props.questionnaire, this.props.components, this.props.codeLists, this.props.codes);
   }
   componentWillUpdate(nextProps) {
     const nextQuestionnaireId = nextProps.questionnaire.id;
     if (nextQuestionnaireId && nextQuestionnaireId !== this.props.questionnaire.id) {
-      this.setActive(nextProps.questionnaire, nextProps.components, nextProps.codeLists);
+      this.setActive(nextProps.questionnaire, nextProps.components, nextProps.codeLists, nextProps.codes);
     }
   }
 
-  setActive(questionnaire, components, codeLists) {
+  setActive(questionnaire, components, codeLists, codes) {
     this.props.setActiveQuestionnaire(questionnaire);
     this.props.setActiveComponents(components);
-    this.props.setActiveCodeLists(codeLists);
+    this.props.setActiveCodeLists(codeLists, codes);
   }
 
   render() {

@@ -11,6 +11,7 @@ import responseFormatById from './response-format-by-id';
 import codeListById from './code-list-by-id';
 import codeListByQuestionnaire from './code-list-by-questionnaire';
 import codeById from './code-by-id';
+import codeByQuestionnaire from './code-by-questionnaire';
 import integrityChecker from 'utils/reducer/integrity-checker';
 import combineCheckers from 'utils/reducer/combine-checkers';
 import checkerQuestionnaireLength from 'utils/reducer/checker-questionnaire-length';
@@ -26,6 +27,7 @@ export default integrityChecker(
     codeListById,
     codeListByQuestionnaire,
     codeById,
+    codeByQuestionnaire,
     conditionById,
     responseFormatById,
   }),

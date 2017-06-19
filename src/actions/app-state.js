@@ -40,14 +40,19 @@ export const setActiveComponents = activeComponents => ({
 /**
  * Set active code lists
  *
- * It changes the store "appState.activeCodeListById" with the list (as object) of code lists passed.
+ * It changes the store "appState.activeCodeListById" and "appState.activeCodesById" with the list (as object)
+ * of code lists and codes passed
  *
- * @param  {object} activeCodeLists   The components to set as actives
- * @return {object}                   SET_ACTIVE_COMPONENTS action
+ * @param  {object} activeCodeLists   The code lists to set as actives
+ * @param  {object} activeCodes       The codes to set as actives
+ * @return {object}                   SET_ACTIVE_CODE_LISTS action
  */
-export const setActiveCodeLists = activeCodeLists => ({
+export const setActiveCodeLists = (activeCodeLists, activeCodes) => ({
   type: SET_ACTIVE_CODE_LISTS,
-  payload: activeCodeLists,
+  payload: {
+    activeCodeLists,
+    activeCodes,
+  },
 });
 
 /**
