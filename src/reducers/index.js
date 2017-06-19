@@ -9,6 +9,7 @@ import appState from './app-state';
 import conditionById from './condition-by-id';
 import responseFormatById from './response-format-by-id';
 import codeListById from './code-list-by-id';
+import codeListByQuestionnaire from './code-list-by-questionnaire';
 import codeById from './code-by-id';
 import integrityChecker from 'utils/reducer/integrity-checker';
 import combineCheckers from 'utils/reducer/combine-checkers';
@@ -23,6 +24,7 @@ export default integrityChecker(
     componentByQuestionnaire,
     questionnaireById,
     codeListById,
+    codeListByQuestionnaire,
     codeById,
     conditionById,
     responseFormatById,

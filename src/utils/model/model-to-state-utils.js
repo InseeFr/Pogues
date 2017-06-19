@@ -354,6 +354,11 @@ export function normalizeQuestionnaire(questionnaire) {
   // CODE_LIST_BY_ID
   const codeListById = normalizeCodesLists(preNormalizedCodesLists);
 
+  // CODE_LIST BY QUESTIONNAIRE
+  const codeListByQuestionnaire = {
+    [id]: codeListById,
+  };
+
   // CODE_BY_ID
   const codeById = normalizeCodes(preNormalizedCodesLists);
 
@@ -393,6 +398,7 @@ export function normalizeQuestionnaire(questionnaire) {
     componentById,
     componentByQuestionnaire,
     codeListById,
+    codeListByQuestionnaire,
     codeById,
     conditionById,
     questionnaireById,
