@@ -8,7 +8,7 @@ const defaultState = {
   user: {},
   activeQuestionnaire: {},
   activeComponentsById: {},
-  selectedComponent: '',
+  selectedComponentId: '',
 };
 
 export function loadUserSuccess(state, user) {
@@ -37,17 +37,17 @@ export function updateActiveQuestionnaire(state, updatedQuestionnaire) {
   };
 }
 
-export function setSelectedComponent(state, id) {
+export function setSelectedComponentId(state, id) {
   return {
     ...state,
-    selectedComponent: id,
+    selectedComponentId: id,
   };
 }
 
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
-actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponent;
+actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {

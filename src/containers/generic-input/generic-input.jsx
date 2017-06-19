@@ -16,7 +16,7 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
   components: state.appState.activeComponentsById,
-  selectedComponentId: state.appState.selectedComponent,
+  selectedComponentId: state.appState.selectedComponentId,
 });
 
 const mapDispatchToProps = {

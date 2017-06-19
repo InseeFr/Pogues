@@ -11,8 +11,8 @@ class Questionnaire extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
-    selectedComponent: PropTypes.string.isRequired,
-    setSelectedComponent: PropTypes.func.isRequired,
+    selectedComponentId: PropTypes.string.isRequired,
+    setSelectedComponentId: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -37,8 +37,8 @@ class Questionnaire extends Component {
     event.stopPropagation();
     if (!idElement) return;
     // Toggle the selection
-    const newSelected = idElement !== this.props.selectedComponent ? idElement : '';
-    this.props.setSelectedComponent(newSelected);
+    const newSelected = idElement !== this.props.selectedComponentId ? idElement : '';
+    this.props.setSelectedComponentId(newSelected);
   }
 
   handleOpenElementDetail(event, idElement) {
@@ -85,7 +85,7 @@ class Questionnaire extends Component {
 
   renderComponentsByParent(components, parent) {
     const renderComponentsByParent = this.renderComponentsByParent;
-    const selected = this.props.selectedComponent;
+    const selected = this.props.selectedComponentId;
 
     return Object.keys(components)
       .filter(key => components[key].parent === parent)
@@ -131,6 +131,7 @@ class Questionnaire extends Component {
           {tree}
         </div>
         <ReactModal
+          shouldCloseOnOverlayClick={false}
           isOpen={this.state.showQuestionnaireModal}
           onRequestClose={this.handleCloseQuestionnaireDetail}
           contentLabel={Dictionary.questionnaireDetail}
@@ -149,6 +150,7 @@ class Questionnaire extends Component {
           </div>
         </ReactModal>
         <ReactModal
+          shouldCloseOnOverlayClick={false}
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
           contentLabel={typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}

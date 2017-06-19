@@ -2,33 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { setSelectedComponent } from 'actions/app-state';
+import { setSelectedComponentId } from 'actions/app-state';
 import Questionnaire from 'components/questionnaire/questionnaire';
 
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
   components: state.appState.activeComponentsById,
-  selectedComponent: state.appState.selectedComponent,
+  selectedComponentId: state.appState.selectedComponentId,
 });
 
 const mapDispatchToProps = {
-  setSelectedComponent,
+  setSelectedComponentId,
 };
 
 class QuestionnaireContainer extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
-    selectedComponent: PropTypes.string.isRequired,
-    setSelectedComponent: PropTypes.func.isRequired,
+    selectedComponentId: PropTypes.string.isRequired,
+    setSelectedComponentId: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
-    this.props.setSelectedComponent('');
+    this.props.setSelectedComponentId('');
   }
 
   render() {
-    const { questionnaire, components, selectedComponent } = this.props;
+    const { questionnaire, components, selectedComponentId } = this.props;
 
     if (!questionnaire.id) return <span className="fa fa-spinner fa-pulse fa-2x" />;
 
@@ -36,8 +36,8 @@ class QuestionnaireContainer extends Component {
       <Questionnaire
         questionnaire={questionnaire}
         components={components}
-        setSelectedComponent={this.props.setSelectedComponent}
-        selectedComponent={selectedComponent}
+        setSelectedComponentId={this.props.setSelectedComponentId}
+        selectedComponentId={selectedComponentId}
       />
     );
   }

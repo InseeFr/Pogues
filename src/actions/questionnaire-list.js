@@ -6,10 +6,21 @@ export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
 export const LOAD_QLIST_FAILURE = 'LOAD_QLIST_FAILURE';
 
 /**
- * Value the questionnaire list returned by the remote call
+ * Load questionnaire list success
  *
- * @param   {object} updatesList   questionnaire list returned by the remote API
- * @returns {object}               LOAD_QLIST_SUCCESS action
+ * It's executed after the remote fetch of a list of questionnaires.
+ *
+ * The parameter "updateList" is an array of complex object. For each object, entries correspond to reducers,
+ * they contain an update to apply to the piece of state handled by the reducer to represent locally the questionnaire.
+ *
+ * It will update the stores:
+ * - questionnaireById
+ * - componentById
+ * - componentByQuestionnaire
+ * - conditionById
+ *
+ * @param   {array} updatesList The new values to update in the different stores affected.
+ * @return  {object}            LOAD_QLIST_SUCCESS action.
  */
 export const loadQuestionnaireListSuccess = updatesList => ({
   type: LOAD_QLIST_SUCCESS,
@@ -17,10 +28,12 @@ export const loadQuestionnaireListSuccess = updatesList => ({
 });
 
 /**
- * Track error when loading questionnaire list failed
+ * Load questionnaire list failure
  *
- * @param   {string} err   error message
- * @returns {object}       LOAD_QLIST_FAILURE action
+ * It's executed after the fail of a remote questionnaires list fetch.
+ *
+ * @param   {string} err   The error returned for the fetch process.
+ * @return  {object}       LOAD_QLIST_FAILURE action
  */
 export const loadQuestionnaireListFailure = err => ({
   type: LOAD_QLIST_FAILURE,
@@ -30,13 +43,9 @@ export const loadQuestionnaireListFailure = err => ({
 /**
  * Load questionnaire list
  *
- * Asyncrhonous, relies on Redux Thunk to be processed.
+ * Asyc action that fetch a questionnaires list.
  *
- * The raw questionnaire list returned by the remote call will be processed to
- * comply to the reducer requirements.
- *
- * @returns {function}        thunk which dispatches LOAD_QLIST_SUCCESS and
- *                            LOAD_QLIST_FAILURE actions
+ * @return  {function}  Thunk which may dispatch LOAD_QLIST_SUCCESS or LOAD_QLIST_FAILURE
  */
 export const loadQuestionnaireList = () => dispatch => {
   dispatch({
