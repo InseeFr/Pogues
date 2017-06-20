@@ -1,9 +1,9 @@
 /*
-Logger utility.
-Manage remote or local logging, levels and namespacing.
-'Beauty is in the eye of the beholder'
-*/
-import Config from 'config/config';
+ Logger utility.
+ Manage remote or local logging, levels and namespacing.
+ 'Beauty is in the eye of the beholder'
+ */
+import Config from '../../../build-config/config';
 import { ENV_TEST } from 'constants/pogues-constants';
 
 const LEVELS = {
@@ -33,7 +33,7 @@ class Logger {
   // ----- Logging methods
 
   /* Generic logging method that tests the general logging level
-  and the active namespace*/
+   and the active namespace*/
   // TODO add remote / local write test
   logWrapper(testLevel, messageArray) {
     if (process.env.NODE_ENV === ENV_TEST) return;
