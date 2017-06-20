@@ -44,19 +44,6 @@ The code used by Pogues to go from this representation to the formal description
           "_goTos": [],
           "_controls": [],
           "_questionType": "SIMPLE",
-          "calculatedVariables": [
-            {
-              "label": "label",
-              "name": "name",
-              "formula": "formula"
-            }
-          ],
-          "collectedVariables": [
-            {
-              "label": "label",
-              "name": "name"
-            }
-          ],
           "_responses": [
             {
               "_mandatory": false,

@@ -1,0 +1,11 @@
+{
+  "name": "pogues-fake-backend",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "restify": "^4.1.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
