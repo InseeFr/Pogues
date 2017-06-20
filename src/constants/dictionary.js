@@ -123,9 +123,21 @@ const dictionary = {
     en: 'Import',
     fr: 'Importer',
   },
-  declaration: {
+  declaration_tabTitle: {
     en: 'Statement',
     fr: 'Déclaration',
+  },
+  declaration_label: {
+    en: 'Statement Label', 
+    fr: 'Libellé de la déclaration',
+  },
+  declaration_type: {
+    en: 'Type', 
+    fr: 'Type',
+  },
+  declaration_position: {
+    en: 'Positions', 
+    fr: 'Positions',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
