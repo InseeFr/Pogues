@@ -5,3 +5,4 @@ deploy-auth.json
 _book
 .vscode
 .DS_Store
+.idea/
