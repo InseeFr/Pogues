@@ -1,22 +1,4 @@
 {
-  "plugins": [
-    "syntax-dynamic-import",
-    "transform-decorators-legacy",
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    ["module-resolver", {
-      "root": ["./src"]
-    }]
-  ],
-  "presets": [
-    "es2015",
-    "react"
-  ],
-  "env": {
-    "development": {
-      "plugins": [
-        "react-hot-loader/babel"
-      ]
-    }
-  }
+ "presets": [ "react", "es2015" ],
+ "plugins": ["transform-object-rest-spread", "import-asserts"]
 }
