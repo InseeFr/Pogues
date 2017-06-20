@@ -94,10 +94,11 @@
     "test": "jest || true",
     "test:watch": "jest --watch",
     "dev": "webpack-dev-server",
-    "server": "node ./utils/fake-backend/server.js",
+    "server": "node ./build-config/fake-backend/server.js",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true",
     "lint": "eslint ./src ./utils -f table || true",
-    "lint:fix": "eslint ./src ./utils -f table --fix || true"
+    "lint:fix": "eslint ./src ./utils -f table --fix || true",
+    "start": "npm run dev"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [

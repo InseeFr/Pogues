@@ -1,32 +1,31 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 
-import appState from './app-state';
-import questionnaireById from './questionnaire-by-id';
-import componentById from './component-by-id';
-import conditionById from './condition-by-id';
-import responseFormatById from './response-format-by-id';
-import questionnaireList from './questionnaire-list';
-import locale from './dictionary';
-import codeListById from './code-list-by-id';
-import codeListByQuestionnaire from './code-list-by-questionnaire';
-import codeById from './code-by-id';
+import appState from 'reducers/app-state/app-state';
+import locale from 'reducers/dictionary';
+import questionnaireById from 'reducers/questionnaire-by-id';
+import componentByQuestionnaire from 'reducers/component-by-questionnaire';
+import componentById from 'reducers/component-by-id';
+import conditionById from 'reducers/condition-by-id';
+import responseFormatById from 'reducers/response-format-by-id';
+import codeListById from 'reducers/code-list-by-id';
+import codeById from 'reducers/code-by-id';
 import integrityChecker from 'utils/reducer/integrity-checker';
 import combineCheckers from 'utils/reducer/combine-checkers';
+import checkerQuestionnaireLength from 'utils/reducer/checker-questionnaire-length';
 
 export default integrityChecker(
   combineReducers({
     locale,
+    form,
     appState,
-    questionnaireList,
-    questionnaireById,
     componentById,
+    componentByQuestionnaire,
+    questionnaireById,
+    codeListById,
+    codeById,
     conditionById,
     responseFormatById,
-    codeListById,
-    codeListByQuestionnaire,
-    codeById,
-    form,
   }),
-  combineCheckers()
+  combineCheckers(checkerQuestionnaireLength)
 );

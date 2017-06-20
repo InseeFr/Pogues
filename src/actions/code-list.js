@@ -1,3 +1,5 @@
+// @TODO: It needs refactor and documentation
+
 import { getCodeList } from 'utils/remote-api';
 import codeListToState from 'utils/model/model-to-state-code-list';
 import { uuid } from 'utils/data-utils';
