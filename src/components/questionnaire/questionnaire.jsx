@@ -10,14 +10,9 @@ import Dictionary from 'utils/dictionary/dictionary';
 class Questionnaire extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,
-    components: PropTypes.object,
-    activeComponent: PropTypes.string,
-    setActiveComponent: PropTypes.func.isRequired,
-  };
-  static defaultProps = {
-    questionnaireComponentsIds: [],
-    components: {},
-    activeComponent: '',
+    components: PropTypes.object.isRequired,
+    selectedComponentId: PropTypes.string.isRequired,
+    setSelectedComponentId: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -41,8 +36,9 @@ class Questionnaire extends Component {
   handleElementSelect(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
-    const newSelected = idElement !== this.props.activeComponent ? idElement : '';
-    this.props.setActiveComponent(newSelected);
+    // Toggle the selection
+    const newSelected = idElement !== this.props.selectedComponentId ? idElement : '';
+    this.props.setSelectedComponentId(newSelected);
   }
 
   handleOpenElementDetail(event, idElement) {
@@ -89,7 +85,7 @@ class Questionnaire extends Component {
 
   renderComponentsByParent(components, parent) {
     const renderComponentsByParent = this.renderComponentsByParent;
-    const selected = this.props.activeComponent;
+    const selected = this.props.selectedComponentId;
 
     return Object.keys(components)
       .filter(key => components[key].parent === parent)
@@ -135,6 +131,7 @@ class Questionnaire extends Component {
           {tree}
         </div>
         <ReactModal
+          shouldCloseOnOverlayClick={false}
           isOpen={this.state.showQuestionnaireModal}
           onRequestClose={this.handleCloseQuestionnaireDetail}
           contentLabel={Dictionary.questionnaireDetail}
@@ -146,7 +143,6 @@ class Questionnaire extends Component {
             </div>
             <div className="popup-body">
               <QuestionnaireEditContainer
-                id={questionnaire.id}
                 onCancel={this.handleCloseQuestionnaireDetail}
                 onSuccess={this.handleQuestionnnarieUpdated}
               />
@@ -154,11 +150,10 @@ class Questionnaire extends Component {
           </div>
         </ReactModal>
         <ReactModal
+          shouldCloseOnOverlayClick={false}
           isOpen={this.state.showElementModal}
           onRequestClose={this.handleCloseElementDetail}
-          contentLabel={
-            typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''
-          }
+          contentLabel={typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
         >
           <div className="popup">
             <div className="popup-header">

@@ -1,3 +1,5 @@
+// @TODO: It needs refactor and documentation
+
 import { getCodeListSpecs } from 'utils/remote-api';
 import codeListSpecsToState from 'utils/model/model-to-state-code-list-specs';
 

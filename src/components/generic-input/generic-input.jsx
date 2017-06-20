@@ -10,12 +10,10 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 class GenericInput extends Component {
   static propTypes = {
-    questionnaireId: PropTypes.string,
     placeholders: PropTypes.object.isRequired,
+    saveActiveQuestionnaire: PropTypes.func.isRequired,
   };
-  static defaultProps = {
-    questionnaireId: undefined,
-  };
+
   constructor(props) {
     super(props);
 
@@ -27,6 +25,7 @@ class GenericInput extends Component {
     this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
     this.handleCloseNewComponent = this.handleCloseNewComponent.bind(this);
   }
+
   handleOpenNewComponent(componentType) {
     const newState = {
       ...this.state,
@@ -35,6 +34,7 @@ class GenericInput extends Component {
     };
     this.setState(newState);
   }
+
   handleCloseNewComponent() {
     const newState = {
       ...this.state,
@@ -43,14 +43,15 @@ class GenericInput extends Component {
     };
     this.setState(newState);
   }
+
   render() {
-    const { questionnaireId, placeholders } = this.props;
+    const { placeholders } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
     const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
 
     return (
-      <div id="questionnaire-generic-input" style={{ display: !this.state.showNewComponentModal ? 'block' : 'none' }}>
+      <div id="questionnaire-generic-input" style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}>
         <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
@@ -83,7 +84,9 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />{Dictionary.subSequence}
         </button>
         <button className="btn-white"><span className="glyphicon glyphicon-plus" />{Dictionary.pageBreak}</button>
-        <button className="btn-yellow">{Dictionary.save}<span className="glyphicon glyphicon-floppy-disk" /></button>
+        <button className="btn-yellow" onClick={this.props.saveActiveQuestionnaire}>
+          {Dictionary.save}<span className="glyphicon glyphicon-floppy-disk" />
+        </button>
         <button className="btn-yellow">{Dictionary.visualise}<span className="glyphicon glyphicon-eye-open" /></button>
         <button className="btn-yellow">
           {Dictionary.publishQuestionnaire}<span className="glyphicon glyphicon-share-alt" />
@@ -91,6 +94,7 @@ class GenericInput extends Component {
         <button className="btn-yellow">{Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" /></button>
         <button className="btn-yellow">{Dictionary.remove}<span className="glyphicon glyphicon-trash" /></button>
         <ReactModal
+          shouldCloseOnOverlayClick={false}
           isOpen={this.state.showNewComponentModal}
           onRequestClose={this.handleCloseNewComponent}
           contentLabel={this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}
@@ -102,10 +106,9 @@ class GenericInput extends Component {
             </div>
             <div className="popup-body">
               <ComponentNewContainer
-                questionnaireId={questionnaireId}
-                parentId={newComponentParent}
+                parent={newComponentParent}
                 weight={newComponentWeight}
-                typeComponent={this.state.typeNewComponent}
+                type={this.state.typeNewComponent}
                 onCancel={this.handleCloseNewComponent}
                 onSuccess={this.handleCloseNewComponent}
               />

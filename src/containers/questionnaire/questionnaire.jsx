@@ -2,71 +2,42 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
-import { setActiveComponent } from 'actions/app-state';
+import { setSelectedComponentId } from 'actions/app-state';
 import Questionnaire from 'components/questionnaire/questionnaire';
 
-const mapStateToProps = (state, { id }) => {
-  const questionnaireState = state.appState.questionnaireById[id];
-  const activeComponent = state.appState.activeComponent;
-  const questionnaire = state.questionnaireById[id];
-  const loaded = questionnaireState.loaded ? questionnaireState.loaded : false;
-  let components = {};
-
-  if (loaded) {
-    components = state.appState.componentListByQuestionnaire[id];
-  }
-
-  const props = {
-    id,
-    loaded,
-    questionnaire,
-    components,
-    activeComponent,
-  };
-
-  return props;
-};
+const mapStateToProps = state => ({
+  questionnaire: state.appState.activeQuestionnaire,
+  components: state.appState.activeComponentsById,
+  selectedComponentId: state.appState.selectedComponentId,
+});
 
 const mapDispatchToProps = {
-  loadQuestionnaireIfNeeded,
-  setActiveComponent,
+  setSelectedComponentId,
 };
 
 class QuestionnaireContainer extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    loaded: PropTypes.bool.isRequired,
-    questionnaire: PropTypes.object,
-    components: PropTypes.object,
-    activeComponent: PropTypes.string,
-    loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
-    setActiveComponent: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    questionnaire: {},
-    components: {},
-    activeComponent: undefined,
+    questionnaire: PropTypes.object.isRequired,
+    components: PropTypes.object.isRequired,
+    selectedComponentId: PropTypes.string.isRequired,
+    setSelectedComponentId: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
-    this.props.loadQuestionnaireIfNeeded(this.props.id);
-    if (this.props.activeComponent !== '') this.props.setActiveComponent('');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.id !== this.props.id) this.props.loadQuestionnaireIfNeeded(nextProps.id);
+    this.props.setSelectedComponentId('');
   }
 
   render() {
-    if (!this.props.loaded) return <span className="fa fa-spinner fa-pulse fa-2x" />;
+    const { questionnaire, components, selectedComponentId } = this.props;
+
+    if (!questionnaire.id) return <span className="fa fa-spinner fa-pulse fa-2x" />;
+
     return (
       <Questionnaire
-        questionnaire={this.props.questionnaire}
-        components={this.props.components}
-        setActiveComponent={this.props.setActiveComponent}
-        activeComponent={this.props.activeComponent}
+        questionnaire={questionnaire}
+        components={components}
+        setSelectedComponentId={this.props.setSelectedComponentId}
+        selectedComponentId={selectedComponentId}
       />
     );
   }

@@ -30,10 +30,17 @@ editors[SINGLE_CHOICE] = SingleResponseFormatEditor;
 editors[MULTIPLE_CHOICE] = MultipleResponseFormatEditor;
 editors[TABLE] = TableResponseFormatEditor;
 
-const mapStateToProps = (state, { questionId }) => ({
-  formats: state.responseFormatById[questionId],
-  locale: state.locale,
-});
+// const mapStateToProps = (state, { questionId }) => ({
+//   formats: state.responseFormatById[questionId],
+//   locale: state.locale,
+// });
+
+const mapStateToProps = (state, { questionId }) => {
+  return {
+    formats: state.responseFormatById[questionId],
+    locale: state.locale,
+  };
+};
 
 const mapDispatchToProps = {
   switchFormat,

@@ -6,43 +6,63 @@ import Logger from 'utils/logger/logger';
 import QuestionnaireContainer from 'containers/questionnaire/questionnaire';
 import QuestionnaireNav from 'components/questionnaire/questionnaire-nav';
 import GenericInputContainer from 'containers/generic-input/generic-input';
-import { setDefaultStateQuestionnaire } from 'actions/app-state';
-import { loadCodeListSpecs } from 'actions/code-list-specification';
+import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
+import { setActiveQuestionnaire, setActiveComponents } from 'actions/app-state';
 
 const logger = new Logger('PageQuestionnaire', 'Components');
 
+const mapStateToProps = (state, { params: { id } }) => ({
+  questionnaire: state.questionnaireById[id],
+  components: state.componentByQuestionnaire[id],
+});
+
 const mapDispatchToProps = {
-  setDefaultStateQuestionnaire,
-  loadCodeListSpecs,
+  loadQuestionnaireIfNeeded,
+  setActiveQuestionnaire,
+  setActiveComponents,
 };
 
 export class PageQuestionnaire extends Component {
   static propTypes = {
+    loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
+    setActiveQuestionnaire: PropTypes.func.isRequired,
+    setActiveComponents: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
-    setDefaultStateQuestionnaire: PropTypes.func.isRequired,
-    loadCodeListSpecs: PropTypes.func.isRequired,
+    questionnaire: PropTypes.object,
+    components: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-    this.questionnaireId = props.params.id;
-  }
+  static defaultProps = {
+    questionnaire: {},
+    components: {},
+  };
 
   componentWillMount() {
     logger.debug('Rendering PageQuestionnaire component');
-    this.props.setDefaultStateQuestionnaire(this.questionnaireId);
-    this.props.loadCodeListSpecs();
+    this.props.loadQuestionnaireIfNeeded(this.props.params.id);
+    this.setActive(this.props.questionnaire, this.props.components);
+  }
+  componentWillUpdate(nextProps) {
+    const nextQuestionnaireId = nextProps.questionnaire.id;
+    if (nextQuestionnaireId && nextQuestionnaireId !== this.props.questionnaire.id) {
+      this.setActive(nextProps.questionnaire, nextProps.components);
+    }
+  }
+
+  setActive(questionnaire, components) {
+    this.props.setActiveQuestionnaire(questionnaire);
+    this.props.setActiveComponents(components);
   }
 
   render() {
     return (
       <div id="page-questionnaire">
-        <QuestionnaireNav id={this.questionnaireId} />
-        <QuestionnaireContainer id={this.questionnaireId} />
-        <GenericInputContainer questionnaireId={this.questionnaireId} />
+        <QuestionnaireNav />
+        <QuestionnaireContainer />
+        <GenericInputContainer />
       </div>
     );
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(PageQuestionnaire);
+export default connect(mapStateToProps, mapDispatchToProps)(PageQuestionnaire);

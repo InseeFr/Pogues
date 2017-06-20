@@ -5,21 +5,28 @@ export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
 /**
- * Value the questionnaire list returned by the remote call
+ * Load user success
  *
- * @param   {object} user   questionnaire list returned by the remote API
- * @returns {object}          LOAD_QLIST_SUCCESS action
+ * It's executed after the remote fetch of a user data.
+ *
+ * It will update the stores:
+ * - appState.user
+ *
+ * @param   {object} user The user data.
+ * @returns {object}      LOAD_USER_SUCCESS action.
  */
-export const loadUserSuccess = ({ user }) => ({
+export const loadUserSuccess = user => ({
   type: LOAD_USER_SUCCESS,
   payload: user,
 });
 
 /**
- * Track error when loading questionnaire list failed
+ * Load user failure
  *
- * @param   {string} err   error message
- * @returns {object}       LOAD_QLIST_FAILURE action
+ * It's executed after the fail of a remote user's fetch.
+ *
+ * @param   {string} err   The error returned for the fetch process.
+ * @return  {object}       LOAD_USER_FAILURE action
  */
 export const loadUserFailure = err => ({
   type: LOAD_USER_FAILURE,
@@ -27,15 +34,11 @@ export const loadUserFailure = err => ({
 });
 
 /**
- * Load questionnaire list
+ * Load user
  *
- * Asyncrhonous, relies on Redux Thunk to be processed.
+ * Asyc action that fetch an user data.
  *
- * The raw questionnaire list returned by the remote call will be processed to
- * comply to the reducer requirements.
- *
- * @returns {function}        thunk which dispatches LOAD_QLIST_SUCCESS and
- *                            LOAD_QLIST_FAILURE actions
+ * @return  {function}  Thunk which may dispatch LOAD_USER_SUCCESS or LOAD_USER_FAILURE
  */
 export const loadUser = () => dispatch => {
   dispatch({
@@ -43,8 +46,8 @@ export const loadUser = () => dispatch => {
     payload: null,
   });
   return getUserAttributes()
-    .then(user => {
-      return dispatch(loadUserSuccess({ user }));
+    .then(({ user }) => {
+      return dispatch(loadUserSuccess(user));
     })
     .catch(err => dispatch(loadUserFailure(err)));
 };

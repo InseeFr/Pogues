@@ -3,42 +3,56 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { createComponent } from 'actions/component';
-import { setActiveComponent } from 'actions/app-state';
-import ComponentNewEdit from 'components/component/component-new-edit';
+import { setSelectedComponentId } from 'actions/app-state';
+import SequenceNewEdit from 'components/component/sequence-new-edit';
+import QuestionNewEdit from 'components/component/question-new-edit';
+import { COMPONENT_TYPE, DATATYPE_NAME } from 'constants/pogues-constants';
+import { QUESTION_TYPE_ENUM } from 'constants/schema';
+
+const { SIMPLE } = QUESTION_TYPE_ENUM;
+const { QUESTION } = COMPONENT_TYPE;
+const { DATE } = DATATYPE_NAME;
 
 const mapDispatchToProps = {
   createComponent,
-  setActiveComponent,
+  setSelectedComponentId,
 };
 
-function ComponentNewContainer({
-  // eslint-disable-next-line no-shadow
-  createComponent,
-  // eslint-disable-next-line no-shadow
-  setActiveComponent,
-  questionnaireId,
-  parentId,
-  weight,
-  typeComponent,
-  onSuccess,
-  onCancel,
-}) {
+function ComponentNewContainer({ createComponent, setSelectedComponentId, parent, weight, type, onSuccess, onCancel }) {
   const submit = values => {
-    const { payload: { component } } = createComponent(questionnaireId, parentId, weight, typeComponent, values.label);
-    setActiveComponent(component.id);
-    onSuccess();
+    const { payload: component } = createComponent({ ...values, parent, weight, type });
+    setSelectedComponentId(component.id);
+    if (onSuccess) onSuccess(component.id);
   };
 
-  return <ComponentNewEdit type={typeComponent} onSubmit={submit} onCancel={onCancel} />;
+  const props = {
+    onSubmit: submit,
+    onCancel: onCancel,
+  };
+
+  if (type === QUESTION) {
+    const questionInitialValues = {
+      initialValues: {
+        responseFormat: {
+          [SIMPLE]: {
+            mandatory: false,
+            type: DATE,
+          },
+          type: SIMPLE,
+        },
+      },
+    };
+    return <QuestionNewEdit {...questionInitialValues} {...props} />;
+  }
+  return <SequenceNewEdit {...props} />;
 }
 
 ComponentNewContainer.propTypes = {
   createComponent: PropTypes.func.isRequired,
-  setActiveComponent: PropTypes.func.isRequired,
-  questionnaireId: PropTypes.string.isRequired,
-  parentId: PropTypes.string.isRequired,
+  setSelectedComponentId: PropTypes.func.isRequired,
+  parent: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,
-  typeComponent: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
 };

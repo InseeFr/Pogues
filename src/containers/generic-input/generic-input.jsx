@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import GenericInput from 'components/generic-input/generic-input';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { saveActiveQuestionnaire } from 'actions/app-state';
 import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
@@ -12,37 +13,32 @@ import {
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
-const mapStateToProps = (state, { questionnaireId }) => {
-  const componentListByQuestionnaire = state.appState.componentListByQuestionnaire;
-  return {
-    questionnaireId: questionnaireId,
-    activeComponent: state.appState.activeComponent,
-    components: Object.prototype.hasOwnProperty.call(componentListByQuestionnaire, questionnaireId)
-      ? componentListByQuestionnaire[questionnaireId]
-      : {},
-  };
+const mapStateToProps = state => ({
+  questionnaire: state.appState.activeQuestionnaire,
+  components: state.appState.activeComponentsById,
+  selectedComponentId: state.appState.selectedComponentId,
+});
+
+const mapDispatchToProps = {
+  saveActiveQuestionnaire,
 };
 
-function GenericInputContainer({ questionnaireId, activeComponent, components }) {
+function GenericInputContainer({ questionnaire, components, selectedComponentId, saveActiveQuestionnaire }) {
   const placeholders = {};
-  const activeComponentObj = activeComponent !== '' ? components[activeComponent] : undefined;
+  const selectedComponent = components[selectedComponentId];
 
-  placeholders[SEQUENCE] = getNewSequencePlaceholder(components, questionnaireId, activeComponentObj);
-  placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, activeComponentObj);
-  placeholders[QUESTION] = getNewQuestionPlaceholder(components, activeComponentObj);
+  placeholders[SEQUENCE] = getNewSequencePlaceholder(components, questionnaire.id, selectedComponent);
+  placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, selectedComponent);
+  placeholders[QUESTION] = getNewQuestionPlaceholder(components, selectedComponent);
 
-  return <GenericInput questionnaireId={questionnaireId} placeholders={placeholders} />;
+  return <GenericInput placeholders={placeholders} saveActiveQuestionnaire={saveActiveQuestionnaire} />;
 }
 
 GenericInputContainer.propTypes = {
-  questionnaireId: PropTypes.string.isRequired,
-  activeComponent: PropTypes.string,
-  components: PropTypes.object,
+  questionnaire: PropTypes.object.isRequired,
+  components: PropTypes.object.isRequired,
+  selectedComponentId: PropTypes.string.isRequired,
+  saveActiveQuestionnaire: PropTypes.func.isRequired,
 };
 
-GenericInputContainer.defaultProps = {
-  activeComponent: '',
-  components: {},
-};
-
-export default connect(mapStateToProps)(GenericInputContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GenericInputContainer);

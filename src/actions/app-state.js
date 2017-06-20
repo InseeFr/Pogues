@@ -1,24 +1,145 @@
-export const SET_DEFAULT_STATE_QUESTIONNAIRE = 'SET_DEFAULT_STATE_QUESTIONNAIRE';
-export const SET_ACTIVE_COMPONENT = 'SET_ACTIVE_COMPONENT';
+import { serializeUpdateQuestionnaire } from 'utils/model/state-to-model-utils';
+import { putQuestionnaire } from 'utils/remote-api';
+import { normalizeQuestionnaire } from 'utils/model/model-to-state-utils';
+
+export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
+export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
+export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
+export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
+export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
+export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
+export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
 
 /**
- * Set a the default state of a questionnaire
+ * Set active questionnaire
  *
- * @param  {string} id questionnaire id
- * @return {object}    SET_DEFAULT_STATE_QUESTIONNAIRE action
+ * It changes the store "appState.activeQuestionnaire" with the questionnaire passed.
+ *
+ * @param  {object} questionnaire The questionnaire to set as active
+ * @return {object}               SET_ACTIVE_QUESTIONNAIRE action
  */
-export const setDefaultStateQuestionnaire = id => ({
-  type: SET_DEFAULT_STATE_QUESTIONNAIRE,
+export const setActiveQuestionnaire = questionnaire => ({
+  type: SET_ACTIVE_QUESTIONNAIRE,
+  payload: questionnaire,
+});
+
+/**
+ * Set active components
+ *
+ * It changes the store "appState.activeComponents" with the list (as object) of components passed.
+ *
+ * @param  {object} activeComponents  The components to set as actives
+ * @return {object}                   SET_ACTIVE_COMPONENTS action
+ */
+export const setActiveComponents = activeComponents => ({
+  type: SET_ACTIVE_COMPONENTS,
+  payload: activeComponents,
+});
+
+/**
+ * Set selected component id
+ *
+ * It updates the store "appState.selectedComponentId"
+ *
+ * @param  {string} id  The component id
+ * @return {object}     SET_SELECTED_COMPONENT action
+ */
+export const setSelectedComponentId = id => ({
+  type: SET_SELECTED_COMPONENT,
   payload: id,
 });
 
 /**
- * Set the current active component
+ * Update active questionnaire
  *
- * @param  {string} id component id
- * @return {object}    SET_ACTIVE_COMPONENT action
+ * It updates the store "appState.activeQuestionnaire" with the data passed.
+ *
+ * @param  {string} id    The questionnaire id.
+ * @param  {string} name  The new questionnaire name.
+ * @param  {string} label The new questionnaire label.
+ * @return {object}       UPDATE_ACTIVE_QUESTIONNAIRE action
  */
-export const setActiveComponent = id => ({
-  type: SET_ACTIVE_COMPONENT,
-  payload: id,
+export const updateActiveQuestionnaire = (id, name, label) => ({
+  type: UPDATE_ACTIVE_QUESTIONNAIRE,
+  payload: {
+    id,
+    name,
+    label,
+  },
 });
+
+/**
+ * Save active questionnaire success
+ *
+ * It's executed after the remote persistence of the active questionnaire and their components.
+ *
+ * The parameter "update" is a complex object. Entries correspond to reducers, they contain
+ * an update to apply to the piece of state handled by the reducer to
+ * represent locally the questionnaire.
+ *
+ * It will update the stores:
+ * - questionnaireById
+ * - componentById
+ * - componentByQuestionnaire
+ *
+ * @param  {string} id      The questionnaire id.
+ * @param  {object} update  The new values to update in the different stores affected.
+ * @return {object}         SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS action
+ */
+export const saveActiveQuestionnaireSuccess = (id, update) => ({
+  type: SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
+  payload: {
+    id,
+    update,
+  },
+});
+
+/**
+ * Save active questionnaire failure
+ *
+ * It's executed after the remote persistence failure in the active questionnaire and their questionnaires.
+ *
+ * @param  {string} id  The questionnaire.
+ * @param  {object} err The error returned for the process.
+ * @return {object} SAVE_ACTIVE_QUESTIONNAIRE_FAILURE action
+ */
+export const saveActiveQuestionnaireFailure = (id, err) => ({
+  type: SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
+  payload: {
+    id,
+    err,
+  },
+});
+
+/**
+ * Save active questionnaire
+ *
+ * Asyc action that saves remotely a questionnaire and their components.
+ *
+ * @return {function} Thunk which may dispatch SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS or SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
+ */
+export const saveActiveQuestionnaire = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SAVE_ACTIVE_QUESTIONNAIRE,
+      payload: null,
+    });
+
+    const state = getState();
+    const serializedQuestionnaire = serializeUpdateQuestionnaire(
+      state.appState.activeQuestionnaire,
+      state.appState.activeComponentsById
+    );
+    const questionnaireId = serializedQuestionnaire.id;
+
+    return putQuestionnaire(questionnaireId, serializedQuestionnaire)
+      .then(() => {
+        return dispatch(
+          saveActiveQuestionnaireSuccess(questionnaireId, normalizeQuestionnaire(serializedQuestionnaire))
+        );
+      })
+      .catch(err => {
+        return dispatch(saveActiveQuestionnaireFailure(questionnaireId, err));
+      });
+  };
+};
