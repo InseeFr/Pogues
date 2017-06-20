@@ -1,23 +1,10 @@
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
-import parseResponseFormat from './response-format/parse-response-format';
+import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, DATATYPE_NAME } from 'constants/pogues-constants';
+import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { uuid } from 'utils/data-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
-
-/**
- * Get response formats from raw questions
- *
- * It obtains the list of response formats from a list of questions
- *
- * @param  {array}   rawQuestions   List of raw questions
- * @return {object} List of response formats
- */
-export function getResponseFormatsFromRawQuestions(rawQuestions) {
-  return Object.keys(rawQuestions).reduce((acc, key) => {
-    acc[key] = parseResponseFormat(rawQuestions[key]);
-    return acc;
-  }, {});
-}
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { NUMERIC, TEXT } = DATATYPE_NAME;
 
 /**
  * Contains comment
@@ -80,45 +67,75 @@ export function getQuestionLabelFromRaw(rawQuestionLabel) {
   return label;
 }
 
-/**
- * Create component
- *
- * Create a new object component using the parameters passed
- *
- * @param  {object}             component             raw component
- * @param  {string}             component.id          component id
- * @param  {SEQUENCE_TYPE_NAME|
- *          SEQUENCE|
- *          QUESTION}           component.type        component type
- * @param  {string}             component.name        component name
- * @param  {string}             component.label       component label
- * @param  {array|undefined}    component.children    component children
- * @param  {string}             parent                component parent
- * @param  {number}             weight                component weight in the branch
- * @return {object} component
- */
-export function createComponent({ id, type, name, label, children }, parent, weight) {
-  const component = {
-    id,
-    parent,
-    weight,
-    type,
-    name,
+export function normalizeResponseFormatSimple(dataType, mandatory) {
+  const dataTypeName = dataType.typeName;
+  const formatResponseSimple = {
+    type: SIMPLE,
+    [SIMPLE]: {
+      mandatory: mandatory,
+      type: dataTypeName,
+    },
   };
 
-  component.type = type;
-  component.children = children || [];
-  component.rawLabel = '';
-  component.label = label;
-  component.conditions = [];
-
-  if (type === QUESTION) {
-    component.rawLabel = label;
-    component.label = getQuestionLabelFromRaw(label);
-    component.conditions = getConditionsFromRawQuestionLabel(label).map(c => c.id);
+  if (dataTypeName === NUMERIC) {
+    formatResponseSimple[SIMPLE][NUMERIC] = {
+      minimun: '',
+      maximun: '',
+      decimals: '',
+      precision: '',
+    };
   }
 
-  return component;
+  if (dataTypeName === TEXT) {
+    formatResponseSimple[SIMPLE][TEXT] = {
+      maxLength: '',
+      pattern: '',
+    };
+  }
+
+  return formatResponseSimple;
+}
+
+export function normalizeResponseFormat(type, responses) {
+  let formatResponse = {};
+
+  if (type && responses && responses.length > 0) {
+    if (type === SIMPLE) {
+      const [{ datatype, mandatory }] = responses;
+      formatResponse = normalizeResponseFormatSimple(datatype, mandatory);
+    }
+  }
+  return formatResponse;
+}
+
+export function normalizeQuestion({ id, type, name, label, parent, weight, responseFormat }) {
+  const question = {
+    id,
+    type,
+    parent,
+    weight,
+    name,
+    rawLabel: label,
+    label: getQuestionLabelFromRaw(label),
+    conditions: getConditionsFromRawQuestionLabel(label).map(c => c.id),
+    responseFormat,
+  };
+
+  return question;
+}
+
+export function normalizeSequence({ id, type, name, label, children, parent, weight }) {
+  const sequence = {
+    id,
+    type,
+    parent,
+    weight,
+    name,
+    label,
+    children: children || [],
+  };
+
+  return sequence;
 }
 
 /**
@@ -136,21 +153,28 @@ export function createComponent({ id, type, name, label, children }, parent, wei
  * @param  {array|undefined}    component.children    component children
  * @return {object} normalized component
  */
-export function normalizeComponent({ id, weight, parent, type, name, depth, label: [label], children }) {
+export function normalizeComponent({ type, parent, depth, label: [label], questionType, responses, ...data }) {
+  let typeInState = QUESTION;
   // The component types received from the model are differents to the types used in the state
   if (type === SEQUENCE_TYPE_NAME) {
     if (parent === '') {
-      type = QUESTIONNAIRE;
+      typeInState = QUESTIONNAIRE;
     } else if (depth === 1) {
-      type = SEQUENCE;
+      typeInState = SEQUENCE;
     } else {
-      type = SUBSEQUENCE;
+      typeInState = SUBSEQUENCE;
     }
+    return normalizeSequence({ type: typeInState, parent, depth, label, ...data });
   }
-  if (type === QUESTION_TYPE_NAME) {
-    type = QUESTION;
-  }
-  return createComponent({ id, type, name, label, children }, parent, weight);
+
+  return normalizeQuestion({
+    type: typeInState,
+    responseFormat: normalizeResponseFormat(questionType, responses),
+    parent,
+    depth,
+    label,
+    ...data,
+  });
 }
 
 /**
@@ -362,7 +386,8 @@ export function normalizeQuestionnaire(questionnaire) {
     });
 
   // RESPONSE_FORMAT_BY_ID
-  const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
+  // const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
+  const responseFormatById = {};
 
   return {
     componentById,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { loadUser } from 'actions/user';
-import UserConnection from 'components/user/user-connection';
+import UserConnection from './components/user-connection';
 
 const mapStateToProps = state => ({
   user: state.appState.user,

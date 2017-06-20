@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import ComponentNewContainer from 'questionnary/containers/component-new';
+import ComponentNewContainer from 'questionnaire/containers/component/component-new';
 import Dictionary from 'utils/dictionary/dictionary';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
@@ -94,6 +94,7 @@ class GenericInput extends Component {
         <button className="btn-yellow">{Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" /></button>
         <button className="btn-yellow">{Dictionary.remove}<span className="glyphicon glyphicon-trash" /></button>
         <ReactModal
+          shouldCloseOnOverlayClick={false}
           isOpen={this.state.showNewComponentModal}
           onRequestClose={this.handleCloseNewComponent}
           contentLabel={this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}
@@ -105,9 +106,9 @@ class GenericInput extends Component {
             </div>
             <div className="popup-body">
               <ComponentNewContainer
-                parentId={newComponentParent}
+                parent={newComponentParent}
                 weight={newComponentWeight}
-                typeComponent={this.state.typeNewComponent}
+                type={this.state.typeNewComponent}
                 onCancel={this.handleCloseNewComponent}
                 onSuccess={this.handleCloseNewComponent}
               />

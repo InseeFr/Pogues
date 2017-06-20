@@ -1,3 +1,5 @@
+// @TODO: It needs refactor and documentation
+
 import { uuid } from 'utils/data-utils';
 
 export const CREATE_CODE = 'CREATE_CODE';

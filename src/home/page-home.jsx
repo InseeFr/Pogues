@@ -86,6 +86,7 @@ export class PageHome extends Component {
           </ul>
         </div>
         <ReactModal
+          shouldCloseOnOverlayClick={false}
           isOpen={this.state.showModal}
           onRequestClose={this.handleCloseModal}
           contentLabel={Dictionary.newEmptyQuestionnaire}

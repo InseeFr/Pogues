@@ -9,12 +9,10 @@ const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
 });
 
-// @TODO: We need the service
 const mapDispatchToProps = {
   updateActiveQuestionnaire,
 };
 
-// eslint-disable-next-line no-shadow
 function QuestionnaireEditContainer({ updateActiveQuestionnaire, questionnaire, onSuccess, onCancel }) {
   const submit = values => {
     updateActiveQuestionnaire(questionnaire.id, values.name, values.label);

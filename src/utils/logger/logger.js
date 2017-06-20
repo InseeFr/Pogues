@@ -23,8 +23,7 @@ class Logger {
     return Config.log.level;
   }
 
-  static setLevel() {
-  }
+  static setLevel() {}
 
   getPrefix() {
     // Keep the trailing space, please

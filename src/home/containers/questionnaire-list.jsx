@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loadQuestionnaireList } from 'home/actions/questionnaire-list';
+import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import QuestionnaireList from 'home/components/questionnaire-list';
 
 const mapStateToProps = state => {
