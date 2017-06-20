@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
-import config from 'config/config';
+import Config from '../../build-config/config';
 
-const { baseURL, persistancePath, userPath } = config;
+const { baseURL, persistancePath, userPath } = Config;
 
 const urlQuestionnaireList = `${baseURL + persistancePath}/questionnaires`;
 const urlQuestionnaire = `${baseURL + persistancePath}/questionnaire`;

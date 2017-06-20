@@ -1,4 +1,4 @@
-//@TODO: Reduce the chunks size
+// @TODO: Reduce the chunks size
 
 const webpack = require('webpack');
 const path = require('path');
@@ -36,8 +36,8 @@ module.exports = function(env) {
   const isProd = nodeEnv === 'production';
 
   /*
-    PLUGINS
-  */
+   PLUGINS
+   */
 
   const plugins = [
     new webpack.optimize.CommonsChunkPlugin({
@@ -99,8 +99,8 @@ module.exports = function(env) {
   }
 
   /*
-    SCSS AND CSS
-  */
+   SCSS AND CSS
+   */
 
   if (isProd) {
     cssLoader = ExtractTextPlugin.extract({
@@ -111,7 +111,7 @@ module.exports = function(env) {
           options: {
             localIdentName: '[hash:base64:5]',
           },
-        }
+        },
       ],
     });
 
@@ -147,7 +147,7 @@ module.exports = function(env) {
           // module: true,
           localIdentName: '[path][name]-[local]',
         },
-      }
+      },
     ];
 
     scssLoader = [
@@ -166,15 +166,15 @@ module.exports = function(env) {
         options: {
           outputStyle: 'expanded',
           sourceMap: false,
-          includePaths: [ sourcePath ],
+          includePaths: [sourcePath],
         },
       },
     ];
   }
 
   /*
-    ENTRY POINT
-  */
+   ENTRY POINT
+   */
 
   const devEntryPoint = [
     // activate HMR for React
@@ -195,8 +195,8 @@ module.exports = function(env) {
   const entryPoint = isProd ? './index.js' : devEntryPoint;
 
   /*
-    CONFIGURATION
-  */
+   CONFIGURATION
+   */
 
   return {
     devtool: isProd ? 'source-map' : 'cheap-module-source-map',
