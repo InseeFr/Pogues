@@ -314,6 +314,29 @@ function normalizeCodesLists(preNormalizedCodesLists) {
   }, {});
 }
 
+export function normalizeDeclarations(questions) {
+  return Object.keys(questions).reduce((acc, key) => {
+    const declarations = questions[key].declarations.map(declaration => {
+      const { declarationType, text, position } = declaration;
+        return {
+        id: uuid(),
+        text,
+        position,
+        type: declarationType,
+        qid: key
+      }
+    })
+
+    let result = declarations.reduce((acc, dec) => {
+      return {
+        ...acc,
+        [dec.id] : dec,
+      }
+    }, {});
+    return result;
+  }, {});
+}
+
 /**
  * Normalize questionnaire
  *
@@ -389,6 +412,12 @@ export function normalizeQuestionnaire(questionnaire) {
   // const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
   const responseFormatById = {};
 
+  const declarationById = normalizeDeclarations(rawQuestions);
+
+  const declarationsByQuestionnaire = {
+    [id]: declarationById,
+  };
+  
   return {
     componentById,
     componentByQuestionnaire,
@@ -397,6 +426,8 @@ export function normalizeQuestionnaire(questionnaire) {
     conditionById,
     questionnaireById,
     responseFormatById,
+    declarationsByQuestionnaire,
+    declarationById,
   };
 }
 

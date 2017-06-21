@@ -151,8 +151,11 @@ body {
   }
   .nav-content {
     display: none;
-    margin-top: 20px;
-
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #DDD;
+    margin-bottom: 10px; 
+    
     &.active {
       display: block;
     }

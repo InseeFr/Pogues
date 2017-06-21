@@ -1,4 +1,6 @@
 import activeComponentsById from 'reducers/app-state/active-components-by-id';
+import activeDeclarationsById from 'reducers/app-state/active-declarations-by-id';
+
 import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
@@ -57,5 +59,6 @@ export default function(state = defaultState, action) {
   return {
     ...(hndlr ? hndlr(state, payload) : state),
     activeComponentsById: activeComponentsById(state.activeComponentsById, action),
+    activeDeclarationsById: activeDeclarationsById(state.activeDeclarationsById, action),
   };
 }

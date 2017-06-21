@@ -9,6 +9,7 @@ export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
 export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
+export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
 
 /**
  * Set active questionnaire
@@ -34,6 +35,19 @@ export const setActiveQuestionnaire = questionnaire => ({
 export const setActiveComponents = activeComponents => ({
   type: SET_ACTIVE_COMPONENTS,
   payload: activeComponents,
+});
+
+/**
+ * Set active components
+ *
+ * It changes the store "appState.activeComponents" with the list (as object) of components passed.
+ *
+ * @param  {object} activeComponents  The components to set as actives
+ * @return {object}                   SET_ACTIVE_COMPONENTS action
+ */
+export const setActiveDeclarations = activeDeclarations => ({
+  type: SET_ACTIVE_DECLARATIONS,
+  payload: activeDeclarations,
 });
 
 /**
