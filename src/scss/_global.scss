@@ -148,7 +148,12 @@ body {
     color: #464a4c;
     background-color: #fff;
     border-color: #ddd #ddd #fff;
+    &.active {
+      background-color: #EEE;
+    }
   }
+  
+
   .nav-content {
     display: none;
     padding-top: 20px;

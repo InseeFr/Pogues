@@ -5,8 +5,9 @@ import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
+import Checkbox from 'layout/forms/controls/checkbox';
 
-function renderListDeclarations({ fields, declarations, currentText, currentType, currentPosition }) {
+function renderListControls({ fields, controls, currentText, currentType, currentPosition }) {
     /*const declarations = fields.map((name, index, fields) => {
         return <li key={index}>
             <Field name={`${name}.text`} type="hidden" component="input" value={currentText} />
@@ -14,95 +15,72 @@ function renderListDeclarations({ fields, declarations, currentText, currentType
             <Field name={`${name}.position`} type="hidden" component="input" value={currentPosition} />
         </li>
     })*/
-    const declarationsBlock = declarations.length > 0 ?
-        declarations.map(declaration => {
+    const controlsBlock = controls.length > 0 ?
+        controls.map(control => {
             return <li>
                 <button className="btn btn-link">
                     <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    {declaration.text}
+                    {control.text}
                 </button>
             </li>
         }) : <li>
-            {Dictionary.noDeclarationYet}
+            {Dictionary.noControlYet}
         </li>
 
     return <ul>
-        {declarationsBlock}
+        {controlsBlock}
         <li>
             <button className="btn btn-link" onClick={(event) => { event.stopPropagation(); fields.push(); }}>
                 <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                {Dictionary.addDeclaration}
+                {Dictionary.addControl}
             </button>
         </li>
     </ul>
 }
-class Declaration extends React.Component {
+class Controls extends React.Component {
     static defaultProps = {
-        name: 'declarations',
-        declarations: [],
+        name: 'controls',
+        controls: [],
     };
     static propTypes = {
-        declarations: PropTypes.array.isRequired,
+        controls: PropTypes.array.isRequired,
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            currentText: '',
-            currentType: '',
-            currentPosition: '',
-            declarations: this.props.declarations
+            controls: this.props.controls
         }
         
     }
 
     render() {
-        const mockTypes = [
+        const levels = [
             {
-                value: 'INSTRUCTION',
-                label: Dictionary.INSTRUCTION,
+                value: 'INFO',
+                label: Dictionary.INFO,
             },
             {
-                value: 'COMMENT',
-                label: Dictionary.COMMENT,
+                value: 'WARN',
+                label: Dictionary.WARN,
             },
             {
-                value: 'HELP',
-                label: Dictionary.HELP,
-            },
-            {
-                value: 'WARNING',
-                label: Dictionary.WARNING,
-            },
-        ];
-
-        const mockPosition = [
-            {
-                value: 'AFTER_QUESTION_TEXT',
-                label: Dictionary.dclPosAfterQuestion,
-            },
-            {
-                value: 'AFTER_RESPONSE',
-                label: Dictionary.dclPosAfterAnswer,
-            },
-            {
-                value: 'BEFORE_QUESTION_TEXT',
-                label: Dictionary.dclPosBeforeText,
-            },
-            {
-                value: 'DETACHABLE',
-                label: Dictionary.dclPosDetachable,
+                value: 'ERROR',
+                label: Dictionary.ERROR,
             },
         ]
 
-
         return (
             <div className="declarations-box">
-                <FieldArray {...this.state} name="declarations" component={renderListDeclarations}></FieldArray>
+                <FieldArray {...this.state} name="controls" component={renderListControls}></FieldArray>
                 <div>
-                    <Field name="text" id="declaration_text" component={Textarea} buttons label={Dictionary.declaration_label} required />
-                    <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={mockTypes} required />
-                    <Field name="position" id="declaration_position" component={Select} label={Dictionary.declaration_position} options={mockPosition} required />
+                    <Field name="text" id="control_text" component={Input} label={Dictionary.control_label} required />
+                    <Field name="condition" id="control_condition" component={Textarea} label={Dictionary.expression} required />
+                    <Field name="message" id="control_message" component={Textarea} label={Dictionary.control_message} required />
+                    <Field name="type" id="control_type" component={Select} label={Dictionary.type} required options={levels} />
+                    <Field name="type" id="control_type" component={Select} label={Dictionary.type} required options={levels} />
+                    <Field name="during_collect" id="control_during_collect" component={Checkbox} label={Dictionary.control_during_collect} />
+                    <Field name="post_collect" id="control_post_collect" component={Checkbox} label={Dictionary.control_post_collect} />
                 </div>
                 <div className="declaration-actions">
                     <ul className="form-footer">
@@ -127,4 +105,4 @@ class Declaration extends React.Component {
     }
 }
 
-export default Declaration;
+export default Controls;

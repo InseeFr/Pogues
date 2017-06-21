@@ -2,107 +2,64 @@ import React from 'react';
 import { Field, FieldArray } from 'redux-form';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
-import Select from 'layout/forms/controls/select';
 import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 
-function renderListDeclarations({ fields, declarations, currentText, currentType, currentPosition }) {
+function renderListRedirections({ fields, redirections, currentText, currentType, currentPosition }) {
     /*const declarations = fields.map((name, index, fields) => {
         return <li key={index}>
             <Field name={`${name}.text`} type="hidden" component="input" value={currentText} />
             <Field name={`${name}.type`} type="hidden" component="input" value={currentType} />
             <Field name={`${name}.position`} type="hidden" component="input" value={currentPosition} />
         </li>
-    })*/
-    const declarationsBlock = declarations.length > 0 ?
-        declarations.map(declaration => {
+    })*/    
+    const redirectionsBlock = redirections.length > 0 ?
+        redirections.map(redirection => {
             return <li>
                 <button className="btn btn-link">
                     <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    {declaration.text}
+                    {redirection.text}
                 </button>
             </li>
         }) : <li>
-            {Dictionary.noDeclarationYet}
+            {Dictionary.noGoToYet}
         </li>
 
     return <ul>
-        {declarationsBlock}
+        {redirectionsBlock}
         <li>
             <button className="btn btn-link" onClick={(event) => { event.stopPropagation(); fields.push(); }}>
                 <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                {Dictionary.addDeclaration}
+                {Dictionary.defineGoTo}
             </button>
         </li>
     </ul>
 }
-class Declaration extends React.Component {
+class Redirections extends React.Component {
     static defaultProps = {
-        name: 'declarations',
-        declarations: [],
+        name: 'redirections',
+        redirections: [],
     };
     static propTypes = {
-        declarations: PropTypes.array.isRequired,
+        redirections: PropTypes.array.isRequired,
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            currentText: '',
-            currentType: '',
-            currentPosition: '',
-            declarations: this.props.declarations
+            redirections: this.props.redirections
         }
         
     }
 
     render() {
-        const mockTypes = [
-            {
-                value: 'INSTRUCTION',
-                label: Dictionary.INSTRUCTION,
-            },
-            {
-                value: 'COMMENT',
-                label: Dictionary.COMMENT,
-            },
-            {
-                value: 'HELP',
-                label: Dictionary.HELP,
-            },
-            {
-                value: 'WARNING',
-                label: Dictionary.WARNING,
-            },
-        ];
-
-        const mockPosition = [
-            {
-                value: 'AFTER_QUESTION_TEXT',
-                label: Dictionary.dclPosAfterQuestion,
-            },
-            {
-                value: 'AFTER_RESPONSE',
-                label: Dictionary.dclPosAfterAnswer,
-            },
-            {
-                value: 'BEFORE_QUESTION_TEXT',
-                label: Dictionary.dclPosBeforeText,
-            },
-            {
-                value: 'DETACHABLE',
-                label: Dictionary.dclPosDetachable,
-            },
-        ]
-
-
         return (
             <div className="declarations-box">
-                <FieldArray {...this.state} name="declarations" component={renderListDeclarations}></FieldArray>
+                <FieldArray {...this.state} name="redirections" component={renderListRedirections}></FieldArray>
                 <div>
-                    <Field name="text" id="declaration_text" component={Textarea} buttons label={Dictionary.declaration_label} required />
-                    <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={mockTypes} required />
-                    <Field name="position" id="declaration_position" component={Select} label={Dictionary.declaration_position} options={mockPosition} required />
+                    <Field name="text" id="redirection_text" component={Input} label={Dictionary.goTo_label} required />
+                    <Field name="condition" id="redirection_condition" component={Textarea} label={Dictionary.expression} required />
+                    <Field name="cible" id="redirection_cible" component={Input} label={Dictionary.type} required />
                 </div>
                 <div className="declaration-actions">
                     <ul className="form-footer">
@@ -127,4 +84,4 @@ class Declaration extends React.Component {
     }
 }
 
-export default Declaration;
+export default Redirections;
