@@ -10,9 +10,7 @@ import {
   REMOVE_MEASURE,
 } from 'actions/response-format';
 
-// import { emptyFormat } from '../utils/format-utils';
 import { LOAD_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
-// import { CREATE_COMPONENT } from 'actions/component';
 
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { emptyDatatypeFactory } from 'utils/model/data-types/data-types-utils';
@@ -20,7 +18,7 @@ import { AXIS, DATATYPE_VIS_HINT } from 'constants/pogues-constants';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { INFO, MEASURE, FIRST_INFO, SCND_INFO } = AXIS;
+const { INFO, MEASURE } = AXIS;
 
 /**
  * Produce a reducing function from a function that updates a response format
@@ -53,18 +51,6 @@ function fromFormatHndlr(fn) {
     };
   };
 }
-
-// function createComponent(formats, { id, type }) {
-//   if (type !== COMPONENT_TYPE.QUESTION) return formats;
-//   // We use the `id` of the question for the default datatype
-//   return {
-//     ...formats,
-//     [id]: {
-//       id,
-//       ...emptyFormat,
-//     },
-//   };
-// }
 
 function switchFormat(formats, { id, type }) {
   return {
@@ -274,7 +260,7 @@ function updateMeasureFormat(format, { index, update }) {
   };
 }
 
-function addMeasure(format, { index }) {
+function addMeasure(format) {
   return {
     ...format,
     measures: [
@@ -308,7 +294,6 @@ export function loadQuestionnaireSuccess(state, { update: { responseFormatById }
 }
 
 const actionsHndlrs = {
-  // [CREATE_COMPONENT]: createComponent,
   [SWITCH_FORMAT]: switchFormat,
   [UPDATE_RESPONSE]: updateResponse,
   [UPDATE_DATATYPE]: fromFormatHndlr(updateDatatype),
