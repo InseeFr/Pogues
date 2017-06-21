@@ -1,6 +1,7 @@
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, DATATYPE_NAME } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { uuid } from 'utils/data-utils';
+import { nameFromLabel } from 'utils/name-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
@@ -274,6 +275,7 @@ function preNormalizeCodesLists(codesLists) {
         ...acc,
         [id]: {
           id,
+          code: nameFromLabel(label),
           label,
           value,
         },
@@ -300,13 +302,6 @@ function normalizeCodesLists(preNormalizedCodesLists) {
       label,
       codes: Object.keys(codes),
     };
-    // HACK for now, it's not possible to distinguish between code list created
-    // by the user from code list that come from code list specification when
-    // we load the questionnaire.
-    if (name.startsWith('cl_')) {
-      clState.spec = true;
-      clState.loaded = true;
-    }
     return {
       ...acc,
       [id]: clState,
@@ -384,7 +379,7 @@ export function normalizeQuestionnaire(questionnaire) {
     },
   };
 
-  // Filter the raw questions from raw compopnents
+  // Filter the raw questions from raw components
   const rawQuestions = {};
 
   Object.keys(rawComponents)
