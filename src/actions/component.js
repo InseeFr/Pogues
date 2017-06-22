@@ -49,6 +49,7 @@ function normalizeComponent(component, id, parent, weight, type, responseFormat)
 }
 
 function normalizeCodes(codes) {
+  if (!codes) return {};
   return codes.reduce((acc, code) => {
     return {
       ...acc,
@@ -58,6 +59,7 @@ function normalizeCodes(codes) {
 }
 
 function normalizeCodeList(codesList, codeIds) {
+  if (!codesList) return {};
   return {
     [codesList.id]: {
       ...codesList,
