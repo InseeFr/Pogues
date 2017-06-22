@@ -27,8 +27,6 @@ describe('<PageQuestionnaire />', () => {
 
   test('should call switchToQuestionnaire in render', () => {
     shallow(<PageQuestionnaire {...props} />);
-    let page = React.createElement(PageQuestionnaire, { ...props });
-    TestUtils.renderIntoDocument(page);
     expect(spy).toBeCalled();
   });
 });
