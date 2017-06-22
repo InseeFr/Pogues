@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Logger from 'utils/logger/logger';
-import QuestionnaireContainer from 'questionnary/containers/questionnaire';
-import QuestionnaireNav from 'questionnary/components/questionnaire-nav';
-import GenericInputContainer from 'questionnary/containers/generic-input';
-import { loadQuestionnaireIfNeeded } from 'home/actions/questionnaire';
+import QuestionnaireContainer from 'questionnaire/containers/questionnaire';
+import QuestionnaireNav from 'questionnaire/components/questionnaire-nav';
+import GenericInputContainer from 'questionnaire/containers/generic-input';
+import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
 import { setActiveQuestionnaire, setActiveComponents } from 'actions/app-state';
 
 const logger = new Logger('PageQuestionnaire', 'Components');

@@ -6,6 +6,8 @@ import {
   SEQUENCE_GENERIC_NAME,
   QUESTION_TYPE_NAME,
   SEQUENCE_TYPE_NAME,
+  DATATYPE_NAME,
+  DATATYPE_TYPE_FROM_NAME,
 } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
@@ -42,7 +44,7 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
   function serializePlainToNested(component, depth = 0) {
     const componentType = component.type;
     const newDepth = depth + 1;
-    return {
+    const nestedComponent = {
       ...componentModelTmpl,
       id: component.id,
       name: component.name,
@@ -50,10 +52,32 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
       depth: newDepth,
       type: typeNamesByComponentType[componentType],
       genericName: genericNamesByComponentType[componentType],
-      children: component.children.map(key => {
-        return serializePlainToNested(listComponents[key], newDepth);
-      }),
     };
+
+    if (componentType === QUESTION) {
+      const responseFormatType = component.responseFormat.type;
+      const responseFormat = component.responseFormat[responseFormatType];
+
+      nestedComponent.questionType = responseFormatType;
+      nestedComponent.responses = [
+        {
+          mandatory: responseFormat.mandatory || true,
+          datatype: {
+            format: responseFormat.format,
+            maximum: responseFormat.maximum,
+            minimum: responseFormat.minimum,
+            type: DATATYPE_TYPE_FROM_NAME[responseFormat.type],
+            typeName: responseFormat.type,
+          },
+        },
+      ];
+    } else {
+      nestedComponent.children = component.children.map(key => {
+        return serializePlainToNested(listComponents[key], newDepth);
+      });
+    }
+
+    return nestedComponent;
   }
 
   return listComponents[questionnaireId].children.map(key => serializePlainToNested(listComponents[key]));

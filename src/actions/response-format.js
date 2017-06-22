@@ -1,3 +1,5 @@
+// @TODO: It needs refactor and documentation
+
 export const SWITCH_FORMAT = 'SWITCH_FORMAT';
 export const UPDATE_FORMAT = 'UPDATE_FORMAT';
 export const UPDATE_DATATYPE = 'UPDATE_DATATYPE';
@@ -15,7 +17,7 @@ import { uuid } from '../utils/data-utils';
 
 /**
  * Switch response format
- * 
+ *
  * @param   {string} id   response id
  * @param   {type}   type response format (SIMPLE, SINGLE, MULTIPLE or TABLE)
  * @returns {object}      SWITCH_FORMAT action
@@ -30,7 +32,7 @@ export const switchFormat = (id, type) => ({
 
 /**
  * Update a response
- * 
+ *
  * @param   {string} id     response id
  * @param   {object} update properties to update
  * @returns {object}        UPDATE_RESPONSE action
@@ -45,7 +47,7 @@ export const updateResponse = (id, update) => ({
 
 /**
  * Update a response format
- * 
+ *
  * @param   {string} id      response format id
  * @param   {object} update  properties to update
  * @returns {object}         UPDATE_FORMAT action
@@ -60,9 +62,9 @@ export const updateFormat = (id, update) => ({
 
 /**
  * Update the datatype used in a response format
- * 
+ *
  * For SIMPLE response format and TABLE response format (related to one measure)
- * 
+ *
  * @param   {string}  id     response format id
  * @param   {object}  update properties to update
  * @param   {integer} index  rank of the measure concerned for TABLE response
@@ -80,10 +82,10 @@ export const updateDatatype = (id, update, index) => ({
 
 /**
  * Create a code list and use it within a response format
- * 
+ *
  * Usage may differ depending of the response format the code list is created
  * for (SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE).
- * 
+ *
  * @param   {string} id   response format id
  * @param   {string} qrId questionnaire id
  * @param   {string} ctx  which measure to update (INFO, MEASURE for
@@ -102,7 +104,7 @@ export const newCodeListFormat = (id, qrId, ctx) => ({
 
 /**
  * Update a measure from a TABLE response format
- * 
+ *
  * @param   {string}  id     response format id
  * @param   {update}  object update to apply to the measure
  * @param   {integer} index  rank of the measure
@@ -119,7 +121,7 @@ export const updateMeasure = (id, update, index) => ({
 
 /**
  * Update the format of a measure from a TABLE response format
- * 
+ *
  * @param   {string}  id     response format id
  * @param   {update}  object update to apply to the measure format
  * @param   {integer} index  rank of the measure
@@ -136,7 +138,7 @@ export const updateMeasureFormat = (id, update, index) => ({
 
 /**
  * Add a measure from a TABLE response format
- * 
+ *
  * @param   {string} id    response format id
  * @param   {number} index where to add the measure (rank)
  * @returns {object}       ADD_MEASURE action

@@ -10,7 +10,7 @@ import {
   REMOVE_MEASURE,
 } from 'actions/response-format';
 
-import { LOAD_QUESTIONNAIRE_SUCCESS } from 'home/actions/questionnaire';
+import { LOAD_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
 
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { emptyDatatypeFactory } from 'utils/model/data-types/data-types-utils';

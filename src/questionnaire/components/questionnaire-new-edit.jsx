@@ -2,12 +2,12 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Input from 'layout/forms/controls/input';
-import SelectWithAddNew from 'layout/forms/controls/select-with-add-new';
-import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
-import Select from 'layout/forms/controls/select';
-import { required } from 'layout/forms/validation-rules';
-import { questionnaireName } from 'layout/forms/normalize-inputs';
+import Input from 'components/forms/controls/input';
+import SelectWithAddNew from 'components/forms/controls/select-with-add-new';
+import ListRadioButtons from 'components/forms/controls/list-radio-buttons';
+import Select from 'components/forms/controls/select';
+import { required } from 'components/forms/validation-rules';
+import { questionnaireName } from 'components/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
@@ -79,7 +79,7 @@ function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, err
       </ul>
       <form onSubmit={handleSubmit}>
 
-        <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
+        <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required/>
 
         <Field
           name="name"
@@ -91,7 +91,14 @@ function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, err
           required
         />
 
-        <Field name="stamp" type="text" component={Input} label={Dictionary.stamp} validate={[required]} required />
+        <Field
+          name="stamp"
+          type="text"
+          component={Input}
+          label={Dictionary.stamp}
+          validate={[required]}
+          required
+        />
 
         <div>{Dictionary.newQuestionnaireLegend}</div>
         <br />
@@ -127,9 +134,7 @@ function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, err
         />
 
         <div className="form-footer">
-          {onCancel
-            ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>
-            : ''}
+          {onCancel ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button> : ''}
           <button type="submit" disabled={pristine || submitting}>{Dictionary.validate}</button>
         </div>
       </form>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Logger from 'utils/logger/logger';
-import QuestionnaireListItem from './questionnaire-list-item';
+import QuestionnaireListItem from 'home/components/questionnaire-list-item';
 import Dictionary from 'utils/dictionary/dictionary';
 
 const logger = new Logger('QuestionnaireList', 'Components');

@@ -4,7 +4,7 @@ import { Router, hashHistory, Route, IndexRoute, Redirect } from 'react-router';
 import App from 'layout/app';
 import PageHome from 'home/page-home';
 import PageHelp from 'help/page-help';
-import PageQuestionnaire from 'questionnary/page-questionnaire';
+import PageQuestionnaire from 'questionnaire/page-questionnaire';
 
 function RouterContainer() {
   return (

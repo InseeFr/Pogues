@@ -1,5 +1,5 @@
-import { LOAD_QUESTIONNAIRE_SUCCESS } from 'home/actions/questionnaire';
-import { LOAD_QLIST_SUCCESS } from 'home/actions/questionnaire-list';
+import { LOAD_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
+import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
