@@ -9,7 +9,7 @@ import { PageQuestionnaire } from './page-questionnaire';
 describe('<PageQuestionnaire />', () => {
   const spy = jest.fn();
   const props = {
-    match: { params: { id: 1 } },
+    params: { id: 1 },
     switchToQuestionnaire: spy,
   };
 

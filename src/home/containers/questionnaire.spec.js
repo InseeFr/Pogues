@@ -3,7 +3,7 @@ jest.dontMock('./questionnaire-list.jsx');
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { QuestionnaireListContainer } from '../../home/containers/questionnaire-list';
+import { QuestionnaireListContainer } from './questionnaire-list';
 
 describe('<QuestionnaireListContainer />', () => {
   test('should call loadQuestionnaireList and loadCodeListSpecs', () => {

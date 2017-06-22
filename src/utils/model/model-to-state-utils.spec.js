@@ -1,17 +1,11 @@
 jest.dontMock('./model-to-state-utils.js');
 
-import {
-  removeUnderscore,
-  normalizeQuestionnaire,
-  normalizeNestedComponents,
-  normalizeComponent,
-  getNumNestedChildren,
-} from './model-to-state-utils';
+import { normalizeQuestionnaire, normalizeComponent } from './model-to-state-utils';
 import fakeQuestionnaireModel from './fake-questionnaire-model';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
-const model = removeUnderscore(fakeQuestionnaireModel);
+const model = fakeQuestionnaireModel;
 
 describe('normalizeQuestionnaire', () => {
   test('should return "questionnaire" attribute with the expected values', () => {
@@ -22,14 +16,6 @@ describe('normalizeQuestionnaire', () => {
     const state = normalizeQuestionnaire(model);
 
     expect(state.questionnaire).toEqual(expectedValue);
-  });
-});
-
-describe('normalizeNestedComponents', () => {
-  test('should return as many component as nested children in the questionnaire model', () => {
-    const expectedNumComponents = getNumNestedChildren(model.children);
-    const components = normalizeNestedComponents(model.children);
-    expect(Object.keys(components).length).toBe(expectedNumComponents);
   });
 });
 
