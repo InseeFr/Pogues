@@ -1,22 +1,22 @@
-// jest.dontMock('./model-to-state-utils.js');
-//
-// import { normalizeQuestionnaire, normalizeComponent } from './model-to-state-utils';
-// import fakeQuestionnaireModel from './fake-questionnaire-model';
-// import { COMPONENT_TYPE } from 'constants/pogues-constants';
-//
-// const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
-// const model = fakeQuestionnaireModel;
-//
-// describe('normalizeQuestionnaire', () => {
-//   test('should return "questionnaire" attribute with the expected values', () => {
-//     const expectedValue = {
-//       id: model.id,
-//     };
-//     const state = normalizeQuestionnaire(model);
-//     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^state: ', state);
-//     expect(state.componentByQuestionnaire.id).toEqual(expectedValue.id);
-//   });
-// });
+jest.dontMock('./model-to-state-utils.js');
+
+import { normalizeQuestionnaire, normalizeComponent } from './model-to-state-utils';
+import fakeQuestionnaireModel from './fake-questionnaire-model';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
+const model = fakeQuestionnaireModel;
+
+describe('normalizeQuestionnaire', () => {
+  test('should return "questionnaire" attribute with the expected values', () => {
+    const expectedValue = {
+      id: model.id,
+    };
+    const state = normalizeQuestionnaire(model);
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^state: ', state);
+    expect(state.componentByQuestionnaire.id).toEqual(expectedValue.id);
+  });
+});
 //
 // describe('normalizeComponent', () => {
 //   test('should return expected values when the component is of type "SEQUENCE"', () => {

@@ -1,7 +1,7 @@
 jest.dontMock('./questionnaire-list.jsx');
 
 import React from 'react';
-import { shallow } from 'react-test-renderer/shallow';
+import { shallow } from 'enzyme';
 
 import { QuestionnaireListContainer } from './questionnaire-list';
 
