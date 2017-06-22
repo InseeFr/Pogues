@@ -5,7 +5,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
-import { QuestionnaireNewEdit as QuestionnaireNew } from './questionnaire-new-edit';
+import { QuestionnaireNewEdit } from './questionnaire-new-edit';
 import { getLocale } from 'utils/test/test-utils';
 
 const locale = getLocale();
@@ -67,7 +67,7 @@ describe('<QuestionnarieNew />', () => {
     locale: locale,
   };
   test('should render without throw an error', () => {
-    const wrapperQuestionnarieNew = shallow(<QuestionnaireNew {...props} />);
+    const wrapperQuestionnarieNew = shallow(<QuestionnaireNewEdit {...props} />);
     expect(wrapperQuestionnarieNew.is('#questionnaire-new')).toBe(true);
   });
 });

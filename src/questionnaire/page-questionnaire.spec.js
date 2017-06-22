@@ -7,12 +7,12 @@ import { shallow } from 'enzyme';
 import { PageQuestionnaire } from './page-questionnaire';
 
 describe('<PageQuestionnaire />', () => {
-  const spy = jest.fn();
+  const spy = jest.fn(() => false);
   const props = {
     params: { id: 1 },
-    loadQuestionnaireIfNeeded: jest.fn(),
-    setActiveQuestionnaire: jest.fn(),
-    setActiveComponents: jest.fn(),
+    loadQuestionnaireIfNeeded: jest.fn(() => false),
+    setActiveQuestionnaire: jest.fn(() => false),
+    setActiveComponents: jest.fn(() => false),
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);
