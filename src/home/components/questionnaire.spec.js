@@ -5,7 +5,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
-import QuestionnaireNewEdit from './questionnaire-new-edit';
+import { QuestionnaireNewEdit } from './questionnaire-new-edit';
 import { getLocale } from 'utils/test/test-utils';
 
 const locale = getLocale();
@@ -48,7 +48,7 @@ describe('<QuestionnaireList />', () => {
   let wrapperWithoutQuestionnaires;
   let wrapperWithQuestionnaires;
 
-  beforeEach(function() {
+  beforeEach(() => {
     wrapperWithoutQuestionnaires = shallow(<QuestionnaireList {...propsWithoutQuestionnaires} />);
     wrapperWithQuestionnaires = shallow(<QuestionnaireList {...propsWithQuestionnaires} />);
   });
