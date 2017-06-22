@@ -1,12 +1,10 @@
 jest.dontMock('./questionnaire-list');
 jest.dontMock('./questionnaire-new-edit');
-jest.dontMock('../../questionnaire/components/questionnaire-generic-input');
 
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
-import GenericInput from '../../questionnaire/components/generic-input';
 import { QuestionnaireNewEdit as QuestionnaireNew } from './questionnaire-new-edit';
 import { getLocale } from 'utils/test/test-utils';
 

@@ -7,7 +7,7 @@ import App from './app';
 
 describe('<App />', () => {
   const props = {
-    children: {},
+    children: <div />,
   };
   const wrapper = shallow(<App {...props} />);
 
