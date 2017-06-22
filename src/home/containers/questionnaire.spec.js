@@ -16,8 +16,8 @@ describe('<QuestionnaireListContainer />', () => {
       />
     );
 
-    expect(mockLoadQuestionnaireList).toHaveBeenCalled();
-    expect(mockLoadCodeListSpecs).toHaveBeenCalled();
+    expect(mockLoadQuestionnaireList).toBeCalled();
+    expect(mockLoadCodeListSpecs).toBeCalled();
   });
 });
 
