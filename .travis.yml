@@ -5,4 +5,5 @@ dist: trusty
 before_install:
   - npm install -g jest
 script:
-  - npm build
+  - npm run test
+  - npm run build
