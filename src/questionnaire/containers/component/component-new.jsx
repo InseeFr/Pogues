@@ -11,7 +11,7 @@ import { QUESTION_TYPE_ENUM } from 'constants/schema';
 
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
-const { DATE } = DATATYPE_NAME;
+const { TEXT } = DATATYPE_NAME;
 
 const mapDispatchToProps = {
   createComponent,
@@ -44,7 +44,10 @@ function ComponentNewContainer({
         responseFormat: {
           [SIMPLE]: {
             mandatory: false,
-            type: DATE,
+            type: TEXT,
+            [TEXT]: {
+              maxLength: 255,
+            },
           },
           [SINGLE_CHOICE]: {
             mandatory: false,
