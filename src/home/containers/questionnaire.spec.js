@@ -8,16 +8,13 @@ import { QuestionnaireListContainer } from './questionnaire-list';
 describe('<QuestionnaireListContainer />', () => {
   test('should call loadQuestionnaireList and loadCodeListSpecs', () => {
     const mockLoadQuestionnaireList = jest.fn(() => false);
-    const mockLoadCodeListSpecs = jest.fn(() => false);
     shallow(
       <QuestionnaireListContainer
         loadQuestionnaireList={mockLoadQuestionnaireList}
-        loadCodeListSpecs={mockLoadCodeListSpecs}
       />
     );
 
     expect(mockLoadQuestionnaireList).toBeCalled();
-    expect(mockLoadCodeListSpecs).toBeCalled();
   });
 });
 
