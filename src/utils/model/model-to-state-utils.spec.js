@@ -11,11 +11,10 @@ describe('normalizeQuestionnaire', () => {
   test('should return "questionnaire" attribute with the expected values', () => {
     const expectedValue = {
       id: model.id,
-      label: model.label[0],
     };
     const state = normalizeQuestionnaire(model);
 
-    expect(state.questionnaire).toEqual(expectedValue);
+    expect(state.componentByQuestionnaire.id).toEqual(expectedValue.id);
   });
 });
 

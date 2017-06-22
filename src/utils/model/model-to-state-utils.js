@@ -3,7 +3,7 @@ import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { uuid } from 'utils/data-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { NUMERIC, TEXT } = DATATYPE_NAME;
 
 /**

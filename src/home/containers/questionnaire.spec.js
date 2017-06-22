@@ -7,8 +7,8 @@ import { QuestionnaireListContainer } from './questionnaire-list';
 
 describe('<QuestionnaireListContainer />', () => {
   test('should call loadQuestionnaireList and loadCodeListSpecs', () => {
-    const mockLoadQuestionnaireList = jest.fn();
-    const mockLoadCodeListSpecs = jest.fn();
+    const mockLoadQuestionnaireList = () => {};
+    const mockLoadCodeListSpecs = () => {};
     shallow(
       <QuestionnaireListContainer
         loadQuestionnaireList={mockLoadQuestionnaireList}

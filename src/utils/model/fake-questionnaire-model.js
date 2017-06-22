@@ -689,7 +689,7 @@ const fakeModel = {
       label: ['Pilier « Sociétal »'],
       declarations: [
         {
-          text: 'Avertissement : Pour ceux qui ont répondu NON à la question A1 : dans les questions suivantes, le terme de RSE (Responsabilité Sociale des Entreprises) sera utilisé par convention pour représenter les initiatives des entreprises pour prendre en compte les impacts sociaux, sociétaux et environnementaux de leur activité à travers par exemple la formation professionnelle, la lutte contre les discriminations, le bien-être des salariés, la prévention de l’environnement, …',
+          text: "Avertissement : Pour ceux qui ont répondu NON à la question A1 : dans les questions suivantes, le terme de RSE (Responsabilité Sociale des Entreprises) sera utilisé par convention pour représenter les initiatives des entreprises pour prendre en compte les impacts sociaux, sociétaux et environnementaux de leur activité à travers par exemple la formation professionnelle, la lutte contre les discriminations, le bien-être des salariés, la prévention de l'environnement, …",
         },
       ],
       controls: [],
@@ -736,7 +736,7 @@ const fakeModel = {
               id: 'ifs8q59g',
               name: 'DONNEZVOUS',
               label: [
-                "Donnez-vous des conseils à vos clients pour les sensibiliser aux impacts de leurs choix de biens ou services sur l'environnement et leur bien-être ?",
+                'Donnez-vous des conseils à vos clients pour les sensibiliser aux impacts de leurs choix de biens ou services sur l\'environnement et leur bien - être ? ',
               ],
               declarations: [],
               controls: [],
@@ -763,7 +763,7 @@ const fakeModel = {
               id: 'ifs8meh6',
               name: 'UNEPARTIED',
               label: [
-                "Une partie de vos clients exige-t-elle la satisfaction d'un cahier des charges dont certaines clauses relèvent de la RSE ? ",
+                'Une partie de vos clients exige-t-elle la satisfaction d\'un cahier des charges dont certaines clauses relèvent de la RSE ? ',
               ],
               declarations: [],
               controls: [],
@@ -857,7 +857,7 @@ const fakeModel = {
               id: 'ifs91rjv',
               name: 'DEMANDEZVO',
               label: [
-                "Demandez-vous à certains de vos fournisseurs de s'engager à respecter un cahier des charges dont certaines clauses relèvent de la RSE ?",
+                "Demandez-vous à certains de vos fournisseurs de s'engager à respecter un cahier des charges dont certaines clauses relèvent de la RSE ? ",
               ],
               declarations: [],
               controls: [],
@@ -1013,7 +1013,7 @@ const fakeModel = {
               id: 'ifs98sq4',
               name: 'AIDEZVOUSV',
               label: [
-                "Aidez-vous vos fournisseurs à mettre en place au moins une démarche de développement durable (formation, accompagnement, conseils, aide à l'autodiagnostic …) ?",
+                'Aidez-vous vos fournisseurs à mettre en place au moins une démarche de développement durable (formation, accompagnement, conseils, aide à l\'autodiagnostic …) ?',
               ],
               declarations: [],
               controls: [],
@@ -1040,7 +1040,7 @@ const fakeModel = {
               id: 'ifs9dl86',
               name: 'AVEZVOUSDE',
               label: [
-                "Avez-vous des fournisseurs des secteurs protégés et adaptés, ou de l'insertion par l'activité économique ? ",
+                'Avez-vous des fournisseurs des secteurs protégés et adaptés, ou de l\'insertion par l\'activité économique ? ',
               ],
               declarations: [],
               controls: [],
@@ -1532,7 +1532,7 @@ const fakeModel = {
               id: 'ifsadirv',
               name: 'AUCOURSDEL',
               label: [
-                "Au cours de l'année 2010, avez-vous employé des salariés sous contrat d'apprentissage ou contrat de professionnalisation ?",
+                'Au cours de l\'année 2010, avez - vous employé des salariés sous contrat d\'apprentissage ou contrat de professionnalisation ?',
               ],
               declarations: [],
               controls: [],
@@ -1624,7 +1624,7 @@ const fakeModel = {
               id: 'ifsahjw8',
               name: 'VOTREENTRE',
               label: [
-                "Votre entreprise a-t-elle un plan d'action de prévention des risques psychosociaux (stress, harcèlement, mal-être au travail, …) ?",
+                'Votre entreprise a-t-elle un plan d\'action de prévention des risques psychosociaux (stress, harcèlement, mal-être au travail, …) ?',
               ],
               declarations: [],
               controls: [],
@@ -1651,7 +1651,7 @@ const fakeModel = {
               id: 'ifsa3pnj',
               name: 'AUCOURSDES',
               label: [
-                "Au cours des deux dernières années, votre entreprise a-t-elle mené des campagnes d'information auprès de ses salariés sur les addictions (tabac, alcool, drogue, alimentation) ?",
+                'Au cours des deux dernières années, votre entreprise a-t-elle mené des campagnes d\'information auprès de ses salariés sur les addictions(tabac, alcool, drogue, alimentation) ? ',
               ],
               declarations: [],
               controls: [],
@@ -1900,7 +1900,7 @@ const fakeModel = {
               id: 'ifsa7omz',
               name: 'SIVOUSAVEZ',
               label: [
-                "Si vous avez un dispositif de participation, d’intéressement et/ou un plan d'épargne salarial (retraite et/ou entreprise), ces plans investissent-ils dans des fonds ISR* ?",
+                'Si vous avez un dispositif de participation, d’intéressement et/ou un plan d\'épargne salarial (retraite et/ou entreprise), ces plans investissent-ils dans des fonds ISR* ?',
               ],
               declarations: [],
               controls: [],
@@ -2588,7 +2588,7 @@ const fakeModel = {
           { value: '', label: 'Gestion des risques' },
           { value: '', label: 'Adhésion, motivation des employés' },
           { value: '', label: 'Amélioration de l’image externe du groupe/réseau' },
-          { value: '', label: "Respect de l'homme et de l'environnement" },
+          { value: '', label: 'Respect de l\'homme et de l\'environnement' },
         ],
       },
       { id: 'iezokumu', name: 'ENDD-A4B', label: 'ENDD-A4B', codes: [] },
@@ -2664,7 +2664,7 @@ const fakeModel = {
         codes: [
           { value: '', label: 'OUI' },
           { value: '', label: 'NON' },
-          { value: '', label: "PAS DE FILIALE A L'ETRANGER" },
+          { value: '', label: 'PAS DE FILIALE A L\'ETRANGER' },
         ],
       },
       {
@@ -2833,7 +2833,7 @@ const fakeModel = {
         label: 'ENDD-C2',
         codes: [
           { value: '', label: 'adopté la « Charte de la diversité *» ? ' },
-          { value: '', label: "obtenu le label « diversité* » délivré par l'AFNOR certification ?" },
+          { value: '', label: 'obtenu le label « diversité* » délivré par l\'AFNOR certification ? ' },
         ],
       },
       {
@@ -2848,7 +2848,7 @@ const fakeModel = {
         label: 'ENDD-C3',
         codes: [
           { value: '', label: 'au sexe ?' },
-          { value: '', label: " à l'origine (ethnique, sociale ou culturelle) ?" },
+          { value: '', label: ' à l\'origine (ethnique, sociale ou culturelle) ?' },
           { value: '', label: 'à l’âge concernant les séniors ? ' },
           { value: '', label: 'à l’âge concernant les jeunes ? ' },
           { value: '', label: 'au handicap ?' },
@@ -2870,7 +2870,9 @@ const fakeModel = {
         name: 'ENDD-C12',
         label: 'ENDD-C12',
         codes: [
-          { value: '', label: "d'aménager leur temps de travail en fonction de leurs contraintes familiales ?" },
+          {
+            value: '', label: 'd\'aménager leur temps de travail en fonction de leurs contraintes familiales ? '
+          },
           {
             value: '',
             label: 'd’autres mesures en dehors de celles réalisées par le comité d’entreprise (crèches, plan de déplacement, dispositif de retour de congés maternité/parental, services sur le lieu de travail, etc.) ? ',
@@ -2925,7 +2927,7 @@ const fakeModel = {
         name: 'ENDD-B7',
         label: 'ENDD-B7',
         codes: [
-          { value: '', label: "envoi d'un questionnaire" },
+          { value: '', label: 'envoi d\'un questionnaire' },
           { value: '', label: 'contrôles, inspections ou évaluations par des tierces personnes, audits sociaux' },
         ],
       },
