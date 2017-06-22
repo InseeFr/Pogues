@@ -2,15 +2,17 @@ jest.dontMock('./page-questionnaire.jsx');
 
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import TestUtils from 'react-dom/test-utils';
 // Not connected to store
 import { PageQuestionnaire } from './page-questionnaire';
 
 describe('<PageQuestionnaire />', () => {
-  const spy = jest.fn();
+  const spy = jest.fn(() => false);
   const props = {
-    match: { params: { id: 1 } },
-    switchToQuestionnaire: spy,
+    params: { id: 1 },
+    loadQuestionnaireIfNeeded: spy,
+    setActiveQuestionnaire: spy,
+    setActiveComponents: spy,
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);
@@ -24,6 +26,7 @@ describe('<PageQuestionnaire />', () => {
   });
 
   test('should call switchToQuestionnaire in render', () => {
+    shallow(<PageQuestionnaire {...props} />);
     expect(spy).toBeCalled();
   });
 });

@@ -1,4 +1,4 @@
-jest.dontMock('./page-questionnaire.jsx');
+jest.dontMock('./page-home.jsx');
 
 import React from 'react';
 import { shallow } from 'enzyme';

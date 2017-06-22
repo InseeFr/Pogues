@@ -1,13 +1,11 @@
 jest.dontMock('./questionnaire-list');
 jest.dontMock('./questionnaire-new-edit');
-jest.dontMock('./questionnaire-generic-input');
 
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import QuestionnaireList from './questionnaire-list';
-import QuestionnaireGenericInput from '../generic-input/questionnaire-generic-input';
-import { QuestionnaireNewEdit as QuestionnaireNew } from './questionnaire-new-edit';
+import { QuestionnaireNewEdit } from './questionnaire-new-edit';
 import { getLocale } from 'utils/test/test-utils';
 
 const locale = getLocale();
@@ -47,8 +45,13 @@ describe('<QuestionnaireList />', () => {
     locale: locale,
     questionnaires: mockQuestionnaires,
   };
-  const wrapperWithoutQuestionnaires = shallow(<QuestionnaireList {...propsWithoutQuestionnaires} />);
-  const wrapperWithQuestionnaires = shallow(<QuestionnaireList {...propsWithQuestionnaires} />);
+  let wrapperWithoutQuestionnaires;
+  let wrapperWithQuestionnaires;
+
+  beforeEach(() => {
+    wrapperWithoutQuestionnaires = shallow(<QuestionnaireList {...propsWithoutQuestionnaires} />);
+    wrapperWithQuestionnaires = shallow(<QuestionnaireList {...propsWithQuestionnaires} />);
+  });
 
   test('should render without throwing an error', () => {
     expect(wrapperWithoutQuestionnaires.is('#questionnaire-list')).toBe(true);
@@ -69,20 +72,7 @@ describe('<QuestionnarieNew />', () => {
     locale: locale,
   };
   test('should render without throw an error', () => {
-    const wrapperQuestionnarieNew = shallow(<QuestionnaireNew {...props} />);
+    const wrapperQuestionnarieNew = shallow(<QuestionnaireNewEdit {...props} />);
     expect(wrapperQuestionnarieNew.is('#questionnaire-new')).toBe(true);
-  });
-});
-
-describe('<GenericInput />', () => {
-  const wrapper = shallow(<QuestionnaireGenericInput />);
-  test('should render without throw an error', () => {
-    const wrapper = shallow(<QuestionnaireGenericInput />);
-    expect(wrapper.is('#questionnaire-generic-input')).toBe(true);
-  });
-  test('should render enabled the "Question" button only when the prop "newQuestionPlaceholder" is defined', () => {
-    const wrapperWithQuestionPlaceholder = shallow(<QuestionnaireGenericInput newQuestionPlaceholder="XXXXXXX" />);
-    expect(wrapper.find('#add-question[disabled]').exists()).toBe(true);
-    expect(wrapperWithQuestionPlaceholder.find('#add-question[disabled]').exists()).toBe(false);
   });
 });

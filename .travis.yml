@@ -1,3 +1,7 @@
 language: node_js
 node_js:
-  - "0.10"
+  - "6.11.0"
+dist: trusty
+script:
+  - npm run test
+  - npm run build

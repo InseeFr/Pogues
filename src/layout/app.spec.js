@@ -3,14 +3,11 @@ jest.dontMock('./app');
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { App } from './app';
-import { getLocale } from 'utils/test/test-utils';
-
-const locale = getLocale();
+import App from './app';
 
 describe('<App />', () => {
   const props = {
-    locale: locale,
+    children: <div />,
   };
   const wrapper = shallow(<App {...props} />);
 
