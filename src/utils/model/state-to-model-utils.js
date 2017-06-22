@@ -57,17 +57,16 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
     if (componentType === QUESTION) {
       const responseFormatType = component.responseFormat.type;
       const responseFormat = component.responseFormat[responseFormatType];
+      const responseFormatDataType = responseFormat.type;
 
       nestedComponent.questionType = responseFormatType;
       nestedComponent.responses = [
         {
           mandatory: responseFormat.mandatory || true,
           datatype: {
-            format: responseFormat.format,
-            maximum: responseFormat.maximum,
-            minimum: responseFormat.minimum,
-            type: DATATYPE_TYPE_FROM_NAME[responseFormat.type],
-            typeName: responseFormat.type,
+            type: DATATYPE_TYPE_FROM_NAME[responseFormatDataType],
+            typeName: responseFormatDataType,
+            ...responseFormat[responseFormatDataType],
           },
         },
       ];
