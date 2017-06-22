@@ -9,7 +9,9 @@ import componentById from 'reducers/component-by-id';
 import conditionById from 'reducers/condition-by-id';
 import responseFormatById from 'reducers/response-format-by-id';
 import codeListById from 'reducers/code-list-by-id';
+import codeListByQuestionnaire from 'reducers/code-list-by-questionnaire';
 import codeById from 'reducers/code-by-id';
+import codeByQuestionnaire from 'reducers/code-by-questionnaire';
 import integrityChecker from 'utils/reducer/integrity-checker';
 import combineCheckers from 'utils/reducer/combine-checkers';
 import checkerQuestionnaireLength from 'utils/reducer/checker-questionnaire-length';
@@ -23,7 +25,9 @@ export default integrityChecker(
     componentByQuestionnaire,
     questionnaireById,
     codeListById,
+    codeListByQuestionnaire,
     codeById,
+    codeByQuestionnaire,
     conditionById,
     responseFormatById,
   }),

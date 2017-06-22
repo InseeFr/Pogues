@@ -354,8 +354,18 @@ export function normalizeQuestionnaire(questionnaire) {
   // CODE_LIST_BY_ID
   const codeListById = normalizeCodesLists(preNormalizedCodesLists);
 
+  // CODE_LIST BY QUESTIONNAIRE
+  const codeListByQuestionnaire = {
+    [id]: codeListById,
+  };
+
   // CODE_BY_ID
   const codeById = normalizeCodes(preNormalizedCodesLists);
+
+  // CODE BY QUESTIONNAIRE
+  const codeByQuestionnaire = {
+    [id]: codeById,
+  };
 
   // CONDITION_BY_ID
   const conditionById = getConditionsFromNormalizedQuestions(normalizedQuestions);
@@ -393,7 +403,9 @@ export function normalizeQuestionnaire(questionnaire) {
     componentById,
     componentByQuestionnaire,
     codeListById,
+    codeListByQuestionnaire,
     codeById,
+    codeByQuestionnaire,
     conditionById,
     questionnaireById,
     responseFormatById,

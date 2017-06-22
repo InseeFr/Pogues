@@ -1,4 +1,6 @@
 import activeComponentsById from 'reducers/app-state/active-components-by-id';
+import activeCodeListsById from 'reducers/app-state/active-code-lists-by-id';
+import activeCodesById from 'reducers/app-state/active-codes-by-id';
 import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
@@ -19,7 +21,7 @@ export function loadUserSuccess(state, user) {
 }
 
 export function setActiveQuestionnaire(state, questionnaire) {
-  const { components, ...activeQuestionnaire } = questionnaire;
+  const { components, codeLists, ...activeQuestionnaire } = questionnaire;
 
   return {
     ...state,
@@ -57,5 +59,7 @@ export default function(state = defaultState, action) {
   return {
     ...(hndlr ? hndlr(state, payload) : state),
     activeComponentsById: activeComponentsById(state.activeComponentsById, action),
+    activeCodeListsById: activeCodeListsById(state.activeCodeListsById, action),
+    activeCodesById: activeCodesById(state.activeCodesById, action),
   };
 }
