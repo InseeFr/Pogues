@@ -1,14 +1,14 @@
 jest.dontMock('./questionnaire-list.jsx');
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow } from 'react-test-renderer/shallow';
 
 import { QuestionnaireListContainer } from './questionnaire-list';
 
 describe('<QuestionnaireListContainer />', () => {
   test('should call loadQuestionnaireList and loadCodeListSpecs', () => {
-    const mockLoadQuestionnaireList = () => {};
-    const mockLoadCodeListSpecs = () => {};
+    const mockLoadQuestionnaireList = jest.fn();
+    const mockLoadCodeListSpecs = jest.fn();
     shallow(
       <QuestionnaireListContainer
         loadQuestionnaireList={mockLoadQuestionnaireList}
