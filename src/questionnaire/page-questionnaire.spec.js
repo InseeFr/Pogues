@@ -2,7 +2,7 @@ jest.dontMock('./page-questionnaire.jsx');
 
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import TestUtils from 'react-dom/test-utils';
 // Not connected to store
 import { PageQuestionnaire } from './page-questionnaire';
 
@@ -27,7 +27,8 @@ describe('<PageQuestionnaire />', () => {
 
   test('should call switchToQuestionnaire in render', () => {
     shallow(<PageQuestionnaire {...props} />);
-
+    let page = React.createElement(PageQuestionnaire, { ...props });
+    TestUtils.renderIntoDocument(page);
     expect(spy).toBeCalled();
   });
 });
