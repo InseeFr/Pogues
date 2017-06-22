@@ -45,8 +45,13 @@ describe('<QuestionnaireList />', () => {
     locale: locale,
     questionnaires: mockQuestionnaires,
   };
-  const wrapperWithoutQuestionnaires = shallow(<QuestionnaireList {...propsWithoutQuestionnaires} />);
-  const wrapperWithQuestionnaires = shallow(<QuestionnaireList {...propsWithQuestionnaires} />);
+  let wrapperWithoutQuestionnaires;
+  let wrapperWithQuestionnaires;
+
+  beforeEach(function() {
+    wrapperWithoutQuestionnaires = shallow(<QuestionnaireList {...propsWithoutQuestionnaires} />);
+    wrapperWithQuestionnaires = shallow(<QuestionnaireList {...propsWithQuestionnaires} />);
+  });
 
   test('should render without throwing an error', () => {
     expect(wrapperWithoutQuestionnaires.is('#questionnaire-list')).toBe(true);

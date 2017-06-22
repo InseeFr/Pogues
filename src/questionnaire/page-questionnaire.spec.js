@@ -10,9 +10,9 @@ describe('<PageQuestionnaire />', () => {
   const spy = jest.fn(() => false);
   const props = {
     params: { id: 1 },
-    loadQuestionnaireIfNeeded: jest.fn(() => false),
-    setActiveQuestionnaire: jest.fn(() => false),
-    setActiveComponents: jest.fn(() => false),
+    loadQuestionnaireIfNeeded: spy,
+    setActiveQuestionnaire: spy,
+    setActiveComponents: spy,
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);
