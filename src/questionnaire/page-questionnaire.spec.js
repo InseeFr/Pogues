@@ -26,6 +26,8 @@ describe('<PageQuestionnaire />', () => {
   });
 
   test('should call switchToQuestionnaire in render', () => {
+    shallow(<PageQuestionnaire {...props} />);
+
     expect(spy).toBeCalled();
   });
 });
