@@ -69,30 +69,16 @@ export function getQuestionLabelFromRaw(rawQuestionLabel) {
 }
 
 export function normalizeResponseFormatSimple(dataType, mandatory) {
-  const dataTypeName = dataType.typeName;
+  const { typeName, type, ...values } = dataType;
   const formatResponseSimple = {
     type: SIMPLE,
     [SIMPLE]: {
       mandatory: mandatory,
-      type: dataTypeName,
+      type: typeName,
     },
   };
 
-  if (dataTypeName === NUMERIC) {
-    formatResponseSimple[SIMPLE][NUMERIC] = {
-      minimun: '',
-      maximun: '',
-      decimals: '',
-      precision: '',
-    };
-  }
-
-  if (dataTypeName === TEXT) {
-    formatResponseSimple[SIMPLE][TEXT] = {
-      maxLength: '',
-      pattern: '',
-    };
-  }
+  formatResponseSimple[SIMPLE][typeName] = values;
 
   return formatResponseSimple;
 }
