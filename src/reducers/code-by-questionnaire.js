@@ -4,20 +4,20 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function loadQuestionnaireSuccess(state, { update: { codeListByQuestionnaire } }) {
+export function loadQuestionnaireSuccess(state, { update: { codeByQuestionnaire } }) {
   return {
     ...state,
-    ...codeListByQuestionnaire,
+    ...codeByQuestionnaire,
   };
 }
 
 export function loadQuestionnaireListSuccess(state, updatesList) {
-  const codeListByQuestionnaire = updatesList.reduce((acc, questionnaire) => {
-    return { ...acc, ...questionnaire.codeListByQuestionnaire };
+  const codeByQuestionnaire = updatesList.reduce((acc, questionnaire) => {
+    return { ...acc, ...questionnaire.codeByQuestionnaire };
   }, {});
   return {
     ...state,
-    ...codeListByQuestionnaire,
+    ...codeByQuestionnaire,
   };
 }
 

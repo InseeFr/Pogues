@@ -23,6 +23,7 @@ class Tabs extends Component {
     this.setState(newState);
   }
   render() {
+    console.log('render tab');
     const components = this.props.components;
     const tabs = [];
     const contentTabs = [];

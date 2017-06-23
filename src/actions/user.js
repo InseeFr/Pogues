@@ -46,7 +46,7 @@ export const loadUser = () => dispatch => {
     payload: null,
   });
   return getUserAttributes()
-    .then(({ user }) => {
+    .then(user => {
       return dispatch(loadUserSuccess(user));
     })
     .catch(err => dispatch(loadUserFailure(err)));

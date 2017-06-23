@@ -9,20 +9,28 @@ import QuestionNewEdit from 'questionnaire/components/component/question-new-edi
 import { COMPONENT_TYPE, DATATYPE_NAME } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 
-const { SIMPLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
-const { DATE } = DATATYPE_NAME;
+const { TEXT } = DATATYPE_NAME;
 
 const mapDispatchToProps = {
   createComponent,
   setSelectedComponentId,
 };
 
-function ComponentNewContainer({ createComponent, setSelectedComponentId, parent, weight, type, onSuccess, onCancel }) {
+function ComponentNewContainer({
+  createComponent,
+  setSelectedComponentId,
+  parentId,
+  weight,
+  type,
+  onSuccess,
+  onCancel,
+}) {
   const submit = values => {
-    const { payload: component } = createComponent({ ...values, parent, weight, type });
-    setSelectedComponentId(component.id);
-    if (onSuccess) onSuccess(component.id);
+    const { payload: { id } } = createComponent(values, parentId, weight, type);
+    setSelectedComponentId(id);
+    if (onSuccess) onSuccess(id);
   };
 
   const props = {
@@ -36,7 +44,17 @@ function ComponentNewContainer({ createComponent, setSelectedComponentId, parent
         responseFormat: {
           [SIMPLE]: {
             mandatory: false,
-            type: DATE,
+            type: TEXT,
+            [TEXT]: {
+              maxLength: 255,
+            },
+          },
+          [SINGLE_CHOICE]: {
+            mandatory: false,
+            codesList: {
+              label: '',
+            },
+            codes: [],
           },
           type: SIMPLE,
         },
@@ -50,7 +68,6 @@ function ComponentNewContainer({ createComponent, setSelectedComponentId, parent
 ComponentNewContainer.propTypes = {
   createComponent: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
-  parent: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,

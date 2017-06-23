@@ -1,6 +1,7 @@
 import questionnaireModelTmpl from './questionnaire-model-tmpl';
 import componentModelTmpl from './component-model-tmpl';
 import { uuid } from 'utils/data-utils';
+import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import {
   COMPONENT_TYPE,
   SEQUENCE_GENERIC_NAME,
@@ -10,6 +11,7 @@ import {
   DATATYPE_TYPE_FROM_NAME,
 } from 'constants/pogues-constants';
 
+const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const { MODULE, SUBMODULE } = SEQUENCE_GENERIC_NAME;
 
@@ -40,11 +42,22 @@ export function serializeNewQuestionnaire(name, label) {
   };
 }
 
+export function serializeDataType(type, mandatory, data) {
+  return {
+    mandatory,
+    datatype: {
+      typeName: type,
+      type: DATATYPE_TYPE_FROM_NAME[type],
+      ...data,
+    },
+  };
+}
+
 export function serializePlainToNestedComponents(questionnaireId, listComponents) {
   function serializePlainToNested(component, depth = 0) {
     const componentType = component.type;
     const newDepth = depth + 1;
-    const nestedComponent = {
+    let nestedComponent = {
       ...componentModelTmpl,
       id: component.id,
       name: component.name,
@@ -55,22 +68,17 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
     };
 
     if (componentType === QUESTION) {
-      const responseFormatType = component.responseFormat.type;
-      const responseFormat = component.responseFormat[responseFormatType];
+      const responseFormatName = component.responseFormat.type;
+      const formatResponse = component.responseFormat[responseFormatName];
+      const dataTypeName = formatResponse.type;
+      const dataType = formatResponse[dataTypeName];
+      const responses = [];
 
-      nestedComponent.questionType = responseFormatType;
-      nestedComponent.responses = [
-        {
-          mandatory: responseFormat.mandatory || true,
-          datatype: {
-            format: responseFormat.format,
-            maximum: responseFormat.maximum,
-            minimum: responseFormat.minimum,
-            type: DATATYPE_TYPE_FROM_NAME[responseFormat.type],
-            typeName: responseFormat.type,
-          },
-        },
-      ];
+      if (responseFormatName === SIMPLE) {
+        responses.push(serializeDataType(dataTypeName, formatResponse.mandatory, dataType));
+      }
+
+      nestedComponent = { ...nestedComponent, responses, questionType: responseFormatName };
     } else {
       nestedComponent.children = component.children.map(key => {
         return serializePlainToNested(listComponents[key], newDepth);
