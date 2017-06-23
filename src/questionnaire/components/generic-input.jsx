@@ -106,7 +106,7 @@ class GenericInput extends Component {
             </div>
             <div className="popup-body">
               <ComponentNewContainer
-                parent={newComponentParent}
+                parentId={newComponentParent}
                 weight={newComponentWeight}
                 type={this.state.typeNewComponent}
                 onCancel={this.handleCloseNewComponent}

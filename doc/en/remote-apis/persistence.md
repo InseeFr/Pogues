@@ -163,10 +163,12 @@ The code used by Pogues to go from this representation to the formal description
         "_codes": [
           {
             "_label": "unhappy",
+            "code": "UNHAPPY"
             "_value": ""
           },
           {
             "_label": "happy",
+            "code": "HAPPY"
             "_value": ""
           },
           {

@@ -21,7 +21,7 @@ function ComponentEditContainer({ updateComponent, component, onSuccess, onCance
   const { id, type } = component;
 
   const submit = values => {
-    updateComponent(id, { ...values });
+    updateComponent(values);
     if (onSuccess) onSuccess();
   };
 

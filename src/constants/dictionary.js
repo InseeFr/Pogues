@@ -753,7 +753,7 @@ dictionary[`componentNew${SEQUENCE}`] = {
 };
 
 dictionary[`componentNew${SUBSEQUENCE}`] = {
-  fr: 'Nouvelle sub-séquence',
+  fr: 'Nouvelle sous-séquence',
   en: 'New sub-sequence',
 };
 
