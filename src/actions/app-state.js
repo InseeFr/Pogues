@@ -54,6 +54,7 @@ export const setActiveCodeLists = (activeCodeLists, activeCodes) => ({
     activeCodeLists,
     activeCodes,
   },
+});
 
 /*
  * Set active components
