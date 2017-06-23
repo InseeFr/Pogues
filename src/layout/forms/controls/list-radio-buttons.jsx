@@ -4,11 +4,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ListRadioButtons({ input, label, radios, required }) {
-  const listRadios = radios.map(op => {
+  const listRadios = radios.map((op, index) => {
     return (
       <div className="form-check-inline" key={`radio-${op.value}`}>
         <label htmlFor={`radio-${op.value}`} className="form-check-label">
-          <input type="radio" name={input.name} id={`radio-${op.value}`} value={op.value} onChange={input.onChange} />
+          <input
+            checked={required && index === 0}
+            type="radio"
+            name={input.name}
+            id={`radio-${op.value}`}
+            value={op.value}
+            onChange={input.onChange}
+          />
           {op.label}
         </label>
       </div>
