@@ -6,6 +6,8 @@ import locale from 'reducers/dictionary';
 import questionnaireById from 'reducers/questionnaire-by-id';
 import componentByQuestionnaire from 'reducers/component-by-questionnaire';
 import componentById from 'reducers/component-by-id';
+import declarationById from 'reducers/declaration-by-id';
+import declarationsByQuestionnaire from 'reducers/declarations-by-questionnaire';
 import conditionById from 'reducers/condition-by-id';
 import responseFormatById from 'reducers/response-format-by-id';
 import codeListById from 'reducers/code-list-by-id';
@@ -30,6 +32,8 @@ export default integrityChecker(
     codeByQuestionnaire,
     conditionById,
     responseFormatById,
+    declarationById,
+    declarationsByQuestionnaire,
   }),
   combineCheckers(checkerQuestionnaireLength)
 );

@@ -3,6 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import ResponseFormat from 'questionnaire/components/response-format/response-format';
+import Declaration from 'questionnaire/containers/declaration/declaration';
+import Controls from 'questionnaire/containers/controls/controls';
+import Redirections from 'questionnaire/containers/redirections/redirections';
+
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import { required } from 'layout/forms/validation-rules';
@@ -36,6 +40,18 @@ export class QuestionNewEdit extends Component {
       {
         label: Dictionary.responsesEdition,
         content: <ResponseFormat />,
+      },
+      {
+        label: Dictionary.declaration_tabTitle,
+        content: <Declaration />,
+      },
+      {
+        label: Dictionary.controls,
+        content: <Controls />,
+      },
+      {
+        label: Dictionary.goTo,
+        content: <Redirections />,
       },
     ];
 

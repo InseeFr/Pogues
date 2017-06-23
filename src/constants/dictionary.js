@@ -123,9 +123,21 @@ const dictionary = {
     en: 'Import',
     fr: 'Importer',
   },
-  declaration: {
+  declaration_tabTitle: {
     en: 'Statement',
     fr: 'Déclaration',
+  },
+  declaration_label: {
+    en: 'Statement Label', 
+    fr: 'Libellé de la déclaration',
+  },
+  type: {
+    en: 'Type', 
+    fr: 'Type',
+  },
+  declaration_position: {
+    en: 'Positions', 
+    fr: 'Positions',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
@@ -234,6 +246,10 @@ const dictionary = {
   goTo: {
     en: 'Goto',
     fr: 'Redirections',
+  },
+  goTo_label: {
+    en: 'GoTo Label', 
+    fr: 'Libellé de la redirection', 
   },
   defineGoTo: {
     en: 'Add a goto',
@@ -355,6 +371,22 @@ const dictionary = {
   deleteGoTo: {
     en: 'Delete GoTo',
     fr: 'Supprimer la redirection',
+  },
+  control_label: {
+    en: 'Control Label', 
+    fr: 'Libellé du contrôle', 
+  },
+  control_during_collect: {
+    en: 'Control during the collect', 
+    fr: 'Contrôle pendant la collecte', 
+  },
+  control_post_collect: {
+    en: 'Control post-collect', 
+    fr: 'Contrôle post-collecte', 
+  },
+  control_message: {
+    en: 'Displayed Message', 
+    fr: 'Message Affiché', 
   },
   deleteControl: {
     en: 'Delete control',
