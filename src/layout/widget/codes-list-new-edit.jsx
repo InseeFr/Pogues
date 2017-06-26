@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, FieldArray, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
+import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
 import { required } from 'layout/forms/validation-rules';
 
@@ -16,30 +17,45 @@ function renderListCodes({ fields }) {
         return (
           <li key={index}>
             <Field name={`${name}.id`} type="hidden" component="input" />
-            <Field name={`${name}.code`} type="text" component="input" placeholder="Code" />
-            <Field name={`${name}.label`} type="text" component="input" placeholder="Label" />
-            <button type="button" title="Remove Member" onClick={() => fields.remove(index)}>Remove</button>
-            <button
-              type="button"
-              title="Remove Member"
-              onClick={() => fields.move(index, index - 1)}
-              style={{ display: showMoveUpButton ? 'block' : 'none' }}
-            >
-              Up
-            </button>
-            <button
-              type="button"
-              title="Remove Member"
-              onClick={() => fields.move(index, index + 1)}
-              style={{ display: showMoveDownButton ? 'block' : 'none' }}
-            >
-              Down
-            </button>
+            <div className="codes-list__code-code">
+              <Field name={`${name}.code`} type="text" component="input" placeholder={Dictionary.code} />
+            </div>
+            <div className="codes-list__code-label">
+              <Field name={`${name}.label`} type="text" component="input" placeholder={Dictionary.codeLabel} />
+            </div>
+            <div className="codes-list__code-actions">
+              <button
+                type="button"
+                title={Dictionary.moveup}
+                onClick={() => fields.move(index, index - 1)}
+                disabled={!showMoveUpButton}
+              >
+                <span className="glyphicon glyphicon-arrow-up" />
+              </button>
+              <button
+                type="button"
+                title={Dictionary.movedown}
+                onClick={() => fields.move(index, index + 1)}
+                disabled={!showMoveDownButton}
+              >
+                <span className="glyphicon glyphicon-arrow-down" />
+              </button>
+              <button type="button" title={Dictionary.duplicate}>
+                {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+              </button>
+              <button type="button" title={Dictionary.remove} onClick={() => fields.remove(index)}>
+                {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
+              </button>
+            </div>
           </li>
         );
       })}
       <li>
-        <button type="button" onClick={() => fields.push({})}>Ajouter une modalité</button>
+        <div className="codes-list__add-code">
+          <button title={Dictionary.addSpecialCode} type="button" onClick={() => fields.push({})}>
+            <span className="glyphicon glyphicon-plus" />{Dictionary.addSpecialCode}
+          </button>
+        </div>
       </li>
     </ul>
   );
@@ -48,16 +64,9 @@ function renderListCodes({ fields }) {
 class codesListNewEdit extends Component {
   render() {
     return (
-      <div className="code-list-new-edit">
+      <div className="codes-list-new-edit">
         <FormSection name="codesList">
-          <Field
-            name="label"
-            type="text"
-            component={Input}
-            label="Libélle de la liste"
-            validate={[required]}
-            required
-          />
+          <Field name="label" type="text" component={Input} label={Dictionary.newCl} validate={[required]} required />
           <Field name="id" type="hidden" component="input" />
         </FormSection>
         <FieldArray name="codes" component={renderListCodes} />
