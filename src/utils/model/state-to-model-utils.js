@@ -7,11 +7,10 @@ import {
   SEQUENCE_GENERIC_NAME,
   QUESTION_TYPE_NAME,
   SEQUENCE_TYPE_NAME,
-  DATATYPE_NAME,
   DATATYPE_TYPE_FROM_NAME,
 } from 'constants/pogues-constants';
 
-const { SIMPLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const { MODULE, SUBMODULE } = SEQUENCE_GENERIC_NAME;
 
@@ -42,9 +41,10 @@ export function serializeNewQuestionnaire(name, label) {
   };
 }
 
-export function serializeDataType(type, mandatory, data) {
+export function serializeDataType(type, data, mandatory, codesList = {}) {
   return {
     mandatory,
+    codeListReference: codesList.id || '',
     datatype: {
       typeName: type,
       type: DATATYPE_TYPE_FROM_NAME[type],
@@ -75,7 +75,9 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
       const responses = [];
 
       if (responseFormatName === SIMPLE) {
-        responses.push(serializeDataType(dataTypeName, formatResponse.mandatory, dataType));
+        responses.push(serializeDataType(dataTypeName, dataType, formatResponse.mandatory));
+      } else if (responseFormatName === SINGLE_CHOICE) {
+        responses.push(serializeDataType(dataTypeName, dataType, formatResponse.mandatory, formatResponse.codesList));
       }
 
       nestedComponent = { ...nestedComponent, responses, questionType: responseFormatName };
@@ -91,12 +93,28 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
   return listComponents[questionnaireId].children.map(key => serializePlainToNested(listComponents[key]));
 }
 
-export function serializeUpdateQuestionnaire(questionnaire, components) {
+function serializePlainToNestedCodesLists(lists, codes) {
+  return Object.keys(lists).map(key => {
+    const list = lists[key];
+    return {
+      ...list,
+      codes: list.codes.map(keyCode => {
+        return codes[keyCode];
+      }),
+    };
+  });
+}
+
+export function serializeUpdateQuestionnaire(questionnaire, components, codesLists, codes) {
   return {
     ...questionnaireModelTmpl,
     id: questionnaire.id,
     name: questionnaire.name,
     label: [questionnaire.label],
     children: serializePlainToNestedComponents(questionnaire.id, components),
+    codeLists: {
+      codeList: serializePlainToNestedCodesLists(codesLists, codes),
+      codeListSpecification: [],
+    },
   };
 }
