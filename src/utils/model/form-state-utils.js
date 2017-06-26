@@ -8,7 +8,7 @@ import { uuid } from 'utils/data-utils';
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
 
-export function getFormFromComponent(component, codeLists) {
+export function getFormFromComponent(component, activeCodeLists, activeCodes) {
   const { label, name, type, responseFormat } = { ...component };
   const form = {
     label,
@@ -19,7 +19,7 @@ export function getFormFromComponent(component, codeLists) {
     const { [SINGLE_CHOICE]: singleChoice } = responseFormat;
 
     if (singleChoice) {
-      const codesList = codeLists[singleChoice.codesList] || {};
+      const codesList = activeCodeLists[singleChoice.codesList] || {};
       const codes = codesList.codes || [];
 
       singleChoice.codesList = {
@@ -29,8 +29,8 @@ export function getFormFromComponent(component, codeLists) {
       singleChoice.codes = codes.map(key => {
         return {
           id: key,
-          code: codes[key].code,
-          label: codes[key].label,
+          code: activeCodes[key].code,
+          label: activeCodes[key].label,
         };
       });
     }

@@ -400,10 +400,6 @@ export function normalizeQuestionnaire(questionnaire) {
       rawQuestions[key] = rawComponents[key];
     });
 
-  // RESPONSE_FORMAT_BY_ID
-  // const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
-  const responseFormatById = {};
-
   const declarationById = normalizeDeclarations(rawQuestions);
 
   const declarationsByQuestionnaire = {
@@ -419,7 +415,6 @@ export function normalizeQuestionnaire(questionnaire) {
     codeByQuestionnaire,
     conditionById,
     questionnaireById,
-    responseFormatById,
     declarationsByQuestionnaire,
     declarationById,
   };

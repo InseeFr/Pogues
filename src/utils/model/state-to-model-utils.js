@@ -41,18 +41,6 @@ export function serializeNewQuestionnaire(name, label) {
   };
 }
 
-export function serializeDataType(type, data, mandatory, codesList = {}) {
-  return {
-    mandatory,
-    codeListReference: codesList.id || '',
-    datatype: {
-      typeName: type,
-      type: DATATYPE_TYPE_FROM_NAME[type],
-      ...data,
-    },
-  };
-}
-
 export function serializePlainToNestedComponents(questionnaireId, listComponents) {
   function serializePlainToNested(component, depth = 0) {
     const componentType = component.type;
@@ -69,15 +57,26 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
 
     if (componentType === QUESTION) {
       const responseFormatName = component.responseFormat.type;
-      const formatResponse = component.responseFormat[responseFormatName];
-      const dataTypeName = formatResponse.type;
-      const dataType = formatResponse[dataTypeName];
       const responses = [];
 
       if (responseFormatName === SIMPLE) {
-        responses.push(serializeDataType(dataTypeName, dataType, formatResponse.mandatory));
+        const dataTypeName = component.responseFormat[responseFormatName].type;
+        responses.push({
+          mandatory: component.responseFormat[responseFormatName].mandatory,
+          datatype: {
+            typeName: dataTypeName,
+            type: DATATYPE_TYPE_FROM_NAME[dataTypeName],
+            ...component.responseFormat[responseFormatName][dataTypeName],
+          },
+        });
       } else if (responseFormatName === SINGLE_CHOICE) {
-        responses.push(serializeDataType(dataTypeName, dataType, formatResponse.mandatory, formatResponse.codesList));
+        responses.push({
+          codeListReference: component.responseFormat[responseFormatName].codesList,
+          mandatory: component.responseFormat[responseFormatName].mandatory,
+          datatype: {
+            visHint: component.responseFormat[responseFormatName].visHint,
+          },
+        });
       }
 
       nestedComponent = { ...nestedComponent, responses, questionType: responseFormatName };

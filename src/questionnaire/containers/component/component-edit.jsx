@@ -13,13 +13,14 @@ const { QUESTION } = COMPONENT_TYPE;
 const mapStateToProps = (state, { componentId }) => ({
   component: state.appState.activeComponentsById[componentId],
   activeCodeLists: state.appState.activeCodeListsById,
+  activeCodes: state.appState.activeCodesById,
 });
 
 const mapDispatchToProps = {
   updateComponent,
 };
 
-function ComponentEditContainer({ updateComponent, component, activeCodeLists, onSuccess, onCancel }) {
+function ComponentEditContainer({ updateComponent, component, activeCodeLists, activeCodes, onSuccess, onCancel }) {
   const { type } = component;
 
   const submit = values => {
@@ -28,7 +29,7 @@ function ComponentEditContainer({ updateComponent, component, activeCodeLists, o
   };
 
   const initialValues = {
-    initialValues: getFormFromComponent(component, activeCodeLists),
+    initialValues: getFormFromComponent(component, activeCodeLists, activeCodes),
   };
 
   const props = {
@@ -47,6 +48,7 @@ ComponentEditContainer.propTypes = {
   updateComponent: PropTypes.func.isRequired,
   component: PropTypes.object.isRequired,
   activeCodeLists: PropTypes.object.isRequired,
+  activeCodes: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
 };
