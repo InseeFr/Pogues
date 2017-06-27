@@ -9,31 +9,41 @@ const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
 
 export function getFormFromComponent(component, activeCodeLists, activeCodes) {
-  const { label, name, type, responseFormat } = { ...component };
+  const { label, name, type } = component;
   const form = {
     label,
     name,
   };
 
   if (type === QUESTION) {
-    const { [SINGLE_CHOICE]: singleChoice } = responseFormat;
+    const responseFormatName = component.responseFormat.type;
+    let formDataType = {};
 
-    if (singleChoice) {
-      const codesList = activeCodeLists[singleChoice.codesList] || {};
+    if (responseFormatName === SINGLE_CHOICE) {
+      const componentSingleChoice = component.responseFormat[SINGLE_CHOICE];
+      const codesList = activeCodeLists[componentSingleChoice.codesList] || {};
       const codes = codesList.codes || [];
 
-      singleChoice.codesList = {
-        id: codesList.id || '',
-        label: codesList.label || '',
+      formDataType = {
+        ...componentSingleChoice,
+        codesList: {
+          id: codesList.id || '',
+          label: codesList.label || '',
+        },
+        codes: codes.map(key => {
+          return {
+            id: key,
+            code: activeCodes[key].code,
+            label: activeCodes[key].label,
+          };
+        }),
       };
-      singleChoice.codes = codes.map(key => {
-        return {
-          id: key,
-          code: activeCodes[key].code,
-          label: activeCodes[key].label,
-        };
-      });
     }
+
+    const responseFormat = {
+      type: responseFormatName,
+      [responseFormatName]: formDataType,
+    };
 
     form.responseFormat = {
       ...responseFormatSimpleDefault,

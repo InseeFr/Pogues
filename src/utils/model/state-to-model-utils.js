@@ -92,8 +92,8 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
   return listComponents[questionnaireId].children.map(key => serializePlainToNested(listComponents[key]));
 }
 
-function serializePlainToNestedCodesLists(lists, codes) {
-  return Object.keys(lists).map(key => {
+function serializePlainToNestedCodesLists(ids, lists, codes) {
+  return ids.map(key => {
     const list = lists[key];
     return {
       ...list,
@@ -104,7 +104,21 @@ function serializePlainToNestedCodesLists(lists, codes) {
   });
 }
 
+export function codesListsIdsInComponents(components) {
+  const codesListsIds = [];
+  Object.keys(components).forEach(key => {
+    const component = components[key];
+    if (component.type === QUESTION) {
+      if (component.responseFormat.type === SINGLE_CHOICE) {
+        codesListsIds.push(component.responseFormat[SINGLE_CHOICE].codesList);
+      }
+    }
+  });
+  return codesListsIds;
+}
+
 export function serializeUpdateQuestionnaire(questionnaire, components, codesLists, codes) {
+  const codesListsInComponents = codesListsIdsInComponents(components, codesLists);
   return {
     ...questionnaireModelTmpl,
     id: questionnaire.id,
@@ -112,7 +126,7 @@ export function serializeUpdateQuestionnaire(questionnaire, components, codesLis
     label: [questionnaire.label],
     children: serializePlainToNestedComponents(questionnaire.id, components),
     codeLists: {
-      codeList: serializePlainToNestedCodesLists(codesLists, codes),
+      codeList: serializePlainToNestedCodesLists(codesListsInComponents, codesLists, codes),
       codeListSpecification: [],
     },
   };
