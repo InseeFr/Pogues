@@ -68,10 +68,10 @@ class Dimension {
       model.dynamic = 0;
     }
 
-    if (data.type) model.dimensionType = data.type;
-    if (data.label) model.label = data.label;
-    if (data.totalLabel) model.totalLabel = data.totalLabel;
-    if (data.codesList) model.codeListReference = data.codesList;
+    if (data.type !== undefined) model.dimensionType = data.type;
+    if (data.label !== undefined) model.label = data.label;
+    if (data.totalLabel !== undefined) model.totalLabel = data.totalLabel;
+    if (data.codesList !== undefined) model.codeListReference = data.codesList;
 
     return model;
   }
