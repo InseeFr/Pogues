@@ -1,4 +1,5 @@
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
+import TransformationEntity from './transformation-entity';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -12,9 +13,9 @@ export const defaultComponentState = {
   label: undefined,
 };
 
-class Component {
+class Component extends TransformationEntity {
   constructor() {
-    this.data = { ...defaultComponentState };
+    super(defaultComponentState);
     return this;
   }
   initFromModel(data) {
@@ -44,16 +45,6 @@ class Component {
     };
 
     return this;
-  }
-  initFromState(data) {
-    this.data = {
-      ...this.data,
-      ...data,
-    };
-    return this;
-  }
-  getStateData() {
-    return { ...this.data };
   }
   transformToModel() {
     const model = {};

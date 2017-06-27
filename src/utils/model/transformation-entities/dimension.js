@@ -1,6 +1,7 @@
 import { DIMENSION_TYPE, MAIN_DIMENSION_FORMATS } from 'constants/pogues-constants';
+import TransformationEntity from './transformation-entity';
 
-const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
+const { PRIMARY } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = MAIN_DIMENSION_FORMATS;
 
 export const defaultDimensionState = {
@@ -13,9 +14,9 @@ export const defaultDimensionState = {
   numLinesMax: undefined,
 };
 
-class Dimension {
+class Dimension extends TransformationEntity {
   constructor() {
-    this.data = { ...defaultDimensionState };
+    super(defaultDimensionState);
     return this;
   }
   static parseDynamic(dynamic) {
@@ -47,16 +48,6 @@ class Dimension {
     };
 
     return this;
-  }
-  initFromState(data) {
-    this.data = {
-      ...this.data,
-      ...data,
-    };
-    return this;
-  }
-  getStateData() {
-    return { ...this.data };
   }
   transformToModel() {
     const model = {};
