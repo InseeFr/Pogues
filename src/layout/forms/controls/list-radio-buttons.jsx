@@ -8,13 +8,7 @@ function ListRadioButtons({ input, label, radios, required }) {
     return (
       <div className="form-check-inline" key={`radio-${op.value}`}>
         <label htmlFor={`radio-${op.value}`} className="form-check-label">
-          <input
-            type="radio"
-            name={input.name}
-            id={`radio-${op.value}`}
-            value={op.value}
-            onChange={input.onChange}
-          />
+          <input type="radio" name={input.name} id={`radio-${op.value}`} value={op.value} onChange={input.onChange} />
           {op.label}
         </label>
       </div>

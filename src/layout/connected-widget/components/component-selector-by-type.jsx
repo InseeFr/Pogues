@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
 import Select from 'layout/forms/controls/select';
-import { uuid } from 'utils/data-utils';
 
 function ComponentSelectorByType({ activeComponentType, label, components }) {
   const componentsRendered = components.map(comp => {
     const style = {
       display: activeComponentType === comp.value ? 'block' : 'none',
     };
-    return <div key={uuid()} style={style}>{comp.content}</div>;
+    return <div key={comp.id} style={style}>{comp.content}</div>;
   });
 
   return (

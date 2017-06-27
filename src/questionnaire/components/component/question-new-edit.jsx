@@ -38,18 +38,22 @@ export class QuestionNewEdit extends Component {
     const { edit, handleSubmit, onCancel, pristine, submitting } = this.props;
     const panels = [
       {
+        id: 'response-format',
         label: Dictionary.responsesEdition,
         content: <ResponseFormat />,
       },
       {
+        id: 'declarations',
         label: Dictionary.declaration_tabTitle,
         content: <Declaration />,
       },
       {
+        id: 'controls',
         label: Dictionary.controls,
         content: <Controls />,
       },
       {
+        id: 'redirections',
         label: Dictionary.goTo,
         content: <Redirections />,
       },
