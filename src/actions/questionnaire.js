@@ -1,5 +1,5 @@
 import { getQuestionnaire, postQuestionnaire } from 'utils/remote-api';
-import { normalizeQuestionnaire } from 'utils/model/model-to-state-utils';
+import { normalizeQuestionnaire, transformModelToState } from 'utils/model/model-to-state-utils';
 import { serializeNewQuestionnaire } from 'utils/model/state-to-model-utils';
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
@@ -64,7 +64,8 @@ export const loadQuestionnaire = id => dispatch => {
   });
   return getQuestionnaire(id)
     .then(qr => {
-      dispatch(loadQuestionnaireSuccess(id, normalizeQuestionnaire(qr)));
+      // dispatch(loadQuestionnaireSuccess(id, normalizeQuestionnaire(qr)));
+      dispatch(loadQuestionnaireSuccess(id, transformModelToState(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));
