@@ -6,12 +6,12 @@ import { createComponent } from 'actions/component';
 import { setSelectedComponentId } from 'actions/app-state';
 import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
-import { COMPONENT_TYPE, DATATYPE_NAME } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
+import { responseFormatSimpleDefault, responseFormatSingleDefault } from 'utils/model/defaults';
 
-const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
-const { TEXT } = DATATYPE_NAME;
 
 const mapDispatchToProps = {
   createComponent,
@@ -42,20 +42,8 @@ function ComponentNewContainer({
     const questionInitialValues = {
       initialValues: {
         responseFormat: {
-          [SIMPLE]: {
-            mandatory: false,
-            type: TEXT,
-            [TEXT]: {
-              maxLength: 255,
-            },
-          },
-          [SINGLE_CHOICE]: {
-            mandatory: false,
-            codesList: {
-              label: '',
-            },
-            codes: [],
-          },
+          ...responseFormatSimpleDefault,
+          ...responseFormatSingleDefault,
           type: SIMPLE,
         },
       },

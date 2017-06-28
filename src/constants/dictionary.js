@@ -123,20 +123,28 @@ const dictionary = {
     en: 'Import',
     fr: 'Importer',
   },
+  moveup: {
+    en: 'Move up',
+    fr: 'Remonter',
+  },
+  movedown: {
+    en: 'Move down',
+    fr: 'Descendre',
+  },
   declaration_tabTitle: {
     en: 'Statement',
     fr: 'Déclaration',
   },
   declaration_label: {
-    en: 'Statement Label', 
+    en: 'Statement Label',
     fr: 'Libellé de la déclaration',
   },
   type: {
-    en: 'Type', 
+    en: 'Type',
     fr: 'Type',
   },
   declaration_position: {
-    en: 'Positions', 
+    en: 'Positions',
     fr: 'Positions',
   },
   createQuestionnaire: {
@@ -248,8 +256,8 @@ const dictionary = {
     fr: 'Redirections',
   },
   goTo_label: {
-    en: 'GoTo Label', 
-    fr: 'Libellé de la redirection', 
+    en: 'GoTo Label',
+    fr: 'Libellé de la redirection',
   },
   defineGoTo: {
     en: 'Add a goto',
@@ -373,20 +381,20 @@ const dictionary = {
     fr: 'Supprimer la redirection',
   },
   control_label: {
-    en: 'Control Label', 
-    fr: 'Libellé du contrôle', 
+    en: 'Control Label',
+    fr: 'Libellé du contrôle',
   },
   control_during_collect: {
-    en: 'Control during the collect', 
-    fr: 'Contrôle pendant la collecte', 
+    en: 'Control during the collect',
+    fr: 'Contrôle pendant la collecte',
   },
   control_post_collect: {
-    en: 'Control post-collect', 
-    fr: 'Contrôle post-collecte', 
+    en: 'Control post-collect',
+    fr: 'Contrôle post-collecte',
   },
   control_message: {
-    en: 'Displayed Message', 
-    fr: 'Message Affiché', 
+    en: 'Displayed Message',
+    fr: 'Message Affiché',
   },
   deleteControl: {
     en: 'Delete control',

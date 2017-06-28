@@ -2,10 +2,10 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, DATATYPE_NAME }
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { uuid } from 'utils/data-utils';
 import { nameFromLabel } from 'utils/name-utils';
+import { getDefaultByResponseFormatType } from 'utils/model/defaults';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { NUMERIC, TEXT } = DATATYPE_NAME;
+const { SIMPLE } = QUESTION_TYPE_ENUM;
 
 /**
  * Contains comment
@@ -68,30 +68,31 @@ export function getQuestionLabelFromRaw(rawQuestionLabel) {
   return label;
 }
 
-export function normalizeResponseFormatSimple(dataType, mandatory) {
-  const { typeName, type, ...values } = dataType;
-  const formatResponseSimple = {
-    type: SIMPLE,
-    [SIMPLE]: {
-      mandatory: mandatory,
-      type: typeName,
-    },
-  };
-
-  formatResponseSimple[SIMPLE][typeName] = values;
-
-  return formatResponseSimple;
-}
-
-export function normalizeResponseFormat(type, responses) {
+export function normalizeResponseFormat(typeFormat, responses) {
   let formatResponse = {};
 
-  if (type && responses && responses.length > 0) {
-    if (type === SIMPLE) {
-      const [{ datatype, mandatory }] = responses;
-      formatResponse = normalizeResponseFormatSimple(datatype, mandatory);
+  if (responses.length === 0) {
+    formatResponse = {
+      type: typeFormat,
+      ...getDefaultByResponseFormatType(typeFormat),
+    };
+  } else {
+    const [{ datatype: { typeName, type, ...values }, mandatory, codeListReference }] = responses;
+    formatResponse = {
+      type: typeFormat,
+      [typeFormat]: {
+        mandatory,
+      },
+    };
+    if (codeListReference) {
+      formatResponse[typeFormat].codesList = codeListReference;
+    }
+    if (typeName) {
+      formatResponse[typeFormat].type = typeName;
+      formatResponse[typeFormat][typeName] = values;
     }
   }
+
   return formatResponse;
 }
 
@@ -299,20 +300,20 @@ export function normalizeDeclarations(questions) {
   return Object.keys(questions).reduce((acc, key) => {
     const declarations = questions[key].declarations.map(declaration => {
       const { declarationType, text, position } = declaration;
-        return {
+      return {
         id: uuid(),
         text,
         position,
         type: declarationType,
-        qid: key
-      }
-    })
+        qid: key,
+      };
+    });
 
-    let result = declarations.reduce((acc, dec) => {
+    const result = declarations.reduce((acc, dec) => {
       return {
         ...acc,
-        [dec.id] : dec,
-      }
+        [dec.id]: dec,
+      };
     }, {});
     return result;
   }, {});
@@ -399,16 +400,12 @@ export function normalizeQuestionnaire(questionnaire) {
       rawQuestions[key] = rawComponents[key];
     });
 
-  // RESPONSE_FORMAT_BY_ID
-  // const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
-  const responseFormatById = {};
-
   const declarationById = normalizeDeclarations(rawQuestions);
 
   const declarationsByQuestionnaire = {
     [id]: declarationById,
   };
-  
+
   return {
     componentById,
     componentByQuestionnaire,
@@ -418,7 +415,6 @@ export function normalizeQuestionnaire(questionnaire) {
     codeByQuestionnaire,
     conditionById,
     questionnaireById,
-    responseFormatById,
     declarationsByQuestionnaire,
     declarationById,
   };
