@@ -7,11 +7,10 @@ import {
   SEQUENCE_GENERIC_NAME,
   QUESTION_TYPE_NAME,
   SEQUENCE_TYPE_NAME,
-  DATATYPE_NAME,
   DATATYPE_TYPE_FROM_NAME,
 } from 'constants/pogues-constants';
 
-const { SIMPLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const { MODULE, SUBMODULE } = SEQUENCE_GENERIC_NAME;
 
@@ -42,17 +41,6 @@ export function serializeNewQuestionnaire(name, label) {
   };
 }
 
-export function serializeDataType(type, mandatory, data) {
-  return {
-    mandatory,
-    datatype: {
-      typeName: type,
-      type: DATATYPE_TYPE_FROM_NAME[type],
-      ...data,
-    },
-  };
-}
-
 export function serializePlainToNestedComponents(questionnaireId, listComponents) {
   function serializePlainToNested(component, depth = 0) {
     const componentType = component.type;
@@ -69,13 +57,26 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
 
     if (componentType === QUESTION) {
       const responseFormatName = component.responseFormat.type;
-      const formatResponse = component.responseFormat[responseFormatName];
-      const dataTypeName = formatResponse.type;
-      const dataType = formatResponse[dataTypeName];
       const responses = [];
 
       if (responseFormatName === SIMPLE) {
-        responses.push(serializeDataType(dataTypeName, formatResponse.mandatory, dataType));
+        const dataTypeName = component.responseFormat[responseFormatName].type;
+        responses.push({
+          mandatory: component.responseFormat[responseFormatName].mandatory,
+          datatype: {
+            typeName: dataTypeName,
+            type: DATATYPE_TYPE_FROM_NAME[dataTypeName],
+            ...component.responseFormat[responseFormatName][dataTypeName],
+          },
+        });
+      } else if (responseFormatName === SINGLE_CHOICE) {
+        responses.push({
+          codeListReference: component.responseFormat[responseFormatName].codesList,
+          mandatory: component.responseFormat[responseFormatName].mandatory,
+          datatype: {
+            visHint: component.responseFormat[responseFormatName].visHint,
+          },
+        });
       }
 
       nestedComponent = { ...nestedComponent, responses, questionType: responseFormatName };
@@ -91,12 +92,42 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
   return listComponents[questionnaireId].children.map(key => serializePlainToNested(listComponents[key]));
 }
 
-export function serializeUpdateQuestionnaire(questionnaire, components) {
+function serializePlainToNestedCodesLists(ids, lists, codes) {
+  return ids.map(key => {
+    const list = lists[key];
+    return {
+      ...list,
+      codes: list.codes.map(keyCode => {
+        return codes[keyCode];
+      }),
+    };
+  });
+}
+
+export function codesListsIdsInComponents(components) {
+  const codesListsIds = [];
+  Object.keys(components).forEach(key => {
+    const component = components[key];
+    if (component.type === QUESTION) {
+      if (component.responseFormat.type === SINGLE_CHOICE) {
+        codesListsIds.push(component.responseFormat[SINGLE_CHOICE].codesList);
+      }
+    }
+  });
+  return codesListsIds;
+}
+
+export function serializeUpdateQuestionnaire(questionnaire, components, codesLists, codes) {
+  const codesListsInComponents = codesListsIdsInComponents(components, codesLists);
   return {
     ...questionnaireModelTmpl,
     id: questionnaire.id,
     name: questionnaire.name,
     label: [questionnaire.label],
     children: serializePlainToNestedComponents(questionnaire.id, components),
+    codeLists: {
+      codeList: serializePlainToNestedCodesLists(codesListsInComponents, codesLists, codes),
+      codeListSpecification: [],
+    },
   };
 }

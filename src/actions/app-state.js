@@ -161,7 +161,9 @@ export const saveActiveQuestionnaire = () => {
     const state = getState();
     const serializedQuestionnaire = serializeUpdateQuestionnaire(
       state.appState.activeQuestionnaire,
-      state.appState.activeComponentsById
+      state.appState.activeComponentsById,
+      state.appState.activeCodeListsById,
+      state.appState.activeCodesById
     );
     const questionnaireId = serializedQuestionnaire.id;
 
