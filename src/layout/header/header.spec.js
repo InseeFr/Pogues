@@ -3,12 +3,9 @@ jest.dontMock('./header');
 import React from 'react';
 import { shallow } from 'enzyme';
 import Header from './header';
-import { getLocale } from 'utils/test/test-utils';
-
-const locale = getLocale();
 
 describe('<Header />', () => {
-  const wrapper = shallow(<Header locale={locale} />);
+  const wrapper = shallow(<Header />);
 
   test('should render without throwing an error', () => {
     expect(wrapper.is('#header')).toBe(true);
@@ -24,6 +21,6 @@ describe('<Header />', () => {
   });
 
   test('should render a <UserConnection /> component', () => {
-    expect(wrapper.find('UserConnection').length).toBe(1);
+    expect(wrapper.find('Connect(UserConnectionContainer)').length).toBe(1);
   });
 });
