@@ -1,4 +1,11 @@
 .codes-list-new-edit {
+  .codes-list__name {
+    @extend .input-group;
+    span {
+      @extend .input-group-addon;
+    }
+
+  }
   ul {
     list-style: none;
     padding: 0;
