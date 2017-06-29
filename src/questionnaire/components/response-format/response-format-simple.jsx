@@ -19,21 +19,25 @@ class ResponseFormatSimple extends FormSection {
   render() {
     const responseFormatDatatypes = [
       {
+        id: `response-format-simple-${DATE}`,
         label: Dictionary.DATE,
         value: DATE,
         content: '',
       },
       {
+        id: `response-format-simple-${NUMERIC}`,
         label: Dictionary.NUMERIC,
         value: NUMERIC,
         content: <ResponseFormatDatatypeNumeric />,
       },
       {
+        id: `response-format-simple-${TEXT}`,
         label: Dictionary.TEXT,
         value: TEXT,
         content: <ResponseFormatDatatypeText />,
       },
       {
+        id: `response-format-simple-${BOOLEAN}`,
         label: Dictionary.BOOLEAN,
         value: BOOLEAN,
         content: '',
