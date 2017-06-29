@@ -3,12 +3,10 @@ import { Field, FieldArray, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import Input from 'layout/forms/controls/input';
-import { required } from 'layout/forms/validation-rules';
 
-function renderListCodes({ fields }) {
+function renderListCodes({ fields, display }) {
   return (
-    <ul>
+    <ul style={{ display: display ? 'block' : 'none' }}>
       {fields.map((name, index, fields) => {
         const numCodes = fields.length;
         const showMoveUpButton = index !== 0 && numCodes > 1;
@@ -62,14 +60,36 @@ function renderListCodes({ fields }) {
 }
 
 class codesListNewEdit extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      showCodesList: false,
+    };
+    this.toggleCodesList = this.toggleCodesList.bind(this);
+  }
+  toggleCodesList() {
+    const newShowCodesList = !this.state.showCodesList;
+    this.setState({
+      showCodesList: newShowCodesList,
+    });
+  }
   render() {
+    const toggleButtonClass = this.state.showCodesList ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-pencil';
+
     return (
       <div className="codes-list-new-edit">
         <FormSection name="codesList">
-          <Field name="label" type="text" component={Input} label={Dictionary.newCl} validate={[required]} required />
+          <div className="ctrl-input">
+            <label htmlFor="input-label">{Dictionary.newCl}</label>
+            <div className="codes-list__name">
+              <Field name="label" id="input-label" type="text" component="input" placeholder={Dictionary.newCl} />
+              <span className={toggleButtonClass} onClick={() => this.toggleCodesList()}/>
+            </div>
+          </div>
           <Field name="id" type="hidden" component="input" />
         </FormSection>
-        <FieldArray name="codes" component={renderListCodes} />
+        <FieldArray display={this.state.showCodesList} name="codes" component={renderListCodes} />
       </div>
     );
   }
