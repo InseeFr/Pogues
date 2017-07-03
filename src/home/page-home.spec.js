@@ -1,17 +1,13 @@
-jest.dontMock('./page-questionnaire.jsx');
+jest.dontMock('./page-home.jsx');
 
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import { PageHome } from './page-home';
-import { getLocale } from 'utils/test/test-utils';
-
-const locale = getLocale();
 
 describe('<PageHome />', () => {
   const props = {
-    locale: locale,
-    history: {},
+    router: {},
   };
   const wrapper = shallow(<PageHome {...props} />);
 

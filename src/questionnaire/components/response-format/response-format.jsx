@@ -19,21 +19,25 @@ class ResponseFormat extends FormSection {
   render() {
     const responseFormatTypes = [
       {
+        id: `response-format-${SIMPLE}`,
         label: Dictionary.responseFormatSimple,
         value: SIMPLE,
         content: <ResponseFormatSimple />,
       },
       {
+        id: `response-format-${SINGLE_CHOICE}`,
         label: Dictionary.responseFormatSingle,
         value: SINGLE_CHOICE,
         content: <ResponseFormatSingle />,
       },
       {
+        id: `response-format-${MULTIPLE_CHOICE}`,
         label: Dictionary.responseFormatMultiple,
         value: MULTIPLE_CHOICE,
         content: <ResponseFormatMultiple />,
       },
       {
+        id: `response-format-${TABLE}`,
         label: Dictionary.responseFormatTable,
         value: TABLE,
         content: <ResponseFormatTable />,

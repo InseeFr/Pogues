@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
-import { uuid } from 'utils/data-utils';
-
 class Tabs extends Component {
   static propTypes = {
     components: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -23,7 +21,6 @@ class Tabs extends Component {
     this.setState(newState);
   }
   render() {
-    console.log('render tab');
     const components = this.props.components;
     const tabs = [];
     const contentTabs = [];
@@ -39,11 +36,11 @@ class Tabs extends Component {
         active: active,
       });
       tabs.push(
-        <li key={uuid()} className="nav-item">
+        <li key={`tab-${components[i].id}`} className="nav-item">
           <a className={classTab} onClick={() => this.setActive(i)}>{components[i].label}</a>
         </li>
       );
-      contentTabs.push(<div key={uuid()} className={classContentTab}>{components[i].content}</div>);
+      contentTabs.push(<div key={`panel-${components[i].id}`} className={classContentTab}>{components[i].content}</div>);
     }
 
     return (
