@@ -1,10 +1,11 @@
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, DATATYPE_NAME } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { uuid } from 'utils/data-utils';
+import { nameFromLabel } from 'utils/name-utils';
+import { getDefaultByResponseFormatType } from 'utils/model/defaults';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 const { SIMPLE } = QUESTION_TYPE_ENUM;
-const { NUMERIC, TEXT } = DATATYPE_NAME;
 
 /**
  * Contains comment
@@ -67,44 +68,31 @@ export function getQuestionLabelFromRaw(rawQuestionLabel) {
   return label;
 }
 
-export function normalizeResponseFormatSimple(dataType, mandatory) {
-  const dataTypeName = dataType.typeName;
-  const formatResponseSimple = {
-    type: SIMPLE,
-    [SIMPLE]: {
-      mandatory: mandatory,
-      type: dataTypeName,
-    },
-  };
-
-  if (dataTypeName === NUMERIC) {
-    formatResponseSimple[SIMPLE][NUMERIC] = {
-      minimun: '',
-      maximun: '',
-      decimals: '',
-      precision: '',
-    };
-  }
-
-  if (dataTypeName === TEXT) {
-    formatResponseSimple[SIMPLE][TEXT] = {
-      maxLength: '',
-      pattern: '',
-    };
-  }
-
-  return formatResponseSimple;
-}
-
-export function normalizeResponseFormat(type, responses) {
+export function normalizeResponseFormat(typeFormat, responses) {
   let formatResponse = {};
 
-  if (type && responses && responses.length > 0) {
-    if (type === SIMPLE) {
-      const [{ datatype, mandatory }] = responses;
-      formatResponse = normalizeResponseFormatSimple(datatype, mandatory);
+  if (responses.length === 0) {
+    formatResponse = {
+      type: typeFormat,
+      ...getDefaultByResponseFormatType(typeFormat),
+    };
+  } else {
+    const [{ datatype: { typeName, type, ...values }, mandatory, codeListReference }] = responses;
+    formatResponse = {
+      type: typeFormat,
+      [typeFormat]: {
+        mandatory,
+      },
+    };
+    if (codeListReference) {
+      formatResponse[typeFormat].codesList = codeListReference;
+    }
+    if (typeName) {
+      formatResponse[typeFormat].type = typeName;
+      formatResponse[typeFormat][typeName] = values;
     }
   }
+
   return formatResponse;
 }
 
@@ -274,6 +262,7 @@ function preNormalizeCodesLists(codesLists) {
         ...acc,
         [id]: {
           id,
+          code: nameFromLabel(label),
           label,
           value,
         },
@@ -300,17 +289,33 @@ function normalizeCodesLists(preNormalizedCodesLists) {
       label,
       codes: Object.keys(codes),
     };
-    // HACK for now, it's not possible to distinguish between code list created
-    // by the user from code list that come from code list specification when
-    // we load the questionnaire.
-    if (name.startsWith('cl_')) {
-      clState.spec = true;
-      clState.loaded = true;
-    }
     return {
       ...acc,
       [id]: clState,
     };
+  }, {});
+}
+
+export function normalizeDeclarations(questions) {
+  return Object.keys(questions).reduce((acc, key) => {
+    const declarations = questions[key].declarations.map(declaration => {
+      const { declarationType, text, position } = declaration;
+      return {
+        id: uuid(),
+        text,
+        position,
+        type: declarationType,
+        qid: key,
+      };
+    });
+
+    const result = declarations.reduce((acc, dec) => {
+      return {
+        ...acc,
+        [dec.id]: dec,
+      };
+    }, {});
+    return result;
   }, {});
 }
 
@@ -354,8 +359,18 @@ export function normalizeQuestionnaire(questionnaire) {
   // CODE_LIST_BY_ID
   const codeListById = normalizeCodesLists(preNormalizedCodesLists);
 
+  // CODE_LIST BY QUESTIONNAIRE
+  const codeListByQuestionnaire = {
+    [id]: codeListById,
+  };
+
   // CODE_BY_ID
   const codeById = normalizeCodes(preNormalizedCodesLists);
+
+  // CODE BY QUESTIONNAIRE
+  const codeByQuestionnaire = {
+    [id]: codeById,
+  };
 
   // CONDITION_BY_ID
   const conditionById = getConditionsFromNormalizedQuestions(normalizedQuestions);
@@ -374,7 +389,7 @@ export function normalizeQuestionnaire(questionnaire) {
     },
   };
 
-  // Filter the raw questions from raw compopnents
+  // Filter the raw questions from raw components
   const rawQuestions = {};
 
   Object.keys(rawComponents)
@@ -385,18 +400,23 @@ export function normalizeQuestionnaire(questionnaire) {
       rawQuestions[key] = rawComponents[key];
     });
 
-  // RESPONSE_FORMAT_BY_ID
-  // const responseFormatById = getResponseFormatsFromRawQuestions(rawQuestions);
-  const responseFormatById = {};
+  const declarationById = normalizeDeclarations(rawQuestions);
+
+  const declarationsByQuestionnaire = {
+    [id]: declarationById,
+  };
 
   return {
     componentById,
     componentByQuestionnaire,
     codeListById,
+    codeListByQuestionnaire,
     codeById,
+    codeByQuestionnaire,
     conditionById,
     questionnaireById,
-    responseFormatById,
+    declarationsByQuestionnaire,
+    declarationById,
   };
 }
 

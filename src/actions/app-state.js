@@ -4,11 +4,13 @@ import { normalizeQuestionnaire } from 'utils/model/model-to-state-utils';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
+export const SET_ACTIVE_CODE_LISTS = 'SET_ACTIVE_CODE_LISTS';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
 export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
+export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
 
 /**
  * Set active questionnaire
@@ -26,7 +28,7 @@ export const setActiveQuestionnaire = questionnaire => ({
 /**
  * Set active components
  *
- * It changes the store "appState.activeComponents" with the list (as object) of components passed.
+ * It changes the store "appState.activeComponentsById" with the list (as object) of components passed.
  *
  * @param  {object} activeComponents  The components to set as actives
  * @return {object}                   SET_ACTIVE_COMPONENTS action
@@ -34,6 +36,37 @@ export const setActiveQuestionnaire = questionnaire => ({
 export const setActiveComponents = activeComponents => ({
   type: SET_ACTIVE_COMPONENTS,
   payload: activeComponents,
+});
+
+/**
+ * Set active code lists
+ *
+ * It changes the store "appState.activeCodeListById" and "appState.activeCodesById" with the list (as object)
+ * of code lists and codes passed
+ *
+ * @param  {object} activeCodeLists   The code lists to set as actives
+ * @param  {object} activeCodes       The codes to set as actives
+ * @return {object}                   SET_ACTIVE_CODE_LISTS action
+ */
+export const setActiveCodeLists = (activeCodeLists, activeCodes) => ({
+  type: SET_ACTIVE_CODE_LISTS,
+  payload: {
+    activeCodeLists,
+    activeCodes,
+  },
+});
+
+/*
+ * Set active components
+ *
+ * It changes the store "appState.activeComponents" with the list (as object) of components passed.
+ *
+ * @param  {object} activeComponents  The components to set as actives
+ * @return {object}                   SET_ACTIVE_COMPONENTS action
+ */
+export const setActiveDeclarations = activeDeclarations => ({
+  type: SET_ACTIVE_DECLARATIONS,
+  payload: activeDeclarations,
 });
 
 /**
@@ -128,7 +161,9 @@ export const saveActiveQuestionnaire = () => {
     const state = getState();
     const serializedQuestionnaire = serializeUpdateQuestionnaire(
       state.appState.activeQuestionnaire,
-      state.appState.activeComponentsById
+      state.appState.activeComponentsById,
+      state.appState.activeCodeListsById,
+      state.appState.activeCodesById
     );
     const questionnaireId = serializedQuestionnaire.id;
 

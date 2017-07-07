@@ -2,17 +2,23 @@ jest.dontMock('./page-questionnaire.jsx');
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import TestUtils from 'react-dom/test-utils';
+
 // Not connected to store
 import { PageQuestionnaire } from './page-questionnaire';
 
 describe('<PageQuestionnaire />', () => {
-  const spy = jest.fn(() => false);
+  const spyLoad = jest.fn();
+  const spySetActiveQuestionnaire = jest.fn();
+  const spySetActiveComponents = jest.fn();
+  const spySetActiveCodeLists = jest.fn();
+  const spySetActiveDeclarations = jest.fn();
   const props = {
     params: { id: 1 },
-    loadQuestionnaireIfNeeded: spy,
-    setActiveQuestionnaire: spy,
-    setActiveComponents: spy,
+    loadQuestionnaireIfNeeded: spyLoad,
+    setActiveQuestionnaire: spySetActiveQuestionnaire,
+    setActiveComponents: spySetActiveComponents,
+    setActiveCodeLists: spySetActiveCodeLists,
+    setActiveDeclarations: spySetActiveDeclarations,
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);
@@ -25,8 +31,23 @@ describe('<PageQuestionnaire />', () => {
     expect(wrapper.find('QuestionnaireNav').length).toBe(1);
   });
 
-  test('should call switchToQuestionnaire in render', () => {
-    shallow(<PageQuestionnaire {...props} />);
-    expect(spy).toBeCalled();
+  test('should call loadQuestionnaireIfNeeded in render', () => {
+    expect(spyLoad).toBeCalled();
+  });
+
+  test('should call setActiveQuestionnaire in render', () => {
+    expect(spySetActiveQuestionnaire).toBeCalled();
+  });
+
+  test('should call setActiveComponents in render', () => {
+    expect(spySetActiveComponents).toBeCalled();
+  });
+
+  test('should call setActiveCodeLists in render', () => {
+    expect(spySetActiveCodeLists).toBeCalled();
+  });
+
+  test('should call setActiveDeclarations in render', () => {
+    expect(spySetActiveDeclarations).toBeCalled();
   });
 });

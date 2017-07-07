@@ -6,23 +6,31 @@ import { createComponent } from 'actions/component';
 import { setSelectedComponentId } from 'actions/app-state';
 import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
-import { COMPONENT_TYPE, DATATYPE_NAME } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
+import { responseFormatSimpleDefault, responseFormatSingleDefault } from 'utils/model/defaults';
 
 const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
-const { DATE } = DATATYPE_NAME;
 
 const mapDispatchToProps = {
   createComponent,
   setSelectedComponentId,
 };
 
-function ComponentNewContainer({ createComponent, setSelectedComponentId, parent, weight, type, onSuccess, onCancel }) {
+function ComponentNewContainer({
+  createComponent,
+  setSelectedComponentId,
+  parentId,
+  weight,
+  type,
+  onSuccess,
+  onCancel,
+}) {
   const submit = values => {
-    const { payload: component } = createComponent({ ...values, parent, weight, type });
-    setSelectedComponentId(component.id);
-    if (onSuccess) onSuccess(component.id);
+    const { payload: { id } } = createComponent(values, parentId, weight, type);
+    setSelectedComponentId(id);
+    if (onSuccess) onSuccess(id);
   };
 
   const props = {
@@ -34,10 +42,8 @@ function ComponentNewContainer({ createComponent, setSelectedComponentId, parent
     const questionInitialValues = {
       initialValues: {
         responseFormat: {
-          [SIMPLE]: {
-            mandatory: false,
-            type: DATE,
-          },
+          ...responseFormatSimpleDefault,
+          ...responseFormatSingleDefault,
           type: SIMPLE,
         },
       },
@@ -50,7 +56,6 @@ function ComponentNewContainer({ createComponent, setSelectedComponentId, parent
 ComponentNewContainer.propTypes = {
   createComponent: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
-  parent: PropTypes.string.isRequired,
   weight: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,

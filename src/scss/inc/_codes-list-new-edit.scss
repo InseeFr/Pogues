@@ -1,0 +1,43 @@
+.codes-list-new-edit {
+  .codes-list__name {
+    @extend .input-group;
+    span {
+      @extend .input-group-addon;
+    }
+
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      @include make-row();
+      margin-bottom: 10px;
+
+      input[type="text"] {
+        @extend .form-control;
+      }
+
+      .codes-list__code-code {
+        @include make-xs-column(2);
+      }
+      .codes-list__code-label {
+        @include make-xs-column(5);
+      }
+      .codes-list__code-actions {
+        @include make-xs-column(5);
+        button {
+          @extend .btn-grey;
+          float:left;
+          margin-left: 10px;
+        }
+      }
+      .codes-list__add-code {
+        @include make-xs-column(5);
+        button {
+          @extend .btn-grey;
+        }
+      }
+    }
+  }
+}

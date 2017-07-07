@@ -3,6 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import ResponseFormat from 'questionnaire/components/response-format/response-format';
+import Declaration from 'questionnaire/containers/declaration/declaration';
+import Controls from 'questionnaire/containers/controls/controls';
+import Redirections from 'questionnaire/containers/redirections/redirections';
+
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import { required } from 'layout/forms/validation-rules';
@@ -23,12 +27,35 @@ export class QuestionNewEdit extends Component {
     submitting: false,
     edit: false,
   };
+  componentDidMount() {
+    if (this.props.edit) {
+      this.nameInput.focus();
+    } else {
+      this.labelInput.focus();
+    }
+  }
   render() {
     const { edit, handleSubmit, onCancel, pristine, submitting } = this.props;
     const panels = [
       {
+        id: 'response-format',
         label: Dictionary.responsesEdition,
         content: <ResponseFormat />,
+      },
+      {
+        id: 'declarations',
+        label: Dictionary.declaration_tabTitle,
+        content: <Declaration />,
+      },
+      {
+        id: 'controls',
+        label: Dictionary.controls,
+        content: <Controls />,
+      },
+      {
+        id: 'redirections',
+        label: Dictionary.goTo,
+        content: <Redirections />,
       },
     ];
 
@@ -36,7 +63,17 @@ export class QuestionNewEdit extends Component {
       <div id="generic-input-new">
         <form onSubmit={handleSubmit}>
           {edit
-            ? <Field name="name" type="text" component={Input} label={Dictionary.name} validate={[required]} required />
+            ? <Field
+                reference={input => {
+                  this.nameInput = input;
+                }}
+                name="name"
+                type="text"
+                component={Input}
+                label={Dictionary.name}
+                validate={[required]}
+                required
+              />
             : ''}
 
           <Field
@@ -57,7 +94,7 @@ export class QuestionNewEdit extends Component {
             {onCancel
               ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>
               : ''}
-            <button type="submit" disabled={pristine || submitting}>{Dictionary.validate}</button>
+            <button type="submit" disabled={!edit && (pristine || submitting)}>{Dictionary.validate}</button>
           </div>
         </form>
       </div>

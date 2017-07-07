@@ -22,7 +22,11 @@ class SequenceNewEdit extends Component {
     edit: false,
   };
   componentDidMount() {
-    this.labelInput.focus();
+    if (this.props.edit) {
+      this.nameInput.focus();
+    } else {
+      this.labelInput.focus();
+    }
   }
   render() {
     const { handleSubmit, pristine, submitting, edit, onCancel } = this.props;
@@ -31,7 +35,17 @@ class SequenceNewEdit extends Component {
       <div id="generic-input-new">
         <form onSubmit={handleSubmit}>
           {edit
-            ? <Field name="name" type="text" component={Input} label={Dictionary.name} validate={[required]} required />
+            ? <Field
+                reference={input => {
+                  this.nameInput = input;
+                }}
+                name="name"
+                type="text"
+                component={Input}
+                label={Dictionary.name}
+                validate={[required]}
+                required
+              />
             : ''}
 
           <Field
@@ -50,7 +64,7 @@ class SequenceNewEdit extends Component {
             {onCancel
               ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>
               : ''}
-            <button type="submit" disabled={!edit ? pristine || submitting : false}>{Dictionary.validate}</button>
+            <button type="submit" disabled={!edit && (pristine || submitting)}>{Dictionary.validate}</button>
           </div>
         </form>
       </div>
