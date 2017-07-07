@@ -23,8 +23,8 @@ module.exports = {
   },
   test_settings: {
     default: {
-      launch_url: 'http://ondemand.saucelabs.com:80', // were testing a Public or staging site on Saucelabs
-      selenium_port: 4445,
+      launch_url: 'http://localhost:3000', // were testing a Public or staging site on Saucelabs
+      selenium_port: 80,
       selenium_host: 'ondemand.saucelabs.com',
       silent: true,
       screenshots: {
@@ -37,9 +37,8 @@ module.exports = {
         waitForConditionTimeout: 10000, // wait for content on the page before continuing
       },
       desiredCapabilities: {
-        browserName: 'chrome',
-        build: `build-${TRAVIS_JOB_NUMBER}`,
-        'tunnel-identifier': TRAVIS_JOB_NUMBER,
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER, // needed for sauce-connect, i.e for testing localhost on saucelabs
+        build: `build-${process.env.TRAVIS_JOB_NUMBER}`, // needed for sauce-connect
       },
     },
     local: {
