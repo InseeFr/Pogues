@@ -8,14 +8,15 @@ env:
   - secure: RS4UvQ7RpZ40wgFTUuNkWHAXz7Ws6z4ZjFjQsMphPUOVnuvm29mw2V+0CFc4kQcbxp5IpwOjIfHp01z1A7LQl0bXTrwWxnS5f3o2JcHlFFEXPAQtwvr/uQK03bgULNt0q8rRdQ5gT52NbHzhZPNzgkA3IoBoPnEbY5HVnA1AfPzwhYOul0g5dYCA89bUUT9tx17/XrUz8vYiPM9pldiwpbAphPB+iGe1hvdUeQoRc+aFIstaQBBszt85LbaZ8JLbtTFNC0P202v95+JcmnbaB4OMcGce4dGfHtKB78N4i+suq+O9YATt6ilqLq1456UZJN8vf/E6B6cQJRqP9oBl+arVwhouyeMReHzR5vZZ2zjSLUxLeireFIom5BKOazRGoDkH/2/S2RZCSQarePBxOploxWa3xMEkGWkng0eFjKkpbqBhd3I0n70Y8ifzOIqBz2RT64u3UQ+ThJnZMCVvwcJnBC5kEKRqMr5TcFXHTCkQeHfip6QwULLKGD+PaqhAOwNQVmWtuKg3To+wnhlRbmTZLQtYd/jitQdDhlt9GQ3fDBN0uivrLwujDJFmprd0GYBBtKv4Ydn8MFfUU9/JEulI7Whk1ZueceiVRUQmsLXWnlnNOfWmc9tKIe+OqgL2hLMJlBFVyhd37HqD1wFKSk3Fms0Ri8KV1d0cjELuyN8=
 
 before_script:
-  - pushd ./dist
-  - python -m SimpleHTTPServer 3000 &
-  - popd
   - npm run server &
   - sleep 2
 
 script:
   - npm run build
+  - pushd ./dist
+  - python -m SimpleHTTPServer 3000 &
+  - popd
+  - sleep 4
   - npm run test
   - npm run e2e:travis
 
