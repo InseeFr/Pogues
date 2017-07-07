@@ -1,5 +1,7 @@
+import Dictionary from 'utils/dictionary/dictionary';
+
 export function required(value) {
-  return value ? undefined : 'Required';
+  return value ? undefined : Dictionary.validationRequired;
 }
 
 export function maxLength(max) {
@@ -13,12 +15,12 @@ export function maxLength15() {
 }
 
 export function number(value) {
-  return value && isNaN(Number(value)) ? 'Must be a number' : undefined;
+  return value && isNaN(Number(value)) ? Dictionary.validationNumber : undefined;
 }
 
 export function minValue(min) {
   return function(value) {
-    return value && value < min ? `Must be at least ${min}` : undefined;
+    return value && value < min ? `${Dictionary.validationMinNumber} ${min}` : undefined;
   };
 }
 

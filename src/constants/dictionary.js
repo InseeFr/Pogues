@@ -750,6 +750,18 @@ const dictionary = {
     fr: 'Ajouter un objet',
     en: 'Add object',
   },
+  validationNumber: {
+    fr: 'Vous devez introduire un chiffre',
+    en: 'Must be a number',
+  },
+  validationRequired: {
+    fr: 'Obligatoire',
+    en: 'Required',
+  },
+  validationMinNumber: {
+    fr: 'Vous devez introduire au mois',
+    en: 'Must be at least',
+  },
 };
 
 // Dynamic translations

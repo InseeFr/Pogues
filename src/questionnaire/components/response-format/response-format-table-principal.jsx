@@ -7,6 +7,7 @@ import CodesList from 'layout/widget/codes-list/codes-list';
 import Input from 'layout/forms/controls/input';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import OptionalView from 'layout/widget/optional-view';
+import { required, minValue } from 'layout/forms/validation-rules';
 
 const { TABLE } = QUESTION_TYPE_ENUM;
 
@@ -27,8 +28,22 @@ class PrincipalList extends FormSection {
   render() {
     return (
       <div>
-        <Field name="numLinesMin" type="number" component={Input} label={Dictionary.minRowNb} />
-        <Field name="numLinesMax" type="number" component={Input} label={Dictionary.maxRowNb} />
+        <Field
+          name="numLinesMin"
+          type="number"
+          component={Input}
+          label={Dictionary.minRowNb}
+          validate={[required, minValue(0)]}
+          required
+        />
+        <Field
+          name="numLinesMax"
+          type="number"
+          component={Input}
+          label={Dictionary.maxRowNb}
+          validate={[required, minValue(1)]}
+          required
+        />
       </div>
     );
   }
@@ -66,7 +81,16 @@ class ResponseFormatTablePrincipal extends FormSection {
         <OptionalView
           name="showTotalLabel"
           label={Dictionary.rowTotal}
-          view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />}
+          view={
+            <Field
+              name="totalLabel"
+              type="text"
+              component={Input}
+              label={Dictionary.rowTotalLabel}
+              validate={[required]}
+              required
+            />
+          }
         />
       </div>
     );

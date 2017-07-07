@@ -1,10 +1,9 @@
 .codes-list-editor {
   .codes-list__name {
     @extend .input-group;
-    span {
+    .codes-list__show-codes {
       @extend .input-group-addon;
     }
-
   }
   ul {
     list-style: none;

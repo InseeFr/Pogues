@@ -3,6 +3,24 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
+import { required } from 'layout/forms/validation-rules';
+
+const Code = ({ input, label, type, attr, meta: { touched, error, warning } }) => (
+  <div className={`codes-list__code-${attr}`}>
+    <input {...input} placeholder={label} type={type} />
+    {touched &&
+      ((error && <span className="form-error">{error}</span>) ||
+        (warning && <span className="form-warm">{warning}</span>))}
+  </div>
+);
+
+Code.propTypes = {
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  attr: PropTypes.string.isRequired,
+  meta: PropTypes.object.isRequired,
+};
 
 function CodesListEditorCodes({ fields, display }) {
   return (
@@ -15,12 +33,22 @@ function CodesListEditorCodes({ fields, display }) {
         return (
           <li key={index}>
             <Field name={`${name}.id`} type="hidden" component="input" />
-            <div className="codes-list__code-code">
-              <Field name={`${name}.code`} type="text" component="input" placeholder={Dictionary.code} />
-            </div>
-            <div className="codes-list__code-label">
-              <Field name={`${name}.label`} type="text" component="input" placeholder={Dictionary.codeLabel} />
-            </div>
+            <Field
+              attr="code"
+              name={`${name}.code`}
+              type="text"
+              component={Code}
+              placeholder={Dictionary.code}
+              validate={[required]}
+            />
+            <Field
+              attr="label"
+              name={`${name}.label`}
+              type="text"
+              component={Code}
+              placeholder={Dictionary.codeLabel}
+              validate={[required]}
+            />
             <div className="codes-list__code-actions">
               <button
                 type="button"
