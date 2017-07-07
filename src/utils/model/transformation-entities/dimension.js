@@ -1,8 +1,10 @@
-import { DIMENSION_TYPE, MAIN_DIMENSION_FORMATS } from 'constants/pogues-constants';
-import TransformationEntity from './transformation-entity';
+import { DIMENSION_TYPE, MAIN_DIMENSION_FORMATS, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import ResponseFormatSimple from './response-format-simple';
+import ResponseFormatSingle from './response-format-single';
 
-const { PRIMARY } = DIMENSION_TYPE;
+const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = MAIN_DIMENSION_FORMATS;
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export const defaultDimensionState = {
   type: undefined,
@@ -14,58 +16,62 @@ export const defaultDimensionState = {
   numLinesMax: undefined,
 };
 
-class Dimension extends TransformationEntity {
-  constructor() {
-    super(defaultDimensionState);
-    return this;
-  }
-  static parseDynamic(dynamic) {
-    if (dynamic === '-') return [0, 0];
-    return dynamic.split('-').map(v => parseInt(v, 10));
-  }
-  initFromModel(data) {
-    const { dimensionType: type, codeListReference: codesList, dynamic, label, totalLabel } = data;
-    const dimensionData = {
-      type,
-      codesList,
-      label,
-      totalLabel,
-    };
-
-    if (type === PRIMARY) {
-      if (dynamic === 0) {
-        dimensionData.mainDimensionFormat = CODES_LIST;
-      } else {
-        dimensionData.mainDimensionFormat = LIST;
-        const [numLinesMin, numLinesMax] = Dimension.parseDynamic(dynamic);
-        dimensionData.numLinesMin = numLinesMin;
-        dimensionData.numLinesMax = numLinesMax;
-      }
-    }
-    this.data = {
-      ...this.data,
-      ...dimensionData,
-    };
-
-    return this;
-  }
-  transformToModel() {
-    const model = {};
-    const data = this.data;
-
-    if (data.type === PRIMARY && data.mainDimensionFormat === LIST) {
-      model.dynamic = `${data.numLinesMin}-${data.numLinesMax}`;
-    } else {
-      model.dynamic = 0;
-    }
-
-    if (data.type !== undefined) model.dimensionType = data.type;
-    if (data.label !== undefined) model.label = data.label;
-    if (data.totalLabel !== undefined) model.totalLabel = data.totalLabel;
-    if (data.codesList !== undefined) model.codeListReference = data.codesList;
-
-    return model;
-  }
+function parseDynamic(dynamic) {
+  return dynamic.split('-').map(v => {
+    return v.length > 0 ? parseInt(v, 10) : 0;
+  });
 }
 
-export default Dimension;
+function modelToState(model) {
+  const { dimensionType: type, codeListReference: codesList, dynamic, label, totalLabel, response } = model;
+  const dimensionData = {
+    type,
+    codesList,
+    label,
+    totalLabel,
+  };
+
+  if (type === PRIMARY) {
+    if (dynamic === 0) {
+      dimensionData.mainDimensionFormat = CODES_LIST;
+    } else {
+      dimensionData.mainDimensionFormat = LIST;
+      const [numLinesMin, numLinesMax] = parseDynamic(dynamic);
+      dimensionData.numLinesMin = numLinesMin;
+      dimensionData.numLinesMax = numLinesMax;
+    }
+  } else if (type === MEASURE) {
+    const { codeListReference, datatype: { typeName, type, visHint, ...data } } = response;
+    if (codeListReference) {
+      dimensionData[SINGLE_CHOICE] = ResponseFormatSingle.modelToState({ visHint, codesListId: codeListReference });
+    } else {
+      dimensionData[SIMPLE] = ResponseFormatSimple.modelToState({ type: typeName, ...data });
+    }
+  }
+  return {
+    ...defaultDimensionState,
+    ...dimensionData,
+  };
+}
+
+function stateToModel(state) {
+  const model = {};
+
+  if (state.type === PRIMARY && state.mainDimensionFormat === LIST) {
+    model.dynamic = `${state.numLinesMin}-${state.numLinesMax}`;
+  } else {
+    model.dynamic = 0;
+  }
+
+  if (state.type !== undefined) model.dimensionType = state.type;
+  if (state.label !== undefined) model.label = state.label;
+  if (state.totalLabel !== undefined) model.totalLabel = state.totalLabel;
+  if (state.codesList !== undefined) model.codeListReference = state.codesList;
+
+  return model;
+}
+
+export default {
+  modelToState,
+  stateToModel,
+};

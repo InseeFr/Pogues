@@ -32,7 +32,7 @@ class SequenceNewEdit extends Component {
     const { handleSubmit, pristine, submitting, edit, onCancel } = this.props;
 
     return (
-      <div id="generic-input-new">
+      <div className="component-edition">
         <form onSubmit={handleSubmit}>
           {edit
             ? <Field

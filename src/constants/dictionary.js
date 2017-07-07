@@ -474,6 +474,10 @@ const dictionary = {
     fr: 'Axe principal',
     en: 'Primary axis',
   },
+  secondaryAxis: {
+    fr: 'Axe secondarie',
+    en: 'Secondary axis',
+  },
   codeList: {
     fr: 'Liste de codes',
     en: 'Code list',

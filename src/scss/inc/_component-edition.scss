@@ -1,0 +1,58 @@
+.component-edition {
+  .response-format__table {
+    h3 {
+      padding-left: 30px;
+    }
+    #response-format__table-principal-head {
+      background: url('images/axis-principal.png') no-repeat;
+    }
+    #response-format__table-secondary-head {
+      background: url('images/axis-secondary.png') no-repeat;
+    }
+    #response-format__table-measures-head {
+      background: url('images/axis-measures.png') no-repeat;
+    }
+  }
+
+  .list-entry-form {
+    display: flex;
+    flex-flow: row wrap;
+
+    & > .list-entry-form_list {
+      flex: 0 0 35%;
+    }
+
+    & > .list-entry-form_form {
+      flex: 0 0 65%;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .list-entry-form_form-actions {
+      flex-grow: 1;
+      margin-top: 20px;
+
+      ul {
+        padding: 0;
+        margin: 0;
+      }
+      button {
+        width: 120px;
+      }
+      li {
+        float: right;
+      }
+    }
+
+    .ctrl-selec t-with-add-new label + div, .ctrl-select label + div, .ctrl-input label + div {
+      width: 70%;
+    }
+
+    textarea {
+      float: right;
+      width: 100%;
+    }
+  }}

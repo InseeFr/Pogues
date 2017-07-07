@@ -161,11 +161,15 @@ body {
 
 .tabs {
   .nav-link {
-    color: #464a4c;
-    background-color: #fff;
-    border-color: #ddd #ddd #fff;
+    color: $color-grey_01;
+    background-color: white;
+    font-weight: bold;
     &.active {
-      background-color: #EEE;
+      background-color: $color-blue_04;
+    }
+    &:hover {
+      background-color: lighten($color-blue_04, 0.5);
+      cursor: pointer;
     }
   }
 
@@ -173,11 +177,16 @@ body {
   .nav-content {
     display: none;
     padding: 20px;
-    border: 1px solid #DDD;
     margin-bottom: 10px;
+    background-color: $color-blue_04;
 
     &.active {
       display: block;
+    }
+
+    h3 {
+      color: $color-blue_05;
+      margin-bottom: 20px;
     }
   }
 }

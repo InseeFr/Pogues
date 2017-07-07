@@ -427,13 +427,3 @@ export function normalizeListQuestionnaires(questionnairesList) {
 export function getQuestionnaireIdFromUri(uri) {
   return uri.substr(uri.lastIndexOf('/') + 1);
 }
-
-export function transformModelToState(data) {
-  const { id, name, agency, survey, label: [label], children, codeLists: { codeList } } = data;
-  const rawComponents = getRawComponentsFromNested(children, id);
-  debugger;
-
-  return {
-    componentById,
-  };
-}
