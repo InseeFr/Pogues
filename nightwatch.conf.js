@@ -36,6 +36,9 @@ module.exports = {
       globals: {
         waitForConditionTimeout: 10000, // wait for content on the page before continuing
       },
+      desiredCapabilities: {
+        browserName: 'chrome',
+      },
     },
     local: {
       launch_url: 'http://localhost:3000',

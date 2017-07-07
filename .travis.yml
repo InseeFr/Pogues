@@ -18,6 +18,7 @@ script:
   - popd
   - sleep 30
   - npm run test
+  - curl http://localhost:3000
   - npm run e2e:travis
 
 addons:
