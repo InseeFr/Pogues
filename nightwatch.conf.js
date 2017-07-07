@@ -23,8 +23,8 @@ module.exports = {
   },
   test_settings: {
     default: {
-      launch_url: 'http://localhost:3000', // were testing a Public or staging site on Saucelabs
-      selenium_port: 80,
+      launch_url: 'http://ondemand.saucelabs.com:80', // were testing a Public or staging site on Saucelabs
+      selenium_port: 4445,,
       selenium_host: 'ondemand.saucelabs.com',
       silent: true,
       screenshots: {
