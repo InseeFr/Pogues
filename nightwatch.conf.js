@@ -38,6 +38,8 @@ module.exports = {
       },
       desiredCapabilities: {
         browserName: 'chrome',
+        build: `build-${TRAVIS_JOB_NUMBER}`,
+        'tunnel-identifier': TRAVIS_JOB_NUMBER,
       },
     },
     local: {
