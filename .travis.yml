@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "6.11.0"
+dist: trusty
 env:
   global:
   - secure: CEfODj0arEcEkeRoDWLP/yovAMphURFib7bgRJ1xMSZZbDUoBKA9lRbdC7dKq/NS9jm9VWee7rYdPM34kdiJHhWv6LqhB0cidWhI+KV5m/M7N1uoLWL3OJJ88Wby2QBEtNUMQ0j4TE/RfvKX8+Zxh5W8Pi22rzSiMXE635ZkVsR2vJqJWJCNzHzCq1RHGf71Zu/FjbqBQ+RS1XKqirOMR9xdh0WAg32nKO7OvRJI95KnzGe4GXPykTjeMCxUpwEW7HPO4/iTdiT0w09IbFMK7LJ4DprHOzjSLS9Z93zLGe46EV0SzVrDcWKUeBM93KMxTcTkozL5eqCaErCnq2+IFy/gbRlfLpf2eXpK+C42DsEXQFOJL/SIC/jLjELlREN7PstBy9qaIOL3ggqknXGug06foEPMa+sJs/9kKQip3QPV6SERKiH3CloHT4+tImgPTKA5EW+OMJniYM3GiKIeB7076inWNg68wiV1pDPshkC2oRTGgCiIoVinrE8NuDijzgxTtwIFvfwP7mrqSneXqZDclotge+RG9tGUFoKDuEBNTPKtPQlbQyXla6WU1C/d4hQDTkvaJMY+mCvawKevRzrPWxEUBVyUWUGuLj2yHWuqxYcSlwMg7erpydcHKHfa9hb04lShqn3YKjpDO6E1NavEC8/Ljiw6AJ12WJNJwcQ=
@@ -8,11 +9,14 @@ env:
 
 before_script:
   - npm run server &
-  - npm start &
-  - sleep 10
 
 script:
   - npm run build
+  - sleep 30
+  - pushd ./dist
+  - python -m SimpleHTTPServer 3000 &
+  - popd
+  - sleep 30
   - npm run test
   - npm run e2e:travis
 
