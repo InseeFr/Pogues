@@ -1,9 +1,10 @@
 import Dimension from './dimension';
-import { DIMENSION_TYPE, MAIN_DIMENSION_FORMATS, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { DIMENSION_TYPE, MAIN_DIMENSION_FORMATS, QUESTION_TYPE_ENUM, CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
 const { LIST } = MAIN_DIMENSION_FORMATS;
 const { TABLE } = QUESTION_TYPE_ENUM;
+const { NEW } = CODES_LIST_INPUT_ENUM;
 
 export const defaultResponseFormatTableState = {
   dimensionPrymary: undefined,
@@ -19,13 +20,23 @@ export const defaultResponseFormatTableForm = {
         numLinesMin: 0,
         numLinesMax: 0,
       },
+      CODESLIST: {
+        type: NEW,
+        [NEW]: {
+          codesList: '',
+          codes: [],
+        },
+      },
       showTotalLabel: '0',
       totalLabel: '',
     },
     AXISSECONDARY: {
       showSecondaryAxis: '',
-      codesList: '',
-      codes: [],
+      type: NEW,
+      [NEW]: {
+        codesList: '',
+        codes: [],
+      },
       showTotalLabel: '0',
       totalLabel: '',
     },

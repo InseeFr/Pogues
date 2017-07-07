@@ -131,5 +131,6 @@ export function questionnaireModelToState(questionnaireModel) {
 }
 
 export function questionnaireListModelToState(questionnairesList) {
+  // return questionnairesList.map(questionnaire => questionnaireModelToState(questionnaire));
   return questionnairesList.map(questionnaire => questionnaireModelToState(questionnaire));
 }

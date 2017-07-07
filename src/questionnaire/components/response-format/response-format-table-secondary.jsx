@@ -1,15 +1,19 @@
 import React from 'react';
 import { FormSection, Field } from 'redux-form';
+import PropTypes from 'prop-types';
 
 import Input from 'layout/forms/controls/input';
-import CodesListNewEdit from 'layout/widget/codes-list-new-edit';
+import CodesList from 'layout/widget/codes-list/codes-list';
 import Dictionary from 'utils/dictionary/dictionary';
 import OptionalView from 'layout/widget/optional-view';
+import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
-function SecondaryAxis() {
+const { TABLE } = QUESTION_TYPE_ENUM;
+
+function SecondaryAxis({ selectorPath }) {
   return (
     <div>
-      <CodesListNewEdit />
+      <CodesList selectorPath={selectorPath} />
       <OptionalView
         name="showTotalLabel"
         label={Dictionary.rowTotal}
@@ -19,12 +23,17 @@ function SecondaryAxis() {
   );
 }
 
+SecondaryAxis.propTypes = {
+  selectorPath: PropTypes.string.isRequired,
+};
+
 class ResponseFormatTableSecondary extends FormSection {
+  static selectorPath = `responseFormat.${TABLE}.AXISSECONDARY`;
   static defaultProps = {
     name: 'AXISSECONDARY',
   };
   render() {
-    return <OptionalView checkbox name="showSecondaryAxis" label={Dictionary.addScndAxis} view={<SecondaryAxis />} />;
+    return <OptionalView checkbox name="showSecondaryAxis" label={Dictionary.addScndAxis} view={<SecondaryAxis selectorPath={ResponseFormatTableSecondary.selectorPath}/>} />;
   }
 }
 

@@ -3,23 +3,24 @@ import { FormSection, Field } from 'redux-form';
 
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import Dictionary from 'utils/dictionary/dictionary';
-import CodesListNewEdit from 'layout/widget/codes-list-new-edit';
+import CodesList from 'layout/widget/codes-list/codes-list';
 import Input from 'layout/forms/controls/input';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import OptionalView from 'layout/widget/optional-view';
 
 const { TABLE } = QUESTION_TYPE_ENUM;
 
-class CodesList extends FormSection {
+class PrincipalCodesList extends FormSection {
+  static selectorPath = `responseFormat.${TABLE}.AXISPRINCIPAL.CODESLIST`;
   static defaultProps = {
     name: 'CODESLIST',
   };
   render() {
-    return <CodesListNewEdit />;
+    return <CodesList selectorPath={PrincipalCodesList.selectorPath} />;
   }
 }
 
-class List extends FormSection {
+class PrincipalList extends FormSection {
   static defaultProps = {
     name: 'LIST',
   };
@@ -34,23 +35,23 @@ class List extends FormSection {
 }
 
 class ResponseFormatTablePrincipal extends FormSection {
+  static selectorPath = `responseFormat.${TABLE}.AXISPRINCIPAL`;
   static defaultProps = {
     name: 'AXISPRINCIPAL',
   };
-  static selectorPath = `responseFormat.${TABLE}.AXISPRINCIPAL`;
   render() {
     const responseFormatTypes = [
       {
         id: `response-format-table-principal-list`,
         label: Dictionary.list,
         value: 'LIST',
-        content: <List />,
+        content: <PrincipalList />,
       },
       {
         id: `response-format-table-principal-listcodes`,
         label: Dictionary.codeList,
         value: 'CODESLIST',
-        content: <CodesList />,
+        content: <PrincipalCodesList />,
       },
     ];
 

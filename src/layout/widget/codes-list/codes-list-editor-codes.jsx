@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Field, FieldArray, FormSection } from 'redux-form';
+import React from 'react';
+import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-function renderListCodes({ fields, display }) {
+function CodesListEditorCodes({ fields, display }) {
   return (
     <ul style={{ display: display ? 'block' : 'none' }}>
       {fields.map((name, index, fields) => {
@@ -59,44 +59,8 @@ function renderListCodes({ fields, display }) {
   );
 }
 
-class codesListNewEdit extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      showCodesList: false,
-    };
-    this.toggleCodesList = this.toggleCodesList.bind(this);
-  }
-  toggleCodesList() {
-    const newShowCodesList = !this.state.showCodesList;
-    this.setState({
-      showCodesList: newShowCodesList,
-    });
-  }
-  render() {
-    const toggleButtonClass = this.state.showCodesList ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-pencil';
-
-    return (
-      <div className="codes-list-new-edit">
-        <FormSection name="codesList">
-          <div className="ctrl-input">
-            <label htmlFor="input-label">{Dictionary.newCl}</label>
-            <div className="codes-list__name">
-              <Field name="label" id="input-label" type="text" component="input" placeholder={Dictionary.newCl} />
-              <span className={toggleButtonClass} onClick={() => this.toggleCodesList()}/>
-            </div>
-          </div>
-          <Field name="id" type="hidden" component="input" />
-        </FormSection>
-        <FieldArray display={this.state.showCodesList} name="codes" component={renderListCodes} />
-      </div>
-    );
-  }
-}
-
-renderListCodes.propTypes = {
+CodesListEditorCodes.propTypes = {
   fields: PropTypes.object.isRequired,
 };
 
-export default codesListNewEdit;
+export default CodesListEditorCodes;

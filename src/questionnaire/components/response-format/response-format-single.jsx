@@ -4,7 +4,7 @@ import { FormSection, Field } from 'redux-form';
 import { DATATYPE_VIS_HINT } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
-import CodesListNewEdit from 'layout/widget/codes-list-new-edit';
+import CodesList from 'layout/widget/codes-list/codes-list';
 import Dictionary from 'utils/dictionary/dictionary';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
@@ -41,8 +41,7 @@ class ResponseFormatSingle extends FormSection {
         </div>
 
         <Field name="visHint" component={ListRadioButtons} label={Dictionary.visHint} radios={listVisHints} required />
-
-        <CodesListNewEdit />
+        <CodesList selectorPath={ResponseFormatSingle.selectorPath} />
       </div>
     );
   }

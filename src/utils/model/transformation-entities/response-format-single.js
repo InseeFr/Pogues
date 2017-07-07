@@ -1,6 +1,7 @@
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { QUESTION_TYPE_ENUM, CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { NEW } = CODES_LIST_INPUT_ENUM;
 
 export const defaultResponseFormatSingleState = {
   mandatory: undefined,
@@ -11,8 +12,11 @@ export const defaultResponseFormatSingleState = {
 export const defaultResponseFormatSingleForm = {
   [SINGLE_CHOICE]: {
     mandatory: false,
-    codesList: '',
-    codes: [],
+    type: NEW,
+    [NEW]: {
+      codesList: '',
+      codes: [],
+    },
   },
 };
 
@@ -37,7 +41,7 @@ function stateToModel() {
 function stateToForm(state, activeCodeLists, activeCodes) {
   const { codesListId, visHint, mandatory } = state;
   const codesList = activeCodeLists[state.codesListId] || {};
-  const codes = codesList.codes || []
+  const codes = codesList.codes || [];
 
   return {
     codesListId,
