@@ -1,4 +1,4 @@
-require('env2')('.env'); // optionally store youre Evironment Variables in .env
+// require('env2')('.env'); // optionally store youre Evironment Variables in .env
 const seleniumDownload = require('selenium-download');
 
 const SCREENSHOT_PATH = './screenshots/';
@@ -31,8 +31,8 @@ module.exports = {
         enabled: false, // save screenshots to this directory (excluded by .gitignore)
         path: SCREENSHOT_PATH,
       },
-      username: process.env.SAUCE_USERNAME, // if you want to use Saucelabs remember to
-      access_key: process.env.SAUCE_ACCESS_KEY,
+      username: "${SAUCE_USERNAME}", // if you want to use Saucelabs remember to
+      access_key: "${SAUCE_ACCESS_KEY}",
       globals: {
         waitForConditionTimeout: 10000, // wait for content on the page before continuing
       },
