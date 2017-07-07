@@ -12,6 +12,7 @@ import { QUESTION_TYPE_ENUM } from 'constants/schema';
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormat extends FormSection {
+  static selectorPath = 'responseFormat';
   static defaultProps = {
     name: 'responseFormat',
   };
@@ -45,11 +46,13 @@ class ResponseFormat extends FormSection {
     ];
 
     return (
-      <ComponentSelectoryByTypeContainer
-        label={Dictionary.responseFormats}
-        components={responseFormatTypes}
-        selectorPath="responseFormat"
-      />
+      <div className="response-format">
+        <ComponentSelectoryByTypeContainer
+          label={Dictionary.responseFormats}
+          components={responseFormatTypes}
+          selectorPath={ResponseFormat.selectorPath}
+        />
+      </div>
     );
   }
 }

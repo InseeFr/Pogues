@@ -1,6 +1,7 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { normalizeComponentFromForm, addIdsNewFormItems } from 'utils/model/form-state-utils';
 import { uuid } from 'utils/data-utils';
+import Component from 'utils/model/transformation-entities/component';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -114,13 +115,17 @@ export const updateComponent = (form, id, parent, weight, type) => {
   let activeCodesById = {};
 
   if (type === QUESTION) {
-    const responseFormat = form.responseFormat
+    const responseFormat = form.responseFormat;
     const responseFormatType = responseFormat.type;
     responseFormat[responseFormatType] = addIdsNewFormItems(responseFormat[responseFormatType]);
     activeCodesById = normalizeCodes(responseFormat[responseFormatType].codes);
     activeCodeListsById = normalizeCodeList(responseFormat[responseFormatType].codesList, Object.keys(activeCodesById));
   }
-  const activeComponentsById = normalizeComponentFromForm(form, id, parent, weight, type);
+  // const activeComponentsById = normalizeComponentFromForm(form, id, parent, weight, type);
+
+  const activeComponentsById = {
+    [form.id]: Component.formToState({ ...form, id, parent, weight, type }),
+  };
   return {
     type: UPDATE_COMPONENT,
     payload: {

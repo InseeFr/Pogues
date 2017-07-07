@@ -8,7 +8,10 @@ import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edi
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
-import { responseFormatSimpleDefault, responseFormatSingleDefault } from 'utils/model/defaults';
+import { defaultResponseFormatSimpleForm } from 'utils/model/transformation-entities/response-format-simple';
+import { defaultResponseFormatSingleForm } from 'utils/model/transformation-entities/response-format-single';
+import { defaultResponseFormatMultipleForm } from 'utils/model/transformation-entities/response-format-multiple';
+import { defaultResponseFormatTableForm } from 'utils/model/transformation-entities/response-format-table';
 
 const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
@@ -42,8 +45,10 @@ function ComponentNewContainer({
     const questionInitialValues = {
       initialValues: {
         responseFormat: {
-          ...responseFormatSimpleDefault,
-          ...responseFormatSingleDefault,
+          ...defaultResponseFormatSimpleForm,
+          ...defaultResponseFormatSingleForm,
+          ...defaultResponseFormatMultipleForm,
+          ...defaultResponseFormatTableForm,
           type: SIMPLE,
         },
       },

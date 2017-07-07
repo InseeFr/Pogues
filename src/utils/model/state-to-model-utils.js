@@ -71,7 +71,7 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
         });
       } else if (responseFormatName === SINGLE_CHOICE) {
         responses.push({
-          codeListReference: component.responseFormat[responseFormatName].codesList,
+          codeListReference: component.responseFormat[responseFormatName].codesListId,
           mandatory: component.responseFormat[responseFormatName].mandatory,
           datatype: {
             visHint: component.responseFormat[responseFormatName].visHint,
@@ -93,15 +93,18 @@ export function serializePlainToNestedComponents(questionnaireId, listComponents
 }
 
 function serializePlainToNestedCodesLists(ids, lists, codes) {
-  return ids.map(key => {
+  return ids.reduce((acc, key) => {
     const list = lists[key];
-    return {
-      ...list,
-      codes: list.codes.map(keyCode => {
-        return codes[keyCode];
-      }),
-    };
-  });
+    if (list) {
+      acc.push({
+        ...list,
+        codes: list.codes.map(keyCode => {
+          return codes[keyCode];
+        }),
+      });
+    }
+    return acc;
+  }, []);
 }
 
 export function codesListsIdsInComponents(components) {
@@ -110,7 +113,7 @@ export function codesListsIdsInComponents(components) {
     const component = components[key];
     if (component.type === QUESTION) {
       if (component.responseFormat.type === SINGLE_CHOICE) {
-        codesListsIds.push(component.responseFormat[SINGLE_CHOICE].codesList);
+        codesListsIds.push(component.responseFormat[SINGLE_CHOICE].codesListId);
       }
     }
   });
@@ -119,6 +122,7 @@ export function codesListsIdsInComponents(components) {
 
 export function serializeUpdateQuestionnaire(questionnaire, components, codesLists, codes) {
   const codesListsInComponents = codesListsIdsInComponents(components, codesLists);
+  // const test = serializePlainToNestedCodesLists(codesListsInComponents, codesLists, codes);
   return {
     ...questionnaireModelTmpl,
     id: questionnaire.id,
