@@ -2,6 +2,12 @@ language: node_js
 node_js:
   - "6.11.0"
 dist: trusty
+env:
+  global:
+  - secure: c2HzuwEyuDmfDtJkjc/lDzk4LzilcJPQP3AvAAJrYKoyswwAC1M+hwtm14SBvRRYV8BWHDzjugs22bb8vV3zWSOliprC6DBCBxC8U8LdyLsQ88WJIjFzpkE5UBqbChxXtuYply+AoDgffGY+gCe1b7eJXmjABbGkrUcsgDPNX4d4PdvnRzDPdq+yk9CpIUsF2LSx4HYz96UFblQ+u2BaBLZ1nIleNwy+SMs2PP59gPuQudTKJWxQLvW+qNScWh6hP/bfPd+DcbkRLwhF4Exh5q5KXoLj4ewHdgM9GQQ80N+t0ydHYqeH+z4Ns2roBHFcRKGjoAEGyrnBiumQ+vu3qQhHXYMu91g8zDQ1/nJvyRzTSU8UbrU/EeWqnrZwbn7Lw9lhMFeTtLbhmwqgG+BUOlUemQweEEWAtBJ1S7YeTEj9nO4Aa0umSdKv2Pff5StxbBqTCPKxLYkE39ED2NeEfQl2307JSfRY9CGQ49pAVsG5MWt9rOsYJsxei9FvTGg3h41QDSICwUg0l77Iwoo+B7y9iUwai02D8BK3P5tGImC/sYiCoasmAWb/5teoifQSiVDYjOs9qjYWwJN0o6FqAhgp7hlf8Ucnvu9DiRbM31ySA+DpoCIS0tOucKIvCnodmeuoIVhyaups84XdCFHR0QlLF9EbshwX6VnvOenHxD0=
 script:
   - npm run test
+  - npm run e2e:travis
   - npm run build
+addons:
+  sauce_connect: true

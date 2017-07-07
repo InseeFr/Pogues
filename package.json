@@ -90,6 +90,7 @@
     "webpack-dev-server": "2.4.5"
   },
   "scripts": {
+    "postinstall": "node nightwatch.conf.js",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build",
@@ -101,7 +102,9 @@
     "build": "cross-env NODE_ENV=production webpack --env.prod=true",
     "lint": "eslint ./src ./utils -f table || true",
     "lint:fix": "eslint ./src ./utils -f table --fix || true",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "e2e": "nightwatch --env local --config nightwatch.conf.js",
+    "e2e:travis": "nightwatch --config nightwatch.conf.js"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
