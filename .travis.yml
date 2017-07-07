@@ -16,7 +16,7 @@ script:
   - pushd ./dist
   - python -m SimpleHTTPServer 3000 &
   - popd
-  - sleep 4
+  - sleep 10
   - npm run test
   - npm run e2e:travis
 
