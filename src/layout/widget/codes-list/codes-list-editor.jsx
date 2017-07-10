@@ -8,7 +8,7 @@ import { required } from 'layout/forms/validation-rules';
 
 const CodesListLabel = ({
   input,
-  label,
+  placeholder,
   type,
   toggleButtonClass,
   toggleCodesList,
@@ -16,7 +16,7 @@ const CodesListLabel = ({
 }) => (
   <div>
     <div className="codes-list__name">
-      <input {...input} placeholder={label} type={type} />
+      <input {...input} placeholder={placeholder} type={type} />
       <span className={toggleButtonClass} onClick={() => toggleCodesList()} />
     </div>
     {touched &&
@@ -27,7 +27,7 @@ const CodesListLabel = ({
 
 CodesListLabel.propTypes = {
   input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   toggleButtonClass: PropTypes.string.isRequired,
   toggleCodesList: PropTypes.func.isRequired,
