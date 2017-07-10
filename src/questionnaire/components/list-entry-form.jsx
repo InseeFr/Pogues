@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import Input from 'layout/forms/controls/input';
 
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
-import ResponseFormatSimple from 'questionnaire/components/response-format/response-format-simple';
-import ResponseFormatSingle from 'questionnaire/components/response-format/response-format-single';
+import ResponseFormatSimple from 'questionnaire/components/response-format/simple/response-format-simple';
+import ResponseFormatSingle from 'questionnaire/components/response-format/single/response-format-single';
 import Dictionary from 'utils/dictionary/dictionary';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 

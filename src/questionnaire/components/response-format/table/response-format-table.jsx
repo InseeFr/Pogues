@@ -2,9 +2,9 @@ import React from 'react';
 import { FormSection } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import ResponseFormatTablePrincipal from 'questionnaire/components/response-format/response-format-table-principal';
-import ResponseFormatTableSecondary from 'questionnaire/components/response-format/response-format-table-secondary';
-import ResponseFormatTableMeasures from 'questionnaire/components/response-format/response-format-table-measures';
+import ResponseFormatTablePrincipal from 'questionnaire/components/response-format/table/table-principal';
+import ResponseFormatTableSecondary from 'questionnaire/components/response-format/table/table-secondary';
+import ResponseFormatTableMeasures from 'questionnaire/components/response-format/table/table-measures';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 const { TABLE } = QUESTION_TYPE_ENUM;

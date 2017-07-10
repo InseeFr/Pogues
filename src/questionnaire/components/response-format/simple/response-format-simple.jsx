@@ -5,8 +5,8 @@ import { DATATYPE_NAME } from 'constants/pogues-constants';
 import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import Dictionary from 'utils/dictionary/dictionary';
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
-import ResponseFormatDatatypeNumeric from 'questionnaire/components/response-format/response-format-datatype-numeric';
-import ResponseFormatDatatypeText from 'questionnaire/components/response-format/response-format-datatype-text';
+import ResponseFormatDatatypeNumeric from './simple-numeric';
+import ResponseFormatDatatypeText from './simple-text';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 const { SIMPLE } = QUESTION_TYPE_ENUM;
