@@ -550,6 +550,10 @@ const dictionary = {
     fr: 'Ajouter une mesure',
     en: 'Add a measure',
   },
+  noMeasureYet: {
+    en: 'No measure yet',
+    fr: 'Aucune mesure défini',
+  },
   addCondition: {
     fr: 'Ajouter une condition',
     en: 'Add a condition',

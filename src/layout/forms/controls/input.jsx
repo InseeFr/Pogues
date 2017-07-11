@@ -2,13 +2,22 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Dictionary from 'utils/dictionary/dictionary';
 
-function Input({ input, label, type, required, reference, id, meta: { touched, error, warning } }) {
+function Input({ input, label, type, required, reference, id, help, meta: { touched, error, warning } }) {
   const idInput = id !== '' ? `input-${input.id}` : `input-${input.name}`;
+
+  const helpBlock = help
+    ? <span className="help-block"><span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP} </span>
+    : '';
 
   return (
     <div className="ctrl-input">
-      <label htmlFor={idInput}>{label}{required ? <span>*</span> : ''}</label>
+      <label htmlFor={idInput}>
+        {label}{required ? <span>*</span> : ''}
+        {helpBlock}
+      </label>
+
       <div>
         <input {...input} ref={reference} id={idInput} placeholder={label} type={type} />
         {touched &&
@@ -27,6 +36,7 @@ Input.propTypes = {
   meta: PropTypes.object,
   reference: PropTypes.func,
   id: PropTypes.string,
+  help: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -34,6 +44,7 @@ Input.defaultProps = {
   meta: {},
   reference: undefined,
   id: '',
+  help: false,
 };
 
 export default Input;
