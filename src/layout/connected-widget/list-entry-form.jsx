@@ -52,6 +52,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   touch: actions.touch,
   initialize: actions.initialize,
+  arrayPush: actions.arrayPush,
 };
 
 class ListEntryFormContainer extends Component {
@@ -68,23 +69,29 @@ class ListEntryFormContainer extends Component {
   }
   submit(event) {
     event.preventDefault();
-    const { submit, errors, values, touch, selectorPath } = this.props;
-    submit();
+    const { errors, values, touch, arrayPush, selectorPath, listName, initialValues, initialize } = this.props;
+    const { [listName]: list, ...currentValues } = getDeepObjectReference(values, selectorPath.split('.'));
+
     // if (validate(errors, values, selectorPath, touch)) {
-    //   submit();
+    arrayPush('question', `${selectorPath}.${listName}`, currentValues).then(() => {
+      debugger;
+      const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'));
+      initialize('question', partialInitialValues);
+    });
     // }
   }
   render() {
-    const { inputView } = this.props;
-    return <ListEntryForm reset={this.reset} submit={this.submit} inputView={inputView} />;
+    const { inputView, listName } = this.props;
+    return <ListEntryForm reset={this.reset} submit={this.submit} inputView={inputView} listName={listName} />;
   }
 }
 
 ListEntryFormContainer.propTypes = {
   inputView: PropTypes.object.isRequired,
   selectorPath: PropTypes.string.isRequired,
-  submit: PropTypes.func.isRequired,
+  listName: PropTypes.string.isRequired,
   touch: PropTypes.func.isRequired,
+  arrayPush: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
   initialValues: PropTypes.object,
   values: PropTypes.object,

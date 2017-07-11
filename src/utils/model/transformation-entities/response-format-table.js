@@ -48,7 +48,7 @@ export const defaultResponseFormatTableForm = {
       totalLabel: '',
     },
     AXISMEASURES: {
-      lable: '',
+      label: '',
       type: SIMPLE,
       [SIMPLE]: {
         type: TEXT,
