@@ -41,6 +41,7 @@
     "draft-js": "^0.10.0",
     "draft-js-export-markdown": "^0.2.2",
     "draft-js-import-markdown": "^0.2.1",
+    "env2": "^2.2.0",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
@@ -59,6 +60,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jest": "^19.0.2",
     "lodash": "^4.17.4",
+    "nightwatch": "^0.9.16",
     "node-sass": "^4.5.2",
     "object-assign": "^4.1.1",
     "preload-webpack-plugin": "^1.2.2",
@@ -80,6 +82,7 @@
     "restify": "^4.3.0",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.3",
+    "selenium-download": "^2.0.10",
     "style-loader": "^0.17.0",
     "uglify-js": "^2.8.23",
     "uglifyjs-webpack-plugin": "^0.4.3",
@@ -87,18 +90,21 @@
     "webpack-dev-server": "2.4.5"
   },
   "scripts": {
+    "postinstall": "node nightwatch.conf.js",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build",
     "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'Update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'Update book' && git push git@github.com:Zenika/Pogues gh-pages --force",
-    "test": "jest || true",
+    "test": "jest",
     "test:watch": "jest --watch",
     "dev": "webpack-dev-server",
     "server": "node ./build-config/fake-backend/server.js",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true",
     "lint": "eslint ./src ./utils -f table || true",
     "lint:fix": "eslint ./src ./utils -f table --fix || true",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "e2e": "nightwatch --env local --config nightwatch.conf.js",
+    "e2e:travis": "nightwatch --config nightwatch.conf.js"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
