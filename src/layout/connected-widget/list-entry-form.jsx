@@ -74,15 +74,23 @@ class ListEntryFormContainer extends Component {
 
     // if (validate(errors, values, selectorPath, touch)) {
     arrayPush('question', `${selectorPath}.${listName}`, currentValues).then(() => {
-      debugger;
       const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'));
       initialize('question', partialInitialValues);
     });
     // }
   }
   render() {
-    const { inputView, listName } = this.props;
-    return <ListEntryForm reset={this.reset} submit={this.submit} inputView={inputView} listName={listName} />;
+    const { inputView, listName, submitLabel, noValueLabel } = this.props;
+    return (
+      <ListEntryForm
+        submitLabel={submitLabel}
+        noValueLabel={noValueLabel}
+        reset={this.reset}
+        submit={this.submit}
+        inputView={inputView}
+        listName={listName}
+      />
+    );
   }
 }
 
@@ -96,6 +104,8 @@ ListEntryFormContainer.propTypes = {
   initialValues: PropTypes.object,
   values: PropTypes.object,
   errors: PropTypes.object,
+  submitLabel: PropTypes.string.isRequired,
+  noValueLabel: PropTypes.string.isRequired,
 };
 
 ListEntryFormContainer.defaultProps = {

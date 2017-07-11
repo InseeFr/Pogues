@@ -80,6 +80,8 @@ class ResponseFormatTableMeasures extends Component {
           inputView={inputMeasureView}
           selectorPath={this.selectorPathComposed}
           listName="measures"
+          submitLabel="addMeasure"
+          noValueLabel="noMeasureYet"
         />
       </FormSection>
     );
