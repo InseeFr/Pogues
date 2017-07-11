@@ -5,21 +5,17 @@ import { Field } from 'redux-form';
 import Select from 'layout/forms/controls/select';
 import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
 
-function ComponentSelectorByType({ activeComponentType, label, components, radio }) {
-  const componentsRendered = components.map(comp => {
-    const style = {
-      display: activeComponentType === comp.value ? 'block' : 'none',
-    };
-    return <div key={comp.id} style={style}>{comp.content}</div>;
-  });
+function ComponentSelectorByType({ activeComponent, label, components, radio }) {
   const selector = radio
     ? <Field name="type" component={ListRadioButtons} label={label} radios={components} required />
     : <Field name="type" component={Select} label={label} options={components} required />;
 
+  const content = activeComponent.id ? <div key={activeComponent.id}>{activeComponent.content}</div> : '';
+
   return (
     <div>
       {selector}
-      {componentsRendered}
+      {content}
     </div>
   );
 }
@@ -27,12 +23,12 @@ function ComponentSelectorByType({ activeComponentType, label, components, radio
 ComponentSelectorByType.propTypes = {
   components: PropTypes.arrayOf(PropTypes.object).isRequired,
   label: PropTypes.string.isRequired,
-  activeComponentType: PropTypes.string,
+  activeComponent: PropTypes.object,
   radio: PropTypes.bool,
 };
 
 ComponentSelectorByType.defaultProps = {
-  activeComponentType: '',
+  activeComponent: {},
   radio: false,
 };
 
