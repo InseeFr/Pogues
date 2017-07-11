@@ -70,10 +70,6 @@ class ResponseFormatTableMeasures extends Component {
     this.selectorPathComposed = selectorPathParent
       ? `${selectorPathParent}.${ResponseFormatTableMeasures.selectorPath}`
       : ResponseFormatTableMeasures.selectorPath;
-
-    this.submit = this.submit.bind(this);
-  }
-  submit() {
   }
   render() {
     const inputMeasureView = <InputMeasure selectorPath={this.selectorPathComposed} />;
@@ -82,8 +78,8 @@ class ResponseFormatTableMeasures extends Component {
       <FormSection name={ResponseFormatTableMeasures.selectorPath}>
         <ListEntryFormContainer
           inputView={inputMeasureView}
-          submit={this.submit}
           selectorPath={this.selectorPathComposed}
+          listName="measures"
         />
       </FormSection>
     );
