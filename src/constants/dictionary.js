@@ -474,6 +474,10 @@ const dictionary = {
     fr: 'Axe principal',
     en: 'Primary axis',
   },
+  secondaryAxis: {
+    fr: 'Axe secondarie',
+    en: 'Secondary axis',
+  },
   codeList: {
     fr: 'Liste de codes',
     en: 'Code list',
@@ -745,6 +749,18 @@ const dictionary = {
   addObject: {
     fr: 'Ajouter un objet',
     en: 'Add object',
+  },
+  validationNumber: {
+    fr: 'Vous devez introduire un chiffre',
+    en: 'Must be a number',
+  },
+  validationRequired: {
+    fr: 'Obligatoire',
+    en: 'Required',
+  },
+  validationMinNumber: {
+    fr: 'Vous devez introduire au mois',
+    en: 'Must be at least',
   },
 };
 

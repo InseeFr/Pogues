@@ -7,6 +7,7 @@ import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edi
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getFormFromComponent } from 'utils/model/form-state-utils';
+import Component from 'utils/model/transformation-entities/component';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -29,7 +30,7 @@ function ComponentEditContainer({ updateComponent, component, activeCodeLists, a
   };
 
   const initialValues = {
-    initialValues: getFormFromComponent(component, activeCodeLists, activeCodes),
+    initialValues: Component.stateToForm(component, activeCodeLists, activeCodes),
   };
 
   const props = {
