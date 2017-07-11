@@ -1,6 +1,14 @@
-// jest.dontMock('./dimension.js');
-// jest.dontMock('./component.js');
-//
+jest.dontMock('./dimension.js');
+jest.dontMock('./component.js');
+
+describe('Transformation entities', () => {
+  describe('Dimension', () => {
+    test('Fake test', () => {
+      expect(true).toBe(true);
+    });
+  });
+});
+
 // import { DIMENSION_TYPE, MAIN_DIMENSION_FORMATS, COMPONENT_TYPE } from 'constants/pogues-constants';
 // import Dimension, { defaultDimensionState } from './dimension';
 // import Component, { defaultComponentState } from './component';

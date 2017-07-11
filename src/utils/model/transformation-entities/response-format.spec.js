@@ -8,7 +8,7 @@ const { TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = MAIN_DIMENSION_FORMATS;
 
-describe('Transformation entities - ResponseFormat', () => {
+describe.skip('Transformation entities - ResponseFormat', () => {
   test('modelToState with a response format TABLE', () => {
     const model = {
       type: TABLE,
