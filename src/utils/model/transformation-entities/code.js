@@ -1,10 +1,18 @@
 import { nameFromLabel } from 'utils/name-utils';
+import { uuid } from 'utils/data-utils';
 
 export const defaultCodeState = {
   id: undefined,
   code: undefined,
   label: undefined,
   value: undefined,
+};
+
+export const defaultCodeForm = {
+  id: '',
+  code: '',
+  label: '',
+  value: '',
 };
 
 function modelToState(model) {
@@ -24,7 +32,23 @@ function modelToState(model) {
 
 function stateToModel(state) {}
 
+function formToState(form) {
+  const { id, code, label, value } = form;
+  const codeState = {
+    id: id || uuid(),
+    code,
+    label,
+    value,
+  };
+
+  return {
+    ...defaultCodeForm,
+    ...codeState,
+  };
+}
+
 export default {
   modelToState,
   stateToModel,
+  formToState,
 };

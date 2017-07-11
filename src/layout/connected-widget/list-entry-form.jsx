@@ -74,7 +74,6 @@ class ListEntryFormContainer extends Component {
 
     // if (validate(errors, values, selectorPath, touch)) {
     arrayPush('question', `${selectorPath}.${listName}`, currentValues).then(() => {
-      debugger;
       const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'));
       initialize('question', partialInitialValues);
     });

@@ -6,10 +6,11 @@ import {
   CODES_LIST_INPUT_ENUM,
   DATATYPE_NAME,
 } from 'constants/pogues-constants';
+import { defaultCodesListForm } from './codes-list';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
-const { LIST } = MAIN_DIMENSION_FORMATS;
-const { TABLE, SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { LIST, CODES_LIST } = MAIN_DIMENSION_FORMATS;
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { NEW } = CODES_LIST_INPUT_ENUM;
 const { TEXT } = DATATYPE_NAME;
 
@@ -20,51 +21,43 @@ export const defaultResponseFormatTableState = {
 };
 
 export const defaultResponseFormatTableForm = {
-  [TABLE]: {
-    AXISPRINCIPAL: {
-      type: 'LIST',
-      LIST: {
-        numLinesMin: 0,
-        numLinesMax: 0,
-      },
-      CODESLIST: {
-        type: NEW,
-        [NEW]: {
-          codesList: '',
-          codes: [],
-        },
-      },
-      showTotalLabel: '0',
-      totalLabel: '',
+  AXISPRINCIPAL: {
+    type: 'LIST',
+    LIST: {
+      numLinesMin: 0,
+      numLinesMax: 0,
     },
-    AXISSECONDARY: {
-      showSecondaryAxis: '',
+    CODESLIST: {
+      codesListId: '',
       type: NEW,
-      [NEW]: {
-        codesList: '',
-        codes: [],
-      },
-      showTotalLabel: '0',
-      totalLabel: '',
+      [NEW]: { ...defaultCodesListForm },
     },
-    AXISMEASURES: {
-      label: '',
-      type: SIMPLE,
-      [SIMPLE]: {
-        type: TEXT,
-        [TEXT]: {
-          maxLength: 255,
-        },
+    showTotalLabel: '0',
+    totalLabel: '',
+  },
+  AXISSECONDARY: {
+    showSecondaryAxis: '',
+    codesListId: '',
+    type: NEW,
+    [NEW]: { ...defaultCodesListForm },
+    showTotalLabel: '0',
+    totalLabel: '',
+  },
+  AXISMEASURES: {
+    label: '',
+    type: SIMPLE,
+    [SIMPLE]: {
+      type: TEXT,
+      [TEXT]: {
+        maxLength: 255,
       },
-      [SINGLE_CHOICE]: {
-        type: NEW,
-        [NEW]: {
-          codesList: '',
-          codes: [],
-        },
-      },
-      measures: [],
     },
+    [SINGLE_CHOICE]: {
+      codesListId: '',
+      type: NEW,
+      [NEW]: { ...defaultCodesListForm },
+    },
+    measures: [],
   },
 };
 
@@ -106,7 +99,64 @@ function modelToState(model) {
 
 function stateToModel(state) {}
 
+function stateToForm(state, activeCodeLists, activeCodes) {
+  const {
+    AXISPRINCIPAL: { type: axisPrincipalType, [axisPrincipalType]: axisPrincipal },
+    AXISSECONDARY: axisSecondary,
+    AXISMEASURES: { measures },
+  } = state;
+  const responseFormatTableForm = {};
+  let codesList;
+  let codes;
+
+  if (axisPrincipal === CODES_LIST) {
+    codesList = activeCodeLists[axisPrincipal.codesListId] || {};
+    codes = codesList.codes || [];
+    responseFormatTableForm.AXISPRINCIPAL[CODES_LIST][NEW] = {
+      codesList: {
+        id: codesList.id,
+        label: codesList.label,
+      },
+      codes: codes.map(key => {
+        return {
+          id: key,
+          code: activeCodes[key].code,
+          label: activeCodes[key].label,
+        };
+      }),
+    };
+  }
+
+  codesList = activeCodeLists[axisSecondary.codesListId] || {};
+  codes = codesList.codes || [];
+  responseFormatTableForm.AXISSECONDARY[NEW] = {
+    codesList: {
+      id: codesList.id,
+      label: codesList.label,
+    },
+    codes: codes.map(key => {
+      return {
+        id: key,
+        code: activeCodes[key].code,
+        label: activeCodes[key].label,
+      };
+    }),
+  };
+
+  return {
+    ...defaultResponseFormatTableForm,
+    ...state,
+    ...responseFormatTableForm,
+  };
+}
+
+function formToState(form) {
+  return { ...form };
+}
+
 export default {
   modelToState,
   stateToModel,
+  stateToForm,
+  formToState,
 };

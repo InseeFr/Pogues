@@ -8,8 +8,8 @@ const { TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = MAIN_DIMENSION_FORMATS;
 
-describe.skip('Transformation entities - ResponseFormat', () => {
-  test('modelToState with a response format TABLE', () => {
+describe('Transformation entities - ResponseFormat', () => {
+  test.skip('modelToState with a response format TABLE', () => {
     const model = {
       type: TABLE,
       dimensions: [
@@ -38,5 +38,31 @@ describe.skip('Transformation entities - ResponseFormat', () => {
     };
 
     expect(ResponseFormat.modelToState(model)).toEqual(expected);
+  });
+  test('formToState with a response format SIMPLE - TEXT', () => {
+    const form = {
+      type: 'SIMPLE',
+      SIMPLE: {
+        mandatory: true,
+        type: 'TEXT',
+        TEXT: {
+          maxLength: 255,
+          pattern: 'This is the pattern',
+        },
+      },
+    };
+    const expected = {
+      type: 'SIMPLE',
+      SIMPLE: {
+        mandatory: true,
+        type: 'TEXT',
+        TEXT: {
+          maxLength: 255,
+          pattern: 'This is the pattern',
+        },
+      },
+    };
+
+    expect(ResponseFormat.formToState(form)).toEqual(expected);
   });
 });
