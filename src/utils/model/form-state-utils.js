@@ -64,9 +64,11 @@ export function getComponentFromForm(form) {
 
     if (type === SINGLE_CHOICE) {
       responseFormat[SINGLE_CHOICE].codesList = responseFormat[SINGLE_CHOICE].codesList.id;
-      responseFormat[SINGLE_CHOICE].codes = responseFormat[SINGLE_CHOICE].codes.map(code => {
-        return code.id;
-      });
+      if (responseFormat[SINGLE_CHOICE].codes.length > 0) {
+        responseFormat[SINGLE_CHOICE].codes = responseFormat[SINGLE_CHOICE].codes.map(code => {
+          return code.id;
+        });
+      }
     }
 
     component.responseFormat = {

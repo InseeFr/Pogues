@@ -1,6 +1,7 @@
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
-import ResponseFormat from './response-format';
 import { containsComment } from 'utils/model/model-utils';
+import { nameFromLabel } from 'utils/name-utils';
+import ResponseFormat from './response-format';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -9,7 +10,6 @@ export const defaultComponentState = {
   type: undefined,
   parent: undefined,
   weight: undefined,
-  depth: undefined,
   name: undefined,
   label: undefined,
   rawLabel: undefined,
@@ -30,6 +30,10 @@ export const defaultComponentModel = {
   children: [],
   questionType: '',
   responses: [],
+};
+
+export const defaultComponentForm = {
+  label: '',
 };
 
 export function getQuestionLabelFromRaw(rawQuestionLabel) {
@@ -128,7 +132,28 @@ function stateToForm(component, activeCodeLists, activeCodes) {
 }
 
 function formToState(values) {
-  const { id, type, label, name, parent, weight } = values;
+  const { id, type, label, name, parent, weight, responseFormat } = values;
+
+  const componentData = {
+    id,
+    type,
+    name: name || nameFromLabel(label),
+    parent: parent || '',
+    weight: weight || 0,
+  };
+
+  if (type === QUESTION) {
+    componentData.rawLabel = label;
+    componentData.label = label;
+    componentData.responseFormat = ResponseFormat.formToState(responseFormat);
+  } else {
+    componentData.label = label;
+  }
+
+  return {
+    ...defaultComponentState,
+    ...componentData,
+  };
 }
 
 export default {

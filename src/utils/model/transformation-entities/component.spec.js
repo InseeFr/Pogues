@@ -190,4 +190,67 @@ describe('Transformation entities - Component', () => {
     };
     expect(Component.stateToModel(state)).toEqual(expected);
   });
+  test('formToState with SEQUENCE', () => {
+    const form = {
+      label: 'This is the sequence/subsequence',
+    };
+    const id = 'xxxxxx01';
+    const parent = 'j4tv05xr';
+    const type = 'SEQUENCE';
+    const weight = 0;
+    const expected = {
+      id,
+      type,
+      parent,
+      weight: 0,
+      name: 'THISISTHES',
+      label: 'This is the sequence/subsequence',
+      rawLabel: undefined,
+      responseFormat: undefined,
+      children: [],
+    };
+    expect(Component.formToState({ ...form, id, parent, type, weight })).toEqual(expected);
+  });
+  test('formToState with QUESTION', () => {
+    const form = {
+      label: 'This is the question',
+      responseFormat: {
+        type: 'SIMPLE',
+        SIMPLE: {
+          mandatory: true,
+          type: 'TEXT',
+          TEXT: {
+            maxLength: 255,
+            pattern: 'This is the pattern',
+          },
+        },
+      },
+    };
+    const id = 'xxxxxx01';
+    const parent = 'j4tv05xr';
+    const type = 'QUESTION';
+    const weight = 0;
+    const expected = {
+      id,
+      type,
+      parent,
+      weight: 0,
+      name: 'THISISTHEQ',
+      label: 'This is the question',
+      rawLabel: 'This is the question',
+      children: [],
+      responseFormat: {
+        type: 'SIMPLE',
+        SIMPLE: {
+          mandatory: true,
+          type: 'TEXT',
+          TEXT: {
+            maxLength: 255,
+            pattern: 'This is the pattern',
+          },
+        },
+      },
+    };
+    expect(Component.formToState({ ...form, id, parent, type, weight })).toEqual(expected);
+  });
 });
