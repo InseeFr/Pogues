@@ -17,13 +17,11 @@ const mapStateToProps = (state, { components, label, selectorPath, formName }) =
 };
 
 function ComponentSelectorByTypeContainer({ activeComponentType, label, components, radio }) {
+  const activeComponent = components.filter(comp => {
+    return comp.value === activeComponentType;
+  })[0];
   return (
-    <ComponentSelectorByType
-      radio={radio}
-      label={label}
-      components={components}
-      activeComponentType={activeComponentType}
-    />
+    <ComponentSelectorByType radio={radio} label={label} activeComponent={activeComponent} components={components} />
   );
 }
 
