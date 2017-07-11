@@ -23,25 +23,25 @@ class ResponseFormat extends FormSection {
         id: `response-format-${SIMPLE}`,
         label: Dictionary.responseFormatSimple,
         value: SIMPLE,
-        content: <ResponseFormatSimple />,
+        content: <ResponseFormatSimple selectorPathParent={ResponseFormat.selectorPath} />,
       },
       {
         id: `response-format-${SINGLE_CHOICE}`,
         label: Dictionary.responseFormatSingle,
         value: SINGLE_CHOICE,
-        content: <ResponseFormatSingle />,
+        content: <ResponseFormatSingle selectorPathParent={ResponseFormat.selectorPath} />,
       },
       {
         id: `response-format-${MULTIPLE_CHOICE}`,
         label: Dictionary.responseFormatMultiple,
         value: MULTIPLE_CHOICE,
-        content: <ResponseFormatMultiple />,
+        content: <ResponseFormatMultiple selectorPathParent={ResponseFormat.selectorPath} />,
       },
       {
         id: `response-format-${TABLE}`,
         label: Dictionary.responseFormatTable,
         value: TABLE,
-        content: <ResponseFormatTable />,
+        content: <ResponseFormatTable selectorPathParent={ResponseFormat.selectorPath} />,
       },
     ];
 

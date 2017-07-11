@@ -10,21 +10,23 @@ import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 
 function CodesList({ selectorPath }) {
+  const baseId = selectorPath.split('.').join('-');
+
   const codesList = [
     {
-      id: `codes-list-${NEW}`,
+      id: `${baseId}-${NEW}`,
       label: 'Créer une liste',
       value: NEW,
       content: <CodesListNew />,
     },
     {
-      id: `codes-list-${REF}`,
+      id: `${baseId}-${REF}`,
       label: 'Retrouver dans le référentiel',
       value: REF,
       content: <CodesListRef />,
     },
     {
-      id: `codes-list-${QUESTIONNAIRE}`,
+      id: `${baseId}-${QUESTIONNAIRE}`,
       label: 'Retrouver dans le questionnaire',
       value: QUESTIONNAIRE,
       content: <CodesListQuestionnaire />,

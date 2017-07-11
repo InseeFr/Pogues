@@ -1,10 +1,17 @@
 import Dimension from './dimension';
-import { DIMENSION_TYPE, MAIN_DIMENSION_FORMATS, QUESTION_TYPE_ENUM, CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import {
+  DIMENSION_TYPE,
+  MAIN_DIMENSION_FORMATS,
+  QUESTION_TYPE_ENUM,
+  CODES_LIST_INPUT_ENUM,
+  DATATYPE_NAME,
+} from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
 const { LIST } = MAIN_DIMENSION_FORMATS;
-const { TABLE } = QUESTION_TYPE_ENUM;
+const { TABLE, SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { NEW } = CODES_LIST_INPUT_ENUM;
+const { TEXT } = DATATYPE_NAME;
 
 export const defaultResponseFormatTableState = {
   dimensionPrymary: undefined,
@@ -40,7 +47,24 @@ export const defaultResponseFormatTableForm = {
       showTotalLabel: '0',
       totalLabel: '',
     },
-    AXISMEASURES: [],
+    AXISMEASURES: {
+      lable: '',
+      type: SIMPLE,
+      [SIMPLE]: {
+        type: TEXT,
+        [TEXT]: {
+          maxLength: 255,
+        },
+      },
+      [SINGLE_CHOICE]: {
+        type: NEW,
+        [NEW]: {
+          codesList: '',
+          codes: [],
+        },
+      },
+      measures: [],
+    },
   },
 };
 

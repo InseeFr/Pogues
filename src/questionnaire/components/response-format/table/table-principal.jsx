@@ -1,81 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { FormSection, Field } from 'redux-form';
+import PropTypes from 'prop-types';
 
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
+import ResponseFormatTablePrincipalCodeslist from './table-principal-codeslist';
+import ResponseFormatTablePrincipallist from './table-principal-list';
 import Dictionary from 'utils/dictionary/dictionary';
-import CodesList from 'layout/widget/codes-list/codes-list';
 import Input from 'layout/forms/controls/input';
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import OptionalView from 'layout/widget/optional-view';
-import { required, minValue } from 'layout/forms/validation-rules';
+import { required } from 'layout/forms/validation-rules';
 
-const { TABLE } = QUESTION_TYPE_ENUM;
-
-class PrincipalCodesList extends FormSection {
-  static selectorPath = `responseFormat.${TABLE}.AXISPRINCIPAL.CODESLIST`;
-  static defaultProps = {
-    name: 'CODESLIST',
+class ResponseFormatTablePrincipal extends Component {
+  static selectorPath = 'AXISPRINCIPAL';
+  static propTypes = {
+    selectorPathParent: PropTypes.string,
   };
-  render() {
-    return <CodesList selectorPath={PrincipalCodesList.selectorPath} />;
+  static defaultProps = {
+    selectorPathParent: undefined,
+  };
+  constructor(props) {
+    const { selectorPathParent } = props;
+    super(props);
+
+    this.selectorPathComposed = selectorPathParent
+      ? `${selectorPathParent}.${ResponseFormatTablePrincipal.selectorPath}`
+      : ResponseFormatTablePrincipal.selectorPath;
   }
-}
-
-class PrincipalList extends FormSection {
-  static defaultProps = {
-    name: 'LIST',
-  };
-  render() {
-    return (
-      <div>
-        <Field
-          name="numLinesMin"
-          type="number"
-          component={Input}
-          label={Dictionary.minRowNb}
-          validate={[required, minValue(0)]}
-          required
-        />
-        <Field
-          name="numLinesMax"
-          type="number"
-          component={Input}
-          label={Dictionary.maxRowNb}
-          validate={[required, minValue(1)]}
-          required
-        />
-      </div>
-    );
-  }
-}
-
-class ResponseFormatTablePrincipal extends FormSection {
-  static selectorPath = `responseFormat.${TABLE}.AXISPRINCIPAL`;
-  static defaultProps = {
-    name: 'AXISPRINCIPAL',
-  };
   render() {
     const responseFormatTypes = [
       {
         id: `response-format-table-principal-list`,
         label: Dictionary.list,
         value: 'LIST',
-        content: <PrincipalList />,
+        content: <ResponseFormatTablePrincipallist selectorPathParent={this.selectorPathComposed} />,
       },
       {
         id: `response-format-table-principal-listcodes`,
         label: Dictionary.codeList,
         value: 'CODESLIST',
-        content: <PrincipalCodesList />,
+        content: <ResponseFormatTablePrincipalCodeslist selectorPathParent={this.selectorPathComposed} />,
       },
     ];
 
     return (
-      <div>
+      <FormSection name={ResponseFormatTablePrincipal.selectorPath}>
         <ComponentSelectoryByTypeContainer
           label={Dictionary.primaryFormat}
           components={responseFormatTypes}
-          selectorPath={ResponseFormatTablePrincipal.selectorPath}
+          selectorPath={this.selectorPathComposed}
           radio
         />
         <OptionalView
@@ -92,7 +64,7 @@ class ResponseFormatTablePrincipal extends FormSection {
             />
           }
         />
-      </div>
+      </FormSection>
     );
   }
 }
