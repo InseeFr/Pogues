@@ -44,3 +44,30 @@ export function getCodesFromForm(form) {
 
   return codes;
 }
+
+export function updateNewComponentParent(activeComponents, parentId, newComponentId) {
+  const parent = activeComponents[parentId];
+  return {
+    [parentId]: {
+      ...parent,
+      children: [...parent.children, newComponentId],
+    },
+  };
+}
+
+export function updateNewComponentSiblings(activesComponents, siblingsIds, newComponentWeight) {
+  return siblingsIds.reduce((acc, key) => {
+    const sibling = activesComponents[key];
+    let siblingWeight = sibling.weight;
+    if (newComponentWeight <= siblingWeight) {
+      siblingWeight += 1;
+    }
+    return {
+      ...acc,
+      [key]: {
+        ...sibling,
+        weight: siblingWeight,
+      },
+    };
+  }, {});
+}
