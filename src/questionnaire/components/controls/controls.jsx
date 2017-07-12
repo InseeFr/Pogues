@@ -70,7 +70,7 @@ class Controls extends React.Component {
       <FormSection name={Controls.selectorPath}>
         <ListEntryFormContainer
           inputView={inputControlView}
-          submit={this.submit}
+          listName="controls"
           selectorPath={this.selectorPathComposed}
           submitLabel="addControl"
           noValueLabel="noControlYet"

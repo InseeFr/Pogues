@@ -86,8 +86,8 @@ class Declaration extends React.Component {
       <FormSection name={Declaration.selectorPath}>
         <ListEntryFormContainer
           inputView={inputDeclarationView}
-          submit={this.submit}
           selectorPath={this.selectorPathComposed}
+          listName="declarations"
           submitLabel="addDeclaration"
           noValueLabel="noDeclarationYet"
         />
