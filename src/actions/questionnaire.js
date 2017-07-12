@@ -1,6 +1,8 @@
 import { getQuestionnaire, postQuestionnaire } from 'utils/remote-api';
-import { normalizeQuestionnaire } from 'utils/model/model-to-state-utils';
+import { normalizeQuestionnaire, transformModelToState } from 'utils/model/model-to-state-utils';
 import { serializeNewQuestionnaire } from 'utils/model/state-to-model-utils';
+import { questionnaireModelToState } from 'utils/model/model-to-state';
+// import { questionnaires } from 'utils/model/test-data/model-questionnaires-data';
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
@@ -64,13 +66,15 @@ export const loadQuestionnaire = id => dispatch => {
   });
   return getQuestionnaire(id)
     .then(qr => {
-      dispatch(loadQuestionnaireSuccess(id, normalizeQuestionnaire(qr)));
+      // dispatch(loadQuestionnaireSuccess(id, normalizeQuestionnaire(qr)));
+      dispatch(loadQuestionnaireSuccess(id, questionnaireModelToState(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));
     });
+  // const qr = questionnaires.filter(q => q.id === 'fr.insee-POPO-QPO-ECMOSSETAB');
+  // dispatch(loadQuestionnaireSuccess(id, questionnaireModelToState(qr[0])));
 };
-
 /**
  * Load questionnaire if needed
  *

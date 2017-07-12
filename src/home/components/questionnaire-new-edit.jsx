@@ -10,7 +10,7 @@ import { required } from 'layout/forms/validation-rules';
 import { questionnaireName } from 'layout/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 
-function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
+export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
   // @TODO: Remove the mocks
   const mockCampaigns = [
     {
@@ -119,7 +119,7 @@ function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, err
         />
 
         <Field
-          name="context"
+            name="context"
           component={ListRadioButtons}
           label={Dictionary.collectionMode}
           radios={mockContext}

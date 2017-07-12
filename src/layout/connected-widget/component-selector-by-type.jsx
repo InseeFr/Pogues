@@ -5,26 +5,36 @@ import { formValueSelector } from 'redux-form';
 
 import ComponentSelectorByType from 'layout/connected-widget/components/component-selector-by-type';
 
-const selector = formValueSelector('question');
+const mapStateToProps = (state, { components, label, selectorPath, formName }) => {
+  formName = formName || 'question';
+  const selector = formValueSelector(formName);
+  const activeComponentSelectorPath = selectorPath ? `${selectorPath}.type` : '';
+  return {
+    activeComponentType: selector(state, activeComponentSelectorPath),
+    components: components,
+    label: label,
+  };
+};
 
-const mapStateToProps = (state, { components, label, selectorPath }) => ({
-  activeComponentType: selector(state, `${selectorPath}.type`),
-  components: components,
-  label: label,
-});
-
-function ComponentSelectorByTypeContainer({ activeComponentType, label, components }) {
-  return <ComponentSelectorByType label={label} components={components} activeComponentType={activeComponentType} />;
+function ComponentSelectorByTypeContainer({ activeComponentType, label, components, radio }) {
+  const activeComponent = components.filter(comp => {
+    return comp.value === activeComponentType;
+  })[0];
+  return (
+    <ComponentSelectorByType radio={radio} label={label} activeComponent={activeComponent} components={components} />
+  );
 }
 
 ComponentSelectorByTypeContainer.propTypes = {
   components: PropTypes.arrayOf(PropTypes.object).isRequired,
   label: PropTypes.string.isRequired,
   activeComponentType: PropTypes.string,
+  radio: PropTypes.bool,
 };
 
 ComponentSelectorByTypeContainer.defaultProps = {
   activeComponentType: '',
+  radio: false,
 };
 
 export default connect(mapStateToProps)(ComponentSelectorByTypeContainer);

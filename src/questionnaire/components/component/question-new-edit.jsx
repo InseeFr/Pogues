@@ -60,7 +60,7 @@ export class QuestionNewEdit extends Component {
     ];
 
     return (
-      <div id="generic-input-new">
+      <div className="component-edition">
         <form onSubmit={handleSubmit}>
           {edit
             ? <Field

@@ -1,34 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector} from 'redux-form';
 
 import Redirections from 'questionnaire/components/redirections/redirections';
 
-const selector = formValueSelector('question');
-
-const mapStateToProps = state => {
+const mapStateToProps = () => {
   const redirections = [];
-  /*Object.keys(state.appState.activeRedirectionsById)
-                            .map(key => state.appState.activeRedirectionsById[key], []);*/
-  
+
   return {
     redirections,
   };
 };
 
-const mapDispatchToProps = {
-  
-};
+const mapDispatchToProps = {};
 
 class RedirectionsContainer extends Component {
   static propTypes = {
     redirections: PropTypes.array.isRequired,
   };
 
-  componentWillMount() {
-    
-  }
+  componentWillMount() {}
 
   render() {
     const { redirections } = this.props;

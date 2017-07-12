@@ -1,87 +1,61 @@
 import React from 'react';
-import { Field, FieldArray } from 'redux-form';
+import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
+import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 
-function renderListRedirections({ fields, redirections, currentText, currentType, currentPosition }) {
-    /*const declarations = fields.map((name, index, fields) => {
-        return <li key={index}>
-            <Field name={`${name}.text`} type="hidden" component="input" value={currentText} />
-            <Field name={`${name}.type`} type="hidden" component="input" value={currentType} />
-            <Field name={`${name}.position`} type="hidden" component="input" value={currentPosition} />
-        </li>
-    })*/    
-    const redirectionsBlock = redirections.length > 0 ?
-        redirections.map(redirection => {
-            return <li>
-                <button className="btn btn-link">
-                    <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    {redirection.text}
-                </button>
-            </li>
-        }) : <li>
-            {Dictionary.noGoToYet}
-        </li>
-
-    return <ul>
-        {redirectionsBlock}
-        <li>
-            <button className="btn btn-link" onClick={(event) => { event.stopPropagation(); fields.push(); }}>
-                <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                {Dictionary.defineGoTo}
-            </button>
-        </li>
-    </ul>
+function InputRedirection(props) {
+  return (
+    <div>
+      <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} />
+      <Field
+        type="text"
+        name="condition"
+        id="redirection_condition"
+        component={Textarea}
+        label={Dictionary.expression}
+        help
+      />
+      <Field help type="text" name="cible" id="redirection_cible" component={Input} label={Dictionary.target} />
+    </div>
+  );
 }
 class Redirections extends React.Component {
-    static defaultProps = {
-        name: 'redirections',
-        redirections: [],
-    };
-    static propTypes = {
-        redirections: PropTypes.array.isRequired,
-    };
+  static selectorPath = 'AXISREDIRECTIONS';
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            redirections: this.props.redirections
-        }
-        
-    }
+  static propTypes = {
+    selectorPathParent: PropTypes.string,
+  };
+  static defaultProps = {
+    selectorPathParent: undefined,
+  };
 
-    render() {
-        return (
-            <div className="declarations-box">
-                <FieldArray {...this.state} name="redirections" component={renderListRedirections}></FieldArray>
-                <div>
-                    <Field name="text" id="redirection_text" component={Input} label={Dictionary.goTo_label} required />
-                    <Field name="condition" id="redirection_condition" component={Textarea} label={Dictionary.expression} required />
-                    <Field name="cible" id="redirection_cible" component={Input} label={Dictionary.type} required />
-                </div>
-                <div className="declaration-actions">
-                    <ul className="form-footer">
-                        <li>
-                            <button disabled className="btn btn-link">
-                                <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                {Dictionary.remove}
-                            </button>
-                        </li>
-                        <li>
-                            <button disabled className="btn btn-link">
-                                <span className="glyphicon glyphicon-file" aria-hidden="true"></span>
-                                {Dictionary.duplicate}
-                            </button>
-                        </li>
-                        <li><button disabled className="btn-yellow">{Dictionary.validate}</button></li>
-                        <li><button disabled className="cancel">{Dictionary.cancel}</button></li>
-                    </ul>
-                </div>
-            </div>
-        );
-    }
+  constructor(props) {
+    const { selectorPathParent } = props;
+    super(props);
+
+    this.selectorPathComposed = selectorPathParent
+      ? `${selectorPathParent}.${Redirections.selectorPath}`
+      : Redirections.selectorPath;
+  }
+
+  render() {
+    const inputControlView = <InputRedirection selectorPath={this.selectorPathComposed} />;
+
+    return (
+      <FormSection name={Redirections.selectorPath}>
+        <ListEntryFormContainer
+          inputView={inputControlView}
+          submit={this.submit}
+          selectorPath={this.selectorPathComposed}
+          submitLabel="defineGoTo"
+          noValueLabel="noGoToYet"
+        />
+      </FormSection>
+    );
+  }
 }
 
 export default Redirections;

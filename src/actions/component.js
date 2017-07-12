@@ -1,6 +1,8 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { normalizeComponentFromForm, addIdsNewFormItems } from 'utils/model/form-state-utils';
 import { uuid } from 'utils/data-utils';
+import Component from 'utils/model/transformation-entities/component';
+import { getCodesListFromForm, getCodesFromForm } from 'utils/model/form-to-state-utils';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -68,21 +70,13 @@ function normalizeCodeList(codesList, codeIds) {
  */
 export const createComponent = (form, parentId, weight, type) => (dispatch, getState) => {
   const state = getState();
-  const activeComponents = state.appState.activeComponentsById;
   const id = uuid();
-  let activeCodeListsById = {};
-  let activeCodesById = {};
-
-  if (type === QUESTION) {
-    const responseFormat = form.responseFormat;
-    const responseFormatType = responseFormat.type;
-    responseFormat[responseFormatType] = addIdsNewFormItems(responseFormat[responseFormatType]);
-    activeCodesById = normalizeCodes(responseFormat[responseFormatType].codes);
-    activeCodeListsById = normalizeCodeList(responseFormat[responseFormatType].codesList, Object.keys(activeCodesById));
-  }
-
+  const activeComponents = state.appState.activeComponentsById;
+  const newComponent = Component.formToState({ ...form, parent: parentId, weight, type, id });
+  const activeCodesById = getCodesFromForm(newComponent);
+  const activeCodeListsById = getCodesListFromForm(newComponent);
   const activeComponentsById = {
-    ...normalizeComponentFromForm(form, id, parentId, weight, type),
+    [id]: newComponent,
     ...updateNewComponentParent(activeComponents, parentId, id),
     ...updateNewComponentSiblings(activeComponents, activeComponents[parentId].children, weight),
   };
@@ -100,6 +94,40 @@ export const createComponent = (form, parentId, weight, type) => (dispatch, getS
   });
 };
 
+// export const createComponent = (form, parentId, weight, type) => (dispatch, getState) => {
+//   const state = getState();
+//   const activeComponents = state.appState.activeComponentsById;
+//   const id = uuid();
+//   let activeCodeListsById = {};
+//   let activeCodesById = {};
+//
+//   if (type === QUESTION) {
+//     const responseFormat = form.responseFormat;
+//     const responseFormatType = responseFormat.type;
+//     responseFormat[responseFormatType] = addIdsNewFormItems(responseFormat[responseFormatType]);
+//     activeCodesById = normalizeCodes(responseFormat[responseFormatType].codes);
+//     activeCodeListsById = normalizeCodeList(responseFormat[responseFormatType].codesList, Object.keys(activeCodesById));
+//   }
+//
+//   const activeComponentsById = {
+//     ...normalizeComponentFromForm(form, id, parentId, weight, type),
+//     ...updateNewComponentParent(activeComponents, parentId, id),
+//     ...updateNewComponentSiblings(activeComponents, activeComponents[parentId].children, weight),
+//   };
+//
+//   return dispatch({
+//     type: CREATE_COMPONENT,
+//     payload: {
+//       id,
+//       update: {
+//         activeComponentsById,
+//         activeCodesById,
+//         activeCodeListsById,
+//       },
+//     },
+//   });
+// };
+
 /**
  * Update component
  *
@@ -114,13 +142,17 @@ export const updateComponent = (form, id, parent, weight, type) => {
   let activeCodesById = {};
 
   if (type === QUESTION) {
-    const responseFormat = form.responseFormat
+    const responseFormat = form.responseFormat;
     const responseFormatType = responseFormat.type;
     responseFormat[responseFormatType] = addIdsNewFormItems(responseFormat[responseFormatType]);
     activeCodesById = normalizeCodes(responseFormat[responseFormatType].codes);
     activeCodeListsById = normalizeCodeList(responseFormat[responseFormatType].codesList, Object.keys(activeCodesById));
   }
-  const activeComponentsById = normalizeComponentFromForm(form, id, parent, weight, type);
+  // const activeComponentsById = normalizeComponentFromForm(form, id, parent, weight, type);
+
+  const activeComponentsById = {
+    [form.id]: Component.formToState({ ...form, id, parent, weight, type }),
+  };
   return {
     type: UPDATE_COMPONENT,
     payload: {

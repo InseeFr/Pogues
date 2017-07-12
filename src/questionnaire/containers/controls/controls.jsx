@@ -1,34 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector} from 'redux-form';
 
 import Controls from 'questionnaire/components/controls/controls';
 
-const selector = formValueSelector('question');
+const mapStateToProps = () => {
+  const controls = [];
 
-const mapStateToProps = state => {
-  const controls = [] 
-  /*Object.keys(state.appState.activeControlssById)
-                            .map(key => state.appState.activeControlsById[key], []);*/
-  
   return {
     controls,
   };
 };
 
-const mapDispatchToProps = {
-  
-};
+const mapDispatchToProps = {};
 
 class ControlsContainer extends Component {
   static propTypes = {
     controls: PropTypes.array.isRequired,
   };
 
-  componentWillMount() {
-    
-  }
+  componentWillMount() {}
 
   render() {
     const { controls } = this.props;
