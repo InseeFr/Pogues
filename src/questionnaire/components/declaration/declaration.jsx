@@ -49,7 +49,7 @@ function InputDeclaration(props) {
     <div>
       <Field name="label" id="declaration_text" component={Textarea} buttons label={Dictionary.declaration_label} />
 
-      <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} />
+      <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required/>
 
       <Field
         name="position"
@@ -57,6 +57,7 @@ function InputDeclaration(props) {
         component={Select}
         label={Dictionary.declaration_position}
         options={positions}
+        required
       />
     </div>
   );
@@ -86,8 +87,8 @@ class Declaration extends React.Component {
       <FormSection name={Declaration.selectorPath}>
         <ListEntryFormContainer
           inputView={inputDeclarationView}
-          submit={this.submit}
           selectorPath={this.selectorPathComposed}
+          listName="declarations"
           submitLabel="addDeclaration"
           noValueLabel="noDeclarationYet"
         />

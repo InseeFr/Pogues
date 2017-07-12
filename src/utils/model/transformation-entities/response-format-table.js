@@ -100,6 +100,7 @@ function modelToState(model) {
 function stateToModel(state) {}
 
 function stateToForm(state, activeCodeLists, activeCodes) {
+  // @TODO: Measures and testing
   const {
     AXISPRINCIPAL: { type: axisPrincipalType, [axisPrincipalType]: axisPrincipal },
     AXISSECONDARY: axisSecondary,
@@ -151,7 +152,21 @@ function stateToForm(state, activeCodeLists, activeCodes) {
 }
 
 function formToState(form) {
-  return { ...form };
+  const { mandatory, visHint, codesListId, type, [type]: codesListForm } = form;
+  const responseFormatTableState = {
+    mandatory,
+    visHint,
+    type,
+  };
+  const stateCodesList = CodesList.formToState(codesListForm);
+
+  responseFormatTableState.codesListId = stateCodesList.codesList.id;
+  responseFormatTableState[type] = stateCodesList;
+
+  return {
+    ...defaultResponseFormatTableState,
+    ...responseFormatTableState,
+  };
 }
 
 export default {
