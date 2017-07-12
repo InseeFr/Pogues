@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-function ListEntryFormItem({ fields, submitLabel, noValueLabel }) {
+function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset }) {
   const noValueBlock = fields.length === 0
     ? <li>
         {Dictionary[noValueLabel]}
       </li>
     : '';
-  
+
   return (
     <ul className="list-entry-form_list">
       {noValueBlock}
@@ -26,7 +26,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel }) {
         );
       })}
       <li>
-        <button className="btn btn-link">
+        <button className="btn btn-link" onClick={reset}>
           <span className="glyphicon glyphicon-plus" aria-hidden="true" />
           {Dictionary[submitLabel]}
         </button>
@@ -46,7 +46,7 @@ class ListEntryForm extends Component {
   };
   render() {
     const { inputView, submit, reset, listName, submitLabel, noValueLabel } = this.props;
-    
+
     return (
       <div className="list-entry-form">
 
@@ -55,6 +55,7 @@ class ListEntryForm extends Component {
           component={ListEntryFormItem}
           submitLabel={submitLabel}
           noValueLabel={noValueLabel}
+          reset={reset}
         />
 
         <div className="list-entry-form_form">
