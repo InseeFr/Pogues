@@ -7,3 +7,4 @@ _book
 .DS_Store
 .idea/
 *.iml
+coverage/
