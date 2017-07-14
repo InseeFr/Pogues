@@ -9,3 +9,4 @@ _book
 *.iml
 /selenium-debug.log
 screenshots/
+coverage/
