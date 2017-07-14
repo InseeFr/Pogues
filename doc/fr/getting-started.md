@@ -22,7 +22,7 @@ Remarquez que vous aurez vraisemblablement besoin dans un premier temps de mettr
 
 ## Débuter avec JavaScript et Node.js
 
-Si vous débutez avec ces technologies, vous aurez vraisemblablement besoin d'installer dans un premier temps sur votre ordinateur [node et npm](https://nodejs.org/en/download/). N'importe quelle version récente devrait fonctionner.
+Si vous débutez avec ces technologies, vous aurez vraisemblablement besoin d'installer dans un premier temps sur votre ordinateur [node et npm](https://nodejs.org/en/download/). Vous devez télécharger NodeJS > 8
 
 
 `npm` est un gestionnaire de modules pour `Node.js`. `npm install` téléchargera toutes les dépendances du projet, décrites dans la section `dependencies` et `devDepedencies` du fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json).
