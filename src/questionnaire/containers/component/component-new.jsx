@@ -7,13 +7,9 @@ import { setSelectedComponentId } from 'actions/app-state';
 import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { QUESTION_TYPE_ENUM } from 'constants/schema';
-import { defaultResponseFormatSimpleForm } from 'utils/model/transformation-entities/response-format-simple';
-import { defaultResponseFormatSingleForm } from 'utils/model/transformation-entities/response-format-single';
-import { defaultResponseFormatMultipleForm } from 'utils/model/transformation-entities/response-format-multiple';
-import { defaultResponseFormatTableForm } from 'utils/model/transformation-entities/response-format-table';
+import { defaultResponseFormatForm } from 'utils/model/transformation-entities/response-format';
+import { defaultComponentForm } from 'utils/model/transformation-entities/component';
 
-const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { QUESTION } = COMPONENT_TYPE;
 
 const mapDispatchToProps = {
@@ -35,6 +31,7 @@ function ComponentNewContainer({
     setSelectedComponentId(id);
     if (onSuccess) onSuccess(id);
   };
+  let initialValues = { ...defaultComponentForm };
 
   const props = {
     onSubmit: submit,
@@ -42,20 +39,11 @@ function ComponentNewContainer({
   };
 
   if (type === QUESTION) {
-    const questionInitialValues = {
-      initialValues: {
-        responseFormat: {
-          ...defaultResponseFormatSimpleForm,
-          ...defaultResponseFormatSingleForm,
-          ...defaultResponseFormatMultipleForm,
-          ...defaultResponseFormatTableForm,
-          type: SIMPLE,
-        },
-      },
-    };
-    return <QuestionNewEdit {...questionInitialValues} {...props} />;
+    initialValues = { ...initialValues, responseFormat: { ...defaultResponseFormatForm } };
+    return <QuestionNewEdit initialValues={initialValues} {...props} />;
   }
-  return <SequenceNewEdit {...props} />;
+
+  return <SequenceNewEdit initialValues={initialValues} {...props} />;
 }
 
 ComponentNewContainer.propTypes = {
@@ -63,6 +51,7 @@ ComponentNewContainer.propTypes = {
   setSelectedComponentId: PropTypes.func.isRequired,
   weight: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
+  parentId: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
 };

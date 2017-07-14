@@ -1,6 +1,5 @@
-import { QUESTION_TYPE_ENUM, DATATYPE_NAME } from 'constants/pogues-constants';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 
-const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { TEXT } = DATATYPE_NAME;
 
 export const defaultResponseFormatSimpleState = {
@@ -9,12 +8,10 @@ export const defaultResponseFormatSimpleState = {
 };
 
 export const defaultResponseFormatSimpleForm = {
-  [SIMPLE]: {
-    mandatory: false,
-    type: TEXT,
-    [TEXT]: {
-      maxLength: 255,
-    },
+  mandatory: false,
+  type: TEXT,
+  [TEXT]: {
+    maxLength: 255,
   },
 };
 
@@ -34,12 +31,7 @@ function modelToState(model) {
 
 function stateToModel(state) {}
 
-function stateToForm(state) {
-  return { ...state };
-}
-
 export default {
   modelToState,
   stateToModel,
-  stateToForm,
 };

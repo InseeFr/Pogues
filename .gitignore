@@ -8,3 +8,5 @@ _book
 .idea/
 *.iml
 coverage/
+/selenium-debug.log
+screenshots/
