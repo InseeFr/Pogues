@@ -1,7 +1,7 @@
 import { COMPONENT_TYPE, COMPONENT_UTIL } from 'constants/pogues-constants';
 import { nameFromLabel } from 'utils/name-utils';
 
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const { CREATE, REMOVE } = COMPONENT_UTIL;
 
 const emptyCmpnt = {
@@ -71,4 +71,37 @@ export function createOrRemoveSubEntity(arrName, op) {
       [arrName]: op === CREATE ? [...ids, id] : [...ids.slice(0, index), ...ids.slice(index + 1)],
     };
   };
+}
+
+export function isQuestion(component) {
+  return component && component.type === QUESTION;
+}
+
+export function isSubSequence(component) {
+  return component && component.type === SUBSEQUENCE;
+}
+
+export function isSequence(component) {
+  return component && component.type === SEQUENCE;
+}
+
+/**
+ * TODO TEST ET DOC
+ */
+export function toComponents(ids, activesComponents) {
+  return ids.map(id => activesComponents[id]);
+}
+
+/**
+ * TODO TEST ET DOC
+ */
+export function toId(components) {
+  return components.map(c => c.id);
+}
+
+/**
+ * TODO TEST ET DOC
+ */
+export function findComponentByPredicate(components, predicate) {
+  return components.find(predicate);
 }
