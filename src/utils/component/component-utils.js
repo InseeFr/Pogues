@@ -73,35 +73,48 @@ export function createOrRemoveSubEntity(arrName, op) {
   };
 }
 
+/**
+ * This method return true if the component passed as a parameter is a QUESTION
+ * 
+ * @param {object} component The component we should test
+ */
 export function isQuestion(component) {
   return component && component.type === QUESTION;
 }
 
+/**
+ * This method return true if the component passed as a parameter is a SUBSEQUENCE
+ * 
+ * @param {object} component The component we should test
+ */
 export function isSubSequence(component) {
   return component && component.type === SUBSEQUENCE;
 }
 
+/**
+ * This method return true if the component passed as a parameter is a SEQUENCE
+ * 
+ * @param {object} component The component we should test
+ */
 export function isSequence(component) {
   return component && component.type === SEQUENCE;
 }
 
 /**
- * TODO TEST ET DOC
+ * This method will return an array of component based of the ids passed as parameter
+ * 
+ * @param {string[]} ids The list of IDs
+ * @param {object} activesComponents The object representing the activated components
  */
 export function toComponents(ids, activesComponents) {
   return ids.map(id => activesComponents[id]);
 }
 
 /**
- * TODO TEST ET DOC
+ * This method will return an array of component's id
+ * 
+ * @param {object[]} components The list of components
  */
 export function toId(components) {
   return components.map(c => c.id);
-}
-
-/**
- * TODO TEST ET DOC
- */
-export function findComponentByPredicate(components, predicate) {
-  return components.find(predicate);
 }
