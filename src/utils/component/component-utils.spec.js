@@ -1,5 +1,6 @@
-import { toComponents, toId, findComponentByPredicate, isQuestion, isSequence, isSubSequence } from './component-utils';
+import { toComponents, toId, isQuestion, isSequence, isSubSequence } from './component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 describe('isQuestion', () => {
