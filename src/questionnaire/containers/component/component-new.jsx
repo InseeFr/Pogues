@@ -35,10 +35,7 @@ function ComponentNewContainer({
   onCancel,
 }) {
   const submit = values => {
-    createComponent(values, parentId, weight, type)
-    .then(updateParentChildren)
-    .then(orderComponents)
-    .then(result => {
+    createComponent(values, parentId, weight, type).then(updateParentChildren).then(orderComponents).then(result => {
       const { payload: { id } } = result;
       setSelectedComponentId(id);
       if (onSuccess) onSuccess(id);
