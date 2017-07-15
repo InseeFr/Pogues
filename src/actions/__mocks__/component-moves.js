@@ -9,6 +9,7 @@ export function increaseWeightOfAll() {
     increaseWeightOfAll: true,
   };
 }
+
 export function moveQuestionToSubSequence() {
   return {
     moveQuestionToSubSequence: true,
