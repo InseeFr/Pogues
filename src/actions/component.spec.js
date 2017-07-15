@@ -1,95 +1,144 @@
-import { normalizeCodes, normalizeCodeList, resetWeight, resetChildren, increaseWeightOfAll } from './component';
+import * as component from './component';
 
-describe('resetChildren', () => {
-  test(`should return the same component but a new version of children`, () => {
-    const children = [{ id: '1' }];
-    expect(resetChildren({ id: 'key' }, children)).toEqual({
-      key: {
-        id: 'key',
-        children: ['1'],
-      },
-    });
-  });
-});
-
-describe('increaseWeightOfAll', () => {
-  test(`should increase the weight of children for all child with the weight equal or bigger than the new component`, () => {
-    const newComponent = {
-      id: '2',
-      weight: 2,
-      parent: '1',
-    };
-
-    const components = {
-      '1': {
-        id: '1',
-        weight: 1,
-        parent: '1',
-        children: ['5', '3', '4'],
-      },
-      '4': {
-        id: '5',
-        weight: 1,
-        parent: '1',
-      },
-      '5': {
-        id: '5',
-        weight: 2,
-        parent: '1',
-      },
-      '3': {
-        id: '3',
-        weight: 3,
-        parent: '1',
-      },
-      '7': {
-        id: '4',
-        weight: 0,
-        parent: '2',
-      },
-    };
-    expect(increaseWeightOfAll(components, newComponent)).toEqual({
-      '5': {
-        id: '5',
-        weight: 3,
-        parent: '1',
-      },
-      '3': {
-        id: '3',
-        weight: 4,
-        parent: '1',
-      },
-    });
-  });
-});
-
-describe('resetWeight', () => {
-  test(`should sort first before the reset`, () => {
-    const children = [{ id: '1', weight: 7 }, { id: '3', weight: 2 }, { id: '5', weight: 4 }];
-    expect(resetWeight(children)['3']).toEqual({ id: '3', weight: 0 });
-    expect(resetWeight(children)['5']).toEqual({ id: '5', weight: 1 });
-    expect(resetWeight(children)['1']).toEqual({ id: '1', weight: 2 });
-  });
-});
+jest.mock('./component-moves');
 
 describe('normalizeCodes', () => {
   test(`should return an empty object if the parameter is undefined`, () => {
-    expect(normalizeCodes()).toEqual({});
+    expect(component.normalizeCodes()).toEqual({});
   });
   test(`should normalize a list of codes`, () => {
     const codes = [{ id: '1' }, { id: '2' }];
-    expect(normalizeCodes(codes)).toEqual({
+    expect(component.normalizeCodes(codes)).toEqual({
       '1': { id: '1' },
       '2': { id: '2' },
     });
   });
 });
 
-/* describe('normalizeCodeList', () => {
-  test(`should sort first before the reset`, () => {
-    const children = [{ id: '1', weight: 7 }, { id: '3', weight: 2 }, { id: '5', weight: 4 }];
-    expect(resetWeight(children)['3']).toEqual({ id: '3', weight: 0 });
-    expect(resetWeight(children)['5']).toEqual({ id: '5', weight: 1 });
-    expect(resetWeight(children)['1']).toEqual({ id: '1', weight: 2 });
+describe('normalizeCodeList', () => {
+  test(`should return an empty object if the parameter is undefined`, () => {
+    expect(component.normalizeCodeList()).toEqual({});
   });
-});*/
+  test(`should add codeIds to a codelist`, () => {
+    const codesIds = ['1', '2', '3'];
+    const codesList = { id: '1', prop: 'value' };
+    const result = {
+      '1': { id: '1', prop: 'value', codes: ['1', '2', '3'] },
+    };
+    expect(component.normalizeCodeList(codesList, codesIds)).toEqual(result);
+  });
+});
+
+describe('updateParentChildren', () => {
+  function getState() {
+    return {
+      appState: {
+        activeComponentsById: { '2': { id: '2', children: [] } },
+      },
+    };
+  }
+  const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
+  const fn = component.updateParentChildren(payload);
+
+  test(`should trigger the UPDATE_COMPONENT action`, () => {
+    function dispatch(param) {
+      expect(param.type).toEqual(component.UPDATE_COMPONENT);
+    }
+    fn(dispatch, getState);
+  });
+
+  test(`should return the ID of the new component`, () => {
+    function dispatch(param) {
+      expect(param.payload.id).toEqual(payload.payload.id);
+    }
+    fn(dispatch, getState);
+  });
+
+  test(`should call return the last created component`, () => {
+    function dispatch(param) {
+      expect(param.payload.lastCreatedComponent).toEqual(payload.payload.lastCreatedComponent);
+    }
+    fn(dispatch, getState);
+  });
+
+  test(`should call return the updated parent`, () => {
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ '2': { id: '2', children: ['1'] } });
+    }
+    fn(dispatch, getState);
+  });
+});
+
+describe('updateNewComponentParent', () => {
+  test(`should return an parent component with the new children`, () => {
+    const activeComponents = {
+      '1': {
+        id: '1',
+        children: ['2', '3'],
+      },
+    };
+    expect(component.updateNewComponentParent(activeComponents, '1', '4')).toEqual({
+      '1': {
+        id: '1',
+        children: ['2', '3', '4'],
+      },
+    });
+  });
+});
+
+describe('orderComponents', () => {
+  function getState() {
+    return {
+      appState: {
+        activeComponentsById: { '2': { id: '2', children: [] } },
+      },
+    };
+  }
+
+  test(`should trigger the UPDATE_COMPONENT action`, () => {
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
+    const fn = component.orderComponents(payload);
+
+    function dispatch(param) {
+      expect(param.type).toEqual(component.UPDATE_COMPONENT);
+    }
+    fn(dispatch, getState);
+  });
+
+  test(`should return the ID of the new component`, () => {
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.id).toEqual(payload.payload.id);
+    }
+    fn(dispatch, getState);
+  });
+
+  test(`should call moveQuestionAndSubSequenceToSequence`, () => {
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'SEQUENCE' } } } };
+    const fn = component.orderComponents(payload);
+
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionAndSubSequenceToSequence: true });
+    }
+    fn(dispatch, getState);
+  });
+
+  test(`should call moveQuestionToSubSequence`, () => {
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'SUBSEQUENCE' } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionToSubSequence: true });
+    }
+    fn(dispatch, getState);
+  });
+
+  test(`should call increaseWeightOfAll`, () => {
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'QUESTION' } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+    }
+    fn(dispatch, getState);
+  });
+});
