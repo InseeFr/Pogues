@@ -22,7 +22,7 @@ Note that you will probably first need to update the [config file](https://githu
 
 ## New to JavaScript and Node.js
 
-If you're new to JavaScript, you might need to first install [node and npm](https://nodejs.org/en/download/) on your computer. Any recent version should work. You should download NodeJS < 8
+If you're new to JavaScript, you might need to first install [node and npm](https://nodejs.org/en/download/) on your computer. You should download NodeJS < 8
 
 `npm` is the `Node.js` package manager. `npm install` will download all the dependencies needed by the project, as described in the `dependencies` and `devDepedencies` sections of the [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json) file.
 
