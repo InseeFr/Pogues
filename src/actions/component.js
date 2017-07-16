@@ -1,7 +1,6 @@
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { normalizeComponentFromForm, addIdsNewFormItems } from 'utils/model/form-state-utils';
 import { uuid } from 'utils/data-utils';
 import Component from 'utils/model/transformation-entities/component';
+
 import { isSubSequence, isSequence } from 'utils/component/component-utils';
 import {
   moveQuestionToSubSequence,
@@ -9,59 +8,10 @@ import {
   increaseWeightOfAll,
 } from './component-moves';
 
-const { QUESTION } = COMPONENT_TYPE;
+import { getCodesListFromForm, getCodesFromForm, updateNewComponentParent } from 'utils/model/form-to-state-utils';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
-
-/**
- * This function is called when we add a component to a parent
- * 
- * @param {object[]} activeComponents The liste of components
- * @param {string} parentId The id of the parent we should update
- * @param {string} newComponentId The id of the created component
- */
-export function updateNewComponentParent(activeComponents, parentId, newComponentId) {
-  const parent = activeComponents[parentId];
-  return {
-    [parentId]: {
-      ...parent,
-      children: [...parent.children, newComponentId],
-    },
-  };
-}
-
-/**
- * Convert a list of codes into an object
- * [{id: '1'}] => { '1': {id: '1'}}
- * 
- * @param {object[]} codes 
- */
-export function normalizeCodes(codes) {
-  if (!codes) return {};
-  return codes.reduce((acc, code) => {
-    return {
-      ...acc,
-      [code.id]: code,
-    };
-  }, {});
-}
-
-/**
- * Add codeIds to a codeList object
- * 
- * @param {object} codesList
- * @param {array} codeIds 
- */
-export function normalizeCodeList(codesList, codeIds) {
-  if (!codesList) return {};
-  return {
-    [codesList.id]: {
-      ...codesList,
-      codes: codeIds,
-    },
-  };
-}
 
 /**
  * Create component
@@ -75,20 +25,16 @@ export function normalizeCodeList(codesList, codeIds) {
  * @param   {string}  type      The type of component
  * @return  {object}            CREATE_COMPONENT action
  */
-export const createComponent = (form, parentId, weight, type) => dispatch => {
+export const createComponent = (form, parentId, weight, type) => (dispatch, getState) => {
+  const state = getState();
   const id = uuid();
-  let activeCodeListsById = {};
-  let activeCodesById = {};
-
-  if (type === QUESTION) {
-    const responseFormat = form.responseFormat;
-    const responseFormatType = responseFormat.type;
-    responseFormat[responseFormatType] = addIdsNewFormItems(responseFormat[responseFormatType]);
-    activeCodesById = normalizeCodes(responseFormat[responseFormatType].codes);
-    activeCodeListsById = normalizeCodeList(responseFormat[responseFormatType].codesList, Object.keys(activeCodesById));
-  }
-
-  const componentFromForm = normalizeComponentFromForm(form, id, parentId, weight, type);
+  const activeComponents = state.appState.activeComponentsById;
+  const newComponent = Component.formToState({ ...form, parent: parentId, weight, type, id });
+  const activeCodesById = getCodesFromForm(newComponent);
+  const activeCodeListsById = getCodesListFromForm(newComponent);
+  const activeComponentsById = {
+    [id]: newComponent,
+  };
 
   return new Promise(resolve => {
     const result = dispatch({
@@ -96,7 +42,7 @@ export const createComponent = (form, parentId, weight, type) => dispatch => {
       payload: {
         id,
         update: {
-          activeComponentsById: componentFromForm,
+          activeComponentsById,
           activeCodesById,
           activeCodeListsById,
         },
@@ -182,25 +128,16 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
  * @return  {object}              UPDATE_COMPONENT action
  */
 export const updateComponent = (form, id, parent, weight, type) => {
-  let activeCodeListsById = {};
-  let activeCodesById = {};
-
-  if (type === QUESTION) {
-    const responseFormat = form.responseFormat;
-    const responseFormatType = responseFormat.type;
-    responseFormat[responseFormatType] = addIdsNewFormItems(responseFormat[responseFormatType]);
-    activeCodesById = normalizeCodes(responseFormat[responseFormatType].codes);
-    activeCodeListsById = normalizeCodeList(responseFormat[responseFormatType].codesList, Object.keys(activeCodesById));
-  }
-  // const activeComponentsById = normalizeComponentFromForm(form, id, parent, weight, type);
-
+  const updatedComponent = Component.formToState({ ...form, parent, weight, type, id });
+  const activeCodesById = getCodesFromForm(updatedComponent);
+  const activeCodeListsById = getCodesListFromForm(updatedComponent);
   const activeComponentsById = {
-    [form.id]: Component.formToState({ ...form, id, parent, weight, type }),
+    [id]: updatedComponent,
   };
   return {
     type: UPDATE_COMPONENT,
     payload: {
-      id: form.id,
+      id,
       update: {
         activeComponentsById,
         activeCodesById,

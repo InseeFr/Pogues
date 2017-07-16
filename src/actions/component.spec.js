@@ -2,33 +2,6 @@ import * as component from './component';
 
 jest.mock('./component-moves');
 
-describe('normalizeCodes', () => {
-  test(`should return an empty object if the parameter is undefined`, () => {
-    expect(component.normalizeCodes()).toEqual({});
-  });
-  test(`should normalize a list of codes`, () => {
-    const codes = [{ id: '1' }, { id: '2' }];
-    expect(component.normalizeCodes(codes)).toEqual({
-      '1': { id: '1' },
-      '2': { id: '2' },
-    });
-  });
-});
-
-describe('normalizeCodeList', () => {
-  test(`should return an empty object if the parameter is undefined`, () => {
-    expect(component.normalizeCodeList()).toEqual({});
-  });
-  test(`should add codeIds to a codelist`, () => {
-    const codesIds = ['1', '2', '3'];
-    const codesList = { id: '1', prop: 'value' };
-    const result = {
-      '1': { id: '1', prop: 'value', codes: ['1', '2', '3'] },
-    };
-    expect(component.normalizeCodeList(codesList, codesIds)).toEqual(result);
-  });
-});
-
 describe('updateParentChildren', () => {
   function getState() {
     return {
@@ -66,23 +39,6 @@ describe('updateParentChildren', () => {
       expect(param.payload.update.activeComponentsById).toEqual({ '2': { id: '2', children: ['1'] } });
     }
     fn(dispatch, getState);
-  });
-});
-
-describe('updateNewComponentParent', () => {
-  test(`should return an parent component with the new children`, () => {
-    const activeComponents = {
-      '1': {
-        id: '1',
-        children: ['2', '3'],
-      },
-    };
-    expect(component.updateNewComponentParent(activeComponents, '1', '4')).toEqual({
-      '1': {
-        id: '1',
-        children: ['2', '3', '4'],
-      },
-    });
   });
 });
 

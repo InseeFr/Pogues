@@ -5,7 +5,7 @@ import { getFormValues, getFormInitialValues, getFormSyncErrors, actions } from 
 
 import ListEntryForm from './components/list-entry-form';
 
-function getPartialInitialValues(values, initialValues, ids) {
+function getPartialInitialValues(values, initialValues, ids, listName) {
   let currentId;
   let valuesRef = values;
   let initialValuesRef = initialValues;
@@ -14,6 +14,7 @@ function getPartialInitialValues(values, initialValues, ids) {
   while (ids.length > 0) {
     currentId = ids.shift();
     if (ids.length === 0) {
+      initialValuesRef[currentId][listName] = [...valuesRef[currentId][listName]];
       valuesRef[currentId] = initialValuesRef[currentId];
     }
     valuesRef = valuesRef[currentId];
@@ -63,8 +64,8 @@ class ListEntryFormContainer extends Component {
   }
   reset(event) {
     event.preventDefault();
-    const { initialValues, values, selectorPath, initialize } = this.props;
-    const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'));
+    const { listName, initialValues, values, selectorPath, initialize } = this.props;
+    const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'), listName);
     initialize('question', partialInitialValues);
   }
   submit(event) {
@@ -73,10 +74,9 @@ class ListEntryFormContainer extends Component {
     const { [listName]: list, ...currentValues } = getDeepObjectReference(values, selectorPath.split('.'));
 
     // if (validate(errors, values, selectorPath, touch)) {
-    arrayPush('question', `${selectorPath}.${listName}`, currentValues).then(() => {
-      const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'));
-      initialize('question', partialInitialValues);
-    });
+    arrayPush('question', `${selectorPath}.${listName}`, currentValues);
+    // const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'));
+    // initialize('question', partialInitialValues);
     // }
   }
   render() {

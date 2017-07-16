@@ -2,8 +2,24 @@ language: node_js
 node_js:
   - "6.11.0"
 dist: trusty
-before_install:
-  - npm install -g jest
+env:
+  global:
+  - secure: CEfODj0arEcEkeRoDWLP/yovAMphURFib7bgRJ1xMSZZbDUoBKA9lRbdC7dKq/NS9jm9VWee7rYdPM34kdiJHhWv6LqhB0cidWhI+KV5m/M7N1uoLWL3OJJ88Wby2QBEtNUMQ0j4TE/RfvKX8+Zxh5W8Pi22rzSiMXE635ZkVsR2vJqJWJCNzHzCq1RHGf71Zu/FjbqBQ+RS1XKqirOMR9xdh0WAg32nKO7OvRJI95KnzGe4GXPykTjeMCxUpwEW7HPO4/iTdiT0w09IbFMK7LJ4DprHOzjSLS9Z93zLGe46EV0SzVrDcWKUeBM93KMxTcTkozL5eqCaErCnq2+IFy/gbRlfLpf2eXpK+C42DsEXQFOJL/SIC/jLjELlREN7PstBy9qaIOL3ggqknXGug06foEPMa+sJs/9kKQip3QPV6SERKiH3CloHT4+tImgPTKA5EW+OMJniYM3GiKIeB7076inWNg68wiV1pDPshkC2oRTGgCiIoVinrE8NuDijzgxTtwIFvfwP7mrqSneXqZDclotge+RG9tGUFoKDuEBNTPKtPQlbQyXla6WU1C/d4hQDTkvaJMY+mCvawKevRzrPWxEUBVyUWUGuLj2yHWuqxYcSlwMg7erpydcHKHfa9hb04lShqn3YKjpDO6E1NavEC8/Ljiw6AJ12WJNJwcQ=
+  - secure: RS4UvQ7RpZ40wgFTUuNkWHAXz7Ws6z4ZjFjQsMphPUOVnuvm29mw2V+0CFc4kQcbxp5IpwOjIfHp01z1A7LQl0bXTrwWxnS5f3o2JcHlFFEXPAQtwvr/uQK03bgULNt0q8rRdQ5gT52NbHzhZPNzgkA3IoBoPnEbY5HVnA1AfPzwhYOul0g5dYCA89bUUT9tx17/XrUz8vYiPM9pldiwpbAphPB+iGe1hvdUeQoRc+aFIstaQBBszt85LbaZ8JLbtTFNC0P202v95+JcmnbaB4OMcGce4dGfHtKB78N4i+suq+O9YATt6ilqLq1456UZJN8vf/E6B6cQJRqP9oBl+arVwhouyeMReHzR5vZZ2zjSLUxLeireFIom5BKOazRGoDkH/2/S2RZCSQarePBxOploxWa3xMEkGWkng0eFjKkpbqBhd3I0n70Y8ifzOIqBz2RT64u3UQ+ThJnZMCVvwcJnBC5kEKRqMr5TcFXHTCkQeHfip6QwULLKGD+PaqhAOwNQVmWtuKg3To+wnhlRbmTZLQtYd/jitQdDhlt9GQ3fDBN0uivrLwujDJFmprd0GYBBtKv4Ydn8MFfUU9/JEulI7Whk1ZueceiVRUQmsLXWnlnNOfWmc9tKIe+OqgL2hLMJlBFVyhd37HqD1wFKSk3Fms0Ri8KV1d0cjELuyN8=
+
+before_script:
+  - npm run server &
+
 script:
-  - npm build
-after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  - npm run build
+  - sleep 30
+  - pushd ./dist
+  - python -m SimpleHTTPServer 3000 &
+  - popd
+  - sleep 30
+  - npm run test
+  - curl http://localhost:3000
+  - npm run e2e:travis
+
+addons:
+  sauce_connect: true

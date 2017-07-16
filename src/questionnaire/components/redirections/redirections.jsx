@@ -48,7 +48,7 @@ class Redirections extends React.Component {
       <FormSection name={Redirections.selectorPath}>
         <ListEntryFormContainer
           inputView={inputControlView}
-          submit={this.submit}
+          listName="redirections"
           selectorPath={this.selectorPathComposed}
           submitLabel="defineGoTo"
           noValueLabel="noGoToYet"

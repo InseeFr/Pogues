@@ -29,7 +29,7 @@ function InputControl(props) {
       <Field type="text" name="label" id="control_text" component={Input} label={Dictionary.control_label} />
       <Field name="condition" id="control_condition" help component={Textarea} label={Dictionary.expression} />
       <Field name="message" id="control_message" component={Textarea} label={Dictionary.control_message} />
-      <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} />
+      <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} required/>
       <Field
         name="during_collect"
         id="control_during_collect"
@@ -70,7 +70,7 @@ class Controls extends React.Component {
       <FormSection name={Controls.selectorPath}>
         <ListEntryFormContainer
           inputView={inputControlView}
-          submit={this.submit}
+          listName="controls"
           selectorPath={this.selectorPathComposed}
           submitLabel="addControl"
           noValueLabel="noControlYet"

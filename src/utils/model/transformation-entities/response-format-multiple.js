@@ -7,7 +7,6 @@ export const defaultResponseFormatMultipleState = {
 };
 
 export const defaultResponseFormatMultipleForm = {
-  [MULTIPLE_CHOICE]: {},
 };
 
 function modelToState(model) {
@@ -24,7 +23,12 @@ function modelToState(model) {
 
 function stateToModel(state) {}
 
+function formToState(form) {
+  return { ...form };
+}
+
 export default {
   modelToState,
   stateToModel,
+  formToState,
 };
