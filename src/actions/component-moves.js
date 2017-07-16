@@ -111,25 +111,19 @@ export function moveQuestionToSubSequence(activesComponents, selectedComponentId
   if (questionToMove) {
     const newChildren = oldParent.children.filter(child => child !== questionToMove.id);
     questionToMove.weight = 0;
-    changes = moveComponents([questionToMove], newComponent);
+    changes = {
+      ...moveComponents([questionToMove], newComponent),
+      [questionToMove.parent]: {
+        ...oldParent,
+        children: newChildren,
+      },
+    };
 
     if (isSubSequence(oldParent)) {
       changes = {
         ...changes,
-        [questionToMove.parent]: {
-          ...oldParent,
-          children: [...newChildren],
-        },
         ...resetWeight(newChildren.map(id => activesComponents[id])),
         ...increaseWeightOfAll(activesComponents, newComponent),
-      };
-    } else {
-      changes = {
-        ...changes,
-        [questionToMove.parent]: {
-          ...oldParent,
-          children: [...newChildren, newComponent.id],
-        },
       };
     }
   }
