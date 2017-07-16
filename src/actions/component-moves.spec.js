@@ -121,7 +121,7 @@ describe('moveQuestionToSubSequence', () => {
     expect(component.moveQuestionToSubSequence(activeComponents, '3')).toEqual({});
   });
 
-  test(`should an object with the move of a question to the new subsequence`, () => {
+  test(`should return an object with the move of a question to the new subsequence`, () => {
     const components = [
       { id: '1', children: ['2', '3'], type: SEQUENCE },
       { id: '2', weight: 0, parent: '1', type: QUESTION },
@@ -131,7 +131,7 @@ describe('moveQuestionToSubSequence', () => {
     const newSubSequence = { id: '4', weight: 1, parent: '1', type: SUBSEQUENCE };
 
     expect(component.moveQuestionToSubSequence(activeComponents, '2', newSubSequence)).toEqual({
-      '1': { id: '1', children: ['2', '4'], type: SEQUENCE },
+      '1': { id: '1', children: ['2'], type: SEQUENCE },
       '3': { id: '3', weight: 0, parent: '4', type: QUESTION },
       '4': { id: '4', weight: 1, parent: '1', children: ['3'], type: SUBSEQUENCE },
     });
