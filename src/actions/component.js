@@ -141,7 +141,6 @@ export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) 
  * Based on the type of the new component, we will call the right functions in order to 
  * the updated list of components.
  * 
- * TODO TEST
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
 export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (dispatch, getState) => {
