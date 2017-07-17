@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createComponent } from 'actions/component';
+import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
 import { setSelectedComponentId } from 'actions/app-state';
 import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
@@ -14,11 +14,15 @@ const { QUESTION } = COMPONENT_TYPE;
 
 const mapDispatchToProps = {
   createComponent,
+  orderComponents,
+  updateParentChildren,
   setSelectedComponentId,
 };
 
 function ComponentNewContainer({
   createComponent,
+  orderComponents,
+  updateParentChildren,
   setSelectedComponentId,
   parentId,
   weight,
@@ -27,9 +31,11 @@ function ComponentNewContainer({
   onCancel,
 }) {
   const submit = values => {
-    const { payload: { id } } = createComponent(values, parentId, weight, type);
-    setSelectedComponentId(id);
-    if (onSuccess) onSuccess(id);
+    createComponent(values, parentId, weight, type).then(updateParentChildren).then(orderComponents).then(result => {
+      const { payload: { id } } = result;
+      setSelectedComponentId(id);
+      if (onSuccess) onSuccess(id);
+    });
   };
   let initialValues = { ...defaultComponentForm };
 
