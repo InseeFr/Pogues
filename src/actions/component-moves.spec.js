@@ -121,6 +121,18 @@ describe('moveQuestionToSubSequence', () => {
     expect(component.moveQuestionToSubSequence(activeComponents, '3')).toEqual({});
   });
 
+  test(`should return an empty object if the next component is not a function`, () => {
+    const components = [
+      { id: '1', children: ['2', '3'], type: SEQUENCE },
+      { id: '2', weight: 0, parent: '1', type: QUESTION },
+      { id: '3', weight: 1, parent: '1', type: SUBSEQUENCE },
+    ];
+    const activeComponents = transformToComponentsObject(components);
+    const newSubSequence = { id: '4', weight: 1, parent: '1', type: SUBSEQUENCE };
+
+    expect(component.moveQuestionToSubSequence(activeComponents, '2', newSubSequence)).toEqual({});
+  });
+
   test(`should return an object with the move of a question to the new subsequence`, () => {
     const components = [
       { id: '1', children: ['2', '3'], type: SEQUENCE },

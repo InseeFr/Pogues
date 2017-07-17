@@ -105,7 +105,7 @@ export function moveQuestionToSubSequence(activesComponents, selectedComponentId
 
   const oldParent = activesComponents[selectedComponent.parent];
   const questionToMove = toComponents(oldParent.children, activesComponents).find(
-    child => child.weight === selectedComponent.weight + 1
+    child => child.weight === selectedComponent.weight + 1 && isQuestion(child)
   );
   let changes = {};
   if (questionToMove) {
