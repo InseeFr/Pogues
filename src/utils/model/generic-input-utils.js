@@ -12,7 +12,7 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
  * @param  {QUESTION|SEQUENCE|SUBSEQUENCE} type              Type of component
  * @return {string}   The closest component's id with the corresponding type or an empty string
  */
-function getClosestComponentIdByType(components, activeComponent, type) {
+export function getClosestComponentIdByType(components, activeComponent, type) {
   let componentId = '';
   let currentComponent = activeComponent;
 
@@ -134,6 +134,25 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
   if (parent !== '') {
     if (activeComponent && activeComponent.type !== SEQUENCE) {
       if (activeComponent.type === SUBSEQUENCE) {
+        weight = activeComponent.weight + 1;
+      } else if (activeComponent.type === QUESTION && components[activeComponent.parent].type === SUBSEQUENCE) {
+        /*
+        * When we insert an element from a QUESTION, we get weight of the parent, and increase by one
+        *
+        * Example: 
+        * If we have this structure
+        * Sequence 1
+        *   -> SubSequence 1
+        *     -> Question 1
+        * 
+        * If the Question 1 has the focus, and we want to add a sub sequence, we will get this structure
+        * Sequence 1
+        *   -> SubSequence 1
+        *     -> Question 1
+        *   -> SubSequence 2
+        */
+        weight = components[activeComponent.parent].weight + 1;
+      } else if (activeComponent.type === QUESTION && components[activeComponent.parent].type === SEQUENCE) {
         weight = activeComponent.weight + 1;
       } else {
         heavyChildrenId = getHeavyComponentIdFromGroupIds(components, components[parent].children);

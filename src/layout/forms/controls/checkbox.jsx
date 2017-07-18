@@ -1,5 +1,3 @@
-// @TODO: Create tests
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -17,6 +15,7 @@ function Checkbox({ input, label, type, required, reference, meta: { touched, er
 Checkbox.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  required: PropTypes.bool,
 };
 
 Checkbox.defaultProps = {
