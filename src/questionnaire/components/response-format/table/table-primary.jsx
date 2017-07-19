@@ -7,8 +7,7 @@ import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
 import ResponseFormatTablePrincipallist from './table-primary-list';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
-import OptionalView from 'layout/widget/optional-view';
-import { required } from 'layout/forms/validation-rules';
+import OptionalViewContainer from 'layout/connected-widget/optional-view';
 import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 
 const { PRIMARY } = DIMENSION_TYPE;
@@ -46,6 +45,7 @@ class ResponseFormatTablePrincipal extends Component {
       },
     ];
 
+
     return (
       <FormSection name={ResponseFormatTablePrincipal.selectorPath}>
         <ComponentSelectoryByTypeContainer
@@ -54,19 +54,11 @@ class ResponseFormatTablePrincipal extends Component {
           selectorPath={this.selectorPathComposed}
           radio
         />
-        <OptionalView
+        <OptionalViewContainer
           name="showTotalLabel"
           label={Dictionary.rowTotal}
-          view={
-            <Field
-              name="totalLabel"
-              type="text"
-              component={Input}
-              label={Dictionary.rowTotalLabel}
-              validate={[required]}
-              required
-            />
-          }
+          selectorPath={this.selectorPathComposed}
+          view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />}
         />
       </FormSection>
     );
