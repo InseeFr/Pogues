@@ -5,11 +5,14 @@ import PropTypes from 'prop-types';
 
 import OptionalView from './components/optional-view';
 
-const mapStateToProps = (state, { selectorPath, name, formName }) => {
+const mapStateToProps = (state, { selectorPath, name, formName, checkbox }) => {
   formName = formName || 'question';
   const selector = formValueSelector(formName);
+  const active = checkbox
+    ? selector(state, `${selectorPath}.${name}`)
+    : selector(state, `${selectorPath}.${name}`) === '1';
   return {
-    active: selector(state, `${selectorPath}.${name}`) === '1',
+    active,
   };
 };
 
