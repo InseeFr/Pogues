@@ -89,6 +89,13 @@ export function getCodesListsAndCodesFromQuestion(responseFormat) {
   return state;
 }
 
+/**
+ * This function is called when we add a component to a parent
+ * 
+ * @param {object[]} activeComponents The liste of components
+ * @param {string} parentId The id of the parent we should update
+ * @param {string} newComponentId The id of the created component
+ */
 export function updateNewComponentParent(activeComponents, parentId, newComponentId) {
   const parent = activeComponents[parentId];
   return {
@@ -97,21 +104,4 @@ export function updateNewComponentParent(activeComponents, parentId, newComponen
       children: [...parent.children, newComponentId],
     },
   };
-}
-
-export function updateNewComponentSiblings(activesComponents, siblingsIds, newComponentWeight) {
-  return siblingsIds.reduce((acc, key) => {
-    const sibling = activesComponents[key];
-    let siblingWeight = sibling.weight;
-    if (newComponentWeight <= siblingWeight) {
-      siblingWeight += 1;
-    }
-    return {
-      ...acc,
-      [key]: {
-        ...sibling,
-        weight: siblingWeight,
-      },
-    };
-  }, {});
 }

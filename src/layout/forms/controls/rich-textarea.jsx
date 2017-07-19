@@ -1,9 +1,12 @@
-// @TODO: Create tests
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 
+/**
+ * Component that will display a TextArea in a react-form Field component. 
+ * We can add a help block thankt to the help attribute, and an actions toolbar
+ * thanks to a button attribute.
+ */
 class Select extends Component {
   static propTypes = {
     input: PropTypes.object.isRequired,

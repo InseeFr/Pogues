@@ -8,7 +8,9 @@ function Input({ input, label, type, required, reference, id, help, meta: { touc
   const idInput = id !== '' ? `input-${input.id}` : `input-${input.name}`;
 
   const helpBlock = help
-    ? <span className="help-block"><span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP} </span>
+    ? <span className="help-block">
+        <span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP}{' '}
+      </span>
     : '';
 
   return (
