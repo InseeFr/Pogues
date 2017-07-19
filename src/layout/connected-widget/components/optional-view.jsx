@@ -11,7 +11,7 @@ class OptionalView extends Component {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     view: PropTypes.object.isRequired,
-    active: PropTypes.bool.isRequired,
+    active: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
     checkbox: PropTypes.bool,
   };
   static defaultProps = {
