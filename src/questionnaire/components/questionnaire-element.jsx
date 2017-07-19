@@ -119,7 +119,7 @@ class QuestionnaireElement extends Component {
                 {name}
               </div>
               <div className="questionnaire-element-label">
-                {label} - {childrenId}
+                {label}
               </div>
               {selected
                 ? <div className="questionnaire-element-actions">
