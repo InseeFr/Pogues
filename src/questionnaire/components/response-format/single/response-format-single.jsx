@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { DATATYPE_VIS_HINT } from 'constants/pogues-constants';
-import { QUESTION_TYPE_ENUM } from 'constants/schema';
+import { DATATYPE_VIS_HINT, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
 import CodesList from 'layout/widget/codes-list/codes-list';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -50,7 +49,7 @@ class ResponseFormatSingle extends Component {
     ];
 
     return (
-      <FormSection name={SINGLE_CHOICE} className="response-format__single">
+      <FormSection name={ResponseFormatSingle.selectorPath} className="response-format__single">
         <div className="ctrl-checkbox" style={styleMandatory}>
           <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
           <div>

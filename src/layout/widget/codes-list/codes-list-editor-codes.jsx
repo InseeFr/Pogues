@@ -40,6 +40,7 @@ function CodesListEditorCodes({ fields, display }) {
               component={Code}
               placeholder={Dictionary.code}
               validate={[required]}
+              label={Dictionary.code}
             />
             <Field
               attr="label"
@@ -48,6 +49,7 @@ function CodesListEditorCodes({ fields, display }) {
               component={Code}
               placeholder={Dictionary.codeLabel}
               validate={[required]}
+              label={Dictionary.codeLabel}
             />
             <div className="codes-list__code-actions">
               <button

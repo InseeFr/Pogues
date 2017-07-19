@@ -1,48 +1,92 @@
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { DIMENSION_TYPE, DIMENSION_FORMATS, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
+const { CODES_LIST } = DIMENSION_FORMATS;
 
-export function getCodesListFromForm(form) {
-  const codesList = {};
+function addToState(form, state = {}) {
+  const { type, [type]: { codesList, codes } } = form;
+  const codesStates = codes.reduce((acc, code) => {
+    return {
+      ...acc,
+      [code.id]: { ...code },
+    };
+  }, {});
 
-  if (form.responseFormat) {
-    const type = form.responseFormat.type;
-    const responseFormatType = form.responseFormat[type];
-
-    if (type === SINGLE_CHOICE) {
-      const responseFormatCodesList = responseFormatType[responseFormatType.type].codesList;
-      const responseFormatCodes = responseFormatType[responseFormatType.type].codes;
-      codesList[responseFormatCodesList.id] = {
-        ...responseFormatCodesList,
-        codes: responseFormatCodes.map(code => code.id),
-      };
-    } else if (type === MULTIPLE_CHOICE) {
-    } else if (type === TABLE) {
-    }
-  }
-
-  return codesList;
+  return {
+    codesLists: {
+      ...state.codesLists,
+      [codesList.id]: {
+        ...codesList,
+        codes: codes.map(c => c.id),
+      },
+    },
+    codes: {
+      ...state.codes,
+      ...codesStates,
+    },
+  };
 }
 
-export function getCodesFromForm(form) {
-  let codes = {};
+function getCodesListsFromMultiple(form) {
+  const { [PRIMARY]: responseFormatPrimaryForm, [MEASURE]: { type, [type]: responseFormatMeasureForm } } = form;
+  let state = addToState(responseFormatPrimaryForm);
+  if (type === CODES_LIST) {
+    state = addToState(responseFormatMeasureForm, state);
+  }
+  return state;
+}
 
-  if (form.responseFormat) {
-    const type = form.responseFormat.type;
-    const responseFormatType = form.responseFormat[type];
+function getCodesListsFromTable(form) {
+  let state = {
+    codesLists: {},
+    codes: {},
+  };
 
-    if (type === SINGLE_CHOICE) {
-      const responseFormatCodes = responseFormatType[responseFormatType.type].codes;
-      codes = responseFormatCodes.reduce((acc, code) => {
-        acc[code.id] = { ...code };
-        return acc;
-      }, {});
-    } else if (type === MULTIPLE_CHOICE) {
-    } else if (type === TABLE) {
-    }
+  const {
+    [PRIMARY]: { type: typePrimary, [typePrimary]: responseFormatPrimaryForm },
+    [SECONDARY]: { showSecondaryAxis, type: typeSecondary, [typeSecondary]: responseFormatSecondaryForm },
+    [MEASURE]: { measures },
+  } = form;
+
+  if (typePrimary === CODES_LIST) {
+    state = addToState(responseFormatPrimaryForm, state);
   }
 
-  return codes;
+  if (showSecondaryAxis) {
+    state = addToState(responseFormatSecondaryForm, state);
+  }
+
+  measures.forEach(m => {
+    const { type: typeMeasure, [typeMeasure]: measureForm } = m;
+
+    if (typeMeasure === SINGLE_CHOICE) {
+      const { type, [type]: singleChoiceForm } = measureForm;
+      state = addToState(singleChoiceForm, state);
+    }
+  });
+
+  return state;
+}
+
+export function getCodesListsAndCodesFromQuestion(responseFormat) {
+  let state = {
+    codesLists: {},
+    codes: {},
+  };
+
+  if (responseFormat) {
+    const { type, [type]: responseFormatForm } = responseFormat;
+
+    if (type === SINGLE_CHOICE) {
+      state = addToState(responseFormatForm, state);
+    } else if (type === MULTIPLE_CHOICE) {
+      state = getCodesListsFromMultiple(responseFormatForm);
+    } else if (type === TABLE) {
+      state = getCodesListsFromTable(responseFormatForm);
+    }
+  }
+  return state;
 }
 
 /**

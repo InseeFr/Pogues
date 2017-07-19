@@ -6,7 +6,7 @@ import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 
-function InputRedirection(props) {
+function InputRedirection() {
   return (
     <div>
       <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} />
@@ -22,38 +22,25 @@ function InputRedirection(props) {
     </div>
   );
 }
-class Redirections extends React.Component {
-  static selectorPath = 'AXISREDIRECTIONS';
-
-  static propTypes = {
-    selectorPathParent: PropTypes.string,
-  };
+class Redirections extends FormSection {
+  static selectorPath = 'redirections';
   static defaultProps = {
-    selectorPathParent: undefined,
+    name: 'redirections',
   };
-
-  constructor(props) {
-    const { selectorPathParent } = props;
-    super(props);
-
-    this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${Redirections.selectorPath}`
-      : Redirections.selectorPath;
-  }
 
   render() {
-    const inputControlView = <InputRedirection selectorPath={this.selectorPathComposed} />;
+    const inputControlView = <InputRedirection />;
 
     return (
-      <FormSection name={Redirections.selectorPath}>
+      <div className="redirections">
         <ListEntryFormContainer
           inputView={inputControlView}
           listName="redirections"
-          selectorPath={this.selectorPathComposed}
+          selectorPath={Redirections.selectorPath}
           submitLabel="defineGoTo"
           noValueLabel="noGoToYet"
         />
-      </FormSection>
+      </div>
     );
   }
 }

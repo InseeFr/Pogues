@@ -21,7 +21,7 @@ const mapStateToProps = (state, { params: { id } }) => ({
   components: state.componentByQuestionnaire[id],
   codeLists: state.codeListByQuestionnaire[id],
   codes: state.codeByQuestionnaire[id],
-  declarations: state.declarationsByQuestionnaire[id],
+  declarations: state.declarationByQuestionnaire[id],
 });
 
 const mapDispatchToProps = {
