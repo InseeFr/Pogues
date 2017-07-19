@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { DATATYPE_NAME } from 'constants/pogues-constants';
-import { QUESTION_TYPE_ENUM } from 'constants/schema';
+import { DATATYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import ResponseFormatDatatypeNumeric from './simple-numeric';
@@ -65,7 +64,7 @@ class ResponseFormatSimple extends Component {
     ];
 
     return (
-      <FormSection name={SIMPLE} className="response-format__simple">
+      <FormSection name={ResponseFormatSimple.selectorPath} className="response-format__simple">
         <div className="ctrl-checkbox" style={styleMandatory}>
           <label htmlFor="rf-simple-mandatory">{Dictionary.mandatory}</label>
           <div>

@@ -1,8 +1,7 @@
 import { uuid } from 'utils/data-utils';
-import Component from 'utils/model/transformation-entities/component';
+import Component from 'utils/transformation-entities/component';
 import {
-  getCodesListFromForm,
-  getCodesFromForm,
+  getCodesListsAndCodesFromQuestion,
   updateNewComponentParent,
   updateNewComponentSiblings,
 } from 'utils/model/form-to-state-utils';
@@ -27,8 +26,9 @@ export const createComponent = (form, parentId, weight, type) => (dispatch, getS
   const id = uuid();
   const activeComponents = state.appState.activeComponentsById;
   const newComponent = Component.formToState({ ...form, parent: parentId, weight, type, id });
-  const activeCodesById = getCodesFromForm(newComponent);
-  const activeCodeListsById = getCodesListFromForm(newComponent);
+  const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
+    newComponent.responseFormat
+  );
   const activeComponentsById = {
     [id]: newComponent,
     ...updateNewComponentParent(activeComponents, parentId, id),
@@ -59,8 +59,9 @@ export const createComponent = (form, parentId, weight, type) => (dispatch, getS
  */
 export const updateComponent = (form, id, parent, weight, type) => {
   const updatedComponent = Component.formToState({ ...form, parent, weight, type, id });
-  const activeCodesById = getCodesFromForm(updatedComponent);
-  const activeCodeListsById = getCodesListFromForm(updatedComponent);
+  const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
+    updatedComponent.responseFormat
+  );
   const activeComponentsById = {
     [id]: updatedComponent,
   };

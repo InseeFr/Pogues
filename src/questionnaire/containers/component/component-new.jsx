@@ -7,8 +7,8 @@ import { setSelectedComponentId } from 'actions/app-state';
 import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { defaultResponseFormatForm } from 'utils/model/transformation-entities/response-format';
-import { defaultComponentForm } from 'utils/model/transformation-entities/component';
+import { defaultResponseFormatForm } from 'utils/transformation-entities/response-format';
+import { defaultComponentForm } from 'utils/transformation-entities/component';
 
 const { QUESTION } = COMPONENT_TYPE;
 

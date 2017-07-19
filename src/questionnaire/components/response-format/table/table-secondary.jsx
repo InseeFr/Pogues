@@ -5,9 +5,12 @@ import PropTypes from 'prop-types';
 import ResponseFormatTableSecondaryOptional from './table-secondary-optional';
 import Dictionary from 'utils/dictionary/dictionary';
 import OptionalView from 'layout/widget/optional-view';
+import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
+
+const { SECONDARY } = DIMENSION_TYPE;
 
 class ResponseFormatTableSecondary extends Component {
-  static selectorPath = 'AXISSECONDARY';
+  static selectorPath = SECONDARY;
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
