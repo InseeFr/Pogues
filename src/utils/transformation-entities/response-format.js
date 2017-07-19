@@ -1,8 +1,8 @@
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import ResponseFormatSimple, { defaultSimpleForm } from './response-format-simple.js';
-import ResponseFormatSingle, { defaultSingleForm } from './response-format-single.js';
-import ResponseFormatMultiple, { defaultMultipleForm } from './response-format-multiple.js';
-import ResponseFormatTable, { defaultTableForm } from './response-format-table.js';
+import ResponseFormatSimple, { defaultSimpleForm } from './response-format-simple';
+import ResponseFormatSingle, { defaultSingleForm } from './response-format-single';
+import ResponseFormatMultiple, { defaultMultipleForm } from './response-format-multiple';
+import ResponseFormatTable, { defaultTableForm } from './response-format-table';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 

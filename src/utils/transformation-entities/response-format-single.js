@@ -39,9 +39,12 @@ function formToState(form) {
     mandatory,
     visHint,
     type,
-    codesListId: codesListState.codesList.id,
-    [type]: codesListState,
   };
+
+  if (codesListState.codesList.label !== '') {
+    state.codesListId = codesListState.codesList.id;
+    state[type] = codesListState;
+  }
 
   return {
     ...defaultSingleState,
