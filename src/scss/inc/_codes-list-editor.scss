@@ -39,4 +39,13 @@
       }
     }
   }
+
+  .list-entry-form & {
+    .codes-list__code-label {
+      @include make-xs-column(3);
+    }
+    .codes-list__code-actions {
+      @include make-xs-column(7);
+    }
+  }
 }

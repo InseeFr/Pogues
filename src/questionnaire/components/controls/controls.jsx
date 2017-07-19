@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
+
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import Input from 'layout/forms/controls/input';
@@ -8,7 +8,7 @@ import Textarea from 'layout/forms/controls/rich-textarea';
 import Checkbox from 'layout/forms/controls/checkbox';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 
-function InputControl(props) {
+function InputControl() {
   const levels = [
     {
       value: 'INFO',
@@ -23,13 +23,12 @@ function InputControl(props) {
       label: Dictionary.ERROR,
     },
   ];
-  const { selectorPath } = props;
   return (
     <div>
       <Field type="text" name="label" id="control_text" component={Input} label={Dictionary.control_label} />
       <Field name="condition" id="control_condition" help component={Textarea} label={Dictionary.expression} />
       <Field name="message" id="control_message" component={Textarea} label={Dictionary.control_message} />
-      <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} required/>
+      <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} required />
       <Field
         name="during_collect"
         id="control_during_collect"
@@ -45,37 +44,26 @@ function InputControl(props) {
     </div>
   );
 }
-class Controls extends React.Component {
-  static selectorPath = 'AXISCONTROLS';
-  static propTypes = {
-    selectorPathParent: PropTypes.string,
-  };
+
+class Controls extends FormSection {
+  static selectorPath = 'controls';
   static defaultProps = {
-    selectorPathParent: undefined,
+    name: 'controls',
   };
-
-  constructor(props) {
-    const { selectorPathParent } = props;
-    super(props);
-
-    this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${Controls.selectorPath}`
-      : Controls.selectorPath;
-  }
 
   render() {
-    const inputControlView = <InputControl selectorPath={this.selectorPathComposed} />;
+    const inputControlView = <InputControl />;
 
     return (
-      <FormSection name={Controls.selectorPath}>
+      <div className="controls">
         <ListEntryFormContainer
           inputView={inputControlView}
           listName="controls"
-          selectorPath={this.selectorPathComposed}
+          selectorPath={Controls.selectorPath}
           submitLabel="addControl"
           noValueLabel="noControlYet"
         />
-      </FormSection>
+      </div>
     );
   }
 }

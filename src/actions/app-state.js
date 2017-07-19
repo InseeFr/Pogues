@@ -1,6 +1,6 @@
-import { serializeUpdateQuestionnaire } from 'utils/model/state-to-model-utils';
 import { putQuestionnaire } from 'utils/remote-api';
-import { normalizeQuestionnaire } from 'utils/model/model-to-state-utils';
+import { questionnaireStateToModel } from 'utils/model/state-to-model-utils';
+import { questionnaireModelToState } from 'utils/model/model-to-state-utils';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -159,19 +159,17 @@ export const saveActiveQuestionnaire = () => {
     });
 
     const state = getState();
-    const serializedQuestionnaire = serializeUpdateQuestionnaire(
+    const questionnaireModel = questionnaireStateToModel(
       state.appState.activeQuestionnaire,
       state.appState.activeComponentsById,
       state.appState.activeCodeListsById,
       state.appState.activeCodesById
     );
-    const questionnaireId = serializedQuestionnaire.id;
+    const questionnaireId = questionnaireModel.id;
 
-    return putQuestionnaire(questionnaireId, serializedQuestionnaire)
+    return putQuestionnaire(questionnaireId, questionnaireModel)
       .then(() => {
-        return dispatch(
-          saveActiveQuestionnaireSuccess(questionnaireId, normalizeQuestionnaire(serializedQuestionnaire))
-        );
+        return dispatch(saveActiveQuestionnaireSuccess(questionnaireId, questionnaireModelToState(questionnaireModel)));
       })
       .catch(err => {
         return dispatch(saveActiveQuestionnaireFailure(questionnaireId, err));

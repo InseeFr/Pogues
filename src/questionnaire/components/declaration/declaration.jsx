@@ -1,12 +1,12 @@
 import React from 'react';
 import { Field, FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
+
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 
-function InputDeclaration(props) {
+function InputDeclaration() {
   const types = [
     {
       value: 'INSTRUCTION',
@@ -62,37 +62,25 @@ function InputDeclaration(props) {
     </div>
   );
 }
-class Declaration extends React.Component {
-  static selectorPath = 'AXISDECLARATIONS';
-  static propTypes = {
-    selectorPathParent: PropTypes.string,
-  };
+class Declaration extends FormSection {
+  static selectorPath = 'declarations';
   static defaultProps = {
-    selectorPathParent: undefined,
+    name: 'declarations',
   };
-
-  constructor(props) {
-    const { selectorPathParent } = props;
-    super(props);
-
-    this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${Declaration.selectorPath}`
-      : Declaration.selectorPath;
-  }
 
   render() {
-    const inputDeclarationView = <InputDeclaration selectorPath={this.selectorPathComposed} />;
+    const inputDeclarationView = <InputDeclaration />;
 
     return (
-      <FormSection name={Declaration.selectorPath}>
+      <div className="declaratations">
         <ListEntryFormContainer
           inputView={inputDeclarationView}
-          selectorPath={this.selectorPathComposed}
+          selectorPath={Declaration.selectorPath}
           listName="declarations"
           submitLabel="addDeclaration"
           noValueLabel="noDeclarationYet"
         />
-      </FormSection>
+      </div>
     );
   }
 }

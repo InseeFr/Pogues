@@ -1,15 +1,15 @@
 .component-edition {
-  .response-format__table {
+  .response-format__table, .response-format__multiple {
     h3 {
       padding-left: 30px;
     }
-    #response-format__table-principal-head {
-      background: url('images/axis-principal.png') no-repeat;
+    .axis-primary__head {
+      background: url('images/axis-primary.png') no-repeat;
     }
-    #response-format__table-secondary-head {
+    .axis-secondary__head {
       background: url('images/axis-secondary.png') no-repeat;
     }
-    #response-format__table-measures-head {
+    .axis-measure__head {
       background: url('images/axis-measures.png') no-repeat;
     }
   }

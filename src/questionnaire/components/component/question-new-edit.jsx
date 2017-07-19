@@ -3,9 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import ResponseFormat from 'questionnaire/components/response-format/response-format';
-import Declaration from 'questionnaire/containers/declaration/declaration';
-import Controls from 'questionnaire/containers/controls/controls';
-import Redirections from 'questionnaire/containers/redirections/redirections';
+import Declaration from 'questionnaire/components/declaration/declaration';
+import Controls from 'questionnaire/components/controls/controls';
+import Redirections from 'questionnaire/components/redirections/redirections';
 
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
