@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+import DropZone from 'questionnaire/components/drop-zone/drop-zone';
 
 import { DragSource, DropTarget } from 'react-dnd';
-
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
+
+const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 @DropTarget(PropType, cardTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
@@ -84,14 +84,7 @@ class QuestionnaireElement extends Component {
      * If a component is dragged, and if the current component can receive this component, we will add 
      * a drop zone. 
      */
-    const dropZone =
-      isOver &&
-      canDrop &&
-      <div style={style} className="questionnaire-element-drop-zone">
-        <div className="questionnaire-element-label">
-          {Dictionary.dropHere}
-        </div>
-      </div>;
+    const dropZone = isOver && canDrop && <DropZone style={style} />;
 
     return connectDragSource(
       connectDropTarget(
