@@ -28,15 +28,19 @@ export function increaseWeightOfAll(activesComponents, newComponent) {
     let siblingWeight = sibling.weight;
     if (key !== newComponent.id && newComponent.weight <= siblingWeight) {
       siblingWeight += 1;
-      return {
-        ...acc,
-        [key]: {
-          ...sibling,
-          weight: siblingWeight,
-        },
-      };
     }
-    return acc;
+
+    if (key === newComponent.id) {
+      return acc;
+    }
+
+    return {
+      ...acc,
+      [key]: {
+        ...sibling,
+        weight: siblingWeight,
+      },
+    };
   }, {});
 }
 
@@ -96,14 +100,12 @@ export function moveComponents(componentsToMove, newParent) {
  * @param {string} selectedComponentId The Id of the currently selected component
  * @param {object} newComponent The new component (normally a SUBSEQUENCE)
  */
-export function moveQuestionToSubSequence(activesComponents, selectedComponentId, newComponent) {
-  const selectedComponent = activesComponents[selectedComponentId];
+export function moveQuestionToSubSequence(activesComponents, selectedComponent, newComponent) {
+  const oldParent = activesComponents[selectedComponent.parent];
 
-  if (!isQuestion(selectedComponent)) {
+  if (!oldParent) {
     return;
   }
-
-  const oldParent = activesComponents[selectedComponent.parent];
   const questionToMove = toComponents(oldParent.children, activesComponents).find(
     child => child.weight === selectedComponent.weight + 1 && isQuestion(child)
   );
@@ -123,7 +125,16 @@ export function moveQuestionToSubSequence(activesComponents, selectedComponentId
       changes = {
         ...changes,
         ...resetWeight(newChildren.map(id => activesComponents[id])),
-        ...increaseWeightOfAll(activesComponents, newComponent),
+      };
+      changes = {
+        ...changes,
+        ...increaseWeightOfAll(
+          {
+            ...activesComponents,
+            ...changes,
+          },
+          newComponent
+        ),
       };
     }
   }
@@ -156,11 +167,10 @@ export function resetChildren(component, children) {
  * @param {string} selectedComponentId  The ID of the selected component
  * @param {object} newComponent The latests created component
  */
-export function moveQuestionAndSubSequenceToSequence(activesComponents, selectedComponentId, newComponent) {
-  const selectedComponent = activesComponents[selectedComponentId];
+export function moveQuestionAndSubSequenceToSequence(activesComponents, selectedComponent, newComponent) {
   const oldParent = selectedComponent ? activesComponents[selectedComponent.parent] : false;
 
-  if (!oldParent || isSequence(selectedComponent)) {
+  if (!oldParent) {
     return;
   }
 
@@ -175,10 +185,11 @@ export function moveQuestionAndSubSequenceToSequence(activesComponents, selected
    */
   let listOfComponentsToMove = listOfComponent
     .filter(child => child.weight > selectedComponent.weight)
-    .reduce((acc, component) => {
+    .reduce((acc, component, i) => {
       return acc.concat([
         {
           ...component,
+          weight: i,
           parent: newComponent.id,
         },
       ]);
@@ -205,10 +216,14 @@ export function moveQuestionAndSubSequenceToSequence(activesComponents, selected
   /**
    * We merge the previous list of component with the children of the SEQUENCE
    */
-  if (isSubSequence(oldParent.type)) {
-    listOfComponentsToMove = listOfComponentsToMove.concat(
-      parentSequence.children.map(c => activesComponents[c]).filter(c => c.weight > component.weight)
-    );
+  if (isSubSequence(oldParent)) {
+    listOfComponentsToMove = [
+      ...listOfComponentsToMove,
+      ...parentSequence.children.map(c => activesComponents[c]).filter(c => c.weight > component.weight).map((c, i) => {
+        c.weight = i + listOfComponentsToMove.length;
+        return c;
+      }),
+    ];
   }
 
   /**

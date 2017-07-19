@@ -94,15 +94,16 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
   const state = getState();
   const selectedComponentId = state.appState.selectedComponentId;
   const activesComponents = state.appState.activeComponentsById;
+  const selectedComponent = activesComponents[selectedComponentId];
 
   let activeComponentsById;
 
-  if (isSubSequence(lastCreatedComponent[id])) {
-    activeComponentsById = moveQuestionToSubSequence(activesComponents, selectedComponentId, lastCreatedComponent[id]);
-  } else if (isSequence(lastCreatedComponent[id])) {
+  if (isSubSequence(lastCreatedComponent[id]) && isQuestion(selectedComponent)) {
+    activeComponentsById = moveQuestionToSubSequence(activesComponents, selectedComponent, lastCreatedComponent[id]);
+  } else if (isSequence(lastCreatedComponent[id]) && isQuestion(selectedComponent)) {
     activeComponentsById = moveQuestionAndSubSequenceToSequence(
       activesComponents,
-      selectedComponentId,
+      selectedComponent,
       lastCreatedComponent[id]
     );
   } else {

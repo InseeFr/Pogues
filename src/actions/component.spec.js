@@ -45,15 +45,14 @@ describe('updateParentChildren', () => {
 });
 
 describe('orderComponents', () => {
-  function getState() {
-    return {
-      appState: {
-        activeComponentsById: { '2': { id: '2', children: [] } },
-      },
-    };
-  }
-
   test(`should trigger the UPDATE_COMPONENT action`, () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
     const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
     const fn = component.orderComponents(payload);
 
@@ -64,6 +63,13 @@ describe('orderComponents', () => {
   });
 
   test(`should return the ID of the new component`, () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
     const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
@@ -73,6 +79,14 @@ describe('orderComponents', () => {
   });
 
   test(`should call moveQuestionAndSubSequenceToSequence`, () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] }, '3': { type: QUESTION } },
+          selectedComponentId: '3',
+        },
+      };
+    }
     const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'SEQUENCE' } } } };
     const fn = component.orderComponents(payload);
 
@@ -83,6 +97,14 @@ describe('orderComponents', () => {
   });
 
   test(`should call moveQuestionToSubSequence`, () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] }, '3': { type: QUESTION } },
+          selectedComponentId: '3',
+        },
+      };
+    }
     const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'SUBSEQUENCE' } } } };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
@@ -92,6 +114,13 @@ describe('orderComponents', () => {
   });
 
   test(`should call increaseWeightOfAll`, () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
     const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'QUESTION' } } } };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
