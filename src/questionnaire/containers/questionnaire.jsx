@@ -18,11 +18,6 @@ const mapDispatchToProps = {
   dragComponent,
 };
 
-/*const moveComponent = (idMovedComponent, idTargetComponent, newWeight) => {
-  console.log('lkndlskdvnvdoinsofinsf');
-  console.log(idMovedComponent, idTargetComponent, newWeight)
-  dragComponent(idMovedComponent, idTargetComponent, newWeight);
-};*/
 class QuestionnaireContainer extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,

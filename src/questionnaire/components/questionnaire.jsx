@@ -39,7 +39,6 @@ class Questionnaire extends Component {
   }
 
   handleElementSelect(event, idElement) {
-    console.log(idElement)
     if (event !== null) event.stopPropagation();
     if (!idElement) return;
     // Toggle the selection

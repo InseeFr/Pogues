@@ -54,8 +54,6 @@ describe('Transformation entities - Component', () => {
       },
     };
 
-    // console.log(Component.modelToState(model));
-
     expect(Component.modelToState(model)).toEqual(expected);
   });
   test('modelToState with a QUESTIONNAIRE', () => {
