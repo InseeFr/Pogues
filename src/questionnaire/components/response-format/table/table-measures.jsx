@@ -7,12 +7,12 @@ import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component
 import ResponseFormatSimple from 'questionnaire/components/response-format/simple/response-format-simple';
 import ResponseFormatSingle from 'questionnaire/components/response-format/single/response-format-single';
 import Dictionary from 'utils/dictionary/dictionary';
-import { QUESTION_TYPE_ENUM } from 'constants/schema';
 import { required } from 'layout/forms/validation-rules';
-
+import { DIMENSION_TYPE, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { MEASURE } = DIMENSION_TYPE;
 
 function InputMeasure(props) {
   const { selectorPath } = props;
@@ -56,7 +56,7 @@ InputMeasure.propTypes = {
 };
 
 class ResponseFormatTableMeasures extends Component {
-  static selectorPath = 'AXISMEASURES';
+  static selectorPath = MEASURE;
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };

@@ -1,7 +1,5 @@
 import { getQuestionnaireList } from 'utils/remote-api';
-import { normalizeListQuestionnaires } from 'utils/model/model-to-state-utils';
-import { questionnaireListModelToState } from 'utils/model/model-to-state';
-// import { questionnaires } from 'utils/model/test-data/model-questionnaires-data';
+import { questionnaireListModelToState } from 'utils/model/model-to-state-utils';
 
 export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
@@ -57,6 +55,4 @@ export const loadQuestionnaireList = () => dispatch => {
   return getQuestionnaireList()
     .then(qrList => dispatch(loadQuestionnaireListSuccess(questionnaireListModelToState(qrList))))
     .catch(err => dispatch(loadQuestionnaireListFailure(err)));
-
-  // dispatch(loadQuestionnaireListSuccess(questionnaireListModelToState(questionnaires)));
 };

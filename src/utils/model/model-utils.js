@@ -10,3 +10,11 @@ export function containsComment(str) {
   const regExpCmt = /##([^\n]*)/;
   return str.match(regExpCmt);
 }
+
+export function getQuestionLabelFromRaw(rawQuestionLabel) {
+  // @TODO: Markdow is not parsed yed. Include this feature.
+  const hasComment = containsComment(rawQuestionLabel);
+  if (!hasComment) return rawQuestionLabel;
+  const { label } = JSON.parse(hasComment[1]);
+  return label;
+}

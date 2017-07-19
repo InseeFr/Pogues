@@ -6,8 +6,7 @@ import { updateComponent } from 'actions/component';
 import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
 import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getFormFromComponent } from 'utils/model/form-state-utils';
-import Component from 'utils/model/transformation-entities/component';
+import Component from 'utils/transformation-entities/component';
 
 const { QUESTION } = COMPONENT_TYPE;
 

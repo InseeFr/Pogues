@@ -115,9 +115,10 @@ export const ENV_TEST = 'test';
 export const SEQUENCE_TYPE_NAME = 'SequenceType';
 export const QUESTION_TYPE_NAME = 'QuestionType';
 
-export const MAIN_DIMENSION_FORMATS = {
+export const DIMENSION_FORMATS = {
   LIST: 'LIST',
   CODES_LIST: 'CODES_LIST',
+  BOOL: 'BOOL',
 };
 
 export const QUESTION_TYPE_ENUM = {

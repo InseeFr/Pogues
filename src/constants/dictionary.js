@@ -547,12 +547,12 @@ const dictionary = {
     en: 'Response formats',
   },
   addMeasure: {
-    fr: 'Ajouter une mesure',
+    fr: 'Ajouter une modalité',
     en: 'Add a measure',
   },
   noMeasureYet: {
     en: 'No measure yet',
-    fr: 'Aucune mesure défini',
+    fr: 'Aucune information mesurée definie',
   },
   addCondition: {
     fr: 'Ajouter une condition',
@@ -796,7 +796,7 @@ dictionary[`componentEdit${SEQUENCE}`] = {
 };
 
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
-  fr: 'Modifier la sub-séquence',
+  fr: 'Modifier la sous-séquence',
   en: 'Edit sub-sequence',
 };
 

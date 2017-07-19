@@ -1,14 +1,12 @@
 import { uuid } from 'utils/data-utils';
-import Component from 'utils/model/transformation-entities/component';
-
+import Component from 'utils/transformation-entities/component';
 import { isSubSequence, isSequence } from 'utils/component/component-utils';
+import { getCodesListsAndCodesFromQuestion, updateNewComponentParent } from 'utils/model/form-to-state-utils';
 import {
   moveQuestionToSubSequence,
   moveQuestionAndSubSequenceToSequence,
   increaseWeightOfAll,
 } from './component-moves';
-
-import { getCodesListFromForm, getCodesFromForm, updateNewComponentParent } from 'utils/model/form-to-state-utils';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
@@ -28,10 +26,10 @@ export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
 export const createComponent = (form, parentId, weight, type) => (dispatch, getState) => {
   const state = getState();
   const id = uuid();
-  const activeComponents = state.appState.activeComponentsById;
   const newComponent = Component.formToState({ ...form, parent: parentId, weight, type, id });
-  const activeCodesById = getCodesFromForm(newComponent);
-  const activeCodeListsById = getCodesListFromForm(newComponent);
+  const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
+    newComponent.responseFormat
+  );
   const activeComponentsById = {
     [id]: newComponent,
   };
@@ -61,7 +59,7 @@ export const createComponent = (form, parentId, weight, type) => (dispatch, getS
  * Method exectued right after the creation of a component. We will trigger
  * the UPDATE_COMPONENT action in order add to the parent element the id of
  * this new component.
- * 
+ *
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
 export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) => (dispatch, getState) => {
@@ -83,10 +81,10 @@ export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) 
 };
 
 /**
- * Method executed right after the createComponent and updateParentChildren functions. 
- * Based on the type of the new component, we will call the right functions in order to 
+ * Method executed right after the createComponent and updateParentChildren functions.
+ * Based on the type of the new component, we will call the right functions in order to
  * the updated list of components.
- * 
+ *
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
 export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (dispatch, getState) => {
@@ -129,8 +127,9 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
  */
 export const updateComponent = (form, id, parent, weight, type) => {
   const updatedComponent = Component.formToState({ ...form, parent, weight, type, id });
-  const activeCodesById = getCodesFromForm(updatedComponent);
-  const activeCodeListsById = getCodesListFromForm(updatedComponent);
+  const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
+    updatedComponent.responseFormat
+  );
   const activeComponentsById = {
     [id]: updatedComponent,
   };

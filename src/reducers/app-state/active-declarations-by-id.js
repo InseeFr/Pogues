@@ -7,14 +7,14 @@ export function setActiveDeclarations(state, activeDeclarations) {
   return activeDeclarations;
 }
 
-export function updateComponent(state, { componentId, update: {declarations }}) {
+export function updateComponent(state, { componentId, update: { declarations } }) {
   return {
     ...state,
     [declarations.id]: {
       ...state[declarations.id],
-      ...declarations
-    }
-  }
+      ...declarations,
+    },
+  };
 }
 
 actionHandlers[SET_ACTIVE_DECLARATIONS] = setActiveDeclarations;
