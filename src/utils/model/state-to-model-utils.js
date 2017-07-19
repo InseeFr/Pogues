@@ -66,7 +66,7 @@ export function getNestedComponentsFromPlainList(questionnaireId, listComponents
       });
     }
 
-    return Component.stateToModel(component, newDepth);
+    return Component.stateToModel({ ...component, depth: newDepth });
   }
 
   return listComponents[questionnaireId].children.map(key => serializePlainToNested(listComponents[key]));

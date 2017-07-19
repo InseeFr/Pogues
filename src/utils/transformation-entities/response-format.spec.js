@@ -1,12 +1,12 @@
 jest.dontMock('./response-format.js');
 
-import { QUESTION_TYPE_ENUM, DIMENSION_TYPE, MAIN_DIMENSION_FORMATS } from 'constants/pogues-constants';
+import { QUESTION_TYPE_ENUM, DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 import ResponseFormat from './response-format';
-import { defaultDimensionState } from 'utils/model/transformation-entities/dimension';
+import { defaultDimensionState } from './dimension';
 
 const { TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
-const { CODES_LIST } = MAIN_DIMENSION_FORMATS;
+const { CODES_LIST } = DIMENSION_FORMATS;
 
 describe('Transformation entities - ResponseFormat', () => {
   test.skip('modelToState with a response format TABLE', () => {

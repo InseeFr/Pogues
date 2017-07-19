@@ -42,12 +42,12 @@ function stateToModel(state) {
 }
 
 function modelToState(model) {
-  // @TODO: This logic should be moved to the Response transformer
-  const { responses: [{ datatype: { typeName: type, ...data }, mandatory }] } = model;
+  // @TODO: This logic should be moved to the Response trn
+  const { responses: [{ datatype: { typeName, type, ...data }, mandatory }] } = model;
   const responseFormatSimpleData = {
-    type,
+    type: typeName,
     mandatory,
-    [type]: data,
+    [typeName]: data,
   };
 
   return {

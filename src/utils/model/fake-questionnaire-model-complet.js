@@ -1,4 +1,4 @@
-const test = {
+const questionnaire = {
   id: 'fr.insee-POPO-QPO-DOC',
   name: 'DOC',
   label: ['Je suis le titre du questionnaire'],
@@ -2057,4 +2057,4 @@ const test = {
   },
 };
 
-const test2 = 'hola';
+export default questionnaire;

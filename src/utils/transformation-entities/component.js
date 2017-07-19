@@ -78,8 +78,8 @@ function stateToForm(component, activeCodeLists, activeCodes) {
   };
 }
 
-function stateToModel(component, depth) {
-  const { id, name, label, type, children, responseFormat } = component;
+function stateToModel(component) {
+  const { id, depth, name, label, type, children, responseFormat } = component;
   let componentModel = {
     id,
     depth,
