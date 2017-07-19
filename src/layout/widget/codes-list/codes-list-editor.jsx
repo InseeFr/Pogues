@@ -35,6 +35,12 @@ CodesListLabel.propTypes = {
 };
 
 class codesListEditor extends Component {
+  static propTypes = {
+    optional: PropTypes.bool,
+  };
+  static defaultProps = {
+    optional: false,
+  };
   constructor() {
     super();
 
@@ -50,9 +56,18 @@ class codesListEditor extends Component {
     });
   }
   render() {
+    const { optional } = this.props;
+    let requiredProps = {};
     const toggleButtonClass = this.state.showCodesList
       ? 'codes-list__show-codes glyphicon glyphicon-eye-close'
       : 'codes-list__show-codes glyphicon glyphicon-pencil';
+
+    if (!optional) {
+      requiredProps = {
+        validate: [required],
+        required: true,
+      };
+    }
 
     return (
       <div className="codes-list-editor">
@@ -65,10 +80,9 @@ class codesListEditor extends Component {
               type="text"
               component={CodesListLabel}
               placeholder={Dictionary.newCl}
-              validate={[required]}
-              required
               toggleButtonClass={toggleButtonClass}
               toggleCodesList={this.toggleCodesList}
+              {...requiredProps}
             />
           </div>
           <Field name="id" type="hidden" component="input" />
