@@ -11,15 +11,17 @@ class OptionalView extends Component {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     view: PropTypes.object.isRequired,
+    active: PropTypes.bool.isRequired,
     checkbox: PropTypes.bool,
   };
   static defaultProps = {
     checkbox: false,
   };
   constructor(props) {
+    const { active } = props;
     super(props);
     this.state = {
-      showOptionalView: false,
+      showOptionalView: active,
     };
 
     this.toggleOptionalView = this.toggleOptionalView.bind(this);
