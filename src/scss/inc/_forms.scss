@@ -2,7 +2,9 @@ form {
   .form-footer {
     @include make-row();
     text-align: center;
-
+    max-width: 40%;
+    margin: auto;
+    
     button {
       @extend .btn;
       margin-left: 10px;
@@ -10,13 +12,14 @@ form {
       text-transform: uppercase;
       font-weight: bold;
       width: 175px;
-
+      
       &[type="submit"] {
         @extend .btn-yellow;
       }
 
       &.cancel {
         background: none;
+        float: left;
       }
     }
   }

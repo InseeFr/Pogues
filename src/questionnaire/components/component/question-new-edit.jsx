@@ -91,10 +91,9 @@ export class QuestionNewEdit extends Component {
           <Tabs components={panels} />
 
           <div className="form-footer">
-            {onCancel
-              ? <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>
-              : ''}
             <button type="submit" disabled={!edit && (pristine || submitting)}>{Dictionary.validate}</button>
+            {onCancel &&
+              <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>}
           </div>
         </form>
       </div>
