@@ -689,7 +689,8 @@ const fakeModel = {
       label: ['Pilier « Sociétal »'],
       declarations: [
         {
-          text: "Avertissement : Pour ceux qui ont répondu NON à la question A1 : dans les questions suivantes, le terme de RSE (Responsabilité Sociale des Entreprises) sera utilisé par convention pour représenter les initiatives des entreprises pour prendre en compte les impacts sociaux, sociétaux et environnementaux de leur activité à travers par exemple la formation professionnelle, la lutte contre les discriminations, le bien-être des salariés, la prévention de l'environnement, …",
+          text:
+            "Avertissement : Pour ceux qui ont répondu NON à la question A1 : dans les questions suivantes, le terme de RSE (Responsabilité Sociale des Entreprises) sera utilisé par convention pour représenter les initiatives des entreprises pour prendre en compte les impacts sociaux, sociétaux et environnementaux de leur activité à travers par exemple la formation professionnelle, la lutte contre les discriminations, le bien-être des salariés, la prévention de l'environnement, …",
         },
       ],
       controls: [],
@@ -2694,7 +2695,8 @@ const fakeModel = {
           { value: '', label: 'le changement climatique (émissions de gaz à effet de serre)' },
           {
             value: '',
-            label: 'la perte de la biodiversité (disparition d’espèces, d’espaces naturels et dégradation d’écosystèmes)',
+            label:
+              'la perte de la biodiversité (disparition d’espèces, d’espaces naturels et dégradation d’écosystèmes)',
           },
           { value: '', label: 'la pollution de l’air' },
           { value: '', label: 'la pollution de l’eau' },
@@ -2812,7 +2814,8 @@ const fakeModel = {
           { value: '', label: 'Entreprises (hors de votre groupe/réseau) ou fédérations professionnelles' },
           {
             value: '',
-            label: 'Banques ou compagnies d’assurance dans le cadre d’actions socialement responsables éligibles à l’ISR*',
+            label:
+              'Banques ou compagnies d’assurance dans le cadre d’actions socialement responsables éligibles à l’ISR*',
           },
         ],
       },
@@ -2876,7 +2879,8 @@ const fakeModel = {
           },
           {
             value: '',
-            label: 'd’autres mesures en dehors de celles réalisées par le comité d’entreprise (crèches, plan de déplacement, dispositif de retour de congés maternité/parental, services sur le lieu de travail, etc.) ? ',
+            label:
+              'd’autres mesures en dehors de celles réalisées par le comité d’entreprise (crèches, plan de déplacement, dispositif de retour de congés maternité/parental, services sur le lieu de travail, etc.) ? ',
           },
         ],
       },

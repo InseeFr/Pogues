@@ -23,7 +23,8 @@ const questionnaire = {
           declarations: [
             {
               declarationType: 'INSTRUCTION',
-              text: "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par page), regroupant les différents types de questions. Dans chaque module, vous trouverez la description des questions de chaque type, ainsi que des exemples tirés de questionnaires Insee.\n\n​\n",
+              text:
+                "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par page), regroupant les différents types de questions. Dans chaque module, vous trouverez la description des questions de chaque type, ainsi que des exemples tirés de questionnaires Insee.\n\n​\n",
             },
           ],
           goTos: [],
@@ -183,7 +184,7 @@ const questionnaire = {
               id: 'ir6ct69u',
               name: 'SIMPLE_DATE',
               label: [
-                '##{"label":"Je suis le libellé de la question de type date au format JJ\/MM\/AAAA","conditions":[]}\nJe suis le libellé de la question de type date au format JJ\/MM\/AAAA',
+                '##{"label":"Je suis le libellé de la question de type date au format JJ/MM/AAAA","conditions":[]}\nJe suis le libellé de la question de type date au format JJ/MM/AAAA',
               ],
               declarations: [],
               goTos: [],
@@ -245,7 +246,8 @@ const questionnaire = {
               declarations: [
                 {
                   declarationType: 'INSTRUCTION',
-                  text: '(par exemple : commerce de fruits et légumes, boulangerie, charcuterie artisanale ou industrielle, commerce de détail de meubles...)\n',
+                  text:
+                    '(par exemple : commerce de fruits et légumes, boulangerie, charcuterie artisanale ou industrielle, commerce de détail de meubles...)\n',
                   position: 'AFTER_QUESTION_TEXT',
                 },
                 {
@@ -274,7 +276,8 @@ const questionnaire = {
               declarations: [
                 {
                   declarationType: 'INSTRUCTION',
-                  text: 'Soyez très précis sur votre métier : « Caissière » (et non « employée »), « Fleuriste » (et non « Commerçant »), « Professeur des écoles»\n',
+                  text:
+                    'Soyez très précis sur votre métier : « Caissière » (et non « employée »), « Fleuriste » (et non « Commerçant »), « Professeur des écoles»\n',
                   position: 'AFTER_QUESTION_TEXT',
                 },
                 {
@@ -357,7 +360,8 @@ const questionnaire = {
               declarations: [
                 {
                   declarationType: 'INSTRUCTION',
-                  text: "Définition de l'exercice comptable sur lequel porte ce questionnaire :\n\nLes informations à fournir se rapportent à votre exercice comptable 2015.\n\n​\n\nVotre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le 31 mai 2016.\n\n​\n\nSi vous avez clotûré deux exercices sur cette période, prendre celui qui a leplus de mois en 2015.\n\n​\n\nVous devez également répondre à l'énquête si votre entreprise a cessé son activité :\n\nen 2015 et a plus de 6 mois d'activité ;\n\nen 2016.\n",
+                  text:
+                    "Définition de l'exercice comptable sur lequel porte ce questionnaire :\n\nLes informations à fournir se rapportent à votre exercice comptable 2015.\n\n​\n\nVotre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le 31 mai 2016.\n\n​\n\nSi vous avez clotûré deux exercices sur cette période, prendre celui qui a leplus de mois en 2015.\n\n​\n\nVous devez également répondre à l'énquête si votre entreprise a cessé son activité :\n\nen 2015 et a plus de 6 mois d'activité ;\n\nen 2016.\n",
                   position: 'AFTER_QUESTION_TEXT',
                 },
               ],
@@ -376,7 +380,7 @@ const questionnaire = {
               id: 'iwm99upn',
               name: 'DEPUISQUEL',
               label: [
-                '##{"label":"Depuis quelle date travailliez-vous dans cette entreprise \/ dans la fonction publique ?","conditions":[]}\nDepuis quelle date travailliez-vous dans cette entreprise \/ dans la fonction publique ?',
+                '##{"label":"Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?","conditions":[]}\nDepuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?',
               ],
               declarations: [
                 {
@@ -405,7 +409,8 @@ const questionnaire = {
               declarations: [
                 {
                   declarationType: 'INSTRUCTION',
-                  text: "Question issue de l'enquête annuelle sur les consommations d'énergie dans l'industrie (EACEI)\n",
+                  text:
+                    "Question issue de l'enquête annuelle sur les consommations d'énergie dans l'industrie (EACEI)\n",
                   position: 'AFTER_QUESTION_TEXT',
                 },
               ],
@@ -1008,17 +1013,19 @@ const questionnaire = {
               id: 'iw22jcng',
               name: 'EFFECTIFSS',
               label: [
-                '##{"label":"Effectifs salariés au 31\/12\/2015","conditions":[]}\nEffectifs salariés au 31\/12\/2015',
+                '##{"label":"Effectifs salariés au 31/12/2015","conditions":[]}\nEffectifs salariés au 31/12/2015',
               ],
               declarations: [
                 {
                   declarationType: 'INSTRUCTION',
-                  text: 'Comptez la totalité des salariés rémunérés directement par l’entreprise et inscrits à la date du 31\/12\/2015, y compris les dirigeants de sociétés et gérants salariés, le personnel saisonnier ou occasionnel.\n\n​\n',
+                  text:
+                    'Comptez la totalité des salariés rémunérés directement par l’entreprise et inscrits à la date du 31/12/2015, y compris les dirigeants de sociétés et gérants salariés, le personnel saisonnier ou occasionnel.\n\n​\n',
                   position: 'AFTER_QUESTION_TEXT',
                 },
                 {
                   declarationType: 'INSTRUCTION',
-                  text: 'Ne comptez pas le personnel rémunéré par d’autres entreprises (travail temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non rémunérés.\n',
+                  text:
+                    'Ne comptez pas le personnel rémunéré par d’autres entreprises (travail temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non rémunérés.\n',
                   position: 'AFTER_QUESTION_TEXT',
                 },
                 {
@@ -1094,7 +1101,8 @@ const questionnaire = {
               declarations: [
                 {
                   declarationType: 'INSTRUCTION',
-                  text: "Veuillez inscrire un par un les prénoms des personnes qui habitent ce logement, même une partie de la semaine y compris celles qui sont temporairement absentes au moment de l’enquête (vacances, voyage d'affaires, hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais encore rattachés au logement, conjoints éloignés pour raisons professionnelles, enfants en garde alternée, personnes âgées en institution …)\n",
+                  text:
+                    "Veuillez inscrire un par un les prénoms des personnes qui habitent ce logement, même une partie de la semaine y compris celles qui sont temporairement absentes au moment de l’enquête (vacances, voyage d'affaires, hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais encore rattachés au logement, conjoints éloignés pour raisons professionnelles, enfants en garde alternée, personnes âgées en institution …)\n",
                   position: 'AFTER_QUESTION_TEXT',
                 },
               ],
@@ -1471,8 +1479,10 @@ const questionnaire = {
                 {
                   id: 'iw7ukiat',
                   description: '',
-                  expression: "(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))<0 ) and ${S1-S1-Q1-R1}!=''",
-                  failMessage: "Le montant des investissements spécifiquement dédiés à l'environnement est supérieur au montant total des investissements.",
+                  expression:
+                    "(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))<0 ) and ${S1-S1-Q1-R1}!=''",
+                  failMessage:
+                    "Le montant des investissements spécifiquement dédiés à l'environnement est supérieur au montant total des investissements.",
                 },
               ],
               questionType: 'TABLE',
@@ -2009,7 +2019,8 @@ const questionnaire = {
           { label: 'La commande ou la réservation en ligne (panier virtuel) ?', value: '' },
           { label: 'La description de biens ou services, ou des listes de prix ?', value: '' },
           {
-            label: 'Des liens permettant d’accéder aux pages de l’entreprise dans les médias sociaux (Facebook, Twitter, Google+, LinkedIn, Viadeo, etc.) ?',
+            label:
+              'Des liens permettant d’accéder aux pages de l’entreprise dans les médias sociaux (Facebook, Twitter, Google+, LinkedIn, Viadeo, etc.) ?',
             value: '',
           },
         ],
@@ -2037,16 +2048,19 @@ const questionnaire = {
         label: 'L_formation',
         codes: [
           {
-            label: 'Formation financée ou organisée par l’employeur ou une agence d’intérim (hors apprentissage et contrats de professionnalisation)',
+            label:
+              'Formation financée ou organisée par l’employeur ou une agence d’intérim (hors apprentissage et contrats de professionnalisation)',
             value: '',
           },
           { label: 'Formation donnée par une école de la 2e chance, par l’EPIDE', value: '' },
           {
-            label: 'Formation conseillée ou organisée par Pôle emploi, par une mission locale, une chambre des métiers, une agence de placement (APEC, INGEUS, …), (y compris ateliers de techniques de recherche d’emploi, ateliers CV)',
+            label:
+              'Formation conseillée ou organisée par Pôle emploi, par une mission locale, une chambre des métiers, une agence de placement (APEC, INGEUS, …), (y compris ateliers de techniques de recherche d’emploi, ateliers CV)',
             value: '',
           },
           {
-            label: 'Une formation professionnalisante ou à but professionnel (pour trouver un emploi, améliorer votre situation, …)',
+            label:
+              'Une formation professionnalisante ou à but professionnel (pour trouver un emploi, améliorer votre situation, …)',
             value: '',
           },
           { label: 'Aucune de ces formations depuis la fin des études, même pour quelques jours', value: '' },

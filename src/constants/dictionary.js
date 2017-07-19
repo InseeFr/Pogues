@@ -542,6 +542,10 @@ const dictionary = {
     fr: 'Information mesurée',
     en: 'Measure',
   },
+  measureLabel: {
+    fr: "Libellé de l'information mesurée",
+    en: 'Measure label',
+  },
   responseFormats: {
     fr: 'Format des réponses',
     en: 'Response formats',
@@ -711,7 +715,8 @@ const dictionary = {
     en: 'New empty questionnaire',
   },
   newQuestionnaireLegend: {
-    fr: 'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
+    fr:
+      'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
     en: 'You will now be able to specify the context',
   },
   collectionCampaign: {
