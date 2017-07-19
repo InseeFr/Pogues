@@ -1,7 +1,7 @@
 import { COMPONENT_TYPE, COMPONENT_UTIL } from 'constants/pogues-constants';
 import { nameFromLabel } from 'utils/name-utils';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 const { CREATE, REMOVE } = COMPONENT_UTIL;
 
 const emptyCmpnt = {
@@ -101,6 +101,15 @@ export function isSequence(component) {
 }
 
 /**
+  * This method return true if the component passed as a parameter is a QUESTIONNAIRE
+  * 
+  * @param {object} component The component we should test
+  */
+export function isQuestionnaire(component) {
+  return component && component.type === QUESTIONNAIRE;
+}
+
+/**
  * This method will return an array of component based of the ids passed as parameter
  * 
  * @param {string[]} ids The list of IDs
@@ -117,4 +126,25 @@ export function toComponents(ids, activesComponents) {
  */
 export function toId(components) {
   return components.map(c => c.id);
+}
+
+/**
+  * Depending of the type of the component, we can not move any component
+  * next to another one. For example, a QUESTION cannot be moved just after
+  * a QUESTIONNAIRE.
+  * One specific rule is defined for for a SEQUENCE with no children. If this is 
+  * the case, we can move a SUBSQUENCE or a QUESTION INSIDE this sequence .
+  *
+  * @param {object} movedComponent the component we are moving
+  * @param {object} newSibling the previous sibling of the moved component 
+  */
+export function canMoveTo(movedComponent, newSiblingComponent) {
+  return (
+    (isSequence(newSiblingComponent) && newSiblingComponent.children.length === 0) ||
+    (isSequence(movedComponent) && isSequence(newSiblingComponent)) ||
+    (isQuestion(movedComponent) && isSubSequence(newSiblingComponent)) ||
+    (isSubSequence(movedComponent) && isSubSequence(newSiblingComponent)) ||
+    (isSubSequence(movedComponent) && isQuestion(newSiblingComponent)) ||
+    (isQuestion(movedComponent) && isQuestion(newSiblingComponent))
+  );
 }

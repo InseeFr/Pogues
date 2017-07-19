@@ -216,13 +216,94 @@ export function moveQuestionAndSubSequenceToSequence(activesComponents, selected
    */
   listOfComponentsToMove = resetWeight(listOfComponentsToMove);
 
-  return {
+  const moves = {
     ...moveComponents(Object.keys(listOfComponentsToMove).map(key => listOfComponentsToMove[key]), newComponent),
     ...resetChildren(oldParent, listOfComponentsToKeep),
     ...resetChildren(
       parentSequence,
       toComponents(parentSequence.children, activesComponents).filter(c => c.weight <= component.weight)
     ),
-    ...increaseWeightOfAll(activesComponents, newComponent),
+  };
+
+  return {
+    ...moves,
+    ...increaseWeightOfAll(
+      {
+        ...activesComponents,
+        ...moves,
+      },
+      newComponent
+    ),
+  };
+}
+
+/**
+  * Method used for the Drag&Drop behavior. Based on the dragged component, 
+  * we will updated the new parent, the parent, the previous and/or new siblings
+  * 
+  * @param {object} activesComponents The list of components currently displayed
+  * @param {string} moveComponentId The id of the dragged component
+  * @param {string} newParentComponentId the id of the target component, 
+  * @param {number} newWeight the new weight of dragged component in the target component
+  */
+export function moveComponent(activesComponents, moveComponentId, newParentComponentId, newWeight) {
+  const componentToMove = {
+    ...activesComponents[moveComponentId],
+    parent: newParentComponentId,
+    weight: newWeight,
+  };
+
+  /** 
+    * If the source and target parent component is the same, only we need 
+    * to update the weight of the children
+    */
+  if (newParentComponentId === activesComponents[moveComponentId].parent) {
+    const moves = {
+      [moveComponentId]: componentToMove,
+      ...increaseWeightOfAll(activesComponents, componentToMove),
+    };
+    return resetWeight(Object.keys(moves).map(id => moves[id]));
+  }
+
+  /**
+    * If the source and target parent component are not the same, we need to 
+    * update them.
+    */
+  const oldParent = activesComponents[activesComponents[moveComponentId].parent];
+  const oldChildren = oldParent.children.filter(id => id !== moveComponentId);
+  let moves = {
+    [moveComponentId]: componentToMove,
+    [newParentComponentId]: {
+      ...activesComponents[newParentComponentId],
+      children: [...activesComponents[newParentComponentId].children, moveComponentId],
+    },
+    [oldParent.id]: {
+      ...oldParent,
+      children: oldChildren,
+    },
+  };
+
+  /**
+   * We now update the weight of all the siblings components
+   */
+  moves = {
+    ...moves,
+    ...increaseWeightOfAll(
+      {
+        ...activesComponents,
+        ...moves,
+      },
+      componentToMove
+    ),
+  };
+
+  return {
+    ...moves,
+    ...resetWeight(
+      toComponents(oldChildren, {
+        ...activesComponents,
+        ...moves,
+      })
+    ),
   };
 }

@@ -1,7 +1,7 @@
 import * as component from './component-moves';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 describe('resetChildren', () => {
   test(`should return the same component but a new version of children`, () => {

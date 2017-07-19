@@ -1,11 +1,12 @@
 import { uuid } from 'utils/data-utils';
 import Component from 'utils/model/transformation-entities/component';
 
-import { isSubSequence, isSequence } from 'utils/component/component-utils';
+import { isSubSequence, isSequence, isQuestion } from 'utils/component/component-utils';
 import {
   moveQuestionToSubSequence,
   moveQuestionAndSubSequenceToSequence,
   increaseWeightOfAll,
+  moveComponent,
 } from './component-moves';
 
 import { getCodesListFromForm, getCodesFromForm, updateNewComponentParent } from 'utils/model/form-to-state-utils';
@@ -145,4 +146,18 @@ export const updateComponent = (form, id, parent, weight, type) => {
       },
     },
   };
+};
+
+export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) => (dispatch, getState) => {
+  const state = getState();
+  const activesComponents = state.appState.activeComponentsById;
+  return dispatch({
+    type: UPDATE_COMPONENT,
+    payload: {
+      idMovedComponent,
+      update: {
+        activeComponentsById: moveComponent(activesComponents, idMovedComponent, idTargetComponent, newWeight),
+      },
+    },
+  });
 };

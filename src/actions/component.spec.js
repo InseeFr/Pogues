@@ -1,4 +1,6 @@
 import * as component from './component';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+const { QUESTION } = COMPONENT_TYPE;
 
 jest.mock('./component-moves');
 

@@ -766,6 +766,10 @@ const dictionary = {
     fr: 'Vous devez introduire au mois',
     en: 'Must be at least',
   },
+  dropHere: {
+    fr: 'Déposez Ici!',
+    en: 'Drop here!',
+  },
 };
 
 // Dynamic translations
