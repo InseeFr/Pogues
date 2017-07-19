@@ -30,13 +30,13 @@ class ResponseFormatMultipleMeasure extends Component {
     const responseFormatTypes = [
       {
         id: 'response-format-multiple-measure-listcodes',
-        label: 'Liste de codes',
+        label: Dictionary.codeList,
         value: CODES_LIST,
         content: <ResponseFormatMultipleMeasureCodeslist selectorPathParent={this.selectorPathComposed} />,
       },
       {
         id: 'response-format-multiple-measure-boolean',
-        label: 'Boolean',
+        label: Dictionary.boolean,
         value: BOOL,
         content: '',
       },
@@ -44,7 +44,7 @@ class ResponseFormatMultipleMeasure extends Component {
     return (
       <FormSection name={ResponseFormatMultipleMeasure.selectorPath}>
         <ComponentSelectoryByTypeContainer
-          label="Format de l'information mesurée"
+          label={Dictionary.measureFormat}
           components={responseFormatTypes}
           selectorPath={this.selectorPathComposed}
           radio

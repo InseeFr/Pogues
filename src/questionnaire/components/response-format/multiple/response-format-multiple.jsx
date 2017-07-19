@@ -3,6 +3,7 @@ import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import Dictionary from 'utils/dictionary/dictionary';
 import ResponseFormatMultiplePrimary from './multiple-primary';
 import ResponseFormatMultipleMeasure from './multiple-measure';
 
@@ -27,9 +28,9 @@ class ResponseFormatMultiple extends Component {
   render() {
     return (
       <FormSection name={ResponseFormatMultiple.selectorPath} className="response-format__multiple">
-        <h3 id="response-format__multiple-information-head">Axe d'information</h3>
+        <h3 className="axis-primary__head">{Dictionary.primaryAxis}</h3>
         <ResponseFormatMultiplePrimary selectorPathParent={this.selectorPathComposed} />
-        <h3 id="response-format__multiple-measure-head">Information mesurée</h3>
+        <h3 className="axis-measure__head">{Dictionary.measureInfo}</h3>
         <ResponseFormatMultipleMeasure selectorPathParent={this.selectorPathComposed} />
       </FormSection>
     );

@@ -29,11 +29,11 @@ class ResponseFormatTable extends Component {
   render() {
     return (
       <FormSection name={ResponseFormatTable.selectorPath} className="response-format__table">
-        <h3 id="response-format__table-primary-head">{Dictionary.primaryAxis}</h3>
+        <h3 className="axis-primary__head">{Dictionary.primaryAxis}</h3>
         <ResponseFormatTablePrimary selectorPathParent={this.selectorPathComposed} />
-        <h3 id="response-format__table-secondary-head">{Dictionary.secondaryAxis}</h3>
+        <h3 className="axis-secondary__head">{Dictionary.secondaryAxis}</h3>
         <ResponseFormatTableSecondary selectorPathParent={this.selectorPathComposed} />
-        <h3 id="response-format__table-measures-head">{Dictionary.measureInfo}</h3>
+        <h3 className="axis-measure__head">{Dictionary.measureInfo}</h3>
         <ResponseFormatTableMeasures selectorPathParent={this.selectorPathComposed} />
       </FormSection>
     );

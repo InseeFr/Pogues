@@ -8,7 +8,7 @@ import { DIMENSION_TYPE } from 'constants/pogues-constants';
 
 const { PRIMARY } = DIMENSION_TYPE;
 
-class ResponseFormatMultipleInformation extends Component {
+class ResponseFormatMultiplePrimary extends Component {
   static selectorPath = PRIMARY;
   static propTypes = {
     selectorPathParent: PropTypes.string,
@@ -21,16 +21,16 @@ class ResponseFormatMultipleInformation extends Component {
     super(props);
 
     this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${ResponseFormatMultipleInformation.selectorPath}`
-      : ResponseFormatMultipleInformation.selectorPath;
+      ? `${selectorPathParent}.${ResponseFormatMultiplePrimary.selectorPath}`
+      : ResponseFormatMultiplePrimary.selectorPath;
   }
   render() {
     return (
-      <FormSection name={ResponseFormatMultipleInformation.selectorPath}>
+      <FormSection name={ResponseFormatMultiplePrimary.selectorPath}>
         <CodesList selectorPath={this.selectorPathComposed} />
       </FormSection>
     );
   }
 }
 
-export default ResponseFormatMultipleInformation;
+export default ResponseFormatMultiplePrimary;

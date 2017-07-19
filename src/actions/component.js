@@ -1,10 +1,7 @@
 import { uuid } from 'utils/data-utils';
 import Component from 'utils/transformation-entities/component';
 import { isSubSequence, isSequence } from 'utils/component/component-utils';
-import {
-  getCodesListsAndCodesFromQuestion,
-  updateNewComponentParent,
-} from 'utils/model/form-to-state-utils';
+import { getCodesListsAndCodesFromQuestion, updateNewComponentParent } from 'utils/model/form-to-state-utils';
 import {
   moveQuestionToSubSequence,
   moveQuestionAndSubSequenceToSequence,
