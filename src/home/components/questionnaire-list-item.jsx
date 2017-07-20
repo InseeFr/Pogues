@@ -1,8 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router";
 
-function QuestionnaireListItem({ id, label }) {
+function QuestionnaireListItem({ id, label, lastUpdatedDate, collectMode }) {
+  if(!lastUpdatedDate){
+    lastUpdatedDate = '01/01/2016';
+  }
+  if(!collectMode){
+    collectMode = 'Téléphone';
+  }
   // @TODO: Remove the mocked data
   return (
     <div className="questionnaire-list_item">
@@ -10,8 +16,8 @@ function QuestionnaireListItem({ id, label }) {
         <span className="glyphicon glyphicon-chevron-right" />
         <Link to={`/questionnaire/${id}`}>{label}</Link>
       </div>
-      <div>Téléphone</div>
-      <div>10/10/2016</div>
+      <div>{collectMode}</div>
+      <div>{lastUpdatedDate}</div>
     </div>
   );
 }
@@ -19,6 +25,8 @@ function QuestionnaireListItem({ id, label }) {
 QuestionnaireListItem.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  lastUpdatedDate: PropTypes.string,
+  collectMode: PropTypes.string,
 };
 
 export default QuestionnaireListItem;

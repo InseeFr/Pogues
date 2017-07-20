@@ -47,12 +47,12 @@ export const loadQuestionnaireListFailure = err => ({
  *
  * @return  {function}  Thunk which may dispatch LOAD_QLIST_SUCCESS or LOAD_QLIST_FAILURE
  */
-export const loadQuestionnaireList = () => dispatch => {
+export const loadQuestionnaireList = permission => (dispatch, getState) => {
   dispatch({
     type: LOAD_QLIST,
     payload: null,
   });
-  return getQuestionnaireList()
+  return getQuestionnaireList(permission)
     .then(qrList => dispatch(loadQuestionnaireListSuccess(questionnaireListModelToState(qrList))))
     .catch(err => dispatch(loadQuestionnaireListFailure(err)));
 };

@@ -11,7 +11,15 @@ function QuestionnaireList({ questionnaires }) {
   logger.debug('Rendering QuestionnaireList component.');
 
   const list = questionnaires.map(q => {
-    return <QuestionnaireListItem key={q.id} id={q.id} label={q.label} />;
+    return (
+      <QuestionnaireListItem
+        key={q.id}
+        id={q.id}
+        label={q.label}
+        lastUpdatedDate={q.lastUpdatedDate}
+        collectMode={q.collectMode}
+      />
+    );
   });
 
   return (
