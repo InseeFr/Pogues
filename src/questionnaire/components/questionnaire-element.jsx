@@ -7,6 +7,7 @@ import DropZone from 'questionnaire/components/drop-zone/drop-zone';
 
 import { DragSource, DropTarget } from 'react-dnd';
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
+import { couldInsertAsChild } from 'utils/component/component-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -14,6 +15,7 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
   connectDropTarget: connect.dropTarget(),
   canDrop: monitor.canDrop(),
   isOver: monitor.isOver({ shallow: true }),
+  draggedItem: monitor.getItem(),
 }))
 @DragSource(PropType, componentSource, collect)
 class QuestionnaireElement extends Component {
@@ -35,6 +37,7 @@ class QuestionnaireElement extends Component {
     canDrop: PropTypes.bool.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
+    draggedItem: PropTypes.object,
   };
   static defaultProps = {
     children: [],
@@ -68,6 +71,8 @@ class QuestionnaireElement extends Component {
       childrenId,
       onClickElement,
       onClickDetail,
+      parentType,
+      draggedItem,
     } = this.props;
 
     let style = {};
@@ -75,7 +80,7 @@ class QuestionnaireElement extends Component {
     /**
      * If the component can have children but not yet, we will add the dragged component as child
      */
-    if ((type === SEQUENCE || type === SUBSEQUENCE) && childrenId.length === 0) {
+    if (couldInsertAsChild(draggedItem, this.props)) {
       style = {
         marginLeft: '25px',
       };
