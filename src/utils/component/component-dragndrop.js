@@ -1,7 +1,4 @@
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { canMoveTo } from 'utils/component/component-utils';
-
-const { SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+import { canMoveTo, couldInsertAsChild } from 'utils/component/component-utils';
 
 export const PropType = 'COMPONENT';
 
@@ -34,15 +31,14 @@ export const cardTarget = {
    * When the component is physically dropped, this method will be executed. We 
    * will calculate the tardet weight and parent, and then update the store.
    */
-  drop(props, monitor) {
-    const newWeight = (props.type === SEQUENCE || props.type === SUBSEQUENCE) && props.childrenId.length === 0
-      ? 0
-      : props.weight + 1;
-    const parent = (props.type === SEQUENCE || props.type === SUBSEQUENCE) && props.childrenId.length === 0
-      ? props.id
-      : props.parent;
+  drop(droppedComponent, monitor) {
+    const draggedComponent = monitor.getItem();
+    const newWeight = couldInsertAsChild(draggedComponent, droppedComponent) ? 0 : droppedComponent.weight + 1;
+    const parent = couldInsertAsChild(draggedComponent, droppedComponent)
+      ? droppedComponent.id
+      : droppedComponent.parent;
     if (monitor.isOver({ shallow: false })) {
-      props.moveComponent(monitor.getItem().id, parent, newWeight);
+      droppedComponent.moveComponent(draggedComponent.id, parent, newWeight);
     }
   },
 };

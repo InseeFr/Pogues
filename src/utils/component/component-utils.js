@@ -150,3 +150,20 @@ export function canMoveTo(movedComponent, newSiblingComponent) {
     (isQuestion(movedComponent) && isQuestion(newSiblingComponent))
   );
 }
+
+/**
+ * This method will check if in a specific use case, we can drag
+ * a component inside another one. 
+ * This is possible when the dropped zone is a SEQUENCE or SUBSEQUENCE
+ * without child.
+ *
+ * @param {object} draggedComponent the dragger component
+ * @param {object} droppedComponent the dropped component
+ */
+export function couldInsertAsChild(draggedComponent, droppedComponent) {
+  return (
+    ((isSequence(droppedComponent) && (isQuestion(draggedComponent) || isSubSequence(draggedComponent))) ||
+      (isSubSequence(droppedComponent) && isQuestion(draggedComponent))) &&
+    droppedComponent.childrenId.length === 0
+  );
+}
