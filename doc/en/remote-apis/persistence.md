@@ -24,6 +24,8 @@ The code used by Pogues to go from this representation to the formal description
   "_goTos": [],
   "_controls": [],
   "_genericName": "QUESTIONNAIRE",
+  "collectMode": "TELEPHONE",
+  "lastUpdatedDate": "01/01/2016",
   "_children": [
     {
       "_id": "iytt3i83",
