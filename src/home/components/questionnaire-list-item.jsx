@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 function QuestionnaireListItem({ id, label, lastUpdatedDate, collectMode }) {
-  if(!lastUpdatedDate){
+  if (!lastUpdatedDate) {
     lastUpdatedDate = '01/01/2016';
   }
-  if(!collectMode){
+  if (!collectMode) {
     collectMode = 'Téléphone';
   }
   // @TODO: Remove the mocked data

@@ -47,7 +47,7 @@ export const loadQuestionnaireListFailure = err => ({
  *
  * @return  {function}  Thunk which may dispatch LOAD_QLIST_SUCCESS or LOAD_QLIST_FAILURE
  */
-export const loadQuestionnaireList = permission => (dispatch, getState) => {
+export const loadQuestionnaireList = permission => dispatch => {
   dispatch({
     type: LOAD_QLIST,
     payload: null,
