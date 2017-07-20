@@ -7,12 +7,17 @@ import QuestionnaireEditContainer from '../containers/questionnaire-edit';
 import ComponentEditContainer from '../containers/component/component-edit';
 import Dictionary from 'utils/dictionary/dictionary';
 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+@DragDropContext(HTML5Backend)
 class Questionnaire extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
     selectedComponentId: PropTypes.string.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
+    moveComponent: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -34,7 +39,7 @@ class Questionnaire extends Component {
   }
 
   handleElementSelect(event, idElement) {
-    event.stopPropagation();
+    if (event !== null) event.stopPropagation();
     if (!idElement) return;
     // Toggle the selection
     const newSelected = idElement !== this.props.selectedComponentId ? idElement : '';
@@ -86,7 +91,7 @@ class Questionnaire extends Component {
   renderComponentsByParent(components, parent) {
     const renderComponentsByParent = this.renderComponentsByParent;
     const selected = this.props.selectedComponentId;
-
+    const { moveComponent } = this.props;
     return Object.keys(components)
       .filter(key => components[key].parent === parent)
       .sort((key, nextKey) => {
@@ -101,12 +106,17 @@ class Questionnaire extends Component {
           <QuestionnaireElement
             key={key}
             id={key}
+            parent={components[key].parent}
+            parentType={components[components[key].parent].type}
             name={components[key].name}
             type={components[key].type}
             label={components[key].label}
             selected={isSelected}
-            onClickElement={event => this.handleElementSelect(event, key)}
+            onClickElement={this.handleElementSelect}
             onClickDetail={event => this.handleOpenElementDetail(event, key)}
+            moveComponent={moveComponent}
+            childrenId={components[key].children}
+            weight={components[key].weight}
           >
             {subTree}
           </QuestionnaireElement>

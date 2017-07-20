@@ -11,6 +11,7 @@ export const defaultQuestionnaireState = {
   components: [],
   codeLists: [],
   conditions: [],
+  owner: undefined,
 };
 
 export const defaultQuestionnaireModel = {
@@ -65,11 +66,12 @@ function modelToState(model) {
 }
 
 function stateToModel(questionnaire, children, codeList) {
-  const { id, name, label } = questionnaire;
+  const { id, name, label, owner } = questionnaire;
   const questionnaireModel = {
     id,
     name,
     label: [label],
+    owner,
     children,
     codeLists: {
       codeList,
@@ -84,13 +86,14 @@ function stateToModel(questionnaire, children, codeList) {
 }
 
 function formToState(form) {
-  const { id, name, label } = form;
+  const { id, name, label, owner } = form;
 
   return {
     ...defaultQuestionnaireState,
     id,
     name,
     label,
+    owner,
   };
 }
 

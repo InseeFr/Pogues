@@ -4,14 +4,15 @@ import Config from '../../build-config/config';
 const { baseURL, persistancePath, userPath } = Config;
 
 const urlQuestionnaireList = `${baseURL + persistancePath}/questionnaires`;
+const urlQuestionnaireListSearch = `${baseURL + persistancePath}/questionnaires/search`;
 const urlQuestionnaire = `${baseURL + persistancePath}/questionnaire`;
 const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
 
 /**
  * Retrieve all questionnaires
  */
-export const getQuestionnaireList = () =>
-  fetch(urlQuestionnaireList, {
+export const getQuestionnaireList = permission =>
+  fetch(`${urlQuestionnaireListSearch}?owner=${permission}`, {
     headers: {
       Accept: 'application/json',
     },

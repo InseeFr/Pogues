@@ -2,16 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { loadUser } from 'actions/user';
 import UserConnection from './components/user-connection';
 
 const mapStateToProps = state => ({
   user: state.appState.user,
 });
-
-const mapDispatchToProps = {
-  loadUser,
-};
 
 class UserConnectionContainer extends Component {
   static propTypes = {
@@ -21,16 +16,11 @@ class UserConnectionContainer extends Component {
       id: PropTypes.string,
       picture: PropTypes.string,
     }),
-    loadUser: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     user: {},
   };
-
-  componentWillMount() {
-    this.props.loadUser();
-  }
 
   render() {
     const { user } = this.props;
@@ -38,4 +28,4 @@ class UserConnectionContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserConnectionContainer);
+export default connect(mapStateToProps)(UserConnectionContainer);

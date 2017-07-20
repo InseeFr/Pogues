@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { dragComponent } from 'actions/component';
 
 import { setSelectedComponentId } from 'actions/app-state';
+
 import Questionnaire from 'questionnaire/components/questionnaire';
 
 const mapStateToProps = state => ({
@@ -13,6 +15,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setSelectedComponentId,
+  dragComponent,
 };
 
 class QuestionnaireContainer extends Component {
@@ -21,6 +24,7 @@ class QuestionnaireContainer extends Component {
     components: PropTypes.object.isRequired,
     selectedComponentId: PropTypes.string.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
+    dragComponent: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
@@ -28,7 +32,7 @@ class QuestionnaireContainer extends Component {
   }
 
   render() {
-    const { questionnaire, components, selectedComponentId } = this.props;
+    const { questionnaire, components, selectedComponentId, dragComponent } = this.props;
 
     if (!questionnaire.id) return <span className="fa fa-spinner fa-pulse fa-2x" />;
 
@@ -38,6 +42,7 @@ class QuestionnaireContainer extends Component {
         components={components}
         setSelectedComponentId={this.props.setSelectedComponentId}
         selectedComponentId={selectedComponentId}
+        moveComponent={dragComponent}
       />
     );
   }

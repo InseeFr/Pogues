@@ -45,12 +45,7 @@ export class PageHome extends Component {
     return (
       <div id="page-home">
         <h1>{Dictionary.welcome}</h1>
-        <div className="box home-questionnaires">
-          <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
-          {/* Mock stamp */}
-          <h4>{Dictionary.stamp} : F302</h4>
-          <QuestionnaireListContainer />
-        </div>
+        <QuestionnaireListContainer />
         <div className="home-sidebar">
           <div className="box">
             <h3>{Dictionary.createQuestionnaire}</h3>

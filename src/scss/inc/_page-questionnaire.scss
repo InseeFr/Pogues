@@ -35,6 +35,21 @@
         margin-left: 20px;
       }
 
+      .questionnaire-element-drop-zone {
+          border: 4px dashed #616366;
+          color: #616366;
+          font-weight: normal;
+          margin: 10px 0 10px 5px;
+          cursor: pointer;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+          flex-direction: row;
+          padding: 10px 15px 10px 15px;
+        }
+
       .questionnaire-element .questionnaire-element-info {
         @include make-row();
         border: 1px solid $color-grey_02;
