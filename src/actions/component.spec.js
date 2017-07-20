@@ -129,3 +129,42 @@ describe('orderComponents', () => {
     fn(dispatch, getState);
   });
 });
+
+describe('dragComponent', () => {
+  test('should trigger the UPDATE_COMPONENT action', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.dragComponent('1', '2', 1);
+
+    function dispatch(param) {
+      expect(param.type).toEqual(component.UPDATE_COMPONENT);
+    }
+    fn(dispatch, getState);
+  });
+
+  test('should call moveComponent with the right parameter', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.dragComponent('1', '2', 1);
+
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({
+        activesComponents: { '2': { id: '2', children: [] } },
+        idMovedComponent: '1',
+        idTargetComponent: '2',
+        newWeight: 1,
+      });
+    }
+    fn(dispatch, getState);
+  });
+});

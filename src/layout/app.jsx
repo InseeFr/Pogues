@@ -12,7 +12,7 @@ const mapDispatchToProps = {
   loadUser,
 };
 
-class AppContainer extends Component {
+export class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     loadUser: PropTypes.func.isRequired,

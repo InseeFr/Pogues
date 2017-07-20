@@ -1,7 +1,7 @@
 import { componentSource, cardTarget, collect } from './component-dragndrop';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { SEQUENCE, SUBSEQUENCE, QUESTION } = COMPONENT_TYPE;
+const { SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 jest.mock('./component-utils');
 
@@ -35,34 +35,68 @@ describe('cardTarget', () => {
       },
     };
 
-    [SEQUENCE, SUBSEQUENCE].forEach(type => {
-      test(`when the dropped zone is ${type} without children, the weight should be equal to 0`, () => {
-        const props = {
-          type: SEQUENCE,
-          childrenId: [],
-          moveComponent(movedComponentId, parentId, newWeight) {
-            expect(newWeight).toEqual(0);
-          },
-        };
-        cardTarget.drop(props, m);
-      });
+    test(`when the couldInsertAsChild return true, the weight should be equal to 0`, () => {
+      const props = {
+        type: SEQUENCE,
+        childrenId: [],
+        moveComponent(movedComponentId, parentId, newWeight) {
+          expect(newWeight).toEqual(0);
+        },
+      };
+      cardTarget.drop(props, m);
     });
 
-    [SEQUENCE, SUBSEQUENCE, QUESTION].forEach(type => {
-      test(`'when the dropped zone has children or is a ${type}, the weight should be its weight + 1`, () => {
-        const props = {
-          type: SEQUENCE,
-          childrenId: ['children'],
-          weight: 3,
-          moveComponent(movedComponentId, parentId, newWeight) {
-            expect(newWeight).toEqual(4);
-          },
-        };
-        cardTarget.drop(props, m);
-      });
+    test(`when the couldInsertAsChild return false, the weight should be equal to weight + 1`, () => {
+      const props = {
+        type: SUBSEQUENCE,
+        childrenId: [],
+        weight: 3,
+        moveComponent(movedComponentId, parentId, newWeight) {
+          expect(newWeight).toEqual(4);
+        },
+      };
+      cardTarget.drop(props, m);
     });
 
-    [SEQUENCE, SUBSEQUENCE].forEach(type => {
+    test(`when the couldInsertAsChild return true, the weight should be equal to 0`, () => {
+      const props = {
+        type: SEQUENCE,
+        childrenId: [],
+        moveComponent(movedComponentId, parentId, newWeight) {
+          expect(newWeight).toEqual(0);
+        },
+      };
+      cardTarget.drop(props, m);
+    });
+
+    test(`when the couldInsertAsChild return false, the parent should be equal to this dropped zone`, () => {
+      const props = {
+        type: SEQUENCE,
+        childrenId: [],
+        weight: 3,
+        id: '1',
+        parent: '2',
+        moveComponent(movedComponentId, parentId) {
+          expect(parentId).toEqual('1');
+        },
+      };
+      cardTarget.drop(props, m);
+    });
+
+    test(`when the couldInsertAsChild return false, the parent should be equal to the parent of this dropped zone`, () => {
+      const props = {
+        type: SUBSEQUENCE,
+        childrenId: [],
+        weight: 3,
+        parent: '2',
+        moveComponent(movedComponentId, parentId) {
+          expect(parentId).toEqual('2');
+        },
+      };
+      cardTarget.drop(props, m);
+    });
+
+    /*[SEQUENCE, SUBSEQUENCE].forEach(type => {
       test(`when the dropped zone is ${type} without children, the parent should be equal to this dropped zone`, () => {
         const props = {
           type: SEQUENCE,
@@ -75,9 +109,9 @@ describe('cardTarget', () => {
         };
         cardTarget.drop(props, m);
       });
-    });
+    });*/
 
-    [SEQUENCE, SUBSEQUENCE].forEach(type => {
+    /*[SEQUENCE, SUBSEQUENCE].forEach(type => {
       test(`when the dropped zone has children or is a ${type}, the parent should be equal to the parent of this dropped zone`, () => {
         const props = {
           type: SEQUENCE,
@@ -90,7 +124,7 @@ describe('cardTarget', () => {
         };
         cardTarget.drop(props, m);
       });
-    });
+    });*/
   });
 });
 
