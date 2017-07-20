@@ -144,7 +144,9 @@ export function canMoveTo(movedComponent, newSiblingComponent) {
     (isSequence(movedComponent) && isSequence(newSiblingComponent)) ||
     (isQuestion(movedComponent) && isSubSequence(newSiblingComponent)) ||
     (isSubSequence(movedComponent) && isSubSequence(newSiblingComponent)) ||
-    (isSubSequence(movedComponent) && isQuestion(newSiblingComponent)) ||
+    (isSubSequence(movedComponent) &&
+      isQuestion(newSiblingComponent) &&
+      newSiblingComponent.parentType !== SUBSEQUENCE) ||
     (isQuestion(movedComponent) && isQuestion(newSiblingComponent))
   );
 }

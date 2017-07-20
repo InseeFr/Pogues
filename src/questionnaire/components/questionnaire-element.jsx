@@ -21,6 +21,7 @@ class QuestionnaireElement extends Component {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     parent: PropTypes.string.isRequired,
+    parentType: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     weight: PropTypes.number.isRequired,

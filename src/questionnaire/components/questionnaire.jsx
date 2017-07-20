@@ -107,6 +107,7 @@ class Questionnaire extends Component {
             key={key}
             id={key}
             parent={components[key].parent}
+            parentType={components[components[key].parent].type}
             name={components[key].name}
             type={components[key].type}
             label={components[key].label}
