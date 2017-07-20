@@ -22,7 +22,7 @@ export function getCodesListsIdsFromResponseTable(responseFormatTable) {
   const codesListsIds = [];
   const measures = responseFormatTable[MEASURE].measures;
   if (responseFormatTable[PRIMARY].type === CODES_LIST) {
-    codesListsIds.push(responseFormatTable[MEASURE][CODES_LIST].codesListId);
+    codesListsIds.push(responseFormatTable[PRIMARY][CODES_LIST].codesListId);
   }
   if (responseFormatTable[SECONDARY].showSecondaryAxis) {
     codesListsIds.push(responseFormatTable[SECONDARY].codesListId);

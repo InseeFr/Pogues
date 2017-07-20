@@ -72,21 +72,22 @@ function stateToForm(state, activeCodeLists, activeCodes) {
 function stateToModel(state) {
   const { type, [type]: responseFormatState } = state;
   const model = { ...defaultResponseFormatModel };
+  let responsesDimensions = {};
 
   if (type === SIMPLE) {
-    const { responses } = ResponseFormatSimple.stateToModel(responseFormatState);
-    model.responses = responses;
+    responsesDimensions = ResponseFormatSimple.stateToModel(responseFormatState);
+    model.responses = responsesDimensions.responses;
   } else if (type === SINGLE_CHOICE) {
-    const { responses } = ResponseFormatSingle.stateToModel(responseFormatState);
-    model.responses = responses;
+    responsesDimensions = ResponseFormatSingle.stateToModel(responseFormatState);
+    model.responses = responsesDimensions.responses;
   } else if (type === MULTIPLE_CHOICE) {
-    const { responses, dimensions } = ResponseFormatMultiple.stateToModel(responseFormatState);
-    model.responses = responses;
-    model.responseStructure.dimensions = dimensions;
+    responsesDimensions = ResponseFormatMultiple.stateToModel(responseFormatState);
+    model.responses = responsesDimensions.responses;
+    model.responseStructure.dimensions = responsesDimensions.dimensions;
   } else {
-    const { responses, dimensions } = ResponseFormatTable.stateToModel(responseFormatState);
-    model.responses = responses;
-    model.responseStructure.dimensions = dimensions;
+    responsesDimensions = ResponseFormatTable.stateToModel(responseFormatState);
+    model.responses = responsesDimensions.responses;
+    model.responseStructure.dimensions = responsesDimensions.dimensions;
   }
   return model;
 }
