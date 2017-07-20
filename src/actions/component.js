@@ -147,7 +147,13 @@ export const updateComponent = (form, id, parent, weight, type) => {
     },
   };
 };
-
+/**
+ * Method used when we drag a component next to another one. 
+ * 
+ * @param {string} idMovedComponent id of the dragged component
+ * @param {string} idTargetComponent id of the dropped component
+ * @param {number} newWeight the new weight of the dragged component
+ */
 export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) => (dispatch, getState) => {
   const state = getState();
   const activesComponents = state.appState.activeComponentsById;
