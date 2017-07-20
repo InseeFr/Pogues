@@ -1,11 +1,12 @@
 import { uuid } from 'utils/data-utils';
 import Component from 'utils/transformation-entities/component';
-import { isSubSequence, isSequence } from 'utils/component/component-utils';
+import { isSubSequence, isSequence, isQuestion } from 'utils/component/component-utils';
 import { getCodesListsAndCodesFromQuestion, updateNewComponentParent } from 'utils/model/form-to-state-utils';
 import {
   moveQuestionToSubSequence,
   moveQuestionAndSubSequenceToSequence,
   increaseWeightOfAll,
+  moveComponent,
 } from './component-moves';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
@@ -91,15 +92,16 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
   const state = getState();
   const selectedComponentId = state.appState.selectedComponentId;
   const activesComponents = state.appState.activeComponentsById;
+  const selectedComponent = activesComponents[selectedComponentId];
 
   let activeComponentsById;
 
-  if (isSubSequence(lastCreatedComponent[id])) {
-    activeComponentsById = moveQuestionToSubSequence(activesComponents, selectedComponentId, lastCreatedComponent[id]);
-  } else if (isSequence(lastCreatedComponent[id])) {
+  if (isSubSequence(lastCreatedComponent[id]) && isQuestion(selectedComponent)) {
+    activeComponentsById = moveQuestionToSubSequence(activesComponents, selectedComponent, lastCreatedComponent[id]);
+  } else if (isSequence(lastCreatedComponent[id]) && isQuestion(selectedComponent)) {
     activeComponentsById = moveQuestionAndSubSequenceToSequence(
       activesComponents,
-      selectedComponentId,
+      selectedComponent,
       lastCreatedComponent[id]
     );
   } else {
@@ -144,4 +146,24 @@ export const updateComponent = (form, id, parent, weight, type) => {
       },
     },
   };
+};
+/**
+ * Method used when we drag a component next to another one. 
+ * 
+ * @param {string} idMovedComponent id of the dragged component
+ * @param {string} idTargetComponent id of the dropped component
+ * @param {number} newWeight the new weight of the dragged component
+ */
+export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) => (dispatch, getState) => {
+  const state = getState();
+  const activesComponents = state.appState.activeComponentsById;
+  return dispatch({
+    type: UPDATE_COMPONENT,
+    payload: {
+      idMovedComponent,
+      update: {
+        activeComponentsById: moveComponent(activesComponents, idMovedComponent, idTargetComponent, newWeight),
+      },
+    },
+  });
 };

@@ -127,14 +127,15 @@ export const createQuestionnaireFailure = err => ({
  * @param   {string}   label The questionnaire label.
  * @return  {function}       Thunk which may dispatch CREATE_QUESTIONNAIRE_SUCCESS or CREATE_QUESTIONNAIRE_FAILURE
  */
-export const createQuestionnaire = (name, label) => dispatch => {
+export const createQuestionnaire = (name, label) => (dispatch, getState) => {
   dispatch({
     type: CREATE_QUESTIONNAIRE,
     payload: null,
   });
 
   const id = uuid();
-  const newQuestionnaireState = Questionnaire.formToState({ id, label, name });
+  const owner = getState().appState.user.permission;
+  const newQuestionnaireState = Questionnaire.formToState({ id, label, name, owner });
   const newQuestionnaireModel = questionnaireStateToModel(newQuestionnaireState);
 
   return postQuestionnaire(newQuestionnaireModel)

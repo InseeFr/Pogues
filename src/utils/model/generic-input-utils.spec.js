@@ -1,5 +1,5 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getNewSubsequencePlaceholder } from './generic-input-utils';
+import { getNewSubsequencePlaceholder, getNewQuestionPlaceholder } from './generic-input-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -39,5 +39,139 @@ describe('getNewSubsequencePlaceholder', () => {
       parent: '0',
       weight: 2,
     });
+  });
+
+  test('if the selected component is a SUBSEQUENCE, the weight should be equal to 0', () => {
+    const components = {
+      j59pzbd3: {
+        id: 'j59pzbd3',
+        type: 'QUESTIONNAIRE',
+        parent: '',
+        weight: 0,
+        children: ['j59qt6xa'],
+        depth: 0,
+      },
+      j59qt6xa: {
+        id: 'j59qt6xa',
+        type: 'SEQUENCE',
+        parent: 'j59pzbd3',
+        weight: 0,
+        children: ['j59qh9bp'],
+      },
+      j59qh9bp: {
+        id: 'j59qh9bp',
+        type: 'SUBSEQUENCE',
+        parent: 'j59qt6xa',
+        weight: 0,
+        children: ['j59qn2it', 'j59qvcxl'],
+      },
+      j59qn2it: {
+        id: 'j59qn2it',
+        type: 'QUESTION',
+        parent: 'j59qh9bp',
+        weight: 0,
+        children: [],
+      },
+      j59qvcxl: {
+        id: 'j59qvcxl',
+        type: 'QUESTION',
+        parent: 'j59qh9bp',
+        weight: 1,
+        children: [],
+      },
+    };
+    expect(getNewSubsequencePlaceholder(components, components.j59qt6xa)).toEqual({
+      parent: 'j59qt6xa',
+      weight: 0,
+    });
+  });
+});
+describe('getNewQuestionPlaceholder', () => {
+  test(`if we add a question to a subsequence, the weight should be equal to 0`, () => {
+    const components = {
+      j59pzbd3: {
+        id: 'j59pzbd3',
+        type: 'QUESTIONNAIRE',
+        parent: '',
+        weight: 0,
+        children: ['j59q5m8i'],
+        depth: 0,
+      },
+      j59q5m8i: {
+        id: 'j59q5m8i',
+        type: 'SEQUENCE',
+        parent: 'j59pzbd3',
+        weight: 0,
+        children: ['j59qj2q7'],
+      },
+      j59qj2q7: {
+        id: 'j59qj2q7',
+        type: 'SUBSEQUENCE',
+        parent: 'j59q5m8i',
+        weight: 0,
+        children: ['j59qgb36', 'j59qmada'],
+      },
+      j59qgb36: {
+        id: 'j59qgb36',
+        type: 'QUESTION',
+        parent: 'j59qj2q7',
+        weight: 0,
+        children: [],
+      },
+      j59qmada: {
+        id: 'j59qmada',
+        type: 'QUESTION',
+        parent: 'j59qj2q7',
+        weight: 1,
+        children: [],
+      },
+    };
+    const activeComponent = components.j59qj2q7;
+    const result = getNewQuestionPlaceholder(components, activeComponent);
+    expect(result.weight).toEqual(0);
+  });
+
+  test(`if we add a question to a subsequence, the weight should be equal to 0`, () => {
+    const components = {
+      j59pzbd3: {
+        id: 'j59pzbd3',
+        type: 'QUESTIONNAIRE',
+        parent: '',
+        weight: 0,
+        children: ['j59q5m8i'],
+        depth: 0,
+      },
+      j59q5m8i: {
+        id: 'j59q5m8i',
+        type: 'SEQUENCE',
+        parent: 'j59pzbd3',
+        weight: 0,
+        children: ['j59qj2q7'],
+      },
+      j59qj2q7: {
+        id: 'j59qj2q7',
+        type: 'SUBSEQUENCE',
+        parent: 'j59q5m8i',
+        weight: 0,
+        children: ['j59qgb36', 'j59qmada'],
+      },
+      j59qgb36: {
+        id: 'j59qgb36',
+        type: 'QUESTION',
+        parent: 'j59qj2q7',
+        weight: 0,
+        children: [],
+      },
+      j59qmada: {
+        id: 'j59qmada',
+        type: 'QUESTION',
+        parent: 'j59qj2q7',
+        weight: 1,
+        children: [],
+      },
+    };
+    const activeComponent = components.j59q5m8i;
+    const result = getNewQuestionPlaceholder(components, activeComponent);
+    expect(result.weight).toEqual(0);
   });
 });
