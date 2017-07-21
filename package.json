@@ -38,7 +38,7 @@
     "babel-preset-stage-1": "6.24.1",
     "classnames": "^2.2.5",
     "clean-webpack-plugin": "^0.1.16",
-    "concurrently": "^3.5.0",
+    "concurrently": "3.5.0",
     "coveralls": "2.13.1",
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.1",
