@@ -24,6 +24,8 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
   "_goTos": [],
   "_controls": [],
   "_genericName": "QUESTIONNAIRE",
+  "collectMode": "TELEPHONE",
+  "lastUpdatedDate": "01/01/2016",
   "_children": [
     {
       "_id": "iytt3i83",

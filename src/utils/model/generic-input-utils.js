@@ -159,15 +159,7 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
         weight = getWeight(components, heavyChildrenId);
       }
     } else {
-      // It could be
-      // sequence
-      //    -> question
-      // or
-      // sequence
-      //    -> subsequence
-      // This is why we don't filter by type
-      heavyChildrenId = getHeavyComponentIdFromGroupIds(components, components[parent].children);
-      weight = getWeight(components, heavyChildrenId);
+      weight = 0;
     }
   }
 
@@ -201,8 +193,7 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
     if (activeComponent.type === QUESTION) {
       weight = activeComponent.weight + 1;
     } else {
-      heavyQuestionId = getHeavyComponentIdByTypeFromGroupIds(components, components[parent].children, QUESTION);
-      weight = getWeight(components, heavyQuestionId);
+      weight = 0;
     }
   } else {
     heavySequenceId = getHeavyComponentIdByTypeFromGroupIds(components, Object.keys(components), SEQUENCE);
