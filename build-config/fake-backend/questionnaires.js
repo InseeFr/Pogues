@@ -1,4 +1,4 @@
-const questionnaire = {
+module.exports = [{
   id: 'fr.insee-POPO-QPO-DOC',
   name: 'DOC',
   label: ['Je suis le titre du questionnaire'],
@@ -2069,6 +2069,4 @@ const questionnaire = {
     ],
     codeListSpecification: [],
   },
-};
-
-export default questionnaire;
+}];
