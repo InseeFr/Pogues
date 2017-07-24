@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Questionnaire from 'utils/transformation-entities/questionnaire';
 import Component from 'utils/transformation-entities/component';
 import CodesList from 'utils/transformation-entities/codes-list';
@@ -83,13 +85,14 @@ export function getConditionsFromQuestions(questions) {
 }
 
 export function questionnaireModelToState(questionnaireModel) {
-  const { id, children, codeLists: { codeList } } = questionnaireModel;
+  const model = _.cloneDeep(questionnaireModel);
+  const { id, children, codeLists: { codeList } } = model;
   const { codesLists, codes } = getCodesListAndCodesFromQuestionnaire(codeList);
   const components = getComponentsFromNestedQuestionnaire(children, codesLists, id);
-  const questionnaireComponent = Component.modelToState(questionnaireModel);
+  const questionnaireComponent = Component.modelToState(model);
   const questions = filterQuestions(components);
   const conditions = getConditionsFromQuestions(questions);
-  const questionnaire = Questionnaire.modelToState({ ...questionnaireModel, components, codesLists, conditions });
+  const questionnaire = Questionnaire.modelToState({ ...model, components, codesLists, conditions });
   const conditionByQuestionnaire = {
     [id]: {
       ...conditions,
