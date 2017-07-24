@@ -22,7 +22,7 @@ export function getCodesListsIdsFromResponseTable(responseFormatTable) {
   const codesListsIds = [];
   const measures = responseFormatTable[MEASURE].measures;
   if (responseFormatTable[PRIMARY].type === CODES_LIST) {
-    codesListsIds.push(responseFormatTable[MEASURE][CODES_LIST].codesListId);
+    codesListsIds.push(responseFormatTable[PRIMARY][CODES_LIST].codesListId);
   }
   if (responseFormatTable[SECONDARY].showSecondaryAxis) {
     codesListsIds.push(responseFormatTable[SECONDARY].codesListId);
@@ -61,15 +61,27 @@ export function getNestedComponentsFromPlainList(questionnaireId, listComponents
     const newDepth = depth + 1;
 
     if (componentType !== QUESTION) {
-      component.children = component.children.map(key => {
-        return serializePlainToNested(listComponents[key], newDepth);
-      });
+      component.children = component.children
+        .sort((keyA, keyB) => {
+          if (listComponents[keyA].weight < listComponents[keyB].weight) return -1;
+          if (listComponents[keyA].weight > listComponents[keyB].weight) return 1;
+          return 0;
+        })
+        .map(key => {
+          return serializePlainToNested(listComponents[key], newDepth);
+        });
     }
 
     return Component.stateToModel({ ...component, depth: newDepth });
   }
 
-  return listComponents[questionnaireId].children.map(key => serializePlainToNested(listComponents[key]));
+  return listComponents[questionnaireId].children
+    .sort((keyA, keyB) => {
+      if (listComponents[keyA].weight < listComponents[keyB].weight) return -1;
+      if (listComponents[keyA].weight > listComponents[keyB].weight) return 1;
+      return 0;
+    })
+    .map(key => serializePlainToNested(listComponents[key]));
 }
 
 export function getNestedCodesListFromPlainList(codesListsIds, codesLists, codes) {

@@ -3,7 +3,7 @@
  Manage remote or local logging, levels and namespacing.
  'Beauty is in the eye of the beholder'
  */
-import Config from '../../../build-config/config';
+import Config from '../../config';
 import { ENV_TEST } from 'constants/pogues-constants';
 
 const LEVELS = {

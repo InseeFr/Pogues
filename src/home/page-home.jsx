@@ -44,15 +44,21 @@ export class PageHome extends Component {
   render() {
     return (
       <div id="page-home">
-        <h1>{Dictionary.welcome}</h1>
+        <h1>
+          {Dictionary.welcome}
+        </h1>
         <QuestionnaireListContainer />
         <div className="home-sidebar">
           <div className="box">
-            <h3>{Dictionary.createQuestionnaire}</h3>
+            <h3>
+              {Dictionary.createQuestionnaire}
+            </h3>
             <ul className="menu-navigation">
               <li>
                 <button id="questionnaire-new" className="btn-yellow" onClick={this.handleOpenModal}>
-                  <strong>{Dictionary.emptyQuestionnaire}</strong>
+                  <strong>
+                    {Dictionary.emptyQuestionnaire}
+                  </strong>
                 </button>
               </li>
             </ul>
@@ -67,14 +73,20 @@ export class PageHome extends Component {
             <li>
               <Link to="/" id="questionnaires-team" className="btn-blue">
                 <span className="glyphicon glyphicon-chevron-right" />
-                <strong>{Dictionary.fromMyTeam}</strong><br />
+                <strong>
+                  {Dictionary.fromMyTeam}
+                </strong>
+                <br />
                 {Dictionary.inProgressAndPublished}
               </Link>
             </li>
             <li>
               <Link to="/" id="questionnaires-insee" className="btn-blue">
                 <span className="glyphicon glyphicon-chevron-right" />
-                <strong>{Dictionary.fromRepository}</strong><br />
+                <strong>
+                  {Dictionary.fromRepository}
+                </strong>
+                <br />
                 {Dictionary.publishedByInsee}
               </Link>
             </li>
@@ -88,8 +100,12 @@ export class PageHome extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{Dictionary.newEmptyQuestionnaire}</h3>
-              <button onClick={this.handleCloseModal}><span>X</span></button>
+              <h3>
+                {Dictionary.newEmptyQuestionnaire}
+              </h3>
+              <button onClick={this.handleCloseModal}>
+                <span>X</span>
+              </button>
             </div>
             <div className="popup-body">
               <QuestionnaireNewContainer onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnaryCreated} />

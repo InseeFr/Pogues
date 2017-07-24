@@ -7,7 +7,7 @@ import ResponseFormatSingle from 'questionnaire/components/response-format/singl
 import ResponseFormatMultiple from 'questionnaire/components/response-format/multiple/response-format-multiple';
 import ResponseFormatTable from 'questionnaire/components/response-format/table/response-format-table';
 import Dictionary from 'utils/dictionary/dictionary';
-import { QUESTION_TYPE_ENUM } from 'constants/schema';
+import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 

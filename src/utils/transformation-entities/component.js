@@ -63,6 +63,7 @@ function formToState(values) {
 
 function stateToForm(component, activeCodeLists, activeCodes) {
   const { label, name, type, responseFormat } = component;
+
   const form = {
     label,
     name,
@@ -121,6 +122,7 @@ function modelToState(model) {
     responses,
     responseStructure,
   } = model;
+
   const componentData = {
     id,
     name,

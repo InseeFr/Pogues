@@ -45,7 +45,7 @@ function getCodesListsFromTable(form) {
 
   const {
     [PRIMARY]: { type: typePrimary, [typePrimary]: responseFormatPrimaryForm },
-    [SECONDARY]: { showSecondaryAxis, type: typeSecondary, [typeSecondary]: responseFormatSecondaryForm },
+    [SECONDARY]: { showSecondaryAxis, ...codesListSecondaryForm },
     [MEASURE]: { measures },
   } = form;
 
@@ -54,15 +54,14 @@ function getCodesListsFromTable(form) {
   }
 
   if (showSecondaryAxis) {
-    state = addToState(responseFormatSecondaryForm, state);
+    state = addToState(codesListSecondaryForm, state);
   }
 
   measures.forEach(m => {
     const { type: typeMeasure, [typeMeasure]: measureForm } = m;
 
     if (typeMeasure === SINGLE_CHOICE) {
-      const { type, [type]: singleChoiceForm } = measureForm;
-      state = addToState(singleChoiceForm, state);
+      state = addToState(measureForm, state);
     }
   });
 
@@ -91,7 +90,7 @@ export function getCodesListsAndCodesFromQuestion(responseFormat) {
 
 /**
  * This function is called when we add a component to a parent
- * 
+ *
  * @param {object[]} activeComponents The liste of components
  * @param {string} parentId The id of the parent we should update
  * @param {string} newComponentId The id of the created component

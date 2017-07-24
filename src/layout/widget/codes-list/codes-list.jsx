@@ -9,7 +9,7 @@ import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 
-function CodesList({ selectorPath }) {
+function CodesList({ selectorPath, optional }) {
   const baseId = selectorPath.split('.').join('-');
 
   const codesList = [
@@ -17,7 +17,7 @@ function CodesList({ selectorPath }) {
       id: `${baseId}-${NEW}`,
       label: 'Créer une liste',
       value: NEW,
-      content: <CodesListNew />,
+      content: <CodesListNew optional={optional} />,
     },
     {
       id: `${baseId}-${REF}`,
@@ -47,6 +47,11 @@ function CodesList({ selectorPath }) {
 
 CodesList.propTypes = {
   selectorPath: PropTypes.string.isRequired,
+  optional: PropTypes.bool,
 };
+
+CodesList.defaultProps = {
+  optional: false,
+}
 
 export default CodesList;
