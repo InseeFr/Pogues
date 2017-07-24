@@ -6,11 +6,10 @@ import Dictionary from 'utils/dictionary/dictionary';
 
 function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, setCurrentItemIndex }) {
   const noValueBlock =
-    fields.length === 0
-      ? <li>
-          {Dictionary[noValueLabel]}
-        </li>
-      : '';
+    fields.length === 0 &&
+    <li>
+      {Dictionary[noValueLabel]}
+    </li>;
 
   return (
     <ul className="list-entry-form_list">
@@ -82,8 +81,6 @@ class ListEntryForm extends Component {
 
     this.setCurrentItemIndex = this.setCurrentItemIndex.bind(this);
   }
-  componentWillUpdate(nextProps, nextState) {
-  }
   setCurrentItemIndex(index = '') {
     this.setState({
       currentItemIndex: index,
@@ -91,13 +88,13 @@ class ListEntryForm extends Component {
   }
   render() {
     const {
+      errors,
       inputView,
       submit,
       reset,
       select,
       remove,
       duplicate,
-      errors,
       listName,
       submitLabel,
       noValueLabel,

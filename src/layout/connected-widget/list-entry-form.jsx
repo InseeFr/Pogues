@@ -77,7 +77,6 @@ class ListEntryFormContainer extends Component {
     const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
     if (!this.validate(currentValues)) return;
-
     if (index) {
       items[index] = currentValues;
     } else {
@@ -98,12 +97,13 @@ class ListEntryFormContainer extends Component {
     if (errors.length > 0) {
       isValid = false;
       this.setState({
-        errors: ['hola', 'amigo'],
+        errors,
       });
     } else {
-      this.setState({ errors: [] });
+      this.setState({
+        errors: [],
+      });
     }
-
     return isValid;
   }
   render() {
