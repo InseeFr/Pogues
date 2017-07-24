@@ -24,6 +24,7 @@ export const defaultQuestionnaireModel = {
   genericName: QUESTIONNAIRE,
   children: [],
   depth: 0,
+  owner: '',
   type: SEQUENCE_TYPE_NAME,
   agency: 'fr.insee', // @TODO: This should not be constant,
   survey: {
@@ -47,13 +48,14 @@ export const defaultQuestionnaireModel = {
 };
 
 function modelToState(model) {
-  const { id, name, label: [label], agency, survey, components, codesLists, conditions } = model;
+  const { id, name, label: [label], agency, survey, components, codesLists, conditions, owner } = model;
   const questionnaireData = {
     id,
     name,
     label,
     agency,
     survey,
+    owner,
     components: Object.keys(components),
     codeLists: Object.keys(codesLists),
     conditions: Object.keys(conditions),

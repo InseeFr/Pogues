@@ -322,3 +322,94 @@ export function moveComponent(activesComponents, moveComponentId, newParentCompo
     ),
   };
 }
+
+/**
+ * In this method, we will remove entirely a component, we will remove its id from its parent, 
+ * and reset the weight of all its siblings.
+ * 
+ * @param {object} activesComponents The list of components currently displayed
+ * @param {string} idDeletedComponent The id of the component we want to remove
+ */
+export function remove(activesComponents, idDeletedComponent) {
+  const deletedComponent = activesComponents[idDeletedComponent];
+
+  const moves = Object.keys(activesComponents).reduce((acc, currentId) => {
+    if (currentId !== idDeletedComponent) {
+      acc[currentId] = {
+        ...activesComponents[currentId],
+        children: activesComponents[currentId].children.filter(childId => childId !== idDeletedComponent),
+      };
+    }
+    return acc;
+  }, {});
+
+  /*function doWeHaveComponentBefore(component, testFunction) {
+    return activesComponents[deletedComponent.parent].children
+      .map(id => activesComponents[id])
+      .find(c => c.weight < component.weight && testFunction(c));
+  }
+
+  if (deletedComponent.children.length > 0 && isSubSequence(deletedComponent)) {
+    const previousSubSequence = doWeHaveComponentBefore(deletedComponent, isSubSequence);
+
+    let newChildren = deletedComponent.children;
+    let newParentId;
+    let reduceFn;
+    if (!previousSubSequence) {
+      newChildren = [...deletedComponent.children, ...activesComponents[deletedComponent.parent].children];
+      newParentId = deletedComponent.parent;
+      reduceFn = (acc, id) => {
+        if (id === deletedComponent.id) {
+          return acc;
+        }
+        if (acc[id] && acc[id].parent === deletedComponent.id) {
+          return {
+            ...acc,
+            [id]: {
+              ...acc[id],
+              parent: deletedComponent.parent,
+              weight: deletedComponent.weight === 0 ? acc[id].weight : deletedComponent.weight + acc[id].weight,
+            },
+          };
+        }
+        return {
+          ...acc,
+          [id]: {
+            ...acc[id],
+            weight: acc[id].weight >= deletedComponent.weight
+              ? acc[id].weight + (deletedComponent.children.length - 1)
+              : acc[id].weight,
+          },
+        };
+      };
+    } else {
+      newParentId = previousSubSequence.id;
+      reduceFn = (acc, id) => {
+        return {
+          ...acc,
+          [id]: {
+            ...acc[id],
+            parent: previousSubSequence.id,
+            weight: acc[id].weight + previousSubSequence.children.length,
+          },
+        };
+      };
+    }
+
+    return newChildren.reduce(reduceFn, {
+      ...moves,
+      [newParentId]: {
+        ...moves[newParentId],
+        children: [...moves[newParentId].children, ...deletedComponent.children],
+      },
+    });
+  } else if (deletedComponent.children.length > 0 && isSequence(deletedComponent)) {
+    const previousSequence = doWeHaveComponentBefore(deletedComponent, isSequence);
+    let newChildren = deletedComponent.children;
+  }*/
+
+  return {
+    ...moves,
+    ...resetWeight(toComponents(moves[activesComponents[idDeletedComponent].parent].children, moves)),
+  };
+}
