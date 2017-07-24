@@ -227,7 +227,10 @@ function modelToState(model) {
   // @TODO: This logic should be moved to the Dimension and Response transformer
   const { dimensions, responses: [{ datatype: { typeName, visHint }, codeListReference: codesListId }] } = model;
   const primaryDimension = getDimension(PRIMARY, dimensions);
-  const state = { ...defaultMultipleState };
+  const state = {
+    [PRIMARY]: { ...defaultMultipleState[PRIMARY] },
+    [MEASURE]: { ...defaultMultipleState[MEASURE] },
+  };
 
   state[PRIMARY].codesListId = primaryDimension.codeListReference;
 

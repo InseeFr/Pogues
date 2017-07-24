@@ -109,6 +109,7 @@ function stateToModel(state) {
 function modelToState(model) {
   // @TODO: This logic should be moved to the Response transformer
   const { responses: [{ datatype: { visHint }, mandatory, codeListReference: codesListId }] } = model;
+
   const responseFormatSingleData = {
     codesListId,
     mandatory,

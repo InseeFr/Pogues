@@ -71,7 +71,12 @@ function stateToForm(state, activeCodeLists, activeCodes) {
 
 function stateToModel(state) {
   const { type, [type]: responseFormatState } = state;
-  const model = { ...defaultResponseFormatModel };
+  const model = {
+    responseStructure: {
+      dimensions: [],
+    },
+    responses: [],
+  };
   let responsesDimensions = {};
 
   if (type === SIMPLE) {
@@ -86,8 +91,8 @@ function stateToModel(state) {
     model.responseStructure.dimensions = responsesDimensions.dimensions;
   } else {
     responsesDimensions = ResponseFormatTable.stateToModel(responseFormatState);
-    model.responses = responsesDimensions.responses;
-    model.responseStructure.dimensions = responsesDimensions.dimensions;
+    model.responses = { ...responsesDimensions.responses };
+    model.responseStructure.dimensions = { ...responsesDimensions.dimensions };
   }
   return model;
 }
