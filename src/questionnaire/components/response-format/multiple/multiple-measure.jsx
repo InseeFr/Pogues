@@ -44,7 +44,7 @@ class ResponseFormatMultipleMeasure extends Component {
     return (
       <FormSection name={ResponseFormatMultipleMeasure.selectorPath}>
         <ComponentSelectoryByTypeContainer
-          label={Dictionary.measureFormat}
+          label={Dictionary.responseType}
           components={responseFormatTypes}
           selectorPath={this.selectorPathComposed}
           radio
