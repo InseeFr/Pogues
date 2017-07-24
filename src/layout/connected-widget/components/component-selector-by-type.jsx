@@ -10,7 +10,11 @@ function ComponentSelectorByType({ activeComponent, label, components, radio }) 
     ? <Field name="type" component={ListRadioButtons} label={label} radios={components} required />
     : <Field name="type" component={Select} label={label} options={components} required />;
 
-  const content = activeComponent.id ? <div key={activeComponent.id}>{activeComponent.content}</div> : '';
+  const content = activeComponent.id
+    ? <div key={activeComponent.id}>
+        {activeComponent.content}
+      </div>
+    : '';
 
   return (
     <div>

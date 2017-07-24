@@ -9,9 +9,19 @@ import ResponseFormatSingle from 'questionnaire/components/response-format/singl
 import Dictionary from 'utils/dictionary/dictionary';
 import { DIMENSION_TYPE, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
+import { defaultTableForm } from 'utils/transformation-entities/response-format-table';
 
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { MEASURE } = DIMENSION_TYPE;
+
+function validationMeasure(values) {
+  const { label, type, [type]: measureValues } = values;
+  const errors = [];
+
+  if (label === '') errors.push('Label is required');
+
+  return errors;
+}
 
 function InputMeasure(props) {
   const { selectorPath } = props;
@@ -32,7 +42,7 @@ function InputMeasure(props) {
   ];
   return (
     <div>
-      <Field name="label" type="text" component={Input} label={Dictionary.measureLabel} />
+      <Field name="label" type="text" component={Input} label={Dictionary.measureLabel} required />
 
       <ComponentSelectoryByTypeContainer
         label={Dictionary.responseFormats}
@@ -64,13 +74,16 @@ class ResponseFormatTableMeasures extends Component {
       : ResponseFormatTableMeasures.selectorPath;
   }
   render() {
+    const { [MEASURE]: { measures, ...initialInputValues } } = defaultTableForm;
     const inputMeasureView = <InputMeasure selectorPath={this.selectorPathComposed} />;
 
     return (
       <FormSection name={ResponseFormatTableMeasures.selectorPath}>
         <ListEntryFormContainer
           inputView={inputMeasureView}
+          initialInputValues={initialInputValues}
           selectorPath={this.selectorPathComposed}
+          validationInput={validationMeasure}
           listName="measures"
           submitLabel="addMeasure"
           noValueLabel="noMeasureYet"

@@ -345,7 +345,7 @@ const dictionary = {
   },
   responseType: {
     en: 'Response type',
-    fr: 'Type de réponses',
+    fr: 'Type de réponse',
   },
   addResponse: {
     en: 'Add a response',
@@ -471,8 +471,8 @@ const dictionary = {
     en: 'Primary axis format',
   },
   primaryAxis: {
-    fr: 'Axe principal',
-    en: 'Primary axis',
+    fr: "Axe d'information",
+    en: 'Information axis',
   },
   secondaryAxis: {
     fr: 'Axe secondarie',
@@ -481,6 +481,10 @@ const dictionary = {
   codeList: {
     fr: 'Liste de codes',
     en: 'Code list',
+  },
+  selectCodesListType: {
+    fr: 'Spécifier la liste de codes',
+    en: 'Specify the code list',
   },
   list: {
     fr: 'Liste',
@@ -539,16 +543,16 @@ const dictionary = {
     en: 'Boolean',
   },
   measureInfo: {
-    fr: 'Information mesurée',
-    en: 'Measure',
+    fr: 'Représentation des réponses',
+    en: 'Responses representation',
   },
   measureLabel: {
     fr: "Libellé de l'information mesurée",
     en: 'Measure label',
   },
   responseFormats: {
-    fr: 'Format des réponses',
-    en: 'Response formats',
+    fr: 'Type de question',
+    en: 'Question type',
   },
   addMeasure: {
     fr: 'Ajouter une modalité',
@@ -772,7 +776,7 @@ const dictionary = {
     en: 'Must be at least',
   },
   dropHere: {
-    fr: 'Déposez Ici!',
+    fr: 'Déposer ici!',
     en: 'Drop here!',
   },
 };

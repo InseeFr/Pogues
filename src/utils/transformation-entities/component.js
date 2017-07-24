@@ -108,7 +108,7 @@ function stateToModel(component) {
   };
 }
 
-function modelToState(model) {
+function modelToState(model, activeCodeLists = {}) {
   const {
     id,
     type,
@@ -145,11 +145,14 @@ function modelToState(model) {
     componentData.type = QUESTION;
     componentData.label = getQuestionLabelFromRaw(label);
     componentData.rawLabel = label;
-    componentData.responseFormat = ResponseFormat.modelToState({
-      type: questionType,
-      responses,
-      dimensions,
-    });
+    componentData.responseFormat = ResponseFormat.modelToState(
+      {
+        type: questionType,
+        responses,
+        dimensions,
+      },
+      activeCodeLists
+    );
   }
 
   return {

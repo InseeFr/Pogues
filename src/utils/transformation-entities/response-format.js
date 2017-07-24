@@ -97,7 +97,7 @@ function stateToModel(state) {
   return model;
 }
 
-function modelToState(model) {
+function modelToState(model, activeCodeLists = {}) {
   const { type, responses, dimensions } = model;
   let datatypeData = {};
 
@@ -108,7 +108,7 @@ function modelToState(model) {
   } else if (type === MULTIPLE_CHOICE) {
     datatypeData = ResponseFormatMultiple.modelToState({ dimensions, responses });
   } else if (type === TABLE) {
-    datatypeData = ResponseFormatTable.modelToState({ dimensions, responses });
+    datatypeData = ResponseFormatTable.modelToState({ dimensions, responses }, activeCodeLists);
   }
 
   const responseFormatData = {
