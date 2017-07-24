@@ -38,7 +38,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
           className="btn btn-link"
           onClick={event => {
             event.preventDefault();
-            setCurrentItemIndex(undefined);
+            setCurrentItemIndex();
             reset();
           }}
         >
@@ -69,22 +69,49 @@ class ListEntryForm extends Component {
     duplicate: PropTypes.func.isRequired,
     submitLabel: PropTypes.string.isRequired,
     noValueLabel: PropTypes.string.isRequired,
+    errors: PropTypes.array,
+  };
+  static defaultProps = {
+    errors: [],
   };
   constructor(props) {
     super(props);
     this.state = {
-      currentItemIndex: undefined,
+      currentItemIndex: '',
     };
 
     this.setCurrentItemIndex = this.setCurrentItemIndex.bind(this);
   }
-  setCurrentItemIndex(index) {
+  componentWillUpdate(nextProps, nextState) {
+  }
+  setCurrentItemIndex(index = '') {
     this.setState({
       currentItemIndex: index,
     });
   }
   render() {
-    const { inputView, submit, reset, select, remove, duplicate, listName, submitLabel, noValueLabel } = this.props;
+    const {
+      inputView,
+      submit,
+      reset,
+      select,
+      remove,
+      duplicate,
+      errors,
+      listName,
+      submitLabel,
+      noValueLabel,
+    } = this.props;
+    const styleErrors = {
+      display: errors.length > 0 ? 'block' : 'none',
+    };
+    const errorsList = errors.map((e, index) => {
+      return (
+        <li key={index}>
+          {e}
+        </li>
+      );
+    });
 
     return (
       <div className="list-entry-form">
@@ -99,6 +126,9 @@ class ListEntryForm extends Component {
         />
 
         <div className="list-entry-form_form">
+          <ul style={styleErrors} className="list-entry-form_form-errors">
+            {errorsList}
+          </ul>
           {inputView}
 
           <div className="list-entry-form_form-actions">
@@ -145,7 +175,7 @@ class ListEntryForm extends Component {
                   className="cancel"
                   onClick={event => {
                     event.preventDefault();
-                    this.setCurrentItemIndex(undefined);
+                    this.setCurrentItemIndex();
                     reset();
                   }}
                 >

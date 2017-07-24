@@ -14,6 +14,15 @@ import { defaultTableForm } from 'utils/transformation-entities/response-format-
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { MEASURE } = DIMENSION_TYPE;
 
+function validationMeasure(values) {
+  const { label, type, [type]: measureValues } = values;
+  const errors = [];
+
+  if (label === '') errors.push('Label is required');
+
+  return errors;
+}
+
 function InputMeasure(props) {
   const { selectorPath } = props;
   const baseId = selectorPath.split('.').join('-');
@@ -33,7 +42,7 @@ function InputMeasure(props) {
   ];
   return (
     <div>
-      <Field name="label" type="text" component={Input} label={Dictionary.measureLabel} />
+      <Field name="label" type="text" component={Input} label={Dictionary.measureLabel} required />
 
       <ComponentSelectoryByTypeContainer
         label={Dictionary.responseFormats}
@@ -74,6 +83,7 @@ class ResponseFormatTableMeasures extends Component {
           inputView={inputMeasureView}
           initialInputValues={initialInputValues}
           selectorPath={this.selectorPathComposed}
+          validationInput={validationMeasure}
           listName="measures"
           submitLabel="addMeasure"
           noValueLabel="noMeasureYet"
