@@ -271,7 +271,7 @@ function getDimensionsByType(type, dimensions) {
   let dimension;
 
   for (let i = 0; i < dimensions.length; i += 1) {
-    if (dimensions[i].type === type) {
+    if (dimensions[i].dimensionType === type) {
       dimension = dimensions[i];
       break;
     }
