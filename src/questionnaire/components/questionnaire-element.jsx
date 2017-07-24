@@ -69,6 +69,7 @@ class QuestionnaireElement extends Component {
       label,
       selected,
       children,
+      weight,
       childrenId,
       onClickElement,
       onClickDetail,
@@ -128,7 +129,11 @@ class QuestionnaireElement extends Component {
                     <button className="btn-yellow">
                       {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
                     </button>
-                    <button className="btn-yellow" onClick={onClickDelete}>
+                    <button
+                      className="btn-yellow"
+                      disabled={weight === 0 && type === 'SEQUENCE'}
+                      onClick={onClickDelete}
+                    >
                       {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
                     </button>
                   </div>
