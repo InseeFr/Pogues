@@ -28,9 +28,13 @@ class ResponseFormatMultiple extends Component {
   render() {
     return (
       <FormSection name={ResponseFormatMultiple.selectorPath} className="response-format__multiple">
-        <h3 className="axis-primary__head">{Dictionary.primaryAxis}</h3>
+        <h3 className="axis-primary__head">
+          {Dictionary.primaryAxis}
+        </h3>
         <ResponseFormatMultiplePrimary selectorPathParent={this.selectorPathComposed} />
-        <h3 className="axis-measure__head">{Dictionary.measureInfo}</h3>
+        <h3 className="axis-measure__head">
+          {Dictionary.measureInfo}
+        </h3>
         <ResponseFormatMultipleMeasure selectorPathParent={this.selectorPathComposed} />
       </FormSection>
     );
