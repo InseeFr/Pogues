@@ -16,6 +16,7 @@ class Questionnaire extends Component {
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
     selectedComponentId: PropTypes.string.isRequired,
+    removeComponent: PropTypes.func.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
   };
@@ -30,6 +31,7 @@ class Questionnaire extends Component {
     };
 
     this.handleElementSelect = this.handleElementSelect.bind(this);
+    this.handleElementDelete = this.handleRemoveElement.bind(this);
     this.handleOpenElementDetail = this.handleOpenElementDetail.bind(this);
     this.handleCloseElementDetail = this.handleCloseElementDetail.bind(this);
     this.handleOpenQuestionnaireDetail = this.handleOpenQuestionnaireDetail.bind(this);
@@ -46,6 +48,11 @@ class Questionnaire extends Component {
     this.props.setSelectedComponentId(newSelected);
   }
 
+  handleRemoveElement(event, idElement) {
+    event.stopPropagation();
+    if (!idElement) return;
+    this.props.removeComponent(idElement);
+  }
   handleOpenElementDetail(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
@@ -114,6 +121,7 @@ class Questionnaire extends Component {
             selected={isSelected}
             onClickElement={this.handleElementSelect}
             onClickDetail={event => this.handleOpenElementDetail(event, key)}
+            onClickDelete={event => this.handleRemoveElement(event, key)}
             moveComponent={moveComponent}
             childrenId={components[key].children}
             weight={components[key].weight}
