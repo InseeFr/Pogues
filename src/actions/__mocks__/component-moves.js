@@ -24,3 +24,10 @@ export function moveComponent(activesComponents, idMovedComponent, idTargetCompo
     newWeight,
   };
 }
+
+export function remove(activeComponentsById, idDeletedComponent) {
+  return {
+    activeComponentsById,
+    idDeletedComponent,
+  };
+}

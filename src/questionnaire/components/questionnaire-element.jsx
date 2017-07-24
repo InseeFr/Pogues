@@ -32,6 +32,7 @@ class QuestionnaireElement extends Component {
     childrenId: PropTypes.arrayOf(PropTypes.string),
     onClickElement: PropTypes.func.isRequired,
     onClickDetail: PropTypes.func.isRequired,
+    onClickDelete: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
     canDrop: PropTypes.bool.isRequired,
@@ -71,6 +72,7 @@ class QuestionnaireElement extends Component {
       childrenId,
       onClickElement,
       onClickDetail,
+      onClickDelete,
       parentType,
       draggedItem,
     } = this.props;
@@ -126,7 +128,7 @@ class QuestionnaireElement extends Component {
                     <button className="btn-yellow">
                       {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
                     </button>
-                    <button className="btn-yellow">
+                    <button className="btn-yellow" onClick={onClickDelete}>
                       {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
                     </button>
                   </div>

@@ -7,11 +7,12 @@ import {
   moveQuestionAndSubSequenceToSequence,
   increaseWeightOfAll,
   moveComponent,
+  remove,
 } from './component-moves';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
-
+export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
 /**
  * Create component
  *
@@ -165,5 +166,20 @@ export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) =>
         activeComponentsById: moveComponent(activesComponents, idMovedComponent, idTargetComponent, newWeight),
       },
     },
+  });
+};
+
+/**
+ * Method used when we click on the DELETE button on a SEQUENCE, SUBSEQUENCE or QUESTION
+ * 
+ * @param {string} idDeletedComponent the id of the component we want to remove
+ */
+export const removeComponent = idDeletedComponent => (dispatch, getState) => {
+  const state = getState();
+  const activeComponentsById = state.appState.activeComponentsById;
+
+  dispatch({
+    type: REMOVE_COMPONENT,
+    payload: remove(activeComponentsById, idDeletedComponent),
   });
 };
