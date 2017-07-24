@@ -426,7 +426,7 @@ function modelToStateMeasure(model) {
   };
 }
 
-function modelToState(model) {
+function modelToState(model, activeCodeLists) {
   const { dimensions, responses } = model;
   let responseOffset = 1;
   const dimensionSecondaryState = getDimensionsByType(SECONDARY, dimensions);
@@ -436,6 +436,11 @@ function modelToState(model) {
   let measuresStates = [];
   let measureState = {};
 
+  if (primaryState.type === CODES_LIST) {
+    const { CODES_LIST: { codesListId } } = primaryState;
+    responseOffset = activeCodeLists[codesListId].codes.length;
+  }
+
   if (dimensionSecondaryState) {
     secondaryState = modelToStateSecondary(dimensionSecondaryState);
     measureState = modelToStateMeasure({ label: dimensionMeasuresState[0].label, response: responses[0] });
@@ -443,10 +448,6 @@ function modelToState(model) {
     measuresStates = dimensionMeasuresState.map((m, index) => {
       return modelToStateMeasure({ label: m.label, response: responses[index * responseOffset] });
     });
-  }
-
-  if (primaryState.type === LIST) {
-    responseOffset = primaryState.numLinesMax || responseOffset;
   }
 
   return {

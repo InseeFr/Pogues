@@ -9,11 +9,11 @@ import { containsComment } from './model-utils';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-export function getComponentsFromNestedQuestionnaire(questionnaireChildren, questionnaireId) {
+export function getComponentsFromNestedQuestionnaire(questionnaireChildren, codesLists, questionnaireId) {
   function getComponentsFromNested(children, parent, carry) {
     let weight = 0;
     children.forEach(child => {
-      carry[child.id] = Component.modelToState({ ...child, weight, parent });
+      carry[child.id] = Component.modelToState({ ...child, weight, parent }, codesLists);
 
       weight += 1;
       if (child.children) getComponentsFromNested(child.children, child.id, carry);
@@ -84,10 +84,10 @@ export function getConditionsFromQuestions(questions) {
 
 export function questionnaireModelToState(questionnaireModel) {
   const { id, children, codeLists: { codeList } } = questionnaireModel;
-  const components = getComponentsFromNestedQuestionnaire(children, id);
+  const { codesLists, codes } = getCodesListAndCodesFromQuestionnaire(codeList);
+  const components = getComponentsFromNestedQuestionnaire(children, codesLists, id);
   const questionnaireComponent = Component.modelToState(questionnaireModel);
   const questions = filterQuestions(components);
-  const { codesLists, codes } = getCodesListAndCodesFromQuestionnaire(codeList);
   const conditions = getConditionsFromQuestions(questions);
   const questionnaire = Questionnaire.modelToState({ ...questionnaireModel, components, codesLists, conditions });
   const conditionByQuestionnaire = {
