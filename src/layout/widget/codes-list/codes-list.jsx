@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CodesListNew from './codes-list-new';
 import CodesListRef from './codes-list-ref';
 import CodesListQuestionnaire from './codes-list-questionnaire';
+import Dictionary from 'utils/dictionary/dictionary';
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 
@@ -36,7 +37,7 @@ function CodesList({ selectorPath, optional }) {
   return (
     <div>
       <ComponentSelectoryByTypeContainer
-        label="Formats de responses"
+        label={Dictionary.selectCodesListType}
         components={codesList}
         selectorPath={selectorPath}
         radio

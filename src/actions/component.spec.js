@@ -169,3 +169,40 @@ describe('dragComponent', () => {
     fn(dispatch, getState);
   });
 });
+
+describe('removeComponent', () => {
+  test('should trigger the REMOVE_COMPONENT action', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.removeComponent('1');
+
+    function dispatch(param) {
+      expect(param.type).toEqual(component.REMOVE_COMPONENT);
+    }
+    fn(dispatch, getState);
+  });
+
+  test('should call remove with the right parameter', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.removeComponent('1');
+
+    function dispatch(param) {
+      expect(param.payload).toEqual({
+        activeComponentsById: getState().appState.activeComponentsById,
+        idDeletedComponent: '1',
+      });
+    }
+    fn(dispatch, getState);
+  });
+});
