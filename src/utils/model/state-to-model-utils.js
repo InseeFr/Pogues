@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Questionnaire from 'utils/transformation-entities/questionnaire';
 import Component from 'utils/transformation-entities/component';
 import CodesList from 'utils/transformation-entities/codes-list';
@@ -104,6 +106,9 @@ export function questionnaireStateToModel(
   codesState = {}
 ) {
   let childrenModel = [];
+  componentsState = _.cloneDeep(componentsState);
+  codesListsState = _.cloneDeep(codesListsState);
+  codesState = _.cloneDeep(codesState);
   const codesListsIds = getCodesListsIdsToSave(componentsState, codesListsState);
   if (Object.keys(componentsState).length > 0)
     childrenModel = getNestedComponentsFromPlainList(questionnaireState.id, componentsState);

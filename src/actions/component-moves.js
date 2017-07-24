@@ -343,7 +343,7 @@ export function remove(activesComponents, idDeletedComponent) {
     return acc;
   }, {});
 
-  /*function doWeHaveComponentBefore(component, testFunction) {
+  /* function doWeHaveComponentBefore(component, testFunction) {
     return activesComponents[deletedComponent.parent].children
       .map(id => activesComponents[id])
       .find(c => c.weight < component.weight && testFunction(c));

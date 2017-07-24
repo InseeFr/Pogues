@@ -453,7 +453,7 @@ describe('remove', () => {
     });
   });
 
-  /*describe('when we remove a sequence', () => {
+  /* describe('when we remove a sequence', () => {
     test('if its n first children are question, they become the last children of the last subsequence of the previous sequence, only if the last component is a subsquence', () => {
       const activesComponents = {
         '1': { id: '1', weight: 0, type: QUESTIONNAIRE, children: ['2', '7', '12'] },
