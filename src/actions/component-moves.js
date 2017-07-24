@@ -343,7 +343,7 @@ export function remove(activesComponents, idDeletedComponent) {
     return acc;
   }, {});
 
-  function doWeHaveComponentBefore(component, testFunction) {
+  /*function doWeHaveComponentBefore(component, testFunction) {
     return activesComponents[deletedComponent.parent].children
       .map(id => activesComponents[id])
       .find(c => c.weight < component.weight && testFunction(c));
@@ -406,7 +406,7 @@ export function remove(activesComponents, idDeletedComponent) {
   } else if (deletedComponent.children.length > 0 && isSequence(deletedComponent)) {
     const previousSequence = doWeHaveComponentBefore(deletedComponent, isSequence);
     let newChildren = deletedComponent.children;
-  }
+  }*/
 
   return {
     ...moves,
