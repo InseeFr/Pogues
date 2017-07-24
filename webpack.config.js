@@ -33,7 +33,9 @@ const stats = {
 
 module.exports = function(env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
+  const nodeLocal = env && env.local ? 'local': 'remote';
   const isProd = nodeEnv === 'production';
+  const useLocalData = nodeLocal === 'local';
 
   /*
    PLUGINS
@@ -235,7 +237,22 @@ module.exports = function(env) {
           exclude: /node_modules/,
           use: ['babel-loader'],
         },
+        {
+          test: /config\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'config-loader',
+            options: {
+              useLocalData: useLocalData,
+            },
+          },
+        },
       ],
+    },
+    resolveLoader: {
+      alias: {
+        "config-loader": path.join(__dirname, "./config-loader"),
+      },
     },
     resolve: {
       extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],

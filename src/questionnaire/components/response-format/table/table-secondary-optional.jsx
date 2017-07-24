@@ -5,26 +5,17 @@ import PropTypes from 'prop-types';
 import Input from 'layout/forms/controls/input';
 import CodesList from 'layout/widget/codes-list/codes-list';
 import Dictionary from 'utils/dictionary/dictionary';
-import OptionalView from 'layout/widget/optional-view';
-import { required } from 'layout/forms/validation-rules';
+import OptionalViewContainer from 'layout/connected-widget/optional-view';
 
 function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   return (
     <div>
-      <CodesList selectorPath={selectorPath} />
-      <OptionalView
+      <CodesList selectorPath={selectorPath} optional />
+      <OptionalViewContainer
         name="showTotalLabel"
+        selectorPath={selectorPath}
         label={Dictionary.rowTotal}
-        view={
-          <Field
-            name="totalLabel"
-            type="text"
-            component={Input}
-            label={Dictionary.rowTotalLabel}
-            validate={[required]}
-            required
-          />
-        }
+        view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />}
       />
     </div>
   );

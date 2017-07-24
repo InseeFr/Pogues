@@ -39,9 +39,12 @@ function formToState(form) {
     mandatory,
     visHint,
     type,
-    codesListId: codesListState.codesList.id,
-    [type]: codesListState,
   };
+
+  if (codesListState.codesList.label !== '') {
+    state.codesListId = codesListState.codesList.id;
+    state[type] = codesListState;
+  }
 
   return {
     ...defaultSingleState,
@@ -106,6 +109,7 @@ function stateToModel(state) {
 function modelToState(model) {
   // @TODO: This logic should be moved to the Response transformer
   const { responses: [{ datatype: { visHint }, mandatory, codeListReference: codesListId }] } = model;
+
   const responseFormatSingleData = {
     codesListId,
     mandatory,

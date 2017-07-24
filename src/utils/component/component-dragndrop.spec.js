@@ -96,7 +96,7 @@ describe('cardTarget', () => {
       cardTarget.drop(props, m);
     });
 
-    /*[SEQUENCE, SUBSEQUENCE].forEach(type => {
+    /* [SEQUENCE, SUBSEQUENCE].forEach(type => {
       test(`when the dropped zone is ${type} without children, the parent should be equal to this dropped zone`, () => {
         const props = {
           type: SEQUENCE,
@@ -111,7 +111,7 @@ describe('cardTarget', () => {
       });
     });*/
 
-    /*[SEQUENCE, SUBSEQUENCE].forEach(type => {
+    /* [SEQUENCE, SUBSEQUENCE].forEach(type => {
       test(`when the dropped zone has children or is a ${type}, the parent should be equal to the parent of this dropped zone`, () => {
         const props = {
           type: SEQUENCE,

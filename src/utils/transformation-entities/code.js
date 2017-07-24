@@ -17,6 +17,7 @@ export const defaultCodeForm = {
 
 export const defaultCodeModel = {
   id: '',
+  code: '',
   label: '',
   value: '',
 };

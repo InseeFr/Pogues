@@ -163,6 +163,13 @@ function stateToFormMeasure(state, activeCodeLists, activeCodes) {
   };
 }
 
+function getDimension(type, dimensions) {
+  const result = dimensions.filter(d => {
+    return d.dimensionType === type;
+  });
+  return result.length > 0 ? result[0] : {};
+}
+
 function formToState(form) {
   const { [PRIMARY]: primaryForm, [MEASURE]: measureForm } = form;
   const state = {
@@ -216,18 +223,14 @@ function stateToModel(state) {
   };
 }
 
-function getDimension(type, dimensions) {
-  const result = dimensions.filter(d => {
-    return d.dimensionType === type;
-  });
-  return result.length > 0 ? result[0] : {};
-}
-
 function modelToState(model) {
   // @TODO: This logic should be moved to the Dimension and Response transformer
   const { dimensions, responses: [{ datatype: { typeName, visHint }, codeListReference: codesListId }] } = model;
   const primaryDimension = getDimension(PRIMARY, dimensions);
-  const state = { ...defaultMultipleState };
+  const state = {
+    [PRIMARY]: { ...defaultMultipleState[PRIMARY] },
+    [MEASURE]: { ...defaultMultipleState[MEASURE] },
+  };
 
   state[PRIMARY].codesListId = primaryDimension.codeListReference;
 
