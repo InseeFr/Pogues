@@ -1,50 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFormValues, getFormInitialValues, getFormSyncErrors, actions } from 'redux-form';
+import { getFormValues, getFormSyncErrors, actions } from 'redux-form';
+import _ from 'lodash';
 
 import ListEntryForm from './components/list-entry-form';
 
-function getPartialInitialValues(values, initialValues, ids, listName) {
-  let currentId;
-  let valuesRef = values;
-  let initialValuesRef = initialValues;
-  if (ids.length === 0) return initialValues;
-
-  while (ids.length > 0) {
-    currentId = ids.shift();
-    if (ids.length === 0) {
-      initialValuesRef[currentId][listName] = [...valuesRef[currentId][listName]];
-      valuesRef[currentId] = initialValuesRef[currentId];
-    }
-    valuesRef = valuesRef[currentId];
-    initialValuesRef = initialValuesRef[currentId];
-  }
-
-  return values;
-}
-
-function getDeepObjectReference(object, ids) {
-  if (!object) return object;
-
-  let result = object;
-  let currentId;
-  while (ids.length > 0) {
-    currentId = ids.shift();
-    result = result[currentId];
-  }
-  return result;
-}
-
 function validate(errors, values, selectorPath, touch) {
-  const currentErrors = getDeepObjectReference(errors, selectorPath.split('.'));
-  const currentValues = getDeepObjectReference(values, selectorPath.split('.'));
+  // const currentErrors = getDeepObjectReference(errors, selectorPath.split('.'));
+  // const currentValues = getDeepObjectReference(values, selectorPath.split('.'));
   // touch('question', `${this.selectorPathComposed}.label`);
+}
+
+function getValuesSubset(values, path) {
+  return _.cloneDeep(_.get(values, path));
+}
+
+function updateValues(values, path, item) {
+  const newValues = _.cloneDeep(values);
+  return _.update(newValues, path, currentValue => {
+    return {
+      ...currentValue,
+      ...item,
+    };
+  });
 }
 
 const mapStateToProps = state => {
   return {
-    initialValues: getFormInitialValues('question')(state),
     values: getFormValues('question')(state),
     errors: getFormSyncErrors('question')(state),
   };
@@ -53,7 +36,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   touch: actions.touch,
   initialize: actions.initialize,
-  arrayPush: actions.arrayPush,
 };
 
 class ListEntryFormContainer extends Component {
@@ -61,23 +43,54 @@ class ListEntryFormContainer extends Component {
     super(props);
     this.submit = this.submit.bind(this);
     this.reset = this.reset.bind(this);
+    this.select = this.select.bind(this);
+    this.remove = this.remove.bind(this);
+    this.duplicate = this.duplicate.bind(this);
   }
-  reset(event) {
-    event.preventDefault();
-    const { listName, initialValues, values, selectorPath, initialize } = this.props;
-    const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'), listName);
-    initialize('question', partialInitialValues);
+  select(index) {
+    const { listName, values, selectorPath, initialize } = this.props;
+    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`);
+    const newValues = updateValues(values, selectorPath, subset);
+    initialize('question', newValues);
   }
-  submit(event) {
-    event.preventDefault();
-    const { errors, values, touch, arrayPush, selectorPath, listName, initialValues, initialize } = this.props;
-    const { [listName]: list, ...currentValues } = getDeepObjectReference(values, selectorPath.split('.'));
+  remove(index) {
+    const { selectorPath, listName, values, initialInputValues, initialize } = this.props;
+    const items = getValuesSubset(values, `${selectorPath}.${listName}`);
+    items.splice(index, 1);
+    const subset = {
+      ..._.cloneDeep(initialInputValues),
+      [listName]: items,
+    };
+    const newValues = updateValues(values, selectorPath, subset);
+    initialize('question', newValues);
+  }
+  reset() {
+    const { listName, values, initialInputValues, selectorPath, initialize } = this.props;
+    const subset = {
+      ..._.cloneDeep(initialInputValues),
+      [listName]: [...getValuesSubset(values, `${selectorPath}.${listName}`)],
+    };
+    const newValues = updateValues(values, selectorPath, subset);
+    initialize('question', newValues);
+  }
+  duplicate() {
+    this.submit();
+  }
+  submit(index) {
+    const { errors, values, initialInputValues, touch, selectorPath, listName, initialize } = this.props;
+    const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
-    // if (validate(errors, values, selectorPath, touch)) {
-    arrayPush('question', `${selectorPath}.${listName}`, currentValues);
-    // const partialInitialValues = getPartialInitialValues(values, initialValues, selectorPath.split('.'));
-    // initialize('question', partialInitialValues);
-    // }
+    if (index) {
+      items[index] = currentValues;
+    } else {
+      items.push(currentValues);
+    }
+    const subset = {
+      ..._.cloneDeep(initialInputValues),
+      [listName]: items,
+    };
+    const newValues = updateValues(values, selectorPath, subset);
+    initialize('question', newValues);
   }
   render() {
     const { inputView, listName, submitLabel, noValueLabel } = this.props;
@@ -87,6 +100,9 @@ class ListEntryFormContainer extends Component {
         noValueLabel={noValueLabel}
         reset={this.reset}
         submit={this.submit}
+        select={this.select}
+        remove={this.remove}
+        duplicate={this.duplicate}
         inputView={inputView}
         listName={listName}
       />
@@ -96,12 +112,11 @@ class ListEntryFormContainer extends Component {
 
 ListEntryFormContainer.propTypes = {
   inputView: PropTypes.object.isRequired,
+  initialInputValues: PropTypes.object,
   selectorPath: PropTypes.string.isRequired,
   listName: PropTypes.string.isRequired,
   touch: PropTypes.func.isRequired,
-  arrayPush: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
-  initialValues: PropTypes.object,
   values: PropTypes.object,
   errors: PropTypes.object,
   submitLabel: PropTypes.string.isRequired,
@@ -109,7 +124,7 @@ ListEntryFormContainer.propTypes = {
 };
 
 ListEntryFormContainer.defaultProps = {
-  initialValues: {},
+  initialInputValues: {},
   values: {},
   errors: {},
 };

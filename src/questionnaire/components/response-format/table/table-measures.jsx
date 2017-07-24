@@ -9,6 +9,7 @@ import ResponseFormatSingle from 'questionnaire/components/response-format/singl
 import Dictionary from 'utils/dictionary/dictionary';
 import { DIMENSION_TYPE, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
+import { defaultTableForm } from 'utils/transformation-entities/response-format-table';
 
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { MEASURE } = DIMENSION_TYPE;
@@ -64,12 +65,14 @@ class ResponseFormatTableMeasures extends Component {
       : ResponseFormatTableMeasures.selectorPath;
   }
   render() {
+    const { [MEASURE]: { measures, ...initialInputValues } } = defaultTableForm;
     const inputMeasureView = <InputMeasure selectorPath={this.selectorPathComposed} />;
 
     return (
       <FormSection name={ResponseFormatTableMeasures.selectorPath}>
         <ListEntryFormContainer
           inputView={inputMeasureView}
+          initialInputValues={initialInputValues}
           selectorPath={this.selectorPathComposed}
           listName="measures"
           submitLabel="addMeasure"
