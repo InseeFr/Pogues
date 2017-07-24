@@ -7,7 +7,6 @@ import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component
 import ResponseFormatSimple from 'questionnaire/components/response-format/simple/response-format-simple';
 import ResponseFormatSingle from 'questionnaire/components/response-format/single/response-format-single';
 import Dictionary from 'utils/dictionary/dictionary';
-import { required } from 'layout/forms/validation-rules';
 import { DIMENSION_TYPE, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 
@@ -33,14 +32,7 @@ function InputMeasure(props) {
   ];
   return (
     <div>
-      <Field
-        name="label"
-        type="text"
-        component={Input}
-        label="Libellé de l'information mesurée"
-        validate={[required]}
-        required
-      />
+      <Field name="label" type="text" component={Input} label={Dictionary.measureLabel} />
 
       <ComponentSelectoryByTypeContainer
         label={Dictionary.responseFormats}

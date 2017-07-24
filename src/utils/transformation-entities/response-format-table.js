@@ -6,7 +6,9 @@ import {
   CODES_LIST_INPUT_ENUM,
   DATATYPE_NAME,
 } from 'constants/pogues-constants';
-import { defaultCodesListForm } from './codes-list';
+import CodesList, { defaultCodesListForm } from './codes-list';
+import ResponseFormatSimple from './response-format-simple';
+import ResponseFormatSingle from './response-format-single';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
@@ -51,8 +53,8 @@ export const defaultTableForm = {
         pattern: '',
       },
       [NUMERIC]: {
-        minimun: '',
-        maximun: '',
+        maximum: '',
+        minimum: '',
         decimals: '',
       },
       [DATE]: {},
@@ -72,11 +74,13 @@ export const defaultTableForm = {
 export const defaultTableState = {
   [PRIMARY]: {
     type: undefined,
+    showTotalLabel: false,
+    totalLabel: undefined,
   },
   [SECONDARY]: {
-    showSecondaryAxis: undefined,
+    showSecondaryAxis: false,
     codesListId: undefined,
-    showTotalLabel: undefined,
+    showTotalLabel: false,
     totalLabel: undefined,
     type: undefined,
   },
@@ -85,95 +89,131 @@ export const defaultTableState = {
   },
 };
 
-function formToState(form) {
+export const defaultTableModel = {
+  dimensions: [],
+  responses: [],
+};
 
+function formToStatePrimary(form) {
+  const { showTotalLabel, totalLabel, type: typePrimary, [typePrimary]: primaryForm } = form;
+  const state = {
+    showTotalLabel,
+    totalLabel,
+    type: typePrimary,
+  };
 
-  const { mandatory, visHint, codesListId, type, [type]: codesListForm } = form;
-  const responseFormatTableState = {
-    mandatory,
-    visHint,
+  if (typePrimary === CODES_LIST) {
+    const { type, [type]: codesListForm } = primaryForm;
+    const codesListState = CodesList.formToState(codesListForm);
+    state[CODES_LIST] = {
+      type,
+      codesListId: codesListState.codesList.id,
+      [type]: codesListState,
+    };
+  } else {
+    state[LIST] = { ...primaryForm };
+  }
+
+  return state;
+}
+
+function formToStateSecondary(form) {
+  const { showSecondaryAxis, showTotalLabel, totalLabel, type, [type]: codesListForm } = form;
+  let state = { ...defaultTableState[SECONDARY] };
+
+  if (showSecondaryAxis) {
+    const codesListState = CodesList.formToState(codesListForm);
+    state = {
+      ...state,
+      showSecondaryAxis,
+      showTotalLabel,
+      totalLabel,
+      type,
+      codesListId: codesListState.codesList.id,
+      [type]: codesListState,
+    };
+  }
+
+  return state;
+}
+
+function formToStateMeasure(form) {
+  const { measures } = form;
+  const measuresState = [];
+  measures.forEach(m => {
+    const { label, type: typeMeasure, [typeMeasure]: measureForm } = m;
+    const state = {
+      label,
+      type: typeMeasure,
+    };
+
+    if (typeMeasure === SIMPLE) {
+      state[SIMPLE] = { ...measureForm };
+    } else {
+      state[SINGLE_CHOICE] = ResponseFormatSingle.formToState(measureForm);
+    }
+    measuresState.push(state);
+  });
+
+  return {
+    measures: measuresState,
+  };
+}
+
+function stateToFormPrimary(state, activeCodeLists, activeCodes) {
+  const { showTotalLabel, totalLabel, type: typePrimary, [typePrimary]: primaryState } = state;
+  const form = {
+    ...defaultTableForm[PRIMARY],
+    showTotalLabel,
+    totalLabel,
+    type: typePrimary,
+  };
+
+  if (typePrimary === LIST) {
+    form[LIST] = { ...primaryState };
+  } else {
+    const { codesListId } = primaryState;
+    const codesList = activeCodeLists[codesListId];
+    if (codesList) {
+      form[CODES_LIST].codesListId = codesListId;
+      const codes = codesList.codes;
+
+      // @TODO: This could change
+      form[CODES_LIST][NEW] = {
+        codesList: {
+          id: codesList.id,
+          label: codesList.label,
+        },
+        codes: codes.map(key => {
+          return {
+            id: key,
+            code: activeCodes[key].code,
+            label: activeCodes[key].label,
+          };
+        }),
+      };
+    }
+  }
+
+  return form;
+}
+
+function stateToFormSecondary(state, activeCodeLists, activeCodes) {
+  const { showSecondaryAxis, showTotalLabel, totalLabel, codesListId, type } = state;
+  const codesList = activeCodeLists[codesListId];
+  const form = {
+    ...defaultTableForm[SECONDARY],
+    showSecondaryAxis,
+    showTotalLabel,
+    totalLabel,
     type,
   };
-  const stateCodesList = CodesList.formToState(codesListForm);
+  if (codesList) {
+    form.codesListId = codesListId;
+    const codes = codesList.codes;
 
-  responseFormatTableState.codesListId = stateCodesList.codesList.id;
-  responseFormatTableState[type] = stateCodesList;
-
-  return {
-    ...defaultTableState,
-    ...state,
-  };
-  // const { mandatory, visHint, codesListId, type, [type]: codesListForm } = form;
-  // const responseFormatTableState = {
-  //   mandatory,
-  //   visHint,
-  //   type,
-  // };
-  // const stateCodesList = CodesList.formToState(codesListForm);
-  //
-  // responseFormatTableState.codesListId = stateCodesList.codesList.id;
-  // responseFormatTableState[type] = stateCodesList;
-  //
-  // return {
-  //   ...defaultTableState,
-  //   ...responseFormatTableState,
-  // };
-}
-
-
-function getDimensionsByType(type, dimensions) {
-  return dimensions.filter(d => d.dimensionType === type)[0];
-}
-
-function getMeasures(dimensions) {
-  return dimensions.reduce((acc, d) => {
-    if (d.dimensionType === MEASURE) acc.push(d);
-    return acc;
-  }, []);
-}
-
-function modelToState(model) {
-  const { dimensions, responses } = model;
-  const responseFormatTableData = {};
-  const dimensionPrymaryState = getDimensionsByType(PRIMARY, dimensions);
-  const dimensionSecondaryState = getDimensionsByType(SECONDARY, dimensions);
-  const measuresStates = getMeasures(dimensions);
-  let responseOffset = 1;
-
-  responseFormatTableData.dimensionPrymary = Dimension.modelToState(dimensionPrymaryState);
-
-  if (responseFormatTableData.dimensionPrymary.mainDimensionFormat === LIST)
-    responseOffset = responseFormatTableData.dimensionPrymary.numLinesMax || responseOffset;
-
-  if (dimensionSecondaryState)
-    responseFormatTableData.dimensionSecondary = Dimension.modelToState(dimensionSecondaryState);
-
-  responseFormatTableData.measures = measuresStates.map((m, index) =>
-    Dimension.modelToState({ ...m, response: responses[index * responseOffset] })
-  );
-  return {
-    ...defaultTableState,
-    ...responseFormatTableData,
-  };
-}
-
-function stateToModel(state) {}
-
-function stateToForm(state, activeCodeLists, activeCodes) {
-  // @TODO: Measures and testing
-  const {
-    AXISPRINCIPAL: { type: axisPrincipalType, [axisPrincipalType]: axisPrincipal },
-    AXISSECONDARY: axisSecondary,
-    AXISMEASURES: { measures },
-  } = state;
-  const responseFormatTableForm = {};
-  let codesList;
-  let codes;
-
-  if (axisPrincipal === CODES_LIST) {
-    codesList = activeCodeLists[axisPrincipal.codesListId] || {};
-    codes = codesList.codes || [];
-    responseFormatTableForm.AXISPRINCIPAL[CODES_LIST][NEW] = {
+    // @TODO: This could change
+    form[NEW] = {
       codesList: {
         id: codesList.id,
         label: codesList.label,
@@ -188,29 +228,240 @@ function stateToForm(state, activeCodeLists, activeCodes) {
     };
   }
 
-  codesList = activeCodeLists[axisSecondary.codesListId] || {};
-  codes = codesList.codes || [];
-  responseFormatTableForm.AXISSECONDARY[NEW] = {
-    codesList: {
-      id: codesList.id,
-      label: codesList.label,
-    },
-    codes: codes.map(key => {
-      return {
-        id: key,
-        code: activeCodes[key].code,
-        label: activeCodes[key].label,
-      };
-    }),
+  return form;
+}
+
+function stateToFormMeasureItem(state, activeCodeLists, activeCodes) {
+  const { label, type: typeMeasure, [typeMeasure]: measureState } = state;
+  const form = {
+    label,
+    type: typeMeasure,
   };
 
+  if (typeMeasure === SIMPLE) {
+    form[SIMPLE] = { ...measureState };
+  } else {
+    form[SINGLE_CHOICE] = ResponseFormatSingle.stateToForm(measureState, activeCodeLists, activeCodes);
+  }
+
+  return form;
+}
+
+function stateToFormMeasure(state, showSecondaryAxis, activeCodeLists, activeCodes) {
+  const { measures, ...measureState } = state;
+  const measuresForm = [];
+  let measureForm = {};
+
+  if (showSecondaryAxis) {
+    measureForm = stateToFormMeasureItem(measureState, activeCodeLists, activeCodes);
+  } else {
+    measures.forEach(m => {
+      measuresForm.push(stateToFormMeasureItem(m, activeCodeLists, activeCodes));
+    });
+  }
+
   return {
-    ...defaultTableForm,
-    ...state,
-    ...responseFormatTableForm,
+    ...defaultTableForm[MEASURE],
+    ...measureForm,
+    measures: measuresForm,
   };
 }
 
+function getDimensionsByType(type, dimensions) {
+  let dimension;
+
+  for (let i = 0; i < dimensions.length; i += 1) {
+    if (dimensions[i].dimensionType === type) {
+      dimension = dimensions[i];
+      break;
+    }
+  }
+
+  return dimension;
+}
+
+function getMeasures(dimensions) {
+  return dimensions.reduce((acc, d) => {
+    if (d.dimensionType === MEASURE) acc.push(d);
+    return acc;
+  }, []);
+}
+
+function formToState(form) {
+  const { [PRIMARY]: primaryForm, [SECONDARY]: secondaryForm, [MEASURE]: measureForm } = form;
+  const state = {
+    [PRIMARY]: formToStatePrimary(primaryForm),
+    [SECONDARY]: formToStateSecondary(secondaryForm),
+    [MEASURE]: formToStateMeasure(measureForm),
+  };
+  return {
+    ...defaultTableState,
+    ...state,
+  };
+}
+
+function stateToForm(state, activeCodeLists, activeCodes) {
+  const {
+    [PRIMARY]: primaryState,
+    [SECONDARY]: { showSecondaryAxis, ...secondaryState },
+    [MEASURE]: measureState,
+  } = state;
+  const form = {
+    [PRIMARY]: stateToFormPrimary(primaryState, activeCodeLists, activeCodes),
+    [SECONDARY]: stateToFormSecondary({ showSecondaryAxis, ...secondaryState }, activeCodeLists, activeCodes),
+    [MEASURE]: stateToFormMeasure(measureState, showSecondaryAxis, activeCodeLists, activeCodes),
+  };
+  return {
+    ...defaultTableForm,
+    ...form,
+  };
+}
+
+function stateToModel(state) {
+  const {
+    [PRIMARY]: { type, [type]: primaryState, ...totalLabelPrimaryState },
+    [SECONDARY]: { showSecondaryAxis, ...secondaryState },
+    [MEASURE]: { measures, label, type: typeMeasure, [typeMeasure]: measureState },
+  } = state;
+  const dimensionsModel = [];
+  let responsesModel = [];
+  let measureResponses = {};
+
+  dimensionsModel.push(Dimension.stateToModel({ ...primaryState, ...totalLabelPrimaryState, type: PRIMARY }));
+
+  if (showSecondaryAxis) {
+    dimensionsModel.push(Dimension.stateToModel({ ...secondaryState, type: SECONDARY }));
+    dimensionsModel.push(Dimension.stateToModel({ label, type: MEASURE }));
+    if (typeMeasure === SIMPLE) {
+      measureResponses = ResponseFormatSimple.stateToModel(measureState);
+    } else {
+      measureResponses = ResponseFormatSingle.stateToModel(measureState);
+    }
+    responsesModel = [...responsesModel, ...measureResponses.responses];
+  } else {
+    measures.forEach(m => {
+      const { label: measureItemLabel, type: measureItemType, [measureItemType]: measureItemState } = m;
+      dimensionsModel.push(Dimension.stateToModel({ label: measureItemLabel, type: MEASURE }));
+      if (measureItemType === SIMPLE) {
+        measureResponses = ResponseFormatSimple.stateToModel(measureItemState);
+      } else {
+        measureResponses = ResponseFormatSingle.stateToModel(measureItemState);
+      }
+      responsesModel = [...responsesModel, ...measureResponses.responses];
+    });
+  }
+  return {
+    dimensions: dimensionsModel,
+    responses: responsesModel,
+  };
+}
+
+function parseDynamic(dynamic) {
+  return dynamic.split('-').map(v => {
+    return v.length > 0 ? parseInt(v, 10) : 0;
+  });
+}
+
+function modelToStatePrimary(model) {
+  const { totalLabel, dynamic, codeListReference } = model;
+  const state = {};
+
+  if (totalLabel) {
+    state.showTotalLabel = true;
+    state.totalLabel = totalLabel;
+  }
+
+  if (codeListReference) {
+    state.type = CODES_LIST;
+    state[CODES_LIST] = {
+      codesListId: codeListReference,
+    };
+  } else {
+    const [numLinesMin, numLinesMax] = parseDynamic(dynamic);
+    state.type = LIST;
+    state[LIST] = {};
+    state[LIST] = {
+      numLinesMin: numLinesMin,
+      numLinesMax: numLinesMax,
+    };
+  }
+
+  return {
+    ...defaultTableModel[PRIMARY],
+    ...state,
+  };
+}
+
+function modelToStateSecondary(model) {
+  const { totalLabel, codeListReference } = model;
+  const state = {
+    showSecondaryAxis: true,
+    codesListId: codeListReference,
+  };
+
+  if (totalLabel) {
+    state.showTotalLabel = true;
+    state.totalLabel = totalLabel;
+  }
+  return {
+    ...defaultTableModel[SECONDARY],
+    ...state,
+  };
+}
+
+function modelToStateMeasure(model) {
+  const { label, response: { codeListReference, datatype } } = model;
+  const state = {};
+
+  if (codeListReference) {
+    state.type = SINGLE_CHOICE;
+    state[SINGLE_CHOICE] = { ...ResponseFormatSingle.modelToState({ responses: [{ datatype, codeListReference }] }) };
+  } else {
+    state.type = SIMPLE;
+    state[SIMPLE] = { ...ResponseFormatSimple.modelToState({ responses: [{ datatype }] }) };
+  }
+  return {
+    label,
+    ...state,
+  };
+}
+
+function modelToState(model) {
+  const { dimensions, responses } = model;
+  let responseOffset = 1;
+  const dimensionSecondaryState = getDimensionsByType(SECONDARY, dimensions);
+  const primaryState = modelToStatePrimary(getDimensionsByType(PRIMARY, dimensions));
+  let secondaryState = { ...defaultTableState[SECONDARY] };
+  const dimensionMeasuresState = getMeasures(dimensions);
+  let measuresStates = [];
+  let measureState = {};
+
+  if (dimensionSecondaryState) {
+    secondaryState = modelToStateSecondary(dimensionSecondaryState);
+    measureState = modelToStateMeasure({ label: dimensionMeasuresState[0].label, response: responses[0] });
+  } else {
+    measuresStates = dimensionMeasuresState.map((m, index) => {
+      return modelToStateMeasure({ label: m.label, response: responses[index * responseOffset] });
+    });
+  }
+
+  if (primaryState.type === LIST) {
+    responseOffset = primaryState.numLinesMax || responseOffset;
+  }
+
+  return {
+    ...defaultTableState,
+    ...{
+      [PRIMARY]: primaryState,
+      [SECONDARY]: secondaryState,
+      [MEASURE]: {
+        ...defaultTableState[MEASURE],
+        ...measureState,
+        measures: measuresStates,
+      },
+    },
+  };
+}
 
 export default {
   modelToState,

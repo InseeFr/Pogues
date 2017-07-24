@@ -14,6 +14,7 @@ export function getComponentsFromNestedQuestionnaire(questionnaireChildren, ques
     let weight = 0;
     children.forEach(child => {
       carry[child.id] = Component.modelToState({ ...child, weight, parent });
+
       weight += 1;
       if (child.children) getComponentsFromNested(child.children, child.id, carry);
       return carry;
@@ -89,7 +90,6 @@ export function questionnaireModelToState(questionnaireModel) {
   const { codesLists, codes } = getCodesListAndCodesFromQuestionnaire(codeList);
   const conditions = getConditionsFromQuestions(questions);
   const questionnaire = Questionnaire.modelToState({ ...questionnaireModel, components, codesLists, conditions });
-
   const conditionByQuestionnaire = {
     [id]: {
       ...conditions,

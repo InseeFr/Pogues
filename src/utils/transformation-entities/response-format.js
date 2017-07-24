@@ -1,8 +1,8 @@
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import ResponseFormatSimple, { defaultSimpleForm } from './response-format-simple.js';
-import ResponseFormatSingle, { defaultSingleForm } from './response-format-single.js';
-import ResponseFormatMultiple, { defaultMultipleForm } from './response-format-multiple.js';
-import ResponseFormatTable, { defaultTableForm } from './response-format-table.js';
+import ResponseFormatSimple, { defaultSimpleForm } from './response-format-simple';
+import ResponseFormatSingle, { defaultSingleForm } from './response-format-single';
+import ResponseFormatMultiple, { defaultMultipleForm } from './response-format-multiple';
+import ResponseFormatTable, { defaultTableForm } from './response-format-table';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
@@ -71,22 +71,28 @@ function stateToForm(state, activeCodeLists, activeCodes) {
 
 function stateToModel(state) {
   const { type, [type]: responseFormatState } = state;
-  const model = { ...defaultResponseFormatModel };
+  const model = {
+    responseStructure: {
+      dimensions: [],
+    },
+    responses: [],
+  };
+  let responsesDimensions = {};
 
   if (type === SIMPLE) {
-    const { responses } = ResponseFormatSimple.stateToModel(responseFormatState);
-    model.responses = responses;
+    responsesDimensions = ResponseFormatSimple.stateToModel(responseFormatState);
+    model.responses = responsesDimensions.responses;
   } else if (type === SINGLE_CHOICE) {
-    const { responses } = ResponseFormatSingle.stateToModel(responseFormatState);
-    model.responses = responses;
+    responsesDimensions = ResponseFormatSingle.stateToModel(responseFormatState);
+    model.responses = responsesDimensions.responses;
   } else if (type === MULTIPLE_CHOICE) {
-    const { responses, dimensions } = ResponseFormatMultiple.stateToModel(responseFormatState);
-    model.responses = responses;
-    model.responseStructure.dimensions = dimensions;
+    responsesDimensions = ResponseFormatMultiple.stateToModel(responseFormatState);
+    model.responses = responsesDimensions.responses;
+    model.responseStructure.dimensions = responsesDimensions.dimensions;
   } else {
-    const { responses, dimensions } = ResponseFormatTable.stateToModel(responseFormatState);
-    model.responses = responses;
-    model.responseStructure.dimensions = dimensions;
+    responsesDimensions = ResponseFormatTable.stateToModel(responseFormatState);
+    model.responses = { ...responsesDimensions.responses };
+    model.responseStructure.dimensions = { ...responsesDimensions.dimensions };
   }
   return model;
 }
