@@ -30,15 +30,15 @@ class ResponseFormatTable extends Component {
     return (
       <FormSection name={ResponseFormatTable.selectorPath} className="response-format__table">
         <h3 className="axis-primary__head">
-          {Dictionary.primaryAxis}
+          {Dictionary.primaryAxisTable}
         </h3>
         <ResponseFormatTablePrimary selectorPathParent={this.selectorPathComposed} />
         <h3 className="axis-secondary__head">
-          {Dictionary.secondaryAxis}
+          {Dictionary.secondaryAxisTable}
         </h3>
         <ResponseFormatTableSecondary selectorPathParent={this.selectorPathComposed} />
         <h3 className="axis-measure__head">
-          {Dictionary.measureInfo}
+          {Dictionary.measuresAxisTable}
         </h3>
         <ResponseFormatTableMeasures selectorPathParent={this.selectorPathComposed} />
       </FormSection>
