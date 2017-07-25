@@ -136,6 +136,7 @@ class ListEntryForm extends Component {
                   className="btn btn-link"
                   onClick={event => {
                     event.preventDefault();
+                    this.setCurrentItemIndex();
                     remove(this.state.currentItemIndex);
                   }}
                 >
@@ -149,6 +150,7 @@ class ListEntryForm extends Component {
                   disabled={this.state.currentItemIndex === ''}
                   onClick={event => {
                     event.preventDefault();
+                    this.setCurrentItemIndex();
                     duplicate();
                   }}
                 >
@@ -161,6 +163,7 @@ class ListEntryForm extends Component {
                   className="btn-yellow"
                   onClick={event => {
                     event.preventDefault();
+                    this.setCurrentItemIndex();
                     submit(this.state.currentItemIndex);
                   }}
                 >

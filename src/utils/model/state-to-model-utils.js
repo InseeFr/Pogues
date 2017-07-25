@@ -57,8 +57,8 @@ export function getCodesListsIdsToSave(componentsState) {
   return codesListsIds;
 }
 
-export function getNestedComponentsFromPlainList(questionnaireId, listComponents) {
-  function serializePlainToNested(component, depth = 0) {
+export function getNestedComponentsFromPlainList(questionnaireId, listComponents, codesLists) {
+  function serializePlainToNested(component, codesLists, depth = 0) {
     const componentType = component.type;
     const newDepth = depth + 1;
 
@@ -70,11 +70,11 @@ export function getNestedComponentsFromPlainList(questionnaireId, listComponents
           return 0;
         })
         .map(key => {
-          return serializePlainToNested(listComponents[key], newDepth);
+          return serializePlainToNested(listComponents[key], codesLists, newDepth);
         });
     }
 
-    return Component.stateToModel({ ...component, depth: newDepth });
+    return Component.stateToModel({ ...component, depth: newDepth }, codesLists);
   }
 
   return listComponents[questionnaireId].children
@@ -83,7 +83,7 @@ export function getNestedComponentsFromPlainList(questionnaireId, listComponents
       if (listComponents[keyA].weight > listComponents[keyB].weight) return 1;
       return 0;
     })
-    .map(key => serializePlainToNested(listComponents[key]));
+    .map(key => serializePlainToNested(listComponents[key]), codesLists);
 }
 
 export function getNestedCodesListFromPlainList(codesListsIds, codesLists, codes) {
@@ -111,7 +111,7 @@ export function questionnaireStateToModel(
   codesState = _.cloneDeep(codesState);
   const codesListsIds = getCodesListsIdsToSave(componentsState, codesListsState);
   if (Object.keys(componentsState).length > 0)
-    childrenModel = getNestedComponentsFromPlainList(questionnaireState.id, componentsState);
+    childrenModel = getNestedComponentsFromPlainList(questionnaireState.id, componentsState, codesListsState);
   const codesListsModel = getNestedCodesListFromPlainList(codesListsIds, codesListsState, codesState);
   return Questionnaire.stateToModel(questionnaireState, childrenModel, codesListsModel);
 }
