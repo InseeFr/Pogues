@@ -776,7 +776,7 @@ const dictionary = {
     en: 'Must be at least',
   },
   dropHere: {
-    fr: 'Déposez Ici!',
+    fr: 'Déposer ici!',
     en: 'Drop here!',
   },
 };
