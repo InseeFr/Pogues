@@ -317,7 +317,7 @@ function stateToForm(state, activeCodeLists, activeCodes) {
   };
 }
 
-function stateToModel(state) {
+function stateToModel(state, activeCodeLists) {
   const {
     [PRIMARY]: { type, [type]: primaryState, ...totalLabelPrimaryState },
     [SECONDARY]: { showSecondaryAxis, ...secondaryState },
@@ -326,8 +326,17 @@ function stateToModel(state) {
   const dimensionsModel = [];
   let responsesModel = [];
   let measureResponses = {};
+  let responseOffset = 1;
 
   dimensionsModel.push(Dimension.stateToModel({ ...primaryState, ...totalLabelPrimaryState, type: PRIMARY }));
+
+  if (type === CODES_LIST && showSecondaryAxis) {
+    const { CODES_LIST: { codesListId } } = secondaryState;
+    responseOffset = activeCodeLists[codesListId].codes.length;
+  } else if (type === LIST) {
+    const { numLinesMin, numLinesMax } = primaryState;
+    responseOffset = numLinesMax - numLinesMin + 1;
+  }
 
   if (showSecondaryAxis) {
     dimensionsModel.push(Dimension.stateToModel({ ...secondaryState, type: SECONDARY }));
@@ -337,7 +346,9 @@ function stateToModel(state) {
     } else {
       measureResponses = ResponseFormatSingle.stateToModel(measureState);
     }
-    responsesModel = [...responsesModel, ...measureResponses.responses];
+    for (let i = 0; i < responseOffset; i += 1) {
+      responsesModel = [...responsesModel, ...measureResponses.responses];
+    }
   } else {
     measures.forEach(m => {
       const { label: measureItemLabel, type: measureItemType, [measureItemType]: measureItemState } = m;
@@ -347,7 +358,9 @@ function stateToModel(state) {
       } else {
         measureResponses = ResponseFormatSingle.stateToModel(measureItemState);
       }
-      responsesModel = [...responsesModel, ...measureResponses.responses];
+      for (let i = 0; i < responseOffset; i += 1) {
+        responsesModel = [...responsesModel, ...measureResponses.responses];
+      }
     });
   }
   return {
@@ -436,9 +449,12 @@ function modelToState(model, activeCodeLists) {
   let measuresStates = [];
   let measureState = {};
 
-  if (primaryState.type === CODES_LIST) {
-    const { CODES_LIST: { codesListId } } = primaryState;
+  if (primaryState.type === CODES_LIST && dimensionSecondaryState) {
+    const { CODES_LIST: { codesListId } } = secondaryState;
     responseOffset = activeCodeLists[codesListId].codes.length;
+  } else if (primaryState.type === LIST) {
+    const { LIST: { numLinesMin, numLinesMax } } = primaryState;
+    responseOffset = numLinesMax - numLinesMin + 1;
   }
 
   if (dimensionSecondaryState) {

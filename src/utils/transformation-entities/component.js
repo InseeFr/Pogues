@@ -79,7 +79,7 @@ function stateToForm(component, activeCodeLists, activeCodes) {
   };
 }
 
-function stateToModel(component) {
+function stateToModel(component, codesLists) {
   const { id, depth, name, label, type, children, responseFormat } = component;
   let componentModel = {
     id,
@@ -92,7 +92,7 @@ function stateToModel(component) {
   if (type === QUESTION) {
     componentModel.type = QUESTION_TYPE_NAME;
     componentModel.questionType = responseFormat.type;
-    componentModel = { ...componentModel, ...ResponseFormat.stateToModel(responseFormat) };
+    componentModel = { ...componentModel, ...ResponseFormat.stateToModel(responseFormat, codesLists) };
   } else {
     componentModel.type = SEQUENCE_TYPE_NAME;
     if (type === QUESTIONNAIRE) {

@@ -69,7 +69,7 @@ function stateToForm(state, activeCodeLists, activeCodes) {
   };
 }
 
-function stateToModel(state) {
+function stateToModel(state, codesLists) {
   const { type, [type]: responseFormatState } = state;
   const model = {
     responseStructure: {
@@ -90,9 +90,9 @@ function stateToModel(state) {
     model.responses = responsesDimensions.responses;
     model.responseStructure.dimensions = responsesDimensions.dimensions;
   } else {
-    responsesDimensions = ResponseFormatTable.stateToModel(responseFormatState);
+    responsesDimensions = ResponseFormatTable.stateToModel(responseFormatState, codesLists);
     model.responses = { ...responsesDimensions.responses };
-    model.responseStructure.dimensions = { ...responsesDimensions.dimensions };
+    model.responseStructure.dimensions = [...responsesDimensions.dimensions ];
   }
   return model;
 }
