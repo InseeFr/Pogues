@@ -3,7 +3,6 @@
 exports[`DropZone Should have this default template 1`] = `
 <div
   className="questionnaire-element-drop-zone"
-  style={Object {}}
 >
   <div
     className="questionnaire-element-label"

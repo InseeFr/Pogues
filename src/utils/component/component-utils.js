@@ -132,38 +132,30 @@ export function toId(components) {
   * Depending of the type of the component, we can not move any component
   * next to another one. For example, a QUESTION cannot be moved just after
   * a QUESTIONNAIRE.
-  * One specific rule is defined for for a SEQUENCE with no children. If this is 
-  * the case, we can move a SUBSQUENCE or a QUESTION INSIDE this sequence .
   *
-  * @param {object} movedComponent the component we are moving
-  * @param {object} newSibling the previous sibling of the moved component 
+  * @param {object} droppedComponent the component we are moving
+  * @param {object} draggedComponent the previous sibling of the moved component 
   */
-export function canMoveTo(movedComponent, newSiblingComponent) {
+export function couldInsertToSibling(droppedComponent, draggedComponent) {
   return (
-    (isSequence(newSiblingComponent) && newSiblingComponent.children.length === 0) ||
-    (isSequence(movedComponent) && isSequence(newSiblingComponent)) ||
-    (isQuestion(movedComponent) && isSubSequence(newSiblingComponent)) ||
-    (isSubSequence(movedComponent) && isSubSequence(newSiblingComponent)) ||
-    (isSubSequence(movedComponent) &&
-      isQuestion(newSiblingComponent) &&
-      newSiblingComponent.parentType !== SUBSEQUENCE) ||
-    (isQuestion(movedComponent) && isQuestion(newSiblingComponent))
+    droppedComponent.type === draggedComponent.type ||
+    (isQuestion(droppedComponent) && isSubSequence(draggedComponent)) ||
+    (isSubSequence(droppedComponent) && isQuestion(draggedComponent) && draggedComponent.parentType !== SUBSEQUENCE)
   );
 }
 
 /**
  * This method will check if in a specific use case, we can drag
  * a component inside another one. 
- * This is possible when the dropped zone is a SEQUENCE or SUBSEQUENCE
- * without child.
+ * This is possible when the dropped zone is a SEQUENCE or SUBSEQUENCE.
  *
- * @param {object} draggedComponent the dragger component
  * @param {object} droppedComponent the dropped component
+ * @param {object} draggedComponent the dragged component
  */
-export function couldInsertAsChild(draggedComponent, droppedComponent) {
+export function couldInsertAsChild(droppedComponent, draggedComponent) {
   return (
-    ((isSequence(droppedComponent) && (isQuestion(draggedComponent) || isSubSequence(draggedComponent))) ||
-      (isSubSequence(droppedComponent) && isQuestion(draggedComponent))) &&
-    droppedComponent.childrenId.length === 0
+    (isSequence(droppedComponent) && isQuestion(draggedComponent)) ||
+    (isSequence(droppedComponent) && isSubSequence(draggedComponent)) ||
+    (isSubSequence(droppedComponent) && isQuestion(draggedComponent))
   );
 }
