@@ -42,11 +42,18 @@ class ListEntryFormContainer extends Component {
     this.remove = this.remove.bind(this);
     this.duplicate = this.duplicate.bind(this);
     this.validate = this.validate.bind(this);
+    this.resetErrors = this.resetErrors.bind(this);
+  }
+  resetErrors() {
+    this.setState({
+      errors: [],
+    });
   }
   select(index) {
     const { listName, values, selectorPath, initialize } = this.props;
     const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`);
     const newValues = updateValues(values, selectorPath, subset);
+    this.resetErrors();
     initialize('question', newValues);
   }
   remove(index) {
@@ -58,6 +65,7 @@ class ListEntryFormContainer extends Component {
       [listName]: items,
     };
     const newValues = updateValues(values, selectorPath, subset);
+    this.resetErrors();
     initialize('question', newValues);
   }
   reset() {
@@ -67,6 +75,7 @@ class ListEntryFormContainer extends Component {
       [listName]: [...getValuesSubset(values, `${selectorPath}.${listName}`)],
     };
     const newValues = updateValues(values, selectorPath, subset);
+    this.resetErrors();
     initialize('question', newValues);
   }
   duplicate() {
@@ -77,7 +86,7 @@ class ListEntryFormContainer extends Component {
     const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
     if (!this.validate(currentValues)) return;
-    if (index) {
+    if (index !== '') {
       items[index] = currentValues;
     } else {
       items.push(currentValues);

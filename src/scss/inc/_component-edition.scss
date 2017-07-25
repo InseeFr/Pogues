@@ -31,6 +31,19 @@
       padding-left: 0;
     }
 
+    ul.list-entry-form_form-errors {
+      background-color: lighten(red, 45%);
+      padding: 10px;
+      list-style-type: circle;
+      margin-right: 40px;
+      li {
+        margin-left: 20px;
+        color: red;
+        font-size: $font-xs;
+        font-weight: bold;
+      }
+    }
+
     .list-entry-form_form-actions {
       flex-grow: 1;
       margin-top: 20px;
