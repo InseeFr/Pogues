@@ -21,8 +21,15 @@ describe('cardTarget', () => {
     },
   };
   describe('canDrop', () => {
-    test('should call canMoveTo method', () => {
-      expect(cardTarget.canDrop({}, monitor)).toEqual({ canMoveTo: true });
+    test('should call couldInsertToSibling method when dragndropPosition.margin = false', () => {
+      expect(cardTarget.canDrop({ dragndropPosition: { margin: false } }, monitor)).toEqual({
+        couldInsertToSibling: true,
+      });
+    });
+    test('should call couldInsertAsChild method when dragndropPosition.margin = true', () => {
+      expect(cardTarget.canDrop({ dragndropPosition: { margin: true } }, monitor)).toEqual({
+        couldInsertAsChild: true,
+      });
     });
   });
   describe('drop', () => {
@@ -42,6 +49,7 @@ describe('cardTarget', () => {
         moveComponent(movedComponentId, parentId, newWeight) {
           expect(newWeight).toEqual(0);
         },
+        dragndropPosition: { margin: true },
       };
       cardTarget.drop(props, m);
     });
@@ -54,6 +62,7 @@ describe('cardTarget', () => {
         moveComponent(movedComponentId, parentId, newWeight) {
           expect(newWeight).toEqual(4);
         },
+        dragndropPosition: { margin: false },
       };
       cardTarget.drop(props, m);
     });
@@ -65,6 +74,7 @@ describe('cardTarget', () => {
         moveComponent(movedComponentId, parentId, newWeight) {
           expect(newWeight).toEqual(0);
         },
+        dragndropPosition: { margin: true },
       };
       cardTarget.drop(props, m);
     });
@@ -79,6 +89,7 @@ describe('cardTarget', () => {
         moveComponent(movedComponentId, parentId) {
           expect(parentId).toEqual('1');
         },
+        dragndropPosition: { margin: true },
       };
       cardTarget.drop(props, m);
     });
@@ -92,39 +103,10 @@ describe('cardTarget', () => {
         moveComponent(movedComponentId, parentId) {
           expect(parentId).toEqual('2');
         },
+        dragndropPosition: { margin: false },
       };
       cardTarget.drop(props, m);
     });
-
-    /* [SEQUENCE, SUBSEQUENCE].forEach(type => {
-      test(`when the dropped zone is ${type} without children, the parent should be equal to this dropped zone`, () => {
-        const props = {
-          type: SEQUENCE,
-          parent: '2',
-          id: '1',
-          childrenId: [],
-          moveComponent(movedComponentId, parentId) {
-            expect(parentId).toEqual('1');
-          },
-        };
-        cardTarget.drop(props, m);
-      });
-    });*/
-
-    /* [SEQUENCE, SUBSEQUENCE].forEach(type => {
-      test(`when the dropped zone has children or is a ${type}, the parent should be equal to the parent of this dropped zone`, () => {
-        const props = {
-          type: SEQUENCE,
-          parent: '2',
-          id: '1',
-          childrenId: ['children'],
-          moveComponent(movedComponentId, parentId) {
-            expect(parentId).toEqual('2');
-          },
-        };
-        cardTarget.drop(props, m);
-      });
-    });*/
   });
 });
 

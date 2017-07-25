@@ -7,7 +7,7 @@ import DropZone from 'questionnaire/components/drop-zone/drop-zone';
 
 import { DragSource, DropTarget } from 'react-dnd';
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
-import { couldInsertAsChild } from 'utils/component/component-utils';
+import { couldInsertAsChild, couldInsertToSibling } from 'utils/component/component-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -35,10 +35,12 @@ class QuestionnaireElement extends Component {
     onClickDelete: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
-    canDrop: PropTypes.bool.isRequired,
+    canDrop: PropTypes.bool,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     draggedItem: PropTypes.object,
+    setPlaceholder: PropTypes.func,
+    dragndropPosition: PropTypes.object,
   };
   static defaultProps = {
     children: [],
@@ -76,24 +78,18 @@ class QuestionnaireElement extends Component {
       onClickDelete,
       parentType,
       draggedItem,
+      dragndropPosition,
     } = this.props;
 
-    let style = {};
-
-    /**
-     * If the component can have children but not yet, we will add the dragged component as child
-     */
-    if (couldInsertAsChild(draggedItem, this.props)) {
-      style = {
-        marginLeft: '25px',
-      };
-    }
+    const shouldDisplayPlaceholderAsChild = dragndropPosition.margin && couldInsertAsChild(this.props, draggedItem);
+    const shouldDisplayPlaceholderAsSibling =
+      draggedItem && !dragndropPosition.margin && couldInsertToSibling(this.props, draggedItem);
 
     /**
      * If a component is dragged, and if the current component can receive this component, we will add 
      * a drop zone. 
      */
-    const dropZone = isOver && canDrop && <DropZone style={style} />;
+    const dropZone = isOver && canDrop && <DropZone />;
 
     return connectDragSource(
       connectDropTarget(
@@ -139,9 +135,10 @@ class QuestionnaireElement extends Component {
                   </div>
                 : ''}
             </div>
+            {shouldDisplayPlaceholderAsChild && dropZone}
             {children}
           </div>
-          {dropZone}
+          {shouldDisplayPlaceholderAsSibling && dropZone}
         </div>
       )
     );
