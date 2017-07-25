@@ -5,19 +5,21 @@ import { dragComponent } from 'actions/component';
 
 import { setSelectedComponentId } from 'actions/app-state';
 import { removeComponent } from 'actions/component';
-
+import { setPlaceholder } from 'actions/dragndrop';
 import Questionnaire from 'questionnaire/components/questionnaire';
 
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
   components: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,
+  dragndropPosition: state.dragndropPosition,
 });
 
 const mapDispatchToProps = {
   setSelectedComponentId,
   dragComponent,
   removeComponent,
+  setPlaceholder,
 };
 
 class QuestionnaireContainer extends Component {
@@ -28,6 +30,8 @@ class QuestionnaireContainer extends Component {
     setSelectedComponentId: PropTypes.func.isRequired,
     dragComponent: PropTypes.func.isRequired,
     removeComponent: PropTypes.func.isRequired,
+    dragndropPosition: PropTypes.object,
+    setPlaceholder: PropTypes.func,
   };
 
   componentWillMount() {
@@ -35,10 +39,17 @@ class QuestionnaireContainer extends Component {
   }
 
   render() {
-    const { questionnaire, components, selectedComponentId, dragComponent, removeComponent } = this.props;
+    const {
+      questionnaire,
+      components,
+      selectedComponentId,
+      dragComponent,
+      dragndropPosition,
+      removeComponent,
+      setPlaceholder,
+    } = this.props;
 
     if (!questionnaire.id) return <span className="fa fa-spinner fa-pulse fa-2x" />;
-
     return (
       <Questionnaire
         questionnaire={questionnaire}
@@ -47,6 +58,8 @@ class QuestionnaireContainer extends Component {
         selectedComponentId={selectedComponentId}
         moveComponent={dragComponent}
         removeComponent={removeComponent}
+        setPlaceholder={setPlaceholder}
+        dragndropPosition={dragndropPosition}
       />
     );
   }
