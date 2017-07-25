@@ -44,26 +44,30 @@ function getCodesListsFromTable(form) {
   };
 
   const {
-    [PRIMARY]: { type: typePrimary, [typePrimary]: responseFormatPrimaryForm },
+    [PRIMARY]: { type: typePrimary, [typePrimary]: primaryForm },
     [SECONDARY]: { showSecondaryAxis, ...codesListSecondaryForm },
-    [MEASURE]: { measures },
+    [MEASURE]: { measures, type: typeMeasure, [typeMeasure]: measureForm },
   } = form;
 
   if (typePrimary === CODES_LIST) {
-    state = addToState(responseFormatPrimaryForm, state);
+    state = addToState(primaryForm, state);
   }
 
   if (showSecondaryAxis) {
     state = addToState(codesListSecondaryForm, state);
-  }
-
-  measures.forEach(m => {
-    const { type: typeMeasure, [typeMeasure]: measureForm } = m;
 
     if (typeMeasure === SINGLE_CHOICE) {
       state = addToState(measureForm, state);
     }
-  });
+  } else {
+    measures.forEach(m => {
+      const { type: typeMeasureItem, [typeMeasure]: measureFormItem } = m;
+
+      if (typeMeasureItem === SINGLE_CHOICE) {
+        state = addToState(measureFormItem, state);
+      }
+    });
+  }
 
   return state;
 }

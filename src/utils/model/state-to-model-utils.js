@@ -22,18 +22,20 @@ export function getCodesListsIdsFromResponseMultiple(responseFormatMultiple) {
 
 export function getCodesListsIdsFromResponseTable(responseFormatTable) {
   const codesListsIds = [];
-  const measures = responseFormatTable[MEASURE].measures;
+  const { measures, type: typeMeasure, [typeMeasure]: measureState } = responseFormatTable[MEASURE];
+
   if (responseFormatTable[PRIMARY].type === CODES_LIST) {
     codesListsIds.push(responseFormatTable[PRIMARY][CODES_LIST].codesListId);
   }
   if (responseFormatTable[SECONDARY].showSecondaryAxis) {
     codesListsIds.push(responseFormatTable[SECONDARY].codesListId);
+    if (typeMeasure === SINGLE_CHOICE) codesListsIds.push(measureState.codesListId);
+  } else {
+    measures.forEach(m => {
+      const { type: typeMeasureItem, [typeMeasureItem]: measureStateItem } = m;
+      if (typeMeasureItem === SINGLE_CHOICE) codesListsIds.push(measureStateItem.codesListId);
+    });
   }
-
-  measures.forEach(m => {
-    const { type, [type]: measureFormat } = m;
-    if (type === SINGLE_CHOICE) codesListsIds.push(measureFormat.codesListId);
-  });
 
   return codesListsIds;
 }
@@ -83,7 +85,7 @@ export function getNestedComponentsFromPlainList(questionnaireId, listComponents
       if (listComponents[keyA].weight > listComponents[keyB].weight) return 1;
       return 0;
     })
-    .map(key => serializePlainToNested(listComponents[key]), codesLists);
+    .map(key => serializePlainToNested(listComponents[key], codesLists));
 }
 
 export function getNestedCodesListFromPlainList(codesListsIds, codesLists, codes) {

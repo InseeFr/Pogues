@@ -45,7 +45,7 @@ function InputMeasure(props) {
       <Field name="label" type="text" component={Input} label={Dictionary.measureLabel} required />
 
       <ComponentSelectoryByTypeContainer
-        label={Dictionary.responseFormats}
+        label={Dictionary.typeMeasure}
         components={responseFormatTypes}
         selectorPath={selectorPath}
       />

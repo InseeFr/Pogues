@@ -92,7 +92,7 @@ function stateToModel(state, codesLists) {
   } else {
     responsesDimensions = ResponseFormatTable.stateToModel(responseFormatState, codesLists);
     model.responses = { ...responsesDimensions.responses };
-    model.responseStructure.dimensions = [...responsesDimensions.dimensions ];
+    model.responseStructure.dimensions = [...responsesDimensions.dimensions];
   }
   return model;
 }

@@ -74,13 +74,13 @@ export const defaultTableForm = {
 export const defaultTableState = {
   [PRIMARY]: {
     type: undefined,
-    showTotalLabel: false,
+    showTotalLabel: '0',
     totalLabel: undefined,
   },
   [SECONDARY]: {
-    showSecondaryAxis: false,
+    showSecondaryAxis: '0',
     codesListId: undefined,
-    showTotalLabel: false,
+    showTotalLabel: '0',
     totalLabel: undefined,
     type: undefined,
   },
@@ -137,26 +137,40 @@ function formToStateSecondary(form) {
   return state;
 }
 
-function formToStateMeasure(form) {
-  const { measures } = form;
-  const measuresState = [];
-  measures.forEach(m => {
-    const { label, type: typeMeasure, [typeMeasure]: measureForm } = m;
-    const state = {
-      label,
-      type: typeMeasure,
-    };
+function formToStateMeasure(form, showSecondaryAxis) {
+  const { measures, label, type: typeMeasure, [typeMeasure]: measureForm } = form;
+  const measureItemsState = [];
+  const measureState = {};
+
+  if (showSecondaryAxis) {
+    measureState.type = typeMeasure;
+    measureState.label = label;
 
     if (typeMeasure === SIMPLE) {
-      state[SIMPLE] = { ...measureForm };
+      measureState[SIMPLE] = { ...measureForm };
     } else {
-      state[SINGLE_CHOICE] = ResponseFormatSingle.formToState(measureForm);
+      measureState[SINGLE_CHOICE] = ResponseFormatSingle.formToState(measureForm);
     }
-    measuresState.push(state);
-  });
+  } else {
+    measures.forEach(m => {
+      const { label: labelItem, type: typeMeasureItem, [typeMeasureItem]: measureFormItem } = m;
+      const state = {
+        label: labelItem,
+        type: typeMeasureItem,
+      };
+
+      if (typeMeasureItem === SIMPLE) {
+        state[SIMPLE] = { ...measureFormItem };
+      } else {
+        state[SINGLE_CHOICE] = ResponseFormatSingle.formToState(measureFormItem);
+      }
+      measureItemsState.push(state);
+    });
+  }
 
   return {
-    measures: measuresState,
+    ...measureState,
+    measures: measureItemsState,
   };
 }
 
@@ -206,7 +220,7 @@ function stateToFormSecondary(state, activeCodeLists, activeCodes) {
     showSecondaryAxis,
     showTotalLabel,
     totalLabel,
-    type,
+    type: NEW,
   };
   if (codesList) {
     form.codesListId = codesListId;
@@ -292,7 +306,7 @@ function formToState(form) {
   const state = {
     [PRIMARY]: formToStatePrimary(primaryForm),
     [SECONDARY]: formToStateSecondary(secondaryForm),
-    [MEASURE]: formToStateMeasure(measureForm),
+    [MEASURE]: formToStateMeasure(measureForm, secondaryForm.showSecondaryAxis),
   };
   return {
     ...defaultTableState,
@@ -331,8 +345,8 @@ function stateToModel(state, activeCodeLists) {
   dimensionsModel.push(Dimension.stateToModel({ ...primaryState, ...totalLabelPrimaryState, type: PRIMARY }));
 
   if (type === CODES_LIST && showSecondaryAxis) {
-    const { CODES_LIST: { codesListId } } = secondaryState;
-    responseOffset = activeCodeLists[codesListId].codes.length;
+    const { codesListId } = secondaryState;
+    responseOffset = activeCodeLists[codesListId].codes.length || 1;
   } else if (type === LIST) {
     const { numLinesMin, numLinesMax } = primaryState;
     responseOffset = numLinesMax - numLinesMin + 1;
@@ -380,7 +394,7 @@ function modelToStatePrimary(model) {
   const state = {};
 
   if (totalLabel) {
-    state.showTotalLabel = true;
+    state.showTotalLabel = '1';
     state.totalLabel = totalLabel;
   }
 
@@ -413,11 +427,11 @@ function modelToStateSecondary(model) {
   };
 
   if (totalLabel) {
-    state.showTotalLabel = true;
+    state.showTotalLabel = '1';
     state.totalLabel = totalLabel;
   }
   return {
-    ...defaultTableModel[SECONDARY],
+    ...defaultTableState[SECONDARY],
     ...state,
   };
 }
@@ -450,19 +464,18 @@ function modelToState(model, activeCodeLists) {
   let measureState = {};
 
   if (primaryState.type === CODES_LIST && dimensionSecondaryState) {
-    const { CODES_LIST: { codesListId } } = secondaryState;
-    responseOffset = activeCodeLists[codesListId].codes.length;
+    secondaryState = modelToStateSecondary(dimensionSecondaryState);
+    const { codesListId } = secondaryState;
+    responseOffset = activeCodeLists[codesListId].codes.length || 1;
+    measureState = modelToStateMeasure({ label: dimensionMeasuresState[0].label, response: responses[0] });
   } else if (primaryState.type === LIST) {
     const { LIST: { numLinesMin, numLinesMax } } = primaryState;
     responseOffset = numLinesMax - numLinesMin + 1;
   }
 
-  if (dimensionSecondaryState) {
-    secondaryState = modelToStateSecondary(dimensionSecondaryState);
-    measureState = modelToStateMeasure({ label: dimensionMeasuresState[0].label, response: responses[0] });
-  } else {
+  if (!dimensionSecondaryState) {
     measuresStates = dimensionMeasuresState.map((m, index) => {
-      return modelToStateMeasure({ label: m.label, response: responses[index * responseOffset] });
+      return modelToStateMeasure({label: m.label, response: responses[index * responseOffset]});
     });
   }
 

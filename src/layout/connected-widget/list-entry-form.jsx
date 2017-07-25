@@ -86,7 +86,7 @@ class ListEntryFormContainer extends Component {
     const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
     if (!this.validate(currentValues)) return;
-    if (index !== '') {
+    if (index && index !== '') {
       items[index] = currentValues;
     } else {
       items.push(currentValues);
