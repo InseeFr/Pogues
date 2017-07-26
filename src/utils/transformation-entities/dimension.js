@@ -26,7 +26,7 @@ function stateToModel(state) {
   if (type === PRIMARY || type === SECONDARY) {
     if (codesListId) model.codeListReference = codesListId;
     if (showTotalLabel && totalLabel) model.totalLabel = totalLabel;
-    if (numLinesMin && numLinesMax) model.dynamic = `${numLinesMin}-${numLinesMax}`;
+    if (numLinesMin !== undefined && numLinesMax !== undefined) model.dynamic = `${numLinesMin}-${numLinesMax}`;
   }
 
   if (type === MEASURE && label) {
