@@ -33,11 +33,7 @@ class OptionalView extends Component {
   }
   render() {
     const { name, label, view, checkbox } = this.props;
-    const style = {
-      display: this.state.showOptionalView ? 'block' : 'none',
-    };
-    let selectorView;
-
+    const optionalView = this.state.showOptionalView && view;
     const options = [
       {
         value: '0',
@@ -48,30 +44,21 @@ class OptionalView extends Component {
         label: Dictionary.yes,
       },
     ];
-
-    if (checkbox) {
-      selectorView = (
-        <Field type="checkbox" name={name} component={Input} label={label} onChange={() => this.toggleOptionalView()} />
-      );
-    } else {
-      selectorView = (
-        <Field
+    const selectorView = checkbox
+      ? <Field type="checkbox" name={name} component={Input} label={label} onChange={() => this.toggleOptionalView()} />
+      : <Field
           name={name}
           component={ListRadioButtons}
           label={label}
           radios={options}
           required
           onChange={() => this.toggleOptionalView()}
-        />
-      );
-    }
+        />;
 
     return (
       <div className="optional-view">
         {selectorView}
-        <div style={style}>
-          {view}
-        </div>
+        {optionalView}
       </div>
     );
   }

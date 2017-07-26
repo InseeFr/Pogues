@@ -14,8 +14,8 @@ function ResponseFormatTableSecondaryOptional({ selectorPath }) {
       <OptionalViewContainer
         name="showTotalLabel"
         selectorPath={selectorPath}
-        label={Dictionary.rowTotal}
-        view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />}
+        label={Dictionary.columnTotal}
+        view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.columnTotalLabel} />}
       />
     </div>
   );

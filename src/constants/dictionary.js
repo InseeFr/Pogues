@@ -474,9 +474,21 @@ const dictionary = {
     fr: "Axe d'information",
     en: 'Information axis',
   },
+  primaryAxisTable: {
+    fr: "Axe d'information principal",
+    en: 'Primary information axis',
+  },
   secondaryAxis: {
     fr: 'Axe secondarie',
     en: 'Secondary axis',
+  },
+  secondaryAxisTable: {
+    fr: "Axe d'information principal secondarie",
+    en: 'Secondary information axis',
+  },
+  measuresAxisTable: {
+    fr: 'Information mesurée',
+    en: 'Measure information',
   },
   codeList: {
     fr: 'Liste de codes',
@@ -485,6 +497,18 @@ const dictionary = {
   selectCodesListType: {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
+  },
+  newCodesList: {
+    fr: 'Créer une liste',
+    en: 'Create a list',
+  },
+  refCodesList: {
+    fr: 'Retrouver dans le référentiel',
+    en: 'Retrieve in the repository',
+  },
+  questionnaireCodesList: {
+    fr: 'Retrouver dans le questionnaire',
+    en: 'Retrieve in the questionnaire',
   },
   list: {
     fr: 'Liste',
@@ -499,20 +523,20 @@ const dictionary = {
     en: 'Number of lines max.',
   },
   rowTotal: {
-    fr: 'Total ligne',
-    en: 'Row total',
+    fr: 'Afficher le total en ligne',
+    en: 'Display the row total',
   },
   rowTotalLabel: {
     fr: 'Libellé du total en ligne',
-    en: 'Row total label',
+    en: 'Column total label',
   },
   columnTotal: {
-    fr: 'Total colonne',
-    en: 'Column total',
+    fr: 'Afficher le total en colonne',
+    en: 'Show total in column',
   },
   columnTotalLabel: {
     fr: 'Libellé du total en colonne',
-    en: 'Column total label',
+    en: 'Total column label',
   },
   addScndAxis: {
     fr: 'Ajouter un axe secondaire',
@@ -555,12 +579,16 @@ const dictionary = {
     en: 'Question type',
   },
   addMeasure: {
-    fr: 'Ajouter une modalité',
+    fr: 'Ajouter une mesure',
     en: 'Add a measure',
   },
   noMeasureYet: {
     en: 'No measure yet',
-    fr: 'Aucune information mesurée definie',
+    fr: 'Aucune information mesurée définie',
+  },
+  typeMeasure: {
+    fr: 'Type de mesure',
+    en: 'Measure type',
   },
   addCondition: {
     fr: 'Ajouter une condition',
@@ -776,7 +804,7 @@ const dictionary = {
     en: 'Must be at least',
   },
   dropHere: {
-    fr: 'Déposez Ici!',
+    fr: 'Déposer ici!',
     en: 'Drop here!',
   },
 };

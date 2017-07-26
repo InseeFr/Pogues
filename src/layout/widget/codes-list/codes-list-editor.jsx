@@ -13,17 +13,22 @@ const CodesListLabel = ({
   toggleButtonClass,
   toggleCodesList,
   meta: { touched, error, warning },
-}) => (
+}) =>
   <div>
     <div className="codes-list__name">
       <input {...input} placeholder={placeholder} type={type} />
       <span className={toggleButtonClass} onClick={() => toggleCodesList()} />
     </div>
     {touched &&
-      ((error && <span className="form-error">{error}</span>) ||
-        (warning && <span className="form-warm">{warning}</span>))}
-  </div>
-);
+      ((error &&
+        <span className="form-error">
+          {error}
+        </span>) ||
+        (warning &&
+          <span className="form-warm">
+            {warning}
+          </span>))}
+  </div>;
 
 CodesListLabel.propTypes = {
   input: PropTypes.object.isRequired,
@@ -73,7 +78,9 @@ class codesListEditor extends Component {
       <div className="codes-list-editor">
         <FormSection name="codesList">
           <div className="ctrl-input">
-            <label htmlFor="input-label">{Dictionary.newCl}</label>
+            <label htmlFor="input-label">
+              {Dictionary.newCl}
+            </label>
             <Field
               name="label"
               id="input-label"

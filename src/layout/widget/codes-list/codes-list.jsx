@@ -16,19 +16,19 @@ function CodesList({ selectorPath, optional }) {
   const codesList = [
     {
       id: `${baseId}-${NEW}`,
-      label: 'Créer une liste',
+      label: Dictionary.newCodesList,
       value: NEW,
       content: <CodesListNew optional={optional} />,
     },
     {
       id: `${baseId}-${REF}`,
-      label: 'Retrouver dans le référentiel',
+      label: Dictionary.refCodesList,
       value: REF,
       content: <CodesListRef />,
     },
     {
       id: `${baseId}-${QUESTIONNAIRE}`,
-      label: 'Retrouver dans le questionnaire',
+      label: Dictionary.questionnaireCodesList,
       value: QUESTIONNAIRE,
       content: <CodesListQuestionnaire />,
     },

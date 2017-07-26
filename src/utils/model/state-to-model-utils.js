@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Questionnaire from 'utils/transformation-entities/questionnaire';
 import Component from 'utils/transformation-entities/component';
 import CodesList from 'utils/transformation-entities/codes-list';
@@ -20,18 +22,20 @@ export function getCodesListsIdsFromResponseMultiple(responseFormatMultiple) {
 
 export function getCodesListsIdsFromResponseTable(responseFormatTable) {
   const codesListsIds = [];
-  const measures = responseFormatTable[MEASURE].measures;
+  const { measures, type: typeMeasure, [typeMeasure]: measureState } = responseFormatTable[MEASURE];
+
   if (responseFormatTable[PRIMARY].type === CODES_LIST) {
     codesListsIds.push(responseFormatTable[PRIMARY][CODES_LIST].codesListId);
   }
   if (responseFormatTable[SECONDARY].showSecondaryAxis) {
     codesListsIds.push(responseFormatTable[SECONDARY].codesListId);
+    if (typeMeasure === SINGLE_CHOICE) codesListsIds.push(measureState.codesListId);
+  } else {
+    measures.forEach(m => {
+      const { type: typeMeasureItem, [typeMeasureItem]: measureStateItem } = m;
+      if (typeMeasureItem === SINGLE_CHOICE) codesListsIds.push(measureStateItem.codesListId);
+    });
   }
-
-  measures.forEach(m => {
-    const { type, [type]: measureFormat } = m;
-    if (type === SINGLE_CHOICE) codesListsIds.push(measureFormat.codesListId);
-  });
 
   return codesListsIds;
 }
@@ -55,8 +59,8 @@ export function getCodesListsIdsToSave(componentsState) {
   return codesListsIds;
 }
 
-export function getNestedComponentsFromPlainList(questionnaireId, listComponents) {
-  function serializePlainToNested(component, depth = 0) {
+export function getNestedComponentsFromPlainList(questionnaireId, listComponents, codesLists) {
+  function serializePlainToNested(component, codesLists, depth = 0) {
     const componentType = component.type;
     const newDepth = depth + 1;
 
@@ -68,11 +72,11 @@ export function getNestedComponentsFromPlainList(questionnaireId, listComponents
           return 0;
         })
         .map(key => {
-          return serializePlainToNested(listComponents[key], newDepth);
+          return serializePlainToNested(listComponents[key], codesLists, newDepth);
         });
     }
 
-    return Component.stateToModel({ ...component, depth: newDepth });
+    return Component.stateToModel({ ...component, depth: newDepth }, codesLists);
   }
 
   return listComponents[questionnaireId].children
@@ -81,7 +85,7 @@ export function getNestedComponentsFromPlainList(questionnaireId, listComponents
       if (listComponents[keyA].weight > listComponents[keyB].weight) return 1;
       return 0;
     })
-    .map(key => serializePlainToNested(listComponents[key]));
+    .map(key => serializePlainToNested(listComponents[key], codesLists));
 }
 
 export function getNestedCodesListFromPlainList(codesListsIds, codesLists, codes) {
@@ -104,9 +108,12 @@ export function questionnaireStateToModel(
   codesState = {}
 ) {
   let childrenModel = [];
+  componentsState = _.cloneDeep(componentsState);
+  codesListsState = _.cloneDeep(codesListsState);
+  codesState = _.cloneDeep(codesState);
   const codesListsIds = getCodesListsIdsToSave(componentsState, codesListsState);
   if (Object.keys(componentsState).length > 0)
-    childrenModel = getNestedComponentsFromPlainList(questionnaireState.id, componentsState);
+    childrenModel = getNestedComponentsFromPlainList(questionnaireState.id, componentsState, codesListsState);
   const codesListsModel = getNestedCodesListFromPlainList(codesListsIds, codesListsState, codesState);
   return Questionnaire.stateToModel(questionnaireState, childrenModel, codesListsModel);
 }
