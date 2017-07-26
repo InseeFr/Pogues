@@ -34,7 +34,7 @@ export const defaultTableForm = {
     totalLabel: '',
   },
   [SECONDARY]: {
-    showSecondaryAxis: '',
+    showSecondaryAxis: false,
     codesListId: '',
     showTotalLabel: '0',
     totalLabel: '',
@@ -78,7 +78,7 @@ export const defaultTableState = {
     totalLabel: undefined,
   },
   [SECONDARY]: {
-    showSecondaryAxis: '0',
+    showSecondaryAxis: false,
     codesListId: undefined,
     showTotalLabel: '0',
     totalLabel: undefined,
