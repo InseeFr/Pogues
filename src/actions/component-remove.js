@@ -122,13 +122,13 @@ export function removeSequence(activesComponents, deletedComponent) {
   );
 
   // From the previous SEQUENCE, we will get the last component
-  const lastComponentFromPreviousSequence = sortBy(['-id'])(toComponents(previousSequence.children, activesComponents))[
-    previousSequence.children.length - 1
-  ];
+  const lastComponentFromPreviousSequence = sortBy(['weight'])(
+    toComponents(previousSequence.children, activesComponents)
+  )[previousSequence.children.length - 1];
 
   let firstQuestionsToMove = [];
 
-  // If the last component is a subsequence, we will get the first n QUESTION of the deleted component 
+  // If the last component is a subsequence, we will get the first n QUESTION of the deleted component
   if (isSubSequence(lastComponentFromPreviousSequence)) {
     firstQuestionsToMove = takeWhile(c => isQuestion(c))(childrenToMove);
   }
