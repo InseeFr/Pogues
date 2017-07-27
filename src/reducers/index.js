@@ -9,7 +9,6 @@ import declarationByQuestionnaire from 'reducers/declaration-by-questionnaire';
 import conditionByQuestionnaire from 'reducers/condition-by-questionnaire';
 import codeListByQuestionnaire from 'reducers/code-list-by-questionnaire';
 import codeByQuestionnaire from 'reducers/code-by-questionnaire';
-import dragndropPosition from 'reducers/dragndrop';
 
 import integrityChecker from 'utils/reducer/integrity-checker';
 import combineCheckers from 'utils/reducer/combine-checkers';
@@ -26,7 +25,6 @@ export default integrityChecker(
     conditionByQuestionnaire,
     codeListByQuestionnaire,
     codeByQuestionnaire,
-    dragndropPosition,
   }),
   combineCheckers(checkerQuestionnaireLength)
 );
