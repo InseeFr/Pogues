@@ -209,3 +209,44 @@ describe('removeComponent', () => {
     fn(dispatch, getState);
   });
 });
+
+describe('duplicateComponent', () => {
+  test('should trigger the CREATE_COMPONENT action', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.duplicateComponent('1');
+
+    function dispatch(param) {
+      expect(param.type).toEqual(component.CREATE_COMPONENT);
+    }
+    fn(dispatch, getState);
+  });
+
+  test('should call duplicate function with the right parameters', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.duplicateComponent('2');
+
+    function dispatch(param) {
+      expect(param.payload).toEqual({
+        update: {
+          activeComponentsById: {
+            activesComponents: getState().appState.activeComponentsById,
+            idComponent: '2',
+          },
+        },
+      });
+    }
+    fn(dispatch, getState);
+  });
+});
