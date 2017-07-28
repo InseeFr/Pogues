@@ -1,248 +1,521 @@
 jest.dontMock('./component.js');
 
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import Component, { defaultComponentState } from './component';
+import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
+import Component, { defaultComponentForm, defaultComponentState, defaultComponentModel } from './component';
+import { defaultResponseFormatForm, defaultResponseFormatState, defaultResponseFormatModel } from './response-format';
+import { defaultDeclarationForm, defaultDeclarationState } from './declaration';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 describe('Transformation entities - Component', () => {
-  test('modelToState with a QUESTION', () => {
-    const model = {
-      depth: 2,
-      genericName: '',
-      id: 'j4fa6x79',
-      label: ['This is the label'],
-      name: 'THISIS',
-      questionType: 'SIMPLE',
-      type: 'QuestionType',
-      parent: 'j4e9h4f9',
-      weight: '0',
-      responses: [
-        {
-          datatype: {
-            type: 'NumericDatatypeType',
-            maximum: 99999999,
-            minimum: 0,
-            decimals: 2,
-            typeName: 'NUMERIC',
-          },
-          mandatory: false,
-        },
-      ],
-    };
-    const expected = {
-      ...defaultComponentState,
-      id: model.id,
-      type: QUESTION,
-      name: model.name,
-      label: model.label[0],
-      rawLabel: model.label[0],
-      parent: model.parent,
-      weight: model.weight,
-      responseFormat: {
-        type: model.questionType,
-        [model.questionType]: {
-          type: 'NUMERIC',
-          mandatory: false,
-          NUMERIC: {
-            maximum: 99999999,
-            minimum: 0,
-            decimals: 2,
-          },
-        },
-      },
-    };
+  // Form
 
-    expect(Component.modelToState(model)).toEqual(expected);
+  const questionnaireForm = {
+    label: 'This is a questionnaire',
+  };
+
+  const sequenceForm = {
+    label: 'This is a sequence',
+  };
+
+  const subsequence = {
+    label: 'This is a subsequence',
+  };
+
+  const questionForm = {
+    label: 'This is a question',
+    responseFormat: defaultResponseFormatForm,
+    declarations: defaultDeclarationForm,
+  };
+
+  // State
+
+  const questionnaireState = {
+    id: 'jx564532',
+    type: QUESTIONNAIRE,
+    parent: '',
+    weight: 0,
+    name: 'THISISAQUE',
+    label: 'This is a questionnaire',
+    rawLabel: undefined,
+    responseFormat: undefined,
+    children: [],
+    declarations: undefined,
+  };
+
+  const sequenceState = {
+    id: 'jx5hj532',
+    type: SEQUENCE,
+    parent: 'jx564532',
+    weight: 0,
+    name: 'THISISASEQ',
+    label: 'This is a sequence',
+    rawLabel: undefined,
+    children: [],
+    responseFormat: undefined,
+    declarations: undefined,
+  };
+
+  const subsequenceState = {
+    id: 'jx504532',
+    type: SUBSEQUENCE,
+    parent: 'jx5hj532',
+    weight: 0,
+    name: 'THISISASUB',
+    label: 'This is a subsequence',
+    rawLabel: undefined,
+    children: [],
+    responseFormat: undefined,
+    declarations: undefined,
+  };
+
+  const questionState = {
+    id: 'jxaz4532',
+    type: QUESTION,
+    parent: 'jx5hj532',
+    weight: 0,
+    name: 'THISISAQUE',
+    label: 'This is a question',
+    rawLabel: 'This is a question',
+    children: [],
+    responseFormat: defaultResponseFormatState,
+    declarations: defaultDeclarationState,
+  };
+
+  const components = {
+    jx564532: questionnaireState,
+    jx5hj532: sequenceState,
+    jx504532: subsequenceState,
+    jxaz4532: questionState,
+  };
+
+  // Model
+
+  const questionnaireModel = {
+    id: 'jx564532',
+    type: SEQUENCE_TYPE_NAME,
+    name: 'THISISAQUE',
+    label: ['This is a questionnaire'],
+    genericName: 'QUESTIONNAIRE',
+    depth: 0,
+    questionType: '',
+    children: [],
+    responses: [],
+    responseStructure: {
+      dimensions: {},
+    },
+    declarations: [],
+  };
+  const sequenceModel = {
+    id: 'jx5hj532',
+    type: SEQUENCE_TYPE_NAME,
+    name: 'THISISASEQ',
+    label: ['This is a sequence'],
+    genericName: 'MODULE',
+    depth: 1,
+    questionType: '',
+    children: [],
+    responses: [],
+    responseStructure: {
+      dimensions: {},
+    },
+    declarations: [],
+  };
+
+  const subsequenceModel = {
+    id: 'jx504532',
+    type: SEQUENCE_TYPE_NAME,
+    name: 'THISISASUB',
+    label: ['This is a subsequence'],
+    genericName: 'MODULE',
+    depth: 2,
+    questionType: '',
+    children: [],
+    responses: [],
+    responseStructure: {
+      dimensions: {},
+    },
+    declarations: [],
+  };
+
+  const questionModel = {
+    id: 'jxaz4532',
+    type: QUESTION_TYPE_NAME,
+    name: 'THISISAQUE',
+    label: ['This is a question'],
+    genericName: '',
+    depth: 2,
+    children: [],
+    declarations: [],
+    ...defaultResponseFormatModel,
+  };
+
+  test('Default form shape should be the expected', () => {
+    const expectedForm = {
+      label: '',
+      name: '',
+    };
+    expect(defaultComponentForm).toEqual(expectedForm);
   });
-  test('modelToState with a QUESTIONNAIRE', () => {
-    const model = {
-      depth: 0,
-      genericName: 'QUESTIONNAIRE',
-      id: 'j4e9h4f9',
-      label: ['This is the label'],
-      name: 'THISIS',
-      type: 'SequenceType',
-      children: [
-        {
-          id: 'ret5454',
-        },
-        {
-          id: 'aer5454',
-        },
-      ],
-    };
-    const expected = {
-      ...defaultComponentState,
-      id: model.id,
-      type: QUESTIONNAIRE,
-      name: model.name,
-      label: model.label[0],
-      parent: '',
-      weight: 0,
-      children: ['ret5454', 'aer5454'],
-    };
-    expect(Component.modelToState(model)).toEqual(expected);
-  });
-  test('modelToState with a SEQUENCE', () => {
-    const model = {
-      depth: 1,
-      genericName: 'MODULE',
-      id: 'j4e9h4f9',
-      label: ['This is the label'],
-      name: 'THISIS',
-      type: 'SequenceType',
-      parent: '545sdf',
-      weight: 5,
-      children: [
-        {
-          id: 'ret5454',
-        },
-        {
-          id: 'aer5454',
-        },
-      ],
-    };
-    const expected = {
-      ...defaultComponentState,
-      id: model.id,
-      type: SEQUENCE,
-      name: model.name,
-      label: model.label[0],
-      parent: model.parent,
-      weight: model.weight,
-      children: ['ret5454', 'aer5454'],
-    };
-    expect(Component.modelToState(model)).toEqual(expected);
-  });
-  test('modelToState with a SUBSEQUENCE', () => {
-    const model = {
-      depth: 2,
-      genericName: 'MODULE',
-      id: 'j4e9h4f9',
-      label: ['This is the label'],
-      name: 'THISIS',
-      type: 'SequenceType',
-      parent: '545sdf',
-      weight: 2,
-      children: [
-        {
-          id: 'ret5454',
-        },
-        {
-          id: 'aer5454',
-        },
-      ],
-    };
-    const expected = {
-      ...defaultComponentState,
-      id: model.id,
-      type: SUBSEQUENCE,
-      name: model.name,
-      label: model.label[0],
-      parent: model.parent,
-      weight: model.weight,
-      children: ['ret5454', 'aer5454'],
-    };
-    expect(Component.modelToState(model)).toEqual(expected);
-  });
-  test.skip('stateToModel with QUESTION', () => {
-    const state = {
-      ...defaultComponentState,
-      id: 'j4e9h4f9',
-      type: QUESTION,
-      depth: 4,
-      name: 'THISISQ',
-      label: 'This is a question',
-    };
-    const expected = {
-      genericName: '',
-      id: 'j4e9h4f9',
-      label: ['This is a question'],
-      name: 'THISISQ',
-      type: 'QuestionType',
-    };
-    expect(Component.stateToModel(state)).toEqual(expected);
-  });
-  test.skip('stateToModel with QUESTIONNAIRE', () => {
-    const state = {
-      ...defaultComponentState,
-      id: 'j4e9h4f9',
-      type: QUESTIONNAIRE,
-      depth: 0,
-      name: 'THISISQ',
-      label: 'This is a questionnaire',
-    };
-    const expected = {
-      genericName: 'QUESTIONNAIRE',
-      id: 'j4e9h4f9',
-      label: ['This is a questionnaire'],
-      name: 'THISISQ',
-      type: 'SequenceType',
-    };
-    expect(Component.stateToModel(state)).toEqual(expected);
-  });
-  test('formToState with SEQUENCE', () => {
-    const form = {
-      label: 'This is the sequence/subsequence',
-    };
-    const id = 'xxxxxx01';
-    const parent = 'j4tv05xr';
-    const type = 'SEQUENCE';
-    const weight = 0;
-    const expected = {
-      id,
-      type,
-      parent,
-      weight: 0,
-      name: 'THISISTHES',
-      label: 'This is the sequence/subsequence',
+
+  test('Default state shape should be the expected', () => {
+    const expectedState = {
+      id: undefined,
+      type: undefined,
+      parent: undefined,
+      weight: undefined,
+      name: undefined,
+      label: undefined,
       rawLabel: undefined,
+      children: [],
       responseFormat: undefined,
-      children: [],
+      declarations: undefined,
     };
-    expect(Component.formToState({ ...form, id, parent, type, weight })).toEqual(expected);
+    expect(defaultComponentState).toEqual(expectedState);
   });
-  test('formToState with QUESTION', () => {
-    const form = {
-      label: 'This is the question',
-      responseFormat: {
-        type: 'SIMPLE',
-        SIMPLE: {
-          mandatory: true,
-          type: 'TEXT',
-          TEXT: {
-            maxLength: 255,
-            pattern: 'This is the pattern',
-          },
-        },
-      },
-    };
-    const id = 'xxxxxx01';
-    const parent = 'j4tv05xr';
-    const type = 'QUESTION';
-    const weight = 0;
-    const expected = {
-      id,
-      type,
-      parent,
-      weight: 0,
-      name: 'THISISTHEQ',
-      label: 'This is the question',
-      rawLabel: 'This is the question',
+
+  test('Default model shape should be the expected', () => {
+    const expectedModel = {
+      id: '',
+      type: '',
+      name: '',
+      label: [],
+      genericName: '',
+      depth: 0,
+      questionType: '',
       children: [],
-      responseFormat: {
-        type: 'SIMPLE',
-        SIMPLE: {
-          mandatory: true,
-          type: 'TEXT',
-          TEXT: {
-            maxLength: 255,
-            pattern: 'This is the pattern',
-          },
-        },
+      responses: [],
+      responseStructure: {
+        dimensions: {},
       },
+      declarations: [],
     };
-    expect(Component.formToState({ ...form, id, parent, type, weight })).toEqual(expected);
+    expect(defaultComponentModel).toEqual(expectedModel);
+  });
+
+  describe('Form to state', () => {
+    test('Questionnaire new', () => {
+      const form = {
+        ...questionnaireForm,
+        id: 'jx564532',
+        type: QUESTIONNAIRE,
+      };
+      expect(Component.formToState(form)).toEqual(questionnaireState);
+    });
+
+    test('Questionnaire update', () => {
+      const form = {
+        ...questionnaireForm,
+        id: 'jx564532',
+        type: QUESTIONNAIRE,
+        name: 'custom name',
+        children: ['jx5hj532'],
+      };
+      const expectedState = {
+        ...questionnaireState,
+        name: 'custom name',
+        children: ['jx5hj532'],
+      };
+      expect(Component.formToState(form)).toEqual(expectedState);
+    });
+
+    test('Sequence new', () => {
+      const form = {
+        ...sequenceForm,
+        id: 'jx5hj532',
+        type: SEQUENCE,
+        parent: 'jx564532',
+        weight: 0,
+      };
+      expect(Component.formToState(form)).toEqual(sequenceState);
+    });
+
+    test('Sequence update', () => {
+      const form = {
+        ...sequenceForm,
+        id: 'jx5hj532',
+        type: SEQUENCE,
+        parent: 'jx564532',
+        weight: 0,
+        name: 'custom name',
+        children: ['x543479e'],
+      };
+      const expectedState = {
+        ...sequenceState,
+        name: 'custom name',
+        children: ['x543479e'],
+      };
+      expect(Component.formToState(form)).toEqual(expectedState);
+    });
+
+    test('Sub-sequence new', () => {
+      const form = {
+        ...subsequence,
+        id: 'jx504532',
+        type: SUBSEQUENCE,
+        parent: 'jx5hj532',
+        weight: 0,
+      };
+      expect(Component.formToState(form)).toEqual(subsequenceState);
+    });
+
+    test('Sub-subsequence update', () => {
+      const form = {
+        ...subsequence,
+        id: 'jx504532',
+        type: SUBSEQUENCE,
+        parent: 'jx5hj532',
+        weight: 0,
+        name: 'custom name',
+        children: ['x543479e'],
+      };
+      const expectedState = {
+        ...subsequenceState,
+        name: 'custom name',
+        children: ['x543479e'],
+      };
+      expect(Component.formToState(form)).toEqual(expectedState);
+    });
+
+    test('Question new', () => {
+      const form = {
+        ...questionForm,
+        id: 'jxaz4532',
+        type: QUESTION,
+        parent: 'jx5hj532',
+        weight: 0,
+      };
+      expect(Component.formToState(form)).toEqual(questionState);
+    });
+
+    test('Question update', () => {
+      const form = {
+        ...questionForm,
+        id: 'jxaz4532',
+        type: QUESTION,
+        parent: 'jx5hj532',
+        weight: 0,
+        name: 'custom name',
+      };
+      const expectedState = {
+        ...questionState,
+        name: 'custom name',
+      };
+      expect(Component.formToState(form)).toEqual(expectedState);
+    });
+  });
+
+  describe('State to form', () => {
+    test('Questionnaire', () => {
+      const expectedForm = {
+        ...questionnaireForm,
+        name: 'THISISAQUE',
+      };
+      expect(Component.stateToForm(questionnaireState)).toEqual(expectedForm);
+    });
+
+    test('Sequence', () => {
+      const expectedForm = {
+        ...sequenceForm,
+        name: 'THISISASEQ',
+      };
+      expect(Component.stateToForm(sequenceState)).toEqual(expectedForm);
+    });
+
+    test('Sub-sequence', () => {
+      const expectedForm = {
+        ...subsequence,
+        name: 'THISISASUB',
+      };
+      expect(Component.stateToForm(subsequenceState)).toEqual(expectedForm);
+    });
+
+    test('Question', () => {
+      const expectedForm = {
+        ...questionForm,
+        name: 'THISISAQUE',
+      };
+      expect(Component.stateToForm(questionState)).toEqual(expectedForm);
+    });
+  });
+
+  describe('State to Model', () => {
+    test('Questionnaire', () => {
+      const state = {
+        ...questionnaireState,
+        depth: 0,
+      };
+      expect(Component.stateToModel(state, components)).toEqual(questionnaireModel);
+    });
+
+    test('Questionnaire with sequence', () => {
+      const state = {
+        ...questionnaireState,
+        depth: 0,
+        children: ['jx5hj532'],
+      };
+      const expectedModel = {
+        ...questionnaireModel,
+        children: [sequenceModel],
+      };
+      expect(Component.stateToModel(state, components)).toEqual(expectedModel);
+    });
+
+    test.only('Questionnaire with sequence -> subsequence', () => {
+      const customComponents = {
+        ...components,
+        aa5hj532: {
+          id: 'aa5hj532',
+          type: SEQUENCE,
+          parent: 'jx564532',
+          weight: 0,
+          name: 'THISISASEQ',
+          label: 'This is a sequence',
+          rawLabel: undefined,
+          children: ['jx504532'],
+          responseFormat: undefined,
+          declarations: undefined,
+        },
+      };
+      const state = {
+        ...questionnaireState,
+        depth: 0,
+        children: ['aa5hj532'],
+      };
+      const expectedModel = {
+        ...questionnaireModel,
+        children: [
+          {
+            ...sequenceModel,
+            id: 'aa5hj532',
+            children: [subsequenceModel],
+          },
+        ],
+      };
+      expect(Component.stateToModel(state, customComponents)).toEqual(expectedModel);
+    });
+
+    test('Sequence', () => {
+      const state = {
+        ...sequenceState,
+        depth: 1,
+      };
+      expect(Component.stateToModel(state, components)).toEqual(sequenceModel);
+    });
+
+    test('Sequence with subsequence', () => {
+      const state = {
+        ...sequenceState,
+        depth: 1,
+        children: ['jx504532'],
+      };
+      const expectedModel = {
+        ...sequenceModel,
+        children: [subsequenceModel],
+      };
+      expect(Component.stateToModel(state, components)).toEqual(expectedModel);
+    });
+
+    test('Sequence with subsequence and question', () => {
+      const state = {
+        ...sequenceState,
+        depth: 1,
+        children: ['jx504532', 'jxaz4532'],
+      };
+      const expectedModel = {
+        ...sequenceModel,
+        children: [subsequenceModel, questionModel],
+      };
+      expect(Component.stateToModel(state, components)).toEqual(expectedModel);
+    });
+
+    test('Subsequence', () => {
+      const state = {
+        ...subsequenceState,
+        depth: 2,
+      };
+      expect(Component.stateToModel(state, components)).toEqual(subsequenceModel);
+    });
+
+    test('Question', () => {
+      const state = {
+        ...questionState,
+        depth: 2,
+      };
+      expect(Component.stateToModel(state, components)).toEqual(questionModel);
+    });
+  });
+
+  describe('Model to State', () => {
+    test('Questionnaire', () => {
+      expect(Component.modelToState(questionnaireModel)).toEqual(questionnaireState);
+    });
+    test('Questionnaire with sequence', () => {
+      const model = {
+        ...questionnaireModel,
+        children: [sequenceModel],
+      };
+      const expectedState = {
+        ...questionnaireState,
+        children: ['jx5hj532'],
+      };
+      expect(Component.modelToState(model)).toEqual(expectedState);
+    });
+    test('Questionnaire with sequence -> question', () => {
+      const model = {
+        ...questionnaireModel,
+        children: [
+          {
+            ...sequenceModel,
+            children: [questionModel],
+          },
+        ],
+      };
+      const expectedState = {
+        ...questionnaireState,
+        children: ['jx5hj532'],
+      };
+      expect(Component.modelToState(model)).toEqual(expectedState);
+    });
+    test('Sequence', () => {
+      const model = {
+        ...sequenceModel,
+        parent: 'jx564532',
+        weight: 0,
+      };
+
+      expect(Component.modelToState(model)).toEqual(sequenceState);
+    });
+    test('Sequence with subsequence', () => {
+      const model = {
+        ...sequenceModel,
+        parent: 'jx564532',
+        weight: 0,
+        children: [subsequenceModel],
+      };
+      const expectedState = {
+        ...sequenceState,
+        children: ['jx504532'],
+      };
+      expect(Component.modelToState(model)).toEqual(expectedState);
+    });
+    test('Subsequence', () => {
+      const model = {
+        ...subsequenceModel,
+        parent: 'jx5hj532',
+        weight: 0,
+      };
+
+      expect(Component.modelToState(model)).toEqual(subsequenceState);
+    });
+    test('Question', () => {
+      const model = {
+        ...questionModel,
+        parent: 'jx5hj532',
+        weight: 0,
+      };
+
+      expect(Component.modelToState(model)).toEqual(questionState);
+    });
   });
 });

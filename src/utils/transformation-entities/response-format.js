@@ -1,5 +1,9 @@
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import ResponseFormatSimple, { defaultSimpleForm } from './response-format-simple';
+import ResponseFormatSimple, {
+  defaultSimpleForm,
+  defaultSimpleState,
+  defaultSimpleModel,
+} from './response-format-simple';
 import ResponseFormatSingle, { defaultSingleForm } from './response-format-single';
 import ResponseFormatMultiple, { defaultMultipleForm } from './response-format-multiple';
 import ResponseFormatTable, { defaultTableForm } from './response-format-table';
@@ -15,7 +19,8 @@ export const defaultResponseFormatForm = {
 };
 
 export const defaultResponseFormatState = {
-  type: undefined,
+  [SIMPLE]: { ...defaultSimpleState },
+  type: SIMPLE,
 };
 
 export const defaultResponseFormatModel = {
@@ -23,6 +28,8 @@ export const defaultResponseFormatModel = {
     dimensions: [],
   },
   responses: [],
+  questionType: SIMPLE,
+  ...defaultSimpleModel,
 };
 
 function formToState(form) {
@@ -38,7 +45,7 @@ function formToState(form) {
   } else if (type === TABLE) {
     state[type] = ResponseFormatTable.formToState(responseFormatForm);
   } else {
-    state[type] = { ...responseFormatForm };
+    state[type] = ResponseFormatSimple.formToState(responseFormatForm);
   }
 
   return {
@@ -60,7 +67,7 @@ function stateToForm(state, activeCodeLists, activeCodes) {
   } else if (type === TABLE) {
     form[type] = ResponseFormatTable.stateToForm(responseFormatState, activeCodeLists, activeCodes);
   } else {
-    form[type] = { ...responseFormatState };
+    form[type] = ResponseFormatSimple.stateToForm(responseFormatState);
   }
 
   return {

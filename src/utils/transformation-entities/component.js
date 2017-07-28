@@ -1,12 +1,16 @@
+import _ from 'lodash';
+
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import ResponseFormat from './response-format';
+import Declaration from './declaration';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const defaultComponentForm = {
   label: '',
+  name: '',
 };
 
 export const defaultComponentState = {
@@ -19,50 +23,69 @@ export const defaultComponentState = {
   rawLabel: undefined,
   children: [],
   responseFormat: undefined,
+  declarations: undefined,
 };
 
 export const defaultComponentModel = {
-  type: '',
   id: '',
+  type: '',
   name: '',
   label: [],
   genericName: '',
   depth: 0,
-  goTos: [],
-  declarations: [],
-  controls: [],
-  children: [],
   questionType: '',
+  children: [],
   responses: [],
+  responseStructure: {
+    dimensions: {},
+  },
+  declarations: [],
 };
 
-function formToState(values) {
-  const { id, type, label, name, parent, weight, responseFormat } = values;
+function stateToModelChildren(children, components, codesLists, depth = 0) {
+  return children
+    .sort((keyA, keyB) => {
+      if (components[keyA].weight < components[keyB].weight) return -1;
+      if (components[keyA].weight > components[keyB].weight) return 1;
+      return 0;
+    })
+    .map(key => {
+      const newDepth = depth + 1;
+      return stateToModel({ ...components[key], depth: newDepth }, components, codesLists);
+    });
+}
 
-  const componentData = {
+function formToState(form) {
+  const { id, type, parent, weight, name, label, children, responseFormat, declarations } = form;
+
+  const state = {
     id,
     type,
+    label,
     name: name || nameFromLabel(label),
     parent: parent || '',
     weight: weight || 0,
+    children: children || [],
   };
 
   if (type === QUESTION) {
-    componentData.rawLabel = label;
-    componentData.label = label;
-    componentData.responseFormat = ResponseFormat.formToState(responseFormat);
+    // @TODO: Markdown parser
+    state.label = label;
+    state.rawLabel = label;
+    state.responseFormat = ResponseFormat.formToState(responseFormat);
+    state.declarations = Declaration.formToState(declarations);
   } else {
-    componentData.label = label;
+    state.label = label;
   }
 
   return {
-    ...defaultComponentState,
-    ...componentData,
+    ..._.cloneDeep(defaultComponentState),
+    ...state,
   };
 }
 
 function stateToForm(component, activeCodeLists, activeCodes) {
-  const { label, name, type, responseFormat } = component;
+  const { label, name, type, responseFormat, declarations } = component;
 
   const form = {
     label,
@@ -71,6 +94,7 @@ function stateToForm(component, activeCodeLists, activeCodes) {
 
   if (type === QUESTION) {
     form.responseFormat = ResponseFormat.stateToForm(responseFormat, activeCodeLists, activeCodes);
+    form.declarations = Declaration.stateToForm(declarations);
   }
 
   return {
@@ -79,32 +103,37 @@ function stateToForm(component, activeCodeLists, activeCodes) {
   };
 }
 
-function stateToModel(component, codesLists) {
-  const { id, depth, name, label, type, children, responseFormat } = component;
-  let componentModel = {
+function stateToModel(state, components, codesLists = {}) {
+  const { id, depth, name, label, type, children, responseFormat, declarations } = state;
+  let model = {
     id,
     depth,
     name,
     label: [label],
-    children,
   };
 
   if (type === QUESTION) {
-    componentModel.type = QUESTION_TYPE_NAME;
-    componentModel.questionType = responseFormat.type;
-    componentModel = { ...componentModel, ...ResponseFormat.stateToModel(responseFormat, codesLists) };
+    model.type = QUESTION_TYPE_NAME;
+    model.questionType = responseFormat.type;
+
+    model = {
+      ...model,
+      ...ResponseFormat.stateToModel(responseFormat, codesLists),
+      ...Declaration.stateToModel(declarations),
+    };
   } else {
-    componentModel.type = SEQUENCE_TYPE_NAME;
+    model.type = SEQUENCE_TYPE_NAME;
     if (type === QUESTIONNAIRE) {
-      componentModel.genericName = 'QUESTIONNAIRE';
+      model.genericName = 'QUESTIONNAIRE';
     } else {
-      componentModel.genericName = 'MODULE';
+      model.genericName = 'MODULE';
     }
+    model.children = stateToModelChildren(children, components, codesLists, depth);
   }
 
   return {
-    ...defaultComponentModel,
-    ...componentModel,
+    ..._.cloneDeep(defaultComponentModel),
+    ...model,
   };
 }
 
@@ -121,6 +150,7 @@ function modelToState(model, activeCodeLists = {}) {
     questionType,
     responses,
     responseStructure,
+    declarations,
   } = model;
 
   const componentData = {
@@ -153,10 +183,11 @@ function modelToState(model, activeCodeLists = {}) {
       },
       activeCodeLists
     );
+    componentData.declarations = Declaration.modelToState({ declarations });
   }
 
   return {
-    ...defaultComponentState,
+    ..._.cloneDeep(defaultComponentState),
     ...componentData,
   };
 }

@@ -1,24 +1,24 @@
-import { DATATYPE_TYPE_FROM_NAME } from 'constants/pogues-constants';
+import { DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME } from 'constants/pogues-constants';
+
+const { TEXT } = DATATYPE_NAME;
 
 export const defaultResponseModel = {
-  datatype: {
-    typeName: '',
-    type: '',
-  },
+  mandatory: false,
+  codeListReference: '',
+  datatype: { typeName: TEXT, maxLength: 255, pattern: '', type: DATATYPE_TYPE_FROM_NAME[TEXT] },
 };
 
 function stateToModel(state) {
   const { mandatory, codeListReference, type, datatype = {} } = state;
   const model = {
+    mandatory: mandatory || false,
+    codeListReference: codeListReference || '',
     datatype: {
       ...datatype,
       typeName: type,
       type: DATATYPE_TYPE_FROM_NAME[type],
     },
   };
-
-  if (mandatory) model.mandatory = mandatory;
-  if (codeListReference) model.codeListReference = codeListReference;
 
   return {
     ...defaultResponseModel,
