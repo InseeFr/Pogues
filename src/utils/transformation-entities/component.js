@@ -176,7 +176,8 @@ function modelToState(model, activeCodeLists = {}) {
     responseStructure,
     declarations,
     controls,
-    redirections
+    redirections,
+    goTos
   } = model;
 
   const state = {
@@ -211,7 +212,7 @@ function modelToState(model, activeCodeLists = {}) {
     );
     state.declarations = Declaration.modelToState({ declarations });
     state.controls = Control.modelToState({ controls });
-    state.redirections = Redirection.modelToState({ redirections });
+    state.redirections = Redirection.modelToState({ redirections: redirections || goTos });
   }
 
   return {

@@ -4,7 +4,7 @@ const questionnaires = [
     name: 'DOC',
     label: ['Je suis le titre du questionnaire'],
     declarations: [],
-    goTos: [],
+    redirections: [],
     controls: [],
     genericName: 'QUESTIONNAIRE',
     children: [
@@ -13,7 +13,7 @@ const questionnaires = [
         name: 'SIMPLE',
         label: ['Module des questions ouvertes : je suis le libellé du module'],
         declarations: [{ declarationType: 'INSTRUCTION', text: 'Ceci est une déclaration de type consigne.\n' }],
-        goTos: [],
+        redirections: [],
         controls: [],
         genericName: 'MODULE',
         children: [
@@ -28,7 +28,7 @@ const questionnaires = [
                   "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par page), regroupant les différents types de questions. Dans chaque module, vous trouverez la description des questions de chaque type, ainsi que des exemples tirés de questionnaires Insee.\n\n​\n",
               },
             ],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -39,7 +39,7 @@ const questionnaires = [
                   '##{"label":"Cochez la case pour afficher la suite du questionnaire\\n","conditions":[]}\nCochez la case pour afficher la suite du questionnaire\n',
                 ],
                 declarations: [],
-                goTos: [
+                redirections: [
                   {
                     id: 'iwnegyn6',
                     description: 'Si vous avez coché la case, poursuivez le questionnaire.',
@@ -61,7 +61,7 @@ const questionnaires = [
             name: 'MODULE_TEXTE',
             label: ['Sous-module : questions de type texte'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -78,7 +78,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -96,7 +96,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères","conditions":[]}\nJe suis le libellé de la question de type texte de longueur inférieure à 200 caractères',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -116,7 +116,7 @@ const questionnaires = [
             name: 'MODULE_NUM',
             label: ['Sous-module : questions de type numérique'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -127,7 +127,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé de la question de type numérique entier","conditions":[]}\nJe suis le libellé de la question de type numérique entier',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -157,7 +157,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -183,7 +183,7 @@ const questionnaires = [
             name: 'SOUSMODULE',
             label: ['Sous-module : questions de type date et durée'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -194,7 +194,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé de la question de type date au format JJ/MM/AAAA","conditions":[]}\nJe suis le libellé de la question de type date au format JJ/MM/AAAA',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -214,7 +214,7 @@ const questionnaires = [
             name: 'SOUSMODULE',
             label: ['Sous modules : question booléen'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -225,7 +225,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé de la question simple de type booléen","conditions":[]}\nJe suis le libellé de la question simple de type booléen',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [{ mandatory: false, datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } }],
@@ -240,7 +240,7 @@ const questionnaires = [
             name: 'EXEMPLES',
             label: ['Exemples'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -263,7 +263,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -293,7 +293,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -311,7 +311,7 @@ const questionnaires = [
                   '##{"label":"Quel est le montant total des investissements réalisés dans votre entreprise ?","conditions":[]}\nQuel est le montant total des investissements réalisés dans votre entreprise ?',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -341,7 +341,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -372,7 +372,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -396,7 +396,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [
@@ -421,7 +421,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
                 responses: [{ mandatory: false, datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } }],
@@ -440,7 +440,7 @@ const questionnaires = [
         name: 'SINGLE',
         label: ['Module des questions à choix unique'],
         declarations: [],
-        goTos: [],
+        redirections: [],
         controls: [],
         genericName: 'MODULE',
         children: [
@@ -457,7 +457,7 @@ const questionnaires = [
                 position: 'AFTER_QUESTION_TEXT',
               },
             ],
-            goTos: [],
+            redirections: [],
             controls: [],
             questionType: 'SINGLE_CHOICE',
             responses: [
@@ -476,7 +476,7 @@ const questionnaires = [
               '##{"label":"Je suis le libellé de la question à choix unique sous forme de liste déroulante","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de liste déroulante',
             ],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             questionType: 'SINGLE_CHOICE',
             responses: [
@@ -501,7 +501,7 @@ const questionnaires = [
               '##{"label":"Je suis le libellé de la question à choix unique sous forme de cases à cocher","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de cases à cocher',
             ],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             questionType: 'SINGLE_CHOICE',
             responses: [
@@ -524,7 +524,7 @@ const questionnaires = [
             name: 'EXEMPLES',
             label: ['Exemples'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -541,7 +541,7 @@ const questionnaires = [
                     position: 'AFTER_RESPONSE',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SINGLE_CHOICE',
                 responses: [
@@ -572,7 +572,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SINGLE_CHOICE',
                 responses: [
@@ -603,7 +603,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'SINGLE_CHOICE',
                 responses: [
@@ -634,7 +634,7 @@ const questionnaires = [
         name: 'MULTIPLE',
         label: ['Module des questions à choix multiple'],
         declarations: [],
-        goTos: [],
+        redirections: [],
         controls: [],
         genericName: 'MODULE',
         children: [
@@ -645,7 +645,7 @@ const questionnaires = [
               '##{"label":"Je suis le libellé de la question à choix multiple sous forme de booléen","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de booléen',
             ],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             questionType: 'MULTIPLE_CHOICE',
             responses: [
@@ -670,7 +670,7 @@ const questionnaires = [
               '##{"label":"Je suis le libellé de la question à choix multiple sous forme de bouton radio","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de bouton radio',
             ],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             questionType: 'MULTIPLE_CHOICE',
             responses: [
@@ -716,7 +716,7 @@ const questionnaires = [
                 position: 'BEFORE_QUESTION_TEXT',
               },
             ],
-            goTos: [],
+            redirections: [],
             controls: [],
             questionType: 'MULTIPLE_CHOICE',
             responses: [
@@ -786,7 +786,7 @@ const questionnaires = [
               '##{"label":"Je suis le libellé de la question à choix multiple sous forme de cases à cocher","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de cases à cocher',
             ],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             questionType: 'MULTIPLE_CHOICE',
             responses: [
@@ -854,7 +854,7 @@ const questionnaires = [
             name: 'EXEMPLES',
             label: ['Exemples'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -871,7 +871,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'MULTIPLE_CHOICE',
                 responses: [
@@ -921,7 +921,7 @@ const questionnaires = [
                   '##{"label":"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?","conditions":[]}\nDepuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'MULTIPLE_CHOICE',
                 responses: [
@@ -952,7 +952,7 @@ const questionnaires = [
         name: 'TABLE',
         label: ['Module des questions sous forme de tableau'],
         declarations: [],
-        goTos: [],
+        redirections: [],
         controls: [],
         genericName: 'MODULE',
         children: [
@@ -961,7 +961,7 @@ const questionnaires = [
             name: 'TABLE_1A',
             label: ["Sous module des tableaux à un seul axe d'information"],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -972,7 +972,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé de la question tableau un axe - une mesure","conditions":[]}\nJe suis le libellé de la question tableau un axe - une mesure',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
@@ -997,7 +997,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé de la question tableau un axe - plusieurs mesures","conditions":[]}\nJe suis le libellé de la question tableau un axe - plusieurs mesures',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
@@ -1119,7 +1119,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé de la question liste","conditions":[]}\nJe suis le libellé de la question liste',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
@@ -1144,7 +1144,7 @@ const questionnaires = [
             name: 'EXEMPLES',
             label: ['Exemples'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -1173,7 +1173,7 @@ const questionnaires = [
                     position: 'AFTER_RESPONSE',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
@@ -1245,7 +1245,7 @@ const questionnaires = [
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
@@ -1281,7 +1281,7 @@ const questionnaires = [
             name: 'TABLE_2A',
             label: ["Sous module des tableaux à deux axes d'information"],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -1292,7 +1292,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé d\'un tableau à deux axes 1 mesure simple","conditions":[]}\nJe suis le libellé d\'un tableau à deux axes 1 mesure simple',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
@@ -1493,7 +1493,7 @@ const questionnaires = [
                   '##{"label":"Je suis le libellé d\'un tableau à deux axes 1 mesure unique","conditions":[]}\nJe suis le libellé d\'un tableau à deux axes 1 mesure unique',
                 ],
                 declarations: [],
-                goTos: [],
+                redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
@@ -1716,7 +1716,7 @@ const questionnaires = [
             name: 'EXEMPLES',
             label: ['Exemples'],
             declarations: [],
-            goTos: [],
+            redirections: [],
             controls: [],
             genericName: 'SUBMODULE',
             children: [
@@ -1733,7 +1733,7 @@ const questionnaires = [
                     position: 'AFTER_RESPONSE',
                   },
                 ],
-                goTos: [],
+                redirections: [],
                 controls: [
                   {
                     id: 'iw7ukiat',

@@ -17,6 +17,8 @@ export const defaultQuestionnaireState = {
   codeLists: [],
   conditions: [],
   declarations: [],
+  controls: [],
+  redirections: [],
   agency: undefined,
   survey: undefined,
 };

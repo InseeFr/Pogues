@@ -28,6 +28,8 @@ describe('Transformation entities - Questionnaire', () => {
     codeLists: [],
     conditions: [],
     declarations: [],
+    controls: [],
+    redirections: [],
     agency: 'fr.insee',
     survey: {
       agency: 'fr.insee',
@@ -55,6 +57,8 @@ describe('Transformation entities - Questionnaire', () => {
     responseFormat: undefined,
     children: [],
     declarations: undefined,
+    controls: undefined,
+    redirections: undefined,
   };
 
   const components = {
@@ -119,6 +123,8 @@ describe('Transformation entities - Questionnaire', () => {
       codeLists: [],
       conditions: [],
       declarations: [],
+      controls: [],
+      redirections: [],
       owner: undefined,
     };
     expect(defaultQuestionnaireState).toEqual(expectedState);
@@ -130,8 +136,8 @@ describe('Transformation entities - Questionnaire', () => {
       name: '',
       label: [],
       declarations: [],
-      redirections: [],
       controls: [],
+      redirections: [],
       genericName: QUESTIONNAIRE,
       children: [],
       depth: 0,
