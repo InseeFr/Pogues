@@ -76,9 +76,10 @@ export function removeSubSequence(activesComponents, deletedComponent) {
         ...acc,
         [id]: {
           ...acc[id],
-          weight: acc[id].weight >= deletedComponent.weight
-            ? acc[id].weight + (deletedComponent.children.length - 1)
-            : acc[id].weight,
+          weight:
+            acc[id].weight >= deletedComponent.weight
+              ? acc[id].weight + (deletedComponent.children.length - 1)
+              : acc[id].weight,
         },
       };
     };
@@ -128,7 +129,7 @@ export function removeSequence(activesComponents, deletedComponent) {
 
   let firstQuestionsToMove = [];
 
-  // If the last component is a subsequence, we will get the first n QUESTION of the deleted component 
+  // If the last component is a subsequence, we will get the first n QUESTION of the deleted component
   if (isSubSequence(lastComponentFromPreviousSequence)) {
     firstQuestionsToMove = takeWhile(c => isQuestion(c))(childrenToMove);
   }

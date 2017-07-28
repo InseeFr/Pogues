@@ -3,7 +3,7 @@ import { updateNewComponentParent } from './form-to-state-utils';
 jest.dontMock('./form-to-state-utils.js');
 
 describe('updateNewComponentParent', () => {
-  test(`should return an parent component with the new children`, () => {
+  test('should return an parent component with the new children', () => {
     const activeComponents = {
       '1': {
         id: '1',

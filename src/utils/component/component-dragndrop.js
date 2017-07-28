@@ -50,13 +50,14 @@ export const cardTarget = {
    */
   drop(droppedComponent, monitor) {
     const draggedComponent = monitor.getItem();
-    const newWeight = droppedComponent.dragndropPosition.margin &&
-      couldInsertAsChild(droppedComponent, draggedComponent)
-      ? 0
-      : droppedComponent.weight + 1;
-    const parent = droppedComponent.dragndropPosition.margin && couldInsertAsChild(droppedComponent, draggedComponent)
-      ? droppedComponent.id
-      : droppedComponent.parent;
+    const newWeight =
+      droppedComponent.dragndropPosition.margin && couldInsertAsChild(droppedComponent, draggedComponent)
+        ? 0
+        : droppedComponent.weight + 1;
+    const parent =
+      droppedComponent.dragndropPosition.margin && couldInsertAsChild(droppedComponent, draggedComponent)
+        ? droppedComponent.id
+        : droppedComponent.parent;
     if (monitor.isOver({ shallow: false })) {
       droppedComponent.moveComponent(draggedComponent.id, parent, newWeight);
     }

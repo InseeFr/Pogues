@@ -14,4 +14,4 @@ describe('dragndrop reducer', () => {
       DRAGGED_COMPONENT: true,
     });
   });
-})
+});
