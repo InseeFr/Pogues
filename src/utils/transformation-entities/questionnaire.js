@@ -26,7 +26,7 @@ export const defaultQuestionnaireModel = {
   name: '',
   label: [],
   declarations: [],
-  goTos: [],
+  redirections: [],
   controls: [],
   genericName: QUESTIONNAIRE,
   children: [],

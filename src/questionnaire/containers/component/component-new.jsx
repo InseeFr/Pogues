@@ -10,6 +10,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { defaultResponseFormatForm } from 'utils/transformation-entities/response-format';
 import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
 import { defaultControlForm } from 'utils/transformation-entities/control';
+import { defaultRedirectionForm } from 'utils/transformation-entities/redirection';
 import { defaultComponentForm } from 'utils/transformation-entities/component';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -52,6 +53,7 @@ function ComponentNewContainer({
       responseFormat: { ...defaultResponseFormatForm },
       declarations: { ...defaultDeclarationForm },
       controls: { ...defaultControlForm },
+      redirections: { ...defaultRedirectionForm },
     };
     return <QuestionNewEdit initialValues={initialValues} {...props} />;
   }

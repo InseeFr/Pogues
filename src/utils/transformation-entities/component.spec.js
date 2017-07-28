@@ -5,6 +5,7 @@ import Component, { defaultComponentForm, defaultComponentState, defaultComponen
 import { defaultResponseFormatForm, defaultResponseFormatState, defaultResponseFormatModel } from './response-format';
 import { defaultDeclarationForm, defaultDeclarationState } from './declaration';
 import { defaultControlForm, defaultControlState } from './control';
+import { defaultRedirectionForm, defaultRedirectionState } from './redirection';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -28,6 +29,7 @@ describe('Transformation entities - Component', () => {
     responseFormat: defaultResponseFormatForm,
     declarations: defaultDeclarationForm,
     controls: defaultControlForm,
+    redirections: defaultRedirectionForm,
   };
 
   // State
@@ -44,6 +46,7 @@ describe('Transformation entities - Component', () => {
     children: [],
     declarations: undefined,
     controls: undefined,
+    redirections: undefined,
   };
 
   const sequenceState = {
@@ -58,6 +61,7 @@ describe('Transformation entities - Component', () => {
     responseFormat: undefined,
     declarations: undefined,
     controls: undefined,
+    redirections: undefined,
   };
 
   const subsequenceState = {
@@ -72,6 +76,7 @@ describe('Transformation entities - Component', () => {
     responseFormat: undefined,
     declarations: undefined,
     controls: undefined,
+    redirections: undefined,
   };
 
   const questionState = {
@@ -86,6 +91,7 @@ describe('Transformation entities - Component', () => {
     responseFormat: defaultResponseFormatState,
     declarations: defaultDeclarationState,
     controls: defaultControlState,
+    redirections: defaultRedirectionState,
   };
 
   const components = {
@@ -112,6 +118,7 @@ describe('Transformation entities - Component', () => {
     },
     declarations: [],
     controls: [],
+    redirections: [],
   };
   const sequenceModel = {
     id: 'jx5hj532',
@@ -128,6 +135,7 @@ describe('Transformation entities - Component', () => {
     },
     declarations: [],
     controls: [],
+    redirections: [],
   };
 
   const subsequenceModel = {
@@ -145,6 +153,7 @@ describe('Transformation entities - Component', () => {
     },
     declarations: [],
     controls: [],
+    redirections: [],
   };
 
   const questionModel = {
@@ -157,6 +166,7 @@ describe('Transformation entities - Component', () => {
     children: [],
     declarations: [],
     controls: [],
+    redirections: [],
     ...defaultResponseFormatModel,
   };
 
@@ -181,6 +191,7 @@ describe('Transformation entities - Component', () => {
       responseFormat: undefined,
       declarations: undefined,
       controls: undefined,
+      redirections: undefined,
     };
     expect(defaultComponentState).toEqual(expectedState);
   });
@@ -201,6 +212,7 @@ describe('Transformation entities - Component', () => {
       },
       declarations: [],
       controls: [],
+      redirections: [],
     };
     expect(defaultComponentModel).toEqual(expectedModel);
   });
@@ -388,6 +400,7 @@ describe('Transformation entities - Component', () => {
           responseFormat: undefined,
           declarations: undefined,
           controls: undefined,
+          redirections: undefined,
         },
       };
       const state = {

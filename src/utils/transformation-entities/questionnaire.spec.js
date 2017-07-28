@@ -78,7 +78,7 @@ describe('Transformation entities - Questionnaire', () => {
       dimensions: {},
     },
     declarations: [],
-    goTos: [],
+    redirections: [],
     controls: [],
     codeLists: {
       codeList: [],
@@ -130,7 +130,7 @@ describe('Transformation entities - Questionnaire', () => {
       name: '',
       label: [],
       declarations: [],
-      goTos: [],
+      redirections: [],
       controls: [],
       genericName: QUESTIONNAIRE,
       children: [],

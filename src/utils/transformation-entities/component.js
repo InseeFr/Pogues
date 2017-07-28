@@ -6,6 +6,7 @@ import { nameFromLabel } from 'utils/name-utils';
 import ResponseFormat from './response-format';
 import Declaration from './declaration';
 import Control from './control';
+import Redirection from './redirection';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -26,6 +27,7 @@ export const defaultComponentState = {
   responseFormat: undefined,
   declarations: undefined,
   controls: undefined,
+  redirections: undefined,
 };
 
 export const defaultComponentModel = {
@@ -43,6 +45,7 @@ export const defaultComponentModel = {
   },
   declarations: [],
   controls: [],
+  redirections: [],
 };
 
 function stateToModelChildren(children, components, codesLists, depth = 0) {
@@ -59,7 +62,19 @@ function stateToModelChildren(children, components, codesLists, depth = 0) {
 }
 
 function formToState(form) {
-  const { id, type, parent, weight, name, label, children, responseFormat, declarations, controls } = form;
+  const {
+    id,
+    type,
+    parent,
+    weight,
+    name,
+    label,
+    children,
+    responseFormat,
+    declarations,
+    controls,
+    redirections,
+  } = form;
 
   const state = {
     id,
@@ -78,6 +93,7 @@ function formToState(form) {
     state.responseFormat = ResponseFormat.formToState(responseFormat);
     state.declarations = Declaration.formToState(declarations);
     state.controls = Control.formToState(controls);
+    state.redirections = Redirection.formToState(redirections);
   } else {
     state.label = label;
   }
@@ -89,7 +105,7 @@ function formToState(form) {
 }
 
 function stateToForm(component, activeCodeLists, activeCodes) {
-  const { label, name, type, responseFormat, declarations, controls } = component;
+  const { label, name, type, responseFormat, declarations, controls, redirections } = component;
 
   const form = {
     label,
@@ -100,6 +116,7 @@ function stateToForm(component, activeCodeLists, activeCodes) {
     form.responseFormat = ResponseFormat.stateToForm(responseFormat, activeCodeLists, activeCodes);
     form.declarations = Declaration.stateToForm(declarations);
     form.controls = Control.stateToForm(controls);
+    form.redirections = Redirection.stateToForm(redirections);
   }
 
   return {
@@ -109,7 +126,7 @@ function stateToForm(component, activeCodeLists, activeCodes) {
 }
 
 function stateToModel(state, components, codesLists = {}) {
-  const { id, depth, name, label, type, children, responseFormat, declarations, controls } = state;
+  const { id, depth, name, label, type, children, responseFormat, declarations, controls, redirections } = state;
   let model = {
     id,
     depth,
@@ -126,6 +143,7 @@ function stateToModel(state, components, codesLists = {}) {
       ...ResponseFormat.stateToModel(responseFormat, codesLists),
       ...Declaration.stateToModel(declarations),
       ...Control.stateToModel(controls),
+      ...Redirection.stateToModel(redirections),
     };
   } else {
     model.type = SEQUENCE_TYPE_NAME;
@@ -158,6 +176,7 @@ function modelToState(model, activeCodeLists = {}) {
     responseStructure,
     declarations,
     controls,
+    redirections
   } = model;
 
   const state = {
@@ -192,6 +211,7 @@ function modelToState(model, activeCodeLists = {}) {
     );
     state.declarations = Declaration.modelToState({ declarations });
     state.controls = Control.modelToState({ controls });
+    state.redirections = Redirection.modelToState({ redirections });
   }
 
   return {

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
+import { defaultRedirectionForm } from 'utils/transformation-entities/redirection';
 
 function InputRedirection() {
   return (
@@ -22,25 +22,25 @@ function InputRedirection() {
     </div>
   );
 }
-class Redirections extends FormSection {
+class Redirections extends Component {
   static selectorPath = 'redirections';
-  static defaultProps = {
-    name: 'redirections',
-  };
 
   render() {
+    const { redirections, ...initialInputValues } = defaultRedirectionForm;
+
     const inputControlView = <InputRedirection />;
 
     return (
-      <div className="redirections">
+      <FormSection name={Redirections.selectorPath} className="redirections">
         <ListEntryFormContainer
           inputView={inputControlView}
-          listName="redirections"
+          initialInputValues={initialInputValues}
           selectorPath={Redirections.selectorPath}
+          listName="redirections"
           submitLabel="defineGoTo"
           noValueLabel="noGoToYet"
         />
-      </div>
+      </FormSection>
     );
   }
 }

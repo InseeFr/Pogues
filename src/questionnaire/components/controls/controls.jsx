@@ -46,7 +46,7 @@ function InputControl() {
   );
 }
 
-class Control extends Component {
+class Controls extends Component {
   static selectorPath = 'controls';
 
   render() {
@@ -54,11 +54,11 @@ class Control extends Component {
     const inputControlView = <InputControl />;
 
     return (
-      <FormSection name={Control.selectorPath} className="controls">
+      <FormSection name={Controls.selectorPath} className="controls">
         <ListEntryFormContainer
           inputView={inputControlView}
           initialInputValues={initialInputValues}
-          selectorPath={Control.selectorPath}
+          selectorPath={Controls.selectorPath}
           listName="controls"
           submitLabel="addControl"
           noValueLabel="noControlYet"
@@ -68,4 +68,4 @@ class Control extends Component {
   }
 }
 
-export default Control;
+export default Controls;

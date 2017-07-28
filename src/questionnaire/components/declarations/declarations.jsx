@@ -63,7 +63,7 @@ function InputDeclaration() {
     </div>
   );
 }
-class Declaration extends Component {
+class Declarations extends Component {
   static selectorPath = 'declarations';
 
   render() {
@@ -71,11 +71,11 @@ class Declaration extends Component {
     const inputDeclarationView = <InputDeclaration />;
 
     return (
-      <FormSection name={Declaration.selectorPath} className="declaratations">
+      <FormSection name={Declarations.selectorPath} className="declaratations">
         <ListEntryFormContainer
           inputView={inputDeclarationView}
           initialInputValues={initialInputValues}
-          selectorPath={Declaration.selectorPath}
+          selectorPath={Declarations.selectorPath}
           listName="declarations"
           submitLabel="addDeclaration"
           noValueLabel="noDeclarationYet"
@@ -84,4 +84,4 @@ class Declaration extends Component {
     );
   }
 }
-export default Declaration;
+export default Declarations;
