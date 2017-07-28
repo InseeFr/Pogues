@@ -21,3 +21,10 @@ export function removeSequence(activesComponents, deletedComponent) {
     deletedComponent,
   };
 }
+
+export function remove(activeComponentsById, idDeletedComponent) {
+  return {
+    activeComponentsById,
+    idDeletedComponent,
+  };
+}
