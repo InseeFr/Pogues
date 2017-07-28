@@ -123,9 +123,10 @@ class QuestionnaireElement extends Component {
               {selected
                 ? <div className="questionnaire-element-actions">
                     <button className="btn-yellow" onClick={onClickDetail}>{Dictionary.showDetail}</button>
-                    <button className="btn-yellow" onClick={onClickDuplicate}>
-                      {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
-                    </button>
+                    {type === 'QUESTION' &&
+                      <button className="btn-yellow" onClick={onClickDuplicate}>
+                        {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+                      </button>}
                     <button
                       className="btn-yellow"
                       disabled={weight === 0 && type === 'SEQUENCE'}
