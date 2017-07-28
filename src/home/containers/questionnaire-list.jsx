@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Dictionary from 'utils/dictionary/dictionary';
 
-import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import QuestionnaireList from 'home/components/questionnaire-list';
 
 const mapStateToProps = state => {
@@ -14,14 +13,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  loadQuestionnaireList,
-};
-
 export class QuestionnaireListContainer extends Component {
   static propTypes = {
     questionnaires: PropTypes.array.isRequired,
-    loadQuestionnaireList: PropTypes.func.isRequired,
     user: PropTypes.shape({
       name: PropTypes.string,
       permission: PropTypes.string,
@@ -29,12 +23,6 @@ export class QuestionnaireListContainer extends Component {
       picture: PropTypes.string,
     }),
   };
-
-  componentWillUpdate(nextProps) {
-    if (nextProps.user.permission !== this.props.user.permission) {
-      this.props.loadQuestionnaireList(nextProps.user.permission);
-    }
-  }
 
   render() {
     const { questionnaires, user } = this.props;
@@ -48,4 +36,4 @@ export class QuestionnaireListContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireListContainer);
+export default connect(mapStateToProps)(QuestionnaireListContainer);

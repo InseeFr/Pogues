@@ -2,13 +2,10 @@ import { uuid } from 'utils/data-utils';
 import Component from 'utils/transformation-entities/component';
 import { isSubSequence, isSequence, isQuestion } from 'utils/component/component-utils';
 import { getCodesListsAndCodesFromQuestion, updateNewComponentParent } from 'utils/model/form-to-state-utils';
-import {
-  moveQuestionToSubSequence,
-  moveQuestionAndSubSequenceToSequence,
-  increaseWeightOfAll,
-  moveComponent,
-  remove,
-} from './component-moves';
+import { increaseWeightOfAll } from './component-update';
+import { remove } from './component-remove';
+import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence } from './component-insert';
+import { moveComponent } from './component-move';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';

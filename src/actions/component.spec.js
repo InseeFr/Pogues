@@ -3,7 +3,10 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-jest.mock('./component-moves');
+jest.mock('./component-move');
+jest.mock('./component-update');
+jest.mock('./component-remove');
+jest.mock('./component-insert');
 
 describe('updateParentChildren', () => {
   function getState() {
