@@ -4,6 +4,7 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constant
 import Component, { defaultComponentForm, defaultComponentState, defaultComponentModel } from './component';
 import { defaultResponseFormatForm, defaultResponseFormatState, defaultResponseFormatModel } from './response-format';
 import { defaultDeclarationForm, defaultDeclarationState } from './declaration';
+import { defaultControlForm, defaultControlState } from './control';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -26,6 +27,7 @@ describe('Transformation entities - Component', () => {
     label: 'This is a question',
     responseFormat: defaultResponseFormatForm,
     declarations: defaultDeclarationForm,
+    controls: defaultControlForm,
   };
 
   // State
@@ -41,6 +43,7 @@ describe('Transformation entities - Component', () => {
     responseFormat: undefined,
     children: [],
     declarations: undefined,
+    controls: undefined,
   };
 
   const sequenceState = {
@@ -54,6 +57,7 @@ describe('Transformation entities - Component', () => {
     children: [],
     responseFormat: undefined,
     declarations: undefined,
+    controls: undefined,
   };
 
   const subsequenceState = {
@@ -67,6 +71,7 @@ describe('Transformation entities - Component', () => {
     children: [],
     responseFormat: undefined,
     declarations: undefined,
+    controls: undefined,
   };
 
   const questionState = {
@@ -80,6 +85,7 @@ describe('Transformation entities - Component', () => {
     children: [],
     responseFormat: defaultResponseFormatState,
     declarations: defaultDeclarationState,
+    controls: defaultControlState,
   };
 
   const components = {
@@ -105,6 +111,7 @@ describe('Transformation entities - Component', () => {
       dimensions: {},
     },
     declarations: [],
+    controls: [],
   };
   const sequenceModel = {
     id: 'jx5hj532',
@@ -120,6 +127,7 @@ describe('Transformation entities - Component', () => {
       dimensions: {},
     },
     declarations: [],
+    controls: [],
   };
 
   const subsequenceModel = {
@@ -136,6 +144,7 @@ describe('Transformation entities - Component', () => {
       dimensions: {},
     },
     declarations: [],
+    controls: [],
   };
 
   const questionModel = {
@@ -147,6 +156,7 @@ describe('Transformation entities - Component', () => {
     depth: 2,
     children: [],
     declarations: [],
+    controls: [],
     ...defaultResponseFormatModel,
   };
 
@@ -170,6 +180,7 @@ describe('Transformation entities - Component', () => {
       children: [],
       responseFormat: undefined,
       declarations: undefined,
+      controls: undefined,
     };
     expect(defaultComponentState).toEqual(expectedState);
   });
@@ -189,6 +200,7 @@ describe('Transformation entities - Component', () => {
         dimensions: {},
       },
       declarations: [],
+      controls: [],
     };
     expect(defaultComponentModel).toEqual(expectedModel);
   });
@@ -375,6 +387,7 @@ describe('Transformation entities - Component', () => {
           children: ['jx504532'],
           responseFormat: undefined,
           declarations: undefined,
+          controls: undefined,
         },
       };
       const state = {

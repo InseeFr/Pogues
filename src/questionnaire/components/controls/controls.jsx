@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
@@ -7,6 +7,7 @@ import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import Checkbox from 'layout/forms/controls/checkbox';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
+import { defaultControlForm } from 'utils/transformation-entities/control';
 
 function InputControl() {
   const levels = [
@@ -45,27 +46,26 @@ function InputControl() {
   );
 }
 
-class Controls extends FormSection {
+class Control extends Component {
   static selectorPath = 'controls';
-  static defaultProps = {
-    name: 'controls',
-  };
 
   render() {
+    const { controls, ...initialInputValues } = defaultControlForm;
     const inputControlView = <InputControl />;
 
     return (
-      <div className="controls">
+      <FormSection name={Control.selectorPath} className="controls">
         <ListEntryFormContainer
           inputView={inputControlView}
+          initialInputValues={initialInputValues}
+          selectorPath={Control.selectorPath}
           listName="controls"
-          selectorPath={Controls.selectorPath}
           submitLabel="addControl"
           noValueLabel="noControlYet"
         />
-      </div>
+      </FormSection>
     );
   }
 }
 
-export default Controls;
+export default Control;

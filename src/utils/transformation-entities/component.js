@@ -5,6 +5,7 @@ import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import ResponseFormat from './response-format';
 import Declaration from './declaration';
+import Control from './control';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -24,6 +25,7 @@ export const defaultComponentState = {
   children: [],
   responseFormat: undefined,
   declarations: undefined,
+  controls: undefined,
 };
 
 export const defaultComponentModel = {
@@ -40,6 +42,7 @@ export const defaultComponentModel = {
     dimensions: {},
   },
   declarations: [],
+  controls: [],
 };
 
 function stateToModelChildren(children, components, codesLists, depth = 0) {
@@ -56,7 +59,7 @@ function stateToModelChildren(children, components, codesLists, depth = 0) {
 }
 
 function formToState(form) {
-  const { id, type, parent, weight, name, label, children, responseFormat, declarations } = form;
+  const { id, type, parent, weight, name, label, children, responseFormat, declarations, controls } = form;
 
   const state = {
     id,
@@ -74,6 +77,7 @@ function formToState(form) {
     state.rawLabel = label;
     state.responseFormat = ResponseFormat.formToState(responseFormat);
     state.declarations = Declaration.formToState(declarations);
+    state.controls = Control.formToState(controls);
   } else {
     state.label = label;
   }
@@ -85,7 +89,7 @@ function formToState(form) {
 }
 
 function stateToForm(component, activeCodeLists, activeCodes) {
-  const { label, name, type, responseFormat, declarations } = component;
+  const { label, name, type, responseFormat, declarations, controls } = component;
 
   const form = {
     label,
@@ -95,6 +99,7 @@ function stateToForm(component, activeCodeLists, activeCodes) {
   if (type === QUESTION) {
     form.responseFormat = ResponseFormat.stateToForm(responseFormat, activeCodeLists, activeCodes);
     form.declarations = Declaration.stateToForm(declarations);
+    form.controls = Control.stateToForm(controls);
   }
 
   return {
@@ -104,7 +109,7 @@ function stateToForm(component, activeCodeLists, activeCodes) {
 }
 
 function stateToModel(state, components, codesLists = {}) {
-  const { id, depth, name, label, type, children, responseFormat, declarations } = state;
+  const { id, depth, name, label, type, children, responseFormat, declarations, controls } = state;
   let model = {
     id,
     depth,
@@ -120,6 +125,7 @@ function stateToModel(state, components, codesLists = {}) {
       ...model,
       ...ResponseFormat.stateToModel(responseFormat, codesLists),
       ...Declaration.stateToModel(declarations),
+      ...Control.stateToModel(controls),
     };
   } else {
     model.type = SEQUENCE_TYPE_NAME;
@@ -151,9 +157,10 @@ function modelToState(model, activeCodeLists = {}) {
     responses,
     responseStructure,
     declarations,
+    controls,
   } = model;
 
-  const componentData = {
+  const state = {
     id,
     name,
     parent: parent || '',
@@ -161,21 +168,21 @@ function modelToState(model, activeCodeLists = {}) {
   };
 
   if (type === SEQUENCE_TYPE_NAME) {
-    componentData.children = children.map(child => child.id);
-    componentData.label = label;
+    state.children = children.map(child => child.id);
+    state.label = label;
     if (depth === 0) {
-      componentData.type = QUESTIONNAIRE;
+      state.type = QUESTIONNAIRE;
     } else if (depth === 1) {
-      componentData.type = SEQUENCE;
+      state.type = SEQUENCE;
     } else {
-      componentData.type = SUBSEQUENCE;
+      state.type = SUBSEQUENCE;
     }
   } else if (type === QUESTION_TYPE_NAME) {
     const dimensions = responseStructure ? responseStructure.dimensions : [];
-    componentData.type = QUESTION;
-    componentData.label = getQuestionLabelFromRaw(label);
-    componentData.rawLabel = label;
-    componentData.responseFormat = ResponseFormat.modelToState(
+    state.type = QUESTION;
+    state.label = getQuestionLabelFromRaw(label);
+    state.rawLabel = label;
+    state.responseFormat = ResponseFormat.modelToState(
       {
         type: questionType,
         responses,
@@ -183,12 +190,13 @@ function modelToState(model, activeCodeLists = {}) {
       },
       activeCodeLists
     );
-    componentData.declarations = Declaration.modelToState({ declarations });
+    state.declarations = Declaration.modelToState({ declarations });
+    state.controls = Control.modelToState({ controls });
   }
 
   return {
     ..._.cloneDeep(defaultComponentState),
-    ...componentData,
+    ...state,
   };
 }
 

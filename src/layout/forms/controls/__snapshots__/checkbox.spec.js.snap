@@ -9,6 +9,7 @@ exports[`Checkbox Should have this default template 1`] = `
     htmlFor="input-checkbox"
   >
     <input
+      checked=""
       id="input-checkbox"
       name="checkbox"
       onBlur={[Function]}
