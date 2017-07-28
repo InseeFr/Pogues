@@ -7,43 +7,38 @@ import Declaration, { defaultDeclarationForm, defaultDeclarationState, defaultDe
 describe('Transformation entities - Declaration', () => {
   const declarationFirst = {
     declarationType: 'INSTRUCTION',
-    label: 'This is the first text',
+    text: 'This is the first text',
     position: 'AFTER_RESPONSE',
   };
   const declarationSecond = {
     declarationType: 'INSTRUCTION',
-    label: 'This is the second text',
+    text: 'This is the second text',
     position: 'AFTER_QUESTION_TEXT',
   };
   test('Default form shape should be the expected', () => {
-    const form = _.cloneDeep(defaultDeclarationForm);
     const expectedForm = {
       declarationType: 'INSTRUCTION',
       label: '',
       position: 'AFTER_QUESTION_TEXT',
       declarations: [],
     };
-    expect(form).toEqual(expectedForm);
+    expect(defaultDeclarationForm).toEqual(expectedForm);
   });
   test('Default state shape should be the expected', () => {
-    const state = _.cloneDeep(defaultDeclarationState);
     const expectedState = {
       declarations: [],
     };
-    expect(state).toEqual(expectedState);
+    expect(defaultDeclarationState).toEqual(expectedState);
   });
   test('Default model shape should be the expected', () => {
-    const model = _.cloneDeep(defaultDeclarationModel);
     const expectedModel = {
       declarations: [],
     };
-    expect(model).toEqual(expectedModel);
+    expect(defaultDeclarationModel).toEqual(expectedModel);
   });
   describe('Form to State', () => {
     test('No declarations', () => {
-      const form = _.cloneDeep(defaultDeclarationForm);
-      const expectedState = _.cloneDeep(defaultDeclarationState);
-      expect(Declaration.formToState(form)).toEqual(expectedState);
+      expect(Declaration.formToState(defaultDeclarationForm)).toEqual(defaultDeclarationState);
     });
     test('One declaration', () => {
       const form = _.cloneDeep(defaultDeclarationForm);
@@ -64,9 +59,7 @@ describe('Transformation entities - Declaration', () => {
   });
   describe('State to Form', () => {
     test('No declarations', () => {
-      const state = _.cloneDeep(defaultDeclarationState);
-      const formExpected = _.cloneDeep(defaultDeclarationForm);
-      expect(Declaration.stateToForm(state)).toEqual(formExpected);
+      expect(Declaration.stateToForm(defaultDeclarationState)).toEqual(defaultDeclarationForm);
     });
     test('One declaration', () => {
       const state = _.cloneDeep(defaultDeclarationState);
@@ -87,9 +80,7 @@ describe('Transformation entities - Declaration', () => {
   });
   describe('State to Model', () => {
     test('No declarations', () => {
-      const state = _.cloneDeep(defaultDeclarationState);
-      const modelExpected = _.cloneDeep(defaultDeclarationModel);
-      expect(Declaration.stateToModel(state)).toEqual(modelExpected);
+      expect(Declaration.stateToModel(defaultDeclarationState)).toEqual(defaultDeclarationModel);
     });
     test('One declaration', () => {
       const state = _.cloneDeep(defaultDeclarationState);
@@ -110,14 +101,12 @@ describe('Transformation entities - Declaration', () => {
   });
   describe('Model to State', () => {
     test('No declarations', () => {
-      const model = _.cloneDeep(defaultDeclarationModel);
-      const stateExpected = _.cloneDeep(defaultDeclarationState);
-      expect(Declaration.modelToState(model)).toEqual(stateExpected);
+      expect(Declaration.modelToState(defaultDeclarationModel)).toEqual(defaultDeclarationState);
     });
     test('One declaration', () => {
       const model = _.cloneDeep(defaultDeclarationModel);
       model.declarations.push(declarationFirst);
-      const stateExpected = _.cloneDeep(defaultDeclarationState);
+      const stateExpected = _.cloneDeep(defaultDeclarationModel);
       stateExpected.declarations.push(declarationFirst);
       expect(Declaration.modelToState(model)).toEqual(stateExpected);
     });
@@ -125,7 +114,7 @@ describe('Transformation entities - Declaration', () => {
       const model = _.cloneDeep(defaultDeclarationModel);
       model.declarations.push(declarationFirst);
       model.declarations.push(declarationSecond);
-      const stateExpected = _.cloneDeep(defaultDeclarationState);
+      const stateExpected = _.cloneDeep(defaultDeclarationModel);
       stateExpected.declarations.push(declarationFirst);
       stateExpected.declarations.push(declarationSecond);
       expect(Declaration.modelToState(model)).toEqual(stateExpected);

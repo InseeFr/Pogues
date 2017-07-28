@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
 export const defaultDeclarationForm = {
-  declarationType: '',
+  declarationType: 'INSTRUCTION',
   label: '',
-  position: '',
+  position: 'AFTER_QUESTION_TEXT',
   declarations: [],
 };
 
