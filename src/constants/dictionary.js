@@ -804,8 +804,8 @@ const dictionary = {
     en: 'Must be at least',
   },
   dropHere: {
-    fr: 'Déposer ici!',
-    en: 'Drop here!',
+    fr: 'Déposer ici !',
+    en: 'Drop here !',
   },
 };
 
