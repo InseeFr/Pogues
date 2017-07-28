@@ -33,6 +33,7 @@ class QuestionnaireElement extends Component {
     onClickElement: PropTypes.func.isRequired,
     onClickDetail: PropTypes.func.isRequired,
     onClickDelete: PropTypes.func.isRequired,
+    onClickDuplicate: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
@@ -73,6 +74,7 @@ class QuestionnaireElement extends Component {
       onClickElement,
       onClickDetail,
       onClickDelete,
+      onClickDuplicate,
       parentType,
       parent,
       draggedItem,
@@ -121,7 +123,7 @@ class QuestionnaireElement extends Component {
               {selected
                 ? <div className="questionnaire-element-actions">
                     <button className="btn-yellow" onClick={onClickDetail}>{Dictionary.showDetail}</button>
-                    <button className="btn-yellow">
+                    <button className="btn-yellow" onClick={onClickDuplicate}>
                       {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
                     </button>
                     <button

@@ -2,6 +2,9 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { toComponents, isQuestion, isSubSequence, isSequence, toId } from 'utils/component/component-utils';
 import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
+import { uuid } from 'utils/data-utils';
+import { updateNewComponentParent } from 'utils/model/form-to-state-utils';
+import * as _ from 'lodash';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 
@@ -179,5 +182,31 @@ export function moveQuestionAndSubSequenceToSequence(activesComponents, selected
   return {
     ...moves,
     ...increaseWeightOfAll(moves, newComponent),
+  };
+}
+
+/**
+ * Method used for creating a duplicate of an existing QUESTION
+ * 
+ * @param {object} activesComponents The list of components currently displayed
+ * @param {string} idComponent id of the component we want to duplicate
+ */
+export function duplicate(activesComponents, idComponent) {
+  if (!isQuestion(activesComponents[idComponent])) {
+    return {};
+  }
+
+  const id = uuid();
+  const component = {
+    [id]: {
+      ..._.cloneDeep(activesComponents[idComponent]),
+      id,
+      weight: activesComponents[idComponent].weight + 1,
+    },
+  };
+  return {
+    ...component,
+    ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, id),
+    ...increaseWeightOfAll(activesComponents, component[id]),
   };
 }

@@ -260,3 +260,31 @@ describe('moveQuestionAndSubSequenceToSequence', () => {
     });
   });
 });
+
+describe('duplicate', () => {
+  const activesComponents = {
+    '0': { id: '0', children: ['1', '7'] },
+    '1': { id: '1', weight: 0, type: SEQUENCE, children: ['2', '3', '4'] },
+    '2': { id: '2', weight: 0, type: QUESTION, parent: '1', children: [] },
+    '3': { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
+    '4': { id: '4', weight: 2, type: SUBSEQUENCE, parent: '1', children: ['5', '6'] },
+    '5': { id: '5', weight: 0, type: QUESTION, parent: '4', children: [] },
+    '6': { id: '6', weight: 1, type: QUESTION, parent: '4', children: [] },
+    '7': { id: '7', weight: 1, type: SEQUENCE, children: ['8'] },
+    '8': { id: '8', weight: 0, type: QUESTION, parent: '7', children: [] },
+  };
+
+  const result = component.duplicate(activesComponents, '2');
+  const newId = Object.keys(result).find(id => Object.keys(activesComponents).indexOf(id) < 0);
+
+  expect(result['1']).toEqual({ id: '1', weight: 0, type: SEQUENCE, children: ['2', '3', '4', newId] });
+  expect(result[newId]).toEqual({
+    id: newId,
+    weight: 1,
+    type: result['2'].type,
+    parent: result['2'].parent,
+    children: [],
+  });
+  expect(result['3']).toEqual({ id: '3', weight: 2, type: QUESTION, parent: '1', children: [] });
+  expect(result['4']).toEqual({ id: '4', weight: 3, type: SUBSEQUENCE, parent: '1', children: ['5', '6'] });
+});

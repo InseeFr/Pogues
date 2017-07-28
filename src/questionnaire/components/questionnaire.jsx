@@ -19,6 +19,7 @@ class Questionnaire extends Component {
     removeComponent: PropTypes.func.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
+    duplicateComponent: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -38,6 +39,7 @@ class Questionnaire extends Component {
     this.handleCloseQuestionnaireDetail = this.handleCloseQuestionnaireDetail.bind(this);
     this.renderComponentsByParent = this.renderComponentsByParent.bind(this);
     this.handleQuestionnnarieUpdated = this.handleQuestionnnarieUpdated.bind(this);
+    this.handleDuplicateElement = this.handleDuplicateElement.bind(this);
   }
 
   handleElementSelect(event, idElement) {
@@ -53,6 +55,13 @@ class Questionnaire extends Component {
     if (!idElement) return;
     this.props.removeComponent(idElement);
   }
+
+  handleDuplicateElement(event, idElement){
+    event.stopPropagation();
+    if (!idElement) return;
+    this.props.duplicateComponent(idElement);
+  }
+
   handleOpenElementDetail(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
@@ -122,6 +131,7 @@ class Questionnaire extends Component {
             onClickElement={this.handleElementSelect}
             onClickDetail={event => this.handleOpenElementDetail(event, key)}
             onClickDelete={event => this.handleRemoveElement(event, key)}
+            onClickDuplicate={event => this.handleDuplicateElement(event, key)}
             moveComponent={moveComponent}
             childrenId={components[key].children}
             weight={components[key].weight}
