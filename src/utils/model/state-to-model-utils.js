@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import Questionnaire from 'utils/transformation-entities/questionnaire';
-import Component from 'utils/transformation-entities/component';
 import CodesList from 'utils/transformation-entities/codes-list';
 import Code from 'utils/transformation-entities/code';
 import { COMPONENT_TYPE, QUESTION_TYPE_ENUM, DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
@@ -59,35 +58,6 @@ export function getCodesListsIdsToSave(componentsState) {
   return codesListsIds;
 }
 
-export function getNestedComponentsFromPlainList(questionnaireId, listComponents, codesLists) {
-  function serializePlainToNested(component, codesLists, depth = 0) {
-    const componentType = component.type;
-    const newDepth = depth + 1;
-
-    if (componentType !== QUESTION) {
-      component.children = component.children
-        .sort((keyA, keyB) => {
-          if (listComponents[keyA].weight < listComponents[keyB].weight) return -1;
-          if (listComponents[keyA].weight > listComponents[keyB].weight) return 1;
-          return 0;
-        })
-        .map(key => {
-          return serializePlainToNested(listComponents[key], codesLists, newDepth);
-        });
-    }
-
-    return Component.stateToModel({ ...component, depth: newDepth }, codesLists);
-  }
-
-  return listComponents[questionnaireId].children
-    .sort((keyA, keyB) => {
-      if (listComponents[keyA].weight < listComponents[keyB].weight) return -1;
-      if (listComponents[keyA].weight > listComponents[keyB].weight) return 1;
-      return 0;
-    })
-    .map(key => serializePlainToNested(listComponents[key], codesLists));
-}
-
 export function getNestedCodesListFromPlainList(codesListsIds, codesLists, codes) {
   return codesListsIds.map(codesListId => {
     let codesModel = [];
@@ -107,13 +77,13 @@ export function questionnaireStateToModel(
   codesListsState = {},
   codesState = {}
 ) {
-  let childrenModel = [];
   componentsState = _.cloneDeep(componentsState);
   codesListsState = _.cloneDeep(codesListsState);
   codesState = _.cloneDeep(codesState);
+
   const codesListsIds = getCodesListsIdsToSave(componentsState, codesListsState);
-  if (Object.keys(componentsState).length > 0)
-    childrenModel = getNestedComponentsFromPlainList(questionnaireState.id, componentsState, codesListsState);
   const codesListsModel = getNestedCodesListFromPlainList(codesListsIds, codesListsState, codesState);
-  return Questionnaire.stateToModel(questionnaireState, childrenModel, codesListsModel);
+
+  // @TODO: Move the codes lists transformation to Questionnaire.stateToModel
+  return Questionnaire.stateToModel(questionnaireState, componentsState, codesListsState, codesListsModel);
 }

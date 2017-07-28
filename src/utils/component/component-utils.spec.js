@@ -126,5 +126,4 @@ describe('couldInsertAsChild', () => {
   test('should return true if we want to move a SEQUENCE into a SEQUENCE', () => {
     expect(couldInsertAsChild({ type: SEQUENCE }, { type: SEQUENCE, children: [] })).toBeFalsy();
   });
-  
 });

@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 import { DATATYPE_NAME } from 'constants/pogues-constants';
-import Response from './response';
+import Response, { defaultResponseModel } from './response';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
@@ -20,13 +22,38 @@ export const defaultSimpleForm = {
 };
 
 export const defaultSimpleState = {
-  type: undefined,
-  mandatory: undefined,
+  mandatory: false,
+  type: TEXT,
+  [TEXT]: {
+    maxLength: 255,
+    pattern: '',
+  },
 };
 
 export const defaultSimpleModel = {
-  responses: [],
+  responses: [
+    {
+      ...defaultResponseModel,
+    },
+  ],
 };
+
+function formToState(form) {
+  const { type, mandatory, [type]: simpleForm } = form;
+  return {
+    ...defaultSimpleState,
+    type,
+    mandatory,
+    [type]: simpleForm,
+  };
+}
+
+function stateToForm(state) {
+  return {
+    ..._.cloneDeep(defaultSimpleForm),
+    ...state,
+  };
+}
 
 function stateToModel(state) {
   const { mandatory, type, [type]: simpleState } = state;
@@ -34,10 +61,7 @@ function stateToModel(state) {
   responses.push(Response.stateToModel({ mandatory, type, datatype: simpleState }));
 
   return {
-    ...defaultSimpleModel,
-    ...{
-      responses,
-    },
+    responses,
   };
 }
 
@@ -57,6 +81,8 @@ function modelToState(model) {
 }
 
 export default {
+  formToState,
+  stateToForm,
   modelToState,
   stateToModel,
 };

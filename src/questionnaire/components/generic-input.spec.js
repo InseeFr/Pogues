@@ -1,12 +1,12 @@
 jest.dontMock('./generic-input');
 
+import React from 'react';
+import { shallow } from 'enzyme';
+
 import GenericInput from './generic-input';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
-
-import React from 'react';
-import { shallow } from 'enzyme';
 
 describe('<GenericInput />', () => {
   const spy = jest.fn();

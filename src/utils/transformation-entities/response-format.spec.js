@@ -39,7 +39,7 @@ describe('Transformation entities - ResponseFormat', () => {
 
     expect(ResponseFormat.modelToState(model)).toEqual(expected);
   });
-  test('formToState with a response format SIMPLE - TEXT', () => {
+  test.skip('formToState with a response format SIMPLE - TEXT', () => {
     const form = {
       type: 'SIMPLE',
       SIMPLE: {

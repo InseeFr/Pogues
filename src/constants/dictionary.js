@@ -483,7 +483,7 @@ const dictionary = {
     en: 'Secondary axis',
   },
   secondaryAxisTable: {
-    fr: "Axe d'information principal secondarie",
+    fr: "Axe d'information secondarie",
     en: 'Secondary information axis',
   },
   measuresAxisTable: {
@@ -523,12 +523,12 @@ const dictionary = {
     en: 'Number of lines max.',
   },
   rowTotal: {
-    fr: 'Afficher le total en ligne',
-    en: 'Display the row total',
+    fr: 'Ajouter la ligne "Total"',
+    en: 'Add the "Total" row',
   },
   rowTotalLabel: {
-    fr: 'Libellé du total en ligne',
-    en: 'Column total label',
+    fr: 'Libellé de la ligne "Total"',
+    en: 'Add the "Total" column',
   },
   columnTotal: {
     fr: 'Afficher le total en colonne',
@@ -536,7 +536,7 @@ const dictionary = {
   },
   columnTotalLabel: {
     fr: 'Libellé du total en colonne',
-    en: 'Total column label',
+    en: 'Label of the "Total" column',
   },
   addScndAxis: {
     fr: 'Ajouter un axe secondaire',

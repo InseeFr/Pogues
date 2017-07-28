@@ -475,7 +475,7 @@ function modelToState(model, activeCodeLists) {
 
   if (!dimensionSecondaryState) {
     measuresStates = dimensionMeasuresState.map((m, index) => {
-      return modelToStateMeasure({label: m.label, response: responses[index * responseOffset]});
+      return modelToStateMeasure({ label: m.label, response: responses[index * responseOffset] });
     });
   }
 

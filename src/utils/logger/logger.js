@@ -33,7 +33,7 @@ class Logger {
   // ----- Logging methods
 
   /* Generic logging method that tests the general logging level
-   and the active namespace*/
+   and the active namespace */
   // TODO add remote / local write test
   logWrapper(testLevel, messageArray) {
     if (process.env.NODE_ENV === ENV_TEST) return;

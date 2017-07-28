@@ -61,7 +61,7 @@ function getCodesListsFromTable(form) {
     }
   } else {
     measures.forEach(m => {
-      const { type: typeMeasureItem, [typeMeasure]: measureFormItem } = m;
+      const { type: typeMeasureItem, [typeMeasureItem]: measureFormItem } = m;
 
       if (typeMeasureItem === SINGLE_CHOICE) {
         state = addToState(measureFormItem, state);

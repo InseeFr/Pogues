@@ -76,9 +76,10 @@ export function removeSubSequence(activesComponents, deletedComponent) {
         ...acc,
         [id]: {
           ...acc[id],
-          weight: acc[id].weight >= deletedComponent.weight
-            ? acc[id].weight + (deletedComponent.children.length - 1)
-            : acc[id].weight,
+          weight:
+            acc[id].weight >= deletedComponent.weight
+              ? acc[id].weight + (deletedComponent.children.length - 1)
+              : acc[id].weight,
         },
       };
     };
