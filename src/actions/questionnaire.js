@@ -1,8 +1,11 @@
 import { getQuestionnaire, postQuestionnaire } from 'utils/remote-api';
 import { questionnaireModelToState } from 'utils/model/model-to-state-utils';
-import { questionnaireStateToModel } from 'utils/model/state-to-model-utils';
 import Questionnaire from 'utils/transformation-entities/questionnaire';
+import Component from 'utils/transformation-entities/component';
 import { uuid } from 'utils/data-utils';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
@@ -136,7 +139,10 @@ export const createQuestionnaire = (name, label) => (dispatch, getState) => {
   const id = uuid();
   const owner = getState().appState.user.permission;
   const newQuestionnaireState = Questionnaire.formToState({ id, label, name, owner });
-  const newQuestionnaireModel = questionnaireStateToModel(newQuestionnaireState);
+  const newQuestionnaireComponentState = Component.formToState({ label, name, type: QUESTIONNAIRE, id });
+  const newQuestionnaireModel = Questionnaire.stateToModel(newQuestionnaireState, {
+    [id]: newQuestionnaireComponentState,
+  });
 
   return postQuestionnaire(newQuestionnaireModel)
     .then(() => {
