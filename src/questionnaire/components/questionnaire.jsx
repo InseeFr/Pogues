@@ -19,8 +19,6 @@ class Questionnaire extends Component {
     removeComponent: PropTypes.func.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
-    setPlaceholder: PropTypes.func,
-    dragndropPosition: PropTypes.object,
   };
   constructor() {
     super();
@@ -124,8 +122,6 @@ class Questionnaire extends Component {
             onClickElement={this.handleElementSelect}
             onClickDetail={event => this.handleOpenElementDetail(event, key)}
             onClickDelete={event => this.handleRemoveElement(event, key)}
-            setPlaceholder={this.props.setPlaceholder}
-            dragndropPosition={this.props.dragndropPosition}
             moveComponent={moveComponent}
             childrenId={components[key].children}
             weight={components[key].weight}

@@ -17,19 +17,17 @@ describe('componentSource', () => {
 describe('cardTarget', () => {
   const monitor = {
     getItem() {
-      return {};
+      return {
+        id: '1',
+      };
     },
   };
   describe('canDrop', () => {
-    test('should call couldInsertToSibling method when dragndropPosition.margin = false', () => {
-      expect(cardTarget.canDrop({ dragndropPosition: { margin: false } }, monitor)).toEqual({
-        couldInsertToSibling: true,
-      });
+    test("should return false if the dragged component has the same id as the dropped component's parent", () => {
+      expect(cardTarget.canDrop({ parent: '1' }, monitor)).toEqual(false);
     });
-    test('should call couldInsertAsChild method when dragndropPosition.margin = true', () => {
-      expect(cardTarget.canDrop({ dragndropPosition: { margin: true } }, monitor)).toEqual({
-        couldInsertAsChild: true,
-      });
+    test("should return true if the dragged component has the same id as the dropped component's parent", () => {
+      expect(cardTarget.canDrop({ parent: '2' }, monitor)).toEqual(true);
     });
   });
   describe('drop', () => {
@@ -42,68 +40,14 @@ describe('cardTarget', () => {
       },
     };
 
-    test(`when the couldInsertAsChild return true, the weight should be equal to 0`, () => {
+    test(`when the isOver return true, should call moveComponent`, () => {
       const props = {
         type: SEQUENCE,
         childrenId: [],
-        moveComponent(movedComponentId, parentId, newWeight) {
-          expect(newWeight).toEqual(0);
+        moveComponent(droppedComponent, draggedComponent) {
+          expect(droppedComponent).toEqual(props);
+          expect(draggedComponent).toEqual(m.getItem());
         },
-        dragndropPosition: { margin: true },
-      };
-      cardTarget.drop(props, m);
-    });
-
-    test(`when the couldInsertAsChild return false, the weight should be equal to weight + 1`, () => {
-      const props = {
-        type: SUBSEQUENCE,
-        childrenId: [],
-        weight: 3,
-        moveComponent(movedComponentId, parentId, newWeight) {
-          expect(newWeight).toEqual(4);
-        },
-        dragndropPosition: { margin: false },
-      };
-      cardTarget.drop(props, m);
-    });
-
-    test(`when the couldInsertAsChild return true, the weight should be equal to 0`, () => {
-      const props = {
-        type: SEQUENCE,
-        childrenId: [],
-        moveComponent(movedComponentId, parentId, newWeight) {
-          expect(newWeight).toEqual(0);
-        },
-        dragndropPosition: { margin: true },
-      };
-      cardTarget.drop(props, m);
-    });
-
-    test(`when the couldInsertAsChild return false, the parent should be equal to this dropped zone`, () => {
-      const props = {
-        type: SEQUENCE,
-        childrenId: [],
-        weight: 3,
-        id: '1',
-        parent: '2',
-        moveComponent(movedComponentId, parentId) {
-          expect(parentId).toEqual('1');
-        },
-        dragndropPosition: { margin: true },
-      };
-      cardTarget.drop(props, m);
-    });
-
-    test(`when the couldInsertAsChild return false, the parent should be equal to the parent of this dropped zone`, () => {
-      const props = {
-        type: SUBSEQUENCE,
-        childrenId: [],
-        weight: 3,
-        parent: '2',
-        moveComponent(movedComponentId, parentId) {
-          expect(parentId).toEqual('2');
-        },
-        dragndropPosition: { margin: false },
       };
       cardTarget.drop(props, m);
     });

@@ -60,19 +60,19 @@ describe('couldInsertToSibling', () => {
   test('should return true if we want to move a QUESTION next to QUESTION', () => {
     expect(couldInsertToSibling({ type: QUESTION }, { type: QUESTION, children: [] })).toBeTruthy();
   });
-  test('should return true if we want to move a QUESTION next to SUBSEQUENCE', () => {
-    expect(couldInsertToSibling({ type: QUESTION }, { type: SUBSEQUENCE, children: [] })).toBeTruthy();
-  });
   test('should return true if we want to move a SUBSEQUENCE next to SUBSEQUENCE', () => {
     expect(couldInsertToSibling({ type: SUBSEQUENCE }, { type: SUBSEQUENCE, children: [] })).toBeTruthy();
-  });
-  test('should return true if we want to move a SUBSEQUENCE next to QUESTION', () => {
-    expect(couldInsertToSibling({ type: SUBSEQUENCE }, { type: QUESTION, children: [] })).toBeTruthy();
   });
   test('should return true if we want to move a SEQUENCE next to SEQUENCE', () => {
     expect(couldInsertToSibling({ type: SEQUENCE }, { type: SEQUENCE, children: [] })).toBeTruthy();
   });
 
+  test('should return true if we want to move a QUESTION next to SUBSEQUENCE', () => {
+    expect(couldInsertToSibling({ type: QUESTION }, { type: SUBSEQUENCE, children: [] })).toBeFalsy();
+  });
+  test('should return true if we want to move a SUBSEQUENCE next to QUESTION', () => {
+    expect(couldInsertToSibling({ type: SUBSEQUENCE }, { type: QUESTION, children: [] })).toBeFalsy();
+  });
   test('should return false if we want to move a QUESTION next to QUESTIONNAIRE', () => {
     expect(couldInsertToSibling({ type: QUESTION }, { type: QUESTIONNAIRE, children: [] })).toBeFalsy();
   });

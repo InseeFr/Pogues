@@ -129,19 +129,13 @@ export function toId(components) {
 }
 
 /**
-  * Depending of the type of the component, we can not move any component
-  * next to another one. For example, a QUESTION cannot be moved just after
-  * a QUESTIONNAIRE.
+  * We can only move as a sibling two components of the same type. 
   *
   * @param {object} droppedComponent the component we are moving
   * @param {object} draggedComponent the previous sibling of the moved component 
   */
 export function couldInsertToSibling(droppedComponent, draggedComponent) {
-  return (
-    droppedComponent.type === draggedComponent.type ||
-    (isQuestion(droppedComponent) && isSubSequence(draggedComponent)) ||
-    (isSubSequence(droppedComponent) && isQuestion(draggedComponent) && draggedComponent.parentType !== SUBSEQUENCE)
-  );
+  return droppedComponent.type === draggedComponent.type;
 }
 
 /**
