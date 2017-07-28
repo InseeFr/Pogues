@@ -6,14 +6,20 @@ import Control, { defaultControlForm, defaultControlState, defaultControlModel }
 
 describe('Transformation entities - Control', () => {
   const controlFirst = {
-    controlType: 'INSTRUCTION',
-    text: 'This is the first text',
-    position: 'AFTER_RESPONSE',
+    label: 'This is the first text',
+    condition: 'This is the first condition',
+    message: 'This is the first message',
+    type: 'INFO',
+    during_collect: false,
+    post_collect: false,
   };
   const controlSecond = {
-    controlType: 'INSTRUCTION',
-    text: 'This is the second text',
-    position: 'AFTER_QUESTION_TEXT',
+    label: 'This is the second text',
+    condition: 'This is the second condition',
+    message: 'This is the second message',
+    type: 'INFO',
+    during_collect: false,
+    post_collect: false,
   };
   test('Default form shape should be the expected', () => {
     const expectedForm = {

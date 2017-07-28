@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import ResponseFormat from 'questionnaire/components/response-format/response-format';
-import Declaration from 'questionnaire/components/declaration/declaration';
+import Declaration from 'questionnaire/components/declarations/declarations';
 import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
 
