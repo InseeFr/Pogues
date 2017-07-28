@@ -8,7 +8,7 @@ exports[`DropZone Should have this default template 1`] = `
   <div
     className="questionnaire-element-label"
   >
-    Drop here!
+    Drop here !
   </div>
 </div>
 `;
