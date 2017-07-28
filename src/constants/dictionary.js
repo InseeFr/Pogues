@@ -80,7 +80,7 @@ const dictionary = {
     fr: 'Séquence',
   },
   subSequence: {
-    en: 'sub-sequence',
+    en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
   question: {
@@ -123,9 +123,29 @@ const dictionary = {
     en: 'Import',
     fr: 'Importer',
   },
-  declaration: {
+  moveup: {
+    en: 'Move up',
+    fr: 'Remonter',
+  },
+  movedown: {
+    en: 'Move down',
+    fr: 'Descendre',
+  },
+  declaration_tabTitle: {
     en: 'Statement',
     fr: 'Déclaration',
+  },
+  declaration_label: {
+    en: 'Statement Label',
+    fr: 'Libellé de la déclaration',
+  },
+  type: {
+    en: 'Type',
+    fr: 'Type',
+  },
+  declaration_position: {
+    en: 'Positions',
+    fr: 'Positions',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
@@ -235,6 +255,10 @@ const dictionary = {
     en: 'Goto',
     fr: 'Redirections',
   },
+  goTo_label: {
+    en: 'GoTo Label',
+    fr: 'Libellé de la redirection',
+  },
   defineGoTo: {
     en: 'Add a goto',
     fr: 'Ajouter une redirection',
@@ -321,7 +345,7 @@ const dictionary = {
   },
   responseType: {
     en: 'Response type',
-    fr: 'Type de réponses',
+    fr: 'Type de réponse',
   },
   addResponse: {
     en: 'Add a response',
@@ -355,6 +379,22 @@ const dictionary = {
   deleteGoTo: {
     en: 'Delete GoTo',
     fr: 'Supprimer la redirection',
+  },
+  control_label: {
+    en: 'Control Label',
+    fr: 'Libellé du contrôle',
+  },
+  control_during_collect: {
+    en: 'Control during the collect',
+    fr: 'Contrôle pendant la collecte',
+  },
+  control_post_collect: {
+    en: 'Control post-collect',
+    fr: 'Contrôle post-collecte',
+  },
+  control_message: {
+    en: 'Displayed Message',
+    fr: 'Message Affiché',
   },
   deleteControl: {
     en: 'Delete control',
@@ -431,12 +471,44 @@ const dictionary = {
     en: 'Primary axis format',
   },
   primaryAxis: {
-    fr: 'Axe principal',
-    en: 'Primary axis',
+    fr: "Axe d'information",
+    en: 'Information axis',
+  },
+  primaryAxisTable: {
+    fr: "Axe d'information principal",
+    en: 'Primary information axis',
+  },
+  secondaryAxis: {
+    fr: 'Axe secondarie',
+    en: 'Secondary axis',
+  },
+  secondaryAxisTable: {
+    fr: "Axe d'information principal secondarie",
+    en: 'Secondary information axis',
+  },
+  measuresAxisTable: {
+    fr: 'Information mesurée',
+    en: 'Measure information',
   },
   codeList: {
     fr: 'Liste de codes',
     en: 'Code list',
+  },
+  selectCodesListType: {
+    fr: 'Spécifier la liste de codes',
+    en: 'Specify the code list',
+  },
+  newCodesList: {
+    fr: 'Créer une liste',
+    en: 'Create a list',
+  },
+  refCodesList: {
+    fr: 'Retrouver dans le référentiel',
+    en: 'Retrieve in the repository',
+  },
+  questionnaireCodesList: {
+    fr: 'Retrouver dans le questionnaire',
+    en: 'Retrieve in the questionnaire',
   },
   list: {
     fr: 'Liste',
@@ -451,20 +523,20 @@ const dictionary = {
     en: 'Number of lines max.',
   },
   rowTotal: {
-    fr: 'Total ligne',
-    en: 'Row total',
+    fr: 'Afficher le total en ligne',
+    en: 'Display the row total',
   },
   rowTotalLabel: {
     fr: 'Libellé du total en ligne',
-    en: 'Row total label',
+    en: 'Column total label',
   },
   columnTotal: {
-    fr: 'Total colonne',
-    en: 'Column total',
+    fr: 'Afficher le total en colonne',
+    en: 'Show total in column',
   },
   columnTotalLabel: {
     fr: 'Libellé du total en colonne',
-    en: 'Column total label',
+    en: 'Total column label',
   },
   addScndAxis: {
     fr: 'Ajouter un axe secondaire',
@@ -495,16 +567,28 @@ const dictionary = {
     en: 'Boolean',
   },
   measureInfo: {
-    fr: 'Information mesurée',
-    en: 'Measure',
+    fr: 'Représentation des réponses',
+    en: 'Responses representation',
+  },
+  measureLabel: {
+    fr: "Libellé de l'information mesurée",
+    en: 'Measure label',
   },
   responseFormats: {
-    fr: 'Format des réponses',
-    en: 'Response formats',
+    fr: 'Type de question',
+    en: 'Question type',
   },
   addMeasure: {
     fr: 'Ajouter une mesure',
     en: 'Add a measure',
+  },
+  noMeasureYet: {
+    en: 'No measure yet',
+    fr: 'Aucune information mesurée définie',
+  },
+  typeMeasure: {
+    fr: 'Type de mesure',
+    en: 'Measure type',
   },
   addCondition: {
     fr: 'Ajouter une condition',
@@ -591,7 +675,7 @@ const dictionary = {
     en: 'Contextual information',
   },
   logout: {
-    fr: 'Sé déconnecter',
+    fr: 'Se déconnecter',
     en: 'Logout',
   },
   headerSubtitle: {
@@ -663,7 +747,8 @@ const dictionary = {
     en: 'New empty questionnaire',
   },
   newQuestionnaireLegend: {
-    fr: 'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
+    fr:
+      'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
     en: 'You will now be able to specify the context',
   },
   collectionCampaign: {
@@ -706,6 +791,22 @@ const dictionary = {
     fr: 'Ajouter un objet',
     en: 'Add object',
   },
+  validationNumber: {
+    fr: 'Vous devez introduire un chiffre',
+    en: 'Must be a number',
+  },
+  validationRequired: {
+    fr: 'Obligatoire',
+    en: 'Required',
+  },
+  validationMinNumber: {
+    fr: 'Vous devez introduire au mois',
+    en: 'Must be at least',
+  },
+  dropHere: {
+    fr: 'Déposer ici !',
+    en: 'Drop here !',
+  },
 };
 
 // Dynamic translations
@@ -717,27 +818,27 @@ dictionary[`componentNew${QUESTION}`] = {
 
 dictionary[`componentNew${SEQUENCE}`] = {
   fr: 'Nouvelle sequence',
-  er: 'New sequence',
+  en: 'New sequence',
 };
 
 dictionary[`componentNew${SUBSEQUENCE}`] = {
-  fr: 'Nouvelle sub-séquence',
-  er: 'New sub-sequence',
+  fr: 'Nouvelle sous-séquence',
+  en: 'New sub-sequence',
 };
 
 dictionary[`componentEdit${QUESTION}`] = {
-  fr: 'Modififier la question',
-  er: 'Eidt question',
+  fr: 'Modifier la question',
+  en: 'Edit question',
 };
 
 dictionary[`componentEdit${SEQUENCE}`] = {
   fr: 'Modifier la sequence',
-  er: 'Edit sequence',
+  en: 'Edit sequence',
 };
 
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
-  fr: 'Modifier la sub-séquence',
-  er: 'Edit sub-sequence',
+  fr: 'Modifier la sous-séquence',
+  en: 'Edit sub-sequence',
 };
 
 export default dictionary;

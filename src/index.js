@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { AppContainer as Root } from 'react-hot-loader';
 
 import configureStore from 'store/configure-store';
-import RouterContainer from 'containers/router';
+import RouterContainer from './router';
 
 const store = configureStore();
 
@@ -23,5 +23,5 @@ renderApp(RouterContainer);
 
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('containers/app', () => renderApp(RouterContainer));
+  module.hot.accept('layout/app', () => renderApp(RouterContainer));
 }

@@ -8,6 +8,7 @@ export const COMPONENT_TYPE = {
   QUESTION: 'QUESTION',
   SEQUENCE: 'SEQUENCE',
   SUBSEQUENCE: 'SUBSEQUENCE',
+  QUESTIONNAIRE: 'QUESTIONNAIRE',
   // used as a placeholder to place the generic input within the questionnaire
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
@@ -39,6 +40,7 @@ export const GOTO_CONSISTENCY = {
 export const SEQUENCE_GENERIC_NAME = {
   QUESTIONNAIRE: 'QUESTIONNAIRE',
   MODULE: 'MODULE',
+  SUBMODULE: 'SUBMODULE',
   PARAGRAPH: 'PARAGRAPH',
   SEQUENCE: 'SEQUENCE',
 };
@@ -112,3 +114,22 @@ export const ENV_TEST = 'test';
 
 export const SEQUENCE_TYPE_NAME = 'SequenceType';
 export const QUESTION_TYPE_NAME = 'QuestionType';
+
+export const DIMENSION_FORMATS = {
+  LIST: 'LIST',
+  CODES_LIST: 'CODES_LIST',
+  BOOL: 'BOOL',
+};
+
+export const QUESTION_TYPE_ENUM = {
+  SIMPLE: 'SIMPLE',
+  SINGLE_CHOICE: 'SINGLE_CHOICE',
+  MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
+  TABLE: 'TABLE',
+};
+
+export const CODES_LIST_INPUT_ENUM = {
+  NEW: 'NEW',
+  REF: 'REF',
+  QUESTIONNAIRE: 'QUESTIONNAIRE',
+};

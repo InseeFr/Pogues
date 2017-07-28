@@ -102,6 +102,22 @@ body {
   }
 }
 
+.btn-grey {
+  @extend .btn;
+  border-radius: 0;
+  background-color: $color-grey_03;
+  border: 1px solid $color-grey_02;
+
+  &:hover {
+    background-color: darken(white, 20%);
+  }
+
+  .glyphicon {
+    font-size: 0.8em;
+    margin: 0 8px;
+  }
+}
+
 .btn-search {
   @extend .btn;
   background: none;
@@ -145,16 +161,32 @@ body {
 
 .tabs {
   .nav-link {
-    color: #464a4c;
-    background-color: #fff;
-    border-color: #ddd #ddd #fff;
+    color: $color-grey_01;
+    background-color: white;
+    font-weight: bold;
+    &.active {
+      background-color: $color-blue_04;
+    }
+    &:hover {
+      background-color: lighten($color-blue_04, 0.5);
+      cursor: pointer;
+    }
   }
+
+
   .nav-content {
     display: none;
-    margin-top: 20px;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: $color-blue_04;
 
     &.active {
       display: block;
+    }
+
+    h3 {
+      color: $color-blue_05;
+      margin-bottom: 20px;
     }
   }
 }

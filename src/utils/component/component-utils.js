@@ -1,7 +1,7 @@
 import { COMPONENT_TYPE, COMPONENT_UTIL } from 'constants/pogues-constants';
 import { nameFromLabel } from 'utils/name-utils';
 
-const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 const { CREATE, REMOVE } = COMPONENT_UTIL;
 
 const emptyCmpnt = {
@@ -71,4 +71,85 @@ export function createOrRemoveSubEntity(arrName, op) {
       [arrName]: op === CREATE ? [...ids, id] : [...ids.slice(0, index), ...ids.slice(index + 1)],
     };
   };
+}
+
+/**
+ * This method return true if the component passed as a parameter is a QUESTION
+ * 
+ * @param {object} component The component we should test
+ */
+export function isQuestion(component) {
+  return component && component.type === QUESTION;
+}
+
+/**
+ * This method return true if the component passed as a parameter is a SUBSEQUENCE
+ * 
+ * @param {object} component The component we should test
+ */
+export function isSubSequence(component) {
+  return component && component.type === SUBSEQUENCE;
+}
+
+/**
+ * This method return true if the component passed as a parameter is a SEQUENCE
+ * 
+ * @param {object} component The component we should test
+ */
+export function isSequence(component) {
+  return component && component.type === SEQUENCE;
+}
+
+/**
+  * This method return true if the component passed as a parameter is a QUESTIONNAIRE
+  * 
+  * @param {object} component The component we should test
+  */
+export function isQuestionnaire(component) {
+  return component && component.type === QUESTIONNAIRE;
+}
+
+/**
+ * This method will return an array of component based of the ids passed as parameter
+ * 
+ * @param {string[]} ids The list of IDs
+ * @param {object} activesComponents The object representing the activated components
+ */
+export function toComponents(ids, activesComponents) {
+  return ids.map(id => activesComponents[id]);
+}
+
+/**
+ * This method will return an array of component's id
+ * 
+ * @param {object[]} components The list of components
+ */
+export function toId(components) {
+  return components.map(c => c.id);
+}
+
+/**
+  * We can only move as a sibling two components of the same type. 
+  *
+  * @param {object} droppedComponent the component we are moving
+  * @param {object} draggedComponent the previous sibling of the moved component 
+  */
+export function couldInsertToSibling(droppedComponent, draggedComponent) {
+  return droppedComponent.type === draggedComponent.type;
+}
+
+/**
+ * This method will check if in a specific use case, we can drag
+ * a component inside another one. 
+ * This is possible when the dropped zone is a SEQUENCE or SUBSEQUENCE.
+ *
+ * @param {object} droppedComponent the dropped component
+ * @param {object} draggedComponent the dragged component
+ */
+export function couldInsertAsChild(droppedComponent, draggedComponent) {
+  return (
+    (isSequence(droppedComponent) && isQuestion(draggedComponent)) ||
+    (isSequence(droppedComponent) && isSubSequence(draggedComponent)) ||
+    (isSubSequence(droppedComponent) && isQuestion(draggedComponent))
+  );
 }

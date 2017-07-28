@@ -1,35 +1,28 @@
-/**
- * Keep track of code list created within a questionnaire (ignore code list
- * specifiactions)
- */
+import { LOAD_QUESTIONNAIRE_SUCCESS, CREATE_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
+import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
+import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
-// This reducer will not update if we remove the only response using a code
-// list.
-// TODO implement remove code list (with integrity controls to check if the
-// code list is not used by any response)
-import { NEW_CODE_LIST_FORMAT } from 'actions/response-format';
+const actionHandlers = {};
 
-import { CREATE_QUESTIONNAIRE, LOAD_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
-
-export default function(state = {}, action) {
-  const { type, payload } = action;
-  switch (type) {
-    case CREATE_QUESTIONNAIRE:
-      return {
-        ...state,
-        [payload.id]: [],
-      };
-    case NEW_CODE_LIST_FORMAT:
-      return {
-        ...state,
-        [payload.qrId]: [...state[payload.qrId], payload.createdClId],
-      };
-    case LOAD_QUESTIONNAIRE_SUCCESS:
-      return {
-        ...state,
-        ...payload.update.codeListByQuestionnaire,
-      };
-    default:
-      return state;
-  }
+export function loadQuestionnaireSuccess(state, { update: { codeListByQuestionnaire } }) {
+  return {
+    ...state,
+    ...codeListByQuestionnaire,
+  };
 }
+
+export function loadQuestionnaireListSuccess(state, updatesList) {
+  const codeListByQuestionnaire = updatesList.reduce((acc, questionnaire) => {
+    return { ...acc, ...questionnaire.codeListByQuestionnaire };
+  }, {});
+  return {
+    ...state,
+    ...codeListByQuestionnaire,
+  };
+}
+
+actionHandlers[LOAD_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
+actionHandlers[CREATE_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
+actionHandlers[LOAD_QLIST_SUCCESS] = loadQuestionnaireListSuccess;
+
+export default createActionHandlers(actionHandlers);

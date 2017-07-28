@@ -9,8 +9,11 @@
  * type), but we could have the same value used elsewhere in `pogues-constants`
  * to represent another kind of concept.
 **/
-import { UI_BEHAVIOUR as uiBhvrCst, DECLARATION_POSITION as dclPostCst } from './pogues-constants';
-import { QUESTION_TYPE_ENUM as respFormCst } from './schema';
+import {
+  UI_BEHAVIOUR as uiBhvrCst,
+  DECLARATION_POSITION as dclPostCst,
+  QUESTION_TYPE_ENUM as respFormCst,
+} from './pogues-constants';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = respFormCst;
 const { FIRST_INTENTION, SECOND_INTENTION } = uiBhvrCst;
