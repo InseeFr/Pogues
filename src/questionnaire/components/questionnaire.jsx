@@ -143,6 +143,10 @@ class Questionnaire extends Component {
           <h4>{questionnaire.label}</h4>
           <div>
             <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>{Dictionary.showDetail}</button>
+            <button className="btn-yellow">
+              {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+            </button>
+            <button className="btn-yellow">{Dictionary.remove}<span className="glyphicon glyphicon-trash" /></button>
           </div>
         </div>
         <div id="questionnaire-items">

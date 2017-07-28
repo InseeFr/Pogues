@@ -64,16 +64,6 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />{Dictionary.question}
         </button>
         <button
-          id="add-sequence"
-          className="btn-white"
-          disabled={placeholders[SEQUENCE].parent === ''}
-          onClick={() => {
-            this.handleOpenNewComponent(SEQUENCE);
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />{Dictionary.sequence}
-        </button>
-        <button
           id="add-subsequence"
           className="btn-white"
           disabled={placeholders[SUBSEQUENCE].parent === ''}
@@ -83,6 +73,16 @@ class GenericInput extends Component {
         >
           <span className="glyphicon glyphicon-plus" />{Dictionary.subSequence}
         </button>
+        <button
+          id="add-sequence"
+          className="btn-white"
+          disabled={placeholders[SEQUENCE].parent === ''}
+          onClick={() => {
+            this.handleOpenNewComponent(SEQUENCE);
+          }}
+        >
+          <span className="glyphicon glyphicon-plus" />{Dictionary.sequence}
+        </button>
         <button className="btn-white"><span className="glyphicon glyphicon-plus" />{Dictionary.pageBreak}</button>
         <button className="btn-yellow" onClick={this.props.saveActiveQuestionnaire}>
           {Dictionary.save}<span className="glyphicon glyphicon-floppy-disk" />
@@ -91,8 +91,6 @@ class GenericInput extends Component {
         <button className="btn-yellow">
           {Dictionary.publishQuestionnaire}<span className="glyphicon glyphicon-share-alt" />
         </button>
-        <button className="btn-yellow">{Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" /></button>
-        <button className="btn-yellow">{Dictionary.remove}<span className="glyphicon glyphicon-trash" /></button>
         <ReactModal
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showNewComponentModal}
