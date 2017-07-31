@@ -5,6 +5,7 @@ import { resetWeight, increaseWeightOfAll, resetChildren } from './component-upd
 import { uuid } from 'utils/data-utils';
 import { updateNewComponentParent } from 'utils/model/form-to-state-utils';
 import * as _ from 'lodash';
+import { sortBy } from 'lodash/fp';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 
@@ -45,17 +46,32 @@ export function moveComponents(componentsToMove, newParent, keepChildren) {
  * @param {object} activesComponents The list of components currently displayed
  * @param {string} selectedComponentId The Id of the currently selected component
  * @param {object} newComponent The new component (normally a SUBSEQUENCE)
+ * @param {boolean} includeSelectedComponent Should we add the selected component as a child of the newComponent. Or do we start with the next sibling ? 
  */
-export function moveQuestionToSubSequence(activesComponents, selectedComponent, newComponent, keepChildren) {
+export function moveQuestionToSubSequence(
+  activesComponents,
+  selectedComponent,
+  newComponent,
+  keepChildren,
+  includeSelectedComponent
+) {
   const oldParent = activesComponents[selectedComponent.parent];
-
   if (!oldParent) {
     return;
   }
+
+  /**
+   * We will ge the question we have to move, based on the keepChildren and includeSelectedComponent flags
+   * If keepChildren is false, we will keep only the next sibling (selectedComponent.weight + 1)
+   * If keepChildren is true, will keep all children with a weight bigger than the selected component
+   * If includeSelectedComponent is true, we will also keep the component with a weight equal to the selected component
+   */
   let questionsToMove = toComponents(oldParent.children, activesComponents).filter(
     child =>
       ((!keepChildren && child.weight === selectedComponent.weight + 1) ||
-        (keepChildren && child.weight > selectedComponent.weight)) &&
+        (keepChildren &&
+          (child.weight > selectedComponent.weight ||
+            (includeSelectedComponent && child.weight === selectedComponent.weight)))) &&
       isQuestion(child)
   );
 
@@ -99,8 +115,14 @@ export function moveQuestionToSubSequence(activesComponents, selectedComponent, 
  * @param {object} activesComponents The list of components currently displayed
  * @param {string} selectedComponentId  The ID of the selected component
  * @param {object} newComponent The latests created component
+ * @param {boolean} includeSelectedComponent Should we add the selected component as a child of the newComponent. Or do we start with the next sibling ? 
  */
-export function moveQuestionAndSubSequenceToSequence(activesComponents, selectedComponent, newComponent) {
+export function moveQuestionAndSubSequenceToSequence(
+  activesComponents,
+  selectedComponent,
+  newComponent,
+  includeSelectedComponent
+) {
   const oldParent = selectedComponent ? activesComponents[selectedComponent.parent] : false;
 
   if (!oldParent) {
@@ -116,8 +138,12 @@ export function moveQuestionAndSubSequenceToSequence(activesComponents, selected
    * Based on this list, we fetch only the component to move, 
    * and we construct an array with the new parent (the sequence)
    */
-  let listOfComponentsToMove = listOfComponent
-    .filter(child => child.weight > selectedComponent.weight)
+  let listOfComponentsToMove = sortBy('weight')(listOfComponent)
+    .filter(
+      child =>
+        child.weight > selectedComponent.weight ||
+        (includeSelectedComponent && child.weight === selectedComponent.weight)
+    )
     .reduce((acc, component, i) => {
       return acc.concat([
         {
@@ -131,7 +157,10 @@ export function moveQuestionAndSubSequenceToSequence(activesComponents, selected
   /**
    * List of components that should stay in the previous parent
    */
-  const listOfComponentsToKeep = listOfComponent.filter(child => child.weight <= selectedComponent.weight);
+  const listOfComponentsToKeep = listOfComponent.filter(
+    child =>
+      child.weight < selectedComponent.weight || (!includeSelectedComponent && child.weight === selectedComponent.weight)
+  );
 
   /**
    * We move up to the root Sequence
@@ -169,13 +198,20 @@ export function moveQuestionAndSubSequenceToSequence(activesComponents, selected
     ...listOfComponentsToMove,
   ]);
 
+  /**
+   * 1. We move the components to the new inserted component
+   * 2. We reset the children property of the old parent
+   * 3. We reset the children of the old sequence
+   */
   const moves = {
     ...activesComponents,
     ...moveComponents(Object.keys(listOfComponentsToMove).map(key => listOfComponentsToMove[key]), newComponent),
     ...resetChildren(oldParent, listOfComponentsToKeep),
     ...resetChildren(
       parentSequence,
-      toComponents(parentSequence.children, activesComponents).filter(c => c.weight <= component.weight)
+      toComponents(parentSequence.children, activesComponents).filter(
+        c => c.weight < component.weight || (!includeSelectedComponent && c.weight === component.weight)
+      )
     ),
   };
 
