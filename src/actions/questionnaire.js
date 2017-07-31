@@ -1,4 +1,4 @@
-import { getQuestionnaire, postQuestionnaire } from 'utils/remote-api';
+import { getQuestionnaire, postQuestionnaire, deleteQuestionnaire } from 'utils/remote-api';
 import { questionnaireModelToState } from 'utils/model/model-to-state-utils';
 import Questionnaire from 'utils/transformation-entities/questionnaire';
 import Component from 'utils/transformation-entities/component';
@@ -13,7 +13,9 @@ export const LOAD_QUESTIONNAIRE_FAILURE = 'LOAD_QUESTIONNAIRE_FAILURE';
 export const CREATE_QUESTIONNAIRE = 'CREATE_QUESTIONNAIRE';
 export const CREATE_QUESTIONNAIRE_SUCCESS = 'CREATE_QUESTIONNAIRE_SUCCESS';
 export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE';
-
+export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
+export const DELETE_QUESTIONNAIRE_SUCCESS = 'DELETE_QUESTIONNAIRE_SUCCESS';
+export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
 /**
  * Load questionnaire success
  *
@@ -150,5 +152,32 @@ export const createQuestionnaire = (name, label) => (dispatch, getState) => {
     })
     .catch(err => {
       return dispatch(createQuestionnaireFailure(err, err.errors));
+    });
+};
+
+export const deleteQuestionnaireSuccess = (id, update) => ({
+  type: DELETE_QUESTIONNAIRE_SUCCESS,
+  payload: {
+    id,
+    update,
+  },
+});
+
+export const deleteQuestionnaireFailure = (id, err) => ({
+  type: DELETE_QUESTIONNAIRE_FAILURE,
+  payload: { id, err },
+});
+
+export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
+  dispatch({
+    type: DELETE_QUESTIONNAIRE,
+    payload: idQuestionnaire,
+  });
+  return deleteQuestionnaire(idQuestionnaire)
+    .then(qr => {
+      dispatch(deleteQuestionnaireSuccess(idQuestionnaire));
+    })
+    .catch(err => {
+      dispatch(deleteQuestionnaireFailure(idQuestionnaire, err));
     });
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
-
+import ConfirmDialog from 'layout/confirm-dialog/confirm-dialog';
 import QuestionnaireElement from '../components/questionnaire-element';
 import QuestionnaireEditContainer from '../containers/questionnaire-edit';
 import ComponentEditContainer from '../containers/component/component-edit';
@@ -20,6 +20,7 @@ class Questionnaire extends Component {
     setSelectedComponentId: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
     duplicateComponent: PropTypes.func.isRequired,
+    removeQuestionnaire: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -27,6 +28,7 @@ class Questionnaire extends Component {
     this.state = {
       showQuestionnaireModal: false,
       showElementModal: false,
+      showConfirmModal: false,
       idElementInModal: undefined,
       typeElementInModal: undefined,
     };
@@ -40,6 +42,18 @@ class Questionnaire extends Component {
     this.renderComponentsByParent = this.renderComponentsByParent.bind(this);
     this.handleQuestionnnarieUpdated = this.handleQuestionnnarieUpdated.bind(this);
     this.handleDuplicateElement = this.handleDuplicateElement.bind(this);
+
+    this.handleDisplayDeleteConfirm = this.handleDisplayDeleteConfirm.bind(this);
+    this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
+  }
+
+  handleDisplayDeleteConfirm(event) {
+    event.stopPropagation();
+    this.setState({ showConfirmModal: true });
+  }
+
+  handleQuestionnaireDelete(){
+    this.props.removeQuestionnaire(this.props.questionnaire.id);
   }
 
   handleElementSelect(event, idElement) {
@@ -56,7 +70,7 @@ class Questionnaire extends Component {
     this.props.removeComponent(idElement);
   }
 
-  handleDuplicateElement(event, idElement){
+  handleDuplicateElement(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
     this.props.duplicateComponent(idElement);
@@ -156,7 +170,9 @@ class Questionnaire extends Component {
             <button className="btn-yellow">
               {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
             </button>
-            <button className="btn-yellow">{Dictionary.remove}<span className="glyphicon glyphicon-trash" /></button>
+            <button className="btn-yellow" onClick={this.handleDisplayDeleteConfirm}>
+              {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
+            </button>
           </div>
         </div>
         <div id="questionnaire-items">
@@ -204,6 +220,7 @@ class Questionnaire extends Component {
             </div>
           </div>
         </ReactModal>
+        <ConfirmDialog showConfirmModal={this.state.showConfirmModal} confirm={this.handleQuestionnaireDelete}/>
       </div>
     );
   }

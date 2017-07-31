@@ -79,3 +79,13 @@ export const getUserAttributes = () =>
   }).then(res => {
     return res.json();
   });
+
+
+export const deleteQuestionnaire = id =>
+  fetch(`${urlQuestionnaire}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());

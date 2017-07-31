@@ -807,6 +807,14 @@ const dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
+  confirmBodyMessage: {
+    fr: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
+    en: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
+  },
+  confirmQuestionMessage: {
+    fr: 'Êtes-vous sûr ?',
+    en: 'Êtes-vous sûr ?',
+  },
 };
 
 // Dynamic translations
