@@ -137,10 +137,9 @@ class QuestionnaireElement extends Component {
                   </div>
                 : ''}
             </div>
-            {dragndropLevel !== 0 && dropZone}
+            {dropZone}
             {children}
           </div>
-          {dragndropLevel === 0 && dropZone}
         </div>
       )
     );
