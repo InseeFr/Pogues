@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
+import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
 
 function InputDeclaration() {
   const types = [
@@ -49,7 +50,7 @@ function InputDeclaration() {
     <div>
       <Field name="label" id="declaration_text" component={Textarea} buttons label={Dictionary.declaration_label} />
 
-      <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required/>
+      <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required />
 
       <Field
         name="position"
@@ -62,27 +63,25 @@ function InputDeclaration() {
     </div>
   );
 }
-class Declaration extends FormSection {
+class Declarations extends Component {
   static selectorPath = 'declarations';
-  static defaultProps = {
-    name: 'declarations',
-  };
 
   render() {
+    const { declarations, ...initialInputValues } = defaultDeclarationForm;
     const inputDeclarationView = <InputDeclaration />;
 
     return (
-      <div className="declaratations">
+      <FormSection name={Declarations.selectorPath} className="declaratations">
         <ListEntryFormContainer
           inputView={inputDeclarationView}
-          selectorPath={Declaration.selectorPath}
+          initialInputValues={initialInputValues}
+          selectorPath={Declarations.selectorPath}
           listName="declarations"
           submitLabel="addDeclaration"
           noValueLabel="noDeclarationYet"
         />
-      </div>
+      </FormSection>
     );
   }
 }
-
-export default Declaration;
+export default Declarations;

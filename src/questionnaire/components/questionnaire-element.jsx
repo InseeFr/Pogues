@@ -7,15 +7,15 @@ import DropZone from 'questionnaire/components/drop-zone/drop-zone';
 
 import { DragSource, DropTarget } from 'react-dnd';
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
-import { couldInsertAsChild, couldInsertToSibling } from 'utils/component/component-utils';
+import { getDragnDropLevel, calculateMargin } from 'utils/component/component-dragndrop-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 @DropTarget(PropType, cardTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
-  canDrop: monitor.canDrop(),
   isOver: monitor.isOver({ shallow: true }),
   draggedItem: monitor.getItem(),
+  canDrop: monitor.canDrop(),
 }))
 @DragSource(PropType, componentSource, collect)
 class QuestionnaireElement extends Component {
@@ -33,14 +33,13 @@ class QuestionnaireElement extends Component {
     onClickElement: PropTypes.func.isRequired,
     onClickDetail: PropTypes.func.isRequired,
     onClickDelete: PropTypes.func.isRequired,
+    onClickDuplicate: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
-    canDrop: PropTypes.bool,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     draggedItem: PropTypes.object,
-    setPlaceholder: PropTypes.func,
-    dragndropPosition: PropTypes.object,
+    canDrop: PropTypes.bool,
   };
   static defaultProps = {
     children: [],
@@ -64,7 +63,6 @@ class QuestionnaireElement extends Component {
       connectDragSource,
       connectDropTarget,
       isOver,
-      canDrop,
       name,
       id,
       type,
@@ -76,20 +74,23 @@ class QuestionnaireElement extends Component {
       onClickElement,
       onClickDetail,
       onClickDelete,
+      onClickDuplicate,
       parentType,
+      parent,
       draggedItem,
-      dragndropPosition,
+      canDrop,
     } = this.props;
 
-    const shouldDisplayPlaceholderAsChild = dragndropPosition.margin && couldInsertAsChild(this.props, draggedItem);
-    const shouldDisplayPlaceholderAsSibling =
-      draggedItem && !dragndropPosition.margin && couldInsertToSibling(this.props, draggedItem);
+    const dragndropLevel = getDragnDropLevel(this.props, draggedItem);
+    const style = {
+      marginLeft: `${calculateMargin(this.props, draggedItem, dragndropLevel, parentType)}px`,
+    };
 
     /**
      * If a component is dragged, and if the current component can receive this component, we will add 
      * a drop zone. 
      */
-    const dropZone = isOver && canDrop && <DropZone />;
+    const dropZone = canDrop && isOver && <DropZone style={style} />;
 
     return connectDragSource(
       connectDropTarget(
@@ -122,9 +123,10 @@ class QuestionnaireElement extends Component {
               {selected
                 ? <div className="questionnaire-element-actions">
                     <button className="btn-yellow" onClick={onClickDetail}>{Dictionary.showDetail}</button>
-                    <button className="btn-yellow">
-                      {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
-                    </button>
+                    {type === 'QUESTION' &&
+                      <button className="btn-yellow" onClick={onClickDuplicate}>
+                        {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+                      </button>}
                     <button
                       className="btn-yellow"
                       disabled={weight === 0 && type === 'SEQUENCE'}
@@ -135,10 +137,10 @@ class QuestionnaireElement extends Component {
                   </div>
                 : ''}
             </div>
-            {shouldDisplayPlaceholderAsChild && dropZone}
+            {dragndropLevel !== 0 && dropZone}
             {children}
           </div>
-          {shouldDisplayPlaceholderAsSibling && dropZone}
+          {dragndropLevel === 0 && dropZone}
         </div>
       )
     );

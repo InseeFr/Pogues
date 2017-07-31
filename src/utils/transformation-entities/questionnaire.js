@@ -1,17 +1,26 @@
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
+import Component from 'utils/transformation-entities/component';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
+export const defaultQuestionnaireForm = {
+  label: '',
+  name: '',
+};
+
 export const defaultQuestionnaireState = {
   id: undefined,
+  owner: undefined,
   name: undefined,
   label: undefined,
-  agency: undefined,
-  survey: undefined,
   components: [],
   codeLists: [],
   conditions: [],
-  owner: undefined,
+  declarations: [],
+  controls: [],
+  redirections: [],
+  agency: undefined,
+  survey: undefined,
 };
 
 export const defaultQuestionnaireModel = {
@@ -19,7 +28,7 @@ export const defaultQuestionnaireModel = {
   name: '',
   label: [],
   declarations: [],
-  goTos: [],
+  redirections: [],
   controls: [],
   genericName: QUESTIONNAIRE,
   children: [],
@@ -67,23 +76,18 @@ function modelToState(model) {
   };
 }
 
-function stateToModel(questionnaire, children, codeList) {
-  const { id, name, label, owner } = questionnaire;
-  const questionnaireModel = {
-    id,
-    name,
-    label: [label],
+function stateToModel(questionnaire, components, codesLists = {}, codeList = []) {
+  const { id, owner } = questionnaire;
+  const model = Component.stateToModel({ ...components[id], depth: 0 }, components, codesLists);
+
+  return {
+    ...defaultQuestionnaireModel,
+    ...model,
     owner,
-    children,
     codeLists: {
       codeList,
       codeListSpecification: [],
     },
-  };
-
-  return {
-    ...defaultQuestionnaireModel,
-    ...questionnaireModel,
   };
 }
 

@@ -11,14 +11,12 @@ describe('<PageQuestionnaire />', () => {
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
   const spySetActiveCodeLists = jest.fn();
-  const spySetActiveDeclarations = jest.fn();
   const props = {
     params: { id: 1 },
     loadQuestionnaireIfNeeded: spyLoad,
     setActiveQuestionnaire: spySetActiveQuestionnaire,
     setActiveComponents: spySetActiveComponents,
     setActiveCodeLists: spySetActiveCodeLists,
-    setActiveDeclarations: spySetActiveDeclarations,
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);
@@ -45,9 +43,5 @@ describe('<PageQuestionnaire />', () => {
 
   test('should call setActiveCodeLists in render', () => {
     expect(spySetActiveCodeLists).toBeCalled();
-  });
-
-  test('should call setActiveDeclarations in render', () => {
-    expect(spySetActiveDeclarations).toBeCalled();
   });
 });

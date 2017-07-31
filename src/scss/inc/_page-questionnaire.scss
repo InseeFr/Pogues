@@ -23,8 +23,12 @@
       }
 
       div {
-        @include make-xs-column(2);
-        text-align: center;
+        @include make-xs-column(5);
+          text-align: right;
+          float: right;
+          button {
+            margin: 5px  5px 0 0;
+          }
       }
     }
 

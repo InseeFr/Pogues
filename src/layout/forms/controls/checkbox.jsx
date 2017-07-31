@@ -5,7 +5,7 @@ function Checkbox({ input, label, type, required, reference, meta: { touched, er
   return (
     <div className="form-check-inline">
       <label className="form-check-label" htmlFor={`input-${input.name}`}>
-        <input type="checkbox" {...input} id={`input-${input.name}`} />
+        <input checked={input.value} type="checkbox" {...input} id={`input-${input.name}`} />
         {label}
       </label>
     </div>

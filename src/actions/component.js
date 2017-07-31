@@ -2,13 +2,10 @@ import { uuid } from 'utils/data-utils';
 import Component from 'utils/transformation-entities/component';
 import { isSubSequence, isSequence, isQuestion } from 'utils/component/component-utils';
 import { getCodesListsAndCodesFromQuestion, updateNewComponentParent } from 'utils/model/form-to-state-utils';
-import {
-  moveQuestionToSubSequence,
-  moveQuestionAndSubSequenceToSequence,
-  increaseWeightOfAll,
-  moveComponent,
-  remove,
-} from './component-moves';
+import { increaseWeightOfAll } from './component-update';
+import { remove } from './component-remove';
+import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence, duplicate } from './component-insert';
+import { moveComponent } from './component-move';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
@@ -25,8 +22,7 @@ export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
  * @param   {string}  type      The type of component
  * @return  {object}            CREATE_COMPONENT action
  */
-export const createComponent = (form, parentId, weight, type) => (dispatch, getState) => {
-  const state = getState();
+export const createComponent = (form, parentId, weight, type) => dispatch => {
   const id = uuid();
   const newComponent = Component.formToState({ ...form, parent: parentId, weight, type, id });
   const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
@@ -181,5 +177,23 @@ export const removeComponent = idDeletedComponent => (dispatch, getState) => {
   dispatch({
     type: REMOVE_COMPONENT,
     payload: remove(activeComponentsById, idDeletedComponent),
+  });
+};
+
+/**
+ * Method used when we click on the DUPLICATE button on a SEQUENCE, SUBSEQUENCE or QUESTION
+ * 
+ * @param {string} idDeletedComponent the id of the component we want to remove
+ */
+export const duplicateComponent = idComponent => (dispatch, getState) => {
+  const state = getState();
+  const activeComponentsById = state.appState.activeComponentsById;
+  dispatch({
+    type: CREATE_COMPONENT,
+    payload: {
+      update: {
+        activeComponentsById: duplicate(activeComponentsById, idComponent),
+      },
+    },
   });
 };

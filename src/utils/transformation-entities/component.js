@@ -1,12 +1,18 @@
+import _ from 'lodash';
+
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import ResponseFormat from './response-format';
+import Declaration from './declaration';
+import Control from './control';
+import Redirection from './redirection';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const defaultComponentForm = {
   label: '',
+  name: '',
 };
 
 export const defaultComponentState = {
@@ -19,50 +25,87 @@ export const defaultComponentState = {
   rawLabel: undefined,
   children: [],
   responseFormat: undefined,
+  declarations: undefined,
+  controls: undefined,
+  redirections: undefined,
 };
 
 export const defaultComponentModel = {
-  type: '',
   id: '',
+  type: '',
   name: '',
   label: [],
   genericName: '',
   depth: 0,
-  goTos: [],
+  questionType: '',
+  children: [],
+  responses: [],
+  responseStructure: {
+    dimensions: {},
+  },
   declarations: [],
   controls: [],
-  children: [],
-  questionType: '',
-  responses: [],
+  redirections: [],
 };
 
-function formToState(values) {
-  const { id, type, label, name, parent, weight, responseFormat } = values;
+function stateToModelChildren(children, components, codesLists, depth = 0) {
+  return children
+    .sort((keyA, keyB) => {
+      if (components[keyA].weight < components[keyB].weight) return -1;
+      if (components[keyA].weight > components[keyB].weight) return 1;
+      return 0;
+    })
+    .map(key => {
+      const newDepth = depth + 1;
+      return stateToModel({ ...components[key], depth: newDepth }, components, codesLists);
+    });
+}
 
-  const componentData = {
+function formToState(form) {
+  const {
     id,
     type,
+    parent,
+    weight,
+    name,
+    label,
+    children,
+    responseFormat,
+    declarations,
+    controls,
+    redirections,
+  } = form;
+
+  const state = {
+    id,
+    type,
+    label,
     name: name || nameFromLabel(label),
     parent: parent || '',
     weight: weight || 0,
+    children: children || [],
   };
 
   if (type === QUESTION) {
-    componentData.rawLabel = label;
-    componentData.label = label;
-    componentData.responseFormat = ResponseFormat.formToState(responseFormat);
+    // @TODO: Markdown parser
+    state.label = label;
+    state.rawLabel = label;
+    state.responseFormat = ResponseFormat.formToState(responseFormat);
+    state.declarations = Declaration.formToState(declarations);
+    state.controls = Control.formToState(controls);
+    state.redirections = Redirection.formToState(redirections);
   } else {
-    componentData.label = label;
+    state.label = label;
   }
 
   return {
-    ...defaultComponentState,
-    ...componentData,
+    ..._.cloneDeep(defaultComponentState),
+    ...state,
   };
 }
 
 function stateToForm(component, activeCodeLists, activeCodes) {
-  const { label, name, type, responseFormat } = component;
+  const { label, name, type, responseFormat, declarations, controls, redirections } = component;
 
   const form = {
     label,
@@ -71,6 +114,9 @@ function stateToForm(component, activeCodeLists, activeCodes) {
 
   if (type === QUESTION) {
     form.responseFormat = ResponseFormat.stateToForm(responseFormat, activeCodeLists, activeCodes);
+    form.declarations = Declaration.stateToForm(declarations);
+    form.controls = Control.stateToForm(controls);
+    form.redirections = Redirection.stateToForm(redirections);
   }
 
   return {
@@ -79,32 +125,39 @@ function stateToForm(component, activeCodeLists, activeCodes) {
   };
 }
 
-function stateToModel(component, codesLists) {
-  const { id, depth, name, label, type, children, responseFormat } = component;
-  let componentModel = {
+function stateToModel(state, components, codesLists = {}) {
+  const { id, depth, name, label, type, children, responseFormat, declarations, controls, redirections } = state;
+  let model = {
     id,
     depth,
     name,
     label: [label],
-    children,
   };
 
   if (type === QUESTION) {
-    componentModel.type = QUESTION_TYPE_NAME;
-    componentModel.questionType = responseFormat.type;
-    componentModel = { ...componentModel, ...ResponseFormat.stateToModel(responseFormat, codesLists) };
+    model.type = QUESTION_TYPE_NAME;
+    model.questionType = responseFormat.type;
+
+    model = {
+      ...model,
+      ...ResponseFormat.stateToModel(responseFormat, codesLists),
+      ...Declaration.stateToModel(declarations),
+      ...Control.stateToModel(controls),
+      ...Redirection.stateToModel(redirections),
+    };
   } else {
-    componentModel.type = SEQUENCE_TYPE_NAME;
+    model.type = SEQUENCE_TYPE_NAME;
     if (type === QUESTIONNAIRE) {
-      componentModel.genericName = 'QUESTIONNAIRE';
+      model.genericName = 'QUESTIONNAIRE';
     } else {
-      componentModel.genericName = 'MODULE';
+      model.genericName = 'MODULE';
     }
+    model.children = stateToModelChildren(children, components, codesLists, depth);
   }
 
   return {
-    ...defaultComponentModel,
-    ...componentModel,
+    ..._.cloneDeep(defaultComponentModel),
+    ...model,
   };
 }
 
@@ -121,9 +174,13 @@ function modelToState(model, activeCodeLists = {}) {
     questionType,
     responses,
     responseStructure,
+    declarations,
+    controls,
+    redirections,
+    goTos
   } = model;
 
-  const componentData = {
+  const state = {
     id,
     name,
     parent: parent || '',
@@ -131,21 +188,21 @@ function modelToState(model, activeCodeLists = {}) {
   };
 
   if (type === SEQUENCE_TYPE_NAME) {
-    componentData.children = children.map(child => child.id);
-    componentData.label = label;
+    state.children = children.map(child => child.id);
+    state.label = label;
     if (depth === 0) {
-      componentData.type = QUESTIONNAIRE;
+      state.type = QUESTIONNAIRE;
     } else if (depth === 1) {
-      componentData.type = SEQUENCE;
+      state.type = SEQUENCE;
     } else {
-      componentData.type = SUBSEQUENCE;
+      state.type = SUBSEQUENCE;
     }
   } else if (type === QUESTION_TYPE_NAME) {
     const dimensions = responseStructure ? responseStructure.dimensions : [];
-    componentData.type = QUESTION;
-    componentData.label = getQuestionLabelFromRaw(label);
-    componentData.rawLabel = label;
-    componentData.responseFormat = ResponseFormat.modelToState(
+    state.type = QUESTION;
+    state.label = getQuestionLabelFromRaw(label);
+    state.rawLabel = label;
+    state.responseFormat = ResponseFormat.modelToState(
       {
         type: questionType,
         responses,
@@ -153,11 +210,14 @@ function modelToState(model, activeCodeLists = {}) {
       },
       activeCodeLists
     );
+    state.declarations = Declaration.modelToState({ declarations });
+    state.controls = Control.modelToState({ controls });
+    state.redirections = Redirection.modelToState({ redirections: redirections || goTos });
   }
 
   return {
-    ...defaultComponentState,
-    ...componentData,
+    ..._.cloneDeep(defaultComponentState),
+    ...state,
   };
 }
 

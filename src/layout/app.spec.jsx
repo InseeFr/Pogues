@@ -8,7 +8,8 @@ import { AppContainer } from './app';
 describe('<App />', () => {
   const props = {
     children: <div />,
-    loadUser() {}
+    loadUser() {},
+    loadQuestionnaireList() {},
   };
 
   test('should have the right template', () => {

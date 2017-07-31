@@ -3,7 +3,10 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-jest.mock('./component-moves');
+jest.mock('./component-move');
+jest.mock('./component-update');
+jest.mock('./component-remove');
+jest.mock('./component-insert');
 
 describe('updateParentChildren', () => {
   function getState() {
@@ -201,6 +204,47 @@ describe('removeComponent', () => {
       expect(param.payload).toEqual({
         activeComponentsById: getState().appState.activeComponentsById,
         idDeletedComponent: '1',
+      });
+    }
+    fn(dispatch, getState);
+  });
+});
+
+describe('duplicateComponent', () => {
+  test('should trigger the CREATE_COMPONENT action', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.duplicateComponent('1');
+
+    function dispatch(param) {
+      expect(param.type).toEqual(component.CREATE_COMPONENT);
+    }
+    fn(dispatch, getState);
+  });
+
+  test('should call duplicate function with the right parameters', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] } },
+        },
+      };
+    }
+    const fn = component.duplicateComponent('2');
+
+    function dispatch(param) {
+      expect(param.payload).toEqual({
+        update: {
+          activeComponentsById: {
+            activesComponents: getState().appState.activeComponentsById,
+            idComponent: '2',
+          },
+        },
       });
     }
     fn(dispatch, getState);

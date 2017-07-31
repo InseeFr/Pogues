@@ -19,8 +19,7 @@ class Questionnaire extends Component {
     removeComponent: PropTypes.func.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
     moveComponent: PropTypes.func.isRequired,
-    setPlaceholder: PropTypes.func,
-    dragndropPosition: PropTypes.object,
+    duplicateComponent: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -40,6 +39,7 @@ class Questionnaire extends Component {
     this.handleCloseQuestionnaireDetail = this.handleCloseQuestionnaireDetail.bind(this);
     this.renderComponentsByParent = this.renderComponentsByParent.bind(this);
     this.handleQuestionnnarieUpdated = this.handleQuestionnnarieUpdated.bind(this);
+    this.handleDuplicateElement = this.handleDuplicateElement.bind(this);
   }
 
   handleElementSelect(event, idElement) {
@@ -55,6 +55,13 @@ class Questionnaire extends Component {
     if (!idElement) return;
     this.props.removeComponent(idElement);
   }
+
+  handleDuplicateElement(event, idElement){
+    event.stopPropagation();
+    if (!idElement) return;
+    this.props.duplicateComponent(idElement);
+  }
+
   handleOpenElementDetail(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
@@ -124,8 +131,7 @@ class Questionnaire extends Component {
             onClickElement={this.handleElementSelect}
             onClickDetail={event => this.handleOpenElementDetail(event, key)}
             onClickDelete={event => this.handleRemoveElement(event, key)}
-            setPlaceholder={this.props.setPlaceholder}
-            dragndropPosition={this.props.dragndropPosition}
+            onClickDuplicate={event => this.handleDuplicateElement(event, key)}
             moveComponent={moveComponent}
             childrenId={components[key].children}
             weight={components[key].weight}
@@ -147,6 +153,10 @@ class Questionnaire extends Component {
           <h4>{questionnaire.label}</h4>
           <div>
             <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>{Dictionary.showDetail}</button>
+            <button className="btn-yellow">
+              {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+            </button>
+            <button className="btn-yellow">{Dictionary.remove}<span className="glyphicon glyphicon-trash" /></button>
           </div>
         </div>
         <div id="questionnaire-items">
