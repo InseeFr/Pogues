@@ -61,7 +61,7 @@ export function moveQuestionToSubSequence(
   }
 
   /**
-   * We will ge the question we have to move, based on the keepChildren and includeSelectedComponent flags
+   * We will get the question we have to move, based on the keepChildren and includeSelectedComponent flags
    * If keepChildren is false, we will keep only the next sibling (selectedComponent.weight + 1)
    * If keepChildren is true, will keep all children with a weight bigger than the selected component
    * If includeSelectedComponent is true, we will also keep the component with a weight equal to the selected component
@@ -77,8 +77,16 @@ export function moveQuestionToSubSequence(
 
   const questionsToMoveId = toId(questionsToMove);
   let moves = activesComponents;
+
+  /**
+   * If questionsToMove has elements, we start doing the transformations
+   */
   if (questionsToMove.length > 0) {
     const newChildren = oldParent.children.filter(child => questionsToMoveId.indexOf(child) < 0);
+
+    /**
+     * If we need to keep the children of the newComponent, we have to update the weight of the inserted component
+     */
     questionsToMove = questionsToMove.map((question, i) => {
       question.weight = !keepChildren ? 0 : newComponent.children.length + i;
       return question;
@@ -135,8 +143,9 @@ export function moveQuestionAndSubSequenceToSequence(
   const listOfComponent = oldParent.children.map(id => activesComponents[id]);
 
   /**
-   * Based on this list, we fetch only the component to move, 
-   * and we construct an array with the new parent (the sequence)
+   * Based on this list, we fetch only the component to move (with the 
+   * weight > or = to the weight of the selected component) and we 
+   * construct an array with an updated weight and parent for each component
    */
   let listOfComponentsToMove = sortBy('weight')(listOfComponent)
     .filter(
