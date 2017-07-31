@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { FormSection, Field } from 'redux-form';
+import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
-import ResponseFormatTablePrincipallist from './table-primary-list';
+import ResponseFormatTablePrincipalList from './table-primary-list';
 import Dictionary from 'utils/dictionary/dictionary';
-import Input from 'layout/forms/controls/input';
-import OptionalViewContainer from 'layout/connected-widget/optional-view';
 import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 
 const { PRIMARY } = DIMENSION_TYPE;
@@ -35,7 +33,7 @@ class ResponseFormatTablePrincipal extends Component {
         id: `response-format-table-primary-list`,
         label: Dictionary.list,
         value: LIST,
-        content: <ResponseFormatTablePrincipallist selectorPathParent={this.selectorPathComposed} />,
+        content: <ResponseFormatTablePrincipalList selectorPathParent={this.selectorPathComposed} />,
       },
       {
         id: `response-format-table-primary-listcodes`,
@@ -45,7 +43,6 @@ class ResponseFormatTablePrincipal extends Component {
       },
     ];
 
-
     return (
       <FormSection name={ResponseFormatTablePrincipal.selectorPath}>
         <ComponentSelectoryByTypeContainer
@@ -53,12 +50,6 @@ class ResponseFormatTablePrincipal extends Component {
           components={responseFormatTypes}
           selectorPath={this.selectorPathComposed}
           radio
-        />
-        <OptionalViewContainer
-          name="showTotalLabel"
-          label={Dictionary.rowTotal}
-          selectorPath={this.selectorPathComposed}
-          view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />}
         />
       </FormSection>
     );

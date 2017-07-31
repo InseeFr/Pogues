@@ -5,23 +5,55 @@ import {
   QUESTION_TYPE_ENUM,
   CODES_LIST_INPUT_ENUM,
   DATATYPE_NAME,
+  DATATYPE_VIS_HINT,
 } from 'constants/pogues-constants';
 import CodesList, { defaultCodesListForm } from './codes-list';
 import ResponseFormatSimple from './response-format-simple';
 import ResponseFormatSingle from './response-format-single';
 
-const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
+const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+const { CHECKBOX } = DATATYPE_VIS_HINT;
+
+export const defaultListMeasureForm = {
+  label: '',
+  type: SIMPLE,
+  [SIMPLE]: {
+    type: TEXT,
+    [TEXT]: {
+      maxLength: 255,
+      pattern: '',
+    },
+    [NUMERIC]: {
+      maximum: '',
+      minimum: '',
+      decimals: '',
+    },
+    [DATE]: {},
+    [BOOLEAN]: {},
+  },
+  [SINGLE_CHOICE]: {
+    codesListId: '',
+    type: NEW,
+    [NEW]: { ...defaultCodesListForm },
+    [REF]: {},
+    [QUESTIONNAIRE]: {},
+  },
+  measures: [],
+};
 
 export const defaultTableForm = {
   [PRIMARY]: {
+    showTotalLabel: '0',
+    totalLabel: '',
     type: LIST,
     [LIST]: {
       numLinesMin: 0,
       numLinesMax: 0,
+      [LIST_MEASURE]: { ...defaultListMeasureForm },
     },
     [CODES_LIST]: {
       codesListId: '',
@@ -29,19 +61,63 @@ export const defaultTableForm = {
       [NEW]: { ...defaultCodesListForm },
       [REF]: {},
       [QUESTIONNAIRE]: {},
+      [SECONDARY]: {
+        showSecondaryAxis: false,
+        codesListId: '',
+        showTotalLabel: '0',
+        totalLabel: '',
+        type: NEW,
+        [NEW]: { ...defaultCodesListForm },
+        [REF]: {},
+        [QUESTIONNAIRE]: {},
+      },
+      [MEASURE]: {
+        label: '',
+        type: SIMPLE,
+        [SIMPLE]: {
+          type: TEXT,
+          [TEXT]: {
+            maxLength: 255,
+            pattern: '',
+          },
+          [NUMERIC]: {
+            maximum: '',
+            minimum: '',
+            decimals: '',
+          },
+          [DATE]: {},
+          [BOOLEAN]: {},
+        },
+        [SINGLE_CHOICE]: {
+          mandatory: undefined,
+          codesListId: '',
+          visHint: CHECKBOX,
+          type: NEW,
+          [NEW]: { ...defaultCodesListForm },
+          [REF]: {},
+          [QUESTIONNAIRE]: {},
+        },
+      },
     },
+  },
+};
+
+export const defaultTableState = {
+  [PRIMARY]: {
+    type: LIST,
     showTotalLabel: '0',
     totalLabel: '',
+    [LIST]: {
+      numLinesMin: 0,
+      numLinesMax: 0,
+    },
   },
   [SECONDARY]: {
     showSecondaryAxis: false,
-    codesListId: '',
+    codesListId: undefined,
     showTotalLabel: '0',
-    totalLabel: '',
-    type: NEW,
-    [NEW]: { ...defaultCodesListForm },
-    [REF]: {},
-    [QUESTIONNAIRE]: {},
+    totalLabel: undefined,
+    type: undefined,
   },
   [MEASURE]: {
     label: '',
@@ -52,39 +128,9 @@ export const defaultTableForm = {
         maxLength: 255,
         pattern: '',
       },
-      [NUMERIC]: {
-        maximum: '',
-        minimum: '',
-        decimals: '',
-      },
-      [DATE]: {},
-      [BOOLEAN]: {},
     },
-    [SINGLE_CHOICE]: {
-      codesListId: '',
-      type: NEW,
-      [NEW]: { ...defaultCodesListForm },
-      [REF]: {},
-      [QUESTIONNAIRE]: {},
-    },
-    measures: [],
   },
-};
-
-export const defaultTableState = {
-  [PRIMARY]: {
-    type: undefined,
-    showTotalLabel: '0',
-    totalLabel: undefined,
-  },
-  [SECONDARY]: {
-    showSecondaryAxis: false,
-    codesListId: undefined,
-    showTotalLabel: '0',
-    totalLabel: undefined,
-    type: undefined,
-  },
-  [MEASURE]: {
+  [LIST_MEASURE]: {
     measures: [],
   },
 };
@@ -93,86 +139,6 @@ export const defaultTableModel = {
   dimensions: [],
   responses: [],
 };
-
-function formToStatePrimary(form) {
-  const { showTotalLabel, totalLabel, type: typePrimary, [typePrimary]: primaryForm } = form;
-  const state = {
-    showTotalLabel,
-    totalLabel,
-    type: typePrimary,
-  };
-
-  if (typePrimary === CODES_LIST) {
-    const { type, [type]: codesListForm } = primaryForm;
-    const codesListState = CodesList.formToState(codesListForm);
-    state[CODES_LIST] = {
-      type,
-      codesListId: codesListState.codesList.id,
-      [type]: codesListState,
-    };
-  } else {
-    state[LIST] = { ...primaryForm };
-  }
-
-  return state;
-}
-
-function formToStateSecondary(form) {
-  const { showSecondaryAxis, showTotalLabel, totalLabel, type, [type]: codesListForm } = form;
-  let state = { ...defaultTableState[SECONDARY] };
-
-  if (showSecondaryAxis) {
-    const codesListState = CodesList.formToState(codesListForm);
-    state = {
-      ...state,
-      showSecondaryAxis,
-      showTotalLabel,
-      totalLabel,
-      type,
-      codesListId: codesListState.codesList.id,
-      [type]: codesListState,
-    };
-  }
-
-  return state;
-}
-
-function formToStateMeasure(form, showSecondaryAxis) {
-  const { measures, label, type: typeMeasure, [typeMeasure]: measureForm } = form;
-  const measureItemsState = [];
-  const measureState = {};
-
-  if (showSecondaryAxis) {
-    measureState.type = typeMeasure;
-    measureState.label = label;
-
-    if (typeMeasure === SIMPLE) {
-      measureState[SIMPLE] = { ...measureForm };
-    } else {
-      measureState[SINGLE_CHOICE] = ResponseFormatSingle.formToState(measureForm);
-    }
-  } else {
-    measures.forEach(m => {
-      const { label: labelItem, type: typeMeasureItem, [typeMeasureItem]: measureFormItem } = m;
-      const state = {
-        label: labelItem,
-        type: typeMeasureItem,
-      };
-
-      if (typeMeasureItem === SIMPLE) {
-        state[SIMPLE] = { ...measureFormItem };
-      } else {
-        state[SINGLE_CHOICE] = ResponseFormatSingle.formToState(measureFormItem);
-      }
-      measureItemsState.push(state);
-    });
-  }
-
-  return {
-    ...measureState,
-    measures: measureItemsState,
-  };
-}
 
 function stateToFormPrimary(state, activeCodeLists, activeCodes) {
   const { showTotalLabel, totalLabel, type: typePrimary, [typePrimary]: primaryState } = state;
@@ -262,7 +228,7 @@ function stateToFormMeasureItem(state, activeCodeLists, activeCodes) {
 }
 
 function stateToFormMeasure(state, showSecondaryAxis, activeCodeLists, activeCodes) {
-  const { measures, ...measureState } = state;
+  const { measures, ...mformToStateMeasureeasureState } = state;
   const measuresForm = [];
   let measureForm = {};
 
@@ -301,15 +267,106 @@ function getMeasures(dimensions) {
   }, []);
 }
 
-function formToState(form) {
-  const { [PRIMARY]: primaryForm, [SECONDARY]: secondaryForm, [MEASURE]: measureForm } = form;
-  const state = {
-    [PRIMARY]: formToStatePrimary(primaryForm),
-    [SECONDARY]: formToStateSecondary(secondaryForm),
-    [MEASURE]: formToStateMeasure(measureForm, secondaryForm.showSecondaryAxis),
-  };
+// FORM TO STATE
+
+function formToStateCodeList(form) {
+  const { type, [type]: codesListForm } = form;
+  const codesListState = CodesList.formToState(codesListForm);
   return {
-    ...defaultTableState,
+    type,
+    codesListId: codesListState.codesList.id,
+    [type]: codesListState,
+  };
+}
+
+export function formToStatePrimary(form) {
+  const { showTotalLabel, totalLabel, type, [type]: primaryForm } = form;
+  const state = {
+    showTotalLabel,
+    totalLabel,
+    type,
+  };
+
+  if (type === CODES_LIST) {
+    state[CODES_LIST] = formToStateCodeList(primaryForm);
+  } else {
+    state[LIST] = { ...primaryForm };
+  }
+
+  return state;
+}
+
+function formToStateSecondary(form) {
+  const { showSecondaryAxis, showTotalLabel, totalLabel, type, [type]: codesListForm } = form;
+  let state = { ...defaultTableState[SECONDARY] };
+
+  if (showSecondaryAxis) {
+    const codesListState = CodesList.formToState(codesListForm);
+    state = {
+      ...state,
+      showSecondaryAxis,
+      showTotalLabel,
+      totalLabel,
+      type,
+      codesListId: codesListState.codesList.id,
+      [type]: codesListState,
+    };
+  }
+
+  return state;
+}
+
+export function formToStateMeasure(form) {
+  const { label, type, [type]: measureForm } = form;
+  const state = {
+    label,
+    type,
+  };
+
+  if (type === SIMPLE) {
+    state[SIMPLE] = ResponseFormatSimple.formToState(measureForm);
+  } else {
+    state[SINGLE_CHOICE] = ResponseFormatSingle.formToState(measureForm);
+  }
+
+  return state;
+}
+
+export function formToStateListMeasure(form) {
+  const listMeasures = [];
+
+  form.measures.forEach(m => {
+    listMeasures.push(formToStateMeasure(m));
+  });
+
+  return {
+    measures: listMeasures,
+  };
+}
+
+function formToState(form) {
+  const {
+    [PRIMARY]: {
+      showTotalLabel,
+      totalLabel,
+      type,
+      [type]: { [LIST_MEASURE]: listMeasureForm, [SECONDARY]: secondaryForm, [MEASURE]: measureForm, ...primaryForm },
+    },
+  } = form;
+  const state = {
+    [PRIMARY]: formToStatePrimary({ showTotalLabel, totalLabel, type, [type]: { ...primaryForm } }),
+  };
+  if (listMeasureForm) {
+    state[LIST_MEASURE] = formToStateListMeasure(listMeasureForm);
+  }
+  if (secondaryForm) {
+    state[SECONDARY] = formToStateSecondary(secondaryForm);
+  }
+  if (measureForm) {
+    state[MEASURE] = formToStateMeasure(measureForm);
+  }
+
+  return {
     ...state,
   };
 }

@@ -1,7 +1,7 @@
 import { DIMENSION_TYPE, DIMENSION_FORMATS, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
+const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 
 function addToState(form, state = {}) {
@@ -45,22 +45,25 @@ function getCodesListsFromTable(form) {
 
   const {
     [PRIMARY]: { type: typePrimary, [typePrimary]: primaryForm },
-    [SECONDARY]: { showSecondaryAxis, ...codesListSecondaryForm },
-    [MEASURE]: { measures, type: typeMeasure, [typeMeasure]: measureForm },
+    [SECONDARY]: secondaryForm,
+    [MEASURE]: measureForm,
+    [LIST_MEASURE]: listMeasuresForm,
   } = form;
 
   if (typePrimary === CODES_LIST) {
     state = addToState(primaryForm, state);
   }
 
-  if (showSecondaryAxis) {
-    state = addToState(codesListSecondaryForm, state);
+  if (secondaryForm && secondaryForm.showSecondaryAxis) {
+    state = addToState(secondaryForm, state);
+  }
 
-    if (typeMeasure === SINGLE_CHOICE) {
-      state = addToState(measureForm, state);
-    }
-  } else {
-    measures.forEach(m => {
+  if (measureForm && measureForm.type === SINGLE_CHOICE) {
+    state = addToState(measureForm, state);
+  }
+
+  if (listMeasuresForm) {
+    listMeasuresForm.measures.forEach(m => {
       const { type: typeMeasureItem, [typeMeasureItem]: measureFormItem } = m;
 
       if (typeMeasureItem === SINGLE_CHOICE) {
@@ -68,6 +71,8 @@ function getCodesListsFromTable(form) {
       }
     });
   }
+
+  debugger;
 
   return state;
 }
