@@ -7,9 +7,7 @@ export const defaultDeclarationForm = {
   declarations: [],
 };
 
-export const defaultDeclarationState = {
-  declarations: [],
-};
+export const defaultDeclarationState = [];
 
 export const defaultDeclarationModel = {
   declarations: [],
@@ -17,34 +15,41 @@ export const defaultDeclarationModel = {
 
 function formToState(form) {
   const { declarations } = form;
-  return {
-    ...defaultDeclarationState,
-    declarations,
-  };
+  return _.cloneDeep(declarations);
 }
 
 function stateToForm(state) {
-  const { declarations } = state;
   return {
     ...defaultDeclarationForm,
-    declarations: _.cloneDeep(declarations),
+    declarations: _.cloneDeep(state),
   };
 }
 
 function stateToModel(state) {
-  const { declarations } = state;
   return {
-    ...defaultDeclarationModel,
-    declarations: _.cloneDeep(declarations),
+    declarations: state.map(d => {
+      const { declarationType, label, position } = d;
+      return {
+        text: label,
+        declarationType,
+        position,
+      };
+    }),
   };
 }
 
 function modelToState(model) {
+  const state = [];
   const { declarations } = model;
-  return {
-    ...defaultDeclarationState,
-    declarations: _.cloneDeep(declarations),
-  };
+  declarations.forEach(d => {
+    const { declarationType, text, position } = d;
+    state.push({
+      label: text,
+      declarationType,
+      position,
+    });
+  });
+  return state;
 }
 
 export default {
