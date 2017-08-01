@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import InputMeasure from './input-measure';
 import { DIMENSION_TYPE } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultListMeasureForm } from 'utils/transformation-entities/response-format-table';
+import { defaultListMeasuresForm } from 'utils/transformation-entities/response-format-table';
 
 const { LIST_MEASURE } = DIMENSION_TYPE;
 
@@ -35,7 +35,7 @@ class ResponseFormatTableListMeasures extends Component {
       : ResponseFormatTableListMeasures.selectorPath;
   }
   render() {
-    const { measures, ...initialInputValues } = defaultListMeasureForm;
+    const { measures, ...initialInputValues } = defaultListMeasuresForm;
     const inputMeasureView = <InputMeasure selectorPath={this.selectorPathComposed} />;
 
     return (

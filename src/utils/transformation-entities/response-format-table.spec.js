@@ -33,66 +33,6 @@ import ResponseFormatTable, {
 describe('Transformation entities - Response format - Table', () => {
   const measureSimpleText = { ...defaultSimpleForm };
   const measureSingle = { ...defaultSingleForm };
-  // const formPrimaryAxis = {
-  //   [PRIMARY]: {
-  //     showTotalLabel: '0',
-  //     totalLabel: 'This is total label',
-  //     type: LIST,
-  //     [LIST]: {
-  //       numLinesMin: 2,
-  //       numLinesMax: 5,
-  //       [LIST_MEASURE]: {
-  //         label: 'This is the input label',
-  //         type: SIMPLE,
-  //         [SIMPLE]: { ...measureSimpleText },
-  //         [SINGLE_CHOICE]: { ...measureSingle },
-  //         measures: [{ ...measureSimpleText }, { ...measureSimpleText }],
-  //       },
-  //     },
-  //     [CODES_LIST]: {
-  //       codesListId: '',
-  //       type: NEW,
-  //       [NEW]: { ...defaultCodesListForm },
-  //       [REF]: {},
-  //       [QUESTIONNAIRE]: {},
-  //       [SECONDARY]: {
-  //         showSecondaryAxis: false,
-  //         codesListId: '',
-  //         showTotalLabel: '0',
-  //         totalLabel: '',
-  //         type: NEW,
-  //         [NEW]: { ...defaultCodesListForm },
-  //         [REF]: {},
-  //         [QUESTIONNAIRE]: {},
-  //       },
-  //       [MEASURE]: {
-  //         label: '',
-  //         type: SIMPLE,
-  //         [SIMPLE]: {
-  //           type: TEXT,
-  //           [TEXT]: {
-  //             maxLength: 255,
-  //             pattern: '',
-  //           },
-  //           [NUMERIC]: {
-  //             maximum: '',
-  //             minimum: '',
-  //             decimals: '',
-  //           },
-  //           [DATE]: {},
-  //           [BOOLEAN]: {},
-  //         },
-  //         [SINGLE_CHOICE]: {
-  //           codesListId: '',
-  //           type: NEW,
-  //           [NEW]: { ...defaultCodesListForm },
-  //           [REF]: {},
-  //           [QUESTIONNAIRE]: {},
-  //         },
-  //       },
-  //     },
-  //   },
-  // };
   test('Default form shape should be the expected', () => {
     const expectedForm = {
       [PRIMARY]: {
@@ -102,32 +42,6 @@ describe('Transformation entities - Response format - Table', () => {
         [LIST]: {
           numLinesMin: 0,
           numLinesMax: 0,
-          [LIST_MEASURE]: {
-            label: '',
-            type: SIMPLE,
-            [SIMPLE]: {
-              type: TEXT,
-              [TEXT]: {
-                maxLength: 255,
-                pattern: '',
-              },
-              [NUMERIC]: {
-                maximum: '',
-                minimum: '',
-                decimals: '',
-              },
-              [DATE]: {},
-              [BOOLEAN]: {},
-            },
-            [SINGLE_CHOICE]: {
-              codesListId: '',
-              type: NEW,
-              [NEW]: { ...defaultCodesListForm },
-              [REF]: {},
-              [QUESTIONNAIRE]: {},
-            },
-            measures: [],
-          },
         },
         [CODES_LIST]: {
           codesListId: '',
@@ -135,43 +49,70 @@ describe('Transformation entities - Response format - Table', () => {
           [NEW]: { ...defaultCodesListForm },
           [REF]: {},
           [QUESTIONNAIRE]: {},
-          [SECONDARY]: {
-            showSecondaryAxis: false,
-            codesListId: '',
-            showTotalLabel: '0',
-            totalLabel: '',
-            type: NEW,
-            [NEW]: { ...defaultCodesListForm },
-            [REF]: {},
-            [QUESTIONNAIRE]: {},
-          },
-          [MEASURE]: {
-            label: '',
-            type: SIMPLE,
-            [SIMPLE]: {
-              type: TEXT,
-              [TEXT]: {
-                maxLength: 255,
-                pattern: '',
-              },
-              [NUMERIC]: {
-                maximum: '',
-                minimum: '',
-                decimals: '',
-              },
-              [DATE]: {},
-              [BOOLEAN]: {},
-            },
-            [SINGLE_CHOICE]: {
-              codesListId: '',
-              visHint: CHECKBOX,
-              type: NEW,
-              [NEW]: { ...defaultCodesListForm },
-              [REF]: {},
-              [QUESTIONNAIRE]: {},
-            },
-          },
         },
+      },
+      [SECONDARY]: {
+        showSecondaryAxis: false,
+        codesListId: '',
+        showTotalLabel: '0',
+        totalLabel: '',
+        type: NEW,
+        [NEW]: { ...defaultCodesListForm },
+        [REF]: {},
+        [QUESTIONNAIRE]: {},
+      },
+      [MEASURE]: {
+        label: '',
+        type: SIMPLE,
+        [SIMPLE]: {
+          type: TEXT,
+          [TEXT]: {
+            maxLength: 255,
+            pattern: '',
+          },
+          [NUMERIC]: {
+            maximum: '',
+            minimum: '',
+            decimals: '',
+          },
+          [DATE]: {},
+          [BOOLEAN]: {},
+        },
+        [SINGLE_CHOICE]: {
+          codesListId: '',
+          visHint: CHECKBOX,
+          type: NEW,
+          [NEW]: { ...defaultCodesListForm },
+          [REF]: {},
+          [QUESTIONNAIRE]: {},
+        },
+      },
+      [LIST_MEASURE]: {
+        label: '',
+        type: SIMPLE,
+        [SIMPLE]: {
+          type: TEXT,
+          [TEXT]: {
+            maxLength: 255,
+            pattern: '',
+          },
+          [NUMERIC]: {
+            maximum: '',
+            minimum: '',
+            decimals: '',
+          },
+          [DATE]: {},
+          [BOOLEAN]: {},
+        },
+        [SINGLE_CHOICE]: {
+          codesListId: '',
+          type: NEW,
+          visHint: CHECKBOX,
+          [NEW]: { ...defaultCodesListForm },
+          [REF]: {},
+          [QUESTIONNAIRE]: {},
+        },
+        measures: [],
       },
     };
     expect(defaultTableForm).toEqual(expectedForm);
@@ -205,19 +146,18 @@ describe('Transformation entities - Response format - Table', () => {
           },
         },
       },
-      [LIST_MEASURE]: {
-        measures: [],
-      },
+      [LIST_MEASURE]: [],
     };
     expect(defaultTableState).toEqual(expectedState);
   });
-  // test('Default model shape should be the expected', () => {
-  //   const expectedModel = {
-  //     declarations: [],
-  //   };
-  //   expect(defaultTableModel).toEqual(expectedModel);
-  // });
-  describe('Form to State', () => {
+  test('Default model shape should be the expected', () => {
+    const expectedModel = {
+      dimensions: [],
+      responses: [],
+    };
+    expect(defaultTableModel).toEqual(expectedModel);
+  });
+  describe.skip('Form to State', () => {
     const measureSimpleNumericForm = {
       ...defaultTableForm[PRIMARY][CODES_LIST][MEASURE],
       label: 'This is the measure label',

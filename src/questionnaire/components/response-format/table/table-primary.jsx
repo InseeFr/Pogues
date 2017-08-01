@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormSection } from 'redux-form';
+import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
@@ -7,6 +7,8 @@ import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
 import ResponseFormatTablePrincipalList from './table-primary-list';
 import Dictionary from 'utils/dictionary/dictionary';
 import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
+import Input from 'layout/forms/controls/input';
+import OptionalViewContainer from 'layout/connected-widget/optional-view';
 
 const { PRIMARY } = DIMENSION_TYPE;
 const { CODES_LIST, LIST } = DIMENSION_FORMATS;
@@ -50,6 +52,12 @@ class ResponseFormatTablePrincipal extends Component {
           components={responseFormatTypes}
           selectorPath={this.selectorPathComposed}
           radio
+        />
+        <OptionalViewContainer
+          name="showTotalLabel"
+          label={Dictionary.rowTotal}
+          selectorPath={ResponseFormatTablePrincipal.selectorPath}
+          view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />}
         />
       </FormSection>
     );

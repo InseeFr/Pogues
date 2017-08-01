@@ -4,8 +4,8 @@ const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 
-function addToState(form, state = {}) {
-  const { type, [type]: { codesList, codes } } = form;
+function addToState(responseFormatState, state = {}) {
+  const { type, [type]: { codesList, codes } } = responseFormatState;
   const codesStates = codes.reduce((acc, code) => {
     return {
       ...acc,
@@ -28,8 +28,8 @@ function addToState(form, state = {}) {
   };
 }
 
-function getCodesListsFromMultiple(form) {
-  const { [PRIMARY]: responseFormatPrimaryForm, [MEASURE]: { type, [type]: responseFormatMeasureForm } } = form;
+function getCodesListsFromMultiple(responseFormatState) {
+  const { [PRIMARY]: responseFormatPrimaryForm, [MEASURE]: { type, [type]: responseFormatMeasureForm } } = responseFormatState;
   let state = addToState(responseFormatPrimaryForm);
   if (type === CODES_LIST) {
     state = addToState(responseFormatMeasureForm, state);
@@ -37,42 +37,40 @@ function getCodesListsFromMultiple(form) {
   return state;
 }
 
-function getCodesListsFromTable(form) {
+function getCodesListsFromTable(responseFormatState) {
   let state = {
     codesLists: {},
     codes: {},
   };
 
   const {
-    [PRIMARY]: { type: typePrimary, [typePrimary]: primaryForm },
-    [SECONDARY]: secondaryForm,
-    [MEASURE]: measureForm,
-    [LIST_MEASURE]: listMeasuresForm,
-  } = form;
+    [PRIMARY]: { type: typePrimary, [typePrimary]: primaryState },
+    [SECONDARY]: secondaryState,
+    [MEASURE]: measureState,
+    [LIST_MEASURE]: listMeasuresState,
+  } = responseFormatState;
 
   if (typePrimary === CODES_LIST) {
-    state = addToState(primaryForm, state);
+    state = addToState(primaryState, state);
   }
 
-  if (secondaryForm && secondaryForm.showSecondaryAxis) {
-    state = addToState(secondaryForm, state);
+  if (secondaryState && secondaryState.showSecondaryAxis) {
+    state = addToState(secondaryState, state);
   }
 
-  if (measureForm && measureForm.type === SINGLE_CHOICE) {
-    state = addToState(measureForm, state);
+  if (measureState && measureState.type === SINGLE_CHOICE) {
+    state = addToState(measureState, state);
   }
 
-  if (listMeasuresForm) {
-    listMeasuresForm.measures.forEach(m => {
-      const { type: typeMeasureItem, [typeMeasureItem]: measureFormItem } = m;
+  if (listMeasuresState) {
+    listMeasuresState.forEach(m => {
+      const { type: typeMeasureItem, [typeMeasureItem]: measureStateItem } = m;
 
       if (typeMeasureItem === SINGLE_CHOICE) {
-        state = addToState(measureFormItem, state);
+        state = addToState(measureStateItem, state);
       }
     });
   }
-
-  debugger;
 
   return state;
 }
@@ -84,14 +82,14 @@ export function getCodesListsAndCodesFromQuestion(responseFormat) {
   };
 
   if (responseFormat) {
-    const { type, [type]: responseFormatForm } = responseFormat;
+    const { type, [type]: responseFormatState } = responseFormat;
 
     if (type === SINGLE_CHOICE) {
-      state = addToState(responseFormatForm, state);
+      state = addToState(responseFormatState, state);
     } else if (type === MULTIPLE_CHOICE) {
-      state = getCodesListsFromMultiple(responseFormatForm);
+      state = getCodesListsFromMultiple(responseFormatState);
     } else if (type === TABLE) {
-      state = getCodesListsFromTable(responseFormatForm);
+      state = getCodesListsFromTable(responseFormatState);
     }
   }
   return state;
