@@ -256,7 +256,7 @@ const dictionary = {
     fr: 'Redirections',
   },
   goTo_label: {
-    en: 'GoTo Label',
+    en: 'GoTo label',
     fr: 'Libellé de la redirection',
   },
   defineGoTo: {
@@ -822,6 +822,18 @@ const dictionary = {
   validation_control_message: {
     fr: 'Message affiché obligatoire',
     en: 'Displayed message required',
+  },
+  validation_goTo_label: {
+    fr: 'Libellé de la redirection obligatoire',
+    en: 'Goto label required',
+  },
+  validation_condition: {
+    fr: 'Condition obligatoire',
+    en: 'Condition required',
+  },
+  validation_target: {
+    fr: 'Cible obligatoire',
+    en: 'Target required',
   },
 };
 
