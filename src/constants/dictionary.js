@@ -393,8 +393,8 @@ const dictionary = {
     fr: 'Contrôle post-collecte',
   },
   control_message: {
-    en: 'Displayed Message',
-    fr: 'Message Affiché',
+    en: 'Displayed message',
+    fr: 'Message affiché',
   },
   deleteControl: {
     en: 'Delete control',
@@ -807,10 +807,22 @@ const dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
-  validateion_declaration_label: {
+  validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
     en: 'Statement label required',
-  }
+  },
+  validation_control_label: {
+    fr: 'Libellé du contrôle obligatoire',
+    en: 'Control label required',
+  },
+  validation_expression: {
+    fr: 'Condition obligatoire',
+    en: 'Condition required',
+  },
+  validation_control_message: {
+    fr: 'Message affiché obligatoire',
+    en: 'Displayed message required',
+  },
 };
 
 // Dynamic translations
