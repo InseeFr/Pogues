@@ -152,7 +152,17 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(activesComponents, activesComponents['5'], activesComponents['12']);
+    const result = component.moveComponent(
+      activesComponents,
+      {
+        ...activesComponents['5'],
+        childrenId: activesComponents['5'].children,
+      },
+      {
+        ...activesComponents['12'],
+        childrenId: activesComponents['12'].children,
+      }
+    );
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
@@ -188,7 +198,17 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(activesComponents, activesComponents['5'], activesComponents['7']);
+    const result = component.moveComponent(
+      activesComponents,
+      {
+        ...activesComponents['5'],
+        childrenId: activesComponents['5'].children,
+      },
+      {
+        ...activesComponents['7'],
+        childrenId: activesComponents['7'].children,
+      }
+    );
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },

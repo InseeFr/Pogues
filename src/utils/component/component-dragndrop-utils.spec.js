@@ -32,8 +32,10 @@ describe('getDragnDropLevel', () => {
 
 describe('calculateMargin', () => {
   test('should return 0 if the dragndrop level is 0', () => {
-    expect(calculateMargin({}, {}, 0)).toEqual(0);
     expect(calculateMargin({}, {}, 1)).toEqual(0);
+  });
+  test('should return -20 if the dragndrop level is 0', () => {
+    expect(calculateMargin({}, {}, 0)).toEqual(-20);
   });
   test('should return dragdropLevel*20 if the droppedComponent is a QUESTION and its grand parent a SEQUENCE', () => {
     expect(calculateMargin({ type: QUESTION }, {}, -1, SEQUENCE)).toEqual(-20);

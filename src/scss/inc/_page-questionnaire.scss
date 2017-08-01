@@ -18,7 +18,7 @@
       @include make-row();
 
       h4 {
-        @include make-xs-column(10);
+        @include make-xs-column(7);
         color: $color-blue_02;
       }
 
