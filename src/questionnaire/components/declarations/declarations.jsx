@@ -11,7 +11,7 @@ function validationDeclaration(values) {
   const { label } = values;
   const errors = [];
 
-  if (label === '') errors.push('Libellé de la déclaration est obligatoire');
+  if (label === '') errors.push(Dictionary.validateion_declaration_label);
 
   return errors;
 }

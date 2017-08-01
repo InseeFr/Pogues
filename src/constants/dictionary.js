@@ -132,11 +132,11 @@ const dictionary = {
     fr: 'Descendre',
   },
   declaration_tabTitle: {
-    en: 'Statement',
-    fr: 'Déclaration',
+    en: 'Statements',
+    fr: 'Déclarations',
   },
   declaration_label: {
-    en: 'Statement Label',
+    en: 'Statement label',
     fr: 'Libellé de la déclaration',
   },
   type: {
@@ -144,8 +144,8 @@ const dictionary = {
     fr: 'Type',
   },
   declaration_position: {
-    en: 'Positions',
-    fr: 'Positions',
+    en: 'Position',
+    fr: 'Position',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
@@ -807,6 +807,10 @@ const dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
+  validateion_declaration_label: {
+    fr: 'Libellé de la déclaration obligatoire',
+    en: 'Statement label required',
+  }
 };
 
 // Dynamic translations
