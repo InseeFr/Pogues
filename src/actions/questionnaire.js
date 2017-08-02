@@ -155,12 +155,9 @@ export const createQuestionnaire = (name, label) => (dispatch, getState) => {
     });
 };
 
-export const deleteQuestionnaireSuccess = (id, update) => ({
+export const deleteQuestionnaireSuccess = payload => ({
   type: DELETE_QUESTIONNAIRE_SUCCESS,
-  payload: {
-    id,
-    update,
-  },
+  payload,
 });
 
 export const deleteQuestionnaireFailure = (id, err) => ({
@@ -173,11 +170,26 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     type: DELETE_QUESTIONNAIRE,
     payload: idQuestionnaire,
   });
+
+  const state = getState().questionnaireById;
+
+  const questionnairesList = Object.keys(state).reduce((acc, currentId) => {
+    if (currentId !== idQuestionnaire) {
+      return {
+        ...acc,
+        [currentId]: {
+          ...state[currentId],
+        },
+      };
+    }
+    return acc;
+  }, {});
+
   return deleteQuestionnaire(idQuestionnaire)
-    .then(qr => {
-      dispatch(deleteQuestionnaireSuccess(idQuestionnaire));
+    .then(() => {
+      return dispatch(deleteQuestionnaireSuccess(questionnairesList));
     })
     .catch(err => {
-      dispatch(deleteQuestionnaireFailure(idQuestionnaire, err));
+      return dispatch(deleteQuestionnaireFailure(idQuestionnaire, err));
     });
 };

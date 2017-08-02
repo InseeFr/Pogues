@@ -29,6 +29,13 @@ class ConfirmDialog extends Component {
       this.setState({ showConfirmModal: nextProps.showConfirmModal });
     }
   }
+
+  componentDidUpdate() {
+    if (this.state.showConfirmModal && this.cancelButton) {
+      this.cancelButton.focus();
+    }
+  }
+
   handleValidate(event) {
     event.stopPropagation();
     this.setState({ showConfirmModal: false });
@@ -47,15 +54,29 @@ class ConfirmDialog extends Component {
         isOpen={this.state.showConfirmModal}
         onRequestClose={this.handleCancel}
         className="confirm-modal"
+        contentLabel="Confirmation Popup"
       >
         <div className="popup">
+          <div className="popup-header">
+            <h3>
+              {Dictionary.confirmBodyTitle}
+            </h3>
+          </div>
           <div className="popup-body">
             <p>{Dictionary.confirmBodyMessage}</p>
             <p>{Dictionary.confirmQuestionMessage}</p>
           </div>
           <div className="ok-cancel-buttons">
-            <button onClick={this.handleValidate} type="submit">{Dictionary.validate}</button>
-            <button onClick={this.handleCancel} className="cancel">{Dictionary.cancel}</button>
+            <button onClick={this.handleValidate} className="validate">{Dictionary.validate}</button>
+            <button
+              ref={button => {
+                this.cancelButton = button;
+              }}
+              onClick={this.handleCancel}
+              className="cancel"
+            >
+              {Dictionary.cancel}
+            </button>
           </div>
         </div>
       </ReactModal>

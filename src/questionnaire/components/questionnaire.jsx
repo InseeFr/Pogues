@@ -22,6 +22,11 @@ class Questionnaire extends Component {
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
   };
+
+  static contextTypes = {
+    router: React.PropTypes.object,
+  };
+
   constructor() {
     super();
 
@@ -52,8 +57,10 @@ class Questionnaire extends Component {
     this.setState({ showConfirmModal: true });
   }
 
-  handleQuestionnaireDelete(){
-    this.props.removeQuestionnaire(this.props.questionnaire.id);
+  handleQuestionnaireDelete() {
+    this.props.removeQuestionnaire(this.props.questionnaire.id).then(() => {
+      this.context.router.push('/');
+    });
   }
 
   handleElementSelect(event, idElement) {
@@ -220,7 +227,7 @@ class Questionnaire extends Component {
             </div>
           </div>
         </ReactModal>
-        <ConfirmDialog showConfirmModal={this.state.showConfirmModal} confirm={this.handleQuestionnaireDelete}/>
+        <ConfirmDialog showConfirmModal={this.state.showConfirmModal} confirm={this.handleQuestionnaireDelete} />
       </div>
     );
   }

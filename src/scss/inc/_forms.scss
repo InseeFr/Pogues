@@ -1,29 +1,3 @@
-.confirm-modal {
-    width: 500px;
-    height: 220px;
-    position: absolute;
-    left: calc(50% - 250px);
-    top: calc(50% - 110px); 
-    border: 1px solid rgb(204, 204, 204);
-    background: rgb(255, 255, 255);
-    overflow: auto;
-    border-radius: 4px;
-    outline: none;
-    padding: 20px;
-
-    .popup {
-      width: 100%;
-
-      .popup-body {
-        margin: 20px;
-      }
-    }
-
-    .ok-cancel-buttons {
-      max-width: none;
-    }
-
-} 
 .ok-cancel-buttons {
   @include make-row();
     text-align: center;

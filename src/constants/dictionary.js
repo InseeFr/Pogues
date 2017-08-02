@@ -807,13 +807,17 @@ const dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
+  confirmBodyTitle: {
+    fr: 'Confirmation',
+    en: 'Confirmation',
+  },
   confirmBodyMessage: {
     fr: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
-    en: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
+    en: 'You are deleting the questionnaire. You are going to lose all information entered.',
   },
   confirmQuestionMessage: {
     fr: 'Êtes-vous sûr ?',
-    en: 'Êtes-vous sûr ?',
+    en: 'Are you sure?',
   },
 };
 
