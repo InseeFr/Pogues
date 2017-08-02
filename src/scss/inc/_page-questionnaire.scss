@@ -18,13 +18,17 @@
       @include make-row();
 
       h4 {
-        @include make-xs-column(10);
+        @include make-xs-column(7);
         color: $color-blue_02;
       }
 
       div {
-        @include make-xs-column(2);
-        text-align: center;
+        @include make-xs-column(5);
+          text-align: right;
+          float: right;
+          button {
+            margin: 5px  5px 0 0;
+          }
       }
     }
 

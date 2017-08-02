@@ -9,3 +9,10 @@ export function moveQuestionToSubSequence() {
     moveQuestionToSubSequence: true,
   };
 }
+
+export function duplicate(activesComponents, idComponent) {
+  return {
+    activesComponents,
+    idComponent,
+  };
+}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { dragComponent } from 'actions/component';
 
 import { setSelectedComponentId } from 'actions/app-state';
-import { removeComponent } from 'actions/component';
+import { removeComponent, duplicateComponent } from 'actions/component';
 import Questionnaire from 'questionnaire/components/questionnaire';
 
 const mapStateToProps = state => ({
@@ -17,6 +17,7 @@ const mapDispatchToProps = {
   setSelectedComponentId,
   dragComponent,
   removeComponent,
+  duplicateComponent,
 };
 
 class QuestionnaireContainer extends Component {
@@ -34,7 +35,14 @@ class QuestionnaireContainer extends Component {
   }
 
   render() {
-    const { questionnaire, components, selectedComponentId, dragComponent, removeComponent } = this.props;
+    const {
+      questionnaire,
+      components,
+      selectedComponentId,
+      dragComponent,
+      removeComponent,
+      duplicateComponent,
+    } = this.props;
 
     if (!questionnaire.id) return <span className="fa fa-spinner fa-pulse fa-2x" />;
     return (
@@ -45,6 +53,7 @@ class QuestionnaireContainer extends Component {
         selectedComponentId={selectedComponentId}
         moveComponent={dragComponent}
         removeComponent={removeComponent}
+        duplicateComponent={duplicateComponent}
       />
     );
   }
