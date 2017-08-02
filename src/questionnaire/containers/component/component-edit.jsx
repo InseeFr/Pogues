@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateComponent } from 'actions/component';
-import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
-import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import Component from 'utils/transformation-entities/component';
-
-const { QUESTION } = COMPONENT_TYPE;
 
 const mapStateToProps = (state, { componentId }) => ({
   component: state.appState.activeComponentsById[componentId],
@@ -21,8 +17,6 @@ const mapDispatchToProps = {
 };
 
 function ComponentEditContainer({ updateComponent, component, activeCodeLists, activeCodes, onSuccess, onCancel }) {
-  const { type } = component;
-
   const submit = values => {
     updateComponent(values, component.id, component.parent, component.weight, component.type);
     if (onSuccess) onSuccess();
@@ -38,10 +32,7 @@ function ComponentEditContainer({ updateComponent, component, activeCodeLists, a
     onCancel: onCancel,
   };
 
-  if (type === QUESTION) {
-    return <QuestionNewEdit {...initialValues} {...props} />;
-  }
-  return <SequenceNewEdit {...initialValues} {...props} />;
+  return <ComponentNewEdit type={component.type} {...initialValues} {...props} />;
 }
 
 ComponentEditContainer.propTypes = {

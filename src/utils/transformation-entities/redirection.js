@@ -7,9 +7,7 @@ export const defaultRedirectionForm = {
   redirections: [],
 };
 
-export const defaultRedirectionState = {
-  redirections: [],
-};
+export const defaultRedirectionState = [];
 
 export const defaultRedirectionModel = {
   redirections: [],
@@ -17,34 +15,36 @@ export const defaultRedirectionModel = {
 
 function formToState(form) {
   const { redirections } = form;
-  return {
-    ...defaultRedirectionState,
-    redirections,
-  };
+  return _.cloneDeep(redirections);
 }
 
 function stateToForm(state) {
-  const { redirections } = state;
   return {
     ...defaultRedirectionForm,
-    redirections: _.cloneDeep(redirections),
+    redirections: _.cloneDeep(state),
   };
 }
 
 function stateToModel(state) {
-  const { redirections } = state;
   return {
-    ...defaultRedirectionModel,
-    redirections: _.cloneDeep(redirections),
+    redirections: state.map(r => {
+      const { label, condition, cible } = r;
+      return {
+        label,
+        condition,
+        cible,
+      };
+    }),
   };
 }
 
 function modelToState(model) {
+  const state = [];
   const { redirections } = model;
-  return {
-    ...defaultRedirectionState,
-    redirections: _.cloneDeep(redirections),
-  };
+  redirections.forEach(d => {
+    state.push(_.cloneDeep(d));
+  });
+  return state;
 }
 
 export default {

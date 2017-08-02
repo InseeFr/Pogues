@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
-import ResponseFormatTablePrincipallist from './table-primary-list';
+import ResponseFormatTablePrincipalList from './table-primary-list';
 import Dictionary from 'utils/dictionary/dictionary';
+import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 import Input from 'layout/forms/controls/input';
 import OptionalViewContainer from 'layout/connected-widget/optional-view';
-import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 
 const { PRIMARY } = DIMENSION_TYPE;
 const { CODES_LIST, LIST } = DIMENSION_FORMATS;
@@ -35,7 +35,7 @@ class ResponseFormatTablePrincipal extends Component {
         id: `response-format-table-primary-list`,
         label: Dictionary.list,
         value: LIST,
-        content: <ResponseFormatTablePrincipallist selectorPathParent={this.selectorPathComposed} />,
+        content: <ResponseFormatTablePrincipalList selectorPathParent={this.selectorPathComposed} />,
       },
       {
         id: `response-format-table-primary-listcodes`,
@@ -44,7 +44,6 @@ class ResponseFormatTablePrincipal extends Component {
         content: <ResponseFormatTablePrincipalCodeslist selectorPathParent={this.selectorPathComposed} />,
       },
     ];
-
 
     return (
       <FormSection name={ResponseFormatTablePrincipal.selectorPath}>
@@ -57,7 +56,7 @@ class ResponseFormatTablePrincipal extends Component {
         <OptionalViewContainer
           name="showTotalLabel"
           label={Dictionary.rowTotal}
-          selectorPath={this.selectorPathComposed}
+          selectorPath={ResponseFormatTablePrincipal.selectorPath}
           view={<Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />}
         />
       </FormSection>
