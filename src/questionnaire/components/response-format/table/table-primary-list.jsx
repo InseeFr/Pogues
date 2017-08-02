@@ -27,24 +27,26 @@ class ResponseFormatTablePrincipalList extends Component {
   }
   render() {
     return (
-      <FormSection name={ResponseFormatTablePrincipalList.selectorPath}>
-        <Field
-          name="numLinesMin"
-          type="number"
-          component={Input}
-          label={Dictionary.minRowNb}
-          validate={[required, minValue(0)]}
-          required
-        />
-        <Field
-          name="numLinesMax"
-          type="number"
-          component={Input}
-          label={Dictionary.maxRowNb}
-          validate={[required, minValue(1)]}
-          required
-        />
-      </FormSection>
+      <div className="axis-primary__panel">
+        <FormSection name={ResponseFormatTablePrincipalList.selectorPath}>
+          <Field
+            name="numLinesMin"
+            type="number"
+            component={Input}
+            label={Dictionary.minRowNb}
+            validate={[required, minValue(0)]}
+            required
+          />
+          <Field
+            name="numLinesMax"
+            type="number"
+            component={Input}
+            label={Dictionary.maxRowNb}
+            validate={[required, minValue(1)]}
+            required
+          />
+        </FormSection>
+      </div>
     );
   }
 }

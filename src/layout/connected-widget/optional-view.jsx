@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import OptionalView from './components/optional-view';
 
 const mapStateToProps = (state, { selectorPath, name, formName, checkbox }) => {
-  formName = formName || 'question';
+  formName = formName || 'component';
   const selector = formValueSelector(formName);
   const active = checkbox
     ? selector(state, `${selectorPath}.${name}`)

@@ -10,9 +10,7 @@ export const defaultControlForm = {
   controls: [],
 };
 
-export const defaultControlState = {
-  controls: [],
-};
+export const defaultControlState = [];
 
 export const defaultControlModel = {
   controls: [],
@@ -20,34 +18,39 @@ export const defaultControlModel = {
 
 function formToState(form) {
   const { controls } = form;
-  return {
-    ...defaultControlState,
-    controls,
-  };
+  return _.cloneDeep(controls);
 }
 
 function stateToForm(state) {
-  const { controls } = state;
   return {
     ...defaultControlForm,
-    controls: _.cloneDeep(controls),
+    controls: _.cloneDeep(state),
   };
 }
 
 function stateToModel(state) {
-  const { controls } = state;
   return {
-    ...defaultControlModel,
-    controls: _.cloneDeep(controls),
+    controls: state.map(c => {
+      const { label, condition, message, type, during_collect, post_collect } = c;
+      return {
+        label,
+        condition,
+        message,
+        type,
+        during_collect,
+        post_collect,
+      };
+    }),
   };
 }
 
 function modelToState(model) {
+  const state = [];
   const { controls } = model;
-  return {
-    ...defaultControlState,
-    controls: _.cloneDeep(controls),
-  };
+  controls.forEach(d => {
+    state.push(_.cloneDeep(d));
+  });
+  return state;
 }
 
 export default {

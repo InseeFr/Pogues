@@ -41,7 +41,6 @@ export const defaultSimpleModel = {
 function formToState(form) {
   const { type, mandatory, [type]: simpleForm } = form;
   return {
-    ...defaultSimpleState,
     type,
     mandatory,
     [type]: simpleForm,

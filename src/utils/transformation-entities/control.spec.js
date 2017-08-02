@@ -34,9 +34,7 @@ describe('Transformation entities - Control', () => {
     expect(defaultControlForm).toEqual(expectedForm);
   });
   test('Default state shape should be the expected', () => {
-    const expectedState = {
-      controls: [],
-    };
+    const expectedState = [];
     expect(defaultControlState).toEqual(expectedState);
   });
   test('Default model shape should be the expected', () => {
@@ -53,7 +51,7 @@ describe('Transformation entities - Control', () => {
       const form = _.cloneDeep(defaultControlForm);
       form.controls.push(controlFirst);
       const expectedState = _.cloneDeep(defaultControlState);
-      expectedState.controls.push(controlFirst);
+      expectedState.push(controlFirst);
       expect(Control.formToState(form)).toEqual(expectedState);
     });
     test('Two controls', () => {
@@ -61,8 +59,8 @@ describe('Transformation entities - Control', () => {
       form.controls.push(controlFirst);
       form.controls.push(controlSecond);
       const expectedState = _.cloneDeep(defaultControlState);
-      expectedState.controls.push(controlFirst);
-      expectedState.controls.push(controlSecond);
+      expectedState.push(controlFirst);
+      expectedState.push(controlSecond);
       expect(Control.formToState(form)).toEqual(expectedState);
     });
   });
@@ -72,15 +70,15 @@ describe('Transformation entities - Control', () => {
     });
     test('One control', () => {
       const state = _.cloneDeep(defaultControlState);
-      state.controls.push(controlFirst);
+      state.push(controlFirst);
       const formExpected = _.cloneDeep(defaultControlForm);
       formExpected.controls.push(controlFirst);
       expect(Control.stateToForm(state)).toEqual(formExpected);
     });
     test('Two controls', () => {
       const state = _.cloneDeep(defaultControlState);
-      state.controls.push(controlFirst);
-      state.controls.push(controlSecond);
+      state.push(controlFirst);
+      state.push(controlSecond);
       const formExpected = _.cloneDeep(defaultControlForm);
       formExpected.controls.push(controlFirst);
       formExpected.controls.push(controlSecond);
@@ -93,15 +91,15 @@ describe('Transformation entities - Control', () => {
     });
     test('One control', () => {
       const state = _.cloneDeep(defaultControlState);
-      state.controls.push(controlFirst);
+      state.push(controlFirst);
       const modelExpected = _.cloneDeep(defaultControlModel);
       modelExpected.controls.push(controlFirst);
       expect(Control.stateToModel(state)).toEqual(modelExpected);
     });
     test('Two controls', () => {
       const state = _.cloneDeep(defaultControlState);
-      state.controls.push(controlFirst);
-      state.controls.push(controlSecond);
+      state.push(controlFirst);
+      state.push(controlSecond);
       const modelExpected = _.cloneDeep(defaultControlModel);
       modelExpected.controls.push(controlFirst);
       modelExpected.controls.push(controlSecond);
@@ -115,17 +113,14 @@ describe('Transformation entities - Control', () => {
     test('One control', () => {
       const model = _.cloneDeep(defaultControlModel);
       model.controls.push(controlFirst);
-      const stateExpected = _.cloneDeep(defaultControlModel);
-      stateExpected.controls.push(controlFirst);
+      const stateExpected = [controlFirst];
       expect(Control.modelToState(model)).toEqual(stateExpected);
     });
     test('Two controls', () => {
       const model = _.cloneDeep(defaultControlModel);
       model.controls.push(controlFirst);
       model.controls.push(controlSecond);
-      const stateExpected = _.cloneDeep(defaultControlModel);
-      stateExpected.controls.push(controlFirst);
-      stateExpected.controls.push(controlSecond);
+      const stateExpected = [controlFirst, controlSecond];
       expect(Control.modelToState(model)).toEqual(stateExpected);
     });
   });

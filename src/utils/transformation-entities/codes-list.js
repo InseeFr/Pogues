@@ -42,16 +42,20 @@ function modelToState(model) {
 
 function formToState(form) {
   const { codesList: { id, label }, codes } = form;
-  const codesListState = {
-    codesList: {
-      id: id !== '' ? id : uuid(),
-      label,
-      name: nameFromLabel(label),
-    },
-    codes: codes.map(codeForm => {
-      return Code.formToState(codeForm);
-    }),
-  };
+  let codesListState = {};
+
+  if (id || label !== '') {
+    codesListState = {
+      codesList: {
+        id: id !== '' ? id : uuid(),
+        label,
+        name: nameFromLabel(label),
+      },
+      codes: codes.map(codeForm => {
+        return Code.formToState(codeForm);
+      }),
+    };
+  }
 
   return {
     ...defaultCodesListForm,
