@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 
-function Input({ input, label, type, required, reference, id, help, meta: { touched, error, warning } }) {
+function Input({ input, label, type, required, reference, id, help, meta: { touched, pristine, error, warning } }) {
   const idInput = id !== '' ? `input-${input.id}` : `input-${input.name}`;
 
   const helpBlock = help
@@ -16,15 +16,23 @@ function Input({ input, label, type, required, reference, id, help, meta: { touc
   return (
     <div className="ctrl-input">
       <label htmlFor={idInput}>
-        {label}{required ? <span>*</span> : ''}
+        {label}
+        {required ? <span>*</span> : ''}
         {helpBlock}
       </label>
 
       <div>
         <input {...input} ref={reference} id={idInput} placeholder={label} type={type} />
-        {touched &&
-          ((error && <span className="form-error">{error}</span>) ||
-            (warning && <span className="form-warm">{warning}</span>))}
+        {!pristine &&
+          touched &&
+          ((error &&
+            <span className="form-error">
+              {error}
+            </span>) ||
+            (warning &&
+              <span className="form-warm">
+                {warning}
+              </span>))}
       </div>
     </div>
   );
