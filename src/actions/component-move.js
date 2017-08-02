@@ -131,7 +131,7 @@ export function moveComponent(activesComponents, droppedComponent, draggedCompon
     let includeSelectedComponent = false;
 
     /**
-     * If the dropped is a SubSequence, we will set the drop component to be its first child
+     * If the dropped component is a SubSequence, we will set the drop component to be its first child
      */
     if (isSubSequence(droppedComponent) && droppedComponent.childrenId.length > 0) {
       includeSelectedComponent = true;
@@ -146,31 +146,34 @@ export function moveComponent(activesComponents, droppedComponent, draggedCompon
     let includeSelectedComponent = false;
 
     /**
-     * If the dropped is a SubSequence or a Sequence, we will set the drop component to be its first child
+     * If the dropped component is a SubSequence or a Sequence, we will set the drop component to be its first child
      */
     if ((isSequence(droppedComponent) || isSubSequence(droppedComponent)) && droppedComponent.childrenId.length > 0) {
       includeSelectedComponent = true;
       droppedComponent = toComponents(droppedComponent.childrenId, moves).find(c => c.weight === 0);
     }
 
-    moves = {
-      ...moves,
-      ...moveQuestionAndSubSequenceToSequence(moves, droppedComponent, componentToMove, includeSelectedComponent),
-    };
+    if (droppedComponent.parent !== componentToMove.parent) {
+      moves = {
+        ...moves,
+        ...moveQuestionAndSubSequenceToSequence(moves, droppedComponent, componentToMove, includeSelectedComponent),
+      };
+    }
   }
-  // }
+
   /** 
     * If the source and target parent component is the same, we only need 
     * to update the weight of the children
     */
   if (newParentComponentId === oldParent.id && dragndropLevel >= 0) {
-    return {
+    moves = {
       ...moves,
       ...resetAllWeight({
         ...moves,
         ...increaseWeightOfAll(moves, componentToMove),
       }),
     };
+    return attachQuestionToPreviousSubSequence(moves);
   }
 
   /**
