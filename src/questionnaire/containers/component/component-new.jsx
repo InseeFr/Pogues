@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
 import { setSelectedComponentId } from 'actions/app-state';
-import SequenceNewEdit from 'questionnaire/components/component/sequence-new-edit';
-import QuestionNewEdit from 'questionnaire/components/component/question-new-edit';
+import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { defaultResponseFormatForm } from 'utils/transformation-entities/response-format';
 import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
@@ -47,18 +46,18 @@ function ComponentNewContainer({
     onCancel: onCancel,
   };
 
+  initialValues = {
+    ...initialValues,
+    declarations: { ...defaultDeclarationForm },
+    controls: { ...defaultControlForm },
+    redirections: { ...defaultRedirectionForm },
+  };
+
   if (type === QUESTION) {
-    initialValues = {
-      ...initialValues,
-      responseFormat: { ...defaultResponseFormatForm },
-      declarations: { ...defaultDeclarationForm },
-      controls: { ...defaultControlForm },
-      redirections: { ...defaultRedirectionForm },
-    };
-    return <QuestionNewEdit initialValues={initialValues} {...props} />;
+    initialValues.responseFormat = defaultResponseFormatForm;
   }
 
-  return <SequenceNewEdit initialValues={initialValues} {...props} />;
+  return <ComponentNewEdit type={type} initialValues={initialValues} {...props} />;
 }
 
 ComponentNewContainer.propTypes = {

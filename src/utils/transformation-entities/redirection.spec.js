@@ -25,9 +25,7 @@ describe('Transformation entities - Redirection', () => {
     expect(defaultRedirectionForm).toEqual(expectedForm);
   });
   test('Default state shape should be the expected', () => {
-    const expectedState = {
-      redirections: [],
-    };
+    const expectedState = [];
     expect(defaultRedirectionState).toEqual(expectedState);
   });
   test('Default model shape should be the expected', () => {
@@ -44,7 +42,7 @@ describe('Transformation entities - Redirection', () => {
       const form = _.cloneDeep(defaultRedirectionForm);
       form.redirections.push(redirectionFirst);
       const expectedState = _.cloneDeep(defaultRedirectionState);
-      expectedState.redirections.push(redirectionFirst);
+      expectedState.push(redirectionFirst);
       expect(Redirection.formToState(form)).toEqual(expectedState);
     });
     test('Two redirections', () => {
@@ -52,8 +50,8 @@ describe('Transformation entities - Redirection', () => {
       form.redirections.push(redirectionFirst);
       form.redirections.push(redirectionSecond);
       const expectedState = _.cloneDeep(defaultRedirectionState);
-      expectedState.redirections.push(redirectionFirst);
-      expectedState.redirections.push(redirectionSecond);
+      expectedState.push(redirectionFirst);
+      expectedState.push(redirectionSecond);
       expect(Redirection.formToState(form)).toEqual(expectedState);
     });
   });
@@ -63,15 +61,15 @@ describe('Transformation entities - Redirection', () => {
     });
     test('One redirection', () => {
       const state = _.cloneDeep(defaultRedirectionState);
-      state.redirections.push(redirectionFirst);
+      state.push(redirectionFirst);
       const formExpected = _.cloneDeep(defaultRedirectionForm);
       formExpected.redirections.push(redirectionFirst);
       expect(Redirection.stateToForm(state)).toEqual(formExpected);
     });
     test('Two redirections', () => {
       const state = _.cloneDeep(defaultRedirectionState);
-      state.redirections.push(redirectionFirst);
-      state.redirections.push(redirectionSecond);
+      state.push(redirectionFirst);
+      state.push(redirectionSecond);
       const formExpected = _.cloneDeep(defaultRedirectionForm);
       formExpected.redirections.push(redirectionFirst);
       formExpected.redirections.push(redirectionSecond);
@@ -84,15 +82,15 @@ describe('Transformation entities - Redirection', () => {
     });
     test('One redirection', () => {
       const state = _.cloneDeep(defaultRedirectionState);
-      state.redirections.push(redirectionFirst);
+      state.push(redirectionFirst);
       const modelExpected = _.cloneDeep(defaultRedirectionModel);
       modelExpected.redirections.push(redirectionFirst);
       expect(Redirection.stateToModel(state)).toEqual(modelExpected);
     });
     test('Two redirections', () => {
       const state = _.cloneDeep(defaultRedirectionState);
-      state.redirections.push(redirectionFirst);
-      state.redirections.push(redirectionSecond);
+      state.push(redirectionFirst);
+      state.push(redirectionSecond);
       const modelExpected = _.cloneDeep(defaultRedirectionModel);
       modelExpected.redirections.push(redirectionFirst);
       modelExpected.redirections.push(redirectionSecond);
@@ -106,17 +104,14 @@ describe('Transformation entities - Redirection', () => {
     test('One redirection', () => {
       const model = _.cloneDeep(defaultRedirectionModel);
       model.redirections.push(redirectionFirst);
-      const stateExpected = _.cloneDeep(defaultRedirectionModel);
-      stateExpected.redirections.push(redirectionFirst);
+      const stateExpected = [redirectionFirst];
       expect(Redirection.modelToState(model)).toEqual(stateExpected);
     });
     test('Two redirections', () => {
       const model = _.cloneDeep(defaultRedirectionModel);
       model.redirections.push(redirectionFirst);
       model.redirections.push(redirectionSecond);
-      const stateExpected = _.cloneDeep(defaultRedirectionModel);
-      stateExpected.redirections.push(redirectionFirst);
-      stateExpected.redirections.push(redirectionSecond);
+      const stateExpected = [redirectionFirst, redirectionSecond];
       expect(Redirection.modelToState(model)).toEqual(stateExpected);
     });
   });

@@ -5,12 +5,22 @@ import _ from 'lodash';
 import Declaration, { defaultDeclarationForm, defaultDeclarationState, defaultDeclarationModel } from './declaration';
 
 describe('Transformation entities - Declaration', () => {
-  const declarationFirst = {
+  const declarationFirstState = {
+    declarationType: 'INSTRUCTION',
+    label: 'This is the first text',
+    position: 'AFTER_RESPONSE',
+  };
+  const declarationSecondState = {
+    declarationType: 'INSTRUCTION',
+    label: 'This is the second text',
+    position: 'AFTER_QUESTION_TEXT',
+  };
+  const declarationFirstModel = {
     declarationType: 'INSTRUCTION',
     text: 'This is the first text',
     position: 'AFTER_RESPONSE',
   };
-  const declarationSecond = {
+  const declarationSecondModel = {
     declarationType: 'INSTRUCTION',
     text: 'This is the second text',
     position: 'AFTER_QUESTION_TEXT',
@@ -25,9 +35,7 @@ describe('Transformation entities - Declaration', () => {
     expect(defaultDeclarationForm).toEqual(expectedForm);
   });
   test('Default state shape should be the expected', () => {
-    const expectedState = {
-      declarations: [],
-    };
+    const expectedState = [];
     expect(defaultDeclarationState).toEqual(expectedState);
   });
   test('Default model shape should be the expected', () => {
@@ -42,18 +50,18 @@ describe('Transformation entities - Declaration', () => {
     });
     test('One declaration', () => {
       const form = _.cloneDeep(defaultDeclarationForm);
-      form.declarations.push(declarationFirst);
+      form.declarations.push(declarationFirstState);
       const expectedState = _.cloneDeep(defaultDeclarationState);
-      expectedState.declarations.push(declarationFirst);
+      expectedState.push(declarationFirstState);
       expect(Declaration.formToState(form)).toEqual(expectedState);
     });
     test('Two declarations', () => {
       const form = _.cloneDeep(defaultDeclarationForm);
-      form.declarations.push(declarationFirst);
-      form.declarations.push(declarationSecond);
+      form.declarations.push(declarationFirstState);
+      form.declarations.push(declarationSecondState);
       const expectedState = _.cloneDeep(defaultDeclarationState);
-      expectedState.declarations.push(declarationFirst);
-      expectedState.declarations.push(declarationSecond);
+      expectedState.push(declarationFirstState);
+      expectedState.push(declarationSecondState);
       expect(Declaration.formToState(form)).toEqual(expectedState);
     });
   });
@@ -63,18 +71,18 @@ describe('Transformation entities - Declaration', () => {
     });
     test('One declaration', () => {
       const state = _.cloneDeep(defaultDeclarationState);
-      state.declarations.push(declarationFirst);
+      state.push(declarationFirstState);
       const formExpected = _.cloneDeep(defaultDeclarationForm);
-      formExpected.declarations.push(declarationFirst);
+      formExpected.declarations.push(declarationFirstState);
       expect(Declaration.stateToForm(state)).toEqual(formExpected);
     });
     test('Two declarations', () => {
       const state = _.cloneDeep(defaultDeclarationState);
-      state.declarations.push(declarationFirst);
-      state.declarations.push(declarationSecond);
+      state.push(declarationFirstState);
+      state.push(declarationSecondState);
       const formExpected = _.cloneDeep(defaultDeclarationForm);
-      formExpected.declarations.push(declarationFirst);
-      formExpected.declarations.push(declarationSecond);
+      formExpected.declarations.push(declarationFirstState);
+      formExpected.declarations.push(declarationSecondState);
       expect(Declaration.stateToForm(state)).toEqual(formExpected);
     });
   });
@@ -84,18 +92,18 @@ describe('Transformation entities - Declaration', () => {
     });
     test('One declaration', () => {
       const state = _.cloneDeep(defaultDeclarationState);
-      state.declarations.push(declarationFirst);
+      state.push(declarationFirstState);
       const modelExpected = _.cloneDeep(defaultDeclarationModel);
-      modelExpected.declarations.push(declarationFirst);
+      modelExpected.declarations.push(declarationFirstModel);
       expect(Declaration.stateToModel(state)).toEqual(modelExpected);
     });
     test('Two declarations', () => {
       const state = _.cloneDeep(defaultDeclarationState);
-      state.declarations.push(declarationFirst);
-      state.declarations.push(declarationSecond);
+      state.push(declarationFirstState);
+      state.push(declarationSecondState);
       const modelExpected = _.cloneDeep(defaultDeclarationModel);
-      modelExpected.declarations.push(declarationFirst);
-      modelExpected.declarations.push(declarationSecond);
+      modelExpected.declarations.push(declarationFirstModel);
+      modelExpected.declarations.push(declarationSecondModel);
       expect(Declaration.stateToModel(state)).toEqual(modelExpected);
     });
   });
@@ -105,18 +113,15 @@ describe('Transformation entities - Declaration', () => {
     });
     test('One declaration', () => {
       const model = _.cloneDeep(defaultDeclarationModel);
-      model.declarations.push(declarationFirst);
-      const stateExpected = _.cloneDeep(defaultDeclarationModel);
-      stateExpected.declarations.push(declarationFirst);
+      model.declarations.push(declarationFirstModel);
+      const stateExpected = [declarationFirstState]
       expect(Declaration.modelToState(model)).toEqual(stateExpected);
     });
     test('Two declarations', () => {
       const model = _.cloneDeep(defaultDeclarationModel);
-      model.declarations.push(declarationFirst);
-      model.declarations.push(declarationSecond);
-      const stateExpected = _.cloneDeep(defaultDeclarationModel);
-      stateExpected.declarations.push(declarationFirst);
-      stateExpected.declarations.push(declarationSecond);
+      model.declarations.push(declarationFirstModel);
+      model.declarations.push(declarationSecondModel);
+      const stateExpected = [declarationFirstState, declarationSecondState]
       expect(Declaration.modelToState(model)).toEqual(stateExpected);
     });
   });

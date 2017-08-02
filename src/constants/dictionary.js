@@ -132,11 +132,11 @@ const dictionary = {
     fr: 'Descendre',
   },
   declaration_tabTitle: {
-    en: 'Statement',
-    fr: 'Déclaration',
+    en: 'Statements',
+    fr: 'Déclarations',
   },
   declaration_label: {
-    en: 'Statement Label',
+    en: 'Statement label',
     fr: 'Libellé de la déclaration',
   },
   type: {
@@ -144,8 +144,8 @@ const dictionary = {
     fr: 'Type',
   },
   declaration_position: {
-    en: 'Positions',
-    fr: 'Positions',
+    en: 'Position',
+    fr: 'Position',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
@@ -256,7 +256,7 @@ const dictionary = {
     fr: 'Redirections',
   },
   goTo_label: {
-    en: 'GoTo Label',
+    en: 'GoTo label',
     fr: 'Libellé de la redirection',
   },
   defineGoTo: {
@@ -393,8 +393,8 @@ const dictionary = {
     fr: 'Contrôle post-collecte',
   },
   control_message: {
-    en: 'Displayed Message',
-    fr: 'Message Affiché',
+    en: 'Displayed message',
+    fr: 'Message affiché',
   },
   deleteControl: {
     en: 'Delete control',
@@ -818,6 +818,34 @@ const dictionary = {
   confirmQuestionMessage: {
     fr: 'Êtes-vous sûr ?',
     en: 'Are you sure?',
+  },
+  validation_declaration_label: {
+    fr: 'Libellé de la déclaration obligatoire',
+    en: 'Statement label required',
+  },
+  validation_control_label: {
+    fr: 'Libellé du contrôle obligatoire',
+    en: 'Control label required',
+  },
+  validation_expression: {
+    fr: 'Condition obligatoire',
+    en: 'Condition required',
+  },
+  validation_control_message: {
+    fr: 'Message affiché obligatoire',
+    en: 'Displayed message required',
+  },
+  validation_goTo_label: {
+    fr: 'Libellé de la redirection obligatoire',
+    en: 'Goto label required',
+  },
+  validation_condition: {
+    fr: 'Condition obligatoire',
+    en: 'Condition required',
+  },
+  validation_target: {
+    fr: 'Cible obligatoire',
+    en: 'Target required',
   },
 };
 
