@@ -6,7 +6,7 @@ import { formValueSelector } from 'redux-form';
 import ComponentSelectorByType from 'layout/connected-widget/components/component-selector-by-type';
 
 const mapStateToProps = (state, { components, label, selectorPath, formName }) => {
-  formName = formName || 'question';
+  formName = formName || 'component';
   const selector = formValueSelector(formName);
   const activeComponentSelectorPath = selectorPath ? `${selectorPath}.type` : '';
   return {

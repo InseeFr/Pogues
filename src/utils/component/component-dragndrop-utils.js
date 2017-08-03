@@ -49,5 +49,8 @@ export function calculateMargin(droppedComponent, draggedComponent, dragndropLev
     }
     return (dragndropLevel - 1) * 20;
   }
+  if (dragndropLevel === 0) {
+    return -20;
+  }
   return 0;
 }

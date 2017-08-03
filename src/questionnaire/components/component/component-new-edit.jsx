@@ -11,9 +11,13 @@ import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import { required } from 'layout/forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION } = COMPONENT_TYPE;
 
 export class QuestionNewEdit extends Component {
   static propTypes = {
+    type: PropTypes.string.isRequired,
     edit: PropTypes.bool,
     handleSubmit: PropTypes.func,
     onCancel: PropTypes.func,
@@ -35,13 +39,8 @@ export class QuestionNewEdit extends Component {
     }
   }
   render() {
-    const { edit, handleSubmit, onCancel, pristine, submitting } = this.props;
+    const { type, edit, handleSubmit, onCancel, pristine, submitting } = this.props;
     const panels = [
-      {
-        id: 'response-format',
-        label: Dictionary.responsesEdition,
-        content: <ResponseFormat />,
-      },
       {
         id: 'declarations',
         label: Dictionary.declaration_tabTitle,
@@ -58,6 +57,14 @@ export class QuestionNewEdit extends Component {
         content: <Redirections />,
       },
     ];
+
+    if (type === QUESTION) {
+      panels.unshift({
+        id: 'response-format',
+        label: Dictionary.responsesEdition,
+        content: <ResponseFormat />,
+      });
+    }
 
     return (
       <div className="component-edition">
@@ -91,9 +98,13 @@ export class QuestionNewEdit extends Component {
           <Tabs components={panels} />
 
           <div className="form-footer">
-            <button type="submit" disabled={!edit && (pristine || submitting)}>{Dictionary.validate}</button>
+            <button type="submit" disabled={!edit && (pristine || submitting)}>
+              {Dictionary.validate}
+            </button>
             {onCancel &&
-              <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>}
+              <button className="cancel" disabled={submitting} onClick={onCancel}>
+                {Dictionary.cancel}
+              </button>}
           </div>
         </form>
       </div>
@@ -102,5 +113,5 @@ export class QuestionNewEdit extends Component {
 }
 
 export default reduxForm({
-  form: 'question',
+  form: 'component',
 })(QuestionNewEdit);

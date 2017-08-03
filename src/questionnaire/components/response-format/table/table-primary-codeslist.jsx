@@ -25,9 +25,11 @@ class ResponseFormatTablePrincipalCodeslist extends Component {
   }
   render() {
     return (
-      <FormSection name={ResponseFormatTablePrincipalCodeslist.selectorPath}>
-        <CodesList selectorPath={this.selectorPathComposed} />
-      </FormSection>
+      <div className="axis-primary__panel">
+        <FormSection name={ResponseFormatTablePrincipalCodeslist.selectorPath}>
+          <CodesList selectorPath={this.selectorPathComposed} />
+        </FormSection>
+      </div>
     );
   }
 }
