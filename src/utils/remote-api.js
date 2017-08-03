@@ -79,3 +79,14 @@ export const getUserAttributes = () =>
   }).then(res => {
     return res.json();
   });
+
+/**
+ * Will send a DELETE request in order to remove an existing questionnaire
+ * 
+ * @param {deleteQuestionnaire} id The id of the questionnaire we want to delete
+ */
+export const deleteQuestionnaire = id =>
+  fetch(`${urlQuestionnaire}/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });

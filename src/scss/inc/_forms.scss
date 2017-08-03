@@ -1,6 +1,5 @@
-form {
-  .form-footer {
-    @include make-row();
+.ok-cancel-buttons {
+  @include make-row();
     text-align: center;
     max-width: 40%;
     margin: auto;
@@ -16,12 +15,20 @@ form {
       &[type="submit"] {
         @extend .btn-yellow;
       }
+      &.validate {
+        @extend .btn-yellow;
+      }
 
       &.cancel {
         background: none;
         float: left;
       }
     }
+}
+
+form {
+  .form-footer {
+    @extend .ok-cancel-buttons;
   }
 
   .form-error, .form-warm {

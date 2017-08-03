@@ -9,6 +9,17 @@ import Checkbox from 'layout/forms/controls/checkbox';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultControlForm } from 'utils/transformation-entities/control';
 
+function validationControl(values) {
+  const { label, condition, message } = values;
+  const errors = [];
+
+  if (label === '') errors.push(Dictionary.validation_control_label);
+  if (condition === '') errors.push(Dictionary.validation_expression);
+  if (message === '') errors.push(Dictionary.validation_control_message);
+
+  return errors;
+}
+
 function InputControl() {
   const levels = [
     {
@@ -59,6 +70,7 @@ class Controls extends Component {
           inputView={inputControlView}
           initialInputValues={initialInputValues}
           selectorPath={Controls.selectorPath}
+          validationInput={validationControl}
           listName="controls"
           submitLabel="addControl"
           noValueLabel="noControlYet"

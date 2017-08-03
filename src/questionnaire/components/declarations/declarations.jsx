@@ -7,6 +7,15 @@ import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
 
+function validationDeclaration(values) {
+  const { label } = values;
+  const errors = [];
+
+  if (label === '') errors.push(Dictionary.validation_declaration_label);
+
+  return errors;
+}
+
 function InputDeclaration() {
   const types = [
     {
@@ -76,6 +85,7 @@ class Declarations extends Component {
           inputView={inputDeclarationView}
           initialInputValues={initialInputValues}
           selectorPath={Declarations.selectorPath}
+          validationInput={validationDeclaration}
           listName="declarations"
           submitLabel="addDeclaration"
           noValueLabel="noDeclarationYet"
