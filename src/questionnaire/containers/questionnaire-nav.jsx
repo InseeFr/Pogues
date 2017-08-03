@@ -15,7 +15,7 @@ const mapDispatchToProps = {
   setSelectedComponentId,
 };
 
-class QuestionnaireNavContainer extends Component {
+export class QuestionnaireNavContainer extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,

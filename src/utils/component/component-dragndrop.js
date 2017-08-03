@@ -11,6 +11,7 @@ export const componentSource = {
       id: props.id,
       type: props.type,
       parent: props.parent,
+      children: props.childrenId,
     };
   },
 };
@@ -24,7 +25,7 @@ export const cardTarget = {
    * own children
    */
   canDrop(props, monitor) {
-    return props.parent !== monitor.getItem().id;
+    return props.parent !== monitor.getItem().id && monitor.getItem().children.indexOf(props.parent) < 0;
   },
   /**
    * When the component is physically dropped, this method will be executed.
