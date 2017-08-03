@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Logger from 'utils/logger/logger';
 import QuestionnaireContainer from 'questionnaire/containers/questionnaire';
-import QuestionnaireNav from 'questionnaire/components/questionnaire-nav';
+import QuestionnaireNavContainer from 'questionnaire/containers/questionnaire-nav';
 import GenericInputContainer from 'questionnaire/containers/generic-input';
 import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
 import { setActiveQuestionnaire, setActiveComponents, setActiveCodeLists } from 'actions/app-state';
@@ -66,7 +66,7 @@ export class PageQuestionnaire extends Component {
   render() {
     return (
       <div id="page-questionnaire">
-        <QuestionnaireNav />
+        <QuestionnaireNavContainer />
         <QuestionnaireContainer />
         <GenericInputContainer />
       </div>
