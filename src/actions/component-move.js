@@ -87,13 +87,16 @@ function attachQuestionToPreviousSubSequence(activesComponents) {
   * @param {string} newParentComponentId the id of the target component, 
   * @param {number} newWeight the new weight of dragged component in the target component
   */
-export function moveComponent(activesComponents, droppedComponent, draggedComponent) {
+export function moveComponent(activesComponents, idDroppedComponent, idDraggedComponent) {
   /**
    * If the draggedComponent and the dropped component are the same, we do nothing
    */
-  if (droppedComponent.id === draggedComponent.id) {
+  if (idDroppedComponent === idDraggedComponent) {
     return {};
   }
+
+  let droppedComponent = activesComponents[idDroppedComponent];
+  const draggedComponent = activesComponents[idDraggedComponent];
 
   const dragndropLevel = getDragnDropLevel(droppedComponent, draggedComponent);
   const moveComponentId = draggedComponent.id;
@@ -133,9 +136,9 @@ export function moveComponent(activesComponents, droppedComponent, draggedCompon
     /**
      * If the dropped component is a SubSequence, we will set the drop component to be its first child
      */
-    if (isSubSequence(droppedComponent) && droppedComponent.childrenId.length > 0) {
+    if (isSubSequence(droppedComponent) && droppedComponent.children.length > 0) {
       includeSelectedComponent = true;
-      droppedComponent = toComponents(droppedComponent.childrenId, moves).find(c => c.weight === 0);
+      droppedComponent = toComponents(droppedComponent.children, moves).find(c => c.weight === 0);
     }
 
     moves = {
@@ -148,9 +151,9 @@ export function moveComponent(activesComponents, droppedComponent, draggedCompon
     /**
      * If the dropped component is a SubSequence or a Sequence, we will set the drop component to be its first child
      */
-    if ((isSequence(droppedComponent) || isSubSequence(droppedComponent)) && droppedComponent.childrenId.length > 0) {
+    if ((isSequence(droppedComponent) || isSubSequence(droppedComponent)) && droppedComponent.children.length > 0) {
       includeSelectedComponent = true;
-      droppedComponent = toComponents(droppedComponent.childrenId, moves).find(c => c.weight === 0);
+      droppedComponent = toComponents(droppedComponent.children, moves).find(c => c.weight === 0);
     }
 
     if (droppedComponent.parent !== componentToMove.parent) {

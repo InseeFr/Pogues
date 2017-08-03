@@ -31,7 +31,7 @@ export const cardTarget = {
    */
   drop(droppedComponent, monitor) {
     if (monitor.isOver({ shallow: false })) {
-      droppedComponent.moveComponent(droppedComponent, monitor.getItem());
+      droppedComponent.moveComponent(droppedComponent.id, monitor.getItem().id);
     }
   },
 };

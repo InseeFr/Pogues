@@ -22,7 +22,7 @@ const activesComponents = {
 };
 
 describe('getWeightAndParentId', () => {
-  test('id dragndropLevel = -2', () => {
+  test('if dragndropLevel = -2', () => {
     const result = component.getWeightAndParentId(
       activesComponents,
       activesComponents['5'],
@@ -76,6 +76,7 @@ describe('getWeightAndParentId', () => {
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
+
     const result = component.getWeightAndParentId(
       activesComponents,
       activesComponents['4'],
@@ -86,13 +87,13 @@ describe('getWeightAndParentId', () => {
     expect(result.newParentComponentId).toEqual('1');
   });
 
-  test('id dragndropLevel = 0', () => {
+  test('if dragndropLevel = 0', () => {
     const result = component.getWeightAndParentId({}, { weight: 1, parent: '1' }, {}, 0);
     expect(result.newWeight).toEqual(2);
     expect(result.newParentComponentId).toEqual('1');
   });
 
-  test('id dragndropLevel = 1', () => {
+  test('if dragndropLevel = 1', () => {
     const result = component.getWeightAndParentId({}, { weight: 1, id: '1' }, {}, 1);
     expect(result.newWeight).toEqual(0);
     expect(result.newParentComponentId).toEqual('1');
@@ -101,7 +102,7 @@ describe('getWeightAndParentId', () => {
 
 describe('moveComponent', () => {
   test('should return all moves from the new and old parent when their are not the same', () => {
-    const result = component.moveComponent(activesComponents, activesComponents['9'], activesComponents['6']);
+    const result = component.moveComponent(activesComponents, '9', '6');
 
     expect(result['2']).toEqual({ id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] });
     expect(result['3']).toEqual({ id: '3', weight: 1, type: SUBSEQUENCE, children: ['4', '5'], parent: '1' });
@@ -132,7 +133,7 @@ describe('moveComponent', () => {
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
     };
 
-    const result = component.moveComponent(activesComponents, activesComponents['6'], activesComponents['4']);
+    const result = component.moveComponent(activesComponents, '6', '4');
 
     expect(result['1']).toEqual({ id: '1', weight: 0, type: SEQUENCE, children: ['2', '3', '7', '8'] });
     expect(result['2']).toEqual({ id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] });
@@ -165,17 +166,7 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['5'],
-        childrenId: activesComponents['5'].children,
-      },
-      {
-        ...activesComponents['12'],
-        childrenId: activesComponents['12'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '5', '12');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
@@ -211,17 +202,7 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['5'],
-        childrenId: activesComponents['5'].children,
-      },
-      {
-        ...activesComponents['7'],
-        childrenId: activesComponents['7'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '5', '7');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
@@ -257,17 +238,7 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['1'],
-        childrenId: activesComponents['1'].children,
-      },
-      {
-        ...activesComponents['12'],
-        childrenId: activesComponents['12'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '1', '12');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
@@ -303,17 +274,7 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['3'],
-        childrenId: activesComponents['3'].children,
-      },
-      {
-        ...activesComponents['8'],
-        childrenId: activesComponents['8'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '3', '8');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
@@ -349,17 +310,7 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['2'],
-        childrenId: activesComponents['2'].children,
-      },
-      {
-        ...activesComponents['11'],
-        childrenId: activesComponents['11'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '2', '11');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
@@ -393,17 +344,7 @@ describe('moveComponent', () => {
       '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['2'],
-        childrenId: activesComponents['2'].children,
-      },
-      {
-        ...activesComponents['7'],
-        childrenId: activesComponents['7'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '2', '7');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
@@ -427,17 +368,7 @@ describe('moveComponent', () => {
       '3': { id: '3', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['1'],
-        childrenId: activesComponents['1'].children,
-      },
-      {
-        ...activesComponents['3'],
-        childrenId: activesComponents['3'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '1', '3');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '2', '3'] },
@@ -455,17 +386,7 @@ describe('moveComponent', () => {
       '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
     };
 
-    const result = component.moveComponent(
-      activesComponents,
-      {
-        ...activesComponents['1'],
-        childrenId: activesComponents['1'].children,
-      },
-      {
-        ...activesComponents['3'],
-        childrenId: activesComponents['3'].children,
-      }
-    );
+    const result = component.moveComponent(activesComponents, '1', '3');
 
     expect(result).toEqual({
       '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1'] },
