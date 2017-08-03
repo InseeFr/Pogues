@@ -35,6 +35,7 @@ class ArboSimplified extends Component {
 
   renderComponentsByParent(components, parent) {
     const renderComponentsByParent = this.renderComponentsByParent;
+
     return getSortedChildren(components, parent).map(key => {
       const subTree = renderComponentsByParent(components, key);
       return (
@@ -45,7 +46,7 @@ class ArboSimplified extends Component {
                 ? 'glyphicon-menu-down'
                 : 'glyphicon-menu-right'}`}
             />}
-          <a href="#" title={components[key].title} onClick={e => this.handleClick(e, key)}>{components[key].name}</a>
+          <a href="#" onClick={e => this.handleClick(e, key)}>{components[key].name}</a>
           {this.state.expanded.indexOf(key) >= 0 && <ul className="arbo-simplifield">{subTree}</ul>}
         </li>
       );
