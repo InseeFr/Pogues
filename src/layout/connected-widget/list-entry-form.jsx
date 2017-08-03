@@ -20,9 +20,11 @@ function updateValues(values, path, item) {
   });
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, { formName }) => {
+  formName = formName || 'component';
   return {
-    values: getFormValues('question')(state),
+    values: getFormValues(formName)(state),
+    formName,
   };
 };
 
@@ -31,6 +33,25 @@ const mapDispatchToProps = {
 };
 
 class ListEntryFormContainer extends Component {
+  static propTypes = {
+    formName: PropTypes.string.isRequired,
+    inputView: PropTypes.object.isRequired,
+    initialInputValues: PropTypes.object,
+    selectorPath: PropTypes.string.isRequired,
+    listName: PropTypes.string.isRequired,
+    initialize: PropTypes.func.isRequired,
+    validationInput: PropTypes.func,
+    values: PropTypes.object,
+    submitLabel: PropTypes.string.isRequired,
+    noValueLabel: PropTypes.string.isRequired,
+  };
+
+  static defaultProps = {
+    initialInputValues: {},
+    values: {},
+    errors: {},
+    validationInput: () => true,
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -50,14 +71,14 @@ class ListEntryFormContainer extends Component {
     });
   }
   select(index) {
-    const { listName, values, selectorPath, initialize } = this.props;
+    const { formName, listName, values, selectorPath, initialize } = this.props;
     const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`);
     const newValues = updateValues(values, selectorPath, subset);
     this.resetErrors();
-    initialize('question', newValues);
+    initialize(formName, newValues);
   }
   remove(index) {
-    const { selectorPath, listName, values, initialInputValues, initialize } = this.props;
+    const { formName, selectorPath, listName, values, initialInputValues, initialize } = this.props;
     const items = getValuesSubset(values, `${selectorPath}.${listName}`);
     items.splice(index, 1);
     const subset = {
@@ -66,23 +87,23 @@ class ListEntryFormContainer extends Component {
     };
     const newValues = updateValues(values, selectorPath, subset);
     this.resetErrors();
-    initialize('question', newValues);
+    initialize(formName, newValues);
   }
   reset() {
-    const { listName, values, initialInputValues, selectorPath, initialize } = this.props;
+    const { formName, listName, values, initialInputValues, selectorPath, initialize } = this.props;
     const subset = {
       ..._.cloneDeep(initialInputValues),
       [listName]: [...getValuesSubset(values, `${selectorPath}.${listName}`)],
     };
     const newValues = updateValues(values, selectorPath, subset);
     this.resetErrors();
-    initialize('question', newValues);
+    initialize(formName, newValues);
   }
   duplicate() {
     this.submit();
   }
   submit(index) {
-    const { values, initialInputValues, selectorPath, listName, initialize } = this.props;
+    const { formName, values, initialInputValues, selectorPath, listName, initialize } = this.props;
     const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
     if (!this.validate(currentValues)) return;
@@ -96,7 +117,7 @@ class ListEntryFormContainer extends Component {
       [listName]: items,
     };
     const newValues = updateValues(values, selectorPath, subset);
-    initialize('question', newValues);
+    initialize(formName, newValues);
   }
   validate(values) {
     const { validationInput } = this.props;
@@ -133,24 +154,5 @@ class ListEntryFormContainer extends Component {
     );
   }
 }
-
-ListEntryFormContainer.propTypes = {
-  inputView: PropTypes.object.isRequired,
-  initialInputValues: PropTypes.object,
-  selectorPath: PropTypes.string.isRequired,
-  listName: PropTypes.string.isRequired,
-  initialize: PropTypes.func.isRequired,
-  validationInput: PropTypes.func,
-  values: PropTypes.object,
-  submitLabel: PropTypes.string.isRequired,
-  noValueLabel: PropTypes.string.isRequired,
-};
-
-ListEntryFormContainer.defaultProps = {
-  initialInputValues: {},
-  values: {},
-  errors: {},
-  validationInput: () => true,
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListEntryFormContainer);

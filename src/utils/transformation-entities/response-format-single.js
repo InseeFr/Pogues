@@ -18,9 +18,9 @@ export const defaultSingleForm = {
 
 export const defaultSingleState = {
   mandatory: undefined,
-  visHint: undefined,
-  codesListId: undefined,
-  type: undefined,
+  visHint: CHECKBOX,
+  codesListId: '',
+  type: NEW,
 };
 
 export const defaultSingleModel = {

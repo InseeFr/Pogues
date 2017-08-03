@@ -7,7 +7,7 @@ import { COMPONENT_TYPE, QUESTION_TYPE_ENUM, DIMENSION_TYPE, DIMENSION_FORMATS }
 
 const { QUESTION } = COMPONENT_TYPE;
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
+const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 
 export function getCodesListsIdsFromResponseMultiple(responseFormatMultiple) {
@@ -21,18 +21,33 @@ export function getCodesListsIdsFromResponseMultiple(responseFormatMultiple) {
 
 export function getCodesListsIdsFromResponseTable(responseFormatTable) {
   const codesListsIds = [];
-  const { measures, type: typeMeasure, [typeMeasure]: measureState } = responseFormatTable[MEASURE];
+  const {
+    [PRIMARY]: primaryState,
+    [SECONDARY]: secondaryState,
+    [MEASURE]: measureState,
+    [LIST_MEASURE]: listMeasuresState,
+  } = responseFormatTable;
+  const { type: typePrimary, [typePrimary]: primaryTypeState } = primaryState;
 
-  if (responseFormatTable[PRIMARY].type === CODES_LIST) {
-    codesListsIds.push(responseFormatTable[PRIMARY][CODES_LIST].codesListId);
+  if (typePrimary === CODES_LIST) {
+    codesListsIds.push(primaryTypeState.codesListId);
   }
-  if (responseFormatTable[SECONDARY].showSecondaryAxis) {
-    codesListsIds.push(responseFormatTable[SECONDARY].codesListId);
-    if (typeMeasure === SINGLE_CHOICE) codesListsIds.push(measureState.codesListId);
+
+  if (secondaryState) {
+    codesListsIds.push(secondaryState.codesListId);
+  }
+
+  if (measureState) {
+    const { type: measureType, [measureType]: measureTypeState } = measureState;
+    if (measureType === SINGLE_CHOICE) {
+      codesListsIds.push(measureTypeState.codesListId);
+    }
   } else {
-    measures.forEach(m => {
-      const { type: typeMeasureItem, [typeMeasureItem]: measureStateItem } = m;
-      if (typeMeasureItem === SINGLE_CHOICE) codesListsIds.push(measureStateItem.codesListId);
+    listMeasuresState.forEach(m => {
+      const { type: measureType, [measureType]: measureTypeState } = m;
+      if (measureType === SINGLE_CHOICE) {
+        codesListsIds.push(measureTypeState.codesListId);
+      }
     });
   }
 

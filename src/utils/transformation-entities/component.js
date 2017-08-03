@@ -4,9 +4,9 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constant
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import ResponseFormat from './response-format';
-import Declaration from './declaration';
-import Control from './control';
-import Redirection from './redirection';
+import Declaration, { defaultDeclarationForm } from './declaration';
+import Control, { defaultControlForm } from './control';
+import Redirection, { defaultRedirectionForm } from './redirection';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -91,12 +91,12 @@ function formToState(form) {
     state.label = label;
     state.rawLabel = label;
     state.responseFormat = ResponseFormat.formToState(responseFormat);
-    state.declarations = Declaration.formToState(declarations);
-    state.controls = Control.formToState(controls);
-    state.redirections = Redirection.formToState(redirections);
   } else {
     state.label = label;
   }
+  state.declarations = Declaration.formToState(declarations || defaultDeclarationForm);
+  state.controls = Control.formToState(controls || defaultControlForm);
+  state.redirections = Redirection.formToState(redirections || defaultRedirectionForm);
 
   return {
     ..._.cloneDeep(defaultComponentState),
@@ -112,11 +112,12 @@ function stateToForm(component, activeCodeLists, activeCodes) {
     name,
   };
 
+  form.declarations = Declaration.stateToForm(declarations);
+  form.controls = Control.stateToForm(controls);
+  form.redirections = Redirection.stateToForm(redirections);
+
   if (type === QUESTION) {
     form.responseFormat = ResponseFormat.stateToForm(responseFormat, activeCodeLists, activeCodes);
-    form.declarations = Declaration.stateToForm(declarations);
-    form.controls = Control.stateToForm(controls);
-    form.redirections = Redirection.stateToForm(redirections);
   }
 
   return {
@@ -127,23 +128,23 @@ function stateToForm(component, activeCodeLists, activeCodes) {
 
 function stateToModel(state, components, codesLists = {}) {
   const { id, depth, name, label, type, children, responseFormat, declarations, controls, redirections } = state;
+
   let model = {
     id,
     depth,
     name,
     label: [label],
+    ...Declaration.stateToModel(declarations || []),
+    ...Control.stateToModel(controls || []),
+    ...Redirection.stateToModel(redirections || []),
   };
 
   if (type === QUESTION) {
     model.type = QUESTION_TYPE_NAME;
     model.questionType = responseFormat.type;
-
     model = {
       ...model,
       ...ResponseFormat.stateToModel(responseFormat, codesLists),
-      ...Declaration.stateToModel(declarations),
-      ...Control.stateToModel(controls),
-      ...Redirection.stateToModel(redirections),
     };
   } else {
     model.type = SEQUENCE_TYPE_NAME;
@@ -177,7 +178,7 @@ function modelToState(model, activeCodeLists = {}) {
     declarations,
     controls,
     redirections,
-    goTos
+    goTos,
   } = model;
 
   const state = {
@@ -186,6 +187,10 @@ function modelToState(model, activeCodeLists = {}) {
     parent: parent || '',
     weight: weight || 0,
   };
+
+  state.declarations = Declaration.modelToState({ declarations });
+  state.controls = Control.modelToState({ controls });
+  state.redirections = Redirection.modelToState({ redirections: redirections || goTos });
 
   if (type === SEQUENCE_TYPE_NAME) {
     state.children = children.map(child => child.id);
@@ -210,9 +215,6 @@ function modelToState(model, activeCodeLists = {}) {
       },
       activeCodeLists
     );
-    state.declarations = Declaration.modelToState({ declarations });
-    state.controls = Control.modelToState({ controls });
-    state.redirections = Redirection.modelToState({ redirections: redirections || goTos });
   }
 
   return {

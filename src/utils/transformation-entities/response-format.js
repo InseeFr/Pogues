@@ -48,10 +48,7 @@ function formToState(form) {
     state[type] = ResponseFormatSimple.formToState(responseFormatForm);
   }
 
-  return {
-    ...defaultResponseFormatState,
-    ...state,
-  };
+  return state;
 }
 
 function stateToForm(state, activeCodeLists, activeCodes) {

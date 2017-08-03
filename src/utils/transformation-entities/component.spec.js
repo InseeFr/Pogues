@@ -44,9 +44,9 @@ describe('Transformation entities - Component', () => {
     rawLabel: undefined,
     responseFormat: undefined,
     children: [],
-    declarations: undefined,
-    controls: undefined,
-    redirections: undefined,
+    declarations: [],
+    controls: [],
+    redirections: [],
   };
 
   const sequenceState = {
@@ -59,9 +59,9 @@ describe('Transformation entities - Component', () => {
     rawLabel: undefined,
     children: [],
     responseFormat: undefined,
-    declarations: undefined,
-    controls: undefined,
-    redirections: undefined,
+    declarations: [],
+    controls: [],
+    redirections: [],
   };
 
   const subsequenceState = {
@@ -74,9 +74,9 @@ describe('Transformation entities - Component', () => {
     rawLabel: undefined,
     children: [],
     responseFormat: undefined,
-    declarations: undefined,
-    controls: undefined,
-    redirections: undefined,
+    declarations: [],
+    controls: [],
+    redirections: [],
   };
 
   const questionState = {
@@ -189,9 +189,9 @@ describe('Transformation entities - Component', () => {
       rawLabel: undefined,
       children: [],
       responseFormat: undefined,
-      declarations: undefined,
-      controls: undefined,
-      redirections: undefined,
+      declarations: [],
+      controls: [],
+      redirections: [],
     };
     expect(defaultComponentState).toEqual(expectedState);
   });
@@ -398,9 +398,9 @@ describe('Transformation entities - Component', () => {
           rawLabel: undefined,
           children: ['jx504532'],
           responseFormat: undefined,
-          declarations: undefined,
-          controls: undefined,
-          redirections: undefined,
+          declarations: [],
+          controls: [],
+          redirections: [],
         },
       };
       const state = {
