@@ -126,8 +126,8 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
  * @param   {object}  update      The properties which need to be updated
  * @return  {object}              UPDATE_COMPONENT action
  */
-export const updateComponent = (form, id, parent, weight, type) => {
-  const updatedComponent = Component.formToState({ ...form, parent, weight, type, id });
+export const updateComponent = (form, id, parent, weight, type, children) => {
+  const updatedComponent = Component.formToState({ ...form, parent, weight, type, id, children });
   const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
     updatedComponent.responseFormat
   );
@@ -147,8 +147,8 @@ export const updateComponent = (form, id, parent, weight, type) => {
   };
 };
 /**
- * Method used when we drag a component next to another one. 
- * 
+ * Method used when we drag a component next to another one.
+ *
  * @param {string} idMovedComponent id of the dragged component
  * @param {string} idTargetComponent id of the dropped component
  * @param {number} newWeight the new weight of the dragged component
@@ -170,7 +170,7 @@ export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) =>
 
 /**
  * Method used when we click on the DELETE button on a SEQUENCE, SUBSEQUENCE or QUESTION
- * 
+ *
  * @param {string} idDeletedComponent the id of the component we want to remove
  */
 export const removeComponent = idDeletedComponent => (dispatch, getState) => {
@@ -185,7 +185,7 @@ export const removeComponent = idDeletedComponent => (dispatch, getState) => {
 
 /**
  * Method used when we click on the DUPLICATE button on a SEQUENCE, SUBSEQUENCE or QUESTION
- * 
+ *
  * @param {string} idDeletedComponent the id of the component we want to remove
  */
 export const duplicateComponent = idComponent => (dispatch, getState) => {

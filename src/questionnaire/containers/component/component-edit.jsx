@@ -18,7 +18,7 @@ const mapDispatchToProps = {
 
 function ComponentEditContainer({ updateComponent, component, activeCodeLists, activeCodes, onSuccess, onCancel }) {
   const submit = values => {
-    updateComponent(values, component.id, component.parent, component.weight, component.type);
+    updateComponent(values, component.id, component.parent, component.weight, component.type, component.children);
     if (onSuccess) onSuccess();
   };
 
