@@ -155,12 +155,12 @@ export const createQuestionnaire = (name, label) => (dispatch, getState) => {
     });
 };
 
-export const deleteQuestionnaireSuccess = payload => ({
+export const removeQuestionnaireSuccess = payload => ({
   type: DELETE_QUESTIONNAIRE_SUCCESS,
   payload,
 });
 
-export const deleteQuestionnaireFailure = (id, err) => ({
+export const removeQuestionnaireFailure = (id, err) => ({
   type: DELETE_QUESTIONNAIRE_FAILURE,
   payload: { id, err },
 });
@@ -187,9 +187,9 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
 
   return deleteQuestionnaire(idQuestionnaire)
     .then(() => {
-      return dispatch(deleteQuestionnaireSuccess(questionnairesList));
+      return dispatch(removeQuestionnaireSuccess(questionnairesList));
     })
     .catch(err => {
-      return dispatch(deleteQuestionnaireFailure(idQuestionnaire, err));
+      return dispatch(removeQuestionnaireFailure(idQuestionnaire, err));
     });
 };
