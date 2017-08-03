@@ -57,7 +57,14 @@ function InputDeclaration() {
 
   return (
     <div>
-      <Field name="label" id="declaration_text" component={Textarea} buttons label={Dictionary.declaration_label} />
+      <Field
+        name="label"
+        id="declaration_text"
+        component={Textarea}
+        buttons
+        label={Dictionary.declaration_label}
+        required
+      />
 
       <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required />
 

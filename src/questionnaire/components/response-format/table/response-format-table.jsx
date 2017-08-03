@@ -65,7 +65,7 @@ class ResponseFormatTable extends Component {
 }
 
 const mapStateToProps = (state, { formName, selectorPathParent }) => {
-  formName = formName || 'question';
+  formName = formName || 'component';
   const selector = formValueSelector(formName);
   const tablePath = `${selectorPathParent}.${ResponseFormatTable.selectorPath}`;
   return {
