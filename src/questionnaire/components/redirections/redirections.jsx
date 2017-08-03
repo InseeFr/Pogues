@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Field, FormSection } from 'redux-form';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -19,7 +20,7 @@ function validationRedirections(values) {
   return errors;
 }
 
-function InputRedirection() {
+function InputRedirection({ componentType, isNewComponent }) {
   return (
     <div>
       <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} required />
@@ -33,17 +34,28 @@ function InputRedirection() {
         required
       />
 
-      <GotoSelectContainer />
+      <GotoSelectContainer componentType={componentType} isNewComponent={isNewComponent} />
     </div>
   );
 }
+
+InputRedirection.propTypes = {
+  componentType: PropTypes.string.isRequired,
+  isNewComponent: PropTypes.bool.isRequired,
+};
+
 class Redirections extends Component {
   static selectorPath = 'redirections';
+  static propTypes = {
+    componentType: PropTypes.string.isRequired,
+    isNewComponent: PropTypes.bool.isRequired,
+  };
 
   render() {
+    const { componentType, isNewComponent } = this.props;
     const { redirections, ...initialInputValues } = defaultRedirectionForm;
 
-    const inputControlView = <InputRedirection />;
+    const inputControlView = <InputRedirection componentType={componentType} isNewComponent={isNewComponent} />;
 
     return (
       <FormSection name={Redirections.selectorPath} className="redirections">

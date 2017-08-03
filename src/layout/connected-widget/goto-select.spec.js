@@ -3,6 +3,9 @@ jest.dontMock('./goto-select');
 import _ from 'lodash';
 
 import GotoSelectContainer, { mapStateToProps } from './goto-select';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 describe('Layout - Go to select container', () => {
   const activeComponentsById = {
@@ -126,6 +129,9 @@ describe('Layout - Go to select container', () => {
 
       const state = {
         appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
           activeComponentsById: currentActiveComponentsById,
           selectedComponentId: question.id,
         },
@@ -160,7 +166,7 @@ describe('Layout - Go to select container', () => {
         ],
       };
 
-      expect(mapStateToProps(state)).toEqual(expectedValues);
+      expect(mapStateToProps(state, { componentType: QUESTION, isNewComponent: false })).toEqual(expectedValues);
     });
 
     test('Targets when the parent is a subsequence and the component a question', () => {
@@ -196,6 +202,9 @@ describe('Layout - Go to select container', () => {
 
       const state = {
         appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
           activeComponentsById: currentActiveComponentsById,
           selectedComponentId: question.id,
         },
@@ -226,7 +235,7 @@ describe('Layout - Go to select container', () => {
         ],
       };
 
-      expect(mapStateToProps(state)).toEqual(expectedValues);
+      expect(mapStateToProps(state, { componentType: QUESTION, isNewComponent: false })).toEqual(expectedValues);
     });
     test('Targets when the parent is a sequence and the component a subsequence', () => {
       /*
@@ -246,6 +255,9 @@ describe('Layout - Go to select container', () => {
 
       const state = {
         appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
           activeComponentsById,
           selectedComponentId: 'subsequence12',
         },
@@ -272,7 +284,7 @@ describe('Layout - Go to select container', () => {
         ],
       };
 
-      expect(mapStateToProps(state)).toEqual(expectedValues);
+      expect(mapStateToProps(state, { componentType: SUBSEQUENCE, isNewComponent: false })).toEqual(expectedValues);
     });
     test('Targets when the parent is a questionnaire and the component a sequence', () => {
       /*
@@ -292,6 +304,9 @@ describe('Layout - Go to select container', () => {
 
       const state = {
         appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
           activeComponentsById,
           selectedComponentId: 'sequence2',
         },
@@ -314,7 +329,212 @@ describe('Layout - Go to select container', () => {
         ],
       };
 
-      expect(mapStateToProps(state)).toEqual(expectedValues);
+      expect(mapStateToProps(state, { componentType: SEQUENCE, isNewComponent: false })).toEqual(expectedValues);
+    });
+  });
+  describe('Creating a new component', () => {
+    test('Targets when parent: sequence1, weight: 0 and type: QUESTION', () => {
+      /*
+       Questionnaire structure:
+
+       questionnaire
+       --> sequence1         <- Parent of the new component
+       ---->                 <- Weight of the new component (0)
+       ----> subsequence11
+       ----> subsequence12
+       --> sequence2
+       ----> subsequence21
+       --> sequence3
+       ----> subsequence31
+
+       Expected result: subsequence11, subsequence12, sequence2, subsequence21
+       */
+
+      const state = {
+        appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
+          activeComponentsById,
+          selectedComponentId: 'sequence1',
+        },
+      };
+
+      const expectedValues = {
+        targets: [
+          {
+            value: 'subsequence11',
+            label: '-- This is sub-sequence 1 - 1',
+          },
+          {
+            value: 'subsequence12',
+            label: '-- This is sub-sequence 1 - 2',
+          },
+          {
+            value: 'sequence2',
+            label: '- This is sequence 2',
+          },
+          {
+            value: 'subsequence21',
+            label: '-- This is sub-sequence 2 - 1',
+          },
+          {
+            value: 'sequence3',
+            label: '- This is sequence 3',
+          },
+          {
+            value: 'subsequence31',
+            label: '-- This is sub-sequence 3 - 1',
+          },
+        ],
+      };
+
+      expect(mapStateToProps(state, { componentType: QUESTION, isNewComponent: true })).toEqual(expectedValues);
+    });
+    test('Targets when parent: subsequence11, weight: 0 and type: QUESTION', () => {
+      /*
+       Questionnaire structure:
+
+       questionnaire
+       --> sequence1
+       ----> subsequence11   <- Parent of the new component
+       ------>               <- Weight of the new component (0)
+       ----> subsequence12
+       --> sequence2
+       ----> subsequence21
+       --> sequence3
+       ----> subsequence31
+
+       Expected result: subsequence11, subsequence12, sequence2, subsequence21
+       */
+
+      const state = {
+        appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
+          activeComponentsById,
+          selectedComponentId: 'subsequence11',
+        },
+      };
+
+      const expectedValues = {
+        targets: [
+          {
+            value: 'subsequence12',
+            label: '-- This is sub-sequence 1 - 2',
+          },
+          {
+            value: 'sequence2',
+            label: '- This is sequence 2',
+          },
+          {
+            value: 'subsequence21',
+            label: '-- This is sub-sequence 2 - 1',
+          },
+          {
+            value: 'sequence3',
+            label: '- This is sequence 3',
+          },
+          {
+            value: 'subsequence31',
+            label: '-- This is sub-sequence 3 - 1',
+          },
+        ],
+      };
+
+      expect(mapStateToProps(state, { componentType: QUESTION, isNewComponent: true })).toEqual(expectedValues);
+    });
+    test('Targets when parent: sequence1, weight: 0 and type: SUBSEQUENCE', () => {
+      /*
+       Questionnaire structure:
+
+       questionnaire
+       --> sequence1         <- Parent of the new component
+       ---->                 <- Weight of the new component (0)
+       ----> subsequence11
+       ----> subsequence12
+       --> sequence2
+       ----> subsequence21
+       --> sequence3
+       ----> subsequence31
+
+       Expected result:
+       */
+
+      const state = {
+        appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
+          activeComponentsById,
+          selectedComponentId: 'sequence1',
+        },
+      };
+
+      const expectedValues = {
+        targets: [
+          {
+            value: 'subsequence11',
+            label: '-- This is sub-sequence 1 - 1',
+          },
+          {
+            value: 'subsequence12',
+            label: '-- This is sub-sequence 1 - 2',
+          },
+          {
+            value: 'sequence2',
+            label: '- This is sequence 2',
+          },
+          {
+            value: 'subsequence21',
+            label: '-- This is sub-sequence 2 - 1',
+          },
+          {
+            value: 'sequence3',
+            label: '- This is sequence 3',
+          },
+          {
+            value: 'subsequence31',
+            label: '-- This is sub-sequence 3 - 1',
+          },
+        ],
+      };
+
+      expect(mapStateToProps(state, { componentType: SUBSEQUENCE, isNewComponent: true })).toEqual(expectedValues);
+    });
+    test('Targets when parent: questionnaire, weight: 0 and type: SEQUENCE', () => {
+      /*
+       Questionnaire structure:
+
+       questionnaire         <- Parent of the new component
+       -->                   <- Weight of the new component (0)
+       --> sequence1
+       ----> subsequence11
+       ----> subsequence12
+       --> sequence2
+       ----> subsequence21
+       --> sequence3
+       ----> subsequence31
+
+       Expected result:
+       */
+
+      const state = {
+        appState: {
+          activeQuestionnaire: {
+            id: 'questionnaire',
+          },
+          activeComponentsById,
+          selectedComponentId: '',
+        },
+      };
+
+      const expectedValues = {
+        targets: [],
+      };
+
+      expect(mapStateToProps(state, { componentType: SEQUENCE, isNewComponent: true })).toEqual(expectedValues);
     });
   });
 });
