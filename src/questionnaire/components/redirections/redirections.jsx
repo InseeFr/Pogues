@@ -6,6 +6,7 @@ import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultRedirectionForm } from 'utils/transformation-entities/redirection';
+import GotoSelectContainer from 'layout/connected-widget/goto-select';
 
 function validationRedirections(values) {
   const { label, condition, cible } = values;
@@ -32,7 +33,7 @@ function InputRedirection() {
         required
       />
 
-      <Field help type="text" name="cible" id="redirection_cible" component={Input} label={Dictionary.target} required/>
+      <GotoSelectContainer />
     </div>
   );
 }
