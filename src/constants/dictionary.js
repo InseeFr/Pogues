@@ -807,6 +807,18 @@ const dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
+  confirmBodyTitle: {
+    fr: 'Confirmation',
+    en: 'Confirmation',
+  },
+  confirmBodyMessage: {
+    fr: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
+    en: 'You are deleting the questionnaire. You are going to lose all information entered.',
+  },
+  confirmQuestionMessage: {
+    fr: 'Êtes-vous sûr ?',
+    en: 'Are you sure?',
+  },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
     en: 'Statement label required',
