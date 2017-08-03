@@ -33,7 +33,50 @@ describe('getWeightAndParentId', () => {
     expect(result.newParentComponentId).toEqual('0');
   });
 
-  test('if dragndropLevel = -1 and if the parent has the same type as the dragged component', () => {
+  test('id dragndropLevel = -1 and if the parent has the same type as the dragged component', () => {
+    const activesComponents = {
+      '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1', '11', '12'] },
+      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2', '3', '7', '8'] },
+      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      '3': { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: ['4', '5', '6'] },
+      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      '8': { id: '8', weight: 3, type: SUBSEQUENCE, parent: '1', children: ['9', '10'] },
+      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+    };
+
+    const result = component.getWeightAndParentId(
+      activesComponents,
+      activesComponents['1'],
+      activesComponents['9'],
+      -1
+    );
+    expect(result.newWeight).toEqual(1);
+    expect(result.newParentComponentId).toEqual('0');
+  });
+
+  test('id dragndropLevel = -1 and if the parent has not the same type as the dragged component', () => {
+    const activesComponents = {
+      '0': { id: '0', weight: 0, type: QUESTIONNAIRE, children: ['1', '11', '12'] },
+      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2', '3', '7', '8'] },
+      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      '3': { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: ['4', '5', '6'] },
+      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      '8': { id: '8', weight: 3, type: SUBSEQUENCE, parent: '1', children: ['9', '10'] },
+      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+    };
+
     const result = component.getWeightAndParentId(
       activesComponents,
       activesComponents['4'],

@@ -16,9 +16,11 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
       {noValueBlock}
       {fields.map((name, index, fields) => {
         const label = fields.get(index).label;
+        const shortLabel = label.length > 60 ? `${label.substr(0, 57)}...` : label;
         return (
           <li key={index}>
             <button
+              title={label}
               className="btn btn-link"
               onClick={event => {
                 event.preventDefault();
@@ -27,7 +29,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
               }}
             >
               <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
-              {label}
+              {shortLabel}
             </button>
           </li>
         );

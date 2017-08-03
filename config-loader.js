@@ -6,7 +6,6 @@ module.exports = function configLoader(remoteConfig) {
   if(options.useLocalData) {
     var localConfig = fs.readFileSync(__dirname + "/config.local.js", "utf8")
     return localConfig
-    console.log("Working with local data");
   } else {
     return remoteConfig
   }

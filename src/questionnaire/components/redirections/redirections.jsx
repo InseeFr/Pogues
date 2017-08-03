@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { Field, FormSection } from 'redux-form';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultRedirectionForm } from 'utils/transformation-entities/redirection';
+import GotoSelectContainer from 'layout/connected-widget/goto-select';
 
 function validationRedirections(values) {
   const { label, condition, cible } = values;
@@ -17,10 +20,10 @@ function validationRedirections(values) {
   return errors;
 }
 
-function InputRedirection() {
+function InputRedirection({ componentType, isNewComponent }) {
   return (
     <div>
-      <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} />
+      <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} required />
       <Field
         type="text"
         name="condition"
@@ -28,18 +31,31 @@ function InputRedirection() {
         component={Textarea}
         label={Dictionary.expression}
         help
+        required
       />
-      <Field help type="text" name="cible" id="redirection_cible" component={Input} label={Dictionary.target} />
+
+      <GotoSelectContainer componentType={componentType} isNewComponent={isNewComponent} />
     </div>
   );
 }
+
+InputRedirection.propTypes = {
+  componentType: PropTypes.string.isRequired,
+  isNewComponent: PropTypes.bool.isRequired,
+};
+
 class Redirections extends Component {
   static selectorPath = 'redirections';
+  static propTypes = {
+    componentType: PropTypes.string.isRequired,
+    isNewComponent: PropTypes.bool.isRequired,
+  };
 
   render() {
+    const { componentType, isNewComponent } = this.props;
     const { redirections, ...initialInputValues } = defaultRedirectionForm;
 
-    const inputControlView = <InputRedirection />;
+    const inputControlView = <InputRedirection componentType={componentType} isNewComponent={isNewComponent} />;
 
     return (
       <FormSection name={Redirections.selectorPath} className="redirections">
