@@ -36,17 +36,20 @@ describe('cardTarget', () => {
         return true;
       },
       getItem() {
-        return 1;
+        return {
+          id: '2',
+        };
       },
     };
 
     test(`when the isOver return true, should call moveComponent`, () => {
       const props = {
+        id: '1',
         type: SEQUENCE,
         childrenId: [],
-        moveComponent(droppedComponent, draggedComponent) {
-          expect(droppedComponent).toEqual(props);
-          expect(draggedComponent).toEqual(m.getItem());
+        moveComponent(idDroppedComponent, idDraggedComponent) {
+          expect(idDroppedComponent).toEqual('1');
+          expect(idDraggedComponent).toEqual('2');
         },
       };
       cardTarget.drop(props, m);

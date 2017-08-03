@@ -6,6 +6,7 @@ import {
   isQuestion,
   isSequence,
   isSubSequence,
+  getSortedChildren,
 } from './component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -125,5 +126,18 @@ describe('couldInsertAsChild', () => {
   });
   test('should return true if we want to move a SEQUENCE into a SEQUENCE', () => {
     expect(couldInsertAsChild({ type: SEQUENCE }, { type: SEQUENCE, children: [] })).toBeFalsy();
+  });
+});
+
+describe('getSortedChildren', () => {
+  test('should return a sorted array', () => {
+    const components = {
+      '1': { id: '1', weight: 0, children: ['2', '3', '4'] },
+      '2': { id: '2', weight: 1, parent: '1', children: [] },
+      '3': { id: '3', weight: 2, parent: '1', children: [] },
+      '4': { id: '4', weight: 0, parent: '1', children: [] },
+    };
+    const result = getSortedChildren(components, '1');
+    expect(result).toEqual(['4', '2', '3']);
   });
 });

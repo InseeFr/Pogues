@@ -37,9 +37,9 @@ function InputControl() {
   ];
   return (
     <div>
-      <Field type="text" name="label" id="control_text" component={Input} label={Dictionary.control_label} />
-      <Field name="condition" id="control_condition" help component={Textarea} label={Dictionary.expression} />
-      <Field name="message" id="control_message" component={Textarea} label={Dictionary.control_message} />
+      <Field type="text" name="label" id="control_text" component={Input} label={Dictionary.control_label} required />
+      <Field name="condition" id="control_condition" help component={Textarea} label={Dictionary.expression} required />
+      <Field name="message" id="control_message" component={Textarea} label={Dictionary.control_message} required />
       <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} required />
       <Field
         name="during_collect"

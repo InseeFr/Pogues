@@ -10,6 +10,8 @@ import { moveComponent } from './component-move';
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
 export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
+export const MOVE_COMPONENT = 'MOVE_COMPONENT';
+
 /**
  * Create component
  *
@@ -155,9 +157,10 @@ export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) =>
   const state = getState();
   const activesComponents = state.appState.activeComponentsById;
   return dispatch({
-    type: UPDATE_COMPONENT,
+    type: MOVE_COMPONENT,
     payload: {
       idMovedComponent,
+      idTargetComponent,
       update: {
         activeComponentsById: moveComponent(activesComponents, idMovedComponent, idTargetComponent, newWeight),
       },

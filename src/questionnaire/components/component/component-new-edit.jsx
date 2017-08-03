@@ -54,7 +54,7 @@ export class QuestionNewEdit extends Component {
       {
         id: 'redirections',
         label: Dictionary.goTo,
-        content: <Redirections />,
+        content: <Redirections componentType={type} isNewComponent={!edit} />,
       },
     ];
 

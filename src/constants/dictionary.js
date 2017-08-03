@@ -381,7 +381,7 @@ const dictionary = {
     fr: 'Supprimer la redirection',
   },
   control_label: {
-    en: 'Control Label',
+    en: 'Control label',
     fr: 'Libellé du contrôle',
   },
   control_during_collect: {
@@ -806,6 +806,26 @@ const dictionary = {
   dropHere: {
     fr: 'Déposer ici !',
     en: 'Drop here !',
+  },
+  backToHomePage: {
+    fr: "Retour à l'accueil",
+    en: 'Back to the Home',
+  },
+  seeFilters: {
+    fr: 'Voir les filtres',
+    en: 'See filters',
+  },
+  confirmBodyTitle: {
+    fr: 'Confirmation',
+    en: 'Confirmation',
+  },
+  confirmBodyMessage: {
+    fr: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
+    en: 'You are deleting the questionnaire. You are going to lose all information entered.',
+  },
+  confirmQuestionMessage: {
+    fr: 'Êtes-vous sûr ?',
+    en: 'Are you sure?',
   },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
