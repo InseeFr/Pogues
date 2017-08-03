@@ -381,7 +381,7 @@ const dictionary = {
     fr: 'Supprimer la redirection',
   },
   control_label: {
-    en: 'Control Label',
+    en: 'Control label',
     fr: 'Libellé du contrôle',
   },
   control_during_collect: {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Field, FormSection } from 'redux-form';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
@@ -20,7 +21,7 @@ function validationRedirections(values) {
 function InputRedirection() {
   return (
     <div>
-      <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} />
+      <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} required />
       <Field
         type="text"
         name="condition"
@@ -28,8 +29,10 @@ function InputRedirection() {
         component={Textarea}
         label={Dictionary.expression}
         help
+        required
       />
-      <Field help type="text" name="cible" id="redirection_cible" component={Input} label={Dictionary.target} />
+
+      <Field help type="text" name="cible" id="redirection_cible" component={Input} label={Dictionary.target} required/>
     </div>
   );
 }
