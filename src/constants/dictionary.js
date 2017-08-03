@@ -807,6 +807,14 @@ const dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
+  backToHomePage: {
+    fr: "Retour à l'accueil",
+    en: 'Back to the Home',
+  },
+  seeFilters: {
+    fr: 'Voir les filtres',
+    en: 'See filters',
+  },
 };
 
 // Dynamic translations

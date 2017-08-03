@@ -2,8 +2,9 @@
   @extend .container;
 
   #questionnaire-nav {
-    position: relative;
-    float: left;
+    position: fixed;
+    top: 126px;
+    display: block;
     min-height: 1px;
     margin-top: 20px;
     margin-bottom: 80px;
@@ -13,15 +14,23 @@
     border-radius: 5px;
     background-color: #f1f1f1;
     color: black;
-    margin-right: 5px;
-    max-width: 15%;
-    width: 15%;
+    width: 200px;
+    ul {
+      list-style-type: none;
+      padding-left: 10%;
+
+      li {
+        padding: 2px 0;
+      }
+      .glyphicon {
+        margin-right: 5px;
+      }
+    }
   }
 
   #questionnaire {
     @include make-xs-column(10);
-    margin-top: 20px;
-    margin-bottom: 80px;
+    margin: 20px 0 80px 210px;
     padding-top: 20px;
     border: 1px solid $color-grey_02;
     border-radius: 5px;

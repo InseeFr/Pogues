@@ -153,3 +153,18 @@ export function couldInsertAsChild(droppedComponent, draggedComponent) {
     (isSubSequence(droppedComponent) && isQuestion(draggedComponent))
   );
 }
+
+/**
+ * This method will return a sorted list of children ID, based on the parent
+ * component passed as a parameter
+ * 
+ * @param {object} components The list of components
+ * @param {string} parent The ID of the component of the children we are looking for
+ */
+export function getSortedChildren(components, parent) {
+  return Object.keys(components).filter(key => components[key].parent === parent).sort((key, nextKey) => {
+    if (components[key].weight < components[nextKey].weight) return -1;
+    if (components[key].weight > components[nextKey].weight) return 1;
+    return 0;
+  });
+}

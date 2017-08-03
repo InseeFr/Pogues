@@ -6,6 +6,7 @@ import QuestionnaireElement from '../components/questionnaire-element';
 import QuestionnaireEditContainer from '../containers/questionnaire-edit';
 import ComponentEditContainer from '../containers/component/component-edit';
 import Dictionary from 'utils/dictionary/dictionary';
+import { getSortedChildren } from 'utils/component/component-utils';
 
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -56,7 +57,7 @@ class Questionnaire extends Component {
     this.props.removeComponent(idElement);
   }
 
-  handleDuplicateElement(event, idElement){
+  handleDuplicateElement(event, idElement) {
     event.stopPropagation();
     if (!idElement) return;
     this.props.duplicateComponent(idElement);
@@ -108,38 +109,31 @@ class Questionnaire extends Component {
     const renderComponentsByParent = this.renderComponentsByParent;
     const selected = this.props.selectedComponentId;
     const { moveComponent } = this.props;
-    return Object.keys(components)
-      .filter(key => components[key].parent === parent)
-      .sort((key, nextKey) => {
-        if (components[key].weight < components[nextKey].weight) return -1;
-        if (components[key].weight > components[nextKey].weight) return 1;
-        return 0;
-      })
-      .map(key => {
-        const subTree = renderComponentsByParent(components, key);
-        const isSelected = key === selected;
-        return (
-          <QuestionnaireElement
-            key={key}
-            id={key}
-            parent={components[key].parent}
-            parentType={components[components[key].parent].type}
-            name={components[key].name}
-            type={components[key].type}
-            label={components[key].label}
-            selected={isSelected}
-            onClickElement={this.handleElementSelect}
-            onClickDetail={event => this.handleOpenElementDetail(event, key)}
-            onClickDelete={event => this.handleRemoveElement(event, key)}
-            onClickDuplicate={event => this.handleDuplicateElement(event, key)}
-            moveComponent={moveComponent}
-            childrenId={components[key].children}
-            weight={components[key].weight}
-          >
-            {subTree}
-          </QuestionnaireElement>
-        );
-      }, {});
+    return getSortedChildren(components, parent).map(key => {
+      const subTree = renderComponentsByParent(components, key);
+      const isSelected = key === selected;
+      return (
+        <QuestionnaireElement
+          key={key}
+          id={key}
+          parent={components[key].parent}
+          parentType={components[components[key].parent].type}
+          name={components[key].name}
+          type={components[key].type}
+          label={components[key].label}
+          selected={isSelected}
+          onClickElement={this.handleElementSelect}
+          onClickDetail={event => this.handleOpenElementDetail(event, key)}
+          onClickDelete={event => this.handleRemoveElement(event, key)}
+          onClickDuplicate={event => this.handleDuplicateElement(event, key)}
+          moveComponent={moveComponent}
+          childrenId={components[key].children}
+          weight={components[key].weight}
+        >
+          {subTree}
+        </QuestionnaireElement>
+      );
+    }, {});
   }
 
   render() {

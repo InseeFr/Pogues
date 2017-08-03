@@ -118,7 +118,7 @@ class QuestionnaireElement extends Component {
                 {name}
               </div>
               <div className="questionnaire-element-label">
-                {label} - id: {id} - parent: {parent} - children: {childrenId} - weight: {weight}
+                {label}
               </div>
               {selected
                 ? <div className="questionnaire-element-actions">
