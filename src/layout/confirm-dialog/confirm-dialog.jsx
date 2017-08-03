@@ -7,6 +7,7 @@ class ConfirmDialog extends Component {
   static propTypes = {
     confirm: PropTypes.func.isRequired,
     showConfirmModal: PropTypes.bool,
+    closePopup: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -44,6 +45,7 @@ class ConfirmDialog extends Component {
 
   handleCancel(event) {
     event.stopPropagation();
+    this.props.closePopup();
     this.setState({ showConfirmModal: false });
   }
 
