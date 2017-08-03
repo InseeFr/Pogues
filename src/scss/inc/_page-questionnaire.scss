@@ -2,13 +2,35 @@
   @extend .container;
 
   #questionnaire-nav {
-    @include make-xs-column(2);
+    position: fixed;
+    top: 126px;
+    display: block;
+    min-height: 1px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    padding-top: 20px;
+    padding-right: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: black;
+    width: 200px;
+    ul {
+      list-style-type: none;
+      padding-left: 10%;
+
+      li {
+        padding: 2px 0;
+      }
+      .glyphicon {
+        margin-right: 5px;
+      }
+    }
   }
 
   #questionnaire {
     @include make-xs-column(10);
-    margin-top: 20px;
-    margin-bottom: 80px;
+    margin: 20px 0 80px 210px;
     padding-top: 20px;
     border: 1px solid $color-grey_02;
     border-radius: 5px;
