@@ -135,7 +135,7 @@ describe('orderComponents', () => {
 });
 
 describe('dragComponent', () => {
-  test('should trigger the UPDATE_COMPONENT action', () => {
+  test('should trigger the MOVE_COMPONENT action', () => {
     function getState() {
       return {
         appState: {
@@ -146,7 +146,7 @@ describe('dragComponent', () => {
     const fn = component.dragComponent('1', '2', 1);
 
     function dispatch(param) {
-      expect(param.type).toEqual(component.UPDATE_COMPONENT);
+      expect(param.type).toEqual(component.MOVE_COMPONENT);
     }
     fn(dispatch, getState);
   });

@@ -132,7 +132,6 @@ export function moveQuestionAndSubSequenceToSequence(
   includeSelectedComponent
 ) {
   const oldParent = selectedComponent ? activesComponents[selectedComponent.parent] : false;
-
   if (!oldParent) {
     return;
   }
