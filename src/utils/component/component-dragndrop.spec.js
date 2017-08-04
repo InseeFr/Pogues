@@ -19,6 +19,7 @@ describe('cardTarget', () => {
     getItem() {
       return {
         id: '1',
+        children: ['3'],
       };
     },
   };
@@ -28,6 +29,10 @@ describe('cardTarget', () => {
     });
     test("should return true if the dragged component has the same id as the dropped component's parent", () => {
       expect(cardTarget.canDrop({ parent: '2' }, monitor)).toEqual(true);
+    });
+
+    test('should return false if the dragged component is a grand parent of the dropped component', () => {
+      expect(cardTarget.canDrop({ parent: '3' }, monitor)).toEqual(false);
     });
   });
   describe('drop', () => {
