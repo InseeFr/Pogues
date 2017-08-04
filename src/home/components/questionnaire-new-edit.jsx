@@ -91,7 +91,7 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
           required
         />
 
-        <Field name="stamp" type="text" component={Input} label={Dictionary.stamp} validate={[required]} required />
+        <Field name="stamp" type="text" component={Input} label={Dictionary.stamp} validate={[]} />
 
         <div>{Dictionary.newQuestionnaireLegend}</div>
         <br />
