@@ -528,14 +528,14 @@ const dictionary = {
   },
   rowTotalLabel: {
     fr: 'Libellé de la ligne "Total"',
-    en: 'Add the "Total" column',
+    en: 'Label of the "Total" row',
   },
   columnTotal: {
-    fr: 'Afficher le total en colonne',
-    en: 'Show total in column',
+    fr: 'Ajouter la colonne "Total"',
+    en: 'Add the "Total" column',
   },
   columnTotalLabel: {
-    fr: 'Libellé du total en colonne',
+    fr: 'Libellé de la colonne "Total"',
     en: 'Label of the "Total" column',
   },
   addScndAxis: {
