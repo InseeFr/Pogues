@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import GotoSelect from './components/goto-select';
-import { isSubSequence } from 'utils/component/component-utils';
+import { isSequence, isSubSequence } from 'utils/component/component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import {
   getNewQuestionPlaceholder,
@@ -14,19 +14,24 @@ import {
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
 function getTargetsFromSequence(components, parent, weight, currentComponentId) {
-  return components[parent].children
-    .filter(id => currentComponentId !== id && components[id].weight > weight)
-    .reduce((acc, key) => [...acc, key, ...components[key].children.filter(id => isSubSequence(components[id]))], []);
-}
-
-function getTargetsFromSubsequence(components, parent, weight, currentComponentId) {
-  return components[parent].children.filter(
-    id => currentComponentId !== id && isSubSequence(components[id]) && components[id].weight >= weight
+  return components[parent].children.filter(id => currentComponentId !== id && components[id].weight > weight).reduce(
+    (acc, key) => [
+      ...acc,
+      key,
+      ...components[key].children.reduce((acu, id) => {
+        return [...acu, id, ...components[id].children];
+      }, []),
+    ],
+    []
   );
 }
 
-function getTargetsFromQuestion(components, parent) {
-  return components[parent].children.filter(id => isSubSequence(components[id]));
+function getTargetsFromComponent(components, parent, weight, currentComponentId) {
+  return components[parent].children
+    .filter(id => id !== currentComponentId && components[id].weight >= weight)
+    .reduce((acc, id) => {
+      return [...acc, id, ...components[id].children];
+    }, []);
 }
 
 function getTargets(components, componentType, selectedComponentId, componentParent, componentWeight) {
@@ -41,17 +46,15 @@ function getTargets(components, componentType, selectedComponentId, componentPar
   }
 
   do {
-    if (currentComponentType === QUESTION) {
-      ids = [...ids, ...getTargetsFromQuestion(components, currentComponentParent)];
-    } else if (currentComponentType === SEQUENCE) {
+    if (currentComponentType !== SEQUENCE) {
       ids = [
         ...ids,
-        ...getTargetsFromSequence(components, currentComponentParent, currentComponentWeight, currentComponentId),
+        ...getTargetsFromComponent(components, currentComponentParent, currentComponentWeight, currentComponentId),
       ];
     } else {
       ids = [
         ...ids,
-        ...getTargetsFromSubsequence(components, currentComponentParent, currentComponentWeight, currentComponentId),
+        ...getTargetsFromSequence(components, currentComponentParent, currentComponentWeight, currentComponentId),
       ];
     }
 
@@ -63,7 +66,15 @@ function getTargets(components, componentType, selectedComponentId, componentPar
 
   return ids.map(id => {
     const component = components[id];
-    const padding = isSubSequence(component) ? '--' : '-';
+    const parent = components[component.parent];
+    let padding = '-';
+
+    if (isSequence(parent)) {
+      padding = `${padding}-`;
+    } else if (isSubSequence(parent)) {
+      padding = `${padding}--`;
+    }
+
     return {
       value: id,
       label: `${padding} ${component.label}`,
@@ -99,6 +110,7 @@ export function mapStateToProps(state, { componentType, isNewComponent }) {
     selectedComponentId,
     questionnaireId
   );
+
   return {
     targets: getTargets(components, componentType, selectedComponentId, parent, weight),
   };
