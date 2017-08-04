@@ -100,7 +100,7 @@ class GenericInput extends Component {
           <div className="popup">
             <div className="popup-header">
               <h3>{this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}</h3>
-              <button onClick={this.handleCloseNewComponent}><span>X</span></button>
+              <button type="button" onClick={this.handleCloseNewComponent}><span>X</span></button>
             </div>
             <div className="popup-body">
               <ComponentNewContainer

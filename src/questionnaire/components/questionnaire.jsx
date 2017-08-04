@@ -193,7 +193,7 @@ class Questionnaire extends Component {
           <div className="popup">
             <div className="popup-header">
               <h3>{Dictionary.questionnaireDetail}</h3>
-              <button onClick={this.handleCloseQuestionnaireDetail}><span>X</span></button>
+              <button type="button" onClick={this.handleCloseQuestionnaireDetail}><span>X</span></button>
             </div>
             <div className="popup-body">
               <QuestionnaireEditContainer
@@ -214,7 +214,7 @@ class Questionnaire extends Component {
               <h3>
                 {typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
               </h3>
-              <button onClick={this.handleCloseElementDetail}><span>X</span></button>
+              <button type="button" onClick={this.handleCloseElementDetail}><span>X</span></button>
             </div>
             <div className="popup-body">
               <ComponentEditContainer
