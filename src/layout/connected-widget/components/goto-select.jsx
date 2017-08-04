@@ -13,7 +13,6 @@ function GotoSelect({ targets }) {
       component={Select}
       label={Dictionary.target}
       options={targets}
-      required
     />
   );
 }
