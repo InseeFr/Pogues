@@ -23,7 +23,7 @@ describe('Layout - Go to select container', () => {
       parent: 'questionnaire',
       weight: 0,
       label: 'This is sequence 1',
-      children: ['subsequence11', 'subsequence12'],
+      children: ['question1', 'subsequence11', 'subsequence12'],
     },
     sequence2: {
       id: 'sequence2',
@@ -41,19 +41,35 @@ describe('Layout - Go to select container', () => {
       label: 'This is sequence 3',
       children: ['subsequence31'],
     },
+    question1: {
+      id: 'question1',
+      type: 'QUESTION',
+      parent: 'sequence1',
+      weight: 0,
+      label: 'This is the question question 1',
+      children: [],
+    },
     subsequence11: {
       id: 'subsequence11',
       type: 'SUBSEQUENCE',
       parent: 'sequence1',
-      weight: 0,
+      weight: 1,
       label: 'This is sub-sequence 1 - 1',
+      children: ['question3'],
+    },
+    question3: {
+      id: 'question3',
+      type: 'QUESTION',
+      parent: 'subsequence11',
+      weight: 0,
+      label: 'This is the question question 3',
       children: [],
     },
     subsequence12: {
       id: 'subsequence12',
       type: 'SUBSEQUENCE',
       parent: 'sequence1',
-      weight: 1,
+      weight: 2,
       label: 'This is sub-sequence 1 - 2',
       children: [],
     },
@@ -71,6 +87,14 @@ describe('Layout - Go to select container', () => {
       parent: 'sequence3',
       weight: 0,
       label: 'This is sub-sequence 3 - 1',
+      children: ['question2'],
+    },
+    question2: {
+      id: 'question2',
+      type: 'QUESTION',
+      parent: 'subsequence31',
+      weight: 0,
+      label: 'This is the question question 2',
       children: [],
     },
   };
@@ -97,14 +121,18 @@ describe('Layout - Go to select container', () => {
        questionnaire
        --> sequence1
        ----> question         <- Updating component
+       ----> question1
        ----> subsequence11
+       ------> question3
        ----> subsequence12
        --> sequence2
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
 
-       Expected result: subsequence11, subsequence12, sequence2, subsequence21
+       Expected result: question1, subsequence11, question3, subsequence12, sequence2, subsequence21, sequence3,
+       subsequence31, question2
        */
 
       currentActiveComponentsById = {
@@ -113,13 +141,17 @@ describe('Layout - Go to select container', () => {
           ...currentActiveComponentsById.sequence1,
           children: [...currentActiveComponentsById.sequence1.children, question.id],
         },
+        question1: {
+          ...currentActiveComponentsById.question1,
+          weight: 1,
+        },
         subsequence11: {
           ...currentActiveComponentsById.subsequence11,
-          weight: 1,
+          weight: 2,
         },
         subsequence12: {
           ...currentActiveComponentsById.subsequence12,
-          weight: 2,
+          weight: 3,
         },
         [question.id]: {
           ...question,
@@ -140,8 +172,16 @@ describe('Layout - Go to select container', () => {
       const expectedValues = {
         targets: [
           {
+            value: 'question1',
+            label: '-- This is the question question 1',
+          },
+          {
             value: 'subsequence11',
             label: '-- This is sub-sequence 1 - 1',
+          },
+          {
+            value: 'question3',
+            label: '--- This is the question question 3',
           },
           {
             value: 'subsequence12',
@@ -163,6 +203,10 @@ describe('Layout - Go to select container', () => {
             value: 'subsequence31',
             label: '-- This is sub-sequence 3 - 1',
           },
+          {
+            value: 'question2',
+            label: '--- This is the question question 2',
+          },
         ],
       };
 
@@ -177,15 +221,18 @@ describe('Layout - Go to select container', () => {
 
        questionnaire
        --> sequence1
+       ----> question1
        ----> subsequence11
+       ------> question3
        ------> question         <- Updating component
        ----> subsequence12
        --> sequence2
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
 
-       Expected result: subsequence12, sequence2, subsequence21
+       Expected result: subsequence12, sequence2, subsequence21, sequence3, subsequence31, question2
        */
 
       currentActiveComponentsById = {
@@ -197,6 +244,7 @@ describe('Layout - Go to select container', () => {
         [question.id]: {
           ...question,
           parent: 'subsequence11',
+          weight: 1,
         },
       };
 
@@ -232,25 +280,33 @@ describe('Layout - Go to select container', () => {
             value: 'subsequence31',
             label: '-- This is sub-sequence 3 - 1',
           },
+          {
+            value: 'question2',
+            label: '--- This is the question question 2',
+          },
         ],
       };
 
       expect(mapStateToProps(state, { componentType: QUESTION, isNewComponent: false })).toEqual(expectedValues);
     });
+
     test('Targets when the parent is a sequence and the component a subsequence', () => {
       /*
        Questionnaire structure:
 
        questionnaire
        --> sequence1
+       ----> question1
        ----> subsequence11
+       ------> question3
        ----> subsequence12         <- Updating component
        --> sequence2
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
 
-       Expected result: sequence2, subsequence21
+       Expected result: sequence2, subsequence21, sequence3, subsequence31, question2
        */
 
       const state = {
@@ -281,25 +337,33 @@ describe('Layout - Go to select container', () => {
             value: 'subsequence31',
             label: '-- This is sub-sequence 3 - 1',
           },
+          {
+            value: 'question2',
+            label: '--- This is the question question 2',
+          },
         ],
       };
 
       expect(mapStateToProps(state, { componentType: SUBSEQUENCE, isNewComponent: false })).toEqual(expectedValues);
     });
+
     test('Targets when the parent is a questionnaire and the component a sequence', () => {
       /*
        Questionnaire structure:
 
        questionnaire
        --> sequence1
+       ------> question1
        ----> subsequence11
+       ------> question3
        ----> subsequence12
        --> sequence2          <- Updating component
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
 
-       Expected result: subsequence21
+       Expected result: subsequence21, sequence3, subsequence31, question2
        */
 
       const state = {
@@ -326,12 +390,17 @@ describe('Layout - Go to select container', () => {
             value: 'subsequence31',
             label: '-- This is sub-sequence 3 - 1',
           },
+          {
+            value: 'question2',
+            label: '--- This is the question question 2',
+          },
         ],
       };
 
       expect(mapStateToProps(state, { componentType: SEQUENCE, isNewComponent: false })).toEqual(expectedValues);
     });
   });
+
   describe('Creating a new component', () => {
     test('Targets when parent: sequence1, weight: 0 and type: QUESTION', () => {
       /*
@@ -340,14 +409,18 @@ describe('Layout - Go to select container', () => {
        questionnaire
        --> sequence1         <- Parent of the new component
        ---->                 <- Weight of the new component (0)
+       ----> question1
        ----> subsequence11
+       ------> question3
        ----> subsequence12
        --> sequence2
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
 
-       Expected result: subsequence11, subsequence12, sequence2, subsequence21
+       Expected result: question1, subsequence11, question3, subsequence12, sequence2, subsequence21, sequence3,
+       subsequence31, question2
        */
 
       const state = {
@@ -363,8 +436,16 @@ describe('Layout - Go to select container', () => {
       const expectedValues = {
         targets: [
           {
+            value: 'question1',
+            label: '-- This is the question question 1',
+          },
+          {
             value: 'subsequence11',
             label: '-- This is sub-sequence 1 - 1',
+          },
+          {
+            value: 'question3',
+            label: '--- This is the question question 3',
           },
           {
             value: 'subsequence12',
@@ -386,26 +467,34 @@ describe('Layout - Go to select container', () => {
             value: 'subsequence31',
             label: '-- This is sub-sequence 3 - 1',
           },
+          {
+            value: 'question2',
+            label: '--- This is the question question 2',
+          },
         ],
       };
 
       expect(mapStateToProps(state, { componentType: QUESTION, isNewComponent: true })).toEqual(expectedValues);
     });
+
     test('Targets when parent: subsequence11, weight: 0 and type: QUESTION', () => {
       /*
        Questionnaire structure:
 
        questionnaire
        --> sequence1
-       ----> subsequence11   <- Parent of the new component
-       ------>               <- Weight of the new component (0)
+       ----> question1
+       ----> subsequence11    <- Parent of the new component
+       ------>                <- Weight of the new component (0)
+       ------> question3
        ----> subsequence12
        --> sequence2
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
 
-       Expected result: subsequence11, subsequence12, sequence2, subsequence21
+       Expected result: question3, subsequence12, sequence2, subsequence21, sequence3, subsequence31, question2
        */
 
       const state = {
@@ -421,6 +510,10 @@ describe('Layout - Go to select container', () => {
       const expectedValues = {
         targets: [
           {
+            value: 'question3',
+            label: '--- This is the question question 3',
+          },
+          {
             value: 'subsequence12',
             label: '-- This is sub-sequence 1 - 2',
           },
@@ -440,6 +533,10 @@ describe('Layout - Go to select container', () => {
             value: 'subsequence31',
             label: '-- This is sub-sequence 3 - 1',
           },
+          {
+            value: 'question2',
+            label: '--- This is the question question 2',
+          },
         ],
       };
 
@@ -450,16 +547,20 @@ describe('Layout - Go to select container', () => {
        Questionnaire structure:
 
        questionnaire
-       --> sequence1         <- Parent of the new component
-       ---->                 <- Weight of the new component (0)
+       --> sequence1          <- Parent of the new component
+       ---->                  <- Weight of the new component (0)
+       ----> question1
        ----> subsequence11
+       ------> question3
        ----> subsequence12
        --> sequence2
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
 
-       Expected result:
+       Expected result: question1, subsequence11, question3, subsequence12, sequence2, subsequence21, sequence3,
+       subsequence31, question2
        */
 
       const state = {
@@ -475,8 +576,16 @@ describe('Layout - Go to select container', () => {
       const expectedValues = {
         targets: [
           {
+            value: 'question1',
+            label: '-- This is the question question 1',
+          },
+          {
             value: 'subsequence11',
             label: '-- This is sub-sequence 1 - 1',
+          },
+          {
+            value: 'question3',
+            label: '--- This is the question question 3',
           },
           {
             value: 'subsequence12',
@@ -498,6 +607,10 @@ describe('Layout - Go to select container', () => {
             value: 'subsequence31',
             label: '-- This is sub-sequence 3 - 1',
           },
+          {
+            value: 'question2',
+            label: '--- This is the question question 2',
+          },
         ],
       };
 
@@ -507,15 +620,18 @@ describe('Layout - Go to select container', () => {
       /*
        Questionnaire structure:
 
-       questionnaire         <- Parent of the new component
-       -->                   <- Weight of the new component (0)
+       questionnaire          <- Parent of the new component
        --> sequence1
+       ----> question1
        ----> subsequence11
+       ------> question3
        ----> subsequence12
        --> sequence2
        ----> subsequence21
        --> sequence3
        ----> subsequence31
+       ------> question2
+       -->                    <- Weight of the new component (3)
 
        Expected result:
        */
