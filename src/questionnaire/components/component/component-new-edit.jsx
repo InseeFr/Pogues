@@ -102,7 +102,7 @@ export class QuestionNewEdit extends Component {
               {Dictionary.validate}
             </button>
             {onCancel &&
-              <button className="cancel" disabled={submitting} onClick={onCancel}>
+              <button type="reset" className="cancel" disabled={submitting} onClick={onCancel}>
                 {Dictionary.cancel}
               </button>}
           </div>
