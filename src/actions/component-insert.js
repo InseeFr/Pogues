@@ -74,7 +74,6 @@ export function moveQuestionToSubSequence(
             (includeSelectedComponent && child.weight === selectedComponent.weight)))) &&
       isQuestion(child)
   );
-
   const questionsToMoveId = toId(questionsToMove);
   let moves = activesComponents;
 
@@ -100,10 +99,10 @@ export function moveQuestionToSubSequence(
         children: newChildren,
       },
     };
-    if (isSubSequence(oldParent)) {
+    if (!isQuestion(oldParent)) {
       moves = {
         ...moves,
-        ...resetWeight(newChildren.map(id => activesComponents[id])),
+        ...resetWeight(newChildren.map(id => moves[id])),
       };
       moves = {
         ...moves,
@@ -167,7 +166,8 @@ export function moveQuestionAndSubSequenceToSequence(
    */
   const listOfComponentsToKeep = listOfComponent.filter(
     child =>
-      child.weight < selectedComponent.weight || (!includeSelectedComponent && child.weight === selectedComponent.weight)
+      child.weight < selectedComponent.weight ||
+      (!includeSelectedComponent && child.weight === selectedComponent.weight)
   );
 
   /**

@@ -1,11 +1,12 @@
 import { uuid } from 'utils/data-utils';
 import Component from 'utils/transformation-entities/component';
-import { isSubSequence, isSequence, isQuestion } from 'utils/component/component-utils';
+import { isSubSequence, isSequence, isQuestion, toComponents } from 'utils/component/component-utils';
 import { getCodesListsAndCodesFromQuestion, updateNewComponentParent } from 'utils/model/form-to-state-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
 import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence, duplicate } from './component-insert';
 import { moveComponent } from './component-move';
+import { sortBy } from 'lodash/fp';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
@@ -93,18 +94,58 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
   const activesComponents = state.appState.activeComponentsById;
   const selectedComponent = activesComponents[selectedComponentId];
 
-  let activeComponentsById;
+  let activeComponentsById = {};
 
-  if (isSubSequence(lastCreatedComponent[id]) && isQuestion(selectedComponent)) {
-    activeComponentsById = moveQuestionToSubSequence(activesComponents, selectedComponent, lastCreatedComponent[id]);
-  } else if (isSequence(lastCreatedComponent[id]) && isQuestion(selectedComponent)) {
-    activeComponentsById = moveQuestionAndSubSequenceToSequence(
-      activesComponents,
-      selectedComponent,
-      lastCreatedComponent[id]
-    );
-  } else {
-    activeComponentsById = increaseWeightOfAll(activesComponents, lastCreatedComponent[id]);
+  /**
+   * We do the reorder only if we have a selected component
+   */
+  if (selectedComponent) {
+    // We get the next sibling component of the currently selected component
+    const siblingSelectedComponent = toComponents(
+      activesComponents[selectedComponent.parent].children,
+      activesComponents
+    ).find(c => c.weight === selectedComponent.weight + 1);
+
+    const childrenSelectedComponentLength = selectedComponent.children.length;
+
+    /**
+     * When we insert a SUBSEQUENCE, we have to do a reorder only in these two cases : 
+     * 1. The currently selected component is QUESTION and its sibling is also a QUESTION
+     * 2. The currently selecteed component is a SUBSEQUENCE with children (of course QUESTION)
+     */
+    if (
+      isSubSequence(lastCreatedComponent[id]) &&
+      ((isQuestion(selectedComponent) && isQuestion(siblingSelectedComponent)) ||
+        (isSubSequence(selectedComponent) && childrenSelectedComponentLength > 0))
+    ) {
+      // If the selected component have children, we will use the first child as the component used for the insert
+      const comp =
+        childrenSelectedComponentLength === 0
+          ? selectedComponent
+          : toComponents(activesComponents[selectedComponent.id].children, activesComponents).find(c => c.weight === 0);
+
+      activeComponentsById = moveQuestionToSubSequence(
+        activesComponents,
+        comp,
+        lastCreatedComponent[id],
+        true,
+        comp.id !== selectedComponent.id
+      );
+    } else if (isSequence(lastCreatedComponent[id])) {
+      // If the selected component have children, we will use the first child as the component used for the in
+      const comp =
+        childrenSelectedComponentLength === 0
+          ? selectedComponent
+          : toComponents(activesComponents[selectedComponent.id].children, activesComponents).find(c => c.weight === 0);
+      activeComponentsById = moveQuestionAndSubSequenceToSequence(
+        activesComponents,
+        comp,
+        lastCreatedComponent[id],
+        comp.id !== selectedComponent.id
+      );
+    } else {
+      activeComponentsById = increaseWeightOfAll(activesComponents, lastCreatedComponent[id]);
+    }
   }
 
   return dispatch({
