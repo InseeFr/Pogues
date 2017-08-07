@@ -17,20 +17,25 @@ class ArboSimplified extends Component {
 
     this.renderComponentsByParent = this.renderComponentsByParent.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleExpand = this.handleExpand.bind(this);
   }
-
-  handleClick(e, key) {
+  
+  handleExpand(e, key){
     e.preventDefault();
     if (this.state.expanded.indexOf(key) < 0) {
       this.setState({
         expanded: [...this.state.expanded, key],
       });
-      this.props.setSelectedComponentId(key);
+      
     } else {
       this.setState({
         expanded: this.state.expanded.filter(k => k !== key),
       });
     }
+  }
+  handleClick(e, key) {
+    e.preventDefault();
+    this.props.setSelectedComponentId(key);
   }
 
   renderComponentsByParent(components, parent) {
@@ -41,11 +46,11 @@ class ArboSimplified extends Component {
       return (
         <li key={key} className={isQuestion(components[key]) ? 'questions' : ''}>
           {components[key].children.length > 0 &&
-            <span
+            <a onClick={e => this.handleExpand(e, key)} href="#" aria-label="expand/collapse"><span
               className={`glyphicon ${this.state.expanded.indexOf(key) >= 0
                 ? 'glyphicon-menu-down'
                 : 'glyphicon-menu-right'}`}
-            />}
+            /></a>}
           <a href="#" onClick={e => this.handleClick(e, key)}>{components[key].name}</a>
           {this.state.expanded.indexOf(key) >= 0 && <ul className="arbo-simplifield">{subTree}</ul>}
         </li>
