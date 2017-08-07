@@ -2,9 +2,8 @@
   @extend .container;
 
   #questionnaire-nav {
-    position: fixed;
-    top: 126px;
-    display: block;
+   position: relative;
+float: left;
     min-height: 1px;
     margin-top: 20px;
     margin-bottom: 80px;
@@ -14,7 +13,9 @@
     border-radius: 5px;
     background-color: #f1f1f1;
     color: black;
-    width: 200px;
+   margin-right: 5px;
+     max-width: 15%;
+     width: 15%;
     ul {
       list-style-type: none;
       padding-left: 10%;
@@ -30,7 +31,8 @@
 
   #questionnaire {
     @include make-xs-column(10);
-    margin: 20px 0 80px 210px;
+    margin-top: 20px;
+    margin-bottom: 80px;
     padding-top: 20px;
     border: 1px solid $color-grey_02;
     border-radius: 5px;

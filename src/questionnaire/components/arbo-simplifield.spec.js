@@ -50,7 +50,7 @@ describe('<ArboSimplified />', () => {
   test('should call setSelectedComponentId when a node is selected', () => {
     spysetSelectedComponentId.mockClear();
     const wrapper = shallow(<ArboSimplified {...props} />);
-    wrapper.find('a').at(0).simulate('click', mockEvent);
+    wrapper.find('a').at(1).simulate('click', mockEvent);
     expect(spysetSelectedComponentId).toBeCalledWith('1');
   });
 
