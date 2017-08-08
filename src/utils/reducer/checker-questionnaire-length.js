@@ -1,14 +1,19 @@
-const errorQuestionnaireTooShort = 'errorQuestionnaireTooShort';
-
-export default function checkerQuestionnaireLength({ appState: { activeComponentsById } }) {
-  let message = [];
-  if (activeComponentsById.length < 3) {
-    message = [
-      {
-        params: ['QUESTIONNAIRE'],
-        message: errorQuestionnaireTooShort,
-      },
-    ];
+function checkerQuestionnaireLength({ appState: { activeComponentsById, activeQuestionnaire: { id } } }) {
+  const errorsByComponent = {};
+  if (id && Object.keys(activeComponentsById).length < 3) {
+    errorsByComponent[id] = {
+      id,
+      errors: [
+        {
+          type: 'global',
+          code: 'QUESTIONNAIRE',
+          params: {},
+          dictionary: 'errorQuestionnaireTooShort',
+        },
+      ],
+    };
   }
-  return message;
+  return errorsByComponent;
 }
+
+export default checkerQuestionnaireLength;

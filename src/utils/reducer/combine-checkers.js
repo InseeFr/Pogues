@@ -15,7 +15,18 @@ export default function combineCheckers(...checkers) {
   return function(state) {
     return checkers.reduce((errors, checker) => {
       const check = checker(state);
-      return errors.concat(check);
-    }, []);
+
+      errors = Object.keys(check).reduce((acc, id) => {
+        return {
+          ...acc,
+          [id]: {
+            id,
+            errors: acc[id] ? [...acc[id].errors, ...check[id].errors] : check[id].errors,
+          },
+        };
+      }, errors);
+
+      return errors;
+    }, {});
   };
 }

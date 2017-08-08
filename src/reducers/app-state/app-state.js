@@ -11,6 +11,7 @@ const defaultState = {
   user: {},
   activeQuestionnaire: {},
   activeComponentsById: {},
+  errorsByComponent: {},
   selectedComponentId: '',
 };
 

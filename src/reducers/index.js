@@ -10,8 +10,7 @@ import codeListByQuestionnaire from 'reducers/code-list-by-questionnaire';
 import codeByQuestionnaire from 'reducers/code-by-questionnaire';
 
 import integrityChecker from 'utils/reducer/integrity-checker';
-import combineCheckers from 'utils/reducer/combine-checkers';
-import checkerQuestionnaireLength from 'utils/reducer/checker-questionnaire-length';
+import checkers from 'utils/reducer/checkers';
 
 export default integrityChecker(
   combineReducers({
@@ -24,5 +23,5 @@ export default integrityChecker(
     codeListByQuestionnaire,
     codeByQuestionnaire,
   }),
-  combineCheckers(checkerQuestionnaireLength)
+  checkers
 );

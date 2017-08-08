@@ -9,32 +9,22 @@
  * @param  {Function} checker state checker
  * @return {Function}         enhanced reducer
  */
-export default function integrityChecker(reducer, checker) {
+function integrityChecker(reducer, checkers) {
   return function(state, action) {
-    // if state is not defined (initialization), add an entry with no error
-    if (!state) {
-      return {
-        ...reducer(state, action),
-        integrity: {
-          errors: [],
-        },
-      };
-    }
-    // remove `integrity` entry (which is the former integrity checks) and which
-    // bothers the main reducer (`combineReducers` does not allow complementary
-    // entry)
-    // eslint-disable-next-line
-    const { integrity: oldIntegrity, ...stateMinusIntegrity } = state
-    // proccess the new state without integrity checks
-    const stateToCheck = reducer(stateMinusIntegrity, action);
-    // check the new state
-    const integrity = {
-      errors: checker(stateToCheck),
-    };
-    // add the results of integrity checks to the state
+    const checker = checkers[action.type];
+    const newState = reducer(state, action);
+
+    if (!checker) return newState;
+
+    const errors = checker(newState);
+
     return {
-      ...stateToCheck,
-      integrity,
+      ...newState,
+      appState: {
+        ...newState.appState,
+        errorsByComponent: errors,
+      },
     };
   };
 }
+export default integrityChecker;
