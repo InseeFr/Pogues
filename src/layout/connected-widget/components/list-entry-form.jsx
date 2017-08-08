@@ -24,6 +24,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
         return (
           <li key={index} className={invalidItemClass}>
             <button
+              type="button"
               title={item.label}
               className="btn btn-link"
               onClick={event => {
@@ -40,6 +41,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
       })}
       <li>
         <button
+          type="button"
           className="btn btn-link"
           onClick={event => {
             event.preventDefault();
@@ -143,6 +145,7 @@ class ListEntryForm extends Component {
             <ul className="form-footer">
               <li>
                 <button
+                  type="button"
                   disabled={this.state.currentItemIndex === ''}
                   className="btn btn-link"
                   onClick={event => {
@@ -157,6 +160,7 @@ class ListEntryForm extends Component {
               </li>
               <li>
                 <button
+                  type="button"
                   className="btn btn-link"
                   disabled={this.state.currentItemIndex === ''}
                   onClick={event => {
@@ -171,6 +175,7 @@ class ListEntryForm extends Component {
               </li>
               <li>
                 <button
+                  type="button"
                   className="btn-yellow"
                   onClick={event => {
                     event.preventDefault();
@@ -183,6 +188,7 @@ class ListEntryForm extends Component {
               </li>
               <li>
                 <button
+                  type="button"
                   className="cancel"
                   onClick={event => {
                     event.preventDefault();

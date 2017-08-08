@@ -56,7 +56,12 @@ class Questionnaire extends Component {
     this.handleDuplicateElement = this.handleDuplicateElement.bind(this);
 
     this.handleDisplayDeleteConfirm = this.handleDisplayDeleteConfirm.bind(this);
+    this.closeQuestionnaireDelete = this.closeQuestionnaireDelete.bind(this);
     this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
+  }
+
+  closeQuestionnaireDelete() {
+    this.setState({ showConfirmModal: false });
   }
 
   handleDisplayDeleteConfirm(event) {
@@ -215,7 +220,8 @@ class Questionnaire extends Component {
               <h3>
                 {Dictionary.questionnaireDetail}
               </h3>
-              <button onClick={this.handleCloseQuestionnaireDetail}>
+
+              <button type="button" onClick={this.handleCloseQuestionnaireDetail}>
                 <span>X</span>
               </button>
             </div>
@@ -238,7 +244,7 @@ class Questionnaire extends Component {
               <h3>
                 {typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
               </h3>
-              <button onClick={this.handleCloseElementDetail}>
+              <button type="button" onClick={this.handleCloseElementDetail}>
                 <span>X</span>
               </button>
             </div>
@@ -252,7 +258,11 @@ class Questionnaire extends Component {
             </div>
           </div>
         </ReactModal>
-        <ConfirmDialog showConfirmModal={this.state.showConfirmModal} confirm={this.handleQuestionnaireDelete} />
+        <ConfirmDialog
+          showConfirmModal={this.state.showConfirmModal}
+          confirm={this.handleQuestionnaireDelete}
+          closePopup={this.closeQuestionnaireDelete}
+        />
       </div>
     );
   }

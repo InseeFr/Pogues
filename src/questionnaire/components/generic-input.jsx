@@ -116,7 +116,7 @@ class GenericInput extends Component {
               <h3>
                 {this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}
               </h3>
-              <button onClick={this.handleCloseNewComponent}>
+              <button type="button" onClick={this.handleCloseNewComponent}>
                 <span>X</span>
               </button>
             </div>

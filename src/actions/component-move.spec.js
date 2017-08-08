@@ -395,4 +395,17 @@ describe('moveComponent', () => {
       '3': { id: '3', weight: 0, type: SUBSEQUENCE, parent: '1', children: ['2'] },
     });
   });
+
+  test('should return an empty object if the dragged and dropped component are the same', () => {
+    const activesComponents = {
+      '0': { id: '0', weight: 0, type: QUESTIONNAIRE, parent: '', children: ['1'] },
+      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2', '3'] },
+      '2': { id: '2', weight: 1, type: QUESTION, parent: '1', children: [] },
+      '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+    };
+
+    const result = component.moveComponent(activesComponents, '1', '1');
+
+    expect(result).toEqual({});
+  });
 });
