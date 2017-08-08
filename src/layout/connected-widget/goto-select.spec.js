@@ -363,7 +363,8 @@ describe('Layout - Go to select container', () => {
        ----> subsequence31
        ------> question2
 
-       Expected result: subsequence21, sequence3, subsequence31, question2
+       Expected result: question1, subsequence11, question3, subsequence12, sequence2subsequence21, sequence3,
+       subsequence31, question2
        */
 
       const state = {
@@ -372,12 +373,32 @@ describe('Layout - Go to select container', () => {
             id: 'questionnaire',
           },
           activeComponentsById,
-          selectedComponentId: 'sequence2',
+          selectedComponentId: 'sequence1',
         },
       };
 
       const expectedValues = {
         targets: [
+          {
+            value: 'question1',
+            label: '-- This is the question question 1',
+          },
+          {
+            value: 'subsequence11',
+            label: '-- This is sub-sequence 1 - 1',
+          },
+          {
+            value: 'question3',
+            label: '--- This is the question question 3',
+          },
+          {
+            value: 'subsequence12',
+            label: '-- This is sub-sequence 1 - 2',
+          },
+          {
+            value: 'sequence2',
+            label: '- This is sequence 2',
+          },
           {
             value: 'subsequence21',
             label: '-- This is sub-sequence 2 - 1',
