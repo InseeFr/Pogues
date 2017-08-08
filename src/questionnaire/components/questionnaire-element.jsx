@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
+
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import DropZone from 'questionnaire/components/drop-zone/drop-zone';
@@ -40,9 +41,11 @@ class QuestionnaireElement extends Component {
     isOver: PropTypes.bool.isRequired,
     draggedItem: PropTypes.object,
     canDrop: PropTypes.bool,
+    errors: PropTypes.array,
   };
   static defaultProps = {
     children: [],
+    errors: [],
   };
   componentDidMount() {
     this.ensureSelected();
@@ -79,16 +82,27 @@ class QuestionnaireElement extends Component {
       parent,
       draggedItem,
       canDrop,
+      errors,
     } = this.props;
 
     const dragndropLevel = getDragnDropLevel(this.props, draggedItem);
     const style = {
       marginLeft: `${calculateMargin(this.props, draggedItem, dragndropLevel, parentType)}px`,
     };
+    const listErrors = errors.map((e, index) => {
+      return (
+        <li key={`${e.code}-${id}-${index}`}>
+          <div className="alert-icon small">
+            <div className="alert-triangle" />!
+          </div>
+          {Dictionary[e.dictionary]}
+        </li>
+      );
+    });
 
     /**
-     * If a component is dragged, and if the current component can receive this component, we will add 
-     * a drop zone. 
+     * If a component is dragged, and if the current component can receive this component, we will add
+     * a drop zone.
      */
     const dropZone = canDrop && isOver && <DropZone style={style} />;
 
@@ -117,25 +131,39 @@ class QuestionnaireElement extends Component {
               <div className="questionnaire-element-name">
                 {name}
               </div>
-              <div className="questionnaire-element-label">
-                {label}
-              </div>
-              {selected
-                ? <div className="questionnaire-element-actions">
-                    <button className="btn-yellow" onClick={onClickDetail}>{Dictionary.showDetail}</button>
-                    {type === 'QUESTION' &&
-                      <button className="btn-yellow" onClick={onClickDuplicate}>
-                        {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
-                      </button>}
-                    <button
-                      className="btn-yellow"
-                      disabled={weight === 0 && type === 'SEQUENCE'}
-                      onClick={onClickDelete}
-                    >
-                      {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
-                    </button>
+              <div className="questionnaire-element-body">
+                <div>
+                  <div className="questionnaire-element-label">
+                    {label}
                   </div>
-                : ''}
+                  {selected
+                    ? <div className="questionnaire-element-actions">
+                        <button className="btn-yellow" onClick={onClickDetail}>
+                          {Dictionary.showDetail}
+                        </button>
+                        {type === 'QUESTION' &&
+                          <button className="btn-yellow" onClick={onClickDuplicate}>
+                            {Dictionary.duplicate}
+                            <span className="glyphicon glyphicon-duplicate" />
+                          </button>}
+                        <button
+                          className="btn-yellow"
+                          disabled={weight === 0 && type === 'SEQUENCE'}
+                          onClick={onClickDelete}
+                        >
+                          {Dictionary.remove}
+                          <span className="glyphicon glyphicon-trash" />
+                        </button>
+                      </div>
+                    : ''}
+                </div>
+                {listErrors.length > 0 &&
+                  <div className="questionnaire-element-errors">
+                    <ul>
+                      {listErrors}
+                    </ul>
+                  </div>}
+              </div>
             </div>
             {dropZone}
             {children}

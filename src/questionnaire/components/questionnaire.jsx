@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
-import ConfirmDialog from 'layout/confirm-dialog/confirm-dialog';
-import QuestionnaireElement from '../components/questionnaire-element';
-import QuestionnaireEditContainer from '../containers/questionnaire-edit';
-import ComponentEditContainer from '../containers/component/component-edit';
-import Dictionary from 'utils/dictionary/dictionary';
-import { getSortedChildren } from 'utils/component/component-utils';
-
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+
+import ConfirmDialog from 'layout/confirm-dialog/confirm-dialog';
+import QuestionnaireElement from 'questionnaire/components/questionnaire-element';
+import QuestionnaireEditContainer from 'questionnaire/containers/questionnaire-edit';
+import ComponentEditContainer from 'questionnaire/containers/component/component-edit';
+import QuestionnaireErrorsContainer from 'questionnaire/containers/questionnaire-errors';
+import Dictionary from 'utils/dictionary/dictionary';
+import { getSortedChildren } from 'utils/component/component-utils';
 
 @DragDropContext(HTML5Backend)
 class Questionnaire extends Component {
@@ -22,10 +23,15 @@ class Questionnaire extends Component {
     moveComponent: PropTypes.func.isRequired,
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
+    errors: PropTypes.object,
+  };
+
+  static defaultProps = {
+    errors: {},
   };
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   };
 
   constructor() {
@@ -126,13 +132,14 @@ class Questionnaire extends Component {
     this.handleCloseQuestionnaireDetail();
   }
 
-  renderComponentsByParent(components, parent) {
+  renderComponentsByParent(components, parent, errors) {
     const renderComponentsByParent = this.renderComponentsByParent;
     const selected = this.props.selectedComponentId;
     const { moveComponent } = this.props;
     return getSortedChildren(components, parent).map(key => {
-      const subTree = renderComponentsByParent(components, key);
+      const subTree = renderComponentsByParent(components, key, errors);
       const isSelected = key === selected;
+      const componentErrors = errors[key] ? errors[key].errors : [];
       return (
         <QuestionnaireElement
           key={key}
@@ -150,6 +157,7 @@ class Questionnaire extends Component {
           moveComponent={moveComponent}
           childrenId={components[key].children}
           weight={components[key].weight}
+          errors={componentErrors}
         >
           {subTree}
         </QuestionnaireElement>
@@ -158,21 +166,38 @@ class Questionnaire extends Component {
   }
 
   render() {
-    const { components, questionnaire } = this.props;
-    const tree = this.renderComponentsByParent(components, questionnaire.id);
+    const { components, questionnaire, errors } = this.props;
+    const tree = this.renderComponentsByParent(components, questionnaire.id, errors);
     const typeElementInModal = this.state.typeElementInModal;
 
     return (
       <div id="questionnaire">
+        {Object.keys(errors).length > 0 &&
+          <div id="questionnaire-errors">
+            <div className="questionnaire-errors-alert">
+              <div className="alert-icon big">
+                <div className="alert-triangle" />!
+              </div>
+            </div>
+            <div className="questionnaire-errors-list">
+              <QuestionnaireErrorsContainer />
+            </div>
+          </div>}
         <div id="questionnaire-head">
-          <h4>{questionnaire.label}</h4>
+          <h4>
+            {questionnaire.label}
+          </h4>
           <div>
-            <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>{Dictionary.showDetail}</button>
+            <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>
+              {Dictionary.showDetail}
+            </button>
             <button className="btn-yellow">
-              {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+              {Dictionary.duplicate}
+              <span className="glyphicon glyphicon-duplicate" />
             </button>
             <button className="btn-yellow" onClick={this.handleDisplayDeleteConfirm}>
-              {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
+              {Dictionary.remove}
+              <span className="glyphicon glyphicon-trash" />
             </button>
           </div>
         </div>
@@ -187,8 +212,12 @@ class Questionnaire extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{Dictionary.questionnaireDetail}</h3>
-              <button onClick={this.handleCloseQuestionnaireDetail}><span>X</span></button>
+              <h3>
+                {Dictionary.questionnaireDetail}
+              </h3>
+              <button onClick={this.handleCloseQuestionnaireDetail}>
+                <span>X</span>
+              </button>
             </div>
             <div className="popup-body">
               <QuestionnaireEditContainer
@@ -209,7 +238,9 @@ class Questionnaire extends Component {
               <h3>
                 {typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
               </h3>
-              <button onClick={this.handleCloseElementDetail}><span>X</span></button>
+              <button onClick={this.handleCloseElementDetail}>
+                <span>X</span>
+              </button>
             </div>
             <div className="popup-body">
               <ComponentEditContainer

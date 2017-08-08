@@ -37,10 +37,21 @@ class Tabs extends Component {
       });
       tabs.push(
         <li key={`tab-${components[i].id}`} className="nav-item">
-          <a className={classTab} onClick={() => this.setActive(i)}>{components[i].label}</a>
+          <a className={classTab} onClick={() => this.setActive(i)}>
+            {components[i].label}
+          </a>
+          {components[i].numErrors &&
+            <span className="invalid">
+              <div className="alert-triangle" />
+              {components[i].numErrors}
+            </span>}
         </li>
       );
-      contentTabs.push(<div key={`panel-${components[i].id}`} className={classContentTab}>{components[i].content}</div>);
+      contentTabs.push(
+        <div key={`panel-${components[i].id}`} className={classContentTab}>
+          {components[i].content}
+        </div>
+      );
     }
 
     return (

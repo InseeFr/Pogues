@@ -6,19 +6,32 @@ import { updateComponent } from 'actions/component';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import Component from 'utils/transformation-entities/component';
 
-const mapStateToProps = (state, { componentId }) => ({
-  component: state.appState.activeComponentsById[componentId],
-  activeCodeLists: state.appState.activeCodeListsById,
-  activeCodes: state.appState.activeCodesById,
-});
+const mapStateToProps = (state, { componentId }) => {
+  const componentErrors = state.appState.errorsByComponent[componentId];
+  return {
+    component: state.appState.activeComponentsById[componentId],
+    activeCodeLists: state.appState.activeCodeListsById,
+    activeCodes: state.appState.activeCodesById,
+    errors: componentErrors ? componentErrors.errors : [],
+  };
+};
 
 const mapDispatchToProps = {
   updateComponent,
 };
 
-function ComponentEditContainer({ updateComponent, component, activeCodeLists, activeCodes, onSuccess, onCancel }) {
+function ComponentEditContainer({
+  updateComponent,
+  component,
+  activeCodeLists,
+  activeCodes,
+  onSuccess,
+  onCancel,
+  errors,
+}) {
+  const { id, parent, weight, type, children } = component;
   const submit = values => {
-    updateComponent(values, component.id, component.parent, component.weight, component.type, component.children);
+    updateComponent(values, id, parent, weight, type, children);
     if (onSuccess) onSuccess();
   };
 
@@ -30,6 +43,7 @@ function ComponentEditContainer({ updateComponent, component, activeCodeLists, a
     edit: true,
     onSubmit: submit,
     onCancel: onCancel,
+    errors,
   };
 
   return <ComponentNewEdit type={component.type} {...initialValues} {...props} />;
@@ -42,11 +56,13 @@ ComponentEditContainer.propTypes = {
   activeCodes: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
+  errors: PropTypes.array,
 };
 
 ComponentEditContainer.defaultProps = {
   onSuccess: undefined,
   onCancel: undefined,
+  errors: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComponentEditContainer);
