@@ -17,13 +17,20 @@ const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
   components: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,
+  isQuestionnaireValid: Object.keys(state.appState.errorsByComponent).length === 0,
 });
 
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
 };
 
-function GenericInputContainer({ questionnaire, components, selectedComponentId, saveActiveQuestionnaire }) {
+function GenericInputContainer({
+  questionnaire,
+  components,
+  selectedComponentId,
+  saveActiveQuestionnaire,
+  isQuestionnaireValid,
+}) {
   const placeholders = {};
   const selectedComponent = components[selectedComponentId];
 
@@ -31,7 +38,13 @@ function GenericInputContainer({ questionnaire, components, selectedComponentId,
   placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, selectedComponent);
   placeholders[QUESTION] = getNewQuestionPlaceholder(components, selectedComponent);
 
-  return <GenericInput placeholders={placeholders} saveActiveQuestionnaire={saveActiveQuestionnaire} />;
+  return (
+    <GenericInput
+      placeholders={placeholders}
+      saveActiveQuestionnaire={saveActiveQuestionnaire}
+      isQuestionnaireValid={isQuestionnaireValid}
+    />
+  );
 }
 
 GenericInputContainer.propTypes = {
@@ -39,6 +52,7 @@ GenericInputContainer.propTypes = {
   components: PropTypes.object.isRequired,
   selectedComponentId: PropTypes.string.isRequired,
   saveActiveQuestionnaire: PropTypes.func.isRequired,
+  isQuestionnaireValid: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenericInputContainer);

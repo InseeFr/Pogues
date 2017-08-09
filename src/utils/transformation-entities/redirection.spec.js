@@ -6,11 +6,13 @@ import Redirection, { defaultRedirectionForm, defaultRedirectionState, defaultRe
 
 describe('Transformation entities - Redirection', () => {
   const redirectionFirst = {
+    id: 'j5xtred5',
     label: 'This is the first label',
     condition: 'This is the first conditions',
     cible: 'j4xw6543',
   };
   const redirectionSecond = {
+    id: 'j5xered5',
     label: 'This is the second label',
     condition: 'This is the second conditions',
     cible: 'j4xtt543',
@@ -38,7 +40,7 @@ describe('Transformation entities - Redirection', () => {
     test('No redirections', () => {
       expect(Redirection.formToState(defaultRedirectionForm)).toEqual(defaultRedirectionState);
     });
-    test('One redirection', () => {
+    test.only('One redirection', () => {
       const form = _.cloneDeep(defaultRedirectionForm);
       form.redirections.push(redirectionFirst);
       const expectedState = _.cloneDeep(defaultRedirectionState);

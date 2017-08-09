@@ -44,6 +44,7 @@ class ListEntryFormContainer extends Component {
     values: PropTypes.object,
     submitLabel: PropTypes.string.isRequired,
     noValueLabel: PropTypes.string.isRequired,
+    invalidItems: PropTypes.array,
   };
 
   static defaultProps = {
@@ -51,6 +52,7 @@ class ListEntryFormContainer extends Component {
     values: {},
     errors: {},
     validationInput: () => true,
+    invalidItems: [],
   };
   constructor(props) {
     super(props);
@@ -137,7 +139,7 @@ class ListEntryFormContainer extends Component {
     return isValid;
   }
   render() {
-    const { inputView, listName, submitLabel, noValueLabel } = this.props;
+    const { inputView, listName, submitLabel, noValueLabel, invalidItems } = this.props;
     return (
       <ListEntryForm
         submitLabel={submitLabel}
@@ -150,6 +152,7 @@ class ListEntryFormContainer extends Component {
         errors={this.state.errors}
         inputView={inputView}
         listName={listName}
+        invalidItems={invalidItems}
       />
     );
   }

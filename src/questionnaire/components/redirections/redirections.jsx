@@ -49,11 +49,16 @@ class Redirections extends Component {
   static propTypes = {
     componentType: PropTypes.string.isRequired,
     isNewComponent: PropTypes.bool.isRequired,
+    errors: PropTypes.array,
+  };
+  static defaultProps = {
+    errors: [],
   };
 
   render() {
-    const { componentType, isNewComponent } = this.props;
+    const { componentType, isNewComponent, errors } = this.props;
     const { redirections, ...initialInputValues } = defaultRedirectionForm;
+    const invalidItems = errors.map(e => e.params.redirectionId);
 
     const inputControlView = <InputRedirection componentType={componentType} isNewComponent={isNewComponent} />;
 
@@ -67,6 +72,7 @@ class Redirections extends Component {
           listName="redirections"
           submitLabel="defineGoTo"
           noValueLabel="noGoToYet"
+          invalidItems={invalidItems}
         />
       </FormSection>
     );

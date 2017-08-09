@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import GotoSelect from './components/goto-select';
-import { isSequence, isSubSequence } from 'utils/component/component-utils';
+import { isSequence, isSubSequence, getTargets } from 'utils/component/component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import {
   getNewQuestionPlaceholder,
@@ -13,57 +13,22 @@ import {
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
-function getTargetsFromSequence(components, parent, weight, currentComponentId) {
-  return components[parent].children.filter(id => currentComponentId !== id && components[id].weight > weight).reduce(
-    (acc, key) => [
-      ...acc,
-      key,
-      ...components[key].children.reduce((acu, id) => {
-        return [...acu, id, ...components[id].children];
-      }, []),
-    ],
-    []
+function getListTargets(
+  components,
+  componentType,
+  selectedComponentId,
+  componentParent,
+  componentWeight,
+  isNewComponent
+) {
+  const ids = getTargets(
+    components,
+    componentType,
+    selectedComponentId,
+    componentParent,
+    componentWeight,
+    isNewComponent
   );
-}
-
-function getTargetsFromComponent(components, parent, weight, currentComponentId) {
-  return components[parent].children
-    .filter(id => id !== currentComponentId && components[id].weight >= weight)
-    .reduce((acc, id) => {
-      return [...acc, id, ...components[id].children];
-    }, []);
-}
-
-function getTargets(components, componentType, selectedComponentId, componentParent, componentWeight) {
-  let ids = [];
-  let currentComponentId = selectedComponentId;
-  let currentComponentType = componentType;
-  let currentComponentParent = componentParent;
-  let currentComponentWeight = componentWeight;
-
-  if (currentComponentType === SEQUENCE && currentComponentId !== '') {
-    ids = components[selectedComponentId].children.filter(id => isSubSequence(components[id]));
-  }
-
-  do {
-    if (currentComponentType !== SEQUENCE) {
-      ids = [
-        ...ids,
-        ...getTargetsFromComponent(components, currentComponentParent, currentComponentWeight, currentComponentId),
-      ];
-    } else {
-      ids = [
-        ...ids,
-        ...getTargetsFromSequence(components, currentComponentParent, currentComponentWeight, currentComponentId),
-      ];
-    }
-
-    currentComponentId = components[currentComponentParent].id;
-    currentComponentType = components[currentComponentParent].type;
-    currentComponentWeight = components[currentComponentParent].weight;
-    currentComponentParent = components[currentComponentParent].parent;
-  } while (currentComponentParent !== '');
-
   return ids.map(id => {
     const component = components[id];
     const parent = components[component.parent];
@@ -112,7 +77,7 @@ export function mapStateToProps(state, { componentType, isNewComponent }) {
   );
 
   return {
-    targets: getTargets(components, componentType, selectedComponentId, parent, weight),
+    targets: getListTargets(components, componentType, selectedComponentId, parent, weight, isNewComponent),
   };
 }
 

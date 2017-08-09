@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { FieldArray } from 'redux-form';
 import PropTypes from 'prop-types';
+import classSet from 'react-classset';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, setCurrentItemIndex }) {
+function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, setCurrentItemIndex, invalidItems }) {
   const noValueBlock =
     fields.length === 0 &&
     <li>
@@ -15,13 +16,16 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
     <ul className="list-entry-form_list">
       {noValueBlock}
       {fields.map((name, index, fields) => {
-        const label = fields.get(index).label;
-        const shortLabel = label.length > 60 ? `${label.substr(0, 57)}...` : label;
+        const item = fields.get(index);
+        const shortLabel = item.label && item.label.length > 60 ? `${item.label.substr(0, 57)}...` : item.label;
+        const invalidItemClass = classSet({
+          invalid: invalidItems.indexOf(item.id) !== -1,
+        });
         return (
-          <li key={index}>
+          <li key={index} className={invalidItemClass}>
             <button
               type="button"
-              title={label}
+              title={item.label}
               className="btn btn-link"
               onClick={event => {
                 event.preventDefault();
@@ -59,6 +63,7 @@ ListEntryFormItem.propTypes = {
   reset: PropTypes.func.isRequired,
   select: PropTypes.func.isRequired,
   setCurrentItemIndex: PropTypes.func.isRequired,
+  invalidItems: PropTypes.array.isRequired,
 };
 
 class ListEntryForm extends Component {
@@ -73,9 +78,11 @@ class ListEntryForm extends Component {
     submitLabel: PropTypes.string.isRequired,
     noValueLabel: PropTypes.string.isRequired,
     errors: PropTypes.array,
+    invalidItems: PropTypes.array,
   };
   static defaultProps = {
     errors: [],
+    invalidItems: [],
   };
   constructor(props) {
     super(props);
@@ -102,6 +109,7 @@ class ListEntryForm extends Component {
       listName,
       submitLabel,
       noValueLabel,
+      invalidItems,
     } = this.props;
     const styleErrors = {
       display: errors.length > 0 ? 'block' : 'none',
@@ -124,6 +132,7 @@ class ListEntryForm extends Component {
           reset={reset}
           select={select}
           setCurrentItemIndex={this.setCurrentItemIndex}
+          invalidItems={invalidItems}
         />
 
         <div className="list-entry-form_form">

@@ -411,20 +411,20 @@ const dictionary = {
  champ « Cible » pour chaque redirection.`,
   },
   errorGoToNonExistingTgt: {
-    en: `The target defined in the filter question is not avalaible. Please fill in the
- target with an existing element of the questionnaire.`,
-    fr: `Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
- à un élément connu du questionnaire.`,
+    fr:
+      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément connu du questionnaire.',
+    en:
+      'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
   errorGoToEarlierTgt: {
-    en: `The target defined in the filter question is not avalaible. Please fill in the
- target with a further element of the questionnaire.`,
-    fr: `Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
- à un élément postérieur du questionnaire.`,
+    fr:
+      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
+    en:
+      'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.',
   },
   errorQuestionnaireTooShort: {
-    en: 'Your questionnaire is way too short',
-    fr: 'Votre questionnaire est bien trop court',
+    fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
+    en: 'Your questionnaire must contain at least one sequence and one question.',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',

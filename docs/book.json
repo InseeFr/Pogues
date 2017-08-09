@@ -1,8 +1,8 @@
 {
   "gitbook": "3.2.2",
   "title": "Pogues",
-  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "image-captions"],
-  "root": "./doc",
+  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "image-captions", "include-codeblock"],
+  "root": "./",
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/InseeFr/Pogues/tree/master/doc",

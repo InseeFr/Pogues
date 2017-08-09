@@ -12,6 +12,7 @@ class GenericInput extends Component {
   static propTypes = {
     placeholders: PropTypes.object.isRequired,
     saveActiveQuestionnaire: PropTypes.func.isRequired,
+    isQuestionnaireValid: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -45,14 +46,16 @@ class GenericInput extends Component {
   }
 
   render() {
-    const { placeholders } = this.props;
+    const { placeholders, isQuestionnaireValid } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
     const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
 
     return (
       <div id="questionnaire-generic-input" style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}>
-        <span>{Dictionary.addObject}</span>
+        <span>
+          {Dictionary.addObject}
+        </span>
         <button
           id="add-question"
           className="btn-white"
@@ -61,7 +64,8 @@ class GenericInput extends Component {
             this.handleOpenNewComponent(QUESTION);
           }}
         >
-          <span className="glyphicon glyphicon-plus" />{Dictionary.question}
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.question}
         </button>
         <button
           id="add-subsequence"
@@ -71,7 +75,8 @@ class GenericInput extends Component {
             this.handleOpenNewComponent(SUBSEQUENCE);
           }}
         >
-          <span className="glyphicon glyphicon-plus" />{Dictionary.subSequence}
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.subSequence}
         </button>
         <button
           id="add-sequence"
@@ -81,15 +86,24 @@ class GenericInput extends Component {
             this.handleOpenNewComponent(SEQUENCE);
           }}
         >
-          <span className="glyphicon glyphicon-plus" />{Dictionary.sequence}
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.sequence}
         </button>
-        <button className="btn-white"><span className="glyphicon glyphicon-plus" />{Dictionary.pageBreak}</button>
+        <button className="btn-white">
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.pageBreak}
+        </button>
         <button className="btn-yellow" onClick={this.props.saveActiveQuestionnaire}>
-          {Dictionary.save}<span className="glyphicon glyphicon-floppy-disk" />
+          {Dictionary.save}
+          <span className="glyphicon glyphicon-floppy-disk" />
         </button>
-        <button className="btn-yellow">{Dictionary.visualise}<span className="glyphicon glyphicon-eye-open" /></button>
+        <button className="btn-yellow" disabled={!isQuestionnaireValid}>
+          {Dictionary.visualise}
+          <span className="glyphicon glyphicon-eye-open" />
+        </button>
         <button className="btn-yellow">
-          {Dictionary.publishQuestionnaire}<span className="glyphicon glyphicon-share-alt" />
+          {Dictionary.publishQuestionnaire}
+          <span className="glyphicon glyphicon-share-alt" />
         </button>
         <ReactModal
           shouldCloseOnOverlayClick={false}
@@ -99,8 +113,12 @@ class GenericInput extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}</h3>
-              <button type="button" onClick={this.handleCloseNewComponent}><span>X</span></button>
+              <h3>
+                {this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}
+              </h3>
+              <button type="button" onClick={this.handleCloseNewComponent}>
+                <span>X</span>
+              </button>
             </div>
             <div className="popup-body">
               <ComponentNewContainer
