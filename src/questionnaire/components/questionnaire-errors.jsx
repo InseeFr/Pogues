@@ -63,10 +63,12 @@ class QuestionnaireErrors extends Component {
 
       return (
         <li key={id}>
-          <i className="fa fa-plus-square-o" onClick={e => this.handleExpand(e, id)} />
-          <span onClick={e => this.handleSelect(e, id)}>
+          <a href={`#errors-${id}`} onClick={e => this.handleExpand(e, id)}>
+            <i className="fa fa-plus-square-o" />
+          </a>
+          <a href={`#${id}`} onClick={e => this.handleSelect(e, id)}>
             {component}
-          </span>
+          </a>
           {this.state.expanded.indexOf(id) >= 0 &&
             <ul>
               {errors}
