@@ -49,7 +49,7 @@ describe('moveQuestionToSubSequence', () => {
     expect(component.moveQuestionToSubSequence(activeComponents, children[1])).toEqual(activeComponents);
   });
 
-  test(`should return the previous activeComponents object if the next component is not a function`, () => {
+  test(`should return the previous activeComponents object if the next component is not a question`, () => {
     const components = [
       { id: '1', children: ['2', '3'], type: SEQUENCE },
       { id: '2', weight: 0, parent: '1', type: QUESTION },

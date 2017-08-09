@@ -34,12 +34,26 @@ class Select extends Component {
 
     const actions = buttons
       ? <ul className="rich-textarea-toolbox">
-          <li><button aria-label="bold"><span className="glyphicon glyphicon-bold" aria-hidden="true" /></button></li>
           <li>
-            <button aria-label="italic"><span className="glyphicon glyphicon-italic" aria-hidden="true" /></button>
+            <button type="button" aria-label="bold">
+              <span className="glyphicon glyphicon-bold" aria-hidden="true" />
+            </button>
           </li>
-          <li><button aria-label="link"><span className="glyphicon glyphicon-link" aria-hidden="true" /></button></li>
-          <li><button aria-label="???"><span className="glyphicon glyphicon-comment" aria-hidden="true" /></button></li>
+          <li>
+            <button type="button" aria-label="italic">
+              <span className="glyphicon glyphicon-italic" aria-hidden="true" />
+            </button>
+          </li>
+          <li>
+            <button type="button" aria-label="link">
+              <span className="glyphicon glyphicon-link" aria-hidden="true" />
+            </button>
+          </li>
+          <li>
+            <button type="button" aria-label="???">
+              <span className="glyphicon glyphicon-comment" aria-hidden="true" />
+            </button>
+          </li>
         </ul>
       : '';
 

@@ -103,7 +103,7 @@ export class PageHome extends Component {
               <h3>
                 {Dictionary.newEmptyQuestionnaire}
               </h3>
-              <button onClick={this.handleCloseModal}>
+              <button type="button" onClick={this.handleCloseModal}>
                 <span>X</span>
               </button>
             </div>

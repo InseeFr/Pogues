@@ -1,7 +1,7 @@
 import * as component from './component';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION } = COMPONENT_TYPE;
+const { QUESTION, SUBSEQUENCE, SEQUENCE } = COMPONENT_TYPE;
 
 jest.mock('./component-move');
 jest.mock('./component-update');
@@ -12,7 +12,7 @@ describe('updateParentChildren', () => {
   function getState() {
     return {
       appState: {
-        activeComponentsById: { '2': { id: '2', children: [] } },
+        activeComponentsById: { '99': {}, '2': { id: '2', parent: '99', children: [] } },
       },
     };
   }
@@ -42,7 +42,7 @@ describe('updateParentChildren', () => {
 
   test(`should call return the updated parent`, () => {
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ '2': { id: '2', children: ['1'] } });
+      expect(param.payload.update.activeComponentsById).toEqual({ '2': { id: '2', children: ['1'], parent: '99' } });
     }
     fn(dispatch, getState);
   });
@@ -53,7 +53,8 @@ describe('orderComponents', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
+          activeComponentsById: { '99': { children: [] }, '2': { parent: '99', id: '2', children: [] } },
+          selectedComponentId: '2',
         },
       };
     }
@@ -70,7 +71,8 @@ describe('orderComponents', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
+          activeComponentsById: { '99': { children: [] }, '2': { parent: '99', id: '2', children: [] } },
+          selectedComponentId: '2',
         },
       };
     }
@@ -82,16 +84,112 @@ describe('orderComponents', () => {
     fn(dispatch, getState);
   });
 
-  test(`should call moveQuestionAndSubSequenceToSequence`, () => {
+  test('when we want to insert a question next to a question, should call increaseWeightOfAll', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] }, '3': { type: QUESTION } },
+          activeComponentsById: {
+            '99': { children: [] },
+            '2': { parent: '99', id: '2', children: [], type: QUESTION },
+          },
+          selectedComponentId: '2',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: QUESTION } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+    }
+    fn(dispatch, getState);
+  });
+
+  test('when we want to insert a question next to a subsequence, should call increaseWeightOfAll', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: {
+            '99': { children: [] },
+            '2': { parent: '99', id: '2', children: [], type: SUBSEQUENCE },
+          },
+          selectedComponentId: '2',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: QUESTION } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+    }
+    fn(dispatch, getState);
+  });
+  test('when we want to insert a question next to a sequence, should call increaseWeightOfAll', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: {
+            '99': { children: [] },
+            '2': { parent: '99', id: '2', children: [], type: SEQUENCE },
+          },
+          selectedComponentId: '2',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: QUESTION } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+    }
+    fn(dispatch, getState);
+  });
+
+  test('when we want to insert a sequence next to a question, should call moveQuestionAndSubSequenceToSequence', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: QUESTION, children: [] } },
           selectedComponentId: '3',
         },
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'SEQUENCE' } } } };
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
+    const fn = component.orderComponents(payload);
+
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionAndSubSequenceToSequence: true });
+    }
+    fn(dispatch, getState);
+  });
+  test('when we want to insert a sequence next to a subsequence, should call moveQuestionAndSubSequenceToSequence', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: {
+            '2': { id: '2', children: [] },
+            '3': { parent: '2', type: SUBSEQUENCE, children: [] },
+          },
+          selectedComponentId: '3',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
+    const fn = component.orderComponents(payload);
+
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionAndSubSequenceToSequence: true });
+    }
+    fn(dispatch, getState);
+  });
+  test('when we want to insert a sequence next to a sequence, should call moveQuestionAndSubSequenceToSequence', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: SEQUENCE, children: [] } },
+          selectedComponentId: '3',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
     const fn = component.orderComponents(payload);
 
     function dispatch(param) {
@@ -100,16 +198,20 @@ describe('orderComponents', () => {
     fn(dispatch, getState);
   });
 
-  test(`should call moveQuestionToSubSequence`, () => {
+  test('when we want to insert a subsequence next to a QUESTION with a question as sibling, should call moveQuestionToSubSequence', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] }, '3': { type: QUESTION } },
+          activeComponentsById: {
+            '2': { id: '2', children: ['3', '4'] },
+            '3': { parent: '2', type: QUESTION, children: [], weight: 0 },
+            '4': { parent: '2', type: QUESTION, children: [], weight: 1 },
+          },
           selectedComponentId: '3',
         },
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'SUBSEQUENCE' } } } };
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
       expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionToSubSequence: true });
@@ -117,15 +219,74 @@ describe('orderComponents', () => {
     fn(dispatch, getState);
   });
 
-  test(`should call increaseWeightOfAll`, () => {
+  test('when we want to insert a subsequence next to a QUESTION without a QUESTION as sibling, should call increaseWeightOfAll', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
+          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: QUESTION, children: [] } },
+          selectedComponentId: '3',
         },
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: 'QUESTION' } } } };
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+    }
+    fn(dispatch, getState);
+  });
+  test('when we want to insert a subsequence next to a subsequence with children, should call moveQuestionToSubSequence', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: {
+            '2': { id: '2', children: [], type: SEQUENCE },
+            '3': { id: '3', type: SUBSEQUENCE, parent: '2', children: ['4', '5'] },
+            '4': { id: '4', parent: '3', children: [], type: QUESTION, weight: 0 },
+            '5': { id: '5', parent: '3', children: [], type: QUESTION, weight: 1 },
+          },
+          selectedComponentId: '3',
+        },
+      };
+    }
+    const payload = {
+      payload: { id: '1', lastCreatedComponent: { '1': { id: '1', parent: '2', type: SUBSEQUENCE } } },
+    };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionToSubSequence: true });
+    }
+    fn(dispatch, getState);
+  });
+  test('when we want to insert a subsequence next to a SUBSEQUENCE without children, should call increaseWeightOfAll', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: {
+            '2': { id: '2', children: [] },
+            '3': { parent: '2', type: SUBSEQUENCE, children: [] },
+          },
+          selectedComponentId: '3',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
+    const fn = component.orderComponents(payload);
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+    }
+    fn(dispatch, getState);
+  });
+  test('when we want to insert a subsequence next to a sequence, should call increaseWeightOfAll', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: SEQUENCE, children: [] } },
+          selectedComponentId: '3',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
       expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
