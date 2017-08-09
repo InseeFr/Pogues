@@ -17,35 +17,35 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
 
 ```json
 {
-  "_id": "iytt95l9",
-  "_name": "FIRSTQUESTIONNAIRE",
-  "_label": [""],
-  "_declarations": [],
-  "_goTos": [],
-  "_controls": [],
-  "_genericName": "QUESTIONNAIRE",
+  "id": "iytt95l9",
+  "name": "FIRSTQUESTIONNAIRE",
+  "label": [""],
+  "declarations": [],
+  "goTos": [],
+  "controls": [],
+  "genericName": "QUESTIONNAIRE",
   "collectMode": "TELEPHONE",
   "lastUpdatedDate": "01/01/2016",
-  "_children": [
+  "children": [
     {
-      "_id": "iytt3i83",
-      "_name": "SEQ1",
-      "_label": [
+      "id": "iytt3i83",
+      "name": "SEQ1",
+      "label": [
         "About you"
       ],
-      "_declarations": [],
-      "_goTos": [],
-      "_controls": [],
-      "_genericName": "MODULE",
-      "_children": [
+      "declarations": [],
+      "goTos": [],
+      "controls": [],
+      "genericName": "MODULE",
+      "children": [
         {
-          "_id": "iytssbr3",
-          "_name": "QUESTION11",
-          "_label": ["##{\"label\":\"How old are you ?\",\"conditions\":[]}\nHow old are you ?"],
-          "_declarations": [],
-          "_goTos": [],
-          "_controls": [],
-          "_questionType": "SIMPLE",
+          "id": "iytssbr3",
+          "name": "QUESTION11",
+          "label": ["##{\"label\":\"How old are you ?\",\"conditions\":[]}\nHow old are you ?"],
+          "declarations": [],
+          "goTos": [],
+          "controls": [],
+          "questionType": "SIMPLE",
           "calculatedVariables": [
             {
               "label": "label",
@@ -59,126 +59,132 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
               "name": "name"
             }
           ],
-          "_responses": [
+          "responses": [
             {
-              "_mandatory": false,
-              "_datatype": {
-                "_typeName": "TEXT",
-                "_maxLength": 1,
-                "_pattern": "",
-                "_type": "TextDatatypeType"
+              "mandatory": false,
+              "datatype": {
+                "typeName": "TEXT",
+                "maxLength": 1,
+                "pattern": "",
+                "type": "TextDatatypeType"
               }
             }
           ],
-          "_type": "QuestionType"
+          "type": "QuestionType"
         },
         {
-          "_id": "iytt2wlp",
-          "_name": "QUESTION12",
-          "_label": ["##{\"label\":\"Are you happy ?\",\"conditions\":[]}\nAre you happy ?"],
-          "_declarations": [],
-          "_goTos": [],
-          "_controls": [],
-          "_questionType": "SINGLE_CHOICE",
-          "_responses": [
+          "id": "iytt2wlp",
+          "name": "QUESTION12",
+          "label": ["##{\"label\":\"Are you happy ?\",\"conditions\":[]}\nAre you happy ?"],
+          "declarations": [],
+          "goTos": [],
+          "controls": [],
+          "questionType": "SINGLE_CHOICE",
+          "responses": [
             {
-              "_codeListReference": "iyttj4zk",
-              "_mandatory": false,
-              "_datatype": {
-                "_typeName": "TEXT",
-                "_maxLength": 1,
-                "_pattern": "",
-                "_type": "TextDatatypeType",
-                "_visHint": "CHECKBOX"
+              "codeListReference": "iyttj4zk",
+              "mandatory": false,
+              "datatype": {
+                "typeName": "TEXT",
+                "maxLength": 1,
+                "pattern": "",
+                "type": "TextDatatypeType",
+                "visHint": "CHECKBOX"
+              },
+              "nonResponseModality":{
+                "value":"blabla2",
+                "label":"blabla",
+                "firstIntentionDisplay":false,
+                "invite":"blabla3"
               }
             }
           ],
-          "_type": "QuestionType"
+          "type": "QuestionType"
         }
       ],
-      "_depth": 1,
-      "_type": "SequenceType"
+      "depth": 1,
+      "type": "SequenceType"
     },
     {
-      "_id": "iyttf4qh",
-      "_name": "SEQ2",
-      "_label": ["About your job"],
-      "_declarations": [],
-      "_goTos": [],
-      "_controls": [],
-      "_genericName": "MODULE",
-      "_children": [
+      "id": "iyttf4qh",
+      "name": "SEQ2",
+      "label": ["About your job"],
+      "declarations": [],
+      "goTos": [],
+      "controls": [],
+      "genericName": "MODULE",
+      "children": [
         {
-          "_id": "iytth8g0",
-          "_name": "QUESTION21",
-          "_label": [
+          "id": "iytth8g0",
+          "name": "QUESTION21",
+          "label": [
             "##{\"label\":\"Do you have a job ?\",\"conditions\":[]}\nDo you have a job ?"
           ],
-          "_declarations": [],
-          "_goTos": [],
-          "_controls": [],
-          "_questionType": "SIMPLE",
-          "_responses": [
+          "declarations": [],
+          "goTos": [],
+          "controls": [],
+          "questionType": "SIMPLE",
+          "responses": [
             {
-              "_mandatory": false,
-              "_datatype": {
-                "_typeName": "BOOLEAN",
-                "_type": "BooleanDatatypeType"
+              "mandatory": false,
+              "datatype": {
+                "typeName": "BOOLEAN",
+                "type": "BooleanDatatypeType"
               }
             }
           ],
-          "_type": "QuestionType"
+          "type": "QuestionType"
         }
       ],
-      "_depth": 1,
-      "_type": "SequenceType"
+      "depth": 1,
+      "type": "SequenceType"
     }
   ],
-  "_depth": 0,
-  "_type": "SequenceType",
-  "_agency": "fr.insee",
-  "_survey": {
-    "_agency": "fr.insee",
-    "_name": "POPO",
-    "_id": "iytszu62"
+  "depth": 0,
+  "type": "SequenceType",
+  "agency": "fr.insee",
+  "survey": {
+    "agency": "fr.insee",
+    "name": "POPO",
+    "id": "iytszu62"
   },
-  "_componentGroups": [
+  "componentGroups": [
     {
-      "_name": "PAGE_1",
-      "_label": "Components for page 1",
-      "_Member": [
+      "name": "PAGE_1",
+      "label": "Components for page 1",
+      "Member": [
         "iytt3i83",
         "iytssbr3",
         "iytt2wlp",
         "iyttf4qh",
         "iytth8g0"
       ],
-      "_id": "iytt88sv"
+      "id": "iytt88sv"
     }
   ],
-  "_codeLists": {
-    "_codeList": [
+  "codeLists": {
+    "codeList": [
       {
-        "_id": "iyttj4zk",
-        "_name": "",
-        "_label": "mood",
-        "_codes": [
+        "id": "iyttj4zk",
+        "name": "",
+        "label": "mood",
+        "codes": [
           {
-            "_label": "unhappy",
-            "_value": ""
+            "label": "unhappy",
+            "value": ""
           },
           {
-            "_label": "happy",
-            "_value": ""
+            "label": "happy",
+            "value": ""
           },
           {
-            "_label": "very happy",
-            "_value": ""
+            "label": "very happy",
+            "value": ""
           }
         ]
       }
     ],
-    "_codeListSpecification": []
+    "codeListSpecification": []
   }
 }
 ```

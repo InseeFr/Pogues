@@ -626,11 +626,11 @@ const dictionary = {
     fr: 'Message de relance',
     en: 'Follow-up message',
   },
-  rankUiBehaviour1: {
+  FIRST_INTENTION: {
     fr: 'En première intention',
     en: 'Immediately',
   },
-  rankUiBehaviour2: {
+  SECOND_INTENTION: {
     fr: 'En deuxième intention',
     en: 'Later',
   },
