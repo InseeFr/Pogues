@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { uuid } from 'utils/data-utils';
 
 export const defaultRedirectionForm = {
   label: '',
@@ -15,7 +16,15 @@ export const defaultRedirectionModel = {
 
 function formToState(form) {
   const { redirections } = form;
-  return _.cloneDeep(redirections);
+  return redirections.map(r => {
+    const { id, label, condition, cible } = r;
+    return {
+      id: id || uuid(),
+      label,
+      condition,
+      cible,
+    };
+  });
 }
 
 function stateToForm(state) {
@@ -28,8 +37,9 @@ function stateToForm(state) {
 function stateToModel(state) {
   return {
     redirections: state.map(r => {
-      const { label, condition, cible } = r;
+      const { id, label, condition, cible } = r;
       return {
+        id: id || uuid(),
         label,
         condition,
         cible,

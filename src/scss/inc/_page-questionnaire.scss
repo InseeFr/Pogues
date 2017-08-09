@@ -1,6 +1,39 @@
 #page-questionnaire {
   @extend .container;
 
+  #questionnaire-errors {
+    @include make-row();
+    padding: 15px;
+    margin: 15px 0;
+    border: 2px solid red;
+    color: lighten(red, 20%);
+    .questionnaire-errors-alert {
+      @include make-xs-column(1);
+    }
+    .questionnaire-errors-list {
+      @include make-xs-column(11);
+      ul {
+        list-style: none;
+        padding: 0;
+
+        > li {
+          cursor: pointer;
+          i {
+            margin-right: 10px;
+          }
+        }
+
+        ul {
+          padding: 5px 0;
+          li {
+            color: black;
+            cursor: default;
+          }
+        }
+      }
+    }
+  }
+
   #questionnaire-nav {
    position: relative;
 float: left;
@@ -103,9 +136,31 @@ float: left;
           overflow: hidden;
         }
 
-        .questionnaire-element-label {
+        .questionnaire-element-body {
           @include make-xs-column(10);
           border-left: 1px solid $color-grey_02;
+          padding: 0;
+          > div {
+            @include make-xs-column(12);
+          }
+        }
+
+        .questionnaire-element-errors ul {
+          list-style: none;
+          padding: 10px 20px;
+
+          li {
+            font-size: $font-xs;
+            padding-bottom: 5px;
+            color: lighten(red, 20%);
+            .alert-icon {
+              display: inline-block;
+            }
+          }
+        }
+
+        .questionnaire-element-label {
+          @include make-xs-column(10);
           padding: 10px;
         }
       }
@@ -116,11 +171,11 @@ float: left;
         }
 
         .questionnaire-element-label {
-          @include make-xs-column(5);
+          @include make-xs-column(6);
         }
 
         .questionnaire-element-actions {
-          @include make-xs-column(5);
+          @include make-xs-column(6);
           text-align: right;
           button {
             margin: 5px  5px 0 0;

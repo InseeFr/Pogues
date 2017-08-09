@@ -13,6 +13,7 @@ describe('<GenericInput />', () => {
   const props = {
     placeholders: {},
     saveActiveQuestionnaire: spy,
+    isQuestionnaireValid: true,
   };
   const emptyPlaceholder = {
     parent: '',

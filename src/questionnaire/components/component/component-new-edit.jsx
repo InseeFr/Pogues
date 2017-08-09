@@ -15,6 +15,14 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 
+function getErrorsByType(errors) {
+  return errors.reduce((acc, e) => {
+    if (!acc[e.type]) acc[e.type] = [];
+    acc[e.type].push(e);
+    return acc;
+  }, {});
+}
+
 export class QuestionNewEdit extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
@@ -23,6 +31,7 @@ export class QuestionNewEdit extends Component {
     onCancel: PropTypes.func,
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
+    errors: PropTypes.array,
   };
   static defaultProps = {
     handleSubmit: undefined,
@@ -30,6 +39,7 @@ export class QuestionNewEdit extends Component {
     pristine: false,
     submitting: false,
     edit: false,
+    errors: [],
   };
   componentDidMount() {
     if (this.props.edit) {
@@ -39,22 +49,26 @@ export class QuestionNewEdit extends Component {
     }
   }
   render() {
-    const { type, edit, handleSubmit, onCancel, pristine, submitting } = this.props;
+    const { type, edit, handleSubmit, onCancel, pristine, submitting, errors } = this.props;
+    const errorsByType = getErrorsByType(errors);
     const panels = [
       {
         id: 'declarations',
         label: Dictionary.declaration_tabTitle,
         content: <Declaration />,
+        numErrors: errorsByType.declarations && errorsByType.declarations.length,
       },
       {
         id: 'controls',
         label: Dictionary.controls,
         content: <Controls />,
+        numErrors: errorsByType.controls && errorsByType.controls.length,
       },
       {
         id: 'redirections',
         label: Dictionary.goTo,
-        content: <Redirections componentType={type} isNewComponent={!edit} />,
+        content: <Redirections componentType={type} isNewComponent={!edit} errors={errorsByType.redirections} />,
+        numErrors: errorsByType.redirections && errorsByType.redirections.length,
       },
     ];
 
