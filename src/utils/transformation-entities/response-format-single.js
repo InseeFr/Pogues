@@ -1,4 +1,4 @@
-import { CODES_LIST_INPUT_ENUM, DATATYPE_NAME, DATATYPE_VIS_HINT } from 'constants/pogues-constants';
+import { UI_BEHAVIOUR, CODES_LIST_INPUT_ENUM, DATATYPE_NAME, DATATYPE_VIS_HINT } from 'constants/pogues-constants';
 import CodesList, { defaultCodesListForm } from './codes-list';
 import Response from './response';
 
@@ -8,6 +8,11 @@ const { TEXT } = DATATYPE_NAME;
 
 export const defaultSingleForm = {
   mandatory: false,
+  hasSpecialCode: false,
+  specialLabel: '',
+  specialCode: '',
+  specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
+  specialFollowUpMessage: '',
   visHint: CHECKBOX,
   codesListId: '',
   type: NEW,
@@ -33,12 +38,27 @@ export const defaultSingleResponseModel = {
 };
 
 function formToState(form) {
-  const { mandatory, visHint, type, [type]: codesListForm } = form;
+  const {
+    mandatory,
+    visHint,
+    type,
+    [type]: codesListForm,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
+  } = form;
   const codesListState = CodesList.formToState(codesListForm);
   const state = {
     mandatory,
     visHint,
     type,
+    hasSpecialCode,
+    specialLabel: hasSpecialCode ? specialLabel : '',
+    specialCode: hasSpecialCode ? specialCode : '',
+    specialUiBehaviour: hasSpecialCode ? specialUiBehaviour : UI_BEHAVIOUR.FIRST_INTENTION,
+    specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
   };
 
   if (codesListState.codesList.label !== '') {
@@ -53,11 +73,25 @@ function formToState(form) {
 }
 
 function stateToForm(state, activeCodeLists, activeCodes) {
-  const { codesListId, visHint, mandatory } = state;
+  const {
+    codesListId,
+    visHint,
+    mandatory,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
+  } = state;
   const codesList = activeCodeLists[codesListId];
   const form = {
     mandatory,
     visHint,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
   };
 
   if (codesList) {
@@ -87,16 +121,32 @@ function stateToForm(state, activeCodeLists, activeCodes) {
 }
 
 function stateToModel(state) {
-  const { mandatory, visHint, codesListId } = state;
+  const {
+    mandatory,
+    visHint,
+    codesListId,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
+  } = state;
   const responses = [];
-  responses.push(
-    Response.stateToModel({
-      mandatory,
-      codeListReference: codesListId,
-      type: TEXT,
-      datatype: { ...defaultSingleResponseModel, visHint },
-    })
-  );
+  const model = {
+    mandatory,
+    codeListReference: codesListId,
+    type: TEXT,
+    datatype: { ...defaultSingleResponseModel, visHint },
+  };
+  if (hasSpecialCode) {
+    model.nonResponseModality = {
+      value: specialCode,
+      label: specialLabel,
+      firstIntentionDisplay: specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
+      invite: specialFollowUpMessage,
+    };
+  }
+  responses.push(Response.stateToModel(model));
 
   return {
     ...defaultSingleModel,
@@ -108,12 +158,22 @@ function stateToModel(state) {
 
 function modelToState(model) {
   // @TODO: This logic should be moved to the Response transformer
-  const { responses: [{ datatype: { visHint }, mandatory, codeListReference: codesListId }] } = model;
+  const {
+    responses: [{ datatype: { visHint }, mandatory, nonResponseModality, codeListReference: codesListId }],
+  } = model;
 
   const responseFormatSingleData = {
     codesListId,
     mandatory,
     visHint,
+    hasSpecialCode: !!nonResponseModality,
+    specialLabel: nonResponseModality ? nonResponseModality.label : '',
+    specialCode: nonResponseModality ? nonResponseModality.value : '',
+    specialUiBehaviour:
+      nonResponseModality && !nonResponseModality.firstIntentionDisplay
+        ? UI_BEHAVIOUR.SECOND_INTENTION
+        : UI_BEHAVIOUR.FIRST_INTENTION,
+    specialFollowUpMessage: nonResponseModality ? nonResponseModality.invite : '',
   };
 
   return {

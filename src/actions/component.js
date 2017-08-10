@@ -131,7 +131,15 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
         true,
         comp.id !== selectedComponent.id
       );
-    } else if (isSequence(lastCreatedComponent[id])) {
+
+      /**
+     * We move components into the new
+     *  sequence only if the selected is not a sequence without children
+     */
+    } else if (
+      isSequence(lastCreatedComponent[id]) &&
+      !(isSequence(selectedComponent) && childrenSelectedComponentLength === 0)
+    ) {
       // If the selected component have children, we will use the first child as the component used for the in
       const comp =
         childrenSelectedComponentLength === 0
