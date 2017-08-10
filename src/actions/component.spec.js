@@ -180,11 +180,15 @@ describe('orderComponents', () => {
     }
     fn(dispatch, getState);
   });
-  test('when we want to insert a sequence next to a sequence, should call moveQuestionAndSubSequenceToSequence', () => {
+  test('when we want to insert a sequence next to a sequence with children, should call moveQuestionAndSubSequenceToSequence', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: SEQUENCE, children: [] } },
+          activeComponentsById: {
+            '2': { id: '2', children: [] },
+            '3': { id: '3', parent: '2', type: SEQUENCE, children: ['5'] },
+            '5': { id: '5', type: QUESTION, children: [], weight: 0 },
+          },
           selectedComponentId: '3',
         },
       };
@@ -194,6 +198,27 @@ describe('orderComponents', () => {
 
     function dispatch(param) {
       expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionAndSubSequenceToSequence: true });
+    }
+    fn(dispatch, getState);
+  });
+
+  test('when we want to insert a sequence next to a sequence without children, should call increaseWeightOfAll', () => {
+    function getState() {
+      return {
+        appState: {
+          activeComponentsById: {
+            '2': { id: '2', children: [] },
+            '3': { parent: '2', type: SEQUENCE, children: [] },
+          },
+          selectedComponentId: '3',
+        },
+      };
+    }
+    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
+    const fn = component.orderComponents(payload);
+
+    function dispatch(param) {
+      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
     }
     fn(dispatch, getState);
   });
