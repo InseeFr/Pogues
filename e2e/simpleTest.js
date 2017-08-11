@@ -8,4 +8,11 @@ module.exports = {
       .assert.title('Pogues')
       .end()
   },
+  'Home page fetch wip questionnaires': browser => {
+    browser
+      .url("http://localhost:3000")
+      .waitForElementVisible('.home-questionnaires')
+      .assert.containsText('.home-questionnaires h4', 'Timbre : FAKEPERMISSION')
+      .end()
+  },
 };

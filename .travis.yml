@@ -11,7 +11,7 @@ before_script:
   - npm run server &
 
 script:
-  - npm run build
+  - npm run build:travis
   - sleep 30
   - pushd ./dist
   - python -m SimpleHTTPServer 3000 &
@@ -24,6 +24,6 @@ script:
 addons:
   sauce_connect: true
 
-after_script: 
+after_script:
   - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   - bash scripts/gitbook.sh
