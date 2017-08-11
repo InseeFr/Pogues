@@ -12,7 +12,7 @@ module.exports = {
     browser
       .url("http://localhost:3000")
       .waitForElementVisible('.home-questionnaires')
-      .assert.containsText('.home-questionnaires h4', 'Timbre : FAKEPERMISSION')
+      .assert.containsText('.home-questionnaires h4', 'Stamp : FAKEPERMISSION')
       .end()
   },
 };
