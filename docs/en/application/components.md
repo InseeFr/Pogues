@@ -4,10 +4,6 @@ The easiest way to find out which component you need to work with is to inspect 
 
 To help you start, here are some screenshots with the names for some of the components on screen:
 
-![Main screen](/img/components-questionnaire-picker.png "Main screen")
+[Home Page](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/home/page-home.jsx)
 
-![Questionnaire](/img/components-questionnaire.png "Questionnaire")
-
-![Question](/img/components-question.png "Question")
-
-![Response Format](/img/components-response-format.png "Response Format")
+[Questionnaire Page](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/questionnaire/page-questionnaire.jsx)
