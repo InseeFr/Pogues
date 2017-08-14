@@ -20,6 +20,7 @@
     * [Process actions](react-redux/redux/process-actions.md)
     * [Dispatch actions](react-redux/redux/dispatch-actions.md)
     * [Split and combine reducers](react-redux/redux/reducers-split-combine.md)
+  * [Redux Forms](react-redux/redux-forms/index.md)
   * [Additional information](react-redux/additional-information.md)
     * [Use PropTypes](react-redux/additional-information.md#proptypes)
     * [Design process](react-redux/additional-information.md#design-process)
