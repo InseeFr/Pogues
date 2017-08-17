@@ -1,60 +1,103 @@
-import _ from 'lodash';
+import { uuid } from 'utils/data-utils';
 
-export const defaultDeclarationForm = {
+export const declarationsFormDefault = {
   declarationType: 'INSTRUCTION',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
   declarations: [],
 };
 
-export const defaultDeclarationState = [];
-
-export const defaultDeclarationModel = {
-  declarations: [],
-};
-
-function formToState(form) {
+function transformationFormToState(form) {
   const { declarations } = form;
-  return _.cloneDeep(declarations);
-}
 
-function stateToForm(state) {
-  return {
-    ...defaultDeclarationForm,
-    declarations: _.cloneDeep(state),
-  };
-}
+  return declarations.reduce((acc, declaration) => {
+    const { declarationType, label, position } = declaration;
+    const id = declaration.id || uuid();
 
-function stateToModel(state) {
-  return {
-    declarations: state.map(d => {
-      const { declarationType, label, position } = d;
-      return {
-        text: label,
+    return {
+      ...acc,
+      [id]: {
+        id,
+        label,
         declarationType,
         position,
-      };
-    }),
-  };
+      },
+    };
+  }, {});
 }
 
-function modelToState(model) {
-  const state = [];
-  const { declarations } = model;
-  declarations.forEach(d => {
-    const { declarationType, text, position } = d;
-    state.push({
-      label: text,
+function transformationModelToState(model = []) {
+  return model.reduce((acc, declaration) => {
+    const { declarationType, text, position } = declaration;
+    const id = declaration.id || uuid();
+    return {
+      ...acc,
+      [id]: {
+        id,
+        label: text,
+        declarationType,
+        position,
+      },
+    };
+  }, {});
+}
+
+function transformationStateToForm(currentState) {
+  const declarations = [];
+
+  Object.keys(currentState).forEach(key => {
+    const { id, declarationType, label, position } = currentState[key];
+    declarations.push({
+      id,
+      label,
       declarationType,
       position,
     });
   });
-  return state;
+
+  return {
+    ...declarationsFormDefault,
+    declarations,
+  };
 }
 
-export default {
-  formToState,
-  stateToForm,
-  stateToModel,
-  modelToState,
+function transformationStateToModel(currentState) {
+  const declarations = [];
+
+  Object.keys(currentState).forEach(key => {
+    const { id, declarationType, label, position } = currentState[key];
+    declarations.push({
+      id,
+      text: label,
+      declarationType,
+      position,
+    });
+  });
+
+  return declarations;
+}
+
+const DeclarationTransformerFactory = (conf = {}) => {
+  const { initialState } = conf;
+
+  let currentState = initialState || {};
+
+  return {
+    formToState: form => {
+      currentState = transformationFormToState(form);
+      return currentState;
+    },
+    modelToState: model => {
+      currentState = transformationModelToState(model);
+      return currentState;
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(currentState);
+    },
+  };
 };
+
+export default DeclarationTransformerFactory;

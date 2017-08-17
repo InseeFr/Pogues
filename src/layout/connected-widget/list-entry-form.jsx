@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFormValues, actions } from 'redux-form';
+import { getFormValues, formValueSelector, actions } from 'redux-form';
 import _ from 'lodash';
 
 import ListEntryForm from './components/list-entry-form';
@@ -20,10 +20,12 @@ function updateValues(values, path, item) {
   });
 }
 
-const mapStateToProps = (state, { formName }) => {
+const mapStateToProps = (state, { formName, selectorPath, listName }) => {
   formName = formName || 'component';
+  const selector = formValueSelector(formName);
   return {
     values: getFormValues(formName)(state),
+    addedItems: selector(state, `${selectorPath}.${listName}`),
     formName,
   };
 };
@@ -42,17 +44,21 @@ class ListEntryFormContainer extends Component {
     initialize: PropTypes.func.isRequired,
     validationInput: PropTypes.func,
     values: PropTypes.object,
+    addedItems: PropTypes.array,
     submitLabel: PropTypes.string.isRequired,
     noValueLabel: PropTypes.string.isRequired,
     invalidItems: PropTypes.array,
+    showDuplicateButton: PropTypes.bool,
   };
 
   static defaultProps = {
     initialInputValues: {},
     values: {},
+    addedItems: [],
     errors: {},
     validationInput: () => true,
     invalidItems: [],
+    showDuplicateButton: true,
   };
   constructor(props) {
     super(props);
@@ -122,8 +128,8 @@ class ListEntryFormContainer extends Component {
     initialize(formName, newValues);
   }
   validate(values) {
-    const { validationInput } = this.props;
-    const errors = validationInput(values);
+    const { validationInput, addedItems } = this.props;
+    const errors = validationInput(values, addedItems);
     let isValid = true;
 
     if (errors.length > 0) {
@@ -139,7 +145,7 @@ class ListEntryFormContainer extends Component {
     return isValid;
   }
   render() {
-    const { inputView, listName, submitLabel, noValueLabel, invalidItems } = this.props;
+    const { inputView, listName, submitLabel, noValueLabel, invalidItems, showDuplicateButton } = this.props;
     return (
       <ListEntryForm
         submitLabel={submitLabel}
@@ -153,6 +159,7 @@ class ListEntryFormContainer extends Component {
         inputView={inputView}
         listName={listName}
         invalidItems={invalidItems}
+        showDuplicateButton={showDuplicateButton}
       />
     );
   }

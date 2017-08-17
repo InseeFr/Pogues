@@ -6,6 +6,7 @@ import ResponseFormat from 'questionnaire/components/response-format/response-fo
 import Declaration from 'questionnaire/components/declarations/declarations';
 import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
+import CalculatedVariables from 'questionnaire/components/calculated-variables/calculated-variables';
 
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
@@ -73,6 +74,11 @@ export class QuestionNewEdit extends Component {
     ];
 
     if (type === QUESTION) {
+      panels.unshift({
+        id: 'calculated-variables',
+        label: Dictionary.calculatedVariables,
+        content: <CalculatedVariables />,
+      });
       panels.unshift({
         id: 'response-format',
         label: Dictionary.responsesEdition,

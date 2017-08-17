@@ -1,7 +1,5 @@
-import _ from 'lodash';
-
 import { DATATYPE_NAME } from 'constants/pogues-constants';
-import Response, { defaultResponseModel } from './response';
+import Response from './response';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
@@ -30,43 +28,18 @@ export const defaultSimpleState = {
   },
 };
 
-export const defaultSimpleModel = {
-  responses: [
-    {
-      ...defaultResponseModel,
-    },
-  ],
-};
-
-function formToState(form) {
+function transformationFormToState(form) {
   const { type, mandatory, [type]: simpleForm } = form;
+
   return {
     type,
     mandatory,
-    [type]: simpleForm,
+    [type]: { ...simpleForm },
   };
 }
 
-function stateToForm(state) {
-  return {
-    ..._.cloneDeep(defaultSimpleForm),
-    ...state,
-  };
-}
-
-function stateToModel(state) {
-  const { mandatory, type, [type]: simpleState } = state;
-  const responses = [];
-  responses.push(Response.stateToModel({ mandatory, type, datatype: simpleState }));
-
-  return {
-    responses,
-  };
-}
-
-function modelToState(model) {
-  // @TODO: This logic should be moved to the Response trn
-  const { responses: [{ datatype: { typeName, type, ...data }, mandatory }] } = model;
+function transformationModelToState(model) {
+  const { typeName, type, mandatory, ...data } = model;
   const responseFormatSimpleData = {
     type: typeName,
     mandatory,
@@ -79,9 +52,51 @@ function modelToState(model) {
   };
 }
 
-export default {
-  formToState,
-  stateToForm,
-  modelToState,
-  stateToModel,
+function transformationStateToForm(currentState) {
+  const { mandatory, type, [type]: simpleState } = currentState;
+
+  return {
+    ...defaultSimpleForm,
+    mandatory,
+    type,
+    [type]: {
+      ...simpleState,
+    },
+  };
+}
+
+function transformationStateToModel(currentState) {
+  const { mandatory, type, [type]: simpleState } = currentState;
+  const responses = [];
+  responses.push(Response.stateToModel({ mandatory, type, datatype: simpleState }));
+
+  return {
+    responses,
+  };
+}
+
+const SimpleTransformerFactory = (conf = {}) => {
+  const { initialState } = conf;
+
+  let currentState = initialState || defaultSimpleState;
+
+  return {
+    formToState: form => {
+      currentState = transformationFormToState(form);
+      return currentState;
+    },
+    modelToState: responses => {
+      const { responses: [{ datatype, mandatory }] } = responses;
+      currentState = transformationModelToState({ ...datatype, mandatory });
+      return currentState;
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(currentState);
+    },
+  };
 };
+
+export default SimpleTransformerFactory;

@@ -1,7 +1,6 @@
 import activeComponentsById from 'reducers/app-state/active-components-by-id';
 import activeCodeListsById from 'reducers/app-state/active-code-lists-by-id';
-import activeCodesById from 'reducers/app-state/active-codes-by-id';
-import activeDeclarationsById from 'reducers/app-state/active-declarations-by-id';
+import activeCalculatedVariablesById from 'reducers/app-state/active-calculated-variables-by-id';
 import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
@@ -11,6 +10,9 @@ const defaultState = {
   user: {},
   activeQuestionnaire: {},
   activeComponentsById: {},
+  activeCodeListsById: {},
+  activeCodesById: {},
+  activeCalculatedVariablesById: {},
   errorsByComponent: {},
   selectedComponentId: '',
 };
@@ -62,7 +64,6 @@ export default function(state = defaultState, action) {
     ...(hndlr ? hndlr(state, payload) : state),
     activeComponentsById: activeComponentsById(state.activeComponentsById, action),
     activeCodeListsById: activeCodeListsById(state.activeCodeListsById, action),
-    activeCodesById: activeCodesById(state.activeCodesById, action),
-    activeDeclarationsById: activeDeclarationsById(state.activeDeclarationsById, action),
+    activeCalculatedVariablesById: activeCalculatedVariablesById(state.activeCalculatedVariablesById, action),
   };
 }

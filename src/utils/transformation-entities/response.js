@@ -12,7 +12,6 @@ function stateToModel(state) {
   const { mandatory, codeListReference, type, datatype = {} } = state;
   const model = {
     mandatory: mandatory || false,
-    codeListReference: codeListReference || '',
     datatype: {
       ...datatype,
       typeName: type,
@@ -20,10 +19,9 @@ function stateToModel(state) {
     },
   };
 
-  return {
-    ...defaultResponseModel,
-    ...model,
-  };
+  if (codeListReference) model.codeListReference = codeListReference;
+
+  return model;
 }
 
 export default {

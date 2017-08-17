@@ -79,10 +79,12 @@ class ListEntryForm extends Component {
     noValueLabel: PropTypes.string.isRequired,
     errors: PropTypes.array,
     invalidItems: PropTypes.array,
+    showDuplicateButton: PropTypes.bool,
   };
   static defaultProps = {
     errors: [],
     invalidItems: [],
+    showDuplicateButton: true,
   };
   constructor(props) {
     super(props);
@@ -110,6 +112,7 @@ class ListEntryForm extends Component {
       submitLabel,
       noValueLabel,
       invalidItems,
+      showDuplicateButton,
     } = this.props;
     const styleErrors = {
       display: errors.length > 0 ? 'block' : 'none',
@@ -158,21 +161,22 @@ class ListEntryForm extends Component {
                   {Dictionary.remove}
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  disabled={this.state.currentItemIndex === ''}
-                  onClick={event => {
-                    event.preventDefault();
-                    this.setCurrentItemIndex();
-                    duplicate();
-                  }}
-                >
-                  <span className="glyphicon glyphicon-file" aria-hidden="true" />
-                  {Dictionary.duplicate}
-                </button>
-              </li>
+              {showDuplicateButton &&
+                <li>
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    disabled={this.state.currentItemIndex === ''}
+                    onClick={event => {
+                      event.preventDefault();
+                      this.setCurrentItemIndex();
+                      duplicate();
+                    }}
+                  >
+                    <span className="glyphicon glyphicon-file" aria-hidden="true" />
+                    {Dictionary.duplicate}
+                  </button>
+                </li>}
               <li>
                 <button
                   type="button"

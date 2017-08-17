@@ -1,10 +1,16 @@
-import { CODES_LIST_INPUT_ENUM, DATATYPE_NAME, DATATYPE_VIS_HINT } from 'constants/pogues-constants';
-import CodesList, { defaultCodesListForm } from './codes-list';
+import {
+  CODES_LIST_INPUT_ENUM,
+  DATATYPE_NAME,
+  DATATYPE_VIS_HINT,
+  QUESTION_TYPE_ENUM,
+} from 'constants/pogues-constants';
+import CodesListTransformerFactory, { defaultCodesListForm } from './codes-list';
 import Response from './response';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 const { TEXT } = DATATYPE_NAME;
+const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export const defaultSingleForm = {
   mandatory: false,
@@ -17,114 +23,90 @@ export const defaultSingleForm = {
 };
 
 export const defaultSingleState = {
-  mandatory: undefined,
+  mandatory: false,
   visHint: CHECKBOX,
   codesListId: '',
-  type: NEW,
 };
 
-export const defaultSingleModel = {
-  responses: [],
-};
-
-export const defaultSingleResponseModel = {
-  maxLength: 1,
-  pattern: '',
-};
-
-function formToState(form) {
+function transformationFormToState(form, codesListsTransformers) {
   const { mandatory, visHint, type, [type]: codesListForm } = form;
-  const codesListState = CodesList.formToState(codesListForm);
-  const state = {
-    mandatory,
-    visHint,
-    type,
-  };
-
-  if (codesListState.codesList.label !== '') {
-    state.codesListId = codesListState.codesList.id;
-    state[type] = codesListState;
-  }
+  const codesListState = codesListsTransformers[SINGLE_CHOICE].formToState(codesListForm);
 
   return {
-    ...defaultSingleState,
-    ...state,
+    mandatory,
+    visHint,
+    codesListId: codesListState.id,
   };
 }
 
-function stateToForm(state, activeCodeLists, activeCodes) {
-  const { codesListId, visHint, mandatory } = state;
-  const codesList = activeCodeLists[codesListId];
-  const form = {
+function transformationModelToState(model) {
+  const { visHint, mandatory, codesListId } = model;
+
+  return {
+    codesListId,
     mandatory,
     visHint,
   };
+}
 
-  if (codesList) {
-    form.codesListId = codesListId;
-    const codes = codesList.codes;
+function transformationStateToForm(currentState, codesListsStore, codesListsTransformers) {
+  const { codesListId, visHint, mandatory } = currentState;
+  const codesListTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
 
-    // @TODO: This could change
-    form[NEW] = {
-      codesList: {
-        id: codesList.id,
-        label: codesList.label,
-      },
-      codes: codes.map(key => {
-        return {
-          id: key,
-          code: activeCodes[key].code,
-          label: activeCodes[key].label,
-        };
-      }),
-    };
-  }
+  codesListsTransformers[SINGLE_CHOICE] = codesListTransformer;
 
   return {
     ...defaultSingleForm,
-    ...form,
+    mandatory,
+    visHint,
+    codesListId,
+    [NEW]: codesListTransformer.stateToForm(),
   };
 }
 
-function stateToModel(state) {
-  const { mandatory, visHint, codesListId } = state;
+function transformationStateToModel(currentState) {
+  const { mandatory, visHint, codesListId } = currentState;
   const responses = [];
   responses.push(
     Response.stateToModel({
       mandatory,
       codeListReference: codesListId,
       type: TEXT,
-      datatype: { ...defaultSingleResponseModel, visHint },
+      datatype: {
+        maxLength: 1,
+        pattern: '',
+        visHint,
+      },
     })
   );
 
   return {
-    ...defaultSingleModel,
-    ...{
-      responses,
-    },
+    responses,
   };
 }
 
-function modelToState(model) {
-  // @TODO: This logic should be moved to the Response transformer
-  const { responses: [{ datatype: { visHint }, mandatory, codeListReference: codesListId }] } = model;
+const SingleTransformerFactory = (conf = {}) => {
+  const { initialState, codesListsStore, codesListsTransformers } = conf;
 
-  const responseFormatSingleData = {
-    codesListId,
-    mandatory,
-    visHint,
-  };
+  let currentState = initialState || defaultSingleState;
 
   return {
-    ...defaultSingleState,
-    ...responseFormatSingleData,
+    formToState: form => {
+      currentState = transformationFormToState(form, codesListsTransformers);
+      return currentState;
+    },
+    modelToState: model => {
+      const { responses: [{ datatype: { visHint }, mandatory, codeListReference: codesListId }] } = model;
+      currentState = transformationModelToState({ visHint, mandatory, codesListId });
+      return currentState;
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState, codesListsStore, codesListsTransformers);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(currentState);
+    },
   };
-}
-
-export default {
-  modelToState,
-  stateToModel,
-  stateToForm,
-  formToState,
 };
+
+export default SingleTransformerFactory;

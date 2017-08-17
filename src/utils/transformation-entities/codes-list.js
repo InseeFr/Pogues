@@ -1,85 +1,139 @@
 import { uuid } from 'utils/data-utils';
 import { nameFromLabel } from 'utils/name-utils';
-import Code from './code';
-
-export const defaultCodesListState = {
-  id: undefined,
-  name: undefined,
-  label: undefined,
-  codes: [],
-};
 
 export const defaultCodesListForm = {
-  codesList: {
-    id: '',
-    label: '',
-  },
-  codes: [],
-};
-
-export const defaultCodesListModel = {
-  id: '',
   label: '',
   name: '',
   codes: [],
 };
 
-function modelToState(model) {
-  const { id, name, label, codes } = model;
+function transformationFormToState(form, currentState) {
+  const { id } = currentState;
+  const { name, label, codes } = form;
 
-  const codeListData = {
-    id,
-    name,
+  const state = {
+    id: id || uuid(),
     label,
-    codes: Object.keys(codes),
+    name: name || nameFromLabel(label),
+    codes: [],
   };
 
-  return {
-    ...defaultCodesListState,
-    ...codeListData,
-  };
-}
+  state.codes = codes.reduce((acc, c) => {
+    const { label: labelCode, value, code } = c;
+    const idCode = c.id || uuid();
 
-function formToState(form) {
-  const { codesList: { id, label }, codes } = form;
-  let codesListState = {};
-
-  if (id || label !== '') {
-    codesListState = {
-      codesList: {
-        id: id !== '' ? id : uuid(),
-        label,
-        name: nameFromLabel(label),
+    return {
+      ...acc,
+      [idCode]: {
+        id: idCode,
+        label: labelCode,
+        value,
+        code,
       },
-      codes: codes.map(codeForm => {
-        return Code.formToState(codeForm);
-      }),
     };
-  }
+  }, {});
 
-  return {
-    ...defaultCodesListForm,
-    ...codesListState,
-  };
+  return state;
 }
 
-function stateToModel(state, codes) {
-  const { id, label, name } = state;
-  const codesListModel = {
-    id,
+function transformationModelToStore(model = []) {
+  return model.reduce((acc, codesList) => {
+    const { label, name, codes } = codesList;
+    const id = codesList.id || uuid();
+    return {
+      ...acc,
+      [id]: {
+        id,
+        label,
+        name,
+        codes: codes.reduce((accCodes, c) => {
+          const { label: labelCode, value, code } = c;
+          const idCode = c.id || uuid();
+          return {
+            ...accCodes,
+            [idCode]: {
+              id: idCode,
+              label: labelCode,
+              code,
+              value,
+            },
+          };
+        }, {}),
+      },
+    };
+  }, {});
+}
+
+function transformationStateToForm(state) {
+  const { label, name, codes } = state;
+
+  return {
     label,
     name,
-    codes,
-  };
-
-  return {
-    ...defaultCodesListModel,
-    ...codesListModel,
+    codes: Object.keys(codes).reduce((acc, key) => {
+      const { label: labelCode, value, code } = codes[key];
+      return [
+        ...acc,
+        {
+          label: labelCode,
+          value,
+          code,
+        },
+      ];
+    }, []),
   };
 }
 
-export default {
-  modelToState,
-  formToState,
-  stateToModel,
+function transformationStoreToModel(currentStore = {}) {
+  const codesLists = [];
+
+  Object.keys(currentStore).forEach(key => {
+    const { id, label, name, codes } = currentStore[key];
+    codesLists.push({
+      id,
+      label,
+      name,
+      codes: Object.keys(codes).reduce((acc, keyCode) => {
+        const { id: idCode, label: labelCode, value, code } = codes[keyCode];
+        return [
+          ...acc,
+          {
+            id: idCode,
+            label: labelCode,
+            value,
+            code,
+          },
+        ];
+      }, []),
+    });
+  });
+
+  return codesLists;
+}
+
+const CodesListTransformerFactory = (conf = {}) => {
+  const { initialState } = conf;
+
+  let currentState = initialState || defaultCodesListForm;
+
+  return {
+    formToState: form => {
+      currentState = transformationFormToState(form, currentState);
+      return currentState;
+    },
+    modelToStore: model => {
+      return transformationModelToStore(model);
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState);
+    },
+    storeToModel: store => {
+      return transformationStoreToModel(store);
+    },
+    getState: () => {
+      return currentState;
+    },
+  };
 };
+
+export default CodesListTransformerFactory;
