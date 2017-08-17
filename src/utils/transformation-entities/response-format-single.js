@@ -1,4 +1,5 @@
 import {
+  UI_BEHAVIOUR,
   CODES_LIST_INPUT_ENUM,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
@@ -14,6 +15,11 @@ const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export const defaultSingleForm = {
   mandatory: false,
+  hasSpecialCode: false,
+  specialLabel: '',
+  specialCode: '',
+  specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
+  specialFollowUpMessage: '',
   visHint: CHECKBOX,
   codesListId: '',
   type: NEW,
@@ -24,33 +30,70 @@ export const defaultSingleForm = {
 
 export const defaultSingleState = {
   mandatory: false,
+  hasSpecialCode: false,
+  specialLabel: '',
+  specialCode: '',
+  specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
+  specialFollowUpMessage: '',
   visHint: CHECKBOX,
   codesListId: '',
 };
 
 function transformationFormToState(form, codesListsTransformers) {
-  const { mandatory, visHint, type, [type]: codesListForm } = form;
+  const {
+    mandatory,
+    visHint,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
+    type,
+    [type]: codesListForm,
+  } = form;
   const codesListState = codesListsTransformers[SINGLE_CHOICE].formToState(codesListForm);
 
   return {
     mandatory,
     visHint,
+    hasSpecialCode,
+    specialLabel: hasSpecialCode ? specialLabel : '',
+    specialCode: hasSpecialCode ? specialCode : '',
+    specialUiBehaviour: hasSpecialCode ? specialUiBehaviour : UI_BEHAVIOUR.FIRST_INTENTION,
+    specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
     codesListId: codesListState.id,
   };
 }
 
 function transformationModelToState(model) {
-  const { visHint, mandatory, codesListId } = model;
+  const { visHint, mandatory, nonResponseModality, codesListId } = model;
 
   return {
     codesListId,
     mandatory,
     visHint,
+    hasSpecialCode: !!nonResponseModality,
+    specialLabel: nonResponseModality ? nonResponseModality.label : '',
+    specialCode: nonResponseModality ? nonResponseModality.value : '',
+    specialUiBehaviour:
+      nonResponseModality && !nonResponseModality.firstIntentionDisplay
+        ? UI_BEHAVIOUR.SECOND_INTENTION
+        : UI_BEHAVIOUR.FIRST_INTENTION,
+    specialFollowUpMessage: nonResponseModality ? nonResponseModality.invite : '',
   };
 }
 
 function transformationStateToForm(currentState, codesListsStore, codesListsTransformers) {
-  const { codesListId, visHint, mandatory } = currentState;
+  const {
+    codesListId,
+    visHint,
+    mandatory,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
+  } = currentState;
   const codesListTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
 
   codesListsTransformers[SINGLE_CHOICE] = codesListTransformer;
@@ -60,25 +103,48 @@ function transformationStateToForm(currentState, codesListsStore, codesListsTran
     mandatory,
     visHint,
     codesListId,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
     [NEW]: codesListTransformer.stateToForm(),
   };
 }
 
 function transformationStateToModel(currentState) {
-  const { mandatory, visHint, codesListId } = currentState;
+  const {
+    mandatory,
+    visHint,
+    codesListId,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
+  } = currentState;
   const responses = [];
-  responses.push(
-    Response.stateToModel({
-      mandatory,
-      codeListReference: codesListId,
-      type: TEXT,
-      datatype: {
-        maxLength: 1,
-        pattern: '',
-        visHint,
-      },
-    })
-  );
+  const model = {
+    mandatory,
+    codeListReference: codesListId,
+    type: TEXT,
+    datatype: {
+      maxLength: 1,
+      pattern: '',
+      visHint,
+    },
+  };
+
+  if (hasSpecialCode) {
+    model.nonResponseModality = {
+      value: specialCode,
+      label: specialLabel,
+      firstIntentionDisplay: specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
+      invite: specialFollowUpMessage,
+    };
+  }
+
+  responses.push(Response.stateToModel(model));
 
   return {
     responses,
@@ -96,8 +162,10 @@ const SingleTransformerFactory = (conf = {}) => {
       return currentState;
     },
     modelToState: model => {
-      const { responses: [{ datatype: { visHint }, mandatory, codeListReference: codesListId }] } = model;
-      currentState = transformationModelToState({ visHint, mandatory, codesListId });
+      const {
+        responses: [{ datatype: { visHint }, mandatory, nonResponseModality, codeListReference: codesListId }],
+      } = model;
+      currentState = transformationModelToState({ visHint, mandatory, nonResponseModality, codesListId });
       return currentState;
     },
     stateToForm: () => {

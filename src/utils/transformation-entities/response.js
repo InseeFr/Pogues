@@ -9,9 +9,11 @@ export const defaultResponseModel = {
 };
 
 function stateToModel(state) {
-  const { mandatory, codeListReference, type, datatype = {} } = state;
+  const { mandatory, codeListReference, type, nonResponseModality, datatype = {} } = state;
   const model = {
     mandatory: mandatory || false,
+    nonResponseModality,
+    codeListReference: codeListReference || '',
     datatype: {
       ...datatype,
       typeName: type,
