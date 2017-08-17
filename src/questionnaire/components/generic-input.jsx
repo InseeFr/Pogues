@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-
+import { visualisationUrl } from '/utils/remote-api';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import ComponentNewContainer from 'questionnaire/containers/component/component-new';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -13,6 +13,7 @@ class GenericInput extends Component {
     placeholders: PropTypes.object.isRequired,
     saveActiveQuestionnaire: PropTypes.func.isRequired,
     isQuestionnaireValid: PropTypes.bool.isRequired,
+    idQuestionnaire: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -46,7 +47,7 @@ class GenericInput extends Component {
   }
 
   render() {
-    const { placeholders, isQuestionnaireValid } = this.props;
+    const { placeholders, isQuestionnaireValid, idQuestionnaire } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
     const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
@@ -97,10 +98,10 @@ class GenericInput extends Component {
           {Dictionary.save}
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
-        <button className="btn-yellow" disabled={!isQuestionnaireValid}>
+        <a rel="noopener noreferrer" target="_blank" className="btn-yellow" href={visualisationUrl + idQuestionnaire}>
           {Dictionary.visualise}
           <span className="glyphicon glyphicon-eye-open" />
-        </button>
+        </a>
         <button className="btn-yellow">
           {Dictionary.publishQuestionnaire}
           <span className="glyphicon glyphicon-share-alt" />
