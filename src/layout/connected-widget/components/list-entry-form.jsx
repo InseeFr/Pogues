@@ -82,10 +82,12 @@ class ListEntryForm extends Component {
     errors: PropTypes.array,
     invalidItems: PropTypes.array,
     rerenderOnEveryChange: PropTypes.bool.isRequired,
+    showDuplicateButton: PropTypes.bool,
   };
   static defaultProps = {
     errors: [],
     invalidItems: [],
+    showDuplicateButton: true,
   };
   constructor(props) {
     super(props);
@@ -114,6 +116,7 @@ class ListEntryForm extends Component {
       noValueLabel,
       invalidItems,
       rerenderOnEveryChange,
+      showDuplicateButton,
     } = this.props;
 
     const styleErrors = {
@@ -164,21 +167,22 @@ class ListEntryForm extends Component {
                   {Dictionary.remove}
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  disabled={this.state.currentItemIndex === ''}
-                  onClick={event => {
-                    event.preventDefault();
-                    this.setCurrentItemIndex();
-                    duplicate();
-                  }}
-                >
-                  <span className="glyphicon glyphicon-file" aria-hidden="true" />
-                  {Dictionary.duplicate}
-                </button>
-              </li>
+              {showDuplicateButton &&
+                <li>
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    disabled={this.state.currentItemIndex === ''}
+                    onClick={event => {
+                      event.preventDefault();
+                      this.setCurrentItemIndex();
+                      duplicate();
+                    }}
+                  >
+                    <span className="glyphicon glyphicon-file" aria-hidden="true" />
+                    {Dictionary.duplicate}
+                  </button>
+                </li>}
               <li>
                 <button
                   type="button"

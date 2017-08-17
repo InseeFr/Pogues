@@ -1,171 +1,57 @@
 jest.dontMock('./questionnaire.js');
 
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
-import Questionnaire, {
-  defaultQuestionnaireForm,
-  defaultQuestionnaireState,
-  defaultQuestionnaireModel,
-} from './questionnaire';
-
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
+import {
+  fakeOwnerId,
+  fakeQuestionnaireId,
+  questionnaireForm,
+  questionnaireStore,
+  questionnaireModel,
+} from './__mocks__/questionnaire';
+import { componentsStore } from './__mocks__/component';
+import { codesListsStore } from './__mocks__/codes-list';
+import { conditionsStore } from './__mocks__/condition';
+import { calculatedVariablesStore } from './__mocks__/calculated-variable';
+import { externalVariablesStore } from './__mocks__/external-variable';
+import QuestionnaireTransformerFactory from './questionnaire';
 
 describe('Transformation entities - Questionnaire', () => {
-  // Form
+  test('Should produce expected STATE in questionnaire creation from creation FORM', () => {
+    const questionnaireTransformer = QuestionnaireTransformerFactory({
+      owner: fakeOwnerId,
+      initialState: questionnaireStore[fakeQuestionnaireId],
+    });
 
-  // @TODO
-  // const questionnaireForm = {
-  //   label: 'This is a questionnaire',
-  // };
+    // The id creation is random in questionnaire creation, so it's not take it into account for testing.
+    const { id: stateId, ...state } = questionnaireTransformer.formToState(questionnaireForm);
+    const { [fakeQuestionnaireId]: { id: expectedStateId, ...expectedState } } = questionnaireStore;
 
-  // State
-
-  const questionnaireState = {
-    id: 'jx564532',
-    owner: 'THISISOWNER',
-    name: 'THISISAQUE',
-    label: 'This is a questionnaire',
-    components: [],
-    codeLists: [],
-    conditions: [],
-    declarations: [],
-    controls: [],
-    redirections: [],
-    agency: 'fr.insee',
-    survey: {
-      agency: 'fr.insee',
-      name: 'POPO',
-      id: '',
-    },
-    componentGroups: [
-      {
-        name: 'PAGE_1',
-        label: 'Components for page 1',
-        Member: [],
-        id: '',
-      },
-    ],
-  };
-
-  const questionnaireComponentState = {
-    id: 'jx564532',
-    type: QUESTIONNAIRE,
-    parent: '',
-    weight: 0,
-    name: 'THISISAQUE',
-    label: 'This is a questionnaire',
-    rawLabel: undefined,
-    responseFormat: undefined,
-    children: [],
-    declarations: undefined,
-    controls: undefined,
-    redirections: undefined,
-  };
-
-  const components = {
-    jx564532: questionnaireComponentState,
-  };
-
-  // Model
-
-  const questionnaireModel = {
-    id: 'jx564532',
-    owner: 'THISISOWNER',
-    type: SEQUENCE_TYPE_NAME,
-    name: 'THISISAQUE',
-    label: ['This is a questionnaire'],
-    genericName: 'QUESTIONNAIRE',
-    depth: 0,
-    questionType: '',
-    children: [],
-    responses: [],
-    responseStructure: {
-      dimensions: {},
-    },
-    declarations: [],
-    redirections: [],
-    controls: [],
-    codeLists: {
-      codeList: [],
-      codeListSpecification: [],
-    },
-    agency: 'fr.insee',
-    survey: {
-      agency: 'fr.insee',
-      name: 'POPO',
-      id: '',
-    },
-    componentGroups: [
-      {
-        name: 'PAGE_1',
-        label: 'Components for page 1',
-        Member: [],
-        id: '',
-      },
-    ],
-  };
-
-  test('Default form shape should be the expected', () => {
-    const expectedForm = {
-      label: '',
-      name: '',
-    };
-    expect(defaultQuestionnaireForm).toEqual(expectedForm);
+    expect(state).toEqual(expectedState);
   });
 
-  test('Default state shape should be the expected', () => {
-    const expectedState = {
-      id: undefined,
-      name: undefined,
-      label: undefined,
-      agency: undefined,
-      survey: undefined,
-      components: [],
-      codeLists: [],
-      conditions: [],
-      declarations: [],
-      controls: [],
-      redirections: [],
-      owner: undefined,
-    };
-    expect(defaultQuestionnaireState).toEqual(expectedState);
+  test('Should produce expected STATE from questionnaire MODEL', () => {
+    const questionnaireTransformer = QuestionnaireTransformerFactory();
+    expect(questionnaireTransformer.modelToStore(questionnaireModel)).toEqual(questionnaireStore);
   });
 
-  test('Default model shape should be the expected', () => {
-    const expectedModel = {
-      id: '',
-      name: '',
-      label: [],
-      declarations: [],
-      controls: [],
-      redirections: [],
-      genericName: QUESTIONNAIRE,
-      children: [],
-      depth: 0,
-      owner: '',
-      type: SEQUENCE_TYPE_NAME,
-      agency: 'fr.insee',
-      survey: {
-        agency: 'fr.insee',
-        name: 'POPO',
-        id: '',
-      },
-      componentGroups: [
-        {
-          name: 'PAGE_1',
-          label: 'Components for page 1',
-          Member: [],
-          id: '',
-        },
-      ],
-      codeLists: {
-        codeList: [],
-        codeListSpecification: [],
-      },
-    };
-    expect(defaultQuestionnaireModel).toEqual(expectedModel);
+  test('Should produce expected FORM from questionnaire STATE', () => {
+    const questionnaireTransformer = QuestionnaireTransformerFactory({
+      owner: fakeOwnerId,
+      initialState: questionnaireStore[fakeQuestionnaireId],
+    });
+    expect(questionnaireTransformer.stateToForm()).toEqual(questionnaireForm);
   });
 
-  test('State to Model', () => {
-    expect(Questionnaire.stateToModel(questionnaireState, components, {}, [])).toEqual(questionnaireModel);
+  test('Should produce expected MODEL from questionnaire STATE', () => {
+    const questionnaireTransformer = QuestionnaireTransformerFactory({
+      owner: fakeOwnerId,
+      initialState: questionnaireStore[fakeQuestionnaireId],
+      componentsStore,
+      codesListsStore,
+      conditionsStore,
+      calculatedVariablesStore,
+      externalVariablesStore,
+    });
+
+    expect(questionnaireTransformer.stateToModel()).toEqual(questionnaireModel);
   });
 });

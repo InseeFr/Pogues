@@ -5,14 +5,15 @@ import { connect } from 'react-redux';
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
 import { setSelectedComponentId } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
+import ComponentTransformerFactory from 'utils/transformation-entities/component';
+import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { defaultResponseFormatForm } from 'utils/transformation-entities/response-format';
-import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
-import { defaultControlForm } from 'utils/transformation-entities/control';
-import { defaultRedirectionForm } from 'utils/transformation-entities/redirection';
-import { defaultComponentForm } from 'utils/transformation-entities/component';
 
 const { QUESTION } = COMPONENT_TYPE;
+
+const mapStateToProps = state => ({
+  calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
+});
 
 const mapDispatchToProps = {
   createComponent,
@@ -31,31 +32,35 @@ function ComponentNewContainer({
   type,
   onSuccess,
   onCancel,
+  calculatedVariablesStore,
 }) {
+  const componentTransformer = ComponentTransformerFactory({ calculatedVariablesStore });
+  const initialValues = componentTransformer.stateToForm({ type });
+
   const submit = values => {
-    createComponent(values, parentId, weight, type).then(updateParentChildren).then(orderComponents).then(result => {
-      const { payload: { id } } = result;
-      setSelectedComponentId(id);
-      if (onSuccess) onSuccess(id);
-    });
+    let updatedCalculatedVariablesStore = {};
+    let updatedCodesListsStore = {};
+    const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
+
+    if (type === QUESTION) {
+      updatedCodesListsStore = componentTransformer.stateToCodesLists();
+      updatedCalculatedVariablesStore = CalculatedVariableTransformerFactory().formToStore(values.calculatedVariables);
+    }
+
+    createComponent(componentState, updatedCalculatedVariablesStore, updatedCodesListsStore)
+      .then(updateParentChildren)
+      .then(orderComponents)
+      .then(result => {
+        const { payload: { id } } = result;
+        setSelectedComponentId(id);
+        if (onSuccess) onSuccess(id);
+      });
   };
-  let initialValues = { ...defaultComponentForm };
 
   const props = {
     onSubmit: submit,
     onCancel: onCancel,
   };
-
-  initialValues = {
-    ...initialValues,
-    declarations: { ...defaultDeclarationForm },
-    controls: { ...defaultControlForm },
-    redirections: { ...defaultRedirectionForm },
-  };
-
-  if (type === QUESTION) {
-    initialValues.responseFormat = defaultResponseFormatForm;
-  }
 
   return <ComponentNewEdit type={type} initialValues={initialValues} {...props} />;
 }
@@ -68,11 +73,13 @@ ComponentNewContainer.propTypes = {
   parentId: PropTypes.string.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
+  calculatedVariablesStore: PropTypes.object,
 };
 
 ComponentNewContainer.defaultProps = {
   onSuccess: undefined,
   onCancel: undefined,
+  calculatedVariablesStore: {},
 };
 
-export default connect(undefined, mapDispatchToProps)(ComponentNewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ComponentNewContainer);

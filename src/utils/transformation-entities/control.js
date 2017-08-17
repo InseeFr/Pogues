@@ -1,6 +1,6 @@
-import _ from 'lodash';
+import { uuid } from 'utils/data-utils';
 
-export const defaultControlForm = {
+export const controlsFormDefault = {
   label: '',
   condition: '',
   message: '',
@@ -10,52 +10,125 @@ export const defaultControlForm = {
   controls: [],
 };
 
-export const defaultControlState = [];
-
-export const defaultControlModel = {
-  controls: [],
-};
-
-function formToState(form) {
+function transformationFormToState(form) {
   const { controls } = form;
-  return _.cloneDeep(controls);
-}
 
-function stateToForm(state) {
-  return {
-    ...defaultControlForm,
-    controls: _.cloneDeep(state),
-  };
-}
+  return controls.reduce((acc, control) => {
+    const { label, condition, message, type, during_collect, post_collect } = control;
+    const id = control.id || uuid();
 
-function stateToModel(state) {
-  return {
-    controls: state.map(c => {
-      const { label, condition, message, type, during_collect, post_collect } = c;
-      return {
+    return {
+      ...acc,
+      [id]: {
+        id,
         label,
         condition,
         message,
         type,
         during_collect,
         post_collect,
-      };
-    }),
+      },
+    };
+  }, {});
+}
+
+function transformationModelToState(model = []) {
+  return model.reduce((acc, control) => {
+    const {
+      Description: label,
+      Expression: condition,
+      FailMessage: message,
+      type,
+      during_collect,
+      post_collect,
+    } = control;
+    const id = control.id || uuid();
+    return {
+      ...acc,
+      [id]: {
+        id,
+        label,
+        condition,
+        message,
+        type,
+        during_collect,
+        post_collect,
+      },
+    };
+  }, {});
+}
+
+function transformationStateToForm(currentState) {
+  const controls = [];
+
+  Object.keys(currentState).forEach(key => {
+    const { id, label, condition, message, type, during_collect, post_collect } = currentState[key];
+    controls.push({
+      id,
+      label,
+      condition,
+      message,
+      type,
+      during_collect,
+      post_collect,
+    });
+  });
+
+  return {
+    ...controlsFormDefault,
+    controls,
   };
 }
 
-function modelToState(model) {
-  const state = [];
-  const { controls } = model;
-  controls.forEach(d => {
-    state.push(_.cloneDeep(d));
+function transformationStateToModel(currentState) {
+  const controls = [];
+
+  Object.keys(currentState).forEach(key => {
+    const {
+      id,
+      label: Description,
+      condition: Expression,
+      message: FailMessage,
+      type,
+      during_collect,
+      post_collect,
+    } = currentState[key];
+
+    controls.push({
+      id,
+      Description,
+      Expression,
+      FailMessage,
+      type,
+      during_collect,
+      post_collect,
+    });
   });
-  return state;
+
+  return controls;
 }
 
-export default {
-  formToState,
-  stateToForm,
-  stateToModel,
-  modelToState,
+const ControlTransformerFactory = (conf = {}) => {
+  const { initialState } = conf;
+
+  let currentState = initialState || {};
+
+  return {
+    formToState: form => {
+      currentState = transformationFormToState(form);
+      return currentState;
+    },
+    modelToState: model => {
+      currentState = transformationModelToState(model);
+      return currentState;
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(currentState);
+    },
+  };
 };
+
+export default ControlTransformerFactory;

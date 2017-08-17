@@ -23,6 +23,10 @@ const dictionary = {
     en: 'Id',
     fr: 'Identifiant',
   },
+  formula: {
+    en: 'Formula',
+    fr: 'Formule',
+  },
   idRMeS: {
     en: 'Id',
     fr: 'Identifiant RMéS',
@@ -46,6 +50,10 @@ const dictionary = {
   noGoToYet: {
     en: 'No goTo yet',
     fr: 'Aucune redirection définie',
+  },
+  noCalculatedVariablesYet: {
+    en: 'No calculated variable yet',
+    fr: 'Aucune variable calculé définie',
   },
   tagline: {
     en: 'Questionnaire design and test',
@@ -167,6 +175,10 @@ const dictionary = {
     en: 'Add a control',
     fr: 'Ajouter un contrôle',
   },
+  addCalculatedVariable: {
+    en: 'Add a calculated variable',
+    fr: 'Ajouter une variable calculé',
+  },
   declarations: {
     en: 'Statements',
     fr: 'Déclarations',
@@ -258,6 +270,10 @@ const dictionary = {
   goTo_label: {
     en: 'GoTo label',
     fr: 'Libellé de la redirection',
+  },
+  calculatedVariables: {
+    en: 'Calculated variables',
+    fr: 'Variables calculés',
   },
   defineGoTo: {
     en: 'Add a goto',
@@ -854,6 +870,22 @@ const dictionary = {
   validation_target: {
     fr: 'Cible obligatoire',
     en: 'Target required',
+  },
+  validation_calculatedvariable_label: {
+    fr: 'Libellé de la variable calculé obligatoire',
+    en: 'Calculated variable label required',
+  },
+  validation_calculatedvariable_name: {
+    fr: 'Nom de la variable calculé obligatoire',
+    en: 'Calculated variable name required',
+  },
+  validation_calculatedvariable_formula: {
+    fr: 'Formule de la variable calculé obligatoire',
+    en: 'Calculated variable formula required',
+  },
+  validation_calculatedvariable_existing: {
+    fr: 'Il existe une variable calculé avec le même nom',
+    en: 'It already exists a calculated variable with this name',
   },
 };
 

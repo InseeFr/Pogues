@@ -4,14 +4,19 @@ import { connect } from 'react-redux';
 
 import { updateComponent } from 'actions/component';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
-import Component from 'utils/transformation-entities/component';
+import ComponentTransformerFactory from 'utils/transformation-entities/component';
+import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
+import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION } = COMPONENT_TYPE;
 
 const mapStateToProps = (state, { componentId }) => {
   const componentErrors = state.appState.errorsByComponent[componentId];
   return {
-    component: state.appState.activeComponentsById[componentId],
-    activeCodeLists: state.appState.activeCodeListsById,
-    activeCodes: state.appState.activeCodesById,
+    activeComponentsStore: state.appState.activeComponentsById,
+    activeCodesListsStore: state.appState.activeCodeListsById,
+    activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     errors: componentErrors ? componentErrors.errors : [],
   };
 };
@@ -22,21 +27,33 @@ const mapDispatchToProps = {
 
 function ComponentEditContainer({
   updateComponent,
-  component,
-  activeCodeLists,
-  activeCodes,
+  componentId,
+  activeComponentsStore,
+  activeCodesListsStore,
+  activeCalculatedVariablesStore,
   onSuccess,
   onCancel,
   errors,
 }) {
-  const { id, parent, weight, type, children } = component;
+  const componentType = activeComponentsStore[componentId].type;
+  const componentTransformer = ComponentTransformerFactory({
+    initialStore: activeComponentsStore,
+    codesListsStore: activeCodesListsStore,
+    calculatedVariablesStore: activeCalculatedVariablesStore,
+  });
+  const initialValues = componentTransformer.stateToForm({ id: componentId });
   const submit = values => {
-    updateComponent(values, id, parent, weight, type, children);
-    if (onSuccess) onSuccess();
-  };
+    let updatedCalculatedVariablesStore = {};
+    let updatedCodesListsStore = {};
+    const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
 
-  const initialValues = {
-    initialValues: Component.stateToForm(component, activeCodeLists, activeCodes),
+    if (componentType === QUESTION) {
+      updatedCodesListsStore = componentTransformer.stateToCodesLists();
+      updatedCalculatedVariablesStore = CalculatedVariableTransformerFactory().formToStore(values.calculatedVariables);
+    }
+
+    updateComponent(componentId, updatedComponentsStore, updatedCalculatedVariablesStore, updatedCodesListsStore);
+    if (onSuccess) onSuccess();
   };
 
   const props = {
@@ -46,14 +63,15 @@ function ComponentEditContainer({
     errors,
   };
 
-  return <ComponentNewEdit type={component.type} {...initialValues} {...props} />;
+  return <ComponentNewEdit type={componentType} initialValues={initialValues} {...props} />;
 }
 
 ComponentEditContainer.propTypes = {
   updateComponent: PropTypes.func.isRequired,
-  component: PropTypes.object.isRequired,
-  activeCodeLists: PropTypes.object.isRequired,
-  activeCodes: PropTypes.object.isRequired,
+  componentId: PropTypes.string.isRequired,
+  activeComponentsStore: PropTypes.object.isRequired,
+  activeCodesListsStore: PropTypes.object.isRequired,
+  activeCalculatedVariablesStore: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
   errors: PropTypes.array,
