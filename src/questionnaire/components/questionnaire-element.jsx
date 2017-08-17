@@ -71,6 +71,7 @@ class QuestionnaireElement extends Component {
       id,
       type,
       label,
+      htmlLabel,
       selected,
       children,
       weight,
@@ -135,7 +136,7 @@ class QuestionnaireElement extends Component {
               <div className="questionnaire-element-body">
                 <div>
                   <div className="questionnaire-element-label">
-                    {type === QUESTION ? <span dangerouslySetInnerHTML={markdownToHtml(label)} /> : label}
+                    {type === QUESTION ? <span dangerouslySetInnerHTML={htmlLabel} /> : label}
                   </div>
                   {selected
                     ? <div className="questionnaire-element-actions">

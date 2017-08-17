@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
-import RichTextEditor from 'react-rte';
-import { CompositeDecorator, Entity, RichUtils, EditorState } from "draft-js"
-import {ENTITY_TYPE} from 'draft-js-utils';
+import RichTextEditor from 'gillespie59-react-rte';
+import { CompositeDecorator, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
-const FORMAT = 'markdown';
+const MARKDOWN = 'markdown';
+const RAW = 'raw';
 
- function Link(props) {
-  const {url, title} = props.contentState.getEntity(props.entityKey).getData();
+function Link(props) {
+  const { url, title } = props.contentState.getEntity(props.entityKey).getData();
   return (
-    <a href={url} title={title}>{props.children}</a>
+    <a href={url} title={title}>
+      {props.children}
+    </a>
   );
 }
 
 function findLinkEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges((character) => {
+  contentBlock.findEntityRanges(character => {
     const entityKey = character.getEntity();
     if (entityKey != null) {
-      let entity = contentState ? contentState.getEntity(entityKey) : null;
-      return entity != null && entity.getType() === ENTITY_TYPE.LINK;
+      const entity = contentState ? contentState.getEntity(entityKey) : null;
+      return entity != null && entity.getType() === 'LINK';
     }
     return false;
   }, callback);
@@ -33,13 +35,36 @@ const customLinkDecorator = {
 
 const decorators = new CompositeDecorator([customLinkDecorator]);
 
-export function markdownToHtml(markdown){
-  return {__html:RichTextEditor.EditorValue.createFromString(markdown, FORMAT, decorators).toString('html')};
+export function markdownToHtml(markdown) {
+  return { __html: RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators).toString('html') };
+}
+
+export function markdownToEditorValue(markdown) {
+  return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+}
+
+export function editorValueToMarkdown(value) {
+  return value.toString(MARKDOWN);
+}
+
+export function editorValueToRaw(value) {
+  return value.toString(RAW);
+}
+
+export function markdownToRaw(value) {
+  return JSON.parse(markdownToEditorValue(value).toString(RAW));
+}
+
+function formatURL(url) {
+  if (url.indexOf('http://') === 0) {
+    return { url };
+  }
+  return { url: '.', title: url };
 }
 
 function getValue(props) {
   return props.input.value
-    ? RichTextEditor.EditorValue.createFromString(props.input.value, FORMAT, decorators)
+    ? RichTextEditor.EditorValue.createFromString(props.input.value, MARKDOWN, decorators)
     : RichTextEditor.EditorValue.createEmpty(decorators);
 }
 
@@ -50,16 +75,11 @@ function getValue(props) {
  */
 /**
  * petit bug de synchro dans le model
- * Gérer le déploiement de la lib
  * Faire la PR
- * Gérer le rendu dans la liste
- * Bug Url ne focntionne pas le première fois
- * Tester les autres usecase utilisant le textarea
- * Erreur lors du submit de la popup
- * Check Performance
+ * Pb URL ne marche pas la première fois
  */
 class RichTextArea extends Component {
-  static propTypes = {  
+  static propTypes = {
     input: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired,
     required: PropTypes.bool,
@@ -75,9 +95,14 @@ class RichTextArea extends Component {
     help: false,
   };
 
-  state = {
-    value: getValue(this.props),
-  };
+  constructor(props) {
+    super(props);
+    const initValue = getValue(props);
+    this.state = {
+      value: initValue,
+      editorState: initValue.getEditorState().getCurrentContent(),
+    };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.buttons && nextProps.input.value !== this.props.input.value) {
@@ -95,24 +120,21 @@ class RichTextArea extends Component {
 
   onBlur(e) {
     if (this.props.buttons) {
-      this.props.input.onChange(this.state.value.toString(FORMAT));
+      const newContent = this.state.value.getEditorState().getCurrentContent();
+      if (newContent !== this.state.lastContent) {
+        this.props.input.onChange(editorValueToMarkdown(this.state.value));
+        this.setState({ lastContent: newContent });
+      }
     }
-  }
-  
-  formatURL(url){
-    if(url.indexOf('http://') === 0){
-      return {url};
-    }
-    else return {url: '.', title: url}
   }
 
   toolbarConfig = {
     display: ['INLINE_STYLE_BUTTONS', 'LINK_BUTTONS'],
     INLINE_STYLE_BUTTONS: [{ label: 'Bold', style: 'BOLD' }, { label: 'Italic', style: 'ITALIC' }],
     LINK_BUTTONS: {
-      ADD:    {label: 'Link or Tooltip', iconName: 'link', placeholder: 'http://example.com /This is a tooltip'},
-      REMOVE: {label: 'Remove Link or Tooltip', iconName: 'remove-link'},
-    }
+      ADD: { label: 'Link or Tooltip', iconName: 'link', placeholder: 'Insert an URL or a tooltip' },
+      REMOVE: { label: 'Remove Link or Tooltip', iconName: 'remove-link' },
+    },
   };
   rootStyle = {
     display: 'flex',
@@ -142,7 +164,7 @@ class RichTextArea extends Component {
               toolbarConfig={this.toolbarConfig}
               handleReturn={() => true}
               rootStyle={this.rootStyle}
-              formatURL={(url) => this.formatURL(url)}
+              formatURL={formatURL}
               ref={reference}
             />
           </div>}

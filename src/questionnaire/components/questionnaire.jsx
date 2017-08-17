@@ -154,6 +154,7 @@ class Questionnaire extends Component {
           name={components[key].name}
           type={components[key].type}
           label={components[key].label}
+          htmlLabel={components[key].htmlLabel}
           selected={isSelected}
           onClickElement={this.handleElementSelect}
           onClickDetail={event => this.handleOpenElementDetail(event, key)}

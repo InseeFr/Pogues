@@ -1,7 +1,12 @@
 import Dictionary from 'utils/dictionary/dictionary';
 
 export function required(value) {
-  return value ? undefined : Dictionary.validationRequired;
+  const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
+
+  if (typeof val === 'string' || val instanceof String) {
+    return val.length > 0 ? undefined : Dictionary.validationRequired;
+  }
+  return val ? undefined : Dictionary.validationRequired;
 }
 
 export function maxLength(max) {
