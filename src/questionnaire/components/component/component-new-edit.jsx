@@ -13,6 +13,7 @@ import Tabs from 'layout/widget/tabs';
 import { required } from 'layout/forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import Textarea from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -45,8 +46,10 @@ export class QuestionNewEdit extends Component {
   componentDidMount() {
     if (this.props.edit) {
       this.nameInput.focus();
-    } else {
+    } else if (this.props.type !== QUESTION) {
       this.labelInput.focus();
+    } else {
+      this.labelInput._focus();
     }
   }
   render() {
@@ -91,6 +94,7 @@ export class QuestionNewEdit extends Component {
         <form onSubmit={handleSubmit}>
           {edit
             ? <Field
+                refs="input"
                 reference={input => {
                   this.nameInput = input;
                 }}
@@ -102,21 +106,19 @@ export class QuestionNewEdit extends Component {
                 required
               />
             : ''}
-
           <Field
             reference={input => {
               this.labelInput = input;
             }}
             name="label"
             type="text"
-            component={Input}
+            component={type === QUESTION ? Textarea : Input}
+            buttons
             label={Dictionary.title}
             validate={[required]}
             required
           />
-
           <Tabs components={panels} />
-
           <div className="form-footer">
             <button type="submit" disabled={!edit && (pristine || submitting)}>
               {Dictionary.validate}

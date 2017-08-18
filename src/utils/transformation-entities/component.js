@@ -16,6 +16,7 @@ import DeclarationTransformerFactory from './declaration';
 import ControlTransformerFactory from './control';
 import RedirectionTransformerFactory from './redirection';
 import CalculatedVariableTransformerFactory from './calculated-variable';
+import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 const { SINGLE_CHOICE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
@@ -42,9 +43,9 @@ function transformationFormToState(form, currentState, codesListsTransformers) {
   }
 
   if (type === QUESTION) {
-    // @TODO: Markdown parser
     state.label = label;
     state.rawLabel = label;
+    state.htmlLabel = markdownToHtml(state.label);
     state.responseFormat = ResponseFormatTransformerFactory({
       codesListsTransformers,
     }).formToState(responseFormat);
@@ -100,6 +101,7 @@ function transformationModelToState(model, codesListsStore = {}) {
     state.type = QUESTION;
     state.label = getQuestionLabelFromRaw(label);
     state.rawLabel = label;
+    state.htmlLabel = markdownToHtml(state.label);
     state.responseFormat = ResponseFormatTransformerFactory({
       codesListsStore,
     }).modelToState(questionType, responses, dimensions);

@@ -13,9 +13,4 @@ describe('RichTextArea', () => {
     const tree = decoreFormField(<Field help component={TextArea} name="checkbox" label="Label Name" />).toJSON();
     expect(tree).toMatchSnapshot();
   });
-
-  test('should have a an action toolbar', () => {
-    const tree = decoreFormField(<Field buttons component={TextArea} name="checkbox" label="Label Name" />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
 });

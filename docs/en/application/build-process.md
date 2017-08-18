@@ -19,4 +19,22 @@ During development, `npm run dev` will act as a background task:
 - automatically reloading the page in the browser to take the modifications into account.
 The `npm run dev` script is configured to work with a "in memory" version of the bundle file (`--content-base` command line option for `webpack-dev-server`), hence the `JavaScript` file served to the browsers might not be visible in the `dist` folder on your hard drive.
 
-The [Webpack configuration for production](https://github.com/InseeFr/Pogues/blob/master/webpack.production.config.js) is slightly different from the one used for development: it does not need the configuration related to the development web server. It should also provide [other adjustments](https://github.com/InseeFr/Pogues/issues/145) to make the code more production ready. When building code for production, Webpack will automatically minify the `JavaScript` thanks to the command line option `-p`.
+The Webpack configuration for production is slightly different from the one used for development: it does not need the configuration related to the development web server. It should also provide [other adjustments](https://github.com/InseeFr/Pogues/issues/145) to make the code more production ready. When building code for production, Webpack will automatically minify the `JavaScript` thanks to the command line option `-p`.
+
+## Other NPM Script
+
+The project also provide other NPM scripts, in order to manage its lifecycle.
+
+* postinstall : Configure NightWatch for End-to-End tests
+* test : Execute unit tests
+* test:watch : Execute unit tests with watch mode
+* dev : Launch the application with the remote API
+* dev:local : Launch the application with the locale API
+* dev:server : Launch scripts `npm run dev:local` and `npm run server`
+* server : Launch the fake NodeJS server
+* build : Generate the production version of the application
+* lint : Check the quality of the project
+* lint:fix : Check the quality of the project and apply fixes automatically
+* start : Launch the command `npm run dev`
+* e2e : Launch Integration Tests 
+* e2e:travis : Launch Integration Tests with the configuration for Travis

@@ -2,13 +2,31 @@
 
 ## Directory structure
 
-Overlook at the folder structure for the [src/js](https://github.com/InseeFr/Pogues/tree/master/src/js) directory.
+Overlook at the folder structure for the [src/](https://github.com/InseeFr/Pogues/tree/master/src) folder.
 
 ```
-├── components
-│   ├── code-editor.js
-│   ├── code-list-editor.js
+├── actions
+│   ├── code.js
+│   ├── code-list.js
 │   └── ...
+├── constants
+│   ├── dictionary.js
+├── fonts
+│   ├──
+├── help
+│   ├── page-help.jsx
+├── home
+│   ├── components
+│   ├── containers
+│   ├── page-home.jsx
+│   ├── page-home.spec.js
+├── layout
+│   ├── 
+├── questionnaire
+│   ├── components
+│   ├── containers
+│   ├── page-questionnaire.jsx
+│   ├── page-questionnaire.spec.js
 ├── reducers
 │   ├── app-state
 │   │   ├── generic-input-by-questionnaire-id.js
@@ -16,14 +34,16 @@ Overlook at the folder structure for the [src/js](https://github.com/InseeFr/Pog
 │   ├── code-by-id.js
 │   ├── code-list-by-id.js
 │   ├── ...
-├── actions
-│   ├── code.js
-│   ├── code-list.js
-│   └── ...
-├── config
-│   ├── config.js
-├── constants
-│   ├── dictionary.js
+├── scss
+│   ├── images
+│   ├── inc
+│   │   ├── _code-list-edditor.scss
+│   ├── _global.scss
+│   ├── _mixin.scss
+│   ├── ...
+│   ├── pogues.scss
+├── store
+│   ├──
 ├── utils
 │   ├── tree-utils
 │   │   ├── remove.js
@@ -35,25 +55,21 @@ Overlook at the folder structure for the [src/js](https://github.com/InseeFr/Pog
 
 ```
 
-## React components
+## General Rules
 
-All the React components stay in the [components](https://github.com/InseeFr/Pogues/tree/master/src/js/components) directory.
+We try to write unit tests for every JavaScript file. If a scripts is named `component.js`, the file for the corresponding unit tests will be located in the same folder and named `component.spec.js`. 
 
-Most of the time, and it should be seen a rule of thumb, we only export one component per file and we use a [default](/javascript/syntax.md#export-and-import) export (example with the [CodeEditor](https://github.com/InseeFr/Pogues/blob/ab5a24ad74886d126b3c2e7be849d4357b0efa85/src/js/components/code-editor.js#L7) component).
+All page of the application is defined in a dedicated folder, located in the `src` folder. Every component needed for this page is défined in a `components` subdirectory, and all components connected to the `Redux``store` in a `containers` subdirectory. 
 
-If a component needs to be connected to the store, what is exported as default is the the result of the React Redux connect mechanism (example with the [CodeListEditor](https://github.com/InseeFr/Pogues/blob/ab5a24ad74886d126b3c2e7be849d4357b0efa85/src/js/components/code-list-editor.js#L103)).
+All composants used in any pages will be defined in the `layout` folder. 
 
-## Reducers
+Most of the time, and it should be seen a rule of thumb, we only export one component per file and we use a [default](/javascript/syntax.md#export-and-import) export.
 
-All the reducers stay in the [reducers](https://github.com/InseeFr/Pogues/tree/ab5a24ad74886d126b3c2e7be849d4357b0efa85/src/js/reducers) directory.
-
-Most of them handle a piece of state consisting of a collection of entities and follow the `somethings-by-id` naming convention.
-
-Reducer files use a single `export default` statement.
-
-The [app-state](https://github.com/InseeFr/Pogues/tree/master/src/js/reducers/app-state) sub folder contains reducers which are not supposed to have any effect on the questionnaire by itself, but hold information about the UI state (for instance, the state of the [generic input](https://github.com/InseeFr/Pogues/blob/master/src/js/reducers/app-state/generic-input-by-questionnaire-id.js)).
+If a component needs to be connected to the store, what is exported as default is the the result of the React Redux connect mechanism.
 
 ## Actions
+
+In this folder, we will define all `Redux` actions used by the application, in order to update the data managed by the `store`. These different actions will only define the data we want to update, and trigger an action, managed by a `reducer`. 
 
 Some actions have effects on only one reducer. For instance, only the `codes-by-id` reducer needs to know about the `EDIT_CODE` action. But others have effects on multiple reducers. For instance, when a `CREATE_CODE` action is dispatched:
 - the `codes-by-id` reducer needs to add an entry for this new code;
@@ -63,19 +79,69 @@ This pattern is recurrent and the following convention was chosen: all the actio
 
 String constants used to identify actions are defined inline in the file.
 
-## Constants
+## Contants 
 
-Except for the aforementioned string constants used for actions, all other constants are defined in one of these 3 files in the [constants](https://github.com/InseeFr/Pogues/tree/master/src/js/constants) directory: 
-- [pogues-constants.js](https://github.com/InseeFr/Pogues/blob/master/src/js/constants/pogues-constants.js) for constants related to implementation details;
-- [dictionnary.js](https://github.com/InseeFr/Pogues/blob/master/src/js/constants/dictionary.js) for [internationalization](/application/internationalization.md);
+All constants are defined in one of these 4 files in the [constants](https://github.com/InseeFr/Pogues/tree/master/src/js/constants) directory: 
+- [pogues-constants.js](https://github.com/InseeFr/Pogues/tree/master/src/constantspogues-constants.js) for constants related to implementation details;
+- [dictionnary.js](https://github.com/InseeFr/Pogues/tree/master/src/constantsdictionary.js) for [internationalization](/application/internationalization.md);
+- [constants-mapping.js](https://github.com/InseeFr/Pogues/tree/master/src/constantsconstants-mapping.js) the mapping between a constat defined in the `pogues-contants.js` file and the `dictionary.js` dictionary.
 - [schema.js](
-https://github.com/InseeFr/Pogues/blob/master/src/js/constants/schema.js) for constants coming from the [XML Schema](/remote-apis/schema.md), like constants used for [question types](https://github.com/InseeFr/Pogues-Model/blob/53c6151a237ed74d4e655b137a8e55735f141d96/src/main/resources/xsd/Questionnaire.xsd#L321-L328).
+https://github.com/InseeFr/Pogues/tree/master/src/constantsschema.js) for constants coming from the [XML Schema](/remote-apis/schema.md);
+
+## Fonts
+
+The different fonts used by the application are located in this folder. 
+
+## Help
+
+Folder where is define the `Help` page. 
+
+## Home
+
+Folder where is define the Home page of the application, displaying the list of questionnaires.
+
+## Layout
+
+In this folder, we will define all components used in any pages of the application. The rule we try to follow, is to create a dedicated folder by component. In this folder, you will find the main JavaScript file, the corresponding unit test, and maybe a `components` subdirectory with subcomponent used by this one. 
+
+## Questionnaire
+
+Folder where is defined the page displaying the information of a questionnaire.
+
+## Reducers
+
+All the reducers stay in the [reducers](https://github.com/InseeFr/Pogues/tree/master/src/reducers) directory.
+
+Most of them handle a piece of state consisting of a collection of entities and follow the `somethings-by-id` naming convention.
+
+Reducer files use a single `export default` statement.
+
+The [app-state](https://github.com/InseeFr/Pogues/tree/master/src/js/reducers/app-state) sub folder contains reducers which are not supposed to have any effect on the questionnaire by itself, but hold information about the UI state.
+
+## SCSS
+
+In this folder, we will define the stylesheet of the application. We use the `SCSS` language, a superset of `CSS`. WebPack  will be in charge of compiling all our `SCSS` files into= `CSS` during the build phase
+
+[include:153-172](../../../webpack.config.js)
+
+The stylesheet is splitted by component. For component needed a stylesheet, you will find a dedicated file in the `inc` folder.
+
+At the root of the `scc` folder, you will find other file with general configuration.
+
+The main file `pogues.scss` will be in charge of importing everything. 
+
+[include](../../../src/scss/pogues.scss)
+
+## Store
+
+in this folder is defined the `configure-store.js` file, used my the main JavaScript file of the application, in order to configure the `Redux` `store`.
 
 ## Utils
 
-In this folder are defined utility functions. Some highlights:
-- [tree-utils](https://github.com/InseeFr/Pogues/tree/master/src/js/utils/tree-utils): utility functions related to questionnaire [tree structure](/implementation-details//questionnaire-structure.md) manipulation;
-- [model-to-state-questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/model-to-state-questionnaire.js) and other files with the same naming convention: utility functions to be called when a questionnaire is loaded; they take some `JSON` as input and return a "patch" that will be applied to the reducers to update the application state accordingly;
-- [state-to-model-questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/state-to-model-questionnaire.js) produces a `JSON` representation of a questionnaire from the application state (see [persistence](/remote-apis/persistence.md) and [visualization](/remote-apis/visualization.md));
-- [remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/remote-api.js) for [remote calls](/remote-apis/implementation.md);
-- files following the [goTosChecker.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/goTosChecker.js) naming convention: utility functions to process checks for the [integrity checks];(/implementation-details/integrity-checks.md) functionality.
+Are defined in thie directory all utility modules needed in the application. We try to split this folder into subfolder, in order to improve the structure of the application. The name of the subfolder will correspond to the part of the application using this utility module. For example, we have : 
+
+- component : used by `React` components
+- dictionary : used by the internationalization behavior
+- reducer : used by reducers
+- test : used by unit tests
+- transformation-entities : for the differents transformations of the model. 
