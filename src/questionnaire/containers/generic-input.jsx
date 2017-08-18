@@ -43,6 +43,7 @@ function GenericInputContainer({
       placeholders={placeholders}
       saveActiveQuestionnaire={saveActiveQuestionnaire}
       isQuestionnaireValid={isQuestionnaireValid}
+      idQuestionnaire={questionnaire.id}
     />
   );
 }
