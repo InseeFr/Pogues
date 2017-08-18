@@ -98,7 +98,12 @@ class GenericInput extends Component {
           {Dictionary.save}
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
-        <a rel="noopener noreferrer" target="_blank" className="btn-yellow" href={visualisationUrl + idQuestionnaire}>
+        <a
+          rel="noopener noreferrer"
+          target="_blank"
+          href={visualisationUrl + idQuestionnaire}
+          className={!isQuestionnaireValid ? 'disabled btn-yellow' : 'btn-yellow'}
+        >
           {Dictionary.visualise}
           <span className="glyphicon glyphicon-eye-open" />
         </a>
