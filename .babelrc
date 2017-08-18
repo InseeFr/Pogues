@@ -6,11 +6,13 @@
     "transform-object-rest-spread",
     ["module-resolver", {
       "root": ["./src"]
-    }]
+    }],
+    "lodash"
   ],
   "presets": [
     "es2015",
-    "react"
+    "react",
+    "stage-1"
   ],
   "env": {
     "development": {

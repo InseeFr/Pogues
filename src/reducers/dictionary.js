@@ -1,4 +1,4 @@
-import dictionary from '../constants/dictionary';
+import dictionary from 'constants/dictionary';
 // Should be done on the server ?
 // TODO we cannot change language for now (see if it's important).
 // TODO To avoid some boilerplate with passing `locale` to each component, we
