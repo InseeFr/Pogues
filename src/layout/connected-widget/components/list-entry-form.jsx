@@ -81,6 +81,7 @@ class ListEntryForm extends Component {
     noValueLabel: PropTypes.string.isRequired,
     errors: PropTypes.array,
     invalidItems: PropTypes.array,
+    rerenderOnEveryChange: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     errors: [],
@@ -112,7 +113,9 @@ class ListEntryForm extends Component {
       submitLabel,
       noValueLabel,
       invalidItems,
+      rerenderOnEveryChange,
     } = this.props;
+
     const styleErrors = {
       display: errors.length > 0 ? 'block' : 'none',
     };
@@ -135,6 +138,7 @@ class ListEntryForm extends Component {
           select={select}
           setCurrentItemIndex={this.setCurrentItemIndex}
           invalidItems={invalidItems}
+          rerenderOnEveryChange={rerenderOnEveryChange}
         />
 
         <div className="list-entry-form_form">

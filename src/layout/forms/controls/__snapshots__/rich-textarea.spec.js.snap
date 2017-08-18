@@ -47,7 +47,6 @@ exports[`RichTextArea should have this default template 1`] = `
     Label Name
     
      
-    
   </label>
   <div>
     <textarea
