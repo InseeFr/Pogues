@@ -7,6 +7,7 @@ import ResponseFormat from './response-format';
 import Declaration, { defaultDeclarationForm } from './declaration';
 import Control, { defaultControlForm } from './control';
 import Redirection, { defaultRedirectionForm } from './redirection';
+import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -87,13 +88,12 @@ function formToState(form) {
   };
 
   if (type === QUESTION) {
-    // @TODO: Markdown parser
-    state.label = label;
-    state.rawLabel = label;
+    state.rawLabel = state.label;
+    state.htmlLabel = markdownToHtml(state.label);
+
     state.responseFormat = ResponseFormat.formToState(responseFormat);
-  } else {
-    state.label = label;
   }
+
   state.declarations = Declaration.formToState(declarations || defaultDeclarationForm);
   state.controls = Control.formToState(controls || defaultControlForm);
   state.redirections = Redirection.formToState(redirections || defaultRedirectionForm);
@@ -207,6 +207,9 @@ function modelToState(model, activeCodeLists = {}) {
     state.type = QUESTION;
     state.label = getQuestionLabelFromRaw(label);
     state.rawLabel = label;
+
+    state.htmlLabel = markdownToHtml(state.label);
+
     state.responseFormat = ResponseFormat.modelToState(
       {
         type: questionType,

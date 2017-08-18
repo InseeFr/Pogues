@@ -8,6 +8,8 @@ const urlQuestionnaireListSearch = `${baseURL + persistancePath}/questionnaires/
 const urlQuestionnaire = `${baseURL + persistancePath}/questionnaire`;
 const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
 
+export const visualisationUrl = `${baseURL}/transform/visualize/`;
+
 /**
  * Retrieve all questionnaires
  */

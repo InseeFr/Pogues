@@ -33,7 +33,7 @@ const stats = {
 
 module.exports = function(env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
-  const nodeLocal = env && env.local ? 'local': 'remote';
+  const nodeLocal = env && env.local ? 'local' : 'remote';
   const isProd = nodeEnv === 'production';
   const useLocalData = nodeLocal === 'local';
 

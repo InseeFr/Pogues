@@ -236,6 +236,9 @@ float: left;
       margin: 10px;
     }
 
+    a {
+      color: black;
+    }  
     body.ReactModal__Body--open & {
       z-index: -100;
     }
