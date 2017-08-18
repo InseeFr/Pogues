@@ -1,0 +1,973 @@
+
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Application state · Pogues</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="component-with-redux.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Developer guide</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../getting-started.html">
+            
+                <a href="../../getting-started.html">
+            
+                    
+                    Getting started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    React and Redux introduction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../react/">
+            
+                <a href="../react/">
+            
+                    
+                    React
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../react/components.html">
+            
+                <a href="../react/components.html">
+            
+                    
+                    Components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../react/combining-components.html">
+            
+                <a href="../react/combining-components.html">
+            
+                    
+                    Combining components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../react/passing-props.html">
+            
+                <a href="../react/passing-props.html">
+            
+                    
+                    Passing props
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../react/events.html">
+            
+                <a href="../react/events.html">
+            
+                    
+                    Events
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="../react/component-state.html">
+            
+                <a href="../react/component-state.html">
+            
+                    
+                    Component state
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="../react/controlled-input.html">
+            
+                <a href="../react/controlled-input.html">
+            
+                    
+                    Controlled input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.7" data-path="../react/stateless-vs-stateful.html">
+            
+                <a href="../react/stateless-vs-stateful.html">
+            
+                    
+                    Stateless vs stateful components
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Redux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.2.1" data-path="application-state.html">
+            
+                <a href="application-state.html">
+            
+                    
+                    Application state
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="component-with-redux.html">
+            
+                <a href="component-with-redux.html">
+            
+                    
+                    A component with Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="model-the-state.html">
+            
+                <a href="model-the-state.html">
+            
+                    
+                    Model the state
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="first-reducer.html">
+            
+                <a href="first-reducer.html">
+            
+                    
+                    Reducers and connect mechanism
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="process-actions.html">
+            
+                <a href="process-actions.html">
+            
+                    
+                    Process actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="dispatch-actions.html">
+            
+                <a href="dispatch-actions.html">
+            
+                    
+                    Dispatch actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="reducers-split-combine.html">
+            
+                <a href="reducers-split-combine.html">
+            
+                    
+                    Split and combine reducers
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../redux-forms/">
+            
+                <a href="../redux-forms/">
+            
+                    
+                    Redux Forms
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../additional-information.html">
+            
+                <a href="../additional-information.html">
+            
+                    
+                    Additional information
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="../additional-information.html">
+            
+                <a href="../additional-information.html#proptypes">
+            
+                    
+                    Use PropTypes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.2" data-path="../additional-information.html">
+            
+                <a href="../additional-information.html#design-process">
+            
+                    
+                    Design process
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../remote-apis/">
+            
+                <a href="../../remote-apis/">
+            
+                    
+                    Remote APIs
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../remote-apis/implementation.html">
+            
+                <a href="../../remote-apis/implementation.html">
+            
+                    
+                    Implementation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../remote-apis/visualization.html">
+            
+                <a href="../../remote-apis/visualization.html">
+            
+                    
+                    Visualization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../remote-apis/persistence.html">
+            
+                <a href="../../remote-apis/persistence.html">
+            
+                    
+                    Persistence
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../remote-apis/repository.html">
+            
+                <a href="../../remote-apis/repository.html">
+            
+                    
+                    Repository
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../remote-apis/swagger.html">
+            
+                <a href="../../remote-apis/swagger.html">
+            
+                    
+                    Swagger documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../remote-apis/schema.html">
+            
+                <a href="../../remote-apis/schema.html">
+            
+                    
+                    XML Schema
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../remote-apis/questionnaire-json.html">
+            
+                <a href="../../remote-apis/questionnaire-json.html">
+            
+                    
+                    A questionnaire in JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../application/REAME.html">
+            
+                <a href="../../application/REAME.html">
+            
+                    
+                    Discover the app
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../application/bootstrap.html">
+            
+                <a href="../../application/bootstrap.html">
+            
+                    
+                    Bootstrap the application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../application/loading-questionnaire.html">
+            
+                <a href="../../application/loading-questionnaire.html">
+            
+                    
+                    How the data flows
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../application/build-process.html">
+            
+                <a href="../../application/build-process.html">
+            
+                    
+                    Build process
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../application/code-organization.html">
+            
+                <a href="../../application/code-organization.html">
+            
+                    
+                    Code organization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../application/style-guide.html">
+            
+                <a href="../../application/style-guide.html">
+            
+                    
+                    Style Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../../application/more-on-reducers.html">
+            
+                <a href="../../application/more-on-reducers.html">
+            
+                    
+                    More on reducers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../../application/internationalization.html">
+            
+                <a href="../../application/internationalization.html">
+            
+                    
+                    Internationalization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../../application/components.html">
+            
+                <a href="../../application/components.html">
+            
+                    
+                    Components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="../../application/stack.html">
+            
+                <a href="../../application/stack.html">
+            
+                    
+                    Stack
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../javascript/REAME.html">
+            
+                <a href="../../javascript/REAME.html">
+            
+                    
+                    JavaScript usage
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../javascript/syntax.html">
+            
+                <a href="../../javascript/syntax.html">
+            
+                    
+                    Syntax
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../javascript/debugging.html">
+            
+                <a href="../../javascript/debugging.html">
+            
+                    
+                    Debugging
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../implementation-details/">
+            
+                <a href="../../implementation-details/">
+            
+                    
+                    Implementation details
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../implementation-details/labels.html">
+            
+                <a href="../../implementation-details/labels.html">
+            
+                    
+                    Labels
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../../implementation-details/questionnaire-structure.html">
+            
+                <a href="../../implementation-details/questionnaire-structure.html">
+            
+                    
+                    Questionnaire structure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../../implementation-details/page-breaks.html">
+            
+                <a href="../../implementation-details/page-breaks.html">
+            
+                    
+                    Page breaks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../../implementation-details/response-formats.html">
+            
+                <a href="../../implementation-details/response-formats.html">
+            
+                    
+                    Response format
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../../implementation-details/drag-n-drop.html">
+            
+                <a href="../../implementation-details/drag-n-drop.html">
+            
+                    
+                    Move component
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../../implementation-details/integrity-checks.html">
+            
+                <a href="../../implementation-details/integrity-checks.html">
+            
+                    
+                    Integrity checks
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Application state</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="application-state">Application state</h1>
+<p>In the previous sections, we saw how a component could manage its own state to keep track of updates and re-render the UI accordingly.</p>
+<h2 id="the-issue">The issue</h2>
+<p>It works fine fine for small applications, or when the state is mainly used to track local non persistent changes (for instance, a visible/hidden state for a button). But this approach does not always scale seamlessly when application complexity grows. Let&apos;s for instance have a look at the expected behavior if the user created a list of codes, referenced it in two different places in the questionnaire, and then add or edit some codes to the list:</p>
+<figure id="fig1.3.2.1.1"><img src="../../img/sync.gif" alt="Code list editors should be kept in sync" title="Code list editors should be kept in sync"><figcaption>Figure: Code list editors should be kept in sync</figcaption></figure>
+<p>(The edition panels have been toggled on for each of these questions, and the UI has been slightly modified to make the editors stand closer one to the other.)</p>
+<p>The two code list editors should be <strong>kept in sync</strong>. This goal will be difficult to achieve with our previous approach. Indeed, if the codes are stored in the state of the first <code>CodeListEditor</code>, the second code list editor will not be aware of any updates to the codes, and, as a consequence, won&apos;t be able to update accordingly. </p>
+<p>This problem with keeping code list editors in sync is a very common issue with complex web applications in general, and with Pogues in particular:  there are many other scenarios where <strong>an action might have some effects on different parts of the UI</strong>. To illustrate, we can think about what should happen when the user edits the <code>id</code> of a question referenced in a <code>goTo</code>.  In this situation, the application needs:</p>
+<ul>
+<li>to update every visible redirection that can be impacted by this edition (for example a redirection referring to the previous <code>id</code> should be now marked as invalid);</li>
+<li>to adjust the integrity controls panel at the top of the questionnaire to update the messages accordingly (for instance by adding an error message concerning the redirection which has just become invalid).</li>
+</ul>
+<figure id="fig1.3.2.1.2"><img src="../../img/keep-in-sync-multiple-components.png" alt="Keep in sync multiple components" title="Keep in sync multiple components"><figcaption>Figure: Keep in sync multiple components</figcaption></figure>
+<h2 id="the-solution">The solution</h2>
+<p>To tackle these &quot;might be very complex&quot; updates, React and Redux promote the use of a <a href="http://redux.js.org/docs/basics/DataFlow.html" target="_blank">unidirectional data flow</a>. This <a href="https://facebook.github.io/flux/docs/in-depth-overview.html" target="_blank">presentation of the flux pattern</a> can be a useful reading, even if there might be at some point some slight differences with Redux (which can be seen as one implementation of the <code>flux</code> architecture; in Redux, there is only one store).</p>
+<h3 id="in-a-few-words">In a few words</h3>
+<p>The idea is to store the codes a code list is made of not in the component state, but in a &quot;higher&quot; level abstraction that will make the data potentially available to every component . This abstraction is called the &quot;application state&quot; and gathers in one place all the data needed to build and update the UI. In Redux the application state is handled by a <a href="http://redux.js.org/docs/api/Store.html" target="_blank">store</a>.</p>
+<p>Then, we use actions to notify the application that something happened and that the state should be updated accordingly. To do this with Redux, we create:</p>
+<ul>
+<li><a href="http://redux.js.org/docs/basics/Actions.html" target="_blank">actions</a> that describe what happened (for instance, we added a code to a list of codes); actions will be dispatched to the store;</li>
+<li>some <a href="http://redux.js.org/docs/basics/Reducers.html" target="_blank">reducers</a> which specify how the application state should be updated to react to a given action.</li>
+</ul>
+<p>Finally, the whole application will be re-rendered according to the new state (<code>setState</code> will be called automatically on the top component of our application), but thanks to React diffing algorithm, only parts of the UI actually modified will be updated in the DOM.</p>
+<figure id="fig1.3.2.1.3"><img src="../../img/flux-diagram.png" alt="https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data" title="Flux data flow"><figcaption>Figure: Flux data flow</figcaption></figure>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Redux">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="component-with-redux.html" class="navigation navigation-next " aria-label="Next page: A component with Redux">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Application state","level":"1.3.2.1","depth":3,"next":{"title":"A component with Redux","level":"1.3.2.2","depth":3,"path":"react-redux/redux/component-with-redux.md","ref":"react-redux/redux/component-with-redux.md","articles":[]},"previous":{"title":"Redux","level":"1.3.2","depth":2,"path":"react-redux/redux/index.md","ref":"react-redux/redux/index.md","articles":[{"title":"Application state","level":"1.3.2.1","depth":3,"path":"react-redux/redux/application-state.md","ref":"react-redux/redux/application-state.md","articles":[]},{"title":"A component with Redux","level":"1.3.2.2","depth":3,"path":"react-redux/redux/component-with-redux.md","ref":"react-redux/redux/component-with-redux.md","articles":[]},{"title":"Model the state","level":"1.3.2.3","depth":3,"path":"react-redux/redux/model-the-state.md","ref":"react-redux/redux/model-the-state.md","articles":[]},{"title":"Reducers and connect mechanism","level":"1.3.2.4","depth":3,"path":"react-redux/redux/first-reducer.md","ref":"react-redux/redux/first-reducer.md","articles":[]},{"title":"Process actions","level":"1.3.2.5","depth":3,"path":"react-redux/redux/process-actions.md","ref":"react-redux/redux/process-actions.md","articles":[]},{"title":"Dispatch actions","level":"1.3.2.6","depth":3,"path":"react-redux/redux/dispatch-actions.md","ref":"react-redux/redux/dispatch-actions.md","articles":[]},{"title":"Split and combine reducers","level":"1.3.2.7","depth":3,"path":"react-redux/redux/reducers-split-combine.md","ref":"react-redux/redux/reducers-split-combine.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"react-redux/index.html#fig1.3.1","level":"1.3","list_caption":"Figure: Code list edition","alt":"Code list edition","nro":1,"url":"../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list edition","attributes":{},"title":"Code list edition","skip":false,"key":"1.3.1"},{"backlink":"react-redux/react/components.html#fig1.3.1.1.1","level":"1.3.1.1","list_caption":"Figure: CodeEditor component","alt":"CodeEditor component","nro":2,"url":"../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"CodeEditor component","attributes":{},"title":"CodeEditor component","skip":false,"key":"1.3.1.1.1"},{"backlink":"react-redux/redux/application-state.html#fig1.3.2.1.1","level":"1.3.2.1","list_caption":"Figure: Code list editors should be kept in sync","alt":"Code list editors should be kept in sync","nro":3,"url":"/img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list editors should be kept in sync","attributes":{},"title":"Code list editors should be kept in sync","skip":false,"key":"1.3.2.1.1"},{"backlink":"react-redux/redux/application-state.html#fig1.3.2.1.2","level":"1.3.2.1","list_caption":"Figure: Keep in sync multiple components","alt":"Keep in sync multiple components","nro":4,"url":"/img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Keep in sync multiple components","attributes":{},"title":"Keep in sync multiple components","skip":false,"key":"1.3.2.1.2"},{"backlink":"react-redux/redux/application-state.html#fig1.3.2.1.3","level":"1.3.2.1","list_caption":"Figure: Flux data flow","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"/img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux data flow","attributes":{},"title":"Flux data flow","skip":false,"key":"1.3.2.1.3"},{"backlink":"application/loading-questionnaire.html#fig1.5.2.1","level":"1.5.2","list_caption":"Figure: A user selects a questionnaire","alt":"A user selects a questionnaire","nro":6,"url":"/img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"A user selects a questionnaire","attributes":{},"title":"A user selects a questionnaire","skip":false,"key":"1.5.2.1"},{"backlink":"application/loading-questionnaire.html#fig1.5.2.2","level":"1.5.2","list_caption":"Figure: The questionnaire is shown","alt":"The questionnaire is shown","nro":7,"url":"/img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"The questionnaire is shown","attributes":{},"title":"The questionnaire is shown","skip":false,"key":"1.5.2.2"},{"backlink":"javascript/debugging.html#fig1.6.2.1","level":"1.6.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"/img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.6.2.1"},{"backlink":"javascript/debugging.html#fig1.6.2.2","level":"1.6.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"/img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.6.2.2"},{"backlink":"javascript/debugging.html#fig1.6.2.3","level":"1.6.2","list_caption":"Figure: Pause on exceptions","alt":"Pause on exceptions","nro":10,"url":"/img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Pause on exceptions","attributes":{},"title":"Pause on exceptions","skip":false,"key":"1.6.2.3"}]},"title":"Pogues","language":"en","gitbook":"*"},"file":{"path":"react-redux/redux/application-state.md","mtime":"2017-08-18T13:47:34.126Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-08-18T14:10:46.080Z"},"basePath":"../..","book":{"language":"en"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../../gitbook/gitbook.js"></script>
+    <script src="../../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
