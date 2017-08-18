@@ -1,13 +1,10 @@
 # Getting started
 
-Pogues is a Single Page Application built with React and Redux. To run the application in development mode, run the following commands from a shell prompt in the local directory, and then navigate to [http://localhost:8080](http://localhost:8080):
+Pogues is a Single Page Application built with React and Redux. To run the application in development mode, run the following commands from a shell prompt in the local directory, and then navigate to [http://localhost:3000](http://localhost:3000):
 
 ```
 # Download all the dependencies needed by the application
 npm install
-# Needed to copy some assets to the `dist` folder (this step should disappear
-# over time, # see #144)
-npm run build
 # Compiles the code and starts a minimal web server (see below)
 npm run dev 
 ```

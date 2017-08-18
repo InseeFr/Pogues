@@ -20,4 +20,22 @@ Pendant la phase de développement, `npm run dev` fonctionne en tâche de fond:
 
 Le script `npm run dev` est configuré pour fonctionner avec une version "en mémoire" du fichier `JavaScript` (l'option `--content-base` en ligne de commande pour `webpack-dev-server`), le fichier qui est envoyé au navigateur n'est donc pas nécessairement visible dans le dossier `dist`.
 
-La [configuration de webpack pour la version de production](https://github.com/InseeFr/Pogues/blob/master/webpack.production.config.js) est légèrement différente de celle utilisée en développement: elle ne comprend pas en production le serveur Web de développement, et elle doit également comporter [quelques ajustements](https://github.com/InseeFr/Pogues/issues/145) afin de rendre le code utilisable en production. Lorsque la version de production est compilée, Webpack va réduire automatiquement la taille du code grâce à l'option `-p` de la ligne de commande.
+La configuration de webpack pour la version de production est légèrement différente de celle utilisée en développement: elle ne comprend pas en production le serveur Web de développement, et elle doit également comporter [quelques ajustements](https://github.com/InseeFr/Pogues/issues/145) afin de rendre le code utilisable en production. Lorsque la version de production est compilée, Webpack va réduire automatiquement la taille du code grâce à l'option `-p` de la ligne de commande.
+
+## Autres Scripts NPM 
+
+Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cycle du vie. 
+
+* postinstall : Configure de NightWatch pour les tests End-to-End
+* test : Exécute les tests unitaires
+* test:watch : Exécute les tests unitaires en mode watch
+* dev : Lance l'application utilisant l'API de qualif
+* dev:local : Lance l'application utilisant l'API locale
+* dev:server : Lance les scripts `npm run dev:local` et `npm run server`
+* server : Lance le fake serveur NodeJS
+* build : Génére le livrable de l'application
+* lint : Vérifie la qualité du projet
+* lint:fix : Vérifie la qualité du projet et applique des correctifs automatiquement
+* start : Lance la commande `npm run dev`
+* e2e : Exécute les tests d'intégrations
+* e2e:travis : Exécute les tests d'intégrations avec la configuration de Travis

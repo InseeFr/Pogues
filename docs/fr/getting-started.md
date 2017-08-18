@@ -1,18 +1,15 @@
 # Démarrage
 
-Pogues est une application Web monopage construite avec [React](https://facebook.github.io/react/) et [Redux](https://github.com/reactjs/reduxreact). Pour lancer l'application en développement, vous pouvez exécuter les commandes suivantes à partir d'un terminal dans le dossier Pogues, et visualiser ensuite la page [http://localhost:8080](http://localhost:8080):
+Pogues est une application Web monopage construite avec [React](https://facebook.github.io/react/) et [Redux](https://github.com/reactjs/reduxreact). Pour lancer l'application en développement, vous pouvez exécuter les commandes suivantes à partir d'un terminal dans le dossier Pogues, et visualiser ensuite la page [http://localhost:3000](http://localhost:3000):
 
 ```
 # Téléchargement des dépendances
 npm install
-# Nécessaire pour copier certaines ressources dans le dossier `dist` (cette
-# étape devrait disparaître à terme, cf. #144)
-npm run build
 # Compilation du code et démarrage d'un serveur de développement (cf. infra)
 npm run dev 
 ```
 
-Vous serez uniquement en mesure de créer et d'éditer un questionnaire localement. Vous ne pourez pas le sauvegarder, le visualiser ou utiliser des ressources externes (comme des listes de codes): Pogues est une application front-end pour concervoir des questionnaires et s'appuie sur des Web services externes pour réaliser ces opérations. Plus d'information à ce sujet au chapitre [appels distants](./remote-apis/README.md). 
+Vous serez uniquement en mesure de créer et d'éditer un questionnaire localement. Vous ne pourez pas le sauvegarder, le visualiser ou utiliser des ressources externes (comme des listes de codes): Pogues est une application front-end pour convevoir des questionnaires et s'appuie sur des Web services externes pour réaliser ces opérations. Plus d'information à ce sujet au chapitre [appels distants](./remote-apis/README.md). 
 
 ## Build
 
