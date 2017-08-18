@@ -9,6 +9,7 @@ import DropZone from 'questionnaire/components/drop-zone/drop-zone';
 import { DragSource, DropTarget } from 'react-dnd';
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
 import { getDragnDropLevel, calculateMargin } from 'utils/component/component-dragndrop-utils';
+import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -70,6 +71,7 @@ class QuestionnaireElement extends Component {
       id,
       type,
       label,
+      htmlLabel,
       selected,
       children,
       weight,
@@ -134,7 +136,7 @@ class QuestionnaireElement extends Component {
               <div className="questionnaire-element-body">
                 <div>
                   <div className="questionnaire-element-label">
-                    {label}
+                    {type === QUESTION ? <span dangerouslySetInnerHTML={htmlLabel} /> : label}
                   </div>
                   {selected
                     ? <div className="questionnaire-element-actions">

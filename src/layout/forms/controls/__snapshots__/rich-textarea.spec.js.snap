@@ -1,80 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RichTextArea should have a an action toolbar 1`] = `
-<div
-  className="ctrl-input"
->
-  <label
-    htmlFor="select-checkbox"
-  >
-    Label Name
-    
-     
-    
-  </label>
-  <div>
-    <textarea
-      id="select-checkbox"
-      name="checkbox"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onDragStart={[Function]}
-      onDrop={[Function]}
-      onFocus={[Function]}
-      value=""
-    />
-    <ul
-      className="rich-textarea-toolbox"
-    >
-      <li>
-        <button
-          aria-label="bold"
-          type="button"
-        >
-          <span
-            aria-hidden="true"
-            className="glyphicon glyphicon-bold"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          aria-label="italic"
-          type="button"
-        >
-          <span
-            aria-hidden="true"
-            className="glyphicon glyphicon-italic"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          aria-label="link"
-          type="button"
-        >
-          <span
-            aria-hidden="true"
-            className="glyphicon glyphicon-link"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          aria-label="???"
-          type="button"
-        >
-          <span
-            aria-hidden="true"
-            className="glyphicon glyphicon-comment"
-          />
-        </button>
-      </li>
-    </ul>
-  </div>
-</div>
-`;
-
 exports[`RichTextArea should have a help block 1`] = `
 <div
   className="ctrl-input"
@@ -108,7 +33,6 @@ exports[`RichTextArea should have a help block 1`] = `
       onFocus={[Function]}
       value=""
     />
-    
   </div>
 </div>
 `;
@@ -136,7 +60,6 @@ exports[`RichTextArea should have this default template 1`] = `
       onFocus={[Function]}
       value=""
     />
-    
   </div>
 </div>
 `;
