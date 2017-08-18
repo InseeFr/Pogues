@@ -2,7 +2,7 @@
 
 This operation consist of transforming and combining all the application resources to make them usable in web browsers. This process is taken care of by [Webpack](https://webpack.github.io/), and can be launched with `npm run dev` during development, and `npm run build` for production.
 
-[include:95-113](../../../package.json)
+[include:92-112](../../../package.json)
 
 Mainly, it will take all the `JavaScript` files and combine them in a giant bundle file. Thanks to the `babel` plugin for Webpack, we can make use in our code of some `JavaScript` [features](/javascript/syntax.md#ES2015) which are not widely supported: `babel` will transform the code you write to make it work in all major browsers. 
 
@@ -32,9 +32,21 @@ The project also provide other NPM scripts, in order to manage its lifecycle.
 * dev:local : Launch the application with the locale API
 * dev:server : Launch scripts `npm run dev:local` and `npm run server`
 * server : Launch the fake NodeJS server
-* build : Generate the production version of the application
+* build : Generate the production version of the application with the configuratio for the prod environment
+* build:dev : Generate the production version of the application with the configuratio for the dev environment
+* build:dv : Generate the production version of the application with the configuratio for the dv environment
+* build:preprod : Generate the production version of the application with the configuratio for the preprod environment
+* build:qa : Generate the production version of the application with the configuratio for the qa environment
+* build:qf : Generate the production version of the application with the configuratio for the qf environment
 * lint : Check the quality of the project
 * lint:fix : Check the quality of the project and apply fixes automatically
 * start : Launch the command `npm run dev`
 * e2e : Launch Integration Tests 
 * e2e:travis : Launch Integration Tests with the configuration for Travis
+
+## Add a new environment
+
+If you want to add a new environment (for example qlf2), you just need to : 
+- Create a configuration file `config.qlf2.js` in the `build-config/environments` folder. 
+- Copy/Paste the configuration of another environment, and and do the adjustments
+- Add a `build:qlf2` NPM script.
