@@ -34,7 +34,14 @@ function transformationFormToState(form) {
 
 function transformationModelToState(model = []) {
   return model.reduce((acc, control) => {
-    const { label, condition, message, type, during_collect, post_collect } = control;
+    const {
+      Description: label,
+      Expression: condition,
+      FailMessage: message,
+      type,
+      during_collect,
+      post_collect,
+    } = control;
     const id = control.id || uuid();
     return {
       ...acc,
@@ -77,12 +84,21 @@ function transformationStateToModel(currentState) {
   const controls = [];
 
   Object.keys(currentState).forEach(key => {
-    const { id, label, condition, message, type, during_collect, post_collect } = currentState[key];
+    const {
+      id,
+      label: Description,
+      condition: Expression,
+      message: FailMessage,
+      type,
+      during_collect,
+      post_collect,
+    } = currentState[key];
+
     controls.push({
       id,
-      label,
-      condition,
-      message,
+      Description,
+      Expression,
+      FailMessage,
       type,
       during_collect,
       post_collect,

@@ -78,27 +78,30 @@ function transformationStateToForm(currentState, codesListsStore = {}) {
 function transformationStateToModel(currentState, codesListsStore) {
   const { type, [type]: responseFormatState } = currentState;
   const model = {
-    responseStructure: {
-      dimensions: [],
+    ResponseStructure: {
+      Dimension: [],
     },
-    responses: [],
+    Response: [],
   };
   let responseFormatModel = {};
 
   if (type === SIMPLE) {
     responseFormatModel = SimpleTransformerFactory({ initialState: responseFormatState }).stateToModel();
-    model.responses = responseFormatModel.responses;
+    model.Response = responseFormatModel.Response;
   } else if (type === SINGLE_CHOICE) {
     responseFormatModel = SingleTransformerFactory({ initialState: responseFormatState }).stateToModel();
-    model.responses = responseFormatModel.responses;
+    model.Response = responseFormatModel.responses;
   } else if (type === MULTIPLE_CHOICE) {
     responseFormatModel = MultipleTransformerFactory({ initialState: responseFormatState }).stateToModel();
-    model.responses = responseFormatModel.responses;
-    model.responseStructure.dimensions = responseFormatModel.dimensions;
+    model.Response = responseFormatModel.responses;
+    model.ResponseStructure.Dimension = responseFormatModel.dimensions;
   } else {
-    responseFormatModel = TableTransformerFactory({ initialState: responseFormatState , codesListsStore}).stateToModel();
-    model.responses = responseFormatModel.responses;
-    model.responseStructure.dimensions = responseFormatModel.dimensions;
+    responseFormatModel = TableTransformerFactory({
+      initialState: responseFormatState,
+      codesListsStore,
+    }).stateToModel();
+    model.Response = responseFormatModel.responses;
+    model.ResponseStructure.Dimension = responseFormatModel.dimensions;
   }
   return model;
 }

@@ -134,3 +134,9 @@ export const CODES_LIST_INPUT_ENUM = {
   REF: 'REF',
   QUESTIONNAIRE: 'QUESTIONNAIRE',
 };
+
+export const VARIABLES_TYPES = {
+  COLLECTED: 'CollectedVariableType',
+  CALCULATED: 'CalculatedVariableType',
+  EXTERNAL: 'ExternalVariableType',
+};

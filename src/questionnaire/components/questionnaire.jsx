@@ -145,6 +145,7 @@ class Questionnaire extends Component {
       const subTree = renderComponentsByParent(components, key, errors);
       const isSelected = key === selected;
       const componentErrors = errors[key] ? errors[key].errors : [];
+
       return (
         <QuestionnaireElement
           key={key}

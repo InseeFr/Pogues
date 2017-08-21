@@ -172,7 +172,7 @@ function getMeasuresModel(responses, dimensions, offset) {
   const responsesModel = [];
   for (let i = 0; i < dimensions.length; i += 1) {
     responsesModel.push({
-      label: dimensions[i].label,
+      Label: dimensions[i].Label,
       response: responses[i * offset],
     });
   }
@@ -306,7 +306,7 @@ function transformationFormToState(form, currentCodesListsIdsStore) {
 // MODEL TO STATE
 
 function transformationModelToStatePrimary(model) {
-  const { totalLabel, dynamic, codeListReference } = model;
+  const { totalLabel, dynamic, CodeListReference: codesListId } = model;
   let state = {};
 
   if (totalLabel) {
@@ -314,12 +314,12 @@ function transformationModelToStatePrimary(model) {
     state.totalLabel = totalLabel;
   }
 
-  if (codeListReference) {
+  if (codesListId) {
     state = {
       ...state,
       type: CODES_LIST,
       [CODES_LIST]: {
-        codesListId: codeListReference,
+        codesListId,
       },
     };
   } else {
@@ -338,10 +338,10 @@ function transformationModelToStatePrimary(model) {
 }
 
 function transformationModelToStateSecondary(model) {
-  const { totalLabel, codeListReference } = model;
+  const { totalLabel, CodeListReference: codesListId } = model;
   const state = {
     showSecondaryAxis: true,
-    codesListId: codeListReference,
+    codesListId,
   };
 
   if (totalLabel) {
@@ -353,15 +353,15 @@ function transformationModelToStateSecondary(model) {
 }
 
 function transformationModelToStateMeasure(model) {
-  const { label, response: { codeListReference, datatype } } = model;
+  const { Label: label, response: { CodeListReference, Datatype } } = model;
   const state = {};
 
-  if (codeListReference) {
+  if (CodeListReference) {
     state.type = SINGLE_CHOICE;
-    state[SINGLE_CHOICE] = SingleTransformerFactory().modelToState({ responses: [{ datatype, codeListReference }] });
+    state[SINGLE_CHOICE] = SingleTransformerFactory().modelToState({ responses: [{ Datatype, CodeListReference }] });
   } else {
     state.type = SIMPLE;
-    state[SIMPLE] = SimpleTransformerFactory().modelToState({ responses: [{ datatype }] });
+    state[SIMPLE] = SimpleTransformerFactory().modelToState({ responses: [{ Datatype }] });
   }
   return {
     label,
@@ -502,18 +502,16 @@ function transformationStateToModelResponse(state) {
 
   if (measureType === SIMPLE) {
     const { mandatory, type, [type]: simpleState } = measureTypeState;
-    model = Response.stateToModel({ mandatory, type, datatype: simpleState });
+    model = Response.stateToModel({ mandatory, type, ...simpleState });
   } else {
     const { mandatory, visHint, codesListId } = measureTypeState;
     model = Response.stateToModel({
       mandatory,
-      codeListReference: codesListId,
+      codesListId,
       type: TEXT,
-      datatype: {
-        maxLength: 1,
-        pattern: '',
-        visHint,
-      },
+      maxLength: 1,
+      pattern: '',
+      visHint,
     });
   }
 
@@ -560,8 +558,8 @@ function transformationStateToModel(currentState, codesListsStore) {
   }
 
   return {
-    dimensions: dimensionsModel,
-    responses: responsesModel,
+    Dimension: dimensionsModel,
+    Response: responsesModel,
   };
 }
 

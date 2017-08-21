@@ -7,41 +7,6 @@ export const defaultCalculatedVariableForm = {
   calculatedVariables: [],
 };
 
-// function formToState(form) {
-//   const { calculatedVariables } = form;
-//   return calculatedVariables.reduce((acc, cv) => {
-//     const { label, name, formula } = cv;
-//     const id = cv.id || uuid();
-//
-//     return {
-//       ...acc,
-//       [id]: {
-//         id,
-//         label,
-//         name,
-//         formula,
-//       },
-//     };
-//   }, {});
-// }
-//
-//
-//
-// function stateToModel(state) {
-//   const calculatedVariables = [];
-//
-//   Object.keys(state).forEach(key => {
-//     const { label, name, formula } = state[key];
-//     calculatedVariables.push({
-//       label,
-//       name,
-//       formula,
-//     });
-//   });
-//
-//   return calculatedVariables;
-// }
-
 function transformationFormToStore(form) {
   const { calculatedVariables } = form;
 
@@ -63,7 +28,7 @@ function transformationFormToStore(form) {
 
 function transformationModelToStore(model = []) {
   return model.reduce((acc, cv) => {
-    const { label, name, formula } = cv;
+    const { Label: label, Name: name, Formula: formula } = cv;
     const id = cv.id || uuid();
     return {
       ...acc,
@@ -100,12 +65,12 @@ function transformationStoreToModel(currentStore) {
   const calculatedVariables = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, label, name, formula } = currentStore[key];
+    const { id, label: Label, name: Name, formula: Formula } = currentStore[key];
     calculatedVariables.push({
       id,
-      label,
-      name,
-      formula,
+      Label,
+      Name,
+      Formula,
     });
   });
 

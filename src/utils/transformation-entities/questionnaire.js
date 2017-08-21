@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { uuid } from 'utils/data-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
@@ -12,43 +12,46 @@ export const defaultQuestionnaireState = {
   label: '',
   name: '',
   agency: undefined,
-  survey: undefined,
+  dataCollection: undefined,
   componentGroups: undefined,
 };
 
 export const defaultQuestionnaireModel = {
   id: '',
-  name: '',
-  label: [],
-  genericName: QUESTIONNAIRE,
-  children: [],
-  depth: 0,
   owner: '',
-  type: SEQUENCE_TYPE_NAME,
+  depth: 0,
+  genericName: QUESTIONNAIRE,
   agency: 'fr.insee', // @TODO: This should not be constant,
-  survey: {
-    agency: 'fr.insee', // @TODO: Idem
-    name: 'POPO', // @TODO: Idem,
-    id: '',
-  },
-  componentGroups: [
-    // @TODO: Idem
+  Name: '',
+  Label: [],
+  Child: [],
+  // @TODO: Idem
+  DataCollection: [
     {
-      name: 'PAGE_1', // @TODO: Idem
-      label: 'Components for page 1', // @TODO: Idem
-      Member: [],
-      id: '',
+      id: 'dataCollection1',
+      uri: 'http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1',
+      Name: 'POPO-2017-A00',
     },
   ],
-  codeLists: {
-    codeList: [],
-    codeListSpecification: [],
+  // @TODO: Idem
+  ComponentGroup: [
+    {
+      id: 'j3tu30jo',
+      Name: 'PAGE_1',
+      Label: ['Components for page 1'],
+      MemberReference: [],
+    },
+  ],
+  CodeLists: {
+    CodeList: [],
   },
-  calculatedVariables: [],
+  Variables: {
+    Variable: [],
+  },
 };
 
 function transformationFormToState(form, currentState) {
-  const { owner, id, agency, survey, componentGroups } = currentState;
+  const { owner, id, agency, dataCollection, componentGroups } = currentState;
 
   const { label, name } = form;
 
@@ -58,22 +61,22 @@ function transformationFormToState(form, currentState) {
     label,
     name,
     agency,
-    survey,
+    dataCollection,
     componentGroups,
   };
 }
 
 function transformationModelToState(model) {
-  const { owner, id, name, label: [label], agency, survey, componentGroups } = model;
+  const { owner, id, Name, Label: [label], agency, DataCollection, ComponentGroup } = model;
 
   return {
     owner,
     id,
-    name,
+    name: Name,
     label,
     agency,
-    survey,
-    componentGroups,
+    dataCollection: DataCollection,
+    componentGroups: ComponentGroup,
   };
 }
 
@@ -92,12 +95,12 @@ function transformationStateToModel(
   conditionsStore,
   calculatedVariablesStore
 ) {
-  const { owner, id, label, name, agency, survey, componentGroups } = currentState;
+  const { owner, id, label, name, agency, dataCollection, componentGroups } = currentState;
   const model = {
     owner,
     id,
-    label: [label],
-    name,
+    Label: [label],
+    Name: name,
   };
 
   const componentsModel = ComponentTransformerFactory({
@@ -112,19 +115,20 @@ function transformationStateToModel(
 
   const codesListsModel = CodesListTransformerFactory().storeToModel(codesListsStore);
 
-  if (survey) model.survey = survey;
+  if (dataCollection) model.DataCollection = dataCollection;
   if (agency) model.agency = agency;
-  if (componentGroups) model.componentGroups = componentGroups;
+  if (componentGroups) model.ComponentGroup = componentGroups;
 
   return {
     ...defaultQuestionnaireModel,
     ...model,
-    children: componentsModel,
-    codeLists: {
-      codeList: codesListsModel,
-      codeListSpecification: [],
+    Child: componentsModel,
+    CodeLists: {
+      CodeList: codesListsModel,
     },
-    calculatedVariables: calculatedVariablesModel,
+    Variables: {
+      Variable: calculatedVariablesModel,
+    },
   };
 }
 

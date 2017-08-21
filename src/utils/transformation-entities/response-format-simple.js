@@ -39,11 +39,27 @@ function transformationFormToState(form) {
 }
 
 function transformationModelToState(model) {
-  const { typeName, type, mandatory, ...data } = model;
+  const {
+    typeName,
+    mandatory,
+    MaxLength: maxLength,
+    Pattern: pattern,
+    Minimum: minimum,
+    Maximum: maximum,
+    Decimals: decimals,
+  } = model;
+  const datatype = {};
+
+  if (maxLength) datatype.maxLength = maxLength;
+  if (pattern) datatype.pattern = pattern;
+  if (minimum) datatype.minimum = minimum;
+  if (maximum) datatype.maximum = maximum;
+  if (decimals) datatype.decimals = decimals;
+
   const responseFormatSimpleData = {
     type: typeName,
     mandatory,
-    [typeName]: data,
+    [typeName]: datatype,
   };
 
   return {
@@ -66,12 +82,8 @@ function transformationStateToForm(currentState) {
 }
 
 function transformationStateToModel(currentState) {
-  const { mandatory, type, [type]: simpleState } = currentState;
-  const responses = [];
-  responses.push(Response.stateToModel({ mandatory, type, datatype: simpleState }));
-
   return {
-    responses,
+    Response: [Response.stateToModel(currentState)],
   };
 }
 
@@ -86,7 +98,7 @@ const SimpleTransformerFactory = (conf = {}) => {
       return currentState;
     },
     modelToState: responses => {
-      const { responses: [{ datatype, mandatory }] } = responses;
+      const { responses: [{ Datatype: datatype, mandatory }] } = responses;
       currentState = transformationModelToState({ ...datatype, mandatory });
       return currentState;
     },

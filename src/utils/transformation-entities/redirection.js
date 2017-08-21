@@ -28,7 +28,7 @@ function transformationFormToState(form) {
 
 function transformationModelToState(model = []) {
   return model.reduce((acc, redirection) => {
-    const { label, condition, cible } = redirection;
+    const { label, Expression: condition, IfTrue: cible } = redirection;
     const id = redirection.id || uuid();
     return {
       ...acc,
@@ -46,12 +46,12 @@ function transformationStateToForm(currentState) {
   const redirections = [];
 
   Object.keys(currentState).forEach(key => {
-    const { id, label, condition, cible } = currentState[key];
+    const { id, label, condition: Expression, cible: IfTrue } = currentState[key];
     redirections.push({
       id,
       label,
-      condition,
-      cible,
+      Expression,
+      IfTrue,
     });
   });
 

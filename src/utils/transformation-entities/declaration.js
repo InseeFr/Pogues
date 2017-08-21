@@ -28,13 +28,13 @@ function transformationFormToState(form) {
 
 function transformationModelToState(model = []) {
   return model.reduce((acc, declaration) => {
-    const { declarationType, text, position } = declaration;
+    const { declarationType, Text: label, position } = declaration;
     const id = declaration.id || uuid();
     return {
       ...acc,
       [id]: {
         id,
-        label: text || '',
+        label,
         declarationType,
         position,
       },
@@ -65,10 +65,10 @@ function transformationStateToModel(currentState) {
   const declarations = [];
 
   Object.keys(currentState).forEach(key => {
-    const { id, declarationType, label, position } = currentState[key];
+    const { id, declarationType, label: Text, position } = currentState[key];
     declarations.push({
       id,
-      text: label,
+      Text,
       declarationType,
       position,
     });

@@ -1,13 +1,4 @@
-import _ from 'lodash';
-
-import {
-  COMPONENT_TYPE,
-  SEQUENCE_TYPE_NAME,
-  QUESTION_TYPE_NAME,
-  QUESTION_TYPE_ENUM,
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-} from 'constants/pogues-constants';
+import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import { uuid } from 'utils/data-utils';
@@ -19,9 +10,6 @@ import CalculatedVariableTransformerFactory from './calculated-variable';
 import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
-const { SINGLE_CHOICE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { PRIMARY, MEASURE } = DIMENSION_TYPE;
-const { CODES_LIST } = DIMENSION_FORMATS;
 
 function transformationFormToState(form, currentState, currentCodesListsIdsStore) {
   const { id, type, parent, weight, children } = currentState;
@@ -59,20 +47,18 @@ function transformationFormToState(form, currentState, currentCodesListsIdsStore
 function transformationModelToState(model, codesListsStore = {}) {
   const {
     id,
-    type,
-    depth,
-    name,
-    label: [label],
+    questionType,
+    genericName,
+    Name: name,
+    Label: [label],
+    Declaration: declarations,
+    GoTo: redirections,
+    Controls: controls,
+    Response: responses,
+    ResponseStructure: responseStructure,
+    Child: children,
     parent,
     weight,
-    children,
-    questionType,
-    responses,
-    responseStructure,
-    declarations,
-    controls,
-    redirections,
-    goTos,
   } = model;
 
   const state = {
@@ -85,19 +71,19 @@ function transformationModelToState(model, codesListsStore = {}) {
 
   state.declarations = DeclarationTransformerFactory().modelToState(declarations);
   state.controls = ControlTransformerFactory().modelToState(controls);
-  state.redirections = RedirectionTransformerFactory().modelToState(redirections || goTos);
+  state.redirections = RedirectionTransformerFactory().modelToState(redirections);
 
-  if (type === SEQUENCE_TYPE_NAME) {
+  if (genericName) {
     state.label = label;
-    if (depth === 0) {
+    if (genericName === QUESTIONNAIRE) {
       state.type = QUESTIONNAIRE;
-    } else if (depth === 1) {
+    } else if (genericName === 'MODULE') {
       state.type = SEQUENCE;
-    } else {
+    } else if (genericName === 'SUBMODULE') {
       state.type = SUBSEQUENCE;
     }
-  } else if (type === QUESTION_TYPE_NAME) {
-    const dimensions = responseStructure ? responseStructure.dimensions : [];
+  } else {
+    const dimensions = responseStructure ? responseStructure.Dimension : [];
     state.type = QUESTION;
     state.label = getQuestionLabelFromRaw(label);
     state.rawLabel = label;
@@ -116,7 +102,7 @@ function transformationModelToStore(model, questionnaireId, codesListsStore = {}
     children.forEach(child => {
       acc[child.id] = transformationModelToState({ ...child, weight, parent }, codesListsStore);
       weight += 1;
-      if (child.children) getComponentsFromNested(child.children, child.id, acc);
+      if (child.Child) getComponentsFromNested(child.Child, child.id, acc);
       return acc;
     });
 
@@ -150,16 +136,16 @@ function transformationStateToForm(currentState, codesListsStore, calculatedVari
 }
 
 function transformationStateToModel(state, store, codesListsStore = {}, depth = 1) {
-  const { id, name, label, type, children, responseFormat, declarations, controls, redirections } = state;
+  const { id, name: Name, label, type, children, responseFormat, declarations, controls, redirections } = state;
 
   let model = {
     id,
-    name,
     depth,
-    label: [label],
-    declarations: DeclarationTransformerFactory({ initialState: declarations }).stateToModel(),
-    controls: ControlTransformerFactory({ initialState: controls }).stateToModel(),
-    redirections: RedirectionTransformerFactory({ initialState: redirections }).stateToModel(),
+    Name,
+    Label: [label],
+    Declaration: DeclarationTransformerFactory({ initialState: declarations }).stateToModel(),
+    Control: ControlTransformerFactory({ initialState: controls }).stateToModel(),
+    GoTo: RedirectionTransformerFactory({ initialState: redirections }).stateToModel(),
   };
 
   if (type === QUESTION) {
@@ -174,10 +160,12 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
     model.type = SEQUENCE_TYPE_NAME;
     if (type === QUESTIONNAIRE) {
       model.genericName = 'QUESTIONNAIRE';
-    } else {
+    } else if (type === SEQUENCE) {
       model.genericName = 'MODULE';
+    } else {
+      model.genericName = 'SUBMODULE';
     }
-    model.children = transformationStateChildrenToModel(children, store, codesListsStore, depth);
+    model.Child = transformationStateChildrenToModel(children, store, codesListsStore, depth);
   }
 
   return model;
@@ -195,26 +183,6 @@ function transformationStateChildrenToModel(children, store, codesListsStore, de
       return transformationStateToModel(store[key], store, codesListsStore, newDepth);
     });
 }
-
-// function getCodesListsFromResponseFormat(responseFormat, codesListsTransformers) {
-//   const codesListsStore = {};
-//   const responseFormatName = responseFormat.type;
-//   let codesListState;
-//
-//   if (responseFormatName === SINGLE_CHOICE) {
-//     codesListState = codesListsTransformers[SINGLE_CHOICE].getState();
-//     codesListsStore[codesListState.id] = codesListState;
-//   } else if (responseFormatName === MULTIPLE_CHOICE) {
-//     codesListState = codesListsTransformers[MULTIPLE_CHOICE][PRIMARY].getState();
-//     codesListsStore[codesListState.id] = codesListState;
-//     if (responseFormat[MULTIPLE_CHOICE][MEASURE].type === CODES_LIST) {
-//       codesListState = codesListsTransformers[MULTIPLE_CHOICE][MEASURE][CODES_LIST].getState();
-//       codesListsStore[codesListState.id] = codesListState;
-//     }
-//   }
-//
-//   return codesListsStore;
-// }
 
 const ComponentTransformerFactory = (conf = {}) => {
   const { initialStore, questionnaireId, codesListsStore, calculatedVariablesStore, currentCodesListsIdsStore } = conf;
@@ -245,7 +213,7 @@ const ComponentTransformerFactory = (conf = {}) => {
     },
     modelToStore: model => {
       currentStore = {
-        ...transformationModelToStore(model.children, questionnaireId, codesListsStore),
+        ...transformationModelToStore(model.Child, questionnaireId, codesListsStore),
         [questionnaireId]: transformationModelToState(model),
       };
       return currentStore;
@@ -267,10 +235,6 @@ const ComponentTransformerFactory = (conf = {}) => {
         return transformationStateToModel(currentStore[key], currentStore, codesListsStore);
       });
     },
-    // stateToCodesLists: () => {
-    //   if (!currentState) return {};
-    //   return getCodesListsFromResponseFormat(currentState.responseFormat, codesListsTransformers);
-    // },
   };
 };
 

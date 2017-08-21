@@ -1,14 +1,17 @@
-// import _ from 'lodash';
-
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 // import Condition from 'utils/transformation-entities/condition';
+import { VARIABLES_TYPES } from 'constants/pogues-constants';
+import Logger from 'utils/logger/logger';
+
+const { CALCULATED } = VARIABLES_TYPES;
+const logger = new Logger('ModelToStateUtils', 'Utils');
 
 export function questionnaireModelToStores(model) {
-  // const model = _.cloneDeep(questionnaireModel);
-  const { id, codeLists: { codeList }, calculatedVariables } = model;
+  const { id, CodeLists: { CodeList: codesLists }, Variables: { Variable: variables } } = model;
+  const calculatedVariables = variables.filter(v => v.type === CALCULATED);
 
   // Questionnaire store
   const questionnaireById = QuestionnaireTransformerFactory(model).modelToStore(model);
@@ -19,7 +22,7 @@ export function questionnaireModelToStores(model) {
   };
 
   // Codes lists store
-  const codesListsStore = CodesListTransformerFactory().modelToStore(codeList);
+  const codesListsStore = CodesListTransformerFactory().modelToStore(codesLists);
   const codeListByQuestionnaire = {
     [id]: codesListsStore,
   };
@@ -32,19 +35,31 @@ export function questionnaireModelToStores(model) {
   // const questions = filterQuestions(components);
   // const conditions = getConditionsFromQuestions(questions);
   // @TODO
-  const conditionByQuestionnaire = {
-    [id]: {},
-  };
+  // const conditionByQuestionnaire = {
+  //   [id]: {},
+  // };
 
   return {
     questionnaireById,
-    componentByQuestionnaire,
-    codeListByQuestionnaire,
-    conditionByQuestionnaire,
     calculatedVariableByQuestionnaire,
+    codeListByQuestionnaire,
+    componentByQuestionnaire,
+    conditionByQuestionnaire: {},
   };
 }
 
 export function questionnaireListModelToState(questionnairesList) {
-  return questionnairesList.map(questionnaire => questionnaireModelToStores(questionnaire));
+  const questionnairesStates = [];
+
+  for (let i = 0; i < questionnairesList.length; i += 1) {
+    let questionnaireState;
+    try {
+      questionnaireState = questionnaireModelToStores(questionnairesList[i]);
+    } catch (e) {
+      logger.error(e);
+    }
+
+    if (questionnaireState) questionnairesStates.push(questionnaireState);
+  }
+  return questionnairesStates;
 }

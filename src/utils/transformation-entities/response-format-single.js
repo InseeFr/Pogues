@@ -1,16 +1,9 @@
-import {
-  UI_BEHAVIOUR,
-  CODES_LIST_INPUT_ENUM,
-  DATATYPE_NAME,
-  DATATYPE_VIS_HINT,
-  QUESTION_TYPE_ENUM,
-} from 'constants/pogues-constants';
+import { UI_BEHAVIOUR, CODES_LIST_INPUT_ENUM, DATATYPE_VIS_HINT, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import CodesListTransformerFactory, { defaultCodesListForm } from './codes-list';
 import Response from './response';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
-const { TEXT } = DATATYPE_NAME;
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export const defaultSingleForm = {
@@ -113,41 +106,8 @@ function transformationStateToForm(currentState, codesListsStore) {
 }
 
 function transformationStateToModel(currentState) {
-  const {
-    mandatory,
-    visHint,
-    codesListId,
-    hasSpecialCode,
-    specialLabel,
-    specialCode,
-    specialUiBehaviour,
-    specialFollowUpMessage,
-  } = currentState;
-  const responses = [];
-  const model = {
-    mandatory,
-    codeListReference: codesListId,
-    type: TEXT,
-    datatype: {
-      maxLength: 1,
-      pattern: '',
-      visHint,
-    },
-  };
-
-  if (hasSpecialCode) {
-    model.nonResponseModality = {
-      value: specialCode,
-      label: specialLabel,
-      firstIntentionDisplay: specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
-      invite: specialFollowUpMessage,
-    };
-  }
-
-  responses.push(Response.stateToModel(model));
-
   return {
-    responses,
+    Response: [Response.stateToModel(currentState)],
   };
 }
 
@@ -163,7 +123,9 @@ const SingleTransformerFactory = (conf = {}) => {
     },
     modelToState: model => {
       const {
-        responses: [{ datatype: { visHint }, mandatory, nonResponseModality, codeListReference: codesListId }],
+        responses: [
+          { Datatype: { visualizationHint: visHint }, mandatory, nonResponseModality, CodeListReference: codesListId },
+        ],
       } = model;
       currentState = transformationModelToState({ visHint, mandatory, nonResponseModality, codesListId });
       return currentState;

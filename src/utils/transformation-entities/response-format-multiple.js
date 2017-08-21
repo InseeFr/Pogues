@@ -114,7 +114,7 @@ function transformationModelToState(model) {
     [MEASURE]: { ...defaultMultipleState[MEASURE] },
   };
 
-  state[PRIMARY].codesListId = primaryDimension.codeListReference;
+  state[PRIMARY].codesListId = primaryDimension.CodeListReference;
 
   if (type === BOOLEAN) {
     state[MEASURE].type = BOOL;
@@ -181,9 +181,11 @@ function transformationStateToModel(currentState) {
     const { codesListId, visHint } = measureState;
     responses.push(
       Response.stateToModel({
-        codeListReference: codesListId,
+        codesListId,
         type: TEXT,
-        datatype: { maxLength: 1, pattern: '', visHint },
+        visHint,
+        maxLength: 1,
+        pattern: '',
       })
     );
   } else {
@@ -191,8 +193,8 @@ function transformationStateToModel(currentState) {
   }
 
   return {
-    dimensions,
-    responses,
+    Dimension: dimensions,
+    Response: responses,
   };
 }
 
@@ -206,7 +208,10 @@ const MultipleTransformerFactory = (conf = {}) => {
       return currentState;
     },
     modelToState: model => {
-      const { dimensions, responses: [{ datatype: { typeName, visHint }, codeListReference: codesListId }] } = model;
+      const {
+        dimensions,
+        responses: [{ Datatype: { typeName, visualizationHint: visHint }, CodeListReference: codesListId }],
+      } = model;
       currentState = transformationModelToState({
         primaryDimension: getDimension(PRIMARY, dimensions),
         type: typeName,

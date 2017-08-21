@@ -18,7 +18,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
       {noValueBlock}
       {fields.map((name, index, fields) => {
         const item = fields.get(index);
-        const rawLabel = markdownToRaw(item.label).blocks[0].text;
+        const rawLabel = markdownToRaw(item.label || '').blocks[0].text;
         const shortLabel = rawLabel && rawLabel.length > 60 ? `${rawLabel.substr(0, 57)}...` : rawLabel;
         const invalidItemClass = classSet({
           invalid: invalidItems.indexOf(item.id) !== -1,

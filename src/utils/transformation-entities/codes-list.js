@@ -38,7 +38,7 @@ function transformationFormToState(form, currentState) {
 
 function transformationModelToStore(model = []) {
   return model.reduce((acc, codesList) => {
-    const { label, name, codes } = codesList;
+    const { Label: label, Name: name, Code: codes } = codesList;
     const id = codesList.id || uuid();
     return {
       ...acc,
@@ -46,8 +46,8 @@ function transformationModelToStore(model = []) {
         id,
         label,
         name,
-        codes: codes.reduce((accCodes, c) => {
-          const { label: labelCode, value, code } = c;
+        codes: (codes || []).reduce((accCodes, c) => {
+          const { Label: labelCode, Value, code } = c;
           const idCode = c.id || uuid();
           return {
             ...accCodes,
@@ -55,7 +55,7 @@ function transformationModelToStore(model = []) {
               id: idCode,
               label: labelCode,
               code,
-              value,
+              value: Value,
             },
           };
         }, {}),
@@ -88,19 +88,19 @@ function transformationStoreToModel(currentStore = {}) {
   const codesLists = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, label, name, codes } = currentStore[key];
+    const { id, label: Label, name: Name, codes } = currentStore[key];
     codesLists.push({
       id,
-      label,
-      name,
-      codes: Object.keys(codes).reduce((acc, keyCode) => {
+      Label,
+      Name,
+      Code: Object.keys(codes).reduce((acc, keyCode) => {
         const { id: idCode, label: labelCode, value, code } = codes[keyCode];
         return [
           ...acc,
           {
             id: idCode,
-            label: labelCode,
-            value,
+            Label: labelCode,
+            Value: value,
             code,
           },
         ];
