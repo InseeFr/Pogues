@@ -14,7 +14,7 @@ script:
   - popd
   - sleep 30
   - curl http://localhost:3000
-  - 'if [ "$TRAVIS_PULL_REQUEST_SLUG" = ""] || ["$TRAVIS_PULL_REQUEST_SLUG" = "$TRAVIS_REPO_SLUG"]; then npm run e2e:travis; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST_SLUG" = "" ] || [ "$TRAVIS_PULL_REQUEST_SLUG" = "$TRAVIS_REPO_SLUG" ]; then npm run e2e:travis; fi'
 
 addons:
   sauce_connect: true
