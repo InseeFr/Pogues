@@ -92,7 +92,7 @@
   },
   "scripts": {
     "postinstall": "node nightwatch.conf.js",
-    "test": "jest --coverage",
+    "test": "jest --coverage -i",
     "test:watch": "jest --watch",
     "dev": "webpack-dev-server",
     "dev:dev": "cross-env webpack-dev-server --env.environment=dev",
