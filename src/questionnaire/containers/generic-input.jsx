@@ -38,7 +38,6 @@ function GenericInputContainer({
   placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, selectedComponent);
   placeholders[QUESTION] = getNewQuestionPlaceholder(components, selectedComponent);
   return (
-    questionnaire.id &&
     <GenericInput
       placeholders={placeholders}
       saveActiveQuestionnaire={saveActiveQuestionnaire}

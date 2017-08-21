@@ -13,7 +13,10 @@ class GenericInput extends Component {
     placeholders: PropTypes.object.isRequired,
     saveActiveQuestionnaire: PropTypes.func.isRequired,
     isQuestionnaireValid: PropTypes.bool.isRequired,
-    idQuestionnaire: PropTypes.string.isRequired,
+    idQuestionnaire: PropTypes.string,
+  };
+  static defaultProps = {
+    idQuestionnaire: '',
   };
 
   constructor(props) {
