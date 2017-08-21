@@ -50,6 +50,7 @@ class ListEntryFormContainer extends Component {
     noValueLabel: PropTypes.string.isRequired,
     invalidItems: PropTypes.array,
     showDuplicateButton: PropTypes.bool,
+    rerenderOnEveryChange: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -61,6 +62,7 @@ class ListEntryFormContainer extends Component {
     onAddCodesList: undefined,
     invalidItems: [],
     showDuplicateButton: true,
+    rerenderOnEveryChange: false,
   };
   constructor(props) {
     super(props);
@@ -150,7 +152,15 @@ class ListEntryFormContainer extends Component {
     return isValid;
   }
   render() {
-    const { inputView, listName, submitLabel, noValueLabel, invalidItems, showDuplicateButton } = this.props;
+    const {
+      inputView,
+      listName,
+      submitLabel,
+      noValueLabel,
+      invalidItems,
+      rerenderOnEveryChange,
+      showDuplicateButton,
+    } = this.props;
     return (
       <ListEntryForm
         submitLabel={submitLabel}
@@ -165,6 +175,7 @@ class ListEntryFormContainer extends Component {
         listName={listName}
         invalidItems={invalidItems}
         showDuplicateButton={showDuplicateButton}
+        rerenderOnEveryChange={rerenderOnEveryChange}
       />
     );
   }

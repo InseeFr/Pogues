@@ -7,12 +7,12 @@ module.exports = {
       .waitForElementVisible('body')
       .assert.title('Pogues')
       .end()
-  },
+  }, 
   'Home page fetch wip questionnaires': browser => {
     browser
       .url("http://localhost:3000")
       .waitForElementVisible('.home-questionnaires')
-      .assert.containsText('.home-questionnaires h4', 'Stamp : FAKEPERMISSION')
+      .assert.containsText('.home-questionnaires h4', 'FAKEPERMISSION')
       .end()
   },
 };

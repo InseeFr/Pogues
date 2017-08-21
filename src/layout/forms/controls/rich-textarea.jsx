@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 import RichTextEditor from 'gillespie59-react-rte';
-import { CompositeDecorator, convertToRaw } from 'draft-js';
+import { CompositeDecorator } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 const MARKDOWN = 'markdown';
@@ -76,7 +76,6 @@ function getValue(props) {
 /**
  * petit bug de synchro dans le model
  * Faire la PR
- * Pb URL ne marche pas la première fois
  */
 class RichTextArea extends Component {
   static propTypes = {
@@ -101,32 +100,27 @@ class RichTextArea extends Component {
     this.state = {
       value: initValue,
       editorState: initValue.getEditorState().getCurrentContent(),
+      currentValue: initValue,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.buttons && nextProps.input.value !== this.props.input.value) {
+    if (this.props.buttons && nextProps.input.value !== this.state.currentValue) {
       this.setState({
         value: getValue(nextProps),
+        currentValue: nextProps.input.value,
       });
     }
   }
 
   onChange = value => {
     if (this.props.buttons) {
-      this.setState({ value });
+      const markdownValue = editorValueToMarkdown(value);
+      this.setState({ value, currentValue: markdownValue }, () => {
+        this.props.input.onChange(markdownValue);
+      });
     }
   };
-
-  onBlur(e) {
-    if (this.props.buttons) {
-      const newContent = this.state.value.getEditorState().getCurrentContent();
-      if (newContent !== this.state.lastContent) {
-        this.props.input.onChange(editorValueToMarkdown(this.state.value));
-        this.setState({ lastContent: newContent });
-      }
-    }
-  }
 
   toolbarConfig = {
     display: ['INLINE_STYLE_BUTTONS', 'LINK_BUTTONS'],
@@ -144,11 +138,11 @@ class RichTextArea extends Component {
   render() {
     const { input, label, required, buttons, help, reference } = this.props;
 
-    const helpBlock = help
-      ? <span className="help-block">
-          <span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP}{' '}
-        </span>
-      : '';
+    const helpBlock =
+      help &&
+      <span className="help-block">
+        <span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP}{' '}
+      </span>;
 
     return (
       <div className="ctrl-input">
@@ -157,7 +151,7 @@ class RichTextArea extends Component {
           {required ? <span>*</span> : ''} {helpBlock}
         </label>
         {buttons &&
-          <div onBlur={e => this.onBlur(e)}>
+          <div>
             <RichTextEditor
               value={this.state.value}
               onChange={value => this.onChange(value)}

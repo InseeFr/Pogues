@@ -96,6 +96,7 @@ class Declarations extends Component {
           listName="declarations"
           submitLabel="addDeclaration"
           noValueLabel="noDeclarationYet"
+          rerenderOnEveryChange
         />
       </FormSection>
     );
