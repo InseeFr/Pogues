@@ -258,9 +258,8 @@ module.exports = function(env) {
       modules: [path.resolve(__dirname, 'node_modules'), sourcePath],
       alias: {
         Config: path.resolve(__dirname, 'build-config/environments/config.prod')
-      }
+      },
     },
-
     plugins,
 
     performance: isProd && {
