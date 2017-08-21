@@ -80,7 +80,7 @@ const dictionary = {
     fr: 'Séquence',
   },
   subSequence: {
-    en: 'sub-sequence',
+    en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
   question: {
@@ -123,9 +123,29 @@ const dictionary = {
     en: 'Import',
     fr: 'Importer',
   },
-  declaration: {
-    en: 'Statement',
-    fr: 'Déclaration',
+  moveup: {
+    en: 'Move up',
+    fr: 'Remonter',
+  },
+  movedown: {
+    en: 'Move down',
+    fr: 'Descendre',
+  },
+  declaration_tabTitle: {
+    en: 'Statements',
+    fr: 'Déclarations',
+  },
+  declaration_label: {
+    en: 'Statement label',
+    fr: 'Libellé de la déclaration',
+  },
+  type: {
+    en: 'Type',
+    fr: 'Type',
+  },
+  declaration_position: {
+    en: 'Position',
+    fr: 'Position',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
@@ -235,6 +255,10 @@ const dictionary = {
     en: 'Goto',
     fr: 'Redirections',
   },
+  goTo_label: {
+    en: 'GoTo label',
+    fr: 'Libellé de la redirection',
+  },
   defineGoTo: {
     en: 'Add a goto',
     fr: 'Ajouter une redirection',
@@ -321,7 +345,7 @@ const dictionary = {
   },
   responseType: {
     en: 'Response type',
-    fr: 'Type de réponses',
+    fr: 'Type de réponse',
   },
   addResponse: {
     en: 'Add a response',
@@ -356,6 +380,22 @@ const dictionary = {
     en: 'Delete GoTo',
     fr: 'Supprimer la redirection',
   },
+  control_label: {
+    en: 'Control label',
+    fr: 'Libellé du contrôle',
+  },
+  control_during_collect: {
+    en: 'Control during the collect',
+    fr: 'Contrôle pendant la collecte',
+  },
+  control_post_collect: {
+    en: 'Control post-collect',
+    fr: 'Contrôle post-collecte',
+  },
+  control_message: {
+    en: 'Displayed message',
+    fr: 'Message affiché',
+  },
   deleteControl: {
     en: 'Delete control',
     fr: 'Supprimer le contrôle',
@@ -371,20 +411,20 @@ const dictionary = {
  champ « Cible » pour chaque redirection.`,
   },
   errorGoToNonExistingTgt: {
-    en: `The target defined in the filter question is not avalaible. Please fill in the
- target with an existing element of the questionnaire.`,
-    fr: `Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
- à un élément connu du questionnaire.`,
+    fr:
+      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément connu du questionnaire.',
+    en:
+      'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
   errorGoToEarlierTgt: {
-    en: `The target defined in the filter question is not avalaible. Please fill in the
- target with a further element of the questionnaire.`,
-    fr: `Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence
- à un élément postérieur du questionnaire.`,
+    fr:
+      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
+    en:
+      'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.',
   },
   errorQuestionnaireTooShort: {
-    en: 'Your questionnaire is way too short',
-    fr: 'Votre questionnaire est bien trop court',
+    fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
+    en: 'Your questionnaire must contain at least one sequence and one question.',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
@@ -431,12 +471,44 @@ const dictionary = {
     en: 'Primary axis format',
   },
   primaryAxis: {
-    fr: 'Axe principal',
-    en: 'Primary axis',
+    fr: "Axe d'information",
+    en: 'Information axis',
+  },
+  primaryAxisTable: {
+    fr: "Axe d'information principal",
+    en: 'Primary information axis',
+  },
+  secondaryAxis: {
+    fr: 'Axe secondarie',
+    en: 'Secondary axis',
+  },
+  secondaryAxisTable: {
+    fr: "Axe d'information secondarie",
+    en: 'Secondary information axis',
+  },
+  measuresAxisTable: {
+    fr: 'Information mesurée',
+    en: 'Measure information',
   },
   codeList: {
     fr: 'Liste de codes',
     en: 'Code list',
+  },
+  selectCodesListType: {
+    fr: 'Spécifier la liste de codes',
+    en: 'Specify the code list',
+  },
+  newCodesList: {
+    fr: 'Créer une liste',
+    en: 'Create a list',
+  },
+  refCodesList: {
+    fr: 'Retrouver dans le référentiel',
+    en: 'Retrieve in the repository',
+  },
+  questionnaireCodesList: {
+    fr: 'Retrouver dans le questionnaire',
+    en: 'Retrieve in the questionnaire',
   },
   list: {
     fr: 'Liste',
@@ -451,20 +523,20 @@ const dictionary = {
     en: 'Number of lines max.',
   },
   rowTotal: {
-    fr: 'Total ligne',
-    en: 'Row total',
+    fr: 'Ajouter la ligne "Total"',
+    en: 'Add the "Total" row',
   },
   rowTotalLabel: {
-    fr: 'Libellé du total en ligne',
-    en: 'Row total label',
+    fr: 'Libellé de la ligne "Total"',
+    en: 'Label of the "Total" row',
   },
   columnTotal: {
-    fr: 'Total colonne',
-    en: 'Column total',
+    fr: 'Ajouter la colonne "Total"',
+    en: 'Add the "Total" column',
   },
   columnTotalLabel: {
-    fr: 'Libellé du total en colonne',
-    en: 'Column total label',
+    fr: 'Libellé de la colonne "Total"',
+    en: 'Label of the "Total" column',
   },
   addScndAxis: {
     fr: 'Ajouter un axe secondaire',
@@ -495,16 +567,28 @@ const dictionary = {
     en: 'Boolean',
   },
   measureInfo: {
-    fr: 'Information mesurée',
-    en: 'Measure',
+    fr: 'Représentation des réponses',
+    en: 'Responses representation',
+  },
+  measureLabel: {
+    fr: "Libellé de l'information mesurée",
+    en: 'Measure label',
   },
   responseFormats: {
-    fr: 'Format des réponses',
-    en: 'Response formats',
+    fr: 'Type de question',
+    en: 'Question type',
   },
   addMeasure: {
     fr: 'Ajouter une mesure',
     en: 'Add a measure',
+  },
+  noMeasureYet: {
+    en: 'No measure yet',
+    fr: 'Aucune information mesurée définie',
+  },
+  typeMeasure: {
+    fr: 'Type de mesure',
+    en: 'Measure type',
   },
   addCondition: {
     fr: 'Ajouter une condition',
@@ -542,11 +626,11 @@ const dictionary = {
     fr: 'Message de relance',
     en: 'Follow-up message',
   },
-  rankUiBehaviour1: {
+  FIRST_INTENTION: {
     fr: 'En première intention',
     en: 'Immediately',
   },
-  rankUiBehaviour2: {
+  SECOND_INTENTION: {
     fr: 'En deuxième intention',
     en: 'Later',
   },
@@ -591,7 +675,7 @@ const dictionary = {
     en: 'Contextual information',
   },
   logout: {
-    fr: 'Sé déconnecter',
+    fr: 'Se déconnecter',
     en: 'Logout',
   },
   headerSubtitle: {
@@ -663,7 +747,8 @@ const dictionary = {
     en: 'New empty questionnaire',
   },
   newQuestionnaireLegend: {
-    fr: 'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
+    fr:
+      'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
     en: 'You will now be able to specify the context',
   },
   collectionCampaign: {
@@ -706,6 +791,70 @@ const dictionary = {
     fr: 'Ajouter un objet',
     en: 'Add object',
   },
+  validationNumber: {
+    fr: 'Vous devez introduire un chiffre',
+    en: 'Must be a number',
+  },
+  validationRequired: {
+    fr: 'Obligatoire',
+    en: 'Required',
+  },
+  validationMinNumber: {
+    fr: 'Vous devez introduire au mois',
+    en: 'Must be at least',
+  },
+  dropHere: {
+    fr: 'Déposer ici !',
+    en: 'Drop here !',
+  },
+  backToHomePage: {
+    fr: "Retour à l'accueil",
+    en: 'Back to the Home',
+  },
+  seeFilters: {
+    fr: 'Voir les filtres',
+    en: 'See filters',
+  },
+  confirmBodyTitle: {
+    fr: 'Confirmation',
+    en: 'Confirmation',
+  },
+  confirmBodyMessage: {
+    fr: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
+    en: 'You are deleting the questionnaire. You are going to lose all information entered.',
+  },
+  confirmQuestionMessage: {
+    fr: 'Êtes-vous sûr ?',
+    en: 'Are you sure?',
+  },
+  validation_declaration_label: {
+    fr: 'Libellé de la déclaration obligatoire',
+    en: 'Statement label required',
+  },
+  validation_control_label: {
+    fr: 'Libellé du contrôle obligatoire',
+    en: 'Control label required',
+  },
+  validation_expression: {
+    fr: 'Condition obligatoire',
+    en: 'Condition required',
+  },
+  validation_control_message: {
+    fr: 'Message affiché obligatoire',
+    en: 'Displayed message required',
+  },
+  validation_goTo_label: {
+    fr: 'Libellé de la redirection obligatoire',
+    en: 'Goto label required',
+  },
+  validation_condition: {
+    fr: 'Condition obligatoire',
+    en: 'Condition required',
+  },
+  validation_target: {
+    fr: 'Cible obligatoire',
+    en: 'Target required',
+  },
 };
 
 // Dynamic translations
@@ -717,27 +866,27 @@ dictionary[`componentNew${QUESTION}`] = {
 
 dictionary[`componentNew${SEQUENCE}`] = {
   fr: 'Nouvelle sequence',
-  er: 'New sequence',
+  en: 'New sequence',
 };
 
 dictionary[`componentNew${SUBSEQUENCE}`] = {
-  fr: 'Nouvelle sub-séquence',
-  er: 'New sub-sequence',
+  fr: 'Nouvelle sous-séquence',
+  en: 'New sub-sequence',
 };
 
 dictionary[`componentEdit${QUESTION}`] = {
-  fr: 'Modififier la question',
-  er: 'Eidt question',
+  fr: 'Modifier la question',
+  en: 'Edit question',
 };
 
 dictionary[`componentEdit${SEQUENCE}`] = {
   fr: 'Modifier la sequence',
-  er: 'Edit sequence',
+  en: 'Edit sequence',
 };
 
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
-  fr: 'Modifier la sub-séquence',
-  er: 'Edit sub-sequence',
+  fr: 'Modifier la sous-séquence',
+  en: 'Edit sub-sequence',
 };
 
 export default dictionary;

@@ -14,6 +14,12 @@ body {
 
 // Common styles
 
+a {
+  &.disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+}
 .box {
   background-color: white;
   border: 1px solid $color-grey_02;
@@ -102,6 +108,22 @@ body {
   }
 }
 
+.btn-grey {
+  @extend .btn;
+  border-radius: 0;
+  background-color: $color-grey_03;
+  border: 1px solid $color-grey_02;
+
+  &:hover {
+    background-color: darken(white, 20%);
+  }
+
+  .glyphicon {
+    font-size: 0.8em;
+    margin: 0 8px;
+  }
+}
+
 .btn-search {
   @extend .btn;
   background: none;
@@ -144,17 +166,122 @@ body {
 // Widget styles
 
 .tabs {
-  .nav-link {
-    color: #464a4c;
-    background-color: #fff;
-    border-color: #ddd #ddd #fff;
+
+  .nav-item {
+    position: relative;
+    .nav-link {
+      color: $color-grey_01;
+      background-color: white;
+      font-weight: bold;
+      &.active {
+        background-color: $color-blue_04;
+      }
+      &:hover {
+        background-color: lighten($color-blue_04, 0.5);
+        cursor: pointer;
+      }
+    }
+
+    .invalid {
+      font-size: $font-xs;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: white;
+      width: 20px;
+      z-index: 10;
+
+      .alert-triangle {
+        position: absolute;
+        top: -24%;
+        right: 8%;
+        z-index: -5;
+      }
+    }
+
   }
+
   .nav-content {
     display: none;
-    margin-top: 20px;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: $color-blue_04;
 
     &.active {
       display: block;
+    }
+
+    h3 {
+      color: $color-blue_05;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.alert-triangle {
+  position: relative;
+  background-color: red;
+  text-align: left;
+}
+.alert-triangle:before,
+.alert-triangle:after {
+  content: '';
+  position: absolute;
+  background-color: inherit;
+}
+.alert-triangle,
+.alert-triangle:before,
+.alert-triangle:after {
+  width:  1.2em;
+  height: 1.2em;
+  border-top-right-radius: 30%;
+}
+
+.alert-triangle {
+  transform: rotate(-60deg) skewX(-30deg) scale(1,.866);
+}
+.alert-triangle:before {
+  transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+}
+.alert-triangle:after {
+  transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+}
+
+.alert-icon {
+  display: block;
+  position: relative;
+  color: white;
+  z-index: 0;
+  text-align: center;
+  .alert-triangle {
+    position: absolute;
+    z-index: -5;
+    left: 22%;
+    top: -5%;
+  }
+
+  &.small {
+    width: 30px;
+    font-size: $font-xs;
+    .alert-triangle {
+      left: 30%;
+    }
+    .alert-triangle,
+    .alert-triangle:before,
+    .alert-triangle:after {
+      width:  0.9em;
+      height: 0.9em;
+    }
+  }
+  &.big {
+    font-weight: bold;
+    font-size: $font-l;
+    .alert-triangle,
+    .alert-triangle:before,
+    .alert-triangle:after {
+      width:  1.4em;
+      height: 1.4em;
     }
   }
 }

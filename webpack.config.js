@@ -1,4 +1,4 @@
-//@TODO: Reduce the chunks size
+// @TODO: Reduce the chunks size
 
 const webpack = require('webpack');
 const path = require('path');
@@ -33,11 +33,13 @@ const stats = {
 
 module.exports = function(env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
+  const nodeLocal = env && env.local ? 'local' : 'remote';
   const isProd = nodeEnv === 'production';
+  const useLocalData = nodeLocal === 'local';
 
   /*
-    PLUGINS
-  */
+   PLUGINS
+   */
 
   const plugins = [
     new webpack.optimize.CommonsChunkPlugin({
@@ -99,8 +101,8 @@ module.exports = function(env) {
   }
 
   /*
-    SCSS AND CSS
-  */
+   SCSS AND CSS
+   */
 
   if (isProd) {
     cssLoader = ExtractTextPlugin.extract({
@@ -111,7 +113,7 @@ module.exports = function(env) {
           options: {
             localIdentName: '[hash:base64:5]',
           },
-        }
+        },
       ],
     });
 
@@ -147,7 +149,7 @@ module.exports = function(env) {
           // module: true,
           localIdentName: '[path][name]-[local]',
         },
-      }
+      },
     ];
 
     scssLoader = [
@@ -166,15 +168,15 @@ module.exports = function(env) {
         options: {
           outputStyle: 'expanded',
           sourceMap: false,
-          includePaths: [ sourcePath ],
+          includePaths: [sourcePath],
         },
       },
     ];
   }
 
   /*
-    ENTRY POINT
-  */
+   ENTRY POINT
+   */
 
   const devEntryPoint = [
     // activate HMR for React
@@ -195,8 +197,8 @@ module.exports = function(env) {
   const entryPoint = isProd ? './index.js' : devEntryPoint;
 
   /*
-    CONFIGURATION
-  */
+   CONFIGURATION
+   */
 
   return {
     devtool: isProd ? 'source-map' : 'cheap-module-source-map',
@@ -235,7 +237,22 @@ module.exports = function(env) {
           exclude: /node_modules/,
           use: ['babel-loader'],
         },
+        {
+          test: /config\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'config-loader',
+            options: {
+              useLocalData: useLocalData,
+            },
+          },
+        },
       ],
+    },
+    resolveLoader: {
+      alias: {
+        "config-loader": path.join(__dirname, "./config-loader"),
+      },
     },
     resolve: {
       extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
