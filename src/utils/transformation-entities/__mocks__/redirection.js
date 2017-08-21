@@ -62,13 +62,13 @@ export const redirectionsModel = [
   {
     id: 'FIRST_REDIRECTION',
     label: 'First redirection label',
-    condition: 'First redirection condition',
-    cible: 'First redirection cible',
+    Expression: 'First redirection condition',
+    IfTrue: 'First redirection cible',
   },
   {
     id: 'SECOND_REDIRECTION',
     label: 'Second redirection label',
-    condition: 'Second redirection condition',
-    cible: 'Second redirection cible',
+    Expression: 'Second redirection condition',
+    IfTrue: 'Second redirection cible',
   },
 ];

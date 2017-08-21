@@ -136,6 +136,9 @@ export const questionState = {
   type: 'QUESTION',
   label: 'Question 1',
   rawLabel: 'Question 1',
+  htmlLabel: {
+    __html: '<p>Question 1</p>',
+  },
   responseFormat: responseFormatSimpleTextState,
   children: [],
 };
@@ -165,33 +168,33 @@ export const componentsStore = {
 export const componentsModel = [
   {
     id: fakeSequenceId,
-    name: 'SEQUENCE_1',
-    label: ['Sequence 1'],
-    declarations: [],
-    redirections: [],
-    controls: [],
+    Name: 'SEQUENCE_1',
+    Label: ['Sequence 1'],
+    Declaration: [],
+    GoTo: [],
+    Control: [],
     genericName: 'MODULE',
     depth: 1,
     type: SEQUENCE_TYPE_NAME,
-    children: [
+    Child: [
       {
         id: fakeSubsequenceId,
-        name: 'SUBSEQUENCE_1',
-        label: ['Subsequence 1'],
-        declarations: [],
-        redirections: [],
-        controls: [],
-        genericName: 'MODULE',
+        Name: 'SUBSEQUENCE_1',
+        Label: ['Subsequence 1'],
+        Declaration: [],
+        GoTo: [],
+        Control: [],
+        genericName: 'SUBMODULE',
         depth: 2,
         type: SEQUENCE_TYPE_NAME,
-        children: [
+        Child: [
           {
             id: fakeQuestionId,
-            name: 'QUESTION_1',
-            label: ['Question 1'],
-            declarations: [],
-            redirections: [],
-            controls: [],
+            Name: 'QUESTION_1',
+            Label: ['Question 1'],
+            Declaration: [],
+            GoTo: [],
+            Control: [],
             depth: 3,
             type: QUESTION_TYPE_NAME,
             ...responseFormatSimpleTextModel,

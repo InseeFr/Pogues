@@ -67,16 +67,24 @@ function transformationFormToState(form, currentState) {
 }
 
 function transformationModelToState(model) {
-  const { owner, id, Name, Label: [label], agency, DataCollection, ComponentGroup } = model;
+  const {
+    owner,
+    id,
+    Name: name,
+    Label: [label],
+    agency,
+    DataCollection: dataCollection,
+    ComponentGroup: componentGroups,
+  } = model;
 
   return {
     owner,
     id,
-    name: Name,
+    name,
     label,
     agency,
-    dataCollection: DataCollection,
-    componentGroups: ComponentGroup,
+    dataCollection,
+    componentGroups,
   };
 }
 

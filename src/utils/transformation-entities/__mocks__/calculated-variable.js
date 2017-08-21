@@ -61,14 +61,14 @@ export const calculatedVariablesStore = {
 export const calculatedVariablesModel = [
   {
     id: 'FIRSTID',
-    label: 'This is the first label',
-    name: 'Q1_THISISTHE',
-    formula: 'This is the first formula',
+    Label: 'This is the first label',
+    Name: 'Q1_THISISTHE',
+    Formula: 'This is the first formula',
   },
   {
     id: 'SECONID',
-    label: 'This is the second label',
-    name: 'Q2_THISISTHE',
-    formula: 'This is the second formula',
+    Label: 'This is the second label',
+    Name: 'Q2_THISISTHE',
+    Formula: 'This is the second formula',
   },
 ];

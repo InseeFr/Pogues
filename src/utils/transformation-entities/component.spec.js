@@ -36,7 +36,7 @@ describe('Transformation entities - Component', () => {
     expect(ComponentTransformerFactory().formToState(questionForm, questionInfos)).toEqual(questionState);
   });
 
-  test('Should produce expected STORE from questionnaire MODEL', () => {
+  test.only('Should produce expected STORE from questionnaire MODEL', () => {
     const componentTransformer = ComponentTransformerFactory({ questionnaireId: fakeQuestionnaireId, codesListsStore });
     expect(componentTransformer.modelToStore(questionnaireModel)).toEqual(componentsStore);
   });

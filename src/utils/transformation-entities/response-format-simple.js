@@ -50,11 +50,11 @@ function transformationModelToState(model) {
   } = model;
   const datatype = {};
 
-  if (maxLength) datatype.maxLength = maxLength;
-  if (pattern) datatype.pattern = pattern;
-  if (minimum) datatype.minimum = minimum;
-  if (maximum) datatype.maximum = maximum;
-  if (decimals) datatype.decimals = decimals;
+  if (maxLength !== undefined) datatype.maxLength = maxLength;
+  if (pattern !== undefined) datatype.pattern = pattern;
+  if (minimum !== undefined) datatype.minimum = minimum;
+  if (maximum !== undefined) datatype.maximum = maximum;
+  if (decimals !== undefined) datatype.decimals = decimals;
 
   const responseFormatSimpleData = {
     type: typeName,

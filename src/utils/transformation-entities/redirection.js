@@ -46,12 +46,12 @@ function transformationStateToForm(currentState) {
   const redirections = [];
 
   Object.keys(currentState).forEach(key => {
-    const { id, label, condition: Expression, cible: IfTrue } = currentState[key];
+    const { id, label, condition, cible } = currentState[key];
     redirections.push({
       id,
       label,
-      Expression,
-      IfTrue,
+      condition,
+      cible,
     });
   });
 
@@ -65,12 +65,12 @@ function transformationStateToModel(currentState) {
   const redirections = [];
 
   Object.keys(currentState).forEach(key => {
-    const { id, label, condition, cible } = currentState[key];
+    const { id, label, condition: Expression, cible: IfTrue } = currentState[key];
     redirections.push({
       id,
       label,
-      condition,
-      cible,
+      Expression,
+      IfTrue,
     });
   });
 

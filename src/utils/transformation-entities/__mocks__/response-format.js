@@ -22,13 +22,13 @@ export const responseFormatSimpleTextState = {
 
 export const responseFormatSimpleTextModel = {
   questionType: SIMPLE,
-  responseStructure: {
-    dimensions: [],
+  ResponseStructure: {
+    Dimension: [],
   },
-  responses: [
+  Response: [
     {
       mandatory: false,
-      datatype: { typeName: TEXT, maxLength: 255, pattern: '', type: DATATYPE_TYPE_FROM_NAME.TEXT },
+      Datatype: { typeName: TEXT, MaxLength: 255, Pattern: '', type: DATATYPE_TYPE_FROM_NAME.TEXT },
     },
   ],
 }

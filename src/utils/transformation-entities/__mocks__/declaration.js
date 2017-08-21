@@ -55,13 +55,13 @@ export const declarationsModel = [
   {
     id: 'FIRST_DECLARATION',
     declarationType: 'INSTRUCTION',
-    text: 'This is the first declaration',
+    Text: 'This is the first declaration',
     position: 'AFTER_QUESTION_TEXT',
   },
   {
     id: 'SECOND_DECLARATION',
     declarationType: 'INSTRUCTION',
-    text: 'This is the second declaration',
+    Text: 'This is the second declaration',
     position: 'AFTER_QUESTION_TEXT',
   },
 ];

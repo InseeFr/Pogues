@@ -1,4 +1,3 @@
-import { SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
 import { codesListsModel } from './codes-list';
 import { calculatedVariablesModel } from './calculated-variable';
 import { componentsModel } from './component';
@@ -18,17 +17,19 @@ export const questionnaireStore = {
     name: 'THISISAQUE',
     label: 'This is a questionnaire',
     agency: 'fr.insee',
-    survey: {
-      agency: 'fr.insee',
-      name: 'POPO',
-      id: '',
-    },
+    dataCollection: [
+      {
+        id: 'dataCollection1',
+        uri: 'http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1',
+        Name: 'POPO-2017-A00',
+      },
+    ],
     componentGroups: [
       {
-        name: 'PAGE_1',
-        label: 'Components for page 1',
-        Member: [],
-        id: '',
+        id: 'j3tu30jo',
+        Name: 'PAGE_1',
+        Label: ['Components for page 1'],
+        MemberReference: [],
       },
     ],
   },
@@ -37,29 +38,31 @@ export const questionnaireStore = {
 export const questionnaireModel = {
   id: fakeQuestionnaireId,
   owner: fakeOwnerId,
-  type: SEQUENCE_TYPE_NAME,
-  name: 'THISISAQUE',
-  label: ['This is a questionnaire'],
-  genericName: 'QUESTIONNAIRE',
   depth: 0,
+  genericName: 'QUESTIONNAIRE',
   agency: 'fr.insee',
-  survey: {
-    agency: 'fr.insee',
-    name: 'POPO',
-    id: '',
-  },
-  componentGroups: [
+  Name: 'THISISAQUE',
+  Label: ['This is a questionnaire'],
+  DataCollection: [
     {
-      name: 'PAGE_1',
-      label: 'Components for page 1',
-      Member: [],
-      id: '',
+      id: 'dataCollection1',
+      uri: 'http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1',
+      Name: 'POPO-2017-A00',
     },
   ],
-  children: componentsModel,
-  codeLists: {
-    codeList: codesListsModel,
-    codeListSpecification: [],
+  ComponentGroup: [
+    {
+      id: 'j3tu30jo',
+      Name: 'PAGE_1',
+      Label: ['Components for page 1'],
+      MemberReference: [],
+    },
+  ],
+  Child: componentsModel,
+  CodeLists: {
+    CodeList: codesListsModel,
   },
-  calculatedVariables: calculatedVariablesModel,
+  Variables: {
+    Variable: calculatedVariablesModel,
+  },
 };
