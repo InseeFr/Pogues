@@ -6,7 +6,7 @@ import TableTransformerFactory, { defaultTableState } from './response-format-ta
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
-const defaultResponseFormatState = {
+export const defaultResponseFormatState = {
   [SIMPLE]: { ...defaultSimpleState },
   [SINGLE_CHOICE]: { ...defaultSingleState },
   [MULTIPLE_CHOICE]: { ...defaultMultipleState },
@@ -14,18 +14,18 @@ const defaultResponseFormatState = {
   type: SIMPLE,
 };
 
-function transformationFormToState(form, codesListsTransformers) {
+function transformationFormToState(form, currentCodesListsIdsStore) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
     type,
   };
 
   if (type === SINGLE_CHOICE) {
-    state[type] = SingleTransformerFactory({ codesListsTransformers }).formToState(responseFormatForm);
+    state[type] = SingleTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
   } else if (type === MULTIPLE_CHOICE) {
-    state[type] = MultipleTransformerFactory({ codesListsTransformers }).formToState(responseFormatForm);
+    state[type] = MultipleTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
   } else if (type === TABLE) {
-    state[type] = TableTransformerFactory({ codesListsTransformers }).formToState(responseFormatForm);
+    state[type] = TableTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
   } else {
     state[type] = SimpleTransformerFactory().formToState(responseFormatForm);
   }
@@ -33,7 +33,7 @@ function transformationFormToState(form, codesListsTransformers) {
   return state;
 }
 
-function transformationModelToState(type, responses, dimensions) {
+function transformationModelToState(type, responses, dimensions, codesListsStore) {
   let datatypeState = {};
 
   if (type === SIMPLE) {
@@ -43,7 +43,7 @@ function transformationModelToState(type, responses, dimensions) {
   } else if (type === MULTIPLE_CHOICE) {
     datatypeState = MultipleTransformerFactory().modelToState({ responses, dimensions });
   } else if (type === TABLE) {
-    datatypeState = TableTransformerFactory().modelToState({ responses, dimensions });
+    datatypeState = TableTransformerFactory({ codesListsStore }).modelToState({ responses, dimensions });
   }
 
   return {
@@ -52,7 +52,7 @@ function transformationModelToState(type, responses, dimensions) {
   };
 }
 
-function transformationStateToForm(currentState, codesListsStore = {}, codesListsTransformers = {}) {
+function transformationStateToForm(currentState, codesListsStore = {}) {
   const { type } = currentState;
 
   return {
@@ -63,22 +63,19 @@ function transformationStateToForm(currentState, codesListsStore = {}, codesList
     [SINGLE_CHOICE]: SingleTransformerFactory({
       initialState: currentState[SINGLE_CHOICE],
       codesListsStore,
-      codesListsTransformers,
     }).stateToForm(),
     [MULTIPLE_CHOICE]: MultipleTransformerFactory({
       initialState: currentState[MULTIPLE_CHOICE],
       codesListsStore,
-      codesListsTransformers,
     }).stateToForm(),
     [TABLE]: TableTransformerFactory({
       initialState: currentState[TABLE],
       codesListsStore,
-      codesListsTransformers,
     }).stateToForm(),
   };
 }
 
-function transformationStateToModel(currentState) {
+function transformationStateToModel(currentState, codesListsStore) {
   const { type, [type]: responseFormatState } = currentState;
   const model = {
     responseStructure: {
@@ -99,7 +96,7 @@ function transformationStateToModel(currentState) {
     model.responses = responseFormatModel.responses;
     model.responseStructure.dimensions = responseFormatModel.dimensions;
   } else {
-    responseFormatModel = TableTransformerFactory({ initialState: responseFormatState }).stateToModel();
+    responseFormatModel = TableTransformerFactory({ initialState: responseFormatState , codesListsStore}).stateToModel();
     model.responses = responseFormatModel.responses;
     model.responseStructure.dimensions = responseFormatModel.dimensions;
   }
@@ -107,13 +104,13 @@ function transformationStateToModel(currentState) {
 }
 
 const ResponseFormatTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, codesListsTransformers } = conf;
+  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
 
   let currentState = initialState || defaultResponseFormatState;
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, codesListsTransformers);
+      currentState = transformationFormToState(form, currentCodesListsIdsStore);
       return currentState;
     },
     modelToState: (type, responses, dimensions) => {
@@ -121,7 +118,7 @@ const ResponseFormatTransformerFactory = (conf = {}) => {
       return currentState;
     },
     stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore, codesListsTransformers);
+      return transformationStateToForm(currentState, codesListsStore);
     },
     stateToModel: () => {
       return transformationStateToModel(currentState, codesListsStore);

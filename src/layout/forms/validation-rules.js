@@ -1,6 +1,6 @@
 import Dictionary from 'utils/dictionary/dictionary';
 
-export function required(value) {
+export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
 
   if (typeof val === 'string' || val instanceof String) {

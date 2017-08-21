@@ -21,7 +21,6 @@ export const defaultSingleForm = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  codesListId: '',
   type: NEW,
   [NEW]: { ...defaultCodesListForm },
   [REF]: {},
@@ -37,9 +36,10 @@ export const defaultSingleState = {
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
   codesListId: '',
+  codesList: {},
 };
 
-function transformationFormToState(form, codesListsTransformers) {
+function transformationFormToState(form, currentCodesListsIdsStore) {
   const {
     mandatory,
     visHint,
@@ -51,7 +51,9 @@ function transformationFormToState(form, codesListsTransformers) {
     type,
     [type]: codesListForm,
   } = form;
-  const codesListState = codesListsTransformers[SINGLE_CHOICE].formToState(codesListForm);
+  const initialState =
+    currentCodesListsIdsStore[SINGLE_CHOICE] !== '' ? { id: currentCodesListsIdsStore[SINGLE_CHOICE] } : undefined;
+  const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
 
   return {
     mandatory,
@@ -62,6 +64,7 @@ function transformationFormToState(form, codesListsTransformers) {
     specialUiBehaviour: hasSpecialCode ? specialUiBehaviour : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
     codesListId: codesListState.id,
+    codesList: codesListState,
   };
 }
 
@@ -83,7 +86,7 @@ function transformationModelToState(model) {
   };
 }
 
-function transformationStateToForm(currentState, codesListsStore, codesListsTransformers) {
+function transformationStateToForm(currentState, codesListsStore) {
   const {
     codesListId,
     visHint,
@@ -94,9 +97,6 @@ function transformationStateToForm(currentState, codesListsStore, codesListsTran
     specialUiBehaviour,
     specialFollowUpMessage,
   } = currentState;
-  const codesListTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
-
-  codesListsTransformers[SINGLE_CHOICE] = codesListTransformer;
 
   return {
     ...defaultSingleForm,
@@ -108,7 +108,7 @@ function transformationStateToForm(currentState, codesListsStore, codesListsTran
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [NEW]: codesListTransformer.stateToForm(),
+    [NEW]: CodesListTransformerFactory({ initialState: codesListsStore[codesListId] }).stateToForm(),
   };
 }
 
@@ -152,13 +152,13 @@ function transformationStateToModel(currentState) {
 }
 
 const SingleTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, codesListsTransformers } = conf;
+  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
 
   let currentState = initialState || defaultSingleState;
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, codesListsTransformers);
+      currentState = transformationFormToState(form, currentCodesListsIdsStore);
       return currentState;
     },
     modelToState: model => {
@@ -169,7 +169,7 @@ const SingleTransformerFactory = (conf = {}) => {
       return currentState;
     },
     stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore, codesListsTransformers);
+      return transformationStateToForm(currentState, codesListsStore);
     },
     stateToModel: () => {
       return transformationStateToModel(currentState);

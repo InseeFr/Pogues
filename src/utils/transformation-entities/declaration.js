@@ -34,7 +34,7 @@ function transformationModelToState(model = []) {
       ...acc,
       [id]: {
         id,
-        label: text,
+        label: text || '',
         declarationType,
         position,
       },

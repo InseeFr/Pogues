@@ -23,7 +23,7 @@ const { SINGLE_CHOICE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 
-function transformationFormToState(form, currentState, codesListsTransformers) {
+function transformationFormToState(form, currentState, currentCodesListsIdsStore) {
   const { id, type, parent, weight, children } = currentState;
   const { name, label, responseFormat, declarations, controls, redirections } = form;
 
@@ -47,7 +47,7 @@ function transformationFormToState(form, currentState, codesListsTransformers) {
     state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
     state.responseFormat = ResponseFormatTransformerFactory({
-      codesListsTransformers,
+      currentCodesListsIdsStore,
     }).formToState(responseFormat);
   } else {
     state.label = label;
@@ -126,7 +126,7 @@ function transformationModelToStore(model, questionnaireId, codesListsStore = {}
   return getComponentsFromNested(model, questionnaireId, {});
 }
 
-function transformationStateToForm(currentState, codesListsStore, calculatedVariablesStore, codesListsTransformers) {
+function transformationStateToForm(currentState, codesListsStore, calculatedVariablesStore) {
   const { label, name, type, responseFormat, declarations, controls, redirections } = currentState;
   const form = {
     label: label || '',
@@ -140,7 +140,6 @@ function transformationStateToForm(currentState, codesListsStore, calculatedVari
     form.responseFormat = ResponseFormatTransformerFactory({
       initialState: responseFormat,
       codesListsStore,
-      codesListsTransformers,
     }).stateToForm();
     form.calculatedVariables = CalculatedVariableTransformerFactory({
       initialStore: calculatedVariablesStore,
@@ -197,29 +196,28 @@ function transformationStateChildrenToModel(children, store, codesListsStore, de
     });
 }
 
-function getCodesListsFromResponseFormat(responseFormat, codesListsTransformers) {
-  const codesListsStore = {};
-  const responseFormatName = responseFormat.type;
-  let codesListState;
-
-  if (responseFormatName === SINGLE_CHOICE) {
-    codesListState = codesListsTransformers[SINGLE_CHOICE].getState();
-    codesListsStore[codesListState.id] = codesListState;
-  } else if (responseFormatName === MULTIPLE_CHOICE) {
-    codesListState = codesListsTransformers[MULTIPLE_CHOICE][PRIMARY].getState();
-    codesListsStore[codesListState.id] = codesListState;
-    if (responseFormat[MULTIPLE_CHOICE][MEASURE].type === CODES_LIST) {
-      codesListState = codesListsTransformers[MULTIPLE_CHOICE][MEASURE][CODES_LIST].getState();
-      codesListsStore[codesListState.id] = codesListState;
-    }
-  }
-
-  return codesListsStore;
-}
+// function getCodesListsFromResponseFormat(responseFormat, codesListsTransformers) {
+//   const codesListsStore = {};
+//   const responseFormatName = responseFormat.type;
+//   let codesListState;
+//
+//   if (responseFormatName === SINGLE_CHOICE) {
+//     codesListState = codesListsTransformers[SINGLE_CHOICE].getState();
+//     codesListsStore[codesListState.id] = codesListState;
+//   } else if (responseFormatName === MULTIPLE_CHOICE) {
+//     codesListState = codesListsTransformers[MULTIPLE_CHOICE][PRIMARY].getState();
+//     codesListsStore[codesListState.id] = codesListState;
+//     if (responseFormat[MULTIPLE_CHOICE][MEASURE].type === CODES_LIST) {
+//       codesListState = codesListsTransformers[MULTIPLE_CHOICE][MEASURE][CODES_LIST].getState();
+//       codesListsStore[codesListState.id] = codesListState;
+//     }
+//   }
+//
+//   return codesListsStore;
+// }
 
 const ComponentTransformerFactory = (conf = {}) => {
-  const { initialStore, questionnaireId, codesListsStore, calculatedVariablesStore } = conf;
-  const codesListsTransformers = {};
+  const { initialStore, questionnaireId, codesListsStore, calculatedVariablesStore, currentCodesListsIdsStore } = conf;
 
   let currentStore = initialStore || {};
   let currentState;
@@ -229,12 +227,16 @@ const ComponentTransformerFactory = (conf = {}) => {
       const { id, parent, weight, type } = infos;
       const currentId = id || uuid();
 
-      currentState = transformationFormToState(form, { id: currentId, parent, weight, type }, codesListsTransformers);
+      currentState = transformationFormToState(
+        form,
+        { id: currentId, parent, weight, type },
+        currentCodesListsIdsStore
+      );
 
       return currentState;
     },
     formToStore: (form, id) => {
-      currentState = transformationFormToState(form, currentStore[id], codesListsTransformers);
+      currentState = transformationFormToState(form, currentStore[id], currentCodesListsIdsStore);
       currentStore = {
         ...currentStore,
         [id]: currentState,
@@ -258,17 +260,17 @@ const ComponentTransformerFactory = (conf = {}) => {
       } else {
         state = currentState;
       }
-      return transformationStateToForm(state, codesListsStore, calculatedVariablesStore, codesListsTransformers);
+      return transformationStateToForm(state, codesListsStore, calculatedVariablesStore);
     },
     storeToModel: () => {
       return currentStore[questionnaireId].children.map(key => {
         return transformationStateToModel(currentStore[key], currentStore, codesListsStore);
       });
     },
-    stateToCodesLists: () => {
-      if (!currentState) return {};
-      return getCodesListsFromResponseFormat(currentState.responseFormat, codesListsTransformers);
-    },
+    // stateToCodesLists: () => {
+    //   if (!currentState) return {};
+    //   return getCodesListsFromResponseFormat(currentState.responseFormat, codesListsTransformers);
+    // },
   };
 };
 

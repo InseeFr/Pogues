@@ -19,7 +19,6 @@ const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export const defaultMultipleForm = {
   [PRIMARY]: {
-    codesListId: '',
     type: NEW,
     [NEW]: { ...defaultCodesListForm },
     [REF]: {},
@@ -30,7 +29,6 @@ export const defaultMultipleForm = {
     [BOOL]: {},
     [CODES_LIST]: {
       visHint: CHECKBOX,
-      codesListId: '',
       type: NEW,
       [NEW]: { ...defaultCodesListForm },
       [REF]: {},
@@ -42,6 +40,7 @@ export const defaultMultipleForm = {
 export const defaultMultipleState = {
   [PRIMARY]: {
     codesListId: '',
+    codesList: {},
   },
   [MEASURE]: {
     type: BOOL,
@@ -49,6 +48,7 @@ export const defaultMultipleState = {
     [CODES_LIST]: {
       visHint: CHECKBOX,
       codesListId: '',
+      codesList: {},
     },
   },
 };
@@ -60,15 +60,21 @@ function getDimension(type, dimensions) {
   return result.length > 0 ? result[0] : {};
 }
 
-function transformationFormToStatePrimary(form, codesListsTransformers) {
+function transformationFormToStatePrimary(form, currentCodesListsIdsStore) {
   const { type, [type]: codesListForm } = form;
-  const codesListState = codesListsTransformers[PRIMARY].formToState(codesListForm);
+  const initialState =
+    currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${PRIMARY}`] !== ''
+      ? { id: currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${PRIMARY}`] }
+      : undefined;
+  const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
+
   return {
     codesListId: codesListState.id,
+    codesList: codesListState,
   };
 }
 
-function transformationFormToStateMeasure(form, codesListsTransformers) {
+function transformationFormToStateMeasure(form, currentCodesListsIdsStore) {
   const { type: typeMeasure, [typeMeasure]: measureForm } = form;
   const state = {
     type: typeMeasure,
@@ -77,22 +83,27 @@ function transformationFormToStateMeasure(form, codesListsTransformers) {
 
   if (typeMeasure === CODES_LIST) {
     const { visHint, type, [type]: codesListForm } = measureForm;
-    const codesListState = codesListsTransformers[MEASURE][CODES_LIST].formToState(codesListForm);
+    const initialState =
+      currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}`] !== ''
+        ? { id: currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}`] }
+        : undefined;
+    const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
     state[CODES_LIST] = {
       visHint,
       codesListId: codesListState.id,
+      codesList: codesListState,
     };
   }
 
   return state;
 }
 
-function transformationFormToState(form, codesListsTransformers) {
+function transformationFormToState(form, currentCodesListsIdsStore) {
   const { [PRIMARY]: primaryForm, [MEASURE]: measureForm } = form;
 
   return {
-    [PRIMARY]: transformationFormToStatePrimary(primaryForm, codesListsTransformers[MULTIPLE_CHOICE]),
-    [MEASURE]: transformationFormToStateMeasure(measureForm, codesListsTransformers[MULTIPLE_CHOICE]),
+    [PRIMARY]: transformationFormToStatePrimary(primaryForm, currentCodesListsIdsStore),
+    [MEASURE]: transformationFormToStateMeasure(measureForm, currentCodesListsIdsStore),
   };
 }
 
@@ -118,10 +129,9 @@ function transformationModelToState(model) {
   return state;
 }
 
-function transformationStateToFormPrimary(currentState, codesListsStore, codesListsTransformers) {
+function transformationStateToFormPrimary(currentState, codesListsStore) {
   const { codesListId } = currentState;
   const clTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
-  codesListsTransformers[PRIMARY] = clTransformer;
 
   return {
     ...defaultMultipleForm[PRIMARY],
@@ -130,15 +140,13 @@ function transformationStateToFormPrimary(currentState, codesListsStore, codesLi
   };
 }
 
-function transformationStateToFormMeasure(currentState, codesListsStore, codesListsTransformers) {
+function transformationStateToFormMeasure(currentState, codesListsStore) {
   const state = {
     ...defaultMultipleState[MEASURE],
     ...currentState,
   };
   const { type, [CODES_LIST]: { codesListId, visHint } } = state;
   const clTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
-
-  codesListsTransformers[MEASURE] = { [CODES_LIST]: clTransformer };
 
   return {
     ...defaultMultipleForm[MEASURE],
@@ -152,13 +160,12 @@ function transformationStateToFormMeasure(currentState, codesListsStore, codesLi
   };
 }
 
-function transformationStateToForm(currentState, codesListsStore, codesListsTransformers) {
+function transformationStateToForm(currentState, codesListsStore) {
   const { [PRIMARY]: primaryState, [MEASURE]: measureState } = currentState;
-  codesListsTransformers[MULTIPLE_CHOICE] = {};
 
   return {
-    [PRIMARY]: transformationStateToFormPrimary(primaryState, codesListsStore, codesListsTransformers[MULTIPLE_CHOICE]),
-    [MEASURE]: transformationStateToFormMeasure(measureState, codesListsStore, codesListsTransformers[MULTIPLE_CHOICE]),
+    [PRIMARY]: transformationStateToFormPrimary(primaryState, codesListsStore),
+    [MEASURE]: transformationStateToFormMeasure(measureState, codesListsStore),
   };
 }
 
@@ -190,12 +197,12 @@ function transformationStateToModel(currentState) {
 }
 
 const MultipleTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, codesListsTransformers } = conf;
+  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
   let currentState = initialState || defaultMultipleState;
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, codesListsTransformers);
+      currentState = transformationFormToState(form, currentCodesListsIdsStore);
       return currentState;
     },
     modelToState: model => {
@@ -209,7 +216,7 @@ const MultipleTransformerFactory = (conf = {}) => {
       return currentState;
     },
     stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore, codesListsTransformers);
+      return transformationStateToForm(currentState, codesListsStore);
     },
     stateToModel: () => {
       return transformationStateToModel(currentState);
