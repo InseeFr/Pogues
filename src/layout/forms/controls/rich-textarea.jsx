@@ -4,8 +4,6 @@ import Dictionary from 'utils/dictionary/dictionary';
 import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { CompositeDecorator } from 'draft-js';
 
-//import 'draft-js/dist/Draft.css';
-
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
 
@@ -36,13 +34,16 @@ const customLinkDecorator = {
 
 const decorators = new CompositeDecorator([customLinkDecorator]);
 
-
 export function markdownToHtml(markdown) {
   return { __html: RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators).toString('html') };
 }
 
 export function markdownToEditorValue(markdown) {
-  return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  try {
+    return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  } catch (e) {
+    return RichTextEditor.EditorValue.createEmpty(decorators);
+  }
 }
 
 export function editorValueToMarkdown(value) {
