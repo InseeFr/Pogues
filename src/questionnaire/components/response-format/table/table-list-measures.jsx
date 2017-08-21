@@ -21,6 +21,7 @@ function validationMeasure(values) {
 class ResponseFormatTableListMeasures extends Component {
   static selectorPath = LIST_MEASURE;
   static propTypes = {
+    onAddCodesList: PropTypes.func.isRequired,
     selectorPathParent: PropTypes.string,
   };
   static defaultProps = {
@@ -45,6 +46,7 @@ class ResponseFormatTableListMeasures extends Component {
           initialInputValues={initialInputValues}
           selectorPath={this.selectorPathComposed}
           validationInput={validationMeasure}
+          onAddCodesList={this.props.onAddCodesList}
           listName="measures"
           submitLabel="addMeasure"
           noValueLabel="noMeasureYet"

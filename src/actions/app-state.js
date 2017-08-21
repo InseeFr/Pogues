@@ -12,6 +12,9 @@ export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCC
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
 export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
+export const SET_CURRENT_CODES_LISTS_IN_QUESTION = 'SET_CURRENT_CODES_LISTS_IN_QUESTION';
+export const ADD_CODES_LISTS_TO_QUESTION = 'ADD_CODES_LISTS_TO_QUESTION';
+export const REMOVE_CODES_LISTS_FROL_QUESTION = 'REMOVE_CODES_LISTS_FROL_QUESTION';
 
 /**
  * Set active questionnaire
@@ -72,7 +75,7 @@ export const setActiveCalculatedVariables = calculatedVariables => ({
   },
 });
 
-/*
+/**
  * Set active components
  *
  * It changes the store "appState.activeComponents" with the list (as object) of components passed.
@@ -199,3 +202,41 @@ export const saveActiveQuestionnaire = () => {
       });
   };
 };
+
+/**
+ * Set the list of codes lists to be updated in a question creation/edtion
+ *
+ * @return {object}         SET_CURRENT_CODES_LISTS_IN_QUESTION action
+ */
+export const setCurrentCodesListsInQuestion = codeListsToUpdate => ({
+  type: SET_CURRENT_CODES_LISTS_IN_QUESTION,
+  payload: {
+    codeListsToUpdate,
+  },
+});
+
+/**
+ * Add a new codes lists to be updated in a question creation/edtion
+ *
+ * @return {object}         ADD_CODES_LISTS_TO_QUESTION action
+ */
+export const addCodesListToQuestion = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const index = state.appState.codeListsByActiveQuestion
+    const newCodesListSelectorPath = `TABLE.LIST_MEASURE.`
+
+
+    return {
+      type: ADD_CODES_LISTS_TO_QUESTION,
+      payload: {},
+    };
+  };
+};
+
+/**
+ * Remove an existing codes lists to be updated in a question creation/edtion
+ *
+ * @return {object}         REMOVE_CODES_LISTS_FROL_QUESTION action
+ */
+export const removeCodesListFromQuestion = () => {};

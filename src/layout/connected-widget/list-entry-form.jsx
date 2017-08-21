@@ -43,6 +43,7 @@ class ListEntryFormContainer extends Component {
     listName: PropTypes.string.isRequired,
     initialize: PropTypes.func.isRequired,
     validationInput: PropTypes.func,
+    onAddCodesList: PropTypes.func,
     values: PropTypes.object,
     addedItems: PropTypes.array,
     submitLabel: PropTypes.string.isRequired,
@@ -58,6 +59,7 @@ class ListEntryFormContainer extends Component {
     addedItems: [],
     errors: {},
     validationInput: () => true,
+    onAddCodesList: undefined,
     invalidItems: [],
     rerenderOnEveryChange: false,
     showDuplicateButton: true,
@@ -113,10 +115,13 @@ class ListEntryFormContainer extends Component {
     this.submit();
   }
   submit(index) {
-    const { formName, values, initialInputValues, selectorPath, listName, initialize } = this.props;
+    const { formName, values, initialInputValues, selectorPath, listName, initialize, onAddCodesList } = this.props;
     const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
     if (!this.validate(currentValues)) return;
+
+    if (onAddCodesList) onAddCodesList(selectorPath);
+
     if (index !== undefined && index !== '') {
       items[index] = currentValues;
     } else {

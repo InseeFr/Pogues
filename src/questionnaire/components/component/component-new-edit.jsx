@@ -31,6 +31,7 @@ export class QuestionNewEdit extends Component {
     edit: PropTypes.bool,
     handleSubmit: PropTypes.func,
     onCancel: PropTypes.func,
+    onAddCodesList: PropTypes.func.isRequired,
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
     errors: PropTypes.array,
@@ -53,7 +54,7 @@ export class QuestionNewEdit extends Component {
     }
   }
   render() {
-    const { type, edit, handleSubmit, onCancel, pristine, submitting, errors } = this.props;
+    const { type, edit, handleSubmit, onCancel, pristine, submitting, errors, onAddCodesList } = this.props;
     const errorsByType = getErrorsByType(errors);
     const panels = [
       {
@@ -85,7 +86,7 @@ export class QuestionNewEdit extends Component {
       panels.unshift({
         id: 'response-format',
         label: Dictionary.responsesEdition,
-        content: <ResponseFormat />,
+        content: <ResponseFormat onAddCodesList={onAddCodesList} />,
       });
     }
 
