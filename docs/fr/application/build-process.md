@@ -22,6 +22,8 @@ Le script `npm run dev` est configuré pour fonctionner avec une version "en mé
 
 La configuration de webpack pour la version de production est légèrement différente de celle utilisée en développement: elle ne comprend pas en production le serveur Web de développement, et elle doit également comporter [quelques ajustements](https://github.com/InseeFr/Pogues/issues/145) afin de rendre le code utilisable en production. Lorsque la version de production est compilée, Webpack va réduire automatiquement la taille du code grâce à l'option `-p` de la ligne de commande.
 
+Vous trouverez les statistiques de WebPack sur la page [stats](../../stats.html) (Attention: vous devez l'ouvrir dans un autre onglet, afin que la redirection soit fonctionnelle)
+
 ## Autres Scripts NPM 
 
 Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cycle du vie. 

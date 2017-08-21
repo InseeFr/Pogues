@@ -21,6 +21,8 @@ The `npm run dev` script is configured to work with a "in memory" version of the
 
 The Webpack configuration for production is slightly different from the one used for development: it does not need the configuration related to the development web server. It should also provide [other adjustments](https://github.com/InseeFr/Pogues/issues/145) to make the code more production ready. When building code for production, Webpack will automatically minify the `JavaScript` thanks to the command line option `-p`.
 
+You will find some stats about WebPack in the [stats](../../stats.html) page (Attention: you need to open the page in a new tab, in order to make the redirection working)
+
 ## Other NPM Script
 
 The project also provide other NPM scripts, in order to manage its lifecycle.
