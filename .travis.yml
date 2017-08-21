@@ -13,6 +13,7 @@ script:
   - python -m SimpleHTTPServer 3000 &
   - popd
   - sleep 30
+  - npm run test
   - curl http://localhost:3000
   - 'if [ "$TRAVIS_PULL_REQUEST_SLUG" = "" ] || [ "$TRAVIS_PULL_REQUEST_SLUG" = "$TRAVIS_REPO_SLUG" ]; then npm run e2e:travis; fi'
 
