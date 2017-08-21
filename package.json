@@ -87,7 +87,8 @@
     "uglify-js": "^2.8.23",
     "uglifyjs-webpack-plugin": "^0.4.3",
     "webpack": "3.5.5",
-    "webpack-dev-server": "2.7.1"
+    "webpack-dev-server": "2.7.1",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "scripts": {
     "postinstall": "node nightwatch.conf.js",

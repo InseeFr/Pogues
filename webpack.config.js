@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3000;
@@ -35,10 +36,6 @@ module.exports = function(env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
   const isProd = nodeEnv === 'production';
   const environment = env && env.environment || 'prod';
-
-  /*
-   PLUGINS
-   */
 
   const plugins = [
     new webpack.optimize.CommonsChunkPlugin({
@@ -86,8 +83,12 @@ module.exports = function(env) {
           if_return: true,
           join_vars: true,
         },
+      }),
+      new Visualizer({
+        filename: '../docs/stats.html',
       })
     );
+
   } else {
     plugins.push(
       // make hot reloading work
@@ -99,10 +100,6 @@ module.exports = function(env) {
     );
   }
 
-  /*
-   SCSS AND CSS
-   */
-
   if (isProd) {
     cssLoader = ExtractTextPlugin.extract({
       fallback: 'style-loader',
@@ -110,6 +107,8 @@ module.exports = function(env) {
         {
           loader: 'css-loader',
           options: {
+            module: true,
+            minimize: true,
             localIdentName: '[hash:base64:5]',
           },
         },
@@ -122,8 +121,7 @@ module.exports = function(env) {
         {
           loader: 'css-loader',
           options: {
-            // module: true, // css-loader 0.14.5 compatible
-            // modules: true,
+            minimize: true,
             localIdentName: '[hash:base64:5]',
           },
         },
@@ -145,7 +143,7 @@ module.exports = function(env) {
       {
         loader: 'css-loader',
         options: {
-          // module: true,
+          module: true,
           localIdentName: '[path][name]-[local]',
         },
       },
@@ -158,7 +156,6 @@ module.exports = function(env) {
       {
         loader: 'css-loader',
         options: {
-          // module: true,
           localIdentName: '[path][name]-[local]',
         },
       },
