@@ -14,7 +14,6 @@ class CodesListQuestionnaire extends FormSection {
 
   render() {
     const { codeLists } = this.props;
-    console.log(codeLists);
     const formattedCodeLists = Object.keys(codeLists).map(key => {
       return {
         value: key,

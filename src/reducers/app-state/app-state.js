@@ -16,6 +16,7 @@ const defaultState = {
   activeCodesById: {},
   activeCalculatedVariablesById: {},
   errorsByComponent: {},
+  errorsByCode: {},
   selectedComponentId: '',
 };
 

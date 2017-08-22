@@ -1,7 +1,7 @@
 import { getTargets } from 'utils/component/component-utils';
 
 function isEarlierTarget(ids, targetId) {
-  return ids.indexOf(targetId) !== -1;
+  return ids.indexOf(targetId) === -1;
 }
 
 function existsTarget(components, targetId) {
@@ -9,49 +9,52 @@ function existsTarget(components, targetId) {
 }
 
 function checkerComponentTargets({ appState: { activeComponentsById } }) {
-  return Object.keys(activeComponentsById).reduce((acc, id) => {
-    const redirections = activeComponentsById[id].redirections;
+  const targetNotFoundErrors = [];
+  const targetEarlierErrors = [];
 
-    if (redirections.length > 0) {
+  Object.keys(activeComponentsById).forEach(key => {
+    const redirections = activeComponentsById[key].redirections;
+
+    if (Object.keys(redirections).length > 0) {
       const ids = getTargets(
         activeComponentsById,
-        activeComponentsById[id].type,
-        '',
-        activeComponentsById[id].parent,
-        activeComponentsById[id].weight
+        activeComponentsById[key].type,
+        key,
+        activeComponentsById[key].parent,
+        activeComponentsById[key].weight,
+        false
       );
-      const errors = redirections.reduce((accInner, redirection) => {
+      Object.keys(redirections).forEach(redirectionKey => {
+        const redirection = redirections[redirectionKey];
         if (!existsTarget(activeComponentsById, redirection.cible)) {
-          accInner.push({
-            type: 'redirections',
-            code: 'TARGET_NOT_FOUND',
-            params: { redirectionId: redirection.id, targetId: redirection.cible },
-            dictionary: 'errorGoToNonExistingTgt',
+          targetNotFoundErrors.push({
+            id: key,
+            params: { redirectionId: redirections[redirectionKey].id, targetId: redirection.cible },
           });
-        } else if (!isEarlierTarget(ids, redirection.cible)) {
-          accInner.push({
-            type: 'redirections',
-            code: 'TARGET_EARLIER',
+        } else if (isEarlierTarget(ids, redirection.cible)) {
+          targetEarlierErrors.push({
+            id: key,
             params: { redirectionId: redirection.id, targetId: redirection.cible },
-            dictionary: 'errorGoToEarlierTgt',
           });
         }
-        return accInner;
-      }, []);
-
-      if (errors.length > 0) {
-        acc = {
-          ...acc,
-          [id]: {
-            id,
-            errors,
-          },
-        };
-      }
+      });
     }
+  });
 
-    return acc;
-  }, {});
+  return {
+    TARGET_NOT_FOUND: {
+      type: 'redirections',
+      code: 'TARGET_NOT_FOUND',
+      dictionary: 'errorGoToNonExistingTgt',
+      errors: targetNotFoundErrors,
+    },
+    TARGET_EARLIER: {
+      type: 'redirections',
+      code: 'TARGET_EARLIER',
+      dictionary: 'errorGoToEarlierTgt',
+      errors: targetEarlierErrors,
+    },
+  };
 }
 
 export default checkerComponentTargets;
