@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
-import RichTextEditor from 'gillespie59-react-rte';
+import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { CompositeDecorator } from 'draft-js';
-import 'draft-js/dist/Draft.css';
 
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
@@ -40,7 +39,11 @@ export function markdownToHtml(markdown) {
 }
 
 export function markdownToEditorValue(markdown) {
-  return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  try {
+    return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  } catch (e) {
+    return RichTextEditor.EditorValue.createEmpty(decorators);
+  }
 }
 
 export function editorValueToMarkdown(value) {
@@ -72,10 +75,6 @@ function getValue(props) {
  * Component that will display a TextArea in a react-form Field component.
  * We can add a help block thankt to the help attribute, and an actions toolbar
  * thanks to a button attribute.
- */
-/**
- * petit bug de synchro dans le model
- * Faire la PR
  */
 class RichTextArea extends Component {
   static propTypes = {

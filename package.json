@@ -29,7 +29,7 @@
     "babel-jest": "20.0.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-lodash": "3.2.11",
-    "babel-plugin-module-resolver": "^2.7.0",
+    "babel-plugin-module-resolver": "2.7.1",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -86,19 +86,25 @@
     "style-loader": "^0.17.0",
     "uglify-js": "^2.8.23",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "2.4.1",
-    "webpack-dev-server": "2.4.5"
+    "webpack": "3.5.5",
+    "webpack-dev-server": "2.7.1",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "scripts": {
     "postinstall": "node nightwatch.conf.js",
-    "test": "jest --coverage",
+    "test": "jest --coverage -i",
     "test:watch": "jest --watch",
     "dev": "webpack-dev-server",
-    "dev:local": "cross-env NODE_ENV=local webpack-dev-server --env.local=true",
-    "dev:server": "concurrently \"npm run server\" \"npm run dev:local\"",
+    "dev:dev": "cross-env webpack-dev-server --env.environment=dev",
+    "dev:server": "concurrently \"npm run server\" \"npm run dev:dev\"",
     "server": "node ./build-config/fake-backend/server.js",
-    "build": "cross-env NODE_ENV=production webpack --env.prod=true",
-    "build:travis": "cross-env NODE_ENV=production webpack --env.prod=true --env.local=true",
+    "build": "cross-env webpack --env.prod=true --env.environment=prod",
+    "build:dev": "cross-env webpack --env.prod=true --env.environment=dev",
+    "build:dv": "cross-env webpack --env.prod=true --env.environment=dv",
+    "build:preprod": "cross-env webpack --env.prod=true --env.environment=preprod",
+    "build:qa": "cross-env webpack --env.prod=true --env.environment=qa",
+    "build:qf": "cross-env webpack --env.prod=true --env.environment=qf",
+    "build:travis": "cross-env webpack --env.prod=true --env.environment=dev",
     "lint": "eslint ./src ./utils -f table || true",
     "lint:fix": "eslint ./src ./utils -f table --fix || true",
     "start": "npm run dev",
@@ -123,6 +129,7 @@
   "license": "MIT",
   "jest": {
     "moduleNameMapper": {
+      "^Config$": "<rootDir>/build-config/environments/config.prod.js",
       "\\.(css|scss|png)$": "identity-obj-proxy"
     }
   }
