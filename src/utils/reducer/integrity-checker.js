@@ -16,13 +16,16 @@ function integrityChecker(reducer, checkers) {
 
     if (!checker) return newState;
 
-    const errors = checker(newState);
+    const errorsByCode = checker(newState);
 
     return {
       ...newState,
       appState: {
         ...newState.appState,
-        errorsByComponent: errors,
+        errorsByCode: {
+          ...newState.appState.errorsByCode,
+          ...errorsByCode,
+        },
       },
     };
   };

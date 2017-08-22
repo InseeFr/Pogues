@@ -5,16 +5,9 @@ import { connect } from 'react-redux';
 import QuestionnaireErrors from 'questionnaire/components/questionnaire-errors';
 import { setSelectedComponentId } from 'actions/app-state';
 
-// const mapStateToProps = state => {
-//   return {
-//     errorsByComponent: state.appState.errorsByComponent,
-//     components: state.appState.activeComponentsById,
-//   };
-// };
 
 const mapStateToProps = state => {
   return {
-    errorsByComponent: state.appState.errorsByComponent,
     components: state.appState.activeComponentsById,
   };
 };

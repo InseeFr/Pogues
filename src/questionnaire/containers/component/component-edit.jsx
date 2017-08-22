@@ -14,14 +14,12 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-const mapStateToProps = (state, { componentId }) => {
-  const componentErrors = state.appState.errorsByComponent[componentId];
+const mapStateToProps = state => {
   return {
     activeComponentsStore: state.appState.activeComponentsById,
     activeCodesListsStore: state.appState.activeCodeListsById,
     activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     activeExternalVariablesStore: state.appState.activeExternalVariablesById,
-    errors: componentErrors ? componentErrors.errors : [],
     currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
   };
 };
