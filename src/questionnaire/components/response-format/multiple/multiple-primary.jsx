@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import CodesList from 'layout/widget/codes-list/codes-list';
+import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
 import { DIMENSION_TYPE } from 'constants/pogues-constants';
 
 const { PRIMARY } = DIMENSION_TYPE;

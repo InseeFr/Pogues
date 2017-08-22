@@ -46,6 +46,7 @@ export class QuestionNewEdit extends Component {
     errors: [],
   };
   componentDidMount() {
+    console.log('BOUH')
     if (this.props.edit) {
       this.nameInput.focus();
     } else if (this.props.type !== QUESTION) {

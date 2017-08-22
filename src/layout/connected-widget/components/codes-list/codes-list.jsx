@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CodesListNew from './codes-list-new';
 import CodesListRef from './codes-list-ref';
-import CodesListQuestionnaire from './codes-list-questionnaire';
+import CodesListQuestionnaireContainer from '../../codes-list/codes-list-questionnaire';
 import Dictionary from 'utils/dictionary/dictionary';
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
@@ -30,7 +30,7 @@ function CodesList({ selectorPath, optional }) {
       id: `${baseId}-${QUESTIONNAIRE}`,
       label: Dictionary.questionnaireCodesList,
       value: QUESTIONNAIRE,
-      content: <CodesListQuestionnaire />,
+      content: <CodesListQuestionnaireContainer />,
     },
   ];
 
@@ -53,6 +53,6 @@ CodesList.propTypes = {
 
 CodesList.defaultProps = {
   optional: false,
-}
+};
 
 export default CodesList;
