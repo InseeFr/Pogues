@@ -19,6 +19,7 @@ const mapStateToProps = state => ({
   calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
   externalVariablesStore: state.appState.activeExternalVariablesById,
   currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
+  activeCodesListsStore: state.appState.activeCodeListsById,
 });
 
 const mapDispatchToProps = {
@@ -44,6 +45,7 @@ class ComponentNewContainer extends Component {
     calculatedVariablesStore: PropTypes.object,
     externalVariablesStore: PropTypes.object,
     currentCodesListsIdsStore: PropTypes.object,
+    activeCodesListsStore: PropTypes.object,
   };
 
   static defaultProps = {
@@ -52,6 +54,7 @@ class ComponentNewContainer extends Component {
     calculatedVariablesStore: {},
     externaldVariablesStore: {},
     currentCodesListsIdsStore: {},
+    activeCodesListsStore: {},
   };
   componentWillMount() {
     const { type, setCurrentCodesListsInQuestion } = this.props;
@@ -78,11 +81,13 @@ class ComponentNewContainer extends Component {
       calculatedVariablesStore,
       externalVariablesStore,
       currentCodesListsIdsStore,
+      activeCodesListsStore,
     } = this.props;
     const componentTransformer = ComponentTransformerFactory({
       calculatedVariablesStore,
       externalVariablesStore,
       currentCodesListsIdsStore,
+      codesListsStore: activeCodesListsStore,
     });
     const initialValues = componentTransformer.stateToForm({ type });
     const submit = values => {

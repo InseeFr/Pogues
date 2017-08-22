@@ -23,13 +23,7 @@ class CodesListQuestionnaire extends FormSection {
     });
 
     return (
-      <Field
-        component={Select}
-        name="codeList"
-        label={Dictionary.selectCodesList}
-        options={formattedCodeLists}
-        required
-      />
+      <Field component={Select} name="codesListId" label={Dictionary.selectCodesList} options={formattedCodeLists} />
     );
   }
 }
