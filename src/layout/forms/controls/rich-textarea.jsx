@@ -59,7 +59,7 @@ export function markdownToRaw(value) {
 }
 
 function formatURL(url) {
-  if (url.indexOf('http://') === 0) {
+  if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
     return { url };
   }
   return { url: '.', title: url };
@@ -95,27 +95,15 @@ class RichTextArea extends Component {
 
   constructor(props) {
     super(props);
-    const initValue = getValue(props);
     this.state = {
-      value: initValue,
-      editorState: initValue.getEditorState().getCurrentContent(),
-      currentValue: initValue,
+      value: undefined,
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.buttons && nextProps.input.value !== this.state.currentValue) {
-      this.setState({
-        value: getValue(nextProps),
-        currentValue: nextProps.input.value,
-      });
-    }
   }
 
   onChange = value => {
     if (this.props.buttons) {
       const markdownValue = editorValueToMarkdown(value);
-      this.setState({ value, currentValue: markdownValue }, () => {
+      this.setState({ value }, () => {
         this.props.input.onChange(markdownValue);
       });
     }
@@ -136,6 +124,7 @@ class RichTextArea extends Component {
 
   render() {
     const { input, label, required, buttons, help, reference } = this.props;
+    const editorValue = this.state.value || getValue(this.props);
 
     const helpBlock =
       help &&
@@ -152,7 +141,7 @@ class RichTextArea extends Component {
         {buttons &&
           <div>
             <RichTextEditor
-              value={this.state.value}
+              value={editorValue}
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
               handleReturn={() => true}
