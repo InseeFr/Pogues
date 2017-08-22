@@ -13,7 +13,13 @@ export function containsComment(str) {
 
 export function getQuestionLabelFromRaw(rawQuestionLabel) {
   // @TODO: Markdow is not parsed yed. Include this feature.
-  const regExpCmt = /^(##{.*})?(.*)$/;
-  const matches = rawQuestionLabel.match(regExpCmt);
-  return matches[2].trim();
+  let label = rawQuestionLabel;
+  const regex = /^(##{.*})?(.*)$/;
+  const regExpCmt = RegExp(regex);
+  if (regExpCmt.test(rawQuestionLabel)) {
+    const matches = rawQuestionLabel.match(regex);
+    label = matches[2].trim();
+  }
+
+  return label;
 }
