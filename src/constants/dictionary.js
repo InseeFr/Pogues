@@ -507,11 +507,11 @@ const dictionary = {
     en: 'Primary information axis',
   },
   secondaryAxis: {
-    fr: 'Axe secondarie',
+    fr: 'Axe secondaire',
     en: 'Secondary axis',
   },
   secondaryAxisTable: {
-    fr: "Axe d'information secondarie",
+    fr: "Axe d'information secondaire",
     en: 'Secondary information axis',
   },
   measuresAxisTable: {
