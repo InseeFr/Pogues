@@ -1,3 +1,7 @@
+import { VARIABLES_TYPES } from 'constants/pogues-constants';
+
+const { CALCULATED } = VARIABLES_TYPES;
+
 export const calculatedVariablesFormDefault = {
   label: '',
   name: '',
@@ -64,11 +68,13 @@ export const calculatedVariablesModel = [
     Label: 'This is the first label',
     Name: 'Q1_THISISTHE',
     Formula: 'This is the first formula',
+    type: CALCULATED,
   },
   {
     id: 'SECONID',
     Label: 'This is the second label',
     Name: 'Q2_THISISTHE',
     Formula: 'This is the second formula',
+    type: CALCULATED,
   },
 ];

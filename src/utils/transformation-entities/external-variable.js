@@ -1,87 +1,82 @@
 import { uuid } from 'utils/data-utils';
 import { VARIABLES_TYPES } from 'constants/pogues-constants';
 
-const { CALCULATED } = VARIABLES_TYPES;
+const { EXTERNAL } = VARIABLES_TYPES;
 
-export const defaultCalculatedVariableForm = {
-  label: '',
+export const defaultExternalVariableForm = {
   name: '',
-  formula: '',
-  calculatedVariables: [],
+  label: '',
+  externalVariables: [],
 };
 
 function transformationFormToStore(form) {
-  const { calculatedVariables } = form;
+  const { externalVariables } = form;
 
-  return calculatedVariables.reduce((acc, cv) => {
-    const { label, name, formula } = cv;
-    const id = cv.id || uuid();
+  return externalVariables.reduce((acc, ev) => {
+    const { name, label } = ev;
+    const id = ev.id || uuid();
 
     return {
       ...acc,
       [id]: {
         id,
-        label,
         name,
-        formula,
+        label,
       },
     };
   }, {});
 }
 
 function transformationModelToStore(model = []) {
-  return model.reduce((acc, cv) => {
-    const { Label: label, Name: name, Formula: formula } = cv;
-    const id = cv.id || uuid();
+  return model.reduce((acc, ev) => {
+    const { Name: name, Label: label } = ev;
+    const id = ev.id || uuid();
     return {
       ...acc,
       [id]: {
         id,
-        label,
         name,
-        formula,
+        label,
       },
     };
   }, {});
 }
 
 function transformationStoreToForm(currentStore) {
-  const calculatedVariables = [];
+  const externalVariables = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, label, name, formula } = currentStore[key];
-    calculatedVariables.push({
+    const { id, name, label } = currentStore[key];
+    externalVariables.push({
       id,
-      label,
       name,
-      formula,
+      label,
     });
   });
 
   return {
-    ...defaultCalculatedVariableForm,
-    calculatedVariables,
+    ...defaultExternalVariableForm,
+    externalVariables,
   };
 }
 
 function transformationStoreToModel(currentStore) {
-  const calculatedVariables = [];
+  const externalVariables = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, label: Label, name: Name, formula: Formula } = currentStore[key];
-    calculatedVariables.push({
+    const { id, name: Name, label: Label } = currentStore[key];
+    externalVariables.push({
       id,
-      Label,
       Name,
-      Formula,
-      type: CALCULATED,
+      Label,
+      type: EXTERNAL,
     });
   });
 
-  return calculatedVariables;
+  return externalVariables;
 }
 
-const CalculatedVariableTransformerFactory = (conf = {}) => {
+const ExternalVariableTransformerFactory = (conf = {}) => {
   const { initialStore } = conf;
 
   let currentStore = initialStore || {};
@@ -104,4 +99,4 @@ const CalculatedVariableTransformerFactory = (conf = {}) => {
   };
 };
 
-export default CalculatedVariableTransformerFactory;
+export default ExternalVariableTransformerFactory;

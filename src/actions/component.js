@@ -22,7 +22,12 @@ export const MOVE_COMPONENT = 'MOVE_COMPONENT';
  * @param   {string}  type      The type of component
  * @return  {object}            CREATE_COMPONENT action
  */
-export const createComponent = (componentState, calculatedVariablesStore, codesListsStore) => dispatch => {
+export const createComponent = (
+  componentState,
+  calculatedVariablesStore,
+  externalVariablesStore,
+  codesListsStore
+) => dispatch => {
   const activeComponentsStore = {
     [componentState.id]: componentState,
   };
@@ -35,6 +40,7 @@ export const createComponent = (componentState, calculatedVariablesStore, codesL
         update: {
           activeComponentsById: activeComponentsStore,
           activeCalculatedVariablesById: calculatedVariablesStore,
+          activeExternalVariablesById: externalVariablesStore,
           activeCodeListsById: codesListsStore,
         },
       },
@@ -167,7 +173,13 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
  * @param   {object}  update      The properties which need to be updated
  * @return  {object}              UPDATE_COMPONENT action
  */
-export const updateComponent = (componentId, componentsStore, calculatedVariablesStore, codesListsStore) => {
+export const updateComponent = (
+  componentId,
+  componentsStore,
+  calculatedVariablesStore,
+  externalVariablesStore,
+  codesListsStore
+) => {
   return {
     type: UPDATE_COMPONENT,
     payload: {
@@ -175,6 +187,7 @@ export const updateComponent = (componentId, componentsStore, calculatedVariable
       update: {
         activeComponentsById: componentsStore,
         activeCalculatedVariablesById: calculatedVariablesStore,
+        activeExternalVariablesById: externalVariablesStore,
         activeCodeListsById: codesListsStore,
       },
     },
