@@ -4,23 +4,32 @@ import { connect } from 'react-redux';
 
 import { createQuestionnaire } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'home/components/questionnaire-new-edit';
+import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+
+const mapStateToProps = state => ({
+  user: state.appState.user,
+});
 
 const mapDispatchToProps = {
   createQuestionnaire,
 };
 
-function QuestionnaireNewContainer({ createQuestionnaire, onSuccess, onCancel }) {
+function QuestionnaireNewContainer({ user, createQuestionnaire, onSuccess, onCancel }) {
+  const questionnaireTransformer = QuestionnaireTransformerFactory({ owner: user.permission });
+  const initialValues = questionnaireTransformer.stateToForm();
+
   const submit = values => {
-    return createQuestionnaire(values.name, values.label).then(result => {
+    return createQuestionnaire(questionnaireTransformer.formToState(values)).then(result => {
       const { payload: { id } } = result;
       if (onSuccess) onSuccess(id);
     });
   };
 
-  return <QuestionnaireNewEdit onSubmit={submit} onCancel={onCancel} />;
+  return <QuestionnaireNewEdit initialValues={initialValues} onSubmit={submit} onCancel={onCancel} />;
 }
 
 QuestionnaireNewContainer.propTypes = {
+  user: PropTypes.object.isRequired,
   createQuestionnaire: PropTypes.func.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
@@ -31,4 +40,4 @@ QuestionnaireNewContainer.defaultProps = {
   onCancel: undefined,
 };
 
-export default connect(undefined, mapDispatchToProps)(QuestionnaireNewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireNewContainer);

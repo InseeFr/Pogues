@@ -76,24 +76,21 @@ class codesListEditor extends Component {
 
     return (
       <div className="codes-list-editor">
-        <FormSection name="codesList">
-          <div className="ctrl-input">
-            <label htmlFor="input-label">
-              {Dictionary.newCl}
-            </label>
-            <Field
-              name="label"
-              id="input-label"
-              type="text"
-              component={CodesListLabel}
-              placeholder={Dictionary.newCl}
-              toggleButtonClass={toggleButtonClass}
-              toggleCodesList={this.toggleCodesList}
-              {...requiredProps}
-            />
-          </div>
-          <Field name="id" type="hidden" component="input" />
-        </FormSection>
+        <div className="ctrl-input">
+          <label htmlFor="input-label">
+            {Dictionary.newCl}
+          </label>
+          <Field
+            name="label"
+            id="input-label"
+            type="text"
+            component={CodesListLabel}
+            placeholder={Dictionary.newCl}
+            toggleButtonClass={toggleButtonClass}
+            toggleCodesList={this.toggleCodesList}
+            {...requiredProps}
+          />
+        </div>
         <FieldArray display={this.state.showCodesList} name="codes" component={CodesListEditorCodes} />
       </div>
     );

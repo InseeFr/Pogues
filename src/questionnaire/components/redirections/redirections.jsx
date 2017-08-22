@@ -6,7 +6,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultRedirectionForm } from 'utils/transformation-entities/redirection';
+import { redirectionsFormDefault } from 'utils/transformation-entities/redirection';
 import GotoSelectContainer from 'layout/connected-widget/goto-select';
 
 function validationRedirections(values) {
@@ -57,7 +57,7 @@ class Redirections extends Component {
 
   render() {
     const { componentType, isNewComponent, errors } = this.props;
-    const { redirections, ...initialInputValues } = defaultRedirectionForm;
+    const { redirections, ...initialInputValues } = redirectionsFormDefault;
     const invalidItems = errors.map(e => e.params.redirectionId);
 
     const inputControlView = <InputRedirection componentType={componentType} isNewComponent={isNewComponent} />;

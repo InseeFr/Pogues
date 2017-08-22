@@ -75,10 +75,13 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
     <div id="questionnaire-new">
       <ul display={invalid}>
         {/* eslint-disable react/no-array-index-key */}
-        {error.map((e, index) => <li key={`validation-error-${index}`}>{e}</li>)}
+        {error.map((e, index) =>
+          <li key={`validation-error-${index}`}>
+            {e}
+          </li>
+        )}
       </ul>
       <form onSubmit={handleSubmit}>
-
         <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
 
         <Field
@@ -93,7 +96,9 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
 
         <Field name="stamp" type="text" component={Input} label={Dictionary.stamp} validate={[]} />
 
-        <div>{Dictionary.newQuestionnaireLegend}</div>
+        <div>
+          {Dictionary.newQuestionnaireLegend}
+        </div>
         <br />
 
         <Field name="collection" component={Select} label={Dictionary.collection} options={mockCollections} required />
@@ -127,8 +132,13 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
         />
 
         <div className="form-footer">
-          <button type="submit" disabled={pristine || submitting}>{Dictionary.validate}</button>
-          {onCancel && <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>}
+          <button type="submit" disabled={pristine || submitting}>
+            {Dictionary.validate}
+          </button>
+          {onCancel &&
+            <button className="cancel" disabled={submitting} onClick={onCancel}>
+              {Dictionary.cancel}
+            </button>}
         </div>
       </form>
     </div>

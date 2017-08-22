@@ -5,7 +5,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
+import { declarationsFormDefault } from 'utils/transformation-entities/declaration';
 
 function validationDeclaration(values) {
   const { label } = values;
@@ -83,7 +83,7 @@ class Declarations extends Component {
   static selectorPath = 'declarations';
 
   render() {
-    const { declarations, ...initialInputValues } = defaultDeclarationForm;
+    const { declarations, ...initialInputValues } = declarationsFormDefault;
     const inputDeclarationView = <InputDeclaration />;
 
     return (

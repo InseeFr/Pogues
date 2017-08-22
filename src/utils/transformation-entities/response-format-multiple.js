@@ -4,8 +4,9 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   DATATYPE_VIS_HINT,
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
-import CodesList, { defaultCodesListForm } from './codes-list';
+import CodesListTransformerFactory, { defaultCodesListForm } from './codes-list';
 import Dimension from './dimension';
 import Response from './response';
 
@@ -14,20 +15,20 @@ const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 const { CHECKBOX } = DATATYPE_VIS_HINT;
+const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export const defaultMultipleForm = {
   [PRIMARY]: {
-    codesListId: '',
     type: NEW,
     [NEW]: { ...defaultCodesListForm },
     [REF]: {},
     [QUESTIONNAIRE]: {},
   },
   [MEASURE]: {
-    type: CODES_LIST,
+    type: BOOL,
+    [BOOL]: {},
     [CODES_LIST]: {
       visHint: CHECKBOX,
-      codesListId: '',
       type: NEW,
       [NEW]: { ...defaultCodesListForm },
       [REF]: {},
@@ -38,130 +39,19 @@ export const defaultMultipleForm = {
 
 export const defaultMultipleState = {
   [PRIMARY]: {
-    codesListId: undefined,
+    codesListId: '',
+    codesList: {},
   },
   [MEASURE]: {
-    type: undefined,
+    type: BOOL,
+    [BOOL]: {},
+    [CODES_LIST]: {
+      visHint: CHECKBOX,
+      codesListId: '',
+      codesList: {},
+    },
   },
 };
-
-export const defaultMultipleModel = {
-  dimensions: [],
-  responses: [],
-};
-
-export const defaultMultipleResponseModel = {
-  maxLength: 1,
-  pattern: '',
-};
-
-function formToStatePrimary(form) {
-  const { type, [type]: codesListForm } = form;
-  const codesListState = CodesList.formToState(codesListForm);
-  return {
-    type,
-    codesListId: codesListState.codesList.id,
-    [type]: codesListState,
-  };
-}
-
-function formToStateMeasure(form) {
-  const { type: typeMeasure, [typeMeasure]: measureForm } = form;
-  const state = {
-    type: typeMeasure,
-    [typeMeasure]: {},
-  };
-
-  if (typeMeasure === CODES_LIST) {
-    const { visHint, type, [type]: codesListForm } = measureForm;
-    const codesListState = CodesList.formToState(codesListForm);
-    state[CODES_LIST] = {
-      visHint,
-      type,
-      codesListId: codesListState.codesList.id,
-      [type]: codesListState,
-    };
-  }
-
-  return state;
-}
-
-function stateToFormPrimary(state, activeCodeLists, activeCodes) {
-  const { codesListId } = state;
-  const codesList = activeCodeLists[codesListId];
-  const form = {};
-
-  if (codesList) {
-    form.codesListId = codesListId;
-    const codes = codesList.codes;
-
-    // @TODO: This could change
-    form[NEW] = {
-      codesList: {
-        id: codesList.id,
-        label: codesList.label,
-      },
-      codes: codes.map(key => {
-        return {
-          id: key,
-          code: activeCodes[key].code,
-          label: activeCodes[key].label,
-        };
-      }),
-    };
-  }
-
-  return {
-    ...defaultMultipleForm[PRIMARY],
-    ...form,
-  };
-}
-
-function stateToFormMeasure(state, activeCodeLists, activeCodes) {
-  const { type: typeMeasure, [typeMeasure]: measureState } = state;
-  const form = {
-    type: typeMeasure,
-    [typeMeasure]: {},
-  };
-
-  if (typeMeasure === CODES_LIST) {
-    const { visHint, codesListId } = measureState;
-    const codesList = activeCodeLists[codesListId];
-    const codesListForm = {
-      visHint,
-    };
-
-    if (codesList) {
-      codesListForm.codesListId = codesListId;
-      const codes = codesList.codes;
-
-      // @TODO: This could change
-      codesListForm[NEW] = {
-        codesList: {
-          id: codesList.id,
-          label: codesList.label,
-        },
-        codes: codes.map(key => {
-          return {
-            id: key,
-            code: activeCodes[key].code,
-            label: activeCodes[key].label,
-          };
-        }),
-      };
-    }
-
-    form[CODES_LIST] = {
-      ...defaultMultipleForm[MEASURE][CODES_LIST],
-      ...codesListForm,
-    };
-  }
-
-  return {
-    ...defaultMultipleForm[MEASURE],
-    ...form,
-  };
-}
 
 function getDimension(type, dimensions) {
   const result = dimensions.filter(d => {
@@ -170,71 +60,63 @@ function getDimension(type, dimensions) {
   return result.length > 0 ? result[0] : {};
 }
 
-function formToState(form) {
-  const { [PRIMARY]: primaryForm, [MEASURE]: measureForm } = form;
+function transformationFormToStatePrimary(form, currentCodesListsIdsStore) {
+  const { type, [type]: codesListForm } = form;
+  const initialState =
+    currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${PRIMARY}`] !== ''
+      ? { id: currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${PRIMARY}`] }
+      : undefined;
+  const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
+
+  return {
+    codesListId: codesListState.id,
+    codesList: codesListState,
+  };
+}
+
+function transformationFormToStateMeasure(form, currentCodesListsIdsStore) {
+  const { type: typeMeasure, [typeMeasure]: measureForm } = form;
   const state = {
-    [PRIMARY]: formToStatePrimary(primaryForm),
-    [MEASURE]: formToStateMeasure(measureForm),
+    type: typeMeasure,
+    [typeMeasure]: {},
   };
-  return {
-    ...defaultMultipleState,
-    ...state,
-  };
-}
-
-function stateToForm(state, activeCodeLists, activeCodes) {
-  const { [PRIMARY]: primaryState, [MEASURE]: measureState } = state;
-  const form = {
-    [PRIMARY]: stateToFormPrimary(primaryState, activeCodeLists, activeCodes),
-    [MEASURE]: stateToFormMeasure(measureState, activeCodeLists, activeCodes),
-  };
-  return {
-    ...defaultMultipleForm,
-    ...form,
-  };
-}
-
-function stateToModel(state) {
-  const { [PRIMARY]: primaryState, [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState } } = state;
-  const dimensions = [];
-  const responses = [];
-  dimensions.push(Dimension.stateToModel({ ...primaryState, type: PRIMARY }));
-  dimensions.push(Dimension.stateToModel({ type: MEASURE }));
 
   if (typeMeasure === CODES_LIST) {
-    const { codesListId, visHint } = measureState;
-    responses.push(
-      Response.stateToModel({
-        codeListReference: codesListId,
-        type: TEXT,
-        datatype: { ...defaultMultipleResponseModel, visHint },
-      })
-    );
-  } else {
-    responses.push(Response.stateToModel({ type: BOOLEAN }));
+    const { visHint, type, [type]: codesListForm } = measureForm;
+    const initialState =
+      currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}`] !== ''
+        ? { id: currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}`] }
+        : undefined;
+    const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
+    state[CODES_LIST] = {
+      visHint,
+      codesListId: codesListState.id,
+      codesList: codesListState,
+    };
   }
 
+  return state;
+}
+
+function transformationFormToState(form, currentCodesListsIdsStore) {
+  const { [PRIMARY]: primaryForm, [MEASURE]: measureForm } = form;
+
   return {
-    ...defaultMultipleModel,
-    ...{
-      dimensions,
-      responses,
-    },
+    [PRIMARY]: transformationFormToStatePrimary(primaryForm, currentCodesListsIdsStore),
+    [MEASURE]: transformationFormToStateMeasure(measureForm, currentCodesListsIdsStore),
   };
 }
 
-function modelToState(model) {
-  // @TODO: This logic should be moved to the Dimension and Response transformer
-  const { dimensions, responses: [{ datatype: { typeName, visHint }, codeListReference: codesListId }] } = model;
-  const primaryDimension = getDimension(PRIMARY, dimensions);
+function transformationModelToState(model) {
+  const { primaryDimension, type, visHint, codesListId } = model;
   const state = {
     [PRIMARY]: { ...defaultMultipleState[PRIMARY] },
     [MEASURE]: { ...defaultMultipleState[MEASURE] },
   };
 
-  state[PRIMARY].codesListId = primaryDimension.codeListReference;
+  state[PRIMARY].codesListId = primaryDimension.CodeListReference;
 
-  if (typeName === BOOLEAN) {
+  if (type === BOOLEAN) {
     state[MEASURE].type = BOOL;
   } else {
     state[MEASURE].type = CODES_LIST;
@@ -247,9 +129,104 @@ function modelToState(model) {
   return state;
 }
 
-export default {
-  modelToState,
-  stateToModel,
-  formToState,
-  stateToForm,
+function transformationStateToFormPrimary(currentState, codesListsStore) {
+  const { codesListId } = currentState;
+  const clTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
+
+  return {
+    ...defaultMultipleForm[PRIMARY],
+    codesListId,
+    [NEW]: clTransformer.stateToForm(),
+  };
+}
+
+function transformationStateToFormMeasure(currentState, codesListsStore) {
+  const state = {
+    ...defaultMultipleState[MEASURE],
+    ...currentState,
+  };
+  const { type, [CODES_LIST]: { codesListId, visHint } } = state;
+  const clTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
+
+  return {
+    ...defaultMultipleForm[MEASURE],
+    [CODES_LIST]: {
+      ...defaultMultipleForm[MEASURE][CODES_LIST],
+      visHint,
+      codesListId,
+      [NEW]: clTransformer.stateToForm(),
+    },
+    type,
+  };
+}
+
+function transformationStateToForm(currentState, codesListsStore) {
+  const { [PRIMARY]: primaryState, [MEASURE]: measureState } = currentState;
+
+  return {
+    [PRIMARY]: transformationStateToFormPrimary(primaryState, codesListsStore),
+    [MEASURE]: transformationStateToFormMeasure(measureState, codesListsStore),
+  };
+}
+
+function transformationStateToModel(currentState) {
+  const { [PRIMARY]: primaryState, [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState } } = currentState;
+  const dimensions = [];
+  const responses = [];
+
+  dimensions.push(Dimension.stateToModel({ ...primaryState, type: PRIMARY }));
+  dimensions.push(Dimension.stateToModel({ type: MEASURE }));
+
+  if (typeMeasure === CODES_LIST) {
+    const { codesListId, visHint } = measureState;
+    responses.push(
+      Response.stateToModel({
+        codesListId,
+        type: TEXT,
+        visHint,
+        maxLength: 1,
+        pattern: '',
+      })
+    );
+  } else {
+    responses.push(Response.stateToModel({ type: BOOLEAN }));
+  }
+
+  return {
+    Dimension: dimensions,
+    Response: responses,
+  };
+}
+
+const MultipleTransformerFactory = (conf = {}) => {
+  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
+  let currentState = initialState || defaultMultipleState;
+
+  return {
+    formToState: form => {
+      currentState = transformationFormToState(form, currentCodesListsIdsStore);
+      return currentState;
+    },
+    modelToState: model => {
+      const {
+        dimensions,
+        responses: [{ Datatype: { typeName, visualizationHint: visHint }, CodeListReference: codesListId }],
+      } = model;
+      currentState = transformationModelToState({
+        primaryDimension: getDimension(PRIMARY, dimensions),
+        type: typeName,
+        visHint,
+        codesListId,
+      });
+      return currentState;
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState, codesListsStore);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(currentState);
+    },
+  };
 };
+
+export default MultipleTransformerFactory;

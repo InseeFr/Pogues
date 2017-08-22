@@ -7,7 +7,6 @@ import {
   updateActiveQuestionnaire,
   saveActiveQuestionnaireSuccess,
   saveActiveQuestionnaireFailure,
-  saveActiveQuestionnaire,
   SET_ACTIVE_QUESTIONNAIRE,
   SET_ACTIVE_COMPONENTS,
   SET_ACTIVE_CODE_LISTS,
@@ -38,11 +37,10 @@ describe('setActiveComponents', () => {
 
 describe('setActiveCodeLists', () => {
   test('should return the right payload', () => {
-    expect(setActiveCodeLists('activeCodeLists', 'activeCodes')).toEqual({
+    expect(setActiveCodeLists('activeCodeLists')).toEqual({
       type: SET_ACTIVE_CODE_LISTS,
       payload: {
         activeCodeLists: 'activeCodeLists',
-        activeCodes: 'activeCodes',
       },
     });
   });
@@ -68,7 +66,7 @@ describe('setSelectedComponentId', () => {
 
 describe('updateActiveQuestionnaire', () => {
   test('should return the right payload', () => {
-    expect(updateActiveQuestionnaire('id', 'name', 'label')).toEqual({
+    expect(updateActiveQuestionnaire({ id: 'id', name: 'name', label: 'label' })).toEqual({
       type: UPDATE_ACTIVE_QUESTIONNAIRE,
       payload: {
         id: 'id',

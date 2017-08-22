@@ -18,7 +18,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
       {noValueBlock}
       {fields.map((name, index, fields) => {
         const item = fields.get(index);
-        const rawLabel = markdownToRaw(item.label).blocks[0].text;
+        const rawLabel = markdownToRaw(item.label || '').blocks[0].text;
         const shortLabel = rawLabel && rawLabel.length > 60 ? `${rawLabel.substr(0, 57)}...` : rawLabel;
         const invalidItemClass = classSet({
           invalid: invalidItems.indexOf(item.id) !== -1,
@@ -81,11 +81,13 @@ class ListEntryForm extends Component {
     noValueLabel: PropTypes.string.isRequired,
     errors: PropTypes.array,
     invalidItems: PropTypes.array,
+    showDuplicateButton: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     errors: [],
     invalidItems: [],
+    showDuplicateButton: true,
   };
   constructor(props) {
     super(props);
@@ -113,6 +115,7 @@ class ListEntryForm extends Component {
       submitLabel,
       noValueLabel,
       invalidItems,
+      showDuplicateButton,
       rerenderOnEveryChange,
     } = this.props;
 
@@ -164,21 +167,22 @@ class ListEntryForm extends Component {
                   {Dictionary.remove}
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  disabled={this.state.currentItemIndex === ''}
-                  onClick={event => {
-                    event.preventDefault();
-                    this.setCurrentItemIndex();
-                    duplicate();
-                  }}
-                >
-                  <span className="glyphicon glyphicon-file" aria-hidden="true" />
-                  {Dictionary.duplicate}
-                </button>
-              </li>
+              {showDuplicateButton &&
+                <li>
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    disabled={this.state.currentItemIndex === ''}
+                    onClick={event => {
+                      event.preventDefault();
+                      this.setCurrentItemIndex();
+                      duplicate();
+                    }}
+                  >
+                    <span className="glyphicon glyphicon-file" aria-hidden="true" />
+                    {Dictionary.duplicate}
+                  </button>
+                </li>}
               <li>
                 <button
                   type="button"

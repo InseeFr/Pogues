@@ -1,184 +1,65 @@
-import _ from 'lodash';
-
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
-import ResponseFormat from './response-format';
-import Declaration, { defaultDeclarationForm } from './declaration';
-import Control, { defaultControlForm } from './control';
-import Redirection, { defaultRedirectionForm } from './redirection';
+import { uuid } from 'utils/data-utils';
+import ResponseFormatTransformerFactory from './response-format';
+import DeclarationTransformerFactory from './declaration';
+import ControlTransformerFactory from './control';
+import RedirectionTransformerFactory from './redirection';
+import CalculatedVariableTransformerFactory from './calculated-variable';
+import ExternalVariableTransformerFactory from './external-variable';
 import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
-export const defaultComponentForm = {
-  label: '',
-  name: '',
-};
-
-export const defaultComponentState = {
-  id: undefined,
-  type: undefined,
-  parent: undefined,
-  weight: undefined,
-  name: undefined,
-  label: undefined,
-  rawLabel: undefined,
-  children: [],
-  responseFormat: undefined,
-  declarations: undefined,
-  controls: undefined,
-  redirections: undefined,
-};
-
-export const defaultComponentModel = {
-  id: '',
-  type: '',
-  name: '',
-  label: [],
-  genericName: '',
-  depth: 0,
-  questionType: '',
-  children: [],
-  responses: [],
-  responseStructure: {
-    dimensions: {},
-  },
-  declarations: [],
-  controls: [],
-  redirections: [],
-};
-
-function stateToModelChildren(children, components, codesLists, depth = 0) {
-  return children
-    .sort((keyA, keyB) => {
-      if (components[keyA].weight < components[keyB].weight) return -1;
-      if (components[keyA].weight > components[keyB].weight) return 1;
-      return 0;
-    })
-    .map(key => {
-      const newDepth = depth + 1;
-      return stateToModel({ ...components[key], depth: newDepth }, components, codesLists);
-    });
-}
-
-function formToState(form) {
-  const {
-    id,
-    type,
-    parent,
-    weight,
-    name,
-    label,
-    children,
-    responseFormat,
-    declarations,
-    controls,
-    redirections,
-  } = form;
+function transformationFormToState(form, currentState, currentCodesListsIdsStore) {
+  const { id, type, parent, weight, children } = currentState;
+  const { name, label, responseFormat, declarations, controls, redirections } = form;
 
   const state = {
     id,
     type,
-    label,
     name: name || nameFromLabel(label),
     parent: parent || '',
     weight: weight || 0,
     children: children || [],
   };
 
+  if (type !== QUESTIONNAIRE) {
+    state.declarations = DeclarationTransformerFactory().formToState(declarations);
+    state.controls = ControlTransformerFactory().formToState(controls);
+    state.redirections = RedirectionTransformerFactory().formToState(redirections);
+  }
+
   if (type === QUESTION) {
-    state.rawLabel = state.label;
+    state.label = label;
+    state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
-
-    state.responseFormat = ResponseFormat.formToState(responseFormat);
-  }
-
-  state.declarations = Declaration.formToState(declarations || defaultDeclarationForm);
-  state.controls = Control.formToState(controls || defaultControlForm);
-  state.redirections = Redirection.formToState(redirections || defaultRedirectionForm);
-
-  return {
-    ..._.cloneDeep(defaultComponentState),
-    ...state,
-  };
-}
-
-function stateToForm(component, activeCodeLists, activeCodes) {
-  const { label, name, type, responseFormat, declarations, controls, redirections } = component;
-
-  const form = {
-    label,
-    name,
-  };
-
-  form.declarations = Declaration.stateToForm(declarations);
-  form.controls = Control.stateToForm(controls);
-  form.redirections = Redirection.stateToForm(redirections);
-
-  if (type === QUESTION) {
-    form.responseFormat = ResponseFormat.stateToForm(responseFormat, activeCodeLists, activeCodes);
-  }
-
-  return {
-    ...defaultComponentForm,
-    ...form,
-  };
-}
-
-function stateToModel(state, components, codesLists = {}) {
-  const { id, depth, name, label, type, children, responseFormat, declarations, controls, redirections } = state;
-
-  let model = {
-    id,
-    depth,
-    name,
-    label: [label],
-    ...Declaration.stateToModel(declarations || []),
-    ...Control.stateToModel(controls || []),
-    ...Redirection.stateToModel(redirections || []),
-  };
-
-  if (type === QUESTION) {
-    model.type = QUESTION_TYPE_NAME;
-    model.questionType = responseFormat.type;
-    model = {
-      ...model,
-      ...ResponseFormat.stateToModel(responseFormat, codesLists),
-    };
+    state.responseFormat = ResponseFormatTransformerFactory({
+      currentCodesListsIdsStore,
+    }).formToState(responseFormat);
   } else {
-    model.type = SEQUENCE_TYPE_NAME;
-    if (type === QUESTIONNAIRE) {
-      model.genericName = 'QUESTIONNAIRE';
-    } else {
-      model.genericName = 'MODULE';
-    }
-    model.children = stateToModelChildren(children, components, codesLists, depth);
+    state.label = label;
   }
 
-  return {
-    ..._.cloneDeep(defaultComponentModel),
-    ...model,
-  };
+  return state;
 }
 
-function modelToState(model, activeCodeLists = {}) {
+function transformationModelToState(model, codesListsStore = {}) {
   const {
     id,
-    type,
-    depth,
-    name,
-    label: [label],
+    questionType,
+    genericName,
+    Name: name,
+    Label: [label],
+    Declaration: declarations,
+    GoTo: redirections,
+    Controls: controls,
+    Response: responses,
+    ResponseStructure: responseStructure,
+    Child: children,
     parent,
     weight,
-    children,
-    questionType,
-    responses,
-    responseStructure,
-    declarations,
-    controls,
-    redirections,
-    goTos,
   } = model;
 
   const state = {
@@ -186,49 +67,186 @@ function modelToState(model, activeCodeLists = {}) {
     name,
     parent: parent || '',
     weight: weight || 0,
+    children: children ? children.map(child => child.id) : [],
   };
 
-  state.declarations = Declaration.modelToState({ declarations });
-  state.controls = Control.modelToState({ controls });
-  state.redirections = Redirection.modelToState({ redirections: redirections || goTos });
+  state.declarations = DeclarationTransformerFactory().modelToState(declarations);
+  state.controls = ControlTransformerFactory().modelToState(controls);
+  state.redirections = RedirectionTransformerFactory().modelToState(redirections);
 
-  if (type === SEQUENCE_TYPE_NAME) {
-    state.children = children.map(child => child.id);
+  if (genericName) {
     state.label = label;
-    if (depth === 0) {
+    if (genericName === QUESTIONNAIRE) {
       state.type = QUESTIONNAIRE;
-    } else if (depth === 1) {
+    } else if (genericName === 'MODULE') {
       state.type = SEQUENCE;
-    } else {
+    } else if (genericName === 'SUBMODULE') {
       state.type = SUBSEQUENCE;
     }
-  } else if (type === QUESTION_TYPE_NAME) {
-    const dimensions = responseStructure ? responseStructure.dimensions : [];
+  } else {
+    const dimensions = responseStructure ? responseStructure.Dimension : [];
     state.type = QUESTION;
     state.label = getQuestionLabelFromRaw(label);
     state.rawLabel = label;
-
     state.htmlLabel = markdownToHtml(state.label);
-
-    state.responseFormat = ResponseFormat.modelToState(
-      {
-        type: questionType,
-        responses,
-        dimensions,
-      },
-      activeCodeLists
-    );
+    state.responseFormat = ResponseFormatTransformerFactory({
+      codesListsStore,
+    }).modelToState(questionType, responses, dimensions);
   }
 
-  return {
-    ..._.cloneDeep(defaultComponentState),
-    ...state,
-  };
+  return state;
 }
 
-export default {
-  modelToState,
-  stateToModel,
-  stateToForm,
-  formToState,
+function transformationModelToStore(model, questionnaireId, codesListsStore = {}) {
+  function getComponentsFromNested(children, parent, acc) {
+    let weight = 0;
+    children.forEach(child => {
+      acc[child.id] = transformationModelToState({ ...child, weight, parent }, codesListsStore);
+      weight += 1;
+      if (child.Child) getComponentsFromNested(child.Child, child.id, acc);
+      return acc;
+    });
+
+    return acc;
+  }
+
+  return getComponentsFromNested(model, questionnaireId, {});
+}
+
+function transformationStateToForm(currentState, codesListsStore, calculatedVariablesStore, externalVariablesStore) {
+  const { label, name, type, responseFormat, declarations, controls, redirections } = currentState;
+  const form = {
+    label: label || '',
+    name: name || '',
+    declarations: DeclarationTransformerFactory({ initialState: declarations }).stateToForm(),
+    controls: ControlTransformerFactory({ initialState: controls }).stateToForm(),
+    redirections: RedirectionTransformerFactory({ initialState: redirections }).stateToForm(),
+  };
+
+  if (type === QUESTION) {
+    form.responseFormat = ResponseFormatTransformerFactory({
+      initialState: responseFormat,
+      codesListsStore,
+    }).stateToForm();
+    form.calculatedVariables = CalculatedVariableTransformerFactory({
+      initialStore: calculatedVariablesStore,
+    }).storeToForm();
+    form.externalVariables = ExternalVariableTransformerFactory({
+      initialStore: externalVariablesStore,
+    }).storeToForm();
+  }
+
+  return form;
+}
+
+function transformationStateToModel(state, store, codesListsStore = {}, depth = 1) {
+  const { id, name: Name, label, type, children, responseFormat, declarations, controls, redirections } = state;
+
+  let model = {
+    id,
+    depth,
+    Name,
+    Label: [label],
+    Declaration: DeclarationTransformerFactory({ initialState: declarations }).stateToModel(),
+    Control: ControlTransformerFactory({ initialState: controls }).stateToModel(),
+    GoTo: RedirectionTransformerFactory({ initialState: redirections }).stateToModel(),
+  };
+
+  if (type === QUESTION) {
+    model.type = QUESTION_TYPE_NAME;
+    model.questionType = responseFormat.type;
+    // @TODO
+    model = {
+      ...model,
+      ...ResponseFormatTransformerFactory({ initialState: responseFormat, codesListsStore }).stateToModel(),
+    };
+  } else {
+    model.type = SEQUENCE_TYPE_NAME;
+    if (type === QUESTIONNAIRE) {
+      model.genericName = 'QUESTIONNAIRE';
+    } else if (type === SEQUENCE) {
+      model.genericName = 'MODULE';
+    } else {
+      model.genericName = 'SUBMODULE';
+    }
+    model.Child = transformationStateChildrenToModel(children, store, codesListsStore, depth);
+  }
+
+  return model;
+}
+
+function transformationStateChildrenToModel(children, store, codesListsStore, depth = 0) {
+  return children
+    .sort((keyA, keyB) => {
+      if (store[keyA].weight < store[keyB].weight) return -1;
+      if (store[keyA].weight > store[keyB].weight) return 1;
+      return 0;
+    })
+    .map(key => {
+      const newDepth = depth + 1;
+      return transformationStateToModel(store[key], store, codesListsStore, newDepth);
+    });
+}
+
+const ComponentTransformerFactory = (conf = {}) => {
+  const {
+    initialStore,
+    questionnaireId,
+    codesListsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+    currentCodesListsIdsStore,
+  } = conf;
+
+  let currentStore = initialStore || {};
+  let currentState;
+
+  return {
+    formToState: (form, infos) => {
+      const { id, parent, weight, type } = infos;
+      const currentId = id || uuid();
+
+      currentState = transformationFormToState(
+        form,
+        { id: currentId, parent, weight, type },
+        currentCodesListsIdsStore
+      );
+
+      return currentState;
+    },
+    formToStore: (form, id) => {
+      currentState = transformationFormToState(form, currentStore[id], currentCodesListsIdsStore);
+      currentStore = {
+        ...currentStore,
+        [id]: currentState,
+      };
+      return currentStore;
+    },
+    modelToStore: model => {
+      currentStore = {
+        ...transformationModelToStore(model.Child, questionnaireId, codesListsStore),
+        [questionnaireId]: transformationModelToState(model),
+      };
+      return currentStore;
+    },
+    stateToForm: infos => {
+      const { id, type } = infos;
+      let state;
+      currentState = currentStore[id];
+
+      if (!currentState) {
+        state = { type };
+      } else {
+        state = currentState;
+      }
+      return transformationStateToForm(state, codesListsStore, calculatedVariablesStore, externalVariablesStore);
+    },
+    storeToModel: () => {
+      return currentStore[questionnaireId].children.map(key => {
+        return transformationStateToModel(currentStore[key], currentStore, codesListsStore);
+      });
+    },
+  };
 };
+
+export default ComponentTransformerFactory;

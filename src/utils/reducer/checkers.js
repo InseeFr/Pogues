@@ -10,4 +10,8 @@ export default {
   [UPDATE_COMPONENT]: combineCheckers(checkerComponentTarget),
   [REMOVE_COMPONENT]: combineCheckers(checkerQuestionnaireLength, checkerComponentTarget),
   [MOVE_COMPONENT]: combineCheckers(checkerComponentTarget),
+
+  // [SET_ACTIVE_COMPONENTS]: combineCheckers(checkerQuestionnaireLength),
+  // [CREATE_COMPONENT]: combineCheckers(checkerQuestionnaireLength),
+  // [REMOVE_COMPONENT]: combineCheckers(checkerQuestionnaireLength),
 };

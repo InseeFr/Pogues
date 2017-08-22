@@ -72,7 +72,7 @@ function getValue(props) {
 }
 
 /**
- * Component that will display a TextArea in a react-form Field component. 
+ * Component that will display a TextArea in a react-form Field component.
  * We can add a help block thankt to the help attribute, and an actions toolbar
  * thanks to a button attribute.
  */

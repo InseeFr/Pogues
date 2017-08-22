@@ -112,10 +112,12 @@ function getTargetsFromSequence(components, parent, weight, currentComponentId) 
 }
 
 function getTargetsFromComponent(components, parent, weight, currentComponentId) {
+  if (!components[parent].children) return [];
+
   return components[parent].children
     .filter(id => id !== currentComponentId && components[id].weight >= weight)
     .reduce((acc, id) => {
-      return [...acc, id, ...components[id].children];
+      return [...acc, id, ...(components[id].children || [])];
     }, []);
 }
 
@@ -137,7 +139,7 @@ export function getTargets(
     if (currentComponentType === SEQUENCE) {
       ids = [
         ...components[selectedComponentId].children.reduce((acc, id) => {
-          return [...acc, id, ...components[id].children];
+          return [...acc, id, ...(components[id].children || [])];
         }, []),
       ];
     } else if (currentComponentType === SUBSEQUENCE) {

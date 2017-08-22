@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { visualisationUrl } from '/utils/remote-api';
+import { visualisationUrl } from 'utils/remote-api';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import ComponentNewContainer from 'questionnaire/containers/component/component-new';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -15,8 +15,9 @@ class GenericInput extends Component {
     isQuestionnaireValid: PropTypes.bool.isRequired,
     idQuestionnaire: PropTypes.string,
   };
+
   static defaultProps = {
-    idQuestionnaire: '',
+    idQuestionnaire: undefined,
   };
 
   constructor(props) {
