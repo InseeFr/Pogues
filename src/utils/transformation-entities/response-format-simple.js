@@ -82,8 +82,9 @@ function transformationStateToForm(currentState) {
 }
 
 function transformationStateToModel(currentState) {
+  const dataType = currentState[currentState.type];
   return {
-    Response: [Response.stateToModel(currentState)],
+    Response: [Response.stateToModel({ ...currentState, ...dataType })],
   };
 }
 

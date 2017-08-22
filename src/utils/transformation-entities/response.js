@@ -4,7 +4,11 @@ function stateToModel(state) {
   const {
     mandatory,
     type,
-    [type]: { maxLength: MaxLength, pattern: Pattern, minimum: Minimum, maximum: Maximum, decimals: Decimals },
+    maxLength: MaxLength,
+    pattern: Pattern,
+    minimum: Minimum,
+    maximum: Maximum,
+    decimals: Decimals,
     codesListId: CodeListReference,
     visHint: visualizationHint,
     hasSpecialCode,

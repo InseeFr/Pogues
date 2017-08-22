@@ -1,10 +1,17 @@
-import { UI_BEHAVIOUR, CODES_LIST_INPUT_ENUM, DATATYPE_VIS_HINT, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import {
+  UI_BEHAVIOUR,
+  CODES_LIST_INPUT_ENUM,
+  DATATYPE_VIS_HINT,
+  QUESTION_TYPE_ENUM,
+  DATATYPE_NAME,
+} from 'constants/pogues-constants';
 import CodesListTransformerFactory, { defaultCodesListForm } from './codes-list';
 import Response from './response';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { TEXT } = DATATYPE_NAME;
 
 export const defaultSingleForm = {
   mandatory: false,
@@ -63,14 +70,13 @@ function transformationFormToState(form, currentCodesListsIdsStore) {
 
 function transformationModelToState(model) {
   const { visHint, mandatory, nonResponseModality, codesListId } = model;
-
   return {
     codesListId,
     mandatory,
     visHint,
     hasSpecialCode: !!nonResponseModality,
-    specialLabel: nonResponseModality ? nonResponseModality.label : '',
-    specialCode: nonResponseModality ? nonResponseModality.value : '',
+    specialLabel: nonResponseModality !== undefined ? nonResponseModality.label : '',
+    specialCode: nonResponseModality !== undefined ? nonResponseModality.value : '',
     specialUiBehaviour:
       nonResponseModality && !nonResponseModality.firstIntentionDisplay
         ? UI_BEHAVIOUR.SECOND_INTENTION
@@ -107,7 +113,7 @@ function transformationStateToForm(currentState, codesListsStore) {
 
 function transformationStateToModel(currentState) {
   return {
-    Response: [Response.stateToModel(currentState)],
+    Response: [Response.stateToModel({ type: TEXT, maxLength: 1, pattern: '', ...currentState })],
   };
 }
 

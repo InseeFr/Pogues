@@ -90,18 +90,18 @@ function transformationStateToModel(currentState, codesListsStore) {
     model.Response = responseFormatModel.Response;
   } else if (type === SINGLE_CHOICE) {
     responseFormatModel = SingleTransformerFactory({ initialState: responseFormatState }).stateToModel();
-    model.Response = responseFormatModel.responses;
+    model.Response = responseFormatModel.Response;
   } else if (type === MULTIPLE_CHOICE) {
     responseFormatModel = MultipleTransformerFactory({ initialState: responseFormatState }).stateToModel();
-    model.Response = responseFormatModel.responses;
-    model.ResponseStructure.Dimension = responseFormatModel.dimensions;
+    model.Response = responseFormatModel.Response;
+    model.ResponseStructure.Dimension = responseFormatModel.Dimension;
   } else {
     responseFormatModel = TableTransformerFactory({
       initialState: responseFormatState,
       codesListsStore,
     }).stateToModel();
-    model.Response = responseFormatModel.responses;
-    model.ResponseStructure.Dimension = responseFormatModel.dimensions;
+    model.Response = responseFormatModel.Response;
+    model.ResponseStructure.Dimension = responseFormatModel.Dimension;
   }
   return model;
 }
