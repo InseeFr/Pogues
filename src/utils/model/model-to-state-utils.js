@@ -1,138 +1,65 @@
-import _ from 'lodash';
+import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
+import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
+import ComponentTransformerFactory from 'utils/transformation-entities/component';
+// import Condition from 'utils/transformation-entities/condition';
+import { VARIABLES_TYPES } from 'constants/pogues-constants';
+import Logger from 'utils/logger/logger';
 
-import Questionnaire from 'utils/transformation-entities/questionnaire';
-import Component from 'utils/transformation-entities/component';
-import CodesList from 'utils/transformation-entities/codes-list';
-import Code from 'utils/transformation-entities/code';
-import Condition from 'utils/transformation-entities/condition';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { uuid } from 'utils/data-utils';
-import { containsComment } from './model-utils';
+const { CALCULATED } = VARIABLES_TYPES;
+const logger = new Logger('ModelToStateUtils', 'Utils');
 
-const { QUESTION } = COMPONENT_TYPE;
+export function questionnaireModelToStores(model) {
+  const { id, CodeLists: { CodeList: codesLists }, Variables: { Variable: variables } } = model;
+  const calculatedVariables = variables.filter(v => v.type === CALCULATED);
 
-export function getComponentsFromNestedQuestionnaire(questionnaireChildren, codesLists, questionnaireId) {
-  function getComponentsFromNested(children, parent, carry) {
-    let weight = 0;
-    children.forEach(child => {
-      carry[child.id] = Component.modelToState({ ...child, weight, parent }, codesLists);
+  // Questionnaire store
+  const questionnaireById = QuestionnaireTransformerFactory(model).modelToStore(model);
 
-      weight += 1;
-      if (child.children) getComponentsFromNested(child.children, child.id, carry);
-      return carry;
-    });
-
-    return carry;
-  }
-  return getComponentsFromNested(questionnaireChildren, questionnaireId, {});
-}
-
-export function getCodesListAndCodesFromQuestionnaire(codesLists) {
-  return codesLists.reduce(
-    (acc, codesList) => {
-      const codes = codesList.codes.reduce((accCodes, code) => {
-        const id = uuid();
-        return {
-          ...accCodes,
-          [id]: { ...Code.modelToState({ ...code, id }) },
-        };
-      }, {});
-
-      acc.codesLists = {
-        ...acc.codesLists,
-        [codesList.id]: { ...CodesList.modelToState({ ...codesList, codes }) },
-      };
-
-      acc.codes = {
-        ...acc.codes,
-        ...codes,
-      };
-
-      return acc;
-    },
-    { codesLists: {}, codes: {} }
-  );
-}
-
-export function filterQuestions(components) {
-  return Object.keys(components).reduce((acc, key) => {
-    if (components[key].type === QUESTION) acc[key] = components[key];
-    return acc;
-  }, {});
-}
-
-export function getConditionsFromQuestionRawLabel(questionRawLabel) {
-  const hasComment = containsComment(questionRawLabel);
-  if (!hasComment) return {};
-  const { conditions } = JSON.parse(hasComment[1]);
-  return conditions.reduce((acc, cond) => {
-    const condition = Condition.modelToState(cond);
-    return {
-      ...acc,
-      [condition.id]: conditions,
-    };
-  }, {});
-}
-
-export function getConditionsFromQuestions(questions) {
-  return Object.keys(questions).reduce((acc, key) => {
-    const conditions = getConditionsFromQuestionRawLabel(questions[key].rawLabel);
-    return {
-      ...acc,
-      ...conditions,
-    };
-  }, {});
-}
-
-export function questionnaireModelToState(questionnaireModel) {
-  const model = _.cloneDeep(questionnaireModel);
-  const { id, children, codeLists: { codeList } } = model;
-  const { codesLists, codes } = getCodesListAndCodesFromQuestionnaire(codeList);
-  const components = getComponentsFromNestedQuestionnaire(children, codesLists, id);
-  const questionnaireComponent = Component.modelToState(model);
-  const questions = filterQuestions(components);
-  const conditions = getConditionsFromQuestions(questions);
-  const questionnaire = Questionnaire.modelToState({ ...model, components, codesLists, conditions });
-  const conditionByQuestionnaire = {
-    [id]: {
-      ...conditions,
-    },
+  // Calculate variables store
+  const calculatedVariableByQuestionnaire = {
+    [id]: CalculatedVariableTransformerFactory().modelToStore(calculatedVariables),
   };
 
+  // Codes lists store
+  const codesListsStore = CodesListTransformerFactory().modelToStore(codesLists);
   const codeListByQuestionnaire = {
-    [id]: {
-      ...codesLists,
-    },
+    [id]: codesListsStore,
   };
 
-  const codeByQuestionnaire = {
-    [id]: {
-      ...codes,
-    },
-  };
-
+  // Components store
   const componentByQuestionnaire = {
-    [id]: {
-      ...components,
-      [id]: questionnaireComponent,
-    },
+    [id]: ComponentTransformerFactory({ questionnaireId: id, codesListsStore }).modelToStore(model),
   };
 
-  const questionnaireById = {
-    [id]: {
-      ...questionnaire,
-    },
-  };
+  // const questions = filterQuestions(components);
+  // const conditions = getConditionsFromQuestions(questions);
+  // @TODO
+  // const conditionByQuestionnaire = {
+  //   [id]: {},
+  // };
 
   return {
     questionnaireById,
-    componentByQuestionnaire,
+    calculatedVariableByQuestionnaire,
     codeListByQuestionnaire,
-    codeByQuestionnaire,
-    conditionByQuestionnaire,
+    componentByQuestionnaire,
+    conditionByQuestionnaire: {},
   };
 }
 
 export function questionnaireListModelToState(questionnairesList) {
-  return questionnairesList.map(questionnaire => questionnaireModelToState(questionnaire));
+  const questionnairesStates = [];
+
+  for (let i = 0; i < questionnairesList.length; i += 1) {
+    let questionnaireState;
+    try {
+      questionnaireState = questionnaireModelToStores(questionnairesList[i]);
+    } catch (e) {
+      logger.error(e);
+    }
+
+    if (questionnaireState) questionnairesStates.push(questionnaireState);
+  }
+  return questionnairesStates;
 }

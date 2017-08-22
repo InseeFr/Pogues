@@ -39,9 +39,6 @@ class QuestionnaireContainer extends Component {
     errors: {},
   };
 
-  constructor() {
-    super();
-  }
   componentWillMount() {
     this.props.setSelectedComponentId('');
   }

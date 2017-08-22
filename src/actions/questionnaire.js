@@ -1,11 +1,8 @@
 import { getQuestionnaire, postQuestionnaire, deleteQuestionnaire } from 'utils/remote-api';
-import { questionnaireModelToState } from 'utils/model/model-to-state-utils';
-import Questionnaire from 'utils/transformation-entities/questionnaire';
-import Component from 'utils/transformation-entities/component';
-import { uuid } from 'utils/data-utils';
+import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
+import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
@@ -16,6 +13,9 @@ export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE';
 export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
 export const DELETE_QUESTIONNAIRE_SUCCESS = 'DELETE_QUESTIONNAIRE_SUCCESS';
 export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
+
+const { QUESTIONNAIRE } = COMPONENT_TYPE;
+
 /**
  * Load questionnaire success
  *
@@ -71,7 +71,7 @@ export const loadQuestionnaire = id => dispatch => {
   });
   return getQuestionnaire(id)
     .then(qr => {
-      dispatch(loadQuestionnaireSuccess(id, questionnaireModelToState(qr)));
+      dispatch(loadQuestionnaireSuccess(id, questionnaireModelToStores(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));
@@ -132,23 +132,35 @@ export const createQuestionnaireFailure = err => ({
  * @param   {string}   label The questionnaire label.
  * @return  {function}       Thunk which may dispatch CREATE_QUESTIONNAIRE_SUCCESS or CREATE_QUESTIONNAIRE_FAILURE
  */
-export const createQuestionnaire = (name, label) => (dispatch, getState) => {
+export const createQuestionnaire = questionnaireState => dispatch => {
   dispatch({
     type: CREATE_QUESTIONNAIRE,
     payload: null,
   });
+  // We need a component representing the questionnaire.
+  const componentQuestionnaire = ComponentTransformerFactory().formToState(
+    {
+      label: questionnaireState.label,
+      name: questionnaireState.name,
+    },
+    {
+      id: questionnaireState.id,
+      type: QUESTIONNAIRE,
+    }
+  );
 
-  const id = uuid();
-  const owner = getState().appState.user.permission;
-  const newQuestionnaireState = Questionnaire.formToState({ id, label, name, owner });
-  const newQuestionnaireComponentState = Component.formToState({ label, name, type: QUESTIONNAIRE, id });
-  const newQuestionnaireModel = Questionnaire.stateToModel(newQuestionnaireState, {
-    [id]: newQuestionnaireComponentState,
-  });
+  const questionnaireModel = QuestionnaireTransformerFactory({
+    initialState: questionnaireState,
+    componentsStore: {
+      [questionnaireState.id]: componentQuestionnaire,
+    },
+  }).stateToModel();
 
-  return postQuestionnaire(newQuestionnaireModel)
+  return postQuestionnaire(questionnaireModel)
     .then(() => {
-      return dispatch(createQuestionnaireSuccess(id, questionnaireModelToState(newQuestionnaireModel)));
+      return dispatch(
+        createQuestionnaireSuccess(questionnaireState.id, questionnaireModelToStores(questionnaireModel))
+      );
     })
     .catch(err => {
       return dispatch(createQuestionnaireFailure(err, err.errors));

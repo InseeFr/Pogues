@@ -30,7 +30,7 @@ import ResponseFormatTable, {
   formToStatePrimary,
 } from './response-format-table';
 
-describe('Transformation entities - Response format - Table', () => {
+describe.skip('Transformation entities - Response format - Table', () => {
   const measureSimpleText = { ...defaultSimpleForm };
   const measureSingle = { ...defaultSingleForm };
   test('Default form shape should be the expected', () => {

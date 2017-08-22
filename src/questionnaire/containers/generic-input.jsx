@@ -48,11 +48,15 @@ function GenericInputContainer({
 }
 
 GenericInputContainer.propTypes = {
-  questionnaire: PropTypes.object.isRequired,
+  questionnaire: PropTypes.object,
   components: PropTypes.object.isRequired,
   selectedComponentId: PropTypes.string.isRequired,
   saveActiveQuestionnaire: PropTypes.func.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
+};
+
+GenericInputContainer.defaultProps = {
+  questionnaire: {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenericInputContainer);
