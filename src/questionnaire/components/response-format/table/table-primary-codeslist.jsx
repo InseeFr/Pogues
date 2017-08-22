@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import CodesList from 'layout/widget/codes-list/codes-list';
+import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
 import { DIMENSION_FORMATS } from 'constants/pogues-constants';
 
 const { CODES_LIST } = DIMENSION_FORMATS;

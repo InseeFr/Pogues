@@ -3,7 +3,7 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Input from 'layout/forms/controls/input';
-import CodesList from 'layout/widget/codes-list/codes-list';
+import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
 import Dictionary from 'utils/dictionary/dictionary';
 import OptionalViewContainer from 'layout/connected-widget/optional-view';
 

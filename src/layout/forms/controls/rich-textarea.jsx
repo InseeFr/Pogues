@@ -95,11 +95,9 @@ class RichTextArea extends Component {
 
   constructor(props) {
     super(props);
-    const initValue = getValue(props);
     this.state = {
-      value: initValue,
-      editorState: initValue.getEditorState().getCurrentContent(),
-      currentValue: initValue,
+      value: getValue(props),
+      currentValue: props.input.value,
     };
   }
 
