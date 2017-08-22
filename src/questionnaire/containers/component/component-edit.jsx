@@ -9,6 +9,7 @@ import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
+import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -19,6 +20,7 @@ const mapStateToProps = (state, { componentId }) => {
     activeComponentsStore: state.appState.activeComponentsById,
     activeCodesListsStore: state.appState.activeCodeListsById,
     activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
+    activeExternalVariablesStore: state.appState.activeExternalVariablesById,
     errors: componentErrors ? componentErrors.errors : [],
     currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
   };
@@ -38,6 +40,7 @@ class ComponentEditContainer extends Component {
     activeComponentsStore: PropTypes.object.isRequired,
     activeCodesListsStore: PropTypes.object.isRequired,
     activeCalculatedVariablesStore: PropTypes.object.isRequired,
+    activeExternalVariablesStore: PropTypes.object.isRequired,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
     errors: PropTypes.array,
@@ -71,6 +74,7 @@ class ComponentEditContainer extends Component {
       activeComponentsStore,
       activeCodesListsStore,
       activeCalculatedVariablesStore,
+      activeExternalVariablesStore,
       onSuccess,
       onCancel,
       errors,
@@ -82,11 +86,13 @@ class ComponentEditContainer extends Component {
       initialStore: activeComponentsStore,
       codesListsStore: activeCodesListsStore,
       calculatedVariablesStore: activeCalculatedVariablesStore,
+      externalVariablesStore: activeExternalVariablesStore,
       currentCodesListsIdsStore,
     });
     const initialValues = componentTransformer.stateToForm({ id: componentId });
     const submit = values => {
       let updatedCalculatedVariablesStore = {};
+      let updatedExternalVariablesStore = {};
       let updatedCodesListsStore = {};
       const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
 
@@ -95,9 +101,16 @@ class ComponentEditContainer extends Component {
         updatedCalculatedVariablesStore = CalculatedVariableTransformerFactory().formToStore(
           values.calculatedVariables
         );
+        updatedExternalVariablesStore = ExternalVariableTransformerFactory().formToStore(values.externalVariables);
       }
 
-      updateComponent(componentId, updatedComponentsStore, updatedCalculatedVariablesStore, updatedCodesListsStore);
+      updateComponent(
+        componentId,
+        updatedComponentsStore,
+        updatedCalculatedVariablesStore,
+        updatedExternalVariablesStore,
+        updatedCodesListsStore
+      );
       if (onSuccess) onSuccess();
     };
 

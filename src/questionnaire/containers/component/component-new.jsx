@@ -9,6 +9,7 @@ import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
+import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import { defaultResponseFormatState } from 'utils/transformation-entities/response-format';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -16,6 +17,7 @@ const { QUESTION } = COMPONENT_TYPE;
 
 const mapStateToProps = state => ({
   calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
+  externalVariablesStore: state.appState.activeExternalVariablesById,
   currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
 });
 
@@ -40,6 +42,7 @@ class ComponentNewContainer extends Component {
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
     calculatedVariablesStore: PropTypes.object,
+    externalVariablesStore: PropTypes.object,
     currentCodesListsIdsStore: PropTypes.object,
   };
 
@@ -47,6 +50,7 @@ class ComponentNewContainer extends Component {
     onSuccess: undefined,
     onCancel: undefined,
     calculatedVariablesStore: {},
+    externaldVariablesStore: {},
     currentCodesListsIdsStore: {},
   };
   componentWillMount() {
@@ -72,12 +76,18 @@ class ComponentNewContainer extends Component {
       onSuccess,
       onCancel,
       calculatedVariablesStore,
+      externalVariablesStore,
       currentCodesListsIdsStore,
     } = this.props;
-    const componentTransformer = ComponentTransformerFactory({ calculatedVariablesStore, currentCodesListsIdsStore });
+    const componentTransformer = ComponentTransformerFactory({
+      calculatedVariablesStore,
+      externalVariablesStore,
+      currentCodesListsIdsStore,
+    });
     const initialValues = componentTransformer.stateToForm({ type });
     const submit = values => {
       let updatedCalculatedVariablesStore = {};
+      let updatedExternalVariablesStore = {};
       let updatedCodesListsStore = {};
       const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
 
@@ -86,9 +96,15 @@ class ComponentNewContainer extends Component {
         updatedCalculatedVariablesStore = CalculatedVariableTransformerFactory().formToStore(
           values.calculatedVariables
         );
+        updatedExternalVariablesStore = ExternalVariableTransformerFactory().formToStore(values.externalVariables);
       }
 
-      createComponent(componentState, updatedCalculatedVariablesStore, updatedCodesListsStore)
+      createComponent(
+        componentState,
+        updatedCalculatedVariablesStore,
+        updatedExternalVariablesStore,
+        updatedCodesListsStore
+      )
         .then(updateParentChildren)
         .then(orderComponents)
         .then(result => {

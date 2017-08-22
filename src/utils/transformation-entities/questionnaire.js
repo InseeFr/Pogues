@@ -3,6 +3,7 @@ import { uuid } from 'utils/data-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
+import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -101,7 +102,8 @@ function transformationStateToModel(
   componentsStore,
   codesListsStore,
   conditionsStore,
-  calculatedVariablesStore
+  calculatedVariablesStore,
+  externalVariablesStore
 ) {
   const { owner, id, label, name, agency, dataCollection, componentGroups } = currentState;
   const model = {
@@ -121,6 +123,10 @@ function transformationStateToModel(
     initialStore: calculatedVariablesStore,
   }).storeToModel();
 
+  const externalVariablesModel = ExternalVariableTransformerFactory({
+    initialStore: externalVariablesStore,
+  }).storeToModel();
+
   const codesListsModel = CodesListTransformerFactory().storeToModel(codesListsStore);
 
   if (dataCollection) model.DataCollection = dataCollection;
@@ -135,13 +141,21 @@ function transformationStateToModel(
       CodeList: codesListsModel,
     },
     Variables: {
-      Variable: calculatedVariablesModel,
+      Variable: [...calculatedVariablesModel, ...externalVariablesModel],
     },
   };
 }
 
 const QuestionnaireTransformerFactory = (conf = {}) => {
-  const { owner, initialState, componentsStore, codesListsStore, conditionsStore, calculatedVariablesStore } = conf;
+  const {
+    owner,
+    initialState,
+    componentsStore,
+    codesListsStore,
+    conditionsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+  } = conf;
 
   let currentState = initialState || defaultQuestionnaireState;
 
@@ -167,7 +181,8 @@ const QuestionnaireTransformerFactory = (conf = {}) => {
         componentsStore,
         codesListsStore,
         conditionsStore,
-        calculatedVariablesStore
+        calculatedVariablesStore,
+        externalVariablesStore
       );
     },
   };

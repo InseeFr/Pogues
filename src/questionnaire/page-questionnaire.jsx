@@ -12,6 +12,7 @@ import {
   setActiveComponents,
   setActiveCodeLists,
   setActiveCalculatedVariables,
+  setActiveExternalVariables,
 } from 'actions/app-state';
 
 const logger = new Logger('PageQuestionnaire', 'Components');
@@ -21,6 +22,7 @@ const mapStateToProps = (state, { params: { id } }) => ({
   components: state.componentByQuestionnaire[id],
   codeLists: state.codeListByQuestionnaire[id],
   calculatedVariables: state.calculatedVariableByQuestionnaire[id],
+  externalVariables: state.externalVariableByQuestionnaire[id],
 });
 
 const mapDispatchToProps = {
@@ -29,6 +31,7 @@ const mapDispatchToProps = {
   setActiveComponents,
   setActiveCodeLists,
   setActiveCalculatedVariables,
+  setActiveExternalVariables,
 };
 
 export class PageQuestionnaire extends Component {
@@ -38,11 +41,13 @@ export class PageQuestionnaire extends Component {
     setActiveComponents: PropTypes.func.isRequired,
     setActiveCodeLists: PropTypes.func.isRequired,
     setActiveCalculatedVariables: PropTypes.func.isRequired,
+    setActiveExternalVariables: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
     questionnaire: PropTypes.object,
     components: PropTypes.object,
     codeLists: PropTypes.object,
     calculatedVariables: PropTypes.object,
+    externalVariables: PropTypes.object,
   };
 
   static defaultProps = {
@@ -50,6 +55,7 @@ export class PageQuestionnaire extends Component {
     components: {},
     codeLists: {},
     calculatedVariables: {},
+    externalVariables: {},
   };
 
   componentWillMount() {
@@ -59,21 +65,29 @@ export class PageQuestionnaire extends Component {
       this.props.questionnaire,
       this.props.components,
       this.props.codeLists,
-      this.props.calculatedVariables
+      this.props.calculatedVariables,
+      this.props.externalVariables
     );
   }
   componentWillUpdate(nextProps) {
     const nextQuestionnaireId = nextProps.questionnaire.id;
     if (nextQuestionnaireId && nextQuestionnaireId !== this.props.questionnaire.id) {
-      this.setActive(nextProps.questionnaire, nextProps.components, nextProps.codeLists, nextProps.calculatedVariables);
+      this.setActive(
+        nextProps.questionnaire,
+        nextProps.components,
+        nextProps.codeLists,
+        nextProps.calculatedVariables,
+        nextProps.externalVariables
+      );
     }
   }
 
-  setActive(questionnaire, components, codeLists, calculatedVariables) {
+  setActive(questionnaire, components, codeLists, calculatedVariables, externalVariables) {
     this.props.setActiveQuestionnaire(questionnaire);
     this.props.setActiveComponents(components);
     this.props.setActiveCodeLists(codeLists);
     this.props.setActiveCalculatedVariables(calculatedVariables);
+    this.props.setActiveExternalVariables(externalVariables);
   }
 
   render() {

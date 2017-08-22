@@ -7,6 +7,7 @@ import DeclarationTransformerFactory from './declaration';
 import ControlTransformerFactory from './control';
 import RedirectionTransformerFactory from './redirection';
 import CalculatedVariableTransformerFactory from './calculated-variable';
+import ExternalVariableTransformerFactory from './external-variable';
 import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -112,7 +113,7 @@ function transformationModelToStore(model, questionnaireId, codesListsStore = {}
   return getComponentsFromNested(model, questionnaireId, {});
 }
 
-function transformationStateToForm(currentState, codesListsStore, calculatedVariablesStore) {
+function transformationStateToForm(currentState, codesListsStore, calculatedVariablesStore, externalVariablesStore) {
   const { label, name, type, responseFormat, declarations, controls, redirections } = currentState;
   const form = {
     label: label || '',
@@ -129,6 +130,9 @@ function transformationStateToForm(currentState, codesListsStore, calculatedVari
     }).stateToForm();
     form.calculatedVariables = CalculatedVariableTransformerFactory({
       initialStore: calculatedVariablesStore,
+    }).storeToForm();
+    form.externalVariables = ExternalVariableTransformerFactory({
+      initialStore: externalVariablesStore,
     }).storeToForm();
   }
 
@@ -185,7 +189,14 @@ function transformationStateChildrenToModel(children, store, codesListsStore, de
 }
 
 const ComponentTransformerFactory = (conf = {}) => {
-  const { initialStore, questionnaireId, codesListsStore, calculatedVariablesStore, currentCodesListsIdsStore } = conf;
+  const {
+    initialStore,
+    questionnaireId,
+    codesListsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+    currentCodesListsIdsStore,
+  } = conf;
 
   let currentStore = initialStore || {};
   let currentState;
@@ -228,7 +239,7 @@ const ComponentTransformerFactory = (conf = {}) => {
       } else {
         state = currentState;
       }
-      return transformationStateToForm(state, codesListsStore, calculatedVariablesStore);
+      return transformationStateToForm(state, codesListsStore, calculatedVariablesStore, externalVariablesStore);
     },
     storeToModel: () => {
       return currentStore[questionnaireId].children.map(key => {
