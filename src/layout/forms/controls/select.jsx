@@ -19,7 +19,11 @@ class Select extends Component {
   render() {
     const { input, label, required, options } = this.props;
 
-    const listOptions = options.map(op => <option key={op.value} value={op.value}>{op.label}</option>);
+    const listOptions = options.map(op =>
+      <option key={op.value} value={op.value}>
+        {op.label}
+      </option>
+    );
 
     if (!required) {
       listOptions.unshift(<option key="-1" value="-1" />);
@@ -27,7 +31,10 @@ class Select extends Component {
 
     return (
       <div className="ctrl-select">
-        <label htmlFor={`select-${input.name}`}>{label}{required ? <span>*</span> : ''}</label>
+        <label htmlFor={`select-${input.name}`}>
+          {label}
+          {required ? <span>*</span> : ''}
+        </label>
         <div>
           <select {...input} id={`select-${input.name}`} placeholder={label}>
             {listOptions}
