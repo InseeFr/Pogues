@@ -8,6 +8,7 @@ import componentByQuestionnaire from 'reducers/component-by-questionnaire';
 import conditionByQuestionnaire from 'reducers/condition-by-questionnaire';
 import codeListByQuestionnaire from 'reducers/code-list-by-questionnaire';
 import calculatedVariableByQuestionnaire from 'reducers/calculated-variable-by-questionnaire';
+import externalVariableByQuestionnaire from 'reducers/external-variable-by-questionnaire';
 
 import integrityChecker from 'utils/reducer/integrity-checker';
 import checkers from 'utils/reducer/checkers';
@@ -22,6 +23,7 @@ export default integrityChecker(
     conditionByQuestionnaire,
     codeListByQuestionnaire,
     calculatedVariableByQuestionnaire,
+    externalVariableByQuestionnaire,
   }),
   checkers
 );
