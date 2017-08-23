@@ -34,6 +34,8 @@ const mapDispatchToProps = {
 class ComponentNewContainer extends Component {
   static propTypes = {
     createComponent: PropTypes.func.isRequired,
+    orderComponents: PropTypes.func.isRequired,
+    updateParentChildren: PropTypes.func.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
     setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
     addCodesListToQuestion: PropTypes.func.isRequired,
@@ -72,7 +74,6 @@ class ComponentNewContainer extends Component {
       orderComponents,
       updateParentChildren,
       setSelectedComponentId,
-      addCodesListToQuestion,
       parentId,
       weight,
       type,
@@ -125,7 +126,6 @@ class ComponentNewContainer extends Component {
         initialValues={initialValues}
         onSubmit={submit}
         onCancel={onCancel}
-        onAddCodesList={addCodesListToQuestion}
       />
     );
   }

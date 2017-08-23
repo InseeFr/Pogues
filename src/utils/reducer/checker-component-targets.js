@@ -26,16 +26,18 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
       );
       Object.keys(redirections).forEach(redirectionKey => {
         const redirection = redirections[redirectionKey];
+        const error = {
+          id: key,
+          params: {
+            itemId: redirections[redirectionKey].id,
+            targetId: redirection.cible,
+            invalidFieldsNames: ['cible'],
+          },
+        };
         if (!existsTarget(activeComponentsById, redirection.cible)) {
-          targetNotFoundErrors.push({
-            id: key,
-            params: { redirectionId: redirections[redirectionKey].id, targetId: redirection.cible },
-          });
+          targetNotFoundErrors.push(error);
         } else if (isEarlierTarget(ids, redirection.cible)) {
-          targetEarlierErrors.push({
-            id: key,
-            params: { redirectionId: redirection.id, targetId: redirection.cible },
-          });
+          targetEarlierErrors.push(error);
         }
       });
     }
