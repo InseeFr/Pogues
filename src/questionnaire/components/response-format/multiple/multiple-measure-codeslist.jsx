@@ -3,7 +3,7 @@ import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import CodesList from 'layout/widget/codes-list/codes-list';
+import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
 import { DATATYPE_VIS_HINT, DIMENSION_FORMATS } from 'constants/pogues-constants';
 import Select from 'layout/forms/controls/select';
 

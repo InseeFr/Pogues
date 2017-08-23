@@ -5,14 +5,19 @@ import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 import { required } from 'layout/forms/validation-rules';
 
-const Code = ({ input, label, type, attr, meta: { touched, error, warning } }) => (
+const Code = ({ input, label, type, attr, meta: { touched, error, warning } }) =>
   <div className={`codes-list__code-${attr}`}>
     <input {...input} placeholder={label} type={type} />
     {touched &&
-      ((error && <span className="form-error">{error}</span>) ||
-        (warning && <span className="form-warm">{warning}</span>))}
-  </div>
-);
+      ((error &&
+        <span className="form-error">
+          {error}
+        </span>) ||
+        (warning &&
+          <span className="form-warm">
+            {warning}
+          </span>))}
+  </div>;
 
 Code.propTypes = {
   input: PropTypes.object.isRequired,
@@ -69,10 +74,12 @@ function CodesListEditorCodes({ fields, display }) {
                 <span className="glyphicon glyphicon-arrow-down" />
               </button>
               <button type="button" title={Dictionary.duplicate}>
-                {Dictionary.duplicate}<span className="glyphicon glyphicon-duplicate" />
+                {Dictionary.duplicate}
+                <span className="glyphicon glyphicon-duplicate" />
               </button>
               <button type="button" title={Dictionary.remove} onClick={() => fields.remove(index)}>
-                {Dictionary.remove}<span className="glyphicon glyphicon-trash" />
+                {Dictionary.remove}
+                <span className="glyphicon glyphicon-trash" />
               </button>
             </div>
           </li>
@@ -81,7 +88,8 @@ function CodesListEditorCodes({ fields, display }) {
       <li>
         <div className="codes-list__add-code">
           <button title={Dictionary.addSpecialCode} type="button" onClick={() => fields.push({})}>
-            <span className="glyphicon glyphicon-plus" />{Dictionary.addSpecialCode}
+            <span className="glyphicon glyphicon-plus" />
+            {Dictionary.addSpecialCode}
           </button>
         </div>
       </li>

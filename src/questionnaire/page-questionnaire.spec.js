@@ -11,12 +11,16 @@ describe('<PageQuestionnaire />', () => {
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
   const spySetActiveCodeLists = jest.fn();
+  const spySetActiveCalculatedVariables = jest.fn();
+  const spySetActiveExternalVariables = jest.fn();
   const props = {
     params: { id: 1 },
     loadQuestionnaireIfNeeded: spyLoad,
     setActiveQuestionnaire: spySetActiveQuestionnaire,
     setActiveComponents: spySetActiveComponents,
     setActiveCodeLists: spySetActiveCodeLists,
+    setActiveCalculatedVariables: spySetActiveCalculatedVariables,
+    setActiveExternalVariables: spySetActiveExternalVariables,
     store: {},
   };
 
@@ -40,5 +44,13 @@ describe('<PageQuestionnaire />', () => {
 
   test('should call setActiveCodeLists in render', () => {
     expect(spySetActiveCodeLists).toBeCalled();
+  });
+
+  test('should call setActiveCalculatedVariables in render', () => {
+    expect(spySetActiveCalculatedVariables).toBeCalled();
+  });
+
+  test('should call setActiveExternaldVariables in render', () => {
+    expect(spySetActiveExternalVariables).toBeCalled();
   });
 });

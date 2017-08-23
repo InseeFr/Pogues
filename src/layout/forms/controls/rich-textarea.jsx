@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
-import RichTextEditor from 'gillespie59-react-rte';
+import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { CompositeDecorator } from 'draft-js';
-import 'draft-js/dist/Draft.css';
 
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
@@ -40,7 +39,11 @@ export function markdownToHtml(markdown) {
 }
 
 export function markdownToEditorValue(markdown) {
-  return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  try {
+    return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  } catch (e) {
+    return RichTextEditor.EditorValue.createEmpty(decorators);
+  }
 }
 
 export function editorValueToMarkdown(value) {
@@ -56,7 +59,7 @@ export function markdownToRaw(value) {
 }
 
 function formatURL(url) {
-  if (url.indexOf('http://') === 0) {
+  if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
     return { url };
   }
   return { url: '.', title: url };
@@ -69,13 +72,9 @@ function getValue(props) {
 }
 
 /**
- * Component that will display a TextArea in a react-form Field component. 
+ * Component that will display a TextArea in a react-form Field component.
  * We can add a help block thankt to the help attribute, and an actions toolbar
  * thanks to a button attribute.
- */
-/**
- * petit bug de synchro dans le model
- * Faire la PR
  */
 class RichTextArea extends Component {
   static propTypes = {
@@ -96,27 +95,15 @@ class RichTextArea extends Component {
 
   constructor(props) {
     super(props);
-    const initValue = getValue(props);
     this.state = {
-      value: initValue,
-      editorState: initValue.getEditorState().getCurrentContent(),
-      currentValue: initValue,
+      value: undefined,
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.buttons && nextProps.input.value !== this.state.currentValue) {
-      this.setState({
-        value: getValue(nextProps),
-        currentValue: nextProps.input.value,
-      });
-    }
   }
 
   onChange = value => {
     if (this.props.buttons) {
       const markdownValue = editorValueToMarkdown(value);
-      this.setState({ value, currentValue: markdownValue }, () => {
+      this.setState({ value }, () => {
         this.props.input.onChange(markdownValue);
       });
     }
@@ -137,6 +124,7 @@ class RichTextArea extends Component {
 
   render() {
     const { input, label, required, buttons, help, reference } = this.props;
+    const editorValue = this.state.value || getValue(this.props);
 
     const helpBlock =
       help &&
@@ -153,7 +141,7 @@ class RichTextArea extends Component {
         {buttons &&
           <div>
             <RichTextEditor
-              value={this.state.value}
+              value={editorValue}
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
               handleReturn={() => true}

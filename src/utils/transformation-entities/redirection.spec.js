@@ -1,120 +1,45 @@
 jest.dontMock('./redirection.js');
 
-import _ from 'lodash';
-
-import Redirection, { defaultRedirectionForm, defaultRedirectionState, defaultRedirectionModel } from './redirection';
+import RedirectionTransformerFactory from './redirection';
+import {
+  redirectionsFormNew,
+  redirectionsFormUpdate,
+  redirectionsState,
+  redirectionsModel,
+} from './__mocks__/redirection';
 
 describe('Transformation entities - Redirection', () => {
-  const redirectionFirst = {
-    id: 'j5xtred5',
-    label: 'This is the first label',
-    condition: 'This is the first conditions',
-    cible: 'j4xw6543',
-  };
-  const redirectionSecond = {
-    id: 'j5xered5',
-    label: 'This is the second label',
-    condition: 'This is the second conditions',
-    cible: 'j4xtt543',
-  };
-  test('Default form shape should be the expected', () => {
-    const expectedForm = {
-      label: '',
-      condition: '',
-      cible: '',
-      redirections: [],
-    };
-    expect(defaultRedirectionForm).toEqual(expectedForm);
+  test('Should produce expected STATE in redirections creation from FORM', () => {
+    const redirectionTransformer = RedirectionTransformerFactory();
+
+    // The id is random in creation, so it's not take it into account for testing.
+    const state = redirectionTransformer.formToState(redirectionsFormNew);
+    const currentState = Object.keys(state).map(key => {
+      const { id, ...stateItem } = state[key];
+      return stateItem;
+    });
+
+    const expectedState = Object.keys(redirectionsState).map(key => {
+      const { id, ...expectedStateItem } = redirectionsState[key];
+      return expectedStateItem;
+    });
+    expect(currentState).toEqual(expectedState);
   });
-  test('Default state shape should be the expected', () => {
-    const expectedState = [];
-    expect(defaultRedirectionState).toEqual(expectedState);
+
+  test('Should produce expected STATE from questionnaire MODEL', () => {
+    const redirectionTransformer = RedirectionTransformerFactory();
+    expect(redirectionTransformer.modelToState(redirectionsModel)).toEqual(redirectionsState);
   });
-  test('Default model shape should be the expected', () => {
-    const expectedModel = {
-      redirections: [],
-    };
-    expect(defaultRedirectionModel).toEqual(expectedModel);
+
+  test('Should produce expected FORM from questionnaire STATE', () => {
+    const redirectionTransformer = RedirectionTransformerFactory({
+      initialState: redirectionsState,
+    });
+    expect(redirectionTransformer.stateToForm()).toEqual(redirectionsFormUpdate);
   });
-  describe('Form to State', () => {
-    test('No redirections', () => {
-      expect(Redirection.formToState(defaultRedirectionForm)).toEqual(defaultRedirectionState);
-    });
-    test.only('One redirection', () => {
-      const form = _.cloneDeep(defaultRedirectionForm);
-      form.redirections.push(redirectionFirst);
-      const expectedState = _.cloneDeep(defaultRedirectionState);
-      expectedState.push(redirectionFirst);
-      expect(Redirection.formToState(form)).toEqual(expectedState);
-    });
-    test('Two redirections', () => {
-      const form = _.cloneDeep(defaultRedirectionForm);
-      form.redirections.push(redirectionFirst);
-      form.redirections.push(redirectionSecond);
-      const expectedState = _.cloneDeep(defaultRedirectionState);
-      expectedState.push(redirectionFirst);
-      expectedState.push(redirectionSecond);
-      expect(Redirection.formToState(form)).toEqual(expectedState);
-    });
-  });
-  describe('State to Form', () => {
-    test('No redirections', () => {
-      expect(Redirection.stateToForm(defaultRedirectionState)).toEqual(defaultRedirectionForm);
-    });
-    test('One redirection', () => {
-      const state = _.cloneDeep(defaultRedirectionState);
-      state.push(redirectionFirst);
-      const formExpected = _.cloneDeep(defaultRedirectionForm);
-      formExpected.redirections.push(redirectionFirst);
-      expect(Redirection.stateToForm(state)).toEqual(formExpected);
-    });
-    test('Two redirections', () => {
-      const state = _.cloneDeep(defaultRedirectionState);
-      state.push(redirectionFirst);
-      state.push(redirectionSecond);
-      const formExpected = _.cloneDeep(defaultRedirectionForm);
-      formExpected.redirections.push(redirectionFirst);
-      formExpected.redirections.push(redirectionSecond);
-      expect(Redirection.stateToForm(state)).toEqual(formExpected);
-    });
-  });
-  describe('State to Model', () => {
-    test('No redirections', () => {
-      expect(Redirection.stateToModel(defaultRedirectionState)).toEqual(defaultRedirectionModel);
-    });
-    test('One redirection', () => {
-      const state = _.cloneDeep(defaultRedirectionState);
-      state.push(redirectionFirst);
-      const modelExpected = _.cloneDeep(defaultRedirectionModel);
-      modelExpected.redirections.push(redirectionFirst);
-      expect(Redirection.stateToModel(state)).toEqual(modelExpected);
-    });
-    test('Two redirections', () => {
-      const state = _.cloneDeep(defaultRedirectionState);
-      state.push(redirectionFirst);
-      state.push(redirectionSecond);
-      const modelExpected = _.cloneDeep(defaultRedirectionModel);
-      modelExpected.redirections.push(redirectionFirst);
-      modelExpected.redirections.push(redirectionSecond);
-      expect(Redirection.stateToModel(state)).toEqual(modelExpected);
-    });
-  });
-  describe('Model to State', () => {
-    test('No redirections', () => {
-      expect(Redirection.modelToState(defaultRedirectionModel)).toEqual(defaultRedirectionState);
-    });
-    test('One redirection', () => {
-      const model = _.cloneDeep(defaultRedirectionModel);
-      model.redirections.push(redirectionFirst);
-      const stateExpected = [redirectionFirst];
-      expect(Redirection.modelToState(model)).toEqual(stateExpected);
-    });
-    test('Two redirections', () => {
-      const model = _.cloneDeep(defaultRedirectionModel);
-      model.redirections.push(redirectionFirst);
-      model.redirections.push(redirectionSecond);
-      const stateExpected = [redirectionFirst, redirectionSecond];
-      expect(Redirection.modelToState(model)).toEqual(stateExpected);
-    });
+
+  test('Should produce expected MODEL from questionnaire STATE', () => {
+    const redirectionTransformer = RedirectionTransformerFactory({ initialState: redirectionsState });
+    expect(redirectionTransformer.stateToModel()).toEqual(redirectionsModel);
   });
 });

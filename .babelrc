@@ -5,7 +5,10 @@
     "transform-class-properties",
     "transform-object-rest-spread",
     ["module-resolver", {
-      "root": ["./src"]
+      "root": ["./src"],
+      "alias": {
+        "^Config$": "../build-config/environments/config.prod.js"
+      }
     }],
     "lodash"
   ],

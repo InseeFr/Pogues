@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFormValues, actions } from 'redux-form';
+import { getFormValues, formValueSelector, actions } from 'redux-form';
 import _ from 'lodash';
 
 import ListEntryForm from './components/list-entry-form';
+import { removeInvalidItem } from 'actions/app-state';
 
-function getValuesSubset(values, path) {
-  return _.cloneDeep(_.get(values, path));
+function getValuesSubset(values, path, invalidItems = {}) {
+  const item = _.cloneDeep(_.get(values, path));
+
+  if (Object.keys(invalidItems).indexOf(item.id) !== -1) {
+    invalidItems[item.id].invalidFieldsNames.forEach(fieldName => {
+      // The invalid values are removed to show validation errors in edition.
+      item[fieldName] = '';
+    });
+  }
+
+  return item;
 }
 
 function updateValues(values, path, item) {
@@ -20,16 +30,19 @@ function updateValues(values, path, item) {
   });
 }
 
-const mapStateToProps = (state, { formName }) => {
+const mapStateToProps = (state, { formName, selectorPath, listName }) => {
   formName = formName || 'component';
+  const selector = formValueSelector(formName);
   return {
     values: getFormValues(formName)(state),
+    addedItems: selector(state, `${selectorPath}.${listName}`),
     formName,
   };
 };
 
 const mapDispatchToProps = {
   initialize: actions.initialize,
+  removeInvalidItem,
 };
 
 class ListEntryFormContainer extends Component {
@@ -42,20 +55,26 @@ class ListEntryFormContainer extends Component {
     initialize: PropTypes.func.isRequired,
     validationInput: PropTypes.func,
     values: PropTypes.object,
+    addedItems: PropTypes.array,
     submitLabel: PropTypes.string.isRequired,
     noValueLabel: PropTypes.string.isRequired,
-    invalidItems: PropTypes.array,
+    invalidItems: PropTypes.object,
+    showDuplicateButton: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool,
+    removeInvalidItem: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     initialInputValues: {},
     values: {},
+    addedItems: [],
     errors: {},
     validationInput: () => true,
-    invalidItems: [],
+    invalidItems: {},
+    showDuplicateButton: true,
     rerenderOnEveryChange: false,
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -69,18 +88,24 @@ class ListEntryFormContainer extends Component {
     this.validate = this.validate.bind(this);
     this.resetErrors = this.resetErrors.bind(this);
   }
+
   resetErrors() {
     this.setState({
       errors: [],
     });
   }
+
   select(index) {
-    const { formName, listName, values, selectorPath, initialize } = this.props;
-    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`);
-    const newValues = updateValues(values, selectorPath, subset);
-    this.resetErrors();
-    initialize(formName, newValues);
+    const { formName, listName, values, selectorPath, initialize, invalidItems } = this.props;
+    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`, invalidItems);
+
+    if (invalidItems[subset.id]) {
+      this.validate(subset);
+    }
+
+    initialize(formName, updateValues(values, selectorPath, subset));
   }
+
   remove(index) {
     const { formName, selectorPath, listName, values, initialInputValues, initialize } = this.props;
     const items = getValuesSubset(values, `${selectorPath}.${listName}`);
@@ -93,6 +118,7 @@ class ListEntryFormContainer extends Component {
     this.resetErrors();
     initialize(formName, newValues);
   }
+
   reset() {
     const { formName, listName, values, initialInputValues, selectorPath, initialize } = this.props;
     const subset = {
@@ -103,14 +129,31 @@ class ListEntryFormContainer extends Component {
     this.resetErrors();
     initialize(formName, newValues);
   }
+
   duplicate() {
     this.submit();
   }
+
   submit(index) {
-    const { formName, values, initialInputValues, selectorPath, listName, initialize } = this.props;
+    const {
+      formName,
+      values,
+      initialInputValues,
+      selectorPath,
+      listName,
+      initialize,
+      invalidItems,
+      removeInvalidItem,
+    } = this.props;
     const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
     if (!this.validate(currentValues)) return;
+
+    if (invalidItems[currentValues.id]) {
+      removeInvalidItem(currentValues.id);
+      this.resetErrors();
+    }
+
     if (index !== undefined && index !== '') {
       items[index] = currentValues;
     } else {
@@ -123,9 +166,10 @@ class ListEntryFormContainer extends Component {
     const newValues = updateValues(values, selectorPath, subset);
     initialize(formName, newValues);
   }
+
   validate(values) {
-    const { validationInput } = this.props;
-    const errors = validationInput(values);
+    const { validationInput, addedItems } = this.props;
+    const errors = validationInput(values, addedItems);
     let isValid = true;
 
     if (errors.length > 0) {
@@ -140,8 +184,18 @@ class ListEntryFormContainer extends Component {
     }
     return isValid;
   }
+
   render() {
-    const { inputView, listName, submitLabel, noValueLabel, invalidItems, rerenderOnEveryChange } = this.props;
+    const {
+      inputView,
+      listName,
+      submitLabel,
+      noValueLabel,
+      rerenderOnEveryChange,
+      showDuplicateButton,
+      invalidItems,
+    } = this.props;
+
     return (
       <ListEntryForm
         submitLabel={submitLabel}
@@ -155,6 +209,7 @@ class ListEntryFormContainer extends Component {
         inputView={inputView}
         listName={listName}
         invalidItems={invalidItems}
+        showDuplicateButton={showDuplicateButton}
         rerenderOnEveryChange={rerenderOnEveryChange}
       />
     );

@@ -8,8 +8,4 @@ module.exports = {
     level: 'DEBUG',
     activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models']
   },
-  codeLists: {
-    repoURLSpecs: 'http://localhost:4000/repo/specs',
-    repoURLCList: 'http://localhost:4000/repo/clist'
-  }
 };

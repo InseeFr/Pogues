@@ -8,11 +8,32 @@ import { removeQuestionnaire } from 'actions/questionnaire';
 
 import Questionnaire from 'questionnaire/components/questionnaire';
 
+function getErrorsByComponent(errorsByCode) {
+  const errorsByComponent = {};
+
+  Object.keys(errorsByCode).filter(key => errorsByCode[key].errors.length > 0).forEach(key => {
+    const { type, code, dictionary, errors } = errorsByCode[key];
+
+    errors.forEach(componentError => {
+      const { id, params } = componentError;
+      if (!errorsByComponent[id]) errorsByComponent[id] = { id, errors: [] };
+      errorsByComponent[id].errors.push({
+        type,
+        code,
+        dictionary,
+        params,
+      });
+    });
+  });
+
+  return errorsByComponent;
+}
+
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
   components: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,
-  errors: state.appState.errorsByComponent,
+  errorsByCode: state.appState.errorsByCode,
 });
 
 const mapDispatchToProps = {
@@ -33,15 +54,12 @@ class QuestionnaireContainer extends Component {
     removeComponent: PropTypes.func.isRequired,
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
-    errors: PropTypes.object,
+    errorsByCode: PropTypes.object,
   };
   static defaultProps = {
-    errors: {},
+    errorsByCode: {},
   };
 
-  constructor() {
-    super();
-  }
   componentWillMount() {
     this.props.setSelectedComponentId('');
   }
@@ -55,8 +73,9 @@ class QuestionnaireContainer extends Component {
       removeComponent,
       duplicateComponent,
       removeQuestionnaire,
-      errors,
+      errorsByCode,
     } = this.props;
+    const errorsByComponent = getErrorsByComponent(errorsByCode);
 
     if (!questionnaire.id) return <span className="fa fa-spinner fa-pulse fa-2x" />;
     return (
@@ -69,7 +88,7 @@ class QuestionnaireContainer extends Component {
         removeComponent={removeComponent}
         duplicateComponent={duplicateComponent}
         removeQuestionnaire={removeQuestionnaire}
-        errors={errors}
+        errorsByComponent={errorsByComponent}
       />
     );
   }
