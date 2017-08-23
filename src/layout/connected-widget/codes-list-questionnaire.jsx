@@ -1,5 +1,5 @@
 import React from 'react';
-import CodesListQuestionnaire from '../components/codes-list/codes-list-questionnaire';
+import CodesListQuestionnaire from './components/codes-list/codes-list-questionnaire';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
