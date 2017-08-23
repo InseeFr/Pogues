@@ -3030,12 +3030,12 @@ module.exports = [
         "id" : "externalVariable1",
         "type" : "ExternalVariableType",
         "Name" : "ExternalVariableName1",
-        "Label" : ""
+        "Label" : "ExternalVariableName1"
       }, {
         "id" : "externalVariable2",
         "type" : "ExternalVariableType",
         "Name" : "ExternalVariableName2",
-        "Label" : ""
+        "Label" : "ExternalVariableName2"
       } ]
     }
   }
