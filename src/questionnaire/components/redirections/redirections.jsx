@@ -15,7 +15,7 @@ function validationRedirections(values) {
 
   if (label === '') errors.push(Dictionary.validation_goTo_label);
   if (condition === '') errors.push(Dictionary.validation_condition);
-  if (cible === '') errors.push(Dictionary.validation_target);
+  if (cible === '-1' || cible === '') errors.push(Dictionary.validation_target);
 
   return errors;
 }

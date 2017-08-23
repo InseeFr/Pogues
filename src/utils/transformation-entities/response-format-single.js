@@ -39,7 +39,7 @@ export const defaultSingleState = {
   codesList: {},
 };
 
-function transformationFormToState(form, currentCodesListsIdsStore) {
+function transformationFormToState(form, codesListsStore, currentCodesListsIdsStore) {
   const {
     mandatory,
     visHint,
@@ -53,7 +53,11 @@ function transformationFormToState(form, currentCodesListsIdsStore) {
   } = form;
   const initialState =
     currentCodesListsIdsStore[SINGLE_CHOICE] !== '' ? { id: currentCodesListsIdsStore[SINGLE_CHOICE] } : undefined;
-  const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
+  const codesListState = CodesListTransformerFactory({
+    initialState,
+    codesListsStore,
+    type,
+  }).formToState(codesListForm);
 
   return {
     mandatory,
@@ -65,6 +69,7 @@ function transformationFormToState(form, currentCodesListsIdsStore) {
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
     codesListId: codesListState.id,
     codesList: codesListState,
+    type,
   };
 }
 
@@ -95,6 +100,7 @@ function transformationStateToForm(currentState, codesListsStore) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
+    type,
   } = currentState;
 
   return {
@@ -107,7 +113,7 @@ function transformationStateToForm(currentState, codesListsStore) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [NEW]: CodesListTransformerFactory({ initialState: codesListsStore[codesListId] }).stateToForm(),
+    [type]: CodesListTransformerFactory({ initialState: codesListsStore[codesListId], type }).stateToForm(),
   };
 }
 
@@ -124,7 +130,7 @@ const SingleTransformerFactory = (conf = {}) => {
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, currentCodesListsIdsStore);
+      currentState = transformationFormToState(form, codesListsStore, currentCodesListsIdsStore);
       return currentState;
     },
     modelToState: model => {

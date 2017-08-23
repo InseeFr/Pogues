@@ -23,11 +23,11 @@ class Questionnaire extends Component {
     moveComponent: PropTypes.func.isRequired,
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
-    errors: PropTypes.object,
+    errorsByComponent: PropTypes.object,
   };
 
   static defaultProps = {
-    errors: {},
+    errorsByComponent: {},
   };
 
   static contextTypes = {
@@ -137,14 +137,14 @@ class Questionnaire extends Component {
     this.handleCloseQuestionnaireDetail();
   }
 
-  renderComponentsByParent(components, parent, errors) {
+  renderComponentsByParent(components, parent, errorsByComponent) {
     const renderComponentsByParent = this.renderComponentsByParent;
     const selected = this.props.selectedComponentId;
     const { moveComponent } = this.props;
     return getSortedChildren(components, parent).map(key => {
-      const subTree = renderComponentsByParent(components, key, errors);
+      const subTree = renderComponentsByParent(components, key, errorsByComponent);
       const isSelected = key === selected;
-      const componentErrors = errors[key] ? errors[key].errors : [];
+      const componentErrors = errorsByComponent[key] ? errorsByComponent[key].errors : [];
 
       return (
         <QuestionnaireElement
@@ -173,13 +173,13 @@ class Questionnaire extends Component {
   }
 
   render() {
-    const { components, questionnaire, errors } = this.props;
-    const tree = this.renderComponentsByParent(components, questionnaire.id, errors);
+    const { components, questionnaire, errorsByComponent } = this.props;
+    const tree = this.renderComponentsByParent(components, questionnaire.id, errorsByComponent);
     const typeElementInModal = this.state.typeElementInModal;
 
     return (
       <div id="questionnaire">
-        {Object.keys(errors).length > 0 &&
+        {Object.keys(errorsByComponent).length > 0 &&
           <div id="questionnaire-errors">
             <div className="questionnaire-errors-alert">
               <div className="alert-icon big">
@@ -187,7 +187,7 @@ class Questionnaire extends Component {
               </div>
             </div>
             <div className="questionnaire-errors-list">
-              <QuestionnaireErrorsContainer />
+              <QuestionnaireErrorsContainer errorsByComponent={errorsByComponent} />
             </div>
           </div>}
         <div id="questionnaire-head">
@@ -256,6 +256,11 @@ class Questionnaire extends Component {
                 componentId={this.state.idElementInModal}
                 onCancel={this.handleCloseElementDetail}
                 onSuccess={this.handleCloseElementDetail}
+                errors={
+                  errorsByComponent[this.state.idElementInModal]
+                    ? errorsByComponent[this.state.idElementInModal].errors
+                    : []
+                }
               />
             </div>
           </div>
