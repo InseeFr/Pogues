@@ -13,12 +13,17 @@ import {
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
-const mapStateToProps = state => ({
-  questionnaire: state.appState.activeQuestionnaire,
-  components: state.appState.activeComponentsById,
-  selectedComponentId: state.appState.selectedComponentId,
-  isQuestionnaireValid: Object.keys(state.appState.errorsByComponent).length === 0,
-});
+const mapStateToProps = state => {
+  const errorsByCode = state.appState.errorsByCode;
+  const isQuestionnaireValid = Object.keys(errorsByCode).filter(key => errorsByCode[key].errors.length > 0).length > 0;
+
+  return {
+    questionnaire: state.appState.activeQuestionnaire,
+    components: state.appState.activeComponentsById,
+    selectedComponentId: state.appState.selectedComponentId,
+    isQuestionnaireValid,
+  };
+};
 
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
