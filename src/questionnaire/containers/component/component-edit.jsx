@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateComponent } from 'actions/component';
-import { setCurrentCodesListsInQuestion, addCodesListToQuestion, setInvalidItems } from 'actions/app-state';
+import { setCurrentCodesListsInQuestion, setInvalidItems } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
@@ -28,7 +28,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   updateComponent,
   setCurrentCodesListsInQuestion,
-  addCodesListToQuestion,
   setInvalidItems,
 };
 

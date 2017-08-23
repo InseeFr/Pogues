@@ -8,13 +8,13 @@ import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
 import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
 import ExternalVariables from 'questionnaire/components/variables/external-variables';
-
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import { required } from 'layout/forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import Textarea from 'layout/forms/controls/rich-textarea';
+import { questionnaireName } from 'layout/forms/normalize-inputs';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -54,9 +54,7 @@ export class QuestionNewEdit extends Component {
     invalidItems: {},
   };
   componentDidMount() {
-    if (this.props.edit) {
-      this.nameInput.focus();
-    } else if (this.props.type !== QUESTION) {
+    if (this.props.type !== QUESTION) {
       this.labelInput.focus();
     } else {
       this.labelInput._focus();
@@ -109,20 +107,6 @@ export class QuestionNewEdit extends Component {
     return (
       <div className="component-edition">
         <form onSubmit={handleSubmit}>
-          {edit
-            ? <Field
-                refs="input"
-                reference={input => {
-                  this.nameInput = input;
-                }}
-                name="name"
-                type="text"
-                component={Input}
-                label={Dictionary.name}
-                validate={[required]}
-                required
-              />
-            : ''}
           <Field
             reference={input => {
               this.labelInput = input;
@@ -133,6 +117,16 @@ export class QuestionNewEdit extends Component {
             buttons
             label={Dictionary.title}
             validate={[required]}
+            required
+          />
+          <Field
+            refs="input"
+            name="name"
+            type="text"
+            component={Input}
+            label={Dictionary.name}
+            validate={[required]}
+            normalize={questionnaireName}
             required
           />
           <Tabs components={panels} />
