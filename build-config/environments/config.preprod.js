@@ -1,12 +1,11 @@
 const config = {
   dev: true,
   allowRemovalOfQuestionnaire: false,
-  //baseURL: 'http://dvrmspogfolht01.ad.insee.intra/rmspogfo/pogues',
-  baseURL: 'http://qfrmspogfolht01.ad.insee.intra/rmspogfo/pogues',
+  baseURL: 'http://dvrmspogfolht01.ad.insee.intra/rmspogfo/pogues',
   persistancePath: '/persistence',
   userPath: '/user',
   log: {
-    level: 'DEBUG',
+    level: 'ERROR',
     activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],
   },
 };

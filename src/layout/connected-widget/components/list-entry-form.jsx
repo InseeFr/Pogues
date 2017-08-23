@@ -115,6 +115,7 @@ class ListEntryForm extends Component {
       submitLabel,
       noValueLabel,
       invalidItems,
+      showDuplicateButton,
       rerenderOnEveryChange,
       showDuplicateButton,
     } = this.props;
