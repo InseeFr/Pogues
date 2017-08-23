@@ -58,7 +58,16 @@ class Redirections extends Component {
   render() {
     const { componentType, isNewComponent, errors } = this.props;
     const { redirections, ...initialInputValues } = redirectionsFormDefault;
-    const invalidItems = errors.map(e => e.params.redirectionId);
+    const invalidItems = errors.reduce((acc, e) => {
+      const redirectionId = e.params.redirectionId;
+      return {
+        ...acc,
+        [redirectionId]: {
+          id: redirectionId,
+          invalidFields: ['cible'],
+        },
+      };
+    }, {});
 
     const inputControlView = <InputRedirection componentType={componentType} isNewComponent={isNewComponent} />;
 
