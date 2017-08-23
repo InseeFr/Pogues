@@ -145,7 +145,6 @@ class Questionnaire extends Component {
       const subTree = renderComponentsByParent(components, key, errorsByComponent);
       const isSelected = key === selected;
       const componentErrors = errorsByComponent[key] ? errorsByComponent[key].errors : [];
-
       return (
         <QuestionnaireElement
           key={key}
@@ -256,11 +255,6 @@ class Questionnaire extends Component {
                 componentId={this.state.idElementInModal}
                 onCancel={this.handleCloseElementDetail}
                 onSuccess={this.handleCloseElementDetail}
-                errors={
-                  errorsByComponent[this.state.idElementInModal]
-                    ? errorsByComponent[this.state.idElementInModal].errors
-                    : []
-                }
               />
             </div>
           </div>

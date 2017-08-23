@@ -21,7 +21,7 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
         const rawLabel = markdownToRaw(item.label || '').blocks[0].text;
         const shortLabel = rawLabel && rawLabel.length > 60 ? `${rawLabel.substr(0, 57)}...` : rawLabel;
         const invalidItemClass = classSet({
-          invalid: invalidItems.indexOf(item.id) !== -1,
+          invalid: Object.keys(invalidItems).indexOf(item.id) !== -1,
         });
         return (
           <li key={index} className={invalidItemClass}>
@@ -65,7 +65,7 @@ ListEntryFormItem.propTypes = {
   reset: PropTypes.func.isRequired,
   select: PropTypes.func.isRequired,
   setCurrentItemIndex: PropTypes.func.isRequired,
-  invalidItems: PropTypes.array.isRequired,
+  invalidItems: PropTypes.object.isRequired,
 };
 
 class ListEntryForm extends Component {
@@ -80,13 +80,13 @@ class ListEntryForm extends Component {
     submitLabel: PropTypes.string.isRequired,
     noValueLabel: PropTypes.string.isRequired,
     errors: PropTypes.array,
-    invalidItems: PropTypes.array,
+    invalidItems: PropTypes.object,
     showDuplicateButton: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     errors: [],
-    invalidItems: [],
+    invalidItems: {},
     showDuplicateButton: true,
   };
   constructor(props) {

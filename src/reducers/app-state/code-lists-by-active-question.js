@@ -1,8 +1,4 @@
-import {
-  SET_CURRENT_CODES_LISTS_IN_QUESTION,
-  ADD_CODES_LISTS_TO_QUESTION,
-  REMOVE_CODES_LISTS_FROL_QUESTION,
-} from 'actions/app-state';
+import { SET_CURRENT_CODES_LISTS_IN_QUESTION } from 'actions/app-state';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
