@@ -100,7 +100,7 @@ export class QuestionNewEdit extends Component {
       panels.unshift({
         id: 'response-format',
         label: Dictionary.responsesEdition,
-        content: <ResponseFormat />,
+        content: <ResponseFormat edit={edit} />,
       });
     }
 

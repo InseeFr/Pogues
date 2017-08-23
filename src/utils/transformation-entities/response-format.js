@@ -11,7 +11,7 @@ export const defaultResponseFormatState = {
   [SINGLE_CHOICE]: { ...defaultSingleState },
   [MULTIPLE_CHOICE]: { ...defaultMultipleState },
   [TABLE]: { ...defaultTableState },
-  type: SIMPLE,
+  type: '',
 };
 
 function transformationFormToState(form, codesListsStore, currentCodesListsIdsStore) {
