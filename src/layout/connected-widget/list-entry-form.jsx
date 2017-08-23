@@ -99,7 +99,9 @@ class ListEntryFormContainer extends Component {
     const { formName, listName, values, selectorPath, initialize, invalidItems } = this.props;
     const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`, invalidItems);
 
-    this.validate(subset);
+    if (invalidItems[subset.id]) {
+      this.validate(subset);
+    }
 
     initialize(formName, updateValues(values, selectorPath, subset));
   }
