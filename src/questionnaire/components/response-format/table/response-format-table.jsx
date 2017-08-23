@@ -17,7 +17,6 @@ const { TABLE } = QUESTION_TYPE_ENUM;
 class ResponseFormatTable extends Component {
   static selectorPath = TABLE;
   static propTypes = {
-    onAddCodesList: PropTypes.func.isRequired,
     selectorPathParent: PropTypes.string,
     showSecondaryAxis: PropTypes.bool,
     primaryAxisType: PropTypes.string,
@@ -36,7 +35,7 @@ class ResponseFormatTable extends Component {
       : ResponseFormatTable.selectorPath;
   }
   render() {
-    const { showSecondaryAxis, primaryAxisType, onAddCodesList } = this.props;
+    const { showSecondaryAxis, primaryAxisType } = this.props;
     return (
       <FormSection name={ResponseFormatTable.selectorPath} className="response-format__table">
         <h3 className="axis-primary__head">
@@ -60,7 +59,6 @@ class ResponseFormatTable extends Component {
         {primaryAxisType === LIST || !showSecondaryAxis
           ? <ResponseFormatTableListMeasures
               selectorPathParent={this.selectorPathComposed}
-              onAddCodesList={onAddCodesList}
             />
           : <ResponseFormatTableMeasure selectorPathParent={this.selectorPathComposed} />}
       </FormSection>

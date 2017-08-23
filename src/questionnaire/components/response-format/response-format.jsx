@@ -14,9 +14,6 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormat extends FormSection {
   static selectorPath = 'responseFormat';
-  static propTypes = {
-    onAddCodesList: PropTypes.func.isRequired,
-  };
   static defaultProps = {
     name: 'responseFormat',
   };
@@ -47,7 +44,6 @@ class ResponseFormat extends FormSection {
         content: (
           <ResponseFormatTable
             selectorPathParent={ResponseFormat.selectorPath}
-            onAddCodesList={this.props.onAddCodesList}
           />
         ),
       },

@@ -49,28 +49,17 @@ class Redirections extends Component {
   static propTypes = {
     componentType: PropTypes.string.isRequired,
     isNewComponent: PropTypes.bool.isRequired,
-    errors: PropTypes.array,
+    invalidItems: PropTypes.object,
   };
   static defaultProps = {
-    errors: [],
+    invalidItems: {},
   };
 
   render() {
-    const { componentType, isNewComponent, errors } = this.props;
+    const { componentType, isNewComponent, invalidItems } = this.props;
     const { redirections, ...initialInputValues } = redirectionsFormDefault;
-    const invalidItems = errors.reduce((acc, e) => {
-      const redirectionId = e.params.redirectionId;
-      return {
-        ...acc,
-        [redirectionId]: {
-          id: redirectionId,
-          invalidFields: ['cible'],
-        },
-      };
-    }, {});
 
     const inputControlView = <InputRedirection componentType={componentType} isNewComponent={isNewComponent} />;
-
     return (
       <FormSection name={Redirections.selectorPath} className="redirections">
         <ListEntryFormContainer
