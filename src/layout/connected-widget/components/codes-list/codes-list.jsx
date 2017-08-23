@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CodesListNew from './codes-list-new';
 import CodesListRef from './codes-list-ref';
-import CodesListQuestionnaireContainer from '../../codes-list/codes-list-questionnaire';
+import CodesListQuestionnaireContainer from '../../codes-list-questionnaire';
 import Dictionary from 'utils/dictionary/dictionary';
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
