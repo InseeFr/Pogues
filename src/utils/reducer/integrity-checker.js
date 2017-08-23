@@ -13,7 +13,6 @@ function integrityChecker(reducer, checkers) {
   return function(state, action) {
     const checker = checkers[action.type];
     const newState = reducer(state, action);
-
     if (!checker) return newState;
 
     const errorsByCode = checker(newState);
