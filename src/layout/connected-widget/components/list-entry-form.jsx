@@ -117,6 +117,7 @@ class ListEntryForm extends Component {
       invalidItems,
       showDuplicateButton,
       rerenderOnEveryChange,
+      showDuplicateButton,
     } = this.props;
 
     const styleErrors = {

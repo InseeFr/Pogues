@@ -15,6 +15,7 @@ describe('Layout - Go to select container', () => {
       parent: '',
       weight: 0,
       label: 'This is a questionnaire',
+      name: 'This is a questionnaire',
       children: ['sequence1', 'sequence2', 'sequence3'],
     },
     sequence1: {
@@ -23,6 +24,7 @@ describe('Layout - Go to select container', () => {
       parent: 'questionnaire',
       weight: 0,
       label: 'This is sequence 1',
+      name: 'This is sequence 1',
       children: ['question1', 'subsequence11', 'subsequence12'],
     },
     sequence2: {
@@ -31,6 +33,7 @@ describe('Layout - Go to select container', () => {
       parent: 'questionnaire',
       weight: 1,
       label: 'This is sequence 2',
+      name: 'This is sequence 2',
       children: ['subsequence21'],
     },
     sequence3: {
@@ -39,6 +42,7 @@ describe('Layout - Go to select container', () => {
       parent: 'questionnaire',
       weight: 2,
       label: 'This is sequence 3',
+      name: 'This is sequence 3',
       children: ['subsequence31'],
     },
     question1: {
@@ -47,6 +51,7 @@ describe('Layout - Go to select container', () => {
       parent: 'sequence1',
       weight: 0,
       label: 'This is the question question 1',
+      name: 'This is the question question 1',
       children: [],
     },
     subsequence11: {
@@ -55,6 +60,7 @@ describe('Layout - Go to select container', () => {
       parent: 'sequence1',
       weight: 1,
       label: 'This is sub-sequence 1 - 1',
+      name: 'This is sub-sequence 1 - 1',
       children: ['question3'],
     },
     question3: {
@@ -63,6 +69,7 @@ describe('Layout - Go to select container', () => {
       parent: 'subsequence11',
       weight: 0,
       label: 'This is the question question 3',
+      name: 'This is the question question 3',
       children: [],
     },
     subsequence12: {
@@ -71,6 +78,7 @@ describe('Layout - Go to select container', () => {
       parent: 'sequence1',
       weight: 2,
       label: 'This is sub-sequence 1 - 2',
+      name: 'This is sub-sequence 1 - 2',
       children: [],
     },
     subsequence21: {
@@ -79,6 +87,7 @@ describe('Layout - Go to select container', () => {
       parent: 'sequence2',
       weight: 0,
       label: 'This is sub-sequence 2 - 1',
+      name: 'This is sub-sequence 2 - 1',
       children: [],
     },
     subsequence31: {
@@ -87,6 +96,7 @@ describe('Layout - Go to select container', () => {
       parent: 'sequence3',
       weight: 0,
       label: 'This is sub-sequence 3 - 1',
+      name: 'This is sub-sequence 3 - 1',
       children: ['question2'],
     },
     question2: {
@@ -95,6 +105,7 @@ describe('Layout - Go to select container', () => {
       parent: 'subsequence31',
       weight: 0,
       label: 'This is the question question 2',
+      name: 'This is the question question 2',
       children: [],
     },
   };
@@ -105,6 +116,7 @@ describe('Layout - Go to select container', () => {
     parent: '',
     weight: 0,
     label: 'This is a question',
+    name: 'This is a question',
     children: [],
   };
 

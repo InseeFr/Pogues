@@ -5,7 +5,7 @@ const config = {
   persistancePath: '/persistence',
   userPath: '/user',
   log: {
-    level: 'DEBUG',
+    level: 'ERROR',
     activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],
   },
 };
