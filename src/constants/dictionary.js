@@ -526,6 +526,10 @@ const dictionary = {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
   },
+  selectCodesList: {
+    fr: 'Sélectionner une liste de codes',
+    en: 'Select a code list',
+  },
   newCodesList: {
     fr: 'Créer une liste',
     en: 'Create a list',

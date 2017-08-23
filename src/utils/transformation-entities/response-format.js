@@ -14,14 +14,16 @@ export const defaultResponseFormatState = {
   type: SIMPLE,
 };
 
-function transformationFormToState(form, currentCodesListsIdsStore) {
+function transformationFormToState(form, codesListsStore, currentCodesListsIdsStore) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
     type,
   };
 
   if (type === SINGLE_CHOICE) {
-    state[type] = SingleTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
+    state[type] = SingleTransformerFactory({ currentCodesListsIdsStore, codesListsStore }).formToState(
+      responseFormatForm
+    );
   } else if (type === MULTIPLE_CHOICE) {
     state[type] = MultipleTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
   } else if (type === TABLE) {
@@ -113,7 +115,7 @@ const ResponseFormatTransformerFactory = (conf = {}) => {
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, currentCodesListsIdsStore);
+      currentState = transformationFormToState(form, codesListsStore, currentCodesListsIdsStore);
       return currentState;
     },
     modelToState: (type, responses, dimensions) => {

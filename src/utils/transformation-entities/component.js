@@ -12,7 +12,7 @@ import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
-function transformationFormToState(form, currentState, currentCodesListsIdsStore) {
+function transformationFormToState(form, currentState, codesListsStore, currentCodesListsIdsStore) {
   const { id, type, parent, weight, children } = currentState;
   const { name, label, responseFormat, declarations, controls, redirections } = form;
 
@@ -37,6 +37,7 @@ function transformationFormToState(form, currentState, currentCodesListsIdsStore
     state.htmlLabel = markdownToHtml(state.label);
     state.responseFormat = ResponseFormatTransformerFactory({
       currentCodesListsIdsStore,
+      codesListsStore,
     }).formToState(responseFormat);
   } else {
     state.label = label;
@@ -209,13 +210,14 @@ const ComponentTransformerFactory = (conf = {}) => {
       currentState = transformationFormToState(
         form,
         { id: currentId, parent, weight, type },
+        codesListsStore,
         currentCodesListsIdsStore
       );
 
       return currentState;
     },
     formToStore: (form, id) => {
-      currentState = transformationFormToState(form, currentStore[id], currentCodesListsIdsStore);
+      currentState = transformationFormToState(form, currentStore[id], codesListsStore, currentCodesListsIdsStore);
       currentStore = {
         ...currentStore,
         [id]: currentState,

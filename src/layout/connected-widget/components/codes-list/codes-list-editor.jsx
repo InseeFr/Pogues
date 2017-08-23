@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, FieldArray, FormSection } from 'redux-form';
+import { Field, FieldArray } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';

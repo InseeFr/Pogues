@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateComponent } from 'actions/component';
-import { setCurrentCodesListsInQuestion, addCodesListToQuestion } from 'actions/app-state';
+import { setCurrentCodesListsInQuestion, addCodesListToQuestion, setInvalidItems } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
@@ -14,15 +14,14 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-const mapStateToProps = (state, { componentId }) => {
-  const componentErrors = state.appState.errorsByComponent[componentId];
+const mapStateToProps = state => {
   return {
     activeComponentsStore: state.appState.activeComponentsById,
     activeCodesListsStore: state.appState.activeCodeListsById,
     activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     activeExternalVariablesStore: state.appState.activeExternalVariablesById,
-    errors: componentErrors ? componentErrors.errors : [],
     currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
+    invalidItems: state.appState.invalidItemsByActiveQuestion,
   };
 };
 
@@ -30,6 +29,7 @@ const mapDispatchToProps = {
   updateComponent,
   setCurrentCodesListsInQuestion,
   addCodesListToQuestion,
+  setInvalidItems,
 };
 
 class ComponentEditContainer extends Component {
@@ -43,22 +43,23 @@ class ComponentEditContainer extends Component {
     activeExternalVariablesStore: PropTypes.object.isRequired,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
-    errors: PropTypes.array,
     currentCodesListsIdsStore: PropTypes.object,
-    addCodesListToQuestion: PropTypes.func.isRequired,
+    setInvalidItems: PropTypes.func.isRequired,
+    invalidItems: PropTypes.object,
   };
 
   static defaultProps = {
     onSuccess: undefined,
     onCancel: undefined,
-    errors: [],
     currentCodesListsIdsStore: {},
+    invalidItems: {},
   };
 
   componentWillMount() {
-    const { activeComponentsStore, componentId, setCurrentCodesListsInQuestion } = this.props;
+    const { activeComponentsStore, componentId, setCurrentCodesListsInQuestion, setInvalidItems } = this.props;
     const component = activeComponentsStore[componentId];
     let currentCodesListsStoreFromQuestion = {};
+    setInvalidItems(componentId);
 
     if (component.type === QUESTION) {
       currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(component.responseFormat);
@@ -77,9 +78,8 @@ class ComponentEditContainer extends Component {
       activeExternalVariablesStore,
       onSuccess,
       onCancel,
-      errors,
       currentCodesListsIdsStore,
-      addCodesListToQuestion,
+      invalidItems,
     } = this.props;
     const componentType = activeComponentsStore[componentId].type;
     const componentTransformer = ComponentTransformerFactory({
@@ -120,8 +120,7 @@ class ComponentEditContainer extends Component {
         initialValues={initialValues}
         onSubmit={submit}
         onCancel={onCancel}
-        errors={errors}
-        onAddCodesList={addCodesListToQuestion}
+        invalidItems={invalidItems}
         edit
       />
     );

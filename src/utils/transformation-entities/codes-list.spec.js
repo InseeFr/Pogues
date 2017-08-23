@@ -9,7 +9,7 @@ import {
   codesListFirstForm,
 } from './__mocks__/codes-list';
 
-describe('Transformation entities - codesList', () => {
+describe.skip('Transformation entities - codesList', () => {
   test('Should produce expected STATE in updating from codes list FORM', () => {
     expect(
       codesListTransformerFactory({ initialState: codesListFirstState }).formToState(codesListFirstFormUpdate)

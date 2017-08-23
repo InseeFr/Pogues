@@ -14,7 +14,8 @@ export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAIL
 export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
 export const SET_CURRENT_CODES_LISTS_IN_QUESTION = 'SET_CURRENT_CODES_LISTS_IN_QUESTION';
-export const ADD_CODES_LISTS_TO_QUESTION = 'ADD_CODES_LISTS_TO_QUESTION';
+export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
+export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
 
 /**
  * Set active questionnaire
@@ -233,27 +234,76 @@ export const setCurrentCodesListsInQuestion = codeListsToUpdate => ({
 });
 
 /**
- * Add a new codes lists to be updated in a question creation/edtion
+ * Set the invalid items in a question
  *
- * @return {object}         ADD_CODES_LISTS_TO_QUESTION action
+ * @param  {string} questionId  The question id.
+ *
+ * Example of errorsByCode
+ *
+ * {
+ *   TARGET_NOT_FOUND: {
+ *     type: 'redirections',
+ *     code: 'TARGET_NOT_FOUND',
+ *     dictionary: 'errorGoToNonExistingTgt',
+ *     errors: [
+ *     {
+ *         id: key,
+ *         params: {
+ *           itemId: 'jqdfqdfj',
+ *           targetId: 'jdf756r',
+ *           invalidFieldsNames: ['cible'],
+ *         },
+ *       }
+ *     ],
+ *   },
+ * }
+ *
+ * @return {function} Thunk which may dispatch SET_INVALID_ITEMS
  */
-export const addCodesListToQuestion = () => {
+export const setInvalidItems = questionId => {
   return (dispatch, getState) => {
     const state = getState();
-    const index = state.appState.codeListsByActiveQuestion
-    const newCodesListSelectorPath = `TABLE.LIST_MEASURE.`
+    const errorsByCode = state.appState.errorsByCode;
 
+    const invalidItems = Object.keys(errorsByCode)
+      .filter(code => errorsByCode[code].errors.length > 0)
+      .reduce((acc, code) => {
+        const errors = errorsByCode[code].errors;
+        return {
+          ...acc,
+          ...errors.filter(e => e.id === questionId).reduce((accInner, eInner) => {
+            const { itemId, ...params } = eInner.params;
+            return {
+              ...accInner,
+              [itemId]: {
+                id: itemId,
+                type: errorsByCode[code].type,
+                ...params,
+              },
+            };
+          }, {}),
+        };
+      }, {});
 
-    return {
-      type: ADD_CODES_LISTS_TO_QUESTION,
-      payload: {},
-    };
+    return dispatch({
+      type: SET_INVALID_ITEMS,
+      payload: {
+        invalidItems,
+      },
+    });
   };
 };
 
 /**
- * Remove an existing codes lists to be updated in a question creation/edtion
+ * Remove an invalid item from the list of invalid items
  *
- * @return {object}         REMOVE_CODES_LISTS_FROL_QUESTION action
+ * @param  {string} invalidItemIdToRemove  The item id.
+ *
+ * @return {object}         REMOVE_INVALID_ITEM action
  */
-export const removeCodesListFromQuestion = () => {};
+export const removeInvalidItem = invalidItemIdToRemove => ({
+  type: REMOVE_INVALID_ITEM,
+  payload: {
+    invalidItemIdToRemove,
+  },
+});

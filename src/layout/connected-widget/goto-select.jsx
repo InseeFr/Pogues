@@ -42,7 +42,7 @@ function getListTargets(
 
     return {
       value: id,
-      label: `${padding} ${component.label}`,
+      label: `${padding} ${component.name}`,
     };
   });
 }
