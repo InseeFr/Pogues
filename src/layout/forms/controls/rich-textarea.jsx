@@ -85,6 +85,7 @@ class RichTextArea extends Component {
     help: PropTypes.bool,
     reference: PropTypes.func,
     shouldSubmitOnEnter: PropTypes.bool,
+    identifier: PropTypes.number,
   };
 
   static defaultProps = {
@@ -93,23 +94,34 @@ class RichTextArea extends Component {
     options: [],
     help: false,
     shouldSubmitOnEnter: false,
+    identifier: undefined,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: undefined,
+      currentValue: props.input.value,
+      value: getValue(props),
     };
   }
 
   onChange = value => {
     if (this.props.buttons) {
       const markdownValue = editorValueToMarkdown(value);
-      this.setState({ value }, () => {
+      this.setState({ value, currentValue: markdownValue }, () => {
         this.props.input.onChange(markdownValue);
       });
     }
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.identifier === undefined) {
+      return;
+    }
+    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
+      this.setState({ value: getValue(nextProps) });
+    }
+  }
 
   toolbarConfig = {
     display: ['INLINE_STYLE_BUTTONS', 'LINK_BUTTONS'],
@@ -126,8 +138,8 @@ class RichTextArea extends Component {
 
   render() {
     const { input, label, required, buttons, help, reference, shouldSubmitOnEnter } = this.props;
-    const editorValue = this.state.value || getValue(this.props);
-
+    const editorValue = this.state.value;
+    
     const helpBlock =
       help &&
       <span className="help-block">

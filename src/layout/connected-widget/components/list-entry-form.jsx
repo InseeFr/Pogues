@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldArray } from 'redux-form';
+import { FieldArray, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
@@ -143,6 +143,8 @@ class ListEntryForm extends Component {
           invalidItems={invalidItems}
           rerenderOnEveryChange={rerenderOnEveryChange}
         />
+
+        <Field component="input" type="hidden" name="ref" />
 
         <div className="list-entry-form_form">
           <ul style={styleErrors} className="list-entry-form_form-errors">
