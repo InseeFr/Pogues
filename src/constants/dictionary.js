@@ -59,6 +59,10 @@ const dictionary = {
     en: 'No external variable yet',
     fr: 'Aucune variable externe définie',
   },
+  noCollectedVariablesYet: {
+    en: 'No collected variable yet',
+    fr: 'Aucune variable collectée définie',
+  },
   tagline: {
     en: 'Questionnaire design and test',
     fr: 'Conception et test de questionnaires',
@@ -187,6 +191,10 @@ const dictionary = {
     en: 'Add a external variable',
     fr: 'Ajouter une variable externe',
   },
+  addCollectedVariable: {
+    en: 'Add a collected variable',
+    fr: 'Ajouter une variable collectée',
+  },
   declarations: {
     en: 'Statements',
     fr: 'Déclarations',
@@ -286,6 +294,10 @@ const dictionary = {
   externalVariables: {
     en: 'External variables',
     fr: 'Variables externes',
+  },
+  collectedVariables: {
+    en: 'Collected variables',
+    fr: 'Variables collectées',
   },
   defineGoTo: {
     en: 'Add a goto',
@@ -918,6 +930,18 @@ const dictionary = {
   validation_externalvariable_existing: {
     fr: 'Il existe une variable externe avec le même nom',
     en: 'It already exists an external variable with this name',
+  },
+  validation_collectedvariable_label: {
+    fr: 'Libellé de la variable collectée obligatoire',
+    en: 'Collected variable label required',
+  },
+  validation_collectedvariable_name: {
+    fr: 'Nom de la variable collectée obligatoire',
+    en: 'Collected variable name required',
+  },
+  validation_collectedvariable_existing: {
+    fr: 'Il existe une variable collectée avec le même nom',
+    en: 'It already exists an collected variable with this name',
   },
 };
 

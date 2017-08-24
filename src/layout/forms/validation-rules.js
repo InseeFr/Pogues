@@ -36,3 +36,12 @@ export function minValue18() {
 export function email(value) {
   return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined;
 }
+
+export function requiredSelect(value = '') {
+  return value !== '' ? undefined : Dictionary.validationRequired;
+}
+
+export function name(value = '') {
+  const result = value !== '' && !/^[A-Z0-9\-_]+$/i.test(value) ? Dictionary.validationInvalidName : undefined;
+  return result;
+}

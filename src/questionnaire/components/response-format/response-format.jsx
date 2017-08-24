@@ -14,6 +14,9 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormat extends FormSection {
   static selectorPath = 'responseFormat';
+  static propTypes = {
+    edit: PropTypes.bool.isRequired,
+  }
   static defaultProps = {
     name: 'responseFormat',
   };
@@ -41,11 +44,7 @@ class ResponseFormat extends FormSection {
         id: `response-format-${TABLE}`,
         label: Dictionary.responseFormatTable,
         value: TABLE,
-        content: (
-          <ResponseFormatTable
-            selectorPathParent={ResponseFormat.selectorPath}
-          />
-        ),
+        content: <ResponseFormatTable selectorPathParent={ResponseFormat.selectorPath} />,
       },
     ];
 
@@ -55,6 +54,7 @@ class ResponseFormat extends FormSection {
           label={Dictionary.responseFormats}
           components={responseFormatTypes}
           selectorPath={ResponseFormat.selectorPath}
+          emptyValue={this.props.edit ? '' : '--'}
         />
       </div>
     );
