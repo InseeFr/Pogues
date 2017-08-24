@@ -107,9 +107,17 @@ class ListEntryFormContainer extends Component {
   }
 
   remove(index) {
-    const { formName, selectorPath, listName, values, initialInputValues, initialize } = this.props;
+    const { formName, selectorPath, listName, values, initialInputValues, initialize, removeInvalidItem, invalidItems } = this.props;
     const items = getValuesSubset(values, `${selectorPath}.${listName}`);
+    const removedItemId = items[index].id;
+
     items.splice(index, 1);
+
+    if (invalidItems[removedItemId]) {
+      removeInvalidItem(removedItemId);
+      this.resetErrors();
+    }
+
     const subset = {
       ..._.cloneDeep(initialInputValues),
       [listName]: items,

@@ -9,7 +9,6 @@ export function setActiveCalculatedVariables(state, { calculatedVariables }) {
 }
 
 export function updateActiveCalculatedVariables(state, { update: { activeCalculatedVariablesById } }) {
-  debugger
   return activeCalculatedVariablesById;
 }
 

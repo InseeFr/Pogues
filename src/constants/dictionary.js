@@ -843,6 +843,10 @@ const dictionary = {
     fr: 'Obligatoire',
     en: 'Required',
   },
+  validationInvalidName: {
+    fr: 'Le nom peut uniquement contenir des lettres, chiffres, tirets et underscore',
+    en: 'The name can only contain letters, numbers, dashes and underscore',
+  },
   validationMinNumber: {
     fr: 'Vous devez introduire au mois',
     en: 'Must be at least',
