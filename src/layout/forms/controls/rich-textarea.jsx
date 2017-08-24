@@ -84,6 +84,7 @@ class RichTextArea extends Component {
     buttons: PropTypes.bool,
     help: PropTypes.bool,
     reference: PropTypes.func,
+    shouldSubmitOnEnter: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -91,6 +92,7 @@ class RichTextArea extends Component {
     buttons: false,
     options: [],
     help: false,
+    shouldSubmitOnEnter: false,
   };
 
   constructor(props) {
@@ -123,7 +125,7 @@ class RichTextArea extends Component {
   };
 
   render() {
-    const { input, label, required, buttons, help, reference } = this.props;
+    const { input, label, required, buttons, help, reference, shouldSubmitOnEnter } = this.props;
     const editorValue = this.state.value || getValue(this.props);
 
     const helpBlock =
@@ -144,7 +146,12 @@ class RichTextArea extends Component {
               value={editorValue}
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
-              handleReturn={() => true}
+              handleReturn={e => {
+                if (shouldSubmitOnEnter) {
+                  e.target.closest('form').dispatchEvent(new Event('submit'));
+                }
+                return 'handled';
+              }}
               rootStyle={this.rootStyle}
               formatURL={formatURL}
               ref={reference}
