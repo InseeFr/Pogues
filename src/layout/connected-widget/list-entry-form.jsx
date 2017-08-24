@@ -7,9 +7,9 @@ import _ from 'lodash';
 import ListEntryForm from './components/list-entry-form';
 import { removeInvalidItem } from 'actions/app-state';
 
-function getValuesSubset(values, path, invalidItems = {}) {
+function getValuesSubset(values, path, invalidItems = {}, select) {
   const item = _.cloneDeep(_.get(values, path));
-
+  item.ref = select;
   if (Object.keys(invalidItems).indexOf(item.id) !== -1) {
     invalidItems[item.id].invalidFieldsNames.forEach(fieldName => {
       // The invalid values are removed to show validation errors in edition.
@@ -97,8 +97,7 @@ class ListEntryFormContainer extends Component {
 
   select(index) {
     const { formName, listName, values, selectorPath, initialize, invalidItems } = this.props;
-    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`, invalidItems);
-
+    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`, invalidItems, index + 1);
     if (invalidItems[subset.id]) {
       this.validate(subset);
     }

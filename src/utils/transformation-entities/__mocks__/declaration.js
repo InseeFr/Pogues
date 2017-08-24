@@ -2,6 +2,7 @@ export const declarationsFormNew = {
   declarationType: 'INSTRUCTION',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
+  ref: 0,
   declarations: [
     {
       declarationType: 'INSTRUCTION',
@@ -20,6 +21,7 @@ export const declarationsFormUpdate = {
   declarationType: 'INSTRUCTION',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
+  ref: 0,
   declarations: [
     {
       id: 'FIRST_DECLARATION',

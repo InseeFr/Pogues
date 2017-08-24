@@ -4,6 +4,7 @@ export const declarationsFormDefault = {
   declarationType: 'INSTRUCTION',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
+  ref: 0,
   declarations: [],
 };
 
