@@ -23,6 +23,10 @@ const dictionary = {
     en: 'Id',
     fr: 'Identifiant',
   },
+  formula: {
+    en: 'Formula',
+    fr: 'Formule',
+  },
   idRMeS: {
     en: 'Id',
     fr: 'Identifiant RMéS',
@@ -46,6 +50,18 @@ const dictionary = {
   noGoToYet: {
     en: 'No goTo yet',
     fr: 'Aucune redirection définie',
+  },
+  noCalculatedVariablesYet: {
+    en: 'No calculated variable yet',
+    fr: 'Aucune variable calculé définie',
+  },
+  noExternalVariablesYet: {
+    en: 'No external variable yet',
+    fr: 'Aucune variable externe définie',
+  },
+  noCollectedVariablesYet: {
+    en: 'No collected variable yet',
+    fr: 'Aucune variable collectée définie',
   },
   tagline: {
     en: 'Questionnaire design and test',
@@ -167,6 +183,18 @@ const dictionary = {
     en: 'Add a control',
     fr: 'Ajouter un contrôle',
   },
+  addCalculatedVariable: {
+    en: 'Add a calculated variable',
+    fr: 'Ajouter une variable calculé',
+  },
+  addExternalVariable: {
+    en: 'Add a external variable',
+    fr: 'Ajouter une variable externe',
+  },
+  addCollectedVariable: {
+    en: 'Add a collected variable',
+    fr: 'Ajouter une variable collectée',
+  },
   declarations: {
     en: 'Statements',
     fr: 'Déclarations',
@@ -258,6 +286,18 @@ const dictionary = {
   goTo_label: {
     en: 'GoTo label',
     fr: 'Libellé de la redirection',
+  },
+  calculatedVariables: {
+    en: 'Calculated variables',
+    fr: 'Variables calculés',
+  },
+  externalVariables: {
+    en: 'External variables',
+    fr: 'Variables externes',
+  },
+  collectedVariables: {
+    en: 'Collected variables',
+    fr: 'Variables collectées',
   },
   defineGoTo: {
     en: 'Add a goto',
@@ -479,11 +519,11 @@ const dictionary = {
     en: 'Primary information axis',
   },
   secondaryAxis: {
-    fr: 'Axe secondarie',
+    fr: 'Axe secondaire',
     en: 'Secondary axis',
   },
   secondaryAxisTable: {
-    fr: "Axe d'information secondarie",
+    fr: "Axe d'information secondaire",
     en: 'Secondary information axis',
   },
   measuresAxisTable: {
@@ -497,6 +537,10 @@ const dictionary = {
   selectCodesListType: {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
+  },
+  selectCodesList: {
+    fr: 'Sélectionner une liste de codes',
+    en: 'Select a code list',
   },
   newCodesList: {
     fr: 'Créer une liste',
@@ -799,6 +843,10 @@ const dictionary = {
     fr: 'Obligatoire',
     en: 'Required',
   },
+  validationInvalidName: {
+    fr: 'Le nom peut uniquement contenir des lettres, chiffres, tirets et underscore',
+    en: 'The name can only contain letters, numbers, dashes and underscore',
+  },
   validationMinNumber: {
     fr: 'Vous devez introduire au mois',
     en: 'Must be at least',
@@ -854,6 +902,46 @@ const dictionary = {
   validation_target: {
     fr: 'Cible obligatoire',
     en: 'Target required',
+  },
+  validation_calculatedvariable_label: {
+    fr: 'Libellé de la variable calculé obligatoire',
+    en: 'Calculated variable label required',
+  },
+  validation_calculatedvariable_name: {
+    fr: 'Nom de la variable calculé obligatoire',
+    en: 'Calculated variable name required',
+  },
+  validation_calculatedvariable_formula: {
+    fr: 'Formule de la variable calculé obligatoire',
+    en: 'Calculated variable formula required',
+  },
+  validation_calculatedvariable_existing: {
+    fr: 'Il existe une variable calculé avec le même nom',
+    en: 'It already exists a calculated variable with this name',
+  },
+  validation_externalvariable_label: {
+    fr: 'Libellé de la variable externe obligatoire',
+    en: 'External variable label required',
+  },
+  validation_externalvariable_name: {
+    fr: 'Nom de la variable externe obligatoire',
+    en: 'External variable name required',
+  },
+  validation_externalvariable_existing: {
+    fr: 'Il existe une variable externe avec le même nom',
+    en: 'It already exists an external variable with this name',
+  },
+  validation_collectedvariable_label: {
+    fr: 'Libellé de la variable collectée obligatoire',
+    en: 'Collected variable label required',
+  },
+  validation_collectedvariable_name: {
+    fr: 'Nom de la variable collectée obligatoire',
+    en: 'Collected variable name required',
+  },
+  validation_collectedvariable_existing: {
+    fr: 'Il existe une variable collectée avec le même nom',
+    en: 'It already exists an collected variable with this name',
   },
 };
 

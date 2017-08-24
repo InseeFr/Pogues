@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, FieldArray, FormSection } from 'redux-form';
+import { Field, FieldArray } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
@@ -76,24 +76,21 @@ class codesListEditor extends Component {
 
     return (
       <div className="codes-list-editor">
-        <FormSection name="codesList">
-          <div className="ctrl-input">
-            <label htmlFor="input-label">
-              {Dictionary.newCl}
-            </label>
-            <Field
-              name="label"
-              id="input-label"
-              type="text"
-              component={CodesListLabel}
-              placeholder={Dictionary.newCl}
-              toggleButtonClass={toggleButtonClass}
-              toggleCodesList={this.toggleCodesList}
-              {...requiredProps}
-            />
-          </div>
-          <Field name="id" type="hidden" component="input" />
-        </FormSection>
+        <div className="ctrl-input">
+          <label htmlFor="input-label">
+            {Dictionary.newCl}
+          </label>
+          <Field
+            name="label"
+            id="input-label"
+            type="text"
+            component={CodesListLabel}
+            placeholder={Dictionary.newCl}
+            toggleButtonClass={toggleButtonClass}
+            toggleCodesList={this.toggleCodesList}
+            {...requiredProps}
+          />
+        </div>
         <FieldArray display={this.state.showCodesList} name="codes" component={CodesListEditorCodes} />
       </div>
     );

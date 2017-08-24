@@ -1,19 +1,33 @@
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
+
 function checkerQuestionnaireLength({ appState: { activeComponentsById, activeQuestionnaire: { id } } }) {
-  const errorsByComponent = {};
-  if (id && Object.keys(activeComponentsById).length < 3) {
-    errorsByComponent[id] = {
-      id,
+  const errorsByCode = {
+    QUESTIONNAIRE: {
+      type: 'global',
+      code: 'QUESTIONNAIRE',
+      dictionary: 'errorQuestionnaireTooShort',
+      errors: [],
+    },
+  };
+  const numSequences = Object.keys(activeComponentsById).filter(key => activeComponentsById[key].type === SEQUENCE);
+  const numQuestions = Object.keys(activeComponentsById).filter(key => activeComponentsById[key].type === QUESTION);
+
+  if (id && (numSequences.length < 1 || numQuestions.length < 1)) {
+    errorsByCode.QUESTIONNAIRE = {
+      type: 'global',
+      code: 'QUESTIONNAIRE',
+      dictionary: 'errorQuestionnaireTooShort',
       errors: [
         {
-          type: 'global',
-          code: 'QUESTIONNAIRE',
+          id,
           params: {},
-          dictionary: 'errorQuestionnaireTooShort',
         },
       ],
     };
   }
-  return errorsByComponent;
+  return errorsByCode;
 }
 
 export default checkerQuestionnaireLength;

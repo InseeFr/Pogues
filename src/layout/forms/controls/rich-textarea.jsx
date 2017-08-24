@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
-import RichTextEditor from 'gillespie59-react-rte';
+import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { CompositeDecorator } from 'draft-js';
-import 'draft-js/dist/Draft.css';
 
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
@@ -40,7 +39,11 @@ export function markdownToHtml(markdown) {
 }
 
 export function markdownToEditorValue(markdown) {
-  return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  try {
+    return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  } catch (e) {
+    return RichTextEditor.EditorValue.createEmpty(decorators);
+  }
 }
 
 export function editorValueToMarkdown(value) {
@@ -56,7 +59,7 @@ export function markdownToRaw(value) {
 }
 
 function formatURL(url) {
-  if (url.indexOf('http://') === 0) {
+  if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
     return { url };
   }
   return { url: '.', title: url };
@@ -69,13 +72,9 @@ function getValue(props) {
 }
 
 /**
- * Component that will display a TextArea in a react-form Field component. 
+ * Component that will display a TextArea in a react-form Field component.
  * We can add a help block thankt to the help attribute, and an actions toolbar
  * thanks to a button attribute.
- */
-/**
- * petit bug de synchro dans le model
- * Faire la PR
  */
 class RichTextArea extends Component {
   static propTypes = {
@@ -85,6 +84,8 @@ class RichTextArea extends Component {
     buttons: PropTypes.bool,
     help: PropTypes.bool,
     reference: PropTypes.func,
+    shouldSubmitOnEnter: PropTypes.bool,
+    identifier: PropTypes.number,
   };
 
   static defaultProps = {
@@ -92,25 +93,16 @@ class RichTextArea extends Component {
     buttons: false,
     options: [],
     help: false,
+    shouldSubmitOnEnter: false,
+    identifier: undefined,
   };
 
   constructor(props) {
     super(props);
-    const initValue = getValue(props);
     this.state = {
-      value: initValue,
-      editorState: initValue.getEditorState().getCurrentContent(),
-      currentValue: initValue,
+      currentValue: props.input.value,
+      value: getValue(props),
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.buttons && nextProps.input.value !== this.state.currentValue) {
-      this.setState({
-        value: getValue(nextProps),
-        currentValue: nextProps.input.value,
-      });
-    }
   }
 
   onChange = value => {
@@ -121,6 +113,15 @@ class RichTextArea extends Component {
       });
     }
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.identifier === undefined) {
+      return;
+    }
+    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
+      this.setState({ value: getValue(nextProps) });
+    }
+  }
 
   toolbarConfig = {
     display: ['INLINE_STYLE_BUTTONS', 'LINK_BUTTONS'],
@@ -136,8 +137,9 @@ class RichTextArea extends Component {
   };
 
   render() {
-    const { input, label, required, buttons, help, reference } = this.props;
-
+    const { input, label, required, buttons, help, reference, shouldSubmitOnEnter } = this.props;
+    const editorValue = this.state.value;
+    
     const helpBlock =
       help &&
       <span className="help-block">
@@ -153,10 +155,15 @@ class RichTextArea extends Component {
         {buttons &&
           <div>
             <RichTextEditor
-              value={this.state.value}
+              value={editorValue}
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
-              handleReturn={() => true}
+              handleReturn={e => {
+                if (shouldSubmitOnEnter) {
+                  e.target.closest('form').querySelector('button[type=submit]').click();
+                }
+                return 'handled';
+              }}
               rootStyle={this.rootStyle}
               formatURL={formatURL}
               ref={reference}

@@ -24,12 +24,13 @@ OptionalViewContainer.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   view: PropTypes.object.isRequired,
-  active: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
+  active: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   checkbox: PropTypes.bool,
 };
 
 OptionalViewContainer.defaultProps = {
   checkbox: false,
+  active: false,
 };
 
 export default connect(mapStateToProps)(OptionalViewContainer);

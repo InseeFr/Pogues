@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
+import { connect } from 'react-redux';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
+import { declarationsFormDefault } from 'utils/transformation-entities/declaration';
+import { formValueSelector } from 'redux-form';
 
 function validationDeclaration(values) {
   const { label } = values;
@@ -16,7 +18,7 @@ function validationDeclaration(values) {
   return errors;
 }
 
-function InputDeclaration() {
+function InputDeclaration({identifier}) {
   const types = [
     {
       value: 'INSTRUCTION',
@@ -61,9 +63,10 @@ function InputDeclaration() {
         name="label"
         id="declaration_text"
         component={Textarea}
-        buttons
         label={Dictionary.declaration_label}
+        buttons
         required
+        identifier={identifier}
       />
 
       <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required />
@@ -79,17 +82,26 @@ function InputDeclaration() {
     </div>
   );
 }
+
+const mapStateToProps = (state, { formName }) => {
+  formName = formName || 'component';
+  const selector = formValueSelector(formName); 
+  return {
+    identifier: selector(state, `declarations.ref`),
+  };
+};
+
 class Declarations extends Component {
   static selectorPath = 'declarations';
 
   render() {
-    const { declarations, ...initialInputValues } = defaultDeclarationForm;
-    const inputDeclarationView = <InputDeclaration />;
-
+    const { declarations, ...initialInputValues } = declarationsFormDefault;
+    const InputDeclarationView = connect(mapStateToProps)(InputDeclaration);
+    const inputDeclarationViewInstance = <InputDeclarationView />;
     return (
       <FormSection name={Declarations.selectorPath} className="declaratations">
         <ListEntryFormContainer
-          inputView={inputDeclarationView}
+          inputView={inputDeclarationViewInstance}
           initialInputValues={initialInputValues}
           selectorPath={Declarations.selectorPath}
           validationInput={validationDeclaration}

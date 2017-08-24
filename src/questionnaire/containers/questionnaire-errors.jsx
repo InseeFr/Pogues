@@ -5,15 +5,21 @@ import { connect } from 'react-redux';
 import QuestionnaireErrors from 'questionnaire/components/questionnaire-errors';
 import { setSelectedComponentId } from 'actions/app-state';
 
+
 const mapStateToProps = state => {
   return {
-    errorsByComponent: state.appState.errorsByComponent,
     components: state.appState.activeComponentsById,
   };
 };
 
 function QuestionnaireErrorsContainer({ errorsByComponent, components, setSelectedComponentId }) {
-  return <QuestionnaireErrors errorsByComponent={errorsByComponent} components={components} setSelectedComponentId={setSelectedComponentId}/>;
+  return (
+    <QuestionnaireErrors
+      errorsByComponent={errorsByComponent}
+      components={components}
+      setSelectedComponentId={setSelectedComponentId}
+    />
+  );
 }
 
 const mapDispatchToProps = {

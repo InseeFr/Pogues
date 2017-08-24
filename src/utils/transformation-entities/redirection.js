@@ -1,65 +1,103 @@
-import _ from 'lodash';
 import { uuid } from 'utils/data-utils';
 
-export const defaultRedirectionForm = {
+export const redirectionsFormDefault = {
   label: '',
   condition: '',
   cible: '',
   redirections: [],
 };
 
-export const defaultRedirectionState = [];
-
-export const defaultRedirectionModel = {
-  redirections: [],
-};
-
-function formToState(form) {
+function transformationFormToState(form) {
   const { redirections } = form;
-  return redirections.map(r => {
-    const { id, label, condition, cible } = r;
+
+  return redirections.reduce((acc, redirection) => {
+    const { label, condition, cible } = redirection;
+    const id = redirection.id || uuid();
+
     return {
-      id: id || uuid(),
-      label,
-      condition,
-      cible,
-    };
-  });
-}
-
-function stateToForm(state) {
-  return {
-    ...defaultRedirectionForm,
-    redirections: _.cloneDeep(state),
-  };
-}
-
-function stateToModel(state) {
-  return {
-    redirections: state.map(r => {
-      const { id, label, condition, cible } = r;
-      return {
-        id: id || uuid(),
+      ...acc,
+      [id]: {
+        id,
         label,
         condition,
         cible,
-      };
-    }),
+      },
+    };
+  }, {});
+}
+
+function transformationModelToState(model = []) {
+  return model.reduce((acc, redirection) => {
+    const { label, Expression: condition, IfTrue: cible } = redirection;
+    const id = redirection.id || uuid();
+    return {
+      ...acc,
+      [id]: {
+        id,
+        label,
+        condition,
+        cible,
+      },
+    };
+  }, {});
+}
+
+function transformationStateToForm(currentState) {
+  const redirections = [];
+
+  Object.keys(currentState).forEach(key => {
+    const { id, label, condition, cible } = currentState[key];
+    redirections.push({
+      id,
+      label,
+      condition,
+      cible,
+    });
+  });
+
+  return {
+    ...redirectionsFormDefault,
+    redirections,
   };
 }
 
-function modelToState(model) {
-  const state = [];
-  const { redirections } = model;
-  redirections.forEach(d => {
-    state.push(_.cloneDeep(d));
+function transformationStateToModel(currentState) {
+  const redirections = [];
+
+  Object.keys(currentState).forEach(key => {
+    const { id, label, condition: Expression, cible: IfTrue } = currentState[key];
+    redirections.push({
+      id,
+      label,
+      Expression,
+      IfTrue,
+    });
   });
-  return state;
+
+  return redirections;
 }
 
-export default {
-  formToState,
-  stateToForm,
-  stateToModel,
-  modelToState,
+const RedirectionTransformerFactory = (conf = {}) => {
+  const { initialState } = conf;
+
+  let currentState = initialState || {};
+
+  return {
+    formToState: form => {
+      currentState = transformationFormToState(form);
+      return currentState;
+    },
+    modelToState: model => {
+      currentState = transformationModelToState(model);
+      return currentState;
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(currentState);
+    },
+  };
 };
+
+export default RedirectionTransformerFactory;

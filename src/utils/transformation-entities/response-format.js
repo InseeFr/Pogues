@@ -1,134 +1,134 @@
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import ResponseFormatSimple, {
-  defaultSimpleForm,
-  defaultSimpleState,
-  defaultSimpleModel,
-} from './response-format-simple';
-import ResponseFormatSingle, { defaultSingleForm } from './response-format-single';
-import ResponseFormatMultiple, { defaultMultipleForm } from './response-format-multiple';
-import ResponseFormatTable, { defaultTableForm } from './response-format-table';
+import SimpleTransformerFactory, { defaultSimpleState } from './response-format-simple';
+import SingleTransformerFactory, { defaultSingleState } from './response-format-single';
+import MultipleTransformerFactory, { defaultMultipleState } from './response-format-multiple';
+import TableTransformerFactory, { defaultTableState } from './response-format-table';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
-export const defaultResponseFormatForm = {
-  [SIMPLE]: { ...defaultSimpleForm },
-  [SINGLE_CHOICE]: { ...defaultSingleForm },
-  [MULTIPLE_CHOICE]: { ...defaultMultipleForm },
-  [TABLE]: { ...defaultTableForm },
-  type: SIMPLE,
-};
-
 export const defaultResponseFormatState = {
   [SIMPLE]: { ...defaultSimpleState },
-  type: SIMPLE,
+  [SINGLE_CHOICE]: { ...defaultSingleState },
+  [MULTIPLE_CHOICE]: { ...defaultMultipleState },
+  [TABLE]: { ...defaultTableState },
+  type: '',
 };
 
-export const defaultResponseFormatModel = {
-  responseStructure: {
-    dimensions: [],
-  },
-  responses: [],
-  questionType: SIMPLE,
-  ...defaultSimpleModel,
-};
-
-function formToState(form) {
+function transformationFormToState(form, codesListsStore, currentCodesListsIdsStore) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
     type,
   };
 
   if (type === SINGLE_CHOICE) {
-    state[type] = ResponseFormatSingle.formToState(responseFormatForm);
+    state[type] = SingleTransformerFactory({ currentCodesListsIdsStore, codesListsStore }).formToState(
+      responseFormatForm
+    );
   } else if (type === MULTIPLE_CHOICE) {
-    state[type] = ResponseFormatMultiple.formToState(responseFormatForm);
+    state[type] = MultipleTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
   } else if (type === TABLE) {
-    state[type] = ResponseFormatTable.formToState(responseFormatForm);
+    state[type] = TableTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
   } else {
-    state[type] = ResponseFormatSimple.formToState(responseFormatForm);
+    state[type] = SimpleTransformerFactory().formToState(responseFormatForm);
   }
 
   return state;
 }
 
-function stateToForm(state, activeCodeLists, activeCodes) {
-  const { type, [type]: responseFormatState } = state;
-  const form = {
-    type,
-  };
+function transformationModelToState(type, responses, dimensions, codesListsStore) {
+  let datatypeState = {};
 
-  if (type === SINGLE_CHOICE) {
-    form[type] = ResponseFormatSingle.stateToForm(responseFormatState, activeCodeLists, activeCodes);
+  if (type === SIMPLE) {
+    datatypeState = SimpleTransformerFactory().modelToState({ responses });
+  } else if (type === SINGLE_CHOICE) {
+    datatypeState = SingleTransformerFactory().modelToState({ responses });
   } else if (type === MULTIPLE_CHOICE) {
-    form[type] = ResponseFormatMultiple.stateToForm(responseFormatState, activeCodeLists, activeCodes);
+    datatypeState = MultipleTransformerFactory().modelToState({ responses, dimensions });
   } else if (type === TABLE) {
-    form[type] = ResponseFormatTable.stateToForm(responseFormatState, activeCodeLists, activeCodes);
-  } else {
-    form[type] = ResponseFormatSimple.stateToForm(responseFormatState);
+    datatypeState = TableTransformerFactory({ codesListsStore }).modelToState({ responses, dimensions });
   }
 
   return {
-    ...defaultResponseFormatForm,
-    ...form,
+    type,
+    [type]: datatypeState,
   };
 }
 
-function stateToModel(state, codesLists) {
-  const { type, [type]: responseFormatState } = state;
-  const model = {
-    responseStructure: {
-      dimensions: [],
-    },
-    responses: [],
+function transformationStateToForm(currentState, codesListsStore = {}) {
+  const { type } = currentState;
+
+  return {
+    type,
+    [SIMPLE]: SimpleTransformerFactory({
+      initialState: currentState[SIMPLE],
+    }).stateToForm(),
+    [SINGLE_CHOICE]: SingleTransformerFactory({
+      initialState: currentState[SINGLE_CHOICE],
+      codesListsStore,
+    }).stateToForm(),
+    [MULTIPLE_CHOICE]: MultipleTransformerFactory({
+      initialState: currentState[MULTIPLE_CHOICE],
+      codesListsStore,
+    }).stateToForm(),
+    [TABLE]: TableTransformerFactory({
+      initialState: currentState[TABLE],
+      codesListsStore,
+    }).stateToForm(),
   };
-  let responsesDimensions = {};
+}
+
+function transformationStateToModel(currentState, codesListsStore) {
+  const { type, [type]: responseFormatState } = currentState;
+  const model = {
+    ResponseStructure: {
+      Dimension: [],
+    },
+    Response: [],
+  };
+  let responseFormatModel = {};
 
   if (type === SIMPLE) {
-    responsesDimensions = ResponseFormatSimple.stateToModel(responseFormatState);
-    model.responses = responsesDimensions.responses;
+    responseFormatModel = SimpleTransformerFactory({ initialState: responseFormatState }).stateToModel();
+    model.Response = responseFormatModel.Response;
   } else if (type === SINGLE_CHOICE) {
-    responsesDimensions = ResponseFormatSingle.stateToModel(responseFormatState);
-    model.responses = responsesDimensions.responses;
+    responseFormatModel = SingleTransformerFactory({ initialState: responseFormatState }).stateToModel();
+    model.Response = responseFormatModel.Response;
   } else if (type === MULTIPLE_CHOICE) {
-    responsesDimensions = ResponseFormatMultiple.stateToModel(responseFormatState);
-    model.responses = responsesDimensions.responses;
-    model.responseStructure.dimensions = responsesDimensions.dimensions;
+    responseFormatModel = MultipleTransformerFactory({ initialState: responseFormatState }).stateToModel();
+    model.Response = responseFormatModel.Response;
+    model.ResponseStructure.Dimension = responseFormatModel.Dimension;
   } else {
-    responsesDimensions = ResponseFormatTable.stateToModel(responseFormatState, codesLists);
-    model.responses = { ...responsesDimensions.responses };
-    model.responseStructure.dimensions = [...responsesDimensions.dimensions];
+    responseFormatModel = TableTransformerFactory({
+      initialState: responseFormatState,
+      codesListsStore,
+    }).stateToModel();
+    model.Response = responseFormatModel.Response;
+    model.ResponseStructure.Dimension = responseFormatModel.Dimension;
   }
   return model;
 }
 
-function modelToState(model, activeCodeLists = {}) {
-  const { type, responses, dimensions } = model;
-  let datatypeData = {};
+const ResponseFormatTransformerFactory = (conf = {}) => {
+  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
 
-  if (type === SIMPLE) {
-    datatypeData = ResponseFormatSimple.modelToState({ responses });
-  } else if (type === SINGLE_CHOICE) {
-    datatypeData = ResponseFormatSingle.modelToState({ responses });
-  } else if (type === MULTIPLE_CHOICE) {
-    datatypeData = ResponseFormatMultiple.modelToState({ dimensions, responses });
-  } else if (type === TABLE) {
-    datatypeData = ResponseFormatTable.modelToState({ dimensions, responses }, activeCodeLists);
-  }
-
-  const responseFormatData = {
-    type,
-    [type]: datatypeData,
-  };
+  let currentState = initialState || defaultResponseFormatState;
 
   return {
-    ...defaultResponseFormatState,
-    ...responseFormatData,
+    formToState: form => {
+      currentState = transformationFormToState(form, codesListsStore, currentCodesListsIdsStore);
+      return currentState;
+    },
+    modelToState: (type, responses, dimensions) => {
+      currentState = transformationModelToState(type, responses, dimensions, codesListsStore);
+      return currentState;
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState, codesListsStore);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(currentState, codesListsStore);
+    },
   };
-}
-
-export default {
-  modelToState,
-  stateToModel,
-  stateToForm,
-  formToState,
 };
+
+export default ResponseFormatTransformerFactory;
