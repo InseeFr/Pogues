@@ -115,6 +115,7 @@ export class QuestionNewEdit extends Component {
             type="text"
             component={type === QUESTION ? Textarea : Input}
             buttons
+            shouldSubmitOnEnter
             label={Dictionary.title}
             validate={[required]}
             required
