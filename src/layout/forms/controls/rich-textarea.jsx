@@ -148,7 +148,7 @@ class RichTextArea extends Component {
               toolbarConfig={this.toolbarConfig}
               handleReturn={e => {
                 if (shouldSubmitOnEnter) {
-                  e.target.closest('form').dispatchEvent(new Event('submit'));
+                  e.target.closest('form').querySelector('button[type=submit]').click();
                 }
                 return 'handled';
               }}
