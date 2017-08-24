@@ -9,10 +9,7 @@ export function setActiveExternalVariables(state, { externalVariables }) {
 }
 
 export function updateActiveExternalVariables(state, { update: { activeExternalVariablesById } }) {
-  return {
-    ...state,
-    ...activeExternalVariablesById,
-  };
+  return activeExternalVariablesById;
 }
 
 actionHandlers[SET_ACTIVE_EXTERNAL_VARIABLES] = setActiveExternalVariables;

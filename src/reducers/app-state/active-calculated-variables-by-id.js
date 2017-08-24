@@ -9,10 +9,7 @@ export function setActiveCalculatedVariables(state, { calculatedVariables }) {
 }
 
 export function updateActiveCalculatedVariables(state, { update: { activeCalculatedVariablesById } }) {
-  return {
-    ...state,
-    ...activeCalculatedVariablesById,
-  };
+  return activeCalculatedVariablesById;
 }
 
 actionHandlers[SET_ACTIVE_CALCULATED_VARIABLES] = setActiveCalculatedVariables;

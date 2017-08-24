@@ -15,22 +15,16 @@ function validationCalculatedVariable(values, addedItems) {
   if (name === '') errors.push(Dictionary.validation_calculatedvariable_name);
   if (formula === '') errors.push(Dictionary.validation_calculatedvariable_formula);
   if (addedItemsNames.indexOf(name) !== -1) errors.push(Dictionary.validation_calculatedvariable_existing);
+  if (!/^[A-Z0-9\-_]+$/i.test(name)) errors.push(Dictionary.validationInvalidName);
 
   return errors;
-}
-
-function questionnaireName(value, previousValue, allValues) {
-  if (value.length === 0 && allValues.calculatedVariables.label && allValues.calculatedVariables.label.length > 0) {
-    value = allValues.calculatedVariables.label.replace(/[^a-z0-9_]/gi, '').toUpperCase().slice(0, 10);
-  }
-  return value;
 }
 
 function InputCalculatedVariable() {
   return (
     <div>
       <Field name="label" type="text" component={Input} label={Dictionary.label} required />
-      <Field name="name" type="text" component={Input} label={Dictionary.name} normalize={questionnaireName} required />
+      <Field name="name" type="text" component={Input} label={Dictionary.name} required />
       <Field name="formula" type="text" component={Input} label={Dictionary.formula} required />
     </div>
   );
