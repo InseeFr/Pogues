@@ -2271,6 +2271,7 @@ module.exports = [
         "Label" : "collectedVariableLabel1"
       }, {
         "id" : "collectedVariable2",
+        "id" : "collectedVariable2",
         "type" : "CollectedVariableType",
         "Name" : "collectedVariableName2",
         "Label" : "collectedVariableLabel2"
@@ -3030,12 +3031,12 @@ module.exports = [
         "id" : "externalVariable1",
         "type" : "ExternalVariableType",
         "Name" : "ExternalVariableName1",
-        "Label" : ""
+        "Label" : "ExternalVariableName1"
       }, {
         "id" : "externalVariable2",
         "type" : "ExternalVariableType",
         "Name" : "ExternalVariableName2",
-        "Label" : ""
+        "Label" : "ExternalVariableName2"
       } ]
     }
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
-import { setSelectedComponentId, setCurrentCodesListsInQuestion, addCodesListToQuestion } from 'actions/app-state';
+import { setSelectedComponentId, setCurrentCodesListsInQuestion } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
@@ -28,7 +28,6 @@ const mapDispatchToProps = {
   updateParentChildren,
   setSelectedComponentId,
   setCurrentCodesListsInQuestion,
-  addCodesListToQuestion,
 };
 
 class ComponentNewContainer extends Component {
@@ -38,7 +37,6 @@ class ComponentNewContainer extends Component {
     updateParentChildren: PropTypes.func.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
     setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
-    addCodesListToQuestion: PropTypes.func.isRequired,
     weight: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     parentId: PropTypes.string.isRequired,

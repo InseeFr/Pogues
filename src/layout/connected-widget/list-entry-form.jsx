@@ -7,9 +7,9 @@ import _ from 'lodash';
 import ListEntryForm from './components/list-entry-form';
 import { removeInvalidItem } from 'actions/app-state';
 
-function getValuesSubset(values, path, invalidItems = {}, select) {
+function getValuesSubset(values, path, invalidItems = {}) {
   const item = _.cloneDeep(_.get(values, path));
-  item.ref = select;
+
   if (Object.keys(invalidItems).indexOf(item.id) !== -1) {
     invalidItems[item.id].invalidFieldsNames.forEach(fieldName => {
       // The invalid values are removed to show validation errors in edition.
@@ -20,12 +20,13 @@ function getValuesSubset(values, path, invalidItems = {}, select) {
   return item;
 }
 
-function updateValues(values, path, item) {
+function updateValues(values, path, item, ref = 0) {
   const newValues = _.cloneDeep(values);
   return _.update(newValues, path, currentValue => {
     return {
       ...currentValue,
       ...item,
+      ref,
     };
   });
 }
@@ -91,22 +92,33 @@ class ListEntryFormContainer extends Component {
 
   resetErrors() {
     this.setState({
+      ...this.state,
       errors: [],
     });
   }
 
   select(index) {
     const { formName, listName, values, selectorPath, initialize, invalidItems } = this.props;
-    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`, invalidItems, index + 1);
+    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`, invalidItems);
+
     if (invalidItems[subset.id]) {
       this.validate(subset);
     }
 
-    initialize(formName, updateValues(values, selectorPath, subset));
+    initialize(formName, updateValues(values, selectorPath, subset, index + 1));
   }
 
   remove(index) {
-    const { formName, selectorPath, listName, values, initialInputValues, initialize, removeInvalidItem, invalidItems } = this.props;
+    const {
+      formName,
+      selectorPath,
+      listName,
+      values,
+      initialInputValues,
+      initialize,
+      removeInvalidItem,
+      invalidItems,
+    } = this.props;
     const items = getValuesSubset(values, `${selectorPath}.${listName}`);
     const removedItemId = items[index].id;
 
@@ -133,6 +145,7 @@ class ListEntryFormContainer extends Component {
       [listName]: [...getValuesSubset(values, `${selectorPath}.${listName}`)],
     };
     const newValues = updateValues(values, selectorPath, subset);
+
     this.resetErrors();
     initialize(formName, newValues);
   }
@@ -152,13 +165,12 @@ class ListEntryFormContainer extends Component {
       invalidItems,
       removeInvalidItem,
     } = this.props;
-    const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
+    const { [listName]: items, ref: currentRef, ...currentValues } = getValuesSubset(values, selectorPath);
 
     if (!this.validate(currentValues)) return;
 
     if (invalidItems[currentValues.id]) {
       removeInvalidItem(currentValues.id);
-      this.resetErrors();
     }
 
     if (index !== undefined && index !== '') {
@@ -166,11 +178,13 @@ class ListEntryFormContainer extends Component {
     } else {
       items.push(currentValues);
     }
+
     const subset = {
       ..._.cloneDeep(initialInputValues),
       [listName]: items,
     };
     const newValues = updateValues(values, selectorPath, subset);
+    this.resetErrors();
     initialize(formName, newValues);
   }
 
@@ -182,11 +196,8 @@ class ListEntryFormContainer extends Component {
     if (errors.length > 0) {
       isValid = false;
       this.setState({
+        ...this.state,
         errors,
-      });
-    } else {
-      this.setState({
-        errors: [],
       });
     }
     return isValid;

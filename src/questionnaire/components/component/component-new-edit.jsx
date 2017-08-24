@@ -8,13 +8,14 @@ import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
 import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
 import ExternalVariables from 'questionnaire/components/variables/external-variables';
-
+import CollectedVariables from 'questionnaire/components/variables/collected-variables';
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
-import { required } from 'layout/forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import Textarea from 'layout/forms/controls/rich-textarea';
+import { required, name as validationName } from 'layout/forms/validation-rules';
+import { componentName } from 'layout/forms/normalize-inputs';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -54,9 +55,7 @@ export class QuestionNewEdit extends Component {
     invalidItems: {},
   };
   componentDidMount() {
-    if (this.props.edit) {
-      this.nameInput.focus();
-    } else if (this.props.type !== QUESTION) {
+    if (this.props.type !== QUESTION) {
       this.labelInput.focus();
     } else {
       this.labelInput._focus();
@@ -92,7 +91,7 @@ export class QuestionNewEdit extends Component {
       panels.unshift({
         id: 'response-format',
         label: Dictionary.responsesEdition,
-        content: <ResponseFormat />,
+        content: <ResponseFormat edit={edit} />,
       });
       panels.push({
         id: 'external-variables',
@@ -104,25 +103,16 @@ export class QuestionNewEdit extends Component {
         label: Dictionary.calculatedVariables,
         content: <CalculatedVariables />,
       });
+      panels.push({
+        id: 'collected-variables',
+        label: Dictionary.collectedVariables,
+        content: <CollectedVariables />,
+      });
     }
 
     return (
       <div className="component-edition">
         <form onSubmit={handleSubmit}>
-          {edit
-            ? <Field
-                refs="input"
-                reference={input => {
-                  this.nameInput = input;
-                }}
-                name="name"
-                type="text"
-                component={Input}
-                label={Dictionary.name}
-                validate={[required]}
-                required
-              />
-            : ''}
           <Field
             reference={input => {
               this.labelInput = input;
@@ -134,6 +124,16 @@ export class QuestionNewEdit extends Component {
             shouldSubmitOnEnter
             label={Dictionary.title}
             validate={[required]}
+            required
+          />
+          <Field
+            refs="input"
+            name="name"
+            type="text"
+            component={Input}
+            label={Dictionary.name}
+            validate={[required, validationName]}
+            normalize={componentName}
             required
           />
           <Tabs components={panels} />

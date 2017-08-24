@@ -5,16 +5,18 @@ import Dictionary from 'utils/dictionary/dictionary';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultExternalVariableForm } from 'utils/transformation-entities/external-variable';
 import Input from 'layout/forms/controls/input';
+import { name as validateName } from 'layout/forms/validation-rules';
 
 function validationExternalVariable(values, addedItems) {
   const { name, label } = values;
   const addedItemsNames = addedItems.map(cv => cv.name);
   const errors = [];
+  const invalidName = validateName(name);
 
+  if (invalidName) errors.push(invalidName);
   if (name === '') errors.push(Dictionary.validation_externalvariable_name);
   if (label === '') errors.push(Dictionary.validation_externalvariable_label);
   if (addedItemsNames.indexOf(name) !== -1) errors.push(Dictionary.validation_externalvariable_existing);
-  if (!/^[A-Z0-9\-_]+$/i.test(name)) errors.push(Dictionary.validationInvalidName);
 
   return errors;
 }
