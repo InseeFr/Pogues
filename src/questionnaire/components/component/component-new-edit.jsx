@@ -8,6 +8,7 @@ import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
 import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
 import ExternalVariables from 'questionnaire/components/variables/external-variables';
+import CollectedVariables from 'questionnaire/components/variables/collected-variables';
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import { required } from 'layout/forms/validation-rules';
@@ -87,6 +88,11 @@ export class QuestionNewEdit extends Component {
     ];
 
     if (type === QUESTION) {
+      panels.unshift({
+        id: 'collected-variables',
+        label: Dictionary.collectedVariables,
+        content: <CollectedVariables />,
+      });
       panels.unshift({
         id: 'external-variables',
         label: Dictionary.externalVariables,

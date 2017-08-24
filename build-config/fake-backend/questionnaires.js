@@ -2271,6 +2271,7 @@ module.exports = [
         "Label" : "collectedVariableLabel1"
       }, {
         "id" : "collectedVariable2",
+        "id" : "collectedVariable2",
         "type" : "CollectedVariableType",
         "Name" : "collectedVariableName2",
         "Label" : "collectedVariableLabel2"
