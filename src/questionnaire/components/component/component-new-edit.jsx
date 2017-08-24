@@ -90,19 +90,19 @@ export class QuestionNewEdit extends Component {
 
     if (type === QUESTION) {
       panels.unshift({
+        id: 'response-format',
+        label: Dictionary.responsesEdition,
+        content: <ResponseFormat />,
+      });
+      panels.push({
         id: 'external-variables',
         label: Dictionary.externalVariables,
         content: <ExternalVariables />,
       });
-      panels.unshift({
+      panels.push({
         id: 'calculated-variables',
         label: Dictionary.calculatedVariables,
         content: <CalculatedVariables />,
-      });
-      panels.unshift({
-        id: 'response-format',
-        label: Dictionary.responsesEdition,
-        content: <ResponseFormat />,
       });
     }
 
