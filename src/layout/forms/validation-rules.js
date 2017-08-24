@@ -40,3 +40,8 @@ export function email(value) {
 export function requiredSelect(value = '') {
   return value !== '' ? undefined : Dictionary.validationRequired;
 }
+
+export function name(value = '') {
+  const result = value !== '' && !/^[A-Z0-9\-_]+$/i.test(value) ? Dictionary.validationInvalidName : undefined;
+  return result;
+}

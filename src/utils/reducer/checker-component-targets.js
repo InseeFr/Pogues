@@ -13,7 +13,7 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
   const targetEarlierErrors = [];
 
   Object.keys(activeComponentsById).forEach(key => {
-    const redirections = activeComponentsById[key].redirections;
+    const redirections = activeComponentsById[key].redirections || {};
 
     if (Object.keys(redirections).length > 0) {
       const ids = getTargets(

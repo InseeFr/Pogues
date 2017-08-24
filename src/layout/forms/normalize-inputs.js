@@ -2,9 +2,12 @@ import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
 
 const rNameNeg = /[^a-z0-9_]/gi;
 
-export function questionnaireName(value, previousValue, allValues) {
+export function componentName(value, previousValue, allValues) {
   const rawLabel = markdownToRaw(allValues.label || '').blocks[0].text;
-  if (value.length === 0 && rawLabel && rawLabel.length > 0) {
+  console.log(previousValue)
+  console.log(value)
+  console.log(rawLabel)
+  if (value.length === 0 && previousValue.length === 0 && rawLabel && rawLabel.length > 0) {
     value = rawLabel.replace(rNameNeg, '').toUpperCase().slice(0, 10);
   }
 

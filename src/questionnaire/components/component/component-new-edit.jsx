@@ -11,11 +11,11 @@ import ExternalVariables from 'questionnaire/components/variables/external-varia
 import CollectedVariables from 'questionnaire/components/variables/collected-variables';
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
-import { required } from 'layout/forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import Textarea from 'layout/forms/controls/rich-textarea';
-import { questionnaireName } from 'layout/forms/normalize-inputs';
+import { required, name as validationName } from 'layout/forms/validation-rules';
+import { componentName } from 'layout/forms/normalize-inputs';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -91,7 +91,7 @@ export class QuestionNewEdit extends Component {
       panels.unshift({
         id: 'response-format',
         label: Dictionary.responsesEdition,
-        content: <ResponseFormat />,
+        content: <ResponseFormat edit={edit} />,
       });
       panels.push({
         id: 'external-variables',
@@ -102,6 +102,11 @@ export class QuestionNewEdit extends Component {
         id: 'calculated-variables',
         label: Dictionary.calculatedVariables,
         content: <CalculatedVariables />,
+      });
+      panels.push({
+        id: 'collected-variables',
+        label: Dictionary.collectedVariables,
+        content: <CollectedVariables />,
       });
     }
 
@@ -127,8 +132,8 @@ export class QuestionNewEdit extends Component {
             type="text"
             component={Input}
             label={Dictionary.name}
-            validate={[required]}
-            normalize={questionnaireName}
+            validate={[required, validationName]}
+            normalize={componentName}
             required
           />
           <Tabs components={panels} />

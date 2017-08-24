@@ -38,8 +38,8 @@ class ComponentEditContainer extends Component {
     componentId: PropTypes.string.isRequired,
     activeComponentsStore: PropTypes.object.isRequired,
     activeCodesListsStore: PropTypes.object.isRequired,
-    activeCalculatedVariablesStore: PropTypes.object.isRequired,
-    activeExternalVariablesStore: PropTypes.object.isRequired,
+    activeCalculatedVariablesStore: PropTypes.object,
+    activeExternalVariablesStore: PropTypes.object,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
     currentCodesListsIdsStore: PropTypes.object,
@@ -52,6 +52,8 @@ class ComponentEditContainer extends Component {
     onCancel: undefined,
     currentCodesListsIdsStore: {},
     invalidItems: {},
+    activeCalculatedVariablesStore: {},
+    activeExternalVariablesStore: {},
   };
 
   componentWillMount() {
