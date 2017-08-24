@@ -14,22 +14,16 @@ function validationExternalVariable(values, addedItems) {
   if (name === '') errors.push(Dictionary.validation_externalvariable_name);
   if (label === '') errors.push(Dictionary.validation_externalvariable_label);
   if (addedItemsNames.indexOf(name) !== -1) errors.push(Dictionary.validation_externalvariable_existing);
+  if (!/^[A-Z0-9\-_]+$/i.test(name)) errors.push(Dictionary.validationInvalidName);
 
   return errors;
-}
-
-function questionnaireName(value, previousValue, allValues) {
-  if (value.length === 0 && allValues.externalVariables.label && allValues.externalVariables.label.length > 0) {
-    value = allValues.externalVariables.label.replace(/[^a-z0-9_]/gi, '').toUpperCase().slice(0, 10);
-  }
-  return value;
 }
 
 function InputExternalVariable() {
   return (
     <div>
       <Field name="label" type="text" component={Input} label={Dictionary.label} required />
-      <Field name="name" type="text" component={Input} label={Dictionary.name} normalize={questionnaireName} required />
+      <Field name="name" type="text" component={Input} label={Dictionary.name} required />
     </div>
   );
 }
