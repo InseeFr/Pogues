@@ -8,8 +8,8 @@ import Input from 'layout/forms/controls/input';
 import { name as validateName } from 'layout/forms/validation-rules';
 
 function validationCalculatedVariable(values, addedItems) {
-  const { label, name, formula } = values;
-  const addedItemsNames = addedItems.map(cv => cv.name);
+  const { label, name, formula, ref } = values;
+  const addedItemsNames = addedItems.filter((cv, index) => index !== ref - 1).map(cv => cv.name);
   const errors = [];
   const invalidName = validateName(name);
 

@@ -21,18 +21,11 @@ function validationCollectedVariable(values, addedItems) {
   return errors;
 }
 
-function componentName(value, previousValue, allValues) {
-  if (value.length === 0 && allValues.collectedVariables.label && allValues.collectedVariables.label.length > 0) {
-    value = allValues.collectedVariables.label.replace(/[^a-z0-9_]/gi, '').toUpperCase().slice(0, 10);
-  }
-  return value;
-}
-
 function InputCollectedVariable() {
   return (
     <div>
       <Field name="label" type="text" component={Input} label={Dictionary.label} required />
-      <Field name="name" type="text" component={Input} label={Dictionary.name} normalize={componentName} required />
+      <Field name="name" type="text" component={Input} label={Dictionary.name} required />
     </div>
   );
 }
