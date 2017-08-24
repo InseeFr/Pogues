@@ -23,13 +23,20 @@ export class QuestionnaireListContainer extends Component {
       picture: PropTypes.string,
     }),
   };
+  static defaultProps = {
+    user: {},
+  };
 
   render() {
     const { questionnaires, user } = this.props;
     return (
       <div className="box home-questionnaires">
-        <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
-        <h4>{Dictionary.stamp} : {user.permission}</h4>
+        <h3>
+          {Dictionary.homeQuestionnairesInProgress}
+        </h3>
+        <h4>
+          {Dictionary.stamp} : {user.permission}
+        </h4>
         <QuestionnaireList questionnaires={questionnaires} />
       </div>
     );

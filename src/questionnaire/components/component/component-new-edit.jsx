@@ -6,6 +6,8 @@ import ResponseFormat from 'questionnaire/components/response-format/response-fo
 import Declaration from 'questionnaire/components/declarations/declarations';
 import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
+import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
+import ExternalVariables from 'questionnaire/components/variables/external-variables';
 
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
@@ -16,11 +18,20 @@ import Textarea from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-function getErrorsByType(errors) {
-  return errors.reduce((acc, e) => {
-    if (!acc[e.type]) acc[e.type] = [];
-    acc[e.type].push(e);
-    return acc;
+function getInvalidItemsByType(invalidItems) {
+  return Object.keys(invalidItems).reduce((acc, key) => {
+    const item = invalidItems[key];
+    let type = acc[item.type] || {};
+
+    type = {
+      ...type,
+      [item.id]: item,
+    };
+
+    return {
+      ...acc,
+      [item.type]: type,
+    };
   }, {});
 }
 
@@ -32,7 +43,7 @@ export class QuestionNewEdit extends Component {
     onCancel: PropTypes.func,
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
-    errors: PropTypes.array,
+    invalidItems: PropTypes.object,
   };
   static defaultProps = {
     handleSubmit: undefined,
@@ -40,7 +51,7 @@ export class QuestionNewEdit extends Component {
     pristine: false,
     submitting: false,
     edit: false,
-    errors: [],
+    invalidItems: {},
   };
   componentDidMount() {
     if (this.props.edit) {
@@ -52,26 +63,28 @@ export class QuestionNewEdit extends Component {
     }
   }
   render() {
-    const { type, edit, handleSubmit, onCancel, pristine, submitting, errors } = this.props;
-    const errorsByType = getErrorsByType(errors);
+    const { type, edit, handleSubmit, onCancel, pristine, submitting, invalidItems } = this.props;
+    const invalidItemsByType = getInvalidItemsByType(invalidItems);
     const panels = [
       {
         id: 'declarations',
         label: Dictionary.declaration_tabTitle,
         content: <Declaration />,
-        numErrors: errorsByType.declarations && errorsByType.declarations.length,
+        numErrors: invalidItemsByType.declarations && Object.keys(invalidItemsByType.declarations).length,
       },
       {
         id: 'controls',
         label: Dictionary.controls,
         content: <Controls />,
-        numErrors: errorsByType.controls && errorsByType.controls.length,
+        numErrors: invalidItemsByType.controls && Object.keys(invalidItemsByType.controls).length,
       },
       {
         id: 'redirections',
         label: Dictionary.goTo,
-        content: <Redirections componentType={type} isNewComponent={!edit} errors={errorsByType.redirections} />,
-        numErrors: errorsByType.redirections && errorsByType.redirections.length,
+        content: (
+          <Redirections componentType={type} isNewComponent={!edit} invalidItems={invalidItemsByType.redirections} />
+        ),
+        numErrors: invalidItemsByType.redirections && Object.keys(invalidItemsByType.redirections).length,
       },
     ];
 
@@ -80,6 +93,16 @@ export class QuestionNewEdit extends Component {
         id: 'response-format',
         label: Dictionary.responsesEdition,
         content: <ResponseFormat />,
+      });
+      panels.push({
+        id: 'external-variables',
+        label: Dictionary.externalVariables,
+        content: <ExternalVariables />,
+      });
+      panels.push({
+        id: 'calculated-variables',
+        label: Dictionary.calculatedVariables,
+        content: <CalculatedVariables />,
       });
     }
 
@@ -108,6 +131,7 @@ export class QuestionNewEdit extends Component {
             type="text"
             component={type === QUESTION ? Textarea : Input}
             buttons
+            shouldSubmitOnEnter
             label={Dictionary.title}
             validate={[required]}
             required

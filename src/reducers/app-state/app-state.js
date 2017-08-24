@@ -1,7 +1,9 @@
 import activeComponentsById from 'reducers/app-state/active-components-by-id';
 import activeCodeListsById from 'reducers/app-state/active-code-lists-by-id';
-import activeCodesById from 'reducers/app-state/active-codes-by-id';
-import activeDeclarationsById from 'reducers/app-state/active-declarations-by-id';
+import activeCalculatedVariablesById from 'reducers/app-state/active-calculated-variables-by-id';
+import activeExternalVariablesById from 'reducers/app-state/active-external-variables-by-id';
+import codeListsByActiveQuestion from 'reducers/app-state/code-lists-by-active-question';
+import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
 import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
@@ -11,7 +13,10 @@ const defaultState = {
   user: {},
   activeQuestionnaire: {},
   activeComponentsById: {},
-  errorsByComponent: {},
+  activeCodeListsById: {},
+  activeCodesById: {},
+  activeCalculatedVariablesById: {},
+  errorsByCode: {},
   selectedComponentId: '',
 };
 
@@ -62,7 +67,9 @@ export default function(state = defaultState, action) {
     ...(hndlr ? hndlr(state, payload) : state),
     activeComponentsById: activeComponentsById(state.activeComponentsById, action),
     activeCodeListsById: activeCodeListsById(state.activeCodeListsById, action),
-    activeCodesById: activeCodesById(state.activeCodesById, action),
-    activeDeclarationsById: activeDeclarationsById(state.activeDeclarationsById, action),
+    activeCalculatedVariablesById: activeCalculatedVariablesById(state.activeCalculatedVariablesById, action),
+    activeExternalVariablesById: activeExternalVariablesById(state.activeExternalVariablesById, action),
+    codeListsByActiveQuestion: codeListsByActiveQuestion(state.codeListsByActiveQuestion, action),
+    invalidItemsByActiveQuestion: invalidItemsByActiveQuestion(state.invalidItemsByActiveQuestion, action),
   };
 }

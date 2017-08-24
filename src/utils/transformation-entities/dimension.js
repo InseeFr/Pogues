@@ -18,19 +18,27 @@ export const defaultDimensionModel = {
 };
 
 function stateToModel(state) {
-  const { type, codesListId, numLinesMin, numLinesMax, showTotalLabel, totalLabel, label } = state;
+  const {
+    type,
+    codesListId: CodeListReference,
+    numLinesMin,
+    numLinesMax,
+    showTotalLabel,
+    totalLabel,
+    label: Label,
+  } = state;
   const model = {
     dimensionType: type,
   };
 
   if (type === PRIMARY || type === SECONDARY) {
-    if (codesListId) model.codeListReference = codesListId;
+    if (CodeListReference) model.CodeListReference = CodeListReference;
     if (showTotalLabel && totalLabel) model.totalLabel = totalLabel;
     if (numLinesMin !== undefined && numLinesMax !== undefined) model.dynamic = `${numLinesMin}-${numLinesMax}`;
   }
 
-  if (type === MEASURE && label) {
-    model.label = label;
+  if (type === MEASURE && Label) {
+    model.Label = Label;
   }
 
   return {

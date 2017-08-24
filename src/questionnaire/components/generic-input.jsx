@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { visualisationUrl } from '/utils/remote-api';
+import { visualisationUrl } from 'utils/remote-api';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import ComponentNewContainer from 'questionnaire/containers/component/component-new';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -13,7 +13,11 @@ class GenericInput extends Component {
     placeholders: PropTypes.object.isRequired,
     saveActiveQuestionnaire: PropTypes.func.isRequired,
     isQuestionnaireValid: PropTypes.bool.isRequired,
-    idQuestionnaire: PropTypes.string.isRequired,
+    idQuestionnaire: PropTypes.string,
+  };
+
+  static defaultProps = {
+    idQuestionnaire: undefined,
   };
 
   constructor(props) {
@@ -34,7 +38,7 @@ class GenericInput extends Component {
       showNewComponentModal: true,
       typeNewComponent: componentType,
     };
-    this.setState(newState);
+    this.setState(newState);  
   }
 
   handleCloseNewComponent() {
@@ -90,15 +94,16 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.sequence}
         </button>
-        <button className="btn-white">
+        <button className="btn-white" id="add-pagebreak">
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.pageBreak}
         </button>
-        <button className="btn-yellow" onClick={this.props.saveActiveQuestionnaire}>
+        <button className="btn-yellow" onClick={this.props.saveActiveQuestionnaire} id="save">
           {Dictionary.save}
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
         <a
+          id="visualize"
           rel="noopener noreferrer"
           target="_blank"
           href={visualisationUrl + idQuestionnaire}
@@ -107,7 +112,7 @@ class GenericInput extends Component {
           {Dictionary.visualise}
           <span className="glyphicon glyphicon-eye-open" />
         </a>
-        <button className="btn-yellow">
+        <button className="btn-yellow" id="publish">
           {Dictionary.publishQuestionnaire}
           <span className="glyphicon glyphicon-share-alt" />
         </button>
