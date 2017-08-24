@@ -7,6 +7,8 @@ import { moveComponent } from './component-move';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
+export const UPDATE_COMPONENT_PARENT = 'UPDATE_COMPONENT_PARENT';
+export const UPDATE_COMPONENT_ORDER = 'UPDATE_COMPONENT_ORDER';
 export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
 export const MOVE_COMPONENT = 'MOVE_COMPONENT';
 
@@ -64,7 +66,7 @@ export const createComponent = (
 export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) => (dispatch, getState) => {
   const state = getState();
   return dispatch({
-    type: UPDATE_COMPONENT,
+    type: UPDATE_COMPONENT_PARENT,
     payload: {
       id,
       lastCreatedComponent,
@@ -155,7 +157,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
   }
 
   return dispatch({
-    type: UPDATE_COMPONENT,
+    type: UPDATE_COMPONENT_ORDER,
     payload: {
       id,
       update: {
