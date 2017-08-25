@@ -6,6 +6,7 @@ import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence, duplic
 import { moveComponent } from './component-move';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
+export const DUPLICATE_COMPONENT = 'DUPLICATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
 export const UPDATE_COMPONENT_PARENT = 'UPDATE_COMPONENT_PARENT';
 export const UPDATE_COMPONENT_ORDER = 'UPDATE_COMPONENT_ORDER';
@@ -241,7 +242,7 @@ export const duplicateComponent = idComponent => (dispatch, getState) => {
   const state = getState();
   const activeComponentsById = state.appState.activeComponentsById;
   dispatch({
-    type: CREATE_COMPONENT,
+    type: DUPLICATE_COMPONENT,
     payload: {
       update: {
         activeComponentsById: duplicate(activeComponentsById, idComponent),

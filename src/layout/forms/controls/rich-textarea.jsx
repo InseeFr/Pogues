@@ -84,7 +84,7 @@ class RichTextArea extends Component {
     buttons: PropTypes.bool,
     help: PropTypes.bool,
     reference: PropTypes.func,
-    shouldSubmitOnEnter: PropTypes.bool,
+    avoidSubmitOnEnter: PropTypes.bool,
     identifier: PropTypes.number,
   };
 
@@ -93,7 +93,7 @@ class RichTextArea extends Component {
     buttons: false,
     options: [],
     help: false,
-    shouldSubmitOnEnter: false,
+    avoidSubmitOnEnter: true,
     identifier: undefined,
   };
 
@@ -137,9 +137,9 @@ class RichTextArea extends Component {
   };
 
   render() {
-    const { input, label, required, buttons, help, reference, shouldSubmitOnEnter } = this.props;
+    const { input, label, required, buttons, help, reference, avoidSubmitOnEnter } = this.props;
     const editorValue = this.state.value;
-    
+
     const helpBlock =
       help &&
       <span className="help-block">
@@ -159,7 +159,7 @@ class RichTextArea extends Component {
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
               handleReturn={e => {
-                if (shouldSubmitOnEnter) {
+                if (!avoidSubmitOnEnter) {
                   e.target.closest('form').querySelector('button[type=submit]').click();
                 }
                 return 'handled';
