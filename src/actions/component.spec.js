@@ -397,7 +397,7 @@ describe('removeComponent', () => {
 });
 
 describe('duplicateComponent', () => {
-  test('should trigger the CREATE_COMPONENT action', () => {
+  test('should trigger the DUPLICATE_COMPONENT action', () => {
     function getState() {
       return {
         appState: {
@@ -408,7 +408,7 @@ describe('duplicateComponent', () => {
     const fn = component.duplicateComponent('1');
 
     function dispatch(param) {
-      expect(param.type).toEqual(component.CREATE_COMPONENT);
+      expect(param.type).toEqual(component.DUPLICATE_COMPONENT);
     }
     fn(dispatch, getState);
   });

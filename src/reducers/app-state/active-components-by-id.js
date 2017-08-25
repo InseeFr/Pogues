@@ -1,6 +1,7 @@
 import { SET_ACTIVE_COMPONENTS } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
+  DUPLICATE_COMPONENT,
   UPDATE_COMPONENT,
   REMOVE_COMPONENT,
   UPDATE_COMPONENT_PARENT,
@@ -24,6 +25,7 @@ export function updateActiveComponents(state, { update: { activeComponentsById }
 
 actionHandlers[SET_ACTIVE_COMPONENTS] = setActiveComponents;
 actionHandlers[CREATE_COMPONENT] = updateActiveComponents;
+actionHandlers[DUPLICATE_COMPONENT] = updateActiveComponents;
 actionHandlers[UPDATE_COMPONENT] = updateActiveComponents;
 actionHandlers[UPDATE_COMPONENT_PARENT] = updateActiveComponents;
 actionHandlers[UPDATE_COMPONENT_ORDER] = updateActiveComponents;

@@ -90,7 +90,9 @@ class ComponentEditContainer extends Component {
       externalVariablesStore: activeExternalVariablesStore,
       currentCodesListsIdsStore,
     });
-    const initialValues = componentTransformer.stateToForm({ id: componentId });
+    const initialValues = componentTransformer.stateToForm({
+      id: componentId,
+    });
     const submit = values => {
       let updatedCalculatedVariablesStore = {};
       let updatedExternalVariablesStore = {};
