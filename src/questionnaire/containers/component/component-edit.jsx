@@ -20,6 +20,7 @@ const mapStateToProps = state => {
     activeCodesListsStore: state.appState.activeCodeListsById,
     activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     activeExternalVariablesStore: state.appState.activeExternalVariablesById,
+    activeCollectedVariablesStore: state.appState.activeCollectedVariablesById,
     currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
     invalidItems: state.appState.invalidItemsByActiveQuestion,
   };
@@ -40,6 +41,7 @@ class ComponentEditContainer extends Component {
     activeCodesListsStore: PropTypes.object.isRequired,
     activeCalculatedVariablesStore: PropTypes.object,
     activeExternalVariablesStore: PropTypes.object,
+    activeCollectedVariablesStore: PropTypes.object,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
     currentCodesListsIdsStore: PropTypes.object,
@@ -54,6 +56,7 @@ class ComponentEditContainer extends Component {
     invalidItems: {},
     activeCalculatedVariablesStore: {},
     activeExternalVariablesStore: {},
+    activeCollectedVariablesStore: {},
   };
 
   componentWillMount() {
@@ -77,17 +80,20 @@ class ComponentEditContainer extends Component {
       activeCodesListsStore,
       activeCalculatedVariablesStore,
       activeExternalVariablesStore,
+      activeCollectedVariablesStore,
       onSuccess,
       onCancel,
       currentCodesListsIdsStore,
       invalidItems,
     } = this.props;
+    debugger;
     const componentType = activeComponentsStore[componentId].type;
     const componentTransformer = ComponentTransformerFactory({
       initialStore: activeComponentsStore,
       codesListsStore: activeCodesListsStore,
       calculatedVariablesStore: activeCalculatedVariablesStore,
       externalVariablesStore: activeExternalVariablesStore,
+      collectedVariablesStore: activeCollectedVariablesStore,
       currentCodesListsIdsStore,
     });
     const initialValues = componentTransformer.stateToForm({

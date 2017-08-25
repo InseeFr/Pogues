@@ -196,6 +196,7 @@ const ComponentTransformerFactory = (conf = {}) => {
     codesListsStore,
     calculatedVariablesStore,
     externalVariablesStore,
+    collectedVariablesStore,
     currentCodesListsIdsStore,
   } = conf;
 

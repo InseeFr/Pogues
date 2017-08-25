@@ -47,6 +47,7 @@ class CollectedVariables extends Component {
           submitLabel="addCollectedVariable"
           noValueLabel="noCollectedVariablesYet"
           showDuplicateButton={false}
+          showAddButton={false}
         />
       </FormSection>
     );

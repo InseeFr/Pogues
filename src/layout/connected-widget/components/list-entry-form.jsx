@@ -6,7 +6,16 @@ import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, setCurrentItemIndex, invalidItems }) {
+function ListEntryFormItem({
+  fields,
+  submitLabel,
+  noValueLabel,
+  reset,
+  select,
+  setCurrentItemIndex,
+  invalidItems,
+  showAddButton,
+}) {
   const noValueBlock =
     fields.length === 0 &&
     <li>
@@ -41,20 +50,21 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
           </li>
         );
       })}
-      <li>
-        <button
-          type="button"
-          className="btn btn-link"
-          onClick={event => {
-            event.preventDefault();
-            setCurrentItemIndex();
-            reset();
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-          {Dictionary[submitLabel]}
-        </button>
-      </li>
+      {showAddButton &&
+        <li>
+          <button
+            type="button"
+            className="btn btn-link"
+            onClick={event => {
+              event.preventDefault();
+              setCurrentItemIndex();
+              reset();
+            }}
+          >
+            <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+            {Dictionary[submitLabel]}
+          </button>
+        </li>}
     </ul>
   );
 }
@@ -66,6 +76,7 @@ ListEntryFormItem.propTypes = {
   select: PropTypes.func.isRequired,
   setCurrentItemIndex: PropTypes.func.isRequired,
   invalidItems: PropTypes.object.isRequired,
+  showAddButton: PropTypes.bool.isRequired,
 };
 
 class ListEntryForm extends Component {
@@ -82,12 +93,14 @@ class ListEntryForm extends Component {
     errors: PropTypes.array,
     invalidItems: PropTypes.object,
     showDuplicateButton: PropTypes.bool,
+    showAddButton: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     errors: [],
     invalidItems: {},
     showDuplicateButton: true,
+    showAddButton: true,
   };
   constructor(props) {
     super(props);
@@ -116,6 +129,7 @@ class ListEntryForm extends Component {
       noValueLabel,
       invalidItems,
       showDuplicateButton,
+      showAddButton,
       rerenderOnEveryChange,
     } = this.props;
 
@@ -142,6 +156,7 @@ class ListEntryForm extends Component {
           setCurrentItemIndex={this.setCurrentItemIndex}
           invalidItems={invalidItems}
           rerenderOnEveryChange={rerenderOnEveryChange}
+          showAddButton={showAddButton}
         />
 
         <Field component="input" type="hidden" name="ref" />

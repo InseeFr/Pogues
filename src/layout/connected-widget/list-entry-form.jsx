@@ -61,6 +61,7 @@ class ListEntryFormContainer extends Component {
     noValueLabel: PropTypes.string.isRequired,
     invalidItems: PropTypes.object,
     showDuplicateButton: PropTypes.bool,
+    showAddButton: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool,
     removeInvalidItem: PropTypes.func.isRequired,
   };
@@ -73,6 +74,7 @@ class ListEntryFormContainer extends Component {
     validationInput: () => true,
     invalidItems: {},
     showDuplicateButton: true,
+    showAddButton: true,
     rerenderOnEveryChange: false,
   };
 
@@ -211,6 +213,7 @@ class ListEntryFormContainer extends Component {
       noValueLabel,
       rerenderOnEveryChange,
       showDuplicateButton,
+      showAddButton,
       invalidItems,
     } = this.props;
 
@@ -228,6 +231,7 @@ class ListEntryFormContainer extends Component {
         listName={listName}
         invalidItems={invalidItems}
         showDuplicateButton={showDuplicateButton}
+        showAddButton={showAddButton}
         rerenderOnEveryChange={rerenderOnEveryChange}
       />
     );
