@@ -844,8 +844,12 @@ const dictionary = {
     en: 'Required',
   },
   validationInvalidName: {
-    fr: 'Le nom peut uniquement contenir des lettres, chiffres, tirets et underscore',
-    en: 'The name can only contain letters, numbers, dashes and underscore',
+    fr: "L'identifiant peut uniquement contenir des lettres non accentuées, chiffres, tirets et underscore",
+    en: 'The Id can only contain non-accentted letters, numbers, dashes and underscore',
+  },
+  validationInvalidNameSize: {
+    fr: "L'identifiant ne peux pas dépasser 16 caractères",
+    en: 'The Id can not exceed 16 characters',
   },
   validationMinNumber: {
     fr: 'Vous devez introduire au mois',

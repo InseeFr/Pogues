@@ -125,6 +125,7 @@ export class QuestionNewEdit extends Component {
             label={Dictionary.title}
             validate={[required]}
             required
+            avoidSubmitOnEnter={false}
           />
           <Field
             refs="input"
@@ -135,6 +136,7 @@ export class QuestionNewEdit extends Component {
             validate={[required, validationName]}
             normalize={componentName}
             required
+            avoidSubmitOnEnter={false}
           />
           <Tabs components={panels} />
           <div className="form-footer">
