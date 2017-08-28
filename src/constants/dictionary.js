@@ -774,6 +774,18 @@ const dictionary = {
     fr: 'Dernière mise à jour',
     en: 'Last update',
   },
+  state: {
+    fr: 'Etat',
+    en: 'State',
+  },
+  stateValidated: {
+    fr: 'Validé',
+    en: 'Validated',
+  },
+  stateProvisional: {
+    fr: 'Provisoire',
+    en: 'Provisional',
+  },
   noQuestionnnaires: {
     fr: 'Aucun questionnaire',
     en: 'No questionnaires',
