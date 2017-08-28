@@ -19,9 +19,9 @@ describe('updateParentChildren', () => {
   const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
   const fn = component.updateParentChildren(payload);
 
-  test(`should trigger the UPDATE_COMPONENT action`, () => {
+  test(`should trigger the UPDATE_COMPONENT_PARENT action`, () => {
     function dispatch(param) {
-      expect(param.type).toEqual(component.UPDATE_COMPONENT);
+      expect(param.type).toEqual(component.UPDATE_COMPONENT_PARENT);
     }
     fn(dispatch, getState);
   });
@@ -49,7 +49,7 @@ describe('updateParentChildren', () => {
 });
 
 describe('orderComponents', () => {
-  test(`should trigger the UPDATE_COMPONENT action`, () => {
+  test(`should trigger the UPDATE_COMPONENT_ORDER action`, () => {
     function getState() {
       return {
         appState: {
@@ -62,7 +62,7 @@ describe('orderComponents', () => {
     const fn = component.orderComponents(payload);
 
     function dispatch(param) {
-      expect(param.type).toEqual(component.UPDATE_COMPONENT);
+      expect(param.type).toEqual(component.UPDATE_COMPONENT_ORDER);
     }
     fn(dispatch, getState);
   });
@@ -397,7 +397,7 @@ describe('removeComponent', () => {
 });
 
 describe('duplicateComponent', () => {
-  test('should trigger the CREATE_COMPONENT action', () => {
+  test('should trigger the DUPLICATE_COMPONENT action', () => {
     function getState() {
       return {
         appState: {
@@ -408,7 +408,7 @@ describe('duplicateComponent', () => {
     const fn = component.duplicateComponent('1');
 
     function dispatch(param) {
-      expect(param.type).toEqual(component.CREATE_COMPONENT);
+      expect(param.type).toEqual(component.DUPLICATE_COMPONENT);
     }
     fn(dispatch, getState);
   });

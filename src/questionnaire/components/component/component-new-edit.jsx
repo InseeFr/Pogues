@@ -6,21 +6,33 @@ import ResponseFormat from 'questionnaire/components/response-format/response-fo
 import Declaration from 'questionnaire/components/declarations/declarations';
 import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
-
+import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
+import ExternalVariables from 'questionnaire/components/variables/external-variables';
+import CollectedVariables from 'questionnaire/components/variables/collected-variables';
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
-import { required } from 'layout/forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import Textarea from 'layout/forms/controls/rich-textarea';
+import { required, name as validationName } from 'layout/forms/validation-rules';
+import { componentName } from 'layout/forms/normalize-inputs';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-function getErrorsByType(errors) {
-  return errors.reduce((acc, e) => {
-    if (!acc[e.type]) acc[e.type] = [];
-    acc[e.type].push(e);
-    return acc;
+function getInvalidItemsByType(invalidItems) {
+  return Object.keys(invalidItems).reduce((acc, key) => {
+    const item = invalidItems[key];
+    let type = acc[item.type] || {};
+
+    type = {
+      ...type,
+      [item.id]: item,
+    };
+
+    return {
+      ...acc,
+      [item.type]: type,
+    };
   }, {});
 }
 
@@ -32,7 +44,7 @@ export class QuestionNewEdit extends Component {
     onCancel: PropTypes.func,
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
-    errors: PropTypes.array,
+    invalidItems: PropTypes.object,
   };
   static defaultProps = {
     handleSubmit: undefined,
@@ -40,38 +52,38 @@ export class QuestionNewEdit extends Component {
     pristine: false,
     submitting: false,
     edit: false,
-    errors: [],
+    invalidItems: {},
   };
   componentDidMount() {
-    if (this.props.edit) {
-      this.nameInput.focus();
-    } else if (this.props.type !== QUESTION) {
+    if (this.props.type !== QUESTION) {
       this.labelInput.focus();
     } else {
       this.labelInput._focus();
     }
   }
   render() {
-    const { type, edit, handleSubmit, onCancel, pristine, submitting, errors } = this.props;
-    const errorsByType = getErrorsByType(errors);
+    const { type, edit, handleSubmit, onCancel, pristine, submitting, invalidItems } = this.props;
+    const invalidItemsByType = getInvalidItemsByType(invalidItems);
     const panels = [
       {
         id: 'declarations',
         label: Dictionary.declaration_tabTitle,
         content: <Declaration />,
-        numErrors: errorsByType.declarations && errorsByType.declarations.length,
+        numErrors: invalidItemsByType.declarations && Object.keys(invalidItemsByType.declarations).length,
       },
       {
         id: 'controls',
         label: Dictionary.controls,
         content: <Controls />,
-        numErrors: errorsByType.controls && errorsByType.controls.length,
+        numErrors: invalidItemsByType.controls && Object.keys(invalidItemsByType.controls).length,
       },
       {
         id: 'redirections',
         label: Dictionary.goTo,
-        content: <Redirections componentType={type} isNewComponent={!edit} errors={errorsByType.redirections} />,
-        numErrors: errorsByType.redirections && errorsByType.redirections.length,
+        content: (
+          <Redirections componentType={type} isNewComponent={!edit} invalidItems={invalidItemsByType.redirections} />
+        ),
+        numErrors: invalidItemsByType.redirections && Object.keys(invalidItemsByType.redirections).length,
       },
     ];
 
@@ -79,27 +91,28 @@ export class QuestionNewEdit extends Component {
       panels.unshift({
         id: 'response-format',
         label: Dictionary.responsesEdition,
-        content: <ResponseFormat />,
+        content: <ResponseFormat edit={edit} />,
+      });
+      panels.push({
+        id: 'external-variables',
+        label: Dictionary.externalVariables,
+        content: <ExternalVariables />,
+      });
+      panels.push({
+        id: 'calculated-variables',
+        label: Dictionary.calculatedVariables,
+        content: <CalculatedVariables />,
+      });
+      panels.push({
+        id: 'collected-variables',
+        label: Dictionary.collectedVariables,
+        content: <CollectedVariables />,
       });
     }
 
     return (
       <div className="component-edition">
         <form onSubmit={handleSubmit}>
-          {edit
-            ? <Field
-                refs="input"
-                reference={input => {
-                  this.nameInput = input;
-                }}
-                name="name"
-                type="text"
-                component={Input}
-                label={Dictionary.name}
-                validate={[required]}
-                required
-              />
-            : ''}
           <Field
             reference={input => {
               this.labelInput = input;
@@ -108,9 +121,22 @@ export class QuestionNewEdit extends Component {
             type="text"
             component={type === QUESTION ? Textarea : Input}
             buttons
+            shouldSubmitOnEnter
             label={Dictionary.title}
             validate={[required]}
             required
+            avoidSubmitOnEnter={false}
+          />
+          <Field
+            refs="input"
+            name="name"
+            type="text"
+            component={Input}
+            label={Dictionary.name}
+            validate={[required, validationName]}
+            normalize={componentName}
+            required
+            avoidSubmitOnEnter={false}
           />
           <Tabs components={panels} />
           <div className="form-footer">

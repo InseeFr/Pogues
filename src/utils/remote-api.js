@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import Config from '../config';
+import Config from 'Config';
 
 const { baseURL, persistancePath, userPath } = Config;
 

@@ -2,7 +2,7 @@
 
 Cette opération consiste à transformer et associer toutes les ressources nécessaires à l'application pour les rendre utilisables par les navigateurs Web. Ce processus est géré par [Webpack](https://webpack.github.io/), et peut être lancé avec la commande `npm run dev` pendant le développement, et la commande `npm run build` en production.
 
-[include:95-113](../../../package.json)
+[include:92-112](../../../package.json)
 
 Pour l'essentiel, ce processus rassemble l'ensemble des fichiers `JavaScript` au sein d'un fichier unique. Grâce au plugin Babel pour Webpack, il est possible d'utliser dans le code une [syntaxe](/javascript/syntax.md#ES2015) `JavaScript` qui n'est pas encore supportée à grande échelle par les navigateurs: `babel` transforme le code afin qu'il fonctionne avec la plupart des navigateurs actuels.
 
@@ -22,6 +22,8 @@ Le script `npm run dev` est configuré pour fonctionner avec une version "en mé
 
 La configuration de webpack pour la version de production est légèrement différente de celle utilisée en développement: elle ne comprend pas en production le serveur Web de développement, et elle doit également comporter [quelques ajustements](https://github.com/InseeFr/Pogues/issues/145) afin de rendre le code utilisable en production. Lorsque la version de production est compilée, Webpack va réduire automatiquement la taille du code grâce à l'option `-p` de la ligne de commande.
 
+Vous trouverez les statistiques de WebPack sur la page [stats](../../stats.html) (Attention: vous devez l'ouvrir dans un autre onglet, afin que la redirection soit fonctionnelle)
+
 ## Autres Scripts NPM 
 
 Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cycle du vie. 
@@ -33,9 +35,21 @@ Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cyc
 * dev:local : Lance l'application utilisant l'API locale
 * dev:server : Lance les scripts `npm run dev:local` et `npm run server`
 * server : Lance le fake serveur NodeJS
-* build : Génére le livrable de l'application
+* build : Génére le livrable de l'application avec la configuration de prod
+* build:dev : Génère le librable avec la configuration de l'environnement de dev
+* build:dv : Génère le librable avec la configuration de l'environnement de dv
+* build:preprod : Génère le librable avec la configuration de l'environnement de preprod
+* build:qa : Génère le librable avec la configuration de l'environnement de qa
+* build:qf : Génère le librable avec la configuration de l'environnement de qf
 * lint : Vérifie la qualité du projet
 * lint:fix : Vérifie la qualité du projet et applique des correctifs automatiquement
 * start : Lance la commande `npm run dev`
 * e2e : Exécute les tests d'intégrations
 * e2e:travis : Exécute les tests d'intégrations avec la configuration de Travis
+
+## Ajour d'un nouvel environnement
+
+Si vous voulez ajouter un nouvel environnement (par exemple qlf2), il suffit de : 
+- Créer un fichier de configuration `config.qlf2.js` dans le répertoire `build-config/environments`. 
+- Récupérer la configuration d'un autre environnement, et faire les ajustements
+- Ajouter un script NPM `build:qlf2`

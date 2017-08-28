@@ -1,15 +1,15 @@
-import { uuid } from 'utils/data-utils';
-import Component from 'utils/transformation-entities/component';
 import { isSubSequence, isSequence, isQuestion, toComponents } from 'utils/component/component-utils';
-import { getCodesListsAndCodesFromQuestion, updateNewComponentParent } from 'utils/model/form-to-state-utils';
+import { updateNewComponentParent } from 'utils/model/form-to-state-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
 import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence, duplicate } from './component-insert';
 import { moveComponent } from './component-move';
-import { sortBy } from 'lodash/fp';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
+export const DUPLICATE_COMPONENT = 'DUPLICATE_COMPONENT';
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
+export const UPDATE_COMPONENT_PARENT = 'UPDATE_COMPONENT_PARENT';
+export const UPDATE_COMPONENT_ORDER = 'UPDATE_COMPONENT_ORDER';
 export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
 export const MOVE_COMPONENT = 'MOVE_COMPONENT';
 
@@ -25,31 +25,32 @@ export const MOVE_COMPONENT = 'MOVE_COMPONENT';
  * @param   {string}  type      The type of component
  * @return  {object}            CREATE_COMPONENT action
  */
-export const createComponent = (form, parentId, weight, type) => dispatch => {
-  const id = uuid();
-  const newComponent = Component.formToState({ ...form, parent: parentId, weight, type, id });
-  const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
-    newComponent.responseFormat
-  );
-  const activeComponentsById = {
-    [id]: newComponent,
+export const createComponent = (
+  componentState,
+  calculatedVariablesStore,
+  externalVariablesStore,
+  codesListsStore
+) => dispatch => {
+  const activeComponentsStore = {
+    [componentState.id]: componentState,
   };
 
   return new Promise(resolve => {
     const result = dispatch({
       type: CREATE_COMPONENT,
       payload: {
-        id,
+        id: componentState.id,
         update: {
-          activeComponentsById,
-          activeCodesById,
-          activeCodeListsById,
+          activeComponentsById: activeComponentsStore,
+          activeCalculatedVariablesById: calculatedVariablesStore,
+          activeExternalVariablesById: externalVariablesStore,
+          activeCodeListsById: codesListsStore,
         },
       },
     });
     resolve({
       payload: {
-        id,
+        id: componentState.id,
         lastCreatedComponent: result.payload.update.activeComponentsById,
       },
     });
@@ -66,7 +67,7 @@ export const createComponent = (form, parentId, weight, type) => dispatch => {
 export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) => (dispatch, getState) => {
   const state = getState();
   return dispatch({
-    type: UPDATE_COMPONENT,
+    type: UPDATE_COMPONENT_PARENT,
     payload: {
       id,
       lastCreatedComponent,
@@ -109,7 +110,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
     const childrenSelectedComponentLength = selectedComponent.children.length;
 
     /**
-     * When we insert a SUBSEQUENCE, we have to do a reorder only in these two cases : 
+     * When we insert a SUBSEQUENCE, we have to do a reorder only in these two cases :
      * 1. The currently selected component is QUESTION and its sibling is also a QUESTION
      * 2. The currently selecteed component is a SUBSEQUENCE with children (of course QUESTION)
      */
@@ -157,7 +158,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
   }
 
   return dispatch({
-    type: UPDATE_COMPONENT,
+    type: UPDATE_COMPONENT_ORDER,
     payload: {
       id,
       update: {
@@ -175,22 +176,22 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
  * @param   {object}  update      The properties which need to be updated
  * @return  {object}              UPDATE_COMPONENT action
  */
-export const updateComponent = (form, id, parent, weight, type, children) => {
-  const updatedComponent = Component.formToState({ ...form, parent, weight, type, id, children });
-  const { codes: activeCodesById, codesLists: activeCodeListsById } = getCodesListsAndCodesFromQuestion(
-    updatedComponent.responseFormat
-  );
-  const activeComponentsById = {
-    [id]: updatedComponent,
-  };
+export const updateComponent = (
+  componentId,
+  componentsStore,
+  calculatedVariablesStore,
+  externalVariablesStore,
+  codesListsStore
+) => {
   return {
     type: UPDATE_COMPONENT,
     payload: {
-      id,
+      componentId,
       update: {
-        activeComponentsById,
-        activeCodesById,
-        activeCodeListsById,
+        activeComponentsById: componentsStore,
+        activeCalculatedVariablesById: calculatedVariablesStore,
+        activeExternalVariablesById: externalVariablesStore,
+        activeCodeListsById: codesListsStore,
       },
     },
   };
@@ -241,7 +242,7 @@ export const duplicateComponent = idComponent => (dispatch, getState) => {
   const state = getState();
   const activeComponentsById = state.appState.activeComponentsById;
   dispatch({
-    type: CREATE_COMPONENT,
+    type: DUPLICATE_COMPONENT,
     payload: {
       update: {
         activeComponentsById: duplicate(activeComponentsById, idComponent),

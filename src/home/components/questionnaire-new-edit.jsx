@@ -6,11 +6,11 @@ import Input from 'layout/forms/controls/input';
 import SelectWithAddNew from 'layout/forms/controls/select-with-add-new';
 import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
 import Select from 'layout/forms/controls/select';
-import { required } from 'layout/forms/validation-rules';
-import { questionnaireName } from 'layout/forms/normalize-inputs';
+import { required, name as validationName } from 'layout/forms/validation-rules';
+import { componentName } from 'layout/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 
-export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, invalid, error, onCancel }) {
+export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, onCancel }) {
   // @TODO: Remove the mocks
   const mockCampaigns = [
     {
@@ -73,12 +73,7 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
 
   return (
     <div id="questionnaire-new">
-      <ul display={invalid}>
-        {/* eslint-disable react/no-array-index-key */}
-        {error.map((e, index) => <li key={`validation-error-${index}`}>{e}</li>)}
-      </ul>
       <form onSubmit={handleSubmit}>
-
         <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
 
         <Field
@@ -86,19 +81,21 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
           type="text"
           component={Input}
           label={Dictionary.name}
-          validate={[required]}
-          normalize={questionnaireName}
+          validate={[required, validationName]}
+          normalize={componentName}
           required
         />
 
         <Field name="stamp" type="text" component={Input} label={Dictionary.stamp} validate={[]} />
 
-        <div>{Dictionary.newQuestionnaireLegend}</div>
+        <div>
+          {Dictionary.newQuestionnaireLegend}
+        </div>
         <br />
 
-        <Field name="collection" component={Select} label={Dictionary.collection} options={mockCollections} required />
+        <Field name="collection" component={Select} label={Dictionary.collection} options={mockCollections} />
 
-        <Field name="operation" component={Select} label={Dictionary.operationStat} options={mockOperations} required />
+        <Field name="operation" component={Select} label={Dictionary.operationStat} options={mockOperations} />
 
         <Field
           name="campaign"
@@ -106,7 +103,6 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
           label={Dictionary.collectionCampaign}
           options={mockCampaigns}
           labelButton={Dictionary.collectionCampaignNew}
-          required
         />
 
         <Field
@@ -115,20 +111,18 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, inval
           label={Dictionary.model}
           options={mockModels}
           labelButton={Dictionary.modelNew}
-          required
         />
 
-        <Field
-          name="context"
-          component={ListRadioButtons}
-          label={Dictionary.collectionMode}
-          radios={mockContext}
-          required
-        />
+        <Field name="context" component={ListRadioButtons} label={Dictionary.collectionMode} radios={mockContext} />
 
         <div className="form-footer">
-          <button type="submit" disabled={pristine || submitting}>{Dictionary.validate}</button>
-          {onCancel && <button className="cancel" disabled={submitting} onClick={onCancel}>{Dictionary.cancel}</button>}
+          <button type="submit" disabled={pristine || submitting}>
+            {Dictionary.validate}
+          </button>
+          {onCancel &&
+            <button className="cancel" disabled={submitting} onClick={onCancel}>
+              {Dictionary.cancel}
+            </button>}
         </div>
       </form>
     </div>
@@ -140,8 +134,6 @@ QuestionnaireNewEdit.propTypes = {
   onCancel: PropTypes.func,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
-  invalid: PropTypes.bool,
-  error: PropTypes.array,
 };
 
 QuestionnaireNewEdit.defaultProps = {
@@ -149,8 +141,6 @@ QuestionnaireNewEdit.defaultProps = {
   onCancel: undefined,
   pristine: false,
   submitting: false,
-  invalid: false,
-  error: [],
 };
 
 export default reduxForm({

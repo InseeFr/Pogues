@@ -1,110 +1,205 @@
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME } from 'constants/pogues-constants';
-import Component from 'utils/transformation-entities/component';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { uuid } from 'utils/data-utils';
+import ComponentTransformerFactory from 'utils/transformation-entities/component';
+import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
+import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
+import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
-export const defaultQuestionnaireForm = {
+export const defaultQuestionnaireState = {
+  owner: undefined,
+  id: undefined,
   label: '',
   name: '',
-};
-
-export const defaultQuestionnaireState = {
-  id: undefined,
-  owner: undefined,
-  name: undefined,
-  label: undefined,
-  components: [],
-  codeLists: [],
-  conditions: [],
-  declarations: [],
-  controls: [],
-  redirections: [],
   agency: undefined,
-  survey: undefined,
+  dataCollection: undefined,
+  componentGroups: undefined,
 };
 
 export const defaultQuestionnaireModel = {
   id: '',
-  name: '',
-  label: [],
-  declarations: [],
-  redirections: [],
-  controls: [],
-  genericName: QUESTIONNAIRE,
-  children: [],
-  depth: 0,
   owner: '',
-  type: SEQUENCE_TYPE_NAME,
+  depth: 0,
+  genericName: QUESTIONNAIRE,
   agency: 'fr.insee', // @TODO: This should not be constant,
-  survey: {
-    agency: 'fr.insee', // @TODO: Idem
-    name: 'POPO', // @TODO: Idem,
-    id: '',
-  },
-  componentGroups: [
-    // @TODO: Idem
+  Name: '',
+  Label: [],
+  Child: [],
+  // @TODO: Idem
+  DataCollection: [
     {
-      name: 'PAGE_1', // @TODO: Idem
-      label: 'Components for page 1', // @TODO: Idem
-      Member: [],
-      id: '',
+      id: 'dataCollection1',
+      uri: 'http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1',
+      Name: 'POPO-2017-A00',
     },
   ],
-  codeLists: {
-    codeList: [],
-    codeListSpecification: [],
+  // @TODO: Idem
+  ComponentGroup: [
+    {
+      id: 'j3tu30jo',
+      Name: 'PAGE_1',
+      Label: ['Components for page 1'],
+      MemberReference: [],
+    },
+  ],
+  CodeLists: {
+    CodeList: [],
+  },
+  Variables: {
+    Variable: [],
   },
 };
 
-function modelToState(model) {
-  const { id, name, label: [label], agency, survey, components, codesLists, conditions, owner } = model;
-  const questionnaireData = {
+function transformationFormToState(form, currentState) {
+  const { owner, id, agency, dataCollection, componentGroups, final, lastUpdatedDate } = currentState;
+
+  const { label, name } = form;
+
+  return {
+    owner,
+    id: id || uuid(),
+    label,
+    name,
+    agency,
+    dataCollection,
+    componentGroups,
+    final,
+    lastUpdatedDate,
+  };
+}
+
+function transformationModelToState(model) {
+  const {
+    owner,
+    final,
+    id,
+    Name: name,
+    Label: [label],
+    agency,
+    DataCollection: dataCollection,
+    ComponentGroup: componentGroups,
+    lastUpdatedDate,
+  } = model;
+
+  return {
+    owner,
+    final,
     id,
     name,
     label,
     agency,
-    survey,
-    owner,
-    components: Object.keys(components),
-    codeLists: Object.keys(codesLists),
-    conditions: Object.keys(conditions),
-  };
-
-  return {
-    ...defaultQuestionnaireState,
-    ...questionnaireData,
+    dataCollection,
+    componentGroups,
+    lastUpdatedDate,
   };
 }
 
-function stateToModel(questionnaire, components, codesLists = {}, codeList = []) {
-  const { id, owner } = questionnaire;
-  const model = Component.stateToModel({ ...components[id], depth: 0 }, components, codesLists);
+function transformationStateToForm(currentState) {
+  const { label, name, final, lastUpdatedDate } = currentState;
+  return {
+    label,
+    name,
+    final,
+    lastUpdatedDate,
+  };
+}
+
+function transformationStateToModel(
+  currentState,
+  componentsStore,
+  codesListsStore,
+  conditionsStore,
+  calculatedVariablesStore,
+  externalVariablesStore
+) {
+  const { owner, id, label, name, agency, dataCollection, componentGroups, final, lastUpdatedDate } = currentState;
+  const model = {
+    owner,
+    final,
+    id,
+    Label: [label],
+    Name: name,
+    lastUpdatedDate,
+  };
+
+  const componentsModel = ComponentTransformerFactory({
+    questionnaireId: id,
+    initialStore: componentsStore,
+    codesListsStore,
+  }).storeToModel();
+
+  const calculatedVariablesModel = CalculatedVariableTransformerFactory({
+    initialStore: calculatedVariablesStore,
+  }).storeToModel();
+
+  const externalVariablesModel = ExternalVariableTransformerFactory({
+    initialStore: externalVariablesStore,
+  }).storeToModel();
+
+  const codesListsModel = CodesListTransformerFactory().storeToModel(codesListsStore);
+
+  if (dataCollection) model.DataCollection = dataCollection;
+  if (agency) model.agency = agency;
+  if (componentGroups) model.ComponentGroup = componentGroups;
 
   return {
     ...defaultQuestionnaireModel,
     ...model,
-    owner,
-    codeLists: {
-      codeList,
-      codeListSpecification: [],
+    Child: componentsModel,
+    CodeLists: {
+      CodeList: codesListsModel,
+    },
+    Variables: {
+      Variable: [...calculatedVariablesModel, ...externalVariablesModel],
     },
   };
 }
 
-function formToState(form) {
-  const { id, name, label, owner } = form;
+const QuestionnaireTransformerFactory = (conf = {}) => {
+  const {
+    owner,
+    initialState,
+    componentsStore,
+    codesListsStore,
+    conditionsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+  } = conf;
+
+  let currentState = initialState || defaultQuestionnaireState;
+
+  if (owner) currentState.owner = owner;
+  if (!currentState.final) currentState.final = false;
+  if (!currentState.lastUpdatedDate) {
+    currentState.lastUpdatedDate = new Date().toString();
+  }
 
   return {
-    ...defaultQuestionnaireState,
-    id,
-    name,
-    label,
-    owner,
+    formToState: form => {
+      currentState = transformationFormToState(form, currentState);
+      return currentState;
+    },
+    modelToStore: model => {
+      currentState = transformationModelToState(model);
+      return {
+        [currentState.id]: currentState,
+      };
+    },
+    stateToForm: () => {
+      return transformationStateToForm(currentState);
+    },
+    stateToModel: () => {
+      return transformationStateToModel(
+        currentState,
+        componentsStore,
+        codesListsStore,
+        conditionsStore,
+        calculatedVariablesStore,
+        externalVariablesStore
+      );
+    },
   };
-}
-
-export default {
-  modelToState,
-  stateToModel,
-  formToState,
 };
+
+export default QuestionnaireTransformerFactory;

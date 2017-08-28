@@ -7,7 +7,7 @@ import Input from 'layout/forms/controls/input';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import Checkbox from 'layout/forms/controls/checkbox';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultControlForm } from 'utils/transformation-entities/control';
+import { controlsFormDefault } from 'utils/transformation-entities/control';
 
 function validationControl(values) {
   const { label, condition, message } = values;
@@ -61,7 +61,7 @@ class Controls extends Component {
   static selectorPath = 'controls';
 
   render() {
-    const { controls, ...initialInputValues } = defaultControlForm;
+    const { controls, ...initialInputValues } = controlsFormDefault;
     const inputControlView = <InputControl />;
 
     return (

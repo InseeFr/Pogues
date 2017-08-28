@@ -1,4 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { getLocale } from 'reducers/dictionary';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -112,10 +114,12 @@ function getTargetsFromSequence(components, parent, weight, currentComponentId) 
 }
 
 function getTargetsFromComponent(components, parent, weight, currentComponentId) {
+  if (!components[parent].children) return [];
+
   return components[parent].children
     .filter(id => id !== currentComponentId && components[id].weight >= weight)
     .reduce((acc, id) => {
-      return [...acc, id, ...components[id].children];
+      return [...acc, id, ...(components[id].children || [])];
     }, []);
 }
 
@@ -137,7 +141,7 @@ export function getTargets(
     if (currentComponentType === SEQUENCE) {
       ids = [
         ...components[selectedComponentId].children.reduce((acc, id) => {
-          return [...acc, id, ...components[id].children];
+          return [...acc, id, ...(components[id].children || [])];
         }, []),
       ];
     } else if (currentComponentType === SUBSEQUENCE) {
@@ -165,4 +169,18 @@ export function getTargets(
   } while (currentComponentParent !== '');
 
   return ids;
+}
+
+export function formatDate(date) {
+  return new Intl.DateTimeFormat(getLocale(), {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(date));
+}
+
+export function getState(final) {
+  return final ? Dictionary.stateValidated : Dictionary.stateProvisional;
 }

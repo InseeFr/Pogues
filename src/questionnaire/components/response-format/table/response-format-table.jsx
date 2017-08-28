@@ -57,7 +57,9 @@ class ResponseFormatTable extends Component {
         </h3>
 
         {primaryAxisType === LIST || !showSecondaryAxis
-          ? <ResponseFormatTableListMeasures selectorPathParent={this.selectorPathComposed} />
+          ? <ResponseFormatTableListMeasures
+              selectorPathParent={this.selectorPathComposed}
+            />
           : <ResponseFormatTableMeasure selectorPathParent={this.selectorPathComposed} />}
       </FormSection>
     );
