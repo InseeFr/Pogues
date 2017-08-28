@@ -13,12 +13,13 @@ function Input({
   reference,
   id,
   help,
+  placeholder,
   meta: { touched, pristine, error, warning },
 }) {
   const customProps = {
     ref: reference,
     id: id !== '' ? `input-${input.id}` : `input-${input.name}`,
-    placeholder: label,
+    placeholder: placeholder || label,
     type,
   };
 
@@ -36,11 +37,12 @@ function Input({
 
   return (
     <div className="ctrl-input">
-      <label htmlFor={customProps.id}>
-        {label}
-        {required ? <span>*</span> : ''}
-        {helpBlock}
-      </label>
+      {label &&
+        <label htmlFor={customProps.id}>
+          {label}
+          {required ? <span>*</span> : ''}
+          {helpBlock}
+        </label>}
 
       <div>
         <input {...input} {...customProps} />
@@ -61,7 +63,7 @@ function Input({
 
 Input.propTypes = {
   input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   type: PropTypes.string.isRequired,
   required: PropTypes.bool,
   avoidSubmitOnEnter: PropTypes.bool,
@@ -69,6 +71,7 @@ Input.propTypes = {
   reference: PropTypes.func,
   id: PropTypes.string,
   help: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -78,6 +81,8 @@ Input.defaultProps = {
   reference: undefined,
   id: '',
   help: false,
+  placeholder: '',
+  label: '',
 };
 
 export default Input;
