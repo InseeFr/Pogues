@@ -69,7 +69,7 @@ function transformationFormToState(form, codesListsStore, currentCodesListsIdsSt
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
     codesListId: codesListState.id,
     codesList: codesListState,
-    type,
+    type: NEW,
   };
 }
 
@@ -100,7 +100,7 @@ function transformationStateToForm(currentState, codesListsStore) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    type,
+    type = NEW,
   } = currentState;
 
   return {

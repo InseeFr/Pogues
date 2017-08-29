@@ -60,13 +60,15 @@ function getDimension(type, dimensions) {
   return result.length > 0 ? result[0] : {};
 }
 
-function transformationFormToStatePrimary(form, currentCodesListsIdsStore) {
+function transformationFormToStatePrimary(form, currentCodesListsIdsStore, codesListsStore) {
   const { type, [type]: codesListForm } = form;
   const initialState =
     currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${PRIMARY}`] !== ''
       ? { id: currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${PRIMARY}`] }
       : undefined;
-  const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
+  const codesListState = CodesListTransformerFactory({ initialState, codesListsStore, type }).formToState(
+    codesListForm
+  );
 
   return {
     codesListId: codesListState.id,
@@ -74,7 +76,7 @@ function transformationFormToStatePrimary(form, currentCodesListsIdsStore) {
   };
 }
 
-function transformationFormToStateMeasure(form, currentCodesListsIdsStore) {
+function transformationFormToStateMeasure(form, currentCodesListsIdsStore, codesListsStore) {
   const { type: typeMeasure, [typeMeasure]: measureForm } = form;
   const state = {
     type: typeMeasure,
@@ -87,7 +89,9 @@ function transformationFormToStateMeasure(form, currentCodesListsIdsStore) {
       currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}`] !== ''
         ? { id: currentCodesListsIdsStore[`${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}`] }
         : undefined;
-    const codesListState = CodesListTransformerFactory({ initialState }).formToState(codesListForm);
+    const codesListState = CodesListTransformerFactory({ initialState, codesListsStore, type }).formToState(
+      codesListForm
+    );
     state[CODES_LIST] = {
       visHint,
       codesListId: codesListState.id,
@@ -98,12 +102,12 @@ function transformationFormToStateMeasure(form, currentCodesListsIdsStore) {
   return state;
 }
 
-function transformationFormToState(form, currentCodesListsIdsStore) {
+function transformationFormToState(form, currentCodesListsIdsStore, codesListsStore) {
   const { [PRIMARY]: primaryForm, [MEASURE]: measureForm } = form;
 
   return {
-    [PRIMARY]: transformationFormToStatePrimary(primaryForm, currentCodesListsIdsStore),
-    [MEASURE]: transformationFormToStateMeasure(measureForm, currentCodesListsIdsStore),
+    [PRIMARY]: transformationFormToStatePrimary(primaryForm, currentCodesListsIdsStore, codesListsStore),
+    [MEASURE]: transformationFormToStateMeasure(measureForm, currentCodesListsIdsStore, codesListsStore),
   };
 }
 
@@ -131,7 +135,11 @@ function transformationModelToState(model) {
 
 function transformationStateToFormPrimary(currentState, codesListsStore) {
   const { codesListId } = currentState;
-  const clTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
+  const clTransformer = CodesListTransformerFactory({
+    initialState: codesListsStore[codesListId],
+    codesListsStore,
+    type: NEW,
+  });
 
   return {
     ...defaultMultipleForm[PRIMARY],
@@ -146,7 +154,11 @@ function transformationStateToFormMeasure(currentState, codesListsStore) {
     ...currentState,
   };
   const { type, [CODES_LIST]: { codesListId, visHint } } = state;
-  const clTransformer = CodesListTransformerFactory({ initialState: codesListsStore[codesListId] });
+  const clTransformer = CodesListTransformerFactory({
+    initialState: codesListsStore[codesListId],
+    codesListsStore,
+    type: NEW,
+  });
 
   return {
     ...defaultMultipleForm[MEASURE],
@@ -204,7 +216,7 @@ const MultipleTransformerFactory = (conf = {}) => {
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, currentCodesListsIdsStore);
+      currentState = transformationFormToState(form, currentCodesListsIdsStore, codesListsStore);
       return currentState;
     },
     modelToState: model => {
