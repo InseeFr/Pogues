@@ -3,6 +3,7 @@ import { Field, FormSection } from 'redux-form';
 import Select from 'layout/forms/controls/select';
 import Dictionary from 'utils/dictionary/dictionary';
 import PropTypes from 'prop-types';
+import { required } from 'layout/forms/validation-rules'
 
 class CodesListQuestionnaire extends FormSection {
   static propTypes = {
@@ -22,7 +23,15 @@ class CodesListQuestionnaire extends FormSection {
     });
 
     return (
-      <Field component={Select} name="codesListId" label={Dictionary.selectCodesList} options={formattedCodeLists} />
+      <Field
+        component={Select}
+        name="codesListId"
+        label={Dictionary.selectCodesList}
+        options={formattedCodeLists}
+        emptyValue={Dictionary.selectCl}
+        required
+        validate={[required]}
+      />
     );
   }
 }

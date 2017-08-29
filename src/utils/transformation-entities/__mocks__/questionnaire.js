@@ -9,6 +9,7 @@ export const fakeQuestionnaireId = 'ID_QUESTIONNAIRE_FAKE';
 export const questionnaireForm = {
   label: 'This is a questionnaire',
   name: 'THISISAQUE',
+  final: false,
 };
 
 export const questionnaireStore = {
@@ -18,6 +19,7 @@ export const questionnaireStore = {
     name: 'THISISAQUE',
     label: 'This is a questionnaire',
     agency: 'fr.insee',
+    final: false,
     dataCollection: [
       {
         id: 'dataCollection1',
@@ -44,6 +46,7 @@ export const questionnaireModel = {
   agency: 'fr.insee',
   Name: 'THISISAQUE',
   Label: ['This is a questionnaire'],
+  final: false,
   DataCollection: [
     {
       id: 'dataCollection1',

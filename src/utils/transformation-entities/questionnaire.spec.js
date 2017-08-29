@@ -28,23 +28,42 @@ describe('Transformation entities - Questionnaire', () => {
     expect(state).toEqual(expectedState);
   });
 
-  test('Should produce expected STATE from questionnaire MODEL', () => {
+  test('Should produce expected STATE from questonnaire MODEL', () => {
+    const date = new Date().toString();
     const questionnaireTransformer = QuestionnaireTransformerFactory();
-    expect(questionnaireTransformer.modelToStore(questionnaireModel)).toEqual(questionnaireStore);
+    expect(
+      questionnaireTransformer.modelToStore({
+        ...questionnaireModel,
+        lastUpdatedDate: date,
+      })
+    ).toEqual({
+      ...questionnaireStore,
+    });
   });
 
   test('Should produce expected FORM from questionnaire STATE', () => {
+    const date = new Date().toString();
     const questionnaireTransformer = QuestionnaireTransformerFactory({
       owner: fakeOwnerId,
-      initialState: questionnaireStore[fakeQuestionnaireId],
+      initialState: {
+        ...questionnaireStore[fakeQuestionnaireId],
+        lastUpdatedDate: date,
+      },
     });
-    expect(questionnaireTransformer.stateToForm()).toEqual(questionnaireForm);
+    expect(questionnaireTransformer.stateToForm()).toEqual({
+      ...questionnaireForm,
+      lastUpdatedDate: date,
+    });
   });
 
   test('Should produce expected MODEL from questionnaire STATE', () => {
+    const date = new Date().toString();
     const questionnaireTransformer = QuestionnaireTransformerFactory({
       owner: fakeOwnerId,
-      initialState: questionnaireStore[fakeQuestionnaireId],
+      initialState: {
+        ...questionnaireStore[fakeQuestionnaireId],
+        lastUpdatedDate: date,
+      },
       componentsStore,
       codesListsStore,
       conditionsStore,
@@ -52,6 +71,9 @@ describe('Transformation entities - Questionnaire', () => {
       externalVariablesStore,
     });
 
-    expect(questionnaireTransformer.stateToModel()).toEqual(questionnaireModel);
+    expect(questionnaireTransformer.stateToModel()).toEqual({
+      ...questionnaireModel,
+      lastUpdatedDate: date,
+    });
   });
 });
