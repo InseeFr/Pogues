@@ -38,7 +38,7 @@ function transformationFormToState(form, type, currentState, codesListsStore) {
         },
       };
     }, {});
-  } else {
+  } else if (form) {
     const { codesListId } = form;
     state = codesListsStore[codesListId];
   }
@@ -74,34 +74,29 @@ function transformationModelToStore(model = []) {
   }, {});
 }
 
-function transformationStateToForm(state, type) {
-  let form;
+function transformationStateToForm(state, codesListsStore) {
+  const codesListId = state.codesListId;
+  const { label, name, codes } = {
+    ...state,
+    ...(codesListId ? codesListsStore[codesListId] : {}),
+  };
 
-  if (type === NEW) {
-    const { label, name, codes } = state;
-    form = {
-      label,
-      name,
-      codes: Object.keys(codes).reduce((acc, key) => {
-        const { label: labelCode, value, code } = codes[key];
-        return [
-          ...acc,
-          {
-            label: labelCode,
-            value,
-            code,
-          },
-        ];
-      }, []),
-    };
-  } else {
-    const { codesListId } = state;
-    form = {
-      codesListId,
-    };
-  }
-
-  return form;
+  return {
+    codesListId,
+    label,
+    name,
+    codes: Object.keys(codes).reduce((acc, key) => {
+      const { label: labelCode, value, code } = codes[key];
+      return [
+        ...acc,
+        {
+          label: labelCode,
+          value,
+          code,
+        },
+      ];
+    }, []),
+  };
 }
 
 function transformationStoreToModel(currentStore = {}) {
@@ -145,7 +140,7 @@ const CodesListTransformerFactory = (conf = {}) => {
       return transformationModelToStore(model);
     },
     stateToForm: () => {
-      return transformationStateToForm(currentState, type);
+      return transformationStateToForm(currentState, codesListsStore);
     },
     storeToModel: store => {
       return transformationStoreToModel(store);
