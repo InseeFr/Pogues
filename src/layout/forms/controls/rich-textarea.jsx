@@ -105,6 +105,15 @@ class RichTextArea extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.identifier === undefined) {
+      return;
+    }
+    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
+      this.setState({ value: getValue(nextProps) });
+    }
+  }
+
   onChange = value => {
     if (this.props.buttons) {
       const markdownValue = editorValueToMarkdown(value);
@@ -114,14 +123,12 @@ class RichTextArea extends Component {
     }
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.identifier === undefined) {
-      return;
+  handleReturn = e => {
+    if (!this.props.avoidSubmitOnEnter) {
+      e.target.closest('form').querySelector('button[type=submit]').click();
     }
-    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
-      this.setState({ value: getValue(nextProps) });
-    }
-  }
+    return 'handled';
+  };
 
   toolbarConfig = {
     display: ['INLINE_STYLE_BUTTONS', 'LINK_BUTTONS'],
@@ -137,7 +144,7 @@ class RichTextArea extends Component {
   };
 
   render() {
-    const { input, label, required, buttons, help, reference, avoidSubmitOnEnter } = this.props;
+    const { input, label, required, buttons, help, reference } = this.props;
     const editorValue = this.state.value;
 
     const helpBlock =
@@ -158,12 +165,7 @@ class RichTextArea extends Component {
               value={editorValue}
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
-              handleReturn={e => {
-                if (!avoidSubmitOnEnter) {
-                  e.target.closest('form').querySelector('button[type=submit]').click();
-                }
-                return 'handled';
-              }}
+              handleReturn={this.handleReturn}
               rootStyle={this.rootStyle}
               formatURL={formatURL}
               ref={reference}
