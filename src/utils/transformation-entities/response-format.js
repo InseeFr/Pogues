@@ -25,9 +25,9 @@ function transformationFormToState(form, codesListsStore, currentCodesListsIdsSt
       responseFormatForm
     );
   } else if (type === MULTIPLE_CHOICE) {
-    state[type] = MultipleTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
+    state[type] = MultipleTransformerFactory({ currentCodesListsIdsStore, codesListsStore }).formToState(responseFormatForm);
   } else if (type === TABLE) {
-    state[type] = TableTransformerFactory({ currentCodesListsIdsStore }).formToState(responseFormatForm);
+    state[type] = TableTransformerFactory({ currentCodesListsIdsStore, codesListsStore }).formToState(responseFormatForm);
   } else {
     state[type] = SimpleTransformerFactory().formToState(responseFormatForm);
   }

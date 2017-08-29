@@ -32,7 +32,7 @@ function stateToModel(state) {
   if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
   if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
   if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
-  if (hasSpecialCode !== undefined) {
+  if (hasSpecialCode) {
     model.nonResponseModality = {
       value: specialCode,
       label: specialLabel,
