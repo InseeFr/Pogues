@@ -650,6 +650,10 @@ const dictionary = {
     fr: "Ajout d'une modalité spécifique",
     en: 'Add special code',
   },
+  addCode: {
+    fr: 'Ajouter un code',
+    en: 'Add a code',
+  },
   codeLabel: {
     fr: 'Libellé de la modalité',
     en: 'Code label',
@@ -657,6 +661,10 @@ const dictionary = {
   code: {
     fr: 'Code de la modalité',
     en: 'Code',
+  },
+  codeUnicity: {
+    fr: 'Tous les codes doivent être uniques',
+    en: 'All codes should be unique',
   },
   codePh: {
     fr: 'Code',
