@@ -16,7 +16,14 @@ const CodesListLabel = ({
 }) =>
   <div>
     <div className="codes-list__name">
-      <input {...input} placeholder={placeholder} type={type} />
+      <input
+        {...input}
+        placeholder={placeholder}
+        type={type}
+        onKeyPress={e => {
+          return e.charCode === 13 && toggleCodesList();
+        }}
+      />
       <span className={toggleButtonClass} onClick={() => toggleCodesList()} />
     </div>
     {touched &&
