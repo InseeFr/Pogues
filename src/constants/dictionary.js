@@ -783,7 +783,7 @@ const dictionary = {
     en: 'Last update',
   },
   state: {
-    fr: 'Etat',
+    fr: 'État',
     en: 'State',
   },
   stateValidated: {
