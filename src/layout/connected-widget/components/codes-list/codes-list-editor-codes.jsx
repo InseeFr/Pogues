@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { required } from 'layout/forms/validation-rules';
+import TextArea from 'layout/forms/controls/rich-textarea';
 
 const Code = ({ input, autoFocus, label, type, attr, meta: { touched, error, warning } }) =>
   <div className={`codes-list__code-${attr} `}>
@@ -29,7 +30,7 @@ Code.propTypes = {
 };
 Code.defaultProps = {
   autoFocus: false,
-}
+};
 
 class CodesListEditorCodes extends Component {
   static propTypes = {
@@ -77,10 +78,9 @@ class CodesListEditorCodes extends Component {
                   attr="label"
                   name={`${name}.label`}
                   type="text"
-                  component={Code}
-                  placeholder={Dictionary.codeLabel}
+                  component={TextArea}
+                  buttons
                   validate={[required]}
-                  label={Dictionary.codeLabel}
                 />
                 <div className="codes-list__code-actions">
                   <button
