@@ -42,3 +42,12 @@ form {
     color: red;
   }
 }
+
+.error-block {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    list-style-type: circle;
+    margin: 0 40px 15px 0;
+    max-width: 300px;
+}

@@ -69,7 +69,9 @@ class QuestionnaireList extends Component {
                 />
               </div>
               <div className="questionnaire-list_header">
-                <div />
+                <div>
+                  {Dictionary.QUESTIONNAIRE}
+                </div>
                 <div>
                   {Dictionary.state}
                 </div>

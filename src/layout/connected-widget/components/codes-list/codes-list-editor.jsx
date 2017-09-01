@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import CodesListEditorCodes from './codes-list-editor-codes';
-import { required } from 'layout/forms/validation-rules';
+import { required, uniqueCode } from 'layout/forms/validation-rules';
 
 const CodesListLabel = ({
   input,
@@ -16,7 +16,14 @@ const CodesListLabel = ({
 }) =>
   <div>
     <div className="codes-list__name">
-      <input {...input} placeholder={placeholder} type={type} />
+      <input
+        {...input}
+        placeholder={placeholder}
+        type={type}
+        onKeyPress={e => {
+          return e.charCode === 13 && toggleCodesList();
+        }}
+      />
       <span className={toggleButtonClass} onClick={() => toggleCodesList()} />
     </div>
     {touched &&
@@ -91,7 +98,12 @@ class codesListEditor extends Component {
             {...requiredProps}
           />
         </div>
-        <FieldArray display={this.state.showCodesList} name="codes" component={CodesListEditorCodes} />
+        <FieldArray
+          display={this.state.showCodesList}
+          name="codes"
+          component={CodesListEditorCodes}
+          validate={[uniqueCode()]}
+        />
       </div>
     );
   }
