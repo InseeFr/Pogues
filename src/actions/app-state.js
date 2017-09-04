@@ -7,6 +7,7 @@ export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
 export const SET_ACTIVE_CODE_LISTS = 'SET_ACTIVE_CODE_LISTS';
 export const SET_ACTIVE_CALCULATED_VARIABLES = 'SET_ACTIVE_CALCULATED_VARIABLES';
 export const SET_ACTIVE_EXTERNAL_VARIABLES = 'SET_ACTIVE_EXTERNAL_VARIABLES';
+export const SET_ACTIVE_COLLECTED_VARIABLES = 'SET_ACTIVE_COLLECTED_VARIABLES';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
@@ -89,6 +90,22 @@ export const setActiveExternalVariables = externalVariables => ({
   type: SET_ACTIVE_EXTERNAL_VARIABLES,
   payload: {
     externalVariables,
+  },
+});
+
+/**
+ * Set active collected variables
+ *
+ * It changes the store "appState.collectedVariableByQuestion" with the list (as object)
+ * of code collected variables
+ *
+ * @param  {object} collectedVariablesByQuestion   The collected variables to set as actives
+ * @return {object}                               SET_ACTIVE_COLLECTED_VARIABLES action
+ */
+export const setActiveCollectedVariablesByQuestion = collectedVariablesByQuestion => ({
+  type: SET_ACTIVE_COLLECTED_VARIABLES,
+  payload: {
+    collectedVariablesByQuestion,
   },
 });
 

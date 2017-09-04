@@ -181,6 +181,7 @@ export const updateComponent = (
   componentsStore,
   calculatedVariablesStore,
   externalVariablesStore,
+  collectedVariablesStore,
   codesListsStore
 ) => {
   return {
@@ -191,6 +192,7 @@ export const updateComponent = (
         activeComponentsById: componentsStore,
         activeCalculatedVariablesById: calculatedVariablesStore,
         activeExternalVariablesById: externalVariablesStore,
+        activeCollectedVariablesById: { [componentId]: collectedVariablesStore },
         activeCodeListsById: codesListsStore,
       },
     },

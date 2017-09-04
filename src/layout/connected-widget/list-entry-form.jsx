@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import ListEntryForm from './components/list-entry-form';
 import { removeInvalidItem } from 'actions/app-state';
+import Dictionary from 'utils/dictionary/dictionary';
 
 function getValuesSubset(values, path, invalidItems = {}) {
   const item = _.cloneDeep(_.get(values, path));
@@ -35,6 +36,7 @@ const mapStateToProps = (state, { formName, selectorPath, listName }) => {
   formName = formName || 'component';
   const selector = formValueSelector(formName);
   return {
+    selectedItemIndex: selector(state, `${selectorPath}.ref`),
     values: getFormValues(formName)(state),
     addedItems: selector(state, `${selectorPath}.${listName}`),
     formName,
@@ -62,8 +64,11 @@ class ListEntryFormContainer extends Component {
     invalidItems: PropTypes.object,
     showDuplicateButton: PropTypes.bool,
     showAddButton: PropTypes.bool,
+    showRemoveButton: PropTypes.bool,
+    avoidNewAddition: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool,
     removeInvalidItem: PropTypes.func.isRequired,
+    selectedItemIndex: PropTypes.number,
   };
 
   static defaultProps = {
@@ -75,7 +80,10 @@ class ListEntryFormContainer extends Component {
     invalidItems: {},
     showDuplicateButton: true,
     showAddButton: true,
+    showRemoveButton: true,
+    avoidNewAddition: false,
     rerenderOnEveryChange: false,
+    selectedItemIndex: 0,
   };
 
   constructor(props) {
@@ -92,10 +100,10 @@ class ListEntryFormContainer extends Component {
     this.resetErrors = this.resetErrors.bind(this);
   }
 
-  resetErrors() {
+  setValidationErrors(errors) {
     this.setState({
       ...this.state,
-      errors: [],
+      errors,
     });
   }
 
@@ -104,13 +112,15 @@ class ListEntryFormContainer extends Component {
     const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`, invalidItems);
 
     if (invalidItems[subset.id]) {
-      this.validate(subset);
+      const validationErrors = this.validate(subset);
+      this.setValidationErrors(validationErrors);
     }
 
+    this.resetErrors();
     initialize(formName, updateValues(values, selectorPath, subset, index + 1));
   }
 
-  remove(index) {
+  remove() {
     const {
       formName,
       selectorPath,
@@ -121,10 +131,10 @@ class ListEntryFormContainer extends Component {
       removeInvalidItem,
       invalidItems,
     } = this.props;
-    const items = getValuesSubset(values, `${selectorPath}.${listName}`);
-    const removedItemId = items[index].id;
+    const currentValues = getValuesSubset(values, selectorPath);
+    const removedItemId = currentValues[listName][currentValues.ref - 1];
 
-    items.splice(index, 1);
+    currentValues[listName].splice(currentValues.ref - 1, 1);
 
     if (invalidItems[removedItemId]) {
       removeInvalidItem(removedItemId);
@@ -133,7 +143,7 @@ class ListEntryFormContainer extends Component {
 
     const subset = {
       ..._.cloneDeep(initialInputValues),
-      [listName]: items,
+      [listName]: currentValues[listName],
     };
     const newValues = updateValues(values, selectorPath, subset);
     this.resetErrors();
@@ -156,7 +166,7 @@ class ListEntryFormContainer extends Component {
     this.submit();
   }
 
-  submit(index) {
+  submit() {
     const {
       formName,
       values,
@@ -166,17 +176,28 @@ class ListEntryFormContainer extends Component {
       initialize,
       invalidItems,
       removeInvalidItem,
+      avoidNewAddition,
     } = this.props;
-    const { [listName]: items, ref: currentRef, ...currentValues } = getValuesSubset(values, selectorPath);
+    const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
-    if (!this.validate(currentValues)) return;
+    // If new additions are forbidden and there isn't an item selected
+    if (avoidNewAddition && !currentValues.ref) {
+      this.setValidationErrors([Dictionary.validation_collectedvariable_no_new]);
+      return;
+    }
+
+    const validationErrors = this.validate(currentValues);
+
+    if (validationErrors.length > 0) {
+      this.setValidationErrors(validationErrors);
+      return;
+    }
 
     if (invalidItems[currentValues.id]) {
       removeInvalidItem(currentValues.id);
     }
-
-    if (index !== undefined && index !== '') {
-      items[index] = currentValues;
+    if (currentValues.ref) {
+      items[currentValues.ref - 1] = currentValues;
     } else {
       items.push(currentValues);
     }
@@ -192,17 +213,11 @@ class ListEntryFormContainer extends Component {
 
   validate(values) {
     const { validationInput, addedItems } = this.props;
-    const errors = validationInput(values, addedItems);
-    let isValid = true;
+    return validationInput(values, addedItems);
+  }
 
-    if (errors.length > 0) {
-      isValid = false;
-      this.setState({
-        ...this.state,
-        errors,
-      });
-    }
-    return isValid;
+  resetErrors() {
+    this.setValidationErrors([]);
   }
 
   render() {
@@ -214,7 +229,10 @@ class ListEntryFormContainer extends Component {
       rerenderOnEveryChange,
       showDuplicateButton,
       showAddButton,
+      showRemoveButton,
+      avoidNewAddition,
       invalidItems,
+      selectedItemIndex,
     } = this.props;
 
     return (
@@ -231,8 +249,11 @@ class ListEntryFormContainer extends Component {
         listName={listName}
         invalidItems={invalidItems}
         showDuplicateButton={showDuplicateButton}
+        avoidNewAddition={avoidNewAddition}
         showAddButton={showAddButton}
+        showRemoveButton={showRemoveButton}
         rerenderOnEveryChange={rerenderOnEveryChange}
+        selectedItemIndex={selectedItemIndex}
       />
     );
   }

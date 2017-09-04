@@ -10,21 +10,20 @@ import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
+import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-const mapStateToProps = state => {
-  return {
-    activeComponentsStore: state.appState.activeComponentsById,
-    activeCodesListsStore: state.appState.activeCodeListsById,
-    activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
-    activeExternalVariablesStore: state.appState.activeExternalVariablesById,
-    activeCollectedVariablesStore: state.appState.activeCollectedVariablesById,
-    currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
-    invalidItems: state.appState.invalidItemsByActiveQuestion,
-  };
-};
+const mapStateToProps = (state, { componentId }) => ({
+  activeComponentsStore: state.appState.activeComponentsById,
+  activeCodesListsStore: state.appState.activeCodeListsById,
+  activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
+  activeExternalVariablesStore: state.appState.activeExternalVariablesById,
+  currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
+  invalidItems: state.appState.invalidItemsByActiveQuestion,
+  activeCollectedVariablesStore: state.appState.collectedVariableByQuestion[componentId],
+});
 
 const mapDispatchToProps = {
   updateComponent,
@@ -86,7 +85,6 @@ class ComponentEditContainer extends Component {
       currentCodesListsIdsStore,
       invalidItems,
     } = this.props;
-    debugger;
     const componentType = activeComponentsStore[componentId].type;
     const componentTransformer = ComponentTransformerFactory({
       initialStore: activeComponentsStore,
@@ -102,6 +100,7 @@ class ComponentEditContainer extends Component {
     const submit = values => {
       let updatedCalculatedVariablesStore = {};
       let updatedExternalVariablesStore = {};
+      let updatedCollectedlVariablesStore = {};
       let updatedCodesListsStore = {};
       const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
 
@@ -111,6 +110,7 @@ class ComponentEditContainer extends Component {
           values.calculatedVariables
         );
         updatedExternalVariablesStore = ExternalVariableTransformerFactory().formToStore(values.externalVariables);
+        updatedCollectedlVariablesStore = CollectedVariableTransformerFactory().formToStore(values.collectedVariables);
       }
 
       updateComponent(
@@ -118,6 +118,7 @@ class ComponentEditContainer extends Component {
         updatedComponentsStore,
         updatedCalculatedVariablesStore,
         updatedExternalVariablesStore,
+        updatedCollectedlVariablesStore,
         updatedCodesListsStore
       );
       if (onSuccess) onSuccess();

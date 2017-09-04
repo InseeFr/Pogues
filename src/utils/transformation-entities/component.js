@@ -8,6 +8,7 @@ import ControlTransformerFactory from './control';
 import RedirectionTransformerFactory from './redirection';
 import CalculatedVariableTransformerFactory from './calculated-variable';
 import ExternalVariableTransformerFactory from './external-variable';
+import CollectedVariableTransformerFactory from './collected-variable';
 import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -39,6 +40,7 @@ function transformationFormToState(form, currentState, codesListsStore, currentC
       currentCodesListsIdsStore,
       codesListsStore,
     }).formToState(responseFormat);
+    state.collectedVariables = CollectedVariableTransformerFactory().formToComponentState(form.collectedVariables);
   } else {
     state.label = label;
   }
@@ -93,6 +95,7 @@ function transformationModelToState(model, codesListsStore = {}) {
     state.responseFormat = ResponseFormatTransformerFactory({
       codesListsStore,
     }).modelToState(questionType, responses, dimensions);
+    state.collectedVariables = CollectedVariableTransformerFactory().modelToComponentState(responses);
   }
 
   return state;
@@ -114,8 +117,14 @@ function transformationModelToStore(model, questionnaireId, codesListsStore = {}
   return getComponentsFromNested(model, questionnaireId, {});
 }
 
-function transformationStateToForm(currentState, codesListsStore, calculatedVariablesStore, externalVariablesStore) {
-  const { label, name, type, responseFormat, declarations, controls, redirections } = currentState;
+function transformationStateToForm(
+  currentState,
+  codesListsStore,
+  calculatedVariablesStore,
+  externalVariablesStore,
+  collectedVariablesStore
+) {
+  const { label, name, type, responseFormat, declarations, controls, redirections, collectedVariables } = currentState;
   const form = {
     label: label || '',
     name: name || '',
@@ -135,6 +144,9 @@ function transformationStateToForm(currentState, codesListsStore, calculatedVari
     form.externalVariables = ExternalVariableTransformerFactory({
       initialStore: externalVariablesStore,
     }).storeToForm();
+    form.collectedVariables = CollectedVariableTransformerFactory({
+      collectedVariablesStore,
+    }).stateComponentToForm(collectedVariables);
   }
 
   return form;
@@ -242,7 +254,13 @@ const ComponentTransformerFactory = (conf = {}) => {
       } else {
         state = currentState;
       }
-      return transformationStateToForm(state, codesListsStore, calculatedVariablesStore, externalVariablesStore);
+      return transformationStateToForm(
+        state,
+        codesListsStore,
+        calculatedVariablesStore,
+        externalVariablesStore,
+        collectedVariablesStore || {}
+      );
     },
     storeToModel: () => {
       return currentStore[questionnaireId].children.map(key => {

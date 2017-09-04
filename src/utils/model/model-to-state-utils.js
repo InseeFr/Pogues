@@ -1,19 +1,21 @@
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
+import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 // import Condition from 'utils/transformation-entities/condition';
 import { VARIABLES_TYPES } from 'constants/pogues-constants';
 import Logger from 'utils/logger/logger';
 
-const { CALCULATED, EXTERNAL } = VARIABLES_TYPES;
+const { CALCULATED, EXTERNAL, COLLECTED } = VARIABLES_TYPES;
 const logger = new Logger('ModelToStateUtils', 'Utils');
 
 export function questionnaireModelToStores(model) {
   const { id, CodeLists: { CodeList: codesLists }, Variables: { Variable: variables } } = model;
   const calculatedVariables = variables.filter(v => v.type === CALCULATED);
   const externalVariables = variables.filter(v => v.type === EXTERNAL);
+  const collectedVariables = variables.filter(v => v.type === COLLECTED);
 
   // Questionnaire store
   const questionnaireById = QuestionnaireTransformerFactory(model).modelToStore(model);
@@ -26,6 +28,11 @@ export function questionnaireModelToStores(model) {
   // External variables store
   const externalVariableByQuestionnaire = {
     [id]: ExternalVariableTransformerFactory().modelToStore(externalVariables),
+  };
+
+  // Collected variables store
+  const collectedVariableByQuestionnaire = {
+    [id]: CollectedVariableTransformerFactory().modelToStore(collectedVariables),
   };
 
   // Codes lists store
@@ -50,6 +57,7 @@ export function questionnaireModelToStores(model) {
     questionnaireById,
     calculatedVariableByQuestionnaire,
     externalVariableByQuestionnaire,
+    collectedVariableByQuestionnaire,
     codeListByQuestionnaire,
     componentByQuestionnaire,
     conditionByQuestionnaire: {},

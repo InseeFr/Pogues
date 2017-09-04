@@ -69,7 +69,8 @@ module.exports = [
             "position" : "AFTER_QUESTION_TEXT",
             "Text" : "Je suis le texte de la consigne "
           } ],
-          "Response" : [ {
+          "Response" : [
+            {
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "TEXT",
@@ -2270,7 +2271,6 @@ module.exports = [
         "Name" : "collectedVariableName1",
         "Label" : "collectedVariableLabel1"
       }, {
-        "id" : "collectedVariable2",
         "id" : "collectedVariable2",
         "type" : "CollectedVariableType",
         "Name" : "collectedVariableName2",

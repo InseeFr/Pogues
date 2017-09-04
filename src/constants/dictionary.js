@@ -967,6 +967,10 @@ const dictionary = {
     fr: 'Il existe une variable collectée avec le même nom',
     en: 'It already exists an collected variable with this name',
   },
+  validation_collectedvariable_no_new: {
+    fr: 'Vous ne pouvez pas ajouter des nouvelles variables collectées',
+    en: "You can't add new collected variables",
+  },
 };
 
 // Dynamic translations
