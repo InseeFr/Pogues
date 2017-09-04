@@ -81,15 +81,15 @@ function transformationStateToForm(currentState) {
   };
 }
 
-function transformationStateToModel(currentState) {
+function transformationStateToModel(currentState, collectedVariables) {
   const dataType = currentState[currentState.type];
   return {
-    Response: [Response.stateToModel({ ...currentState, ...dataType })],
+    Response: [Response.stateToModel({ ...currentState, ...dataType, collectedVariable: collectedVariables[0] })],
   };
 }
 
 const SimpleTransformerFactory = (conf = {}) => {
-  const { initialState } = conf;
+  const { initialState, collectedVariables } = conf;
 
   let currentState = initialState || defaultSimpleState;
 
@@ -107,7 +107,7 @@ const SimpleTransformerFactory = (conf = {}) => {
       return transformationStateToForm(currentState);
     },
     stateToModel: () => {
-      return transformationStateToModel(currentState);
+      return transformationStateToModel(currentState, collectedVariables);
     },
   };
 };

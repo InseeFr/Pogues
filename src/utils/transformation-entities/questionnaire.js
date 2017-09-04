@@ -4,6 +4,7 @@ import ComponentTransformerFactory from 'utils/transformation-entities/component
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
+import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -111,7 +112,8 @@ function transformationStateToModel(
   codesListsStore,
   conditionsStore,
   calculatedVariablesStore,
-  externalVariablesStore
+  externalVariablesStore,
+  collectedVariableByQuestionStore
 ) {
   const { owner, id, label, name, agency, dataCollection, componentGroups, final, lastUpdatedDate } = currentState;
   const model = {
@@ -137,6 +139,15 @@ function transformationStateToModel(
     initialStore: externalVariablesStore,
   }).storeToModel();
 
+  const collectedVariablesModel = CollectedVariableTransformerFactory({
+    initialStore: Object.keys(collectedVariableByQuestionStore).reduce((acc, key) => {
+      return {
+        ...acc,
+        ...collectedVariableByQuestionStore[key],
+      };
+    }, {}),
+  }).storeToModel();
+
   const codesListsModel = CodesListTransformerFactory().storeToModel(codesListsStore);
 
   if (dataCollection) model.DataCollection = dataCollection;
@@ -151,7 +162,7 @@ function transformationStateToModel(
       CodeList: codesListsModel,
     },
     Variables: {
-      Variable: [...calculatedVariablesModel, ...externalVariablesModel],
+      Variable: [...calculatedVariablesModel, ...externalVariablesModel, ...collectedVariablesModel],
     },
   };
 }
@@ -165,6 +176,7 @@ const QuestionnaireTransformerFactory = (conf = {}) => {
     conditionsStore,
     calculatedVariablesStore,
     externalVariablesStore,
+    collectedVariableByQuestionStore,
   } = conf;
 
   let currentState = initialState || defaultQuestionnaireState;
@@ -196,7 +208,8 @@ const QuestionnaireTransformerFactory = (conf = {}) => {
         codesListsStore,
         conditionsStore,
         calculatedVariablesStore,
-        externalVariablesStore
+        externalVariablesStore,
+        collectedVariableByQuestionStore
       );
     },
   };

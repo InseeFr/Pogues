@@ -152,8 +152,14 @@ function transformationStateToForm(
   return form;
 }
 
-function transformationStateToModel(state, store, codesListsStore = {}, depth = 1) {
-  const { id, name: Name, label, type, children, responseFormat, declarations, controls, redirections } = state;
+function transformationStateToModel(
+  state,
+  store,
+  codesListsStore = {},
+  collectedVariableByQuestionStore = {},
+  depth = 1
+) {
+  const { id, name: Name, label, type, children, responseFormat, declarations, controls, redirections, collectedVariables } = state;
 
   let model = {
     id,
@@ -171,7 +177,11 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
     // @TODO
     model = {
       ...model,
-      ...ResponseFormatTransformerFactory({ initialState: responseFormat, codesListsStore }).stateToModel(),
+      ...ResponseFormatTransformerFactory({
+        initialState: responseFormat,
+        codesListsStore,
+        collectedVariables,
+      }).stateToModel(),
     };
   } else {
     model.type = SEQUENCE_TYPE_NAME;
@@ -209,6 +219,7 @@ const ComponentTransformerFactory = (conf = {}) => {
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariablesStore,
+    collectedVariableByQuestionStore,
     currentCodesListsIdsStore,
   } = conf;
 
@@ -264,7 +275,12 @@ const ComponentTransformerFactory = (conf = {}) => {
     },
     storeToModel: () => {
       return currentStore[questionnaireId].children.map(key => {
-        return transformationStateToModel(currentStore[key], currentStore, codesListsStore);
+        return transformationStateToModel(
+          currentStore[key],
+          currentStore,
+          codesListsStore,
+          collectedVariableByQuestionStore
+        );
       });
     },
   };

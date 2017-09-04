@@ -226,6 +226,7 @@ export const saveActiveQuestionnaire = () => {
       conditionsStore: {},
       calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
       externalVariablesStore: state.appState.activeExternalVariablesById,
+      collectedVariableByQuestionStore: state.appState.collectedVariableByQuestion,
     });
     const questionnaireModel = questionnaireTransformer.stateToModel();
 

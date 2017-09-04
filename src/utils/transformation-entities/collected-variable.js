@@ -1,7 +1,7 @@
 import { uuid } from 'utils/data-utils';
 import { VARIABLES_TYPES } from 'constants/pogues-constants';
 
-const { EXTERNAL } = VARIABLES_TYPES;
+const { COLLECTED } = VARIABLES_TYPES;
 
 export const defaultCollectedVariableForm = {
   name: '',
@@ -73,7 +73,7 @@ function transformationStoreToModel(currentStore) {
       id,
       Name,
       Label,
-      type: EXTERNAL,
+      type: COLLECTED,
     });
   });
 
