@@ -140,7 +140,7 @@ function transformationStateToModel(
   }).storeToModel();
 
   const collectedVariablesModel = CollectedVariableTransformerFactory({
-    initialStore: Object.keys(collectedVariableByQuestionStore).reduce((acc, key) => {
+    initialStore: Object.keys(collectedVariableByQuestionStore || {}).reduce((acc, key) => {
       return {
         ...acc,
         ...collectedVariableByQuestionStore[key],
