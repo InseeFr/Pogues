@@ -18,7 +18,15 @@ export const defaultDimensionModel = {
 };
 
 function stateToModel(state) {
-  const { type, codesListId: CodeListReference, numLinesMin, numLinesMax, showTotalLabel, totalLabel, label: Label } = state;
+  const {
+    type,
+    codesListId: CodeListReference,
+    numLinesMin,
+    numLinesMax,
+    showTotalLabel,
+    totalLabel,
+    label: Label,
+  } = state;
   const model = {
     dimensionType: type,
   };

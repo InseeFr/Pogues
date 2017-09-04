@@ -200,7 +200,10 @@ export const saveActiveQuestionnaire = () => {
     const state = getState();
     const questionnaireTransformer = QuestionnaireTransformerFactory({
       owner: state.appState.user.permission,
-      initialState: state.appState.activeQuestionnaire,
+      initialState: {
+        ...state.appState.activeQuestionnaire,
+        lastUpdatedDate: new Date().toString(),
+      },
       componentsStore: state.appState.activeComponentsById,
       codesListsStore: state.appState.activeCodeListsById,
       conditionsStore: {},

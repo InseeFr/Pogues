@@ -17,3 +17,7 @@ const locale = Object.keys(dictionary).reduce((locale, k) => {
 export default function() {
   return locale;
 }
+
+export function getLocale() {
+  return language;
+}

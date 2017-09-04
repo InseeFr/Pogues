@@ -52,7 +52,7 @@ export const defaultQuestionnaireModel = {
 };
 
 function transformationFormToState(form, currentState) {
-  const { owner, id, agency, dataCollection, componentGroups } = currentState;
+  const { owner, id, agency, dataCollection, componentGroups, final, lastUpdatedDate } = currentState;
 
   const { label, name } = form;
 
@@ -64,36 +64,44 @@ function transformationFormToState(form, currentState) {
     agency,
     dataCollection,
     componentGroups,
+    final,
+    lastUpdatedDate,
   };
 }
 
 function transformationModelToState(model) {
   const {
     owner,
+    final,
     id,
     Name: name,
     Label: [label],
     agency,
     DataCollection: dataCollection,
     ComponentGroup: componentGroups,
+    lastUpdatedDate,
   } = model;
 
   return {
     owner,
+    final,
     id,
     name,
     label,
     agency,
     dataCollection,
     componentGroups,
+    lastUpdatedDate,
   };
 }
 
 function transformationStateToForm(currentState) {
-  const { label, name } = currentState;
+  const { label, name, final, lastUpdatedDate } = currentState;
   return {
     label,
     name,
+    final,
+    lastUpdatedDate,
   };
 }
 
@@ -105,12 +113,14 @@ function transformationStateToModel(
   calculatedVariablesStore,
   externalVariablesStore
 ) {
-  const { owner, id, label, name, agency, dataCollection, componentGroups } = currentState;
+  const { owner, id, label, name, agency, dataCollection, componentGroups, final, lastUpdatedDate } = currentState;
   const model = {
     owner,
+    final,
     id,
     Label: [label],
     Name: name,
+    lastUpdatedDate,
   };
 
   const componentsModel = ComponentTransformerFactory({
@@ -160,6 +170,10 @@ const QuestionnaireTransformerFactory = (conf = {}) => {
   let currentState = initialState || defaultQuestionnaireState;
 
   if (owner) currentState.owner = owner;
+  if (!currentState.final) currentState.final = false;
+  if (!currentState.lastUpdatedDate) {
+    currentState.lastUpdatedDate = new Date().toString();
+  }
 
   return {
     formToState: form => {

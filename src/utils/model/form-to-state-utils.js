@@ -24,42 +24,30 @@ export function updateNewComponentParent(activeComponents, parentId, newComponen
 export function getActiveCodesListsStore(responseFormat) {
   const codesListsStore = {};
   const responseFormatName = responseFormat.type;
-  let codesListId;
-  let codesList;
 
+  function addCodeListId(id, list) {
+    if (id) codesListsStore[id] = list;
+  }
   if (responseFormatName === SINGLE_CHOICE) {
-    codesListId = responseFormat[SINGLE_CHOICE].codesListId;
-    codesList = responseFormat[SINGLE_CHOICE].codesList;
-    codesListsStore[codesListId] = codesList;
+    addCodeListId(responseFormat[SINGLE_CHOICE].codesListId, responseFormat[SINGLE_CHOICE].codesList);
   } else if (responseFormatName === MULTIPLE_CHOICE) {
     const multipleChoice = responseFormat[MULTIPLE_CHOICE];
-    codesListId = multipleChoice[PRIMARY].codesListId;
-    codesList = multipleChoice[PRIMARY].codesList;
-    codesListsStore[codesListId] = codesList;
+    addCodeListId(multipleChoice[PRIMARY].codesListId, multipleChoice[PRIMARY].codesList);
 
     if (multipleChoice[MEASURE].type === CODES_LIST) {
-      codesListId = multipleChoice[MEASURE][CODES_LIST].codesListId;
-      codesList = multipleChoice[MEASURE][CODES_LIST].codesList;
-      codesListsStore[codesListId] = codesList;
+      addCodeListId(multipleChoice[MEASURE][CODES_LIST].codesListId, multipleChoice[MEASURE][CODES_LIST].codesList);
     }
   } else if (responseFormatName === TABLE) {
     const table = responseFormat[TABLE];
 
     if (table[PRIMARY].type === CODES_LIST) {
-      codesListId = table[PRIMARY][CODES_LIST].codesListId;
-      codesList = table[PRIMARY][CODES_LIST].codesList;
-      codesListsStore[codesListId] = codesList;
+      addCodeListId(table[PRIMARY][CODES_LIST].codesListId, table[PRIMARY][CODES_LIST].codesList);
 
       if (table[SECONDARY] && table[SECONDARY].showSecondaryAxis) {
-        codesListId = table[SECONDARY].codesListId;
-        codesList = table[SECONDARY].codesList;
-        codesListsStore[codesListId] = codesList;
+        addCodeListId(table[SECONDARY].codesListId, table[SECONDARY].codesList);
 
-        // @TODO
         if (table[MEASURE].type === SINGLE_CHOICE) {
-          codesListId = table[MEASURE][SINGLE_CHOICE].codesListId;
-          codesList = table[MEASURE][SINGLE_CHOICE].codesList;
-          codesListsStore[codesListId] = codesList;
+          addCodeListId(table[MEASURE][SINGLE_CHOICE].codesListId, table[MEASURE][SINGLE_CHOICE].codesList);
         }
       }
     }
@@ -67,9 +55,7 @@ export function getActiveCodesListsStore(responseFormat) {
     if (!table[SECONDARY]) {
       table[LIST_MEASURE].forEach(measure => {
         if (measure.type === SINGLE_CHOICE) {
-          codesListId = measure[SINGLE_CHOICE].codesListId;
-          codesList = measure[SINGLE_CHOICE].codesList;
-          codesListsStore[codesListId] = codesList;
+          addCodeListId(measure[SINGLE_CHOICE].codesListId, measure[SINGLE_CHOICE].codesList);
         }
       });
     }

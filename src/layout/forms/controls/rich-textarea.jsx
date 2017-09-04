@@ -79,16 +79,18 @@ function getValue(props) {
 class RichTextArea extends Component {
   static propTypes = {
     input: PropTypes.object.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     required: PropTypes.bool,
     buttons: PropTypes.bool,
     help: PropTypes.bool,
     reference: PropTypes.func,
     avoidSubmitOnEnter: PropTypes.bool,
     identifier: PropTypes.number,
+    meta: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
+    label: undefined,
     required: false,
     buttons: false,
     options: [],
@@ -105,6 +107,15 @@ class RichTextArea extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.identifier === undefined) {
+      return;
+    }
+    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
+      this.setState({ value: getValue(nextProps) });
+    }
+  }
+
   onChange = value => {
     if (this.props.buttons) {
       const markdownValue = editorValueToMarkdown(value);
@@ -114,14 +125,12 @@ class RichTextArea extends Component {
     }
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.identifier === undefined) {
-      return;
+  handleReturn = e => {
+    if (!this.props.avoidSubmitOnEnter) {
+      e.target.closest('form').querySelector('button[type=submit]').click();
     }
-    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
-      this.setState({ value: getValue(nextProps) });
-    }
-  }
+    return 'handled';
+  };
 
   toolbarConfig = {
     display: ['INLINE_STYLE_BUTTONS', 'LINK_BUTTONS'],
@@ -137,7 +146,7 @@ class RichTextArea extends Component {
   };
 
   render() {
-    const { input, label, required, buttons, help, reference, avoidSubmitOnEnter } = this.props;
+    const { input, label, required, buttons, help, reference, meta: { touched, error, warning } } = this.props;
     const editorValue = this.state.value;
 
     const helpBlock =
@@ -148,31 +157,33 @@ class RichTextArea extends Component {
 
     return (
       <div className="ctrl-input">
-        <label htmlFor={`select-${input.name}`}>
-          {label}
-          {required ? <span>*</span> : ''} {helpBlock}
-        </label>
-        {buttons &&
-          <div>
+        {label &&
+          <label htmlFor={`select-${input.name}`}>
+            {label}
+            {required ? <span>*</span> : ''} {helpBlock}
+          </label>}
+        <div>
+          {buttons &&
             <RichTextEditor
               value={editorValue}
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
-              handleReturn={e => {
-                if (!avoidSubmitOnEnter) {
-                  e.target.closest('form').querySelector('button[type=submit]').click();
-                }
-                return 'handled';
-              }}
+              handleReturn={this.handleReturn}
               rootStyle={this.rootStyle}
               formatURL={formatURL}
               ref={reference}
-            />
-          </div>}
-        {!buttons &&
-          <div>
-            <textarea {...input} id={`select-${input.name}`} ref={reference} />
-          </div>}
+            />}
+          {!buttons && <textarea {...input} id={`select-${input.name}`} ref={reference} />}
+          {touched &&
+            ((error &&
+              <span className="form-error">
+                {error}
+              </span>) ||
+              (warning &&
+                <span className="form-warm">
+                  {warning}
+                </span>))}
+        </div>
       </div>
     );
   }

@@ -9,6 +9,25 @@ export function required(value = '') {
   return val ? undefined : Dictionary.validationRequired;
 }
 
+export function unique(property) {
+  return function(values) {
+    if (values.length <= 1) {
+      return undefined;
+    }
+    const orderList = values.map(v => v[property]).sort((v1, v2) => v1 > v2);
+    for (let i = 0; i < orderList.length; i += 1) {
+      if (orderList[i + 1] && orderList[i] === orderList[i + 1]) {
+        return 'unique';
+      }
+    }
+    return undefined;
+  };
+}
+
+export function uniqueCode() {
+  return unique('code');
+}
+
 export function maxLength(max) {
   return function(value) {
     return value && value.length > max ? `Must be ${max} characters or less` : undefined;
