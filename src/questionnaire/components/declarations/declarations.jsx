@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, FormSection } from 'redux-form';
+import { Field, formValueSelector, FormSection } from 'redux-form';
 import { connect } from 'react-redux';
 
 import Dictionary from 'utils/dictionary/dictionary';
@@ -7,18 +7,19 @@ import Select from 'layout/forms/controls/select';
 import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { declarationsFormDefault } from 'utils/transformation-entities/declaration';
-import { formValueSelector } from 'redux-form';
+import { required } from 'layout/forms/validation-rules';
 
 function validationDeclaration(values) {
   const { label } = values;
+  const requiredLabel = required(label);
   const errors = [];
 
-  if (label === '') errors.push(Dictionary.validation_declaration_label);
+  if (requiredLabel) errors.push(Dictionary.validation_declaration_label);
 
   return errors;
 }
 
-function InputDeclaration({identifier}) {
+function InputDeclaration({ identifier }) {
   const types = [
     {
       value: 'INSTRUCTION',
@@ -85,7 +86,7 @@ function InputDeclaration({identifier}) {
 
 const mapStateToProps = (state, { formName }) => {
   formName = formName || 'component';
-  const selector = formValueSelector(formName); 
+  const selector = formValueSelector(formName);
   return {
     identifier: selector(state, `declarations.ref`),
   };

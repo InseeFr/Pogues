@@ -31,12 +31,13 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
           params: {
             itemId: redirections[redirectionKey].id,
             targetId: redirection.cible,
-            invalidFieldsNames: ['cible'],
           },
         };
         if (!existsTarget(activeComponentsById, redirection.cible)) {
+          error.params.message = 'errorGoToNonExistingTgt'
           targetNotFoundErrors.push(error);
         } else if (isEarlierTarget(ids, redirection.cible)) {
+          error.params.message = 'errorGoToEarlierTgt'
           targetEarlierErrors.push(error);
         }
       });

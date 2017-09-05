@@ -10,6 +10,7 @@ import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
+import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 import { defaultResponseFormatState } from 'utils/transformation-entities/response-format';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -97,6 +98,7 @@ class ComponentNewContainer extends Component {
       let updatedCalculatedVariablesStore = {};
       let updatedExternalVariablesStore = {};
       let updatedCodesListsStore = {};
+      let updatedCollectedlVariablesStore = {};
       const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
 
       if (type === QUESTION) {
@@ -105,12 +107,15 @@ class ComponentNewContainer extends Component {
           values.calculatedVariables
         );
         updatedExternalVariablesStore = ExternalVariableTransformerFactory().formToStore(values.externalVariables);
+        updatedCollectedlVariablesStore = CollectedVariableTransformerFactory().formToStore(values.collectedVariables);
+
       }
 
       createComponent(
         componentState,
         updatedCalculatedVariablesStore,
         updatedExternalVariablesStore,
+        updatedCollectedlVariablesStore,
         updatedCodesListsStore
       )
         .then(updateParentChildren)

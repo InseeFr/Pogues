@@ -83,9 +83,9 @@ class ListEntryForm extends Component {
     showDuplicateButton: PropTypes.bool,
     showAddButton: PropTypes.bool,
     showRemoveButton: PropTypes.bool,
-    avoidNewAddition: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool.isRequired,
-    selectedItemIndex: PropTypes.number,
+    disableRemove: PropTypes.bool,
+    disableDuplicate: PropTypes.bool,
   };
   static defaultProps = {
     errors: [],
@@ -93,8 +93,8 @@ class ListEntryForm extends Component {
     showDuplicateButton: true,
     showAddButton: true,
     showRemoveButton: true,
-    avoidNewAddition: false,
-    selectedItemIndex: 0,
+    disableRemove: false,
+    disableDuplicate: false,
   };
   render() {
     const {
@@ -112,9 +112,9 @@ class ListEntryForm extends Component {
       showDuplicateButton,
       showAddButton,
       showRemoveButton,
-      avoidNewAddition,
       rerenderOnEveryChange,
-      selectedItemIndex,
+      disableRemove,
+      disableDuplicate,
     } = this.props;
 
     const styleErrors = {
@@ -156,7 +156,7 @@ class ListEntryForm extends Component {
                 <li>
                   <button
                     type="button"
-                    disabled={selectedItemIndex === 0}
+                    disabled={disableRemove}
                     className="btn btn-link"
                     onClick={event => {
                       event.preventDefault();
@@ -173,7 +173,7 @@ class ListEntryForm extends Component {
                   <button
                     type="button"
                     className="btn btn-link"
-                    disabled={selectedItemIndex === 0}
+                    disabled={disableDuplicate}
                     onClick={event => {
                       event.preventDefault();
                       duplicate();

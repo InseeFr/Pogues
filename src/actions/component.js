@@ -29,6 +29,7 @@ export const createComponent = (
   componentState,
   calculatedVariablesStore,
   externalVariablesStore,
+  collectedVariablesStore,
   codesListsStore
 ) => dispatch => {
   const activeComponentsStore = {
@@ -44,6 +45,7 @@ export const createComponent = (
           activeComponentsById: activeComponentsStore,
           activeCalculatedVariablesById: calculatedVariablesStore,
           activeExternalVariablesById: externalVariablesStore,
+          activeCollectedVariablesById: { [componentState.id]: collectedVariablesStore },
           activeCodeListsById: codesListsStore,
         },
       },

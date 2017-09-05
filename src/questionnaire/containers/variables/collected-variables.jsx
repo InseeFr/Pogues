@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { formValueSelector, actions } from 'redux-form';
 
 import CollectedVariables from 'questionnaire/components/variables/collected-variables';
-import { updateInvalidItems } from 'actions/app-state';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import { uuid } from 'utils/data-utils';
 
@@ -38,7 +37,6 @@ const mapStateToProps = (state, { formName }) => {
 
 const mapDispatchToProps = {
   change: actions.change,
-  updateInvalidItems,
 };
 
 class CollectedVariablesContainer extends Component {
@@ -47,7 +45,6 @@ class CollectedVariablesContainer extends Component {
     name: PropTypes.string,
     formName: PropTypes.string.isRequired,
     change: PropTypes.func.isRequired,
-    updateInvalidItems: PropTypes.func.isRequired,
     invalidItems: PropTypes.object,
   };
 

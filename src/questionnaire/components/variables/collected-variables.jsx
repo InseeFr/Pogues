@@ -8,9 +8,9 @@ import { defaultCollectedVariableForm } from 'utils/transformation-entities/coll
 import Input from 'layout/forms/controls/input';
 import { name as validateName, nameSize } from 'layout/forms/validation-rules';
 
-function validationCollectedVariable(values, addedItems) {
-  const { name, label, ref } = values;
-  const addedItemsNames = addedItems.filter((cv, index) => index !== ref - 1).map(cv => cv.name);
+function validationCollectedVariable(values) {
+  const { name, label, ref, collectedVariables } = values;
+  const addedItemsNames = collectedVariables.filter((cv, index) => index !== ref - 1).map(cv => cv.name);
   const errors = [];
   const invalidName = validateName(name);
   const tooLongName = nameSize(name);

@@ -272,7 +272,7 @@ export const setCurrentCodesListsInQuestion = codeListsToUpdate => ({
  *         params: {
  *           itemId: 'jqdfqdfj',
  *           targetId: 'jdf756r',
- *           invalidFieldsNames: ['cible'],
+ *           message:
  *         },
  *       }
  *     ],
