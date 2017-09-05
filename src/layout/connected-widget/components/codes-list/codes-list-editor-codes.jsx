@@ -8,7 +8,13 @@ import TextArea from 'layout/forms/controls/rich-textarea';
 
 const Code = ({ input, autoFocus, label, type, attr, meta: { touched, error, warning } }) =>
   <div className={`codes-list__code-${attr} `}>
-    <input {...input} placeholder={label} type={type} autoFocus={autoFocus} />
+    <input
+      {...input}
+      placeholder={label}
+      type={type}
+      autoFocus={autoFocus}
+      onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+    />
     {touched &&
       ((error &&
         <span className="form-error">
@@ -46,16 +52,16 @@ class CodesListEditorCodes extends Component {
       fields.removeAll();
     }
   }
-
   render() {
     const { fields, display, meta: { error } } = this.props;
+
     return (
       <div>
         {error &&
           <p className="error-block">
             {Dictionary.codeUnicity}
           </p>}
-        <ul style={{ display: display ? 'block' : 'none' }}>
+        <ul className={display ? '' : 'hide'}>
           {fields.map((name, index, fields) => {
             const numCodes = fields.length;
             const showMoveUpButton = index !== 0 && numCodes > 1;
@@ -81,6 +87,7 @@ class CodesListEditorCodes extends Component {
                   component={TextArea}
                   buttons
                   validate={[required]}
+                  identifier={fields.get(index).code}
                 />
                 <div className="codes-list__code-actions">
                   <button
@@ -99,7 +106,11 @@ class CodesListEditorCodes extends Component {
                   >
                     <span className="glyphicon glyphicon-arrow-down" />
                   </button>
-                  <button type="button" title={Dictionary.duplicate}>
+                  <button
+                    type="button"
+                    title={Dictionary.duplicate}
+                    onClick={() => fields.insert(index + 1, Object.assign({}, fields.get(index)))}
+                  >
                     {Dictionary.duplicate}
                     <span className="glyphicon glyphicon-duplicate" />
                   </button>
