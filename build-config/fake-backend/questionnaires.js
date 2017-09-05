@@ -2266,9 +2266,9 @@ module.exports = [
     },
     "Variables" : {
       "Variable" : [ {
-        "id" : "collectedVariable145224542",
+        "id" : "collectedVariable1",
         "type" : "CollectedVariableType",
-        "Name" : "collectedVariableName1",
+        "Name" : "",
         "Label" : "collectedVariableLabel1"
       }, {
         "id" : "collectedVariable2",
@@ -2279,7 +2279,7 @@ module.exports = [
         "id" : "collectedVariable3",
         "type" : "CollectedVariableType",
         "Name" : "collectedVariableName3",
-        "Label" : "collectedVariableLabel3"
+        "Label" : ""
       }, {
         "id" : "collectedVariable4",
         "type" : "CollectedVariableType",

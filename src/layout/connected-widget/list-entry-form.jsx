@@ -11,6 +11,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 function getValuesSubset(values, path, invalidItems = {}) {
   const item = _.cloneDeep(_.get(values, path));
 
+  // @TODO: Only useful with redirections.
   if (Object.keys(invalidItems).indexOf(item.id) !== -1) {
     invalidItems[item.id].invalidFieldsNames.forEach(fieldName => {
       // The invalid values are removed to show validation errors in edition.

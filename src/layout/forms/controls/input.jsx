@@ -46,8 +46,7 @@ function Input({
 
       <div>
         <input {...input} {...customProps} />
-        {!pristine &&
-          touched &&
+        {touched &&
           ((error &&
             <span className="form-error">
               {error}

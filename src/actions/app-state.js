@@ -255,7 +255,7 @@ export const setCurrentCodesListsInQuestion = codeListsToUpdate => ({
 });
 
 /**
- * Set the invalid items in a question
+ * Set the invalid items in a question using the errorsByCode store
  *
  * @param  {string} questionId  The question id.
  *
@@ -281,7 +281,7 @@ export const setCurrentCodesListsInQuestion = codeListsToUpdate => ({
  *
  * @return {function} Thunk which may dispatch SET_INVALID_ITEMS
  */
-export const setInvalidItems = questionId => {
+export const setInvalidItemsFromErrors = questionId => {
   return (dispatch, getState) => {
     const state = getState();
     const errorsByCode = state.appState.errorsByCode;

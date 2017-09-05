@@ -466,6 +466,10 @@ const dictionary = {
     fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
     en: 'Your questionnaire must contain at least one sequence and one question.',
   },
+  errorInvalidCollectedVariable: {
+    fr: 'Invalid collected.',
+    en: 'Invalid collected.',
+  },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',

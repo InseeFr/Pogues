@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateComponent } from 'actions/component';
-import { setCurrentCodesListsInQuestion, setInvalidItems } from 'actions/app-state';
+import { setCurrentCodesListsInQuestion, setInvalidItemsFromErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
@@ -28,7 +28,7 @@ const mapStateToProps = (state, { componentId }) => ({
 const mapDispatchToProps = {
   updateComponent,
   setCurrentCodesListsInQuestion,
-  setInvalidItems,
+  setInvalidItemsFromErrors,
 };
 
 class ComponentEditContainer extends Component {
@@ -44,8 +44,8 @@ class ComponentEditContainer extends Component {
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
     currentCodesListsIdsStore: PropTypes.object,
-    setInvalidItems: PropTypes.func.isRequired,
     invalidItems: PropTypes.object,
+    setInvalidItemsFromErrors: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -59,10 +59,16 @@ class ComponentEditContainer extends Component {
   };
 
   componentWillMount() {
-    const { activeComponentsStore, componentId, setCurrentCodesListsInQuestion, setInvalidItems } = this.props;
+    const {
+      activeComponentsStore,
+      componentId,
+      setCurrentCodesListsInQuestion,
+      setInvalidItemsFromErrors,
+    } = this.props;
     const component = activeComponentsStore[componentId];
     let currentCodesListsStoreFromQuestion = {};
-    setInvalidItems(componentId);
+
+    setInvalidItemsFromErrors(componentId);
 
     if (component.type === QUESTION) {
       currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(component.responseFormat);

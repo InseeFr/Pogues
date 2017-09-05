@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
+import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
@@ -35,6 +36,10 @@ function InputCollectedVariable() {
 class CollectedVariables extends Component {
   static selectorPath = 'collectedVariables';
 
+  static propTypes = {
+    invalidItems: PropTypes.object.isRequired,
+  };
+
   render() {
     const { collectedVariables, ...initialInputValues } = defaultCollectedVariableForm;
     const inputCollectedVariableView = <InputCollectedVariable />;
@@ -53,6 +58,7 @@ class CollectedVariables extends Component {
           showAddButton={false}
           showRemoveButton={false}
           avoidNewAddition
+          invalidItems={this.props.invalidItems}
         />
       </FormSection>
     );
