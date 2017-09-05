@@ -85,7 +85,7 @@ class RichTextArea extends Component {
     help: PropTypes.bool,
     reference: PropTypes.func,
     avoidSubmitOnEnter: PropTypes.bool,
-    identifier: PropTypes.number,
+    identifier: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     meta: PropTypes.object.isRequired,
   };
 
@@ -165,6 +165,7 @@ class RichTextArea extends Component {
         <div>
           {buttons &&
             <RichTextEditor
+              blockStyleFn={() => 'singleline'}
               value={editorValue}
               onChange={value => this.onChange(value)}
               toolbarConfig={this.toolbarConfig}
