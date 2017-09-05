@@ -92,3 +92,42 @@ export const deleteQuestionnaire = id =>
     method: 'DELETE',
     credentials: 'include',
   });
+
+export const getCollections = () => {
+  return Promise.resolve([
+    {
+      value: 'serie-01',
+      label: 'Série 01',
+    },
+    {
+      value: 'serie-02',
+      label: 'Série 02',
+    },
+  ]);
+};
+
+export const getOperations = id => {
+  return Promise.resolve([
+    {
+      value: 'operation-01',
+      label: `Opération statisque 01 - ${id}`,
+    },
+    {
+      value: 'operation-02',
+      label: `Opération statisque 02 - ${id}`,
+    },
+  ]);
+};
+
+export const getCampaigns = id => {
+  return Promise.resolve([
+    {
+      value: 'campagne-01',
+      label: `Campagne 01 - ${id}`,
+    },
+    {
+      value: 'campagne-02',
+      label: `Campagne 02 - ${id}`,
+    },
+  ]);
+};

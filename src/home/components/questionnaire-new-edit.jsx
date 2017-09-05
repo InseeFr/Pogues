@@ -10,18 +10,17 @@ import { required, name as validationName } from 'layout/forms/validation-rules'
 import { componentName } from 'layout/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 
-export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, onCancel }) {
-  // @TODO: Remove the mocks
-  const mockCampaigns = [
-    {
-      value: 'campagne-01',
-      label: 'Campagne 01',
-    },
-    {
-      value: 'campagne-02',
-      label: 'Campagne 02',
-    },
-  ];
+export function QuestionnaireNewEdit({
+  handleSubmit,
+  pristine,
+  submitting,
+  onCancel,
+  collections,
+  operations,
+  campaigns,
+  loadOperations,
+  loadCampaigns,
+}) {
   const mockModels = [
     {
       value: 'model-01',
@@ -30,26 +29,6 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, onCan
     {
       value: 'model-02',
       label: 'Modèle 02',
-    },
-  ];
-  const mockCollections = [
-    {
-      value: 'serie-01',
-      label: 'Série 01',
-    },
-    {
-      value: 'serie-02',
-      label: 'Série 02',
-    },
-  ];
-  const mockOperations = [
-    {
-      value: 'operation-01',
-      label: 'Opération statisque 01',
-    },
-    {
-      value: 'operation-02',
-      label: 'Opération statisque 02',
     },
   ];
   const mockContext = [
@@ -93,17 +72,35 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, onCan
         </div>
         <br />
 
-        <Field name="collection" component={Select} label={Dictionary.collection} options={mockCollections} />
+        {collections.length > 0 &&
+          <Field
+            name="collection"
+            component={Select}
+            label={Dictionary.collection}
+            options={collections}
+            emptyValue="--"
+            onChange={e => loadOperations(e.target.value)}
+          />}
 
-        <Field name="operation" component={Select} label={Dictionary.operationStat} options={mockOperations} />
+        {operations.length > 0 &&
+          <Field
+            name="operation"
+            component={Select}
+            label={Dictionary.operationStat}
+            options={operations}
+            emptyValue="--"
+            onChange={e => loadCampaigns(e.target.value)}
+          />}
 
-        <Field
-          name="campaign"
-          component={SelectWithAddNew}
-          label={Dictionary.collectionCampaign}
-          options={mockCampaigns}
-          labelButton={Dictionary.collectionCampaignNew}
-        />
+        {operations.length > 0 &&
+          campaigns.length > 0 &&
+          <Field
+            name="campaign"
+            component={SelectWithAddNew}
+            label={Dictionary.collectionCampaign}
+            options={campaigns}
+            labelButton={Dictionary.collectionCampaignNew}
+          />}
 
         <Field
           name="model"
@@ -134,6 +131,11 @@ QuestionnaireNewEdit.propTypes = {
   onCancel: PropTypes.func,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
+  collections: PropTypes.arrayOf(PropTypes.object),
+  operations: PropTypes.arrayOf(PropTypes.object),
+  campaigns: PropTypes.arrayOf(PropTypes.object),
+  loadOperations: PropTypes.func.isRequired,
+  loadCampaigns: PropTypes.func.isRequired,
 };
 
 QuestionnaireNewEdit.defaultProps = {
@@ -141,6 +143,9 @@ QuestionnaireNewEdit.defaultProps = {
   onCancel: undefined,
   pristine: false,
   submitting: false,
+  collections: [],
+  operations: [],
+  campaigns: [],
 };
 
 export default reduxForm({
