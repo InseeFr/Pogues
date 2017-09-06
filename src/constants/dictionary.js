@@ -467,8 +467,8 @@ const dictionary = {
     en: 'Your questionnaire must contain at least one sequence and one question.',
   },
   errorInvalidCollectedVariable: {
-    fr: 'Invalid collected.',
-    en: 'Invalid collected.',
+    fr: 'La question contient des variables collectées invalides.',
+    en: 'The question contains invalid collected variables.',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
@@ -973,7 +973,7 @@ const dictionary = {
   },
   validation_collectedvariable_no_new: {
     fr: 'Vous ne pouvez pas ajouter des nouvelles variables collectées',
-    en: "You can't add new collected variables",
+    en: 'It already exists an collected variable with this name',
   },
 };
 

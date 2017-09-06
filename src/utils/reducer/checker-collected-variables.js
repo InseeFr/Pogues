@@ -18,6 +18,7 @@ function checkerCollectedVariables({ appState: { activeComponentsById, collected
             id: key,
             params: {
               itemId: innerKey,
+              messageKey: 'errorInvalidCollectedVariable',
             },
           };
         });

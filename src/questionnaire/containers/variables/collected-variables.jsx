@@ -6,6 +6,7 @@ import { formValueSelector, actions } from 'redux-form';
 import CollectedVariables from 'questionnaire/components/variables/collected-variables';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import { uuid } from 'utils/data-utils';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
@@ -17,7 +18,7 @@ function getGeneratedCollectedVariables(responseFormat, questionName) {
       {
         id: uuid(),
         name: questionName,
-        label: '',
+        label: `${questionName} label`,
       },
     ];
   }

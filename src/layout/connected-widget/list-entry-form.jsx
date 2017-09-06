@@ -107,8 +107,8 @@ class ListEntryFormContainer extends Component {
   updateIntegrityErrors({ id }) {
     const { invalidItems: { [id]: invalidItemParams } } = this.props;
 
-    if (invalidItemParams && invalidItemParams.message) {
-      this.setValidationErrors([Dictionary[invalidItemParams.message]]);
+    if (invalidItemParams && invalidItemParams.messageKey) {
+      this.setValidationErrors([Dictionary[invalidItemParams.messageKey]]);
     }
   }
 
