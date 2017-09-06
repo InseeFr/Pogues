@@ -152,14 +152,19 @@ function transformationStateToForm(
   return form;
 }
 
-function transformationStateToModel(
-  state,
-  store,
-  codesListsStore = {},
-  collectedVariableByQuestionStore = {},
-  depth = 1
-) {
-  const { id, name: Name, label, type, children, responseFormat, declarations, controls, redirections, collectedVariables } = state;
+function transformationStateToModel(state, store, codesListsStore = {}, depth = 1) {
+  const {
+    id,
+    name: Name,
+    label,
+    type,
+    children,
+    responseFormat,
+    declarations,
+    controls,
+    redirections,
+    collectedVariables,
+  } = state;
 
   let model = {
     id,
