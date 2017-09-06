@@ -18,6 +18,5 @@ describe('<QuestionnaireNavContainer />', () => {
 
   test('should call loadQuestionnaireIfNeeded in render', () => {
     expect(wrapper.find('.glyphicon-home').length).toBe(1);
-    expect(wrapper.find('.glyphicon-link').length).toBe(1);
   });
 });

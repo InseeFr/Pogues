@@ -92,3 +92,56 @@ export const deleteQuestionnaire = id =>
     method: 'DELETE',
     credentials: 'include',
   });
+
+function transformSeriesData(series) {
+  return series.map(serie => {
+    return { value: serie.id, label: serie.label };
+  });
+}
+
+export const getCollections = () => {
+  return Promise.resolve(
+    transformSeriesData([
+      {
+        id: 'serie-01',
+        label: 'Série 01',
+      },
+      {
+        id: 'serie-02',
+        label: 'Série 02',
+      },
+    ])
+  );
+};
+
+export const getOperations = id => {
+  if (!id) return Promise.resolve([]);
+  return Promise.resolve(
+    transformSeriesData([
+      {
+        id: 'operation-01',
+        label: `Opération statisque 01 - ${id}`,
+      },
+      {
+        id: 'operation-02',
+        label: `Opération statisque 02 - ${id}`,
+      },
+    ])
+  );
+};
+
+export const getCampaigns = id => {
+  if (!id) return Promise.resolve([]);
+  return Promise.resolve(
+    transformSeriesData([
+      {
+        id: 'campagne-01',
+        label: `Campagne 01 - ${id}`,
+      },
+      {
+        id: 'campagne-02',
+        label: `Campagne 02 - ${id}`,
+      },
+    ])
+  );
+};

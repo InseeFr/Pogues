@@ -7,6 +7,7 @@ import Header from 'layout/header/header';
 import Footer from 'layout/footer/footer';
 
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
+import { loadCollections } from 'actions/questionnaire';
 
 import 'scss/pogues.scss';
 
@@ -19,6 +20,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   loadUser,
   loadQuestionnaireList,
+  loadCollections,
 };
 
 export class AppContainer extends Component {
@@ -26,6 +28,7 @@ export class AppContainer extends Component {
     children: PropTypes.object.isRequired,
     loadUser: PropTypes.func.isRequired,
     loadQuestionnaireList: PropTypes.func.isRequired,
+    loadCollections: PropTypes.func.isRequired,
     user: PropTypes.shape({
       name: PropTypes.string,
       permission: PropTypes.string,
@@ -36,6 +39,7 @@ export class AppContainer extends Component {
 
   componentWillMount() {
     this.props.loadUser();
+    this.props.loadCollections();
   }
 
   componentWillUpdate(nextProps) {
