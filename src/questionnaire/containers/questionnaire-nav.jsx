@@ -26,8 +26,12 @@ export class QuestionnaireNavContainer extends Component {
     return (
       <div id="questionnaire-nav">
         <ul>
-          <li><span className="glyphicon glyphicon-home" /><a href="#/">{Dictionary.backToHomePage}</a></li>
-          <li><span className="glyphicon glyphicon-link" /><a href="#">{Dictionary.seeFilters}</a></li>
+          <li>
+            <span className="glyphicon glyphicon-home" />
+            <a href="#/">
+              {Dictionary.backToHomePage}
+            </a>
+          </li>
         </ul>
         <ArboSimplified
           components={this.props.components}
