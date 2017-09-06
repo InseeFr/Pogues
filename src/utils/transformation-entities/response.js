@@ -16,6 +16,7 @@ function stateToModel(state) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
+    collectedVariable: CollectedVariableReference,
   } = state;
   const model = {
     Datatype: {
@@ -24,6 +25,7 @@ function stateToModel(state) {
     },
   };
 
+  if (CollectedVariableReference !== undefined) model.CollectedVariableReference = CollectedVariableReference;
   if (CodeListReference !== undefined) model.CodeListReference = CodeListReference;
   if (mandatory !== undefined) model.mandatory = mandatory;
   if (visualizationHint !== undefined) model.Datatype.visualizationHint = visualizationHint;

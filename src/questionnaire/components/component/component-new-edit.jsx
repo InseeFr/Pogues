@@ -8,7 +8,7 @@ import Controls from 'questionnaire/components/controls/controls';
 import Redirections from 'questionnaire/components/redirections/redirections';
 import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
 import ExternalVariables from 'questionnaire/components/variables/external-variables';
-import CollectedVariables from 'questionnaire/components/variables/collected-variables';
+import CollectedVariablesContainer from 'questionnaire/containers/variables/collected-variables';
 import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -106,7 +106,8 @@ export class QuestionNewEdit extends Component {
       panels.push({
         id: 'collected-variables',
         label: Dictionary.collectedVariables,
-        content: <CollectedVariables />,
+        content: <CollectedVariablesContainer invalidItems={invalidItemsByType.collectedVariables} />,
+        numErrors: invalidItemsByType.collectedVariables && Object.keys(invalidItemsByType.collectedVariables).length,
       });
     }
 

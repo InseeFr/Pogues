@@ -6,7 +6,7 @@ import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, setCurrentItemIndex, invalidItems }) {
+function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, invalidItems, showAddButton }) {
   const noValueBlock =
     fields.length === 0 &&
     <li>
@@ -31,7 +31,6 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
               className="btn btn-link"
               onClick={event => {
                 event.preventDefault();
-                setCurrentItemIndex(index);
                 select(index);
               }}
             >
@@ -41,20 +40,20 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, s
           </li>
         );
       })}
-      <li>
-        <button
-          type="button"
-          className="btn btn-link"
-          onClick={event => {
-            event.preventDefault();
-            setCurrentItemIndex();
-            reset();
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-          {Dictionary[submitLabel]}
-        </button>
-      </li>
+      {showAddButton &&
+        <li>
+          <button
+            type="button"
+            className="btn btn-link"
+            onClick={event => {
+              event.preventDefault();
+              reset();
+            }}
+          >
+            <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+            {Dictionary[submitLabel]}
+          </button>
+        </li>}
     </ul>
   );
 }
@@ -64,8 +63,8 @@ ListEntryFormItem.propTypes = {
   noValueLabel: PropTypes.string.isRequired,
   reset: PropTypes.func.isRequired,
   select: PropTypes.func.isRequired,
-  setCurrentItemIndex: PropTypes.func.isRequired,
   invalidItems: PropTypes.object.isRequired,
+  showAddButton: PropTypes.bool.isRequired,
 };
 
 class ListEntryForm extends Component {
@@ -82,26 +81,21 @@ class ListEntryForm extends Component {
     errors: PropTypes.array,
     invalidItems: PropTypes.object,
     showDuplicateButton: PropTypes.bool,
+    showAddButton: PropTypes.bool,
+    showRemoveButton: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool.isRequired,
+    disableRemove: PropTypes.bool,
+    disableDuplicate: PropTypes.bool,
   };
   static defaultProps = {
     errors: [],
     invalidItems: {},
     showDuplicateButton: true,
+    showAddButton: true,
+    showRemoveButton: true,
+    disableRemove: false,
+    disableDuplicate: false,
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentItemIndex: '',
-    };
-
-    this.setCurrentItemIndex = this.setCurrentItemIndex.bind(this);
-  }
-  setCurrentItemIndex(index = '') {
-    this.setState({
-      currentItemIndex: index,
-    });
-  }
   render() {
     const {
       errors,
@@ -116,7 +110,11 @@ class ListEntryForm extends Component {
       noValueLabel,
       invalidItems,
       showDuplicateButton,
+      showAddButton,
+      showRemoveButton,
       rerenderOnEveryChange,
+      disableRemove,
+      disableDuplicate,
     } = this.props;
 
     const styleErrors = {
@@ -139,9 +137,9 @@ class ListEntryForm extends Component {
           noValueLabel={noValueLabel}
           reset={reset}
           select={select}
-          setCurrentItemIndex={this.setCurrentItemIndex}
           invalidItems={invalidItems}
           rerenderOnEveryChange={rerenderOnEveryChange}
+          showAddButton={showAddButton}
         />
 
         <Field component="input" type="hidden" name="ref" />
@@ -154,30 +152,30 @@ class ListEntryForm extends Component {
 
           <div className="list-entry-form_form-actions">
             <ul className="form-footer">
-              <li>
-                <button
-                  type="button"
-                  disabled={this.state.currentItemIndex === ''}
-                  className="btn btn-link"
-                  onClick={event => {
-                    event.preventDefault();
-                    this.setCurrentItemIndex();
-                    remove(this.state.currentItemIndex);
-                  }}
-                >
-                  <span className="glyphicon glyphicon-trash" aria-hidden="true" />
-                  {Dictionary.remove}
-                </button>
-              </li>
+              {showRemoveButton &&
+                <li>
+                  <button
+                    type="button"
+                    disabled={disableRemove}
+                    className="btn btn-link"
+                    onClick={event => {
+                      event.preventDefault();
+                      remove();
+                    }}
+                  >
+                    <span className="glyphicon glyphicon-trash" aria-hidden="true" />
+                    {Dictionary.remove}
+                  </button>
+                </li>}
+
               {showDuplicateButton &&
                 <li>
                   <button
                     type="button"
                     className="btn btn-link"
-                    disabled={this.state.currentItemIndex === ''}
+                    disabled={disableDuplicate}
                     onClick={event => {
                       event.preventDefault();
-                      this.setCurrentItemIndex();
                       duplicate();
                     }}
                   >
@@ -191,8 +189,7 @@ class ListEntryForm extends Component {
                   className="btn-yellow"
                   onClick={event => {
                     event.preventDefault();
-                    this.setCurrentItemIndex();
-                    submit(this.state.currentItemIndex);
+                    submit();
                   }}
                 >
                   {Dictionary.validate}
@@ -204,7 +201,6 @@ class ListEntryForm extends Component {
                   className="cancel"
                   onClick={event => {
                     event.preventDefault();
-                    this.setCurrentItemIndex();
                     reset();
                   }}
                 >

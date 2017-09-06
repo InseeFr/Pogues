@@ -48,7 +48,7 @@ class QuestionnaireErrors extends Component {
   render() {
     const { errorsByComponent, components } = this.props;
 
-    const listErrors = Object.keys(errorsByComponent).map(id => {
+    const listErrors = Object.keys(errorsByComponent).filter(id => components[id]).map(id => {
       const expanded = this.state.expanded.indexOf(id) >= 0;
       const invalidComponent = errorsByComponent[id];
       const component = `[${components[id].name}] ${components[id].label}`;
