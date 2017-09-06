@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import { uuid } from 'utils/data-utils';
@@ -12,10 +12,11 @@ import CollectedVariableTransformerFactory from './collected-variable';
 import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 function transformationFormToState(form, currentState, codesListsStore, currentCodesListsIdsStore) {
   const { id, type, parent, weight, children } = currentState;
-  const { name, label, responseFormat, declarations, controls, redirections } = form;
+  const { name, label, responseFormat, declarations, controls, redirections, collectedVariables } = form;
 
   const state = {
     id,
@@ -40,12 +41,26 @@ function transformationFormToState(form, currentState, codesListsStore, currentC
       currentCodesListsIdsStore,
       codesListsStore,
     }).formToState(responseFormat);
-    state.collectedVariables = CollectedVariableTransformerFactory().formToComponentState(form.collectedVariables);
+    state.collectedVariables = {
+      responseFormat: collectedVariables.responseFormat,
+      collectedVariables: CollectedVariableTransformerFactory().formToComponentState(collectedVariables),
+    };
   } else {
     state.label = label;
   }
 
   return state;
+}
+
+function getResponseFormatCollectedVariables(collectedVariables) {
+  let responseFormat = '';
+
+  if (collectedVariables.length === 1) {
+    responseFormat = SIMPLE;
+  } else if (collectedVariables.length > 1) {
+    responseFormat = MULTIPLE_CHOICE;
+  }
+  return responseFormat;
 }
 
 function transformationModelToState(model, codesListsStore = {}) {
@@ -88,14 +103,19 @@ function transformationModelToState(model, codesListsStore = {}) {
     }
   } else {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
+    const responseFormat = ResponseFormatTransformerFactory({
+      codesListsStore,
+    }).modelToState(questionType, responses, dimensions);
+    const collectedVariables = CollectedVariableTransformerFactory().modelToComponentState(responses);
     state.type = QUESTION;
     state.label = getQuestionLabelFromRaw(label);
     state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
-    state.responseFormat = ResponseFormatTransformerFactory({
-      codesListsStore,
-    }).modelToState(questionType, responses, dimensions);
-    state.collectedVariables = CollectedVariableTransformerFactory().modelToComponentState(responses);
+    state.responseFormat = responseFormat;
+    state.collectedVariables = {
+      responseFormat: getResponseFormatCollectedVariables(collectedVariables),
+      collectedVariables,
+    };
   }
 
   return state;
@@ -185,7 +205,7 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
       ...ResponseFormatTransformerFactory({
         initialState: responseFormat,
         codesListsStore,
-        collectedVariables,
+        collectedVariables: collectedVariables.collectedVariables,
       }).stateToModel(),
     };
   } else {

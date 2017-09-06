@@ -3,7 +3,7 @@ import { Field, FormSection } from 'redux-form';
 import Select from 'layout/forms/controls/select';
 import Dictionary from 'utils/dictionary/dictionary';
 import PropTypes from 'prop-types';
-import { required } from 'layout/forms/validation-rules'
+import { required } from 'layout/forms/validation-rules';
 
 class CodesListQuestionnaire extends FormSection {
   static propTypes = {

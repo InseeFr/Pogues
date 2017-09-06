@@ -135,6 +135,10 @@ const dictionary = {
     en: 'Create',
     fr: 'Créer',
   },
+  generateCollectedVariables: {
+    en: 'Generate collected variables',
+    fr: 'Générer variables collectées',
+  },
   import: {
     en: 'Import',
     fr: 'Importer',
@@ -466,7 +470,11 @@ const dictionary = {
     fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
     en: 'Your questionnaire must contain at least one sequence and one question.',
   },
-  errorInvalidCollectedVariable: {
+  errorNeedRegenerateCollectedVariables: {
+    fr: 'Need regenerate.',
+    en: 'Need regenerate.',
+  },
+  errorInvalidCollectedVariables: {
     fr: 'La question contient des variables collectées invalides.',
     en: 'The question contains invalid collected variables.',
   },

@@ -1,36 +1,30 @@
-import { required, name as validateName } from 'layout/forms/validation-rules';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { uuid } from 'utils/data-utils';
 
-function checkerCollectedVariables({ appState: { activeComponentsById, collectedVariableByQuestion } }) {
+const { QUESTION } = COMPONENT_TYPE;
+
+function checkerCollectedVariables({ appState: { activeComponentsById } }) {
   const errors = Object.keys(activeComponentsById)
-    .filter(key => collectedVariableByQuestion[key])
-    .reduce((acc, key) => {
-      const innerErrors = Object.keys(collectedVariableByQuestion[key])
-        .filter(innerKey => {
-          const collectedVariable = collectedVariableByQuestion[key][innerKey];
-          return (
-            validateName(collectedVariable.name) ||
-            required(collectedVariable.name) ||
-            required(collectedVariable.label)
-          );
-        })
-        .map(innerKey => {
-          return {
-            id: key,
-            params: {
-              itemId: innerKey,
-              messageKey: 'errorInvalidCollectedVariable',
-            },
-          };
-        });
-
-      return [...acc, ...innerErrors];
-    }, []);
+    .filter(
+      key =>
+        activeComponentsById[key].type === QUESTION &&
+        activeComponentsById[key].responseFormat.type !== activeComponentsById[key].collectedVariables.responseFormat
+    )
+    .map(key => {
+      return {
+        id: key,
+        params: {
+          itemId: uuid(),
+          messageKey: 'errorNeedRegenerateCollectedVariables',
+        },
+      };
+    });
 
   return {
-    INVALID_COLLECTED_VARIABLE: {
+    NEED_REGENERATE_COLLECTED_VARIABLES: {
       type: 'collectedVariables',
-      code: 'INVALID_COLLECTED_VARIABLE',
-      dictionary: 'errorInvalidCollectedVariable',
+      code: 'NEED_REGENERATE_COLLECTED_VARIABLES',
+      dictionary: 'errorNeedRegenerateCollectedVariables',
       errors: errors,
     },
   };

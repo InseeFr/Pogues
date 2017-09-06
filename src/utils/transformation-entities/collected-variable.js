@@ -6,6 +6,7 @@ const { COLLECTED } = VARIABLES_TYPES;
 export const defaultCollectedVariableForm = {
   name: '',
   label: '',
+  responseFormat: '',
   collectedVariables: [],
 };
 
@@ -46,8 +47,9 @@ function transformationModelToComponentState(model = []) {
   return model.filter(r => r.CollectedVariableReference).map(r => r.CollectedVariableReference);
 }
 
-function transformationStoreToForm(currentStore) {
+function transformationStoreToForm(currentStore, componentState = {}) {
   const collectedVariables = [];
+  const responseFormat = componentState.responseFormat || '';
 
   Object.keys(currentStore).forEach(key => {
     const { id, name, label } = currentStore[key];
@@ -60,6 +62,7 @@ function transformationStoreToForm(currentStore) {
 
   return {
     ...defaultCollectedVariableForm,
+    responseFormat,
     collectedVariables,
   };
 }
@@ -106,12 +109,12 @@ const CollectedVariableTransformerFactory = (conf = {}) => {
     },
     stateComponentToForm: componentState => {
       if (componentState) {
-        currentStore = componentState.map(key => {
+        currentStore = componentState.collectedVariables.map(key => {
           return { ...collectedVariablesStore[key] };
         });
       }
 
-      return transformationStoreToForm(currentStore);
+      return transformationStoreToForm(currentStore, componentState);
     },
     storeToModel: () => {
       return transformationStoreToModel(currentStore);

@@ -299,6 +299,7 @@ export const setInvalidItemsFromErrors = questionId => {
               [itemId]: {
                 id: itemId,
                 type: errorsByCode[code].type,
+                code,
                 ...params,
               },
             };

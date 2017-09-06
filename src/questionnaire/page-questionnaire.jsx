@@ -23,11 +23,11 @@ const { QUESTION } = COMPONENT_TYPE;
 function getCollectedVariablesByQuestionnaire(components = {}, collectedVariables = {}) {
   return Object.keys(components)
     .filter(key => components[key].type === QUESTION)
-    .filter(key => components[key].collectedVariables.length > 0)
+    .filter(key => components[key].collectedVariables.collectedVariables.length > 0)
     .reduce((acc, key) => {
       return {
         ...acc,
-        [key]: components[key].collectedVariables.reduce((accInner, keyInner) => {
+        [key]: components[key].collectedVariables.collectedVariables.reduce((accInner, keyInner) => {
           return {
             ...accInner,
             [keyInner]: { ...collectedVariables[keyInner] },
