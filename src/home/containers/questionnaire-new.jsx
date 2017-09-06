@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { actions } from 'redux-form';
 
 import { createQuestionnaire, loadOperations, loadCampaigns } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'home/components/questionnaire-new-edit';
@@ -14,6 +15,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  change: actions.change,
   createQuestionnaire,
   loadOperations,
   loadCampaigns,
@@ -29,6 +31,7 @@ function QuestionnaireNewContainer({
   campaigns,
   loadOperations,
   loadCampaigns,
+  change,
 }) {
   const questionnaireTransformer = QuestionnaireTransformerFactory({ owner: user.permission });
   const initialValues = questionnaireTransformer.stateToForm();
@@ -50,6 +53,7 @@ function QuestionnaireNewContainer({
       onCancel={onCancel}
       loadOperations={loadOperations}
       loadCampaigns={loadCampaigns}
+      resetField={change}
     />
   );
 }
@@ -64,6 +68,7 @@ QuestionnaireNewContainer.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.object),
   operations: PropTypes.arrayOf(PropTypes.object),
   campaigns: PropTypes.arrayOf(PropTypes.object),
+  change: PropTypes.func.isRequired,
 };
 
 QuestionnaireNewContainer.defaultProps = {

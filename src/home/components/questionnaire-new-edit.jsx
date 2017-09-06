@@ -10,6 +10,8 @@ import { required, name as validationName } from 'layout/forms/validation-rules'
 import { componentName } from 'layout/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 
+const FORM_NAME = 'questionnaire-new';
+
 export function QuestionnaireNewEdit({
   handleSubmit,
   pristine,
@@ -20,6 +22,7 @@ export function QuestionnaireNewEdit({
   campaigns,
   loadOperations,
   loadCampaigns,
+  resetField,
 }) {
   const mockModels = [
     {
@@ -79,7 +82,12 @@ export function QuestionnaireNewEdit({
             label={Dictionary.collection}
             options={collections}
             emptyValue="--"
-            onChange={e => loadOperations(e.target.value)}
+            onChange={e => {
+              loadOperations(e.target.value);
+              loadCampaigns();
+              resetField(FORM_NAME, 'operation', '');
+              resetField(FORM_NAME, 'campaign', '');
+            }}
           />}
 
         {operations.length > 0 &&
@@ -89,7 +97,10 @@ export function QuestionnaireNewEdit({
             label={Dictionary.operationStat}
             options={operations}
             emptyValue="--"
-            onChange={e => loadCampaigns(e.target.value)}
+            onChange={e => {
+              loadCampaigns(e.target.value);
+              resetField(FORM_NAME, 'campaign', '');
+            }}
           />}
 
         {operations.length > 0 &&
@@ -99,6 +110,7 @@ export function QuestionnaireNewEdit({
             component={SelectWithAddNew}
             label={Dictionary.collectionCampaign}
             options={campaigns}
+            emptyValue="--"
             labelButton={Dictionary.collectionCampaignNew}
           />}
 
@@ -136,6 +148,7 @@ QuestionnaireNewEdit.propTypes = {
   campaigns: PropTypes.arrayOf(PropTypes.object),
   loadOperations: PropTypes.func.isRequired,
   loadCampaigns: PropTypes.func.isRequired,
+  resetField: PropTypes.func.isRequired,
 };
 
 QuestionnaireNewEdit.defaultProps = {

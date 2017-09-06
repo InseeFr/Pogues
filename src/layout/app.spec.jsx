@@ -10,6 +10,7 @@ describe('<App />', () => {
     children: <div />,
     loadUser() {},
     loadQuestionnaireList() {},
+    loadCollections() {},
   };
 
   test('should have the right template', () => {

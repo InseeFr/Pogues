@@ -93,41 +93,55 @@ export const deleteQuestionnaire = id =>
     credentials: 'include',
   });
 
+function transformSeriesData(series) {
+  return series.map(serie => {
+    return { value: serie.id, label: serie.label };
+  });
+}
+
 export const getCollections = () => {
-  return Promise.resolve([
-    {
-      value: 'serie-01',
-      label: 'Série 01',
-    },
-    {
-      value: 'serie-02',
-      label: 'Série 02',
-    },
-  ]);
+  return Promise.resolve(
+    transformSeriesData([
+      {
+        id: 'serie-01',
+        label: 'Série 01',
+      },
+      {
+        id: 'serie-02',
+        label: 'Série 02',
+      },
+    ])
+  );
 };
 
 export const getOperations = id => {
-  return Promise.resolve([
-    {
-      value: 'operation-01',
-      label: `Opération statisque 01 - ${id}`,
-    },
-    {
-      value: 'operation-02',
-      label: `Opération statisque 02 - ${id}`,
-    },
-  ]);
+  if (!id) return Promise.resolve([]);
+  return Promise.resolve(
+    transformSeriesData([
+      {
+        id: 'operation-01',
+        label: `Opération statisque 01 - ${id}`,
+      },
+      {
+        id: 'operation-02',
+        label: `Opération statisque 02 - ${id}`,
+      },
+    ])
+  );
 };
 
 export const getCampaigns = id => {
-  return Promise.resolve([
-    {
-      value: 'campagne-01',
-      label: `Campagne 01 - ${id}`,
-    },
-    {
-      value: 'campagne-02',
-      label: `Campagne 02 - ${id}`,
-    },
-  ]);
+  if (!id) return Promise.resolve([]);
+  return Promise.resolve(
+    transformSeriesData([
+      {
+        id: 'campagne-01',
+        label: `Campagne 01 - ${id}`,
+      },
+      {
+        id: 'campagne-02',
+        label: `Campagne 02 - ${id}`,
+      },
+    ])
+  );
 };
