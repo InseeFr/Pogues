@@ -2,6 +2,7 @@ import { declarationsFormDefault } from '../declaration';
 import { controlsFormDefault } from '../control';
 import { redirectionsFormDefault } from './redirection';
 import { calculatedVariablesFormUpdate } from './calculated-variable';
+import { collectedVariablesFormUpdate } from './collected-variable';
 import {
   responseFormatSimpleTextForm,
   responseFormatSimpleTextState,
@@ -105,6 +106,7 @@ export const questionFormDefault = {
   controls: controlsFormDefault,
   redirections: redirectionsFormDefault,
   calculatedVariables: calculatedVariablesFormUpdate,
+  collectedVariables: collectedVariablesFormUpdate,
   responseFormat: responseFormatSimpleTextForm,
 };
 
@@ -115,6 +117,7 @@ export const questionForm = {
   controls: controlsFormDefault,
   redirections: redirectionsFormDefault,
   calculatedVariables: calculatedVariablesFormUpdate,
+  collectedVariables: collectedVariablesFormUpdate,
   responseFormat: responseFormatSimpleTextForm,
 };
 
@@ -133,6 +136,7 @@ export const questionState = {
   declarations: {},
   controls: {},
   redirections: {},
+  collectedVariables: [],
   type: 'QUESTION',
   label: 'Question 1',
   rawLabel: 'Question 1',

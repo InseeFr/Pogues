@@ -69,7 +69,8 @@ module.exports = [
             "position" : "AFTER_QUESTION_TEXT",
             "Text" : "Je suis le texte de la consigne "
           } ],
-          "Response" : [ {
+          "Response" : [
+            {
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "TEXT",
@@ -2265,12 +2266,11 @@ module.exports = [
     },
     "Variables" : {
       "Variable" : [ {
-        "id" : "collectedVariable145224542",
+        "id" : "collectedVariable1",
         "type" : "CollectedVariableType",
-        "Name" : "collectedVariableName1",
+        "Name" : "",
         "Label" : "collectedVariableLabel1"
       }, {
-        "id" : "collectedVariable2",
         "id" : "collectedVariable2",
         "type" : "CollectedVariableType",
         "Name" : "collectedVariableName2",
@@ -2279,7 +2279,7 @@ module.exports = [
         "id" : "collectedVariable3",
         "type" : "CollectedVariableType",
         "Name" : "collectedVariableName3",
-        "Label" : "collectedVariableLabel3"
+        "Label" : ""
       }, {
         "id" : "collectedVariable4",
         "type" : "CollectedVariableType",

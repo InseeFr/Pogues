@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { dragComponent, removeComponent, duplicateComponent } from 'actions/component';
 
+import { dragComponent, removeComponent, duplicateComponent } from 'actions/component';
 import { setSelectedComponentId } from 'actions/app-state';
 import { removeQuestionnaire } from 'actions/questionnaire';
 

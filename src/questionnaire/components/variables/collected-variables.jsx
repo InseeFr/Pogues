@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
+import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultCollectedVariableForm } from 'utils/transformation-entities/collected-variable';
 import Input from 'layout/forms/controls/input';
-import { name as validateName } from 'layout/forms/validation-rules';
+import { name as validateName, nameSize } from 'layout/forms/validation-rules';
 
-function validationCollectedVariable(values, addedItems) {
-  const { name, label } = values;
-  const addedItemsNames = addedItems.map(cv => cv.name);
+function validationCollectedVariable(values) {
+  const { name, label, ref, collectedVariables } = values;
+  const addedItemsNames = collectedVariables.filter((cv, index) => index !== ref - 1).map(cv => cv.name);
   const errors = [];
   const invalidName = validateName(name);
+  const tooLongName = nameSize(name);
 
   if (invalidName) errors.push(invalidName);
+  if (tooLongName) errors.push(tooLongName);
+
   if (name === '') errors.push(Dictionary.validation_collectedvariable_name);
   if (label === '') errors.push(Dictionary.validation_collectedvariable_label);
   if (addedItemsNames.indexOf(name) !== -1) errors.push(Dictionary.validation_collectedvariable_existing);
@@ -32,6 +36,10 @@ function InputCollectedVariable() {
 class CollectedVariables extends Component {
   static selectorPath = 'collectedVariables';
 
+  static propTypes = {
+    invalidItems: PropTypes.object.isRequired,
+  };
+
   render() {
     const { collectedVariables, ...initialInputValues } = defaultCollectedVariableForm;
     const inputCollectedVariableView = <InputCollectedVariable />;
@@ -47,6 +55,10 @@ class CollectedVariables extends Component {
           submitLabel="addCollectedVariable"
           noValueLabel="noCollectedVariablesYet"
           showDuplicateButton={false}
+          showAddButton={false}
+          showRemoveButton={false}
+          avoidNewAddition
+          invalidItems={this.props.invalidItems}
         />
       </FormSection>
     );

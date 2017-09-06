@@ -29,6 +29,7 @@ export const createComponent = (
   componentState,
   calculatedVariablesStore,
   externalVariablesStore,
+  collectedVariablesStore,
   codesListsStore
 ) => dispatch => {
   const activeComponentsStore = {
@@ -44,6 +45,7 @@ export const createComponent = (
           activeComponentsById: activeComponentsStore,
           activeCalculatedVariablesById: calculatedVariablesStore,
           activeExternalVariablesById: externalVariablesStore,
+          activeCollectedVariablesById: { [componentState.id]: collectedVariablesStore },
           activeCodeListsById: codesListsStore,
         },
       },
@@ -181,6 +183,7 @@ export const updateComponent = (
   componentsStore,
   calculatedVariablesStore,
   externalVariablesStore,
+  collectedVariablesStore,
   codesListsStore
 ) => {
   return {
@@ -191,6 +194,7 @@ export const updateComponent = (
         activeComponentsById: componentsStore,
         activeCalculatedVariablesById: calculatedVariablesStore,
         activeExternalVariablesById: externalVariablesStore,
+        activeCollectedVariablesById: { [componentId]: collectedVariablesStore },
         activeCodeListsById: codesListsStore,
       },
     },
