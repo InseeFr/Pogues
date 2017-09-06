@@ -8,6 +8,16 @@
   ul {
     list-style: none;
     padding: 0;
+    display: block;
+    &.hide {
+      position: absolute;
+      right: -50px;
+      top: 50px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      display: block !important;
+    }
 
     li {
       @include make-row();
