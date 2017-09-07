@@ -122,7 +122,7 @@ function transformationStateToModel(currentState, collectedVariables) {
     Response: [
       Response.stateToModel({
         ...currentState,
-        type: TEXT,
+        typeName: TEXT,
         maxLength: 1,
         pattern: '',
         collectedVariable: collectedVariables[0],
