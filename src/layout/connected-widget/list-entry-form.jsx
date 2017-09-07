@@ -50,7 +50,6 @@ class ListEntryFormContainer extends Component {
     rerenderOnEveryChange: PropTypes.bool,
     avoidNewAddition: PropTypes.bool,
     showAddButton: PropTypes.bool,
-
   };
 
   static defaultProps = {

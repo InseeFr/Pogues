@@ -7,11 +7,12 @@ import {
   questionnaireStore,
   questionnaireModel,
 } from './__mocks__/questionnaire';
-import { componentsStore } from './__mocks__/component';
+import { componentsStore, fakeQuestionId } from './__mocks__/component';
 import { codesListsStore } from './__mocks__/codes-list';
 import { conditionsStore } from './__mocks__/condition';
 import { calculatedVariablesStore } from './__mocks__/calculated-variable';
 import { externalVariablesStore } from './__mocks__/external-variable';
+import { collectedVariablesStore } from './__mocks__/collected-variable';
 import QuestionnaireTransformerFactory from './questionnaire';
 
 describe('Transformation entities - Questionnaire', () => {
@@ -69,6 +70,9 @@ describe('Transformation entities - Questionnaire', () => {
       conditionsStore,
       calculatedVariablesStore,
       externalVariablesStore,
+      collectedVariableByQuestionStore: {
+        [fakeQuestionId]: collectedVariablesStore,
+      },
     });
 
     expect(questionnaireTransformer.stateToModel()).toEqual({

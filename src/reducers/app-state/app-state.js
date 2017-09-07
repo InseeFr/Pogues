@@ -56,7 +56,6 @@ export function setSelectedComponentId(state, id) {
 }
 
 export function setCollections(state, { update }) {
-  console.log('COLLECTION');
   return {
     ...state,
     collections: update,

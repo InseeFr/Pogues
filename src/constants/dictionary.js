@@ -135,6 +135,10 @@ const dictionary = {
     en: 'Create',
     fr: 'Créer',
   },
+  generateCollectedVariables: {
+    en: 'Generate collected variables',
+    fr: 'Générer variables collectées',
+  },
   import: {
     en: 'Import',
     fr: 'Importer',
@@ -466,7 +470,11 @@ const dictionary = {
     fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
     en: 'Your questionnaire must contain at least one sequence and one question.',
   },
-  errorInvalidCollectedVariable: {
+  errorNeedRegenerateCollectedVariables: {
+    fr: 'Need regenerate.',
+    en: 'Need regenerate.',
+  },
+  errorInvalidCollectedVariables: {
     fr: 'La question contient des variables collectées invalides.',
     en: 'The question contains invalid collected variables.',
   },
@@ -869,7 +877,7 @@ const dictionary = {
   },
   validationInvalidName: {
     fr: "L'identifiant peut uniquement contenir des lettres non accentuées, chiffres, tirets et underscore",
-    en: 'The Id can only contain non-accentted letters, numbers, dashes and underscore',
+    en: 'The Id can only contain non-accented letters, numbers, dashes and underscore',
   },
   validationInvalidNameSize: {
     fr: "L'identifiant ne peux pas dépasser 16 caractères",

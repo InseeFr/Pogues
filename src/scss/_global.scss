@@ -216,6 +216,19 @@ a {
       color: $color-blue_05;
       margin-bottom: 20px;
     }
+
+    .nav-error {
+      background-color: lighten(red, 45%);
+      padding: 10px;
+      list-style-type: circle;
+      margin-right: 40px;
+      li {
+        margin-left: 20px;
+        color: red;
+        font-size: $font-xs;
+        font-weight: bold;
+      }
+    }
   }
 }
 

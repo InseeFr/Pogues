@@ -181,31 +181,31 @@ function transformationStateToForm(currentState, codesListsStore) {
   };
 }
 
-function transformationStateToModel(currentState, codesListsStore) {
+function transformationStateToModel(currentState, codesListsStore, collectedVariables) {
   const { [PRIMARY]: primaryState, [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState } } = currentState;
   const dimensions = [];
   const responses = [];
   const numCodes = Object.keys(codesListsStore[primaryState.codesListId].codes).length;
-  let responseModel;
+  let responseState;
 
   dimensions.push(Dimension.stateToModel({ ...primaryState, type: PRIMARY }));
   dimensions.push(Dimension.stateToModel({ type: MEASURE }));
 
   if (typeMeasure === CODES_LIST) {
     const { codesListId, visHint } = measureState;
-    responseModel = Response.stateToModel({
+    responseState = {
       codesListId,
       typeName: TEXT,
       visHint,
       maxLength: 1,
       pattern: '',
-    });
+    };
   } else {
-    responseModel = Response.stateToModel({ typeName: BOOLEAN });
+    responseState = { typeName: BOOLEAN };
   }
 
   for (let i = 0; i < numCodes; i += 1) {
-    responses.push(responseModel);
+    responses.push(Response.stateToModel({ ...responseState, collectedVariable: collectedVariables[i] || '' }));
   }
 
   return {
@@ -215,7 +215,7 @@ function transformationStateToModel(currentState, codesListsStore) {
 }
 
 const MultipleTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
+  const { initialState, codesListsStore, collectedVariables, currentCodesListsIdsStore } = conf;
   let currentState = initialState || defaultMultipleState;
 
   return {
@@ -240,7 +240,7 @@ const MultipleTransformerFactory = (conf = {}) => {
       return transformationStateToForm(currentState, codesListsStore);
     },
     stateToModel: () => {
-      return transformationStateToModel(currentState, codesListsStore);
+      return transformationStateToModel(currentState, codesListsStore, collectedVariables);
     },
   };
 };

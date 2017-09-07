@@ -36,7 +36,7 @@
 
   #questionnaire-nav {
    position: relative;
-float: left;
+   float: left;
     min-height: 1px;
     margin-top: 20px;
     margin-bottom: 80px;
@@ -238,7 +238,7 @@ float: left;
 
     a {
       color: black;
-    }  
+    }
     body.ReactModal__Body--open & {
       z-index: -100;
     }
