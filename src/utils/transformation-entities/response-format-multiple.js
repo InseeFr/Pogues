@@ -181,27 +181,31 @@ function transformationStateToForm(currentState, codesListsStore) {
   };
 }
 
-function transformationStateToModel(currentState) {
+function transformationStateToModel(currentState, codesListsStore) {
   const { [PRIMARY]: primaryState, [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState } } = currentState;
   const dimensions = [];
   const responses = [];
+  const numCodes = Object.keys(codesListsStore[primaryState.codesListId].codes).length;
+  let responseModel;
 
   dimensions.push(Dimension.stateToModel({ ...primaryState, type: PRIMARY }));
   dimensions.push(Dimension.stateToModel({ type: MEASURE }));
 
   if (typeMeasure === CODES_LIST) {
     const { codesListId, visHint } = measureState;
-    responses.push(
-      Response.stateToModel({
-        codesListId,
-        typeName: TEXT,
-        visHint,
-        maxLength: 1,
-        pattern: '',
-      })
-    );
+    responseModel = Response.stateToModel({
+      codesListId,
+      typeName: TEXT,
+      visHint,
+      maxLength: 1,
+      pattern: '',
+    });
   } else {
-    responses.push(Response.stateToModel({ typeName: BOOLEAN }));
+    responseModel = Response.stateToModel({ typeName: BOOLEAN });
+  }
+
+  for (let i = 0; i < numCodes; i += 1) {
+    responses.push(responseModel);
   }
 
   return {
@@ -236,7 +240,7 @@ const MultipleTransformerFactory = (conf = {}) => {
       return transformationStateToForm(currentState, codesListsStore);
     },
     stateToModel: () => {
-      return transformationStateToModel(currentState);
+      return transformationStateToModel(currentState, codesListsStore);
     },
   };
 };
