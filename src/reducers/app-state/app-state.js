@@ -6,6 +6,7 @@ import activeExternalVariablesById from 'reducers/app-state/active-external-vari
 import codeListsByActiveQuestion from 'reducers/app-state/code-lists-by-active-question';
 import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
 import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
+import { LOAD_COLLECTIONS_SUCCESS, LOAD_OPERATIONS_SUCCESS, LOAD_CAMPAIGNS_SUCCESS } from 'actions/questionnaire';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
 const actionHandlers = {};
@@ -54,10 +55,36 @@ export function setSelectedComponentId(state, id) {
   };
 }
 
+export function setCollections(state, { update }) {
+  console.log('COLLECTION');
+  return {
+    ...state,
+    collections: update,
+  };
+}
+
+export function setOperations(state, { update }) {
+  return {
+    ...state,
+    operations: update,
+  };
+}
+
+export function setCampaigns(state, { update }) {
+  return {
+    ...state,
+    campaigns: update,
+  };
+}
+
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
+
+actionHandlers[LOAD_COLLECTIONS_SUCCESS] = setCollections;
+actionHandlers[LOAD_OPERATIONS_SUCCESS] = setOperations;
+actionHandlers[LOAD_CAMPAIGNS_SUCCESS] = setCampaigns;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {
