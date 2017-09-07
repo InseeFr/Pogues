@@ -1,10 +1,9 @@
-const config = require('../nightwatch.conf.js');
 const questionnairePage = require('./po/questionnaire');
 
 module.exports = {
   'Should update the title of a questionnaire': browser => {
     browser
-      .url("http://localhost:3000/#/questionnaire/fr.insee-POPO-QPO-DOC")
+      .url(`${browser.globals.launch_url}/#/questionnaire/fr.insee-POPO-QPO-DOC`)
       .waitForElementVisible('body')
       .click(questionnairePage.VoirLeDetailButton)
       .waitForElementVisible(questionnairePage.QuestionnaireModalLabelInput)
