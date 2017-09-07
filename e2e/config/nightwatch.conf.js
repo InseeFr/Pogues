@@ -3,19 +3,22 @@ const seleniumDownload = require('selenium-download');
 
 const SCREENSHOT_PATH = './screenshots/';
 const BINPATH = './node_modules/nightwatch/bin/';
+
+// Local env url (webpack)
 const localUrl = 'http://localhost:3000';
+// 'Prod' env url (tomcat)
 const prodUrl = 'http://localhost:8080/rmspogfo';
 
 // we use a nightwatch.conf.js file so we can include comments and helper functions
 module.exports = {
   src_folders: [
-    'e2e', // Where you are storing your Nightwatch e2e tests
+    'e2e/specs', // Where you are storing your Nightwatch e2e tests
   ],
+  filter: 'e2e/po/*-po.js',
   globals: {
     launch_url: localUrl,
   },
-  globals_path: 'nightwatch.globals.js',
-  // custom_commands_path: "e2e/custom_cmd",
+  globals_path: 'e2e/config/nightwatch.globals.js',
   output_folder: './reports, // reports (test outcome) output by nightwatch',
   selenium: {
     // downloaded by selenium-download module (see readme)
@@ -29,6 +32,7 @@ module.exports = {
     },
   },
   test_settings: {
+    // E2E with BO on SauceLab
     fulle2e: {
       launch_url: prodUrl, // were testing a Public or staging site on Saucelabs
       selenium_port: 80,
@@ -49,6 +53,7 @@ module.exports = {
         build: `build-${process.env.TRAVIS_JOB_NUMBER}`, // needed for sauce-connect
       },
     },
+    // E2E with FakeBO on SauceLab
     fakee2e: {
       launch_url: localUrl, // were testing a Public or staging site on Saucelabs
       selenium_port: 80,
@@ -69,8 +74,9 @@ module.exports = {
         build: `build-${process.env.TRAVIS_JOB_NUMBER}`, // needed for sauce-connect
       },
     },
+    // E2E on localhost env
     local: {
-      launch_url: localUrl,
+      launch_url: 'http://dvrmspogfolht01.ad.insee.intra/rmspogfo',
       selenium_port: 4444,
       selenium_host: '127.0.0.1',
       silent: true,
@@ -79,7 +85,7 @@ module.exports = {
         path: SCREENSHOT_PATH,
       }, // this allows us to control the
       globals: {
-        launch_url: localUrl,
+        launch_url: 'http://dvrmspogfolht01.ad.insee.intra/rmspogfo',
         waitForConditionTimeout: 15000, // on localhost sometimes internet is slow so wait...
       },
       desiredCapabilities: {
