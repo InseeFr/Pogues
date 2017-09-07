@@ -82,10 +82,10 @@ function transformationStateToForm(currentState) {
 }
 
 function transformationStateToModel(currentState, collectedVariables) {
-  const typeName = currentState.type;
+  const { type: typeName, mandatory } = currentState;
   const dataType = currentState[typeName];
   return {
-    Response: [Response.stateToModel({ ...dataType, typeName, collectedVariable: collectedVariables[0] })],
+    Response: [Response.stateToModel({ ...dataType, typeName, mandatory, collectedVariable: collectedVariables[0] })],
   };
 }
 
