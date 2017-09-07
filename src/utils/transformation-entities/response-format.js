@@ -102,6 +102,7 @@ function transformationStateToModel(currentState, collectedVariables, codesLists
     responseFormatModel = MultipleTransformerFactory({
       initialState: responseFormatState,
       codesListsStore,
+      collectedVariables,
     }).stateToModel();
     model = {
       ResponseStructure: {
@@ -113,6 +114,7 @@ function transformationStateToModel(currentState, collectedVariables, codesLists
     responseFormatModel = TableTransformerFactory({
       initialState: responseFormatState,
       codesListsStore,
+      collectedVariables,
     }).stateToModel();
     model = {
       ResponseStructure: {

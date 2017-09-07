@@ -36,7 +36,7 @@ function getCollectedVariablesFromCodes(questionName, form, codesListStore) {
     listCodes = Object.keys(codesStore).map(key => codesStore[key]);
   }
 
-  return listCodes.map((c, index) => getCollecteVariable(`${questionName} ${index + 1}`, `${c.value} - ${c.label}`));
+  return listCodes.map((c, index) => getCollecteVariable(`${questionName}${index + 1}`, `${c.code} - ${c.label}`));
 }
 
 function generateCollectedVariables(responseFormat, questionName, form, codesListStore) {
