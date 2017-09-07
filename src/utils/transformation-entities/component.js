@@ -199,7 +199,6 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
   if (type === QUESTION) {
     model.type = QUESTION_TYPE_NAME;
     model.questionType = responseFormat.type;
-    // @TODO
     model = {
       ...model,
       ...ResponseFormatTransformerFactory({

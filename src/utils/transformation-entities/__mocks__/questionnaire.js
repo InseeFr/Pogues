@@ -1,6 +1,7 @@
 import { codesListsModel } from './codes-list';
 import { calculatedVariablesModel } from './calculated-variable';
 import { externalVariablesModel } from './external-variable';
+import { collectedVariablesModel } from './collected-variable';
 import { componentsModel } from './component';
 
 export const fakeOwnerId = 'THIS_IS_OWNER';
@@ -67,6 +68,6 @@ export const questionnaireModel = {
     CodeList: codesListsModel,
   },
   Variables: {
-    Variable: [...calculatedVariablesModel, ...externalVariablesModel],
+    Variable: [...calculatedVariablesModel, ...externalVariablesModel, ...collectedVariablesModel],
   },
 };

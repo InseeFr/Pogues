@@ -136,7 +136,10 @@ export const questionState = {
   declarations: {},
   controls: {},
   redirections: {},
-  collectedVariables: [],
+  collectedVariables: {
+    collectedVariables: ['FIRSTID'],
+    responseFormat: 'SIMPLE',
+  },
   type: 'QUESTION',
   label: 'Question 1',
   rawLabel: 'Question 1',
