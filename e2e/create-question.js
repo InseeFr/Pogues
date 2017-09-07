@@ -10,7 +10,7 @@ module.exports = {
       .waitForElementVisible(editQuestion.Tabs)
       .click(editQuestion.CancelButton)
       .waitForElementNotPresent(editQuestion.Tabs)
-      .end();
+      .end()
   },
   'Should show declaration panel': browser => {
     browser
@@ -20,6 +20,6 @@ module.exports = {
       .waitForElementVisible(editQuestion.Tabs)
       .click(editQuestion.DeclarationTab)
       .assert.cssClassPresent(editQuestion.DeclarationContent, 'active')
-      .end();
+      .end()
   },
 };
