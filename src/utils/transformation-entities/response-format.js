@@ -83,12 +83,7 @@ function transformationStateToForm(currentState, codesListsStore = {}) {
 
 function transformationStateToModel(currentState, collectedVariables, codesListsStore) {
   const { type, [type]: responseFormatState } = currentState;
-  const model = {
-    ResponseStructure: {
-      Dimension: [],
-    },
-    Response: [],
-  };
+  let model = {};
   let responseFormatModel = {};
 
   if (type === SIMPLE) {
@@ -106,15 +101,23 @@ function transformationStateToModel(currentState, collectedVariables, codesLists
     responseFormatModel = MultipleTransformerFactory({
       initialState: responseFormatState,
     }).stateToModel();
-    model.Response = responseFormatModel.Response;
-    model.ResponseStructure.Dimension = responseFormatModel.Dimension;
+    model = {
+      ResponseStructure: {
+        Dimension: responseFormatModel.Dimension,
+      },
+      Response: responseFormatModel.Response,
+    };
   } else {
     responseFormatModel = TableTransformerFactory({
       initialState: responseFormatState,
       codesListsStore,
     }).stateToModel();
-    model.Response = responseFormatModel.Response;
-    model.ResponseStructure.Dimension = responseFormatModel.Dimension;
+    model = {
+      ResponseStructure: {
+        Dimension: responseFormatModel.Dimension,
+      },
+      Response: responseFormatModel.Response,
+    };
   }
   return model;
 }

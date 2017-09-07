@@ -22,9 +22,6 @@ export const responseFormatSimpleTextState = {
 
 export const responseFormatSimpleTextModel = {
   questionType: SIMPLE,
-  ResponseStructure: {
-    Dimension: [],
-  },
   Response: [
     {
       mandatory: false,

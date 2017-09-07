@@ -94,7 +94,7 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.sequence}
         </button>
-        <button className="btn-white" id="add-pagebreak">
+        <button disabled className="btn-white" id="add-pagebreak">
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.pageBreak}
         </button>
