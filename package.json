@@ -109,7 +109,8 @@
     "lint:fix": "eslint ./src ./utils -f table --fix || true",
     "start": "npm run dev",
     "e2e": "nightwatch --env local --config nightwatch.conf.js",
-    "e2e:travis": "nightwatch --config nightwatch.conf.js"
+    "e2e:local-travis": "nightwatch --env fakee2e --config nightwatch.conf.js",
+    "e2e:full-travis": "nightwatch --env fulle2e --config nightwatch.conf.js"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
