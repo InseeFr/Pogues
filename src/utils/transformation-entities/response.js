@@ -1,9 +1,10 @@
 import { DATATYPE_TYPE_FROM_NAME, UI_BEHAVIOUR } from 'constants/pogues-constants';
 
 function stateToModel(state) {
+  debugger;
   const {
     mandatory,
-    type,
+    typeName,
     maxLength: MaxLength,
     pattern: Pattern,
     minimum: Minimum,
@@ -20,8 +21,8 @@ function stateToModel(state) {
   } = state;
   const model = {
     Datatype: {
-      typeName: type,
-      type: DATATYPE_TYPE_FROM_NAME[type],
+      typeName,
+      type: DATATYPE_TYPE_FROM_NAME[typeName],
     },
   };
 

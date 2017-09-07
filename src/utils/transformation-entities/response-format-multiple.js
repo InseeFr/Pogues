@@ -194,14 +194,14 @@ function transformationStateToModel(currentState) {
     responses.push(
       Response.stateToModel({
         codesListId,
-        type: TEXT,
+        typeName: TEXT,
         visHint,
         maxLength: 1,
         pattern: '',
       })
     );
   } else {
-    responses.push(Response.stateToModel({ type: BOOLEAN }));
+    responses.push(Response.stateToModel({ typeName: BOOLEAN }));
   }
 
   return {

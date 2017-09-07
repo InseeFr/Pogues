@@ -525,14 +525,14 @@ function transformationStateToModelResponse(state) {
   let model = {};
 
   if (measureType === SIMPLE) {
-    const { mandatory, type, [type]: simpleState } = measureTypeState;
-    model = Response.stateToModel({ mandatory, type, ...simpleState });
+    const { mandatory, type: typeName, [typeName]: simpleState } = measureTypeState;
+    model = Response.stateToModel({ mandatory, typeName, ...simpleState });
   } else {
     const { mandatory, visHint, codesListId } = measureTypeState;
     model = Response.stateToModel({
       mandatory,
       codesListId,
-      type: TEXT,
+      typeName: TEXT,
       maxLength: 1,
       pattern: '',
       visHint,
