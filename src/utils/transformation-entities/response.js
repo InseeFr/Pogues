@@ -1,7 +1,6 @@
 import { DATATYPE_TYPE_FROM_NAME, UI_BEHAVIOUR } from 'constants/pogues-constants';
 
 function stateToModel(state) {
-  debugger;
   const {
     mandatory,
     typeName,
