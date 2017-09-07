@@ -95,6 +95,7 @@ function transformationStateToModel(currentState, collectedVariables, codesLists
   } else if (type === SINGLE_CHOICE) {
     responseFormatModel = SingleTransformerFactory({
       initialState: responseFormatState,
+      collectedVariables,
     }).stateToModel();
     model.Response = responseFormatModel.Response;
   } else if (type === MULTIPLE_CHOICE) {

@@ -117,14 +117,22 @@ function transformationStateToForm(currentState, codesListsStore) {
   };
 }
 
-function transformationStateToModel(currentState) {
+function transformationStateToModel(currentState, collectedVariables) {
   return {
-    Response: [Response.stateToModel({ type: TEXT, maxLength: 1, pattern: '', ...currentState })],
+    Response: [
+      Response.stateToModel({
+        ...currentState,
+        type: TEXT,
+        maxLength: 1,
+        pattern: '',
+        collectedVariable: collectedVariables[0],
+      }),
+    ],
   };
 }
 
 const SingleTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
+  const { initialState, codesListsStore, collectedVariables, currentCodesListsIdsStore } = conf;
 
   let currentState = initialState || defaultSingleState;
 
@@ -146,7 +154,7 @@ const SingleTransformerFactory = (conf = {}) => {
       return transformationStateToForm(currentState, codesListsStore);
     },
     stateToModel: () => {
-      return transformationStateToModel(currentState);
+      return transformationStateToModel(currentState, collectedVariables);
     },
   };
 };
