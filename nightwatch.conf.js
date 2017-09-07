@@ -22,7 +22,26 @@ module.exports = {
     },
   },
   test_settings: {
-    default: {
+    fulle2e: {
+      launch_url: 'http://localhost:8080', // were testing a Public or staging site on Saucelabs
+      selenium_port: 80,
+      selenium_host: 'ondemand.saucelabs.com',
+      silent: true,
+      screenshots: {
+        enabled: false, // save screenshots to this directory (excluded by .gitignore)
+        path: SCREENSHOT_PATH,
+      },
+      username: "${SAUCE_USERNAME}", // if you want to use Saucelabs remember to
+      access_key: "${SAUCE_ACCESS_KEY}",
+      globals: {
+        waitForConditionTimeout: 10000, // wait for content on the page before continuing
+      },
+      desiredCapabilities: {
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER, // needed for sauce-connect, i.e for testing localhost on saucelabs
+        build: `build-${process.env.TRAVIS_JOB_NUMBER}`, // needed for sauce-connect
+      },
+    },
+    fakee2e: {
       launch_url: 'http://localhost:3000', // were testing a Public or staging site on Saucelabs
       selenium_port: 80,
       selenium_host: 'ondemand.saucelabs.com',
