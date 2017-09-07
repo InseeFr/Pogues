@@ -119,7 +119,7 @@ function transformationStateToForm(currentState, codesListsStore) {
 
 function transformationStateToModel(currentState) {
   return {
-    Response: [Response.stateToModel({ type: TEXT, maxLength: 1, pattern: '', ...currentState })],
+    Response: [Response.stateToModel({ typeName: TEXT, maxLength: 1, pattern: '', ...currentState })],
   };
 }
 

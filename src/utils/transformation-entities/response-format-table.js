@@ -157,10 +157,10 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
 
     if (secondaryState) {
       const { codesListId: codesListIdSecondary } = secondaryState;
-      responseOffsetSecondary = activeCodeLists[codesListIdSecondary].codes.length || 1;
+      responseOffsetSecondary = Object.keys(activeCodeLists[codesListIdSecondary].codes).length;
     }
 
-    responseOffset = (activeCodeLists[codesListIdPrimary].codes.length || 1) * responseOffsetSecondary;
+    responseOffset = Object.keys(activeCodeLists[codesListIdPrimary].codes).length * responseOffsetSecondary;
   } else {
     const { LIST: { numLinesMin, numLinesMax } } = primaryState;
     responseOffset = numLinesMax - numLinesMin + 1;
@@ -525,14 +525,14 @@ function transformationStateToModelResponse(state) {
   let model = {};
 
   if (measureType === SIMPLE) {
-    const { mandatory, type, [type]: simpleState } = measureTypeState;
-    model = Response.stateToModel({ mandatory, type, ...simpleState });
+    const { mandatory, type: typeName, [typeName]: simpleState } = measureTypeState;
+    model = Response.stateToModel({ mandatory, typeName, ...simpleState });
   } else {
     const { mandatory, visHint, codesListId } = measureTypeState;
     model = Response.stateToModel({
       mandatory,
       codesListId,
-      type: TEXT,
+      typeName: TEXT,
       maxLength: 1,
       pattern: '',
       visHint,

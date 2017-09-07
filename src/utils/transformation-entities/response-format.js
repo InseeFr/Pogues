@@ -100,6 +100,7 @@ function transformationStateToModel(currentState, collectedVariables, codesLists
   } else if (type === MULTIPLE_CHOICE) {
     responseFormatModel = MultipleTransformerFactory({
       initialState: responseFormatState,
+      codesListsStore,
     }).stateToModel();
     model = {
       ResponseStructure: {
