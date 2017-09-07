@@ -157,10 +157,10 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
 
     if (secondaryState) {
       const { codesListId: codesListIdSecondary } = secondaryState;
-      responseOffsetSecondary = activeCodeLists[codesListIdSecondary].codes.length || 1;
+      responseOffsetSecondary = Object.keys(activeCodeLists[codesListIdSecondary].codes).length;
     }
 
-    responseOffset = (activeCodeLists[codesListIdPrimary].codes.length || 1) * responseOffsetSecondary;
+    responseOffset = Object.keys(activeCodeLists[codesListIdPrimary].codes).length * responseOffsetSecondary;
   } else {
     const { LIST: { numLinesMin, numLinesMax } } = primaryState;
     responseOffset = numLinesMax - numLinesMin + 1;
