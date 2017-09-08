@@ -12,7 +12,6 @@ import CollectedVariableTransformerFactory from './collected-variable';
 import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 function transformationFormToState(form, currentState, codesListsStore, currentCodesListsIdsStore) {
   const { id, type, parent, weight, children } = currentState;
@@ -41,26 +40,12 @@ function transformationFormToState(form, currentState, codesListsStore, currentC
       currentCodesListsIdsStore,
       codesListsStore,
     }).formToState(responseFormat);
-    state.collectedVariables = {
-      responseFormat: collectedVariables.responseFormat,
-      collectedVariables: CollectedVariableTransformerFactory().formToComponentState(collectedVariables),
-    };
+    state.collectedVariables = CollectedVariableTransformerFactory().formToComponentState(collectedVariables);
   } else {
     state.label = label;
   }
 
   return state;
-}
-
-function getResponseFormatCollectedVariables(collectedVariables) {
-  let responseFormat = '';
-
-  if (collectedVariables.length === 1) {
-    responseFormat = SIMPLE;
-  } else if (collectedVariables.length > 1) {
-    responseFormat = MULTIPLE_CHOICE;
-  }
-  return responseFormat;
 }
 
 function transformationModelToState(model, codesListsStore = {}) {
@@ -112,10 +97,7 @@ function transformationModelToState(model, codesListsStore = {}) {
     state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
     state.responseFormat = responseFormat;
-    state.collectedVariables = {
-      responseFormat: getResponseFormatCollectedVariables(collectedVariables),
-      collectedVariables,
-    };
+    state.collectedVariables = collectedVariables;
   }
 
   return state;
@@ -204,7 +186,7 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
       ...ResponseFormatTransformerFactory({
         initialState: responseFormat,
         codesListsStore,
-        collectedVariables: collectedVariables.collectedVariables,
+        collectedVariables,
       }).stateToModel(),
     };
   } else {

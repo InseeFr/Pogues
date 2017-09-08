@@ -9,6 +9,7 @@ export const SET_ACTIVE_CALCULATED_VARIABLES = 'SET_ACTIVE_CALCULATED_VARIABLES'
 export const SET_ACTIVE_EXTERNAL_VARIABLES = 'SET_ACTIVE_EXTERNAL_VARIABLES';
 export const SET_ACTIVE_COLLECTED_VARIABLES = 'SET_ACTIVE_COLLECTED_VARIABLES';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
+export const SET_NEED_RECREATE_COLLECTED_VARIABLES = 'SET_NEED_RECREATE_COLLECTED_VARIABLES';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
@@ -133,6 +134,21 @@ export const setActiveDeclarations = activeDeclarations => ({
 export const setSelectedComponentId = id => ({
   type: SET_SELECTED_COMPONENT,
   payload: id,
+});
+
+/**
+ * Set the id for the questions that need recreate the collected variables
+ *
+ * It changes the store "appState.needRecreateVariablesQuestions"
+ *
+ * @param  {array} questionsIds   The ids of the questions that need recreate the collected variables
+ * @return {object}               SET_NEED_RECREATE_COLLECTED_VARIABLES action
+ */
+export const setQuestionsNeedRecreateVariables = questionsIds => ({
+  type: SET_NEED_RECREATE_COLLECTED_VARIABLES,
+  payload: {
+    questionsIds,
+  },
 });
 
 /**

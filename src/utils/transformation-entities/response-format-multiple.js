@@ -185,7 +185,8 @@ function transformationStateToModel(currentState, codesListsStore, collectedVari
   const { [PRIMARY]: primaryState, [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState } } = currentState;
   const dimensions = [];
   const responses = [];
-  const numCodes = Object.keys(codesListsStore[primaryState.codesListId].codes).length;
+  const codesListState = codesListsStore[primaryState.codesListId] || {};
+  const numCodes = Object.keys(codesListState.codes || {}).length;
   let responseState;
 
   dimensions.push(Dimension.stateToModel({ ...primaryState, type: PRIMARY }));
