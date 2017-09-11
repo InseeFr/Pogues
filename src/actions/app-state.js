@@ -9,7 +9,8 @@ export const SET_ACTIVE_CALCULATED_VARIABLES = 'SET_ACTIVE_CALCULATED_VARIABLES'
 export const SET_ACTIVE_EXTERNAL_VARIABLES = 'SET_ACTIVE_EXTERNAL_VARIABLES';
 export const SET_ACTIVE_COLLECTED_VARIABLES = 'SET_ACTIVE_COLLECTED_VARIABLES';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
-export const SET_NEED_RECREATE_COLLECTED_VARIABLES = 'SET_NEED_RECREATE_COLLECTED_VARIABLES';
+export const ADD_RECREATE_COLLECTED_VARIABLES = 'ADD_RECREATE_COLLECTED_VARIABLES';
+export const REMOVE_RECREATE_COLLECTED_VARIABLES = 'REMOVE_RECREATE_COLLECTED_VARIABLES';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
@@ -137,18 +138,29 @@ export const setSelectedComponentId = id => ({
 });
 
 /**
- * Set the id for the questions that need recreate the collected variables
+ * Add the question id to the store recreate collected variables
  *
  * It changes the store "appState.needRecreateVariablesQuestions"
  *
- * @param  {array} questionsIds   The ids of the questions that need recreate the collected variables
- * @return {object}               SET_NEED_RECREATE_COLLECTED_VARIABLES action
+ * @param  {string} questionId   The id of the question that need recreate the collected variables
+ * @return {object}               ADD_RECREATE_COLLECTED_VARIABLES action
  */
-export const setQuestionsNeedRecreateVariables = questionsIds => ({
-  type: SET_NEED_RECREATE_COLLECTED_VARIABLES,
-  payload: {
-    questionsIds,
-  },
+export const addNeedRecreateVariables = questionId => ({
+  type: ADD_RECREATE_COLLECTED_VARIABLES,
+  payload: questionId,
+});
+
+/**
+ * Remove the question id from the store recreate collected variables
+ *
+ * It changes the store "appState.needRecreateVariablesQuestions"
+ *
+ * @param  {string} questionId   The id of the question that is removed from the store
+ * @return {object}               REMOVE_RECREATE_COLLECTED_VARIABLES action
+ */
+export const removeNeedRecreateVariables = questionId => ({
+  type: REMOVE_RECREATE_COLLECTED_VARIABLES,
+  payload: questionId,
 });
 
 /**

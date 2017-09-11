@@ -7,6 +7,7 @@ import { setCurrentCodesListsInQuestion, setInvalidItemsFromErrors } from 'actio
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
+import { recreateCollectedVariablesIfNeeded } from 'utils/model/model-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
@@ -108,6 +109,9 @@ class ComponentEditContainer extends Component {
       let updatedExternalVariablesStore = {};
       let updatedCollectedlVariablesStore = {};
       let updatedCodesListsStore = {};
+
+      values = recreateCollectedVariablesIfNeeded(values, activeCodesListsStore);
+
       const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
 
       if (componentType === QUESTION) {

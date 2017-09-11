@@ -7,6 +7,7 @@ import { setSelectedComponentId, setCurrentCodesListsInQuestion } from 'actions/
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
+import { recreateCollectedVariablesIfNeeded } from 'utils/model/model-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
@@ -95,10 +96,18 @@ class ComponentNewContainer extends Component {
     });
     const initialValues = componentTransformer.stateToForm({ type });
     const submit = values => {
+      validate()
+
+
       let updatedCalculatedVariablesStore = {};
       let updatedExternalVariablesStore = {};
       let updatedCodesListsStore = {};
       let updatedCollectedlVariablesStore = {};
+
+      if (type === QUESTION) {
+        values = recreateCollectedVariablesIfNeeded(values, activeCodesListsStore);
+      }
+
       const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
 
       if (type === QUESTION) {
@@ -108,7 +117,6 @@ class ComponentNewContainer extends Component {
         );
         updatedExternalVariablesStore = ExternalVariableTransformerFactory().formToStore(values.externalVariables);
         updatedCollectedlVariablesStore = CollectedVariableTransformerFactory().formToStore(values.collectedVariables);
-
       }
 
       createComponent(
