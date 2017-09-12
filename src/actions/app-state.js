@@ -19,6 +19,8 @@ export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
 export const SET_CURRENT_CODES_LISTS_IN_QUESTION = 'SET_CURRENT_CODES_LISTS_IN_QUESTION';
 export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
 export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
+export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
+export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
 
 /**
  * Set active questionnaire
@@ -356,4 +358,13 @@ export const removeInvalidItem = invalidItemIdToRemove => ({
   payload: {
     invalidItemIdToRemove,
   },
+});
+
+export const setTabErrors = errors => ({
+  type: SET_TAB_ERRORS,
+  payload: errors,
+});
+
+export const clearTabErrors = () => ({
+  type: CLEAR_TAB_ERRORS,
 });

@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
 import { updateComponent } from 'actions/component';
-import { setCurrentCodesListsInQuestion, setInvalidItemsFromErrors } from 'actions/app-state';
+// import { setCurrentCodesListsInQuestion, setInvalidItemsFromErrors } from 'actions/app-state';
+import { setTabErrors, clearTabErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
-import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
+// import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
@@ -23,75 +24,85 @@ const mapStateToProps = (state, { componentId }) => ({
   activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
   activeExternalVariablesStore: state.appState.activeExternalVariablesById,
   currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
-  invalidItems: state.appState.invalidItemsByActiveQuestion,
+  // invalidItems: state.appState.invalidItemsByActiveQuestion,
   activeCollectedVariablesStore: state.appState.collectedVariableByQuestion[componentId],
+  errorsByQuestionTab: state.appState.errorsByQuestionTab,
 });
 
 const mapDispatchToProps = {
   updateComponent,
-  setCurrentCodesListsInQuestion,
-  setInvalidItemsFromErrors,
+  setTabErrors,
+  clearTabErrors,
+  // setCurrentCodesListsInQuestion,
+  // setInvalidItemsFromErrors,
 };
 
 class ComponentEditContainer extends Component {
   static propTypes = {
     updateComponent: PropTypes.func.isRequired,
-    setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
+    setTabErrors: PropTypes.func.isRequired,
+    clearTabErrors: PropTypes.func.isRequired,
+    // setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
     componentId: PropTypes.string.isRequired,
     activeComponentsStore: PropTypes.object.isRequired,
     activeCodesListsStore: PropTypes.object.isRequired,
     activeCalculatedVariablesStore: PropTypes.object,
     activeExternalVariablesStore: PropTypes.object,
     activeCollectedVariablesStore: PropTypes.object,
+    errorsByQuestionTab: PropTypes.object,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
     currentCodesListsIdsStore: PropTypes.object,
-    invalidItems: PropTypes.object,
-    setInvalidItemsFromErrors: PropTypes.func.isRequired,
+    // invalidItems: PropTypes.object,
+    // setInvalidItemsFromErrors: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     onSuccess: undefined,
     onCancel: undefined,
     currentCodesListsIdsStore: {},
-    invalidItems: {},
+    // invalidItems: {},
     activeCalculatedVariablesStore: {},
     activeExternalVariablesStore: {},
     activeCollectedVariablesStore: {},
+    errorsByQuestionTab: {},
   };
 
-  componentWillMount() {
-    const {
-      activeComponentsStore,
-      componentId,
-      setCurrentCodesListsInQuestion,
-      setInvalidItemsFromErrors,
-    } = this.props;
-    const component = activeComponentsStore[componentId];
-    let currentCodesListsStoreFromQuestion = {};
-
-    setInvalidItemsFromErrors(componentId);
-
-    if (component.type === QUESTION) {
-      currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(component.responseFormat);
-    }
-
-    setCurrentCodesListsInQuestion(currentCodesListsStoreFromQuestion);
-  }
+  // componentWillMount() {
+  //   const {
+  //     activeComponentsStore,
+  //     componentId,
+  //     // setCurrentCodesListsInQuestion,
+  //     // setInvalidItemsFromErrors,
+  //   } = this.props;
+  //   // const component = activeComponentsStore[componentId];
+  //   // let currentCodesListsStoreFromQuestion = {};
+  //
+  //   // setInvalidItemsFromErrors(componentId);
+  //
+  //   // if (component.type === QUESTION) {
+  //   //   currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(component.responseFormat);
+  //   // }
+  //
+  //   // setCurrentCodesListsInQuestion(currentCodesListsStoreFromQuestion);
+  // }
 
   render() {
     const {
       updateComponent,
+      setTabErrors,
+      clearTabErrors,
       componentId,
       activeComponentsStore,
       activeCodesListsStore,
       activeCalculatedVariablesStore,
       activeExternalVariablesStore,
       activeCollectedVariablesStore,
+      errorsByQuestionTab,
       onSuccess,
       onCancel,
       currentCodesListsIdsStore,
-      invalidItems,
+      // invalidItems,
     } = this.props;
     const componentType = activeComponentsStore[componentId].type;
     const componentTransformer = ComponentTransformerFactory({
@@ -115,7 +126,10 @@ class ComponentEditContainer extends Component {
         const validationErrors = getValidationErrors(values, activeCodesListsStore);
 
         if (validationErrors.length > 0) {
+          setTabErrors(validationErrors);
           throw new SubmissionError(getErrorsObject(validationErrors));
+        } else {
+          clearTabErrors();
         }
       }
 
@@ -147,7 +161,8 @@ class ComponentEditContainer extends Component {
         initialValues={initialValues}
         onSubmit={submit}
         onCancel={onCancel}
-        invalidItems={invalidItems}
+        // invalidItems={invalidItems}
+        errorsByQuestionTab={errorsByQuestionTab}
         edit
       />
     );

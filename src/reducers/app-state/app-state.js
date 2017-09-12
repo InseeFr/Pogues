@@ -6,11 +6,8 @@ import activeExternalVariablesById from 'reducers/app-state/active-external-vari
 import codeListsByActiveQuestion from 'reducers/app-state/code-lists-by-active-question';
 import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
 import needRecreateVariablesQuestions from 'reducers/app-state/need-recreate-variables-questions';
-import {
-  SET_ACTIVE_QUESTIONNAIRE,
-  SET_SELECTED_COMPONENT,
-  UPDATE_ACTIVE_QUESTIONNAIRE,
-} from 'actions/app-state';
+import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
+import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
 import { LOAD_COLLECTIONS_SUCCESS, LOAD_OPERATIONS_SUCCESS, LOAD_CAMPAIGNS_SUCCESS } from 'actions/questionnaire';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
@@ -26,6 +23,7 @@ const defaultState = {
   errorsByCode: {},
   needRecreateVariablesQuestions: [],
   selectedComponentId: '',
+  errorsByQuestionTab: {},
 };
 
 export function loadUserSuccess(state, user) {
@@ -106,5 +104,6 @@ export default function(state = defaultState, action) {
     codeListsByActiveQuestion: codeListsByActiveQuestion(state.codeListsByActiveQuestion, action),
     invalidItemsByActiveQuestion: invalidItemsByActiveQuestion(state.invalidItemsByActiveQuestion, action),
     needRecreateVariablesQuestions: needRecreateVariablesQuestions(state.needRecreateVariablesQuestions, action),
+    errorsByQuestionTab: errorsByQuestionTab(state.errorsByQuestionTab, action),
   };
 }

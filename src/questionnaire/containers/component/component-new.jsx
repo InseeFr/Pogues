@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
-import { setSelectedComponentId, setCurrentCodesListsInQuestion } from 'actions/app-state';
+// import { setSelectedComponentId, setCurrentCodesListsInQuestion } from 'actions/app-state';
+import { setSelectedComponentId, setTabErrors, clearTabErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
-import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
+// import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
-import { defaultResponseFormatState } from 'utils/transformation-entities/response-format';
+// import { defaultResponseFormatState } from 'utils/transformation-entities/response-format';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getValidationErrors, getErrorsObject } from 'utils/component/component-utils';
 
@@ -23,7 +24,8 @@ const mapStateToProps = state => ({
   externalVariablesStore: state.appState.activeExternalVariablesById,
   currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
   activeCodesListsStore: state.appState.activeCodeListsById,
-  invalidItems: state.appState.invalidItemsByActiveQuestion,
+  // invalidItems: state.appState.invalidItemsByActiveQuestion,
+  errorsByQuestionTab: state.appState.errorsByQuestionTab,
 });
 
 const mapDispatchToProps = {
@@ -31,7 +33,9 @@ const mapDispatchToProps = {
   orderComponents,
   updateParentChildren,
   setSelectedComponentId,
-  setCurrentCodesListsInQuestion,
+  // setCurrentCodesListsInQuestion,
+  setTabErrors,
+  clearTabErrors,
 };
 
 class ComponentNewContainer extends Component {
@@ -40,7 +44,9 @@ class ComponentNewContainer extends Component {
     orderComponents: PropTypes.func.isRequired,
     updateParentChildren: PropTypes.func.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
-    setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
+    setTabErrors: PropTypes.func.isRequired,
+    clearTabErrors: PropTypes.func.isRequired,
+    // setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
     weight: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     parentId: PropTypes.string.isRequired,
@@ -50,7 +56,8 @@ class ComponentNewContainer extends Component {
     externalVariablesStore: PropTypes.object,
     currentCodesListsIdsStore: PropTypes.object,
     activeCodesListsStore: PropTypes.object,
-    invalidItems: PropTypes.object,
+    errorsByQuestionTab: PropTypes.object,
+    // invalidItems: PropTypes.object,
   };
 
   static defaultProps = {
@@ -60,24 +67,28 @@ class ComponentNewContainer extends Component {
     externalVariablesStore: {},
     currentCodesListsIdsStore: {},
     activeCodesListsStore: {},
-    invalidItems: {},
+    // invalidItems: {},
+    errorsByQuestionTab: {},
   };
-  componentWillMount() {
-    const { type, setCurrentCodesListsInQuestion } = this.props;
-    let currentCodesListsStoreFromQuestion = {};
+  // componentWillMount() {
+  //   const { type, setCurrentCodesListsInQuestion } = this.props;
+  //   let currentCodesListsStoreFromQuestion = {};
+  //
+  //   if (type === QUESTION) {
+  //     currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(defaultResponseFormatState);
+  //   }
+  //
+  //   setCurrentCodesListsInQuestion(currentCodesListsStoreFromQuestion);
+  // }
 
-    if (type === QUESTION) {
-      currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(defaultResponseFormatState);
-    }
-
-    setCurrentCodesListsInQuestion(currentCodesListsStoreFromQuestion);
-  }
   render() {
     const {
       createComponent,
       orderComponents,
       updateParentChildren,
       setSelectedComponentId,
+      setTabErrors,
+      clearTabErrors,
       parentId,
       weight,
       type,
@@ -87,7 +98,8 @@ class ComponentNewContainer extends Component {
       externalVariablesStore,
       currentCodesListsIdsStore,
       activeCodesListsStore,
-      invalidItems,
+      // invalidItems,
+      errorsByQuestionTab,
     } = this.props;
     const componentTransformer = ComponentTransformerFactory({
       calculatedVariablesStore,
@@ -106,7 +118,10 @@ class ComponentNewContainer extends Component {
         const validationErrors = getValidationErrors(values, activeCodesListsStore);
 
         if (validationErrors.length > 0) {
+          setTabErrors(validationErrors);
           throw new SubmissionError(getErrorsObject(validationErrors));
+        } else {
+          clearTabErrors();
         }
       }
 
@@ -143,7 +158,8 @@ class ComponentNewContainer extends Component {
         initialValues={initialValues}
         onSubmit={submit}
         onCancel={onCancel}
-        invalidItems={invalidItems}
+        // invalidItems={invalidItems}
+        errorsByQuestionTab={errorsByQuestionTab}
       />
     );
   }

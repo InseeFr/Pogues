@@ -140,3 +140,8 @@ export const VARIABLES_TYPES = {
   CALCULATED: 'CalculatedVariableType',
   EXTERNAL: 'ExternalVariableType',
 };
+
+export const TAB_NAMES = {
+  RESPONSE_FORMAT: 'responseFormat',
+  COLLECTED_VARIABLES: 'collectedVariables',
+};
