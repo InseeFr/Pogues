@@ -16,7 +16,14 @@ const mapStateToProps = (state, { components, label, selectorPath, formName }) =
   };
 };
 
-function ComponentSelectorByTypeContainer({ activeComponentType, label, components, radio, emptyValue }) {
+function ComponentSelectorByTypeContainer({
+  activeComponentType,
+  label,
+  components,
+  radio,
+  emptyValue,
+  validateInline,
+}) {
   const activeComponent = components.filter(comp => {
     return comp.value === activeComponentType;
   })[0];
@@ -27,6 +34,7 @@ function ComponentSelectorByTypeContainer({ activeComponentType, label, componen
       activeComponent={activeComponent}
       components={components}
       emptyValue={emptyValue}
+      validateInline={validateInline}
     />
   );
 }
@@ -37,12 +45,14 @@ ComponentSelectorByTypeContainer.propTypes = {
   activeComponentType: PropTypes.string,
   radio: PropTypes.bool,
   emptyValue: PropTypes.string,
+  validateInline: PropTypes.bool,
 };
 
 ComponentSelectorByTypeContainer.defaultProps = {
   activeComponentType: '',
   radio: false,
   emptyValue: '',
+  validateInline: true,
 };
 
 export default connect(mapStateToProps)(ComponentSelectorByTypeContainer);

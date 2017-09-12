@@ -3,7 +3,6 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import { required } from 'layout/forms/validation-rules';
 import TextArea from 'layout/forms/controls/rich-textarea';
 
 const Code = ({ input, autoFocus, label, type, attr, meta: { touched, error, warning } }) =>
@@ -76,7 +75,6 @@ class CodesListEditorCodes extends Component {
                   type="text"
                   component={Code}
                   placeholder={Dictionary.code}
-                  validate={[required]}
                   label={Dictionary.code}
                   autoFocus={display && index === 0}
                 />
@@ -86,7 +84,6 @@ class CodesListEditorCodes extends Component {
                   type="text"
                   component={TextArea}
                   buttons
-                  validate={[required]}
                   identifier={fields.get(index).code}
                 />
                 <div className="codes-list__code-actions">

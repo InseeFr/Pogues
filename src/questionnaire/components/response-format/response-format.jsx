@@ -55,6 +55,7 @@ class ResponseFormat extends FormSection {
           components={responseFormatTypes}
           selectorPath={ResponseFormat.selectorPath}
           emptyValue={this.props.edit ? '' : '--'}
+          validateInline={false}
         />
       </div>
     );
