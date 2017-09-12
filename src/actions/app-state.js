@@ -139,31 +139,6 @@ export const setSelectedComponentId = id => ({
   payload: id,
 });
 
-/**
- * Add the question id to the store recreate collected variables
- *
- * It changes the store "appState.needRecreateVariablesQuestions"
- *
- * @param  {string} questionId   The id of the question that need recreate the collected variables
- * @return {object}               ADD_RECREATE_COLLECTED_VARIABLES action
- */
-export const addNeedRecreateVariables = questionId => ({
-  type: ADD_RECREATE_COLLECTED_VARIABLES,
-  payload: questionId,
-});
-
-/**
- * Remove the question id from the store recreate collected variables
- *
- * It changes the store "appState.needRecreateVariablesQuestions"
- *
- * @param  {string} questionId   The id of the question that is removed from the store
- * @return {object}               REMOVE_RECREATE_COLLECTED_VARIABLES action
- */
-export const removeNeedRecreateVariables = questionId => ({
-  type: REMOVE_RECREATE_COLLECTED_VARIABLES,
-  payload: questionId,
-});
 
 /**
  * Update active questionnaire
