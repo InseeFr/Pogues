@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { SubmissionError } from 'redux-form';
 
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
 import { setSelectedComponentId, setCurrentCodesListsInQuestion } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
-import { recreateCollectedVariablesIfNeeded } from 'utils/model/model-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 import { defaultResponseFormatState } from 'utils/transformation-entities/response-format';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { getValidationErrors, getErrorsObject } from 'utils/component/component-utils';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -96,16 +97,17 @@ class ComponentNewContainer extends Component {
     });
     const initialValues = componentTransformer.stateToForm({ type });
     const submit = values => {
-      validate()
-
-
       let updatedCalculatedVariablesStore = {};
       let updatedExternalVariablesStore = {};
       let updatedCodesListsStore = {};
       let updatedCollectedlVariablesStore = {};
 
       if (type === QUESTION) {
-        values = recreateCollectedVariablesIfNeeded(values, activeCodesListsStore);
+        const validationErrors = getValidationErrors(values, activeCodesListsStore);
+
+        if (validationErrors.length > 0) {
+          throw new SubmissionError(getErrorsObject(validationErrors));
+        }
       }
 
       const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });

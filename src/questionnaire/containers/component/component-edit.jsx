@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { SubmissionError } from 'redux-form';
 
 import { updateComponent } from 'actions/component';
 import { setCurrentCodesListsInQuestion, setInvalidItemsFromErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
-import { recreateCollectedVariablesIfNeeded } from 'utils/model/model-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { getValidationErrors, getErrorsObject } from 'utils/component/component-utils';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -110,7 +111,13 @@ class ComponentEditContainer extends Component {
       let updatedCollectedlVariablesStore = {};
       let updatedCodesListsStore = {};
 
-      values = recreateCollectedVariablesIfNeeded(values, activeCodesListsStore);
+      if (componentType === QUESTION) {
+        const validationErrors = getValidationErrors(values, activeCodesListsStore);
+
+        if (validationErrors.length > 0) {
+          throw new SubmissionError(getErrorsObject(validationErrors));
+        }
+      }
 
       const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
 
