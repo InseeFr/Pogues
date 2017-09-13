@@ -335,9 +335,12 @@ export const removeInvalidItem = invalidItemIdToRemove => ({
   },
 });
 
-export const setTabErrors = errors => ({
+export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
   type: SET_TAB_ERRORS,
-  payload: errors,
+  payload: {
+    errorsValidation,
+    errorsIntegrity,
+  },
 });
 
 export const clearTabErrors = () => ({

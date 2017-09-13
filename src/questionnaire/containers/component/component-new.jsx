@@ -1,41 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SubmissionError } from 'redux-form';
+import { SubmissionError, actions, formValueSelector, getFormSubmitErrors } from 'redux-form';
+import _ from 'lodash';
 
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
-// import { setSelectedComponentId, setCurrentCodesListsInQuestion } from 'actions/app-state';
 import { setSelectedComponentId, setTabErrors, clearTabErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
-// import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
-// import { defaultResponseFormatState } from 'utils/transformation-entities/response-format';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getValidationErrors, getErrorsObject } from 'utils/component/component-utils';
+import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-const mapStateToProps = state => ({
-  calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
-  externalVariablesStore: state.appState.activeExternalVariablesById,
-  currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
-  activeCodesListsStore: state.appState.activeCodeListsById,
-  // invalidItems: state.appState.invalidItemsByActiveQuestion,
-  errorsByQuestionTab: state.appState.errorsByQuestionTab,
-});
+const mapStateToProps = state => {
+  const selector = formValueSelector('component');
+  return {
+    calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
+    externalVariablesStore: state.appState.activeExternalVariablesById,
+    currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
+    activeCodesListsStore: state.appState.activeCodeListsById,
+    errorsValidation: getFormSubmitErrors('component')(state),
+    errorsByQuestionTab: state.appState.errorsByQuestionTab,
+    currentLabel: selector(state, 'label'),
+    currentName: selector(state, 'name'),
+  };
+};
 
 const mapDispatchToProps = {
   createComponent,
   orderComponents,
   updateParentChildren,
   setSelectedComponentId,
-  // setCurrentCodesListsInQuestion,
   setTabErrors,
   clearTabErrors,
+  change: actions.change,
 };
 
 class ComponentNewContainer extends Component {
@@ -46,7 +50,7 @@ class ComponentNewContainer extends Component {
     setSelectedComponentId: PropTypes.func.isRequired,
     setTabErrors: PropTypes.func.isRequired,
     clearTabErrors: PropTypes.func.isRequired,
-    // setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
+    change: PropTypes.func.isRequired,
     weight: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     parentId: PropTypes.string.isRequired,
@@ -56,8 +60,10 @@ class ComponentNewContainer extends Component {
     externalVariablesStore: PropTypes.object,
     currentCodesListsIdsStore: PropTypes.object,
     activeCodesListsStore: PropTypes.object,
+    errorsValidation: PropTypes.object,
     errorsByQuestionTab: PropTypes.object,
-    // invalidItems: PropTypes.object,
+    currentLabel: PropTypes.string,
+    currentName: PropTypes.string,
   };
 
   static defaultProps = {
@@ -67,28 +73,39 @@ class ComponentNewContainer extends Component {
     externalVariablesStore: {},
     currentCodesListsIdsStore: {},
     activeCodesListsStore: {},
-    // invalidItems: {},
+    errorsValidation: {},
     errorsByQuestionTab: {},
+    currentLabel: '',
+    currentName: '',
   };
-  // componentWillMount() {
-  //   const { type, setCurrentCodesListsInQuestion } = this.props;
-  //   let currentCodesListsStoreFromQuestion = {};
-  //
-  //   if (type === QUESTION) {
-  //     currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(defaultResponseFormatState);
-  //   }
-  //
-  //   setCurrentCodesListsInQuestion(currentCodesListsStoreFromQuestion);
-  // }
+
+  constructor(props) {
+    super(props);
+    this.updateName = this.updateName.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.clearTabErrors();
+  }
+
+  componentWillUpdate(nextProps) {
+    if (!_.isEqual(this.props.errorsValidation, nextProps.errorsValidation)) {
+      this.props.setTabErrors(nextProps.errorsValidation);
+    }
+  }
+
+  updateName() {
+    const { type, currentLabel, currentName, change } = this.props;
+
+    if (currentName === '') {
+      const rawName = type === QUESTION ? markdownToRaw(currentLabel || '').blocks[0].text : currentLabel;
+      const name = rawName.replace(/[^a-z0-9_]/gi, '').toUpperCase().slice(0, 10);
+      change('component', 'name', name);
+    }
+  }
 
   render() {
     const {
-      createComponent,
-      orderComponents,
-      updateParentChildren,
-      setSelectedComponentId,
-      setTabErrors,
-      clearTabErrors,
       parentId,
       weight,
       type,
@@ -98,7 +115,6 @@ class ComponentNewContainer extends Component {
       externalVariablesStore,
       currentCodesListsIdsStore,
       activeCodesListsStore,
-      // invalidItems,
       errorsByQuestionTab,
     } = this.props;
     const componentTransformer = ComponentTransformerFactory({
@@ -116,13 +132,7 @@ class ComponentNewContainer extends Component {
 
       if (type === QUESTION) {
         const validationErrors = getValidationErrors(values, activeCodesListsStore);
-
-        if (validationErrors.length > 0) {
-          setTabErrors(validationErrors);
-          throw new SubmissionError(getErrorsObject(validationErrors));
-        } else {
-          clearTabErrors();
-        }
+        if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
       }
 
       const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
@@ -136,18 +146,19 @@ class ComponentNewContainer extends Component {
         updatedCollectedlVariablesStore = CollectedVariableTransformerFactory().formToStore(values.collectedVariables);
       }
 
-      createComponent(
-        componentState,
-        updatedCalculatedVariablesStore,
-        updatedExternalVariablesStore,
-        updatedCollectedlVariablesStore,
-        updatedCodesListsStore
-      )
-        .then(updateParentChildren)
-        .then(orderComponents)
+      this.props
+        .createComponent(
+          componentState,
+          updatedCalculatedVariablesStore,
+          updatedExternalVariablesStore,
+          updatedCollectedlVariablesStore,
+          updatedCodesListsStore
+        )
+        .then(this.props.updateParentChildren)
+        .then(this.props.orderComponents)
         .then(result => {
           const { payload: { id } } = result;
-          setSelectedComponentId(id);
+          this.props.setSelectedComponentId(id);
           if (onSuccess) onSuccess(id);
         });
     };
@@ -158,8 +169,8 @@ class ComponentNewContainer extends Component {
         initialValues={initialValues}
         onSubmit={submit}
         onCancel={onCancel}
-        // invalidItems={invalidItems}
         errorsByQuestionTab={errorsByQuestionTab}
+        updateName={this.updateName}
       />
     );
   }

@@ -1,27 +1,54 @@
+import _ from 'lodash';
+
 import { SET_TAB_ERRORS, CLEAR_TAB_ERRORS } from 'actions/app-state';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 import { TAB_NAMES } from 'constants/pogues-constants';
 
 const actionHandlers = {};
 
-export function setTabErrors(state, errors) {
+function getNumErrorsFromObject(item) {
+  let numErrors = 0;
+
+  if (_.isObject(item)) {
+    numErrors = Object.keys(item).reduce((accInner, key) => {
+      return accInner + getNumErrorsFromObject(item[key]);
+    }, 0);
+  } else if (_.isArray(item)) {
+    numErrors = Object.keys(item).reduce((accInner, key) => {
+      return accInner + getNumErrorsFromObject(item[key], accInner);
+    }, 0);
+  } else if (_.isString(item)) {
+    numErrors = 1;
+  }
+
+  return numErrors;
+}
+
+function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
+  const numErrorsValidation = Object.values(TAB_NAMES).reduce((acc, tabName) => {
+    return { ...acc, [tabName]: getNumErrorsFromObject(errorsValidation[tabName]) };
+  }, {});
+  const numErrorsIntegrity = Object.values(TAB_NAMES).reduce((acc, tabName) => {
+    return {
+      ...acc,
+      [tabName]: Object.values(errorsIntegrity).filter(error => {
+        return error.type === tabName;
+      }).length,
+    };
+  }, {});
+
+  return Object.values(TAB_NAMES).reduce((acc, tabName) => {
+    return {
+      ...acc,
+      [tabName]: numErrorsValidation[tabName] + numErrorsIntegrity[tabName],
+    };
+  }, {});
+}
+
+export function setTabErrors(state, { errorsValidation, errorsIntegrity }) {
   return {
     ...state,
-    ...errors.reduce((acc, error) => {
-      // error -> ['responseFormat.PRIMARY.label', 'Error message']
-      const tabName = error[0].split('.')[0];
-
-      if (Object.values(TAB_NAMES).indexOf(tabName) !== -1) {
-        const numErrors = acc[tabName] || 0;
-
-        return {
-          ...acc,
-          [tabName]: numErrors + 1,
-        };
-      }
-
-      return acc;
-    }, {}),
+    ...getNumErrorsByTab(errorsValidation, errorsIntegrity),
   };
 }
 

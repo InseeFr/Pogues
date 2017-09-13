@@ -457,7 +457,7 @@ function validateResponseFormat(values, path) {
         ...validateCodesList(measure, `${path}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}`),
       ];
     }
-  } else {
+  } else if (type === TABLE) {
     const {
       [PRIMARY]: { type: primaryType, [primaryType]: primary, ...primaryTotalLabel },
       [SECONDARY]: { showSecondaryAxis, ...secondary },

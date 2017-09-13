@@ -144,4 +144,5 @@ export const VARIABLES_TYPES = {
 export const TAB_NAMES = {
   RESPONSE_FORMAT: 'responseFormat',
   COLLECTED_VARIABLES: 'collectedVariables',
+  REDIRECTIONS: 'redirections',
 };

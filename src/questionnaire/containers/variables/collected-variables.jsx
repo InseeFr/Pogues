@@ -17,7 +17,6 @@ const mapStateToProps = (state, { formName }) => {
     formName,
     form: selector(state, `responseFormat.${responseFormatType}`),
     codesListStore: state.appState.activeCodeListsById,
-    invalidItems: state.appState.invalidItemsByActiveQuestion,
   };
 };
 
@@ -34,14 +33,12 @@ class CollectedVariablesContainer extends Component {
     form: PropTypes.object,
     codesListStore: PropTypes.object,
     change: PropTypes.func.isRequired,
-    invalidItems: PropTypes.object,
   };
 
   static defaultProps = {
     responseFormatType: '',
     form: {},
     codesListStore: {},
-    invalidItems: {},
   };
 
   constructor(props) {
@@ -55,20 +52,22 @@ class CollectedVariablesContainer extends Component {
   generateCollectedVariables() {
     const { change, responseFormatType, name, form, codesListStore, formName } = this.props;
 
-    const generatedCollectedVariables = generateCollectedVariables(responseFormatType, name, form, codesListStore);
+    // @TODO: Test if name and label are valids
+    if (responseFormatType !== '' && name !== '') {
+      const generatedCollectedVariables = generateCollectedVariables(responseFormatType, name, form, codesListStore);
 
-    change(formName, CollectedVariablesContainer.selectorPath, {
-      name: '',
-      label: '',
-      collectedVariables: generatedCollectedVariables,
-    });
+      change(formName, CollectedVariablesContainer.selectorPath, {
+        name: '',
+        label: '',
+        collectedVariables: generatedCollectedVariables,
+      });
+    }
   }
 
   render() {
     return (
       <CollectedVariables
         selectorPath={CollectedVariablesContainer.selectorPath}
-        invalidItems={this.props.invalidItems}
         generateCollectedVariables={this.generateCollectedVariables}
         errors={this.state.errors}
       />

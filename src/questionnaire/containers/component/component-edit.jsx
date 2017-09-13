@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SubmissionError } from 'redux-form';
+import { SubmissionError, getFormSubmitErrors } from 'redux-form';
+import _ from 'lodash';
 
 import { updateComponent } from 'actions/component';
-// import { setCurrentCodesListsInQuestion, setInvalidItemsFromErrors } from 'actions/app-state';
-import { setTabErrors, clearTabErrors } from 'actions/app-state';
+import { setInvalidItemsFromErrors, setTabErrors, clearTabErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 // import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
 import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
@@ -24,9 +24,10 @@ const mapStateToProps = (state, { componentId }) => ({
   activeCalculatedVariablesStore: state.appState.activeCalculatedVariablesById,
   activeExternalVariablesStore: state.appState.activeExternalVariablesById,
   currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
-  // invalidItems: state.appState.invalidItemsByActiveQuestion,
   activeCollectedVariablesStore: state.appState.collectedVariableByQuestion[componentId],
+  errorsValidation: getFormSubmitErrors('component')(state),
   errorsByQuestionTab: state.appState.errorsByQuestionTab,
+  invalidItems: state.appState.invalidItemsByActiveQuestion,
 });
 
 const mapDispatchToProps = {
@@ -34,7 +35,7 @@ const mapDispatchToProps = {
   setTabErrors,
   clearTabErrors,
   // setCurrentCodesListsInQuestion,
-  // setInvalidItemsFromErrors,
+  setInvalidItemsFromErrors,
 };
 
 class ComponentEditContainer extends Component {
@@ -49,22 +50,24 @@ class ComponentEditContainer extends Component {
     activeCalculatedVariablesStore: PropTypes.object,
     activeExternalVariablesStore: PropTypes.object,
     activeCollectedVariablesStore: PropTypes.object,
+    errorsValidation: PropTypes.object,
     errorsByQuestionTab: PropTypes.object,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
     currentCodesListsIdsStore: PropTypes.object,
-    // invalidItems: PropTypes.object,
-    // setInvalidItemsFromErrors: PropTypes.func.isRequired,
+    invalidItems: PropTypes.object,
+    setInvalidItemsFromErrors: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     onSuccess: undefined,
     onCancel: undefined,
     currentCodesListsIdsStore: {},
-    // invalidItems: {},
+    invalidItems: {},
     activeCalculatedVariablesStore: {},
     activeExternalVariablesStore: {},
     activeCollectedVariablesStore: {},
+    errorsValidation: {},
     errorsByQuestionTab: {},
   };
 
@@ -87,11 +90,22 @@ class ComponentEditContainer extends Component {
   //   // setCurrentCodesListsInQuestion(currentCodesListsStoreFromQuestion);
   // }
 
+  componentWillMount() {
+    this.props.clearTabErrors();
+    this.props.setInvalidItemsFromErrors(this.props.componentId);
+  }
+
+  componentWillUpdate(nextProps) {
+    if (
+      !_.isEqual(this.props.errorsValidation, nextProps.errorsValidation) ||
+      !_.isEqual(this.props.invalidItems, nextProps.invalidItems)
+    ) {
+      this.props.setTabErrors(nextProps.errorsValidation, nextProps.invalidItems);
+    }
+  }
+
   render() {
     const {
-      updateComponent,
-      setTabErrors,
-      clearTabErrors,
       componentId,
       activeComponentsStore,
       activeCodesListsStore,
@@ -102,7 +116,7 @@ class ComponentEditContainer extends Component {
       onSuccess,
       onCancel,
       currentCodesListsIdsStore,
-      // invalidItems,
+      invalidItems,
     } = this.props;
     const componentType = activeComponentsStore[componentId].type;
     const componentTransformer = ComponentTransformerFactory({
@@ -124,13 +138,7 @@ class ComponentEditContainer extends Component {
 
       if (componentType === QUESTION) {
         const validationErrors = getValidationErrors(values, activeCodesListsStore);
-
-        if (validationErrors.length > 0) {
-          setTabErrors(validationErrors);
-          throw new SubmissionError(getErrorsObject(validationErrors));
-        } else {
-          clearTabErrors();
-        }
+        if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
       }
 
       const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
@@ -144,7 +152,7 @@ class ComponentEditContainer extends Component {
         updatedCollectedlVariablesStore = CollectedVariableTransformerFactory().formToStore(values.collectedVariables);
       }
 
-      updateComponent(
+      this.props.updateComponent(
         componentId,
         updatedComponentsStore,
         updatedCalculatedVariablesStore,
@@ -161,7 +169,7 @@ class ComponentEditContainer extends Component {
         initialValues={initialValues}
         onSubmit={submit}
         onCancel={onCancel}
-        // invalidItems={invalidItems}
+        invalidItems={invalidItems}
         errorsByQuestionTab={errorsByQuestionTab}
         edit
       />

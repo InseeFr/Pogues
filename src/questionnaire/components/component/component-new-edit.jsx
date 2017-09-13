@@ -19,22 +19,22 @@ import { componentName } from 'layout/forms/normalize-inputs';
 
 const { QUESTION } = COMPONENT_TYPE;
 
-// function getInvalidItemsByType(invalidItems) {
-//   return Object.keys(invalidItems).reduce((acc, key) => {
-//     const item = invalidItems[key];
-//     let type = acc[item.type] || {};
-//
-//     type = {
-//       ...type,
-//       [item.id]: item,
-//     };
-//
-//     return {
-//       ...acc,
-//       [item.type]: type,
-//     };
-//   }, {});
-// }
+function getInvalidItemsByType(invalidItems) {
+  return Object.keys(invalidItems).reduce((acc, key) => {
+    const item = invalidItems[key];
+    let type = acc[item.type] || {};
+
+    type = {
+      ...type,
+      [item.id]: item,
+    };
+
+    return {
+      ...acc,
+      [item.type]: type,
+    };
+  }, {});
+}
 
 export class QuestionNewEdit extends Component {
   static propTypes = {
@@ -42,9 +42,10 @@ export class QuestionNewEdit extends Component {
     edit: PropTypes.bool,
     handleSubmit: PropTypes.func,
     onCancel: PropTypes.func,
+    updateName: PropTypes.func,
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
-    // invalidItems: PropTypes.object,
+    invalidItems: PropTypes.object,
     errorsByQuestionTab: PropTypes.object.isRequired,
   };
   static defaultProps = {
@@ -53,7 +54,8 @@ export class QuestionNewEdit extends Component {
     pristine: false,
     submitting: false,
     edit: false,
-    // invalidItems: {},
+    updateName: () => {},
+    invalidItems: {},
   };
   componentDidMount() {
     if (this.props.type !== QUESTION) {
@@ -63,32 +65,37 @@ export class QuestionNewEdit extends Component {
     }
   }
   render() {
-    // const { type, edit, handleSubmit, onCancel, pristine, submitting, invalidItems, error } = this.props;
-    const { type, edit, handleSubmit, onCancel, pristine, submitting, errorsByQuestionTab } = this.props;
-    // const invalidItemsByType = getInvalidItemsByType(invalidItems);
+    const {
+      type,
+      edit,
+      handleSubmit,
+      onCancel,
+      pristine,
+      submitting,
+      errorsByQuestionTab,
+      invalidItems,
+      updateName,
+    } = this.props;
+    const invalidItemsByType = getInvalidItemsByType(invalidItems);
     const panels = [
       {
         id: 'declarations',
         label: Dictionary.declaration_tabTitle,
         content: <Declaration />,
-        // numErrors: invalidItemsByType.declarations && Object.keys(invalidItemsByType.declarations).length,
         numErrors: errorsByQuestionTab.declarations,
       },
       {
         id: 'controls',
         label: Dictionary.controls,
         content: <Controls />,
-        // numErrors: invalidItemsByType.controls && Object.keys(invalidItemsByType.controls).length,
         numErrors: errorsByQuestionTab.controls,
       },
       {
         id: 'redirections',
         label: Dictionary.goTo,
-        // content: (
-        //   <Redirections componentType={type} isNewComponent={!edit} invalidItems={invalidItemsByType.redirections} />
-        // ),
-        content: <Redirections componentType={type} isNewComponent={!edit} />,
-        // numErrors: invalidItemsByType.redirections && Object.keys(invalidItemsByType.redirections).length,
+        content: (
+          <Redirections componentType={type} isNewComponent={!edit} invalidItems={invalidItemsByType.redirections} />
+        ),
         numErrors: errorsByQuestionTab.redirections,
       },
     ];
@@ -98,7 +105,6 @@ export class QuestionNewEdit extends Component {
         id: 'response-format',
         label: Dictionary.responsesEdition,
         content: <ResponseFormat edit={edit} />,
-        // numErrors: invalidItemsByType.responseFormat && Object.keys(invalidItemsByType.responseFormat).length,
         numErrors: errorsByQuestionTab.responseFormat,
       });
       panels.push({
@@ -114,9 +120,7 @@ export class QuestionNewEdit extends Component {
       panels.push({
         id: 'collected-variables',
         label: Dictionary.collectedVariables,
-        // content: <CollectedVariablesContainer invalidItems={invalidItemsByType.collectedVariables} />,
         content: <CollectedVariablesContainer />,
-        // numErrors: invalidItemsByType.collectedVariables && Object.keys(invalidItemsByType.collectedVariables).length,
         numErrors: errorsByQuestionTab.collectedVariables,
       });
     }
@@ -124,20 +128,23 @@ export class QuestionNewEdit extends Component {
     return (
       <div className="component-edition">
         <form onSubmit={handleSubmit}>
-          <Field
-            reference={input => {
-              this.labelInput = input;
-            }}
-            name="label"
-            type="text"
-            component={type === QUESTION ? Textarea : Input}
-            buttons
-            shouldSubmitOnEnter
-            label={Dictionary.title}
-            validate={[required]}
-            required
-            avoidSubmitOnEnter={false}
-          />
+          {/* @TODO */}
+          <div onBlur={updateName}>
+            <Field
+              reference={input => {
+                this.labelInput = input;
+              }}
+              name="label"
+              type="text"
+              component={type === QUESTION ? Textarea : Input}
+              buttons
+              shouldSubmitOnEnter
+              label={Dictionary.title}
+              validate={[required]}
+              required
+              avoidSubmitOnEnter={false}
+            />
+          </div>
           <Field
             refs="input"
             name="name"
