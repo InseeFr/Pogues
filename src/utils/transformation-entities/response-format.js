@@ -14,26 +14,24 @@ export const defaultResponseFormatState = {
   type: '',
 };
 
-function transformationFormToState(form, codesListsStore, currentCodesListsIdsStore) {
+function transformationFormToState(form, currentState) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
     type,
   };
 
   if (type === SINGLE_CHOICE) {
-    state[type] = SingleTransformerFactory({ currentCodesListsIdsStore, codesListsStore }).formToState(
+    state[type] = SingleTransformerFactory({ initialState: currentState[SINGLE_CHOICE] }).formToState(
       responseFormatForm
     );
   } else if (type === MULTIPLE_CHOICE) {
-    state[type] = MultipleTransformerFactory({ currentCodesListsIdsStore, codesListsStore }).formToState(
+    state[type] = MultipleTransformerFactory({ initialState: currentState[MULTIPLE_CHOICE] }).formToState(
       responseFormatForm
     );
   } else if (type === TABLE) {
-    state[type] = TableTransformerFactory({ currentCodesListsIdsStore, codesListsStore }).formToState(
-      responseFormatForm
-    );
+    state[type] = TableTransformerFactory({ initialState: currentState[TABLE] }).formToState(responseFormatForm);
   } else {
-    state[type] = SimpleTransformerFactory().formToState(responseFormatForm);
+    state[type] = SimpleTransformerFactory({ initialState: currentState[SIMPLE] }).formToState(responseFormatForm);
   }
 
   return state;
@@ -127,13 +125,13 @@ function transformationStateToModel(currentState, collectedVariables, codesLists
 }
 
 const ResponseFormatTransformerFactory = (conf = {}) => {
-  const { initialState, collectedVariables, codesListsStore, currentCodesListsIdsStore } = conf;
+  const { initialState, collectedVariables, codesListsStore } = conf;
 
   let currentState = initialState || defaultResponseFormatState;
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, codesListsStore, currentCodesListsIdsStore);
+      currentState = transformationFormToState(form, currentState);
       return currentState;
     },
     modelToState: (type, responses, dimensions) => {

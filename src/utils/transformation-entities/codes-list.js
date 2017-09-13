@@ -2,12 +2,30 @@ import { uuid } from 'utils/data-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 
-const { NEW } = CODES_LIST_INPUT_ENUM;
+const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 
 export const defaultCodesListForm = {
-  label: '',
-  name: '',
-  codes: [],
+  [NEW]: {
+    label: '',
+    codes: [],
+  },
+  [REF]: {},
+  [QUESTIONNAIRE]: {
+    codesListId: '',
+  },
+  type: NEW,
+};
+
+// export const defaultCodesListState = {
+//   id: '',
+//   label: '',
+//   name: '',
+//   codes: [],
+// };
+
+export const defaultCodesListComponentState = {
+  type: NEW,
+  codesListId: '',
 };
 
 function transformationFormToState(form, type, currentState, codesListsStore) {
@@ -46,6 +64,22 @@ function transformationFormToState(form, type, currentState, codesListsStore) {
   return state;
 }
 
+function transformationFormToStateComponent(form, currentComponentState) {
+  const { codesListId } = currentComponentState;
+  const { type, [type]: codesListForm } = form;
+  const componentState = {
+    type,
+  };
+
+  if (type === NEW) {
+    componentState.codesListId = codesListId && codesListId !== '' ? codesListId : uuid();
+  } else if (type === QUESTIONNAIRE) {
+    componentState.codesListId = codesListForm[QUESTIONNAIRE].codesListId;
+  }
+
+  return componentState;
+}
+
 function transformationModelToStore(model = []) {
   return model.reduce((acc, codesList) => {
     const { Label: label, Name: name, Code: codes } = codesList;
@@ -74,28 +108,25 @@ function transformationModelToStore(model = []) {
   }, {});
 }
 
-function transformationStateToForm(state, codesListsStore) {
-  const codesListId = state.codesListId;
-  const { label, name, codes } = {
-    ...state,
-    ...(codesListId ? codesListsStore[codesListId] : {}),
-  };
+function transformationStateComponentToForm(state, { type, codesListId }) {
+  const { label, codes } = state;
+  const form = {};
+
+  if (type === NEW && label && codes) {
+    form[NEW] = {
+      label,
+      codes,
+    };
+  } else if (type === QUESTIONNAIRE) {
+    form[QUESTIONNAIRE] = {
+      codesListId,
+    };
+  }
 
   return {
-    codesListId,
-    label,
-    name,
-    codes: Object.keys(codes).reduce((acc, key) => {
-      const { label: labelCode, value, code } = codes[key];
-      return [
-        ...acc,
-        {
-          label: labelCode,
-          value,
-          code,
-        },
-      ];
-    }, []),
+    ...defaultCodesListForm,
+    ...form,
+    type,
   };
 }
 
@@ -127,20 +158,25 @@ function transformationStoreToModel(currentStore = {}) {
 }
 
 const CodesListTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, type } = conf;
+  const { codesListsStore, initialComponentState } = conf;
 
-  let currentState = initialState || defaultCodesListForm;
+  let currentComponentState = initialComponentState || {};
+  let currentState = (codesListsStore && codesListsStore[currentComponentState.codesListId]) || {};
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, type, currentState, codesListsStore);
+      currentState = transformationFormToState(form);
       return currentState;
+    },
+    formToStateComponent: form => {
+      currentComponentState = transformationFormToStateComponent(form, currentComponentState);
+      return currentComponentState;
     },
     modelToStore: model => {
       return transformationModelToStore(model);
     },
-    stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore);
+    stateComponentToForm: () => {
+      return transformationStateComponentToForm(currentState, currentComponentState);
     },
     storeToModel: store => {
       return transformationStoreToModel(store);

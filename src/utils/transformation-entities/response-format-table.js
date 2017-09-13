@@ -7,7 +7,7 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
 } from 'constants/pogues-constants';
-import CodesListTransformerFactory, { defaultCodesListForm } from './codes-list';
+import CodesListTransformerFactory, { defaultCodesListForm, defaultCodesListComponentState } from './codes-list';
 import SimpleTransformerFactory from './response-format-simple';
 import SingleTransformerFactory from './response-format-single';
 import Response from './response';
@@ -15,7 +15,7 @@ import Response from './response';
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
+const { NEW } = CODES_LIST_INPUT_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 const { TABLE } = QUESTION_TYPE_ENUM;
@@ -39,24 +39,27 @@ export const defaultMeasureForm = {
     [BOOLEAN]: {},
   },
   [SINGLE_CHOICE]: {
-    codesListId: '',
+    ...defaultCodesListForm,
     visHint: CHECKBOX,
-    type: NEW,
-    [NEW]: { ...defaultCodesListForm },
-    [REF]: {},
-    [QUESTIONNAIRE]: {},
   },
 };
 
-export const defaultSecondaryForm = {
-  showSecondaryAxis: false,
-  codesListId: '',
+export const defaultPrimaryForm = {
   showTotalLabel: '0',
   totalLabel: '',
-  type: NEW,
-  [NEW]: { ...defaultCodesListForm },
-  [REF]: {},
-  [QUESTIONNAIRE]: {},
+  type: LIST,
+  [LIST]: {
+    numLinesMin: 0,
+    numLinesMax: 0,
+  },
+  [CODES_LIST]: defaultCodesListForm,
+};
+
+export const defaultSecondaryForm = {
+  ...defaultCodesListForm,
+  showSecondaryAxis: false,
+  showTotalLabel: '0',
+  totalLabel: '',
 };
 
 export const defaultListMeasuresForm = {
@@ -65,25 +68,10 @@ export const defaultListMeasuresForm = {
 };
 
 export const defaultTableForm = {
-  [PRIMARY]: {
-    showTotalLabel: '0',
-    totalLabel: '',
-    type: LIST,
-    [LIST]: {
-      numLinesMin: 0,
-      numLinesMax: 0,
-    },
-    [CODES_LIST]: {
-      codesListId: '',
-      type: NEW,
-      [NEW]: { ...defaultCodesListForm },
-      [REF]: {},
-      [QUESTIONNAIRE]: {},
-    },
-  },
-  [SECONDARY]: { ...defaultSecondaryForm },
-  [LIST_MEASURE]: { ...defaultListMeasuresForm },
-  [MEASURE]: { ...defaultMeasureForm },
+  [PRIMARY]: defaultPrimaryForm,
+  [SECONDARY]: defaultSecondaryForm,
+  [LIST_MEASURE]: defaultListMeasuresForm,
+  [MEASURE]: defaultMeasureForm,
 };
 
 export const defaultTableState = {
@@ -95,15 +83,11 @@ export const defaultTableState = {
       numLinesMin: 0,
       numLinesMax: 0,
     },
-    [CODES_LIST]: {
-      codesListId: '',
-      codesList: {},
-    },
+    [CODES_LIST]: defaultCodesListComponentState,
   },
   [SECONDARY]: {
+    ...defaultCodesListComponentState,
     showSecondaryAxis: false,
-    codesListId: '',
-    codesList: {},
     showTotalLabel: '0',
     totalLabel: '',
   },
@@ -118,9 +102,8 @@ export const defaultTableState = {
       },
     },
     [SINGLE_CHOICE]: {
+      ...defaultCodesListComponentState,
       visHint: CHECKBOX,
-      codesListId: '',
-      codesList: {},
     },
   },
   [LIST_MEASURE]: [],
@@ -187,70 +170,38 @@ function parseDynamic(dynamic) {
 
 // FORM TO STATE
 
-function transformationFormToStatePrimary(form, currentCodesListsIdsStore, codesListsStore) {
-  const { showTotalLabel, totalLabel, type: typePrimary, [typePrimary]: primaryForm } = form;
+function transformationFormToStatePrimary(form, currentState) {
+  const { showTotalLabel, totalLabel, type, [type]: primaryForm } = form;
+
   const state = {
     showTotalLabel,
     totalLabel,
-    type: typePrimary,
+    type,
   };
 
-  if (typePrimary === CODES_LIST) {
-    const { type, [type]: codesListForm } = primaryForm;
-    const initialState =
-      currentCodesListsIdsStore[`${TABLE}.${PRIMARY}.${CODES_LIST}`] !== ''
-        ? { id: currentCodesListsIdsStore[`${TABLE}.${PRIMARY}.${CODES_LIST}`] }
-        : undefined;
-    const codesListState = CodesListTransformerFactory({ initialState, codesListsStore, type }).formToState(
-      codesListForm
-    );
-
-    state[CODES_LIST] = {
-      codesListId: codesListState.id,
-      codesList: codesListState,
-    };
-  } else {
+  if (type === LIST) {
     const { numLinesMin, numLinesMax } = primaryForm;
     state[LIST] = { numLinesMin, numLinesMax };
+  } else {
+    state[CODES_LIST] = CodesListTransformerFactory({
+      initialComponentState: currentState[CODES_LIST],
+    }).formToStateComponent(primaryForm);
   }
 
   return state;
 }
 
-function transformationFormToStateSecondary(form, primaryState, currentCodesListsIdsStore, codesListsStore) {
-  const { showSecondaryAxis, showTotalLabel, totalLabel, type, [type]: codesListForm } = form;
-  let state = {
-    showSecondaryAxis: showSecondaryAxis && primaryState.type === CODES_LIST,
+function transformationFormToStateSecondary(form, currentState) {
+  const { showSecondaryAxis, showTotalLabel, totalLabel, ...codesListForm } = form;
+  return {
+    showSecondaryAxis,
     showTotalLabel,
     totalLabel,
-    codesListState: '',
+    ...CodesListTransformerFactory({ initialComponentState: currentState }).formToStateComponent(codesListForm),
   };
-
-  if (showSecondaryAxis && primaryState.type === CODES_LIST) {
-    const initialState =
-      currentCodesListsIdsStore[`${TABLE}.${SECONDARY}`] !== ''
-        ? { id: currentCodesListsIdsStore[`${TABLE}.${SECONDARY}`] }
-        : undefined;
-    const codesListState = CodesListTransformerFactory({ initialState, codesListsStore, type }).formToState(
-      codesListForm
-    );
-
-    state = {
-      ...state,
-      codesListId: codesListState.id,
-      codesList: codesListState,
-    };
-  }
-
-  return state;
 }
 
-function transformationFormToStateMeasure(
-  form,
-  currentCodesListsIdsStore,
-  selectorPath = `${TABLE}.${MEASURE}.${SINGLE_CHOICE}`,
-  codesListsStore
-) {
+function transformationFormToStateMeasure(form, currentState = {}) {
   const { label, type, [type]: measureForm } = form;
   const state = {
     label,
@@ -260,32 +211,23 @@ function transformationFormToStateMeasure(
   if (type === SIMPLE) {
     state[SIMPLE] = SimpleTransformerFactory().formToState(measureForm);
   } else {
-    const { visHint, [NEW]: codesListForm } = measureForm;
-    const initialState =
-      currentCodesListsIdsStore[selectorPath] !== '' ? { id: currentCodesListsIdsStore[selectorPath] } : undefined;
-    const codesListState = CodesListTransformerFactory({ initialState, codesListsStore }).formToState(codesListForm);
+    const { visHint, ...codesListForm } = measureForm;
     state[SINGLE_CHOICE] = {
       visHint,
-      codesListId: codesListState.id,
-      codesList: codesListState,
+      ...CodesListTransformerFactory({ initialComponentState: currentState[SINGLE_CHOICE] }).formToStateComponent(
+        codesListForm
+      ),
     };
   }
   return state;
 }
 
-function transformationFormToStateListMeasure(form, currentCodesListsIdsStore, codesListsStore) {
+function transformationFormToStateListMeasure(form, currentState) {
   const { measures } = form;
-  return measures.map((measure, index) =>
-    transformationFormToStateMeasure(
-      measure,
-      currentCodesListsIdsStore,
-      `${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${index}`,
-      codesListsStore
-    )
-  );
+  return measures.map((measure, index) => transformationFormToStateMeasure(measure, currentState[index]));
 }
 
-function transformationFormToState(form, currentCodesListsIdsStore, codesListsStore) {
+function transformationFormToState(form, currentState) {
   const {
     [PRIMARY]: primaryForm,
     [SECONDARY]: secondaryForm,
@@ -293,26 +235,15 @@ function transformationFormToState(form, currentCodesListsIdsStore, codesListsSt
     [LIST_MEASURE]: listMeasureForm,
   } = form;
 
-  const primaryState = transformationFormToStatePrimary(primaryForm, currentCodesListsIdsStore, codesListsStore);
-  const secondaryState = transformationFormToStateSecondary(
-    secondaryForm,
-    primaryState,
-    currentCodesListsIdsStore,
-    codesListsStore
-  );
   const state = {
-    [PRIMARY]: primaryState,
+    [PRIMARY]: transformationFormToStatePrimary(primaryForm, currentState[PRIMARY]),
   };
 
-  if (secondaryState.showSecondaryAxis) {
-    state[SECONDARY] = secondaryState;
-    state[MEASURE] = transformationFormToStateMeasure(measureForm, currentCodesListsIdsStore);
+  if (secondaryForm.showSecondaryAxis && primaryForm.type === CODES_LIST) {
+    state[SECONDARY] = transformationFormToStateSecondary(secondaryForm, currentState[SECONDARY]);
+    state[MEASURE] = transformationFormToStateMeasure(measureForm, currentState[MEASURE]);
   } else {
-    state[LIST_MEASURE] = transformationFormToStateListMeasure(
-      listMeasureForm,
-      currentCodesListsIdsStore,
-      codesListsStore
-    );
+    state[LIST_MEASURE] = transformationFormToStateListMeasure(listMeasureForm, currentState[LIST_MEASURE]);
   }
 
   return state;
@@ -416,84 +347,63 @@ function transformationModelToState(model, codesListsStore) {
 // STATE TO FORM
 
 function transformationStateToFormPrimary(currentState, codesListsStore) {
-  const state = {
-    ...defaultTableState[PRIMARY],
-    ...currentState,
-  };
-  const {
+  const { showTotalLabel, totalLabel, type, [type]: primaryState } = currentState;
+  const form = {
     showTotalLabel,
     totalLabel,
     type,
-    [LIST]: { numLinesMin, numLinesMax },
-    [CODES_LIST]: { codesListId },
-  } = state;
-  const codesListTransformer = CodesListTransformerFactory({
-    initialState: codesListsStore[codesListId],
-    codesListsStore,
-  });
+  };
 
-  return {
-    ...defaultTableForm[PRIMARY],
-    [LIST]: {
+  if (type === LIST) {
+    const { numLinesMin, numLinesMax } = primaryState;
+    form[LIST] = {
       numLinesMin,
       numLinesMax,
-    },
-    [CODES_LIST]: {
-      ...defaultTableForm[PRIMARY][CODES_LIST],
-      [NEW]: codesListTransformer.stateToForm(),
-      codesListId,
-    },
-    type,
-    showTotalLabel,
-    totalLabel,
-  };
+    };
+  } else {
+    form[CODES_LIST] = CodesListTransformerFactory({
+      codesListsStore,
+      initialComponentState: primaryState,
+    }).stateComponentToForm();
+  }
+
+  return form;
 }
 
 function transformationStateToFormSecondary(currentState, codesListsStore) {
-  const state = {
-    ...defaultTableState[SECONDARY],
-    ...currentState,
-  };
-  const { showSecondaryAxis, showTotalLabel, totalLabel, codesListId } = state;
-  const codesListTransformer = CodesListTransformerFactory({
-    initialState: codesListsStore[codesListId],
-    codesListsStore,
-  });
-
+  const { showSecondaryAxis, showTotalLabel, totalLabel, ...codesListState } = currentState;
   return {
-    ...defaultTableForm[SECONDARY],
-    [NEW]: codesListTransformer.stateToForm(),
-    codesListId,
     showSecondaryAxis,
     showTotalLabel,
     totalLabel,
+    ...CodesListTransformerFactory({
+      codesListsStore,
+      initialComponentState: codesListState,
+    }).stateComponentToForm(),
   };
 }
 
 function transformationStateToFormMeasure(currentState, codesListsStore) {
-  const state = {
-    ...defaultTableState[MEASURE],
-    ...currentState,
-  };
-
-  const { label, type, [SIMPLE]: measureStateSimple, [SINGLE_CHOICE]: { visHint, codesListId } } = state;
-  const codesListTransformer = CodesListTransformerFactory({
-    initialState: codesListsStore[codesListId],
-    codesListsStore,
-  });
-
-  return {
-    ...defaultTableForm[MEASURE],
-    [SIMPLE]: SimpleTransformerFactory({ initialState: measureStateSimple }).stateToForm(),
-    [SINGLE_CHOICE]: {
-      ...defaultTableForm[MEASURE][SINGLE_CHOICE],
-      [NEW]: codesListTransformer.stateToForm(),
-      codesListId,
-      visHint,
-    },
-    type,
+  const { label, type, [type]: measureState } = currentState;
+  const form = {
     label,
+    type,
   };
+
+  if (type === SIMPLE) {
+    form[SIMPLE] = SimpleTransformerFactory({ initialState: measureState }).stateToForm();
+  } else {
+    const { visHint, ...codesListState } = measureState;
+    form[SINGLE_CHOICE] = {
+      visHint,
+      ...CodesListTransformerFactory({
+        codesListsStore,
+        initialComponentState: codesListState,
+      }).stateComponentToForm(),
+    };
+  }
+
+  return form;
 }
 
 function transformationStateToFormListMeasure(currentState, codesListsStore) {
@@ -511,9 +421,15 @@ function transformationStateToForm(currentState, codesListsStore) {
     [LIST_MEASURE]: listMeasureState,
   } = currentState;
   return {
-    [PRIMARY]: transformationStateToFormPrimary(primaryState, codesListsStore),
+    [PRIMARY]: {
+      ...defaultTableForm[PRIMARY],
+      ...transformationStateToFormPrimary(primaryState, codesListsStore),
+    },
     [SECONDARY]: transformationStateToFormSecondary(secondaryState, codesListsStore),
-    [MEASURE]: transformationStateToFormMeasure(measureState, codesListsStore),
+    [MEASURE]: {
+      ...defaultTableForm[MEASURE],
+      ...transformationStateToFormMeasure(measureState, codesListsStore),
+    },
     [LIST_MEASURE]: transformationStateToFormListMeasure(listMeasureState, codesListsStore),
   };
 }
@@ -599,13 +515,13 @@ function transformationStateToModel(currentState, codesListsStore, collectedVari
 }
 
 const TableTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, collectedVariables, currentCodesListsIdsStore } = conf;
+  const { initialState, codesListsStore, collectedVariables } = conf;
 
   let currentState = initialState || defaultTableState;
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, currentCodesListsIdsStore, codesListsStore);
+      currentState = transformationFormToState(form, currentState);
       return currentState;
     },
     modelToState: model => {
@@ -613,7 +529,7 @@ const TableTransformerFactory = (conf = {}) => {
       return currentState;
     },
     stateToForm: () => {
-      return transformationStateToForm({ ...defaultTableState, ...currentState }, codesListsStore);
+      return transformationStateToForm(currentState, codesListsStore);
     },
     stateToModel: () => {
       return transformationStateToModel(currentState, codesListsStore, collectedVariables);

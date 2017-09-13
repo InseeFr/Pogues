@@ -3,17 +3,41 @@ import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import InputMeasure from './input-measure';
-import { DIMENSION_TYPE } from 'constants/pogues-constants';
+import { DIMENSION_TYPE, QUESTION_TYPE_ENUM, CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultListMeasuresForm } from 'utils/transformation-entities/response-format-table';
+import { required, requiredSelect, uniqueCode, emptyCodes } from 'layout/forms/validation-rules';
 
 const { LIST_MEASURE } = DIMENSION_TYPE;
+const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { NEW, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 
 function validationMeasure(values) {
-  const { label, type, [type]: measureValues } = values;
+  const { label, type: typeMeasure, [typeMeasure]: measureValues } = values;
   const errors = [];
+  let codeListRequired;
+  let notEmptyCodes;
+  let uniqueCodes;
+  let requiredSelectCodesList;
+  const labelRequired = required(label);
 
-  if (label === '') errors.push('Label is required');
+  if (typeMeasure === SINGLE_CHOICE) {
+    const { type: typeCodesList, [typeCodesList]: codesListValues } = measureValues;
+
+    if (typeCodesList === NEW) {
+      codeListRequired = required(codesListValues.label);
+      notEmptyCodes = emptyCodes(codesListValues.codes);
+      uniqueCodes = uniqueCode()(codesListValues.codes);
+    } else if (typeCodesList === QUESTIONNAIRE) {
+      requiredSelectCodesList = requiredSelect(codesListValues.codesListId);
+    }
+  }
+
+  if (labelRequired) errors.push('Label is required');
+  if (codeListRequired) errors.push('List name required');
+  if (notEmptyCodes) errors.push(notEmptyCodes);
+  if (uniqueCodes) errors.push(uniqueCodes);
+  if (requiredSelectCodesList) errors.push(requiredSelectCodesList);
 
   return errors;
 }
