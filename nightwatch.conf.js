@@ -3,12 +3,19 @@ const seleniumDownload = require('selenium-download');
 
 const SCREENSHOT_PATH = './screenshots/';
 const BINPATH = './node_modules/nightwatch/bin/';
+const localUrl = 'http://localhost:3000';
+const prodUrl = 'http://localhost:8080/rmspogfo';
 
 // we use a nightwatch.conf.js file so we can include comments and helper functions
 module.exports = {
   src_folders: [
     'e2e', // Where you are storing your Nightwatch e2e tests
   ],
+  globals: {
+    launch_url: localUrl,
+  },
+  globals_path: 'nightwatch.globals.js',
+  // custom_commands_path: "e2e/custom_cmd",
   output_folder: './reports, // reports (test outcome) output by nightwatch',
   selenium: {
     // downloaded by selenium-download module (see readme)
@@ -22,8 +29,8 @@ module.exports = {
     },
   },
   test_settings: {
-    default: {
-      launch_url: 'http://localhost:3000', // were testing a Public or staging site on Saucelabs
+    fulle2e: {
+      launch_url: prodUrl, // were testing a Public or staging site on Saucelabs
       selenium_port: 80,
       selenium_host: 'ondemand.saucelabs.com',
       silent: true,
@@ -34,6 +41,27 @@ module.exports = {
       username: "${SAUCE_USERNAME}", // if you want to use Saucelabs remember to
       access_key: "${SAUCE_ACCESS_KEY}",
       globals: {
+        launch_url: prodUrl,
+        waitForConditionTimeout: 10000, // wait for content on the page before continuing
+      },
+      desiredCapabilities: {
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER, // needed for sauce-connect, i.e for testing localhost on saucelabs
+        build: `build-${process.env.TRAVIS_JOB_NUMBER}`, // needed for sauce-connect
+      },
+    },
+    fakee2e: {
+      launch_url: localUrl, // were testing a Public or staging site on Saucelabs
+      selenium_port: 80,
+      selenium_host: 'ondemand.saucelabs.com',
+      silent: true,
+      screenshots: {
+        enabled: false, // save screenshots to this directory (excluded by .gitignore)
+        path: SCREENSHOT_PATH,
+      },
+      username: "${SAUCE_USERNAME}", // if you want to use Saucelabs remember to
+      access_key: "${SAUCE_ACCESS_KEY}",
+      globals: {
+        launch_url: localUrl,
         waitForConditionTimeout: 10000, // wait for content on the page before continuing
       },
       desiredCapabilities: {
@@ -42,7 +70,7 @@ module.exports = {
       },
     },
     local: {
-      launch_url: 'http://localhost:3000',
+      launch_url: localUrl,
       selenium_port: 4444,
       selenium_host: '127.0.0.1',
       silent: true,
@@ -51,6 +79,7 @@ module.exports = {
         path: SCREENSHOT_PATH,
       }, // this allows us to control the
       globals: {
+        launch_url: localUrl,
         waitForConditionTimeout: 15000, // on localhost sometimes internet is slow so wait...
       },
       desiredCapabilities: {
