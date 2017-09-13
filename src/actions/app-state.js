@@ -9,6 +9,8 @@ export const SET_ACTIVE_CALCULATED_VARIABLES = 'SET_ACTIVE_CALCULATED_VARIABLES'
 export const SET_ACTIVE_EXTERNAL_VARIABLES = 'SET_ACTIVE_EXTERNAL_VARIABLES';
 export const SET_ACTIVE_COLLECTED_VARIABLES = 'SET_ACTIVE_COLLECTED_VARIABLES';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
+export const ADD_RECREATE_COLLECTED_VARIABLES = 'ADD_RECREATE_COLLECTED_VARIABLES';
+export const REMOVE_RECREATE_COLLECTED_VARIABLES = 'REMOVE_RECREATE_COLLECTED_VARIABLES';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
@@ -17,6 +19,8 @@ export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
 export const SET_CURRENT_CODES_LISTS_IN_QUESTION = 'SET_CURRENT_CODES_LISTS_IN_QUESTION';
 export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
 export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
+export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
+export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
 
 /**
  * Set active questionnaire
@@ -134,6 +138,7 @@ export const setSelectedComponentId = id => ({
   type: SET_SELECTED_COMPONENT,
   payload: id,
 });
+
 
 /**
  * Update active questionnaire
@@ -299,6 +304,7 @@ export const setInvalidItemsFromErrors = questionId => {
               [itemId]: {
                 id: itemId,
                 type: errorsByCode[code].type,
+                code,
                 ...params,
               },
             };
@@ -327,4 +333,16 @@ export const removeInvalidItem = invalidItemIdToRemove => ({
   payload: {
     invalidItemIdToRemove,
   },
+});
+
+export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
+  type: SET_TAB_ERRORS,
+  payload: {
+    errorsValidation,
+    errorsIntegrity,
+  },
+});
+
+export const clearTabErrors = () => ({
+  type: CLEAR_TAB_ERRORS,
 });

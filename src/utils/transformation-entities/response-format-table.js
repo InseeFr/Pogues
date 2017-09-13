@@ -521,12 +521,12 @@ function transformationStateToForm(currentState, codesListsStore) {
 // STATE TO MODEL
 
 function transformationStateToModelResponse(state) {
-  const { type: measureType, [measureType]: measureTypeState } = state;
+  const { type: measureType, [measureType]: measureTypeState, collectedVariable } = state;
   let model = {};
 
   if (measureType === SIMPLE) {
     const { mandatory, type: typeName, [typeName]: simpleState } = measureTypeState;
-    model = Response.stateToModel({ mandatory, typeName, ...simpleState });
+    model = Response.stateToModel({ mandatory, typeName, ...simpleState, collectedVariable });
   } else {
     const { mandatory, visHint, codesListId } = measureTypeState;
     model = Response.stateToModel({
@@ -536,13 +536,16 @@ function transformationStateToModelResponse(state) {
       maxLength: 1,
       pattern: '',
       visHint,
+      collectedVariable,
     });
   }
 
   return model;
 }
 
-function transformationStateToModel(currentState, codesListsStore) {
+function transformationStateToModel(currentState, codesListsStore, collectedVariables) {
+  let i;
+  let j;
   const {
     [PRIMARY]: primaryState,
     [SECONDARY]: secondaryState,
@@ -550,8 +553,6 @@ function transformationStateToModel(currentState, codesListsStore) {
     [LIST_MEASURE]: listMeasuresState,
   } = currentState;
   const { type, [type]: primaryTypeState, ...totalLabelPrimaryState } = primaryState;
-
-  let responseModel = {};
   const dimensionsModel = [];
   const responsesModel = [];
   const responsesOffset = getResponsesOffset(primaryState, secondaryState, codesListsStore);
@@ -566,19 +567,29 @@ function transformationStateToModel(currentState, codesListsStore) {
   // Measures dimensions
   if (measureState) {
     dimensionsModel.push(Dimension.stateToModel({ type: MEASURE, label: measureState.label }));
-    responseModel = transformationStateToModelResponse(measureState);
 
-    for (let i = 0; i < responsesOffset; i += 1) {
-      responsesModel.push(responseModel);
+    for (i = 0; i < responsesOffset; i += 1) {
+      responsesModel.push(
+        transformationStateToModelResponse({
+          ...measureState,
+          collectedVariable: collectedVariables[i] || '',
+        })
+      );
     }
   } else {
-    listMeasuresState.forEach(m => {
-      dimensionsModel.push(Dimension.stateToModel({ type: MEASURE, label: m.label }));
-      responseModel = transformationStateToModelResponse(m);
-      for (let i = 0; i < responsesOffset; i += 1) {
-        responsesModel.push(responseModel);
+    for (i = 0; i < listMeasuresState.length; i += 1) {
+      dimensionsModel.push(Dimension.stateToModel({ type: MEASURE, label: listMeasuresState[i].label }));
+    }
+    for (i = 0; i < responsesOffset; i += 1) {
+      for (j = 0; j < listMeasuresState.length; j += 1) {
+        responsesModel.push(
+          transformationStateToModelResponse({
+            ...listMeasuresState[j],
+            collectedVariable: collectedVariables[i * listMeasuresState.length + j] || '',
+          })
+        );
       }
-    });
+    }
   }
 
   return {
@@ -588,7 +599,7 @@ function transformationStateToModel(currentState, codesListsStore) {
 }
 
 const TableTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, currentCodesListsIdsStore } = conf;
+  const { initialState, codesListsStore, collectedVariables, currentCodesListsIdsStore } = conf;
 
   let currentState = initialState || defaultTableState;
 
@@ -605,7 +616,7 @@ const TableTransformerFactory = (conf = {}) => {
       return transformationStateToForm({ ...defaultTableState, ...currentState }, codesListsStore);
     },
     stateToModel: () => {
-      return transformationStateToModel(currentState, codesListsStore);
+      return transformationStateToModel(currentState, codesListsStore, collectedVariables);
     },
   };
 };

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import CodesListEditorCodes from './codes-list-editor-codes';
-import { required, uniqueCode } from 'layout/forms/validation-rules';
 
 const CodesListLabel = ({
   input,
@@ -69,17 +68,9 @@ class codesListEditor extends Component {
   }
   render() {
     const { optional } = this.props;
-    let requiredProps = {};
     const toggleButtonClass = this.state.showCodesList
       ? 'codes-list__show-codes glyphicon glyphicon-eye-close'
       : 'codes-list__show-codes glyphicon glyphicon-pencil';
-
-    if (!optional) {
-      requiredProps = {
-        validate: [required],
-        required: true,
-      };
-    }
 
     return (
       <div className="codes-list-editor">
@@ -95,15 +86,10 @@ class codesListEditor extends Component {
             placeholder={Dictionary.newCl}
             toggleButtonClass={toggleButtonClass}
             toggleCodesList={this.toggleCodesList}
-            {...requiredProps}
+            required={!optional}
           />
         </div>
-        <FieldArray
-          display={this.state.showCodesList}
-          name="codes"
-          component={CodesListEditorCodes}
-          validate={[uniqueCode()]}
-        />
+        <FieldArray display={this.state.showCodesList} name="codes" component={CodesListEditorCodes} />
       </div>
     );
   }

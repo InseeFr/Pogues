@@ -2,7 +2,7 @@ import { uuid } from 'utils/data-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 
-const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
+const { NEW } = CODES_LIST_INPUT_ENUM;
 
 export const defaultCodesListForm = {
   label: '',

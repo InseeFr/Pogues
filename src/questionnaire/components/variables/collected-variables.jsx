@@ -34,22 +34,40 @@ function InputCollectedVariable() {
   );
 }
 class CollectedVariables extends Component {
-  static selectorPath = 'collectedVariables';
-
   static propTypes = {
-    invalidItems: PropTypes.object.isRequired,
+    selectorPath: PropTypes.string.isRequired,
+    generateCollectedVariables: PropTypes.func.isRequired,
+    errors: PropTypes.array,
+  };
+
+  static defaultProps = {
+    errors: [],
   };
 
   render() {
     const { collectedVariables, ...initialInputValues } = defaultCollectedVariableForm;
     const inputCollectedVariableView = <InputCollectedVariable />;
+    const { generateCollectedVariables, errors, selectorPath } = this.props;
+    const styleErrors = {
+      display: errors.length > 0 ? 'block' : 'none',
+    };
+    const errorsList = errors.map((e, index) => {
+      return (
+        <li key={index}>
+          {e}
+        </li>
+      );
+    });
 
     return (
-      <FormSection name={CollectedVariables.selectorPath} className="collected-variables">
+      <FormSection name={selectorPath} className="collected-variables">
+        <ul style={styleErrors} className="nav-error">
+          {errorsList}
+        </ul>
         <ListEntryFormContainer
           inputView={inputCollectedVariableView}
           initialInputValues={initialInputValues}
-          selectorPath={CollectedVariables.selectorPath}
+          selectorPath={selectorPath}
           validationInput={validationCollectedVariable}
           listName="collectedVariables"
           submitLabel="addCollectedVariable"
@@ -58,8 +76,19 @@ class CollectedVariables extends Component {
           showAddButton={false}
           showRemoveButton={false}
           avoidNewAddition
-          invalidItems={this.props.invalidItems}
         />
+        <Field name="responseFormat" type="hidden" component="input" />
+
+        <button
+          type="button"
+          className="btn-yellow"
+          onClick={event => {
+            event.preventDefault();
+            generateCollectedVariables();
+          }}
+        >
+          {Dictionary.generateCollectedVariables}
+        </button>
       </FormSection>
     );
   }

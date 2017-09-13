@@ -4,35 +4,19 @@ import { connect } from 'react-redux';
 import { formValueSelector, actions } from 'redux-form';
 
 import CollectedVariables from 'questionnaire/components/variables/collected-variables';
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import { uuid } from 'utils/data-utils';
-import Dictionary from 'utils/dictionary/dictionary';
-
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-
-function getGeneratedCollectedVariables(responseFormat, questionName) {
-  let generatedCollectedVariables = [];
-
-  if (responseFormat === SIMPLE || responseFormat === SINGLE_CHOICE) {
-    generatedCollectedVariables = [
-      {
-        id: uuid(),
-        name: questionName,
-        label: `${questionName} label`,
-      },
-    ];
-  }
-
-  return generatedCollectedVariables;
-}
+import { generateCollectedVariables } from 'utils/model/model-utils';
 
 const mapStateToProps = (state, { formName }) => {
   formName = formName || 'component';
   const selector = formValueSelector(formName);
+  const responseFormatType = selector(state, 'responseFormat.type');
+
   return {
-    responseFormatType: selector(state, 'responseFormat.type'),
+    responseFormatType,
     name: selector(state, 'name'),
     formName,
+    form: selector(state, `responseFormat.${responseFormatType}`),
+    codesListStore: state.appState.activeCodeListsById,
   };
 };
 
@@ -41,27 +25,38 @@ const mapDispatchToProps = {
 };
 
 class CollectedVariablesContainer extends Component {
+  static selectorPath = 'collectedVariables';
   static propTypes = {
     responseFormatType: PropTypes.string,
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     formName: PropTypes.string.isRequired,
+    form: PropTypes.object,
+    codesListStore: PropTypes.object,
     change: PropTypes.func.isRequired,
-    invalidItems: PropTypes.object,
   };
 
   static defaultProps = {
     responseFormatType: '',
-    name: '',
-    invalidItems: {},
+    form: {},
+    codesListStore: {},
   };
 
-  componentWillUpdate(nextProps) {
-    const { change, responseFormatType, name, formName } = this.props;
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: [],
+    };
+    this.generateCollectedVariables = this.generateCollectedVariables.bind(this);
+  }
 
-    if (responseFormatType !== nextProps.responseFormatType) {
-      const generatedCollectedVariables = getGeneratedCollectedVariables(nextProps.responseFormatType, name);
+  generateCollectedVariables() {
+    const { change, responseFormatType, name, form, codesListStore, formName } = this.props;
 
-      change(formName, 'collectedVariables', {
+    // @TODO: Test if name and label are valids
+    if (responseFormatType !== '' && name !== '') {
+      const generatedCollectedVariables = generateCollectedVariables(responseFormatType, name, form, codesListStore);
+
+      change(formName, CollectedVariablesContainer.selectorPath, {
         name: '',
         label: '',
         collectedVariables: generatedCollectedVariables,
@@ -70,7 +65,13 @@ class CollectedVariablesContainer extends Component {
   }
 
   render() {
-    return <CollectedVariables invalidItems={this.props.invalidItems} />;
+    return (
+      <CollectedVariables
+        selectorPath={CollectedVariablesContainer.selectorPath}
+        generateCollectedVariables={this.generateCollectedVariables}
+        errors={this.state.errors}
+      />
+    );
   }
 }
 

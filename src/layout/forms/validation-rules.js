@@ -44,7 +44,7 @@ export function number(value) {
 
 export function minValue(min) {
   return function(value) {
-    return value && value < min ? `${Dictionary.validationMinNumber} ${min}` : undefined;
+    return value !== undefined && value < min ? `${Dictionary.validationMinNumber} ${min}` : undefined;
   };
 }
 
@@ -66,4 +66,12 @@ export function name(value = '') {
 
 export function nameSize(value) {
   return value && value.length > 16 ? Dictionary.validationInvalidNameSize : undefined;
+}
+
+export function emptyCodes(codes) {
+  return codes.length === 0 ? 'No codes' : undefined;
+}
+
+export function emptyMeasures(measures) {
+  return measures.length === 0 ? 'No measures' : undefined;
 }

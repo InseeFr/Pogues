@@ -5,7 +5,7 @@ import { defaultTableForm } from '../response-format-table';
 import { QUESTION_TYPE_ENUM, DATATYPE_NAME, DATATYPE_TYPE_FROM_NAME } from 'constants/pogues-constants';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+const { TEXT } = DATATYPE_NAME;
 
 export const responseFormatSimpleTextForm = {
   type: SIMPLE,
@@ -25,6 +25,7 @@ export const responseFormatSimpleTextModel = {
   Response: [
     {
       mandatory: false,
+      CollectedVariableReference: 'FIRSTID',
       Datatype: { typeName: TEXT, MaxLength: 255, Pattern: '', type: DATATYPE_TYPE_FROM_NAME.TEXT },
     },
   ],

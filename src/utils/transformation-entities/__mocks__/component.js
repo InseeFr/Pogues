@@ -136,7 +136,7 @@ export const questionState = {
   declarations: {},
   controls: {},
   redirections: {},
-  collectedVariables: [],
+  collectedVariables: ['FIRSTID'],
   type: 'QUESTION',
   label: 'Question 1',
   rawLabel: 'Question 1',

@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import { uuid } from 'utils/data-utils';
@@ -15,7 +15,7 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 function transformationFormToState(form, currentState, codesListsStore, currentCodesListsIdsStore) {
   const { id, type, parent, weight, children } = currentState;
-  const { name, label, responseFormat, declarations, controls, redirections } = form;
+  const { name, label, responseFormat, declarations, controls, redirections, collectedVariables } = form;
 
   const state = {
     id,
@@ -40,7 +40,7 @@ function transformationFormToState(form, currentState, codesListsStore, currentC
       currentCodesListsIdsStore,
       codesListsStore,
     }).formToState(responseFormat);
-    state.collectedVariables = CollectedVariableTransformerFactory().formToComponentState(form.collectedVariables);
+    state.collectedVariables = CollectedVariableTransformerFactory().formToComponentState(collectedVariables);
   } else {
     state.label = label;
   }
@@ -88,14 +88,16 @@ function transformationModelToState(model, codesListsStore = {}) {
     }
   } else {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
+    const responseFormat = ResponseFormatTransformerFactory({
+      codesListsStore,
+    }).modelToState(questionType, responses, dimensions);
+    const collectedVariables = CollectedVariableTransformerFactory().modelToComponentState(responses);
     state.type = QUESTION;
     state.label = getQuestionLabelFromRaw(label);
     state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
-    state.responseFormat = ResponseFormatTransformerFactory({
-      codesListsStore,
-    }).modelToState(questionType, responses, dimensions);
-    state.collectedVariables = CollectedVariableTransformerFactory().modelToComponentState(responses);
+    state.responseFormat = responseFormat;
+    state.collectedVariables = collectedVariables;
   }
 
   return state;
@@ -179,7 +181,6 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
   if (type === QUESTION) {
     model.type = QUESTION_TYPE_NAME;
     model.questionType = responseFormat.type;
-    // @TODO
     model = {
       ...model,
       ...ResponseFormatTransformerFactory({
