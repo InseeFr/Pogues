@@ -7,11 +7,11 @@ import _ from 'lodash';
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
 import { setSelectedComponentId, setTabErrors, clearTabErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
-import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
+import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getValidationErrors, getErrorsObject } from 'utils/component/component-utils';
 import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
@@ -138,7 +138,10 @@ class ComponentNewContainer extends Component {
       const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
 
       if (type === QUESTION) {
-        updatedCodesListsStore = getActiveCodesListsStore(componentState.responseFormat);
+        updatedCodesListsStore = CodesListTransformerFactory({
+          initialComponentState: componentState.responseFormat,
+        }).formToStore(values.responseFormat);
+
         updatedCalculatedVariablesStore = CalculatedVariableTransformerFactory().formToStore(
           values.calculatedVariables
         );

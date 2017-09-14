@@ -1,9 +1,8 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { toComponents, isQuestion, isSubSequence, isSequence, toId } from 'utils/component/component-utils';
+import { toComponents, isQuestion, isSubSequence, isSequence, toId, updateNewComponentParent } from 'utils/component/component-utils';
 import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
 import { uuid } from 'utils/data-utils';
-import { updateNewComponentParent } from 'utils/model/form-to-state-utils';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash/fp';
 
@@ -12,7 +11,7 @@ const { SEQUENCE } = COMPONENT_TYPE;
 /**
  * This method is used for updating elements when some of them become a children of the new one
  * We will update the parent property of this children, and the children property of the prent
- * 
+ *
  * @param {object[]} componentsToMove The list of component that should be moved to the new Parent
  * @param {object} newParent The component will be used as Parent element
  */
@@ -42,11 +41,11 @@ export function moveComponents(componentsToMove, newParent, keepChildren) {
  * This is method is only executed when we want to add a new SUBSEQUENCE when the current
  * selected component is a QUESTION. We have to move the next question to the newly created
  * SUBSEQUENCE
- * 
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {string} selectedComponentId The Id of the currently selected component
  * @param {object} newComponent The new component (normally a SUBSEQUENCE)
- * @param {boolean} includeSelectedComponent Should we add the selected component as a child of the newComponent. Or do we start with the next sibling ? 
+ * @param {boolean} includeSelectedComponent Should we add the selected component as a child of the newComponent. Or do we start with the next sibling ?
  */
 export function moveQuestionToSubSequence(
   activesComponents,
@@ -118,11 +117,11 @@ export function moveQuestionToSubSequence(
  * Normally this method is only executed when
  *  - the new component is a SEQUENCE
  *  - the currently selected component is a QUESTION
- * 
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {string} selectedComponentId  The ID of the selected component
  * @param {object} newComponent The latests created component
- * @param {boolean} includeSelectedComponent Should we add the selected component as a child of the newComponent. Or do we start with the next sibling ? 
+ * @param {boolean} includeSelectedComponent Should we add the selected component as a child of the newComponent. Or do we start with the next sibling ?
  */
 export function moveQuestionAndSubSequenceToSequence(
   activesComponents,
@@ -141,8 +140,8 @@ export function moveQuestionAndSubSequenceToSequence(
   const listOfComponent = oldParent.children.map(id => activesComponents[id]);
 
   /**
-   * Based on this list, we fetch only the component to move (with the 
-   * weight > or = to the weight of the selected component) and we 
+   * Based on this list, we fetch only the component to move (with the
+   * weight > or = to the weight of the selected component) and we
    * construct an array with an updated weight and parent for each component
    */
   let listOfComponentsToMove = sortBy('weight')(listOfComponent)
@@ -231,7 +230,7 @@ export function moveQuestionAndSubSequenceToSequence(
 
 /**
  * Method used for creating a duplicate of an existing QUESTION
- * 
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {string} idComponent id of the component we want to duplicate
  */

@@ -1,8 +1,6 @@
 jest.dontMock('./response-format-table.js');
 
-import _ from 'lodash';
-
-import CodesList, { defaultCodesListForm } from './codes-list';
+import { defaultCodesListForm } from './codes-list';
 import { defaultSimpleForm } from './response-format-simple';
 import { defaultSingleForm, defaultSingleState } from './response-format-single';
 import {
@@ -13,14 +11,6 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
 } from 'constants/pogues-constants';
-
-const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
-const { LIST, CODES_LIST } = DIMENSION_FORMATS;
-const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
-const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
-const { CHECKBOX } = DATATYPE_VIS_HINT;
-
 import ResponseFormatTable, {
   defaultTableForm,
   defaultTableState,
@@ -29,6 +19,15 @@ import ResponseFormatTable, {
   formToStateListMeasure,
   formToStatePrimary,
 } from './response-format-table';
+
+const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
+const { LIST, CODES_LIST } = DIMENSION_FORMATS;
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
+const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+const { CHECKBOX } = DATATYPE_VIS_HINT;
+
+
 
 describe.skip('Transformation entities - Response format - Table', () => {
   const measureSimpleText = { ...defaultSimpleForm };

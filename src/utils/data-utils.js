@@ -2,14 +2,6 @@ import { COMPONENT_TYPE } from '../constants/pogues-constants';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
-// FIXME extract from uri found in res.header.Location
-// FIXME use a regular expression to extract id from url. Example of uri :
-// http://10.3.4.54:8338/exist/restxq/questionnaire/agence-enquete-QPO-DSFGFD
-
-export const extractId = uri => {
-  return uri.substr(uri.lastIndexOf('/') + 1);
-};
-
 export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
 // TODO flattened questionnaire structure might be part of the main reducer,

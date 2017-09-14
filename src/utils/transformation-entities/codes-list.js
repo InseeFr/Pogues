@@ -1,8 +1,8 @@
 import { uuid } from 'utils/data-utils';
-import { nameFromLabel } from 'utils/name-utils';
-import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import { CODES_LIST_INPUT_ENUM, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
+const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export const defaultCodesListForm = {
   [NEW]: {
@@ -16,52 +16,31 @@ export const defaultCodesListForm = {
   type: NEW,
 };
 
-// export const defaultCodesListState = {
-//   id: '',
-//   label: '',
-//   name: '',
-//   codes: [],
-// };
-
 export const defaultCodesListComponentState = {
   type: NEW,
   codesListId: '',
 };
 
-function transformationFormToState(form, type, currentState, codesListsStore) {
-  const { id } = currentState;
-  let state = {};
+function transformationFormToState(form) {
+  const { id, label, codes } = form;
 
-  if (type === NEW) {
-    const { name, label, codes } = form;
-
-    state = {
-      id: id || uuid(),
-      label,
-      name: name || nameFromLabel(label),
-      codes: [],
-    };
-
-    state.codes = codes.reduce((acc, c) => {
-      const { label: labelCode, value, code } = c;
-      const idCode = c.id || uuid();
+  return {
+    id,
+    label,
+    codes: codes.reduce((acc, c) => {
+      const { label: labelCode, code } = c;
+      const idCode = uuid();
 
       return {
         ...acc,
         [idCode]: {
           id: idCode,
           label: labelCode,
-          value,
           code,
         },
       };
-    }, {});
-  } else if (form) {
-    const { codesListId } = form;
-    state = codesListsStore[codesListId];
-  }
-
-  return state;
+    }, {}),
+  };
 }
 
 function transformationFormToStateComponent(form, currentComponentState) {
@@ -74,7 +53,7 @@ function transformationFormToStateComponent(form, currentComponentState) {
   if (type === NEW) {
     componentState.codesListId = codesListId && codesListId !== '' ? codesListId : uuid();
   } else if (type === QUESTIONNAIRE) {
-    componentState.codesListId = codesListForm[QUESTIONNAIRE].codesListId;
+    componentState.codesListId = codesListForm.codesListId;
   }
 
   return componentState;
@@ -108,25 +87,28 @@ function transformationModelToStore(model = []) {
   }, {});
 }
 
-function transformationStateComponentToForm(state, { type, codesListId }) {
+function transformationStateComponentToForm(state, { codesListId }) {
   const { label, codes } = state;
-  const form = {};
 
-  if (type === NEW && label && codes) {
-    form[NEW] = {
-      label,
-      codes,
-    };
-  } else if (type === QUESTIONNAIRE) {
+  const form = {
+    [NEW]: {
+      label: label || '',
+      codes: Object.keys(codes || {}).reduce((acc, key) => {
+        return [...acc, codes[key]];
+      }, []),
+    },
+  };
+
+  if (codesListId && codesListId !== '') {
     form[QUESTIONNAIRE] = {
       codesListId,
     };
   }
 
+  // Always initialize the type NEW
   return {
     ...defaultCodesListForm,
     ...form,
-    type,
   };
 }
 
@@ -157,6 +139,22 @@ function transformationStoreToModel(currentStore = {}) {
   return codesLists;
 }
 
+function transformationFormToStore(form, currentComponentState) {
+  const { type: typeResponseFormat, [typeResponseFormat]: responseFormat } = currentComponentState;
+  const store = {};
+
+  if (typeResponseFormat === SINGLE_CHOICE) {
+    const { codesListId } = responseFormat;
+    const { type: typeCodesList, [typeCodesList]: codesList } = form[SINGLE_CHOICE];
+
+    if (typeCodesList === NEW) {
+      store[codesListId] = transformationFormToState({ id: codesListId, ...codesList });
+    }
+  }
+
+  return store;
+}
+
 const CodesListTransformerFactory = (conf = {}) => {
   const { codesListsStore, initialComponentState } = conf;
 
@@ -164,6 +162,9 @@ const CodesListTransformerFactory = (conf = {}) => {
   let currentState = (codesListsStore && codesListsStore[currentComponentState.codesListId]) || {};
 
   return {
+    formToStore: form => {
+      return transformationFormToStore(form, currentComponentState);
+    },
     formToState: form => {
       currentState = transformationFormToState(form);
       return currentState;
