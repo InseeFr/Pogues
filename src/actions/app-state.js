@@ -136,7 +136,6 @@ export const setSelectedComponentId = id => ({
   payload: id,
 });
 
-
 /**
  * Update active questionnaire
  *

@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import { uuid } from 'utils/data-utils';
@@ -198,7 +198,7 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
     } else {
       model.genericName = 'SUBMODULE';
     }
-    model.Child = transformationStateChildrenToModel(children, store, codesListsStore, depth);
+    model.Child = transformationStateChildrenToModel(children, store, codesListsStore, depth); // eslint-disable-line no-use-before-define
   }
 
   return model;

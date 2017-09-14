@@ -3,7 +3,6 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   QUESTION_TYPE_ENUM,
-  CODES_LIST_INPUT_ENUM,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
 } from 'constants/pogues-constants';
@@ -15,10 +14,8 @@ import Response from './response';
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { NEW } = CODES_LIST_INPUT_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 const { CHECKBOX } = DATATYPE_VIS_HINT;
-const { TABLE } = QUESTION_TYPE_ENUM;
 
 export const defaultMeasureForm = {
   label: '',
