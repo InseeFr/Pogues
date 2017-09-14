@@ -318,11 +318,11 @@ function transformationModelToState(model, codesListsStore) {
 
   // Dimensions
   const dimensionSecondaryModel = getDimensionsByType(SECONDARY, dimensions);
-  const dimensionPimaryModel = getDimensionsByType(PRIMARY, dimensions);
+  const dimensionPrimaryModel = getDimensionsByType(PRIMARY, dimensions);
   const dimensionMeasuresModel = getDimensionsMeasures(dimensions);
 
   // Primary and secondary state
-  state[PRIMARY] = transformationModelToStatePrimary(dimensionPimaryModel);
+  state[PRIMARY] = transformationModelToStatePrimary(dimensionPrimaryModel);
 
   if (dimensionSecondaryModel) {
     state[SECONDARY] = transformationModelToStateSecondary(dimensionSecondaryModel);
@@ -417,17 +417,39 @@ function transformationStateToForm(currentState, codesListsStore) {
     [MEASURE]: measureState,
     [LIST_MEASURE]: listMeasureState,
   } = currentState;
+  let secondaryForm = {};
+  let measureForm = {};
+  let listMeasureForm = {};
+
+  if (secondaryState) {
+    secondaryForm = transformationStateToFormSecondary(secondaryState, codesListsStore);
+  }
+
+  if (measureState) {
+    measureForm = transformationStateToFormMeasure(measureState, codesListsStore);
+  }
+
+  if (listMeasureState) {
+    listMeasureForm = transformationStateToFormListMeasure(listMeasureState, codesListsStore);
+  }
+
   return {
     [PRIMARY]: {
       ...defaultTableForm[PRIMARY],
       ...transformationStateToFormPrimary(primaryState, codesListsStore),
     },
-    [SECONDARY]: transformationStateToFormSecondary(secondaryState, codesListsStore),
+    [SECONDARY]: {
+      ...defaultTableForm[SECONDARY],
+      ...secondaryForm,
+    },
     [MEASURE]: {
       ...defaultTableForm[MEASURE],
-      ...transformationStateToFormMeasure(measureState, codesListsStore),
+      ...measureForm,
     },
-    [LIST_MEASURE]: transformationStateToFormListMeasure(listMeasureState, codesListsStore),
+    [LIST_MEASURE]: {
+      ...defaultTableForm[LIST_MEASURE],
+      ...listMeasureForm,
+    },
   };
 }
 
@@ -465,7 +487,7 @@ function transformationStateToModel(currentState, codesListsStore, collectedVari
     [MEASURE]: measureState,
     [LIST_MEASURE]: listMeasuresState,
   } = currentState;
-  const { type, [type]: primaryTypeState, ...totalLabelPrimaryState } = primaryState;
+  const { type, [type]: { type: typePrimaryCodesList, ...primaryTypeState }, ...totalLabelPrimaryState } = primaryState;
   const dimensionsModel = [];
   const responsesModel = [];
   const responsesOffset = getResponsesOffset(primaryState, secondaryState, codesListsStore);
@@ -474,7 +496,8 @@ function transformationStateToModel(currentState, codesListsStore, collectedVari
   dimensionsModel.push(Dimension.stateToModel({ type: PRIMARY, ...primaryTypeState, ...totalLabelPrimaryState }));
 
   if (secondaryState) {
-    dimensionsModel.push(Dimension.stateToModel({ type: SECONDARY, ...secondaryState }));
+    const { type: typeSecondaryCodesList, ...secondaryTypeState } = secondaryState;
+    dimensionsModel.push(Dimension.stateToModel({ type: SECONDARY, ...secondaryTypeState }));
   }
 
   // Measures dimensions

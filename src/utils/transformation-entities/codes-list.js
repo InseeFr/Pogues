@@ -1,8 +1,15 @@
 import { uuid } from 'utils/data-utils';
-import { CODES_LIST_INPUT_ENUM, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import {
+  CODES_LIST_INPUT_ENUM,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_TYPE,
+  DIMENSION_FORMATS,
+} from 'constants/pogues-constants';
 
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
-const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
+const { CODES_LIST } = DIMENSION_FORMATS;
 
 export const defaultCodesListForm = {
   [NEW]: {
@@ -139,17 +146,92 @@ function transformationStoreToModel(currentStore = {}) {
   return codesLists;
 }
 
-function transformationFormToStore(form, currentComponentState) {
-  const { type: typeResponseFormat, [typeResponseFormat]: responseFormat } = currentComponentState;
+function transformationFormToStoreSingle(form, currentComponentState) {
   const store = {};
 
-  if (typeResponseFormat === SINGLE_CHOICE) {
-    const { codesListId } = responseFormat;
-    const { type: typeCodesList, [typeCodesList]: codesList } = form[SINGLE_CHOICE];
+  if (form.type === NEW) {
+    store[currentComponentState.codesListId] = transformationFormToState({
+      id: currentComponentState.codesListId,
+      ...form[NEW],
+    });
+  }
 
-    if (typeCodesList === NEW) {
-      store[codesListId] = transformationFormToState({ id: codesListId, ...codesList });
-    }
+  return store;
+}
+
+function transformationFormToStoreMultiple(form, currentComponentState) {
+  const { [PRIMARY]: primary, [MEASURE]: measure } = currentComponentState;
+  let store = transformationFormToStoreSingle(form[PRIMARY], primary);
+
+  if (measure.type === CODES_LIST) {
+    store = {
+      ...store,
+      ...transformationFormToStoreSingle(form[MEASURE][CODES_LIST], measure[CODES_LIST]),
+    };
+  }
+
+  return store;
+}
+
+function transformationFormToStoreMeasure(form, currentComponentState) {
+  let store = {};
+
+  if (currentComponentState.type === SINGLE_CHOICE) {
+    store = transformationFormToStoreSingle(form[SINGLE_CHOICE], currentComponentState[SINGLE_CHOICE]);
+  }
+
+  return store;
+}
+
+function transformationFormToStoreTable(form, currentComponentState) {
+  let store = {};
+  const {
+    [PRIMARY]: primary,
+    [SECONDARY]: secondary,
+    [MEASURE]: measure,
+    [LIST_MEASURE]: measures,
+  } = currentComponentState;
+
+  if (primary.type === CODES_LIST) {
+    store = transformationFormToStoreSingle(form[PRIMARY][CODES_LIST], primary[CODES_LIST]);
+  }
+
+  if (secondary) {
+    store = {
+      ...store,
+      ...transformationFormToStoreSingle(form[SECONDARY], secondary),
+    };
+  }
+
+  if (measure) {
+    store = {
+      ...store,
+      ...transformationFormToStoreMeasure(form[MEASURE], measure),
+    };
+  }
+
+  if (measures) {
+    measures.forEach((m, index) => {
+      store = {
+        ...store,
+        ...transformationFormToStoreMeasure(form[LIST_MEASURE].measures[index], m),
+      };
+    });
+  }
+
+  return store;
+}
+
+function transformationFormToStore(form, currentComponentState) {
+  const { type, [type]: format } = currentComponentState;
+  let store = {};
+
+  if (type === SINGLE_CHOICE) {
+    store = transformationFormToStoreSingle(form[SINGLE_CHOICE], format);
+  } else if (type === MULTIPLE_CHOICE) {
+    store = transformationFormToStoreMultiple(form[MULTIPLE_CHOICE], format);
+  } else if (type === TABLE) {
+    store = transformationFormToStoreTable(form[TABLE], format);
   }
 
   return store;

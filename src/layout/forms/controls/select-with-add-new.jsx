@@ -12,13 +12,14 @@ class SelectWithAddNew extends Component {
     labelButton: PropTypes.string.isRequired,
     required: PropTypes.bool,
     emptyValue: PropTypes.string,
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
   };
 
   static defaultProps = {
     options: [],
     required: false,
     emptyValue: '',
+    name: '',
   };
 
   constructor(props) {
