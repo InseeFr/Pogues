@@ -57,7 +57,7 @@ function transformationModelToState(model, codesListsStore = {}) {
     Label: [label],
     Declaration: declarations,
     GoTo: redirections,
-    Controls: controls,
+    Control: controls,
     Response: responses,
     ResponseStructure: responseStructure,
     Child: children,
