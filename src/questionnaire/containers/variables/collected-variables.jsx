@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { formValueSelector, actions } from 'redux-form';
 
 import CollectedVariables from 'questionnaire/components/variables/collected-variables';
-import { generateCollectedVariables } from 'utils/model/model-utils';
+import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 
 const mapStateToProps = (state, { formName }) => {
   formName = formName || 'component';

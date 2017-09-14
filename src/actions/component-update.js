@@ -1,7 +1,6 @@
 import { sortBy } from 'lodash/fp';
 import { toComponents, toId } from 'utils/component/component-utils';
 
-
 /**
  * This function generate a componentById with the children passed as 
  * a parameter.

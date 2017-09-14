@@ -21,9 +21,9 @@ import {
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { NEW, REF, QUESTIONNAIRE: QUEST } = CODES_LIST_INPUT_ENUM;
+const { NEW, QUESTIONNAIRE: QUEST } = CODES_LIST_INPUT_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
-const { LIST, CODES_LIST, BOOL } = DIMENSION_FORMATS;
+const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 
 /**
  * This method return true if the component passed as a parameter is a QUESTION
@@ -322,9 +322,8 @@ function validateMeasure(values, path) {
 
   if (measureLabelRequired) validationErrors.push([`${path}.label`, measureLabelRequired]);
 
-  // @ TODO: Codes lists are not working
   if (measureType === SINGLE_CHOICE) {
-    validationErrors = [...validationErrors, ...validateCodesList(measure[SINGLE_CHOICE], `${path}.${SINGLE_CHOICE}`)];
+    validationErrors = [...validationErrors, ...validateCodesList(measure, `${path}.${SINGLE_CHOICE}`)];
   }
 
   return validationErrors;
@@ -339,15 +338,14 @@ function validateMeasure(values, path) {
  * @return {number} The number of codes.
  */
 function getNumCodes(values, codesListStore) {
-  const { codesListId, type, [NEW]: { codes }, [QUESTIONNAIRE]: { codesListId: codesListIdQuest } } = values;
+  const { type, [NEW]: { codes }, [QUESTIONNAIRE]: { codesListId } } = values;
   let numCodes = 0;
 
-  if (codesListId !== '') {
-    numCodes = Object.keys(codesListStore[codesListId].codes).length;
-  } else if (type === NEW) {
+  if (type === NEW) {
     numCodes = codes.length;
   } else if (type === QUEST) {
-    numCodes = Object.keys(codesListStore[codesListIdQuest].codes).length;
+    const codesList = codesListStore[codesListId] || {};
+    numCodes = Object.keys(codesList.codes || {}).length;
   }
 
   return numCodes;
@@ -490,14 +488,6 @@ function validateResponseFormat(values, path) {
       const notEmptyMeasures = emptyMeasures(measures);
 
       if (notEmptyMeasures) validationErrors.push([`${path}.${TABLE}.${LIST_MEASURE}.label`, notEmptyMeasures]);
-
-      // @TODO: Maybe it's not necessary
-      // measures.for((m, index) => {
-      //   validationErrors = [
-      //     ...validationErrors,
-      //     ...validateMeasure(m, `${path}.${TABLE}.${LIST_MEASURE}.measures.${index}`),
-      //   ];
-      // });
     }
   }
 
@@ -565,4 +555,21 @@ export function getErrorsObject(errors) {
   return errors.reduce((acc, error) => {
     return _.merge(acc, getNestedErrorFromPath(error[0], error[1]));
   }, {});
+}
+
+/**
+ * This function is called when we add a component to a parent
+ *
+ * @param {object[]} activeComponents The list of components
+ * @param {string} parentId The id of the parent we should update
+ * @param {string} newComponentId The id of the created component
+ */
+export function updateNewComponentParent(activeComponents, parentId, newComponentId) {
+  const parent = activeComponents[parentId];
+  return {
+    [parentId]: {
+      ...parent,
+      children: [...parent.children, newComponentId],
+    },
+  };
 }

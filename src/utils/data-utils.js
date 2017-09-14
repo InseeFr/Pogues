@@ -2,14 +2,6 @@ import { COMPONENT_TYPE } from '../constants/pogues-constants';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
-// FIXME extract from uri found in res.header.Location
-// FIXME use a regular expression to extract id from url. Example of uri :
-// http://10.3.4.54:8338/exist/restxq/questionnaire/agence-enquete-QPO-DSFGFD
-
-export const extractId = uri => {
-  return uri.substr(uri.lastIndexOf('/') + 1);
-};
-
 export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
 // TODO flattened questionnaire structure might be part of the main reducer,
@@ -29,7 +21,7 @@ export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toS
  *                           as an array
  */
 export function flatten(register, main) {
-  let rank = -1;
+  const rank = -1;
   const idToRank = {};
   const nameToId = {};
   const idToName = {};
@@ -43,20 +35,20 @@ export function flatten(register, main) {
   const { lastRegister, lastMain, lastValue } = flatten.lastResult;
   if (lastRegister === register && lastMain === main) return lastValue;
 
-  function flatten_(main, depth) {
-    const cmpnt = register[main];
+  function flatten_(innerMain, depth) {
+    const cmpnt = register[innerMain];
     const { type, name } = cmpnt;
-    idToRank[main] = ++rank;
-    idToName[main] = name;
+    idToRank[innerMain] = rank + 1;
+    idToName[innerMain] = name;
     // HACK `nameToId` should not have an entry for the main sequence
     // of the questionnaire (a questionnaire is a sequence, but for the end
     // user, it should not be offered as an option for operations like control
     // or goTo edition).
-    if (rank > 0) nameToId[name] = main;
-    const k = { id: main, type, name, depth, start: rank, cmpnt };
+    if (rank > 0) nameToId[name] = innerMain;
+    const k = { id: innerMain, type, name, depth, start: rank, cmpnt };
     flat.push(k);
     if (type === SEQUENCE) {
-      depth++;
+      depth += 1;
       cmpnt.childCmpnts.forEach(id => flatten_(id, depth));
     }
     k.end = rank;
@@ -97,13 +89,13 @@ export function unflatten(flat) {
   };
   const path = [childCmpnts]; // depth = 0
 
-  return flat.reduce((register, { id, type, depth, cmpnt }) => {
+  return flat.reduce((innerRegister, { id, type, depth, cmpnt }) => {
     if (type === QUESTION) {
       childCmpnts.push(id);
-      register[id] = cmpnt;
+      innerRegister[id] = cmpnt;
     } else {
       childCmpnts = [];
-      register[id] = { ...cmpnt, childCmpnts };
+      innerRegister[id] = { ...cmpnt, childCmpnts };
       // path.length represents current depth
       if (depth >= path.length) {
         // In most cases, path.length === depth (same depth as the last opened
@@ -122,6 +114,6 @@ export function unflatten(flat) {
         path.splice(depth + 1);
       }
     }
-    return register;
+    return innerRegister;
   }, register);
 }
