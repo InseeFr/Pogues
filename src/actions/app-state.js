@@ -1,6 +1,7 @@
 import { putQuestionnaire } from 'utils/remote-api';
 import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -223,7 +224,7 @@ export const saveActiveQuestionnaire = () => {
         lastUpdatedDate: new Date().toString(),
       },
       componentsStore: state.appState.activeComponentsById,
-      codesListsStore: state.appState.activeCodeListsById,
+      codesListsStore: removeOrphansCodesLists(state.appState.activeCodeListsById, state.appState.activeComponentsById),
       conditionsStore: {},
       calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
       externalVariablesStore: state.appState.activeExternalVariablesById,
