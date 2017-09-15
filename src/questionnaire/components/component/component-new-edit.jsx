@@ -81,7 +81,7 @@ export class QuestionNewEdit extends Component {
       {
         id: 'declarations',
         label: Dictionary.declaration_tabTitle,
-        content: <Declaration />,
+        content: <Declaration showPosition={type === QUESTION} />,
         numErrors: errorsByQuestionTab.declarations,
       },
       {
