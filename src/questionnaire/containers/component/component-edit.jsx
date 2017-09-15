@@ -7,12 +7,11 @@ import _ from 'lodash';
 import { updateComponent } from 'actions/component';
 import { setInvalidItemsFromErrors, setTabErrors, clearTabErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
-// import { getCurrentCodesListsIdsStore } from 'utils/model/state-to-form-utils';
-import { getActiveCodesListsStore } from 'utils/model/form-to-state-utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
+import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getValidationErrors, getErrorsObject } from 'utils/component/component-utils';
 
@@ -34,7 +33,6 @@ const mapDispatchToProps = {
   updateComponent,
   setTabErrors,
   clearTabErrors,
-  // setCurrentCodesListsInQuestion,
   setInvalidItemsFromErrors,
 };
 
@@ -43,7 +41,6 @@ class ComponentEditContainer extends Component {
     updateComponent: PropTypes.func.isRequired,
     setTabErrors: PropTypes.func.isRequired,
     clearTabErrors: PropTypes.func.isRequired,
-    // setCurrentCodesListsInQuestion: PropTypes.func.isRequired,
     componentId: PropTypes.string.isRequired,
     activeComponentsStore: PropTypes.object.isRequired,
     activeCodesListsStore: PropTypes.object.isRequired,
@@ -70,25 +67,6 @@ class ComponentEditContainer extends Component {
     errorsValidation: {},
     errorsByQuestionTab: {},
   };
-
-  // componentWillMount() {
-  //   const {
-  //     activeComponentsStore,
-  //     componentId,
-  //     // setCurrentCodesListsInQuestion,
-  //     // setInvalidItemsFromErrors,
-  //   } = this.props;
-  //   // const component = activeComponentsStore[componentId];
-  //   // let currentCodesListsStoreFromQuestion = {};
-  //
-  //   // setInvalidItemsFromErrors(componentId);
-  //
-  //   // if (component.type === QUESTION) {
-  //   //   currentCodesListsStoreFromQuestion = getCurrentCodesListsIdsStore(component.responseFormat);
-  //   // }
-  //
-  //   // setCurrentCodesListsInQuestion(currentCodesListsStoreFromQuestion);
-  // }
 
   componentWillMount() {
     this.props.clearTabErrors();
@@ -144,7 +122,9 @@ class ComponentEditContainer extends Component {
       const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
 
       if (componentType === QUESTION) {
-        updatedCodesListsStore = getActiveCodesListsStore(updatedComponentsStore[componentId].responseFormat);
+        updatedCodesListsStore = CodesListTransformerFactory({
+          initialComponentState: updatedComponentsStore[componentId].responseFormat,
+        }).formToStore(values.responseFormat);
         updatedCalculatedVariablesStore = CalculatedVariableTransformerFactory().formToStore(
           values.calculatedVariables
         );

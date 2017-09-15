@@ -33,10 +33,13 @@ describe('<GenericInput />', () => {
     expect(wrapper.is('#questionnaire-generic-input')).toBe(true);
   });
 
-  test('should render enabled the "Question" button only when the prop "newQuestionPlaceholder" is defined', () => {
-    props.placeholders[QUESTION] = notEmptyPlaceholder;
-    const wrapperWithQuestionPlaceholder = shallow(<GenericInput {...props} />);
-    // @TODO: Fix this test
-    // expect(wrapperWithQuestionPlaceholder.find('#add-question[disabled]').exists()).toBe(false);
-  });
+  // @TODO: Fix this test
+  test.skip(
+    'should render enabled the "Question" button only when the prop "newQuestionPlaceholder" is defined',
+    () => {
+      props.placeholders[QUESTION] = notEmptyPlaceholder;
+      const wrapperWithQuestionPlaceholder = shallow(<GenericInput {...props} />);
+      expect(wrapperWithQuestionPlaceholder.find('#add-question[disabled]').exists()).toBe(false);
+    }
+  );
 });

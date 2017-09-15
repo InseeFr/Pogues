@@ -34,10 +34,10 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
           },
         };
         if (!existsTarget(activeComponentsById, redirection.cible)) {
-          error.params.messageKey = 'errorGoToNonExistingTgt'
+          error.params.messageKey = 'errorGoToNonExistingTgt';
           targetNotFoundErrors.push(error);
         } else if (isEarlierTarget(ids, redirection.cible)) {
-          error.params.messageKey = 'errorGoToEarlierTgt'
+          error.params.messageKey = 'errorGoToEarlierTgt';
           targetEarlierErrors.push(error);
         }
       });

@@ -7,6 +7,7 @@ import {
   isSequence,
   isSubSequence,
   getSortedChildren,
+  updateNewComponentParent,
 } from './component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -139,5 +140,22 @@ describe('getSortedChildren', () => {
     };
     const result = getSortedChildren(components, '1');
     expect(result).toEqual(['4', '2', '3']);
+  });
+});
+
+describe('updateNewComponentParent', () => {
+  test('should return an parent component with the new children', () => {
+    const activeComponents = {
+      '1': {
+        id: '1',
+        children: ['2', '3'],
+      },
+    };
+    expect(updateNewComponentParent(activeComponents, '1', '4')).toEqual({
+      '1': {
+        id: '1',
+        children: ['2', '3', '4'],
+      },
+    });
   });
 });

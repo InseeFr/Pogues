@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
 import { uuid } from 'utils/data-utils';
@@ -13,8 +13,8 @@ import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
-function transformationFormToState(form, currentState, codesListsStore, currentCodesListsIdsStore) {
-  const { id, type, parent, weight, children } = currentState;
+function transformationFormToState(form, currentState, codesListsStore) {
+  const { id, type, parent, weight, children, responseFormat: responseFormatState } = currentState;
   const { name, label, responseFormat, declarations, controls, redirections, collectedVariables } = form;
 
   const state = {
@@ -37,7 +37,7 @@ function transformationFormToState(form, currentState, codesListsStore, currentC
     state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
     state.responseFormat = ResponseFormatTransformerFactory({
-      currentCodesListsIdsStore,
+      initialState: responseFormatState,
       codesListsStore,
     }).formToState(responseFormat);
     state.collectedVariables = CollectedVariableTransformerFactory().formToComponentState(collectedVariables);
@@ -57,7 +57,7 @@ function transformationModelToState(model, codesListsStore = {}) {
     Label: [label],
     Declaration: declarations,
     GoTo: redirections,
-    Controls: controls,
+    Control: controls,
     Response: responses,
     ResponseStructure: responseStructure,
     Child: children,
@@ -198,7 +198,7 @@ function transformationStateToModel(state, store, codesListsStore = {}, depth = 
     } else {
       model.genericName = 'SUBMODULE';
     }
-    model.Child = transformationStateChildrenToModel(children, store, codesListsStore, depth);
+    model.Child = transformationStateChildrenToModel(children, store, codesListsStore, depth); // eslint-disable-line no-use-before-define
   }
 
   return model;
@@ -226,28 +226,29 @@ const ComponentTransformerFactory = (conf = {}) => {
     externalVariablesStore,
     collectedVariablesStore,
     collectedVariableByQuestionStore,
-    currentCodesListsIdsStore,
   } = conf;
 
   let currentStore = initialStore || {};
-  let currentState;
+  let currentState = {};
 
   return {
     formToState: (form, infos) => {
       const { id, parent, weight, type } = infos;
       const currentId = id || uuid();
+      const state = {
+        ...currentState,
+        id: currentId,
+        parent,
+        weight,
+        type,
+      };
 
-      currentState = transformationFormToState(
-        form,
-        { id: currentId, parent, weight, type },
-        codesListsStore,
-        currentCodesListsIdsStore
-      );
+      currentState = transformationFormToState(form, state, codesListsStore);
 
       return currentState;
     },
     formToStore: (form, id) => {
-      currentState = transformationFormToState(form, currentStore[id], codesListsStore, currentCodesListsIdsStore);
+      currentState = transformationFormToState(form, currentStore[id], codesListsStore);
       currentStore = {
         ...currentStore,
         [id]: currentState,
@@ -271,6 +272,7 @@ const ComponentTransformerFactory = (conf = {}) => {
       } else {
         state = currentState;
       }
+
       return transformationStateToForm(
         state,
         codesListsStore,

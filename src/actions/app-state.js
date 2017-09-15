@@ -1,6 +1,7 @@
 import { putQuestionnaire } from 'utils/remote-api';
 import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -14,7 +15,6 @@ export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCC
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
 export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
-export const SET_CURRENT_CODES_LISTS_IN_QUESTION = 'SET_CURRENT_CODES_LISTS_IN_QUESTION';
 export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
 export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
 export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
@@ -199,7 +199,7 @@ export const saveActiveQuestionnaire = () => {
         lastUpdatedDate: new Date().toString(),
       },
       componentsStore: state.appState.activeComponentsById,
-      codesListsStore: state.appState.activeCodeListsById,
+      codesListsStore: removeOrphansCodesLists(state.appState.activeCodeListsById, state.appState.activeComponentsById),
       conditionsStore: {},
       calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
       externalVariablesStore: state.appState.activeExternalVariablesById,
@@ -218,18 +218,6 @@ export const saveActiveQuestionnaire = () => {
       });
   };
 };
-
-/**
- * Set the list of codes lists to be updated in a question creation/edtion
- *
- * @return {object}         SET_CURRENT_CODES_LISTS_IN_QUESTION action
- */
-export const setCurrentCodesListsInQuestion = codeListsToUpdate => ({
-  type: SET_CURRENT_CODES_LISTS_IN_QUESTION,
-  payload: {
-    codeListsToUpdate,
-  },
-});
 
 /**
  * Set the invalid items in a question using the errorsByCode store

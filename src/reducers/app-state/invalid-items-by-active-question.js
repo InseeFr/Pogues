@@ -16,7 +16,7 @@ export function addListInvalidItem(state, invalidItems) {
   return {
     ...state,
     ...invalidItems.reduce((acc, it) => {
-      const [id, message] = it;
+      const [id] = it;
       const type = id.split('.')[0];
       return {
         ...acc,
