@@ -18,6 +18,8 @@ const defaultState = {
   activeCodeListsById: {},
   activeCodesById: {},
   activeCalculatedVariablesById: {},
+  activeExternalVariablesById: {},
+  collectedVariableByQuestion: {},
   errorsByCode: {},
   selectedComponentId: '',
   errorsByQuestionTab: {},

@@ -11,18 +11,14 @@ describe('<PageQuestionnaire />', () => {
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
   const spySetActiveCodeLists = jest.fn();
-  const spySetActiveCalculatedVariables = jest.fn();
-  const spySetActiveExternalVariables = jest.fn();
-  const spySetActiveCollectedVariablesByQuestion = jest.fn();
+  const spySetActiveVariables = jest.fn();
   const props = {
     params: { id: 1 },
     loadQuestionnaireIfNeeded: spyLoad,
     setActiveQuestionnaire: spySetActiveQuestionnaire,
     setActiveComponents: spySetActiveComponents,
     setActiveCodeLists: spySetActiveCodeLists,
-    setActiveCalculatedVariables: spySetActiveCalculatedVariables,
-    setActiveExternalVariables: spySetActiveExternalVariables,
-    setActiveCollectedVariablesByQuestion: spySetActiveCollectedVariablesByQuestion,
+    setActiveVariables: spySetActiveVariables,
     store: {},
   };
 
@@ -48,14 +44,7 @@ describe('<PageQuestionnaire />', () => {
     expect(spySetActiveCodeLists).toBeCalled();
   });
 
-  test('should call setActiveCalculatedVariables in render', () => {
-    expect(spySetActiveCalculatedVariables).toBeCalled();
-  });
-
-  test('should call setActiveExternaldVariables in render', () => {
-    expect(spySetActiveExternalVariables).toBeCalled();
-  });
-  test('should call setActiveExternalVariables in render', () => {
-    expect(spySetActiveExternalVariables).toBeCalled();
+  test('should call setActiveVariables in render', () => {
+    expect(spySetActiveVariables).toBeCalled();
   });
 });

@@ -53,9 +53,10 @@ class QuestionnaireErrors extends Component {
       const invalidComponent = errorsByComponent[id];
       const component = `[${components[id].name}] ${components[id].label}`;
       const errors = invalidComponent.errors.map((e, index) => {
+        const message = e.params.dictionary ? e.params.dictionary : Dictionary[e.dictionary];
         return (
           <li key={`${e.code}-${index}`}>
-            {Dictionary[e.dictionary]}
+            {message}
           </li>
         );
       });

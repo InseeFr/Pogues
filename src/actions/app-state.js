@@ -19,6 +19,7 @@ export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
 export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
 export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
 export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
+export const SET_ACTIVE_VARIABLES = 'SET_ACTIVE_VARIABLES';
 
 /**
  * Set active questionnaire
@@ -64,52 +65,26 @@ export const setActiveCodeLists = activeCodeLists => ({
 });
 
 /**
- * Set active calculated variables
+ * Set active variables
  *
- * It changes the store "appState.activeCalculatedVariablesById" with the list (as object)
- * of code calculated variables
+ * It changes the stores "appState.activeCalculatedVariablesById", "appState.activeExternalVariablesById" and
+ * "appState.collectedVariableByQuestion" with the corresponding variables passed.
  *
- * @param  {object} calculatedVariables   The calculated variables to set as actives
- * @return {object}                       SET_ACTIVE_CALCULATED_VARIABLES action
+ * @param  {object} variables The variables stores
+ *
+ * @return {object} SET_ACTIVE_VARIABLES action
  */
-export const setActiveCalculatedVariables = calculatedVariables => ({
-  type: SET_ACTIVE_CALCULATED_VARIABLES,
-  payload: {
-    calculatedVariables,
-  },
-});
-
-/**
- * Set active external variables
- *
- * It changes the store "appState.activeExternalVariablesById" with the list (as object)
- * of code external variables
- *
- * @param  {object} externalVariables   The external variables to set as actives
- * @return {object}                       SET_ACTIVE_EXTERNAL_VARIABLES action
- */
-export const setActiveExternalVariables = externalVariables => ({
-  type: SET_ACTIVE_EXTERNAL_VARIABLES,
-  payload: {
-    externalVariables,
-  },
-});
-
-/**
- * Set active collected variables
- *
- * It changes the store "appState.collectedVariableByQuestion" with the list (as object)
- * of code collected variables
- *
- * @param  {object} collectedVariablesByQuestion   The collected variables to set as actives
- * @return {object}                               SET_ACTIVE_COLLECTED_VARIABLES action
- */
-export const setActiveCollectedVariablesByQuestion = collectedVariablesByQuestion => ({
-  type: SET_ACTIVE_COLLECTED_VARIABLES,
-  payload: {
-    collectedVariablesByQuestion,
-  },
-});
+export const setActiveVariables = variables => {
+  const { activeCalculatedVariablesById, activeExternalVariablesById, collectedVariableByQuestion } = variables;
+  return {
+    type: SET_ACTIVE_VARIABLES,
+    payload: {
+      activeCalculatedVariablesById,
+      activeExternalVariablesById,
+      collectedVariableByQuestion,
+    },
+  };
+};
 
 /**
  * Set active components
