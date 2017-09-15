@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import Dictionary from 'utils/dictionary/dictionary';
+
 function checkerUniqueVariableName({
   appState: {
     activeCalculatedVariablesById,
@@ -23,8 +25,19 @@ function checkerUniqueVariableName({
     }, []),
   ];
 
-  if (_.uniq(variablesNames).length !== variablesNames.length) {
-    errors.push({ id, params: {} });
+  const duplicatedVariablesNames = _.uniq(
+    variablesNames.filter(name => {
+      return variablesNames.filter(innerName => innerName === name).length > 1;
+    })
+  );
+
+  if (duplicatedVariablesNames.length > 0) {
+    errors.push({
+      id,
+      params: {
+        dictionary: `${Dictionary.errorUniqueVariableName}: ${duplicatedVariablesNames.join(',')}`,
+      },
+    });
   }
 
   return {
