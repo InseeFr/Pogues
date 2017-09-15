@@ -478,6 +478,10 @@ const dictionary = {
     fr: 'La question contient des variables collectées invalides.',
     en: 'The question contains invalid collected variables.',
   },
+  errorUniqueVariableName: {
+    fr: 'Tous les noms de variable doivent être uniques.',
+    en: "All the variable's names should been uniques.",
+  },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',
