@@ -35,16 +35,20 @@ class Tabs extends Component {
         'nav-content': true,
         active: active,
       });
+      const numErrors =
+        components[i].numErrors && components[i].numErrors > 0
+          ? <span className="invalid">
+              <div className="alert-triangle" />
+              {components[i].numErrors}
+            </span>
+          : '';
+
       tabs.push(
         <li key={`tab-${components[i].id}`} className="nav-item">
           <a className={classTab} onClick={() => this.setActive(i)}>
             {components[i].label}
           </a>
-          {components[i].numErrors &&
-            <span className="invalid">
-              <div className="alert-triangle" />
-              {components[i].numErrors}
-            </span>}
+          {numErrors}
         </li>
       );
       contentTabs.push(

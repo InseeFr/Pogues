@@ -5,6 +5,7 @@ import { shallow } from 'enzyme';
 import Tabs from './tabs';
 
 describe('<Tabs />', () => {
+  // eslint-disable-next-line react/prop-types
   function MockComponent({ id }) {
     return <div id={id} />;
   }

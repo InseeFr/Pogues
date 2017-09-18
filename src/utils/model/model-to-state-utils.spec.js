@@ -1,7 +1,7 @@
 jest.dontMock('./model-to-state-utils.js');
 
 import { questionnaireModelToStores, getComponentsFromNestedQuestionnaire } from './model-to-state-utils';
-import questionnaires from './questionnaires';
+import questionnaires from './__mocks__/questionnaires';
 
 const questionnaire = questionnaires[0];
 

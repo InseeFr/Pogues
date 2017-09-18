@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Field, formValueSelector, FormSection } from 'redux-form';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
@@ -19,7 +20,7 @@ function validationDeclaration(values) {
   return errors;
 }
 
-function InputDeclaration({ identifier }) {
+function InputDeclaration({ identifier, showPosition }) {
   const types = [
     {
       value: 'INSTRUCTION',
@@ -72,17 +73,22 @@ function InputDeclaration({ identifier }) {
 
       <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required />
 
-      <Field
-        name="position"
-        id="declaration_position"
-        component={Select}
-        label={Dictionary.declaration_position}
-        options={positions}
-        required
-      />
+      {showPosition &&
+        <Field
+          name="position"
+          id="declaration_position"
+          component={Select}
+          label={Dictionary.declaration_position}
+          options={positions}
+          required
+        />}
     </div>
   );
 }
+
+InputDeclaration.propTypes = {
+  showPosition: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = (state, { formName }) => {
   formName = formName || 'component';
@@ -95,10 +101,18 @@ const mapStateToProps = (state, { formName }) => {
 class Declarations extends Component {
   static selectorPath = 'declarations';
 
+  static propTypes = {
+    showPosition: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    showPosition: true,
+  };
+
   render() {
     const { declarations, ...initialInputValues } = declarationsFormDefault;
     const InputDeclarationView = connect(mapStateToProps)(InputDeclaration);
-    const inputDeclarationViewInstance = <InputDeclarationView />;
+    const inputDeclarationViewInstance = <InputDeclarationView showPosition={this.props.showPosition} />;
     return (
       <FormSection name={Declarations.selectorPath} className="declaratations">
         <ListEntryFormContainer

@@ -1,49 +1,69 @@
 import { uuid } from 'utils/data-utils';
-import { nameFromLabel } from 'utils/name-utils';
-import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import {
+  CODES_LIST_INPUT_ENUM,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_TYPE,
+  DIMENSION_FORMATS,
+} from 'constants/pogues-constants';
 
 const { NEW, REF, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
+const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
+const { CODES_LIST } = DIMENSION_FORMATS;
 
 export const defaultCodesListForm = {
-  label: '',
-  name: '',
-  codes: [],
+  [NEW]: {
+    label: '',
+    codes: [],
+  },
+  [REF]: {},
+  [QUESTIONNAIRE]: {
+    codesListId: '',
+  },
+  type: NEW,
 };
 
-function transformationFormToState(form, type, currentState, codesListsStore) {
-  const { id } = currentState;
-  let state = {};
+export const defaultCodesListComponentState = {
+  type: NEW,
+  codesListId: '',
+};
 
-  if (type === NEW) {
-    const { name, label, codes } = form;
+function transformationFormToState(form) {
+  const { id, label, codes } = form;
 
-    state = {
-      id: id || uuid(),
-      label,
-      name: name || nameFromLabel(label),
-      codes: [],
-    };
-
-    state.codes = codes.reduce((acc, c) => {
-      const { label: labelCode, value, code } = c;
-      const idCode = c.id || uuid();
+  return {
+    id,
+    label,
+    codes: codes.reduce((acc, c) => {
+      const { label: labelCode, code } = c;
+      const idCode = uuid();
 
       return {
         ...acc,
         [idCode]: {
           id: idCode,
           label: labelCode,
-          value,
           code,
         },
       };
-    }, {});
-  } else if (form) {
-    const { codesListId } = form;
-    state = codesListsStore[codesListId];
+    }, {}),
+  };
+}
+
+function transformationFormToStateComponent(form, currentComponentState) {
+  const { codesListId } = currentComponentState;
+  const { type, [type]: codesListForm } = form;
+  const componentState = {
+    type,
+  };
+
+  if (type === NEW) {
+    componentState.codesListId = codesListId && codesListId !== '' ? codesListId : uuid();
+  } else if (type === QUESTIONNAIRE) {
+    componentState.codesListId = codesListForm.codesListId;
   }
 
-  return state;
+  return componentState;
 }
 
 function transformationModelToStore(model = []) {
@@ -74,28 +94,28 @@ function transformationModelToStore(model = []) {
   }, {});
 }
 
-function transformationStateToForm(state, codesListsStore) {
-  const codesListId = state.codesListId;
-  const { label, name, codes } = {
-    ...state,
-    ...(codesListId ? codesListsStore[codesListId] : {}),
+function transformationStateComponentToForm(state, { codesListId }) {
+  const { label, codes } = state;
+
+  const form = {
+    [NEW]: {
+      label: label || '',
+      codes: Object.keys(codes || {}).reduce((acc, key) => {
+        return [...acc, codes[key]];
+      }, []),
+    },
   };
 
+  if (codesListId && codesListId !== '') {
+    form[QUESTIONNAIRE] = {
+      codesListId,
+    };
+  }
+
+  // Always initialize the type NEW
   return {
-    codesListId,
-    label,
-    name,
-    codes: Object.keys(codes).reduce((acc, key) => {
-      const { label: labelCode, value, code } = codes[key];
-      return [
-        ...acc,
-        {
-          label: labelCode,
-          value,
-          code,
-        },
-      ];
-    }, []),
+    ...defaultCodesListForm,
+    ...form,
   };
 }
 
@@ -126,21 +146,120 @@ function transformationStoreToModel(currentStore = {}) {
   return codesLists;
 }
 
-const CodesListTransformerFactory = (conf = {}) => {
-  const { initialState, codesListsStore, type } = conf;
+function transformationFormToStoreSingle(form, currentComponentState) {
+  const store = {};
 
-  let currentState = initialState || defaultCodesListForm;
+  if (form.type === NEW) {
+    store[currentComponentState.codesListId] = transformationFormToState({
+      id: currentComponentState.codesListId,
+      ...form[NEW],
+    });
+  }
+
+  return store;
+}
+
+function transformationFormToStoreMultiple(form, currentComponentState) {
+  const { [PRIMARY]: primary, [MEASURE]: measure } = currentComponentState;
+  let store = transformationFormToStoreSingle(form[PRIMARY], primary);
+
+  if (measure.type === CODES_LIST) {
+    store = {
+      ...store,
+      ...transformationFormToStoreSingle(form[MEASURE][CODES_LIST], measure[CODES_LIST]),
+    };
+  }
+
+  return store;
+}
+
+function transformationFormToStoreMeasure(form, currentComponentState) {
+  let store = {};
+
+  if (currentComponentState.type === SINGLE_CHOICE) {
+    store = transformationFormToStoreSingle(form[SINGLE_CHOICE], currentComponentState[SINGLE_CHOICE]);
+  }
+
+  return store;
+}
+
+function transformationFormToStoreTable(form, currentComponentState) {
+  let store = {};
+  const {
+    [PRIMARY]: primary,
+    [SECONDARY]: secondary,
+    [MEASURE]: measure,
+    [LIST_MEASURE]: measures,
+  } = currentComponentState;
+
+  if (primary.type === CODES_LIST) {
+    store = transformationFormToStoreSingle(form[PRIMARY][CODES_LIST], primary[CODES_LIST]);
+  }
+
+  if (secondary) {
+    store = {
+      ...store,
+      ...transformationFormToStoreSingle(form[SECONDARY], secondary),
+    };
+  }
+
+  if (measure) {
+    store = {
+      ...store,
+      ...transformationFormToStoreMeasure(form[MEASURE], measure),
+    };
+  }
+
+  if (measures) {
+    measures.forEach((m, index) => {
+      store = {
+        ...store,
+        ...transformationFormToStoreMeasure(form[LIST_MEASURE].measures[index], m),
+      };
+    });
+  }
+
+  return store;
+}
+
+function transformationFormToStore(form, currentComponentState) {
+  const { type, [type]: format } = currentComponentState;
+  let store = {};
+
+  if (type === SINGLE_CHOICE) {
+    store = transformationFormToStoreSingle(form[SINGLE_CHOICE], format);
+  } else if (type === MULTIPLE_CHOICE) {
+    store = transformationFormToStoreMultiple(form[MULTIPLE_CHOICE], format);
+  } else if (type === TABLE) {
+    store = transformationFormToStoreTable(form[TABLE], format);
+  }
+
+  return store;
+}
+
+const CodesListTransformerFactory = (conf = {}) => {
+  const { codesListsStore, initialComponentState } = conf;
+
+  let currentComponentState = initialComponentState || {};
+  let currentState = (codesListsStore && codesListsStore[currentComponentState.codesListId]) || {};
 
   return {
+    formToStore: form => {
+      return transformationFormToStore(form, currentComponentState);
+    },
     formToState: form => {
-      currentState = transformationFormToState(form, type, currentState, codesListsStore);
+      currentState = transformationFormToState(form);
       return currentState;
+    },
+    formToStateComponent: form => {
+      currentComponentState = transformationFormToStateComponent(form, currentComponentState);
+      return currentComponentState;
     },
     modelToStore: model => {
       return transformationModelToStore(model);
     },
-    stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore);
+    stateComponentToForm: () => {
+      return transformationStateComponentToForm(currentState, currentComponentState);
     },
     storeToModel: store => {
       return transformationStoreToModel(store);

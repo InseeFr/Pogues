@@ -3,8 +3,8 @@ import activeCodeListsById from 'reducers/app-state/active-code-lists-by-id';
 import activeCalculatedVariablesById from 'reducers/app-state/active-calculated-variables-by-id';
 import collectedVariableByQuestion from 'reducers/app-state/collected-variable-by-question';
 import activeExternalVariablesById from 'reducers/app-state/active-external-variables-by-id';
-import codeListsByActiveQuestion from 'reducers/app-state/code-lists-by-active-question';
 import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
+import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
 import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
 import { LOAD_COLLECTIONS_SUCCESS, LOAD_OPERATIONS_SUCCESS, LOAD_CAMPAIGNS_SUCCESS } from 'actions/questionnaire';
 import { LOAD_USER_SUCCESS } from 'actions/user';
@@ -18,8 +18,11 @@ const defaultState = {
   activeCodeListsById: {},
   activeCodesById: {},
   activeCalculatedVariablesById: {},
+  activeExternalVariablesById: {},
+  collectedVariableByQuestion: {},
   errorsByCode: {},
   selectedComponentId: '',
+  errorsByQuestionTab: {},
 };
 
 export function loadUserSuccess(state, user) {
@@ -97,7 +100,7 @@ export default function(state = defaultState, action) {
     activeCalculatedVariablesById: activeCalculatedVariablesById(state.activeCalculatedVariablesById, action),
     collectedVariableByQuestion: collectedVariableByQuestion(state.collectedVariableByQuestion, action),
     activeExternalVariablesById: activeExternalVariablesById(state.activeExternalVariablesById, action),
-    codeListsByActiveQuestion: codeListsByActiveQuestion(state.codeListsByActiveQuestion, action),
     invalidItemsByActiveQuestion: invalidItemsByActiveQuestion(state.invalidItemsByActiveQuestion, action),
+    errorsByQuestionTab: errorsByQuestionTab(state.errorsByQuestionTab, action),
   };
 }

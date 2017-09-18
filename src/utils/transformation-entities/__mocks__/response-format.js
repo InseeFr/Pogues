@@ -13,12 +13,12 @@ export const responseFormatSimpleTextForm = {
   [SINGLE_CHOICE]: defaultSingleForm,
   [MULTIPLE_CHOICE]: defaultMultipleForm,
   [TABLE]: defaultTableForm,
-}
+};
 
 export const responseFormatSimpleTextState = {
   type: SIMPLE,
   [SIMPLE]: defaultSimpleState,
-}
+};
 
 export const responseFormatSimpleTextModel = {
   questionType: SIMPLE,
@@ -29,4 +29,4 @@ export const responseFormatSimpleTextModel = {
       Datatype: { typeName: TEXT, MaxLength: 255, Pattern: '', type: DATATYPE_TYPE_FROM_NAME.TEXT },
     },
   ],
-}
+};

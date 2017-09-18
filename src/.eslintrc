@@ -43,3 +43,4 @@ rules:
   react/forbid-prop-types: 0
   react/no-unescaped-entities: 0
   prettier/prettier: ["error", {"trailingComma": "es5", "singleQuote": true, "printWidth": 120}]
+  import/prefer-default-export: 0

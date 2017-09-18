@@ -36,7 +36,6 @@ function InputCollectedVariable() {
 class CollectedVariables extends Component {
   static propTypes = {
     selectorPath: PropTypes.string.isRequired,
-    invalidItems: PropTypes.object.isRequired,
     generateCollectedVariables: PropTypes.func.isRequired,
     errors: PropTypes.array,
   };
@@ -77,7 +76,6 @@ class CollectedVariables extends Component {
           showAddButton={false}
           showRemoveButton={false}
           avoidNewAddition
-          invalidItems={this.props.invalidItems}
         />
         <Field name="responseFormat" type="hidden" component="input" />
 

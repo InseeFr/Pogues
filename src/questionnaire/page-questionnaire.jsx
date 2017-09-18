@@ -8,14 +8,7 @@ import QuestionnaireContainer from 'questionnaire/containers/questionnaire';
 import QuestionnaireNavContainer from 'questionnaire/containers/questionnaire-nav';
 import GenericInputContainer from 'questionnaire/containers/generic-input';
 import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
-import {
-  setActiveQuestionnaire,
-  setActiveComponents,
-  setActiveCodeLists,
-  setActiveCalculatedVariables,
-  setActiveExternalVariables,
-  setActiveCollectedVariablesByQuestion,
-} from 'actions/app-state';
+import { setActiveQuestionnaire, setActiveComponents, setActiveCodeLists, setActiveVariables } from 'actions/app-state';
 
 const logger = new Logger('PageQuestionnaire', 'Components');
 const { QUESTION } = COMPONENT_TYPE;
@@ -23,11 +16,11 @@ const { QUESTION } = COMPONENT_TYPE;
 function getCollectedVariablesByQuestionnaire(components = {}, collectedVariables = {}) {
   return Object.keys(components)
     .filter(key => components[key].type === QUESTION)
-    .filter(key => components[key].collectedVariables.collectedVariables.length > 0)
+    .filter(key => components[key].collectedVariables.length > 0)
     .reduce((acc, key) => {
       return {
         ...acc,
-        [key]: components[key].collectedVariables.collectedVariables.reduce((accInner, keyInner) => {
+        [key]: components[key].collectedVariables.reduce((accInner, keyInner) => {
           return {
             ...accInner,
             [keyInner]: { ...collectedVariables[keyInner] },
@@ -54,9 +47,7 @@ const mapDispatchToProps = {
   setActiveQuestionnaire,
   setActiveComponents,
   setActiveCodeLists,
-  setActiveCalculatedVariables,
-  setActiveExternalVariables,
-  setActiveCollectedVariablesByQuestion,
+  setActiveVariables,
 };
 
 export class PageQuestionnaire extends Component {
@@ -65,9 +56,7 @@ export class PageQuestionnaire extends Component {
     setActiveQuestionnaire: PropTypes.func.isRequired,
     setActiveComponents: PropTypes.func.isRequired,
     setActiveCodeLists: PropTypes.func.isRequired,
-    setActiveCalculatedVariables: PropTypes.func.isRequired,
-    setActiveExternalVariables: PropTypes.func.isRequired,
-    setActiveCollectedVariablesByQuestion: PropTypes.func.isRequired,
+    setActiveVariables: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
     questionnaire: PropTypes.object,
     components: PropTypes.object,
@@ -123,9 +112,11 @@ export class PageQuestionnaire extends Component {
     this.props.setActiveQuestionnaire(questionnaire);
     this.props.setActiveComponents(components);
     this.props.setActiveCodeLists(codeLists);
-    this.props.setActiveCalculatedVariables(calculatedVariables);
-    this.props.setActiveExternalVariables(externalVariables);
-    this.props.setActiveCollectedVariablesByQuestion(collectedVariablesByQuestion);
+    this.props.setActiveVariables({
+      activeCalculatedVariablesById: calculatedVariables,
+      activeExternalVariablesById: externalVariables,
+      collectedVariableByQuestion: collectedVariablesByQuestion,
+    });
   }
 
   render() {

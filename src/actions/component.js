@@ -1,5 +1,10 @@
-import { isSubSequence, isSequence, isQuestion, toComponents } from 'utils/component/component-utils';
-import { updateNewComponentParent } from 'utils/model/form-to-state-utils';
+import {
+  isSubSequence,
+  isSequence,
+  isQuestion,
+  toComponents,
+  updateNewComponentParent,
+} from 'utils/component/component-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
 import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence, duplicate } from './component-insert';
