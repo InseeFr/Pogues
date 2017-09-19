@@ -87,11 +87,20 @@ function getGreatUnclesHeaviest(componentsStore, component) {
   return componentsIds;
 }
 
-export function getComponentsTargets(componentsStore, component = {}) {
-  const descendants = getDescendants(componentsStore, component);
-  const siblingHeaviest = getSiblingHeaviest(componentsStore, component);
-  const unclesHeaviest = getUnclesHeaviest(componentsStore, component);
-  const greatUnclesHeaviest = getGreatUnclesHeaviest(componentsStore, component);
+export function getComponentsTargets(componentsStore, component) {
+  let componentsTargets = [];
 
-  return [...descendants, ...siblingHeaviest, ...unclesHeaviest, ...greatUnclesHeaviest];
+  if (component) {
+    const descendants = getDescendants(componentsStore, component);
+    const siblingHeaviest = getSiblingHeaviest(componentsStore, component);
+    const unclesHeaviest = getUnclesHeaviest(componentsStore, component);
+    const greatUnclesHeaviest = getGreatUnclesHeaviest(componentsStore, component);
+
+    componentsTargets = [...descendants, ...siblingHeaviest, ...unclesHeaviest, ...greatUnclesHeaviest];
+  } else {
+    // All the components from the store are valid targets if an undefined component is passed
+    componentsTargets = Object.keys(componentsStore);
+  }
+
+  return componentsTargets;
 }
