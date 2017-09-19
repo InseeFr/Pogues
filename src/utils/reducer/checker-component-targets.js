@@ -1,12 +1,4 @@
-import { getTargets } from 'utils/component/component-utils';
-
-function isEarlierTarget(ids, targetId) {
-  return ids.indexOf(targetId) === -1;
-}
-
-function existsTarget(components, targetId) {
-  return components[targetId] !== undefined;
-}
+import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 
 function checkerComponentTargets({ appState: { activeComponentsById } }) {
   const targetNotFoundErrors = [];
@@ -14,31 +6,30 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
 
   Object.keys(activeComponentsById).forEach(key => {
     const redirections = activeComponentsById[key].redirections || {};
+    const redirectionsIds = Object.keys(redirections);
 
-    if (Object.keys(redirections).length > 0) {
-      const ids = getTargets(
-        activeComponentsById,
-        activeComponentsById[key].type,
-        key,
-        activeComponentsById[key].parent,
-        activeComponentsById[key].weight,
-        false
-      );
-      Object.keys(redirections).forEach(redirectionKey => {
-        const redirection = redirections[redirectionKey];
-        const error = {
-          id: key,
-          params: {
-            itemId: redirections[redirectionKey].id,
-            targetId: redirection.cible,
-          },
-        };
-        if (!existsTarget(activeComponentsById, redirection.cible)) {
-          error.params.messageKey = 'errorGoToNonExistingTgt';
-          targetNotFoundErrors.push(error);
-        } else if (isEarlierTarget(ids, redirection.cible)) {
-          error.params.messageKey = 'errorGoToEarlierTgt';
-          targetEarlierErrors.push(error);
+    if (redirectionsIds.length > 0) {
+      const activeTargetsIds = getComponentsTargetsByComponent(activeComponentsById, activeComponentsById[key]);
+
+      redirectionsIds.forEach(innerKey => {
+        const redirection = redirections[innerKey];
+
+        if (!activeComponentsById[redirection.cible]) {
+          targetNotFoundErrors.push({
+            id: key,
+            params: {
+              itemId: innerKey,
+              messageKey: 'errorGoToNonExistingTgt',
+            },
+          });
+        } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
+          targetEarlierErrors.push({
+            id: key,
+            params: {
+              itemId: innerKey,
+              messageKey: 'errorGoToEarlierTgt',
+            },
+          });
         }
       });
     }

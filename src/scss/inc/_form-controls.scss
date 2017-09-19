@@ -1,4 +1,4 @@
-.ctrl-select-with-add-new, .ctrl-select, .ctrl-input, .ctrl-list-radios-buttons, .ctrl-checkbox {
+.ctrl-select-with-add-new, .ctrl-select, .ctrl-input, .ctrl-list-radios-buttons, .ctrl-checkbox, .ctrl-tree-select {
   @extend .form-group;
   @include make-row();
 
@@ -8,7 +8,7 @@
 }
 
 
-.ctrl-select-with-add-new, .ctrl-select, .ctrl-input, .ctrl-checkbox {
+.ctrl-select-with-add-new, .ctrl-select, .ctrl-input, .ctrl-checkbox, .ctrl-tree-select {
   label + div {
     @include make-xs-column(6);
 
@@ -68,4 +68,37 @@
 
 .form-check-label > input[type=checkbox]{
   margin-right: 10px;
+}
+
+.ctrl-tree-select {
+  label + div {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    ul {
+      max-height: 120px;
+      background-color: white;
+      border: 1px solid rgb(204, 204, 204);
+      overflow-y: scroll;
+
+      li {
+        padding: 3px 15px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.disabled {
+          color: grey;
+          cursor: default;
+        }
+
+        &.selected {
+          background-color: #0f417a;
+          color: white;
+        }
+      }
+
+    }
+  }
 }

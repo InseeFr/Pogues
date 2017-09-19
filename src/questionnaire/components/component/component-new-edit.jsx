@@ -39,7 +39,6 @@ function getInvalidItemsByType(invalidItems) {
 export class QuestionNewEdit extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    edit: PropTypes.bool,
     handleSubmit: PropTypes.func,
     onCancel: PropTypes.func,
     updateName: PropTypes.func,
@@ -47,15 +46,16 @@ export class QuestionNewEdit extends Component {
     submitting: PropTypes.bool,
     invalidItems: PropTypes.object,
     errorsByQuestionTab: PropTypes.object.isRequired,
+    componentId: PropTypes.string,
   };
   static defaultProps = {
     handleSubmit: undefined,
     onCancel: undefined,
     pristine: false,
     submitting: false,
-    edit: false,
     updateName: () => {},
     invalidItems: {},
+    componentId: '',
   };
   componentDidMount() {
     if (this.props.type !== QUESTION) {
@@ -67,7 +67,6 @@ export class QuestionNewEdit extends Component {
   render() {
     const {
       type,
-      edit,
       handleSubmit,
       onCancel,
       pristine,
@@ -75,6 +74,7 @@ export class QuestionNewEdit extends Component {
       errorsByQuestionTab,
       invalidItems,
       updateName,
+      componentId,
     } = this.props;
     const invalidItemsByType = getInvalidItemsByType(invalidItems);
     const panels = [
@@ -94,7 +94,7 @@ export class QuestionNewEdit extends Component {
         id: 'redirections',
         label: Dictionary.goTo,
         content: (
-          <Redirections componentType={type} isNewComponent={!edit} invalidItems={invalidItemsByType.redirections} />
+          <Redirections componentId={componentId} componentType={type} invalidItems={invalidItemsByType.redirections} />
         ),
         numErrors: errorsByQuestionTab.redirections,
       },
@@ -104,7 +104,7 @@ export class QuestionNewEdit extends Component {
       panels.unshift({
         id: 'response-format',
         label: Dictionary.responsesEdition,
-        content: <ResponseFormat edit={edit} />,
+        content: <ResponseFormat edit={componentId !== ''} />,
         numErrors: errorsByQuestionTab.responseFormat,
       });
       panels.push({
@@ -158,7 +158,7 @@ export class QuestionNewEdit extends Component {
           />
           <Tabs components={panels} />
           <div className="form-footer">
-            <button type="submit" disabled={!edit && (pristine || submitting)}>
+            <button type="submit" disabled={componentId === '' && (pristine || submitting)}>
               {Dictionary.validate}
             </button>
             {onCancel &&
