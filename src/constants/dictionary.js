@@ -486,6 +486,10 @@ const dictionary = {
     fr: 'Tous les noms de variable doivent être uniques.',
     en: "All the variable's names should been uniques.",
   },
+  errorUniqueComponentName: {
+    fr: 'Tous les noms de séquence, sous-séquence ou question doivent être uniques.',
+    en: 'All the names of sequence, sub-sequence or question should been uniques.',
+  },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',
