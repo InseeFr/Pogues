@@ -319,6 +319,10 @@ const dictionary = {
     en: 'Precision',
     fr: 'Précision',
   },
+  unit: {
+    en: 'Unit of measure',
+    fr: 'Unité de mesure',
+  },
   edit_config: {
     en: 'Edit config',
     fr: 'Éditer les paramètres',
