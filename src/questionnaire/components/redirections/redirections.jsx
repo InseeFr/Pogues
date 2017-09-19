@@ -20,7 +20,7 @@ function validationRedirections(values) {
   return errors;
 }
 
-function InputRedirection({ componentId }) {
+function InputRedirection({ componentId, componentType }) {
   return (
     <div>
       <Field type="text" name="label" id="redirection_text" component={Input} label={Dictionary.goTo_label} required />
@@ -34,31 +34,34 @@ function InputRedirection({ componentId }) {
         required
       />
 
-      <TreeSelectGotoContainer componentId={componentId} />
+      <TreeSelectGotoContainer componentId={componentId} componentType={componentType} />
     </div>
   );
 }
 
 InputRedirection.propTypes = {
   componentId: PropTypes.string.isRequired,
+  componentType: PropTypes.string.isRequired,
 };
 
 class Redirections extends Component {
   static selectorPath = 'redirections';
   static propTypes = {
     componentId: PropTypes.string,
+    componentType: PropTypes.string,
     invalidItems: PropTypes.object,
   };
   static defaultProps = {
     invalidItems: {},
     componentId: '',
+    componentType: '',
   };
 
   render() {
-    const { componentId, invalidItems } = this.props;
+    const { componentId, componentType, invalidItems } = this.props;
     const { redirections, ...initialInputValues } = redirectionsFormDefault;
 
-    const inputControlView = <InputRedirection componentId={componentId} />;
+    const inputControlView = <InputRedirection componentId={componentId} componentType={componentType} />;
     return (
       <FormSection name={Redirections.selectorPath} className="redirections">
         <ListEntryFormContainer

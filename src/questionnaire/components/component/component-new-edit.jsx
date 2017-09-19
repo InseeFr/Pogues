@@ -93,7 +93,9 @@ export class QuestionNewEdit extends Component {
       {
         id: 'redirections',
         label: Dictionary.goTo,
-        content: <Redirections componentId={componentId} invalidItems={invalidItemsByType.redirections} />,
+        content: (
+          <Redirections componentId={componentId} componentType={type} invalidItems={invalidItemsByType.redirections} />
+        ),
         numErrors: errorsByQuestionTab.redirections,
       },
     ];

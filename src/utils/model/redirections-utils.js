@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
+const { QUESTIONNAIRE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 function getGotos(componentsStore, activeComponentsIds, components, depth = 0) {
   return components.reduce((acc, key) => {
@@ -87,20 +87,32 @@ function getGreatUnclesHeaviest(componentsStore, component) {
   return componentsIds;
 }
 
-export function getComponentsTargets(componentsStore, component) {
-  let componentsTargets = [];
+export function getComponentsTargetsByComponent(componentsStore, component) {
+  const descendants = getDescendants(componentsStore, component);
+  const siblingHeaviest = getSiblingHeaviest(componentsStore, component);
+  const unclesHeaviest = getUnclesHeaviest(componentsStore, component);
+  const greatUnclesHeaviest = getGreatUnclesHeaviest(componentsStore, component);
 
-  if (component) {
-    const descendants = getDescendants(componentsStore, component);
-    const siblingHeaviest = getSiblingHeaviest(componentsStore, component);
-    const unclesHeaviest = getUnclesHeaviest(componentsStore, component);
-    const greatUnclesHeaviest = getGreatUnclesHeaviest(componentsStore, component);
+  return [...descendants, ...siblingHeaviest, ...unclesHeaviest, ...greatUnclesHeaviest];
+}
 
-    componentsTargets = [...descendants, ...siblingHeaviest, ...unclesHeaviest, ...greatUnclesHeaviest];
-  } else {
-    // All the components from the store are valid targets if an undefined component is passed
-    componentsTargets = Object.keys(componentsStore);
+export function getComponentsTargetsByPosition(componentsStore, type, selectedComponentId) {
+  let targets = [];
+
+  if (selectedComponentId) {
+    targets = getComponentsTargetsByComponent(componentsStore, componentsStore[selectedComponentId]);
+  } else if (type === SUBSEQUENCE) {
+    const rootId = Object.keys(componentsStore).filter(key => componentsStore[key].type === QUESTIONNAIRE)[0];
+    const heaviestSequenceId = componentsStore[rootId].children.reduce((acc, key) => {
+      return componentsStore[key].weight > componentsStore[acc].weight ? key : acc;
+    });
+
+    targets = componentsStore[heaviestSequenceId].children
+      .filter(key => componentsStore[key].type === SUBSEQUENCE)
+      .reduce((acc, key) => {
+        return [...acc, key, ...getDescendants(componentsStore, componentsStore[key])];
+      }, []);
   }
 
-  return componentsTargets;
+  return targets;
 }

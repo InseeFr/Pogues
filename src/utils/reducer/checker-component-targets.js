@@ -1,4 +1,4 @@
-import { getComponentsTargets } from 'utils/model/redirections-utils';
+import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 
 function checkerComponentTargets({ appState: { activeComponentsById } }) {
   const targetNotFoundErrors = [];
@@ -9,7 +9,7 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
     const redirectionsIds = Object.keys(redirections);
 
     if (redirectionsIds.length > 0) {
-      const activeTargetsIds = getComponentsTargets(activeComponentsById, activeComponentsById[key]);
+      const activeTargetsIds = getComponentsTargetsByComponent(activeComponentsById, activeComponentsById[key]);
 
       redirectionsIds.forEach(innerKey => {
         const redirection = redirections[innerKey];
