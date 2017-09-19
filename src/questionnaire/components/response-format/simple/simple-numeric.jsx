@@ -32,6 +32,7 @@ class ResponseFormatDatatypeNumeric extends FormSection {
           required
         />
         <Field name="decimals" type="number" component={Input} label={Dictionary.decimals} />
+        <Field name="unit" type="text" component={Input} label={Dictionary.unit} />
       </div>
     );
   }

@@ -14,6 +14,7 @@ export const defaultSimpleForm = {
     minimum: '',
     maximum: '',
     decimals: '',
+    unit: '',
   },
   [DATE]: {},
   [BOOLEAN]: {},
@@ -47,6 +48,7 @@ function transformationModelToState(model) {
     Minimum: minimum,
     Maximum: maximum,
     Decimals: decimals,
+    Unit: unit,
   } = model;
   const datatype = {};
 
@@ -55,6 +57,7 @@ function transformationModelToState(model) {
   if (minimum !== undefined) datatype.minimum = minimum;
   if (maximum !== undefined) datatype.maximum = maximum;
   if (decimals !== undefined) datatype.decimals = decimals;
+  if (unit !== undefined) datatype.unit = unit;
 
   const responseFormatSimpleData = {
     type: typeName,
