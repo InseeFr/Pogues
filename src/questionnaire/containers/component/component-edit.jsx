@@ -151,7 +151,7 @@ class ComponentEditContainer extends Component {
         onCancel={onCancel}
         invalidItems={invalidItems}
         errorsByQuestionTab={errorsByQuestionTab}
-        edit
+        componentId={componentId}
       />
     );
   }

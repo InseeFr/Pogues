@@ -335,6 +335,10 @@ const dictionary = {
     en: 'Target',
     fr: 'Cible',
   },
+  selectTarget: {
+    en: 'Select a target',
+    fr: 'Sélectionnez une Cible',
+  },
   ifCondition: {
     en: 'Target if condition is true',
     fr: 'Cible si la condition est vérifiée',
