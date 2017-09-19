@@ -63,7 +63,10 @@
       }
     }
 
-    .ctrl-selec t-with-add-new label + div, .ctrl-select label + div, .ctrl-input label + div {
+    .ctrl-selec t-with-add-new label + div,
+    .ctrl-select label + div,
+    .ctrl-input label + div,
+    .ctrl-tree-select label + div {
       width: 70%;
     }
 
