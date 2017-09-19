@@ -999,6 +999,14 @@ const dictionary = {
     fr: 'Vous ne pouvez pas ajouter des nouvelles variables collectées',
     en: 'It already exists an collected variable with this name',
   },
+  validation_question_name_required: {
+    fr: 'Identifiant de la question obligatoire.',
+    en: 'Question name required.',
+  },
+  validation_response_format_required: {
+    fr: 'Format de réponse obligatoire.',
+    en: 'Response format required.',
+  },
 };
 
 // Dynamic translations
