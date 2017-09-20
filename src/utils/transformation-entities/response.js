@@ -9,6 +9,7 @@ function stateToModel(state) {
     minimum: Minimum,
     maximum: Maximum,
     decimals: Decimals,
+    unit: Unit,
     codesListId: CodeListReference,
     visHint: visualizationHint,
     hasSpecialCode,
@@ -34,6 +35,7 @@ function stateToModel(state) {
   if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
   if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
   if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
+  if (Unit !== undefined) model.Datatype.Unit = Unit;
   if (hasSpecialCode) {
     model.nonResponseModality = {
       value: specialCode,
