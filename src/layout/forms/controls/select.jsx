@@ -6,6 +6,7 @@ class Select extends Component {
     input: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired,
     required: PropTypes.bool,
+    disabled: PropTypes.bool,
     emptyValue: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.object),
     meta: PropTypes.object.isRequired,
@@ -13,12 +14,13 @@ class Select extends Component {
 
   static defaultProps = {
     required: false,
+    disabled: false,
     options: [],
     emptyValue: '',
   };
 
   render() {
-    const { input, label, required, options, emptyValue, meta: { touched, error } } = this.props;
+    const { input, label, required, disabled, options, emptyValue, meta: { touched, error } } = this.props;
     const listOptions = options.map(op =>
       <option key={op.value} value={op.value}>
         {op.label}
@@ -40,7 +42,7 @@ class Select extends Component {
           {required ? <span>*</span> : ''}
         </label>
         <div>
-          <select {...input} id={`select-${input.name}`} placeholder={label}>
+          <select {...input} id={`select-${input.name}`} placeholder={label} disabled={disabled}>
             {listOptions}
           </select>
           {touched &&
