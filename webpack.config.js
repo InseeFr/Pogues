@@ -39,7 +39,12 @@ module.exports = function(env) {
 
   const plugins = [
     new webpack.optimize.CommonsChunkPlugin({
-      async: true,
+      name: 'vendor',
+      children: true,
+      minChunks: 2,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
       children: true,
       minChunks: 2,
     }),
@@ -201,12 +206,33 @@ module.exports = function(env) {
     context: sourcePath,
     entry: {
       main: entryPoint,
+      vendor: [
+        "gillespie59-react-rte",
+        "lodash.clonedeep",
+        "lodash.isempty",
+        "lodash.isequal",
+        "lodash.isobject",
+        "lodash.isstring",
+        "lodash.merge",
+        "lodash.sortby",
+        "lodash.uniq",
+        "prop-types",
+        "react",
+        "react-dnd",
+        "react-dnd-html5-backend",
+        "react-dom",
+        "react-modal",
+        "react-redux",
+        "react-router",
+        "redux",
+        "redux-form",
+        "redux-thunk",
+      ]
     },
     output: {
       path: buildDirectory,
       publicPath: '',
-      filename: '[name]-[hash:8].js',
-      chunkFilename: '[name]-[chunkhash:8].js',
+      filename: '[name]-[chunkhash:8].js',
     },
     module: {
       rules: [
