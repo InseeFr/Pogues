@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { formValueSelector } from 'redux-form';
 
 import StatisticalContextFilters from 'search-questionnaire/components/statistical-context-filters';
-import { getCollections, getOperations, getCampaigns } from 'utils/remote-api';
+import { getSeries, getOperations, getCampaigns } from 'utils/remote-api';
 
 const mapStateToProps = state => {
   const selector = formValueSelector('statistical-context');
@@ -54,7 +54,7 @@ class StatisticalContextFiltersContainer extends Component {
   }
 
   fetchSeries() {
-    getCollections().then(res => {
+    getSeries().then(res => {
       const newState = {
         ...this.state,
         series: res,
@@ -68,6 +68,7 @@ class StatisticalContextFiltersContainer extends Component {
       const newState = {
         ...this.state,
         operations: res,
+        campaigns: [],
       };
       this.setState(newState);
     });
