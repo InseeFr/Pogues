@@ -40,8 +40,13 @@ class QuestionnaireList extends Component {
         return (
           this.state.filter === '' ||
           q.label.toLowerCase().indexOf(this.state.filter) >= 0 ||
-          getState(q.final).toLowerCase().indexOf(this.state.filter) >= 0 ||
-          (q.lastUpdatedDate && formatDate(q.lastUpdatedDate).toLowerCase().indexOf(this.state.filter) >= 0)
+          getState(q.final)
+            .toLowerCase()
+            .indexOf(this.state.filter) >= 0 ||
+          (q.lastUpdatedDate &&
+            formatDate(q.lastUpdatedDate)
+              .toLowerCase()
+              .indexOf(this.state.filter) >= 0)
         );
       })
       .map(q => {
@@ -58,32 +63,26 @@ class QuestionnaireList extends Component {
 
     return (
       <div id="questionnaire-list">
-        {questionnaires.length > 0
-          ? <div>
-              <div className="ctrl-input">
-                <input
-                  className="form-control"
-                  placeholder={Dictionary.search}
-                  type="text"
-                  onChange={e => this.updateFilter(e.target.value)}
-                />
-              </div>
-              <div className="questionnaire-list_header">
-                <div>
-                  {Dictionary.QUESTIONNAIRE}
-                </div>
-                <div>
-                  {Dictionary.state}
-                </div>
-                <div>
-                  {Dictionary.lastUpdate}
-                </div>
-              </div>
-              {list}
+        {questionnaires.length > 0 ? (
+          <div>
+            <div className="ctrl-input">
+              <input
+                className="form-control"
+                placeholder={Dictionary.search}
+                type="text"
+                onChange={e => this.updateFilter(e.target.value)}
+              />
             </div>
-          : <div className="questionnaire-list_noresults">
-              {Dictionary.noQuestionnnaires}
-            </div>}
+            <div className="questionnaire-list_header">
+              <div>{Dictionary.QUESTIONNAIRE}</div>
+              <div>{Dictionary.state}</div>
+              <div>{Dictionary.lastUpdate}</div>
+            </div>
+            {list}
+          </div>
+        ) : (
+          <div className="questionnaire-list_noresults">{Dictionary.noQuestionnnaires}</div>
+        )}
       </div>
     );
   }

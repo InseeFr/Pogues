@@ -7,6 +7,9 @@ const urlQuestionnaireList = `${baseURL + persistancePath}/questionnaires`;
 const urlQuestionnaireListSearch = `${baseURL + persistancePath}/questionnaires/search`;
 const urlQuestionnaire = `${baseURL + persistancePath}/questionnaire`;
 const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
+const urlSearch = `${baseURL}/search`;
+const urlSeriesList = `${urlSearch}/series`;
+const urlOperationsList = `${urlSearch}/operations`;
 
 export const visualisationUrl = `${baseURL}/transform/visualize/`;
 
@@ -84,7 +87,7 @@ export const getUserAttributes = () =>
 
 /**
  * Will send a DELETE request in order to remove an existing questionnaire
- * 
+ *
  * @param {deleteQuestionnaire} id The id of the questionnaire we want to delete
  */
 export const deleteQuestionnaire = id =>
@@ -93,55 +96,46 @@ export const deleteQuestionnaire = id =>
     credentials: 'include',
   });
 
-function transformSeriesData(series) {
-  return series.map(serie => {
-    return { value: serie.id, label: serie.label };
-  });
-}
+export const getSeries = () =>
+  fetch(urlSeriesList, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
 
-export const getCollections = () => {
-  return Promise.resolve(
-    transformSeriesData([
-      {
-        id: 'serie-01',
-        label: 'Série 01',
-      },
-      {
-        id: 'serie-02',
-        label: 'Série 02',
-      },
-    ])
-  );
-};
+export const getOperations = id =>
+  fetch(`${urlSeriesList}/${id}/operations`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
 
-export const getOperations = id => {
-  if (!id) return Promise.resolve([]);
-  return Promise.resolve(
-    transformSeriesData([
-      {
-        id: 'operation-01',
-        label: `Opération statisque 01 - ${id}`,
-      },
-      {
-        id: 'operation-02',
-        label: `Opération statisque 02 - ${id}`,
-      },
-    ])
-  );
-};
+export const getCampaigns = id =>
+  fetch(`${urlOperationsList}/${id}/collections`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
 
-export const getCampaigns = id => {
-  if (!id) return Promise.resolve([]);
-  return Promise.resolve(
-    transformSeriesData([
-      {
-        id: 'campagne-01',
-        label: `Campagne 01 - ${id}`,
-      },
-      {
-        id: 'campagne-02',
-        label: `Campagne 02 - ${id}`,
-      },
-    ])
-  );
+export const getQuestionnaireListFromRef = (q, filters) => {
+  const params = Object.keys(filters)
+    .reduce((acc, key) => {
+      return [...acc, `${key}=${filters[key]}`];
+    }, [])
+    .join('&');
+
+  return fetch(`${urlSearch}?${params}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      types: ['instrument'],
+      filter: q,
+    }),
+  }).then(res => res.json());
 };

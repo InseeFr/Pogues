@@ -1,7 +1,7 @@
 import {
   getCampaigns,
   getOperations,
-  getCollections,
+  getSeries,
   getQuestionnaire,
   postQuestionnaire,
   deleteQuestionnaire,
@@ -241,7 +241,7 @@ export const loadCollections = () => dispatch => {
   dispatch({
     type: LOAD_COLLECTIONS,
   });
-  return getCollections()
+  return getSeries()
     .then(qr => {
       dispatch(loadCollectionsSuccess(qr));
     })
@@ -259,7 +259,7 @@ export const loadOperationsSuccess = (id, update) => ({
 });
 
 export const loadOperationsFailure = (id, err) => ({
-  type: LOAD_COLLECTIONS_FAILURE,
+  type: LOAD_OPERATIONS_FAILURE,
   payload: { id, err },
 });
 
