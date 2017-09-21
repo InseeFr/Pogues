@@ -225,7 +225,7 @@ module.exports = function(env) {
     output: {
       path: buildDirectory,
       publicPath: '',
-      filename: '[name]-[chunkhash:8].js',
+      filename: isProd ? '[name]-[chunkhash:8].js' : '[name]-[hash:8].js',
     },
     module: {
       rules: [
