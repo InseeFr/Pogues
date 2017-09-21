@@ -2,13 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class SearchResultsTable extends Component {
-  static propTypes = {};
+  static propTypes = {
+    results: PropTypes.array.isRequired,
+    headers: PropTypes.array.isRequired,
+    Row: PropTypes.func.isRequired,
+  };
   static defaultProps = {};
 
-  componentWillMount() {}
-
   render() {
-    return <div id="search-results-table">SearchResultsTable</div>;
+    const { headers, Row, results } = this.props;
+    const headerRow = <div>{headers.map((h, index) => <div key={`${h}-${index}`}>{h}</div>)}</div>;
+    const resultRows = results.map((r, index) => <Row key={`${r.id}-${index}`} {...r} />);
+
+    return (
+      <div>
+        {headerRow}
+        {resultRows.length > 0 ? resultRows : <div>No results</div>}
+      </div>
+    );
   }
 }
 

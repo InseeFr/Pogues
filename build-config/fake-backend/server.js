@@ -95,7 +95,7 @@ server.get('/search/series/:id/operations', function (req, res, next) {
 
 server.get('/search/operations/:id/collections', function (req, res, next) {
   res.send(campaigns.filter(function (c) {
-    return c.serie === req.params.id
+    return c.operation === req.params.id
   }).map(function (c) {
     return {
       value: c.id,

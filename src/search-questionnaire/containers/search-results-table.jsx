@@ -4,12 +4,26 @@ import PropTypes from 'prop-types';
 
 import SearchResultsTable from 'search-questionnaire/components/search-results-table';
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  return {
+    results: Object.keys(state.searchResultById).reduce((acc, key) => {
+      return [...acc, state.searchResultById[key]];
+    }, []),
+  };
+};
 
-const mapDispatchToProps = {};
-
-function SearchResultsTablesContainer() {
-  return <SearchResultsTable />;
+function SearchResultsTablesContainer({ results, headers, Row }) {
+  return <SearchResultsTable results={results} headers={headers} Row={Row} />;
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResultsTablesContainer);
+SearchResultsTablesContainer.propTypes = {
+  results: PropTypes.array,
+  headers: PropTypes.array.isRequired,
+  Row: PropTypes.func.isRequired,
+};
+
+SearchResultsTablesContainer.defaultProps = {
+  results: [],
+};
+
+export default connect(mapStateToProps)(SearchResultsTablesContainer);
