@@ -33,8 +33,8 @@ function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
     const tabName = TAB_NAMES[key];
     return {
       ...acc,
-      [tabName]: Object.keys(errorsIntegrity).filter(key => {
-        return errorsIntegrity[key].type === tabName;
+      [tabName]: Object.keys(errorsIntegrity).filter(innerKey => {
+        return errorsIntegrity[innerKey].type === tabName;
       }).length,
     };
   }, {});

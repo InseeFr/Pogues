@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import uniq from 'lodash.uniq';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -7,7 +7,7 @@ function checkerUniqueComponentName({ appState: { activeComponentsById, activeQu
 
   const componentNames = Object.keys(activeComponentsById).map(key => activeComponentsById[key].name);
 
-  const duplicatedComponentNames = _.uniq(
+  const duplicatedComponentNames = uniq(
     componentNames.filter(name => {
       return componentNames.filter(innerName => innerName === name).length > 1;
     })

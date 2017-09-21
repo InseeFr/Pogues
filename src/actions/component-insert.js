@@ -10,8 +10,8 @@ import {
 import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
 import { uuid } from 'utils/data-utils';
-import * as _ from 'lodash';
-import { sortBy } from 'lodash/fp';
+import sortBy from 'lodash.sortby';
+import cloneDeep from 'lodash.clonedeep';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 
@@ -148,7 +148,7 @@ export function moveQuestionAndSubSequenceToSequence(
    * weight > or = to the weight of the selected component) and we
    * construct an array with an updated weight and parent for each component
    */
-    let listOfComponentsToMove = sortBy('weight')(listOfComponent)
+    let listOfComponentsToMove = sortBy(listOfComponent, ['weight'])
       .filter(
         child =>
           child.weight > selectedComponent.weight ||
@@ -253,7 +253,7 @@ export function duplicate(activesComponents, idComponent) {
   const id = uuid();
   const component = {
     [id]: {
-      ..._.cloneDeep(activesComponents[idComponent]),
+      ...cloneDeep(activesComponents[idComponent]),
       id,
       weight: activesComponents[idComponent].weight + 1,
     },

@@ -22,7 +22,7 @@ export function getDragnDropLevel(droppedComponent, draggedComponent) {
       return 1;
     }
     return (isSequence(draggedComponent) && isSubSequence(droppedComponent)) ||
-    (isSubSequence(draggedComponent) && isQuestion(droppedComponent))
+      (isSubSequence(draggedComponent) && isQuestion(droppedComponent))
       ? -1
       : -2;
   }
