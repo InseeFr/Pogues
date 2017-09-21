@@ -25,19 +25,22 @@ function getNumErrorsFromObject(item) {
 }
 
 function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
-  const numErrorsValidation = Object.values(TAB_NAMES).reduce((acc, tabName) => {
+  const numErrorsValidation = Object.keys(TAB_NAMES).reduce((acc, key) => {
+    const tabName = TAB_NAMES[key];
     return { ...acc, [tabName]: getNumErrorsFromObject(errorsValidation[tabName]) };
   }, {});
-  const numErrorsIntegrity = Object.values(TAB_NAMES).reduce((acc, tabName) => {
+  const numErrorsIntegrity = Object.keys(TAB_NAMES).reduce((acc, key) => {
+    const tabName = TAB_NAMES[key];
     return {
       ...acc,
-      [tabName]: Object.values(errorsIntegrity).filter(error => {
-        return error.type === tabName;
+      [tabName]: Object.keys(errorsIntegrity).filter(innerKey => {
+        return errorsIntegrity[innerKey].type === tabName;
       }).length,
     };
   }, {});
 
-  return Object.values(TAB_NAMES).reduce((acc, tabName) => {
+  return Object.keys(TAB_NAMES).reduce((acc, key) => {
+    const tabName = TAB_NAMES[key];
     return {
       ...acc,
       [tabName]: numErrorsValidation[tabName] + numErrorsIntegrity[tabName],

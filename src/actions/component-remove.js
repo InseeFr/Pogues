@@ -1,11 +1,14 @@
 import { toComponents, isQuestion, isSubSequence, toId } from 'utils/component/component-utils';
 import { resetWeight } from './component-update';
-import { find, sortBy, takeWhile, takeRight } from 'lodash/fp';
+import sortBy from 'lodash.sortby';
+import find from 'lodash.find';
+import takeWhile from 'lodash.takewhile';
+import takeRight from 'lodash.takeright';
 
 /**
  * This is method will return the new active components without the one we want
  * to remove
- * 
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {object} deletedComponent The component we want to remove
  */
@@ -24,7 +27,7 @@ export function removeComponentFromActivesComponent(activesComponents, deletedCo
 /**
  * This method is only used when we want to remove a leaf node. A leaf can be a QUESTION
  * or a SUBSEQUENCE/SEQUENCE without children
- * 
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {object} deletedComponent The component we want to remove
  */
@@ -38,7 +41,7 @@ export function removeLeafComponent(activesComponents, deletedComponent) {
 
 /**
  * This function will be executed when we wan to remove a SUBSEQUENCE with children
- * 
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {object} deletedComponent The component we want to remove
  */
@@ -124,28 +127,29 @@ export function removeSubSequence(activesComponents, deletedComponent) {
  */
 export function removeSequence(activesComponents, deletedComponent) {
   let moves = removeComponentFromActivesComponent(activesComponents, deletedComponent);
-  const childrenToMove = sortBy(['weight'])(toComponents(deletedComponent.children, activesComponents));
+  const childrenToMove = sortBy(toComponents(deletedComponent.children, activesComponents), ['weight']);
   const parent = activesComponents[deletedComponent.parent];
 
   // We will find the sibling SEQUENCE
-  const previousSequence = find(c => c.weight === deletedComponent.weight - 1)(
-    toComponents(parent.children, activesComponents)
+  const previousSequence = find(
+    toComponents(parent.children, activesComponents),
+    c => c.weight === deletedComponent.weight - 1
   );
 
   // From the previous SEQUENCE, we will get the last component
-  const lastComponentFromPreviousSequence = sortBy(['weight'])(
-    toComponents(previousSequence.children, activesComponents)
-  )[previousSequence.children.length - 1];
+  const lastComponentFromPreviousSequence = sortBy(toComponents(previousSequence.children, activesComponents), [
+    'weight',
+  ])[previousSequence.children.length - 1];
 
   let firstQuestionsToMove = [];
 
   // If the last component is a subsequence, we will get the first n QUESTION of the deleted component
   if (isSubSequence(lastComponentFromPreviousSequence)) {
-    firstQuestionsToMove = takeWhile(c => isQuestion(c))(childrenToMove);
+    firstQuestionsToMove = takeWhile(childrenToMove, c => isQuestion(c));
   }
 
   // Based on the previous firstQuestionsToMove array, we will get the other item in another array
-  const lastComponentToMove = takeRight(childrenToMove.length - firstQuestionsToMove.length)(childrenToMove);
+  const lastComponentToMove = takeRight(childrenToMove, childrenToMove.length - firstQuestionsToMove.length);
 
   let firstQuestionsToMoveTransformation = {};
 
@@ -202,9 +206,9 @@ export function removeSequence(activesComponents, deletedComponent) {
 }
 
 /**
- * In this method, we will remove entirely a component, we will remove its id from its parent, 
+ * In this method, we will remove entirely a component, we will remove its id from its parent,
  * and reset the weight of all its siblings.
- * 
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {string} idDeletedComponent The id of the component we want to remove
  */

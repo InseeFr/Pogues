@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import uniq from 'lodash.uniq';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -25,7 +25,7 @@ function checkerUniqueVariableName({
     }, []),
   ];
 
-  const duplicatedVariablesNames = _.uniq(
+  const duplicatedVariablesNames = uniq(
     variablesNames.filter(name => {
       return variablesNames.filter(innerName => innerName === name).length > 1;
     })

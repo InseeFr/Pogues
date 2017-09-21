@@ -37,34 +37,62 @@ describe('<ArboSimplified />', () => {
 
   test('should render two level if a node is selected', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
-    wrapper.find('a').at(0).simulate('click', mockEvent);
+    wrapper
+      .find('a')
+      .at(0)
+      .simulate('click', mockEvent);
     expect(wrapper.find('.arbo-simplifield').length).toBe(2);
   });
 
   test('for a question, should add the questions class', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
-    wrapper.find('a').at(0).simulate('click', mockEvent);
+    wrapper
+      .find('a')
+      .at(0)
+      .simulate('click', mockEvent);
     expect(wrapper.find('.questions').length).toBe(1);
   });
 
   test('should call setSelectedComponentId when a node is selected', () => {
     spysetSelectedComponentId.mockClear();
     const wrapper = shallow(<ArboSimplified {...props} />);
-    wrapper.find('a').at(1).simulate('click', mockEvent);
+    wrapper
+      .find('a')
+      .at(1)
+      .simulate('click', mockEvent);
     expect(spysetSelectedComponentId).toBeCalledWith('1');
   });
 
   test('should have an icon for all element with children', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
-    wrapper.find('a').at(0).simulate('click', mockEvent);
-    wrapper.find('a').at(1).simulate('click', mockEvent);
+    wrapper
+      .find('a')
+      .at(0)
+      .simulate('click', mockEvent);
+    wrapper
+      .find('a')
+      .at(1)
+      .simulate('click', mockEvent);
     expect(wrapper.find('.glyphicon').length).toBe(2);
   });
 
   test('should update the icon when we click on the link', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
-    expect(wrapper.find('span').at(0).hasClass('glyphicon-menu-right')).toBe(true);
-    wrapper.find('a').at(0).simulate('click', mockEvent);
-    expect(wrapper.find('span').at(0).hasClass('glyphicon-menu-down')).toBe(true);
+    expect(
+      wrapper
+        .find('span')
+        .at(0)
+        .hasClass('glyphicon-menu-right')
+    ).toBe(true);
+    wrapper
+      .find('a')
+      .at(0)
+      .simulate('click', mockEvent);
+    expect(
+      wrapper
+        .find('span')
+        .at(0)
+        .hasClass('glyphicon-menu-down')
+    ).toBe(true);
   });
 });
