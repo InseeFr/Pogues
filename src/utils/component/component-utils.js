@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import merge from 'lodash.merge';
 
 import {
   COMPONENT_TYPE,
@@ -482,7 +482,7 @@ export function getValidationErrors(values, codesListStore) {
  */
 export function getErrorsObject(errors) {
   return errors.reduce((acc, error) => {
-    return _.merge(acc, getNestedErrorFromPath(error[0], error[1]));
+    return merge(acc, getNestedErrorFromPath(error[0], error[1]));
   }, {});
 }
 
