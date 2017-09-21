@@ -5,7 +5,10 @@ const rNameNeg = /[^a-z0-9_]/gi;
 export function componentName(value, previousValue, allValues) {
   const rawLabel = markdownToRaw(allValues.label || '').blocks[0].text;
   if (value.length === 0 && previousValue.length === 0 && rawLabel && rawLabel.length > 0) {
-    value = rawLabel.replace(rNameNeg, '').toUpperCase().slice(0, 10);
+    value = rawLabel
+      .replace(rNameNeg, '')
+      .toUpperCase()
+      .slice(0, 10);
   }
 
   return value;
