@@ -39,7 +39,11 @@ class SearchInputContainer extends Component {
     this.search = this.search.bind(this);
   }
 
-  search(q) {
+  componentWillMount() {
+    this.search();
+  }
+
+  search(q = '') {
     const { selectedSerie: serie, selectedOperation: operation, selectedCampaign: campaign } = this.props;
     this.props.loadQuestionnairesFromRef(q, { serie, operation, campaign });
   }
