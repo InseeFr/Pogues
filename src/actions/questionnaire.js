@@ -259,7 +259,7 @@ export const loadOperationsSuccess = (id, update) => ({
 });
 
 export const loadOperationsFailure = (id, err) => ({
-  type: LOAD_COLLECTIONS_FAILURE,
+  type: LOAD_OPERATIONS_FAILURE,
   payload: { id, err },
 });
 

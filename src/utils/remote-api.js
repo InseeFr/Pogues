@@ -7,8 +7,9 @@ const urlQuestionnaireList = `${baseURL + persistancePath}/questionnaires`;
 const urlQuestionnaireListSearch = `${baseURL + persistancePath}/questionnaires/search`;
 const urlQuestionnaire = `${baseURL + persistancePath}/questionnaire`;
 const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
-const urlSeriesList = `${baseURL}/search/series`;
-const urlOperationsList = `${baseURL}/search/operations`;
+const urlSearch = `${baseURL}/search`;
+const urlSeriesList = `${urlSearch}/series`;
+const urlOperationsList = `${urlSearch}/operations`;
 
 export const visualisationUrl = `${baseURL}/transform/visualize/`;
 
@@ -118,3 +119,23 @@ export const getCampaigns = id =>
     },
     credentials: 'include',
   }).then(res => res.json());
+
+export const getQuestionnaireListFromRef = (q, filters) => {
+  const params = Object.keys(filters)
+    .reduce((acc, key) => {
+      return [...acc, `${key}=${filters[key]}`];
+    }, [])
+    .join('&');
+
+  return fetch(`${urlSearch}?${params}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      types: ['instrument'],
+      filter: q,
+    }),
+  }).then(res => res.json());
+};

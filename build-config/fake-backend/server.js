@@ -3,9 +3,23 @@ var server = restify.createServer()
 var listenPort = process.env.PORT || 5000
 
 var questionnaires = require(__dirname + '/questionnaires')
+var series = require(__dirname + '/series')
+var operations = require(__dirname + '/operations')
+var campaigns = require(__dirname + '/campaigns')
+var questionnairesRefInfos = require(__dirname + '/questionnaires-ref-infos')
 
 restify.CORS.ALLOW_HEADERS.push('authorization')
 restify.CORS.ALLOW_HEADERS.push('Location')
+
+function getQuestionnairePosition(questionnaires, id) {
+  for(var i=0; i<questionnaires.length; i++) {
+    if(questionnaires[i].id === id) {
+      return i
+    }
+  }
+
+  return -1
+}
 
 server.use(restify.CORS({
   headers: ['Location'],
@@ -13,6 +27,7 @@ server.use(restify.CORS({
 }))
 
 server.use(restify.bodyParser())
+server.use(restify.queryParser())
 
 server.get('/questionnaires/search', function (req, res, next) {
   // @TODO: Take into account the property "owner"
@@ -43,7 +58,7 @@ server.put('/questionnaire/:id', function (req, res, next) {
     questionnaires.splice(position, 1)
   }
 
-  questionnaires.push(qr);
+  questionnaires.push(qr)
   res.send()
   next()
 })
@@ -57,62 +72,64 @@ server.post('/questionnaires', function (req, res, next) {
 })
 
 server.get('/search/series', function (req, res, next) {
-  res.send(transformSeriesData([
-    {
-      id: 'serie-01',
-      label: 'Série 01',
-    },
-    {
-      id: 'serie-02',
-      label: 'Série 02',
-    },
-  ]))
+  res.send(series.map(function (s) {
+    return {
+      value: s.id,
+      label: s.label,
+    }
+  }))
   next()
 })
 
 server.get('/search/series/:id/operations', function (req, res, next) {
-  res.send(transformSeriesData([
-    {
-      id: 'operation-01',
-      label: 'Opération statisque 01 - ' + req.params.id,
-    },
-    {
-      id: 'operation-02',
-      label: 'Opération statisque 02 - ' + req.params.id,
-    },
-  ]))
+  res.send(operations.filter(function (o) {
+    return o.serie === req.params.id
+  }).map(function (o) {
+    return {
+      value: o.id,
+      label: o.label,
+    }
+  }))
   next()
 })
 
 server.get('/search/operations/:id/collections', function (req, res, next) {
-  res.send(transformSeriesData([
-    {
-      id: 'campagne-01',
-      label: 'Campagne 01 - ' + req.params.id,
-    },
-    {
-      id: 'campagne-02',
-      label: 'Campagne 02 - ' + req.params.id,
-    },
-  ]))
+  res.send(campaigns.filter(function (c) {
+    return c.serie === req.params.id
+  }).map(function (c) {
+    return {
+      value: c.id,
+      label: c.label,
+    }
+  }))
   next()
 })
 
-function getQuestionnairePosition(questionnaires, id) {
-  for(var i=0; i<questionnaires.length; i++) {
-    if(questionnaires[i].id === id) {
-      return i
+server.post('/search', function (req, res, next) {
+  var result = questionnairesRefInfos
+  var params = req.params
+  var body = JSON.parse(req.body)
+
+  Object.keys(params).forEach(function(key){
+    if(params[key] !== '') {
+      result = result.filter(function (qr) {
+        return qr[key] === params[key]
+      })
     }
+  })
+
+  if(body.filter !== '') {
+    result = result.filter(function (qr) {
+      return qr.label.search(body.filter) !== -1
+    })
   }
 
-  return -1
-}
+  res.send(result)
 
-function transformSeriesData(series) {
-  return series.map(function(serie) {
-    return { value: serie.id, label: serie.label };
-  });
-}
+  next()
+})
+
+
 
 console.log('listening in http://localhost:' + listenPort)
 

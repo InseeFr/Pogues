@@ -40,8 +40,8 @@ class SearchInputContainer extends Component {
   }
 
   search(q) {
-    const { selectedSerie, selectedOperation, selectedCampaign } = this.props;
-    this.props.loadQuestionnairesFromRef(q, selectedSerie, selectedOperation, selectedCampaign);
+    const { selectedSerie: serie, selectedOperation: operation, selectedCampaign: campaign } = this.props;
+    this.props.loadQuestionnairesFromRef(q, { serie, operation, campaign });
   }
 
   render() {
