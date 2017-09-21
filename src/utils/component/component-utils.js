@@ -114,11 +114,13 @@ export function couldInsertAsChild(droppedComponent, draggedComponent) {
  * @param {string} parent The ID of the component of the children we are looking for
  */
 export function getSortedChildren(components, parent) {
-  return Object.keys(components).filter(key => components[key].parent === parent).sort((key, nextKey) => {
-    if (components[key].weight < components[nextKey].weight) return -1;
-    if (components[key].weight > components[nextKey].weight) return 1;
-    return 0;
-  });
+  return Object.keys(components)
+    .filter(key => components[key].parent === parent)
+    .sort((key, nextKey) => {
+      if (components[key].weight < components[nextKey].weight) return -1;
+      if (components[key].weight > components[nextKey].weight) return 1;
+      return 0;
+    });
 }
 
 export function formatDate(date) {

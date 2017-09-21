@@ -1,10 +1,10 @@
-import { sortBy } from 'lodash/fp';
+import sortBy from 'lodash.sortby';
 import { toComponents, toId } from 'utils/component/component-utils';
 
 /**
- * This function generate a componentById with the children passed as 
+ * This function generate a componentById with the children passed as
  * a parameter.
- * 
+ *
  * @param {string[]} component The component that should be updated
  * @param {object} children The new children array
  */
@@ -23,14 +23,14 @@ export function resetChildren(component, children) {
  * -> Seq 1 (weight=0)
  *  -> Question 1 (weight=0)
  *  -> Question 2 (weight=1)
- * If we add a Question just after Question 1, we have this result : 
+ * If we add a Question just after Question 1, we have this result :
  * -> Seq 1 (weight=0)
  *  -> Question 1 (weight=0)
  *  -> Question 3 (weight=1)
  *  -> Question 2 (weight=2)
- * 
- * We have increase by one Question 2. 
- * 
+ *
+ * We have increase by one Question 2.
+ *
  * @param {object} activesComponents The list of components currently displayed
  * @param {object} newComponent The latests created component
  */
@@ -58,13 +58,13 @@ export function increaseWeightOfAll(activesComponents, newComponent) {
 }
 
 /**
- * Function for reseting all weight of a list of components. 
+ * Function for reseting all weight of a list of components.
  * The weight of the first component is 0, the second one 1, ...
- * 
- * @param {object[]} components List of components 
+ *
+ * @param {object[]} components List of components
  */
 export function resetWeight(components) {
-  return sortBy('weight')(components).reduce((acc, component, i) => {
+  return sortBy(components, ['weight']).reduce((acc, component, i) => {
     return {
       ...acc,
       [component.id]: {
@@ -78,17 +78,19 @@ export function resetWeight(components) {
 /**
  * This method will reset all weight of the active components list. We will go
  * through all children property, and reset the corresponding component
- *  
+ *
  * @param {object} activesComponents The list of components currently displayed
  */
 export function resetAllWeight(activesComponents) {
-  return Object.keys(activesComponents).map(key => activesComponents[key]).reduce((acc, component) => {
-    if (component.children.length > 0) {
-      return {
-        ...acc,
-        ...resetWeight(toComponents(component.children, activesComponents)),
-      };
-    }
-    return acc;
-  }, {});
+  return Object.keys(activesComponents)
+    .map(key => activesComponents[key])
+    .reduce((acc, component) => {
+      if (component.children.length > 0) {
+        return {
+          ...acc,
+          ...resetWeight(toComponents(component.children, activesComponents)),
+        };
+      }
+      return acc;
+    }, {});
 }

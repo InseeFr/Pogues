@@ -24,7 +24,6 @@ const { SEQUENCE } = COMPONENT_TYPE;
  */
 export function moveComponents(componentsToMove, newParent, keepChildren) {
   let move = {};
-  const capullo ='hola capullo';
   if (componentsToMove) {
     move = {
       ...componentsToMove.reduce((acc, c) => {
@@ -149,7 +148,7 @@ export function moveQuestionAndSubSequenceToSequence(
    * weight > or = to the weight of the selected component) and we
    * construct an array with an updated weight and parent for each component
    */
-    let listOfComponentsToMove = sortBy('weight')(listOfComponent)
+    let listOfComponentsToMove = sortBy(listOfComponent, ['weight'])
       .filter(
         child =>
           child.weight > selectedComponent.weight ||
