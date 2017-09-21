@@ -1,5 +1,3 @@
-// @TODO: Reduce the chunks size
-
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -41,12 +39,7 @@ module.exports = function(env) {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       children: true,
-      minChunks: 2,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      children: true,
-      minChunks: 2,
+      minChunks: Infinity,
     }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
@@ -286,8 +279,8 @@ module.exports = function(env) {
     plugins,
 
     performance: isProd && {
-      maxAssetSize: 300000,
-      maxEntrypointSize: 300000,
+      maxAssetSize: 1300000,
+      maxEntrypointSize: 1900000,
       hints: 'warning',
     },
 
