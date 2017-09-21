@@ -9,6 +9,9 @@ function searchQuestionnnaireRefRow({ version, name, serie, operation, campaign 
       <div>{serie}</div>
       <div>{operation}</div>
       <div>{campaign}</div>
+      <div>
+        <a href="">Reuse</a>
+      </div>
     </div>
   );
 }
@@ -21,6 +24,6 @@ searchQuestionnnaireRefRow.propTypes = {
   campaign: PropTypes.string.isRequired,
 };
 
-export const headers = ['Version', 'Name', 'Serie', 'Operation', 'Campaign'];
+export const headers = ['Version', 'Name', 'Serie', 'Operation', 'Campaign', 'Actions'];
 
 export default searchQuestionnnaireRefRow;

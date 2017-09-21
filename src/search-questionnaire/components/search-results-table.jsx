@@ -11,11 +11,13 @@ class SearchResultsTable extends Component {
 
   render() {
     const { headers, Row, results } = this.props;
-    const headerRow = <div>{headers.map((h, index) => <div key={`${h}-${index}`}>{h}</div>)}</div>;
+    const headerRow = (
+      <div className="search-results__header">{headers.map((h, index) => <div key={`${h}-${index}`}>{h}</div>)}</div>
+    );
     const resultRows = results.map((r, index) => <Row key={`${r.id}-${index}`} {...r} />);
 
     return (
-      <div>
+      <div className={`box search-results search-results-${headers.length}`}>
         {headerRow}
         {resultRows.length > 0 ? resultRows : <div>No results</div>}
       </div>
