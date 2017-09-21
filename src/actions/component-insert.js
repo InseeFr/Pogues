@@ -10,8 +10,8 @@ import {
 import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
 import { uuid } from 'utils/data-utils';
-import * as _ from 'lodash';
-import { sortBy } from 'lodash/fp';
+import sortBy from 'lodash.sortby';
+import cloneDeep from 'lodash.clonedeep';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 
@@ -24,6 +24,7 @@ const { SEQUENCE } = COMPONENT_TYPE;
  */
 export function moveComponents(componentsToMove, newParent, keepChildren) {
   let move = {};
+  const capullo ='hola capullo';
   if (componentsToMove) {
     move = {
       ...componentsToMove.reduce((acc, c) => {
@@ -253,7 +254,7 @@ export function duplicate(activesComponents, idComponent) {
   const id = uuid();
   const component = {
     [id]: {
-      ..._.cloneDeep(activesComponents[idComponent]),
+      ...cloneDeep(activesComponents[idComponent]),
       id,
       weight: activesComponents[idComponent].weight + 1,
     },

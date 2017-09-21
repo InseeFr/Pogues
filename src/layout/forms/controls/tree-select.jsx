@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
 
 class TreeSelect extends Component {
   static propTypes = {
@@ -32,7 +32,7 @@ class TreeSelect extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (!_.isEqual(this.props, nextProps)) {
+    if (!isEqual(this.props, nextProps)) {
       const selectedValue = nextProps.input.value;
       const id = selectedValue !== '' ? selectedValue : '-1';
       this.setState({ selectedValue });

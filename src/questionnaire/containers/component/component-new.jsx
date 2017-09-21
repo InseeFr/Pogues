@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SubmissionError, actions, formValueSelector, getFormSubmitErrors } from 'redux-form';
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
 
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
 import { setSelectedComponentId, setTabErrors, clearTabErrors } from 'actions/app-state';
@@ -89,7 +89,7 @@ class ComponentNewContainer extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (!_.isEqual(this.props.errorsValidation, nextProps.errorsValidation)) {
+    if (!isEqual(this.props.errorsValidation, nextProps.errorsValidation)) {
       this.props.setTabErrors(nextProps.errorsValidation);
     }
   }
