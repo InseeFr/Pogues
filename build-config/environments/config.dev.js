@@ -1,8 +1,8 @@
 module.exports = {
   dev: true,
   allowRemovalOfQuestionnaire: true,
-  baseURL: 'http://dvrmspogfolht01.ad.insee.intra/rmspogfo/pogues',
-  persistancePath: '/persistence',
+  baseURL: 'http://localhost:5000',
+  persistancePath: '',
   userPath: '/user',
   log: {
     level: 'DEBUG',
