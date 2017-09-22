@@ -1,9 +1,12 @@
-import { getQuestionnaireList } from 'utils/remote-api';
+import { getQuestionnaireList, getQuestionnaireListFromRef } from 'utils/remote-api';
 import { questionnaireListModelToState } from 'utils/model/model-to-state-utils';
 
 export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
 export const LOAD_QLIST_FAILURE = 'LOAD_QLIST_FAILURE';
+export const LOAD_QLIST_REF = 'LOAD_QLIST_REF';
+export const LOAD_QLIST_REF_SUCCESS = 'LOAD_QLIST_REF_SUCCESS';
+export const LOAD_QLIST_REF_FAILURE = 'LOAD_QLIST_REF_FAILURE';
 
 /**
  * Load questionnaire list success
@@ -55,4 +58,48 @@ export const loadQuestionnaireList = permission => dispatch => {
   return getQuestionnaireList(permission)
     .then(qrList => dispatch(loadQuestionnaireListSuccess(questionnaireListModelToState(qrList))))
     .catch(err => dispatch(loadQuestionnaireListFailure(err)));
+};
+
+/**
+ * Load questionnaire list failure
+ *
+ * It's executed after the fail of a remote questionnaires list fetch.
+ *
+ * @param   {string} err   The error returned for the fetch process.
+ * @return  {object}       LOAD_QLIST_FAILURE action
+ */
+export const loadQuestionnairesFromRefSuccess = qrList => ({
+  type: LOAD_QLIST_REF_SUCCESS,
+  payload: qrList,
+});
+
+/**
+ * Load questionnaire list failure
+ *
+ * It's executed after the fail of a remote questionnaires list fetch.
+ *
+ * @param   {string} err   The error returned for the fetch process.
+ * @return  {object}       LOAD_QLIST_FAILURE action
+ */
+export const loadQuestionnairesFromRefFailure = err => ({
+  type: LOAD_QLIST_REF_FAILURE,
+  payload: err,
+});
+
+/**
+ * Load questionnaire list failure
+ *
+ * It's executed after the fail of a remote questionnaires list fetch.
+ *
+ * @param   {string} err   The error returned for the fetch process.
+ * @return  {object}       LOAD_QLIST_FAILURE action
+ */
+export const loadQuestionnairesFromRef = (q, filters) => dispatch => {
+  dispatch({
+    type: LOAD_QLIST_REF,
+    payload: null,
+  });
+  return getQuestionnaireListFromRef(q, filters)
+    .then(qrList => dispatch(loadQuestionnairesFromRefSuccess(qrList)))
+    .catch(err => dispatch(loadQuestionnairesFromRefFailure(err)));
 };
