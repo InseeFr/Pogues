@@ -1,0 +1,29 @@
+#page-search-questionnaire {
+  @extend .container;
+
+  #statistical-context-filters {
+    @include make-row();
+
+    .ctrl-select {
+      @include make-xs-column(4);
+      label + div {
+        width: 100%;
+      }
+    }
+  }
+  #search-input {
+    @include make-row();
+
+    .ctrl-input {
+      @include make-xs-column(9);
+      label + div {
+        width: 75%;
+      }
+    }
+
+    button {
+      @include make-xs-column(1);
+      @extend .btn-yellow;
+    }
+  }
+}

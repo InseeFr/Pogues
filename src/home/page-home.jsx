@@ -71,7 +71,7 @@ export class PageHome extends Component {
             </li>
 
             <li>
-              <Link to="/" id="questionnaires-insee" className="btn-blue">
+              <Link to="/search/questionnaires" id="questionnaires-insee" className="btn-blue">
                 <span className="glyphicon glyphicon-chevron-right" />
                 <strong>
                   {Dictionary.fromRepository}
