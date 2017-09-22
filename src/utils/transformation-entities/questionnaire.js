@@ -5,6 +5,7 @@ import CodesListTransformerFactory from 'utils/transformation-entities/codes-lis
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
+import { removeOrphansVariables, getVariablesIdsFromComponents } from 'utils/variables/variables-utils';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -131,21 +132,25 @@ function transformationStateToModel(
     codesListsStore,
   }).storeToModel();
 
+  const variablesIdsFromComponent = getVariablesIdsFromComponents(componentsStore);
+
+  const collectedVariablesStore = Object.keys(collectedVariableByQuestionStore || {}).reduce((acc, key) => {
+    return {
+      ...acc,
+      ...collectedVariableByQuestionStore[key],
+    };
+  }, {});
+
   const calculatedVariablesModel = CalculatedVariableTransformerFactory({
-    initialStore: calculatedVariablesStore,
+    initialStore: removeOrphansVariables(variablesIdsFromComponent, calculatedVariablesStore),
   }).storeToModel();
 
   const externalVariablesModel = ExternalVariableTransformerFactory({
-    initialStore: externalVariablesStore,
+    initialStore: removeOrphansVariables(variablesIdsFromComponent, externalVariablesStore),
   }).storeToModel();
 
   const collectedVariablesModel = CollectedVariableTransformerFactory({
-    initialStore: Object.keys(collectedVariableByQuestionStore || {}).reduce((acc, key) => {
-      return {
-        ...acc,
-        ...collectedVariableByQuestionStore[key],
-      };
-    }, {}),
+    initialStore: removeOrphansVariables(variablesIdsFromComponent, collectedVariablesStore),
   }).storeToModel();
 
   const codesListsModel = CodesListTransformerFactory().storeToModel(codesListsStore);
