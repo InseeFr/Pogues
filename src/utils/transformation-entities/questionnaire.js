@@ -5,7 +5,10 @@ import CodesListTransformerFactory from 'utils/transformation-entities/codes-lis
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
 import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
-import { removeOrphansVariables, getVariablesIdsFromComponents } from 'utils/variables/variables-utils';
+import {
+  removeOrphansCollectedVariables,
+  getCollectedVariablesIdsFromComponents,
+} from 'utils/variables/variables-utils';
 import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -133,8 +136,6 @@ function transformationStateToModel(
     codesListsStore,
   }).storeToModel();
 
-  const variablesIdsFromComponent = getVariablesIdsFromComponents(componentsStore);
-
   const collectedVariablesStore = Object.keys(collectedVariableByQuestionStore || {}).reduce((acc, key) => {
     return {
       ...acc,
@@ -143,15 +144,18 @@ function transformationStateToModel(
   }, {});
 
   const calculatedVariablesModel = CalculatedVariableTransformerFactory({
-    initialStore: removeOrphansVariables(variablesIdsFromComponent, calculatedVariablesStore),
+    initialStore: calculatedVariablesStore,
   }).storeToModel();
 
   const externalVariablesModel = ExternalVariableTransformerFactory({
-    initialStore: removeOrphansVariables(variablesIdsFromComponent, externalVariablesStore),
+    initialStore: externalVariablesStore,
   }).storeToModel();
 
   const collectedVariablesModel = CollectedVariableTransformerFactory({
-    initialStore: removeOrphansVariables(variablesIdsFromComponent, collectedVariablesStore),
+    initialStore: removeOrphansCollectedVariables(
+      getCollectedVariablesIdsFromComponents(componentsStore),
+      collectedVariablesStore
+    ),
   }).storeToModel();
 
   const codesListsModel = CodesListTransformerFactory().storeToModel(

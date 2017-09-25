@@ -74,9 +74,22 @@ describe('Transformation entities - Questionnaire', () => {
         type: 'CalculatedVariableType',
       },
       {
+        id: 'SECONID',
+        Label: 'This is the second label',
+        Name: 'Q2_THISISTHE',
+        Formula: 'This is the second formula',
+        type: 'CalculatedVariableType',
+      },
+      {
         id: 'FIRSTID',
         Name: 'Q1_THISISTHE',
         Label: 'This is the first label',
+        type: 'ExternalVariableType',
+      },
+      {
+        id: 'SECONID',
+        Name: 'Q2_THISISTHE',
+        Label: 'This is the second label',
         type: 'ExternalVariableType',
       },
       {
