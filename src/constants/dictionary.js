@@ -323,6 +323,10 @@ const dictionary = {
     en: 'Unit of measure',
     fr: 'Unité de mesure',
   },
+  unitEmptySelect: {
+    en: 'Select an unit of measure',
+    fr: 'Sélectionnez une unité de mesure',
+  },
   edit_config: {
     en: 'Edit config',
     fr: 'Éditer les paramètres',

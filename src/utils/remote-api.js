@@ -149,4 +149,11 @@ export const getUnitsList = () =>
     credentials: 'include',
   })
     .then(res => res.json())
-    .then(json => json.units);
+    .then(json =>
+      json.units.map(unit => {
+        return {
+          id: unit.uri,
+          label: unit.label,
+        };
+      })
+    );
