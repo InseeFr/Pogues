@@ -62,6 +62,9 @@ describe('Transformation entities - Questionnaire', () => {
   test('Should produce expected MODEL from questionnaire STATE', () => {
     const date = new Date().toString();
     const expectedQuestionnaireModel = cloneDeep(questionnaireModel);
+
+    // @TODO: Orphans are removed in the transformation.
+    expectedQuestionnaireModel.CodeLists.CodeList = [];
     expectedQuestionnaireModel.Variables.Variable = [
       {
         id: 'FIRSTID',
