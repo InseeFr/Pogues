@@ -7,6 +7,7 @@ var series = require(__dirname + '/series')
 var operations = require(__dirname + '/operations')
 var campaigns = require(__dirname + '/campaigns')
 var questionnairesRefInfos = require(__dirname + '/questionnaires-ref-infos')
+var units = require(__dirname + '/units')
 
 restify.CORS.ALLOW_HEADERS.push('authorization')
 restify.CORS.ALLOW_HEADERS.push('Location')
@@ -126,6 +127,11 @@ server.post('/search', function (req, res, next) {
 
   res.send(result)
 
+  next()
+})
+
+server.get('/units', function (req, res, next) {
+  res.send(units)
   next()
 })
 
