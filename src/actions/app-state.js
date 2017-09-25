@@ -1,14 +1,10 @@
 import { putQuestionnaire } from 'utils/remote-api';
 import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
-import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
 export const SET_ACTIVE_CODE_LISTS = 'SET_ACTIVE_CODE_LISTS';
-export const SET_ACTIVE_CALCULATED_VARIABLES = 'SET_ACTIVE_CALCULATED_VARIABLES';
-export const SET_ACTIVE_EXTERNAL_VARIABLES = 'SET_ACTIVE_EXTERNAL_VARIABLES';
-export const SET_ACTIVE_COLLECTED_VARIABLES = 'SET_ACTIVE_COLLECTED_VARIABLES';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
@@ -199,7 +195,7 @@ export const saveActiveQuestionnaire = () => {
         lastUpdatedDate: new Date().toString(),
       },
       componentsStore: state.appState.activeComponentsById,
-      codesListsStore: removeOrphansCodesLists(state.appState.activeCodeListsById, state.appState.activeComponentsById),
+      codesListsStore: state.appState.activeCodeListsById,
       conditionsStore: {},
       calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
       externalVariablesStore: state.appState.activeExternalVariablesById,
