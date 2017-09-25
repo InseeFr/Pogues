@@ -14,7 +14,7 @@
 export default function combineCheckers(...checkers) {
   return function(state) {
     return checkers.reduce((errorsByCode, checker) => {
-      const check = checker(state);
+      const check = checker(state) || {};
       return {
         ...errorsByCode,
         ...check,

@@ -1,5 +1,7 @@
 jest.dontMock('./questionnaire.js');
 
+import cloneDeep from 'lodash.clonedeep';
+
 import {
   fakeOwnerId,
   fakeQuestionnaireId,
@@ -59,6 +61,45 @@ describe('Transformation entities - Questionnaire', () => {
 
   test('Should produce expected MODEL from questionnaire STATE', () => {
     const date = new Date().toString();
+    const expectedQuestionnaireModel = cloneDeep(questionnaireModel);
+
+    // @TODO: Orphans are removed in the transformation.
+    expectedQuestionnaireModel.CodeLists.CodeList = [];
+    expectedQuestionnaireModel.Variables.Variable = [
+      {
+        id: 'FIRSTID',
+        Label: 'This is the first label',
+        Name: 'Q1_THISISTHE',
+        Formula: 'This is the first formula',
+        type: 'CalculatedVariableType',
+      },
+      {
+        id: 'SECONID',
+        Label: 'This is the second label',
+        Name: 'Q2_THISISTHE',
+        Formula: 'This is the second formula',
+        type: 'CalculatedVariableType',
+      },
+      {
+        id: 'FIRSTID',
+        Name: 'Q1_THISISTHE',
+        Label: 'This is the first label',
+        type: 'ExternalVariableType',
+      },
+      {
+        id: 'SECONID',
+        Name: 'Q2_THISISTHE',
+        Label: 'This is the second label',
+        type: 'ExternalVariableType',
+      },
+      {
+        id: 'FIRSTID',
+        Name: 'Q1_THISISTHE',
+        Label: 'This is the first label',
+        type: 'CollectedVariableType',
+      },
+    ];
+
     const questionnaireTransformer = QuestionnaireTransformerFactory({
       owner: fakeOwnerId,
       initialState: {
@@ -76,7 +117,7 @@ describe('Transformation entities - Questionnaire', () => {
     });
 
     expect(questionnaireTransformer.stateToModel()).toEqual({
-      ...questionnaireModel,
+      ...expectedQuestionnaireModel,
       lastUpdatedDate: date,
     });
   });

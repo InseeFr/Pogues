@@ -23,7 +23,7 @@ function checkerUniqueComponentName({ appState: { activeComponentsById, activeQu
   }
 
   return {
-    UNIQUE_VARIABLE_NAME: {
+    UNIQUE_COMPONENT_NAME: {
       type: 'global',
       code: 'UNIQUE_COMPONENT_NAME',
       dictionary: 'errorUniqueComponentName',

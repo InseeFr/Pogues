@@ -1,5 +1,11 @@
 import { SET_ACTIVE_COMPONENTS, SET_ACTIVE_VARIABLES } from 'actions/app-state';
-import { CREATE_COMPONENT, UPDATE_COMPONENT, REMOVE_COMPONENT, MOVE_COMPONENT } from 'actions/component';
+import {
+  CREATE_COMPONENT,
+  UPDATE_COMPONENT,
+  REMOVE_COMPONENT,
+  MOVE_COMPONENT,
+  DUPLICATE_COMPONENT,
+} from 'actions/component';
 import combineCheckers from 'utils/reducer/combine-checkers';
 import checkerQuestionnaireLength from 'utils/reducer/checker-questionnaire-length';
 import checkerComponentTarget from 'utils/reducer/checker-component-targets';
@@ -21,4 +27,5 @@ export default {
   [UPDATE_COMPONENT]: combineCheckers(checkerComponentTarget, checkerUniqueVariableName, checkerUniqueComponentName),
   [REMOVE_COMPONENT]: combineCheckers(checkerQuestionnaireLength, checkerComponentTarget, checkerUniqueComponentName),
   [MOVE_COMPONENT]: combineCheckers(checkerComponentTarget),
+  [DUPLICATE_COMPONENT]: combineCheckers(checkerComponentTarget, checkerUniqueVariableName, checkerUniqueComponentName),
 };
