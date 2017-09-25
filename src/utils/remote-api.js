@@ -10,6 +10,7 @@ const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
 const urlSearch = `${baseURL}/search`;
 const urlSeriesList = `${urlSearch}/series`;
 const urlOperationsList = `${urlSearch}/operations`;
+const urlQuestionnaireUnits = `${baseURL}/units`;
 
 export const visualisationUrl = `${baseURL}/transform/visualize/`;
 
@@ -139,3 +140,20 @@ export const getQuestionnaireListFromRef = (q, filters) => {
     }),
   }).then(res => res.json());
 };
+
+export const getUnitsList = () =>
+  fetch(urlQuestionnaireUnits, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  })
+    .then(res => res.json())
+    .then(json =>
+      json.units.map(unit => {
+        return {
+          id: unit.uri,
+          label: unit.label,
+        };
+      })
+    );
