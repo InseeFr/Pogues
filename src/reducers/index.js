@@ -11,6 +11,7 @@ import calculatedVariableByQuestionnaire from 'reducers/calculated-variable-by-q
 import externalVariableByQuestionnaire from 'reducers/external-variable-by-questionnaire';
 import collectedVariableByQuestionnaire from 'reducers/collected-variable-by-questionnaire';
 import searchResultById from 'reducers/search-result-by-id';
+import dataByType from 'reducers/data-by-type';
 
 import integrityChecker from 'utils/reducer/integrity-checker';
 import checkers from 'utils/reducer/checkers';
@@ -28,6 +29,7 @@ export default integrityChecker(
     externalVariableByQuestionnaire,
     collectedVariableByQuestionnaire,
     searchResultById,
+    dataByType,
   }),
   checkers
 );
