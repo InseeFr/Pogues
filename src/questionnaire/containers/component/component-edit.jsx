@@ -13,7 +13,7 @@ import ExternalVariableTransformerFactory from 'utils/transformation-entities/ex
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getValidationErrors, getErrorsObject } from 'utils/component/component-utils';
+import { getValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
 
 const { QUESTION } = COMPONENT_TYPE;
 
