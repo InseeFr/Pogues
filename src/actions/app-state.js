@@ -1,4 +1,4 @@
-import { putQuestionnaire } from 'utils/remote-api';
+import { putQuestionnaire, getContextFromCampaign } from 'utils/remote-api';
 import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
 
@@ -16,6 +16,9 @@ export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
 export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
 export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
 export const SET_ACTIVE_VARIABLES = 'SET_ACTIVE_VARIABLES';
+export const LOAD_STATISTICAL_CONTEXT = 'LOAD_STATISTICAL_CONTEXT';
+export const LOAD_STATISTICAL_CONTEXT_SUCCESS = 'LOAD_STATISTICAL_CONTEXT_SUCCESS';
+export const LOAD_STATISTICAL_CONTEXT_FAILURE = 'LOAD_STATISTICAL_CONTEXT_FAILURE';
 
 /**
  * Set active questionnaire
@@ -119,13 +122,15 @@ export const setSelectedComponentId = id => ({
  * @return {object}       UPDATE_ACTIVE_QUESTIONNAIRE action
  */
 export const updateActiveQuestionnaire = updatedState => {
-  const { id, name, label } = updatedState;
+  const { name, label, serie, operation, campaign } = updatedState;
   return {
     type: UPDATE_ACTIVE_QUESTIONNAIRE,
     payload: {
-      id,
       name,
       label,
+      serie,
+      operation,
+      campaign,
     },
   };
 };
@@ -140,7 +145,7 @@ export const updateActiveQuestionnaire = updatedState => {
  * represent locally the questionnaire.
  *
  * It will update the stores:
- * - questionnaireById
+ * - questionnaireById(
  * - componentById
  * - componentByQuestionnaire
  *
@@ -200,6 +205,7 @@ export const saveActiveQuestionnaire = () => {
       calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
       externalVariablesStore: state.appState.activeExternalVariablesById,
       collectedVariableByQuestionStore: state.appState.collectedVariableByQuestion,
+      campaignsStore: state.metadataByType.campaigns,
     });
     const questionnaireModel = questionnaireTransformer.stateToModel();
 
@@ -302,3 +308,26 @@ export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
 export const clearTabErrors = () => ({
   type: CLEAR_TAB_ERRORS,
 });
+
+export const loadStatisticalContextSuccess = ({ serie, operation }) => ({
+  type: LOAD_STATISTICAL_CONTEXT_SUCCESS,
+  payload: { serie, operation },
+});
+
+export const loadStatisticalContextFailure = err => ({
+  type: LOAD_STATISTICAL_CONTEXT_FAILURE,
+  payload: err,
+});
+
+export const loadStatisticalContext = idCampaign => dispatch => {
+  dispatch({
+    type: LOAD_STATISTICAL_CONTEXT,
+    payload: null,
+  });
+
+  return getContextFromCampaign(idCampaign)
+    .then(({ serie, operation }) => {
+      return dispatch(loadStatisticalContextSuccess({ serie, operation }));
+    })
+    .catch(err => dispatch(loadStatisticalContextFailure(err)));
+};

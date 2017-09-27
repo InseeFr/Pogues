@@ -23,6 +23,7 @@ class Questionnaire extends Component {
     moveComponent: PropTypes.func.isRequired,
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
+    loadStatisticalContext: PropTypes.func.isRequired,
     errorsByComponent: PropTypes.object,
   };
 
@@ -58,6 +59,11 @@ class Questionnaire extends Component {
     this.handleDisplayDeleteConfirm = this.handleDisplayDeleteConfirm.bind(this);
     this.closeQuestionnaireDelete = this.closeQuestionnaireDelete.bind(this);
     this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
+  }
+
+  componentWillMount() {
+    const { serie, operation, campaign } = this.props.questionnaire;
+    if (serie === '' && operation === '' && campaign !== '') this.props.loadStatisticalContext(campaign);
   }
 
   closeQuestionnaireDelete() {
@@ -178,7 +184,7 @@ class Questionnaire extends Component {
 
     return (
       <div id="questionnaire">
-        {Object.keys(errorsByComponent).length > 0 &&
+        {Object.keys(errorsByComponent).length > 0 && (
           <div id="questionnaire-errors">
             <div className="questionnaire-errors-alert">
               <div className="alert-icon big">
@@ -188,11 +194,10 @@ class Questionnaire extends Component {
             <div className="questionnaire-errors-list">
               <QuestionnaireErrorsContainer errorsByComponent={errorsByComponent} />
             </div>
-          </div>}
+          </div>
+        )}
         <div id="questionnaire-head">
-          <h4>
-            {questionnaire.label}
-          </h4>
+          <h4>{questionnaire.label}</h4>
           <div>
             <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>
               {Dictionary.showDetail}
@@ -207,9 +212,7 @@ class Questionnaire extends Component {
             </button>
           </div>
         </div>
-        <div id="questionnaire-items">
-          {tree}
-        </div>
+        <div id="questionnaire-items">{tree}</div>
         <ReactModal
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showQuestionnaireModal}
@@ -218,9 +221,7 @@ class Questionnaire extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>
-                {Dictionary.questionnaireDetail}
-              </h3>
+              <h3>{Dictionary.questionnaireDetail}</h3>
 
               <button type="button" onClick={this.handleCloseQuestionnaireDetail}>
                 <span>X</span>
@@ -242,9 +243,7 @@ class Questionnaire extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>
-                {typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
-              </h3>
+              <h3>{typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}</h3>
               <button type="button" onClick={this.handleCloseElementDetail}>
                 <span>X</span>
               </button>

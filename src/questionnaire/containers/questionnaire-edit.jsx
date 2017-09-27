@@ -49,6 +49,7 @@ function QuestionnaireEditContainer({
 }
 
 QuestionnaireEditContainer.propTypes = {
+  activesComponents: PropTypes.object,
   user: PropTypes.object.isRequired,
   updateActiveQuestionnaire: PropTypes.func.isRequired,
   questionnaire: PropTypes.object.isRequired,
@@ -57,6 +58,7 @@ QuestionnaireEditContainer.propTypes = {
 };
 
 QuestionnaireEditContainer.defaultProps = {
+  activesComponents: {},
   onSuccess: undefined,
   onCancel: undefined,
 };

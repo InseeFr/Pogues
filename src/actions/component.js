@@ -186,10 +186,10 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
 export const updateComponent = (
   componentId,
   componentsStore,
-  calculatedVariablesStore,
-  externalVariablesStore,
-  collectedVariablesStore,
-  codesListsStore
+  calculatedVariablesStore = {},
+  externalVariablesStore = {},
+  collectedVariablesStore = {},
+  codesListsStore = {}
 ) => {
   return {
     type: UPDATE_COMPONENT,

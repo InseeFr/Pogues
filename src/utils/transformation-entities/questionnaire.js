@@ -15,12 +15,14 @@ const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const defaultQuestionnaireState = {
   owner: undefined,
-  id: undefined,
+  id: '',
   label: '',
   name: '',
-  agency: undefined,
-  dataCollection: undefined,
-  componentGroups: undefined,
+  serie: '',
+  operation: '',
+  campaign: '',
+  lastUpdatedDate: undefined,
+  final: undefined,
 };
 
 export const defaultQuestionnaireModel = {
@@ -32,23 +34,8 @@ export const defaultQuestionnaireModel = {
   Name: '',
   Label: [],
   Child: [],
-  // @TODO: Idem
-  DataCollection: [
-    {
-      id: 'dataCollection1',
-      uri: 'http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1',
-      Name: 'POPO-2017-A00',
-    },
-  ],
-  // @TODO: Idem
-  ComponentGroup: [
-    {
-      id: 'j3tu30jo',
-      Name: 'PAGE_1',
-      Label: ['Components for page 1'],
-      MemberReference: [],
-    },
-  ],
+  DataCollection: [],
+  ComponentGroup: [],
   CodeLists: {
     CodeList: [],
   },
@@ -58,19 +45,19 @@ export const defaultQuestionnaireModel = {
 };
 
 function transformationFormToState(form, currentState) {
-  const { owner, id, agency, dataCollection, componentGroups, final, lastUpdatedDate } = currentState;
-
-  const { label, name } = form;
+  const { owner, id, final, agency, lastUpdatedDate } = currentState;
+  const { label, name, serie, operation, campaign } = form;
 
   return {
     owner,
     id: id || uuid(),
     label,
     name,
-    agency,
-    dataCollection,
-    componentGroups,
+    serie,
+    operation,
+    campaign,
     final,
+    agency,
     lastUpdatedDate,
   };
 }
@@ -83,8 +70,8 @@ function transformationModelToState(model) {
     Name: name,
     Label: [label],
     agency,
-    DataCollection: dataCollection,
-    ComponentGroup: componentGroups,
+    DataCollection: [dataCollection],
+    // ComponentGroup: componentGroups, @TODO: This data is not used yet.
     lastUpdatedDate,
   } = model;
 
@@ -95,19 +82,23 @@ function transformationModelToState(model) {
     name,
     label,
     agency,
-    dataCollection,
-    componentGroups,
     lastUpdatedDate,
+    serie: '',
+    operation: '',
+    campaign: dataCollection.id,
   };
 }
 
 function transformationStateToForm(currentState) {
-  const { label, name, final, lastUpdatedDate } = currentState;
+  const { label, name, serie, operation, campaign } = currentState;
+
+  // If serie and operation doesn't exist, we use campaign to obtain them calling a service
   return {
     label,
     name,
-    final,
-    lastUpdatedDate,
+    serie,
+    operation,
+    campaign,
   };
 }
 
@@ -118,9 +109,10 @@ function transformationStateToModel(
   conditionsStore,
   calculatedVariablesStore,
   externalVariablesStore,
-  collectedVariableByQuestionStore
+  collectedVariableByQuestionStore,
+  campaignsStore
 ) {
-  const { owner, id, label, name, agency, dataCollection, componentGroups, final, lastUpdatedDate } = currentState;
+  const { owner, id, label, name, agency, campaign, final, lastUpdatedDate } = currentState;
   const model = {
     owner,
     final,
@@ -128,7 +120,24 @@ function transformationStateToModel(
     Label: [label],
     Name: name,
     lastUpdatedDate,
+    DataCollection: [
+      {
+        id: campaign,
+        uri: `http://ddi:fr.insee:DataCollection.${campaign}`,
+        Name: campaignsStore[campaign].label,
+      },
+    ],
+    ComponentGroup: [
+      {
+        id: uuid(),
+        Name: 'PAGE_1',
+        Label: ['Components for page 1'],
+        MemberReference: Object.keys(componentsStore),
+      },
+    ],
   };
+
+  if (agency) model.agency = agency;
 
   const componentsModel = ComponentTransformerFactory({
     questionnaireId: id,
@@ -162,10 +171,6 @@ function transformationStateToModel(
     removeOrphansCodesLists(codesListsStore, componentsStore)
   );
 
-  if (dataCollection) model.DataCollection = dataCollection;
-  if (agency) model.agency = agency;
-  if (componentGroups) model.ComponentGroup = componentGroups;
-
   return {
     ...defaultQuestionnaireModel,
     ...model,
@@ -189,14 +194,32 @@ const QuestionnaireTransformerFactory = (conf = {}) => {
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariableByQuestionStore,
+    campaignsStore,
   } = conf;
-
   let currentState = initialState || defaultQuestionnaireState;
+  let questionnaireComponentState;
 
   if (owner) currentState.owner = owner;
+
   if (!currentState.final) currentState.final = false;
+
   if (!currentState.lastUpdatedDate) {
     currentState.lastUpdatedDate = new Date().toString();
+  }
+
+  if (componentsStore) {
+    questionnaireComponentState = componentsStore[currentState.id];
+  } else {
+    questionnaireComponentState = ComponentTransformerFactory().formToState(
+      {
+        label: currentState.label,
+        name: currentState.name,
+      },
+      {
+        id: currentState.id,
+        type: QUESTIONNAIRE,
+      }
+    );
   }
 
   return {
@@ -216,13 +239,20 @@ const QuestionnaireTransformerFactory = (conf = {}) => {
     stateToModel: () => {
       return transformationStateToModel(
         currentState,
-        componentsStore,
+        componentsStore || { [questionnaireComponentState.id]: questionnaireComponentState },
         codesListsStore,
         conditionsStore,
         calculatedVariablesStore,
         externalVariablesStore,
-        collectedVariableByQuestionStore
+        collectedVariableByQuestionStore,
+        campaignsStore || {}
       );
+    },
+    getQuestionnaireState: () => {
+      return currentState;
+    },
+    getQuestionnaireComponentState: () => {
+      return questionnaireComponentState;
     },
   };
 };

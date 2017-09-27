@@ -1924,7 +1924,7 @@ module.exports = [
       } ]
     } ],
     "DataCollection" : [ {
-      "id" : "dataCollection1",
+      "id" : "campaign01",
       "uri" : "http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1",
       "Name" : "POPO-2017-A00"
     } ],

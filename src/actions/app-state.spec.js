@@ -66,12 +66,24 @@ describe('setSelectedComponentId', () => {
 
 describe('updateActiveQuestionnaire', () => {
   test('should return the right payload', () => {
-    expect(updateActiveQuestionnaire({ id: 'id', name: 'name', label: 'label' })).toEqual({
-      type: UPDATE_ACTIVE_QUESTIONNAIRE,
-      payload: {
+    expect(
+      updateActiveQuestionnaire({
         id: 'id',
         name: 'name',
         label: 'label',
+        serie: 'serie',
+        operation: 'operation',
+        campaign: 'campaign',
+        final: 'final',
+      })
+    ).toEqual({
+      type: UPDATE_ACTIVE_QUESTIONNAIRE,
+      payload: {
+        name: 'name',
+        label: 'label',
+        serie: 'serie',
+        operation: 'operation',
+        campaign: 'campaign',
       },
     });
   });

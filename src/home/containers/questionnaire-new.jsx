@@ -9,9 +9,6 @@ import QuestionnaireTransformerFactory from 'utils/transformation-entities/quest
 
 const mapStateToProps = state => ({
   user: state.appState.user,
-  collections: state.appState.collections,
-  operations: state.appState.operations,
-  campaigns: state.appState.campaigns,
 });
 
 const mapDispatchToProps = {
@@ -26,11 +23,8 @@ function QuestionnaireNewContainer({
   createQuestionnaire,
   onSuccess,
   onCancel,
-  collections,
   operations,
   campaigns,
-  loadOperations,
-  loadCampaigns,
   change,
 }) {
   const questionnaireTransformer = QuestionnaireTransformerFactory({ owner: user.permission });
@@ -46,7 +40,6 @@ function QuestionnaireNewContainer({
   return (
     <QuestionnaireNewEdit
       initialValues={initialValues}
-      collections={collections}
       operations={operations}
       campaigns={campaigns}
       onSubmit={submit}
@@ -61,22 +54,14 @@ function QuestionnaireNewContainer({
 QuestionnaireNewContainer.propTypes = {
   user: PropTypes.object.isRequired,
   createQuestionnaire: PropTypes.func.isRequired,
-  loadOperations: PropTypes.func.isRequired,
-  loadCampaigns: PropTypes.func.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
-  collections: PropTypes.arrayOf(PropTypes.object),
-  operations: PropTypes.arrayOf(PropTypes.object),
-  campaigns: PropTypes.arrayOf(PropTypes.object),
   change: PropTypes.func.isRequired,
 };
 
 QuestionnaireNewContainer.defaultProps = {
   onSuccess: undefined,
   onCancel: undefined,
-  collections: [],
-  operations: [],
-  campaigns: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireNewContainer);
