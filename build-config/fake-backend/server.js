@@ -130,7 +130,7 @@ server.post('/search', function (req, res, next) {
   next()
 })
 
-server.get('/units', function (req, res, next) {
+server.get('/meta-data/units', function (req, res, next) {
   res.send(units)
   next()
 })

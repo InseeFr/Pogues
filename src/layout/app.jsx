@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser } from 'actions/user';
-import { loadUnits } from 'actions/data';
+import { loadUnits } from 'actions/metadata';
 
 import Header from 'layout/header/header';
 import Footer from 'layout/footer/footer';

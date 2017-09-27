@@ -6,34 +6,32 @@ import PropTypes from 'prop-types';
 import Select from 'layout/forms/controls/select';
 
 const mapStateToProps = (state, { type }) => ({
-  dataList: state.dataByType[type] || [],
+  meatadata: state.metadataByType[type] || [],
 });
 
-function SelectDataContainer({ dataList, name, id, label, emptyValue, mapDataFunction }) {
+function SelectMetadataContainer({ meatadata, name, label, emptyValue, mapMetadataFunction }) {
   return (
     <Field
       name={name}
-      // id={id}
       label={label}
       emptyValue={emptyValue}
       component={Select}
-      options={dataList.map(mapDataFunction)}
+      options={meatadata.map(mapMetadataFunction)}
     />
   );
 }
 
-SelectDataContainer.propTypes = {
-  mapDataFunction: PropTypes.func.isRequired,
-  dataList: PropTypes.array,
+SelectMetadataContainer.propTypes = {
+  mapMetadataFunction: PropTypes.func.isRequired,
+  meatadata: PropTypes.array,
   name: PropTypes.string.isRequired,
-  // id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   emptyValue: PropTypes.string,
 };
 
-SelectDataContainer.defaultProps = {
-  dataList: [],
+SelectMetadataContainer.defaultProps = {
+  meatadata: [],
   emptyValue: '',
 };
 
-export default connect(mapStateToProps)(SelectDataContainer);
+export default connect(mapStateToProps)(SelectMetadataContainer);
