@@ -44,7 +44,8 @@ export const loadUnits = () => dispatch => {
     payload: null,
   });
   return getUnitsList()
-    .then(units => {
+    .then(listUnits => {
+      const units = listUnits.map(u => ({ id: u.uri, uri: u.uri, label: u.label }));
       return dispatch(loadMetadataSuccess('units', units));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
