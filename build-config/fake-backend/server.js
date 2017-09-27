@@ -75,6 +75,7 @@ server.post('/questionnaires', function (req, res, next) {
 server.get('/search/series', function (req, res, next) {
   res.send(series.map(function (s) {
     return {
+      id: s.id,
       value: s.id,
       label: s.label,
     }
@@ -87,8 +88,10 @@ server.get('/search/series/:id/operations', function (req, res, next) {
     return o.serie === req.params.id
   }).map(function (o) {
     return {
+      id: o.id,
       value: o.id,
       label: o.label,
+      serie: o.serie,
     }
   }))
   next()
@@ -99,10 +102,28 @@ server.get('/search/operations/:id/collections', function (req, res, next) {
     return c.operation === req.params.id
   }).map(function (c) {
     return {
+      id: c.id,
       value: c.id,
       label: c.label,
+      operation: c.operation,
     }
   }))
+  next()
+})
+
+server.get('/search/:id/context', function (req, res, next) {
+  var campaign = campaigns.filter(function (c) {
+    return c.id === req.params.id
+  })[0]
+
+  var operation  = operations.filter(function (o) {
+    return o.id === campaign.operation
+  })[0]
+
+  res.send({
+    serie: operation.serie,
+    operation: campaign.operation
+  })
   next()
 })
 
@@ -130,8 +151,14 @@ server.post('/search', function (req, res, next) {
   next()
 })
 
-server.get('/units', function (req, res, next) {
-  res.send(units)
+server.get('/meta-data/units', function (req, res, next) {
+  res.send(units.map(function (u) {
+    return {
+      id: u.uri,
+      uri: u.uri,
+      label: u.label,
+    }
+  }))
   next()
 })
 

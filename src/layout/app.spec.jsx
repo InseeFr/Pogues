@@ -9,9 +9,8 @@ describe('<App />', () => {
   const props = {
     children: <div />,
     loadUser() {},
-    loadUnits() {},
+    loadUnitsIfNeeded() {},
     loadQuestionnaireList() {},
-    loadCollections() {},
   };
 
   test('should have the right template', () => {

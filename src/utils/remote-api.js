@@ -10,7 +10,7 @@ const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
 const urlSearch = `${baseURL}/search`;
 const urlSeriesList = `${urlSearch}/series`;
 const urlOperationsList = `${urlSearch}/operations`;
-const urlQuestionnaireUnits = `${baseURL}/units`;
+const urlMetadata = `${baseURL}/meta-data`;
 
 export const visualisationUrl = `${baseURL}/transform/visualize/`;
 
@@ -121,6 +121,14 @@ export const getCampaigns = id =>
     credentials: 'include',
   }).then(res => res.json());
 
+export const getContextFromCampaign = id =>
+  fetch(`${urlSearch}/${id}/context`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
+
 export const getQuestionnaireListFromRef = (q, filters) => {
   const params = Object.keys(filters)
     .reduce((acc, key) => {
@@ -142,18 +150,9 @@ export const getQuestionnaireListFromRef = (q, filters) => {
 };
 
 export const getUnitsList = () =>
-  fetch(urlQuestionnaireUnits, {
+  fetch(`${urlMetadata}/units`, {
     headers: {
       Accept: 'application/json',
     },
     credentials: 'include',
-  })
-    .then(res => res.json())
-    .then(json =>
-      json.units.map(unit => {
-        return {
-          id: unit.uri,
-          label: unit.label,
-        };
-      })
-    );
+  }).then(res => res.json());

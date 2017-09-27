@@ -8,31 +8,29 @@ import { requiredSelect } from 'layout/forms/validation-rules';
 
 function ComponentSelectorByType({ activeComponent, label, components, radio, emptyValue, validateInline }) {
   const validationProps = validateInline ? { validate: [requiredSelect] } : {};
-  const selector = radio
-    ? <Field
-        name="type"
-        component={ListRadioButtons}
-        label={label}
-        radios={components}
-        required
-        emptyValue={emptyValue}
-        {...validationProps}
-      />
-    : <Field
-        name="type"
-        component={Select}
-        label={label}
-        options={components}
-        required
-        emptyValue={emptyValue}
-        {...validationProps}
-      />;
+  const selector = radio ? (
+    <Field
+      name="type"
+      component={ListRadioButtons}
+      label={label}
+      radios={components}
+      required
+      emptyValue={emptyValue}
+      {...validationProps}
+    />
+  ) : (
+    <Field
+      name="type"
+      component={Select}
+      label={label}
+      options={components}
+      required
+      emptyValue={emptyValue}
+      {...validationProps}
+    />
+  );
 
-  const content = activeComponent.id
-    ? <div key={activeComponent.id}>
-        {activeComponent.content}
-      </div>
-    : '';
+  const content = activeComponent.id ? <div key={activeComponent.id}>{activeComponent.content}</div> : '';
 
   return (
     <div>

@@ -44,16 +44,18 @@ class OptionalView extends Component {
         label: Dictionary.yes,
       },
     ];
-    const selectorView = checkbox
-      ? <Field type="checkbox" name={name} component={Input} label={label} onChange={() => this.toggleOptionalView()} />
-      : <Field
-          name={name}
-          component={ListRadioButtons}
-          label={label}
-          radios={options}
-          required
-          onChange={() => this.toggleOptionalView()}
-        />;
+    const selectorView = checkbox ? (
+      <Field type="checkbox" name={name} component={Input} label={label} onChange={() => this.toggleOptionalView()} />
+    ) : (
+      <Field
+        name={name}
+        component={ListRadioButtons}
+        label={label}
+        radios={options}
+        required
+        onChange={() => this.toggleOptionalView()}
+      />
+    );
 
     return (
       <div className="optional-view">

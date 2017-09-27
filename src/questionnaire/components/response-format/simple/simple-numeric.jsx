@@ -5,7 +5,7 @@ import Input from 'layout/forms/controls/input';
 import Dictionary from 'utils/dictionary/dictionary';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
 import { required, minValue } from 'layout/forms/validation-rules';
-import SelectDataContainer from 'layout/connected-widget/select-data';
+import SelectMetaDataContainer from 'layout/connected-widget/select-metadata';
 
 const { NUMERIC } = DATATYPE_NAME;
 
@@ -40,12 +40,12 @@ class ResponseFormatDatatypeNumeric extends FormSection {
           required
         />
         <Field name="decimals" type="number" component={Input} label={Dictionary.decimals} />
-        <SelectDataContainer
+        <SelectMetaDataContainer
           type="units"
           name="unit"
           label={Dictionary.unit}
           emptyValue={Dictionary.unitEmptySelect}
-          mapDataFunction={mapUnitData}
+          mapMetadataFunction={mapUnitData}
         />
       </div>
     );

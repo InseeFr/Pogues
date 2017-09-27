@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser } from 'actions/user';
-import { loadUnits } from 'actions/data';
+import { loadUnitsIfNeeded } from 'actions/metadata';
 
 import Header from 'layout/header/header';
 import Footer from 'layout/footer/footer';
 
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
-import { loadCollections } from 'actions/questionnaire';
 
 import 'scss/pogues.scss';
 
@@ -20,18 +19,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loadUser,
-  loadUnits,
+  loadUnitsIfNeeded,
   loadQuestionnaireList,
-  loadCollections,
 };
 
 export class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     loadUser: PropTypes.func.isRequired,
-    loadUnits: PropTypes.func.isRequired,
+    loadUnitsIfNeeded: PropTypes.func.isRequired,
     loadQuestionnaireList: PropTypes.func.isRequired,
-    loadCollections: PropTypes.func.isRequired,
     user: PropTypes.shape({
       name: PropTypes.string,
       permission: PropTypes.string,
@@ -42,8 +39,7 @@ export class AppContainer extends Component {
 
   componentWillMount() {
     this.props.loadUser();
-    this.props.loadUnits();
-    this.props.loadCollections();
+    this.props.loadUnitsIfNeeded();
   }
 
   componentWillUpdate(nextProps) {

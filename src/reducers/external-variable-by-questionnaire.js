@@ -6,7 +6,10 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 const actionHandlers = {};
 
 export function loadQuestionnaireSuccess(state, { update: { externalVariableByQuestionnaire } }) {
-  return externalVariableByQuestionnaire;
+  return {
+    ...state,
+    ...externalVariableByQuestionnaire,
+  };
 }
 
 export function loadQuestionnaireListSuccess(state, updatesList) {
