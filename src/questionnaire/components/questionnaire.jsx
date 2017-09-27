@@ -69,7 +69,6 @@ class Questionnaire extends Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.questionnaire.operation !== this.props.questionnaire.operation) {
-      debugger;
       this.props.loadCampaignsIfNeeded(nextProps.questionnaire.operation);
     }
   }
