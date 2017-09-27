@@ -45,8 +45,10 @@ class TreeSelectGotoContainer extends Component {
     let notDisabledComponentsIds;
 
     if (component) {
+      // When the component is a new one.
       notDisabledComponentsIds = getComponentsTargetsByComponent(componentsStore, component);
     } else {
+      // When the component is been edited.
       notDisabledComponentsIds = getComponentsTargetsByPosition(componentsStore, componentType, selectedComponentId);
     }
 

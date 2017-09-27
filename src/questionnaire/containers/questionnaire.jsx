@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { dragComponent, removeComponent, duplicateComponent } from 'actions/component';
 import { setSelectedComponentId, loadStatisticalContext } from 'actions/app-state';
+import { loadCampaignsIfNeeded } from 'actions/metadata';
 import { removeQuestionnaire } from 'actions/questionnaire';
 import Questionnaire from 'questionnaire/components/questionnaire';
 
@@ -44,6 +45,7 @@ const mapDispatchToProps = {
   duplicateComponent,
   removeQuestionnaire,
   loadStatisticalContext,
+  loadCampaignsIfNeeded,
 };
 
 class QuestionnaireContainer extends Component {
@@ -55,6 +57,7 @@ class QuestionnaireContainer extends Component {
     dragComponent: PropTypes.func.isRequired,
     removeComponent: PropTypes.func.isRequired,
     loadStatisticalContext: PropTypes.func.isRequired,
+    loadCampaignsIfNeeded: PropTypes.func.isRequired,
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
     errorsByCode: PropTypes.object,
@@ -84,6 +87,7 @@ class QuestionnaireContainer extends Component {
         removeQuestionnaire={this.props.removeQuestionnaire}
         errorsByComponent={errorsByComponent}
         loadStatisticalContext={this.props.loadStatisticalContext}
+        loadCampaignsIfNeeded={this.props.loadCampaignsIfNeeded}
       />
     );
   }
