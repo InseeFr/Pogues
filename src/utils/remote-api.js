@@ -121,6 +121,14 @@ export const getCampaigns = id =>
     credentials: 'include',
   }).then(res => res.json());
 
+export const getContextFromCampaign = id =>
+  fetch(`${urlSearch}/${id}/context`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
+
 export const getQuestionnaireListFromRef = (q, filters) => {
   const params = Object.keys(filters)
     .reduce((acc, key) => {

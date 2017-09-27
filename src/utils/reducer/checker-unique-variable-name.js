@@ -13,9 +13,9 @@ function checkerUniqueVariableName({
   const errors = [];
 
   const variablesNames = [
-    ...Object.keys(activeCalculatedVariablesById).map(key => activeCalculatedVariablesById[key].name),
-    ...Object.keys(activeExternalVariablesById).map(key => activeExternalVariablesById[key].name),
-    ...Object.keys(collectedVariableByQuestion).reduce((acc, key) => {
+    ...Object.keys(activeCalculatedVariablesById || {}).map(key => activeCalculatedVariablesById[key].name),
+    ...Object.keys(activeExternalVariablesById || {}).map(key => activeExternalVariablesById[key].name),
+    ...Object.keys(collectedVariableByQuestion || {}).reduce((acc, key) => {
       return [
         ...acc,
         ...Object.keys(collectedVariableByQuestion[key]).map(

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Select from 'layout/forms/controls/select';
 
 const mapStateToProps = (state, { type }) => ({
-  meatadata: state.metadataByType[type] || [],
+  meatadata: Object.keys(state.metadataByType[type] || {}).map(key => state.metadataByType[type][key]),
 });
 
 function SelectMetadataContainer({ meatadata, name, label, emptyValue, mapMetadataFunction }) {

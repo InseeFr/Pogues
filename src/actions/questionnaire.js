@@ -1,15 +1,7 @@
-import {
-  getCampaigns,
-  getOperations,
-  getSeries,
-  getQuestionnaire,
-  postQuestionnaire,
-  deleteQuestionnaire,
-} from 'utils/remote-api';
+import { getQuestionnaire, postQuestionnaire, deleteQuestionnaire } from 'utils/remote-api';
 import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
+import { newQuestionnaireStateToStores } from 'utils/model/model-utils';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
-import ComponentTransformerFactory from 'utils/transformation-entities/component';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
@@ -20,20 +12,6 @@ export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE';
 export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
 export const DELETE_QUESTIONNAIRE_SUCCESS = 'DELETE_QUESTIONNAIRE_SUCCESS';
 export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
-
-export const LOAD_COLLECTIONS = 'LOAD_COLLECTIONS';
-export const LOAD_COLLECTIONS_SUCCESS = 'LOAD_COLLECTIONS_SUCCESS';
-export const LOAD_COLLECTIONS_FAILURE = 'LOAD_COLLECTIONS_FAILURE';
-
-export const LOAD_OPERATIONS = 'LOAD_OPERATIONS';
-export const LOAD_OPERATIONS_SUCCESS = 'LOAD_OPERATIONS_SUCCESS';
-export const LOAD_OPERATIONS_FAILURE = 'LOAD_OPERATIONS_FAILURE';
-
-export const LOAD_CAMPAIGNS = 'LOAD_CAMPAIGNS';
-export const LOAD_CAMPAIGNS_SUCCESS = 'LOAD_CAMPAIGNS_SUCCESS';
-export const LOAD_CAMPAIGNS_FAILURE = 'LOAD_CAMPAIGNS_FAILURE';
-
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 /**
  * Load questionnaire success
@@ -151,34 +129,28 @@ export const createQuestionnaireFailure = err => ({
  * @param   {string}   label The questionnaire label.
  * @return  {function}       Thunk which may dispatch CREATE_QUESTIONNAIRE_SUCCESS or CREATE_QUESTIONNAIRE_FAILURE
  */
-export const createQuestionnaire = questionnaireState => dispatch => {
+export const createQuestionnaire = questionnaireNewState => (dispatch, getState) => {
+  const state = getState();
+  const questionnaireTransformer = QuestionnaireTransformerFactory({
+    initialState: questionnaireNewState,
+    campaignsStore: state.metadataByType.campaigns,
+  });
+
   dispatch({
     type: CREATE_QUESTIONNAIRE,
     payload: null,
   });
-  // We need a component representing the questionnaire.
-  const componentQuestionnaire = ComponentTransformerFactory().formToState(
-    {
-      label: questionnaireState.label,
-      name: questionnaireState.name,
-    },
-    {
-      id: questionnaireState.id,
-      type: QUESTIONNAIRE,
-    }
-  );
 
-  const questionnaireModel = QuestionnaireTransformerFactory({
-    initialState: questionnaireState,
-    componentsStore: {
-      [questionnaireState.id]: componentQuestionnaire,
-    },
-  }).stateToModel();
-
-  return postQuestionnaire(questionnaireModel)
+  return postQuestionnaire(questionnaireTransformer.stateToModel())
     .then(() => {
       return dispatch(
-        createQuestionnaireSuccess(questionnaireState.id, questionnaireModelToStores(questionnaireModel))
+        createQuestionnaireSuccess(
+          questionnaireNewState.id,
+          newQuestionnaireStateToStores(
+            questionnaireTransformer.getQuestionnaireState(),
+            questionnaireTransformer.getQuestionnaireComponentState()
+          )
+        )
       );
     })
     .catch(err => {
@@ -222,84 +194,5 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     })
     .catch(err => {
       return dispatch(removeQuestionnaireFailure(idQuestionnaire, err));
-    });
-};
-
-export const loadCollectionsSuccess = update => ({
-  type: LOAD_COLLECTIONS_SUCCESS,
-  payload: {
-    update,
-  },
-});
-
-export const loadCollectionsFailure = err => ({
-  type: LOAD_COLLECTIONS_FAILURE,
-  payload: { err },
-});
-
-export const loadCollections = () => dispatch => {
-  dispatch({
-    type: LOAD_COLLECTIONS,
-  });
-  return getSeries()
-    .then(qr => {
-      dispatch(loadCollectionsSuccess(qr));
-    })
-    .catch(err => {
-      dispatch(loadCollectionsFailure(err));
-    });
-};
-
-export const loadOperationsSuccess = (id, update) => ({
-  type: LOAD_OPERATIONS_SUCCESS,
-  payload: {
-    id,
-    update,
-  },
-});
-
-export const loadOperationsFailure = (id, err) => ({
-  type: LOAD_OPERATIONS_FAILURE,
-  payload: { id, err },
-});
-
-export const loadOperations = id => dispatch => {
-  dispatch({
-    type: LOAD_OPERATIONS,
-    payload: id,
-  });
-  return getOperations(id)
-    .then(qr => {
-      dispatch(loadOperationsSuccess(id, qr));
-    })
-    .catch(err => {
-      dispatch(loadOperationsFailure(id, err));
-    });
-};
-
-export const loadCampaignsSuccess = (id, update) => ({
-  type: LOAD_CAMPAIGNS_SUCCESS,
-  payload: {
-    id,
-    update,
-  },
-});
-
-export const loadCampaignsFailure = (id, err) => ({
-  type: LOAD_CAMPAIGNS_FAILURE,
-  payload: { id, err },
-});
-
-export const loadCampaigns = id => dispatch => {
-  dispatch({
-    type: LOAD_CAMPAIGNS,
-    payload: id,
-  });
-  return getCampaigns(id)
-    .then(qr => {
-      dispatch(loadCampaignsSuccess(id, qr));
-    })
-    .catch(err => {
-      dispatch(loadCampaignsFailure(id, err));
     });
 };

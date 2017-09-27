@@ -5,8 +5,12 @@ import collectedVariableByQuestion from 'reducers/app-state/collected-variable-b
 import activeExternalVariablesById from 'reducers/app-state/active-external-variables-by-id';
 import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
 import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
-import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
-import { LOAD_COLLECTIONS_SUCCESS, LOAD_OPERATIONS_SUCCESS, LOAD_CAMPAIGNS_SUCCESS } from 'actions/questionnaire';
+import {
+  SET_ACTIVE_QUESTIONNAIRE,
+  SET_SELECTED_COMPONENT,
+  UPDATE_ACTIVE_QUESTIONNAIRE,
+  LOAD_STATISTICAL_CONTEXT_SUCCESS,
+} from 'actions/app-state';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
 const actionHandlers = {};
@@ -58,24 +62,14 @@ export function setSelectedComponentId(state, id) {
   };
 }
 
-export function setCollections(state, { update }) {
+export function loadStatisticalContext(state, { serie, operation }) {
   return {
     ...state,
-    collections: update,
-  };
-}
-
-export function setOperations(state, { update }) {
-  return {
-    ...state,
-    operations: update,
-  };
-}
-
-export function setCampaigns(state, { update }) {
-  return {
-    ...state,
-    campaigns: update,
+    activeQuestionnaire: {
+      ...state.activeQuestionnaire,
+      serie,
+      operation,
+    },
   };
 }
 
@@ -83,10 +77,7 @@ actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
-
-actionHandlers[LOAD_COLLECTIONS_SUCCESS] = setCollections;
-actionHandlers[LOAD_OPERATIONS_SUCCESS] = setOperations;
-actionHandlers[LOAD_CAMPAIGNS_SUCCESS] = setCampaigns;
+actionHandlers[LOAD_STATISTICAL_CONTEXT_SUCCESS] = loadStatisticalContext;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {

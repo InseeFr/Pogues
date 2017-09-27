@@ -839,8 +839,8 @@ const dictionary = {
     en: 'Cancel',
   },
   newEmptyQuestionnaire: {
-    fr: 'Créer un questionnaire vide',
-    en: 'New empty questionnaire',
+    fr: 'Nouveau questionnaire',
+    en: 'New questionnaire',
   },
   newQuestionnaireLegend: {
     fr:

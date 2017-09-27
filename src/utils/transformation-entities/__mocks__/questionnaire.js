@@ -10,7 +10,9 @@ export const fakeQuestionnaireId = 'ID_QUESTIONNAIRE_FAKE';
 export const questionnaireForm = {
   label: 'This is a questionnaire',
   name: 'THISISAQUE',
-  final: false,
+  serie: 'serie01',
+  operation: 'operation01',
+  campaign: 'campaign01',
 };
 
 export const questionnaireStore = {
@@ -21,21 +23,10 @@ export const questionnaireStore = {
     label: 'This is a questionnaire',
     agency: 'fr.insee',
     final: false,
-    dataCollection: [
-      {
-        id: 'dataCollection1',
-        uri: 'http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1',
-        Name: 'POPO-2017-A00',
-      },
-    ],
-    componentGroups: [
-      {
-        id: 'j3tu30jo',
-        Name: 'PAGE_1',
-        Label: ['Components for page 1'],
-        MemberReference: [],
-      },
-    ],
+    serie: 'serie01',
+    operation: 'operation01',
+    campaign: 'campaign01',
+    lastUpdatedDate: 'fakeLastUpdatedDate',
   },
 };
 
@@ -50,9 +41,9 @@ export const questionnaireModel = {
   final: false,
   DataCollection: [
     {
-      id: 'dataCollection1',
-      uri: 'http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1',
-      Name: 'POPO-2017-A00',
+      id: 'campaign01',
+      uri: 'http://ddi:fr.insee:DataCollection.campaign01',
+      Name: 'Campaign 01',
     },
   ],
   ComponentGroup: [

@@ -32,31 +32,29 @@ describe('Transformation entities - Questionnaire', () => {
   });
 
   test('Should produce expected STATE from questonnaire MODEL', () => {
-    const date = new Date().toString();
+    const expectedQuestionnaireState = {
+      owner: fakeOwnerId,
+      id: fakeQuestionnaireId,
+      name: 'THISISAQUE',
+      label: 'This is a questionnaire',
+      agency: 'fr.insee',
+      final: false,
+      serie: '',
+      operation: '',
+      campaign: 'campaign01',
+    };
     const questionnaireTransformer = QuestionnaireTransformerFactory();
-    expect(
-      questionnaireTransformer.modelToStore({
-        ...questionnaireModel,
-        lastUpdatedDate: date,
-      })
-    ).toEqual({
-      ...questionnaireStore,
-    });
+    const questionnnairesStore = questionnaireTransformer.modelToStore(questionnaireModel);
+
+    expect(questionnnairesStore[fakeQuestionnaireId]).toEqual(expectedQuestionnaireState);
   });
 
   test('Should produce expected FORM from questionnaire STATE', () => {
-    const date = new Date().toString();
     const questionnaireTransformer = QuestionnaireTransformerFactory({
       owner: fakeOwnerId,
-      initialState: {
-        ...questionnaireStore[fakeQuestionnaireId],
-        lastUpdatedDate: date,
-      },
+      initialState: questionnaireStore[fakeQuestionnaireId],
     });
-    expect(questionnaireTransformer.stateToForm()).toEqual({
-      ...questionnaireForm,
-      lastUpdatedDate: date,
-    });
+    expect(questionnaireTransformer.stateToForm()).toEqual(questionnaireForm);
   });
 
   test('Should produce expected MODEL from questionnaire STATE', () => {
@@ -114,10 +112,19 @@ describe('Transformation entities - Questionnaire', () => {
       collectedVariableByQuestionStore: {
         [fakeQuestionId]: collectedVariablesStore,
       },
+      campaignsStore: {
+        campaign01: {
+          id: 'campaign01',
+          label: 'Campaign 01',
+        },
+      },
     });
 
-    expect(questionnaireTransformer.stateToModel()).toEqual({
-      ...expectedQuestionnaireModel,
+    const { ComponentGroup, ...model } = questionnaireTransformer.stateToModel();
+    const { ComponentGroup: componentGroupExpected, ...expectedModel } = expectedQuestionnaireModel;
+
+    expect(model).toEqual({
+      ...expectedModel,
       lastUpdatedDate: date,
     });
   });

@@ -3,10 +3,13 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function loadMetadata(state, { type, metadata }) {
+export function loadMetadata(state, { type, metadataByTypeStore }) {
   return {
     ...state,
-    [type]: metadata,
+    [type]: {
+      ...state[type],
+      ...metadataByTypeStore,
+    },
   };
 }
 

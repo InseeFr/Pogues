@@ -7,7 +7,7 @@ import SearchInput from 'search-questionnaire/components/search-input';
 import { loadQuestionnairesFromRef } from 'actions/questionnaire-list';
 
 const mapStateToProps = state => {
-  const selector = formValueSelector('statistical-context');
+  const selector = formValueSelector('filters');
   return {
     selectedSerie: selector(state, 'serie'),
     selectedOperation: selector(state, 'operation'),

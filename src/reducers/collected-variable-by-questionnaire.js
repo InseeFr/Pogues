@@ -6,7 +6,10 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 const actionHandlers = {};
 
 export function loadQuestionnaireSuccess(state, { update: { collectedVariableByQuestionnaire } }) {
-  return collectedVariableByQuestionnaire;
+  return {
+    ...state,
+    ...collectedVariableByQuestionnaire,
+  };
 }
 
 export function loadQuestionnaireListSuccess(state, updatesList) {
