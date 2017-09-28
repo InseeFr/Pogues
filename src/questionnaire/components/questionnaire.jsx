@@ -24,6 +24,7 @@ class Questionnaire extends Component {
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
     loadStatisticalContext: PropTypes.func.isRequired,
+    loadCampaignsIfNeeded: PropTypes.func.isRequired,
     errorsByComponent: PropTypes.object,
   };
 
@@ -64,6 +65,12 @@ class Questionnaire extends Component {
   componentWillMount() {
     const { serie, operation, campaign } = this.props.questionnaire;
     if (serie === '' && operation === '' && campaign !== '') this.props.loadStatisticalContext(campaign);
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.questionnaire.operation !== this.props.questionnaire.operation) {
+      this.props.loadCampaignsIfNeeded(nextProps.questionnaire.operation);
+    }
   }
 
   closeQuestionnaireDelete() {

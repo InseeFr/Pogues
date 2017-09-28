@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import isEqual from 'lodash.isequal';
+import debounce from 'lodash.debounce';
 
 class TreeSelect extends Component {
   static propTypes = {
@@ -19,39 +20,43 @@ class TreeSelect extends Component {
     emptyValue: '',
   };
 
+  static filterOptions = (options, q) => {
+    return q !== '' ? options.filter(o => o.label.indexOf(q) !== -1) : options;
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedValue: '',
+      filteredOptions: [],
     };
 
-    this.items = {};
-
     this.selectValue = this.selectValue.bind(this);
+    this.updateListOptions = this.updateListOptions.bind(this);
   }
 
-  componentWillUpdate(nextProps) {
-    if (!isEqual(this.props, nextProps)) {
-      const selectedValue = nextProps.input.value;
-      const id = selectedValue !== '' ? selectedValue : '-1';
-      this.setState({ selectedValue });
-      this.items[id].scrollIntoView();
-    }
+  componentWillMount() {
+    this.setState({
+      filteredOptions: TreeSelect.filterOptions(this.props.options, ''),
+    });
+  }
+
+  updateListOptions() {
+    this.setState({
+      ...this.state,
+      filteredOptions: TreeSelect.filterOptions(this.props.options, this.inputSearch.value),
+    });
   }
 
   selectValue(value = '') {
     this.props.input.onChange(value);
-    this.setState({
-      selectedValue: value,
-    });
   }
 
   render() {
-    const { input, label, required, options, emptyValue, meta: { touched, error } } = this.props;
-    const listOptions = options.map(op => {
+    const { input, label, required, emptyValue, meta: { touched, error } } = this.props;
+    const listOptions = this.state.filteredOptions.map(op => {
       const padding = Array(op.depth + 1).join('-');
-      const isSelectedValue = op.value === this.state.selectedValue;
+      const isSelectedValue = op.value === input.value;
       const value = op.value;
 
       return (
@@ -64,9 +69,6 @@ class TreeSelect extends Component {
           onClick={event => {
             event.preventDefault();
             if (!op.disabled) this.selectValue(value);
-          }}
-          ref={node => {
-            this.items[value] = node;
           }}
         >
           {`${padding} ${op.label}`}
@@ -82,9 +84,6 @@ class TreeSelect extends Component {
             event.preventDefault();
             this.selectValue();
           }}
-          ref={node => {
-            this.items['-1'] = node;
-          }}
         >
           {emptyValue}
         </li>
@@ -99,15 +98,16 @@ class TreeSelect extends Component {
         </label>
         <div>
           <input type="hidden" name={input.name} />
-          <ul>
-            {' '}{listOptions}{' '}
-          </ul>
+          <input
+            type="text"
+            onChange={debounce(this.updateListOptions, 150)}
+            ref={inputSearch => {
+              this.inputSearch = inputSearch;
+            }}
+          />
+          <ul> {listOptions} </ul>
 
-          {touched &&
-            (error &&
-              <span className="form-error">
-                {error}
-              </span>)}
+          {touched && (error && <span className="form-error">{error}</span>)}
         </div>
       </div>
     );
