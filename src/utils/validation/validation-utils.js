@@ -6,6 +6,7 @@ import {
   CODES_LIST_INPUT_ENUM,
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
+  DATATYPE_NAME,
 } from 'constants/pogues-constants';
 import {
   required,
@@ -15,6 +16,7 @@ import {
   emptyMeasures,
   name as validName,
   minValue,
+  maxValue,
 } from 'layout/forms/validation-rules';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -22,6 +24,45 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { NEW, QUESTIONNAIRE: QUEST } = CODES_LIST_INPUT_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
+const { NUMERIC, TEXT } = DATATYPE_NAME;
+
+function validateSimpleText(value, path) {
+  const validationErrors = [];
+  const requiredValue = required(value.maxLength);
+  const minLength = minValue(1)(value.maxLength);
+
+  if (requiredValue) validationErrors.push([`${path}.maxLength`, requiredValue]);
+  if (minLength) validationErrors.push([`${path}.maxLength`, minLength]);
+
+  return validationErrors;
+}
+
+function validateSimpleNumeric(value, path) {
+  const validationErrors = [];
+  let minLengthMin;
+
+  if (value.minimun !== '0') minLengthMin = minValue(0)(value.minimum);
+
+  const minLengthMax = minValue(1)(value.maximum);
+
+  if (minLengthMin) validationErrors.push([`${path}.minimum`, minLengthMin]);
+  if (minLengthMax) validationErrors.push([`${path}.maximum`, minLengthMax]);
+
+  return validationErrors;
+}
+
+function validateSimple(values, path) {
+  let validationErrors = [];
+  const { type, [type]: simple } = values;
+
+  if (type === NUMERIC) {
+    validationErrors = validateSimpleNumeric(simple, `${path}.${NUMERIC}`);
+  } else if (type === TEXT) {
+    validationErrors = validateSimpleText(simple, `${path}.${TEXT}`);
+  }
+
+  return validationErrors;
+}
 
 /**
  * This method will validate a code. In case validation errors are found, they are added to the validation errors
@@ -99,11 +140,15 @@ function validateCodesList(values, path) {
 function validateList(values, path) {
   const validationErrors = [];
   const { numLinesMin, numLinesMax } = values;
-  const numLinesMinFromZero = minValue(0)(numLinesMin);
-  const numLinesMaxFromOne = minValue(1)(numLinesMax);
+  const numLinesMinMin = minValue(1)(numLinesMin);
+  const numLinesMaxMin = minValue(1)(numLinesMax);
+  const numLinesMinMax = maxValue(20)(numLinesMin);
+  const numLinesMaxMax = maxValue(20)(numLinesMax);
 
-  if (numLinesMinFromZero) validationErrors.push([`${path}.numLinesMin`, numLinesMinFromZero]);
-  if (numLinesMaxFromOne) validationErrors.push([`${path}.numLinesMax`, numLinesMaxFromOne]);
+  if (numLinesMinMin) validationErrors.push([`${path}.numLinesMin`, numLinesMinMin]);
+  if (numLinesMaxMin) validationErrors.push([`${path}.numLinesMax`, numLinesMaxMin]);
+  if (numLinesMinMax) validationErrors.push([`${path}.numLinesMin`, numLinesMinMax]);
+  if (numLinesMaxMax) validationErrors.push([`${path}.numLinesMax`, numLinesMaxMax]);
 
   return validationErrors;
 }
@@ -141,6 +186,8 @@ function validateMeasure(values, path) {
 
   if (measureType === SINGLE_CHOICE) {
     validationErrors = [...validationErrors, ...validateCodesList(measure, `${path}.${SINGLE_CHOICE}`)];
+  } else {
+    validationErrors = [...validationErrors, ...validateSimple(measure, `${path}.${SIMPLE}`)];
   }
 
   return validationErrors;
@@ -259,6 +306,8 @@ function validateResponseFormat(values, path) {
   if (responseFormatRequired) {
     validationErrors.type = 'formato de respuesta obligatorio';
     validationErrors.push([`${path}.type`, 'formato de respuesta obligatorio']);
+  } else if (type === SIMPLE) {
+    validationErrors = validateSimple(responseFormat, `${path}.${type}`);
   } else if (type === SINGLE_CHOICE) {
     validationErrors = validateCodesList(responseFormat, `${path}.${type}`);
   } else if (type === MULTIPLE_CHOICE) {

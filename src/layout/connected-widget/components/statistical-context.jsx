@@ -3,40 +3,43 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Select from 'layout/forms/controls/select';
-import { requiredSelect } from 'layout/forms/validation-rules';
+import { requiredSelect, requiredSelectMultiple } from 'layout/forms/validation-rules';
+import Dictionary from 'utils/dictionary/dictionary';
 
-function StatisticalContext({ series, operations, campaigns, required }) {
+function StatisticalContext({ series, operations, campaigns, required, multipleCampaign }) {
   const validationProps = required ? { validate: [requiredSelect] } : {};
+  const validationPropsMultiple = required ? { validate: [requiredSelectMultiple] } : {};
   return (
     <div id="statistical-context-filters">
       <Field
         name="serie"
         component={Select}
-        label="Serie"
+        label={Dictionary.serie}
         options={series}
-        emptyValue={'Select a serie'}
+        emptyValue={Dictionary.selectSerie}
         required={required}
         {...validationProps}
       />
       <Field
         name="operation"
         component={Select}
-        label="Operation"
+        label={Dictionary.operation}
         options={operations}
-        emptyValue={'Select an operation'}
+        emptyValue={Dictionary.selectOperation}
         disabled={operations.length === 0}
         required={required}
         {...validationProps}
       />
       <Field
-        name="campaign"
+        name="campaigns"
         component={Select}
-        label="Campaign"
+        label={Dictionary.campaigns}
         options={campaigns}
-        emptyValue={'Select a campaign'}
+        emptyValue={Dictionary.selectCampaigns}
         disabled={campaigns.length === 0}
         required={required}
-        {...validationProps}
+        multiple={multipleCampaign}
+        {...validationPropsMultiple}
       />
     </div>
   );
@@ -47,6 +50,7 @@ StatisticalContext.propTypes = {
   operations: PropTypes.array,
   campaigns: PropTypes.array,
   required: PropTypes.bool.isRequired,
+  multipleCampaign: PropTypes.bool.isRequired,
 };
 
 StatisticalContext.defaultProps = {

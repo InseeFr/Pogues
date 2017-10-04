@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { actions } from 'redux-form';
 
-import { createQuestionnaire, loadOperations, loadCampaigns } from 'actions/questionnaire';
+import { createQuestionnaire } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'home/components/questionnaire-new-edit';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
 
@@ -12,21 +11,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  change: actions.change,
   createQuestionnaire,
-  loadOperations,
-  loadCampaigns,
 };
 
-function QuestionnaireNewContainer({
-  user,
-  createQuestionnaire,
-  onSuccess,
-  onCancel,
-  operations,
-  campaigns,
-  change,
-}) {
+function QuestionnaireNewContainer({ user, createQuestionnaire, onSuccess, onCancel }) {
   const questionnaireTransformer = QuestionnaireTransformerFactory({ owner: user.permission });
   const initialValues = questionnaireTransformer.stateToForm();
 
@@ -37,18 +25,7 @@ function QuestionnaireNewContainer({
     });
   };
 
-  return (
-    <QuestionnaireNewEdit
-      initialValues={initialValues}
-      operations={operations}
-      campaigns={campaigns}
-      onSubmit={submit}
-      onCancel={onCancel}
-      loadOperations={loadOperations}
-      loadCampaigns={loadCampaigns}
-      resetField={change}
-    />
-  );
+  return <QuestionnaireNewEdit initialValues={initialValues} onSubmit={submit} onCancel={onCancel} />;
 }
 
 QuestionnaireNewContainer.propTypes = {
@@ -56,7 +33,6 @@ QuestionnaireNewContainer.propTypes = {
   createQuestionnaire: PropTypes.func.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
-  change: PropTypes.func.isRequired,
 };
 
 QuestionnaireNewContainer.defaultProps = {

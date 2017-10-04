@@ -4,7 +4,6 @@ import { FormSection, Field } from 'redux-form';
 import Input from 'layout/forms/controls/input';
 import Dictionary from 'utils/dictionary/dictionary';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
-import { required, minValue } from 'layout/forms/validation-rules';
 import SelectMetaDataContainer from 'layout/connected-widget/select-metadata';
 
 const { NUMERIC } = DATATYPE_NAME;
@@ -23,22 +22,8 @@ class ResponseFormatDatatypeNumeric extends FormSection {
   render() {
     return (
       <div className="response-format-datatype-numeric">
-        <Field
-          name="minimum"
-          type="number"
-          component={Input}
-          label={Dictionary.minimum}
-          validate={[required, minValue(0)]}
-          required
-        />
-        <Field
-          name="maximum"
-          type="number"
-          component={Input}
-          label={Dictionary.maximum}
-          validate={[required, minValue(1)]}
-          required
-        />
+        <Field name="minimum" type="number" component={Input} label={Dictionary.minimum} required />
+        <Field name="maximum" type="number" component={Input} label={Dictionary.maximum} required />
         <Field name="decimals" type="number" component={Input} label={Dictionary.decimals} />
         <SelectMetaDataContainer
           type="units"

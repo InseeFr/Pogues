@@ -71,9 +71,16 @@ function InputDeclaration({ identifier, showPosition }) {
         identifier={identifier}
       />
 
-      <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required />
+      <Field
+        name="declarationType"
+        id="declaration_type"
+        component={Select}
+        label={Dictionary.type}
+        options={types}
+        required
+      />
 
-      {showPosition &&
+      {showPosition && (
         <Field
           name="position"
           id="declaration_position"
@@ -81,7 +88,8 @@ function InputDeclaration({ identifier, showPosition }) {
           label={Dictionary.declaration_position}
           options={positions}
           required
-        />}
+        />
+      )}
     </div>
   );
 }

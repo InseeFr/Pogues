@@ -6,6 +6,7 @@ class Select extends Component {
     input: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired,
     required: PropTypes.bool,
+    multiple: PropTypes.bool,
     disabled: PropTypes.bool,
     emptyValue: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.object),
@@ -14,20 +15,21 @@ class Select extends Component {
 
   static defaultProps = {
     required: false,
+    multiple: false,
     disabled: false,
     options: [],
     emptyValue: '',
   };
 
   render() {
-    const { input, label, required, disabled, options, emptyValue, meta: { touched, error } } = this.props;
-    const listOptions = options.map(op =>
+    const { input, label, required, multiple, disabled, options, emptyValue, meta: { touched, error } } = this.props;
+    const listOptions = options.map(op => (
       <option key={op.value} value={op.value}>
         {op.label}
       </option>
-    );
+    ));
 
-    if (emptyValue !== '') {
+    if (!required && emptyValue !== '') {
       listOptions.unshift(
         <option key="-1" value="">
           {emptyValue}
@@ -42,14 +44,10 @@ class Select extends Component {
           {required ? <span>*</span> : ''}
         </label>
         <div>
-          <select {...input} id={`select-${input.name}`} placeholder={label} disabled={disabled}>
+          <select {...input} id={`select-${input.name}`} placeholder={label} disabled={disabled} multiple={multiple}>
             {listOptions}
           </select>
-          {touched &&
-            (error &&
-              <span className="form-error">
-                {error}
-              </span>)}
+          {touched && (error && <span className="form-error">{error}</span>)}
         </div>
       </div>
     );

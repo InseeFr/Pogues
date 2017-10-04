@@ -41,7 +41,7 @@ describe('Transformation entities - Questionnaire', () => {
       final: false,
       serie: '',
       operation: '',
-      campaign: 'campaign01',
+      campaigns: ['campaign01'],
     };
     const questionnaireTransformer = QuestionnaireTransformerFactory();
     const questionnnairesStore = questionnaireTransformer.modelToStore(questionnaireModel);

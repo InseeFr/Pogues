@@ -14,7 +14,7 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, onCan
   return (
     <div id="questionnaire-new">
       <form onSubmit={handleSubmit}>
-        <StaticalContext formName={FORM_NAME} required />
+        <StaticalContext formName={FORM_NAME} required multipleCampaign />
 
         <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
 

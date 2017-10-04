@@ -895,6 +895,10 @@ const dictionary = {
     fr: 'Obligatoire',
     en: 'Required',
   },
+  validationRequiredMultiple: {
+    fr: 'Sélectionner au moins une option',
+    en: 'Select at least one option',
+  },
   validationInvalidName: {
     fr: "L'identifiant peut uniquement contenir des lettres non accentuées, chiffres, tirets et underscore",
     en: 'The Id can only contain non-accented letters, numbers, dashes and underscore',
@@ -906,6 +910,10 @@ const dictionary = {
   validationMinNumber: {
     fr: 'Vous devez introduire au mois',
     en: 'Must be at least',
+  },
+  validationMaxNumber: {
+    fr: 'Vous devez introduire maximum',
+    en: 'Must be at most',
   },
   dropHere: {
     fr: 'Déposer ici !',
@@ -930,6 +938,30 @@ const dictionary = {
   confirmQuestionMessage: {
     fr: 'Êtes-vous sûr ?',
     en: 'Are you sure?',
+  },
+  serie: {
+    fr: 'Série',
+    en: 'Serie',
+  },
+  operation: {
+    fr: 'Operation',
+    en: 'Operation',
+  },
+  campaigns: {
+    fr: 'Campagnes',
+    en: 'Campaigns',
+  },
+  selectSerie: {
+    fr: 'Sélectionner une série',
+    en: 'Select a serie',
+  },
+  selectOperation: {
+    fr: 'Sélectionner une operation',
+    en: 'Select an operation',
+  },
+  selectCampaigns: {
+    fr: 'Sélectionner au moins une campagne',
+    en: 'Select at least one campaign',
   },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
