@@ -57,7 +57,7 @@ export class PageHome extends Component {
               <li>
                 <button id="questionnaire-new" className="btn-yellow" onClick={this.handleOpenModal}>
                   <strong>
-                    {Dictionary.emptyQuestionnaire}
+                    {Dictionary.newEmptyQuestionnaire}
                   </strong>
                 </button>
               </li>

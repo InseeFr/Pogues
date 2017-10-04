@@ -63,8 +63,10 @@ class Questionnaire extends Component {
   }
 
   componentWillMount() {
-    const { serie, operation, campaign } = this.props.questionnaire;
-    if (serie === '' && operation === '' && campaign !== '') this.props.loadStatisticalContext(campaign);
+    const { serie, operation, campaigns } = this.props.questionnaire;
+    // If exists more than a campaign we send the first one because the father is always the same
+    // for all of them.
+    if (serie === '' && operation === '' && campaigns.length > 0) this.props.loadStatisticalContext(campaigns[0]);
   }
 
   componentWillUpdate(nextProps) {

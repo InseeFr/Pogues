@@ -20,7 +20,7 @@ export const defaultQuestionnaireState = {
   name: '',
   serie: '',
   operation: '',
-  campaign: '',
+  campaigns: [],
   lastUpdatedDate: undefined,
   final: undefined,
 };
@@ -46,7 +46,7 @@ export const defaultQuestionnaireModel = {
 
 function transformationFormToState(form, currentState) {
   const { owner, id, final, agency, lastUpdatedDate } = currentState;
-  const { label, name, serie, operation, campaign } = form;
+  const { label, name, serie, operation, campaigns } = form;
 
   return {
     owner,
@@ -55,7 +55,7 @@ function transformationFormToState(form, currentState) {
     name,
     serie,
     operation,
-    campaign,
+    campaigns,
     final,
     agency,
     lastUpdatedDate,
@@ -70,7 +70,7 @@ function transformationModelToState(model) {
     Name: name,
     Label: [label],
     agency,
-    DataCollection: [dataCollection],
+    DataCollection: dataCollection,
     // ComponentGroup: componentGroups, @TODO: This data is not used yet.
     lastUpdatedDate,
   } = model;
@@ -85,20 +85,20 @@ function transformationModelToState(model) {
     lastUpdatedDate,
     serie: '',
     operation: '',
-    campaign: dataCollection.id,
+    campaigns: dataCollection.map(dc => dc.id),
   };
 }
 
 function transformationStateToForm(currentState) {
-  const { label, name, serie, operation, campaign } = currentState;
+  const { label, name, serie, operation, campaigns } = currentState;
 
-  // If serie and operation doesn't exist, we use campaign to obtain them calling a service
+  // If serie and operation doesn't exist, we use campaigns to obtain them calling a service
   return {
     label,
     name,
     serie,
     operation,
-    campaign,
+    campaigns,
   };
 }
 
@@ -112,7 +112,12 @@ function transformationStateToModel(
   collectedVariableByQuestionStore,
   campaignsStore
 ) {
-  const { owner, id, label, name, agency, campaign, final, lastUpdatedDate } = currentState;
+  const { owner, id, label, name, agency, campaigns, final, lastUpdatedDate } = currentState;
+  const dataCollections = campaigns.map(c => ({
+    id: c,
+    uri: `http://ddi:fr.insee:DataCollection.${c}`,
+    Name: campaignsStore[c].label,
+  }));
   const model = {
     owner,
     final,
@@ -120,13 +125,7 @@ function transformationStateToModel(
     Label: [label],
     Name: name,
     lastUpdatedDate,
-    DataCollection: [
-      {
-        id: campaign,
-        uri: `http://ddi:fr.insee:DataCollection.${campaign}`,
-        Name: campaignsStore[campaign].label,
-      },
-    ],
+    DataCollection: dataCollections,
     ComponentGroup: [
       {
         id: uuid(),

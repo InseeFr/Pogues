@@ -16,6 +16,7 @@ class StatisticalContextContainer extends Component {
     selectedSerie: PropTypes.string,
     selectedOperation: PropTypes.string,
     required: PropTypes.bool,
+    multipleCampaign: PropTypes.bool,
     change: PropTypes.func.isRequired,
     loadSeriesIfNeeded: PropTypes.func.isRequired,
     loadOperationsIfNeeded: PropTypes.func.isRequired,
@@ -30,6 +31,7 @@ class StatisticalContextContainer extends Component {
     selectedOperation: '',
     selectorPath: '',
     required: false,
+    multipleCampaign: false,
   };
 
   static getSelectorPath = (selectorPath = '') => {
@@ -54,12 +56,18 @@ class StatisticalContextContainer extends Component {
 
     if (this.props.selectedOperation !== nextProps.selectedOperation) {
       this.props.loadCampaignsIfNeeded(nextProps.selectedOperation);
-      this.props.change(formName, `${path}campaign`, '');
+      this.props.change(formName, `${path}campaigns`, []);
     }
   }
 
   render() {
-    const { series: currentSeries, operations: currentOperations, campaigns: currentCampaigns, required } = this.props;
+    const {
+      series: currentSeries,
+      operations: currentOperations,
+      campaigns: currentCampaigns,
+      required,
+      multipleCampaign,
+    } = this.props;
 
     return (
       <StatisticalContext
@@ -67,6 +75,7 @@ class StatisticalContextContainer extends Component {
         operations={currentOperations}
         campaigns={currentCampaigns}
         required={required}
+        multipleCampaign={multipleCampaign}
       />
     );
   }
@@ -97,7 +106,6 @@ const mapStateToProps = (state, { formName, selectorPath }) => {
     campaigns,
     selectedSerie,
     selectedOperation,
-    selectedCampaign: selector(state, `${path}campaign`),
   };
 };
 

@@ -122,7 +122,7 @@ export const setSelectedComponentId = id => ({
  * @return {object}       UPDATE_ACTIVE_QUESTIONNAIRE action
  */
 export const updateActiveQuestionnaire = updatedState => {
-  const { name, label, serie, operation, campaign } = updatedState;
+  const { name, label, serie, operation, campaigns } = updatedState;
   return {
     type: UPDATE_ACTIVE_QUESTIONNAIRE,
     payload: {
@@ -130,7 +130,7 @@ export const updateActiveQuestionnaire = updatedState => {
       label,
       serie,
       operation,
-      campaign,
+      campaigns,
     },
   };
 };

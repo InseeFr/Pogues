@@ -44,12 +44,16 @@ export function number(value) {
 
 export function minValue(min) {
   return function(value) {
-    return value !== undefined && value < min ? `${Dictionary.validationMinNumber} ${min}` : undefined;
+    if (value === undefined || value === '') return `${Dictionary.validationMinNumber} ${min}`;
+    return parseInt(value, 10) < min ? `${Dictionary.validationMinNumber} ${min}` : undefined;
   };
 }
 
-export function minValue18() {
-  return minValue(18);
+export function maxValue(max) {
+  return function(value) {
+    if (value === undefined || value === '') return `${Dictionary.validationMaxNumber} ${max}`;
+    return parseInt(value, 10) > max ? `${Dictionary.validationMaxNumber} ${max}` : undefined;
+  };
 }
 
 export function email(value) {
@@ -58,6 +62,10 @@ export function email(value) {
 
 export function requiredSelect(value = '') {
   return value !== '' ? undefined : Dictionary.validationRequired;
+}
+
+export function requiredSelectMultiple(value = []) {
+  return value.length > 0 ? undefined : Dictionary.validationRequiredMultiple;
 }
 
 export function name(value = '') {
