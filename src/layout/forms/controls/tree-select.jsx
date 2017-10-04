@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
-import isEqual from 'lodash.isequal';
 import debounce from 'lodash.debounce';
 
 class TreeSelect extends Component {

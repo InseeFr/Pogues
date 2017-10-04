@@ -6,18 +6,14 @@ import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, invalidItems, showAddButton }) {
-  const noValueBlock =
-    fields.length === 0 &&
-    <li>
-      {Dictionary[noValueLabel]}
-    </li>;
+function ListEntryFormItem({ fields, noValueLabel, select, invalidItems }) {
+  const noValueBlock = fields.length === 0 && <li>{Dictionary[noValueLabel]}</li>;
 
   return (
     <ul className="list-entry-form_list">
       {noValueBlock}
-      {fields.map((name, index, fields) => {
-        const item = fields.get(index);
+      {fields.map((name, index, listFields) => {
+        const item = listFields.get(index);
         const rawLabel = markdownToRaw(item.label || '').blocks[0].text;
         const shortLabel = rawLabel && rawLabel.length > 60 ? `${rawLabel.substr(0, 57)}...` : rawLabel;
         const invalidItemClass = classSet({
@@ -40,31 +36,19 @@ function ListEntryFormItem({ fields, submitLabel, noValueLabel, reset, select, i
           </li>
         );
       })}
-      {showAddButton &&
-        <li>
-          <button
-            type="button"
-            className="btn btn-link"
-            onClick={event => {
-              event.preventDefault();
-              reset();
-            }}
-          >
-            <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-            {Dictionary[submitLabel]}
-          </button>
-        </li>}
     </ul>
   );
 }
 
 ListEntryFormItem.propTypes = {
-  submitLabel: PropTypes.string.isRequired,
   noValueLabel: PropTypes.string.isRequired,
-  reset: PropTypes.func.isRequired,
   select: PropTypes.func.isRequired,
   invalidItems: PropTypes.object.isRequired,
-  showAddButton: PropTypes.bool.isRequired,
+  fields: PropTypes.array,
+};
+
+ListEntryFormItem.defaultProps = {
+  fields: [],
 };
 
 class ListEntryForm extends Component {
@@ -121,11 +105,7 @@ class ListEntryForm extends Component {
       display: errors.length > 0 ? 'block' : 'none',
     };
     const errorsList = errors.map((e, index) => {
-      return (
-        <li key={index}>
-          {e}
-        </li>
-      );
+      return <li key={index}>{e}</li>;
     });
 
     return (
@@ -133,13 +113,10 @@ class ListEntryForm extends Component {
         <FieldArray
           name={listName}
           component={ListEntryFormItem}
-          submitLabel={submitLabel}
           noValueLabel={noValueLabel}
-          reset={reset}
           select={select}
           invalidItems={invalidItems}
           rerenderOnEveryChange={rerenderOnEveryChange}
-          showAddButton={showAddButton}
         />
 
         <Field component="input" type="hidden" name="ref" />
@@ -148,11 +125,27 @@ class ListEntryForm extends Component {
           <ul style={styleErrors} className="list-entry-form_form-errors">
             {errorsList}
           </ul>
+          {showAddButton && (
+            <div className="list-entry-form_form-add">
+              <button
+                type="button"
+                className="btn btn-link"
+                onClick={event => {
+                  event.preventDefault();
+                  reset();
+                }}
+              >
+                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+                {Dictionary[submitLabel]}
+              </button>
+            </div>
+          )}
+
           {inputView}
 
           <div className="list-entry-form_form-actions">
             <ul className="form-footer">
-              {showRemoveButton &&
+              {showRemoveButton && (
                 <li>
                   <button
                     type="button"
@@ -166,9 +159,10 @@ class ListEntryForm extends Component {
                     <span className="glyphicon glyphicon-trash" aria-hidden="true" />
                     {Dictionary.remove}
                   </button>
-                </li>}
+                </li>
+              )}
 
-              {showDuplicateButton &&
+              {showDuplicateButton && (
                 <li>
                   <button
                     type="button"
@@ -182,7 +176,8 @@ class ListEntryForm extends Component {
                     <span className="glyphicon glyphicon-file" aria-hidden="true" />
                     {Dictionary.duplicate}
                   </button>
-                </li>}
+                </li>
+              )}
               <li>
                 <button
                   type="button"

@@ -52,11 +52,7 @@ class CollectedVariables extends Component {
       display: errors.length > 0 ? 'block' : 'none',
     };
     const errorsList = errors.map((e, index) => {
-      return (
-        <li key={index}>
-          {e}
-        </li>
-      );
+      return <li key={index}>{e}</li>;
     });
 
     return (
@@ -64,6 +60,16 @@ class CollectedVariables extends Component {
         <ul style={styleErrors} className="nav-error">
           {errorsList}
         </ul>
+        <button
+          type="button"
+          className="btn-yellow"
+          onClick={event => {
+            event.preventDefault();
+            generateCollectedVariables();
+          }}
+        >
+          {Dictionary.generateCollectedVariables}
+        </button>
         <ListEntryFormContainer
           inputView={inputCollectedVariableView}
           initialInputValues={initialInputValues}
@@ -79,16 +85,7 @@ class CollectedVariables extends Component {
         />
         <Field name="responseFormat" type="hidden" component="input" />
 
-        <button
-          type="button"
-          className="btn-yellow"
-          onClick={event => {
-            event.preventDefault();
-            generateCollectedVariables();
-          }}
-        >
-          {Dictionary.generateCollectedVariables}
-        </button>
+
       </FormSection>
     );
   }

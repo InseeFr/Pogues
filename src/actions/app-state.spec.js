@@ -73,7 +73,7 @@ describe('updateActiveQuestionnaire', () => {
         label: 'label',
         serie: 'serie',
         operation: 'operation',
-        campaign: 'campaign',
+        campaigns: ['campaign'],
         final: 'final',
       })
     ).toEqual({
@@ -83,7 +83,7 @@ describe('updateActiveQuestionnaire', () => {
         label: 'label',
         serie: 'serie',
         operation: 'operation',
-        campaign: 'campaign',
+        campaigns: ['campaign'],
       },
     });
   });

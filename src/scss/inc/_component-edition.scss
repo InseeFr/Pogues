@@ -44,6 +44,12 @@
       }
     }
 
+    .list-entry-form_form-add {
+      text-align: right;
+      margin-bottom: 10px;
+      margin-right: 30px;
+    }
+
     .list-entry-form_form-actions {
       flex-grow: 1;
       margin-top: 20px;
@@ -78,4 +84,14 @@
     .invalid button {
       color: red;
     }
-  }}
+  }
+
+  .collected-variables {
+    .list-entry-form_list {
+      margin-top: 20px;
+    }
+    .list-entry-form_form {
+      margin-top: -35px;
+    }
+  }
+}

@@ -12,7 +12,7 @@ export const questionnaireForm = {
   name: 'THISISAQUE',
   serie: 'serie01',
   operation: 'operation01',
-  campaign: 'campaign01',
+  campaigns: ['campaign01'],
 };
 
 export const questionnaireStore = {
@@ -25,7 +25,7 @@ export const questionnaireStore = {
     final: false,
     serie: 'serie01',
     operation: 'operation01',
-    campaign: 'campaign01',
+    campaigns: ['campaign01'],
     lastUpdatedDate: 'fakeLastUpdatedDate',
   },
 };
