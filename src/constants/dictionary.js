@@ -491,7 +491,7 @@ const dictionary = {
     en: 'The question contains invalid collected variables.',
   },
   errorUniqueVariableName: {
-    fr: 'Les noms de variable doivent être unique',
+    fr: 'Les noms de variable doivent être uniques',
     en: 'Variable names should be unique',
   },
   errorUniqueComponentName: {
