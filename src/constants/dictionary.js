@@ -940,12 +940,12 @@ const dictionary = {
     en: 'Are you sure?',
   },
   serie: {
-    fr: 'Série',
-    en: 'Serie',
+    fr: 'Séries',
+    en: 'Series',
   },
   operation: {
-    fr: 'Operation',
-    en: 'Operation',
+    fr: 'Opération statistique ',
+    en: 'Statistical operation',
   },
   campaigns: {
     fr: 'Campagnes',
@@ -956,7 +956,7 @@ const dictionary = {
     en: 'Select a serie',
   },
   selectOperation: {
-    fr: 'Sélectionner une operation',
+    fr: 'Sélectionner une opération',
     en: 'Select an operation',
   },
   selectCampaigns: {

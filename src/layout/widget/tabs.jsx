@@ -36,12 +36,14 @@ class Tabs extends Component {
         active: active,
       });
       const numErrors =
-        components[i].numErrors && components[i].numErrors > 0
-          ? <span className="invalid">
-              <div className="alert-triangle" />
-              {components[i].numErrors}
-            </span>
-          : '';
+        components[i].numErrors && components[i].numErrors > 0 ? (
+          <span className="invalid">
+            <div className="alert-triangle" />
+            {components[i].numErrors}
+          </span>
+        ) : (
+          ''
+        );
 
       tabs.push(
         <li key={`tab-${components[i].id}`} className="nav-item">
@@ -60,9 +62,7 @@ class Tabs extends Component {
 
     return (
       <div className="tabs">
-        <ul className="nav nav-tabs">
-          {tabs}
-        </ul>
+        <ul className="nav nav-tabs">{tabs}</ul>
         {contentTabs}
       </div>
     );
