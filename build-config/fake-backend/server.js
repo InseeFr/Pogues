@@ -73,56 +73,37 @@ server.post('/questionnaires', function (req, res, next) {
 })
 
 server.get('/search/series', function (req, res, next) {
-  res.send(series.map(function (s) {
-    return {
-      id: s.id,
-      value: s.id,
-      label: s.label,
-    }
-  }))
+  res.send(series)
   next()
 })
 
 server.get('/search/series/:id/operations', function (req, res, next) {
   res.send(operations.filter(function (o) {
-    return o.serie === req.params.id
-  }).map(function (o) {
-    return {
-      id: o.id,
-      value: o.id,
-      label: o.label,
-      serie: o.serie,
-    }
+    return o.parent === req.params.id
   }))
   next()
 })
 
 server.get('/search/operations/:id/collections', function (req, res, next) {
   res.send(campaigns.filter(function (c) {
-    return c.operation === req.params.id
-  }).map(function (c) {
-    return {
-      id: c.id,
-      value: c.id,
-      label: c.label,
-      operation: c.operation,
-    }
+    return c.parent === req.params.id
   }))
   next()
 })
 
-server.get('/search/:id/context', function (req, res, next) {
+server.get('/search/context/collection/:id', function (req, res, next) {
   var campaign = campaigns.filter(function (c) {
     return c.id === req.params.id
   })[0]
 
   var operation  = operations.filter(function (o) {
-    return o.id === campaign.operation
+    return o.id === campaign.parent
   })[0]
 
   res.send({
-    serie: operation.serie,
-    operation: campaign.operation
+    dataCollectionId: req.params.id,
+    serieId: operation.parent,
+    operationId: campaign.parent
   })
   next()
 })
