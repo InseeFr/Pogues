@@ -326,7 +326,7 @@ export const loadStatisticalContext = idCampaign => dispatch => {
   });
 
   return getContextFromCampaign(idCampaign)
-    .then(({ serie, operation }) => {
+    .then(({ serieId: serie, operationId: operation }) => {
       return dispatch(loadStatisticalContextSuccess({ serie, operation }));
     })
     .catch(err => dispatch(loadStatisticalContextFailure(err)));

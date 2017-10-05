@@ -122,7 +122,7 @@ export const getCampaigns = id =>
   }).then(res => res.json());
 
 export const getContextFromCampaign = id =>
-  fetch(`${urlSearch}/${id}/context`, {
+  fetch(`${urlSearch}/context/collection/${id}`, {
     headers: {
       Accept: 'application/json',
     },

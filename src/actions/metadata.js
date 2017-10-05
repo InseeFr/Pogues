@@ -67,7 +67,12 @@ export const loadSeries = () => dispatch => {
 
   return getSeries()
     .then(series => {
-      return dispatch(loadMetadataSuccess('series', series));
+      const seriesMetadata = series.map(s => ({
+        id: s.id,
+        value: s.id,
+        label: s.label,
+      }));
+      return dispatch(loadMetadataSuccess('series', seriesMetadata));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
@@ -88,7 +93,13 @@ export const loadOperations = idSerie => dispatch => {
 
   return getOperations(idSerie)
     .then(operations => {
-      return dispatch(loadMetadataSuccess('operations', operations));
+      const operationsMetadata = operations.map(o => ({
+        id: o.id,
+        value: o.id,
+        label: o.label,
+        serie: o.parent,
+      }));
+      return dispatch(loadMetadataSuccess('operations', operationsMetadata));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
@@ -114,7 +125,13 @@ export const loadCampaigns = idOperation => dispatch => {
 
   return getCampaigns(idOperation)
     .then(campaigns => {
-      return dispatch(loadMetadataSuccess('campaigns', campaigns));
+      const campaignsMetadata = campaigns.map(c => ({
+        id: c.id,
+        value: c.id,
+        label: c.label,
+        operation: c.parent,
+      }));
+      return dispatch(loadMetadataSuccess('campaigns', campaignsMetadata));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
