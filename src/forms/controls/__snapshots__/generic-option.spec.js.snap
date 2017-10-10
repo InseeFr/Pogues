@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form controls - Generic option Should exists with the corresponding template 1`] = `
+<div
+  className="fake-class-name"
+  data-value="Fake value"
+>
+  Fake label
+</div>
+`;

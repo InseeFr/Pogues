@@ -68,6 +68,10 @@ export function requiredSelectMultiple(value = []) {
   return value.length > 0 ? undefined : Dictionary.validationRequiredMultiple;
 }
 
+export function requiredListCheckboxes(value) {
+  return value !== '' ? undefined : Dictionary.validationRequiredMultiple;
+}
+
 export function name(value = '') {
   return value !== '' && !/^[A-Z0-9\-_]+$/i.test(value) ? Dictionary.validationInvalidName : undefined;
 }

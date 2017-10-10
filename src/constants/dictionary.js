@@ -491,7 +491,7 @@ const dictionary = {
     en: 'The question contains invalid collected variables.',
   },
   errorUniqueVariableName: {
-    fr: 'Les noms de variable doivent être unique',
+    fr: 'Les noms de variable doivent être uniques',
     en: 'Variable names should be unique',
   },
   errorUniqueComponentName: {
@@ -940,12 +940,12 @@ const dictionary = {
     en: 'Are you sure?',
   },
   serie: {
-    fr: 'Série',
-    en: 'Serie',
+    fr: 'Séries',
+    en: 'Series',
   },
   operation: {
-    fr: 'Operation',
-    en: 'Operation',
+    fr: 'Opération statistique ',
+    en: 'Statistical operation',
   },
   campaigns: {
     fr: 'Campagnes',
@@ -956,12 +956,16 @@ const dictionary = {
     en: 'Select a serie',
   },
   selectOperation: {
-    fr: 'Sélectionner une operation',
+    fr: 'Sélectionner une opération',
     en: 'Select an operation',
   },
   selectCampaigns: {
     fr: 'Sélectionner au moins une campagne',
     en: 'Select at least one campaign',
+  },
+  noValuesCampaigns: {
+    fr: 'Sélectionner une opération pour afficher la liste des campagnes',
+    en: 'Select an operation to show a list of campaigns'
   },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',

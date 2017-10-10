@@ -3,12 +3,30 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Select from 'layout/forms/controls/select';
-import { requiredSelect, requiredSelectMultiple } from 'layout/forms/validation-rules';
+import { requiredSelect, requiredListCheckboxes } from 'layout/forms/validation-rules';
+import ListCheckboxes from 'forms/controls/list-checkboxes';
+import GenericOption from 'forms/controls/generic-option';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function StatisticalContext({ series, operations, campaigns, required, multipleCampaign }) {
   const validationProps = required ? { validate: [requiredSelect] } : {};
-  const validationPropsMultiple = required ? { validate: [requiredSelectMultiple] } : {};
+  const campaignsPropsBase = {
+    name: 'campaigns',
+    label: Dictionary.campaigns,
+    disabled: campaigns.length === 0,
+    required: required,
+  };
+  const campaignProps = {
+    ...campaignsPropsBase,
+    component: Select,
+    options: campaigns,
+  };
+  const campaignPropsMultiple = {
+    ...campaignsPropsBase,
+    component: ListCheckboxes,
+    noValuesMessage: Dictionary.noValuesCampaigns,
+    validate: [requiredListCheckboxes],
+  };
   return (
     <div id="statistical-context-filters">
       <Field
@@ -30,17 +48,17 @@ function StatisticalContext({ series, operations, campaigns, required, multipleC
         required={required}
         {...validationProps}
       />
-      <Field
-        name="campaigns"
-        component={Select}
-        label={Dictionary.campaigns}
-        options={campaigns}
-        emptyValue={Dictionary.selectCampaigns}
-        disabled={campaigns.length === 0}
-        required={required}
-        multiple={multipleCampaign}
-        {...validationPropsMultiple}
-      />
+      {multipleCampaign ? (
+        <Field {...campaignPropsMultiple}>
+          {campaigns.map(c => (
+            <GenericOption key={c.value} value={c.value}>
+              {c.label}
+            </GenericOption>
+          ))}
+        </Field>
+      ) : (
+        <Field {...campaignProps} />
+      )}
     </div>
   );
 }
