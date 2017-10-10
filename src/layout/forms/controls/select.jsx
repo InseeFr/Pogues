@@ -29,7 +29,7 @@ class Select extends Component {
       </option>
     ));
 
-    if (!required && emptyValue !== '') {
+    if (emptyValue !== '') {
       listOptions.unshift(
         <option key="-1" value="">
           {emptyValue}

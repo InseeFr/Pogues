@@ -3,6 +3,7 @@
 .ctrl-input,
 .ctrl-list-radios-buttons,
 .ctrl-checkbox,
+.ctrl-list-checkboxes,
 .ctrl-tree-select {
   @extend .form-group;
   @include make-row();
@@ -17,6 +18,7 @@
 .ctrl-select,
 .ctrl-input,
 .ctrl-checkbox,
+.ctrl-list-checkboxes,
 .ctrl-tree-select {
   label + div {
     @include make-xs-column(6);

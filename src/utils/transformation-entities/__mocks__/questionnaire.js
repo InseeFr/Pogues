@@ -12,7 +12,7 @@ export const questionnaireForm = {
   name: 'THISISAQUE',
   serie: 'serie01',
   operation: 'operation01',
-  campaigns: ['campaign01'],
+  campaigns: 'campaign01',
 };
 
 export const questionnaireStore = {

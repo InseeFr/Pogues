@@ -963,6 +963,10 @@ const dictionary = {
     fr: 'Sélectionner au moins une campagne',
     en: 'Select at least one campaign',
   },
+  noValuesCampaigns: {
+    fr: 'Sélectionner une opération pour afficher la liste des campagnes',
+    en: 'Select an operation to show a list of campaigns'
+  },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
     en: 'Statement label required',
