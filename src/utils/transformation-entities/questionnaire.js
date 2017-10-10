@@ -55,7 +55,7 @@ function transformationFormToState(form, currentState) {
     name,
     serie,
     operation,
-    campaigns,
+    campaigns: campaigns.split(','),
     final,
     agency,
     lastUpdatedDate,
@@ -98,7 +98,7 @@ function transformationStateToForm(currentState) {
     name,
     serie,
     operation,
-    campaigns,
+    campaigns: campaigns.join(),
   };
 }
 

@@ -56,7 +56,7 @@ class StatisticalContextContainer extends Component {
 
     if (this.props.selectedOperation !== nextProps.selectedOperation) {
       this.props.loadCampaignsIfNeeded(nextProps.selectedOperation);
-      this.props.change(formName, `${path}campaigns`, []);
+      this.props.change(formName, `${path}campaigns`, '');
     }
   }
 
