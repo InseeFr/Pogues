@@ -129,11 +129,9 @@ class ComponentNewContainer extends Component {
       let updatedExternalVariablesStore = {};
       let updatedCodesListsStore = {};
       let updatedCollectedlVariablesStore = {};
+      const validationErrors = getValidationErrors(values, activeCodesListsStore);
 
-      if (type === QUESTION) {
-        const validationErrors = getValidationErrors(values, activeCodesListsStore);
-        if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
-      }
+      if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
 
       const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
 

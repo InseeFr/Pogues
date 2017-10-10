@@ -142,8 +142,8 @@ function validateList(values, path) {
   const { numLinesMin, numLinesMax } = values;
   const numLinesMinMin = minValue(1)(numLinesMin);
   const numLinesMaxMin = minValue(1)(numLinesMax);
-  const numLinesMinMax = maxValue(20)(numLinesMin);
-  const numLinesMaxMax = maxValue(20)(numLinesMax);
+  const numLinesMinMax = maxValue(100)(numLinesMin);
+  const numLinesMaxMax = maxValue(100)(numLinesMax);
 
   if (numLinesMinMin) validationErrors.push([`${path}.numLinesMin`, numLinesMinMin]);
   if (numLinesMaxMin) validationErrors.push([`${path}.numLinesMax`, numLinesMaxMin]);
@@ -289,6 +289,20 @@ function validateCollectedVariables(values, codesListStore, path) {
   return validationErrors;
 }
 
+function validateNameLabel(values) {
+  const validationErrors = [];
+  const { name, label } = values;
+  const isValidName = validName(name);
+  const nameRequired = required(name);
+  const labelRequired = required(label);
+
+  if (isValidName) validationErrors.push(['name', isValidName]);
+  if (nameRequired) validationErrors.push(['name', nameRequired]);
+  if (labelRequired) validationErrors.push(['label', labelRequired]);
+
+  return validationErrors;
+}
+
 /**
  * This method validate that the response format values are valids.
  *
@@ -400,11 +414,15 @@ function getNestedErrorFromPath(path, message) {
  *                  to the element where show the error and a second element with the error message.
  */
 export function getValidationErrors(values, codesListStore) {
-  let validationErrors = validateResponseFormat(values, 'responseFormat');
+  let validationErrors = validateNameLabel(values);
 
-  // The collected variables are validated only when response format is valid.
-  if (validationErrors.length === 0) {
-    validationErrors = validateCollectedVariables(values, codesListStore, 'collectedVariables');
+  if (values.responseFormat) {
+    validationErrors = [...validationErrors, ...validateResponseFormat(values, 'responseFormat')];
+
+    // The collected variables are validated only when response format is valid.
+    if (validationErrors.length === 0) {
+      validationErrors = validateCollectedVariables(values, codesListStore, 'collectedVariables');
+    }
   }
 
   return validationErrors;

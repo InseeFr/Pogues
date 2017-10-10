@@ -180,24 +180,24 @@ const dictionary = {
     fr: 'Sélectionner un questionnaire',
   },
   addDeclaration: {
-    en: 'Add a statement',
-    fr: 'Ajouter une déclaration',
+    en: 'Reset a statement',
+    fr: 'Réinitialiser une déclaration',
   },
   addControl: {
-    en: 'Add a control',
-    fr: 'Ajouter un contrôle',
+    en: 'Reset a control',
+    fr: 'Réinitialiser un contrôle',
   },
   addCalculatedVariable: {
-    en: 'Add a calculated variable',
-    fr: 'Ajouter une variable calculé',
+    en: 'Reset a calculated variable',
+    fr: 'Réinitialiser une variable calculé',
   },
   addExternalVariable: {
-    en: 'Add a external variable',
-    fr: 'Ajouter une variable externe',
+    en: 'Reset a external variable',
+    fr: 'Réinitialiser une variable externe',
   },
   addCollectedVariable: {
-    en: 'Add a collected variable',
-    fr: 'Ajouter une variable collectée',
+    en: 'Reset a collected variable',
+    fr: 'Réinitialiser une variable collectée',
   },
   declarations: {
     en: 'Statements',
@@ -965,7 +965,7 @@ const dictionary = {
   },
   noValuesCampaigns: {
     fr: 'Sélectionner une opération pour afficher la liste des campagnes',
-    en: 'Select an operation to show a list of campaigns'
+    en: 'Select an operation to show a list of campaigns',
   },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
