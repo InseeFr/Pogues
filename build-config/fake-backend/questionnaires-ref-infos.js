@@ -2,7 +2,7 @@ module.exports = [
   {
     id: 'FAKE_ID_01',
     name: 'FAKE_NAME_01',
-    label: 'Fake questionnaire 01',
+    title: 'Fake questionnaire 01',
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation01',
@@ -11,7 +11,7 @@ module.exports = [
   {
     id: 'FAKE_ID_02',
     name: 'FAKE_NAME_02',
-    label: 'Fake questionnaire 02',
+    title: 'Fake questionnaire 02',
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation01',
@@ -20,7 +20,7 @@ module.exports = [
   {
     id: 'FAKE_ID_03',
     name: 'FAKE_NAME_03',
-    label: 'Fake questionnaire 03',
+    title: 'Fake questionnaire 03',
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation02',
@@ -29,7 +29,7 @@ module.exports = [
   {
     id: 'FAKE_ID_04',
     name: 'FAKE_NAME_04',
-    label: 'Fake questionnaire 04',
+    title: 'Fake questionnaire 04',
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation02',
@@ -38,7 +38,7 @@ module.exports = [
   {
     id: 'FAKE_ID_05',
     name: 'FAKE_NAME_05',
-    label: 'Fake questionnaire 05',
+    title: 'Fake questionnaire 05',
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation03',
@@ -47,7 +47,7 @@ module.exports = [
   {
     id: 'FAKE_ID_06',
     name: 'FAKE_NAME_06',
-    label: 'Fake questionnaire 06',
+    title: 'Fake questionnaire 06',
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation03',
@@ -56,7 +56,7 @@ module.exports = [
   {
     id: 'FAKE_ID_07',
     name: 'FAKE_NAME_07',
-    label: 'Fake questionnaire 07',
+    title: 'Fake questionnaire 07',
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation04',
@@ -65,7 +65,7 @@ module.exports = [
   {
     id: 'FAKE_ID_08',
     name: 'FAKE_NAME_08',
-    label: 'Fake questionnaire 08',
+    title: 'Fake questionnaire 08',
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation04',
@@ -74,7 +74,7 @@ module.exports = [
   {
     id: 'FAKE_ID_09',
     name: 'FAKE_NAME_09',
-    label: 'Fake questionnaire 09',
+    title: 'Fake questionnaire 09',
     version: 'Version 01',
     serie: 'serie03',
     operation: 'operation05',
@@ -83,7 +83,7 @@ module.exports = [
   {
     id: 'FAKE_ID_10',
     name: 'FAKE_NAME_10',
-    label: 'Fake questionnaire 10',
+    title: 'Fake questionnaire 10',
     version: 'Version 01',
     serie: 'serie03',
     operation: 'operation05',

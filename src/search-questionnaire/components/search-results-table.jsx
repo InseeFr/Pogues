@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Dictionary from 'utils/dictionary/dictionary';
+
 class SearchResultsTable extends Component {
   static propTypes = {
     results: PropTypes.array.isRequired,
@@ -12,7 +14,9 @@ class SearchResultsTable extends Component {
   render() {
     const { headers, Row, results } = this.props;
     const headerRow = (
-      <div className="search-results__header">{headers.map((h, index) => <div key={`${h}-${index}`}>{h}</div>)}</div>
+      <div className="search-results__header">
+        {headers.map((h, index) => <div key={`${h}-${index}`}>{Dictionary[`headerSearchQuestionnaire_${h}`]}</div>)}
+      </div>
     );
     const resultRows = results.map((r, index) => <Row key={`${r.id}-${index}`} {...r} />);
 
