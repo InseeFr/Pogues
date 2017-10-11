@@ -965,7 +965,7 @@ const dictionary = {
   },
   noValuesCampaigns: {
     fr: 'Sélectionner une opération pour afficher la liste des campagnes',
-    en: 'Select an operation to show a list of campaigns'
+    en: 'Select an operation to show a list of campaigns',
   },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
@@ -1046,6 +1046,38 @@ const dictionary = {
   validation_response_format_required: {
     fr: 'Format de réponse obligatoire.',
     en: 'Response format required.',
+  },
+  headerSearchQuestionnaire_version: {
+    fr: 'Version',
+    en: 'Version',
+  },
+  headerSearchQuestionnaire_id: {
+    fr: 'Id',
+    en: 'Id',
+  },
+  headerSearchQuestionnaire_title: {
+    fr: 'Titre',
+    en: 'Title',
+  },
+  headerSearchQuestionnaire_serie: {
+    fr: 'Série',
+    en: 'Series',
+  },
+  headerSearchQuestionnaire_operation: {
+    fr: 'Opération statistique',
+    en: 'Statistical operation',
+  },
+  headerSearchQuestionnaire_campaign: {
+    fr: 'Campagne',
+    en: 'Campaign',
+  },
+  headerSearchQuestionnaire_action: {
+    fr: 'Action',
+    en: 'Action',
+  },
+  actions_reuse: {
+    fr: 'Réutiliser',
+    en: 'Reuse',
   },
 };
 
