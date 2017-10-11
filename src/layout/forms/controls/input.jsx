@@ -29,32 +29,29 @@ function Input({
     };
   }
 
-  const helpBlock = help
-    ? <span className="help-block">
-        <span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP}{' '}
-      </span>
-    : '';
+  const helpBlock = help ? (
+    <span className="help-block">
+      <span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP}{' '}
+    </span>
+  ) : (
+    ''
+  );
 
   return (
     <div className="ctrl-input">
-      {label &&
+      {label && (
         <label htmlFor={customProps.id}>
           {label}
           {required ? <span>*</span> : ''}
           {helpBlock}
-        </label>}
+        </label>
+      )}
 
       <div>
         <input {...input} {...customProps} />
         {touched &&
-          ((error &&
-            <span className="form-error">
-              {error}
-            </span>) ||
-            (warning &&
-              <span className="form-warm">
-                {warning}
-              </span>))}
+          ((error && <span className="form-error">{error}</span>) ||
+            (warning && <span className="form-warm">{warning}</span>))}
       </div>
     </div>
   );
