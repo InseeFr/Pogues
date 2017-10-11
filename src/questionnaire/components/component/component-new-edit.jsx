@@ -14,7 +14,6 @@ import Tabs from 'layout/widget/tabs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import Textarea from 'layout/forms/controls/rich-textarea';
-import { required, name as validationName } from 'layout/forms/validation-rules';
 import { componentName } from 'layout/forms/normalize-inputs';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -140,7 +139,6 @@ export class QuestionNewEdit extends Component {
               buttons
               shouldSubmitOnEnter
               label={Dictionary.title}
-              validate={[required]}
               required
               avoidSubmitOnEnter={false}
             />
@@ -151,7 +149,6 @@ export class QuestionNewEdit extends Component {
             type="text"
             component={Input}
             label={Dictionary.name}
-            validate={[required, validationName]}
             normalize={componentName}
             required
             avoidSubmitOnEnter={false}
@@ -161,10 +158,11 @@ export class QuestionNewEdit extends Component {
             <button type="submit" disabled={componentId === '' && (pristine || submitting)}>
               {Dictionary.validate}
             </button>
-            {onCancel &&
+            {onCancel && (
               <button type="reset" className="cancel" disabled={submitting} onClick={onCancel}>
                 {Dictionary.cancel}
-              </button>}
+              </button>
+            )}
           </div>
         </form>
       </div>

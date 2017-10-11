@@ -26,6 +26,13 @@
     }
   }
 
+  &.search-results-7 {
+    > div > div {
+      @include make-xs-column(1);
+      width: 14%;
+    }
+  }
+
   div.search-results__header {
     text-align: center ;
     font-weight: bold;
