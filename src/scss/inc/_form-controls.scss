@@ -4,6 +4,7 @@
 .ctrl-list-radios-buttons,
 .ctrl-checkbox,
 .ctrl-list-checkboxes,
+.ctrl-input-autocomplete,
 .ctrl-tree-select {
   @extend .form-group;
   @include make-row();
@@ -19,6 +20,7 @@
 .ctrl-input,
 .ctrl-checkbox,
 .ctrl-list-checkboxes,
+.ctrl-input-autocomplete,
 .ctrl-tree-select {
   label + div {
     @include make-xs-column(6);
@@ -122,4 +124,35 @@
 
 .ctrl-select select[multiple] {
   height: 200px;
+}
+
+.ctrl-input-autocomplete {
+  .ctrl-input-autocomplete-button-clear {
+    padding-left: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    width: 95%;
+    border: 1px solid grey;
+
+    li {
+      padding: 5px;
+      cursor: pointer;
+      &.active {
+        background-color: $color-grey_03;
+      }
+      &:hover {
+        background-color: $color-grey_03;
+      }
+    }
+  }
 }
