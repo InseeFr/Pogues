@@ -2,12 +2,13 @@ import { Children } from 'react';
 
 export function getControlId(type, name, value) {
   let id = '';
-  if (name && value) id = `${type}-${name}-${value.replace(/\s/g, '-')}`;
+  if (name) id = `${type}-${name}`;
+  if (value) id = `${id}-${value.replace(/\s/g, '-')}`;
   return id;
 }
 
-export function getValuesFromControlOptions(option) {
-  return Children.map(option, op => {
+export function getValuesFromControlOptions(options) {
+  return Children.map(options, op => {
     const { children: label, value, ...otherProps } = op.props;
     return {
       label,

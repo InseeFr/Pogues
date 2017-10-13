@@ -25,7 +25,10 @@
         }
     }
 
-    .ctrl-selec .ctrl-with-add-new label + div, .ctrl-select label + div, .ctrl-input label + div {
+    .ctrl-with-add-new label + div,
+    .ctrl-select label + div,
+    .ctrl-input-autocomplete + div,
+    .ctrl-input label + div {
         width: 70%;
     }
 
