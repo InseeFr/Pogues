@@ -68,7 +68,7 @@ class ListCheckboxes extends Component {
       <div className="ctrl-list-checkboxes">
         <label htmlFor={getControlId('checkbox', input.name, values[0] && values[0].value)}>
           {label}
-          {required ? <span className="ctrl-required">*</span> : ''}
+          {required && <span className="ctrl-required">*</span>}
         </label>
         <div>
           <input type="hidden" name={input.name} />
