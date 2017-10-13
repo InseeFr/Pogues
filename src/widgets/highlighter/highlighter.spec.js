@@ -5,7 +5,7 @@ import HighLighter from './highlighter';
 
 describe('<HighLighter />', () => {
   test('Should highlight a subtext in the main text', () => {
-    const wrapper = shallow(<HighLighter word="test">Fake test string and anothertest</HighLighter>);
+    const wrapper = shallow(<HighLighter highlight="test">Fake test string and anothertest</HighLighter>);
 
     expect(wrapper.html()).toBe('<span>Fake <strong>test</strong> string and another<strong>test</strong></span>');
   });
