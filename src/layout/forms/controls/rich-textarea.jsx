@@ -4,8 +4,13 @@ import Dictionary from 'utils/dictionary/dictionary';
 import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { CompositeDecorator } from 'draft-js';
 
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
+
+// Matches any '${foo' patterns not closed by }
+const InputRegex = /[[(]?\${\w+\b[\])]?(?!\})/;
 
 function Link(props) {
   const { url, title } = props.contentState.getEntity(props.entityKey).getData();
@@ -86,6 +91,7 @@ class RichTextArea extends Component {
     reference: PropTypes.func,
     avoidSubmitOnEnter: PropTypes.bool,
     identifier: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    availableSuggestions: PropTypes.arrayOf(PropTypes.string),
     meta: PropTypes.object.isRequired,
   };
 
@@ -97,11 +103,13 @@ class RichTextArea extends Component {
     help: false,
     avoidSubmitOnEnter: true,
     identifier: undefined,
+    availableSuggestions: undefined,
   };
 
   constructor(props) {
     super(props);
     this.state = {
+      suggestions: [],
       currentValue: props.input.value,
       value: getValue(props),
     };
@@ -117,6 +125,18 @@ class RichTextArea extends Component {
   }
 
   onChange = value => {
+    if (this.props.availableSuggestions) {
+      const matches = editorValueToMarkdown(value).match(InputRegex);
+      if (matches) {
+        this.setState({
+          suggestions: this.props.availableSuggestions.filter(suggestion =>
+            suggestion.includes(matches[0].substring(2))
+          ),
+        });
+      } else {
+        this.setState({ suggestions: [] });
+      }
+    }
     if (this.props.buttons) {
       const markdownValue = editorValueToMarkdown(value);
       this.setState({ value, currentValue: markdownValue }, () => {
@@ -125,9 +145,20 @@ class RichTextArea extends Component {
     }
   };
 
+  // Replaces first ${foo pattern by ${selectedValue}
+  replaceFirstTemplateAvailable = t => () => {
+    const newValue = this.props.input.value.replace(InputRegex, `\${${t}}`);
+    this.props.input.onChange(newValue);
+    // Reset suggestions afterwards and manually update the value since there is no watcher
+    this.setState({ suggestions: [], currentValue: newValue, value: getValue({ input: { value: newValue } }) });
+  };
+
   handleReturn = e => {
     if (!this.props.avoidSubmitOnEnter) {
-      e.target.closest('form').querySelector('button[type=submit]').click();
+      e.target
+        .closest('form')
+        .querySelector('button[type=submit]')
+        .click();
     }
     return 'handled';
   };
@@ -149,21 +180,22 @@ class RichTextArea extends Component {
     const { input, label, required, buttons, help, reference, meta: { touched, error, warning } } = this.props;
     const editorValue = this.state.value;
 
-    const helpBlock =
-      help &&
+    const helpBlock = help && (
       <span className="help-block">
         <span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP}{' '}
-      </span>;
+      </span>
+    );
 
     return (
       <div className="ctrl-input">
-        {label &&
+        {label && (
           <label htmlFor={`select-${input.name}`}>
             {label}
             {required ? <span>*</span> : ''} {helpBlock}
-          </label>}
+          </label>
+        )}
         <div>
-          {buttons &&
+          {buttons && (
             <RichTextEditor
               blockStyleFn={() => 'singleline'}
               value={editorValue}
@@ -173,17 +205,27 @@ class RichTextArea extends Component {
               rootStyle={this.rootStyle}
               formatURL={formatURL}
               ref={reference}
-            />}
+            />
+          )}
           {!buttons && <textarea {...input} id={`select-${input.name}`} ref={reference} />}
           {touched &&
-            ((error &&
-              <span className="form-error">
-                {error}
-              </span>) ||
-              (warning &&
-                <span className="form-warm">
-                  {warning}
-                </span>))}
+            ((error && <span className="form-error">{error}</span>) ||
+              (warning && <span className="form-warm">{warning}</span>))}
+          {this.state.suggestions.length > 0 && (
+            <div className="input-suggestion-wrapper">
+              {this.state.suggestions.map(suggest => (
+                <div
+                  key={`suggestion-key-${suggest}`}
+                  onClick={this.replaceFirstTemplateAvailable(suggest)}
+                  role="button"
+                  className="input-suggestion"
+                >
+                  {' '}
+                  {suggest}{' '}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     );
