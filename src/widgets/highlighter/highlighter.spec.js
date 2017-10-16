@@ -9,4 +9,5 @@ describe('<HighLighter />', () => {
 
     expect(wrapper.html()).toBe('<span>Fake <strong>test</strong> string and another<strong>test</strong></span>');
   });
+  // @TODO: Add test for case sensitive feature
 });
