@@ -124,9 +124,11 @@ class RichTextArea extends Component {
     }
   }
 
-  onChange = value => {
+  onChange = withConvertion => value => {
+    // Depends if we are using the real rte or just a classic textarea
+    const convertedValue = withConvertion ? editorValueToMarkdown(value) : value.target.value;
     if (this.props.availableSuggestions) {
-      const matches = editorValueToMarkdown(value).match(InputRegex);
+      const matches = convertedValue.match(InputRegex);
       if (matches) {
         this.setState({
           suggestions: this.props.availableSuggestions.filter(suggestion =>
@@ -137,12 +139,9 @@ class RichTextArea extends Component {
         this.setState({ suggestions: [] });
       }
     }
-    if (this.props.buttons) {
-      const markdownValue = editorValueToMarkdown(value);
-      this.setState({ value, currentValue: markdownValue }, () => {
-        this.props.input.onChange(markdownValue);
-      });
-    }
+    this.setState({ value, currentValue: convertedValue }, () => {
+      this.props.input.onChange(convertedValue);
+    });
   };
 
   // Replaces first ${foo pattern by ${selectedValue}
@@ -151,6 +150,13 @@ class RichTextArea extends Component {
     this.props.input.onChange(newValue);
     // Reset suggestions afterwards and manually update the value since there is no watcher
     this.setState({ suggestions: [], currentValue: newValue, value: getValue({ input: { value: newValue } }) });
+  };
+
+  useTabToAutoComplete = e => {
+    if (this.state.suggestions.length > 0 && e.key === 'Tab') {
+      this.replaceFirstTemplateAvailable(this.state.suggestions[0])(e);
+      e.preventDefault();
+    }
   };
 
   handleReturn = e => {
@@ -199,7 +205,7 @@ class RichTextArea extends Component {
             <RichTextEditor
               blockStyleFn={() => 'singleline'}
               value={editorValue}
-              onChange={value => this.onChange(value)}
+              onChange={this.onChange(true)}
               toolbarConfig={this.toolbarConfig}
               handleReturn={this.handleReturn}
               rootStyle={this.rootStyle}
@@ -207,7 +213,15 @@ class RichTextArea extends Component {
               ref={reference}
             />
           )}
-          {!buttons && <textarea {...input} id={`select-${input.name}`} ref={reference} />}
+          {!buttons && (
+            <textarea
+              {...input}
+              onChange={this.onChange(false)}
+              onKeyDown={this.useTabToAutoComplete}
+              id={`select-${input.name}`}
+              ref={reference}
+            />
+          )}
           {touched &&
             ((error && <span className="form-error">{error}</span>) ||
               (warning && <span className="form-warm">{warning}</span>))}
