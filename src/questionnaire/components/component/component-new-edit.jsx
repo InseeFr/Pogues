@@ -14,7 +14,7 @@ import Tabs from 'layout/widget/tabs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { componentName } from 'layout/forms/normalize-inputs';
-import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
+import { InputWithVariableAutoCompletion, TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -134,7 +134,7 @@ export class QuestionNewEdit extends Component {
               }}
               name="label"
               type="text"
-              component={type === QUESTION ? TextAreaWithVariableAutoCompletion : Input}
+              component={type === QUESTION ? TextAreaWithVariableAutoCompletion : InputWithVariableAutoCompletion}
               buttons
               shouldSubmitOnEnter
               label={Dictionary.title}

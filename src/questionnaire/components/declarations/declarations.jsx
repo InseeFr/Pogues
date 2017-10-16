@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
-import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { declarationsFormDefault } from 'utils/transformation-entities/declaration';
 import { required } from 'layout/forms/validation-rules';
+import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 
 function validationDeclaration(values) {
   const { label } = values;
@@ -64,7 +64,7 @@ function InputDeclaration({ identifier, showPosition }) {
       <Field
         name="label"
         id="declaration_text"
-        component={Textarea}
+        component={TextAreaWithVariableAutoCompletion}
         label={Dictionary.declaration_label}
         buttons
         required
