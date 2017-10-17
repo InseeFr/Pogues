@@ -9,11 +9,6 @@ describe('RichTextArea', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test('should use the rte lib to get desired element', () => {
-    const tree = decoreFormField(<Field component={TextArea} buttons name="checkbox" label="Label Name" />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   test('should have a help block', () => {
     const tree = decoreFormField(<Field help component={TextArea} name="checkbox" label="Label Name" />).toJSON();
     expect(tree).toMatchSnapshot();
