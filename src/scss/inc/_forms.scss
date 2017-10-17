@@ -3,7 +3,7 @@
     text-align: center;
     max-width: 40%;
     margin: auto;
-    
+
     button {
       @extend .btn;
       margin-left: 10px;
@@ -11,7 +11,7 @@
       text-transform: uppercase;
       font-weight: bold;
       width: 175px;
-      
+
       &[type="submit"] {
         @extend .btn-yellow;
       }
@@ -51,3 +51,25 @@ form {
     margin: 0 40px 15px 0;
     max-width: 300px;
 }
+
+/* Just keeping one line of suggestions */
+.input-suggestion-wrapper {
+  float: left;
+  height: 41px;
+  overflow: hidden;
+}
+
+.input-suggestion {
+  display: inline-block;
+  padding: 8px;
+  background-color: $color-grey_03;
+  border: solid 1px $color-grey_02;
+  width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  &:hover {
+    background-color: $color-grey_02;
+    cursor: pointer;
+  }
+}
+

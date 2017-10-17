@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
-import Textarea from 'layout/forms/controls/rich-textarea';
+import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { redirectionsFormDefault } from 'utils/transformation-entities/redirection';
 import TreeSelectGotoContainer from 'layout/connected-widget/tree-select-goto';
@@ -28,7 +28,7 @@ function InputRedirection({ componentId, componentType }) {
         type="text"
         name="condition"
         id="redirection_condition"
-        component={Textarea}
+        component={TextAreaWithVariableAutoCompletion}
         label={Dictionary.expression}
         help
         required
