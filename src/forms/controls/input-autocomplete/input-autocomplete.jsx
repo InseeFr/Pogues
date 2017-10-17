@@ -79,9 +79,10 @@ class InputAutocomplete extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const value = nextProps.input.value;
+    const { children, input: { value } } = nextProps;
+
     if (value !== this.props.input.value) {
-      this.setState(init(this.state.options, value));
+      this.setState(init(getValuesFromControlOptions(children), value));
     }
   }
 

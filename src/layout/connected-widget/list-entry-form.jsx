@@ -89,7 +89,7 @@ class ListEntryFormContainer extends Component {
   }
 
   validate() {
-    const { validationInput, currentValues, avoidNewAddition } = this.props;
+    const { validationInput, currentValues, avoidNewAddition, invalidItems } = this.props;
     let validationErrors = [];
 
     if (avoidNewAddition && !currentValues.ref) {
@@ -214,7 +214,7 @@ class ListEntryFormContainer extends Component {
         showRemoveButton={showRemoveButton}
         rerenderOnEveryChange={rerenderOnEveryChange}
         disableRemove={!currentValues.ref}
-        disableDuplicate={!currentValues.ref || (currentValues.id && invalidItems[currentValues.id])}
+        disableDuplicate={!currentValues.ref || (currentValues.id && invalidItems[currentValues.id] !== undefined)}
       />
     );
   }
