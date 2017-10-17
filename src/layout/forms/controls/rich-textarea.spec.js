@@ -13,4 +13,11 @@ describe('RichTextArea', () => {
     const tree = decoreFormField(<Field help component={TextArea} name="checkbox" label="Label Name" />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  test('should accept available suggestions props', () => {
+    const tree = decoreFormField(
+      <Field component={TextArea} availableSuggestions={['foo', 'bar']} name="checkbox" label="Label Name" />
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
