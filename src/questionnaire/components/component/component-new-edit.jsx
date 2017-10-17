@@ -13,8 +13,8 @@ import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import Textarea from 'layout/forms/controls/rich-textarea';
 import { componentName } from 'layout/forms/normalize-inputs';
+import { InputWithVariableAutoCompletion, TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -123,7 +123,6 @@ export class QuestionNewEdit extends Component {
         numErrors: errorsByQuestionTab.collectedVariables,
       });
     }
-
     return (
       <div className="component-edition">
         <form onSubmit={handleSubmit}>
@@ -135,7 +134,7 @@ export class QuestionNewEdit extends Component {
               }}
               name="label"
               type="text"
-              component={type === QUESTION ? Textarea : Input}
+              component={type === QUESTION ? TextAreaWithVariableAutoCompletion : InputWithVariableAutoCompletion}
               buttons
               shouldSubmitOnEnter
               label={Dictionary.title}

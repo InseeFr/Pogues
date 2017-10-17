@@ -4,10 +4,10 @@ import { Field, FormSection } from 'redux-form';
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import Input from 'layout/forms/controls/input';
-import Textarea from 'layout/forms/controls/rich-textarea';
 import Checkbox from 'layout/forms/controls/checkbox';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { controlsFormDefault } from 'utils/transformation-entities/control';
+import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 
 function validationControl(values) {
   const { label, condition, message } = values;
@@ -38,8 +38,21 @@ function InputControl() {
   return (
     <div>
       <Field type="text" name="label" id="control_text" component={Input} label={Dictionary.control_label} required />
-      <Field name="condition" id="control_condition" help component={Textarea} label={Dictionary.expression} required />
-      <Field name="message" id="control_message" component={Textarea} label={Dictionary.control_message} required />
+      <Field
+        name="condition"
+        id="control_condition"
+        help
+        component={TextAreaWithVariableAutoCompletion}
+        label={Dictionary.expression}
+        required
+      />
+      <Field
+        name="message"
+        id="control_message"
+        component={TextAreaWithVariableAutoCompletion}
+        label={Dictionary.control_message}
+        required
+      />
       <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} required />
       <Field
         name="during_collect"
