@@ -129,7 +129,7 @@ class Declarations extends Component {
           selectorPath={Declarations.selectorPath}
           validationInput={validationDeclaration}
           listName="declarations"
-          submitLabel="addDeclaration"
+          submitLabel="reset"
           noValueLabel="noDeclarationYet"
           rerenderOnEveryChange
         />

@@ -148,7 +148,7 @@ class Redirections extends Component {
           selectorPath={Redirections.selectorPath}
           validationInput={validationRedirections(selectedGoto, componentsStore, invalidItems)}
           listName="redirections"
-          submitLabel="defineGoTo"
+          submitLabel="reset"
           noValueLabel="noGoToYet"
           invalidItems={invalidItems}
         />

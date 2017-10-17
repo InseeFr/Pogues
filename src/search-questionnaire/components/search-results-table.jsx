@@ -23,7 +23,7 @@ class SearchResultsTable extends Component {
     return (
       <div className={`box search-results search-results-${headers.length}`}>
         {headerRow}
-        {resultRows.length > 0 ? resultRows : <div>No results</div>}
+        {resultRows.length > 0 ? resultRows : <div className="search-results__empty">{Dictionary.pageSearchNoResults}</div>}
       </div>
     );
   }

@@ -17,7 +17,7 @@ function checkerUniqueComponentName({ appState: { activeComponentsById, activeQu
     errors.push({
       id,
       params: {
-        dictionary: `${Dictionary.errorUniqueComponentName} : ${duplicatedComponentNames.join(',')}`,
+        dictionary: `${Dictionary.errorUniqueComponentName} ${duplicatedComponentNames.join(',')}`,
       },
     });
   }

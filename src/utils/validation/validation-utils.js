@@ -19,6 +19,8 @@ import {
   maxValue,
 } from 'layout/forms/validation-rules';
 
+import Dictionary from 'utils/dictionary/dictionary'
+
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { NEW, QUESTIONNAIRE: QUEST } = CODES_LIST_INPUT_ENUM;
@@ -284,7 +286,7 @@ function validateCollectedVariables(values, codesListStore, path) {
   }
 
   if (numExpectedCollectedVariables !== collectedVariables.length)
-    validationErrors.push([`${path}.label`, 'Necesitas recrear']);
+    validationErrors.push([`${path}.label`, Dictionary.validation_collectedvariable_need_reset]);
 
   return validationErrors;
 }

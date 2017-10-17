@@ -491,12 +491,12 @@ const dictionary = {
     en: 'The question contains invalid collected variables.',
   },
   errorUniqueVariableName: {
-    fr: 'Les noms de variable doivent être uniques',
-    en: 'Variable names should be unique',
+    fr: 'Les noms de variable doivent être uniques :',
+    en: 'Variable names should be unique:',
   },
   errorUniqueComponentName: {
-    fr: 'Les noms de composant (séquence, sous-séquence et question) doivent être uniques',
-    en: 'Component names (sequence, subsequence and question) should be unique',
+    fr: 'Les noms de composant (séquence, sous-séquence et question) doivent être uniques :',
+    en: 'Component names (sequence, subsequence and question) should be unique:',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
@@ -655,8 +655,8 @@ const dictionary = {
     en: 'Question type',
   },
   addMeasure: {
-    fr: 'Ajouter une mesure',
-    en: 'Add a measure',
+    fr: 'Réinitialiser',
+    en: 'Reset',
   },
   noMeasureYet: {
     en: 'No measure yet',
@@ -908,11 +908,11 @@ const dictionary = {
     en: 'The Id can not exceed 16 characters',
   },
   validationMinNumber: {
-    fr: 'Vous devez introduire au mois',
+    fr: 'Veuillez saisir au minimum',
     en: 'Must be at least',
   },
   validationMaxNumber: {
-    fr: 'Vous devez introduire maximum',
+    fr: 'Veuillez saisir au maximum',
     en: 'Must be at most',
   },
   dropHere: {
@@ -940,7 +940,7 @@ const dictionary = {
     en: 'Are you sure?',
   },
   serie: {
-    fr: 'Séries',
+    fr: 'Série',
     en: 'Series',
   },
   operation: {
@@ -951,9 +951,13 @@ const dictionary = {
     fr: 'Campagnes',
     en: 'Campaigns',
   },
+  campaign: {
+    fr: 'Campagne',
+    en: 'Campaign',
+  },
   selectSerie: {
     fr: 'Sélectionner une série',
-    en: 'Select a serie',
+    en: 'Select a series',
   },
   selectOperation: {
     fr: 'Sélectionner une opération',
@@ -1028,7 +1032,7 @@ const dictionary = {
     en: 'Collected variable label required',
   },
   validation_collectedvariable_name: {
-    fr: 'Nom de la variable collectée obligatoire',
+    fr: 'Identifiant de la variable collectée obligatoire',
     en: 'Collected variable name required',
   },
   validation_collectedvariable_existing: {
@@ -1038,6 +1042,10 @@ const dictionary = {
   validation_collectedvariable_no_new: {
     fr: 'Vous ne pouvez pas ajouter des nouvelles variables collectées',
     en: 'It already exists an collected variable with this name',
+  },
+  validation_collectedvariable_need_reset: {
+    fr: 'Veuillez spécifier une variable collectée',
+    en: 'Specify a collected variable',
   },
   validation_question_name_required: {
     fr: 'Identifiant de la question obligatoire.',
@@ -1052,7 +1060,7 @@ const dictionary = {
     en: 'Version',
   },
   headerSearchQuestionnaire_id: {
-    fr: 'Id',
+    fr: 'Identifiant',
     en: 'Id',
   },
   headerSearchQuestionnaire_title: {
@@ -1078,6 +1086,26 @@ const dictionary = {
   actions_reuse: {
     fr: 'Réutiliser',
     en: 'Reuse',
+  },
+  searchInputLabel: {
+    en: 'Questionnaire title',
+    fr: 'Titre du questionnaire',
+  },
+  searchInputPlaceholder: {
+    en: 'Questionnaire title',
+    fr: 'Titre',
+  },
+  searchInputButton: {
+    en: 'Search',
+    fr: 'Rechercher',
+  },
+  pageSearchNoResults: {
+    en: 'No questionnaire found',
+    fr: 'Aucun questionnaire trouvé',
+  },
+  reset: {
+    en: 'Reset',
+    fr: 'Réinitialiser',
   },
 };
 

@@ -72,7 +72,7 @@ class Controls extends Component {
           selectorPath={Controls.selectorPath}
           validationInput={validationControl}
           listName="controls"
-          submitLabel="addControl"
+          submitLabel="reset"
           noValueLabel="noControlYet"
         />
       </FormSection>

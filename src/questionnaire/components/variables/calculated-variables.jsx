@@ -48,7 +48,7 @@ class CalculatedVariables extends Component {
           selectorPath={CalculatedVariables.selectorPath}
           validationInput={validationCalculatedVariable}
           listName="calculatedVariables"
-          submitLabel="addCalculatedVariable"
+          submitLabel="reset"
           noValueLabel="noCalculatedVariablesYet"
           showDuplicateButton={false}
         />
