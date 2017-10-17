@@ -10,7 +10,7 @@ export const propTypes = {
 };
 
 export const defaultProps = {
-  className: '',
+  className: undefined,
 };
 
 // Component

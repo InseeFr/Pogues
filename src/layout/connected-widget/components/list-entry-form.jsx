@@ -44,11 +44,11 @@ ListEntryFormItem.propTypes = {
   noValueLabel: PropTypes.string.isRequired,
   select: PropTypes.func.isRequired,
   invalidItems: PropTypes.object.isRequired,
-  fields: PropTypes.array,
+  fields: PropTypes.object,
 };
 
 ListEntryFormItem.defaultProps = {
-  fields: [],
+  fields: {},
 };
 
 class ListEntryForm extends Component {

@@ -2,7 +2,7 @@ import { getControlId, toggleValueInList } from './widget-utils';
 
 describe('Widget utils', () => {
   test('getControlId', () => {
-    expect(getControlId('input', 'fakeName')).toEqual('');
+    expect(getControlId('input', 'fakeName')).toEqual('input-fakeName');
     expect(getControlId('input', 'fakeName', 'fakeValue')).toEqual('input-fakeName-fakeValue');
     expect(getControlId('input', 'fakeName', 'this is a fake value')).toEqual('input-fakeName-this-is-a-fake-value');
   });
