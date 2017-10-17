@@ -146,3 +146,5 @@ export const TAB_NAMES = {
   COLLECTED_VARIABLES: 'collectedVariables',
   REDIRECTIONS: 'redirections',
 };
+
+export const DEFAULT_FORM_NAME = 'component';

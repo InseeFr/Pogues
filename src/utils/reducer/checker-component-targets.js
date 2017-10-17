@@ -27,6 +27,7 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
             id: key,
             params: {
               itemId: innerKey,
+              targetId: redirection.cible,
               messageKey: 'errorGoToEarlierTgt',
             },
           });

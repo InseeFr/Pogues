@@ -35,6 +35,7 @@ export const propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   numSuggestionsShown: PropTypes.number,
   getOptionLabel: PropTypes.func,
+  caseSensitive: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -44,6 +45,7 @@ export const defaultProps = {
   getOptionLabel: label => {
     return label;
   },
+  caseSensitive: true,
 };
 
 // Component
@@ -77,15 +79,16 @@ class InputAutocomplete extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const value = nextProps.input.value;
+    const { children, input: { value } } = nextProps;
+
     if (value !== this.props.input.value) {
-      this.setState(init(this.state.options, value));
+      this.setState(init(getValuesFromControlOptions(children), value));
     }
   }
 
   onKeyUp(event) {
     const { indexActiveSuggestion, suggestions, options } = this.state;
-    const { getOptionLabel, numSuggestionsShown, input: { onChange } } = this.props;
+    const { getOptionLabel, numSuggestionsShown, caseSensitive, input: { onChange } } = this.props;
     const inputSearchValue = event.currentTarget.value.trim();
 
     if (event.key === 'ArrowUp') {
@@ -97,7 +100,7 @@ class InputAutocomplete extends Component {
     } else if (inputSearchValue.length === 0) {
       this.setState(clearSuggestions());
     } else {
-      this.setState(setSuggestions(inputSearchValue, options, getOptionLabel, numSuggestionsShown));
+      this.setState(setSuggestions(inputSearchValue, options, getOptionLabel, numSuggestionsShown, caseSensitive));
     }
   }
 
@@ -114,7 +117,7 @@ class InputAutocomplete extends Component {
   }
 
   render() {
-    const { input: { name, value }, label, required, meta: { touched, error } } = this.props;
+    const { input: { name, value }, label, required, caseSensitive, meta: { touched, error } } = this.props;
     const id = getControlId('input-autocomplete', name);
     const { suggestions, indexActiveSuggestion, showSuggestions, inputSearch } = this.state;
     const searchInputStyle = {
@@ -188,7 +191,9 @@ class InputAutocomplete extends Component {
                     this.onClick(index);
                   }}
                 >
-                  <HighLighter highlight={inputSearch}>{this.props.getOptionLabel(su.label, su.value)}</HighLighter>
+                  <HighLighter highlight={inputSearch} caseSensitive={caseSensitive}>
+                    {this.props.getOptionLabel(su.label, su.value)}
+                  </HighLighter>
                 </li>
               ))}
             </ul>
