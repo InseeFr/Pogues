@@ -17,4 +17,18 @@ describe('InputWithSuggestions', () => {
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  test('should accept available suggestions props', () => {
+    const tree = decoreFormField(
+      <Field
+        help
+        type="text"
+        availableSuggestions={['foo', 'bar']}
+        component={InputWithSuggestions}
+        name="input"
+        label="Label Name"
+      />
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
