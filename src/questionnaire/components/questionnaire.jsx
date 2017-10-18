@@ -211,10 +211,6 @@ class Questionnaire extends Component {
             <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>
               {Dictionary.showDetail}
             </button>
-            <button className="btn-yellow">
-              {Dictionary.duplicate}
-              <span className="glyphicon glyphicon-duplicate" />
-            </button>
             <button className="btn-yellow" onClick={this.handleDisplayDeleteConfirm}>
               {Dictionary.remove}
               <span className="glyphicon glyphicon-trash" />

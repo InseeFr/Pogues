@@ -12,7 +12,7 @@ function StatisticalContext({ series, operations, campaigns, required, multipleC
   const validationProps = required ? { validate: [requiredSelect] } : {};
   const campaignsPropsBase = {
     name: 'campaigns',
-    label: Dictionary.campaigns,
+    label: multipleCampaign ? Dictionary.campaigns : Dictionary.campaign,
     disabled: campaigns.length === 0,
     required: required,
   };

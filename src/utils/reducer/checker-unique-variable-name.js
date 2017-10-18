@@ -35,7 +35,7 @@ function checkerUniqueVariableName({
     errors.push({
       id,
       params: {
-        dictionary: `${Dictionary.errorUniqueVariableName} : ${duplicatedVariablesNames.join(',')}`,
+        dictionary: `${Dictionary.errorUniqueVariableName} ${duplicatedVariablesNames.join(',')}`,
       },
     });
   }

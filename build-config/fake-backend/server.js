@@ -123,7 +123,7 @@ server.post('/search', function (req, res, next) {
 
   if(body.filter !== '') {
     result = result.filter(function (qr) {
-      return qr.label.search(body.filter) !== -1
+      return qr.title.search(body.filter) !== -1
     })
   }
 

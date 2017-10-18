@@ -46,7 +46,7 @@ class ExternalVariables extends Component {
           selectorPath={ExternalVariables.selectorPath}
           validationInput={validationExternalVariable}
           listName="externalVariables"
-          submitLabel="addExternalVariable"
+          submitLabel="reset"
           noValueLabel="noExternalVariablesYet"
           showDuplicateButton={false}
         />

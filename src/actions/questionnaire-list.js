@@ -100,6 +100,8 @@ export const loadQuestionnairesFromRef = (q, filters) => dispatch => {
     payload: null,
   });
   return getQuestionnaireListFromRef(q, filters)
-    .then(qrList => dispatch(loadQuestionnairesFromRefSuccess(qrList)))
+    .then(qrList => {
+      return dispatch(loadQuestionnairesFromRefSuccess(qrList))
+    })
     .catch(err => dispatch(loadQuestionnairesFromRefFailure(err)));
 };
