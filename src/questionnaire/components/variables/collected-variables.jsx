@@ -76,7 +76,7 @@ class CollectedVariables extends Component {
           selectorPath={selectorPath}
           validationInput={validationCollectedVariable}
           listName="collectedVariables"
-          submitLabel="addCollectedVariable"
+          submitLabel="reset"
           noValueLabel="noCollectedVariablesYet"
           showDuplicateButton={false}
           showAddButton={false}

@@ -54,7 +54,7 @@ class ResponseFormat extends FormSection {
           label={Dictionary.responseFormats}
           components={responseFormatTypes}
           selectorPath={ResponseFormat.selectorPath}
-          emptyValue={this.props.edit ? '' : '--'}
+          emptyValue={this.props.edit ? '' : Dictionary.selectType}
           validateInline={false}
         />
       </div>

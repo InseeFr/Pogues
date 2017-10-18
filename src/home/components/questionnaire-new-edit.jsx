@@ -29,7 +29,7 @@ export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, onCan
         />
 
         <div className="form-footer">
-          <button type="submit" disabled={pristine || submitting}>
+          <button type="submit" disabled={submitting}>
             {Dictionary.validate}
           </button>
           {onCancel && (
