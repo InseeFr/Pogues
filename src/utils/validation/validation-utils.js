@@ -320,8 +320,8 @@ function validateResponseFormat(values, path) {
   let validationErrors = [];
 
   if (responseFormatRequired) {
-    validationErrors.type = 'formato de respuesta obligatorio';
-    validationErrors.push([`${path}.type`, 'formato de respuesta obligatorio']);
+    validationErrors.type = responseFormatRequired;
+    validationErrors.push([`${path}.type`, responseFormatRequired]);
   } else if (type === SIMPLE) {
     validationErrors = validateSimple(responseFormat, `${path}.${type}`);
   } else if (type === SINGLE_CHOICE) {

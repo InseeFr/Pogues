@@ -53,7 +53,7 @@ const dictionary = {
   },
   noCalculatedVariablesYet: {
     en: 'No calculated variable yet',
-    fr: 'Aucune variable calculé définie',
+    fr: 'Aucune variable calculée définie',
   },
   noExternalVariablesYet: {
     en: 'No external variable yet',
@@ -189,7 +189,7 @@ const dictionary = {
   },
   addCalculatedVariable: {
     en: 'Reset a calculated variable',
-    fr: 'Réinitialiser une variable calculé',
+    fr: 'Réinitialiser une variable calculée',
   },
   addExternalVariable: {
     en: 'Reset a external variable',
@@ -293,7 +293,7 @@ const dictionary = {
   },
   calculatedVariables: {
     en: 'Calculated variables',
-    fr: 'Variables calculés',
+    fr: 'Variables calculées',
   },
   externalVariables: {
     en: 'External variables',
@@ -771,8 +771,8 @@ const dictionary = {
     en: 'Homepage',
   },
   stamp: {
-    fr: 'Timbre',
-    en: 'Stamp',
+    fr: 'Habilitation',
+    en: 'Authorisation',
   },
   welcome: {
     fr: 'Bienvenue dans POGUES',
@@ -967,6 +967,10 @@ const dictionary = {
     fr: 'Sélectionner au moins une campagne',
     en: 'Select at least one campaign',
   },
+  selectType: {
+    fr: 'Sélectionne un type',
+    en: 'Select a type',
+  },
   noValuesCampaigns: {
     fr: 'Sélectionner une opération pour afficher la liste des campagnes',
     en: 'Select an operation to show a list of campaigns',
@@ -1000,19 +1004,19 @@ const dictionary = {
     en: 'Target required',
   },
   validation_calculatedvariable_label: {
-    fr: 'Libellé de la variable calculé obligatoire',
+    fr: 'Libellé de la variable calculée obligatoire',
     en: 'Calculated variable label required',
   },
   validation_calculatedvariable_name: {
-    fr: 'Nom de la variable calculé obligatoire',
+    fr: 'Nom de la variable calculée obligatoire',
     en: 'Calculated variable name required',
   },
   validation_calculatedvariable_formula: {
-    fr: 'Formule de la variable calculé obligatoire',
+    fr: 'Formule de la variable calculée obligatoire',
     en: 'Calculated variable formula required',
   },
   validation_calculatedvariable_existing: {
-    fr: 'Il existe une variable calculé avec le même nom',
+    fr: 'Il existe une variable calculée avec le même nom',
     en: 'It already exists a calculated variable with this name',
   },
   validation_externalvariable_label: {

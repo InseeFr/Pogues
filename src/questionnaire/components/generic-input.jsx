@@ -38,7 +38,7 @@ class GenericInput extends Component {
       showNewComponentModal: true,
       typeNewComponent: componentType,
     };
-    this.setState(newState);  
+    this.setState(newState);
   }
 
   handleCloseNewComponent() {
@@ -112,7 +112,7 @@ class GenericInput extends Component {
           {Dictionary.visualise}
           <span className="glyphicon glyphicon-eye-open" />
         </a>
-        <button className="btn-yellow" id="publish">
+        <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
           <span className="glyphicon glyphicon-share-alt" />
         </button>

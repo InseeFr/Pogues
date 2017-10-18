@@ -54,18 +54,18 @@ function InputControl() {
         required
       />
       <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} required />
-      <Field
-        name="during_collect"
-        id="control_during_collect"
-        component={Checkbox}
-        label={Dictionary.control_during_collect}
-      />
-      <Field
-        name="post_collect"
-        id="control_post_collect"
-        component={Checkbox}
-        label={Dictionary.control_post_collect}
-      />
+      {/* <Field */}
+      {/* name="during_collect" */}
+      {/* id="control_during_collect" */}
+      {/* component={Checkbox} */}
+      {/* label={Dictionary.control_during_collect} */}
+      {/* /> */}
+      {/* <Field */}
+      {/* name="post_collect" */}
+      {/* id="control_post_collect" */}
+      {/* component={Checkbox} */}
+      {/* label={Dictionary.control_post_collect} */}
+      {/* /> */}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultCalculatedVariableForm } from 'utils/transformation-entities/calculated-variable';
 import Input from 'layout/forms/controls/input';
 import { name as validateName, nameSize } from 'layout/forms/validation-rules';
+import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 
 function validationCalculatedVariable(values) {
   const { label, name, formula, ref, calculatedVariables } = values;
@@ -29,10 +30,11 @@ function InputCalculatedVariable() {
     <div>
       <Field name="label" type="text" component={Input} label={Dictionary.label} required />
       <Field name="name" type="text" component={Input} label={Dictionary.name} required />
-      <Field name="formula" type="text" component={Input} label={Dictionary.formula} required />
+      <Field name="formula" type="text" component={TextAreaWithVariableAutoCompletion} label={Dictionary.formula} required />
     </div>
   );
 }
+
 class CalculatedVariables extends Component {
   static selectorPath = 'calculatedVariables';
 
