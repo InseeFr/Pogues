@@ -75,6 +75,7 @@
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "20.0.4",
+    "jison": "^0.4.18",
     "nightwatch": "^0.9.16",
     "node-sass": "^4.5.2",
     "object-assign": "^4.1.1",
@@ -120,7 +121,8 @@
     "start": "npm run dev",
     "e2e": "nightwatch --env local --config nightwatch.conf.js",
     "e2e:local-travis": "nightwatch --env fakee2e --config nightwatch.conf.js",
-    "e2e:full-travis": "nightwatch --env fulle2e --config nightwatch.conf.js"
+    "e2e:full-travis": "nightwatch --env fulle2e --config nightwatch.conf.js",
+    "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
