@@ -6,7 +6,7 @@ import { validateXpath } from '../../jison';
  * High order component
  *
  * @param ComponentToWrap
- * @returns <div><ComponentToWrap/><span>form-warn</span></div>
+ * @returns <div><ComponentToWrap props.meta.warning=validateXPath(input.value) /></div>
  */
 const withXPathValidation = ComponentToWrap => props => {
   const xPathIsInvalid = validateXpath(props.input.value);
