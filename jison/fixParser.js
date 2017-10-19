@@ -12,7 +12,7 @@ const contents = readFileSync(xpathPath, 'utf8');
 let fixedContents = contents.split('_token_stack:').join('');
 
 // Troublesome and designed for command line use of parser that we don't care about
-fixedContents = contents.split('exports.main = function commonjsMain(args) {').join('');
+fixedContents = fixedContents.split('exports.main = function commonjsMain(args) {');
 fixedContents = [fixedContents[0], '}'].join('');
 
 

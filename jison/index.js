@@ -3,7 +3,7 @@
  *
  * Generate grammar parsers through `npm run jison`
  * After the generation, you MUST delete `_token_stack:` line (pending PR #352 of jison project)
- * and the export.main function definition. Sorry.
+ * and the export.main function definition. This is done with the ./fixParser.js
  *
  * Committing built generated parsers for now,
  * since they are supposed to be quite static and avoids aforementioned work

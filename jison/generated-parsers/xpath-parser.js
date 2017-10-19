@@ -84,22 +84,22 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
- return $$[$0-1];
+ return $$[$0-1]; 
 break;
 case 2: case 3: case 4: case 5: case 6: case 9: case 42: case 45: case 50: case 51: case 54: case 57: case 58: case 59: case 60: case 66: case 67:
-  this.$ = $$[$0];
+  this.$ = $$[$0]; 
 break;
 case 7: case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21: case 22: case 23: case 25: case 27: case 28: case 31: case 32: case 33: case 34: case 47: case 48: case 61: case 62: case 63: case 64:
-  this.$ = $$[$0-2];
+  this.$ = $$[$0-2]; 
 break;
 case 24: case 35: case 36: case 38: case 43: case 44: case 52: case 55: case 56:
-  this.$ = $$[$0-1];
+  this.$ = $$[$0-1]; 
 break;
 case 26: case 37: case 65:
-  this.$ = $$[$0-3];
+  this.$ = $$[$0-3]; 
 break;
 case 29:
- this.$ = [$$[$0]];
+ this.$ = [$$[$0]]; 
 break;
 case 39:
 this.$ = [$$[$0]];
@@ -108,13 +108,13 @@ case 40:
 var path = $$[$0-2]; path.push($$[$0]); this.$ = path;
 break;
 case 41:
- this.$ = $$[$0-1];
+ this.$ = $$[$0-1]; 
 break;
 case 46:
  this.$ = [$$[$0]];
 break;
 case 49: case 53:
- this.$ = $$[$0];
+ this.$ = $$[$0]; 
 break;
 }
 },
@@ -158,7 +158,7 @@ parse: function parse(input) {
         vstack.length = vstack.length - n;
         lstack.length = lstack.length - n;
     }
-    // _token_stack:
+    
         var lex = function () {
             var token;
             token = lexer.lex() || EOF;
@@ -594,79 +594,79 @@ options: {},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0:/* ignore whitespace */
+case 0:/* ignore whitespace */ 
 break;
-case 1: return "NODETYPE_NODE";
+case 1: return "NODETYPE_NODE"; 
 break;
-case 2: return "NODETYPE_TEXT";
+case 2: return "NODETYPE_TEXT"; 
 break;
-case 3: return "NODETYPE_COMMENT";
+case 3: return "NODETYPE_COMMENT"; 
 break;
-case 4: return "NODETYPE_PROCINSTR";
+case 4: return "NODETYPE_PROCINSTR"; 
 break;
-case 5: return "VAR";
+case 5: return "VAR"; 
 break;
-case 6: return "NSWILDCARD";
+case 6: return "NSWILDCARD"; 
 break;
-case 7: return "QNAME";
+case 7: return "QNAME"; 
 break;
-case 8: return "WILDCARD";
+case 8: return "WILDCARD"; 
 break;
-case 9: return "MULT";
+case 9: return "MULT"; 
 break;
-case 10: return "AND";
+case 10: return "AND"; 
 break;
-case 11: return "OR";
+case 11: return "OR"; 
 break;
-case 12: return "DIV";
+case 12: return "DIV"; 
 break;
-case 13: return "MOD";
+case 13: return "MOD"; 
 break;
-case 14: return "NUM";
+case 14: return "NUM"; 
 break;
-case 15: return "EQ";
+case 15: return "EQ"; 
 break;
-case 16: return "NEQ";
+case 16: return "NEQ"; 
 break;
-case 17: return "LTE";
+case 17: return "LTE"; 
 break;
-case 18: return "LT";
+case 18: return "LT"; 
 break;
-case 19: return "GTE";
+case 19: return "GTE"; 
 break;
-case 20: return "GT";
+case 20: return "GT"; 
 break;
-case 21: return "PLUS";
+case 21: return "PLUS"; 
 break;
-case 22: return "MINUS";
+case 22: return "MINUS"; 
 break;
-case 23: return "UNION";
+case 23: return "UNION"; 
 break;
-case 24: return "DBL_SLASH";
+case 24: return "DBL_SLASH"; 
 break;
-case 25: return "SLASH";
+case 25: return "SLASH"; 
 break;
-case 26: return "LBRACK";
+case 26: return "LBRACK"; 
 break;
-case 27: return "RBRACK";
+case 27: return "RBRACK"; 
 break;
-case 28: return "LPAREN";
+case 28: return "LPAREN"; 
 break;
-case 29: return "RPAREN";
+case 29: return "RPAREN"; 
 break;
-case 30: return "DBL_DOT";
+case 30: return "DBL_DOT"; 
 break;
-case 31: return "DOT";
+case 31: return "DOT"; 
 break;
-case 32: return "AT";
+case 32: return "AT"; 
 break;
-case 33: return "DBL_COLON";
+case 33: return "DBL_COLON"; 
 break;
-case 34: return "COMMA";
+case 34: return "COMMA"; 
 break;
-case 35: return "HASH";
+case 35: return "HASH"; 
 break;
-case 36: return "STR";
+case 36: return "STR"; 
 break;
 case 37:return 5;
 break;
@@ -690,15 +690,4 @@ if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
 exports.parser = xpathParser;
 exports.Parser = xpathParser.Parser;
 exports.parse = function () { return xpathParser.parse.apply(xpathParser, arguments); };
-// exports.main = function commonjsMain(args) {
-//     if (!args[1]) {
-//         console.log('Usage: '+args[0]+' FILE');
-//         process.exit(1);
-//     }
-//     var source = require('fs').readFileSync(require('path').normalize(args[1]), "utf8");
-//     return exports.parser.parse(source);
-// };
-if (typeof module !== 'undefined' && require.main === module) {
-  exports.main(process.argv.slice(1));
-}
 }

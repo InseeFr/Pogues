@@ -122,7 +122,7 @@
     "e2e": "nightwatch --env local --config nightwatch.conf.js",
     "e2e:local-travis": "nightwatch --env fakee2e --config nightwatch.conf.js",
     "e2e:full-travis": "nightwatch --env fulle2e --config nightwatch.conf.js",
-    "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js"
+    "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js"
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
