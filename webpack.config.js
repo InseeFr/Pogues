@@ -234,7 +234,7 @@ module.exports = function(env) {
       rules: [
         {
           test: /\.(html|svg|jpe?g|png|eot|svg|ttf|woff2?)$/,
-          exclude: /node_modules|jison/,
+          exclude: /node_modules/,
           use: {
             loader: 'file-loader',
             options: {

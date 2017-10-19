@@ -144,6 +144,7 @@
     "moduleNameMapper": {
       "^Config$": "<rootDir>/build-config/environments/config.prod.js",
       "\\.(css|scss|png)$": "identity-obj-proxy"
-    }
+    },
+    "testPathIgnorePatterns": ["/node_modules/", "/jison/"]
   }
 }
