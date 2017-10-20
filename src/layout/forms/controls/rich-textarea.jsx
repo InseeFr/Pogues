@@ -154,7 +154,7 @@ class RichTextArea extends Component {
 
   useTabToAutoComplete = e => {
     if (this.state.suggestions.length > 0 && e.key === 'Tab') {
-      this.replaceFirstTemplateAvailable(this.state.suggestions[0])(e);
+      this.replaceFirstTemplateAvailable(this.state.suggestions[0])();
       e.preventDefault();
     }
   };

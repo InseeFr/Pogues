@@ -37,6 +37,13 @@ class InputWithSuggestions extends React.Component {
     this.setState({ suggestions: [] });
   };
 
+  useTabToAutoComplete = e => {
+    if (this.state.suggestions.length > 0 && e.key === 'Tab') {
+      this.replaceFirstTemplateAvailable(this.state.suggestions[0])();
+      e.preventDefault();
+    }
+  };
+
   render() {
     const customProps = {
       ref: this.props.reference,
@@ -70,7 +77,7 @@ class InputWithSuggestions extends React.Component {
         )}
 
         <div>
-          <input {...this.props.input} {...customProps} />
+          <input {...this.props.input} {...customProps} onKeyDown={this.useTabToAutoComplete} />
           {this.props.meta.touched &&
             ((this.props.meta.error && <span className="form-error">{this.props.meta.error}</span>) ||
               (this.props.meta.warning && <span className="form-warm">{this.props.meta.warning}</span>))}
