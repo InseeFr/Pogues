@@ -17,7 +17,9 @@ class InputWithSuggestions extends React.Component {
     const matches = e.target.value.match(InputRegex);
     if (matches) {
       this.setState({
-        suggestions: this.props.availableSuggestions.filter(suggestion => suggestion.includes(matches[0].substring(2))),
+        suggestions: this.props.availableSuggestions.filter(suggestion =>
+          suggestion.toLowerCase().includes(matches[0].substring(2).toLocaleLowerCase())
+        ),
       });
     } else {
       this.setState({ suggestions: [] });
@@ -80,6 +82,7 @@ class InputWithSuggestions extends React.Component {
                   onClick={this.replaceFirstTemplateAvailable(suggest)}
                   role="button"
                   className="input-suggestion"
+                  title={suggest}
                 >
                   {' '}
                   {suggest}{' '}

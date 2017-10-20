@@ -132,7 +132,7 @@ class RichTextArea extends Component {
       if (matches) {
         this.setState({
           suggestions: this.props.availableSuggestions.filter(suggestion =>
-            suggestion.includes(matches[0].substring(2))
+            suggestion.toLowerCase().includes(matches[0].substring(2).toLowerCase())
           ),
         });
       } else {
@@ -233,6 +233,7 @@ class RichTextArea extends Component {
                   onClick={this.replaceFirstTemplateAvailable(suggest)}
                   role="button"
                   className="input-suggestion"
+                  title={suggest}
                 >
                   {' '}
                   {suggest}{' '}
