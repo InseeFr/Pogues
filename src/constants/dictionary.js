@@ -963,6 +963,10 @@ const dictionary = {
     fr: 'Sélectionner une opération',
     en: 'Select an operation',
   },
+  selectCampaign: {
+    fr: 'Sélectionner une campagne',
+    en: 'Select a campaign',
+  },
   selectCampaigns: {
     fr: 'Sélectionner au moins une campagne',
     en: 'Select at least one campaign',
@@ -1107,9 +1111,46 @@ const dictionary = {
     en: 'No questionnaire found',
     fr: 'Aucun questionnaire trouvé',
   },
+  codesListsNoResults: {
+    en: 'No codes lists found',
+    fr: 'Aucune liste de codes trouvé',
+  },
   reset: {
     en: 'Reset',
     fr: 'Réinitialiser',
+  },
+
+  searchResultVersion: {
+    fr: 'Version',
+    en: 'Version',
+  },
+  searchResultId: {
+    fr: 'Identifiant',
+    en: 'Id',
+  },
+  searchResultTitle: {
+    fr: 'Titre',
+    en: 'Title',
+  },
+  searchResultSerie: {
+    fr: 'Série',
+    en: 'Series',
+  },
+  searchResultOperation: {
+    fr: 'Opération statistique',
+    en: 'Statistical operation',
+  },
+  searchResultCampaign: {
+    fr: 'Campagne',
+    en: 'Campaign',
+  },
+  searchResultAction: {
+    fr: 'Action',
+    en: 'Action',
+  },
+  searchResultActionReuse: {
+    fr: 'Réutiliser',
+    en: 'Reuse',
   },
 };
 
