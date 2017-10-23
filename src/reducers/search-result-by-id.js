@@ -1,9 +1,9 @@
-import { LOAD_QLIST_REF_SUCCESS } from 'actions/questionnaire-list';
+import { LOAD_SEARCH_RESULT_SUCCESS } from 'actions/search';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function loadSearchResultsSuccess(state, searchResultsList) {
+export function loadSearchResultSuccess(state, searchResultsList) {
   return searchResultsList.reduce((acc, result) => {
     return {
       ...acc,
@@ -12,6 +12,6 @@ export function loadSearchResultsSuccess(state, searchResultsList) {
   }, {});
 }
 
-actionHandlers[LOAD_QLIST_REF_SUCCESS] = loadSearchResultsSuccess;
+actionHandlers[LOAD_SEARCH_RESULT_SUCCESS] = loadSearchResultSuccess;
 
 export default createActionHandlers(actionHandlers);

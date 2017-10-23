@@ -10,12 +10,10 @@
 @import 'inc/_header';
 @import 'inc/_forms';
 @import 'inc/_form-controls';
-@import 'inc/_search-results';
 
 // Pages
 @import 'inc/_page-home';
 @import 'inc/_page-questionnaire';
-@import 'inc/_page-search-questionnaire';
 
 //Elements
 @import 'inc/_user-connection';
@@ -25,3 +23,8 @@
 @import 'inc/component-edition';
 @import 'inc/arbo-simplifield';
 @import 'inc/confirm-dialog';
+
+//Widgets
+@import 'inc/widgets/_statistical-context-criteria';
+@import 'inc/widgets/_input-filter-with-criteria';
+@import 'inc/widgets/_search-results';

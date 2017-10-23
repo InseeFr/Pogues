@@ -30,7 +30,13 @@ function InputCalculatedVariable() {
     <div>
       <Field name="label" type="text" component={Input} label={Dictionary.label} required />
       <Field name="name" type="text" component={Input} label={Dictionary.name} required />
-      <Field name="formula" type="text" component={TextAreaWithVariableAutoCompletion} label={Dictionary.formula} required />
+      <Field
+        name="formula"
+        type="text"
+        component={TextAreaWithVariableAutoCompletion}
+        label={Dictionary.formula}
+        required
+      />
     </div>
   );
 }

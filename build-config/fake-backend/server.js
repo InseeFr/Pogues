@@ -7,6 +7,7 @@ var series = require(__dirname + '/series')
 var operations = require(__dirname + '/operations')
 var campaigns = require(__dirname + '/campaigns')
 var questionnairesRefInfos = require(__dirname + '/questionnaires-ref-infos')
+var codesListsRefInfos = require(__dirname + '/codes-lists-ref-infos')
 var units = require(__dirname + '/units')
 
 restify.CORS.ALLOW_HEADERS.push('authorization')
@@ -109,9 +110,17 @@ server.get('/search/context/collection/:id', function (req, res, next) {
 })
 
 server.post('/search', function (req, res, next) {
-  var result = questionnairesRefInfos
-  var params = req.params
   var body = JSON.parse(req.body)
+  var typeItem = body.types[0];
+  var result = [];
+
+  if(typeItem === 'Instrument') {
+    result = questionnairesRefInfos
+  } else {
+    result = codesListsRefInfos
+  }
+
+  var params = req.params
 
   Object.keys(params).forEach(function(key){
     if(params[key] !== '') {
@@ -142,8 +151,6 @@ server.get('/meta-data/units', function (req, res, next) {
   }))
   next()
 })
-
-
 
 console.log('listening in http://localhost:' + listenPort)
 

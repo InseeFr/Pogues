@@ -24,7 +24,7 @@ function CodesList({ selectorPath, optional }) {
       id: `${baseId}-${REF}`,
       label: Dictionary.refCodesList,
       value: REF,
-      content: <CodesListRef />,
+      content: <CodesListRef selectorPath={`${selectorPath}.${REF}`} />,
     },
     {
       id: `${baseId}-${QUESTIONNAIRE}`,

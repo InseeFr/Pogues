@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 
 import ListWithInputPanelItem from './list-with-input-panel-item';
 
-import { LIST_WITH_INPUT_PANEL_WIDGET } from 'constants/dom-constants';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
-const { ITEM_INVALID_CLASS } = LIST_WITH_INPUT_PANEL_WIDGET;
+const { ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 describe('<ListWithInputPanelItem', () => {
   const fakeString = 'This is a fake string';
