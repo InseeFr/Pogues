@@ -17,7 +17,9 @@ class InputWithSuggestions extends React.Component {
     const matches = e.target.value.match(InputRegex);
     if (matches) {
       this.setState({
-        suggestions: this.props.availableSuggestions.filter(suggestion => suggestion.includes(matches[0].substring(2))),
+        suggestions: this.props.availableSuggestions.filter(suggestion =>
+          suggestion.toLowerCase().includes(matches[0].substring(2).toLocaleLowerCase())
+        ),
       });
     } else {
       this.setState({ suggestions: [] });
@@ -33,6 +35,13 @@ class InputWithSuggestions extends React.Component {
     this.props.input.onChange(currentValue.replace(InputRegex, `\${${t}}`));
     // Reset suggestions afterwards
     this.setState({ suggestions: [] });
+  };
+
+  useTabToAutoComplete = e => {
+    if (this.state.suggestions.length > 0 && e.key === 'Tab') {
+      this.replaceFirstTemplateAvailable(this.state.suggestions[0])();
+      e.preventDefault();
+    }
   };
 
   render() {
@@ -68,7 +77,7 @@ class InputWithSuggestions extends React.Component {
         )}
 
         <div>
-          <input {...this.props.input} {...customProps} />
+          <input {...this.props.input} {...customProps} onKeyDown={this.useTabToAutoComplete} />
           {this.props.meta.touched &&
             ((this.props.meta.error && <span className="form-error">{this.props.meta.error}</span>) ||
               (this.props.meta.warning && <span className="form-warm">{this.props.meta.warning}</span>))}
@@ -80,6 +89,7 @@ class InputWithSuggestions extends React.Component {
                   onClick={this.replaceFirstTemplateAvailable(suggest)}
                   role="button"
                   className="input-suggestion"
+                  title={suggest}
                 >
                   {' '}
                   {suggest}{' '}
