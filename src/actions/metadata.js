@@ -144,5 +144,5 @@ export const loadCampaignsIfNeeded = idOperation => (dispatch, getState) => {
     return campaign.serie === idOperation ? { ...acc, [key]: campaign } : acc;
   }, {});
 
-  if (Object.keys(campaignsBySerie).length === 0) dispatch(loadCampaigns(idOperation));
+  if (idOperation !== '' && Object.keys(campaignsBySerie).length === 0) dispatch(loadCampaigns(idOperation));
 };
