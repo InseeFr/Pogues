@@ -1,0 +1,22 @@
+.widget-input-filter-with-criteria {
+  @include make-row();
+
+  .widget-input-filter-with-criteria__panel {
+    @extend .form-group;
+    @include make-xs-column(9);
+
+    & > label {
+      @include make-xs-column(3);
+    }
+
+    .widget-input-filter-with-criteria__panel-search {
+      @extend .form-control;
+      width: 75%;
+    }
+  }
+
+  button.widget-input-filter-with-criteria__do-search {
+    @include make-xs-column(1);
+    @extend .btn-yellow;
+  }
+}

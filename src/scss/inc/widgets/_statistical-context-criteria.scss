@@ -1,0 +1,13 @@
+.widget-statistical-context-criteria {
+  &.widget-statistical-context-criteria-horizontal {
+    @include make-row();
+
+    .ctrl-select {
+      @include make-xs-column(4);
+
+      label + div, > label {
+        width: 100%;
+      }
+    }
+  }
+}
