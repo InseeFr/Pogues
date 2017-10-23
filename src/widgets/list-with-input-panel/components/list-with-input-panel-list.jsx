@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import ListWithInputPanelItem from './list-with-input-panel-item';
 
-import { LIST_WITH_INPUT_PANEL_WIDGET } from 'constants/dom-constants';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
-const { LIST_CLASS, LIST_EMPTY_CLASS } = LIST_WITH_INPUT_PANEL_WIDGET;
+const { LIST_CLASS, LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 // PropTypes and defaultProps
 

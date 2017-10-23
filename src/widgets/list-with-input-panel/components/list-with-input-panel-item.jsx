@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
-import { LIST_WITH_INPUT_PANEL_WIDGET } from 'constants/dom-constants';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
-const { ITEM_CLASS, ITEM_INVALID_CLASS } = LIST_WITH_INPUT_PANEL_WIDGET;
+const { ITEM_CLASS, ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 // PropTypes and defaultProps
 

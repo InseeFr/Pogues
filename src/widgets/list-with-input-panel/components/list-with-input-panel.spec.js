@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import ListWithInputPanel from './list-with-input-panel';
 
-import { LIST_WITH_INPUT_PANEL_WIDGET } from 'constants/dom-constants';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 import { fakeEvent, noop } from 'utils/test/test-utils';
 
 const {
@@ -12,7 +12,7 @@ const {
   BUTTON_DUPLICATE_CLASS,
   BUTTON_RESET_CLASS,
   BUTTON_NEW_CLASS,
-} = LIST_WITH_INPUT_PANEL_WIDGET;
+} = WIDGET_LIST_WITH_INPUT_PANEL;
 
 describe('<ListWithInputPanel', () => {
   const props = {
