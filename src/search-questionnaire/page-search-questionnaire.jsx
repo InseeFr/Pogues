@@ -1,16 +1,38 @@
 import React from 'react';
 
-import searchQuestionnnaireRefRow, { headers } from 'search-questionnaire/components/search-questionnaire-ref-row';
-import Filters from 'search-questionnaire/components/filters';
-import SearchInput from 'search-questionnaire/containers/search-input';
-import SearchResultsTable from 'search-questionnaire/containers/search-results-table';
+import Criteria from './containers/criteria';
+import { InputFilterWithCriteria } from 'widgets/input-filter-with-criteria';
+import { SearchResults } from 'widgets/search-results';
+import { PAGE_SEARCH_QUESTIONNAIRE } from 'constants/dom-constants';
+import { TYPES_ITEMS, SEARCH_CRITERIAS, SEARCH_RESULTS_COLUMNS } from 'constants/pogues-constants';
+import Dictionary from 'utils/dictionary/dictionary';
+
+// @TODO: noop is used temporally
+import { noop } from 'utils/test/test-utils';
+
+// Component
 
 function PageSearchQuestionnaire() {
+  const propsInputFilterWithCriteria = {
+    typeItem: TYPES_ITEMS.QUESTIONNAIRE,
+    criterias: SEARCH_CRITERIAS.QUESTIONNAIRE,
+  };
+  const propsSearchResults = {
+    noValuesMessage: Dictionary.pageSearchNoResults,
+    columns: SEARCH_RESULTS_COLUMNS.QUESTIONNAIRE,
+    actions: [
+      {
+        dictionary: 'searchResultActionReuse',
+        action: noop,
+      },
+    ],
+  };
+
   return (
-    <div id="page-search-questionnaire">
-      <Filters />
-      <SearchInput />
-      <SearchResultsTable headers={headers} Row={searchQuestionnnaireRefRow} />
+    <div id={PAGE_SEARCH_QUESTIONNAIRE.COMPONENT_ID}>
+      <Criteria />
+      <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
+      <SearchResults {...propsSearchResults} />
     </div>
   );
 }
