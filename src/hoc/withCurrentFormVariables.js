@@ -15,18 +15,43 @@ const withCurrentFormVariables = ComponentToWrap => {
 
   const mapStateToProps = state => {
     const activeFormData = state.form.component.values;
-    const activeCalculatedVariables = activeFormData.calculatedVariables
+    const currentActiveCalculatedVariables = activeFormData.calculatedVariables
       ? activeFormData.calculatedVariables.calculatedVariables.map(v => v.name)
       : [];
-    const activeExternalVariables = activeFormData.externalVariables
+    const currentActiveExternalVariables = activeFormData.externalVariables
       ? activeFormData.externalVariables.externalVariables.map(v => v.name)
       : [];
-    const activeCollectedVariables = activeFormData.collectedVariables
+    const currentActiveCollectedVariables = activeFormData.collectedVariables
       ? activeFormData.collectedVariables.collectedVariables.map(v => v.name)
       : [];
-
+    const activeCalculatedVariables = state.appState.activeCalculatedVariablesById
+      ? Object.keys(state.appState.activeCalculatedVariablesById).map(
+          k => state.appState.activeCalculatedVariablesById[k].name
+        )
+      : [];
+    const activeExternalVariables = state.appState.activeExternalVariablesById
+      ? Object.keys(state.appState.activeExternalVariablesById).map(
+          k => state.appState.activeExternalVariablesById[k].name
+        )
+      : [];
+    const activeCollectedVariables = state.appState.activeCollectedVariablesById
+      ? Object.keys(state.appState.activeCollectedVariablesById).map(
+          k => state.appState.activeCollectedVariablesById[k].name
+        )
+      : [];
+    // Dedupe using a Set, which is then spread into a new Array
+    const availableSuggestions = [
+      ...new Set([
+        ...currentActiveCalculatedVariables,
+        ...currentActiveExternalVariables,
+        ...currentActiveCollectedVariables,
+        ...activeCalculatedVariables,
+        ...activeExternalVariables,
+        ...activeCollectedVariables,
+      ]),
+    ];
     return {
-      availableSuggestions: [...activeCalculatedVariables, ...activeExternalVariables, ...activeCollectedVariables],
+      availableSuggestions,
     };
   };
   return connect(mapStateToProps)(withCurrentFormVariablesComponent);
