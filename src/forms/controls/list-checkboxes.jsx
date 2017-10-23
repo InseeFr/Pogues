@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { getControlId, getValuesFromControlOptions, toggleValueInList } from 'utils/widget-utils';
+import { getControlId, getValuesFromGenericOptions, toggleValueInList } from 'utils/widget-utils';
+
+import { CONTROL_LIST_CHECKBOXES } from 'constants/dom-constants';
+
+const { COMPONENT_CLASS } = CONTROL_LIST_CHECKBOXES;
 
 // PropTypes and defaultProps
 
@@ -62,10 +66,10 @@ class ListCheckboxes extends Component {
 
   render() {
     const { label, required, disabled, noValuesMessage, children, input, meta: { touched, error } } = this.props;
-    const values = getValuesFromControlOptions(children);
+    const values = getValuesFromGenericOptions(children);
 
     return (
-      <div className="ctrl-list-checkboxes">
+      <div className={COMPONENT_CLASS}>
         <label htmlFor={getControlId('checkbox', input.name, values[0] && values[0].value)}>
           {label}
           {required && <span className="ctrl-required">*</span>}
