@@ -4,7 +4,7 @@ import { FieldArray, Field } from 'redux-form';
 
 import ListWithInputPanelList from './list-with-input-panel-list';
 
-import { LIST_WITH_INPUT_PANEL_WIDGET } from 'constants/dom-constants';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
 const {
   COMPONENT_CLASS,
@@ -13,7 +13,7 @@ const {
   BUTTON_DUPLICATE_CLASS,
   BUTTON_RESET_CLASS,
   BUTTON_NEW_CLASS,
-} = LIST_WITH_INPUT_PANEL_WIDGET;
+} = WIDGET_LIST_WITH_INPUT_PANEL;
 
 // PropTypes and defaultProps
 

@@ -19,7 +19,7 @@ import {
   maxValue,
 } from 'layout/forms/validation-rules';
 
-import Dictionary from 'utils/dictionary/dictionary'
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;

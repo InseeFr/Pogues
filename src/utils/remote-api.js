@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import Config from 'Config';
+import { getUrlFromCriterias } from 'utils/utils';
 
 const { baseURL, persistancePath, userPath } = Config;
 
@@ -129,26 +130,6 @@ export const getContextFromCampaign = id =>
     credentials: 'include',
   }).then(res => res.json());
 
-export const getQuestionnaireListFromRef = (q, filters) => {
-  const params = Object.keys(filters)
-    .reduce((acc, key) => {
-      return [...acc, `${key}=${filters[key]}`];
-    }, [])
-    .join('&');
-
-  return fetch(`${urlSearch}?${params}`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify({
-      types: ['instrument'],
-      filter: q,
-    }),
-  }).then(res => res.json());
-};
-
 export const getUnitsList = () =>
   fetch(`${urlMetadata}/units`, {
     headers: {
@@ -156,3 +137,17 @@ export const getUnitsList = () =>
     },
     credentials: 'include',
   }).then(res => res.json());
+
+export const getSearchResults = (typeItem, criterias, filter) => {
+  return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      types: [typeItem],
+      filter,
+    }),
+  }).then(res => res.json());
+};

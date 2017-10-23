@@ -12,9 +12,9 @@ import ListWithInputPanelItem from './list-with-input-panel-item';
 
 import { getFakeFields } from '../utils/test-utils';
 import { fakeEvent, noop } from 'utils/test/test-utils';
-import { LIST_WITH_INPUT_PANEL_WIDGET } from 'constants/dom-constants';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
-const { LIST_EMPTY_CLASS } = LIST_WITH_INPUT_PANEL_WIDGET;
+const { LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 describe('<ListWithInputPanelLiwst', () => {
   let props;

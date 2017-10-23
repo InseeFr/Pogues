@@ -6,7 +6,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation01',
-    campaign: 'campaign01',
+    campaigns: 'campaign01',
   },
   {
     id: 'FAKE_ID_02',
@@ -15,7 +15,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation01',
-    campaign: 'campaign02',
+    campaigns: 'campaign02',
   },
   {
     id: 'FAKE_ID_03',
@@ -24,7 +24,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation02',
-    campaign: 'campaign03',
+    campaigns: 'campaign03',
   },
   {
     id: 'FAKE_ID_04',
@@ -33,7 +33,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie01',
     operation: 'operation02',
-    campaign: 'campaign04',
+    campaigns: 'campaign04',
   },
   {
     id: 'FAKE_ID_05',
@@ -42,7 +42,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation03',
-    campaign: 'campaign05',
+    campaigns: 'campaign05',
   },
   {
     id: 'FAKE_ID_06',
@@ -51,7 +51,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation03',
-    campaign: 'campaign06',
+    campaigns: 'campaign06',
   },
   {
     id: 'FAKE_ID_07',
@@ -60,7 +60,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation04',
-    campaign: 'campaign07',
+    campaigns: 'campaign07',
   },
   {
     id: 'FAKE_ID_08',
@@ -69,7 +69,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie02',
     operation: 'operation04',
-    campaign: 'campaign08',
+    campaigns: 'campaign08',
   },
   {
     id: 'FAKE_ID_09',
@@ -78,7 +78,7 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie03',
     operation: 'operation05',
-    campaign: 'campaign09',
+    campaigns: 'campaign09',
   },
   {
     id: 'FAKE_ID_10',
@@ -87,6 +87,6 @@ module.exports = [
     version: 'Version 01',
     serie: 'serie03',
     operation: 'operation05',
-    campaign: 'campaign10',
+    campaigns: 'campaign10',
   },
 ]

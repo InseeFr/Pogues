@@ -13,9 +13,9 @@ import {
   init,
 } from './input-autocomplete-utils';
 
-import { getControlId, getValuesFromControlOptions } from 'utils/widget-utils';
+import { getControlId, getValuesFromGenericOptions } from 'utils/widget-utils';
 import { HighLighter } from 'widgets/highlighter';
-import { INPUT_AUTOCOMPLETE_CONTROL } from 'constants/dom-constants';
+import { CONTROL_INPUT_AUTOCOMPLETE } from 'constants/dom-constants';
 
 const {
   COMPONENT_CLASS,
@@ -23,7 +23,7 @@ const {
   NO_OPTION_SELECTED_ICON,
   OPTION_SELECTED_ICON,
   OPTION_CLEAR_ICON,
-} = INPUT_AUTOCOMPLETE_CONTROL;
+} = CONTROL_INPUT_AUTOCOMPLETE;
 
 // PropTypes and defaultProps
 
@@ -74,7 +74,7 @@ class InputAutocomplete extends Component {
 
   componentWillMount() {
     const { children, input: { value } } = this.props;
-    const options = getValuesFromControlOptions(children);
+    const options = getValuesFromGenericOptions(children);
     this.setState(init(options, value));
   }
 
@@ -82,7 +82,7 @@ class InputAutocomplete extends Component {
     const { children, input: { value } } = nextProps;
 
     if (value !== this.props.input.value) {
-      this.setState(init(getValuesFromControlOptions(children), value));
+      this.setState(init(getValuesFromGenericOptions(children), value));
     }
   }
 

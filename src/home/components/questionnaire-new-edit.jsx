@@ -6,15 +6,16 @@ import Input from 'layout/forms/controls/input';
 import { required, name as validationName } from 'layout/forms/validation-rules';
 import { componentName } from 'layout/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
-import StaticalContext from 'layout/connected-widget/statistical-context';
+import { QUESTIONNAIRE_NEW_FORM_NAME } from 'constants/pogues-constants';
+import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria';
 
 const FORM_NAME = 'questionnaire-new';
 
-export function QuestionnaireNewEdit({ handleSubmit, pristine, submitting, onCancel }) {
+export function QuestionnaireNewEdit({ handleSubmit, submitting, onCancel }) {
   return (
     <div id="questionnaire-new">
       <form onSubmit={handleSubmit}>
-        <StaticalContext formName={FORM_NAME} required multipleCampaign />
+        <StatisticalContextCriteria formName={QUESTIONNAIRE_NEW_FORM_NAME} required multipleCampaign />
 
         <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
 

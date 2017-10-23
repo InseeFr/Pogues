@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
-import { FormSection, Field } from 'redux-form';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
+
+import { SearchCodesLists } from 'widgets/search-codes-lists';
 
 class CodesListRef extends FormSection {
+  static propTypes = {
+    selectorPath: PropTypes.string.isRequired,
+  };
   static defaultProps = {
     name: 'REF',
   };
   render() {
-    return <div></div>;
+    return <SearchCodesLists selectorPath={this.props.selectorPath} />;
   }
 }
 

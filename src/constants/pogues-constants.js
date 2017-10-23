@@ -148,3 +148,88 @@ export const TAB_NAMES = {
 };
 
 export const DEFAULT_FORM_NAME = 'component';
+export const STATISTICAL_CONTEXT_FORM_NAME = 'statistical-context';
+export const QUESTIONNAIRE_NEW_FORM_NAME = 'questionnaire-new';
+
+export const TYPES_ITEMS = {
+  QUESTIONNAIRE: 'Instrument',
+  CODES_LIST: 'CodeList',
+};
+
+export const SEARCH_CRITERIAS = {
+  QUESTIONNAIRE: [
+    {
+      remoteName: 'serie',
+      localName: 'serie',
+    },
+    {
+      remoteName: 'operation',
+      localName: 'operation',
+    },
+    {
+      remoteName: 'campaigns',
+      localName: 'campaigns',
+    },
+  ],
+  CODES_LIST: [
+    {
+      remoteName: 'serie',
+      localName: 'serie',
+    },
+    {
+      remoteName: 'operation',
+      localName: 'operation',
+    },
+  ],
+};
+
+export const SEARCH_RESULTS_COLUMNS = {
+  QUESTIONNAIRE: [
+    {
+      dictionary: 'searchResultVersion',
+      key: 'version',
+    },
+    {
+      dictionary: 'searchResultId',
+      key: 'id',
+    },
+    {
+      dictionary: 'searchResultTitle',
+      key: 'title',
+    },
+    {
+      dictionary: 'searchResultSerie',
+      key: 'serie',
+    },
+    {
+      dictionary: 'searchResultOperation',
+      key: 'operation',
+    },
+    {
+      dictionary: 'searchResultCampaign',
+      key: 'campaign',
+    },
+  ],
+  CODES_LIST: [
+    {
+      dictionary: 'searchResultVersion',
+      key: 'version',
+    },
+    {
+      dictionary: 'searchResultId',
+      key: 'id',
+    },
+    {
+      dictionary: 'searchResultTitle',
+      key: 'title',
+    },
+    {
+      dictionary: 'searchResultSerie',
+      key: 'serie',
+    },
+    {
+      dictionary: 'searchResultOperation',
+      key: 'operation',
+    },
+  ],
+};
