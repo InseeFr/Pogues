@@ -18,6 +18,17 @@ export const CONTROL_INPUT = {
   COMPONENT_CLASS: 'ctrl-input',
 };
 
+export const CONTROL_TEXTAREA = {
+  COMPONENT_CLASS: 'ctrl-textarea',
+};
+
+export const CONTROL_WITH_SUGGESTIONS = {
+  COMPONENT_CLASS: 'ctrl-with-suggestions',
+  LIST_CLASS: 'ctrl-with-suggestions__list',
+  ITEM_CLASS: 'ctrl-with-suggestions__list__item',
+  ITEM_SELECTED_CLASS: 'ctrl-with-suggestions__list__item-selected',
+};
+
 export const WIDGET_LIST_WITH_INPUT_PANEL = {
   COMPONENT_CLASS: 'widget-list-with-input-panel',
   LIST_CLASS: 'widget-list-with-input-panel__list',

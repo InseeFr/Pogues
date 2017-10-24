@@ -1,0 +1,29 @@
+.ctrl-with-suggestions {
+  @extend .ctrl;
+
+  .ctrl-with-suggestions__list {
+    position: absolute;
+    z-index: 10;
+    margin-right: 15px;
+    width: 95%;
+    padding: 5px;
+    max-height: 150px;
+    background-color: white;
+    overflow-y: scroll;
+    border: solid 1px $color-grey_02;
+  }
+
+  .ctrl-with-suggestions__list__item {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    border: solid 1px $color-grey_02;
+    border-radius: 10px;
+    color: $color-blue_02;
+
+    &:hover, &.ctrl-with-suggestions__list__item-selected {
+      background-color: $color-grey_03;
+      cursor: pointer;
+    }
+  }
+}
