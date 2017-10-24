@@ -23,6 +23,10 @@ const dictionary = {
     en: 'Id',
     fr: 'Identifiant',
   },
+  formula: {
+    en: 'Formula',
+    fr: 'Formule',
+  },
   idRMeS: {
     en: 'Id',
     fr: 'Identifiant RMéS',
@@ -46,6 +50,18 @@ const dictionary = {
   noGoToYet: {
     en: 'No goTo yet',
     fr: 'Aucune redirection définie',
+  },
+  noCalculatedVariablesYet: {
+    en: 'No calculated variable yet',
+    fr: 'Aucune variable calculée définie',
+  },
+  noExternalVariablesYet: {
+    en: 'No external variable yet',
+    fr: 'Aucune variable externe définie',
+  },
+  noCollectedVariablesYet: {
+    en: 'No collected variable yet',
+    fr: 'Aucune variable collectée définie',
   },
   tagline: {
     en: 'Questionnaire design and test',
@@ -119,6 +135,10 @@ const dictionary = {
     en: 'Create',
     fr: 'Créer',
   },
+  generateCollectedVariables: {
+    en: 'Generate collected variables',
+    fr: 'Générer variables collectées',
+  },
   import: {
     en: 'Import',
     fr: 'Importer',
@@ -160,12 +180,24 @@ const dictionary = {
     fr: 'Sélectionner un questionnaire',
   },
   addDeclaration: {
-    en: 'Add a statement',
-    fr: 'Ajouter une déclaration',
+    en: 'Reset a statement',
+    fr: 'Réinitialiser une déclaration',
   },
   addControl: {
-    en: 'Add a control',
-    fr: 'Ajouter un contrôle',
+    en: 'Reset a control',
+    fr: 'Réinitialiser un contrôle',
+  },
+  addCalculatedVariable: {
+    en: 'Reset a calculated variable',
+    fr: 'Réinitialiser une variable calculée',
+  },
+  addExternalVariable: {
+    en: 'Reset a external variable',
+    fr: 'Réinitialiser une variable externe',
+  },
+  addCollectedVariable: {
+    en: 'Reset a collected variable',
+    fr: 'Réinitialiser une variable collectée',
   },
   declarations: {
     en: 'Statements',
@@ -259,6 +291,18 @@ const dictionary = {
     en: 'GoTo label',
     fr: 'Libellé de la redirection',
   },
+  calculatedVariables: {
+    en: 'Calculated variables',
+    fr: 'Variables calculées',
+  },
+  externalVariables: {
+    en: 'External variables',
+    fr: 'Variables externes',
+  },
+  collectedVariables: {
+    en: 'Collected variables',
+    fr: 'Variables collectées',
+  },
   defineGoTo: {
     en: 'Add a goto',
     fr: 'Ajouter une redirection',
@@ -275,6 +319,14 @@ const dictionary = {
     en: 'Precision',
     fr: 'Précision',
   },
+  unit: {
+    en: 'Unit of measure',
+    fr: 'Unité de mesure',
+  },
+  unitEmptySelect: {
+    en: 'Select an unit of measure',
+    fr: 'Sélectionnez une unité de mesure',
+  },
   edit_config: {
     en: 'Edit config',
     fr: 'Éditer les paramètres',
@@ -290,6 +342,10 @@ const dictionary = {
   target: {
     en: 'Target',
     fr: 'Cible',
+  },
+  selectTarget: {
+    en: 'Select a target',
+    fr: 'Sélectionnez une Cible',
   },
   ifCondition: {
     en: 'Target if condition is true',
@@ -426,6 +482,22 @@ const dictionary = {
     fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
     en: 'Your questionnaire must contain at least one sequence and one question.',
   },
+  errorNeedRegenerateCollectedVariables: {
+    fr: 'Need regenerate.',
+    en: 'Need regenerate.',
+  },
+  errorInvalidCollectedVariables: {
+    fr: 'La question contient des variables collectées invalides.',
+    en: 'The question contains invalid collected variables.',
+  },
+  errorUniqueVariableName: {
+    fr: 'Les noms de variable doivent être uniques :',
+    en: 'Variable names should be unique:',
+  },
+  errorUniqueComponentName: {
+    fr: 'Les noms de composant (séquence, sous-séquence et question) doivent être uniques :',
+    en: 'Component names (sequence, subsequence and question) should be unique:',
+  },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',
@@ -479,11 +551,11 @@ const dictionary = {
     en: 'Primary information axis',
   },
   secondaryAxis: {
-    fr: 'Axe secondarie',
+    fr: 'Axe secondaire',
     en: 'Secondary axis',
   },
   secondaryAxisTable: {
-    fr: "Axe d'information secondarie",
+    fr: "Axe d'information secondaire",
     en: 'Secondary information axis',
   },
   measuresAxisTable: {
@@ -497,6 +569,10 @@ const dictionary = {
   selectCodesListType: {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
+  },
+  selectCodesList: {
+    fr: 'Sélectionner une liste de codes',
+    en: 'Select a code list',
   },
   newCodesList: {
     fr: 'Créer une liste',
@@ -579,8 +655,8 @@ const dictionary = {
     en: 'Question type',
   },
   addMeasure: {
-    fr: 'Ajouter une mesure',
-    en: 'Add a measure',
+    fr: 'Réinitialiser',
+    en: 'Reset',
   },
   noMeasureYet: {
     en: 'No measure yet',
@@ -606,6 +682,10 @@ const dictionary = {
     fr: "Ajout d'une modalité spécifique",
     en: 'Add special code',
   },
+  addCode: {
+    fr: 'Ajouter un code',
+    en: 'Add a code',
+  },
   codeLabel: {
     fr: 'Libellé de la modalité',
     en: 'Code label',
@@ -613,6 +693,10 @@ const dictionary = {
   code: {
     fr: 'Code de la modalité',
     en: 'Code',
+  },
+  codeUnicity: {
+    fr: 'Tous les codes doivent être uniques',
+    en: 'All codes should be unique',
   },
   codePh: {
     fr: 'Code',
@@ -687,8 +771,8 @@ const dictionary = {
     en: 'Homepage',
   },
   stamp: {
-    fr: 'Timbre',
-    en: 'Stamp',
+    fr: 'Habilitation',
+    en: 'Authorisation',
   },
   welcome: {
     fr: 'Bienvenue dans POGUES',
@@ -730,6 +814,18 @@ const dictionary = {
     fr: 'Dernière mise à jour',
     en: 'Last update',
   },
+  state: {
+    fr: 'État',
+    en: 'State',
+  },
+  stateValidated: {
+    fr: 'Validé',
+    en: 'Validated',
+  },
+  stateProvisional: {
+    fr: 'Provisoire',
+    en: 'Provisional',
+  },
   noQuestionnnaires: {
     fr: 'Aucun questionnaire',
     en: 'No questionnaires',
@@ -743,8 +839,8 @@ const dictionary = {
     en: 'Cancel',
   },
   newEmptyQuestionnaire: {
-    fr: 'Créer un questionnaire vide',
-    en: 'New empty questionnaire',
+    fr: 'Nouveau questionnaire',
+    en: 'New questionnaire',
   },
   newQuestionnaireLegend: {
     fr:
@@ -799,9 +895,25 @@ const dictionary = {
     fr: 'Obligatoire',
     en: 'Required',
   },
+  validationRequiredMultiple: {
+    fr: 'Sélectionner au moins une option',
+    en: 'Select at least one option',
+  },
+  validationInvalidName: {
+    fr: "L'identifiant peut uniquement contenir des lettres non accentuées, chiffres, tirets et underscore",
+    en: 'The Id can only contain non-accented letters, numbers, dashes and underscore',
+  },
+  validationInvalidNameSize: {
+    fr: "L'identifiant ne peux pas dépasser 16 caractères",
+    en: 'The Id can not exceed 16 characters',
+  },
   validationMinNumber: {
-    fr: 'Vous devez introduire au mois',
+    fr: 'Veuillez saisir au minimum',
     en: 'Must be at least',
+  },
+  validationMaxNumber: {
+    fr: 'Veuillez saisir au maximum',
+    en: 'Must be at most',
   },
   dropHere: {
     fr: 'Déposer ici !',
@@ -826,6 +938,46 @@ const dictionary = {
   confirmQuestionMessage: {
     fr: 'Êtes-vous sûr ?',
     en: 'Are you sure?',
+  },
+  serie: {
+    fr: 'Série',
+    en: 'Series',
+  },
+  operation: {
+    fr: 'Opération statistique ',
+    en: 'Statistical operation',
+  },
+  campaigns: {
+    fr: 'Campagnes',
+    en: 'Campaigns',
+  },
+  campaign: {
+    fr: 'Campagne',
+    en: 'Campaign',
+  },
+  selectSerie: {
+    fr: 'Sélectionner une série',
+    en: 'Select a series',
+  },
+  selectOperation: {
+    fr: 'Sélectionner une opération',
+    en: 'Select an operation',
+  },
+  selectCampaign: {
+    fr: 'Sélectionner une campagne',
+    en: 'Select a campaign',
+  },
+  selectCampaigns: {
+    fr: 'Sélectionner au moins une campagne',
+    en: 'Select at least one campaign',
+  },
+  selectType: {
+    fr: 'Sélectionne un type',
+    en: 'Select a type',
+  },
+  noValuesCampaigns: {
+    fr: 'Sélectionner une opération pour afficher la liste des campagnes',
+    en: 'Select an operation to show a list of campaigns',
   },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
@@ -854,6 +1006,151 @@ const dictionary = {
   validation_target: {
     fr: 'Cible obligatoire',
     en: 'Target required',
+  },
+  validation_calculatedvariable_label: {
+    fr: 'Libellé de la variable calculée obligatoire',
+    en: 'Calculated variable label required',
+  },
+  validation_calculatedvariable_name: {
+    fr: 'Nom de la variable calculée obligatoire',
+    en: 'Calculated variable name required',
+  },
+  validation_calculatedvariable_formula: {
+    fr: 'Formule de la variable calculée obligatoire',
+    en: 'Calculated variable formula required',
+  },
+  validation_calculatedvariable_existing: {
+    fr: 'Il existe une variable calculée avec le même nom',
+    en: 'It already exists a calculated variable with this name',
+  },
+  validation_externalvariable_label: {
+    fr: 'Libellé de la variable externe obligatoire',
+    en: 'External variable label required',
+  },
+  validation_externalvariable_name: {
+    fr: 'Nom de la variable externe obligatoire',
+    en: 'External variable name required',
+  },
+  validation_externalvariable_existing: {
+    fr: 'Il existe une variable externe avec le même nom',
+    en: 'It already exists an external variable with this name',
+  },
+  validation_collectedvariable_label: {
+    fr: 'Libellé de la variable collectée obligatoire',
+    en: 'Collected variable label required',
+  },
+  validation_collectedvariable_name: {
+    fr: 'Identifiant de la variable collectée obligatoire',
+    en: 'Collected variable name required',
+  },
+  validation_collectedvariable_existing: {
+    fr: 'Il existe une variable collectée avec le même nom',
+    en: 'It already exists an collected variable with this name',
+  },
+  validation_collectedvariable_no_new: {
+    fr: 'Vous ne pouvez pas ajouter des nouvelles variables collectées',
+    en: 'It already exists an collected variable with this name',
+  },
+  validation_collectedvariable_need_reset: {
+    fr: 'Veuillez spécifier une variable collectée',
+    en: 'Specify a collected variable',
+  },
+  validation_question_name_required: {
+    fr: 'Identifiant de la question obligatoire.',
+    en: 'Question name required.',
+  },
+  validation_response_format_required: {
+    fr: 'Format de réponse obligatoire.',
+    en: 'Response format required.',
+  },
+  headerSearchQuestionnaire_version: {
+    fr: 'Version',
+    en: 'Version',
+  },
+  headerSearchQuestionnaire_id: {
+    fr: 'Identifiant',
+    en: 'Id',
+  },
+  headerSearchQuestionnaire_title: {
+    fr: 'Titre',
+    en: 'Title',
+  },
+  headerSearchQuestionnaire_serie: {
+    fr: 'Série',
+    en: 'Series',
+  },
+  headerSearchQuestionnaire_operation: {
+    fr: 'Opération statistique',
+    en: 'Statistical operation',
+  },
+  headerSearchQuestionnaire_campaign: {
+    fr: 'Campagne',
+    en: 'Campaign',
+  },
+  headerSearchQuestionnaire_action: {
+    fr: 'Action',
+    en: 'Action',
+  },
+  actions_reuse: {
+    fr: 'Réutiliser',
+    en: 'Reuse',
+  },
+  searchInputLabel: {
+    en: 'Questionnaire title',
+    fr: 'Titre du questionnaire',
+  },
+  searchInputPlaceholder: {
+    en: 'Questionnaire title',
+    fr: 'Titre',
+  },
+  searchInputButton: {
+    en: 'Search',
+    fr: 'Rechercher',
+  },
+  pageSearchNoResults: {
+    en: 'No questionnaire found',
+    fr: 'Aucun questionnaire trouvé',
+  },
+  codesListsNoResults: {
+    en: 'No codes lists found',
+    fr: 'Aucune liste de codes trouvé',
+  },
+  reset: {
+    en: 'Reset',
+    fr: 'Réinitialiser',
+  },
+
+  searchResultVersion: {
+    fr: 'Version',
+    en: 'Version',
+  },
+  searchResultId: {
+    fr: 'Identifiant',
+    en: 'Id',
+  },
+  searchResultTitle: {
+    fr: 'Titre',
+    en: 'Title',
+  },
+  searchResultSerie: {
+    fr: 'Série',
+    en: 'Series',
+  },
+  searchResultOperation: {
+    fr: 'Opération statistique',
+    en: 'Statistical operation',
+  },
+  searchResultCampaign: {
+    fr: 'Campagne',
+    en: 'Campaign',
+  },
+  searchResultAction: {
+    fr: 'Action',
+    en: 'Action',
+  },
+  searchResultActionReuse: {
+    fr: 'Réutiliser',
+    en: 'Reuse',
   },
 };
 

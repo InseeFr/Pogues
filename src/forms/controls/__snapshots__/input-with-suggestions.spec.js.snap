@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputWithSuggestions Should have this default template 1`] = `
+<div
+  className="ctrl-input"
+>
+  <label
+    htmlFor="input-input"
+  >
+    Label Name
+    
+    
+  </label>
+  <div>
+    <input
+      id="input-input"
+      name="input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Label Name"
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`InputWithSuggestions should accept available suggestions props 1`] = `
+<div
+  className="ctrl-input"
+>
+  <label
+    htmlFor="input-input"
+  >
+    Label Name
+    
+    <span
+      className="help-block"
+    >
+      <span
+        aria-hidden="true"
+        className="glyphicon glyphicon-question-sign"
+      />
+       
+      Help
+       
+    </span>
+  </label>
+  <div>
+    <input
+      id="input-input"
+      name="input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Label Name"
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`InputWithSuggestions should have a help block 1`] = `
+<div
+  className="ctrl-input"
+>
+  <label
+    htmlFor="input-input"
+  >
+    Label Name
+    
+    <span
+      className="help-block"
+    >
+      <span
+        aria-hidden="true"
+        className="glyphicon glyphicon-question-sign"
+      />
+       
+      Help
+       
+    </span>
+  </label>
+  <div>
+    <input
+      id="input-input"
+      name="input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Label Name"
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;

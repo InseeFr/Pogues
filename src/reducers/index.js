@@ -7,7 +7,11 @@ import questionnaireById from 'reducers/questionnaire-by-id';
 import componentByQuestionnaire from 'reducers/component-by-questionnaire';
 import conditionByQuestionnaire from 'reducers/condition-by-questionnaire';
 import codeListByQuestionnaire from 'reducers/code-list-by-questionnaire';
-import codeByQuestionnaire from 'reducers/code-by-questionnaire';
+import calculatedVariableByQuestionnaire from 'reducers/calculated-variable-by-questionnaire';
+import externalVariableByQuestionnaire from 'reducers/external-variable-by-questionnaire';
+import collectedVariableByQuestionnaire from 'reducers/collected-variable-by-questionnaire';
+import searchResultById from 'reducers/search-result-by-id';
+import metadataByType from 'reducers/metadata-by-type';
 
 import integrityChecker from 'utils/reducer/integrity-checker';
 import checkers from 'utils/reducer/checkers';
@@ -21,7 +25,11 @@ export default integrityChecker(
     componentByQuestionnaire,
     conditionByQuestionnaire,
     codeListByQuestionnaire,
-    codeByQuestionnaire,
+    calculatedVariableByQuestionnaire,
+    externalVariableByQuestionnaire,
+    collectedVariableByQuestionnaire,
+    searchResultById,
+    metadataByType,
   }),
   checkers
 );

@@ -57,7 +57,7 @@ export class PageHome extends Component {
               <li>
                 <button id="questionnaire-new" className="btn-yellow" onClick={this.handleOpenModal}>
                   <strong>
-                    {Dictionary.emptyQuestionnaire}
+                    {Dictionary.newEmptyQuestionnaire}
                   </strong>
                 </button>
               </li>
@@ -71,17 +71,7 @@ export class PageHome extends Component {
             </li>
 
             <li>
-              <Link to="/" id="questionnaires-team" className="btn-blue">
-                <span className="glyphicon glyphicon-chevron-right" />
-                <strong>
-                  {Dictionary.fromMyTeam}
-                </strong>
-                <br />
-                {Dictionary.inProgressAndPublished}
-              </Link>
-            </li>
-            <li>
-              <Link to="/" id="questionnaires-insee" className="btn-blue">
+              <Link to="/search/questionnaires" id="questionnaires-insee" className="btn-blue">
                 <span className="glyphicon glyphicon-chevron-right" />
                 <strong>
                   {Dictionary.fromRepository}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Input from 'layout/forms/controls/input';
+import { InputWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import ResponseFormatSimple from 'questionnaire/components/response-format/simple/response-format-simple';
 import ResponseFormatSingle from 'questionnaire/components/response-format/single/response-format-single';
@@ -30,7 +30,13 @@ function InputMeasure(props) {
   ];
   return (
     <div>
-      <Field name="label" type="text" component={Input} label={Dictionary.measureLabel} required />
+      <Field
+        name="label"
+        type="text"
+        component={InputWithVariableAutoCompletion}
+        label={Dictionary.measureLabel}
+        required
+      />
 
       <ComponentSelectoryByTypeContainer
         label={Dictionary.typeMeasure}

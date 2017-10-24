@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import defaultPicture from './user-picture-default.png';
-import _ from 'lodash';
+import isEmpty from 'lodash.isempty';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function UserConnection({ user }) {
-  const isLogged = !_.isEmpty(user);
+  const isLogged = !isEmpty(user);
 
   return (
     <div id="user-connection">

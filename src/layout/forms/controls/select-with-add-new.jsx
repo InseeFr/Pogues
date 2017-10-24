@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Dictionary from 'utils/dictionary/dictionary';
 
 class SelectWithAddNew extends Component {
   static propTypes = {
@@ -10,33 +11,42 @@ class SelectWithAddNew extends Component {
     label: PropTypes.string.isRequired,
     labelButton: PropTypes.string.isRequired,
     required: PropTypes.bool,
+    emptyValue: PropTypes.string,
+    name: PropTypes.string,
   };
 
   static defaultProps = {
     options: [],
     required: false,
+    emptyValue: '',
+    name: '',
   };
 
-  constructor({ input, options, label, labelButton, required }) {
-    super();
-
-    if (!required) {
-      options.unshift({ value: '-1', label: '' });
-    }
-
-    this.state = {
-      showAddNew: false,
-      options: options,
-    };
-
-    this.name = input.name;
-    this.label = label;
-    this.labelButton = labelButton;
-    this.required = required;
-    this.handleOnChange = input.onChange;
+  constructor(props) {
+    super(props);
 
     this.handleToggleShowAddNew = this.handleToggleShowAddNew.bind(this);
     this.handleAddNew = this.handleAddNew.bind(this);
+
+    this.state = {
+      showAddNew: false,
+      options: this.addBlankOption(this.props.options),
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.options && nextProps.options[0].value !== '-1') {
+      this.setState({
+        options: this.addBlankOption(nextProps.options),
+      });
+    }
+  }
+
+  addBlankOption(options) {
+    if (!this.props.required) {
+      options.unshift({ value: '-1', label: this.props.emptyValue });
+    }
+    return options;
   }
 
   handleToggleShowAddNew(event) {
@@ -55,14 +65,22 @@ class SelectWithAddNew extends Component {
   }
 
   render() {
-    const listOptions = this.state.options.map(op => <option key={op.value} value={op.value}>{op.label}</option>);
+    const { name, required, label, labelButton, input } = this.props;
+    const listOptions = this.state.options.map(op =>
+      <option key={op.value} value={op.value}>
+        {op.label}
+      </option>
+    );
 
     return (
       <div className="ctrl-select-with-add-new">
-        <label htmlFor={`select-${this.name}`}>{this.label}{this.required ? <span>*</span> : ''}</label>
+        <label htmlFor={`select-${name}`}>
+          {label}
+          {required ? <span>*</span> : ''}
+        </label>
         <div>
           {!this.state.showAddNew
-            ? <select id={`select-${this.name}`} onChange={this.handleOnChange}>
+            ? <select {...input} id={`select-${name}`}>
                 {listOptions}
               </select>
             : <input
@@ -74,11 +92,17 @@ class SelectWithAddNew extends Component {
         </div>
         {!this.state.showAddNew
           ? <div className="form-actions">
-              <button className="btn btn-yellow" onClick={this.handleToggleShowAddNew}>{this.labelButton}</button>
+              <button className="btn btn-yellow" onClick={this.handleToggleShowAddNew}>
+                {labelButton}
+              </button>
             </div>
           : <div className="form-actions">
-              <button className="btn btn-success" onClick={this.handleAddNew}>Create</button>
-              <button className="btn btn-danger" onClick={this.handleToggleShowAddNew}>Cancel</button>
+              <button className="btn btn-success" onClick={this.handleAddNew}>
+                {Dictionary.create}
+              </button>
+              <button className="btn btn-danger" onClick={this.handleToggleShowAddNew}>
+                {Dictionary.cancel}
+              </button>
             </div>}
       </div>
     );

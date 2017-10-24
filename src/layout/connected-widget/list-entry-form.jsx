@@ -1,147 +1,200 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFormValues, actions } from 'redux-form';
-import _ from 'lodash';
+import { formValueSelector, actions } from 'redux-form';
 
 import ListEntryForm from './components/list-entry-form';
+import { removeInvalidItem } from 'actions/app-state';
+import Dictionary from 'utils/dictionary/dictionary';
 
-function getValuesSubset(values, path) {
-  return _.cloneDeep(_.get(values, path));
-}
-
-function updateValues(values, path, item) {
-  const newValues = _.cloneDeep(values);
-  return _.update(newValues, path, currentValue => {
-    return {
-      ...currentValue,
-      ...item,
-    };
-  });
-}
-
-const mapStateToProps = (state, { formName }) => {
+const mapStateToProps = (state, { formName, selectorPath }) => {
   formName = formName || 'component';
+  const selector = formValueSelector(formName);
   return {
-    values: getFormValues(formName)(state),
     formName,
+    currentValues: selector(state, `${selectorPath}`),
   };
 };
 
 const mapDispatchToProps = {
-  initialize: actions.initialize,
+  change: actions.change,
+  arrayRemove: actions.arrayRemove,
+  arrayPush: actions.arrayPush,
+  arrayInsert: actions.arrayInsert,
+  removeInvalidItem,
 };
 
 class ListEntryFormContainer extends Component {
   static propTypes = {
     formName: PropTypes.string.isRequired,
-    inputView: PropTypes.object.isRequired,
-    initialInputValues: PropTypes.object,
     selectorPath: PropTypes.string.isRequired,
     listName: PropTypes.string.isRequired,
-    initialize: PropTypes.func.isRequired,
+
+    initialInputValues: PropTypes.object.isRequired,
+    currentValues: PropTypes.object.isRequired,
+    invalidItems: PropTypes.object,
+    inputView: PropTypes.object.isRequired,
+
+    change: PropTypes.func.isRequired,
+    arrayRemove: PropTypes.func.isRequired,
+    arrayPush: PropTypes.func.isRequired,
+    arrayInsert: PropTypes.func.isRequired,
+    removeInvalidItem: PropTypes.func.isRequired,
     validationInput: PropTypes.func,
-    values: PropTypes.object,
+
     submitLabel: PropTypes.string.isRequired,
     noValueLabel: PropTypes.string.isRequired,
-    invalidItems: PropTypes.array,
+
+    showDuplicateButton: PropTypes.bool,
+    showRemoveButton: PropTypes.bool,
     rerenderOnEveryChange: PropTypes.bool,
+    avoidNewAddition: PropTypes.bool,
+    showAddButton: PropTypes.bool,
   };
 
   static defaultProps = {
-    initialInputValues: {},
-    values: {},
-    errors: {},
+    showDuplicateButton: true,
+    showRemoveButton: true,
+    rerenderOnEveryChange: true,
+    avoidNewAddition: false,
+    showAddButton: true,
     validationInput: () => true,
-    invalidItems: [],
-    rerenderOnEveryChange: false,
+    invalidItems: {},
   };
+
   constructor(props) {
     super(props);
     this.state = {
       errors: [],
     };
-    this.submit = this.submit.bind(this);
-    this.reset = this.reset.bind(this);
     this.select = this.select.bind(this);
     this.remove = this.remove.bind(this);
+    this.reset = this.reset.bind(this);
     this.duplicate = this.duplicate.bind(this);
-    this.validate = this.validate.bind(this);
-    this.resetErrors = this.resetErrors.bind(this);
+    this.submit = this.submit.bind(this);
   }
-  resetErrors() {
+
+  setValidationErrors(errors = []) {
     this.setState({
-      errors: [],
+      ...this.state,
+      errors,
     });
   }
+
+  initializeValues(values) {
+    const { formName, selectorPath, change } = this.props;
+    Object.keys(values).forEach(key => {
+      change(formName, `${selectorPath}.${key}`, values[key]);
+    });
+  }
+
+  validate() {
+    const { validationInput, currentValues, avoidNewAddition, invalidItems } = this.props;
+    let validationErrors = [];
+
+    if (avoidNewAddition && !currentValues.ref) {
+      validationErrors = [Dictionary.validation_collectedvariable_no_new];
+    } else {
+      validationErrors = validationInput(currentValues);
+    }
+
+    this.setValidationErrors(validationErrors);
+
+    return validationErrors.length === 0;
+  }
+
+  updateIntegrityErrors({ id }) {
+    const { invalidItems: { [id]: invalidItemParams } } = this.props;
+
+    if (invalidItemParams && invalidItemParams.messageKey) {
+      this.setValidationErrors([Dictionary[invalidItemParams.messageKey]]);
+    }
+  }
+
   select(index) {
-    const { formName, listName, values, selectorPath, initialize } = this.props;
-    const subset = getValuesSubset(values, `${selectorPath}.${listName}.[${index}]`);
-    const newValues = updateValues(values, selectorPath, subset);
-    this.resetErrors();
-    initialize(formName, newValues);
+    const { currentValues, listName } = this.props;
+    const selectedItem = currentValues[listName][index];
+    this.initializeValues({ ...selectedItem, ref: index + 1 });
+    this.setValidationErrors();
+    this.updateIntegrityErrors(selectedItem);
   }
-  remove(index) {
-    const { formName, selectorPath, listName, values, initialInputValues, initialize } = this.props;
-    const items = getValuesSubset(values, `${selectorPath}.${listName}`);
-    items.splice(index, 1);
-    const subset = {
-      ..._.cloneDeep(initialInputValues),
-      [listName]: items,
-    };
-    const newValues = updateValues(values, selectorPath, subset);
-    this.resetErrors();
-    initialize(formName, newValues);
+
+  remove() {
+    const {
+      currentValues,
+      selectorPath,
+      formName,
+      listName,
+      arrayRemove,
+      invalidItems,
+      removeInvalidItem,
+    } = this.props;
+    arrayRemove(formName, `${selectorPath}.${listName}`, currentValues.ref - 1);
+    if (invalidItems[currentValues.id]) removeInvalidItem(currentValues.id);
+    this.reset();
+    this.setValidationErrors();
   }
+
   reset() {
-    const { formName, listName, values, initialInputValues, selectorPath, initialize } = this.props;
-    const subset = {
-      ..._.cloneDeep(initialInputValues),
-      [listName]: [...getValuesSubset(values, `${selectorPath}.${listName}`)],
-    };
-    const newValues = updateValues(values, selectorPath, subset);
-    this.resetErrors();
-    initialize(formName, newValues);
+    const { initialInputValues, listName } = this.props;
+    const { [listName]: list, ...inputValues } = initialInputValues;
+    this.initializeValues({ ...inputValues, ref: 0 });
+    this.setValidationErrors();
   }
+
   duplicate() {
-    this.submit();
+    const { currentValues, listName, formName, selectorPath, arrayPush } = this.props;
+    const { [listName]: listItems, ref, id, ...inputValues } = currentValues;
+    if (!this.validate()) return;
+    arrayPush(formName, `${selectorPath}.${listName}`, inputValues);
+    this.reset();
+    this.setValidationErrors();
   }
-  submit(index) {
-    const { formName, values, initialInputValues, selectorPath, listName, initialize } = this.props;
-    const { [listName]: items, ...currentValues } = getValuesSubset(values, selectorPath);
 
-    if (!this.validate(currentValues)) return;
-    if (index !== undefined && index !== '') {
-      items[index] = currentValues;
-    } else {
-      items.push(currentValues);
-    }
-    const subset = {
-      ..._.cloneDeep(initialInputValues),
-      [listName]: items,
-    };
-    const newValues = updateValues(values, selectorPath, subset);
-    initialize(formName, newValues);
-  }
-  validate(values) {
-    const { validationInput } = this.props;
-    const errors = validationInput(values);
-    let isValid = true;
+  submit() {
+    const {
+      currentValues,
+      listName,
+      formName,
+      selectorPath,
+      arrayInsert,
+      arrayPush,
+      arrayRemove,
+      invalidItems,
+      removeInvalidItem,
+    } = this.props;
+    const { [listName]: listItems, ref, ...inputValues } = currentValues;
 
-    if (errors.length > 0) {
-      isValid = false;
-      this.setState({
-        errors,
-      });
+    if (!this.validate()) return;
+
+    if (invalidItems[currentValues.id]) removeInvalidItem(currentValues.id);
+
+    // If ref is undefined or 0 we are inserting a new item
+    if (ref) {
+      arrayRemove(formName, `${selectorPath}.${listName}`, ref - 1);
+      arrayInsert(formName, `${selectorPath}.${listName}`, ref - 1, inputValues);
     } else {
-      this.setState({
-        errors: [],
-      });
+      arrayPush(formName, `${selectorPath}.${listName}`, inputValues);
     }
-    return isValid;
+
+    this.reset();
   }
+
   render() {
-    const { inputView, listName, submitLabel, noValueLabel, invalidItems, rerenderOnEveryChange } = this.props;
+    const {
+      currentValues,
+      inputView,
+      listName,
+      submitLabel,
+      noValueLabel,
+      rerenderOnEveryChange,
+      showDuplicateButton,
+      showAddButton,
+      showRemoveButton,
+      avoidNewAddition,
+      invalidItems,
+    } = this.props;
+
     return (
       <ListEntryForm
         submitLabel={submitLabel}
@@ -155,7 +208,13 @@ class ListEntryFormContainer extends Component {
         inputView={inputView}
         listName={listName}
         invalidItems={invalidItems}
+        showDuplicateButton={showDuplicateButton}
+        avoidNewAddition={avoidNewAddition}
+        showAddButton={showAddButton}
+        showRemoveButton={showRemoveButton}
         rerenderOnEveryChange={rerenderOnEveryChange}
+        disableRemove={!currentValues.ref}
+        disableDuplicate={!currentValues.ref || (currentValues.id && invalidItems[currentValues.id] !== undefined)}
       />
     );
   }

@@ -13,20 +13,12 @@
  */
 export default function combineCheckers(...checkers) {
   return function(state) {
-    return checkers.reduce((errors, checker) => {
-      const check = checker(state);
-
-      errors = Object.keys(check).reduce((acc, id) => {
-        return {
-          ...acc,
-          [id]: {
-            id,
-            errors: acc[id] ? [...acc[id].errors, ...check[id].errors] : check[id].errors,
-          },
-        };
-      }, errors);
-
-      return errors;
+    return checkers.reduce((errorsByCode, checker) => {
+      const check = checker(state) || {};
+      return {
+        ...errorsByCode,
+        ...check,
+      };
     }, {});
   };
 }

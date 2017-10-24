@@ -1,8 +1,16 @@
 import activeComponentsById from 'reducers/app-state/active-components-by-id';
 import activeCodeListsById from 'reducers/app-state/active-code-lists-by-id';
-import activeCodesById from 'reducers/app-state/active-codes-by-id';
-import activeDeclarationsById from 'reducers/app-state/active-declarations-by-id';
-import { SET_ACTIVE_QUESTIONNAIRE, SET_SELECTED_COMPONENT, UPDATE_ACTIVE_QUESTIONNAIRE } from 'actions/app-state';
+import activeCalculatedVariablesById from 'reducers/app-state/active-calculated-variables-by-id';
+import collectedVariableByQuestion from 'reducers/app-state/collected-variable-by-question';
+import activeExternalVariablesById from 'reducers/app-state/active-external-variables-by-id';
+import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
+import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
+import {
+  SET_ACTIVE_QUESTIONNAIRE,
+  SET_SELECTED_COMPONENT,
+  UPDATE_ACTIVE_QUESTIONNAIRE,
+  LOAD_STATISTICAL_CONTEXT_SUCCESS,
+} from 'actions/app-state';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
 const actionHandlers = {};
@@ -11,8 +19,14 @@ const defaultState = {
   user: {},
   activeQuestionnaire: {},
   activeComponentsById: {},
-  errorsByComponent: {},
+  activeCodeListsById: {},
+  activeCodesById: {},
+  activeCalculatedVariablesById: {},
+  activeExternalVariablesById: {},
+  collectedVariableByQuestion: {},
+  errorsByCode: {},
   selectedComponentId: '',
+  errorsByQuestionTab: {},
 };
 
 export function loadUserSuccess(state, user) {
@@ -48,10 +62,22 @@ export function setSelectedComponentId(state, id) {
   };
 }
 
+export function loadStatisticalContext(state, { serie, operation }) {
+  return {
+    ...state,
+    activeQuestionnaire: {
+      ...state.activeQuestionnaire,
+      serie,
+      operation,
+    },
+  };
+}
+
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
+actionHandlers[LOAD_STATISTICAL_CONTEXT_SUCCESS] = loadStatisticalContext;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {
@@ -62,7 +88,10 @@ export default function(state = defaultState, action) {
     ...(hndlr ? hndlr(state, payload) : state),
     activeComponentsById: activeComponentsById(state.activeComponentsById, action),
     activeCodeListsById: activeCodeListsById(state.activeCodeListsById, action),
-    activeCodesById: activeCodesById(state.activeCodesById, action),
-    activeDeclarationsById: activeDeclarationsById(state.activeDeclarationsById, action),
+    activeCalculatedVariablesById: activeCalculatedVariablesById(state.activeCalculatedVariablesById, action),
+    collectedVariableByQuestion: collectedVariableByQuestion(state.collectedVariableByQuestion, action),
+    activeExternalVariablesById: activeExternalVariablesById(state.activeExternalVariablesById, action),
+    invalidItemsByActiveQuestion: invalidItemsByActiveQuestion(state.invalidItemsByActiveQuestion, action),
+    errorsByQuestionTab: errorsByQuestionTab(state.errorsByQuestionTab, action),
   };
 }

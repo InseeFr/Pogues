@@ -1,30 +1,51 @@
-import { DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME } from 'constants/pogues-constants';
-
-const { TEXT } = DATATYPE_NAME;
-
-export const defaultResponseModel = {
-  mandatory: false,
-  codeListReference: '',
-  datatype: { typeName: TEXT, maxLength: 255, pattern: '', type: DATATYPE_TYPE_FROM_NAME[TEXT] },
-};
+import { DATATYPE_TYPE_FROM_NAME, UI_BEHAVIOUR } from 'constants/pogues-constants';
 
 function stateToModel(state) {
-  const { mandatory, codeListReference, type, nonResponseModality, datatype = {} } = state;
+  const {
+    mandatory,
+    typeName,
+    maxLength: MaxLength,
+    pattern: Pattern,
+    minimum: Minimum,
+    maximum: Maximum,
+    decimals: Decimals,
+    unit: Unit,
+    codesListId: CodeListReference,
+    visHint: visualizationHint,
+    hasSpecialCode,
+    specialLabel,
+    specialCode,
+    specialUiBehaviour,
+    specialFollowUpMessage,
+    collectedVariable: CollectedVariableReference,
+  } = state;
   const model = {
-    mandatory: mandatory || false,
-    nonResponseModality,
-    codeListReference: codeListReference || '',
-    datatype: {
-      ...datatype,
-      typeName: type,
-      type: DATATYPE_TYPE_FROM_NAME[type],
+    Datatype: {
+      typeName,
+      type: DATATYPE_TYPE_FROM_NAME[typeName],
     },
   };
 
-  return {
-    ...defaultResponseModel,
-    ...model,
-  };
+  if (CollectedVariableReference !== undefined) model.CollectedVariableReference = CollectedVariableReference;
+  if (CodeListReference !== undefined) model.CodeListReference = CodeListReference;
+  if (mandatory !== undefined) model.mandatory = mandatory;
+  if (visualizationHint !== undefined) model.Datatype.visualizationHint = visualizationHint;
+  if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
+  if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
+  if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
+  if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
+  if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
+  if (Unit !== undefined) model.Datatype.Unit = Unit;
+  if (hasSpecialCode) {
+    model.nonResponseModality = {
+      value: specialCode,
+      label: specialLabel,
+      firstIntentionDisplay: specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
+      invite: specialFollowUpMessage,
+    };
+  }
+
+  return model;
 }
 
 export default {

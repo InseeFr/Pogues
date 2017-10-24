@@ -1,7 +1,7 @@
 import { componentSource, cardTarget, collect } from './component-dragndrop';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { SEQUENCE } = COMPONENT_TYPE;
 
 jest.mock('./component-utils');
 

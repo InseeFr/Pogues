@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
-import RichTextEditor from 'gillespie59-react-rte';
+import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { CompositeDecorator } from 'draft-js';
-import 'draft-js/dist/Draft.css';
+
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
+
+// Matches any '${foo' patterns not closed by }
+const InputRegex = /[[(]?\${\w+\b[\])]?(?!\})/;
 
 function Link(props) {
   const { url, title } = props.contentState.getEntity(props.entityKey).getData();
@@ -40,7 +44,11 @@ export function markdownToHtml(markdown) {
 }
 
 export function markdownToEditorValue(markdown) {
-  return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  try {
+    return RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators);
+  } catch (e) {
+    return RichTextEditor.EditorValue.createEmpty(decorators);
+  }
 }
 
 export function editorValueToMarkdown(value) {
@@ -56,7 +64,7 @@ export function markdownToRaw(value) {
 }
 
 function formatURL(url) {
-  if (url.indexOf('http://') === 0) {
+  if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
     return { url };
   }
   return { url: '.', title: url };
@@ -69,57 +77,96 @@ function getValue(props) {
 }
 
 /**
- * Component that will display a TextArea in a react-form Field component. 
+ * Component that will display a TextArea in a react-form Field component.
  * We can add a help block thankt to the help attribute, and an actions toolbar
  * thanks to a button attribute.
- */
-/**
- * petit bug de synchro dans le model
- * Faire la PR
  */
 class RichTextArea extends Component {
   static propTypes = {
     input: PropTypes.object.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     required: PropTypes.bool,
     buttons: PropTypes.bool,
     help: PropTypes.bool,
     reference: PropTypes.func,
+    avoidSubmitOnEnter: PropTypes.bool,
+    identifier: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    availableSuggestions: PropTypes.arrayOf(PropTypes.string),
+    meta: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
+    label: undefined,
     required: false,
     buttons: false,
     options: [],
     help: false,
+    avoidSubmitOnEnter: true,
+    identifier: undefined,
+    availableSuggestions: undefined,
   };
 
   constructor(props) {
     super(props);
-    const initValue = getValue(props);
     this.state = {
-      value: initValue,
-      editorState: initValue.getEditorState().getCurrentContent(),
-      currentValue: initValue,
+      suggestions: [],
+      currentValue: props.input.value,
+      value: getValue(props),
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.buttons && nextProps.input.value !== this.state.currentValue) {
-      this.setState({
-        value: getValue(nextProps),
-        currentValue: nextProps.input.value,
-      });
+    if (this.props.identifier === undefined) {
+      return;
+    }
+    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
+      this.setState({ value: getValue(nextProps) });
     }
   }
 
-  onChange = value => {
-    if (this.props.buttons) {
-      const markdownValue = editorValueToMarkdown(value);
-      this.setState({ value, currentValue: markdownValue }, () => {
-        this.props.input.onChange(markdownValue);
-      });
+  onChange = withConvertion => value => {
+    // Depends if we are using the real rte or just a classic textarea
+    const convertedValue = withConvertion ? editorValueToMarkdown(value) : value.target.value;
+    if (this.props.availableSuggestions) {
+      const matches = convertedValue.match(InputRegex);
+      if (matches) {
+        this.setState({
+          suggestions: this.props.availableSuggestions.filter(suggestion =>
+            suggestion.toLowerCase().includes(matches[0].substring(2).toLowerCase())
+          ),
+        });
+      } else {
+        this.setState({ suggestions: [] });
+      }
     }
+    this.setState({ value, currentValue: convertedValue }, () => {
+      this.props.input.onChange(convertedValue);
+    });
+  };
+
+  // Replaces first ${foo pattern by ${selectedValue}
+  replaceFirstTemplateAvailable = t => () => {
+    const newValue = this.props.input.value.replace(InputRegex, `\${${t}}`);
+    this.props.input.onChange(newValue);
+    // Reset suggestions afterwards and manually update the value since there is no watcher
+    this.setState({ suggestions: [], currentValue: newValue, value: getValue({ input: { value: newValue } }) });
+  };
+
+  useTabToAutoComplete = e => {
+    if (this.state.suggestions.length > 0 && e.key === 'Tab') {
+      this.replaceFirstTemplateAvailable(this.state.suggestions[0])();
+      e.preventDefault();
+    }
+  };
+
+  handleReturn = e => {
+    if (!this.props.avoidSubmitOnEnter) {
+      e.target
+        .closest('form')
+        .querySelector('button[type=submit]')
+        .click();
+    }
+    return 'handled';
   };
 
   toolbarConfig = {
@@ -136,36 +183,65 @@ class RichTextArea extends Component {
   };
 
   render() {
-    const { input, label, required, buttons, help, reference } = this.props;
+    const { input, label, required, buttons, help, reference, meta: { touched, error, warning } } = this.props;
+    const editorValue = this.state.value;
 
-    const helpBlock =
-      help &&
+    const helpBlock = help && (
       <span className="help-block">
         <span className="glyphicon glyphicon-question-sign" aria-hidden="true" /> {Dictionary.HELP}{' '}
-      </span>;
+      </span>
+    );
 
     return (
       <div className="ctrl-input">
-        <label htmlFor={`select-${input.name}`}>
-          {label}
-          {required ? <span>*</span> : ''} {helpBlock}
-        </label>
-        {buttons &&
-          <div>
+        {label && (
+          <label htmlFor={`select-${input.name}`}>
+            {label}
+            {required ? <span>*</span> : ''} {helpBlock}
+          </label>
+        )}
+        <div>
+          {buttons && (
             <RichTextEditor
-              value={this.state.value}
-              onChange={value => this.onChange(value)}
+              blockStyleFn={() => 'singleline'}
+              value={editorValue}
+              onChange={this.onChange(true)}
               toolbarConfig={this.toolbarConfig}
-              handleReturn={() => true}
+              handleReturn={this.handleReturn}
               rootStyle={this.rootStyle}
               formatURL={formatURL}
               ref={reference}
             />
-          </div>}
-        {!buttons &&
-          <div>
-            <textarea {...input} id={`select-${input.name}`} ref={reference} />
-          </div>}
+          )}
+          {!buttons && (
+            <textarea
+              {...input}
+              onChange={this.onChange(false)}
+              onKeyDown={this.useTabToAutoComplete}
+              id={`select-${input.name}`}
+              ref={reference}
+            />
+          )}
+          {touched &&
+            ((error && <span className="form-error">{error}</span>) ||
+              (warning && <span className="form-warm">{warning}</span>))}
+          {this.state.suggestions.length > 0 && (
+            <div className="input-suggestion-wrapper">
+              {this.state.suggestions.map(suggest => (
+                <div
+                  key={`suggestion-key-${suggest}`}
+                  onClick={this.replaceFirstTemplateAvailable(suggest)}
+                  role="button"
+                  className="input-suggestion"
+                  title={suggest}
+                >
+                  {' '}
+                  {suggest}{' '}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     );
   }

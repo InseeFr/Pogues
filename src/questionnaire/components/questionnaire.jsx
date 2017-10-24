@@ -23,11 +23,13 @@ class Questionnaire extends Component {
     moveComponent: PropTypes.func.isRequired,
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
-    errors: PropTypes.object,
+    loadStatisticalContext: PropTypes.func.isRequired,
+    loadCampaignsIfNeeded: PropTypes.func.isRequired,
+    errorsByComponent: PropTypes.object,
   };
 
   static defaultProps = {
-    errors: {},
+    errorsByComponent: {},
   };
 
   static contextTypes = {
@@ -58,6 +60,19 @@ class Questionnaire extends Component {
     this.handleDisplayDeleteConfirm = this.handleDisplayDeleteConfirm.bind(this);
     this.closeQuestionnaireDelete = this.closeQuestionnaireDelete.bind(this);
     this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
+  }
+
+  componentWillMount() {
+    const { serie, operation, campaigns } = this.props.questionnaire;
+    // If exists more than a campaign we send the first one because the father is always the same
+    // for all of them.
+    if (serie === '' && operation === '' && campaigns.length > 0) this.props.loadStatisticalContext(campaigns[0]);
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.questionnaire.operation !== this.props.questionnaire.operation) {
+      this.props.loadCampaignsIfNeeded(nextProps.questionnaire.operation);
+    }
   }
 
   closeQuestionnaireDelete() {
@@ -137,14 +152,14 @@ class Questionnaire extends Component {
     this.handleCloseQuestionnaireDetail();
   }
 
-  renderComponentsByParent(components, parent, errors) {
+  renderComponentsByParent(components, parent, errorsByComponent) {
     const renderComponentsByParent = this.renderComponentsByParent;
     const selected = this.props.selectedComponentId;
     const { moveComponent } = this.props;
     return getSortedChildren(components, parent).map(key => {
-      const subTree = renderComponentsByParent(components, key, errors);
+      const subTree = renderComponentsByParent(components, key, errorsByComponent);
       const isSelected = key === selected;
-      const componentErrors = errors[key] ? errors[key].errors : [];
+      const componentErrors = errorsByComponent[key] ? errorsByComponent[key].errors : [];
       return (
         <QuestionnaireElement
           key={key}
@@ -172,13 +187,13 @@ class Questionnaire extends Component {
   }
 
   render() {
-    const { components, questionnaire, errors } = this.props;
-    const tree = this.renderComponentsByParent(components, questionnaire.id, errors);
+    const { components, questionnaire, errorsByComponent } = this.props;
+    const tree = this.renderComponentsByParent(components, questionnaire.id, errorsByComponent);
     const typeElementInModal = this.state.typeElementInModal;
 
     return (
       <div id="questionnaire">
-        {Object.keys(errors).length > 0 &&
+        {Object.keys(errorsByComponent).length > 0 && (
           <div id="questionnaire-errors">
             <div className="questionnaire-errors-alert">
               <div className="alert-icon big">
@@ -186,20 +201,15 @@ class Questionnaire extends Component {
               </div>
             </div>
             <div className="questionnaire-errors-list">
-              <QuestionnaireErrorsContainer />
+              <QuestionnaireErrorsContainer errorsByComponent={errorsByComponent} />
             </div>
-          </div>}
+          </div>
+        )}
         <div id="questionnaire-head">
-          <h4>
-            {questionnaire.label}
-          </h4>
+          <h4>{questionnaire.label}</h4>
           <div>
             <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>
               {Dictionary.showDetail}
-            </button>
-            <button className="btn-yellow">
-              {Dictionary.duplicate}
-              <span className="glyphicon glyphicon-duplicate" />
             </button>
             <button className="btn-yellow" onClick={this.handleDisplayDeleteConfirm}>
               {Dictionary.remove}
@@ -207,9 +217,7 @@ class Questionnaire extends Component {
             </button>
           </div>
         </div>
-        <div id="questionnaire-items">
-          {tree}
-        </div>
+        <div id="questionnaire-items">{tree}</div>
         <ReactModal
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showQuestionnaireModal}
@@ -218,9 +226,7 @@ class Questionnaire extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>
-                {Dictionary.questionnaireDetail}
-              </h3>
+              <h3>{Dictionary.questionnaireDetail}</h3>
 
               <button type="button" onClick={this.handleCloseQuestionnaireDetail}>
                 <span>X</span>
@@ -242,9 +248,7 @@ class Questionnaire extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>
-                {typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}
-              </h3>
+              <h3>{typeElementInModal ? Dictionary[`componentEdit${typeElementInModal}`] : ''}</h3>
               <button type="button" onClick={this.handleCloseElementDetail}>
                 <span>X</span>
               </button>

@@ -1,4 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { getLocale } from 'reducers/dictionary';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -91,78 +93,42 @@ export function couldInsertAsChild(droppedComponent, draggedComponent) {
  * @param {string} parent The ID of the component of the children we are looking for
  */
 export function getSortedChildren(components, parent) {
-  return Object.keys(components).filter(key => components[key].parent === parent).sort((key, nextKey) => {
-    if (components[key].weight < components[nextKey].weight) return -1;
-    if (components[key].weight > components[nextKey].weight) return 1;
-    return 0;
-  });
+  return Object.keys(components)
+    .filter(key => components[key].parent === parent)
+    .sort((key, nextKey) => {
+      if (components[key].weight < components[nextKey].weight) return -1;
+      if (components[key].weight > components[nextKey].weight) return 1;
+      return 0;
+    });
 }
 
-function getTargetsFromSequence(components, parent, weight, currentComponentId) {
-  return components[parent].children.filter(id => currentComponentId !== id && components[id].weight > weight).reduce(
-    (acc, key) => [
-      ...acc,
-      key,
-      ...components[key].children.reduce((acu, id) => {
-        return [...acu, id, ...components[id].children];
-      }, []),
-    ],
-    []
-  );
+export function formatDate(date) {
+  return new Intl.DateTimeFormat(getLocale(), {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(date));
 }
 
-function getTargetsFromComponent(components, parent, weight, currentComponentId) {
-  return components[parent].children
-    .filter(id => id !== currentComponentId && components[id].weight >= weight)
-    .reduce((acc, id) => {
-      return [...acc, id, ...components[id].children];
-    }, []);
+export function getState(final) {
+  return final ? Dictionary.stateValidated : Dictionary.stateProvisional;
 }
 
-export function getTargets(
-  components,
-  componentType,
-  selectedComponentId,
-  componentParent,
-  componentWeight,
-  isNewComponent
-) {
-  let ids = [];
-  let currentComponentId = selectedComponentId;
-  let currentComponentType = componentType;
-  let currentComponentParent = componentParent;
-  let currentComponentWeight = componentWeight;
-
-  if (!isNewComponent && selectedComponentId !== '') {
-    if (currentComponentType === SEQUENCE) {
-      ids = [
-        ...components[selectedComponentId].children.reduce((acc, id) => {
-          return [...acc, id, ...components[id].children];
-        }, []),
-      ];
-    } else if (currentComponentType === SUBSEQUENCE) {
-      ids = components[selectedComponentId].children;
-    }
-  }
-
-  do {
-    if (currentComponentType !== SEQUENCE) {
-      ids = [
-        ...ids,
-        ...getTargetsFromComponent(components, currentComponentParent, currentComponentWeight, currentComponentId),
-      ];
-    } else {
-      ids = [
-        ...ids,
-        ...getTargetsFromSequence(components, currentComponentParent, currentComponentWeight, currentComponentId),
-      ];
-    }
-
-    currentComponentId = components[currentComponentParent].id;
-    currentComponentType = components[currentComponentParent].type;
-    currentComponentWeight = components[currentComponentParent].weight;
-    currentComponentParent = components[currentComponentParent].parent;
-  } while (currentComponentParent !== '');
-
-  return ids;
+/**
+ * This function is called when we add a component to a parent
+ *
+ * @param {object[]} activeComponents The list of components
+ * @param {string} parentId The id of the parent we should update
+ * @param {string} newComponentId The id of the created component
+ */
+export function updateNewComponentParent(activeComponents, parentId, newComponentId) {
+  const parent = activeComponents[parentId];
+  return {
+    [parentId]: {
+      ...parent,
+      children: [...parent.children, newComponentId],
+    },
+  };
 }

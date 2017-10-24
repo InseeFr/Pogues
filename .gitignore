@@ -11,3 +11,5 @@ coverage/
 /selenium-debug.log
 screenshots/
 coverage/
+docs/stats.html
+reports*

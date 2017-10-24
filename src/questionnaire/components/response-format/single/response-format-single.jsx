@@ -5,7 +5,7 @@ import Input from 'layout/forms/controls/input';
 import Select from 'layout/forms/controls/select';
 import { UI_BEHAVIOUR, DATATYPE_VIS_HINT, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
-import CodesList from 'layout/widget/codes-list/codes-list';
+import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
 import Dictionary from 'utils/dictionary/dictionary';
 import OptionalViewContainer from 'layout/connected-widget/optional-view';
 

@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
-import Config from '../config';
+import Config from 'Config';
+import { getUrlFromCriterias } from 'utils/utils';
 
 const { baseURL, persistancePath, userPath } = Config;
 
@@ -7,6 +8,10 @@ const urlQuestionnaireList = `${baseURL + persistancePath}/questionnaires`;
 const urlQuestionnaireListSearch = `${baseURL + persistancePath}/questionnaires/search`;
 const urlQuestionnaire = `${baseURL + persistancePath}/questionnaire`;
 const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
+const urlSearch = `${baseURL}/search`;
+const urlSeriesList = `${urlSearch}/series`;
+const urlOperationsList = `${urlSearch}/operations`;
+const urlMetadata = `${baseURL}/meta-data`;
 
 export const visualisationUrl = `${baseURL}/transform/visualize/`;
 
@@ -84,7 +89,7 @@ export const getUserAttributes = () =>
 
 /**
  * Will send a DELETE request in order to remove an existing questionnaire
- * 
+ *
  * @param {deleteQuestionnaire} id The id of the questionnaire we want to delete
  */
 export const deleteQuestionnaire = id =>
@@ -92,3 +97,58 @@ export const deleteQuestionnaire = id =>
     method: 'DELETE',
     credentials: 'include',
   });
+
+export const getSeries = () =>
+  fetch(urlSeriesList, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
+
+export const getOperations = id =>
+  fetch(`${urlSeriesList}/${id}/operations`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
+
+export const getCampaigns = id =>
+  fetch(`${urlOperationsList}/${id}/collections`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
+
+export const getContextFromCampaign = id =>
+  fetch(`${urlSearch}/context/collection/${id}`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
+
+export const getUnitsList = () =>
+  fetch(`${urlMetadata}/units`, {
+    headers: {
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  }).then(res => res.json());
+
+export const getSearchResults = (typeItem, criterias, filter = '') => {
+  return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
+    method: 'POST',
+    headers: {
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      types: [typeItem],
+      filter,
+    }),
+  }).then(res => res.json());
+};

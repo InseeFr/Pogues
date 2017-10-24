@@ -8,10 +8,21 @@
   ul {
     list-style: none;
     padding: 0;
+    display: block;
+    &.hide {
+      position: absolute;
+      right: -50px;
+      top: 50px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      display: block !important;
+    }
 
     li {
       @include make-row();
       margin-bottom: 10px;
+      display: flex;
 
       input[type="text"] {
         @extend .form-control;
@@ -19,6 +30,7 @@
 
       .codes-list__code-code {
         @include make-xs-column(2);
+        margin-right: 10px;
       }
       .codes-list__code-label {
         @include make-xs-column(5);
@@ -36,6 +48,10 @@
         button {
           @extend .btn-grey;
         }
+      }
+      
+      div:nth-child(3) > div > div {
+        min-width: 500px;
       }
     }
   }

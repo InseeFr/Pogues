@@ -9,7 +9,14 @@
     -ms-flex-direction: column;
     flex-direction: row;
   }
+  .ctrl-input {
+    margin: 0 0 10px;
 
+    input {
+      width: 40%;
+      line-height: 30px;
+    }
+  }
   .questionnaire-list_header {
     font-weight: bold;
     font-size: $font-xs;

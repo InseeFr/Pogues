@@ -5,24 +5,23 @@ const { SEQUENCE, QUESTION, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 jest.mock('./component-remove');
 
-const activesComponents = {
-  '0': { id: '0', weight: 0, type: QUESTIONNAIRE, children: ['1', '11', '12'] },
-  '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2', '3', '7', '8'] },
-  '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-  '3': { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: ['4', '5', '6'] },
-  '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-  '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-  '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-  '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-  '8': { id: '8', weight: 3, type: SUBSEQUENCE, parent: '1', children: ['9', '10'] },
-  '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-  '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-  '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-  '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
-};
-
 describe('getWeightAndParentId', () => {
   test('if dragndropLevel = -2', () => {
+    const activesComponents = {
+      '0': { id: '0', weight: 0, type: QUESTIONNAIRE, children: ['1', '11', '12'] },
+      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2', '3', '7', '8'] },
+      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      '3': { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: ['4', '5', '6'] },
+      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      '8': { id: '8', weight: 3, type: SUBSEQUENCE, parent: '1', children: ['9', '10'] },
+      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+    };
     const result = component.getWeightAndParentId(
       activesComponents,
       activesComponents['5'],
@@ -102,6 +101,21 @@ describe('getWeightAndParentId', () => {
 
 describe('moveComponent', () => {
   test('should return all moves from the new and old parent when their are not the same', () => {
+    const activesComponents = {
+      '0': { id: '0', weight: 0, type: QUESTIONNAIRE, children: ['1', '11', '12'] },
+      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2', '3', '7', '8'] },
+      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      '3': { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: ['4', '5', '6'] },
+      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      '8': { id: '8', weight: 3, type: SUBSEQUENCE, parent: '1', children: ['9', '10'] },
+      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+    };
     const result = component.moveComponent(activesComponents, '9', '6');
 
     expect(result['2']).toEqual({ id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] });

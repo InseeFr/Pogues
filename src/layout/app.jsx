@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUser } from 'actions/user';
+import { loadUnitsIfNeeded } from 'actions/metadata';
 
 import Header from 'layout/header/header';
 import Footer from 'layout/footer/footer';
@@ -18,6 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loadUser,
+  loadUnitsIfNeeded,
   loadQuestionnaireList,
 };
 
@@ -25,6 +27,7 @@ export class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     loadUser: PropTypes.func.isRequired,
+    loadUnitsIfNeeded: PropTypes.func.isRequired,
     loadQuestionnaireList: PropTypes.func.isRequired,
     user: PropTypes.shape({
       name: PropTypes.string,
@@ -36,6 +39,7 @@ export class AppContainer extends Component {
 
   componentWillMount() {
     this.props.loadUser();
+    this.props.loadUnitsIfNeeded();
   }
 
   componentWillUpdate(nextProps) {

@@ -1,4 +1,11 @@
-.ctrl-select-with-add-new, .ctrl-select, .ctrl-input, .ctrl-list-radios-buttons, .ctrl-checkbox {
+.ctrl-select-with-add-new,
+.ctrl-select,
+.ctrl-input,
+.ctrl-list-radios-buttons,
+.ctrl-checkbox,
+.ctrl-list-checkboxes,
+.ctrl-input-autocomplete,
+.ctrl-tree-select {
   @extend .form-group;
   @include make-row();
 
@@ -8,7 +15,13 @@
 }
 
 
-.ctrl-select-with-add-new, .ctrl-select, .ctrl-input, .ctrl-checkbox {
+.ctrl-select-with-add-new,
+.ctrl-select,
+.ctrl-input,
+.ctrl-checkbox,
+.ctrl-list-checkboxes,
+.ctrl-input-autocomplete,
+.ctrl-tree-select {
   label + div {
     @include make-xs-column(6);
 
@@ -68,4 +81,78 @@
 
 .form-check-label > input[type=checkbox]{
   margin-right: 10px;
+}
+
+.ctrl-tree-select {
+  &.disabled ul {
+    background-color: $color-grey_03;
+    cursor: default;
+  }
+
+  label + div {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    ul {
+      padding: 0;
+      height: 120px;
+      background-color: white;
+      border: 1px solid rgb(204, 204, 204);
+      overflow-y: scroll;
+
+      li {
+        padding: 3px 15px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.disabled {
+          color: grey;
+          cursor: default;
+        }
+
+        &.selected {
+          background-color: #0f417a;
+          color: white;
+        }
+      }
+
+    }
+  }
+}
+
+.ctrl-select select[multiple] {
+  height: 200px;
+}
+
+.ctrl-input-autocomplete {
+  .ctrl-input-autocomplete__button-clear {
+    padding-left: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    width: 95%;
+    border: 1px solid grey;
+
+    li {
+      padding: 5px;
+      cursor: pointer;
+      &.active {
+        background-color: $color-grey_03;
+      }
+      &:hover {
+        background-color: $color-grey_03;
+      }
+    }
+  }
 }

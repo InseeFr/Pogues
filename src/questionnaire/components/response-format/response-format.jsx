@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormSection } from 'redux-form';
+import PropTypes from 'prop-types';
 
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import ResponseFormatSimple from 'questionnaire/components/response-format/simple/response-format-simple';
@@ -13,10 +14,12 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormat extends FormSection {
   static selectorPath = 'responseFormat';
+  static propTypes = {
+    edit: PropTypes.bool.isRequired,
+  }
   static defaultProps = {
     name: 'responseFormat',
   };
-
   render() {
     const responseFormatTypes = [
       {
@@ -51,6 +54,8 @@ class ResponseFormat extends FormSection {
           label={Dictionary.responseFormats}
           components={responseFormatTypes}
           selectorPath={ResponseFormat.selectorPath}
+          emptyValue={this.props.edit ? '' : Dictionary.selectType}
+          validateInline={false}
         />
       </div>
     );

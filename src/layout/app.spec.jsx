@@ -9,6 +9,7 @@ describe('<App />', () => {
   const props = {
     children: <div />,
     loadUser() {},
+    loadUnitsIfNeeded() {},
     loadQuestionnaireList() {},
   };
 

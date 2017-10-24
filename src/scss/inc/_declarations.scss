@@ -1,11 +1,11 @@
 .declarations-box {
     display: flex;
     flex-flow: row wrap;
-    
+
     & > *{
         flex: 0 0 50%;
     }
-    
+
     ul {
         list-style: none;
     }
@@ -25,7 +25,10 @@
         }
     }
 
-    .ctrl-selec t-with-add-new label + div, .ctrl-select label + div, .ctrl-input label + div {
+    .ctrl-with-add-new label + div,
+    .ctrl-select label + div,
+    .ctrl-input-autocomplete + div,
+    .ctrl-input label + div {
         width: 70%;
     }
 

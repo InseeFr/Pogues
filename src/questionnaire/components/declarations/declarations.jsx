@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { Field, FormSection } from 'redux-form';
+import { Field, formValueSelector, FormSection } from 'redux-form';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
-import Textarea from 'layout/forms/controls/rich-textarea';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultDeclarationForm } from 'utils/transformation-entities/declaration';
+import { declarationsFormDefault } from 'utils/transformation-entities/declaration';
+import { required } from 'layout/forms/validation-rules';
+import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 
 function validationDeclaration(values) {
   const { label } = values;
+  const requiredLabel = required(label);
   const errors = [];
 
-  if (label === '') errors.push(Dictionary.validation_declaration_label);
+  if (requiredLabel) errors.push(Dictionary.validation_declaration_label);
 
   return errors;
 }
 
-function InputDeclaration() {
+function InputDeclaration({ identifier, showPosition }) {
   const types = [
     {
       value: 'INSTRUCTION',
@@ -60,41 +64,72 @@ function InputDeclaration() {
       <Field
         name="label"
         id="declaration_text"
-        component={Textarea}
-        buttons
+        component={TextAreaWithVariableAutoCompletion}
         label={Dictionary.declaration_label}
+        buttons
         required
+        identifier={identifier}
       />
-
-      <Field name="type" id="declaration_type" component={Select} label={Dictionary.type} options={types} required />
 
       <Field
-        name="position"
-        id="declaration_position"
+        name="declarationType"
+        id="declaration_type"
         component={Select}
-        label={Dictionary.declaration_position}
-        options={positions}
+        label={Dictionary.type}
+        options={types}
         required
       />
+
+      {showPosition && (
+        <Field
+          name="position"
+          id="declaration_position"
+          component={Select}
+          label={Dictionary.declaration_position}
+          options={positions}
+          required
+        />
+      )}
     </div>
   );
 }
+
+InputDeclaration.propTypes = {
+  showPosition: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state, { formName }) => {
+  formName = formName || 'component';
+  const selector = formValueSelector(formName);
+  return {
+    identifier: selector(state, `declarations.ref`),
+  };
+};
+
 class Declarations extends Component {
   static selectorPath = 'declarations';
 
-  render() {
-    const { declarations, ...initialInputValues } = defaultDeclarationForm;
-    const inputDeclarationView = <InputDeclaration />;
+  static propTypes = {
+    showPosition: PropTypes.bool,
+  };
 
+  static defaultProps = {
+    showPosition: true,
+  };
+
+  render() {
+    const { declarations, ...initialInputValues } = declarationsFormDefault;
+    const InputDeclarationView = connect(mapStateToProps)(InputDeclaration);
+    const inputDeclarationViewInstance = <InputDeclarationView showPosition={this.props.showPosition} />;
     return (
       <FormSection name={Declarations.selectorPath} className="declaratations">
         <ListEntryFormContainer
-          inputView={inputDeclarationView}
+          inputView={inputDeclarationViewInstance}
           initialInputValues={initialInputValues}
           selectorPath={Declarations.selectorPath}
           validationInput={validationDeclaration}
           listName="declarations"
-          submitLabel="addDeclaration"
+          submitLabel="reset"
           noValueLabel="noDeclarationYet"
           rerenderOnEveryChange
         />

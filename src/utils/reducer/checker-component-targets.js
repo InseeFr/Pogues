@@ -1,57 +1,55 @@
-import { getTargets } from 'utils/component/component-utils';
-
-function isEarlierTarget(ids, targetId) {
-  return ids.indexOf(targetId) !== -1;
-}
-
-function existsTarget(components, targetId) {
-  return components[targetId] !== undefined;
-}
+import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 
 function checkerComponentTargets({ appState: { activeComponentsById } }) {
-  return Object.keys(activeComponentsById).reduce((acc, id) => {
-    const redirections = activeComponentsById[id].redirections;
+  const targetNotFoundErrors = [];
+  const targetEarlierErrors = [];
 
-    if (redirections.length > 0) {
-      const ids = getTargets(
-        activeComponentsById,
-        activeComponentsById[id].type,
-        '',
-        activeComponentsById[id].parent,
-        activeComponentsById[id].weight
-      );
-      const errors = redirections.reduce((accInner, redirection) => {
-        if (!existsTarget(activeComponentsById, redirection.cible)) {
-          accInner.push({
-            type: 'redirections',
-            code: 'TARGET_NOT_FOUND',
-            params: { redirectionId: redirection.id, targetId: redirection.cible },
-            dictionary: 'errorGoToNonExistingTgt',
+  Object.keys(activeComponentsById).forEach(key => {
+    const redirections = activeComponentsById[key].redirections || {};
+    const redirectionsIds = Object.keys(redirections);
+
+    if (redirectionsIds.length > 0) {
+      const activeTargetsIds = getComponentsTargetsByComponent(activeComponentsById, activeComponentsById[key]);
+
+      redirectionsIds.forEach(innerKey => {
+        const redirection = redirections[innerKey];
+
+        if (!activeComponentsById[redirection.cible]) {
+          targetNotFoundErrors.push({
+            id: key,
+            params: {
+              itemId: innerKey,
+              messageKey: 'errorGoToNonExistingTgt',
+            },
           });
-        } else if (!isEarlierTarget(ids, redirection.cible)) {
-          accInner.push({
-            type: 'redirections',
-            code: 'TARGET_EARLIER',
-            params: { redirectionId: redirection.id, targetId: redirection.cible },
-            dictionary: 'errorGoToEarlierTgt',
+        } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
+          targetEarlierErrors.push({
+            id: key,
+            params: {
+              itemId: innerKey,
+              targetId: redirection.cible,
+              messageKey: 'errorGoToEarlierTgt',
+            },
           });
         }
-        return accInner;
-      }, []);
-
-      if (errors.length > 0) {
-        acc = {
-          ...acc,
-          [id]: {
-            id,
-            errors,
-          },
-        };
-      }
+      });
     }
+  });
 
-    return acc;
-  }, {});
+  return {
+    TARGET_NOT_FOUND: {
+      type: 'redirections',
+      code: 'TARGET_NOT_FOUND',
+      dictionary: 'errorGoToNonExistingTgt',
+      errors: targetNotFoundErrors,
+    },
+    TARGET_EARLIER: {
+      type: 'redirections',
+      code: 'TARGET_EARLIER',
+      dictionary: 'errorGoToEarlierTgt',
+      errors: targetEarlierErrors,
+    },
+  };
 }
 
 export default checkerComponentTargets;

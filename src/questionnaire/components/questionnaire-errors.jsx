@@ -48,15 +48,15 @@ class QuestionnaireErrors extends Component {
   render() {
     const { errorsByComponent, components } = this.props;
 
-    const listErrors = Object.keys(errorsByComponent).map(id => {
+    const listErrors = Object.keys(errorsByComponent).filter(id => components[id]).map(id => {
+      const expanded = this.state.expanded.indexOf(id) >= 0;
       const invalidComponent = errorsByComponent[id];
-
       const component = `[${components[id].name}] ${components[id].label}`;
-
       const errors = invalidComponent.errors.map((e, index) => {
+        const message = e.params.dictionary ? e.params.dictionary : Dictionary[e.dictionary];
         return (
           <li key={`${e.code}-${index}`}>
-            {Dictionary[e.dictionary]}
+            {message}
           </li>
         );
       });
@@ -64,12 +64,12 @@ class QuestionnaireErrors extends Component {
       return (
         <li key={id}>
           <a href={`#errors-${id}`} onClick={e => this.handleExpand(e, id)}>
-            <i className="fa fa-plus-square-o" />
+            {expanded ? <i className="fa fa-minus-square-o" /> : <i className="fa fa-plus-square-o" />}
           </a>
           <a href={`#${id}`} onClick={e => this.handleSelect(e, id)}>
             {component}
           </a>
-          {this.state.expanded.indexOf(id) >= 0 &&
+          {expanded &&
             <ul>
               {errors}
             </ul>}
