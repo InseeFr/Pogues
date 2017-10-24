@@ -138,11 +138,12 @@ export const getUnitsList = () =>
     credentials: 'include',
   }).then(res => res.json());
 
-export const getSearchResults = (typeItem, criterias, filter) => {
+export const getSearchResults = (typeItem, criterias, filter = '') => {
   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     credentials: 'include',
     body: JSON.stringify({
