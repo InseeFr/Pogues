@@ -159,25 +159,25 @@ export const TYPES_ITEMS = {
 export const SEARCH_CRITERIAS = {
   QUESTIONNAIRE: [
     {
-      remoteName: 'serie',
+      remoteName: 'subgroupId',
       localName: 'serie',
     },
     {
-      remoteName: 'operation',
+      remoteName: 'studyUnitId',
       localName: 'operation',
     },
     {
-      remoteName: 'campaigns',
+      remoteName: 'dataCollectionId',
       localName: 'campaigns',
     },
   ],
   CODES_LIST: [
     {
-      remoteName: 'serie',
+      remoteName: 'subgroupId',
       localName: 'serie',
     },
     {
-      remoteName: 'operation',
+      remoteName: 'studyUnitId',
       localName: 'operation',
     },
   ],
