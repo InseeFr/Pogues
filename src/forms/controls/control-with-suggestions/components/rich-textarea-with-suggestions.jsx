@@ -1,0 +1,145 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
+import { getDefaultKeyBinding } from 'draft-js';
+
+import ControlWithSuggestion from './control-with-suggestions';
+import { updateSuggestions, initialize } from './input-with-suggestions-utils';
+
+import { getValue, editorValueToMarkdown, formatURL, toolbarConfig, rootStyle } from 'forms/controls/rich-textarea';
+import { getControlId } from 'utils/widget-utils';
+import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
+
+const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
+
+function myKeyBindingFn(e) {
+  debugger;
+  if (e.key === 'Tab') {
+    return 'myeditor-save';
+  }
+  return getDefaultKeyBinding(e);
+}
+
+// PropTypes and defaultProps
+
+const propTypes = {
+  submitOnEnter: PropTypes.bool,
+};
+const defaultProps = {
+  submitOnEnter: false,
+};
+
+// Control
+
+class RichTextareaWithSuggestions extends ControlWithSuggestion {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+
+  constructor(props) {
+    const parent = super(props);
+
+    this.state = {
+      ...parent.state,
+      value: getValue(props.input.value),
+      currentValue: props.input.value,
+    };
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.focusOnInit) this.input._focus();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // @TODO
+    return true;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.identifier === undefined) {
+      return;
+    }
+    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
+      this.setState({ value: getValue(nextProps.input.value) });
+    }
+  }
+
+  handleChange = value => {
+    const transformedValue = editorValueToMarkdown(value);
+    this.setState({
+      ...updateSuggestions(transformedValue, RichTextareaWithSuggestions.InputRegex, this.props.availableSuggestions),
+      value,
+      currentValue: transformedValue,
+    });
+    this.props.input.onChange(transformedValue);
+  };
+
+  handleReturn = e => {
+    if (this.props.submitOnEnter) {
+      e.preventDefault();
+      e.target
+        .closest('form')
+        .querySelector('button[type=submit]')
+        .click();
+    }
+  };
+
+  // OnClick of an item
+  handleSuggestionClick = suggestion => {
+    const newCurrentValue = this.state.currentValue.replace(RichTextareaWithSuggestions.InputRegex, `$${suggestion}`);
+
+    // Reinitialize the state with the new value
+    this.setState({ ...initialize(), value: getValue(newCurrentValue) });
+
+    // Replaces the $XXXX pattern by the selected suggestion
+    this.props.input.onChange(newCurrentValue, `$${suggestion}`);
+  };
+
+  handleKeyCommand(command) {
+    debugger;
+    if (command === 'myeditor-save') {
+      return 'handled';
+    }
+    return 'not-handled';
+  }
+
+  render() {
+    const { label, required, disabled, input, meta: { touched, error } } = this.props;
+    const id = getControlId('rich-textarea', input.name);
+    const editorValue = this.state.value;
+
+    return (
+      <div className={COMPONENT_CLASS}>
+        <label htmlFor={id}>
+          {label}
+          {required && <span className="ctrl-required">*</span>}
+        </label>
+        <div>
+          <RichTextEditor
+            blockStyleFn={() => 'singleline'}
+            value={editorValue}
+            onChange={this.handleChange}
+            toolbarConfig={toolbarConfig}
+            handleReturn={this.handleReturn}
+            rootStyle={rootStyle}
+            formatURL={formatURL}
+            disabled={disabled}
+            // onTab={this.handleTab}
+            onFocus={() => {
+              this.handleInputFocus();
+            }}
+            ref={node => {
+              this.input = node;
+            }}
+            handleKeyCommand={this.handleKeyCommand}
+            keyBindingFn={myKeyBindingFn}
+          />
+          {touched && (error && <span className="form-error">{error}</span>)}
+          {super.render()}
+        </div>
+      </div>
+    );
+  }
+}
+
+export default RichTextareaWithSuggestions;

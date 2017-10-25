@@ -1101,7 +1101,7 @@ const dictionary = {
   },
   searchInputPlaceholder: {
     en: 'Questionnaire title',
-    fr: 'Titre',
+    fr: 'Titre du questionnaire',
   },
   searchInputButton: {
     en: 'Search',

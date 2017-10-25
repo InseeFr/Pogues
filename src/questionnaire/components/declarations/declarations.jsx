@@ -8,7 +8,7 @@ import Select from 'layout/forms/controls/select';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { declarationsFormDefault } from 'utils/transformation-entities/declaration';
 import { required } from 'layout/forms/validation-rules';
-import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
+import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 function validationDeclaration(values) {
   const { label } = values;
@@ -64,7 +64,7 @@ function InputDeclaration({ identifier, showPosition }) {
       <Field
         name="label"
         id="declaration_text"
-        component={TextAreaWithVariableAutoCompletion}
+        component={TextareaWithVariableAutoCompletion}
         label={Dictionary.declaration_label}
         buttons
         required

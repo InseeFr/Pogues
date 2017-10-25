@@ -36,6 +36,7 @@ export const propTypes = {
   numSuggestionsShown: PropTypes.number,
   getOptionLabel: PropTypes.func,
   caseSensitive: PropTypes.bool,
+  focusOnInit: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -46,6 +47,7 @@ export const defaultProps = {
     return label;
   },
   caseSensitive: true,
+  focusOnInit: false,
 };
 
 // Component
@@ -76,6 +78,10 @@ class InputAutocomplete extends Component {
     const { children, input: { value } } = this.props;
     const options = getValuesFromGenericOptions(children);
     this.setState(init(options, value));
+  }
+
+  componentDidMount() {
+    if (this.props.focusOnInit) this.input.focus();
   }
 
   componentWillUpdate(nextProps) {
@@ -161,8 +167,8 @@ class InputAutocomplete extends Component {
               onChange={event => {
                 this.setState({ inputSearch: event.currentTarget.value });
               }}
-              ref={input => {
-                this.input = input;
+              ref={node => {
+                this.input = node;
               }}
             />
             {value && (
