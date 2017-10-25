@@ -10,10 +10,6 @@ const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 // Component
 
 class TextareaWithSuggestions extends ControlWithSuggestion {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { label, required, disabled, input, meta: { touched, error } } = this.props;
     const id = getControlId('textarea', input.name);

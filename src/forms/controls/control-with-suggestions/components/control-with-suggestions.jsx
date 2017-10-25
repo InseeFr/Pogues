@@ -43,6 +43,7 @@ export const defaultProps = {
 class ControlWithSuggestions extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
+  static InputRegex = InputRegex;
 
   constructor(props) {
     super(props);
@@ -85,19 +86,32 @@ class ControlWithSuggestions extends Component {
 
   // OnKeyDown of the input
   handleInputKeyDown = e => {
+    if (e.key === 'Tab') {
+      this.handleTab(e);
+    } else if (e.key === 'Enter') {
+      this.handleEnter(e);
+    }
+  };
+
+  handleTab = e => {
+    debugger;
     const { numSuggestionsShown } = this.props;
     const { suggestions, hoveredSuggestionIndex } = this.state;
 
     if (suggestions.length > 0) {
-      if (e.key === 'Tab') {
-        this.setState({
-          hoveredSuggestionIndex: getNewIndex(hoveredSuggestionIndex, suggestions, numSuggestionsShown),
-        });
-        e.preventDefault();
-      } else if (e.key === 'Enter') {
-        this.handleSuggestionClick(suggestions[hoveredSuggestionIndex]);
-        e.preventDefault();
-      }
+      this.setState({
+        hoveredSuggestionIndex: getNewIndex(hoveredSuggestionIndex, suggestions, numSuggestionsShown),
+      });
+      e.preventDefault();
+    }
+  };
+
+  handleEnter = e => {
+    const { suggestions, hoveredSuggestionIndex } = this.state;
+
+    if (suggestions.length > 0) {
+      this.handleSuggestionClick(suggestions[hoveredSuggestionIndex]);
+      e.preventDefault();
     }
   };
 

@@ -120,6 +120,7 @@ export class QuestionNewEdit extends Component {
       label: Dictionary.title,
       required: true,
       focusOnInit: true,
+      submitOnEnter: true,
     };
 
     const propsNameField = {

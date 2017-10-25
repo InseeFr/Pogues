@@ -29,6 +29,10 @@ export const CONTROL_WITH_SUGGESTIONS = {
   ITEM_SELECTED_CLASS: 'ctrl-with-suggestions__list__item-selected',
 };
 
+export const CONTROL_RICH_TEXTAREA = {
+  COMPONENT_CLASS: 'ctrl-rich-textarea',
+}
+
 export const WIDGET_LIST_WITH_INPUT_PANEL = {
   COMPONENT_CLASS: 'widget-list-with-input-panel',
   LIST_CLASS: 'widget-list-with-input-panel__list',

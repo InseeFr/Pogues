@@ -30,7 +30,7 @@ export const defaultProps = {
   focusOnInit: false,
 };
 
-// Component
+// Control
 
 class Select extends Component {
   static propTypes = propTypes;
