@@ -14,7 +14,10 @@ import Tabs from 'layout/widget/tabs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { componentName } from 'layout/forms/normalize-inputs';
-import { InputWithVariableAutoCompletion, TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
+import {
+  InputWithVariableAutoCompletion,
+  TextareaWithVariableAutoCompletion,
+} from 'forms/controls/control-with-suggestions';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -56,13 +59,6 @@ export class QuestionNewEdit extends Component {
     invalidItems: {},
     componentId: '',
   };
-  componentDidMount() {
-    if (this.props.type !== QUESTION) {
-      this.labelInput.focus();
-    } else {
-      this.labelInput._focus();
-    }
-  }
   render() {
     const {
       type,
@@ -134,11 +130,11 @@ export class QuestionNewEdit extends Component {
               }}
               name="label"
               type="text"
-              component={type === QUESTION ? TextAreaWithVariableAutoCompletion : InputWithVariableAutoCompletion}
-              buttons
-              shouldSubmitOnEnter
+              component={type === QUESTION ? TextareaWithVariableAutoCompletion : InputWithVariableAutoCompletion}
               label={Dictionary.title}
               required
+              focusOnInit
+              shouldSubmitOnEnter
               avoidSubmitOnEnter={false}
             />
           </div>
