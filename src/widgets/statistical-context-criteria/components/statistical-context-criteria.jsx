@@ -22,6 +22,7 @@ const propTypes = {
   multipleCampaign: PropTypes.bool,
   required: PropTypes.bool,
   horizontal: PropTypes.bool.isRequired,
+  focusOnInit: PropTypes.bool.isRequired,
   selectedSerie: PropTypes.string,
   selectedOperation: PropTypes.string,
   formName: PropTypes.string.isRequired,
@@ -34,6 +35,7 @@ const propTypes = {
 const defaultProps = {
   multipleCampaign: false,
   required: false,
+  focusOnInit: false,
   campaigns: undefined,
   selectedSerie: undefined,
   selectedOperation: undefined,
@@ -86,6 +88,7 @@ class StatisticalContextCriteria extends Component {
       campaigns,
       multipleCampaign,
       required,
+      focusOnInit,
       horizontal,
       selectedSerie,
       selectedOperation,
@@ -102,6 +105,7 @@ class StatisticalContextCriteria extends Component {
           name="serie"
           component={Select}
           required={required}
+          focusOnInit={focusOnInit}
           validate={required ? [requiredSelect] : []}
           label={Dictionary.serie}
           emptyOption={Dictionary.selectSerie}

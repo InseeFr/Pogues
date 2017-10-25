@@ -3,13 +3,13 @@ import { Field, FormSection } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
-import Input from 'layout/forms/controls/input';
+import Input from 'forms/controls/input';
+import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { controlsFormDefault } from 'utils/transformation-entities/control';
-import { TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
 import withXPathValidation from 'hoc/withXPathValidation';
 
-const TextAreaWithVariableAndXPathValidation = withXPathValidation(TextAreaWithVariableAutoCompletion);
+const TextAreaWithVariableAndXPathValidation = withXPathValidation(TextareaWithVariableAutoCompletion);
 
 function validationControl(values) {
   const { label, condition, message } = values;
@@ -39,19 +39,16 @@ function InputControl() {
   ];
   return (
     <div>
-      <Field type="text" name="label" id="control_text" component={Input} label={Dictionary.control_label} required />
+      <Field type="text" name="label" component={Input} label={Dictionary.control_label} required />
       <Field
         name="condition"
-        id="control_condition"
-        help
         component={TextAreaWithVariableAndXPathValidation}
         label={Dictionary.expression}
         required
       />
       <Field
         name="message"
-        id="control_message"
-        component={TextAreaWithVariableAutoCompletion}
+        component={TextareaWithVariableAutoCompletion}
         label={Dictionary.control_message}
         required
       />

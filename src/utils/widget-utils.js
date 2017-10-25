@@ -45,4 +45,19 @@ export function storeToArray(store = {}) {
   return Object.keys(store).map(key => store[key]);
 }
 
+export function nestedStoreToArray(store = {}) {
+  const joinedItems = Object.keys(store).reduce((acc, key) => {
+    return {
+      ...acc,
+      ...store[key],
+    };
+  }, {});
+
+  return storeToArray(joinedItems);
+}
+
 export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+
+export function getKey(str) {
+  return str.replace(/\s+/g, '-').toLowerCase();
+}

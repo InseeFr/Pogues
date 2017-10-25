@@ -2,8 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Input from 'layout/forms/controls/input';
-import { required, name as validationName } from 'layout/forms/validation-rules';
+import Input from 'forms/controls/input';
 import { componentName } from 'layout/forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { QUESTIONNAIRE_NEW_FORM_NAME } from 'constants/pogues-constants';
@@ -11,23 +10,17 @@ import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria
 
 const FORM_NAME = 'questionnaire-new';
 
-export function QuestionnaireNewEdit({ handleSubmit, submitting, onCancel }) {
+export function QuestionnaireNewEdit({ handleSubmit, submitting, onCancel, updateName }) {
   return (
     <div id="questionnaire-new">
       <form onSubmit={handleSubmit}>
-        <StatisticalContextCriteria formName={QUESTIONNAIRE_NEW_FORM_NAME} required multipleCampaign />
+        <StatisticalContextCriteria formName={QUESTIONNAIRE_NEW_FORM_NAME} multipleCampaign focusOnInit />
 
-        <Field name="label" type="text" component={Input} label={Dictionary.title} validate={[required]} required />
+        <div onBlur={updateName}>
+          <Field name="label" type="text" component={Input} label={Dictionary.title} required />
+        </div>
 
-        <Field
-          name="name"
-          type="text"
-          component={Input}
-          label={Dictionary.name}
-          validate={[required, validationName]}
-          normalize={componentName}
-          required
-        />
+        <Field name="name" type="text" component={Input} label={Dictionary.name} normalize={componentName} required />
 
         <div className="form-footer">
           <button type="submit" disabled={submitting}>
@@ -47,13 +40,14 @@ export function QuestionnaireNewEdit({ handleSubmit, submitting, onCancel }) {
 QuestionnaireNewEdit.propTypes = {
   handleSubmit: PropTypes.func,
   onCancel: PropTypes.func,
-  pristine: PropTypes.bool,
+  updateName: PropTypes.func,
   submitting: PropTypes.bool,
 };
 
 QuestionnaireNewEdit.defaultProps = {
   handleSubmit: undefined,
   onCancel: undefined,
+  updateName: () => {},
   pristine: false,
   submitting: false,
 };

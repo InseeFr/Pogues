@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { InputWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
+import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
 import ResponseFormatSimple from 'questionnaire/components/response-format/simple/response-format-simple';
 import ResponseFormatSingle from 'questionnaire/components/response-format/single/response-format-single';

@@ -52,24 +52,3 @@ form {
     max-width: 300px;
 }
 
-/* Just keeping one line of suggestions */
-.input-suggestion-wrapper {
-  float: left;
-  height: 41px;
-  overflow: hidden;
-}
-
-.input-suggestion {
-  display: inline-block;
-  padding: 8px;
-  background-color: $color-grey_03;
-  border: solid 1px $color-grey_02;
-  width: 100px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  &:hover {
-    background-color: $color-grey_02;
-    cursor: pointer;
-  }
-}
-

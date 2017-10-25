@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { getControlId, getValuesFromGenericOptions } from 'utils/widget-utils';
-import { CONTROL_SELECT } from 'constants/dom-constants';
+import { getControlId } from 'utils/widget-utils';
+import { CONTROL_TEXTAREA } from 'constants/dom-constants';
 
-const { COMPONENT_CLASS } = CONTROL_SELECT;
+const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
 // PropTypes and defaultProps
 
@@ -15,24 +15,16 @@ export const propTypes = {
   label: PropTypes.string.isRequired,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
-  multiple: PropTypes.bool,
-  emptyOption: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   focusOnInit: PropTypes.bool,
 };
 
 export const defaultProps = {
   required: false,
   disabled: false,
-  multiple: false,
-  children: [],
-  emptyOption: undefined,
   focusOnInit: false,
 };
 
-// Control
-
-class Select extends Component {
+class Textarea extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
@@ -41,9 +33,8 @@ class Select extends Component {
   }
 
   render() {
-    const { label, required, disabled, multiple, emptyOption, children, input, meta: { touched, error } } = this.props;
-    const values = getValuesFromGenericOptions(children);
-    const id = getControlId('select', input.name);
+    const { label, required, disabled, input, meta: { touched, error } } = this.props;
+    const id = getControlId('textarea', input.name);
 
     return (
       <div className={COMPONENT_CLASS}>
@@ -52,27 +43,15 @@ class Select extends Component {
           {required && <span className="ctrl-required">*</span>}
         </label>
         <div>
-          <select
+          <textarea
             {...input}
             id={id}
             placeholder={label}
             disabled={disabled}
-            multiple={multiple}
             ref={node => {
               this.input = node;
             }}
-          >
-            {emptyOption && <option value="">{emptyOption}</option>}
-            {values.map(val => {
-              // eslint-disable-next-line no-shadow
-              const { label, value, ...otherProps } = val;
-              return (
-                <option key={value} value={value} {...otherProps}>
-                  {label}
-                </option>
-              );
-            })}
-          </select>
+          />
 
           {touched && (error && <span className="form-error">{error}</span>)}
         </div>
@@ -81,4 +60,4 @@ class Select extends Component {
   }
 }
 
-export default Select;
+export default Textarea;

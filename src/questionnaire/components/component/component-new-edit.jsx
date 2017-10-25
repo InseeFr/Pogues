@@ -9,12 +9,13 @@ import Redirections from 'questionnaire/components/redirections/redirections';
 import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
 import ExternalVariables from 'questionnaire/components/variables/external-variables';
 import CollectedVariablesContainer from 'questionnaire/containers/variables/collected-variables';
-import Input from 'layout/forms/controls/input';
 import Tabs from 'layout/widget/tabs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
 import { componentName } from 'layout/forms/normalize-inputs';
-import { InputWithVariableAutoCompletion, TextAreaWithVariableAutoCompletion } from 'hoc/withCurrentFormVariables';
+import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import Input from 'forms/controls/input';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -41,7 +42,6 @@ export class QuestionNewEdit extends Component {
     handleSubmit: PropTypes.func,
     onCancel: PropTypes.func,
     updateName: PropTypes.func,
-    pristine: PropTypes.bool,
     submitting: PropTypes.bool,
     invalidItems: PropTypes.object,
     errorsByQuestionTab: PropTypes.object.isRequired,
@@ -56,19 +56,11 @@ export class QuestionNewEdit extends Component {
     invalidItems: {},
     componentId: '',
   };
-  componentDidMount() {
-    if (this.props.type !== QUESTION) {
-      this.labelInput.focus();
-    } else {
-      this.labelInput._focus();
-    }
-  }
   render() {
     const {
       type,
       handleSubmit,
       onCancel,
-      pristine,
       submitting,
       errorsByQuestionTab,
       invalidItems,
@@ -123,38 +115,39 @@ export class QuestionNewEdit extends Component {
         numErrors: errorsByQuestionTab.collectedVariables,
       });
     }
+    let propsLabelField = {
+      name: 'label',
+      label: Dictionary.title,
+      required: true,
+      focusOnInit: true,
+      submitOnEnter: true,
+    };
+
+    const propsNameField = {
+      component: Input,
+      name: 'name',
+      type: 'text',
+      label: Dictionary.name,
+      normalize: componentName,
+      required: true,
+    };
+
+    if (type === QUESTION) {
+      propsLabelField = { ...propsLabelField, component: TextareaWithVariableAutoCompletion };
+    } else {
+      propsLabelField = { ...propsLabelField, component: Input, type: 'text' };
+    }
+
     return (
       <div className="component-edition">
         <form onSubmit={handleSubmit}>
-          {/* @TODO */}
           <div onBlur={updateName}>
-            <Field
-              reference={input => {
-                this.labelInput = input;
-              }}
-              name="label"
-              type="text"
-              component={type === QUESTION ? TextAreaWithVariableAutoCompletion : InputWithVariableAutoCompletion}
-              buttons
-              shouldSubmitOnEnter
-              label={Dictionary.title}
-              required
-              avoidSubmitOnEnter={false}
-            />
+            <Field {...propsLabelField} />
           </div>
-          <Field
-            refs="input"
-            name="name"
-            type="text"
-            component={Input}
-            label={Dictionary.name}
-            normalize={componentName}
-            required
-            avoidSubmitOnEnter={false}
-          />
+          <Field {...propsNameField} />
           <Tabs components={panels} />
           <div className="form-footer">
-            <button type="submit" disabled={componentId === '' && (pristine || submitting)}>
+            <button type="submit" disabled={submitting}>
               {Dictionary.validate}
             </button>
             {onCancel && (

@@ -32,7 +32,7 @@ class InputFilterWithCriteria extends Component {
   static defaultProps = defaultProps;
 
   componentWillMount() {
-    if (this.props.loadOnInit) this.props.loadSearchResult();
+    if (this.props.loadOnInit) this.props.loadSearchResult(this.props.typeItem);
   }
 
   render() {

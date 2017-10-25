@@ -407,7 +407,7 @@ function getNestedErrorFromPath(path, message) {
 }
 
 /**
- * This method validate that question form values are valids.
+ * This method validate if the question form values are valids.
  *
  * @param {object}  values          The form values.
  * @param {object}  codesListStore  The codes lists store.
@@ -415,7 +415,7 @@ function getNestedErrorFromPath(path, message) {
  * @return {array}  A list of validation errors. Each item is another array with a first element containing the path
  *                  to the element where show the error and a second element with the error message.
  */
-export function getValidationErrors(values, codesListStore) {
+export function getComponentValidationErrors(values, codesListStore) {
   let validationErrors = validateNameLabel(values);
 
   if (values.responseFormat) {
@@ -426,6 +426,27 @@ export function getValidationErrors(values, codesListStore) {
       validationErrors = validateCollectedVariables(values, codesListStore, 'collectedVariables');
     }
   }
+
+  return validationErrors;
+}
+
+/**
+ * This method validate if the questionnaire form values are valids.
+ *
+ * @param {object}  values          The form values.
+ *
+ * @return {array}  A list of validation errors. Each item is another array with a first element containing the path
+ *                  to the element where show the error and a second element with the error message.
+ */
+export function getQuestionnaireValidationErrors(values) {
+  const validationErrors = validateNameLabel(values);
+  const requiredSelectSerie = requiredSelect(values.serie);
+  const requiredSelectOperation = requiredSelect(values.operation);
+  const requiredCampaigns = required(values.campaigns);
+
+  if (requiredSelectSerie) validationErrors.push(['serie', requiredSelectSerie]);
+  if (requiredSelectOperation) validationErrors.push(['operation', requiredSelectOperation]);
+  if (requiredCampaigns) validationErrors.push(['campaigns', requiredCampaigns]);
 
   return validationErrors;
 }

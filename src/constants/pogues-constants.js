@@ -199,15 +199,15 @@ export const SEARCH_RESULTS_COLUMNS = {
     },
     {
       dictionary: 'searchResultSerie',
-      key: 'serie',
+      key: 'subgroupId',
     },
     {
       dictionary: 'searchResultOperation',
-      key: 'operation',
+      key: 'studyUnitId',
     },
     {
       dictionary: 'searchResultCampaign',
-      key: 'campaign',
+      key: 'dataCollectionId',
     },
   ],
   CODES_LIST: [
@@ -225,11 +225,11 @@ export const SEARCH_RESULTS_COLUMNS = {
     },
     {
       dictionary: 'searchResultSerie',
-      key: 'serie',
+      key: 'subgroupId',
     },
     {
       dictionary: 'searchResultOperation',
-      key: 'operation',
+      key: 'studyUnitId',
     },
   ],
 };

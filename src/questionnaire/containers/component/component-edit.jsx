@@ -13,7 +13,7 @@ import ExternalVariableTransformerFactory from 'utils/transformation-entities/ex
 import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
+import { getComponentValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -113,11 +113,9 @@ class ComponentEditContainer extends Component {
       let updatedExternalVariablesStore = {};
       let updatedCollectedlVariablesStore = {};
       let updatedCodesListsStore = {};
+      const validationErrors = getComponentValidationErrors(values, activeCodesListsStore);
 
-      if (componentType === QUESTION) {
-        const validationErrors = getValidationErrors(values, activeCodesListsStore);
-        if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
-      }
+      if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
 
       const updatedComponentsStore = componentTransformer.formToStore(values, componentId);
 
