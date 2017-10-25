@@ -1,5 +1,7 @@
 .ctrl-with-suggestions {
-  @extend .ctrl;
+  //@extend .ctrl;
+  clear: both;
+  padding-top: 0;
 
   .ctrl-with-suggestions__list {
     position: absolute;
