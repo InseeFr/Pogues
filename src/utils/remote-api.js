@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import Config from 'Config';
 import { getUrlFromCriterias } from 'utils/utils';
 
-const { baseURL, persistancePath, userPath } = Config;
+const { baseURL, persistancePath, userPath, dev } = Config;
 
 const urlQuestionnaireList = `${baseURL + persistancePath}/questionnaires`;
 const urlQuestionnaireListSearch = `${baseURL + persistancePath}/questionnaires/search`;
@@ -139,12 +139,17 @@ export const getUnitsList = () =>
   }).then(res => res.json());
 
 export const getSearchResults = (typeItem, criterias, filter = '') => {
+  const headers = {
+    Accept: 'application/json',
+  };
+
+  if (!dev) {
+    headers['Content-Type'] = 'application/json';
+  }
+
   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers,
     credentials: 'include',
     body: JSON.stringify({
       types: [typeItem],
@@ -152,3 +157,23 @@ export const getSearchResults = (typeItem, criterias, filter = '') => {
     }),
   }).then(res => res.json());
 };
+
+// export const getSearchResults = dev => (typeItem, criterias, filter = '') => {
+//   const headers = {
+//     Accept: 'application/json',
+//   };
+//
+//   if (!dev) {
+//     headers['Content-Type'] = 'application/json';
+//   }
+//
+//   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
+//     method: 'POST',
+//     headers,
+//     credentials: 'include',
+//     body: JSON.stringify({
+//       types: [typeItem],
+//       filter,
+//     }),
+//   }).then(res => res.json());
+// }(dev)
