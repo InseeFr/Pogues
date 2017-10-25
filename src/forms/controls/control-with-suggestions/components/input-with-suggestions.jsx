@@ -12,6 +12,7 @@ const { COMPONENT_CLASS } = CONTROL_INPUT;
 class InputWithSuggestions extends ControlWithSuggestion {
   render() {
     const { input, label, required, disabled, meta: { touched, error } } = this.props;
+
     const id = getControlId('input-with-suggestions', input.name);
 
     return (

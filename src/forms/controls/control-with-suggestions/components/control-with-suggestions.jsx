@@ -56,6 +56,7 @@ class ControlWithSuggestions extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.input.value !== this.props.input.value ||
+      nextProps.meta.error !== this.props.meta.error ||
       nextState.hoveredSuggestionIndex !== this.state.hoveredSuggestionIndex
     );
   }

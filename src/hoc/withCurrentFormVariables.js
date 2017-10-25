@@ -17,11 +17,15 @@ const withCurrentFormVariables = (ComponentToWrap, formName = DEFAULT_FORM_NAME)
   const mapStateToProps = name => state => {
     const selector = formValueSelector(name);
 
-    const currentActiveCalculatedVariables = selector(state, 'calculatedVariables.calculatedVariables').map(
+    const currentActiveCalculatedVariables = (selector(state, 'calculatedVariables.calculatedVariables') || []).map(
       v => v.name
     );
-    const currentActiveExternalVariables = selector(state, 'externalVariables.externalVariables').map(v => v.name);
-    const currentActiveCollectedVariables = selector(state, 'collectedVariables.collectedVariables').map(v => v.name);
+    const currentActiveExternalVariables = (selector(state, 'externalVariables.externalVariables') || []).map(
+      v => v.name
+    );
+    const currentActiveCollectedVariables = (selector(state, 'collectedVariables.collectedVariables') || []).map(
+      v => v.name
+    );
 
     const activeCalculatedVariables = storeToArray(state.appState.activeCalculatedVariablesById).map(v => v.name);
     const activeExternalVariables = storeToArray(state.appState.activeExternalVariablesById).map(v => v.name);

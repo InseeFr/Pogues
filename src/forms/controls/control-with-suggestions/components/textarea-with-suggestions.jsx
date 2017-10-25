@@ -9,10 +9,15 @@ const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
 // Component
 
-class TextAreaWithSuggestions extends ControlWithSuggestion {
+class TextareaWithSuggestions extends ControlWithSuggestion {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const { label, required, disabled, input, meta: { touched, error } } = this.props;
     const id = getControlId('textarea', input.name);
+
     return (
       <div className={COMPONENT_CLASS}>
         <label htmlFor={id}>
@@ -44,4 +49,4 @@ class TextAreaWithSuggestions extends ControlWithSuggestion {
   }
 }
 
-export default TextAreaWithSuggestions;
+export default TextareaWithSuggestions;
