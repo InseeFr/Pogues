@@ -1095,13 +1095,13 @@ const dictionary = {
     fr: 'Réutiliser',
     en: 'Reuse',
   },
-  searchInputLabel: {
+  searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
     fr: 'Titre du questionnaire',
   },
-  searchInputPlaceholder: {
-    en: 'Questionnaire title',
-    fr: 'Titre du questionnaire',
+  searchInputCodesListsLabel: {
+    en: 'Code list label',
+    fr: 'Libellé de la liste de code',
   },
   searchInputButton: {
     en: 'Search',
@@ -1112,8 +1112,8 @@ const dictionary = {
     fr: 'Aucun questionnaire trouvé',
   },
   codesListsNoResults: {
-    en: 'No codes lists found',
-    fr: 'Aucune liste de codes trouvé',
+    en: 'No code list found',
+    fr: 'Aucune liste de codes trouvée',
   },
   reset: {
     en: 'Reset',
@@ -1131,6 +1131,10 @@ const dictionary = {
   searchResultTitle: {
     fr: 'Titre',
     en: 'Title',
+  },
+  searchResultLabel: {
+    fr: 'Libellé',
+    en: 'Label',
   },
   searchResultSerie: {
     fr: 'Série',

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Criteria from './containers/criteria';
+
 import { InputFilterWithCriteria } from 'widgets/input-filter-with-criteria';
 import { SearchResults } from 'widgets/search-results';
 import { PAGE_SEARCH_QUESTIONNAIRE } from 'constants/dom-constants';
@@ -16,6 +17,7 @@ function PageSearchQuestionnaire() {
   const propsInputFilterWithCriteria = {
     typeItem: TYPES_ITEMS.QUESTIONNAIRE,
     criterias: SEARCH_CRITERIAS.QUESTIONNAIRE,
+    label: Dictionary.searchInputQuestionnaireLabel,
   };
   const propsSearchResults = {
     noValuesMessage: Dictionary.pageSearchNoResults,

@@ -216,11 +216,7 @@ export const SEARCH_RESULTS_COLUMNS = {
       key: 'version',
     },
     {
-      dictionary: 'searchResultId',
-      key: 'id',
-    },
-    {
-      dictionary: 'searchResultTitle',
+      dictionary: 'searchResultLabel',
       key: 'title',
     },
     {

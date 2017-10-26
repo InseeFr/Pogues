@@ -4,6 +4,11 @@
   width: 100%;
   background-color: white;
 
+  &.widget-search-results-5 .widget-search-results__column {
+    @include make-xs-column(1);
+    width: 20%;
+  }
+
   &.widget-search-results-6 .widget-search-results__column {
     @include make-xs-column(1);
     width: 16%;
