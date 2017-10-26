@@ -31,11 +31,9 @@ export class QuestionnaireListContainer extends Component {
     const { questionnaires, user } = this.props;
     return (
       <div className="box home-questionnaires">
-        <h3>
-          {Dictionary.homeQuestionnairesInProgress}
-        </h3>
+        <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
         <h4>
-          {Dictionary.stamp} : {user.permission}
+          {Dictionary.stamp} {user.permission}
         </h4>
         <QuestionnaireList questionnaires={questionnaires} />
       </div>

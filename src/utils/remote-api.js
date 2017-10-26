@@ -139,17 +139,14 @@ export const getUnitsList = () =>
   }).then(res => res.json());
 
 export const getSearchResults = (typeItem, criterias, filter = '') => {
-  const headers = {
-    Accept: 'application/json',
-  };
-
-  if (!dev) {
-    headers['Content-Type'] = 'application/json';
-  }
-
   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',
-    headers,
+    headers: {
+      // Accept: 'application/json',
+      // HACK needs to set content-type to text/html ; if not, server returns a 405 error
+      // 'Content-Type': 'text/html',
+      'Content-Type': 'application/json',
+    },
     credentials: 'include',
     body: JSON.stringify({
       types: [typeItem],
@@ -157,23 +154,3 @@ export const getSearchResults = (typeItem, criterias, filter = '') => {
     }),
   }).then(res => res.json());
 };
-
-// export const getSearchResults = dev => (typeItem, criterias, filter = '') => {
-//   const headers = {
-//     Accept: 'application/json',
-//   };
-//
-//   if (!dev) {
-//     headers['Content-Type'] = 'application/json';
-//   }
-//
-//   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
-//     method: 'POST',
-//     headers,
-//     credentials: 'include',
-//     body: JSON.stringify({
-//       types: [typeItem],
-//       filter,
-//     }),
-//   }).then(res => res.json());
-// }(dev)
