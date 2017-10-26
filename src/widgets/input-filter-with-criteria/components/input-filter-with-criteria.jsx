@@ -19,6 +19,7 @@ const propTypes = {
   loadSearchResult: PropTypes.func.isRequired,
   criteriaValues: PropTypes.object,
   loadOnInit: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -36,19 +37,19 @@ class InputFilterWithCriteria extends Component {
   }
 
   render() {
-    const { typeItem, criteriaValues } = this.props;
+    const { typeItem, criteriaValues, label } = this.props;
     const id = getControlId('input', 'search', uuid());
 
     return (
       <div className={COMPONENT_CLASS}>
         <div className={PANEL_INPUT_CLASS}>
-          <label htmlFor={id}>{Dictionary.searchInputLabel}</label>
+          <label htmlFor={id}>{label}</label>
           <div>
             <input
               id={id}
               className={SEARCH_INPUT_CLASS}
               type="text"
-              placeholder={Dictionary.searchInputPlaceholder}
+              placeholder={label}
               ref={node => {
                 this.inputSearch = node;
               }}

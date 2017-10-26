@@ -39,6 +39,7 @@ function SearchCodesLists({ selectorPath }) {
     ...props,
     typeItem: TYPES_ITEMS.CODES_LIST,
     criterias: SEARCH_CRITERIAS.CODES_LIST,
+    label: Dictionary.searchInputCodesListsLabel,
   };
   const propsSearchResults = {
     noValuesMessage: Dictionary.codesListsNoResults,
