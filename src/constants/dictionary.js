@@ -771,8 +771,8 @@ const dictionary = {
     en: 'Homepage',
   },
   stamp: {
-    fr: 'Habilitation',
-    en: 'Authorisation',
+    fr: 'Habilitation :',
+    en: 'Authorisation:',
   },
   welcome: {
     fr: 'Bienvenue dans POGUES',
@@ -972,7 +972,7 @@ const dictionary = {
     en: 'Select at least one campaign',
   },
   selectType: {
-    fr: 'Sélectionne un type',
+    fr: 'Sélectionner un type',
     en: 'Select a type',
   },
   noValuesCampaigns: {
