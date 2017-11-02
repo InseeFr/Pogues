@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
 import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
-import { storeToArray, nestedStoreToArray } from 'utils/widget-utils';
+import { storeToArray, nestedStoreToArray } from 'utils/utils';
 
 /**
  * High order component

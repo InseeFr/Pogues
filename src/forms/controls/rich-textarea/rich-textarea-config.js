@@ -9,3 +9,8 @@ export const toolbarConfig = {
     REMOVE: { label: 'Remove Link or Tooltip', iconName: 'remove-link' },
   },
 };
+
+export const rootStyle = {
+  display: 'flex',
+  flexDirection: 'column-reverse',
+};

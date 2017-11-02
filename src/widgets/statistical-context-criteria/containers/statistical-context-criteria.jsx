@@ -6,7 +6,8 @@ import StatisticalContextCriteria from '../components/statistical-context-criter
 
 import { loadSeriesIfNeeded, loadOperationsIfNeeded, loadCampaignsIfNeeded } from 'actions/metadata';
 import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
-import { getCurrentSelectorPath, storeToArray, filterStoreByProp } from 'utils/widget-utils';
+import { getCurrentSelectorPath, filterStoreByProp } from 'utils/widget-utils';
+import { storeToArray } from 'utils/utils';
 
 // PropTypes and defaultProps
 

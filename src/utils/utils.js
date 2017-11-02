@@ -31,3 +31,18 @@ export function validate(scheme, values, path) {
     return [...acc, ...errors];
   }, []);
 }
+
+export function storeToArray(store = {}) {
+  return Object.keys(store).map(key => store[key]);
+}
+
+export function nestedStoreToArray(store = {}) {
+  const joinedItems = Object.keys(store).reduce((acc, key) => {
+    return {
+      ...acc,
+      ...store[key],
+    };
+  }, {});
+
+  return storeToArray(joinedItems);
+}

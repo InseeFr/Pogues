@@ -28,6 +28,7 @@ describe('<CodesList />', () => {
   });
 
   test.skip('Should render a CodesListsPanelSelector component', () => {
+    const wrapper = shallow(<CodesLists path={customPath} />);
     expect(wrapper.find('CodesListsPanelSelector')).toHaveLength(1);
   });
 
