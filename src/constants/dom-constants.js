@@ -14,6 +14,10 @@ export const CONTROL_LIST_CHECKBOXES = {
   COMPONENT_CLASS: 'ctrl-list-checkboxes',
 };
 
+export const CONTROL_LIST_RADIOS = {
+  COMPONENT_CLASS: 'ctrl-list-radios',
+};
+
 export const CONTROL_INPUT = {
   COMPONENT_CLASS: 'ctrl-input',
 };
@@ -31,7 +35,8 @@ export const CONTROL_WITH_SUGGESTIONS = {
 
 export const CONTROL_RICH_TEXTAREA = {
   COMPONENT_CLASS: 'ctrl-rich-textarea',
-}
+  EDITOR_CLASS: 'ctrl-rich-textarea__editor',
+};
 
 export const WIDGET_LIST_WITH_INPUT_PANEL = {
   COMPONENT_CLASS: 'widget-list-with-input-panel',
@@ -55,6 +60,23 @@ export const WIDGET_SEARCH_CODES_LISTS = {
   COMPONENT_CLASS: 'widget-search-codes-lists',
 };
 
+export const WIDGET_CODES_LISTS = {
+  COMPONENT_CLASS: 'widget-codes-lists',
+  CODES_CLASS: 'widget-codes-lists__codes',
+  LIST_CLASS: 'widget-codes-lists__codes__list',
+  LIST_ITEM_CLASS: 'widget-codes-lists__codes__list-item',
+  ACTIONS_CLASS: 'widget-codes-lists__codes__actions',
+  ACTIONS_MOVEMENT_CLASS: 'widget-codes-lists__codes__actions-movement',
+  CODE_INPUT_CLASS: 'widget-codes-lists__codes__input',
+  CODE_INPUT_CODE_CLASS: 'widget-codes-lists__codes__input-code',
+  CODE_INPUT_LABEL_CLASS: 'widget-codes-lists__codes__input-label',
+  CODE_INPUT_ACTIONS_CLASS: 'widget-codes-lists__codes__input-actions',
+  CODE_INPUT_ERRORS_CLASS: 'widget-codes-lists__codes__input-errors',
+  PANEL_CLASS: 'widget-codes-lists__panel',
+  PANEL_SELECTOR_CLASS: 'widget-codes-lists__panel-selector',
+  PANEL_SELECTOR_OPTION_CLASS: 'widget-codes-lists__panel-selector-option',
+};
+
 export const WIDGET_INPUT_FILTER_WITH_CRITERIA = {
   COMPONENT_CLASS: 'widget-input-filter-with-criteria',
   PANEL_INPUT_CLASS: 'widget-input-filter-with-criteria__panel',
@@ -71,6 +93,11 @@ export const WIDGET_SEARCH_RESULTS = {
   ROW_EMPTY_CLASS: 'widget-search-results__row-empty',
 };
 
+export const WIDGET_VALIDATION_ERRORS = {
+  COMPONENT_CLASS: 'widget-validation-errors',
+};
+
 export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
+  SEARCH_RESULTS_ID: 'page-search-questionnaire__results',
 };

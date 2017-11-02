@@ -13,7 +13,6 @@ import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
 
 function myKeyBindingFn(e) {
-  debugger;
   if (e.key === 'Tab') {
     return 'myeditor-save';
   }
@@ -96,7 +95,6 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   };
 
   handleKeyCommand(command) {
-    debugger;
     if (command === 'myeditor-save') {
       return 'handled';
     }

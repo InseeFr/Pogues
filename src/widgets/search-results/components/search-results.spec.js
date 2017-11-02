@@ -17,6 +17,7 @@ describe('<SearchResults /', () => {
   const noValuesMessage = 'This is a fake no values message';
   const actions = [{ dictionary: 'FAKE_COLUMN_01', action: noop }, { dictionary: 'FAKE_COLUMN_02', action: noop }];
   const props = {
+    id: 'FAKE_ID',
     columns,
     noValuesMessage,
     actions,

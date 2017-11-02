@@ -133,6 +133,7 @@ export const CODES_LIST_INPUT_ENUM = {
   NEW: 'NEW',
   REF: 'REF',
   QUESTIONNAIRE: 'QUESTIONNAIRE',
+  QUEST: 'QUEST',
 };
 
 export const VARIABLES_TYPES = {
@@ -229,3 +230,18 @@ export const SEARCH_RESULTS_COLUMNS = {
     },
   ],
 };
+
+export const CODES_LISTS_PANELS = [
+  {
+    dictionary: 'newCodesList',
+    value: CODES_LIST_INPUT_ENUM.NEW,
+  },
+  {
+    dictionary: 'refCodesList',
+    value: CODES_LIST_INPUT_ENUM.REF,
+  },
+  {
+    dictionary: 'questionnaireCodesList',
+    value: CODES_LIST_INPUT_ENUM.QUEST,
+  },
+];

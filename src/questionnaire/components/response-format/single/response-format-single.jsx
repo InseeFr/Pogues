@@ -5,7 +5,7 @@ import Input from 'layout/forms/controls/input';
 import Select from 'layout/forms/controls/select';
 import { UI_BEHAVIOUR, DATATYPE_VIS_HINT, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
-import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
+import { CodesLists } from 'widgets/codes-lists';
 import Dictionary from 'utils/dictionary/dictionary';
 import OptionalViewContainer from 'layout/connected-widget/optional-view';
 
@@ -85,7 +85,7 @@ class ResponseFormatSingle extends Component {
           }
         />
         <Field name="visHint" component={ListRadioButtons} label={Dictionary.visHint} radios={listVisHints} required />
-        <CodesList selectorPath={this.selectorPathComposed} />
+        <CodesLists selectorPathParent={this.selectorPathComposed} />
       </FormSection>
     );
   }

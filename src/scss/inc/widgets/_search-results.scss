@@ -61,4 +61,19 @@
       }
     }
   }
+
+  &#page-search-questionnaire__results {
+    .widget-search-results__column:nth-child(1) {
+      width: 9%;
+    }
+    .widget-search-results__column:nth-child(2) {
+      width: 10%;
+    }
+    .widget-search-results__column:nth-child(3) {
+      width: 28%;
+    }
+    .widget-search-results__column:nth-child(7) {
+      width: 9%;
+    }
+  }
 }

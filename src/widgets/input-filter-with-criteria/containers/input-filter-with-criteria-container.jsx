@@ -27,7 +27,7 @@ export const defaultProps = {
   formName: STATISTICAL_CONTEXT_FORM_NAME,
   selectorPath: '',
   criterias: [],
-  loadOnInit: true,
+  loadOnInit: false,
 };
 
 // Container
