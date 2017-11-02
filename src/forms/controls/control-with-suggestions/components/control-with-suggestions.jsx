@@ -94,7 +94,6 @@ class ControlWithSuggestions extends Component {
   };
 
   handleTab = e => {
-    debugger;
     const { numSuggestionsShown } = this.props;
     const { suggestions, hoveredSuggestionIndex } = this.state;
 

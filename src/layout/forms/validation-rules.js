@@ -87,3 +87,7 @@ export function emptyCodes(codes) {
 export function emptyMeasures(measures) {
   return measures.length === 0 ? 'No measures' : undefined;
 }
+
+export function uniqueCodeAttr(codeAttr, { codes }) {
+  return codes.filter(code => code.code === codeAttr).length > 1 ? 'unique' : undefined;
+}

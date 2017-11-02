@@ -27,7 +27,7 @@ describe('Form controls - Select', () => {
     expect(wrapper.find('option')).toHaveLength(2);
   });
 
-  test('Should exists a label element with the label text passed as property', () => {
+  test('Should exists a label element with the label text only when this prop is passed', () => {
     expect(wrapper.find('label').text()).toBe(props.label);
   });
 

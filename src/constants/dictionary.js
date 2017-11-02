@@ -151,6 +151,14 @@ const dictionary = {
     en: 'Move down',
     fr: 'Descendre',
   },
+  moveright: {
+    en: 'Move right',
+    fr: 'Déplacer droite',
+  },
+  moveleft: {
+    en: 'Move left',
+    fr: 'Déplacer gauche',
+  },
   declaration_tabTitle: {
     en: 'Statements',
     fr: 'Déclarations',
@@ -686,6 +694,10 @@ const dictionary = {
     fr: 'Ajouter un code',
     en: 'Add a code',
   },
+  editCode: {
+    fr: 'Editer un code',
+    en: 'Edit a code',
+  },
   codeLabel: {
     fr: 'Libellé de la modalité',
     en: 'Code label',
@@ -1062,6 +1074,14 @@ const dictionary = {
   validation_response_format_required: {
     fr: 'Format de réponse obligatoire.',
     en: 'Response format required.',
+  },
+  validationCodeListCode: {
+    fr: 'Code de la modalité obligatoire.',
+    en: 'Code required.',
+  },
+  validationCodeListLabel: {
+    fr: 'Libellé obligatoire.',
+    en: 'Label required.',
   },
   headerSearchQuestionnaire_version: {
     fr: 'Version',
