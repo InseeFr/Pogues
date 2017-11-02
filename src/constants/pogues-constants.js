@@ -245,3 +245,5 @@ export const CODES_LISTS_PANELS = [
     value: CODES_LIST_INPUT_ENUM.QUEST,
   },
 ];
+
+export const DEFAULT_CODES_LIST_SELECTOR_PATH = 'CodesList';

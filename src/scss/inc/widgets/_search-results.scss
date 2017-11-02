@@ -19,6 +19,15 @@
     width: 14%;
   }
 
+  .widget-search-results__column,
+  .widget-search-results__header .widget-search-results__column:nth-child(3) {
+    text-align: center;
+  }
+
+  .widget-search-results__column:nth-child(3) {
+    text-align: left;
+  }
+
   .widget-search-results__row {
     @include make-row();
     padding: 15px 0;
@@ -50,27 +59,21 @@
         border-left: none;
       }
 
-      &.widget-search-results__column-actions {
-        text-align: center;
-
-        button {
-          display:inline-block;
-          margin: 8px;
-        }
-
+      &.widget-search-results__column-actions button {
+        @extend .btn-grey;
       }
     }
   }
 
   &#page-search-questionnaire__results {
     .widget-search-results__column:nth-child(1) {
-      width: 9%;
+      width: 5%;
     }
     .widget-search-results__column:nth-child(2) {
       width: 10%;
     }
     .widget-search-results__column:nth-child(3) {
-      width: 28%;
+      width: 32%;
     }
     .widget-search-results__column:nth-child(7) {
       width: 9%;

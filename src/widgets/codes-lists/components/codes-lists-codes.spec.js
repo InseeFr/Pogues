@@ -23,8 +23,6 @@ describe('<CodesListCodes />', () => {
   test.skip('Should render an entry code form with the expected fields', () => {
     const wrapper = shallow(<CodesListCodes {...customProps} />);
 
-    console.log(wrapper.debug());
-
     expect(wrapper.find(`Field[name="${customProps.path}.code.code"]`)).toHaveLength(1);
     expect(wrapper.find(`Field[name="${customProps.path}.code.label"]`)).toHaveLength(1);
     expect(wrapper.find(`Field[name="${customProps.path}.code.parent"][type="hidden"]`)).toHaveLength(1);

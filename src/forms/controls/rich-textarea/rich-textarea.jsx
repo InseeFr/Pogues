@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
-import RichTextEditor, { ButtonGroup, Dropdown, Button } from 'gillespie59-react-rte/lib/RichTextEditor';
+import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { getDefaultKeyBinding } from 'draft-js';
 
-import { toolbarConfig } from './rich-textarea-config';
+import { toolbarConfig, rootStyle } from './rich-textarea-config';
 import { getValue, editorValueToMarkdown } from './rich-textarea-utils';
 
 import { getControlId } from 'utils/widget-utils';
@@ -97,21 +97,7 @@ class RichTextarea extends Component {
             toolbarConfig={toolbarConfig}
             autoFocus={focusOnInit}
             keyBindingFn={this.keyBinding}
-            // customControls={[
-            //   // eslint-disable-next-line no-unused-vars
-            //   (setValue, getValue, editorState) => {
-            //     const choices = new Map([['1', { label: '1' }], ['2', { label: '2' }], ['3', { label: '3' }]]);
-            //     return (
-            //       <ButtonGroup key={1}>
-            //         <Dropdown
-            //           choices={choices}
-            //           selectedKey={getValue('my-control-name')}
-            //           onChange={value => setValue('my-control-name', value)}
-            //         />
-            //       </ButtonGroup>
-            //     );
-            //   },
-            // ]}
+            rootStyle={rootStyle}
           />
 
           {touched && (error && <span className="form-error">{error}</span>)}

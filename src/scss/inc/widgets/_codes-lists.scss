@@ -1,10 +1,7 @@
 .widget-codes-lists {
   margin: 20px 0;
-  //@extend .container;
-  //padding: 0;
 
   .widget-codes-lists__panel-selector {
-    @include make-row();
     margin-bottom: 20px;
   }
 
@@ -14,12 +11,8 @@
     }
 
     .widget-codes-lists__codes__list {
-      > div {
-        @include make-row();
-      }
-
       .widget-codes-lists__codes__input {
-        //@include make-row();
+        @include make-row();
 
         .widget-codes-lists__codes__input-code {
           @include make-xs-column(12);
@@ -108,29 +101,31 @@
           @include make-xs-column(4);
         }
 
-      }
-    }
 
-    .widget-codes-lists__codes__actions {
-      button {
-        @extend .btn-grey;
-        margin-left: 10px;
-      }
-      .widget-codes-lists__codes__actions-movement {
-        position: relative;
-        display: inline-block;
-
-        .widget-codes-lists__codes__actions-movement-toggle {
-          z-index: 10;
-          position: absolute;
-          display: none;
-
-          &.show {
-            display: block;
+        .widget-codes-lists__codes__actions {
+          button {
+            @extend .btn-grey;
+            margin-left: 10px;
           }
-        }
-      }
+          .widget-codes-lists__codes__actions-movement {
+            position: relative;
+            display: inline-block;
 
+            .widget-codes-lists__codes__actions-movement-toggle {
+              z-index: 10;
+              position: absolute;
+              display: none;
+
+              &.show {
+                display: block;
+              }
+            }
+          }
+
+        }
+
+      }
     }
+
   }
 }

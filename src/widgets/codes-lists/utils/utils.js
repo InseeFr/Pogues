@@ -100,25 +100,31 @@ export function getDisabledActions(allCodes, code, depth, actions) {
 
 export function getMoveUp(allCodes, code, move) {
   return () => {
-    const indexCode = getCodeIndex(allCodes, code.code);
-    move(indexCode, indexCode - 1);
+    const indexOrigin = getCodeIndex(allCodes, code.code);
+    const numChildrenCode = allCodes.filter(c => c.parent === code.code).length;
+    let indexSibling = indexOrigin - 1;
 
-    allCodes.filter(c => c.parent === code.code).forEach(c => {
-      const indexChild = getCodeIndex(allCodes, c.code);
-      move(indexChild, indexChild - 1);
-    });
+    while (allCodes[indexOrigin].parent !== allCodes[indexSibling].parent) {
+      indexSibling -= 1;
+    }
+
+    for (let i = 0; i < numChildrenCode + 1; i += 1) {
+      move(indexOrigin + i, indexSibling + i);
+    }
   };
 }
 
 export function getMoveDown(allCodes, code, move) {
   return () => {
-    const indexCode = getCodeIndex(allCodes, code.code);
-    move(indexCode, indexCode + 1);
+    const indexOrigin = getCodeIndex(allCodes, code.code);
+    const numChildrenCode = allCodes.filter(c => c.parent === code.code).length;
+    const indexSibling = indexOrigin + numChildrenCode + 1;
+    const numChildrenSibling = allCodes.filter(c => c.parent === allCodes[indexSibling].code).length;
+    const targetIndex = indexSibling + numChildrenSibling;
 
-    allCodes.filter(c => c.parent === code.code).forEach(c => {
-      const indexChild = getCodeIndex(allCodes, c.code);
-      move(indexChild, indexChild + 1);
-    });
+    for (let i = 0; i < numChildrenCode + 1; i += 1) {
+      move(indexOrigin, targetIndex);
+    }
   };
 }
 

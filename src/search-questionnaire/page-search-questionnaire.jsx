@@ -8,7 +8,7 @@ import { PAGE_SEARCH_QUESTIONNAIRE } from 'constants/dom-constants';
 import { TYPES_ITEMS, SEARCH_CRITERIAS, SEARCH_RESULTS_COLUMNS } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
-const { COMPONENT_ID, SEARCH_RESULTS_ID  } = PAGE_SEARCH_QUESTIONNAIRE
+const { COMPONENT_ID, SEARCH_RESULTS_ID } = PAGE_SEARCH_QUESTIONNAIRE;
 
 // @TODO: noop is used temporally
 import { noop } from 'utils/test/test-utils';
@@ -29,6 +29,8 @@ function PageSearchQuestionnaire() {
       {
         dictionary: 'searchResultActionReuse',
         action: noop,
+        iconOnly: true,
+        icon: 'glyphicon-eye-open',
       },
     ],
   };

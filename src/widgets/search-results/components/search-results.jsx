@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ClassSet from 'react-classset';
 
 import { WIDGET_SEARCH_RESULTS } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -36,7 +37,14 @@ function renderRowActions(actions, values) {
             a.action(values);
           }}
         >
-          {Dictionary[a.dictionary]}
+          {a.icon && <span className={`glyphicon ${a.icon}`} />}
+          <span
+            className={ClassSet({
+              'sr-only': a.iconOnly,
+            })}
+          >
+            {Dictionary[a.dictionary]}
+          </span>
         </button>
       ))}
     </div>
