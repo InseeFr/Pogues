@@ -12,9 +12,9 @@ import ListRadios from 'forms/controls/list-radios';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
 import { SearchCodesLists } from 'widgets/search-codes-lists';
-import { storeToArray } from 'utils/widget-utils';
+import { storeToArray } from 'utils/utils';
 
-const { COMPONENT_CLASS, PANEL_CLASS } = WIDGET_CODES_LISTS;
+const { COMPONENT_CLASS, PANEL_CLASS, PANEL_SELECTOR_CLASS } = WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 
 // Utils
@@ -75,13 +75,15 @@ class CodesList extends Component {
 
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>
-        <Field name="panel" component={ListRadios} label={Dictionary.selectCodesListType} required>
-          {getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
-            <GenericOption key={panel.value} value={panel.value}>
-              {panel.label}
-            </GenericOption>
-          ))}
-        </Field>
+        <div className={PANEL_SELECTOR_CLASS}>
+          <Field name="panel" component={ListRadios} label={Dictionary.selectCodesListType} required>
+            {getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
+              <GenericOption key={panel.value} value={panel.value}>
+                {panel.label}
+              </GenericOption>
+            ))}
+          </Field>
+        </div>
 
         {activePanel && (
           <div className={`${PANEL_CLASS} ${PANEL_CLASS}-${activePanel}`}>

@@ -5,7 +5,7 @@ import { formValueSelector, actions } from 'redux-form';
 import CodesLists from '../components/codes-lists';
 
 import { getCurrentSelectorPath } from 'utils/widget-utils';
-import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
+import { DEFAULT_FORM_NAME, DEFAULT_CODES_LIST_SELECTOR_PATH } from 'constants/pogues-constants';
 
 // PropTypes and defaultProps
 
@@ -17,7 +17,7 @@ const propTypes = {
 
 export const defaultProps = {
   selectorPathParent: '',
-  selectorPath: 'CodesList',
+  selectorPath: DEFAULT_CODES_LIST_SELECTOR_PATH,
   formName: DEFAULT_FORM_NAME,
 };
 
