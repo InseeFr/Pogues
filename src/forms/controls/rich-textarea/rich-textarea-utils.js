@@ -6,17 +6,6 @@ import { customLinkDecorator } from './rich-textarea-decorators';
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
 
-export function findLinkEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges(character => {
-    const entityKey = character.getEntity();
-    if (entityKey != null) {
-      const entity = contentState ? contentState.getEntity(entityKey) : null;
-      return entity != null && entity.getType() === 'LINK';
-    }
-    return false;
-  }, callback);
-}
-
 export function getDecorators() {
   return new CompositeDecorator([customLinkDecorator]);
 }
@@ -36,7 +25,7 @@ export function markdownToEditorValue(markdown) {
 }
 
 export function editorValueToMarkdown(value) {
-  return value.toString(MARKDOWN).replace(/(\n|\r)$/, '');
+  return value.toString(MARKDOWN).replace(/^\n+|\n+$/, '');
 }
 
 export function editorValueToRaw(value) {

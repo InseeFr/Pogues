@@ -46,6 +46,7 @@ function renderRowActions(actions, values) {
 // PropTypes and defaultProps
 
 const propTypes = {
+  id: PropTypes.string.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
@@ -63,17 +64,18 @@ const propTypes = {
 };
 
 const defaultProps = {
+  id: undefined,
   values: [],
 };
 
 // Component
 
-function SearchResults({ columns, actions, noValuesMessage, values }) {
+function SearchResults({ id, columns, actions, noValuesMessage, values }) {
   // Obtaining the traductions for the different columns and the actions column.
   const headerValues = [...columns.map(c => Dictionary[c.dictionary]), Dictionary.searchResultAction];
 
   return (
-    <div className={`${COMPONENT_CLASS} ${COMPONENT_CLASS}-${columns.length + 1}`}>
+    <div id={id} className={`${COMPONENT_CLASS} ${COMPONENT_CLASS}-${columns.length + 1}`}>
       {/* Header */}
       <div className={`${ROW_CLASS} ${HEADER_CLASS}`}>{renderRowValues(headerValues)}</div>
 

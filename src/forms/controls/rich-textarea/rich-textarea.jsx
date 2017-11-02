@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
-import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
+import RichTextEditor, { ButtonGroup, Dropdown, Button } from 'gillespie59-react-rte/lib/RichTextEditor';
+import { getDefaultKeyBinding } from 'draft-js';
 
-import { getValue, editorValueToMarkdown, formatURL } from './rich-textarea-utils';
-import { toolbarConfig, rootStyle } from './rich-textarea-config';
+import { toolbarConfig } from './rich-textarea-config';
+import { getValue, editorValueToMarkdown } from './rich-textarea-utils';
 
 import { getControlId } from 'utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 
-const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
+const { COMPONENT_CLASS, EDITOR_CLASS } = CONTROL_RICH_TEXTAREA;
 
 // PropTypes and defaultProps
 
@@ -17,18 +18,19 @@ const propTypes = {
   input: PropTypes.shape(fieldInputPropTypes).isRequired,
   meta: PropTypes.shape(fieldMetaPropTypes).isRequired,
   label: PropTypes.string.isRequired,
-  identifier: PropTypes.string,
+  className: PropTypes.string,
   required: PropTypes.bool,
-  disabled: PropTypes.bool,
   focusOnInit: PropTypes.bool,
-  submitOnEnter: PropTypes.bool,
+  onEnter: PropTypes.func,
 };
+
 const defaultProps = {
   required: false,
   disabled: false,
   identifier: undefined,
+  className: undefined,
   focusOnInit: false,
-  submitOnEnter: false,
+  onEnter: undefined,
 };
 
 // Control
@@ -42,63 +44,74 @@ class RichTextarea extends Component {
 
     this.state = {
       value: getValue(props.input.value),
-      currentValue: props.input.value,
+      markdownValue: props.input.value,
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.keyBinding = this.keyBinding.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.focusOnInit) this.input._focus();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.identifier === undefined) {
-      return;
-    }
-    if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
-      this.setState({ value: getValue(nextProps.input.value) });
+  componentWillUpdate(nextProps) {
+    if (nextProps.input.value !== this.state.markdownValue) {
+      this.setState({
+        value: getValue(nextProps.input.value),
+        markdownValue: nextProps.input.value,
+      });
     }
   }
 
-  handleChange = value => {
-    const transformedValue = editorValueToMarkdown(value);
-    this.setState({ value, currentValue: transformedValue });
-    this.props.input.onChange(transformedValue);
-  };
+  handleChange(value) {
+    const markdownValue = editorValueToMarkdown(value);
 
-  handleReturn = e => {
-    if (this.props.submitOnEnter) {
-      e.preventDefault();
-      e.target
-        .closest('form')
-        .querySelector('button[type=submit]')
-        .click();
+    this.setState({ value, markdownValue });
+
+    if (this.props.input.onChange) {
+      this.props.input.onChange(markdownValue);
     }
-  };
+  }
+
+  keyBinding(e) {
+    if (e.keyCode === 13 && this.props.onEnter) {
+      this.props.onEnter();
+      return 'rich-textarea-enter';
+    }
+    return getDefaultKeyBinding(e);
+  }
 
   render() {
-    const { label, required, disabled, input, meta: { touched, error } } = this.props;
+    const { className, label, required, focusOnInit, input, meta: { touched, error } } = this.props;
     const id = getControlId('rich-textarea', input.name);
-    const editorValue = this.state.value;
 
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className={`${COMPONENT_CLASS} ${className}`}>
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}
         </label>
         <div>
           <RichTextEditor
-            blockStyleFn={() => 'singleline'}
-            value={editorValue}
+            className={EDITOR_CLASS}
+            placeholder={label}
+            value={this.state.value}
             onChange={this.handleChange}
             toolbarConfig={toolbarConfig}
-            handleReturn={this.handleReturn}
-            rootStyle={rootStyle}
-            formatURL={formatURL}
-            disabled={disabled}
-            ref={node => {
-              this.input = node;
-            }}
+            autoFocus={focusOnInit}
+            keyBindingFn={this.keyBinding}
+            // customControls={[
+            //   // eslint-disable-next-line no-unused-vars
+            //   (setValue, getValue, editorState) => {
+            //     const choices = new Map([['1', { label: '1' }], ['2', { label: '2' }], ['3', { label: '3' }]]);
+            //     return (
+            //       <ButtonGroup key={1}>
+            //         <Dropdown
+            //           choices={choices}
+            //           selectedKey={getValue('my-control-name')}
+            //           onChange={value => setValue('my-control-name', value)}
+            //         />
+            //       </ButtonGroup>
+            //     );
+            //   },
+            // ]}
           />
 
           {touched && (error && <span className="form-error">{error}</span>)}

@@ -1,3 +1,9 @@
 .ctrl-rich-textarea {
   @extend .ctrl;
+
+  .ctrl-rich-textarea__editor {
+    display: flex;
+    flex-direction: column-reverse;
+    font-family: inherit;
+  }
 }

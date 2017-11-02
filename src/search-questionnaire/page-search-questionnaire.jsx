@@ -8,6 +8,8 @@ import { PAGE_SEARCH_QUESTIONNAIRE } from 'constants/dom-constants';
 import { TYPES_ITEMS, SEARCH_CRITERIAS, SEARCH_RESULTS_COLUMNS } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
+const { COMPONENT_ID, SEARCH_RESULTS_ID  } = PAGE_SEARCH_QUESTIONNAIRE
+
 // @TODO: noop is used temporally
 import { noop } from 'utils/test/test-utils';
 
@@ -20,6 +22,7 @@ function PageSearchQuestionnaire() {
     label: Dictionary.searchInputQuestionnaireLabel,
   };
   const propsSearchResults = {
+    id: SEARCH_RESULTS_ID,
     noValuesMessage: Dictionary.pageSearchNoResults,
     columns: SEARCH_RESULTS_COLUMNS.QUESTIONNAIRE,
     actions: [
@@ -31,7 +34,7 @@ function PageSearchQuestionnaire() {
   };
 
   return (
-    <div id={PAGE_SEARCH_QUESTIONNAIRE.COMPONENT_ID}>
+    <div id={COMPONENT_ID}>
       <Criteria />
       <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
       <SearchResults {...propsSearchResults} />

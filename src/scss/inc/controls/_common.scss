@@ -6,7 +6,7 @@
     @include make-xs-column(3);
   }
 
-  label + div {
+  & > label + div {
     @include make-xs-column(6);
     // @TODO: Remove this after refactor in list with input
     width: 70%;

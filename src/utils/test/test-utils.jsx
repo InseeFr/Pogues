@@ -64,25 +64,29 @@ export const fakeFieldArrayMeta = {
   invalid: false,
   pristine: true,
   valid: true,
+  error: undefined,
+  warning: undefined,
+  submitFailed: false,
+  submitting: false,
 };
 
 export const fakeFieldArrayFields = {
+  insert: noop,
   name: 'FAKE_NAME',
   forEach: noop,
   get: noop,
   getAll: noop,
-  insert: noop,
   length: 0,
   map: noop,
   move: noop,
   pop: noop,
   push: noop,
-  reduce: noop,
   remove: noop,
   removeAll: noop,
   shift: noop,
   swap: noop,
   unshift: noop,
+  reduce: noop,
 };
 
 export const fakeFieldArray = {
@@ -97,6 +101,13 @@ export const fakeFieldProps = {
 
 export const fakeEvent = {
   preventDefault: noop,
+};
+
+export const fakeEnterEvent = {
+  preventDefault: noop,
+  key: 'Enter',
+  keyCode: 13,
+  which: 13,
 };
 
 export default undefined;

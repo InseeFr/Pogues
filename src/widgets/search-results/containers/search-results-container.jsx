@@ -8,6 +8,7 @@ import { storeToArray } from 'utils/widget-utils';
 // PropTypes and defaultProps
 
 const propTypes = {
+  id: PropTypes.string,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
@@ -24,6 +25,7 @@ const propTypes = {
 };
 
 export const defaultProps = {
+  id: undefined,
   columns: [],
   actions: [],
   noValuesMessage: '',
