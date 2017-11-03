@@ -177,10 +177,6 @@ export const SEARCH_CRITERIAS = {
       remoteName: 'subgroupId',
       localName: 'serie',
     },
-    {
-      remoteName: 'studyUnitId',
-      localName: 'operation',
-    },
   ],
 };
 
@@ -223,10 +219,6 @@ export const SEARCH_RESULTS_COLUMNS = {
     {
       dictionary: 'searchResultSerie',
       key: 'subgroupId',
-    },
-    {
-      dictionary: 'searchResultOperation',
-      key: 'studyUnitId',
     },
   ],
 };

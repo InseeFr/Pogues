@@ -90,7 +90,7 @@ class CodesList extends Component {
 
         {activePanel && (
           <div className={`${PANEL_CLASS} ${PANEL_CLASS}-${activePanel}`}>
-            {activePanel === REF && <SearchCodesLists />}
+            {activePanel === REF && <SearchCodesLists path={path} />}
             {activePanel === QUEST && (
               <Field name="id" component={Select} label={Dictionary.selectCodesListType} required>
                 <GenericOption key="" value="">

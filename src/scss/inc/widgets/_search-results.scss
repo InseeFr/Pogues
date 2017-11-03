@@ -8,6 +8,11 @@
     text-align: center;
   }
 
+  &.widget-search-results-4 .widget-search-results__column {
+    @include make-xs-column(1);
+    width: 25%;
+  }
+
   &.widget-search-results-5 .widget-search-results__column {
     @include make-xs-column(1);
     width: 20%;
@@ -74,22 +79,6 @@
       text-align: center;
     }
     .widget-search-results__column:nth-child(7) {
-      width: 9%;
-    }
-  }
-
-  &.widget-search-codes-lists__results {
-    .widget-search-results__column:nth-child(1) {
-      width: 6%;
-    }
-    .widget-search-results__column:nth-child(2) {
-      text-align: left;
-      width: 40%;
-    }
-    .widget-search-results__header .widget-search-results__column:nth-child(2) {
-      text-align: center;
-    }
-    .widget-search-results__column:nth-child(5) {
       width: 9%;
     }
   }
