@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import CodesListsInputCode from './codes-lists-input-code';
 import CodesListsActions from './codes-lists-actions';
 import {
-  getCodeDepth,
   getDisabledActions,
   getMoveUp,
   getMoveDown,
   getMoveLeft,
   getMoveRight,
   getCodeIndex,
+  getCodeWeight,
 } from '../utils/utils';
 import { ACTIONS } from '../constants';
 
@@ -26,7 +26,7 @@ const { CODES_CLASS, LIST_CLASS, LIST_ITEM_CLASS } = WIDGET_CODES_LISTS;
 export const propTypes = {
   fields: PropTypes.shape(fieldArrayFields).isRequired,
   meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array }).isRequired,
-  currentCode: PropTypes.string,
+  currentValue: PropTypes.string,
   currentLabel: PropTypes.string,
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
@@ -34,7 +34,7 @@ export const propTypes = {
 };
 
 export const defaultProps = {
-  currentCode: '',
+  currentValue: '',
   currentLabel: '',
 };
 
@@ -47,70 +47,157 @@ class CodesListCodes extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { showInputCode: false, activeCode: undefined, editing: false };
+    this.state = {
+      showInputCode: false,
+      activeCodeIndex: undefined,
+      editing: false,
+    };
 
     this.renderInputCode = this.renderInputCode.bind(this);
     this.pushCode = this.pushCode.bind(this);
     this.clearInputCode = this.clearInputCode.bind(this);
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.editing && nextState.activeCode && nextState.activeCode !== this.state.activeCode) {
-      const { formName, change, inputCodePath, fields } = this.props;
-      const indexCode = getCodeIndex(fields.getAll(), nextState.activeCode);
-      const code = fields.get(indexCode);
-
-      change(formName, `${inputCodePath}code`, code.code);
-      change(formName, `${inputCodePath}label`, code.label);
-    }
-  }
-
-  pushCode() {
-    const { currentCode, currentLabel, fields } = this.props;
-    const { activeCode, editing } = this.state;
-    const allCodes = fields.getAll();
-
-    let insertionIndex;
-    let currentParent;
-
-    if (editing) {
-      const activeCodeIndex = getCodeIndex(allCodes, activeCode);
-      const code = fields.get(activeCodeIndex);
-      fields.remove(activeCodeIndex);
-      insertionIndex = activeCodeIndex;
-      currentParent = code.parent;
-      this.setState({ showInputCode: false, activeCode: undefined, editing: false });
-    } else {
-      const activeCodeIndex = getCodeIndex(allCodes, activeCode);
-      insertionIndex = activeCodeIndex !== -1 ? activeCodeIndex + 1 : 0;
-      currentParent = activeCode || '';
-    }
-
-    fields.insert(insertionIndex, { code: currentCode, label: currentLabel, parent: currentParent });
+    this.renderCode = this.renderCode.bind(this);
+    this.renderCodes = this.renderCodes.bind(this);
   }
 
   clearInputCode() {
     const { inputCodePath, formName, change } = this.props;
-    change(formName, `${inputCodePath}code`, '');
+    change(formName, `${inputCodePath}value`, '');
     change(formName, `${inputCodePath}label`, '');
   }
 
+  pushCode() {
+    const { currentValue, currentLabel, fields: { get, getAll, remove, push } } = this.props;
+    const { activeCodeIndex, editing } = this.state;
+    let values;
+
+    if (activeCodeIndex !== undefined) {
+      values = {
+        value: currentValue,
+        label: currentLabel,
+      };
+
+      this.setState({
+        showInputCode: false,
+        activeCodeIndex: undefined,
+        editing: false,
+      });
+
+      if (editing) {
+        const code = get(activeCodeIndex);
+        remove(activeCodeIndex);
+
+        values = {
+          ...values,
+          parent: code.parent,
+          weight: code.weight,
+          depth: code.depth,
+        };
+      } else {
+        values = {
+          ...values,
+          parent: '',
+          weight: getCodeWeight(getAll()),
+          depth: 1,
+        };
+      }
+    } else {
+      values = {
+        value: currentValue,
+        label: currentLabel,
+        parent: '',
+        weight: getCodeWeight(getAll()),
+        depth: 1,
+      };
+    }
+
+    push(values);
+  }
+
   renderInputCode() {
+    const { inputCodePath, formName, change, fields: { get } } = this.props;
+    const { activeCodeIndex } = this.state;
+    const code = get(activeCodeIndex);
+
     return (
       <CodesListsInputCode
         meta={this.props.meta}
         close={() => {
-          this.setState({ showInputCode: false, activeCode: undefined });
+          this.clearInputCode();
+          this.setState({ showInputCode: false, activeCodeIndex: undefined });
         }}
         clear={this.clearInputCode}
         push={this.pushCode}
+        change={change}
+        path={inputCodePath}
+        formName={formName}
+        code={code}
       />
     );
   }
 
+  renderCode(code) {
+    const { showInputCode, activeCodeIndex, editing } = this.state;
+    const { fields: { getAll, move, insert, remove } } = this.props;
+    const allCodes = getAll() || [];
+    const indexCode = getCodeIndex(allCodes, code.value);
+    const actions = {
+      remove: () => {
+        remove(indexCode);
+      },
+      edit: () => {
+        this.setState({ showInputCode: true, activeCodeIndex: indexCode, editing: true });
+      },
+      duplicate: () => {
+        this.setState({ showInputCode: true, activeCodeIndex: indexCode });
+      },
+      moveUp: getMoveUp(allCodes, code, move),
+      moveDown: getMoveDown(allCodes, code, move),
+      moveLeft: getMoveLeft(allCodes, code, insert, remove),
+      moveRight: getMoveRight(allCodes, code, insert, remove),
+    };
+
+    return (
+      <div key={code.value}>
+        {showInputCode && editing && activeCodeIndex === indexCode ? (
+          this.renderInputCode()
+        ) : (
+          <div className={`${LIST_ITEM_CLASS} ${LIST_ITEM_CLASS}-${code.depth}`}>
+            {/* Code data */}
+            <div>{code.depth}</div>
+            <div>{code.value}</div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: markdownToHtml(code.label).__html,
+              }}
+            />
+
+            {/* Code Actions */}
+            <CodesListsActions disabledActions={getDisabledActions(allCodes, code, ACTIONS)} actions={actions} />
+          </div>
+        )}
+
+        {/* Children codes */}
+        {this.renderCodes(code.value)}
+      </div>
+    );
+  }
+
+  renderCodes(parent = '') {
+    const allCodes = this.props.fields.getAll() || [];
+
+    return allCodes
+      .filter(code => code.parent === parent)
+      .sort((code, nexCode) => {
+        if (code.weight < nexCode.weight) return -1;
+        if (code.weight > nexCode.weight) return 1;
+        return 0;
+      })
+      .map(code => this.renderCode(code));
+  }
+
   render() {
-    const { fields } = this.props;
-    const { showInputCode, activeCode, editing } = this.state;
+    const { showInputCode, editing } = this.state;
 
     return (
       <div className={CODES_CLASS}>
@@ -118,8 +205,7 @@ class CodesListCodes extends Component {
         <button
           onClick={e => {
             e.preventDefault();
-            // this.showAddCode();
-            this.setState({ showInputCode: true, activeCode: undefined });
+            this.setState({ showInputCode: true, activeCodeIndex: undefined, editing: false });
           }}
         >
           <span className="glyphicon glyphicon-plus" />
@@ -127,54 +213,20 @@ class CodesListCodes extends Component {
         </button>
 
         <div className={`${LIST_CLASS}`}>
-          {/* Input code without a parent code */}
-          {showInputCode && !activeCode && this.renderInputCode()}
+          {this.props.fields.length > 0 && (
+            <div className={`${LIST_ITEM_CLASS}`}>
+              <div>{Dictionary.level}</div>
+              <div>{Dictionary.code}</div>
+              <div>{Dictionary.label}</div>
+              <div>{Dictionary.actions}</div>
+            </div>
+          )}
 
           {/* List of codes */}
-          {fields.map((name, index, { get, getAll }) => {
-            const code = get(index);
-            const allCodes = getAll();
-            const depth = getCodeDepth(allCodes, code.parent);
+          {this.renderCodes()}
 
-            return (
-              <div key={code.code}>
-                {(!editing || activeCode !== code.code) && (
-                    <div className={`${LIST_ITEM_CLASS} ${LIST_ITEM_CLASS}-${depth}`}>
-                      {/* Code data */}
-                      <div />
-                      <div>{code.code}</div>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: markdownToHtml(code.label).__html,
-                        }}
-                      />
-
-                      {/* Code Actions */}
-                      <CodesListsActions
-                        disabledActions={getDisabledActions(allCodes, code, depth, ACTIONS)}
-                        remove={() => {
-                          fields.remove(index);
-                        }}
-                        showAdd={() => {
-                          this.setState({ showInputCode: true, activeCode: code.code });
-                        }}
-                        edit={() => {
-                          this.setState({ showInputCode: true, activeCode: code.code, editing: true });
-                        }}
-                        duplicate={() => {}}
-                        moveUp={getMoveUp(allCodes, code, fields.move)}
-                        moveDown={getMoveDown(allCodes, code, fields.move)}
-                        moveLeft={getMoveLeft(allCodes, code, fields.insert, fields.remove)}
-                        moveRight={getMoveRight(allCodes, code, fields.insert, fields.remove)}
-                      />
-                    </div>
-                  )}
-
-                {/* Input code with the rendered code as parent */}
-                {showInputCode && activeCode === code.code && this.renderInputCode()}
-              </div>
-            );
-          })}
+          {/* Input code without a parent code */}
+          {showInputCode && !editing && this.renderInputCode()}
         </div>
       </div>
     );

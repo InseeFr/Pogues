@@ -21,7 +21,7 @@ export const mapStateToProps = (state, { inputCodePath, formName }) => {
   const selector = formValueSelector(formName);
 
   return {
-    currentCode: selector(state, `${inputCodePath}code`),
+    currentValue: selector(state, `${inputCodePath}value`),
     currentLabel: selector(state, `${inputCodePath}label`),
   };
 };

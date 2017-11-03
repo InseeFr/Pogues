@@ -1,10 +1,37 @@
 export const ACTIONS = {
-  MOVE_UP: 'moveup',
-  MOVE_DOWN: 'movedown',
-  MOVE_RIGHT: 'moveright',
-  MOVE_LEFT: 'moveleft',
-  SHOW_ADD: 'showadd',
-  REMOVE: 'remove',
-  EDIT: 'edit',
-  DUPLICATE: 'duplicate',
+  EDIT: {
+    name: 'edit',
+    distionary: 'editCode',
+    icon: 'glyphicon-edit',
+  },
+  DUPLICATE: {
+    name: 'duplicate',
+    distionary: 'duplicate',
+    icon: 'glyphicon-duplicate',
+  },
+  REMOVE: {
+    name: 'remove',
+    distionary: 'remove',
+    icon: 'glyphicon-trash',
+  },
+  MOVE_UP: {
+    name: 'moveUp',
+    distionary: 'moveUp',
+    icon: 'glyphicon-arrow-up',
+  },
+  MOVE_DOWN: {
+    name: 'moveDown',
+    distionary: 'moveDown',
+    icon: 'glyphicon-arrow-down',
+  },
+  MOVE_RIGHT: {
+    name: 'moveRight',
+    distionary: 'moveRight',
+    icon: 'glyphicon-arrow-right',
+  },
+  MOVE_LEFT: {
+    name: 'moveLeft',
+    distionary: 'moveLeft',
+    icon: 'glyphicon-arrow-left',
+  },
 };

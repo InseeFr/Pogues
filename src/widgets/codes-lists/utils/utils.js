@@ -1,22 +1,17 @@
-export function getCodeIndex(allCodes = [], codeAttr = '') {
-  return allCodes.map(c => c.code).indexOf(codeAttr);
+export function getCodeIndex(allCodes = [], value = '') {
+  return allCodes.map(c => c.value).indexOf(value);
 }
 
-export function getCodeDepth(allCodes, codeParent) {
-  let depth = 1;
-  let currentCodeParent = codeParent;
+export function getCodeWeight(allCodes = [], valueParent = '') {
+  const heaviestWeight = allCodes.filter(c => c.parent === valueParent).reduce((acc, c) => {
+    return c.weight > acc ? c.weight : acc;
+  }, 0);
 
-  while (currentCodeParent !== '') {
-    depth += 1;
-    const indexParent = getCodeIndex(allCodes, currentCodeParent);
-    currentCodeParent = allCodes[indexParent].parent;
-  }
-
-  return depth;
+  return heaviestWeight + 1;
 }
 
-export function disableRemoveButton(allCodes, codeAttr) {
-  return allCodes.filter(c => c.parent === codeAttr).length > 0;
+export function disableRemoveButton(allCodes, value) {
+  return allCodes.filter(c => c.parent === value).length > 0;
 }
 
 export function disableAddButton(depth) {
@@ -30,7 +25,7 @@ export function disableMoveUpButton(allCodes, code) {
     return true;
   }
 
-  const index = siblings.map(c => c.code).indexOf(code.code);
+  const index = siblings.map(c => c.value).indexOf(code.value);
 
   if (index === 0) {
     return true;
@@ -46,7 +41,7 @@ export function disableMoveDownButton(allCodes, code) {
     return true;
   }
 
-  const index = siblings.map(c => c.code).indexOf(code.code);
+  const index = siblings.map(c => c.value).indexOf(code.value);
 
   if (index === allCodes.length - 1) {
     return true;
@@ -55,13 +50,13 @@ export function disableMoveDownButton(allCodes, code) {
   return false;
 }
 
-export function disableMoveLeftButton(allCodes, code, depth) {
-  if (depth === 1) {
+export function disableMoveLeftButton(allCodes, code) {
+  if (code.depth === 1) {
     return true;
   }
 
   const siblings = allCodes.filter(c => c.parent === code.parent);
-  const index = siblings.map(c => c.code).indexOf(code.code);
+  const index = siblings.map(c => c.value).indexOf(code.value);
 
   if (index === 0) {
     return true;
@@ -70,13 +65,13 @@ export function disableMoveLeftButton(allCodes, code, depth) {
   return false;
 }
 
-export function disableMoveRightButton(allCodes, code, depth) {
-  if (depth === 5) {
+export function disableMoveRightButton(allCodes, code) {
+  if (code.depth === 5) {
     return true;
   }
 
   const siblings = allCodes.filter(c => c.parent === code.parent);
-  const index = siblings.map(c => c.code).indexOf(code.code);
+  const index = siblings.map(c => c.value).indexOf(code.value);
 
   if (index === 0) {
     return true;
@@ -85,23 +80,22 @@ export function disableMoveRightButton(allCodes, code, depth) {
   return false;
 }
 
-export function getDisabledActions(allCodes, code, depth, actions) {
+export function getDisabledActions(allCodes, code, actions) {
   const disabledActions = [];
 
-  if (disableAddButton(depth)) disabledActions.push(actions.SHOW_ADD);
-  if (disableRemoveButton(allCodes, code.code)) disabledActions.push(actions.REMOVE);
-  if (disableMoveUpButton(allCodes, code)) disabledActions.push(actions.MOVE_UP);
-  if (disableMoveDownButton(allCodes, code)) disabledActions.push(actions.MOVE_DOWN);
-  if (disableMoveLeftButton(allCodes, code, depth)) disabledActions.push(actions.MOVE_LEFT);
-  if (disableMoveRightButton(allCodes, code, depth)) disabledActions.push(actions.MOVE_RIGHT);
+  if (disableRemoveButton(allCodes, code.value)) disabledActions.push(actions.REMOVE.name);
+  if (disableMoveUpButton(allCodes, code)) disabledActions.push(actions.MOVE_UP.name);
+  if (disableMoveDownButton(allCodes, code)) disabledActions.push(actions.MOVE_DOWN.name);
+  if (disableMoveLeftButton(allCodes, code)) disabledActions.push(actions.MOVE_LEFT.name);
+  if (disableMoveRightButton(allCodes, code)) disabledActions.push(actions.MOVE_RIGHT.name);
 
   return disabledActions;
 }
 
 export function getMoveUp(allCodes, code, move) {
   return () => {
-    const indexOrigin = getCodeIndex(allCodes, code.code);
-    const numChildrenCode = allCodes.filter(c => c.parent === code.code).length;
+    const indexOrigin = getCodeIndex(allCodes, code.value);
+    const numChildrenCode = allCodes.filter(c => c.parent === code.value).length;
     let indexSibling = indexOrigin - 1;
 
     while (allCodes[indexOrigin].parent !== allCodes[indexSibling].parent) {
@@ -116,10 +110,10 @@ export function getMoveUp(allCodes, code, move) {
 
 export function getMoveDown(allCodes, code, move) {
   return () => {
-    const indexOrigin = getCodeIndex(allCodes, code.code);
-    const numChildrenCode = allCodes.filter(c => c.parent === code.code).length;
+    const indexOrigin = getCodeIndex(allCodes, code.value);
+    const numChildrenCode = allCodes.filter(c => c.parent === code.value).length;
     const indexSibling = indexOrigin + numChildrenCode + 1;
-    const numChildrenSibling = allCodes.filter(c => c.parent === allCodes[indexSibling].code).length;
+    const numChildrenSibling = allCodes.filter(c => c.parent === allCodes[indexSibling].value).length;
     const targetIndex = indexSibling + numChildrenSibling;
 
     for (let i = 0; i < numChildrenCode + 1; i += 1) {

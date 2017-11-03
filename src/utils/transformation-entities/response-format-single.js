@@ -1,5 +1,10 @@
-import { UI_BEHAVIOUR, DATATYPE_VIS_HINT, DATATYPE_NAME } from 'constants/pogues-constants';
-import CodesListTransformerFactory, { defaultCodesListForm, defaultCodesListComponentState } from './codes-list';
+import {
+  UI_BEHAVIOUR,
+  DATATYPE_VIS_HINT,
+  DATATYPE_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+} from 'constants/pogues-constants';
+import { CodesListFactory, defaultCodesList } from 'widgets/codes-lists';
 import Response from './response';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
@@ -13,7 +18,7 @@ export const defaultSingleForm = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  ...defaultCodesListForm,
+  [DEFAULT_CODES_LIST_SELECTOR_PATH]: defaultCodesList,
 };
 
 export const defaultSingleState = {
@@ -24,7 +29,7 @@ export const defaultSingleState = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  ...defaultCodesListComponentState,
+  [DEFAULT_CODES_LIST_SELECTOR_PATH]: defaultCodesList,
 };
 
 function transformationFormToState(form, currentState) {
@@ -36,7 +41,7 @@ function transformationFormToState(form, currentState) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    ...codesListForm
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
   } = form;
 
   return {
@@ -47,14 +52,16 @@ function transformationFormToState(form, currentState) {
     specialCode: hasSpecialCode ? specialCode : '',
     specialUiBehaviour: hasSpecialCode ? specialUiBehaviour : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
-    ...CodesListTransformerFactory({ initialComponentState: currentState }).formToStateComponent(codesListForm),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListFactory({ initialComponentState: currentState }).formToState(
+      codesListForm
+    ),
   };
 }
 
 function transformationModelToState(model) {
   const { visHint, mandatory, nonResponseModality, codesListId } = model;
   return {
-    codesListId,
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     mandatory,
     visHint,
     hasSpecialCode: !!nonResponseModality,
@@ -77,7 +84,7 @@ function transformationStateToForm(currentState, codesListsStore) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    ...codesListState
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
   } = currentState;
 
   return {
@@ -89,7 +96,10 @@ function transformationStateToForm(currentState, codesListsStore) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    ...CodesListTransformerFactory({ codesListsStore, initialComponentState: codesListState }).stateComponentToForm(),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListFactory({
+      codesListsStore,
+      initialComponentState: codesListState,
+    }).stateComponentToForm(),
   };
 }
 
