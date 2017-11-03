@@ -25,17 +25,18 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { noop } from 'utils/test/test-utils';
 
 describe('<SearchCodesLists />', () => {
-  const selectorPath = 'FAKE_SELECTOR_PATH';
+  const path = 'FAKE_SELECTOR_PATH';
 
   test('Should render a StatisticalContextCriteria component with the corresponding props', () => {
     const expectedProps = {
       ...StatisticalContextCriteriaDefaultProps,
       formName: DEFAULT_FORM_NAME,
-      selectorPath,
+      path,
+      showOperations: false,
       showCampaigns: false,
       horizontal: true,
     };
-    const wrapper = shallow(<SearchCodesLists selectorPath={selectorPath} />);
+    const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(StatisticalContextCriteria).props()).toEqual(expectedProps);
   });
@@ -45,11 +46,11 @@ describe('<SearchCodesLists />', () => {
       ...InputFilterWithCriteriaDefaultProps,
       label: Dictionary.searchInputCodesListsLabel,
       formName: DEFAULT_FORM_NAME,
-      selectorPath,
+      path,
       typeItem: TYPES_ITEMS.CODES_LIST,
       criterias: SEARCH_CRITERIAS.CODES_LIST,
     };
-    const wrapper = shallow(<SearchCodesLists selectorPath={selectorPath} />);
+    const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(InputFilterWithCriteria).props()).toEqual(expectedProps);
   });
@@ -69,7 +70,7 @@ describe('<SearchCodesLists />', () => {
         },
       ],
     };
-    const wrapper = shallow(<SearchCodesLists selectorPath={selectorPath} />);
+    const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(SearchResults).props()).toEqual(expectedProps);
   });

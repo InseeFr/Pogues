@@ -126,4 +126,36 @@
     }
 
   }
+
+  .widget-search-codes-lists__search {
+    @include make-row();
+
+    .widget-statistical-context-criteria-horizontal {
+      @include make-xs-column(4);
+
+      .ctrl-select {
+        width: 100%;
+      }
+
+    }
+
+    .widget-input-filter-with-criteria {
+      @include make-xs-column(8);
+      .widget-input-filter-with-criteria__panel {
+        label + div, > label {
+          width: 100%;
+          padding-left:0;
+        }
+
+        button {
+          margin-top: 27px;
+          width: auto;
+        }
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
