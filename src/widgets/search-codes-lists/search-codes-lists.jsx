@@ -11,7 +11,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 // @TODO: noop is used temporally
 import { noop } from 'utils/test/test-utils';
 
-const { COMPONENT_CLASS, SEARCH_RESULTS_ID } = WIDGET_SEARCH_CODES_LISTS;
+const { COMPONENT_CLASS, SEARCH_RESULTS_CLASS } = WIDGET_SEARCH_CODES_LISTS;
 
 // PropTypes and defaultProps
 
@@ -42,7 +42,7 @@ function SearchCodesLists({ selectorPath }) {
     label: Dictionary.searchInputCodesListsLabel,
   };
   const propsSearchResults = {
-    className: `${COMPONENT_CLASS}__results`,
+    className: SEARCH_RESULTS_CLASS,
     noValuesMessage: Dictionary.codesListsNoResults,
     columns: SEARCH_RESULTS_COLUMNS.CODES_LIST,
     actions: [

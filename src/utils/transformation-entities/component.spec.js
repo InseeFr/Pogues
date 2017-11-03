@@ -23,7 +23,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
-describe('Transformation entities - Component', () => {
+describe.skip('Transformation entities - Component', () => {
   test('Should produce expected STATE in sequence creation from FORM', () => {
     expect(ComponentTransformerFactory().formToState(sequenceForm, sequenceInfos)).toEqual(sequenceState);
   });
@@ -36,7 +36,7 @@ describe('Transformation entities - Component', () => {
     expect(ComponentTransformerFactory().formToState(questionForm, questionInfos)).toEqual(questionState);
   });
 
-  test.only('Should produce expected STORE from questionnaire MODEL', () => {
+  test('Should produce expected STORE from questionnaire MODEL', () => {
     const componentTransformer = ComponentTransformerFactory({ questionnaireId: fakeQuestionnaireId, codesListsStore });
     expect(componentTransformer.modelToStore(questionnaireModel)).toEqual(componentsStore);
   });

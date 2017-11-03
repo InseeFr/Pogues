@@ -13,6 +13,7 @@ describe('<InputFilterWithCriteria />', () => {
 
   beforeEach(() => {
     props = {
+      label: 'This is a fake label',
       typeItem: 'FAKE_TYPE_ITEM',
       loadSearchResult: noop,
       criteriaValues: {},
