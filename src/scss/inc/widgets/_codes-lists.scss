@@ -55,36 +55,8 @@
         padding: 10px 0;
         border-top: 1px solid $color-grey_02;
 
-        &:before {
-          font-family:'Glyphicons Halflings' !important;
-          font-weight: normal;
-          font-style: normal;
-          text-decoration: inherit;
-        }
-
-        &.widget-codes-lists__codes__list-item-1:before {
-          content:"\e234";
-        }
-
-        &.widget-codes-lists__codes__list-item-2:before {
-          content:"\e234\e234";
-        }
-
-        &.widget-codes-lists__codes__list-item-3:before {
-          content: "\e234\e234\e234";
-        }
-
-        &.widget-codes-lists__codes__list-item-4:before {
-          content: "\e234\e234\e234\e234";
-        }
-
-        &.widget-codes-lists__codes__list-item-5:before {
-          content: "\e234\e234\e234\e234\e234";
-        }
-
-
         >div:nth-child(1) {
-          @include make-xs-column(2);
+          @include make-xs-column(1);
         }
 
         >div:nth-child(2) {
@@ -96,7 +68,7 @@
         }
 
         >div:nth-child(4) {
-          @include make-xs-column(4);
+          @include make-xs-column(5);
         }
 
 
@@ -125,37 +97,5 @@
       }
     }
 
-  }
-
-  .widget-search-codes-lists__search {
-    @include make-row();
-
-    .widget-statistical-context-criteria-horizontal {
-      @include make-xs-column(4);
-
-      .ctrl-select {
-        width: 100%;
-      }
-
-    }
-
-    .widget-input-filter-with-criteria {
-      @include make-xs-column(8);
-      .widget-input-filter-with-criteria__panel {
-        label + div, > label {
-          width: 100%;
-          padding-left:0;
-        }
-
-        button {
-          margin-top: 27px;
-          width: auto;
-        }
-
-        input {
-          width: 100%;
-        }
-      }
-    }
   }
 }

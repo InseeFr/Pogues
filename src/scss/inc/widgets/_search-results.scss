@@ -82,20 +82,4 @@
       width: 9%;
     }
   }
-
-  &.widget-search-codes-lists__results {
-    .widget-search-results__column:nth-child(1) {
-      width: 6%;
-    }
-    .widget-search-results__column:nth-child(2) {
-      text-align: left;
-      width: 54%;
-    }
-    .widget-search-results__header .widget-search-results__column:nth-child(2) {
-      text-align: center;
-    }
-    .widget-search-results__column:nth-child(4) {
-      width: 15%;
-    }
-  }
 }
