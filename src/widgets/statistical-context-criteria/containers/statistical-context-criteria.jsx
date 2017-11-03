@@ -6,14 +6,15 @@ import StatisticalContextCriteria from '../components/statistical-context-criter
 
 import { loadSeriesIfNeeded, loadOperationsIfNeeded, loadCampaignsIfNeeded } from 'actions/metadata';
 import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
-import { getCurrentSelectorPath, filterStoreByProp } from 'utils/widget-utils';
+import { filterStoreByProp } from 'utils/widget-utils';
 import { storeToArray } from 'utils/utils';
 
 // PropTypes and defaultProps
 
 const propTypes = {
   formName: PropTypes.string,
-  selectorPath: PropTypes.string,
+  path: PropTypes.string,
+  showOperations: PropTypes.bool,
   showCampaigns: PropTypes.bool,
   multipleCampaign: PropTypes.bool,
   required: PropTypes.bool,
@@ -22,7 +23,8 @@ const propTypes = {
 
 export const defaultProps = {
   formName: STATISTICAL_CONTEXT_FORM_NAME,
-  selectorPath: '',
+  path: '',
+  showOperations: true,
   showCampaigns: true,
   multipleCampaign: false,
   required: false,
@@ -32,28 +34,30 @@ export const defaultProps = {
 // Container
 
 // @TODO: Tests
-export const mapStateToProps = (state, { showCampaigns, formName, selectorPath }) => {
+export const mapStateToProps = (state, { showCampaigns, showOperations, formName, path }) => {
   const selector = formValueSelector(formName);
-  const path = getCurrentSelectorPath(selectorPath);
-  let campaignProps = {};
+  const conditionalProps = {};
 
   // Selected serie and operation in the form
   const selectedSerie = selector(state, `${path}serie`);
-  const selectedOperation = selector(state, `${path}operation`);
 
-  // Show or not the list of campaigns
-  if (showCampaigns) {
-    campaignProps = {
-      campaigns: filterStoreByProp(state.metadataByType.campaigns, 'operation', selectedOperation),
-    };
+  // Show or not the list of operations
+  if (showOperations) {
+    const selectedOperation = selector(state, `${path}operation`);
+
+    conditionalProps.selectedOperation = selectedOperation;
+    conditionalProps.operations = filterStoreByProp(state.metadataByType.operations, 'serie', selectedSerie);
+
+    // Show or not the list of campaigns
+    if (showCampaigns) {
+      conditionalProps.campaigns = filterStoreByProp(state.metadataByType.campaigns, 'operation', selectedOperation);
+    }
   }
 
   return {
-    ...campaignProps,
+    ...conditionalProps,
     series: storeToArray(state.metadataByType.series),
-    operations: filterStoreByProp(state.metadataByType.operations, 'serie', selectedSerie),
     selectedSerie,
-    selectedOperation,
     path,
   };
 };

@@ -5,14 +5,13 @@ import { formValueSelector } from 'redux-form';
 import InputFilterWithCriteria from '../components/input-filter-with-criteria';
 
 import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
-import { getCurrentSelectorPath } from 'utils/widget-utils';
 import { loadSearchResult } from 'actions/search';
 
 // PropTypes and defaultProps
 
 const propTypes = {
   formName: PropTypes.string,
-  selectorPath: PropTypes.string,
+  path: PropTypes.string,
   typeItem: PropTypes.string.isRequired,
   criterias: PropTypes.arrayOf(
     PropTypes.shape({
@@ -25,18 +24,15 @@ const propTypes = {
 
 export const defaultProps = {
   formName: STATISTICAL_CONTEXT_FORM_NAME,
-  selectorPath: '',
+  path: '',
   criterias: [],
   loadOnInit: false,
 };
 
 // Container
 
-export const mapStateToProps = (state, { formName, selectorPath, criterias }) => {
+export const mapStateToProps = (state, { formName, path, criterias }) => {
   const selector = formValueSelector(formName);
-  const path = getCurrentSelectorPath(selectorPath);
-
-  selector(state, `${path}${formName}`);
 
   return {
     criteriaValues: criterias.reduce((acc, cr) => {
