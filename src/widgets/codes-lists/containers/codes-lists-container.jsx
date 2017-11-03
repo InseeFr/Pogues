@@ -6,6 +6,7 @@ import CodesLists from '../components/codes-lists';
 
 import { getCurrentSelectorPath } from 'utils/widget-utils';
 import { DEFAULT_FORM_NAME, DEFAULT_CODES_LIST_SELECTOR_PATH } from 'constants/pogues-constants';
+import { clearSearchResult } from 'actions/search';
 
 // PropTypes and defaultProps
 
@@ -37,6 +38,7 @@ export const mapStateToProps = (state, { selectorPathParent, selectorPath, formN
 };
 
 const mapDispatchToProps = {
+  clearSearchResult,
   change: actions.change,
   arrayPush: actions.arrayPush,
 };

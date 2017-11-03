@@ -4,6 +4,10 @@
   width: 100%;
   background-color: white;
 
+  .widget-search-results__column {
+    text-align: center;
+  }
+
   &.widget-search-results-5 .widget-search-results__column {
     @include make-xs-column(1);
     width: 20%;
@@ -19,15 +23,6 @@
     width: 14%;
   }
 
-  .widget-search-results__column,
-  .widget-search-results__header .widget-search-results__column:nth-child(3) {
-    text-align: center;
-  }
-
-  .widget-search-results__column:nth-child(3) {
-    text-align: left;
-  }
-
   .widget-search-results__row {
     @include make-row();
     padding: 15px 0;
@@ -39,7 +34,6 @@
     }
 
     &.widget-search-results__header {
-      text-align: center ;
       font-weight: bold;
       font-size: $font-xs;
       margin-bottom: 10px;
@@ -73,9 +67,29 @@
       width: 10%;
     }
     .widget-search-results__column:nth-child(3) {
+      text-align: left;
       width: 32%;
     }
+    .widget-search-results__header .widget-search-results__column:nth-child(3) {
+      text-align: center;
+    }
     .widget-search-results__column:nth-child(7) {
+      width: 9%;
+    }
+  }
+
+  &.widget-search-codes-lists__results {
+    .widget-search-results__column:nth-child(1) {
+      width: 6%;
+    }
+    .widget-search-results__column:nth-child(2) {
+      text-align: left;
+      width: 40%;
+    }
+    .widget-search-results__header .widget-search-results__column:nth-child(2) {
+      text-align: center;
+    }
+    .widget-search-results__column:nth-child(5) {
       width: 9%;
     }
   }

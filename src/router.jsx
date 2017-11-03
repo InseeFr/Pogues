@@ -5,7 +5,7 @@ import App from 'layout/app';
 import PageHome from 'home/page-home';
 import PageHelp from 'help/page-help';
 import PageQuestionnaire from 'questionnaire/page-questionnaire';
-import PageSearchQuestionnaire from 'search-questionnaire/page-search-questionnaire';
+import { PageSearchQuestionnaire } from 'search-questionnaire';
 
 function RouterContainer() {
   return (
