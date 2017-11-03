@@ -38,6 +38,7 @@ export const propTypes = {
   codesListsStore: PropTypes.object,
   change: PropTypes.func.isRequired,
   arrayPush: PropTypes.func.isRequired,
+  clearSearchResult: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -54,8 +55,10 @@ class CodesList extends Component {
   static defaultProps = defaultProps;
 
   componentWillMount() {
-    const { change, formName, path, currentId } = this.props;
+    const { change, formName, path, currentId, clearSearchResult } = this.props;
     let activePanel = NEW;
+
+    clearSearchResult();
 
     if (currentId !== '') activePanel = QUEST;
 

@@ -58,6 +58,7 @@ export const WIDGET_STATISTICAL_CONTEXT_CRITERIA = {
 
 export const WIDGET_SEARCH_CODES_LISTS = {
   COMPONENT_CLASS: 'widget-search-codes-lists',
+  SEARCH_RESULTS_ID: 'widget-search-codes-lists__results',
 };
 
 export const WIDGET_CODES_LISTS = {
