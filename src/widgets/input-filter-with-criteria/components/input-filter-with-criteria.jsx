@@ -53,6 +53,10 @@ class InputFilterWithCriteria extends Component {
               ref={node => {
                 this.inputSearch = node;
               }}
+              onKeyDown={e => {
+                if (e.key === 'Enter')
+                  this.props.loadSearchResult(typeItem, criteriaValues, this.inputSearch.value.trim());
+              }}
             />
           </div>
         </div>
