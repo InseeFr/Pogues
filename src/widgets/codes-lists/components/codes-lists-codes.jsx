@@ -3,21 +3,16 @@ import PropTypes from 'prop-types';
 
 import CodesListsInputCode from './codes-lists-input-code';
 import CodesListsActions from './codes-lists-actions';
-import {
-  getDisabledActions,
-  getMoveUp,
-  getMoveDown,
-  getMoveLeft,
-  getMoveRight,
-  getCodeIndex,
-  getCodeWeight,
-} from '../utils/utils';
 import { ACTIONS } from '../constants';
+import { getNewCodeWeight, resetListCodes } from '../utils/utils';
+import { getDisabledActions } from '../utils/actions';
+import { moveUp, moveDown, moveLeft, moveRight } from '../utils/movement';
 
 import { fieldArrayFields, fieldArrayMeta } from 'utils/proptypes-utils';
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { markdownToHtml } from 'forms/controls/rich-textarea';
+import { getIndexItemsByAttrs } from 'utils/widget-utils';
 
 const { CODES_CLASS, LIST_CLASS, LIST_ITEM_CLASS } = WIDGET_CODES_LISTS;
 
@@ -69,6 +64,7 @@ class CodesListCodes extends Component {
   pushCode() {
     const { currentValue, currentLabel, fields: { get, getAll, remove, push } } = this.props;
     const { activeCodeIndex, editing } = this.state;
+    const allCodes = getAll() || [];
     let values;
 
     if (activeCodeIndex !== undefined) {
@@ -97,7 +93,7 @@ class CodesListCodes extends Component {
         values = {
           ...values,
           parent: '',
-          weight: getCodeWeight(getAll()),
+          weight: getNewCodeWeight(allCodes),
           depth: 1,
         };
       }
@@ -106,7 +102,7 @@ class CodesListCodes extends Component {
         value: currentValue,
         label: currentLabel,
         parent: '',
-        weight: getCodeWeight(getAll()),
+        weight: getNewCodeWeight(allCodes),
         depth: 1,
       };
     }
@@ -138,9 +134,9 @@ class CodesListCodes extends Component {
 
   renderCode(code) {
     const { showInputCode, activeCodeIndex, editing } = this.state;
-    const { fields: { getAll, move, insert, remove } } = this.props;
+    const { fields: { getAll, remove, removeAll, push } } = this.props;
     const allCodes = getAll() || [];
-    const indexCode = getCodeIndex(allCodes, code.value);
+    const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
     const actions = {
       remove: () => {
         remove(indexCode);
@@ -151,10 +147,18 @@ class CodesListCodes extends Component {
       duplicate: () => {
         this.setState({ showInputCode: true, activeCodeIndex: indexCode });
       },
-      moveUp: getMoveUp(allCodes, code, move),
-      moveDown: getMoveDown(allCodes, code, move),
-      moveLeft: getMoveLeft(allCodes, code, insert, remove),
-      moveRight: getMoveRight(allCodes, code, insert, remove),
+      moveUp: () => {
+        resetListCodes(moveUp(code.value, allCodes), removeAll, push);
+      },
+      moveDown: () => {
+        resetListCodes(moveDown(code.value, allCodes), removeAll, push);
+      },
+      moveLeft: () => {
+        resetListCodes(moveLeft(code.value, allCodes), removeAll, push);
+      },
+      moveRight: () => {
+        resetListCodes(moveRight(code.value, allCodes), removeAll, push);
+      },
     };
 
     return (

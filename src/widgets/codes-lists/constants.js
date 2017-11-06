@@ -24,14 +24,14 @@ export const ACTIONS = {
     distionary: 'moveDown',
     icon: 'glyphicon-arrow-down',
   },
-  MOVE_RIGHT: {
-    name: 'moveRight',
-    distionary: 'moveRight',
-    icon: 'glyphicon-arrow-right',
-  },
   MOVE_LEFT: {
     name: 'moveLeft',
     distionary: 'moveLeft',
     icon: 'glyphicon-arrow-left',
+  },
+  MOVE_RIGHT: {
+    name: 'moveRight',
+    distionary: 'moveRight',
+    icon: 'glyphicon-arrow-right',
   },
 };

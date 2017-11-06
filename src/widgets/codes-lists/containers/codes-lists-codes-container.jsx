@@ -6,7 +6,6 @@ import CodesListsCodes from '../components/codes-lists-codes';
 import { validateCode, validationSchema } from '../utils/validation';
 
 import withErrorValidation from 'hoc/withErrorValidation';
-import { getCurrentSelectorPath } from 'utils/widget-utils';
 
 // PropTypes and defaultProps
 
