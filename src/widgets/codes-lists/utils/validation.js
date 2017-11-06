@@ -1,18 +1,20 @@
 import { validate } from 'utils/utils';
 
 export const validationSchema = {
-  code: [
+  value: [
     { name: 'required', dictionary: 'validationCodeListCode' },
     { name: 'uniqueCodeAttr', dictionary: 'codeUnicity' },
   ],
   label: [{ name: 'required', dictionary: 'validationCodeListLabel' }],
 };
 
-export function validateCode({ currentCode = '', currentLabel = '', fields }, path, schema) {
+export function validateCode({ editing, code, currentValue = '', currentLabel = '', codes = [] }, path, schema) {
   const values = {
-    code: currentCode,
+    value: currentValue,
     label: currentLabel,
-    codes: fields.getAll() || [],
+    codes,
+    editing,
+    previousValue: code ? code.value : '',
   };
 
   return validate(schema, values, path);

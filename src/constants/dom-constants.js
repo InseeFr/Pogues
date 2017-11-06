@@ -68,7 +68,6 @@ export const WIDGET_CODES_LISTS = {
   LIST_CLASS: 'widget-codes-lists__codes__list',
   LIST_ITEM_CLASS: 'widget-codes-lists__codes__list-item',
   ACTIONS_CLASS: 'widget-codes-lists__codes__actions',
-  ACTIONS_MOVEMENT_CLASS: 'widget-codes-lists__codes__actions-movement',
   CODE_INPUT_CLASS: 'widget-codes-lists__codes__input',
   CODE_INPUT_CODE_CLASS: 'widget-codes-lists__codes__input-code',
   CODE_INPUT_LABEL_CLASS: 'widget-codes-lists__codes__input-label',

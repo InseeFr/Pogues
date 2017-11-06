@@ -20,16 +20,31 @@ const {
 // PropTypes and defaultProps
 
 export const propTypes = {
+  code: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }),
   meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array }).isRequired,
+  path: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
+  change: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+  code: {
+    value: '',
+    label: '',
+  },
 };
 
 // Componet
 
 class CodesListInputCode extends ComponentWithValidation {
   static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
   constructor(props) {
     const parent = super(props);
@@ -38,6 +53,26 @@ class CodesListInputCode extends ComponentWithValidation {
 
     this.addCodeIfIsValid = this.addCodeIfIsValid.bind(this);
     this.addCode = this.addCode.bind(this);
+    this.initInputCode = this.initInputCode.bind(this);
+  }
+
+  initInputCode(code) {
+    const { path, formName, change } = this.props;
+
+    if (code) {
+      change(formName, `${path}value`, code.value);
+      change(formName, `${path}label`, code.label);
+    }
+  }
+
+  componentWillMount() {
+    this.initInputCode(this.props.code);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.code.label !== this.props.code.label || nextProps.code.value !== this.props.code.value) {
+      this.initInputCode(nextProps.code);
+    }
   }
 
   addCodeIfIsValid() {
@@ -60,7 +95,7 @@ class CodesListInputCode extends ComponentWithValidation {
         <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
         <Field
           className={CODE_INPUT_CODE_CLASS}
-          name="input-code.code"
+          name="input-code.value"
           type="text"
           component={Input}
           label={Dictionary.code}

@@ -34,17 +34,14 @@ export const propTypes = {
   formName: PropTypes.string.isRequired,
   activePanel: PropTypes.string,
   currentId: PropTypes.string,
-  currentCodes: PropTypes.array,
   codesListsStore: PropTypes.object,
   change: PropTypes.func.isRequired,
-  arrayPush: PropTypes.func.isRequired,
   clearSearchResult: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   activePanel: undefined,
   currentId: '',
-  currentCodes: [],
   codesListsStore: {},
 };
 
@@ -78,6 +75,7 @@ class CodesList extends Component {
 
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>
+        {/* Selector panel */}
         <div className={PANEL_SELECTOR_CLASS}>
           <Field name="panel" component={ListRadios} label={Dictionary.selectCodesListType} required>
             {getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
