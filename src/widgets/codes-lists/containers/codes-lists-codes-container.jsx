@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { formValueSelector, actions } from 'redux-form';
 
 import CodesListsCodes from '../components/codes-lists-codes';
-import { validateCode, validationSchema } from '../utils/validation';
-
-import withErrorValidation from 'hoc/withErrorValidation';
 
 // PropTypes and defaultProps
 
@@ -29,9 +26,7 @@ const mapDispatchToProps = {
   change: actions.change,
 };
 
-const CodesListsCodesContainer = connect(mapStateToProps, mapDispatchToProps)(
-  withErrorValidation(CodesListsCodes, validateCode, validationSchema)
-);
+const CodesListsCodesContainer = connect(mapStateToProps, mapDispatchToProps)(CodesListsCodes);
 
 CodesListsCodesContainer.propTypes = propTypes;
 

@@ -88,6 +88,11 @@ export function emptyMeasures(measures) {
   return measures.length === 0 ? 'No measures' : undefined;
 }
 
-export function uniqueCodeAttr(value, { codes }) {
-  return codes.filter(code => code.value === value).length > 1 ? 'unique' : undefined;
+export function uniqueCodeAttr(value, { previousValue, codes }) {
+  let msg;
+
+  if (value !== previousValue) {
+    msg = codes.filter(code => code.value === value).length > 0 ? 'unique' : undefined;
+  }
+  return msg;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import CodesListsInputCode from './codes-lists-input-code';
+import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
 import CodesListsActions from './codes-lists-actions';
 import { ACTIONS } from '../constants';
 import { getNewCodeWeight, resetListCodes } from '../utils/utils';
@@ -111,12 +111,13 @@ class CodesListCodes extends Component {
   }
 
   renderInputCode() {
-    const { inputCodePath, formName, change, fields: { get } } = this.props;
+    const { inputCodePath, formName, change, fields: { get, getAll } } = this.props;
     const { activeCodeIndex } = this.state;
     const code = get(activeCodeIndex);
+    const allCodes = getAll();
 
     return (
-      <CodesListsInputCode
+      <CodesListsInputCodeContainer
         meta={this.props.meta}
         close={() => {
           this.clearInputCode();
@@ -128,6 +129,7 @@ class CodesListCodes extends Component {
         path={inputCodePath}
         formName={formName}
         code={code}
+        allCodes={allCodes}
       />
     );
   }

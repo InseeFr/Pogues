@@ -8,11 +8,12 @@ export const validationSchema = {
   label: [{ name: 'required', dictionary: 'validationCodeListLabel' }],
 };
 
-export function validateCode({ currentValue = '', currentLabel = '', fields }, path, schema) {
+export function validateCode({ code, currentValue = '', currentLabel = '', allCodes = [] }, path, schema) {
   const values = {
     value: currentValue,
     label: currentLabel,
-    codes: fields.getAll() || [],
+    previousValue: code ? code.value : '',
+    codes: allCodes,
   };
 
   return validate(schema, values, path);
