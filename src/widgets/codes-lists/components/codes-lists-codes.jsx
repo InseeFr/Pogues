@@ -112,7 +112,7 @@ class CodesListCodes extends Component {
 
   renderInputCode() {
     const { inputCodePath, formName, change, fields: { get, getAll } } = this.props;
-    const { activeCodeIndex } = this.state;
+    const { activeCodeIndex, editing } = this.state;
     const code = get(activeCodeIndex);
     const allCodes = getAll();
 
@@ -129,7 +129,8 @@ class CodesListCodes extends Component {
         path={inputCodePath}
         formName={formName}
         code={code}
-        allCodes={allCodes}
+        codes={allCodes}
+        editing={editing}
       />
     );
   }

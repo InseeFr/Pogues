@@ -34,17 +34,14 @@ export const propTypes = {
   formName: PropTypes.string.isRequired,
   activePanel: PropTypes.string,
   currentId: PropTypes.string,
-  currentCodes: PropTypes.array,
   codesListsStore: PropTypes.object,
   change: PropTypes.func.isRequired,
-  arrayPush: PropTypes.func.isRequired,
   clearSearchResult: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   activePanel: undefined,
   currentId: '',
-  currentCodes: [],
   codesListsStore: {},
 };
 
