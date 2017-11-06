@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import { formValueSelector, actions } from 'redux-form';
 
 import CodesListsCodes from '../components/codes-lists-codes';
-import { validateCode, validationSchema } from '../utils/validation';
-
-import withErrorValidation from 'hoc/withErrorValidation';
-import { getCurrentSelectorPath } from 'utils/widget-utils';
 
 // PropTypes and defaultProps
 
@@ -21,7 +17,7 @@ export const mapStateToProps = (state, { inputCodePath, formName }) => {
   const selector = formValueSelector(formName);
 
   return {
-    currentCode: selector(state, `${inputCodePath}code`),
+    currentValue: selector(state, `${inputCodePath}value`),
     currentLabel: selector(state, `${inputCodePath}label`),
   };
 };
@@ -30,9 +26,7 @@ const mapDispatchToProps = {
   change: actions.change,
 };
 
-const CodesListsCodesContainer = connect(mapStateToProps, mapDispatchToProps)(
-  withErrorValidation(CodesListsCodes, validateCode, validationSchema)
-);
+const CodesListsCodesContainer = connect(mapStateToProps, mapDispatchToProps)(CodesListsCodes);
 
 CodesListsCodesContainer.propTypes = propTypes;
 

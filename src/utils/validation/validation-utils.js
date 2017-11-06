@@ -7,6 +7,7 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   DATATYPE_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 import {
   required,
@@ -76,19 +77,19 @@ function validateSimple(values, path) {
  * @return {array}  A list of validation errors. Each item is another array with a first element containing the path
  *                  to the element where show the error and a second element with the error message.
  */
-function validateCode(values, path) {
-  const validationErrors = [];
-  const { code, label } = values;
-  const isValidCode = validName(code);
-  const codeRequired = required(code);
-  const labelRequired = required(label);
-
-  if (codeRequired) validationErrors.push([`${path}.code`, codeRequired]);
-  if (isValidCode) validationErrors.push([`${path}.code`, isValidCode]);
-  if (labelRequired) validationErrors.push([`${path}.label`, labelRequired]);
-
-  return validationErrors;
-}
+// function validateCode(values, path) {
+//   const validationErrors = [];
+//   const { code, label } = values;
+//   const isValidCode = validName(code);
+//   const codeRequired = required(code);
+//   const labelRequired = required(label);
+//
+//   if (codeRequired) validationErrors.push([`${path}.code`, codeRequired]);
+//   if (isValidCode) validationErrors.push([`${path}.code`, isValidCode]);
+//   if (labelRequired) validationErrors.push([`${path}.label`, labelRequired]);
+//
+//   return validationErrors;
+// }
 
 /**
  * This method will validate a codes list. In case validation errors are found, they are added to the validation errors
@@ -101,29 +102,15 @@ function validateCode(values, path) {
  *                  to the element where show the error and a second element with the error message.
  */
 function validateCodesList(values, path) {
-  const { type, [type]: codesListValues } = values;
-  let validationErrors = [];
+  const { label, codes } = values;
+  const labelRequired = required(label);
+  const notEmptyCodes = emptyCodes(codes);
+  const validationErrors = [];
 
-  if (type === NEW) {
-    const labelRequired = required(codesListValues.label);
-    const notEmptyCodes = emptyCodes(codesListValues.codes);
-    const uniqueCodes = uniqueCode()(codesListValues.codes);
-
-    if (labelRequired) {
-      validationErrors.push([`${path}.${NEW}.label`, labelRequired]);
-    } else if (notEmptyCodes) {
-      validationErrors.push([`${path}.${NEW}.label`, notEmptyCodes]);
-    } else if (uniqueCodes) {
-      validationErrors.push([`${path}.${NEW}.label`, uniqueCodes]);
-    }
-
-    codesListValues.codes.forEach((code, index) => {
-      validationErrors = [...validationErrors, ...validateCode(code, `${path}.${NEW}.codes.${index}`)];
-    });
-  } else if (type === QUEST) {
-    const requiredSelectCodesList = requiredSelect(codesListValues.codesListId);
-
-    if (requiredSelectCodesList) validationErrors.push([`${path}.${QUEST}.codesListId`, requiredSelectCodesList]);
+  if (labelRequired) {
+    validationErrors.push([`${path}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.label`, labelRequired]);
+  } else if (notEmptyCodes) {
+    validationErrors.push([`${path}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.label`, notEmptyCodes]);
   }
 
   return validationErrors;
@@ -325,7 +312,7 @@ function validateResponseFormat(values, path) {
   } else if (type === SIMPLE) {
     validationErrors = validateSimple(responseFormat, `${path}.${type}`);
   } else if (type === SINGLE_CHOICE) {
-    validationErrors = validateCodesList(responseFormat, `${path}.${type}`);
+    validationErrors = validateCodesList(responseFormat[DEFAULT_CODES_LIST_SELECTOR_PATH], `${path}.${type}`);
   } else if (type === MULTIPLE_CHOICE) {
     const { type: measureType, [measureType]: measure } = responseFormat[MEASURE];
 

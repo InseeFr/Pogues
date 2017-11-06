@@ -80,7 +80,7 @@ export function nameSize(value) {
   return value && value.length > 16 ? Dictionary.validationInvalidNameSize : undefined;
 }
 
-export function emptyCodes(codes) {
+export function emptyCodes(codes = []) {
   return codes.length === 0 ? 'No codes' : undefined;
 }
 
@@ -88,6 +88,9 @@ export function emptyMeasures(measures) {
   return measures.length === 0 ? 'No measures' : undefined;
 }
 
-export function uniqueCodeAttr(codeAttr, { codes }) {
-  return codes.filter(code => code.code === codeAttr).length > 1 ? 'unique' : undefined;
+export function uniqueCodeAttr(value, { editing, previousValue, codes }) {
+  if (editing && value === previousValue) {
+    return undefined;
+  }
+  return codes.filter(code => code.value === value).length > 0 ? 'unique' : undefined;
 }

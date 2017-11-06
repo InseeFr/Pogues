@@ -1176,6 +1176,14 @@ const dictionary = {
     fr: 'Réutiliser',
     en: 'Reuse',
   },
+  actions: {
+    fr: 'Actions',
+    en: 'Actions',
+  },
+  level: {
+    fr: 'Niveau',
+    en: 'Level',
+  },
 };
 
 // Dynamic translations

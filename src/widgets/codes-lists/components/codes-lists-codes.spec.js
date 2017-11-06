@@ -23,7 +23,7 @@ describe('<CodesListCodes />', () => {
   test.skip('Should render an entry code form with the expected fields', () => {
     const wrapper = shallow(<CodesListCodes {...customProps} />);
 
-    expect(wrapper.find(`Field[name="${customProps.path}.code.code"]`)).toHaveLength(1);
+    expect(wrapper.find(`Field[name="${customProps.path}.code.value"]`)).toHaveLength(1);
     expect(wrapper.find(`Field[name="${customProps.path}.code.label"]`)).toHaveLength(1);
     expect(wrapper.find(`Field[name="${customProps.path}.code.parent"][type="hidden"]`)).toHaveLength(1);
   });
@@ -37,7 +37,7 @@ describe('<CodesListCodes />', () => {
       customProps.fields.push = spyPushFromCodeEnter;
       const wrapper = shallow(<CodesListCodes {...customProps} />);
 
-      wrapper.find(wrapper.find(`input[name="${customProps.path}.code.code"]`)).simulate('keyDown', fakeEnterEvent);
+      wrapper.find(wrapper.find(`input[name="${customProps.path}.code.value"]`)).simulate('keyDown', fakeEnterEvent);
       expect(spyPushFromCodeEnter).toHaveBeenCalled();
     }
   );
