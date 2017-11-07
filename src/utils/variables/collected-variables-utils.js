@@ -4,7 +4,7 @@ import {
   DIMENSION_FORMATS,
   CODES_LIST_INPUT_ENUM,
 } from 'constants/pogues-constants';
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
