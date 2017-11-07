@@ -36,7 +36,7 @@ export function storeToArray(store = {}) {
   return Object.keys(store).map(key => store[key]);
 }
 
-export function nestedStoreToArray(store = {}) {
+export function nestedStoreToFlat(store = {}) {
   const joinedItems = Object.keys(store).reduce((acc, key) => {
     return {
       ...acc,
@@ -46,3 +46,5 @@ export function nestedStoreToArray(store = {}) {
 
   return storeToArray(joinedItems);
 }
+
+export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
