@@ -1,4 +1,4 @@
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 import { VARIABLES_TYPES } from 'constants/pogues-constants';
 
 const { EXTERNAL } = VARIABLES_TYPES;

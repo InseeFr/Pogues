@@ -1,4 +1,4 @@
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 
 export const redirectionsFormDefault = {
   label: '',

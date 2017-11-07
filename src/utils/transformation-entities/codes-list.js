@@ -1,4 +1,4 @@
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 import {
   CODES_LIST_INPUT_ENUM,
   QUESTION_TYPE_ENUM,

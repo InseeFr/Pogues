@@ -1,5 +1,10 @@
-import { UI_BEHAVIOUR, DATATYPE_VIS_HINT, DATATYPE_NAME } from 'constants/pogues-constants';
-import CodesListTransformerFactory, { defaultCodesListForm, defaultCodesListComponentState } from './codes-list';
+import {
+  UI_BEHAVIOUR,
+  DATATYPE_VIS_HINT,
+  DATATYPE_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+} from 'constants/pogues-constants';
+import { CodesListFactory } from 'widgets/codes-lists';
 import Response from './response';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
@@ -13,7 +18,6 @@ export const defaultSingleForm = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  ...defaultCodesListForm,
 };
 
 export const defaultSingleState = {
@@ -24,10 +28,9 @@ export const defaultSingleState = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  ...defaultCodesListComponentState,
 };
 
-function transformationFormToState(form, currentState) {
+function transformationFormToState(form, CodesList) {
   const {
     mandatory,
     visHint,
@@ -36,7 +39,7 @@ function transformationFormToState(form, currentState) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    ...codesListForm
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
   } = form;
 
   return {
@@ -47,14 +50,14 @@ function transformationFormToState(form, currentState) {
     specialCode: hasSpecialCode ? specialCode : '',
     specialUiBehaviour: hasSpecialCode ? specialUiBehaviour : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
-    ...CodesListTransformerFactory({ initialComponentState: currentState }).formToStateComponent(codesListForm),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesList.formToStateComponent(codesListForm),
   };
 }
 
 function transformationModelToState(model) {
   const { visHint, mandatory, nonResponseModality, codesListId } = model;
   return {
-    codesListId,
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     mandatory,
     visHint,
     hasSpecialCode: !!nonResponseModality,
@@ -68,7 +71,7 @@ function transformationModelToState(model) {
   };
 }
 
-function transformationStateToForm(currentState, codesListsStore) {
+function transformationStateToForm(currentState, CodesList) {
   const {
     visHint,
     mandatory,
@@ -77,7 +80,6 @@ function transformationStateToForm(currentState, codesListsStore) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    ...codesListState
   } = currentState;
 
   return {
@@ -89,7 +91,7 @@ function transformationStateToForm(currentState, codesListsStore) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    ...CodesListTransformerFactory({ codesListsStore, initialComponentState: codesListState }).stateComponentToForm(),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesList.stateComponentToForm(),
   };
 }
 
@@ -111,9 +113,14 @@ const SingleTransformerFactory = (conf = {}) => {
   const { initialState, codesListsStore, collectedVariables } = conf;
   let currentState = initialState || defaultSingleState;
 
+  const CodesList = CodesListFactory({
+    codesListsStore,
+    initialComponentState: currentState[DEFAULT_CODES_LIST_SELECTOR_PATH],
+  });
+
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, currentState);
+      currentState = transformationFormToState(form, CodesList);
       return currentState;
     },
     modelToState: model => {
@@ -126,10 +133,13 @@ const SingleTransformerFactory = (conf = {}) => {
       return currentState;
     },
     stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore);
+      return transformationStateToForm(currentState, CodesList);
     },
     stateToModel: () => {
       return transformationStateToModel(currentState, collectedVariables);
+    },
+    getCodesListStore: () => {
+      return CodesList.stateToStore();
     },
   };
 };

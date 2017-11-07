@@ -14,22 +14,18 @@ export const defaultResponseFormatState = {
   type: '',
 };
 
-function transformationFormToState(form, currentState) {
+function transformationFormToState(form, Single, Multiple, Table, currentState) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
     type,
   };
 
   if (type === SINGLE_CHOICE) {
-    state[type] = SingleTransformerFactory({ initialState: currentState[SINGLE_CHOICE] }).formToState(
-      responseFormatForm
-    );
+    state[type] = Single.formToState(responseFormatForm);
   } else if (type === MULTIPLE_CHOICE) {
-    state[type] = MultipleTransformerFactory({ initialState: currentState[MULTIPLE_CHOICE] }).formToState(
-      responseFormatForm
-    );
+    state[type] = Multiple.formToState(responseFormatForm);
   } else if (type === TABLE) {
-    state[type] = TableTransformerFactory({ initialState: currentState[TABLE] }).formToState(responseFormatForm);
+    state[type] = Table.formToState(responseFormatForm);
   } else {
     state[type] = SimpleTransformerFactory({ initialState: currentState[SIMPLE] }).formToState(responseFormatForm);
   }
@@ -56,7 +52,7 @@ function transformationModelToState(type, responses, dimensions, codesListsStore
   };
 }
 
-function transformationStateToForm(currentState, codesListsStore = {}) {
+function transformationStateToForm(currentState, Single, Multiple, Table) {
   const { type } = currentState;
 
   return {
@@ -64,18 +60,9 @@ function transformationStateToForm(currentState, codesListsStore = {}) {
     [SIMPLE]: SimpleTransformerFactory({
       initialState: currentState[SIMPLE],
     }).stateToForm(),
-    [SINGLE_CHOICE]: SingleTransformerFactory({
-      initialState: currentState[SINGLE_CHOICE],
-      codesListsStore,
-    }).stateToForm(),
-    [MULTIPLE_CHOICE]: MultipleTransformerFactory({
-      initialState: currentState[MULTIPLE_CHOICE],
-      codesListsStore,
-    }).stateToForm(),
-    [TABLE]: TableTransformerFactory({
-      initialState: currentState[TABLE],
-      codesListsStore,
-    }).stateToForm(),
+    [SINGLE_CHOICE]: Single.stateToForm(),
+    [MULTIPLE_CHOICE]: Multiple.stateToForm(),
+    [TABLE]: Table.stateToForm(),
   };
 }
 
@@ -128,10 +115,13 @@ const ResponseFormatTransformerFactory = (conf = {}) => {
   const { initialState, collectedVariables, codesListsStore } = conf;
 
   let currentState = initialState || defaultResponseFormatState;
+  const Single = SingleTransformerFactory({ initialState: currentState[SINGLE_CHOICE], codesListsStore });
+  const Multiple = MultipleTransformerFactory({ initialState: currentState[MULTIPLE_CHOICE], codesListsStore });
+  const Table = TableTransformerFactory({ initialState: currentState[TABLE], codesListsStore });
 
   return {
     formToState: form => {
-      currentState = transformationFormToState(form, currentState);
+      currentState = transformationFormToState(form, Single, Multiple, Table, currentState);
       return currentState;
     },
     modelToState: (type, responses, dimensions) => {
@@ -139,10 +129,17 @@ const ResponseFormatTransformerFactory = (conf = {}) => {
       return currentState;
     },
     stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore);
+      return transformationStateToForm(currentState, Single, Multiple, Table);
     },
     stateToModel: () => {
       return transformationStateToModel(currentState, collectedVariables, codesListsStore);
+    },
+    getCodesListStore: () => {
+      return {
+        ...Single.getCodesListStore(),
+        ...Multiple.getCodesListStore(),
+        ...Table.getCodesListStore(),
+      };
     },
   };
 };

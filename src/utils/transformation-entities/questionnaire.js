@@ -1,5 +1,5 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 import ComponentTransformerFactory from 'utils/transformation-entities/component';
 import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
@@ -209,16 +209,14 @@ const QuestionnaireTransformerFactory = (conf = {}) => {
   if (componentsStore) {
     questionnaireComponentState = componentsStore[currentState.id];
   } else {
-    questionnaireComponentState = ComponentTransformerFactory().formToState(
-      {
+    questionnaireComponentState = ComponentTransformerFactory({
+      initialState: {
         label: currentState.label,
         name: currentState.name,
-      },
-      {
         id: currentState.id,
         type: QUESTIONNAIRE,
-      }
-    );
+      },
+    }).modelToQuestionnaireComponent();
   }
 
   return {

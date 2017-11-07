@@ -1,7 +1,7 @@
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
 import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 import { nameFromLabel } from 'utils/name-utils';
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 import ResponseFormatTransformerFactory from './response-format';
 import DeclarationTransformerFactory from './declaration';
 import ControlTransformerFactory from './control';
@@ -13,33 +13,25 @@ import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
-function transformationFormToState(form, currentState, codesListsStore) {
-  const { id, type, parent, weight, children, responseFormat: responseFormatState } = currentState;
+function transformationFormToState(form, currentState, ResponseFormat) {
   const { name, label, responseFormat, declarations, controls, redirections, collectedVariables } = form;
 
   const state = {
-    id,
-    type,
+    ...currentState,
     name: name || nameFromLabel(label),
-    parent: parent || '',
-    weight: weight || 0,
-    children: children || [],
   };
 
-  if (type !== QUESTIONNAIRE) {
+  if (currentState.type !== QUESTIONNAIRE) {
     state.declarations = DeclarationTransformerFactory().formToState(declarations);
     state.controls = ControlTransformerFactory().formToState(controls);
     state.redirections = RedirectionTransformerFactory().formToState(redirections);
   }
 
-  if (type === QUESTION) {
+  if (currentState.type === QUESTION) {
     state.label = label;
     state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
-    state.responseFormat = ResponseFormatTransformerFactory({
-      initialState: responseFormatState,
-      codesListsStore,
-    }).formToState(responseFormat);
+    state.responseFormat = ResponseFormat.formToState(responseFormat);
     state.collectedVariables = CollectedVariableTransformerFactory().formToComponentState(collectedVariables);
   } else {
     state.label = label;
@@ -121,12 +113,12 @@ function transformationModelToStore(model, questionnaireId, codesListsStore = {}
 
 function transformationStateToForm(
   currentState,
-  codesListsStore,
+  ResponseFormat,
   calculatedVariablesStore,
   externalVariablesStore,
   collectedVariablesStore
 ) {
-  const { label, name, type, responseFormat, declarations, controls, redirections, collectedVariables } = currentState;
+  const { label, name, type, declarations, controls, redirections, collectedVariables } = currentState;
   const form = {
     label: label || '',
     name: name || '',
@@ -136,10 +128,7 @@ function transformationStateToForm(
   };
 
   if (type === QUESTION) {
-    form.responseFormat = ResponseFormatTransformerFactory({
-      initialState: responseFormat,
-      codesListsStore,
-    }).stateToForm();
+    form.responseFormat = ResponseFormat.stateToForm();
     form.calculatedVariables = CalculatedVariableTransformerFactory({
       initialStore: calculatedVariablesStore,
     }).storeToForm();
@@ -219,6 +208,7 @@ function transformationStateChildrenToModel(children, store, codesListsStore, de
 
 const ComponentTransformerFactory = (conf = {}) => {
   const {
+    initialState,
     initialStore,
     questionnaireId,
     codesListsStore,
@@ -228,27 +218,39 @@ const ComponentTransformerFactory = (conf = {}) => {
     collectedVariableByQuestionStore,
   } = conf;
 
+  let currentState;
   let currentStore = initialStore || {};
-  let currentState = {};
+  let ResponseFormat;
+
+  if (!questionnaireId) {
+    if (initialState.id && currentStore[initialState.id]) {
+      currentState = currentStore[initialState.id];
+    } else {
+      currentState = {
+        id: uuid(),
+        type: initialState.type,
+        parent: initialState.parent || '',
+        weight: initialState.weight || 0,
+        children: initialState.children || [],
+        label: initialState.label || '',
+        name: initialState.name || '',
+      };
+    }
+
+    ResponseFormat = ResponseFormatTransformerFactory({
+      initialState: currentState.responseFormat,
+      codesListsStore,
+    });
+  }
 
   return {
-    formToState: (form, infos) => {
-      const { id, parent, weight, type } = infos;
-      const currentId = id || uuid();
-      const state = {
-        ...currentState,
-        id: currentId,
-        parent,
-        weight,
-        type,
-      };
-
-      currentState = transformationFormToState(form, state, codesListsStore);
+    formToState: form => {
+      currentState = transformationFormToState(form, currentState, ResponseFormat);
 
       return currentState;
     },
     formToStore: (form, id) => {
-      currentState = transformationFormToState(form, currentStore[id], codesListsStore);
+      currentState = transformationFormToState(form, currentState, ResponseFormat);
       currentStore = {
         ...currentStore,
         [id]: currentState,
@@ -262,20 +264,10 @@ const ComponentTransformerFactory = (conf = {}) => {
       };
       return currentStore;
     },
-    stateToForm: infos => {
-      const { id, type } = infos;
-      let state;
-      currentState = currentStore[id];
-
-      if (!currentState) {
-        state = { type };
-      } else {
-        state = currentState;
-      }
-
+    stateToForm: () => {
       return transformationStateToForm(
-        state,
-        codesListsStore,
+        currentState,
+        ResponseFormat,
         calculatedVariablesStore,
         externalVariablesStore,
         collectedVariablesStore || {}
@@ -290,6 +282,14 @@ const ComponentTransformerFactory = (conf = {}) => {
           collectedVariableByQuestionStore
         );
       });
+    },
+    modelToQuestionnaireComponent: () => {
+      // @TODO: Find a better way
+      currentState = transformationFormToState(currentState, currentState, ResponseFormat);
+      return currentState;
+    },
+    getCodesListStore: () => {
+      return ResponseFormat.getCodesListStore();
     },
   };
 };

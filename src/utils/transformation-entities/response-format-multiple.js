@@ -1,5 +1,11 @@
-import { DATATYPE_NAME, DIMENSION_TYPE, DIMENSION_FORMATS, DATATYPE_VIS_HINT } from 'constants/pogues-constants';
-import CodesListTransformerFactory, { defaultCodesListForm, defaultCodesListComponentState } from './codes-list';
+import {
+  DATATYPE_NAME,
+  DIMENSION_TYPE,
+  DIMENSION_FORMATS,
+  DATATYPE_VIS_HINT,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+} from 'constants/pogues-constants';
+import { CodesListFactory } from 'widgets/codes-lists';
 import Dimension from './dimension';
 import Response from './response';
 
@@ -8,27 +14,24 @@ const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 
-export const defaultMultipleForm = {
-  [PRIMARY]: defaultCodesListForm,
-  [MEASURE]: {
-    type: BOOL,
-    [BOOL]: {},
-    [CODES_LIST]: {
-      ...defaultCodesListForm,
-      visHint: CHECKBOX,
-    },
-  },
-};
+// export const defaultMultipleForm = {
+//   [PRIMARY]: defaultCodesListForm,
+//   [MEASURE]: {
+//     type: BOOL,
+//     [BOOL]: {},
+//     [CODES_LIST]: {
+//       ...defaultCodesListForm,
+//       visHint: CHECKBOX,
+//     },
+//   },
+// };
 
 export const defaultMultipleState = {
-  [PRIMARY]: defaultCodesListComponentState,
+  [PRIMARY]: {},
   [MEASURE]: {
     type: BOOL,
     [BOOL]: {},
-    [CODES_LIST]: {
-      ...defaultCodesListComponentState,
-      visHint: CHECKBOX,
-    },
+    [CODES_LIST]: {},
   },
 };
 
@@ -79,14 +82,14 @@ function transformationModelToState(model) {
     [MEASURE]: { ...defaultMultipleState[MEASURE] },
   };
 
-  state[PRIMARY].codesListId = primaryDimension.CodeListReference;
+  state[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH] = { id: primaryDimension.CodeListReference };
 
   if (type === BOOLEAN) {
     state[MEASURE].type = BOOL;
   } else {
     state[MEASURE].type = CODES_LIST;
     state[MEASURE][CODES_LIST] = {
-      codesListId,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
       visHint,
     };
   }
@@ -94,37 +97,20 @@ function transformationModelToState(model) {
   return state;
 }
 
-function transformationStateToFormPrimary(currentState, codesListsStore) {
-  return CodesListTransformerFactory({ codesListsStore, initialComponentState: currentState }).stateComponentToForm();
-}
-
-function transformationStateToFormMeasure(currentState, codesListsStore) {
-  const { type, [type]: measureState } = currentState;
-  const state = {
-    type,
-  };
-
-  if (type === CODES_LIST) {
-    const { visHint, ...codesListState } = measureState;
-    state[CODES_LIST] = {
-      visHint,
-      ...CodesListTransformerFactory({ codesListsStore, initialComponentState: codesListState }).stateComponentToForm(),
-    };
-  } else {
-    state[BOOL] = {};
-  }
-
-  return state;
-}
-
-function transformationStateToForm(currentState, codesListsStore) {
-  const { [PRIMARY]: primaryState, [MEASURE]: measureState } = currentState;
+function transformationStateToForm(currentState, CodesListPrimary, CodesListMeasure) {
+  const { [MEASURE]: { type, [type]: { visHint } } } = currentState;
 
   return {
-    [PRIMARY]: transformationStateToFormPrimary(primaryState, codesListsStore),
+    [PRIMARY]: {
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListPrimary.stateComponentToForm(),
+    },
     [MEASURE]: {
-      ...defaultMultipleForm[MEASURE],
-      ...transformationStateToFormMeasure(measureState, codesListsStore),
+      type,
+      [BOOL]: {},
+      [CODES_LIST]: {
+        visHint: visHint || CHECKBOX,
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListMeasure.stateComponentToForm(),
+      },
     },
   };
 }
@@ -167,6 +153,16 @@ const MultipleTransformerFactory = (conf = {}) => {
   const { initialState, codesListsStore, collectedVariables } = conf;
   let currentState = initialState || defaultMultipleState;
 
+  const CodesListPrimary = CodesListFactory({
+    codesListsStore,
+    initialComponentState: currentState[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH],
+  });
+
+  const CodesListMeasure = CodesListFactory({
+    codesListsStore,
+    initialComponentState: currentState[MEASURE][CODES_LIST][DEFAULT_CODES_LIST_SELECTOR_PATH],
+  });
+
   return {
     formToState: form => {
       currentState = transformationFormToState(form, currentState);
@@ -186,10 +182,13 @@ const MultipleTransformerFactory = (conf = {}) => {
       return currentState;
     },
     stateToForm: () => {
-      return transformationStateToForm(currentState, codesListsStore);
+      return transformationStateToForm(currentState, CodesListPrimary, CodesListMeasure);
     },
     stateToModel: () => {
       return transformationStateToModel(currentState, codesListsStore, collectedVariables);
+    },
+    getCodesListStore: () => {
+      return {};
     },
   };
 };

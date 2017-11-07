@@ -554,6 +554,9 @@ const TableTransformerFactory = (conf = {}) => {
     stateToModel: () => {
       return transformationStateToModel(currentState, codesListsStore, collectedVariables);
     },
+    getCodesListStore: () => {
+      return {};
+    },
   };
 };
 
