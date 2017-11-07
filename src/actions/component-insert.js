@@ -9,7 +9,7 @@ import {
 } from 'utils/component/component-utils';
 import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 import sortBy from 'lodash.sortby';
 import cloneDeep from 'lodash.clonedeep';
 

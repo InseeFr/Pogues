@@ -1,5 +1,5 @@
 import { getQuestionnaire, postQuestionnaire, deleteQuestionnaire } from 'utils/remote-api';
-import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
+import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import { newQuestionnaireStateToStores } from 'utils/model/model-utils';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
 
@@ -68,7 +68,7 @@ export const loadQuestionnaire = id => dispatch => {
   });
   return getQuestionnaire(id)
     .then(qr => {
-      dispatch(loadQuestionnaireSuccess(id, questionnaireModelToStores(qr)));
+      dispatch(loadQuestionnaireSuccess(id, questionnaireRemoteToStores(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));

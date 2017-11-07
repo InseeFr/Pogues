@@ -1,6 +1,6 @@
 import { putQuestionnaire, getContextFromCampaign } from 'utils/remote-api';
-import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
-import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+import { questionnaireRemoteToStores } from 'model/remote-to-stores';
+import * as Questionnaire from 'model/transformations/questionnaire';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -193,12 +193,7 @@ export const saveActiveQuestionnaire = () => {
     });
 
     const state = getState();
-    const questionnaireTransformer = QuestionnaireTransformerFactory({
-      owner: state.appState.user.permission,
-      initialState: {
-        ...state.appState.activeQuestionnaire,
-        lastUpdatedDate: new Date().toString(),
-      },
+    const stores = {
       componentsStore: state.appState.activeComponentsById,
       codesListsStore: state.appState.activeCodeListsById,
       conditionsStore: {},
@@ -206,13 +201,19 @@ export const saveActiveQuestionnaire = () => {
       externalVariablesStore: state.appState.activeExternalVariablesById,
       collectedVariableByQuestionStore: state.appState.collectedVariableByQuestion,
       campaignsStore: state.metadataByType.campaigns,
-    });
-    const questionnaireModel = questionnaireTransformer.stateToModel();
+    };
+    const questionnaireState = {
+      ...state.appState.activeQuestionnaire,
+      lastUpdatedDate: new Date().toString(),
+      owner: state.appState.user.permission,
+    };
+
+    const questionnaireModel = Questionnaire.stateToRemote(questionnaireState, stores);
 
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
         return dispatch(
-          saveActiveQuestionnaireSuccess(questionnaireModel.id, questionnaireModelToStores(questionnaireModel))
+          saveActiveQuestionnaireSuccess(questionnaireModel.id, questionnaireRemoteToStores(questionnaireModel))
         );
       })
       .catch(err => {
