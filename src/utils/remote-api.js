@@ -12,8 +12,73 @@ const urlSearch = `${baseURL}/search`;
 const urlSeriesList = `${urlSearch}/series`;
 const urlOperationsList = `${urlSearch}/operations`;
 const urlMetadata = `${baseURL}/meta-data`;
+const urlVisualizePdf = `${baseURL}/transform/visualize-pdf`;
+const urlVisualizeSpec = `${baseURL}/transform/visualize-spec`;
 
-export const visualisationUrl = `${baseURL}/transform/visualize/`;
+export const visualisationUrl = `${baseURL}/transform/visualize`;
+
+function openDocument(data) {
+  let filename = "";
+  const disposition = data.headers.get('Content-Disposition');
+  if (disposition && disposition.indexOf('attachment') !== -1) {
+    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+    var matches = filenameRegex.exec(disposition);
+    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+  }
+  data.blob()
+    .then(blob => (window.URL || window.webkitURL).createObjectURL(blob))
+    .then(downloadUrl => {
+      if (filename) {
+        var a = document.createElement("a");
+        a.href = downloadUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+      } else {
+        window.location = downloadUrl;
+      }
+    })
+}
+
+export const visualizeHtml = qr => {
+  fetch(visualisationUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(qr),
+    credentials: 'include',
+  })
+    .then(response => response.text())
+    .then(url => {
+      var a = document.createElement("a");
+      a.href = url;
+      a.setAttribute('target', '_blank');
+      document.body.appendChild(a);
+      a.click();
+    });
+};
+
+export const visualizePdf = qr => {
+  fetch(urlVisualizePdf, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(qr),
+    credentials: 'include',
+  }).then(openDocument);
+}
+export const visualizeSpec = qr => {
+  fetch(urlVisualizeSpec, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(qr),
+    credentials: 'include',
+  }).then(openDocument);
+}
 
 /**
  * Retrieve all questionnaires

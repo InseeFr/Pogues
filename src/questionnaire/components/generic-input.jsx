@@ -5,6 +5,7 @@ import { visualisationUrl } from 'utils/remote-api';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import ComponentNewContainer from 'questionnaire/containers/component/component-new';
 import Dictionary from 'utils/dictionary/dictionary';
+import VisualizeDropDown from 'layout/widget/visualize-dropdown';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -12,12 +13,15 @@ class GenericInput extends Component {
   static propTypes = {
     placeholders: PropTypes.object.isRequired,
     saveActiveQuestionnaire: PropTypes.func.isRequired,
+    visualizeActiveQuestionnaire: PropTypes.func.isRequired,
+    isQuestionnaireModified: PropTypes.bool.isRequired,
     isQuestionnaireValid: PropTypes.bool.isRequired,
     idQuestionnaire: PropTypes.string,
   };
 
   static defaultProps = {
     idQuestionnaire: undefined,
+    isQuestionnaireModified: false,
   };
 
   constructor(props) {
@@ -51,7 +55,7 @@ class GenericInput extends Component {
   }
 
   render() {
-    const { placeholders, isQuestionnaireValid, idQuestionnaire } = this.props;
+    const { placeholders, isQuestionnaireValid, idQuestionnaire, isQuestionnaireModified } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
     const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
@@ -98,20 +102,13 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.pageBreak}
         </button>
-        <button className="btn-yellow" onClick={this.props.saveActiveQuestionnaire} id="save">
+        <button className="btn-yellow" disabled={!isQuestionnaireModified} onClick={this.props.saveActiveQuestionnaire} id="save">
           {Dictionary.save}
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
-        <a
-          id="visualize"
-          rel="noopener noreferrer"
-          target="_blank"
-          href={visualisationUrl + idQuestionnaire}
-          className={!isQuestionnaireValid ? 'disabled btn-yellow' : 'btn-yellow'}
-        >
-          {Dictionary.visualise}
-          <span className="glyphicon glyphicon-eye-open" />
-        </a>
+
+        <VisualizeDropDown top={true} disabled={!isQuestionnaireValid} visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire} />
+
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
           <span className="glyphicon glyphicon-share-alt" />
