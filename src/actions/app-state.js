@@ -1,4 +1,4 @@
-import { putQuestionnaire, getContextFromCampaign } from 'utils/remote-api';
+import { putQuestionnaire, getContextFromCampaign, visualizeSpec, visualizePdf, visualizeHtml } from 'utils/remote-api';
 import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
 import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
 
@@ -157,7 +157,10 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
   type: SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   payload: {
     id,
-    update,
+    update: {
+      ...update,
+      isQuestionnaireModified: false
+    }
   },
 });
 
@@ -178,6 +181,23 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   },
 });
 
+function getQuestionnaireModel(state, activeComponentsById) {
+  const questionnaireTransformer = QuestionnaireTransformerFactory({
+    owner: state.appState.user.permission,
+    initialState: {
+      ...state.appState.activeQuestionnaire,
+      lastUpdatedDate: new Date().toString(),
+    },
+    componentsStore: activeComponentsById,
+    codesListsStore: state.appState.activeCodeListsById,
+    conditionsStore: {},
+    calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
+    externalVariablesStore: state.appState.activeExternalVariablesById,
+    collectedVariableByQuestionStore: state.appState.collectedVariableByQuestion,
+    campaignsStore: state.metadataByType.campaigns,
+  });
+  return questionnaireTransformer.stateToModel();
+}
 /**
  * Save active questionnaire
  *
@@ -193,21 +213,7 @@ export const saveActiveQuestionnaire = () => {
     });
 
     const state = getState();
-    const questionnaireTransformer = QuestionnaireTransformerFactory({
-      owner: state.appState.user.permission,
-      initialState: {
-        ...state.appState.activeQuestionnaire,
-        lastUpdatedDate: new Date().toString(),
-      },
-      componentsStore: state.appState.activeComponentsById,
-      codesListsStore: state.appState.activeCodeListsById,
-      conditionsStore: {},
-      calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
-      externalVariablesStore: state.appState.activeExternalVariablesById,
-      collectedVariableByQuestionStore: state.appState.collectedVariableByQuestion,
-      campaignsStore: state.metadataByType.campaigns,
-    });
-    const questionnaireModel = questionnaireTransformer.stateToModel();
+    const questionnaireModel = getQuestionnaireModel(state, state.appState.activeComponentsById)
 
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
@@ -220,6 +226,61 @@ export const saveActiveQuestionnaire = () => {
       });
   };
 };
+
+function getPathFromComponent(componentId, componentsById) {
+  function addChild(id) {
+    const children = componentsById[id].children;
+    if (children.length == 0) {
+      return [];
+    }
+    return [
+      ...children.map(i => componentsById[i]),
+      ...children.reduce((acc, c) => {
+        return [
+          ...acc,
+          ...addChild(c)
+        ]
+      }, [])
+    ]
+  }
+  function addParent(id) {
+    const parentId = componentsById[id].parent;
+    if (parentId === '') {
+      return [];
+    }
+    return [
+      {
+        ...componentsById[parentId],
+        children: componentsById[parentId].children.filter(i => i === id)
+      },
+      ...addParent(parentId)
+    ]
+  }
+  let path = [componentsById[componentId], ...addChild(componentId), ...addParent(componentId)];
+
+  return path.reduce((acc, c) => {
+    return {
+      ...acc,
+      [c.id]: c
+    }
+  }, {});
+}
+
+export const visualizeActiveQuestionnaire = (type, componentId) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const componentsById = componentId ? getPathFromComponent(componentId, state.appState.activeComponentsById) : state.appState.activeComponentsById
+
+    const questionnaireModel = getQuestionnaireModel(state, componentsById);
+    if (type === 'pdf') {
+      visualizePdf(questionnaireModel)
+    } else if (type === 'spec') {
+      visualizeSpec(questionnaireModel)
+    } else if (type === 'html') {
+      visualizeHtml(questionnaireModel);
+    }
+  }
+}
 
 /**
  * Set the invalid items in a question using the errorsByCode store

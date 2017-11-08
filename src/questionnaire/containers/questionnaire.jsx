@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { dragComponent, removeComponent, duplicateComponent } from 'actions/component';
-import { setSelectedComponentId, loadStatisticalContext } from 'actions/app-state';
+import { setSelectedComponentId, loadStatisticalContext, visualizeActiveQuestionnaire } from 'actions/app-state';
 import { loadCampaignsIfNeeded } from 'actions/metadata';
 import { removeQuestionnaire } from 'actions/questionnaire';
 import Questionnaire from 'questionnaire/components/questionnaire';
@@ -46,6 +46,7 @@ const mapDispatchToProps = {
   removeQuestionnaire,
   loadStatisticalContext,
   loadCampaignsIfNeeded,
+  visualizeActiveQuestionnaire,
 };
 
 class QuestionnaireContainer extends Component {
@@ -61,6 +62,7 @@ class QuestionnaireContainer extends Component {
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
     errorsByCode: PropTypes.object,
+    visualizeActiveQuestionnaire: PropTypes.func.isRequired
   };
   static defaultProps = {
     errorsByCode: {},
@@ -88,6 +90,7 @@ class QuestionnaireContainer extends Component {
         errorsByComponent={errorsByComponent}
         loadStatisticalContext={this.props.loadStatisticalContext}
         loadCampaignsIfNeeded={this.props.loadCampaignsIfNeeded}
+        visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
       />
     );
   }
