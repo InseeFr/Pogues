@@ -42,7 +42,7 @@ function openDocument(data) {
 
 export const visualizeHtml = qr => {
 
-  fetch(`${visualisationUrl}/${qr.Name}/${qr.DataCollection[0].id}`, {
+  fetch(`${visualisationUrl}/${qr.DataCollection[0].id}/${qr.Name}`, {
     method: 'POST',
     headers: {
       // Accept: 'application/json',
