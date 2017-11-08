@@ -17,6 +17,12 @@ const urlVisualizeSpec = `${baseURL}/transform/visualize-spec`;
 
 export const visualisationUrl = `${baseURL}/transform/visualize`;
 
+/**
+ * This method will emulate the download of file, received from a POST request. 
+ * We will dynamically create a A element linked to the downloaded content, and
+ * will click on it programmatically. 
+ * @param {*} data Binary content sent by the server
+ */
 function openDocument(data) {
   let filename = "";
   const disposition = data.headers.get('Content-Disposition');
@@ -40,6 +46,11 @@ function openDocument(data) {
     })
 }
 
+/**
+ * This method will send a request in order to get the URL 
+ * of the generated HTML page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
 export const visualizeHtml = qr => {
 
   fetch(`${visualisationUrl}/${qr.DataCollection[0].id}/${qr.Name}`, {
@@ -61,6 +72,11 @@ export const visualizeHtml = qr => {
     });
 };
 
+/**
+ * This method will send a request in order to get the content 
+ * of the generated PDF document for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
 export const visualizePdf = qr => {
   fetch(urlVisualizePdf, {
     method: 'POST',
@@ -72,6 +88,12 @@ export const visualizePdf = qr => {
     credentials: 'include',
   }).then(openDocument);
 }
+
+/**
+ * This method will send a request in order to get the content 
+ * of the generated ODT document for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
 export const visualizeSpec = qr => {
   fetch(urlVisualizeSpec, {
     method: 'POST',

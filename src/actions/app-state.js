@@ -227,6 +227,16 @@ export const saveActiveQuestionnaire = () => {
   };
 };
 
+/**
+ * This method will generate select all components from the root (the questionnaire) until the
+ * selected component. To this path, we will add also all the children of the selected component. 
+ * 
+ * When selecting parent component, we will also update it children property, in order to remove
+ * everything except the selected component. 
+ * 
+ * @param {*} componentId The ID of the selected component
+ * @param {*} componentsById An object representing the list of active components
+ */
 function getPathFromComponent(componentId, componentsById) {
   function addChild(id) {
     const children = componentsById[id].children;
@@ -266,6 +276,12 @@ function getPathFromComponent(componentId, componentsById) {
   }, {});
 }
 
+/**
+ * This method will call the corresponding REST endpoint based on the type of visualization we want. 
+ * Also, thanks to the componentId parameter, we can generate a part of the questionnaire
+ * @param {*} type the type of visualization we want
+ * @param {*} componentId The ID of the selected component (optional)
+ */
 export const visualizeActiveQuestionnaire = (type, componentId) => {
   return (dispatch, getState) => {
     const state = getState();
