@@ -45,7 +45,8 @@ export const visualizeHtml = qr => {
   fetch(`${visualisationUrl}/${qr.Name}/${qr.DataCollection[0].id}`, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
     credentials: 'include',
@@ -64,7 +65,8 @@ export const visualizePdf = qr => {
   fetch(urlVisualizePdf, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
     credentials: 'include',
@@ -74,7 +76,8 @@ export const visualizeSpec = qr => {
   fetch(urlVisualizeSpec, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
     credentials: 'include',
