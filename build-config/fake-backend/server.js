@@ -157,7 +157,7 @@ function setResponseHeaders(res, filename) {
   res.header('Content-type', 'application/pdf');
 }
 
-server.post('/transform/visualize', (req, res, next) => {
+server.post('/transform/visualize/:dataCollection/:questionnaire', (req, res, next) => {
   res.end("http://google.fr");
 })
 server.post('/transform/visualize-pdf', (req, res, next) => {
