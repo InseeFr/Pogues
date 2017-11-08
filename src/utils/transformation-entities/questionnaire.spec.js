@@ -17,7 +17,7 @@ import { externalVariablesStore } from './__mocks__/external-variable';
 import { collectedVariablesStore } from './__mocks__/collected-variable';
 import QuestionnaireTransformerFactory from './questionnaire';
 
-describe('Transformation entities - Questionnaire', () => {
+describe.skip('Transformation entities - Questionnaire', () => {
   test('Should produce expected STATE in questionnaire creation from creation FORM', () => {
     const questionnaireTransformer = QuestionnaireTransformerFactory({
       owner: fakeOwnerId,
