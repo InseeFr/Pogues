@@ -35,7 +35,7 @@ export const defaultProps = {
 
 // Componet
 
-class CodesListCodes extends Component {
+class CodesListsCodes extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
@@ -240,4 +240,4 @@ class CodesListCodes extends Component {
   }
 }
 
-export default CodesListCodes;
+export default CodesListsCodes;

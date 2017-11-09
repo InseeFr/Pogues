@@ -107,7 +107,6 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       }
     }
   }
-
   return collectedVariables;
 }
 

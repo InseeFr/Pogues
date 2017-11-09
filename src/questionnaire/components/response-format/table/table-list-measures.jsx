@@ -10,7 +10,7 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultMeasureState } from './model/response-format-table';
+import { defaultMeasureForm } from './model/response-format-table';
 import { required, requiredSelect, emptyCodes } from 'layout/forms/validation-rules';
 
 const { LIST_MEASURE } = DIMENSION_TYPE;
@@ -69,7 +69,7 @@ class ResponseFormatTableListMeasures extends Component {
       <FormSection name={ResponseFormatTableListMeasures.selectorPath}>
         <ListEntryFormContainer
           inputView={inputMeasureView}
-          initialInputValues={defaultMeasureState}
+          initialInputValues={defaultMeasureForm}
           selectorPath={this.selectorPathComposed}
           validationInput={validationMeasure}
           listName="measures"

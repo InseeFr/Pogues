@@ -43,6 +43,16 @@ export const defaultMeasureState = {
   },
 };
 
+export const defaultMeasureForm = {
+  label: '',
+  type: SIMPLE,
+  [SIMPLE]: defaultMeasureSimpleState,
+  [SINGLE_CHOICE]: {
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+    visHint: CHECKBOX,
+  },
+};
+
 export const defaultState = {
   [PRIMARY]: {
     showTotalLabel: '0',
@@ -112,32 +122,31 @@ export function formToStateMeasure(form, codesListMeasure) {
     const { type: simpleType, [simpleType]: simpleForm } = measureForm;
 
     state[SIMPLE] = {
-      type,
-      [type]: { ...simpleForm },
+      type: simpleType,
+      [simpleType]: { ...simpleForm },
     };
   } else {
     const { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = measureForm;
+    const codesList = codesListMeasure
+      ? codesListMeasure.formToStateComponent(codesListForm)
+      : CodesListModel.Factory().formToState(codesListForm);
+
     state[SINGLE_CHOICE] = {
       visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListMeasure.formToStateComponent(codesListForm),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesList,
     };
   }
   return state;
 }
 
-export function formToStateMeasureList(form, codesListMeasureList, codesListsStore) {
+export function formToStateMeasureList(form) {
   const { measures } = form;
-  return measures.map((measure, index) => {
-    if (measure.type === SINGLE_CHOICE) {
-      codesListMeasureList.push(
-        CodesListModel.Factory(measure[SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH], codesListsStore)
-      );
-    }
-    return formToStateMeasure(measure, codesListMeasureList[index]);
+  return measures.map(measure => {
+    return formToStateMeasure(measure);
   });
 }
 
-export function formToState(form, transformers, codesListsStore) {
+export function formToState(form, transformers) {
   const {
     [PRIMARY]: primaryForm,
     [SECONDARY]: secondaryForm,
@@ -153,33 +162,24 @@ export function formToState(form, transformers, codesListsStore) {
     state[SECONDARY] = formToStateSecondary(secondaryForm, transformers.codesListSecondary);
     state[MEASURE] = formToStateMeasure(measureForm, transformers.codesListMeasure);
   } else {
-    state[LIST_MEASURE] = formToStateMeasureList(listMeasureForm, transformers.codesListsMeasureList, codesListsStore);
+    state[LIST_MEASURE] = formToStateMeasureList(listMeasureForm);
   }
 
   return state;
 }
 
 export function stateToFormPrimary(currentState, codesListPrimary) {
-  const { showTotalLabel, totalLabel, type, [type]: primaryState } = currentState;
-  const form = {
+  const { showTotalLabel, totalLabel, type, [LIST]: listState } = currentState;
+
+  return {
     showTotalLabel,
     totalLabel,
     type,
-  };
-
-  if (type === LIST) {
-    const { numLinesMin, numLinesMax } = primaryState;
-    form[LIST] = {
-      numLinesMin,
-      numLinesMax,
-    };
-  } else {
-    form[CODES_LIST] = {
+    [LIST]: { ...listState },
+    [CODES_LIST]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListPrimary.stateComponentToForm(),
-    };
-  }
-
-  return form;
+    },
+  };
 }
 
 export function stateToFormSecondary(currentState, codesListSecondary) {
@@ -192,41 +192,41 @@ export function stateToFormSecondary(currentState, codesListSecondary) {
   };
 }
 
-export function stateToFormMeasure(currentState, codesListMeasure) {
-  const { label, type, [type]: measureState } = currentState;
-  const form = {
+export function stateToFormMeasure(currentState, codesListsStore, codesListMeasure) {
+  const {
     label,
     type,
-  };
+    [SIMPLE]: simpleState,
+    [SINGLE_CHOICE]: { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState },
+  } = currentState;
+  let codesListForm;
 
-  if (type === SIMPLE) {
-    const { type: typeSimple, [typeSimple]: simpleState } = currentState;
-
-    form[SIMPLE] = merge(cloneDeep(defaultMeasureSimpleState), {
-      type: typeSimple,
-      [typeSimple]: {
-        ...simpleState,
-      },
-    });
+  if (codesListMeasure) {
+    codesListForm = codesListMeasure.stateComponentToForm();
+  } else {
+    codesListForm = CodesListModel.Factory(codesListState, codesListsStore).stateComponentToForm();
   }
-  const { visHint } = measureState;
-  form[SINGLE_CHOICE] = {
-    visHint,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListMeasure.stateComponentToForm(),
-  };
 
-  return form;
+  return {
+    label,
+    type,
+    [SIMPLE]: simpleState,
+    [SINGLE_CHOICE]: {
+      visHint,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
+    },
+  };
 }
 
-export function stateToFormMeasureList(currentState, codesListsMeasureList) {
+export function stateToFormMeasureList(currentState, codesListsStore) {
   const { measures } = currentState;
   return {
     ...currentState,
-    measures: measures.map((m, index) => stateToFormMeasure(m, codesListsMeasureList[index])),
+    measures: measures.map(m => stateToFormMeasure(m, codesListsStore)),
   };
 }
 
-export function stateToForm(currentState, transformers) {
+export function stateToForm(currentState, transformers, codesListsStore) {
   const {
     [PRIMARY]: primaryState,
     [SECONDARY]: secondaryState,
@@ -242,11 +242,11 @@ export function stateToForm(currentState, transformers) {
   }
 
   if (measureState) {
-    measureForm = stateToFormMeasure(measureState, transformers.codesListMeasure);
+    measureForm = stateToFormMeasure(measureState, codesListsStore, transformers.codesListMeasure);
   }
 
   if (listMeasureState) {
-    listMeasureForm = stateToFormMeasureList(listMeasureState, transformers.codesListsMeasureList);
+    listMeasureForm = stateToFormMeasureList(listMeasureState, codesListsStore);
   }
 
   return {
@@ -258,10 +258,25 @@ export function stateToForm(currentState, transformers) {
 }
 
 const Factory = (initialState = {}, codesListsStore) => {
-  let currentState = merge(cloneDeep(defaultState), initialState);
+  const { [LIST_MEASURE]: measures, ...otherState } = initialState;
+  let currentState = merge(cloneDeep(defaultState), { ...otherState, [LIST_MEASURE]: { measures } });
 
   currentState[LIST_MEASURE].measures = currentState[LIST_MEASURE].measures.map(m => {
-    return merge(cloneDeep(defaultState[MEASURE]), m);
+    const { type, label, [type]: measureState } = m;
+    const state = {
+      type,
+      label,
+    };
+
+    if (type === SINGLE_CHOICE) {
+      state[SINGLE_CHOICE] = {
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListsStore[measureState[DEFAULT_CODES_LIST_SELECTOR_PATH].id],
+      };
+    } else {
+      state[SIMPLE] = measureState;
+    }
+
+    return merge(cloneDeep(defaultState[MEASURE]), state);
   });
 
   const transformers = {
@@ -277,9 +292,6 @@ const Factory = (initialState = {}, codesListsStore) => {
       currentState[MEASURE][SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore
     ),
-    codesListsMeasureList: currentState[LIST_MEASURE].measures.map(m => {
-      return CodesListModel.Factory(m[SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH], codesListsStore);
-    }),
   };
 
   return {
@@ -288,28 +300,39 @@ const Factory = (initialState = {}, codesListsStore) => {
       return currentState;
     },
     stateToForm: () => {
-      return stateToForm(currentState, transformers);
+      return stateToForm(currentState, transformers, codesListsStore);
     },
     getCodesListStore: () => {
-      let codesLists;
+      let codesLists = {};
 
-      if (currentState[PRIMARY].type === CODES_LIST) {
+      if (currentState[PRIMARY] && currentState[PRIMARY].type === CODES_LIST) {
         codesLists = transformers.codesListPrimary.getStore();
+      }
 
-        if (currentState[SECONDARY].showSecondaryAxis) {
-          codesLists = {
-            ...codesLists,
-            ...transformers.codesListSecondary.getStore(),
-            ...transformers.codesListMeasure.getStore(),
-          };
-        } else {
-          codesLists = {
-            ...codesLists,
-            ...transformers.codesListsMeasureList.map(trans => trans.getStore()),
-          };
-        }
-      } else {
-        codesLists = transformers.codesListsMeasureList.map(trans => trans.getStore());
+      if (currentState[SECONDARY] && currentState[SECONDARY].showSecondaryAxis) {
+        codesLists = {
+          ...codesLists,
+          ...transformers.codesListSecondary.getStore(),
+        };
+      }
+
+      if (currentState[MEASURE] && currentState[MEASURE].type === SINGLE_CHOICE) {
+        codesLists = {
+          ...codesLists,
+          ...transformers.codesListMeasure.getStore(),
+        };
+      }
+
+      if (currentState[LIST_MEASURE]) {
+        currentState[LIST_MEASURE].forEach(m => {
+          if (m.type === SINGLE_CHOICE) {
+            const codesListState = m[SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH];
+            codesLists = {
+              ...codesLists,
+              [codesListState.id]: codesListState,
+            };
+          }
+        });
       }
 
       return codesLists;
