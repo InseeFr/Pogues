@@ -1,9 +1,9 @@
 import Dictionary from 'constants/dictionary';
 
 /**
- * Based on the locale passed as a paremeter, this function will return 
+ * Based on the locale passed as a paremeter, this function will return
  * the corresponding dictionary.
- * 
+ *
  * @param {string} lang the lang of the user
  */
 export function createDictionary(lang) {

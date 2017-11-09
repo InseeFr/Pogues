@@ -141,9 +141,9 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
       );
 
       /**
-     * We move components into the new
-     *  sequence only if the selected is not a sequence without children
-     */
+       * We move components into the new
+       *  sequence only if the selected is not a sequence without children
+       */
     } else if (
       isSequence(lastCreatedComponent[id]) &&
       !(isSequence(selectedComponent) && childrenSelectedComponentLength === 0)

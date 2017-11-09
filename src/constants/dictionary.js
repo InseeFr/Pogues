@@ -476,15 +476,15 @@ const dictionary = {
   },
   errorGoToNonExistingTgt: {
     fr:
-    'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément connu du questionnaire.',
+      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément connu du questionnaire.',
     en:
-    'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
+      'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
   errorGoToEarlierTgt: {
     fr:
-    'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
+      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
     en:
-    'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.',
+      'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.',
   },
   errorQuestionnaireTooShort: {
     fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
@@ -856,7 +856,7 @@ const dictionary = {
   },
   newQuestionnaireLegend: {
     fr:
-    'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
+      'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
     en: 'You will now be able to specify the context',
   },
   collectionCampaign: {

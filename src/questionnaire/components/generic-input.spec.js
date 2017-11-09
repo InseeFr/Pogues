@@ -34,12 +34,9 @@ describe('<GenericInput />', () => {
   });
 
   // @TODO: Fix this test
-  test.skip(
-    'should render enabled the "Question" button only when the prop "newQuestionPlaceholder" is defined',
-    () => {
-      props.placeholders[QUESTION] = notEmptyPlaceholder;
-      const wrapperWithQuestionPlaceholder = shallow(<GenericInput {...props} />);
-      expect(wrapperWithQuestionPlaceholder.find('#add-question[disabled]').exists()).toBe(false);
-    }
-  );
+  test.skip('should render enabled the "Question" button only when the prop "newQuestionPlaceholder" is defined', () => {
+    props.placeholders[QUESTION] = notEmptyPlaceholder;
+    const wrapperWithQuestionPlaceholder = shallow(<GenericInput {...props} />);
+    expect(wrapperWithQuestionPlaceholder.find('#add-question[disabled]').exists()).toBe(false);
+  });
 });

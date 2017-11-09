@@ -32,10 +32,10 @@ export function isSequence(component) {
 }
 
 /**
-  * This method return true if the component passed as a parameter is a QUESTIONNAIRE
-  *
-  * @param {object} component The component we should test
-  */
+ * This method return true if the component passed as a parameter is a QUESTIONNAIRE
+ *
+ * @param {object} component The component we should test
+ */
 export function isQuestionnaire(component) {
   return component && component.type === QUESTIONNAIRE;
 }
@@ -60,11 +60,11 @@ export function toId(components) {
 }
 
 /**
-  * We can only move as a sibling two components of the same type.
-  *
-  * @param {object} droppedComponent the component we are moving
-  * @param {object} draggedComponent the previous sibling of the moved component
-  */
+ * We can only move as a sibling two components of the same type.
+ *
+ * @param {object} droppedComponent the component we are moving
+ * @param {object} draggedComponent the previous sibling of the moved component
+ */
 export function couldInsertToSibling(droppedComponent, draggedComponent) {
   return droppedComponent.type === draggedComponent.type;
 }

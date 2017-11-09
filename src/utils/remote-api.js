@@ -18,24 +18,25 @@ const urlVisualizeSpec = `${baseURL}/transform/visualize-spec`;
 export const visualisationUrl = `${baseURL}/transform/visualize`;
 
 /**
- * This method will emulate the download of file, received from a POST request. 
+ * This method will emulate the download of file, received from a POST request.
  * We will dynamically create a A element linked to the downloaded content, and
- * will click on it programmatically. 
+ * will click on it programmatically.
  * @param {*} data Binary content sent by the server
  */
 function openDocument(data) {
-  let filename = "";
+  let filename = '';
   const disposition = data.headers.get('Content-Disposition');
   if (disposition && disposition.indexOf('attachment') !== -1) {
-    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-    var matches = filenameRegex.exec(disposition);
+    const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+    const matches = filenameRegex.exec(disposition);
     if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
   }
-  data.blob()
+  data
+    .blob()
     .then(blob => (window.URL || window.webkitURL).createObjectURL(blob))
     .then(downloadUrl => {
       if (filename) {
-        var a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = downloadUrl;
         a.download = filename;
         document.body.appendChild(a);
@@ -43,16 +44,15 @@ function openDocument(data) {
       } else {
         window.location = downloadUrl;
       }
-    })
+    });
 }
 
 /**
- * This method will send a request in order to get the URL 
+ * This method will send a request in order to get the URL
  * of the generated HTML page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
 export const visualizeHtml = qr => {
-
   fetch(`${visualisationUrl}/${qr.DataCollection[0].id}/${qr.Name}`, {
     method: 'POST',
     headers: {
@@ -64,7 +64,7 @@ export const visualizeHtml = qr => {
   })
     .then(response => response.text())
     .then(url => {
-      var a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = url;
       a.setAttribute('target', '_blank');
       document.body.appendChild(a);
@@ -73,7 +73,7 @@ export const visualizeHtml = qr => {
 };
 
 /**
- * This method will send a request in order to get the content 
+ * This method will send a request in order to get the content
  * of the generated PDF document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
@@ -87,10 +87,10 @@ export const visualizePdf = qr => {
     body: JSON.stringify(qr),
     credentials: 'include',
   }).then(openDocument);
-}
+};
 
 /**
- * This method will send a request in order to get the content 
+ * This method will send a request in order to get the content
  * of the generated ODT document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
@@ -104,7 +104,7 @@ export const visualizeSpec = qr => {
     body: JSON.stringify(qr),
     credentials: 'include',
   }).then(openDocument);
-}
+};
 
 /**
  * Retrieve all questionnaires
@@ -233,10 +233,10 @@ export const getSearchResults = (typeItem, criterias, filter = '') => {
   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',
     headers: {
-      // Accept: 'application/json',
+      Accept: 'application/json',
       // HACK needs to set content-type to text/html ; if not, server returns a 405 error
       // 'Content-Type': 'text/html',
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
     },
     credentials: 'include',
     body: JSON.stringify({

@@ -97,8 +97,8 @@ describe('saveActiveQuestionnaireSuccess', () => {
         id: 'id',
         update: {
           update: 'update',
-          isQuestionnaireModified: false
-        }
+          isQuestionnaireModified: false,
+        },
       },
     });
   });
