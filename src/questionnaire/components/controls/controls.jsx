@@ -6,7 +6,7 @@ import Select from 'layout/forms/controls/select';
 import Input from 'forms/controls/input';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { controlsFormDefault } from 'utils/transformation-entities/control';
+import { defaultForm } from './model/control';
 import withXPathValidation from 'hoc/withXPathValidation';
 
 const TextAreaWithVariableAndXPathValidation = withXPathValidation(TextareaWithVariableAutoCompletion);
@@ -73,7 +73,7 @@ class Controls extends Component {
   static selectorPath = 'controls';
 
   render() {
-    const { controls, ...initialInputValues } = controlsFormDefault;
+    const { controls, ...initialInputValues } = defaultForm;
     const inputControlView = <InputControl />;
 
     return (

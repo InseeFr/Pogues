@@ -3,7 +3,7 @@ import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
+import { CodesLists } from 'widgets/codes-lists';
 import { DATATYPE_VIS_HINT, DIMENSION_FORMATS } from 'constants/pogues-constants';
 import Select from 'layout/forms/controls/select';
 
@@ -43,7 +43,7 @@ class ResponseFormatMultipleMeasureCodeslist extends Component {
     ];
     return (
       <FormSection name={ResponseFormatMultipleMeasureCodeslist.selectorPath}>
-        <CodesList selectorPath={this.selectorPathComposed} />
+        <CodesLists selectorPathParent={this.selectorPathComposed} />
         <Field name="visHint" component={Select} label={Dictionary.visHint} options={listVisHints} required />
       </FormSection>
     );

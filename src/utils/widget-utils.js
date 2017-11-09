@@ -41,8 +41,6 @@ export function filterStoreByProp(store = {}, propName, value) {
     .map(key => store[key]);
 }
 
-export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-
 export function getKey(str) {
   return str.replace(/\s+/g, '-').toLowerCase();
 }

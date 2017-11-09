@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
 import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
-import { storeToArray, nestedStoreToArray } from 'utils/utils';
+import { storeToArray, nestedStoreToFlat } from 'utils/utils';
 
 /**
  * High order component
@@ -29,7 +29,7 @@ const withCurrentFormVariables = (ComponentToWrap, formName = DEFAULT_FORM_NAME)
 
     const activeCalculatedVariables = storeToArray(state.appState.activeCalculatedVariablesById).map(v => v.name);
     const activeExternalVariables = storeToArray(state.appState.activeExternalVariablesById).map(v => v.name);
-    const activeCollectedVariables = nestedStoreToArray(state.appState.collectedVariableByQuestion).map(v => v.name);
+    const activeCollectedVariables = nestedStoreToFlat(state.appState.collectedVariableByQuestion).map(v => v.name);
 
     // Dedupe using a Set, which is then spread into a new Array
     const availableSuggestions = [

@@ -2,14 +2,13 @@ import {
   QUESTION_TYPE_ENUM,
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
-  CODES_LIST_INPUT_ENUM,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
-const { NEW, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
 
 export function getCollecteVariable(name, label) {
   return {
@@ -20,15 +19,15 @@ export function getCollecteVariable(name, label) {
 }
 
 export function getCollectedVariablesMultiple(questionName, form, codesListStore) {
-  const { [PRIMARY]: { [NEW]: { codes }, [QUESTIONNAIRE]: { codesListId } } } = form;
+  const { [PRIMARY]: { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes, id } } } = form;
   let listCodes = codes;
 
-  if (codesListId) {
-    const codesStore = codesListStore[codesListId].codes;
+  if (codesListStore[id]) {
+    const codesStore = codesListStore[id].codes;
     listCodes = Object.keys(codesStore).map(key => codesStore[key]);
   }
 
-  return listCodes.map((c, index) => getCollecteVariable(`${questionName}${index + 1}`, `${c.code} - ${c.label}`));
+  return listCodes.map((c, index) => getCollecteVariable(`${questionName}${index + 1}`, `${c.value} - ${c.label}`));
 }
 
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
@@ -50,25 +49,21 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
   if (primaryState.type === CODES_LIST) {
     const {
       [CODES_LIST]: {
-        codesListId: codesListIdPrimary,
-        [NEW]: { codes: componentCodesStatePrimary },
-        [QUESTIONNAIRE]: { codesListId: componentCodesListIdPrimary },
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes: componentCodesStatePrimary, id: codesListIdPrimary },
       },
     } = primaryState;
 
-    codesListState = codesListStore[codesListIdPrimary] || codesListStore[componentCodesListIdPrimary] || {};
+    codesListState = codesListStore[codesListIdPrimary] || {};
     codesStore = codesListState.codes || {};
     codesStatePrimary = Object.keys(codesStore).map(key => codesStore[key]);
     if (codesStatePrimary.length === 0) codesStatePrimary = componentCodesStatePrimary;
 
     if (secondaryState.showSecondaryAxis) {
       const {
-        codesListId: codesListIdSecondary,
-        [NEW]: { codes: componentCodesStateSecondary },
-        [QUESTIONNAIRE]: { codesListId: componentCodesListIdSecondary },
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes: componentCodesStateSecondary, id: codesListIdSecondary },
       } = secondaryState;
 
-      codesListState = codesListStore[codesListIdSecondary] || codesListStore[componentCodesListIdSecondary] || {};
+      codesListState = codesListStore[codesListIdSecondary] || {};
       codesStore = codesListState.codes || {};
       codesStateSecondary = Object.keys(codesStore).map(key => codesStore[key]);
       if (codesStateSecondary.length === 0) codesStateSecondary = componentCodesStateSecondary;

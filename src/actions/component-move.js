@@ -79,14 +79,14 @@ function attachQuestionToPreviousSubSequence(activesComponents) {
 }
 
 /**
-  * Method used for the Drag&Drop behavior. Based on the dragged component,
-  * we will updated the new parent, the parent, the previous and/or new siblings
-  *
-  * @param {object} activesComponents The list of components currently displayed
-  * @param {string} moveComponentId The id of the dragged component
-  * @param {string} newParentComponentId the id of the target component,
-  * @param {number} newWeight the new weight of dragged component in the target component
-  */
+ * Method used for the Drag&Drop behavior. Based on the dragged component,
+ * we will updated the new parent, the parent, the previous and/or new siblings
+ *
+ * @param {object} activesComponents The list of components currently displayed
+ * @param {string} moveComponentId The id of the dragged component
+ * @param {string} newParentComponentId the id of the target component,
+ * @param {number} newWeight the new weight of dragged component in the target component
+ */
 export function moveComponent(activesComponents, idDroppedComponent, idDraggedComponent) {
   /**
    * If the draggedComponent and the dropped component are the same, we do nothing
@@ -165,9 +165,9 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
   }
 
   /**
-    * If the source and target parent component is the same, we only need
-    * to update the weight of the children
-    */
+   * If the source and target parent component is the same, we only need
+   * to update the weight of the children
+   */
   if (newParentComponentId === oldParent.id && dragndropLevel >= 0) {
     moves = {
       ...moves,

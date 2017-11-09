@@ -26,13 +26,27 @@ export const defaultProps = {
 
 export const mapStateToProps = (state, { selectorPathParent, selectorPath, formName }) => {
   const selector = formValueSelector(formName);
-  const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`
+  const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
+  const currentId = selector(state, `${path}id`);
+  const currentLabel = selector(state, `${path}label`);
+  const codesListsStore = state.appState.activeCodeListsById;
+  let currentCodesListsStore;
+
+  if (codesListsStore[currentId]) {
+    currentCodesListsStore = {
+      ...codesListsStore,
+      [currentId]: { ...codesListsStore[currentId], label: currentLabel },
+    };
+  } else {
+    currentCodesListsStore = codesListsStore;
+  }
 
   return {
     path,
-    codesListsStore: state.appState.activeCodeListsById,
+    currentId,
+    currentCodesListsStore,
+    codesListsStore,
     activePanel: selector(state, `${path}panel`),
-    currentId: selector(state, `${path}id`),
     currentCodes: selector(state, `${path}codes`),
   };
 };
@@ -41,6 +55,7 @@ const mapDispatchToProps = {
   clearSearchResult,
   change: actions.change,
   arrayPush: actions.arrayPush,
+  arrayRemoveAll: actions.arrayRemoveAll,
 };
 
 const CodesListsContainer = connect(mapStateToProps, mapDispatchToProps)(CodesLists);

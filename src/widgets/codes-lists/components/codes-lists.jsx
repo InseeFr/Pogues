@@ -35,7 +35,10 @@ export const propTypes = {
   activePanel: PropTypes.string,
   currentId: PropTypes.string,
   codesListsStore: PropTypes.object,
+  currentCodesListsStore: PropTypes.object,
   change: PropTypes.func.isRequired,
+  arrayPush: PropTypes.func.isRequired,
+  arrayRemoveAll: PropTypes.func.isRequired,
   clearSearchResult: PropTypes.func.isRequired,
 };
 
@@ -43,6 +46,7 @@ export const defaultProps = {
   activePanel: undefined,
   currentId: '',
   codesListsStore: {},
+  currentCodesListsStore: {},
 };
 
 // Componet
@@ -52,26 +56,37 @@ class CodesList extends Component {
   static defaultProps = defaultProps;
 
   componentWillMount() {
-    const { change, formName, path, currentId, clearSearchResult } = this.props;
+    const { change, formName, path, currentId, clearSearchResult, codesListsStore } = this.props;
     let activePanel = NEW;
 
     clearSearchResult();
 
-    if (currentId !== '') activePanel = QUEST;
+    if (codesListsStore[currentId]) activePanel = QUEST;
 
     change(formName, `${path}panel`, activePanel);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { change, formName, path, activePanel } = this.props;
+    const { change, arrayPush, arrayRemoveAll, formName, path, currentId, codesListsStore } = this.props;
 
-    if (activePanel !== nextProps.activePanel && nextProps.activePanel !== QUEST) {
+    if (nextProps.currentId === '' && nextProps.currentId !== currentId) {
       change(formName, `${path}id`, '');
+      change(formName, `${path}label`, '');
+      arrayRemoveAll(formName, `${path}codes`);
+    }
+
+    if (nextProps.currentId !== '' && nextProps.currentId !== currentId) {
+      const codesStore = codesListsStore[nextProps.currentId].codes;
+
+      change(formName, `${path}label`, codesListsStore[nextProps.currentId].label);
+      Object.keys(codesStore).forEach(key => {
+        arrayPush(formName, `${path}codes`, codesStore[key]);
+      });
     }
   }
 
   render() {
-    const { selectorPath, path, formName, activePanel, codesListsStore } = this.props;
+    const { selectorPath, path, formName, activePanel, currentCodesListsStore } = this.props;
 
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>
@@ -94,7 +109,7 @@ class CodesList extends Component {
                 <GenericOption key="" value="">
                   {Dictionary.selectCodesListType}
                 </GenericOption>
-                {storeToArray(codesListsStore).map(cl => (
+                {storeToArray(currentCodesListsStore).map(cl => (
                   <GenericOption key={cl.id} value={cl.id}>
                     {cl.label}
                   </GenericOption>

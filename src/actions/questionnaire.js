@@ -1,7 +1,11 @@
 import { getQuestionnaire, postQuestionnaire, deleteQuestionnaire } from 'utils/remote-api';
-import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
-import { newQuestionnaireStateToStores } from 'utils/model/model-utils';
-import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+import { questionnaireRemoteToStores } from 'model/remote-to-stores';
+import * as Questionnaire from 'model/transformations/questionnaire';
+import ComponentFactory from 'questionnaire/components/component/model/component';
+
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
@@ -68,7 +72,7 @@ export const loadQuestionnaire = id => dispatch => {
   });
   return getQuestionnaire(id)
     .then(qr => {
-      dispatch(loadQuestionnaireSuccess(id, questionnaireModelToStores(qr)));
+      dispatch(loadQuestionnaireSuccess(id, questionnaireRemoteToStores(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));
@@ -131,26 +135,25 @@ export const createQuestionnaireFailure = err => ({
  */
 export const createQuestionnaire = questionnaireNewState => (dispatch, getState) => {
   const state = getState();
-  const questionnaireTransformer = QuestionnaireTransformerFactory({
-    initialState: questionnaireNewState,
+  const stores = {
+    componentsStore: ComponentFactory({ ...questionnaireNewState, type: QUESTIONNAIRE }).getStore(),
+    codesListsStore: {},
+    calculatedVariablesStore: {},
+    externalVariablesStore: {},
+    collectedVariableByQuestionStore: {},
     campaignsStore: state.metadataByType.campaigns,
-  });
+  };
+  const questionnaireModel = Questionnaire.stateToRemote(questionnaireNewState, stores);
 
   dispatch({
     type: CREATE_QUESTIONNAIRE,
     payload: null,
   });
 
-  return postQuestionnaire(questionnaireTransformer.stateToModel())
+  return postQuestionnaire(questionnaireModel)
     .then(() => {
       return dispatch(
-        createQuestionnaireSuccess(
-          questionnaireNewState.id,
-          newQuestionnaireStateToStores(
-            questionnaireTransformer.getQuestionnaireState(),
-            questionnaireTransformer.getQuestionnaireComponentState()
-          )
-        )
+        createQuestionnaireSuccess(questionnaireNewState.id, questionnaireRemoteToStores(questionnaireModel))
       );
     })
     .catch(err => {
