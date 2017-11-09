@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultCollectedVariableForm } from 'utils/transformation-entities/collected-variable';
+import { defaultForm } from './model/collected-variable';
 import Input from 'layout/forms/controls/input';
 import { name as validateName, nameSize } from 'layout/forms/validation-rules';
 
@@ -45,7 +45,7 @@ class CollectedVariables extends Component {
   };
 
   render() {
-    const { collectedVariables, ...initialInputValues } = defaultCollectedVariableForm;
+    const { collectedVariables, ...initialInputValues } = defaultForm;
     const inputCollectedVariableView = <InputCollectedVariable />;
     const { generateCollectedVariables, errors, selectorPath } = this.props;
     const styleErrors = {
@@ -84,8 +84,6 @@ class CollectedVariables extends Component {
           avoidNewAddition
         />
         <Field name="responseFormat" type="hidden" component="input" />
-
-
       </FormSection>
     );
   }

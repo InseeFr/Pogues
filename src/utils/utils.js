@@ -48,3 +48,10 @@ export function nestedStoreToFlat(store = {}) {
 }
 
 export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+
+export function nameFromLabel(label) {
+  return label
+    .replace(/[^a-z0-9_]/gi, '')
+    .toUpperCase()
+    .slice(0, 10);
+}

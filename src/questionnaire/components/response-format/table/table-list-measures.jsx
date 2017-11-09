@@ -3,14 +3,19 @@ import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import InputMeasure from './input-measure';
-import { DIMENSION_TYPE, QUESTION_TYPE_ENUM, CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import {
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
+  CODES_LIST_INPUT_ENUM,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+} from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultListMeasuresForm } from 'utils/transformation-entities/response-format-table';
-import { required, requiredSelect, uniqueCode, emptyCodes } from 'layout/forms/validation-rules';
+import { defaultMeasureState } from './model/response-format-table';
+import { required, requiredSelect, emptyCodes } from 'layout/forms/validation-rules';
 
 const { LIST_MEASURE } = DIMENSION_TYPE;
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { NEW, QUESTIONNAIRE } = CODES_LIST_INPUT_ENUM;
+const { NEW, QUEST } = CODES_LIST_INPUT_ENUM;
 
 function validationMeasure(values) {
   const { label, type: typeMeasure, [typeMeasure]: measureValues } = values;
@@ -22,14 +27,13 @@ function validationMeasure(values) {
   const labelRequired = required(label);
 
   if (typeMeasure === SINGLE_CHOICE) {
-    const { type: typeCodesList, [typeCodesList]: codesListValues } = measureValues;
+    const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { panel, id, label: labelCodesList, codes } } = measureValues;
 
-    if (typeCodesList === NEW) {
-      codeListRequired = required(codesListValues.label);
-      notEmptyCodes = emptyCodes(codesListValues.codes);
-      uniqueCodes = uniqueCode()(codesListValues.codes);
-    } else if (typeCodesList === QUESTIONNAIRE) {
-      requiredSelectCodesList = requiredSelect(codesListValues.codesListId);
+    if (panel === NEW) {
+      codeListRequired = required(labelCodesList);
+      notEmptyCodes = emptyCodes(codes);
+    } else if (panel === QUEST) {
+      requiredSelectCodesList = requiredSelect(id);
     }
   }
 
@@ -59,14 +63,13 @@ class ResponseFormatTableListMeasures extends Component {
       : ResponseFormatTableListMeasures.selectorPath;
   }
   render() {
-    const { measures, ...initialInputValues } = defaultListMeasuresForm;
     const inputMeasureView = <InputMeasure selectorPath={this.selectorPathComposed} />;
 
     return (
       <FormSection name={ResponseFormatTableListMeasures.selectorPath}>
         <ListEntryFormContainer
           inputView={inputMeasureView}
-          initialInputValues={initialInputValues}
+          initialInputValues={defaultMeasureState}
           selectorPath={this.selectorPathComposed}
           validationInput={validationMeasure}
           listName="measures"

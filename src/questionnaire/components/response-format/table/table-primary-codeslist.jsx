@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
+import { CodesLists } from 'widgets/codes-lists';
 import { DIMENSION_FORMATS } from 'constants/pogues-constants';
 
 const { CODES_LIST } = DIMENSION_FORMATS;
@@ -27,7 +27,7 @@ class ResponseFormatTablePrincipalCodeslist extends Component {
     return (
       <div className="axis-primary__panel">
         <FormSection name={ResponseFormatTablePrincipalCodeslist.selectorPath}>
-          <CodesList selectorPath={this.selectorPathComposed} />
+          <CodesLists selectorPathParent={this.selectorPathComposed} />
         </FormSection>
       </div>
     );

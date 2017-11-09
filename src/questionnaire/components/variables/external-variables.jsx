@@ -3,7 +3,7 @@ import { Field, FormSection } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultExternalVariableForm } from 'utils/transformation-entities/external-variable';
+import { defaultForm } from './model/collected-variable';
 import Input from 'layout/forms/controls/input';
 import { name as validateName, nameSize } from 'layout/forms/validation-rules';
 
@@ -35,7 +35,7 @@ class ExternalVariables extends Component {
   static selectorPath = 'externalVariables';
 
   render() {
-    const { externalVariables, ...initialInputValues } = defaultExternalVariableForm;
+    const { externalVariables, ...initialInputValues } = defaultForm;
     const inputExternalVariableView = <InputExternalVariable />;
 
     return (

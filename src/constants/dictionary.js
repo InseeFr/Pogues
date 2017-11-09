@@ -927,6 +927,10 @@ const dictionary = {
     fr: 'Veuillez saisir au maximum',
     en: 'Must be at most',
   },
+  validationNoCodes: {
+    fr: 'Veuillez ajouter des codes a la liste',
+    en: 'Must be added codes to the list',
+  },
   dropHere: {
     fr: 'Déposer ici !',
     en: 'Drop here !',

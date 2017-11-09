@@ -1,4 +1,10 @@
-import { COMPONENT_TYPE, QUESTION_TYPE_ENUM, DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_TYPE,
+  DIMENSION_FORMATS,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+} from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
@@ -10,22 +16,22 @@ function getMeasureCodesLists(measureFormat) {
   const { type, [type]: measure } = measureFormat;
 
   if (type === SINGLE_CHOICE) {
-    codesListsIds.push(measure.codesListId);
+    codesListsIds.push(measure[DEFAULT_CODES_LIST_SELECTOR_PATH].id);
   }
 
   return codesListsIds;
 }
 
 export function getSingleCodesLists(singleFormat) {
-  return [singleFormat.codesListId];
+  return [singleFormat[DEFAULT_CODES_LIST_SELECTOR_PATH].id];
 }
 
 export function getMultipleCodesLists(multipleFormat) {
-  const codesListsIds = [multipleFormat[PRIMARY].codesListId];
+  const codesListsIds = [multipleFormat[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH].id];
   const { [MEASURE]: { type, [type]: measure } } = multipleFormat;
 
   if (type === CODES_LIST) {
-    codesListsIds.push(measure.codesListId);
+    codesListsIds.push(measure[DEFAULT_CODES_LIST_SELECTOR_PATH].id);
   }
 
   return codesListsIds;
@@ -41,11 +47,11 @@ export function getTableCodesLists(tableFormat) {
   } = tableFormat;
 
   if (typePrimary === CODES_LIST) {
-    codesListsIds.push(primary.codesListId);
+    codesListsIds.push(primary[DEFAULT_CODES_LIST_SELECTOR_PATH].id);
   }
 
   if (secondary) {
-    codesListsIds.push(secondary.codesListId);
+    codesListsIds.push(secondary[DEFAULT_CODES_LIST_SELECTOR_PATH].id);
   }
 
   if (measure) {

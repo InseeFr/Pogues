@@ -3,14 +3,14 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Input from 'layout/forms/controls/input';
-import CodesList from 'layout/connected-widget/components/codes-list/codes-list';
+import { CodesLists } from 'widgets/codes-lists';
 import Dictionary from 'utils/dictionary/dictionary';
 import OptionalViewContainer from 'layout/connected-widget/optional-view';
 
 function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   return (
     <div>
-      <CodesList selectorPath={selectorPath} optional />
+      <CodesLists selectorPathParent={this.selectorPathComposed} />
       <OptionalViewContainer
         name="showTotalLabel"
         selectorPath={selectorPath}

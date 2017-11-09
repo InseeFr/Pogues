@@ -6,14 +6,16 @@ import { SubmissionError } from 'redux-form';
 import QuestionnaireNewEdit from 'home/components/questionnaire-new-edit';
 import { updateActiveQuestionnaire } from 'actions/app-state';
 import { updateComponent } from 'actions/component';
-import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
-import ComponentTranformerFactory from 'utils/transformation-entities/component';
 import { getQuestionnaireValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
+import Questionnaire from 'model/local-transformations/questionnaire';
+import ComponentFactory from 'questionnaire/components/component/model/component';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
-  activesComponents: state.appState.activeComponentsById,
-  user: state.appState.user,
+  componentsStore: state.appState.activeComponentsById,
 });
 
 const mapDispatchToProps = {
@@ -22,19 +24,14 @@ const mapDispatchToProps = {
 };
 
 function QuestionnaireEditContainer({
-  user,
   updateActiveQuestionnaire,
   updateComponent,
   questionnaire,
-  activesComponents,
+  componentsStore,
   onSuccess,
   onCancel,
 }) {
-  const questionnaireTransformer = QuestionnaireTransformerFactory({
-    owner: user.permission,
-    initialState: questionnaire,
-  });
-  const componentTransformer = ComponentTranformerFactory({ initialStore: activesComponents });
+  const questionnaireTransformer = Questionnaire(questionnaire);
   const initialValues = questionnaireTransformer.stateToForm();
 
   const submit = values => {
@@ -43,7 +40,11 @@ function QuestionnaireEditContainer({
     if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
 
     const updatedQuestionnaire = questionnaireTransformer.formToState(values);
-    const updatedComponentsStore = componentTransformer.formToStore(values, questionnaire.id);
+    const updatedComponentsStore = ComponentFactory(
+      { id: questionnaire.id, type: QUESTIONNAIRE },
+      { componentsStore }
+    ).formToStore(values, questionnaire.id);
+
     // Updating the questionnaire store.
     updateActiveQuestionnaire(updatedQuestionnaire);
     // Updating the questionnaire component.
@@ -55,8 +56,7 @@ function QuestionnaireEditContainer({
 }
 
 QuestionnaireEditContainer.propTypes = {
-  activesComponents: PropTypes.object,
-  user: PropTypes.object.isRequired,
+  componentsStore: PropTypes.object,
   updateActiveQuestionnaire: PropTypes.func.isRequired,
   questionnaire: PropTypes.object.isRequired,
   onSuccess: PropTypes.func,
@@ -64,7 +64,7 @@ QuestionnaireEditContainer.propTypes = {
 };
 
 QuestionnaireEditContainer.defaultProps = {
-  activesComponents: {},
+  componentsStore: {},
   onSuccess: undefined,
   onCancel: undefined,
 };

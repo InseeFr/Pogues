@@ -4,7 +4,12 @@ import * as CalculatedVariable from './calculated-variable';
 import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
 
-import { uuid, nestedStoreToFlat } from 'utils/utils';
+import { uuid } from 'utils/utils';
+import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
+import {
+  removeOrphansCollectedVariables,
+  getCollectedVariablesIdsFromComponents,
+} from 'utils/variables/variables-utils';
 
 export function remoteToState(remote) {
   const {
@@ -15,6 +20,7 @@ export function remoteToState(remote) {
     Label: [label],
     agency,
     DataCollection: dataCollection,
+    lastUpdatedDate,
     // ComponentGroup: componentGroups, @TODO: This data is not used yet.
   } = remote;
 
@@ -25,7 +31,7 @@ export function remoteToState(remote) {
     name,
     label,
     agency,
-    lastUpdatedDate: new Date().toString(),
+    lastUpdatedDate,
     serie: '',
     operation: '',
     campaigns: dataCollection.map(dc => dc.id),
@@ -47,8 +53,19 @@ export function stateToRemote(state, stores) {
     collectedVariableByQuestionStore,
     campaignsStore,
   } = stores;
-  const collectedVariablesStore = nestedStoreToFlat(collectedVariableByQuestionStore);
-  const { owner, id, label, name, agency, campaigns, final, lastUpdatedDate } = state;
+
+  const collectedVariablesStore = Object.keys(collectedVariableByQuestionStore).reduce((acc, key) => {
+    return { ...acc, ...collectedVariableByQuestionStore[key] };
+  }, {});
+
+  // We remove from the stores the elements no associated to a component before saving
+  const codesListsWihoutOrphans = removeOrphansCodesLists(codesListsStore, componentsStore);
+  const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
+    getCollectedVariablesIdsFromComponents(componentsStore),
+    collectedVariablesStore
+  );
+
+  const { owner, id, label, name, agency, campaigns, final } = state;
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
@@ -60,7 +77,7 @@ export function stateToRemote(state, stores) {
     id,
     Label: [label],
     Name: name,
-    lastUpdatedDate,
+    lastUpdatedDate: new Date().toString(),
     DataCollection: dataCollections,
     ComponentGroup: [
       {
@@ -74,10 +91,10 @@ export function stateToRemote(state, stores) {
   };
 
   const componentsRemote = Component.storeToRemote(componentsStore, id, codesListsStore);
-  const codesListsRemote = CodesList.storeToRemote(codesListsStore);
+  const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(calculatedVariablesStore);
   const externalVariablesRemote = ExternalVariable.storeToRemote(externalVariablesStore);
-  const collectedVariablesRemote = CollectedVariable.storeToRemote(collectedVariablesStore);
+  const collectedVariablesRemote = CollectedVariable.storeToRemote(collectedVariablesWithoutOrphans);
 
   return {
     ...remote,
