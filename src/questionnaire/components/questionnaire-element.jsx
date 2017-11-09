@@ -5,6 +5,7 @@ import ClassSet from 'react-classset';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import DropZone from 'questionnaire/components/drop-zone/drop-zone';
+import VisualizeDropDown from 'layout/widget/visualize-dropdown';
 
 import { DragSource, DropTarget } from 'react-dnd';
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
@@ -43,6 +44,7 @@ class QuestionnaireElement extends Component {
     draggedItem: PropTypes.object,
     canDrop: PropTypes.bool,
     errors: PropTypes.array,
+    visualizeActiveQuestionnaire: PropTypes.func.isRequired
   };
   static defaultProps = {
     children: [],
@@ -140,23 +142,24 @@ class QuestionnaireElement extends Component {
                   </div>
                   {selected
                     ? <div className="questionnaire-element-actions">
-                        <button className="btn-yellow" onClick={onClickDetail}>
-                          {Dictionary.showDetail}
-                        </button>
-                        {type === 'QUESTION' &&
-                          <button className="btn-yellow" onClick={onClickDuplicate}>
-                            {Dictionary.duplicate}
-                            <span className="glyphicon glyphicon-duplicate" />
-                          </button>}
-                        <button
-                          className="btn-yellow"
-                          disabled={weight === 0 && type === 'SEQUENCE'}
-                          onClick={onClickDelete}
-                        >
-                          {Dictionary.remove}
-                          <span className="glyphicon glyphicon-trash" />
-                        </button>
-                      </div>
+                      <button className="btn-yellow" onClick={onClickDetail}>
+                        {Dictionary.showDetail}
+                      </button>
+                      {type === 'QUESTION' &&
+                        <button className="btn-yellow" onClick={onClickDuplicate}>
+                          {Dictionary.duplicate}
+                          <span className="glyphicon glyphicon-duplicate" />
+                        </button>}
+                      <VisualizeDropDown componentId={id} visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire} />
+                      <button
+                        className="btn-yellow"
+                        disabled={weight === 0 && type === 'SEQUENCE'}
+                        onClick={onClickDelete}
+                      >
+                        {Dictionary.remove}
+                        <span className="glyphicon glyphicon-trash" />
+                      </button>
+                    </div>
                     : ''}
                 </div>
                 {listErrors.length > 0 &&
@@ -164,7 +167,8 @@ class QuestionnaireElement extends Component {
                     <ul>
                       {listErrors}
                     </ul>
-                  </div>}
+                  </div>
+                }
               </div>
             </div>
             {dropZone}

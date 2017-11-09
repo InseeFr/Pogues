@@ -171,11 +171,11 @@
         }
 
         .questionnaire-element-label {
-          @include make-xs-column(6);
+          @include make-xs-column(4);
         }
 
         .questionnaire-element-actions {
-          @include make-xs-column(6);
+          @include make-xs-column(8);
           text-align: right;
           button {
             margin: 5px  5px 0 0;
@@ -242,5 +242,10 @@
     body.ReactModal__Body--open & {
       z-index: -100;
     }
+  }
+
+  .dropdown-menu.top {
+    top: -150%;
+    left: 10px;
   }
 }

@@ -26,6 +26,7 @@ class Questionnaire extends Component {
     loadStatisticalContext: PropTypes.func.isRequired,
     loadCampaignsIfNeeded: PropTypes.func.isRequired,
     errorsByComponent: PropTypes.object,
+    visualizeActiveQuestionnaire: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -175,6 +176,7 @@ class Questionnaire extends Component {
           onClickDetail={event => this.handleOpenElementDetail(event, key)}
           onClickDelete={event => this.handleRemoveElement(event, key)}
           onClickDuplicate={event => this.handleDuplicateElement(event, key)}
+          visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
           moveComponent={moveComponent}
           childrenId={components[key].children}
           weight={components[key].weight}

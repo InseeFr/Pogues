@@ -10,7 +10,17 @@ import {
   SET_SELECTED_COMPONENT,
   UPDATE_ACTIVE_QUESTIONNAIRE,
   LOAD_STATISTICAL_CONTEXT_SUCCESS,
+  SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
 } from 'actions/app-state';
+import {
+  CREATE_COMPONENT,
+  DUPLICATE_COMPONENT,
+  UPDATE_COMPONENT,
+  REMOVE_COMPONENT,
+  UPDATE_COMPONENT_PARENT,
+  UPDATE_COMPONENT_ORDER,
+  MOVE_COMPONENT,
+} from 'actions/component';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 
 const actionHandlers = {};
@@ -27,6 +37,7 @@ const defaultState = {
   errorsByCode: {},
   selectedComponentId: '',
   errorsByQuestionTab: {},
+  isQuestionnaireModified: false,
 };
 
 export function loadUserSuccess(state, user) {
@@ -48,6 +59,7 @@ export function setActiveQuestionnaire(state, questionnaire) {
 export function updateActiveQuestionnaire(state, updatedQuestionnaire) {
   return {
     ...state,
+    isQuestionnaireModified: true,
     activeQuestionnaire: {
       ...state.activeQuestionnaire,
       ...updatedQuestionnaire,
@@ -73,14 +85,36 @@ export function loadStatisticalContext(state, { serie, operation }) {
   };
 }
 
+export function setQuestionNotModified(state) {
+  return {
+    ...state,
+    isQuestionnaireModified: false,
+  }
+}
+export function setQuestionModified(state) {
+  return {
+    ...state,
+    isQuestionnaireModified: true,
+  }
+}
+
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
 actionHandlers[LOAD_STATISTICAL_CONTEXT_SUCCESS] = loadStatisticalContext;
+actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = setQuestionNotModified;
+
+actionHandlers[CREATE_COMPONENT] = setQuestionModified;
+actionHandlers[DUPLICATE_COMPONENT] = setQuestionModified;
+actionHandlers[UPDATE_COMPONENT] = setQuestionModified;
+actionHandlers[REMOVE_COMPONENT] = setQuestionModified;
+actionHandlers[UPDATE_COMPONENT_PARENT] = setQuestionModified;
+actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
+actionHandlers[MOVE_COMPONENT] = setQuestionModified;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
-export default function(state = defaultState, action) {
+export default function (state = defaultState, action) {
   if (!action) return state;
   const { type, payload } = action;
   const hndlr = actionHandlers[type];

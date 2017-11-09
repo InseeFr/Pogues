@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import GenericInput from 'questionnaire/components/generic-input';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { saveActiveQuestionnaire } from 'actions/app-state';
+import { saveActiveQuestionnaire, visualizeActiveQuestionnaire } from 'actions/app-state';
 import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
@@ -23,11 +23,13 @@ const mapStateToProps = state => {
     components: state.appState.activeComponentsById,
     selectedComponentId: state.appState.selectedComponentId,
     isQuestionnaireValid,
+    isQuestionnaireModified: state.appState.isQuestionnaireModified
   };
 };
 
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
+  visualizeActiveQuestionnaire,
 };
 
 function GenericInputContainer({
@@ -36,6 +38,8 @@ function GenericInputContainer({
   selectedComponentId,
   saveActiveQuestionnaire,
   isQuestionnaireValid,
+  isQuestionnaireModified,
+  visualizeActiveQuestionnaire,
 }) {
   const placeholders = {};
   const selectedComponent = components[selectedComponentId];
@@ -49,6 +53,8 @@ function GenericInputContainer({
       saveActiveQuestionnaire={saveActiveQuestionnaire}
       isQuestionnaireValid={isQuestionnaireValid}
       idQuestionnaire={questionnaire.id}
+      isQuestionnaireModified={isQuestionnaireModified}
+      visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
     />
   );
 }
