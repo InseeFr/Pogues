@@ -1,7 +1,6 @@
 import merge from 'lodash.merge';
 
 import {
-  COMPONENT_TYPE,
   QUESTION_TYPE_ENUM,
   CODES_LIST_INPUT_ENUM,
   DIMENSION_TYPE,
@@ -12,7 +11,6 @@ import {
 import {
   required,
   requiredSelect,
-  uniqueCode,
   emptyCodes,
   emptyMeasures,
   name as validName,
@@ -22,9 +20,8 @@ import {
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { NEW, QUESTIONNAIRE: QUEST } = CODES_LIST_INPUT_ENUM;
+const { NEW, QUEST } = CODES_LIST_INPUT_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { NUMERIC, TEXT } = DATATYPE_NAME;
@@ -102,15 +99,25 @@ function validateSimple(values, path) {
  *                  to the element where show the error and a second element with the error message.
  */
 function validateCodesList(values, path) {
-  const { label, codes } = values;
-  const labelRequired = required(label);
-  const notEmptyCodes = emptyCodes(codes);
+  const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id, label, codes, panel } } = values;
   const validationErrors = [];
+  let idRequired;
+  let labelRequired;
+  let notEmptyCodes;
+
+  if (panel === NEW) {
+    labelRequired = required(label);
+    notEmptyCodes = emptyCodes(codes);
+  } else {
+    idRequired = required(id);
+  }
 
   if (labelRequired) {
     validationErrors.push([`${path}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.label`, labelRequired]);
   } else if (notEmptyCodes) {
-    validationErrors.push([`${path}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.label`, notEmptyCodes]);
+    validationErrors.push([`${path}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.label`, Dictionary.validationNoCodes]);
+  } else if (idRequired) {
+    validationErrors.push([`${path}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`, idRequired]);
   }
 
   return validationErrors;
@@ -191,13 +198,13 @@ function validateMeasure(values, path) {
  * @return {number} The number of codes.
  */
 function getNumCodes(values, codesListStore) {
-  const { type, [NEW]: { codes }, [QUESTIONNAIRE]: { codesListId } } = values;
+  const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { panel, codes, id } } = values;
   let numCodes = 0;
 
-  if (type === NEW) {
+  if (panel === NEW) {
     numCodes = codes.length;
-  } else if (type === QUEST) {
-    const codesList = codesListStore[codesListId] || {};
+  } else if (panel === QUEST) {
+    const codesList = codesListStore[id] || {};
     numCodes = Object.keys(codesList.codes || {}).length;
   }
 
@@ -312,7 +319,7 @@ function validateResponseFormat(values, path) {
   } else if (type === SIMPLE) {
     validationErrors = validateSimple(responseFormat, `${path}.${type}`);
   } else if (type === SINGLE_CHOICE) {
-    validationErrors = validateCodesList(responseFormat[DEFAULT_CODES_LIST_SELECTOR_PATH], `${path}.${type}`);
+    validationErrors = validateCodesList(responseFormat, `${path}.${type}`);
   } else if (type === MULTIPLE_CHOICE) {
     const { type: measureType, [measureType]: measure } = responseFormat[MEASURE];
 

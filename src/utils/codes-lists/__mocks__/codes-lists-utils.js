@@ -1,4 +1,10 @@
-import { COMPONENT_TYPE, QUESTION_TYPE_ENUM, DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_TYPE,
+  DIMENSION_FORMATS,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+} from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
@@ -39,7 +45,7 @@ export const componentsStore = {
     responseFormat: {
       type: SINGLE_CHOICE,
       [SINGLE_CHOICE]: {
-        codesListId: 'CODES_LIST_ID_1',
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_1' },
       },
     },
   },
@@ -50,12 +56,12 @@ export const componentsStore = {
       type: MULTIPLE_CHOICE,
       [MULTIPLE_CHOICE]: {
         [PRIMARY]: {
-          codesListId: 'CODES_LIST_ID_2',
+          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_2' },
         },
         [MEASURE]: {
           type: CODES_LIST,
           [CODES_LIST]: {
-            codesListId: 'CODES_LIST_ID_3',
+            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_3' },
           },
         },
       },
@@ -70,16 +76,16 @@ export const componentsStore = {
         [PRIMARY]: {
           type: CODES_LIST,
           [CODES_LIST]: {
-            codesListId: 'CODES_LIST_ID_4',
+            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_4' },
           },
         },
         [SECONDARY]: {
-          codesListId: 'CODES_LIST_ID_5',
+          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_5' },
         },
         [MEASURE]: {
           type: SINGLE_CHOICE,
           [SINGLE_CHOICE]: {
-            codesListId: 'CODES_LIST_ID_6',
+            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_6' },
           },
         },
         [LIST_MEASURE]: [
@@ -89,13 +95,13 @@ export const componentsStore = {
           {
             type: SINGLE_CHOICE,
             [SINGLE_CHOICE]: {
-              codesListId: 'CODES_LIST_ID_7',
+              [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_7' },
             },
           },
           {
             type: SINGLE_CHOICE,
             [SINGLE_CHOICE]: {
-              codesListId: 'CODES_LIST_ID_8',
+              [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_8' },
             },
           },
         ],

@@ -28,17 +28,14 @@ describe('<CodesListCodes />', () => {
     expect(wrapper.find(`Field[name="${customProps.path}.code.parent"][type="hidden"]`)).toHaveLength(1);
   });
 
-  test.skip(
-    'Should insert in the list of codes a new code with the form values when enter is tapped in the code field',
-    () => {
-      const spyPushFromCodeEnter = jest.fn();
+  test.skip('Should insert in the list of codes a new code with the form values when enter is tapped in the code field', () => {
+    const spyPushFromCodeEnter = jest.fn();
 
-      // Enter in the code field
-      customProps.fields.push = spyPushFromCodeEnter;
-      const wrapper = shallow(<CodesListCodes {...customProps} />);
+    // Enter in the code field
+    customProps.fields.push = spyPushFromCodeEnter;
+    const wrapper = shallow(<CodesListCodes {...customProps} />);
 
-      wrapper.find(wrapper.find(`input[name="${customProps.path}.code.value"]`)).simulate('keyDown', fakeEnterEvent);
-      expect(spyPushFromCodeEnter).toHaveBeenCalled();
-    }
-  );
+    wrapper.find(wrapper.find(`input[name="${customProps.path}.code.value"]`)).simulate('keyDown', fakeEnterEvent);
+    expect(spyPushFromCodeEnter).toHaveBeenCalled();
+  });
 });

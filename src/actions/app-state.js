@@ -1,6 +1,6 @@
 import { putQuestionnaire, getContextFromCampaign, visualizeSpec, visualizePdf, visualizeHtml } from 'utils/remote-api';
-import { questionnaireModelToStores } from 'utils/model/model-to-state-utils';
-import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
+import { questionnaireRemoteToStores } from 'model/remote-to-stores';
+import * as Questionnaire from 'model/transformations/questionnaire';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -159,8 +159,8 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
     id,
     update: {
       ...update,
-      isQuestionnaireModified: false
-    }
+      isQuestionnaireModified: false,
+    },
   },
 });
 
@@ -181,23 +181,25 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   },
 });
 
-function getQuestionnaireModel(state, activeComponentsById) {
-  const questionnaireTransformer = QuestionnaireTransformerFactory({
-    owner: state.appState.user.permission,
-    initialState: {
-      ...state.appState.activeQuestionnaire,
-      lastUpdatedDate: new Date().toString(),
-    },
-    componentsStore: activeComponentsById,
-    codesListsStore: state.appState.activeCodeListsById,
+function getQuestionnaireModel(state, customComponentsStore) {
+  const stores = {
+    componentsStore: customComponentsStore || state.appState.activeComponentsById,
     conditionsStore: {},
+    codesListsStore: state.appState.activeCodeListsById,
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     externalVariablesStore: state.appState.activeExternalVariablesById,
     collectedVariableByQuestionStore: state.appState.collectedVariableByQuestion,
     campaignsStore: state.metadataByType.campaigns,
-  });
-  return questionnaireTransformer.stateToModel();
+  };
+  const questionnaireState = {
+    ...state.appState.activeQuestionnaire,
+    lastUpdatedDate: new Date().toString(),
+    owner: state.appState.user.permission,
+  };
+
+  return Questionnaire.stateToRemote(questionnaireState, stores);
 }
+
 /**
  * Save active questionnaire
  *
@@ -213,12 +215,12 @@ export const saveActiveQuestionnaire = () => {
     });
 
     const state = getState();
-    const questionnaireModel = getQuestionnaireModel(state, state.appState.activeComponentsById)
+    const questionnaireModel = getQuestionnaireModel(state);
 
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
         return dispatch(
-          saveActiveQuestionnaireSuccess(questionnaireModel.id, questionnaireModelToStores(questionnaireModel))
+          saveActiveQuestionnaireSuccess(questionnaireModel.id, questionnaireRemoteToStores(questionnaireModel))
         );
       })
       .catch(err => {
@@ -229,29 +231,26 @@ export const saveActiveQuestionnaire = () => {
 
 /**
  * This method will generate select all components from the root (the questionnaire) until the
- * selected component. To this path, we will add also all the children of the selected component. 
- * 
+ * selected component. To this path, we will add also all the children of the selected component.
+ *
  * When selecting parent component, we will also update it children property, in order to remove
- * everything except the selected component. 
- * 
+ * everything except the selected component.
+ *
  * @param {*} componentId The ID of the selected component
  * @param {*} componentsById An object representing the list of active components
  */
 function getPathFromComponent(componentId, componentsById) {
   function addChild(id) {
     const children = componentsById[id].children;
-    if (children.length == 0) {
+    if (children.length === 0) {
       return [];
     }
     return [
       ...children.map(i => componentsById[i]),
       ...children.reduce((acc, c) => {
-        return [
-          ...acc,
-          ...addChild(c)
-        ]
-      }, [])
-    ]
+        return [...acc, ...addChild(c)];
+      }, []),
+    ];
   }
   function addParent(id) {
     const parentId = componentsById[id].parent;
@@ -261,23 +260,23 @@ function getPathFromComponent(componentId, componentsById) {
     return [
       {
         ...componentsById[parentId],
-        children: componentsById[parentId].children.filter(i => i === id)
+        children: componentsById[parentId].children.filter(i => i === id),
       },
-      ...addParent(parentId)
-    ]
+      ...addParent(parentId),
+    ];
   }
-  let path = [componentsById[componentId], ...addChild(componentId), ...addParent(componentId)];
+  const path = [componentsById[componentId], ...addChild(componentId), ...addParent(componentId)];
 
   return path.reduce((acc, c) => {
     return {
       ...acc,
-      [c.id]: c
-    }
+      [c.id]: c,
+    };
   }, {});
 }
 
 /**
- * This method will call the corresponding REST endpoint based on the type of visualization we want. 
+ * This method will call the corresponding REST endpoint based on the type of visualization we want.
  * Also, thanks to the componentId parameter, we can generate a part of the questionnaire
  * @param {*} type the type of visualization we want
  * @param {*} componentId The ID of the selected component (optional)
@@ -285,18 +284,20 @@ function getPathFromComponent(componentId, componentsById) {
 export const visualizeActiveQuestionnaire = (type, componentId) => {
   return (dispatch, getState) => {
     const state = getState();
-    const componentsById = componentId ? getPathFromComponent(componentId, state.appState.activeComponentsById) : state.appState.activeComponentsById
+    const componentsById = componentId
+      ? getPathFromComponent(componentId, state.appState.activeComponentsById)
+      : state.appState.activeComponentsById;
 
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
     if (type === 'pdf') {
-      visualizePdf(questionnaireModel)
+      visualizePdf(questionnaireModel);
     } else if (type === 'spec') {
-      visualizeSpec(questionnaireModel)
+      visualizeSpec(questionnaireModel);
     } else if (type === 'html') {
       visualizeHtml(questionnaireModel);
     }
-  }
-}
+  };
+};
 
 /**
  * Set the invalid items in a question using the errorsByCode store

@@ -4,9 +4,9 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 const { SEQUENCE } = COMPONENT_TYPE;
 
 /**
- * 
+ *
  * This method is used to to determine at which level we should insert a component. The dragged
- * component can become : 
+ * component can become :
  * - a sibling of the dropped component -> level = 0
  * - a child of the dropped component -> level = 1
  * - a parent of the drocpped component -> level = -1
@@ -30,13 +30,13 @@ export function getDragnDropLevel(droppedComponent, draggedComponent) {
 }
 
 /**
- * This method is used to calcul the margin we should add to an element. 
- * Based on the result of the getDragnDropLevel method, we should add/remove a 
+ * This method is used to calcul the margin we should add to an element.
+ * Based on the result of the getDragnDropLevel method, we should add/remove a
  * 20px margin.
- * 
+ *
  * If getDragnDropLevel return 1, we do not add any margin, because the dragged
- * component will become a child, and based of the HTML, a margin is automatically added.  
- * 
+ * component will become a child, and based of the HTML, a margin is automatically added.
+ *
  * @param {object} droppedComponent The component we are currently dropping something in
  * @param {object} draggedComponent The component we are currently dragging
  * @param {number} dragndropLevel The result of the getDragnDropLevel method

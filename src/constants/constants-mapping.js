@@ -8,7 +8,7 @@
  * have a meaning in a dedicated scope (for example, as a result structure
  * type), but we could have the same value used elsewhere in `pogues-constants`
  * to represent another kind of concept.
-* */
+ * */
 import {
   UI_BEHAVIOUR as uiBhvrCst,
   DECLARATION_POSITION as dclPostCst,

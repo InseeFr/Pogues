@@ -7,7 +7,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'layout/forms/controls/input';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { redirectionsFormDefault } from 'utils/transformation-entities/redirection';
+import { defaultForm } from './model/redirection';
 import TreeSelectGotoContainer from 'layout/connected-widget/tree-select-goto';
 import { getComponentsTargetsByComponent, getComponentsTargetsByPosition } from 'utils/model/redirections-utils';
 
@@ -121,7 +121,7 @@ class Redirections extends Component {
   };
 
   render() {
-    const { redirections, ...initialInputValues } = redirectionsFormDefault;
+    const { redirections, ...initialInputValues } = defaultForm;
     const {
       componentsStore,
       componentId,

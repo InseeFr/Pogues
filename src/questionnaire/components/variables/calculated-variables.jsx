@@ -3,7 +3,7 @@ import { Field, FormSection } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultCalculatedVariableForm } from 'utils/transformation-entities/calculated-variable';
+import { defaultForm } from './model/collected-variable';
 import Input from 'layout/forms/controls/input';
 import { name as validateName, nameSize } from 'layout/forms/validation-rules';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
@@ -45,7 +45,7 @@ class CalculatedVariables extends Component {
   static selectorPath = 'calculatedVariables';
 
   render() {
-    const { calculatedVariables, ...initialInputValues } = defaultCalculatedVariableForm;
+    const { calculatedVariables, ...initialInputValues } = defaultForm;
     const inputCalculatedVariableView = <InputCalculatedVariable />;
 
     return (

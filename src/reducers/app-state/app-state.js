@@ -89,13 +89,13 @@ export function setQuestionNotModified(state) {
   return {
     ...state,
     isQuestionnaireModified: false,
-  }
+  };
 }
 export function setQuestionModified(state) {
   return {
     ...state,
     isQuestionnaireModified: true,
-  }
+  };
 }
 
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
@@ -114,7 +114,7 @@ actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
 actionHandlers[MOVE_COMPONENT] = setQuestionModified;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
-export default function (state = defaultState, action) {
+export default function(state = defaultState, action) {
   if (!action) return state;
   const { type, payload } = action;
   const hndlr = actionHandlers[type];

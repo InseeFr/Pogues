@@ -13,7 +13,7 @@ class GenericInput extends Component {
   static propTypes = {
     placeholders: PropTypes.object.isRequired,
     saveActiveQuestionnaire: PropTypes.func.isRequired,
-    visualizeActiveQuestionnaire: PropTypes.func.isRequired,
+    visualizeActiveQuestionnaire: PropTypes.func,
     isQuestionnaireModified: PropTypes.bool.isRequired,
     isQuestionnaireValid: PropTypes.bool.isRequired,
     idQuestionnaire: PropTypes.string,
@@ -22,6 +22,7 @@ class GenericInput extends Component {
   static defaultProps = {
     idQuestionnaire: undefined,
     isQuestionnaireModified: false,
+    visualizeActiveQuestionnaire: undefined,
   };
 
   constructor(props) {
@@ -62,9 +63,7 @@ class GenericInput extends Component {
 
     return (
       <div id="questionnaire-generic-input" style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}>
-        <span>
-          {Dictionary.addObject}
-        </span>
+        <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
           className="btn-white"
@@ -102,12 +101,21 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.pageBreak}
         </button>
-        <button className="btn-yellow" disabled={!isQuestionnaireModified} onClick={this.props.saveActiveQuestionnaire} id="save">
+        <button
+          className="btn-yellow"
+          disabled={!isQuestionnaireModified}
+          onClick={this.props.saveActiveQuestionnaire}
+          id="save"
+        >
           {Dictionary.save}
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
 
-        <VisualizeDropDown top={true} disabled={!isQuestionnaireValid} visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire} />
+        <VisualizeDropDown
+          top
+          disabled={!isQuestionnaireValid}
+          visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
+        />
 
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
@@ -121,9 +129,7 @@ class GenericInput extends Component {
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>
-                {this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}
-              </h3>
+              <h3>{this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}</h3>
               <button type="button" onClick={this.handleCloseNewComponent}>
                 <span>X</span>
               </button>

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SubmissionError, actions, formValueSelector } from 'redux-form';
 
+import Questionnaire from 'model/local-transformations/questionnaire';
 import { createQuestionnaire } from 'actions/questionnaire';
 import QuestionnaireNewEdit from 'home/components/questionnaire-new-edit';
-import QuestionnaireTransformerFactory from 'utils/transformation-entities/questionnaire';
 import { getQuestionnaireValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
 
 const mapStateToProps = state => {
@@ -59,7 +59,8 @@ class QuestionnaireNewContainer extends Component {
 
   render() {
     const { user, onSuccess, onCancel } = this.props;
-    const questionnaireTransformer = QuestionnaireTransformerFactory({ owner: user.permission });
+    const initialState = { owner: user.permission };
+    const questionnaireTransformer = Questionnaire(initialState);
     const initialValues = questionnaireTransformer.stateToForm();
 
     const submit = values => {
@@ -67,7 +68,9 @@ class QuestionnaireNewContainer extends Component {
 
       if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
 
-      return this.props.createQuestionnaire(questionnaireTransformer.formToState(values)).then(result => {
+      const questionnaireState = questionnaireTransformer.formToState(values);
+
+      return this.props.createQuestionnaire(questionnaireState).then(result => {
         const { payload: { id } } = result;
         if (onSuccess) onSuccess(id);
       });

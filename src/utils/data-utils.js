@@ -2,8 +2,6 @@ import { COMPONENT_TYPE } from '../constants/pogues-constants';
 
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
-export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-
 // TODO flattened questionnaire structure might be part of the main reducer,
 // because this information is used in multiple places ; we might choose to keep
 // this representation instead of the regular parent/child relationships

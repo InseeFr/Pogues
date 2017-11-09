@@ -1941,19 +1941,19 @@ module.exports = [
         "Name" : "",
         "Label" : "LISTE_TEST",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "choix 1"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "choix 2"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "choix 3"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "choix 4"
         }, {
-          "Value" : "",
+          "Value" : "code05", "Parent": "",
           "Label" : "choix 5"
         } ]
       }, {
@@ -1961,10 +1961,10 @@ module.exports = [
         "Name" : "",
         "Label" : "Oui_Non",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Oui"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Non"
         } ]
       }, {
@@ -1972,16 +1972,16 @@ module.exports = [
         "Name" : "",
         "Label" : "LISTE_TEST_2",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "choix 6"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "choix 7"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "choix 8"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "choix 9"
         } ]
       }, {
@@ -1989,28 +1989,28 @@ module.exports = [
         "Name" : "",
         "Label" : "DOMAINE",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Eaux usées"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Déchets hors radioactifs"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Protection de l’air"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Limitation des émissions de gaz à effet de serre"
         }, {
-          "Value" : "",
+          "Value" : "code05", "Parent": "",
           "Label" : "Bruits et vibrations"
         }, {
-          "Value" : "",
+          "Value" : "code06", "Parent": "",
           "Label" : "Sols, eaux souterraines et de surface"
         }, {
-          "Value" : "",
+          "Value" : "code07", "Parent": "",
           "Label" : "Sites, paysages et biodiversité"
         }, {
-          "Value" : "",
+          "Value" : "code08", "Parent": "",
           "Label" : "Autres (rayonnement, R&D sur l’environnement…)"
         } ]
       }, {
@@ -2018,10 +2018,10 @@ module.exports = [
         "Name" : "",
         "Label" : "L_SEXE",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Masculin"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Féminin"
         } ]
       }, {
@@ -2029,16 +2029,16 @@ module.exports = [
         "Name" : "",
         "Label" : "NATURE",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Pré-traitement, traitement et élimination"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Mesure et contrôle"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Recyclage, tri et valorisation"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Prévention des pollutions"
         } ]
       }, {
@@ -2046,19 +2046,19 @@ module.exports = [
         "Name" : "",
         "Label" : "L_effectifs",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Effectifs salariés à temps plein"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Effectifs salariés à temps partiel moins de 6 mois"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Effectifs salariés à temps partiel 6 mois et plus"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Apprentis, stagiaires rémunérés"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Total"
         } ]
       }, {
@@ -2066,22 +2066,22 @@ module.exports = [
         "Name" : "",
         "Label" : "L_GLACE",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "vanille"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "chocolat"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "fraise"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "abricot"
         }, {
-          "Value" : "",
+          "Value" : "code05", "Parent": "",
           "Label" : "citron"
         }, {
-          "Value" : "",
+          "Value" : "code06", "Parent": "",
           "Label" : "rhum raisins"
         } ]
       }, {
@@ -2089,16 +2089,16 @@ module.exports = [
         "Name" : "",
         "Label" : "L_fréquence",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Toujours"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Souvent"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Parfois"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Jamais"
         } ]
       }, {
@@ -2106,19 +2106,19 @@ module.exports = [
         "Name" : "",
         "Label" : "LIST_ONE",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Item 1"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Item 2"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Item 3"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Item 4"
         }, {
-          "Value" : "",
+          "Value" : "code05", "Parent": "",
           "Label" : "Item 5"
         } ]
       }, {
@@ -2126,16 +2126,16 @@ module.exports = [
         "Name" : "",
         "Label" : "weather_list",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "sunny"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "cloudy"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "rainy"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "a mix of all, I'm in Brittany"
         } ]
       }, {
@@ -2143,19 +2143,19 @@ module.exports = [
         "Name" : "",
         "Label" : "LIST_TWO",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "item 6"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "item 7"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "item 8"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "item 9"
         }, {
-          "Value" : "",
+          "Value" : "code05", "Parent": "",
           "Label" : "item 10"
         } ]
       }, {
@@ -2163,19 +2163,19 @@ module.exports = [
         "Name" : "",
         "Label" : "EVENING",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Drink some beers"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Go to cinema"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Watch a movie at home"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Cook good meals for my friends"
         }, {
-          "Value" : "",
+          "Value" : "code05", "Parent": "",
           "Label" : "Read a novel"
         } ]
       }, {
@@ -2183,10 +2183,10 @@ module.exports = [
         "Name" : "",
         "Label" : "LIST_SEX_EN",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Man"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Woman"
         } ]
       }, {
@@ -2194,10 +2194,10 @@ module.exports = [
         "Name" : "",
         "Label" : "Yes_No_EN",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Yes"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "No"
         } ]
       }, {
@@ -2205,13 +2205,13 @@ module.exports = [
         "Name" : "",
         "Label" : "L_TIC_TPE",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "La commande ou la réservation en ligne (panier virtuel) ?"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "La description de biens ou services, ou des listes de prix ?"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Des liens permettant d’accéder aux pages de l’entreprise dans les médias\n                    sociaux (Facebook, Twitter, Google+, LinkedIn, Viadeo, etc.) ?"
         } ]
       }, {
@@ -2219,10 +2219,10 @@ module.exports = [
         "Name" : "",
         "Label" : "L_ventes",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "A des particuliers"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "A des professionnels ou revendeurs"
         } ]
       }, {
@@ -2230,16 +2230,16 @@ module.exports = [
         "Name" : "",
         "Label" : "L_activite",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "à temps complet"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "à temps partiel 80 % ou plus"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "de mi-temps à moins de 80 %"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "moins d’un mi-temps"
         } ]
       }, {
@@ -2247,19 +2247,19 @@ module.exports = [
         "Name" : "",
         "Label" : "L_formation",
         "Code" : [ {
-          "Value" : "",
+          "Value" : "code01", "Parent": "",
           "Label" : "Formation financée ou organisée par l’employeur ou une agence d’intérim (hors\n                    apprentissage et contrats de professionnalisation)"
         }, {
-          "Value" : "",
+          "Value" : "code02", "Parent": "",
           "Label" : "Formation donnée par une école de la 2e chance, par l’EPIDE"
         }, {
-          "Value" : "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Formation conseillée ou organisée par Pôle emploi, par une mission locale,\n                    une chambre des métiers, une agence de placement (APEC, INGEUS, …), (y compris\n                    ateliers de techniques de recherche d’emploi, ateliers CV)"
         }, {
-          "Value" : "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Une formation professionnalisante ou à but professionnel (pour trouver un\n                    emploi, améliorer votre situation, …)"
         }, {
-          "Value" : "",
+          "Value" : "code05", "Parent": "",
           "Label" : "Aucune de ces formations depuis la fin des études, même pour quelques\n                    jours"
         } ]
       } ]

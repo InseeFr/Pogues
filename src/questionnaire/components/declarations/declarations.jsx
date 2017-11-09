@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 import Select from 'layout/forms/controls/select';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { declarationsFormDefault } from 'utils/transformation-entities/declaration';
+import { defaultForm } from './model/declaration';
 import { required } from 'layout/forms/validation-rules';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
@@ -118,7 +118,7 @@ class Declarations extends Component {
   };
 
   render() {
-    const { declarations, ...initialInputValues } = declarationsFormDefault;
+    const { declarations, ...initialInputValues } = defaultForm;
     const InputDeclarationView = connect(mapStateToProps)(InputDeclaration);
     const inputDeclarationViewInstance = <InputDeclarationView showPosition={this.props.showPosition} />;
     return (

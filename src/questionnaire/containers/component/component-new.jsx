@@ -4,14 +4,11 @@ import { connect } from 'react-redux';
 import { SubmissionError, actions, formValueSelector, getFormSubmitErrors } from 'redux-form';
 import isEqual from 'lodash.isequal';
 
+import ComponentFactory from '../../components/component/model/component';
+
 import { createComponent, orderComponents, updateParentChildren } from 'actions/component';
 import { setSelectedComponentId, setTabErrors, clearTabErrors } from 'actions/app-state';
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
-import ComponentTransformerFactory from 'utils/transformation-entities/component';
-import CalculatedVariableTransformerFactory from 'utils/transformation-entities/calculated-variable';
-import ExternalVariableTransformerFactory from 'utils/transformation-entities/external-variable';
-import CollectedVariableTransformerFactory from 'utils/transformation-entities/collected-variable';
-import CodesListTransformerFactory from 'utils/transformation-entities/codes-list';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getComponentValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
 import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
@@ -23,8 +20,7 @@ const mapStateToProps = state => {
   return {
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     externalVariablesStore: state.appState.activeExternalVariablesById,
-    currentCodesListsIdsStore: state.appState.codeListsByActiveQuestion,
-    activeCodesListsStore: state.appState.activeCodeListsById,
+    codesListsStore: state.appState.activeCodeListsById,
     errorsValidation: getFormSubmitErrors('component')(state),
     errorsByQuestionTab: state.appState.errorsByQuestionTab,
     currentLabel: selector(state, 'label'),
@@ -58,8 +54,7 @@ class ComponentNewContainer extends Component {
     onCancel: PropTypes.func,
     calculatedVariablesStore: PropTypes.object,
     externalVariablesStore: PropTypes.object,
-    currentCodesListsIdsStore: PropTypes.object,
-    activeCodesListsStore: PropTypes.object,
+    codesListsStore: PropTypes.object,
     errorsValidation: PropTypes.object,
     errorsByQuestionTab: PropTypes.object,
     currentLabel: PropTypes.string,
@@ -71,8 +66,7 @@ class ComponentNewContainer extends Component {
     onCancel: undefined,
     calculatedVariablesStore: {},
     externalVariablesStore: {},
-    currentCodesListsIdsStore: {},
-    activeCodesListsStore: {},
+    codesListsStore: {},
     errorsValidation: {},
     errorsByQuestionTab: {},
     currentLabel: '',
@@ -99,7 +93,10 @@ class ComponentNewContainer extends Component {
 
     if (currentName === '') {
       const rawName = type === QUESTION ? markdownToRaw(currentLabel || '').blocks[0].text : currentLabel;
-      const name = rawName.replace(/[^a-z0-9_]/gi, '').toUpperCase().slice(0, 10);
+      const name = rawName
+        .replace(/[^a-z0-9_]/gi, '')
+        .toUpperCase()
+        .slice(0, 10);
       change('component', 'name', name);
     }
   }
@@ -113,39 +110,24 @@ class ComponentNewContainer extends Component {
       onCancel,
       calculatedVariablesStore,
       externalVariablesStore,
-      currentCodesListsIdsStore,
-      activeCodesListsStore,
+      codesListsStore,
       errorsByQuestionTab,
     } = this.props;
-    const componentTransformer = ComponentTransformerFactory({
-      calculatedVariablesStore,
-      externalVariablesStore,
-      currentCodesListsIdsStore,
-      codesListsStore: activeCodesListsStore,
-    });
-    const initialValues = componentTransformer.stateToForm({ type });
+
+    const initialState = { type, parent: parentId, weight };
+    const stores = { calculatedVariablesStore, externalVariablesStore, codesListsStore };
+    const componentTransformer = ComponentFactory(initialState, stores);
+    const initialValues = componentTransformer.stateToForm();
     const submit = values => {
-      let updatedCalculatedVariablesStore = {};
-      let updatedExternalVariablesStore = {};
-      let updatedCodesListsStore = {};
-      let updatedCollectedlVariablesStore = {};
-      const validationErrors = getComponentValidationErrors(values, activeCodesListsStore);
+      const validationErrors = getComponentValidationErrors(values, codesListsStore);
 
       if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
 
-      const componentState = componentTransformer.formToState(values, { parent: parentId, weight, type });
-
-      if (type === QUESTION) {
-        updatedCodesListsStore = CodesListTransformerFactory({
-          initialComponentState: componentState.responseFormat,
-        }).formToStore(values.responseFormat);
-
-        updatedCalculatedVariablesStore = CalculatedVariableTransformerFactory().formToStore(
-          values.calculatedVariables
-        );
-        updatedExternalVariablesStore = ExternalVariableTransformerFactory().formToStore(values.externalVariables);
-        updatedCollectedlVariablesStore = CollectedVariableTransformerFactory().formToStore(values.collectedVariables);
-      }
+      const componentState = componentTransformer.formToState(values);
+      const updatedCodesListsStore = componentTransformer.getCodesListStore();
+      const updatedCalculatedVariablesStore = componentTransformer.getCalculatedVariablesStore();
+      const updatedExternalVariablesStore = componentTransformer.getExternalVariablesStore();
+      const updatedCollectedlVariablesStore = componentTransformer.getCollectedVariablesStore();
 
       this.props
         .createComponent(
