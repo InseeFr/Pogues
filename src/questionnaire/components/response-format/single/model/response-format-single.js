@@ -17,6 +17,17 @@ export const defaultState = {
   [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
 };
 
+export const defaultForm = {
+  mandatory: false,
+  hasSpecialCode: false,
+  specialLabel: '',
+  specialCode: '',
+  specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
+  specialFollowUpMessage: '',
+  visHint: CHECKBOX,
+  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+};
+
 export function formToState(form, transformers) {
   const {
     mandatory,

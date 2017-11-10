@@ -10,7 +10,7 @@ import OptionalViewContainer from 'layout/connected-widget/optional-view';
 function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   return (
     <div>
-      <CodesLists selectorPathParent={this.selectorPathComposed} />
+      <CodesLists selectorPathParent={selectorPath} />
       <OptionalViewContainer
         name="showTotalLabel"
         selectorPath={selectorPath}

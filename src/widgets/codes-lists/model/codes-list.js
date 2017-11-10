@@ -9,6 +9,12 @@ export const defaultState = {
   codes: {},
 };
 
+export const defaultForm = {
+  id: '',
+  label: '',
+  codes: [],
+};
+
 export function formToState(form) {
   const { id, label, codes } = form;
 
@@ -29,11 +35,11 @@ export function formToState(form) {
 export function stateComponentToForm({ id, label, codes }) {
   const codesList = Object.keys(codes || {}).map(key => codes[key]);
 
-  return {
+  return merge(cloneDeep(defaultForm), {
     id: id || '',
     label: label || '',
     codes: codesList,
-  };
+  });
 }
 
 export const Factory = (currentState = {}, codesListsStore) => {
@@ -49,8 +55,10 @@ export const Factory = (currentState = {}, codesListsStore) => {
       return {
         id: currentState.id,
       };
-      // if (form) currentState = merge(cloneDeep(currentState), formToState(form));
-      // return currentState;
+    },
+    formToState: form => {
+      if (form) currentState = merge(currentState, formToState(form));
+      return currentState;
     },
     stateComponentToForm: () => {
       return stateComponentToForm(currentState);
