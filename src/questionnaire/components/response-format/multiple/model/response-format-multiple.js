@@ -27,6 +27,20 @@ export const defaultState = {
   },
 };
 
+export const defaultForm = {
+  [PRIMARY]: {
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+  },
+  [MEASURE]: {
+    type: BOOL,
+    [BOOL]: {},
+    [CODES_LIST]: {
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+      visHint: CHECKBOX,
+    },
+  },
+};
+
 export function formToStateMeasure(form, codesListMeasure) {
   const { type, [type]: measureForm } = form;
   const state = {

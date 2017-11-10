@@ -88,6 +88,8 @@ class CodesList extends Component {
   render() {
     const { selectorPath, path, formName, activePanel, currentCodesListsStore } = this.props;
 
+    console.log(currentCodesListsStore);
+
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>
         {/* Selector panel */}
