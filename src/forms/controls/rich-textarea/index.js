@@ -8,4 +8,4 @@ export {
   getValue,
   formatURL,
 } from './rich-textarea-utils';
-export { toolbarConfig, rootStyle } from './rich-textarea-config';
+export { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';
