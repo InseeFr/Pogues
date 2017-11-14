@@ -2,7 +2,6 @@ import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
 import { CompositeDecorator, EditorState } from 'draft-js';
 import stateToMarkdownVtl from './lib/state-to-markdown-vtl';
 import stateFromMarkdownVtl from './lib/state-from-markdown-vtl';
-import { stateFromElement } from 'draft-js-import-element';
 
 import { customLinkDecorator, customConditionDecorator } from './decorators/rich-textarea-decorators';
 
@@ -55,13 +54,10 @@ function createFromString(markup, format, decorator) {
 
 export function getValue(value) {
   const decorators = getDecorators();
+
   const editorValue = value
-    ? RichTextEditor.EditorValue.createFromString(value, MARKDOWN, decorators)
+    ? createFromString(value, MARKDOWN, decorators)
     : RichTextEditor.EditorValue.createEmpty(decorators);
 
-  const contentState = editorValue.getEditorState().getCurrentContent();
-
   return editorValue;
-
-  // return value ? createFromString(value, MARKDOWN, decorators) : RichTextEditor.EditorValue.createEmpty(decorators);
 }

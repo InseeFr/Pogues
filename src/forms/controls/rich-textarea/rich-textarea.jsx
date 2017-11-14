@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import RichTextEditor, { ButtonGroup } from 'gillespie59-react-rte/lib/RichTextEditor';
 import clearEntityForRange from './lib/clear-entity-for-range';
-import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
+import { getDefaultKeyBinding, EditorState, Modifier, convertToRaw } from 'draft-js';
 // import ReactDOM from 'react-dom';
 
 import { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';
@@ -40,7 +40,6 @@ const propTypes = {
   required: PropTypes.bool,
   focusOnInit: PropTypes.bool,
   onEnter: PropTypes.func,
-
 };
 
 const defaultProps = {
@@ -114,6 +113,7 @@ class RichTextarea extends Component {
     const editorState = editorValue.getEditorState();
     const contentState = editorState.getCurrentContent();
     const markdownValue = editorValueToMarkdown(contentState);
+    // const markdownValue = convertToRaw(contentState);
     this.props.input.onChange(markdownValue);
     this.setState({ value: editorValue, markdownValue: markdownValue });
   }

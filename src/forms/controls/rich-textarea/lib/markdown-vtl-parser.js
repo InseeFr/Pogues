@@ -362,6 +362,7 @@ Lexer.prototype.token = function(src, top, bq) {
 const inline = {
   escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
   link: /^!?\[(inside)\]\(href\)/,
+  condition: /^##{"label": "(inside)", "conditions": (inside)}.+#end/,
   reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
   nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
   strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
@@ -376,7 +377,11 @@ const inline = {
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
 inline._href = /\s*<?([\s\S]*)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
 
+inline._conditions = /\s*<?([\s\S]*)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
+
 inline.link = replace(inline.link)('inside', inline._inside)('href', inline._href)();
+
+inline.condition = replace(inline.condition)('inside', inline._inside)('inside', inline._inside)();
 
 inline.reflink = replace(inline.reflink)('inside', inline._inside)();
 
@@ -473,6 +478,15 @@ InlineLexer.prototype.parse = function(src) {
       continue;
     }
 
+    // condition
+    if ((cap = this.rules.condition.exec(src))) {
+      src = src.substring(cap[0].length);
+      this.inLink = true;
+      out.appendChild(this.outputCondition(cap, { title: cap[1], conditions: cap[2] }));
+      this.inLink = false;
+      continue;
+    }
+
     // link
     if ((cap = this.rules.link.exec(src))) {
       src = src.substring(cap[0].length);
@@ -556,6 +570,17 @@ InlineLexer.prototype.parse = function(src) {
 };
 
 /**
+ * Compile Condition
+ */
+
+InlineLexer.prototype.outputCondition = function(cap, condition) {
+  const title = condition.title;
+  const conditions = condition.conditions;
+
+  return this.renderer.condition(title, conditions, this.parse(cap[1]));
+};
+
+/**
  * Compile Link
  */
 
@@ -632,6 +657,13 @@ Renderer.prototype.del = function(childNode) {
 
 Renderer.prototype.ins = function(childNode) {
   return new ElementNode('ins', [], [childNode]);
+};
+
+Renderer.prototype.condition = function(title, conditions, childNode) {
+  const attributes = [{ name: 'conditions', value: conditions }];
+  attributes.push({ name: 'title', value: title });
+  attributes.push({ name: 'className', value: 'condition' });
+  return new ElementNode('span', attributes, [childNode]);
 };
 
 Renderer.prototype.link = function(href, title, childNode) {
@@ -810,7 +842,6 @@ function replace(regex, options) {
 const MarkdownParser = {
   parse(src, options) {
     options = assign({}, defaults, options);
-    var fragment
     try {
       var fragment = Parser.parse(Lexer.parse(src, options), options);
     } catch (e) {
