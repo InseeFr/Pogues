@@ -102,3 +102,17 @@ export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
   SEARCH_RESULTS_ID: 'page-search-questionnaire__results',
 };
+
+export const INPUT_CONDITION_POPOVER = {
+  COMPONENT_CLASS: 'input-condition-popover',
+  BUTTONGROUP: 'input-condition-popover-button-group',
+  INNER: 'input-condition-popover__inner',
+  CONDITION: 'input-condition-popover__condition',
+  INPUT: 'input-condition-popover__condition-input',
+};
+
+export const ICON_BUTTON = {
+  COMPONENT_CLASS: 'icon-button',
+  IS_ACTIVE: 'icon-button-active',
+  ICON: 'icon-button__icon',
+};

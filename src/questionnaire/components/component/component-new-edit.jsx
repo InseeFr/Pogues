@@ -14,7 +14,8 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { componentName } from 'layout/forms/normalize-inputs';
-import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+// import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichTextarea } from 'forms/controls/rich-textarea';
 import Input from 'forms/controls/input';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -133,7 +134,8 @@ export class QuestionNewEdit extends Component {
     };
 
     if (type === QUESTION) {
-      propsLabelField = { ...propsLabelField, component: RichTextareaWithVariableAutoCompletion };
+      // propsLabelField = { ...propsLabelField, component: RichTextareaWithVariableAutoCompletion };
+      propsLabelField = { ...propsLabelField, component: RichTextarea };
     } else {
       propsLabelField = { ...propsLabelField, component: Input, type: 'text' };
     }

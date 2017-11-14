@@ -51,7 +51,8 @@ function remoteToState(remote, codesListsStore) {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
 
     state.type = QUESTION;
-    state.label = getQuestionLabelFromRaw(label);
+    // state.label = getQuestionLabelFromRaw(label);
+    state.label = label
     state.rawLabel = label;
     state.htmlLabel = markdownToHtml(state.label);
     state.responseFormat = ResponseFormat.remoteToState(questionType, responses, dimensions, codesListsStore);

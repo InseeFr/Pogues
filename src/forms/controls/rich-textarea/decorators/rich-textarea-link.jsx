@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 // Utils
 
-export function findVteEntities(contentBlock, callback, contentState) {
+export function findLinkEntities(contentBlock, callback, contentState) {
   contentBlock.findEntityRanges(character => {
     const entityKey = character.getEntity();
     if (entityKey != null) {
       const entity = contentState ? contentState.getEntity(entityKey) : null;
-      return entity != null && entity.getType() === 'VTE';
+      return entity != null && entity.getType() === 'LINK';
     }
     return false;
   }, callback);
@@ -17,14 +17,14 @@ export function findVteEntities(contentBlock, callback, contentState) {
 // PropTypes and defaultProps
 
 const propTypes = {
-  contentState: PropTypes.func.isRequired,
+  contentState: PropTypes.object.isRequired,
   entityKey: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.array.isRequired,
 };
 
 // Component
 
-function RichTextareaVte({ entityKey, children, contentState }) {
+function RichTextareaLink({ entityKey, children, contentState }) {
   const { url, title } = contentState.getEntity(entityKey).getData();
 
   return (
@@ -34,6 +34,6 @@ function RichTextareaVte({ entityKey, children, contentState }) {
   );
 }
 
-RichTextareaVte.propTypes = propTypes;
+RichTextareaLink.propTypes = propTypes;
 
-export default RichTextareaVte;
+export default RichTextareaLink;
