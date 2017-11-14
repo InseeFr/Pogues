@@ -7,7 +7,7 @@ import Input from 'forms/controls/input';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultForm } from './model/control';
-import withXPathValidation from 'hoc/withXPathValidation';
+import withXPathValidation from 'hoc/with-xpath-validation';
 
 const TextAreaWithVariableAndXPathValidation = withXPathValidation(TextareaWithVariableAutoCompletion);
 

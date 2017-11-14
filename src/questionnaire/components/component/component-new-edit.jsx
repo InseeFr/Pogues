@@ -122,6 +122,7 @@ export class QuestionNewEdit extends Component {
       required: true,
       focusOnInit: true,
       submitOnEnter: true,
+      showAddConditions: true,
     };
 
     const propsNameField = {

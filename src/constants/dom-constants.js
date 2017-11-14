@@ -111,6 +111,10 @@ export const INPUT_CONDITION_POPOVER = {
   INPUT: 'input-condition-popover__condition-input',
 };
 
+export const BUTTON_WRAP = {
+  COMPONENT_CLASS: 'button-wrap',
+};
+
 export const ICON_BUTTON = {
   COMPONENT_CLASS: 'icon-button',
   IS_ACTIVE: 'icon-button-active',

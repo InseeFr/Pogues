@@ -1,11 +1,11 @@
-import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
+import { markdownVtlToString } from 'forms/controls/rich-textarea';
 
 const rNameNeg = /[^a-z0-9_]/gi;
 
 export function componentName(value, previousValue, allValues) {
-  const rawLabel = markdownToRaw(allValues.label || '').blocks[0].text;
-  if (value.length === 0 && previousValue.length === 0 && rawLabel && rawLabel.length > 0) {
-    value = rawLabel
+  const label = markdownVtlToString(allValues.label || '');
+  if (value.length === 0 && previousValue.length === 0 && label && label.length > 0) {
+    value = label
       .replace(rNameNeg, '')
       .toUpperCase()
       .slice(0, 10);

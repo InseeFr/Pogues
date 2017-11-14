@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import RichTextEditor, { ButtonGroup } from 'gillespie59-react-rte/lib/RichTextEditor';
-import clearEntityForRange from './lib/clear-entity-for-range';
-import { getDefaultKeyBinding, EditorState, Modifier, convertToRaw } from 'draft-js';
-// import ReactDOM from 'react-dom';
+import clearEntityForRange from 'gillespie59-react-rte/lib/lib/clearEntityForRange';
+import getEntityAtCursor from 'gillespie59-react-rte/lib/lib/getEntityAtCursor';
+import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
 
 import { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';
-import { getValue, editorValueToMarkdown } from './rich-textarea-utils';
+import { getEditorValue, contentStateToString } from './utils/rich-textarea-utils';
 import PopoverIconButton from './ui/popover-icon-button';
 import IconButton from './ui/icon-button';
-import getEntityAtCursor from './lib/get-entity-at-cursor';
 import InputConditionPopover from './ui/input-condition-popover';
 
 import { getControlId } from 'utils/widget-utils';
@@ -26,10 +25,6 @@ function getSelectionAtCursor(editorState) {
   return entity == null ? null : contentState.getEntity(entity.entityKey);
 }
 
-function formatCondition(conditions) {
-  return { conditions };
-}
-
 // PropTypes and defaultProps
 
 const propTypes = {
@@ -39,6 +34,7 @@ const propTypes = {
   className: PropTypes.string,
   required: PropTypes.bool,
   focusOnInit: PropTypes.bool,
+  showAddConditions: PropTypes.bool,
   onEnter: PropTypes.func,
 };
 
@@ -48,6 +44,7 @@ const defaultProps = {
   identifier: undefined,
   className: undefined,
   focusOnInit: false,
+  showAddConditions: false,
   onEnter: undefined,
 };
 
@@ -61,8 +58,8 @@ class RichTextarea extends Component {
     super(props);
 
     this.state = {
-      value: getValue(props.input.value),
-      markdownValue: props.input.value,
+      editorValue: getEditorValue(props.input.value),
+      value: props.input.value,
       showConditionInput: false,
     };
 
@@ -74,10 +71,10 @@ class RichTextarea extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.input.value !== this.state.markdownValue) {
+    if (nextProps.input.value !== this.state.value) {
       this.setState({
-        value: getValue(nextProps.input.value),
-        markdownValue: nextProps.input.value,
+        editorValue: getEditorValue(nextProps.input.value),
+        value: nextProps.input.value,
       });
     }
   }
@@ -85,14 +82,14 @@ class RichTextarea extends Component {
   setCondition(conditions, editorState) {
     let contentState = editorState.getCurrentContent();
     const targetSelection = editorState.getSelection();
-    contentState = contentState.createEntity('CONDITION', 'MUTABLE', formatCondition(conditions));
+    contentState = contentState.createEntity('CONDITION', 'MUTABLE', { conditions });
     const entityKey = contentState.getLastCreatedEntityKey();
     let newEditorState = EditorState.push(editorState, contentState);
     const withoutCondition = Modifier.applyEntity(newEditorState.getCurrentContent(), targetSelection, entityKey);
     newEditorState = EditorState.push(newEditorState, withoutCondition, 'apply-entity');
 
     this.setState({ showConditionInput: false });
-    this.handleChange(this.state.value.setEditorState(newEditorState));
+    this.handleChange(this.state.editorValue.setEditorState(newEditorState));
   }
 
   removeCondition(editorState) {
@@ -100,7 +97,7 @@ class RichTextarea extends Component {
     if (entity != null) {
       const { blockKey, startOffset, endOffset } = entity;
       const newEditorState = clearEntityForRange(editorState, blockKey, startOffset, endOffset);
-      this.handleChange(this.state.value.setEditorState(newEditorState));
+      this.handleChange(this.state.editorValue.setEditorState(newEditorState));
     }
   }
 
@@ -110,12 +107,10 @@ class RichTextarea extends Component {
   }
 
   handleChange(editorValue) {
-    const editorState = editorValue.getEditorState();
-    const contentState = editorState.getCurrentContent();
-    const markdownValue = editorValueToMarkdown(contentState);
-    // const markdownValue = convertToRaw(contentState);
-    this.props.input.onChange(markdownValue);
-    this.setState({ value: editorValue, markdownValue: markdownValue });
+    const contentState = editorValue.getEditorState().getCurrentContent();
+    const value = contentStateToString(contentState);
+    this.props.input.onChange(value);
+    this.setState({ editorValue, value });
   }
 
   keyBinding(e) {
@@ -127,8 +122,67 @@ class RichTextarea extends Component {
   }
 
   render() {
-    const { className, label, required, focusOnInit, input, meta: { touched, error } } = this.props;
+    const { className, label, required, focusOnInit, showAddConditions, input, meta: { touched, error } } = this.props;
     const id = getControlId('rich-textarea', input.name);
+
+    let customProps = {
+      className: EDITOR_CLASS,
+      placeholder: label,
+      value: this.state.editorValue,
+      onChange: this.handleChange,
+      toolbarConfig: toolbarConfig,
+      autoFocus: focusOnInit,
+      keyBindingFn: this.keyBinding,
+      rootStyle: rootStyle,
+    };
+
+    if (showAddConditions) {
+      customProps = {
+        ...customProps,
+        customControls: [
+          (setValue, getValueButton, editorState) => {
+            let data;
+            let isCursorOnCondition = false;
+            const selection = editorState.getSelection();
+            const entity = getSelectionAtCursor(editorState);
+            const hasSelection = !selection.isCollapsed();
+
+            if (entity != null && entity.type === 'CONDITION') {
+              data = entity.getData();
+              isCursorOnCondition = true;
+            }
+
+            const shouldShowConditionButton = hasSelection || isCursorOnCondition;
+
+            return (
+              <ButtonGroup key="conditions">
+                <PopoverIconButton
+                  label="Add condition"
+                  iconName="add-conditions"
+                  isDisabled={!shouldShowConditionButton}
+                  showPopover={this.state.showConditionInput}
+                  onTogglePopover={this.toggleShowConditionInput}
+                  onSubmit={conditions => {
+                    this.setCondition(conditions, editorState);
+                  }}
+                  placeholder="Add condition"
+                  InputPopover={InputConditionPopover}
+                  data={data}
+                />
+
+                <IconButton
+                  label="Remove condition"
+                  iconName="remove-conditions"
+                  isDisabled={!isCursorOnCondition}
+                  onClick={() => this.removeCondition(editorState)}
+                  focusOnClick={false}
+                />
+              </ButtonGroup>
+            );
+          },
+        ],
+      };
+    }
 
     return (
       <div className={`${COMPONENT_CLASS} ${className}`}>
@@ -137,59 +191,7 @@ class RichTextarea extends Component {
           {required && <span className="ctrl-required">*</span>}
         </label>
         <div>
-          <RichTextEditor
-            className={EDITOR_CLASS}
-            placeholder={label}
-            value={this.state.value}
-            onChange={this.handleChange}
-            toolbarConfig={toolbarConfig}
-            autoFocus={focusOnInit}
-            keyBindingFn={this.keyBinding}
-            rootStyle={rootStyle}
-            customControls={[
-              // eslint-disable-next-line no-unused-vars
-              (setValue, getValueButton, editorState) => {
-                let data;
-                let isCursorOnCondition = false;
-                const selection = editorState.getSelection();
-                const entity = getSelectionAtCursor(editorState);
-                const hasSelection = !selection.isCollapsed();
-
-                if (entity != null && entity.type === 'CONDITION') {
-                  data = entity.getData();
-                  isCursorOnCondition = true;
-                }
-
-                const shouldShowConditionButton = hasSelection || isCursorOnCondition;
-
-                return (
-                  <ButtonGroup key="conditions">
-                    <PopoverIconButton
-                      label="Add condition"
-                      iconName="add-conditions"
-                      isDisabled={!shouldShowConditionButton}
-                      showPopover={this.state.showConditionInput}
-                      onTogglePopover={this.toggleShowConditionInput}
-                      onSubmit={conditions => {
-                        this.setCondition(conditions, editorState);
-                      }}
-                      placeholder="Add condition"
-                      InputPopover={InputConditionPopover}
-                      data={data}
-                    />
-
-                    <IconButton
-                      label="Remove condition"
-                      iconName="remove-conditions"
-                      isDisabled={!isCursorOnCondition}
-                      onClick={() => this.removeCondition(editorState)}
-                      focusOnClick={false}
-                    />
-                  </ButtonGroup>
-                );
-              },
-            ]}
-          />
+          <RichTextEditor {...customProps} />
 
           {touched && (error && <span className="form-error">{error}</span>)}
         </div>

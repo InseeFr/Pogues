@@ -7,7 +7,6 @@ import CalculatedVariable from 'questionnaire/components/variables/model/calcula
 import ExternalVariable from 'questionnaire/components/variables/model/external-variable';
 
 import { uuid, nameFromLabel } from 'utils/utils';
-import { markdownToHtml } from 'forms/controls/rich-textarea';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -19,8 +18,6 @@ export const defaultState = {
   weight: '',
   label: '',
   name: '',
-  rawLabel: '',
-  htmlLabel: '',
   controls: [],
   declarations: [],
   redirections: [],
@@ -41,8 +38,6 @@ export function formToState(form, transformers) {
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
     label: label,
-    rawLabel: label,
-    htmlLabel: markdownToHtml(label),
     responseFormat: transformers.responseFormat.formToState(responseFormat),
     collectedVariables: transformers.collectedVariable.formToComponentState(collectedVariables),
   };
