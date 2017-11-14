@@ -32,8 +32,6 @@ export const mapStateToProps = (state, { selectorPathParent, selectorPath, formN
   const codesListsStore = state.appState.activeCodeListsById;
   let currentCodesListsStore;
 
-  console.log(path);
-
   if (codesListsStore[currentId]) {
     currentCodesListsStore = {
       ...codesListsStore,

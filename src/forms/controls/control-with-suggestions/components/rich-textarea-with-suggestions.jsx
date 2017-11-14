@@ -64,7 +64,9 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   }
 
   handleChange = value => {
-    const transformedValue = editorValueToMarkdown(value);
+    const editorState = value.getEditorState();
+    const contentState = editorState.getCurrentContent();
+    const transformedValue = editorValueToMarkdown(contentState);
     this.setState({
       ...updateSuggestions(transformedValue, RichTextareaWithSuggestions.InputRegex, this.props.availableSuggestions),
       value,

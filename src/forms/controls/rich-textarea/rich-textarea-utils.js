@@ -1,16 +1,19 @@
 import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
-import { CompositeDecorator } from 'draft-js';
+import { CompositeDecorator, EditorState } from 'draft-js';
+import stateToMarkdownVtl from './lib/state-to-markdown-vtl';
+import stateFromMarkdownVtl from './lib/state-from-markdown-vtl';
 
-import { customLinkDecorator } from './rich-textarea-decorators';
+import { customLinkDecorator, customConditionDecorator } from './decorators/rich-textarea-decorators';
 
 const MARKDOWN = 'markdown';
 const RAW = 'raw';
 
 export function getDecorators() {
-  return new CompositeDecorator([customLinkDecorator]);
+  return new CompositeDecorator([customLinkDecorator, customConditionDecorator]);
 }
 
-export function markdownToHtml(markdown) {
+export function markdownToHtml(markdownVtl) {
+  const markdown = markdownVtl.replace(/(##{"label": "(.+)", .+#end)/g, '$2');
   const decorators = getDecorators();
   return { __html: RichTextEditor.EditorValue.createFromString(markdown, MARKDOWN, decorators).toString('html') };
 }
@@ -24,8 +27,8 @@ export function markdownToEditorValue(markdown) {
   }
 }
 
-export function editorValueToMarkdown(value) {
-  return value.toString(MARKDOWN).replace(/^\n+|\n+$/, '');
+export function editorValueToMarkdown(editorState) {
+  return stateToMarkdownVtl(editorState).replace(/^\n+|\n+$/, '');
 }
 
 export function editorValueToRaw(value) {
@@ -43,9 +46,18 @@ export function formatURL(url) {
   return { url: '.', title: url };
 }
 
+function createFromString(markup, format, decorator) {
+  const contentState = stateFromMarkdownVtl(markup);
+  const editorState = EditorState.createWithContent(contentState, decorator);
+  return new RichTextEditor.EditorValue(editorState, { [format]: markup });
+}
+
 export function getValue(value) {
   const decorators = getDecorators();
-  return value
-    ? RichTextEditor.EditorValue.createFromString(value, MARKDOWN, decorators)
+
+  const editorValue = value
+    ? createFromString(value, MARKDOWN, decorators)
     : RichTextEditor.EditorValue.createEmpty(decorators);
+
+  return editorValue;
 }
