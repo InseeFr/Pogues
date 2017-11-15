@@ -9,11 +9,11 @@ import Redirections from 'questionnaire/components/redirections/redirections';
 import CalculatedVariables from 'questionnaire/components/variables/calculated-variables';
 import ExternalVariables from 'questionnaire/components/variables/external-variables';
 import CollectedVariablesContainer from 'questionnaire/containers/variables/collected-variables';
-import Tabs from 'layout/widget/tabs';
+import { Tabs } from 'widgets/tabs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-import { componentName } from 'layout/forms/normalize-inputs';
+import { componentName } from 'forms/normalize-inputs';
 // import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import { RichTextarea } from 'forms/controls/rich-textarea';
 import Input from 'forms/controls/input';

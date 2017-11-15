@@ -1,4 +1,4 @@
-import * as rules from 'layout/forms/validation-rules';
+import * as rules from 'forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 
 export function getUrlFromCriterias(criterias = {}) {

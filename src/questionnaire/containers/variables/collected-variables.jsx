@@ -5,7 +5,7 @@ import { formValueSelector, actions } from 'redux-form';
 
 import CollectedVariables from 'questionnaire/components/variables/collected-variables';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
-import { name as validateName, nameSize, requiredSelect, required } from 'layout/forms/validation-rules';
+import { name as validateName, nameSize, requiredSelect, required } from 'forms/validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function validationGenerate(values) {

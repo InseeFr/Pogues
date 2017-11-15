@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Dictionary from 'utils/dictionary/dictionary';
 import classSet from 'react-classset';
 
-class VisualizeDropDown extends Component {
-  static propTypes = {
-    visualizeActiveQuestionnaire: PropTypes.func,
-    disabled: PropTypes.bool.isRequired,
-    top: PropTypes.bool.isRequired,
-    componentId: PropTypes.string,
-  };
-  static defaultProps = {
-    visualizeActiveQuestionnaire: undefined,
-    disabled: false,
-    top: false,
-    componentId: '',
-  };
+import Dictionary from 'utils/dictionary/dictionary';
+
+// PropTypes and defaultProps
+
+const propTypes = {
+  visualizeActiveQuestionnaire: PropTypes.func,
+  disabled: PropTypes.bool.isRequired,
+  top: PropTypes.bool.isRequired,
+  componentId: PropTypes.string,
+};
+const defaultProps = {
+  visualizeActiveQuestionnaire: undefined,
+  disabled: false,
+  top: false,
+  componentId: '',
+};
+
+// Component
+
+class VisualizeDropdown extends Component {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
   constructor(props) {
     super(props);
@@ -87,4 +95,4 @@ class VisualizeDropDown extends Component {
   }
 }
 
-export default VisualizeDropDown;
+export default VisualizeDropdown;

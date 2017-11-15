@@ -5,7 +5,7 @@ import ClassSet from 'react-classset';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import DropZone from 'questionnaire/components/drop-zone/drop-zone';
-import VisualizeDropDown from 'layout/widget/visualize-dropdown';
+import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 
 import { DragSource, DropTarget } from 'react-dnd';
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
@@ -156,7 +156,7 @@ class QuestionnaireElement extends Component {
                           <span className="glyphicon glyphicon-duplicate" />
                         </button>
                       )}
-                      <VisualizeDropDown
+                      <VisualizeDropdown
                         componentId={id}
                         visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
                       />

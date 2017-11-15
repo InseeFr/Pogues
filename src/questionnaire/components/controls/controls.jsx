@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import Select from 'layout/forms/controls/select';
+import Select from 'forms/controls/select';
+import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
@@ -23,20 +24,6 @@ function validationControl(values) {
 }
 
 function InputControl() {
-  const levels = [
-    {
-      value: 'INFO',
-      label: Dictionary.INFO,
-    },
-    {
-      value: 'WARN',
-      label: Dictionary.WARN,
-    },
-    {
-      value: 'ERROR',
-      label: Dictionary.ERROR,
-    },
-  ];
   return (
     <div>
       <Field type="text" name="label" component={Input} label={Dictionary.control_label} required />
@@ -52,7 +39,17 @@ function InputControl() {
         label={Dictionary.control_message}
         required
       />
-      <Field name="type" id="control_type" component={Select} label={Dictionary.type} options={levels} required />
+      <Field name="type" id="control_type" component={Select} label={Dictionary.type} required>
+        <GenericOption key="INFO" value="INFO">
+          {Dictionary.INFO}
+        </GenericOption>
+        <GenericOption key="WARN" value="WARN">
+          {Dictionary.WARN}
+        </GenericOption>
+        <GenericOption key="ERROR" value="ERROR">
+          {Dictionary.ERROR}
+        </GenericOption>
+      </Field>
       {/* <Field */}
       {/* name="during_collect" */}
       {/* id="control_during_collect" */}

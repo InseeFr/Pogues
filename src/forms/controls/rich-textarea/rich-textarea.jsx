@@ -5,6 +5,7 @@ import RichTextEditor, { ButtonGroup } from 'gillespie59-react-rte/lib/RichTextE
 import clearEntityForRange from 'gillespie59-react-rte/lib/lib/clearEntityForRange';
 import getEntityAtCursor from 'gillespie59-react-rte/lib/lib/getEntityAtCursor';
 import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
+import ReactDOM from 'react-dom';
 
 import { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';
 import { getEditorValue, contentStateToString } from './utils/rich-textarea-utils';
@@ -102,7 +103,7 @@ class RichTextarea extends Component {
   }
 
   toggleShowConditionInput() {
-    const isShowing = this.state.showConditionInput;
+    const isShowing = this.state.showLinkInput;
     this.setState({ showConditionInput: !isShowing });
   }
 

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Logger from 'utils/logger/logger';
 import QuestionnaireListItem from 'home/components/questionnaire-list-item';
 import Dictionary from 'utils/dictionary/dictionary';
-import Input from 'layout/forms/controls/input';
 import { formatDate, getState } from 'utils/component/component-utils';
 
 const logger = new Logger('QuestionnaireList', 'Components');

@@ -2,10 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
+import { WIDGET_TABS } from 'constants/dom-constants';
+
+const { COMPONENT_CLASS, INVALID, ITEM } = WIDGET_TABS;
+
+
+// PropTypes and defaultProps
+
+const propTypes = {
+  components: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+// Component
+
 class Tabs extends Component {
-  static propTypes = {
-    components: PropTypes.arrayOf(PropTypes.object).isRequired,
-  };
+  static propTypes = propTypes;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +49,7 @@ class Tabs extends Component {
       });
       const numErrors =
         components[i].numErrors && components[i].numErrors > 0 ? (
-          <span className="invalid">
+          <span className={INVALID}>
             <div className="alert-triangle" />
             {components[i].numErrors}
           </span>
@@ -46,7 +58,7 @@ class Tabs extends Component {
         );
 
       tabs.push(
-        <li key={`tab-${components[i].id}`} className="nav-item">
+        <li key={`tab-${components[i].id}`} className={ITEM}>
           <a className={classTab} onClick={() => this.setActive(i)}>
             {components[i].label}
           </a>
@@ -61,7 +73,7 @@ class Tabs extends Component {
     }
 
     return (
-      <div className="tabs">
+      <div className={COMPONENT_CLASS}>
         <ul className="nav nav-tabs">{tabs}</ul>
         {contentTabs}
       </div>

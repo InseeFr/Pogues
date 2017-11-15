@@ -3,21 +3,32 @@ import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import debounce from 'lodash.debounce';
 
-class TreeSelect extends Component {
-  static propTypes = {
-    input: PropTypes.object.isRequired,
-    label: PropTypes.string.isRequired,
-    required: PropTypes.bool,
-    emptyValue: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.object),
-    meta: PropTypes.object.isRequired,
-  };
+import { CONTROL_TREE_SELECT } from 'constants/dom-constants';
 
-  static defaultProps = {
-    required: false,
-    options: [],
-    emptyValue: '',
-  };
+const { COMPONENT_CLASS } = CONTROL_TREE_SELECT;
+
+// PropTypes and defaultProps
+
+export const propTypes = {
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  required: PropTypes.bool,
+  emptyValue: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.object),
+  meta: PropTypes.object.isRequired,
+};
+
+export const defaultProps = {
+  required: false,
+  options: [],
+  emptyValue: '',
+};
+
+// Control
+
+class TreeSelect extends Component {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
   static filterOptions = (options, q) => {
     return q !== '' ? options.filter(o => o.label.indexOf(q) !== -1) : options;
@@ -90,7 +101,7 @@ class TreeSelect extends Component {
     }
 
     return (
-      <div className="ctrl-tree-select">
+      <div className={COMPONENT_CLASS}>
         <label htmlFor={`select-${input.name}`}>
           {label}
           {required ? <span>*</span> : ''}
