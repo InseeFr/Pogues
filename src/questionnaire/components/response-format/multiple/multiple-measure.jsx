@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
+import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatMultipleMeasureCodeslist from './multiple-measure-codeslist';
 import Dictionary from 'utils/dictionary/dictionary';
 import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
@@ -27,28 +27,14 @@ class ResponseFormatMultipleMeasure extends Component {
       : ResponseFormatMultipleMeasure.selectorPath;
   }
   render() {
-    const responseFormatTypes = [
-      {
-        id: 'response-format-multiple-measure-listcodes',
-        label: Dictionary.codeList,
-        value: CODES_LIST,
-        content: <ResponseFormatMultipleMeasureCodeslist selectorPathParent={this.selectorPathComposed} />,
-      },
-      {
-        id: 'response-format-multiple-measure-boolean',
-        label: Dictionary.boolean,
-        value: BOOL,
-        content: '',
-      },
-    ];
     return (
       <FormSection name={ResponseFormatMultipleMeasure.selectorPath}>
-        <ComponentSelectoryByTypeContainer
-          label={Dictionary.responseType}
-          components={responseFormatTypes}
-          selectorPath={this.selectorPathComposed}
-          radio
-        />
+        <SelectorView label={Dictionary.responseType} selectorPath={this.selectorPathComposed} radio>
+          <View key={CODES_LIST} value={CODES_LIST} label={Dictionary.codeList}>
+            <ResponseFormatMultipleMeasureCodeslist selectorPathParent={this.selectorPathComposed} />
+          </View>
+          <View key={BOOL} value={BOOL} label={Dictionary.boolean} />
+        </SelectorView>
       </FormSection>
     );
   }

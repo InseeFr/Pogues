@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { DATATYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
-import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
+import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatDatatypeNumeric from './simple-numeric';
 import ResponseFormatDatatypeText from './simple-text';
 
@@ -31,37 +31,9 @@ class ResponseFormatSimple extends Component {
   }
   render() {
     const { showMandatory } = this.props;
-    const baseId = this.selectorPathComposed.split('.').join('-');
     const styleMandatory = {
       display: showMandatory ? 'block' : 'none',
     };
-
-    const responseFormatDatatypes = [
-      {
-        id: `${baseId}-${DATE}`,
-        label: Dictionary.DATE,
-        value: DATE,
-        content: '',
-      },
-      {
-        id: `${baseId}-${NUMERIC}`,
-        label: Dictionary.NUMERIC,
-        value: NUMERIC,
-        content: <ResponseFormatDatatypeNumeric />,
-      },
-      {
-        id: `${baseId}-${TEXT}`,
-        label: Dictionary.TEXT,
-        value: TEXT,
-        content: <ResponseFormatDatatypeText />,
-      },
-      {
-        id: `${baseId}-${BOOLEAN}`,
-        label: Dictionary.BOOLEAN,
-        value: BOOLEAN,
-        content: '',
-      },
-    ];
 
     return (
       <FormSection name={ResponseFormatSimple.selectorPath} className="response-format__simple">
@@ -71,11 +43,16 @@ class ResponseFormatSimple extends Component {
             <Field name="mandatory" id="rf-simple-mandatory" component="input" type="checkbox" />
           </div>
         </div>
-        <ComponentSelectoryByTypeContainer
-          label={Dictionary.responseType}
-          components={responseFormatDatatypes}
-          selectorPath={this.selectorPathComposed}
-        />
+        <SelectorView label={Dictionary.responseType} selectorPath={this.selectorPathComposed}>
+          <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
+            <ResponseFormatDatatypeText />
+          </View>
+          <View key={DATE} value={DATE} label={Dictionary.DATE} />
+          <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
+            <ResponseFormatDatatypeNumeric />
+          </View>
+          <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+        </SelectorView>
       </FormSection>
     );
   }

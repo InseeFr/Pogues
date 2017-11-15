@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './button-wrap.css';
+import { BUTTON_WRAP } from 'constants/dom-constants';
+
+const { COMPONENT_CLASS } = BUTTON_WRAP;
 
 // PropTypes and defaultProps
 
@@ -16,7 +18,7 @@ const defaultProps = {
 // Component
 
 function ButtonWrap(props) {
-  return <div {...props} className={`${props.className} ${styles.root}`} />;
+  return <div {...props} className={`${props.className} ${COMPONENT_CLASS}`} />;
 }
 
 ButtonWrap.propTypes = propTypes;

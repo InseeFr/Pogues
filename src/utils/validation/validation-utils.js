@@ -16,7 +16,7 @@ import {
   name as validName,
   minValue,
   maxValue,
-} from 'layout/forms/validation-rules';
+} from 'forms/validation-rules';
 
 import Dictionary from 'utils/dictionary/dictionary';
 

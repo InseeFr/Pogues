@@ -3,7 +3,7 @@ import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import Input from 'layout/forms/controls/input';
+import Input from 'forms/controls/input';
 import { DIMENSION_FORMATS } from 'constants/pogues-constants';
 
 const { LIST } = DIMENSION_FORMATS;

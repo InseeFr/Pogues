@@ -1,0 +1,7 @@
+.ctrl-list-checkboxes {
+  @extend .ctrl;
+
+  .form-check-label > input[type=checkbox]{
+    margin-right: 10px;
+  }
+}

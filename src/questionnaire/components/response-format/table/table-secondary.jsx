@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import ResponseFormatTableSecondaryOptional from './table-secondary-optional';
 import Dictionary from 'utils/dictionary/dictionary';
-import OptionalViewContainer from 'layout/connected-widget/optional-view';
+import { OptionalView } from 'widgets/optional-view';
 import { DIMENSION_TYPE } from 'constants/pogues-constants';
 
 const { SECONDARY } = DIMENSION_TYPE;
@@ -28,13 +28,14 @@ class ResponseFormatTableSecondary extends Component {
   render() {
     return (
       <FormSection name={ResponseFormatTableSecondary.selectorPath}>
-        <OptionalViewContainer
-          checkbox
+        <OptionalView
           name="showSecondaryAxis"
           selectorPath={this.selectorPathComposed}
           label={Dictionary.addScndAxis}
-          view={<ResponseFormatTableSecondaryOptional selectorPath={this.selectorPathComposed} />}
-        />
+          checkbox
+        >
+          <ResponseFormatTableSecondaryOptional selectorPath={this.selectorPathComposed} />
+        </OptionalView>
       </FormSection>
     );
   }

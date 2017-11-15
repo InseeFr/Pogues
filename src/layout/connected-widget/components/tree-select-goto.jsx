@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import TreeSelect from 'layout/forms/controls/tree-select';
+import TreeSelect from 'forms/controls/tree-select';
 import Dictionary from 'utils/dictionary/dictionary';
 import { InputAutocomplete } from 'forms/controls/input-autocomplete';
 import GenericOption from 'forms/controls/generic-option';

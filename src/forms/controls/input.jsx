@@ -19,18 +19,16 @@ export const propTypes = {
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   focusOnInit: PropTypes.bool,
-  onKeyDown: PropTypes.func,
   reference: PropTypes.func,
 };
 
 export const defaultProps = {
-  label: undefined,
+  label: '',
   placeholder: '',
   className: '',
   required: false,
   disabled: false,
   focusOnInit: false,
-  onKeyDown: undefined,
   reference: undefined,
 };
 
@@ -46,28 +44,29 @@ class Input extends Component {
   render() {
     const {
       className,
-      onKeyDown,
       type,
       label,
       placeholder,
       required,
       disabled,
       input,
+      focusOnInit,
+      reference,
       meta: { touched, error },
+      ...otherProps
     } = this.props;
     const id = getControlId('input', input.name);
 
     return (
       <div className={`${COMPONENT_CLASS} ${className}`}>
-        {label && (
-          <label htmlFor={id}>
-            {label}
-            {required && <span className="ctrl-required">*</span>}
-          </label>
-        )}
+        <label htmlFor={id}>
+          {label}
+          {required && <span className="ctrl-required">*</span>}
+        </label>
 
         <div>
           <input
+            {...otherProps}
             {...input}
             type={type}
             id={id}
@@ -76,7 +75,6 @@ class Input extends Component {
             ref={node => {
               this.input = node;
             }}
-            onKeyDown={onKeyDown}
           />
 
           {touched && (error && <span className="form-error">{error}</span>)}

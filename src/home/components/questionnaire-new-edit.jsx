@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Input from 'forms/controls/input';
-import { componentName } from 'layout/forms/normalize-inputs';
+import { componentName } from 'forms/normalize-inputs';
 import Dictionary from 'utils/dictionary/dictionary';
 import { QUESTIONNAIRE_NEW_FORM_NAME } from 'constants/pogues-constants';
 import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria';

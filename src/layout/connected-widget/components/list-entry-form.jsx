@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FieldArray, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
-import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
+import { markdownVtlToString } from 'forms/controls/rich-textarea';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -14,8 +14,8 @@ function ListEntryFormItem({ fields, noValueLabel, select, invalidItems }) {
       {noValueBlock}
       {fields.map((name, index, listFields) => {
         const item = listFields.get(index);
-        const rawLabel = markdownToRaw(item.label || '').blocks[0].text;
-        const shortLabel = rawLabel && rawLabel.length > 60 ? `${rawLabel.substr(0, 57)}...` : rawLabel;
+        const label = markdownVtlToString(item.label || '');
+        const shortLabel = label && label.length > 60 ? `${label.substr(0, 57)}...` : label;
         const invalidItemClass = classSet({
           invalid: Object.keys(invalidItems).indexOf(item.id) !== -1,
         });

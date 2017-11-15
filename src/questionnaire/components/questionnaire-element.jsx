@@ -5,12 +5,12 @@ import ClassSet from 'react-classset';
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import DropZone from 'questionnaire/components/drop-zone/drop-zone';
-import VisualizeDropDown from 'layout/widget/visualize-dropdown';
+import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 
 import { DragSource, DropTarget } from 'react-dnd';
 import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
 import { getDragnDropLevel, calculateMargin } from 'utils/component/component-dragndrop-utils';
-import { markdownToHtml } from 'layout/forms/controls/rich-textarea';
+import { markdownVtlToHtml } from 'forms/controls/rich-textarea';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -44,7 +44,7 @@ class QuestionnaireElement extends Component {
     draggedItem: PropTypes.object,
     canDrop: PropTypes.bool,
     errors: PropTypes.array,
-    visualizeActiveQuestionnaire: PropTypes.func.isRequired
+    visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   };
   static defaultProps = {
     children: [],
@@ -73,7 +73,6 @@ class QuestionnaireElement extends Component {
       id,
       type,
       label,
-      htmlLabel,
       selected,
       children,
       weight,
@@ -132,25 +131,35 @@ class QuestionnaireElement extends Component {
                 over: isOver,
               })}
             >
-              <div className="questionnaire-element-name">
-                {name}
-              </div>
+              <div className="questionnaire-element-name">{name}</div>
               <div className="questionnaire-element-body">
                 <div>
                   <div className="questionnaire-element-label">
-                    {type === QUESTION ? <span dangerouslySetInnerHTML={htmlLabel} /> : label}
+                    {type === QUESTION ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: markdownVtlToHtml(label),
+                        }}
+                      />
+                    ) : (
+                      label
+                    )}
                   </div>
-                  {selected
-                    ? <div className="questionnaire-element-actions">
+                  {selected ? (
+                    <div className="questionnaire-element-actions">
                       <button className="btn-yellow" onClick={onClickDetail}>
                         {Dictionary.showDetail}
                       </button>
-                      {type === 'QUESTION' &&
+                      {type === 'QUESTION' && (
                         <button className="btn-yellow" onClick={onClickDuplicate}>
                           {Dictionary.duplicate}
                           <span className="glyphicon glyphicon-duplicate" />
-                        </button>}
-                      <VisualizeDropDown componentId={id} visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire} />
+                        </button>
+                      )}
+                      <VisualizeDropdown
+                        componentId={id}
+                        visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
+                      />
                       <button
                         className="btn-yellow"
                         disabled={weight === 0 && type === 'SEQUENCE'}
@@ -160,15 +169,15 @@ class QuestionnaireElement extends Component {
                         <span className="glyphicon glyphicon-trash" />
                       </button>
                     </div>
-                    : ''}
+                  ) : (
+                    ''
+                  )}
                 </div>
-                {listErrors.length > 0 &&
+                {listErrors.length > 0 && (
                   <div className="questionnaire-element-errors">
-                    <ul>
-                      {listErrors}
-                    </ul>
+                    <ul>{listErrors}</ul>
                   </div>
-                }
+                )}
               </div>
             </div>
             {dropZone}

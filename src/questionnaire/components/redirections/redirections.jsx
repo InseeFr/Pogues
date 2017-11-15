@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Field, FormSection, formValueSelector } from 'redux-form';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import Input from 'layout/forms/controls/input';
+import Input from 'forms/controls/input';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultForm } from './model/redirection';

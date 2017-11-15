@@ -2,7 +2,7 @@ import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import ComponentSelectoryByTypeContainer from 'layout/connected-widget/component-selector-by-type';
+import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatSimple from 'questionnaire/components/response-format/simple/response-format-simple';
 import ResponseFormatSingle from 'questionnaire/components/response-format/single/response-format-single';
 import ResponseFormatMultiple from 'questionnaire/components/response-format/multiple/response-format-multiple';
@@ -16,47 +16,39 @@ class ResponseFormat extends FormSection {
   static selectorPath = 'responseFormat';
   static propTypes = {
     edit: PropTypes.bool.isRequired,
-  }
+  };
   static defaultProps = {
     name: 'responseFormat',
   };
   render() {
-    const responseFormatTypes = [
-      {
-        id: `response-format-${SIMPLE}`,
-        label: Dictionary.responseFormatSimple,
-        value: SIMPLE,
-        content: <ResponseFormatSimple selectorPathParent={ResponseFormat.selectorPath} />,
-      },
-      {
-        id: `response-format-${SINGLE_CHOICE}`,
-        label: Dictionary.responseFormatSingle,
-        value: SINGLE_CHOICE,
-        content: <ResponseFormatSingle selectorPathParent={ResponseFormat.selectorPath} />,
-      },
-      {
-        id: `response-format-${MULTIPLE_CHOICE}`,
-        label: Dictionary.responseFormatMultiple,
-        value: MULTIPLE_CHOICE,
-        content: <ResponseFormatMultiple selectorPathParent={ResponseFormat.selectorPath} />,
-      },
-      {
-        id: `response-format-${TABLE}`,
-        label: Dictionary.responseFormatTable,
-        value: TABLE,
-        content: <ResponseFormatTable selectorPathParent={ResponseFormat.selectorPath} />,
-      },
-    ];
+    let customProps = {
+      label: Dictionary.responseFormats,
+      selectorPath: ResponseFormat.selectorPath,
+    };
+
+    if (!this.props.edit) {
+      customProps = {
+        ...customProps,
+        emptyOption: Dictionary.selectType,
+      };
+    }
 
     return (
       <div className="response-format">
-        <ComponentSelectoryByTypeContainer
-          label={Dictionary.responseFormats}
-          components={responseFormatTypes}
-          selectorPath={ResponseFormat.selectorPath}
-          emptyValue={this.props.edit ? '' : Dictionary.selectType}
-          validateInline={false}
-        />
+        <SelectorView {...customProps}>
+          <View key={SIMPLE} value={SIMPLE} label={Dictionary.responseFormatSimple}>
+            <ResponseFormatSimple selectorPathParent={ResponseFormat.selectorPath} />
+          </View>
+          <View key={SINGLE_CHOICE} value={SINGLE_CHOICE} label={Dictionary.responseFormatSingle}>
+            <ResponseFormatSingle selectorPathParent={ResponseFormat.selectorPath} />
+          </View>
+          <View key={MULTIPLE_CHOICE} value={MULTIPLE_CHOICE} label={Dictionary.responseFormatMultiple}>
+            <ResponseFormatMultiple selectorPathParent={ResponseFormat.selectorPath} />
+          </View>
+          <View key={TABLE} value={TABLE} label={Dictionary.responseFormatTable}>
+            <ResponseFormatTable selectorPathParent={ResponseFormat.selectorPath} />
+          </View>
+        </SelectorView>
       </div>
     );
   }

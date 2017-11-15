@@ -20,15 +20,10 @@ describe('Form controls - Input', () => {
     };
   });
 
-  test('Should exists a label element with the label text only when this prop is passed', () => {
-    let wrapper = shallow(<Input {...props} />);
+  test('Should exists a label element with the label text', () => {
+    const wrapper = shallow(<Input {...props} />);
 
     expect(wrapper.find('label').text()).toBe(props.label);
-
-    props.label = undefined;
-
-    wrapper = shallow(<Input {...props} />);
-    expect(wrapper.find('label')).toHaveLength(0);
   });
 
   test('Should exists a notice dans le label when the field is required', () => {
