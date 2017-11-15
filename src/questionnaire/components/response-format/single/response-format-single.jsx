@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
-import Input from 'layout/forms/controls/input';
-import Select from 'layout/forms/controls/select';
+
 import { UI_BEHAVIOUR, DATATYPE_VIS_HINT, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import ListRadioButtons from 'layout/forms/controls/list-radio-buttons';
+import { OptionalView } from 'widgets/optional-view';
 import { CodesLists } from 'widgets/codes-lists';
 import Dictionary from 'utils/dictionary/dictionary';
-import OptionalViewContainer from 'layout/connected-widget/optional-view';
+import GenericOption from 'forms/controls/generic-option';
+import Input from 'forms/controls/input';
+import Select from 'forms/controls/select';
+import ListRadios from 'forms/controls/list-radios';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
@@ -35,56 +37,46 @@ class ResponseFormatSingle extends Component {
     const styleMandatory = {
       display: showMandatory ? 'block' : 'none',
     };
-    const listVisHints = [
-      {
-        value: CHECKBOX,
-        label: Dictionary.checkbox,
-      },
-      {
-        value: RADIO,
-        label: Dictionary.radio,
-      },
-      {
-        value: DROPDOWN,
-        label: Dictionary.dropdown,
-      },
-    ];
-
-    const uiBehaviour = Object.keys(UI_BEHAVIOUR).map(key => {
-      return { value: key, label: Dictionary[key] };
-    });
 
     return (
       <FormSection name={ResponseFormatSingle.selectorPath} className="response-format__single">
         <div className="ctrl-checkbox" style={styleMandatory}>
-          <label htmlFor="rf-single-mandatory">
-            {Dictionary.mandatory}
-          </label>
+          <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
           <div>
             <Field name="mandatory" id="rf-single-mandatory" component="input" type="checkbox" />
           </div>
         </div>
-        <OptionalViewContainer
+        <OptionalView
           name="hasSpecialCode"
           label={Dictionary.addSpecialCode}
           selectorPath={this.selectorPathComposed}
           checkbox
-          view={
-            <div>
-              <Field name="specialLabel" type="text" component={Input} label={Dictionary.codeLabel} />
-              <Field name="specialCode" type="text" component={Input} label={Dictionary.code} />
-              <Field
-                name="specialUiBehaviour"
-                component={Select}
-                label={Dictionary.uiBehaviour}
-                options={uiBehaviour}
-                required
-              />
-              <Field name="specialFollowUpMessage" type="text" component={Input} label={Dictionary.followUpMsg} />
-            </div>
-          }
-        />
-        <Field name="visHint" component={ListRadioButtons} label={Dictionary.visHint} radios={listVisHints} required />
+        >
+          <div>
+            <Field name="specialLabel" type="text" component={Input} label={Dictionary.codeLabel} />
+            <Field name="specialCode" type="text" component={Input} label={Dictionary.code} />
+            <Field name="specialUiBehaviour" component={Select} label={Dictionary.uiBehaviour}>
+              {Object.keys(UI_BEHAVIOUR).map(key => (
+                <GenericOption key={key} value={key}>
+                  {Dictionary[key]}
+                </GenericOption>
+              ))}
+            </Field>
+            <Field name="specialFollowUpMessage" type="text" component={Input} label={Dictionary.followUpMsg} />
+          </div>
+        </OptionalView>
+
+        <Field name="visHint" component={ListRadios} label={Dictionary.visHint} required>
+          <GenericOption key={CHECKBOX} value={CHECKBOX}>
+            {Dictionary.checkbox}
+          </GenericOption>
+          <GenericOption key={RADIO} value={RADIO}>
+            {Dictionary.radio}
+          </GenericOption>
+          <GenericOption key={DROPDOWN} value={DROPDOWN}>
+            {Dictionary.dropdown}
+          </GenericOption>
+        </Field>
         <CodesLists selectorPathParent={this.selectorPathComposed} />
       </FormSection>
     );

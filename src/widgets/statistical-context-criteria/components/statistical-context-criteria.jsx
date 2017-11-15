@@ -9,7 +9,7 @@ import Select from 'forms/controls/select';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
 import Dictionary from 'utils/dictionary/dictionary';
-import { requiredSelect } from 'layout/forms/validation-rules';
+import { requiredSelect } from 'forms/validation-rules';
 
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 

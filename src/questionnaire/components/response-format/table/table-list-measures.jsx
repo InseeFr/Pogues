@@ -11,7 +11,7 @@ import {
 } from 'constants/pogues-constants';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultMeasureForm } from './model/response-format-table';
-import { required, requiredSelect, emptyCodes } from 'layout/forms/validation-rules';
+import { required, requiredSelect, emptyCodes } from 'forms/validation-rules';
 
 const { LIST_MEASURE } = DIMENSION_TYPE;
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;

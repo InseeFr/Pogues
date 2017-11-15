@@ -38,6 +38,10 @@ export const CONTROL_RICH_TEXTAREA = {
   EDITOR_CLASS: 'ctrl-rich-textarea__editor',
 };
 
+export const CONTROL_TREE_SELECT = {
+  COMPONENT_CLASS: 'ctrl-tree-select',
+};
+
 export const WIDGET_LIST_WITH_INPUT_PANEL = {
   COMPONENT_CLASS: 'widget-list-with-input-panel',
   LIST_CLASS: 'widget-list-with-input-panel__list',
@@ -98,6 +102,12 @@ export const WIDGET_VALIDATION_ERRORS = {
   COMPONENT_CLASS: 'widget-validation-errors',
 };
 
+export const WIDGET_TABS = {
+  COMPONENT_CLASS: 'widget-tabs',
+  INVALID: 'widget-tabs-invalid',
+  ITEM: 'widget-tabs-item',
+};
+
 export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
   SEARCH_RESULTS_ID: 'page-search-questionnaire__results',
@@ -109,6 +119,10 @@ export const INPUT_CONDITION_POPOVER = {
   INNER: 'input-condition-popover__inner',
   CONDITION: 'input-condition-popover__condition',
   INPUT: 'input-condition-popover__condition-input',
+};
+
+export const BUTTON_WRAP = {
+  COMPONENT_CLASS: 'button-wrap',
 };
 
 export const ICON_BUTTON = {

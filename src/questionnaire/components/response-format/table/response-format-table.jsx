@@ -18,7 +18,7 @@ class ResponseFormatTable extends Component {
   static selectorPath = TABLE;
   static propTypes = {
     selectorPathParent: PropTypes.string,
-    showSecondaryAxis: PropTypes.bool,
+    showSecondaryAxis: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     primaryAxisType: PropTypes.string,
   };
   static defaultProps = {
@@ -38,29 +38,24 @@ class ResponseFormatTable extends Component {
     const { showSecondaryAxis, primaryAxisType } = this.props;
     return (
       <FormSection name={ResponseFormatTable.selectorPath} className="response-format__table">
-        <h3 className="axis-primary__head">
-          {Dictionary.primaryAxisTable}
-        </h3>
+        <h3 className="axis-primary__head">{Dictionary.primaryAxisTable}</h3>
 
         <ResponseFormatTablePrimary selectorPathParent={this.selectorPathComposed} />
 
-        {primaryAxisType === CODES_LIST &&
+        {primaryAxisType === CODES_LIST && (
           <div>
-            <h3 className="axis-secondary__head">
-              {Dictionary.secondaryAxisTable}
-            </h3>
+            <h3 className="axis-secondary__head">{Dictionary.secondaryAxisTable}</h3>
             <ResponseFormatTableSecondary selectorPathParent={this.selectorPathComposed} />
-          </div>}
+          </div>
+        )}
 
-        <h3 className="axis-measure__head">
-          {Dictionary.measuresAxisTable}
-        </h3>
+        <h3 className="axis-measure__head">{Dictionary.measuresAxisTable}</h3>
 
-        {primaryAxisType === LIST || !showSecondaryAxis
-          ? <ResponseFormatTableListMeasures
-              selectorPathParent={this.selectorPathComposed}
-            />
-          : <ResponseFormatTableMeasure selectorPathParent={this.selectorPathComposed} />}
+        {primaryAxisType === LIST || !showSecondaryAxis ? (
+          <ResponseFormatTableListMeasures selectorPathParent={this.selectorPathComposed} />
+        ) : (
+          <ResponseFormatTableMeasure selectorPathParent={this.selectorPathComposed} />
+        )}
       </FormSection>
     );
   }

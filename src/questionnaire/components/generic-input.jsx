@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { visualisationUrl } from 'utils/remote-api';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import ComponentNewContainer from 'questionnaire/containers/component/component-new';
 import Dictionary from 'utils/dictionary/dictionary';
-import VisualizeDropDown from 'layout/widget/visualize-dropdown';
+import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
@@ -111,7 +110,7 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
 
-        <VisualizeDropDown
+        <VisualizeDropdown
           top
           disabled={!isQuestionnaireValid}
           visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}

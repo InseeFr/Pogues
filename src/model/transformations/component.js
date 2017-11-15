@@ -4,9 +4,7 @@ import * as Control from './control';
 import * as Redirection from './redirection';
 import * as CollectedVariable from './collected-variable';
 
-import { markdownToHtml } from 'forms/controls/rich-textarea';
 import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constants/pogues-constants';
-import { getQuestionLabelFromRaw } from 'utils/model/model-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -51,10 +49,7 @@ function remoteToState(remote, codesListsStore) {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
 
     state.type = QUESTION;
-    // state.label = getQuestionLabelFromRaw(label);
-    state.label = label
-    state.rawLabel = label;
-    state.htmlLabel = markdownToHtml(state.label);
+    state.label = label;
     state.responseFormat = ResponseFormat.remoteToState(questionType, responses, dimensions, codesListsStore);
     state.collectedVariables = CollectedVariable.remoteToComponentState(responses);
   }

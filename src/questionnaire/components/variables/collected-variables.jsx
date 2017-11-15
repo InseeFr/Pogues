@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
 import { defaultForm } from './model/collected-variable';
-import Input from 'layout/forms/controls/input';
-import { name as validateName, nameSize } from 'layout/forms/validation-rules';
+import Input from 'forms/controls/input';
+import { name as validateName, nameSize } from 'forms/validation-rules';
 
 function validationCollectedVariable(values) {
   const { name, label, ref, collectedVariables } = values;

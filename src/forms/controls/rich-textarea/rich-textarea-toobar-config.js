@@ -1,3 +1,5 @@
+// @TODO: Add translations
+
 export const toolbarConfig = {
   display: ['INLINE_STYLE_BUTTONS', 'LINK_BUTTONS'],
   extraProps: {

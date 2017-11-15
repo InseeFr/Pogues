@@ -24,6 +24,8 @@ export const defaultProps = {
   focusOnInit: false,
 };
 
+// Control
+
 class Textarea extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;

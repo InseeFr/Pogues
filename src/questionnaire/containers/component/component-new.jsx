@@ -11,7 +11,7 @@ import { setSelectedComponentId, setTabErrors, clearTabErrors } from 'actions/ap
 import ComponentNewEdit from 'questionnaire/components/component/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getComponentValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
-import { markdownToRaw } from 'layout/forms/controls/rich-textarea';
+import { markdownVtlToString } from 'forms/controls/rich-textarea';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -92,7 +92,7 @@ class ComponentNewContainer extends Component {
     const { type, currentLabel, currentName, change } = this.props;
 
     if (currentName === '') {
-      const rawName = type === QUESTION ? markdownToRaw(currentLabel || '').blocks[0].text : currentLabel;
+      const rawName = type === QUESTION ? markdownVtlToString(currentLabel || '') : currentLabel;
       const name = rawName
         .replace(/[^a-z0-9_]/gi, '')
         .toUpperCase()

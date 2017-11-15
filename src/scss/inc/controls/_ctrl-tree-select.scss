@@ -1,0 +1,40 @@
+.ctrl-tree-select {
+  @extend .ctrl;
+
+  &.disabled ul {
+    background-color: $color-grey_03;
+    cursor: default;
+  }
+
+  label + div {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    ul {
+      padding: 0;
+      height: 120px;
+      background-color: white;
+      border: 1px solid rgb(204, 204, 204);
+      overflow-y: scroll;
+
+      li {
+        padding: 3px 15px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.disabled {
+          color: grey;
+          cursor: default;
+        }
+
+        &.selected {
+          background-color: #0f417a;
+          color: white;
+        }
+      }
+
+    }
+  }
+}
