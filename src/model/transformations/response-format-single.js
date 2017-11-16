@@ -26,10 +26,11 @@ export function remoteToState(remote) {
 }
 
 export function stateToRemote(state, collectedVariables) {
-  const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId } } = state;
+  const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId }, visHint } = state;
   return {
     Response: [
       Response.stateToRemote({
+        visHint,
         codesListId,
         typeName: TEXT,
         maxLength: 1,
