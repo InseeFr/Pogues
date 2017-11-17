@@ -1,8 +1,7 @@
 import { getQuestionnaire, postQuestionnaire, deleteQuestionnaire } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
-import ComponentFactory from 'questionnaire/components/component/model/component';
-
+import Component from 'layout/page-questionnaire/components/component/model/component';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -136,7 +135,7 @@ export const createQuestionnaireFailure = err => ({
 export const createQuestionnaire = questionnaireNewState => (dispatch, getState) => {
   const state = getState();
   const stores = {
-    componentsStore: ComponentFactory({ ...questionnaireNewState, type: QUESTIONNAIRE }).getStore(),
+    componentsStore: Component({ ...questionnaireNewState, type: QUESTIONNAIRE }).getStore(),
     codesListsStore: {},
     calculatedVariablesStore: {},
     externalVariablesStore: {},
