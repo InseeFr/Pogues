@@ -15,7 +15,7 @@ const mapDispatchToProps = {
   setSelectedComponentId,
 };
 
-class QuestionnaireNavContainer extends Component {
+export class QuestionnaireNavContainer extends Component {
   static propTypes = {
     questionnaire: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
@@ -28,9 +28,7 @@ class QuestionnaireNavContainer extends Component {
         <ul>
           <li>
             <span className="glyphicon glyphicon-home" />
-            <a href="#/">
-              {Dictionary.backToHomePage}
-            </a>
+            <a href="#/">{Dictionary.backToHomePage}</a>
           </li>
         </ul>
         <ArboSimplified

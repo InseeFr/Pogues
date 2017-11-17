@@ -1,6 +1,6 @@
 import React from 'react';
 
-import QuestionnaireNavContainer from './questionnaire-nav-container';
+import { QuestionnaireNavContainer } from './questionnaire-nav-container';
 import { shallow } from 'enzyme';
 
 describe('<QuestionnaireNavContainer />', () => {

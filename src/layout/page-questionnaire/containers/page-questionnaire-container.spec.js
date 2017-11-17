@@ -1,12 +1,10 @@
-jest.dontMock('./page-questionnaire.jsx');
-
 import React from 'react';
 import { shallow } from 'enzyme';
 
 // Not connected to store
-import { PageQuestionnaire } from './page-questionnaire-container';
+import { PageQuestionnaireContainer } from './page-questionnaire-container';
 
-describe('<PageQuestionnaire />', () => {
+describe('<PageQuestionnaireContainer />', () => {
   const spyLoad = jest.fn();
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
@@ -22,7 +20,7 @@ describe('<PageQuestionnaire />', () => {
     store: {},
   };
 
-  const wrapper = shallow(<PageQuestionnaire {...props} />);
+  const wrapper = shallow(<PageQuestionnaireContainer {...props} />);
 
   test('should render without throwing an error', () => {
     expect(wrapper.is('#page-questionnaire')).toBe(true);
