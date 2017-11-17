@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
-import { Field, formPropTypes } from 'redux-form';
+import { formPropTypes } from 'redux-form';
 
 import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria';
-import Input from 'forms/controls/input';
+import { AssociatedFields } from 'widgets/associated-fields';
+
 import Dictionary from 'utils/dictionary/dictionary';
 import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_QUESTIONNAIRE_NEW_EDIT;
 
-// PropTypes and defaultProps
+// Utils
+
+function updateNameField(currentValueLabel, currentValueName) {
+  let value = currentValueName;
+
+  if (currentValueName === '') {
+    value = currentValueLabel
+      .replace(/[^a-z0-9_]/gi, '')
+      .toUpperCase()
+      .slice(0, 10);
+  }
+
+  return value;
+}
+
+// PropTypes and defaultP rops
 
 export const propTypes = formPropTypes;
 
@@ -24,10 +40,12 @@ class QuestionnaireNewEdit extends Component {
         <form onSubmit={handleSubmit}>
           <StatisticalContextCriteria formName={form} multipleCampaign focusOnInit />
 
-          <div>
-            <Field name="label" type="text" component={Input} label={Dictionary.title} required />
-          </div>
-          <Field name="name" type="text" component={Input} label={Dictionary.name} required />
+          <AssociatedFields
+            formName={form}
+            fieldOrigin={{ name: 'label', label: Dictionary.title }}
+            fieldTarget={{ name: 'name', label: Dictionary.name }}
+            action={updateNameField}
+          />
 
           <div className={FOOTER}>
             <button className={VALIDATE} type="submit" disabled={submitting}>
