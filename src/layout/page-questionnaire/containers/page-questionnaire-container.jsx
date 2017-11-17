@@ -50,7 +50,7 @@ const mapDispatchToProps = {
   setActiveVariables,
 };
 
-class PageQuestionnaireContainer extends Component {
+export class PageQuestionnaireContainer extends Component {
   static propTypes = {
     loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
     setActiveQuestionnaire: PropTypes.func.isRequired,
