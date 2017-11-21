@@ -16,12 +16,17 @@ class GenericInput extends Component {
     isQuestionnaireModified: PropTypes.bool.isRequired,
     isQuestionnaireValid: PropTypes.bool.isRequired,
     idQuestionnaire: PropTypes.string,
+    selectedComponent: PropTypes.object.isRequired,
+    handleNewPageBreak: PropTypes.func,
+    componentIdForPageBreak: PropTypes.string.isRequired
   };
 
   static defaultProps = {
     idQuestionnaire: undefined,
     isQuestionnaireModified: false,
     visualizeActiveQuestionnaire: undefined,
+    selectedComponent: {},
+    componentIdForPageBreak: ''
   };
 
   constructor(props) {
@@ -54,8 +59,15 @@ class GenericInput extends Component {
     this.setState(newState);
   }
 
+  /**
+   * Handler when the user want to add pageBreak to a question
+   */
+  handleNewPageBreak() {
+    this.props.handleNewPageBreak(this.props.componentIdForPageBreak);
+  }
+
   render() {
-    const { placeholders, isQuestionnaireValid, idQuestionnaire, isQuestionnaireModified } = this.props;
+    const { selectedComponent, placeholders, isQuestionnaireValid, idQuestionnaire, isQuestionnaireModified, componentIdForPageBreak } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
     const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
@@ -96,7 +108,13 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.sequence}
         </button>
-        <button disabled className="btn-white" id="add-pagebreak">
+        <button
+          className="btn-white"
+          id="add-pagebreak"
+          disabled={!componentIdForPageBreak}
+          onClick={() => {
+            this.handleNewPageBreak()
+          }}>
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.pageBreak}
         </button>

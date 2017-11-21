@@ -8,7 +8,7 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constant
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
-function remoteToState(remote, codesListsStore) {
+function remoteToState(remote, componentGroup, codesListsStore) {
   const {
     id,
     questionType,
@@ -52,17 +52,21 @@ function remoteToState(remote, codesListsStore) {
     state.label = label;
     state.responseFormat = ResponseFormat.remoteToState(questionType, responses, dimensions, codesListsStore);
     state.collectedVariables = CollectedVariable.remoteToComponentState(responses);
+
   }
+
+  const cg = componentGroup.find(group => group.MemberReference && group.MemberReference.indexOf(id) >= 0)
+  state.pageBreak = cg && cg.MemberReference.indexOf(id) === (cg.MemberReference.length - 1)
 
   return state;
 }
 
-function remoteToStoreNested(children, parent, codesListsStore = {}, acc = {}) {
+function remoteToStoreNested(children, parent, componentGroup, codesListsStore = {}, acc = {}) {
   let weight = 0;
   children.forEach(child => {
-    acc[child.id] = remoteToState({ ...child, weight, parent }, codesListsStore);
+    acc[child.id] = remoteToState({ ...child, weight, parent }, componentGroup, codesListsStore);
     weight += 1;
-    if (child.Child) remoteToStoreNested(child.Child, child.id, codesListsStore, acc);
+    if (child.Child) remoteToStoreNested(child.Child, child.id, componentGroup, codesListsStore, acc);
     return acc;
   });
 
@@ -71,8 +75,8 @@ function remoteToStoreNested(children, parent, codesListsStore = {}, acc = {}) {
 
 export function remoteToStore(remote, questionnaireId, codesListsStore) {
   return {
-    ...remoteToStoreNested(remote.Child, questionnaireId, codesListsStore),
-    [questionnaireId]: remoteToState(remote),
+    ...remoteToStoreNested(remote.Child, questionnaireId, remote.ComponentGroup, codesListsStore),
+    [questionnaireId]: remoteToState(remote, []),
   };
 }
 

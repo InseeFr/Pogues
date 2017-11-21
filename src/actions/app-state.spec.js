@@ -15,6 +15,7 @@ import {
   UPDATE_ACTIVE_QUESTIONNAIRE,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
+  visualizeActiveQuestionnaire,
 } from './app-state';
 
 describe('setActiveQuestionnaire', () => {

@@ -45,10 +45,13 @@ class QuestionnaireElement extends Component {
     canDrop: PropTypes.bool,
     errors: PropTypes.array,
     visualizeActiveQuestionnaire: PropTypes.func.isRequired,
+    pageBreak: PropTypes.bool.isRequired,
+    handleRemovePageBreak: PropTypes.func.isRequired
   };
   static defaultProps = {
     children: [],
     errors: [],
+    pageBreak: false
   };
   componentDidMount() {
     this.ensureSelected();
@@ -86,6 +89,7 @@ class QuestionnaireElement extends Component {
       draggedItem,
       canDrop,
       errors,
+      handleRemovePageBreak,
     } = this.props;
 
     const dragndropLevel = getDragnDropLevel(this.props, draggedItem);
@@ -142,8 +146,8 @@ class QuestionnaireElement extends Component {
                         }}
                       />
                     ) : (
-                      label
-                    )}
+                        label
+                      )}
                   </div>
                   {selected ? (
                     <div className="questionnaire-element-actions">
@@ -162,7 +166,7 @@ class QuestionnaireElement extends Component {
                       />
                       <button
                         className="btn-yellow"
-                        disabled={weight === 0 && type === 'SEQUENCE'}
+                        disabled={weight === 0 && type === SEQUENCE}
                         onClick={onClickDelete}
                       >
                         {Dictionary.remove}
@@ -170,8 +174,8 @@ class QuestionnaireElement extends Component {
                       </button>
                     </div>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </div>
                 {listErrors.length > 0 && (
                   <div className="questionnaire-element-errors">
@@ -180,10 +184,11 @@ class QuestionnaireElement extends Component {
                 )}
               </div>
             </div>
+            {this.props.pageBreak && type !== QUESTION && <div className="separator"><hr /><button onClick={this.props.handleRemovePageBreak}>x</button></div>}
             {dropZone}
             {children}
           </div>
-        </div>
+          {this.props.pageBreak && type === QUESTION && <div className="separator"><hr /><button onClick={this.props.handleRemovePageBreak}>x</button></div>}</div>
       )
     );
   }

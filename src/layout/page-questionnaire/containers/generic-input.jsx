@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import GenericInput from '../components/generic-input';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { saveActiveQuestionnaire, visualizeActiveQuestionnaire } from 'actions/app-state';
+import { saveActiveQuestionnaire, visualizeActiveQuestionnaire, handleNewPageBreak } from 'actions/app-state';
 import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
@@ -23,13 +23,15 @@ const mapStateToProps = state => {
     components: state.appState.activeComponentsById,
     selectedComponentId: state.appState.selectedComponentId,
     isQuestionnaireValid,
-    isQuestionnaireModified: state.appState.isQuestionnaireModified
+    isQuestionnaireModified: state.appState.isQuestionnaireModified,
+    componentIdForPageBreak: state.appState.componentIdForPageBreak
   };
 };
 
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
+  handleNewPageBreak,
 };
 
 function GenericInputContainer({
@@ -40,6 +42,8 @@ function GenericInputContainer({
   isQuestionnaireValid,
   isQuestionnaireModified,
   visualizeActiveQuestionnaire,
+  handleNewPageBreak,
+  componentIdForPageBreak,
 }) {
   const placeholders = {};
   const selectedComponent = components[selectedComponentId];
@@ -47,6 +51,7 @@ function GenericInputContainer({
   placeholders[SEQUENCE] = getNewSequencePlaceholder(components, questionnaire.id, selectedComponent);
   placeholders[SUBSEQUENCE] = getNewSubsequencePlaceholder(components, selectedComponent);
   placeholders[QUESTION] = getNewQuestionPlaceholder(components, selectedComponent);
+
   return (
     <GenericInput
       placeholders={placeholders}
@@ -55,6 +60,9 @@ function GenericInputContainer({
       idQuestionnaire={questionnaire.id}
       isQuestionnaireModified={isQuestionnaireModified}
       visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
+      selectedComponent={selectedComponent}
+      handleNewPageBreak={handleNewPageBreak}
+      componentIdForPageBreak={componentIdForPageBreak}
     />
   );
 }
@@ -64,11 +72,11 @@ GenericInputContainer.propTypes = {
   components: PropTypes.object.isRequired,
   selectedComponentId: PropTypes.string.isRequired,
   saveActiveQuestionnaire: PropTypes.func.isRequired,
-  isQuestionnaireValid: PropTypes.bool.isRequired,
+  isQuestionnaireValid: PropTypes.bool.isRequired
 };
 
 GenericInputContainer.defaultProps = {
-  questionnaire: {},
+  questionnaire: {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenericInputContainer);

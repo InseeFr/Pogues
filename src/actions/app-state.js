@@ -20,6 +20,9 @@ export const LOAD_STATISTICAL_CONTEXT = 'LOAD_STATISTICAL_CONTEXT';
 export const LOAD_STATISTICAL_CONTEXT_SUCCESS = 'LOAD_STATISTICAL_CONTEXT_SUCCESS';
 export const LOAD_STATISTICAL_CONTEXT_FAILURE = 'LOAD_STATISTICAL_CONTEXT_FAILURE';
 
+export const CREATE_PAGE_BREAK = 'CREATE_PAGE_BREAK';
+export const REMOVE_PAGE_BREAK = 'REMOVE_PAGE_BREAK';
+
 /**
  * Set active questionnaire
  *
@@ -180,6 +183,30 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
     err,
   },
 });
+
+/**
+ * Add a pagebreak to a component
+ * 
+ * @param {*} id The component
+ */
+export const handleNewPageBreak = id => ({
+  type: CREATE_PAGE_BREAK,
+  payload: {
+    id
+  }
+})
+
+/**
+ * Remove a pagebreak to a component
+ * 
+ * @param {*} id The component
+ */
+export const handleRemovePageBreak = id => ({
+  type: REMOVE_PAGE_BREAK,
+  payload: {
+    id
+  }
+})
 
 function getQuestionnaireModel(state, customComponentsStore) {
   const stores = {
