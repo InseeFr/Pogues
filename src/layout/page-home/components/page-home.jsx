@@ -3,12 +3,9 @@ import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import Logger from 'utils/logger/logger';
 import { QuestionnaireNew } from 'layout/questionnaire-new';
 import QuestionnaireListContainer from '../containers/questionnaire-list-container';
 import Dictionary from 'utils/dictionary/dictionary';
-
-const logger = new Logger('PageHome', 'Components');
 
 export class PageHome extends Component {
   static propTypes = {
@@ -25,9 +22,6 @@ export class PageHome extends Component {
     this.handleQuestionnaryCreated = this.handleQuestionnaryCreated.bind(this);
   }
 
-  componentDidMount() {
-    logger.debug('Rendering HomePage component');
-  }
 
   handleOpenModal() {
     this.setState({ showModal: true });

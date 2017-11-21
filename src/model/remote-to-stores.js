@@ -5,10 +5,8 @@ import * as CollectedVariable from './transformations/collected-variable';
 import * as CodesList from './transformations/codes-list';
 import * as Component from './transformations/component';
 import { VARIABLES_TYPES } from 'constants/pogues-constants';
-import Logger from 'utils/logger/logger';
 
 const { CALCULATED, EXTERNAL, COLLECTED } = VARIABLES_TYPES;
-const logger = new Logger('RemoteToStores', 'Utils');
 
 export function questionnaireRemoteToStores(remote) {
   const { id, CodeLists: { CodeList: codesLists }, Variables: { Variable: variables } } = remote;
@@ -63,7 +61,7 @@ export function questionnaireListRemoteToStores(questionnairesList) {
     try {
       questionnaireState = questionnaireRemoteToStores(questionnairesList[i]);
     } catch (e) {
-      logger.error(e);
+      console.log(e);
     }
 
     if (questionnaireState) questionnairesStates.push(questionnaireState);

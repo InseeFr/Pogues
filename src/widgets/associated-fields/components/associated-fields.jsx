@@ -21,6 +21,7 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired,
+  targetIsRichTextarea: PropTypes.bool.isRequired,
 };
 
 const defaultProps = {
@@ -47,17 +48,28 @@ class AssociatedFields extends Component {
       fieldTarget: { name: nameTarget },
       currentValueOrigin,
       currentValueTarget,
+      targetIsRichTextarea,
     } = this.props;
+
+    if (targetIsRichTextarea) {
+      // @TODO: Get plain text
+    }
+
     const newValueTarget = action(currentValueOrigin, currentValueTarget);
     change(formName, nameTarget, newValueTarget);
   }
 
   render() {
-    const { fieldOrigin, fieldTarget } = this.props;
+    const { fieldOrigin, fieldTarget, targetIsRichTextarea } = this.props;
 
     return (
       <div className={WIDGET_ASSOCIATED_FIELDS}>
-        <Field onBlur={this.onBlur} name={fieldOrigin.name} type="text" component={Input} label={fieldOrigin.label} />
+        {targetIsRichTextarea ? (
+          <Field onBlur={this.onBlur} name={fieldOrigin.name} type="text" component={Input} label={fieldOrigin.label} />
+        ) : (
+          <Field onBlur={this.onBlur} name={fieldOrigin.name} type="text" component={Input} label={fieldOrigin.label} />
+        )}
+
         <Field name={fieldTarget.name} type="text" component={Input} label={fieldTarget.label} />
       </div>
     );

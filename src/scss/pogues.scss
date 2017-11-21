@@ -21,6 +21,8 @@
 @import 'inc/component-edition';
 @import 'inc/arbo-simplifield';
 @import 'inc/confirm-dialog';
+@import 'inc/questionnaire-nav';
+@import 'inc/generic-input';
 
 //Widgets
 @import 'inc/widgets/_statistical-context-criteria';
@@ -31,6 +33,7 @@
 @import 'inc/widgets/_search-codes-lists';
 @import 'inc/widgets/_tabs';
 @import 'inc/widgets/_questionnaire-new-edit';
+@import 'inc/widgets/_component-new-edit';
 
 //Controls
 @import 'inc/controls/_common';

@@ -5,11 +5,14 @@ import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
 
 import { uuid } from 'utils/utils';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 import {
   removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
+
+const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export function remoteToState(remote) {
   const {
@@ -79,6 +82,7 @@ export function stateToRemote(state, stores) {
     Name: name,
     lastUpdatedDate: new Date().toString(),
     DataCollection: dataCollections,
+    genericName: QUESTIONNAIRE,
     ComponentGroup: [
       {
         id: uuid(),

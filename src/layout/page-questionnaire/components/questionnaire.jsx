@@ -6,7 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import ConfirmDialog from 'layout/confirm-dialog/confirm-dialog';
 import QuestionnaireElement from './questionnaire-element';
-import QuestionnaireEditContainer from '../containers/questionnaire-edit';
+import { QuestionnaireEdit } from 'layout/questionnaire-edit';
 import ComponentEditContainer from '../containers/component/component-edit';
 import QuestionnaireErrorsContainer from '../containers/questionnaire-errors';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -234,7 +234,7 @@ class Questionnaire extends Component {
               </button>
             </div>
             <div className="popup-body">
-              <QuestionnaireEditContainer
+              <QuestionnaireEdit
                 onCancel={this.handleCloseQuestionnaireDetail}
                 onSuccess={this.handleQuestionnnarieUpdated}
               />

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Logger from 'utils/logger/logger';
 import QuestionnaireListItem from './questionnaire-list-item';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
-const logger = new Logger('QuestionnaireList', 'Components');
 
 class QuestionnaireList extends Component {
   static propTypes = {
@@ -32,7 +30,6 @@ class QuestionnaireList extends Component {
 
   render() {
     const questionnaires = this.props.questionnaires;
-    logger.debug('Rendering QuestionnaireList component.');
 
     const list = questionnaires
       .filter(q => {

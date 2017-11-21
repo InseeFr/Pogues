@@ -1,4 +1,7 @@
 import Dictionary from 'utils/dictionary/dictionary';
+import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+
+const { NEW } = CODES_LIST_INPUT_ENUM;
 
 export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
@@ -93,4 +96,20 @@ export function uniqueCodeAttr(value, { editing, previousValue, codes }) {
     return undefined;
   }
   return codes.filter(code => code.value === value).length > 0 ? 'unique' : undefined;
+}
+
+export function validCodesList(codesList) {
+  const { id, label, codes, panel } = codesList;
+  let error;
+
+  if (panel === NEW) {
+    error = required(label);
+    if (!error) {
+      error = emptyCodes(codes);
+    }
+  } else {
+    error = required(id);
+  }
+
+  return error;
 }

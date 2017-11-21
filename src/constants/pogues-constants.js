@@ -239,3 +239,9 @@ export const CODES_LISTS_PANELS = [
 ];
 
 export const DEFAULT_CODES_LIST_SELECTOR_PATH = 'CodesList';
+
+export const ERROR_TYPES = {
+  PANEL: 'PANEL',
+  INPUT: 'INPUT',
+  INTEGRITY: 'INTEGRITY',
+};

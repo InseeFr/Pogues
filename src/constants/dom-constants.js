@@ -115,6 +115,13 @@ export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {
   CANCEL: 'widget-questionnaire-new-edit__button-cancel',
 };
 
+export const WIDGET_COMPONENT_NEW_EDIT = {
+  COMPONENT_CLASS: 'widget-component-new-edit',
+  FOOTER: 'widget-component-new-edit__footer',
+  VALIDATE: 'widget-component-new-edit__button-validate',
+  CANCEL: 'widget-component-new-edit__button-cancel',
+};
+
 export const WIDGET_ASSOCIATED_FIELDS = {
   COMPONENT_CLASS: 'widget-associated-fields',
 };
@@ -122,6 +129,10 @@ export const WIDGET_ASSOCIATED_FIELDS = {
 export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
   SEARCH_RESULTS_ID: 'page-search-questionnaire__results',
+};
+
+export const PAGE_QUESTIONNAIRE = {
+  COMPONENT_ID: 'page-questionnaire',
 };
 
 export const INPUT_CONDITION_POPOVER = {
@@ -140,4 +151,12 @@ export const ICON_BUTTON = {
   COMPONENT_CLASS: 'icon-button',
   IS_ACTIVE: 'icon-button-active',
   ICON: 'icon-button__icon',
+};
+
+export const QUESTIONNAIRE_NAV = {
+  COMPONENT_CLASS: 'questionnaire-nav',
+};
+
+export const GENERIC_INPUT = {
+  COMPONENT_ID: 'generic-input',
 };

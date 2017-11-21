@@ -1,0 +1,67 @@
+import React, { Component } from 'react';
+import { Field, FormSection } from 'redux-form';
+
+import Dictionary from 'utils/dictionary/dictionary';
+import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
+import { defaultForm } from '../../model/collected-variable';
+import Input from 'forms/controls/input';
+import { name as validateName, nameSize } from 'forms/validation-rules';
+import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+
+function validationCalculatedVariable(values) {
+  const { label, name, formula, ref, calculatedVariables } = values;
+  const addedItemsNames = calculatedVariables.filter((cv, index) => index !== ref - 1).map(cv => cv.name);
+  const errors = [];
+  const invalidName = validateName(name);
+  const tooLongName = nameSize(name);
+
+  if (invalidName) errors.push(invalidName);
+  if (tooLongName) errors.push(tooLongName);
+  if (label === '') errors.push(Dictionary.validation_calculatedvariable_label);
+  if (name === '') errors.push(Dictionary.validation_calculatedvariable_name);
+  if (formula === '') errors.push(Dictionary.validation_calculatedvariable_formula);
+  if (addedItemsNames.indexOf(name) !== -1) errors.push(Dictionary.validation_calculatedvariable_existing);
+
+  return errors;
+}
+
+function InputCalculatedVariable() {
+  return (
+    <div>
+      <Field name="label" type="text" component={Input} label={Dictionary.label} required />
+      <Field name="name" type="text" component={Input} label={Dictionary.name} required />
+      <Field
+        name="formula"
+        type="text"
+        component={TextareaWithVariableAutoCompletion}
+        label={Dictionary.formula}
+        required
+      />
+    </div>
+  );
+}
+
+class CalculatedVariables extends Component {
+  static selectorPath = 'calculatedVariables';
+
+  render() {
+    const { calculatedVariables, ...initialInputValues } = defaultForm;
+    const inputCalculatedVariableView = <InputCalculatedVariable />;
+
+    return (
+      <FormSection name={CalculatedVariables.selectorPath} className="calculated-variables">
+        <ListEntryFormContainer
+          inputView={inputCalculatedVariableView}
+          initialInputValues={initialInputValues}
+          selectorPath={CalculatedVariables.selectorPath}
+          validationInput={validationCalculatedVariable}
+          listName="calculatedVariables"
+          submitLabel="reset"
+          noValueLabel="noCalculatedVariablesYet"
+          showDuplicateButton={false}
+        />
+      </FormSection>
+    );
+  }
+}
+export default CalculatedVariables;
