@@ -92,17 +92,19 @@ export function getComponentIdForPageBreak(id, activeComponentsById, state) {
 
   const lastChildId = activeComponentsById[questionnaire].children.map(id => activeComponentsById[id]).sort((c1, c2) => c1.weight < c2.weight)[0].id;
 
-  return lastChildId ? getComponentIdForPageBreak(lastChildId, activeComponentsById) : defaultReturn;
+  return lastChildId ? getComponentIdForPageBreak(lastChildId, activeComponentsById, state) : defaultReturn;
 }
 
 export function setSelectedComponentId(state, id) {
   return {
     ...state,
-    ...getComponentIdForPageBreak(id, state.activeComponentsById, state),
+    ...getComponentIdForPageBreak(id, state.activeComponentsById, {
+      ...state,
+      componentIdForPageBreak: '',
+    }),
     selectedComponentId: id,
   };
 }
-
 export function loadStatisticalContext(state, { serie, operation }) {
   return {
     ...state,
@@ -127,6 +129,13 @@ export function setQuestionModified(state) {
   };
 }
 
+export function setQuestionModifiedAndResetSelectedComponent(state) {
+  return {
+    ...state,
+    ...setQuestionModified(state),
+    ...setSelectedComponentId(state, '')
+  }
+}
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
@@ -137,7 +146,7 @@ actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = setQuestionNotModified;
 actionHandlers[CREATE_COMPONENT] = setQuestionModified;
 actionHandlers[DUPLICATE_COMPONENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT] = setQuestionModified;
-actionHandlers[REMOVE_COMPONENT] = setQuestionModified;
+actionHandlers[REMOVE_COMPONENT] = setQuestionModifiedAndResetSelectedComponent;
 actionHandlers[UPDATE_COMPONENT_PARENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
 actionHandlers[MOVE_COMPONENT] = setQuestionModified;
