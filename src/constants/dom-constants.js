@@ -115,6 +115,10 @@ export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {
   CANCEL: 'widget-questionnaire-new-edit__button-cancel',
 };
 
+export const WIDGET_ASSOCIATED_FIELDS = {
+  COMPONENT_CLASS: 'widget-associated-fields',
+};
+
 export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
   SEARCH_RESULTS_ID: 'page-search-questionnaire__results',

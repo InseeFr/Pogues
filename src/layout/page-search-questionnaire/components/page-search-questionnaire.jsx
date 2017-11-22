@@ -50,7 +50,7 @@ class PageSearchQuestionnaire extends Component {
     };
 
     return (
-      <div id={COMPONENT_ID}>
+      <div id={COMPONENT_ID} className="container">
         <Criteria />
         <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
         <SearchResults {...propsSearchResults} />
