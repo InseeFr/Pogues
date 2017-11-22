@@ -43,6 +43,7 @@ module.exports = [
             "IfTrue" : "isg13cuk"
           } ],
           "Response" : [ {
+            "id" : "idResponse1",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "BOOLEAN",
@@ -71,6 +72,7 @@ module.exports = [
           } ],
           "Response" : [
             {
+            "id" : "idResponse2",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "TEXT",
@@ -87,6 +89,7 @@ module.exports = [
           "Name" : "TEXTE_COURT",
           "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères\",\"conditions\":[]} Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères" ],
           "Response" : [ {
+            "id" : "idResponse3",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "TEXT",
@@ -111,6 +114,7 @@ module.exports = [
           "Name" : "NUM_ENTIER",
           "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique entier\",\"conditions\":[]} Je suis le libellé de la question de type numérique entier" ],
           "Response" : [ {
+            "id" : "idResponse4",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "NUMERIC",
@@ -132,6 +136,7 @@ module.exports = [
             "Text" : "Je suis le texte de la consigne "
           } ],
           "Response" : [ {
+            "id" : "idResponse5",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "NUMERIC",
@@ -157,6 +162,7 @@ module.exports = [
           "Name" : "SIMPLE_DATE",
           "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type date au format JJ/MM/AAAA\",\"conditions\":[]} Je suis le libellé de la question de type date au format JJ/MM/AAAA" ],
           "Response" : [ {
+            "id" : "idResponse6",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "DATE",
@@ -180,6 +186,7 @@ module.exports = [
           "Name" : "BOOL",
           "Label" : [ "##{\"label\":\"Je suis le libellé de la question simple de type booléen\",\"conditions\":[]} Je suis le libellé de la question simple de type booléen" ],
           "Response" : [ {
+            "id" : "idResponse7",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "BOOLEAN",
@@ -211,6 +218,7 @@ module.exports = [
             "Text" : "Exemple tiré de l'enquête sectorielle annuelle "
           } ],
           "Response" : [ {
+            "id" : "idResponse8",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "TEXT",
@@ -236,6 +244,7 @@ module.exports = [
             "Text" : "Question issue de l'enquête EVA 2016 "
           } ],
           "Response" : [ {
+            "id" : "idResponse9",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "TEXT",
@@ -252,6 +261,7 @@ module.exports = [
           "Name" : "QUELESTLEM",
           "Label" : [ "##{\"label\":\"Quel est le montant total des investissements réalisés dans votre entreprise ?\",\"conditions\":[]} Quel est le montant total des investissements réalisés dans votre entreprise ?" ],
           "Response" : [ {
+            "id" : "idResponse10",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "NUMERIC",
@@ -273,6 +283,7 @@ module.exports = [
             "Text" : "Question issue de l'enquête EVA 2016 "
           } ],
           "Response" : [ {
+            "id" : "idResponse11",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "NUMERIC",
@@ -293,6 +304,7 @@ module.exports = [
             "Text" : "Définition de l'exercice comptable sur lequel porte ce questionnaire : Les\n                        informations à fournir se rapportent à votre exercice comptable 2015. ​\n                        Votre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le\n                        31 mai 2016. ​ Si vous avez clotûré deux exercices sur cette période,\n                        prendre celui qui a leplus de mois en 2015. ​ Vous devez également répondre\n                        à l'énquête si votre entreprise a cessé son activité : en 2015 et a plus de\n                        6 mois d'activité ; en 2016. "
           } ],
           "Response" : [ {
+            "id" : "idResponse12",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "TEXT",
@@ -314,6 +326,7 @@ module.exports = [
             "Text" : "Question issue de l'enquête EVA 2016 "
           } ],
           "Response" : [ {
+            "id" : "idResponse13",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "DATE",
@@ -334,6 +347,7 @@ module.exports = [
             "Text" : "Question issue de l'enquête annuelle sur les consommations d'énergie dans\n                        l'industrie (EACEI) "
           } ],
           "Response" : [ {
+            "id" : "idResponse14",
             "mandatory" : false,
             "Datatype" : {
               "typeName" : "BOOLEAN",
@@ -362,6 +376,7 @@ module.exports = [
           "Text" : "La consigne est après la question "
         } ],
         "Response" : [ {
+          "id" : "idResponse15",
           "mandatory" : false,
           "CodeListReference" : "isg1g6zo",
           "Datatype" : {
@@ -380,6 +395,7 @@ module.exports = [
         "Name" : "SINGLE_DROPDOWN",
         "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de liste déroulante\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de liste déroulante" ],
         "Response" : [ {
+          "id" : "idResponse16",
           "mandatory" : false,
           "CodeListReference" : "isg1g6zo",
           "Datatype" : {
@@ -398,6 +414,7 @@ module.exports = [
         "Name" : "SINGLE_CHECKBOX",
         "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de cases à cocher\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de cases à cocher" ],
         "Response" : [ {
+          "id" : "idResponse17",
           "mandatory" : false,
           "CodeListReference" : "isg1g6zo",
           "Datatype" : {
@@ -428,6 +445,7 @@ module.exports = [
             "Text" : "Cette question est extraite de l'enquête Antipol "
           } ],
           "Response" : [ {
+            "id" : "idResponse18",
             "mandatory" : false,
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
@@ -451,6 +469,7 @@ module.exports = [
             "Text" : "Question issue de l'enquête sectorielle annuelle (commerce) "
           } ],
           "Response" : [ {
+            "id" : "idResponse19",
             "mandatory" : false,
             "CodeListReference" : "iwm8rneb",
             "Datatype" : {
@@ -474,6 +493,7 @@ module.exports = [
             "Text" : "Question issue de l'enquête EVA 2016 "
           } ],
           "Response" : [ {
+            "id" : "idResponse20",
             "mandatory" : false,
             "CodeListReference" : "iwm8zloc",
             "Datatype" : {
@@ -501,30 +521,35 @@ module.exports = [
         "Name" : "MULTIPLE_BOOL",
         "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de booléen\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de booléen" ],
         "Response" : [ {
+          "id" : "idResponse21",
           "Datatype" : {
             "typeName" : "BOOLEAN",
             "type" : "BooleanDatatypeType"
           },
           "CollectedVariableReference" : "collectedVariable21"
         }, {
+          "id" : "idResponse22",
           "Datatype" : {
             "typeName" : "BOOLEAN",
             "type" : "BooleanDatatypeType"
           },
           "CollectedVariableReference" : "collectedVariable22"
         }, {
+          "id" : "idResponse23",
           "Datatype" : {
             "typeName" : "BOOLEAN",
             "type" : "BooleanDatatypeType"
           },
           "CollectedVariableReference" : "collectedVariable23"
         }, {
+          "id" : "idResponse24",
           "Datatype" : {
             "typeName" : "BOOLEAN",
             "type" : "BooleanDatatypeType"
           },
           "CollectedVariableReference" : "collectedVariable24"
         }, {
+          "id" : "idResponse25",
           "Datatype" : {
             "typeName" : "BOOLEAN",
             "type" : "BooleanDatatypeType"
@@ -540,7 +565,29 @@ module.exports = [
             "dimensionType" : "MEASURE",
             "dynamic" : "0"
           } ]
-        }
+        },
+        "Mapping" : [
+          {
+            "MappingSource" : "idResponse21",
+            "MappingTarget" : "1 1"
+          },
+          {
+            "MappingSource" : "idResponse22",
+            "MappingTarget" : "1 2"
+          },
+          {
+            "MappingSource" : "idResponse23",
+            "MappingTarget" : "1 3"
+          },
+          {
+            "MappingSource" : "idResponse24",
+            "MappingTarget" : "1 4"
+          },
+          {
+            "MappingSource" : "idResponse25",
+            "MappingTarget" : "1 5"
+          }
+          ]
       }, {
         "id" : "isg1gjjt",
         "questionType" : "MULTIPLE_CHOICE",
@@ -548,6 +595,7 @@ module.exports = [
         "Name" : "MULTIPLE_RADIO",
         "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de bouton radio\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de bouton radio" ],
         "Response" : [ {
+          "id" : "idResponse26",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -558,6 +606,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable26"
         }, {
+          "id" : "idResponse27",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -568,6 +617,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable27"
         }, {
+          "id" : "idResponse28",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -578,6 +628,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable28"
         }, {
+          "id" : "idResponse29",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -588,6 +639,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable29"
         }, {
+          "id" : "idResponse30",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -607,7 +659,29 @@ module.exports = [
             "dimensionType" : "MEASURE",
             "dynamic" : "0"
           } ]
-        }
+        },
+        "Mapping" : [
+          {
+            "MappingSource" : "idResponse26",
+            "MappingTarget" : "1 1"
+          },
+          {
+            "MappingSource" : "idResponse27",
+            "MappingTarget" : "1 2"
+          },
+          {
+            "MappingSource" : "idResponse28",
+            "MappingTarget" : "1 3"
+          },
+          {
+            "MappingSource" : "idResponse29",
+            "MappingTarget" : "1 4"
+          },
+          {
+            "MappingSource" : "idResponse30",
+            "MappingTarget" : "1 5"
+          }
+          ]
       }, {
         "id" : "isg20r8n",
         "questionType" : "MULTIPLE_CHOICE",
@@ -620,6 +694,7 @@ module.exports = [
           "Text" : "La consigne est avant la question "
         } ],
         "Response" : [ {
+          "id" : "idResponse31",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -630,6 +705,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable31"
         }, {
+          "id" : "idResponse32",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -640,6 +716,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable32"
         }, {
+          "id" : "idResponse33",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -650,6 +727,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable33"
         }, {
+          "id" : "idResponse34",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -660,6 +738,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable34"
         }, {
+          "id" : "idResponse35",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -679,7 +758,29 @@ module.exports = [
             "dimensionType" : "MEASURE",
             "dynamic" : "0"
           } ]
-        }
+        },
+        "Mapping" : [
+          {
+            "MappingSource" : "idResponse31",
+            "MappingTarget" : "1 1"
+          },
+          {
+            "MappingSource" : "idResponse32",
+            "MappingTarget" : "1 2"
+          },
+          {
+            "MappingSource" : "idResponse33",
+            "MappingTarget" : "1 3"
+          },
+          {
+            "MappingSource" : "idResponse34",
+            "MappingTarget" : "1 4"
+          },
+          {
+            "MappingSource" : "idResponse35",
+            "MappingTarget" : "1 5"
+          }
+          ]
       }, {
         "id" : "isg1uc3w",
         "questionType" : "MULTIPLE_CHOICE",
@@ -687,6 +788,7 @@ module.exports = [
         "Name" : "MULTIPLE_CHECKBOX",
         "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de cases à cocher\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de cases à cocher" ],
         "Response" : [ {
+          "id" : "idResponse36",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -697,6 +799,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable36"
         }, {
+          "id" : "idResponse37",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -707,6 +810,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable37"
         }, {
+          "id" : "idResponse38",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -717,6 +821,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable38"
         }, {
+          "id" : "idResponse39",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -727,6 +832,7 @@ module.exports = [
           },
           "CollectedVariableReference" : "collectedVariable39"
         }, {
+          "id" : "idResponse40",
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
             "typeName" : "TEXT",
@@ -746,7 +852,29 @@ module.exports = [
             "dimensionType" : "MEASURE",
             "dynamic" : "0"
           } ]
-        }
+        },
+        "Mapping" : [
+          {
+            "MappingSource" : "idResponse36",
+            "MappingTarget" : "1 1"
+          },
+          {
+            "MappingSource" : "idResponse37",
+            "MappingTarget" : "1 2"
+          },
+          {
+            "MappingSource" : "idResponse38",
+            "MappingTarget" : "1 3"
+          },
+          {
+            "MappingSource" : "idResponse39",
+            "MappingTarget" : "1 4"
+          },
+          {
+            "MappingSource" : "idResponse40",
+            "MappingTarget" : "1 5"
+          }
+          ]
       }, {
         "id" : "iwnevbej",
         "depth" : 2,
@@ -766,6 +894,7 @@ module.exports = [
             "Text" : "Question issue de l'enquête Tic-TPE 2016 "
           } ],
           "Response" : [ {
+            "id" : "idResponse41",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -776,6 +905,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable41"
           }, {
+            "id" : "idResponse42",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -786,6 +916,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable42"
           }, {
+            "id" : "idResponse43",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -806,37 +937,57 @@ module.exports = [
               "dynamic" : "0"
             } ]
           }
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse41",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse42",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse43",
+              "MappingTarget" : "1 3"
+            }
+            ]
         }, {
           "id" : "iwm8xktl",
           "questionType" : "MULTIPLE_CHOICE",
           "type" : "QuestionType",
           "Name" : "FORMATION",
           "Label" : [ "##{\"label\":\"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?\",\"conditions\":[]} Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?" ],
-          "Response" : [ {
+          "Response" : [
+            "id" : "idResponse44",
+            {
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable44"
           }, {
+            "id" : "idResponse45",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable45"
           }, {
+            "id" : "idResponse46",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable46"
           }, {
+            "id" : "idResponse47",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable47"
           }, {
+            "id" : "idResponse48",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
@@ -852,7 +1003,29 @@ module.exports = [
               "dimensionType" : "MEASURE",
               "dynamic" : "0"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse44",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse45",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse46",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse47",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse48",
+              "MappingTarget" : "1 5"
+            }
+            ]
         } ]
       } ]
     }, {
@@ -877,6 +1050,7 @@ module.exports = [
           "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - une mesure\",\"conditions\":[]} Je suis le libellé de la question tableau un axe - une mesure" ],
           "Response" : [
             {
+            "id" : "idResponse49",
             "Datatype" : {
               "typeName" : "TEXT",
               "type" : "TextDatatypeType",
@@ -885,6 +1059,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable49"
           }, {
+            "id" : "idResponse50",
             "Datatype" : {
               "typeName" : "TEXT",
               "type" : "TextDatatypeType",
@@ -893,6 +1068,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable50"
           }, {
+            "id" : "idResponse51",
             "Datatype" : {
               "typeName" : "TEXT",
               "type" : "TextDatatypeType",
@@ -901,6 +1077,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable51"
           }, {
+            "id" : "idResponse52",
             "Datatype" : {
               "typeName" : "TEXT",
               "type" : "TextDatatypeType",
@@ -909,6 +1086,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable52"
           }, {
+            "id" : "idResponse53",
             "Datatype" : {
               "typeName" : "TEXT",
               "type" : "TextDatatypeType",
@@ -927,7 +1105,29 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Mesure 1 texte"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse49",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse50",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse51",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse52",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse53",
+              "MappingTarget" : "1 5"
+            }
+            ]
         }, {
           "id" : "isg28ywr",
           "questionType" : "TABLE",
@@ -935,36 +1135,42 @@ module.exports = [
           "Name" : "TABLE_1A_nM",
           "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - plusieurs mesures\",\"conditions\":[]} Je suis le libellé de la question tableau un axe - plusieurs mesures" ],
           "Response" : [ {
+            "id" : "idResponse54",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable54"
           }, {
+            "id" : "idResponse55",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable55"
           }, {
+            "id" : "idResponse56",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable56"
           }, {
+            "id" : "idResponse57",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable57"
           }, {
+            "id" : "idResponse58",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable58"
           }, {
+            "id" : "idResponse59",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -975,6 +1181,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable59"
           }, {
+            "id" : "idResponse60",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -985,6 +1192,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable60"
           }, {
+            "id" : "idResponse61",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -995,6 +1203,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable61"
           }, {
+            "id" : "idResponse62",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1005,6 +1214,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable62"
           }, {
+            "id" : "idResponse63",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1015,6 +1225,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable63"
           }, {
+            "id" : "idResponse64",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1024,6 +1235,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable64"
           }, {
+            "id" : "idResponse65",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1033,6 +1245,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable65"
           }, {
+            "id" : "idResponse66",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1042,6 +1255,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable66"
           }, {
+            "id" : "idResponse67",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1051,6 +1265,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable67"
           }, {
+            "id" : "idResponse68",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1078,7 +1293,68 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Mesure simple entier"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse54",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse55",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse56",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse57",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse58",
+              "MappingTarget" : "1 5"
+            },
+            {
+              "MappingSource" : "idResponse59",
+              "MappingTarget" : "2 1"
+            },
+            {
+              "MappingSource" : "idResponse60",
+              "MappingTarget" : "2 2"
+            },
+            {
+              "MappingSource" : "idResponse61",
+              "MappingTarget" : "2 3"
+            },
+            {
+              "MappingSource" : "idResponse62",
+              "MappingTarget" : "2 4"
+            },
+            {
+              "MappingSource" : "idResponse63",
+              "MappingTarget" : "2 5"
+            },{
+              "MappingSource" : "idResponse64",
+              "MappingTarget" : "3 1"
+            },
+            {
+              "MappingSource" : "idResponse65",
+              "MappingTarget" : "3 2"
+            },
+            {
+              "MappingSource" : "idResponse66",
+              "MappingTarget" : "3 3"
+            },
+            {
+              "MappingSource" : "idResponse67",
+              "MappingTarget" : "3 4"
+            },
+            {
+              "MappingSource" : "idResponse68",
+              "MappingTarget" : "3 5"
+            }
+            ]
         }, {
           "id" : "isg1rx4a",
           "questionType" : "TABLE",
@@ -1086,6 +1362,7 @@ module.exports = [
           "Name" : "TABLE_LIST",
           "Label" : [ "##{\"label\":\"Je suis le libellé de la question liste\",\"conditions\":[]} Je suis le libellé de la question liste" ],
           "Response" : [ {
+            "id" : "idResponse69",
             "Datatype" : {
               "typeName" : "TEXT",
               "type" : "TextDatatypeType",
@@ -1094,6 +1371,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable69"
           }, {
+            "id" : "idResponse70",
             "Datatype" : {
               "typeName" : "DATE",
               "type" : "DateDatatypeType",
@@ -1114,7 +1392,17 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Mesure date"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse69",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse70",
+              "MappingTarget" : "1 2"
+            }
+            ]
         } ]
       }, {
         "id" : "iwnexpuc",
@@ -1143,30 +1431,35 @@ module.exports = [
             "Text" : "Cette question est extraite de l'enquête structurelle auprès des\n                        entreprises mahoraises "
           } ],
           "Response" : [ {
+            "id" : "idResponse71",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable71"
           }, {
+            "id" : "idResponse72",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable72"
           }, {
+            "id" : "idResponse73",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable73"
           }, {
+            "id" : "idResponse74",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType"
             },
             "CollectedVariableReference" : "collectedVariable74"
           }, {
+            "id" : "idResponse75",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType"
@@ -1183,7 +1476,29 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Effectifs salariés"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse71",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse72",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse73",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse74",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse75",
+              "MappingTarget" : "1 5"
+            }
+            ]
         }, {
           "id" : "iwncfpwn",
           "questionType" : "TABLE",
@@ -1197,6 +1512,7 @@ module.exports = [
           } ],
           "Response" : [
             {
+            "id" : "idResponse76",
             "Datatype" : {
               "typeName" : "TEXT",
               "type" : "TextDatatypeType",
@@ -1205,6 +1521,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable76"
           }, {
+            "id" : "idResponse77",
             "CodeListReference" : "iw22fswu",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1215,6 +1532,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable77"
           }, {
+            "id" : "idResponse78",
             "Datatype" : {
               "typeName" : "DATE",
               "type" : "DateDatatypeType",
@@ -1239,7 +1557,29 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Date de naissance"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse76",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse77",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse78",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse74",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse75",
+              "MappingTarget" : "1 5"
+            }
+            ]
         } ]
       }, {
         "id" : "isg1x9p9",
@@ -1256,6 +1596,7 @@ module.exports = [
           "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure simple\",\"conditions\":[]} Je suis le libellé d'un tableau à deux axes 1 mesure simple" ],
           "Response" : [
             {
+            "id" : "idResponse79",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1264,6 +1605,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable79"
           }, {
+            "id" : "idResponse80",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1272,6 +1614,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable80"
           }, {
+            "id" : "idResponse81",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1280,6 +1623,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable81"
           }, {
+            "id" : "idResponse82",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1288,6 +1632,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable82"
           }, {
+            "id" : "idResponse83",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1296,6 +1641,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable83"
           }, {
+            "id" : "idResponse84",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1304,6 +1650,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable84"
           }, {
+            "id" : "idResponse85",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1312,6 +1659,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable85"
           }, {
+            "id" : "idResponse86",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1320,6 +1668,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable86"
           }, {
+            "id" : "idResponse87",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1328,6 +1677,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable87"
           }, {
+            "id" : "idResponse88",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1336,6 +1686,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable88"
           }, {
+            "id" : "idResponse89",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1344,6 +1695,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable89"
           }, {
+            "id" : "idResponse90",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1352,6 +1704,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable90"
           }, {
+            "id" : "idResponse91",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1360,6 +1713,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable91"
           }, {
+            "id" : "idResponse92",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1368,6 +1722,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable92"
           }, {
+            "id" : "idResponse93",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1376,6 +1731,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable93"
           }, {
+            "id" : "idResponse94",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1384,6 +1740,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable94"
           }, {
+            "id" : "idResponse95",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1392,6 +1749,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable95"
           }, {
+            "id" : "idResponse96",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1400,6 +1758,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable96"
           }, {
+            "id" : "idResponse97",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1408,6 +1767,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable97"
           }, {
+            "id" : "idResponse98",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1430,7 +1790,89 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Mesure nombre"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse79",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse80",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse81",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse82",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse83",
+              "MappingTarget" : "1 5"
+            },
+            {
+              "MappingSource" : "idResponse84",
+              "MappingTarget" : "2 1"
+            },
+            {
+              "MappingSource" : "idResponse85",
+              "MappingTarget" : "2 2"
+            },
+            {
+              "MappingSource" : "idResponse86",
+              "MappingTarget" : "2 3"
+            },
+            {
+              "MappingSource" : "idResponse87",
+              "MappingTarget" : "2 4"
+            },
+            {
+              "MappingSource" : "idResponse88",
+              "MappingTarget" : "2 5"
+            },
+            {
+              "MappingSource" : "idResponse89",
+              "MappingTarget" : "3 1"
+            },
+            {
+              "MappingSource" : "idResponse90",
+              "MappingTarget" : "3 2"
+            },
+            {
+              "MappingSource" : "idResponse91",
+              "MappingTarget" : "3 3"
+            },
+            {
+              "MappingSource" : "idResponse92",
+              "MappingTarget" : "3 4"
+            },
+            {
+              "MappingSource" : "idResponse93",
+              "MappingTarget" : "3 5"
+            },
+            {
+              "MappingSource" : "idResponse94",
+              "MappingTarget" : "4 1"
+            },
+            {
+              "MappingSource" : "idResponse95",
+              "MappingTarget" : "4 2"
+            },
+            {
+              "MappingSource" : "idResponse96",
+              "MappingTarget" : "4 3"
+            },
+            {
+              "MappingSource" : "idResponse97",
+              "MappingTarget" : "4 4"
+            },
+            {
+              "MappingSource" : "idResponse98",
+              "MappingTarget" : "4 5"
+            }
+            ]
         }, {
           "id" : "isg3ixbk",
           "questionType" : "TABLE",
@@ -1439,6 +1881,7 @@ module.exports = [
           "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure unique\",\"conditions\":[]} Je suis le libellé d'un tableau à deux axes 1 mesure unique" ],
           "Response" : [
             {
+            "id" : "idResponse99",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1449,6 +1892,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable99"
           }, {
+            "id" : "idResponse100",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1459,6 +1903,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable100"
           }, {
+            "id" : "idResponse101",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1469,6 +1914,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable101"
           }, {
+            "id" : "idResponse102",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1479,6 +1925,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable102"
           }, {
+            "id" : "idResponse103",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1489,6 +1936,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable103"
           }, {
+            "id" : "idResponse104",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1499,6 +1947,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable104"
           }, {
+            "id" : "idResponse105",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1509,6 +1958,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable105"
           }, {
+            "id" : "idResponse106",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1519,6 +1969,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable106"
           }, {
+            "id" : "idResponse107",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1529,6 +1980,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable107"
           }, {
+            "id" : "idResponse108",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1539,6 +1991,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable108"
           }, {
+            "id" : "idResponse109",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1549,6 +2002,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable109"
           }, {
+            "id" : "idResponse110",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1559,6 +2013,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable110"
           }, {
+            "id" : "idResponse111",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1569,6 +2024,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable111"
           }, {
+            "id" : "idResponse112",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1579,6 +2035,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable112"
           }, {
+            "id" : "idResponse113",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1589,6 +2046,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable113"
           }, {
+            "id" : "idResponse114",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1599,6 +2057,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable114"
           }, {
+            "id" : "idResponse115",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1609,6 +2068,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable115"
           }, {
+            "id" : "idResponse116",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1619,6 +2079,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable116"
           }, {
+            "id" : "idResponse117",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1629,6 +2090,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable117"
           }, {
+            "id" : "idResponse118",
             "CodeListReference" : "isg1uorv",
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1653,7 +2115,89 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Mesure unique"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse99",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse100",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse101",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse102",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse103",
+              "MappingTarget" : "1 5"
+            },
+            {
+              "MappingSource" : "idResponse104",
+              "MappingTarget" : "2 1"
+            },
+            {
+              "MappingSource" : "idResponse105",
+              "MappingTarget" : "2 2"
+            },
+            {
+              "MappingSource" : "idResponse106",
+              "MappingTarget" : "2 3"
+            },
+            {
+              "MappingSource" : "idResponse107",
+              "MappingTarget" : "2 4"
+            },
+            {
+              "MappingSource" : "idResponse108",
+              "MappingTarget" : "2 5"
+            },
+            {
+              "MappingSource" : "idResponse109",
+              "MappingTarget" : "3 1"
+            },
+            {
+              "MappingSource" : "idResponse110",
+              "MappingTarget" : "3 2"
+            },
+            {
+              "MappingSource" : "idResponse111",
+              "MappingTarget" : "3 3"
+            },
+            {
+              "MappingSource" : "idResponse112",
+              "MappingTarget" : "3 4"
+            },
+            {
+              "MappingSource" : "idResponse113",
+              "MappingTarget" : "3 5"
+            },
+            {
+              "MappingSource" : "idResponse114",
+              "MappingTarget" : "4 1"
+            },
+            {
+              "MappingSource" : "idResponse115",
+              "MappingTarget" : "4 2"
+            },
+            {
+              "MappingSource" : "idResponse116",
+              "MappingTarget" : "4 3"
+            },
+            {
+              "MappingSource" : "idResponse117",
+              "MappingTarget" : "4 4"
+            },
+            {
+              "MappingSource" : "idResponse118",
+              "MappingTarget" : "4 5"
+            }
+            ]
         } ]
       }, {
         "id" : "iwnet09y",
@@ -1680,6 +2224,7 @@ module.exports = [
             "FailMessage" : "Le montant des investissements spécifiquement dédiés à\n                        l'environnement est supérieur au montant total des\n                        investissements."
           } ],
           "Response" : [
+            "id" : "idResponse119",
             {
             "Datatype" : {
               "typeName" : "NUMERIC",
@@ -1688,6 +2233,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable119"
           }, {
+            "id" : "idResponse120",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1695,6 +2241,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable120"
           }, {
+            "id" : "idResponse121",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1702,6 +2249,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable121"
           }, {
+            "id" : "idResponse122",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1709,6 +2257,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable122"
           }, {
+            "id" : "idResponse123",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1716,6 +2265,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable123"
           }, {
+            "id" : "idResponse124",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1723,6 +2273,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable124"
           }, {
+            "id" : "idResponse125",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1730,6 +2281,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable125"
           }, {
+            "id" : "idResponse126",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1737,6 +2289,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable126"
           }, {
+            "id" : "idResponse127",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1744,6 +2297,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable127"
           }, {
+            "id" : "idResponse128",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1751,6 +2305,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable128"
           }, {
+            "id" : "idResponse129",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1758,6 +2313,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable129"
           }, {
+            "id" : "idResponse130",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1765,6 +2321,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable130"
           }, {
+            "id" : "idResponse131",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1772,6 +2329,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable131"
           }, {
+            "id" : "idResponse132",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1779,6 +2337,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable132"
           }, {
+            "id" : "idResponse133",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1786,6 +2345,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable133"
           }, {
+            "id" : "idResponse134",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1793,6 +2353,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable134"
           }, {
+            "id" : "idResponse135",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1800,6 +2361,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable135"
           }, {
+            "id" : "idResponse136",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1807,6 +2369,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable136"
           }, {
+            "id" : "idResponse137",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1814,6 +2377,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable137"
           }, {
+            "id" : "idResponse138",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1821,6 +2385,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable138"
           }, {
+            "id" : "idResponse139",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1828,6 +2393,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable139"
           }, {
+            "id" : "idResponse140",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1835,6 +2401,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable140"
           }, {
+            "id" : "idResponse141",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1842,6 +2409,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable141"
           }, {
+            "id" : "idResponse142",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1849,6 +2417,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable142"
           }, {
+            "id" : "idResponse143",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1856,6 +2425,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable143"
           }, {
+            "id" : "idResponse144",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1863,6 +2433,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable144"
           }, {
+            "id" : "idResponse145",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1870,6 +2441,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable145"
           }, {
+            "id" : "idResponse146",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1877,6 +2449,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable146"
           }, {
+            "id" : "idResponse147",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1884,6 +2457,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable147"
           }, {
+            "id" : "idResponse148",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1891,6 +2465,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable148"
           }, {
+            "id" : "idResponse149",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1898,6 +2473,7 @@ module.exports = [
             },
             "CollectedVariableReference" : "collectedVariable149"
           }, {
+            "id" : "idResponse150",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -1919,7 +2495,137 @@ module.exports = [
               "dynamic" : "0",
               "Label" : "Montant des investissements en Keuros"
             } ]
-          }
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse119",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse120",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse121",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse122",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse123",
+              "MappingTarget" : "2 1"
+            },
+            {
+              "MappingSource" : "idResponse124",
+              "MappingTarget" : "2 2"
+            },
+            {
+              "MappingSource" : "idResponse125",
+              "MappingTarget" : "2 3"
+            },
+            {
+              "MappingSource" : "idResponse126",
+              "MappingTarget" : "2 4"
+            },
+            {
+              "MappingSource" : "idResponse127",
+              "MappingTarget" : "3 1"
+            },
+            {
+              "MappingSource" : "idResponse128",
+              "MappingTarget" : "3 2"
+            },
+            {
+              "MappingSource" : "idResponse129",
+              "MappingTarget" : "3 3"
+            },
+            {
+              "MappingSource" : "idResponse130",
+              "MappingTarget" : "3 4"
+            },
+            {
+              "MappingSource" : "idResponse131",
+              "MappingTarget" : "4 1"
+            },
+            {
+              "MappingSource" : "idResponse132",
+              "MappingTarget" : "4 2"
+            },
+            {
+              "MappingSource" : "idResponse133",
+              "MappingTarget" : "4 3"
+            },
+            {
+              "MappingSource" : "idResponse134",
+              "MappingTarget" : "4 4"
+            },
+            {
+              "MappingSource" : "idResponse135",
+              "MappingTarget" : "5 1"
+            },
+            {
+              "MappingSource" : "idResponse136",
+              "MappingTarget" : "5 2"
+            },
+            {
+              "MappingSource" : "idResponse137",
+              "MappingTarget" : "5 3"
+            },
+            {
+              "MappingSource" : "idResponse138",
+              "MappingTarget" : "5 4"
+            },
+            {
+              "MappingSource" : "idResponse139",
+              "MappingTarget" : "6 1"
+            },
+            {
+              "MappingSource" : "idResponse140",
+              "MappingTarget" : "6 2"
+            },
+            {
+              "MappingSource" : "idResponse141",
+              "MappingTarget" : "6 3"
+            },
+            {
+              "MappingSource" : "idResponse142",
+              "MappingTarget" : "6 4"
+            },
+            {
+              "MappingSource" : "idResponse143",
+              "MappingTarget" : "7 1"
+            },
+            {
+              "MappingSource" : "idResponse144",
+              "MappingTarget" : "7 2"
+            },
+            {
+              "MappingSource" : "idResponse145",
+              "MappingTarget" : "7 3"
+            },
+            {
+              "MappingSource" : "idResponse146",
+              "MappingTarget" : "7 4"
+            },
+            {
+              "MappingSource" : "idResponse147",
+              "MappingTarget" : "8 1"
+            },
+            {
+              "MappingSource" : "idResponse148",
+              "MappingTarget" : "8 2"
+            },
+            {
+              "MappingSource" : "idResponse149",
+              "MappingTarget" : "8 3"
+            },
+            {
+              "MappingSource" : "idResponse150",
+              "MappingTarget" : "8 4"
+            }
+            ]
         } ]
       } ]
     } ],
@@ -2035,10 +2741,10 @@ module.exports = [
           "Value" : "code02", "Parent": "",
           "Label" : "Mesure et contrôle"
         }, {
-          "Value" : "code02", "Parent": "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Recyclage, tri et valorisation"
         }, {
-          "Value" : "code03", "Parent": "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Prévention des pollutions"
         } ]
       }, {
@@ -2052,13 +2758,13 @@ module.exports = [
           "Value" : "code02", "Parent": "",
           "Label" : "Effectifs salariés à temps partiel moins de 6 mois"
         }, {
-          "Value" : "code02", "Parent": "",
+          "Value" : "code03", "Parent": "",
           "Label" : "Effectifs salariés à temps partiel 6 mois et plus"
         }, {
-          "Value" : "code03", "Parent": "",
+          "Value" : "code04", "Parent": "",
           "Label" : "Apprentis, stagiaires rémunérés"
         }, {
-          "Value" : "code04", "Parent": "",
+          "Value" : "code05", "Parent": "",
           "Label" : "Total"
         } ]
       }, {
