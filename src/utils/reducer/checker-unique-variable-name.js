@@ -12,7 +12,6 @@ function checkerUniqueVariableName({
   },
 }) {
   const errors = [];
-  console.log(activeComponentsById)
   const variablesNames = [
     ...Object.keys(activeCalculatedVariablesById || {}).map(key => activeCalculatedVariablesById[key].name),
     ...Object.keys(activeExternalVariablesById || {}).map(key => activeExternalVariablesById[key].name),
