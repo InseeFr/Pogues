@@ -55,8 +55,9 @@ function remoteToState(remote, componentGroup, codesListsStore) {
 
   }
 
-  const cg = componentGroup.find(group => group.MemberReference && group.MemberReference.indexOf(id) >= 0)
-  state.pageBreak = cg && cg.MemberReference.indexOf(id) === (cg.MemberReference.length - 1)
+  const cGroupIndex = componentGroup.findIndex(group => group.MemberReference && group.MemberReference.indexOf(id) >= 0)
+  const cGroup = componentGroup[cGroupIndex];
+  state.pageBreak = cGroup && (cGroupIndex < componentGroup.length - 1) && cGroup.MemberReference.indexOf(id) === (cGroup.MemberReference.length - 1)
 
   return state;
 }

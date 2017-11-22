@@ -78,7 +78,7 @@ export function getComponentIdForPageBreak(id, activeComponentsById, state) {
     ...state
   };
 
-  if (id) {
+  if (id && activeComponentsById[id]) {
     return {
       ...state,
       componentIdForPageBreak: activeComponentsById[id].pageBreak ? '' : id
