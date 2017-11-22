@@ -34,6 +34,10 @@ class VisualizeDropdown extends Component {
     this.state = {
       dropdownOpen: false,
     };
+
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+
   }
 
   /**
@@ -55,6 +59,26 @@ class VisualizeDropdown extends Component {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   }
 
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({
+        dropdownOpen: false
+      })
+    }
+  }
+
   render() {
     const classDropDown = classSet({
       'btn-group': true,
@@ -71,7 +95,7 @@ class VisualizeDropdown extends Component {
       'dropdown-menu': true,
     });
     return (
-      <div className={classDropDown}>
+      <div className={classDropDown} ref={this.setWrapperRef}>
         <button
           className={classDropDownTrigger}
           disabled={this.props.disabled}
