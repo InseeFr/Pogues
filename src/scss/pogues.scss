@@ -18,11 +18,12 @@
 @import 'inc/_user-connection';
 @import 'inc/_questionnaire-list';
 @import 'inc/_declarations';
-@import 'inc/component-edition';
-@import 'inc/arbo-simplifield';
-@import 'inc/confirm-dialog';
-@import 'inc/questionnaire-nav';
-@import 'inc/generic-input';
+@import 'inc/_component-edition';
+@import 'inc/_arbo-simplifield';
+@import 'inc/_confirm-dialog';
+@import 'inc/_questionnaire-nav';
+@import 'inc/_generic-input';
+@import 'inc/_errors-integrity';
 
 //Widgets
 @import 'inc/widgets/_statistical-context-criteria';

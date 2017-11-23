@@ -1,3 +1,5 @@
+import merge from 'lodash.merge';
+
 /**
  * A checker analyzes the state and returns a list of error descriptions
  */
@@ -13,12 +15,8 @@
  */
 export default function combineCheckers(...checkers) {
   return function(state) {
-    return checkers.reduce((errorsByCode, checker) => {
-      const check = checker(state) || {};
-      return {
-        ...errorsByCode,
-        ...check,
-      };
+    return checkers.reduce((errorsByComponent, checker) => {
+      return merge(errorsByComponent, checker(state) || {});
     }, {});
   };
 }

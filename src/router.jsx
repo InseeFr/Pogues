@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, hashHistory, Route, IndexRoute, Redirect } from 'react-router';
 
-import App from 'layout/app';
+import { App } from 'layout/app';
 import { PageHome } from 'layout/page-home';
 import { PageHelp } from 'layout/page-help';
 import { PageSearchQuestionnaire } from 'layout/page-search-questionnaire';

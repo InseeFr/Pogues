@@ -5,7 +5,14 @@ import PageQuestionnaire from '../components/page-questionnaire';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
-import { setActiveQuestionnaire, setActiveComponents, setActiveCodeLists, setActiveVariables } from 'actions/app-state';
+import { loadCampaignsIfNeeded } from 'actions/metadata';
+import {
+  setActiveQuestionnaire,
+  setActiveComponents,
+  setActiveCodeLists,
+  setActiveVariables,
+  loadStatisticalContext,
+} from 'actions/app-state';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -34,6 +41,7 @@ const propTypes = {
   params: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired,
+  router: PropTypes.object.isRequired,
 };
 
 // Container
@@ -41,6 +49,7 @@ const propTypes = {
 const mapStateToProps = (state, { params: { id } }) => ({
   id,
   questionnaire: state.questionnaireById[id],
+  activeQuestionnaire: state.appState.activeQuestionnaire,
   components: state.componentByQuestionnaire[id],
   codeLists: state.codeListByQuestionnaire[id],
   calculatedVariables: state.calculatedVariableByQuestionnaire[id],
@@ -53,6 +62,8 @@ const mapStateToProps = (state, { params: { id } }) => ({
 
 const mapDispatchToProps = {
   loadQuestionnaireIfNeeded,
+  loadCampaignsIfNeeded,
+  loadStatisticalContext,
   setActiveQuestionnaire,
   setActiveComponents,
   setActiveCodeLists,

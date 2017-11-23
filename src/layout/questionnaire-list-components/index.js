@@ -1,1 +1,1 @@
-export { default as QuestionnaireItems } from './containers/questionnaire-items-container';
+export { default as QuestionnaireListComponents } from './containers/questionnaire-list-components-container';

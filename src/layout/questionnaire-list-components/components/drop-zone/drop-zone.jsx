@@ -12,9 +12,7 @@ class DropZone extends Component {
   render() {
     return (
       <div className="questionnaire-element-drop-zone" style={this.props.style}>
-        <div className="questionnaire-element-label">
-          {Dictionary.dropHere}
-        </div>
+        <div className="questionnaire-element-label">{Dictionary.dropHere}</div>
       </div>
     );
   }

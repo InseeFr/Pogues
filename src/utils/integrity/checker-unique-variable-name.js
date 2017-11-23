@@ -1,5 +1,6 @@
 import uniq from 'lodash.uniq';
 
+import { INTEGRITY_TYPES } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function checkerUniqueVariableName({
@@ -33,19 +34,13 @@ function checkerUniqueVariableName({
 
   if (duplicatedVariablesNames.length > 0) {
     errors.push({
-      id,
-      params: {
-        dictionary: `${Dictionary.errorUniqueVariableName} ${duplicatedVariablesNames.join(',')}`,
-      },
+      message: `${Dictionary.errorUniqueVariableName} ${duplicatedVariablesNames.join(',')}`,
     });
   }
 
   return {
-    UNIQUE_VARIABLE_NAME: {
-      type: 'global',
-      code: 'UNIQUE_VARIABLE_NAME',
-      dictionary: 'errorUniqueVariableName',
-      errors,
+    [id]: {
+      [INTEGRITY_TYPES.UNIQUE_VARIABLE_NAME]: errors,
     },
   };
 }

@@ -9,8 +9,8 @@ const Visualizer = require('webpack-visualizer-plugin');
 
 const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3000;
-const sourcePath = path.join(__dirname, './src');
-const buildDirectory = path.join(__dirname, './dist');
+const sourcePath = path.resolve(__dirname, 'src');
+const buildDirectory = path.resolve(__dirname, 'dist');
 
 let cssLoader;
 let scssLoader;
@@ -212,6 +212,7 @@ module.exports = function(env) {
         "lodash.find",
         "lodash.takewhile",
         "lodash.takeright",
+        "lodash.get",
         "prop-types",
         "react",
         "react-dnd",
@@ -269,7 +270,7 @@ module.exports = function(env) {
     },
     resolveLoader: {
       alias: {
-        'config-loader': path.join(__dirname, './build-config/environments/config-loader'),
+        'config-loader': path.resolve(__dirname, 'build-config/environments/config-loader'),
       },
     },
     resolve: {

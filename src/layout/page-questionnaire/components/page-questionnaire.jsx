@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash.isequal';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
-// import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
+import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
 import { QuestionnaireNav } from 'layout/questionnaire-nav';
 import { GenericInput } from 'layout/generic-input';
+import { ErrorsIntegrity } from 'layout/errors-integrity';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
@@ -13,20 +15,25 @@ const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 export const propTypes = {
   id: PropTypes.string.isRequired,
   loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
+  loadStatisticalContext: PropTypes.func.isRequired,
+  loadCampaignsIfNeeded: PropTypes.func.isRequired,
   setActiveQuestionnaire: PropTypes.func.isRequired,
   setActiveComponents: PropTypes.func.isRequired,
   setActiveCodeLists: PropTypes.func.isRequired,
   setActiveVariables: PropTypes.func.isRequired,
   questionnaire: PropTypes.object,
   components: PropTypes.object,
+  activeQuestionnaire: PropTypes.object,
   codeLists: PropTypes.object,
   calculatedVariables: PropTypes.object,
   externalVariables: PropTypes.object,
   collectedVariablesByQuestion: PropTypes.object,
+  router: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
   questionnaire: {},
+  activeQuestionnaire: {},
   components: {},
   codeLists: {},
   calculatedVariables: {},
@@ -51,62 +58,60 @@ class PageQuestionnaire extends Component {
 
     this.props.loadQuestionnaireIfNeeded(id);
 
-    this.setActive(
-      questionnaire,
-      components,
-      codeLists,
-      calculatedVariables,
-      externalVariables,
-      collectedVariablesByQuestion
-    );
-  }
-
-  componentWillUpdate(nextProps) {
-    const nextQuestionnaireId = nextProps.questionnaire.id;
-    if (nextQuestionnaireId && nextQuestionnaireId !== this.props.questionnaire.id) {
-      const {
-        questionnaire,
-        components,
-        codeLists,
-        calculatedVariables,
-        externalVariables,
-        collectedVariablesByQuestion,
-      } = nextProps;
-
-      this.setActive(
-        questionnaire,
-        components,
-        codeLists,
-        calculatedVariables,
-        externalVariables,
-        collectedVariablesByQuestion
-      );
+    if (questionnaire.id) {
+      const idCampaign = questionnaire.campaigns[0];
+      this.props.setActiveQuestionnaire(questionnaire);
+      this.props.setActiveComponents(components);
+      this.props.setActiveCodeLists(codeLists);
+      this.props.setActiveVariables({
+        activeCalculatedVariablesById: calculatedVariables,
+        activeExternalVariablesById: externalVariables,
+        collectedVariableByQuestion: collectedVariablesByQuestion,
+      });
+      this.props.loadStatisticalContext(idCampaign);
     }
   }
 
-  setActive(
-    questionnaire,
-    components,
-    codeLists,
-    calculatedVariables,
-    externalVariables,
-    collectedVariablesByQuestion
-  ) {
-    this.props.setActiveQuestionnaire(questionnaire);
-    this.props.setActiveComponents(components);
-    this.props.setActiveCodeLists(codeLists);
-    this.props.setActiveVariables({
-      activeCalculatedVariablesById: calculatedVariables,
-      activeExternalVariablesById: externalVariables,
-      collectedVariableByQuestion: collectedVariablesByQuestion,
-    });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeQuestionnaire.id !== this.props.activeQuestionnaire.id) {
+      const idCampaign = nextProps.activeQuestionnaire.campaigns[0];
+      this.props.loadStatisticalContext(idCampaign);
+    }
+
+    if (nextProps.activeQuestionnaire.operation !== this.props.activeQuestionnaire.operation) {
+      this.props.loadCampaignsIfNeeded(nextProps.activeQuestionnaire.operation);
+    }
+
+    if (!isEqual(nextProps.questionnaire, this.props.questionnaire)) {
+      this.props.setActiveQuestionnaire(nextProps.questionnaire);
+    }
+
+    if (!isEqual(nextProps.components, this.props.components)) {
+      this.props.setActiveComponents(nextProps.components);
+    }
+
+    if (!isEqual(nextProps.codeLists, this.props.codeLists)) {
+      this.props.setActiveCodeLists(nextProps.codeLists);
+    }
+
+    if (
+      !isEqual(nextProps.calculatedVariables, this.props.calculatedVariables) ||
+      !isEqual(nextProps.externalVariables, this.props.externalVariables) ||
+      !isEqual(nextProps.collectedVariablesByQuestion, this.props.collectedVariablesByQuestion)
+    ) {
+      this.props.setActiveVariables({
+        activeCalculatedVariablesById: nextProps.calculatedVariables,
+        activeExternalVariablesById: nextProps.externalVariables,
+        collectedVariableByQuestion: nextProps.collectedVariablesByQuestion,
+      });
+    }
   }
 
   render() {
     return (
       <div id={COMPONENT_ID}>
         <QuestionnaireNav />
-        {/*<QuestionnaireListComponents />*/}
+        <QuestionnaireListComponents navigate={this.props.router.push} />
         <GenericInput />
       </div>
     );

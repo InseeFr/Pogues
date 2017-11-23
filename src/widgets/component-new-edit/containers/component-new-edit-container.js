@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { formPropTypes, getFormSubmitErrors } from 'redux-form';
 
-import ComponentNewEditForm from './component-new-edit-form';
+import ComponentNewEdit from '../components/component-new-edit';
 
 import { setTabErrors, clearTabErrors } from 'actions/app-state';
 
@@ -10,7 +10,7 @@ import { setTabErrors, clearTabErrors } from 'actions/app-state';
 
 export const propTypes = {
   ...formPropTypes,
-  type: PropTypes.string.isRequired,
+  componentType: PropTypes.string.isRequired,
   componentId: PropTypes.string,
 };
 
@@ -25,12 +25,15 @@ const mapStateToProps = state => ({
   errorsByQuestionTab: state.appState.errorsByQuestionTab,
 });
 
+
 const mapDispatchToProps = {
   setTabErrors,
   clearTabErrors,
 };
 
-const ComponentNewEditContainer = connect(mapStateToProps, mapDispatchToProps)(ComponentNewEditForm);
+const ComponentNewEditContainer = connect(mapStateToProps, mapDispatchToProps)(ComponentNewEdit);
 
 ComponentNewEditContainer.propTypes = propTypes;
 ComponentNewEditContainer.defaultProps = defaultProps;
+
+export default ComponentNewEditContainer;

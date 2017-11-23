@@ -6,11 +6,11 @@ import {
   MOVE_COMPONENT,
   DUPLICATE_COMPONENT,
 } from 'actions/component';
-import combineCheckers from 'utils/reducer/combine-checkers';
-import checkerQuestionnaireLength from 'utils/reducer/checker-questionnaire-length';
-import checkerComponentTarget from 'utils/reducer/checker-component-targets';
-import checkerUniqueVariableName from 'utils/reducer/checker-unique-variable-name';
-import checkerUniqueComponentName from 'utils/reducer/checker-unique-component-name';
+import combineCheckers from './combine-checkers';
+import checkerQuestionnaireLength from './checker-questionnaire-length';
+import checkerComponentTarget from './checker-component-targets';
+import checkerUniqueVariableName from './checker-unique-variable-name';
+import checkerUniqueComponentName from './checker-unique-component-name';
 
 export default {
   [SET_ACTIVE_COMPONENTS]: combineCheckers(

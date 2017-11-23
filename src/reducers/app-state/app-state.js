@@ -8,6 +8,7 @@ import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
 import {
   SET_ACTIVE_QUESTIONNAIRE,
   SET_SELECTED_COMPONENT,
+  SET_EDITING_COMPONENT,
   UPDATE_ACTIVE_QUESTIONNAIRE,
   LOAD_STATISTICAL_CONTEXT_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
@@ -36,6 +37,7 @@ const defaultState = {
   collectedVariableByQuestion: {},
   errorsByCode: {},
   selectedComponentId: '',
+  editingComponentId: '',
   errorsByQuestionTab: {},
   isQuestionnaireModified: false,
 };
@@ -74,6 +76,13 @@ export function setSelectedComponentId(state, id) {
   };
 }
 
+export function setEditingComponentId(state, id) {
+  return {
+    ...state,
+    editingComponentId: id,
+  };
+}
+
 export function loadStatisticalContext(state, { serie, operation }) {
   return {
     ...state,
@@ -102,6 +111,7 @@ actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
+actionHandlers[SET_EDITING_COMPONENT] = setEditingComponentId;
 actionHandlers[LOAD_STATISTICAL_CONTEXT_SUCCESS] = loadStatisticalContext;
 actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = setQuestionNotModified;
 

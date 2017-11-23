@@ -1,1 +1,1 @@
-export { default as PageHome } from './components/page-home';
+export { default as PageHome } from './page-home';

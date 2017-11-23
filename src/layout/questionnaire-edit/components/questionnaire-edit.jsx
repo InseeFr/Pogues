@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import { QuestionnaireNewEdit, Questionnaire } from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
-// @TODO: Move to ComponentWidget
-import { Component as ComponentFactory } from 'layout/page-questionnaire';
+import { Component as ComponentFactory } from 'widgets/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;

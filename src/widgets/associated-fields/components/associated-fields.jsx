@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
+
 import Input from 'forms/controls/input';
+import { RichTextarea, markdownVtlToString } from 'forms/controls/rich-textarea';
 
 import { WIDGET_ASSOCIATED_FIELDS } from 'constants/dom-constants';
 
@@ -22,11 +24,13 @@ const propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired,
   targetIsRichTextarea: PropTypes.bool.isRequired,
+  focusOnInit: PropTypes.bool,
 };
 
 const defaultProps = {
   currentValueOrigin: '',
   currentValueTarget: '',
+  focusOnInit: false,
 };
 
 // Component
@@ -51,23 +55,38 @@ class AssociatedFields extends Component {
       targetIsRichTextarea,
     } = this.props;
 
+    let valueOrigin = currentValueOrigin;
+
     if (targetIsRichTextarea) {
-      // @TODO: Get plain text
+      valueOrigin = markdownVtlToString(currentValueOrigin);
     }
 
-    const newValueTarget = action(currentValueOrigin, currentValueTarget);
+    const newValueTarget = action(valueOrigin, currentValueTarget);
     change(formName, nameTarget, newValueTarget);
   }
 
   render() {
-    const { fieldOrigin, fieldTarget, targetIsRichTextarea } = this.props;
-
+    const { fieldOrigin, fieldTarget, targetIsRichTextarea, focusOnInit } = this.props;
     return (
       <div className={WIDGET_ASSOCIATED_FIELDS}>
         {targetIsRichTextarea ? (
-          <Field onBlur={this.onBlur} name={fieldOrigin.name} type="text" component={Input} label={fieldOrigin.label} />
+          <div onBlur={this.onBlur}>
+            <Field
+              name={fieldOrigin.name}
+              component={RichTextarea}
+              label={fieldOrigin.label}
+              focusOnInit={focusOnInit}
+            />
+          </div>
         ) : (
-          <Field onBlur={this.onBlur} name={fieldOrigin.name} type="text" component={Input} label={fieldOrigin.label} />
+          <Field
+            onBlur={this.onBlur}
+            name={fieldOrigin.name}
+            type="text"
+            component={Input}
+            label={fieldOrigin.label}
+            focusOnInit={focusOnInit}
+          />
         )}
 
         <Field name={fieldTarget.name} type="text" component={Input} label={fieldTarget.label} />

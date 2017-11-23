@@ -4,24 +4,32 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import { QuestionnaireNew } from 'layout/questionnaire-new';
-import QuestionnaireListContainer from '../containers/questionnaire-list-container';
+import { QuestionnaireList } from 'layout/questionnaire-list';
+
 import Dictionary from 'utils/dictionary/dictionary';
 
+// Prop types and default props
+
+const propTypes = {
+  router: PropTypes.object.isRequired,
+};
+
+// Component
+
 export class PageHome extends Component {
-  static propTypes = {
-    router: PropTypes.object.isRequired,
-  };
+  static propTypes = propTypes;
 
   constructor(props) {
     super(props);
+
     this.state = {
       showModal: false,
     };
+
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleQuestionnaryCreated = this.handleQuestionnaryCreated.bind(this);
   }
-
 
   handleOpenModal() {
     this.setState({ showModal: true });
@@ -39,7 +47,13 @@ export class PageHome extends Component {
     return (
       <div id="page-home">
         <h1>{Dictionary.welcome}</h1>
-        <QuestionnaireListContainer />
+
+        {/* List of questionnaires */}
+
+        <QuestionnaireList />
+
+        {/* Sidebar */}
+
         <div className="home-sidebar">
           <div className="box">
             <h3>{Dictionary.createQuestionnaire}</h3>
@@ -68,6 +82,9 @@ export class PageHome extends Component {
             </li>
           </ul>
         </div>
+
+        {/* Create questionnaire modal */}
+
         <ReactModal
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showModal}

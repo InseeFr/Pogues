@@ -16,6 +16,7 @@ export const propTypes = {
 // Container
 
 const mapStateToProps = state => {
+  console.log(state.appState.activeQuestionnaire)
   return {
     questionnaire: state.appState.activeQuestionnaire,
     componentsStore: state.appState.activeComponentsById,

@@ -160,3 +160,18 @@ export const QUESTIONNAIRE_NAV = {
 export const GENERIC_INPUT = {
   COMPONENT_ID: 'generic-input',
 };
+
+export const QUESTIONNAIRE_COMPONENT = {
+  COMPONENT_CLASS: 'questionnaire-component',
+};
+
+export const ERRORS_INTEGRITY = {
+  COMPONENT_ID: 'errors-integrity',
+  INNER: 'errors-integrity__inner',
+  ALERT: 'errors-integrity__alert',
+  LIST: 'errors-integrity__list',
+};
+
+export const APP = {
+  COMPONENT_ID: 'app',
+};

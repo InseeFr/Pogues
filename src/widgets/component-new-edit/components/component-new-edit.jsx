@@ -25,7 +25,7 @@ const { QUESTION } = COMPONENT_TYPE;
 
 export const propTypes = {
   ...formPropTypes,
-  type: PropTypes.string.isRequired,
+  componentType: PropTypes.string.isRequired,
   componentId: PropTypes.string.isRequired,
   errorsValidation: PropTypes.object,
   errorsByQuestionTab: PropTypes.object,
@@ -47,7 +47,7 @@ function ComponentNewEdit({
   onCancel,
   invalidItems,
   errorsByQuestionTab,
-  type,
+  componentType,
   componentId,
 }) {
   const invalidItemsByType = getInvalidItemsByType(invalidItems);
@@ -55,7 +55,7 @@ function ComponentNewEdit({
     {
       id: 'declarations',
       label: Dictionary.declaration_tabTitle,
-      content: <Declaration showPosition={type === QUESTION} />,
+      content: <Declaration showPosition={componentType === QUESTION} />,
       numErrors: errorsByQuestionTab.declarations,
     },
     {
@@ -68,13 +68,13 @@ function ComponentNewEdit({
       id: 'redirections',
       label: Dictionary.goTo,
       content: (
-        <Redirections componentId={componentId} componentType={type} invalidItems={invalidItemsByType.redirections} />
+        <Redirections componentId={componentId} componentType={componentType} invalidItems={invalidItemsByType.redirections} />
       ),
       numErrors: errorsByQuestionTab.redirections,
     },
   ];
 
-  if (type === QUESTION) {
+  if (componentType === QUESTION) {
     panels.unshift({
       id: 'response-format',
       label: Dictionary.responsesEdition,
@@ -103,12 +103,13 @@ function ComponentNewEdit({
     fieldOrigin: { name: 'label', label: Dictionary.title },
     fieldTarget: { name: 'name', label: Dictionary.name },
     action: updateNameField,
+    focusOnInit: true,
   };
 
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit}>
-        {type === QUESTION ? (
+        {componentType === QUESTION ? (
           <AssociatedFields {...associatedFieldsProps} targetIsRichTextarea />
         ) : (
           <AssociatedFields {...associatedFieldsProps} />

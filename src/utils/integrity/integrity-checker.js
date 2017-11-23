@@ -15,15 +15,15 @@ function integrityChecker(reducer, checkers) {
     const newState = reducer(state, action);
     if (!checker) return newState;
 
-    const errorsByCode = checker(newState);
+    const errorsByComponent = checker(newState);
 
     return {
       ...newState,
-      appState: {
-        ...newState.appState,
-        errorsByCode: {
-          ...newState.appState.errorsByCode,
-          ...errorsByCode,
+      errors: {
+        ...newState.errors,
+        errorsByComponent: {
+          ...newState.errorsByComponent,
+          ...errorsByComponent,
         },
       },
     };

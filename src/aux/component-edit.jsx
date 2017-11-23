@@ -102,15 +102,6 @@ class ComponentEditContainer extends Component {
       const updatedExternalVariablesStore = componentTransformer.getExternalVariablesStore();
       const updatedCollectedlVariablesStore = componentTransformer.getCollectedVariablesStore();
 
-      this.props.updateComponent(
-        componentId,
-        updatedComponentsStore,
-        updatedCalculatedVariablesStore,
-        updatedExternalVariablesStore,
-        updatedCollectedlVariablesStore,
-        updatedCodesListsStore
-      );
-      if (onSuccess) onSuccess();
     };
 
     return (

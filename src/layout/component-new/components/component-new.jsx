@@ -50,10 +50,10 @@ function validateAndSubmit(actions, type, validateQuestion, validateSequence, tr
     actions
       .createComponent(
         componentState,
+        updatedCodesListsStore,
         updatedCalculatedVariablesStore,
         updatedExternalVariablesStore,
-        updatedCollectedlVariablesStore,
-        updatedCodesListsStore
+        updatedCollectedlVariablesStore
       )
       .then(actions.updateParentChildren)
       .then(actions.orderComponents)
@@ -104,22 +104,21 @@ function ComponentNew({
 
   // Validation and submit
 
-  // return (
-  //   <ComponentNewEdit
-  //     type
-  //     onCancel={onCancel}
-  //     initialValues={initialValues}
-  //     onSubmit={validateAndSubmit(
-  //       actions,
-  //       type,
-  //       validateQuestion(setErrors, codesListsStore),
-  //       validateSequence(setErrors),
-  //       componentTransformer,
-  //       onSuccess
-  //     )}
-  //   />
-  // );
-  return <div />;
+  return (
+    <ComponentNewEdit
+      componentType={type}
+      onCancel={onCancel}
+      initialValues={initialValues}
+      onSubmit={validateAndSubmit(
+        actions,
+        type,
+        validateQuestion(setErrors, codesListsStore),
+        validateSequence(setErrors),
+        componentTransformer,
+        onSuccess
+      )}
+    />
+  );
 }
 
 ComponentNew.propTypes = propTypes;

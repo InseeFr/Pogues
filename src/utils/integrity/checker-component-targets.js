@@ -1,10 +1,12 @@
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
+import { INTEGRITY_TYPES } from 'constants/pogues-constants';
 
 function checkerComponentTargets({ appState: { activeComponentsById } }) {
-  const targetNotFoundErrors = [];
-  const targetEarlierErrors = [];
+  const errorsByComponent = {};
 
   Object.keys(activeComponentsById).forEach(key => {
+    const targetNotFoundErrors = [];
+    const targetEarlierErrors = [];
     const redirections = activeComponentsById[key].redirections || {};
     const redirectionsIds = Object.keys(redirections);
 
@@ -16,40 +18,26 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
 
         if (!activeComponentsById[redirection.cible]) {
           targetNotFoundErrors.push({
-            id: key,
-            params: {
-              itemId: innerKey,
-              messageKey: 'errorGoToNonExistingTgt',
-            },
+            redirectionId: innerKey,
+            dictionary: 'errorGoToNonExistingTgt',
           });
         } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
           targetEarlierErrors.push({
-            id: key,
-            params: {
-              itemId: innerKey,
-              targetId: redirection.cible,
-              messageKey: 'errorGoToEarlierTgt',
-            },
+            redirectionId: innerKey,
+            targetId: redirection.cible,
+            dictionary: 'errorGoToNonExistingTgt',
           });
         }
       });
     }
+
+    errorsByComponent[key] = {
+      [INTEGRITY_TYPES.TARGET_NOT_FOUND]: targetNotFoundErrors,
+      [INTEGRITY_TYPES.TARGET_EARLIER]: targetEarlierErrors,
+    };
   });
 
-  return {
-    TARGET_NOT_FOUND: {
-      type: 'redirections',
-      code: 'TARGET_NOT_FOUND',
-      dictionary: 'errorGoToNonExistingTgt',
-      errors: targetNotFoundErrors,
-    },
-    TARGET_EARLIER: {
-      type: 'redirections',
-      code: 'TARGET_EARLIER',
-      dictionary: 'errorGoToEarlierTgt',
-      errors: targetEarlierErrors,
-    },
-  };
+  return errorsByComponent;
 }
 
 export default checkerComponentTargets;

@@ -6,6 +6,7 @@ export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
 export const SET_ACTIVE_CODE_LISTS = 'SET_ACTIVE_CODE_LISTS';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
+export const SET_EDITING_COMPONENT = 'SET_EDITING_COMPONENT';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
@@ -108,6 +109,19 @@ export const setActiveDeclarations = activeDeclarations => ({
  */
 export const setSelectedComponentId = id => ({
   type: SET_SELECTED_COMPONENT,
+  payload: id,
+});
+
+/**
+ * Set editing component id
+ *
+ * It updates the store "appState.editingComponentId"
+ *
+ * @param  {string} id  The component id
+ * @return {object}     SET_EDITING_COMPONENT action
+ */
+export const setEditingComponentId = id => ({
+  type: SET_EDITING_COMPONENT,
   payload: id,
 });
 
