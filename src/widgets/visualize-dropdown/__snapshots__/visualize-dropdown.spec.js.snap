@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
+<div
+  className="btn-group"
+>
+  <button
+    aria-expanded={false}
+    aria-haspopup="true"
+    className="btn dropdown-toggle btn-yellow disabled"
+    data-toggle="dropdown"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Visualise
+    <span
+      className="caret"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+  >
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+         
+        Web
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        PDF
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Specification
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] = `
+<div
+  className="btn-group"
+>
+  <button
+    aria-expanded={false}
+    aria-haspopup="true"
+    className="btn dropdown-toggle btn-yellow"
+    data-toggle="dropdown"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Visualise
+    <span
+      className="caret"
+    />
+  </button>
+  <ul
+    className="top dropdown-menu"
+  >
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+         
+        Web
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        PDF
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Specification
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Visualize Dropdown Component:  Should return the right HTML 1`] = `
+<div
+  className="btn-group"
+>
+  <button
+    aria-expanded={false}
+    aria-haspopup="true"
+    className="btn dropdown-toggle btn-yellow"
+    data-toggle="dropdown"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Visualise
+    <span
+      className="caret"
+    />
+  </button>
+  <ul
+    className="dropdown-menu"
+  >
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+         
+        Web
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        PDF
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Specification
+      </a>
+    </li>
+  </ul>
+</div>
+`;

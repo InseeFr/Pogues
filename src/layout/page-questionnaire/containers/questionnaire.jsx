@@ -1,12 +1,15 @@
+import { PropType } from '../../../utils/component/component-dragndrop';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { dragComponent, removeComponent, duplicateComponent } from 'actions/component';
-import { setSelectedComponentId, loadStatisticalContext, visualizeActiveQuestionnaire } from 'actions/app-state';
+import { setSelectedComponentId, loadStatisticalContext, visualizeActiveQuestionnaire, handleRemovePageBreak } from 'actions/app-state';
 import { loadCampaignsIfNeeded } from 'actions/metadata';
 import { removeQuestionnaire } from 'actions/questionnaire';
 import Questionnaire from '../components/questionnaire';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 function getErrorsByComponent(errorsByCode) {
   const errorsByComponent = {};
@@ -35,7 +38,7 @@ const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
   components: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,
-  errorsByCode: state.appState.errorsByCode,
+  errorsByCode: state.appState.errorsByCode
 });
 
 const mapDispatchToProps = {
@@ -47,6 +50,7 @@ const mapDispatchToProps = {
   loadStatisticalContext,
   loadCampaignsIfNeeded,
   visualizeActiveQuestionnaire,
+  handleRemovePageBreak
 };
 
 class QuestionnaireContainer extends Component {
@@ -62,18 +66,26 @@ class QuestionnaireContainer extends Component {
     duplicateComponent: PropTypes.func.isRequired,
     removeQuestionnaire: PropTypes.func.isRequired,
     errorsByCode: PropTypes.object,
-    visualizeActiveQuestionnaire: PropTypes.func.isRequired
+    visualizeActiveQuestionnaire: PropTypes.func.isRequired,
+    activeComponentsById: PropTypes.object.isRequired,
+    handleRemovePageBreak: PropTypes.func.isRequired
   };
   static defaultProps = {
     errorsByCode: {},
+    activeComponentsById: {}
   };
 
-  componentWillMount() {
-    this.props.setSelectedComponentId('');
+  componentWillReceiveProps(newProps, oldProps) {
+    const oldQuestionnaire = Object.keys(oldProps.components || {}).find(id => oldProps.components[id].type === QUESTIONNAIRE) || {};
+    const newQuestionnaire = Object.keys(newProps.components || {}).find(id => newProps.components[id].type === QUESTIONNAIRE) || {};
+    if (oldQuestionnaire !== newQuestionnaire) {
+      this.props.setSelectedComponentId(newProps.selectedComponentId);
+    }
   }
 
   render() {
-    const { questionnaire, components, selectedComponentId, errorsByCode } = this.props;
+    const { questionnaire, components, selectedComponentId, errorsByCode, handleRemovePageBreak } = this.props;
+
     const errorsByComponent = getErrorsByComponent(errorsByCode);
 
     if (!questionnaire.id) return <span className="fa fa-spinner fa-pulse fa-2x" />;
@@ -91,6 +103,7 @@ class QuestionnaireContainer extends Component {
         loadStatisticalContext={this.props.loadStatisticalContext}
         loadCampaignsIfNeeded={this.props.loadCampaignsIfNeeded}
         visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
+        handleRemovePageBreak={handleRemovePageBreak}
       />
     );
   }

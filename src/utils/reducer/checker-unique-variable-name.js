@@ -5,24 +5,26 @@ import Dictionary from 'utils/dictionary/dictionary';
 function checkerUniqueVariableName({
   appState: {
     activeCalculatedVariablesById,
-    activeExternalVariablesById,
-    collectedVariableByQuestion,
-    activeQuestionnaire: { id },
+  activeExternalVariablesById,
+  collectedVariableByQuestion,
+  activeQuestionnaire: { id },
+  activeComponentsById
   },
 }) {
   const errors = [];
-
   const variablesNames = [
     ...Object.keys(activeCalculatedVariablesById || {}).map(key => activeCalculatedVariablesById[key].name),
     ...Object.keys(activeExternalVariablesById || {}).map(key => activeExternalVariablesById[key].name),
-    ...Object.keys(collectedVariableByQuestion || {}).reduce((acc, key) => {
-      return [
-        ...acc,
-        ...Object.keys(collectedVariableByQuestion[key]).map(
-          innerKey => collectedVariableByQuestion[key][innerKey].name
-        ),
-      ];
-    }, []),
+    ...Object.keys(collectedVariableByQuestion || {})
+      .filter(key => Object.keys(activeComponentsById || {}).indexOf(key) >= 0)
+      .reduce((acc, key) => {
+        return [
+          ...acc,
+          ...Object.keys(collectedVariableByQuestion[key]).map(
+            innerKey => collectedVariableByQuestion[key][innerKey].name
+          ),
+        ];
+      }, []),
   ];
 
   const duplicatedVariablesNames = uniq(

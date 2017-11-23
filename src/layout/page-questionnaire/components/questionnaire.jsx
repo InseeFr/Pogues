@@ -26,7 +26,8 @@ class Questionnaire extends Component {
     loadStatisticalContext: PropTypes.func.isRequired,
     loadCampaignsIfNeeded: PropTypes.func.isRequired,
     errorsByComponent: PropTypes.object,
-    visualizeActiveQuestionnaire: PropTypes.func.isRequired
+    visualizeActiveQuestionnaire: PropTypes.func.isRequired,
+    handleRemovePageBreak: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -153,6 +154,10 @@ class Questionnaire extends Component {
     this.handleCloseQuestionnaireDetail();
   }
 
+  handleRemovePageBreak(e, key) {
+    this.props.handleRemovePageBreak(key);
+  }
+
   renderComponentsByParent(components, parent, errorsByComponent) {
     const renderComponentsByParent = this.renderComponentsByParent;
     const selected = this.props.selectedComponentId;
@@ -166,6 +171,7 @@ class Questionnaire extends Component {
           key={key}
           id={key}
           parent={components[key].parent}
+          pageBreak={components[key].pageBreak}
           parentType={components[components[key].parent].type}
           name={components[key].name}
           type={components[key].type}
@@ -180,6 +186,7 @@ class Questionnaire extends Component {
           childrenId={components[key].children}
           weight={components[key].weight}
           errors={componentErrors}
+          handleRemovePageBreak={event => this.handleRemovePageBreak(event, key)}
         >
           {subTree}
         </QuestionnaireElement>

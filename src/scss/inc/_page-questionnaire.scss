@@ -249,3 +249,16 @@
     left: 10px;
   }
 }
+
+div.separator {
+  display: flex;
+  hr {
+    background-color: #fff;
+    border-top: 2px dashed #8c8b8b;
+    width: 95%;
+  }
+  button {
+    border: none;
+    background-color: transparent;
+  }
+}
