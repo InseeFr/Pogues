@@ -6,7 +6,7 @@ import { getDefaultKeyBinding } from 'draft-js';
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions, initialize } from './input-with-suggestions-utils';
 
-import { getValue, editorValueToMarkdown, formatURL, toolbarConfig, rootStyle } from 'forms/controls/rich-textarea';
+import { getEditorValue, contentStateToString, formatURL, toolbarConfig, rootStyle } from 'forms/controls/rich-textarea';
 import { getControlId } from 'utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 
@@ -39,7 +39,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
 
     this.state = {
       ...parent.state,
-      value: getValue(props.input.value),
+      value: getEditorValue(props.input.value),
       currentValue: props.input.value,
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
@@ -59,14 +59,14 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       return;
     }
     if (nextProps.input.value === '' || nextProps.identifier !== this.props.identifier) {
-      this.setState({ value: getValue(nextProps.input.value) });
+      this.setState({ value: this.handleKeyCommand(nextProps.input.value) });
     }
   }
 
   handleChange = value => {
     const editorState = value.getEditorState();
     const contentState = editorState.getCurrentContent();
-    const transformedValue = editorValueToMarkdown(contentState);
+    const transformedValue = contentStateToString(contentState);
     this.setState({
       ...updateSuggestions(transformedValue, RichTextareaWithSuggestions.InputRegex, this.props.availableSuggestions),
       value,
@@ -90,7 +90,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     const newCurrentValue = this.state.currentValue.replace(RichTextareaWithSuggestions.InputRegex, `$${suggestion}`);
 
     // Reinitialize the state with the new value
-    this.setState({ ...initialize(), value: getValue(newCurrentValue) });
+    this.setState({ ...initialize(), value: getEditorValue(newCurrentValue) });
 
     // Replaces the $XXXX pattern by the selected suggestion
     this.props.input.onChange(newCurrentValue, `$${suggestion}`);
