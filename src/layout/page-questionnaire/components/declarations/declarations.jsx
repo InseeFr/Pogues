@@ -21,7 +21,7 @@ function validationDeclaration(values) {
   return errors;
 }
 
-function InputDeclaration({ identifier, showPosition }) {
+function InputDeclaration({ showPosition }) {
   return (
     <div>
       <Field
@@ -31,7 +31,6 @@ function InputDeclaration({ identifier, showPosition }) {
         label={Dictionary.declaration_label}
         buttons
         required
-        identifier={identifier}
       />
 
       <Field name="declarationType" id="declaration_type" component={Select} label={Dictionary.type} required>
@@ -79,14 +78,6 @@ InputDeclaration.propTypes = {
   showPosition: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state, { formName }) => {
-  formName = formName || 'component';
-  const selector = formValueSelector(formName);
-  return {
-    identifier: selector(state, `declarations.ref`),
-  };
-};
-
 class Declarations extends Component {
   static selectorPath = 'declarations';
 
@@ -100,12 +91,11 @@ class Declarations extends Component {
 
   render() {
     const { declarations, ...initialInputValues } = defaultForm;
-    const InputDeclarationView = connect(mapStateToProps)(InputDeclaration);
-    const inputDeclarationViewInstance = <InputDeclarationView showPosition={this.props.showPosition} />;
+    const InputDeclarationView = <InputDeclaration />;
     return (
       <FormSection name={Declarations.selectorPath} className="declaratations">
         <ListEntryFormContainer
-          inputView={inputDeclarationViewInstance}
+          inputView={InputDeclarationView}
           initialInputValues={initialInputValues}
           selectorPath={Declarations.selectorPath}
           validationInput={validationDeclaration}
