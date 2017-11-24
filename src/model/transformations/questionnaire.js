@@ -1,16 +1,45 @@
-import { orderComponents } from '../../actions/component';
 import * as Component from './component';
 import * as CodesList from './codes-list';
 import * as CalculatedVariable from './calculated-variable';
 import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
-import { getOrderedComponents } from 'utils/model/redirections-utils'
+
+import { getOrderedComponents } from 'utils/model/redirections-utils';
 import { uuid } from 'utils/utils';
 import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 import {
   removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
+
+function generateComponentGroups(componentsStore) {
+  const orderedComponents = getOrderedComponents(
+    componentsStore,
+    Object.keys(componentsStore)
+      .filter(id => componentsStore[id].type === SEQUENCE)
+      .sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
+  );
+  let startPage = 1;
+  const result = [];
+  orderedComponents.forEach(componentId => {
+    if (!result[startPage - 1]) {
+      result.push({
+        id: uuid(),
+        Name: `PAGE_${startPage}`,
+        Label: [`Components for page ${startPage}`],
+        MemberReference: [],
+      });
+    }
+    result[startPage - 1].MemberReference.push(componentId);
+    if (componentsStore[componentId].pageBreak) {
+      startPage += 1;
+    }
+  });
+  return result;
+}
 
 export function remoteToState(remote) {
   const {
@@ -22,7 +51,6 @@ export function remoteToState(remote) {
     agency,
     DataCollection: dataCollection,
     lastUpdatedDate,
-    // ComponentGroup: componentGroups, @TODO: This data is not used yet.
   } = remote;
 
   return {
@@ -73,27 +101,6 @@ export function stateToRemote(state, stores) {
     Name: campaignsStore[c].label,
   }));
 
-  function generateComponentGroups() {
-    const orderedComponents = getOrderedComponents(componentsStore, Object.keys(componentsStore).filter(id => componentsStore[id].type === 'SEQUENCE').sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight));
-    let startPage = 1;
-    let result = [];
-    orderedComponents.forEach(componentId => {
-      if (!result[startPage - 1]) {
-        result.push({
-          id: uuid(),
-          Name: `PAGE_${startPage}`,
-          Label: [`Components for page ${startPage}`],
-          MemberReference: [],
-        })
-      }
-      result[startPage - 1].MemberReference.push(componentId)
-      if (componentsStore[componentId].pageBreak) {
-        startPage++;
-      }
-    })
-    return result;
-  }
-
   const remote = {
     owner,
     final,
@@ -102,7 +109,8 @@ export function stateToRemote(state, stores) {
     Name: name,
     lastUpdatedDate: new Date().toString(),
     DataCollection: dataCollections,
-    ComponentGroup: generateComponentGroups(),
+    genericName: QUESTIONNAIRE,
+    ComponentGroup: generateComponentGroups(componentsStore),
     agency: agency || '',
   };
 
