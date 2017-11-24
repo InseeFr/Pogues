@@ -36,10 +36,10 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "COCHEZ",
-          "Label" : [ "##{\"label\":\"Cochez la case pour afficher la suite du questionnaire\\n\",\"conditions\":[]} Cochez la case pour afficher la suite du questionnaire" ],
+          "Label" : [ "##{\"label\":\"Cochez la case pour afficher la suite du questionnaire\\n\",\"conditions\":[]}#if()#end" ],
           "GoTo" : [ {
             "id" : "iwnegyn6",
-            "Expression" : "${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' ",
+            "Expression" : "${S1-S1-Q1-R1}#if()#end",
             "IfTrue" : "isg13cuk"
           } ],
           "Response" : [ {
@@ -63,7 +63,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "TEXTE_LONG",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères\\n\",\"conditions\":[]} Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères\\n\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -85,7 +85,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "TEXTE_COURT",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères\",\"conditions\":[]} Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "mandatory" : false,
             "Datatype" : {
@@ -109,7 +109,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "NUM_ENTIER",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique entier\",\"conditions\":[]} Je suis le libellé de la question de type numérique entier" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique entier\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "mandatory" : false,
             "Datatype" : {
@@ -125,7 +125,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "NUM_DECIMAL",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique décimal\",\"conditions\":[]} Je suis le libellé de la question de type numérique décimal" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique décimal\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -155,7 +155,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "SIMPLE_DATE",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type date au format JJ/MM/AAAA\",\"conditions\":[]} Je suis le libellé de la question de type date au format JJ/MM/AAAA" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type date au format JJ/MM/AAAA\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "mandatory" : false,
             "Datatype" : {
@@ -178,7 +178,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "BOOL",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question simple de type booléen\",\"conditions\":[]} Je suis le libellé de la question simple de type booléen" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question simple de type booléen\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "mandatory" : false,
             "Datatype" : {
@@ -200,7 +200,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "ACT_PRIN",
-          "Label" : [ "##{\"label\":\"Veuillez indiquer l'activité principale de l'entreprise sous son appellation usuelle\",\"conditions\":[]} Veuillez indiquer l'activité principale de l'entreprise sous son appellation usuelle" ],
+          "Label" : [ "##{\"label\":\"Veuillez indiquer l'activité principale de l'entreprise sous son appellation usuelle\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -225,7 +225,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "PROFESSION",
-          "Label" : [ "##{\"label\":\"Indiquez le plus précisément possible la profession exercée dans votre emploi actuel\",\"conditions\":[]} Indiquez le plus précisément possible la profession exercée dans votre emploi actuel" ],
+          "Label" : [ "##{\"label\":\"Indiquez le plus précisément possible la profession exercée dans votre emploi actuel\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -250,7 +250,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "QUELESTLEM",
-          "Label" : [ "##{\"label\":\"Quel est le montant total des investissements réalisés dans votre entreprise ?\",\"conditions\":[]} Quel est le montant total des investissements réalisés dans votre entreprise ?" ],
+          "Label" : [ "##{\"label\":\"Quel est le montant total des investissements réalisés dans votre entreprise ?\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "mandatory" : false,
             "Datatype" : {
@@ -266,7 +266,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "SALAIRE",
-          "Label" : [ "##{\"label\":\"Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?\",\"conditions\":[]} Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?" ],
+          "Label" : [ "##{\"label\":\"Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -286,7 +286,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "CLOT",
-          "Label" : [ "##{\"label\":\"Quelle est la date de clôture du dernier exercice comptable clos ?\",\"conditions\":[]} Quelle est la date de clôture du dernier exercice comptable clos ?" ],
+          "Label" : [ "##{\"label\":\"Quelle est la date de clôture du dernier exercice comptable clos ?\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -307,7 +307,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "DEPUISQUEL",
-          "Label" : [ "##{\"label\":\"Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?\",\"conditions\":[]} Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?" ],
+          "Label" : [ "##{\"label\":\"Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -327,7 +327,7 @@ module.exports = [
           "questionType" : "SIMPLE",
           "type" : "QuestionType",
           "Name" : "ACT_PROD",
-          "Label" : [ "##{\"label\":\"Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :\",\"conditions\":[]} Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :" ],
+          "Label" : [ "##{\"label\":\"Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -355,7 +355,7 @@ module.exports = [
         "questionType" : "SINGLE_CHOICE",
         "type" : "QuestionType",
         "Name" : "SINGLE_RADIO",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de bouton radio\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de bouton radio" ],
+        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de bouton radio\",\"conditions\":[]}#if()#end" ],
         "Declaration" : [ {
           "declarationType" : "INSTRUCTION",
           "position" : "AFTER_QUESTION_TEXT",
@@ -378,7 +378,7 @@ module.exports = [
         "questionType" : "SINGLE_CHOICE",
         "type" : "QuestionType",
         "Name" : "SINGLE_DROPDOWN",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de liste déroulante\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de liste déroulante" ],
+        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de liste déroulante\",\"conditions\":[]}#if()#end" ],
         "Response" : [ {
           "mandatory" : false,
           "CodeListReference" : "isg1g6zo",
@@ -396,7 +396,7 @@ module.exports = [
         "questionType" : "SINGLE_CHOICE",
         "type" : "QuestionType",
         "Name" : "SINGLE_CHECKBOX",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de cases à cocher\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de cases à cocher" ],
+        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de cases à cocher\",\"conditions\":[]}#if()#end" ],
         "Response" : [ {
           "mandatory" : false,
           "CodeListReference" : "isg1g6zo",
@@ -421,7 +421,7 @@ module.exports = [
           "questionType" : "SINGLE_CHOICE",
           "type" : "QuestionType",
           "Name" : "FILTRE_INV",
-          "Label" : [ "##{\"label\":\"Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution\",\"conditions\":[]} Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution" ],
+          "Label" : [ "##{\"label\":\"Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_RESPONSE",
@@ -444,7 +444,7 @@ module.exports = [
           "questionType" : "SINGLE_CHOICE",
           "type" : "QuestionType",
           "Name" : "VENTES_MARCH",
-          "Label" : [ "##{\"label\":\"Vendez vous vos marchandises majoritairement\\n\",\"conditions\":[]} Vendez vous vos marchandises majoritairement" ],
+          "Label" : [ "##{\"label\":\"Vendez vous vos marchandises majoritairement\\n\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -467,7 +467,7 @@ module.exports = [
           "questionType" : "SINGLE_CHOICE",
           "type" : "QuestionType",
           "Name" : "TEMPSPLEIN",
-          "Label" : [ "##{\"label\":\"Toujours au 1er mars 2016, vous travailliez\",\"conditions\":[]} Toujours au 1er mars 2016, vous travailliez" ],
+          "Label" : [ "##{\"label\":\"Toujours au 1er mars 2016, vous travailliez\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -499,7 +499,7 @@ module.exports = [
         "questionType" : "MULTIPLE_CHOICE",
         "type" : "QuestionType",
         "Name" : "MULTIPLE_BOOL",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de booléen\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de booléen" ],
+        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de booléen\",\"conditions\":[]}#if()#end" ],
         "Response" : [ {
           "Datatype" : {
             "typeName" : "BOOLEAN",
@@ -546,7 +546,7 @@ module.exports = [
         "questionType" : "MULTIPLE_CHOICE",
         "type" : "QuestionType",
         "Name" : "MULTIPLE_RADIO",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de bouton radio\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de bouton radio" ],
+        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de bouton radio\",\"conditions\":[]}#if()#end" ],
         "Response" : [ {
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
@@ -613,7 +613,7 @@ module.exports = [
         "questionType" : "MULTIPLE_CHOICE",
         "type" : "QuestionType",
         "Name" : "MULTIPLE_DROPDOWN",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de liste déroulante\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de liste déroulante" ],
+        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de liste déroulante\",\"conditions\":[]}#if()#end" ],
         "Declaration" : [ {
           "declarationType" : "INSTRUCTION",
           "position" : "BEFORE_QUESTION_TEXT",
@@ -685,7 +685,7 @@ module.exports = [
         "questionType" : "MULTIPLE_CHOICE",
         "type" : "QuestionType",
         "Name" : "MULTIPLE_CHECKBOX",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de cases à cocher\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de cases à cocher" ],
+        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de cases à cocher\",\"conditions\":[]}#if()#end" ],
         "Response" : [ {
           "CodeListReference" : "isg1uorv",
           "Datatype" : {
@@ -759,7 +759,7 @@ module.exports = [
           "questionType" : "MULTIPLE_CHOICE",
           "type" : "QuestionType",
           "Name" : "SITE_ENTREPRISE",
-          "Label" : [ "##{\"label\":\"Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\\n\",\"conditions\":[]} Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :" ],
+          "Label" : [ "##{\"label\":\"Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\\n\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -811,7 +811,7 @@ module.exports = [
           "questionType" : "MULTIPLE_CHOICE",
           "type" : "QuestionType",
           "Name" : "FORMATION",
-          "Label" : [ "##{\"label\":\"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?\",\"conditions\":[]} Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?" ],
+          "Label" : [ "##{\"label\":\"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "Datatype" : {
               "typeName" : "BOOLEAN",
@@ -874,7 +874,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "TABLE_1A_1M",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - une mesure\",\"conditions\":[]} Je suis le libellé de la question tableau un axe - une mesure" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - une mesure\",\"conditions\":[]}#if()#end" ],
           "Response" : [
             {
             "Datatype" : {
@@ -933,7 +933,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "TABLE_1A_nM",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - plusieurs mesures\",\"conditions\":[]} Je suis le libellé de la question tableau un axe - plusieurs mesures" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - plusieurs mesures\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "Datatype" : {
               "typeName" : "BOOLEAN",
@@ -1084,7 +1084,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "TABLE_LIST",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question liste\",\"conditions\":[]} Je suis le libellé de la question liste" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question liste\",\"conditions\":[]}#if()#end" ],
           "Response" : [ {
             "Datatype" : {
               "typeName" : "TEXT",
@@ -1128,7 +1128,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "EFFECTIFSS",
-          "Label" : [ "##{\"label\":\"Effectifs salariés au 31/12/2015\",\"conditions\":[]} Effectifs salariés au 31/12/2015" ],
+          "Label" : [ "##{\"label\":\"Effectifs salariés au 31/12/2015\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -1189,7 +1189,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "LISTE_PERS",
-          "Label" : [ "##{\"label\":\"Liste des personnes qui habitent ce logement\\n\",\"conditions\":[]} Liste des personnes qui habitent ce logement" ],
+          "Label" : [ "##{\"label\":\"Liste des personnes qui habitent ce logement\\n\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_QUESTION_TEXT",
@@ -1253,7 +1253,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "TABLE_2A_1SIMPLE",
-          "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure simple\",\"conditions\":[]} Je suis le libellé d'un tableau à deux axes 1 mesure simple" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure simple\",\"conditions\":[]}#if()#end" ],
           "Response" : [
             {
             "Datatype" : {
@@ -1436,7 +1436,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "JESUISLELI",
-          "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure unique\",\"conditions\":[]} Je suis le libellé d'un tableau à deux axes 1 mesure unique" ],
+          "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure unique\",\"conditions\":[]}#if()#end" ],
           "Response" : [
             {
             "CodeListReference" : "isg1uorv",
@@ -1667,7 +1667,7 @@ module.exports = [
           "questionType" : "TABLE",
           "type" : "QuestionType",
           "Name" : "RENSEIGNEZ",
-          "Label" : [ "##{\"label\":\"Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine\",\"conditions\":[]} Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine" ],
+          "Label" : [ "##{\"label\":\"Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine\",\"conditions\":[]}#if()#end" ],
           "Declaration" : [ {
             "declarationType" : "INSTRUCTION",
             "position" : "AFTER_RESPONSE",
@@ -1676,7 +1676,7 @@ module.exports = [
           "Control" : [ {
             "id" : "iw7ukiat",
             "Description" : "",
-            "Expression" : "(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))<0\n                        ) and ${S1-S1-Q1-R1}!=''",
+            "Expression" : "(NUM(${S1-S1-Q1-R1}#if()#end",
             "FailMessage" : "Le montant des investissements spécifiquement dédiés à\n                        l'environnement est supérieur au montant total des\n                        investissements."
           } ],
           "Response" : [

@@ -40,7 +40,7 @@ const defaultProps = {
 
 function renderComponentsByParent(parent, props, actions) {
   return getSortedChildren(props.componentsStore, parent).map(key => {
-    const subTree = renderComponentsByParent(key, props);
+    const subTree = renderComponentsByParent(key, props, actions);
     const component = props.componentsStore[key];
     return (
       <QuestionnaireComponent
@@ -51,7 +51,7 @@ function renderComponentsByParent(parent, props, actions) {
         setSelectedComponentId={props.setSelectedComponentId}
         setEditingComponentId={props.setEditingComponentId}
         duplicateComponent={props.duplicateComponent}
-        removeComponent={props.duplicateComponent}
+        removeComponent={props.removeComponent}
         integrityErrorsByType={props.errorsByComponent[key]}
         parentType={props.componentsStore[component.parent].type}
         actions={actions}

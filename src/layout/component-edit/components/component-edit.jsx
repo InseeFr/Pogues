@@ -13,6 +13,7 @@ export const propTypes = {
   component: PropTypes.object.isRequired,
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
+  collectedVariablesStore: PropTypes.object,
   codesListsStore: PropTypes.object,
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
@@ -23,6 +24,7 @@ export const propTypes = {
 export const defaultProps = {
   calculatedVariablesStore: {},
   externalVariablesStore: {},
+  collectedVariablesStore: {},
   codesListsStore: {},
 };
 
@@ -60,6 +62,7 @@ function ComponentEdit({
   component,
   calculatedVariablesStore,
   externalVariablesStore,
+  collectedVariablesStore,
   codesListsStore,
   updateComponent,
   onCancel,
@@ -74,11 +77,11 @@ function ComponentEdit({
   };
 
   // Initial values
-
   const initialState = component;
   const componentTransformer = Component(initialState, {
     calculatedVariablesStore,
     externalVariablesStore,
+    collectedVariablesStore,
     codesListsStore,
   });
   const initialValues = componentTransformer.stateToForm();

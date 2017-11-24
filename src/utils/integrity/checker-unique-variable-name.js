@@ -19,9 +19,9 @@ function checkerUniqueVariableName({
     ...Object.keys(collectedVariableByQuestion || {}).reduce((acc, key) => {
       return [
         ...acc,
-        ...Object.keys(collectedVariableByQuestion[key]).map(
-          innerKey => collectedVariableByQuestion[key][innerKey].name
-        ),
+        ...Object.keys(collectedVariableByQuestion[key]).reduce((innerAcc, innerKey) => {
+          return [...innerAcc, collectedVariableByQuestion[key][innerKey].name];
+        }, []),
       ];
     }, []),
   ];

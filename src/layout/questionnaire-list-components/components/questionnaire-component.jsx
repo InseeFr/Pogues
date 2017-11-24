@@ -21,7 +21,6 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 // Prop types and default props
 
-// @TODO: Maybe it's not an
 const propTypes = {
   component: PropTypes.object.isRequired,
   integrityErrorsByType: PropTypes.object,

@@ -25,7 +25,12 @@ export default {
     checkerUniqueComponentName
   ),
   [UPDATE_COMPONENT]: combineCheckers(checkerComponentTarget, checkerUniqueVariableName, checkerUniqueComponentName),
-  [REMOVE_COMPONENT]: combineCheckers(checkerQuestionnaireLength, checkerComponentTarget, checkerUniqueComponentName),
+  [REMOVE_COMPONENT]: combineCheckers(
+    checkerQuestionnaireLength,
+    checkerComponentTarget,
+    checkerUniqueComponentName,
+    checkerUniqueVariableName
+  ),
   [MOVE_COMPONENT]: combineCheckers(checkerComponentTarget),
   [DUPLICATE_COMPONENT]: combineCheckers(checkerComponentTarget, checkerUniqueVariableName, checkerUniqueComponentName),
 };

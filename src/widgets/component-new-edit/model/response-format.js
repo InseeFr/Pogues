@@ -79,6 +79,8 @@ const Factory = (initialState = {}, codesListsStore) => {
         codesLists = transformers.multiple.getCodesListStore();
       } else if (currentState.type === TABLE) {
         codesLists = transformers.table.getCodesListStore();
+      } else {
+        codesLists = {};
       }
 
       return codesLists;

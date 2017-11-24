@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 
 /**
@@ -16,7 +17,7 @@ import merge from 'lodash.merge';
 export default function combineCheckers(...checkers) {
   return function(state) {
     return checkers.reduce((errorsByComponent, checker) => {
-      return merge(errorsByComponent, checker(state) || {});
+      return merge(cloneDeep(errorsByComponent), checker(state) || {});
     }, {});
   };
 }

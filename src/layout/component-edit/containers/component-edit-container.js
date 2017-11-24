@@ -23,6 +23,7 @@ const mapStateToProps = state => {
     codesListsStore: state.appState.activeCodeListsById,
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     externalVariablesStore: state.appState.activeExternalVariablesById,
+    collectedVariablesStore: state.appState.collectedVariableByQuestion[state.appState.editingComponentId],
   };
 };
 

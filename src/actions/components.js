@@ -30,10 +30,10 @@ export const MOVE_COMPONENT = 'MOVE_COMPONENT';
  */
 export const createComponent = (
   componentState,
+  codesListsStore,
   calculatedVariablesStore,
   externalVariablesStore,
-  collectedVariablesStore,
-  codesListsStore
+  collectedVariablesStore
 ) => dispatch => {
   const activeComponentsStore = {
     [componentState.id]: componentState,

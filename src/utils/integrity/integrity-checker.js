@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 /**
  * Enhance a reducer by adding integrity checks based on the current state
  *
@@ -13,18 +15,27 @@ function integrityChecker(reducer, checkers) {
   return function(state, action) {
     const checker = checkers[action.type];
     const newState = reducer(state, action);
+
     if (!checker) return newState;
 
-    const errorsByComponent = checker(newState);
+    const checkerResult = checker(newState);
+    const currentErrorsByComponent = cloneDeep(newState.errors.errorsByComponent);
+
+    const errorsByComponent = Object.keys(checkerResult).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: {
+          ...(currentErrorsByComponent[key] || {}),
+          ...checkerResult[key],
+        },
+      };
+    }, {});
 
     return {
       ...newState,
       errors: {
         ...newState.errors,
-        errorsByComponent: {
-          ...newState.errorsByComponent,
-          ...errorsByComponent,
-        },
+        errorsByComponent,
       },
     };
   };

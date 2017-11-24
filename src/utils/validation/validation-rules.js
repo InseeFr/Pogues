@@ -5,7 +5,7 @@ import {
   minValue,
   maxValue,
   validCodesList,
-  notEmptyMeasures,
+  emptyMeasures,
 } from 'forms/validation-rules';
 import {
   QUESTION_TYPE_ENUM,
@@ -36,51 +36,51 @@ export const sequenceRules = {
 export const questionRules = {
   name: { rules: [required, name] },
   label: { rules: [required] },
-  'response.format.type': { rules: [requiredSelect] },
-  [`response.format.type.${SIMPLE}.${NUMERIC}.minimum`]: { rules: [value => minValue(0)(value)] },
-  [`response.format.type.${SIMPLE}.${NUMERIC}.maximum`]: { rules: [value => minValue(1)(value)] },
-  [`response.format.type.${SIMPLE}.${TEXT}.maxLength`]: { rules: [required, value => minValue(1)(value)] },
-  [`response.format.type.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
+  'responseFormat.type': { rules: [requiredSelect] },
+  [`responseFormat.${SIMPLE}.${NUMERIC}.minimum`]: { rules: [value => minValue(0)(value)] },
+  [`responseFormat.${SIMPLE}.${NUMERIC}.maximum`]: { rules: [value => minValue(1)(value)] },
+  [`responseFormat.${SIMPLE}.${TEXT}.maxLength`]: { rules: [required, value => minValue(1)(value)] },
+  [`responseFormat.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
     errorsInPanel: true,
     rules: [validCodesList],
   },
-  [`response.format.type.${MULTIPLE_CHOICE}.${PRIMARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
+  [`responseFormat.${MULTIPLE_CHOICE}.${PRIMARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
     errorsInPanel: true,
     rules: [validCodesList],
   },
-  [`response.format.type.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
+  [`responseFormat.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
     errorsInPanel: true,
     rules: [validCodesList],
   },
-  [`response.format.type.${TABLE}.${PRIMARY}.totalLabel`]: { rules: [required] },
-  [`response.format.type.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: {
+  [`responseFormat.${TABLE}.${PRIMARY}.totalLabel`]: { rules: [required] },
+  [`responseFormat.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: {
     rules: [value => minValue(1)(value), value => maxValue(100)(value)],
   },
-  [`response.format.type.${TABLE}.${PRIMARY}.${LIST}.numLinesMax`]: {
+  [`responseFormat.${TABLE}.${PRIMARY}.${LIST}.numLinesMax`]: {
     rules: [value => minValue(1)(value), value => maxValue(100)(value)],
   },
-  [`response.format.type.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
+  [`responseFormat.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
     errorsInPanel: true,
     rules: [validCodesList],
   },
-  [`response.format.type.${TABLE}.${SECONDARY}.totalLabel`]: { rules: [required] },
-  [`response.format.type.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
+  [`responseFormat.${TABLE}.${SECONDARY}.totalLabel`]: { rules: [required] },
+  [`responseFormat.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
     errorsInPanel: true,
     rules: [validCodesList],
   },
-  [`response.format.type.${TABLE}.${MEASURE}.label`]: { rules: [required] },
-  [`response.format.type.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
+  [`responseFormat.${TABLE}.${MEASURE}.label`]: { rules: [required] },
+  [`responseFormat.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: {
     errorsInPanel: true,
     rules: [validCodesList],
   },
-  [`response.format.type.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: { rules: [value => minValue(0)(value)] },
-  [`response.format.type.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: { rules: [value => minValue(1)(value)] },
-  [`response.format.type.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: {
+  [`responseFormat.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: { rules: [value => minValue(0)(value)] },
+  [`responseFormat.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: { rules: [value => minValue(1)(value)] },
+  [`responseFormat.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: {
     rules: [required, value => minValue(1)(value)],
   },
-  [`response.format.type.${TABLE}.${LIST_MEASURE}`]: {
+  [`responseFormat.${TABLE}.${LIST_MEASURE}`]: {
     errorsInPanel: true,
-    rules: [notEmptyMeasures],
+    rules: [emptyMeasures],
   },
   [`collectedVariables.${TABLE}.${LIST_MEASURE}`]: {
     errorsInPanel: true,
