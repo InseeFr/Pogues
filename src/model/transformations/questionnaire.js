@@ -12,6 +12,35 @@ import {
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
 
+const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
+
+function generateComponentGroups(componentsStore) {
+  const orderedComponents = getOrderedComponents(
+    componentsStore,
+    Object.keys(componentsStore)
+      .filter(id => componentsStore[id].type === SEQUENCE)
+      .sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
+  );
+  let startPage = 1;
+  const result = [];
+  orderedComponents.forEach(componentId => {
+    if (!result[startPage - 1]) {
+      result.push({
+        id: uuid(),
+        Name: `PAGE_${startPage}`,
+        Label: [`Components for page ${startPage}`],
+        MemberReference: [],
+      });
+    }
+    result[startPage - 1].MemberReference.push(componentId);
+    if (componentsStore[componentId].pageBreak) {
+      startPage += 1;
+    }
+  });
+  return result;
+}
+
+
 export function remoteToState(remote) {
   const {
     owner,
@@ -73,27 +102,6 @@ export function stateToRemote(state, stores) {
     Name: campaignsStore[c].label,
   }));
 
-  function generateComponentGroups() {
-    const orderedComponents = getOrderedComponents(componentsStore, Object.keys(componentsStore).filter(id => componentsStore[id].type === 'SEQUENCE').sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight));
-    let startPage = 1;
-    let result = [];
-    orderedComponents.forEach(componentId => {
-      if (!result[startPage - 1]) {
-        result.push({
-          id: uuid(),
-          Name: `PAGE_${startPage}`,
-          Label: [`Components for page ${startPage}`],
-          MemberReference: [],
-        })
-      }
-      result[startPage - 1].MemberReference.push(componentId)
-      if (componentsStore[componentId].pageBreak) {
-        startPage++;
-      }
-    })
-    return result;
-  }
-
   const remote = {
     owner,
     final,
@@ -102,7 +110,8 @@ export function stateToRemote(state, stores) {
     Name: name,
     lastUpdatedDate: new Date().toString(),
     DataCollection: dataCollections,
-    ComponentGroup: generateComponentGroups(),
+    genericName: QUESTIONNAIRE,
+    ComponentGroup: generateComponentGroups(componentsStore),
     agency: agency || '',
   };
 
