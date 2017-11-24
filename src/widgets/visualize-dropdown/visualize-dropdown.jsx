@@ -19,8 +19,12 @@ const defaultProps = {
   componentId: '',
 };
 
-// Component
-
+/**
+ * Component used in the actions toolbar and on each
+ * component of the questionnaire. Will display a button
+ * with a dropdown behavior with links to different
+ * visualizations of the PDF : WEB, PDF or ODT
+ */
 class VisualizeDropdown extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
@@ -30,18 +34,49 @@ class VisualizeDropdown extends Component {
     this.state = {
       dropdownOpen: false,
     };
+
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+
   }
 
+  /**
+   * Will open the questionnaire in a specific format, thanks to the type
+   * parameter. Will also close the dropdown menu
+   */
   visualize(event, type) {
     event.preventDefault();
     this.props.visualizeActiveQuestionnaire(type, this.props.componentId);
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   }
 
+  /**
+   * Will toggle the dropdown menu
+   */
   openDropDown(e) {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({
+        dropdownOpen: false
+      })
+    }
   }
 
   render() {
@@ -60,7 +95,7 @@ class VisualizeDropdown extends Component {
       'dropdown-menu': true,
     });
     return (
-      <div className={classDropDown}>
+      <div className={classDropDown} ref={this.setWrapperRef}>
         <button
           className={classDropDownTrigger}
           disabled={this.props.disabled}

@@ -11,6 +11,8 @@ import {
   UPDATE_ACTIVE_QUESTIONNAIRE,
   LOAD_STATISTICAL_CONTEXT_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
+  CREATE_PAGE_BREAK,
+  REMOVE_PAGE_BREAK
 } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -22,6 +24,9 @@ import {
   MOVE_COMPONENT,
 } from 'actions/component';
 import { LOAD_USER_SUCCESS } from 'actions/user';
+
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 const actionHandlers = {};
 
@@ -38,6 +43,7 @@ const defaultState = {
   selectedComponentId: '',
   errorsByQuestionTab: {},
   isQuestionnaireModified: false,
+  componentIdForPageBreak: '',
 };
 
 export function loadUserSuccess(state, user) {
@@ -67,13 +73,38 @@ export function updateActiveQuestionnaire(state, updatedQuestionnaire) {
   };
 }
 
+export function getComponentIdForPageBreak(id, activeComponentsById, state) {
+  const defaultReturn = {
+    ...state
+  };
+
+  if (id && activeComponentsById[id]) {
+    return {
+      ...state,
+      componentIdForPageBreak: activeComponentsById[id].pageBreak ? '' : id
+    }
+  }
+
+  const questionnaire = Object.keys(activeComponentsById)
+    .find(id => activeComponentsById[id].type === QUESTIONNAIRE);
+
+  if (!questionnaire || !activeComponentsById[questionnaire].children || activeComponentsById[questionnaire].children.length === 0) return defaultReturn;
+
+  const lastChildId = activeComponentsById[questionnaire].children.map(id => activeComponentsById[id]).sort((c1, c2) => c1.weight < c2.weight)[0].id;
+
+  return lastChildId ? getComponentIdForPageBreak(lastChildId, activeComponentsById, state) : defaultReturn;
+}
+
 export function setSelectedComponentId(state, id) {
   return {
     ...state,
+    ...getComponentIdForPageBreak(id, state.activeComponentsById, {
+      ...state,
+      componentIdForPageBreak: '',
+    }),
     selectedComponentId: id,
   };
 }
-
 export function loadStatisticalContext(state, { serie, operation }) {
   return {
     ...state,
@@ -98,6 +129,13 @@ export function setQuestionModified(state) {
   };
 }
 
+export function setQuestionModifiedAndResetSelectedComponent(state) {
+  return {
+    ...state,
+    ...setQuestionModified(state),
+    ...setSelectedComponentId(state, '')
+  }
+}
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
@@ -108,13 +146,16 @@ actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = setQuestionNotModified;
 actionHandlers[CREATE_COMPONENT] = setQuestionModified;
 actionHandlers[DUPLICATE_COMPONENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT] = setQuestionModified;
-actionHandlers[REMOVE_COMPONENT] = setQuestionModified;
+actionHandlers[REMOVE_COMPONENT] = setQuestionModifiedAndResetSelectedComponent;
 actionHandlers[UPDATE_COMPONENT_PARENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
 actionHandlers[MOVE_COMPONENT] = setQuestionModified;
 
+actionHandlers[CREATE_PAGE_BREAK] = setQuestionModified;
+actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
+
 // @TODO: Add the combine functionality to the generic createActionHandler method
-export default function(state = defaultState, action) {
+export default function (state = defaultState, action) {
   if (!action) return state;
   const { type, payload } = action;
   const hndlr = actionHandlers[type];

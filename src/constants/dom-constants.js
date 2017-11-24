@@ -108,6 +108,17 @@ export const WIDGET_TABS = {
   ITEM: 'widget-tabs-item',
 };
 
+export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {
+  COMPONENT_CLASS: 'widget-questionnaire-new-edit',
+  FOOTER: 'widget-questionnaire-new-edit__footer',
+  VALIDATE: 'widget-questionnaire-new-edit__button-validate',
+  CANCEL: 'widget-questionnaire-new-edit__button-cancel',
+};
+
+export const WIDGET_ASSOCIATED_FIELDS = {
+  COMPONENT_CLASS: 'widget-associated-fields',
+};
+
 export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
   SEARCH_RESULTS_ID: 'page-search-questionnaire__results',
