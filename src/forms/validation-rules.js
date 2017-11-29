@@ -1,5 +1,6 @@
 import Dictionary from 'utils/dictionary/dictionary';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 
@@ -100,16 +101,37 @@ export function uniqueCodeAttr(value, { editing, previousValue, codes }) {
 
 export function validCodesList(codesList) {
   const { id, label, codes, panel } = codesList;
-  let error;
+  const errors = [];
+  let errorRequired;
+  let errorNoCodes;
 
   if (panel === NEW) {
-    error = required(label);
-    if (!error) {
-      error = emptyCodes(codes);
-    }
+    errorRequired = required(label);
+    errorNoCodes = emptyCodes(codes);
   } else {
-    error = required(id);
+    errorRequired = required(id);
   }
 
-  return error;
+  if (errorRequired) errors.push(errorRequired);
+  if (errorNoCodes) errors.push(errorNoCodes);
+
+  return errors;
+}
+
+export function validCollectedVariables(value, form, { codesLists }) {}
+
+export function validateEarlyTarget(value, form, { componentsStore, editingComponentId }) {
+  const allowedTargets = getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]);
+  return value !== '' && componentsStore[value] && allowedTargets.indexOf(value) === -1
+    ? Dictionary.errorGoToEarlierTgt
+    : undefined;
+}
+
+export function validateExistingTarget(value, form, { componentsStore }) {
+  return value !== '' && !componentsStore[value] ? Dictionary.errorGoToNonExistingTgt : undefined;
+}
+
+export function validateDuplicates(value, listItems) {
+  return listItems.indexOf(value)
+
 }

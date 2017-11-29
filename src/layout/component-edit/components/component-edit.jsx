@@ -33,7 +33,7 @@ export const defaultProps = {
 function validateAndSubmit(actions, component, validateQuestion, validateSequence, transformer, onSuccess) {
   return function(values) {
     if (component.type === QUESTION) {
-      validateQuestion(values);
+      validateQuestion(transformer.getNormalizedValues(values));
     } else {
       validateSequence(values);
     }

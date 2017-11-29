@@ -39,27 +39,27 @@ const dictionary = {
     en: 'Add',
     fr: 'Ajouter',
   },
-  noDeclarationYet: {
+  no_declarations: {
     en: 'No statement yet',
     fr: 'Aucune déclaration définie',
   },
-  noControlYet: {
+  no_controls: {
     en: 'No control yet',
     fr: 'Aucun contrôle défini',
   },
-  noGoToYet: {
+  no_redirections: {
     en: 'No goTo yet',
     fr: 'Aucune redirection définie',
   },
-  noCalculatedVariablesYet: {
+  no_calculatedVariables: {
     en: 'No calculated variable yet',
     fr: 'Aucune variable calculée définie',
   },
-  noExternalVariablesYet: {
+  no_externalVariables: {
     en: 'No external variable yet',
     fr: 'Aucune variable externe définie',
   },
-  noCollectedVariablesYet: {
+  no_collectedVariables: {
     en: 'No collected variable yet',
     fr: 'Aucune variable collectée définie',
   },
@@ -311,7 +311,7 @@ const dictionary = {
     en: 'Collected variables',
     fr: 'Variables collectées',
   },
-  defineGoTo: {
+  addInput_redirections: {
     en: 'Add a goto',
     fr: 'Ajouter une redirection',
   },

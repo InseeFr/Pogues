@@ -129,6 +129,14 @@ const Factory = (initialState, stores = {}) => {
     getCollectedVariablesStore: () => {
       return transformers.collectedVariable.getStore();
     },
+    getNormalizedValues: form => {
+      // Values ready to be validated
+      return {
+        name: form.name,
+        label: form.label,
+        responseFormat: transformers.responseFormat.getNormalizedValues(form.responseFormat),
+      };
+    },
   };
 };
 

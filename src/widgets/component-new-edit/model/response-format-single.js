@@ -93,6 +93,10 @@ const Factory = (initialState = {}, codesListsStore) => {
     getCodesListStore: () => {
       return transformers.codesList.getStore();
     },
+    getNormalizedValues: form => {
+      // Values ready to be validated
+      return form;
+    },
   };
 };
 

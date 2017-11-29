@@ -1,5 +1,14 @@
 import { uuid } from 'utils/utils';
 
+export const defaultState = {
+  label: '',
+  condition: '',
+  message: '',
+  type: 'INFO',
+  during_collect: false,
+  post_collect: false,
+};
+
 export const defaultForm = {
   label: '',
   condition: '',

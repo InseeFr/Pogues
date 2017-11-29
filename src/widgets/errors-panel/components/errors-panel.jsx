@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { WIDGET_ERRORS_PANEL } from 'constants/dom-constants';
 
-const { COMPONENT_CLASS } = WIDGET_ERRORS_PANEL;
+const { COMPONENT_CLASS, INNER } = WIDGET_ERRORS_PANEL;
 
 // PropTypes and defaultProps
 
@@ -18,7 +18,11 @@ const defaultProps = {
 // Component
 
 function ErrrosPanel({ errors }) {
-  return <div className={COMPONENT_CLASS} />;
+  return (
+    <div className={COMPONENT_CLASS}>
+      {errors.length > 0 && <ul className={INNER}>{errors.map(e => <li key={e}>{e}</li>)}</ul>}
+    </div>
+  );
 }
 
 ErrrosPanel.propTypes = propTypes;

@@ -1,10 +1,15 @@
 import { uuid } from 'utils/utils';
 
+export const defaultState = {
+  declarationType: 'INSTRUCTION',
+  label: '',
+  position: 'AFTER_QUESTION_TEXT',
+};
+
 export const defaultForm = {
   declarationType: 'INSTRUCTION',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
-  ref: 0,
   declarations: [],
 };
 

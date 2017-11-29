@@ -122,6 +122,18 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       return codesLists;
     },
+    getNormalizedValues: form => {
+      // Values ready to be validated
+      const { [MEASURE]: { type, [type]: measure }, ...others } = form;
+
+      return {
+        ...others,
+        [MEASURE]: {
+          type,
+          [type]: measure,
+        },
+      };
+    },
   };
 };
 

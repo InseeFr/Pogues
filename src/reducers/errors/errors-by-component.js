@@ -1,16 +1,11 @@
-import { SET_ERROR } from 'actions/errors';
+import { SET_ERRORS_BY_COMPONENT } from 'actions/errors';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
-
-import { ERROR_TYPES } from 'constants/pogues-constants';
-
-const { PANEL } = ERROR_TYPES;
 
 const actionHandlers = {};
 
-export function setError(state, { type, error }) {
-  return {};
+export function setErrorsByComponent(state, { errors }) {
 }
 
-actionHandlers[SET_ERROR] = setError;
+actionHandlers[SET_ERRORS_BY_COMPONENT] = setErrorsByComponent;
 
 export default createActionHandlers(actionHandlers);

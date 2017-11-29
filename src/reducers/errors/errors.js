@@ -1,9 +1,9 @@
-import errorsByPanel from './errors-by-panel';
+import errorsByFormPath from './errors-by-form-path';
 import errorsByComponent from './errors-by-component';
 import errorsByTab from './errors-by-tab';
 
 const defaultState = {
-  errorsByPanel: {},
+  errorsByFormPath: {},
   errorsByComponent: {},
   errorsByTab: {},
 };
@@ -16,7 +16,7 @@ export default function(state = defaultState, action) {
   const hndlr = actionHandlers[type];
   return {
     ...(hndlr ? hndlr(state, payload) : state),
-    errorsByPanel: errorsByPanel(state.errorsByPanel, action),
+    errorsByFormPath: errorsByFormPath(state.errorsByFormPath, action),
     errorsByComponent: errorsByComponent(state.errorsByComponent, action),
     errorsByTab: errorsByTab(state.errorsByTab, action),
   };

@@ -1,37 +1,50 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { formValueSelector, actions } from 'redux-form';
+import { actions, formValueSelector, getFormValues } from 'redux-form';
 
+import { setErrorsByFormPaths, clearErrorsByFormPaths } from 'actions/errors';
 import ListWithInputPanel from '../components/list-with-input-panel';
-
-import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
 // Proptypes and defaultProps
 
 const propTypes = {
-  formName: PropTypes.string,
+  formName: PropTypes.string.isRequired,
   selectorPath: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
+  errors: PropTypes.array,
+  canSubmit: PropTypes.bool,
+  canRemove: PropTypes.bool,
+  canDuplicate: PropTypes.bool,
+  validateForm: PropTypes.func.isRequired,
+  resetObject: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
+  errors: [],
+  canSubmit: true,
+  canRemove: true,
+  canDuplicate: true,
 };
 
 // Container
 
-export function mapStateToProps(state, { formName, selectorPath }) {
+const mapStateToProps = (state, { formName, selectorPath }) => {
   const selector = formValueSelector(formName);
+
   return {
-    formName,
-    currentValues: selector(state, `${selectorPath}`),
+    formValues: getFormValues(formName)(state),
+    currentValues: selector(state, selectorPath),
   };
-}
+};
 
 const mapDispatchToProps = {
   change: actions.change,
   arrayRemove: actions.arrayRemove,
   arrayPush: actions.arrayPush,
   arrayInsert: actions.arrayInsert,
+  setErrors: setErrorsByFormPaths,
+  clearErrors: clearErrorsByFormPaths,
 };
 
 const ListWithInputPanelContainer = connect(mapStateToProps, mapDispatchToProps)(ListWithInputPanel);

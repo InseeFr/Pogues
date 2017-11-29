@@ -18,13 +18,14 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
 
         if (!activeComponentsById[redirection.cible]) {
           targetNotFoundErrors.push({
-            redirectionId: innerKey,
+            path: 'redirections.cible',
+            itemListId: innerKey,
             dictionary: 'errorGoToNonExistingTgt',
           });
         } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
           targetEarlierErrors.push({
-            redirectionId: innerKey,
-            targetId: redirection.cible,
+            path: 'redirections.cible',
+            itemListId: innerKey,
             dictionary: 'errorGoToNonExistingTgt',
           });
         }

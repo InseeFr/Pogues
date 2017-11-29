@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes } from 'redux-form';
 
-import { getInvalidItemsByType } from '../utils/component-new-edit-utils';
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
 import Controls from './controls';
@@ -12,9 +11,9 @@ import ExternalVariables from './variables/external-variables';
 import CollectedVariablesContainer from '../containers/variables/collected-variables';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, TABS_PATHS } from 'constants/pogues-constants';
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import { Tabs } from 'widgets/tabs';
+import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
 import { updateNameField } from 'utils/utils';
 
@@ -27,108 +26,122 @@ export const propTypes = {
   ...formPropTypes,
   componentType: PropTypes.string.isRequired,
   componentId: PropTypes.string.isRequired,
-  errorsValidation: PropTypes.object,
-  errorsByQuestionTab: PropTypes.object,
-  invalidItems: PropTypes.object,
+  errorsByTab: PropTypes.object,
+  integrityErrors: PropTypes.object,
+  componentsStore: PropTypes.object,
+  setErrorsByTab: PropTypes.func.isRequired,
+  setErrorsByFormPath: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
-  errorsValidation: {},
-  errorsByQuestionTab: {},
-  invalidItems: {},
+  errorsByTab: {},
+  integrityErrors: {},
+  componentsStore: {},
 };
 
 // Componet
 
-function ComponentNewEdit({
-  handleSubmit,
-  submitting,
-  form,
-  onCancel,
-  invalidItems,
-  errorsByQuestionTab,
-  componentType,
-  componentId,
-}) {
-  const invalidItemsByType = getInvalidItemsByType(invalidItems);
-  const panels = [
-    {
-      id: 'declarations',
-      label: Dictionary.declaration_tabTitle,
-      content: <Declaration showPosition={componentType === QUESTION} />,
-      numErrors: errorsByQuestionTab.declarations,
-    },
-    {
-      id: 'controls',
-      label: Dictionary.controls,
-      content: <Controls />,
-      numErrors: errorsByQuestionTab.controls,
-    },
-    {
-      id: 'redirections',
-      label: Dictionary.goTo,
-      content: (
-        <Redirections componentId={componentId} componentType={componentType} invalidItems={invalidItemsByType.redirections} />
-      ),
-      numErrors: errorsByQuestionTab.redirections,
-    },
-  ];
+class ComponentNewEdit extends Component {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
-  if (componentType === QUESTION) {
-    panels.unshift({
-      id: 'response-format',
-      label: Dictionary.responsesEdition,
-      content: <ResponseFormat edit={componentId !== ''} />,
-      numErrors: errorsByQuestionTab.responseFormat,
-    });
-    panels.push({
-      id: 'external-variables',
-      label: Dictionary.externalVariables,
-      content: <ExternalVariables />,
-    });
-    panels.push({
-      id: 'calculated-variables',
-      label: Dictionary.calculatedVariables,
-      content: <CalculatedVariables />,
-    });
-    panels.push({
-      id: 'collected-variables',
-      label: Dictionary.collectedVariables,
-      content: <CollectedVariablesContainer />,
-      numErrors: errorsByQuestionTab.collectedVariables,
-    });
+  componentWillMount() {
+    this.props.setErrorsByTab(this.props.integrityErrors);
   }
-  const associatedFieldsProps = {
-    formName: form,
-    fieldOrigin: { name: 'label', label: Dictionary.title },
-    fieldTarget: { name: 'name', label: Dictionary.name },
-    action: updateNameField,
-    focusOnInit: true,
-  };
 
-  return (
-    <div className={COMPONENT_CLASS}>
-      <form onSubmit={handleSubmit}>
-        {componentType === QUESTION ? (
-          <AssociatedFields {...associatedFieldsProps} targetIsRichTextarea />
-        ) : (
-          <AssociatedFields {...associatedFieldsProps} />
-        )}
-        <Tabs components={panels} />
-        <div className={FOOTER}>
-          <button className={VALIDATE} type="submit" disabled={submitting}>
-            {Dictionary.validate}
-          </button>
-          <button className={CANCEL} disabled={submitting} onClick={onCancel}>
-            {Dictionary.cancel}
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+  renderPanels() {
+    const { componentType, componentId, errorsByTab, setErrorsByFormPath, componentsStore } = this.props;
+
+    let panels = [
+      <Tab label={Dictionary.declaration_tabTitle} path={TABS_PATHS.DECLARATIONS} key={TABS_PATHS.DECLARATIONS}>
+        <Declaration
+          showPosition={componentType === QUESTION}
+          errors={errorsByTab[TABS_PATHS.DECLARATIONS]}
+          setErrors={setErrorsByFormPath}
+        />
+      </Tab>,
+      <Tab label={Dictionary.controls} path={TABS_PATHS.CONTROLS} key={TABS_PATHS.CONTROLS}>
+        <Controls errors={errorsByTab[TABS_PATHS.CONTROLS]} setErrors={setErrorsByFormPath} />
+      </Tab>,
+      <Tab label={Dictionary.goTo} path={TABS_PATHS.REDIRECTIONS} key={TABS_PATHS.REDIRECTIONS}>
+        <Redirections
+          errors={errorsByTab[TABS_PATHS.REDIRECTIONS]}
+          setErrors={setErrorsByFormPath}
+          componentType={componentType}
+          componentsStore={componentsStore}
+          editingComponentId={componentId}
+        />
+      </Tab>,
+    ];
+
+    if (componentType === QUESTION) {
+      panels = [
+        <Tab label={Dictionary.responsesEdition} path={TABS_PATHS.RESPONSE_FORMAT} key={TABS_PATHS.RESPONSE_FORMAT}>
+          <ResponseFormat edit={componentId !== ''} />
+        </Tab>,
+        ...panels,
+        <Tab
+          label={Dictionary.externalVariables}
+          path={TABS_PATHS.EXTERNAL_VARIABLES}
+          key={TABS_PATHS.EXTERNAL_VARIABLES}
+        >
+          <ExternalVariables />
+        </Tab>,
+        <Tab
+          label={Dictionary.calculatedVariables}
+          path={TABS_PATHS.CALCULATED_VARIABLES}
+          key={TABS_PATHS.CALCULATED_VARIABLES}
+        >
+          <CalculatedVariables />
+        </Tab>,
+        <Tab
+          label={Dictionary.collectedVariables}
+          path={TABS_PATHS.COLLECTED_VARIABLES}
+          key={TABS_PATHS.COLLECTED_VARIABLES}
+        >
+          <CollectedVariablesContainer />
+        </Tab>,
+      ];
+    }
+
+    return panels;
+  }
+
+  render() {
+    const { handleSubmit, submitting, form, onCancel, componentType, errorsByTab } = this.props;
+
+    // const invalidItemsByType = getInvalidItemsByType(invalidItems);
+
+    const associatedFieldsProps = {
+      formName: form,
+      fieldOrigin: { name: 'label', label: Dictionary.title },
+      fieldTarget: { name: 'name', label: Dictionary.name },
+      action: updateNameField,
+      focusOnInit: true,
+    };
+
+    return (
+      <div className={COMPONENT_CLASS}>
+        <form onSubmit={handleSubmit}>
+          {componentType === QUESTION ? (
+            <AssociatedFields {...associatedFieldsProps} targetIsRichTextarea />
+          ) : (
+            <AssociatedFields {...associatedFieldsProps} />
+          )}
+          <Tabs errorsByTab={errorsByTab}>{this.renderPanels()}</Tabs>
+
+          <div className={FOOTER}>
+            <button className={VALIDATE} type="submit" disabled={submitting}>
+              {Dictionary.validate}
+            </button>
+            <button className={CANCEL} disabled={submitting} onClick={onCancel}>
+              {Dictionary.cancel}
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
-
-ComponentNewEdit.propTypes = propTypes;
-ComponentNewEdit.defaultProps = defaultProps;
 
 export default ComponentNewEdit;

@@ -6,19 +6,31 @@ import ErrorsPanel from '../components/errors-panel';
 // PropTypes and defaultProps
 
 const propTypes = {
-  id: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  includeSubPaths: PropTypes.bool,
+};
+
+const defaultProps = {
+  includeSubPaths: false,
 };
 
 // Container
 
-const mapStateToProps = (state, { id }) => {
-  return {
-    errors: state.errorsByPanel[id],
-  };
+const mapStateToProps = (state, { path, includeSubPaths }) => {
+  const errorsByFormPath = state.errors.errorsByFormPath;
+  const regex = includeSubPaths ? new RegExp(`^${path}(.)*$`) : new RegExp(`^${path}$`);
+  const errors = Object.keys(errorsByFormPath)
+    .filter(p => regex.test(p))
+    .reduce((acc, p) => {
+      return [...acc, ...errorsByFormPath[p]];
+    }, []);
+
+  return { errors };
 };
 
 const ErrorsPanelContainer = connect(mapStateToProps)(ErrorsPanel);
 
 ErrorsPanelContainer.propTypes = propTypes;
+ErrorsPanelContainer.defaultProps = defaultProps;
 
 export default ErrorsPanelContainer;

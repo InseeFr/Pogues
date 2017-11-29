@@ -1,5 +1,11 @@
 import { uuid } from 'utils/utils';
 
+export const defaultState = {
+  label: '',
+  condition: '',
+  cible: '',
+};
+
 export const defaultForm = {
   label: '',
   condition: '',

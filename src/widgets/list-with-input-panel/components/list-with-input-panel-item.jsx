@@ -10,6 +10,7 @@ const { ITEM_CLASS, ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 export const propTypes = {
   children: PropTypes.string.isRequired,
+  select: PropTypes.func.isRequired,
   invalid: PropTypes.bool,
 };
 
@@ -19,13 +20,14 @@ export const defaultProps = {
 
 // Component
 
-function ListWithInputPanelItem({ children, invalid }) {
+function ListWithInputPanelItem({ children, invalid, select }) {
   return (
     <li
       className={classSet({
         [ITEM_CLASS]: true,
         [ITEM_INVALID_CLASS]: invalid,
       })}
+      onClick={select}
     >
       {children}
     </li>

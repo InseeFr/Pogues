@@ -36,14 +36,9 @@
   }
 
   .nav-content {
-    display: none;
     padding: 20px;
     margin-bottom: 10px;
     background-color: $color-blue_04;
-
-    &.active {
-      display: block;
-    }
 
     h3 {
       color: $color-blue_05;

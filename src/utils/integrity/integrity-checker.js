@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
+import uniq from 'lodash.uniq';
 
 /**
  * Enhance a reducer by adding integrity checks based on the current state
@@ -20,13 +21,14 @@ function integrityChecker(reducer, checkers) {
 
     const checkerResult = checker(newState);
     const currentErrorsByComponent = cloneDeep(newState.errors.errorsByComponent);
+    const componentsIds = uniq([...Object.keys(currentErrorsByComponent), ...Object.keys(checkerResult)]);
 
-    const errorsByComponent = Object.keys(checkerResult).reduce((acc, key) => {
+    const errorsByComponent = componentsIds.reduce((acc, key) => {
       return {
         ...acc,
         [key]: {
           ...(currentErrorsByComponent[key] || {}),
-          ...checkerResult[key],
+          ...(checkerResult[key] || {}),
         },
       };
     }, {});

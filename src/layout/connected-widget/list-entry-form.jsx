@@ -5,6 +5,7 @@ import { formValueSelector, actions } from 'redux-form';
 
 import ListEntryForm from './components/list-entry-form';
 import { removeInvalidItem } from 'actions/app-state';
+import { setErrorsByFormPath } from 'actions/errors';
 import Dictionary from 'utils/dictionary/dictionary';
 
 const mapStateToProps = (state, { formName, selectorPath }) => {
@@ -22,6 +23,7 @@ const mapDispatchToProps = {
   arrayPush: actions.arrayPush,
   arrayInsert: actions.arrayInsert,
   removeInvalidItem,
+  setErrors: setErrorsByFormPath,
 };
 
 class ListEntryFormContainer extends Component {
@@ -40,6 +42,7 @@ class ListEntryFormContainer extends Component {
     arrayPush: PropTypes.func.isRequired,
     arrayInsert: PropTypes.func.isRequired,
     removeInvalidItem: PropTypes.func.isRequired,
+    setErrors: PropTypes.func.isRequired,
     validationInput: PropTypes.func,
 
     submitLabel: PropTypes.string.isRequired,
@@ -87,6 +90,21 @@ class ListEntryFormContainer extends Component {
       change(formName, `${selectorPath}.${key}`, values[key]);
     });
   }
+
+  // validate() {
+  //   const { validationInput, currentValues, avoidNewAddition, invalidItems } = this.props;
+  //   let validationErrors = [];
+  //
+  //   if (avoidNewAddition && !currentValues.ref) {
+  //     validationErrors = [Dictionary.validation_collectedvariable_no_new];
+  //   } else {
+  //     validationErrors = validationInput(currentValues);
+  //   }
+  //
+  //   this.setValidationErrors(validationErrors);
+  //
+  //   return validationErrors.length === 0;
+  // }
 
   validate() {
     const { validationInput, currentValues, avoidNewAddition, invalidItems } = this.props;

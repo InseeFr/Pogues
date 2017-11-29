@@ -7,6 +7,8 @@ import { RichTextarea, markdownVtlToString } from 'forms/controls/rich-textarea'
 
 import { WIDGET_ASSOCIATED_FIELDS } from 'constants/dom-constants';
 
+const { COMPONENT_CLASS } = WIDGET_ASSOCIATED_FIELDS;
+
 // PropTypes and defaultProps
 
 const propTypes = {
@@ -68,7 +70,7 @@ class AssociatedFields extends Component {
   render() {
     const { fieldOrigin, fieldTarget, targetIsRichTextarea, focusOnInit } = this.props;
     return (
-      <div className={WIDGET_ASSOCIATED_FIELDS}>
+      <div className={COMPONENT_CLASS}>
         {targetIsRichTextarea ? (
           <div onBlur={this.onBlur}>
             <Field

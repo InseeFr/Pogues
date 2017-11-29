@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ComponentEdit from '../components/component-edit';
 
-import { setErrors } from 'actions/errors';
+import { setErrorsByFormPath } from 'actions/errors';
 import { updateComponent } from 'actions/component';
 
 // PropTypes and defaultProps
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setErrors,
+  setErrors: setErrorsByFormPath,
   updateComponent,
 };
 

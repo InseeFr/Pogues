@@ -1,25 +1,22 @@
 import get from 'lodash.get';
 import merge from 'lodash.merge';
 
-import { ERROR_TYPES } from 'constants/pogues-constants';
-
-const { PANEL, INPUT } = ERROR_TYPES;
-
-export function validate(values, items, stores) {
+export function validate(form, items, stores) {
   return Object.keys(items).reduce((acc, path) => {
-    const value = get(values, path);
+    const value = get(form, path);
 
     if (value !== undefined) {
-      const rules = items[path].rules;
-      const type = items[path].errorsInPanel ? PANEL : INPUT;
-      let error;
+      const rules = items[path];
+      let errors = [];
 
       for (let i = 0; i < rules.length; i += 1) {
         // The rule is executed with the value
-        error = rules[i](value, stores);
+        errors = rules[i](value, form, stores) || [];
 
-        // If a error message is obtained from the rule an error is created
-        if (error) acc = [...acc, { path, error, type }];
+        if (!Array.isArray(errors)) errors = [errors];
+
+        // If error messages are obtained from the rule an error object is created
+        if (errors.length > 0) acc = [...acc, { path, errors }];
       }
     }
 
@@ -35,7 +32,7 @@ export function validate(values, items, stores) {
  *
  * @return {object} The builded object.
  */
-function getNestedErrorFromPath(path, message) {
+function getNestedErrorFromPath(path, [message, ...others]) {
   const keys = path.split('.');
 
   function getErrorFromKeys(listKeys, errorMessage, errors) {
@@ -66,6 +63,6 @@ function getNestedErrorFromPath(path, message) {
  */
 export function getErrorsObject(errors) {
   return errors.reduce((acc, error) => {
-    return merge(acc, getNestedErrorFromPath(error.path, error.error));
+    return merge(acc, getNestedErrorFromPath(error.path, error.errors));
   }, {});
 }

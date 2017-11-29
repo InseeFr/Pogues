@@ -126,6 +126,15 @@ export const WIDGET_ASSOCIATED_FIELDS = {
   COMPONENT_CLASS: 'widget-associated-fields',
 };
 
+export const WIDGET_ERRORS_PANEL = {
+  COMPONENT_CLASS: 'widget-errors-panel',
+  INNER: 'widget-errors-panel__inner',
+};
+
+export const WIDGET_GOTO_INPUT = {
+  COMPONENT_CLASS: 'widget-goto-input',
+};
+
 export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
   SEARCH_RESULTS_ID: 'page-search-questionnaire__results',

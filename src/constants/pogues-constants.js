@@ -172,18 +172,27 @@ export const CODES_LISTS_PANELS = [
   },
 ];
 
-export const ERROR_TYPES = {
-  PANEL: 'PANEL',
-  INPUT: 'INPUT',
-  INTEGRITY: 'INTEGRITY',
-};
-
 export const INTEGRITY_TYPES = {
   QUESTIONNAIRE_LENGTH: 'QUESTIONNAIRE_LENGTH',
   UNIQUE_COMPONENT_NAME: 'UNIQUE_COMPONENT_NAME',
   UNIQUE_VARIABLE_NAME: 'UNIQUE_VARIABLE_NAME',
   TARGET_NOT_FOUND: 'TARGET_NOT_FOUND',
   TARGET_EARLIER: 'TARGET_EARLIER',
+}
+
+export const TABS_PATHS = {
+  RESPONSE_FORMAT: 'responseFormat',
+  DECLARATIONS: 'declarations',
+  CONTROLS: 'controls',
+  REDIRECTIONS: 'redirections',
+  EXTERNAL_VARIABLES: 'externalVariables',
+  CALCULATED_VARIABLES: 'calculatedVariables',
+  COLLECTED_VARIABLES: 'collectedVariables',
+}
+
+export const ERROR_TYPES = {
+  INTEGRITY: 'INTEGRITY',
+  SUBMIT: 'SUBMIT',
 }
 
 export const DEFAULT_CODES_LIST_SELECTOR_PATH = 'CodesList';

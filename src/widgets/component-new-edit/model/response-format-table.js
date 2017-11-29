@@ -257,6 +257,26 @@ export function stateToForm(currentState, transformers, codesListsStore) {
   };
 }
 
+export function getNormalizedMeasureValues(measure) {
+  const { type, [type]: measureType, label } = measure;
+  const normalized = {
+    label,
+    type,
+  };
+
+  if (type === SIMPLE) {
+    const { type: typeSimple, [typeSimple]: simple } = measureType;
+    normalized[SIMPLE] = {
+      type: typeSimple,
+      [typeSimple]: simple,
+    };
+  } else {
+    normalized[SINGLE_CHOICE] = measureType;
+  }
+
+  return normalized;
+}
+
 const Factory = (initialState = {}, codesListsStore) => {
   const { [LIST_MEASURE]: measures, ...otherState } = initialState;
   let currentState = merge(cloneDeep(defaultState), { ...otherState, [LIST_MEASURE]: { measures } });
@@ -336,6 +356,66 @@ const Factory = (initialState = {}, codesListsStore) => {
       }
 
       return codesLists;
+    },
+    getNormalizedValues: form => {
+      // Values ready to be validated
+      const {
+        [PRIMARY]: {
+          type: typePrimary,
+          [typePrimary]: primary,
+          showTotalLabel: showTotalLabelPrimary,
+          totalLabel: totalLabelPrimary,
+        },
+        [SECONDARY]: {
+          showSecondaryAxis,
+          showTotalLabel: showTotalLabelSecondary,
+          totalLabel: totalLabelSecondary,
+          ...others
+        },
+        [MEASURE]: measure,
+        [LIST_MEASURE]: { measures: listMeasures },
+      } = form;
+
+      // Normalized primary axis values
+
+      const normalized = {
+        [PRIMARY]: {
+          type: typePrimary,
+          showTotalLabel: showTotalLabelPrimary,
+          [typePrimary]: primary,
+        },
+      };
+
+      if (showTotalLabelPrimary === '1') {
+        normalized[PRIMARY].totalLabel = totalLabelPrimary;
+      }
+
+      if (typePrimary === CODES_LIST && showSecondaryAxis) {
+        // Normalized secondary axis values
+
+        normalized[SECONDARY] = {
+          ...others,
+          showSecondaryAxis,
+          showTotalLabelSecondary,
+        };
+        if (showTotalLabelSecondary === '1') {
+          normalized[SECONDARY].totalLabel = totalLabelSecondary;
+        }
+
+        // Normalized measure axis values
+
+        normalized[MEASURE] = getNormalizedMeasureValues(measure);
+      }
+
+      // Normalized measures list axis
+
+      if (typePrimary === LIST || (typePrimary === CODES_LIST && !showSecondaryAxis)) {
+        normalized[LIST_MEASURE] = {
+          measures: listMeasures.map(m => getNormalizedMeasureValues(m)),
+        };
+      }
+
+      return normalized;
     },
   };
 };

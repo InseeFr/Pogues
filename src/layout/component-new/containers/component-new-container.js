@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ComponentNew from '../components/component-new';
 
-import { setErrors } from 'actions/errors';
+import { setErrorsByFormPath } from 'actions/errors';
 import { createComponent, orderComponents, updateParentChildren } from 'actions/components';
 import { setSelectedComponentId } from 'actions/app-state';
 
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setErrors,
+  setErrors: setErrorsByFormPath,
   createComponent,
   orderComponents,
   updateParentChildren,

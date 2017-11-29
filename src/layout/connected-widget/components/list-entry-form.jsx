@@ -125,21 +125,21 @@ class ListEntryForm extends Component {
           <ul style={styleErrors} className="list-entry-form_form-errors">
             {errorsList}
           </ul>
-          {showAddButton && (
-            <div className="list-entry-form_form-add">
-              <button
-                type="button"
-                className="btn btn-link"
-                onClick={event => {
-                  event.preventDefault();
-                  reset();
-                }}
-              >
-                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-                {Dictionary[submitLabel]}
-              </button>
-            </div>
-          )}
+          {/*{showAddButton && (*/}
+            {/*<div className="list-entry-form_form-add">*/}
+              {/*<button*/}
+                {/*type="button"*/}
+                {/*className="btn btn-link"*/}
+                {/*onClick={event => {*/}
+                  {/*event.preventDefault();*/}
+                  {/*reset();*/}
+                {/*}}*/}
+              {/*>*/}
+                {/*<span className="glyphicon glyphicon-plus" aria-hidden="true" />*/}
+                {/*{Dictionary[submitLabel]}*/}
+              {/*</button>*/}
+            {/*</div>*/}
+          {/*)}*/}
 
           {inputView}
 
@@ -178,18 +178,18 @@ class ListEntryForm extends Component {
                   </button>
                 </li>
               )}
-              <li>
-                <button
-                  type="button"
-                  className="btn-yellow"
-                  onClick={event => {
-                    event.preventDefault();
-                    submit();
-                  }}
-                >
-                  {Dictionary.validate}
-                </button>
-              </li>
+              {/*<li>*/}
+                {/*<button*/}
+                  {/*type="button"*/}
+                  {/*className="btn-yellow"*/}
+                  {/*onClick={event => {*/}
+                    {/*event.preventDefault();*/}
+                    {/*submit();*/}
+                  {/*}}*/}
+                {/*>*/}
+                  {/*{Dictionary.validate}*/}
+                {/*</button>*/}
+              {/*</li>*/}
               <li>
                 <button
                   type="button"

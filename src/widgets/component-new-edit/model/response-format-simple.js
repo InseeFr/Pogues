@@ -56,6 +56,15 @@ const Factory = (initialState = {}) => {
     stateToForm: () => {
       return stateToForm(currentState);
     },
+    getNormalizedValues: form => {
+      // Values ready to be validated
+      const { type, [type]: simpleType } = form;
+
+      return {
+        type,
+        [type]: simpleType,
+      };
+    },
   };
 };
 

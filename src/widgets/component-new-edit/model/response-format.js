@@ -85,6 +85,25 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       return codesLists;
     },
+    getNormalizedValues: form => {
+      // Values ready to be validated
+      const { type, [type]: responseFormatType } = form;
+      const normalized = {
+        type,
+      };
+
+      if (form.type === SIMPLE) {
+        normalized[SIMPLE] = transformers.simple.getNormalizedValues(responseFormatType);
+      } else if (form.type === SINGLE_CHOICE) {
+        normalized[SINGLE_CHOICE] = transformers.single.getNormalizedValues(responseFormatType);
+      } else if (form.type === MULTIPLE_CHOICE) {
+        normalized[MULTIPLE_CHOICE] = transformers.multiple.getNormalizedValues(responseFormatType);
+      } else if (form.type === TABLE) {
+        normalized[TABLE] = transformers.table.getNormalizedValues(responseFormatType);
+      }
+
+      return normalized;
+    },
   };
 };
 
