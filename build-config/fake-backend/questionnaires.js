@@ -936,7 +936,7 @@ module.exports = [
               "dimensionType" : "MEASURE",
               "dynamic" : "0"
             } ]
-          }
+          },
           "Mapping" : [
             {
               "MappingSource" : "idResponse41",
@@ -2224,8 +2224,8 @@ module.exports = [
             "FailMessage" : "Le montant des investissements spécifiquement dédiés à\n                        l'environnement est supérieur au montant total des\n                        investissements."
           } ],
           "Response" : [
-            "id" : "idResponse119",
             {
+            "id" : "idResponse119",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
@@ -2248,15 +2248,16 @@ module.exports = [
               "Minimum" : 0
             },
             "CollectedVariableReference" : "collectedVariable121"
-          }, {
+          },{
             "id" : "idResponse122",
             "Datatype" : {
               "typeName" : "NUMERIC",
               "type" : "NumericDatatypeType",
               "Minimum" : 0
             },
-            "CollectedVariableReference" : "collectedVariable122"
-          }, {
+            "CollectedVariableReference" : "collectedVariable121"
+          },
+          {
             "id" : "idResponse123",
             "Datatype" : {
               "typeName" : "NUMERIC",
