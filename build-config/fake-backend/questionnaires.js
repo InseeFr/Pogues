@@ -958,8 +958,8 @@ module.exports = [
           "Name" : "FORMATION",
           "Label" : [ "##{\"label\":\"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?\",\"conditions\":[]} Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?" ],
           "Response" : [
-            "id" : "idResponse44",
             {
+            "id" : "idResponse44",
             "Datatype" : {
               "typeName" : "BOOLEAN",
               "type" : "BooleanDatatypeType"
