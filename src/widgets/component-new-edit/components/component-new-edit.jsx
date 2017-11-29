@@ -8,7 +8,7 @@ import Controls from './controls';
 import Redirections from './redirections';
 import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
-import CollectedVariablesContainer from '../containers/variables/collected-variables';
+// import CollectedVariablesContainer from '../containers/variables/collected-variables';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { COMPONENT_TYPE, TABS_PATHS } from 'constants/pogues-constants';
@@ -77,7 +77,7 @@ class ComponentNewEdit extends Component {
     if (componentType === QUESTION) {
       panels = [
         <Tab label={Dictionary.responsesEdition} path={TABS_PATHS.RESPONSE_FORMAT} key={TABS_PATHS.RESPONSE_FORMAT}>
-          <ResponseFormat edit={componentId !== ''} />
+          <ResponseFormat edit={componentId !== ''} setErrors={setErrorsByFormPath} />
         </Tab>,
         ...panels,
         <Tab
@@ -94,18 +94,19 @@ class ComponentNewEdit extends Component {
         >
           <CalculatedVariables errors={errorsByTab[TABS_PATHS.CALCULATED_VARIABLES]} setErrors={setErrorsByFormPath} />
         </Tab>,
-        <Tab
-          label={Dictionary.collectedVariables}
-          path={TABS_PATHS.COLLECTED_VARIABLES}
-          key={TABS_PATHS.COLLECTED_VARIABLES}
-        >
-          <CollectedVariablesContainer
-            errors={errorsByTab[TABS_PATHS.COLLECTED_VARIABLES]}
-            setErrors={setErrorsByFormPath}
-          />
-        </Tab>,
       ];
     }
+
+    {/*<Tab*/}
+      {/*label={Dictionary.collectedVariables}*/}
+      {/*path={TABS_PATHS.COLLECTED_VARIABLES}*/}
+      {/*key={TABS_PATHS.COLLECTED_VARIABLES}*/}
+    {/*>*/}
+      {/*<CollectedVariablesContainer*/}
+        {/*errors={errorsByTab[TABS_PATHS.COLLECTED_VARIABLES]}*/}
+        {/*setErrors={setErrorsByFormPath}*/}
+      {/*/>*/}
+    {/*</Tab>,*/}
 
     return panels;
   }

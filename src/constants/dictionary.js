@@ -1087,6 +1087,10 @@ const dictionary = {
     fr: 'Libellé obligatoire.',
     en: 'Label required.',
   },
+  validationMeasureLabel: {
+    fr: "Libellé de l'information mesurée obligatoire",
+    en: 'Measure label required',
+  },
   headerSearchQuestionnaire_version: {
     fr: 'Version',
     en: 'Version',

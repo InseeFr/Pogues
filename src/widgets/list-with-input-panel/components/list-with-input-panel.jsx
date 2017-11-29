@@ -23,7 +23,7 @@ const {
 
 export const propTypes = {
   errors: PropTypes.array,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]).isRequired,
 
   formName: PropTypes.string.isRequired,
   selectorPath: PropTypes.string.isRequired,

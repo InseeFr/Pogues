@@ -11,12 +11,17 @@ const propTypes = {
   formName: PropTypes.string.isRequired,
   selectorPath: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired,
+
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]).isRequired,
+
   errors: PropTypes.array,
+
   canSubmit: PropTypes.bool,
   canRemove: PropTypes.bool,
   canDuplicate: PropTypes.bool,
+
   validateForm: PropTypes.func.isRequired,
+
   resetObject: PropTypes.object.isRequired,
 };
 

@@ -1,84 +1,52 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
+import { defaultMeasureState } from '../../../model/response-format-table';
 import InputMeasure from './input-measure';
-import {
-  DIMENSION_TYPE,
-  QUESTION_TYPE_ENUM,
-  CODES_LIST_INPUT_ENUM,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
-} from 'constants/pogues-constants';
-import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultMeasureForm } from '../../../model/response-format-table';
-import { required, requiredSelect, emptyCodes } from 'forms/validation-rules';
 
-const { LIST_MEASURE } = DIMENSION_TYPE;
-const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { NEW, QUEST } = CODES_LIST_INPUT_ENUM;
+import { ListWithInputPanel } from 'widgets/list-with-input-panel';
+import { validateTableListMeasuresForm } from 'utils/validation/validate';
 
-function validationMeasure(values) {
-  const { label, type: typeMeasure, [typeMeasure]: measureValues } = values;
-  const errors = [];
-  let codeListRequired;
-  let notEmptyCodes;
-  let uniqueCodes;
-  let requiredSelectCodesList;
-  const labelRequired = required(label);
+import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
-  if (typeMeasure === SINGLE_CHOICE) {
-    const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { panel, id, label: labelCodesList, codes } } = measureValues;
+// Utils
 
-    if (panel === NEW) {
-      codeListRequired = required(labelCodesList);
-      notEmptyCodes = emptyCodes(codes);
-    } else if (panel === QUEST) {
-      requiredSelectCodesList = requiredSelect(id);
-    }
-  }
+const validateForm = (setErrors, validate) => values => {
+  return validate(values, setErrors);
+};
 
-  if (labelRequired) errors.push('Label is required');
-  if (codeListRequired) errors.push('List name required');
-  if (notEmptyCodes) errors.push(notEmptyCodes);
-  if (uniqueCodes) errors.push(uniqueCodes);
-  if (requiredSelectCodesList) errors.push(requiredSelectCodesList);
+// Prop types and default props
 
-  return errors;
+export const propTypes = {
+  formName: PropTypes.string,
+  selectorPath: PropTypes.string.isRequired,
+  setErrors: PropTypes.func.isRequired,
+};
+
+export const defaultProps = {
+  formName: DEFAULT_FORM_NAME,
+};
+
+// Component
+
+function TableListMeasures({ formName, selectorPath, setErrors }) {
+  return (
+    <FormSection name="LIST_MEASURE">
+      <ListWithInputPanel
+        formName={formName}
+        selectorPath={selectorPath}
+        name="measures"
+        validateForm={validateForm(setErrors, validateTableListMeasuresForm)}
+        resetObject={defaultMeasureState}
+      >
+        <InputMeasure selectorPath={selectorPath} />
+      </ListWithInputPanel>
+    </FormSection>
+  );
 }
 
-class ResponseFormatTableListMeasures extends Component {
-  static selectorPath = LIST_MEASURE;
-  static propTypes = {
-    selectorPathParent: PropTypes.string,
-  };
-  static defaultProps = {
-    selectorPathParent: undefined,
-  };
-  constructor(props) {
-    const { selectorPathParent } = props;
-    super(props);
+TableListMeasures.propTypes = propTypes;
+TableListMeasures.defaultProps = defaultProps;
 
-    this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${ResponseFormatTableListMeasures.selectorPath}`
-      : ResponseFormatTableListMeasures.selectorPath;
-  }
-  render() {
-    const inputMeasureView = <InputMeasure selectorPath={this.selectorPathComposed} />;
-
-    return (
-      <FormSection name={ResponseFormatTableListMeasures.selectorPath}>
-        <ListEntryFormContainer
-          inputView={inputMeasureView}
-          initialInputValues={defaultMeasureForm}
-          selectorPath={this.selectorPathComposed}
-          validationInput={validationMeasure}
-          listName="measures"
-          submitLabel="addMeasure"
-          noValueLabel="noMeasureYet"
-        />
-      </FormSection>
-    );
-  }
-}
-
-export default ResponseFormatTableListMeasures;
+export default TableListMeasures;

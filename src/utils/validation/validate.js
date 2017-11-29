@@ -1,4 +1,5 @@
 // @TODO: Refactor to avoid similar validation functions
+import { SubmissionError } from 'redux-form';
 
 import { validate, getErrorsObject } from './validation-utils';
 import {
@@ -11,8 +12,9 @@ import {
   externalVariableRules,
   calculatedVariableRules,
   collectedVariableRules,
+  tableListMeasuresRules,
 } from './validation-rules';
-import { SubmissionError } from 'redux-form';
+import { Component } from 'widgets/component-new-edit';
 
 export function validateQuestionnaireForm(values, setErrors) {
   const errors = validate(values, questionnaireRules);
@@ -98,6 +100,18 @@ export function validateExternalVariableForm(values, setErrors, state) {
 
 export function validateCollectedVariableForm(values, setErrors) {
   const errors = validate(values, collectedVariableRules);
+
+  // SubmissionError can't be used in subforms validations
+  if (errors.length > 0) {
+    setErrors(errors);
+    return false;
+  }
+  return true;
+}
+
+export function validateTableListMeasuresForm(values, setErrors) {
+  const normalizedValues = Component().getNormalizedValues(values);
+  const errors = validate(normalizedValues, tableListMeasuresRules);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {

@@ -373,7 +373,7 @@ const Factory = (initialState = {}, codesListsStore) => {
           ...others
         },
         [MEASURE]: measure,
-        [LIST_MEASURE]: { measures: listMeasures },
+        [LIST_MEASURE]: { measures: listMeasures, ...listMeasuresInput },
       } = form;
 
       // Normalized primary axis values
@@ -410,9 +410,7 @@ const Factory = (initialState = {}, codesListsStore) => {
       // Normalized measures list axis
 
       if (typePrimary === LIST || (typePrimary === CODES_LIST && !showSecondaryAxis)) {
-        normalized[LIST_MEASURE] = {
-          measures: listMeasures.map(m => getNormalizedMeasureValues(m)),
-        };
+        normalized[LIST_MEASURE] = getNormalizedMeasureValues(listMeasuresInput);
       }
 
       return normalized;

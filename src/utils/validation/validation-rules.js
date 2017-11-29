@@ -24,7 +24,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { NUMERIC, TEXT } = DATATYPE_NAME;
-const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
+const { PRIMARY, SECONDARY, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const {
   RESPONSE_FORMAT,
@@ -58,9 +58,7 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${SIMPLE}.${TEXT}.maxLength`]: [required, value => minValue(1)(value)],
   [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [validCodesList],
   [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${PRIMARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [validCodesList],
-  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
+  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: [
     value => minValue(1)(value),
@@ -73,13 +71,13 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [validCodesList],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.label`]: [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [validCodesList],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [value => minValue(0)(value)],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [value => minValue(1)(value)],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [required, value => minValue(1)(value)],
+  [`${RESPONSE_FORMAT}.${TABLE}.label`]: [required],
+  [`${RESPONSE_FORMAT}.${TABLE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [validCodesList],
+  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.minimum`]: [value => minValue(0)(value)],
+  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.maximum`]: [value => minValue(1)(value)],
+  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [required, value => minValue(1)(value)],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.measures`]: [emptyMeasures],
-  [`collectedVariables.collectedVariables`]: [],
+  [`${COLLECTED_VARIABLES}.collectedVariables`]: [],
 };
 
 export const declarationRules = {
@@ -124,3 +122,15 @@ export const externalVariableRules = {
 };
 
 export const collectedVariableRules = {};
+
+export const tableListMeasuresRules = {
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.label`]: [
+    value => required(value) && Dictionary.validationMeasureLabel,
+  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
+    validCodesList,
+  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [value => minValue(0)(value)],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [value => minValue(1)(value)],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [required, value => minValue(1)(value)],
+};

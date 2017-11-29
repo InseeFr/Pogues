@@ -63,7 +63,7 @@ export function stateToForm(currentState, transformers) {
   return form;
 }
 
-const Factory = (initialState, stores = {}) => {
+const Factory = (initialState = {}, stores = {}) => {
   const {
     componentsStore,
     calculatedVariablesStore,

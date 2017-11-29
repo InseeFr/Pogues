@@ -7,7 +7,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import ResponseFormatTablePrimary from './table-primary';
 import ResponseFormatTableSecondary from './table-secondary';
 import ResponseFormatTableMeasure from './table-measure';
-import ResponseFormatTableListMeasures from './table-list-measures';
+import TableListMeasures from './table-list-measures';
 import { QUESTION_TYPE_ENUM, DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY } = DIMENSION_TYPE;
@@ -20,6 +20,7 @@ class ResponseFormatTable extends Component {
     selectorPathParent: PropTypes.string,
     showSecondaryAxis: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     primaryAxisType: PropTypes.string,
+    setErrors: PropTypes.func.isRequired,
   };
   static defaultProps = {
     selectorPathParent: undefined,
@@ -35,7 +36,7 @@ class ResponseFormatTable extends Component {
       : ResponseFormatTable.selectorPath;
   }
   render() {
-    const { showSecondaryAxis, primaryAxisType } = this.props;
+    const { showSecondaryAxis, primaryAxisType, setErrors } = this.props;
     return (
       <FormSection name={ResponseFormatTable.selectorPath} className="response-format__table">
         <h3 className="axis-primary__head">{Dictionary.primaryAxisTable}</h3>
@@ -52,7 +53,7 @@ class ResponseFormatTable extends Component {
         <h3 className="axis-measure__head">{Dictionary.measuresAxisTable}</h3>
 
         {primaryAxisType === LIST || !showSecondaryAxis ? (
-          <ResponseFormatTableListMeasures selectorPathParent={this.selectorPathComposed} />
+          <TableListMeasures selectorPath={`${this.selectorPathComposed}.LIST_MEASURE`} setErrors={setErrors} />
         ) : (
           <ResponseFormatTableMeasure selectorPathParent={this.selectorPathComposed} />
         )}
