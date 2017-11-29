@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 import Dictionary from 'utils/dictionary/dictionary';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
@@ -118,20 +120,47 @@ export function validCodesList(codesList) {
   return errors;
 }
 
-export function validCollectedVariables(value, form, { codesLists }) {}
+export function validCollectedVariables(value, { stores: { codesLists } }) {}
 
-export function validateEarlyTarget(value, form, { componentsStore, editingComponentId }) {
+export function validateEarlyTarget(value, { stores: { componentsStore, editingComponentId } }) {
   const allowedTargets = getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]);
   return value !== '' && componentsStore[value] && allowedTargets.indexOf(value) === -1
     ? Dictionary.errorGoToEarlierTgt
     : undefined;
 }
 
-export function validateExistingTarget(value, form, { componentsStore }) {
+export function validateExistingTarget(value, { stores: { componentsStore } }) {
   return value !== '' && !componentsStore[value] ? Dictionary.errorGoToNonExistingTgt : undefined;
 }
 
-export function validateDuplicates(value, listItems) {
-  return listItems.indexOf(value)
+export function validateDuplicates(value, { form }) {
+  return form.filter(i => i.name === value).length > 0 ? 'Duplicated' : undefined;
+}
 
+export function validateDuplicatesCalculated(
+  value,
+  { form: { calculatedVariables: values }, state: { selectedItemIndex } }
+) {
+  const listItems = cloneDeep(values.calculatedVariables);
+
+  // We need to remove the element from the list
+  if (selectedItemIndex !== undefined) {
+    listItems.splice(selectedItemIndex, 1);
+  }
+
+  return validateDuplicates(value, { form: listItems });
+}
+
+export function validateDuplicatesExternal(
+  value,
+  { form: { externalVariables: values }, state: { selectedItemIndex } }
+) {
+  const listItems = cloneDeep(values.externalVariables);
+
+  // We need to remove the element from the list
+  if (selectedItemIndex !== undefined) {
+    listItems.splice(selectedItemIndex, 1);
+  }
+
+  return validateDuplicates(value, { form: listItems });
 }

@@ -1,5 +1,10 @@
 import { uuid } from 'utils/utils';
 
+export const defaultState = {
+  name: '',
+  label: '',
+};
+
 export const defaultForm = {
   name: '',
   label: '',

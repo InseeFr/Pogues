@@ -85,21 +85,24 @@ class ComponentNewEdit extends Component {
           path={TABS_PATHS.EXTERNAL_VARIABLES}
           key={TABS_PATHS.EXTERNAL_VARIABLES}
         >
-          <ExternalVariables />
+          <ExternalVariables errors={errorsByTab[TABS_PATHS.EXTERNAL_VARIABLES]} setErrors={setErrorsByFormPath} />
         </Tab>,
         <Tab
           label={Dictionary.calculatedVariables}
           path={TABS_PATHS.CALCULATED_VARIABLES}
           key={TABS_PATHS.CALCULATED_VARIABLES}
         >
-          <CalculatedVariables />
+          <CalculatedVariables errors={errorsByTab[TABS_PATHS.CALCULATED_VARIABLES]} setErrors={setErrorsByFormPath} />
         </Tab>,
         <Tab
           label={Dictionary.collectedVariables}
           path={TABS_PATHS.COLLECTED_VARIABLES}
           key={TABS_PATHS.COLLECTED_VARIABLES}
         >
-          <CollectedVariablesContainer />
+          <CollectedVariablesContainer
+            errors={errorsByTab[TABS_PATHS.COLLECTED_VARIABLES]}
+            setErrors={setErrorsByFormPath}
+          />
         </Tab>,
       ];
     }

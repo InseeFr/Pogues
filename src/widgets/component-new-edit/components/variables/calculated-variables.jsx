@@ -14,8 +14,8 @@ import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
 // Utils
 
-const validateForm = (setErrors, validate) => values => {
-  return validate(values, setErrors);
+const validateForm = (setErrors, validate) => (values, state) => {
+  return validate(values, setErrors, state);
 };
 
 // Prop types and default props

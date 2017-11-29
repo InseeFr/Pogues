@@ -9,7 +9,8 @@ import {
   emptyMeasures,
   validateEarlyTarget,
   validateExistingTarget,
-  validateDuplicates,
+  validateDuplicatesCalculated,
+  validateDuplicatesExternal,
 } from 'forms/validation-rules';
 import {
   TABS_PATHS,
@@ -107,13 +108,19 @@ export const calculatedVariableRules = {
     value => required(value) && Dictionary.validation_calculatedvariable_name,
     name,
     nameSize,
-    (value, form) =>
-      validateDuplicates(value, form.calculatedVariables.calculatedVariables) &&
-      Dictionary.validation_calculatedvariable_existing,
+    (value, conf) => validateDuplicatesCalculated(value, conf) && Dictionary.validation_calculatedvariable_existing,
   ],
   [`${CALCULATED_VARIABLES}.formula`]: [value => required(value) && Dictionary.validation_calculatedvariable_formula],
 };
 
-export const externalVariableRules = {};
+export const externalVariableRules = {
+  [`${EXTERNAL_VARIABLES}.label`]: [value => required(value) && Dictionary.validation_externalvariable_label],
+  [`${EXTERNAL_VARIABLES}.name`]: [
+    value => required(value) && Dictionary.validation_externalvariable_name,
+    name,
+    nameSize,
+    (value, conf) => validateDuplicatesExternal(value, conf) && Dictionary.validation_externalvariable_existing,
+  ],
+};
 
 export const collectedVariableRules = {};

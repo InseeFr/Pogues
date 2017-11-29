@@ -74,8 +74,8 @@ export function validateRedirectionForm(values, setErrors, stores) {
   return true;
 }
 
-export function validateCalculatedVariableForm(values, setErrors) {
-  const errors = validate(values, calculatedVariableRules);
+export function validateCalculatedVariableForm(values, setErrors, state) {
+  const errors = validate(values, calculatedVariableRules, {}, state);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
@@ -85,8 +85,8 @@ export function validateCalculatedVariableForm(values, setErrors) {
   return true;
 }
 
-export function validateExternalVariableForm(values, setErrors) {
-  const errors = validate(values, externalVariableRules);
+export function validateExternalVariableForm(values, setErrors, state) {
+  const errors = validate(values, externalVariableRules, {}, state);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {

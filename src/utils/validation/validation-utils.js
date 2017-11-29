@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 import merge from 'lodash.merge';
 
-export function validate(form, items, stores) {
+export function validate(form, items, stores, state) {
   return Object.keys(items).reduce((acc, path) => {
     const value = get(form, path);
 
@@ -11,7 +11,7 @@ export function validate(form, items, stores) {
 
       for (let i = 0; i < rules.length; i += 1) {
         // The rule is executed with the value
-        errors = rules[i](value, form, stores) || [];
+        errors = rules[i](value, { form, stores, state }) || [];
 
         if (!Array.isArray(errors)) errors = [errors];
 

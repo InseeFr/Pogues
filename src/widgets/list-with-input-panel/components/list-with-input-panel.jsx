@@ -85,7 +85,7 @@ class ListWithInputPanel extends Component {
 
   validate(values) {
     this.clearAllErrors();
-    return this.props.validateForm(values);
+    return this.props.validateForm(values, this.state);
   }
 
   submit() {
