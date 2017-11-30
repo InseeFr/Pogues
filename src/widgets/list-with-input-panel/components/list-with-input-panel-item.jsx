@@ -27,9 +27,16 @@ function ListWithInputPanelItem({ children, invalid, select }) {
         [ITEM_CLASS]: true,
         [ITEM_INVALID_CLASS]: invalid,
       })}
-      onClick={select}
     >
-      {children}
+      <button
+        onClick={event => {
+          event.preventDefault();
+          select();
+        }}
+      >
+        <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
+        {children}
+      </button>
     </li>
   );
 }

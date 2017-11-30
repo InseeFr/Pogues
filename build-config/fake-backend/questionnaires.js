@@ -9,1920 +9,2627 @@ module.exports = [
     "Label" : [ "Je suis le titre du questionnaire" ],
     "Child" : [
       {
-      "id" : "ir6cju1z",
-      "depth" : 1,
-      "genericName" : "MODULE",
-      "type" : "SequenceType",
-      "Name" : "SIMPLE",
-      "Label" : [ "Module des questions ouvertes : je suis le libellé du module" ],
-      "Declaration" : [ {
-        "declarationType" : "INSTRUCTION",
-        "Text" : "Ceci est une déclaration de type consigne. "
+        "id" : "ir6cju1z",
+        "depth" : 1,
+        "genericName" : "MODULE",
+        "type" : "SequenceType",
+        "Name" : "SIMPLE",
+        "Label" : [ "Module des questions ouvertes : je suis le libellé du module" ],
+        "Declaration" : [ {
+          "declarationType" : "INSTRUCTION",
+          "Text" : "Ceci est une déclaration de type consigne. "
+        } ],
+        "Child" : [
+          {
+            "id" : "iwm8qg8x",
+            "depth" : 2,
+            "genericName" : "SUBMODULE",
+            "type" : "SequenceType",
+            "Name" : "INTRODUCTI",
+            "Label" : [ "Introduction : je suis le libellé du paragraphe" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "Text" : "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant\n                    les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par\n                    page), regroupant les différents types de questions. Dans chaque module, vous\n                    trouverez la description des questions de chaque type, ainsi que des exemples\n                    tirés de questionnaires Insee. ​ "
+            } ],
+            "Child" : [ {
+              "id" : "iwm8r0ba",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "COCHEZ",
+              "Label" : [ "##{\"label\":\"Cochez la case pour afficher la suite du questionnaire\\n\",\"conditions\":[]} Cochez la case pour afficher la suite du questionnaire" ],
+              "GoTo" : [ {
+                "id" : "iwnegyn6",
+                "Expression" : "${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' ",
+                "IfTrue" : "isg13cuk"
+              } ],
+              "Response" : [ {
+                "id" : "idResponse1",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable1"
+              } ]
+            } ]
+          }, {
+            "id" : "ir6co0qf",
+            "depth" : 2,
+            "genericName" : "SUBMODULE",
+            "type" : "SequenceType",
+            "Name" : "MODULE_TEXTE",
+            "Label" : [ "Sous-module : questions de type texte" ],
+            "Child" : [ {
+              "id" : "ir6cqzev",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "TEXTE_LONG",
+              "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères\\n\",\"conditions\":[]} Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Je suis le texte de la consigne "
+              } ],
+              "Response" : [
+                {
+                  "id" : "idResponse2",
+                  "mandatory" : false,
+                  "Datatype" : {
+                    "typeName" : "TEXT",
+                    "type" : "TextDatatypeType",
+                    "MaxLength" : 250,
+                    "Pattern" : ""
+                  },
+                  "CollectedVariableReference" : "collectedVariable2"
+                } ]
+            }, {
+              "id" : "ir6cm77g",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "TEXTE_COURT",
+              "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères\",\"conditions\":[]} Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères" ],
+              "Response" : [ {
+                "id" : "idResponse3",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 150,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable3"
+              } ]
+            } ]
+          }, {
+            "id" : "ir6cruy6",
+            "depth" : 2,
+            "genericName" : "SUBMODULE",
+            "type" : "SequenceType",
+            "Name" : "MODULE_NUM",
+            "Label" : [ "Sous-module : questions de type numérique" ],
+            "Child" : [ {
+              "id" : "ir6cifax",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "NUM_ENTIER",
+              "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique entier\",\"conditions\":[]} Je suis le libellé de la question de type numérique entier" ],
+              "Response" : [ {
+                "id" : "idResponse4",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0,
+                  "Maximum" : 120
+                },
+                "CollectedVariableReference" : "collectedVariable4"
+              } ]
+            }, {
+              "id" : "ir6cmuqa",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "NUM_DECIMAL",
+              "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique décimal\",\"conditions\":[]} Je suis le libellé de la question de type numérique décimal" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Je suis le texte de la consigne "
+              } ],
+              "Response" : [ {
+                "id" : "idResponse5",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10,
+                  "Decimals" : 1
+                },
+                "CollectedVariableReference" : "collectedVariable5"
+              } ]
+            } ]
+          }, {
+            "id" : "ir6ctbkt",
+            "depth" : 2,
+            "genericName" : "SUBMODULE",
+            "type" : "SequenceType",
+            "Name" : "SOUSMODULE",
+            "Label" : [ "Sous-module : questions de type date et durée" ],
+            "Child" : [ {
+              "id" : "ir6ct69u",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "SIMPLE_DATE",
+              "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type date au format JJ/MM/AAAA\",\"conditions\":[]} Je suis le libellé de la question de type date au format JJ/MM/AAAA" ],
+              "Response" : [ {
+                "id" : "idResponse6",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "DATE",
+                  "type" : "DateDatatypeType",
+                  "Format" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable6"
+              } ]
+            } ]
+          }, {
+            "id" : "isg1kh8l",
+            "depth" : 2,
+            "genericName" : "SUBMODULE",
+            "type" : "SequenceType",
+            "Name" : "SOUSMODULE",
+            "Label" : [ "Sous modules : question booléen" ],
+            "Child" : [ {
+              "id" : "isg1hh9m",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "BOOL",
+              "Label" : [ "##{\"label\":\"Je suis le libellé de la question simple de type booléen\",\"conditions\":[]} Je suis le libellé de la question simple de type booléen" ],
+              "Response" : [ {
+                "id" : "idResponse7",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable7"
+              } ]
+            } ]
+          }, {
+            "id" : "iwnfdy97",
+            "depth" : 2,
+            "genericName" : "SUBMODULE",
+            "type" : "SequenceType",
+            "Name" : "EXEMPLES",
+            "Label" : [ "Exemples" ],
+            "Child" : [ {
+              "id" : "iwm6shxx",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "ACT_PRIN",
+              "Label" : [ "##{\"label\":\"Veuillez indiquer l'activité principale de l'entreprise sous son appellation usuelle\",\"conditions\":[]} Veuillez indiquer l'activité principale de l'entreprise sous son appellation usuelle" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "(par exemple : commerce de fruits et légumes, boulangerie, charcuterie\n                        artisanale ou industrielle, commerce de détail de meubles...) "
+              }, {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Exemple tiré de l'enquête sectorielle annuelle "
+              } ],
+              "Response" : [ {
+                "id" : "idResponse8",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 200,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable8"
+              } ]
+            }, {
+              "id" : "iwm8woim",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "PROFESSION",
+              "Label" : [ "##{\"label\":\"Indiquez le plus précisément possible la profession exercée dans votre emploi actuel\",\"conditions\":[]} Indiquez le plus précisément possible la profession exercée dans votre emploi actuel" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Soyez très précis sur votre métier : « Caissière » (et non « employée »),\n                        « Fleuriste » (et non « Commerçant »), « Professeur des écoles» "
+              }, {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Question issue de l'enquête EVA 2016 "
+              } ],
+              "Response" : [ {
+                "id" : "idResponse9",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 200,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable9"
+              } ]
+            }, {
+              "id" : "iw7ux0w8",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "QUELESTLEM",
+              "Label" : [ "##{\"label\":\"Quel est le montant total des investissements réalisés dans votre entreprise ?\",\"conditions\":[]} Quel est le montant total des investissements réalisés dans votre entreprise ?" ],
+              "Response" : [ {
+                "id" : "idResponse10",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0,
+                  "Maximum" : 999999999
+                },
+                "CollectedVariableReference" : "collectedVariable10"
+              } ]
+            }, {
+              "id" : "iwm8v2g4",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "SALAIRE",
+              "Label" : [ "##{\"label\":\"Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?\",\"conditions\":[]} Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Question issue de l'enquête EVA 2016 "
+              } ],
+              "Response" : [ {
+                "id" : "idResponse11",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Maximum" : 99999
+                },
+                "CollectedVariableReference" : "collectedVariable11"
+              } ]
+            }, {
+              "id" : "iwm8t2p5",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "CLOT",
+              "Label" : [ "##{\"label\":\"Quelle est la date de clôture du dernier exercice comptable clos ?\",\"conditions\":[]} Quelle est la date de clôture du dernier exercice comptable clos ?" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Définition de l'exercice comptable sur lequel porte ce questionnaire : Les\n                        informations à fournir se rapportent à votre exercice comptable 2015. ​\n                        Votre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le\n                        31 mai 2016. ​ Si vous avez clotûré deux exercices sur cette période,\n                        prendre celui qui a leplus de mois en 2015. ​ Vous devez également répondre\n                        à l'énquête si votre entreprise a cessé son activité : en 2015 et a plus de\n                        6 mois d'activité ; en 2016. "
+              } ],
+              "Response" : [ {
+                "id" : "idResponse12",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable12"
+              } ]
+            }, {
+              "id" : "iwm99upn",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "DEPUISQUEL",
+              "Label" : [ "##{\"label\":\"Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?\",\"conditions\":[]} Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Question issue de l'enquête EVA 2016 "
+              } ],
+              "Response" : [ {
+                "id" : "idResponse13",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "DATE",
+                  "type" : "DateDatatypeType",
+                  "Format" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable13"
+              } ]
+            }, {
+              "id" : "iwnevs21",
+              "questionType" : "SIMPLE",
+              "type" : "QuestionType",
+              "Name" : "ACT_PROD",
+              "Label" : [ "##{\"label\":\"Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :\",\"conditions\":[]} Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :" ],
+              "Declaration" : [ {
+                "declarationType" : "INSTRUCTION",
+                "position" : "AFTER_QUESTION_TEXT",
+                "Text" : "Question issue de l'enquête annuelle sur les consommations d'énergie dans\n                        l'industrie (EACEI) "
+              } ],
+              "Response" : [ {
+                "id" : "idResponse14",
+                "mandatory" : false,
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable14"
+              } ]
+            } ]
+          } ]
+      }, {
+        "id" : "isg1ikbn",
+        "depth" : 1,
+        "genericName" : "MODULE",
+        "type" : "SequenceType",
+        "Name" : "SINGLE",
+        "Label" : [ "Module des questions à choix unique" ],
+        "Child" : [ {
+          "id" : "isg13cuk",
+          "questionType" : "SINGLE_CHOICE",
+          "type" : "QuestionType",
+          "Name" : "SINGLE_RADIO",
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de bouton radio\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de bouton radio" ],
+          "Declaration" : [ {
+            "declarationType" : "INSTRUCTION",
+            "position" : "AFTER_QUESTION_TEXT",
+            "Text" : "La consigne est après la question "
+          } ],
+          "Response" : [ {
+            "id" : "idResponse15",
+            "mandatory" : false,
+            "CodeListReference" : "isg1g6zo",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "RADIO",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable15"
+          } ]
+        }, {
+          "id" : "isg1hq0f",
+          "questionType" : "SINGLE_CHOICE",
+          "type" : "QuestionType",
+          "Name" : "SINGLE_DROPDOWN",
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de liste déroulante\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de liste déroulante" ],
+          "Response" : [ {
+            "id" : "idResponse16",
+            "mandatory" : false,
+            "CodeListReference" : "isg1g6zo",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "DROPDOWN",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable16"
+          } ]
+        }, {
+          "id" : "isg1bz8h",
+          "questionType" : "SINGLE_CHOICE",
+          "type" : "QuestionType",
+          "Name" : "SINGLE_CHECKBOX",
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de cases à cocher\",\"conditions\":[]} Je suis le libellé de la question à choix unique sous forme de cases à cocher" ],
+          "Response" : [ {
+            "id" : "idResponse17",
+            "mandatory" : false,
+            "CodeListReference" : "isg1g6zo",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "CHECKBOX",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable17"
+          } ]
+        }, {
+          "id" : "iwnesc00",
+          "depth" : 2,
+          "genericName" : "SUBMODULE",
+          "type" : "SequenceType",
+          "Name" : "EXEMPLES",
+          "Label" : [ "Exemples" ],
+          "Child" : [ {
+            "id" : "iw22nmhl",
+            "questionType" : "SINGLE_CHOICE",
+            "type" : "QuestionType",
+            "Name" : "FILTRE_INV",
+            "Label" : [ "##{\"label\":\"Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution\",\"conditions\":[]} Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_RESPONSE",
+              "Text" : "Cette question est extraite de l'enquête Antipol "
+            } ],
+            "Response" : [ {
+              "id" : "idResponse18",
+              "mandatory" : false,
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "CHECKBOX",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable18"
+            } ]
+          }, {
+            "id" : "iwm6zyaq",
+            "questionType" : "SINGLE_CHOICE",
+            "type" : "QuestionType",
+            "Name" : "VENTES_MARCH",
+            "Label" : [ "##{\"label\":\"Vendez vous vos marchandises majoritairement\\n\",\"conditions\":[]} Vendez vous vos marchandises majoritairement" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_QUESTION_TEXT",
+              "Text" : "Question issue de l'enquête sectorielle annuelle (commerce) "
+            } ],
+            "Response" : [ {
+              "id" : "idResponse19",
+              "mandatory" : false,
+              "CodeListReference" : "iwm8rneb",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "CHECKBOX",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable19"
+            } ]
+          }, {
+            "id" : "iwm9e4pi",
+            "questionType" : "SINGLE_CHOICE",
+            "type" : "QuestionType",
+            "Name" : "TEMPSPLEIN",
+            "Label" : [ "##{\"label\":\"Toujours au 1er mars 2016, vous travailliez\",\"conditions\":[]} Toujours au 1er mars 2016, vous travailliez" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_QUESTION_TEXT",
+              "Text" : "Question issue de l'enquête EVA 2016 "
+            } ],
+            "Response" : [ {
+              "id" : "idResponse20",
+              "mandatory" : false,
+              "CodeListReference" : "iwm8zloc",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "CHECKBOX",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable20"
+            } ]
+          } ]
+        } ]
+      }, {
+        "id" : "isg1gytw",
+        "depth" : 1,
+        "genericName" : "MODULE",
+        "type" : "SequenceType",
+        "Name" : "MULTIPLE",
+        "Label" : [ "Module des questions à choix multiple" ],
+        "Child" : [ {
+          "id" : "isg1j5rw",
+          "questionType" : "MULTIPLE_CHOICE",
+          "type" : "QuestionType",
+          "Name" : "MULTIPLE_BOOL",
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de booléen\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de booléen" ],
+          "Response" : [ {
+            "id" : "idResponse21",
+            "Datatype" : {
+              "typeName" : "BOOLEAN",
+              "type" : "BooleanDatatypeType"
+            },
+            "CollectedVariableReference" : "collectedVariable21"
+          }, {
+            "id" : "idResponse22",
+            "Datatype" : {
+              "typeName" : "BOOLEAN",
+              "type" : "BooleanDatatypeType"
+            },
+            "CollectedVariableReference" : "collectedVariable22"
+          }, {
+            "id" : "idResponse23",
+            "Datatype" : {
+              "typeName" : "BOOLEAN",
+              "type" : "BooleanDatatypeType"
+            },
+            "CollectedVariableReference" : "collectedVariable23"
+          }, {
+            "id" : "idResponse24",
+            "Datatype" : {
+              "typeName" : "BOOLEAN",
+              "type" : "BooleanDatatypeType"
+            },
+            "CollectedVariableReference" : "collectedVariable24"
+          }, {
+            "id" : "idResponse25",
+            "Datatype" : {
+              "typeName" : "BOOLEAN",
+              "type" : "BooleanDatatypeType"
+            },
+            "CollectedVariableReference" : "collectedVariable25"
+          } ],
+          "ResponseStructure" : {
+            "Dimension" : [ {
+              "dimensionType" : "PRIMARY",
+              "dynamic" : "0",
+              "CodeListReference" : "isg1g6zo"
+            }, {
+              "dimensionType" : "MEASURE",
+              "dynamic" : "0"
+            } ]
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse21",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse22",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse23",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse24",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse25",
+              "MappingTarget" : "1 5"
+            }
+          ]
+        }, {
+          "id" : "isg1gjjt",
+          "questionType" : "MULTIPLE_CHOICE",
+          "type" : "QuestionType",
+          "Name" : "MULTIPLE_RADIO",
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de bouton radio\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de bouton radio" ],
+          "Response" : [ {
+            "id" : "idResponse26",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "RADIO",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable26"
+          }, {
+            "id" : "idResponse27",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "RADIO",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable27"
+          }, {
+            "id" : "idResponse28",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "RADIO",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable28"
+          }, {
+            "id" : "idResponse29",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "RADIO",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable29"
+          }, {
+            "id" : "idResponse30",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "RADIO",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable30"
+          } ],
+          "ResponseStructure" : {
+            "Dimension" : [ {
+              "dimensionType" : "PRIMARY",
+              "dynamic" : "0",
+              "CodeListReference" : "isg1g6zo"
+            }, {
+              "dimensionType" : "MEASURE",
+              "dynamic" : "0"
+            } ]
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse26",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse27",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse28",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse29",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse30",
+              "MappingTarget" : "1 5"
+            }
+          ]
+        }, {
+          "id" : "isg20r8n",
+          "questionType" : "MULTIPLE_CHOICE",
+          "type" : "QuestionType",
+          "Name" : "MULTIPLE_DROPDOWN",
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de liste déroulante\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de liste déroulante" ],
+          "Declaration" : [ {
+            "declarationType" : "INSTRUCTION",
+            "position" : "BEFORE_QUESTION_TEXT",
+            "Text" : "La consigne est avant la question "
+          } ],
+          "Response" : [ {
+            "id" : "idResponse31",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "DROPDOWN",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable31"
+          }, {
+            "id" : "idResponse32",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "DROPDOWN",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable32"
+          }, {
+            "id" : "idResponse33",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "DROPDOWN",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable33"
+          }, {
+            "id" : "idResponse34",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "DROPDOWN",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable34"
+          }, {
+            "id" : "idResponse35",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "DROPDOWN",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable35"
+          } ],
+          "ResponseStructure" : {
+            "Dimension" : [ {
+              "dimensionType" : "PRIMARY",
+              "dynamic" : "0",
+              "CodeListReference" : "isg1g6zo"
+            }, {
+              "dimensionType" : "MEASURE",
+              "dynamic" : "0"
+            } ]
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse31",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse32",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse33",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse34",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse35",
+              "MappingTarget" : "1 5"
+            }
+          ]
+        }, {
+          "id" : "isg1uc3w",
+          "questionType" : "MULTIPLE_CHOICE",
+          "type" : "QuestionType",
+          "Name" : "MULTIPLE_CHECKBOX",
+          "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de cases à cocher\",\"conditions\":[]} Je suis le libellé de la question à choix multiple sous forme de cases à cocher" ],
+          "Response" : [ {
+            "id" : "idResponse36",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "CHECKBOX",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable36"
+          }, {
+            "id" : "idResponse37",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "CHECKBOX",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable37"
+          }, {
+            "id" : "idResponse38",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "CHECKBOX",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable38"
+          }, {
+            "id" : "idResponse39",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "CHECKBOX",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable39"
+          }, {
+            "id" : "idResponse40",
+            "CodeListReference" : "isg1uorv",
+            "Datatype" : {
+              "typeName" : "TEXT",
+              "visualizationHint" : "CHECKBOX",
+              "type" : "TextDatatypeType",
+              "MaxLength" : 1,
+              "Pattern" : ""
+            },
+            "CollectedVariableReference" : "collectedVariable40"
+          } ],
+          "ResponseStructure" : {
+            "Dimension" : [ {
+              "dimensionType" : "PRIMARY",
+              "dynamic" : "0",
+              "CodeListReference" : "isg1g6zo"
+            }, {
+              "dimensionType" : "MEASURE",
+              "dynamic" : "0"
+            } ]
+          },
+          "Mapping" : [
+            {
+              "MappingSource" : "idResponse36",
+              "MappingTarget" : "1 1"
+            },
+            {
+              "MappingSource" : "idResponse37",
+              "MappingTarget" : "1 2"
+            },
+            {
+              "MappingSource" : "idResponse38",
+              "MappingTarget" : "1 3"
+            },
+            {
+              "MappingSource" : "idResponse39",
+              "MappingTarget" : "1 4"
+            },
+            {
+              "MappingSource" : "idResponse40",
+              "MappingTarget" : "1 5"
+            }
+          ]
+        }, {
+          "id" : "iwnevbej",
+          "depth" : 2,
+          "genericName" : "SUBMODULE",
+          "type" : "SequenceType",
+          "Name" : "EXEMPLES",
+          "Label" : [ "Exemples" ],
+          "Child" : [ {
+            "id" : "iwm8wtis",
+            "questionType" : "MULTIPLE_CHOICE",
+            "type" : "QuestionType",
+            "Name" : "SITE_ENTREPRISE",
+            "Label" : [ "##{\"label\":\"Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\\n\",\"conditions\":[]} Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_QUESTION_TEXT",
+              "Text" : "Question issue de l'enquête Tic-TPE 2016 "
+            } ],
+            "Response" : [ {
+              "id" : "idResponse41",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "CHECKBOX",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable41"
+            }, {
+              "id" : "idResponse42",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "CHECKBOX",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable42"
+            }, {
+              "id" : "idResponse43",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "CHECKBOX",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable43"
+            } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "iwm8rfv5"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse41",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse42",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse43",
+                "MappingTarget" : "1 3"
+              }
+            ]
+          }, {
+            "id" : "iwm8xktl",
+            "questionType" : "MULTIPLE_CHOICE",
+            "type" : "QuestionType",
+            "Name" : "FORMATION",
+            "Label" : [ "##{\"label\":\"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?\",\"conditions\":[]} Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?" ],
+            "Response" : [
+              {
+                "id" : "idResponse44",
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable44"
+              }, {
+                "id" : "idResponse45",
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable45"
+              }, {
+                "id" : "idResponse46",
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable46"
+              }, {
+                "id" : "idResponse47",
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable47"
+              }, {
+                "id" : "idResponse48",
+                "Datatype" : {
+                  "typeName" : "BOOLEAN",
+                  "type" : "BooleanDatatypeType"
+                },
+                "CollectedVariableReference" : "collectedVariable48"
+              } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "iwm9fhue"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse44",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse45",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse46",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse47",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse48",
+                "MappingTarget" : "1 5"
+              }
+            ]
+          } ]
+        } ]
+      }, {
+        "id" : "isg1qnrf",
+        "depth" : 1,
+        "genericName" : "MODULE",
+        "type" : "SequenceType",
+        "Name" : "TABLE",
+        "Label" : [ "Module des questions sous forme de tableau" ],
+        "Child" : [ {
+          "id" : "isg24et5",
+          "depth" : 2,
+          "genericName" : "SUBMODULE",
+          "type" : "SequenceType",
+          "Name" : "TABLE_1A",
+          "Label" : [ "Sous module des tableaux à un seul axe d'information" ],
+          "Child" : [ {
+            "id" : "isg1s9ho",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "TABLE_1A_1M",
+            "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - une mesure\",\"conditions\":[]} Je suis le libellé de la question tableau un axe - une mesure" ],
+            "Response" : [
+              {
+                "id" : "idResponse49",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 20,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable49"
+              }, {
+                "id" : "idResponse50",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 20,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable50"
+              }, {
+                "id" : "idResponse51",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 20,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable51"
+              }, {
+                "id" : "idResponse52",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 20,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable52"
+              }, {
+                "id" : "idResponse53",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 20,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable53"
+              } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "isg1g6zo"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure 1 texte"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse49",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse50",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse51",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse52",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse53",
+                "MappingTarget" : "1 5"
+              }
+            ]
+          }, {
+            "id" : "isg28ywr",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "TABLE_1A_nM",
+            "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - plusieurs mesures\",\"conditions\":[]} Je suis le libellé de la question tableau un axe - plusieurs mesures" ],
+            "Response" : [ {
+              "id" : "idResponse54",
+              "Datatype" : {
+                "typeName" : "BOOLEAN",
+                "type" : "BooleanDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable54"
+            }, {
+              "id" : "idResponse55",
+              "Datatype" : {
+                "typeName" : "BOOLEAN",
+                "type" : "BooleanDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable55"
+            }, {
+              "id" : "idResponse56",
+              "Datatype" : {
+                "typeName" : "BOOLEAN",
+                "type" : "BooleanDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable56"
+            }, {
+              "id" : "idResponse57",
+              "Datatype" : {
+                "typeName" : "BOOLEAN",
+                "type" : "BooleanDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable57"
+            }, {
+              "id" : "idResponse58",
+              "Datatype" : {
+                "typeName" : "BOOLEAN",
+                "type" : "BooleanDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable58"
+            }, {
+              "id" : "idResponse59",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "RADIO",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable59"
+            }, {
+              "id" : "idResponse60",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "RADIO",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable60"
+            }, {
+              "id" : "idResponse61",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "RADIO",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable61"
+            }, {
+              "id" : "idResponse62",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "RADIO",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable62"
+            }, {
+              "id" : "idResponse63",
+              "CodeListReference" : "isg1uorv",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "visualizationHint" : "RADIO",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 1,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable63"
+            }, {
+              "id" : "idResponse64",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType",
+                "Minimum" : 1,
+                "Maximum" : 10,
+                "Decimals" : 1
+              },
+              "CollectedVariableReference" : "collectedVariable64"
+            }, {
+              "id" : "idResponse65",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType",
+                "Minimum" : 1,
+                "Maximum" : 10,
+                "Decimals" : 1
+              },
+              "CollectedVariableReference" : "collectedVariable65"
+            }, {
+              "id" : "idResponse66",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType",
+                "Minimum" : 1,
+                "Maximum" : 10,
+                "Decimals" : 1
+              },
+              "CollectedVariableReference" : "collectedVariable66"
+            }, {
+              "id" : "idResponse67",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType",
+                "Minimum" : 1,
+                "Maximum" : 10,
+                "Decimals" : 1
+              },
+              "CollectedVariableReference" : "collectedVariable67"
+            }, {
+              "id" : "idResponse68",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType",
+                "Minimum" : 1,
+                "Maximum" : 10,
+                "Decimals" : 1
+              },
+              "CollectedVariableReference" : "collectedVariable68"
+            } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "isg1g6zo"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure simple booléen"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure unique radio"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure simple entier"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse54",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse55",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse56",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse57",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse58",
+                "MappingTarget" : "1 5"
+              },
+              {
+                "MappingSource" : "idResponse59",
+                "MappingTarget" : "2 1"
+              },
+              {
+                "MappingSource" : "idResponse60",
+                "MappingTarget" : "2 2"
+              },
+              {
+                "MappingSource" : "idResponse61",
+                "MappingTarget" : "2 3"
+              },
+              {
+                "MappingSource" : "idResponse62",
+                "MappingTarget" : "2 4"
+              },
+              {
+                "MappingSource" : "idResponse63",
+                "MappingTarget" : "2 5"
+              },{
+                "MappingSource" : "idResponse64",
+                "MappingTarget" : "3 1"
+              },
+              {
+                "MappingSource" : "idResponse65",
+                "MappingTarget" : "3 2"
+              },
+              {
+                "MappingSource" : "idResponse66",
+                "MappingTarget" : "3 3"
+              },
+              {
+                "MappingSource" : "idResponse67",
+                "MappingTarget" : "3 4"
+              },
+              {
+                "MappingSource" : "idResponse68",
+                "MappingTarget" : "3 5"
+              }
+            ]
+          }, {
+            "id" : "isg1rx4a",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "TABLE_LIST",
+            "Label" : [ "##{\"label\":\"Je suis le libellé de la question liste\",\"conditions\":[]} Je suis le libellé de la question liste" ],
+            "Response" : [ {
+              "id" : "idResponse69",
+              "Datatype" : {
+                "typeName" : "TEXT",
+                "type" : "TextDatatypeType",
+                "MaxLength" : 50,
+                "Pattern" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable69"
+            }, {
+              "id" : "idResponse70",
+              "Datatype" : {
+                "typeName" : "DATE",
+                "type" : "DateDatatypeType",
+                "Format" : ""
+              },
+              "CollectedVariableReference" : "collectedVariable70"
+            } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "-"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure texte"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure date"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse69",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse70",
+                "MappingTarget" : "1 2"
+              }
+            ]
+          } ]
+        }, {
+          "id" : "iwnexpuc",
+          "depth" : 2,
+          "genericName" : "SUBMODULE",
+          "type" : "SequenceType",
+          "Name" : "EXEMPLES",
+          "Label" : [ "Exemples" ],
+          "Child" : [ {
+            "id" : "iw22jcng",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "EFFECTIFSS",
+            "Label" : [ "##{\"label\":\"Effectifs salariés au 31/12/2015\",\"conditions\":[]} Effectifs salariés au 31/12/2015" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_QUESTION_TEXT",
+              "Text" : "Comptez la totalité des salariés rémunérés directement par l’entreprise et\n                        inscrits à la date du 31/12/2015, y compris les dirigeants de sociétés et\n                        gérants salariés, le personnel saisonnier ou occasionnel. ​ "
+            }, {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_QUESTION_TEXT",
+              "Text" : "Ne comptez pas le personnel rémunéré par d’autres entreprises (travail\n                        temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non\n                        rémunérés. "
+            }, {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_RESPONSE",
+              "Text" : "Cette question est extraite de l'enquête structurelle auprès des\n                        entreprises mahoraises "
+            } ],
+            "Response" : [ {
+              "id" : "idResponse71",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable71"
+            }, {
+              "id" : "idResponse72",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable72"
+            }, {
+              "id" : "idResponse73",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable73"
+            }, {
+              "id" : "idResponse74",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable74"
+            }, {
+              "id" : "idResponse75",
+              "Datatype" : {
+                "typeName" : "NUMERIC",
+                "type" : "NumericDatatypeType"
+              },
+              "CollectedVariableReference" : "collectedVariable75"
+            } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "iw22xe2u"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Effectifs salariés"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse71",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse72",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse73",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse74",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse75",
+                "MappingTarget" : "1 5"
+              }
+            ]
+          }, {
+            "id" : "iwncfpwn",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "LISTE_PERS",
+            "Label" : [ "##{\"label\":\"Liste des personnes qui habitent ce logement\\n\",\"conditions\":[]} Liste des personnes qui habitent ce logement" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_QUESTION_TEXT",
+              "Text" : "Veuillez inscrire un par un les prénoms des personnes qui habitent ce\n                        logement, même une partie de la semaine y compris celles qui sont\n                        temporairement absentes au moment de l’enquête (vacances, voyage d'affaires,\n                        hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais\n                        encore rattachés au logement, conjoints éloignés pour raisons\n                        professionnelles, enfants en garde alternée, personnes âgées en institution\n                        …) "
+            } ],
+            "Response" : [
+              {
+                "id" : "idResponse76",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 50,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable76"
+              }, {
+                "id" : "idResponse77",
+                "CodeListReference" : "iw22fswu",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "CHECKBOX",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable77"
+              }, {
+                "id" : "idResponse78",
+                "Datatype" : {
+                  "typeName" : "DATE",
+                  "type" : "DateDatatypeType",
+                  "Format" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable78"
+              } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "-"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Prénom"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Sexe"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Date de naissance"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse76",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse77",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse78",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse74",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse75",
+                "MappingTarget" : "1 5"
+              }
+            ]
+          } ]
+        }, {
+          "id" : "isg1x9p9",
+          "depth" : 2,
+          "genericName" : "SUBMODULE",
+          "type" : "SequenceType",
+          "Name" : "TABLE_2A",
+          "Label" : [ "Sous module des tableaux à deux axes d'information" ],
+          "Child" : [ {
+            "id" : "isg1v5d2",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "TABLE_2A_1SIMPLE",
+            "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure simple\",\"conditions\":[]} Je suis le libellé d'un tableau à deux axes 1 mesure simple" ],
+            "Response" : [
+              {
+                "id" : "idResponse79",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable79"
+              }, {
+                "id" : "idResponse80",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable80"
+              }, {
+                "id" : "idResponse81",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable81"
+              }, {
+                "id" : "idResponse82",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable82"
+              }, {
+                "id" : "idResponse83",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable83"
+              }, {
+                "id" : "idResponse84",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable84"
+              }, {
+                "id" : "idResponse85",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable85"
+              }, {
+                "id" : "idResponse86",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable86"
+              }, {
+                "id" : "idResponse87",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable87"
+              }, {
+                "id" : "idResponse88",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable88"
+              }, {
+                "id" : "idResponse89",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable89"
+              }, {
+                "id" : "idResponse90",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable90"
+              }, {
+                "id" : "idResponse91",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable91"
+              }, {
+                "id" : "idResponse92",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable92"
+              }, {
+                "id" : "idResponse93",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable93"
+              }, {
+                "id" : "idResponse94",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable94"
+              }, {
+                "id" : "idResponse95",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable95"
+              }, {
+                "id" : "idResponse96",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable96"
+              }, {
+                "id" : "idResponse97",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable97"
+              }, {
+                "id" : "idResponse98",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 1,
+                  "Maximum" : 10
+                },
+                "CollectedVariableReference" : "collectedVariable98"
+              } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "isg1g6zo"
+              }, {
+                "dimensionType" : "SECONDARY",
+                "dynamic" : "0",
+                "CodeListReference" : "isg27fpv"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure nombre"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse79",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse80",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse81",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse82",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse83",
+                "MappingTarget" : "1 5"
+              },
+              {
+                "MappingSource" : "idResponse84",
+                "MappingTarget" : "2 1"
+              },
+              {
+                "MappingSource" : "idResponse85",
+                "MappingTarget" : "2 2"
+              },
+              {
+                "MappingSource" : "idResponse86",
+                "MappingTarget" : "2 3"
+              },
+              {
+                "MappingSource" : "idResponse87",
+                "MappingTarget" : "2 4"
+              },
+              {
+                "MappingSource" : "idResponse88",
+                "MappingTarget" : "2 5"
+              },
+              {
+                "MappingSource" : "idResponse89",
+                "MappingTarget" : "3 1"
+              },
+              {
+                "MappingSource" : "idResponse90",
+                "MappingTarget" : "3 2"
+              },
+              {
+                "MappingSource" : "idResponse91",
+                "MappingTarget" : "3 3"
+              },
+              {
+                "MappingSource" : "idResponse92",
+                "MappingTarget" : "3 4"
+              },
+              {
+                "MappingSource" : "idResponse93",
+                "MappingTarget" : "3 5"
+              },
+              {
+                "MappingSource" : "idResponse94",
+                "MappingTarget" : "4 1"
+              },
+              {
+                "MappingSource" : "idResponse95",
+                "MappingTarget" : "4 2"
+              },
+              {
+                "MappingSource" : "idResponse96",
+                "MappingTarget" : "4 3"
+              },
+              {
+                "MappingSource" : "idResponse97",
+                "MappingTarget" : "4 4"
+              },
+              {
+                "MappingSource" : "idResponse98",
+                "MappingTarget" : "4 5"
+              }
+            ]
+          }, {
+            "id" : "isg3ixbk",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "JESUISLELI",
+            "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure unique\",\"conditions\":[]} Je suis le libellé d'un tableau à deux axes 1 mesure unique" ],
+            "Response" : [
+              {
+                "id" : "idResponse99",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable99"
+              }, {
+                "id" : "idResponse100",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable100"
+              }, {
+                "id" : "idResponse101",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable101"
+              }, {
+                "id" : "idResponse102",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable102"
+              }, {
+                "id" : "idResponse103",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable103"
+              }, {
+                "id" : "idResponse104",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable104"
+              }, {
+                "id" : "idResponse105",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable105"
+              }, {
+                "id" : "idResponse106",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable106"
+              }, {
+                "id" : "idResponse107",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable107"
+              }, {
+                "id" : "idResponse108",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable108"
+              }, {
+                "id" : "idResponse109",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable109"
+              }, {
+                "id" : "idResponse110",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable110"
+              }, {
+                "id" : "idResponse111",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable111"
+              }, {
+                "id" : "idResponse112",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable112"
+              }, {
+                "id" : "idResponse113",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable113"
+              }, {
+                "id" : "idResponse114",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable114"
+              }, {
+                "id" : "idResponse115",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable115"
+              }, {
+                "id" : "idResponse116",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable116"
+              }, {
+                "id" : "idResponse117",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable117"
+              }, {
+                "id" : "idResponse118",
+                "CodeListReference" : "isg1uorv",
+                "Datatype" : {
+                  "typeName" : "TEXT",
+                  "visualizationHint" : "RADIO",
+                  "type" : "TextDatatypeType",
+                  "MaxLength" : 1,
+                  "Pattern" : ""
+                },
+                "CollectedVariableReference" : "collectedVariable118"
+              } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "isg1g6zo"
+              }, {
+                "dimensionType" : "SECONDARY",
+                "dynamic" : "0",
+                "CodeListReference" : "isg27fpv"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Mesure unique"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse99",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse100",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse101",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse102",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse103",
+                "MappingTarget" : "1 5"
+              },
+              {
+                "MappingSource" : "idResponse104",
+                "MappingTarget" : "2 1"
+              },
+              {
+                "MappingSource" : "idResponse105",
+                "MappingTarget" : "2 2"
+              },
+              {
+                "MappingSource" : "idResponse106",
+                "MappingTarget" : "2 3"
+              },
+              {
+                "MappingSource" : "idResponse107",
+                "MappingTarget" : "2 4"
+              },
+              {
+                "MappingSource" : "idResponse108",
+                "MappingTarget" : "2 5"
+              },
+              {
+                "MappingSource" : "idResponse109",
+                "MappingTarget" : "3 1"
+              },
+              {
+                "MappingSource" : "idResponse110",
+                "MappingTarget" : "3 2"
+              },
+              {
+                "MappingSource" : "idResponse111",
+                "MappingTarget" : "3 3"
+              },
+              {
+                "MappingSource" : "idResponse112",
+                "MappingTarget" : "3 4"
+              },
+              {
+                "MappingSource" : "idResponse113",
+                "MappingTarget" : "3 5"
+              },
+              {
+                "MappingSource" : "idResponse114",
+                "MappingTarget" : "4 1"
+              },
+              {
+                "MappingSource" : "idResponse115",
+                "MappingTarget" : "4 2"
+              },
+              {
+                "MappingSource" : "idResponse116",
+                "MappingTarget" : "4 3"
+              },
+              {
+                "MappingSource" : "idResponse117",
+                "MappingTarget" : "4 4"
+              },
+              {
+                "MappingSource" : "idResponse118",
+                "MappingTarget" : "4 5"
+              }
+            ]
+          } ]
+        }, {
+          "id" : "iwnet09y",
+          "depth" : 2,
+          "genericName" : "SUBMODULE",
+          "type" : "SequenceType",
+          "Name" : "EXEMPLES",
+          "Label" : [ "Exemples" ],
+          "Child" : [ {
+            "id" : "iw22jwft",
+            "questionType" : "TABLE",
+            "type" : "QuestionType",
+            "Name" : "RENSEIGNEZ",
+            "Label" : [ "##{\"label\":\"Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine\",\"conditions\":[]} Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine" ],
+            "Declaration" : [ {
+              "declarationType" : "INSTRUCTION",
+              "position" : "AFTER_RESPONSE",
+              "Text" : "Cette question est extraite de l'enquête Antipol "
+            } ],
+            "Control" : [ {
+              "id" : "iw7ukiat",
+              "Description" : "",
+              "Expression" : "(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))<0\n                        ) and ${S1-S1-Q1-R1}!=''",
+              "FailMessage" : "Le montant des investissements spécifiquement dédiés à\n                        l'environnement est supérieur au montant total des\n                        investissements."
+            } ],
+            "Response" : [
+              {
+                "id" : "idResponse119",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable119"
+              }, {
+                "id" : "idResponse120",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable120"
+              }, {
+                "id" : "idResponse121",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable121"
+              },{
+                "id" : "idResponse122",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable121"
+              },
+              {
+                "id" : "idResponse123",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable123"
+              }, {
+                "id" : "idResponse124",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable124"
+              }, {
+                "id" : "idResponse125",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable125"
+              }, {
+                "id" : "idResponse126",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable126"
+              }, {
+                "id" : "idResponse127",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable127"
+              }, {
+                "id" : "idResponse128",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable128"
+              }, {
+                "id" : "idResponse129",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable129"
+              }, {
+                "id" : "idResponse130",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable130"
+              }, {
+                "id" : "idResponse131",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable131"
+              }, {
+                "id" : "idResponse132",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable132"
+              }, {
+                "id" : "idResponse133",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable133"
+              }, {
+                "id" : "idResponse134",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable134"
+              }, {
+                "id" : "idResponse135",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable135"
+              }, {
+                "id" : "idResponse136",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable136"
+              }, {
+                "id" : "idResponse137",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable137"
+              }, {
+                "id" : "idResponse138",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable138"
+              }, {
+                "id" : "idResponse139",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable139"
+              }, {
+                "id" : "idResponse140",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable140"
+              }, {
+                "id" : "idResponse141",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable141"
+              }, {
+                "id" : "idResponse142",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable142"
+              }, {
+                "id" : "idResponse143",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable143"
+              }, {
+                "id" : "idResponse144",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable144"
+              }, {
+                "id" : "idResponse145",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable145"
+              }, {
+                "id" : "idResponse146",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable146"
+              }, {
+                "id" : "idResponse147",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable147"
+              }, {
+                "id" : "idResponse148",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable148"
+              }, {
+                "id" : "idResponse149",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable149"
+              }, {
+                "id" : "idResponse150",
+                "Datatype" : {
+                  "typeName" : "NUMERIC",
+                  "type" : "NumericDatatypeType",
+                  "Minimum" : 0
+                },
+                "CollectedVariableReference" : "collectedVariable150"
+              } ],
+            "ResponseStructure" : {
+              "Dimension" : [ {
+                "dimensionType" : "PRIMARY",
+                "dynamic" : "0",
+                "CodeListReference" : "iw22r14q"
+              }, {
+                "dimensionType" : "SECONDARY",
+                "dynamic" : "0",
+                "CodeListReference" : "iw22dla9"
+              }, {
+                "dimensionType" : "MEASURE",
+                "dynamic" : "0",
+                "Label" : "Montant des investissements en Keuros"
+              } ]
+            },
+            "Mapping" : [
+              {
+                "MappingSource" : "idResponse119",
+                "MappingTarget" : "1 1"
+              },
+              {
+                "MappingSource" : "idResponse120",
+                "MappingTarget" : "1 2"
+              },
+              {
+                "MappingSource" : "idResponse121",
+                "MappingTarget" : "1 3"
+              },
+              {
+                "MappingSource" : "idResponse122",
+                "MappingTarget" : "1 4"
+              },
+              {
+                "MappingSource" : "idResponse123",
+                "MappingTarget" : "2 1"
+              },
+              {
+                "MappingSource" : "idResponse124",
+                "MappingTarget" : "2 2"
+              },
+              {
+                "MappingSource" : "idResponse125",
+                "MappingTarget" : "2 3"
+              },
+              {
+                "MappingSource" : "idResponse126",
+                "MappingTarget" : "2 4"
+              },
+              {
+                "MappingSource" : "idResponse127",
+                "MappingTarget" : "3 1"
+              },
+              {
+                "MappingSource" : "idResponse128",
+                "MappingTarget" : "3 2"
+              },
+              {
+                "MappingSource" : "idResponse129",
+                "MappingTarget" : "3 3"
+              },
+              {
+                "MappingSource" : "idResponse130",
+                "MappingTarget" : "3 4"
+              },
+              {
+                "MappingSource" : "idResponse131",
+                "MappingTarget" : "4 1"
+              },
+              {
+                "MappingSource" : "idResponse132",
+                "MappingTarget" : "4 2"
+              },
+              {
+                "MappingSource" : "idResponse133",
+                "MappingTarget" : "4 3"
+              },
+              {
+                "MappingSource" : "idResponse134",
+                "MappingTarget" : "4 4"
+              },
+              {
+                "MappingSource" : "idResponse135",
+                "MappingTarget" : "5 1"
+              },
+              {
+                "MappingSource" : "idResponse136",
+                "MappingTarget" : "5 2"
+              },
+              {
+                "MappingSource" : "idResponse137",
+                "MappingTarget" : "5 3"
+              },
+              {
+                "MappingSource" : "idResponse138",
+                "MappingTarget" : "5 4"
+              },
+              {
+                "MappingSource" : "idResponse139",
+                "MappingTarget" : "6 1"
+              },
+              {
+                "MappingSource" : "idResponse140",
+                "MappingTarget" : "6 2"
+              },
+              {
+                "MappingSource" : "idResponse141",
+                "MappingTarget" : "6 3"
+              },
+              {
+                "MappingSource" : "idResponse142",
+                "MappingTarget" : "6 4"
+              },
+              {
+                "MappingSource" : "idResponse143",
+                "MappingTarget" : "7 1"
+              },
+              {
+                "MappingSource" : "idResponse144",
+                "MappingTarget" : "7 2"
+              },
+              {
+                "MappingSource" : "idResponse145",
+                "MappingTarget" : "7 3"
+              },
+              {
+                "MappingSource" : "idResponse146",
+                "MappingTarget" : "7 4"
+              },
+              {
+                "MappingSource" : "idResponse147",
+                "MappingTarget" : "8 1"
+              },
+              {
+                "MappingSource" : "idResponse148",
+                "MappingTarget" : "8 2"
+              },
+              {
+                "MappingSource" : "idResponse149",
+                "MappingTarget" : "8 3"
+              },
+              {
+                "MappingSource" : "idResponse150",
+                "MappingTarget" : "8 4"
+              }
+            ]
+          } ]
+        } ]
       } ],
-      "Child" : [
-        {
-        "id" : "iwm8qg8x",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "INTRODUCTI",
-        "Label" : [ "Introduction : je suis le libellé du paragraphe" ],
-        "Declaration" : [ {
-          "declarationType" : "INSTRUCTION",
-          "Text" : "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant\n                    les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par\n                    page), regroupant les différents types de questions. Dans chaque module, vous\n                    trouverez la description des questions de chaque type, ainsi que des exemples\n                    tirés de questionnaires Insee. ​ "
-        } ],
-        "Child" : [ {
-          "id" : "iwm8r0ba",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "COCHEZ",
-          "Label" : [ "##{\"label\":\"Cochez la case pour afficher la suite du questionnaire\\n\",\"conditions\":[]}#if()#end" ],
-          "GoTo" : [ {
-            "id" : "iwnegyn6",
-            "Expression" : "${S1-S1-Q1-R1}#if()#end",
-            "IfTrue" : "isg13cuk"
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable1"
-          } ]
-        } ]
-      }, {
-        "id" : "ir6co0qf",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "MODULE_TEXTE",
-        "Label" : [ "Sous-module : questions de type texte" ],
-        "Child" : [ {
-          "id" : "ir6cqzev",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "TEXTE_LONG",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères\\n\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Je suis le texte de la consigne "
-          } ],
-          "Response" : [
-            {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 250,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable2"
-          } ]
-        }, {
-          "id" : "ir6cm77g",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "TEXTE_COURT",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 150,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable3"
-          } ]
-        } ]
-      }, {
-        "id" : "ir6cruy6",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "MODULE_NUM",
-        "Label" : [ "Sous-module : questions de type numérique" ],
-        "Child" : [ {
-          "id" : "ir6cifax",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "NUM_ENTIER",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique entier\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0,
-              "Maximum" : 120
-            },
-            "CollectedVariableReference" : "collectedVariable4"
-          } ]
-        }, {
-          "id" : "ir6cmuqa",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "NUM_DECIMAL",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type numérique décimal\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Je suis le texte de la consigne "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10,
-              "Decimals" : 1
-            },
-            "CollectedVariableReference" : "collectedVariable5"
-          } ]
-        } ]
-      }, {
-        "id" : "ir6ctbkt",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "SOUSMODULE",
-        "Label" : [ "Sous-module : questions de type date et durée" ],
-        "Child" : [ {
-          "id" : "ir6ct69u",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "SIMPLE_DATE",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question de type date au format JJ/MM/AAAA\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "DATE",
-              "type" : "DateDatatypeType",
-              "Format" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable6"
-          } ]
-        } ]
-      }, {
-        "id" : "isg1kh8l",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "SOUSMODULE",
-        "Label" : [ "Sous modules : question booléen" ],
-        "Child" : [ {
-          "id" : "isg1hh9m",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "BOOL",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question simple de type booléen\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable7"
-          } ]
-        } ]
-      }, {
-        "id" : "iwnfdy97",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "EXEMPLES",
-        "Label" : [ "Exemples" ],
-        "Child" : [ {
-          "id" : "iwm6shxx",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "ACT_PRIN",
-          "Label" : [ "##{\"label\":\"Veuillez indiquer l'activité principale de l'entreprise sous son appellation usuelle\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "(par exemple : commerce de fruits et légumes, boulangerie, charcuterie\n                        artisanale ou industrielle, commerce de détail de meubles...) "
-          }, {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Exemple tiré de l'enquête sectorielle annuelle "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 200,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable8"
-          } ]
-        }, {
-          "id" : "iwm8woim",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "PROFESSION",
-          "Label" : [ "##{\"label\":\"Indiquez le plus précisément possible la profession exercée dans votre emploi actuel\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Soyez très précis sur votre métier : « Caissière » (et non « employée »),\n                        « Fleuriste » (et non « Commerçant »), « Professeur des écoles» "
-          }, {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Question issue de l'enquête EVA 2016 "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 200,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable9"
-          } ]
-        }, {
-          "id" : "iw7ux0w8",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "QUELESTLEM",
-          "Label" : [ "##{\"label\":\"Quel est le montant total des investissements réalisés dans votre entreprise ?\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0,
-              "Maximum" : 999999999
-            },
-            "CollectedVariableReference" : "collectedVariable10"
-          } ]
-        }, {
-          "id" : "iwm8v2g4",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "SALAIRE",
-          "Label" : [ "##{\"label\":\"Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Question issue de l'enquête EVA 2016 "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Maximum" : 99999
-            },
-            "CollectedVariableReference" : "collectedVariable11"
-          } ]
-        }, {
-          "id" : "iwm8t2p5",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "CLOT",
-          "Label" : [ "##{\"label\":\"Quelle est la date de clôture du dernier exercice comptable clos ?\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Définition de l'exercice comptable sur lequel porte ce questionnaire : Les\n                        informations à fournir se rapportent à votre exercice comptable 2015. ​\n                        Votre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le\n                        31 mai 2016. ​ Si vous avez clotûré deux exercices sur cette période,\n                        prendre celui qui a leplus de mois en 2015. ​ Vous devez également répondre\n                        à l'énquête si votre entreprise a cessé son activité : en 2015 et a plus de\n                        6 mois d'activité ; en 2016. "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable12"
-          } ]
-        }, {
-          "id" : "iwm99upn",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "DEPUISQUEL",
-          "Label" : [ "##{\"label\":\"Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Question issue de l'enquête EVA 2016 "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "DATE",
-              "type" : "DateDatatypeType",
-              "Format" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable13"
-          } ]
-        }, {
-          "id" : "iwnevs21",
-          "questionType" : "SIMPLE",
-          "type" : "QuestionType",
-          "Name" : "ACT_PROD",
-          "Label" : [ "##{\"label\":\"Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Question issue de l'enquête annuelle sur les consommations d'énergie dans\n                        l'industrie (EACEI) "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable14"
-          } ]
-        } ]
-      } ]
-    }, {
-      "id" : "isg1ikbn",
-      "depth" : 1,
-      "genericName" : "MODULE",
-      "type" : "SequenceType",
-      "Name" : "SINGLE",
-      "Label" : [ "Module des questions à choix unique" ],
-      "Child" : [ {
-        "id" : "isg13cuk",
-        "questionType" : "SINGLE_CHOICE",
-        "type" : "QuestionType",
-        "Name" : "SINGLE_RADIO",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de bouton radio\",\"conditions\":[]}#if()#end" ],
-        "Declaration" : [ {
-          "declarationType" : "INSTRUCTION",
-          "position" : "AFTER_QUESTION_TEXT",
-          "Text" : "La consigne est après la question "
-        } ],
-        "Response" : [ {
-          "mandatory" : false,
-          "CodeListReference" : "isg1g6zo",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "RADIO",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable15"
-        } ]
-      }, {
-        "id" : "isg1hq0f",
-        "questionType" : "SINGLE_CHOICE",
-        "type" : "QuestionType",
-        "Name" : "SINGLE_DROPDOWN",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de liste déroulante\",\"conditions\":[]}#if()#end" ],
-        "Response" : [ {
-          "mandatory" : false,
-          "CodeListReference" : "isg1g6zo",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "DROPDOWN",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable16"
-        } ]
-      }, {
-        "id" : "isg1bz8h",
-        "questionType" : "SINGLE_CHOICE",
-        "type" : "QuestionType",
-        "Name" : "SINGLE_CHECKBOX",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix unique sous forme de cases à cocher\",\"conditions\":[]}#if()#end" ],
-        "Response" : [ {
-          "mandatory" : false,
-          "CodeListReference" : "isg1g6zo",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "CHECKBOX",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable17"
-        } ]
-      }, {
-        "id" : "iwnesc00",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "EXEMPLES",
-        "Label" : [ "Exemples" ],
-        "Child" : [ {
-          "id" : "iw22nmhl",
-          "questionType" : "SINGLE_CHOICE",
-          "type" : "QuestionType",
-          "Name" : "FILTRE_INV",
-          "Label" : [ "##{\"label\":\"Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_RESPONSE",
-            "Text" : "Cette question est extraite de l'enquête Antipol "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "CHECKBOX",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable18"
-          } ]
-        }, {
-          "id" : "iwm6zyaq",
-          "questionType" : "SINGLE_CHOICE",
-          "type" : "QuestionType",
-          "Name" : "VENTES_MARCH",
-          "Label" : [ "##{\"label\":\"Vendez vous vos marchandises majoritairement\\n\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Question issue de l'enquête sectorielle annuelle (commerce) "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "CodeListReference" : "iwm8rneb",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "CHECKBOX",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable19"
-          } ]
-        }, {
-          "id" : "iwm9e4pi",
-          "questionType" : "SINGLE_CHOICE",
-          "type" : "QuestionType",
-          "Name" : "TEMPSPLEIN",
-          "Label" : [ "##{\"label\":\"Toujours au 1er mars 2016, vous travailliez\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Question issue de l'enquête EVA 2016 "
-          } ],
-          "Response" : [ {
-            "mandatory" : false,
-            "CodeListReference" : "iwm8zloc",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "CHECKBOX",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable20"
-          } ]
-        } ]
-      } ]
-    }, {
-      "id" : "isg1gytw",
-      "depth" : 1,
-      "genericName" : "MODULE",
-      "type" : "SequenceType",
-      "Name" : "MULTIPLE",
-      "Label" : [ "Module des questions à choix multiple" ],
-      "Child" : [ {
-        "id" : "isg1j5rw",
-        "questionType" : "MULTIPLE_CHOICE",
-        "type" : "QuestionType",
-        "Name" : "MULTIPLE_BOOL",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de booléen\",\"conditions\":[]}#if()#end" ],
-        "Response" : [ {
-          "Datatype" : {
-            "typeName" : "BOOLEAN",
-            "type" : "BooleanDatatypeType"
-          },
-          "CollectedVariableReference" : "collectedVariable21"
-        }, {
-          "Datatype" : {
-            "typeName" : "BOOLEAN",
-            "type" : "BooleanDatatypeType"
-          },
-          "CollectedVariableReference" : "collectedVariable22"
-        }, {
-          "Datatype" : {
-            "typeName" : "BOOLEAN",
-            "type" : "BooleanDatatypeType"
-          },
-          "CollectedVariableReference" : "collectedVariable23"
-        }, {
-          "Datatype" : {
-            "typeName" : "BOOLEAN",
-            "type" : "BooleanDatatypeType"
-          },
-          "CollectedVariableReference" : "collectedVariable24"
-        }, {
-          "Datatype" : {
-            "typeName" : "BOOLEAN",
-            "type" : "BooleanDatatypeType"
-          },
-          "CollectedVariableReference" : "collectedVariable25"
-        } ],
-        "ResponseStructure" : {
-          "Dimension" : [ {
-            "dimensionType" : "PRIMARY",
-            "dynamic" : "0",
-            "CodeListReference" : "isg1g6zo"
-          }, {
-            "dimensionType" : "MEASURE",
-            "dynamic" : "0"
-          } ]
-        }
-      }, {
-        "id" : "isg1gjjt",
-        "questionType" : "MULTIPLE_CHOICE",
-        "type" : "QuestionType",
-        "Name" : "MULTIPLE_RADIO",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de bouton radio\",\"conditions\":[]}#if()#end" ],
-        "Response" : [ {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "RADIO",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable26"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "RADIO",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable27"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "RADIO",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable28"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "RADIO",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable29"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "RADIO",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable30"
-        } ],
-        "ResponseStructure" : {
-          "Dimension" : [ {
-            "dimensionType" : "PRIMARY",
-            "dynamic" : "0",
-            "CodeListReference" : "isg1g6zo"
-          }, {
-            "dimensionType" : "MEASURE",
-            "dynamic" : "0"
-          } ]
-        }
-      }, {
-        "id" : "isg20r8n",
-        "questionType" : "MULTIPLE_CHOICE",
-        "type" : "QuestionType",
-        "Name" : "MULTIPLE_DROPDOWN",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de liste déroulante\",\"conditions\":[]}#if()#end" ],
-        "Declaration" : [ {
-          "declarationType" : "INSTRUCTION",
-          "position" : "BEFORE_QUESTION_TEXT",
-          "Text" : "La consigne est avant la question "
-        } ],
-        "Response" : [ {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "DROPDOWN",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable31"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "DROPDOWN",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable32"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "DROPDOWN",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable33"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "DROPDOWN",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable34"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "DROPDOWN",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable35"
-        } ],
-        "ResponseStructure" : {
-          "Dimension" : [ {
-            "dimensionType" : "PRIMARY",
-            "dynamic" : "0",
-            "CodeListReference" : "isg1g6zo"
-          }, {
-            "dimensionType" : "MEASURE",
-            "dynamic" : "0"
-          } ]
-        }
-      }, {
-        "id" : "isg1uc3w",
-        "questionType" : "MULTIPLE_CHOICE",
-        "type" : "QuestionType",
-        "Name" : "MULTIPLE_CHECKBOX",
-        "Label" : [ "##{\"label\":\"Je suis le libellé de la question à choix multiple sous forme de cases à cocher\",\"conditions\":[]}#if()#end" ],
-        "Response" : [ {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "CHECKBOX",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable36"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "CHECKBOX",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable37"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "CHECKBOX",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable38"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "CHECKBOX",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable39"
-        }, {
-          "CodeListReference" : "isg1uorv",
-          "Datatype" : {
-            "typeName" : "TEXT",
-            "visualizationHint" : "CHECKBOX",
-            "type" : "TextDatatypeType",
-            "MaxLength" : 1,
-            "Pattern" : ""
-          },
-          "CollectedVariableReference" : "collectedVariable40"
-        } ],
-        "ResponseStructure" : {
-          "Dimension" : [ {
-            "dimensionType" : "PRIMARY",
-            "dynamic" : "0",
-            "CodeListReference" : "isg1g6zo"
-          }, {
-            "dimensionType" : "MEASURE",
-            "dynamic" : "0"
-          } ]
-        }
-      }, {
-        "id" : "iwnevbej",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "EXEMPLES",
-        "Label" : [ "Exemples" ],
-        "Child" : [ {
-          "id" : "iwm8wtis",
-          "questionType" : "MULTIPLE_CHOICE",
-          "type" : "QuestionType",
-          "Name" : "SITE_ENTREPRISE",
-          "Label" : [ "##{\"label\":\"Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\\n\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Question issue de l'enquête Tic-TPE 2016 "
-          } ],
-          "Response" : [ {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "CHECKBOX",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable41"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "CHECKBOX",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable42"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "CHECKBOX",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable43"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "iwm8rfv5"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0"
-            } ]
-          }
-        }, {
-          "id" : "iwm8xktl",
-          "questionType" : "MULTIPLE_CHOICE",
-          "type" : "QuestionType",
-          "Name" : "FORMATION",
-          "Label" : [ "##{\"label\":\"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable44"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable45"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable46"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable47"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable48"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "iwm9fhue"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0"
-            } ]
-          }
-        } ]
-      } ]
-    }, {
-      "id" : "isg1qnrf",
-      "depth" : 1,
-      "genericName" : "MODULE",
-      "type" : "SequenceType",
-      "Name" : "TABLE",
-      "Label" : [ "Module des questions sous forme de tableau" ],
-      "Child" : [ {
-        "id" : "isg24et5",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "TABLE_1A",
-        "Label" : [ "Sous module des tableaux à un seul axe d'information" ],
-        "Child" : [ {
-          "id" : "isg1s9ho",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "TABLE_1A_1M",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - une mesure\",\"conditions\":[]}#if()#end" ],
-          "Response" : [
-            {
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 20,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable49"
-          }, {
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 20,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable50"
-          }, {
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 20,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable51"
-          }, {
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 20,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable52"
-          }, {
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 20,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable53"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "isg1g6zo"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure 1 texte"
-            } ]
-          }
-        }, {
-          "id" : "isg28ywr",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "TABLE_1A_nM",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question tableau un axe - plusieurs mesures\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable54"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable55"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable56"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable57"
-          }, {
-            "Datatype" : {
-              "typeName" : "BOOLEAN",
-              "type" : "BooleanDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable58"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable59"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable60"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable61"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable62"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable63"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10,
-              "Decimals" : 1
-            },
-            "CollectedVariableReference" : "collectedVariable64"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10,
-              "Decimals" : 1
-            },
-            "CollectedVariableReference" : "collectedVariable65"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10,
-              "Decimals" : 1
-            },
-            "CollectedVariableReference" : "collectedVariable66"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10,
-              "Decimals" : 1
-            },
-            "CollectedVariableReference" : "collectedVariable67"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10,
-              "Decimals" : 1
-            },
-            "CollectedVariableReference" : "collectedVariable68"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "isg1g6zo"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure simple booléen"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure unique radio"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure simple entier"
-            } ]
-          }
-        }, {
-          "id" : "isg1rx4a",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "TABLE_LIST",
-          "Label" : [ "##{\"label\":\"Je suis le libellé de la question liste\",\"conditions\":[]}#if()#end" ],
-          "Response" : [ {
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 50,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable69"
-          }, {
-            "Datatype" : {
-              "typeName" : "DATE",
-              "type" : "DateDatatypeType",
-              "Format" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable70"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "-"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure texte"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure date"
-            } ]
-          }
-        } ]
-      }, {
-        "id" : "iwnexpuc",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "EXEMPLES",
-        "Label" : [ "Exemples" ],
-        "Child" : [ {
-          "id" : "iw22jcng",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "EFFECTIFSS",
-          "Label" : [ "##{\"label\":\"Effectifs salariés au 31/12/2015\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Comptez la totalité des salariés rémunérés directement par l’entreprise et\n                        inscrits à la date du 31/12/2015, y compris les dirigeants de sociétés et\n                        gérants salariés, le personnel saisonnier ou occasionnel. ​ "
-          }, {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Ne comptez pas le personnel rémunéré par d’autres entreprises (travail\n                        temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non\n                        rémunérés. "
-          }, {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_RESPONSE",
-            "Text" : "Cette question est extraite de l'enquête structurelle auprès des\n                        entreprises mahoraises "
-          } ],
-          "Response" : [ {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable71"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable72"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable73"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable74"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType"
-            },
-            "CollectedVariableReference" : "collectedVariable75"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "iw22xe2u"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Effectifs salariés"
-            } ]
-          }
-        }, {
-          "id" : "iwncfpwn",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "LISTE_PERS",
-          "Label" : [ "##{\"label\":\"Liste des personnes qui habitent ce logement\\n\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_QUESTION_TEXT",
-            "Text" : "Veuillez inscrire un par un les prénoms des personnes qui habitent ce\n                        logement, même une partie de la semaine y compris celles qui sont\n                        temporairement absentes au moment de l’enquête (vacances, voyage d'affaires,\n                        hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais\n                        encore rattachés au logement, conjoints éloignés pour raisons\n                        professionnelles, enfants en garde alternée, personnes âgées en institution\n                        …) "
-          } ],
-          "Response" : [
-            {
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 50,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable76"
-          }, {
-            "CodeListReference" : "iw22fswu",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "CHECKBOX",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable77"
-          }, {
-            "Datatype" : {
-              "typeName" : "DATE",
-              "type" : "DateDatatypeType",
-              "Format" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable78"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "-"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Prénom"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Sexe"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Date de naissance"
-            } ]
-          }
-        } ]
-      }, {
-        "id" : "isg1x9p9",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "TABLE_2A",
-        "Label" : [ "Sous module des tableaux à deux axes d'information" ],
-        "Child" : [ {
-          "id" : "isg1v5d2",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "TABLE_2A_1SIMPLE",
-          "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure simple\",\"conditions\":[]}#if()#end" ],
-          "Response" : [
-            {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable79"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable80"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable81"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable82"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable83"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable84"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable85"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable86"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable87"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable88"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable89"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable90"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable91"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable92"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable93"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable94"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable95"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable96"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable97"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 1,
-              "Maximum" : 10
-            },
-            "CollectedVariableReference" : "collectedVariable98"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "isg1g6zo"
-            }, {
-              "dimensionType" : "SECONDARY",
-              "dynamic" : "0",
-              "CodeListReference" : "isg27fpv"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure nombre"
-            } ]
-          }
-        }, {
-          "id" : "isg3ixbk",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "JESUISLELI",
-          "Label" : [ "##{\"label\":\"Je suis le libellé d'un tableau à deux axes 1 mesure unique\",\"conditions\":[]}#if()#end" ],
-          "Response" : [
-            {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable99"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable100"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable101"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable102"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable103"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable104"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable105"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable106"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable107"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable108"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable109"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable110"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable111"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable112"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable113"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable114"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable115"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable116"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable117"
-          }, {
-            "CodeListReference" : "isg1uorv",
-            "Datatype" : {
-              "typeName" : "TEXT",
-              "visualizationHint" : "RADIO",
-              "type" : "TextDatatypeType",
-              "MaxLength" : 1,
-              "Pattern" : ""
-            },
-            "CollectedVariableReference" : "collectedVariable118"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "isg1g6zo"
-            }, {
-              "dimensionType" : "SECONDARY",
-              "dynamic" : "0",
-              "CodeListReference" : "isg27fpv"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Mesure unique"
-            } ]
-          }
-        } ]
-      }, {
-        "id" : "iwnet09y",
-        "depth" : 2,
-        "genericName" : "SUBMODULE",
-        "type" : "SequenceType",
-        "Name" : "EXEMPLES",
-        "Label" : [ "Exemples" ],
-        "Child" : [ {
-          "id" : "iw22jwft",
-          "questionType" : "TABLE",
-          "type" : "QuestionType",
-          "Name" : "RENSEIGNEZ",
-          "Label" : [ "##{\"label\":\"Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine\",\"conditions\":[]}#if()#end" ],
-          "Declaration" : [ {
-            "declarationType" : "INSTRUCTION",
-            "position" : "AFTER_RESPONSE",
-            "Text" : "Cette question est extraite de l'enquête Antipol "
-          } ],
-          "Control" : [ {
-            "id" : "iw7ukiat",
-            "Description" : "",
-            "Expression" : "(NUM(${S1-S1-Q1-R1}#if()#end",
-            "FailMessage" : "Le montant des investissements spécifiquement dédiés à\n                        l'environnement est supérieur au montant total des\n                        investissements."
-          } ],
-          "Response" : [
-            {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable119"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable120"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable121"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable122"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable123"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable124"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable125"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable126"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable127"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable128"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable129"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable130"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable131"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable132"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable133"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable134"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable135"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable136"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable137"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable138"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable139"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable140"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable141"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable142"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable143"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable144"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable145"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable146"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable147"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable148"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable149"
-          }, {
-            "Datatype" : {
-              "typeName" : "NUMERIC",
-              "type" : "NumericDatatypeType",
-              "Minimum" : 0
-            },
-            "CollectedVariableReference" : "collectedVariable150"
-          } ],
-          "ResponseStructure" : {
-            "Dimension" : [ {
-              "dimensionType" : "PRIMARY",
-              "dynamic" : "0",
-              "CodeListReference" : "iw22r14q"
-            }, {
-              "dimensionType" : "SECONDARY",
-              "dynamic" : "0",
-              "CodeListReference" : "iw22dla9"
-            }, {
-              "dimensionType" : "MEASURE",
-              "dynamic" : "0",
-              "Label" : "Montant des investissements en Keuros"
-            } ]
-          }
-        } ]
-      } ]
-    } ],
     "DataCollection" : [ {
       "id" : "campaign01",
       "uri" : "http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1",
@@ -1937,332 +2644,332 @@ module.exports = [
     "CodeLists" : {
       "CodeList" : [
         {
-        "id" : "isg1g6zo",
-        "Name" : "",
-        "Label" : "LISTE_TEST",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "choix 1"
+          "id" : "isg1g6zo",
+          "Name" : "",
+          "Label" : "LISTE_TEST",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "choix 1"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "choix 2"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "choix 3"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "choix 4"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "choix 5"
+          } ]
         }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "choix 2"
+          "id" : "isg1uorv",
+          "Name" : "",
+          "Label" : "Oui_Non",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Oui"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Non"
+          } ]
         }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "choix 3"
+          "id" : "isg27fpv",
+          "Name" : "",
+          "Label" : "LISTE_TEST_2",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "choix 6"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "choix 7"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "choix 8"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "choix 9"
+          } ]
         }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "choix 4"
+          "id" : "iw22dla9",
+          "Name" : "",
+          "Label" : "DOMAINE",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Eaux usées"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Déchets hors radioactifs"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Protection de l’air"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "Limitation des émissions de gaz à effet de serre"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "Bruits et vibrations"
+          }, {
+            "Value" : "code06", "Parent": "",
+            "Label" : "Sols, eaux souterraines et de surface"
+          }, {
+            "Value" : "code07", "Parent": "",
+            "Label" : "Sites, paysages et biodiversité"
+          }, {
+            "Value" : "code08", "Parent": "",
+            "Label" : "Autres (rayonnement, R&D sur l’environnement…)"
+          } ]
         }, {
-          "Value" : "code05", "Parent": "",
-          "Label" : "choix 5"
+          "id" : "iw22fswu",
+          "Name" : "",
+          "Label" : "L_SEXE",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Masculin"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Féminin"
+          } ]
+        }, {
+          "id" : "iw22r14q",
+          "Name" : "",
+          "Label" : "NATURE",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Pré-traitement, traitement et élimination"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Mesure et contrôle"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Recyclage, tri et valorisation"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "Prévention des pollutions"
+          } ]
+        }, {
+          "id" : "iw22xe2u",
+          "Name" : "",
+          "Label" : "L_effectifs",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Effectifs salariés à temps plein"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Effectifs salariés à temps partiel moins de 6 mois"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Effectifs salariés à temps partiel 6 mois et plus"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "Apprentis, stagiaires rémunérés"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "Total"
+          } ]
+        }, {
+          "id" : "iw25euzq",
+          "Name" : "",
+          "Label" : "L_GLACE",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "vanille"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "chocolat"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "fraise"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "abricot"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "citron"
+          }, {
+            "Value" : "code06", "Parent": "",
+            "Label" : "rhum raisins"
+          } ]
+        }, {
+          "id" : "iw25voxc",
+          "Name" : "",
+          "Label" : "L_fréquence",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Toujours"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Souvent"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Parfois"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "Jamais"
+          } ]
+        }, {
+          "id" : "iwg8titv",
+          "Name" : "",
+          "Label" : "LIST_ONE",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Item 1"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Item 2"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Item 3"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "Item 4"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "Item 5"
+          } ]
+        }, {
+          "id" : "iwgdzvye",
+          "Name" : "",
+          "Label" : "weather_list",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "sunny"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "cloudy"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "rainy"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "a mix of all, I'm in Brittany"
+          } ]
+        }, {
+          "id" : "iwge4s84",
+          "Name" : "",
+          "Label" : "LIST_TWO",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "item 6"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "item 7"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "item 8"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "item 9"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "item 10"
+          } ]
+        }, {
+          "id" : "iwgebn3a",
+          "Name" : "",
+          "Label" : "EVENING",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Drink some beers"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Go to cinema"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Watch a movie at home"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "Cook good meals for my friends"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "Read a novel"
+          } ]
+        }, {
+          "id" : "iwgeg7ek",
+          "Name" : "",
+          "Label" : "LIST_SEX_EN",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Man"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Woman"
+          } ]
+        }, {
+          "id" : "iwgehiif",
+          "Name" : "",
+          "Label" : "Yes_No_EN",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Yes"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "No"
+          } ]
+        }, {
+          "id" : "iwm8rfv5",
+          "Name" : "",
+          "Label" : "L_TIC_TPE",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "La commande ou la réservation en ligne (panier virtuel) ?"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "La description de biens ou services, ou des listes de prix ?"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Des liens permettant d’accéder aux pages de l’entreprise dans les médias\n                    sociaux (Facebook, Twitter, Google+, LinkedIn, Viadeo, etc.) ?"
+          } ]
+        }, {
+          "id" : "iwm8rneb",
+          "Name" : "",
+          "Label" : "L_ventes",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "A des particuliers"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "A des professionnels ou revendeurs"
+          } ]
+        }, {
+          "id" : "iwm8zloc",
+          "Name" : "",
+          "Label" : "L_activite",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "à temps complet"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "à temps partiel 80 % ou plus"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "de mi-temps à moins de 80 %"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "moins d’un mi-temps"
+          } ]
+        }, {
+          "id" : "iwm9fhue",
+          "Name" : "",
+          "Label" : "L_formation",
+          "Code" : [ {
+            "Value" : "code01", "Parent": "",
+            "Label" : "Formation financée ou organisée par l’employeur ou une agence d’intérim (hors\n                    apprentissage et contrats de professionnalisation)"
+          }, {
+            "Value" : "code02", "Parent": "",
+            "Label" : "Formation donnée par une école de la 2e chance, par l’EPIDE"
+          }, {
+            "Value" : "code03", "Parent": "",
+            "Label" : "Formation conseillée ou organisée par Pôle emploi, par une mission locale,\n                    une chambre des métiers, une agence de placement (APEC, INGEUS, …), (y compris\n                    ateliers de techniques de recherche d’emploi, ateliers CV)"
+          }, {
+            "Value" : "code04", "Parent": "",
+            "Label" : "Une formation professionnalisante ou à but professionnel (pour trouver un\n                    emploi, améliorer votre situation, …)"
+          }, {
+            "Value" : "code05", "Parent": "",
+            "Label" : "Aucune de ces formations depuis la fin des études, même pour quelques\n                    jours"
+          } ]
         } ]
-      }, {
-        "id" : "isg1uorv",
-        "Name" : "",
-        "Label" : "Oui_Non",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Oui"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Non"
-        } ]
-      }, {
-        "id" : "isg27fpv",
-        "Name" : "",
-        "Label" : "LISTE_TEST_2",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "choix 6"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "choix 7"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "choix 8"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "choix 9"
-        } ]
-      }, {
-        "id" : "iw22dla9",
-        "Name" : "",
-        "Label" : "DOMAINE",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Eaux usées"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Déchets hors radioactifs"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Protection de l’air"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "Limitation des émissions de gaz à effet de serre"
-        }, {
-          "Value" : "code05", "Parent": "",
-          "Label" : "Bruits et vibrations"
-        }, {
-          "Value" : "code06", "Parent": "",
-          "Label" : "Sols, eaux souterraines et de surface"
-        }, {
-          "Value" : "code07", "Parent": "",
-          "Label" : "Sites, paysages et biodiversité"
-        }, {
-          "Value" : "code08", "Parent": "",
-          "Label" : "Autres (rayonnement, R&D sur l’environnement…)"
-        } ]
-      }, {
-        "id" : "iw22fswu",
-        "Name" : "",
-        "Label" : "L_SEXE",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Masculin"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Féminin"
-        } ]
-      }, {
-        "id" : "iw22r14q",
-        "Name" : "",
-        "Label" : "NATURE",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Pré-traitement, traitement et élimination"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Mesure et contrôle"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Recyclage, tri et valorisation"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Prévention des pollutions"
-        } ]
-      }, {
-        "id" : "iw22xe2u",
-        "Name" : "",
-        "Label" : "L_effectifs",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Effectifs salariés à temps plein"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Effectifs salariés à temps partiel moins de 6 mois"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Effectifs salariés à temps partiel 6 mois et plus"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Apprentis, stagiaires rémunérés"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "Total"
-        } ]
-      }, {
-        "id" : "iw25euzq",
-        "Name" : "",
-        "Label" : "L_GLACE",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "vanille"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "chocolat"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "fraise"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "abricot"
-        }, {
-          "Value" : "code05", "Parent": "",
-          "Label" : "citron"
-        }, {
-          "Value" : "code06", "Parent": "",
-          "Label" : "rhum raisins"
-        } ]
-      }, {
-        "id" : "iw25voxc",
-        "Name" : "",
-        "Label" : "L_fréquence",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Toujours"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Souvent"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Parfois"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "Jamais"
-        } ]
-      }, {
-        "id" : "iwg8titv",
-        "Name" : "",
-        "Label" : "LIST_ONE",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Item 1"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Item 2"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Item 3"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "Item 4"
-        }, {
-          "Value" : "code05", "Parent": "",
-          "Label" : "Item 5"
-        } ]
-      }, {
-        "id" : "iwgdzvye",
-        "Name" : "",
-        "Label" : "weather_list",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "sunny"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "cloudy"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "rainy"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "a mix of all, I'm in Brittany"
-        } ]
-      }, {
-        "id" : "iwge4s84",
-        "Name" : "",
-        "Label" : "LIST_TWO",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "item 6"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "item 7"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "item 8"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "item 9"
-        }, {
-          "Value" : "code05", "Parent": "",
-          "Label" : "item 10"
-        } ]
-      }, {
-        "id" : "iwgebn3a",
-        "Name" : "",
-        "Label" : "EVENING",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Drink some beers"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Go to cinema"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Watch a movie at home"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "Cook good meals for my friends"
-        }, {
-          "Value" : "code05", "Parent": "",
-          "Label" : "Read a novel"
-        } ]
-      }, {
-        "id" : "iwgeg7ek",
-        "Name" : "",
-        "Label" : "LIST_SEX_EN",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Man"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Woman"
-        } ]
-      }, {
-        "id" : "iwgehiif",
-        "Name" : "",
-        "Label" : "Yes_No_EN",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Yes"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "No"
-        } ]
-      }, {
-        "id" : "iwm8rfv5",
-        "Name" : "",
-        "Label" : "L_TIC_TPE",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "La commande ou la réservation en ligne (panier virtuel) ?"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "La description de biens ou services, ou des listes de prix ?"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Des liens permettant d’accéder aux pages de l’entreprise dans les médias\n                    sociaux (Facebook, Twitter, Google+, LinkedIn, Viadeo, etc.) ?"
-        } ]
-      }, {
-        "id" : "iwm8rneb",
-        "Name" : "",
-        "Label" : "L_ventes",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "A des particuliers"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "A des professionnels ou revendeurs"
-        } ]
-      }, {
-        "id" : "iwm8zloc",
-        "Name" : "",
-        "Label" : "L_activite",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "à temps complet"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "à temps partiel 80 % ou plus"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "de mi-temps à moins de 80 %"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "moins d’un mi-temps"
-        } ]
-      }, {
-        "id" : "iwm9fhue",
-        "Name" : "",
-        "Label" : "L_formation",
-        "Code" : [ {
-          "Value" : "code01", "Parent": "",
-          "Label" : "Formation financée ou organisée par l’employeur ou une agence d’intérim (hors\n                    apprentissage et contrats de professionnalisation)"
-        }, {
-          "Value" : "code02", "Parent": "",
-          "Label" : "Formation donnée par une école de la 2e chance, par l’EPIDE"
-        }, {
-          "Value" : "code03", "Parent": "",
-          "Label" : "Formation conseillée ou organisée par Pôle emploi, par une mission locale,\n                    une chambre des métiers, une agence de placement (APEC, INGEUS, …), (y compris\n                    ateliers de techniques de recherche d’emploi, ateliers CV)"
-        }, {
-          "Value" : "code04", "Parent": "",
-          "Label" : "Une formation professionnalisante ou à but professionnel (pour trouver un\n                    emploi, améliorer votre situation, …)"
-        }, {
-          "Value" : "code05", "Parent": "",
-          "Label" : "Aucune de ces formations depuis la fin des études, même pour quelques\n                    jours"
-        } ]
-      } ]
     },
     "Variables" : {
       "Variable" : [ {

@@ -8,13 +8,14 @@ import Controls from './controls';
 import Redirections from './redirections';
 import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
-// import CollectedVariablesContainer from '../containers/variables/collected-variables';
+import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import { COMPONENT_TYPE, TABS_PATHS } from 'constants/pogues-constants';
-import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
+
+import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
+import { COMPONENT_TYPE, TABS_PATHS } from 'constants/pogues-constants';
+import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
@@ -26,9 +27,11 @@ export const propTypes = {
   ...formPropTypes,
   componentType: PropTypes.string.isRequired,
   componentId: PropTypes.string.isRequired,
+
   errorsByTab: PropTypes.object,
   integrityErrors: PropTypes.object,
   componentsStore: PropTypes.object,
+
   setErrorsByTab: PropTypes.func.isRequired,
   setErrorsByFormPath: PropTypes.func.isRequired,
 };
@@ -37,6 +40,7 @@ export const defaultProps = {
   errorsByTab: {},
   integrityErrors: {},
   componentsStore: {},
+  codesListsStoreStore: {},
 };
 
 // Componet
@@ -94,27 +98,24 @@ class ComponentNewEdit extends Component {
         >
           <CalculatedVariables errors={errorsByTab[TABS_PATHS.CALCULATED_VARIABLES]} setErrors={setErrorsByFormPath} />
         </Tab>,
+        <Tab
+          label={Dictionary.collectedVariables}
+          path={TABS_PATHS.COLLECTED_VARIABLES}
+          key={TABS_PATHS.COLLECTED_VARIABLES}
+        >
+          <CollectedVariablesContainer
+            errors={errorsByTab[TABS_PATHS.COLLECTED_VARIABLES]}
+            setErrors={setErrorsByFormPath}
+          />
+        </Tab>,
       ];
     }
-
-    {/*<Tab*/}
-      {/*label={Dictionary.collectedVariables}*/}
-      {/*path={TABS_PATHS.COLLECTED_VARIABLES}*/}
-      {/*key={TABS_PATHS.COLLECTED_VARIABLES}*/}
-    {/*>*/}
-      {/*<CollectedVariablesContainer*/}
-        {/*errors={errorsByTab[TABS_PATHS.COLLECTED_VARIABLES]}*/}
-        {/*setErrors={setErrorsByFormPath}*/}
-      {/*/>*/}
-    {/*</Tab>,*/}
 
     return panels;
   }
 
   render() {
     const { handleSubmit, submitting, form, onCancel, componentType, errorsByTab } = this.props;
-
-    // const invalidItemsByType = getInvalidItemsByType(invalidItems);
 
     const associatedFieldsProps = {
       formName: form,

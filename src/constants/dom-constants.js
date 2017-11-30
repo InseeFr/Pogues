@@ -44,7 +44,10 @@ export const CONTROL_TREE_SELECT = {
 
 export const WIDGET_LIST_WITH_INPUT_PANEL = {
   COMPONENT_CLASS: 'widget-list-with-input-panel',
+  WRAPPER_CLASS: 'widget-list-with-input-panel__wrapper',
   LIST_CLASS: 'widget-list-with-input-panel__list',
+  PANEL_CLASS: 'widget-list-with-input-panel__panel',
+  ACTIONS_CLASS: 'widget-list-with-input-panel__actions',
   LIST_EMPTY_CLASS: 'widget-list-with-input-panel__list-empty',
   ITEM_CLASS: 'widget-list-with-input-panel__item',
   ITEM_INVALID_CLASS: 'widget-list-with-input-panel__item-invalid',
@@ -105,7 +108,9 @@ export const WIDGET_VALIDATION_ERRORS = {
 export const WIDGET_TABS = {
   COMPONENT_CLASS: 'widget-tabs',
   INVALID: 'widget-tabs-invalid',
+  ACTIVE: 'widget-tabs-active',
   ITEM: 'widget-tabs-item',
+  CONTENT: 'widget-tabs-content',
 };
 
 export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {

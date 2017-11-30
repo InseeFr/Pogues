@@ -93,8 +93,7 @@ export function stateToRemote(state, stores) {
     ],
     agency: agency || '',
   };
-
-  const componentsRemote = Component.storeToRemote(componentsStore, id, codesListsStore);
+  const componentsRemote = Component.storeToRemote(componentsStore, id, collectedVariablesWithoutOrphans);
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(calculatedVariablesStore);
   const externalVariablesRemote = ExternalVariable.storeToRemote(externalVariablesStore);

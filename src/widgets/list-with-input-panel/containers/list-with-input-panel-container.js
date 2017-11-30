@@ -16,7 +16,7 @@ const propTypes = {
 
   errors: PropTypes.array,
 
-  canSubmit: PropTypes.bool,
+  canAddNew: PropTypes.bool,
   canRemove: PropTypes.bool,
   canDuplicate: PropTypes.bool,
 
@@ -27,7 +27,7 @@ const propTypes = {
 
 const defaultProps = {
   errors: [],
-  canSubmit: true,
+  canAddNew: true,
   canRemove: true,
   canDuplicate: true,
 };

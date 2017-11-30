@@ -44,6 +44,7 @@ function ExternalVariables({ formName, selectorPath, errors, setErrors }) {
         errors={errors}
         validateForm={validateForm(setErrors, validateExternalVariableForm)}
         resetObject={defaultState}
+        canDuplicate={false}
       >
         <Field name="label" type="text" component={Input} label={Dictionary.label} required />
         <Field name="name" type="text" component={Input} label={Dictionary.name} required />

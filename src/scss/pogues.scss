@@ -17,8 +17,6 @@
 //Elements
 @import 'inc/_user-connection';
 @import 'inc/_questionnaire-list';
-@import 'inc/_declarations';
-@import 'inc/_component-edition';
 @import 'inc/_arbo-simplifield';
 @import 'inc/_confirm-dialog';
 @import 'inc/_questionnaire-nav';
@@ -36,6 +34,7 @@
 @import 'inc/widgets/_questionnaire-new-edit';
 @import 'inc/widgets/_component-new-edit';
 @import 'inc/widgets/_errors-panel';
+@import 'inc/widgets/_list-with-input-panel';
 
 //Controls
 @import 'inc/controls/_common';

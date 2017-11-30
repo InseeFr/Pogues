@@ -8,6 +8,54 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constant
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
+function getResponseCoordinate(variablesMapping = []) {
+  return variablesMapping.reduce((acc, m) => {
+    const axis = m.MappingTarget.split(' ');
+
+    return {
+      ...acc,
+      [m.MappingSource]: {
+        x: axis[0],
+        y: axis[1],
+      },
+    };
+  }, {});
+}
+
+function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
+  return responses.reduce((accInner, response) => {
+    const { id: responseId, CollectedVariableReference: collectedVariableId } = response;
+    // Mapping only exists in the questions with a matrix of responses
+    const coordinates = coordinatesByResponse[responseId] || {};
+
+    return {
+      ...accInner,
+      [collectedVariableId]: {
+        ...coordinates,
+      },
+    };
+  }, {});
+}
+
+function remoteToVariableResponseNested(children = [], acc = {}) {
+  children.forEach(child => {
+    const { Response: responses, Mapping: variableResponseMappgin, Child: childrenInner } = child;
+    const coordinatesByResponse = getResponseCoordinate(variableResponseMappgin);
+
+    acc = {
+      ...acc,
+      ...getResponsesByVariable(responses, coordinatesByResponse),
+      ...remoteToVariableResponseNested(childrenInner, acc),
+    };
+  });
+
+  return acc;
+}
+
+export function remoteToVariableResponse(remote) {
+  return remoteToVariableResponseNested(remote.Child);
+}
+
 function remoteToState(remote, codesListsStore) {
   const {
     id,
@@ -76,7 +124,7 @@ export function remoteToStore(remote, questionnaireId, codesListsStore) {
   };
 }
 
-function childrenToRemote(children, store, codesListsStore = {}, depth = 0) {
+function childrenToRemote(children, store, collectedVariablesStore = {}, depth = 0) {
   return children
     .sort((keyA, keyB) => {
       if (store[keyA].weight < store[keyB].weight) return -1;
@@ -85,11 +133,11 @@ function childrenToRemote(children, store, codesListsStore = {}, depth = 0) {
     })
     .map(key => {
       const newDepth = depth + 1;
-      return storeToRemoteNested(store[key], store, codesListsStore, newDepth); // eslint-disable-line no-use-before-define
+      return storeToRemoteNested(store[key], store, collectedVariablesStore, newDepth); // eslint-disable-line no-use-before-define
     });
 }
 
-function storeToRemoteNested(state, store, codesListsStore = {}, depth = 1) {
+function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth = 1) {
   const {
     id,
     name: Name,
@@ -118,7 +166,7 @@ function storeToRemoteNested(state, store, codesListsStore = {}, depth = 1) {
     remote.questionType = responseFormat.type;
     remote = {
       ...remote,
-      ...ResponseFormat.stateToRemote(responseFormat, collectedVariables, codesListsStore),
+      ...ResponseFormat.stateToRemote(responseFormat, collectedVariables, collectedVariablesStore),
     };
   } else {
     remote.type = SEQUENCE_TYPE_NAME;
@@ -129,14 +177,14 @@ function storeToRemoteNested(state, store, codesListsStore = {}, depth = 1) {
     } else {
       remote.genericName = 'SUBMODULE';
     }
-    remote.Child = childrenToRemote(children, store, codesListsStore, depth);
+    remote.Child = childrenToRemote(children, store, collectedVariablesStore, depth);
   }
 
   return remote;
 }
 
-export function storeToRemote(store, questionnaireId, codesListsStore) {
+export function storeToRemote(store, questionnaireId, collectedVariablesStore) {
   return store[questionnaireId].children.map(key => {
-    return storeToRemoteNested(store[key], store, codesListsStore);
+    return storeToRemoteNested(store[key], store, collectedVariablesStore);
   });
 }

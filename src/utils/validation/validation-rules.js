@@ -11,6 +11,8 @@ import {
   validateExistingTarget,
   validateDuplicatesCalculated,
   validateDuplicatesExternal,
+  validateDuplicatesCollected,
+  validCollectedVariables,
 } from 'forms/validation-rules';
 import {
   TABS_PATHS,
@@ -77,7 +79,7 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.maximum`]: [value => minValue(1)(value)],
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [required, value => minValue(1)(value)],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.measures`]: [emptyMeasures],
-  [`${COLLECTED_VARIABLES}.collectedVariables`]: [],
+  [`${COLLECTED_VARIABLES}.collectedVariables`]: [validCollectedVariables],
 };
 
 export const declarationRules = {
@@ -121,7 +123,15 @@ export const externalVariableRules = {
   ],
 };
 
-export const collectedVariableRules = {};
+export const collectedVariableRules = {
+  [`${COLLECTED_VARIABLES}.label`]: [value => required(value) && Dictionary.validation_collectedvariable_label],
+  [`${COLLECTED_VARIABLES}.name`]: [
+    value => required(value) && Dictionary.validation_collectedvariable_name,
+    name,
+    nameSize,
+    (value, conf) => validateDuplicatesCollected(value, conf) && Dictionary.validation_collectedvariable_existing,
+  ],
+};
 
 export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.label`]: [

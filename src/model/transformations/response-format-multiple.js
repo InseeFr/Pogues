@@ -1,6 +1,6 @@
 import * as CodeList from './codes-list';
 import * as Dimension from './dimension';
-import * as Response from './response';
+import * as Responses from './responses';
 
 import {
   DATATYPE_NAME,
@@ -52,16 +52,13 @@ export function remoteToState(remote) {
   return state;
 }
 
-export function stateToRemote(state, collectedVariables, codesListsStore) {
+export function stateToRemote(state, collectedVariables, collectedVariablesStore) {
   const { [PRIMARY]: primaryState, [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState } } = state;
-  const dimensions = [];
-  const responses = [];
-  const codesListState = codesListsStore[primaryState[DEFAULT_CODES_LIST_SELECTOR_PATH].id] || {};
-  const numCodes = Object.keys(codesListState.codes || {}).length;
+  const dimensionsModel = [];
   let responseState;
 
-  dimensions.push(Dimension.stateToRemote({ ...primaryState, type: PRIMARY }));
-  dimensions.push(Dimension.stateToRemote({ type: MEASURE }));
+  dimensionsModel.push(Dimension.stateToRemote({ ...primaryState, type: PRIMARY }));
+  dimensionsModel.push(Dimension.stateToRemote({ type: MEASURE }));
 
   if (typeMeasure === CODES_LIST) {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId }, visHint } = measureState;
@@ -76,12 +73,10 @@ export function stateToRemote(state, collectedVariables, codesListsStore) {
     responseState = { typeName: BOOLEAN };
   }
 
-  for (let i = 0; i < numCodes; i += 1) {
-    responses.push(Response.stateToRemote({ ...responseState, collectedVariable: collectedVariables[i] || '' }));
-  }
+  const responsesModel = Responses.stateToModel(responseState, collectedVariables, collectedVariablesStore);
 
   return {
-    Dimension: dimensions,
-    Response: responses,
+    Dimension: dimensionsModel,
+    ...responsesModel,
   };
 }

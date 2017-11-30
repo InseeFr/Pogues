@@ -98,8 +98,8 @@ export function validateExternalVariableForm(values, setErrors, state) {
   return true;
 }
 
-export function validateCollectedVariableForm(values, setErrors) {
-  const errors = validate(values, collectedVariableRules);
+export function validateCollectedVariableForm(values, setErrors, state) {
+  const errors = validate(values, collectedVariableRules, {}, state);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {

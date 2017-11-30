@@ -135,6 +135,10 @@ const Factory = (initialState = {}, stores = {}) => {
         name: form.name,
         label: form.label,
         responseFormat: transformers.responseFormat.getNormalizedValues(form.responseFormat),
+        collectedVariables: form.collectedVariables,
+        controls: form.controls,
+        declarations: form.declarations,
+        redirections: form.redirections,
       };
     },
   };

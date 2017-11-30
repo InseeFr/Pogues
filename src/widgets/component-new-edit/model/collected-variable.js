@@ -1,8 +1,17 @@
 import { uuid } from 'utils/utils';
 
+export const defaultState = {
+  name: '',
+  label: '',
+  x: '',
+  y: '',
+};
+
 export const defaultForm = {
   name: '',
   label: '',
+  x: '',
+  y: '',
   collectedVariables: [],
 };
 
@@ -32,11 +41,13 @@ export function formToStore(form) {
 
 export function storeToForm(currentStore) {
   const collectedVariables = Object.keys(currentStore).map(key => {
-    const { id, name, label } = currentStore[key];
+    const { id, name, label, x, y } = currentStore[key];
     return {
       id,
       name,
       label,
+      x,
+      y,
     };
   });
 

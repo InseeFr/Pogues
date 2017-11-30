@@ -2,90 +2,117 @@ import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import ListEntryFormContainer from 'layout/connected-widget/list-entry-form';
-import { defaultForm } from '../../model/collected-variable';
+import { defaultState } from '../../model/collected-variable';
+
 import Input from 'forms/controls/input';
-import { name as validateName, nameSize } from 'forms/validation-rules';
+import { ListWithInputPanel } from 'widgets/list-with-input-panel';
+import { validateCollectedVariableForm } from 'utils/validation/validate';
+import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
+import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
-function validationCollectedVariable(values) {
-  const { name, label, ref, collectedVariables } = values;
-  const addedItemsNames = collectedVariables.filter((cv, index) => index !== ref - 1).map(cv => cv.name);
-  const errors = [];
-  const invalidName = validateName(name);
-  const tooLongName = nameSize(name);
+// Utils
 
-  if (invalidName) errors.push(invalidName);
-  if (tooLongName) errors.push(tooLongName);
+const validateForm = (setErrors, validate) => (values, state) => {
+  return validate(values, setErrors, state);
+};
 
-  if (name === '') errors.push(Dictionary.validation_collectedvariable_name);
-  if (label === '') errors.push(Dictionary.validation_collectedvariable_label);
-  if (addedItemsNames.indexOf(name) !== -1) errors.push(Dictionary.validation_collectedvariable_existing);
+// Prop types and default props
 
-  return errors;
-}
+export const propTypes = {
+  componentName: PropTypes.string.isRequired,
+  responseFormatType: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
+  selectorPath: PropTypes.string.isRequired,
 
-function InputCollectedVariable() {
-  return (
-    <div>
-      <Field name="label" type="text" component={Input} label={Dictionary.label} required />
-      <Field name="name" type="text" component={Input} label={Dictionary.name} required />
-    </div>
-  );
-}
+  errors: PropTypes.array.isRequired,
+
+  setErrors: PropTypes.func.isRequired,
+  arrayRemoveAll: PropTypes.func.isRequired,
+  arrayPush: PropTypes.func.isRequired,
+
+  codesListsStoreStore: PropTypes.object,
+  reponseFormatValues: PropTypes.object,
+};
+
+export const defaultProps = {
+  codesListsStoreStore: {},
+  reponseFormatValues: {},
+};
+
+// Component
+
 class CollectedVariables extends Component {
-  static propTypes = {
-    selectorPath: PropTypes.string.isRequired,
-    generateCollectedVariables: PropTypes.func.isRequired,
-    errors: PropTypes.array,
-  };
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
-  static defaultProps = {
-    errors: [],
-  };
+  constructor(props) {
+    super(props);
+
+    this.generateVariables = this.generateVariables.bind(this);
+  }
+
+  generateVariables() {
+    const {
+      componentName,
+      responseFormatType,
+      reponseFormatValues,
+      codesListsStoreStore,
+      formName,
+      arrayRemoveAll,
+      arrayPush,
+    } = this.props;
+
+    const newVariables = generateCollectedVariables(
+      responseFormatType,
+      componentName,
+      reponseFormatValues,
+      codesListsStoreStore
+    );
+
+    arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
+
+    newVariables.forEach(cv => {
+      arrayPush(formName, 'collectedVariables.collectedVariables', cv);
+    });
+  }
 
   render() {
-    const { collectedVariables, ...initialInputValues } = defaultForm;
-    const inputCollectedVariableView = <InputCollectedVariable />;
-    const { generateCollectedVariables, errors, selectorPath } = this.props;
-    const styleErrors = {
-      display: errors.length > 0 ? 'block' : 'none',
-    };
-    const errorsList = errors.map((e, index) => {
-      return <li key={index}>{e}</li>;
-    });
-
+    const { formName, selectorPath, errors, setErrors, componentName, responseFormatType } = this.props;
     return (
-      <FormSection name={selectorPath} className="collected-variables">
-        <ul style={styleErrors} className="nav-error">
-          {errorsList}
-        </ul>
-        <button
-          type="button"
-          className="btn-yellow"
-          onClick={event => {
-            event.preventDefault();
-            generateCollectedVariables();
-          }}
-        >
-          {Dictionary.generateCollectedVariables}
-        </button>
-        <ListEntryFormContainer
-          inputView={inputCollectedVariableView}
-          initialInputValues={initialInputValues}
+      <FormSection name={selectorPath}>
+        <ListWithInputPanel
+          formName={formName}
           selectorPath={selectorPath}
-          validationInput={validationCollectedVariable}
-          listName="collectedVariables"
-          submitLabel="reset"
-          noValueLabel="noCollectedVariablesYet"
-          showDuplicateButton={false}
-          showAddButton={false}
-          showRemoveButton={false}
-          avoidNewAddition
-        />
-        <Field name="responseFormat" type="hidden" component="input" />
+          name="collectedVariables"
+          errors={errors}
+          validateForm={validateForm(setErrors, validateCollectedVariableForm)}
+          resetObject={defaultState}
+          canAddNew={false}
+          canRemove={false}
+          canDuplicate={false}
+        >
+          <div className={WIDGET_LIST_WITH_INPUT_PANEL.ACTIONS_CLASS}>
+            <button
+              type="button"
+              disabled={componentName === '' || responseFormatType === ''}
+              className="btn-yellow"
+              onClick={event => {
+                event.preventDefault();
+                this.generateVariables();
+              }}
+            >
+              {Dictionary.generateCollectedVariables}
+            </button>
+          </div>
+          <Field name="label" type="text" component={Input} label={Dictionary.label} required />
+          <Field name="name" type="text" component={Input} label={Dictionary.name} required />
+          <Field name="x" type="hidden" component="input" />
+          <Field name="y" type="hidden" component="input" />
+        </ListWithInputPanel>
       </FormSection>
     );
   }
 }
+
 export default CollectedVariables;

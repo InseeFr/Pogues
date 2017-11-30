@@ -3,6 +3,7 @@ import cloneDeep from 'lodash.clonedeep';
 import Dictionary from 'utils/dictionary/dictionary';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
+import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 
@@ -120,7 +121,18 @@ export function validCodesList(codesList) {
   return errors;
 }
 
-export function validCollectedVariables(value, { stores: { codesLists } }) {}
+export function validCollectedVariables(value, { form, stores: { codesListsStore } }) {
+  // @TODO: Improve this validation testing the coordinates of the variables
+  const { name: nameComponent, responseFormat: { type, [type]: responseFormatValues } } = form;
+  let expectedVariables;
+
+  if (nameComponent !== '' && type !== '') {
+    expectedVariables = generateCollectedVariables(type, nameComponent, responseFormatValues, codesListsStore);
+  }
+  return expectedVariables && value.length === expectedVariables.length
+    ? undefined
+    : Dictionary.validation_collectedvariable_need_reset;
+}
 
 export function validateEarlyTarget(value, { stores: { componentsStore, editingComponentId } }) {
   const allowedTargets = getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]);
@@ -134,7 +146,7 @@ export function validateExistingTarget(value, { stores: { componentsStore } }) {
 }
 
 export function validateDuplicates(value, { form }) {
-  return form.filter(i => i.name === value).length > 0 ? 'Duplicated' : undefined;
+  return value !== '' && form.filter(i => i.name === value).length > 0 ? 'Duplicated' : undefined;
 }
 
 export function validateDuplicatesCalculated(
@@ -156,6 +168,20 @@ export function validateDuplicatesExternal(
   { form: { externalVariables: values }, state: { selectedItemIndex } }
 ) {
   const listItems = cloneDeep(values.externalVariables);
+
+  // We need to remove the element from the list
+  if (selectedItemIndex !== undefined) {
+    listItems.splice(selectedItemIndex, 1);
+  }
+
+  return validateDuplicates(value, { form: listItems });
+}
+
+export function validateDuplicatesCollected(
+  value,
+  { form: { collectedVariables: values }, state: { selectedItemIndex } }
+) {
+  const listItems = cloneDeep(values.collectedVariables);
 
   // We need to remove the element from the list
   if (selectedItemIndex !== undefined) {

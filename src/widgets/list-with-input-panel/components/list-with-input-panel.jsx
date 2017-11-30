@@ -11,7 +11,11 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from 'utils/widget-utils';
 
 const {
+  WRAPPER_CLASS,
   COMPONENT_CLASS,
+  PANEL_CLASS,
+  LIST_CLASS,
+  ACTIONS_CLASS,
   BUTTON_SUBMIT_CLASS,
   BUTTON_REMOVE_CLASS,
   BUTTON_DUPLICATE_CLASS,
@@ -29,7 +33,7 @@ export const propTypes = {
   selectorPath: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 
-  canSubmit: PropTypes.bool,
+  canAddNew: PropTypes.bool,
   canRemove: PropTypes.bool,
   canDuplicate: PropTypes.bool,
 
@@ -47,7 +51,7 @@ export const propTypes = {
 
 export const defaultProps = {
   errors: [],
-  canSubmit: true,
+  canAddNew: true,
   canRemove: true,
   canDuplicate: true,
   componentsStore: {},
@@ -78,6 +82,13 @@ class ListWithInputPanel extends Component {
   componentWillReceiveProps(nextProps) {
     const { [this.props.name]: list, id, ...values } = nextProps.currentValues;
 
+    if (!this.props.canAddNew && this.state.selectedItemIndex === undefined) return;
+
+    // Generation items when another item is selected
+    if (this.state.selectedItemIndex !== undefined && !isEqual(list, this.props.currentValues[this.props.name])) {
+      this.reset();
+    }
+
     if (!isEqual(values, this.props.resetObject) && !isEqual(nextProps.currentValues, this.props.currentValues)) {
       this.validate(nextProps.formValues);
     }
@@ -89,7 +100,17 @@ class ListWithInputPanel extends Component {
   }
 
   submit() {
-    const { formValues, currentValues, arrayPush, arrayRemove, arrayInsert, formName, selectorPath, name } = this.props;
+    const {
+      formValues,
+      currentValues,
+      arrayPush,
+      arrayRemove,
+      arrayInsert,
+      formName,
+      selectorPath,
+      name,
+      canAddNew,
+    } = this.props;
     const { [name]: items, ...values } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
 
@@ -97,7 +118,7 @@ class ListWithInputPanel extends Component {
       if (this.state.selectedItemIndex !== undefined) {
         arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
         arrayInsert(formName, `${path}${name}`, this.state.selectedItemIndex, values);
-      } else {
+      } else if (canAddNew) {
         arrayPush(formName, `${path}${name}`, values);
       }
 
@@ -150,79 +171,93 @@ class ListWithInputPanel extends Component {
   }
 
   render() {
-    const { children, errors, name, canSubmit, canRemove, canDuplicate, selectorPath } = this.props;
+    const { children, errors, name, canAddNew, canRemove, canDuplicate, selectorPath } = this.props;
 
     return (
       <div className={COMPONENT_CLASS}>
-        {canSubmit && (
-          <button
-            className={BUTTON_NEW_CLASS}
-            onClick={event => {
-              event.preventDefault();
-              this.reset();
-            }}
-          >
-            <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-            {Dictionary.reset}
-          </button>
-        )}
-
         <ErrorsPanel path={selectorPath} includeSubPaths />
 
-        {children}
+        <div className={WRAPPER_CLASS}>
+          <div className={LIST_CLASS}>
+            <FieldArray
+              name={name}
+              rerenderOnEveryChange
+              component={ListWithInputPanelList}
+              errors={errors}
+              select={this.select}
+            />
+          </div>
 
-        <FieldArray
-          name={name}
-          rerenderOnEveryChange
-          component={ListWithInputPanelList}
-          errors={errors}
-          select={this.select}
-        />
+          <div className={PANEL_CLASS}>
+            <div className={ACTIONS_CLASS}>
+              {canAddNew && (
+                <button
+                  className={BUTTON_NEW_CLASS}
+                  onClick={event => {
+                    event.preventDefault();
+                    this.reset();
+                  }}
+                >
+                  <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+                  {Dictionary.reset}
+                </button>
+              )}
+            </div>
 
-        {canSubmit && (
-          <button
-            className={BUTTON_SUBMIT_CLASS}
-            onClick={event => {
-              event.preventDefault();
-              this.submit();
-            }}
-          >
-            {Dictionary.validate}
-          </button>
-        )}
-        {canRemove && (
-          <button
-            disabled={this.state.selectedItemIndex === undefined}
-            className={BUTTON_REMOVE_CLASS}
-            onClick={event => {
-              event.preventDefault();
-              this.remove();
-            }}
-          >
-            {Dictionary.remove}
-          </button>
-        )}
-        {canDuplicate && (
-          <button
-            disabled={this.state.selectedItemIndex === undefined}
-            className={BUTTON_DUPLICATE_CLASS}
-            onClick={event => {
-              event.preventDefault();
-              this.duplicate();
-            }}
-          >
-            {Dictionary.duplicate}
-          </button>
-        )}
-        <button
-          className={BUTTON_RESET_CLASS}
-          onClick={event => {
-            event.preventDefault();
-            this.reset();
-          }}
-        >
-          {Dictionary.cancel}
-        </button>
+            {children}
+
+            <div className={ACTIONS_CLASS}>
+              <button
+                className={BUTTON_RESET_CLASS}
+                onClick={event => {
+                  event.preventDefault();
+                  this.reset();
+                }}
+              >
+                {Dictionary.cancel}
+              </button>
+
+              <button
+                className={BUTTON_SUBMIT_CLASS}
+                onClick={event => {
+                  event.preventDefault();
+                  this.submit();
+                }}
+              >
+                {Dictionary.validate}
+              </button>
+
+              {canDuplicate && (
+                <button
+                  disabled={this.state.selectedItemIndex === undefined}
+                  className={BUTTON_DUPLICATE_CLASS}
+                  onClick={event => {
+                    event.preventDefault();
+                    this.duplicate();
+                    e;
+                  }}
+                >
+                  <span className="glyphicon glyphicon-file" aria-hidden="true" />
+                  {Dictionary.duplicate}
+                </button>
+              )}
+
+              {canRemove && (
+                <button
+                  disabled={this.state.selectedItemIndex === undefined}
+                  className={BUTTON_REMOVE_CLASS}
+                  onClick={event => {
+                    event.preventDefault();
+                    this.remove();
+                  }}
+                >
+                  <span className="glyphicon glyphicon-trash" aria-hidden="true" />
+                  {Dictionary.remove}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
