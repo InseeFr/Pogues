@@ -3,7 +3,8 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import Input from 'forms/controls/input';
-import { RichTextarea, markdownVtlToString } from 'forms/controls/rich-textarea';
+import { markdownVtlToString } from 'forms/controls/rich-textarea';
+import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 import { WIDGET_ASSOCIATED_FIELDS } from 'constants/dom-constants';
 
@@ -75,7 +76,7 @@ class AssociatedFields extends Component {
           <div onBlur={this.onBlur}>
             <Field
               name={fieldOrigin.name}
-              component={RichTextarea}
+              component={RichTextareaWithVariableAutoCompletion}
               label={fieldOrigin.label}
               focusOnInit={focusOnInit}
             />
