@@ -5,6 +5,7 @@ import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
 
 import { uuid } from 'utils/utils';
+import { getOrderedComponents } from 'utils/model/redirections-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 import {
@@ -12,7 +13,33 @@ import {
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
 
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
+const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
+
+function generateComponentGroups(componentsStore) {
+  const orderedComponents = getOrderedComponents(
+    componentsStore,
+    Object.keys(componentsStore)
+      .filter(id => componentsStore[id].type === SEQUENCE)
+      .sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
+  );
+  let startPage = 1;
+  const result = [];
+  orderedComponents.forEach(componentId => {
+    if (!result[startPage - 1]) {
+      result.push({
+        id: uuid(),
+        Name: `PAGE_${startPage}`,
+        Label: [`Components for page ${startPage}`],
+        MemberReference: [],
+      });
+    }
+    result[startPage - 1].MemberReference.push(componentId);
+    if (componentsStore[componentId].pageBreak) {
+      startPage += 1;
+    }
+  });
+  return result;
+}
 
 export function remoteToState(remote) {
   const {
@@ -83,14 +110,7 @@ export function stateToRemote(state, stores) {
     lastUpdatedDate: new Date().toString(),
     DataCollection: dataCollections,
     genericName: QUESTIONNAIRE,
-    ComponentGroup: [
-      {
-        id: uuid(),
-        Name: 'PAGE_1',
-        Label: ['Components for page 1'],
-        MemberReference: Object.keys(componentsStore),
-      },
-    ],
+    ComponentGroup: generateComponentGroups(componentsStore),
     agency: agency || '',
   };
   const componentsRemote = Component.storeToRemote(componentsStore, id, collectedVariablesWithoutOrphans);
