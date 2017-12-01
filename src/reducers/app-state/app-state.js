@@ -100,13 +100,16 @@ export function getComponentIdForPageBreak(id, componentsStore, state) {
     .map(key => componentsStore[key])
     .sort((c1, c2) => c1.weight < c2.weight)[0].id;
 
-  return lastChildId ? getComponentIdForPageBreak(lastChildId, componentsStore) : defaultReturn;
+  return lastChildId ? getComponentIdForPageBreak(lastChildId, componentsStore, state) : defaultReturn;
 }
 
 export function setSelectedComponentId(state, id) {
   return {
     ...state,
-    ...getComponentIdForPageBreak(id, state.activeComponentsById, state),
+    ...getComponentIdForPageBreak(id, state.activeComponentsById, {
+      ...state,
+      componentIdForPageBreak: '',
+    }),
     selectedComponentId: id,
   };
 }
@@ -135,10 +138,19 @@ export function setQuestionNotModified(state) {
     isQuestionnaireModified: false,
   };
 }
+
 export function setQuestionModified(state) {
   return {
     ...state,
     isQuestionnaireModified: true,
+  };
+}
+
+export function setQuestionModifiedAndResetSelectedComponent(state) {
+  return {
+    ...state,
+    ...setQuestionModified(state),
+    ...setSelectedComponentId(state, ''),
   };
 }
 
@@ -153,7 +165,7 @@ actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = setQuestionNotModified;
 actionHandlers[CREATE_COMPONENT] = setQuestionModified;
 actionHandlers[DUPLICATE_COMPONENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT] = setQuestionModified;
-actionHandlers[REMOVE_COMPONENT] = setQuestionModified;
+actionHandlers[REMOVE_COMPONENT] = setQuestionModifiedAndResetSelectedComponent;
 actionHandlers[UPDATE_COMPONENT_PARENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
 actionHandlers[MOVE_COMPONENT] = setQuestionModified;
