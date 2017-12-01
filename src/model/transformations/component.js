@@ -8,6 +8,14 @@ import { COMPONENT_TYPE, SEQUENCE_TYPE_NAME, QUESTION_TYPE_NAME } from 'constant
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
+function sortByWeight(store) {
+  return (keyA, keyB) => {
+    if (store[keyA].weight < store[keyB].weight) return -1;
+    if (store[keyA].weight > store[keyB].weight) return 1;
+    return 0;
+  };
+}
+
 function getResponseCoordinate(variablesMapping = []) {
   return variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
@@ -135,16 +143,10 @@ export function remoteToStore(remote, questionnaireId, codesListsStore) {
 }
 
 function childrenToRemote(children, store, collectedVariablesStore = {}, depth = 0) {
-  return children
-    .sort((keyA, keyB) => {
-      if (store[keyA].weight < store[keyB].weight) return -1;
-      if (store[keyA].weight > store[keyB].weight) return 1;
-      return 0;
-    })
-    .map(key => {
-      const newDepth = depth + 1;
-      return storeToRemoteNested(store[key], store, collectedVariablesStore, newDepth); // eslint-disable-line no-use-before-define
-    });
+  return children.sort(sortByWeight(store)).map(key => {
+    const newDepth = depth + 1;
+    return storeToRemoteNested(store[key], store, collectedVariablesStore, newDepth); // eslint-disable-line no-use-before-define
+  });
 }
 
 function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth = 1) {
@@ -194,7 +196,7 @@ function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth =
 }
 
 export function storeToRemote(store, questionnaireId, collectedVariablesStore) {
-  return store[questionnaireId].children.map(key => {
+  return store[questionnaireId].children.sort(sortByWeight(store)).map(key => {
     return storeToRemoteNested(store[key], store, collectedVariablesStore);
   });
 }
