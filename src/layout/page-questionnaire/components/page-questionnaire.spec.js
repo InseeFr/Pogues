@@ -7,7 +7,7 @@ import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
-describe('<PageQuestionnaire />', () => {
+describe.skip('<PageQuestionnaire />', () => {
   const spyLoad = jest.fn();
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
