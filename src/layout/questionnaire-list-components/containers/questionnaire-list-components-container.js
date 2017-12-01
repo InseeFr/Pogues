@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import QuestionnaireListComponents from '../components/questionnaire-list-components';
 
 import { dragComponent, removeComponent, duplicateComponent } from 'actions/component';
-import { setSelectedComponentId, setEditingComponentId, visualizeActiveQuestionnaire } from 'actions/app-state';
+import {
+  setSelectedComponentId,
+  setEditingComponentId,
+  visualizeActiveQuestionnaire,
+  handleRemovePageBreak,
+} from 'actions/app-state';
 import { removeQuestionnaire } from 'actions/questionnaire';
 
 // Prop types and default props
@@ -31,6 +36,7 @@ const mapDispatchToProps = {
   removeQuestionnaire,
   visualizeActiveQuestionnaire,
   dragComponent,
+  handleRemovePageBreak,
 };
 
 const QuestionnaireListComponentsContainer = connect(mapStateToProps, mapDispatchToProps)(QuestionnaireListComponents);

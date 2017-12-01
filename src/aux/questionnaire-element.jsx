@@ -162,7 +162,7 @@ class QuestionnaireElement extends Component {
                       />
                       <button
                         className="btn-yellow"
-                        disabled={weight === 0 && type === 'SEQUENCE'}
+                        disabled={weight === 0 && type === SEQUENCE}
                         onClick={onClickDelete}
                       >
                         {Dictionary.remove}

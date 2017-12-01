@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import GenericInput from '../components/generic-input';
 
-import { saveActiveQuestionnaire, visualizeActiveQuestionnaire } from 'actions/app-state';
+import { saveActiveQuestionnaire, visualizeActiveQuestionnaire, handleNewPageBreak } from 'actions/app-state';
 import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
@@ -40,12 +40,14 @@ const mapStateToProps = state => {
     placeholders: getPlaceholders(componentsStore, selectedComponentId, questionnaire.id),
     isQuestionnaireModified: state.appState.isQuestionnaireModified,
     isQuestionnaireValid: isQuestionnaireValid(errorsByCode),
+    componentIdForPageBreak: state.appState.componentIdForPageBreak,
   };
 };
 
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
+  handleNewPageBreak,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenericInput);

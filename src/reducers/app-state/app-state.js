@@ -12,6 +12,8 @@ import {
   UPDATE_ACTIVE_QUESTIONNAIRE,
   LOAD_STATISTICAL_CONTEXT_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
+  CREATE_PAGE_BREAK,
+  REMOVE_PAGE_BREAK,
 } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -23,6 +25,9 @@ import {
   MOVE_COMPONENT,
 } from 'actions/component';
 import { LOAD_USER_SUCCESS } from 'actions/user';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 const actionHandlers = {};
 
@@ -40,6 +45,7 @@ const defaultState = {
   editingComponentId: '',
   errorsByQuestionTab: {},
   isQuestionnaireModified: false,
+  componentIdForPageBreak: '',
 };
 
 export function loadUserSuccess(state, user) {
@@ -69,9 +75,38 @@ export function updateActiveQuestionnaire(state, updatedQuestionnaire) {
   };
 }
 
+export function getComponentIdForPageBreak(id, componentsStore, state) {
+  const defaultReturn = {
+    ...state,
+  };
+
+  if (id && componentsStore[id]) {
+    return {
+      ...state,
+      componentIdForPageBreak: componentsStore[id].pageBreak ? '' : id,
+    };
+  }
+
+  const questionnaire = Object.keys(componentsStore).find(key => componentsStore[key].type === QUESTIONNAIRE);
+
+  if (
+    !questionnaire ||
+    !componentsStore[questionnaire].children ||
+    componentsStore[questionnaire].children.length === 0
+  )
+    return defaultReturn;
+
+  const lastChildId = componentsStore[questionnaire].children
+    .map(key => componentsStore[key])
+    .sort((c1, c2) => c1.weight < c2.weight)[0].id;
+
+  return lastChildId ? getComponentIdForPageBreak(lastChildId, componentsStore) : defaultReturn;
+}
+
 export function setSelectedComponentId(state, id) {
   return {
     ...state,
+    ...getComponentIdForPageBreak(id, state.activeComponentsById, state),
     selectedComponentId: id,
   };
 }
@@ -122,6 +157,9 @@ actionHandlers[REMOVE_COMPONENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT_PARENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
 actionHandlers[MOVE_COMPONENT] = setQuestionModified;
+
+actionHandlers[CREATE_PAGE_BREAK] = setQuestionModified;
+actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {

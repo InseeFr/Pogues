@@ -56,7 +56,7 @@ export function remoteToVariableResponse(remote) {
   return remoteToVariableResponseNested(remote.Child);
 }
 
-function remoteToState(remote, codesListsStore) {
+function remoteToState(remote, componentGroup, codesListsStore) {
   const {
     id,
     questionType,
@@ -102,15 +102,25 @@ function remoteToState(remote, codesListsStore) {
     state.collectedVariables = CollectedVariable.remoteToComponentState(responses);
   }
 
+  const cGroupIndex = componentGroup.findIndex(
+    group => group.MemberReference && group.MemberReference.indexOf(id) >= 0
+  );
+  const cGroup = componentGroup[cGroupIndex];
+
+  state.pageBreak =
+    cGroup &&
+    cGroupIndex < componentGroup.length - 1 &&
+    cGroup.MemberReference.indexOf(id) === cGroup.MemberReference.length - 1;
+
   return state;
 }
 
-function remoteToStoreNested(children, parent, codesListsStore = {}, acc = {}) {
+function remoteToStoreNested(children, parent, componentGroup, codesListsStore = {}, acc = {}) {
   let weight = 0;
   children.forEach(child => {
-    acc[child.id] = remoteToState({ ...child, weight, parent }, codesListsStore);
+    acc[child.id] = remoteToState({ ...child, weight, parent }, componentGroup, codesListsStore);
     weight += 1;
-    if (child.Child) remoteToStoreNested(child.Child, child.id, codesListsStore, acc);
+    if (child.Child) remoteToStoreNested(child.Child, child.id, componentGroup, codesListsStore, acc);
     return acc;
   });
 
@@ -119,8 +129,8 @@ function remoteToStoreNested(children, parent, codesListsStore = {}, acc = {}) {
 
 export function remoteToStore(remote, questionnaireId, codesListsStore) {
   return {
-    ...remoteToStoreNested(remote.Child, questionnaireId, codesListsStore),
-    [questionnaireId]: remoteToState(remote),
+    ...remoteToStoreNested(remote.Child, questionnaireId, remote.ComponentGroup, codesListsStore),
+    [questionnaireId]: remoteToState(remote, []),
   };
 }
 

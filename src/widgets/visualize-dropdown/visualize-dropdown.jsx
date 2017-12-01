@@ -19,7 +19,12 @@ const defaultProps = {
   componentId: '',
 };
 
-// Component
+/**
+ * Component used in the actions toolbar and on each
+ * component of the questionnaire. Will display a button
+ * with a dropdown behavior with links to different
+ * visualizations of the PDF : WEB, PDF or ODT
+ */
 
 class VisualizeDropdown extends Component {
   static propTypes = propTypes;
@@ -32,11 +37,20 @@ class VisualizeDropdown extends Component {
     };
   }
 
+  /**
+   * Will open the questionnaire in a specific format, thanks to the type
+   * parameter. Will also close the dropdown menu
+   */
+
   visualize(event, type) {
     event.preventDefault();
     this.props.visualizeActiveQuestionnaire(type, this.props.componentId);
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   }
+
+  /**
+   * Will toggle the dropdown menu
+   */
 
   openDropDown(e) {
     e.preventDefault();

@@ -19,8 +19,10 @@ const propTypes = {
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
   errorsByComponent: PropTypes.object,
+
   selectedComponentId: PropTypes.string.isRequired,
   editingComponentId: PropTypes.string.isRequired,
+
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
@@ -29,6 +31,7 @@ const propTypes = {
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   dragComponent: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
+  handleRemovePageBreak: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -55,6 +58,10 @@ function renderComponentsByParent(parent, props, actions) {
         integrityErrorsByType={props.errorsByComponent[key]}
         parentType={props.componentsStore[component.parent].type}
         actions={actions}
+        handleRemovePageBreak={event => {
+          event.preventDefault();
+          props.handleRemovePageBreak(key);
+        }}
       >
         {subTree}
       </QuestionnaireComponent>
@@ -93,6 +100,16 @@ class QuestionnaireListComponents extends Component {
   componentWillMount() {
     this.props.setSelectedComponentId('');
   }
+
+  // componentWillReceiveProps(newProps, oldProps) {
+  //   const oldQuestionnaire =
+  //     Object.keys(oldProps.components || {}).find(id => oldProps.components[id].type === QUESTIONNAIRE) || {};
+  //   const newQuestionnaire =
+  //     Object.keys(newProps.components || {}).find(id => newProps.components[id].type === QUESTIONNAIRE) || {};
+  //   if (oldQuestionnaire !== newQuestionnaire) {
+  //     this.props.setSelectedComponentId(newProps.selectedComponentId);
+  //   }
+  // }
 
   handleOpenQuestionnaireDetail() {
     this.setState({ showQuestionnaireModal: true });
@@ -141,7 +158,6 @@ class QuestionnaireListComponents extends Component {
           <span className="fa fa-spinner fa-pulse fa-2x" />
         ) : (
           <div>
-
             {/* Questionnaire edit */}
 
             <div id="questionnaire-head">

@@ -40,6 +40,7 @@ const propTypes = {
   actions: PropTypes.shape({
     handleOpenComponentDetail: PropTypes.func.isRequired,
   }).isRequired,
+  handleRemovePageBreak: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -115,6 +116,7 @@ class QuestionnaireComponent extends Component {
       children,
       parentType,
       visualizeActiveQuestionnaire,
+      handleRemovePageBreak,
     } = this.props;
     const dragndropLevel = getDragnDropLevel(this.props, draggedItem);
     const style = {
@@ -200,9 +202,23 @@ class QuestionnaireComponent extends Component {
                 )}
               </div>
             </div>
+            {component.pageBreak &&
+              component.type !== QUESTION && (
+                <div className="separator">
+                  <hr />
+                  <button onClick={handleRemovePageBreak}>x</button>
+                </div>
+              )}
             {dropZone}
             {children}
           </div>
+          {component.pageBreak &&
+            component.type === QUESTION && (
+              <div className="separator">
+                <hr />
+                <button onClick={handleRemovePageBreak}>x</button>
+              </div>
+            )}
         </div>
       )
     );
