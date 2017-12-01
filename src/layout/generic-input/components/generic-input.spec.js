@@ -1,12 +1,12 @@
-jest.dontMock('./generic-input');
-
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import GenericInput from './generic-input';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { GENERIC_INPUT } from 'constants/dom-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { COMPONENT_ID } = GENERIC_INPUT;
 
 describe('<GenericInput />', () => {
   const spy = jest.fn();
@@ -30,7 +30,7 @@ describe('<GenericInput />', () => {
 
   test('should render without throw an error', () => {
     const wrapper = shallow(<GenericInput {...props} />);
-    expect(wrapper.is('#questionnaire-generic-input')).toBe(true);
+    expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
   });
 
   // @TODO: Fix this test

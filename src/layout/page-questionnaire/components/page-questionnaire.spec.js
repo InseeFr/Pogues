@@ -1,10 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-// Not connected to store
-import { PageQuestionnaireContainer } from './page-questionnaire-container';
+import PageQuestionnaire from './page-questionnaire';
 
-describe('<PageQuestionnaireContainer />', () => {
+import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
+
+const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
+
+describe('<PageQuestionnaire />', () => {
   const spyLoad = jest.fn();
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
@@ -20,10 +23,10 @@ describe('<PageQuestionnaireContainer />', () => {
     store: {},
   };
 
-  const wrapper = shallow(<PageQuestionnaireContainer {...props} />);
+  const wrapper = shallow(<PageQuestionnaire {...props} />);
 
   test('should render without throwing an error', () => {
-    expect(wrapper.is('#page-questionnaire')).toBe(true);
+    expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
   });
 
   test('should call loadQuestionnaireIfNeeded in render', () => {
