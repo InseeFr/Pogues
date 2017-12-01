@@ -4,8 +4,8 @@ import * as CalculatedVariable from './calculated-variable';
 import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
 
-import { getOrderedComponents } from 'utils/model/redirections-utils';
 import { uuid } from 'utils/utils';
+import { getOrderedComponents } from 'utils/model/redirections-utils';
 import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 import {
   removeOrphansCollectedVariables,
@@ -113,8 +113,7 @@ export function stateToRemote(state, stores) {
     ComponentGroup: generateComponentGroups(componentsStore),
     agency: agency || '',
   };
-
-  const componentsRemote = Component.storeToRemote(componentsStore, id, codesListsStore);
+  const componentsRemote = Component.storeToRemote(componentsStore, id, collectedVariablesWithoutOrphans);
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(calculatedVariablesStore);
   const externalVariablesRemote = ExternalVariable.storeToRemote(externalVariablesStore);

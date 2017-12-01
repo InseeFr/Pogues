@@ -1,5 +1,5 @@
 import { isSubSequence, isSequence, isQuestion, toComponents } from 'utils/component/component-utils';
-import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
+import { getClosestComponentIdByType } from 'layout/generic-input';
 import { getDragnDropLevel } from 'utils/component/component-dragndrop-utils';
 import { resetAllWeight, increaseWeightOfAll } from './component-update';
 import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence } from './component-insert';
@@ -98,7 +98,7 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
   let droppedComponent = activesComponents[idDroppedComponent];
   const draggedComponent = activesComponents[idDraggedComponent];
 
-  const dragndropLevel = getDragnDropLevel(droppedComponent, draggedComponent);
+  const dragndropLevel = getDragnDropLevel({ component: droppedComponent }, draggedComponent);
   const moveComponentId = draggedComponent.id;
 
   const { newWeight, newParentComponentId } = getWeightAndParentId(

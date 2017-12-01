@@ -1,4 +1,5 @@
 import { DATATYPE_TYPE_FROM_NAME, UI_BEHAVIOUR } from 'constants/pogues-constants';
+import { uuid } from 'utils/utils';
 
 export function stateToRemote(state) {
   const {
@@ -21,6 +22,7 @@ export function stateToRemote(state) {
   } = state;
 
   const model = {
+    id: uuid(),
     Datatype: {
       typeName,
       type: DATATYPE_TYPE_FROM_NAME[typeName],

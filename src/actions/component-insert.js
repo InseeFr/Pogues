@@ -7,7 +7,7 @@ import {
   toId,
   updateNewComponentParent,
 } from 'utils/component/component-utils';
-import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
+import { getClosestComponentIdByType } from 'layout/generic-input';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
 import { uuid } from 'utils/utils';
 import sortBy from 'lodash.sortby';

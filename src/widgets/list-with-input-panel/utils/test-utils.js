@@ -1,5 +1,6 @@
 export function getFakeFields(items, inputName) {
   return {
+    name: 'FAKE_NAME.FAKE_NAME',
     length: items.length,
     items: items,
     fields: items.map((it, index) => {

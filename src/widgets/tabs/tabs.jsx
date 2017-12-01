@@ -1,81 +1,84 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
+import isEqual from 'lodash.isequal';
 
 import { WIDGET_TABS } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS, INVALID, ITEM } = WIDGET_TABS;
 
-
 // PropTypes and defaultProps
 
 const propTypes = {
-  components: PropTypes.arrayOf(PropTypes.object).isRequired,
+  errorsByTab: PropTypes.object,
+  children: PropTypes.array.isRequired,
+};
+
+const defaultProps = {
+  errorsByTab: {},
 };
 
 // Component
 
 class Tabs extends Component {
   static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
   constructor(props) {
     super(props);
-    this.state = {
-      activeTab: 0,
-    };
-    this.setActive = this.setActive.bind(this);
-  }
-  setActive(tabId) {
-    const newState = {
-      ...this.state,
-      activeTab: tabId,
-    };
-    this.setState(newState);
-  }
-  render() {
-    const components = this.props.components;
-    const tabs = [];
-    const contentTabs = [];
+    const paths = Children.map(this.props.children, child => child.props.path);
 
-    for (let i = 0; i < components.length; i += 1) {
-      const active = this.state.activeTab === i;
+    this.state = {
+      paths,
+      activePanelIndex: 0,
+    };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      !isEqual(this.props.errorsByTab, nextProps.errorsByTab) ||
+      this.state.activePanelIndex !== nextState.activePanelIndex
+    );
+  }
+
+  renderTabs() {
+    return Children.map(this.props.children, (child, index) => {
+      const childProps = child.props;
       const classTab = classSet({
         'nav-link': true,
-        active: active,
+        active: this.state.activePanelIndex === index,
       });
-      const classContentTab = classSet({
-        'nav-content': true,
-        active: active,
-      });
-      const numErrors =
-        components[i].numErrors && components[i].numErrors > 0 ? (
-          <span className={INVALID}>
-            <div className="alert-triangle" />
-            {components[i].numErrors}
-          </span>
-        ) : (
-          ''
-        );
+      const numErrors = this.props.errorsByTab[childProps.path] && this.props.errorsByTab[childProps.path].length;
 
-      tabs.push(
-        <li key={`tab-${components[i].id}`} className={ITEM}>
-          <a className={classTab} onClick={() => this.setActive(i)}>
-            {components[i].label}
+      return (
+        <li key={`tab-${childProps.path}`} className={ITEM}>
+          <a
+            className={classTab}
+            onClick={event => {
+              event.preventDefault();
+              this.setState({
+                activePanelIndex: index,
+              });
+            }}
+          >
+            {childProps.label}
           </a>
-          {numErrors}
+          {numErrors > 0 && (
+            <span className={INVALID}>
+              <div className="alert-triangle" />
+              {numErrors}
+            </span>
+          )}
         </li>
       );
-      contentTabs.push(
-        <div key={`panel-${components[i].id}`} className={classContentTab}>
-          {components[i].content}
-        </div>
-      );
-    }
+    });
+  }
 
+  render() {
     return (
       <div className={COMPONENT_CLASS}>
-        <ul className="nav nav-tabs">{tabs}</ul>
-        {contentTabs}
+        <ul className="nav nav-tabs">{this.renderTabs()}</ul>
+        {this.props.children[this.state.activePanelIndex]}
       </div>
     );
   }

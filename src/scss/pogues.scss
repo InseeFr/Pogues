@@ -17,10 +17,11 @@
 //Elements
 @import 'inc/_user-connection';
 @import 'inc/_questionnaire-list';
-@import 'inc/_declarations';
-@import 'inc/component-edition';
-@import 'inc/arbo-simplifield';
-@import 'inc/confirm-dialog';
+@import 'inc/_arbo-simplifield';
+@import 'inc/_confirm-dialog';
+@import 'inc/_questionnaire-nav';
+@import 'inc/_generic-input';
+@import 'inc/_errors-integrity';
 
 //Widgets
 @import 'inc/widgets/_statistical-context-criteria';
@@ -31,6 +32,9 @@
 @import 'inc/widgets/_search-codes-lists';
 @import 'inc/widgets/_tabs';
 @import 'inc/widgets/_questionnaire-new-edit';
+@import 'inc/widgets/_component-new-edit';
+@import 'inc/widgets/_errors-panel';
+@import 'inc/widgets/_list-with-input-panel';
 
 //Controls
 @import 'inc/controls/_common';
@@ -46,3 +50,4 @@
 @import 'inc/controls/_ctrl-select';
 @import 'inc/controls/_ctrl-tree-select';
 @import 'inc/controls/_ctrl-list-checkboxes';
+@import 'inc/controls/_ctrl-checkbox';

@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SubmissionError } from 'redux-form';
 
 import { QuestionnaireNewEdit, Questionnaire } from 'widgets/questionnaire-new-edit';
-import { getQuestionnaireValidationErrors, getErrorsObject } from 'utils/validation/validation-utils';
-import { Component as ComponentFactory } from 'layout/page-questionnaire/components/component/model/component';
+import { validateQuestionnaireForm } from 'utils/validation/validate';
+import { Component as ComponentFactory } from 'widgets/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -16,6 +15,7 @@ export const propTypes = {
   onSuccess: PropTypes.func.isRequired,
   updateActiveQuestionnaire: PropTypes.func.isRequired,
   updateComponent: PropTypes.func.isRequired,
+  setErrors: PropTypes.func.isRequired,
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
 };
@@ -26,17 +26,21 @@ const defaultProps = {
 
 // Utils
 
-function validateAndSubmit(updateQuestionnaire, updateComponent, componentsStore, transformer, onSuccess) {
+function validateAndSubmit(updateQuestionnaire, updateComponent, validate, componentsStore, transformer, onSuccess) {
   return function(values) {
-    const validationErrors = getQuestionnaireValidationErrors(values);
-
-    if (validationErrors.length > 0) throw new SubmissionError(getErrorsObject(validationErrors));
+    validate(values);
 
     const updatedQuestionnaire = transformer.formToState(values);
     const updatedComponentsStore = ComponentFactory(
-      { id: values.id, type: QUESTIONNAIRE },
+      {
+        id: updatedQuestionnaire.id,
+        name: updatedQuestionnaire.name,
+        label: updatedQuestionnaire.label,
+        children: componentsStore[updatedQuestionnaire.id].children,
+        type: QUESTIONNAIRE,
+      },
       { componentsStore }
-    ).formToStore(values, values.id);
+    ).getStore();
 
     // Updating the questionnaire store.
     updateQuestionnaire(updatedQuestionnaire);
@@ -53,11 +57,14 @@ function validateAndSubmit(updateQuestionnaire, updateComponent, componentsStore
 function QuestionnaireNew({
   updateActiveQuestionnaire,
   updateComponent,
+  setErrors,
   questionnaire,
   componentsStore,
   onSuccess,
   onCancel,
 }) {
+  const validate = setErrorsAction => values => validateQuestionnaireForm(values, setErrorsAction);
+
   // Initial values
 
   const questionnaireTransformer = Questionnaire(questionnaire);
@@ -68,10 +75,11 @@ function QuestionnaireNew({
   return (
     <QuestionnaireNewEdit
       onCancel={onCancel}
-      initialValue={initialValues}
+      initialValues={initialValues}
       onSubmit={validateAndSubmit(
         updateActiveQuestionnaire,
         updateComponent,
+        validate(setErrors),
         componentsStore,
         questionnaireTransformer,
         onSuccess

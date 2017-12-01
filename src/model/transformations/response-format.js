@@ -26,7 +26,7 @@ export function remoteToState(type, responses, dimensions, codesListsStore) {
   };
 }
 
-export function stateToRemote(state, collectedVariables, codesListsStore) {
+export function stateToRemote(state, collectedVariables, collectedVariablesStore) {
   const { type, [type]: responseFormatState } = state;
   let dataTypeRemote;
   let remote = {};
@@ -38,20 +38,30 @@ export function stateToRemote(state, collectedVariables, codesListsStore) {
     dataTypeRemote = ResponseFormatSingle.stateToRemote(responseFormatState, collectedVariables);
     remote.Response = dataTypeRemote.Response;
   } else if (type === MULTIPLE_CHOICE) {
-    dataTypeRemote = ResponseFormatMultiple.stateToRemote(responseFormatState, collectedVariables, codesListsStore);
+    dataTypeRemote = ResponseFormatMultiple.stateToRemote(
+      responseFormatState,
+      collectedVariables,
+      collectedVariablesStore
+    );
     remote = {
       ResponseStructure: {
         Dimension: dataTypeRemote.Dimension,
       },
       Response: dataTypeRemote.Response,
+      Mapping: dataTypeRemote.Mapping,
     };
   } else {
-    dataTypeRemote = ResponseFormatTable.stateToRemote(responseFormatState, collectedVariables, codesListsStore);
+    dataTypeRemote = ResponseFormatTable.stateToRemote(
+      responseFormatState,
+      collectedVariables,
+      collectedVariablesStore
+    );
     remote = {
       ResponseStructure: {
         Dimension: dataTypeRemote.Dimension,
       },
       Response: dataTypeRemote.Response,
+      Mapping: dataTypeRemote.Mapping,
     };
   }
   return remote;

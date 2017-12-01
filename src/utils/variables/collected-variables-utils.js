@@ -10,12 +10,16 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 
-export function getCollecteVariable(name, label) {
-  return {
+export function getCollecteVariable(name, label, coordinates) {
+  let collectedVariable = {
     id: uuid(),
     name,
     label,
   };
+
+  if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
+
+  return collectedVariable;
 }
 
 export function getCollectedVariablesMultiple(questionName, form, codesListStore) {
@@ -27,7 +31,9 @@ export function getCollectedVariablesMultiple(questionName, form, codesListStore
     listCodes = Object.keys(codesStore).map(key => codesStore[key]);
   }
 
-  return listCodes.map((c, index) => getCollecteVariable(`${questionName}${index + 1}`, `${c.value} - ${c.label}`));
+  return listCodes.map((c, index) =>
+    getCollecteVariable(`${questionName}${index + 1}`, `${c.value} - ${c.label}`, { x: 1, y: index + 1 })
+  );
 }
 
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
@@ -76,7 +82,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
           collectedVariables.push(
             getCollecteVariable(
               `${questionName}${i + 1}${j + 1}`,
-              `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`
+              `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
+              { x: i + 1, y: j + 1 }
             )
           );
         }
@@ -88,7 +95,10 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
           measure = listMeasuresState.measures[j];
           collectedVariables.push(
-            getCollecteVariable(`${questionName}${i + 1}${j + 1}`, `${codePrimary.label}-${measure.label}`)
+            getCollecteVariable(`${questionName}${i + 1}${j + 1}`, `${codePrimary.label}-${measure.label}`, {
+              x: i + 1,
+              y: j + 1,
+            })
           );
         }
       }
@@ -102,7 +112,10 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
         measure = listMeasuresState.measures[j];
         collectedVariables.push(
-          getCollecteVariable(`${questionName}${i + 1}${j + 1}`, `Line${i + 1}-${measure.label}`)
+          getCollecteVariable(`${questionName}${i + 1}${j + 1}`, `Line${i + 1}-${measure.label}`, {
+            x: i + 1,
+            y: j + 1,
+          })
         );
       }
     }
