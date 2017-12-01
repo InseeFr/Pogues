@@ -3,6 +3,8 @@ jest.dontMock('./questionnaire-list');
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { noop } from 'utils/test/test-utils';
+
 import QuestionnaireList from './questionnaire-list';
 
 describe('<QuestionnaireList />', () => {
@@ -36,11 +38,13 @@ describe('<QuestionnaireList />', () => {
   const propsWithQuestionnaires = {
     questionnaires: mockQuestionnaires,
   };
-  const wrapperWithoutQuestionnaires = shallow(<QuestionnaireList />);
-  const wrapperWithQuestionnaires = shallow(<QuestionnaireList {...propsWithQuestionnaires} />);
+  const wrapperWithoutQuestionnaires = shallow(<QuestionnaireList loadQuestionnaireList={noop} />);
+  const wrapperWithQuestionnaires = shallow(
+    <QuestionnaireList loadQuestionnaireList={noop} {...propsWithQuestionnaires} />
+  );
 
   test('should render without throwing an error', () => {
-    expect(wrapperWithoutQuestionnaires.is('#questionnaire-list')).toBe(true);
+    expect(wrapperWithoutQuestionnaires.is('.home-questionnaires')).toBe(true);
   });
 
   test('should render as many <QuestionnaireListItem /> as questionnaires passed', () => {
