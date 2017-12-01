@@ -71,8 +71,8 @@
             }
           }
 
-          &.widget-list-with-input-panel__item-invalid {
-            color: red;
+          &.widget-list-with-input-panel__item-invalid button {
+            color: lighten(red, 20%);;
           }
         }
 

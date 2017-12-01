@@ -26,10 +26,10 @@ const propTypes = {
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  dragComponent: PropTypes.func.isRequired,
   duplicateComponent: PropTypes.func.isRequired,
   removeQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
-  dragComponent: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
   handleRemovePageBreak: PropTypes.func.isRequired,
 };
@@ -54,6 +54,7 @@ function renderComponentsByParent(parent, props, actions) {
         setSelectedComponentId={props.setSelectedComponentId}
         setEditingComponentId={props.setEditingComponentId}
         duplicateComponent={props.duplicateComponent}
+        moveComponent={props.dragComponent}
         removeComponent={props.removeComponent}
         integrityErrorsByType={props.errorsByComponent[key]}
         parentType={props.componentsStore[component.parent].type}

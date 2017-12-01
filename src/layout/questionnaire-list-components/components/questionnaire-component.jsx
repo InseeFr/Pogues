@@ -25,6 +25,7 @@ const propTypes = {
   component: PropTypes.object.isRequired,
   integrityErrorsByType: PropTypes.object,
   draggedItem: PropTypes.object,
+
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
@@ -32,15 +33,20 @@ const propTypes = {
   setEditingComponentId: PropTypes.func.isRequired,
   duplicateComponent: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  moveComponent: PropTypes.func.isRequired,
+  handleRemovePageBreak: PropTypes.func.isRequired,
+
   children: PropTypes.array,
+
   selected: PropTypes.bool.isRequired,
   isOver: PropTypes.bool.isRequired,
   canDrop: PropTypes.bool,
+
   parentType: PropTypes.string.isRequired,
+
   actions: PropTypes.shape({
     handleOpenComponentDetail: PropTypes.func.isRequired,
   }).isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -122,6 +128,7 @@ class QuestionnaireComponent extends Component {
     const style = {
       marginLeft: `${calculateMargin(this.props, draggedItem, dragndropLevel, parentType)}px`,
     };
+    // console.log(canDrop)
     const dropZone = canDrop && isOver && <DropZone style={style} />;
     const integrityErrors = getIntegrityErrors(integrityErrorsByType);
 

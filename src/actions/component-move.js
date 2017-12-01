@@ -98,7 +98,7 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
   let droppedComponent = activesComponents[idDroppedComponent];
   const draggedComponent = activesComponents[idDraggedComponent];
 
-  const dragndropLevel = getDragnDropLevel(droppedComponent, draggedComponent);
+  const dragndropLevel = getDragnDropLevel({ component: droppedComponent }, draggedComponent);
   const moveComponentId = draggedComponent.id;
 
   const { newWeight, newParentComponentId } = getWeightAndParentId(
