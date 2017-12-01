@@ -11,22 +11,25 @@ const { COMPONENT_ID, INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 // Utils
 
 function renderComponentsErrors(errorsByComponent, componentsStore) {
-  return Object.keys(errorsByComponent).reduce((acc, componentId) => {
-    const integrityErrors = getIntegrityErrors(errorsByComponent[componentId]);
+  // We are testing if the component exists in the active components store
+  return Object.keys(errorsByComponent)
+    .filter(componentId => componentsStore[componentId])
+    .reduce((acc, componentId) => {
+      const integrityErrors = getIntegrityErrors(errorsByComponent[componentId]);
 
-    if (integrityErrors.length > 0) {
-      const componentErrorsOutput = (
-        <li key={componentId}>
-          <span>{componentsStore[componentId].name}</span>
-          <ul>{integrityErrors.map(e => <li key={e}>{e}</li>)}</ul>
-        </li>
-      );
+      if (integrityErrors.length > 0) {
+        const componentErrorsOutput = (
+          <li key={componentId}>
+            <span>{componentsStore[componentId].name}</span>
+            <ul>{integrityErrors.map(e => <li key={e}>{e}</li>)}</ul>
+          </li>
+        );
 
-      return [...acc, componentErrorsOutput];
-    }
+        return [...acc, componentErrorsOutput];
+      }
 
-    return acc;
-  }, []);
+      return acc;
+    }, []);
 }
 
 // Prop types and default props
