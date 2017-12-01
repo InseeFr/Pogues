@@ -9,7 +9,7 @@ describe('componentSource', () => {
   describe('beginDrag', () => {
     test('should return the right object', () => {
       const props = { id: '1', type: 'TYPE' };
-      expect(componentSource.beginDrag(props)).toEqual(props);
+      expect(componentSource.beginDrag({ component: props })).toEqual(props);
     });
   });
 });
@@ -25,14 +25,14 @@ describe('cardTarget', () => {
   };
   describe('canDrop', () => {
     test("should return false if the dragged component has the same id as the dropped component's parent", () => {
-      expect(cardTarget.canDrop({ parent: '1' }, monitor)).toEqual(false);
+      expect(cardTarget.canDrop({ component: { parent: '1' } }, monitor)).toEqual(false);
     });
     test("should return true if the dragged component has the same id as the dropped component's parent", () => {
-      expect(cardTarget.canDrop({ parent: '2' }, monitor)).toEqual(true);
+      expect(cardTarget.canDrop({ component: { parent: '2' } }, monitor)).toEqual(true);
     });
 
     test('should return false if the dragged component is a grand parent of the dropped component', () => {
-      expect(cardTarget.canDrop({ parent: '3' }, monitor)).toEqual(false);
+      expect(cardTarget.canDrop({ component: { parent: '3' } }, monitor)).toEqual(false);
     });
   });
   describe('drop', () => {
@@ -49,9 +49,11 @@ describe('cardTarget', () => {
 
     test(`when the isOver return true, should call moveComponent`, () => {
       const props = {
-        id: '1',
-        type: SEQUENCE,
-        childrenId: [],
+        component: {
+          id: '1',
+          type: SEQUENCE,
+          childrenId: [],
+        },
         moveComponent(idDroppedComponent, idDraggedComponent) {
           expect(idDroppedComponent).toEqual('1');
           expect(idDraggedComponent).toEqual('2');

@@ -6,7 +6,13 @@ import { getDefaultKeyBinding } from 'draft-js';
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions, initialize } from './input-with-suggestions-utils';
 
-import { getEditorValue, contentStateToString, formatURL, toolbarConfig, rootStyle } from 'forms/controls/rich-textarea';
+import {
+  getEditorValue,
+  contentStateToString,
+  formatURL,
+  toolbarConfig,
+  rootStyle,
+} from 'forms/controls/rich-textarea';
 import { getControlId } from 'utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 

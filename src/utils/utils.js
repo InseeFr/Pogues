@@ -55,3 +55,13 @@ export function nameFromLabel(label) {
     .toUpperCase()
     .slice(0, 10);
 }
+
+export function updateNameField(currentValueLabel, currentValueName) {
+  const value = currentValueName;
+
+  if (currentValueName === '') {
+    return nameFromLabel(currentValueLabel);
+  }
+
+  return value;
+}

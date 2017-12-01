@@ -44,7 +44,10 @@ export const CONTROL_TREE_SELECT = {
 
 export const WIDGET_LIST_WITH_INPUT_PANEL = {
   COMPONENT_CLASS: 'widget-list-with-input-panel',
+  WRAPPER_CLASS: 'widget-list-with-input-panel__wrapper',
   LIST_CLASS: 'widget-list-with-input-panel__list',
+  PANEL_CLASS: 'widget-list-with-input-panel__panel',
+  ACTIONS_CLASS: 'widget-list-with-input-panel__actions',
   LIST_EMPTY_CLASS: 'widget-list-with-input-panel__list-empty',
   ITEM_CLASS: 'widget-list-with-input-panel__item',
   ITEM_INVALID_CLASS: 'widget-list-with-input-panel__item-invalid',
@@ -105,7 +108,9 @@ export const WIDGET_VALIDATION_ERRORS = {
 export const WIDGET_TABS = {
   COMPONENT_CLASS: 'widget-tabs',
   INVALID: 'widget-tabs-invalid',
+  ACTIVE: 'widget-tabs-active',
   ITEM: 'widget-tabs-item',
+  CONTENT: 'widget-tabs-content',
 };
 
 export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {
@@ -115,13 +120,33 @@ export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {
   CANCEL: 'widget-questionnaire-new-edit__button-cancel',
 };
 
+export const WIDGET_COMPONENT_NEW_EDIT = {
+  COMPONENT_CLASS: 'widget-component-new-edit',
+  FOOTER: 'widget-component-new-edit__footer',
+  VALIDATE: 'widget-component-new-edit__button-validate',
+  CANCEL: 'widget-component-new-edit__button-cancel',
+};
+
 export const WIDGET_ASSOCIATED_FIELDS = {
   COMPONENT_CLASS: 'widget-associated-fields',
+};
+
+export const WIDGET_ERRORS_PANEL = {
+  COMPONENT_CLASS: 'widget-errors-panel',
+  INNER: 'widget-errors-panel__inner',
+};
+
+export const WIDGET_GOTO_INPUT = {
+  COMPONENT_CLASS: 'widget-goto-input',
 };
 
 export const PAGE_SEARCH_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-search-questionnaire',
   SEARCH_RESULTS_ID: 'page-search-questionnaire__results',
+};
+
+export const PAGE_QUESTIONNAIRE = {
+  COMPONENT_ID: 'page-questionnaire',
 };
 
 export const INPUT_CONDITION_POPOVER = {
@@ -140,4 +165,27 @@ export const ICON_BUTTON = {
   COMPONENT_CLASS: 'icon-button',
   IS_ACTIVE: 'icon-button-active',
   ICON: 'icon-button__icon',
+};
+
+export const QUESTIONNAIRE_NAV = {
+  COMPONENT_CLASS: 'questionnaire-nav',
+};
+
+export const GENERIC_INPUT = {
+  COMPONENT_ID: 'generic-input',
+};
+
+export const QUESTIONNAIRE_COMPONENT = {
+  COMPONENT_CLASS: 'questionnaire-component',
+};
+
+export const ERRORS_INTEGRITY = {
+  COMPONENT_ID: 'errors-integrity',
+  INNER: 'errors-integrity__inner',
+  ALERT: 'errors-integrity__alert',
+  LIST: 'errors-integrity__list',
+};
+
+export const APP = {
+  COMPONENT_ID: 'app',
 };

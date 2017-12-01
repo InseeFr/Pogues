@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateActiveQuestionnaire } from 'actions/app-state';
+import { setErrorsByFormPath } from 'actions/errors';
 import { updateComponent } from 'actions/component';
 import QuestionnaireEdit from '../components/questionnaire-edit';
 
@@ -24,6 +25,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   updateActiveQuestionnaire,
   updateComponent,
+  setErrors: setErrorsByFormPath,
 };
 
 const QuestionnaireEditContainer = connect(mapStateToProps, mapDispatchToProps)(QuestionnaireEdit);

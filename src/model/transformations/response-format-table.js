@@ -1,8 +1,11 @@
+import uniq from 'lodash.uniq';
+
 import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
 import * as CodeList from './codes-list';
 import * as Dimension from './dimension';
 import * as Response from './response';
+import * as Responses from './responses';
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
@@ -170,32 +173,29 @@ export function remoteToState(remote, codesListsStore) {
 
 // STATE TO REMOTE
 
-function stateToRemoteResponse(state) {
-  const { type: measureType, [measureType]: measureTypeState, collectedVariable } = state;
-  let model = {};
+function stateToResponseState(state) {
+  const { type: measureType, [measureType]: measureTypeState } = state;
+  let responseState = {};
 
   if (measureType === SIMPLE) {
     const { mandatory, type: typeName, [typeName]: simpleState } = measureTypeState;
-    model = Response.stateToRemote({ mandatory, typeName, ...simpleState, collectedVariable });
+    responseState = { mandatory, typeName, ...simpleState };
   } else {
     const { mandatory, visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId } } = measureTypeState;
-    model = Response.stateToRemote({
+    responseState = {
       mandatory,
       codesListId,
       typeName: TEXT,
       maxLength: 1,
       pattern: '',
       visHint,
-      collectedVariable,
-    });
+    };
   }
 
-  return model;
+  return responseState;
 }
 
-export function stateToRemote(state, collectedVariables, codesListsStore) {
-  let i;
-  let j;
+export function stateToRemote(state, collectedVariables, collectedVariablesStore) {
   const {
     [PRIMARY]: primaryState,
     [SECONDARY]: secondaryState,
@@ -204,8 +204,7 @@ export function stateToRemote(state, collectedVariables, codesListsStore) {
   } = state;
   const { type, [type]: { type: typePrimaryCodesList, ...primaryTypeState }, ...totalLabelPrimaryState } = primaryState;
   const dimensionsModel = [];
-  const responsesModel = [];
-  const responsesOffset = getResponsesOffset(primaryState, secondaryState, codesListsStore);
+  let responsesState = [];
 
   // Primary and secondary dimension
   dimensionsModel.push(Dimension.stateToRemote({ type: PRIMARY, ...primaryTypeState, ...totalLabelPrimaryState }));
@@ -218,33 +217,34 @@ export function stateToRemote(state, collectedVariables, codesListsStore) {
   // Measures dimensions
   if (measureState) {
     dimensionsModel.push(Dimension.stateToRemote({ type: MEASURE, label: measureState.label }));
-
-    for (i = 0; i < responsesOffset; i += 1) {
-      responsesModel.push(
-        stateToRemoteResponse({
-          ...measureState,
-          collectedVariable: collectedVariables[i] || '',
-        })
-      );
-    }
+    responsesState = [stateToResponseState(measureState)];
   } else {
-    for (i = 0; i < listMeasuresState.length; i += 1) {
+    for (let i = 0; i < listMeasuresState.length; i += 1) {
       dimensionsModel.push(Dimension.stateToRemote({ type: MEASURE, label: listMeasuresState[i].label }));
+      responsesState.push(stateToResponseState(listMeasuresState[i]));
     }
-    for (i = 0; i < responsesOffset; i += 1) {
-      for (j = 0; j < listMeasuresState.length; j += 1) {
-        responsesModel.push(
-          stateToRemoteResponse({
-            ...listMeasuresState[j],
-            collectedVariable: collectedVariables[i * listMeasuresState.length + j] || '',
-          })
-        );
-      }
-    }
+  }
+
+  // Responses
+
+  const numRows = uniq(collectedVariables.map(cv => collectedVariablesStore[cv].x)).length;
+  let responsesModel = [];
+  let mappingsModel = [];
+
+  for (let i = 0; i < numRows; i += 1) {
+    const collectedVariablesByRow = collectedVariables.filter(cv => collectedVariablesStore[cv].x === `${i + 1}`);
+    const responsesModelByRow = Responses.stateToModel(
+      responsesState[i],
+      collectedVariablesByRow,
+      collectedVariablesStore
+    );
+    responsesModel = [...responsesModel, ...responsesModelByRow.Response];
+    mappingsModel = [...mappingsModel, ...responsesModelByRow.Mapping];
   }
 
   return {
     Dimension: dimensionsModel,
     Response: responsesModel,
+    Mapping: mappingsModel,
   };
 }

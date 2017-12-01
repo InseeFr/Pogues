@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
+
 import Input from 'forms/controls/input';
+import { markdownVtlToString } from 'forms/controls/rich-textarea';
+import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 import { WIDGET_ASSOCIATED_FIELDS } from 'constants/dom-constants';
+
+const { COMPONENT_CLASS } = WIDGET_ASSOCIATED_FIELDS;
 
 // PropTypes and defaultProps
 
@@ -21,11 +26,14 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired,
+  targetIsRichTextarea: PropTypes.bool.isRequired,
+  focusOnInit: PropTypes.bool,
 };
 
 const defaultProps = {
   currentValueOrigin: '',
   currentValueTarget: '',
+  focusOnInit: false,
 };
 
 // Component
@@ -47,17 +55,43 @@ class AssociatedFields extends Component {
       fieldTarget: { name: nameTarget },
       currentValueOrigin,
       currentValueTarget,
+      targetIsRichTextarea,
     } = this.props;
-    const newValueTarget = action(currentValueOrigin, currentValueTarget);
+
+    let valueOrigin = currentValueOrigin;
+
+    if (targetIsRichTextarea) {
+      valueOrigin = markdownVtlToString(currentValueOrigin);
+    }
+
+    const newValueTarget = action(valueOrigin, currentValueTarget);
     change(formName, nameTarget, newValueTarget);
   }
 
   render() {
-    const { fieldOrigin, fieldTarget } = this.props;
-
+    const { fieldOrigin, fieldTarget, targetIsRichTextarea, focusOnInit } = this.props;
     return (
-      <div className={WIDGET_ASSOCIATED_FIELDS}>
-        <Field onBlur={this.onBlur} name={fieldOrigin.name} type="text" component={Input} label={fieldOrigin.label} />
+      <div className={COMPONENT_CLASS}>
+        {targetIsRichTextarea ? (
+          <div onBlur={this.onBlur}>
+            <Field
+              name={fieldOrigin.name}
+              component={RichTextareaWithVariableAutoCompletion}
+              label={fieldOrigin.label}
+              focusOnInit={focusOnInit}
+            />
+          </div>
+        ) : (
+          <Field
+            onBlur={this.onBlur}
+            name={fieldOrigin.name}
+            type="text"
+            component={Input}
+            label={fieldOrigin.label}
+            focusOnInit={focusOnInit}
+          />
+        )}
+
         <Field name={fieldTarget.name} type="text" component={Input} label={fieldTarget.label} />
       </div>
     );

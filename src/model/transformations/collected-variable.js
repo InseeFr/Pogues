@@ -3,7 +3,7 @@ import { VARIABLES_TYPES } from 'constants/pogues-constants';
 
 const { COLLECTED } = VARIABLES_TYPES;
 
-export function remoteToStore(remote = []) {
+export function remoteToStore(remote = [], responsesByVariable) {
   return remote.reduce((acc, ev) => {
     const { Name: name, Label: label } = ev;
     const id = ev.id || uuid();
@@ -13,6 +13,7 @@ export function remoteToStore(remote = []) {
         id,
         name,
         label,
+        ...responsesByVariable[id],
       },
     };
   }, {});

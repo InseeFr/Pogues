@@ -8,10 +8,10 @@ export const PropType = 'COMPONENT';
 export const componentSource = {
   beginDrag(props) {
     return {
-      id: props.id,
-      type: props.type,
-      parent: props.parent,
-      children: props.childrenId,
+      id: props.component.id,
+      type: props.component.type,
+      parent: props.component.parent,
+      children: props.component.children,
     };
   },
 };
@@ -25,14 +25,16 @@ export const cardTarget = {
    * own children
    */
   canDrop(props, monitor) {
-    return props.parent !== monitor.getItem().id && monitor.getItem().children.indexOf(props.parent) < 0;
+    return (
+      props.component.parent !== monitor.getItem().id && monitor.getItem().children.indexOf(props.component.parent) < 0
+    );
   },
   /**
    * When the component is physically dropped, this method will be executed.
    */
   drop(droppedComponent, monitor) {
     if (monitor.isOver({ shallow: false })) {
-      droppedComponent.moveComponent(droppedComponent.id, monitor.getItem().id);
+      droppedComponent.moveComponent(droppedComponent.component.id, monitor.getItem().id);
     }
   },
 };

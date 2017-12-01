@@ -37,26 +37,6 @@ class VisualizeDropdown extends Component {
 
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
-
-  }
-
-  /**
-   * Will open the questionnaire in a specific format, thanks to the type
-   * parameter. Will also close the dropdown menu
-   */
-  visualize(event, type) {
-    event.preventDefault();
-    this.props.visualizeActiveQuestionnaire(type, this.props.componentId);
-    this.setState({ dropdownOpen: !this.state.dropdownOpen });
-  }
-
-  /**
-   * Will toggle the dropdown menu
-   */
-  openDropDown(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    this.setState({ dropdownOpen: !this.state.dropdownOpen });
   }
 
   componentDidMount() {
@@ -71,11 +51,30 @@ class VisualizeDropdown extends Component {
     this.wrapperRef = node;
   }
 
+  /**
+   * Will toggle the dropdown menu
+   */
+  openDropDown(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  }
+
+  /**
+   * Will open the questionnaire in a specific format, thanks to the type
+   * parameter. Will also close the dropdown menu
+   */
+  visualize(event, type) {
+    event.preventDefault();
+    this.props.visualizeActiveQuestionnaire(type, this.props.componentId);
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  }
+
   handleClickOutside(event) {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({
-        dropdownOpen: false
-      })
+        dropdownOpen: false,
+      });
     }
   }
 

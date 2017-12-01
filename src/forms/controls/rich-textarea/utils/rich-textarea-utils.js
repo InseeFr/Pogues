@@ -6,7 +6,7 @@ import stateFromMarkdownVtl from '../lib/state-from-markdown-vtl';
 import stateToMarkdownVtl from '../lib/state-to-markdown-vtl';
 
 export function removeVtlFromMarkdow(markdownVtl) {
-  return markdownVtl.replace(/##{"label": "(.+?)".+#end/g, '$1');
+  return markdownVtl.replace(/##{"label":\s*"(.+?)".+#end/g, '$1');
 }
 
 export function createFromMarkdownVtl(markdownVtl, format, decorator) {
@@ -31,7 +31,7 @@ export function markdownVtlToHtml(markdownVtl) {
 export function markdownVtlToString(markdownVtl) {
   const markdown = removeVtlFromMarkdow(markdownVtl);
   const raw = createFromMarkdownVtl(markdown, 'markdown', decorators).toString('raw');
-  return JSON.parse(raw).blocks[0].text;
+  return JSON.parse(raw).blocks[0].text.replace(/^\n+|\n+$/, '');
 }
 
 export function formatURL(url) {

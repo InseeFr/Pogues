@@ -6,6 +6,7 @@ export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
 export const SET_ACTIVE_CODE_LISTS = 'SET_ACTIVE_CODE_LISTS';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
+export const SET_EDITING_COMPONENT = 'SET_EDITING_COMPONENT';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
 export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
@@ -22,6 +23,30 @@ export const LOAD_STATISTICAL_CONTEXT_FAILURE = 'LOAD_STATISTICAL_CONTEXT_FAILUR
 
 export const CREATE_PAGE_BREAK = 'CREATE_PAGE_BREAK';
 export const REMOVE_PAGE_BREAK = 'REMOVE_PAGE_BREAK';
+
+/**
+ * Add a pagebreak to a component
+ *
+ * @param {*} id The component
+ */
+export const handleNewPageBreak = id => ({
+  type: CREATE_PAGE_BREAK,
+  payload: {
+    id,
+  },
+});
+
+/**
+ * Remove a pagebreak to a component
+ *
+ * @param {*} id The component
+ */
+export const handleRemovePageBreak = id => ({
+  type: REMOVE_PAGE_BREAK,
+  payload: {
+    id,
+  },
+});
 
 /**
  * Set active questionnaire
@@ -115,6 +140,19 @@ export const setSelectedComponentId = id => ({
 });
 
 /**
+ * Set editing component id
+ *
+ * It updates the store "appState.editingComponentId"
+ *
+ * @param  {string} id  The component id
+ * @return {object}     SET_EDITING_COMPONENT action
+ */
+export const setEditingComponentId = id => ({
+  type: SET_EDITING_COMPONENT,
+  payload: id,
+});
+
+/**
  * Update active questionnaire
  *
  * It updates the store "appState.activeQuestionnaire" with the data passed.
@@ -183,30 +221,6 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
     err,
   },
 });
-
-/**
- * Add a pagebreak to a component
- * 
- * @param {*} id The component
- */
-export const handleNewPageBreak = id => ({
-  type: CREATE_PAGE_BREAK,
-  payload: {
-    id
-  }
-})
-
-/**
- * Remove a pagebreak to a component
- * 
- * @param {*} id The component
- */
-export const handleRemovePageBreak = id => ({
-  type: REMOVE_PAGE_BREAK,
-  payload: {
-    id
-  }
-})
 
 function getQuestionnaireModel(state, customComponentsStore) {
   const stores = {
