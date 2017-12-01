@@ -8,7 +8,7 @@ import { GENERIC_INPUT } from 'constants/dom-constants';
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
 
-describe.skip('<GenericInput />', () => {
+describe('<GenericInput />', () => {
   const spy = jest.fn();
   const props = {
     placeholders: {},
@@ -28,7 +28,7 @@ describe.skip('<GenericInput />', () => {
   props.placeholders[SEQUENCE] = emptyPlaceholder;
   props.placeholders[SUBSEQUENCE] = emptyPlaceholder;
 
-  test('should render without throw an error', () => {
+  test.skip('should render without throw an error', () => {
     const wrapper = shallow(<GenericInput {...props} />);
     expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
   });
