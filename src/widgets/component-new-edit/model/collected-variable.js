@@ -16,13 +16,15 @@ export const defaultForm = {
 };
 
 export function formToState(form) {
-  const { name, label } = form;
+  const { name, label, x, y } = form;
   const id = form.id || uuid();
 
   return {
     id,
     name,
     label,
+    x,
+    y,
   };
 }
 
