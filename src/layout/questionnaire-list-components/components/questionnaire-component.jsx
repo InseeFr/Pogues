@@ -204,7 +204,7 @@ class QuestionnaireComponent extends Component {
                 </div>
                 {integrityErrors.length > 0 && (
                   <div className="questionnaire-element-errors">
-                    <ul>{integrityErrors.map(e => <li key={e}>{e}</li>)}</ul>
+                    <ul>{integrityErrors.map((e, index) => <li key={index}>{e}</li>)}</ul>
                   </div>
                 )}
               </div>

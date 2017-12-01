@@ -21,7 +21,7 @@ function renderComponentsErrors(errorsByComponent, componentsStore) {
         const componentErrorsOutput = (
           <li key={componentId}>
             <span>{componentsStore[componentId].name}</span>
-            <ul>{integrityErrors.map(e => <li key={e}>{e}</li>)}</ul>
+            <ul>{integrityErrors.map((e, index) => <li key={index}>{e}</li>)}</ul>
           </li>
         );
 
