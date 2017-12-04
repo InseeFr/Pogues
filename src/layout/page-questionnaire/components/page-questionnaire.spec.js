@@ -1,26 +1,36 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+// Not connected to store
 import PageQuestionnaire from './page-questionnaire';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
+import { noop } from 'utils/test/test-utils';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
-describe.skip('<PageQuestionnaire />', () => {
+describe('<PageQuestionnaire />', () => {
   const spyLoad = jest.fn();
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
   const spySetActiveCodeLists = jest.fn();
   const spySetActiveVariables = jest.fn();
   const props = {
+    id: 'FAKE_ID',
     params: { id: 1 },
     loadQuestionnaireIfNeeded: spyLoad,
     setActiveQuestionnaire: spySetActiveQuestionnaire,
     setActiveComponents: spySetActiveComponents,
     setActiveCodeLists: spySetActiveCodeLists,
     setActiveVariables: spySetActiveVariables,
+    loadStatisticalContext: noop,
+    loadCampaignsIfNeeded: noop,
+    router: { push: noop },
     store: {},
+    questionnaire: {
+      id: 'FAKE_QUESTIONNAIRE_ID',
+      campaigns: ['FAKE_CAMPAIGN_ID'],
+    },
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);

@@ -14,13 +14,16 @@ function Header() {
             <img alt="{Dictionary.homepage}" src={logo} />
           </dipv>
           <h2>
-            <Link className="header-homepage" to="/">Pogues</Link>
+            <Link className="header-homepage" to="/">
+              Pogues
+            </Link>
           </h2>
           <h6>{Dictionary.headerSubtitle}</h6>
         </div>
         <div className="header-help">
           <Link to="/help">
-            <span className="glyphicon glyphicon-question-sign" /><br />
+            <span className="glyphicon glyphicon-question-sign" />
+            <br />
             {Dictionary.HELP}
           </Link>
         </div>

@@ -31,7 +31,7 @@ const propTypes = {
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
-  duplicateComponent: PropTypes.func.isRequired,
+  duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
   handleRemovePageBreak: PropTypes.func.isRequired,
@@ -102,7 +102,7 @@ class QuestionnaireComponent extends Component {
   }
 
   handleDuplicateComponent() {
-    this.props.duplicateComponent(this.props.component.id);
+    this.props.duplicateComponentAndVariables(this.props.component.id);
   }
 
   handleDeleteComponent() {
