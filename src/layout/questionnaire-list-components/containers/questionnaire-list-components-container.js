@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import QuestionnaireListComponents from '../components/questionnaire-list-components';
 
-import { dragComponent, removeComponent, duplicateComponent } from 'actions/component';
+import { dragComponent, removeComponent, duplicateComponentAndVariables } from 'actions/component';
 import {
   setSelectedComponentId,
   setEditingComponentId,
@@ -32,7 +32,7 @@ const mapDispatchToProps = {
   setSelectedComponentId,
   setEditingComponentId,
   removeComponent,
-  duplicateComponent,
+  duplicateComponentAndVariables,
   removeQuestionnaire,
   visualizeActiveQuestionnaire,
   dragComponent,

@@ -6,7 +6,6 @@ import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
 import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
 import { QuestionnaireNav } from 'layout/questionnaire-nav';
 import { GenericInput } from 'layout/generic-input';
-import { ErrorsIntegrity } from 'layout/errors-integrity';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 

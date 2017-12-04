@@ -259,3 +259,19 @@ export const duplicateComponent = idComponent => (dispatch, getState) => {
     },
   });
 };
+
+/**
+ * Method used when we click on the DUPLICATE button on a SEQUENCE, SUBSEQUENCE or QUESTION
+ *
+ * @param {string} idComponent the id of the component we want to remove
+ */
+export const duplicateComponentAndVariables = idComponent => (dispatch, getState) => {
+  const state = getState();
+  const activeComponentsById = state.appState.activeComponentsById;
+  const collectedVariables = state.appState.collectedVariableByQuestion[idComponent];
+  const update = duplicateComponentAndVariables(activeComponentsById, collectedVariables, idComponent);
+  dispatch({
+    type: DUPLICATE_COMPONENT,
+    payload: { update },
+  });
+};

@@ -264,3 +264,52 @@ export function duplicate(activesComponents, idComponent) {
     ...increaseWeightOfAll(activesComponents, component[id]),
   };
 }
+
+export function duplicateComponentAndVariables(activesComponents, collectedVariables = {}, idComponent) {
+  const stores = {
+    activeComponentsById: {},
+    activeCollectedVariablesById: {},
+  };
+  let duplicatedVariables = {};
+
+  if (!isQuestion(activesComponents[idComponent])) {
+    return stores;
+  }
+
+  const duplicatedComponent = {
+    ...cloneDeep(activesComponents[idComponent]),
+    id: uuid(),
+    weight: activesComponents[idComponent].weight + 1,
+  };
+
+  if (Object.keys(collectedVariables).length > 0) {
+    duplicatedVariables = activesComponents[idComponent].collectedVariables.reduce((acc, key) => {
+      const id = uuid();
+      return {
+        ...acc,
+        [id]: {
+          id,
+          label: collectedVariables[key].label,
+          name: collectedVariables[key].name,
+          x: collectedVariables[key].x || '',
+          y: collectedVariables[key].y || '',
+        },
+      };
+    }, {});
+  }
+
+  stores.activeComponentsById = {
+    [duplicatedComponent.id]: {
+      ...duplicatedComponent,
+      collectedVariables: Object.keys(duplicatedVariables),
+    },
+    ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, duplicatedComponent.id),
+    ...increaseWeightOfAll(activesComponents, duplicatedComponent),
+  };
+
+  stores.activeCollectedVariablesById = {
+    [duplicatedComponent.id]: duplicatedVariables,
+  };
+
+  return stores;
+}
