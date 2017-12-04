@@ -20,6 +20,7 @@ export const propTypes = {
   disabled: PropTypes.bool,
   focusOnInit: PropTypes.bool,
   reference: PropTypes.func,
+  onEnter: PropTypes.func,
 };
 
 export const defaultProps = {
@@ -30,6 +31,7 @@ export const defaultProps = {
   disabled: false,
   focusOnInit: false,
   reference: undefined,
+  onEnter: undefined,
 };
 
 class Input extends Component {
@@ -50,8 +52,9 @@ class Input extends Component {
       required,
       disabled,
       input,
-      focusOnInit,
       reference,
+      focusOnInit,
+      onEnter,
       meta: { touched, error },
       ...otherProps
     } = this.props;
@@ -74,6 +77,11 @@ class Input extends Component {
             disabled={disabled}
             ref={node => {
               this.input = node;
+            }}
+            onKeyPress={event => {
+              if (event.charCode === 13 && this.props.onEnter) {
+                this.props.onEnter();
+              }
             }}
           />
 

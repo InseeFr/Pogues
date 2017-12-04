@@ -22,12 +22,14 @@ const propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired,
   targetIsRichTextarea: PropTypes.bool,
+  onEnter: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPathParent: '',
   targetIsRichTextarea: false,
+  onEnter: undefined,
 };
 
 // Container
