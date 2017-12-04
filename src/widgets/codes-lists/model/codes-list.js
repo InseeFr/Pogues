@@ -51,13 +51,13 @@ export const Factory = (currentState = {}, codesListsStore) => {
 
   return {
     formToStateComponent: form => {
-      if (form) currentState = merge(currentState, formToState(form));
+      if (form) currentState = formToState(form);
       return {
         id: currentState.id,
       };
     },
     formToState: form => {
-      if (form) currentState = merge(currentState, formToState(form));
+      if (form) currentState = formToState(form);
       return currentState;
     },
     stateComponentToForm: () => {

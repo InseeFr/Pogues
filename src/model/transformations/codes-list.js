@@ -1,3 +1,11 @@
+function sortByWeight(store) {
+  return (keyA, keyB) => {
+    if (store[keyA].weight < store[keyB].weight) return -1;
+    if (store[keyA].weight > store[keyB].weight) return 1;
+    return 0;
+  };
+}
+
 export function remoteToCodesState(codes, parent = '', depth = 1) {
   return codes.filter(c => c.Parent === parent).reduce((acc, c, index) => {
     const codeState = {
@@ -41,14 +49,16 @@ export function storeToRemote(store) {
     codesLists.push({
       id,
       Label: label,
-      Code: Object.keys(codes).map(keyCode => {
-        const { label: labelCode, value, parent } = codes[keyCode];
-        return {
-          Label: labelCode,
-          Value: value,
-          Parent: parent,
-        };
-      }),
+      Code: Object.keys(codes)
+        .sort(sortByWeight(codes))
+        .map(keyCode => {
+          const { label: labelCode, value, parent } = codes[keyCode];
+          return {
+            Label: labelCode,
+            Value: value,
+            Parent: parent,
+          };
+        }),
     });
   });
 
