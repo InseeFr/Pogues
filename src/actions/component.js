@@ -7,7 +7,12 @@ import {
 } from 'utils/component/component-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
-import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence, duplicate } from './component-insert';
+import {
+  moveQuestionToSubSequence,
+  moveQuestionAndSubSequenceToSequence,
+  duplicate,
+  duplicateComponentAndVars,
+} from './component-insert';
 import { moveComponent } from './component-move';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
@@ -269,7 +274,7 @@ export const duplicateComponentAndVariables = idComponent => (dispatch, getState
   const state = getState();
   const activeComponentsById = state.appState.activeComponentsById;
   const collectedVariables = state.appState.collectedVariableByQuestion[idComponent];
-  const update = duplicateComponentAndVariables(activeComponentsById, collectedVariables, idComponent);
+  const update = duplicateComponentAndVars(activeComponentsById, collectedVariables, idComponent);
   dispatch({
     type: DUPLICATE_COMPONENT,
     payload: { update },
