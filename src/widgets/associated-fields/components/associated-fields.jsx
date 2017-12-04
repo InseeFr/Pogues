@@ -14,10 +14,12 @@ const { COMPONENT_CLASS } = WIDGET_ASSOCIATED_FIELDS;
 
 const propTypes = {
   action: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired,
+  onEnter: PropTypes.func,
+
   formName: PropTypes.string.isRequired,
   currentValueOrigin: PropTypes.string,
   currentValueTarget: PropTypes.string,
-  change: PropTypes.func.isRequired,
   fieldOrigin: PropTypes.shape({
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -34,6 +36,7 @@ const defaultProps = {
   currentValueOrigin: '',
   currentValueTarget: '',
   focusOnInit: false,
+  onEnter: undefined,
 };
 
 // Component
@@ -89,10 +92,17 @@ class AssociatedFields extends Component {
             component={Input}
             label={fieldOrigin.label}
             focusOnInit={focusOnInit}
+            onEnter={this.props.onEnter}
           />
         )}
 
-        <Field name={fieldTarget.name} type="text" component={Input} label={fieldTarget.label} />
+        <Field
+          name={fieldTarget.name}
+          type="text"
+          component={Input}
+          label={fieldTarget.label}
+          onEnter={this.props.onEnter}
+        />
       </div>
     );
   }

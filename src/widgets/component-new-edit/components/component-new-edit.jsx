@@ -123,6 +123,9 @@ class ComponentNewEdit extends Component {
       fieldTarget: { name: 'name', label: Dictionary.name },
       action: updateNameField,
       focusOnInit: true,
+      onEnter: () => {
+        this.validateButton.click();
+      },
     };
 
     return (
@@ -136,7 +139,14 @@ class ComponentNewEdit extends Component {
           <Tabs errorsByTab={errorsByTab}>{this.renderPanels()}</Tabs>
 
           <div className={FOOTER}>
-            <button className={VALIDATE} type="submit" disabled={submitting}>
+            <button
+              className={VALIDATE}
+              type="submit"
+              disabled={submitting}
+              ref={validateButton => {
+                this.validateButton = validateButton;
+              }}
+            >
               {Dictionary.validate}
             </button>
             <button className={CANCEL} disabled={submitting} onClick={onCancel}>
