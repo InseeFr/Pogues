@@ -41,7 +41,7 @@ function generateComponentGroups(componentsStore) {
   return result;
 }
 
-export function remoteToState(remote) {
+export function remoteToState(remote, currentStores = {}) {
   const {
     owner,
     final,
@@ -53,7 +53,11 @@ export function remoteToState(remote) {
     lastUpdatedDate,
   } = remote;
 
-  return {
+  const appState = currentStores.appState || {};
+  const activeQuestionnaire = appState.activeQuestionnaire || {};
+  const questionnaireCurrentState = activeQuestionnaire.id === id ? activeQuestionnaire : {};
+
+@  return {
     owner,
     final: final === undefined,
     id,
@@ -61,15 +65,15 @@ export function remoteToState(remote) {
     label,
     agency,
     lastUpdatedDate,
-    serie: '',
-    operation: '',
+    serie: questionnaireCurrentState.serie || '',
+    operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
   };
 }
 
-export function remoteToStore(remote) {
+export function remoteToStore(remote, currentStores = {}) {
   return {
-    [remote.id]: remoteToState(remote),
+    [remote.id]: remoteToState(remote, currentStores),
   };
 }
 
