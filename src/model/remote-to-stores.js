@@ -8,14 +8,14 @@ import { VARIABLES_TYPES } from 'constants/pogues-constants';
 
 const { CALCULATED, EXTERNAL, COLLECTED } = VARIABLES_TYPES;
 
-export function questionnaireRemoteToStores(remote) {
+export function questionnaireRemoteToStores(remote, currentStores = {}) {
   const { id, CodeLists: { CodeList: codesLists }, Variables: { Variable: variables } } = remote;
   const calculatedVariables = variables.filter(v => v.type === CALCULATED);
   const externalVariables = variables.filter(v => v.type === EXTERNAL);
   const collectedVariables = variables.filter(v => v.type === COLLECTED);
 
   // Questionnaire store
-  const questionnaireById = Questionnaire.remoteToStore(remote);
+  const questionnaireById = Questionnaire.remoteToStore(remote, currentStores);
 
   // Calculate variables store
   const calculatedVariableByQuestionnaire = {

@@ -261,7 +261,7 @@ export const saveActiveQuestionnaire = () => {
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
         return dispatch(
-          saveActiveQuestionnaireSuccess(questionnaireModel.id, questionnaireRemoteToStores(questionnaireModel))
+          saveActiveQuestionnaireSuccess(questionnaireModel.id, questionnaireRemoteToStores(questionnaireModel, state))
         );
       })
       .catch(err => {
