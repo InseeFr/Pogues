@@ -16,13 +16,13 @@ const { SEQUENCE } = COMPONENT_TYPE;
  */
 export function getDragnDropLevel(droppedComponent, draggedComponent) {
   if (draggedComponent && droppedComponent) {
-    if (couldInsertToSibling(droppedComponent, draggedComponent)) {
+    if (couldInsertToSibling(droppedComponent.component, draggedComponent)) {
       return 0;
-    } else if (couldInsertAsChild(droppedComponent, draggedComponent)) {
+    } else if (couldInsertAsChild(droppedComponent.component, draggedComponent)) {
       return 1;
     }
-    return (isSequence(draggedComponent) && isSubSequence(droppedComponent)) ||
-      (isSubSequence(draggedComponent) && isQuestion(droppedComponent))
+    return (isSequence(draggedComponent) && isSubSequence(droppedComponent.component)) ||
+      (isSubSequence(draggedComponent) && isQuestion(droppedComponent.component))
       ? -1
       : -2;
   }
@@ -44,7 +44,7 @@ export function getDragnDropLevel(droppedComponent, draggedComponent) {
  */
 export function calculateMargin(droppedComponent, draggedComponent, dragndropLevel, parentType) {
   if (dragndropLevel < 0) {
-    if (parentType === SEQUENCE && isQuestion(droppedComponent)) {
+    if (parentType === SEQUENCE && isQuestion(droppedComponent.component)) {
       return dragndropLevel * 20;
     }
     return (dragndropLevel - 1) * 20;

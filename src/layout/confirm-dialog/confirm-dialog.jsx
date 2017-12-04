@@ -14,11 +14,11 @@ class ConfirmDialog extends Component {
     showConfirmModal: false,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      showConfirmModal: false,
+      showConfirmModal: props.showConfirmModal,
     };
 
     this.handleValidate = this.handleValidate.bind(this);
@@ -60,16 +60,16 @@ class ConfirmDialog extends Component {
       >
         <div className="popup">
           <div className="popup-header">
-            <h3>
-              {Dictionary.confirmBodyTitle}
-            </h3>
+            <h3>{Dictionary.confirmBodyTitle}</h3>
           </div>
           <div className="popup-body">
             <p>{Dictionary.confirmBodyMessage}</p>
             <p>{Dictionary.confirmQuestionMessage}</p>
           </div>
           <div className="ok-cancel-buttons">
-            <button onClick={this.handleValidate} className="validate">{Dictionary.validate}</button>
+            <button onClick={this.handleValidate} className="validate">
+              {Dictionary.validate}
+            </button>
             <button
               ref={button => {
                 this.cancelButton = button;

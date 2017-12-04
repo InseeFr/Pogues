@@ -92,8 +92,11 @@ export function getOrderedComponents(componentsStore, rootComponentIds) {
     return [
       ...acc,
       id,
-      ...getOrderedComponents(componentsStore, componentsStore[id].children.sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight))
-    ]
+      ...getOrderedComponents(
+        componentsStore,
+        componentsStore[id].children.sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
+      ),
+    ];
   }, []);
 }
 

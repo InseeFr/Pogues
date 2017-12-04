@@ -1,0 +1,15 @@
+.widget-errors-panel {
+  ul.widget-errors-panel__inner {
+    list-style-type: circle;
+    margin: 10px 0;
+    padding: 15px;
+    background-color: lighten(red, 45%);
+    border-radius: 5px;
+
+    li {
+      font-size: $font-xs;
+      color: red;
+      margin-left: 20px;
+    }
+  }
+}

@@ -7,7 +7,7 @@ import {
   toId,
   updateNewComponentParent,
 } from 'utils/component/component-utils';
-import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
+import { getClosestComponentIdByType } from 'layout/generic-input';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
 import { uuid } from 'utils/utils';
 import sortBy from 'lodash.sortby';
@@ -263,4 +263,50 @@ export function duplicate(activesComponents, idComponent) {
     ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, id),
     ...increaseWeightOfAll(activesComponents, component[id]),
   };
+}
+
+export function duplicateComponentAndVariables(activesComponents, collectedVariables, idComponent) {
+  const stores = {
+    activeComponentsById: {},
+    activeCollectedVariablesById: {},
+  };
+
+  if (!isQuestion(activesComponents[idComponent])) {
+    return stores;
+  }
+
+  const duplicatedComponent = {
+    ...cloneDeep(activesComponents[idComponent]),
+    id: uuid(),
+    weight: activesComponents[idComponent].weight + 1,
+  };
+
+  const duplicatedVariables = activesComponents[idComponent].collectedVariables.reduce((acc, key) => {
+    const id = uuid();
+    return {
+      ...acc,
+      [id]: {
+        id,
+        label: collectedVariables[key].label,
+        name: collectedVariables[key].name,
+        x: collectedVariables[key].x || '',
+        y: collectedVariables[key].y || '',
+      },
+    };
+  }, {});
+
+  stores.activeComponentsById = {
+    [duplicatedComponent.id]: {
+      ...duplicatedComponent,
+      collectedVariables: Object.keys(duplicatedVariables),
+    },
+    ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, duplicatedComponent.id),
+    ...increaseWeightOfAll(activesComponents, duplicatedComponent),
+  };
+
+  stores.activeCollectedVariablesById = {
+    [duplicatedComponent.id]: duplicatedVariables,
+  };
+
+  return stores;
 }

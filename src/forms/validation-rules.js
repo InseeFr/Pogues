@@ -1,4 +1,11 @@
+import cloneDeep from 'lodash.clonedeep';
+
 import Dictionary from 'utils/dictionary/dictionary';
+import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
+import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
+
+const { NEW } = CODES_LIST_INPUT_ENUM;
 
 export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
@@ -93,4 +100,93 @@ export function uniqueCodeAttr(value, { editing, previousValue, codes }) {
     return undefined;
   }
   return codes.filter(code => code.value === value).length > 0 ? 'unique' : undefined;
+}
+
+export function validCodesList(codesList) {
+  const { id, label, codes, panel } = codesList;
+  const errors = [];
+  let errorRequired;
+  let errorNoCodes;
+
+  if (panel === NEW) {
+    errorRequired = required(label);
+    errorNoCodes = emptyCodes(codes);
+  } else {
+    errorRequired = required(id);
+  }
+
+  if (errorRequired) errors.push(errorRequired);
+  if (errorNoCodes) errors.push(errorNoCodes);
+
+  return errors;
+}
+
+export function validCollectedVariables(value, { form, stores: { codesListsStore } }) {
+  // @TODO: Improve this validation testing the coordinates of the variables
+  const { name: nameComponent, responseFormat: { type, [type]: responseFormatValues } } = form;
+  let expectedVariables;
+
+  if (nameComponent !== '' && type !== '') {
+    expectedVariables = generateCollectedVariables(type, nameComponent, responseFormatValues, codesListsStore);
+  }
+  return expectedVariables && value.length === expectedVariables.length
+    ? undefined
+    : Dictionary.validation_collectedvariable_need_reset;
+}
+
+export function validateEarlyTarget(value, { stores: { componentsStore, editingComponentId } }) {
+  const allowedTargets = getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]);
+  return value !== '' && componentsStore[value] && allowedTargets.indexOf(value) === -1
+    ? Dictionary.errorGoToEarlierTgt
+    : undefined;
+}
+
+export function validateExistingTarget(value, { stores: { componentsStore } }) {
+  return value !== '' && !componentsStore[value] ? Dictionary.errorGoToNonExistingTgt : undefined;
+}
+
+export function validateDuplicates(value, { form }) {
+  return value !== '' && form.filter(i => i.name === value).length > 0 ? 'Duplicated' : undefined;
+}
+
+export function validateDuplicatesCalculated(
+  value,
+  { form: { calculatedVariables: values }, state: { selectedItemIndex } }
+) {
+  const listItems = cloneDeep(values.calculatedVariables);
+
+  // We need to remove the element from the list
+  if (selectedItemIndex !== undefined) {
+    listItems.splice(selectedItemIndex, 1);
+  }
+
+  return validateDuplicates(value, { form: listItems });
+}
+
+export function validateDuplicatesExternal(
+  value,
+  { form: { externalVariables: values }, state: { selectedItemIndex } }
+) {
+  const listItems = cloneDeep(values.externalVariables);
+
+  // We need to remove the element from the list
+  if (selectedItemIndex !== undefined) {
+    listItems.splice(selectedItemIndex, 1);
+  }
+
+  return validateDuplicates(value, { form: listItems });
+}
+
+export function validateDuplicatesCollected(
+  value,
+  { form: { collectedVariables: values }, state: { selectedItemIndex } }
+) {
+  const listItems = cloneDeep(values.collectedVariables);
+
+  // We need to remove the element from the list
+  if (selectedItemIndex !== undefined) {
+    listItems.splice(selectedItemIndex, 1);
+  }
+
+  return validateDuplicates(value, { form: listItems });
 }

@@ -21,11 +21,13 @@ const propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired,
+  targetIsRichTextarea: PropTypes.bool,
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPathParent: '',
+  targetIsRichTextarea: false,
 };
 
 // Container

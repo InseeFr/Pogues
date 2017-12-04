@@ -11,8 +11,10 @@ import Input from 'forms/controls/input';
 import ListRadios from 'forms/controls/list-radios';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
-import { SearchCodesLists } from 'widgets/search-codes-lists';
 import { storeToArray } from 'utils/utils';
+
+import { SearchCodesLists } from 'widgets/search-codes-lists';
+import { ErrorsPanel } from 'widgets/errors-panel';
 
 const { COMPONENT_CLASS, PANEL_CLASS, PANEL_SELECTOR_CLASS } = WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
@@ -30,6 +32,7 @@ function getSelectorOptions(panels) {
 
 export const propTypes = {
   selectorPath: PropTypes.string.isRequired,
+  selectorPathParent: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
   activePanel: PropTypes.string,
@@ -86,7 +89,7 @@ class CodesList extends Component {
   }
 
   render() {
-    const { selectorPath, path, formName, activePanel, currentCodesListsStore } = this.props;
+    const { selectorPathParent, selectorPath, path, formName, activePanel, currentCodesListsStore } = this.props;
 
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>
@@ -118,6 +121,7 @@ class CodesList extends Component {
             )}
             {activePanel === NEW && (
               <div>
+                <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
                 <Field name="label" component={Input} type="text" label={Dictionary.newCl} focusOnInit required />
                 <FieldArray
                   name="codes"
