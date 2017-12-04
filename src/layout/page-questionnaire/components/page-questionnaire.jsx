@@ -73,8 +73,10 @@ class PageQuestionnaire extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeQuestionnaire.id !== this.props.activeQuestionnaire.id) {
-      const idCampaign = nextProps.activeQuestionnaire.campaigns[0];
-      this.props.loadStatisticalContext(idCampaign);
+      if (nextProps.activeQuestionnaire.campaigns && nextProps.activeQuestionnaire.campaigns.length > 0) {
+        const idCampaign = nextProps.activeQuestionnaire.campaigns[0];
+        this.props.loadStatisticalContext(idCampaign);
+      }
     }
 
     if (nextProps.activeQuestionnaire.operation !== this.props.activeQuestionnaire.operation) {
