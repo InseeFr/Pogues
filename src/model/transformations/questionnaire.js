@@ -57,7 +57,7 @@ export function remoteToState(remote, currentStores = {}) {
   const activeQuestionnaire = appState.activeQuestionnaire || {};
   const questionnaireCurrentState = activeQuestionnaire.id === id ? activeQuestionnaire : {};
 
-@  return {
+  return {
     owner,
     final: final === undefined,
     id,
