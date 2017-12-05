@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actions, formValueSelector, getFormValues } from 'redux-form';
 
-import { setErrorsByFormPaths, clearErrorsByFormPaths } from 'actions/errors';
+import { removeValidationErrors, removeIntegrityError } from 'actions/errors';
 import ListWithInputPanel from '../components/list-with-input-panel';
 
 // Proptypes and defaultProps
@@ -38,6 +38,7 @@ const mapStateToProps = (state, { formName, selectorPath }) => {
   const selector = formValueSelector(formName);
 
   return {
+    componentId: state.appState.editingComponentId,
     formValues: getFormValues(formName)(state),
     currentValues: selector(state, selectorPath),
   };
@@ -48,8 +49,8 @@ const mapDispatchToProps = {
   arrayRemove: actions.arrayRemove,
   arrayPush: actions.arrayPush,
   arrayInsert: actions.arrayInsert,
-  setErrors: setErrorsByFormPaths,
-  clearErrors: clearErrorsByFormPaths,
+  removeValidationErrors,
+  removeIntegrityError,
 };
 
 const ListWithInputPanelContainer = connect(mapStateToProps, mapDispatchToProps)(ListWithInputPanel);

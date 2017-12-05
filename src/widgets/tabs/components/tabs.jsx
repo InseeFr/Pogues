@@ -1,7 +1,6 @@
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
-import isEqual from 'lodash.isequal';
 
 import { WIDGET_TABS } from 'constants/dom-constants';
 
@@ -16,6 +15,7 @@ const propTypes = {
 
 const defaultProps = {
   errorsByTab: {},
+  validationErrors: {},
 };
 
 // Component
@@ -34,13 +34,6 @@ class Tabs extends Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      !isEqual(this.props.errorsByTab, nextProps.errorsByTab) ||
-      this.state.activePanelIndex !== nextState.activePanelIndex
-    );
-  }
-
   renderTabs() {
     return Children.map(this.props.children, (child, index) => {
       const childProps = child.props;
@@ -48,7 +41,7 @@ class Tabs extends Component {
         'nav-link': true,
         active: this.state.activePanelIndex === index,
       });
-      const numErrors = this.props.errorsByTab[childProps.path] && this.props.errorsByTab[childProps.path].length;
+      const numErrors = this.props.errorsByTab[childProps.path];
 
       return (
         <li key={`tab-${childProps.path}`} className={ITEM}>

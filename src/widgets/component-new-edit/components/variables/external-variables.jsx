@@ -13,8 +13,8 @@ import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
 // Utils
 
-const validateForm = (setErrors, validate) => (values, state) => {
-  return validate(values, setErrors, state);
+const validateForm = (addErrors, validate) => (values, state) => {
+  return validate(values, addErrors, state);
 };
 
 // Prop types and default props
@@ -23,7 +23,7 @@ export const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
-  setErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -34,7 +34,7 @@ export const defaultProps = {
 
 // Component
 
-function ExternalVariables({ formName, selectorPath, errors, setErrors }) {
+function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -42,7 +42,7 @@ function ExternalVariables({ formName, selectorPath, errors, setErrors }) {
         selectorPath={selectorPath}
         name="externalVariables"
         errors={errors}
-        validateForm={validateForm(setErrors, validateExternalVariableForm)}
+        validateForm={validateForm(addErrors, validateExternalVariableForm)}
         resetObject={defaultState}
         canDuplicate={false}
       >

@@ -1,6 +1,6 @@
 import { getComponentsTargetsByComponent, getComponentsTargetsByPosition } from 'utils/model/redirections-utils';
 
-export function getTargets(componentsStore, selectedTarget, editingComponentId, componentType) {
+export function getTargets(componentsStore, selectedTarget, editingComponentId, selectedComponentId, componentType) {
   let allowedTargets;
 
   if (editingComponentId !== '') {
@@ -8,7 +8,7 @@ export function getTargets(componentsStore, selectedTarget, editingComponentId, 
     allowedTargets = getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]);
   } else {
     // When the component is a new one.
-    allowedTargets = getComponentsTargetsByPosition(componentsStore, componentType, editingComponentId);
+    allowedTargets = getComponentsTargetsByPosition(componentsStore, componentType, selectedComponentId);
   }
 
   if (selectedTarget !== '' && componentsStore[selectedTarget] && allowedTargets.indexOf(selectedTarget) === -1) {

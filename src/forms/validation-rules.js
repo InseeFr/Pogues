@@ -3,7 +3,7 @@ import cloneDeep from 'lodash.clonedeep';
 import Dictionary from 'utils/dictionary/dictionary';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
-import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
+import { generateCollectedVariables, getComponentsTargetsByPosition } from 'utils/variables/collected-variables-utils';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 
@@ -92,7 +92,7 @@ export function emptyCodes(codes = []) {
 }
 
 export function emptyMeasures(measures) {
-  return measures.length === 0 ? 'No measures' : undefined;
+  return measures.length === 0 ? Dictionary.noMeasureYet : undefined;
 }
 
 export function uniqueCodeAttr(value, { editing, previousValue, codes }) {
@@ -135,10 +135,18 @@ export function validCollectedVariables(value, { form, stores: { codesListsStore
 }
 
 export function validateEarlyTarget(value, { stores: { componentsStore, editingComponentId } }) {
-  const allowedTargets = getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]);
-  return value !== '' && componentsStore[value] && allowedTargets.indexOf(value) === -1
-    ? Dictionary.errorGoToEarlierTgt
-    : undefined;
+  let result;
+
+  if (editingComponentId !== '') {
+    result =
+      value !== '' &&
+      componentsStore[value] &&
+      getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]).indexOf(value) === -1
+        ? Dictionary.errorGoToEarlierTgt
+        : undefined;
+  }
+
+  return result;
 }
 
 export function validateExistingTarget(value, { stores: { componentsStore } }) {

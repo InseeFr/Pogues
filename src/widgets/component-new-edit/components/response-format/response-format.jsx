@@ -16,7 +16,7 @@ class ResponseFormat extends FormSection {
   static selectorPath = 'responseFormat';
   static propTypes = {
     edit: PropTypes.bool.isRequired,
-    setErrors: PropTypes.func.isRequired,
+    addErrors: PropTypes.func.isRequired,
   };
   static defaultProps = {
     name: 'responseFormat',
@@ -47,7 +47,7 @@ class ResponseFormat extends FormSection {
             <ResponseFormatMultiple selectorPathParent={ResponseFormat.selectorPath} />
           </View>
           <View key={TABLE} value={TABLE} label={Dictionary.responseFormatTable}>
-            <ResponseFormatTable selectorPathParent={ResponseFormat.selectorPath} setErrors={this.props.setErrors} />
+            <ResponseFormatTable selectorPathParent={ResponseFormat.selectorPath} addErrors={this.props.addErrors} />
           </View>
         </SelectorView>
       </div>

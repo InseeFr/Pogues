@@ -147,7 +147,7 @@ export const setSelectedComponentId = id => ({
  * @param  {string} id  The component id
  * @return {object}     SET_EDITING_COMPONENT action
  */
-export const setEditingComponentId = id => ({
+export const setEditingComponentId = (id = '') => ({
   type: SET_EDITING_COMPONENT,
   payload: id,
 });

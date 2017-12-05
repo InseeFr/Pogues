@@ -12,8 +12,8 @@ import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
 // Utils
 
-const validateForm = (setErrors, validate) => values => {
-  return validate(values, setErrors);
+const validateForm = (addErrors, validate) => values => {
+  return validate(values, addErrors);
 };
 
 // Prop types and default props
@@ -21,7 +21,7 @@ const validateForm = (setErrors, validate) => values => {
 export const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string.isRequired,
-  setErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -30,14 +30,14 @@ export const defaultProps = {
 
 // Component
 
-function TableListMeasures({ formName, selectorPath, setErrors }) {
+function TableListMeasures({ formName, selectorPath, addErrors }) {
   return (
     <FormSection name="LIST_MEASURE">
       <ListWithInputPanel
         formName={formName}
         selectorPath={selectorPath}
         name="measures"
-        validateForm={validateForm(setErrors, validateTableListMeasuresForm)}
+        validateForm={validateForm(addErrors, validateTableListMeasuresForm)}
         resetObject={defaultMeasureState}
       >
         <InputMeasure selectorPath={selectorPath} />

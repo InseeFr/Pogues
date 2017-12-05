@@ -1,6 +1,6 @@
-import errorsByFormPath from './errors-by-form-path';
 import errorsByComponent from './errors-by-component';
-import errorsByTab from './errors-by-tab';
+import errorsIntegrity from './errors-integrity';
+import errorsValidation from './errors-validation';
 
 const defaultState = {
   errorsByFormPath: {},
@@ -16,8 +16,8 @@ export default function(state = defaultState, action) {
   const hndlr = actionHandlers[type];
   return {
     ...(hndlr ? hndlr(state, payload) : state),
-    errorsByFormPath: errorsByFormPath(state.errorsByFormPath, action),
     errorsByComponent: errorsByComponent(state.errorsByComponent, action),
-    errorsByTab: errorsByTab(state.errorsByTab, action),
+    errorsIntegrity: errorsIntegrity(state.errorsIntegrity, action),
+    errorsValidation: errorsValidation(state.errorsValidation, action),
   };
 }

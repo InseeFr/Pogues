@@ -43,79 +43,79 @@ export function validateSequenceForm(values, setErrors) {
   }
 }
 
-export function validateControlForm(values, setErrors) {
+export function validateControlForm(values, addErrors) {
   const errors = validate(values, controlRules);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
-    setErrors(errors);
+    addErrors(errors);
     return false;
   }
   return true;
 }
 
-export function validateDeclarationForm(values, setErrors) {
+export function validateDeclarationForm(values, addErrors) {
   const errors = validate(values, declarationRules);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
-    setErrors(errors);
+    addErrors(errors);
     return false;
   }
   return true;
 }
 
-export function validateRedirectionForm(values, setErrors, stores) {
+export function validateRedirectionForm(values, addErrors, stores) {
   const errors = validate(values, redirectionRules, stores);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
-    setErrors(errors);
+    addErrors(errors);
     return false;
   }
   return true;
 }
 
-export function validateCalculatedVariableForm(values, setErrors, state) {
+export function validateCalculatedVariableForm(values, addErrors, state) {
   const errors = validate(values, calculatedVariableRules, {}, state);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
-    setErrors(errors);
+    addErrors(errors);
     return false;
   }
   return true;
 }
 
-export function validateExternalVariableForm(values, setErrors, state) {
+export function validateExternalVariableForm(values, addErrors, state) {
   const errors = validate(values, externalVariableRules, {}, state);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
-    setErrors(errors);
+    addErrors(errors);
     return false;
   }
   return true;
 }
 
-export function validateCollectedVariableForm(values, setErrors, state) {
+export function validateCollectedVariableForm(values, addErrors, state) {
   const errors = validate(values, collectedVariableRules, {}, state);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
-    setErrors(errors);
+    addErrors(errors);
     return false;
   }
   return true;
 }
 
-export function validateTableListMeasuresForm(values, setErrors) {
+export function validateTableListMeasuresForm(values, addErrors) {
   const normalizedValues = Component().getNormalizedValues(values);
   const errors = validate(normalizedValues, tableListMeasuresRules);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
-    setErrors(errors);
+    addErrors(errors);
     return false;
   }
   return true;

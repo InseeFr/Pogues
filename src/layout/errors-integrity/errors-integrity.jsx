@@ -10,12 +10,12 @@ const { COMPONENT_ID, INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
 // Utils
 
-function renderComponentsErrors(errorsByComponent, componentsStore) {
+function renderComponentsErrors(errorsIntegrity, componentsStore) {
   // We are testing if the component exists in the active components store
-  return Object.keys(errorsByComponent)
+  return Object.keys(errorsIntegrity)
     .filter(componentId => componentsStore[componentId])
     .reduce((acc, componentId) => {
-      const integrityErrors = getIntegrityErrors(errorsByComponent[componentId]);
+      const integrityErrors = getIntegrityErrors(errorsIntegrity[componentId]);
 
       if (integrityErrors.length > 0) {
         const componentErrorsOutput = (
@@ -35,13 +35,13 @@ function renderComponentsErrors(errorsByComponent, componentsStore) {
 // Prop types and default props
 
 const propTypes = {
-  errorsByComponent: PropTypes.object,
+  errorsIntegrity: PropTypes.object,
   componentsStore: PropTypes.object.isRequired,
   // setSelectedComponentId: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  errorsByComponent: {},
+  errorsIntegrity: {},
 };
 
 // Component
@@ -83,8 +83,8 @@ class ErrorsIntegrity extends Component {
   // }
 
   render() {
-    const { errorsByComponent, componentsStore } = this.props;
-    const componentsErrors = renderComponentsErrors(errorsByComponent, componentsStore);
+    const { errorsIntegrity, componentsStore } = this.props;
+    const componentsErrors = renderComponentsErrors(errorsIntegrity, componentsStore);
 
     return (
       <div id={COMPONENT_ID}>

@@ -25,9 +25,10 @@ const mapStateToProps = (state, { formName, selectorPath, componentType }) => {
   const componentsStore = state.appState.activeComponentsById;
   const selectedTarget = selector(state, `${selectorPath}.cible`);
   const editingComponentId = state.appState.editingComponentId;
+  const selectedComponentId = state.appState.selectedComponentId;
 
   return {
-    targets: getTargets(componentsStore, selectedTarget, editingComponentId, componentType),
+    targets: getTargets(componentsStore, selectedTarget, editingComponentId, selectedComponentId, componentType),
   };
 };
 

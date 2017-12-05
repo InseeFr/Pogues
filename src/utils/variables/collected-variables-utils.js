@@ -64,7 +64,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     codesStatePrimary = Object.keys(codesStore).map(key => codesStore[key]);
     if (codesStatePrimary.length === 0) codesStatePrimary = componentCodesStatePrimary;
 
-    if (secondaryState.showSecondaryAxis) {
+    if (secondaryState && secondaryState.showSecondaryAxis) {
       const {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes: componentCodesStateSecondary, id: codesListIdSecondary },
       } = secondaryState;
