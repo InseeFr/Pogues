@@ -11,15 +11,18 @@ const { QUESTION } = COMPONENT_TYPE;
 
 export const propTypes = {
   parentId: PropTypes.string.isRequired,
-  weight: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
+
+  weight: PropTypes.number.isRequired,
+
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
-  setErrors: PropTypes.func.isRequired,
+  setValidationErrors: PropTypes.func.isRequired,
   createComponent: PropTypes.func.isRequired,
   updateParentChildren: PropTypes.func.isRequired,
   orderComponents: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
+
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
@@ -73,7 +76,7 @@ function ComponentNew({
   externalVariablesStore,
   onCancel,
   onSuccess,
-  setErrors,
+  setValidationErrors,
   createComponent,
   updateParentChildren,
   orderComponents,
@@ -82,9 +85,10 @@ function ComponentNew({
   weight,
   type,
 }) {
-  const validateQuestion = (setErrorsAction, codesLists) => values =>
-    validateQuestionForm(values, setErrorsAction, codesLists);
-  const validateSequence = setErrorsAction => values => validateSequenceForm(values, setErrorsAction);
+  const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
+    validateQuestionForm(values, setValidationErrorsAction, codesLists);
+  const validateSequence = setValidationErrorsAction => values =>
+    validateSequenceForm(values, setValidationErrorsAction);
   const actions = {
     createComponent,
     updateParentChildren,
@@ -112,8 +116,8 @@ function ComponentNew({
       onSubmit={validateAndSubmit(
         actions,
         type,
-        validateQuestion(setErrors, codesListsStore),
-        validateSequence(setErrors),
+        validateQuestion(setValidationErrors, codesListsStore),
+        validateSequence(setValidationErrors),
         componentTransformer,
         onSuccess
       )}

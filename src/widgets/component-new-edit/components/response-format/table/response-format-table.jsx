@@ -20,7 +20,7 @@ class ResponseFormatTable extends Component {
     selectorPathParent: PropTypes.string,
     showSecondaryAxis: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     primaryAxisType: PropTypes.string,
-    setErrors: PropTypes.func.isRequired,
+    addErrors: PropTypes.func.isRequired,
   };
   static defaultProps = {
     selectorPathParent: undefined,
@@ -36,7 +36,8 @@ class ResponseFormatTable extends Component {
       : ResponseFormatTable.selectorPath;
   }
   render() {
-    const { showSecondaryAxis, primaryAxisType, setErrors } = this.props;
+    const { showSecondaryAxis, primaryAxisType, addErrors } = this.props;
+
     return (
       <FormSection name={ResponseFormatTable.selectorPath} className="response-format__table">
         <h3 className="axis-primary__head">{Dictionary.primaryAxisTable}</h3>
@@ -53,7 +54,7 @@ class ResponseFormatTable extends Component {
         <h3 className="axis-measure__head">{Dictionary.measuresAxisTable}</h3>
 
         {primaryAxisType === LIST || !showSecondaryAxis ? (
-          <TableListMeasures selectorPath={`${this.selectorPathComposed}.LIST_MEASURE`} setErrors={setErrors} />
+          <TableListMeasures selectorPath={`${this.selectorPathComposed}.LIST_MEASURE`} addErrors={addErrors} />
         ) : (
           <ResponseFormatTableMeasure selectorPathParent={this.selectorPathComposed} />
         )}

@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
   componentsStore: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,
   editingComponentId: state.appState.editingComponentId,
-  errorsByComponent: state.errors.errorsByComponent,
+  errorsIntegrity: state.errors.errorsIntegrity,
 });
 
 const mapDispatchToProps = {

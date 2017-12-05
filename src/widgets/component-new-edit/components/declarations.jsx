@@ -15,8 +15,8 @@ import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
 // Utils
 
-const validateForm = (setErrors, validate) => values => {
-  return validate(values, setErrors);
+const validateForm = (addErrors, validate) => values => {
+  return validate(values, addErrors);
 };
 
 // Prop types and default props
@@ -26,7 +26,7 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   showPosition: PropTypes.bool,
-  setErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -38,7 +38,7 @@ export const defaultProps = {
 
 // Component
 
-function Declarations({ formName, selectorPath, errors, showPosition, setErrors }) {
+function Declarations({ formName, selectorPath, errors, showPosition, addErrors }) {
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -46,7 +46,7 @@ function Declarations({ formName, selectorPath, errors, showPosition, setErrors 
         selectorPath={selectorPath}
         name="declarations"
         errors={errors}
-        validateForm={validateForm(setErrors, validateDeclarationForm)}
+        validateForm={validateForm(addErrors, validateDeclarationForm)}
         resetObject={defaultState}
       >
         <Field

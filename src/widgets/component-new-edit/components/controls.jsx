@@ -20,8 +20,8 @@ const TextAreaWithVariableAndXPathValidation = withXPathValidation(TextareaWithV
 
 // Utils
 
-const validateForm = (setErrors, validate) => values => {
-  return validate(values, setErrors);
+const validateForm = (addErrors, validate) => values => {
+  return validate(values, addErrors);
 };
 
 // Prop types and default props
@@ -30,7 +30,7 @@ export const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
-  setErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -41,7 +41,7 @@ export const defaultProps = {
 
 // Component
 
-function Controls({ formName, selectorPath, errors, setErrors }) {
+function Controls({ formName, selectorPath, errors, addErrors }) {
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -49,7 +49,7 @@ function Controls({ formName, selectorPath, errors, setErrors }) {
         selectorPath={selectorPath}
         name="controls"
         errors={errors}
-        validateForm={validateForm(setErrors, validateControlForm)}
+        validateForm={validateForm(addErrors, validateControlForm)}
         resetObject={defaultState}
       >
         <Field type="text" name="label" component={Input} label={Dictionary.control_label} required />

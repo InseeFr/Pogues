@@ -32,6 +32,7 @@ export const propTypes = {
   formName: PropTypes.string.isRequired,
   selectorPath: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  componentId: PropTypes.string.isRequired,
 
   canAddNew: PropTypes.bool,
   canRemove: PropTypes.bool,
@@ -46,7 +47,8 @@ export const propTypes = {
   arrayPush: PropTypes.func.isRequired,
   arrayInsert: PropTypes.func.isRequired,
   validateForm: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired,
+  removeValidationErrors: PropTypes.func.isRequired,
+  removeIntegrityError: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -77,6 +79,7 @@ class ListWithInputPanel extends Component {
     this.reset = this.reset.bind(this);
     this.select = this.select.bind(this);
     this.clearAllErrors = this.clearAllErrors.bind(this);
+    this.removeErrorIntegrityIfExists = this.removeErrorIntegrityIfExists.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -122,13 +125,18 @@ class ListWithInputPanel extends Component {
         arrayPush(formName, `${path}${name}`, values);
       }
 
+      this.removeErrorIntegrityIfExists(values);
+
       this.reset();
     }
   }
 
   remove() {
-    const { arrayRemove, formName, selectorPath, name } = this.props;
+    const { arrayRemove, formName, selectorPath, name, currentValues } = this.props;
+    const { [name]: items, ...values } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
+
+    this.removeErrorIntegrityIfExists(items[this.state.selectedItemIndex]);
 
     arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
 
@@ -165,14 +173,23 @@ class ListWithInputPanel extends Component {
   }
 
   clearAllErrors() {
-    const { clearErrors, selectorPath, resetObject } = this.props;
+    const { removeValidationErrors, selectorPath, resetObject } = this.props;
     const paths = [...Object.keys(resetObject).map(i => `${selectorPath}.${i}`), selectorPath];
-    clearErrors(paths);
+    removeValidationErrors(paths);
+  }
+
+  removeErrorIntegrityIfExists(values) {
+    const { errors, componentId, removeIntegrityError } = this.props;
+
+    const error = errors.filter(e => e.itemListId === values.id);
+
+    if (error.length > 0) {
+      removeIntegrityError(componentId, error[0].type, error[0].itemListId);
+    }
   }
 
   render() {
     const { children, errors, name, canAddNew, canRemove, canDuplicate, selectorPath } = this.props;
-
     return (
       <div className={COMPONENT_CLASS}>
         <ErrorsPanel path={selectorPath} includeSubPaths />
@@ -234,7 +251,6 @@ class ListWithInputPanel extends Component {
                   onClick={event => {
                     event.preventDefault();
                     this.duplicate();
-                    e;
                   }}
                 >
                   <span className="glyphicon glyphicon-file" aria-hidden="true" />

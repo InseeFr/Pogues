@@ -15,10 +15,11 @@ export const propTypes = {
   externalVariablesStore: PropTypes.object,
   collectedVariablesStore: PropTypes.object,
   codesListsStore: PropTypes.object,
+
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
   updateComponent: PropTypes.func.isRequired,
-  setErrors: PropTypes.func.isRequired,
+  setValidationErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -67,11 +68,12 @@ function ComponentEdit({
   updateComponent,
   onCancel,
   onSuccess,
-  setErrors,
+  setValidationErrors,
 }) {
-  const validateQuestion = (setErrorsAction, codesLists) => values =>
-    validateQuestionForm(values, setErrorsAction, codesLists);
-  const validateSequence = setErrorsAction => values => validateSequenceForm(values, setErrorsAction);
+  const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
+    validateQuestionForm(values, setValidationErrorsAction, codesLists);
+  const validateSequence = setValidationErrorsAction => values =>
+    validateSequenceForm(values, setValidationErrorsAction);
   const actions = {
     updateComponent,
   };
@@ -91,13 +93,14 @@ function ComponentEdit({
   return (
     <ComponentNewEdit
       componentType={component.type}
+      componentId={component.id}
       onCancel={onCancel}
       initialValues={initialValues}
       onSubmit={validateAndSubmit(
         actions,
         initialState,
-        validateQuestion(setErrors, codesListsStore),
-        validateSequence(setErrors),
+        validateQuestion(setValidationErrors, codesListsStore),
+        validateSequence(setValidationErrors),
         componentTransformer,
         onSuccess
       )}

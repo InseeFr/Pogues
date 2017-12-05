@@ -13,8 +13,8 @@ import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
 // Utils
 
-const validateForm = (setErrors, validate) => (values, state) => {
-  return validate(values, setErrors, state);
+const validateForm = (addErrors, validate) => (values, state) => {
+  return validate(values, addErrors, state);
 };
 
 // Prop types and default props
@@ -27,7 +27,7 @@ export const propTypes = {
 
   errors: PropTypes.array.isRequired,
 
-  setErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired,
   arrayRemoveAll: PropTypes.func.isRequired,
   arrayPush: PropTypes.func.isRequired,
 
@@ -78,7 +78,7 @@ class CollectedVariables extends Component {
   }
 
   render() {
-    const { formName, selectorPath, errors, setErrors, componentName, responseFormatType } = this.props;
+    const { formName, selectorPath, errors, addErrors, componentName, responseFormatType } = this.props;
     return (
       <FormSection name={selectorPath}>
         <ListWithInputPanel
@@ -86,7 +86,7 @@ class CollectedVariables extends Component {
           selectorPath={selectorPath}
           name="collectedVariables"
           errors={errors}
-          validateForm={validateForm(setErrors, validateCollectedVariableForm)}
+          validateForm={validateForm(addErrors, validateCollectedVariableForm)}
           resetObject={defaultState}
           canAddNew={false}
           canRemove={false}

@@ -1,40 +1,44 @@
-export const SET_ERRORS_BY_COMPONENT = 'SET_ERRORS_BY_COMPONENT';
-export const SET_ERRORS_BY_FORM_PATH = 'SET_ERRORS_BY_FORM_PATH';
-export const SET_ERRORS_BY_FORM_PATHS = 'SET_ERRORS_BY_FORM_PATHS';
-export const SET_ERRORS_BY_TAB = 'SET_ERRORS_BY_TAB';
-export const CLEAR_ERRORS_BY_FORM_PATHS = 'CLEAR_ERRORS_BY_FORM_PATHS';
+export const ADD_VALIDATION_ERRORS = 'ADD_VALIDATION_ERRORS';
+export const SET_VALIDATION_ERRORS = 'SET_VALIDATION_ERRORS';
+export const REMOVE_VALIDATION_ERRORS = 'REMOVE_VALIDATION_ERRORS';
+export const CLEAR_VALIDATION_ERRORS = 'CLEAR_VALIDATION_ERRORS';
+export const REMOVE_INTEGRITY_ERROR = 'REMOVE_INTEGRITY_ERROR';
 
-export const setErrorsByComponent = errors => {
+export const addValidationErrors = errors => {
   return {
-    type: SET_ERRORS_BY_COMPONENT,
+    type: ADD_VALIDATION_ERRORS,
     payload: { errors },
   };
 };
 
-export const setErrorsByFormPath = errors => {
+export const setValidationErrors = errors => {
   return {
-    type: SET_ERRORS_BY_FORM_PATH,
+    type: SET_VALIDATION_ERRORS,
     payload: { errors },
   };
 };
 
-export const setErrorsByFormPaths = errors => {
+export const removeValidationErrors = paths => {
   return {
-    type: SET_ERRORS_BY_FORM_PATHS,
-    payload: { errors },
-  };
-};
-
-export const setErrorsByTab = integrityErrors => {
-  return {
-    type: SET_ERRORS_BY_TAB,
-    payload: { integrityErrors },
-  };
-};
-
-export const clearErrorsByFormPaths = paths => {
-  return {
-    type: CLEAR_ERRORS_BY_FORM_PATHS,
+    type: REMOVE_VALIDATION_ERRORS,
     payload: paths,
+  };
+};
+
+export const clearValidationErrors = () => {
+  return {
+    type: CLEAR_VALIDATION_ERRORS,
+    payload: null,
+  };
+};
+
+export const removeIntegrityError = (componentId, typeError, itemListId) => {
+  return {
+    type: REMOVE_INTEGRITY_ERROR,
+    payload: {
+      componentId,
+      typeError,
+      itemListId,
+    },
   };
 };

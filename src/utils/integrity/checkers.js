@@ -41,4 +41,5 @@ export default {
     checkerUniqueCollectedVariableName,
     checkerUniqueComponentName
   ),
+  '@@redux-form/DESTROY': combineCheckers(checkerComponentTarget, checkerUniqueCollectedVariableName),
 };

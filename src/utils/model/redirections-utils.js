@@ -29,10 +29,10 @@ export function getListGotos(componentsStore, activeComponentsIds = []) {
   return listGotos;
 }
 
-function getDescendants(componentsStore, component) {
+function getDescendants(componentsStore, component = {}) {
   return [
-    ...component.children,
-    ...component.children.reduce((acc, key) => {
+    ...(component.children || []),
+    ...(component.children || []).reduce((acc, key) => {
       return [...acc, ...getDescendants(componentsStore, componentsStore[key])];
     }, []),
   ];

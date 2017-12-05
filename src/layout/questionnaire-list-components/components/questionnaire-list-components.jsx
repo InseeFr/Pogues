@@ -9,7 +9,7 @@ import QuestionnaireComponent from './questionnaire-component';
 import { ComponentEdit } from 'layout/component-edit';
 import { ConfirmDialog } from 'layout/confirm-dialog';
 import { QuestionnaireEdit } from 'layout/questionnaire-edit';
-import { ErrorsIntegrity } from 'layout/errors-integrity';
+import { ErrorsIntegrity as ErrorsIntegrityPanel } from 'layout/errors-integrity';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
@@ -18,7 +18,7 @@ import { getSortedChildren } from 'utils/component/component-utils';
 const propTypes = {
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
-  errorsByComponent: PropTypes.object,
+  errorsIntegrity: PropTypes.object,
 
   selectedComponentId: PropTypes.string.isRequired,
   editingComponentId: PropTypes.string.isRequired,
@@ -36,7 +36,7 @@ const propTypes = {
 
 const defaultProps = {
   componentsStore: {},
-  errorsByComponent: {},
+  errorsIntegrity: {},
 };
 
 // Utils
@@ -56,7 +56,7 @@ function renderComponentsByParent(parent, props, actions) {
         duplicateComponentAndVariables={props.duplicateComponentAndVariables}
         moveComponent={props.dragComponent}
         removeComponent={props.removeComponent}
-        integrityErrorsByType={props.errorsByComponent[key]}
+        integrityErrorsByType={props.errorsIntegrity[key]}
         parentType={props.componentsStore[component.parent].type}
         actions={actions}
         handleRemovePageBreak={event => {
@@ -143,13 +143,7 @@ class QuestionnaireListComponents extends Component {
   }
 
   render() {
-    const {
-      questionnaire,
-      componentsStore,
-      editingComponentId,
-      errorsByComponent,
-      setSelectedComponentId,
-    } = this.props;
+    const { questionnaire, componentsStore, editingComponentId, errorsIntegrity, setSelectedComponentId } = this.props;
     const componentType = componentsStore[editingComponentId] && componentsStore[editingComponentId].type;
 
     const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
@@ -177,8 +171,8 @@ class QuestionnaireListComponents extends Component {
 
             {/* Questionnaire integrity errors */}
 
-            <ErrorsIntegrity
-              errorsByComponent={errorsByComponent}
+            <ErrorsIntegrityPanel
+              errorsIntegrity={errorsIntegrity}
               componentsStore={componentsStore}
               setSelectedComponentId={setSelectedComponentId}
             />
