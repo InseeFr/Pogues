@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
 import isEqual from 'lodash.isequal';
@@ -82,7 +82,7 @@ class ListWithInputPanel extends Component {
     this.removeErrorIntegrityIfExists = this.removeErrorIntegrityIfExists.bind(this);
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillReceiveProps(nextProps) {
     const { [this.props.name]: list, id, ...values } = nextProps.currentValues;
 
     if (!this.props.canAddNew && this.state.selectedItemIndex === undefined) return;
@@ -113,7 +113,7 @@ class ListWithInputPanel extends Component {
     const { [name]: items, ...values } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
 
-    if (this.validate(formValues)) {
+    if (canAddNew && this.validate(formValues)) {
       if (this.state.selectedItemIndex !== undefined) {
         arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
         arrayInsert(formName, `${path}${name}`, this.state.selectedItemIndex, values);
@@ -193,6 +193,13 @@ class ListWithInputPanel extends Component {
 
   render() {
     const { children, errors, name, canAddNew, canRemove, canDuplicate, selectorPath } = this.props;
+    const childrenWithDisabledProp = Children.map(children, child => {
+      return cloneElement(child, {
+        ...child.props,
+        disabled: !canAddNew && this.state.selectedItemIndex === undefined,
+      });
+    });
+
     return (
       <div className={COMPONENT_CLASS}>
         <ErrorsPanel path={selectorPath} includeSubPaths />
@@ -224,7 +231,7 @@ class ListWithInputPanel extends Component {
               )}
             </div>
 
-            {children}
+            {childrenWithDisabledProp}
 
             <div className={ACTIONS_CLASS}>
               <button
