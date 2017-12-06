@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
 import isEqual from 'lodash.isequal';
@@ -91,10 +91,6 @@ class ListWithInputPanel extends Component {
     if (this.state.selectedItemIndex !== undefined && !isEqual(list, this.props.currentValues[this.props.name])) {
       this.reset();
     }
-
-    if (!isEqual(values, this.props.resetObject) && !isEqual(nextProps.currentValues, this.props.currentValues)) {
-      this.validate(nextProps.formValues);
-    }
   }
 
   validate(values) {
@@ -117,7 +113,7 @@ class ListWithInputPanel extends Component {
     const { [name]: items, ...values } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
 
-    if (this.validate(formValues)) {
+    if (canAddNew && this.validate(formValues)) {
       if (this.state.selectedItemIndex !== undefined) {
         arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
         arrayInsert(formName, `${path}${name}`, this.state.selectedItemIndex, values);
@@ -164,10 +160,17 @@ class ListWithInputPanel extends Component {
   }
 
   select(index) {
-    const { currentValues, name, change, formName, selectorPath } = this.props;
+    const { currentValues, name, change, formName, selectorPath, formValues } = this.props;
     const path = getCurrentSelectorPath(selectorPath);
     this.setState({ selectedItemIndex: index }, () => {
       const item = currentValues[name][index];
+      this.validate({
+        ...formValues,
+        [name]: {
+          ...item,
+          [name]: formValues[name][name],
+        },
+      });
       Object.keys(item).forEach(key => change(formName, `${path}${key}`, item[key]));
     });
   }
@@ -190,6 +193,13 @@ class ListWithInputPanel extends Component {
 
   render() {
     const { children, errors, name, canAddNew, canRemove, canDuplicate, selectorPath } = this.props;
+    const childrenWithDisabledProp = Children.map(children, child => {
+      return cloneElement(child, {
+        ...child.props,
+        disabled: !canAddNew && this.state.selectedItemIndex === undefined,
+      });
+    });
+
     return (
       <div className={COMPONENT_CLASS}>
         <ErrorsPanel path={selectorPath} includeSubPaths />
@@ -221,7 +231,7 @@ class ListWithInputPanel extends Component {
               )}
             </div>
 
-            {children}
+            {childrenWithDisabledProp}
 
             <div className={ACTIONS_CLASS}>
               <button
