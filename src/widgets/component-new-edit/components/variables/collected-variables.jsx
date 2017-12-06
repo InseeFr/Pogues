@@ -30,6 +30,7 @@ export const propTypes = {
   addErrors: PropTypes.func.isRequired,
   arrayRemoveAll: PropTypes.func.isRequired,
   arrayPush: PropTypes.func.isRequired,
+  removeValidationErrors: PropTypes.func.isRequired,
 
   codesListsStoreStore: PropTypes.object,
   reponseFormatValues: PropTypes.object,
@@ -61,6 +62,7 @@ class CollectedVariables extends Component {
       formName,
       arrayRemoveAll,
       arrayPush,
+      removeValidationErrors,
     } = this.props;
 
     const newVariables = generateCollectedVariables(
@@ -75,6 +77,8 @@ class CollectedVariables extends Component {
     newVariables.forEach(cv => {
       arrayPush(formName, 'collectedVariables.collectedVariables', cv);
     });
+
+    removeValidationErrors(['collectedVariables.collectedVariables']);
   }
 
   render() {

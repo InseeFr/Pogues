@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import CollectedVariables from '../../components/variables/collected-variables';
 
+import { removeValidationErrors } from 'actions/errors';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
 // Prop types and default Props
@@ -37,6 +38,7 @@ const mapStateToProps = (state, { formName }) => {
 const mapDispatchToProps = {
   arrayRemoveAll: actions.arrayRemoveAll,
   arrayPush: actions.arrayPush,
+  removeValidationErrors,
 };
 
 const CollectedVariablesContainer = connect(mapStateToProps, mapDispatchToProps)(CollectedVariables);
