@@ -82,7 +82,7 @@ class ListWithInputPanel extends Component {
     this.removeErrorIntegrityIfExists = this.removeErrorIntegrityIfExists.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillUpdate(nextProps, nextState) {
     const { [this.props.name]: list, id, ...values } = nextProps.currentValues;
 
     if (!this.props.canAddNew && this.state.selectedItemIndex === undefined) return;
@@ -90,10 +90,6 @@ class ListWithInputPanel extends Component {
     // Generation items when another item is selected
     if (this.state.selectedItemIndex !== undefined && !isEqual(list, this.props.currentValues[this.props.name])) {
       this.reset();
-    }
-
-    if (!isEqual(values, this.props.resetObject) && !isEqual(nextProps.currentValues, this.props.currentValues)) {
-      this.validate(nextProps.formValues);
     }
   }
 
@@ -164,10 +160,17 @@ class ListWithInputPanel extends Component {
   }
 
   select(index) {
-    const { currentValues, name, change, formName, selectorPath } = this.props;
+    const { currentValues, name, change, formName, selectorPath, formValues } = this.props;
     const path = getCurrentSelectorPath(selectorPath);
     this.setState({ selectedItemIndex: index }, () => {
       const item = currentValues[name][index];
+      this.validate({
+        ...formValues,
+        [name]: {
+          ...item,
+          [name]: formValues[name][name],
+        },
+      });
       Object.keys(item).forEach(key => change(formName, `${path}${key}`, item[key]));
     });
   }
