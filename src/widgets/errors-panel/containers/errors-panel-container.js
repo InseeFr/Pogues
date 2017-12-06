@@ -17,12 +17,13 @@ const defaultProps = {
 // Container
 
 const mapStateToProps = (state, { path, includeSubPaths }) => {
-  const errorsByFormPath = state.errors.errorsByFormPath;
+  const errorsValidation = state.errors.errorsValidation;
   const regex = includeSubPaths ? new RegExp(`^${path}(.)*$`) : new RegExp(`^${path}$`);
-  const errors = Object.keys(errorsByFormPath)
+
+  const errors = Object.keys(errorsValidation)
     .filter(p => regex.test(p))
     .reduce((acc, p) => {
-      return [...acc, ...errorsByFormPath[p]];
+      return [...acc, ...errorsValidation[p]];
     }, []);
 
   return { errors };

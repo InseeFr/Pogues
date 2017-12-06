@@ -128,7 +128,6 @@ class QuestionnaireComponent extends Component {
     const style = {
       marginLeft: `${calculateMargin(this.props, draggedItem, dragndropLevel, parentType)}px`,
     };
-    // console.log(canDrop)
     const dropZone = canDrop && isOver && <DropZone style={style} />;
     const integrityErrors = getIntegrityErrors(integrityErrorsByType);
 

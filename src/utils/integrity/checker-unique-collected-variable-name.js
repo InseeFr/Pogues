@@ -31,6 +31,7 @@ function checkerUniqueCollectedVariableName({
   if (duplicatedVariablesNames.length > 0) {
     errors.push({
       message: `${Dictionary.errorUniqueVariableName} ${duplicatedVariablesNames.join(',')}`,
+      type: INTEGRITY_TYPES.UNIQUE_VARIABLE_NAME,
     });
   }
 

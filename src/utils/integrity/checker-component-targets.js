@@ -21,12 +21,14 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
             path: 'redirections.cible',
             itemListId: innerKey,
             dictionary: 'errorGoToNonExistingTgt',
+            type: INTEGRITY_TYPES.TARGET_NOT_FOUND,
           });
         } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
           targetEarlierErrors.push({
             path: 'redirections.cible',
             itemListId: innerKey,
             dictionary: 'errorGoToNonExistingTgt',
+            type: INTEGRITY_TYPES.TARGET_EARLIER,
           });
         }
       });

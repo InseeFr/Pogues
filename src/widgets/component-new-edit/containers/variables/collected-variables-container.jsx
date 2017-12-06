@@ -12,7 +12,7 @@ export const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
-  setErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {

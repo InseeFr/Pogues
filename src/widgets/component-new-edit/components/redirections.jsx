@@ -15,8 +15,8 @@ import Dictionary from 'utils/dictionary/dictionary';
 
 // Utils
 
-const validateForm = (setErrors, validate, componentsStore, editingComponentId) => values => {
-  return validate(values, setErrors, {
+const validateForm = (addErrors, validate, componentsStore, editingComponentId) => values => {
+  return validate(values, addErrors, {
     componentsStore,
     editingComponentId,
   });
@@ -30,7 +30,7 @@ const propTypes = {
   componentType: PropTypes.string.isRequired,
   editingComponentId: PropTypes.string.isRequired,
   errors: PropTypes.array,
-  setErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired,
   componentsStore: PropTypes.object.isRequired,
 };
 
@@ -47,7 +47,7 @@ function Redirections({
   selectorPath,
   componentType,
   errors,
-  setErrors,
+  addErrors,
   componentsStore,
   editingComponentId,
 }) {
@@ -59,7 +59,7 @@ function Redirections({
         name="redirections"
         errors={errors}
         resetObject={defaultState}
-        validateForm={validateForm(setErrors, validateRedirectionForm, componentsStore, editingComponentId)}
+        validateForm={validateForm(addErrors, validateRedirectionForm, componentsStore, editingComponentId)}
       >
         <Field type="text" name="label" component={Input} label={Dictionary.goTo_label} required />
         <Field

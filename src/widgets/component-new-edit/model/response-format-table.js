@@ -410,7 +410,10 @@ const Factory = (initialState = {}, codesListsStore) => {
       // Normalized measures list axis
 
       if (typePrimary === LIST || (typePrimary === CODES_LIST && !showSecondaryAxis)) {
-        normalized[LIST_MEASURE] = getNormalizedMeasureValues(listMeasuresInput);
+        normalized[LIST_MEASURE] = {
+          ...getNormalizedMeasureValues(listMeasuresInput),
+          measures: listMeasures,
+        };
       }
 
       return normalized;
