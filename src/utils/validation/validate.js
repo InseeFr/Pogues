@@ -43,6 +43,8 @@ export function validateSequenceForm(values, setErrors) {
   }
 }
 
+// Subforms validation
+
 export function validateControlForm(values, addErrors) {
   const errors = validate(values, controlRules);
 

@@ -9,6 +9,7 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  UI_BEHAVIOUR,
 } from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
@@ -48,6 +49,11 @@ export const defaultMeasureForm = {
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
+    hasSpecialCode: false,
+    specialLabel: '',
+    specialCode: '',
+    specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
+    specialFollowUpMessage: '',
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
     visHint: CHECKBOX,
   },
