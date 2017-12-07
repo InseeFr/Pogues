@@ -194,11 +194,10 @@ class ListWithInputPanel extends Component {
   render() {
     const { children, errors, name, canAddNew, canRemove, canDuplicate, selectorPath } = this.props;
     const childrenWithDisabledProp = Children.map(children, child => {
-      return cloneElement(child, {
-        ...child.props,
-        disabled: !canAddNew && this.state.selectedItemIndex === undefined,
-      });
-    });
+      return child
+        ? cloneElement(child, { ...child.props, disabled: !canAddNew && this.state.selectedItemIndex === undefined })
+        : child;
+    }).filter(child => child);
 
     return (
       <div className={COMPONENT_CLASS}>
