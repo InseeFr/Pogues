@@ -4,7 +4,7 @@ import { formPropTypes } from 'redux-form';
 
 import ComponentNewEdit from '../components/component-new-edit';
 
-import { addValidationErrors, clearValidationErrors } from 'actions/errors';
+import { addSubformValidationErrors, clearSubformValidationErrors } from 'actions/errors';
 import { TABS_PATHS } from 'constants/pogues-constants';
 
 // Utils
@@ -56,8 +56,8 @@ const mapStateToProps = (state, { componentId }) => {
 };
 
 const mapDispatchToProps = {
-  addValidationErrors,
-  clearValidationErrors,
+  addSubformValidationErrors,
+  clearSubformValidationErrors,
 };
 
 const ComponentNewEditContainer = connect(mapStateToProps, mapDispatchToProps)(ComponentNewEdit);

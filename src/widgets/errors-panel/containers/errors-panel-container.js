@@ -17,7 +17,7 @@ const defaultProps = {
 // Container
 
 const mapStateToProps = (state, { path, includeSubPaths }) => {
-  const errorsValidation = state.errors.errorsValidation;
+  const errorsValidation = { ...state.errors.errorsValidation, ...state.errors.errorsSubformValidation };
   const regex = includeSubPaths ? new RegExp(`^${path}(.)*$`) : new RegExp(`^${path}$`);
 
   const errors = Object.keys(errorsValidation)

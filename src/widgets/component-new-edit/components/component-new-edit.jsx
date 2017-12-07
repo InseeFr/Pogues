@@ -31,8 +31,8 @@ export const propTypes = {
   errorsIntegrityByTab: PropTypes.object,
   componentsStore: PropTypes.object,
 
-  addValidationErrors: PropTypes.func.isRequired,
-  clearValidationErrors: PropTypes.func.isRequired,
+  addSubformValidationErrors: PropTypes.func.isRequired,
+  clearSubformValidationErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -49,27 +49,33 @@ class ComponentNewEdit extends Component {
   static defaultProps = defaultProps;
 
   componentWillMount() {
-    this.props.clearValidationErrors();
+    this.props.clearSubformValidationErrors();
   }
 
   renderPanels() {
-    const { componentType, componentId, addValidationErrors, componentsStore, errorsIntegrityByTab } = this.props;
+    const {
+      componentType,
+      componentId,
+      addSubformValidationErrors,
+      componentsStore,
+      errorsIntegrityByTab,
+    } = this.props;
 
     let panels = [
       <Tab label={Dictionary.declaration_tabTitle} path={TABS_PATHS.DECLARATIONS} key={TABS_PATHS.DECLARATIONS}>
         <Declaration
           showPosition={componentType === QUESTION}
           errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
-          addErrors={addValidationErrors}
+          addErrors={addSubformValidationErrors}
         />
       </Tab>,
       <Tab label={Dictionary.controls} path={TABS_PATHS.CONTROLS} key={TABS_PATHS.CONTROLS}>
-        <Controls errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]} addErrors={addValidationErrors} />
+        <Controls errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]} addErrors={addSubformValidationErrors} />
       </Tab>,
       <Tab label={Dictionary.goTo} path={TABS_PATHS.REDIRECTIONS} key={TABS_PATHS.REDIRECTIONS}>
         <Redirections
           errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
-          addErrors={addValidationErrors}
+          addErrors={addSubformValidationErrors}
           componentType={componentType}
           componentsStore={componentsStore}
           editingComponentId={componentId}
@@ -80,7 +86,7 @@ class ComponentNewEdit extends Component {
     if (componentType === QUESTION) {
       panels = [
         <Tab label={Dictionary.responsesEdition} path={TABS_PATHS.RESPONSE_FORMAT} key={TABS_PATHS.RESPONSE_FORMAT}>
-          <ResponseFormat edit={componentId !== ''} addErrors={addValidationErrors} />
+          <ResponseFormat edit={componentId !== ''} addErrors={addSubformValidationErrors} />
         </Tab>,
         ...panels,
         <Tab
@@ -90,7 +96,7 @@ class ComponentNewEdit extends Component {
         >
           <ExternalVariables
             errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
-            addErrors={addValidationErrors}
+            addErrors={addSubformValidationErrors}
           />
         </Tab>,
         <Tab
@@ -100,7 +106,7 @@ class ComponentNewEdit extends Component {
         >
           <CalculatedVariables
             errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
-            addErrors={addValidationErrors}
+            addErrors={addSubformValidationErrors}
           />
         </Tab>,
         <Tab
@@ -110,7 +116,7 @@ class ComponentNewEdit extends Component {
         >
           <CollectedVariablesContainer
             errors={errorsIntegrityByTab[TABS_PATHS.COLLECTED_VARIABLES]}
-            addErrors={addValidationErrors}
+            addErrors={addSubformValidationErrors}
           />
         </Tab>,
       ];

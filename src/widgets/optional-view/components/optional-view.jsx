@@ -12,15 +12,20 @@ import Dictionary from 'utils/dictionary/dictionary';
 const propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  active: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
+  active: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   checkbox: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
+};
+
+const defaultProps = {
+  active: false,
 };
 
 // Component
 
 class OptionalView extends Component {
   static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
   render() {
     const { name, label, children, active, checkbox } = this.props;
