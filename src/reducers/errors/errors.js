@@ -1,11 +1,13 @@
 import errorsByComponent from './errors-by-component';
 import errorsIntegrity from './errors-integrity';
 import errorsValidation from './errors-validation';
+import errorsSubformValidation from './errors-subform-validation';
 
 const defaultState = {
   errorsByFormPath: {},
-  errorsByComponent: {},
-  errorsByTab: {},
+  errorsIntegrity: {},
+  errorsValidation: {},
+  errorsSubformValidation: {},
 };
 
 const actionHandlers = {};
@@ -19,5 +21,6 @@ export default function(state = defaultState, action) {
     errorsByComponent: errorsByComponent(state.errorsByComponent, action),
     errorsIntegrity: errorsIntegrity(state.errorsIntegrity, action),
     errorsValidation: errorsValidation(state.errorsValidation, action),
+    errorsSubformValidation: errorsSubformValidation(state.errorsSubformValidation, action),
   };
 }

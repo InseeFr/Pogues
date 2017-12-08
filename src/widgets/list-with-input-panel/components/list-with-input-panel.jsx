@@ -2,6 +2,7 @@ import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
 import isEqual from 'lodash.isequal';
+import cloneDeep from 'lodash.clonedeep';
 
 import ListWithInputPanelList from './list-with-input-panel-list';
 
@@ -22,6 +23,25 @@ const {
   BUTTON_RESET_CLASS,
   BUTTON_NEW_CLASS,
 } = WIDGET_LIST_WITH_INPUT_PANEL;
+
+// Utils
+
+function getFormValuesToValidate(formValues, item, selectorPath, name) {
+  const formValuesToValidate = cloneDeep(formValues);
+  let pointer = formValuesToValidate;
+
+  const pathStack = selectorPath.split('.');
+
+  while (pathStack.length > 1) {
+    pointer = pointer[pathStack.shift()];
+  }
+
+  const deeperkey = pathStack.shift();
+
+  pointer[deeperkey] = { ...item, [name]: pointer[deeperkey][name] };
+
+  return formValuesToValidate;
+}
 
 // PropTypes and defaultProps
 
@@ -47,7 +67,7 @@ export const propTypes = {
   arrayPush: PropTypes.func.isRequired,
   arrayInsert: PropTypes.func.isRequired,
   validateForm: PropTypes.func.isRequired,
-  removeValidationErrors: PropTypes.func.isRequired,
+  clearSubformValidationErrors: PropTypes.func.isRequired,
   removeIntegrityError: PropTypes.func.isRequired,
 };
 
@@ -164,21 +184,14 @@ class ListWithInputPanel extends Component {
     const path = getCurrentSelectorPath(selectorPath);
     this.setState({ selectedItemIndex: index }, () => {
       const item = currentValues[name][index];
-      this.validate({
-        ...formValues,
-        [name]: {
-          ...item,
-          [name]: formValues[name][name],
-        },
-      });
+      const formValuesToValidate = getFormValuesToValidate(formValues, item, selectorPath, name);
+      this.validate(formValuesToValidate);
       Object.keys(item).forEach(key => change(formName, `${path}${key}`, item[key]));
     });
   }
 
   clearAllErrors() {
-    const { removeValidationErrors, selectorPath, resetObject } = this.props;
-    const paths = [...Object.keys(resetObject).map(i => `${selectorPath}.${i}`), selectorPath];
-    removeValidationErrors(paths);
+    this.props.clearSubformValidationErrors();
   }
 
   removeErrorIntegrityIfExists(values) {
@@ -194,11 +207,10 @@ class ListWithInputPanel extends Component {
   render() {
     const { children, errors, name, canAddNew, canRemove, canDuplicate, selectorPath } = this.props;
     const childrenWithDisabledProp = Children.map(children, child => {
-      return cloneElement(child, {
-        ...child.props,
-        disabled: !canAddNew && this.state.selectedItemIndex === undefined,
-      });
-    });
+      return child
+        ? cloneElement(child, { ...child.props, disabled: !canAddNew && this.state.selectedItemIndex === undefined })
+        : child;
+    }).filter(child => child);
 
     return (
       <div className={COMPONENT_CLASS}>

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actions, formValueSelector, getFormValues } from 'redux-form';
 
-import { removeValidationErrors, removeIntegrityError } from 'actions/errors';
+import { clearSubformValidationErrors, removeIntegrityError } from 'actions/errors';
 import ListWithInputPanel from '../components/list-with-input-panel';
 
 // Proptypes and defaultProps
@@ -49,7 +49,7 @@ const mapDispatchToProps = {
   arrayRemove: actions.arrayRemove,
   arrayPush: actions.arrayPush,
   arrayInsert: actions.arrayInsert,
-  removeValidationErrors,
+  clearSubformValidationErrors,
   removeIntegrityError,
 };
 
