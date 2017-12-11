@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from 'constants/dom-constants';
-import { getControlId, uuid } from 'utils/widget-utils';
+import { getControlId } from 'utils/widget-utils';
+import { uuid } from 'utils/utils';
 import Dictionary from 'utils/dictionary/dictionary';
 
 const {
@@ -19,6 +20,7 @@ const propTypes = {
   loadSearchResult: PropTypes.func.isRequired,
   criteriaValues: PropTypes.object,
   loadOnInit: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -32,25 +34,29 @@ class InputFilterWithCriteria extends Component {
   static defaultProps = defaultProps;
 
   componentWillMount() {
-    if (this.props.loadOnInit) this.props.loadSearchResult();
+    if (this.props.loadOnInit) this.props.loadSearchResult(this.props.typeItem);
   }
 
   render() {
-    const { typeItem, criteriaValues } = this.props;
+    const { typeItem, criteriaValues, label } = this.props;
     const id = getControlId('input', 'search', uuid());
 
     return (
       <div className={COMPONENT_CLASS}>
         <div className={PANEL_INPUT_CLASS}>
-          <label htmlFor={id}>{Dictionary.searchInputLabel}</label>
+          <label htmlFor={id}>{label}</label>
           <div>
             <input
               id={id}
               className={SEARCH_INPUT_CLASS}
               type="text"
-              placeholder={Dictionary.searchInputPlaceholder}
+              placeholder={label}
               ref={node => {
                 this.inputSearch = node;
+              }}
+              onKeyDown={e => {
+                if (e.key === 'Enter')
+                  this.props.loadSearchResult(typeItem, criteriaValues, this.inputSearch.value.trim());
               }}
             />
           </div>

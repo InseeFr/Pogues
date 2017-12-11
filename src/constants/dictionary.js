@@ -39,27 +39,27 @@ const dictionary = {
     en: 'Add',
     fr: 'Ajouter',
   },
-  noDeclarationYet: {
+  no_declarations: {
     en: 'No statement yet',
     fr: 'Aucune déclaration définie',
   },
-  noControlYet: {
+  no_controls: {
     en: 'No control yet',
     fr: 'Aucun contrôle défini',
   },
-  noGoToYet: {
+  no_redirections: {
     en: 'No goTo yet',
     fr: 'Aucune redirection définie',
   },
-  noCalculatedVariablesYet: {
+  no_calculatedVariables: {
     en: 'No calculated variable yet',
     fr: 'Aucune variable calculée définie',
   },
-  noExternalVariablesYet: {
+  no_externalVariables: {
     en: 'No external variable yet',
     fr: 'Aucune variable externe définie',
   },
-  noCollectedVariablesYet: {
+  no_collectedVariables: {
     en: 'No collected variable yet',
     fr: 'Aucune variable collectée définie',
   },
@@ -150,6 +150,14 @@ const dictionary = {
   movedown: {
     en: 'Move down',
     fr: 'Descendre',
+  },
+  moveright: {
+    en: 'Move right',
+    fr: 'Déplacer droite',
+  },
+  moveleft: {
+    en: 'Move left',
+    fr: 'Déplacer gauche',
   },
   declaration_tabTitle: {
     en: 'Statements',
@@ -303,7 +311,7 @@ const dictionary = {
     en: 'Collected variables',
     fr: 'Variables collectées',
   },
-  defineGoTo: {
+  addInput_redirections: {
     en: 'Add a goto',
     fr: 'Ajouter une redirection',
   },
@@ -686,6 +694,10 @@ const dictionary = {
     fr: 'Ajouter un code',
     en: 'Add a code',
   },
+  editCode: {
+    fr: 'Editer un code',
+    en: 'Edit a code',
+  },
   codeLabel: {
     fr: 'Libellé de la modalité',
     en: 'Code label',
@@ -771,8 +783,8 @@ const dictionary = {
     en: 'Homepage',
   },
   stamp: {
-    fr: 'Habilitation',
-    en: 'Authorisation',
+    fr: 'Habilitation :',
+    en: 'Authorisation:',
   },
   welcome: {
     fr: 'Bienvenue dans POGUES',
@@ -915,6 +927,10 @@ const dictionary = {
     fr: 'Veuillez saisir au maximum',
     en: 'Must be at most',
   },
+  validationNoCodes: {
+    fr: 'Veuillez ajouter des codes a la liste',
+    en: 'Must be added codes to the list',
+  },
   dropHere: {
     fr: 'Déposer ici !',
     en: 'Drop here !',
@@ -972,7 +988,7 @@ const dictionary = {
     en: 'Select at least one campaign',
   },
   selectType: {
-    fr: 'Sélectionne un type',
+    fr: 'Sélectionner un type',
     en: 'Select a type',
   },
   noValuesCampaigns: {
@@ -1063,6 +1079,18 @@ const dictionary = {
     fr: 'Format de réponse obligatoire.',
     en: 'Response format required.',
   },
+  validationCodeListCode: {
+    fr: 'Code de la modalité obligatoire.',
+    en: 'Code required.',
+  },
+  validationCodeListLabel: {
+    fr: 'Libellé obligatoire.',
+    en: 'Label required.',
+  },
+  validationMeasureLabel: {
+    fr: "Libellé de l'information mesurée obligatoire",
+    en: 'Measure label required',
+  },
   headerSearchQuestionnaire_version: {
     fr: 'Version',
     en: 'Version',
@@ -1095,13 +1123,13 @@ const dictionary = {
     fr: 'Réutiliser',
     en: 'Reuse',
   },
-  searchInputLabel: {
+  searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
     fr: 'Titre du questionnaire',
   },
-  searchInputPlaceholder: {
-    en: 'Questionnaire title',
-    fr: 'Titre',
+  searchInputCodesListsLabel: {
+    en: 'Code list label',
+    fr: 'Libellé de la liste de code',
   },
   searchInputButton: {
     en: 'Search',
@@ -1112,8 +1140,8 @@ const dictionary = {
     fr: 'Aucun questionnaire trouvé',
   },
   codesListsNoResults: {
-    en: 'No codes lists found',
-    fr: 'Aucune liste de codes trouvé',
+    en: 'No code list found',
+    fr: 'Aucune liste de codes trouvée',
   },
   reset: {
     en: 'Reset',
@@ -1131,6 +1159,10 @@ const dictionary = {
   searchResultTitle: {
     fr: 'Titre',
     en: 'Title',
+  },
+  searchResultLabel: {
+    fr: 'Libellé',
+    en: 'Label',
   },
   searchResultSerie: {
     fr: 'Série',
@@ -1151,6 +1183,26 @@ const dictionary = {
   searchResultActionReuse: {
     fr: 'Réutiliser',
     en: 'Reuse',
+  },
+  actions: {
+    fr: 'Actions',
+    en: 'Actions',
+  },
+  level: {
+    fr: 'Niveau',
+    en: 'Level',
+  },
+  VISUALIZE_WEB: {
+    fr: 'Web',
+    en: 'Web',
+  },
+  VISUALIZE_PDF: {
+    fr: 'PDF',
+    en: 'PDF',
+  },
+  VISUALIZE_SPECIFICATION: {
+    fr: 'Spécification',
+    en: 'Specification',
   },
 };
 

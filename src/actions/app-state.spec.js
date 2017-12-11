@@ -91,11 +91,14 @@ describe('updateActiveQuestionnaire', () => {
 
 describe('saveActiveQuestionnaireSuccess', () => {
   test('should return the right payload', () => {
-    expect(saveActiveQuestionnaireSuccess('id', 'update')).toEqual({
+    expect(saveActiveQuestionnaireSuccess('id', { update: 'update' })).toEqual({
       type: SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
       payload: {
         id: 'id',
-        update: 'update',
+        update: {
+          update: 'update',
+          isQuestionnaireModified: false,
+        },
       },
     });
   });

@@ -16,15 +16,22 @@ const {
 
 describe('<ListWithInputPanel', () => {
   const props = {
+    formName: 'FAKE_FORM_NAME',
+    selectorPath: 'FAKE_SELECTOR_PATH',
     name: 'FAKE_NAME',
-    canSubmit: true,
-    canRemove: true,
-    edit: false,
-    submit: noop,
-    remove: noop,
-    duplicate: noop,
-    reset: noop,
+
+    formValues: {},
+    currentValues: {},
+    resetObject: {},
+
+    change: noop,
+    arrayRemove: noop,
+    arrayPush: noop,
+    arrayInsert: noop,
+    validateForm: noop,
+    clearErrors: noop,
   };
+
   const FakeInputPanel = () => <div />;
   const buildFakeListWithPanel = customProps => {
     return shallow(
@@ -40,19 +47,10 @@ describe('<ListWithInputPanel', () => {
       expect(wrapper.find(FakeInputPanel)).toHaveLength(1);
     });
 
-    test('Should exist a field with name "ref"', () => {
-      const wrapper = buildFakeListWithPanel(props);
-      expect(wrapper.find('Field[name="ref"]')).toHaveLength(1);
-    });
-
     test('Should show the corresponding buttons only if the property associated is true', () => {
       let wrapper;
 
       const buttons = [
-        {
-          className: BUTTON_SUBMIT_CLASS,
-          property: 'canSubmit',
-        },
         {
           className: BUTTON_REMOVE_CLASS,
           property: 'canRemove',
@@ -63,7 +61,7 @@ describe('<ListWithInputPanel', () => {
         },
         {
           className: BUTTON_NEW_CLASS,
-          property: 'canSubmit',
+          property: 'canAddNew',
         },
       ];
 
@@ -74,19 +72,10 @@ describe('<ListWithInputPanel', () => {
         expect(wrapper.find(`.${btn.className}`)).toHaveLength(0);
       });
     });
-
-    test('Should disable de Remove button and the Duplicate button only if the "edit" property is false', () => {
-      let wrapper = buildFakeListWithPanel(props);
-      expect(wrapper.find(`.${BUTTON_REMOVE_CLASS}`).prop('disabled')).toBeTruthy();
-      expect(wrapper.find(`.${BUTTON_DUPLICATE_CLASS}`).prop('disabled')).toBeTruthy();
-
-      wrapper = buildFakeListWithPanel({ ...props, edit: true });
-      expect(wrapper.find(`.${BUTTON_REMOVE_CLASS}`).prop('disabled')).toBeFalsy();
-      expect(wrapper.find(`.${BUTTON_DUPLICATE_CLASS}`).prop('disabled')).toBeFalsy();
-    });
   });
 
-  describe('Actions', () => {
+  // @TODO: The actions are defined in the state
+  describe.skip('Actions', () => {
     test('Should call the corresponding action when click in the associated button', () => {
       let wrapper;
       const buttons = [

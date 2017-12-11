@@ -1,0 +1,38 @@
+#errors-integrity {
+  .errors-integrity__inner {
+    @include make-row();
+    padding: 15px;
+    margin: 15px 0;
+    border: 2px solid red;
+    color: lighten(red, 20%);
+
+    .errors-integrity__alert {
+      @include make-xs-column(1);
+    }
+
+    .errors-integrity__list {
+      @include make-xs-column(11);
+      ul {
+        list-style: none;
+        padding: 0;
+
+        > li {
+          cursor: pointer;
+          i {
+            margin-right: 10px;
+          }
+        }
+
+        ul {
+          padding: 5px 0;
+          li {
+            color: black;
+            cursor: default;
+          }
+        }
+      }
+    }
+  }
+}
+
+

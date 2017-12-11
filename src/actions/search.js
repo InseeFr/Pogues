@@ -1,8 +1,21 @@
 export const LOAD_SEARCH_RESULT = 'LOAD_SEARCH_RESULT';
 export const LOAD_SEARCH_RESULT_SUCCESS = 'LOAD_SEARCH_RESULT_SUCCESS';
 export const LOAD_SEARCH_RESULT_FAILURE = 'LOAD_SEARCH_RESULT_FAILURE';
+export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 
 import { getSearchResults } from 'utils/remote-api';
+
+/**
+ * Clear search result list
+ *
+ * It empty the search results store
+ *
+ * @return  {object}  CLEAR_SEARCH_RESULTS action
+ */
+export const clearSearchResult = () => ({
+  type: CLEAR_SEARCH_RESULTS,
+  payload: null,
+});
 
 /**
  * Load search result list success

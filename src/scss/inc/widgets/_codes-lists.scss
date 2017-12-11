@@ -1,0 +1,101 @@
+.widget-codes-lists {
+  margin: 20px 0;
+
+  .widget-codes-lists__panel-selector {
+    margin-bottom: 20px;
+  }
+
+  .widget-codes-lists__codes {
+    > button {
+      @extend .btn-grey;
+    }
+
+    .widget-codes-lists__codes__list {
+      .widget-codes-lists__codes__input {
+        @include make-row();
+
+        .widget-codes-lists__codes__input-code {
+          @include make-xs-column(12);
+        }
+
+        .widget-codes-lists__codes__input-code {
+          @include make-xs-column(3);
+          label + div, > label {
+            width: 100%;
+          }
+        }
+        .widget-codes-lists__codes__input-label {
+          @include make-xs-column(6);
+          label + div, > label {
+            width: 100%;
+          }
+        }
+        .widget-codes-lists__codes__input-actions {
+          @include make-xs-column(3);
+          margin-top: 85px;
+
+          button {
+            display: inline-block;
+            margin-left: 10px;
+
+            &.widget-codes-lists__codes__input-actions-add {
+              @extend .btn-yellow;
+            }
+
+            &.widget-codes-lists__codes__input-actions-cancel {
+              @extend .btn-yellow;
+            }
+          }
+        }
+      }
+
+      .widget-codes-lists__codes__list-item {
+        @include make-row();
+        margin: 10px 0;
+        padding: 10px 0;
+        border-top: 1px solid $color-grey_02;
+
+        >div:nth-child(1) {
+          @include make-xs-column(1);
+        }
+
+        >div:nth-child(2) {
+          @include make-xs-column(2);
+        }
+
+        >div:nth-child(3) {
+          @include make-xs-column(4);
+        }
+
+        >div:nth-child(4) {
+          @include make-xs-column(5);
+        }
+
+
+        .widget-codes-lists__codes__actions {
+          button {
+            @extend .btn-grey;
+            margin-left: 10px;
+          }
+          .widget-codes-lists__codes__actions-movement {
+            position: relative;
+            display: inline-block;
+
+            .widget-codes-lists__codes__actions-movement-toggle {
+              z-index: 10;
+              position: absolute;
+              display: none;
+
+              &.show {
+                display: block;
+              }
+            }
+          }
+
+        }
+
+      }
+    }
+
+  }
+}

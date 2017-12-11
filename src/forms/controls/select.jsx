@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
@@ -18,6 +18,7 @@ export const propTypes = {
   multiple: PropTypes.bool,
   emptyOption: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  focusOnInit: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -26,41 +27,58 @@ export const defaultProps = {
   multiple: false,
   children: [],
   emptyOption: undefined,
+  focusOnInit: false,
 };
 
-// Component
+// Control
 
-function Select({ label, required, disabled, multiple, emptyOption, children, input, meta: { touched, error } }) {
-  const values = getValuesFromGenericOptions(children);
-  const id = getControlId('select', input.name);
+class Select extends Component {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
-  return (
-    <div className={COMPONENT_CLASS}>
-      <label htmlFor={id}>
-        {label}
-        {required && <span className="ctrl-required">*</span>}
-      </label>
-      <div>
-        <select {...input} id={id} placeholder={label} disabled={disabled} multiple={multiple}>
-          {emptyOption && <option value="">{emptyOption}</option>}
-          {values.map(val => {
-            // eslint-disable-next-line no-shadow
-            const { label, value, ...otherProps } = val;
-            return (
-              <option key={value} value={value} {...otherProps}>
-                {label}
-              </option>
-            );
-          })}
-        </select>
+  componentDidMount() {
+    if (this.props.focusOnInit) this.input.focus();
+  }
 
-        {touched && (error && <span className="form-error">{error}</span>)}
+  render() {
+    const { label, required, disabled, multiple, emptyOption, children, input, meta: { touched, error } } = this.props;
+    const values = getValuesFromGenericOptions(children);
+    const id = getControlId('select', input.name);
+
+    return (
+      <div className={COMPONENT_CLASS}>
+        <label htmlFor={id}>
+          {label}
+          {required && <span className="ctrl-required">*</span>}
+        </label>
+        <div>
+          <select
+            {...input}
+            id={id}
+            placeholder={label}
+            disabled={disabled}
+            multiple={multiple}
+            ref={node => {
+              this.input = node;
+            }}
+          >
+            {emptyOption && <option value="">{emptyOption}</option>}
+            {values.map(val => {
+              // eslint-disable-next-line no-shadow
+              const { label, value, ...otherProps } = val;
+              return (
+                <option key={value} value={value} {...otherProps}>
+                  {label}
+                </option>
+              );
+            })}
+          </select>
+
+          {touched && (error && <span className="form-error">{error}</span>)}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-Select.propTypes = propTypes;
-Select.defaultProps = defaultProps;
 
 export default Select;

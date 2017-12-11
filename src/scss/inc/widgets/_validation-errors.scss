@@ -1,0 +1,16 @@
+.widget-validation-errors {
+  margin: 20px 0;
+
+  ul {
+    background-color: lighten(red, 45%);
+    padding: 10px;
+    list-style-type: circle;
+
+    li {
+      margin-left: 20px;
+      color: red;
+      font-size: $font-xs;
+      font-weight: bold;
+    }
+  }
+}

@@ -7,7 +7,12 @@ import {
 } from 'utils/component/component-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
-import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence, duplicate } from './component-insert';
+import {
+  moveQuestionToSubSequence,
+  moveQuestionAndSubSequenceToSequence,
+  duplicate,
+  duplicateComponentAndVars,
+} from './component-insert';
 import { moveComponent } from './component-move';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
@@ -141,9 +146,9 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
       );
 
       /**
-     * We move components into the new
-     *  sequence only if the selected is not a sequence without children
-     */
+       * We move components into the new
+       *  sequence only if the selected is not a sequence without children
+       */
     } else if (
       isSequence(lastCreatedComponent[id]) &&
       !(isSequence(selectedComponent) && childrenSelectedComponentLength === 0)
@@ -257,5 +262,21 @@ export const duplicateComponent = idComponent => (dispatch, getState) => {
         activeComponentsById: duplicate(activeComponentsById, idComponent),
       },
     },
+  });
+};
+
+/**
+ * Method used when we click on the DUPLICATE button on a SEQUENCE, SUBSEQUENCE or QUESTION
+ *
+ * @param {string} idComponent the id of the component we want to remove
+ */
+export const duplicateComponentAndVariables = idComponent => (dispatch, getState) => {
+  const state = getState();
+  const activeComponentsById = state.appState.activeComponentsById;
+  const collectedVariables = state.appState.collectedVariableByQuestion[idComponent];
+  const update = duplicateComponentAndVars(activeComponentsById, collectedVariables, idComponent);
+  dispatch({
+    type: DUPLICATE_COMPONENT,
+    payload: { update },
   });
 };

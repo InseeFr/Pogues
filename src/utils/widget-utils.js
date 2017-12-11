@@ -41,8 +41,22 @@ export function filterStoreByProp(store = {}, propName, value) {
     .map(key => store[key]);
 }
 
-export function storeToArray(store = {}) {
-  return Object.keys(store).map(key => store[key]);
+export function getKey(str) {
+  return str.replace(/\s+/g, '-').toLowerCase();
 }
 
-export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+export function getIndexItemsByAttrs(attrs, items) {
+  const searchedKey = Object.keys(attrs)
+    .map(attrKey => attrs[attrKey])
+    .join('');
+
+  const index = items
+    .map(i =>
+      Object.keys(attrs)
+        .map(attrKey => i[attrKey])
+        .join('')
+    )
+    .indexOf(searchedKey);
+
+  return index !== -1 ? index : undefined;
+}

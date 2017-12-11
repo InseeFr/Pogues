@@ -1,0 +1,15 @@
+.ctrl-rich-textarea {
+  @extend .ctrl;
+
+  .ctrl-rich-textarea__editor {
+    display: flex;
+    flex-direction: column-reverse;
+    font-family: inherit;
+
+    .dotted {
+      border-bottom: 2px dashed #999;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { getControlId, toggleValueInList, filterStoreByProp, storeToArray } from './widget-utils';
+import { getControlId, toggleValueInList, filterStoreByProp } from './widget-utils';
 
 describe('Widget utils', () => {
   test('getControlId', () => {
@@ -51,9 +51,5 @@ describe('Widget utils', () => {
 
     expect(filterStoreByProp(undefined, 'parent', 'FAKE_02')).toEqual([]);
     expect(filterStoreByProp(store, 'parent', 'FAKE_02')).toEqual(expectedResult);
-  });
-
-  test('storeToArray', () => {
-    expect(storeToArray()).toEqual([]);
   });
 });

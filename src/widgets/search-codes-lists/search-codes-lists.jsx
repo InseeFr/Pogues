@@ -11,27 +11,28 @@ import Dictionary from 'utils/dictionary/dictionary';
 // @TODO: noop is used temporally
 import { noop } from 'utils/test/test-utils';
 
-const { COMPONENT_CLASS } = WIDGET_SEARCH_CODES_LISTS;
+const { COMPONENT_CLASS, SEARCH_RESULTS_CLASS, SEARCH_CLASS } = WIDGET_SEARCH_CODES_LISTS;
 
 // PropTypes and defaultProps
 
 const propTypes = {
-  selectorPath: PropTypes.string,
+  path: PropTypes.string,
 };
 
 const defaultProps = {
-  selectorPath: '',
+  path: '',
 };
 
 // Component
 
-function SearchCodesLists({ selectorPath }) {
+function SearchCodesLists({ path }) {
   const props = {
     formName: DEFAULT_FORM_NAME,
-    selectorPath,
+    path,
   };
   const propsStatisticaContextCriteria = {
     ...props,
+    showOperations: false,
     showCampaigns: false,
     horizontal: true,
   };
@@ -39,21 +40,27 @@ function SearchCodesLists({ selectorPath }) {
     ...props,
     typeItem: TYPES_ITEMS.CODES_LIST,
     criterias: SEARCH_CRITERIAS.CODES_LIST,
+    label: Dictionary.searchInputCodesListsLabel,
   };
   const propsSearchResults = {
+    className: SEARCH_RESULTS_CLASS,
     noValuesMessage: Dictionary.codesListsNoResults,
     columns: SEARCH_RESULTS_COLUMNS.CODES_LIST,
     actions: [
       {
         dictionary: 'searchResultActionReuse',
         action: noop,
+        iconOnly: true,
+        icon: 'glyphicon-eye-open',
       },
     ],
   };
   return (
     <div className={COMPONENT_CLASS}>
-      <StatisticalContextCriteria {...propsStatisticaContextCriteria} />
-      <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
+      <div className={SEARCH_CLASS}>
+        <StatisticalContextCriteria {...propsStatisticaContextCriteria} />
+        <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
+      </div>
       <SearchResults {...propsSearchResults} />
     </div>
   );

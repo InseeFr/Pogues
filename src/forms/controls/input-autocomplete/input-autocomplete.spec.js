@@ -22,7 +22,7 @@ describe('Form controls - Input autocomplete', () => {
       expect(wrapper.find(`input[name="${props.input.name}"]`)).toHaveLength(1);
     });
 
-    test('Should exists a label element with the label text passed as property', () => {
+    test('Should exists a label element with the label text only when this prop is passed', () => {
       const wrapper = shallow(<InputAutocomplete {...props} />);
       expect(wrapper.find('label').text()).toBe(props.label);
     });

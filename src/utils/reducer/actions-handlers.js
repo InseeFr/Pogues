@@ -1,9 +1,9 @@
 import { createOrRemoveSubEntity } from 'utils/component/component-utils';
 
 /**
- * This utility method will manage the execution of the right reducer based 
+ * This utility method will manage the execution of the right reducer based
  * on the triggered action.
- * 
+ *
  * @param {object} actionHandlers redux actions/reducers
  */
 export function createActionHandlers(actionHandlers) {

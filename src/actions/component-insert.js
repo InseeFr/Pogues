@@ -7,9 +7,9 @@ import {
   toId,
   updateNewComponentParent,
 } from 'utils/component/component-utils';
-import { getClosestComponentIdByType } from 'utils/model/generic-input-utils';
+import { getClosestComponentIdByType } from 'layout/generic-input';
 import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
-import { uuid } from 'utils/data-utils';
+import { uuid } from 'utils/utils';
 import sortBy from 'lodash.sortby';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -65,11 +65,11 @@ export function moveQuestionToSubSequence(
   let moves;
   if (oldParent) {
     /**
-   * We will get the question we have to move, based on the keepChildren and includeSelectedComponent flags
-   * If keepChildren is false, we will keep only the next sibling (selectedComponent.weight + 1)
-   * If keepChildren is true, will keep all children with a weight bigger than the selected component
-   * If includeSelectedComponent is true, we will also keep the component with a weight equal to the selected component
-   */
+     * We will get the question we have to move, based on the keepChildren and includeSelectedComponent flags
+     * If keepChildren is false, we will keep only the next sibling (selectedComponent.weight + 1)
+     * If keepChildren is true, will keep all children with a weight bigger than the selected component
+     * If includeSelectedComponent is true, we will also keep the component with a weight equal to the selected component
+     */
     let questionsToMove = toComponents(oldParent.children, activesComponents).filter(
       child =>
         ((!keepChildren && child.weight === selectedComponent.weight + 1) ||
@@ -82,14 +82,14 @@ export function moveQuestionToSubSequence(
     moves = activesComponents;
 
     /**
-   * If questionsToMove has elements, we start doing the transformations
-   */
+     * If questionsToMove has elements, we start doing the transformations
+     */
     if (questionsToMove.length > 0) {
       const newChildren = oldParent.children.filter(child => questionsToMoveId.indexOf(child) < 0);
 
       /**
-     * If we need to keep the children of the newComponent, we have to update the weight of the inserted component
-     */
+       * If we need to keep the children of the newComponent, we have to update the weight of the inserted component
+       */
       questionsToMove = questionsToMove.map((question, i) => {
         question.weight = !keepChildren ? 0 : newComponent.children.length + i;
         return question;
@@ -139,15 +139,15 @@ export function moveQuestionAndSubSequenceToSequence(
   let moves;
   if (oldParent) {
     /**
-   * We get the list of components of the parent of the selected element
-   */
+     * We get the list of components of the parent of the selected element
+     */
     const listOfComponent = oldParent.children.map(id => activesComponents[id]);
 
     /**
-   * Based on this list, we fetch only the component to move (with the
-   * weight > or = to the weight of the selected component) and we
-   * construct an array with an updated weight and parent for each component
-   */
+     * Based on this list, we fetch only the component to move (with the
+     * weight > or = to the weight of the selected component) and we
+     * construct an array with an updated weight and parent for each component
+     */
     let listOfComponentsToMove = sortBy(listOfComponent, ['weight'])
       .filter(
         child =>
@@ -165,8 +165,8 @@ export function moveQuestionAndSubSequenceToSequence(
       }, []);
 
     /**
-   * List of components that should stay in the previous parent
-   */
+     * List of components that should stay in the previous parent
+     */
     const listOfComponentsToKeep = listOfComponent.filter(
       child =>
         child.weight < selectedComponent.weight ||
@@ -174,22 +174,22 @@ export function moveQuestionAndSubSequenceToSequence(
     );
 
     /**
-   * We move up to the root Sequence
-   */
+     * We move up to the root Sequence
+     */
     const parentSequence =
       activesComponents[getClosestComponentIdByType(activesComponents, selectedComponent, SEQUENCE)];
 
     /**
-   * We move up to the first non-sequence element, starting from the SEQUENCE
-   */
+     * We move up to the first non-sequence element, starting from the SEQUENCE
+     */
     let component = selectedComponent;
     while (component.parent && !isSequence(activesComponents[component.parent])) {
       component = activesComponents[component.parent];
     }
 
     /**
-   * We merge the previous list of component with the children of the SEQUENCE
-   */
+     * We merge the previous list of component with the children of the SEQUENCE
+     */
     if (isSubSequence(oldParent)) {
       listOfComponentsToMove = [
         ...listOfComponentsToMove,
@@ -206,18 +206,18 @@ export function moveQuestionAndSubSequenceToSequence(
     }
 
     /**
-   * And we reset the weight of all component
-   */
+     * And we reset the weight of all component
+     */
     listOfComponentsToMove = resetWeight([
       ...toComponents(newComponent.children, activesComponents),
       ...listOfComponentsToMove,
     ]);
 
     /**
-   * 1. We move the components to the new inserted component
-   * 2. We reset the children property of the old parent
-   * 3. We reset the children of the old sequence
-   */
+     * 1. We move the components to the new inserted component
+     * 2. We reset the children property of the old parent
+     * 3. We reset the children of the old sequence
+     */
     moves = {
       ...activesComponents,
       ...moveComponents(Object.keys(listOfComponentsToMove).map(key => listOfComponentsToMove[key]), newComponent),
@@ -263,4 +263,53 @@ export function duplicate(activesComponents, idComponent) {
     ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, id),
     ...increaseWeightOfAll(activesComponents, component[id]),
   };
+}
+
+export function duplicateComponentAndVars(activesComponents, collectedVariables = {}, idComponent) {
+  const stores = {
+    activeComponentsById: {},
+    activeCollectedVariablesById: {},
+  };
+  let duplicatedVariables = {};
+
+  if (!isQuestion(activesComponents[idComponent])) {
+    return stores;
+  }
+
+  const duplicatedComponent = {
+    ...cloneDeep(activesComponents[idComponent]),
+    id: uuid(),
+    weight: activesComponents[idComponent].weight + 1,
+  };
+
+  if (Object.keys(collectedVariables).length > 0) {
+    duplicatedVariables = activesComponents[idComponent].collectedVariables.reduce((acc, key) => {
+      const id = uuid();
+      return {
+        ...acc,
+        [id]: {
+          id,
+          label: collectedVariables[key].label,
+          name: collectedVariables[key].name,
+          x: collectedVariables[key].x || '',
+          y: collectedVariables[key].y || '',
+        },
+      };
+    }, {});
+  }
+
+  stores.activeComponentsById = {
+    [duplicatedComponent.id]: {
+      ...duplicatedComponent,
+      collectedVariables: Object.keys(duplicatedVariables),
+    },
+    ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, duplicatedComponent.id),
+    ...increaseWeightOfAll(activesComponents, duplicatedComponent),
+  };
+
+  stores.activeCollectedVariablesById = {
+    [duplicatedComponent.id]: duplicatedVariables,
+  };
+
+  return stores;
 }

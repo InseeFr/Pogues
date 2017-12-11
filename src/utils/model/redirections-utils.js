@@ -29,10 +29,10 @@ export function getListGotos(componentsStore, activeComponentsIds = []) {
   return listGotos;
 }
 
-function getDescendants(componentsStore, component) {
+function getDescendants(componentsStore, component = {}) {
   return [
-    ...component.children,
-    ...component.children.reduce((acc, key) => {
+    ...(component.children || []),
+    ...(component.children || []).reduce((acc, key) => {
       return [...acc, ...getDescendants(componentsStore, componentsStore[key])];
     }, []),
   ];
@@ -85,6 +85,19 @@ function getGreatUnclesHeaviest(componentsStore, component) {
   }
 
   return componentsIds;
+}
+
+export function getOrderedComponents(componentsStore, rootComponentIds) {
+  return rootComponentIds.reduce((acc, id) => {
+    return [
+      ...acc,
+      id,
+      ...getOrderedComponents(
+        componentsStore,
+        componentsStore[id].children.sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
+      ),
+    ];
+  }, []);
 }
 
 export function getComponentsTargetsByComponent(componentsStore, component) {

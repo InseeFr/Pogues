@@ -1,0 +1,18 @@
+.ctrl {
+  @extend .form-group;
+  @include make-row();
+
+  & > label {
+    @include make-xs-column(3);
+  }
+
+  & > label + div {
+    @include make-xs-column(6);
+    // @TODO: Remove this after refactor in list with input
+    width: 70%;
+
+    select, textarea, input[type="text"], input[type="number"] {
+      @extend .form-control;
+    }
+  }
+}

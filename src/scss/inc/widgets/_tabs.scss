@@ -1,0 +1,63 @@
+.widget-tabs {
+
+  .widget-tabs-item {
+    position: relative;
+    .nav-link {
+      color: $color-grey_01;
+      background-color: white;
+      font-weight: bold;
+      &.active {
+        background-color: $color-blue_04;
+      }
+      &:hover {
+        background-color: lighten($color-blue_04, 0.5);
+        cursor: pointer;
+      }
+    }
+
+    .widget-tabs-invalid {
+      font-size: $font-xs;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: white;
+      width: 20px;
+      z-index: 10;
+
+      .alert-triangle {
+        position: absolute;
+        top: -24%;
+        right: 8%;
+        z-index: -5;
+      }
+    }
+
+  }
+
+  .nav-content {
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: $color-blue_04;
+
+    h3 {
+      color: $color-blue_05;
+      margin-bottom: 20px;
+    }
+
+    .nav-error {
+      background-color: lighten(red, 45%);
+      padding: 10px;
+      list-style-type: circle;
+      margin-right: 40px;
+      li {
+        margin-left: 20px;
+        color: red;
+        font-size: $font-xs;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+

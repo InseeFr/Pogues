@@ -3,6 +3,10 @@ import { shallow } from 'enzyme';
 
 import SearchCodesLists from './search-codes-lists';
 
+import { WIDGET_SEARCH_CODES_LISTS } from 'constants/dom-constants';
+
+const { SEARCH_RESULTS_CLASS } = WIDGET_SEARCH_CODES_LISTS;
+
 import {
   StatisticalContextCriteria,
   defaultProps as StatisticalContextCriteriaDefaultProps,
@@ -21,17 +25,18 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { noop } from 'utils/test/test-utils';
 
 describe('<SearchCodesLists />', () => {
-  const selectorPath = 'FAKE_SELECTOR_PATH';
+  const path = 'FAKE_SELECTOR_PATH';
 
   test('Should render a StatisticalContextCriteria component with the corresponding props', () => {
     const expectedProps = {
       ...StatisticalContextCriteriaDefaultProps,
       formName: DEFAULT_FORM_NAME,
-      selectorPath,
+      path,
+      showOperations: false,
       showCampaigns: false,
       horizontal: true,
     };
-    const wrapper = shallow(<SearchCodesLists selectorPath={selectorPath} />);
+    const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(StatisticalContextCriteria).props()).toEqual(expectedProps);
   });
@@ -39,28 +44,33 @@ describe('<SearchCodesLists />', () => {
   test('Should render a InputFilterWithCriteria component with the corresponding props', () => {
     const expectedProps = {
       ...InputFilterWithCriteriaDefaultProps,
+      label: Dictionary.searchInputCodesListsLabel,
       formName: DEFAULT_FORM_NAME,
-      selectorPath,
+      path,
       typeItem: TYPES_ITEMS.CODES_LIST,
       criterias: SEARCH_CRITERIAS.CODES_LIST,
     };
-    const wrapper = shallow(<SearchCodesLists selectorPath={selectorPath} />);
+    const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(InputFilterWithCriteria).props()).toEqual(expectedProps);
   });
 
-  test.only('Should render a SearchResults component with the corresponding props', () => {
+  test.skip('Should render a SearchResults component with the corresponding props', () => {
     const expectedProps = {
+      label: Dictionary.searchInputCodesListsLabel,
+      className: SEARCH_RESULTS_CLASS,
       noValuesMessage: Dictionary.codesListsNoResults,
       columns: SEARCH_RESULTS_COLUMNS.CODES_LIST,
       actions: [
         {
           dictionary: 'searchResultActionReuse',
           action: noop,
+          icon: 'glyphicon-eye-open',
+          iconOnly: true,
         },
       ],
     };
-    const wrapper = shallow(<SearchCodesLists selectorPath={selectorPath} />);
+    const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(SearchResults).props()).toEqual(expectedProps);
   });

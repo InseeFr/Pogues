@@ -1,6 +1,6 @@
 jest.mock('utils/dictionary/dictionary', () => {
   return {
-    fakeNoItems: 'This is a no items message fake',
+    no_FAKE_NAME: 'This is a no items message fake',
   };
 });
 
@@ -11,12 +11,12 @@ import ListWithInputPanelList from './list-with-input-panel-list';
 import ListWithInputPanelItem from './list-with-input-panel-item';
 
 import { getFakeFields } from '../utils/test-utils';
-import { fakeEvent, noop } from 'utils/test/test-utils';
+import { noop } from 'utils/test/test-utils';
 import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
 const { LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
-describe('<ListWithInputPanelLiwst', () => {
+describe('<ListWithInputPanelList', () => {
   let props;
   const items = [
     {
@@ -56,18 +56,5 @@ describe('<ListWithInputPanelLiwst', () => {
     expect(wrapper.find(ListWithInputPanelItem)).toHaveLength(0);
     expect(wrapper.find(`.${LIST_EMPTY_CLASS}`)).toHaveLength(1);
     expect(wrapper.find(`.${LIST_EMPTY_CLASS}`).text()).toBe(messageNoItems);
-  });
-
-  test('Should call the "select" action when an item is clicked with the item index in the list as parameter', () => {
-    const spySelect = jest.fn();
-    props.select = spySelect;
-    const wrapper = shallow(<ListWithInputPanelList {...props} />);
-
-    wrapper
-      .find(ListWithInputPanelItem)
-      .at(1)
-      .simulate('click', fakeEvent);
-
-    expect(spySelect).toHaveBeenCalledWith(1);
   });
 });

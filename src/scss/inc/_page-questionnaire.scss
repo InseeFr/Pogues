@@ -1,67 +1,6 @@
 #page-questionnaire {
   @extend .container;
 
-  #questionnaire-errors {
-    @include make-row();
-    padding: 15px;
-    margin: 15px 0;
-    border: 2px solid red;
-    color: lighten(red, 20%);
-    .questionnaire-errors-alert {
-      @include make-xs-column(1);
-    }
-    .questionnaire-errors-list {
-      @include make-xs-column(11);
-      ul {
-        list-style: none;
-        padding: 0;
-
-        > li {
-          cursor: pointer;
-          i {
-            margin-right: 10px;
-          }
-        }
-
-        ul {
-          padding: 5px 0;
-          li {
-            color: black;
-            cursor: default;
-          }
-        }
-      }
-    }
-  }
-
-  #questionnaire-nav {
-   position: relative;
-   float: left;
-    min-height: 1px;
-    margin-top: 20px;
-    margin-bottom: 80px;
-    padding-top: 20px;
-    padding-right: 5px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    color: black;
-   margin-right: 5px;
-     max-width: 15%;
-     width: 15%;
-    ul {
-      list-style-type: none;
-      padding-left: 10%;
-
-      li {
-        padding: 2px 0;
-      }
-      .glyphicon {
-        margin-right: 5px;
-      }
-    }
-  }
-
   #questionnaire {
     @include make-xs-column(10);
     margin-top: 20px;
@@ -171,11 +110,11 @@
         }
 
         .questionnaire-element-label {
-          @include make-xs-column(6);
+          @include make-xs-column(4);
         }
 
         .questionnaire-element-actions {
-          @include make-xs-column(6);
+          @include make-xs-column(8);
           text-align: right;
           button {
             margin: 5px  5px 0 0;
@@ -221,26 +160,21 @@
     }
   }
 
-  #questionnaire-generic-input {
-    position: fixed;
-    width: inherit;
-    z-index: 100;
-    text-align: center;
-    bottom: 20px;
-    background-color: white;
-    border: 1px solid $color-grey_02;
-    font-size: $font-xs;
+  .dropdown-menu.top {
+    top: -150%;
+    left: 10px;
+  }
+}
 
-    button {
-      font-size: $font-xs;
-      margin: 10px;
-    }
-
-    a {
-      color: black;
-    }
-    body.ReactModal__Body--open & {
-      z-index: -100;
-    }
+div.separator {
+  display: flex;
+  hr {
+    background-color: #fff;
+    border-top: 2px dashed #8c8b8b;
+    width: 95%;
+  }
+  button {
+    border: none;
+    background-color: transparent;
   }
 }
