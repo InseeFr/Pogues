@@ -7,6 +7,13 @@ export const COMPONENT_TYPE = {
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
 
+export const declarationModes = [
+  { value: "CAPI", label: "CAPI" },
+  { value: "CATI", label: "CATI" },
+  { value: "CAWI", label: "CAWI" },
+  { value: "PAPI", label: "PAPI" },
+];
+
 export const DATATYPE_NAME = {
   DATE: 'DATE',
   NUMERIC: 'NUMERIC',
@@ -178,6 +185,7 @@ export const INTEGRITY_TYPES = {
   UNIQUE_VARIABLE_NAME: 'UNIQUE_VARIABLE_NAME',
   TARGET_NOT_FOUND: 'TARGET_NOT_FOUND',
   TARGET_EARLIER: 'TARGET_EARLIER',
+  DECLARATION_MODE: 'DECLARATION_MODE'
 };
 
 export const TABS_PATHS = {

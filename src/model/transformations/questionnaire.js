@@ -22,6 +22,7 @@ function generateComponentGroups(componentsStore) {
       .filter(id => componentsStore[id].type === SEQUENCE)
       .sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
   );
+  
   let startPage = 1;
   const result = [];
   orderedComponents.forEach(componentId => {
@@ -51,6 +52,7 @@ export function remoteToState(remote, currentStores = {}) {
     agency,
     DataCollection: dataCollection,
     lastUpdatedDate,
+    declarationMode,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -68,6 +70,7 @@ export function remoteToState(remote, currentStores = {}) {
     serie: questionnaireCurrentState.serie || '',
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
+    declarationMode: declarationMode || [],
   };
 }
 
@@ -98,7 +101,7 @@ export function stateToRemote(state, stores) {
     collectedVariablesStore
   );
 
-  const { owner, id, label, name, agency, campaigns, final } = state;
+  const { owner, id, label, name, agency, campaigns, final, declarationMode} = state;
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
@@ -116,6 +119,7 @@ export function stateToRemote(state, stores) {
     genericName: QUESTIONNAIRE,
     ComponentGroup: generateComponentGroups(componentsStore),
     agency: agency || '',
+    declarationMode,
   };
   const componentsRemote = Component.storeToRemote(componentsStore, id, collectedVariablesWithoutOrphans);
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);

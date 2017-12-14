@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { formPropTypes } from 'redux-form';
+import { formPropTypes, Field } from 'redux-form';
 
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
@@ -14,10 +14,11 @@ import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
 
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import { COMPONENT_TYPE, TABS_PATHS } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, TABS_PATHS,declarationModes } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
-
+import ListCheckboxes from 'forms/controls/list-checkboxes';
+import GenericOption from 'forms/controls/generic-option';
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -147,6 +148,13 @@ class ComponentNewEdit extends Component {
           ) : (
             <AssociatedFields {...associatedFieldsProps} />
           )}
+           <Field name="declarationMode" component={ListCheckboxes} label={Dictionary.collectionMode} inline>
+            {declarationModes.map(s => (
+              <GenericOption key={s.value} value={s.value}>
+                {s.label}
+              </GenericOption>
+            ))}
+          </Field>
           <Tabs componentId={componentId}>{this.renderPanels()}</Tabs>
 
           <div className={FOOTER}>
