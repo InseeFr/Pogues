@@ -17,6 +17,7 @@ export const propTypes = {
 const mapStateToProps = state => {
   return {
     user: state.appState.user,
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 

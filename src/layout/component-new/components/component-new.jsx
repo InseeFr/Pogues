@@ -26,12 +26,14 @@ export const propTypes = {
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
+  activeQuestionnaire: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
   codesListsStore: {},
   calculatedVariablesStore: {},
   externalVariablesStore: {},
+  activeQuestionnaire: {},
 };
 
 // Utils
@@ -84,6 +86,7 @@ function ComponentNew({
   parentId,
   weight,
   type,
+  activeQuestionnaire,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -104,7 +107,7 @@ function ComponentNew({
     externalVariablesStore,
     codesListsStore,
   });
-  const initialValues = componentTransformer.stateToForm();
+  const initialValues = componentTransformer.stateToForm(activeQuestionnaire);
 
   // Validation and submit
 

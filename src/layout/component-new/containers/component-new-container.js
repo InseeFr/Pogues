@@ -24,6 +24,7 @@ const mapStateToProps = state => {
     codesListsStore: state.appState.activeCodeListsById,
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     externalVariablesStore: state.appState.activeExternalVariablesById,
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 

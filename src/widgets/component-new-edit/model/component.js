@@ -24,10 +24,11 @@ export const defaultState = {
   collectedVariables: [],
   children: [],
   responseFormat: {},
+  declarationMode: [],
 };
 
 export function formToState(form, transformers) {
-  const { name, label, responseFormat, declarations, controls, redirections, collectedVariables } = form;
+  const { name, label, responseFormat, declarations, controls, redirections, collectedVariables, declarationMode } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
@@ -40,17 +41,19 @@ export function formToState(form, transformers) {
     label: label,
     responseFormat: transformers.responseFormat.formToState(responseFormat),
     collectedVariables: transformers.collectedVariable.formToComponentState(collectedVariables),
+    declarationMode: declarationMode.split(','),
   };
 }
 
-export function stateToForm(currentState, transformers) {
-  const { label, name, type } = currentState;
+export function stateToForm(currentState, transformers, activeQuestionnaire) {
+  const { label, name, type, declarationMode } = currentState;
   const form = {
     label: label || '',
     name: name || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
+    declarationMode: label ? declarationMode.join() : activeQuestionnaire.declarationMode.join(),
   };
 
   if (type === QUESTION) {
@@ -108,8 +111,8 @@ const Factory = (initialState = {}, stores = {}) => {
       };
       return currentStore;
     },
-    stateToForm: () => {
-      return stateToForm(currentState, transformers);
+    stateToForm: (activeQuestionnaire = {}) => {
+      return stateToForm(currentState, transformers, activeQuestionnaire);
     },
     getStore: () => {
       return {

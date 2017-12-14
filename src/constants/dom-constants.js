@@ -12,6 +12,7 @@ export const CONTROL_SELECT = {
 
 export const CONTROL_LIST_CHECKBOXES = {
   COMPONENT_CLASS: 'ctrl-list-checkboxes',
+  INLINE_MODE: 'form-check-inline',
 };
 
 export const CONTROL_LIST_RADIOS = {

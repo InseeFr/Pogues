@@ -5,8 +5,9 @@ import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import { getControlId, getValuesFromGenericOptions, toggleValueInList } from 'utils/widget-utils';
 
 import { CONTROL_LIST_CHECKBOXES } from 'constants/dom-constants';
+import ClassSet from 'react-classset';
 
-const { COMPONENT_CLASS } = CONTROL_LIST_CHECKBOXES;
+const { COMPONENT_CLASS, INLINE_MODE } = CONTROL_LIST_CHECKBOXES;
 
 // PropTypes and defaultProps
 
@@ -18,6 +19,7 @@ export const propTypes = {
   disabled: PropTypes.bool,
   noValuesMessage: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  inline: PropTypes.bool.isRequired,
 };
 
 export const defaultProps = {
@@ -25,6 +27,7 @@ export const defaultProps = {
   disabled: false,
   children: [],
   noValuesMessage: undefined,
+  inline: false,
 };
 
 // Component
@@ -65,7 +68,7 @@ class ListCheckboxes extends Component {
   }
 
   render() {
-    const { label, required, disabled, noValuesMessage, children, input, meta: { touched, error } } = this.props;
+    const { label, required, disabled, noValuesMessage, children, input, meta: { touched, error }, inline } = this.props;
     const values = getValuesFromGenericOptions(children);
 
     return (
@@ -90,7 +93,9 @@ class ListCheckboxes extends Component {
             const id = getControlId('checkbox', input.name, value);
 
             return (
-              <div className="form-check-inline" key={id}>
+              <div className={ClassSet({
+                [INLINE_MODE]: inline
+              })} key={id}>
                 <label htmlFor={id} className="form-check-label">
                   <input
                     {...otherProps}

@@ -79,6 +79,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     Child: children,
     parent,
     weight,
+    declarationMode,
   } = remote;
 
   const state = {
@@ -90,6 +91,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarations: Declaration.remoteToState(declarations),
     controls: Control.remoteToState(controls),
     redirections: Redirection.remoteToState(redirections),
+    declarationMode: declarationMode || [],
   };
 
   if (genericName) {
@@ -161,6 +163,7 @@ function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth =
     controls,
     redirections,
     collectedVariables,
+    declarationMode,
   } = state;
 
   let remote = {
@@ -171,6 +174,7 @@ function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth =
     Declaration: Declaration.stateToRemote(declarations),
     Control: Control.stateToRemote(controls),
     GoTo: Redirection.stateToRemote(redirections),
+    declarationMode,
   };
 
   if (type === QUESTION) {

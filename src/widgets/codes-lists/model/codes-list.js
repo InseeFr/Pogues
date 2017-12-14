@@ -6,7 +6,7 @@ import { uuid } from 'utils/utils';
 export const defaultState = {
   id: '',
   label: '',
-  codes: {},
+  codes: [],
 };
 
 export const defaultForm = {
