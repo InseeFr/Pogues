@@ -132,8 +132,9 @@ class ListWithInputPanel extends Component {
     } = this.props;
     const { [name]: items, ...values } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
+    const canValidate = this.state.selectedItemIndex !== undefined || canAddNew;
 
-    if (canAddNew && this.validate(formValues)) {
+    if (canValidate && this.validate(formValues)) {
       if (this.state.selectedItemIndex !== undefined) {
         arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
         arrayInsert(formName, `${path}${name}`, this.state.selectedItemIndex, values);
