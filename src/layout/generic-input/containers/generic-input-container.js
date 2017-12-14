@@ -24,8 +24,8 @@ function getPlaceholders(componentsStore, selectedComponentId, questionnaireId) 
   };
 }
 
-function isQuestionnaireValid(errorsByCode) {
-  return Object.keys(errorsByCode).filter(key => errorsByCode[key].errors.length > 0).length === 0;
+function isQuestionnaireValid(questionnaireErrors = {}) {
+  return Object.keys(questionnaireErrors).reduce((acc, key) => acc + questionnaireErrors[key].length, 0) === 0
 }
 
 // Container
@@ -34,12 +34,13 @@ const mapStateToProps = state => {
   const componentsStore = state.appState.activeComponentsById;
   const selectedComponentId = state.appState.selectedComponentId;
   const questionnaire = state.appState.activeQuestionnaire;
-  const errorsByCode = state.appState.errorsByCode;
+  const errors = state.errors || { errorsIntegrity: {}};
+  const questionnaireErrors = errors.errorsIntegrity[questionnaire.id] || {};
 
   return {
     placeholders: getPlaceholders(componentsStore, selectedComponentId, questionnaire.id),
     isQuestionnaireModified: state.appState.isQuestionnaireModified,
-    isQuestionnaireValid: isQuestionnaireValid(errorsByCode),
+    isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
     componentIdForPageBreak: state.appState.componentIdForPageBreak,
   };
 };
