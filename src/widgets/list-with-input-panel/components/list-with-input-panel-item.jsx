@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classSet from 'react-classset';
+import React from "react";
+import PropTypes from "prop-types";
+import classSet from "react-classset";
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from "constants/dom-constants";
 
 const { ITEM_CLASS, ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
@@ -11,11 +11,11 @@ const { ITEM_CLASS, ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 export const propTypes = {
   children: PropTypes.string.isRequired,
   select: PropTypes.func.isRequired,
-  invalid: PropTypes.bool,
+  invalid: PropTypes.bool
 };
 
 export const defaultProps = {
-  invalid: false,
+  invalid: false
 };
 
 // Component
@@ -25,16 +25,20 @@ function ListWithInputPanelItem({ children, invalid, select }) {
     <li
       className={classSet({
         [ITEM_CLASS]: true,
-        [ITEM_INVALID_CLASS]: invalid,
+        [ITEM_INVALID_CLASS]: invalid
       })}
     >
       <button
+        type="button"
         onClick={event => {
           event.preventDefault();
           select();
         }}
       >
-        <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
+        <span
+          className="glyphicon glyphicon-chevron-right"
+          aria-hidden="true"
+        />
         {children}
       </button>
     </li>

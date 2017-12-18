@@ -13,9 +13,15 @@ export function updateSuggestions(text, regex, availableSuggestions) {
 }
 
 export function initialize() {
-  return { suggestions: [], hoveredSuggestionIndex: 0 };
+  return {
+    suggestions: [],
+    hoveredSuggestionIndex: 0,
+    shouldDisplaySuggestions: false
+  };
 }
 
 export function getNewIndex(currentIndex, suggestions, numSuggestionsShown) {
-  return currentIndex < suggestions.slice(0, numSuggestionsShown).length - 1 ? currentIndex + 1 : 0;
+  return currentIndex < suggestions.slice(0, numSuggestionsShown).length - 1
+    ? currentIndex + 1
+    : 0;
 }
