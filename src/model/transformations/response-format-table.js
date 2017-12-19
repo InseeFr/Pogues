@@ -232,7 +232,7 @@ export function stateToRemote(state, collectedVariables, collectedVariablesStore
   let mappingsModel = [];
 
   for (let i = 0; i < numRows; i += 1) {
-    const collectedVariablesByRow = collectedVariables.filter(cv => collectedVariablesStore[cv].x === `${i + 1}`);
+    const collectedVariablesByRow = collectedVariables.filter(cv => collectedVariablesStore[cv].x === i + 1);
     const responsesModelByRow = Responses.stateToModel(
       responsesState[i],
       collectedVariablesByRow,

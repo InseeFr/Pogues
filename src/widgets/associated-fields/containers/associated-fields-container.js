@@ -22,7 +22,7 @@ const propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired,
   targetIsRichTextarea: PropTypes.bool,
-  onEnter: PropTypes.func.isRequired,
+  onEnter: PropTypes.func,
 };
 
 export const defaultProps = {
