@@ -22,7 +22,7 @@ function generateComponentGroups(componentsStore) {
       .filter(id => componentsStore[id].type === SEQUENCE)
       .sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
   );
-  
+
   let startPage = 1;
   const result = [];
   orderedComponents.forEach(componentId => {
@@ -101,7 +101,7 @@ export function stateToRemote(state, stores) {
     collectedVariablesStore
   );
 
-  const { owner, id, label, name, agency, campaigns, final, declarationMode} = state;
+  const { owner, id, label, name, agency, campaigns, final, declarationMode } = state;
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
