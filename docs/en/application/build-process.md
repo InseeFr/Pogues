@@ -4,20 +4,21 @@ This operation consist of transforming and combining all the application resourc
 
 [include:92-112](../../../package.json)
 
-Mainly, it will take all the `JavaScript` files and combine them in a giant bundle file. Thanks to the `babel` plugin for Webpack, we can make use in our code of some `JavaScript` [features](/javascript/syntax.md#ES2015) which are not widely supported: `babel` will transform the code you write to make it work in all major browsers. 
+Mainly, it will take all the `JavaScript` files and combine them in a giant bundle file. Thanks to the `babel` plugin for Webpack, we can make use in our code of some `JavaScript` [features](/javascript/syntax.md#ES2015) which are not widely supported: `babel` will transform the code you write to make it work in all major browsers.
 
 Webpack will also process the main `css` file to make it load faster and work consistently across browsers.
 
-[include:11-11](../../../src/layout/app.jsx)
+[include:7-7](../../../src/layout/app/components/app.jsx)
 
 Webpack is configured via the [webpack.config.js](https://github.com/InseeFr/Pogues/blob/master/webpack.config.js) file. Refer to this file to see all the operations this configuration handle.
 Webpack will transform the `JavaScript` code you write, but in order to make debugging easier, it will provide `source maps` to enable browsers to show the original files within the developer tools.
 
 During development, `npm run dev` will act as a background task:
-- providing a simple HTTP server to serve the application assets on port `3000`;
-- watching for file modifications and recompiling the application accordingly;
-- automatically reloading the page in the browser to take the modifications into account.
-The `npm run dev` script is configured to work with a "in memory" version of the bundle file (`--content-base` command line option for `webpack-dev-server`), hence the `JavaScript` file served to the browsers might not be visible in the `dist` folder on your hard drive.
+
+* providing a simple HTTP server to serve the application assets on port `3000`;
+* watching for file modifications and recompiling the application accordingly;
+* automatically reloading the page in the browser to take the modifications into account.
+  The `npm run dev` script is configured to work with a "in memory" version of the bundle file (`--content-base` command line option for `webpack-dev-server`), hence the `JavaScript` file served to the browsers might not be visible in the `dist` folder on your hard drive.
 
 The Webpack configuration for production is slightly different from the one used for development: it does not need the configuration related to the development web server. It should also provide [other adjustments](https://github.com/InseeFr/Pogues/issues/145) to make the code more production ready. When building code for production, Webpack will automatically minify the `JavaScript` thanks to the command line option `-p`.
 
@@ -43,12 +44,13 @@ The project also provide other NPM scripts, in order to manage its lifecycle.
 * lint : Check the quality of the project
 * lint:fix : Check the quality of the project and apply fixes automatically
 * start : Launch the command `npm run dev`
-* e2e : Launch Integration Tests 
+* e2e : Launch Integration Tests
 * e2e:travis : Launch Integration Tests with the configuration for Travis
 
 ## Add a new environment
 
-If you want to add a new environment (for example qlf2), you just need to : 
-- Create a configuration file `config.qlf2.js` in the `build-config/environments` folder. 
-- Copy/Paste the configuration of another environment, and and do the adjustments
-- Add a `build:qlf2` NPM script.
+If you want to add a new environment (for example qlf2), you just need to :
+
+* Create a configuration file `config.qlf2.js` in the `build-config/environments` folder.
+* Copy/Paste the configuration of another environment, and and do the adjustments
+* Add a `build:qlf2` NPM script.

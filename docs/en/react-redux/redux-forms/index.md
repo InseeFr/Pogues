@@ -1,12 +1,12 @@
 # Redux Forms
 
-The library [Redux Forms](http://redux-form.com/7.0.3/) give the possibility to manage the state of our forms thanks to `Redux`. 
+The library [Redux Forms](http://redux-form.com/7.0.3/) give the possibility to manage the state of our forms thanks to `Redux`.
 
-The three main parts of the configuration of Redux Forms in our application are : 
+The three main parts of the configuration of Redux Forms in our application are :
 
-- the use of the `reduxForm` method, in order to detect automatically all interactions the user has with your form, and call the dedicated `Redux` actions. 
-- the use of `Field` or `FieldArray` components, in order to create the form. These components can be used with standard HTML inputs (`input`, `textarea`), but also with our own components. An interface has to be respected, and will be explained later in this documentation. 
-- the use of the reducer of the library, in order to manage the triggered actions. In our project, this configuration is defined in the [src/reducers/index.js](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/reducers/index.js) file.
+* the use of the `reduxForm` method, in order to detect automatically all interactions the user has with your form, and call the dedicated `Redux` actions.
+* the use of `Field` or `FieldArray` components, in order to create the form. These components can be used with standard HTML inputs (`input`, `textarea`), but also with our own components. An interface has to be respected, and will be explained later in this documentation.
+* the use of the reducer of the library, in order to manage the triggered actions. In our project, this configuration is defined in the [src/reducers/index.js](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/reducers/index.js) file.
 
 ```
 import { combineReducers } from 'redux';
@@ -29,9 +29,9 @@ export default reduxForm({
 })(QuestionNewEdit);
 ```
 
-This method take one object, with only on mandatory parameter : the name of the form, that will be used for naming your data in the store. 
+This method take one object, with only on mandatory parameter : the name of the form, that will be used for naming your data in the store.
 
-The data inserted in your form will be passed as a parameter to the method executed when the `submit` event of the form is triggered. For example, in the same form, here is the method managing the `submit` event  (defined in the  [ComponentNewContainer](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/questionnaire/containers/component/component-new.jsx) component)
+The data inserted in your form will be passed as a parameter to the method executed when the `submit` event of the form is triggered. For example, in the same form, here is the method managing the `submit` event (defined in the [ComponentNewContainer](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/questionnaire/containers/component/component-new.jsx) component)
 
 ```
 const submit = values => {
@@ -47,14 +47,14 @@ Here are some actions managed by Redux Forms. For each actions, Redux Forms will
 
 ## Custom Components
 
-It is necessary to use the [`Field`](http://redux-form.com/7.0.3/docs/api/Field.md/) component, in order to connect our form to the `store`. 
+It is necessary to use the [`Field`](http://redux-form.com/7.0.3/docs/api/Field.md/) component, in order to connect our form to the `store`.
 
-This component can be used with standard HTML input, but also with our own components, if you want to factorize your code. These components are defined in the `src/layout/forms/controls` folder. These components will give the possibility to standardize the stylesheets of our inputs, their labels or error messages. 
+This component can be used with standard HTML input, but also with our own components, if you want to factorize your code. These components are defined in the `src/layout/forms/controls` folder. These components will give the possibility to standardize the stylesheets of our inputs, their labels or error messages.
 
-These components have to follow a specific interface in order to be used with Redux Forms. 
+These components have to follow a specific interface in order to be used with Redux Forms.
 If you do not have to modify the inserted data, you just need to pass the `input` property, managed by the `Field` component, as a `props` to the HTML/React component. You can have a look the implementation of the `input.jsx` component.
 
-[include](../../../../src/layout/forms/controls/input.jsx)
+[include](../../../../src/forms/controls/input.jsx)
 
 If you need to modify the data, before the sync with the `store`, during the initialisation of your component, you can have access to the default value thanks to the property `props.input.value`, and when the user has inserted a data, you need to call manually the `props.input.onChange` method.
 
@@ -69,15 +69,15 @@ In order to specify the component you want to use with the `Field` component, yo
     />
 ```
 
-Thanks to the `meta` property, you have access to the metadatas managed by Redux Forms, for example is my input valid or not,... These properties are automatically updated when actions defined previously (`FOCUS`, ...) are triggered by the library. 
+Thanks to the `meta` property, you have access to the metadatas managed by Redux Forms, for example is my input valid or not,... These properties are automatically updated when actions defined previously (`FOCUS`, ...) are triggered by the library.
 
 ## Data Validation
 
-You can validate your data with two different syntaxes. 
+You can validate your data with two different syntaxes.
 
-- By defining a validation function as a parameter to the `reduxForm` method. This function will take as a parameter the datas of your form, and will need to return an object with the different errors.
+* By defining a validation function as a parameter to the `reduxForm` method. This function will take as a parameter the datas of your form, and will need to return an object with the different errors.
 
-Here is an example of validating a form with this syntax : 
+Here is an example of validating a form with this syntax :
 
 ```
 import React from 'react'
@@ -167,6 +167,6 @@ export default reduxForm({
 })(SyncValidationForm)
 ```
 
-- For the second syntax, we can define an array of validation functions for each input of our form. Redux Form do not provide validators, you need to implement these methods manually. In our application, these fonctions are defined in the [validation-rules.js](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/layout/forms/validation-rules.js) file.
+* For the second syntax, we can define an array of validation functions for each input of our form. Redux Form do not provide validators, you need to implement these methods manually. In our application, these fonctions are defined in the [validation-rules.js](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/layout/forms/validation-rules.js) file.
 
 You will find an example of this syntax in the [questionnaire-new-edit](https://github.com/InseeFr/Pogues/blob/zenika-dev/src/home/components/questionnaire-new-edit.jsx) component.
