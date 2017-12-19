@@ -23,8 +23,8 @@ function getResponseCoordinate(variablesMapping = []) {
     return {
       ...acc,
       [m.MappingSource]: {
-        x: axis[0],
-        y: axis[1],
+        x: parseInt(axis[0], 10),
+        y: parseInt(axis[1], 10),
       },
     };
   }, {});
