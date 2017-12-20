@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import ControlWithSuggestion from "./control-with-suggestions";
+import ControlWithSuggestion from './control-with-suggestions';
 
-import { getControlId } from "utils/widget-utils";
-import { CONTROL_TEXTAREA } from "constants/dom-constants";
+import { getControlId } from 'utils/widget-utils';
+import { CONTROL_TEXTAREA } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
@@ -11,15 +11,8 @@ const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
 class TextareaWithSuggestions extends ControlWithSuggestion {
   render() {
-    const {
-      label,
-      required,
-      disabled,
-      input,
-      meta: { touched, error }
-    } = this.props;
-
-    const id = getControlId("textarea", input.name);
+    const { label, required, disabled, input, meta: { touched, error } } = this.props;
+    const id = getControlId('textarea', input.name);
 
     return (
       <div className={COMPONENT_CLASS}>
@@ -39,9 +32,6 @@ class TextareaWithSuggestions extends ControlWithSuggestion {
             onKeyDown={this.handleInputKeyDown}
             onFocus={() => {
               this.handleInputFocus();
-            }}
-            onBlur={() => {
-              this.handleInputBlur();
             }}
             ref={node => {
               this.input = node;
