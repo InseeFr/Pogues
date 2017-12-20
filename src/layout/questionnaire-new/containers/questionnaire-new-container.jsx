@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { createQuestionnaire } from 'actions/questionnaire';
-import { setErrorsByFormPath } from 'actions/errors';
+import { setValidationErrors } from 'actions/errors';
 import QuestionnaireNew from '../components/questionnaire-new';
 
 // PropTypes and defaultProps
@@ -23,7 +23,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   createQuestionnaire,
-  setErrors: setErrorsByFormPath,
+  setErrors: setValidationErrors,
 };
 
 const QuestionnaireNewContainer = connect(mapStateToProps, mapDispatchToProps)(QuestionnaireNew);
