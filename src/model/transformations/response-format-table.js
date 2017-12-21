@@ -4,7 +4,6 @@ import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
 import * as CodeList from './codes-list';
 import * as Dimension from './dimension';
-import * as Response from './response';
 import * as Responses from './responses';
 import {
   DIMENSION_TYPE,
@@ -227,15 +226,14 @@ export function stateToRemote(state, collectedVariables, collectedVariablesStore
 
   // Responses
 
-  const numRows = uniq(collectedVariables.map(cv => collectedVariablesStore[cv].x)).length;
+  const numDataTypes = measureState ? 1 : listMeasuresState.length;
   let responsesModel = [];
   let mappingsModel = [];
-
-  for (let i = 0; i < numRows; i += 1) {
-    const collectedVariablesByRow = collectedVariables.filter(cv => collectedVariablesStore[cv].x === i + 1);
+  for (let i = 0; i < numDataTypes; i += 1) {
+    const collectedVariablesByDatatype = collectedVariables.filter((cv, index) => index % numDataTypes === i);
     const responsesModelByRow = Responses.stateToModel(
       responsesState[i],
-      collectedVariablesByRow,
+      collectedVariablesByDatatype,
       collectedVariablesStore
     );
     responsesModel = [...responsesModel, ...responsesModelByRow.Response];
