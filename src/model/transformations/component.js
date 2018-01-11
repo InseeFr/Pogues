@@ -72,7 +72,8 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     Name: name,
     Label: [label],
     Declaration: declarations,
-    GoTo: redirections,
+    // Trello #196 : ouput : GoTo --> FlowControl
+    FlowControl: redirections,
     Control: controls,
     Response: responses,
     ResponseStructure: responseStructure,
