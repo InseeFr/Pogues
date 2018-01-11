@@ -444,9 +444,9 @@ const dictionary = {
     en: 'Delete GoTo',
     fr: 'Supprimer la redirection',
   },
-  control_label: {
-    en: 'Control label',
-    fr: 'Libellé du contrôle',
+  description_label: {
+    en: 'Control description',
+    fr: 'Description du contrôle',
   },
   control_during_collect: {
     en: 'Control during the collect',

@@ -7,7 +7,7 @@ import { defaultState } from '../model/control';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
-import Input from 'forms/controls/input';
+import Textarea from 'forms/controls/textarea';
 
 import { validateControlForm } from 'utils/validation/validate';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -52,7 +52,7 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
         validateForm={validateForm(addErrors, validateControlForm)}
         resetObject={defaultState}
       >
-        <Field type="text" name="label" component={Input} label={Dictionary.control_label} required />
+        <Field type="text" name="label" component={Textarea} label={Dictionary.description_label} required />
         <Field
           name="condition"
           component={TextAreaWithVariableAndXPathValidation}
