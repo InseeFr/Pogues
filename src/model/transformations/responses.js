@@ -1,13 +1,14 @@
 import * as Response from './response';
+import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants'
 
-export function stateToModel(state, collectedVariables, collectedVariablesStore) {
+export function stateToModel(state, collectedVariables, collectedVariablesStore, type) {
   const responsesModel = collectedVariables.map(cv => Response.stateToRemote({ ...state, collectedVariable: cv }));
-  const mappingModel = responsesModel.map(r => ({
-    MappingSource: r.id,
-    MappingTarget: `${collectedVariablesStore[r.CollectedVariableReference].x} ${
-      collectedVariablesStore[r.CollectedVariableReference].y
-    }`,
-  }));
+  const mappingModel = responsesModel.map(r => {
+    const x = collectedVariablesStore[r.CollectedVariableReference].x;
+    const y = collectedVariablesStore[r.CollectedVariableReference].y;
+    const MappingTarget = type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
+    return ({ MappingSource: r.id, MappingTarget, });
+  });
 
   return {
     Response: responsesModel,

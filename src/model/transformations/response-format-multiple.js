@@ -7,6 +7,7 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 
 const { BOOLEAN, TEXT } = DATATYPE_NAME;
@@ -73,7 +74,7 @@ export function stateToRemote(state, collectedVariables, collectedVariablesStore
     responseState = { typeName: BOOLEAN };
   }
 
-  const responsesModel = Responses.stateToModel(responseState, collectedVariables, collectedVariablesStore);
+  const responsesModel = Responses.stateToModel(responseState, collectedVariables, collectedVariablesStore, QUESTION_TYPE_ENUM.MULTIPLE_CHOICE);
 
   return {
     Dimension: dimensionsModel,
