@@ -46,9 +46,9 @@ export function stateToRemote(state, collectedVariables, collectedVariablesStore
     remote = {
       ResponseStructure: {
         Dimension: dataTypeRemote.Dimension,
+        Mapping: dataTypeRemote.Mapping,
       },
       Response: dataTypeRemote.Response,
-      Mapping: dataTypeRemote.Mapping,
     };
   } else {
     dataTypeRemote = ResponseFormatTable.stateToRemote(
@@ -59,9 +59,9 @@ export function stateToRemote(state, collectedVariables, collectedVariablesStore
     remote = {
       ResponseStructure: {
         Dimension: dataTypeRemote.Dimension,
+        Mapping: dataTypeRemote.Mapping,
       },
       Response: dataTypeRemote.Response,
-      Mapping: dataTypeRemote.Mapping,
     };
   }
   return remote;
