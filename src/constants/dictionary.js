@@ -1007,9 +1007,9 @@ const dictionary = {
     fr: 'Libellé de la déclaration obligatoire',
     en: 'Statement label required',
   },
-  validation_control_label: {
-    fr: 'Libellé du contrôle obligatoire',
-    en: 'Control label required',
+  validation_control_description: {
+    fr: 'Description du contrôle obligatoire',
+    en: 'Control description required',
   },
   validation_expression: {
     fr: 'Condition obligatoire',
