@@ -83,15 +83,13 @@ function Declarations({ formName, selectorPath, errors, showPosition, addErrors 
             <GenericOption key="AFTER_QUESTION_TEXT" value="AFTER_QUESTION_TEXT">
               {Dictionary.dclPosAfterQuestion}
             </GenericOption>
-            <GenericOption key="AFTER_RESPONSE" value="AFTER_RESPONSE">
-              {Dictionary.dclPosAfterAnswer}
-            </GenericOption>
             <GenericOption key="BEFORE_QUESTION_TEXT" value="BEFORE_QUESTION_TEXT">
               {Dictionary.dclPosBeforeText}
             </GenericOption>
-            <GenericOption key="DETACHABLE" value="DETACHABLE">
-              {Dictionary.dclPosDetachable}
-            </GenericOption>
+            {/*TRELLO #192 : Delete temporary "DETACHABLE" option*/}
+            {/*<GenericOption key="DETACHABLE" value="DETACHABLE">*/}
+              {/*Dictionary.dclPosDetachable*/}
+            {/*</GenericOption>*/}
           </Field>
         )}
       </ListWithInputPanel>
