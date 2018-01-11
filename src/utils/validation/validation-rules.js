@@ -92,7 +92,7 @@ export const declarationRules = {
 };
 
 export const redirectionRules = {
-  [`${REDIRECTIONS}.label`]: [value => required(value) && Dictionary.validation_goTo_label],
+  [`${REDIRECTIONS}.label`]: [value => required(value) && Dictionary.validation_goTo_description],
   [`${REDIRECTIONS}.condition`]: [value => required(value) && Dictionary.validation_condition],
   [`${REDIRECTIONS}.cible`]: [
     value => required(value) && Dictionary.validation_target,

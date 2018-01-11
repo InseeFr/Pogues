@@ -7,7 +7,7 @@ import { defaultState } from '../model/redirection';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { GotoInput } from 'widgets/goto-input';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
-import Input from 'forms/controls/input';
+import Textarea from 'forms/controls/textarea';
 import { validateRedirectionForm } from 'utils/validation/validate';
 
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
@@ -61,7 +61,7 @@ function Redirections({
         resetObject={defaultState}
         validateForm={validateForm(addErrors, validateRedirectionForm, componentsStore, editingComponentId)}
       >
-        <Field type="text" name="label" component={Input} label={Dictionary.goTo_label} required />
+        <Field type="text" name="label" component={Textarea} label={Dictionary.goTo_description} required />
         <Field
           type="text"
           name="condition"

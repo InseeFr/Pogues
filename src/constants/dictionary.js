@@ -295,9 +295,9 @@ const dictionary = {
     en: 'Goto',
     fr: 'Redirections',
   },
-  goTo_label: {
-    en: 'GoTo label',
-    fr: 'Libellé de la redirection',
+  goTo_description: {
+    en: 'GoTo description',
+    fr: 'Description de la redirection',
   },
   calculatedVariables: {
     en: 'Calculated variables',
@@ -1019,9 +1019,9 @@ const dictionary = {
     fr: "Message d'erreur obligatoire",
     en: 'Fail message required',
   },
-  validation_goTo_label: {
-    fr: 'Libellé de la redirection obligatoire',
-    en: 'Goto label required',
+  validation_goTo_description: {
+    fr: 'Description de la redirection obligatoire',
+    en: 'Goto description required',
   },
   validation_condition: {
     fr: 'Condition obligatoire',
