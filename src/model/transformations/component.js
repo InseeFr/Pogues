@@ -173,7 +173,8 @@ function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth =
     Label: [label],
     Declaration: Declaration.stateToRemote(declarations),
     Control: Control.stateToRemote(controls),
-    GoTo: Redirection.stateToRemote(redirections),
+    // Trello #196 : ouput : GoTo --> FlowControl
+    FlowControl: Redirection.stateToRemote(redirections),
     declarationMode,
   };
 
