@@ -1016,8 +1016,8 @@ const dictionary = {
     en: 'Condition required',
   },
   validation_control_message: {
-    fr: 'Message affiché obligatoire',
-    en: 'Displayed message required',
+    fr: "Message d'erreur obligatoire",
+    en: 'Fail message required',
   },
   validation_goTo_label: {
     fr: 'Libellé de la redirection obligatoire',
