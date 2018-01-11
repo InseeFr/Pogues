@@ -6,7 +6,7 @@ export function remoteToState(remote = []) {
       Description: label,
       Expression: condition,
       FailMessage: message,
-      type,
+      criticity: type,
       during_collect,
       post_collect,
     } = control;
@@ -35,7 +35,7 @@ export function stateToRemote(state) {
       label: Description,
       condition: Expression,
       message: FailMessage,
-      type,
+      type: criticity,
       during_collect,
       post_collect,
     } = state[key];
@@ -45,7 +45,7 @@ export function stateToRemote(state) {
       Description,
       Expression,
       FailMessage,
-      type,
+      criticity,
       during_collect,
       post_collect,
     });

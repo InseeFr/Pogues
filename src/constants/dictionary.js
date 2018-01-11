@@ -168,8 +168,8 @@ const dictionary = {
     fr: 'Libellé de la déclaration',
   },
   type: {
-    en: 'Type',
-    fr: 'Type',
+    en: 'Criticity',
+    fr: 'Criticité',
   },
   declaration_position: {
     en: 'Position',
@@ -457,8 +457,8 @@ const dictionary = {
     fr: 'Contrôle post-collecte',
   },
   control_message: {
-    en: 'Displayed message',
-    fr: 'Message affiché',
+    en: 'Fail message',
+    fr: "Message d'erreur",
   },
   deleteControl: {
     en: 'Delete control',
