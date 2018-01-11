@@ -102,7 +102,7 @@ export const redirectionRules = {
 };
 
 export const controlRules = {
-  [`${CONTROLS}.label`]: [value => required(value) && Dictionary.validation_control_label],
+  [`${CONTROLS}.label`]: [value => required(value) && Dictionary.validation_control_description],
   [`${CONTROLS}.condition`]: [value => required(value) && Dictionary.validation_expression],
   [`${CONTROLS}.message`]: [value => required(value) && Dictionary.validation_control_message],
 };
