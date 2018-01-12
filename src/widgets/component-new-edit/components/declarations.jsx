@@ -6,7 +6,7 @@ import { defaultState } from '../model/declaration';
 
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
-import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateDeclarationForm } from 'utils/validation/validate';
 
@@ -52,7 +52,7 @@ function Declarations({ formName, selectorPath, errors, showPosition, addErrors 
         <Field
           name="label"
           id="declaration_text"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichTextareaWithVariableAutoCompletion}
           label={Dictionary.declaration_label}
           required
         />
