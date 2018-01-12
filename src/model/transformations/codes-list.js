@@ -32,6 +32,7 @@ export function remoteToStore(remote) {
         id,
         label,
         codes: remoteToCodesState(codes),
+        name: '',
       },
     };
   }, {});
@@ -49,6 +50,7 @@ export function storeToRemote(store) {
     codesLists.push({
       id,
       Label: label,
+      Name: '',
       Code: Object.keys(codes)
         .sort(sortByWeight(codes))
         .map(keyCode => {
