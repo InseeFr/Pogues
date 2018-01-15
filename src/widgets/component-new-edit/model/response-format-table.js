@@ -297,6 +297,7 @@ const Factory = (initialState = {}, codesListsStore) => {
     if (type === SINGLE_CHOICE) {
       state[SINGLE_CHOICE] = {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListsStore[measureState[DEFAULT_CODES_LIST_SELECTOR_PATH].id],
+        visHint: measureState.visHint,
       };
     } else {
       state[SIMPLE] = measureState;
