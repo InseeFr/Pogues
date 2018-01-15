@@ -65,7 +65,7 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
           label={Dictionary.control_message}
           required
         />
-        <Field name="type" id="control_type" component={Select} label={Dictionary.type} required>
+        <Field name="criticity" id="control_criticity" component={Select} label={Dictionary.criticity} required>
           <GenericOption key="INFO" value="INFO">
             {Dictionary.INFO}
           </GenericOption>

@@ -168,8 +168,8 @@ const dictionary = {
     fr: 'Libellé de la déclaration',
   },
   type: {
-    en: 'Criticity',
-    fr: 'Criticité',
+    en: 'Type',
+    fr: 'Type',
   },
   declaration_position: {
     en: 'Position',

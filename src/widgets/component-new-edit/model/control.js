@@ -4,7 +4,7 @@ export const defaultState = {
   label: '',
   condition: '',
   message: '',
-  type: 'INFO',
+  criticity: 'INFO',
   during_collect: false,
   post_collect: false,
 };
@@ -13,14 +13,14 @@ export const defaultForm = {
   label: '',
   condition: '',
   message: '',
-  type: 'INFO',
+  criticity: 'INFO',
   during_collect: false,
   post_collect: false,
   controls: [],
 };
 
 export function formToState(form) {
-  const { label, condition, message, type, during_collect, post_collect } = form;
+  const { label, condition, message, criticity, during_collect, post_collect } = form;
   const id = form.id || uuid();
 
   return {
@@ -28,7 +28,7 @@ export function formToState(form) {
     label,
     condition,
     message,
-    type,
+    criticity,
     during_collect,
     post_collect,
   };
@@ -51,13 +51,13 @@ export function stateToForm(currentState) {
   const controls = [];
 
   Object.keys(currentState).forEach(key => {
-    const { id, label, condition, message, type, during_collect, post_collect } = currentState[key];
+    const { id, label, condition, message, criticity, during_collect, post_collect } = currentState[key];
     controls.push({
       id,
       label,
       condition,
       message,
-      type,
+      criticity,
       during_collect,
       post_collect,
     });
