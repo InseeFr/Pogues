@@ -22,9 +22,9 @@ class ResponseFormatDatatypeNumeric extends FormSection {
   render() {
     return (
       <div className="response-format-datatype-numeric">
-        <Field name="minimum" type="number" component={Input} label={Dictionary.minimum} required />
-        <Field name="maximum" type="number" component={Input} label={Dictionary.maximum} required />
-        <Field name="decimals" type="number" component={Input} label={Dictionary.decimals} />
+        <Field name="minimum" type="number" step="any" component={Input} label={Dictionary.minimum} required />
+        <Field name="maximum" type="number" step="any" component={Input} label={Dictionary.maximum} required />
+        <Field name="decimals" type="number" step="any" component={Input} label={Dictionary.decimals} />
         <SelectMetaDataContainer
           type="units"
           name="unit"
