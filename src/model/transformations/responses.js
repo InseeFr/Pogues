@@ -6,7 +6,8 @@ export function stateToModel(state, collectedVariables, collectedVariablesStore,
   const mappingModel = responsesModel.map(r => {
     const x = collectedVariablesStore[r.CollectedVariableReference].x;
     const y = collectedVariablesStore[r.CollectedVariableReference].y;
-    const MappingTarget = type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
+    // Consider that we return lines first, and then if exist, columns
+    const MappingTarget = type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${y}` : `${y} ${x}`;
     return ({ MappingSource: r.id, MappingTarget, });
   });
 
