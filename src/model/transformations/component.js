@@ -47,7 +47,8 @@ function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
 
 function remoteToVariableResponseNested(children = [], acc = {}) {
   children.forEach(child => {
-    const { Response: responses, Mapping: variableResponseMapping, Child: childrenInner } = child;
+    const { Response: responses, ResponseStructure: responseStructure, Child: childrenInner } = child;
+    const variableResponseMapping = responseStructure ? responseStructure.Mapping : undefined;
     const coordinatesByResponse = getResponseCoordinate(variableResponseMapping);
 
     acc = {
