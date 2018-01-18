@@ -6,8 +6,8 @@ export function stateToModel(state, collectedVariables, collectedVariablesStore,
   const mappingModel = responsesModel.map(r => {
     const x = collectedVariablesStore[r.CollectedVariableReference].x;
     const y = collectedVariablesStore[r.CollectedVariableReference].y;
-    // Table : Fix column and look into lines
-    const MappingTarget = type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${y}` : `${y} ${x}`;
+    // Table : Fix lines and look into columns
+    const MappingTarget = type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${y}` : `${x} ${y}`;
     return ({ MappingSource: r.id, MappingTarget, });
   });
 
