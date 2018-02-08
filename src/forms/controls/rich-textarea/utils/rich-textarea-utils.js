@@ -1,12 +1,12 @@
-import EditorValue from 'gillespie59-react-rte/lib/lib/EditorValue';
-import { EditorState } from 'draft-js';
-import decorators from '../decorators/rich-textarea-decorators';
+import EditorValue from "gillespie59-react-rte/lib/lib/EditorValue";
+import { EditorState } from "draft-js";
+import decorators from "../decorators/rich-textarea-decorators";
 
-import stateFromMarkdownVtl from '../lib/state-from-markdown-vtl';
-import stateToMarkdownVtl from '../lib/state-to-markdown-vtl';
+import stateFromMarkdownVtl from "../lib/state-from-markdown-vtl";
+import stateToMarkdownVtl from "../lib/state-to-markdown-vtl";
 
 export function removeVtlFromMarkdow(markdownVtl) {
-  return markdownVtl.replace(/##{"label":\s*"(.+?)".+#end/g, '$1');
+  return markdownVtl.replace(/##{"label":\s*"(.+?)".+#end/g, "$1");
 }
 
 export function createFromMarkdownVtl(markdownVtl, format, decorator) {
@@ -16,27 +16,40 @@ export function createFromMarkdownVtl(markdownVtl, format, decorator) {
 }
 
 export function contentStateToString(contentState) {
-  return stateToMarkdownVtl(contentState).replace(/^\n+|\n+$/, '');
+  return stateToMarkdownVtl(contentState).replace(/^\n+|\n+$/, "");
 }
 
 export function getEditorValue(markdownVtl) {
-  return markdownVtl ? createFromMarkdownVtl(markdownVtl, 'markdown', decorators) : EditorValue.createEmpty(decorators);
+  return markdownVtl
+    ? createFromMarkdownVtl(markdownVtl, "markdown", decorators)
+    : EditorValue.createEmpty(decorators);
 }
 
 export function markdownVtlToHtml(markdownVtl) {
   const markdown = removeVtlFromMarkdow(markdownVtl);
-  return createFromMarkdownVtl(markdown, 'markdown', decorators).toString('html');
+  return createFromMarkdownVtl(markdown, "markdown", decorators).toString(
+    "html"
+  );
 }
 
 export function markdownVtlToString(markdownVtl) {
   const markdown = removeVtlFromMarkdow(markdownVtl);
-  const raw = createFromMarkdownVtl(markdown, 'markdown', decorators).toString('raw');
-  return JSON.parse(raw).blocks[0].text.replace(/^\n+|\n+$/, '');
+  const raw = createFromMarkdownVtl(markdown, "markdown", decorators).toString(
+    "raw"
+  );
+  return JSON.parse(raw).blocks[0].text.replace(/^\n+|\n+$/, "");
 }
 
+/**
+ * We do not format in the same way external URL and tooltip.
+ * If the url start with http(s), we format as a basic link.
+ * If not, we will use the string '.' as the URL.
+ *
+ * @param {*} url the URL of a markdown link
+ */
 export function formatURL(url) {
-  if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
+  if (url.indexOf("http://") === 0 || url.indexOf("https://") === 0) {
     return { url };
   }
-  return { url: '.', title: url };
+  return { url: ".", title: url };
 }

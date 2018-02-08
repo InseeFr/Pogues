@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
-import RichTextEditor, { ButtonGroup } from 'gillespie59-react-rte/lib/RichTextEditor';
-import clearEntityForRange from 'gillespie59-react-rte/lib/lib/clearEntityForRange';
-import getEntityAtCursor from 'gillespie59-react-rte/lib/lib/getEntityAtCursor';
-import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { fieldInputPropTypes, fieldMetaPropTypes } from "redux-form";
+import RichTextEditor, {
+  ButtonGroup
+} from "gillespie59-react-rte/lib/RichTextEditor";
+import clearEntityForRange from "gillespie59-react-rte/lib/lib/clearEntityForRange";
+import getEntityAtCursor from "gillespie59-react-rte/lib/lib/getEntityAtCursor";
+import { getDefaultKeyBinding, EditorState, Modifier } from "draft-js";
+import ReactDOM from "react-dom";
 
-import { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';
-import { getEditorValue, contentStateToString } from './utils/rich-textarea-utils';
-import PopoverIconButton from './ui/popover-icon-button';
-import IconButton from './ui/icon-button';
-import InputConditionPopover from './ui/input-condition-popover';
+import { toolbarConfig, rootStyle } from "./rich-textarea-toobar-config";
+import {
+  getEditorValue,
+  contentStateToString
+} from "./utils/rich-textarea-utils";
+import PopoverIconButton from "./ui/popover-icon-button";
+import IconButton from "./ui/icon-button";
+import InputConditionPopover from "./ui/input-condition-popover";
 
-import { getControlId } from 'utils/widget-utils';
-import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
-
+import { getControlId } from "utils/widget-utils";
+import { CONTROL_RICH_TEXTAREA } from "constants/dom-constants";
+import { formatURL } from "forms/controls/rich-textarea";
 const { COMPONENT_CLASS, EDITOR_CLASS } = CONTROL_RICH_TEXTAREA;
 
 // Utils
@@ -36,7 +41,7 @@ const propTypes = {
   required: PropTypes.bool,
   focusOnInit: PropTypes.bool,
   showAddConditions: PropTypes.bool,
-  onEnter: PropTypes.func,
+  onEnter: PropTypes.func
 };
 
 const defaultProps = {
@@ -46,7 +51,7 @@ const defaultProps = {
   className: undefined,
   focusOnInit: false,
   showAddConditions: false,
-  onEnter: undefined,
+  onEnter: undefined
 };
 
 // Control
@@ -61,7 +66,7 @@ class RichTextarea extends Component {
     this.state = {
       editorValue: getEditorValue(props.input.value),
       value: props.input.value,
-      showConditionInput: false,
+      showConditionInput: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -75,7 +80,7 @@ class RichTextarea extends Component {
     if (nextProps.input.value !== this.state.value) {
       this.setState({
         editorValue: getEditorValue(nextProps.input.value),
-        value: nextProps.input.value,
+        value: nextProps.input.value
       });
     }
   }
@@ -83,11 +88,21 @@ class RichTextarea extends Component {
   setCondition(conditions, editorState) {
     let contentState = editorState.getCurrentContent();
     const targetSelection = editorState.getSelection();
-    contentState = contentState.createEntity('CONDITION', 'MUTABLE', { conditions });
+    contentState = contentState.createEntity("CONDITION", "MUTABLE", {
+      conditions
+    });
     const entityKey = contentState.getLastCreatedEntityKey();
     let newEditorState = EditorState.push(editorState, contentState);
-    const withoutCondition = Modifier.applyEntity(newEditorState.getCurrentContent(), targetSelection, entityKey);
-    newEditorState = EditorState.push(newEditorState, withoutCondition, 'apply-entity');
+    const withoutCondition = Modifier.applyEntity(
+      newEditorState.getCurrentContent(),
+      targetSelection,
+      entityKey
+    );
+    newEditorState = EditorState.push(
+      newEditorState,
+      withoutCondition,
+      "apply-entity"
+    );
 
     this.setState({ showConditionInput: false });
     this.handleChange(this.state.editorValue.setEditorState(newEditorState));
@@ -97,7 +112,12 @@ class RichTextarea extends Component {
     const entity = getEntityAtCursor(editorState);
     if (entity != null) {
       const { blockKey, startOffset, endOffset } = entity;
-      const newEditorState = clearEntityForRange(editorState, blockKey, startOffset, endOffset);
+      const newEditorState = clearEntityForRange(
+        editorState,
+        blockKey,
+        startOffset,
+        endOffset
+      );
       this.handleChange(this.state.editorValue.setEditorState(newEditorState));
     }
   }
@@ -117,14 +137,22 @@ class RichTextarea extends Component {
   keyBinding(e) {
     if (e.keyCode === 13 && this.props.onEnter) {
       this.props.onEnter();
-      return 'rich-textarea-enter';
+      return "rich-textarea-enter";
     }
     return getDefaultKeyBinding(e);
   }
 
   render() {
-    const { className, label, required, focusOnInit, showAddConditions, input, meta: { touched, error } } = this.props;
-    const id = getControlId('rich-textarea', input.name);
+    const {
+      className,
+      label,
+      required,
+      focusOnInit,
+      showAddConditions,
+      input,
+      meta: { touched, error }
+    } = this.props;
+    const id = getControlId("rich-textarea", input.name);
 
     let customProps = {
       className: EDITOR_CLASS,
@@ -134,7 +162,8 @@ class RichTextarea extends Component {
       toolbarConfig: toolbarConfig,
       autoFocus: focusOnInit,
       keyBindingFn: this.keyBinding,
-      rootStyle: rootStyle,
+      rootStyle,
+      formatURL
     };
 
     if (showAddConditions) {
@@ -148,12 +177,13 @@ class RichTextarea extends Component {
             const entity = getSelectionAtCursor(editorState);
             const hasSelection = !selection.isCollapsed();
 
-            if (entity != null && entity.type === 'CONDITION') {
+            if (entity != null && entity.type === "CONDITION") {
               data = entity.getData();
               isCursorOnCondition = true;
             }
 
-            const shouldShowConditionButton = hasSelection || isCursorOnCondition;
+            const shouldShowConditionButton =
+              hasSelection || isCursorOnCondition;
 
             return (
               <ButtonGroup key="conditions">
@@ -180,8 +210,8 @@ class RichTextarea extends Component {
                 />
               </ButtonGroup>
             );
-          },
-        ],
+          }
+        ]
       };
     }
 
