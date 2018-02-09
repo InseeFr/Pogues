@@ -61,14 +61,17 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.identifier === undefined) {
-      return;
-    }
-    if (
-      nextProps.input.value === "" ||
-      nextProps.identifier !== this.props.identifier
-    ) {
-      this.setState({ value: this.handleKeyCommand(nextProps.input.value) });
+    const isReset = nextProps.input.value === "";
+    const itemSelected =
+      (this.state.currentValue === "" && nextProps.input.value !== "") ||
+      nextProps.input.value.indexOf(this.state.currentValue) < 0;
+
+    if (isReset || itemSelected) {
+      this.setState({
+        ...parent.state,
+        value: getEditorValue(nextProps.input.value),
+        currentValue: nextProps.input.value
+      });
     }
   }
 
