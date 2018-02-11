@@ -24,11 +24,11 @@ export const defaultState = {
   collectedVariables: [],
   children: [],
   responseFormat: {},
-  declarationMode: [],
+  TargetMode: [],
 };
 
 export function formToState(form, transformers) {
-  const { name, label, responseFormat, declarations, controls, redirections, collectedVariables, declarationMode } = form;
+  const { name, label, responseFormat, declarations, controls, redirections, collectedVariables, TargetMode } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
@@ -41,19 +41,19 @@ export function formToState(form, transformers) {
     label: label,
     responseFormat: transformers.responseFormat.formToState(responseFormat),
     collectedVariables: transformers.collectedVariable.formToComponentState(collectedVariables),
-    declarationMode: declarationMode.split(','),
+    TargetMode: TargetMode.split(','),
   };
 }
 
 export function stateToForm(currentState, transformers, activeQuestionnaire) {
-  const { label, name, type, declarationMode } = currentState;
+  const { label, name, type, TargetMode } = currentState;
   const form = {
     label: label || '',
     name: name || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
-    declarationMode: label ? declarationMode.join() : activeQuestionnaire.declarationMode.join(),
+    TargetMode: label ? TargetMode.join() : activeQuestionnaire.TargetMode.join(),
   };
 
   if (type === QUESTION) {

@@ -11,31 +11,31 @@ import checkerQuestionnaireLength from './checker-questionnaire-length';
 import checkerComponentTarget from './checker-component-targets';
 import checkerUniqueCollectedVariableName from './checker-unique-collected-variable-name';
 import checkerUniqueComponentName from './checker-unique-component-name';
-import checkerDeclarationMode from './checker-declaration-mode';
+import checkerTargetMode from './checker-declaration-mode';
 
 export default {
   [SET_ACTIVE_COMPONENTS]: combineCheckers(
     checkerQuestionnaireLength,
     checkerComponentTarget,
     checkerUniqueComponentName,
-    checkerDeclarationMode,
+    checkerTargetMode,
   ),
   [SET_ACTIVE_VARIABLES]: combineCheckers(checkerUniqueCollectedVariableName),
   [CREATE_COMPONENT]: combineCheckers(
     checkerQuestionnaireLength,
     checkerUniqueCollectedVariableName,
     checkerUniqueComponentName,
-    checkerDeclarationMode
+    checkerTargetMode
   ),
   [UPDATE_COMPONENT]: combineCheckers(
     checkerComponentTarget,
-    checkerDeclarationMode,
+    checkerTargetMode,
     checkerUniqueCollectedVariableName,
     checkerUniqueComponentName
   ),
   [REMOVE_COMPONENT]: combineCheckers(
     checkerQuestionnaireLength,
-    checkerDeclarationMode,
+    checkerTargetMode,
     checkerComponentTarget,
     checkerUniqueComponentName,
     checkerUniqueCollectedVariableName
@@ -43,7 +43,7 @@ export default {
   [MOVE_COMPONENT]: combineCheckers(checkerComponentTarget),
   [DUPLICATE_COMPONENT]: combineCheckers(
     checkerComponentTarget,
-    checkerDeclarationMode,
+    checkerTargetMode,
     checkerUniqueCollectedVariableName,
     checkerUniqueComponentName
   ),
