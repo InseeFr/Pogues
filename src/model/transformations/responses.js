@@ -7,7 +7,7 @@ export function stateToModel(state, collectedVariables, collectedVariablesStore,
     const x = collectedVariablesStore[r.CollectedVariableReference].x;
     const y = collectedVariablesStore[r.CollectedVariableReference].y;
     // Table : Fix lines and look into columns
-    const MappingTarget = type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${y}` : `${x} ${y}`;
+    const MappingTarget = type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
     return ({ MappingSource: r.id, MappingTarget, });
   });
 
