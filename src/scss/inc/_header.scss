@@ -3,12 +3,13 @@
   background-color: white;
   padding-bottom: 15px;
 
-  @include headings(){
+  @include headings() {
     padding: 0;
     margin: 0;
   }
 
-  a, span {
+  a,
+  span {
     color: $color-grey_01;
     text-transform: uppercase;
   }
@@ -17,19 +18,19 @@
     @extend .container;
 
     .header-brand {
-    @include make-xs-column(8, 0);
-    .header-logo {
-      text-align: center;
-      @include make-xs-column(2, 0);
+      @include make-xs-column(8, 0);
+      .header-logo {
+        text-align: center;
+        @include make-xs-column(2, 0);
+      }
+      h2 {
+        margin-top: 35px;
+        @include make-xs-column(10);
+      }
+      h6 {
+        @include make-xs-column(10);
+      }
     }
-    h2 {
-      margin-top: 35px;
-      @include make-xs-column(10);
-    }
-    h6 {
-      @include make-xs-column(10);
-    }
-  }
 
     .header-help {
       @include make-xs-column(1);

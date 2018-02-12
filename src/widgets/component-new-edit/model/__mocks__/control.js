@@ -5,7 +5,7 @@ export const controlsFormDefault = {
   criticity: 'INFO',
   during_collect: false,
   post_collect: false,
-  controls: [],
+  controls: []
 };
 
 export const controlsFormNew = {
@@ -22,7 +22,7 @@ export const controlsFormNew = {
       message: 'First control message',
       criticity: 'INFO',
       during_collect: false,
-      post_collect: false,
+      post_collect: false
     },
     {
       label: 'Second control label',
@@ -30,9 +30,9 @@ export const controlsFormNew = {
       message: 'Second control message',
       criticity: 'INFO',
       during_collect: false,
-      post_collect: false,
-    },
-  ],
+      post_collect: false
+    }
+  ]
 };
 
 export const controlsFormUpdate = {
@@ -50,7 +50,7 @@ export const controlsFormUpdate = {
       message: 'First control message',
       criticity: 'INFO',
       during_collect: false,
-      post_collect: false,
+      post_collect: false
     },
     {
       id: 'SECOND_CONTROL',
@@ -59,9 +59,9 @@ export const controlsFormUpdate = {
       message: 'Second control message',
       criticity: 'INFO',
       during_collect: false,
-      post_collect: false,
-    },
-  ],
+      post_collect: false
+    }
+  ]
 };
 
 export const controlsState = {
@@ -72,7 +72,7 @@ export const controlsState = {
     message: 'First control message',
     criticity: 'INFO',
     during_collect: false,
-    post_collect: false,
+    post_collect: false
   },
   SECOND_CONTROL: {
     id: 'SECOND_CONTROL',
@@ -81,8 +81,8 @@ export const controlsState = {
     message: 'Second control message',
     criticity: 'INFO',
     during_collect: false,
-    post_collect: false,
-  },
+    post_collect: false
+  }
 };
 
 export const controlsModel = [
@@ -93,7 +93,7 @@ export const controlsModel = [
     FailMessage: 'First control message',
     criticity: 'INFO',
     during_collect: false,
-    post_collect: false,
+    post_collect: false
   },
   {
     id: 'SECOND_CONTROL',
@@ -102,6 +102,6 @@ export const controlsModel = [
     FailMessage: 'Second control message',
     criticity: 'INFO',
     during_collect: false,
-    post_collect: false,
-  },
+    post_collect: false
+  }
 ];

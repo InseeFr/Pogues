@@ -50,7 +50,6 @@
         text-align: right;
         flex-grow: 1;
       }
-
     }
 
     .widget-list-with-input-panel__list {
@@ -72,10 +71,9 @@
           }
 
           &.widget-list-with-input-panel__item-invalid button {
-            color: lighten(red, 20%);;
+            color: lighten(red, 20%);
           }
         }
-
       }
     }
   }

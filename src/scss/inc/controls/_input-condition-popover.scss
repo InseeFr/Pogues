@@ -4,14 +4,14 @@
   left: 0;
   width: 350px;
   background: none #fdfdfd;
-  background: linear-gradient(to bottom, #fdfdfd 0%,#f6f7f8 100%);
+  background: linear-gradient(to bottom, #fdfdfd 0%, #f6f7f8 100%);
   border: 1px solid #999;
   border-radius: 2px;
   box-sizing: border-box;
   padding: 4px;
 
   &:before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     width: 0;
@@ -23,7 +23,7 @@
   }
 
   &:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     width: 0;
@@ -38,9 +38,7 @@
   }
 
   .input-condition-popover__condition {
-
-
-    >div {
+    > div {
       display: inline-block;
 
       &:nth-child(1) {

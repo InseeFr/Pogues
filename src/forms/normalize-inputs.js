@@ -4,7 +4,12 @@ const rNameNeg = /[^a-z0-9_]/gi;
 
 export function componentName(value, previousValue, allValues) {
   const label = markdownVtlToString(allValues.label || '');
-  if (value.length === 0 && previousValue.length === 0 && label && label.length > 0) {
+  if (
+    value.length === 0 &&
+    previousValue.length === 0 &&
+    label &&
+    label.length > 0
+  ) {
     value = label
       .replace(rNameNeg, '')
       .toUpperCase()

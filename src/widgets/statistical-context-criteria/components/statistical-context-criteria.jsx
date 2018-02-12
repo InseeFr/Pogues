@@ -11,7 +11,10 @@ import GenericOption from 'forms/controls/generic-option';
 import Dictionary from 'utils/dictionary/dictionary';
 import { requiredSelect } from 'forms/validation-rules';
 
-const { COMPONENT_CLASS, HORIZONTAL_CLASS } = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
+const {
+  COMPONENT_CLASS,
+  HORIZONTAL_CLASS
+} = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 // PropTypes and defaultProps
 
@@ -30,7 +33,7 @@ const propTypes = {
   loadSeriesIfNeeded: PropTypes.func.isRequired,
   loadOperationsIfNeeded: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
-  change: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired
 };
 const defaultProps = {
   multipleCampaign: false,
@@ -39,7 +42,7 @@ const defaultProps = {
   operations: undefined,
   campaigns: undefined,
   selectedSerie: undefined,
-  selectedOperation: undefined,
+  selectedOperation: undefined
 };
 
 // Component
@@ -49,19 +52,36 @@ class StatisticalContextCriteria extends Component {
   static defaultProps = defaultProps;
 
   componentWillMount() {
-    const { selectedSerie, selectedOperation, campaigns, operations } = this.props;
+    const {
+      selectedSerie,
+      selectedOperation,
+      campaigns,
+      operations
+    } = this.props;
 
     this.props.loadSeriesIfNeeded();
-    if (operations && selectedSerie) this.props.loadOperationsIfNeeded(selectedSerie);
-    if (campaigns && selectedOperation) this.props.loadCampaignsIfNeeded(selectedOperation);
+    if (operations && selectedSerie)
+      this.props.loadOperationsIfNeeded(selectedSerie);
+    if (campaigns && selectedOperation)
+      this.props.loadCampaignsIfNeeded(selectedOperation);
   }
 
   componentWillUpdate(nextProps) {
-    const { formName, path, selectedSerie, selectedOperation, campaigns, operations } = this.props;
+    const {
+      formName,
+      path,
+      selectedSerie,
+      selectedOperation,
+      campaigns,
+      operations
+    } = this.props;
 
     if (operations) {
       // Updating operations list if the selected serie changes
-      if (nextProps.selectedSerie && selectedSerie !== nextProps.selectedSerie) {
+      if (
+        nextProps.selectedSerie &&
+        selectedSerie !== nextProps.selectedSerie
+      ) {
         this.props.loadOperationsIfNeeded(nextProps.selectedSerie);
       }
 
@@ -72,7 +92,10 @@ class StatisticalContextCriteria extends Component {
 
       if (campaigns) {
         // Updating campaigns list if the selected operation changes
-        if (nextProps.selectedOperation && selectedOperation !== nextProps.selectedOperation) {
+        if (
+          nextProps.selectedOperation &&
+          selectedOperation !== nextProps.selectedOperation
+        ) {
           this.props.loadCampaignsIfNeeded(nextProps.selectedOperation);
         }
 
@@ -94,14 +117,14 @@ class StatisticalContextCriteria extends Component {
       focusOnInit,
       horizontal,
       selectedSerie,
-      selectedOperation,
+      selectedOperation
     } = this.props;
 
     return (
       <div
         className={ClassSet({
           [COMPONENT_CLASS]: true,
-          [HORIZONTAL_CLASS]: horizontal,
+          [HORIZONTAL_CLASS]: horizontal
         })}
       >
         <Field

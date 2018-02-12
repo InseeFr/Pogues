@@ -10,12 +10,12 @@ const { COMPONENT_CLASS, INVALID, ITEM } = WIDGET_TABS;
 
 const propTypes = {
   errorsByTab: PropTypes.object,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.array.isRequired
 };
 
 const defaultProps = {
   errorsByTab: {},
-  validationErrors: {},
+  validationErrors: {}
 };
 
 // Component
@@ -30,7 +30,7 @@ class Tabs extends Component {
 
     this.state = {
       paths,
-      activePanelIndex: 0,
+      activePanelIndex: 0
     };
   }
 
@@ -39,7 +39,7 @@ class Tabs extends Component {
       const childProps = child.props;
       const classTab = classSet({
         'nav-link': true,
-        active: this.state.activePanelIndex === index,
+        active: this.state.activePanelIndex === index
       });
       const numErrors = this.props.errorsByTab[childProps.path];
 
@@ -50,7 +50,7 @@ class Tabs extends Component {
             onClick={event => {
               event.preventDefault();
               this.setState({
-                activePanelIndex: index,
+                activePanelIndex: index
               });
             }}
           >

@@ -10,16 +10,16 @@ export const defaultForm = {
   type: TEXT,
   [TEXT]: {
     maxLength: 255,
-    pattern: '',
+    pattern: ''
   },
   [NUMERIC]: {
     minimum: '',
     maximum: '',
     decimals: '',
-    unit: '',
+    unit: ''
   },
   [DATE]: {},
-  [BOOLEAN]: {},
+  [BOOLEAN]: {}
 };
 
 export function formToState(form) {
@@ -28,7 +28,7 @@ export function formToState(form) {
   return {
     type,
     mandatory,
-    [type]: { ...simpleForm },
+    [type]: { ...simpleForm }
   };
 }
 
@@ -39,8 +39,8 @@ export function stateToForm(currentState) {
     mandatory,
     type,
     [type]: {
-      ...simpleState,
-    },
+      ...simpleState
+    }
   });
 }
 
@@ -62,9 +62,9 @@ const Factory = (initialState = {}) => {
 
       return {
         type,
-        [type]: simpleType,
+        [type]: simpleType
       };
-    },
+    }
   };
 };
 

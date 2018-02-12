@@ -7,18 +7,18 @@ class ConfirmDialog extends Component {
   static propTypes = {
     confirm: PropTypes.func.isRequired,
     showConfirmModal: PropTypes.bool,
-    closePopup: PropTypes.func.isRequired,
+    closePopup: PropTypes.func.isRequired
   };
 
   static defaultProps = {
-    showConfirmModal: false,
+    showConfirmModal: false
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      showConfirmModal: props.showConfirmModal,
+      showConfirmModal: props.showConfirmModal
     };
 
     this.handleValidate = this.handleValidate.bind(this);

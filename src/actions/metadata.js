@@ -1,4 +1,9 @@
-import { getUnitsList, getSeries, getOperations, getCampaigns } from 'utils/remote-api';
+import {
+  getUnitsList,
+  getSeries,
+  getOperations,
+  getCampaigns
+} from 'utils/remote-api';
 
 export const LOAD_METADATA_SUCCESS = 'LOAD_METADATA_SUCCESS';
 export const LOAD_METADATA_FAILURE = 'LOAD_METADATA_FAILURE';
@@ -11,7 +16,7 @@ export const loadMetadataSuccess = (type, metadata) => {
   const metadataByTypeStore = metadata.reduce((acc, m) => {
     return {
       ...acc,
-      [m.id]: m,
+      [m.id]: m
     };
   }, {});
 
@@ -19,14 +24,14 @@ export const loadMetadataSuccess = (type, metadata) => {
     type: LOAD_METADATA_SUCCESS,
     payload: {
       type,
-      metadataByTypeStore,
-    },
+      metadataByTypeStore
+    }
   };
 };
 
 export const loadMetadataFailure = err => ({
   type: LOAD_METADATA_FAILURE,
-  payload: err,
+  payload: err
 });
 
 // Metadata units
@@ -41,11 +46,15 @@ export const loadMetadataFailure = err => ({
 export const loadUnits = () => dispatch => {
   dispatch({
     type: LOAD_UNITS,
-    payload: null,
+    payload: null
   });
   return getUnitsList()
     .then(listUnits => {
-      const units = listUnits.map(u => ({ id: u.uri, uri: u.uri, label: u.label }));
+      const units = listUnits.map(u => ({
+        id: u.uri,
+        uri: u.uri,
+        label: u.label
+      }));
       return dispatch(loadMetadataSuccess('units', units));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
@@ -62,7 +71,7 @@ export const loadUnitsIfNeeded = () => (dispatch, getState) => {
 export const loadSeries = () => dispatch => {
   dispatch({
     type: LOAD_SERIES,
-    payload: null,
+    payload: null
   });
 
   return getSeries()
@@ -70,7 +79,7 @@ export const loadSeries = () => dispatch => {
       const seriesMetadata = series.map(s => ({
         id: s.id,
         value: s.id,
-        label: s.label,
+        label: s.label
       }));
       return dispatch(loadMetadataSuccess('series', seriesMetadata));
     })
@@ -88,7 +97,7 @@ export const loadSeriesIfNeeded = () => (dispatch, getState) => {
 export const loadOperations = idSerie => dispatch => {
   dispatch({
     type: LOAD_OPERATIONS,
-    payload: null,
+    payload: null
   });
 
   return getOperations(idSerie)
@@ -97,14 +106,17 @@ export const loadOperations = idSerie => dispatch => {
         id: o.id,
         value: o.id,
         label: o.label,
-        serie: o.parent,
+        serie: o.parent
       }));
       return dispatch(loadMetadataSuccess('operations', operationsMetadata));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadOperationsIfNeeded = (idSerie = '') => (dispatch, getState) => {
+export const loadOperationsIfNeeded = (idSerie = '') => (
+  dispatch,
+  getState
+) => {
   const state = getState();
   const operations = state.metadataByType.operations || {};
   const operationsBySerie = Object.keys(operations).reduce((acc, key) => {
@@ -112,7 +124,8 @@ export const loadOperationsIfNeeded = (idSerie = '') => (dispatch, getState) => 
     return operation.serie === idSerie ? { ...acc, [key]: operation } : acc;
   }, {});
 
-  if (idSerie !== '' && Object.keys(operationsBySerie).length === 0) dispatch(loadOperations(idSerie));
+  if (idSerie !== '' && Object.keys(operationsBySerie).length === 0)
+    dispatch(loadOperations(idSerie));
 };
 
 // Metadata operations
@@ -120,7 +133,7 @@ export const loadOperationsIfNeeded = (idSerie = '') => (dispatch, getState) => 
 export const loadCampaigns = idOperation => dispatch => {
   dispatch({
     type: LOAD_CAMPAIGNS,
-    payload: null,
+    payload: null
   });
 
   return getCampaigns(idOperation)
@@ -129,7 +142,7 @@ export const loadCampaigns = idOperation => dispatch => {
         id: c.id,
         value: c.id,
         label: c.label,
-        operation: c.parent,
+        operation: c.parent
       }));
       return dispatch(loadMetadataSuccess('campaigns', campaignsMetadata));
     })
@@ -144,5 +157,6 @@ export const loadCampaignsIfNeeded = idOperation => (dispatch, getState) => {
     return campaign.serie === idOperation ? { ...acc, [key]: campaign } : acc;
   }, {});
 
-  if (idOperation !== '' && Object.keys(campaignsBySerie).length === 0) dispatch(loadCampaigns(idOperation));
+  if (idOperation !== '' && Object.keys(campaignsBySerie).length === 0)
+    dispatch(loadCampaigns(idOperation));
 };

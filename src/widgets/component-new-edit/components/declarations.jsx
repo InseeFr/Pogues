@@ -26,19 +26,25 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   showPosition: PropTypes.bool,
-  addErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPath: TABS_PATHS.DECLARATIONS,
   errors: [],
-  showPosition: true,
+  showPosition: true
 };
 
 // Component
 
-function Declarations({ formName, selectorPath, errors, showPosition, addErrors }) {
+function Declarations({
+  formName,
+  selectorPath,
+  errors,
+  showPosition,
+  addErrors
+}) {
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -57,7 +63,13 @@ function Declarations({ formName, selectorPath, errors, showPosition, addErrors 
           required
         />
 
-        <Field name="declarationType" id="declaration_type" component={Select} label={Dictionary.type} required>
+        <Field
+          name="declarationType"
+          id="declaration_type"
+          component={Select}
+          label={Dictionary.type}
+          required
+        >
           <GenericOption key="INSTRUCTION" value="INSTRUCTION">
             {Dictionary.INSTRUCTION}
           </GenericOption>
@@ -80,15 +92,21 @@ function Declarations({ formName, selectorPath, errors, showPosition, addErrors 
             label={Dictionary.declaration_position}
             required
           >
-            <GenericOption key="AFTER_QUESTION_TEXT" value="AFTER_QUESTION_TEXT">
+            <GenericOption
+              key="AFTER_QUESTION_TEXT"
+              value="AFTER_QUESTION_TEXT"
+            >
               {Dictionary.dclPosAfterQuestion}
             </GenericOption>
-            <GenericOption key="BEFORE_QUESTION_TEXT" value="BEFORE_QUESTION_TEXT">
+            <GenericOption
+              key="BEFORE_QUESTION_TEXT"
+              value="BEFORE_QUESTION_TEXT"
+            >
               {Dictionary.dclPosBeforeText}
             </GenericOption>
             {/*TRELLO #192 : Delete temporary "DETACHABLE" option*/}
             {/*<GenericOption key="DETACHABLE" value="DETACHABLE">*/}
-              {/*Dictionary.dclPosDetachable*/}
+            {/*Dictionary.dclPosDetachable*/}
             {/*</GenericOption>*/}
           </Field>
         )}

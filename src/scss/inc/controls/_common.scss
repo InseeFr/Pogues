@@ -11,7 +11,10 @@
     // @TODO: Remove this after refactor in list with input
     width: 70%;
 
-    select, textarea, input[type="text"], input[type="number"] {
+    select,
+    textarea,
+    input[type='text'],
+    input[type='number'] {
       @extend .form-control;
     }
   }

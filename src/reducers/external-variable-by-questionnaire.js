@@ -1,24 +1,33 @@
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
-import { LOAD_QUESTIONNAIRE_SUCCESS, CREATE_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
+import {
+  LOAD_QUESTIONNAIRE_SUCCESS,
+  CREATE_QUESTIONNAIRE_SUCCESS
+} from 'actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function loadQuestionnaireSuccess(state, { update: { externalVariableByQuestionnaire } }) {
+export function loadQuestionnaireSuccess(
+  state,
+  { update: { externalVariableByQuestionnaire } }
+) {
   return {
     ...state,
-    ...externalVariableByQuestionnaire,
+    ...externalVariableByQuestionnaire
   };
 }
 
 export function loadQuestionnaireListSuccess(state, updatesList) {
-  const externalVariableByQuestionnaire = updatesList.reduce((acc, questionnaire) => {
-    return { ...acc, ...questionnaire.externalVariableByQuestionnaire };
-  }, {});
+  const externalVariableByQuestionnaire = updatesList.reduce(
+    (acc, questionnaire) => {
+      return { ...acc, ...questionnaire.externalVariableByQuestionnaire };
+    },
+    {}
+  );
   return {
     ...state,
-    ...externalVariableByQuestionnaire,
+    ...externalVariableByQuestionnaire
   };
 }
 

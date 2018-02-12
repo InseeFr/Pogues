@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { QuestionnaireNewEdit, Questionnaire } from 'widgets/questionnaire-new-edit';
+import {
+  QuestionnaireNewEdit,
+  Questionnaire
+} from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
 import { Component as ComponentFactory } from 'widgets/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
@@ -17,7 +20,7 @@ export const propTypes = {
   updateComponent: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
   questionnaire: PropTypes.object.isRequired,
-  componentsStore: PropTypes.object,
+  componentsStore: PropTypes.object
 };
 
 const defaultProps = {
@@ -27,7 +30,14 @@ const defaultProps = {
 
 // Utils
 
-function validateAndSubmit(updateQuestionnaire, updateComponent, validate, componentsStore, transformer, onSuccess) {
+function validateAndSubmit(
+  updateQuestionnaire,
+  updateComponent,
+  validate,
+  componentsStore,
+  transformer,
+  onSuccess
+) {
   return function(values) {
     validate(values);
 
@@ -38,7 +48,7 @@ function validateAndSubmit(updateQuestionnaire, updateComponent, validate, compo
         name: updatedQuestionnaire.name,
         label: updatedQuestionnaire.label,
         children: componentsStore[updatedQuestionnaire.id].children,
-        type: QUESTIONNAIRE,
+        type: QUESTIONNAIRE
       },
       { componentsStore }
     ).getStore();
@@ -62,9 +72,10 @@ function QuestionnaireNew({
   questionnaire,
   componentsStore,
   onSuccess,
-  onCancel,
+  onCancel
 }) {
-  const validate = setErrorsAction => values => validateQuestionnaireForm(values, setErrorsAction);
+  const validate = setErrorsAction => values =>
+    validateQuestionnaireForm(values, setErrorsAction);
 
   // Initial values
 

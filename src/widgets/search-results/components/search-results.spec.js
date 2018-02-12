@@ -6,27 +6,37 @@ import SearchResult from './search-results';
 import { WIDGET_SEARCH_RESULTS } from 'constants/dom-constants';
 import { noop } from 'utils/test/test-utils';
 
-const { HEADER_CLASS, COLUMN_CLASS, ROW_CLASS, ROW_EMPTY_CLASS } = WIDGET_SEARCH_RESULTS;
+const {
+  HEADER_CLASS,
+  COLUMN_CLASS,
+  ROW_CLASS,
+  ROW_EMPTY_CLASS
+} = WIDGET_SEARCH_RESULTS;
 
 describe('<SearchResults /', () => {
   const columns = [
     { dictionary: 'FAKE_COLUMN_01', key: 'FAKE_COLUMN_01' },
     { dictionary: 'FAKE_COLUMN_02', key: 'FAKE_COLUMN_02' },
-    { dictionary: 'FAKE_COLUMN_02', key: 'FAKE_COLUMN_03' },
+    { dictionary: 'FAKE_COLUMN_02', key: 'FAKE_COLUMN_03' }
   ];
   const noValuesMessage = 'This is a fake no values message';
-  const actions = [{ dictionary: 'FAKE_COLUMN_01', action: noop }, { dictionary: 'FAKE_COLUMN_02', action: noop }];
+  const actions = [
+    { dictionary: 'FAKE_COLUMN_01', action: noop },
+    { dictionary: 'FAKE_COLUMN_02', action: noop }
+  ];
   const props = {
     id: 'FAKE_ID',
     columns,
     noValuesMessage,
-    actions,
+    actions
   };
 
   test('Should render as many headers as elements in the prop "columns" and actions', () => {
     const wrapper = shallow(<SearchResult {...props} />);
 
-    expect(wrapper.find(`.${HEADER_CLASS} .${COLUMN_CLASS}`)).toHaveLength(columns.length + 1);
+    expect(wrapper.find(`.${HEADER_CLASS} .${COLUMN_CLASS}`)).toHaveLength(
+      columns.length + 1
+    );
   });
 
   test('Should render as many rows as values', () => {
@@ -34,22 +44,22 @@ describe('<SearchResults /', () => {
       {
         FAKE_COLUMN_01: 'FAKE_01_01',
         FAKE_COLUMN_02: 'FAKE_01_02',
-        FAKE_COLUMN_03: 'FAKE_01_03',
+        FAKE_COLUMN_03: 'FAKE_01_03'
       },
       {
         FAKE_COLUMN_01: 'FAKE_02_01',
         FAKE_COLUMN_02: 'FAKE_02_02',
-        FAKE_COLUMN_03: 'FAKE_02_03',
+        FAKE_COLUMN_03: 'FAKE_02_03'
       },
       {
         FAKE_COLUMN_01: 'FAKE_03_01',
         FAKE_COLUMN_02: 'FAKE_03_02',
-        FAKE_COLUMN_03: 'FAKE_03_03',
-      },
+        FAKE_COLUMN_03: 'FAKE_03_03'
+      }
     ];
     const customProps = {
       ...props,
-      values,
+      values
     };
     const wrapper = shallow(<SearchResult {...customProps} />);
 

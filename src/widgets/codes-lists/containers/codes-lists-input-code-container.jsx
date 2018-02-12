@@ -11,7 +11,7 @@ import withErrorValidation from 'hoc/with-error-validation';
 
 const propTypes = {
   formName: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
 };
 
 // Container
@@ -21,17 +21,18 @@ export const mapStateToProps = (state, { path, formName }) => {
 
   return {
     currentValue: selector(state, `${path}value`),
-    currentLabel: selector(state, `${path}label`),
+    currentLabel: selector(state, `${path}label`)
   };
 };
 
 const mapDispatchToProps = {
-  change: actions.change,
+  change: actions.change
 };
 
-const CodesListsInputCodeContainer = connect(mapStateToProps, mapDispatchToProps)(
-  withErrorValidation(CodesListsInputCode, validateCode, validationSchema)
-);
+const CodesListsInputCodeContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorValidation(CodesListsInputCode, validateCode, validationSchema));
 
 CodesListsInputCodeContainer.propTypes = propTypes;
 

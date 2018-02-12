@@ -1,11 +1,13 @@
 import { getMaxDepthInChildren, getLightierSiblings } from './utils';
 
 export function disableMoveUpButton(allCodes, { parent, value }) {
-  const children = allCodes.filter(c => c.parent === parent).sort((code, nexCode) => {
-    if (code.weight < nexCode.weight) return -1;
-    if (code.weight > nexCode.weight) return 1;
-    return 0;
-  });
+  const children = allCodes
+    .filter(c => c.parent === parent)
+    .sort((code, nexCode) => {
+      if (code.weight < nexCode.weight) return -1;
+      if (code.weight > nexCode.weight) return 1;
+      return 0;
+    });
 
   if (children[0].value === value) {
     return true;
@@ -15,11 +17,13 @@ export function disableMoveUpButton(allCodes, { parent, value }) {
 }
 
 export function disableMoveDownButton(allCodes, { parent, value }) {
-  const children = allCodes.filter(c => c.parent === parent).sort((code, nexCode) => {
-    if (code.weight < nexCode.weight) return -1;
-    if (code.weight > nexCode.weight) return 1;
-    return 0;
-  });
+  const children = allCodes
+    .filter(c => c.parent === parent)
+    .sort((code, nexCode) => {
+      if (code.weight < nexCode.weight) return -1;
+      if (code.weight > nexCode.weight) return 1;
+      return 0;
+    });
 
   if (children[children.length - 1].value === value) {
     return true;
@@ -49,10 +53,13 @@ export function disableMoveRightButton(allCodes, code) {
 export function getDisabledActions(allCodes, code, actions) {
   const disabledActions = [];
 
-  if (disableMoveUpButton(allCodes, code)) disabledActions.push(actions.MOVE_UP.name);
-  if (disableMoveDownButton(allCodes, code)) disabledActions.push(actions.MOVE_DOWN.name);
+  if (disableMoveUpButton(allCodes, code))
+    disabledActions.push(actions.MOVE_UP.name);
+  if (disableMoveDownButton(allCodes, code))
+    disabledActions.push(actions.MOVE_DOWN.name);
   if (disableMoveLeftButton(code)) disabledActions.push(actions.MOVE_LEFT.name);
-  if (disableMoveRightButton(allCodes, code)) disabledActions.push(actions.MOVE_RIGHT.name);
+  if (disableMoveRightButton(allCodes, code))
+    disabledActions.push(actions.MOVE_RIGHT.name);
 
   return disabledActions;
 }

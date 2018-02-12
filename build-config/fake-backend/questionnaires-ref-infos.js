@@ -6,7 +6,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie01',
     studyUnitId: 'operation01',
-    dataCollectionId: 'campaign01',
+    dataCollectionId: 'campaign01'
   },
   {
     id: 'FAKE_ID_02',
@@ -15,7 +15,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie01',
     studyUnitId: 'operation01',
-    dataCollectionId: 'campaign02',
+    dataCollectionId: 'campaign02'
   },
   {
     id: 'FAKE_ID_03',
@@ -24,7 +24,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie01',
     studyUnitId: 'operation02',
-    dataCollectionId: 'campaign03',
+    dataCollectionId: 'campaign03'
   },
   {
     id: 'FAKE_ID_04',
@@ -33,7 +33,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie01',
     studyUnitId: 'operation02',
-    dataCollectionId: 'campaign04',
+    dataCollectionId: 'campaign04'
   },
   {
     id: 'FAKE_ID_05',
@@ -42,7 +42,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie02',
     studyUnitId: 'operation03',
-    dataCollectionId: 'campaign05',
+    dataCollectionId: 'campaign05'
   },
   {
     id: 'FAKE_ID_06',
@@ -51,7 +51,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie02',
     studyUnitId: 'operation03',
-    dataCollectionId: 'campaign06',
+    dataCollectionId: 'campaign06'
   },
   {
     id: 'FAKE_ID_07',
@@ -60,7 +60,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie02',
     studyUnitId: 'operation04',
-    dataCollectionId: 'campaign07',
+    dataCollectionId: 'campaign07'
   },
   {
     id: 'FAKE_ID_08',
@@ -69,7 +69,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie02',
     studyUnitId: 'operation04',
-    dataCollectionId: 'campaign08',
+    dataCollectionId: 'campaign08'
   },
   {
     id: 'FAKE_ID_09',
@@ -78,7 +78,7 @@ module.exports = [
     version: '01',
     subgroupId: 'serie03',
     studyUnitId: 'operation05',
-    dataCollectionId: 'campaign09',
+    dataCollectionId: 'campaign09'
   },
   {
     id: 'FAKE_ID_10',
@@ -87,6 +87,6 @@ module.exports = [
     version: '01',
     subgroupId: 'serie03',
     studyUnitId: 'operation05',
-    dataCollectionId: 'campaign10',
-  },
-]
+    dataCollectionId: 'campaign10'
+  }
+];

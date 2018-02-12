@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import RichTextEditor from "gillespie59-react-rte/lib/RichTextEditor";
-import { getDefaultKeyBinding } from "draft-js";
+import React from 'react';
+import PropTypes from 'prop-types';
+import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
+import { getDefaultKeyBinding } from 'draft-js';
 
-import ControlWithSuggestion from "./control-with-suggestions";
-import { updateSuggestions, initialize } from "./input-with-suggestions-utils";
+import ControlWithSuggestion from './control-with-suggestions';
+import { updateSuggestions, initialize } from './input-with-suggestions-utils';
 
 import {
   getEditorValue,
@@ -12,15 +12,15 @@ import {
   formatURL,
   toolbarConfig,
   rootStyle
-} from "forms/controls/rich-textarea";
-import { getControlId } from "utils/widget-utils";
-import { CONTROL_RICH_TEXTAREA } from "constants/dom-constants";
+} from 'forms/controls/rich-textarea';
+import { getControlId } from 'utils/widget-utils';
+import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
 
 function myKeyBindingFn(e) {
-  if (e.key === "Tab") {
-    return "myeditor-save";
+  if (e.key === 'Tab') {
+    return 'myeditor-save';
   }
   return getDefaultKeyBinding(e);
 }
@@ -61,9 +61,9 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   }
 
   componentWillReceiveProps(nextProps) {
-    const isReset = nextProps.input.value === "";
+    const isReset = nextProps.input.value === '';
     const itemSelected =
-      (this.state.currentValue === "" && nextProps.input.value !== "") ||
+      (this.state.currentValue === '' && nextProps.input.value !== '') ||
       nextProps.input.value.indexOf(this.state.currentValue) < 0;
 
     if (isReset || itemSelected) {
@@ -95,8 +95,8 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     if (this.props.submitOnEnter) {
       e.preventDefault();
       e.target
-        .closest("form")
-        .querySelector("button[type=submit]")
+        .closest('form')
+        .querySelector('button[type=submit]')
         .click();
     }
   };
@@ -116,10 +116,10 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   };
 
   handleKeyCommand(command) {
-    if (command === "myeditor-save") {
-      return "handled";
+    if (command === 'myeditor-save') {
+      return 'handled';
     }
-    return "not-handled";
+    return 'not-handled';
   }
 
   render() {
@@ -130,7 +130,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       input,
       meta: { touched, error }
     } = this.props;
-    const id = getControlId("rich-textarea", input.name);
+    const id = getControlId('rich-textarea', input.name);
     const editorValue = this.state.value;
 
     return (
@@ -141,7 +141,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
         </label>
         <div>
           <RichTextEditor
-            blockStyleFn={() => "singleline"}
+            blockStyleFn={() => 'singleline'}
             value={editorValue}
             onChange={this.handleChange}
             toolbarConfig={toolbarConfig}

@@ -23,7 +23,8 @@
     border-radius: 10px;
     color: $color-blue_02;
 
-    &:hover, &.ctrl-with-suggestions__list__item-selected {
+    &:hover,
+    &.ctrl-with-suggestions__list__item-selected {
       background-color: $color-grey_03;
       cursor: pointer;
     }

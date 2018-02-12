@@ -11,11 +11,11 @@ const { QUESTIONNAIRE } = COMPONENT_TYPE;
 const propTypes = {
   errorsByComponent: PropTypes.object.isRequired,
   components: PropTypes.object,
-  setSelectedComponentId: PropTypes.func.isRequired,
+  setSelectedComponentId: PropTypes.func.isRequired
 };
 
 const defaultProps = {
-  components: {},
+  components: {}
 };
 
 // Component
@@ -27,7 +27,7 @@ class QuestionnaireErrors extends Component {
   constructor() {
     super();
     this.state = {
-      expanded: [],
+      expanded: []
     };
 
     this.handleExpand = this.handleExpand.bind(this);
@@ -37,11 +37,11 @@ class QuestionnaireErrors extends Component {
     e.preventDefault();
     if (this.state.expanded.indexOf(key) < 0) {
       this.setState({
-        expanded: [...this.state.expanded, key],
+        expanded: [...this.state.expanded, key]
       });
     } else {
       this.setState({
-        expanded: this.state.expanded.filter(k => k !== key),
+        expanded: this.state.expanded.filter(k => k !== key)
       });
     }
   }
@@ -65,14 +65,20 @@ class QuestionnaireErrors extends Component {
         const invalidComponent = errorsByComponent[id];
         const component = `[${components[id].name}] ${components[id].label}`;
         const errors = invalidComponent.errors.map((e, index) => {
-          const message = e.params.dictionary ? e.params.dictionary : Dictionary[e.dictionary];
+          const message = e.params.dictionary
+            ? e.params.dictionary
+            : Dictionary[e.dictionary];
           return <li key={`${e.code}-${index}`}>{message}</li>;
         });
 
         return (
           <li key={id}>
             <a href={`#errors-${id}`} onClick={e => this.handleExpand(e, id)}>
-              {expanded ? <i className="fa fa-minus-square-o" /> : <i className="fa fa-plus-square-o" />}
+              {expanded ? (
+                <i className="fa fa-minus-square-o" />
+              ) : (
+                <i className="fa fa-plus-square-o" />
+              )}
             </a>
             <a href={`#${id}`} onClick={e => this.handleSelect(e, id)}>
               {component}

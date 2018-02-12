@@ -12,8 +12,8 @@ export function remoteToStore(remote = []) {
       [id]: {
         id,
         name,
-        label,
-      },
+        label
+      }
     };
   }, {});
 }
@@ -27,7 +27,7 @@ export function storeToRemote(store) {
       id,
       Name,
       Label,
-      type: EXTERNAL,
+      type: EXTERNAL
     });
   });
 

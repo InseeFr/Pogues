@@ -4,7 +4,11 @@ import { formValueSelector, actions } from 'redux-form';
 
 import StatisticalContextCriteria from '../components/statistical-context-criteria';
 
-import { loadSeriesIfNeeded, loadOperationsIfNeeded, loadCampaignsIfNeeded } from 'actions/metadata';
+import {
+  loadSeriesIfNeeded,
+  loadOperationsIfNeeded,
+  loadCampaignsIfNeeded
+} from 'actions/metadata';
 import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
 import { filterStoreByProp } from 'utils/widget-utils';
 import { storeToArray } from 'utils/utils';
@@ -18,7 +22,7 @@ const propTypes = {
   showCampaigns: PropTypes.bool,
   multipleCampaign: PropTypes.bool,
   required: PropTypes.bool,
-  horizontal: PropTypes.bool,
+  horizontal: PropTypes.bool
 };
 
 export const defaultProps = {
@@ -28,13 +32,16 @@ export const defaultProps = {
   showCampaigns: true,
   multipleCampaign: false,
   required: false,
-  horizontal: false,
+  horizontal: false
 };
 
 // Container
 
 // @TODO: Tests
-export const mapStateToProps = (state, { showCampaigns, showOperations, formName, path }) => {
+export const mapStateToProps = (
+  state,
+  { showCampaigns, showOperations, formName, path }
+) => {
   const selector = formValueSelector(formName);
   const conditionalProps = {};
 
@@ -46,11 +53,19 @@ export const mapStateToProps = (state, { showCampaigns, showOperations, formName
     const selectedOperation = selector(state, `${path}operation`);
 
     conditionalProps.selectedOperation = selectedOperation;
-    conditionalProps.operations = filterStoreByProp(state.metadataByType.operations, 'serie', selectedSerie);
+    conditionalProps.operations = filterStoreByProp(
+      state.metadataByType.operations,
+      'serie',
+      selectedSerie
+    );
 
     // Show or not the list of campaigns
     if (showCampaigns) {
-      conditionalProps.campaigns = filterStoreByProp(state.metadataByType.campaigns, 'operation', selectedOperation);
+      conditionalProps.campaigns = filterStoreByProp(
+        state.metadataByType.campaigns,
+        'operation',
+        selectedOperation
+      );
     }
   }
 
@@ -58,7 +73,7 @@ export const mapStateToProps = (state, { showCampaigns, showOperations, formName
     ...conditionalProps,
     series: storeToArray(state.metadataByType.series),
     selectedSerie,
-    path,
+    path
   };
 };
 
@@ -66,10 +81,13 @@ const mapDispatchToProps = {
   change: actions.change,
   loadSeriesIfNeeded,
   loadOperationsIfNeeded,
-  loadCampaignsIfNeeded,
+  loadCampaignsIfNeeded
 };
 
-const StatisticalContextCriteriaContainer = connect(mapStateToProps, mapDispatchToProps)(StatisticalContextCriteria);
+const StatisticalContextCriteriaContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StatisticalContextCriteria);
 
 StatisticalContextCriteriaContainer.propTypes = propTypes;
 StatisticalContextCriteriaContainer.defaultProps = defaultProps;

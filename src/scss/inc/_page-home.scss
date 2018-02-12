@@ -1,10 +1,10 @@
 #page-home {
   @extend .container;
-  &>h1 {
+  & > h1 {
     color: $color-blue_01;
     padding: 40px 30px;
     background-color: $color-blue_03;
-    background-image: url("images/logo-insee-bg.png");
+    background-image: url('images/logo-insee-bg.png');
     background-repeat: no-repeat;
     background-position-x: right;
   }
@@ -28,10 +28,12 @@
       li {
         margin-bottom: 20px;
 
-        button, a {
+        button,
+        a {
           width: 100%;
 
-          &#questionnaires-team, &#questionnaires-insee {
+          &#questionnaires-team,
+          &#questionnaires-insee {
             background-repeat: no-repeat;
             background-size: 79px auto;
           }

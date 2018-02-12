@@ -12,35 +12,44 @@ describe('<QuestionnaireList />', () => {
   const mockQuestionnaires = [
     {
       id: '1',
-      label: "Enquête sur les investissements pour protéger l'environnement 2016",
+      label:
+        "Enquête sur les investissements pour protéger l'environnement 2016",
       type: 'Face à face',
-      updatedAt: '03/01/2017',
+      updatedAt: '03/01/2017'
     },
     {
       id: '2',
-      label: "Enquête sur les investissements pour protéger l'environnement 2015",
+      label:
+        "Enquête sur les investissements pour protéger l'environnement 2015",
       type: 'Téléphone',
-      updatedAt: '03/01/2017',
+      updatedAt: '03/01/2017'
     },
     {
       id: '3',
-      label: "Enquête sur les investissements pour protéger l'environnement 2014",
+      label:
+        "Enquête sur les investissements pour protéger l'environnement 2014",
       type: 'Face à face',
-      updatedAt: '03/01/2017',
+      updatedAt: '03/01/2017'
     },
     {
       id: '4',
-      label: "Enquête sur les investissements pour protéger l'environnement 2013",
+      label:
+        "Enquête sur les investissements pour protéger l'environnement 2013",
       type: 'Téléphone',
-      updatedAt: '03/01/2017',
-    },
+      updatedAt: '03/01/2017'
+    }
   ];
   const propsWithQuestionnaires = {
-    questionnaires: mockQuestionnaires,
+    questionnaires: mockQuestionnaires
   };
-  const wrapperWithoutQuestionnaires = shallow(<QuestionnaireList loadQuestionnaireList={noop} />);
+  const wrapperWithoutQuestionnaires = shallow(
+    <QuestionnaireList loadQuestionnaireList={noop} />
+  );
   const wrapperWithQuestionnaires = shallow(
-    <QuestionnaireList loadQuestionnaireList={noop} {...propsWithQuestionnaires} />
+    <QuestionnaireList
+      loadQuestionnaireList={noop}
+      {...propsWithQuestionnaires}
+    />
   );
 
   test('should render without throwing an error', () => {
@@ -48,11 +57,17 @@ describe('<QuestionnaireList />', () => {
   });
 
   test('should render as many <QuestionnaireListItem /> as questionnaires passed', () => {
-    expect(wrapperWithQuestionnaires.find('QuestionnaireListItem').length).toBe(mockQuestionnaires.length);
+    expect(wrapperWithQuestionnaires.find('QuestionnaireListItem').length).toBe(
+      mockQuestionnaires.length
+    );
   });
 
   test('should render "No results" message only if no questionnaries are passed', () => {
-    expect(wrapperWithoutQuestionnaires.find('.questionnaire-list_noresults').length).toBe(1);
-    expect(wrapperWithQuestionnaires.find('.questionnaire-list_noresults').length).toBe(0);
+    expect(
+      wrapperWithoutQuestionnaires.find('.questionnaire-list_noresults').length
+    ).toBe(1);
+    expect(
+      wrapperWithQuestionnaires.find('.questionnaire-list_noresults').length
+    ).toBe(0);
   });
 });

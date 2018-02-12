@@ -29,8 +29,8 @@ describe('<PageQuestionnaire />', () => {
     store: {},
     questionnaire: {
       id: 'FAKE_QUESTIONNAIRE_ID',
-      campaigns: ['FAKE_CAMPAIGN_ID'],
-    },
+      campaigns: ['FAKE_CAMPAIGN_ID']
+    }
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);

@@ -4,14 +4,20 @@ import { INTEGRITY_TYPES } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import {
   removeOrphansCollectedVariables,
-  getCollectedVariablesIdsFromComponents,
+  getCollectedVariablesIdsFromComponents
 } from 'utils/variables/variables-utils';
 
 function checkerUniqueCollectedVariableName({
-  appState: { collectedVariableByQuestion, activeQuestionnaire: { id }, activeComponentsById },
+  appState: {
+    collectedVariableByQuestion,
+    activeQuestionnaire: { id },
+    activeComponentsById
+  }
 }) {
   const errors = [];
-  const collectedVariablesStore = Object.keys(collectedVariableByQuestion).reduce((acc, key) => {
+  const collectedVariablesStore = Object.keys(
+    collectedVariableByQuestion
+  ).reduce((acc, key) => {
     return { ...acc, ...collectedVariableByQuestion[key] };
   }, {});
   const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
@@ -30,15 +36,17 @@ function checkerUniqueCollectedVariableName({
 
   if (duplicatedVariablesNames.length > 0) {
     errors.push({
-      message: `${Dictionary.errorUniqueVariableName} ${duplicatedVariablesNames.join(',')}`,
-      type: INTEGRITY_TYPES.UNIQUE_VARIABLE_NAME,
+      message: `${
+        Dictionary.errorUniqueVariableName
+      } ${duplicatedVariablesNames.join(',')}`,
+      type: INTEGRITY_TYPES.UNIQUE_VARIABLE_NAME
     });
   }
 
   return {
     [id]: {
-      [INTEGRITY_TYPES.UNIQUE_VARIABLE_NAME]: errors,
-    },
+      [INTEGRITY_TYPES.UNIQUE_VARIABLE_NAME]: errors
+    }
   };
 }
 

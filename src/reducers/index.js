@@ -29,7 +29,7 @@ export default integrityChecker(
     collectedVariableByQuestionnaire,
     searchResultById,
     metadataByType,
-    errors,
+    errors
   }),
   checkers
 );

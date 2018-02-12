@@ -3,7 +3,7 @@ import {
   QUESTION_TYPE_ENUM,
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_CODES_LIST_SELECTOR_PATH
 } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
@@ -28,14 +28,17 @@ export const expectedCodesListsStore = getCodesListsStore(8);
 
 export const singleFormatCodesListsIds = ['CODES_LIST_ID_1'];
 
-export const multipleFormatCodesListsIds = ['CODES_LIST_ID_2', 'CODES_LIST_ID_3'];
+export const multipleFormatCodesListsIds = [
+  'CODES_LIST_ID_2',
+  'CODES_LIST_ID_3'
+];
 
 export const tableFormatCodesListsIds = [
   'CODES_LIST_ID_4',
   'CODES_LIST_ID_5',
   'CODES_LIST_ID_6',
   'CODES_LIST_ID_7',
-  'CODES_LIST_ID_8',
+  'CODES_LIST_ID_8'
 ];
 
 export const componentsStore = {
@@ -45,9 +48,9 @@ export const componentsStore = {
     responseFormat: {
       type: SINGLE_CHOICE,
       [SINGLE_CHOICE]: {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_1' },
-      },
-    },
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_1' }
+      }
+    }
   },
   COMPONENT_ID_2: {
     id: 'COMPONENT_ID_2',
@@ -56,16 +59,16 @@ export const componentsStore = {
       type: MULTIPLE_CHOICE,
       [MULTIPLE_CHOICE]: {
         [PRIMARY]: {
-          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_2' },
+          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_2' }
         },
         [MEASURE]: {
           type: CODES_LIST,
           [CODES_LIST]: {
-            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_3' },
-          },
-        },
-      },
-    },
+            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_3' }
+          }
+        }
+      }
+    }
   },
   COMPONENT_ID_3: {
     id: 'COMPONENT_ID_3',
@@ -76,44 +79,44 @@ export const componentsStore = {
         [PRIMARY]: {
           type: CODES_LIST,
           [CODES_LIST]: {
-            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_4' },
-          },
+            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_4' }
+          }
         },
         [SECONDARY]: {
-          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_5' },
+          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_5' }
         },
         [MEASURE]: {
           type: SINGLE_CHOICE,
           [SINGLE_CHOICE]: {
-            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_6' },
-          },
+            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_6' }
+          }
         },
         [LIST_MEASURE]: [
           {
-            type: SIMPLE,
+            type: SIMPLE
           },
           {
             type: SINGLE_CHOICE,
             [SINGLE_CHOICE]: {
-              [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_7' },
-            },
+              [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_7' }
+            }
           },
           {
             type: SINGLE_CHOICE,
             [SINGLE_CHOICE]: {
-              [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_8' },
-            },
-          },
-        ],
-      },
-    },
+              [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'CODES_LIST_ID_8' }
+            }
+          }
+        ]
+      }
+    }
   },
   COMPONENT_ID_4: {
     id: 'COMPONENT_ID_4',
-    type: SUBSEQUENCE,
+    type: SUBSEQUENCE
   },
   COMPONENT_ID_5: {
     id: 'COMPONENT_ID_5',
-    type: SEQUENCE,
-  },
+    type: SEQUENCE
+  }
 };

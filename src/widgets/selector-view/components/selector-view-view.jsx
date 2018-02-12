@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 export const propTypes = {
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  children: PropTypes.element,
+  children: PropTypes.element
 };
 
 export const defaultProps = {
-  children: undefined,
+  children: undefined
 };
 
 // Component

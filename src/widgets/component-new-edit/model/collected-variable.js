@@ -4,7 +4,7 @@ export const defaultState = {
   name: '',
   label: '',
   x: '',
-  y: '',
+  y: ''
 };
 
 export const defaultForm = {
@@ -12,7 +12,7 @@ export const defaultForm = {
   label: '',
   x: '',
   y: '',
-  collectedVariables: [],
+  collectedVariables: []
 };
 
 export function formToState(form) {
@@ -24,7 +24,7 @@ export function formToState(form) {
     name,
     label,
     x,
-    y,
+    y
   };
 }
 
@@ -36,7 +36,7 @@ export function formToStore(form) {
 
     return {
       ...acc,
-      [state.id]: state,
+      [state.id]: state
     };
   }, {});
 }
@@ -49,13 +49,13 @@ export function storeToForm(currentStore) {
       name,
       label,
       x,
-      y,
+      y
     };
   });
 
   return {
     ...defaultForm,
-    collectedVariables,
+    collectedVariables
   };
 }
 
@@ -63,7 +63,7 @@ const Factory = (currentState = [], collectedVariablesStore) => {
   let currentStore = currentState.reduce((acc, key) => {
     return {
       ...acc,
-      [key]: collectedVariablesStore[key],
+      [key]: collectedVariablesStore[key]
     };
   }, {});
 
@@ -82,7 +82,7 @@ const Factory = (currentState = [], collectedVariablesStore) => {
     },
     getStore: () => {
       return currentStore;
-    },
+    }
   };
 };
 

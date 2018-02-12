@@ -11,10 +11,10 @@ const { LIST } = DIMENSION_FORMATS;
 class ResponseFormatTablePrincipalList extends Component {
   static selectorPath = LIST;
   static propTypes = {
-    selectorPathParent: PropTypes.string,
+    selectorPathParent: PropTypes.string
   };
   static defaultProps = {
-    selectorPathParent: undefined,
+    selectorPathParent: undefined
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -28,8 +28,20 @@ class ResponseFormatTablePrincipalList extends Component {
     return (
       <div className="axis-primary__panel">
         <FormSection name={ResponseFormatTablePrincipalList.selectorPath}>
-          <Field name="numLinesMin" type="number" component={Input} label={Dictionary.minRowNb} required />
-          <Field name="numLinesMax" type="number" component={Input} label={Dictionary.maxRowNb} required />
+          <Field
+            name="numLinesMin"
+            type="number"
+            component={Input}
+            label={Dictionary.minRowNb}
+            required
+          />
+          <Field
+            name="numLinesMax"
+            type="number"
+            component={Input}
+            label={Dictionary.maxRowNb}
+            required
+          />
         </FormSection>
       </div>
     );

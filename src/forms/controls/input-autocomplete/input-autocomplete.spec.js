@@ -13,7 +13,7 @@ describe('Form controls - Input autocomplete', () => {
     beforeEach(() => {
       props = {
         ...fakeFieldProps,
-        label: 'Fake label',
+        label: 'Fake label'
       };
     });
 
@@ -43,16 +43,34 @@ describe('Form controls - Input autocomplete', () => {
     test('Should keep in the state all the option values passed', () => {
       const wrapper = shallow(
         <InputAutocomplete {...props}>
-          <GenericOption value="FAKE_VALUE_1">Fake value label first</GenericOption>
-          <GenericOption value="FAKE_VALUE_2">Fake value label first</GenericOption>
-          <GenericOption value="FAKE_VALUE_3">Fake value label second</GenericOption>
+          <GenericOption value="FAKE_VALUE_1">
+            Fake value label first
+          </GenericOption>
+          <GenericOption value="FAKE_VALUE_2">
+            Fake value label first
+          </GenericOption>
+          <GenericOption value="FAKE_VALUE_3">
+            Fake value label second
+          </GenericOption>
         </InputAutocomplete>
       );
 
       expect(wrapper.state('options')).toEqual([
-        { value: 'FAKE_VALUE_1', label: 'Fake value label first', className: undefined },
-        { value: 'FAKE_VALUE_2', label: 'Fake value label first', className: undefined },
-        { value: 'FAKE_VALUE_3', label: 'Fake value label second', className: undefined },
+        {
+          value: 'FAKE_VALUE_1',
+          label: 'Fake value label first',
+          className: undefined
+        },
+        {
+          value: 'FAKE_VALUE_2',
+          label: 'Fake value label first',
+          className: undefined
+        },
+        {
+          value: 'FAKE_VALUE_3',
+          label: 'Fake value label second',
+          className: undefined
+        }
       ]);
     });
   });
@@ -63,16 +81,22 @@ describe('Form controls - Input autocomplete', () => {
     beforeEach(() => {
       props = {
         ...fakeFieldProps,
-        label: 'Fake label',
+        label: 'Fake label'
       };
     });
 
     test('Should show two suggestions when the text "first" is written', () => {
       const wrapper = shallow(
         <InputAutocomplete {...props}>
-          <GenericOption value="FAKE_VALUE_1">Fake value label first</GenericOption>
-          <GenericOption value="FAKE_VALUE_2">Fake value label first</GenericOption>
-          <GenericOption value="FAKE_VALUE_3">Fake value label second</GenericOption>
+          <GenericOption value="FAKE_VALUE_1">
+            Fake value label first
+          </GenericOption>
+          <GenericOption value="FAKE_VALUE_2">
+            Fake value label first
+          </GenericOption>
+          <GenericOption value="FAKE_VALUE_3">
+            Fake value label second
+          </GenericOption>
         </InputAutocomplete>
       );
       const event = { ...fakeEvent, ...{ currentTarget: { value: 'first' } } };

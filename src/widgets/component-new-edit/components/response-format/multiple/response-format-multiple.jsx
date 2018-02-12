@@ -12,10 +12,10 @@ const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 class ResponseFormatMultiple extends Component {
   static selectorPath = MULTIPLE_CHOICE;
   static propTypes = {
-    selectorPathParent: PropTypes.string,
+    selectorPathParent: PropTypes.string
   };
   static defaultProps = {
-    selectorPathParent: undefined,
+    selectorPathParent: undefined
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -27,15 +27,18 @@ class ResponseFormatMultiple extends Component {
   }
   render() {
     return (
-      <FormSection name={ResponseFormatMultiple.selectorPath} className="response-format__multiple">
-        <h3 className="axis-primary__head">
-          {Dictionary.primaryAxis}
-        </h3>
-        <ResponseFormatMultiplePrimary selectorPathParent={this.selectorPathComposed} />
-        <h3 className="axis-measure__head">
-          {Dictionary.measureInfo}
-        </h3>
-        <ResponseFormatMultipleMeasure selectorPathParent={this.selectorPathComposed} />
+      <FormSection
+        name={ResponseFormatMultiple.selectorPath}
+        className="response-format__multiple"
+      >
+        <h3 className="axis-primary__head">{Dictionary.primaryAxis}</h3>
+        <ResponseFormatMultiplePrimary
+          selectorPathParent={this.selectorPathComposed}
+        />
+        <h3 className="axis-measure__head">{Dictionary.measureInfo}</h3>
+        <ResponseFormatMultipleMeasure
+          selectorPathParent={this.selectorPathComposed}
+        />
       </FormSection>
     );
   }

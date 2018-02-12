@@ -27,7 +27,7 @@ export const propTypes = {
   calculatedVariables: PropTypes.object,
   externalVariables: PropTypes.object,
   collectedVariablesByQuestion: PropTypes.object,
-  router: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
 };
 
 export const defaultProps = {
@@ -37,7 +37,7 @@ export const defaultProps = {
   codeLists: {},
   calculatedVariables: {},
   externalVariables: {},
-  collectedVariablesByQuestion: {},
+  collectedVariablesByQuestion: {}
 };
 
 class PageQuestionnaire extends Component {
@@ -52,7 +52,7 @@ class PageQuestionnaire extends Component {
       codeLists,
       calculatedVariables,
       externalVariables,
-      collectedVariablesByQuestion,
+      collectedVariablesByQuestion
     } = this.props;
 
     this.props.loadQuestionnaireIfNeeded(id);
@@ -65,21 +65,29 @@ class PageQuestionnaire extends Component {
       this.props.setActiveVariables({
         activeCalculatedVariablesById: calculatedVariables,
         activeExternalVariablesById: externalVariables,
-        collectedVariableByQuestion: collectedVariablesByQuestion,
+        collectedVariableByQuestion: collectedVariablesByQuestion
       });
       this.props.loadStatisticalContext(idCampaign);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.activeQuestionnaire.id !== this.props.activeQuestionnaire.id) {
-      if (nextProps.activeQuestionnaire.campaigns && nextProps.activeQuestionnaire.campaigns.length > 0) {
+    if (
+      nextProps.activeQuestionnaire.id !== this.props.activeQuestionnaire.id
+    ) {
+      if (
+        nextProps.activeQuestionnaire.campaigns &&
+        nextProps.activeQuestionnaire.campaigns.length > 0
+      ) {
         const idCampaign = nextProps.activeQuestionnaire.campaigns[0];
         this.props.loadStatisticalContext(idCampaign);
       }
     }
 
-    if (nextProps.activeQuestionnaire.operation !== this.props.activeQuestionnaire.operation) {
+    if (
+      nextProps.activeQuestionnaire.operation !==
+      this.props.activeQuestionnaire.operation
+    ) {
       this.props.loadCampaignsIfNeeded(nextProps.activeQuestionnaire.operation);
     }
 
@@ -98,12 +106,15 @@ class PageQuestionnaire extends Component {
     if (
       !isEqual(nextProps.calculatedVariables, this.props.calculatedVariables) ||
       !isEqual(nextProps.externalVariables, this.props.externalVariables) ||
-      !isEqual(nextProps.collectedVariablesByQuestion, this.props.collectedVariablesByQuestion)
+      !isEqual(
+        nextProps.collectedVariablesByQuestion,
+        this.props.collectedVariablesByQuestion
+      )
     ) {
       this.props.setActiveVariables({
         activeCalculatedVariablesById: nextProps.calculatedVariables,
         activeExternalVariablesById: nextProps.externalVariables,
-        collectedVariableByQuestion: nextProps.collectedVariablesByQuestion,
+        collectedVariableByQuestion: nextProps.collectedVariablesByQuestion
       });
     }
   }

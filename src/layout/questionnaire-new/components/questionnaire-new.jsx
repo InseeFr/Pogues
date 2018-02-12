@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { QuestionnaireNewEdit, Questionnaire } from 'widgets/questionnaire-new-edit';
+import {
+  QuestionnaireNewEdit,
+  Questionnaire
+} from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
 
 // PropTypes and defaultProps
@@ -11,7 +14,7 @@ export const propTypes = {
   onSuccess: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   createQuestionnaire: PropTypes.func.isRequired,
-  setErrors: PropTypes.func.isRequired,
+  setErrors: PropTypes.func.isRequired
 };
 
 // Utils
@@ -29,8 +32,15 @@ function validateAndSubmit(action, validate, transformer, onSuccess) {
 
 // Component
 
-function QuestionnaireNew({ onCancel, onSuccess, user, createQuestionnaire, setErrors }) {
-  const validate = setErrorsAction => values => validateQuestionnaireForm(values, setErrorsAction);
+function QuestionnaireNew({
+  onCancel,
+  onSuccess,
+  user,
+  createQuestionnaire,
+  setErrors
+}) {
+  const validate = setErrorsAction => values =>
+    validateQuestionnaireForm(values, setErrorsAction);
 
   // Initial values
 
@@ -44,7 +54,12 @@ function QuestionnaireNew({ onCancel, onSuccess, user, createQuestionnaire, setE
     <QuestionnaireNewEdit
       onCancel={onCancel}
       initialValues={initialValues}
-      onSubmit={validateAndSubmit(createQuestionnaire, validate(setErrors), questionnaireTransformer, onSuccess)}
+      onSubmit={validateAndSubmit(
+        createQuestionnaire,
+        validate(setErrors),
+        questionnaireTransformer,
+        onSuccess
+      )}
     />
   );
 }

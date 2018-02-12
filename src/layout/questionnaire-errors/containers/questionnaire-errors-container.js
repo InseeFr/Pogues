@@ -8,24 +8,27 @@ import { setSelectedComponentId } from 'actions/app-state';
 // Prop types and default props
 
 const propTypes = {
-  errorsByComponent: PropTypes.object,
+  errorsByComponent: PropTypes.object
 };
 
 const defaultProps = {
-  errorsByComponent: {},
+  errorsByComponent: {}
 };
 
 // Container
 
 const mapStateToProps = state => ({
-  components: state.appState.activeComponentsById,
+  components: state.appState.activeComponentsById
 });
 
 const mapDispatchToProps = {
-  setSelectedComponentId,
+  setSelectedComponentId
 };
 
-const QuestionnaireErrorsContainer = connect(mapStateToProps, mapDispatchToProps)(QuestionnaireErrors);
+const QuestionnaireErrorsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuestionnaireErrors);
 
 QuestionnaireErrorsContainer.propTypes = propTypes;
 QuestionnaireErrorsContainer.defaultProps = defaultProps;

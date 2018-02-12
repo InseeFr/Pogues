@@ -9,7 +9,11 @@ import { VARIABLES_TYPES } from 'constants/pogues-constants';
 const { CALCULATED, EXTERNAL, COLLECTED } = VARIABLES_TYPES;
 
 export function questionnaireRemoteToStores(remote, currentStores = {}) {
-  const { id, CodeLists: { CodeList: codesLists }, Variables: { Variable: variables } } = remote;
+  const {
+    id,
+    CodeLists: { CodeList: codesLists },
+    Variables: { Variable: variables }
+  } = remote;
   const calculatedVariables = variables.filter(v => v.type === CALCULATED);
   const externalVariables = variables.filter(v => v.type === EXTERNAL);
   const collectedVariables = variables.filter(v => v.type === COLLECTED);
@@ -19,29 +23,32 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
 
   // Calculate variables store
   const calculatedVariableByQuestionnaire = {
-    [id]: CalculatedVariable.remoteToStore(calculatedVariables),
+    [id]: CalculatedVariable.remoteToStore(calculatedVariables)
   };
 
   // External variables store
   const externalVariableByQuestionnaire = {
-    [id]: ExternalVariable.remoteToStore(externalVariables),
+    [id]: ExternalVariable.remoteToStore(externalVariables)
   };
 
   // Collected variables store
   const responsesByVariable = Component.remoteToVariableResponse(remote);
   const collectedVariableByQuestionnaire = {
-    [id]: CollectedVariable.remoteToStore(collectedVariables, responsesByVariable),
+    [id]: CollectedVariable.remoteToStore(
+      collectedVariables,
+      responsesByVariable
+    )
   };
 
   // Codes lists store
   const codesListsStore = CodesList.remoteToStore(codesLists);
   const codeListByQuestionnaire = {
-    [id]: codesListsStore,
+    [id]: codesListsStore
   };
 
   // Components store
   const componentByQuestionnaire = {
-    [id]: Component.remoteToStore(remote, id, codesListsStore),
+    [id]: Component.remoteToStore(remote, id, codesListsStore)
   };
 
   return {
@@ -50,7 +57,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     externalVariableByQuestionnaire,
     collectedVariableByQuestionnaire,
     codeListByQuestionnaire,
-    componentByQuestionnaire,
+    componentByQuestionnaire
   };
 }
 

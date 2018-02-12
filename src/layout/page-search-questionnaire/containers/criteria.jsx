@@ -13,5 +13,5 @@ function CriteriaContainer() {
 }
 
 export default reduxForm({
-  form: STATISTICAL_CONTEXT_FORM_NAME,
+  form: STATISTICAL_CONTEXT_FORM_NAME
 })(CriteriaContainer);

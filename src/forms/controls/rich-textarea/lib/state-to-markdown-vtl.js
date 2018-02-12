@@ -3,11 +3,11 @@ import {
   BLOCK_TYPE,
   ENTITY_TYPE,
   INLINE_STYLE
-} from "draft-js-utils";
+} from 'draft-js-utils';
 
 const { BOLD, CODE, ITALIC, STRIKETHROUGH, UNDERLINE } = INLINE_STYLE;
 
-const CODE_INDENT = "    ";
+const CODE_INDENT = '    ';
 
 function conditionsToVtl(content, conditions) {
   let vtl = `##{"label": "${content}", "conditions": ${JSON.stringify(
@@ -36,13 +36,13 @@ function canHaveDepth(blockType) {
 }
 
 function encodeContent(text) {
-  return text.replace(/[*_`]/g, "\\$&");
+  return text.replace(/[*_`]/g, '\\$&');
 }
 
 // Encode chars that would normally be allowed in a URL but would conflict with
 // our markdown syntax: `[foo](http://foo/)`
 function encodeURL(url) {
-  return url.replace(/\)/g, "%29");
+  return url.replace(/\)/g, '%29');
 }
 
 // Escape quotes using backslash.
@@ -64,7 +64,7 @@ class MarkupGenerator {
     while (this.currentBlock < this.totalBlocks) {
       this.processBlock();
     }
-    return this.output.join("");
+    return this.output.join('');
   }
 
   processBlock() {
@@ -116,7 +116,7 @@ class MarkupGenerator {
             this.insertLineBreaks(1);
           }
         }
-        const indent = " ".repeat(block.depth * 4);
+        const indent = ' '.repeat(block.depth * 4);
         this.output.push(`${indent}- ${this.renderBlockContent(block)}\n`);
         break;
       }
@@ -135,7 +135,7 @@ class MarkupGenerator {
             this.insertLineBreaks(1);
           }
         }
-        const indent = " ".repeat(blockDepth * 4);
+        const indent = ' '.repeat(blockDepth * 4);
         // TODO: figure out what to do with two-digit numbers
         const count = this.getListItemCount(block) % 10;
         this.output.push(
@@ -199,7 +199,7 @@ class MarkupGenerator {
 
   insertLineBreaks() {
     if (this.currentBlock > 0) {
-      this.output.push("\n");
+      this.output.push('\n');
     }
   }
 
@@ -207,14 +207,14 @@ class MarkupGenerator {
     const { contentState } = this;
     const blockType = block.getType();
     const text = block.getText();
-    if (text === "") {
+    if (text === '') {
       // Prevent element collapse if completely empty.
       // TODO: Replace with constant.
-      return "\u200B";
+      return '\u200B';
     }
     const charMetaList = block.getCharacterList();
     const entityPieces = getEntityRanges(text, charMetaList);
-    const space = " ";
+    const space = ' ';
 
     return entityPieces
       .map(([entityKey, stylePieces]) => {
@@ -222,11 +222,11 @@ class MarkupGenerator {
           .map(([text, style]) => {
             // Don't allow empty inline elements.
             if (!text) {
-              return "";
+              return '';
             }
             let content = encodeContent(text);
-            const prefix = content.startsWith(space) ? space : "";
-            const suffix = content.endsWith(space) ? space : "";
+            const prefix = content.startsWith(space) ? space : '';
+            const suffix = content.endsWith(space) ? space : '';
 
             content = content.trim();
             if (style.has(BOLD)) {
@@ -250,26 +250,26 @@ class MarkupGenerator {
 
             return prefix + content + suffix;
           })
-          .join("");
+          .join('');
         const entity = entityKey ? contentState.getEntity(entityKey) : null;
         if (entity != null && entity.getType() === ENTITY_TYPE.LINK) {
           const data = entity.getData();
-          const url = data.url || "";
-          const title = data.title ? ` "${escapeTitle(data.title)}"` : "";
+          const url = data.url || '';
+          const title = data.title ? ` "${escapeTitle(data.title)}"` : '';
           return `[${content}](${encodeURL(url)}${title})`;
         } else if (entity != null && entity.getType() === ENTITY_TYPE.IMAGE) {
           const data = entity.getData();
-          const src = data.src || "";
-          const alt = data.alt ? `${escapeTitle(data.alt)}` : "";
+          const src = data.src || '';
+          const alt = data.alt ? `${escapeTitle(data.alt)}` : '';
           return `![${alt}](${encodeURL(src)})`;
-        } else if (entity !== null && entity.getType() === "CONDITION") {
+        } else if (entity !== null && entity.getType() === 'CONDITION') {
           const data = entity.getData();
           const conditions = data.conditions || {};
           return conditionsToVtl(content, conditions);
         }
         return content;
       })
-      .join("");
+      .join('');
   }
 }
 

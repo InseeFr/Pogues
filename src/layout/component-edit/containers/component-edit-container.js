@@ -10,7 +10,7 @@ import { updateComponent } from 'actions/component';
 
 export const propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired
 };
 
 // Container
@@ -23,16 +23,21 @@ const mapStateToProps = state => {
     codesListsStore: state.appState.activeCodeListsById,
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     externalVariablesStore: state.appState.activeExternalVariablesById,
-    collectedVariablesStore: state.appState.collectedVariableByQuestion[state.appState.editingComponentId],
+    collectedVariablesStore:
+      state.appState.collectedVariableByQuestion[
+        state.appState.editingComponentId
+      ]
   };
 };
 
 const mapDispatchToProps = {
   setValidationErrors,
-  updateComponent,
+  updateComponent
 };
 
-const ComponentEditContainer = connect(mapStateToProps, mapDispatchToProps)(ComponentEdit);
+const ComponentEditContainer = connect(mapStateToProps, mapDispatchToProps)(
+  ComponentEdit
+);
 
 ComponentEditContainer.propTypes = propTypes;
 

@@ -10,7 +10,7 @@ import {
   moveDown,
   moveUp,
   updateSelectedOption,
-  init,
+  init
 } from './input-autocomplete-utils';
 
 import { getControlId, getValuesFromGenericOptions } from 'utils/widget-utils';
@@ -22,7 +22,7 @@ const {
   BUTTON_CLEAR_CLASS,
   NO_OPTION_SELECTED_ICON,
   OPTION_SELECTED_ICON,
-  OPTION_CLEAR_ICON,
+  OPTION_CLEAR_ICON
 } = CONTROL_INPUT_AUTOCOMPLETE;
 
 // PropTypes and defaultProps
@@ -36,7 +36,7 @@ export const propTypes = {
   numSuggestionsShown: PropTypes.number,
   getOptionLabel: PropTypes.func,
   caseSensitive: PropTypes.bool,
-  focusOnInit: PropTypes.bool,
+  focusOnInit: PropTypes.bool
 };
 
 export const defaultProps = {
@@ -47,7 +47,7 @@ export const defaultProps = {
     return label;
   },
   caseSensitive: true,
-  focusOnInit: false,
+  focusOnInit: false
 };
 
 // Component
@@ -65,7 +65,7 @@ class InputAutocomplete extends Component {
       suggestions: [],
       indexActiveSuggestion: undefined,
       inputSearch: '',
-      showSuggestions: false,
+      showSuggestions: false
     };
 
     this.onKeyUp = this.onKeyUp.bind(this);
@@ -94,7 +94,12 @@ class InputAutocomplete extends Component {
 
   onKeyUp(event) {
     const { indexActiveSuggestion, suggestions, options } = this.state;
-    const { getOptionLabel, numSuggestionsShown, caseSensitive, input: { onChange } } = this.props;
+    const {
+      getOptionLabel,
+      numSuggestionsShown,
+      caseSensitive,
+      input: { onChange }
+    } = this.props;
     const inputSearchValue = event.currentTarget.value.trim();
 
     if (event.key === 'ArrowUp') {
@@ -106,7 +111,15 @@ class InputAutocomplete extends Component {
     } else if (inputSearchValue.length === 0) {
       this.setState(clearSuggestions());
     } else {
-      this.setState(setSuggestions(inputSearchValue, options, getOptionLabel, numSuggestionsShown, caseSensitive));
+      this.setState(
+        setSuggestions(
+          inputSearchValue,
+          options,
+          getOptionLabel,
+          numSuggestionsShown,
+          caseSensitive
+        )
+      );
     }
   }
 
@@ -115,7 +128,11 @@ class InputAutocomplete extends Component {
   }
 
   onClick(indexClickedSuggestion) {
-    updateSelectedOption(this.state.suggestions, this.props.input.onChange, indexClickedSuggestion);
+    updateSelectedOption(
+      this.state.suggestions,
+      this.props.input.onChange,
+      indexClickedSuggestion
+    );
   }
 
   removeSelectedOption() {
@@ -123,11 +140,22 @@ class InputAutocomplete extends Component {
   }
 
   render() {
-    const { input: { name, value }, label, required, caseSensitive, meta: { touched, error } } = this.props;
+    const {
+      input: { name, value },
+      label,
+      required,
+      caseSensitive,
+      meta: { touched, error }
+    } = this.props;
     const id = getControlId('input-autocomplete', name);
-    const { suggestions, indexActiveSuggestion, showSuggestions, inputSearch } = this.state;
+    const {
+      suggestions,
+      indexActiveSuggestion,
+      showSuggestions,
+      inputSearch
+    } = this.state;
     const searchInputStyle = {
-      display: showSuggestions ? 'block' : 'none',
+      display: showSuggestions ? 'block' : 'none'
     };
 
     return (
@@ -145,7 +173,7 @@ class InputAutocomplete extends Component {
                 className={ClassSet({
                   glyphicon: true,
                   [NO_OPTION_SELECTED_ICON]: !this.state.indexSelectedOption,
-                  [OPTION_SELECTED_ICON]: this.state.indexSelectedOption,
+                  [OPTION_SELECTED_ICON]: this.state.indexSelectedOption
                 })}
               />
             </div>
@@ -179,25 +207,32 @@ class InputAutocomplete extends Component {
                   this.removeSelectedOption();
                 }}
               >
-                <i className={`glyphicon form-control-feedback ${OPTION_CLEAR_ICON}`} />
+                <i
+                  className={`glyphicon form-control-feedback ${OPTION_CLEAR_ICON}`}
+                />
               </div>
             )}
           </div>
 
           {suggestions.length > 0 && (
             <ul style={searchInputStyle}>
-              {suggestions.map((su, index) => (
-                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              {suggestions.map((
+                su,
+                index // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              ) => (
                 <li
                   key={su.value}
                   className={ClassSet({
-                    active: index === indexActiveSuggestion,
+                    active: index === indexActiveSuggestion
                   })}
                   onClick={() => {
                     this.onClick(index);
                   }}
                 >
-                  <HighLighter highlight={inputSearch} caseSensitive={caseSensitive}>
+                  <HighLighter
+                    highlight={inputSearch}
+                    caseSensitive={caseSensitive}
+                  >
                     {this.props.getOptionLabel(su.label, su.value)}
                   </HighLighter>
                 </li>

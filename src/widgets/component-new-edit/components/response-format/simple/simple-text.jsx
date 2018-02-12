@@ -9,13 +9,24 @@ const { TEXT } = DATATYPE_NAME;
 
 class ResponseFormatDatatypeText extends FormSection {
   static defaultProps = {
-    name: TEXT,
+    name: TEXT
   };
   render() {
     return (
       <div className="response-format-datatype-text">
-        <Field name="maxLength" type="number" component={Input} label={Dictionary.maxLength} required />
-        <Field name="pattern" type="text" component={Input} label={Dictionary.pattern} />
+        <Field
+          name="maxLength"
+          type="number"
+          component={Input}
+          label={Dictionary.maxLength}
+          required
+        />
+        <Field
+          name="pattern"
+          type="text"
+          component={Input}
+          label={Dictionary.pattern}
+        />
       </div>
     );
   }

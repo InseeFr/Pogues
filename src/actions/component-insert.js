@@ -5,10 +5,14 @@ import {
   isSubSequence,
   isSequence,
   toId,
-  updateNewComponentParent,
+  updateNewComponentParent
 } from 'utils/component/component-utils';
 import { getClosestComponentIdByType } from 'layout/generic-input';
-import { resetWeight, increaseWeightOfAll, resetChildren } from './component-update';
+import {
+  resetWeight,
+  increaseWeightOfAll,
+  resetChildren
+} from './component-update';
 import { uuid } from 'utils/utils';
 import sortBy from 'lodash.sortby';
 import cloneDeep from 'lodash.clonedeep';
@@ -31,14 +35,16 @@ export function moveComponents(componentsToMove, newParent, keepChildren) {
           ...acc,
           [c.id]: {
             ...c,
-            parent: newParent.id,
-          },
+            parent: newParent.id
+          }
         };
       }, {}),
       [newParent.id]: {
         ...newParent,
-        children: !keepChildren ? toId(componentsToMove) : [...newParent.children, ...toId(componentsToMove)],
-      },
+        children: !keepChildren
+          ? toId(componentsToMove)
+          : [...newParent.children, ...toId(componentsToMove)]
+      }
     };
   }
   return move;
@@ -70,12 +76,16 @@ export function moveQuestionToSubSequence(
      * If keepChildren is true, will keep all children with a weight bigger than the selected component
      * If includeSelectedComponent is true, we will also keep the component with a weight equal to the selected component
      */
-    let questionsToMove = toComponents(oldParent.children, activesComponents).filter(
+    let questionsToMove = toComponents(
+      oldParent.children,
+      activesComponents
+    ).filter(
       child =>
         ((!keepChildren && child.weight === selectedComponent.weight + 1) ||
           (keepChildren &&
             (child.weight > selectedComponent.weight ||
-              (includeSelectedComponent && child.weight === selectedComponent.weight)))) &&
+              (includeSelectedComponent &&
+                child.weight === selectedComponent.weight)))) &&
         isQuestion(child)
     );
     const questionsToMoveId = toId(questionsToMove);
@@ -85,7 +95,9 @@ export function moveQuestionToSubSequence(
      * If questionsToMove has elements, we start doing the transformations
      */
     if (questionsToMove.length > 0) {
-      const newChildren = oldParent.children.filter(child => questionsToMoveId.indexOf(child) < 0);
+      const newChildren = oldParent.children.filter(
+        child => questionsToMoveId.indexOf(child) < 0
+      );
 
       /**
        * If we need to keep the children of the newComponent, we have to update the weight of the inserted component
@@ -100,17 +112,17 @@ export function moveQuestionToSubSequence(
         ...moveComponents(questionsToMove, newComponent, keepChildren),
         [oldParent.id]: {
           ...oldParent,
-          children: newChildren,
-        },
+          children: newChildren
+        }
       };
       if (!isQuestion(oldParent)) {
         moves = {
           ...moves,
-          ...resetWeight(newChildren.map(id => moves[id])),
+          ...resetWeight(newChildren.map(id => moves[id]))
         };
         moves = {
           ...moves,
-          ...increaseWeightOfAll(moves, newComponent),
+          ...increaseWeightOfAll(moves, newComponent)
         };
       }
     }
@@ -135,7 +147,9 @@ export function moveQuestionAndSubSequenceToSequence(
   newComponent,
   includeSelectedComponent
 ) {
-  const oldParent = selectedComponent ? activesComponents[selectedComponent.parent] : false;
+  const oldParent = selectedComponent
+    ? activesComponents[selectedComponent.parent]
+    : false;
   let moves;
   if (oldParent) {
     /**
@@ -152,15 +166,16 @@ export function moveQuestionAndSubSequenceToSequence(
       .filter(
         child =>
           child.weight > selectedComponent.weight ||
-          (includeSelectedComponent && child.weight === selectedComponent.weight)
+          (includeSelectedComponent &&
+            child.weight === selectedComponent.weight)
       )
       .reduce((acc, component, i) => {
         return acc.concat([
           {
             ...component,
             weight: i + newComponent.children.length,
-            parent: newComponent.id,
-          },
+            parent: newComponent.id
+          }
         ]);
       }, []);
 
@@ -177,13 +192,22 @@ export function moveQuestionAndSubSequenceToSequence(
      * We move up to the root Sequence
      */
     const parentSequence =
-      activesComponents[getClosestComponentIdByType(activesComponents, selectedComponent, SEQUENCE)];
+      activesComponents[
+        getClosestComponentIdByType(
+          activesComponents,
+          selectedComponent,
+          SEQUENCE
+        )
+      ];
 
     /**
      * We move up to the first non-sequence element, starting from the SEQUENCE
      */
     let component = selectedComponent;
-    while (component.parent && !isSequence(activesComponents[component.parent])) {
+    while (
+      component.parent &&
+      !isSequence(activesComponents[component.parent])
+    ) {
       component = activesComponents[component.parent];
     }
 
@@ -199,9 +223,10 @@ export function moveQuestionAndSubSequenceToSequence(
           .map((c, i) => {
             return {
               ...c,
-              weight: i + newComponent.children.length + listOfComponentsToMove.length,
+              weight:
+                i + newComponent.children.length + listOfComponentsToMove.length
             };
-          }),
+          })
       ];
     }
 
@@ -210,7 +235,7 @@ export function moveQuestionAndSubSequenceToSequence(
      */
     listOfComponentsToMove = resetWeight([
       ...toComponents(newComponent.children, activesComponents),
-      ...listOfComponentsToMove,
+      ...listOfComponentsToMove
     ]);
 
     /**
@@ -220,19 +245,26 @@ export function moveQuestionAndSubSequenceToSequence(
      */
     moves = {
       ...activesComponents,
-      ...moveComponents(Object.keys(listOfComponentsToMove).map(key => listOfComponentsToMove[key]), newComponent),
+      ...moveComponents(
+        Object.keys(listOfComponentsToMove).map(
+          key => listOfComponentsToMove[key]
+        ),
+        newComponent
+      ),
       ...resetChildren(oldParent, listOfComponentsToKeep),
       ...resetChildren(
         parentSequence,
         toComponents(parentSequence.children, activesComponents).filter(
-          c => c.weight < component.weight || (!includeSelectedComponent && c.weight === component.weight)
+          c =>
+            c.weight < component.weight ||
+            (!includeSelectedComponent && c.weight === component.weight)
         )
-      ),
+      )
     };
 
     moves = {
       ...moves,
-      ...increaseWeightOfAll(moves, newComponent),
+      ...increaseWeightOfAll(moves, newComponent)
     };
   }
 
@@ -255,20 +287,28 @@ export function duplicate(activesComponents, idComponent) {
     [id]: {
       ...cloneDeep(activesComponents[idComponent]),
       id,
-      weight: activesComponents[idComponent].weight + 1,
-    },
+      weight: activesComponents[idComponent].weight + 1
+    }
   };
   return {
     ...component,
-    ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, id),
-    ...increaseWeightOfAll(activesComponents, component[id]),
+    ...updateNewComponentParent(
+      activesComponents,
+      activesComponents[idComponent].parent,
+      id
+    ),
+    ...increaseWeightOfAll(activesComponents, component[id])
   };
 }
 
-export function duplicateComponentAndVars(activesComponents, collectedVariables = {}, idComponent) {
+export function duplicateComponentAndVars(
+  activesComponents,
+  collectedVariables = {},
+  idComponent
+) {
   const stores = {
     activeComponentsById: {},
-    activeCollectedVariablesById: {},
+    activeCollectedVariablesById: {}
   };
   let duplicatedVariables = {};
 
@@ -279,11 +319,13 @@ export function duplicateComponentAndVars(activesComponents, collectedVariables 
   const duplicatedComponent = {
     ...cloneDeep(activesComponents[idComponent]),
     id: uuid(),
-    weight: activesComponents[idComponent].weight + 1,
+    weight: activesComponents[idComponent].weight + 1
   };
 
   if (Object.keys(collectedVariables).length > 0) {
-    duplicatedVariables = activesComponents[idComponent].collectedVariables.reduce((acc, key) => {
+    duplicatedVariables = activesComponents[
+      idComponent
+    ].collectedVariables.reduce((acc, key) => {
       const id = uuid();
       return {
         ...acc,
@@ -292,8 +334,8 @@ export function duplicateComponentAndVars(activesComponents, collectedVariables 
           label: collectedVariables[key].label,
           name: collectedVariables[key].name,
           x: collectedVariables[key].x || '',
-          y: collectedVariables[key].y || '',
-        },
+          y: collectedVariables[key].y || ''
+        }
       };
     }, {});
   }
@@ -301,14 +343,18 @@ export function duplicateComponentAndVars(activesComponents, collectedVariables 
   stores.activeComponentsById = {
     [duplicatedComponent.id]: {
       ...duplicatedComponent,
-      collectedVariables: Object.keys(duplicatedVariables),
+      collectedVariables: Object.keys(duplicatedVariables)
     },
-    ...updateNewComponentParent(activesComponents, activesComponents[idComponent].parent, duplicatedComponent.id),
-    ...increaseWeightOfAll(activesComponents, duplicatedComponent),
+    ...updateNewComponentParent(
+      activesComponents,
+      activesComponents[idComponent].parent,
+      duplicatedComponent.id
+    ),
+    ...increaseWeightOfAll(activesComponents, duplicatedComponent)
   };
 
   stores.activeCollectedVariablesById = {
-    [duplicatedComponent.id]: duplicatedVariables,
+    [duplicatedComponent.id]: duplicatedVariables
   };
 
   return stores;

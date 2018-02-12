@@ -13,7 +13,12 @@ import { TargetMode } from 'constants/pogues-constants';
 
 import { updateNameField } from 'utils/utils';
 
-const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_QUESTIONNAIRE_NEW_EDIT;
+const {
+  COMPONENT_CLASS,
+  FOOTER,
+  CANCEL,
+  VALIDATE
+} = WIDGET_QUESTIONNAIRE_NEW_EDIT;
 
 // Componet
 
@@ -21,7 +26,11 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit}>
-        <StatisticalContextCriteria formName={form} multipleCampaign focusOnInit />
+        <StatisticalContextCriteria
+          formName={form}
+          multipleCampaign
+          focusOnInit
+        />
 
         <AssociatedFields
           formName={form}
@@ -30,13 +39,18 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
           action={updateNameField}
         />
 
-         <Field name="TargetMode" component={ListCheckboxes} label={Dictionary.collectionMode} inline>
-            {TargetMode.map(s => (
-              <GenericOption key={s.value} value={s.value}>
-                {s.label}
-              </GenericOption>
-            ))}
-          </Field>
+        <Field
+          name="TargetMode"
+          component={ListCheckboxes}
+          label={Dictionary.collectionMode}
+          inline
+        >
+          {TargetMode.map(s => (
+            <GenericOption key={s.value} value={s.value}>
+              {s.label}
+            </GenericOption>
+          ))}
+        </Field>
         <div className={FOOTER}>
           <button className={VALIDATE} type="submit" disabled={submitting}>
             {Dictionary.validate}

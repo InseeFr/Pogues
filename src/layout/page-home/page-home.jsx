@@ -11,7 +11,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 // Prop types and default props
 
 const propTypes = {
-  router: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
 };
 
 // Component
@@ -23,7 +23,7 @@ export class PageHome extends Component {
     super(props);
 
     this.state = {
-      showModal: false,
+      showModal: false
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -59,7 +59,11 @@ export class PageHome extends Component {
             <h3>{Dictionary.createQuestionnaire}</h3>
             <ul className="menu-navigation">
               <li>
-                <button id="questionnaire-new" className="btn-yellow" onClick={this.handleOpenModal}>
+                <button
+                  id="questionnaire-new"
+                  className="btn-yellow"
+                  onClick={this.handleOpenModal}
+                >
                   <strong>{Dictionary.newEmptyQuestionnaire}</strong>
                 </button>
               </li>
@@ -73,7 +77,11 @@ export class PageHome extends Component {
             </li>
 
             <li>
-              <Link to="/search/questionnaires" id="questionnaires-insee" className="btn-blue">
+              <Link
+                to="/search/questionnaires"
+                id="questionnaires-insee"
+                className="btn-blue"
+              >
                 <span className="glyphicon glyphicon-chevron-right" />
                 <strong>{Dictionary.fromRepository}</strong>
                 <br />
@@ -99,7 +107,10 @@ export class PageHome extends Component {
               </button>
             </div>
             <div className="popup-body">
-              <QuestionnaireNew onCancel={this.handleCloseModal} onSuccess={this.handleQuestionnaryCreated} />
+              <QuestionnaireNew
+                onCancel={this.handleCloseModal}
+                onSuccess={this.handleQuestionnaryCreated}
+              />
             </div>
           </div>
         </ReactModal>

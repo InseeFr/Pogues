@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 export const propTypes = {
   children: PropTypes.string.isRequired,
   highlight: PropTypes.string.isRequired,
-  caseSensitive: PropTypes.bool,
+  caseSensitive: PropTypes.bool
 };
 
 export const defaultProps = {
-  caseSensitive: true,
+  caseSensitive: true
 };
 
 // Component
@@ -23,7 +23,7 @@ function HighLighter({ children, highlight, caseSensitive }) {
   return (
     <span
       dangerouslySetInnerHTML={{
-        __html: children.replace(regex, str => `<strong>${str}</strong>`),
+        __html: children.replace(regex, str => `<strong>${str}</strong>`)
       }}
     />
   );

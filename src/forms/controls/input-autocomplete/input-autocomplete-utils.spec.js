@@ -4,7 +4,7 @@ import {
   moveDown,
   moveUp,
   updateSelectedOption,
-  init,
+  init
 } from './input-autocomplete-utils';
 
 describe('Form controls - Input autocomplete - Utils', () => {
@@ -14,13 +14,13 @@ describe('Form controls - Input autocomplete - Utils', () => {
     { label: 'This is a horse developer', value: 'THISISAHORSE' },
     { label: 'This is a bird', value: 'THISISABIRD' },
     { label: 'This is a snake developer', value: 'THISISASNAKE' },
-    { label: 'This is a developer', value: 'THISISADEVELOPER' },
+    { label: 'This is a developer', value: 'THISISADEVELOPER' }
   ];
 
   test('clearSuggestions', () => {
     expect(clearSuggestions()).toEqual({
       suggestions: [],
-      indexActiveSuggestion: undefined,
+      indexActiveSuggestion: undefined
     });
   });
 
@@ -34,22 +34,22 @@ describe('Form controls - Input autocomplete - Utils', () => {
     expect(setSuggestions('', options, getOptionLabel, 10)).toEqual({
       suggestions: [],
       indexActiveSuggestion: 0,
-      inputSearch: '',
+      inputSearch: ''
     });
     expect(setSuggestions('dog', options, getOptionLabel, 10)).toEqual({
       suggestions: [options[0]],
       indexActiveSuggestion: 0,
-      inputSearch: 'dog',
+      inputSearch: 'dog'
     });
     expect(setSuggestions('developer', options, getOptionLabel, 10)).toEqual({
       suggestions: [options[2], options[4], options[5]],
       indexActiveSuggestion: 0,
-      inputSearch: 'developer',
+      inputSearch: 'developer'
     });
     expect(setSuggestions('THISISADOG', options, getOptionName, 2)).toEqual({
       suggestions: [options[0]],
       indexActiveSuggestion: 0,
-      inputSearch: 'THISISADOG',
+      inputSearch: 'THISISADOG'
     });
   });
 
@@ -57,7 +57,9 @@ describe('Form controls - Input autocomplete - Utils', () => {
     const lastIndex = options.length - 1;
     expect(moveDown(options)).toEqual({});
     expect(moveDown(options, 0)).toEqual({ indexActiveSuggestion: 1 });
-    expect(moveDown(options, lastIndex)).toEqual({ indexActiveSuggestion: lastIndex });
+    expect(moveDown(options, lastIndex)).toEqual({
+      indexActiveSuggestion: lastIndex
+    });
   });
 
   test('moveUp', () => {
@@ -86,7 +88,7 @@ describe('Form controls - Input autocomplete - Utils', () => {
       indexActiveSuggestion: undefined,
       inputSearch: '',
       indexSelectedOption: undefined,
-      showSuggestions: true,
+      showSuggestions: true
     });
     expect(init(options, 'THISISACAT')).toEqual({
       suggestions: [],
@@ -94,7 +96,7 @@ describe('Form controls - Input autocomplete - Utils', () => {
       indexActiveSuggestion: undefined,
       inputSearch: 'This is a cat',
       indexSelectedOption: 1,
-      showSuggestions: true,
+      showSuggestions: true
     });
   });
 });

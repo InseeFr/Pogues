@@ -59,9 +59,14 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
  */
 function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
   let heavyComponentId = '';
-  const componentsIds = subgroupIds.filter(key => components[key].type === type);
+  const componentsIds = subgroupIds.filter(
+    key => components[key].type === type
+  );
   if (componentsIds.length > 0) {
-    heavyComponentId = getHeavyComponentIdFromGroupIds(components, componentsIds);
+    heavyComponentId = getHeavyComponentIdFromGroupIds(
+      components,
+      componentsIds
+    );
   }
   return heavyComponentId;
 }
@@ -90,23 +95,34 @@ function getWeight(components, componentId) {
  * @param  {object|undefined} activeComponent   The selected component
  * @return {object} Parent and weight
  */
-export function getNewSequencePlaceholder(components, questionnaireId, activeComponent) {
+export function getNewSequencePlaceholder(
+  components,
+  questionnaireId,
+  activeComponent
+) {
   let weight = 0;
   const parent = components[questionnaireId] ? questionnaireId : '';
 
   if (parent !== '') {
     if (activeComponent) {
-      const closestSequenceId = getClosestComponentIdByType(components, activeComponent, SEQUENCE);
+      const closestSequenceId = getClosestComponentIdByType(
+        components,
+        activeComponent,
+        SEQUENCE
+      );
       weight = getWeight(components, closestSequenceId);
     } else {
-      const heavySequenceId = getHeavyComponentIdFromGroupIds(components, components[questionnaireId].children);
+      const heavySequenceId = getHeavyComponentIdFromGroupIds(
+        components,
+        components[questionnaireId].children
+      );
       weight = getWeight(components, heavySequenceId);
     }
   }
 
   return {
     parent,
-    weight,
+    weight
   };
 }
 
@@ -128,14 +144,21 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
   if (activeComponent) {
     parent = getClosestComponentIdByType(components, activeComponent, SEQUENCE);
   } else {
-    parent = getHeavyComponentIdByTypeFromGroupIds(components, Object.keys(components), SEQUENCE);
+    parent = getHeavyComponentIdByTypeFromGroupIds(
+      components,
+      Object.keys(components),
+      SEQUENCE
+    );
   }
 
   if (parent !== '') {
     if (activeComponent && activeComponent.type !== SEQUENCE) {
       if (activeComponent.type === SUBSEQUENCE) {
         weight = activeComponent.weight + 1;
-      } else if (activeComponent.type === QUESTION && components[activeComponent.parent].type === SUBSEQUENCE) {
+      } else if (
+        activeComponent.type === QUESTION &&
+        components[activeComponent.parent].type === SUBSEQUENCE
+      ) {
         /*
         * When we insert an element from a QUESTION, we get weight of the parent, and increase by one
         *
@@ -152,10 +175,16 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
         *   -> SubSequence 2
         */
         weight = components[activeComponent.parent].weight + 1;
-      } else if (activeComponent.type === QUESTION && components[activeComponent.parent].type === SEQUENCE) {
+      } else if (
+        activeComponent.type === QUESTION &&
+        components[activeComponent.parent].type === SEQUENCE
+      ) {
         weight = activeComponent.weight + 1;
       } else {
-        heavyChildrenId = getHeavyComponentIdFromGroupIds(components, components[parent].children);
+        heavyChildrenId = getHeavyComponentIdFromGroupIds(
+          components,
+          components[parent].children
+        );
         weight = getWeight(components, heavyChildrenId);
       }
     } else {
@@ -165,7 +194,7 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
 
   return {
     parent,
-    weight,
+    weight
   };
 }
 
@@ -187,8 +216,17 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
   let heavyQuestionId;
 
   if (activeComponent) {
-    parent = getClosestComponentIdByType(components, activeComponent, SUBSEQUENCE);
-    if (parent === '') parent = getClosestComponentIdByType(components, activeComponent, SEQUENCE);
+    parent = getClosestComponentIdByType(
+      components,
+      activeComponent,
+      SUBSEQUENCE
+    );
+    if (parent === '')
+      parent = getClosestComponentIdByType(
+        components,
+        activeComponent,
+        SEQUENCE
+      );
 
     if (activeComponent.type === QUESTION) {
       weight = activeComponent.weight + 1;
@@ -196,7 +234,11 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
       weight = 0;
     }
   } else {
-    heavySequenceId = getHeavyComponentIdByTypeFromGroupIds(components, Object.keys(components), SEQUENCE);
+    heavySequenceId = getHeavyComponentIdByTypeFromGroupIds(
+      components,
+      Object.keys(components),
+      SEQUENCE
+    );
 
     if (heavySequenceId !== '') {
       heavySubsequenceId = getHeavyComponentIdByTypeFromGroupIds(
@@ -205,13 +247,17 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
         SUBSEQUENCE
       );
       parent = heavySubsequenceId !== '' ? heavySubsequenceId : heavySequenceId;
-      heavyQuestionId = getHeavyComponentIdByTypeFromGroupIds(components, components[parent].children, QUESTION);
+      heavyQuestionId = getHeavyComponentIdByTypeFromGroupIds(
+        components,
+        components[parent].children,
+        QUESTION
+      );
       weight = getWeight(components, heavyQuestionId);
     }
   }
 
   return {
     parent,
-    weight,
+    weight
   };
 }

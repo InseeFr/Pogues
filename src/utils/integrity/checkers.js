@@ -4,7 +4,7 @@ import {
   UPDATE_COMPONENT,
   REMOVE_COMPONENT,
   MOVE_COMPONENT,
-  DUPLICATE_COMPONENT,
+  DUPLICATE_COMPONENT
 } from 'actions/component';
 import combineCheckers from './combine-checkers';
 import checkerQuestionnaireLength from './checker-questionnaire-length';
@@ -18,7 +18,7 @@ export default {
     checkerQuestionnaireLength,
     checkerComponentTarget,
     checkerUniqueComponentName,
-    checkerTargetMode,
+    checkerTargetMode
   ),
   [SET_ACTIVE_VARIABLES]: combineCheckers(checkerUniqueCollectedVariableName),
   [CREATE_COMPONENT]: combineCheckers(
@@ -47,5 +47,8 @@ export default {
     checkerUniqueCollectedVariableName,
     checkerUniqueComponentName
   ),
-  '@@redux-form/DESTROY': combineCheckers(checkerComponentTarget, checkerUniqueCollectedVariableName),
+  '@@redux-form/DESTROY': combineCheckers(
+    checkerComponentTarget,
+    checkerUniqueCollectedVariableName
+  )
 };

@@ -12,7 +12,9 @@ const withXPathValidation = ComponentToWrap => props => {
   const xPathIsInvalid = validateXpath(props.input.value);
   let childProps;
   if (xPathIsInvalid) {
-    const warningsMessage = <div>{xPathIsInvalid.split('\n').map(m => <div key={m}>{m}</div>)}</div>;
+    const warningsMessage = (
+      <div>{xPathIsInvalid.split('\n').map(m => <div key={m}>{m}</div>)}</div>
+    );
     childProps = { ...props, meta: { ...props.meta, error: warningsMessage } };
   } else {
     childProps = props;

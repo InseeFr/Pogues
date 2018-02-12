@@ -1,15 +1,15 @@
-import React, { Component, Children, cloneElement } from "react";
-import PropTypes from "prop-types";
-import { FieldArray } from "redux-form";
-import isEqual from "lodash.isequal";
-import cloneDeep from "lodash.clonedeep";
+import React, { Component, Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
+import { FieldArray } from 'redux-form';
+import isEqual from 'lodash.isequal';
+import cloneDeep from 'lodash.clonedeep';
 
-import ListWithInputPanelList from "./list-with-input-panel-list";
+import ListWithInputPanelList from './list-with-input-panel-list';
 
-import { ErrorsPanel } from "widgets/errors-panel";
-import { WIDGET_LIST_WITH_INPUT_PANEL } from "constants/dom-constants";
-import Dictionary from "utils/dictionary/dictionary";
-import { getCurrentSelectorPath } from "utils/widget-utils";
+import { ErrorsPanel } from 'widgets/errors-panel';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
+import Dictionary from 'utils/dictionary/dictionary';
+import { getCurrentSelectorPath } from 'utils/widget-utils';
 
 const {
   WRAPPER_CLASS,
@@ -30,7 +30,7 @@ function getFormValuesToValidate(formValues, item, selectorPath, name) {
   const formValuesToValidate = cloneDeep(formValues);
   let pointer = formValuesToValidate;
 
-  const pathStack = selectorPath.split(".");
+  const pathStack = selectorPath.split('.');
 
   while (pathStack.length > 1) {
     pointer = pointer[pathStack.shift()];

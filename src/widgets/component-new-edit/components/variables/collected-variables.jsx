@@ -33,12 +33,12 @@ export const propTypes = {
   removeValidationErrors: PropTypes.func.isRequired,
 
   codesListsStoreStore: PropTypes.object,
-  reponseFormatValues: PropTypes.object,
+  reponseFormatValues: PropTypes.object
 };
 
 export const defaultProps = {
   codesListsStoreStore: {},
-  reponseFormatValues: {},
+  reponseFormatValues: {}
 };
 
 // Component
@@ -62,7 +62,7 @@ class CollectedVariables extends Component {
       formName,
       arrayRemoveAll,
       arrayPush,
-      removeValidationErrors,
+      removeValidationErrors
     } = this.props;
 
     const newVariables = generateCollectedVariables(
@@ -82,7 +82,14 @@ class CollectedVariables extends Component {
   }
 
   render() {
-    const { formName, selectorPath, errors, addErrors, componentName, responseFormatType } = this.props;
+    const {
+      formName,
+      selectorPath,
+      errors,
+      addErrors,
+      componentName,
+      responseFormatType
+    } = this.props;
     return (
       <FormSection name={selectorPath}>
         <ListWithInputPanel
@@ -109,8 +116,20 @@ class CollectedVariables extends Component {
               {Dictionary.generateCollectedVariables}
             </button>
           </div>
-          <Field name="label" type="text" component={Input} label={Dictionary.label} required />
-          <Field name="name" type="text" component={Input} label={Dictionary.name} required />
+          <Field
+            name="label"
+            type="text"
+            component={Input}
+            label={Dictionary.label}
+            required
+          />
+          <Field
+            name="name"
+            type="text"
+            component={Input}
+            label={Dictionary.name}
+            required
+          />
           <Field name="x" type="hidden" component="input" />
           <Field name="y" type="hidden" component="input" />
         </ListWithInputPanel>

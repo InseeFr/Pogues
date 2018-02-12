@@ -11,20 +11,40 @@ const { NUMERIC } = DATATYPE_NAME;
 function mapUnitData(unit) {
   return {
     label: unit.label,
-    value: unit.id,
+    value: unit.id
   };
 }
 
 class ResponseFormatDatatypeNumeric extends FormSection {
   static defaultProps = {
-    name: NUMERIC,
+    name: NUMERIC
   };
   render() {
     return (
       <div className="response-format-datatype-numeric">
-        <Field name="minimum" type="number" step="any" component={Input} label={Dictionary.minimum} required />
-        <Field name="maximum" type="number" step="any" component={Input} label={Dictionary.maximum} required />
-        <Field name="decimals" type="number" step="any" component={Input} label={Dictionary.decimals} />
+        <Field
+          name="minimum"
+          type="number"
+          step="any"
+          component={Input}
+          label={Dictionary.minimum}
+          required
+        />
+        <Field
+          name="maximum"
+          type="number"
+          step="any"
+          component={Input}
+          label={Dictionary.maximum}
+          required
+        />
+        <Field
+          name="decimals"
+          type="number"
+          step="any"
+          component={Input}
+          label={Dictionary.decimals}
+        />
         <SelectMetaDataContainer
           type="units"
           name="unit"

@@ -1,5 +1,9 @@
 import reducer from './active-components-by-id';
-import { CREATE_COMPONENT, UPDATE_COMPONENT, REMOVE_COMPONENT } from 'actions/component';
+import {
+  CREATE_COMPONENT,
+  UPDATE_COMPONENT,
+  REMOVE_COMPONENT
+} from 'actions/component';
 import { SET_ACTIVE_COMPONENTS } from 'actions/app-state';
 
 describe('active-components-by-id reducer', () => {
@@ -8,19 +12,19 @@ describe('active-components-by-id reducer', () => {
       reducer([], {
         type: SET_ACTIVE_COMPONENTS,
         payload: {
-          SET_ACTIVE_COMPONENTS: true,
-        },
+          SET_ACTIVE_COMPONENTS: true
+        }
       })
     ).toEqual({
-      SET_ACTIVE_COMPONENTS: true,
+      SET_ACTIVE_COMPONENTS: true
     });
   });
 
   test('should handle CREATE_COMPONENT', () => {
     const store = {
       '1': {
-        id: '1',
-      },
+        id: '1'
+      }
     };
     expect(
       reducer(store, {
@@ -29,30 +33,30 @@ describe('active-components-by-id reducer', () => {
           update: {
             activeComponentsById: {
               '2': {
-                id: '2',
-              },
-            },
-          },
-        },
+                id: '2'
+              }
+            }
+          }
+        }
       })
     ).toEqual({
       '1': {
-        id: '1',
+        id: '1'
       },
       '2': {
-        id: '2',
-      },
+        id: '2'
+      }
     });
   });
 
   test('should handle UPDATE_COMPONENT', () => {
     const store = {
       '1': {
-        id: '1',
+        id: '1'
       },
       '2': {
-        id: '2',
-      },
+        id: '2'
+      }
     };
 
     expect(
@@ -63,20 +67,20 @@ describe('active-components-by-id reducer', () => {
             activeComponentsById: {
               '2': {
                 id: '2',
-                label: 'label2',
-              },
-            },
-          },
-        },
+                label: 'label2'
+              }
+            }
+          }
+        }
       })
     ).toEqual({
       '1': {
-        id: '1',
+        id: '1'
       },
       '2': {
         id: '2',
-        label: 'label2',
-      },
+        label: 'label2'
+      }
     });
   });
 
@@ -85,11 +89,11 @@ describe('active-components-by-id reducer', () => {
       reducer([], {
         type: REMOVE_COMPONENT,
         payload: {
-          REMOVE_COMPONENT: true,
-        },
+          REMOVE_COMPONENT: true
+        }
       })
     ).toEqual({
-      REMOVE_COMPONENT: true,
+      REMOVE_COMPONENT: true
     });
   });
 });
