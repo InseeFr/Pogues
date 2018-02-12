@@ -1,11 +1,3 @@
-function sortByWeight(store) {
-  return (keyA, keyB) => {
-    if (store[keyA].weight < store[keyB].weight) return -1;
-    if (store[keyA].weight > store[keyB].weight) return 1;
-    return 0;
-  };
-}
-
 export function remoteToCodesState(codes, parent = '', depth = 1) {
   return codes.filter(c => c.Parent === parent).reduce((acc, c, index) => {
     const codeState = {
@@ -51,8 +43,7 @@ export function storeToRemote(store) {
       id,
       Label: label,
       Name: '',
-      Code: Object.keys(codes)
-        .sort(sortByWeight(codes))
+      Code: getCodesListSortedByDepthAndWeight(codes)
         .map(keyCode => {
           const { label: labelCode, value, parent } = codes[keyCode];
           return {
@@ -65,4 +56,32 @@ export function storeToRemote(store) {
   });
 
   return codesLists;
+}
+
+/**
+ * 
+ * @param {*} codes The list of codes
+ * @param {*} depth The depth of a code
+ * @param {*} parent The parent code of another one
+ */
+function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = ''){
+  return Object.keys(codes)
+          .filter(code => codes[code].depth === depth)
+          .filter(code => codes[code].parent === parent)
+          .sort(sortByWeight(codes))
+          .reduce((acc, code) => [...acc, code, ...getCodesListSortedByDepthAndWeight(codes, depth + 1, code)], [])
+}
+
+/**
+ * 
+ * @param {*} codes The list of codes
+ */
+function sortByWeight(codes){
+  return (code1, code2) => {
+    const weight1 = codes[code1].weight
+    const weight2 = codes[code2].weight
+    if (weight1 < weight2) return -1;
+    if (weight1 > weight2) return 1;
+    return 0;
+  }; 
 }
