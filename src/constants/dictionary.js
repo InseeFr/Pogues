@@ -510,11 +510,11 @@ const dictionary = {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',
   },
-  errorQuestionnaireDeclarationMode: {
+  errorQuestionnaireTargetMode: {
     fr: 'Le mode de collecte d\'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire :',
     en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode:',
   },
-  errorQuestionnaireDeclarationModeForComponent: {
+  errorQuestionnaireTargetModeForComponent: {
     fr: 'Le mode de collecte d\'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire',
     en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
   },

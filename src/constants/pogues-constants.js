@@ -7,7 +7,7 @@ export const COMPONENT_TYPE = {
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
 
-export const declarationModes = [
+export const TargetMode = [
   { value: "CAPI", label: "CAPI" },
   { value: "CATI", label: "CATI" },
   { value: "CAWI", label: "CAWI" },

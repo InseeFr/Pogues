@@ -9,7 +9,7 @@ import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
 import { Field } from 'redux-form';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
-import { declarationModes } from 'constants/pogues-constants';
+import { TargetMode } from 'constants/pogues-constants';
 
 import { updateNameField } from 'utils/utils';
 
@@ -30,8 +30,8 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
           action={updateNameField}
         />
 
-         <Field name="declarationMode" component={ListCheckboxes} label={Dictionary.collectionMode} inline>
-            {declarationModes.map(s => (
+         <Field name="TargetMode" component={ListCheckboxes} label={Dictionary.collectionMode} inline>
+            {TargetMode.map(s => (
               <GenericOption key={s.value} value={s.value}>
                 {s.label}
               </GenericOption>

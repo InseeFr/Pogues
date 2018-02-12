@@ -52,7 +52,8 @@ export function remoteToState(remote, currentStores = {}) {
     agency,
     DataCollection: dataCollection,
     lastUpdatedDate,
-    declarationMode,
+    TargetMode,
+    declarationMode
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -70,7 +71,7 @@ export function remoteToState(remote, currentStores = {}) {
     serie: questionnaireCurrentState.serie || '',
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
-    declarationMode: declarationMode || [],
+    TargetMode: TargetMode || declarationMode || [],
   };
 }
 
@@ -101,7 +102,7 @@ export function stateToRemote(state, stores) {
     collectedVariablesStore
   );
 
-  const { owner, id, label, name, agency, campaigns, final, declarationMode } = state;
+  const { owner, id, label, name, agency, campaigns, final, TargetMode } = state;
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
@@ -119,7 +120,7 @@ export function stateToRemote(state, stores) {
     genericName: QUESTIONNAIRE,
     ComponentGroup: generateComponentGroups(componentsStore),
     agency: agency || '',
-    declarationMode,
+    TargetMode,
   };
   const componentsRemote = Component.storeToRemote(componentsStore, id, collectedVariablesWithoutOrphans);
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);

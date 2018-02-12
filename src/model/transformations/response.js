@@ -28,10 +28,11 @@ export function stateToRemote(state) {
       type: DATATYPE_TYPE_FROM_NAME[typeName],
     },
   };
-
+  
   if (CollectedVariableReference !== undefined) model.CollectedVariableReference = CollectedVariableReference;
   if (CodeListReference !== undefined) model.CodeListReference = CodeListReference;
-  if (mandatory !== undefined) model.mandatory = mandatory;
+  if (mandatory !== undefined)
+    model.mandatory = mandatory === "" ? false : mandatory;
   if (visualizationHint !== undefined) model.Datatype.visualizationHint = visualizationHint;
   if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
   if (Pattern !== undefined) model.Datatype.Pattern = Pattern;

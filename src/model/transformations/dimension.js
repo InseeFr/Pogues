@@ -28,7 +28,7 @@ export function stateToRemote(state) {
 
   return {
     dimensionType: '',
-    dynamic: 0,
+    dynamic: '0',
     ...model,
   };
 }

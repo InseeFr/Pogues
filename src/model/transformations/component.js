@@ -81,7 +81,8 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     Child: children,
     parent,
     weight,
-    declarationMode,
+    TargetMode,
+    declarationMode
   } = remote;
 
   const state = {
@@ -93,7 +94,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarations: Declaration.remoteToState(declarations),
     controls: Control.remoteToState(controls),
     redirections: Redirection.remoteToState(redirections),
-    declarationMode: declarationMode || [],
+    TargetMode: TargetMode || declarationMode || [],
   };
 
   if (genericName) {
@@ -165,7 +166,7 @@ function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth =
     controls,
     redirections,
     collectedVariables,
-    declarationMode,
+    TargetMode,
   } = state;
 
   let remote = {
@@ -177,7 +178,7 @@ function storeToRemoteNested(state, store, collectedVariablesStore = {}, depth =
     Control: Control.stateToRemote(controls),
     // Trello #196 : ouput : GoTo --> FlowControl
     FlowControl: Redirection.stateToRemote(redirections),
-    declarationMode,
+    TargetMode,
   };
 
   if (type === QUESTION) {

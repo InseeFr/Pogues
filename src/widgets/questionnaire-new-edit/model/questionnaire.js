@@ -11,11 +11,11 @@ export const defaultState = {
   lastUpdatedDate: '',
   final: '',
   agency: '',
-  declarationMode: [],
+  TargetMode: [],
 };
 
 export function formToState(form) {
-  const { label, name, serie, operation, campaigns, declarationMode } = form;
+  const { label, name, serie, operation, campaigns, TargetMode } = form;
 
   return {
     label,
@@ -23,12 +23,12 @@ export function formToState(form) {
     serie,
     operation,
     campaigns: campaigns.split(','),
-    declarationMode: declarationMode.split(','),
+    TargetMode: TargetMode.split(','),
   };
 }
 
 export function stateToForm(currentState) {
-  const { label, name, serie, operation, campaigns, declarationMode } = currentState;
+  const { label, name, serie, operation, campaigns, TargetMode } = currentState;
 
   // If serie and operation doesn't exist, we use campaigns to obtain them calling a service
   return {
@@ -37,7 +37,7 @@ export function stateToForm(currentState) {
     serie,
     operation,
     campaigns: campaigns.join(),
-    declarationMode: declarationMode.join(),
+    TargetMode: TargetMode.join(),
   };
 }
 

@@ -14,7 +14,7 @@ import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
 
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import { COMPONENT_TYPE, TABS_PATHS,declarationModes } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, TABS_PATHS,TargetMode } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
@@ -148,8 +148,8 @@ class ComponentNewEdit extends Component {
           ) : (
             <AssociatedFields {...associatedFieldsProps} />
           )}
-           <Field name="declarationMode" component={ListCheckboxes} label={Dictionary.collectionMode} inline>
-            {declarationModes.map(s => (
+           <Field name="TargetMode" component={ListCheckboxes} label={Dictionary.collectionMode} inline>
+            {TargetMode.map(s => (
               <GenericOption key={s.value} value={s.value}>
                 {s.label}
               </GenericOption>

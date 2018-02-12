@@ -22,6 +22,7 @@ export const propTypes = {
 
 const defaultProps = {
   componentsStore: {},
+  setErrors: () => {}
 };
 
 // Utils
