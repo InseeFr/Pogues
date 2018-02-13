@@ -17,17 +17,13 @@ export function remoteToState(remote = []) {
 }
 
 export function stateToRemote(state) {
-  const declarations = [];
-
-  Object.keys(state).forEach(key => {
+  return Object.keys(state).map(key => {
     const { id, declarationType, label: Text, position } = state[key];
-    declarations.push({
+    return {
       id,
       Text,
       declarationType,
       position
-    });
+    };
   });
-
-  return declarations;
 }
