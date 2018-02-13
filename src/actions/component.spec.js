@@ -12,11 +12,16 @@ describe('updateParentChildren', () => {
   function getState() {
     return {
       appState: {
-        activeComponentsById: { '99': {}, '2': { id: '2', parent: '99', children: [] } },
-      },
+        activeComponentsById: {
+          '99': {},
+          '2': { id: '2', parent: '99', children: [] }
+        }
+      }
     };
   }
-  const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
+  const payload = {
+    payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } }
+  };
   const fn = component.updateParentChildren(payload);
 
   test(`should trigger the UPDATE_COMPONENT_PARENT action`, () => {
@@ -35,14 +40,18 @@ describe('updateParentChildren', () => {
 
   test(`should call return the last created component`, () => {
     function dispatch(param) {
-      expect(param.payload.lastCreatedComponent).toEqual(payload.payload.lastCreatedComponent);
+      expect(param.payload.lastCreatedComponent).toEqual(
+        payload.payload.lastCreatedComponent
+      );
     }
     fn(dispatch, getState);
   });
 
   test(`should call return the updated parent`, () => {
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ '2': { id: '2', children: ['1'], parent: '99' } });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        '2': { id: '2', children: ['1'], parent: '99' }
+      });
     }
     fn(dispatch, getState);
   });
@@ -53,12 +62,17 @@ describe('orderComponents', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '99': { children: [] }, '2': { parent: '99', id: '2', children: [] } },
-          selectedComponentId: '2',
-        },
+          activeComponentsById: {
+            '99': { children: [] },
+            '2': { parent: '99', id: '2', children: [] }
+          },
+          selectedComponentId: '2'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
+    const payload = {
+      payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } }
+    };
     const fn = component.orderComponents(payload);
 
     function dispatch(param) {
@@ -71,12 +85,17 @@ describe('orderComponents', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '99': { children: [] }, '2': { parent: '99', id: '2', children: [] } },
-          selectedComponentId: '2',
-        },
+          activeComponentsById: {
+            '99': { children: [] },
+            '2': { parent: '99', id: '2', children: [] }
+          },
+          selectedComponentId: '2'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } } };
+    const payload = {
+      payload: { id: '1', lastCreatedComponent: { '1': { parent: '2' } } }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
       expect(param.payload.id).toEqual(payload.payload.id);
@@ -90,16 +109,23 @@ describe('orderComponents', () => {
         appState: {
           activeComponentsById: {
             '99': { children: [] },
-            '2': { parent: '99', id: '2', children: [], type: QUESTION },
+            '2': { parent: '99', id: '2', children: [], type: QUESTION }
           },
-          selectedComponentId: '2',
-        },
+          selectedComponentId: '2'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: QUESTION } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: QUESTION } }
+      }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        increaseWeightOfAll: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -110,16 +136,23 @@ describe('orderComponents', () => {
         appState: {
           activeComponentsById: {
             '99': { children: [] },
-            '2': { parent: '99', id: '2', children: [], type: SUBSEQUENCE },
+            '2': { parent: '99', id: '2', children: [], type: SUBSEQUENCE }
           },
-          selectedComponentId: '2',
-        },
+          selectedComponentId: '2'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: QUESTION } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: QUESTION } }
+      }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        increaseWeightOfAll: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -129,16 +162,23 @@ describe('orderComponents', () => {
         appState: {
           activeComponentsById: {
             '99': { children: [] },
-            '2': { parent: '99', id: '2', children: [], type: SEQUENCE },
+            '2': { parent: '99', id: '2', children: [], type: SEQUENCE }
           },
-          selectedComponentId: '2',
-        },
+          selectedComponentId: '2'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: QUESTION } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: QUESTION } }
+      }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        increaseWeightOfAll: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -147,16 +187,26 @@ describe('orderComponents', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: QUESTION, children: [] } },
-          selectedComponentId: '3',
-        },
+          activeComponentsById: {
+            '2': { id: '2', children: [] },
+            '3': { parent: '2', type: QUESTION, children: [] }
+          },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
 
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionAndSubSequenceToSequence: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        moveQuestionAndSubSequenceToSequence: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -166,17 +216,24 @@ describe('orderComponents', () => {
         appState: {
           activeComponentsById: {
             '2': { id: '2', children: [] },
-            '3': { parent: '2', type: SUBSEQUENCE, children: [] },
+            '3': { parent: '2', type: SUBSEQUENCE, children: [] }
           },
-          selectedComponentId: '3',
-        },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
 
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionAndSubSequenceToSequence: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        moveQuestionAndSubSequenceToSequence: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -187,17 +244,24 @@ describe('orderComponents', () => {
           activeComponentsById: {
             '2': { id: '2', children: [] },
             '3': { id: '3', parent: '2', type: SEQUENCE, children: ['5'] },
-            '5': { id: '5', type: QUESTION, children: [], weight: 0 },
+            '5': { id: '5', type: QUESTION, children: [], weight: 0 }
           },
-          selectedComponentId: '3',
-        },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
 
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionAndSubSequenceToSequence: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        moveQuestionAndSubSequenceToSequence: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -208,17 +272,24 @@ describe('orderComponents', () => {
         appState: {
           activeComponentsById: {
             '2': { id: '2', children: [] },
-            '3': { parent: '2', type: SEQUENCE, children: [] },
+            '3': { parent: '2', type: SEQUENCE, children: [] }
           },
-          selectedComponentId: '3',
-        },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
 
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        increaseWeightOfAll: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -230,16 +301,23 @@ describe('orderComponents', () => {
           activeComponentsById: {
             '2': { id: '2', children: ['3', '4'] },
             '3': { parent: '2', type: QUESTION, children: [], weight: 0 },
-            '4': { parent: '2', type: QUESTION, children: [], weight: 1 },
+            '4': { parent: '2', type: QUESTION, children: [], weight: 1 }
           },
-          selectedComponentId: '3',
-        },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionToSubSequence: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        moveQuestionToSubSequence: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -248,15 +326,25 @@ describe('orderComponents', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: QUESTION, children: [] } },
-          selectedComponentId: '3',
-        },
+          activeComponentsById: {
+            '2': { id: '2', children: [] },
+            '3': { parent: '2', type: QUESTION, children: [] }
+          },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        increaseWeightOfAll: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -266,20 +354,44 @@ describe('orderComponents', () => {
         appState: {
           activeComponentsById: {
             '2': { id: '2', children: [], type: SEQUENCE },
-            '3': { id: '3', type: SUBSEQUENCE, parent: '2', children: ['4', '5'] },
-            '4': { id: '4', parent: '3', children: [], type: QUESTION, weight: 0 },
-            '5': { id: '5', parent: '3', children: [], type: QUESTION, weight: 1 },
+            '3': {
+              id: '3',
+              type: SUBSEQUENCE,
+              parent: '2',
+              children: ['4', '5']
+            },
+            '4': {
+              id: '4',
+              parent: '3',
+              children: [],
+              type: QUESTION,
+              weight: 0
+            },
+            '5': {
+              id: '5',
+              parent: '3',
+              children: [],
+              type: QUESTION,
+              weight: 1
+            }
           },
-          selectedComponentId: '3',
-        },
+          selectedComponentId: '3'
+        }
       };
     }
     const payload = {
-      payload: { id: '1', lastCreatedComponent: { '1': { id: '1', parent: '2', type: SUBSEQUENCE } } },
+      payload: {
+        id: '1',
+        lastCreatedComponent: {
+          '1': { id: '1', parent: '2', type: SUBSEQUENCE }
+        }
+      }
     };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ moveQuestionToSubSequence: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        moveQuestionToSubSequence: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -289,16 +401,23 @@ describe('orderComponents', () => {
         appState: {
           activeComponentsById: {
             '2': { id: '2', children: [] },
-            '3': { parent: '2', type: SUBSEQUENCE, children: [] },
+            '3': { parent: '2', type: SUBSEQUENCE, children: [] }
           },
-          selectedComponentId: '3',
-        },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        increaseWeightOfAll: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -306,15 +425,25 @@ describe('orderComponents', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] }, '3': { parent: '2', type: SEQUENCE, children: [] } },
-          selectedComponentId: '3',
-        },
+          activeComponentsById: {
+            '2': { id: '2', children: [] },
+            '3': { parent: '2', type: SEQUENCE, children: [] }
+          },
+          selectedComponentId: '3'
+        }
       };
     }
-    const payload = { payload: { id: '1', lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } } } };
+    const payload = {
+      payload: {
+        id: '1',
+        lastCreatedComponent: { '1': { parent: '2', type: SUBSEQUENCE } }
+      }
+    };
     const fn = component.orderComponents(payload);
     function dispatch(param) {
-      expect(param.payload.update.activeComponentsById).toEqual({ increaseWeightOfAll: true });
+      expect(param.payload.update.activeComponentsById).toEqual({
+        increaseWeightOfAll: true
+      });
     }
     fn(dispatch, getState);
   });
@@ -325,8 +454,8 @@ describe('dragComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
-        },
+          activeComponentsById: { '2': { id: '2', children: [] } }
+        }
       };
     }
     const fn = component.dragComponent('1', '2', 1);
@@ -341,8 +470,8 @@ describe('dragComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
-        },
+          activeComponentsById: { '2': { id: '2', children: [] } }
+        }
       };
     }
     const fn = component.dragComponent('1', '2', 1);
@@ -352,7 +481,7 @@ describe('dragComponent', () => {
         activesComponents: { '2': { id: '2', children: [] } },
         idMovedComponent: '1',
         idTargetComponent: '2',
-        newWeight: 1,
+        newWeight: 1
       });
     }
     fn(dispatch, getState);
@@ -364,8 +493,8 @@ describe('removeComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
-        },
+          activeComponentsById: { '2': { id: '2', children: [] } }
+        }
       };
     }
     const fn = component.removeComponent('1');
@@ -380,8 +509,8 @@ describe('removeComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
-        },
+          activeComponentsById: { '2': { id: '2', children: [] } }
+        }
       };
     }
     const fn = component.removeComponent('1');
@@ -389,7 +518,7 @@ describe('removeComponent', () => {
     function dispatch(param) {
       expect(param.payload).toEqual({
         activeComponentsById: getState().appState.activeComponentsById,
-        idDeletedComponent: '1',
+        idDeletedComponent: '1'
       });
     }
     fn(dispatch, getState);
@@ -401,8 +530,8 @@ describe('duplicateComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
-        },
+          activeComponentsById: { '2': { id: '2', children: [] } }
+        }
       };
     }
     const fn = component.duplicateComponent('1');
@@ -417,8 +546,8 @@ describe('duplicateComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
-        },
+          activeComponentsById: { '2': { id: '2', children: [] } }
+        }
       };
     }
     const fn = component.duplicateComponent('2');
@@ -428,9 +557,9 @@ describe('duplicateComponent', () => {
         update: {
           activeComponentsById: {
             activesComponents: getState().appState.activeComponentsById,
-            idComponent: '2',
-          },
-        },
+            idComponent: '2'
+          }
+        }
       });
     }
     fn(dispatch, getState);

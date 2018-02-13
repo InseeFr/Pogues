@@ -5,7 +5,10 @@ import { formValueSelector, actions } from 'redux-form';
 import CodesLists from '../components/codes-lists';
 
 import { getCurrentSelectorPath } from 'utils/widget-utils';
-import { DEFAULT_FORM_NAME, DEFAULT_CODES_LIST_SELECTOR_PATH } from 'constants/pogues-constants';
+import {
+  DEFAULT_FORM_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH
+} from 'constants/pogues-constants';
 import { clearSearchResult } from 'actions/search';
 
 // PropTypes and defaultProps
@@ -13,18 +16,21 @@ import { clearSearchResult } from 'actions/search';
 const propTypes = {
   selectorPathParent: PropTypes.string,
   selectorPath: PropTypes.string,
-  formName: PropTypes.string,
+  formName: PropTypes.string
 };
 
 export const defaultProps = {
   selectorPathParent: '',
   selectorPath: DEFAULT_CODES_LIST_SELECTOR_PATH,
-  formName: DEFAULT_FORM_NAME,
+  formName: DEFAULT_FORM_NAME
 };
 
 // Container
 
-export const mapStateToProps = (state, { selectorPathParent, selectorPath, formName }) => {
+export const mapStateToProps = (
+  state,
+  { selectorPathParent, selectorPath, formName }
+) => {
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
   const currentId = selector(state, `${path}id`);
@@ -35,7 +41,7 @@ export const mapStateToProps = (state, { selectorPathParent, selectorPath, formN
   if (codesListsStore[currentId]) {
     currentCodesListsStore = {
       ...codesListsStore,
-      [currentId]: { ...codesListsStore[currentId], label: currentLabel },
+      [currentId]: { ...codesListsStore[currentId], label: currentLabel }
     };
   } else {
     currentCodesListsStore = codesListsStore;
@@ -47,7 +53,7 @@ export const mapStateToProps = (state, { selectorPathParent, selectorPath, formN
     currentCodesListsStore,
     codesListsStore,
     activePanel: selector(state, `${path}panel`),
-    currentCodes: selector(state, `${path}codes`),
+    currentCodes: selector(state, `${path}codes`)
   };
 };
 
@@ -55,10 +61,12 @@ const mapDispatchToProps = {
   clearSearchResult,
   change: actions.change,
   arrayPush: actions.arrayPush,
-  arrayRemoveAll: actions.arrayRemoveAll,
+  arrayRemoveAll: actions.arrayRemoveAll
 };
 
-const CodesListsContainer = connect(mapStateToProps, mapDispatchToProps)(CodesLists);
+const CodesListsContainer = connect(mapStateToProps, mapDispatchToProps)(
+  CodesLists
+);
 
 CodesListsContainer.propTypes = propTypes;
 CodesListsContainer.defaultProps = defaultProps;

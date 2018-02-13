@@ -10,7 +10,7 @@ const {
   COMPONENT_CLASS,
   PANEL_INPUT_CLASS,
   SEARCH_INPUT_CLASS,
-  BUTTON_SEARCH_CLASS,
+  BUTTON_SEARCH_CLASS
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 // PropTypes and defaultProps
@@ -20,11 +20,11 @@ const propTypes = {
   loadSearchResult: PropTypes.func.isRequired,
   criteriaValues: PropTypes.object,
   loadOnInit: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-  criteriaValues: {},
+  criteriaValues: {}
 };
 
 // Component
@@ -56,7 +56,11 @@ class InputFilterWithCriteria extends Component {
               }}
               onKeyDown={e => {
                 if (e.key === 'Enter')
-                  this.props.loadSearchResult(typeItem, criteriaValues, this.inputSearch.value.trim());
+                  this.props.loadSearchResult(
+                    typeItem,
+                    criteriaValues,
+                    this.inputSearch.value.trim()
+                  );
               }}
             />
           </div>
@@ -65,7 +69,11 @@ class InputFilterWithCriteria extends Component {
           className={BUTTON_SEARCH_CLASS}
           onClick={event => {
             event.preventDefault();
-            this.props.loadSearchResult(typeItem, criteriaValues, this.inputSearch.value.trim());
+            this.props.loadSearchResult(
+              typeItem,
+              criteriaValues,
+              this.inputSearch.value.trim()
+            );
           }}
         >
           {Dictionary.searchInputButton}

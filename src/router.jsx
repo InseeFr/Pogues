@@ -14,7 +14,11 @@ function RouterContainer() {
         <IndexRoute component={PageHome} />
         <Route exact path="/help" component={PageHelp} />
         <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
-        <Route exact path="/search/questionnaires" component={PageSearchQuestionnaire} />
+        <Route
+          exact
+          path="/search/questionnaires"
+          component={PageSearchQuestionnaire}
+        />
         <Redirect from="*" to="/" />
       </Route>
     </Router>

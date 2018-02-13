@@ -12,30 +12,30 @@ const propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
-      key: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired
     })
   ),
   actions: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
-      action: PropTypes.func.isRequired,
+      action: PropTypes.func.isRequired
     })
   ),
-  noValuesMessage: PropTypes.string,
+  noValuesMessage: PropTypes.string
 };
 
 export const defaultProps = {
   id: undefined,
   columns: [],
   actions: [],
-  noValuesMessage: '',
+  noValuesMessage: ''
 };
 
 // Container
 
 function mapStateToProps(state) {
   return {
-    values: storeToArray(state.searchResultById),
+    values: storeToArray(state.searchResultById)
   };
 }
 const SearchResultsContainer = connect(mapStateToProps)(SearchResults);

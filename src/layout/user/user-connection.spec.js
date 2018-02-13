@@ -11,25 +11,27 @@ const locale = getLocale();
 describe('<UserConnection />', () => {
   const userWithPicture = {
     name: 'John',
-    picture: '/fake/path/picture.gif',
+    picture: '/fake/path/picture.gif'
   };
   const userWithoutPicture = {
-    name: 'John',
+    name: 'John'
   };
   const propsNoUser = {
-    locale: locale,
+    locale: locale
   };
   const propsUserWithPicture = {
     user: userWithPicture,
-    locale: locale,
+    locale: locale
   };
   const propsUserWithoutPicture = {
     user: userWithoutPicture,
-    locale: locale,
+    locale: locale
   };
   const wrapperNotLogged = shallow(<UserConnection {...propsNoUser} />);
   const wrapperLogged = shallow(<UserConnection {...propsUserWithPicture} />);
-  const wrapperLoggedWithoutPicture = shallow(<UserConnection {...propsUserWithoutPicture} />);
+  const wrapperLoggedWithoutPicture = shallow(
+    <UserConnection {...propsUserWithoutPicture} />
+  );
 
   test('should render without throwing an error', () => {
     expect(wrapperNotLogged.is('#user-connection')).toBe(true);
@@ -46,10 +48,17 @@ describe('<UserConnection />', () => {
   });
 
   test('should render the user picture when is defined', () => {
-    expect(wrapperLogged.find(`.user-picture img[src="${userWithPicture.picture}"]`).length).toBe(1);
+    expect(
+      wrapperLogged.find(`.user-picture img[src="${userWithPicture.picture}"]`)
+        .length
+    ).toBe(1);
   });
 
   test("should render a default user's picture if user exist but the picture is not defined", () => {
-    expect(wrapperLoggedWithoutPicture.find('.user-picture img').is('.default-picture')).toBe(true);
+    expect(
+      wrapperLoggedWithoutPicture
+        .find('.user-picture img')
+        .is('.default-picture')
+    ).toBe(true);
   });
 });

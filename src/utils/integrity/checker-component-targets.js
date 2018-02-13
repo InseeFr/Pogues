@@ -11,7 +11,10 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
     const redirectionsIds = Object.keys(redirections);
 
     if (redirectionsIds.length > 0) {
-      const activeTargetsIds = getComponentsTargetsByComponent(activeComponentsById, activeComponentsById[key]);
+      const activeTargetsIds = getComponentsTargetsByComponent(
+        activeComponentsById,
+        activeComponentsById[key]
+      );
 
       redirectionsIds.forEach(innerKey => {
         const redirection = redirections[innerKey];
@@ -21,14 +24,14 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
             path: 'redirections.cible',
             itemListId: innerKey,
             dictionary: 'errorGoToNonExistingTgt',
-            type: INTEGRITY_TYPES.TARGET_NOT_FOUND,
+            type: INTEGRITY_TYPES.TARGET_NOT_FOUND
           });
         } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
           targetEarlierErrors.push({
             path: 'redirections.cible',
             itemListId: innerKey,
             dictionary: 'errorGoToNonExistingTgt',
-            type: INTEGRITY_TYPES.TARGET_EARLIER,
+            type: INTEGRITY_TYPES.TARGET_EARLIER
           });
         }
       });
@@ -36,7 +39,7 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
 
     errorsByComponent[key] = {
       [INTEGRITY_TYPES.TARGET_NOT_FOUND]: targetNotFoundErrors,
-      [INTEGRITY_TYPES.TARGET_EARLIER]: targetEarlierErrors,
+      [INTEGRITY_TYPES.TARGET_EARLIER]: targetEarlierErrors
     };
   });
 

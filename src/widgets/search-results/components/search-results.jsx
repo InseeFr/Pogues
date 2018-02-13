@@ -11,14 +11,16 @@ const {
   COLUMN_CLASS,
   ROW_CLASS,
   ROW_EMPTY_CLASS,
-  COLUMN_ACTIONS_CLASS,
+  COLUMN_ACTIONS_CLASS
 } = WIDGET_SEARCH_RESULTS;
 
 // Utils
 
 function renderRowValues(values) {
-  return values.map((v, index) => (
-    // eslint-disable-next-line react/no-array-index-key
+  return values.map((
+    v,
+    index // eslint-disable-next-line react/no-array-index-key
+  ) => (
     <div key={index} className={COLUMN_CLASS}>
       {v}
     </div>
@@ -40,7 +42,7 @@ function renderRowActions(actions, values) {
           {a.icon && <span className={`glyphicon ${a.icon}`} />}
           <span
             className={ClassSet({
-              'sr-only': a.iconOnly,
+              'sr-only': a.iconOnly
             })}
           >
             {Dictionary[a.dictionary]}
@@ -59,32 +61,42 @@ const propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
-      key: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired
     })
   ).isRequired,
   actions: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
-      action: PropTypes.func.isRequired,
+      action: PropTypes.func.isRequired
     })
   ).isRequired,
   noValuesMessage: PropTypes.string.isRequired,
-  values: PropTypes.arrayOf(PropTypes.object),
+  values: PropTypes.arrayOf(PropTypes.object)
 };
 
 const defaultProps = {
   id: undefined,
   className: undefined,
-  values: [],
+  values: []
 };
 
 // Component
 
-function SearchResults({ id, className, columns, actions, noValuesMessage, values }) {
+function SearchResults({
+  id,
+  className,
+  columns,
+  actions,
+  noValuesMessage,
+  values
+}) {
   // Obtaining the traductions for the different columns and the actions column.
-  const headerValues = [...columns.map(c => Dictionary[c.dictionary]), Dictionary.searchResultAction];
+  const headerValues = [
+    ...columns.map(c => Dictionary[c.dictionary]),
+    Dictionary.searchResultAction
+  ];
   const props = {
-    className: `${COMPONENT_CLASS} ${COMPONENT_CLASS}-${columns.length + 1}`,
+    className: `${COMPONENT_CLASS} ${COMPONENT_CLASS}-${columns.length + 1}`
   };
 
   if (id) props.id = id;
@@ -93,10 +105,16 @@ function SearchResults({ id, className, columns, actions, noValuesMessage, value
   return (
     <div {...props}>
       {/* Header */}
-      <div className={`${ROW_CLASS} ${HEADER_CLASS}`}>{renderRowValues(headerValues)}</div>
+      <div className={`${ROW_CLASS} ${HEADER_CLASS}`}>
+        {renderRowValues(headerValues)}
+      </div>
 
       {/* No values row message */}
-      {values.length === 0 && <div className={`${ROW_CLASS} ${ROW_EMPTY_CLASS}`}>{noValuesMessage}</div>}
+      {values.length === 0 && (
+        <div className={`${ROW_CLASS} ${ROW_EMPTY_CLASS}`}>
+          {noValuesMessage}
+        </div>
+      )}
 
       {/* Rows */}
       {values.map((v, index) => {

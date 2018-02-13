@@ -5,7 +5,10 @@ import { Field, FieldArray, FormSection } from 'redux-form';
 import CodesListsCodesContainer from '../containers/codes-lists-codes-container';
 
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
-import { CODES_LIST_INPUT_ENUM, CODES_LISTS_PANELS } from 'constants/pogues-constants';
+import {
+  CODES_LIST_INPUT_ENUM,
+  CODES_LISTS_PANELS
+} from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'forms/controls/input';
 import ListRadios from 'forms/controls/list-radios';
@@ -16,7 +19,11 @@ import { storeToArray } from 'utils/utils';
 import { SearchCodesLists } from 'widgets/search-codes-lists';
 import { ErrorsPanel } from 'widgets/errors-panel';
 
-const { COMPONENT_CLASS, PANEL_CLASS, PANEL_SELECTOR_CLASS } = WIDGET_CODES_LISTS;
+const {
+  COMPONENT_CLASS,
+  PANEL_CLASS,
+  PANEL_SELECTOR_CLASS
+} = WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 
 // Utils
@@ -24,7 +31,7 @@ const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 function getSelectorOptions(panels) {
   return panels.map(p => ({
     label: Dictionary[p.dictionary],
-    value: p.value,
+    value: p.value
   }));
 }
 
@@ -42,14 +49,14 @@ export const propTypes = {
   change: PropTypes.func.isRequired,
   arrayPush: PropTypes.func.isRequired,
   arrayRemoveAll: PropTypes.func.isRequired,
-  clearSearchResult: PropTypes.func.isRequired,
+  clearSearchResult: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
   activePanel: undefined,
   currentId: '',
   codesListsStore: {},
-  currentCodesListsStore: {},
+  currentCodesListsStore: {}
 };
 
 // Componet
@@ -59,7 +66,14 @@ class CodesList extends Component {
   static defaultProps = defaultProps;
 
   componentWillMount() {
-    const { change, formName, path, currentId, clearSearchResult, codesListsStore } = this.props;
+    const {
+      change,
+      formName,
+      path,
+      currentId,
+      clearSearchResult,
+      codesListsStore
+    } = this.props;
     let activePanel = NEW;
 
     clearSearchResult();
@@ -70,7 +84,15 @@ class CodesList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { change, arrayPush, arrayRemoveAll, formName, path, currentId, codesListsStore } = this.props;
+    const {
+      change,
+      arrayPush,
+      arrayRemoveAll,
+      formName,
+      path,
+      currentId,
+      codesListsStore
+    } = this.props;
 
     if (nextProps.currentId === '' && nextProps.currentId !== currentId) {
       change(formName, `${path}id`, '');
@@ -81,7 +103,11 @@ class CodesList extends Component {
     if (nextProps.currentId !== '' && nextProps.currentId !== currentId) {
       const codesStore = codesListsStore[nextProps.currentId].codes;
 
-      change(formName, `${path}label`, codesListsStore[nextProps.currentId].label);
+      change(
+        formName,
+        `${path}label`,
+        codesListsStore[nextProps.currentId].label
+      );
       Object.keys(codesStore).forEach(key => {
         arrayPush(formName, `${path}codes`, codesStore[key]);
       });
@@ -89,13 +115,25 @@ class CodesList extends Component {
   }
 
   render() {
-    const { selectorPathParent, selectorPath, path, formName, activePanel, currentCodesListsStore } = this.props;
+    const {
+      selectorPathParent,
+      selectorPath,
+      path,
+      formName,
+      activePanel,
+      currentCodesListsStore
+    } = this.props;
 
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>
         {/* Selector panel */}
         <div className={PANEL_SELECTOR_CLASS}>
-          <Field name="panel" component={ListRadios} label={Dictionary.selectCodesListType} required>
+          <Field
+            name="panel"
+            component={ListRadios}
+            label={Dictionary.selectCodesListType}
+            required
+          >
             {getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
               <GenericOption key={panel.value} value={panel.value}>
                 {panel.label}
@@ -108,7 +146,12 @@ class CodesList extends Component {
           <div className={`${PANEL_CLASS} ${PANEL_CLASS}-${activePanel}`}>
             {activePanel === REF && <SearchCodesLists path={path} />}
             {activePanel === QUEST && (
-              <Field name="id" component={Select} label={Dictionary.selectCodesListType} required>
+              <Field
+                name="id"
+                component={Select}
+                label={Dictionary.selectCodesListType}
+                required
+              >
                 <GenericOption key="" value="">
                   {Dictionary.selectCodesListType}
                 </GenericOption>
@@ -122,7 +165,14 @@ class CodesList extends Component {
             {activePanel === NEW && (
               <div>
                 <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
-                <Field name="label" component={Input} type="text" label={Dictionary.newCl} focusOnInit required />
+                <Field
+                  name="label"
+                  component={Input}
+                  type="text"
+                  label={Dictionary.newCl}
+                  focusOnInit
+                  required
+                />
                 <FieldArray
                   name="codes"
                   component={CodesListsCodesContainer}

@@ -5,7 +5,8 @@
     .ctrl-select {
       @include make-xs-column(4);
 
-      label + div, > label {
+      label + div,
+      > label {
         width: 100%;
       }
     }

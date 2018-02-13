@@ -1,8 +1,12 @@
-import { DATATYPE_TYPE_FROM_NAME, UI_BEHAVIOUR } from 'constants/pogues-constants';
+import {
+  DATATYPE_TYPE_FROM_NAME,
+  UI_BEHAVIOUR
+} from 'constants/pogues-constants';
 import { uuid } from 'utils/utils';
 
 export function stateToRemote(state) {
   const {
+    id,
     mandatory,
     typeName,
     maxLength: MaxLength,
@@ -18,22 +22,25 @@ export function stateToRemote(state) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    collectedVariable: CollectedVariableReference,
+    collectedVariable: CollectedVariableReference
   } = state;
 
   const model = {
-    id: uuid(),
+    id: id || uuid(),
     Datatype: {
       typeName,
-      type: DATATYPE_TYPE_FROM_NAME[typeName],
-    },
+      type: DATATYPE_TYPE_FROM_NAME[typeName]
+    }
   };
-  
-  if (CollectedVariableReference !== undefined) model.CollectedVariableReference = CollectedVariableReference;
-  if (CodeListReference !== undefined) model.CodeListReference = CodeListReference;
+
+  if (CollectedVariableReference !== undefined)
+    model.CollectedVariableReference = CollectedVariableReference;
+  if (CodeListReference !== undefined)
+    model.CodeListReference = CodeListReference;
   if (mandatory !== undefined)
-    model.mandatory = mandatory === "" ? false : mandatory;
-  if (visualizationHint !== undefined) model.Datatype.visualizationHint = visualizationHint;
+    model.mandatory = mandatory === '' ? false : mandatory;
+  if (visualizationHint !== undefined)
+    model.Datatype.visualizationHint = visualizationHint;
   if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
   if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
   if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
@@ -44,8 +51,9 @@ export function stateToRemote(state) {
     model.nonResponseModality = {
       value: specialCode,
       label: specialLabel,
-      firstIntentionDisplay: specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
-      invite: specialFollowUpMessage,
+      firstIntentionDisplay:
+        specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
+      invite: specialFollowUpMessage
     };
   }
 

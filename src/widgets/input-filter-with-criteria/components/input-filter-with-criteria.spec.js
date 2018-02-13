@@ -6,7 +6,10 @@ import InputFilterWithCriteria from './input-filter-with-criteria';
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from 'constants/dom-constants';
 import { fakeEvent, noop } from 'utils/test/test-utils';
 
-const { SEARCH_INPUT_CLASS, BUTTON_SEARCH_CLASS } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
+const {
+  SEARCH_INPUT_CLASS,
+  BUTTON_SEARCH_CLASS
+} = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 describe('<InputFilterWithCriteria />', () => {
   let props;
@@ -17,7 +20,7 @@ describe('<InputFilterWithCriteria />', () => {
       typeItem: 'FAKE_TYPE_ITEM',
       loadSearchResult: noop,
       criteriaValues: {},
-      loadOnInit: true,
+      loadOnInit: true
     };
   });
 
@@ -63,6 +66,10 @@ describe('<InputFilterWithCriteria />', () => {
 
     wrapper.find(`button.${BUTTON_SEARCH_CLASS}`).simulate('click', fakeEvent);
 
-    expect(spySearch).toHaveBeenCalledWith(props.typeItem, props.criteriaValues, text);
+    expect(spySearch).toHaveBeenCalledWith(
+      props.typeItem,
+      props.criteriaValues,
+      text
+    );
   });
 });

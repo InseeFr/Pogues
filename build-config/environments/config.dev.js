@@ -7,7 +7,7 @@ module.exports = {
   log: {
     level: 'DEBUG',
     activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models']
-  },
+  }
 };
 
 // module.exports = {
@@ -21,4 +21,3 @@ module.exports = {
 //     activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models']
 //   },
 // };
-

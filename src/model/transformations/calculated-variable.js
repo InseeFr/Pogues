@@ -13,8 +13,8 @@ export function remoteToStore(remote = []) {
         id,
         label,
         name,
-        formula,
-      },
+        formula
+      }
     };
   }, {});
 }
@@ -29,7 +29,7 @@ export function storeToRemote(store) {
       Label,
       Name,
       Formula,
-      type: CALCULATED,
+      type: CALCULATED
     });
   });
 

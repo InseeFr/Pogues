@@ -12,7 +12,7 @@ describe('<QuestionnaireNav />', () => {
   const props = {
     questionnaire: {},
     componentsStore: {},
-    setSelectedComponentId: noop,
+    setSelectedComponentId: noop
   };
 
   const wrapper = shallow(<QuestionnaireNav {...props} />);

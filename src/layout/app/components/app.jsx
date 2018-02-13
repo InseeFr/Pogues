@@ -15,7 +15,7 @@ const { COMPONENT_ID } = APP;
 const propTypes = {
   children: PropTypes.object.isRequired,
   loadUser: PropTypes.func.isRequired,
-  loadUnitsIfNeeded: PropTypes.func.isRequired,
+  loadUnitsIfNeeded: PropTypes.func.isRequired
 };
 
 // Component

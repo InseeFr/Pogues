@@ -1,1 +1,3 @@
-export { default as QuestionnaireEdit } from './containers/questionnaire-edit-container';
+export {
+  default as QuestionnaireEdit
+} from './containers/questionnaire-edit-container';

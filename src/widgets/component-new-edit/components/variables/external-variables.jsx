@@ -23,13 +23,13 @@ export const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
-  addErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPath: TABS_PATHS.EXTERNAL_VARIABLES,
-  errors: [],
+  errors: []
 };
 
 // Component
@@ -46,8 +46,20 @@ function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
         resetObject={defaultState}
         canDuplicate={false}
       >
-        <Field name="label" type="text" component={Input} label={Dictionary.label} required />
-        <Field name="name" type="text" component={Input} label={Dictionary.name} required />
+        <Field
+          name="label"
+          type="text"
+          component={Input}
+          label={Dictionary.label}
+          required
+        />
+        <Field
+          name="name"
+          type="text"
+          component={Input}
+          label={Dictionary.name}
+          required
+        />
       </ListWithInputPanel>
     </FormSection>
   );

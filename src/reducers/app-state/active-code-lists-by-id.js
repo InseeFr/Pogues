@@ -8,10 +8,13 @@ export function setActiveCodeLists(state, { activeCodeLists }) {
   return activeCodeLists;
 }
 
-export function updateActiveCodeLists(state, { update: { activeCodeListsById } }) {
+export function updateActiveCodeLists(
+  state,
+  { update: { activeCodeListsById } }
+) {
   return {
     ...state,
-    ...activeCodeListsById,
+    ...activeCodeListsById
   };
 }
 

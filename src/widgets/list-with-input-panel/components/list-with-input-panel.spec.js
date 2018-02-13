@@ -11,7 +11,7 @@ const {
   BUTTON_REMOVE_CLASS,
   BUTTON_DUPLICATE_CLASS,
   BUTTON_RESET_CLASS,
-  BUTTON_NEW_CLASS,
+  BUTTON_NEW_CLASS
 } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 describe('<ListWithInputPanel', () => {
@@ -29,7 +29,7 @@ describe('<ListWithInputPanel', () => {
     arrayPush: noop,
     arrayInsert: noop,
     validateForm: noop,
-    clearErrors: noop,
+    clearErrors: noop
   };
 
   const FakeInputPanel = () => <div />;
@@ -53,16 +53,16 @@ describe('<ListWithInputPanel', () => {
       const buttons = [
         {
           className: BUTTON_REMOVE_CLASS,
-          property: 'canRemove',
+          property: 'canRemove'
         },
         {
           className: BUTTON_DUPLICATE_CLASS,
-          property: 'canDuplicate',
+          property: 'canDuplicate'
         },
         {
           className: BUTTON_NEW_CLASS,
-          property: 'canAddNew',
-        },
+          property: 'canAddNew'
+        }
       ];
 
       buttons.forEach(btn => {
@@ -81,24 +81,24 @@ describe('<ListWithInputPanel', () => {
       const buttons = [
         {
           className: BUTTON_SUBMIT_CLASS,
-          action: 'submit',
+          action: 'submit'
         },
         {
           className: BUTTON_REMOVE_CLASS,
-          action: 'remove',
+          action: 'remove'
         },
         {
           className: BUTTON_DUPLICATE_CLASS,
-          action: 'duplicate',
+          action: 'duplicate'
         },
         {
           className: BUTTON_RESET_CLASS,
-          action: 'reset',
+          action: 'reset'
         },
         {
           className: BUTTON_NEW_CLASS,
-          action: 'reset',
-        },
+          action: 'reset'
+        }
       ];
 
       buttons.forEach(btn => {

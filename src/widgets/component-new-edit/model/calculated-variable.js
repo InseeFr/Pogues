@@ -3,14 +3,14 @@ import { uuid } from 'utils/utils';
 export const defaultState = {
   label: '',
   name: '',
-  formula: '',
+  formula: ''
 };
 
 export const defaultForm = {
   label: '',
   name: '',
   formula: '',
-  calculatedVariables: [],
+  calculatedVariables: []
 };
 
 export function formToState(form) {
@@ -21,7 +21,7 @@ export function formToState(form) {
     id,
     label,
     name,
-    formula,
+    formula
   };
 }
 
@@ -33,7 +33,7 @@ export function formToStore(form) {
 
     return {
       ...acc,
-      [state.id]: state,
+      [state.id]: state
     };
   }, {});
 }
@@ -47,13 +47,13 @@ export function storeToForm(currentStore) {
       id,
       label,
       name,
-      formula,
+      formula
     });
   });
 
   return {
     ...defaultForm,
-    calculatedVariables,
+    calculatedVariables
   };
 }
 
@@ -68,7 +68,7 @@ const Factory = (currentStore = {}) => {
     },
     getStore: () => {
       return currentStore;
-    },
+    }
   };
 };
 

@@ -1,4 +1,9 @@
-import { toComponents, isQuestion, isSubSequence, toId } from 'utils/component/component-utils';
+import {
+  toComponents,
+  isQuestion,
+  isSubSequence,
+  toId
+} from 'utils/component/component-utils';
 import { resetWeight } from './component-update';
 import sortBy from 'lodash.sortby';
 import find from 'lodash.find';
@@ -12,12 +17,17 @@ import takeRight from 'lodash.takeright';
  * @param {object} activesComponents The list of components currently displayed
  * @param {object} deletedComponent The component we want to remove
  */
-export function removeComponentFromActivesComponent(activesComponents, deletedComponent) {
+export function removeComponentFromActivesComponent(
+  activesComponents,
+  deletedComponent
+) {
   return Object.keys(activesComponents).reduce((acc, currentId) => {
     if (currentId !== deletedComponent.id) {
       acc[currentId] = {
         ...activesComponents[currentId],
-        children: activesComponents[currentId].children.filter(childId => childId !== deletedComponent.id),
+        children: activesComponents[currentId].children.filter(
+          childId => childId !== deletedComponent.id
+        )
       };
     }
     return acc;
@@ -32,10 +42,18 @@ export function removeComponentFromActivesComponent(activesComponents, deletedCo
  * @param {object} deletedComponent The component we want to remove
  */
 export function removeLeafComponent(activesComponents, deletedComponent) {
-  const moves = removeComponentFromActivesComponent(activesComponents, deletedComponent);
+  const moves = removeComponentFromActivesComponent(
+    activesComponents,
+    deletedComponent
+  );
   return {
     ...moves,
-    ...resetWeight(toComponents(moves[activesComponents[deletedComponent.id].parent].children, moves)),
+    ...resetWeight(
+      toComponents(
+        moves[activesComponents[deletedComponent.id].parent].children,
+        moves
+      )
+    )
   };
 }
 
@@ -46,10 +64,15 @@ export function removeLeafComponent(activesComponents, deletedComponent) {
  * @param {object} deletedComponent The component we want to remove
  */
 export function removeSubSequence(activesComponents, deletedComponent) {
-  let moves = removeComponentFromActivesComponent(activesComponents, deletedComponent);
+  let moves = removeComponentFromActivesComponent(
+    activesComponents,
+    deletedComponent
+  );
 
   // We will get the previous component of the deleted component
-  const previousSubSequence = activesComponents[deletedComponent.parent].children
+  const previousSubSequence = activesComponents[
+    deletedComponent.parent
+  ].children
     .map(id => activesComponents[id])
     .find(c => c.weight === deletedComponent.weight - 1);
 
@@ -59,7 +82,10 @@ export function removeSubSequence(activesComponents, deletedComponent) {
 
   if (!isSubSequence(previousSubSequence)) {
     // If the component is not a subsequence, we will move all SEQUENCE to the parent SEQUENCE
-    newChildren = [...deletedComponent.children, ...activesComponents[deletedComponent.parent].children];
+    newChildren = [
+      ...deletedComponent.children,
+      ...activesComponents[deletedComponent.parent].children
+    ];
     newParentId = deletedComponent.parent;
     reduceFn = (acc, id) => {
       if (id === deletedComponent.id) {
@@ -71,8 +97,11 @@ export function removeSubSequence(activesComponents, deletedComponent) {
           [id]: {
             ...acc[id],
             parent: deletedComponent.parent,
-            weight: deletedComponent.weight === 0 ? acc[id].weight : deletedComponent.weight + acc[id].weight,
-          },
+            weight:
+              deletedComponent.weight === 0
+                ? acc[id].weight
+                : deletedComponent.weight + acc[id].weight
+          }
         };
       }
       return {
@@ -82,8 +111,8 @@ export function removeSubSequence(activesComponents, deletedComponent) {
           weight:
             acc[id].weight >= deletedComponent.weight
               ? acc[id].weight + (deletedComponent.children.length - 1)
-              : acc[id].weight,
-        },
+              : acc[id].weight
+        }
       };
     };
   } else {
@@ -95,8 +124,8 @@ export function removeSubSequence(activesComponents, deletedComponent) {
         [id]: {
           ...acc[id],
           parent: previousSubSequence.id,
-          weight: acc[id].weight + previousSubSequence.children.length,
-        },
+          weight: acc[id].weight + previousSubSequence.children.length
+        }
       };
     };
   }
@@ -105,8 +134,8 @@ export function removeSubSequence(activesComponents, deletedComponent) {
     ...moves,
     [newParentId]: {
       ...moves[newParentId],
-      children: [...moves[newParentId].children, ...deletedComponent.children],
-    },
+      children: [...moves[newParentId].children, ...deletedComponent.children]
+    }
   });
 
   return {
@@ -114,9 +143,9 @@ export function removeSubSequence(activesComponents, deletedComponent) {
     ...resetWeight(
       toComponents(moves[deletedComponent.parent].children, {
         ...activesComponents,
-        ...moves,
+        ...moves
       })
-    ),
+    )
   };
 }
 
@@ -126,8 +155,14 @@ export function removeSubSequence(activesComponents, deletedComponent) {
  * @param {object} deletedComponent The component we want to remove
  */
 export function removeSequence(activesComponents, deletedComponent) {
-  let moves = removeComponentFromActivesComponent(activesComponents, deletedComponent);
-  const childrenToMove = sortBy(toComponents(deletedComponent.children, activesComponents), ['weight']);
+  let moves = removeComponentFromActivesComponent(
+    activesComponents,
+    deletedComponent
+  );
+  const childrenToMove = sortBy(
+    toComponents(deletedComponent.children, activesComponents),
+    ['weight']
+  );
   const parent = activesComponents[deletedComponent.parent];
 
   // We will find the sibling SEQUENCE
@@ -137,9 +172,10 @@ export function removeSequence(activesComponents, deletedComponent) {
   );
 
   // From the previous SEQUENCE, we will get the last component
-  const lastComponentFromPreviousSequence = sortBy(toComponents(previousSequence.children, activesComponents), [
-    'weight',
-  ])[previousSequence.children.length - 1];
+  const lastComponentFromPreviousSequence = sortBy(
+    toComponents(previousSequence.children, activesComponents),
+    ['weight']
+  )[previousSequence.children.length - 1];
 
   let firstQuestionsToMove = [];
 
@@ -149,7 +185,10 @@ export function removeSequence(activesComponents, deletedComponent) {
   }
 
   // Based on the previous firstQuestionsToMove array, we will get the other item in another array
-  const lastComponentToMove = takeRight(childrenToMove, childrenToMove.length - firstQuestionsToMove.length);
+  const lastComponentToMove = takeRight(
+    childrenToMove,
+    childrenToMove.length - firstQuestionsToMove.length
+  );
 
   let firstQuestionsToMoveTransformation = {};
 
@@ -162,15 +201,18 @@ export function removeSequence(activesComponents, deletedComponent) {
           [c.id]: {
             ...c,
             parent: lastComponentFromPreviousSequence.id,
-            weight: lastComponentFromPreviousSequence.children.length + index,
-          },
+            weight: lastComponentFromPreviousSequence.children.length + index
+          }
         };
       },
       {
         [lastComponentFromPreviousSequence.id]: {
           ...lastComponentFromPreviousSequence,
-          children: [...lastComponentFromPreviousSequence.children, ...toId(firstQuestionsToMove)],
-        },
+          children: [
+            ...lastComponentFromPreviousSequence.children,
+            ...toId(firstQuestionsToMove)
+          ]
+        }
       }
     );
   }
@@ -183,15 +225,15 @@ export function removeSequence(activesComponents, deletedComponent) {
         [component.id]: {
           ...component,
           parent: previousSequence.id,
-          weight: previousSequence.children.length + index,
-        },
+          weight: previousSequence.children.length + index
+        }
       };
     }, moves),
     ...firstQuestionsToMoveTransformation,
     [previousSequence.id]: {
       ...previousSequence,
-      children: [...previousSequence.children, ...toId(lastComponentToMove)],
-    },
+      children: [...previousSequence.children, ...toId(lastComponentToMove)]
+    }
   };
 
   return {
@@ -199,9 +241,9 @@ export function removeSequence(activesComponents, deletedComponent) {
     ...resetWeight(
       toComponents(moves[deletedComponent.parent].children, {
         ...activesComponents,
-        ...moves,
+        ...moves
       })
-    ),
+    )
   };
 }
 

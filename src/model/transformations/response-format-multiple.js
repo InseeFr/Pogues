@@ -7,7 +7,7 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  QUESTION_TYPE_ENUM,
+  QUESTION_TYPE_ENUM
 } from 'constants/pogues-constants';
 
 const { BOOLEAN, TEXT } = DATATYPE_NAME;
@@ -24,60 +24,86 @@ function getDimension(type, dimensions) {
 export function remoteToState(remote) {
   const {
     dimensions,
-    responses: [{ Datatype: { typeName: type, visualizationHint: visHint }, CodeListReference }],
+    responses: [
+      {
+        Datatype: { typeName: type, visualizationHint: visHint },
+        CodeListReference
+      }
+    ]
   } = remote;
   const primaryDimension = getDimension(PRIMARY, dimensions);
 
   const state = {
     [PRIMARY]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(primaryDimension.CodeListReference),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
+        primaryDimension.CodeListReference
+      )
     },
-    [MEASURE]: {},
+    [MEASURE]: {}
   };
 
   if (type === BOOLEAN) {
     state[MEASURE] = {
       type: BOOL,
-      [BOOL]: {},
+      [BOOL]: {}
     };
   } else {
     state[MEASURE] = {
       type: CODES_LIST,
       [CODES_LIST]: {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(CodeListReference),
-        visHint,
-      },
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
+          CodeListReference
+        ),
+        visHint
+      }
     };
   }
 
   return state;
 }
 
-export function stateToRemote(state, collectedVariables, collectedVariablesStore) {
-  const { [PRIMARY]: primaryState, [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState } } = state;
+export function stateToRemote(
+  state,
+  collectedVariables,
+  collectedVariablesStore
+) {
+  const {
+    [PRIMARY]: primaryState,
+    [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState }
+  } = state;
   const dimensionsModel = [];
   let responseState;
 
-  dimensionsModel.push(Dimension.stateToRemote({ ...primaryState, type: PRIMARY }));
+  dimensionsModel.push(
+    Dimension.stateToRemote({ ...primaryState, type: PRIMARY })
+  );
   dimensionsModel.push(Dimension.stateToRemote({ type: MEASURE }));
 
   if (typeMeasure === CODES_LIST) {
-    const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId }, visHint } = measureState;
+    const {
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
+      visHint
+    } = measureState;
     responseState = {
       codesListId,
       typeName: TEXT,
       visHint,
       maxLength: 1,
-      pattern: '',
+      pattern: ''
     };
   } else {
     responseState = { typeName: BOOLEAN };
   }
 
-  const responsesModel = Responses.stateToModel(responseState, collectedVariables, collectedVariablesStore, QUESTION_TYPE_ENUM.MULTIPLE_CHOICE);
+  const responsesModel = Responses.stateToModel(
+    responseState,
+    collectedVariables,
+    collectedVariablesStore,
+    QUESTION_TYPE_ENUM.MULTIPLE_CHOICE
+  );
 
   return {
     Dimension: dimensionsModel,
-    ...responsesModel,
+    ...responsesModel
   };
 }

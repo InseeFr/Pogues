@@ -2,13 +2,13 @@ import { uuid } from 'utils/utils';
 
 export const defaultState = {
   name: '',
-  label: '',
+  label: ''
 };
 
 export const defaultForm = {
   name: '',
   label: '',
-  externalVariables: [],
+  externalVariables: []
 };
 
 export function formToState(form) {
@@ -18,7 +18,7 @@ export function formToState(form) {
   return {
     id,
     name,
-    label,
+    label
   };
 }
 
@@ -30,7 +30,7 @@ export function formToStore(form) {
 
     return {
       ...acc,
-      [state.id]: state,
+      [state.id]: state
     };
   }, {});
 }
@@ -43,13 +43,13 @@ export function storeToForm(currentStore) {
     externalVariables.push({
       id,
       name,
-      label,
+      label
     });
   });
 
   return {
     ...defaultForm,
-    externalVariables,
+    externalVariables
   };
 }
 
@@ -64,7 +64,7 @@ const Factory = (currentStore = {}) => {
     },
     getStore: () => {
       return currentStore;
-    },
+    }
   };
 };
 

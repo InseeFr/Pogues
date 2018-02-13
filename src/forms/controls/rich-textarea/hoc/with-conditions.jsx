@@ -9,7 +9,7 @@ import { storeToArray, nestedStoreToFlat } from 'utils/utils';
  * @param ComponentToWrap
  * @returns <ComponentToWrap />
  */
-const withConditions = (ComponentToWrap) => {
+const withConditions = ComponentToWrap => {
   const withConditionsComponent = props => <ComponentToWrap {...props} />;
 
   return connect(mapStateToProps(formName))(withConditionsComponent);

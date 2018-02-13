@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
-import { validateQuestionForm, validateSequenceForm } from 'utils/validation/validate';
+import {
+  validateQuestionForm,
+  validateSequenceForm
+} from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -26,19 +29,26 @@ export const propTypes = {
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
-  activeQuestionnaire: PropTypes.object.isRequired,
+  activeQuestionnaire: PropTypes.object.isRequired
 };
 
 export const defaultProps = {
   codesListsStore: {},
   calculatedVariablesStore: {},
   externalVariablesStore: {},
-  activeQuestionnaire: {},
+  activeQuestionnaire: {}
 };
 
 // Utils
 
-function validateAndSubmit(actions, type, validateQuestion, validateSequence, transformer, onSuccess) {
+function validateAndSubmit(
+  actions,
+  type,
+  validateQuestion,
+  validateSequence,
+  transformer,
+  onSuccess
+) {
   return function(values) {
     if (type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
@@ -86,7 +96,7 @@ function ComponentNew({
   parentId,
   weight,
   type,
-  activeQuestionnaire,
+  activeQuestionnaire
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -96,7 +106,7 @@ function ComponentNew({
     createComponent,
     updateParentChildren,
     orderComponents,
-    setSelectedComponentId,
+    setSelectedComponentId
   };
 
   // Initial values
@@ -105,7 +115,7 @@ function ComponentNew({
   const componentTransformer = Component(initialState, {
     calculatedVariablesStore,
     externalVariablesStore,
-    codesListsStore,
+    codesListsStore
   });
   const initialValues = componentTransformer.stateToForm(activeQuestionnaire);
 

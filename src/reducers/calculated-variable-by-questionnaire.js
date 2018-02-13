@@ -1,24 +1,33 @@
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
-import { LOAD_QUESTIONNAIRE_SUCCESS, CREATE_QUESTIONNAIRE_SUCCESS } from 'actions/questionnaire';
+import {
+  LOAD_QUESTIONNAIRE_SUCCESS,
+  CREATE_QUESTIONNAIRE_SUCCESS
+} from 'actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function loadQuestionnaireSuccess(state, { update: { calculatedVariableByQuestionnaire } }) {
+export function loadQuestionnaireSuccess(
+  state,
+  { update: { calculatedVariableByQuestionnaire } }
+) {
   return {
     ...state,
-    ...calculatedVariableByQuestionnaire,
+    ...calculatedVariableByQuestionnaire
   };
 }
 
 export function loadQuestionnaireListSuccess(state, updatesList) {
-  const calculatedVariableByQuestionnaire = updatesList.reduce((acc, questionnaire) => {
-    return { ...acc, ...questionnaire.calculatedVariableByQuestionnaire };
-  }, {});
+  const calculatedVariableByQuestionnaire = updatesList.reduce(
+    (acc, questionnaire) => {
+      return { ...acc, ...questionnaire.calculatedVariableByQuestionnaire };
+    },
+    {}
+  );
   return {
     ...state,
-    ...calculatedVariableByQuestionnaire,
+    ...calculatedVariableByQuestionnaire
   };
 }
 

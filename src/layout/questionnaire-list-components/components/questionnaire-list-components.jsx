@@ -31,12 +31,12 @@ const propTypes = {
   removeQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired,
+  handleRemovePageBreak: PropTypes.func.isRequired
 };
 
 const defaultProps = {
   componentsStore: {},
-  errorsIntegrity: {},
+  errorsIntegrity: {}
 };
 
 // Utils
@@ -83,17 +83,27 @@ class QuestionnaireListComponents extends Component {
     this.state = {
       showQuestionnaireModal: false,
       showComponentModal: false,
-      showRemoveQuestionnaireDialog: false,
+      showRemoveQuestionnaireDialog: false
     };
 
-    this.handleOpenQuestionnaireDetail = this.handleOpenQuestionnaireDetail.bind(this);
-    this.handleCloseQuestionnaireDetail = this.handleCloseQuestionnaireDetail.bind(this);
+    this.handleOpenQuestionnaireDetail = this.handleOpenQuestionnaireDetail.bind(
+      this
+    );
+    this.handleCloseQuestionnaireDetail = this.handleCloseQuestionnaireDetail.bind(
+      this
+    );
 
     this.handleOpenComponentDetail = this.handleOpenComponentDetail.bind(this);
-    this.handleCloseComponentDetail = this.handleCloseComponentDetail.bind(this);
+    this.handleCloseComponentDetail = this.handleCloseComponentDetail.bind(
+      this
+    );
 
-    this.handleOpenRemoveQuestionnaireDialog = this.handleOpenRemoveQuestionnaireDialog.bind(this);
-    this.handleCloseRemoveQuestionnaireDialog = this.handleCloseRemoveQuestionnaireDialog.bind(this);
+    this.handleOpenRemoveQuestionnaireDialog = this.handleOpenRemoveQuestionnaireDialog.bind(
+      this
+    );
+    this.handleCloseRemoveQuestionnaireDialog = this.handleCloseRemoveQuestionnaireDialog.bind(
+      this
+    );
 
     this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
   }
@@ -143,8 +153,16 @@ class QuestionnaireListComponents extends Component {
   }
 
   render() {
-    const { questionnaire, componentsStore, editingComponentId, errorsIntegrity, setSelectedComponentId } = this.props;
-    const componentType = componentsStore[editingComponentId] && componentsStore[editingComponentId].type;
+    const {
+      questionnaire,
+      componentsStore,
+      editingComponentId,
+      errorsIntegrity,
+      setSelectedComponentId
+    } = this.props;
+    const componentType =
+      componentsStore[editingComponentId] &&
+      componentsStore[editingComponentId].type;
 
     const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
     return (
@@ -159,10 +177,16 @@ class QuestionnaireListComponents extends Component {
               <h4>{questionnaire.label}</h4>
 
               <div>
-                <button className="btn-yellow" onClick={this.handleOpenQuestionnaireDetail}>
+                <button
+                  className="btn-yellow"
+                  onClick={this.handleOpenQuestionnaireDetail}
+                >
                   {Dictionary.showDetail}
                 </button>
-                <button className="btn-yellow" onClick={this.handleOpenRemoveQuestionnaireDialog}>
+                <button
+                  className="btn-yellow"
+                  onClick={this.handleOpenRemoveQuestionnaireDialog}
+                >
                   {Dictionary.remove}
                   <span className="glyphicon glyphicon-trash" />
                 </button>
@@ -181,7 +205,7 @@ class QuestionnaireListComponents extends Component {
 
             <div id="questionnaire-items">
               {renderComponentsByParent(questionnaire.id, this.props, {
-                handleOpenComponentDetail: this.handleOpenComponentDetail,
+                handleOpenComponentDetail: this.handleOpenComponentDetail
               })}
             </div>
 
@@ -197,7 +221,10 @@ class QuestionnaireListComponents extends Component {
                 <div className="popup-header">
                   <h3>{Dictionary.questionnaireDetail}</h3>
 
-                  <button type="button" onClick={this.handleCloseQuestionnaireDetail}>
+                  <button
+                    type="button"
+                    onClick={this.handleCloseQuestionnaireDetail}
+                  >
                     <span>X</span>
                   </button>
                 </div>
@@ -221,7 +248,10 @@ class QuestionnaireListComponents extends Component {
               <div className="popup">
                 <div className="popup-header">
                   <h3>{componentHeader}</h3>
-                  <button type="button" onClick={this.handleCloseComponentDetail}>
+                  <button
+                    type="button"
+                    onClick={this.handleCloseComponentDetail}
+                  >
                     <span>X</span>
                   </button>
                 </div>

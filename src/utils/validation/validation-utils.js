@@ -40,11 +40,11 @@ function getNestedErrorFromPath(path, [message, ...others]) {
 
     if (keys.length > 0) {
       errors = {
-        [key]: getErrorFromKeys(keys, errorMessage),
+        [key]: getErrorFromKeys(keys, errorMessage)
       };
     } else {
       errors = {
-        [key]: message,
+        [key]: message
       };
     }
 

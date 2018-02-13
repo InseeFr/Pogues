@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import ListWithInputPanelItem from "./list-with-input-panel-item";
+import ListWithInputPanelItem from './list-with-input-panel-item';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from "constants/dom-constants";
-import Dictionary from "utils/dictionary/dictionary";
-import { markdownVtlToString } from "forms/controls/rich-textarea/utils/rich-textarea-utils";
+import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
+import Dictionary from 'utils/dictionary/dictionary';
+import { markdownVtlToString } from 'forms/controls/rich-textarea/utils/rich-textarea-utils';
 
 const { LIST_CLASS, LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
@@ -24,7 +24,7 @@ export const defaultProps = {
 // Component
 
 function ListWithInputPanelList({ fields, select, errors }) {
-  const name = fields.name.split(".")[1];
+  const name = fields.name.split('.')[1];
 
   return (
     <ul className={LIST_CLASS}>

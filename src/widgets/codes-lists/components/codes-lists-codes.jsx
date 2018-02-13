@@ -20,17 +20,18 @@ const { CODES_CLASS, LIST_CLASS, LIST_ITEM_CLASS } = WIDGET_CODES_LISTS;
 
 export const propTypes = {
   fields: PropTypes.shape(fieldArrayFields).isRequired,
-  meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array }).isRequired,
+  meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
+    .isRequired,
   currentValue: PropTypes.string,
   currentLabel: PropTypes.string,
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
-  change: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
   currentValue: '',
-  currentLabel: '',
+  currentLabel: ''
 };
 
 // Componet
@@ -45,7 +46,7 @@ class CodesListsCodes extends Component {
     this.state = {
       showInputCode: false,
       activeCodeIndex: undefined,
-      editing: false,
+      editing: false
     };
 
     this.renderInputCode = this.renderInputCode.bind(this);
@@ -62,7 +63,11 @@ class CodesListsCodes extends Component {
   }
 
   pushCode() {
-    const { currentValue, currentLabel, fields: { get, getAll, remove, push } } = this.props;
+    const {
+      currentValue,
+      currentLabel,
+      fields: { get, getAll, remove, push }
+    } = this.props;
     const { activeCodeIndex, editing } = this.state;
     const allCodes = getAll() || [];
     let values;
@@ -70,13 +75,13 @@ class CodesListsCodes extends Component {
     if (activeCodeIndex !== undefined) {
       values = {
         value: currentValue,
-        label: currentLabel,
+        label: currentLabel
       };
 
       this.setState({
         showInputCode: false,
         activeCodeIndex: undefined,
-        editing: false,
+        editing: false
       });
 
       if (editing) {
@@ -87,14 +92,14 @@ class CodesListsCodes extends Component {
           ...values,
           parent: code.parent,
           weight: code.weight,
-          depth: code.depth,
+          depth: code.depth
         };
       } else {
         values = {
           ...values,
           parent: '',
           weight: getNewCodeWeight(allCodes),
-          depth: 1,
+          depth: 1
         };
       }
     } else {
@@ -103,7 +108,7 @@ class CodesListsCodes extends Component {
         label: currentLabel,
         parent: '',
         weight: getNewCodeWeight(allCodes),
-        depth: 1,
+        depth: 1
       };
     }
 
@@ -111,7 +116,12 @@ class CodesListsCodes extends Component {
   }
 
   renderInputCode() {
-    const { inputCodePath, formName, change, fields: { get, getAll } } = this.props;
+    const {
+      inputCodePath,
+      formName,
+      change,
+      fields: { get, getAll }
+    } = this.props;
     const { activeCodeIndex, editing } = this.state;
     const code = get(activeCodeIndex);
     const allCodes = getAll();
@@ -145,7 +155,11 @@ class CodesListsCodes extends Component {
         remove(indexCode);
       },
       edit: () => {
-        this.setState({ showInputCode: true, activeCodeIndex: indexCode, editing: true });
+        this.setState({
+          showInputCode: true,
+          activeCodeIndex: indexCode,
+          editing: true
+        });
       },
       duplicate: () => {
         this.setState({ showInputCode: true, activeCodeIndex: indexCode });
@@ -161,7 +175,7 @@ class CodesListsCodes extends Component {
       },
       moveRight: () => {
         resetListCodes(moveRight(code.value, allCodes), removeAll, push);
-      },
+      }
     };
 
     return (
@@ -169,18 +183,23 @@ class CodesListsCodes extends Component {
         {showInputCode && editing && activeCodeIndex === indexCode ? (
           this.renderInputCode()
         ) : (
-          <div className={`${LIST_ITEM_CLASS} ${LIST_ITEM_CLASS}-${code.depth}`}>
+          <div
+            className={`${LIST_ITEM_CLASS} ${LIST_ITEM_CLASS}-${code.depth}`}
+          >
             {/* Code data */}
             <div>{code.depth}</div>
             <div>{code.value}</div>
             <div
               dangerouslySetInnerHTML={{
-                __html: markdownVtlToHtml(code.label),
+                __html: markdownVtlToHtml(code.label)
               }}
             />
 
             {/* Code Actions */}
-            <CodesListsActions disabledActions={getDisabledActions(allCodes, code, ACTIONS)} actions={actions} />
+            <CodesListsActions
+              disabledActions={getDisabledActions(allCodes, code, ACTIONS)}
+              actions={actions}
+            />
           </div>
         )}
 
@@ -212,7 +231,11 @@ class CodesListsCodes extends Component {
         <button
           onClick={e => {
             e.preventDefault();
-            this.setState({ showInputCode: true, activeCodeIndex: undefined, editing: false });
+            this.setState({
+              showInputCode: true,
+              activeCodeIndex: undefined,
+              editing: false
+            });
           }}
         >
           <span className="glyphicon glyphicon-plus" />

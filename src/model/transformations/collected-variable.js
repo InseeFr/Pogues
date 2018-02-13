@@ -13,14 +13,16 @@ export function remoteToStore(remote = [], responsesByVariable) {
         id,
         name,
         label,
-        ...responsesByVariable[id],
-      },
+        ...responsesByVariable[id]
+      }
     };
   }, {});
 }
 
 export function remoteToComponentState(remote = []) {
-  return remote.filter(r => r.CollectedVariableReference).map(r => r.CollectedVariableReference);
+  return remote
+    .filter(r => r.CollectedVariableReference)
+    .map(r => r.CollectedVariableReference);
 }
 
 export function storeToRemote(store) {
@@ -32,7 +34,7 @@ export function storeToRemote(store) {
       id,
       Name,
       Label,
-      type: COLLECTED,
+      type: COLLECTED
     });
   });
 

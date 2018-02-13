@@ -22,12 +22,29 @@ function InputMeasure(props) {
         required
       />
 
-      <SelectorView label={Dictionary.typeMeasure} selectorPath={props.selectorPath}>
-        <View key={SIMPLE} value={SIMPLE} label={Dictionary.responseFormatSimple}>
-          <ResponseFormatSimple selectorPathParent={props.selectorPath} showMandatory={false} />
+      <SelectorView
+        label={Dictionary.typeMeasure}
+        selectorPath={props.selectorPath}
+      >
+        <View
+          key={SIMPLE}
+          value={SIMPLE}
+          label={Dictionary.responseFormatSimple}
+        >
+          <ResponseFormatSimple
+            selectorPathParent={props.selectorPath}
+            showMandatory={false}
+          />
         </View>
-        <View key={SINGLE_CHOICE} value={SINGLE_CHOICE} label={Dictionary.responseFormatSingle}>
-          <ResponseFormatSingle selectorPathParent={props.selectorPath} showMandatory={false} />
+        <View
+          key={SINGLE_CHOICE}
+          value={SINGLE_CHOICE}
+          label={Dictionary.responseFormatSingle}
+        >
+          <ResponseFormatSingle
+            selectorPathParent={props.selectorPath}
+            showMandatory={false}
+          />
         </View>
       </SelectorView>
     </div>
@@ -35,7 +52,7 @@ function InputMeasure(props) {
 }
 
 InputMeasure.propTypes = {
-  selectorPath: PropTypes.string.isRequired,
+  selectorPath: PropTypes.string.isRequired
 };
 
 export default InputMeasure;

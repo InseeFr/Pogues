@@ -10,8 +10,8 @@ export function remoteToState(remote = []) {
         id,
         label,
         declarationType,
-        position,
-      },
+        position
+      }
     };
   }, {});
 }
@@ -25,7 +25,7 @@ export function stateToRemote(state) {
       id,
       Text,
       declarationType,
-      position,
+      position
     });
   });
 

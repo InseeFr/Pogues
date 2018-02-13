@@ -6,7 +6,12 @@
  *   Add flow annotations
  */
 
-import { TextNode, ElementNode, FragmentNode, SELF_CLOSING } from 'synthetic-dom';
+import {
+  TextNode,
+  ElementNode,
+  FragmentNode,
+  SELF_CLOSING
+} from 'synthetic-dom';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -36,7 +41,7 @@ const defaults = {
   silent: false,
   langPrefix: 'lang-',
   renderer: new Renderer(),
-  xhtml: false,
+  xhtml: false
 };
 
 /**
@@ -55,24 +60,27 @@ const block = {
   list: /^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
   paragraph: /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|def))+)\n*/,
-  text: /^[^\n]+/,
+  text: /^[^\n]+/
 };
 
 block.bullet = /(?:[*+-]|\d+\.)/;
 block.item = /^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/;
 block.item = replace(block.item, 'gm')(/bull/g, block.bullet)();
 
-block.list = replace(block.list)(/bull/g, block.bullet)('hr', '\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))')(
-  'def',
-  `\\n+(?=${block.def.source})`
-)();
+block.list = replace(block.list)(/bull/g, block.bullet)(
+  'hr',
+  '\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))'
+)('def', `\\n+(?=${block.def.source})`)();
 
 block.blockquote = replace(block.blockquote)('def', block.def)();
 
-block.paragraph = replace(block.paragraph)('hr', block.hr)('heading', block.heading)('lheading', block.lheading)(
-  'blockquote',
-  block.blockquote
-)('def', block.def)();
+block.paragraph = replace(block.paragraph)('hr', block.hr)(
+  'heading',
+  block.heading
+)('lheading', block.lheading)('blockquote', block.blockquote)(
+  'def',
+  block.def
+)();
 
 /**
  * Normal Block Grammar
@@ -87,12 +95,15 @@ block.normal = assign({}, block);
 block.gfm = assign({}, block.normal, {
   fences: /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,
   paragraph: /^/,
-  heading: /^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/,
+  heading: /^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/
 });
 
 block.gfm.paragraph = replace(block.paragraph)(
   '(?!',
-  `(?!${block.gfm.fences.source.replace('\\1', '\\2')}|${block.list.source.replace('\\1', '\\3')}|`
+  `(?!${block.gfm.fences.source.replace(
+    '\\1',
+    '\\2'
+  )}|${block.list.source.replace('\\1', '\\3')}|`
 )();
 
 /**
@@ -162,7 +173,7 @@ Lexer.prototype.token = function(src, top, bq) {
       src = src.substring(cap[0].length);
       if (cap[0].length > 1) {
         this.tokens.push({
-          type: 'space',
+          type: 'space'
         });
       }
     }
@@ -173,7 +184,7 @@ Lexer.prototype.token = function(src, top, bq) {
       cap = cap[0].replace(/^ {4}/gm, '');
       this.tokens.push({
         type: 'code',
-        text: !this.options.pedantic ? cap.replace(/\n+$/, '') : cap,
+        text: !this.options.pedantic ? cap.replace(/\n+$/, '') : cap
       });
       continue;
     }
@@ -184,7 +195,7 @@ Lexer.prototype.token = function(src, top, bq) {
       this.tokens.push({
         type: 'code',
         lang: cap[2],
-        text: cap[3],
+        text: cap[3]
       });
       continue;
     }
@@ -195,7 +206,7 @@ Lexer.prototype.token = function(src, top, bq) {
       this.tokens.push({
         type: 'heading',
         depth: cap[1].length,
-        text: cap[2],
+        text: cap[2]
       });
       continue;
     }
@@ -206,7 +217,7 @@ Lexer.prototype.token = function(src, top, bq) {
       this.tokens.push({
         type: 'heading',
         depth: cap[2] === '=' ? 1 : 2,
-        text: cap[1],
+        text: cap[1]
       });
       continue;
     }
@@ -215,7 +226,7 @@ Lexer.prototype.token = function(src, top, bq) {
     if ((cap = this.rules.hr.exec(src))) {
       src = src.substring(cap[0].length);
       this.tokens.push({
-        type: 'hr',
+        type: 'hr'
       });
       continue;
     }
@@ -225,7 +236,7 @@ Lexer.prototype.token = function(src, top, bq) {
       src = src.substring(cap[0].length);
 
       this.tokens.push({
-        type: 'blockquote_start',
+        type: 'blockquote_start'
       });
 
       cap = cap[0].replace(/^ *> ?/gm, '');
@@ -236,7 +247,7 @@ Lexer.prototype.token = function(src, top, bq) {
       this.token(cap, top, true);
 
       this.tokens.push({
-        type: 'blockquote_end',
+        type: 'blockquote_end'
       });
 
       continue;
@@ -249,7 +260,7 @@ Lexer.prototype.token = function(src, top, bq) {
 
       this.tokens.push({
         type: 'list_start',
-        ordered: bull.length > 1,
+        ordered: bull.length > 1
       });
 
       // Get each top-level item.
@@ -298,19 +309,19 @@ Lexer.prototype.token = function(src, top, bq) {
         }
 
         this.tokens.push({
-          type: loose ? 'loose_item_start' : 'list_item_start',
+          type: loose ? 'loose_item_start' : 'list_item_start'
         });
 
         // Recurse.
         this.token(item, false, bq);
 
         this.tokens.push({
-          type: 'list_item_end',
+          type: 'list_item_end'
         });
       }
 
       this.tokens.push({
-        type: 'list_end',
+        type: 'list_end'
       });
 
       continue;
@@ -321,7 +332,7 @@ Lexer.prototype.token = function(src, top, bq) {
       src = src.substring(cap[0].length);
       this.tokens.links[cap[1].toLowerCase()] = {
         href: cap[2],
-        title: cap[3],
+        title: cap[3]
       };
       continue;
     }
@@ -331,7 +342,10 @@ Lexer.prototype.token = function(src, top, bq) {
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'paragraph',
-        text: cap[1].charAt(cap[1].length - 1) === '\n' ? cap[1].slice(0, -1) : cap[1],
+        text:
+          cap[1].charAt(cap[1].length - 1) === '\n'
+            ? cap[1].slice(0, -1)
+            : cap[1]
       });
       continue;
     }
@@ -342,7 +356,7 @@ Lexer.prototype.token = function(src, top, bq) {
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'text',
-        text: cap[0],
+        text: cap[0]
       });
       continue;
     }
@@ -371,7 +385,7 @@ const inline = {
   br: /^ {2,}\n(?!\s*$)/,
   del: noop,
   ins: noop,
-  text: /^[\s\S]+?(?=[\\<!\[_*`#]| {2,}\n|$)/,
+  text: /^[\s\S]+?(?=[\\<!\[_*`#]| {2,}\n|$)/
 };
 
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
@@ -379,9 +393,15 @@ inline._href = /\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
 
 inline._conditions = /\s*<?([\s\S]*)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
 
-inline.link = replace(inline.link)('inside', inline._inside)('href', inline._href)();
+inline.link = replace(inline.link)('inside', inline._inside)(
+  'href',
+  inline._href
+)();
 
-inline.condition = replace(inline.condition)('inside', inline._inside)('inside', inline._inside)();
+inline.condition = replace(inline.condition)('inside', inline._inside)(
+  'inside',
+  inline._inside
+)();
 
 inline.reflink = replace(inline.reflink)('inside', inline._inside)();
 
@@ -397,7 +417,7 @@ inline.normal = assign({}, inline);
 
 inline.pedantic = assign({}, inline.normal, {
   strong: /^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,
-  em: /^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/,
+  em: /^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/
 });
 
 /**
@@ -408,7 +428,7 @@ inline.gfm = assign({}, inline.normal, {
   escape: replace(inline.escape)('])', '~|])')(),
   del: /^~~(?=\S)([\s\S]*?\S)~~/,
   ins: /^\+\+(?=\S)([\s\S]*?\S)\+\+/,
-  text: replace(inline.text)(']|', '~+]|')(),
+  text: replace(inline.text)(']|', '~+]|')()
 });
 
 /**
@@ -417,7 +437,7 @@ inline.gfm = assign({}, inline.normal, {
 
 inline.breaks = assign({}, inline.gfm, {
   br: replace(inline.br)('{2,}', '*')(),
-  text: replace(inline.gfm.text)('{2,}', '*')(),
+  text: replace(inline.gfm.text)('{2,}', '*')()
 });
 
 /**
@@ -482,7 +502,9 @@ InlineLexer.prototype.parse = function(src) {
     if ((cap = this.rules.condition.exec(src))) {
       src = src.substring(cap[0].length);
       this.inLink = true;
-      out.appendChild(this.outputCondition(cap, { title: cap[1], conditions: cap[2] }));
+      out.appendChild(
+        this.outputCondition(cap, { title: cap[1], conditions: cap[2] })
+      );
       this.inLink = false;
       continue;
     }
@@ -497,7 +519,10 @@ InlineLexer.prototype.parse = function(src) {
     }
 
     // reflink, nolink
-    if ((cap = this.rules.reflink.exec(src)) || (cap = this.rules.nolink.exec(src))) {
+    if (
+      (cap = this.rules.reflink.exec(src)) ||
+      (cap = this.rules.nolink.exec(src))
+    ) {
       src = src.substring(cap[0].length);
       link = (cap[2] || cap[1]).replace(/\s+/g, ' ');
       link = this.links[link.toLowerCase()];
@@ -770,7 +795,10 @@ Parser.prototype.tok = function() {
       return this.renderer.hr();
     }
     case 'heading': {
-      return this.renderer.heading(this.inline.parse(this.token.text), this.token.depth);
+      return this.renderer.heading(
+        this.inline.parse(this.token.text),
+        this.token.depth
+      );
     }
     case 'code': {
       return this.renderer.code(this.token.text, this.token.lang);
@@ -798,7 +826,9 @@ Parser.prototype.tok = function() {
       const body = new FragmentNode();
 
       while (this.next().type !== 'list_item_end') {
-        body.appendChild(this.token.type === 'text' ? this.parseText() : this.tok());
+        body.appendChild(
+          this.token.type === 'text' ? this.parseText() : this.tok()
+        );
       }
 
       return this.renderer.listitem(body);
@@ -848,7 +878,7 @@ const MarkdownParser = {
       if (options.silent) {
         fragment = new FragmentNode([
           new ElementNode('p', [], [new TextNode('An error occured:')]),
-          new ElementNode('pre', [], [new TextNode(e.message)]),
+          new ElementNode('pre', [], [new TextNode(e.message)])
         ]);
       } else {
         throw e;
@@ -858,7 +888,7 @@ const MarkdownParser = {
       return new ElementNode('body', [], [fragment]);
     }
     return fragment.toString(this.options.xhtml);
-  },
+  }
 };
 
 export default MarkdownParser;

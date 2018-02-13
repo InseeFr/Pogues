@@ -10,13 +10,13 @@ const propTypes = {
   InputPopover: PropTypes.func.isRequired,
   showPopover: PropTypes.bool,
   placeholder: PropTypes.string,
-  data: PropTypes.object,
+  data: PropTypes.object
 };
 
 const defaultProps = {
   showPopover: false,
   placeholder: '',
-  data: {},
+  data: {}
 };
 
 // Component
@@ -49,7 +49,14 @@ class PopoverIconButton extends Component {
     if (!showPopover) {
       return null;
     }
-    return <InputPopover onSubmit={this.onSubmit} onCancel={this.hidePopover} placeholder={placeholder} data={data} />;
+    return (
+      <InputPopover
+        onSubmit={this.onSubmit}
+        onCancel={this.hidePopover}
+        placeholder={placeholder}
+        data={data}
+      />
+    );
   }
 
   render() {

@@ -1,29 +1,29 @@
 .ok-cancel-buttons {
   @include make-row();
-    text-align: center;
-    max-width: 40%;
-    margin: auto;
+  text-align: center;
+  max-width: 40%;
+  margin: auto;
 
-    button {
-      @extend .btn;
-      margin-left: 10px;
-      margin-right: 10px;
-      text-transform: uppercase;
-      font-weight: bold;
-      width: 175px;
+  button {
+    @extend .btn;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 175px;
 
-      &[type="submit"] {
-        @extend .btn-yellow;
-      }
-      &.validate {
-        @extend .btn-yellow;
-      }
-
-      &.cancel {
-        background: none;
-        float: left;
-      }
+    &[type='submit'] {
+      @extend .btn-yellow;
     }
+    &.validate {
+      @extend .btn-yellow;
+    }
+
+    &.cancel {
+      background: none;
+      float: left;
+    }
+  }
 }
 
 form {
@@ -31,7 +31,8 @@ form {
     @extend .ok-cancel-buttons;
   }
 
-  .form-error, .form-warm {
+  .form-error,
+  .form-warm {
     display: inline-block;
     margin: 5px 0 0 5px;
     font-size: $font-xxs;
@@ -44,11 +45,10 @@ form {
 }
 
 .error-block {
-    color: red;
-    background-color: #ffe6e6;
-    padding: 10px;
-    list-style-type: circle;
-    margin: 0 40px 15px 0;
-    max-width: 300px;
+  color: red;
+  background-color: #ffe6e6;
+  padding: 10px;
+  list-style-type: circle;
+  margin: 0 40px 15px 0;
+  max-width: 300px;
 }
-

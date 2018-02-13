@@ -23,7 +23,9 @@ export function validate(scheme, values, path) {
     scheme[name].forEach(rule => {
       let errorMessage = rules[rule.name](values[name], values);
       if (errorMessage) {
-        errorMessage = rule.dictionary ? Dictionary[rule.dictionary] : errorMessage;
+        errorMessage = rule.dictionary
+          ? Dictionary[rule.dictionary]
+          : errorMessage;
         errors.push([errorMessage, `${path}${name}`]);
       }
     });
@@ -40,14 +42,15 @@ export function nestedStoreToFlat(store = {}) {
   const joinedItems = Object.keys(store).reduce((acc, key) => {
     return {
       ...acc,
-      ...store[key],
+      ...store[key]
     };
   }, {});
 
   return storeToArray(joinedItems);
 }
 
-export const uuid = () => (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+export const uuid = () =>
+  (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
 export function nameFromLabel(label) {
   return label

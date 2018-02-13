@@ -17,14 +17,14 @@ export const propTypes = {
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   noValuesMessage: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
 };
 
 export const defaultProps = {
   required: false,
   disabled: false,
   children: [],
-  noValuesMessage: undefined,
+  noValuesMessage: undefined
 };
 
 // Component
@@ -34,12 +34,26 @@ class ListRadios extends Component {
   static defaultProps = defaultProps;
 
   render() {
-    const { label, required, disabled, noValuesMessage, children, input, meta: { touched, error } } = this.props;
+    const {
+      label,
+      required,
+      disabled,
+      noValuesMessage,
+      children,
+      input,
+      meta: { touched, error }
+    } = this.props;
     const values = getValuesFromGenericOptions(children);
 
     return (
       <div className={COMPONENT_CLASS}>
-        <label htmlFor={getControlId('radios', input.name, values[0] && values[0].value)}>
+        <label
+          htmlFor={getControlId(
+            'radios',
+            input.name,
+            values[0] && values[0].value
+          )}
+        >
           {label}
           {required && <span className="ctrl-required">*</span>}
         </label>

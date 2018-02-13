@@ -11,8 +11,16 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { markdownVtlToHtml } from 'forms/controls/rich-textarea';
 
-import { PropType, componentSource, cardTarget, collect } from 'utils/component/component-dragndrop';
-import { getDragnDropLevel, calculateMargin } from 'utils/component/component-dragndrop-utils';
+import {
+  PropType,
+  componentSource,
+  cardTarget,
+  collect
+} from 'utils/component/component-dragndrop';
+import {
+  getDragnDropLevel,
+  calculateMargin
+} from 'utils/component/component-dragndrop-utils';
 import Dictionary from 'utils/dictionary/dictionary';
 import { getIntegrityErrors } from 'utils/integrity/utils';
 
@@ -45,15 +53,15 @@ const propTypes = {
   parentType: PropTypes.string.isRequired,
 
   actions: PropTypes.shape({
-    handleOpenComponentDetail: PropTypes.func.isRequired,
-  }).isRequired,
+    handleOpenComponentDetail: PropTypes.func.isRequired
+  }).isRequired
 };
 
 const defaultProps = {
   children: [],
   draggedItem: {},
   integrityErrorsByType: {},
-  canDrop: true,
+  canDrop: true
 };
 
 // Component
@@ -62,7 +70,7 @@ const defaultProps = {
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver({ shallow: true }),
   draggedItem: monitor.getItem(),
-  canDrop: monitor.canDrop(),
+  canDrop: monitor.canDrop()
 }))
 @DragSource(PropType, componentSource, collect)
 class QuestionnaireComponent extends Component {
@@ -122,11 +130,16 @@ class QuestionnaireComponent extends Component {
       children,
       parentType,
       visualizeActiveQuestionnaire,
-      handleRemovePageBreak,
+      handleRemovePageBreak
     } = this.props;
     const dragndropLevel = getDragnDropLevel(this.props, draggedItem);
     const style = {
-      marginLeft: `${calculateMargin(this.props, draggedItem, dragndropLevel, parentType)}px`,
+      marginLeft: `${calculateMargin(
+        this.props,
+        draggedItem,
+        dragndropLevel,
+        parentType
+      )}px`
     };
     const dropZone = canDrop && isOver && <DropZone style={style} />;
     const integrityErrors = getIntegrityErrors(integrityErrorsByType);
@@ -144,7 +157,7 @@ class QuestionnaireComponent extends Component {
               selected: selected,
               'questionnaire-sequence': component.type === SEQUENCE,
               'questionnaire-subsequence': component.type === SUBSEQUENCE,
-              'questionnaire-question': component.type === QUESTION,
+              'questionnaire-question': component.type === QUESTION
             })}
             ref={node => {
               this.node = node;
@@ -156,7 +169,7 @@ class QuestionnaireComponent extends Component {
               onClick={this.handleSelectComponent}
               className={ClassSet({
                 'questionnaire-element-info': true,
-                over: isOver,
+                over: isOver
               })}
             >
               <div className="questionnaire-element-name">{component.name}</div>
@@ -166,7 +179,7 @@ class QuestionnaireComponent extends Component {
                     {component.type === QUESTION ? (
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: markdownVtlToHtml(component.label),
+                          __html: markdownVtlToHtml(component.label)
                         }}
                       />
                     ) : (
@@ -175,22 +188,33 @@ class QuestionnaireComponent extends Component {
                   </div>
                   {selected ? (
                     <div className="questionnaire-element-actions">
-                      <button className="btn-yellow" onClick={this.handleEditComponent}>
+                      <button
+                        className="btn-yellow"
+                        onClick={this.handleEditComponent}
+                      >
                         {Dictionary.showDetail}
                       </button>
                       {component.type === 'QUESTION' && (
-                        <button className="btn-yellow" onClick={this.handleDuplicateComponent}>
+                        <button
+                          className="btn-yellow"
+                          onClick={this.handleDuplicateComponent}
+                        >
                           {Dictionary.duplicate}
                           <span className="glyphicon glyphicon-duplicate" />
                         </button>
                       )}
                       <VisualizeDropdown
                         componentId={component.id}
-                        visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
+                        visualizeActiveQuestionnaire={
+                          visualizeActiveQuestionnaire
+                        }
                       />
                       <button
                         className="btn-yellow"
-                        disabled={component.weight === 0 && component.type === 'SEQUENCE'}
+                        disabled={
+                          component.weight === 0 &&
+                          component.type === 'SEQUENCE'
+                        }
                         onClick={this.handleDeleteComponent}
                       >
                         {Dictionary.remove}
@@ -203,7 +227,11 @@ class QuestionnaireComponent extends Component {
                 </div>
                 {integrityErrors.length > 0 && (
                   <div className="questionnaire-element-errors">
-                    <ul>{integrityErrors.map((e, index) => <li key={index}>{e}</li>)}</ul>
+                    <ul>
+                      {integrityErrors.map((e, index) => (
+                        <li key={index}>{e}</li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>

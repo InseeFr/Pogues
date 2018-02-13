@@ -1,7 +1,12 @@
 jest.dontMock('./control.js');
 
 import ControlTransformerFactory from './control';
-import { controlsFormNew, controlsFormUpdate, controlsState, controlsModel } from './__mocks__/control';
+import {
+  controlsFormNew,
+  controlsFormUpdate,
+  controlsState,
+  controlsModel
+} from './__mocks__/control';
 
 describe.skip('Transformation entities - Control', () => {
   test('Should produce expected STATE in controls creation from FORM', () => {
@@ -23,18 +28,22 @@ describe.skip('Transformation entities - Control', () => {
 
   test('Should produce expected STATE from questionnaire MODEL', () => {
     const controlTransformer = ControlTransformerFactory();
-    expect(controlTransformer.modelToState(controlsModel)).toEqual(controlsState);
+    expect(controlTransformer.modelToState(controlsModel)).toEqual(
+      controlsState
+    );
   });
 
   test('Should produce expected FORM from questionnaire STATE', () => {
     const controlTransformer = ControlTransformerFactory({
-      initialState: controlsState,
+      initialState: controlsState
     });
     expect(controlTransformer.stateToForm()).toEqual(controlsFormUpdate);
   });
 
   test('Should produce expected MODEL from questionnaire STATE', () => {
-    const controlTransformer = ControlTransformerFactory({ initialState: controlsState });
+    const controlTransformer = ControlTransformerFactory({
+      initialState: controlsState
+    });
     expect(controlTransformer.stateToModel()).toEqual(controlsModel);
   });
 });

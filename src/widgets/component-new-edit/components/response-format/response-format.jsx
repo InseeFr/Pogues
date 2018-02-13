@@ -16,38 +16,63 @@ class ResponseFormat extends FormSection {
   static selectorPath = 'responseFormat';
   static propTypes = {
     edit: PropTypes.bool.isRequired,
-    addErrors: PropTypes.func.isRequired,
+    addErrors: PropTypes.func.isRequired
   };
   static defaultProps = {
-    name: 'responseFormat',
+    name: 'responseFormat'
   };
   render() {
     let customProps = {
       label: Dictionary.responseFormats,
-      selectorPath: ResponseFormat.selectorPath,
+      selectorPath: ResponseFormat.selectorPath
     };
 
     if (!this.props.edit) {
       customProps = {
         ...customProps,
-        emptyOption: Dictionary.selectType,
+        emptyOption: Dictionary.selectType
       };
     }
 
     return (
       <div className="response-format">
         <SelectorView {...customProps}>
-          <View key={SIMPLE} value={SIMPLE} label={Dictionary.responseFormatSimple}>
-            <ResponseFormatSimple selectorPathParent={ResponseFormat.selectorPath} />
+          <View
+            key={SIMPLE}
+            value={SIMPLE}
+            label={Dictionary.responseFormatSimple}
+          >
+            <ResponseFormatSimple
+              selectorPathParent={ResponseFormat.selectorPath}
+            />
           </View>
-          <View key={SINGLE_CHOICE} value={SINGLE_CHOICE} label={Dictionary.responseFormatSingle}>
-            <ResponseFormatSingle selectorPathParent={ResponseFormat.selectorPath} />
+          <View
+            key={SINGLE_CHOICE}
+            value={SINGLE_CHOICE}
+            label={Dictionary.responseFormatSingle}
+          >
+            <ResponseFormatSingle
+              selectorPathParent={ResponseFormat.selectorPath}
+            />
           </View>
-          <View key={MULTIPLE_CHOICE} value={MULTIPLE_CHOICE} label={Dictionary.responseFormatMultiple}>
-            <ResponseFormatMultiple selectorPathParent={ResponseFormat.selectorPath} />
+          <View
+            key={MULTIPLE_CHOICE}
+            value={MULTIPLE_CHOICE}
+            label={Dictionary.responseFormatMultiple}
+          >
+            <ResponseFormatMultiple
+              selectorPathParent={ResponseFormat.selectorPath}
+            />
           </View>
-          <View key={TABLE} value={TABLE} label={Dictionary.responseFormatTable}>
-            <ResponseFormatTable selectorPathParent={ResponseFormat.selectorPath} addErrors={this.props.addErrors} />
+          <View
+            key={TABLE}
+            value={TABLE}
+            label={Dictionary.responseFormatTable}
+          >
+            <ResponseFormatTable
+              selectorPathParent={ResponseFormat.selectorPath}
+              addErrors={this.props.addErrors}
+            />
           </View>
         </SelectorView>
       </div>

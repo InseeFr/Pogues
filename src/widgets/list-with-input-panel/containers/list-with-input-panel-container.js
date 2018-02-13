@@ -2,7 +2,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actions, formValueSelector, getFormValues } from 'redux-form';
 
-import { clearSubformValidationErrors, removeIntegrityError } from 'actions/errors';
+import {
+  clearSubformValidationErrors,
+  removeIntegrityError
+} from 'actions/errors';
 import ListWithInputPanel from '../components/list-with-input-panel';
 
 // Proptypes and defaultProps
@@ -12,7 +15,8 @@ const propTypes = {
   selectorPath: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element])
+    .isRequired,
 
   errors: PropTypes.array,
 
@@ -22,14 +26,14 @@ const propTypes = {
 
   validateForm: PropTypes.func.isRequired,
 
-  resetObject: PropTypes.object.isRequired,
+  resetObject: PropTypes.object.isRequired
 };
 
 const defaultProps = {
   errors: [],
   canAddNew: true,
   canRemove: true,
-  canDuplicate: true,
+  canDuplicate: true
 };
 
 // Container
@@ -40,7 +44,7 @@ const mapStateToProps = (state, { formName, selectorPath }) => {
   return {
     componentId: state.appState.editingComponentId,
     formValues: getFormValues(formName)(state),
-    currentValues: selector(state, selectorPath),
+    currentValues: selector(state, selectorPath)
   };
 };
 
@@ -50,10 +54,13 @@ const mapDispatchToProps = {
   arrayPush: actions.arrayPush,
   arrayInsert: actions.arrayInsert,
   clearSubformValidationErrors,
-  removeIntegrityError,
+  removeIntegrityError
 };
 
-const ListWithInputPanelContainer = connect(mapStateToProps, mapDispatchToProps)(ListWithInputPanel);
+const ListWithInputPanelContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListWithInputPanel);
 
 ListWithInputPanelContainer.propTypes = propTypes;
 ListWithInputPanelContainer.defaultProps = defaultProps;

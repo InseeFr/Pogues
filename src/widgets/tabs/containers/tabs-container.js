@@ -40,7 +40,7 @@ function getNumErrorsByTab(integrity = {}, validationErrors = {}) {
   let numErrorsByTab = Object.keys(TABS_PATHS).reduce((acc, key) => {
     return {
       ...acc,
-      [TABS_PATHS[key]]: 0,
+      [TABS_PATHS[key]]: 0
     };
   }, {});
 
@@ -54,11 +54,11 @@ function getNumErrorsByTab(integrity = {}, validationErrors = {}) {
 
 const propTypes = {
   children: PropTypes.array.isRequired,
-  componentId: PropTypes.string,
+  componentId: PropTypes.string
 };
 
 const defaultProps = {
-  componentId: '',
+  componentId: ''
 };
 
 // Container
@@ -68,7 +68,7 @@ const mapStateToProps = (state, { componentId }) => {
   const validationErrors = state.errors.errorsValidation;
 
   return {
-    errorsByTab: getNumErrorsByTab(integrityErrors, validationErrors),
+    errorsByTab: getNumErrorsByTab(integrityErrors, validationErrors)
   };
 };
 

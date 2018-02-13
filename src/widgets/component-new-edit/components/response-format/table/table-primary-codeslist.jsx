@@ -10,17 +10,19 @@ const { CODES_LIST } = DIMENSION_FORMATS;
 class ResponseFormatTablePrincipalCodeslist extends Component {
   static selectorPath = CODES_LIST;
   static propTypes = {
-    selectorPathParent: PropTypes.string,
+    selectorPathParent: PropTypes.string
   };
   static defaultProps = {
-    selectorPathParent: undefined,
+    selectorPathParent: undefined
   };
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
 
     this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${ResponseFormatTablePrincipalCodeslist.selectorPath}`
+      ? `${selectorPathParent}.${
+          ResponseFormatTablePrincipalCodeslist.selectorPath
+        }`
       : ResponseFormatTablePrincipalCodeslist.selectorPath;
   }
   render() {

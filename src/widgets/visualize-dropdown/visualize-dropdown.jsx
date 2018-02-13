@@ -10,13 +10,13 @@ const propTypes = {
   visualizeActiveQuestionnaire: PropTypes.func,
   disabled: PropTypes.bool.isRequired,
   top: PropTypes.bool.isRequired,
-  componentId: PropTypes.string,
+  componentId: PropTypes.string
 };
 const defaultProps = {
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,
-  componentId: '',
+  componentId: ''
 };
 
 /**
@@ -32,7 +32,7 @@ class VisualizeDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dropdownOpen: false,
+      dropdownOpen: false
     };
 
     this.setWrapperRef = this.setWrapperRef.bind(this);
@@ -73,7 +73,7 @@ class VisualizeDropdown extends Component {
   handleClickOutside(event) {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({
-        dropdownOpen: false,
+        dropdownOpen: false
       });
     }
   }
@@ -81,17 +81,17 @@ class VisualizeDropdown extends Component {
   render() {
     const classDropDown = classSet({
       'btn-group': true,
-      open: this.state.dropdownOpen,
+      open: this.state.dropdownOpen
     });
     const classDropDownTrigger = classSet({
       btn: true,
       'dropdown-toggle': true,
       'btn-yellow': true,
-      disabled: this.props.disabled,
+      disabled: this.props.disabled
     });
     const classDropDownList = classSet({
       top: this.props.top,
-      'dropdown-menu': true,
+      'dropdown-menu': true
     });
     return (
       <div className={classDropDown} ref={this.setWrapperRef}>

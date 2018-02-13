@@ -9,7 +9,7 @@ body {
 
 .container {
   max-width: none !important;
-  width:1280px;
+  width: 1280px;
 }
 
 // Common styles
@@ -26,7 +26,7 @@ a {
   padding: 10px;
   margin: 10px 0;
   & > h3 {
-    color: $color-blue_01
+    color: $color-blue_01;
   }
 }
 
@@ -66,11 +66,13 @@ a {
   border-radius: 0;
   position: relative;
 
-  &:visited, &:focus {
+  &:visited,
+  &:focus {
     color: white;
   }
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     background-color: $color-yellow_01;
     color: $color-grey_01;
   }
@@ -83,7 +85,7 @@ a {
   .glyphicon {
     position: absolute;
     right: 5%;
-    top:  45%;
+    top: 45%;
   }
 }
 
@@ -177,19 +179,20 @@ a {
 .alert-triangle,
 .alert-triangle:before,
 .alert-triangle:after {
-  width:  1.2em;
+  width: 1.2em;
   height: 1.2em;
   border-top-right-radius: 30%;
 }
 
 .alert-triangle {
-  transform: rotate(-60deg) skewX(-30deg) scale(1,.866);
+  transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
 }
 .alert-triangle:before {
-  transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+  transform: rotate(-135deg) skewX(-45deg) scale(1.414, 0.707)
+    translate(0, -50%);
 }
 .alert-triangle:after {
-  transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+  transform: rotate(135deg) skewY(-45deg) scale(0.707, 1.414) translate(50%);
 }
 
 .alert-icon {
@@ -214,7 +217,7 @@ a {
     .alert-triangle,
     .alert-triangle:before,
     .alert-triangle:after {
-      width:  0.9em;
+      width: 0.9em;
       height: 0.9em;
     }
   }
@@ -224,7 +227,7 @@ a {
     .alert-triangle,
     .alert-triangle:before,
     .alert-triangle:after {
-      width:  1.4em;
+      width: 1.4em;
       height: 1.4em;
     }
   }

@@ -3,7 +3,7 @@ import {
   isSequence,
   isQuestion,
   toComponents,
-  updateNewComponentParent,
+  updateNewComponentParent
 } from 'utils/component/component-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
@@ -11,7 +11,7 @@ import {
   moveQuestionToSubSequence,
   moveQuestionAndSubSequenceToSequence,
   duplicate,
-  duplicateComponentAndVars,
+  duplicateComponentAndVars
 } from './component-insert';
 import { moveComponent } from './component-move';
 
@@ -43,7 +43,7 @@ export const createComponent = (
   codesListsStore
 ) => dispatch => {
   const activeComponentsStore = {
-    [componentState.id]: componentState,
+    [componentState.id]: componentState
   };
 
   return new Promise(resolve => {
@@ -55,16 +55,18 @@ export const createComponent = (
           activeComponentsById: activeComponentsStore,
           activeCalculatedVariablesById: calculatedVariablesStore,
           activeExternalVariablesById: externalVariablesStore,
-          activeCollectedVariablesById: { [componentState.id]: collectedVariablesStore },
-          activeCodeListsById: codesListsStore,
-        },
-      },
+          activeCollectedVariablesById: {
+            [componentState.id]: collectedVariablesStore
+          },
+          activeCodeListsById: codesListsStore
+        }
+      }
     });
     resolve({
       payload: {
         id: componentState.id,
-        lastCreatedComponent: result.payload.update.activeComponentsById,
-      },
+        lastCreatedComponent: result.payload.update.activeComponentsById
+      }
     });
   });
 };
@@ -76,7 +78,9 @@ export const createComponent = (
  *
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
-export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) => (dispatch, getState) => {
+export const updateParentChildren = ({
+  payload: { id, lastCreatedComponent }
+}) => (dispatch, getState) => {
   const state = getState();
   return dispatch({
     type: UPDATE_COMPONENT_PARENT,
@@ -88,9 +92,9 @@ export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) 
           state.appState.activeComponentsById,
           lastCreatedComponent[id].parent,
           id
-        ),
-      },
-    },
+        )
+      }
+    }
   });
 };
 
@@ -101,7 +105,10 @@ export const updateParentChildren = ({ payload: { id, lastCreatedComponent } }) 
  *
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
-export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (dispatch, getState) => {
+export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
+  dispatch,
+  getState
+) => {
   const state = getState();
   const selectedComponentId = state.appState.selectedComponentId;
   const activesComponents = state.appState.activeComponentsById;
@@ -128,14 +135,19 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
      */
     if (
       isSubSequence(lastCreatedComponent[id]) &&
-      ((isQuestion(selectedComponent) && isQuestion(siblingSelectedComponent)) ||
-        (isSubSequence(selectedComponent) && childrenSelectedComponentLength > 0))
+      ((isQuestion(selectedComponent) &&
+        isQuestion(siblingSelectedComponent)) ||
+        (isSubSequence(selectedComponent) &&
+          childrenSelectedComponentLength > 0))
     ) {
       // If the selected component have children, we will use the first child as the component used for the insert
       const comp =
         childrenSelectedComponentLength === 0
           ? selectedComponent
-          : toComponents(activesComponents[selectedComponent.id].children, activesComponents).find(c => c.weight === 0);
+          : toComponents(
+              activesComponents[selectedComponent.id].children,
+              activesComponents
+            ).find(c => c.weight === 0);
 
       activeComponentsById = moveQuestionToSubSequence(
         activesComponents,
@@ -157,7 +169,10 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
       const comp =
         childrenSelectedComponentLength === 0
           ? selectedComponent
-          : toComponents(activesComponents[selectedComponent.id].children, activesComponents).find(c => c.weight === 0);
+          : toComponents(
+              activesComponents[selectedComponent.id].children,
+              activesComponents
+            ).find(c => c.weight === 0);
       activeComponentsById = moveQuestionAndSubSequenceToSequence(
         activesComponents,
         comp,
@@ -165,7 +180,10 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
         comp.id !== selectedComponent.id
       );
     } else {
-      activeComponentsById = increaseWeightOfAll(activesComponents, lastCreatedComponent[id]);
+      activeComponentsById = increaseWeightOfAll(
+        activesComponents,
+        lastCreatedComponent[id]
+      );
     }
   }
 
@@ -174,9 +192,9 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (d
     payload: {
       id,
       update: {
-        activeComponentsById,
-      },
-    },
+        activeComponentsById
+      }
+    }
   });
 };
 /**
@@ -204,10 +222,12 @@ export const updateComponent = (
         activeComponentsById: componentsStore,
         activeCalculatedVariablesById: calculatedVariablesStore,
         activeExternalVariablesById: externalVariablesStore,
-        activeCollectedVariablesById: { [componentId]: collectedVariablesStore },
-        activeCodeListsById: codesListsStore,
-      },
-    },
+        activeCollectedVariablesById: {
+          [componentId]: collectedVariablesStore
+        },
+        activeCodeListsById: codesListsStore
+      }
+    }
   };
 };
 /**
@@ -217,7 +237,11 @@ export const updateComponent = (
  * @param {string} idTargetComponent id of the dropped component
  * @param {number} newWeight the new weight of the dragged component
  */
-export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) => (dispatch, getState) => {
+export const dragComponent = (
+  idMovedComponent,
+  idTargetComponent,
+  newWeight
+) => (dispatch, getState) => {
   const state = getState();
   const activesComponents = state.appState.activeComponentsById;
   return dispatch({
@@ -226,9 +250,14 @@ export const dragComponent = (idMovedComponent, idTargetComponent, newWeight) =>
       idMovedComponent,
       idTargetComponent,
       update: {
-        activeComponentsById: moveComponent(activesComponents, idMovedComponent, idTargetComponent, newWeight),
-      },
-    },
+        activeComponentsById: moveComponent(
+          activesComponents,
+          idMovedComponent,
+          idTargetComponent,
+          newWeight
+        )
+      }
+    }
   });
 };
 
@@ -243,7 +272,7 @@ export const removeComponent = idDeletedComponent => (dispatch, getState) => {
 
   dispatch({
     type: REMOVE_COMPONENT,
-    payload: remove(activeComponentsById, idDeletedComponent),
+    payload: remove(activeComponentsById, idDeletedComponent)
   });
 };
 
@@ -259,9 +288,9 @@ export const duplicateComponent = idComponent => (dispatch, getState) => {
     type: DUPLICATE_COMPONENT,
     payload: {
       update: {
-        activeComponentsById: duplicate(activeComponentsById, idComponent),
-      },
-    },
+        activeComponentsById: duplicate(activeComponentsById, idComponent)
+      }
+    }
   });
 };
 
@@ -270,13 +299,21 @@ export const duplicateComponent = idComponent => (dispatch, getState) => {
  *
  * @param {string} idComponent the id of the component we want to remove
  */
-export const duplicateComponentAndVariables = idComponent => (dispatch, getState) => {
+export const duplicateComponentAndVariables = idComponent => (
+  dispatch,
+  getState
+) => {
   const state = getState();
   const activeComponentsById = state.appState.activeComponentsById;
-  const collectedVariables = state.appState.collectedVariableByQuestion[idComponent];
-  const update = duplicateComponentAndVars(activeComponentsById, collectedVariables, idComponent);
+  const collectedVariables =
+    state.appState.collectedVariableByQuestion[idComponent];
+  const update = duplicateComponentAndVars(
+    activeComponentsById,
+    collectedVariables,
+    idComponent
+  );
   dispatch({
     type: DUPLICATE_COMPONENT,
-    payload: { update },
+    payload: { update }
   });
 };

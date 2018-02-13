@@ -14,7 +14,11 @@ import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
 
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import { COMPONENT_TYPE, TABS_PATHS,TargetMode } from 'constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  TABS_PATHS,
+  TargetMode
+} from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
@@ -33,14 +37,14 @@ export const propTypes = {
   componentsStore: PropTypes.object,
 
   addSubformValidationErrors: PropTypes.func.isRequired,
-  clearSubformValidationErrors: PropTypes.func.isRequired,
+  clearSubformValidationErrors: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
   submitErrors: {},
   componentsStore: {},
-  codesListsStoreStore: {},
+  codesListsStoreStore: {}
 };
 
 // Componet
@@ -59,21 +63,36 @@ class ComponentNewEdit extends Component {
       componentId,
       addSubformValidationErrors,
       componentsStore,
-      errorsIntegrityByTab,
+      errorsIntegrityByTab
     } = this.props;
 
     let panels = [
-      <Tab label={Dictionary.declaration_tabTitle} path={TABS_PATHS.DECLARATIONS} key={TABS_PATHS.DECLARATIONS}>
+      <Tab
+        label={Dictionary.declaration_tabTitle}
+        path={TABS_PATHS.DECLARATIONS}
+        key={TABS_PATHS.DECLARATIONS}
+      >
         <Declaration
           showPosition={componentType === QUESTION}
           errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
           addErrors={addSubformValidationErrors}
         />
       </Tab>,
-      <Tab label={Dictionary.controls} path={TABS_PATHS.CONTROLS} key={TABS_PATHS.CONTROLS}>
-        <Controls errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]} addErrors={addSubformValidationErrors} />
+      <Tab
+        label={Dictionary.controls}
+        path={TABS_PATHS.CONTROLS}
+        key={TABS_PATHS.CONTROLS}
+      >
+        <Controls
+          errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
+          addErrors={addSubformValidationErrors}
+        />
       </Tab>,
-      <Tab label={Dictionary.goTo} path={TABS_PATHS.REDIRECTIONS} key={TABS_PATHS.REDIRECTIONS}>
+      <Tab
+        label={Dictionary.goTo}
+        path={TABS_PATHS.REDIRECTIONS}
+        key={TABS_PATHS.REDIRECTIONS}
+      >
         <Redirections
           errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
           addErrors={addSubformValidationErrors}
@@ -81,13 +100,20 @@ class ComponentNewEdit extends Component {
           componentsStore={componentsStore}
           editingComponentId={componentId}
         />
-      </Tab>,
+      </Tab>
     ];
 
     if (componentType === QUESTION) {
       panels = [
-        <Tab label={Dictionary.responsesEdition} path={TABS_PATHS.RESPONSE_FORMAT} key={TABS_PATHS.RESPONSE_FORMAT}>
-          <ResponseFormat edit={componentId !== ''} addErrors={addSubformValidationErrors} />
+        <Tab
+          label={Dictionary.responsesEdition}
+          path={TABS_PATHS.RESPONSE_FORMAT}
+          key={TABS_PATHS.RESPONSE_FORMAT}
+        >
+          <ResponseFormat
+            edit={componentId !== ''}
+            addErrors={addSubformValidationErrors}
+          />
         </Tab>,
         ...panels,
         <Tab
@@ -119,7 +145,7 @@ class ComponentNewEdit extends Component {
             errors={errorsIntegrityByTab[TABS_PATHS.COLLECTED_VARIABLES]}
             addErrors={addSubformValidationErrors}
           />
-        </Tab>,
+        </Tab>
       ];
     }
 
@@ -127,7 +153,14 @@ class ComponentNewEdit extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting, form, onCancel, componentType, componentId } = this.props;
+    const {
+      handleSubmit,
+      submitting,
+      form,
+      onCancel,
+      componentType,
+      componentId
+    } = this.props;
 
     const associatedFieldsProps = {
       formName: form,
@@ -137,7 +170,7 @@ class ComponentNewEdit extends Component {
       focusOnInit: true,
       onEnter: () => {
         this.validateButton.click();
-      },
+      }
     };
 
     return (
@@ -148,7 +181,12 @@ class ComponentNewEdit extends Component {
           ) : (
             <AssociatedFields {...associatedFieldsProps} />
           )}
-           <Field name="TargetMode" component={ListCheckboxes} label={Dictionary.collectionMode} inline>
+          <Field
+            name="TargetMode"
+            component={ListCheckboxes}
+            label={Dictionary.collectionMode}
+            inline
+          >
             {TargetMode.map(s => (
               <GenericOption key={s.value} value={s.value}>
                 {s.label}

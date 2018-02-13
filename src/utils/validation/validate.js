@@ -12,7 +12,7 @@ import {
   externalVariableRules,
   calculatedVariableRules,
   collectedVariableRules,
-  tableListMeasuresRules,
+  tableListMeasuresRules
 } from './validation-rules';
 import { Component } from 'widgets/component-new-edit';
 

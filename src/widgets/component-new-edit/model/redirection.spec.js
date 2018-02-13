@@ -5,7 +5,7 @@ import {
   redirectionsFormNew,
   redirectionsFormUpdate,
   redirectionsState,
-  redirectionsModel,
+  redirectionsModel
 } from './__mocks__/redirection';
 
 describe.skip('Transformation entities - Redirection', () => {
@@ -28,18 +28,24 @@ describe.skip('Transformation entities - Redirection', () => {
 
   test('Should produce expected STATE from questionnaire MODEL', () => {
     const redirectionTransformer = RedirectionTransformerFactory();
-    expect(redirectionTransformer.modelToState(redirectionsModel)).toEqual(redirectionsState);
+    expect(redirectionTransformer.modelToState(redirectionsModel)).toEqual(
+      redirectionsState
+    );
   });
 
   test('Should produce expected FORM from questionnaire STATE', () => {
     const redirectionTransformer = RedirectionTransformerFactory({
-      initialState: redirectionsState,
+      initialState: redirectionsState
     });
-    expect(redirectionTransformer.stateToForm()).toEqual(redirectionsFormUpdate);
+    expect(redirectionTransformer.stateToForm()).toEqual(
+      redirectionsFormUpdate
+    );
   });
 
   test('Should produce expected MODEL from questionnaire STATE', () => {
-    const redirectionTransformer = RedirectionTransformerFactory({ initialState: redirectionsState });
+    const redirectionTransformer = RedirectionTransformerFactory({
+      initialState: redirectionsState
+    });
     expect(redirectionTransformer.stateToModel()).toEqual(redirectionsModel);
   });
 });

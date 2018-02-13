@@ -20,11 +20,11 @@
 
       div {
         @include make-xs-column(5);
-          text-align: right;
-          float: right;
-          button {
-            margin: 5px  5px 0 0;
-          }
+        text-align: right;
+        float: right;
+        button {
+          margin: 5px 5px 0 0;
+        }
       }
     }
 
@@ -36,19 +36,19 @@
       }
 
       .questionnaire-element-drop-zone {
-          border: 4px dashed #616366;
-          color: #616366;
-          font-weight: normal;
-          margin: 10px 0 10px 5px;
-          cursor: pointer;
-          display: -ms-flexbox;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-flex-direction: column;
-          -ms-flex-direction: column;
-          flex-direction: row;
-          padding: 10px 15px 10px 15px;
-        }
+        border: 4px dashed #616366;
+        color: #616366;
+        font-weight: normal;
+        margin: 10px 0 10px 5px;
+        cursor: pointer;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: row;
+        padding: 10px 15px 10px 15px;
+      }
 
       .questionnaire-element .questionnaire-element-info {
         @include make-row();
@@ -117,7 +117,7 @@
           @include make-xs-column(8);
           text-align: right;
           button {
-            margin: 5px  5px 0 0;
+            margin: 5px 5px 0 0;
           }
         }
       }
@@ -150,7 +150,8 @@
         }
       }
 
-      .questionnaire-element.questionnaire-question.selected > .questionnaire-element-info {
+      .questionnaire-element.questionnaire-question.selected
+        > .questionnaire-element-info {
         border-color: $color-grey_01;
 
         .questionnaire-element-name {

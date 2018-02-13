@@ -15,10 +15,15 @@ import Dictionary from 'utils/dictionary/dictionary';
 
 // Utils
 
-const validateForm = (addErrors, validate, componentsStore, editingComponentId) => values => {
+const validateForm = (
+  addErrors,
+  validate,
+  componentsStore,
+  editingComponentId
+) => values => {
   return validate(values, addErrors, {
     componentsStore,
-    editingComponentId,
+    editingComponentId
   });
 };
 
@@ -31,13 +36,13 @@ const propTypes = {
   editingComponentId: PropTypes.string.isRequired,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
-  componentsStore: PropTypes.object.isRequired,
+  componentsStore: PropTypes.object.isRequired
 };
 
 const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPath: TABS_PATHS.REDIRECTIONS,
-  errors: [],
+  errors: []
 };
 
 // Component
@@ -49,7 +54,7 @@ function Redirections({
   errors,
   addErrors,
   componentsStore,
-  editingComponentId,
+  editingComponentId
 }) {
   return (
     <FormSection name={selectorPath}>
@@ -59,9 +64,20 @@ function Redirections({
         name="redirections"
         errors={errors}
         resetObject={defaultState}
-        validateForm={validateForm(addErrors, validateRedirectionForm, componentsStore, editingComponentId)}
+        validateForm={validateForm(
+          addErrors,
+          validateRedirectionForm,
+          componentsStore,
+          editingComponentId
+        )}
       >
-        <Field type="text" name="label" component={Textarea} label={Dictionary.goTo_description} required />
+        <Field
+          type="text"
+          name="label"
+          component={Textarea}
+          label={Dictionary.goTo_description}
+          required
+        />
         <Field
           type="text"
           name="condition"
@@ -69,7 +85,11 @@ function Redirections({
           label={Dictionary.expression}
           required
         />
-        <GotoInput formName={formName} selectorPath={selectorPath} componentType={componentType} />
+        <GotoInput
+          formName={formName}
+          selectorPath={selectorPath}
+          componentType={componentType}
+        />
       </ListWithInputPanel>
     </FormSection>
   );

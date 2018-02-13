@@ -1,11 +1,17 @@
 export function clearSuggestions() {
   return {
     suggestions: [],
-    indexActiveSuggestion: undefined,
+    indexActiveSuggestion: undefined
   };
 }
 
-export function setSuggestions(withText, options, getOptionLabel, numSuggestionsShown, caseSensitive) {
+export function setSuggestions(
+  withText,
+  options,
+  getOptionLabel,
+  numSuggestionsShown,
+  caseSensitive
+) {
   let filteredSuggestions = [];
 
   if (withText !== '') {
@@ -19,7 +25,7 @@ export function setSuggestions(withText, options, getOptionLabel, numSuggestions
   return {
     suggestions: filteredSuggestions,
     indexActiveSuggestion: 0,
-    inputSearch: withText,
+    inputSearch: withText
   };
 }
 
@@ -32,8 +38,9 @@ export function init(options, value) {
     options: options,
     indexActiveSuggestion: undefined,
     inputSearch: selectedOption.label || '',
-    indexSelectedOption: indexSelectedOption !== -1 ? indexSelectedOption : undefined,
-    showSuggestions: true,
+    indexSelectedOption:
+      indexSelectedOption !== -1 ? indexSelectedOption : undefined,
+    showSuggestions: true
   };
 }
 
@@ -42,7 +49,9 @@ export function moveDown(suggestions, indexActiveSuggestion) {
 
   if (indexActiveSuggestion !== undefined) {
     const newIndexActiveSuggestion =
-      indexActiveSuggestion === suggestions.length - 1 ? suggestions.length - 1 : indexActiveSuggestion + 1;
+      indexActiveSuggestion === suggestions.length - 1
+        ? suggestions.length - 1
+        : indexActiveSuggestion + 1;
 
     state = { indexActiveSuggestion: newIndexActiveSuggestion };
   }
@@ -54,7 +63,8 @@ export function moveUp(indexActiveSuggestion) {
   let state = {};
 
   if (indexActiveSuggestion !== undefined) {
-    const newIndexActiveSuggestion = indexActiveSuggestion > 0 ? indexActiveSuggestion - 1 : 0;
+    const newIndexActiveSuggestion =
+      indexActiveSuggestion > 0 ? indexActiveSuggestion - 1 : 0;
 
     state = { indexActiveSuggestion: newIndexActiveSuggestion };
   }
@@ -62,8 +72,13 @@ export function moveUp(indexActiveSuggestion) {
   return state;
 }
 
-export function updateSelectedOption(suggestions, onChange, indexActiveSuggestion) {
-  const activeSuggestion = indexActiveSuggestion !== undefined && suggestions[indexActiveSuggestion];
+export function updateSelectedOption(
+  suggestions,
+  onChange,
+  indexActiveSuggestion
+) {
+  const activeSuggestion =
+    indexActiveSuggestion !== undefined && suggestions[indexActiveSuggestion];
 
   if (activeSuggestion) {
     onChange(activeSuggestion.value);

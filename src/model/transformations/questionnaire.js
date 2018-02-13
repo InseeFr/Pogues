@@ -9,7 +9,7 @@ import { getOrderedComponents } from 'utils/model/redirections-utils';
 import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
 import {
   removeOrphansCollectedVariables,
-  getCollectedVariablesIdsFromComponents,
+  getCollectedVariablesIdsFromComponents
 } from 'utils/variables/variables-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -31,7 +31,7 @@ function generateComponentGroups(componentsStore) {
         id: uuid(),
         Name: `PAGE_${startPage}`,
         Label: [`Components for page ${startPage}`],
-        MemberReference: [],
+        MemberReference: []
       });
     }
     result[startPage - 1].MemberReference.push(componentId);
@@ -58,7 +58,8 @@ export function remoteToState(remote, currentStores = {}) {
 
   const appState = currentStores.appState || {};
   const activeQuestionnaire = appState.activeQuestionnaire || {};
-  const questionnaireCurrentState = activeQuestionnaire.id === id ? activeQuestionnaire : {};
+  const questionnaireCurrentState =
+    activeQuestionnaire.id === id ? activeQuestionnaire : {};
 
   return {
     owner,
@@ -71,13 +72,13 @@ export function remoteToState(remote, currentStores = {}) {
     serie: questionnaireCurrentState.serie || '',
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
-    TargetMode: TargetMode || declarationMode || [],
+    TargetMode: TargetMode || declarationMode || []
   };
 }
 
 export function remoteToStore(remote, currentStores = {}) {
   return {
-    [remote.id]: remoteToState(remote, currentStores),
+    [remote.id]: remoteToState(remote, currentStores)
   };
 }
 
@@ -88,25 +89,39 @@ export function stateToRemote(state, stores) {
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariableByQuestionStore,
-    campaignsStore,
+    campaignsStore
   } = stores;
 
-  const collectedVariablesStore = Object.keys(collectedVariableByQuestionStore).reduce((acc, key) => {
+  const collectedVariablesStore = Object.keys(
+    collectedVariableByQuestionStore
+  ).reduce((acc, key) => {
     return { ...acc, ...collectedVariableByQuestionStore[key] };
   }, {});
 
   // We remove from the stores the elements no associated to a component before saving
-  const codesListsWihoutOrphans = removeOrphansCodesLists(codesListsStore, componentsStore);
+  const codesListsWihoutOrphans = removeOrphansCodesLists(
+    codesListsStore,
+    componentsStore
+  );
   const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
     getCollectedVariablesIdsFromComponents(componentsStore),
     collectedVariablesStore
   );
 
-  const { owner, id, label, name, agency, campaigns, final, TargetMode } = state;
+  const {
+    owner,
+    id,
+    label,
+    name,
+    agency,
+    campaigns,
+    final,
+    TargetMode
+  } = state;
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore[c].label,
+    Name: campaignsStore[c].label
   }));
 
   const remote = {
@@ -120,22 +135,36 @@ export function stateToRemote(state, stores) {
     genericName: QUESTIONNAIRE,
     ComponentGroup: generateComponentGroups(componentsStore),
     agency: agency || '',
-    TargetMode,
+    TargetMode
   };
-  const componentsRemote = Component.storeToRemote(componentsStore, id, collectedVariablesWithoutOrphans);
+  const componentsRemote = Component.storeToRemote(
+    componentsStore,
+    id,
+    collectedVariablesWithoutOrphans
+  );
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
-  const calculatedVariablesRemote = CalculatedVariable.storeToRemote(calculatedVariablesStore);
-  const externalVariablesRemote = ExternalVariable.storeToRemote(externalVariablesStore);
-  const collectedVariablesRemote = CollectedVariable.storeToRemote(collectedVariablesWithoutOrphans);
+  const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
+    calculatedVariablesStore
+  );
+  const externalVariablesRemote = ExternalVariable.storeToRemote(
+    externalVariablesStore
+  );
+  const collectedVariablesRemote = CollectedVariable.storeToRemote(
+    collectedVariablesWithoutOrphans
+  );
 
   return {
     ...remote,
     Child: componentsRemote,
     CodeLists: {
-      CodeList: codesListsRemote,
+      CodeList: codesListsRemote
     },
     Variables: {
-      Variable: [...calculatedVariablesRemote, ...externalVariablesRemote, ...collectedVariablesRemote],
-    },
+      Variable: [
+        ...calculatedVariablesRemote,
+        ...externalVariablesRemote,
+        ...collectedVariablesRemote
+      ]
+    }
   };
 }

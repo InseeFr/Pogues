@@ -6,13 +6,13 @@ import { uuid } from 'utils/utils';
 export const defaultState = {
   id: '',
   label: '',
-  codes: [],
+  codes: []
 };
 
 export const defaultForm = {
   id: '',
   label: '',
-  codes: [],
+  codes: []
 };
 
 export function formToState(form) {
@@ -21,14 +21,14 @@ export function formToState(form) {
   const codesStore = (codes || []).reduce((acc, c) => {
     return {
       ...acc,
-      [c.value]: { ...c },
+      [c.value]: { ...c }
     };
   }, {});
 
   return {
     id: id || uuid(),
     label: label || '',
-    codes: codesStore,
+    codes: codesStore
   };
 }
 
@@ -38,13 +38,16 @@ export function stateComponentToForm({ id, label, codes }) {
   return merge(cloneDeep(defaultForm), {
     id: id || '',
     label: label || '',
-    codes: codesList,
+    codes: codesList
   });
 }
 
 export const Factory = (currentState = {}, codesListsStore) => {
   if (codesListsStore && currentState.id) {
-    currentState = merge(cloneDeep(defaultState), codesListsStore[currentState.id]);
+    currentState = merge(
+      cloneDeep(defaultState),
+      codesListsStore[currentState.id]
+    );
   } else {
     currentState = merge(cloneDeep(defaultState), { id: uuid() });
   }
@@ -53,7 +56,7 @@ export const Factory = (currentState = {}, codesListsStore) => {
     formToStateComponent: form => {
       if (form) currentState = formToState(form);
       return {
-        id: currentState.id,
+        id: currentState.id
       };
     },
     formToState: form => {
@@ -65,9 +68,9 @@ export const Factory = (currentState = {}, codesListsStore) => {
     },
     getStore: () => {
       return {
-        [currentState.id]: currentState,
+        [currentState.id]: currentState
       };
-    },
+    }
   };
 };
 

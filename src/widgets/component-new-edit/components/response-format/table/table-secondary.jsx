@@ -12,10 +12,10 @@ const { SECONDARY } = DIMENSION_TYPE;
 class ResponseFormatTableSecondary extends Component {
   static selectorPath = SECONDARY;
   static propTypes = {
-    selectorPathParent: PropTypes.string,
+    selectorPathParent: PropTypes.string
   };
   static defaultProps = {
-    selectorPathParent: undefined,
+    selectorPathParent: undefined
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -34,7 +34,9 @@ class ResponseFormatTableSecondary extends Component {
           label={Dictionary.addScndAxis}
           checkbox
         >
-          <ResponseFormatTableSecondaryOptional selectorPath={this.selectorPathComposed} />
+          <ResponseFormatTableSecondaryOptional
+            selectorPath={this.selectorPathComposed}
+          />
         </OptionalView>
       </FormSection>
     );

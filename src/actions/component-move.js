@@ -1,8 +1,16 @@
-import { isSubSequence, isSequence, isQuestion, toComponents } from 'utils/component/component-utils';
+import {
+  isSubSequence,
+  isSequence,
+  isQuestion,
+  toComponents
+} from 'utils/component/component-utils';
 import { getClosestComponentIdByType } from 'layout/generic-input';
 import { getDragnDropLevel } from 'utils/component/component-dragndrop-utils';
 import { resetAllWeight, increaseWeightOfAll } from './component-update';
-import { moveQuestionToSubSequence, moveQuestionAndSubSequenceToSequence } from './component-insert';
+import {
+  moveQuestionToSubSequence,
+  moveQuestionAndSubSequenceToSequence
+} from './component-insert';
 import sortBy from 'lodash.sortby';
 /**
  * This method will get the new weight and new parent, based on the dragndrop level
@@ -12,27 +20,50 @@ import sortBy from 'lodash.sortby';
  * @param {object} draggedComponent the dragged component
  * @param {number} dragndropLevel The level at which we want to drag the component
  */
-export function getWeightAndParentId(activesComponents, droppedComponent, draggedComponent, dragndropLevel) {
+export function getWeightAndParentId(
+  activesComponents,
+  droppedComponent,
+  draggedComponent,
+  dragndropLevel
+) {
   const getPreviousSibling =
-    activesComponents[getClosestComponentIdByType(activesComponents, droppedComponent, draggedComponent.type)];
+    activesComponents[
+      getClosestComponentIdByType(
+        activesComponents,
+        droppedComponent,
+        draggedComponent.type
+      )
+    ];
 
   let result;
   switch (dragndropLevel) {
     case -2:
-      result = { newWeight: getPreviousSibling.weight + 1, newParentComponentId: getPreviousSibling.parent };
+      result = {
+        newWeight: getPreviousSibling.weight + 1,
+        newParentComponentId: getPreviousSibling.parent
+      };
       break;
     case -1:
       if (getPreviousSibling) {
-        result = { newWeight: getPreviousSibling.weight + 1, newParentComponentId: getPreviousSibling.parent };
+        result = {
+          newWeight: getPreviousSibling.weight + 1,
+          newParentComponentId: getPreviousSibling.parent
+        };
       } else {
-        result = { newWeight: droppedComponent.weight + 1, newParentComponentId: droppedComponent.parent };
+        result = {
+          newWeight: droppedComponent.weight + 1,
+          newParentComponentId: droppedComponent.parent
+        };
       }
       break;
     case 1:
       result = { newWeight: 0, newParentComponentId: droppedComponent.id };
       break;
     default:
-      result = { newWeight: droppedComponent.weight + 1, newParentComponentId: droppedComponent.parent };
+      result = {
+        newWeight: droppedComponent.weight + 1,
+        newParentComponentId: droppedComponent.parent
+      };
       break;
   }
   return result;
@@ -45,12 +76,16 @@ export function getWeightAndParentId(activesComponents, droppedComponent, dragge
  */
 function attachQuestionToPreviousSubSequence(activesComponents) {
   const moves = {
-    ...activesComponents,
+    ...activesComponents
   };
-  const sequences = Object.keys(activesComponents).filter(key => isSequence(moves[key]));
+  const sequences = Object.keys(activesComponents).filter(key =>
+    isSequence(moves[key])
+  );
 
   sequences.forEach(sequence => {
-    const children = sortBy(toComponents(moves[sequence].children, moves), ['weight']);
+    const children = sortBy(toComponents(moves[sequence].children, moves), [
+      'weight'
+    ]);
     let idSubSequenceSibling;
     for (let i = 0; i < children.length; i += 1) {
       if (isSubSequence(children[i])) {
@@ -60,15 +95,17 @@ function attachQuestionToPreviousSubSequence(activesComponents) {
         moves[children[i].id] = {
           ...moves[children[i].id],
           parent: idSubSequenceSibling,
-          weight: moves[idSubSequenceSibling].children.length,
+          weight: moves[idSubSequenceSibling].children.length
         };
         moves[idSubSequenceSibling] = {
           ...moves[idSubSequenceSibling],
-          children: [...moves[idSubSequenceSibling].children, children[i].id],
+          children: [...moves[idSubSequenceSibling].children, children[i].id]
         };
         moves[children[i].parent] = {
           ...moves[children[i].parent],
-          children: moves[children[i].parent].children.filter(id => id !== children[i].id),
+          children: moves[children[i].parent].children.filter(
+            id => id !== children[i].id
+          )
         };
       }
     }
@@ -87,7 +124,11 @@ function attachQuestionToPreviousSubSequence(activesComponents) {
  * @param {string} newParentComponentId the id of the target component,
  * @param {number} newWeight the new weight of dragged component in the target component
  */
-export function moveComponent(activesComponents, idDroppedComponent, idDraggedComponent) {
+export function moveComponent(
+  activesComponents,
+  idDroppedComponent,
+  idDraggedComponent
+) {
   /**
    * If the draggedComponent and the dropped component are the same, we do nothing
    */
@@ -98,7 +139,10 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
   let droppedComponent = activesComponents[idDroppedComponent];
   const draggedComponent = activesComponents[idDraggedComponent];
 
-  const dragndropLevel = getDragnDropLevel({ component: droppedComponent }, draggedComponent);
+  const dragndropLevel = getDragnDropLevel(
+    { component: droppedComponent },
+    draggedComponent
+  );
   const moveComponentId = draggedComponent.id;
 
   const { newWeight, newParentComponentId } = getWeightAndParentId(
@@ -109,7 +153,7 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
   );
 
   let moves = {
-    ...activesComponents,
+    ...activesComponents
   };
 
   /**
@@ -118,12 +162,13 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
   const componentToMove = {
     ...moves[moveComponentId],
     parent: newParentComponentId,
-    weight: newWeight,
+    weight: newWeight
   };
 
   moves[componentToMove.id] = componentToMove;
 
-  const oldParent = activesComponents[activesComponents[moveComponentId].parent];
+  const oldParent =
+    activesComponents[activesComponents[moveComponentId].parent];
 
   /**
    * If the dragndrop level is < 0, we should call first the method used to insert
@@ -136,14 +181,25 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
     /**
      * If the dropped component is a SubSequence, we will set the drop component to be its first child
      */
-    if (isSubSequence(droppedComponent) && droppedComponent.children.length > 0) {
+    if (
+      isSubSequence(droppedComponent) &&
+      droppedComponent.children.length > 0
+    ) {
       includeSelectedComponent = true;
-      droppedComponent = toComponents(droppedComponent.children, moves).find(c => c.weight === 0);
+      droppedComponent = toComponents(droppedComponent.children, moves).find(
+        c => c.weight === 0
+      );
     }
 
     moves = {
       ...moves,
-      ...moveQuestionToSubSequence(moves, droppedComponent, componentToMove, true, includeSelectedComponent),
+      ...moveQuestionToSubSequence(
+        moves,
+        droppedComponent,
+        componentToMove,
+        true,
+        includeSelectedComponent
+      )
     };
   } else if (isSequence(componentToMove)) {
     let includeSelectedComponent = false;
@@ -151,15 +207,25 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
     /**
      * If the dropped component is a SubSequence or a Sequence, we will set the drop component to be its first child
      */
-    if ((isSequence(droppedComponent) || isSubSequence(droppedComponent)) && droppedComponent.children.length > 0) {
+    if (
+      (isSequence(droppedComponent) || isSubSequence(droppedComponent)) &&
+      droppedComponent.children.length > 0
+    ) {
       includeSelectedComponent = true;
-      droppedComponent = toComponents(droppedComponent.children, moves).find(c => c.weight === 0);
+      droppedComponent = toComponents(droppedComponent.children, moves).find(
+        c => c.weight === 0
+      );
     }
 
     if (droppedComponent.parent !== componentToMove.parent) {
       moves = {
         ...moves,
-        ...moveQuestionAndSubSequenceToSequence(moves, droppedComponent, componentToMove, includeSelectedComponent),
+        ...moveQuestionAndSubSequenceToSequence(
+          moves,
+          droppedComponent,
+          componentToMove,
+          includeSelectedComponent
+        )
       };
     }
   }
@@ -173,8 +239,8 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
       ...moves,
       ...resetAllWeight({
         ...moves,
-        ...increaseWeightOfAll(moves, componentToMove),
-      }),
+        ...increaseWeightOfAll(moves, componentToMove)
+      })
     };
     return attachQuestionToPreviousSubSequence(moves);
   }
@@ -188,12 +254,12 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
       ...moves,
       [newParentComponentId]: {
         ...moves[newParentComponentId],
-        children: [...moves[newParentComponentId].children, moveComponentId],
+        children: [...moves[newParentComponentId].children, moveComponentId]
       },
       [oldParent.id]: {
         ...oldParent,
-        children: oldParent.children.filter(id => id !== moveComponentId),
-      },
+        children: oldParent.children.filter(id => id !== moveComponentId)
+      }
     };
   }
 
@@ -202,7 +268,7 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
    */
   moves = {
     ...moves,
-    ...increaseWeightOfAll(moves, componentToMove),
+    ...increaseWeightOfAll(moves, componentToMove)
   };
 
   moves = attachQuestionToPreviousSubSequence(moves);
@@ -213,6 +279,6 @@ export function moveComponent(activesComponents, idDroppedComponent, idDraggedCo
    */
   return {
     ...moves,
-    ...resetAllWeight(moves),
+    ...resetAllWeight(moves)
   };
 }
