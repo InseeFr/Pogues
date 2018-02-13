@@ -293,9 +293,27 @@ export function stateToRemote(
   const numDataTypes = measureState ? 1 : listMeasuresState.length;
   let responsesModel = [];
   let mappingsModel = [];
+
+  const sortByX = (c1, c2) => {
+    const x1 = collectedVariablesStore[c1].x;
+    const x2 = collectedVariablesStore[c2].x;
+    return x1 - x2;
+  };
+  const sortByYAndX = (c1, c2) => {
+    const x1 = collectedVariablesStore[c1].x;
+    const x2 = collectedVariablesStore[c2].x;
+    const y1 = collectedVariablesStore[c1].y;
+    const y2 = collectedVariablesStore[c2].y;
+    return y1 * 100 + x1 - (y2 * 100 + x2);
+  };
+
+  const sortedCollectedVariablesByDatatype = collectedVariables.sort(
+    numDataTypes ? sortByX : sortByYAndX
+  );
+
   for (let i = 0; i < numDataTypes; i += 1) {
-    const collectedVariablesByDatatype = collectedVariables.filter(
-      (cv, index) => index % numDataTypes === i
+    const collectedVariablesByDatatype = sortedCollectedVariablesByDatatype.filter(
+      c => collectedVariablesStore[c].y - 1 === i
     );
     const responsesModelByRow = Responses.stateToModel(
       responsesState[i],
