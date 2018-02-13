@@ -34,6 +34,7 @@ export const defaultForm = {
 
 export function formToState(form, transformers) {
   const {
+    id,
     mandatory,
     visHint,
     hasSpecialCode,
@@ -45,6 +46,7 @@ export function formToState(form, transformers) {
   } = form;
 
   return {
+    id,
     mandatory,
     visHint,
     hasSpecialCode,
@@ -62,6 +64,7 @@ export function formToState(form, transformers) {
 
 export function stateToForm(currentState, transformers) {
   const {
+    id,
     visHint,
     mandatory,
     hasSpecialCode,
@@ -72,6 +75,7 @@ export function stateToForm(currentState, transformers) {
   } = currentState;
 
   return {
+    id,
     mandatory,
     visHint,
     hasSpecialCode,

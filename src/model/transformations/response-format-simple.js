@@ -13,7 +13,8 @@ export function remoteToState(remote) {
           Decimals: decimals,
           Unit: unit
         },
-        mandatory
+        mandatory,
+        id
       }
     ]
   } = remote;
@@ -28,6 +29,7 @@ export function remoteToState(remote) {
   if (unit !== undefined) datatype.unit = unit;
 
   return {
+    id,
     type: typeName,
     mandatory,
     [typeName]: datatype
@@ -35,12 +37,13 @@ export function remoteToState(remote) {
 }
 
 export function stateToRemote(state, collectedVariables) {
-  const { type: typeName, mandatory } = state;
+  const { type: typeName, mandatory, id } = state;
   const dataType = state[typeName];
   return {
     Response: [
       Response.stateToRemote({
         ...dataType,
+        id,
         typeName,
         mandatory,
         collectedVariable: collectedVariables[0]

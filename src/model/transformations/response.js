@@ -6,6 +6,7 @@ import { uuid } from 'utils/utils';
 
 export function stateToRemote(state) {
   const {
+    id,
     mandatory,
     typeName,
     maxLength: MaxLength,
@@ -25,7 +26,7 @@ export function stateToRemote(state) {
   } = state;
 
   const model = {
-    id: uuid(),
+    id: id || uuid(),
     Datatype: {
       typeName,
       type: DATATYPE_TYPE_FROM_NAME[typeName]

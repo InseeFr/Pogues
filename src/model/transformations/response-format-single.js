@@ -16,7 +16,8 @@ export function remoteToState(remote) {
         Datatype: { visualizationHint: visHint },
         mandatory,
         nonResponseModality,
-        CodeListReference
+        CodeListReference,
+        id
       }
     ]
   } = remote;
@@ -25,6 +26,7 @@ export function remoteToState(remote) {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
       CodeListReference
     ),
+    id,
     mandatory,
     visHint,
     hasSpecialCode: !!nonResponseModality,
@@ -46,11 +48,13 @@ export function stateToRemote(state, collectedVariables) {
   const {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     visHint,
-    mandatory
+    mandatory,
+    id
   } = state;
   return {
     Response: [
       Response.stateToRemote({
+        id,
         mandatory,
         visHint,
         codesListId,

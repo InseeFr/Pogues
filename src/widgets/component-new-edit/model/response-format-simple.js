@@ -23,9 +23,10 @@ export const defaultForm = {
 };
 
 export function formToState(form) {
-  const { type, mandatory, [type]: simpleForm } = form;
+  const { type, mandatory, [type]: simpleForm, id } = form;
 
   return {
+    id,
     type,
     mandatory,
     [type]: { ...simpleForm }
@@ -33,9 +34,10 @@ export function formToState(form) {
 }
 
 export function stateToForm(currentState) {
-  const { mandatory, type, [type]: simpleState } = currentState;
+  const { mandatory, type, [type]: simpleState, id } = currentState;
 
   return merge(cloneDeep(defaultForm), {
+    id,
     mandatory,
     type,
     [type]: {
