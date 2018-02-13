@@ -36,7 +36,11 @@ function validateAndSubmit(
   validate,
   componentsStore,
   transformer,
-  onSuccess
+  onSuccess,
+  activeCalculatedVariablesById,
+  activeExternalVariablesById,
+  activeCollectedVariablesById,
+  activeCodeListsById
 ) {
   return function(values) {
     validate(values);
@@ -57,7 +61,14 @@ function validateAndSubmit(
     updateQuestionnaire(updatedQuestionnaire);
 
     // Updating the questionnaire component.
-    updateComponent(values.id, updatedComponentsStore);
+    updateComponent(
+      values.id,
+      updatedComponentsStore,
+      activeCalculatedVariablesById,
+      activeExternalVariablesById,
+      activeCollectedVariablesById,
+      activeCodeListsById
+    );
 
     if (onSuccess) onSuccess(values.id);
   };
@@ -72,7 +83,11 @@ function QuestionnaireNew({
   questionnaire,
   componentsStore,
   onSuccess,
-  onCancel
+  onCancel,
+  activeCalculatedVariablesById,
+  activeExternalVariablesById,
+  activeCollectedVariablesById,
+  activeCodeListsById
 }) {
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
@@ -94,7 +109,11 @@ function QuestionnaireNew({
         validate(setErrors),
         componentsStore,
         questionnaireTransformer,
-        onSuccess
+        onSuccess,
+        activeCalculatedVariablesById,
+        activeExternalVariablesById,
+        activeCollectedVariablesById,
+        activeCodeListsById
       )}
     />
   );

@@ -18,7 +18,11 @@ export const propTypes = {
 const mapStateToProps = state => {
   return {
     questionnaire: state.appState.activeQuestionnaire,
-    componentsStore: state.appState.activeComponentsById
+    componentsStore: state.appState.activeComponentsById,
+    activeCalculatedVariablesById: state.appState.activeCalculatedVariablesById,
+    activeExternalVariablesById: state.appState.activeExternalVariablesById,
+    activeCollectedVariablesById: state.appState.activeCollectedVariablesById,
+    activeCodeListsById: state.appState.activeCodeListsById
   };
 };
 
