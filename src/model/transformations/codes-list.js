@@ -58,7 +58,6 @@ export function storeToRemote(store) {
 }
 
 /**
- *
  * @param {*} codes The list of codes
  * @param {*} depth The depth of a code
  * @param {*} parent The parent code of another one
