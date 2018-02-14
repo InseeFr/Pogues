@@ -20,18 +20,14 @@ export function remoteToStore(remote = []) {
 }
 
 export function storeToRemote(store) {
-  const calculatedVariables = [];
-
-  Object.keys(store).forEach(key => {
+  return Object.keys(store).map(key => {
     const { id, label: Label, name: Name, formula: Formula } = store[key];
-    calculatedVariables.push({
+    return {
       id,
       Label,
       Name,
       Formula,
       type: CALCULATED
-    });
+    };
   });
-
-  return calculatedVariables;
 }
