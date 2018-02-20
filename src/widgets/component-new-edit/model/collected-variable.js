@@ -1,4 +1,5 @@
 import { uuid } from 'utils/utils';
+import { sortByYAndX } from 'utils/variables/collected-variables-utils';
 
 export const defaultState = {
   name: '',
@@ -43,12 +44,7 @@ export function formToStore(form) {
 
 export function storeToForm(currentStore) {
   const collectedVariables = Object.keys(currentStore)
-    .sort((id1, id2) => {
-      const c1 = currentStore[id1];
-      const c2 = currentStore[id2];
-      if (!c1.y) return c1.x - c2.x;
-      return c1.y * 100 + c1.x - (c2.y * 100 + c2.x);
-    })
+    .sort(sortByYAndX(currentStore))
     .map(key => {
       const { id, name, label, x, y } = currentStore[key];
       return {
