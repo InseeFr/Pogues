@@ -26,8 +26,6 @@ import GenericOption from 'forms/controls/generic-option';
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
 const { QUESTION } = COMPONENT_TYPE;
 
-// PropTypes and defaultProps
-
 export const propTypes = {
   ...formPropTypes,
   componentType: PropTypes.string.isRequired,
@@ -46,8 +44,6 @@ export const defaultProps = {
   componentsStore: {},
   codesListsStoreStore: {}
 };
-
-// Componet
 
 class ComponentNewEdit extends Component {
   static propTypes = propTypes;
@@ -87,19 +83,6 @@ class ComponentNewEdit extends Component {
           errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
           addErrors={addSubformValidationErrors}
         />
-      </Tab>,
-      <Tab
-        label={Dictionary.goTo}
-        path={TABS_PATHS.REDIRECTIONS}
-        key={TABS_PATHS.REDIRECTIONS}
-      >
-        <Redirections
-          errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
-          addErrors={addSubformValidationErrors}
-          componentType={componentType}
-          componentsStore={componentsStore}
-          editingComponentId={componentId}
-        />
       </Tab>
     ];
 
@@ -116,6 +99,19 @@ class ComponentNewEdit extends Component {
           />
         </Tab>,
         ...panels,
+        <Tab
+          label={Dictionary.goTo}
+          path={TABS_PATHS.REDIRECTIONS}
+          key={TABS_PATHS.REDIRECTIONS}
+        >
+          <Redirections
+            errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
+            addErrors={addSubformValidationErrors}
+            componentType={componentType}
+            componentsStore={componentsStore}
+            editingComponentId={componentId}
+          />
+        </Tab>,
         <Tab
           label={Dictionary.externalVariables}
           path={TABS_PATHS.EXTERNAL_VARIABLES}
@@ -164,7 +160,7 @@ class ComponentNewEdit extends Component {
 
     const associatedFieldsProps = {
       formName: form,
-      fieldOrigin: { name: 'label', label: Dictionary.title },
+      fieldOrigin: { name: 'label', label: Dictionary.label },
       fieldTarget: { name: 'name', label: Dictionary.name },
       action: updateNameField,
       focusOnInit: true,
