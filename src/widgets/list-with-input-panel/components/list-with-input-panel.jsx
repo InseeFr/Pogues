@@ -188,6 +188,7 @@ class ListWithInputPanel extends Component {
       name
     } = this.props;
     const { [name]: items, ...values } = currentValues;
+    values.id = null;
     const path = getCurrentSelectorPath(selectorPath);
 
     if (this.validate(formValues)) {

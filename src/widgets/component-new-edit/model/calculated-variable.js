@@ -1,6 +1,7 @@
 import { uuid } from 'utils/utils';
 
 export const defaultState = {
+  id: null,
   label: '',
   name: '',
   formula: ''
