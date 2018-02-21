@@ -19,17 +19,13 @@ export function remoteToStore(remote = []) {
 }
 
 export function storeToRemote(store) {
-  const externalVariables = [];
-
-  Object.keys(store).forEach(key => {
+  return Object.keys(store).map(key => {
     const { id, name: Name, label: Label } = store[key];
-    externalVariables.push({
+    return {
       id,
       Name,
       Label,
       type: EXTERNAL
-    });
+    };
   });
-
-  return externalVariables;
 }
