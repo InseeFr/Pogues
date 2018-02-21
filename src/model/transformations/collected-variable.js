@@ -26,17 +26,13 @@ export function remoteToComponentState(remote = []) {
 }
 
 export function storeToRemote(store) {
-  const collectedVariables = [];
-
-  Object.keys(store).forEach(key => {
+  return Object.keys(store).map(key => {
     const { id, name: Name, label: Label } = store[key];
-    collectedVariables.push({
+    return {
       id,
       Name,
       Label,
       type: COLLECTED
-    });
+    };
   });
-
-  return collectedVariables;
 }
