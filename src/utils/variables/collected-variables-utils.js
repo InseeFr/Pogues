@@ -55,7 +55,7 @@ export function getCollectedVariablesMultiple(
     getCollecteVariable(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
-      { x: 1, y: index + 1 }
+      { x: index + 1 }
     )
   );
 }
