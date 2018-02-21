@@ -1,6 +1,6 @@
 import { remoteToStore, storeToRemote } from './external-variable';
 
-describe('external variable tramsformation', () => {
+describe('external variable transformation', () => {
   const remote = [
     {
       id: '1',
@@ -27,12 +27,12 @@ describe('external variable tramsformation', () => {
       label: 'Label 2'
     }
   };
-  describe('remoteToState', () => {
-    it('should return the state representation of am external variable', () => {
+  describe('remoteToStore', () => {
+    it('should return the state representation of an external variable', () => {
       expect(remoteToStore(remote)).toEqual(state);
     });
   });
-  describe('stateToRemote', () => {
+  describe('storeToRemote', () => {
     it('should return the remote representation of an external variable', () => {
       expect(storeToRemote(state)).toEqual(remote);
     });
