@@ -157,7 +157,8 @@
       "<rootDir>/node_modules/",
       "<rootDir>/jison/",
       "<rootDir>/_book/"
-    ]
+    ],
+    "collectCoverageFrom": ["<rootDir>/src/**/*.{js,jsx}"]
   },
   "prettier": {
     "singleQuote": true
