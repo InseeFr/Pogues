@@ -1,99 +1,141 @@
-import reducer from './active-components-by-id';
+import actionsHandlers, {
+  setActiveComponents,
+  updateActiveComponents,
+  createPageBreak,
+  removePageBreak
+} from './active-components-by-id';
 import {
   CREATE_COMPONENT,
+  DUPLICATE_COMPONENT,
   UPDATE_COMPONENT,
-  REMOVE_COMPONENT
+  REMOVE_COMPONENT,
+  UPDATE_COMPONENT_PARENT,
+  UPDATE_COMPONENT_ORDER,
+  MOVE_COMPONENT
 } from 'actions/component';
-import { SET_ACTIVE_COMPONENTS } from 'actions/app-state';
+import {
+  SET_ACTIVE_COMPONENTS,
+  CREATE_PAGE_BREAK,
+  REMOVE_PAGE_BREAK
+} from 'actions/app-state';
 
-describe('active-components-by-id reducer', () => {
-  test('should handle SET_ACTIVE_COMPONENTS', () => {
-    expect(
-      reducer([], {
-        type: SET_ACTIVE_COMPONENTS,
-        payload: {
-          SET_ACTIVE_COMPONENTS: true
+describe('setActiveComponents', () => {
+  test('when called directly', () => {
+    const result = setActiveComponents(
+      { state: 'previous' },
+      { activeComponents: 'activeComponents' }
+    );
+    expect(result).toEqual({ activeComponents: 'activeComponents' });
+  });
+  [SET_ACTIVE_COMPONENTS, REMOVE_COMPONENT].forEach(action => {
+    test(`when called when we trigger ${action}`, () => {
+      const result = actionsHandlers(
+        { state: 'previous' },
+        {
+          type: action,
+          payload: { activeComponents: 'activeComponents' }
         }
-      })
-    ).toEqual({
-      SET_ACTIVE_COMPONENTS: true
+      );
+      expect(result).toEqual({ activeComponents: 'activeComponents' });
     });
   });
+});
 
-  test('should handle CREATE_COMPONENT', () => {
-    const store = {
-      '1': {
-        id: '1'
+describe('updateActiveComponents', () => {
+  test('when called directly', () => {
+    const result = updateActiveComponents(
+      { state: 'previous' },
+      {
+        update: {
+          activeComponentsById: { activeComponents: 'activeComponents' }
+        }
       }
-    };
-    expect(
-      reducer(store, {
-        type: CREATE_COMPONENT,
-        payload: {
-          update: {
-            activeComponentsById: {
-              '2': {
-                id: '2'
-              }
+    );
+    expect(result).toEqual({
+      state: 'previous',
+      activeComponents: 'activeComponents'
+    });
+  });
+  [
+    CREATE_COMPONENT,
+    DUPLICATE_COMPONENT,
+    UPDATE_COMPONENT,
+    UPDATE_COMPONENT_ORDER,
+    UPDATE_COMPONENT_PARENT,
+    MOVE_COMPONENT
+  ].forEach(action => {
+    test(`when called when we trigger ${action}`, () => {
+      const result = actionsHandlers(
+        { state: 'previous' },
+        {
+          type: action,
+          payload: {
+            update: {
+              activeComponentsById: { activeComponents: 'activeComponents' }
             }
           }
         }
-      })
-    ).toEqual({
-      '1': {
-        id: '1'
-      },
-      '2': {
-        id: '2'
-      }
+      );
+      expect(result).toEqual({
+        state: 'previous',
+        activeComponents: 'activeComponents'
+      });
     });
   });
 
-  test('should handle UPDATE_COMPONENT', () => {
-    const store = {
-      '1': {
-        id: '1'
-      },
-      '2': {
-        id: '2'
-      }
-    };
-
-    expect(
-      reducer(store, {
-        type: UPDATE_COMPONENT,
-        payload: {
-          update: {
-            activeComponentsById: {
-              '2': {
-                id: '2',
-                label: 'label2'
-              }
-            }
+  describe('createPageBreak', () => {
+    test('when called directly', () => {
+      const result = createPageBreak(
+        { '1': { id: '1' }, '2': { id: '2' } },
+        { id: '1' }
+      );
+      expect(result).toEqual({
+        '1': { id: '1', pageBreak: true },
+        '2': { id: '2' }
+      });
+    });
+    [CREATE_PAGE_BREAK].forEach(action => {
+      test(`when called when we trigger ${action}`, () => {
+        const result = actionsHandlers(
+          { '1': { id: '1' }, '2': { id: '2' } },
+          {
+            type: action,
+            payload: { id: '1' }
           }
-        }
-      })
-    ).toEqual({
-      '1': {
-        id: '1'
-      },
-      '2': {
-        id: '2',
-        label: 'label2'
-      }
+        );
+        expect(result).toEqual({
+          '1': { id: '1', pageBreak: true },
+          '2': { id: '2' }
+        });
+      });
     });
   });
 
-  test('should handle REMOVE_COMPONENT', () => {
-    expect(
-      reducer([], {
-        type: REMOVE_COMPONENT,
-        payload: {
-          REMOVE_COMPONENT: true
-        }
-      })
-    ).toEqual({
-      REMOVE_COMPONENT: true
+  describe('removePageBreak', () => {
+    test('when called directly', () => {
+      const result = removePageBreak(
+        { '1': { id: '1' }, '2': { id: '2' } },
+        { id: '1' }
+      );
+      expect(result).toEqual({
+        '1': { id: '1', pageBreak: false },
+        '2': { id: '2' }
+      });
+    });
+    [REMOVE_PAGE_BREAK].forEach(action => {
+      test(`when called when we trigger ${action}`, () => {
+        const result = actionsHandlers(
+          { '1': { id: '1' }, '2': { id: '2' } },
+          {
+            type: action,
+            payload: { id: '1' }
+          }
+        );
+        expect(result).toEqual({
+          '1': { id: '1', pageBreak: false },
+          '2': { id: '2' }
+        });
+      });
     });
   });
 });
