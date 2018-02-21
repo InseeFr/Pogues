@@ -1,4 +1,3 @@
-// @TODO: Create tests
 export function updateSuggestions(text, regex, availableSuggestions) {
   const matches = text.match(regex);
   let suggestions = [];

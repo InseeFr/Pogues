@@ -151,10 +151,15 @@ export function setQuestionModified(state) {
 }
 
 export function setQuestionModifiedAndResetSelectedComponent(state) {
+  console.log('setQuestionModifiedAndResetSelectedComponent');
   return {
-    ...state,
-    ...setQuestionModified(state),
-    ...setSelectedComponentId(state, '')
+    ...setSelectedComponentId(
+      {
+        ...state,
+        ...setQuestionModified(state)
+      },
+      ''
+    )
   };
 }
 

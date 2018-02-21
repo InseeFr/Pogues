@@ -38,13 +38,19 @@ function ListWithInputPanelList({ fields, select, errors }) {
         if (item.id) {
           errorsItem = errors.filter(e => e.itemListId === item.id);
         }
-
+        let prefix = '';
+        if (item.x || item.y) {
+          prefix += `(${item.x}`;
+          if (item.y) prefix += `,${item.y}`;
+          prefix += ') ';
+        }
         return (
           <ListWithInputPanelItem
             key={key}
             select={() => select(index)}
             invalid={errorsItem.length > 0}
           >
+            {prefix}
             {markdownVtlToString(item.label)}
           </ListWithInputPanelItem>
         );

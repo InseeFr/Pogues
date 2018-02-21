@@ -194,7 +194,7 @@ class QuestionnaireComponent extends Component {
                       >
                         {Dictionary.showDetail}
                       </button>
-                      {component.type === 'QUESTION' && (
+                      {component.type === QUESTION && (
                         <button
                           className="btn-yellow"
                           onClick={this.handleDuplicateComponent}
@@ -212,8 +212,7 @@ class QuestionnaireComponent extends Component {
                       <button
                         className="btn-yellow"
                         disabled={
-                          component.weight === 0 &&
-                          component.type === 'SEQUENCE'
+                          component.weight === 0 && component.type === SEQUENCE
                         }
                         onClick={this.handleDeleteComponent}
                       >

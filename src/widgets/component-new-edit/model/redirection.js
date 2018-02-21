@@ -3,7 +3,8 @@ import { uuid } from 'utils/utils';
 export const defaultState = {
   label: '',
   condition: '',
-  cible: ''
+  cible: '',
+  id: null
 };
 
 export const defaultForm = {

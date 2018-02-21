@@ -10,6 +10,20 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 
+export function sortByYAndX(store) {
+  return (id1, id2) => {
+    let c1 = id1;
+    let c2 = id2;
+    if (store) {
+      c1 = store[id1];
+      c2 = store[id2];
+    }
+
+    if (!c1.y) return c1.x - c2.x;
+    return c1.y * 100 + c1.x - (c2.y * 100 + c2.x);
+  };
+}
+
 export function getCollecteVariable(name, label, coordinates) {
   let collectedVariable = {
     id: uuid(),
@@ -148,7 +162,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       }
     }
   }
-  return collectedVariables;
+  return collectedVariables.sort(sortByYAndX());
 }
 
 export function generateCollectedVariables(

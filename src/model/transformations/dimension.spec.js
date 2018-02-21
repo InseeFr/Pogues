@@ -1,5 +1,4 @@
 import { stateToRemote } from './dimension';
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import {
   DIMENSION_TYPE,
   DEFAULT_CODES_LIST_SELECTOR_PATH
@@ -13,7 +12,6 @@ describe('dimension tranformations', () => {
     });
 
     expect(result).toEqual({
-      dimensionType: '',
       dynamic: '0',
       dimensionType: MEASURE
     });
@@ -25,7 +23,6 @@ describe('dimension tranformations', () => {
     });
 
     expect(result).toEqual({
-      dimensionType: '',
       dynamic: '0',
       dimensionType: MEASURE,
       Label: 'Label'
@@ -40,7 +37,6 @@ describe('dimension tranformations', () => {
       });
 
       expect(result).toEqual({
-        dimensionType: '',
         dynamic: '0',
         dimensionType: type,
         CodeListReference: '1'
@@ -54,7 +50,6 @@ describe('dimension tranformations', () => {
       });
 
       expect(result).toEqual({
-        dimensionType: '',
         dynamic: '0',
         dimensionType: type,
         totalLabel: 'totalLabel'
@@ -68,7 +63,6 @@ describe('dimension tranformations', () => {
       });
 
       expect(result).toEqual({
-        dimensionType: '',
         dynamic: '0',
         dimensionType: type
       });
@@ -81,8 +75,6 @@ describe('dimension tranformations', () => {
       });
 
       expect(result).toEqual({
-        dimensionType: '',
-        dynamic: '0',
         dimensionType: type,
         dynamic: '1-2'
       });
@@ -94,7 +86,6 @@ describe('dimension tranformations', () => {
       });
 
       expect(result).toEqual({
-        dimensionType: '',
         dynamic: '0',
         dimensionType: type
       });
@@ -106,7 +97,6 @@ describe('dimension tranformations', () => {
       });
 
       expect(result).toEqual({
-        dimensionType: '',
         dynamic: '0',
         dimensionType: type
       });
@@ -119,7 +109,6 @@ describe('dimension tranformations', () => {
     });
 
     expect(result).toEqual({
-      dimensionType: '',
       dynamic: '0',
       dimensionType: 'FAKE TYPE'
     });

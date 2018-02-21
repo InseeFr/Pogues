@@ -6,7 +6,8 @@ export const defaultState = {
   message: '',
   criticity: 'INFO',
   during_collect: false,
-  post_collect: false
+  post_collect: false,
+  id: null
 };
 
 export const defaultForm = {

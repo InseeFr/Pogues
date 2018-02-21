@@ -3,7 +3,8 @@ import { uuid } from 'utils/utils';
 export const defaultState = {
   declarationType: 'INSTRUCTION',
   label: '',
-  position: 'AFTER_QUESTION_TEXT'
+  position: 'AFTER_QUESTION_TEXT',
+  id: null
 };
 
 export const defaultForm = {
