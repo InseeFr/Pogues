@@ -21,22 +21,18 @@ export function remoteToState(remote = []) {
 }
 
 export function stateToRemote(state) {
-  const redirections = [];
-
-  Object.keys(state).forEach(key => {
+  return Object.keys(state).map(key => {
     const {
       id,
       label: Description,
       condition: Expression,
       cible: IfTrue
     } = state[key];
-    redirections.push({
+    return {
       id,
       Description,
       Expression,
       IfTrue
-    });
+    };
   });
-
-  return redirections;
 }

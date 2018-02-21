@@ -11,6 +11,7 @@ export function remoteToState(remote = []) {
       post_collect
     } = control;
     const id = control.id || uuid();
+
     return {
       ...acc,
       [id]: {
@@ -27,9 +28,7 @@ export function remoteToState(remote = []) {
 }
 
 export function stateToRemote(state) {
-  const controls = [];
-
-  Object.keys(state).forEach(key => {
+  return Object.keys(state).map(key => {
     const {
       id,
       label: Description,
@@ -40,7 +39,7 @@ export function stateToRemote(state) {
       post_collect
     } = state[key];
 
-    controls.push({
+    return {
       id,
       Description,
       Expression,
@@ -48,8 +47,6 @@ export function stateToRemote(state) {
       criticity,
       during_collect,
       post_collect
-    });
+    };
   });
-
-  return controls;
 }

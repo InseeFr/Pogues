@@ -7,6 +7,7 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
       depth,
       weight: index + 1
     };
+
     return {
       ...acc,
       [codeState.value]: codeState,
@@ -18,6 +19,7 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
 export function remoteToStore(remote) {
   return remote.reduce((acc, codesList) => {
     const { id, Label: label, Code: codes } = codesList;
+
     return {
       ...acc,
       [id]: {
@@ -35,11 +37,9 @@ export function remoteToState(remote) {
 }
 
 export function storeToRemote(store) {
-  const codesLists = [];
-
-  Object.keys(store).forEach(key => {
+  return Object.keys(store).map(key => {
     const { id, label, codes } = store[key];
-    codesLists.push({
+    return {
       id,
       Label: label,
       Name: '',
@@ -51,10 +51,8 @@ export function storeToRemote(store) {
           Parent: parent
         };
       })
-    });
+    };
   });
-
-  return codesLists;
 }
 
 /**
