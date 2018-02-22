@@ -7,7 +7,6 @@ import RichTextEditor, {
 import clearEntityForRange from 'gillespie59-react-rte/lib/lib/clearEntityForRange';
 import getEntityAtCursor from 'gillespie59-react-rte/lib/lib/getEntityAtCursor';
 import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
-import ReactDOM from 'react-dom';
 
 import { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';
 import {
