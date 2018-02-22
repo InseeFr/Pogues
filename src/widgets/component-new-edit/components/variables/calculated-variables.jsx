@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 import { defaultState } from '../../model/calculated-variable';
 
@@ -8,9 +9,13 @@ import Input from 'forms/controls/input';
 import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateCalculatedVariableForm } from 'utils/validation/validate';
-
+import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
+import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
 import Dictionary from 'utils/dictionary/dictionary';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
+import { SelectorView, View } from 'widgets/selector-view';
+
+const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
 // Utils
 
@@ -68,6 +73,19 @@ function CalculatedVariables({ formName, selectorPath, errors, addErrors }) {
           label={Dictionary.formula}
           required
         />
+        <SelectorView
+          label={Dictionary.responseType}
+          selectorPath={selectorPath}
+        >
+          <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
+            <ResponseFormatDatatypeText />
+          </View>
+          <View key={DATE} value={DATE} label={Dictionary.DATE} />
+          <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
+            <ResponseFormatDatatypeNumeric />
+          </View>
+          <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+        </SelectorView>
       </ListWithInputPanel>
     </FormSection>
   );
