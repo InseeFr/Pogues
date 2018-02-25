@@ -63,7 +63,6 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   componentWillReceiveProps(nextProps) {
     const isReset = nextProps.input.value === '';
     const itemSelected =
-      (this.state.currentValue === '' && nextProps.input.value !== '') ||
       nextProps.input.value.indexOf(this.state.currentValue) < 0;
 
     if (isReset || itemSelected) {
