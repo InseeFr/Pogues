@@ -16,19 +16,18 @@ export function getLocale(lang) {
   }, {});
 }
 
-export function decoreFormField(field) {
+export function decoreFormField(Field) {
   function createForm() {
-    return field;
+    return Field;
   }
   const store = createStore(combineReducers({ form }), { form: {} });
 
   const Decorated = reduxForm({ form: 'testForm' })(createForm);
-  const tree = renderer.create(
+  return (
     <Provider store={store}>
       <Decorated />
     </Provider>
   );
-  return tree;
 }
 
 export const noop = () => {};
