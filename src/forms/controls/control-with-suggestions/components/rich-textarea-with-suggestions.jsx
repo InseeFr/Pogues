@@ -55,7 +55,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     if (this.props.focusOnInit) this.input._focus();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate() {
     // @TODO
     return true;
   }
