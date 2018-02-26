@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tab Should exists with the corresponding template 1`] = `
+<div
+  className="nav-content"
+>
+  <div>
+    Fake Children
+  </div>
+</div>
+`;

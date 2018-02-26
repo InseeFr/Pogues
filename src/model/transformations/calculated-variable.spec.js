@@ -4,7 +4,9 @@ import {
   storeToRemote
 } from './calculated-variable';
 
-import { VARIABLES_TYPES } from 'constants/pogues-constants';
+import { DATATYPE_NAME, VARIABLES_TYPES } from 'constants/pogues-constants';
+
+const { TEXT } = DATATYPE_NAME;
 
 const { CALCULATED } = VARIABLES_TYPES;
 
@@ -12,9 +14,54 @@ describe('calculated variables tranformations', () => {
   describe('remoteToStore', () => {
     test('should reduce all variables in an object', () => {
       const remote = [
-        { id: '1', Label: 'label 1', Name: 'name 1', Formula: 'formula 1' },
-        { id: '2', Label: 'label 2', Name: 'name 2', Formula: 'formula 2' },
-        { id: '3', Label: 'label 3', Name: 'name 3', Formula: 'formula 3' }
+        {
+          id: '1',
+          Label: 'label 1',
+          Name: 'name 1',
+          Formula: 'formula 1',
+          Datatype: {
+            MaxLength: 2,
+            Pattern: '',
+            Minimum: '',
+            Maximum: '',
+            Decimals: '',
+            Unit: '',
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
+        },
+        {
+          id: '2',
+          Label: 'label 2',
+          Name: 'name 2',
+          Formula: 'formula 2',
+          Datatype: {
+            MaxLength: 2,
+            Pattern: '',
+            Minimum: '',
+            Maximum: '',
+            Decimals: '',
+            Unit: '',
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
+        },
+        {
+          id: '3',
+          Label: 'label 3',
+          Name: 'name 3',
+          Formula: 'formula 3',
+          Datatype: {
+            MaxLength: 3,
+            Pattern: '',
+            Minimum: '',
+            Maximum: '',
+            Decimals: '',
+            Unit: '',
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
+        }
       ];
 
       expect(remoteToStore(remote)).toEqual({
@@ -22,22 +69,96 @@ describe('calculated variables tranformations', () => {
           id: '1',
           label: 'label 1',
           name: 'name 1',
-          formula: 'formula 1'
+          formula: 'formula 1',
+          type: TEXT,
+          [TEXT]: {
+            maxLength: 2,
+            pattern: '',
+            minimum: '',
+            maximum: '',
+            decimals: '',
+            unit: ''
+          }
         },
         '2': {
           id: '2',
           label: 'label 2',
           name: 'name 2',
-          formula: 'formula 2'
+          formula: 'formula 2',
+          type: TEXT,
+          [TEXT]: {
+            maxLength: 2,
+            pattern: '',
+            minimum: '',
+            maximum: '',
+            decimals: '',
+            unit: ''
+          }
         },
-        '3': { id: '3', label: 'label 3', name: 'name 3', formula: 'formula 3' }
+        '3': {
+          id: '3',
+          label: 'label 3',
+          name: 'name 3',
+          formula: 'formula 3',
+          type: TEXT,
+          [TEXT]: {
+            maxLength: 3,
+            pattern: '',
+            minimum: '',
+            maximum: '',
+            decimals: '',
+            unit: ''
+          }
+        }
       });
     });
     test('should generate an ID', () => {
       const remote = [
-        { Label: 'label 1', Name: 'name 1', Formula: 'formula 1' },
-        { Label: 'label 2', Name: 'name 2', Formula: 'formula 2' },
-        { Label: 'label 3', Name: 'name 3', Formula: 'formula 3' }
+        {
+          Label: 'label 1',
+          Name: 'name 1',
+          Formula: 'formula 1',
+          Datatype: {
+            MaxLength: 3,
+            Pattern: '',
+            Minimum: '',
+            Maximum: '',
+            Decimals: '',
+            Unit: '',
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
+        },
+        {
+          Label: 'label 2',
+          Name: 'name 2',
+          Formula: 'formula 2',
+          Datatype: {
+            MaxLength: 3,
+            Pattern: '',
+            Minimum: '',
+            Maximum: '',
+            Decimals: '',
+            Unit: '',
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
+        },
+        {
+          Label: 'label 3',
+          Name: 'name 3',
+          Formula: 'formula 3',
+          Datatype: {
+            MaxLength: 3,
+            Pattern: '',
+            Minimum: '',
+            Maximum: '',
+            Decimals: '',
+            Unit: '',
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
+        }
       ];
       const result = remoteToStore(remote);
       Object.keys(result).forEach(key => expect(key).toBeDefined());
@@ -50,15 +171,26 @@ describe('calculated variables tranformations', () => {
           id: '1',
           label: 'label 1',
           name: 'name 1',
-          formula: 'formula 1'
+          formula: 'formula 1',
+          type: TEXT,
+          [TEXT]: { maxLength: 2 }
         },
         '2': {
           id: '2',
           label: 'label 2',
           name: 'name 2',
-          formula: 'formula 2'
+          formula: 'formula 2',
+          type: TEXT,
+          [TEXT]: { maxLength: 2 }
         },
-        '3': { id: '3', label: 'label 3', name: 'name 3', formula: 'formula 3' }
+        '3': {
+          id: '3',
+          label: 'label 3',
+          name: 'name 3',
+          formula: 'formula 3',
+          type: TEXT,
+          [TEXT]: { maxLength: 3 }
+        }
       };
 
       expect(storeToRemote(store)).toEqual([
@@ -67,21 +199,36 @@ describe('calculated variables tranformations', () => {
           Label: 'label 1',
           Name: 'name 1',
           Formula: 'formula 1',
-          type: CALCULATED
+          type: CALCULATED,
+          Datatype: {
+            MaxLength: 2,
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
         },
         {
           id: '2',
           Label: 'label 2',
           Name: 'name 2',
           Formula: 'formula 2',
-          type: CALCULATED
+          type: CALCULATED,
+          Datatype: {
+            MaxLength: 2,
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
         },
         {
           id: '3',
           Label: 'label 3',
           Name: 'name 3',
           Formula: 'formula 3',
-          type: CALCULATED
+          type: CALCULATED,
+          Datatype: {
+            MaxLength: 3,
+            type: 'TextDatatypeType',
+            typeName: TEXT
+          }
         }
       ]);
     });

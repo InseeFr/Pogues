@@ -1,25 +1,33 @@
 import { uuid } from 'utils/utils';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { defaultTypageForm } from './typage';
+
+const { TEXT } = DATATYPE_NAME;
 
 export const defaultState = {
   id: null,
   name: '',
-  label: ''
+  label: '',
+  type: TEXT
 };
 
 export const defaultForm = {
   name: '',
   label: '',
-  externalVariables: []
+  externalVariables: [],
+  ...defaultTypageForm
 };
 
 export function formToState(form) {
-  const { name, label } = form;
+  const { name, label, type, [type]: simpleForm } = form;
   const id = form.id || uuid();
 
   return {
     id,
     name,
-    label
+    label,
+    type,
+    [type]: { ...simpleForm }
   };
 }
 
@@ -40,11 +48,15 @@ export function storeToForm(currentStore) {
   const externalVariables = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, name, label } = currentStore[key];
+    const { id, name, label, type, [type]: simpleState } = currentStore[key];
     externalVariables.push({
       id,
       name,
-      label
+      label,
+      type,
+      [type]: {
+        ...simpleState
+      }
     });
   });
 

@@ -6,25 +6,63 @@ describe('external variable transformation', () => {
       id: '1',
       Name: 'Name 1',
       Label: 'Label 1',
-      type: 'ExternalVariableType'
+      type: 'ExternalVariableType',
+      Datatype: {
+        type: 'TextDatatypeType',
+        typeName: 'TEXT',
+        MaxLength: 'maxLength',
+        Pattern: 'pattern',
+        Minimum: 'minimum',
+        Maximum: 'maximum',
+        Decimals: 'decimals',
+        Unit: 'unit'
+      }
     },
     {
       id: '2',
       Name: 'Name 2',
       Label: 'Label 2',
-      type: 'ExternalVariableType'
+      type: 'ExternalVariableType',
+      Datatype: {
+        type: 'TextDatatypeType',
+        typeName: 'TEXT',
+        MaxLength: 'maxLength',
+        Pattern: 'pattern',
+        Minimum: 'minimum',
+        Maximum: 'maximum',
+        Decimals: 'decimals',
+        Unit: 'unit'
+      }
     }
   ];
   const state = {
     '1': {
       id: '1',
       name: 'Name 1',
-      label: 'Label 1'
+      label: 'Label 1',
+      type: 'TEXT',
+      ['TEXT']: {
+        maxLength: 'maxLength',
+        pattern: 'pattern',
+        minimum: 'minimum',
+        maximum: 'maximum',
+        decimals: 'decimals',
+        unit: 'unit'
+      }
     },
     '2': {
       id: '2',
       name: 'Name 2',
-      label: 'Label 2'
+      label: 'Label 2',
+      type: 'TEXT',
+      ['TEXT']: {
+        maxLength: 'maxLength',
+        pattern: 'pattern',
+        minimum: 'minimum',
+        maximum: 'maximum',
+        decimals: 'decimals',
+        unit: 'unit'
+      }
     }
   };
   describe('remoteToStore', () => {

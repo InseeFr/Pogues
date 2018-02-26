@@ -11,7 +11,13 @@ import { validateExternalVariableForm } from 'utils/validation/validate';
 import Dictionary from 'utils/dictionary/dictionary';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
-// Utils
+import { DATATYPE_NAME } from 'constants/pogues-constants';
+
+import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
+import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
+import { SelectorView, View } from 'widgets/selector-view';
+
+const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
 const validateForm = (addErrors, validate) => (values, state) => {
   return validate(values, addErrors, state);
@@ -60,6 +66,19 @@ function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
           label={Dictionary.name}
           required
         />
+        <SelectorView
+          label={Dictionary.responseType}
+          selectorPath={selectorPath}
+        >
+          <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
+            <ResponseFormatDatatypeText />
+          </View>
+          <View key={DATE} value={DATE} label={Dictionary.DATE} />
+          <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
+            <ResponseFormatDatatypeNumeric />
+          </View>
+          <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+        </SelectorView>
       </ListWithInputPanel>
     </FormSection>
   );

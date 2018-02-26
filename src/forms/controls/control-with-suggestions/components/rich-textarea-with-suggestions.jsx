@@ -55,7 +55,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     if (this.props.focusOnInit) this.input._focus();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate() {
     // @TODO
     return true;
   }
@@ -63,7 +63,6 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   componentWillReceiveProps(nextProps) {
     const isReset = nextProps.input.value === '';
     const itemSelected =
-      (this.state.currentValue === '' && nextProps.input.value !== '') ||
       nextProps.input.value.indexOf(this.state.currentValue) < 0;
 
     if (isReset || itemSelected) {
