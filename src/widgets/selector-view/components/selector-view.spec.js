@@ -14,7 +14,7 @@ describe('Tab', () => {
     const selectorView = renderer
       .create(
         decoreFormField(
-          <SelectorView {...props}>
+          <SelectorView {...props} required readOnly={false}>
             <div value={'value1'} label={'label1'}>
               Fake Children
             </div>
@@ -37,7 +37,7 @@ describe('Tab', () => {
     const selectorView = renderer
       .create(
         decoreFormField(
-          <SelectorView {...props}>
+          <SelectorView {...props} required readOnly={false}>
             <div value={'value1'} label={'label1'}>
               Fake Children
             </div>

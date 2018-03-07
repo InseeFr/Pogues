@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Simple Text with default props 1`] = `
+<div
+  className="response-format-datatype-text"
+>
+  <div
+    className="ctrl-input "
+  >
+    <label
+      htmlFor="input-TEXT.maxLength"
+    >
+      Length
+      <span
+        className="ctrl-required"
+      >
+        *
+      </span>
+    </label>
+    <div>
+      <input
+        disabled={false}
+        id="input-TEXT.maxLength"
+        name="TEXT.maxLength"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Length"
+        type="number"
+        value=""
+      />
+    </div>
+  </div>
+  <div
+    className="ctrl-input "
+  >
+    <label
+      htmlFor="input-TEXT.pattern"
+    >
+      Pattern
+    </label>
+    <div>
+      <input
+        disabled={false}
+        id="input-TEXT.pattern"
+        name="TEXT.pattern"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Pattern"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Simple Text with readOnly 1`] = `
+<div
+  className="response-format-datatype-text"
+>
+  <div
+    className="ctrl-input "
+  >
+    <label
+      htmlFor="input-TEXT.maxLength"
+    >
+      Length
+      <span
+        className="ctrl-required"
+      >
+        *
+      </span>
+    </label>
+    <div>
+      <input
+        disabled={true}
+        id="input-TEXT.maxLength"
+        name="TEXT.maxLength"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Length"
+        type="number"
+        value=""
+      />
+    </div>
+  </div>
+  <div
+    className="ctrl-input "
+  >
+    <label
+      htmlFor="input-TEXT.pattern"
+    >
+      Pattern
+    </label>
+    <div>
+      <input
+        disabled={true}
+        id="input-TEXT.pattern"
+        name="TEXT.pattern"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Pattern"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Simple Text with required 1`] = `
+<div
+  className="response-format-datatype-text"
+>
+  <div
+    className="ctrl-input "
+  >
+    <label
+      htmlFor="input-TEXT.maxLength"
+    >
+      Length
+      <span
+        className="ctrl-required"
+      >
+        *
+      </span>
+    </label>
+    <div>
+      <input
+        disabled={false}
+        id="input-TEXT.maxLength"
+        name="TEXT.maxLength"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Length"
+        type="number"
+        value=""
+      />
+    </div>
+  </div>
+  <div
+    className="ctrl-input "
+  >
+    <label
+      htmlFor="input-TEXT.pattern"
+    >
+      Pattern
+    </label>
+    <div>
+      <input
+        disabled={false}
+        id="input-TEXT.pattern"
+        name="TEXT.pattern"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Pattern"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;

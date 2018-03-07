@@ -3,6 +3,7 @@ import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import { defaultState } from '../../model/collected-variable';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 import Input from 'forms/controls/input';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
@@ -10,7 +11,11 @@ import { validateCollectedVariableForm } from 'utils/validation/validate';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 import Dictionary from 'utils/dictionary/dictionary';
 import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
+import { SelectorView, View } from 'widgets/selector-view';
+import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
+import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
 
+const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 // Utils
 
 const validateForm = (addErrors, validate) => (values, state) => {
@@ -69,7 +74,8 @@ class CollectedVariables extends Component {
       responseFormatType,
       componentName,
       reponseFormatValues,
-      codesListsStoreStore
+      codesListsStoreStore,
+      reponseFormatValues
     );
 
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
@@ -132,6 +138,21 @@ class CollectedVariables extends Component {
           />
           <Field name="x" type="hidden" component="input" />
           <Field name="y" type="hidden" component="input" />
+          <SelectorView
+            label={Dictionary.responseType}
+            selectorPath={selectorPath}
+            readOnly
+            required={false}
+          >
+            <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
+              <ResponseFormatDatatypeText readOnly required={false} />
+            </View>
+            <View key={DATE} value={DATE} label={Dictionary.DATE} />
+            <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
+              <ResponseFormatDatatypeNumeric readOnly required={false} />
+            </View>
+            <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+          </SelectorView>
         </ListWithInputPanel>
       </FormSection>
     );

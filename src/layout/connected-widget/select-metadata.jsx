@@ -17,10 +17,17 @@ function SelectMetadataContainer({
   name,
   label,
   emptyValue,
-  mapMetadataFunction
+  mapMetadataFunction,
+  disabled
 }) {
   return (
-    <Field name={name} label={label} emptyValue={emptyValue} component={Select}>
+    <Field
+      name={name}
+      label={label}
+      emptyValue={emptyValue}
+      component={Select}
+      disabled={disabled}
+    >
       {emptyValue !== '' && (
         <GenericOption key="" value="">
           {emptyValue}
@@ -40,12 +47,14 @@ SelectMetadataContainer.propTypes = {
   meatadata: PropTypes.array,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  emptyValue: PropTypes.string
+  emptyValue: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 SelectMetadataContainer.defaultProps = {
   meatadata: [],
-  emptyValue: ''
+  emptyValue: '',
+  disabled: false
 };
 
 export default connect(mapStateToProps)(SelectMetadataContainer);

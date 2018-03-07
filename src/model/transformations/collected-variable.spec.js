@@ -3,6 +3,9 @@ import {
   remoteToComponentState,
   storeToRemote
 } from './collected-variable';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
+
+const { TEXT } = DATATYPE_NAME;
 
 describe('collected variable tranformations', () => {
   describe('remoteToStore', () => {
@@ -12,7 +15,12 @@ describe('collected variable tranformations', () => {
           id: 'jdww2n76',
           Name: 'A',
           Label: 'A label',
-          type: 'CollectedVariableType'
+          type: 'CollectedVariableType',
+          Datatype: {
+            typeName: TEXT,
+            MaxLength: 100,
+            Pattern: 'pattern'
+          }
         }
       ];
       const responsesByVariable = { jdww2n76: {} };
@@ -20,7 +28,16 @@ describe('collected variable tranformations', () => {
         jdww2n76: {
           id: 'jdww2n76',
           label: 'A label',
-          name: 'A'
+          name: 'A',
+          type: TEXT,
+          [TEXT]: {
+            decimals: undefined,
+            maxLength: 100,
+            pattern: 'pattern',
+            maximum: undefined,
+            minimum: undefined,
+            unit: undefined
+          }
         }
       };
       expect(remoteToStore(input, responsesByVariable)).toEqual(output);
@@ -54,7 +71,16 @@ describe('collected variable tranformations', () => {
           label: 'A label',
           name: 'A',
           x: undefined,
-          y: undefined
+          y: undefined,
+          type: TEXT,
+          [TEXT]: {
+            decimals: undefined,
+            maxLength: 100,
+            pattern: 'pattern',
+            maximum: undefined,
+            minimum: undefined,
+            unit: undefined
+          }
         }
       };
       const output = [
@@ -62,7 +88,13 @@ describe('collected variable tranformations', () => {
           Label: 'A label',
           Name: 'A',
           id: 'jdww2n76',
-          type: 'CollectedVariableType'
+          type: 'CollectedVariableType',
+          Datatype: {
+            type: 'TextDatatypeType',
+            typeName: TEXT,
+            MaxLength: 100,
+            Pattern: 'pattern'
+          }
         }
       ];
       expect(storeToRemote(input)).toEqual(output);

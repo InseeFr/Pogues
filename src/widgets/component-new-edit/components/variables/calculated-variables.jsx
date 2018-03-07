@@ -76,13 +76,14 @@ function CalculatedVariables({ formName, selectorPath, errors, addErrors }) {
         <SelectorView
           label={Dictionary.responseType}
           selectorPath={selectorPath}
+          required={false}
         >
           <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
-            <ResponseFormatDatatypeText />
+            <ResponseFormatDatatypeText required={false} />
           </View>
           <View key={DATE} value={DATE} label={Dictionary.DATE} />
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-            <ResponseFormatDatatypeNumeric />
+            <ResponseFormatDatatypeNumeric required={false} />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         </SelectorView>

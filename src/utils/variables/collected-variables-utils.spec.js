@@ -6,10 +6,12 @@ import {
 
 import {
   DIMENSION_TYPE,
-  DEFAULT_CODES_LIST_SELECTOR_PATH
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DATATYPE_NAME
 } from 'constants/pogues-constants';
+const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;
 
-const { PRIMARY } = DIMENSION_TYPE;
+const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 
 describe('collected variables utils: ', () => {
   describe('sortByYAndX', () => {
@@ -94,7 +96,8 @@ describe('collected variables utils: ', () => {
             ],
             id: '1'
           }
-        }
+        },
+        [MEASURE]: { type: 'type' }
       };
       const codesListStore = {};
       const result = getCollectedVariablesMultiple(
@@ -107,13 +110,23 @@ describe('collected variables utils: ', () => {
           id: result[0].id,
           label: 'value1 - label1',
           name: 'questionName1',
-          x: 1
+          x: 1,
+          type: BOOLEAN,
+          [TEXT]: undefined,
+          [NUMERIC]: undefined,
+          [DATE]: undefined,
+          [BOOLEAN]: undefined
         },
         {
           id: result[1].id,
           label: 'value2 - label2',
           name: 'questionName2',
-          x: 2
+          x: 2,
+          type: BOOLEAN,
+          [TEXT]: undefined,
+          [NUMERIC]: undefined,
+          [DATE]: undefined,
+          [BOOLEAN]: undefined
         }
       ]);
     });
@@ -129,7 +142,8 @@ describe('collected variables utils: ', () => {
             ],
             id: '1'
           }
-        }
+        },
+        [MEASURE]: { type: 'type' }
       };
       const codesListStore = {
         '1': { codes: { '1': { value: 'code1', label: 'label1' } } }
@@ -144,7 +158,12 @@ describe('collected variables utils: ', () => {
           id: result[0].id,
           label: 'code1 - label1',
           name: 'questionName1',
-          x: 1
+          x: 1,
+          type: BOOLEAN,
+          [TEXT]: undefined,
+          [NUMERIC]: undefined,
+          [DATE]: undefined,
+          [BOOLEAN]: undefined
         }
       ]);
     });

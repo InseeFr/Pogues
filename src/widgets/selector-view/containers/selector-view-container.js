@@ -13,14 +13,18 @@ const propTypes = {
   label: PropTypes.string.isRequired,
   radio: PropTypes.bool,
   children: PropTypes.array,
-  emptyOption: PropTypes.string
+  emptyOption: PropTypes.string,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   radio: false,
   children: [],
-  emptyOption: undefined
+  emptyOption: undefined,
+  readOnly: false,
+  required: true
 };
 
 // Container

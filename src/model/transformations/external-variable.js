@@ -7,6 +7,7 @@ const { EXTERNAL } = VARIABLES_TYPES;
 
 export function remoteToStore(remote = []) {
   return remote.reduce((acc, ev) => {
+    ev.Datatype = ev.Datatype || {};
     const {
       Name: name,
       Label: label,

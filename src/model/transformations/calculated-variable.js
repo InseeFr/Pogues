@@ -9,6 +9,7 @@ const { CALCULATED } = VARIABLES_TYPES;
 
 export function remoteToStore(remote = []) {
   return remote.reduce((acc, cv) => {
+    cv.Datatype = cv.Datatype || {};
     const {
       Label: label,
       Name: name,
