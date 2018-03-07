@@ -80,7 +80,7 @@
     "isomorphic-fetch": "2.2.1",
     "jest": "22.4.0",
     "jison": "0.4.18",
-    "nightwatch": "0.9.16",
+    "nightwatch": "0.9.19",
     "node-sass": "4.5.2",
     "object-assign": "4.1.1",
     "preload-webpack-plugin": "1.2.2",
