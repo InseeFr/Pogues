@@ -17,7 +17,9 @@ function mapUnitData(unit) {
 
 class ResponseFormatDatatypeNumeric extends FormSection {
   static defaultProps = {
-    name: NUMERIC
+    name: NUMERIC,
+    readOnly: false,
+    required: true
   };
   render() {
     return (
@@ -28,7 +30,8 @@ class ResponseFormatDatatypeNumeric extends FormSection {
           step="any"
           component={Input}
           label={Dictionary.minimum}
-          required
+          required={this.props.required}
+          disabled={this.props.readOnly}
         />
         <Field
           name="maximum"
@@ -36,7 +39,8 @@ class ResponseFormatDatatypeNumeric extends FormSection {
           step="any"
           component={Input}
           label={Dictionary.maximum}
-          required
+          required={this.props.required}
+          disabled={this.props.readOnly}
         />
         <Field
           name="decimals"
@@ -44,6 +48,7 @@ class ResponseFormatDatatypeNumeric extends FormSection {
           step="any"
           component={Input}
           label={Dictionary.decimals}
+          disabled={this.props.readOnly}
         />
         <SelectMetaDataContainer
           type="units"
@@ -51,6 +56,7 @@ class ResponseFormatDatatypeNumeric extends FormSection {
           label={Dictionary.unit}
           emptyValue={Dictionary.unitEmptySelect}
           mapMetadataFunction={mapUnitData}
+          disabled={this.props.readOnly}
         />
       </div>
     );

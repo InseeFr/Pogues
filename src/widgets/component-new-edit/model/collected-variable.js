@@ -1,5 +1,7 @@
 import { uuid } from 'utils/utils';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 import { sortByYAndX } from 'utils/variables/collected-variables-utils';
+const { TEXT, BOOLEAN, NUMERIC, DATE } = DATATYPE_NAME;
 
 export const defaultState = {
   name: '',
@@ -13,9 +15,19 @@ export const defaultForm = {
   label: '',
   x: '',
   y: '',
+  type: TEXT,
   collectedVariables: []
 };
 
+function getTypings(object) {
+  return {
+    type: object.type,
+    [TEXT]: object[TEXT],
+    [NUMERIC]: object[NUMERIC],
+    [DATE]: object[DATE],
+    [BOOLEAN]: object[BOOLEAN]
+  };
+}
 export function formToState(form) {
   const { name, label, x, y } = form;
   const id = form.id || uuid();
@@ -25,7 +37,8 @@ export function formToState(form) {
     name,
     label,
     x,
-    y
+    y,
+    ...getTypings(form)
   };
 }
 
@@ -52,7 +65,8 @@ export function storeToForm(currentStore) {
         name,
         label,
         x,
-        y
+        y,
+        ...getTypings(currentStore[key])
       };
     });
 

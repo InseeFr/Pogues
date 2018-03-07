@@ -9,7 +9,9 @@ const { TEXT } = DATATYPE_NAME;
 
 class ResponseFormatDatatypeText extends FormSection {
   static defaultProps = {
-    name: TEXT
+    name: TEXT,
+    readOnly: false,
+    required: true
   };
   render() {
     return (
@@ -19,13 +21,15 @@ class ResponseFormatDatatypeText extends FormSection {
           type="number"
           component={Input}
           label={Dictionary.maxLength}
-          required
+          required={this.props.required}
+          disabled={this.props.readOnly}
         />
         <Field
           name="pattern"
           type="text"
           component={Input}
           label={Dictionary.pattern}
+          disabled={this.props.readOnly}
         />
       </div>
     );

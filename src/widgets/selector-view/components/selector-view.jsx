@@ -26,7 +26,9 @@ const propTypes = {
   label: PropTypes.string.isRequired,
   emptyOption: PropTypes.string,
   radio: PropTypes.bool.isRequired,
-  children: PropTypes.array.isRequired
+  children: PropTypes.array.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  required: PropTypes.bool.isRequired
 };
 
 export const defaultProps = {
@@ -41,7 +43,9 @@ function SelectorView({
   label,
   emptyOption,
   radio,
-  children
+  children,
+  readOnly,
+  required
 }) {
   const values = getValuesFromViews(children);
   const options = values.map(v => (
@@ -64,11 +68,23 @@ function SelectorView({
   return (
     <div>
       {radio ? (
-        <Field name="type" component={ListRadios} label={label} required>
+        <Field
+          name="type"
+          component={ListRadios}
+          label={label}
+          required={required}
+          disabled={readOnly}
+        >
           {options}
         </Field>
       ) : (
-        <Field name="type" component={Select} label={label} required>
+        <Field
+          name="type"
+          component={Select}
+          label={label}
+          required={required}
+          disabled={readOnly}
+        >
           {options}
         </Field>
       )}
