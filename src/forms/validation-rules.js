@@ -3,10 +3,7 @@ import cloneDeep from 'lodash.clonedeep';
 import Dictionary from 'utils/dictionary/dictionary';
 import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
-import {
-  generateCollectedVariables,
-  getComponentsTargetsByPosition
-} from 'utils/variables/collected-variables-utils';
+import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 
