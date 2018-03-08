@@ -261,7 +261,9 @@ class ListWithInputPanel extends Component {
       return child
         ? cloneElement(child, {
             ...child.props,
-            disabled: !canAddNew && this.state.selectedItemIndex === undefined
+            disabled:
+              child.props.disabled ||
+              (!canAddNew && this.state.selectedItemIndex === undefined)
           })
         : child;
     }).filter(child => child);

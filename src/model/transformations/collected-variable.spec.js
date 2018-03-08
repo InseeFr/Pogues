@@ -16,6 +16,7 @@ describe('collected variable tranformations', () => {
           Name: 'A',
           Label: 'A label',
           type: 'CollectedVariableType',
+          CodeListReference: 'id',
           Datatype: {
             typeName: TEXT,
             MaxLength: 100,
@@ -24,12 +25,15 @@ describe('collected variable tranformations', () => {
         }
       ];
       const responsesByVariable = { jdww2n76: {} };
+      const codesListStore = { id: { label: 'label' } };
       const output = {
         jdww2n76: {
           id: 'jdww2n76',
           label: 'A label',
           name: 'A',
           type: TEXT,
+          codeListReference: 'id',
+          codeListReferenceLabel: 'label',
           [TEXT]: {
             decimals: undefined,
             maxLength: 100,
@@ -40,7 +44,9 @@ describe('collected variable tranformations', () => {
           }
         }
       };
-      expect(remoteToStore(input, responsesByVariable)).toEqual(output);
+      expect(remoteToStore(input, responsesByVariable, codesListStore)).toEqual(
+        output
+      );
     });
   });
   describe('remoteToComponentState', () => {

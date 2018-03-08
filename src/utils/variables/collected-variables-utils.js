@@ -36,11 +36,7 @@ export function getCollecteVariable(
     id: uuid(),
     name,
     label,
-    type: reponseFormatValues.type,
-    TEXT: reponseFormatValues.TEXT,
-    NUMERIC: reponseFormatValues.NUMERIC,
-    DATE: reponseFormatValues.DATE,
-    BOOLEAN: reponseFormatValues.BOOLEAN
+    ...reponseFormatValues
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
@@ -70,6 +66,8 @@ export function getCollectedVariablesMultiple(
 
   if (typeMeasure === CODES_LIST) {
     reponseFormatValues = {
+      codeListReference: form[MEASURE][CODES_LIST].CodesList.id,
+      codeListReferenceLabel: form[MEASURE][CODES_LIST].CodesList.label,
       type: TEXT,
       [TEXT]: {
         maxLength: 1,
@@ -90,21 +88,27 @@ export function getCollectedVariablesMultiple(
 
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
   function getReponsesValues(measure) {
-    let reponseFormatValues = {
-      type: TEXT,
-      [TEXT]: {
-        maxLength: 1,
-        pattern: ''
-      }
-    };
+    let reponseFormatValues = {};
 
     if (measure.type === SIMPLE) {
       reponseFormatValues = {
+        codeListReference: '',
+        codeListReferenceLabel: '',
         type: measure[SIMPLE].type,
         BOOLEAN: measure[SIMPLE].BOOLEAN,
         DATE: measure[SIMPLE].DATE,
         NUMERIC: measure[SIMPLE].NUMERIC,
         TEXT: measure[SIMPLE].TEXT
+      };
+    } else if (measure.type === SINGLE_CHOICE) {
+      reponseFormatValues = {
+        codeListReference: measure[SINGLE_CHOICE].CodesList.id,
+        codeListReferenceLabel: measure[SINGLE_CHOICE].CodesList.label,
+        type: TEXT,
+        [TEXT]: {
+          maxLength: 1,
+          pattern: ''
+        }
       };
     }
     return reponseFormatValues;
@@ -221,8 +225,7 @@ export function generateCollectedVariables(
   responseFormat,
   questionName,
   form,
-  codesListStore,
-  reponseFormatValues
+  codesListStore
 ) {
   let generatedCollectedVariables = [];
 
@@ -232,12 +235,14 @@ export function generateCollectedVariables(
         questionName,
         `${questionName} label`,
         undefined,
-        reponseFormatValues
+        form
       )
     ];
   } else if (responseFormat === SINGLE_CHOICE) {
     generatedCollectedVariables = [
       getCollecteVariable(questionName, `${questionName} label`, undefined, {
+        codeListReference: form.CodesList.id,
+        codeListReferenceLabel: form.CodesList.label,
         type: TEXT,
         [TEXT]: {
           maxLength: 1,

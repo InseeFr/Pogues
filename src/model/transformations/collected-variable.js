@@ -6,12 +6,17 @@ import {
 
 const { COLLECTED } = VARIABLES_TYPES;
 
-export function remoteToStore(remote = [], responsesByVariable) {
+export function remoteToStore(
+  remote = [],
+  responsesByVariable,
+  codesListsStore
+) {
   return remote.reduce((acc, ev) => {
     ev.Datatype = ev.Datatype || {};
     const {
       Name: name,
       Label: label,
+      CodeListReference,
       Datatype: {
         typeName,
         MaxLength: maxLength,
@@ -31,6 +36,10 @@ export function remoteToStore(remote = [], responsesByVariable) {
         name,
         label,
         type: typeName,
+        codeListReference: CodeListReference,
+        codeListReferenceLabel: CodeListReference
+          ? codesListsStore[CodeListReference].label
+          : '',
         [typeName]: {
           maxLength,
           pattern,
@@ -58,7 +67,7 @@ export function storeToRemote(store) {
       name: Name,
       label: Label,
       type: typeName,
-
+      codeListReference,
       [typeName]: {
         maxLength: MaxLength,
         pattern: Pattern,
@@ -73,6 +82,7 @@ export function storeToRemote(store) {
       Name,
       Label,
       type: COLLECTED,
+      CodeListReference: codeListReference,
       Datatype: {
         typeName,
         type: DATATYPE_TYPE_FROM_NAME[typeName]

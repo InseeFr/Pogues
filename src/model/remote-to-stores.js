@@ -31,19 +31,20 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     [id]: ExternalVariable.remoteToStore(externalVariables)
   };
 
+  // Codes lists store
+  const codesListsStore = CodesList.remoteToStore(codesLists);
+  const codeListByQuestionnaire = {
+    [id]: codesListsStore
+  };
+
   // Collected variables store
   const responsesByVariable = Component.remoteToVariableResponse(remote);
   const collectedVariableByQuestionnaire = {
     [id]: CollectedVariable.remoteToStore(
       collectedVariables,
-      responsesByVariable
+      responsesByVariable,
+      codesListsStore
     )
-  };
-
-  // Codes lists store
-  const codesListsStore = CodesList.remoteToStore(codesLists);
-  const codeListByQuestionnaire = {
-    [id]: codesListsStore
   };
 
   // Components store
