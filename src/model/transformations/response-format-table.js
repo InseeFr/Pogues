@@ -1,4 +1,5 @@
 import uniq from 'lodash.uniq';
+import { sortByYAndX } from 'utils/variables/collected-variables-utils';
 
 import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
@@ -295,11 +296,12 @@ export function stateToRemote(
   let mappingsModel = [];
 
   for (let i = 0; i < numDataTypes; i += 1) {
-    const collectedVariablesByDatatype = collectedVariables.filter(
-      (cv, index) => {
-        return index % numDataTypes === i;
-      }
-    );
+    const collectedVariablesByDatatype = collectedVariables
+      .sort(sortByYAndX(collectedVariablesStore))
+      .map(key => collectedVariablesStore[key])
+      .filter(variable => !variable.y || variable.y === i + 1)
+      .map(variable => variable.id);
+
     const responsesModelByRow = Responses.stateToModel(
       responsesState[i],
       collectedVariablesByDatatype,
