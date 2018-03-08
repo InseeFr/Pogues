@@ -1,5 +1,6 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import { uuid } from 'utils/utils';
 
 import { CodesListModel } from 'widgets/codes-lists';
 import {
@@ -39,7 +40,10 @@ export const defaultMeasureState = {
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
+      cloneDeep(CodesListModel.defaultState),
+      { id: uuid() }
+    ),
     visHint: CHECKBOX
   }
 };
@@ -324,7 +328,6 @@ const Factory = (initialState = {}, codesListsStore) => {
     ...otherState,
     [LIST_MEASURE]: { measures }
   });
-
   currentState[LIST_MEASURE].measures = currentState[LIST_MEASURE].measures.map(
     m => {
       const { type, label, [type]: measureState } = m;

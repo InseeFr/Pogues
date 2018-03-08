@@ -74,8 +74,7 @@ class CollectedVariables extends Component {
       responseFormatType,
       componentName,
       reponseFormatValues,
-      codesListsStoreStore,
-      reponseFormatValues
+      codesListsStoreStore
     );
 
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
@@ -153,6 +152,15 @@ class CollectedVariables extends Component {
             </View>
             <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
           </SelectorView>
+
+          <Field name="codeListReference" type="hidden" component="input" />
+          <Field
+            name="codeListReferenceLabel"
+            type="text"
+            disabled
+            component={Input}
+            label={Dictionary.cl}
+          />
         </ListWithInputPanel>
       </FormSection>
     );
