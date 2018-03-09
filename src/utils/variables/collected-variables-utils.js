@@ -61,7 +61,8 @@ export function getCollectedVariablesMultiple(
   }
 
   let reponseFormatValues = {
-    type: BOOLEAN
+    type: BOOLEAN,
+    [BOOLEAN]: {}
   };
 
   if (typeMeasure === CODES_LIST) {
