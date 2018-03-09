@@ -58,12 +58,14 @@ class ResponseFormatSingle extends Component {
             />
           </div>
         </div>
-        <OptionalView
+        {/*
+
+          <OptionalView
           name="hasSpecialCode"
           label={Dictionary.addSpecialCode}
           selectorPath={this.selectorPathComposed}
           checkbox
-        >
+          >
           <div>
             <Field
               name="specialLabel"
@@ -95,7 +97,10 @@ class ResponseFormatSingle extends Component {
               label={Dictionary.followUpMsg}
             />
           </div>
-        </OptionalView>
+          </OptionalView>
+
+          */}
+
 
         <Field
           name="visHint"

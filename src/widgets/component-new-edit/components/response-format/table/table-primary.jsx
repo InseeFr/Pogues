@@ -48,18 +48,21 @@ class ResponseFormatTablePrincipal extends Component {
             />
           </View>
         </SelectorView>
-        <OptionalView
-          name="showTotalLabel"
-          label={Dictionary.rowTotal}
-          selectorPath={this.selectorPathComposed}
-        >
-          <Field
-            name="totalLabel"
-            type="text"
-            component={Input}
-            label={Dictionary.rowTotalLabel}
-          />
-        </OptionalView>
+{/*
+  <OptionalView
+    name="showTotalLabel"
+    label={Dictionary.rowTotal}
+    selectorPath={this.selectorPathComposed}
+  >
+    <Field
+      name="totalLabel"
+      type="text"
+      component={Input}
+      label={Dictionary.rowTotalLabel}
+    />
+  </OptionalView>
+*/}
+
       </FormSection>
     );
   }
