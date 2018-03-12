@@ -1,5 +1,6 @@
 import uniq from 'lodash.uniq';
 import { sortByYAndX } from 'utils/variables/collected-variables-utils';
+import maxBy from 'lodash.maxby';
 
 import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
@@ -291,7 +292,10 @@ export function stateToRemote(
 
   // Responses
 
-  const numDataTypes = measureState ? 1 : listMeasuresState.length;
+  const numDataTypes = measureState
+    ? maxBy(collectedVariables.map(key => collectedVariablesStore[key]), 'y')
+        .y || 1
+    : listMeasuresState.length;
   let responsesModel = [];
   let mappingsModel = [];
 
