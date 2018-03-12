@@ -115,7 +115,7 @@ describe('collected variables utils: ', () => {
           [TEXT]: undefined,
           [NUMERIC]: undefined,
           [DATE]: undefined,
-          [BOOLEAN]: undefined
+          [BOOLEAN]: {}
         },
         {
           id: result[1].id,
@@ -126,7 +126,7 @@ describe('collected variables utils: ', () => {
           [TEXT]: undefined,
           [NUMERIC]: undefined,
           [DATE]: undefined,
-          [BOOLEAN]: undefined
+          [BOOLEAN]: {}
         }
       ]);
     });
@@ -163,7 +163,7 @@ describe('collected variables utils: ', () => {
           [TEXT]: undefined,
           [NUMERIC]: undefined,
           [DATE]: undefined,
-          [BOOLEAN]: undefined
+          [BOOLEAN]: {}
         }
       ]);
     });
