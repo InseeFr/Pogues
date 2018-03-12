@@ -98,7 +98,7 @@ export function name(value = '') {
 }
 
 export function nameSize(value) {
-  return value && value.length > 16
+  return value && value.length > 32
     ? Dictionary.validationInvalidNameSize
     : undefined;
 }
