@@ -29,12 +29,14 @@ function UserConnection({ user }) {
               {Dictionary.stamp} {user.permission}
             </div>
           </div>
-          <div className="user-logout">
+          {/* <div className="user-logout">
             <a>
               <span className="glyphicon glyphicon-remove-sign" />
               {Dictionary.logout}
             </a>
           </div>
+        */}
+
         </div>
       ) : (
         <div className="user-login" />
