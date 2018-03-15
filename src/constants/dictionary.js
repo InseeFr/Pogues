@@ -936,8 +936,8 @@ const dictionary = {
       'The Id can only contain non-accented letters, numbers, dashes and underscore'
   },
   validationInvalidNameSize: {
-    fr: "L'identifiant ne peux pas dépasser 16 caractères",
-    en: 'The Id can not exceed 16 characters'
+    fr: "L'identifiant ne peux pas dépasser 32 caractères",
+    en: 'The Id can not exceed 32 characters'
   },
   validationMinNumber: {
     fr: 'Veuillez saisir au minimum',
