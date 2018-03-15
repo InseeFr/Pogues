@@ -130,7 +130,7 @@ class GenericInput extends Component {
           {Dictionary.sequence}
         </button>
         <button
-          className="btn-white"
+          className="btn-white disabled"
           id="add-pagebreak"
           disabled={!componentIdForPageBreak}
           onClick={() => {
