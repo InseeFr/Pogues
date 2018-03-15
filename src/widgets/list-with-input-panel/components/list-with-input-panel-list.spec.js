@@ -1,6 +1,6 @@
 jest.mock('utils/dictionary/dictionary', () => {
   return {
-    no_FAKE_NAME: 'This is a no items message fake',
+    no_FAKE_NAME: 'This is a no items message fake'
   };
 });
 
@@ -21,23 +21,23 @@ describe('<ListWithInputPanelList', () => {
   const items = [
     {
       id: 'FAKE_ITEM_0',
-      label: 'Fake label 0',
+      label: 'Fake label 0'
     },
     {
       id: 'FAKE_ITEM_1',
-      label: 'Fake label 1',
+      label: 'Fake label 1'
     },
     {
       id: 'FAKE_ITEM_2',
-      label: 'Fake label 2',
-    },
+      label: 'Fake label 2'
+    }
   ];
 
   beforeEach(() => {
     props = {
       fields: getFakeFields(items, 'FAKE_NAME'),
       select: noop,
-      dictionaryNoItems: '',
+      dictionaryNoItems: ''
     };
   });
 

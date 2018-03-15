@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { formPropTypes } from 'redux-form';
+import { formPropTypes, Field } from 'redux-form';
 
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
@@ -14,14 +14,17 @@ import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
 
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import { COMPONENT_TYPE, TABS_PATHS } from 'constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  TABS_PATHS,
+  TargetMode
+} from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
-
+import ListCheckboxes from 'forms/controls/list-checkboxes';
+import GenericOption from 'forms/controls/generic-option';
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
 const { QUESTION } = COMPONENT_TYPE;
-
-// PropTypes and defaultProps
 
 export const propTypes = {
   ...formPropTypes,
@@ -32,17 +35,15 @@ export const propTypes = {
   componentsStore: PropTypes.object,
 
   addSubformValidationErrors: PropTypes.func.isRequired,
-  clearSubformValidationErrors: PropTypes.func.isRequired,
+  clearSubformValidationErrors: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
   submitErrors: {},
   componentsStore: {},
-  codesListsStoreStore: {},
+  codesListsStoreStore: {}
 };
-
-// Componet
 
 class ComponentNewEdit extends Component {
   static propTypes = propTypes;
@@ -58,37 +59,59 @@ class ComponentNewEdit extends Component {
       componentId,
       addSubformValidationErrors,
       componentsStore,
-      errorsIntegrityByTab,
+      errorsIntegrityByTab
     } = this.props;
 
     let panels = [
-      <Tab label={Dictionary.declaration_tabTitle} path={TABS_PATHS.DECLARATIONS} key={TABS_PATHS.DECLARATIONS}>
+      <Tab
+        label={Dictionary.declaration_tabTitle}
+        path={TABS_PATHS.DECLARATIONS}
+        key={TABS_PATHS.DECLARATIONS}
+      >
         <Declaration
           showPosition={componentType === QUESTION}
           errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
           addErrors={addSubformValidationErrors}
         />
       </Tab>,
-      <Tab label={Dictionary.controls} path={TABS_PATHS.CONTROLS} key={TABS_PATHS.CONTROLS}>
-        <Controls errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]} addErrors={addSubformValidationErrors} />
-      </Tab>,
-      <Tab label={Dictionary.goTo} path={TABS_PATHS.REDIRECTIONS} key={TABS_PATHS.REDIRECTIONS}>
-        <Redirections
-          errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
+      <Tab
+        label={Dictionary.controls}
+        path={TABS_PATHS.CONTROLS}
+        key={TABS_PATHS.CONTROLS}
+      >
+        <Controls
+          errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
           addErrors={addSubformValidationErrors}
-          componentType={componentType}
-          componentsStore={componentsStore}
-          editingComponentId={componentId}
         />
-      </Tab>,
+      </Tab>
     ];
 
     if (componentType === QUESTION) {
       panels = [
-        <Tab label={Dictionary.responsesEdition} path={TABS_PATHS.RESPONSE_FORMAT} key={TABS_PATHS.RESPONSE_FORMAT}>
-          <ResponseFormat edit={componentId !== ''} addErrors={addSubformValidationErrors} />
+        <Tab
+          label={Dictionary.responsesEdition}
+          path={TABS_PATHS.RESPONSE_FORMAT}
+          key={TABS_PATHS.RESPONSE_FORMAT}
+        >
+          <ResponseFormat
+            edit={componentId !== ''}
+            addErrors={addSubformValidationErrors}
+          />
         </Tab>,
         ...panels,
+        <Tab
+          label={Dictionary.goTo}
+          path={TABS_PATHS.REDIRECTIONS}
+          key={TABS_PATHS.REDIRECTIONS}
+        >
+          <Redirections
+            errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
+            addErrors={addSubformValidationErrors}
+            componentType={componentType}
+            componentsStore={componentsStore}
+            editingComponentId={componentId}
+          />
+        </Tab>,
         <Tab
           label={Dictionary.externalVariables}
           path={TABS_PATHS.EXTERNAL_VARIABLES}
@@ -118,7 +141,7 @@ class ComponentNewEdit extends Component {
             errors={errorsIntegrityByTab[TABS_PATHS.COLLECTED_VARIABLES]}
             addErrors={addSubformValidationErrors}
           />
-        </Tab>,
+        </Tab>
       ];
     }
 
@@ -126,17 +149,24 @@ class ComponentNewEdit extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting, form, onCancel, componentType, componentId } = this.props;
+    const {
+      handleSubmit,
+      submitting,
+      form,
+      onCancel,
+      componentType,
+      componentId
+    } = this.props;
 
     const associatedFieldsProps = {
       formName: form,
-      fieldOrigin: { name: 'label', label: Dictionary.title },
+      fieldOrigin: { name: 'label', label: Dictionary.label },
       fieldTarget: { name: 'name', label: Dictionary.name },
       action: updateNameField,
       focusOnInit: true,
       onEnter: () => {
         this.validateButton.click();
-      },
+      }
     };
 
     return (
@@ -147,6 +177,18 @@ class ComponentNewEdit extends Component {
           ) : (
             <AssociatedFields {...associatedFieldsProps} />
           )}
+          <Field
+            name="TargetMode"
+            component={ListCheckboxes}
+            label={Dictionary.collectionMode}
+            inline
+          >
+            {TargetMode.map(s => (
+              <GenericOption key={s.value} value={s.value}>
+                {s.label}
+              </GenericOption>
+            ))}
+          </Field>
           <Tabs componentId={componentId}>{this.renderPanels()}</Tabs>
 
           <div className={FOOTER}>

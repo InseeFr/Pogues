@@ -1,9 +1,15 @@
 import { uuid } from 'utils/utils';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { defaultTypageForm } from './typage';
+
+const { TEXT } = DATATYPE_NAME;
 
 export const defaultState = {
+  id: null,
   label: '',
   name: '',
   formula: '',
+  type: TEXT
 };
 
 export const defaultForm = {
@@ -11,10 +17,11 @@ export const defaultForm = {
   name: '',
   formula: '',
   calculatedVariables: [],
+  ...defaultTypageForm
 };
 
 export function formToState(form) {
-  const { label, name, formula } = form;
+  const { label, name, formula, type, [type]: simpleForm } = form;
   const id = form.id || uuid();
 
   return {
@@ -22,6 +29,8 @@ export function formToState(form) {
     label,
     name,
     formula,
+    type,
+    [type]: { ...simpleForm }
   };
 }
 
@@ -33,7 +42,7 @@ export function formToStore(form) {
 
     return {
       ...acc,
-      [state.id]: state,
+      [state.id]: state
     };
   }, {});
 }
@@ -42,18 +51,29 @@ export function storeToForm(currentStore) {
   const calculatedVariables = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, label, name, formula } = currentStore[key];
+    const {
+      id,
+      label,
+      name,
+      formula,
+      type,
+      [type]: simpleState
+    } = currentStore[key];
     calculatedVariables.push({
       id,
       label,
       name,
       formula,
+      type,
+      [type]: {
+        ...simpleState
+      }
     });
   });
 
   return {
     ...defaultForm,
-    calculatedVariables,
+    calculatedVariables
   };
 }
 
@@ -68,7 +88,7 @@ const Factory = (currentStore = {}) => {
     },
     getStore: () => {
       return currentStore;
-    },
+    }
   };
 };
 

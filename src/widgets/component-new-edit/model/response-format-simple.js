@@ -10,37 +10,39 @@ export const defaultForm = {
   type: TEXT,
   [TEXT]: {
     maxLength: 255,
-    pattern: '',
+    pattern: ''
   },
   [NUMERIC]: {
     minimum: '',
     maximum: '',
     decimals: '',
-    unit: '',
+    unit: ''
   },
   [DATE]: {},
-  [BOOLEAN]: {},
+  [BOOLEAN]: {}
 };
 
 export function formToState(form) {
-  const { type, mandatory, [type]: simpleForm } = form;
+  const { type, mandatory, [type]: simpleForm, id } = form;
 
   return {
+    id,
     type,
     mandatory,
-    [type]: { ...simpleForm },
+    [type]: { ...simpleForm }
   };
 }
 
 export function stateToForm(currentState) {
-  const { mandatory, type, [type]: simpleState } = currentState;
+  const { mandatory, type, [type]: simpleState, id } = currentState;
 
   return merge(cloneDeep(defaultForm), {
+    id,
     mandatory,
     type,
     [type]: {
-      ...simpleState,
-    },
+      ...simpleState
+    }
   });
 }
 
@@ -62,9 +64,9 @@ const Factory = (initialState = {}) => {
 
       return {
         type,
-        [type]: simpleType,
+        [type]: simpleType
       };
-    },
+    }
   };
 };
 

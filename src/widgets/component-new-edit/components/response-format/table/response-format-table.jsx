@@ -8,7 +8,11 @@ import ResponseFormatTablePrimary from './table-primary';
 import ResponseFormatTableSecondary from './table-secondary';
 import ResponseFormatTableMeasure from './table-measure';
 import TableListMeasures from './table-list-measures';
-import { QUESTION_TYPE_ENUM, DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
+import {
+  QUESTION_TYPE_ENUM,
+  DIMENSION_TYPE,
+  DIMENSION_FORMATS
+} from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
@@ -20,12 +24,12 @@ class ResponseFormatTable extends Component {
     selectorPathParent: PropTypes.string,
     showSecondaryAxis: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     primaryAxisType: PropTypes.string,
-    addErrors: PropTypes.func.isRequired,
+    addErrors: PropTypes.func.isRequired
   };
   static defaultProps = {
     selectorPathParent: undefined,
     showSecondaryAxis: false,
-    primaryAxisType: LIST,
+    primaryAxisType: LIST
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -39,24 +43,38 @@ class ResponseFormatTable extends Component {
     const { showSecondaryAxis, primaryAxisType, addErrors } = this.props;
 
     return (
-      <FormSection name={ResponseFormatTable.selectorPath} className="response-format__table">
+      <FormSection
+        name={ResponseFormatTable.selectorPath}
+        className="response-format__table"
+      >
         <h3 className="axis-primary__head">{Dictionary.primaryAxisTable}</h3>
 
-        <ResponseFormatTablePrimary selectorPathParent={this.selectorPathComposed} />
+        <ResponseFormatTablePrimary
+          selectorPathParent={this.selectorPathComposed}
+        />
 
         {primaryAxisType === CODES_LIST && (
           <div>
-            <h3 className="axis-secondary__head">{Dictionary.secondaryAxisTable}</h3>
-            <ResponseFormatTableSecondary selectorPathParent={this.selectorPathComposed} />
+            <h3 className="axis-secondary__head">
+              {Dictionary.secondaryAxisTable}
+            </h3>
+            <ResponseFormatTableSecondary
+              selectorPathParent={this.selectorPathComposed}
+            />
           </div>
         )}
 
         <h3 className="axis-measure__head">{Dictionary.measuresAxisTable}</h3>
 
         {primaryAxisType === LIST || !showSecondaryAxis ? (
-          <TableListMeasures selectorPath={`${this.selectorPathComposed}.LIST_MEASURE`} addErrors={addErrors} />
+          <TableListMeasures
+            selectorPath={`${this.selectorPathComposed}.LIST_MEASURE`}
+            addErrors={addErrors}
+          />
         ) : (
-          <ResponseFormatTableMeasure selectorPathParent={this.selectorPathComposed} />
+          <ResponseFormatTableMeasure
+            selectorPathParent={this.selectorPathComposed}
+          />
         )}
       </FormSection>
     );
@@ -68,8 +86,11 @@ const mapStateToProps = (state, { formName, selectorPathParent }) => {
   const selector = formValueSelector(formName);
   const tablePath = `${selectorPathParent}.${ResponseFormatTable.selectorPath}`;
   return {
-    showSecondaryAxis: selector(state, `${tablePath}.${SECONDARY}.showSecondaryAxis`),
-    primaryAxisType: selector(state, `${tablePath}.${PRIMARY}.type`),
+    showSecondaryAxis: selector(
+      state,
+      `${tablePath}.${SECONDARY}.showSecondaryAxis`
+    ),
+    primaryAxisType: selector(state, `${tablePath}.${PRIMARY}.type`)
   };
 };
 

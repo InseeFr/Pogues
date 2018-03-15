@@ -6,7 +6,13 @@ import { ButtonGroup } from 'gillespie59-react-rte/lib/RichTextEditor';
 import { INPUT_CONDITION_POPOVER } from 'constants/dom-constants';
 import IconButton from './icon-button';
 
-const { COMPONENT_CLASS, INNER, BUTTONGROUP, CONDITION, INPUT } = INPUT_CONDITION_POPOVER;
+const {
+  COMPONENT_CLASS,
+  INNER,
+  BUTTONGROUP,
+  CONDITION,
+  INPUT
+} = INPUT_CONDITION_POPOVER;
 
 // Utils
 
@@ -14,7 +20,8 @@ const emptyCondition = { condition: '', label: '' };
 
 function validateConditions(conditions) {
   for (let i = 0; i < conditions.length; i += 1) {
-    if (conditions[i].condition === '' || conditions[i].label === '') return false;
+    if (conditions[i].condition === '' || conditions[i].label === '')
+      return false;
   }
 
   return true;
@@ -26,12 +33,12 @@ const propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   className: PropTypes.string,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired
 };
 
 const defaultProps = {
   className: '',
-  showInvalidConditions: false,
+  showInvalidConditions: false
 };
 
 // Component
@@ -44,7 +51,7 @@ class InputConditionPopover extends Component {
     super(props);
 
     this.state = {
-      conditions: this.props.data.conditions || [{ ...emptyCondition }],
+      conditions: this.props.data.conditions || [{ ...emptyCondition }]
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -162,11 +169,25 @@ class InputConditionPopover extends Component {
       <div className={`${COMPONENT_CLASS} ${className}`}>
         <div className={INNER}>
           {this.state.showInvalidConditions && <div>Invalid conditions</div>}
-          {this.state.conditions.map((c, index) => this.renderCondition(c, index))}
+          {this.state.conditions.map((c, index) =>
+            this.renderCondition(c, index)
+          )}
           <ButtonGroup className={BUTTONGROUP}>
-            <IconButton label="Add condition" iconName="new-condition" onClick={this.addCondition} />
-            <IconButton label="Submit" iconName="accept" onClick={this.onSubmit} />
-            <IconButton label="Cancel" iconName="cancel" onClick={this.props.onCancel} />
+            <IconButton
+              label="Add condition"
+              iconName="new-condition"
+              onClick={this.addCondition}
+            />
+            <IconButton
+              label="Submit"
+              iconName="accept"
+              onClick={this.onSubmit}
+            />
+            <IconButton
+              label="Cancel"
+              iconName="cancel"
+              onClick={this.props.onCancel}
+            />
           </ButtonGroup>
         </div>
       </div>

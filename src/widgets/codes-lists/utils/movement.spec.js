@@ -1,5 +1,12 @@
 import { moveUp, moveDown } from './movement';
-import { code01, code02, code03, code04, code05, codes } from './__mocks__/codes';
+import {
+  code01,
+  code02,
+  code03,
+  code04,
+  code05,
+  codes
+} from './__mocks__/codes';
 
 describe('Codes lists utils - Movement', () => {
   describe('Move up', () => {
@@ -11,14 +18,14 @@ describe('Codes lists utils - Movement', () => {
           code01,
           {
             ...code02,
-            weight: code02.weight + 1,
+            weight: code02.weight + 1
           },
           {
             ...code03,
-            weight: code03.weight - 1,
+            weight: code03.weight - 1
           },
           code04,
-          code05,
+          code05
         ];
 
         expect(moveUp(code03.value, codes)).toEqual(expectedValues);
@@ -37,13 +44,13 @@ describe('Codes lists utils - Movement', () => {
           code02,
           {
             ...code03,
-            weight: code03.weight + 1,
+            weight: code03.weight + 1
           },
           {
             ...code04,
-            weight: code04.weight - 1,
+            weight: code04.weight - 1
           },
-          code05,
+          code05
         ];
 
         expect(moveDown(code03.value, codes)).toEqual(expectedValues);

@@ -24,10 +24,20 @@ export const defaultState = {
   collectedVariables: [],
   children: [],
   responseFormat: {},
+  TargetMode: []
 };
 
 export function formToState(form, transformers) {
-  const { name, label, responseFormat, declarations, controls, redirections, collectedVariables } = form;
+  const {
+    name,
+    label,
+    responseFormat,
+    declarations,
+    controls,
+    redirections,
+    collectedVariables,
+    TargetMode
+  } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
@@ -39,18 +49,24 @@ export function formToState(form, transformers) {
     redirections: transformers.redirection.formToComponentState(redirections),
     label: label,
     responseFormat: transformers.responseFormat.formToState(responseFormat),
-    collectedVariables: transformers.collectedVariable.formToComponentState(collectedVariables),
+    collectedVariables: transformers.collectedVariable.formToComponentState(
+      collectedVariables
+    ),
+    TargetMode: TargetMode.split(',')
   };
 }
 
-export function stateToForm(currentState, transformers) {
-  const { label, name, type } = currentState;
+export function stateToForm(currentState, transformers, activeQuestionnaire) {
+  const { label, name, type, TargetMode } = currentState;
   const form = {
     label: label || '',
     name: name || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
+    TargetMode: label
+      ? TargetMode.join()
+      : activeQuestionnaire.TargetMode.join()
   };
 
   if (type === QUESTION) {
@@ -69,52 +85,58 @@ const Factory = (initialState = {}, stores = {}) => {
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariablesStore,
-    codesListsStore,
+    codesListsStore
   } = stores;
   let currentStore = componentsStore || {};
 
   let currentState = {
     ...defaultState,
     ...initialState,
-    id: initialState.id || uuid(),
+    id: initialState.id || uuid()
   };
 
   const transformers = {
     control: Control(currentState.controls),
     declaration: Declaration(currentState.declarations),
     redirection: Redirection(currentState.redirections),
-    responseFormat: ResponseFormat(currentState.responseFormat, codesListsStore),
-    collectedVariable: CollectedVariable(currentState.collectedVariables, collectedVariablesStore),
+    responseFormat: ResponseFormat(
+      currentState.responseFormat,
+      codesListsStore
+    ),
+    collectedVariable: CollectedVariable(
+      currentState.collectedVariables,
+      collectedVariablesStore
+    ),
     calculatedVariable: CalculatedVariable(calculatedVariablesStore),
-    externalVariable: ExternalVariable(externalVariablesStore),
+    externalVariable: ExternalVariable(externalVariablesStore)
   };
 
   return {
     formToState: form => {
       currentState = {
         ...currentState,
-        ...formToState(form, transformers),
+        ...formToState(form, transformers)
       };
       return currentState;
     },
     formToStore: (form, id) => {
       currentState = {
         ...currentState,
-        ...formToState(form, transformers),
+        ...formToState(form, transformers)
       };
       currentStore = {
         ...currentStore,
-        [id]: currentState,
+        [id]: currentState
       };
       return currentStore;
     },
-    stateToForm: () => {
-      return stateToForm(currentState, transformers);
+    stateToForm: (activeQuestionnaire = {}) => {
+      return stateToForm(currentState, transformers, activeQuestionnaire);
     },
     getStore: () => {
       return {
         ...currentStore,
-        [currentState.id]: currentState,
+        [currentState.id]: currentState
       };
     },
     getCodesListStore: () => {
@@ -134,13 +156,15 @@ const Factory = (initialState = {}, stores = {}) => {
       return {
         name: form.name,
         label: form.label,
-        responseFormat: transformers.responseFormat.getNormalizedValues(form.responseFormat),
+        responseFormat: transformers.responseFormat.getNormalizedValues(
+          form.responseFormat
+        ),
         collectedVariables: form.collectedVariables,
         controls: form.controls,
         declarations: form.declarations,
-        redirections: form.redirections,
+        redirections: form.redirections
       };
-    },
+    }
   };
 };
 

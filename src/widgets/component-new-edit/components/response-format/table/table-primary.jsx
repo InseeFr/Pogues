@@ -16,10 +16,10 @@ const { CODES_LIST, LIST } = DIMENSION_FORMATS;
 class ResponseFormatTablePrincipal extends Component {
   static selectorPath = PRIMARY;
   static propTypes = {
-    selectorPathParent: PropTypes.string,
+    selectorPathParent: PropTypes.string
   };
   static defaultProps = {
-    selectorPathParent: undefined,
+    selectorPathParent: undefined
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -32,17 +32,37 @@ class ResponseFormatTablePrincipal extends Component {
   render() {
     return (
       <FormSection name={ResponseFormatTablePrincipal.selectorPath}>
-        <SelectorView label={Dictionary.primaryFormat} selectorPath={this.selectorPathComposed} radio>
+        <SelectorView
+          label={Dictionary.primaryFormat}
+          selectorPath={this.selectorPathComposed}
+          radio
+        >
           <View key={LIST} value={LIST} label={Dictionary.list}>
-            <ResponseFormatTablePrincipalList selectorPathParent={this.selectorPathComposed} />
+            <ResponseFormatTablePrincipalList
+              selectorPathParent={this.selectorPathComposed}
+            />
           </View>
           <View key={CODES_LIST} value={CODES_LIST} label={Dictionary.codeList}>
-            <ResponseFormatTablePrincipalCodeslist selectorPathParent={this.selectorPathComposed} />
+            <ResponseFormatTablePrincipalCodeslist
+              selectorPathParent={this.selectorPathComposed}
+            />
           </View>
         </SelectorView>
-        <OptionalView name="showTotalLabel" label={Dictionary.rowTotal} selectorPath={this.selectorPathComposed}>
-          <Field name="totalLabel" type="text" component={Input} label={Dictionary.rowTotalLabel} />
-        </OptionalView>
+{/*
+  <OptionalView
+    name="showTotalLabel"
+    label={Dictionary.rowTotal}
+    selectorPath={this.selectorPathComposed}
+  >
+    <Field
+      name="totalLabel"
+      type="text"
+      component={Input}
+      label={Dictionary.rowTotalLabel}
+    />
+  </OptionalView>
+*/}
+
       </FormSection>
     );
   }

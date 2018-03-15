@@ -13,10 +13,10 @@ const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 class ResponseFormatMultipleMeasure extends Component {
   static selectorPath = MEASURE;
   static propTypes = {
-    selectorPathParent: PropTypes.string,
+    selectorPathParent: PropTypes.string
   };
   static defaultProps = {
-    selectorPathParent: undefined,
+    selectorPathParent: undefined
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -29,9 +29,15 @@ class ResponseFormatMultipleMeasure extends Component {
   render() {
     return (
       <FormSection name={ResponseFormatMultipleMeasure.selectorPath}>
-        <SelectorView label={Dictionary.responseType} selectorPath={this.selectorPathComposed} radio>
+        <SelectorView
+          label={Dictionary.responseType}
+          selectorPath={this.selectorPathComposed}
+          radio
+        >
           <View key={CODES_LIST} value={CODES_LIST} label={Dictionary.codeList}>
-            <ResponseFormatMultipleMeasureCodeslist selectorPathParent={this.selectorPathComposed} />
+            <ResponseFormatMultipleMeasureCodeslist
+              selectorPathParent={this.selectorPathComposed}
+            />
           </View>
           <View key={BOOL} value={BOOL} label={Dictionary.boolean} />
         </SelectorView>

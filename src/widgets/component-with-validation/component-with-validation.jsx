@@ -27,7 +27,11 @@ class ComponentWithValidation extends Component {
     return (
       <div className={COMPONENT_CLASS}>
         {validationErrors.length > 0 && (
-          <ul>{validationErrors.map(err => <li key={getKey(`${err[0]}${err[1]}`)}>{err[0]}</li>)}</ul>
+          <ul>
+            {validationErrors.map(err => (
+              <li key={getKey(`${err[0]}${err[1]}`)}>{err[0]}</li>
+            ))}
+          </ul>
         )}
       </div>
     );

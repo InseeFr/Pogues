@@ -108,7 +108,7 @@ export function formatDate(date) {
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
-    minute: '2-digit',
+    minute: '2-digit'
   }).format(new Date(date));
 }
 
@@ -123,12 +123,16 @@ export function getState(final) {
  * @param {string} parentId The id of the parent we should update
  * @param {string} newComponentId The id of the created component
  */
-export function updateNewComponentParent(activeComponents, parentId, newComponentId) {
+export function updateNewComponentParent(
+  activeComponents,
+  parentId,
+  newComponentId
+) {
   const parent = activeComponents[parentId];
   return {
     [parentId]: {
       ...parent,
-      children: [...parent.children, newComponentId],
-    },
+      children: [...parent.children, newComponentId]
+    }
   };
 }

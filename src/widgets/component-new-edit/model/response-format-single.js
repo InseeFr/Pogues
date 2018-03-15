@@ -2,7 +2,11 @@ import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 
 import { CodesListModel } from 'widgets/codes-lists';
-import { UI_BEHAVIOUR, DATATYPE_VIS_HINT, DEFAULT_CODES_LIST_SELECTOR_PATH } from 'constants/pogues-constants';
+import {
+  UI_BEHAVIOUR,
+  DATATYPE_VIS_HINT,
+  DEFAULT_CODES_LIST_SELECTOR_PATH
+} from 'constants/pogues-constants';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 
@@ -14,7 +18,7 @@ export const defaultState = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
+  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState)
 };
 
 export const defaultForm = {
@@ -25,11 +29,12 @@ export const defaultForm = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm)
 };
 
 export function formToState(form, transformers) {
   const {
+    id,
     mandatory,
     visHint,
     hasSpecialCode,
@@ -37,33 +42,40 @@ export function formToState(form, transformers) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm
   } = form;
 
   return {
+    id,
     mandatory,
     visHint,
     hasSpecialCode,
     specialLabel: hasSpecialCode ? specialLabel : '',
     specialCode: hasSpecialCode ? specialCode : '',
-    specialUiBehaviour: hasSpecialCode ? specialUiBehaviour : UI_BEHAVIOUR.FIRST_INTENTION,
+    specialUiBehaviour: hasSpecialCode
+      ? specialUiBehaviour
+      : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.formToStateComponent(codesListForm),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.formToStateComponent(
+      codesListForm
+    )
   };
 }
 
 export function stateToForm(currentState, transformers) {
   const {
+    id,
     visHint,
     mandatory,
     hasSpecialCode,
     specialLabel,
     specialCode,
     specialUiBehaviour,
-    specialFollowUpMessage,
+    specialFollowUpMessage
   } = currentState;
 
   return {
+    id,
     mandatory,
     visHint,
     hasSpecialCode,
@@ -71,14 +83,17 @@ export function stateToForm(currentState, transformers) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.stateComponentToForm(),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.stateComponentToForm()
   };
 }
 
 const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {
-    codesList: new CodesListModel.Factory(cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]), codesListsStore),
+    codesList: new CodesListModel.Factory(
+      cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]),
+      codesListsStore
+    )
   };
 
   return {
@@ -96,7 +111,7 @@ const Factory = (initialState = {}, codesListsStore) => {
     getNormalizedValues: form => {
       // Values ready to be validated
       return form;
-    },
+    }
   };
 };
 

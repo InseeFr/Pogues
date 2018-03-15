@@ -4,11 +4,17 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function setActiveExternalVariables(state, { activeExternalVariablesById }) {
+export function setActiveExternalVariables(
+  state,
+  { activeExternalVariablesById }
+) {
   return activeExternalVariablesById;
 }
 
-export function updateActiveExternalVariables(state, { update: { activeExternalVariablesById } }) {
+export function updateActiveExternalVariables(
+  state,
+  { update: { activeExternalVariablesById } }
+) {
   return activeExternalVariablesById;
 }
 

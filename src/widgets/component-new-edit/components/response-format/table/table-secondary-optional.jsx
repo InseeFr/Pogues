@@ -11,15 +11,28 @@ function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   return (
     <div>
       <CodesLists selectorPathParent={selectorPath} />
-      <OptionalView name="showTotalLabel" selectorPath={selectorPath} label={Dictionary.columnTotal}>
-        <Field name="totalLabel" type="text" component={Input} label={Dictionary.columnTotalLabel} />
-      </OptionalView>
+{/*
+  <OptionalView
+    name="showTotalLabel"
+    selectorPath={selectorPath}
+    label={Dictionary.columnTotal}
+  >
+    <Field
+      name="totalLabel"
+      type="text"
+      component={Input}
+      label={Dictionary.columnTotalLabel}
+    />
+  </OptionalView>
+
+  */}
+
     </div>
   );
 }
 
 ResponseFormatTableSecondaryOptional.propTypes = {
-  selectorPath: PropTypes.string.isRequired,
+  selectorPath: PropTypes.string.isRequired
 };
 
 export default ResponseFormatTableSecondaryOptional;

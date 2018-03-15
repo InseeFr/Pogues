@@ -1,4 +1,10 @@
-import { putQuestionnaire, getContextFromCampaign, visualizeSpec, visualizePdf, visualizeHtml } from 'utils/remote-api';
+import {
+  putQuestionnaire,
+  getContextFromCampaign,
+  visualizeSpec,
+  visualizePdf,
+  visualizeHtml
+} from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 
@@ -8,8 +14,10 @@ export const SET_ACTIVE_CODE_LISTS = 'SET_ACTIVE_CODE_LISTS';
 export const SET_SELECTED_COMPONENT = 'SET_SELECTED_COMPONENT';
 export const SET_EDITING_COMPONENT = 'SET_EDITING_COMPONENT';
 export const SAVE_ACTIVE_QUESTIONNAIRE = 'SAVE_ACTIVE_QUESTIONNAIRE';
-export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS = 'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
-export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE = 'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
+export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS =
+  'SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS';
+export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE =
+  'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
 export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
 export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
@@ -18,8 +26,10 @@ export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
 export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
 export const SET_ACTIVE_VARIABLES = 'SET_ACTIVE_VARIABLES';
 export const LOAD_STATISTICAL_CONTEXT = 'LOAD_STATISTICAL_CONTEXT';
-export const LOAD_STATISTICAL_CONTEXT_SUCCESS = 'LOAD_STATISTICAL_CONTEXT_SUCCESS';
-export const LOAD_STATISTICAL_CONTEXT_FAILURE = 'LOAD_STATISTICAL_CONTEXT_FAILURE';
+export const LOAD_STATISTICAL_CONTEXT_SUCCESS =
+  'LOAD_STATISTICAL_CONTEXT_SUCCESS';
+export const LOAD_STATISTICAL_CONTEXT_FAILURE =
+  'LOAD_STATISTICAL_CONTEXT_FAILURE';
 
 export const CREATE_PAGE_BREAK = 'CREATE_PAGE_BREAK';
 export const REMOVE_PAGE_BREAK = 'REMOVE_PAGE_BREAK';
@@ -32,8 +42,8 @@ export const REMOVE_PAGE_BREAK = 'REMOVE_PAGE_BREAK';
 export const handleNewPageBreak = id => ({
   type: CREATE_PAGE_BREAK,
   payload: {
-    id,
-  },
+    id
+  }
 });
 
 /**
@@ -44,8 +54,8 @@ export const handleNewPageBreak = id => ({
 export const handleRemovePageBreak = id => ({
   type: REMOVE_PAGE_BREAK,
   payload: {
-    id,
-  },
+    id
+  }
 });
 
 /**
@@ -58,7 +68,7 @@ export const handleRemovePageBreak = id => ({
  */
 export const setActiveQuestionnaire = questionnaire => ({
   type: SET_ACTIVE_QUESTIONNAIRE,
-  payload: questionnaire,
+  payload: questionnaire
 });
 
 /**
@@ -71,7 +81,7 @@ export const setActiveQuestionnaire = questionnaire => ({
  */
 export const setActiveComponents = activeComponents => ({
   type: SET_ACTIVE_COMPONENTS,
-  payload: activeComponents,
+  payload: activeComponents
 });
 
 /**
@@ -87,8 +97,8 @@ export const setActiveComponents = activeComponents => ({
 export const setActiveCodeLists = activeCodeLists => ({
   type: SET_ACTIVE_CODE_LISTS,
   payload: {
-    activeCodeLists,
-  },
+    activeCodeLists
+  }
 });
 
 /**
@@ -102,14 +112,18 @@ export const setActiveCodeLists = activeCodeLists => ({
  * @return {object} SET_ACTIVE_VARIABLES action
  */
 export const setActiveVariables = variables => {
-  const { activeCalculatedVariablesById, activeExternalVariablesById, collectedVariableByQuestion } = variables;
+  const {
+    activeCalculatedVariablesById,
+    activeExternalVariablesById,
+    collectedVariableByQuestion
+  } = variables;
   return {
     type: SET_ACTIVE_VARIABLES,
     payload: {
       activeCalculatedVariablesById,
       activeExternalVariablesById,
-      collectedVariableByQuestion,
-    },
+      collectedVariableByQuestion
+    }
   };
 };
 
@@ -123,7 +137,7 @@ export const setActiveVariables = variables => {
  */
 export const setActiveDeclarations = activeDeclarations => ({
   type: SET_ACTIVE_DECLARATIONS,
-  payload: activeDeclarations,
+  payload: activeDeclarations
 });
 
 /**
@@ -136,7 +150,7 @@ export const setActiveDeclarations = activeDeclarations => ({
  */
 export const setSelectedComponentId = id => ({
   type: SET_SELECTED_COMPONENT,
-  payload: id,
+  payload: id
 });
 
 /**
@@ -149,7 +163,7 @@ export const setSelectedComponentId = id => ({
  */
 export const setEditingComponentId = (id = '') => ({
   type: SET_EDITING_COMPONENT,
-  payload: id,
+  payload: id
 });
 
 /**
@@ -163,7 +177,7 @@ export const setEditingComponentId = (id = '') => ({
  * @return {object}       UPDATE_ACTIVE_QUESTIONNAIRE action
  */
 export const updateActiveQuestionnaire = updatedState => {
-  const { name, label, serie, operation, campaigns } = updatedState;
+  const { name, label, serie, operation, campaigns, TargetMode } = updatedState;
   return {
     type: UPDATE_ACTIVE_QUESTIONNAIRE,
     payload: {
@@ -172,7 +186,8 @@ export const updateActiveQuestionnaire = updatedState => {
       serie,
       operation,
       campaigns,
-    },
+      TargetMode
+    }
   };
 };
 
@@ -200,9 +215,9 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
     id,
     update: {
       ...update,
-      isQuestionnaireModified: false,
-    },
-  },
+      isQuestionnaireModified: false
+    }
+  }
 });
 
 /**
@@ -218,24 +233,26 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   type: SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   payload: {
     id,
-    err,
-  },
+    err
+  }
 });
 
 function getQuestionnaireModel(state, customComponentsStore) {
   const stores = {
-    componentsStore: customComponentsStore || state.appState.activeComponentsById,
+    componentsStore:
+      customComponentsStore || state.appState.activeComponentsById,
     conditionsStore: {},
     codesListsStore: state.appState.activeCodeListsById,
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     externalVariablesStore: state.appState.activeExternalVariablesById,
-    collectedVariableByQuestionStore: state.appState.collectedVariableByQuestion,
-    campaignsStore: state.metadataByType.campaigns,
+    collectedVariableByQuestionStore:
+      state.appState.collectedVariableByQuestion,
+    campaignsStore: state.metadataByType.campaigns
   };
   const questionnaireState = {
     ...state.appState.activeQuestionnaire,
     lastUpdatedDate: new Date().toString(),
-    owner: state.appState.user.permission,
+    owner: state.appState.user.permission
   };
 
   return Questionnaire.stateToRemote(questionnaireState, stores);
@@ -252,7 +269,7 @@ export const saveActiveQuestionnaire = () => {
   return (dispatch, getState) => {
     dispatch({
       type: SAVE_ACTIVE_QUESTIONNAIRE,
-      payload: null,
+      payload: null
     });
 
     const state = getState();
@@ -261,11 +278,16 @@ export const saveActiveQuestionnaire = () => {
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
         return dispatch(
-          saveActiveQuestionnaireSuccess(questionnaireModel.id, questionnaireRemoteToStores(questionnaireModel, state))
+          saveActiveQuestionnaireSuccess(
+            questionnaireModel.id,
+            questionnaireRemoteToStores(questionnaireModel, state)
+          )
         );
       })
       .catch(err => {
-        return dispatch(saveActiveQuestionnaireFailure(questionnaireModel.id, err));
+        return dispatch(
+          saveActiveQuestionnaireFailure(questionnaireModel.id, err)
+        );
       });
   };
 };
@@ -290,7 +312,7 @@ function getPathFromComponent(componentId, componentsById) {
       ...children.map(i => componentsById[i]),
       ...children.reduce((acc, c) => {
         return [...acc, ...addChild(c)];
-      }, []),
+      }, [])
     ];
   }
   function addParent(id) {
@@ -301,17 +323,21 @@ function getPathFromComponent(componentId, componentsById) {
     return [
       {
         ...componentsById[parentId],
-        children: componentsById[parentId].children.filter(i => i === id),
+        children: componentsById[parentId].children.filter(i => i === id)
       },
-      ...addParent(parentId),
+      ...addParent(parentId)
     ];
   }
-  const path = [componentsById[componentId], ...addChild(componentId), ...addParent(componentId)];
+  const path = [
+    componentsById[componentId],
+    ...addChild(componentId),
+    ...addParent(componentId)
+  ];
 
   return path.reduce((acc, c) => {
     return {
       ...acc,
-      [c.id]: c,
+      [c.id]: c
     };
   }, {});
 }
@@ -378,26 +404,28 @@ export const setInvalidItemsFromErrors = questionId => {
         const errors = errorsByCode[code].errors;
         return {
           ...acc,
-          ...errors.filter(e => e.id === questionId).reduce((accInner, eInner) => {
-            const { itemId, ...params } = eInner.params;
-            return {
-              ...accInner,
-              [itemId]: {
-                id: itemId,
-                type: errorsByCode[code].type,
-                code,
-                ...params,
-              },
-            };
-          }, {}),
+          ...errors
+            .filter(e => e.id === questionId)
+            .reduce((accInner, eInner) => {
+              const { itemId, ...params } = eInner.params;
+              return {
+                ...accInner,
+                [itemId]: {
+                  id: itemId,
+                  type: errorsByCode[code].type,
+                  code,
+                  ...params
+                }
+              };
+            }, {})
         };
       }, {});
 
     return dispatch({
       type: SET_INVALID_ITEMS,
       payload: {
-        invalidItems,
-      },
+        invalidItems
+      }
     });
   };
 };
@@ -412,36 +440,36 @@ export const setInvalidItemsFromErrors = questionId => {
 export const removeInvalidItem = invalidItemIdToRemove => ({
   type: REMOVE_INVALID_ITEM,
   payload: {
-    invalidItemIdToRemove,
-  },
+    invalidItemIdToRemove
+  }
 });
 
 export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
   type: SET_TAB_ERRORS,
   payload: {
     errorsValidation,
-    errorsIntegrity,
-  },
+    errorsIntegrity
+  }
 });
 
 export const clearTabErrors = () => ({
-  type: CLEAR_TAB_ERRORS,
+  type: CLEAR_TAB_ERRORS
 });
 
 export const loadStatisticalContextSuccess = ({ serie, operation }) => ({
   type: LOAD_STATISTICAL_CONTEXT_SUCCESS,
-  payload: { serie, operation },
+  payload: { serie, operation }
 });
 
 export const loadStatisticalContextFailure = err => ({
   type: LOAD_STATISTICAL_CONTEXT_FAILURE,
-  payload: err,
+  payload: err
 });
 
 export const loadStatisticalContext = idCampaign => dispatch => {
   dispatch({
     type: LOAD_STATISTICAL_CONTEXT,
-    payload: null,
+    payload: null
   });
 
   return getContextFromCampaign(idCampaign)

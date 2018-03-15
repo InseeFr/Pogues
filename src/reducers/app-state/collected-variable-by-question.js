@@ -1,17 +1,27 @@
 import { SET_ACTIVE_VARIABLES } from 'actions/app-state';
-import { CREATE_COMPONENT, UPDATE_COMPONENT, DUPLICATE_COMPONENT } from 'actions/component';
+import {
+  CREATE_COMPONENT,
+  UPDATE_COMPONENT,
+  DUPLICATE_COMPONENT
+} from 'actions/component';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function setActiveCollectedVariables(state, { collectedVariableByQuestion }) {
+export function setActiveCollectedVariables(
+  state,
+  { collectedVariableByQuestion }
+) {
   return collectedVariableByQuestion;
 }
 
-export function updateActiveCollectedVariables(state, { update: { activeCollectedVariablesById } }) {
+export function updateActiveCollectedVariables(
+  state,
+  { update: { activeCollectedVariablesById } }
+) {
   return {
     ...state,
-    ...activeCollectedVariablesById,
+    ...activeCollectedVariablesById
   };
 }
 

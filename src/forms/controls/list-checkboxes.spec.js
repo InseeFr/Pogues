@@ -12,9 +12,9 @@ describe('Form controls - List checkboxes', () => {
       ...fakeFieldProps,
       input: {
         ...fakeFieldProps.input,
-        value: '',
+        value: ''
       },
-      label: 'Fake label',
+      label: 'Fake label'
     };
     const wrapper = shallow(
       <ListCheckboxes {...props}>
@@ -37,9 +37,9 @@ describe('Form controls - List checkboxes', () => {
         input: {
           ...fakeFieldProps.input,
           value: '',
-          onChange: onChangeSpy,
+          onChange: onChangeSpy
         },
-        label: 'Fake label',
+        label: 'Fake label'
       };
     });
 

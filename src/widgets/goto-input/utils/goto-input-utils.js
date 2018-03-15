@@ -1,24 +1,44 @@
-import { getComponentsTargetsByComponent, getComponentsTargetsByPosition } from 'utils/model/redirections-utils';
+import {
+  getComponentsTargetsByComponent,
+  getComponentsTargetsByPosition
+} from 'utils/model/redirections-utils';
 
-export function getTargets(componentsStore, selectedTarget, editingComponentId, selectedComponentId, componentType) {
+export function getTargets(
+  componentsStore,
+  selectedTarget,
+  editingComponentId,
+  selectedComponentId,
+  componentType
+) {
   let allowedTargets;
 
   if (editingComponentId !== '') {
     // When a component is been edited.
-    allowedTargets = getComponentsTargetsByComponent(componentsStore, componentsStore[editingComponentId]);
+    allowedTargets = getComponentsTargetsByComponent(
+      componentsStore,
+      componentsStore[editingComponentId]
+    );
   } else {
     // When the component is a new one.
-    allowedTargets = getComponentsTargetsByPosition(componentsStore, componentType, selectedComponentId);
+    allowedTargets = getComponentsTargetsByPosition(
+      componentsStore,
+      componentType,
+      selectedComponentId
+    );
   }
 
-  if (selectedTarget !== '' && componentsStore[selectedTarget] && allowedTargets.indexOf(selectedTarget) === -1) {
+  if (
+    selectedTarget !== '' &&
+    componentsStore[selectedTarget] &&
+    allowedTargets.indexOf(selectedTarget) === -1
+  ) {
     allowedTargets.unshift(selectedTarget);
   }
 
   return allowedTargets.map(key => {
     return {
       value: key,
-      label: `${componentsStore[key].name} - ${componentsStore[key].label}`,
+      label: `${componentsStore[key].name} - ${componentsStore[key].label}`
     };
   });
 }

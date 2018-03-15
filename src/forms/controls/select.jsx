@@ -18,7 +18,7 @@ export const propTypes = {
   multiple: PropTypes.bool,
   emptyOption: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  focusOnInit: PropTypes.bool,
+  focusOnInit: PropTypes.bool
 };
 
 export const defaultProps = {
@@ -27,7 +27,7 @@ export const defaultProps = {
   multiple: false,
   children: [],
   emptyOption: undefined,
-  focusOnInit: false,
+  focusOnInit: false
 };
 
 // Control
@@ -41,7 +41,16 @@ class Select extends Component {
   }
 
   render() {
-    const { label, required, disabled, multiple, emptyOption, children, input, meta: { touched, error } } = this.props;
+    const {
+      label,
+      required,
+      disabled,
+      multiple,
+      emptyOption,
+      children,
+      input,
+      meta: { touched, error }
+    } = this.props;
     const values = getValuesFromGenericOptions(children);
     const id = getControlId('select', input.name);
 

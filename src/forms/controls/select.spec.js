@@ -11,9 +11,9 @@ describe('Form controls - Select', () => {
     ...fakeFieldProps,
     input: {
       ...fakeFieldProps.input,
-      value: '',
+      value: ''
     },
-    label: 'Fake label',
+    label: 'Fake label'
   };
 
   let wrapper = shallow(

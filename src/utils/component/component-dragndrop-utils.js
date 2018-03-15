@@ -1,4 +1,10 @@
-import { couldInsertToSibling, couldInsertAsChild, isQuestion, isSequence, isSubSequence } from './component-utils';
+import {
+  couldInsertToSibling,
+  couldInsertAsChild,
+  isQuestion,
+  isSequence,
+  isSubSequence
+} from './component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { SEQUENCE } = COMPONENT_TYPE;
@@ -18,11 +24,15 @@ export function getDragnDropLevel(droppedComponent, draggedComponent) {
   if (draggedComponent && droppedComponent) {
     if (couldInsertToSibling(droppedComponent.component, draggedComponent)) {
       return 0;
-    } else if (couldInsertAsChild(droppedComponent.component, draggedComponent)) {
+    } else if (
+      couldInsertAsChild(droppedComponent.component, draggedComponent)
+    ) {
       return 1;
     }
-    return (isSequence(draggedComponent) && isSubSequence(droppedComponent.component)) ||
-      (isSubSequence(draggedComponent) && isQuestion(droppedComponent.component))
+    return (isSequence(draggedComponent) &&
+      isSubSequence(droppedComponent.component)) ||
+      (isSubSequence(draggedComponent) &&
+        isQuestion(droppedComponent.component))
       ? -1
       : -2;
   }
@@ -42,7 +52,12 @@ export function getDragnDropLevel(droppedComponent, draggedComponent) {
  * @param {number} dragndropLevel The result of the getDragnDropLevel method
  * @param {string} parentType The type of the droppedComponent's parent
  */
-export function calculateMargin(droppedComponent, draggedComponent, dragndropLevel, parentType) {
+export function calculateMargin(
+  droppedComponent,
+  draggedComponent,
+  dragndropLevel,
+  parentType
+) {
   if (dragndropLevel < 0) {
     if (parentType === SEQUENCE && isQuestion(droppedComponent.component)) {
       return dragndropLevel * 20;

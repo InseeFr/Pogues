@@ -11,7 +11,13 @@ const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
 class TextareaWithSuggestions extends ControlWithSuggestion {
   render() {
-    const { label, required, disabled, input, meta: { touched, error } } = this.props;
+    const {
+      label,
+      required,
+      disabled,
+      input,
+      meta: { touched, error }
+    } = this.props;
     const id = getControlId('textarea', input.name);
 
     return (

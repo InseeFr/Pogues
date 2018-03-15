@@ -12,7 +12,12 @@ const questionnaires = [
         id: 'ir6cju1z',
         name: 'SIMPLE',
         label: ['Module des questions ouvertes : je suis le libellé du module'],
-        declarations: [{ declarationType: 'INSTRUCTION', text: 'Ceci est une déclaration de type consigne.\n' }],
+        declarations: [
+          {
+            declarationType: 'INSTRUCTION',
+            text: 'Ceci est une déclaration de type consigne.\n'
+          }
+        ],
         redirections: [],
         controls: [],
         genericName: 'MODULE',
@@ -25,8 +30,8 @@ const questionnaires = [
               {
                 declarationType: 'INSTRUCTION',
                 text:
-                  "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par page), regroupant les différents types de questions. Dans chaque module, vous trouverez la description des questions de chaque type, ainsi que des exemples tirés de questionnaires Insee.\n\n​\n",
-              },
+                  "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par page), regroupant les différents types de questions. Dans chaque module, vous trouverez la description des questions de chaque type, ainsi que des exemples tirés de questionnaires Insee.\n\n​\n"
+              }
             ],
             redirections: [],
             controls: [],
@@ -36,25 +41,34 @@ const questionnaires = [
                 id: 'iwm8r0ba',
                 name: 'COCHEZ',
                 label: [
-                  '##{"label":"Cochez la case pour afficher la suite du questionnaire\\n","conditions":[]}\nCochez la case pour afficher la suite du questionnaire\n',
+                  '##{"label":"Cochez la case pour afficher la suite du questionnaire\\n","conditions":[]}\nCochez la case pour afficher la suite du questionnaire\n'
                 ],
                 declarations: [],
                 redirections: [
                   {
                     id: 'iwnegyn6',
-                    description: 'Si vous avez coché la case, poursuivez le questionnaire.',
+                    description:
+                      'Si vous avez coché la case, poursuivez le questionnaire.',
                     expression: "${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' ", // eslint-disable-line no-template-curly-in-string
-                    ifTrue: 'isg13cuk',
-                  },
+                    ifTrue: 'isg13cuk'
+                  }
                 ],
                 controls: [],
                 questionType: 'SIMPLE',
-                responses: [{ mandatory: false, datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } }],
-                type: 'QuestionType',
-              },
+                responses: [
+                  {
+                    mandatory: false,
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  }
+                ],
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'ir6co0qf',
@@ -69,14 +83,14 @@ const questionnaires = [
                 id: 'ir6cqzev',
                 name: 'TEXTE_LONG',
                 label: [
-                  '##{"label":"Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères\\n","conditions":[]}\nJe suis le libellé de la question de type texte de longueur supérieure à 250 caractères\n',
+                  '##{"label":"Je suis le libellé de la question de type texte de longueur supérieure à 250 caractères\\n","conditions":[]}\nJe suis le libellé de la question de type texte de longueur supérieure à 250 caractères\n'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: 'Je suis le texte de la consigne\n',
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -84,16 +98,21 @@ const questionnaires = [
                 responses: [
                   {
                     mandatory: false,
-                    datatype: { typeName: 'TEXT', maxLength: 250, pattern: '', type: 'TextDatatypeType' },
-                  },
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 250,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'ir6cm77g',
                 name: 'TEXTE_COURT',
                 label: [
-                  '##{"label":"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères","conditions":[]}\nJe suis le libellé de la question de type texte de longueur inférieure à 200 caractères',
+                  '##{"label":"Je suis le libellé de la question de type texte de longueur inférieure à 200 caractères","conditions":[]}\nJe suis le libellé de la question de type texte de longueur inférieure à 200 caractères'
                 ],
                 declarations: [],
                 redirections: [],
@@ -102,14 +121,19 @@ const questionnaires = [
                 responses: [
                   {
                     mandatory: false,
-                    datatype: { typeName: 'TEXT', maxLength: 150, pattern: '', type: 'TextDatatypeType' },
-                  },
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 150,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'ir6cruy6',
@@ -124,7 +148,7 @@ const questionnaires = [
                 id: 'ir6cifax',
                 name: 'NUM_ENTIER',
                 label: [
-                  '##{"label":"Je suis le libellé de la question de type numérique entier","conditions":[]}\nJe suis le libellé de la question de type numérique entier',
+                  '##{"label":"Je suis le libellé de la question de type numérique entier","conditions":[]}\nJe suis le libellé de la question de type numérique entier'
                 ],
                 declarations: [],
                 redirections: [],
@@ -138,24 +162,24 @@ const questionnaires = [
                       minimum: 0,
                       maximum: 120,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'ir6cmuqa',
                 name: 'NUM_DECIMAL',
                 label: [
-                  '##{"label":"Je suis le libellé de la question de type numérique décimal","conditions":[]}\nJe suis le libellé de la question de type numérique décimal',
+                  '##{"label":"Je suis le libellé de la question de type numérique décimal","conditions":[]}\nJe suis le libellé de la question de type numérique décimal'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: 'Je suis le texte de la consigne\n',
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -168,15 +192,15 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: 1,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'ir6ctbkt',
@@ -191,7 +215,7 @@ const questionnaires = [
                 id: 'ir6ct69u',
                 name: 'SIMPLE_DATE',
                 label: [
-                  '##{"label":"Je suis le libellé de la question de type date au format JJ/MM/AAAA","conditions":[]}\nJe suis le libellé de la question de type date au format JJ/MM/AAAA',
+                  '##{"label":"Je suis le libellé de la question de type date au format JJ/MM/AAAA","conditions":[]}\nJe suis le libellé de la question de type date au format JJ/MM/AAAA'
                 ],
                 declarations: [],
                 redirections: [],
@@ -200,14 +224,20 @@ const questionnaires = [
                 responses: [
                   {
                     mandatory: false,
-                    datatype: { typeName: 'DATE', minimum: '', maximum: '', format: '', type: 'DateDatatypeType' },
-                  },
+                    datatype: {
+                      typeName: 'DATE',
+                      minimum: '',
+                      maximum: '',
+                      format: '',
+                      type: 'DateDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'isg1kh8l',
@@ -222,18 +252,26 @@ const questionnaires = [
                 id: 'isg1hh9m',
                 name: 'BOOL',
                 label: [
-                  '##{"label":"Je suis le libellé de la question simple de type booléen","conditions":[]}\nJe suis le libellé de la question simple de type booléen',
+                  '##{"label":"Je suis le libellé de la question simple de type booléen","conditions":[]}\nJe suis le libellé de la question simple de type booléen'
                 ],
                 declarations: [],
                 redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
-                responses: [{ mandatory: false, datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } }],
-                type: 'QuestionType',
-              },
+                responses: [
+                  {
+                    mandatory: false,
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  }
+                ],
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'iwnfdy97',
@@ -248,20 +286,20 @@ const questionnaires = [
                 id: 'iwm6shxx',
                 name: 'ACT_PRIN',
                 label: [
-                  '##{"label":"Veuillez indiquer l\'activité principale de l\'entreprise sous son appellation usuelle","conditions":[]}\nVeuillez indiquer l\'activité principale de l\'entreprise sous son appellation usuelle',
+                  '##{"label":"Veuillez indiquer l\'activité principale de l\'entreprise sous son appellation usuelle","conditions":[]}\nVeuillez indiquer l\'activité principale de l\'entreprise sous son appellation usuelle'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text:
                       '(par exemple : commerce de fruits et légumes, boulangerie, charcuterie artisanale ou industrielle, commerce de détail de meubles...)\n',
-                    position: 'AFTER_QUESTION_TEXT',
+                    position: 'AFTER_QUESTION_TEXT'
                   },
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Exemple tiré de l'enquête sectorielle annuelle\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -269,29 +307,34 @@ const questionnaires = [
                 responses: [
                   {
                     mandatory: false,
-                    datatype: { typeName: 'TEXT', maxLength: 200, pattern: '', type: 'TextDatatypeType' },
-                  },
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 200,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwm8woim',
                 name: 'PROFESSION',
                 label: [
-                  '##{"label":"Indiquez le plus précisément possible la profession exercée dans votre emploi actuel","conditions":[]}\nIndiquez le plus précisément possible la profession exercée dans votre emploi actuel',
+                  '##{"label":"Indiquez le plus précisément possible la profession exercée dans votre emploi actuel","conditions":[]}\nIndiquez le plus précisément possible la profession exercée dans votre emploi actuel'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text:
                       'Soyez très précis sur votre métier : « Caissière » (et non « employée »), « Fleuriste » (et non « Commerçant »), « Professeur des écoles»\n',
-                    position: 'AFTER_QUESTION_TEXT',
+                    position: 'AFTER_QUESTION_TEXT'
                   },
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Question issue de l'enquête EVA 2016\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -299,16 +342,21 @@ const questionnaires = [
                 responses: [
                   {
                     mandatory: false,
-                    datatype: { typeName: 'TEXT', maxLength: 200, pattern: '', type: 'TextDatatypeType' },
-                  },
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 200,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iw7ux0w8',
                 name: 'QUELESTLEM',
                 label: [
-                  '##{"label":"Quel est le montant total des investissements réalisés dans votre entreprise ?","conditions":[]}\nQuel est le montant total des investissements réalisés dans votre entreprise ?',
+                  '##{"label":"Quel est le montant total des investissements réalisés dans votre entreprise ?","conditions":[]}\nQuel est le montant total des investissements réalisés dans votre entreprise ?'
                 ],
                 declarations: [],
                 redirections: [],
@@ -322,24 +370,24 @@ const questionnaires = [
                       minimum: 0,
                       maximum: 999999999,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwm8v2g4',
                 name: 'SALAIRE',
                 label: [
-                  '##{"label":"Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?","conditions":[]}\nQuel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?',
+                  '##{"label":"Quel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?","conditions":[]}\nQuel était le montant net de votre salaire mensuel correspondant à cet emploi en mars 2016 ?'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Question issue de l'enquête EVA 2016\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -352,25 +400,25 @@ const questionnaires = [
                       minimum: null,
                       maximum: 99999,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwm8t2p5',
                 name: 'CLOT',
                 label: [
-                  '##{"label":"Quelle est la date de clôture du dernier exercice comptable clos ?","conditions":[]}\nQuelle est la date de clôture du dernier exercice comptable clos ?',
+                  '##{"label":"Quelle est la date de clôture du dernier exercice comptable clos ?","conditions":[]}\nQuelle est la date de clôture du dernier exercice comptable clos ?'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text:
                       "Définition de l'exercice comptable sur lequel porte ce questionnaire :\n\nLes informations à fournir se rapportent à votre exercice comptable 2015.\n\n​\n\nVotre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le 31 mai 2016.\n\n​\n\nSi vous avez clotûré deux exercices sur cette période, prendre celui qui a leplus de mois en 2015.\n\n​\n\nVous devez également répondre à l'énquête si votre entreprise a cessé son activité :\n\nen 2015 et a plus de 6 mois d'activité ;\n\nen 2016.\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -378,23 +426,28 @@ const questionnaires = [
                 responses: [
                   {
                     mandatory: false,
-                    datatype: { typeName: 'TEXT', maxLength: 1, pattern: '', type: 'TextDatatypeType' },
-                  },
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 1,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwm99upn',
                 name: 'DEPUISQUEL',
                 label: [
-                  '##{"label":"Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?","conditions":[]}\nDepuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?',
+                  '##{"label":"Depuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?","conditions":[]}\nDepuis quelle date travailliez-vous dans cette entreprise / dans la fonction publique ?'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Question issue de l'enquête EVA 2016\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -402,38 +455,52 @@ const questionnaires = [
                 responses: [
                   {
                     mandatory: false,
-                    datatype: { typeName: 'DATE', minimum: '', maximum: '', format: '', type: 'DateDatatypeType' },
-                  },
+                    datatype: {
+                      typeName: 'DATE',
+                      minimum: '',
+                      maximum: '',
+                      format: '',
+                      type: 'DateDatatypeType'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwnevs21',
                 name: 'ACT_PROD',
                 label: [
-                  '##{"label":"Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :","conditions":[]}\nSi votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :',
+                  '##{"label":"Si votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :","conditions":[]}\nSi votre établissement n’a pas d’activité industrielle de production ou de transformation, cochez la case ci-contre :'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text:
                       "Question issue de l'enquête annuelle sur les consommations d'énergie dans l'industrie (EACEI)\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
                 questionType: 'SIMPLE',
-                responses: [{ mandatory: false, datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } }],
-                type: 'QuestionType',
-              },
+                responses: [
+                  {
+                    mandatory: false,
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  }
+                ],
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
-          },
+            type: 'SequenceType'
+          }
         ],
         depth: 1,
-        type: 'SequenceType',
+        type: 'SequenceType'
       },
       {
         id: 'isg1ikbn',
@@ -448,14 +515,14 @@ const questionnaires = [
             id: 'isg13cuk',
             name: 'SINGLE_RADIO',
             label: [
-              '##{"label":"Je suis le libellé de la question à choix unique sous forme de bouton radio","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de bouton radio',
+              '##{"label":"Je suis le libellé de la question à choix unique sous forme de bouton radio","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de bouton radio'
             ],
             declarations: [
               {
                 declarationType: 'INSTRUCTION',
                 text: 'La consigne est après la question\n',
-                position: 'AFTER_QUESTION_TEXT',
-              },
+                position: 'AFTER_QUESTION_TEXT'
+              }
             ],
             redirections: [],
             controls: [],
@@ -464,16 +531,22 @@ const questionnaires = [
               {
                 codeListReference: 'isg1g6zo',
                 mandatory: false,
-                datatype: { typeName: 'TEXT', maxLength: 1, pattern: '', type: 'TextDatatypeType', visHint: 'RADIO' },
-              },
+                datatype: {
+                  typeName: 'TEXT',
+                  maxLength: 1,
+                  pattern: '',
+                  type: 'TextDatatypeType',
+                  visHint: 'RADIO'
+                }
+              }
             ],
-            type: 'QuestionType',
+            type: 'QuestionType'
           },
           {
             id: 'isg1hq0f',
             name: 'SINGLE_DROPDOWN',
             label: [
-              '##{"label":"Je suis le libellé de la question à choix unique sous forme de liste déroulante","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de liste déroulante',
+              '##{"label":"Je suis le libellé de la question à choix unique sous forme de liste déroulante","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de liste déroulante'
             ],
             declarations: [],
             redirections: [],
@@ -488,17 +561,17 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'DROPDOWN',
-                },
-              },
+                  visHint: 'DROPDOWN'
+                }
+              }
             ],
-            type: 'QuestionType',
+            type: 'QuestionType'
           },
           {
             id: 'isg1bz8h',
             name: 'SINGLE_CHECKBOX',
             label: [
-              '##{"label":"Je suis le libellé de la question à choix unique sous forme de cases à cocher","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de cases à cocher',
+              '##{"label":"Je suis le libellé de la question à choix unique sous forme de cases à cocher","conditions":[]}\nJe suis le libellé de la question à choix unique sous forme de cases à cocher'
             ],
             declarations: [],
             redirections: [],
@@ -513,11 +586,11 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'CHECKBOX',
-                },
-              },
+                  visHint: 'CHECKBOX'
+                }
+              }
             ],
-            type: 'QuestionType',
+            type: 'QuestionType'
           },
           {
             id: 'iwnesc00',
@@ -532,14 +605,14 @@ const questionnaires = [
                 id: 'iw22nmhl',
                 name: 'FILTRE_INV',
                 label: [
-                  '##{"label":"Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution","conditions":[]}\nAvez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution',
+                  '##{"label":"Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution","conditions":[]}\nAvez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Cette question est extraite de l'enquête Antipol\n",
-                    position: 'AFTER_RESPONSE',
-                  },
+                    position: 'AFTER_RESPONSE'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -553,24 +626,25 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'CHECKBOX',
-                    },
-                  },
+                      visHint: 'CHECKBOX'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwm6zyaq',
                 name: 'VENTES_MARCH',
                 label: [
-                  '##{"label":"Vendez vous vos marchandises majoritairement\\n","conditions":[]}\nVendez vous vos marchandises majoritairement\n',
+                  '##{"label":"Vendez vous vos marchandises majoritairement\\n","conditions":[]}\nVendez vous vos marchandises majoritairement\n'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text: "Question issue de l'enquête sectorielle annuelle (commerce)\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    text:
+                      "Question issue de l'enquête sectorielle annuelle (commerce)\n",
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -584,24 +658,24 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'CHECKBOX',
-                    },
-                  },
+                      visHint: 'CHECKBOX'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwm9e4pi',
                 name: 'TEMPSPLEIN',
                 label: [
-                  '##{"label":"Toujours au 1er mars 2016, vous travailliez","conditions":[]}\nToujours au 1er mars 2016, vous travailliez',
+                  '##{"label":"Toujours au 1er mars 2016, vous travailliez","conditions":[]}\nToujours au 1er mars 2016, vous travailliez'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Question issue de l'enquête EVA 2016\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -615,19 +689,19 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'CHECKBOX',
-                    },
-                  },
+                      visHint: 'CHECKBOX'
+                    }
+                  }
                 ],
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
-          },
+            type: 'SequenceType'
+          }
         ],
         depth: 1,
-        type: 'SequenceType',
+        type: 'SequenceType'
       },
       {
         id: 'isg1gytw',
@@ -642,32 +716,44 @@ const questionnaires = [
             id: 'isg1j5rw',
             name: 'MULTIPLE_BOOL',
             label: [
-              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de booléen","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de booléen',
+              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de booléen","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de booléen'
             ],
             declarations: [],
             redirections: [],
             controls: [],
             questionType: 'MULTIPLE_CHOICE',
             responses: [
-              { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-              { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-              { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-              { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-              { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
+              {
+                datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' }
+              },
+              {
+                datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' }
+              },
+              {
+                datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' }
+              },
+              {
+                datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' }
+              },
+              { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } }
             ],
             responseStructure: {
               dimensions: [
-                { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                { dimensionType: 'MEASURE', dynamic: 0 },
-              ],
+                {
+                  dimensionType: 'PRIMARY',
+                  dynamic: 0,
+                  codeListReference: 'isg1g6zo'
+                },
+                { dimensionType: 'MEASURE', dynamic: 0 }
+              ]
             },
-            type: 'QuestionType',
+            type: 'QuestionType'
           },
           {
             id: 'isg1gjjt',
             name: 'MULTIPLE_RADIO',
             label: [
-              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de bouton radio","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de bouton radio',
+              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de bouton radio","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de bouton radio'
             ],
             declarations: [],
             redirections: [],
@@ -675,46 +761,80 @@ const questionnaires = [
             questionType: 'MULTIPLE_CHOICE',
             responses: [
               {
-                datatype: { typeName: 'TEXT', maxLength: 1, pattern: '', type: 'TextDatatypeType', visHint: 'RADIO' },
-                codeListReference: 'isg1uorv',
+                datatype: {
+                  typeName: 'TEXT',
+                  maxLength: 1,
+                  pattern: '',
+                  type: 'TextDatatypeType',
+                  visHint: 'RADIO'
+                },
+                codeListReference: 'isg1uorv'
               },
               {
-                datatype: { typeName: 'TEXT', maxLength: 1, pattern: '', type: 'TextDatatypeType', visHint: 'RADIO' },
-                codeListReference: 'isg1uorv',
+                datatype: {
+                  typeName: 'TEXT',
+                  maxLength: 1,
+                  pattern: '',
+                  type: 'TextDatatypeType',
+                  visHint: 'RADIO'
+                },
+                codeListReference: 'isg1uorv'
               },
               {
-                datatype: { typeName: 'TEXT', maxLength: 1, pattern: '', type: 'TextDatatypeType', visHint: 'RADIO' },
-                codeListReference: 'isg1uorv',
+                datatype: {
+                  typeName: 'TEXT',
+                  maxLength: 1,
+                  pattern: '',
+                  type: 'TextDatatypeType',
+                  visHint: 'RADIO'
+                },
+                codeListReference: 'isg1uorv'
               },
               {
-                datatype: { typeName: 'TEXT', maxLength: 1, pattern: '', type: 'TextDatatypeType', visHint: 'RADIO' },
-                codeListReference: 'isg1uorv',
+                datatype: {
+                  typeName: 'TEXT',
+                  maxLength: 1,
+                  pattern: '',
+                  type: 'TextDatatypeType',
+                  visHint: 'RADIO'
+                },
+                codeListReference: 'isg1uorv'
               },
               {
-                datatype: { typeName: 'TEXT', maxLength: 1, pattern: '', type: 'TextDatatypeType', visHint: 'RADIO' },
-                codeListReference: 'isg1uorv',
-              },
+                datatype: {
+                  typeName: 'TEXT',
+                  maxLength: 1,
+                  pattern: '',
+                  type: 'TextDatatypeType',
+                  visHint: 'RADIO'
+                },
+                codeListReference: 'isg1uorv'
+              }
             ],
             responseStructure: {
               dimensions: [
-                { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                { dimensionType: 'MEASURE', dynamic: 0 },
-              ],
+                {
+                  dimensionType: 'PRIMARY',
+                  dynamic: 0,
+                  codeListReference: 'isg1g6zo'
+                },
+                { dimensionType: 'MEASURE', dynamic: 0 }
+              ]
             },
-            type: 'QuestionType',
+            type: 'QuestionType'
           },
           {
             id: 'isg20r8n',
             name: 'MULTIPLE_DROPDOWN',
             label: [
-              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de liste déroulante","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de liste déroulante',
+              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de liste déroulante","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de liste déroulante'
             ],
             declarations: [
               {
                 declarationType: 'INSTRUCTION',
                 text: 'La consigne est avant la question\n',
-                position: 'BEFORE_QUESTION_TEXT',
-              },
+                position: 'BEFORE_QUESTION_TEXT'
+              }
             ],
             redirections: [],
             controls: [],
@@ -726,9 +846,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'DROPDOWN',
+                  visHint: 'DROPDOWN'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -736,9 +856,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'DROPDOWN',
+                  visHint: 'DROPDOWN'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -746,9 +866,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'DROPDOWN',
+                  visHint: 'DROPDOWN'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -756,9 +876,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'DROPDOWN',
+                  visHint: 'DROPDOWN'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -766,24 +886,28 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'DROPDOWN',
+                  visHint: 'DROPDOWN'
                 },
-                codeListReference: 'isg1uorv',
-              },
+                codeListReference: 'isg1uorv'
+              }
             ],
             responseStructure: {
               dimensions: [
-                { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                { dimensionType: 'MEASURE', dynamic: 0 },
-              ],
+                {
+                  dimensionType: 'PRIMARY',
+                  dynamic: 0,
+                  codeListReference: 'isg1g6zo'
+                },
+                { dimensionType: 'MEASURE', dynamic: 0 }
+              ]
             },
-            type: 'QuestionType',
+            type: 'QuestionType'
           },
           {
             id: 'isg1uc3w',
             name: 'MULTIPLE_CHECKBOX',
             label: [
-              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de cases à cocher","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de cases à cocher',
+              '##{"label":"Je suis le libellé de la question à choix multiple sous forme de cases à cocher","conditions":[]}\nJe suis le libellé de la question à choix multiple sous forme de cases à cocher'
             ],
             declarations: [],
             redirections: [],
@@ -796,9 +920,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'CHECKBOX',
+                  visHint: 'CHECKBOX'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -806,9 +930,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'CHECKBOX',
+                  visHint: 'CHECKBOX'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -816,9 +940,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'CHECKBOX',
+                  visHint: 'CHECKBOX'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -826,9 +950,9 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'CHECKBOX',
+                  visHint: 'CHECKBOX'
                 },
-                codeListReference: 'isg1uorv',
+                codeListReference: 'isg1uorv'
               },
               {
                 datatype: {
@@ -836,18 +960,22 @@ const questionnaires = [
                   maxLength: 1,
                   pattern: '',
                   type: 'TextDatatypeType',
-                  visHint: 'CHECKBOX',
+                  visHint: 'CHECKBOX'
                 },
-                codeListReference: 'isg1uorv',
-              },
+                codeListReference: 'isg1uorv'
+              }
             ],
             responseStructure: {
               dimensions: [
-                { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                { dimensionType: 'MEASURE', dynamic: 0 },
-              ],
+                {
+                  dimensionType: 'PRIMARY',
+                  dynamic: 0,
+                  codeListReference: 'isg1g6zo'
+                },
+                { dimensionType: 'MEASURE', dynamic: 0 }
+              ]
             },
-            type: 'QuestionType',
+            type: 'QuestionType'
           },
           {
             id: 'iwnevbej',
@@ -862,14 +990,14 @@ const questionnaires = [
                 id: 'iwm8wtis',
                 name: 'SITE_ENTREPRISE',
                 label: [
-                  '##{"label":"Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\\n","conditions":[]}\nLe site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\n',
+                  '##{"label":"Le site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\\n","conditions":[]}\nLe site ou la page d’accueil de votre entreprise propose-t-il actuellement les services suivants :type de contrat suivant :\n'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Question issue de l'enquête Tic-TPE 2016\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -881,9 +1009,9 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'CHECKBOX',
+                      visHint: 'CHECKBOX'
                     },
-                    codeListReference: 'isg1uorv',
+                    codeListReference: 'isg1uorv'
                   },
                   {
                     datatype: {
@@ -891,9 +1019,9 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'CHECKBOX',
+                      visHint: 'CHECKBOX'
                     },
-                    codeListReference: 'isg1uorv',
+                    codeListReference: 'isg1uorv'
                   },
                   {
                     datatype: {
@@ -901,51 +1029,84 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'CHECKBOX',
+                      visHint: 'CHECKBOX'
                     },
-                    codeListReference: 'isg1uorv',
-                  },
+                    codeListReference: 'isg1uorv'
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'iwm8rfv5' },
-                    { dimensionType: 'MEASURE', dynamic: 0 },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'iwm8rfv5'
+                    },
+                    { dimensionType: 'MEASURE', dynamic: 0 }
+                  ]
                 },
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwm8xktl',
                 name: 'FORMATION',
                 label: [
-                  '##{"label":"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?","conditions":[]}\nDepuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?',
+                  '##{"label":"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?","conditions":[]}\nDepuis la fin de ces études, avez-vous suivi une ou plusieurs des formations suivantes ?'
                 ],
                 declarations: [],
                 redirections: [],
                 controls: [],
                 questionType: 'MULTIPLE_CHOICE',
                 responses: [
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'iwm9fhue' },
-                    { dimensionType: 'MEASURE', dynamic: 0 },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'iwm9fhue'
+                    },
+                    { dimensionType: 'MEASURE', dynamic: 0 }
+                  ]
                 },
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
-          },
+            type: 'SequenceType'
+          }
         ],
         depth: 1,
-        type: 'SequenceType',
+        type: 'SequenceType'
       },
       {
         id: 'isg1qnrf',
@@ -969,52 +1130,110 @@ const questionnaires = [
                 id: 'isg1s9ho',
                 name: 'TABLE_1A_1M',
                 label: [
-                  '##{"label":"Je suis le libellé de la question tableau un axe - une mesure","conditions":[]}\nJe suis le libellé de la question tableau un axe - une mesure',
+                  '##{"label":"Je suis le libellé de la question tableau un axe - une mesure","conditions":[]}\nJe suis le libellé de la question tableau un axe - une mesure'
                 ],
                 declarations: [],
                 redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
-                  { datatype: { typeName: 'TEXT', maxLength: 20, pattern: '', type: 'TextDatatypeType' } },
-                  { datatype: { typeName: 'TEXT', maxLength: 20, pattern: '', type: 'TextDatatypeType' } },
-                  { datatype: { typeName: 'TEXT', maxLength: 20, pattern: '', type: 'TextDatatypeType' } },
-                  { datatype: { typeName: 'TEXT', maxLength: 20, pattern: '', type: 'TextDatatypeType' } },
-                  { datatype: { typeName: 'TEXT', maxLength: 20, pattern: '', type: 'TextDatatypeType' } },
+                  {
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 20,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 20,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 20,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 20,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 20,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure 1 texte' },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'isg1g6zo'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure 1 texte'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'isg28ywr',
                 name: 'TABLE_1A_nM',
                 label: [
-                  '##{"label":"Je suis le libellé de la question tableau un axe - plusieurs mesures","conditions":[]}\nJe suis le libellé de la question tableau un axe - plusieurs mesures',
+                  '##{"label":"Je suis le libellé de la question tableau un axe - plusieurs mesures","conditions":[]}\nJe suis le libellé de la question tableau un axe - plusieurs mesures'
                 ],
                 declarations: [],
                 redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
-                  { datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' } },
                   {
-                    codeListReference: 'isg1uorv',
                     datatype: {
-                      typeName: 'TEXT',
-                      maxLength: 1,
-                      pattern: '',
-                      type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'BOOLEAN',
+                      type: 'BooleanDatatypeType'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1023,8 +1242,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1033,8 +1252,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1043,8 +1262,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1053,8 +1272,18 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
+                  },
+                  {
+                    codeListReference: 'isg1uorv',
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 1,
+                      pattern: '',
+                      type: 'TextDatatypeType',
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     datatype: {
@@ -1062,8 +1291,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: 1,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1071,8 +1300,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: 1,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1080,8 +1309,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: 1,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1089,8 +1318,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: 1,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1098,46 +1327,85 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: 1,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure simple booléen' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure unique radio' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure simple entier' },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'isg1g6zo'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure simple booléen'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure unique radio'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure simple entier'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'isg1rx4a',
                 name: 'TABLE_LIST',
                 label: [
-                  '##{"label":"Je suis le libellé de la question liste","conditions":[]}\nJe suis le libellé de la question liste',
+                  '##{"label":"Je suis le libellé de la question liste","conditions":[]}\nJe suis le libellé de la question liste'
                 ],
                 declarations: [],
                 redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
-                  { datatype: { typeName: 'TEXT', maxLength: 50, pattern: '', type: 'TextDatatypeType' } },
-                  { datatype: { typeName: 'DATE', minimum: '', maximum: '', format: '', type: 'DateDatatypeType' } },
+                  {
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 50,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  },
+                  {
+                    datatype: {
+                      typeName: 'DATE',
+                      minimum: '',
+                      maximum: '',
+                      format: '',
+                      type: 'DateDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
                     { dimensionType: 'PRIMARY', dynamic: '-' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure texte' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure date' },
-                  ],
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure texte'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure date'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'iwnexpuc',
@@ -1152,26 +1420,27 @@ const questionnaires = [
                 id: 'iw22jcng',
                 name: 'EFFECTIFSS',
                 label: [
-                  '##{"label":"Effectifs salariés au 31/12/2015","conditions":[]}\nEffectifs salariés au 31/12/2015',
+                  '##{"label":"Effectifs salariés au 31/12/2015","conditions":[]}\nEffectifs salariés au 31/12/2015'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text:
                       'Comptez la totalité des salariés rémunérés directement par l’entreprise et inscrits à la date du 31/12/2015, y compris les dirigeants de sociétés et gérants salariés, le personnel saisonnier ou occasionnel.\n\n​\n',
-                    position: 'AFTER_QUESTION_TEXT',
+                    position: 'AFTER_QUESTION_TEXT'
                   },
                   {
                     declarationType: 'INSTRUCTION',
                     text:
                       'Ne comptez pas le personnel rémunéré par d’autres entreprises (travail temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non rémunérés.\n',
-                    position: 'AFTER_QUESTION_TEXT',
+                    position: 'AFTER_QUESTION_TEXT'
                   },
                   {
                     declarationType: 'INSTRUCTION',
-                    text: "Cette question est extraite de l'enquête structurelle auprès des entreprises mahoraises\n",
-                    position: 'AFTER_RESPONSE',
-                  },
+                    text:
+                      "Cette question est extraite de l'enquête structurelle auprès des entreprises mahoraises\n",
+                    position: 'AFTER_RESPONSE'
+                  }
                 ],
                 redirections: [],
                 controls: [],
@@ -1183,8 +1452,8 @@ const questionnaires = [
                       minimum: null,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1192,8 +1461,8 @@ const questionnaires = [
                       minimum: null,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1201,8 +1470,8 @@ const questionnaires = [
                       minimum: null,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1210,8 +1479,8 @@ const questionnaires = [
                       minimum: null,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1219,37 +1488,52 @@ const questionnaires = [
                       minimum: null,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'iw22xe2u' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Effectifs salariés' },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'iw22xe2u'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Effectifs salariés'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'iwncfpwn',
                 name: 'LISTE_PERS',
                 label: [
-                  '##{"label":"Liste des personnes qui habitent ce logement\\n","conditions":[]}\nListe des personnes qui habitent ce logement\n',
+                  '##{"label":"Liste des personnes qui habitent ce logement\\n","conditions":[]}\nListe des personnes qui habitent ce logement\n'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text:
                       "Veuillez inscrire un par un les prénoms des personnes qui habitent ce logement, même une partie de la semaine y compris celles qui sont temporairement absentes au moment de l’enquête (vacances, voyage d'affaires, hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais encore rattachés au logement, conjoints éloignés pour raisons professionnelles, enfants en garde alternée, personnes âgées en institution …)\n",
-                    position: 'AFTER_QUESTION_TEXT',
-                  },
+                    position: 'AFTER_QUESTION_TEXT'
+                  }
                 ],
                 redirections: [],
                 controls: [],
                 questionType: 'TABLE',
                 responses: [
-                  { datatype: { typeName: 'TEXT', maxLength: 50, pattern: '', type: 'TextDatatypeType' } },
+                  {
+                    datatype: {
+                      typeName: 'TEXT',
+                      maxLength: 50,
+                      pattern: '',
+                      type: 'TextDatatypeType'
+                    }
+                  },
                   {
                     codeListReference: 'iw22fswu',
                     datatype: {
@@ -1257,24 +1541,36 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'CHECKBOX',
-                    },
+                      visHint: 'CHECKBOX'
+                    }
                   },
-                  { datatype: { typeName: 'DATE', minimum: '', maximum: '', format: '', type: 'DateDatatypeType' } },
+                  {
+                    datatype: {
+                      typeName: 'DATE',
+                      minimum: '',
+                      maximum: '',
+                      format: '',
+                      type: 'DateDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
                     { dimensionType: 'PRIMARY', dynamic: '-' },
                     { dimensionType: 'MEASURE', dynamic: 0, label: 'Prénom' },
                     { dimensionType: 'MEASURE', dynamic: 0, label: 'Sexe' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Date de naissance' },
-                  ],
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Date de naissance'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'isg1x9p9',
@@ -1289,7 +1585,7 @@ const questionnaires = [
                 id: 'isg1v5d2',
                 name: 'TABLE_2A_1SIMPLE',
                 label: [
-                  '##{"label":"Je suis le libellé d\'un tableau à deux axes 1 mesure simple","conditions":[]}\nJe suis le libellé d\'un tableau à deux axes 1 mesure simple',
+                  '##{"label":"Je suis le libellé d\'un tableau à deux axes 1 mesure simple","conditions":[]}\nJe suis le libellé d\'un tableau à deux axes 1 mesure simple'
                 ],
                 declarations: [],
                 redirections: [],
@@ -1302,8 +1598,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1311,8 +1607,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1320,8 +1616,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1329,8 +1625,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1338,8 +1634,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1347,8 +1643,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1356,8 +1652,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1365,8 +1661,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1374,8 +1670,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1383,8 +1679,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1392,8 +1688,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1401,8 +1697,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1410,8 +1706,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1419,8 +1715,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1428,8 +1724,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1437,8 +1733,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1446,8 +1742,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1455,8 +1751,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1464,8 +1760,8 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1473,24 +1769,36 @@ const questionnaires = [
                       minimum: 1,
                       maximum: 10,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                    { dimensionType: 'SECONDARY', dynamic: 0, codeListReference: 'isg27fpv' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure nombre' },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'isg1g6zo'
+                    },
+                    {
+                      dimensionType: 'SECONDARY',
+                      dynamic: 0,
+                      codeListReference: 'isg27fpv'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure nombre'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
+                type: 'QuestionType'
               },
               {
                 id: 'isg3ixbk',
                 name: 'JESUISLELI',
                 label: [
-                  '##{"label":"Je suis le libellé d\'un tableau à deux axes 1 mesure unique","conditions":[]}\nJe suis le libellé d\'un tableau à deux axes 1 mesure unique',
+                  '##{"label":"Je suis le libellé d\'un tableau à deux axes 1 mesure unique","conditions":[]}\nJe suis le libellé d\'un tableau à deux axes 1 mesure unique'
                 ],
                 declarations: [],
                 redirections: [],
@@ -1504,8 +1812,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1514,8 +1822,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1524,8 +1832,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1534,8 +1842,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1544,8 +1852,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1554,8 +1862,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1564,8 +1872,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1574,8 +1882,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1584,8 +1892,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1594,8 +1902,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1604,8 +1912,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1614,8 +1922,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1624,8 +1932,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1634,8 +1942,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1644,8 +1952,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1654,8 +1962,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1664,8 +1972,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1674,8 +1982,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1684,8 +1992,8 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
+                      visHint: 'RADIO'
+                    }
                   },
                   {
                     codeListReference: 'isg1uorv',
@@ -1694,22 +2002,34 @@ const questionnaires = [
                       maxLength: 1,
                       pattern: '',
                       type: 'TextDatatypeType',
-                      visHint: 'RADIO',
-                    },
-                  },
+                      visHint: 'RADIO'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'isg1g6zo' },
-                    { dimensionType: 'SECONDARY', dynamic: 0, codeListReference: 'isg27fpv' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Mesure unique' },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'isg1g6zo'
+                    },
+                    {
+                      dimensionType: 'SECONDARY',
+                      dynamic: 0,
+                      codeListReference: 'isg27fpv'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Mesure unique'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
+            type: 'SequenceType'
           },
           {
             id: 'iwnet09y',
@@ -1724,14 +2044,14 @@ const questionnaires = [
                 id: 'iw22jwft',
                 name: 'RENSEIGNEZ',
                 label: [
-                  '##{"label":"Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l\'environnement, selon leur nature et le domaine","conditions":[]}\nRenseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l\'environnement, selon leur nature et le domaine',
+                  '##{"label":"Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l\'environnement, selon leur nature et le domaine","conditions":[]}\nRenseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l\'environnement, selon leur nature et le domaine'
                 ],
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
                     text: "Cette question est extraite de l'enquête Antipol\n",
-                    position: 'AFTER_RESPONSE',
-                  },
+                    position: 'AFTER_RESPONSE'
+                  }
                 ],
                 redirections: [],
                 controls: [
@@ -1741,8 +2061,8 @@ const questionnaires = [
                     expression:
                       "(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))<0 ) and ${S1-S1-Q1-R1}!=''", // eslint-disable-line no-template-curly-in-string
                     failMessage:
-                      "Le montant des investissements spécifiquement dédiés à l'environnement est supérieur au montant total des investissements.",
-                  },
+                      "Le montant des investissements spécifiquement dédiés à l'environnement est supérieur au montant total des investissements."
+                  }
                 ],
                 questionType: 'TABLE',
                 responses: [
@@ -1752,8 +2072,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1761,8 +2081,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1770,8 +2090,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1779,8 +2099,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1788,8 +2108,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1797,8 +2117,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1806,8 +2126,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1815,8 +2135,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1824,8 +2144,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1833,8 +2153,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1842,8 +2162,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1851,8 +2171,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1860,8 +2180,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1869,8 +2189,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1878,8 +2198,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1887,8 +2207,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1896,8 +2216,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1905,8 +2225,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1914,8 +2234,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1923,8 +2243,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1932,8 +2252,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1941,8 +2261,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1950,8 +2270,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1959,8 +2279,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1968,8 +2288,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1977,8 +2297,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1986,8 +2306,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -1995,8 +2315,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -2004,8 +2324,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -2013,8 +2333,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -2022,8 +2342,8 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
+                      type: 'NumericDatatypeType'
+                    }
                   },
                   {
                     datatype: {
@@ -2031,27 +2351,39 @@ const questionnaires = [
                       minimum: 0,
                       maximum: null,
                       decimals: null,
-                      type: 'NumericDatatypeType',
-                    },
-                  },
+                      type: 'NumericDatatypeType'
+                    }
+                  }
                 ],
                 responseStructure: {
                   dimensions: [
-                    { dimensionType: 'PRIMARY', dynamic: 0, codeListReference: 'iw22r14q' },
-                    { dimensionType: 'SECONDARY', dynamic: 0, codeListReference: 'iw22dla9' },
-                    { dimensionType: 'MEASURE', dynamic: 0, label: 'Montant des investissements en Keuros' },
-                  ],
+                    {
+                      dimensionType: 'PRIMARY',
+                      dynamic: 0,
+                      codeListReference: 'iw22r14q'
+                    },
+                    {
+                      dimensionType: 'SECONDARY',
+                      dynamic: 0,
+                      codeListReference: 'iw22dla9'
+                    },
+                    {
+                      dimensionType: 'MEASURE',
+                      dynamic: 0,
+                      label: 'Montant des investissements en Keuros'
+                    }
+                  ]
                 },
-                type: 'QuestionType',
-              },
+                type: 'QuestionType'
+              }
             ],
             depth: 2,
-            type: 'SequenceType',
-          },
+            type: 'SequenceType'
+          }
         ],
         depth: 1,
-        type: 'SequenceType',
-      },
+        type: 'SequenceType'
+      }
     ],
     depth: 0,
     type: 'SequenceType',
@@ -2111,10 +2443,10 @@ const questionnaires = [
           'isg1v5d2',
           'isg3ixbk',
           'iwnet09y',
-          'iw22jwft',
+          'iw22jwft'
         ],
-        id: 'j3ft4xup',
-      },
+        id: 'j3ft4xup'
+      }
     ],
     codeLists: {
       codeList: [
@@ -2127,14 +2459,14 @@ const questionnaires = [
             { label: 'choix 2', value: '' },
             { label: 'choix 3', value: '' },
             { label: 'choix 4', value: '' },
-            { label: 'choix 5', value: '' },
-          ],
+            { label: 'choix 5', value: '' }
+          ]
         },
         {
           id: 'isg1uorv',
           name: '',
           label: 'Oui_Non',
-          codes: [{ label: 'Oui', value: '' }, { label: 'Non', value: '' }],
+          codes: [{ label: 'Oui', value: '' }, { label: 'Non', value: '' }]
         },
         {
           id: 'isg27fpv',
@@ -2144,8 +2476,8 @@ const questionnaires = [
             { label: 'choix 6', value: '' },
             { label: 'choix 7', value: '' },
             { label: 'choix 8', value: '' },
-            { label: 'choix 9', value: '' },
-          ],
+            { label: 'choix 9', value: '' }
+          ]
         },
         {
           id: 'iw22dla9',
@@ -2155,18 +2487,27 @@ const questionnaires = [
             { label: 'Eaux usées', value: '' },
             { label: 'Déchets hors radioactifs', value: '' },
             { label: 'Protection de l’air', value: '' },
-            { label: 'Limitation des émissions de gaz à effet de serre', value: '' },
+            {
+              label: 'Limitation des émissions de gaz à effet de serre',
+              value: ''
+            },
             { label: 'Bruits et vibrations', value: '' },
             { label: 'Sols, eaux souterraines et de surface', value: '' },
             { label: 'Sites, paysages et biodiversité', value: '' },
-            { label: 'Autres (rayonnement, R&D sur l’environnement…)', value: '' },
-          ],
+            {
+              label: 'Autres (rayonnement, R&D sur l’environnement…)',
+              value: ''
+            }
+          ]
         },
         {
           id: 'iw22fswu',
           name: '',
           label: 'L_SEXE',
-          codes: [{ label: 'Masculin', value: '' }, { label: 'Féminin', value: '' }],
+          codes: [
+            { label: 'Masculin', value: '' },
+            { label: 'Féminin', value: '' }
+          ]
         },
         {
           id: 'iw22r14q',
@@ -2176,8 +2517,8 @@ const questionnaires = [
             { label: 'Pré-traitement, traitement et élimination', value: '' },
             { label: 'Mesure et contrôle', value: '' },
             { label: 'Recyclage, tri et valorisation', value: '' },
-            { label: 'Prévention des pollutions', value: '' },
-          ],
+            { label: 'Prévention des pollutions', value: '' }
+          ]
         },
         {
           id: 'iw22xe2u',
@@ -2185,11 +2526,17 @@ const questionnaires = [
           label: 'L_effectifs',
           codes: [
             { label: 'Effectifs salariés à temps plein', value: '' },
-            { label: 'Effectifs salariés à temps partiel moins de 6 mois', value: '' },
-            { label: 'Effectifs salariés à temps partiel 6 mois et plus', value: '' },
+            {
+              label: 'Effectifs salariés à temps partiel moins de 6 mois',
+              value: ''
+            },
+            {
+              label: 'Effectifs salariés à temps partiel 6 mois et plus',
+              value: ''
+            },
             { label: 'Apprentis, stagiaires rémunérés', value: '' },
-            { label: 'Total', value: '' },
-          ],
+            { label: 'Total', value: '' }
+          ]
         },
         {
           id: 'iw25euzq',
@@ -2201,8 +2548,8 @@ const questionnaires = [
             { label: 'fraise', value: '' },
             { label: 'abricot', value: '' },
             { label: 'citron', value: '' },
-            { label: 'rhum raisins', value: '' },
-          ],
+            { label: 'rhum raisins', value: '' }
+          ]
         },
         {
           id: 'iw25voxc',
@@ -2212,8 +2559,8 @@ const questionnaires = [
             { label: 'Toujours', value: '' },
             { label: 'Souvent', value: '' },
             { label: 'Parfois', value: '' },
-            { label: 'Jamais', value: '' },
-          ],
+            { label: 'Jamais', value: '' }
+          ]
         },
         {
           id: 'iwg8titv',
@@ -2224,8 +2571,8 @@ const questionnaires = [
             { label: 'Item 2', value: '' },
             { label: 'Item 3', value: '' },
             { label: 'Item 4', value: '' },
-            { label: 'Item 5', value: '' },
-          ],
+            { label: 'Item 5', value: '' }
+          ]
         },
         { id: 'iwgdyhwp', name: '', label: '', codes: [] },
         {
@@ -2236,8 +2583,8 @@ const questionnaires = [
             { label: 'sunny', value: '' },
             { label: 'cloudy', value: '' },
             { label: 'rainy', value: '' },
-            { label: "a mix of all, I'm in Brittany", value: '' },
-          ],
+            { label: "a mix of all, I'm in Brittany", value: '' }
+          ]
         },
         {
           id: 'iwge4s84',
@@ -2248,8 +2595,8 @@ const questionnaires = [
             { label: 'item 7', value: '' },
             { label: 'item 8', value: '' },
             { label: 'item 9', value: '' },
-            { label: 'item 10', value: '' },
-          ],
+            { label: 'item 10', value: '' }
+          ]
         },
         {
           id: 'iwgebn3a',
@@ -2260,34 +2607,42 @@ const questionnaires = [
             { label: 'Go to cinema', value: '' },
             { label: 'Watch a movie at home', value: '' },
             { label: 'Cook good meals for my friends', value: '' },
-            { label: 'Read a novel', value: '' },
-          ],
+            { label: 'Read a novel', value: '' }
+          ]
         },
         {
           id: 'iwgeg7ek',
           name: '',
           label: 'LIST_SEX_EN',
-          codes: [{ label: 'Man', value: '' }, { label: 'Woman', value: '' }],
+          codes: [{ label: 'Man', value: '' }, { label: 'Woman', value: '' }]
         },
         {
           id: 'iwgehiif',
           name: '',
           label: 'Yes_No_EN',
-          codes: [{ label: 'Yes', value: '' }, { label: 'No', value: '' }],
+          codes: [{ label: 'Yes', value: '' }, { label: 'No', value: '' }]
         },
         {
           id: 'iwm8rfv5',
           name: '',
           label: 'L_TIC_TPE',
           codes: [
-            { label: 'La commande ou la réservation en ligne (panier virtuel) ?', value: '' },
-            { label: 'La description de biens ou services, ou des listes de prix ?', value: '' },
+            {
+              label:
+                'La commande ou la réservation en ligne (panier virtuel) ?',
+              value: ''
+            },
+            {
+              label:
+                'La description de biens ou services, ou des listes de prix ?',
+              value: ''
+            },
             {
               label:
                 'Des liens permettant d’accéder aux pages de l’entreprise dans les médias sociaux (Facebook, Twitter, Google+, LinkedIn, Viadeo, etc.) ?',
-              value: '',
-            },
-          ],
+              value: ''
+            }
+          ]
         },
         {
           id: 'iwm8rneb',
@@ -2295,8 +2650,8 @@ const questionnaires = [
           label: 'L_ventes',
           codes: [
             { label: 'A des particuliers', value: '' },
-            { label: 'A des professionnels ou revendeurs', value: '' },
-          ],
+            { label: 'A des professionnels ou revendeurs', value: '' }
+          ]
         },
         {
           id: 'iwm8zloc',
@@ -2306,8 +2661,8 @@ const questionnaires = [
             { label: 'à temps complet', value: '' },
             { label: 'à temps partiel 80 % ou plus', value: '' },
             { label: 'de mi-temps à moins de 80 %', value: '' },
-            { label: 'moins d’un mi-temps', value: '' },
-          ],
+            { label: 'moins d’un mi-temps', value: '' }
+          ]
         },
         {
           id: 'iwm9fhue',
@@ -2317,26 +2672,34 @@ const questionnaires = [
             {
               label:
                 'Formation financée ou organisée par l’employeur ou une agence d’intérim (hors apprentissage et contrats de professionnalisation)',
-              value: '',
+              value: ''
             },
-            { label: 'Formation donnée par une école de la 2e chance, par l’EPIDE', value: '' },
+            {
+              label:
+                'Formation donnée par une école de la 2e chance, par l’EPIDE',
+              value: ''
+            },
             {
               label:
                 'Formation conseillée ou organisée par Pôle emploi, par une mission locale, une chambre des métiers, une agence de placement (APEC, INGEUS, …), (y compris ateliers de techniques de recherche d’emploi, ateliers CV)',
-              value: '',
+              value: ''
             },
             {
               label:
                 'Une formation professionnalisante ou à but professionnel (pour trouver un emploi, améliorer votre situation, …)',
-              value: '',
+              value: ''
             },
-            { label: 'Aucune de ces formations depuis la fin des études, même pour quelques jours', value: '' },
-          ],
-        },
+            {
+              label:
+                'Aucune de ces formations depuis la fin des études, même pour quelques jours',
+              value: ''
+            }
+          ]
+        }
       ],
-      codeListSpecification: [],
-    },
-  },
+      codeListSpecification: []
+    }
+  }
 ];
 
 export default questionnaires;

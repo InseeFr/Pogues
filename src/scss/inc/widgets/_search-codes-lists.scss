@@ -24,15 +24,15 @@
       .ctrl-select {
         width: 100%;
       }
-
     }
 
     .widget-input-filter-with-criteria {
       @include make-xs-column(8);
       .widget-input-filter-with-criteria__panel {
-        label + div, > label {
+        label + div,
+        > label {
           width: 100%;
-          padding-left:0;
+          padding-left: 0;
         }
 
         input {

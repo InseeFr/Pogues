@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import UserConnection from './components/user-connection';
 
 const mapStateToProps = state => ({
-  user: state.appState.user,
+  user: state.appState.user
 });
 
 class UserConnectionContainer extends Component {
@@ -14,12 +14,12 @@ class UserConnectionContainer extends Component {
       name: PropTypes.string,
       permission: PropTypes.string,
       id: PropTypes.string,
-      picture: PropTypes.string,
-    }),
+      picture: PropTypes.string
+    })
   };
 
   static defaultProps = {
-    user: {},
+    user: {}
   };
 
   render() {

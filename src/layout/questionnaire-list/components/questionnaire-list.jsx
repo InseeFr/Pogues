@@ -15,13 +15,13 @@ const propTypes = {
     name: PropTypes.string,
     permission: PropTypes.string,
     id: PropTypes.string,
-    picture: PropTypes.string,
-  }),
+    picture: PropTypes.string
+  })
 };
 
 const defaultProps = {
   questionnaires: [],
-  user: {},
+  user: {}
 };
 
 // Component
@@ -33,12 +33,13 @@ class QuestionnaireList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: '',
+      filter: ''
     };
   }
 
   componentWillMount() {
-    if (this.props.user && this.props.user.permission) this.props.loadQuestionnaireList(this.props.user.permission);
+    if (this.props.user && this.props.user.permission)
+      this.props.loadQuestionnaireList(this.props.user.permission);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,7 +67,13 @@ class QuestionnaireList extends Component {
       })
       .map(q => {
         return (
-          <Questionnaire key={q.id} id={q.id} label={q.label} lastUpdatedDate={q.lastUpdatedDate} final={q.final} />
+          <Questionnaire
+            key={q.id}
+            id={q.id}
+            label={q.label}
+            lastUpdatedDate={q.lastUpdatedDate}
+            final={q.final}
+          />
         );
       });
 
@@ -95,7 +102,9 @@ class QuestionnaireList extends Component {
               {list}
             </div>
           ) : (
-            <div className="questionnaire-list_noresults">{Dictionary.noQuestionnnaires}</div>
+            <div className="questionnaire-list_noresults">
+              {Dictionary.noQuestionnnaires}
+            </div>
           )}
         </div>
       </div>

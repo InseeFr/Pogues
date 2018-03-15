@@ -29,12 +29,14 @@ function UserConnection({ user }) {
               {Dictionary.stamp} {user.permission}
             </div>
           </div>
-          <div className="user-logout">
+          {/* <div className="user-logout">
             <a>
               <span className="glyphicon glyphicon-remove-sign" />
               {Dictionary.logout}
             </a>
           </div>
+        */}
+
         </div>
       ) : (
         <div className="user-login" />
@@ -48,12 +50,12 @@ UserConnection.propTypes = {
     name: PropTypes.string,
     permission: PropTypes.string,
     id: PropTypes.string,
-    picture: PropTypes.string,
-  }),
+    picture: PropTypes.string
+  })
 };
 
 UserConnection.defaultProps = {
-  user: {},
+  user: {}
 };
 
 export default UserConnection;

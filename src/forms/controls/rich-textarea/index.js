@@ -4,6 +4,6 @@ export {
   markdownVtlToString,
   formatURL,
   getEditorValue,
-  contentStateToString,
+  contentStateToString
 } from './utils/rich-textarea-utils';
 export { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';

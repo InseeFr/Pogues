@@ -15,13 +15,13 @@ export const propTypes = {
   required: PropTypes.bool,
   emptyValue: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object),
-  meta: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired
 };
 
 export const defaultProps = {
   required: false,
   options: [],
-  emptyValue: '',
+  emptyValue: ''
 };
 
 // Control
@@ -38,7 +38,7 @@ class TreeSelect extends Component {
     super(props);
 
     this.state = {
-      filteredOptions: [],
+      filteredOptions: []
     };
 
     this.selectValue = this.selectValue.bind(this);
@@ -47,14 +47,17 @@ class TreeSelect extends Component {
 
   componentWillMount() {
     this.setState({
-      filteredOptions: TreeSelect.filterOptions(this.props.options, ''),
+      filteredOptions: TreeSelect.filterOptions(this.props.options, '')
     });
   }
 
   updateListOptions() {
     this.setState({
       ...this.state,
-      filteredOptions: TreeSelect.filterOptions(this.props.options, this.inputSearch.value),
+      filteredOptions: TreeSelect.filterOptions(
+        this.props.options,
+        this.inputSearch.value
+      )
     });
   }
 
@@ -63,7 +66,13 @@ class TreeSelect extends Component {
   }
 
   render() {
-    const { input, label, required, emptyValue, meta: { touched, error } } = this.props;
+    const {
+      input,
+      label,
+      required,
+      emptyValue,
+      meta: { touched, error }
+    } = this.props;
     const listOptions = this.state.filteredOptions.map(op => {
       const padding = Array(op.depth + 1).join('-');
       const isSelectedValue = op.value === input.value;
@@ -74,7 +83,7 @@ class TreeSelect extends Component {
           key={value}
           className={ClassSet({
             selected: isSelectedValue,
-            disabled: op.disabled,
+            disabled: op.disabled
           })}
           onClick={event => {
             event.preventDefault();

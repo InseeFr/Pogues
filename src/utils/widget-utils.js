@@ -13,7 +13,7 @@ export function getValuesFromGenericOptions(options) {
     return {
       label,
       value,
-      ...otherProps,
+      ...otherProps
     };
   });
 }

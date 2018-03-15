@@ -10,10 +10,10 @@ const { PRIMARY } = DIMENSION_TYPE;
 class ResponseFormatMultiplePrimary extends Component {
   static selectorPath = PRIMARY;
   static propTypes = {
-    selectorPathParent: PropTypes.string,
+    selectorPathParent: PropTypes.string
   };
   static defaultProps = {
-    selectorPathParent: undefined,
+    selectorPathParent: undefined
   };
   constructor(props) {
     const { selectorPathParent } = props;

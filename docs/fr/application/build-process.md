@@ -8,15 +8,16 @@ Pour l'essentiel, ce processus rassemble l'ensemble des fichiers `JavaScript` au
 
 Webpack traite également les ressources `css`, afin de rendre leur chargement plus rapide et de les faire fonctionner de manière cohérente avec les différents navigateurs.
 
-[include:11-11](../../../src/layout/app.jsx)
+[include:7-7](../../../src/layout/app/components/app.jsx)
 
 Webpack est configuré dans le fichier [webpack.config.js](https://github.com/InseeFr/Pogues/blob/master/webpack.config.js). On peut se référer à ce fichier pour identifier toutes les opérations prises en charge par cette configuration.
 Webpack transformera le `JavaScript`, mais afin de rendre le processus de débuggage plus simple, il fournira en parallèle les `source maps` qui permettent aux navigateurs d'afficher le code d'origine dans les outils de développement.
 
 Pendant la phase de développement, `npm run dev` fonctionne en tâche de fond:
-- avec un serveur Web sur le port `3000` qui fournira l'ensemble des ressources de l'application;
-- recompile l'application à chaque fois qu'une ressource est modifiée;
-- recharge automatiquement la page dans le navigateur Web pour prendre en compte ces modifications.
+
+* avec un serveur Web sur le port `3000` qui fournira l'ensemble des ressources de l'application;
+* recompile l'application à chaque fois qu'une ressource est modifiée;
+* recharge automatiquement la page dans le navigateur Web pour prendre en compte ces modifications.
 
 Le script `npm run dev` est configuré pour fonctionner avec une version "en mémoire" du fichier `JavaScript` (l'option `--content-base` en ligne de commande pour `webpack-dev-server`), le fichier qui est envoyé au navigateur n'est donc pas nécessairement visible dans le dossier `dist`.
 
@@ -24,9 +25,9 @@ La configuration de webpack pour la version de production est légèrement diff�
 
 Vous trouverez les statistiques de WebPack sur la page [stats](../../stats.html) (Attention: vous devez l'ouvrir dans un autre onglet, afin que la redirection soit fonctionnelle)
 
-## Autres Scripts NPM 
+## Autres Scripts NPM
 
-Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cycle du vie. 
+Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cycle du vie.
 
 * postinstall : Configure de NightWatch pour les tests End-to-End
 * test : Exécute les tests unitaires
@@ -49,7 +50,8 @@ Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cyc
 
 ## Ajour d'un nouvel environnement
 
-Si vous voulez ajouter un nouvel environnement (par exemple qlf2), il suffit de : 
-- Créer un fichier de configuration `config.qlf2.js` dans le répertoire `build-config/environments`. 
-- Récupérer la configuration d'un autre environnement, et faire les ajustements
-- Ajouter un script NPM `build:qlf2`
+Si vous voulez ajouter un nouvel environnement (par exemple qlf2), il suffit de :
+
+* Créer un fichier de configuration `config.qlf2.js` dans le répertoire `build-config/environments`.
+* Récupérer la configuration d'un autre environnement, et faire les ajustements
+* Ajouter un script NPM `build:qlf2`

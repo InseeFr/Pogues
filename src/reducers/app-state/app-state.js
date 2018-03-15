@@ -13,7 +13,7 @@ import {
   LOAD_STATISTICAL_CONTEXT_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   CREATE_PAGE_BREAK,
-  REMOVE_PAGE_BREAK,
+  REMOVE_PAGE_BREAK
 } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -22,7 +22,7 @@ import {
   REMOVE_COMPONENT,
   UPDATE_COMPONENT_PARENT,
   UPDATE_COMPONENT_ORDER,
-  MOVE_COMPONENT,
+  MOVE_COMPONENT
 } from 'actions/component';
 import { LOAD_USER_SUCCESS } from 'actions/user';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
@@ -45,13 +45,13 @@ const defaultState = {
   editingComponentId: '',
   errorsByQuestionTab: {},
   isQuestionnaireModified: false,
-  componentIdForPageBreak: '',
+  componentIdForPageBreak: ''
 };
 
 export function loadUserSuccess(state, user) {
   return {
     ...state,
-    user: user,
+    user: user
   };
 }
 
@@ -60,7 +60,7 @@ export function setActiveQuestionnaire(state, questionnaire) {
 
   return {
     ...state,
-    activeQuestionnaire,
+    activeQuestionnaire
   };
 }
 
@@ -70,24 +70,26 @@ export function updateActiveQuestionnaire(state, updatedQuestionnaire) {
     isQuestionnaireModified: true,
     activeQuestionnaire: {
       ...state.activeQuestionnaire,
-      ...updatedQuestionnaire,
-    },
+      ...updatedQuestionnaire
+    }
   };
 }
 
 export function getComponentIdForPageBreak(id, componentsStore, state) {
   const defaultReturn = {
-    ...state,
+    ...state
   };
 
   if (id && componentsStore[id]) {
     return {
       ...state,
-      componentIdForPageBreak: componentsStore[id].pageBreak ? '' : id,
+      componentIdForPageBreak: componentsStore[id].pageBreak ? '' : id
     };
   }
 
-  const questionnaire = Object.keys(componentsStore).find(key => componentsStore[key].type === QUESTIONNAIRE);
+  const questionnaire = Object.keys(componentsStore).find(
+    key => componentsStore[key].type === QUESTIONNAIRE
+  );
 
   if (
     !questionnaire ||
@@ -100,7 +102,9 @@ export function getComponentIdForPageBreak(id, componentsStore, state) {
     .map(key => componentsStore[key])
     .sort((c1, c2) => c1.weight < c2.weight)[0].id;
 
-  return lastChildId ? getComponentIdForPageBreak(lastChildId, componentsStore, state) : defaultReturn;
+  return lastChildId
+    ? getComponentIdForPageBreak(lastChildId, componentsStore, state)
+    : defaultReturn;
 }
 
 export function setSelectedComponentId(state, id) {
@@ -108,16 +112,16 @@ export function setSelectedComponentId(state, id) {
     ...state,
     ...getComponentIdForPageBreak(id, state.activeComponentsById, {
       ...state,
-      componentIdForPageBreak: '',
+      componentIdForPageBreak: ''
     }),
-    selectedComponentId: id,
+    selectedComponentId: id
   };
 }
 
 export function setEditingComponentId(state, id) {
   return {
     ...state,
-    editingComponentId: id,
+    editingComponentId: id
   };
 }
 
@@ -127,30 +131,35 @@ export function loadStatisticalContext(state, { serie, operation }) {
     activeQuestionnaire: {
       ...state.activeQuestionnaire,
       serie,
-      operation,
-    },
+      operation
+    }
   };
 }
 
 export function setQuestionNotModified(state) {
   return {
     ...state,
-    isQuestionnaireModified: false,
+    isQuestionnaireModified: false
   };
 }
 
 export function setQuestionModified(state) {
   return {
     ...state,
-    isQuestionnaireModified: true,
+    isQuestionnaireModified: true
   };
 }
 
 export function setQuestionModifiedAndResetSelectedComponent(state) {
+  console.log('setQuestionModifiedAndResetSelectedComponent');
   return {
-    ...state,
-    ...setQuestionModified(state),
-    ...setSelectedComponentId(state, ''),
+    ...setSelectedComponentId(
+      {
+        ...state,
+        ...setQuestionModified(state)
+      },
+      ''
+    )
   };
 }
 
@@ -180,12 +189,27 @@ export default function(state = defaultState, action) {
   const hndlr = actionHandlers[type];
   return {
     ...(hndlr ? hndlr(state, payload) : state),
-    activeComponentsById: activeComponentsById(state.activeComponentsById, action),
+    activeComponentsById: activeComponentsById(
+      state.activeComponentsById,
+      action
+    ),
     activeCodeListsById: activeCodeListsById(state.activeCodeListsById, action),
-    activeCalculatedVariablesById: activeCalculatedVariablesById(state.activeCalculatedVariablesById, action),
-    collectedVariableByQuestion: collectedVariableByQuestion(state.collectedVariableByQuestion, action),
-    activeExternalVariablesById: activeExternalVariablesById(state.activeExternalVariablesById, action),
-    invalidItemsByActiveQuestion: invalidItemsByActiveQuestion(state.invalidItemsByActiveQuestion, action),
-    errorsByQuestionTab: errorsByQuestionTab(state.errorsByQuestionTab, action),
+    activeCalculatedVariablesById: activeCalculatedVariablesById(
+      state.activeCalculatedVariablesById,
+      action
+    ),
+    collectedVariableByQuestion: collectedVariableByQuestion(
+      state.collectedVariableByQuestion,
+      action
+    ),
+    activeExternalVariablesById: activeExternalVariablesById(
+      state.activeExternalVariablesById,
+      action
+    ),
+    invalidItemsByActiveQuestion: invalidItemsByActiveQuestion(
+      state.invalidItemsByActiveQuestion,
+      action
+    ),
+    errorsByQuestionTab: errorsByQuestionTab(state.errorsByQuestionTab, action)
   };
 }

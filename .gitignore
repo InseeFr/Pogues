@@ -7,7 +7,6 @@ _book
 .DS_Store
 .idea/
 *.iml
-coverage/
 /selenium-debug.log
 screenshots/
 coverage/

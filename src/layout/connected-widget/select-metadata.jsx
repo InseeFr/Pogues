@@ -7,12 +7,27 @@ import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
 
 const mapStateToProps = (state, { type }) => ({
-  meatadata: Object.keys(state.metadataByType[type] || {}).map(key => state.metadataByType[type][key]),
+  meatadata: Object.keys(state.metadataByType[type] || {}).map(
+    key => state.metadataByType[type][key]
+  )
 });
 
-function SelectMetadataContainer({ meatadata, name, label, emptyValue, mapMetadataFunction }) {
+function SelectMetadataContainer({
+  meatadata,
+  name,
+  label,
+  emptyValue,
+  mapMetadataFunction,
+  disabled
+}) {
   return (
-    <Field name={name} label={label} emptyValue={emptyValue} component={Select}>
+    <Field
+      name={name}
+      label={label}
+      emptyValue={emptyValue}
+      component={Select}
+      disabled={disabled}
+    >
       {emptyValue !== '' && (
         <GenericOption key="" value="">
           {emptyValue}
@@ -33,11 +48,13 @@ SelectMetadataContainer.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   emptyValue: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 SelectMetadataContainer.defaultProps = {
   meatadata: [],
   emptyValue: '',
+  disabled: false
 };
 
 export default connect(mapStateToProps)(SelectMetadataContainer);

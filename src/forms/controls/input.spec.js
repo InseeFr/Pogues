@@ -13,10 +13,10 @@ describe('Form controls - Input', () => {
       ...fakeFieldProps,
       input: {
         ...fakeFieldProps.input,
-        value: '',
+        value: ''
       },
       label: 'Fake label',
-      type: 'text',
+      type: 'text'
     };
   });
 

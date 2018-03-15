@@ -14,7 +14,7 @@ const {
   CODE_INPUT_CODE_CLASS,
   CODE_INPUT_LABEL_CLASS,
   CODE_INPUT_ACTIONS_CLASS,
-  CODE_INPUT_ERRORS_CLASS,
+  CODE_INPUT_ERRORS_CLASS
 } = WIDGET_CODES_LISTS;
 
 // PropTypes and defaultProps
@@ -22,22 +22,23 @@ const {
 export const propTypes = {
   code: PropTypes.shape({
     value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
   }),
-  meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array }).isRequired,
+  meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
+    .isRequired,
   path: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
-  clear: PropTypes.func.isRequired,
+  clear: PropTypes.func.isRequired
 };
 
 const defaultProps = {
   code: {
     value: '',
-    label: '',
-  },
+    label: ''
+  }
 };
 
 // Componet
@@ -70,7 +71,10 @@ class CodesListInputCode extends ComponentWithValidation {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.code.label !== this.props.code.label || nextProps.code.value !== this.props.code.value) {
+    if (
+      nextProps.code.label !== this.props.code.label ||
+      nextProps.code.value !== this.props.code.value
+    ) {
       this.initInputCode(nextProps.code);
     }
   }
@@ -126,7 +130,10 @@ class CodesListInputCode extends ComponentWithValidation {
           >
             {Dictionary.add}
           </button>
-          <button className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`} onClick={close}>
+          <button
+            className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
+            onClick={close}
+          >
             {Dictionary.cancel}
           </button>
         </div>

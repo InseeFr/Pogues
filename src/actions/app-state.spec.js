@@ -14,14 +14,14 @@ import {
   SET_SELECTED_COMPONENT,
   UPDATE_ACTIVE_QUESTIONNAIRE,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
-  SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
+  SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
 } from './app-state';
 
 describe('setActiveQuestionnaire', () => {
   test('should return the right payload', () => {
     expect(setActiveQuestionnaire('setActiveQuestionnaire')).toEqual({
       type: SET_ACTIVE_QUESTIONNAIRE,
-      payload: 'setActiveQuestionnaire',
+      payload: 'setActiveQuestionnaire'
     });
   });
 });
@@ -30,7 +30,7 @@ describe('setActiveComponents', () => {
   test('should return the right payload', () => {
     expect(setActiveComponents('setActiveComponents')).toEqual({
       type: SET_ACTIVE_COMPONENTS,
-      payload: 'setActiveComponents',
+      payload: 'setActiveComponents'
     });
   });
 });
@@ -40,8 +40,8 @@ describe('setActiveCodeLists', () => {
     expect(setActiveCodeLists('activeCodeLists')).toEqual({
       type: SET_ACTIVE_CODE_LISTS,
       payload: {
-        activeCodeLists: 'activeCodeLists',
-      },
+        activeCodeLists: 'activeCodeLists'
+      }
     });
   });
 });
@@ -50,7 +50,7 @@ describe('setActiveDeclarations', () => {
   test('should return the right payload', () => {
     expect(setActiveDeclarations('setActiveDeclarations')).toEqual({
       type: SET_ACTIVE_DECLARATIONS,
-      payload: 'setActiveDeclarations',
+      payload: 'setActiveDeclarations'
     });
   });
 });
@@ -59,7 +59,7 @@ describe('setSelectedComponentId', () => {
   test('should return the right payload', () => {
     expect(setSelectedComponentId('setSelectedComponentId')).toEqual({
       type: SET_SELECTED_COMPONENT,
-      payload: 'setSelectedComponentId',
+      payload: 'setSelectedComponentId'
     });
   });
 });
@@ -74,7 +74,7 @@ describe('updateActiveQuestionnaire', () => {
         serie: 'serie',
         operation: 'operation',
         campaigns: ['campaign'],
-        final: 'final',
+        final: 'final'
       })
     ).toEqual({
       type: UPDATE_ACTIVE_QUESTIONNAIRE,
@@ -83,8 +83,8 @@ describe('updateActiveQuestionnaire', () => {
         label: 'label',
         serie: 'serie',
         operation: 'operation',
-        campaigns: ['campaign'],
-      },
+        campaigns: ['campaign']
+      }
     });
   });
 });
@@ -97,9 +97,9 @@ describe('saveActiveQuestionnaireSuccess', () => {
         id: 'id',
         update: {
           update: 'update',
-          isQuestionnaireModified: false,
-        },
-      },
+          isQuestionnaireModified: false
+        }
+      }
     });
   });
 });
@@ -110,8 +110,8 @@ describe('saveActiveQuestionnaireFailure', () => {
       type: SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
       payload: {
         id: 'id',
-        err: 'err',
-      },
+        err: 'err'
+      }
     });
   });
 });

@@ -10,20 +10,33 @@ function getGotos(componentsStore, activeComponentsIds, components, depth = 0) {
       {
         value: componentId,
         depth,
-        label: `${componentsStore[key].name} - ${componentsStore[key].label.trim()}`,
-        disabled: activeComponentsIds.indexOf(componentId) === -1,
+        label: `${componentsStore[key].name} - ${componentsStore[
+          key
+        ].label.trim()}`,
+        disabled: activeComponentsIds.indexOf(componentId) === -1
       },
-      ...getGotos(componentsStore, activeComponentsIds, componentsStore[key].children, depth + 1),
+      ...getGotos(
+        componentsStore,
+        activeComponentsIds,
+        componentsStore[key].children,
+        depth + 1
+      )
     ];
   }, []);
 }
 
 export function getListGotos(componentsStore, activeComponentsIds = []) {
   let listGotos = [];
-  const rootKey = Object.keys(componentsStore).filter(key => componentsStore[key].type === QUESTIONNAIRE)[0];
+  const rootKey = Object.keys(componentsStore).filter(
+    key => componentsStore[key].type === QUESTIONNAIRE
+  )[0];
 
   if (rootKey) {
-    listGotos = getGotos(componentsStore, activeComponentsIds, componentsStore[rootKey].children);
+    listGotos = getGotos(
+      componentsStore,
+      activeComponentsIds,
+      componentsStore[rootKey].children
+    );
   }
 
   return listGotos;
@@ -34,17 +47,22 @@ function getDescendants(componentsStore, component = {}) {
     ...(component.children || []),
     ...(component.children || []).reduce((acc, key) => {
       return [...acc, ...getDescendants(componentsStore, componentsStore[key])];
-    }, []),
+    }, [])
   ];
 }
 
 function getSiblingHeaviest(componentsStore, component) {
   const siblings = componentsStore[component.parent].children.filter(
-    key => key !== component.id && componentsStore[key].weight > component.weight
+    key =>
+      key !== component.id && componentsStore[key].weight > component.weight
   );
 
   return siblings.reduce((acc, key) => {
-    return [...acc, key, ...getDescendants(componentsStore, componentsStore[key])];
+    return [
+      ...acc,
+      key,
+      ...getDescendants(componentsStore, componentsStore[key])
+    ];
   }, []);
 }
 
@@ -55,11 +73,17 @@ function getUnclesHeaviest(componentsStore, component) {
 
   if (grandFatherId) {
     const uncles = componentsStore[grandFatherId].children.filter(
-      key => key !== parentId && componentsStore[key].weight > componentsStore[parentId].weight
+      key =>
+        key !== parentId &&
+        componentsStore[key].weight > componentsStore[parentId].weight
     );
 
     return uncles.reduce((acc, key) => {
-      return [...acc, key, ...getDescendants(componentsStore, componentsStore[key])];
+      return [
+        ...acc,
+        key,
+        ...getDescendants(componentsStore, componentsStore[key])
+      ];
     }, []);
   }
 
@@ -75,11 +99,17 @@ function getGreatUnclesHeaviest(componentsStore, component) {
 
     if (greatGrandFatherId) {
       const greatUncles = componentsStore[greatGrandFatherId].children.filter(
-        key => key !== grandFatherId && componentsStore[key].weight > componentsStore[grandFatherId].weight
+        key =>
+          key !== grandFatherId &&
+          componentsStore[key].weight > componentsStore[grandFatherId].weight
       );
 
       return greatUncles.reduce((acc, key) => {
-        return [...acc, key, ...getDescendants(componentsStore, componentsStore[key])];
+        return [
+          ...acc,
+          key,
+          ...getDescendants(componentsStore, componentsStore[key])
+        ];
       }, []);
     }
   }
@@ -94,8 +124,10 @@ export function getOrderedComponents(componentsStore, rootComponentIds) {
       id,
       ...getOrderedComponents(
         componentsStore,
-        componentsStore[id].children.sort((c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight)
-      ),
+        componentsStore[id].children.sort(
+          (c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight
+        )
+      )
     ];
   }, []);
 }
@@ -104,26 +136,51 @@ export function getComponentsTargetsByComponent(componentsStore, component) {
   const descendants = getDescendants(componentsStore, component);
   const siblingHeaviest = getSiblingHeaviest(componentsStore, component);
   const unclesHeaviest = getUnclesHeaviest(componentsStore, component);
-  const greatUnclesHeaviest = getGreatUnclesHeaviest(componentsStore, component);
+  const greatUnclesHeaviest = getGreatUnclesHeaviest(
+    componentsStore,
+    component
+  );
 
-  return [...descendants, ...siblingHeaviest, ...unclesHeaviest, ...greatUnclesHeaviest];
+  return [
+    ...descendants,
+    ...siblingHeaviest,
+    ...unclesHeaviest,
+    ...greatUnclesHeaviest
+  ];
 }
 
-export function getComponentsTargetsByPosition(componentsStore, type, selectedComponentId) {
+export function getComponentsTargetsByPosition(
+  componentsStore,
+  type,
+  selectedComponentId
+) {
   let targets = [];
 
   if (selectedComponentId) {
-    targets = getComponentsTargetsByComponent(componentsStore, componentsStore[selectedComponentId]);
+    targets = getComponentsTargetsByComponent(
+      componentsStore,
+      componentsStore[selectedComponentId]
+    );
   } else if (type === SUBSEQUENCE) {
-    const rootId = Object.keys(componentsStore).filter(key => componentsStore[key].type === QUESTIONNAIRE)[0];
-    const heaviestSequenceId = componentsStore[rootId].children.reduce((acc, key) => {
-      return componentsStore[key].weight > componentsStore[acc].weight ? key : acc;
-    });
+    const rootId = Object.keys(componentsStore).filter(
+      key => componentsStore[key].type === QUESTIONNAIRE
+    )[0];
+    const heaviestSequenceId = componentsStore[rootId].children.reduce(
+      (acc, key) => {
+        return componentsStore[key].weight > componentsStore[acc].weight
+          ? key
+          : acc;
+      }
+    );
 
     targets = componentsStore[heaviestSequenceId].children
       .filter(key => componentsStore[key].type === SUBSEQUENCE)
       .reduce((acc, key) => {
-        return [...acc, key, ...getDescendants(componentsStore, componentsStore[key])];
+        return [
+          ...acc,
+          key,
+          ...getDescendants(componentsStore, componentsStore[key])
+        ];
       }, []);
   }
 

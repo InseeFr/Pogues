@@ -14,7 +14,7 @@ export function getValuesFromViews(views) {
     return {
       value,
       label,
-      view,
+      view
     };
   });
 }
@@ -27,23 +27,35 @@ const propTypes = {
   emptyOption: PropTypes.string,
   radio: PropTypes.bool.isRequired,
   children: PropTypes.array.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  required: PropTypes.bool.isRequired
 };
 
 export const defaultProps = {
   children: [],
-  emptyOption: undefined,
+  emptyOption: undefined
 };
 
 // Component
 
-function SelectorView({ activeViewValue, label, emptyOption, radio, children }) {
+function SelectorView({
+  activeViewValue,
+  label,
+  emptyOption,
+  radio,
+  children,
+  readOnly,
+  required
+}) {
   const values = getValuesFromViews(children);
   const options = values.map(v => (
     <GenericOption key={v.value} value={v.value}>
       {v.label}
     </GenericOption>
   ));
-  const activeView = values.filter(v => v.value === activeViewValue).map(v => v.view);
+  const activeView = values
+    .filter(v => v.value === activeViewValue)
+    .map(v => v.view);
 
   if (emptyOption) {
     options.unshift(
@@ -56,11 +68,23 @@ function SelectorView({ activeViewValue, label, emptyOption, radio, children }) 
   return (
     <div>
       {radio ? (
-        <Field name="type" component={ListRadios} label={label} required>
+        <Field
+          name="type"
+          component={ListRadios}
+          label={label}
+          required={required}
+          disabled={readOnly}
+        >
           {options}
         </Field>
       ) : (
-        <Field name="type" component={Select} label={label} required>
+        <Field
+          name="type"
+          component={Select}
+          label={label}
+          required={required}
+          disabled={readOnly}
+        >
           {options}
         </Field>
       )}

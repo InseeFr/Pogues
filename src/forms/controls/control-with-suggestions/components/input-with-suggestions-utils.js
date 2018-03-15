@@ -1,4 +1,3 @@
-// @TODO: Create tests
 export function updateSuggestions(text, regex, availableSuggestions) {
   const matches = text.match(regex);
   let suggestions = [];
@@ -17,5 +16,7 @@ export function initialize() {
 }
 
 export function getNewIndex(currentIndex, suggestions, numSuggestionsShown) {
-  return currentIndex < suggestions.slice(0, numSuggestionsShown).length - 1 ? currentIndex + 1 : 0;
+  return currentIndex < suggestions.slice(0, numSuggestionsShown).length - 1
+    ? currentIndex + 1
+    : 0;
 }

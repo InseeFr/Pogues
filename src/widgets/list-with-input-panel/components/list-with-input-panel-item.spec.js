@@ -12,12 +12,20 @@ describe('<ListWithInputPanelItem', () => {
   const fakeString = 'This is a fake string';
 
   test('Should render the contained string', () => {
-    const wrapper = shallow(<ListWithInputPanelItem select={noop}>{fakeString}</ListWithInputPanelItem>);
+    const wrapper = shallow(
+      <ListWithInputPanelItem select={noop}>
+        {fakeString}
+      </ListWithInputPanelItem>
+    );
     expect(wrapper.contains(fakeString)).toBeTruthy();
   });
 
   test('Should show the "Invalid item style" only in the case is not a valid item', () => {
-    let wrapper = shallow(<ListWithInputPanelItem select={noop}>{fakeString}</ListWithInputPanelItem>);
+    let wrapper = shallow(
+      <ListWithInputPanelItem select={noop}>
+        {fakeString}
+      </ListWithInputPanelItem>
+    );
     expect(wrapper.hasClass(ITEM_INVALID_CLASS)).toBeFalsy();
 
     wrapper = shallow(
@@ -30,7 +38,11 @@ describe('<ListWithInputPanelItem', () => {
 
   test('Should call the "select" action when the item button is clicked', () => {
     const spySelect = jest.fn();
-    const wrapper = shallow(<ListWithInputPanelItem select={spySelect}>{fakeString}</ListWithInputPanelItem>);
+    const wrapper = shallow(
+      <ListWithInputPanelItem select={spySelect}>
+        {fakeString}
+      </ListWithInputPanelItem>
+    );
 
     wrapper.find('button').simulate('click', fakeEvent);
 

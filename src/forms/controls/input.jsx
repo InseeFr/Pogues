@@ -20,7 +20,7 @@ export const propTypes = {
   disabled: PropTypes.bool,
   focusOnInit: PropTypes.bool,
   reference: PropTypes.func,
-  onEnter: PropTypes.func,
+  onEnter: PropTypes.func
 };
 
 export const defaultProps = {
@@ -31,7 +31,7 @@ export const defaultProps = {
   disabled: false,
   focusOnInit: false,
   reference: undefined,
-  onEnter: undefined,
+  onEnter: undefined
 };
 
 class Input extends Component {

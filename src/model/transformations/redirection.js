@@ -2,7 +2,11 @@ import { uuid } from 'utils/utils';
 
 export function remoteToState(remote = []) {
   return remote.reduce((acc, redirection) => {
-    const { label, Expression: condition, IfTrue: cible } = redirection;
+    const {
+      Description: label,
+      Expression: condition,
+      IfTrue: cible
+    } = redirection;
     const id = redirection.id || uuid();
     return {
       ...acc,
@@ -10,24 +14,25 @@ export function remoteToState(remote = []) {
         id,
         label,
         condition,
-        cible,
-      },
+        cible
+      }
     };
   }, {});
 }
 
 export function stateToRemote(state) {
-  const redirections = [];
-
-  Object.keys(state).forEach(key => {
-    const { id, label, condition: Expression, cible: IfTrue } = state[key];
-    redirections.push({
+  return Object.keys(state).map(key => {
+    const {
       id,
-      label,
+      label: Description,
+      condition: Expression,
+      cible: IfTrue
+    } = state[key];
+    return {
+      id,
+      Description,
       Expression,
-      IfTrue,
-    });
+      IfTrue
+    };
   });
-
-  return redirections;
 }

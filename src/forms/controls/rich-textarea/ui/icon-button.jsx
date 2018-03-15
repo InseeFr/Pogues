@@ -16,16 +16,23 @@ const propTypes = {
   label: PropTypes.string.isRequired,
   className: PropTypes.string,
   isActive: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.element
 };
 
 const defaultProps = {
   isActive: true,
   children: undefined,
-  className: '',
+  className: ''
 };
 
-function IconButton({ className, iconName, label, children, isActive, ...otherProps }) {
+function IconButton({
+  className,
+  iconName,
+  label,
+  children,
+  isActive,
+  ...otherProps
+}) {
   return (
     <ButtonWrap>
       <Button
@@ -34,7 +41,7 @@ function IconButton({ className, iconName, label, children, isActive, ...otherPr
         className={ClassSet({
           [className]: true,
           [COMPONENT_CLASS]: true,
-          [IS_ACTIVE]: isActive,
+          [IS_ACTIVE]: isActive
         })}
       >
         <span className={`${ICON} icon-${iconName}`} />

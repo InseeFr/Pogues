@@ -16,6 +16,9 @@ export default function configureStore() {
   return createStore(
     rootReducer,
     undefined,
-    composeWithDevTools(applyMiddleware(thunkMiddleware, loggerMiddleware), persistState(getDebugSessionKey()))
+    composeWithDevTools(
+      applyMiddleware(thunkMiddleware, loggerMiddleware),
+      persistState(getDebugSessionKey())
+    )
   );
 }

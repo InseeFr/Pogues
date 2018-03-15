@@ -1,1 +1,3 @@
-export { default as ComponentWithValidation } from './component-with-validation';
+export {
+  default as ComponentWithValidation
+} from './component-with-validation';

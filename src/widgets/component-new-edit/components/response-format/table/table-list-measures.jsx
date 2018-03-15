@@ -21,11 +21,11 @@ const validateForm = (addErrors, validate) => values => {
 export const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string.isRequired,
-  addErrors: PropTypes.func.isRequired,
+  addErrors: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
+  formName: DEFAULT_FORM_NAME
 };
 
 // Component

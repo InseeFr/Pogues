@@ -2,7 +2,7 @@ import {
   ADD_SUBFORM_VALIDATION_ERRORS,
   SET_SUBFORM_VALIDATION_ERRORS,
   REMOVE_SUBFORM_VALIDATION_ERRORS,
-  CLEAR_SUBFORM_VALIDATION_ERRORS,
+  CLEAR_SUBFORM_VALIDATION_ERRORS
 } from 'actions/errors';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
@@ -14,9 +14,9 @@ export function addSubformValidationErrors(state, { errors }) {
     ...errors.reduce((acc, e) => {
       return {
         ...acc,
-        [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors],
+        [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors]
       };
-    }, {}),
+    }, {})
   };
 }
 
@@ -24,7 +24,7 @@ export function setSubformValidationErrors(state, { errors }) {
   return errors.reduce((acc, e) => {
     return {
       ...acc,
-      [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors],
+      [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors]
     };
   }, {});
 }
@@ -42,7 +42,9 @@ export function clearSubformValidationErrors() {
 
 actionHandlers[ADD_SUBFORM_VALIDATION_ERRORS] = addSubformValidationErrors;
 actionHandlers[SET_SUBFORM_VALIDATION_ERRORS] = setSubformValidationErrors;
-actionHandlers[REMOVE_SUBFORM_VALIDATION_ERRORS] = removeSubformValidationErrors;
+actionHandlers[
+  REMOVE_SUBFORM_VALIDATION_ERRORS
+] = removeSubformValidationErrors;
 actionHandlers[CLEAR_SUBFORM_VALIDATION_ERRORS] = clearSubformValidationErrors;
 
 export default createActionHandlers(actionHandlers);

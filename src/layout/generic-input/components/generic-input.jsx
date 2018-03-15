@@ -23,13 +23,13 @@ export const propTypes = {
   isQuestionnaireModified: PropTypes.bool.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
 
-  componentIdForPageBreak: PropTypes.string.isRequired,
+  componentIdForPageBreak: PropTypes.string.isRequired
 };
 
 const defaultProps = {
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
-  componentIdForPageBreak: '',
+  componentIdForPageBreak: ''
 };
 
 // Components
@@ -43,7 +43,7 @@ class GenericInput extends Component {
 
     this.state = {
       showNewComponentModal: false,
-      typeNewComponent: '',
+      typeNewComponent: ''
     };
 
     this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
@@ -54,7 +54,7 @@ class GenericInput extends Component {
     const newState = {
       ...this.state,
       showNewComponentModal: true,
-      typeNewComponent: componentType,
+      typeNewComponent: componentType
     };
     this.setState(newState);
   }
@@ -63,7 +63,7 @@ class GenericInput extends Component {
     const newState = {
       ...this.state,
       showNewComponentModal: false,
-      typeNewComponent: '',
+      typeNewComponent: ''
     };
     this.setState(newState);
   }
@@ -76,13 +76,25 @@ class GenericInput extends Component {
   }
 
   render() {
-    const { placeholders, isQuestionnaireValid, isQuestionnaireModified, componentIdForPageBreak } = this.props;
+    const {
+      placeholders,
+      isQuestionnaireValid,
+      isQuestionnaireModified,
+      componentIdForPageBreak
+    } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
-    const newComponentParent = typeNewComponent ? placeholders[typeNewComponent].parent : '';
-    const newComponentWeight = typeNewComponent ? placeholders[typeNewComponent].weight : 0;
+    const newComponentParent = typeNewComponent
+      ? placeholders[typeNewComponent].parent
+      : '';
+    const newComponentWeight = typeNewComponent
+      ? placeholders[typeNewComponent].weight
+      : 0;
 
     return (
-      <div id={COMPONENT_ID} style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}>
+      <div
+        id={COMPONENT_ID}
+        style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}
+      >
         <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
@@ -118,7 +130,7 @@ class GenericInput extends Component {
           {Dictionary.sequence}
         </button>
         <button
-          className="btn-white"
+          className="btn-white disabled"
           id="add-pagebreak"
           disabled={!componentIdForPageBreak}
           onClick={() => {
@@ -152,11 +164,19 @@ class GenericInput extends Component {
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showNewComponentModal}
           onRequestClose={this.handleCloseNewComponent}
-          contentLabel={this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}
+          contentLabel={
+            this.state.typeNewComponent
+              ? Dictionary[`componentNew${this.state.typeNewComponent}`]
+              : ''
+          }
         >
           <div className="popup">
             <div className="popup-header">
-              <h3>{this.state.typeNewComponent ? Dictionary[`componentNew${this.state.typeNewComponent}`] : ''}</h3>
+              <h3>
+                {this.state.typeNewComponent
+                  ? Dictionary[`componentNew${this.state.typeNewComponent}`]
+                  : ''}
+              </h3>
               <button type="button" onClick={this.handleCloseNewComponent}>
                 <span>X</span>
               </button>

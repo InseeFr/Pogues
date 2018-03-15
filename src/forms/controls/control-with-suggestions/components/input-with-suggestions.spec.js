@@ -11,9 +11,9 @@ describe('Form controls - InputWithSuggestions', () => {
     ...fakeFieldProps,
     input: {
       ...fakeFieldProps.input,
-      value: '',
+      value: ''
     },
-    label: 'Fake label',
+    label: 'Fake label'
   };
 
   test('Should extends ControlWithSuggestions component', () => {

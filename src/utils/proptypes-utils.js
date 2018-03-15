@@ -16,7 +16,7 @@ export const fieldArrayFields = {
   shift: PropTypes.func.isRequired,
   swap: PropTypes.func.isRequired,
   unshift: PropTypes.func.isRequired,
-  reduce: PropTypes.func.isRequired,
+  reduce: PropTypes.func.isRequired
 };
 
 export const fieldArrayMeta = {
@@ -28,5 +28,5 @@ export const fieldArrayMeta = {
   pristine: PropTypes.bool.isRequired,
   valid: PropTypes.bool.isRequired,
   submitFailed: PropTypes.bool,
-  submitting: PropTypes.bool,
+  submitting: PropTypes.bool
 };

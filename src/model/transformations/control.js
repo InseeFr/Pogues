@@ -6,11 +6,12 @@ export function remoteToState(remote = []) {
       Description: label,
       Expression: condition,
       FailMessage: message,
-      type,
+      criticity,
       during_collect,
-      post_collect,
+      post_collect
     } = control;
     const id = control.id || uuid();
+
     return {
       ...acc,
       [id]: {
@@ -18,38 +19,34 @@ export function remoteToState(remote = []) {
         label,
         condition,
         message,
-        type,
+        criticity,
         during_collect,
-        post_collect,
-      },
+        post_collect
+      }
     };
   }, {});
 }
 
 export function stateToRemote(state) {
-  const controls = [];
-
-  Object.keys(state).forEach(key => {
+  return Object.keys(state).map(key => {
     const {
       id,
       label: Description,
       condition: Expression,
       message: FailMessage,
-      type,
+      criticity,
       during_collect,
-      post_collect,
+      post_collect
     } = state[key];
 
-    controls.push({
+    return {
       id,
       Description,
       Expression,
       FailMessage,
-      type,
+      criticity,
       during_collect,
-      post_collect,
-    });
+      post_collect
+    };
   });
-
-  return controls;
 }

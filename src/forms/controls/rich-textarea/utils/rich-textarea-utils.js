@@ -20,20 +20,33 @@ export function contentStateToString(contentState) {
 }
 
 export function getEditorValue(markdownVtl) {
-  return markdownVtl ? createFromMarkdownVtl(markdownVtl, 'markdown', decorators) : EditorValue.createEmpty(decorators);
+  return markdownVtl
+    ? createFromMarkdownVtl(markdownVtl, 'markdown', decorators)
+    : EditorValue.createEmpty(decorators);
 }
 
 export function markdownVtlToHtml(markdownVtl) {
   const markdown = removeVtlFromMarkdow(markdownVtl);
-  return createFromMarkdownVtl(markdown, 'markdown', decorators).toString('html');
+  return createFromMarkdownVtl(markdown, 'markdown', decorators).toString(
+    'html'
+  );
 }
 
 export function markdownVtlToString(markdownVtl) {
   const markdown = removeVtlFromMarkdow(markdownVtl);
-  const raw = createFromMarkdownVtl(markdown, 'markdown', decorators).toString('raw');
+  const raw = createFromMarkdownVtl(markdown, 'markdown', decorators).toString(
+    'raw'
+  );
   return JSON.parse(raw).blocks[0].text.replace(/^\n+|\n+$/, '');
 }
 
+/**
+ * We do not format in the same way external URL and tooltip.
+ * If the url start with http(s), we format as a basic link.
+ * If not, we will use the string '.' as the URL.
+ *
+ * @param {*} url the URL of a markdown link
+ */
 export function formatURL(url) {
   if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
     return { url };

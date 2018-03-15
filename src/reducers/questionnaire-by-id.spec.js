@@ -2,7 +2,7 @@ import reducer from './questionnaire-by-id';
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
   CREATE_QUESTIONNAIRE_SUCCESS,
-  DELETE_QUESTIONNAIRE_SUCCESS,
+  DELETE_QUESTIONNAIRE_SUCCESS
 } from 'actions/questionnaire';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
@@ -18,20 +18,20 @@ describe('questionnaire-by-id reducer', () => {
             update: {
               questionnaireById: {
                 '1': {
-                  id: '1',
-                },
-              },
-            },
-          },
+                  id: '1'
+                }
+              }
+            }
+          }
         }
       )
     ).toEqual({
       '2': {
-        id: '2',
+        id: '2'
       },
       '1': {
-        id: '1',
-      },
+        id: '1'
+      }
     });
   });
 
@@ -45,20 +45,20 @@ describe('questionnaire-by-id reducer', () => {
             update: {
               questionnaireById: {
                 '1': {
-                  id: '1',
-                },
-              },
-            },
-          },
+                  id: '1'
+                }
+              }
+            }
+          }
         }
       )
     ).toEqual({
       '2': {
-        id: '2',
+        id: '2'
       },
       '1': {
-        id: '1',
-      },
+        id: '1'
+      }
     });
   });
 
@@ -72,20 +72,20 @@ describe('questionnaire-by-id reducer', () => {
             update: {
               questionnaireById: {
                 '1': {
-                  id: '1',
-                },
-              },
-            },
-          },
+                  id: '1'
+                }
+              }
+            }
+          }
         }
       )
     ).toEqual({
       '2': {
-        id: '2',
+        id: '2'
       },
       '1': {
-        id: '1',
-      },
+        id: '1'
+      }
     });
   });
 
@@ -98,15 +98,15 @@ describe('questionnaire-by-id reducer', () => {
           payload: [
             {
               questionnaireById: {
-                '1': { id: '1' },
-              },
-            },
-          ],
+                '1': { id: '1' }
+              }
+            }
+          ]
         }
       )
     ).toEqual({
       '2': { id: '2' },
-      '1': { id: '1' },
+      '1': { id: '1' }
     });
   });
   test('should handle DELETE_QUESTIONNAIRE_SUCCESS', () => {
@@ -114,11 +114,11 @@ describe('questionnaire-by-id reducer', () => {
       reducer([], {
         type: DELETE_QUESTIONNAIRE_SUCCESS,
         payload: {
-          DELETE_QUESTIONNAIRE_SUCCESS: true,
-        },
+          DELETE_QUESTIONNAIRE_SUCCESS: true
+        }
       })
     ).toEqual({
-      DELETE_QUESTIONNAIRE_SUCCESS: true,
+      DELETE_QUESTIONNAIRE_SUCCESS: true
     });
   });
 });

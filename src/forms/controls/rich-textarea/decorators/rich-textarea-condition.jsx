@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
   contentState: PropTypes.object.isRequired,
   entityKey: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.array.isRequired
 };
 
 // Component

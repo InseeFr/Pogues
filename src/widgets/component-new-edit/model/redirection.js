@@ -4,13 +4,14 @@ export const defaultState = {
   label: '',
   condition: '',
   cible: '',
+  id: null
 };
 
 export const defaultForm = {
   label: '',
   condition: '',
   cible: '',
-  redirections: [],
+  redirections: []
 };
 
 export function formToState(form) {
@@ -21,7 +22,7 @@ export function formToState(form) {
     id,
     label,
     condition,
-    cible,
+    cible
   };
 }
 
@@ -33,7 +34,7 @@ export function formToComponentState(form) {
 
     return {
       ...acc,
-      [state.id]: state,
+      [state.id]: state
     };
   }, {});
 }
@@ -47,13 +48,13 @@ export function stateToForm(currentState) {
       id,
       label,
       condition,
-      cible,
+      cible
     });
   });
 
   return {
     ...defaultForm,
-    redirections,
+    redirections
   };
 }
 
@@ -65,7 +66,7 @@ const Factory = (currentState = []) => {
     },
     stateToForm: () => {
       return stateToForm(currentState);
-    },
+    }
   };
 };
 

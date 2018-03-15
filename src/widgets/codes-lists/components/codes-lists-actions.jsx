@@ -18,12 +18,12 @@ const propTypes = {
     moveUp: PropTypes.func.isRequired,
     moveDown: PropTypes.func.isRequired,
     moveLeft: PropTypes.func.isRequired,
-    moveRight: PropTypes.func.isRequired,
-  }).isRequired,
+    moveRight: PropTypes.func.isRequired
+  }).isRequired
 };
 
 const defaultProps = {
-  disabledActions: [],
+  disabledActions: []
 };
 
 // Component
@@ -39,7 +39,10 @@ function CodesListsActions({ disabledActions, actions }) {
             onClick={actions[ACTIONS[key].name]}
             disabled={disabledActions.indexOf(ACTIONS[key].name) !== -1}
           >
-            <span className="sr-only"> {Dictionary[ACTIONS[key].dictionary]}</span>
+            <span className="sr-only">
+              {' '}
+              {Dictionary[ACTIONS[key].dictionary]}
+            </span>
             <span className={`glyphicon ${ACTIONS[key].icon}`} />
           </button>
         );

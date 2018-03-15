@@ -15,13 +15,13 @@ export const propTypes = {
   label: PropTypes.string.isRequired,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
-  focusOnInit: PropTypes.bool,
+  focusOnInit: PropTypes.bool
 };
 
 export const defaultProps = {
   required: false,
   disabled: false,
-  focusOnInit: false,
+  focusOnInit: false
 };
 
 // Control
@@ -35,7 +35,13 @@ class Textarea extends Component {
   }
 
   render() {
-    const { label, required, disabled, input, meta: { touched, error } } = this.props;
+    const {
+      label,
+      required,
+      disabled,
+      input,
+      meta: { touched, error }
+    } = this.props;
     const id = getControlId('textarea', input.name);
 
     return (

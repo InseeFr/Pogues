@@ -15,11 +15,11 @@ class ResponseFormatSimple extends Component {
   static selectorPath = SIMPLE;
   static propTypes = {
     selectorPathParent: PropTypes.string,
-    showMandatory: PropTypes.bool,
+    showMandatory: PropTypes.bool
   };
   static defaultProps = {
     selectorPathParent: undefined,
-    showMandatory: true,
+    showMandatory: true
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -32,18 +32,29 @@ class ResponseFormatSimple extends Component {
   render() {
     const { showMandatory } = this.props;
     const styleMandatory = {
-      display: showMandatory ? 'block' : 'none',
+      display: showMandatory ? 'block' : 'none'
     };
 
     return (
-      <FormSection name={ResponseFormatSimple.selectorPath} className="response-format__simple">
+      <FormSection
+        name={ResponseFormatSimple.selectorPath}
+        className="response-format__simple"
+      >
         <div className="ctrl-checkbox" style={styleMandatory}>
           <label htmlFor="rf-simple-mandatory">{Dictionary.mandatory}</label>
           <div>
-            <Field name="mandatory" id="rf-simple-mandatory" component="input" type="checkbox" />
+            <Field
+              name="mandatory"
+              id="rf-simple-mandatory"
+              component="input"
+              type="checkbox"
+            />
           </div>
         </div>
-        <SelectorView label={Dictionary.responseType} selectorPath={this.selectorPathComposed}>
+        <SelectorView
+          label={Dictionary.responseType}
+          selectorPath={this.selectorPathComposed}
+        >
           <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
             <ResponseFormatDatatypeText />
           </View>

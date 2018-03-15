@@ -1,5 +1,6 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import { uuid } from 'utils/utils';
 
 import { CodesListModel } from 'widgets/codes-lists';
 import {
@@ -9,7 +10,7 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  UI_BEHAVIOUR,
+  UI_BEHAVIOUR
 } from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
@@ -23,15 +24,15 @@ export const defaultMeasureSimpleState = {
   type: TEXT,
   [TEXT]: {
     maxLength: 255,
-    pattern: '',
+    pattern: ''
   },
   [NUMERIC]: {
     maximum: '',
     minimum: '',
-    decimals: '',
+    decimals: ''
   },
   [DATE]: {},
-  [BOOLEAN]: {},
+  [BOOLEAN]: {}
 };
 
 export const defaultMeasureState = {
@@ -39,9 +40,12 @@ export const defaultMeasureState = {
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
-    visHint: CHECKBOX,
-  },
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
+      cloneDeep(CodesListModel.defaultState),
+      { id: uuid() }
+    ),
+    visHint: CHECKBOX
+  }
 };
 
 export const defaultMeasureForm = {
@@ -55,8 +59,8 @@ export const defaultMeasureForm = {
     specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: '',
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
-    visHint: CHECKBOX,
-  },
+    visHint: CHECKBOX
+  }
 };
 
 export const defaultState = {
@@ -66,23 +70,23 @@ export const defaultState = {
     type: LIST,
     [LIST]: {
       numLinesMin: 0,
-      numLinesMax: 0,
+      numLinesMax: 0
     },
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
-    },
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState)
+    }
   },
   [SECONDARY]: {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
     showSecondaryAxis: false,
     showTotalLabel: '0',
-    totalLabel: '',
+    totalLabel: ''
   },
   [LIST_MEASURE]: {
     ...defaultMeasureState,
-    measures: [],
+    measures: []
   },
-  [MEASURE]: defaultMeasureState,
+  [MEASURE]: defaultMeasureState
 };
 
 export function formToStatePrimary(form, codesListPrimary) {
@@ -91,7 +95,7 @@ export function formToStatePrimary(form, codesListPrimary) {
   const state = {
     showTotalLabel,
     totalLabel,
-    type,
+    type
   };
 
   if (type === LIST) {
@@ -100,7 +104,9 @@ export function formToStatePrimary(form, codesListPrimary) {
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;
     state[CODES_LIST] = {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListPrimary.formToStateComponent(codesListForm),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListPrimary.formToStateComponent(
+        codesListForm
+      )
     };
   }
 
@@ -108,12 +114,19 @@ export function formToStatePrimary(form, codesListPrimary) {
 }
 
 export function formToStateSecondary(form, codesListSecondary) {
-  const { showSecondaryAxis, showTotalLabel, totalLabel, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = form;
+  const {
+    showSecondaryAxis,
+    showTotalLabel,
+    totalLabel,
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm
+  } = form;
   return {
     showSecondaryAxis,
     showTotalLabel,
     totalLabel,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListSecondary.formToStateComponent(codesListForm),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListSecondary.formToStateComponent(
+      codesListForm
+    )
   };
 }
 
@@ -121,7 +134,7 @@ export function formToStateMeasure(form, codesListMeasure) {
   const { label, type, [type]: measureForm } = form;
   const state = {
     label,
-    type,
+    type
   };
 
   if (type === SIMPLE) {
@@ -129,17 +142,20 @@ export function formToStateMeasure(form, codesListMeasure) {
 
     state[SIMPLE] = {
       type: simpleType,
-      [simpleType]: { ...simpleForm },
+      [simpleType]: { ...simpleForm }
     };
   } else {
-    const { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = measureForm;
+    const {
+      visHint,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm
+    } = measureForm;
     const codesList = codesListMeasure
       ? codesListMeasure.formToStateComponent(codesListForm)
       : CodesListModel.Factory().formToState(codesListForm);
 
     state[SINGLE_CHOICE] = {
       visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesList,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesList
     };
   }
   return state;
@@ -157,16 +173,22 @@ export function formToState(form, transformers) {
     [PRIMARY]: primaryForm,
     [SECONDARY]: secondaryForm,
     [MEASURE]: measureForm,
-    [LIST_MEASURE]: listMeasureForm,
+    [LIST_MEASURE]: listMeasureForm
   } = form;
 
   const state = {
-    [PRIMARY]: formToStatePrimary(primaryForm, transformers.codesListPrimary),
+    [PRIMARY]: formToStatePrimary(primaryForm, transformers.codesListPrimary)
   };
 
   if (secondaryForm.showSecondaryAxis && primaryForm.type === CODES_LIST) {
-    state[SECONDARY] = formToStateSecondary(secondaryForm, transformers.codesListSecondary);
-    state[MEASURE] = formToStateMeasure(measureForm, transformers.codesListMeasure);
+    state[SECONDARY] = formToStateSecondary(
+      secondaryForm,
+      transformers.codesListSecondary
+    );
+    state[MEASURE] = formToStateMeasure(
+      measureForm,
+      transformers.codesListMeasure
+    );
   } else {
     state[LIST_MEASURE] = formToStateMeasureList(listMeasureForm);
   }
@@ -183,8 +205,8 @@ export function stateToFormPrimary(currentState, codesListPrimary) {
     type,
     [LIST]: { ...listState },
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListPrimary.stateComponentToForm(),
-    },
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListPrimary.stateComponentToForm()
+    }
   };
 }
 
@@ -194,23 +216,33 @@ export function stateToFormSecondary(currentState, codesListSecondary) {
     showSecondaryAxis,
     showTotalLabel,
     totalLabel,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListSecondary.stateComponentToForm(),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListSecondary.stateComponentToForm()
   };
 }
 
-export function stateToFormMeasure(currentState, codesListsStore, codesListMeasure) {
+export function stateToFormMeasure(
+  currentState,
+  codesListsStore,
+  codesListMeasure
+) {
   const {
     label,
     type,
     [SIMPLE]: simpleState,
-    [SINGLE_CHOICE]: { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState },
+    [SINGLE_CHOICE]: {
+      visHint,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState
+    }
   } = currentState;
   let codesListForm;
 
   if (codesListMeasure) {
     codesListForm = codesListMeasure.stateComponentToForm();
   } else {
-    codesListForm = CodesListModel.Factory(codesListState, codesListsStore).stateComponentToForm();
+    codesListForm = CodesListModel.Factory(
+      codesListState,
+      codesListsStore
+    ).stateComponentToForm();
   }
 
   return {
@@ -219,8 +251,8 @@ export function stateToFormMeasure(currentState, codesListsStore, codesListMeasu
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
       visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
-    },
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm
+    }
   };
 }
 
@@ -228,7 +260,7 @@ export function stateToFormMeasureList(currentState, codesListsStore) {
   const { measures } = currentState;
   return {
     ...currentState,
-    measures: measures.map(m => stateToFormMeasure(m, codesListsStore)),
+    measures: measures.map(m => stateToFormMeasure(m, codesListsStore))
   };
 }
 
@@ -237,18 +269,25 @@ export function stateToForm(currentState, transformers, codesListsStore) {
     [PRIMARY]: primaryState,
     [SECONDARY]: secondaryState,
     [MEASURE]: measureState,
-    [LIST_MEASURE]: listMeasureState,
+    [LIST_MEASURE]: listMeasureState
   } = currentState;
   let secondaryForm = {};
   let measureForm = {};
   let listMeasureForm = {};
 
   if (secondaryState) {
-    secondaryForm = stateToFormSecondary(secondaryState, transformers.codesListSecondary);
+    secondaryForm = stateToFormSecondary(
+      secondaryState,
+      transformers.codesListSecondary
+    );
   }
 
   if (measureState) {
-    measureForm = stateToFormMeasure(measureState, codesListsStore, transformers.codesListMeasure);
+    measureForm = stateToFormMeasure(
+      measureState,
+      codesListsStore,
+      transformers.codesListMeasure
+    );
   }
 
   if (listMeasureState) {
@@ -259,7 +298,7 @@ export function stateToForm(currentState, transformers, codesListsStore) {
     [PRIMARY]: stateToFormPrimary(primaryState, transformers.codesListPrimary),
     [SECONDARY]: secondaryForm,
     [MEASURE]: measureForm,
-    [LIST_MEASURE]: listMeasureForm,
+    [LIST_MEASURE]: listMeasureForm
   };
 }
 
@@ -267,14 +306,14 @@ export function getNormalizedMeasureValues(measure) {
   const { type, [type]: measureType, label } = measure;
   const normalized = {
     label,
-    type,
+    type
   };
 
   if (type === SIMPLE) {
     const { type: typeSimple, [typeSimple]: simple } = measureType;
     normalized[SIMPLE] = {
       type: typeSimple,
-      [typeSimple]: simple,
+      [typeSimple]: simple
     };
   } else {
     normalized[SINGLE_CHOICE] = measureType;
@@ -285,25 +324,31 @@ export function getNormalizedMeasureValues(measure) {
 
 const Factory = (initialState = {}, codesListsStore) => {
   const { [LIST_MEASURE]: measures, ...otherState } = initialState;
-  let currentState = merge(cloneDeep(defaultState), { ...otherState, [LIST_MEASURE]: { measures } });
-
-  currentState[LIST_MEASURE].measures = currentState[LIST_MEASURE].measures.map(m => {
-    const { type, label, [type]: measureState } = m;
-    const state = {
-      type,
-      label,
-    };
-
-    if (type === SINGLE_CHOICE) {
-      state[SINGLE_CHOICE] = {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListsStore[measureState[DEFAULT_CODES_LIST_SELECTOR_PATH].id],
-      };
-    } else {
-      state[SIMPLE] = measureState;
-    }
-
-    return merge(cloneDeep(defaultState[MEASURE]), state);
+  let currentState = merge(cloneDeep(defaultState), {
+    ...otherState,
+    [LIST_MEASURE]: { measures }
   });
+  currentState[LIST_MEASURE].measures = currentState[LIST_MEASURE].measures.map(
+    m => {
+      const { type, label, [type]: measureState } = m;
+      const state = {
+        type,
+        label
+      };
+
+      if (type === SINGLE_CHOICE) {
+        state[SINGLE_CHOICE] = {
+          [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+            codesListsStore[measureState[DEFAULT_CODES_LIST_SELECTOR_PATH].id],
+          visHint: measureState.visHint
+        };
+      } else {
+        state[SIMPLE] = measureState;
+      }
+
+      return merge(cloneDeep(defaultState[MEASURE]), state);
+    }
+  );
 
   const transformers = {
     codesListPrimary: CodesListModel.Factory(
@@ -317,7 +362,7 @@ const Factory = (initialState = {}, codesListsStore) => {
     codesListMeasure: CodesListModel.Factory(
       currentState[MEASURE][SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore
-    ),
+    )
   };
 
   return {
@@ -335,27 +380,34 @@ const Factory = (initialState = {}, codesListsStore) => {
         codesLists = transformers.codesListPrimary.getStore();
       }
 
-      if (currentState[SECONDARY] && currentState[SECONDARY].showSecondaryAxis) {
+      if (
+        currentState[SECONDARY] &&
+        currentState[SECONDARY].showSecondaryAxis
+      ) {
         codesLists = {
           ...codesLists,
-          ...transformers.codesListSecondary.getStore(),
+          ...transformers.codesListSecondary.getStore()
         };
       }
 
-      if (currentState[MEASURE] && currentState[MEASURE].type === SINGLE_CHOICE) {
+      if (
+        currentState[MEASURE] &&
+        currentState[MEASURE].type === SINGLE_CHOICE
+      ) {
         codesLists = {
           ...codesLists,
-          ...transformers.codesListMeasure.getStore(),
+          ...transformers.codesListMeasure.getStore()
         };
       }
 
       if (currentState[LIST_MEASURE]) {
         currentState[LIST_MEASURE].forEach(m => {
           if (m.type === SINGLE_CHOICE) {
-            const codesListState = m[SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH];
+            const codesListState =
+              m[SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH];
             codesLists = {
               ...codesLists,
-              [codesListState.id]: codesListState,
+              [codesListState.id]: codesListState
             };
           }
         });
@@ -370,7 +422,7 @@ const Factory = (initialState = {}, codesListsStore) => {
           type: typePrimary,
           [typePrimary]: primary,
           showTotalLabel: showTotalLabelPrimary,
-          totalLabel: totalLabelPrimary,
+          totalLabel: totalLabelPrimary
         },
         [SECONDARY]: {
           showSecondaryAxis,
@@ -379,7 +431,7 @@ const Factory = (initialState = {}, codesListsStore) => {
           ...others
         },
         [MEASURE]: measure,
-        [LIST_MEASURE]: { measures: listMeasures, ...listMeasuresInput },
+        [LIST_MEASURE]: { measures: listMeasures, ...listMeasuresInput }
       } = form;
 
       // Normalized primary axis values
@@ -388,8 +440,8 @@ const Factory = (initialState = {}, codesListsStore) => {
         [PRIMARY]: {
           type: typePrimary,
           showTotalLabel: showTotalLabelPrimary,
-          [typePrimary]: primary,
-        },
+          [typePrimary]: primary
+        }
       };
 
       if (showTotalLabelPrimary === '1') {
@@ -402,7 +454,7 @@ const Factory = (initialState = {}, codesListsStore) => {
         normalized[SECONDARY] = {
           ...others,
           showSecondaryAxis,
-          showTotalLabelSecondary,
+          showTotalLabelSecondary
         };
         if (showTotalLabelSecondary === '1') {
           normalized[SECONDARY].totalLabel = totalLabelSecondary;
@@ -415,15 +467,18 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       // Normalized measures list axis
 
-      if (typePrimary === LIST || (typePrimary === CODES_LIST && !showSecondaryAxis)) {
+      if (
+        typePrimary === LIST ||
+        (typePrimary === CODES_LIST && !showSecondaryAxis)
+      ) {
         normalized[LIST_MEASURE] = {
           ...getNormalizedMeasureValues(listMeasuresInput),
-          measures: listMeasures,
+          measures: listMeasures
         };
       }
 
       return normalized;
-    },
+    }
   };
 };
 

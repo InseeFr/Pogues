@@ -7,7 +7,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 const mockEvent = {
-  preventDefault: () => {},
+  preventDefault: () => {}
 };
 
 describe('<ArboSimplified />', () => {
@@ -15,14 +15,32 @@ describe('<ArboSimplified />', () => {
   const props = {
     questionnaire: { id: '0' },
     components: {
-      '0': { name: '0', type: QUESTIONNAIRE, id: '0', parent: '', children: ['1'] },
-      '1': { name: '1', type: SEQUENCE, id: '1', parent: '0', children: ['2', '4', '5'] },
-      '2': { name: '2', type: SUBSEQUENCE, id: '2', parent: '1', children: ['3'] },
+      '0': {
+        name: '0',
+        type: QUESTIONNAIRE,
+        id: '0',
+        parent: '',
+        children: ['1']
+      },
+      '1': {
+        name: '1',
+        type: SEQUENCE,
+        id: '1',
+        parent: '0',
+        children: ['2', '4', '5']
+      },
+      '2': {
+        name: '2',
+        type: SUBSEQUENCE,
+        id: '2',
+        parent: '1',
+        children: ['3']
+      },
       '3': { name: '3', type: QUESTION, id: '3', parent: '2', children: [] },
       '4': { name: '4', type: QUESTION, id: '4', parent: '1', children: [] },
-      '5': { name: '5', type: SUBSEQUENCE, id: '5', parent: '1', children: [] },
+      '5': { name: '5', type: SUBSEQUENCE, id: '5', parent: '1', children: [] }
     },
-    setSelectedComponentId: spysetSelectedComponentId,
+    setSelectedComponentId: spysetSelectedComponentId
   };
 
   test('should render without throwing an error', () => {

@@ -1,11 +1,18 @@
-import { getEntityRanges, BLOCK_TYPE, ENTITY_TYPE, INLINE_STYLE } from 'draft-js-utils';
+import {
+  getEntityRanges,
+  BLOCK_TYPE,
+  ENTITY_TYPE,
+  INLINE_STYLE
+} from 'draft-js-utils';
 
 const { BOLD, CODE, ITALIC, STRIKETHROUGH, UNDERLINE } = INLINE_STYLE;
 
 const CODE_INDENT = '    ';
 
 function conditionsToVtl(content, conditions) {
-  let vtl = `##{"label": "${content}", "conditions": ${JSON.stringify(conditions)} }`;
+  let vtl = `##{"label": "${content}", "conditions": ${JSON.stringify(
+    conditions
+  )} }`;
 
   vtl = `${vtl}#if(${conditions[0].condition})${conditions[0].label}`;
 
@@ -98,7 +105,10 @@ class MarkupGenerator {
         const blockDepth = block.getDepth();
         const lastBlock = this.getLastBlock();
         const lastBlockType = lastBlock ? lastBlock.getType() : null;
-        const lastBlockDepth = lastBlock && canHaveDepth(lastBlockType) ? lastBlock.getDepth() : null;
+        const lastBlockDepth =
+          lastBlock && canHaveDepth(lastBlockType)
+            ? lastBlock.getDepth()
+            : null;
         if (lastBlockType !== blockType && lastBlockDepth !== blockDepth - 1) {
           this.insertLineBreaks(1);
           // Insert an additional line break if following opposite list type.
@@ -114,7 +124,10 @@ class MarkupGenerator {
         const blockDepth = block.getDepth();
         const lastBlock = this.getLastBlock();
         const lastBlockType = lastBlock ? lastBlock.getType() : null;
-        const lastBlockDepth = lastBlock && canHaveDepth(lastBlockType) ? lastBlock.getDepth() : null;
+        const lastBlockDepth =
+          lastBlock && canHaveDepth(lastBlockType)
+            ? lastBlock.getDepth()
+            : null;
         if (lastBlockType !== blockType && lastBlockDepth !== blockDepth - 1) {
           this.insertLineBreaks(1);
           // Insert an additional line break if following opposite list type.
@@ -125,7 +138,9 @@ class MarkupGenerator {
         const indent = ' '.repeat(blockDepth * 4);
         // TODO: figure out what to do with two-digit numbers
         const count = this.getListItemCount(block) % 10;
-        this.output.push(`${indent}${count}. ${this.renderBlockContent(block)}\n`);
+        this.output.push(
+          `${indent}${count}. ${this.renderBlockContent(block)}\n`
+        );
         break;
       }
       case BLOCK_TYPE.BLOCKQUOTE: {
@@ -162,11 +177,19 @@ class MarkupGenerator {
     // items that are of greater depth)
     let index = this.currentBlock - 1;
     let prevBlock = this.blocks[index];
-    while (prevBlock && canHaveDepth(prevBlock.getType()) && prevBlock.getDepth() > blockDepth) {
+    while (
+      prevBlock &&
+      canHaveDepth(prevBlock.getType()) &&
+      prevBlock.getDepth() > blockDepth
+    ) {
       index -= 1;
       prevBlock = this.blocks[index];
     }
-    if (!prevBlock || prevBlock.getType() !== blockType || prevBlock.getDepth() !== blockDepth) {
+    if (
+      !prevBlock ||
+      prevBlock.getType() !== blockType ||
+      prevBlock.getDepth() !== blockDepth
+    ) {
       this.listItemCounts[blockDepth] = 0;
     }
     const result = this.listItemCounts[blockDepth] + 1;
@@ -191,6 +214,8 @@ class MarkupGenerator {
     }
     const charMetaList = block.getCharacterList();
     const entityPieces = getEntityRanges(text, charMetaList);
+    const space = ' ';
+
     return entityPieces
       .map(([entityKey, stylePieces]) => {
         const content = stylePieces
@@ -200,6 +225,10 @@ class MarkupGenerator {
               return '';
             }
             let content = encodeContent(text);
+            const prefix = content.startsWith(space) ? space : '';
+            const suffix = content.endsWith(space) ? space : '';
+
+            content = content.trim();
             if (style.has(BOLD)) {
               content = `**${content}**`;
             }
@@ -208,16 +237,18 @@ class MarkupGenerator {
               content = `++${content}++`;
             }
             if (style.has(ITALIC)) {
-              content = `_${content}_`;
+              content = `*${content}*`;
             }
             if (style.has(STRIKETHROUGH)) {
               // TODO: encode `~`?
               content = `~~${content}~~`;
             }
             if (style.has(CODE)) {
-              content = blockType === BLOCK_TYPE.CODE ? content : `\`${content}\``;
+              content =
+                blockType === BLOCK_TYPE.CODE ? content : `\`${content}\``;
             }
-            return content;
+
+            return prefix + content + suffix;
           })
           .join('');
         const entity = entityKey ? contentState.getEntity(entityKey) : null;

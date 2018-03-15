@@ -1,10 +1,15 @@
 import { uuid } from 'utils/utils';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { sortByYAndX } from 'utils/variables/collected-variables-utils';
+const { TEXT, BOOLEAN, NUMERIC, DATE } = DATATYPE_NAME;
 
 export const defaultState = {
   name: '',
   label: '',
   x: '',
   y: '',
+  codeListReference: '',
+  codeListReferenceLabel: ''
 };
 
 export const defaultForm = {
@@ -12,11 +17,23 @@ export const defaultForm = {
   label: '',
   x: '',
   y: '',
+  type: TEXT,
   collectedVariables: [],
+  codeListReference: '',
+  codeListReferenceLabel: ''
 };
 
+function getTypings(object) {
+  return {
+    type: object.type,
+    [TEXT]: object[TEXT],
+    [NUMERIC]: object[NUMERIC],
+    [DATE]: object[DATE],
+    [BOOLEAN]: object[BOOLEAN]
+  };
+}
 export function formToState(form) {
-  const { name, label, x, y } = form;
+  const { name, label, x, y, codeListReference, codeListReferenceLabel } = form;
   const id = form.id || uuid();
 
   return {
@@ -25,6 +42,9 @@ export function formToState(form) {
     label,
     x,
     y,
+    ...getTypings(form),
+    codeListReference,
+    codeListReferenceLabel
   };
 }
 
@@ -36,26 +56,39 @@ export function formToStore(form) {
 
     return {
       ...acc,
-      [state.id]: state,
+      [state.id]: state
     };
   }, {});
 }
 
 export function storeToForm(currentStore) {
-  const collectedVariables = Object.keys(currentStore).map(key => {
-    const { id, name, label, x, y } = currentStore[key];
-    return {
-      id,
-      name,
-      label,
-      x,
-      y,
-    };
-  });
+  const collectedVariables = Object.keys(currentStore)
+    .sort(sortByYAndX(currentStore))
+    .map(key => {
+      const {
+        id,
+        name,
+        label,
+        x,
+        y,
+        codeListReference,
+        codeListReferenceLabel
+      } = currentStore[key];
+      return {
+        id,
+        name,
+        label,
+        x,
+        y,
+        ...getTypings(currentStore[key]),
+        codeListReference,
+        codeListReferenceLabel
+      };
+    });
 
   return {
     ...defaultForm,
-    collectedVariables,
+    collectedVariables
   };
 }
 
@@ -63,7 +96,7 @@ const Factory = (currentState = [], collectedVariablesStore) => {
   let currentStore = currentState.reduce((acc, key) => {
     return {
       ...acc,
-      [key]: collectedVariablesStore[key],
+      [key]: collectedVariablesStore[key]
     };
   }, {});
 
@@ -82,7 +115,7 @@ const Factory = (currentState = [], collectedVariablesStore) => {
     },
     getStore: () => {
       return currentStore;
-    },
+    }
   };
 };
 

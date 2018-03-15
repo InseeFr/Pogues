@@ -10,7 +10,7 @@ describe('Visualize Dropdown Component: ', () => {
       visualizeActiveQuestionnaire() {},
       disabled: false,
       top: false,
-      componentId: 'component-id',
+      componentId: 'component-id'
     };
     const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
 
@@ -21,7 +21,7 @@ describe('Visualize Dropdown Component: ', () => {
       visualizeActiveQuestionnaire() {},
       disabled: false,
       top: true,
-      componentId: 'component-id',
+      componentId: 'component-id'
     };
     const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
 
@@ -32,7 +32,7 @@ describe('Visualize Dropdown Component: ', () => {
       visualizeActiveQuestionnaire() {},
       disabled: true,
       top: false,
-      componentId: 'component-id',
+      componentId: 'component-id'
     };
     const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
 
@@ -43,13 +43,17 @@ describe('Visualize Dropdown Component: ', () => {
       visualizeActiveQuestionnaire() {},
       disabled: true,
       top: false,
-      componentId: 'component-id',
+      componentId: 'component-id'
     };
     const wrapper = shallow(<VisualizeDropdown {...props} />);
     expect(wrapper.find('div').hasClass('open')).toBeFalsy();
-    wrapper.find('button').simulate('click', { preventDefault() {}, stopPropagation() {} });
+    wrapper
+      .find('button')
+      .simulate('click', { preventDefault() {}, stopPropagation() {} });
     expect(wrapper.find('div').hasClass('open')).toBeTruthy();
-    wrapper.find('button').simulate('click', { preventDefault() {}, stopPropagation() {} });
+    wrapper
+      .find('button')
+      .simulate('click', { preventDefault() {}, stopPropagation() {} });
     expect(wrapper.find('div').hasClass('open')).toBeFalsy();
   });
 
@@ -58,13 +62,16 @@ describe('Visualize Dropdown Component: ', () => {
       visualizeActiveQuestionnaire: jest.fn(),
       disabled: true,
       top: false,
-      componentId: 'component-id',
+      componentId: 'component-id'
     };
     const wrapper = shallow(<VisualizeDropdown {...props} />);
     wrapper
       .find('a')
       .first()
       .simulate('click', { preventDefault() {}, stopPropagation() {} });
-    expect(props.visualizeActiveQuestionnaire).toHaveBeenCalledWith('html', props.componentId);
+    expect(props.visualizeActiveQuestionnaire).toHaveBeenCalledWith(
+      'html',
+      props.componentId
+    );
   });
 });

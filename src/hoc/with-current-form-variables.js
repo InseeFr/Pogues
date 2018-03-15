@@ -11,25 +11,36 @@ import { storeToArray, nestedStoreToFlat } from 'utils/utils';
  * @param ComponentToWrap
  * @returns <ComponentToWrap availableSuggestions=[...] />
  */
-const withCurrentFormVariables = (ComponentToWrap, formName = DEFAULT_FORM_NAME) => {
-  const withCurrentFormVariablesComponent = props => <ComponentToWrap {...props} />;
+const withCurrentFormVariables = (
+  ComponentToWrap,
+  formName = DEFAULT_FORM_NAME
+) => {
+  const withCurrentFormVariablesComponent = props => (
+    <ComponentToWrap {...props} />
+  );
 
   const mapStateToProps = name => state => {
     const selector = formValueSelector(name);
 
-    const currentActiveCalculatedVariables = (selector(state, 'calculatedVariables.calculatedVariables') || []).map(
-      v => v.name
-    );
-    const currentActiveExternalVariables = (selector(state, 'externalVariables.externalVariables') || []).map(
-      v => v.name
-    );
-    const currentActiveCollectedVariables = (selector(state, 'collectedVariables.collectedVariables') || []).map(
-      v => v.name
-    );
+    const currentActiveCalculatedVariables = (
+      selector(state, 'calculatedVariables.calculatedVariables') || []
+    ).map(v => v.name);
+    const currentActiveExternalVariables = (
+      selector(state, 'externalVariables.externalVariables') || []
+    ).map(v => v.name);
+    const currentActiveCollectedVariables = (
+      selector(state, 'collectedVariables.collectedVariables') || []
+    ).map(v => v.name);
 
-    const activeCalculatedVariables = storeToArray(state.appState.activeCalculatedVariablesById).map(v => v.name);
-    const activeExternalVariables = storeToArray(state.appState.activeExternalVariablesById).map(v => v.name);
-    const activeCollectedVariables = nestedStoreToFlat(state.appState.collectedVariableByQuestion).map(v => v.name);
+    const activeCalculatedVariables = storeToArray(
+      state.appState.activeCalculatedVariablesById
+    ).map(v => v.name);
+    const activeExternalVariables = storeToArray(
+      state.appState.activeExternalVariablesById
+    ).map(v => v.name);
+    const activeCollectedVariables = nestedStoreToFlat(
+      state.appState.collectedVariableByQuestion
+    ).map(v => v.name);
 
     // Dedupe using a Set, which is then spread into a new Array
     const availableSuggestions = [
@@ -39,8 +50,8 @@ const withCurrentFormVariables = (ComponentToWrap, formName = DEFAULT_FORM_NAME)
         ...currentActiveCollectedVariables,
         ...activeCalculatedVariables,
         ...activeExternalVariables,
-        ...activeCollectedVariables,
-      ]),
+        ...activeCollectedVariables
+      ])
     ];
     return { availableSuggestions };
   };

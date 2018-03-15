@@ -1,7 +1,7 @@
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
   CREATE_QUESTIONNAIRE_SUCCESS,
-  DELETE_QUESTIONNAIRE_SUCCESS,
+  DELETE_QUESTIONNAIRE_SUCCESS
 } from 'actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
@@ -9,10 +9,13 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function loadQuestionnaireSuccess(state, { update: { questionnaireById } }) {
+export function loadQuestionnaireSuccess(
+  state,
+  { update: { questionnaireById } }
+) {
   return {
     ...state,
-    ...questionnaireById,
+    ...questionnaireById
   };
 }
 
@@ -22,7 +25,7 @@ export function loadQuestionnaireListSuccess(state, updatesList) {
   }, {});
   return {
     ...state,
-    ...questionnaireById,
+    ...questionnaireById
   };
 }
 

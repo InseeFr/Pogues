@@ -27,7 +27,10 @@ function getNumErrorsFromObject(item) {
 function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
   const numErrorsValidation = Object.keys(TAB_NAMES).reduce((acc, key) => {
     const tabName = TAB_NAMES[key];
-    return { ...acc, [tabName]: getNumErrorsFromObject(errorsValidation[tabName]) };
+    return {
+      ...acc,
+      [tabName]: getNumErrorsFromObject(errorsValidation[tabName])
+    };
   }, {});
   const numErrorsIntegrity = Object.keys(TAB_NAMES).reduce((acc, key) => {
     const tabName = TAB_NAMES[key];
@@ -35,7 +38,7 @@ function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
       ...acc,
       [tabName]: Object.keys(errorsIntegrity).filter(innerKey => {
         return errorsIntegrity[innerKey].type === tabName;
-      }).length,
+      }).length
     };
   }, {});
 
@@ -43,7 +46,7 @@ function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
     const tabName = TAB_NAMES[key];
     return {
       ...acc,
-      [tabName]: numErrorsValidation[tabName] + numErrorsIntegrity[tabName],
+      [tabName]: numErrorsValidation[tabName] + numErrorsIntegrity[tabName]
     };
   }, {});
 }
@@ -51,7 +54,7 @@ function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
 export function setTabErrors(state, { errorsValidation, errorsIntegrity }) {
   return {
     ...state,
-    ...getNumErrorsByTab(errorsValidation, errorsIntegrity),
+    ...getNumErrorsByTab(errorsValidation, errorsIntegrity)
   };
 }
 

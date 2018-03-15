@@ -14,6 +14,8 @@ const propTypes = {
   radio: PropTypes.bool,
   children: PropTypes.array,
   emptyOption: PropTypes.string,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool
 };
 
 export const defaultProps = {
@@ -21,6 +23,8 @@ export const defaultProps = {
   radio: false,
   children: [],
   emptyOption: undefined,
+  readOnly: false,
+  required: true
 };
 
 // Container
@@ -29,7 +33,7 @@ const mapStateToProps = (state, { selectorPath, formName }) => {
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPath)}type`;
   return {
-    activeViewValue: selector(state, path),
+    activeViewValue: selector(state, path)
   };
 };
 

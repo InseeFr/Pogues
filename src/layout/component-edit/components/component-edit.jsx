@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
-import { validateQuestionForm, validateSequenceForm } from 'utils/validation/validate';
+import {
+  validateQuestionForm,
+  validateSequenceForm
+} from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -19,19 +22,26 @@ export const propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
   updateComponent: PropTypes.func.isRequired,
-  setValidationErrors: PropTypes.func.isRequired,
+  setValidationErrors: PropTypes.func.isRequired
 };
 
 export const defaultProps = {
   calculatedVariablesStore: {},
   externalVariablesStore: {},
   collectedVariablesStore: {},
-  codesListsStore: {},
+  codesListsStore: {}
 };
 
 // Utils
 
-function validateAndSubmit(actions, component, validateQuestion, validateSequence, transformer, onSuccess) {
+function validateAndSubmit(
+  actions,
+  component,
+  validateQuestion,
+  validateSequence,
+  transformer,
+  onSuccess
+) {
   return function(values) {
     if (component.type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
@@ -39,7 +49,10 @@ function validateAndSubmit(actions, component, validateQuestion, validateSequenc
       validateSequence(values);
     }
 
-    const updatedComponentsStore = transformer.formToStore(values, component.id);
+    const updatedComponentsStore = transformer.formToStore(
+      values,
+      component.id
+    );
     const updatedCodesListsStore = transformer.getCodesListStore();
     const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
     const updatedExternalVariablesStore = transformer.getExternalVariablesStore();
@@ -68,14 +81,14 @@ function ComponentEdit({
   updateComponent,
   onCancel,
   onSuccess,
-  setValidationErrors,
+  setValidationErrors
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
   const validateSequence = setValidationErrorsAction => values =>
     validateSequenceForm(values, setValidationErrorsAction);
   const actions = {
-    updateComponent,
+    updateComponent
   };
 
   // Initial values
@@ -84,7 +97,7 @@ function ComponentEdit({
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariablesStore,
-    codesListsStore,
+    codesListsStore
   });
   const initialValues = componentTransformer.stateToForm();
 
