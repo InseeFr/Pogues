@@ -307,7 +307,7 @@ export function stateToRemote(
       .map(variable => variable.id);
 
     const responsesModelByRow = Responses.stateToModel(
-      responsesState[i],
+      responsesState[measureState ? 0 : i],
       collectedVariablesByDatatype,
       collectedVariablesStore
     );

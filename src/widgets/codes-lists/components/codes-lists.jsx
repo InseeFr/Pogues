@@ -108,9 +108,11 @@ class CodesList extends Component {
         `${path}label`,
         codesListsStore[nextProps.currentId].label
       );
-      Object.keys(codesStore).forEach(key => {
-        arrayPush(formName, `${path}codes`, codesStore[key]);
-      });
+      change(
+        formName,
+        `${path}codes`,
+        Object.keys(codesStore).map(key => codesStore[key])
+      );
     }
   }
 
