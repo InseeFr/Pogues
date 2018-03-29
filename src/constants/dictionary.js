@@ -1090,6 +1090,10 @@ const dictionary = {
     en: 'It already exists an collected variable with this name'
   },
   validation_collectedvariable_need_reset: {
+    fr: 'Veuillez regénérer les variables collectées',
+    en: 'Renew your collected variables'
+  },
+  validation_collectedvariable_need_creation: {
     fr: 'Veuillez spécifier une variable collectée',
     en: 'Specify a collected variable'
   },

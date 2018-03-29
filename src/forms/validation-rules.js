@@ -143,6 +143,9 @@ export function validCollectedVariables(
   value,
   { form, stores: { codesListsStore } }
 ) {
+  function checkIfCodesListDifferent(expected, values) {
+    return expected.filter(e => !values.includes(e)).length > 0;
+  }
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
     name: nameComponent,
@@ -158,7 +161,18 @@ export function validCollectedVariables(
       codesListsStore
     );
   }
-  return expectedVariables && value.length === expectedVariables.length
+
+  const isCodesListDifferent = checkIfCodesListDifferent(
+    expectedVariables.map(e => e.codeListReference),
+    value.map(e => e.codeListReference)
+  );
+
+  if (value.length === 0 && expectedVariables.length > 0) {
+    return Dictionary.validation_collectedvariable_need_creation;
+  }
+  return !isCodesListDifferent &&
+    expectedVariables &&
+    value.length === expectedVariables.length
     ? undefined
     : Dictionary.validation_collectedvariable_need_reset;
 }
