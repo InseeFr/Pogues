@@ -229,6 +229,7 @@ class CodesListsCodes extends Component {
       <div className={CODES_CLASS}>
         {/* Show input code button */}
         <button
+          type="button"
           onClick={e => {
             e.preventDefault();
             this.setState({
