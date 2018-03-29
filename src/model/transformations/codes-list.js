@@ -79,7 +79,7 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
  *
  * @param {*} codes The list of codes
  */
-function sortByWeight(codes) {
+export function sortByWeight(codes) {
   return (code1, code2) => {
     const weight1 = codes[code1].weight;
     const weight2 = codes[code2].weight;

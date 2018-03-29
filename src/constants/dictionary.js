@@ -1226,6 +1226,10 @@ const dictionary = {
     fr: 'PDF',
     en: 'PDF'
   },
+  VISUALIZE_DDI: {
+    fr: 'DDI',
+    en: 'DDI'
+  },
   VISUALIZE_SPECIFICATION: {
     fr: 'Spécification',
     en: 'Specification'
@@ -1236,7 +1240,7 @@ const dictionary = {
 
 dictionary[`componentNew${QUESTION}`] = {
   fr: 'Nouvelle question',
-  er: 'New question'
+  en: 'New question'
 };
 
 dictionary[`componentNew${SEQUENCE}`] = {

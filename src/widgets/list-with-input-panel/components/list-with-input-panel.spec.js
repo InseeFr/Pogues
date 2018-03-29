@@ -19,7 +19,7 @@ describe('<ListWithInputPanel', () => {
     formName: 'FAKE_FORM_NAME',
     selectorPath: 'FAKE_SELECTOR_PATH',
     name: 'FAKE_NAME',
-
+    componentId: 'componentId',
     formValues: {},
     currentValues: {},
     resetObject: {},
@@ -29,7 +29,9 @@ describe('<ListWithInputPanel', () => {
     arrayPush: noop,
     arrayInsert: noop,
     validateForm: noop,
-    clearErrors: noop
+    clearErrors: noop,
+    removeIntegrityError: noop,
+    clearSubformValidationErrors: noop
   };
 
   const FakeInputPanel = () => <div />;

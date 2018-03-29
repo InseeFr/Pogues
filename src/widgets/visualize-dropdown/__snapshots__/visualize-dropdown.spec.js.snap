@@ -46,6 +46,14 @@ exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
         Specification
       </a>
     </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        DDI
+      </a>
+    </li>
   </ul>
 </div>
 `;
@@ -96,6 +104,14 @@ exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] =
         Specification
       </a>
     </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        DDI
+      </a>
+    </li>
   </ul>
 </div>
 `;
@@ -144,6 +160,14 @@ exports[`Visualize Dropdown Component:  Should return the right HTML 1`] = `
         onClick={[Function]}
       >
         Specification
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        DDI
       </a>
     </li>
   </ul>

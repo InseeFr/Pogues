@@ -125,7 +125,6 @@ class CodesList extends Component {
       activePanel,
       currentCodesListsStore
     } = this.props;
-
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>
         {/* Selector panel */}
@@ -165,7 +164,11 @@ class CodesList extends Component {
               </Field>
             )}
             {activePanel === NEW && (
-              <div>
+              <div
+                ref={node => {
+                  this.blockNewCl = node;
+                }}
+              >
                 <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
                 <Field
                   name="label"
@@ -174,6 +177,10 @@ class CodesList extends Component {
                   label={Dictionary.newCl}
                   focusOnInit
                   required
+                  onEnter={e => {
+                    e.preventDefault();
+                    this.blockNewCl.querySelector('button').click();
+                  }}
                 />
                 <FieldArray
                   name="codes"
