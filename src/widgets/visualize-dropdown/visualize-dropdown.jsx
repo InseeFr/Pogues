@@ -123,6 +123,11 @@ class VisualizeDropdown extends Component {
               {Dictionary.VISUALIZE_SPECIFICATION}
             </a>
           </li>
+          <li>
+            <a href="#" onClick={e => this.visualize(e, 'ddi')}>
+              DDI
+            </a>
+          </li>
         </ul>
       </div>
     );

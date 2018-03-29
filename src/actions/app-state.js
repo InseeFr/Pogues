@@ -3,7 +3,8 @@ import {
   getContextFromCampaign,
   visualizeSpec,
   visualizePdf,
-  visualizeHtml
+  visualizeHtml,
+  visualizeDDI
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
@@ -362,6 +363,8 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
       visualizeSpec(questionnaireModel);
     } else if (type === 'html') {
       visualizeHtml(questionnaireModel);
+    } else if (type === 'ddi') {
+      visualizeDDI(questionnaireModel);
     }
   };
 };
