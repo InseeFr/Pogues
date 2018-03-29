@@ -91,8 +91,20 @@ describe('collected variables utils: ', () => {
         [PRIMARY]: {
           [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
             codes: [
-              { value: 'value1', label: 'label1' },
-              { value: 'value2', label: 'label2' }
+              {
+                value: 'value1',
+                label: 'label1',
+                depth: 1,
+                weight: 1,
+                parent: ''
+              },
+              {
+                value: 'value2',
+                label: 'label2',
+                depth: 1,
+                weight: 2,
+                parent: ''
+              }
             ],
             id: '1'
           }
