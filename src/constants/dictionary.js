@@ -1226,6 +1226,10 @@ const dictionary = {
     fr: 'PDF',
     en: 'PDF'
   },
+  VISUALIZE_DDI: {
+    fr: 'DDI',
+    en: 'DDI'
+  },
   VISUALIZE_SPECIFICATION: {
     fr: 'Spécification',
     en: 'Specification'
