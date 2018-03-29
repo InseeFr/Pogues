@@ -50,6 +50,12 @@ export function getCollectedVariablesMultiple(
   form,
   codesListStore
 ) {
+  /**
+   * This method will recursively sort an array of code.
+   * A code have a depth, a weight and maybe a parent.
+   * We will first sort codes with the depth=1, and recurively for each code,
+   * sort its direct children.
+   */
   function sortCodes(codes = [], depth = 1, parent = '') {
     const filtered = codes.filter(
       code => code.depth === depth && code.parent === parent
