@@ -1236,7 +1236,7 @@ const dictionary = {
 
 dictionary[`componentNew${QUESTION}`] = {
   fr: 'Nouvelle question',
-  er: 'New question'
+  en: 'New question'
 };
 
 dictionary[`componentNew${SEQUENCE}`] = {
