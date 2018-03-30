@@ -186,6 +186,9 @@ export function validCollectedVariables(
   if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
+  if (expectedVariables && value.length === 1 && expectedVariables.length === 1) {
+    return false;
+  }
   return isCodesTheSame &&
     isTheSameOrder &&
     (expectedVariables && value.length === expectedVariables.length)
