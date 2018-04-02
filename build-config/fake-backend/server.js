@@ -185,6 +185,19 @@ server.post('/transform/visualize-pdf', (req, res, next) => {
   });
   res.end(data);
 });
+
+server.post('/transform/visualize-ddi', (req, res, next) => {
+  const filename = __dirname + '/test.xml';
+  const data = fs.readFileSync(filename);
+  res.writeHead(200, {
+    'Content-Type': 'application/xml',
+    'Content-Disposition': 'attachment; filename=some_file.xml',
+    'Content-Length': data.length,
+    'Access-Control-Expose-Headers': 'Content-Disposition'
+  });
+  res.end(data);
+});
+
 server.post('/transform/visualize-spec', (req, res, next) => {
   const filename = __dirname + '/test.odt';
   const data = fs.readFileSync(filename);

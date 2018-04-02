@@ -143,6 +143,12 @@ export function validCollectedVariables(
   value,
   { form, stores: { codesListsStore } }
 ) {
+  function checkIfCodesListTheSame(expected, values) {
+    if (!expected[0]) {
+      return true;
+    }
+    return expected.filter(e => !values.includes(e)).length === 0;
+  }
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
     name: nameComponent,
@@ -158,7 +164,34 @@ export function validCollectedVariables(
       codesListsStore
     );
   }
-  return expectedVariables && value.length === expectedVariables.length
+
+  /**
+   * for Single Choice Response, we check if the codeListReference for each
+   * variable are in the same order as the ones expected
+   */
+  const isCodesTheSame = checkIfCodesListTheSame(
+    expectedVariables.map(e => e.codeListReference),
+    value.map(e => e.codeListReference)
+  );
+
+  /**
+   * For Multiple Choice Reponse, we check if all the codes of a code list
+   * are in the right order.
+   */
+  const isTheSameOrder =
+    expectedVariables[0].name &&
+    expectedVariables.map(v => v.name).join(' ') ===
+      value.map(v => v.name).join(' ');
+
+  if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
+    return Dictionary.validation_collectedvariable_need_creation;
+  }
+  if (expectedVariables && value.length === 1 && expectedVariables.length === 1) {
+    return false;
+  }
+  return isCodesTheSame &&
+    isTheSameOrder &&
+    (expectedVariables && value.length === expectedVariables.length)
     ? undefined
     : Dictionary.validation_collectedvariable_need_reset;
 }

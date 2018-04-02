@@ -80,7 +80,7 @@ class Input extends Component {
             }}
             onKeyPress={event => {
               if (event.charCode === 13 && this.props.onEnter) {
-                this.props.onEnter();
+                this.props.onEnter(event);
               }
             }}
           />

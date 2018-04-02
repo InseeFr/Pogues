@@ -15,6 +15,7 @@ const urlOperationsList = `${urlSearch}/operations`;
 const urlMetadata = `${baseURL}/meta-data`;
 const urlVisualizePdf = `${baseURL}/transform/visualize-pdf`;
 const urlVisualizeSpec = `${baseURL}/transform/visualize-spec`;
+const urlVisualizeDDI = `${baseURL}/transform/visualize-ddi`;
 
 export const visualisationUrl = `${baseURL}/transform/visualize`;
 
@@ -72,6 +73,18 @@ export const visualizeHtml = qr => {
       document.body.appendChild(a);
       a.click();
     });
+};
+
+export const visualizeDDI = qr => {
+  fetch(urlVisualizeDDI, {
+    method: 'POST',
+    headers: {
+      // Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(qr),
+    credentials: 'include'
+  }).then(openDocument);
 };
 
 /**

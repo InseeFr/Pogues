@@ -936,8 +936,8 @@ const dictionary = {
       'The Id can only contain non-accented letters, numbers, dashes and underscore'
   },
   validationInvalidNameSize: {
-    fr: "L'identifiant ne peux pas dépasser 16 caractères",
-    en: 'The Id can not exceed 16 characters'
+    fr: "L'identifiant ne peux pas dépasser 32 caractères",
+    en: 'The Id can not exceed 32 characters'
   },
   validationMinNumber: {
     fr: 'Veuillez saisir au minimum',
@@ -1090,6 +1090,10 @@ const dictionary = {
     en: 'It already exists an collected variable with this name'
   },
   validation_collectedvariable_need_reset: {
+    fr: 'Veuillez regénérer les variables collectées',
+    en: 'Renew your collected variables'
+  },
+  validation_collectedvariable_need_creation: {
     fr: 'Veuillez spécifier une variable collectée',
     en: 'Specify a collected variable'
   },
@@ -1222,6 +1226,10 @@ const dictionary = {
     fr: 'PDF',
     en: 'PDF'
   },
+  VISUALIZE_DDI: {
+    fr: 'DDI',
+    en: 'DDI'
+  },
   VISUALIZE_SPECIFICATION: {
     fr: 'Spécification',
     en: 'Specification'
@@ -1232,7 +1240,7 @@ const dictionary = {
 
 dictionary[`componentNew${QUESTION}`] = {
   fr: 'Nouvelle question',
-  er: 'New question'
+  en: 'New question'
 };
 
 dictionary[`componentNew${SEQUENCE}`] = {
