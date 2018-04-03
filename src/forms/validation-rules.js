@@ -178,11 +178,11 @@ export function validCollectedVariables(
    * For Multiple Choice Reponse, we check if all the codes of a code list
    * are in the right order.
    */
-  const isTheSameOrder =
-    expectedVariables[0].name &&
+  const isTheSameOrder = true;
+    /*expectedVariables[0].name &&
     expectedVariables.map(v => v.name).join(' ') ===
       value.map(v => v.name).join(' ');
-
+*/
   if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
