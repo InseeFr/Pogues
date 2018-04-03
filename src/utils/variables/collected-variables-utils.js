@@ -193,8 +193,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     codesListState = codesListStore[codesListIdPrimary] || {};
     codesStore = codesListState.codes || {};
     codesStatePrimary = Object.keys(codesStore).map(key => codesStore[key]);
-    if (codesStatePrimary.length === 0)
-      codesStatePrimary = componentCodesStatePrimary;
+    //if (codesStatePrimary.length === 0)
+    codesStatePrimary = componentCodesStatePrimary;
     codesStatePrimary = sortCodes(codesStatePrimary);
     if (secondaryState && secondaryState.showSecondaryAxis) {
       const {
@@ -207,9 +207,9 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       codesListState = codesListStore[codesListIdSecondary] || {};
       codesStore = codesListState.codes || {};
       codesStateSecondary = Object.keys(codesStore).map(key => codesStore[key]);
-      if (codesStateSecondary.length === 0)
-        codesStateSecondary = componentCodesStateSecondary;
-
+      //if (codesStateSecondary.length === 0)
+      codesStateSecondary = componentCodesStateSecondary;
+      codesStateSecondary = sortCodes(codesStateSecondary);
       // First case
       for (let i = 0; i < codesStatePrimary.length; i += 1) {
         codePrimary = codesStatePrimary[i];
