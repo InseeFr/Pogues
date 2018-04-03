@@ -113,6 +113,32 @@ export function getCollectedVariablesMultiple(
 }
 
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
+  /**
+   * This method will recursively sort an array of code.
+   * A code have a depth, a weight and maybe a parent.
+   * We will first sort codes with the depth=1, and recurively for each code,
+   * sort its direct children.
+   */
+  function sortCodes(codes = [], depth = 1, parent = '') {
+    const filtered = codes.filter(
+      code => code.depth === depth && code.parent === parent
+    );
+    if (filtered.length === 0) {
+      return [];
+    }
+    return filtered
+      .sort((code1, code2) => {
+        const weight1 = code1.weight;
+        const weight2 = code2.weight;
+        if (weight1 < weight2) return -1;
+        if (weight1 > weight2) return 1;
+        return 0;
+      })
+      .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
+      .reduce((acc, res) => [...acc, ...res], []);
+  }
+
+
   function getReponsesValues(measure) {
     let reponseFormatValues = {};
 
@@ -169,7 +195,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     codesStatePrimary = Object.keys(codesStore).map(key => codesStore[key]);
     if (codesStatePrimary.length === 0)
       codesStatePrimary = componentCodesStatePrimary;
-
+    codesStatePrimary = sortCodes(codesStatePrimary);
     if (secondaryState && secondaryState.showSecondaryAxis) {
       const {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
