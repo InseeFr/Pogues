@@ -101,8 +101,8 @@ export function getCollectedVariablesMultiple(
       }
     };
   }
-
-  return listCodes.map((c, index) =>
+  const listFiltered = listCodes.filter(code => hasNoEnfant(code,listCodes));
+  return listFiltered.map((c, index) =>
     getCollecteVariable(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
@@ -112,6 +112,15 @@ export function getCollectedVariablesMultiple(
   );
 }
 
+function hasNoEnfant(code, listCodes){
+  var hasNoEnfant = true;
+  listCodes.forEach(function(c){
+    if(c.parent==code.value) {
+      hasNoEnfant = false;
+      }
+  })
+  return hasNoEnfant;
+}
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
   /**
    * This method will recursively sort an array of code.
@@ -211,10 +220,12 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       codesStateSecondary = componentCodesStateSecondary;
       codesStateSecondary = sortCodes(codesStateSecondary);
       // First case
-      for (let i = 0; i < codesStatePrimary.length; i += 1) {
-        codePrimary = codesStatePrimary[i];
-        for (let j = 0; j < codesStateSecondary.length; j += 1) {
-          codeSecondary = codesStateSecondary[j];
+      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => hasNoEnfant(code,codesStatePrimary));
+      const codesStateSecondaryFiltered = codesStateSecondary.filter(code => hasNoEnfant(code,codesStateSecondary));
+      for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
+        codePrimary = codesStatePrimaryFiltered[i];
+        for (let j = 0; j < codesStateSecondaryFiltered.length; j += 1) {
+          codeSecondary = codesStateSecondaryFiltered[j];
           collectedVariables.push(
             getCollecteVariable(
               `${questionName}${i + 1}${j + 1}`,
@@ -229,8 +240,9 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       }
     } else {
       // Second case
-      for (let i = 0; i < codesStatePrimary.length; i += 1) {
-        codePrimary = codesStatePrimary[i];
+      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => hasNoEnfant(code,codesStatePrimary));
+      for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
+        codePrimary = codesStatePrimaryFiltered[i];
         for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
           measure = listMeasuresState.measures[j];
           collectedVariables.push(
