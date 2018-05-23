@@ -99,3 +99,10 @@ export function removeOrphansCodesLists(codesListsStore, componentsStore) {
       };
     }, {});
 }
+/**
+ * This method will check if a code list contains a given child
+ */
+export const hasChild = (code, listCodes) => listCodes.reduce((_, c) => {
+  if (c.parent === code.value) _ = true;
+  return _;
+}, false);

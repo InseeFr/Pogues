@@ -3,7 +3,8 @@ import {
   removeOrphansCodesLists,
   getSingleCodesLists,
   getMultipleCodesLists,
-  getTableCodesLists
+  getTableCodesLists,
+  hasChild
 } from './codes-lists-utils';
 import {
   codesListsStore,
@@ -11,7 +12,8 @@ import {
   componentsStore,
   singleFormatCodesListsIds,
   multipleFormatCodesListsIds,
-  tableFormatCodesListsIds
+  tableFormatCodesListsIds,
+  listCodes
 } from './__mocks__/codes-lists-utils';
 
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
@@ -40,5 +42,11 @@ describe('Codes lists utils', () => {
     expect(removeOrphansCodesLists(codesListsStore, componentsStore)).toEqual(
       expectedCodesListsStore
     );
+  });
+  test('hasChild should return false', () => {
+    expect(hasChild({ value:'2' }, listCodes)).toBeFalsy();
+  });
+  test('hasChild should return true', () => {
+    expect(hasChild({ value:'1' }, listCodes)).toBeTruthy();
   });
 });

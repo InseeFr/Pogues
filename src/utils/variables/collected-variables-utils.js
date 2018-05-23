@@ -6,8 +6,8 @@ import {
   DATATYPE_NAME
 } from 'constants/pogues-constants';
 import { uuid } from 'utils/utils';
-import { debug } from 'util';
-import { sortByWeight } from 'model/transformations/codes-list';
+import { hasChild } from 'utils/codes-lists/codes-lists-utils';
+
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
@@ -101,7 +101,7 @@ export function getCollectedVariablesMultiple(
       }
     };
   }
-  const listFiltered = listCodes.filter(code => hasNoEnfant(code,listCodes));
+  const listFiltered = listCodes.filter(code => !hasChild(code,listCodes));
   return listFiltered.map((c, index) =>
     getCollecteVariable(
       `${questionName}${index + 1}`,
@@ -112,15 +112,6 @@ export function getCollectedVariablesMultiple(
   );
 }
 
-function hasNoEnfant(code, listCodes){
-  var hasNoEnfant = true;
-  listCodes.forEach(function(c){
-    if(c.parent==code.value) {
-      hasNoEnfant = false;
-      }
-  })
-  return hasNoEnfant;
-}
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
   /**
    * This method will recursively sort an array of code.
@@ -220,8 +211,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       codesStateSecondary = componentCodesStateSecondary;
       codesStateSecondary = sortCodes(codesStateSecondary);
       // First case
-      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => hasNoEnfant(code,codesStatePrimary));
-      const codesStateSecondaryFiltered = codesStateSecondary.filter(code => hasNoEnfant(code,codesStateSecondary));
+      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => !hasChild(code,codesStatePrimary));
+      const codesStateSecondaryFiltered = codesStateSecondary.filter(code => !hasChild(code,codesStateSecondary));
       for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
         codePrimary = codesStatePrimaryFiltered[i];
         for (let j = 0; j < codesStateSecondaryFiltered.length; j += 1) {
@@ -240,7 +231,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       }
     } else {
       // Second case
-      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => hasNoEnfant(code,codesStatePrimary));
+      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => !hasChild(code,codesStatePrimary));
       for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
         codePrimary = codesStatePrimaryFiltered[i];
         for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
