@@ -7,6 +7,8 @@ import * as ResponseFormatSingle from './response-format-single';
 import * as CodeList from './codes-list';
 import * as Dimension from './dimension';
 import * as Responses from './responses';
+import { hasChild } from 'utils/codes-lists/codes-lists-utils';
+
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
@@ -61,10 +63,11 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
         activeCodeLists[codesListIdSecondary].codes
       ).length;
     }
-
-    responseOffset =
-      Object.keys(activeCodeLists[codesListIdPrimary].codes).length *
-      responseOffsetSecondary;
+    const listCodes = Object.keys(
+      activeCodeLists[codesListIdPrimary].codes
+    ).map(key => activeCodeLists[codesListIdPrimary].codes[key]);
+    const codes = listCodes.filter(code => !hasChild(code, listCodes));
+    responseOffset = codes.length * responseOffsetSecondary;
   } else {
     const { LIST: { numLinesMin, numLinesMax } } = primaryState;
     responseOffset = numLinesMax - numLinesMin + 1;

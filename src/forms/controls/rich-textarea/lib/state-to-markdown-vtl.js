@@ -36,7 +36,7 @@ function canHaveDepth(blockType) {
 }
 
 function encodeContent(text) {
-  return text.replace(/[*_`]/g, '\\$&');
+  return text.replace(/[*`]/g, '\\$&');
 }
 
 // Encode chars that would normally be allowed in a URL but would conflict with
