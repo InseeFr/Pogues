@@ -177,3 +177,95 @@ describe('validateDuplicates', () => {
     ).toBeUndefined();
   });
 });
+
+describe('validCollectedVariables', () => {
+  it('should return an error if the codeListReference is not the same', () => {
+    const value = [
+      {
+        id: 'jjjyiuzv',
+        name: 'SDFSDFsdfsdf',
+        label: 'SDFSDFsdfsdf label',
+        codeListReference: 'jjjyctp7',
+        codeListReferenceLabel: '',
+        type: 'TEXT',
+        TEXT: {
+          maxLength: 1,
+          pattern: ''
+        }
+      }
+    ];
+    const state = {
+      form: {
+        name: 'SDFSDFsdfsdf',
+        label: 'sdfsdf',
+        responseFormat: {
+          type: 'SINGLE_CHOICE',
+          SINGLE_CHOICE: {
+            mandatory: false,
+            hasSpecialCode: false,
+            specialLabel: '',
+            specialCode: '',
+            specialUiBehaviour: 'FIRST_INTENTION',
+            specialFollowUpMessage: '',
+            visHint: 'CHECKBOX',
+            CodesList: {
+              id: 'jjjynmyp',
+              label: 'cxcvxcvxcv',
+              codes: [
+                {
+                  value: 'asdasd',
+                  label: 'sdfsdfs',
+                  parent: '',
+                  weight: 1,
+                  depth: 1
+                }
+              ],
+              panel: 'QUEST'
+            }
+          }
+        },
+        collectedVariables: {
+          name: '',
+          label: '',
+          x: '',
+          y: '',
+          type: 'TEXT',
+          collectedVariables: [
+            {
+              id: 'jjjyiuzv',
+              name: 'SDFSDFsdfsdf',
+              label: 'SDFSDFsdfsdf label',
+              codeListReference: 'jjjyctp7',
+              codeListReferenceLabel: '',
+              type: 'TEXT',
+              TEXT: {
+                maxLength: 1,
+                pattern: ''
+              }
+            }
+          ],
+          codeListReference: '',
+          codeListReferenceLabel: ''
+        }
+      },
+      stores: {
+        jjjynmyp: {
+          id: 'jjjynmyp',
+          label: 'cxcvxcvxcv',
+          codes: {
+            asdasd: {
+              value: 'asdasd',
+              label: 'sdfsdfs',
+              parent: '',
+              weight: 1,
+              depth: 1
+            }
+          }
+        }
+      }
+    };
+    expect(validCollectedVariables(value, state)).toBe(
+      Dictionary.validation_collectedvariable_need_reset
+    );
+  });
+});

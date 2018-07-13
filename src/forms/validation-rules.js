@@ -1,12 +1,16 @@
 import cloneDeep from 'lodash.clonedeep';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import {
+  CODES_LIST_INPUT_ENUM,
+  QUESTION_TYPE_ENUM
+} from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 
+const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
 
@@ -175,18 +179,34 @@ export function validCollectedVariables(
   );
 
   /**
+   * For a SINGLE_CHOICE question with a codelist, the codeListReference should be the same
+   * It solves this issue : https://trello.com/c/bZo4vAei/397-255-questionnaire-non-r%C3%A9cup%C3%A9r%C3%A9-par-lapplication
+   */
+  if (
+    type === SINGLE_CHOICE &&
+    value[0] &&
+    value[0].codeListReference !== expectedVariables[0].codeListReference
+  ) {
+    return Dictionary.validation_collectedvariable_need_reset;
+  }
+
+  /**
    * For Multiple Choice Reponse, we check if all the codes of a code list
    * are in the right order.
    */
   const isTheSameOrder = true;
-    /*expectedVariables[0].name &&
+  /*expectedVariables[0].name &&
     expectedVariables.map(v => v.name).join(' ') ===
       value.map(v => v.name).join(' ');
 */
   if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
-  if (expectedVariables && value.length === 1 && expectedVariables.length === 1) {
+  if (
+    expectedVariables &&
+    value.length === 1 &&
+    expectedVariables.length === 1
+  ) {
     return false;
   }
   return isCodesTheSame &&
