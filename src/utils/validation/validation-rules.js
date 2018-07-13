@@ -55,12 +55,6 @@ export const questionRules = {
   name: [required, name],
   label: [required],
   [`${RESPONSE_FORMAT}.type`]: [requiredSelect],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.minimum`]: [
-    value => minValue(0)(value)
-  ],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    value => minValue(1)(value)
-  ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value)
