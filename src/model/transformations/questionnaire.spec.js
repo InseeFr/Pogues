@@ -18,14 +18,14 @@ describe('questionnaire', () => {
       ],
       genericName: 'QUESTIONNAIRE',
 
-      agency: '',
+      agency: 'fr.insee',
       TargetMode: ['']
     };
     const currentStores = {};
     const output = remoteToState(remote, currentStores);
     const expected = {
       TargetMode: [''],
-      agency: '',
+      agency: 'fr.insee',
       campaigns: ['campaign01'],
       final: false,
       id: 'jf0s8i94',
@@ -45,7 +45,7 @@ describe('questionnaire', () => {
       id: 'jf0s8i94',
       name: 'QUESTIONNA',
       label: 'questionnaire',
-      agency: '',
+      agency: 'fr.insee',
       lastUpdatedDate: 'Wed Mar 21 2018 10:37:56 GMT+0100 (CET)',
       serie: 'serie01',
       operation: 'operation01',
@@ -241,7 +241,7 @@ describe('questionnaire', () => {
           }
         ]
       },
-      agency: '',
+      agency: 'fr.insee',
       final: false,
       genericName: 'QUESTIONNAIRE',
       id: 'jf0s8i94',
@@ -267,7 +267,7 @@ describe('questionnaire', () => {
       ],
       genericName: 'QUESTIONNAIRE',
 
-      agency: '',
+      agency: 'fr.insee',
       TargetMode: ['']
     };
     const currentStores = {};
@@ -275,7 +275,7 @@ describe('questionnaire', () => {
     const expected = {
       jf0s8i94: {
         TargetMode: [''],
-        agency: '',
+        agency: 'fr.insee',
         campaigns: ['campaign01'],
         final: false,
         id: 'jf0s8i94',
