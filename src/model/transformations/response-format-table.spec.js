@@ -3,6 +3,107 @@ import * as Response from './response';
 import collectedVariable from '../../widgets/component-new-edit/model/collected-variable';
 
 describe('remoteToState', () => {
+  it('with hierarchical codes', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'jjjyttfv',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 255,
+            Pattern: ''
+          },
+          CollectedVariableReference: 'jjjyjq15'
+        },
+        {
+          id: 'jjjz2i63',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 255,
+            Pattern: ''
+          },
+          CollectedVariableReference: 'jjjyymbc'
+        }
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: '0',
+          CodeListReference: 'jjjyt2ta'
+        },
+        {
+          dimensionType: 'MEASURE',
+          dynamic: '0',
+          Label: 'measure1'
+        },
+        {
+          dimensionType: 'MEASURE',
+          dynamic: '0',
+          Label: 'measure2'
+        }
+      ]
+    };
+    const codesListsStore = {
+      jjjyt2ta: {
+        id: 'jjjyt2ta',
+        label: 'new',
+        codes: {
+          a1: {
+            value: 'a1',
+            label: 'a1',
+            parent: '',
+            depth: 1,
+            weight: 1
+          },
+          a2: {
+            value: 'a2',
+            label: 'a2',
+            parent: 'a1',
+            depth: 2,
+            weight: 1
+          }
+        },
+        name: ''
+      }
+    };
+    const output = {
+      PRIMARY: {
+        type: 'CODES_LIST',
+        CODES_LIST: {
+          CodesList: {
+            id: 'jjjyt2ta'
+          }
+        }
+      },
+      LIST_MEASURE: [
+        {
+          label: 'measure1',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'TEXT',
+            TEXT: {
+              maxLength: 255,
+              pattern: ''
+            }
+          }
+        },
+        {
+          label: 'measure2',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'TEXT',
+            TEXT: {
+              maxLength: 255,
+              pattern: ''
+            }
+          }
+        }
+      ]
+    };
+    expect(remoteToState(remote, codesListsStore)).toEqual(output);
+  });
   it('without secondary axes', () => {
     const remote = {
       responses: [

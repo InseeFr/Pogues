@@ -6,8 +6,8 @@ import {
   DATATYPE_NAME
 } from 'constants/pogues-constants';
 import { uuid } from 'utils/utils';
-import { debug } from 'util';
-import { sortByWeight } from 'model/transformations/codes-list';
+import { hasChild } from 'utils/codes-lists/codes-lists-utils';
+
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
@@ -101,8 +101,8 @@ export function getCollectedVariablesMultiple(
       }
     };
   }
-
-  return listCodes.map((c, index) =>
+  const listFiltered = listCodes.filter(code => !hasChild(code,listCodes));
+  return listFiltered.map((c, index) =>
     getCollecteVariable(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
@@ -113,6 +113,32 @@ export function getCollectedVariablesMultiple(
 }
 
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
+  /**
+   * This method will recursively sort an array of code.
+   * A code have a depth, a weight and maybe a parent.
+   * We will first sort codes with the depth=1, and recurively for each code,
+   * sort its direct children.
+   */
+  function sortCodes(codes = [], depth = 1, parent = '') {
+    const filtered = codes.filter(
+      code => code.depth === depth && code.parent === parent
+    );
+    if (filtered.length === 0) {
+      return [];
+    }
+    return filtered
+      .sort((code1, code2) => {
+        const weight1 = code1.weight;
+        const weight2 = code2.weight;
+        if (weight1 < weight2) return -1;
+        if (weight1 > weight2) return 1;
+        return 0;
+      })
+      .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
+      .reduce((acc, res) => [...acc, ...res], []);
+  }
+
+
   function getReponsesValues(measure) {
     let reponseFormatValues = {};
 
@@ -167,9 +193,9 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     codesListState = codesListStore[codesListIdPrimary] || {};
     codesStore = codesListState.codes || {};
     codesStatePrimary = Object.keys(codesStore).map(key => codesStore[key]);
-    if (codesStatePrimary.length === 0)
-      codesStatePrimary = componentCodesStatePrimary;
-
+    //if (codesStatePrimary.length === 0)
+    codesStatePrimary = componentCodesStatePrimary;
+    codesStatePrimary = sortCodes(codesStatePrimary);
     if (secondaryState && secondaryState.showSecondaryAxis) {
       const {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
@@ -181,14 +207,16 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       codesListState = codesListStore[codesListIdSecondary] || {};
       codesStore = codesListState.codes || {};
       codesStateSecondary = Object.keys(codesStore).map(key => codesStore[key]);
-      if (codesStateSecondary.length === 0)
-        codesStateSecondary = componentCodesStateSecondary;
-
+      //if (codesStateSecondary.length === 0)
+      codesStateSecondary = componentCodesStateSecondary;
+      codesStateSecondary = sortCodes(codesStateSecondary);
       // First case
-      for (let i = 0; i < codesStatePrimary.length; i += 1) {
-        codePrimary = codesStatePrimary[i];
-        for (let j = 0; j < codesStateSecondary.length; j += 1) {
-          codeSecondary = codesStateSecondary[j];
+      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => !hasChild(code,codesStatePrimary));
+      const codesStateSecondaryFiltered = codesStateSecondary.filter(code => !hasChild(code,codesStateSecondary));
+      for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
+        codePrimary = codesStatePrimaryFiltered[i];
+        for (let j = 0; j < codesStateSecondaryFiltered.length; j += 1) {
+          codeSecondary = codesStateSecondaryFiltered[j];
           collectedVariables.push(
             getCollecteVariable(
               `${questionName}${i + 1}${j + 1}`,
@@ -203,8 +231,9 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       }
     } else {
       // Second case
-      for (let i = 0; i < codesStatePrimary.length; i += 1) {
-        codePrimary = codesStatePrimary[i];
+      const codesStatePrimaryFiltered = codesStatePrimary.filter(code => !hasChild(code,codesStatePrimary));
+      for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
+        codePrimary = codesStatePrimaryFiltered[i];
         for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
           measure = listMeasuresState.measures[j];
           collectedVariables.push(

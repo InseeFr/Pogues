@@ -134,7 +134,7 @@ export function stateToRemote(state, stores) {
     DataCollection: dataCollections,
     genericName: QUESTIONNAIRE,
     ComponentGroup: generateComponentGroups(componentsStore),
-    agency: agency || '',
+    agency: agency || 'fr.insee',
     TargetMode
   };
   const componentsRemote = Component.storeToRemote(
