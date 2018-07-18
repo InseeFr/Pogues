@@ -1,11 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-//const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 
 const host = process.env.HOST || '0.0.0.0';
@@ -37,10 +36,15 @@ module.exports = function(env) {
   const environment = (env && env.environment) || 'prod';
 
   const plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      children: true,
+      minChunks: Infinity
+    }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
-    //new ExtractTextPlugin('style-[contenthash:8].css'),
+    new ExtractTextPlugin('style-[contenthash:8].css'),
     new HtmlWebpackPlugin({
       template: './index.ejs',
       inject: true,
@@ -58,9 +62,13 @@ module.exports = function(env) {
         minifyURLs: true
       }
     }),
-    //new PreloadWebpackPlugin(),
+    new PreloadWebpackPlugin(),
     new CleanWebpackPlugin(buildDirectory)
   ];
+
+  /*
+   ENTRY POINT
+   */
 
   const devEntryPoint = [
     // activate HMR for React
@@ -83,18 +91,17 @@ module.exports = function(env) {
   if (isProd) {
     plugins.push(
       new UglifyJSPlugin({
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true
-          }
+        compress: {
+          warnings: false,
+          screw_ie8: true,
+          conditionals: true,
+          unused: true,
+          comparisons: true,
+          sequences: true,
+          dead_code: true,
+          evaluate: true,
+          if_return: true,
+          join_vars: true
         }
       }),
       new Visualizer({
@@ -112,7 +119,7 @@ module.exports = function(env) {
     );
   }
 
-  if (false && isProd) {
+  if (isProd) {
     cssLoader = ExtractTextPlugin.extract({
       fallback: 'style-loader',
       use: [
@@ -181,6 +188,11 @@ module.exports = function(env) {
       }
     ];
   }
+
+  /*
+   CONFIGURATION
+   */
+
   return {
     devtool: isProd ? 'source-map' : 'cheap-module-source-map',
     context: sourcePath,
@@ -218,61 +230,6 @@ module.exports = function(env) {
       publicPath: '',
       filename: isProd ? '[name]-[chunkhash:8].js' : '[name]-[hash:8].js'
     },
-    resolveLoader: {
-      alias: {
-        'config-loader': path.resolve(
-          __dirname,
-          'build-config/environments/config-loader'
-        )
-      }
-    },
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          vendors: {
-            test: /[\\/]node_modules[\\/]/,
-            priority: -10
-          },
-          default: {
-            minChunks: Infinity,
-            priority: -20,
-            reuseExistingChunk: true
-          }
-        }
-      }
-    },
-    resolve: {
-      extensions: [
-        '.webpack-loader.js',
-        '.web-loader.js',
-        '.loader.js',
-        '.js',
-        '.jsx'
-      ],
-      modules: [path.resolve(__dirname, 'node_modules'), sourcePath],
-      alias: {
-        Config: path.resolve(__dirname, 'build-config/environments/config.prod')
-      }
-    },
-    plugins,
-    performance: isProd && {
-      maxAssetSize: 1300000,
-      maxEntrypointSize: 1900000,
-      hints: 'warning'
-    },
-
-    stats: stats,
-
-    devServer: {
-      contentBase: sourcePath,
-      publicPath: '/',
-      historyApiFallback: true,
-      port: port,
-      host: host,
-      hot: !isProd,
-      compress: isProd,
-      stats: stats
-    },
     module: {
       rules: [
         {
@@ -309,6 +266,47 @@ module.exports = function(env) {
           }
         }
       ]
+    },
+    resolveLoader: {
+      alias: {
+        'config-loader': path.resolve(
+          __dirname,
+          'build-config/environments/config-loader'
+        )
+      }
+    },
+    resolve: {
+      extensions: [
+        '.webpack-loader.js',
+        '.web-loader.js',
+        '.loader.js',
+        '.js',
+        '.jsx'
+      ],
+      modules: [path.resolve(__dirname, 'node_modules'), sourcePath],
+      alias: {
+        Config: path.resolve(__dirname, 'build-config/environments/config.prod')
+      }
+    },
+    plugins,
+
+    performance: isProd && {
+      maxAssetSize: 1300000,
+      maxEntrypointSize: 1900000,
+      hints: 'warning'
+    },
+
+    stats: stats,
+
+    devServer: {
+      contentBase: sourcePath,
+      publicPath: '/',
+      historyApiFallback: true,
+      port: port,
+      host: host,
+      hot: !isProd,
+      compress: isProd,
+      stats: stats
     }
   };
 };
