@@ -8,7 +8,7 @@ export function remoteToState(remote = []) {
       ...acc,
       [id]: {
         id,
-        label,
+        label: label.replace(/&#xd;/gi,'\n\n'),
         declarationType,
         position
       }
@@ -21,7 +21,7 @@ export function stateToRemote(state) {
     const { id, declarationType, label: Text, position } = state[key];
     return {
       id,
-      Text,
+      Text: Text.replace(/\n\n/gi,'&#xd;'),
       declarationType,
       position
     };
