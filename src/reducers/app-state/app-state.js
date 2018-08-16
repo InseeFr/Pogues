@@ -151,7 +151,6 @@ export function setQuestionModified(state) {
 }
 
 export function setQuestionModifiedAndResetSelectedComponent(state) {
-  console.log('setQuestionModifiedAndResetSelectedComponent');
   return {
     ...setSelectedComponentId(
       {
