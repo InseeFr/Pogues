@@ -316,10 +316,36 @@ export function duplicateComponentAndVars(
     return stores;
   }
 
+  const responseFormTypeForDuplicate =
+    activesComponents[idComponent].responseFormat.type;
+
   const duplicatedComponent = {
     ...cloneDeep(activesComponents[idComponent]),
     id: uuid(),
-    weight: activesComponents[idComponent].weight + 1
+    weight: activesComponents[idComponent].weight + 1,
+    redirections: {},
+    controls: {},
+    responseFormat: {
+      type: responseFormTypeForDuplicate,
+      [responseFormTypeForDuplicate]: {
+        ...activesComponents[idComponent].responseFormat[
+          responseFormTypeForDuplicate
+        ],
+        id: uuid()
+      }
+    },
+    declarations: Object.keys(
+      activesComponents[idComponent].declarations
+    ).reduce((acc, declarationId) => {
+      const id = uuid();
+      return {
+        ...acc,
+        [id]: {
+          ...activesComponents[idComponent].declarations[declarationId],
+          id
+        }
+      };
+    }, {})
   };
 
   if (Object.keys(collectedVariables).length > 0) {
@@ -330,11 +356,8 @@ export function duplicateComponentAndVars(
       return {
         ...acc,
         [id]: {
-          id,
-          label: collectedVariables[key].label,
-          name: collectedVariables[key].name,
-          x: collectedVariables[key].x || '',
-          y: collectedVariables[key].y || ''
+          ...collectedVariables[key],
+          id
         }
       };
     }, {});

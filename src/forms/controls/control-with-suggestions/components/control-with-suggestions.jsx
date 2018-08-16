@@ -21,6 +21,7 @@ const {
 } = CONTROL_WITH_SUGGESTIONS;
 
 const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
+const InputRegexFull = new RegExp(/\$(\w+)\$\b(?!\s)/);
 
 // PropTypes and defaultProps
 
