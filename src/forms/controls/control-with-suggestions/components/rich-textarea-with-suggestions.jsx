@@ -103,7 +103,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   // OnClick of an item
   handleSuggestionClick = suggestion => {
     const newCurrentValue = this.state.currentValue.replace(
-      RichTextareaWithSuggestions.InputRegexFull,
+      RichTextareaWithSuggestions.InputRegex,
       `$${suggestion}$`
     );
 
