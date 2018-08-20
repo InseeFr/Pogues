@@ -432,3 +432,138 @@ describe('duplicate', () => {
     expect(result).toEqual({});
   });
 });
+
+describe('duplicateComponentAndVars', () => {
+  const activesComponents = {
+    jkwc0i4n: {
+      id: 'jkwc0i4n',
+      name: 'S',
+      parent: 'jkwbl1oe',
+      weight: 0,
+      children: ['jkwdir4v'],
+      declarations: {},
+      controls: {},
+      redirections: {},
+      TargetMode: [''],
+      label: 's',
+      type: 'SEQUENCE',
+      pageBreak: false
+    },
+    jkwdir4v: {
+      id: 'jkwdir4v',
+      name: 'QUESTIONTO',
+      parent: 'jkwc0i4n',
+      weight: 0,
+      children: [],
+      declarations: {
+        jkwdi6l9: {
+          id: 'jkwdi6l9',
+          label: 'nouvelle declaration',
+          declarationType: 'INSTRUCTION',
+          position: 'AFTER_QUESTION_TEXT'
+        }
+      },
+      controls: {
+        jkwdfr6t: {
+          id: 'jkwdfr6t',
+          label: 'nouveau controle',
+          condition: 'controle',
+          message: 'erreur',
+          criticity: 'INFO',
+          during_collect: false,
+          post_collect: false
+        }
+      },
+      redirections: {
+        jkwdewpy: {
+          id: 'jkwdewpy',
+          label: 'redirection',
+          condition: 'true',
+          cible: 'jkwdgfco'
+        }
+      },
+      TargetMode: [''],
+      type: 'QUESTION',
+      label: 'question to duplicate',
+      responseFormat: {
+        type: 'SIMPLE',
+        SIMPLE: {
+          id: 'jkwdhl3h',
+          type: 'TEXT',
+          mandatory: false,
+          TEXT: {
+            maxLength: 255,
+            pattern: ''
+          }
+        }
+      },
+      collectedVariables: ['jkwd6r31'],
+      pageBreak: false
+    },
+    jkwbl1oe: {
+      id: 'jkwbl1oe',
+      name: 'sdfsSDFS',
+      parent: '',
+      weight: 0,
+      children: ['jkwc0i4n'],
+      declarations: {},
+      controls: {},
+      redirections: {},
+      TargetMode: [''],
+      label: 'sdfs',
+      type: 'QUESTIONNAIRE'
+    }
+  };
+  const collectedVariables = {
+    jkwd6r31: {
+      id: 'jkwd6r31',
+      name: 'QUESTIONTO',
+      label: 'QUESTIONTO label',
+      type: 'TEXT',
+      codeListReferenceLabel: '',
+      TEXT: {
+        maxLength: 255,
+        pattern: ''
+      }
+    }
+  };
+  const idComponent = 'jkwdir4v';
+  const output = component.duplicateComponentAndVars(
+    activesComponents,
+    collectedVariables,
+    idComponent
+  );
+
+  const newId = Object.keys(output.activeComponentsById).find(
+    id => Object.keys(activesComponents).indexOf(id) < 0
+  );
+
+  const duplicated = output.activeComponentsById[idComponent];
+  const duplicate = output.activeComponentsById[newId];
+
+  test('should reset controls and redirections for the duplicate', () => {
+    expect(duplicate.redirections).toEqual({});
+    expect(duplicate.controls).toEqual({});
+  });
+  test('should regenerate an ID for the collected variable', () => {
+    expect(duplicate.collectedVariables).not.toEqual(
+      duplicated.collectedVariables
+    );
+    expect(
+      Object.keys(output.activeCollectedVariablesById[duplicate.id])
+    ).toEqual(duplicate.collectedVariables);
+  });
+  test('should regenerate an ID for the responses', () => {
+    expect(
+      duplicate.responseFormat[duplicate.responseFormat.type].id
+    ).not.toEqual(duplicated.responseFormat[duplicated.responseFormat.type].id);
+  });
+  test('should regenerate an ID for the declarations', () => {
+    expect(Object.keys(duplicate.declarations)).not.toEqual(
+      Object.keys(duplicated.declarations)
+    );
+    Object.keys(duplicate.declarations).forEach(declarationId => {
+      expect(declarationId).toBe(duplicate.declarations[declarationId].id);
+    });
+  });
+});

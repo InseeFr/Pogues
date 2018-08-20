@@ -1,7 +1,8 @@
 import {
   sortByYAndX,
   getCollecteVariable,
-  getCollectedVariablesMultiple
+  getCollectedVariablesMultiple,
+  getCollectedVariablesTable
 } from './collected-variables-utils';
 
 import {
@@ -12,6 +13,306 @@ import {
 const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;
 
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
+
+describe('getCollectedVariablesTable', () => {
+  it('should return the collected variable when the type of the primary state is a code list', () => {
+    const questionName = 'QUESTION';
+    const form = {
+      PRIMARY: {
+        showTotalLabel: '0',
+        totalLabel: '',
+        type: 'CODES_LIST',
+        LIST: {
+          numLinesMin: '0',
+          numLinesMax: 0
+        },
+        CODES_LIST: {
+          CodesList: {
+            id: 'jkwbrb7u',
+            label: 'liste code',
+            codes: [
+              {
+                value: 'a',
+                label: 'a',
+                parent: '',
+                weight: 1,
+                depth: 1
+              }
+            ],
+            panel: 'NEW'
+          }
+        }
+      },
+      SECONDARY: {
+        CodesList: {
+          id: 'jkwc2eah',
+          label: '',
+          codes: []
+        },
+        showSecondaryAxis: false,
+        showTotalLabel: '0',
+        totalLabel: ''
+      },
+      LIST_MEASURE: {
+        label: '',
+        type: 'SIMPLE',
+        SIMPLE: {
+          type: 'TEXT',
+          TEXT: {
+            maxLength: 255,
+            pattern: ''
+          },
+          NUMERIC: {
+            maximum: '',
+            minimum: '',
+            decimals: ''
+          },
+          DATE: {},
+          BOOLEAN: {}
+        },
+        SINGLE_CHOICE: {
+          CodesList: {
+            id: 'jkwc3neg',
+            label: '',
+            codes: []
+          },
+          visHint: 'CHECKBOX'
+        },
+        measures: [
+          {
+            label: 'm1',
+            type: 'SIMPLE',
+            SIMPLE: {
+              type: 'TEXT',
+              TEXT: {
+                maxLength: 255,
+                pattern: ''
+              },
+              NUMERIC: {
+                maximum: '',
+                minimum: '',
+                decimals: ''
+              },
+              DATE: {},
+              BOOLEAN: {}
+            },
+            SINGLE_CHOICE: {
+              CodesList: {
+                id: 'jkwc3neg',
+                label: '',
+                codes: []
+              },
+              visHint: 'CHECKBOX'
+            }
+          },
+          {
+            label: 'm2',
+            type: 'SIMPLE',
+            SIMPLE: {
+              type: 'TEXT',
+              TEXT: {
+                maxLength: 255,
+                pattern: ''
+              },
+              NUMERIC: {
+                maximum: '',
+                minimum: '',
+                decimals: ''
+              },
+              DATE: {},
+              BOOLEAN: {}
+            },
+            SINGLE_CHOICE: {
+              CodesList: {
+                id: 'jkwc3neg',
+                label: '',
+                codes: []
+              },
+              visHint: 'CHECKBOX'
+            }
+          }
+        ]
+      },
+      MEASURE: {
+        label: '',
+        type: 'SIMPLE',
+        SIMPLE: {
+          type: 'TEXT',
+          TEXT: {
+            maxLength: 255,
+            pattern: ''
+          },
+          NUMERIC: {
+            maximum: '',
+            minimum: '',
+            decimals: ''
+          },
+          DATE: {},
+          BOOLEAN: {}
+        },
+        SINGLE_CHOICE: {
+          CodesList: {
+            id: 'jkwc3neg',
+            label: '',
+            codes: []
+          },
+          visHint: 'CHECKBOX'
+        }
+      }
+    };
+    const codesListStore = {};
+    const output = getCollectedVariablesTable(
+      questionName,
+      form,
+      codesListStore
+    ).map(variable => variable.label);
+    expect(output).toEqual(['a-m1', 'a-m2']);
+  });
+  it('should return the collected variable when the type of the primary state is a list', () => {
+    const questionName = 'QUESTION';
+    const form = {
+      PRIMARY: {
+        showTotalLabel: '0',
+        totalLabel: '',
+        type: 'LIST',
+        LIST: {
+          numLinesMin: '1',
+          numLinesMax: '4'
+        },
+        CODES_LIST: {
+          CodesList: {
+            id: 'jkwbsva2',
+            label: '',
+            codes: []
+          }
+        }
+      },
+      SECONDARY: {
+        CodesList: {
+          id: 'jkwbklyv',
+          label: '',
+          codes: []
+        },
+        showSecondaryAxis: false,
+        showTotalLabel: '0',
+        totalLabel: ''
+      },
+      LIST_MEASURE: {
+        label: '',
+        type: 'SIMPLE',
+        SIMPLE: {
+          type: 'TEXT',
+          TEXT: {
+            maxLength: 255,
+            pattern: ''
+          },
+          NUMERIC: {
+            maximum: '',
+            minimum: '',
+            decimals: ''
+          },
+          DATE: {},
+          BOOLEAN: {}
+        },
+        SINGLE_CHOICE: {
+          CodesList: {
+            id: 'jkwbf9ub',
+            label: '',
+            codes: []
+          },
+          visHint: 'CHECKBOX'
+        },
+        measures: [
+          {
+            label: 'measure 1',
+            type: 'SIMPLE',
+            SIMPLE: {
+              type: 'TEXT',
+              TEXT: {
+                maxLength: 255,
+                pattern: ''
+              },
+              NUMERIC: {
+                maximum: '',
+                minimum: '',
+                decimals: ''
+              },
+              DATE: {},
+              BOOLEAN: {}
+            },
+            SINGLE_CHOICE: {
+              CodesList: {
+                id: 'jkwbf9ub',
+                label: '',
+                codes: []
+              },
+              visHint: 'CHECKBOX'
+            }
+          },
+          {
+            label: 'measure 2',
+            type: 'SIMPLE',
+            SIMPLE: {
+              type: 'TEXT',
+              TEXT: {
+                maxLength: 255,
+                pattern: ''
+              },
+              NUMERIC: {
+                maximum: '',
+                minimum: '',
+                decimals: ''
+              },
+              DATE: {},
+              BOOLEAN: {}
+            },
+            SINGLE_CHOICE: {
+              CodesList: {
+                id: 'jkwbf9ub',
+                label: '',
+                codes: []
+              },
+              visHint: 'CHECKBOX'
+            }
+          }
+        ]
+      },
+      MEASURE: {
+        label: '',
+        type: 'SIMPLE',
+        SIMPLE: {
+          type: 'TEXT',
+          TEXT: {
+            maxLength: 255,
+            pattern: ''
+          },
+          NUMERIC: {
+            maximum: '',
+            minimum: '',
+            decimals: ''
+          },
+          DATE: {},
+          BOOLEAN: {}
+        },
+        SINGLE_CHOICE: {
+          CodesList: {
+            id: 'jkwbf9ub',
+            label: '',
+            codes: []
+          },
+          visHint: 'CHECKBOX'
+        }
+      }
+    };
+    const codesListStore = {};
+    const output = getCollectedVariablesTable(
+      questionName,
+      form,
+      codesListStore
+    ).map(variable => variable.label);
+    expect(output).toEqual(['measure 1', 'measure 2']);
+  });
+});
 
 describe('collected variables utils: ', () => {
   describe('sortByYAndX', () => {

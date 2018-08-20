@@ -7,6 +7,7 @@ import {
   updateActiveQuestionnaire,
   saveActiveQuestionnaireSuccess,
   saveActiveQuestionnaireFailure,
+  removeControlsAndRedirections,
   SET_ACTIVE_QUESTIONNAIRE,
   SET_ACTIVE_COMPONENTS,
   SET_ACTIVE_CODE_LISTS,
@@ -16,6 +17,142 @@ import {
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
 } from './app-state';
+
+describe('removeControlsAndRedirections', () => {
+  test('should reset redirections and controls properties of all components', () => {
+    const input = {
+      j6p0np9q: {
+        id: 'j6p0np9q',
+        name: 'READY',
+        parent: 'j6p0ti5h',
+        weight: 1,
+        children: [],
+        declarations: {},
+        controls: {},
+        redirections: {
+          j6p6my1d: {
+            id: 'j6p6my1d',
+            label:
+              'If you are not ready, please go to the end of the questionnaire',
+            condition: "$READY != '1'",
+            cible: 'j6z12s2d'
+          }
+        },
+        TargetMode: [],
+        type: 'QUESTION',
+        label: 'Are you ready?',
+        responseFormat: {
+          type: 'SIMPLE',
+          SIMPLE: {
+            id: 'jbgd3set',
+            type: 'BOOLEAN',
+            mandatory: false,
+            BOOLEAN: {}
+          }
+        },
+        collectedVariables: ['jbcgm0ip'],
+        pageBreak: false
+      },
+      j6p0ti5h: {
+        id: 'j6p0ti5h',
+        name: 'MODULE1',
+        parent: 'i6vwid',
+        weight: 0,
+        children: ['j6p0np9q'],
+        declarations: {
+          d1: {
+            id: 'd1',
+            label:
+              "We're going to test your knowledge about the simpsons series.\n**Welcome in the simspons world!**",
+            declarationType: 'COMMENT',
+            position: 'AFTER_QUESTION_TEXT'
+          }
+        },
+        controls: {},
+        redirections: {},
+        TargetMode: [],
+        label: 'Introduction',
+        type: 'SEQUENCE',
+        pageBreak: false
+      },
+      i6vwid: {
+        id: 'i6vwid',
+        name: 'SIMPSONS',
+        parent: '',
+        weight: 0,
+        children: ['j6p0ti5h'],
+        declarations: {},
+        controls: {},
+        redirections: {},
+        TargetMode: ['CAWI'],
+        label: 'Questionnaire SIMPSONS',
+        type: 'QUESTIONNAIRE'
+      }
+    };
+    const output = {
+      j6p0np9q: {
+        id: 'j6p0np9q',
+        name: 'READY',
+        parent: 'j6p0ti5h',
+        weight: 1,
+        children: [],
+        declarations: {},
+        controls: {},
+        redirections: {},
+        TargetMode: [],
+        type: 'QUESTION',
+        label: 'Are you ready?',
+        responseFormat: {
+          type: 'SIMPLE',
+          SIMPLE: {
+            id: 'jbgd3set',
+            type: 'BOOLEAN',
+            mandatory: false,
+            BOOLEAN: {}
+          }
+        },
+        collectedVariables: ['jbcgm0ip'],
+        pageBreak: false
+      },
+      j6p0ti5h: {
+        id: 'j6p0ti5h',
+        name: 'MODULE1',
+        parent: 'i6vwid',
+        weight: 0,
+        children: ['j6p0np9q'],
+        declarations: {
+          d1: {
+            id: 'd1',
+            label:
+              "We're going to test your knowledge about the simpsons series.\n**Welcome in the simspons world!**",
+            declarationType: 'COMMENT',
+            position: 'AFTER_QUESTION_TEXT'
+          }
+        },
+        controls: {},
+        redirections: {},
+        TargetMode: [],
+        label: 'Introduction',
+        type: 'SEQUENCE',
+        pageBreak: false
+      },
+      i6vwid: {
+        id: 'i6vwid',
+        name: 'SIMPSONS',
+        parent: '',
+        weight: 0,
+        children: ['j6p0ti5h'],
+        declarations: {},
+        controls: {},
+        redirections: {},
+        TargetMode: ['CAWI'],
+        label: 'Questionnaire SIMPSONS',
+        type: 'QUESTIONNAIRE'
+      }
+    };
+    expect(removeControlsAndRedirections(input)).toEqual(output);
+  });
+});
 
 describe('setActiveQuestionnaire', () => {
   test('should return the right payload', () => {

@@ -344,6 +344,23 @@ function getPathFromComponent(componentId, componentsById) {
 }
 
 /**
+ * This method will reset Controls and redirections when we want to visualize a part of the questionnaire.
+ * @param {*} activeComponentsById the components list on which we need to reset all controls and redirections
+ */
+export const removeControlsAndRedirections = activeComponentsById => {
+  return Object.keys(activeComponentsById).reduce((acc, componentId) => {
+    return {
+      ...acc,
+      [componentId]: {
+        ...activeComponentsById[componentId],
+        redirections: {},
+        controls: {}
+      }
+    };
+  }, {});
+};
+
+/**
  * This method will call the corresponding REST endpoint based on the type of visualization we want.
  * Also, thanks to the componentId parameter, we can generate a part of the questionnaire
  * @param {*} type the type of visualization we want
@@ -353,7 +370,9 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
   return (dispatch, getState) => {
     const state = getState();
     const componentsById = componentId
-      ? getPathFromComponent(componentId, state.appState.activeComponentsById)
+      ? removeControlsAndRedirections(
+          getPathFromComponent(componentId, state.appState.activeComponentsById)
+        )
       : state.appState.activeComponentsById;
 
     const questionnaireModel = getQuestionnaireModel(state, componentsById);

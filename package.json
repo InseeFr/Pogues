@@ -117,7 +117,8 @@
     "build": "cross-env webpack --env.prod=true --env.environment=prod",
     "build:dev": "cross-env webpack --env.prod=true --env.environment=dev",
     "build:dv": "cross-env webpack --env.prod=true --env.environment=dv",
-    "build:preprod": "cross-env webpack --env.prod=true --env.environment=preprod",
+    "build:preprod":
+      "cross-env webpack --env.prod=true --env.environment=preprod",
     "build:qa": "cross-env webpack --env.prod=true --env.environment=qa",
     "build:qf": "cross-env webpack --env.prod=true --env.environment=qf",
     "build:travis": "cross-env webpack --env.prod=true --env.environment=dev",
@@ -127,8 +128,10 @@
     "e2e": "nightwatch --env local --config nightwatch.conf.js",
     "e2e:local-travis": "nightwatch --env fakee2e --config nightwatch.conf.js",
     "e2e:full-travis": "nightwatch --env fulle2e --config nightwatch.conf.js",
-    "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
-    "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\""
+    "jison":
+      "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
+    "format":
+      "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\""
   },
   "author": "INSEE (http://www.insee.fr)",
   "contributors": [
@@ -156,9 +159,8 @@
       "<rootDir>/jison/",
       "<rootDir>/_book/"
     ],
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{js,jsx}"
-    ]
+    "collectCoverageFrom": ["<rootDir>/src/**/*.{js,jsx}"],
+    "testURL": "http://localhost/"
   },
   "prettier": {
     "singleQuote": true

@@ -103,15 +103,15 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   // OnClick of an item
   handleSuggestionClick = suggestion => {
     const newCurrentValue = this.state.currentValue.replace(
-      RichTextareaWithSuggestions.InputRegex,
-      `$${suggestion}`
+      RichTextareaWithSuggestions.InputRegexFull,
+      `$${suggestion}$`
     );
 
     // Reinitialize the state with the new value
     this.setState({ ...initialize(), value: getEditorValue(newCurrentValue) });
 
     // Replaces the $XXXX pattern by the selected suggestion
-    this.props.input.onChange(newCurrentValue, `$${suggestion}`);
+    this.props.input.onChange(newCurrentValue, `$${suggestion}$`);
   };
 
   handleKeyCommand(command) {
