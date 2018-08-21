@@ -375,6 +375,11 @@ describe('collected variables utils: ', () => {
       });
     });
 
+    test('should return a new id', () => {
+      const result = getCollecteVariable('name', 'label', { x: 1, y: 2 }, {id: 1});
+      expect(result.id).not.toEqual(1);
+    });
+
     test('should return the collected variablem without coordinates', () => {
       const result = getCollecteVariable('name', 'label');
       expect(result).toEqual({

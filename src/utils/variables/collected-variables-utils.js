@@ -34,10 +34,10 @@ export function getCollecteVariable(
   reponseFormatValues = {}
 ) {
   let collectedVariable = {
+    ...reponseFormatValues,
     id: uuid(),
     name,
     label,
-    ...reponseFormatValues
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
