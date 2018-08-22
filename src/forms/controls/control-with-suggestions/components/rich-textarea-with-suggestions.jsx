@@ -148,9 +148,9 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             rootStyle={rootStyle}
             formatURL={formatURL}
             disabled={disabled}
-            // onTab={this.handleTab}
             onFocus={() => {
               this.handleInputFocus();
+              input.onFocus();
             }}
             ref={node => {
               this.input = node;

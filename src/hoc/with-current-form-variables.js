@@ -53,7 +53,7 @@ const withCurrentFormVariables = (
         ...activeCollectedVariables
       ])
     ];
-    return { availableSuggestions };
+    return { availableSuggestions, focusedInput: state.appState.focusedInput };
   };
   return connect(mapStateToProps(formName))(withCurrentFormVariablesComponent);
 };

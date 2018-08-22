@@ -67,7 +67,8 @@ class ControlWithSuggestions extends Component {
     return (
       nextProps.input.value !== this.props.input.value ||
       nextProps.meta.error !== this.props.meta.error ||
-      nextState.hoveredSuggestionIndex !== this.state.hoveredSuggestionIndex
+      nextState.hoveredSuggestionIndex !== this.state.hoveredSuggestionIndex ||
+      nextProps.focusedInput !== this.props.focusedInput
     );
   }
 
@@ -75,7 +76,7 @@ class ControlWithSuggestions extends Component {
     if (this.activeItem) this.activeItem.scrollIntoView(false);
   }
 
-  // OnChange of the input
+  // OnChange of the input 
   handleInputChange = value => {
     // Update state values
     this.setState(
@@ -137,12 +138,13 @@ class ControlWithSuggestions extends Component {
   };
 
   render() {
-    const { input, numSuggestionsShown } = this.props;
+    
+    const { input, numSuggestionsShown, focusedInput } = this.props;
     const { suggestions, hoveredSuggestionIndex } = this.state;
     const matches = input.value.match(InputRegex);
     const highlight = matches ? matches[1] : '';
-
-    return (
+    
+    return (focusedInput === input.name) &&  (
       <div className={COMPONENT_CLASS}>
         {suggestions.length > 0 && (
           <div className={LIST_CLASS}>
