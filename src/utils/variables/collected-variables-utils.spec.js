@@ -2,17 +2,62 @@ import {
   sortByYAndX,
   getCollecteVariable,
   getCollectedVariablesMultiple,
-  getCollectedVariablesTable
+  getCollectedVariablesTable,
+  generateCollectedVariables
 } from './collected-variables-utils';
 
 import {
   DIMENSION_TYPE,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DATATYPE_NAME
+  DATATYPE_NAME,
+  QUESTION_TYPE_ENUM
 } from 'constants/pogues-constants';
 const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;
-
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
+
+describe('generateCollectedVariables', () => {
+  it('SIMPLE response format', () => {
+    const responseFormat = SIMPLE;
+    const questionName = 'Question';
+    const form = {};
+    const codesListStore = {};
+    const output = generateCollectedVariables(
+      responseFormat,
+      questionName,
+      form,
+      codesListStore
+    );
+
+    expect(output[0].id).toBeDefined();
+    expect(output[0].label).toEqual(`${questionName} label`);
+    expect(output[0].name).toEqual(questionName);
+  });
+  it('SINGLE_CHOICE response format', () => {
+    const responseFormat = SINGLE_CHOICE;
+    const questionName = 'Question';
+    const form = { CodesList: { id: 'id', label: 'label' } };
+    const codesListStore = {};
+    const output = generateCollectedVariables(
+      responseFormat,
+      questionName,
+      form,
+      codesListStore
+    );
+
+    expect(output[0].id).toBeDefined();
+    const id = output[0].id;
+    expect(output[0]).toEqual({
+      codeListReference: 'id',
+      codeListReferenceLabel: 'label',
+      type: 'TEXT',
+      TEXT: { maxLength: 1, pattern: '' },
+      id,
+      name: 'Question',
+      label: 'Question label'
+    });
+  });
+});
 
 describe('getCollectedVariablesTable', () => {
   it('should return the collected variable when the type of the primary state is a code list', () => {
@@ -309,8 +354,15 @@ describe('getCollectedVariablesTable', () => {
       questionName,
       form,
       codesListStore
-    ).map(variable => variable.label);
-    expect(output).toEqual(['measure 1', 'measure 2']);
+    );
+
+    const outputLabels = output.map(variable => variable.label);
+    expect(outputLabels).toEqual(['measure 1', 'measure 2']);
+
+    const outputCoordinates = output.map(({ x, y }) => {
+      return { x, y };
+    });
+    expect(outputCoordinates).toEqual([{ x: 1, y: 1 }, { x: 1, y: 2 }]);
   });
 });
 
@@ -376,7 +428,12 @@ describe('collected variables utils: ', () => {
     });
 
     test('should return a new id', () => {
-      const result = getCollecteVariable('name', 'label', { x: 1, y: 2 }, {id: 1});
+      const result = getCollecteVariable(
+        'name',
+        'label',
+        { x: 1, y: 2 },
+        { id: 1 }
+      );
       expect(result.id).not.toEqual(1);
     });
 

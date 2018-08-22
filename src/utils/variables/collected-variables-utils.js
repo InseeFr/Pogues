@@ -257,7 +257,6 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     }
   } else {
     const { LIST: { numLinesMin, numLinesMax } } = primaryState;
-    const numLines = numLinesMax - numLinesMin + 1;
 
     // Third case
     for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
@@ -267,7 +266,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         getCollecteVariable(
           `${questionName}${j + 1}`,
           `${measure.label}`,
-          undefined,
+          { x: 1, y: j + 1 },
           getReponsesValues(measure)
         )
       );
