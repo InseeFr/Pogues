@@ -42,6 +42,7 @@ class InputWithSuggestions extends ControlWithSuggestion {
             onKeyDown={this.handleInputKeyDown}
             onFocus={() => {
               this.handleInputFocus();
+              input.onFocus();
             }}
             ref={node => {
               this.input = node;

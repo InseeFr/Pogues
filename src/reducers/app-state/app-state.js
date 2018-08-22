@@ -5,6 +5,8 @@ import collectedVariableByQuestion from 'reducers/app-state/collected-variable-b
 import activeExternalVariablesById from 'reducers/app-state/active-external-variables-by-id';
 import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
 import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
+import formUtilsReducers from 'reducers/app-state/form-utils';
+
 import {
   SET_ACTIVE_QUESTIONNAIRE,
   SET_SELECTED_COMPONENT,
@@ -29,7 +31,9 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
-const actionHandlers = {};
+const actionHandlers = {
+  ...formUtilsReducers
+};
 
 const defaultState = {
   user: {},
@@ -45,7 +49,9 @@ const defaultState = {
   editingComponentId: '',
   errorsByQuestionTab: {},
   isQuestionnaireModified: false,
-  componentIdForPageBreak: ''
+  componentIdForPageBreak: '',
+  focusedInput: ''
+
 };
 
 export function loadUserSuccess(state, user) {
@@ -162,6 +168,9 @@ export function setQuestionModifiedAndResetSelectedComponent(state) {
   };
 }
 
+
+
+
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
@@ -183,11 +192,12 @@ actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {
+  console.log(action)
   if (!action) return state;
-  const { type, payload } = action;
+  const { type, payload, meta} = action;
   const hndlr = actionHandlers[type];
   return {
-    ...(hndlr ? hndlr(state, payload) : state),
+    ...(hndlr ? hndlr(state, payload, meta) : state),
     activeComponentsById: activeComponentsById(
       state.activeComponentsById,
       action
