@@ -93,7 +93,7 @@ class ControlWithSuggestions extends Component {
 
     // Replaces the $XXXX pattern by the selected suggestion
     this.props.input.onChange(
-      this.input.value.replace(InputRegex, `$${suggestion}`)
+      this.input.value.replace(InputRegex, `$${suggestion}$`)
     );
   };
 

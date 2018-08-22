@@ -13,12 +13,8 @@ import { validateControlForm } from 'utils/validation/validate';
 import Dictionary from 'utils/dictionary/dictionary';
 
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
-import withXPathValidation from 'hoc/with-xpath-validation';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
-const TextAreaWithVariableAndXPathValidation = withXPathValidation(
-  TextareaWithVariableAutoCompletion
-);
 
 // Utils
 
@@ -63,7 +59,7 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
         />
         <Field
           name="condition"
-          component={TextAreaWithVariableAndXPathValidation}
+          component={TextareaWithVariableAutoCompletion}
           label={Dictionary.expression}
           required
         />
