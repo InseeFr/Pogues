@@ -51,7 +51,6 @@ const defaultState = {
   isQuestionnaireModified: false,
   componentIdForPageBreak: '',
   focusedInput: ''
-
 };
 
 export function loadUserSuccess(state, user) {
@@ -168,9 +167,6 @@ export function setQuestionModifiedAndResetSelectedComponent(state) {
   };
 }
 
-
-
-
 actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
@@ -192,9 +188,8 @@ actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {
-  console.log(action)
   if (!action) return state;
-  const { type, payload, meta} = action;
+  const { type, payload, meta } = action;
   const hndlr = actionHandlers[type];
   return {
     ...(hndlr ? hndlr(state, payload, meta) : state),

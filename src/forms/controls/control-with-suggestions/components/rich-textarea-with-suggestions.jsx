@@ -5,6 +5,10 @@ import { getDefaultKeyBinding } from 'draft-js';
 
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions, initialize } from './input-with-suggestions-utils';
+import {
+  getValueWithSuggestion,
+  getPattern
+} from 'forms/controls/control-with-suggestions/components/utils';
 
 import {
   getEditorValue,
@@ -78,15 +82,29 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     const editorState = value.getEditorState();
     const contentState = editorState.getCurrentContent();
     const transformedValue = contentStateToString(contentState);
-    this.setState({
-      ...updateSuggestions(
-        transformedValue,
-        RichTextareaWithSuggestions.InputRegex,
-        this.props.availableSuggestions
-      ),
+
+    const caretCursor = this.state.value
+      .getEditorState()
+      .getSelection()
+      .getStartOffset();
+
+    const filteredValue = getPattern(transformedValue, caretCursor, true);
+
+    let newState = {
       value,
-      currentValue: transformedValue
-    });
+      currentValue: filteredValue
+    };
+    if (caretCursor > 0) {
+      newState = {
+        ...newState,
+        ...updateSuggestions(
+          filteredValue,
+          RichTextareaWithSuggestions.InputRegex,
+          this.props.availableSuggestions
+        )
+      };
+    }
+    this.setState(newState);
     this.props.input.onChange(transformedValue);
   };
 
@@ -102,16 +120,22 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
 
   // OnClick of an item
   handleSuggestionClick = suggestion => {
-    const newCurrentValue = this.state.currentValue.replace(
-      RichTextareaWithSuggestions.InputRegex,
-      `$${suggestion}$`
+    const caretCursor = this.state.value
+      .getEditorState()
+      .getSelection()
+      .getStartOffset();
+    const fullText = this.state.value
+      .getEditorState()
+      .getCurrentContent()
+      .getPlainText();
+
+    const newCurrentValue = getValueWithSuggestion(
+      suggestion,
+      caretCursor,
+      fullText
     );
-
-    // Reinitialize the state with the new value
+    this.props.input.onChange(newCurrentValue);
     this.setState({ ...initialize(), value: getEditorValue(newCurrentValue) });
-
-    // Replaces the $XXXX pattern by the selected suggestion
-    this.props.input.onChange(newCurrentValue, `$${suggestion}$`);
   };
 
   handleKeyCommand(command) {
