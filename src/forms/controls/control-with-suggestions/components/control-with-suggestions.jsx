@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import ClassSet from 'react-classset';
+import {
+  getValueWithSuggestion,
+  getPattern
+} from 'forms/controls/control-with-suggestions/components/utils';
 
 import {
   updateSuggestions,
@@ -76,11 +80,14 @@ class ControlWithSuggestions extends Component {
     if (this.activeItem) this.activeItem.scrollIntoView(false);
   }
 
-  // OnChange of the input 
+  // OnChange of the input
   handleInputChange = value => {
-    // Update state values
     this.setState(
-      updateSuggestions(value, InputRegex, this.props.availableSuggestions)
+      updateSuggestions(
+        getPattern(value, this.input.selectionStart),
+        InputRegex,
+        this.props.availableSuggestions
+      )
     );
 
     // Execute default code afterwards
@@ -89,13 +96,14 @@ class ControlWithSuggestions extends Component {
 
   // OnClick of an item
   handleSuggestionClick = suggestion => {
-    // Reinitialize the state
-    this.setState(initialize());
-
-    // Replaces the $XXXX pattern by the selected suggestion
-    this.props.input.onChange(
-      this.input.value.replace(InputRegex, `$${suggestion}$`)
+    const newValue = getValueWithSuggestion(
+      suggestion,
+      this.input.selectionStart,
+      this.input.value
     );
+
+    this.props.input.onChange(newValue);
+    this.setState(initialize());
   };
 
   // OnKeyDown of the input
@@ -138,43 +146,45 @@ class ControlWithSuggestions extends Component {
   };
 
   render() {
-    
     const { input, numSuggestionsShown, focusedInput } = this.props;
     const { suggestions, hoveredSuggestionIndex } = this.state;
     const matches = input.value.match(InputRegex);
     const highlight = matches ? matches[1] : '';
-    
-    return (focusedInput === input.name) &&  (
-      <div className={COMPONENT_CLASS}>
-        {suggestions.length > 0 && (
-          <div className={LIST_CLASS}>
-            {suggestions.slice(0, numSuggestionsShown).map((
-              suggest,
-              index // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-            ) => (
-              <div
-                key={getKey(suggest)}
-                onClick={() => {
-                  this.handleSuggestionClick(suggest);
-                }}
-                role="button"
-                className={ClassSet({
-                  [ITEM_CLASS]: true,
-                  [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex
-                })}
-                title={suggest}
-                ref={node => {
-                  if (index === hoveredSuggestionIndex) this.activeItem = node;
-                }}
-              >
-                <HighLighter highlight={highlight} caseSensitive={false}>
-                  {suggest}
-                </HighLighter>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+
+    return (
+      focusedInput === input.name && (
+        <div className={COMPONENT_CLASS}>
+          {suggestions.length > 0 && (
+            <div className={LIST_CLASS}>
+              {suggestions.slice(0, numSuggestionsShown).map((
+                suggest,
+                index // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              ) => (
+                <div
+                  key={getKey(suggest)}
+                  onClick={() => {
+                    this.handleSuggestionClick(suggest);
+                  }}
+                  role="button"
+                  className={ClassSet({
+                    [ITEM_CLASS]: true,
+                    [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex
+                  })}
+                  title={suggest}
+                  ref={node => {
+                    if (index === hoveredSuggestionIndex)
+                      this.activeItem = node;
+                  }}
+                >
+                  <HighLighter highlight={highlight} caseSensitive={false}>
+                    {suggest}
+                  </HighLighter>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )
     );
   }
 }
