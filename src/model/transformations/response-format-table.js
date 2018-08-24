@@ -70,7 +70,7 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
     responseOffset = codes.length * responseOffsetSecondary;
   } else {
     const { LIST: { numLinesMin, numLinesMax } } = primaryState;
-    responseOffset = numLinesMax - numLinesMin + 1;
+    responseOffset = 0;
   }
   return responseOffset;
 }
