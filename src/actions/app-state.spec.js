@@ -15,7 +15,7 @@ import {
   UPDATE_ACTIVE_QUESTIONNAIRE,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
-} from './app-state';
+} from 'actions/app-state';
 
 describe('setActiveQuestionnaire', () => {
   test('should return the right payload', () => {
