@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import logo from './logo-insee.png';
+import logo from 'layout/header/logo-insee.png';
 import UserConnectionContainer from 'layout/user/user-connection';
 import Dictionary from 'utils/dictionary/dictionary';
 

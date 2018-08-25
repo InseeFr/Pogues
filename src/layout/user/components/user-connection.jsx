@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import defaultPicture from './user-picture-default.png';
+import defaultPicture from 'layout/user/components/user-picture-default.png';
 import isEmpty from 'lodash.isempty';
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -36,7 +36,6 @@ function UserConnection({ user }) {
             </a>
           </div>
         */}
-
         </div>
       ) : (
         <div className="user-login" />

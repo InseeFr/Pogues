@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
@@ -40,7 +40,12 @@ module.exports = function(env) {
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
-    //new ExtractTextPlugin('style-[contenthash:8].css'),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name]-[contenthash:8].css',
+      chunkFilename: '[id].css'
+    }),
     new HtmlWebpackPlugin({
       template: './index.ejs',
       inject: true,
@@ -63,22 +68,15 @@ module.exports = function(env) {
   ];
 
   const devEntryPoint = [
-    // activate HMR for React
     'react-hot-loader/patch',
-
-    // bundle the client for webpack-dev-server
-    // and connect to the provided endpoint
     `webpack-dev-server/client?http://${host}:${port}`,
-
-    // bundle the client for hot reloading
-    // only- means to only hot reload for successful updates
     'webpack/hot/only-dev-server',
-
-    // the entry point of our app
-    './index.js'
+    path.resolve(__dirname, './src/index.js')
   ];
 
-  const entryPoint = isProd ? './index.js' : devEntryPoint;
+  const entryPoint = isProd
+    ? path.resolve(__dirname, './src/index.js')
+    : devEntryPoint;
 
   if (isProd) {
     plugins.push(
@@ -112,41 +110,41 @@ module.exports = function(env) {
     );
   }
 
-  if (false && isProd) {
-    cssLoader = ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [
-        {
-          loader: 'css-loader',
-          options: {
-            module: true,
-            minimize: true,
-            localIdentName: '[hash:base64:5]'
-          }
+  if (isProd) {
+    cssLoader = [
+      {
+        loader: MiniCssExtractPlugin.loader
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          module: true,
+          minimize: true,
+          localIdentName: '[hash:base64:5]'
         }
-      ]
-    });
+      }
+    ];
 
-    scssLoader = ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [
-        {
-          loader: 'css-loader',
-          options: {
-            minimize: true,
-            localIdentName: '[hash:base64:5]'
-          }
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            outputStyle: 'collapsed',
-            sourceMap: true,
-            includePaths: [sourcePath]
-          }
+    scssLoader = [
+      {
+        loader: MiniCssExtractPlugin.loader
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          minimize: true,
+          localIdentName: '[hash:base64:5]'
         }
-      ]
-    });
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          outputStyle: 'collapsed',
+          sourceMap: true,
+          includePaths: [sourcePath]
+        }
+      }
+    ];
   } else {
     cssLoader = [
       {
@@ -184,34 +182,9 @@ module.exports = function(env) {
   return {
     devtool: isProd ? 'source-map' : 'cheap-module-source-map',
     context: sourcePath,
+    mode: nodeEnv,
     entry: {
-      main: entryPoint,
-      vendor: [
-        'gillespie59-react-rte',
-        'lodash.clonedeep',
-        'lodash.isempty',
-        'lodash.isequal',
-        'lodash.isobject',
-        'lodash.isstring',
-        'lodash.merge',
-        'lodash.sortby',
-        'lodash.uniq',
-        'lodash.find',
-        'lodash.takewhile',
-        'lodash.takeright',
-        'lodash.get',
-        'prop-types',
-        'react',
-        'react-dnd',
-        'react-dnd-html5-backend',
-        'react-dom',
-        'react-modal',
-        'react-redux',
-        'react-router',
-        'redux',
-        'redux-form',
-        'redux-thunk'
-      ]
+      main: entryPoint
     },
     output: {
       path: buildDirectory,
@@ -230,13 +203,10 @@ module.exports = function(env) {
       splitChunks: {
         cacheGroups: {
           vendors: {
-            test: /[\\/]node_modules[\\/]/,
-            priority: -10
-          },
-          default: {
-            minChunks: Infinity,
-            priority: -20,
-            reuseExistingChunk: true
+            test: /node_modules/,
+            chunks: 'initial',
+            name: 'vendor',
+            enforce: true
           }
         }
       }
@@ -249,7 +219,7 @@ module.exports = function(env) {
         '.js',
         '.jsx'
       ],
-      modules: [path.resolve(__dirname, 'node_modules'), sourcePath],
+      modules: ['node_modules', sourcePath],
       alias: {
         Config: path.resolve(__dirname, 'build-config/environments/config.prod')
       }
