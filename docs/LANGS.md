@@ -1,9 +1,8 @@
 # Developpors guides
 
-* [English](en/)
-* [French](fr/)
+- [English](en/)
+- [French](fr/)
 
 # Users guides
 
-* [English](user/en/)
-* [French](user/fr/)
+- [French](guide_utilisateur_fr)

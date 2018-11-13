@@ -1,0 +1,1186 @@
+
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redux Forms · Pogues</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../additional-information.html" />
+    
+    
+    <link rel="prev" href="../redux/reducers-split-combine.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Developer guide</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../getting-started.html">
+            
+                <a href="../../getting-started.html">
+            
+                    
+                    Getting started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    React and Redux introduction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../react/">
+            
+                <a href="../react/">
+            
+                    
+                    React
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../react/components.html">
+            
+                <a href="../react/components.html">
+            
+                    
+                    Components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../react/combining-components.html">
+            
+                <a href="../react/combining-components.html">
+            
+                    
+                    Combining components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../react/passing-props.html">
+            
+                <a href="../react/passing-props.html">
+            
+                    
+                    Passing props
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../react/events.html">
+            
+                <a href="../react/events.html">
+            
+                    
+                    Events
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="../react/component-state.html">
+            
+                <a href="../react/component-state.html">
+            
+                    
+                    Component state
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="../react/controlled-input.html">
+            
+                <a href="../react/controlled-input.html">
+            
+                    
+                    Controlled input
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.7" data-path="../react/stateless-vs-stateful.html">
+            
+                <a href="../react/stateless-vs-stateful.html">
+            
+                    
+                    Stateless vs stateful components
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../redux/">
+            
+                <a href="../redux/">
+            
+                    
+                    Redux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../redux/application-state.html">
+            
+                <a href="../redux/application-state.html">
+            
+                    
+                    Application state
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../redux/component-with-redux.html">
+            
+                <a href="../redux/component-with-redux.html">
+            
+                    
+                    A component with Redux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../redux/model-the-state.html">
+            
+                <a href="../redux/model-the-state.html">
+            
+                    
+                    Model the state
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="../redux/first-reducer.html">
+            
+                <a href="../redux/first-reducer.html">
+            
+                    
+                    Reducers and connect mechanism
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="../redux/process-actions.html">
+            
+                <a href="../redux/process-actions.html">
+            
+                    
+                    Process actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="../redux/dispatch-actions.html">
+            
+                <a href="../redux/dispatch-actions.html">
+            
+                    
+                    Dispatch actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="../redux/reducers-split-combine.html">
+            
+                <a href="../redux/reducers-split-combine.html">
+            
+                    
+                    Split and combine reducers
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Redux Forms
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../additional-information.html">
+            
+                <a href="../additional-information.html">
+            
+                    
+                    Additional information
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="../additional-information.html">
+            
+                <a href="../additional-information.html#proptypes">
+            
+                    
+                    Use PropTypes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.2" data-path="../additional-information.html">
+            
+                <a href="../additional-information.html#design-process">
+            
+                    
+                    Design process
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../remote-apis/">
+            
+                <a href="../../remote-apis/">
+            
+                    
+                    Remote APIs
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../remote-apis/implementation.html">
+            
+                <a href="../../remote-apis/implementation.html">
+            
+                    
+                    Implementation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../remote-apis/visualization.html">
+            
+                <a href="../../remote-apis/visualization.html">
+            
+                    
+                    Visualization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../remote-apis/persistence.html">
+            
+                <a href="../../remote-apis/persistence.html">
+            
+                    
+                    Persistence
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../remote-apis/repository.html">
+            
+                <a href="../../remote-apis/repository.html">
+            
+                    
+                    Repository
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../remote-apis/swagger.html">
+            
+                <a href="../../remote-apis/swagger.html">
+            
+                    
+                    Swagger documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../remote-apis/schema.html">
+            
+                <a href="../../remote-apis/schema.html">
+            
+                    
+                    XML Schema
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../remote-apis/questionnaire-json.html">
+            
+                <a href="../../remote-apis/questionnaire-json.html">
+            
+                    
+                    A questionnaire in JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../application/REAME.html">
+            
+                <a href="../../application/REAME.html">
+            
+                    
+                    Discover the app
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../application/bootstrap.html">
+            
+                <a href="../../application/bootstrap.html">
+            
+                    
+                    Bootstrap the application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../application/loading-questionnaire.html">
+            
+                <a href="../../application/loading-questionnaire.html">
+            
+                    
+                    How the data flows
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../application/build-process.html">
+            
+                <a href="../../application/build-process.html">
+            
+                    
+                    Build process
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../application/code-organization.html">
+            
+                <a href="../../application/code-organization.html">
+            
+                    
+                    Code organization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../application/style-guide.html">
+            
+                <a href="../../application/style-guide.html">
+            
+                    
+                    Style Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../../application/more-on-reducers.html">
+            
+                <a href="../../application/more-on-reducers.html">
+            
+                    
+                    More on reducers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../../application/internationalization.html">
+            
+                <a href="../../application/internationalization.html">
+            
+                    
+                    Internationalization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../../application/components.html">
+            
+                <a href="../../application/components.html">
+            
+                    
+                    Components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="../../application/stack.html">
+            
+                <a href="../../application/stack.html">
+            
+                    
+                    Stack
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../javascript/REAME.html">
+            
+                <a href="../../javascript/REAME.html">
+            
+                    
+                    JavaScript usage
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../javascript/syntax.html">
+            
+                <a href="../../javascript/syntax.html">
+            
+                    
+                    Syntax
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../javascript/debugging.html">
+            
+                <a href="../../javascript/debugging.html">
+            
+                    
+                    Debugging
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../../implementation-details/">
+            
+                <a href="../../implementation-details/">
+            
+                    
+                    Implementation details
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../implementation-details/labels.html">
+            
+                <a href="../../implementation-details/labels.html">
+            
+                    
+                    Labels
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../../implementation-details/questionnaire-structure.html">
+            
+                <a href="../../implementation-details/questionnaire-structure.html">
+            
+                    
+                    Questionnaire structure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../../implementation-details/page-breaks.html">
+            
+                <a href="../../implementation-details/page-breaks.html">
+            
+                    
+                    Page breaks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../../implementation-details/response-formats.html">
+            
+                <a href="../../implementation-details/response-formats.html">
+            
+                    
+                    Response format
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../../implementation-details/drag-n-drop.html">
+            
+                <a href="../../implementation-details/drag-n-drop.html">
+            
+                    
+                    Move component
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../../implementation-details/integrity-checks.html">
+            
+                <a href="../../implementation-details/integrity-checks.html">
+            
+                    
+                    Integrity checks
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Redux Forms</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redux-forms">Redux Forms</h1>
+<p>The library <a href="http://redux-form.com/7.0.3/" target="_blank">Redux Forms</a> give the possibility to manage the state of our forms thanks to <code>Redux</code>.</p>
+<p>The three main parts of the configuration of Redux Forms in our application are :</p>
+<ul>
+<li>the use of the <code>reduxForm</code> method, in order to detect automatically all interactions the user has with your form, and call the dedicated <code>Redux</code> actions.</li>
+<li>the use of <code>Field</code> or <code>FieldArray</code> components, in order to create the form. These components can be used with standard HTML inputs (<code>input</code>, <code>textarea</code>), but also with our own components. An interface has to be respected, and will be explained later in this documentation.</li>
+<li>the use of the reducer of the library, in order to manage the triggered actions. In our project, this configuration is defined in the <a href="https://github.com/InseeFr/Pogues/blob/zenika-dev/src/reducers/index.js" target="_blank">src/reducers/index.js</a> file.</li>
+</ul>
+<pre class="language-"><code>import { combineReducers } from &apos;redux&apos;;
+import { reducer as form } from &apos;redux-form&apos;;
+
+export default integrityChecker(
+  combineReducers({
+    form,
+  }),
+);
+</code></pre><h2 id="reduxform">reduxForm</h2>
+<p>In order to connect or form to the <code>Redux</code> <code>store</code>, we need to export the component returned by the <a href="http://redux-form.com/7.0.3/docs/api/ReduxForm.md/" target="_blank"><code>reduxForm</code></a> method. This will give to Redux Forms the possibility to detect all interactions the user has with your form, in order to update the <code>store</code>. You can have a look to the <a href="https://github.com/InseeFr/Pogues/blob/zenika-dev/src/questionnaire/components/component/component-new-edit.jsx" target="_blank">form used when creating a new formulaire</a></p>
+<pre class="language-"><code>export default reduxForm({
+  form: &apos;component&apos;,
+})(QuestionNewEdit);
+</code></pre><p>This method take one object, with only on mandatory parameter : the name of the form, that will be used for naming your data in the store.</p>
+<p>The data inserted in your form will be passed as a parameter to the method executed when the <code>submit</code> event of the form is triggered. For example, in the same form, here is the method managing the <code>submit</code> event (defined in the <a href="https://github.com/InseeFr/Pogues/blob/zenika-dev/src/questionnaire/containers/component/component-new.jsx" target="_blank">ComponentNewContainer</a> component)</p>
+<pre class="language-"><code>const submit = values =&gt; {
+    createComponent(values, parentId, weight, type).then(updateParentChildren).then(orderComponents).then(result =&gt; {
+        const { payload: { id } } = result;
+        setSelectedComponentId(id);
+        if (onSuccess) onSuccess(id);
+    });
+};
+</code></pre><p>Here are some actions managed by Redux Forms. For each actions, Redux Forms will udate the store, and rerender the component : <code>FOCUS</code>, <code>CHANGE</code>, <code>BLUR</code>, <code>SUBMIT</code>, ...</p>
+<h2 id="custom-components">Custom Components</h2>
+<p>It is necessary to use the <a href="http://redux-form.com/7.0.3/docs/api/Field.md/" target="_blank"><code>Field</code></a> component, in order to connect our form to the <code>store</code>.</p>
+<p>This component can be used with standard HTML input, but also with our own components, if you want to factorize your code. These components are defined in the <code>src/layout/forms/controls</code> folder. These components will give the possibility to standardize the stylesheets of our inputs, their labels or error messages.</p>
+<p>These components have to follow a specific interface in order to be used with Redux Forms.
+If you do not have to modify the inserted data, you just need to pass the <code>input</code> property, managed by the <code>Field</code> component, as a <code>props</code> to the HTML/React component. You can have a look the implementation of the <code>input.jsx</code> component.</p>
+<pre class="language-"><code class="lang-javascript"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;react&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> PropTypes <span class="token keyword">from</span> <span class="token string">&apos;prop-types&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> fieldInputPropTypes<span class="token punctuation">,</span> fieldMetaPropTypes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-form&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> getControlId <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;utils/widget-utils&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">CONTROL_INPUT</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;constants/dom-constants&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token constant">COMPONENT_CLASS</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token constant">CONTROL_INPUT</span><span class="token punctuation">;</span>
+
+<span class="token comment">// PropTypes and defaultProps</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> propTypes <span class="token operator">=</span> <span class="token punctuation">{</span>
+  input<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span><span class="token function">shape</span><span class="token punctuation">(</span>fieldInputPropTypes<span class="token punctuation">)</span><span class="token punctuation">.</span>isRequired<span class="token punctuation">,</span>
+  meta<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span><span class="token function">shape</span><span class="token punctuation">(</span>fieldMetaPropTypes<span class="token punctuation">)</span><span class="token punctuation">.</span>isRequired<span class="token punctuation">,</span>
+  type<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>string<span class="token punctuation">.</span>isRequired<span class="token punctuation">,</span>
+  label<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>string<span class="token punctuation">,</span>
+  placeholder<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>string<span class="token punctuation">,</span>
+  className<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>string<span class="token punctuation">,</span>
+  required<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>bool<span class="token punctuation">,</span>
+  disabled<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>bool<span class="token punctuation">,</span>
+  focusOnInit<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>bool<span class="token punctuation">,</span>
+  reference<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>func<span class="token punctuation">,</span>
+  onEnter<span class="token punctuation">:</span> PropTypes<span class="token punctuation">.</span>func
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> defaultProps <span class="token operator">=</span> <span class="token punctuation">{</span>
+  label<span class="token punctuation">:</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">,</span>
+  placeholder<span class="token punctuation">:</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">,</span>
+  className<span class="token punctuation">:</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">,</span>
+  required<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  disabled<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  focusOnInit<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  reference<span class="token punctuation">:</span> undefined<span class="token punctuation">,</span>
+  onEnter<span class="token punctuation">:</span> undefined
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Input</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+  <span class="token keyword">static</span> propTypes <span class="token operator">=</span> propTypes<span class="token punctuation">;</span>
+  <span class="token keyword">static</span> defaultProps <span class="token operator">=</span> defaultProps<span class="token punctuation">;</span>
+
+  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>focusOnInit<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>reference<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span><span class="token function">reference</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span>
+      className<span class="token punctuation">,</span>
+      type<span class="token punctuation">,</span>
+      label<span class="token punctuation">,</span>
+      placeholder<span class="token punctuation">,</span>
+      required<span class="token punctuation">,</span>
+      disabled<span class="token punctuation">,</span>
+      input<span class="token punctuation">,</span>
+      reference<span class="token punctuation">,</span>
+      focusOnInit<span class="token punctuation">,</span>
+      onEnter<span class="token punctuation">,</span>
+      meta<span class="token punctuation">:</span> <span class="token punctuation">{</span> touched<span class="token punctuation">,</span> error <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token operator">...</span>otherProps
+    <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> id <span class="token operator">=</span> <span class="token function">getControlId</span><span class="token punctuation">(</span><span class="token string">&apos;input&apos;</span><span class="token punctuation">,</span> input<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">COMPONENT_CLASS</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>className<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">}</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token punctuation">{</span>id<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+          <span class="token punctuation">{</span>label<span class="token punctuation">}</span>
+          <span class="token punctuation">{</span>required <span class="token operator">&amp;&amp;</span> <span class="token operator">&lt;</span>span className<span class="token operator">=</span><span class="token string">&quot;ctrl-required&quot;</span><span class="token operator">&gt;</span><span class="token operator">*</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span><span class="token punctuation">}</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">&gt;</span>
+
+        <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>input
+            <span class="token punctuation">{</span><span class="token operator">...</span>otherProps<span class="token punctuation">}</span>
+            <span class="token punctuation">{</span><span class="token operator">...</span>input<span class="token punctuation">}</span>
+            type<span class="token operator">=</span><span class="token punctuation">{</span>type<span class="token punctuation">}</span>
+            id<span class="token operator">=</span><span class="token punctuation">{</span>id<span class="token punctuation">}</span>
+            placeholder<span class="token operator">=</span><span class="token punctuation">{</span>placeholder <span class="token operator">!==</span> <span class="token string">&apos;&apos;</span> <span class="token operator">||</span> label<span class="token punctuation">}</span>
+            disabled<span class="token operator">=</span><span class="token punctuation">{</span>disabled<span class="token punctuation">}</span>
+            ref<span class="token operator">=</span><span class="token punctuation">{</span>node <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token keyword">this</span><span class="token punctuation">.</span>input <span class="token operator">=</span> node<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">}</span>
+            onKeyPress<span class="token operator">=</span><span class="token punctuation">{</span>event <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>charCode <span class="token operator">===</span> <span class="token number">13</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>onEnter<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span><span class="token function">onEnter</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token operator">/</span><span class="token operator">&gt;</span>
+
+          <span class="token punctuation">{</span>touched <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>error <span class="token operator">&amp;&amp;</span> <span class="token operator">&lt;</span>span className<span class="token operator">=</span><span class="token string">&quot;form-error&quot;</span><span class="token operator">&gt;</span><span class="token punctuation">{</span>error<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Input<span class="token punctuation">;</span>
+</code></pre>
+<p>If you need to modify the data, before the sync with the <code>store</code>, during the initialisation of your component, you can have access to the default value thanks to the property <code>props.input.value</code>, and when the user has inserted a data, you need to call manually the <code>props.input.onChange</code> method.</p>
+<p>In order to specify the component you want to use with the <code>Field</code> component, you need to specify the <code>component</code> parameter:</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Field</span>
+    <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>name<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">component</span><span class="token attr-value"><span class="token punctuation">=</span>{Input}</span>
+    <span class="token attr-name">required</span>
+    <span class="token punctuation">/&gt;</span></span>
+</code></pre>
+<p>Thanks to the <code>meta</code> property, you have access to the metadatas managed by Redux Forms, for example is my input valid or not,... These properties are automatically updated when actions defined previously (<code>FOCUS</code>, ...) are triggered by the library.</p>
+<h2 id="data-validation">Data Validation</h2>
+<p>You can validate your data with two different syntaxes.</p>
+<ul>
+<li>By defining a validation function as a parameter to the <code>reduxForm</code> method. This function will take as a parameter the datas of your form, and will need to return an object with the different errors.</li>
+</ul>
+<p>Here is an example of validating a form with this syntax :</p>
+<pre class="language-"><code>import React from &apos;react&apos;
+import { Field, reduxForm } from &apos;redux-form&apos;
+
+const validate = values =&gt; {
+  const errors = {}
+  if (!values.username) {
+    errors.username = &apos;Required&apos;
+  } else if (values.username.length &gt; 15) {
+    errors.username = &apos;Must be 15 characters or less&apos;
+  }
+  if (!values.email) {
+    errors.email = &apos;Required&apos;
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = &apos;Invalid email address&apos;
+  }
+  if (!values.age) {
+    errors.age = &apos;Required&apos;
+  } else if (isNaN(Number(values.age))) {
+    errors.age = &apos;Must be a number&apos;
+  } else if (Number(values.age) &lt; 18) {
+    errors.age = &apos;Sorry, you must be at least 18 years old&apos;
+  }
+  return errors
+}
+
+const warn = values =&gt; {
+  const warnings = {}
+  if (values.age &lt; 19) {
+    warnings.age = &apos;Hmm, you seem a bit young...&apos;
+  }
+  return warnings
+}
+
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error, warning }
+}) =&gt;
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span><span class="token punctuation">&gt;</span></span>
+      {label}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">{...input}</span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span>{label}</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span>{type}</span> <span class="token punctuation">/&gt;</span></span>
+      {touched &amp;&amp;
+        ((error &amp;&amp;
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">&gt;</span></span>
+            {error}
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>) ||
+          (warning &amp;&amp;
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">&gt;</span></span>
+              {warning}
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>))}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+const SyncValidationForm = props =&gt; {
+  const { handleSubmit, pristine, reset, submitting } = props
+  return (
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">onSubmit</span><span class="token attr-value"><span class="token punctuation">=</span>{handleSubmit}</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Field</span>
+        <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>username<span class="token punctuation">&quot;</span></span>
+        <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span>
+        <span class="token attr-name">component</span><span class="token attr-value"><span class="token punctuation">=</span>{renderField}</span>
+        <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Username<span class="token punctuation">&quot;</span></span>
+      <span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>email<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>email<span class="token punctuation">&quot;</span></span> <span class="token attr-name">component</span><span class="token attr-value"><span class="token punctuation">=</span>{renderField}</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Email<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Field</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>age<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>number<span class="token punctuation">&quot;</span></span> <span class="token attr-name">component</span><span class="token attr-value"><span class="token punctuation">=</span>{renderField}</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Age<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>submit<span class="token punctuation">&quot;</span></span> <span class="token attr-name">disabled</span><span class="token attr-value"><span class="token punctuation">=</span>{submitting}</span><span class="token punctuation">&gt;</span></span>
+          Submit
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">disabled</span><span class="token attr-value"><span class="token punctuation">=</span>{pristine</span> <span class="token attr-name">||</span> <span class="token attr-name">submitting}</span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span>{reset}</span><span class="token punctuation">&gt;</span></span>
+          Clear Values
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+  )
+}
+
+export default reduxForm({
+  form: &apos;syncValidation&apos;,
+  validate,
+})(SyncValidationForm)
+</code></pre><ul>
+<li>For the second syntax, we can define an array of validation functions for each input of our form. Redux Form do not provide validators, you need to implement these methods manually. In our application, these fonctions are defined in the <a href="https://github.com/InseeFr/Pogues/blob/zenika-dev/src/layout/forms/validation-rules.js" target="_blank">validation-rules.js</a> file.</li>
+</ul>
+<p>You will find an example of this syntax in the <a href="https://github.com/InseeFr/Pogues/blob/zenika-dev/src/home/components/questionnaire-new-edit.jsx" target="_blank">questionnaire-new-edit</a> component.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../redux/reducers-split-combine.html" class="navigation navigation-prev " aria-label="Previous page: Split and combine reducers">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../additional-information.html" class="navigation navigation-next " aria-label="Next page: Additional information">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redux Forms","level":"1.3.3","depth":2,"next":{"title":"Additional information","level":"1.3.4","depth":2,"path":"react-redux/additional-information.md","ref":"react-redux/additional-information.md","articles":[{"title":"Use PropTypes","level":"1.3.4.1","depth":3,"anchor":"#proptypes","path":"react-redux/additional-information.md","ref":"react-redux/additional-information.md#proptypes","articles":[]},{"title":"Design process","level":"1.3.4.2","depth":3,"anchor":"#design-process","path":"react-redux/additional-information.md","ref":"react-redux/additional-information.md#design-process","articles":[]}]},"previous":{"title":"Split and combine reducers","level":"1.3.2.7","depth":3,"path":"react-redux/redux/reducers-split-combine.md","ref":"react-redux/redux/reducers-split-combine.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"react-redux/index.html#fig1.3.1","level":"1.3","list_caption":"Figure: Code list edition","alt":"Code list edition","nro":1,"url":"../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list edition","attributes":{},"title":"Code list edition","skip":false,"key":"1.3.1"},{"backlink":"react-redux/react/components.html#fig1.3.1.1.1","level":"1.3.1.1","list_caption":"Figure: CodeEditor component","alt":"CodeEditor component","nro":2,"url":"../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"CodeEditor component","attributes":{},"title":"CodeEditor component","skip":false,"key":"1.3.1.1.1"},{"backlink":"react-redux/redux/application-state.html#fig1.3.2.1.1","level":"1.3.2.1","list_caption":"Figure: Code list editors should be kept in sync","alt":"Code list editors should be kept in sync","nro":3,"url":"/img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list editors should be kept in sync","attributes":{},"title":"Code list editors should be kept in sync","skip":false,"key":"1.3.2.1.1"},{"backlink":"react-redux/redux/application-state.html#fig1.3.2.1.2","level":"1.3.2.1","list_caption":"Figure: Keep in sync multiple components","alt":"Keep in sync multiple components","nro":4,"url":"/img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Keep in sync multiple components","attributes":{},"title":"Keep in sync multiple components","skip":false,"key":"1.3.2.1.2"},{"backlink":"react-redux/redux/application-state.html#fig1.3.2.1.3","level":"1.3.2.1","list_caption":"Figure: Flux data flow","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"/img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux data flow","attributes":{},"title":"Flux data flow","skip":false,"key":"1.3.2.1.3"},{"backlink":"application/loading-questionnaire.html#fig1.5.2.1","level":"1.5.2","list_caption":"Figure: A user selects a questionnaire","alt":"A user selects a questionnaire","nro":6,"url":"/img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"A user selects a questionnaire","attributes":{},"title":"A user selects a questionnaire","skip":false,"key":"1.5.2.1"},{"backlink":"application/loading-questionnaire.html#fig1.5.2.2","level":"1.5.2","list_caption":"Figure: The questionnaire is shown","alt":"The questionnaire is shown","nro":7,"url":"/img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"The questionnaire is shown","attributes":{},"title":"The questionnaire is shown","skip":false,"key":"1.5.2.2"},{"backlink":"javascript/debugging.html#fig1.6.2.1","level":"1.6.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"/img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.6.2.1"},{"backlink":"javascript/debugging.html#fig1.6.2.2","level":"1.6.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"/img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.6.2.2"},{"backlink":"javascript/debugging.html#fig1.6.2.3","level":"1.6.2","list_caption":"Figure: Pause on exceptions","alt":"Pause on exceptions","nro":10,"url":"/img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Pause on exceptions","attributes":{},"title":"Pause on exceptions","skip":false,"key":"1.6.2.3"}]},"title":"Pogues","language":"en","gitbook":"*"},"file":{"path":"react-redux/redux-forms/index.md","mtime":"2018-09-28T07:12:06.701Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-11-13T13:43:48.064Z"},"basePath":"../..","book":{"language":"en"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../../gitbook/gitbook.js"></script>
+    <script src="../../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
