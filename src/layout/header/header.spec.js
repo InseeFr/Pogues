@@ -15,9 +15,8 @@ describe('<Header />', () => {
     expect(wrapper.find('Link[to="/"]').length).toBe(1);
   });
 
-  // @TODO: wireframe needed (Maybe it's a new page, maybe a pop-up)
   test('should render a link to the help page', () => {
-    expect(wrapper.find('Link[to="/help"]').length).toBe(1);
+    expect(wrapper.closest('a').length).toBe(1);
   });
 
   test('should render a <UserConnection /> component', () => {
