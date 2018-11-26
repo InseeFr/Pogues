@@ -3,6 +3,87 @@ import * as Response from './response';
 import collectedVariable from '../../widgets/component-new-edit/model/collected-variable';
 
 describe('remoteToState', () => {
+  it('should use an offset equal to 1', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'joy1vnzz',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 255,
+            Pattern: ''
+          },
+          CollectedVariableReference: 'joxzq5qe'
+        },
+        {
+          id: 'joy1ujjc',
+          Datatype: {
+            typeName: 'NUMERIC',
+            type: 'NumericDatatypeType',
+            Minimum: '0',
+            Maximum: '10',
+            Decimals: ''
+          },
+          CollectedVariableReference: 'joxzsdwi'
+        }
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: '1-10'
+        },
+        {
+          dimensionType: 'MEASURE',
+          dynamic: '0',
+          Label: 'mes1'
+        },
+        {
+          dimensionType: 'MEASURE',
+          dynamic: '0',
+          Label: 'mes2'
+        }
+      ]
+    };
+
+    const codesListsStore = {};
+
+    const output = {
+      PRIMARY: {
+        type: 'LIST',
+        LIST: {
+          numLinesMin: 1,
+          numLinesMax: 10
+        }
+      },
+      LIST_MEASURE: [
+        {
+          label: 'mes1',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'TEXT',
+            TEXT: {
+              maxLength: 255,
+              pattern: ''
+            }
+          }
+        },
+        {
+          label: 'mes2',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'NUMERIC',
+            NUMERIC: {
+              minimum: '0',
+              maximum: '10',
+              decimals: ''
+            }
+          }
+        }
+      ]
+    };
+    expect(remoteToState(remote, codesListsStore)).toEqual(output);
+  });
   it('with hierarchical codes', () => {
     const remote = {
       responses: [

@@ -68,9 +68,6 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
     ).map(key => activeCodeLists[codesListIdPrimary].codes[key]);
     const codes = listCodes.filter(code => !hasChild(code, listCodes));
     responseOffset = codes.length * responseOffsetSecondary;
-  } else {
-    const { LIST: { numLinesMin, numLinesMax } } = primaryState;
-    responseOffset = 0;
   }
   return responseOffset;
 }
