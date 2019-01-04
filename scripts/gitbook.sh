@@ -6,7 +6,7 @@ DOC_FOLDER="docs"
 USER_FOLDER="user_docs"
 SITE_FOLDER="site"
 
-MAIN_BRANCH="zenika-dev"
+MAIN_BRANCH="master"
 UPSTREAM="https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG.git"
 MESSAGE="Rebuild doc for revision $TRAVIS_COMMIT: $TRAVIS_COMMIT_MESSAGE"
 AUTHOR="$USER <>"
