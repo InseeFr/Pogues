@@ -21,11 +21,11 @@ function Header() {
           <h6>{Dictionary.headerSubtitle}</h6>
         </div>
         <div className="header-help">
-          <Link to="/help">
+          <a target="_blank" href="http://inseefr.github.io/Pogues/user/">
             <span className="glyphicon glyphicon-question-sign" />
             <br />
             {Dictionary.HELP}
-          </Link>
+          </a>
         </div>
         <div className="header-user">
           <UserConnectionContainer />

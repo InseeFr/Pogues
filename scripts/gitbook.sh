@@ -3,6 +3,9 @@
 set -e
 
 DOC_FOLDER="docs"
+USER_FOLDER="user_docs"
+SITE_FOLDER="site"
+
 MAIN_BRANCH="zenika-dev"
 UPSTREAM="https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG.git"
 MESSAGE="Rebuild doc for revision $TRAVIS_COMMIT: $TRAVIS_COMMIT_MESSAGE"
@@ -22,15 +25,32 @@ function setup() {
   npm install -g gitbook-cli
 }
 
-function build() {
+function buildDevDocs() {
   pushd "$DOC_FOLDER"
   gitbook install
   gitbook build
   popd
 }
 
+function buildUserDocs() {
+  pushd "$USER_FOLDER"
+  gitbook install
+  gitbook build
+  popd
+}
+
+function merge() {
+  rm -Rf "$SITE_FOLDER"
+  mkdir "$SITE_FOLDER"
+  mkdir "$SITE_FOLDER"/user
+  pushd "$SITE_FOLDER"
+  cp -a ../"$DOC_FOLDER"/_book/. .
+  cp -R ../"$USER_FOLDER"/_book/. ./user/
+  popd
+}
+
 function publish() {
-  pushd "$DOC_FOLDER"/_book
+  pushd "$SITE_FOLDER"
   git init
   git remote add upstream "$UPSTREAM"
   git fetch --prune upstream
@@ -43,7 +63,7 @@ function publish() {
 }
 
 function main() {
-  setup && build && publish
+  setup && buildDevDocs && buildUserDocs && merge && publish
 }
 
 main
