@@ -15,7 +15,7 @@ Questionnaire design tool for metadata-driven collection
 ---
 # Pogues, functional architecture
 
-![](../images_guide/archi-fonctionnelle.png)
+![](../images_guide/en/archi-fonctionnelle.png)
 
 ---
 
@@ -36,11 +36,11 @@ In order to avoid embedding special characters that could sometimes compromise t
 # Creation of a new questionnaire
 
 Click on the button "New Questionnaire"
-![](../images_guide/ecran1.png)
+![](../images_guide/en/ecran1.png)
 
 ---
 
-![](../images_guide/ecran2.png)
+![](../images_guide/en/ecran2.png)
 
 
 Select for your questionnaire :
@@ -66,7 +66,7 @@ Fill in :
 
 # Input of the questionnaire metadata
 
-![](../images_guide/ecran3.png)
+![](../images_guide/en/ecran3.png)
 
 To start, an error message warns you your questionnaire must contain at least one sequence and one question.
 
@@ -81,7 +81,7 @@ A sequence is a part or a module of a questionnaire. It corresponds to a dedicat
 # Creation of a sequence (2)
 Click on the +Sequence button at the bottom of the Pogues page
 
-![](../images_guide/ecran5.png)
+![](../images_guide/en/ecran5.png)
 
 ---
 
@@ -104,7 +104,7 @@ A sub-sequence is a part of a sequence, therefore a sub-module of a questionnair
 
 - Click on the +Sub-Sequence button at the bottom of the Pogues page
 
-![](../images_guide/ecran6.png)
+![](../images_guide/en/ecran6.png)
 
 ---
 
@@ -121,7 +121,7 @@ Fill in :
 
 # Web display example of a sequence, sub-sequence, question
 
-![](../images_guide/ecran7.png)
+![](../images_guide/en/ecran7.png)
 
 ---
 
@@ -129,7 +129,7 @@ Fill in :
 
 Click on the button +Question
 
-![](../images_guide/ecran8.png)
+![](../images_guide/en/ecran8.png)
 
 ---
 
@@ -147,7 +147,7 @@ Click on the button +Question
 
 Examples :
 
-![](../images_guide/rs1.png)
+![](../images_guide/en/rs1.png)
 
 ---
 
@@ -174,7 +174,7 @@ For a simple response question, fill in : (2)
 
 Examples :
 
-![](../images_guide/rcu.png)
+![](../images_guide/en/rcu.png)
 
 ---
 
@@ -202,7 +202,7 @@ For a single choice response question, fill in : (2)
 
 Examples :
 
-![](../images_guide/rcm.png)
+![](../images_guide/en/rcm.png)
 
 ---
 
@@ -237,19 +237,19 @@ For a multiple choice response question, fill in : (2)
 
 Exemple 1 :
 
-![](../images_guide/tableau1.png)
+![](../images_guide/en/tableau1.png)
 
 ---
 
 Exemple 2 :
 
-![](../images_guide/tableau2.png)
+![](../images_guide/en/tableau2.png)
 
 ---
 
 Exemple 3 :
 
-![](../images_guide/tableau3.png)
+![](../images_guide/en/tableau3.png)
 
 ---
 For a table (with line headers in first column), fill in:
@@ -282,7 +282,7 @@ For a table (without line headers in first column), fill in:
 # For every created question, you need to generate collected variables
 
 go to "collected variables" tab to generate them
-![](../images_guide/ecran9.png)
+![](../images_guide/en/ecran9.png)
  		
 ---
 - click on the button "Generate collected variables" and modify label proposed by default by pogues with a significant label (think about your successors) and, if necessary, modify id
@@ -295,7 +295,7 @@ go to "collected variables" tab to generate them
 ---
 
 # How to manage a Code list (1)
-![](../images_guide/liste_codes.png)
+![](../images_guide/en/liste_codes.png)
 
 ---
 # How to manage a Code list (2)
@@ -310,7 +310,7 @@ You can do the following actions
 
 In the "Statements", fill in : 
 - a label
-![](../images_guide/ecran10.png)
+![](../images_guide/en/ecran10.png)
 
 ---
 
@@ -337,7 +337,7 @@ NB : you can also delete or duplicate a statement
 # Creation of a tooltip (1)
 Within a label, select the text corresponding to the tooltip and click on the button (surrounded in red in the screenshot below)
 
-![](../images_guide/ecran11.png)
+![](../images_guide/en/ecran11.png)
 
 ---
 
@@ -345,7 +345,7 @@ Within a label, select the text corresponding to the tooltip and click on the bu
 
 Fill in the text you want to display in the tooltip and validate by clicking on the button surrounded in red in the screenshot below or click on the cross to delete and don't forget to Validate at the end 
 
-![](../images_guide/ecran12.png)
+![](../images_guide/en/ecran12.png)
 
 ---
 
@@ -353,7 +353,7 @@ Fill in the text you want to display in the tooltip and validate by clicking on 
 Select the text corresponding to the tooltip and click on the button sourrounded in red in the screenshot attached and don't forget to Validate at the end 
 NB : impossible to modify a tooltip but you can delete it and recreate (and then modify) it 
 
-![](../images_guide/ecran13.png)
+![](../images_guide/en/ecran13.png)
 
 ---
 
@@ -371,7 +371,7 @@ On the web visualization side of the questionnaire (Eno application), a control 
 
 You can create a control in the "Controls" tab of the question on which you want to apply the control
 
-![](../images_guide/ecran14.png)
+![](../images_guide/en/ecran14.png)
 
 ---
 
@@ -439,7 +439,7 @@ NB : you can also delete or duplicate a control
 In the "Goto" tab of the question on which you want to apply a filter, fill in :
 - Goto description : this text will be displayed on the pdf paper questionnaire
 
-![](../images_guide/ecran15.png)
+![](../images_guide/en/ecran15.png)
 
 ---
 
@@ -470,7 +470,7 @@ An external variable refers to a variable that is not collected in the questionn
 
 # Creation of an external variable (2)
 
-![](../images_guide/ecran16.png)
+![](../images_guide/en/ecran16.png)
 
 ---
 
@@ -478,7 +478,7 @@ An external variable refers to a variable that is not collected in the questionn
 
 It may be necessary to calculate variables from other variables in the questionnaire for some controls in particular.
 A calculated variable is defined via the "Calculated Variables" tab of any question in the questionnaire.
-![](../images_guide/ecran17.png)
+![](../images_guide/en/ecran17.png)
 
 ---
 
@@ -512,7 +512,7 @@ number(if (\$REN7\$='') then '0' else \$REN7\$)
 
 You can put some words in bold or italic with the buttons surrounded in red in the screenshot below
 
-![](../images_guide/ecran18.png)
+![](../images_guide/en/ecran18.png)
 
 ---
 
@@ -520,7 +520,7 @@ You can put some words in bold or italic with the buttons surrounded in red in t
 On each created element of the sequence/sub-sequence or question type questionnaire, there are the "Show the detail", "Visualise" (Web,PDF,Specification or DDI) and "Delete" buttons.
 On a question, there is also the "Duplicate" button.
 
-![](../images_guide/ecran19.png)
+![](../images_guide/en/ecran19.png)
 
 
 ---
@@ -540,7 +540,7 @@ Be careful with the elements moved in case of redirection, the target of a quest
 
 ---
 
-![](../images_guide/ecran20.png)
+![](../images_guide/en/ecran20.png)
 
 
 ---
@@ -551,7 +551,7 @@ It is possible to save or view (Web,PDF,Specification or DDI) the questionnaire 
 The "Publish" button will soon be available, it means to publish/register the questionnaire within the RMéS repository. 
 The "Page break" button is currently not working.
 
-![](../images_guide/ecran21.png)
+![](../images_guide/en/ecran21.png)
 
 ---
 
@@ -559,7 +559,7 @@ The "Page break" button is currently not working.
 
 It is possible to "show the detail" of a questionnaire (you can see and perhaps modify informations filled in when creating a questionnaire) or to "delete" it with the dedicated buttons at the top of the page.
 
-![](../images_guide/ecran22.png)
+![](../images_guide/en/ecran22.png)
 
 ---
 

@@ -15,7 +15,7 @@ Outil de conception de questionnaires pour la collecte pilotée par la métadonn
 ---
 # Pogues, l'architecture fonctionnelle
 
-![](../images_guide/archi-fonctionnelle.png)
+![](../images_guide/fr/archi-fonctionnelle.png)
 
 ---
 
@@ -37,11 +37,11 @@ Afin d'éviter d'embarquer des caractères spéciaux qui pourraient compromettre
 # Création d'un nouveau questionnaire
 
 Cliquer sur le bouton "Nouveau questionnaire"
-![](../images_guide/ecran1.png)
+![](../images_guide/fr/ecran1.png)
 
 ---
 
-![](../images_guide/ecran2.png)
+![](../images_guide/fr/ecran2.png)
 
 
 Renseigner :
@@ -67,8 +67,8 @@ Renseigner (suite) :
 
 # Saisie des méta-données du questionnaire
 
-![](../images_guide/ecran3.png)
-![](../images_guide/ecran4.png)
+![](../images_guide/fr/ecran3.png)
+![](../images_guide/fr/ecran4.png)
 
 Au départ, un message d'erreur indique que le questionnaire doit comporter au moins une séquence et une question !
 
@@ -83,7 +83,7 @@ Une séquence est une partie ou module de questionnaire. Elle correspond à un s
 # Création d'une séquence (suite)
 Cliquer sur le bouton +Séquence en bas de l'interface Pogues
 
-![](../images_guide/ecran5.png)
+![](../images_guide/fr/ecran5.png)
 
 ---
 
@@ -105,7 +105,7 @@ Une sous-séquence est une partie d'une séquence, soit un sous-module du questi
 
 - Cliquer sur le bouton +Sous-Séquence en bas de l'interface Pogues
 
-![](../images_guide/ecran6.png)
+![](../images_guide/fr/ecran6.png)
 
 ---
 
@@ -122,7 +122,7 @@ Renseigner :
 
 # Exemple d'affichage web d'une séquence, sous-séquence, question
 
-![](../images_guide/ecran7.png)
+![](../images_guide/fr/ecran7.png)
 
 ---
 
@@ -130,7 +130,7 @@ Renseigner :
 
 Cliquer sur le bouton +Question
 
-![](../images_guide/ecran8.png)
+![](../images_guide/fr/ecran8.png)
 
 ---
 
@@ -148,7 +148,7 @@ Renseigner
 
 Exemples :
 
-![](../images_guide/rs1.png)
+![](../images_guide/fr/rs1.png)
 
 ---
 
@@ -158,7 +158,7 @@ Si j'ai créé une question de type Réponse simple, renseigner :
 	- Texte, Date, Nombre, Booléen
 - si type de réponse=Texte, renseigner la taille maximale de la réponse en nombre de caractères, le motif (non fonctionnel pour l'instant, il permettra de spécifier des expressions régulières comme un Siret, un mèl etc.)
 - si type de réponse=Date, on ne renseigne rien d'autre pour l'instant et on se retrouve avec une réponse au format JJ/MM/AAAA et une aide à la saisie de type calendrier cliquable
-![](../images_guide/date.png)   
+![](../images_guide/fr/date.png)   
 		
 ---
 
@@ -175,7 +175,7 @@ Si j'ai créé une question de type Réponse simple, renseigner (suite) :
 
 Exemples :
 
-![](../images_guide/rcu.png)
+![](../images_guide/fr/rcu.png)
 
 ---
 
@@ -202,7 +202,7 @@ Si la question est de type Réponse à choix unique, renseigner (suite) :
 
 Exemples :
 
-![](../images_guide/rcm.png)
+![](../images_guide/fr/rcm.png)
 
 ---
 
@@ -237,19 +237,19 @@ Si j'ai créé une question de type Réponse à choix multiples (suite), renseig
 
 Exemple 1 :
 
-![](../images_guide/tableau1.png)
+![](../images_guide/fr/tableau1.png)
 
 ---
 
 Exemple 2 :
 
-![](../images_guide/tableau2.png)
+![](../images_guide/fr/tableau2.png)
 
 ---
 
 Exemple 3 :
 
-![](../images_guide/tableau3.png)
+![](../images_guide/fr/tableau3.png)
 
 ---
 Si je veux créer une question de type Tableau (avec en-tête de lignes en première colonne), renseigner :
@@ -282,7 +282,7 @@ Si je veux créer une question de type Tableau (sans en-tête de lignes en premi
 # Pour toute question créée, il faut générer les variables collectées
 
 aller dans l'onglet "Variables collectées" pour les générer
-![](../images_guide/ecran9.png)
+![](../images_guide/fr/ecran9.png)
  		
 ---
 
@@ -295,7 +295,7 @@ aller dans l'onglet "Variables collectées" pour les générer
 ---
 
 # Gestion d'une liste de codes
-![](../images_guide/liste_codes.png)
+![](../images_guide/fr/liste_codes.png)
 
 ---
 # Gestion d'une liste de codes (suite)
@@ -310,7 +310,7 @@ Il est actuellement possible via les boutons à droite des modalités de :
 
 Dans l'onglet "Déclarations", renseigner : 
 - le libellé de la déclaration
-![](../images_guide/ecran10.png)
+![](../images_guide/fr/ecran10.png)
 
 ---
 # Création d'une déclaration (suite)
@@ -336,7 +336,7 @@ NB : il est également possible de supprimer ou dupliquer une déclaration
 # Création d'une info-bulle
 Au sein d'un libellé, sélectionner le texte sur lequel doit porter l'info-bulle et cliquer sur le bouton  entouré en rouge sur la copie d'écran jointe
 
-![](../images_guide/ecran11.png)
+![](../images_guide/fr/ecran11.png)
 
 ---
 
@@ -344,7 +344,7 @@ Au sein d'un libellé, sélectionner le texte sur lequel doit porter l'info-bull
 Saisir le texte à afficher en info-bulle et valider en cliquant sur le bouton en rouge sur la copie d'écran jointe ou cliquer sur la croix pour supprimer puis bien valider in fine
 
 
-![](../images_guide/ecran12.png)
+![](../images_guide/fr/ecran12.png)
 
 ---
 
@@ -352,7 +352,7 @@ Saisir le texte à afficher en info-bulle et valider en cliquant sur le bouton e
 Sélectionner le texte sur lequel porte l'info-bulle et cliquer sur le bouton en rouge sur la copie d'écran jointe puis bien valider in fine
 NB : on ne peut pas modifier une info-bulle mais on peut la supprimer et la récréer en la modifiant.
 
-![](../images_guide/ecran13.png)
+![](../images_guide/fr/ecran13.png)
 
 ---
 
@@ -370,7 +370,7 @@ Côté visualisation web du questionnaire (application Eno), un contrôle se dé
 
 Dans l'onglet "Contrôles" de la séquence, sous-séquence ou question du questionnaire à partir de laquelle on veut appliquer le contrôle
 
-![](../images_guide/ecran14.png)
+![](../images_guide/fr/ecran14.png)
 
 ---
 
@@ -439,7 +439,7 @@ NB : il est également possible de supprimer ou dupliquer un contrôle
 Dans l'onglet "Redirections" de la question sur laquelle appliquer le filtre, renseigner :
 - Description de la redirection : ce texte s'affichera sur le questionnaire pdf papier
 
-![](../images_guide/ecran15.png)
+![](../images_guide/fr/ecran15.png)
 
 ---
 
@@ -470,7 +470,7 @@ Une variable externe désigne une variable non collectée dans le questionnaire 
 
 # Création d'une variable externe (suite)
 
-![](../images_guide/ecran16.png)
+![](../images_guide/fr/ecran16.png)
 
 ---
 
@@ -478,7 +478,7 @@ Une variable externe désigne une variable non collectée dans le questionnaire 
 
 Il peut être nécessaire de calculer des variables à partir d'autres variables du questionnaire pour certains contrôles notamment.
 Une variable calculée se définit via l'onglet "Variables calculées" de n'importe quelle question du questionnaire.
-![](../images_guide/ecran17.png)
+![](../images_guide/fr/ecran17.png)
 
 ---
 
@@ -517,7 +517,7 @@ NB2 : le gras est visible aussi côté pdf, mais pas l'italique (normal ou bug ?
 ---
 
 # Style gras/italique (suite)
-![](../images_guide/ecran18.png)
+![](../images_guide/fr/ecran18.png)
 
 ---
 
@@ -525,7 +525,7 @@ NB2 : le gras est visible aussi côté pdf, mais pas l'italique (normal ou bug ?
 Sur chaque élément créé du questionnaire de type séquence/sous-séquence ou question, on trouve les boutons "Voir le détail", "Visualiser" (Web,PDF,Spécification ou DDI) et "Supprimer".
 Sur un élément question, on trouve également le bouton "Dupliquer".
 
-![](../images_guide/ecran19.png)
+![](../images_guide/fr/ecran19.png)
 
 
 ---
@@ -545,7 +545,7 @@ Attention aux éléments déplacés en cas de redirection, la cible d'une questi
 
 ---
 
-![](../images_guide/ecran20.png)
+![](../images_guide/fr/ecran20.png)
 
 
 ---
@@ -554,7 +554,7 @@ Attention aux éléments déplacés en cas de redirection, la cible d'une questi
 
 Il est possible de sauvegarder ou de visualiser (Web,PDF,Spécification ou DDI) le questionnaire à tout moment (ou presque) via les boutons dédiés en bas de page de l'IHM Pogues. Le bouton "Publier" sera prochainement accessible, il signifie publier/enregistrer le questionnaire au sein du référentiel RMéS. Le bouton "Saut de page" n'est actuellement pas fonctionnel.
 
-![](../images_guide/ecran21.png)
+![](../images_guide/fr/ecran21.png)
 
 ---
 
@@ -562,7 +562,7 @@ Il est possible de sauvegarder ou de visualiser (Web,PDF,Spécification ou DDI) 
 
 Il est aussi possible de "voir le détail" d'un questionnaire (cf. informations saisies à la création du questionnaire) ou de le "supprimer" via les boutons dédiés en haut de page.
 
-![](../images_guide/ecran22.png)
+![](../images_guide/fr/ecran22.png)
 
 ---
 
