@@ -1,7 +1,16 @@
 {
   "gitbook": "3.2.2",
   "title": "Pogues",
-  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "image-captions", "include-codeblock"],
+  "plugins": [
+    "edit-link",
+    "prism",
+    "-highlight",
+    "github",
+    "anchorjs",
+    "image-captions",
+    "include-codeblock",
+    "collapsible-chapters"
+  ],
   "root": "./",
   "pluginsConfig": {
     "edit-link": {
@@ -15,6 +24,7 @@
       "styles": {
         "website": "gitbook.css"
       }
-    }
+    },
+    "collapsible-chapters": {}
   }
 }
