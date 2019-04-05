@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { AppContainer as Root } from 'react-hot-loader';
 
 import configureStore from 'store/configure-store';
-import RouterContainer from './router';
+import RouterContainer from 'router';
 
 const store = configureStore();
 

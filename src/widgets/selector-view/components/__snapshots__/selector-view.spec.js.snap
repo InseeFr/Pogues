@@ -22,7 +22,6 @@ exports[`Tab Should exists with the corresponding template with radio 1`] = `
       >
         <input
           checked={false}
-          className={undefined}
           disabled={false}
           id="radios-type-value1"
           name="type"
@@ -38,7 +37,6 @@ exports[`Tab Should exists with the corresponding template with radio 1`] = `
       >
         <input
           checked={false}
-          className={undefined}
           disabled={false}
           id="radios-type-value2"
           name="type"
@@ -84,13 +82,11 @@ exports[`Tab Should exists with the corresponding template with select 1`] = `
         value=""
       >
         <option
-          className={undefined}
           value="value1"
         >
           label1
         </option>
         <option
-          className={undefined}
           value="value2"
         >
           label2

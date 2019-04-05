@@ -1,10 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+//const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 const Visualizer = require('webpack-visualizer-plugin');
 
 const host = process.env.HOST || '0.0.0.0';
@@ -26,25 +27,25 @@ const stats = {
   version: false,
   warnings: true,
   colors: {
-    green: '\u001b[32m',
-  },
+    green: '\u001b[32m'
+  }
 };
 
 module.exports = function(env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
   const isProd = nodeEnv === 'production';
-  const environment = env && env.environment || 'prod';
+  const environment = (env && env.environment) || 'prod';
 
   const plugins = [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      children: true,
-      minChunks: Infinity,
-    }),
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
+      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     }),
-    new ExtractTextPlugin('style-[contenthash:8].css'),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name]-[contenthash:8].css',
+      chunkFilename: '[id].css'
+    }),
     new HtmlWebpackPlugin({
       template: './index.ejs',
       inject: true,
@@ -59,34 +60,45 @@ module.exports = function(env) {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true,
-      },
+        minifyURLs: true
+      }
     }),
-    new PreloadWebpackPlugin(),
-    new CleanWebpackPlugin(buildDirectory),
+    //new PreloadWebpackPlugin(),
+    new CleanWebpackPlugin(buildDirectory)
   ];
+
+  const devEntryPoint = [
+    'react-hot-loader/patch',
+    `webpack-dev-server/client?http://${host}:${port}`,
+    'webpack/hot/only-dev-server',
+    path.resolve(__dirname, './src/index.js')
+  ];
+
+  const entryPoint = isProd
+    ? path.resolve(__dirname, './src/index.js')
+    : devEntryPoint;
 
   if (isProd) {
     plugins.push(
       new UglifyJSPlugin({
-        compress: {
-          warnings: false,
-          screw_ie8: true,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true,
-        },
+        uglifyOptions: {
+          compress: {
+            warnings: false,
+            conditionals: true,
+            unused: true,
+            comparisons: true,
+            sequences: true,
+            dead_code: true,
+            evaluate: true,
+            if_return: true,
+            join_vars: true
+          }
+        }
       }),
       new Visualizer({
-        filename: '../docs/stats.html',
+        filename: '../docs/stats.html'
       })
     );
-
   } else {
     plugins.push(
       // make hot reloading work
@@ -99,193 +111,124 @@ module.exports = function(env) {
   }
 
   if (isProd) {
-    cssLoader = ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [
-        {
-          loader: 'css-loader',
-          options: {
-            module: true,
-            minimize: true,
-            localIdentName: '[hash:base64:5]',
-          },
-        },
-      ],
-    });
-
-    scssLoader = ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [
-        {
-          loader: 'css-loader',
-          options: {
-            minimize: true,
-            localIdentName: '[hash:base64:5]',
-          },
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            outputStyle: 'collapsed',
-            sourceMap: true,
-            includePaths: [sourcePath],
-          },
-        },
-      ],
-    });
-  } else {
     cssLoader = [
       {
-        loader: 'style-loader',
+        loader: MiniCssExtractPlugin.loader
       },
       {
         loader: 'css-loader',
         options: {
           module: true,
-          localIdentName: '[path][name]-[local]',
-        },
-      },
+          minimize: true,
+          localIdentName: '[hash:base64:5]'
+        }
+      }
     ];
 
     scssLoader = [
       {
-        loader: 'style-loader',
+        loader: MiniCssExtractPlugin.loader
       },
       {
         loader: 'css-loader',
         options: {
-          localIdentName: '[path][name]-[local]',
-        },
+          minimize: true,
+          localIdentName: '[hash:base64:5]'
+        }
+      },
+      {
+        loader: 'sass-loader',
+        options: {
+          outputStyle: 'collapsed',
+          sourceMap: true,
+          includePaths: [sourcePath]
+        }
+      }
+    ];
+  } else {
+    cssLoader = [
+      {
+        loader: 'style-loader'
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          module: true,
+          localIdentName: '[path][name]-[local]'
+        }
+      }
+    ];
+
+    scssLoader = [
+      {
+        loader: 'style-loader'
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          localIdentName: '[path][name]-[local]'
+        }
       },
       {
         loader: 'sass-loader',
         options: {
           outputStyle: 'expanded',
           sourceMap: false,
-          includePaths: [sourcePath],
-        },
-      },
+          includePaths: [sourcePath]
+        }
+      }
     ];
   }
-
-  /*
-   ENTRY POINT
-   */
-
-  const devEntryPoint = [
-    // activate HMR for React
-    'react-hot-loader/patch',
-
-    // bundle the client for webpack-dev-server
-    // and connect to the provided endpoint
-    `webpack-dev-server/client?http://${host}:${port}`,
-
-    // bundle the client for hot reloading
-    // only- means to only hot reload for successful updates
-    'webpack/hot/only-dev-server',
-
-    // the entry point of our app
-    './index.js',
-  ];
-
-  const entryPoint = isProd ? './index.js' : devEntryPoint;
-
-  /*
-   CONFIGURATION
-   */
-
   return {
     devtool: isProd ? 'source-map' : 'cheap-module-source-map',
     context: sourcePath,
+    mode: nodeEnv,
     entry: {
-      main: entryPoint,
-      vendor: [
-        "gillespie59-react-rte",
-        "lodash.clonedeep",
-        "lodash.isempty",
-        "lodash.isequal",
-        "lodash.isobject",
-        "lodash.isstring",
-        "lodash.merge",
-        "lodash.sortby",
-        "lodash.uniq",
-        "lodash.find",
-        "lodash.takewhile",
-        "lodash.takeright",
-        "lodash.get",
-        "prop-types",
-        "react",
-        "react-dnd",
-        "react-dnd-html5-backend",
-        "react-dom",
-        "react-modal",
-        "react-redux",
-        "react-router",
-        "redux",
-        "redux-form",
-        "redux-thunk",
-      ]
+      main: entryPoint
     },
     output: {
       path: buildDirectory,
       publicPath: '',
-      filename: isProd ? '[name]-[chunkhash:8].js' : '[name]-[hash:8].js',
-    },
-    module: {
-      rules: [
-        {
-          test: /\.(html|svg|jpe?g|png|eot|svg|ttf|woff2?)$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              name: 'static/[name]-[hash:8].[ext]',
-            },
-          },
-        },
-        {
-          test: /\.css$/,
-          use: cssLoader,
-        },
-        {
-          test: /\.scss$/,
-          use: scssLoader,
-        },
-        {
-          test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
-          use: ['babel-loader'],
-        },
-        {
-          test: /config\.prod\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'config-loader',
-            options: {
-              environment,
-            },
-          },
-        },
-      ],
+      filename: isProd ? '[name]-[chunkhash:8].js' : '[name]-[hash:8].js'
     },
     resolveLoader: {
       alias: {
-        'config-loader': path.resolve(__dirname, 'build-config/environments/config-loader'),
-      },
+        'config-loader': path.resolve(
+          __dirname,
+          'build-config/environments/config-loader'
+        )
+      }
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            test: /node_modules/,
+            chunks: 'initial',
+            name: 'vendor',
+            enforce: true
+          }
+        }
+      }
     },
     resolve: {
-      extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
-      modules: [path.resolve(__dirname, 'node_modules'), sourcePath],
+      extensions: [
+        '.webpack-loader.js',
+        '.web-loader.js',
+        '.loader.js',
+        '.js',
+        '.jsx'
+      ],
+      modules: ['node_modules', sourcePath],
       alias: {
         Config: path.resolve(__dirname, 'build-config/environments/config.prod')
-      },
+      }
     },
     plugins,
-
     performance: isProd && {
       maxAssetSize: 1300000,
       maxEntrypointSize: 1900000,
-      hints: 'warning',
+      hints: 'warning'
     },
 
     stats: stats,
@@ -298,7 +241,44 @@ module.exports = function(env) {
       host: host,
       hot: !isProd,
       compress: isProd,
-      stats: stats,
+      stats: stats
     },
+    module: {
+      rules: [
+        {
+          test: /\.(html|svg|jpe?g|png|eot|svg|ttf|woff2?)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'file-loader',
+            options: {
+              name: 'static/[name]-[hash:8].[ext]'
+            }
+          }
+        },
+        {
+          test: /\.css$/,
+          use: cssLoader
+        },
+        {
+          test: /\.scss$/,
+          use: scssLoader
+        },
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: ['babel-loader']
+        },
+        {
+          test: /config\.prod\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'config-loader',
+            options: {
+              environment
+            }
+          }
+        }
+      ]
+    }
   };
 };
