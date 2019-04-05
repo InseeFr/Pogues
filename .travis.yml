@@ -14,11 +14,6 @@ script:
   - popd
   - sleep 30
   - npm run test
-  - curl http://localhost:3000
-  - 'if [ "$TRAVIS_PULL_REQUEST_SLUG" = "" ] || [ "$TRAVIS_PULL_REQUEST_SLUG" = "$TRAVIS_REPO_SLUG" ]; then npm run e2e:local-travis; fi'
-
-addons:
-  sauce_connect: true
 
 after_script:
   - 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
