@@ -80,6 +80,7 @@ class CollectedVariables extends Component {
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
 
     newVariables.forEach(cv => {
+      cv.label = cv.label.replace(/\*/g, '');
       arrayPush(formName, 'collectedVariables.collectedVariables', cv);
     });
 
