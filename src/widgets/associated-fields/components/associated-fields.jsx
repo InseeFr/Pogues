@@ -76,6 +76,7 @@ class AssociatedFields extends Component {
       fieldOrigin,
       fieldTarget,
       targetIsRichTextarea,
+      targetIsQuestion,
       focusOnInit
     } = this.props;
     return (
@@ -83,6 +84,9 @@ class AssociatedFields extends Component {
         {targetIsRichTextarea ? (
           <div onBlur={this.onBlur}>
             <Field
+              props={{
+                targetIsQuestion
+              }}
               name={fieldOrigin.name}
               component={RichTextareaWithVariableAutoCompletion}
               label={fieldOrigin.label}
