@@ -15,6 +15,7 @@ import {
   contentStateToString,
   formatURL,
   toolbarConfig,
+  toolbarConfigQuestion,
   rootStyle
 } from 'forms/controls/rich-textarea';
 import { getControlId } from 'utils/widget-utils';
@@ -151,11 +152,11 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       required,
       disabled,
       input,
-      meta: { touched, error }
+      meta: { touched, error },
+      targetIsQuestion
     } = this.props;
     const id = getControlId('rich-textarea', input.name);
     const editorValue = this.state.value;
-
     return (
       <div className={COMPONENT_CLASS}>
         <label htmlFor={id}>
@@ -167,7 +168,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             blockStyleFn={() => 'singleline'}
             value={editorValue}
             onChange={this.handleChange}
-            toolbarConfig={toolbarConfig}
+            toolbarConfig={targetIsQuestion ? toolbarConfigQuestion : toolbarConfig}
             handleReturn={this.handleReturn}
             rootStyle={rootStyle}
             formatURL={formatURL}

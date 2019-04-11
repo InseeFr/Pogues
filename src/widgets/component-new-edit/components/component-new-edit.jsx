@@ -173,7 +173,7 @@ class ComponentNewEdit extends Component {
       <div className={COMPONENT_CLASS}>
         <form onSubmit={handleSubmit}>
           {componentType === QUESTION ? (
-            <AssociatedFields {...associatedFieldsProps} targetIsRichTextarea />
+            <AssociatedFields {...associatedFieldsProps} targetIsRichTextarea targetIsQuestion/>
           ) : (
             <AssociatedFields {...associatedFieldsProps} />
           )}
