@@ -15,6 +15,7 @@ import ListRadios from 'forms/controls/list-radios';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
 import { storeToArray } from 'utils/utils';
+import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 import { SearchCodesLists } from 'widgets/search-codes-lists';
 import { ErrorsPanel } from 'widgets/errors-panel';
@@ -172,7 +173,7 @@ class CodesList extends Component {
                 <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
                 <Field
                   name="label"
-                  component={Input}
+                  component={InputWithVariableAutoCompletion}
                   type="text"
                   label={Dictionary.newCl}
                   focusOnInit
