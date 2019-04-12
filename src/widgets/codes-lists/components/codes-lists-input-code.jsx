@@ -8,7 +8,7 @@ import { RichTextarea } from 'forms/controls/rich-textarea';
 import { fieldArrayMeta } from 'utils/proptypes-utils';
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
-
+import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 const {
   CODE_INPUT_CLASS,
   CODE_INPUT_CODE_CLASS,
@@ -115,7 +115,7 @@ class CodesListInputCode extends ComponentWithValidation {
           className={CODE_INPUT_LABEL_CLASS}
           name="input-code.label"
           type="text"
-          component={RichTextarea}
+          component={RichTextareaWithVariableAutoCompletion}
           label={Dictionary.label}
           onEnter={this.addCodeIfIsValid}
         />
