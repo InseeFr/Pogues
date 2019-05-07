@@ -6,7 +6,7 @@ Dans la section précédente, nous avons vu qu'un composant peut gérer son prop
 
 Cela fonctionne bien pour de petites applications, ou lorsque l'état en question est constitué d'informations ponctuelles qui ne sont pas destinées à être sauvegardées (par exemple, l'état d'un bouton, qui peut être visible ou invisible). Mais cette approche devient difficile à maintenir lorsque la complexité de l'application augmente. Considérons par exemple le comportement attendu si l'utilisateur crée une liste de codes, la référence à plusieurs endroits dans le questionnaire, et édite ensuite les codes de la liste:
 
-![Les éditeurs doivent être synchronisés](/img/sync.gif "Les éditeurs doivent être synchronisés")
+![Les éditeurs doivent être synchronisés](../../../../img/sync.gif "Les éditeurs doivent être synchronisés")
 
 (Les panneaux d'édition ont été affichés pour chacune des questions et l'interface a été légèrement modifiée afin que les deux éditeurs soient visuellement proches l'un de l'autre).
 
@@ -16,7 +16,7 @@ Ce problème qui consiste à maintenir plusieurs composants en phase est une pro
 - mettre à jour chaque redirection visible qui pourrait être impactée par ce changement (par exemple, une redirection faisant référence à l'identifiant avant modification doît désormais être marquée comme invalide);
 - ajuster les contrôles d'intégrités affichés en haut de la page (par exemple en ajoutant un message d'erreur inidiquant qu'une redirection est maintenant invalide).
 
-![Synchronisés plusieurs composants](/img/keep-in-sync-multiple-components.png "Synchronisés plusieurs composants")
+![Synchronisés plusieurs composants](../../../../img/keep-in-sync-multiple-components.png "Synchronisés plusieurs composants")
 
 ## La solution
 
@@ -32,4 +32,4 @@ Ensuite, lorsqu'un changement est opéré, une action informe l'application et s
 
 Enfin, l'application dans son ensemble est ré-affichée sur la bse de ce nouvel état (`setState` est appelée automatiquement sur le composant de plus haut niveau de l'application), mais grâce à l'algorithme de calcul de différences implémenté par React, seules les éléments véritablement impactés seront actualisées dans le DOM.
 
-![https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data](/img/flux-diagram.png "Flux de données")
+![https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data](../../../../img/flux-diagram.png "Flux de données")

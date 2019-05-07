@@ -2,13 +2,13 @@
 
 This operation consist of transforming and combining all the application resources to make them usable in web browsers. This process is taken care of by [Webpack](https://webpack.github.io/), and can be launched with `npm run dev` during development, and `npm run build` for production.
 
-[include:92-112](../../../package.json)
+[include:110-128](../../../../package.json)
 
 Mainly, it will take all the `JavaScript` files and combine them in a giant bundle file. Thanks to the `babel` plugin for Webpack, we can make use in our code of some `JavaScript` [features](/javascript/syntax.md#ES2015) which are not widely supported: `babel` will transform the code you write to make it work in all major browsers.
 
 Webpack will also process the main `css` file to make it load faster and work consistently across browsers.
 
-[include:7-7](../../../src/layout/app/components/app.jsx)
+[include:7-7](../../../../src/layout/app/components/app.jsx)
 
 Webpack is configured via the [webpack.config.js](https://github.com/InseeFr/Pogues/blob/master/webpack.config.js) file. Refer to this file to see all the operations this configuration handle.
 Webpack will transform the `JavaScript` code you write, but in order to make debugging easier, it will provide `source maps` to enable browsers to show the original files within the developer tools.

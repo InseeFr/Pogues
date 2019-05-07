@@ -2,7 +2,7 @@
 
 This section illustrates how the data flows within Pogues. For this, it looks at what happens when a user selects a questionnaire.
 
-![A user selects a questionnaire](/img/select-questionnaire.png "A user selects a questionnaire")
+![A user selects a questionnaire](../../../img/select-questionnaire.png "A user selects a questionnaire")
 
 When a user selects a questionnaire from the questionnaire list, there are many elementary steps to process, from sending the request to updating the UI. Here is a global picture:
 
@@ -24,4 +24,4 @@ When a user selects a questionnaire from the questionnaire list, there are many 
 15. The `LOAD_QUESTIONNAIRE_SUCCESS` is processed by many reducers to update the application state: to add an entry in the `questionnaires-by-id` reducer, to add multiple entries in the `components-by-id` reducer (one for each sequence and each question in the questionnaire), to add multiple entries in the `code-by-id` reducer (one for each code in every code list in the questionnaire)...
 16. The application re renders. The questionnaire content is now visible.
 
-![The questionnaire is shown](/img/questionnaire.png "The questionnaire is shown")
+![The questionnaire is shown](../../../img/questionnaire.png "The questionnaire is shown")

@@ -8,5 +8,5 @@ If you are familiar with these technologies, you can still skim through this int
 
 We will study the already implemented "edit a list of codes" functionality to show how the application works.
 
-![Code list edition](../img/code-list-editor.png "Code list edition")
+![Code list edition](../../../img/code-list-editor.png "Code list edition")
 

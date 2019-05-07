@@ -2,7 +2,7 @@
 
 Un élément visuel avec React est appelé un composant. Nous travaillerons dans un premier temps à partir d'une version simplifiée du composant `CodeEditor` défini dans le fichier [src/js/components/code-editor.js](https://github.com/InseeFr/Pogues/blob/master/src/js/components/code-editor.js):
 
-!["Le composant CodeEditor"](../img/code-editor.png "Le composant CodeEditor")
+!["Le composant CodeEditor"](../../../../img/code-editor.png "Le composant CodeEditor")
 
 Afin de promouvoir la conception de composants réutilisables et l'écriture de code modulaire, les composants doivent être aussi élémentaires que possible. Avec cette approche, on peut ensuite construire des composants de plus haut niveau en [associant des composants simples](./combining-components.md). De ce point de vue, le composant `CodeEditor` devrait être considéré comme l'association de plusieurs composants élémentaires:
 - le champ de saisie;

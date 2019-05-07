@@ -8,5 +8,5 @@ Si vous utilisez déjà ces technologiees, vous pouvez néanmoins parcourir cett
 
 Nous étudierons la fonction d'édtion d'une liste de codes qui a déjà été implémentée afin d'illustrer le fonctionnement de l'application.
 
-![L'édition d'une liste de codes](../img/code-list-editor.png "L'édition d'une liste de codes")
+![L'édition d'une liste de codes](../../../img/code-list-editor.png "L'édition d'une liste de codes")
 

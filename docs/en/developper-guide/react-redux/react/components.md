@@ -2,7 +2,7 @@
 
 A piece of UI in React is called a component. We will start working with a simplified version of the `CodeEditor` component from the [src/js/components/code-editor.js](https://github.com/InseeFr/Pogues/blob/master/src/js/components/code-editor.js) file:
 
-![CodeEditor component](../img/code-editor.png "CodeEditor component")
+![CodeEditor component](../../../../img/code-editor.png "CodeEditor component")
 
 In order to promote design of reusable components and enforce a modular coding style, components should be as elementary as possible. Then, we can build more complex components by [composing simple ones](./combining-components.md). From this perspective, our `CodeEditor` should be seen as a composition of two different components:
 - the input field;

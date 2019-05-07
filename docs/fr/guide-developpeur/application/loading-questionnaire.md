@@ -2,7 +2,7 @@
 
 Cette section illustre la manière dont l'information circule au sein de l'application. Pour cela, elle présente en détail ce qu'il se passe lorsqu'un utilisateur sélectionne un questionnaire.
 
-![Un utilisateur sélectionne un questionnaire](/img/select-questionnaire.png "Un utilisateur sélectionne un questionnaire")
+![Un utilisateur sélectionne un questionnaire](../../../img/select-questionnaire.png "Un utilisateur sélectionne un questionnaire")
 
 Lorsqu'un utilisateur sélectionne un questionnaire au sein de la liste des questionnaires, le processus est composé de nombreuses étapes élémentaires, qui vont de l'envoi de la requête au service Web dédié à l'actualisation de l'interface. Globalement:
 
@@ -24,4 +24,4 @@ Lorsqu'un utilisateur sélectionne un questionnaire au sein de la liste des ques
 15. L'action `LOAD_QUESTIONNAIRE_SUCCESS` est traitée par de nombreux reducers pour mettre à jour l'état de l'application: ajouter une entrée à l'état géré par le reducer `questionnaires-by-id`, ajouter plusieurs entrées à l'objet `components-by-id` (une pour chaque séquence et pour chaque question du questionnaire), ajouter plusieurs entrées à `code-by-id` (une pour chaque code de chaque liste de codes utilisée dans le questionnaire)...
 16. L'interface est actualisée. Le contenu du questionnaire est désormais visible.
 
-![Le questionnaire est affiché](/img/questionnaire.png "Le questionnaire est affiché")
+![Le questionnaire est affiché](../../../img/questionnaire.png "Le questionnaire est affiché")

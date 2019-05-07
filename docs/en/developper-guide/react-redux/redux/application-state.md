@@ -6,7 +6,7 @@ In the previous sections, we saw how a component could manage its own state to k
 
 It works fine fine for small applications, or when the state is mainly used to track local non persistent changes (for instance, a visible/hidden state for a button). But this approach does not always scale seamlessly when application complexity grows. Let's for instance have a look at the expected behavior if the user created a list of codes, referenced it in two different places in the questionnaire, and then add or edit some codes to the list:
 
-![Code list editors should be kept in sync](/img/sync.gif "Code list editors should be kept in sync")
+![Code list editors should be kept in sync](../../../../img/sync.gif "Code list editors should be kept in sync")
 
 (The edition panels have been toggled on for each of these questions, and the UI has been slightly modified to make the editors stand closer one to the other.)
 
@@ -16,7 +16,7 @@ This problem with keeping code list editors in sync is a very common issue with 
 - to update every visible redirection that can be impacted by this edition (for example a redirection referring to the previous `id` should be now marked as invalid);
 - to adjust the integrity controls panel at the top of the questionnaire to update the messages accordingly (for instance by adding an error message concerning the redirection which has just become invalid).
 
-![Keep in sync multiple components](/img/keep-in-sync-multiple-components.png "Keep in sync multiple components")
+![Keep in sync multiple components](../../../../img/keep-in-sync-multiple-components.png "Keep in sync multiple components")
 
 ## The solution
 
@@ -32,4 +32,4 @@ Then, we use actions to notify the application that something happened and that 
 
 Finally, the whole application will be re-rendered according to the new state (`setState` will be called automatically on the top component of our application), but thanks to React diffing algorithm, only parts of the UI actually modified will be updated in the DOM.
 
-![https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data](/img/flux-diagram.png "Flux data flow")
+![https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data](../../../../img/flux-diagram.png "Flux data flow")
