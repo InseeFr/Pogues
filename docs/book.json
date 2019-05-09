@@ -9,7 +9,7 @@
     "anchorjs",
     "image-captions",
     "include-codeblock",
-    "collapsible-chapters"
+    "smart-nav-collapse"
   ],
   "root": "./",
   "pluginsConfig": {
@@ -24,7 +24,6 @@
       "styles": {
         "website": "gitbook.css"
       }
-    },
-    "collapsible-chapters": {}
+    }
   }
 }
