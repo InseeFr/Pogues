@@ -21,7 +21,7 @@ function Header() {
           <h6>{Dictionary.headerSubtitle}</h6>
         </div>
         <div className="header-help">
-          <a target="_blank" href="http://inseefr.github.io/Pogues/user/">
+          <a target="_blank" href="http://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html">
             <span className="glyphicon glyphicon-question-sign" />
             <br />
             {Dictionary.HELP}
