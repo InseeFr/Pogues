@@ -3,7 +3,6 @@
 set -e
 
 DOC_FOLDER="docs"
-USER_FOLDER="user_docs"
 SITE_FOLDER="site"
 
 MAIN_BRANCH="master"
@@ -32,20 +31,11 @@ function buildDevDocs() {
   popd
 }
 
-function buildUserDocs() {
-  pushd "$USER_FOLDER"
-  gitbook install
-  gitbook build
-  popd
-}
-
 function merge() {
   rm -Rf "$SITE_FOLDER"
   mkdir "$SITE_FOLDER"
-  mkdir "$SITE_FOLDER"/user
   pushd "$SITE_FOLDER"
   cp -a ../"$DOC_FOLDER"/_book/. .
-  cp -R ../"$USER_FOLDER"/_book/. ./user/
   popd
 }
 
@@ -63,7 +53,7 @@ function publish() {
 }
 
 function main() {
-  setup && buildDevDocs && buildUserDocs && merge && publish
+  setup && buildDevDocs && merge && publish
 }
 
 main
