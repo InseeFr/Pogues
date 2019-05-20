@@ -1,3 +1,5 @@
+<img align="right" src="docs/img/pogues-logo.png" alt="Pogues logo"/>
+
 # Pogues
 
 Pogues is a questionnaire design and test tool.
