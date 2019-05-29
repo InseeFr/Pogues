@@ -275,6 +275,11 @@ const dictionary = {
     en: 'Help',
     fr: 'Aide'
   },
+  helpUrl: {
+    en: 'http://inseefr.github.io/Pogues/en/user-guide/user-guide.html',
+    fr:
+      'http://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html'
+  },
   WARNING: {
     en: 'Warning',
     fr: 'Avertissement'
