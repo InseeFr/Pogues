@@ -897,7 +897,11 @@
 <h1 id="the-main-principles-of-pogues">The main principles of Pogues</h1>
 <p>Questionnaire design tool for metadata-driven collection</p>
 <ul>
-<li>Integrated into the RM&#xE9;S-Coltrane information system - Using RM&#xE9;S (Stastical Metadata Repository used by Insee) metadata - Producing survey questionnaires (Coltrane) thanks to a questionnaire generator called Eno</li>
+<li>Integrated into the RM&#xE9;S-Coltrane information system<ul>
+<li>Using RM&#xE9;S (Stastical Metadata Repository used by Insee) metadata</li>
+<li>Producing survey questionnaires (Coltrane) thanks to a questionnaire generator called Eno</li>
+</ul>
+</li>
 <li>Target population : survey designer</li>
 <li>Focus : design questionnaires in a full WYSIWYG way</li>
 </ul>
@@ -924,16 +928,31 @@
 <p><img src="../../img/en/screen2.png" alt=""></p>
 <p>Select for your questionnaire :</p>
 <ul>
-<li>a series : - for example : Enqu&#xEA;te trimestrielle de conjoncture dans l&apos;artisanat du b&#xE2;timent</li>
-<li>a statisticial operation: - for example : Enqu&#xEA;te trimestrielle de conjoncture dans l&apos;artisanat du b&#xE2;timent 2018</li>
-<li>the involved campaigns : - for example : july and december 2018</li>
+<li>a series :<ul>
+<li>for example : Enqu&#xEA;te trimestrielle de conjoncture dans l&apos;artisanat du b&#xE2;timent</li>
+</ul>
+</li>
+<li>a statisticial operation:<ul>
+<li>for example : Enqu&#xEA;te trimestrielle de conjoncture dans l&apos;artisanat du b&#xE2;timent 2018</li>
+</ul>
+</li>
+<li>the involved campaigns :<ul>
+<li>for example : july and december 2018</li>
+</ul>
+</li>
 </ul>
 <hr>
 <p>Fill in :</p>
 <ul>
 <li>a title</li>
-<li>an id - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title</li>
-<li><p>one or more collection modes (not completely working now) - CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper)</p>
+<li>an id <ul>
+<li>like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title</li>
+</ul>
+</li>
+<li><p>one or more collection modes (not completely working now)</p>
+<ul>
+<li>CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper) </li>
+</ul>
 </li>
 <li><p>Validate all with the &quot;Validate&quot; button.</p>
 </li>
@@ -952,7 +971,7 @@
 <hr>
 <p>Fill in :</p>
 <ul>
-<li>a label</li>
+<li>a label </li>
 <li>an id<ul>
 <li>like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title</li>
 </ul>
@@ -973,7 +992,7 @@
 <hr>
 <p>Fill in :</p>
 <ul>
-<li>a label</li>
+<li>a label </li>
 <li>an id<ul>
 <li>like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title</li>
 </ul>
@@ -993,14 +1012,17 @@
 <hr>
 <p>-Fill in :</p>
 <ul>
-<li>a label</li>
+<li>a label </li>
 <li>an id<ul>
 <li>like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title</li>
 </ul>
 </li>
 <li>modify collection modes if this question doesn&apos;t concern every collection mode defined for the questionnaire</li>
-<li>a question type - Simple response (text, date, number or boolean), single choice response, multiple choice response, table</li>
-<li>Validate with the dedicated button</li>
+<li>a question type<ul>
+<li>Simple response (text, date, number or boolean), single choice response, multiple choice response, table</li>
+</ul>
+</li>
+<li>Validate with the dedicated button        </li>
 </ul>
 <hr>
 <h1 id="creation-of-a-simple-response-question">Creation of a simple response question</h1>
@@ -1010,16 +1032,22 @@
 <p>For a simple response question, fill in : (1)</p>
 <ul>
 <li>if mandatory or not : tickable, untickable. Not working now.</li>
-<li>a response type : - Text, Date, Number, Boolean</li>
+<li>a response type :<ul>
+<li>Text, Date, Number, Boolean</li>
+</ul>
+</li>
 <li>if response type=Text, fill in a length (maximum number of characters), if necessary a pattern (not working now, useful soon to specify regular expressions like emails, phone numbers, etc.)</li>
 <li>if response type=Date, fill in a format among YYYY-MM-DD, YYYY-MM, YYYY</li>
 </ul>
 <hr>
 <p>For a simple response question, fill in : (2)</p>
 <ul>
-<li>if response type=number, fill in a minimum and a maximum value, if necessary an unit measurement (now among : &#x20AC;, k&#x20AC; and %)</li>
-<li>if response type=Boolean, nothing to fill in and it corresponds to a unique checkbox tickable/untickable.</li>
-<li>Validate</li>
+<li><p>if response type=number, fill in a minimum and a maximum value, if necessary an unit measurement (now among : &#x20AC;, k&#x20AC; and %)</p>
+</li>
+<li><p>if response type=Boolean, nothing to fill in and it corresponds to a unique checkbox tickable/untickable.</p>
+</li>
+<li><p>Validate</p>
+</li>
 </ul>
 <hr>
 <h1 id="creation-of-a-single-choice-response-question">Creation of a single choice response question</h1>
@@ -1029,7 +1057,12 @@
 <p>For a single choice response question, fill in : (1)</p>
 <ul>
 <li>if mandatory or not : tickable, untickable. Not working now.</li>
-<li>Visualization Hint : - Checkbox (each modality is tickable/untickable, but only one response possible) - Radio-button (web standard ergonomy for this type of response, if a modality is ticked, impossible to untick all modalities later (respondent can modify his answer, but can&apos;t delete it)) - Dropdown (only when the list of modalities is long and well-known by respondent (example : Countries, Country Area)), this response type will be transformed into a free text field on the paper questionnaire</li>
+<li>Visualization Hint :<ul>
+<li>Checkbox (each modality is tickable/untickable, but only one response possible)</li>
+<li>Radio-button (web standard ergonomy for this type of response, if a modality is ticked, impossible to untick all modalities later (respondent can modify his answer, but can&apos;t delete it))</li>
+<li>Dropdown (only when the list of modalities is long and well-known by respondent (example : Countries, Country Area)), this response type will be transformed into a free text field on the paper questionnaire</li>
+</ul>
+</li>
 </ul>
 <hr>
 <p>For a single choice response question, fill in : (2)</p>
@@ -1039,7 +1072,7 @@
 <li>Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the &quot;Add&quot; button.</li>
 </ul>
 </li>
-<li>Retrieve in the repository (not working now) : will soon propose the code lists previously created for all questionnaires published in RM&#xE9;S from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).</li>
+<li>Retrieve in the repository (not working now)  : will soon propose the code lists previously created for all questionnaires published in RM&#xE9;S from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).</li>
 <li>Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire</li>
 </ul>
 </li>
@@ -1057,7 +1090,7 @@
 <li>Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the &quot;Add&quot; button.</li>
 </ul>
 </li>
-<li>Retrieve in the repository (not working now) : will soon propose the code lists previously created for all questionnaires published in RM&#xE9;S from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).</li>
+<li>Retrieve in the repository (not working now)  : will soon propose the code lists previously created for all questionnaires published in RM&#xE9;S from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).</li>
 <li>Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire</li>
 </ul>
 </li>
@@ -1065,7 +1098,20 @@
 <hr>
 <p>For a multiple choice response question, fill in : (2)</p>
 <ul>
-<li><p>Response type : - Code list or boolean - if Code list, specify the code list with : - Create a liste - Retrieve in the repository (not working now) - Retrieve in the questionnare - if Code list, select the visualization hint : - Checkbox - Radio - Dropdown</p>
+<li><p>Response type :</p>
+<ul>
+<li>Code list or boolean<ul>
+<li>if Code list, specify the code list with :<pre class="language-"><code>  - Create a liste
+  - Retrieve in the repository (not working now) 
+  - Retrieve in the questionnare
+</code></pre></li>
+<li>if Code list, select the visualization hint :<pre class="language-"><code>  - Checkbox
+  - Radio
+  - Dropdown        
+</code></pre></li>
+</ul>
+</li>
+</ul>
 </li>
 <li><p>Validate</p>
 </li>
@@ -1083,7 +1129,13 @@
 <hr>
 <p>For a table (with line headers in first column), fill in:</p>
 <ul>
-<li>Primary information axis : - choose code list : - specify the code list as usual</li>
+<li>Primary information axis :<ul>
+<li>choose code list :<ul>
+<li>specify the code list as usual</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Secondary information axis:<ul>
 <li>if ticked :<ul>
 <li>specify the code list as usual</li>
@@ -1092,7 +1144,7 @@
 </ul>
 </li>
 <li>Measure information (only one if a secondary information axis, else one or more with the + button)<ul>
-<li>fill in a simple response or a single choice response</li>
+<li>fill in a simple response or a single choice response         </li>
 </ul>
 </li>
 <li>Validate</li>
@@ -1101,9 +1153,16 @@
 <h1 id="creation-of-a-table-primary-information-axis--list">Creation of a table (Primary information axis : list)</h1>
 <p>For a table (without line headers in first column), fill in:</p>
 <ul>
-<li>Primary information axis : - please specify : - number of lines minimum - number of lines maximum</li>
+<li>Primary information axis :<ul>
+<li>please specify :<ul>
+<li>number of lines minimum</li>
+<li>number of lines maximum</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Measure information (one or more with the + button)<ul>
-<li>fill in a simple response or a single choice response</li>
+<li>fill in a simple response or a single choice response         </li>
 </ul>
 </li>
 <li>Validate</li>
@@ -1135,7 +1194,7 @@
 </ol>
 <hr>
 <h1 id="creation-of-a-statement-1">Creation of a statement (1)</h1>
-<p>In the &quot;Statements&quot;, fill in :</p>
+<p>In the &quot;Statements&quot;, fill in : </p>
 <ul>
 <li>a label
 <img src="../../img/en/screen10.png" alt=""></li>
@@ -1143,8 +1202,14 @@
 <hr>
 <h1 id="creation-of-a-statement-2">Creation of a statement (2)</h1>
 <ul>
-<li>a type among : - Instruction - Comment - Help - Warning
+<li>a type among :<ul>
+<li>Instruction</li>
+<li>Comment</li>
+<li>Help</li>
+<li>Warning
 NB : there is no difference now depending on the type of the statement, therefore no difference for the respondent. But, as the information is precisely saved in the DDI file, statements could be one day displayed differently, depending on their type (it is not expected now). We advice therefore to choose the type which seems to you the closest to the statement type, without refining however.</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="creation-of-a-statement-3">Creation of a statement (3)</h1>
@@ -1159,18 +1224,20 @@ NB : there is no difference now depending on the type of the statement, therefor
 <p><img src="../../img/en/screen11.png" alt=""></p>
 <hr>
 <h1 id="creation-of-a-tooltip-2">Creation of a tooltip (2)</h1>
-<p>Fill in the text you want to display in the tooltip and validate by clicking on the button surrounded in red in the screenshot below or click on the cross to delete and don&apos;t forget to Validate at the end</p>
+<p>Fill in the text you want to display in the tooltip and validate by clicking on the button surrounded in red in the screenshot below or click on the cross to delete and don&apos;t forget to Validate at the end </p>
 <p><img src="../../img/en/screen12.png" alt=""></p>
 <hr>
 <h1 id="deletion-of-a-tooltip">Deletion of a tooltip</h1>
-<p>Select the text corresponding to the tooltip and click on the button sourrounded in red in the screenshot attached and don&apos;t forget to Validate at the end
-NB : impossible to modify a tooltip but you can delete it and recreate (and then modify) it</p>
+<p>Select the text corresponding to the tooltip and click on the button sourrounded in red in the screenshot attached and don&apos;t forget to Validate at the end 
+NB : impossible to modify a tooltip but you can delete it and recreate (and then modify) it </p>
 <p><img src="../../img/en/screen13.png" alt=""></p>
 <hr>
 <h1 id="creation-of-a-control-1">Creation of a control (1)</h1>
 <p>A control verifies the quality of the information entered in a questionnaire. We can also talk about internal consistency checks on the questionnaire. This may include consistency with previous data.</p>
-<p>On the web visualization side of the questionnaire (Eno application), a control is triggered when : - the condition is true; - AND I have passed and left a field affected by the conditions (or I have clicked on next).</p>
-<hr>
+<p>On the web visualization side of the questionnaire (Eno application), a control is triggered when :</p>
+<pre class="language-"><code>- the condition is true;
+- AND I have passed and left a field affected by the conditions (or I have clicked on next). 
+</code></pre><hr>
 <h1 id="creation-of-a-control-2">Creation of a control (2)</h1>
 <p>You can create a control in the &quot;Controls&quot; tab of the question on which you want to apply the control</p>
 <p><img src="../../img/en/screen14.png" alt=""></p>
@@ -1179,7 +1246,7 @@ NB : impossible to modify a tooltip but you can delete it and recreate (and then
 <p>Fill in :</p>
 <ul>
 <li>control description : free description of the control (for your successor ;-)</li>
-<li>Condition (for which questionnaire will display the fail message) : collected variables are referenced by using the dollar character $, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character $. example : for the condition the female workforce (for which we can imagine the collected variable with the id WF_F) is strictly greater than the total workforce of the enterprise (for which we can imagine WF_TOTAL), fill in the condition : $WF_F$ &gt; $WF_TOTAL$.</li>
+<li>Condition (for which questionnaire will display the fail message) : collected variables are referenced by using the dollar character $, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character $. example : for the condition the female workforce (for which we can imagine the collected variable with the id WF_F) is strictly greater than the total workforce of the enterprise (for which we can imagine WF_TOTAL), fill in the condition : $WF_F$ &gt; $WF_TOTAL$. </li>
 </ul>
 <hr>
 <h1 id="syntax-for-conditions-1">Syntax for conditions (1)</h1>
@@ -1193,17 +1260,18 @@ Exemple : $SEX$ = &apos;1&apos; but $WORKFORCE$ = 1</p>
 <hr>
 <h1 id="syntax-for-conditions-dates">Syntax for conditions (dates)</h1>
 <ul>
-<li>compare a date to an empty value : string($DATECOL$) = &apos;&apos;</li>
-<li>compare a date with other ones (always compare before that the date is not empty) :
+<li>compare a date to an empty value : string($DATECOL$) = &apos;&apos; </li>
+<li>compare a date with other ones (always compare before that the date is not empty) : 
 string($DATECOL$) != &apos;&apos; and ($DATECOL$ &lt; xs:date(concat($ANNEEDAAAA$,&apos;-06-01&apos;)) or $DATECOL$ &gt; xs:date(concat($ANNEESUIV$,&apos;-05-31&apos;)))</li>
 </ul>
 <hr>
 <h1 id="syntax-for-conditions-2">Syntax for conditions (2)</h1>
 <p>+ : Addition
-- : Substraction * : Multiplication
+-  : Substraction
+* : Multiplication
 = : equal to
 != : different from
-&lt; : lower than (&lt;= : lower or equal to )
+&lt; :  lower than (&lt;= : lower or equal to )
 &gt; : greater than (&gt;= : greater or equal to)
 and : and
 or : or
@@ -1215,7 +1283,12 @@ Write and, or, etc. in lowercase</p>
 <p>In the &quot;Controls&quot; tab, fill in :</p>
 <ul>
 <li>Fail message : fill in here the fail message displayed to the respondent if the condition above is satisfied</li>
-<li>Criticity : (like the statement type, there&apos;s no difference now for the questionnaire or the respondent, therefore choose the most appropriate one without refining) - Information - Warning - Error</li>
+<li>Criticity : (like the statement type, there&apos;s no difference now for the questionnaire or the respondent, therefore choose the most appropriate one without refining)<ul>
+<li>Information</li>
+<li>Warning</li>
+<li>Error</li>
+</ul>
+</li>
 <li>Validate</li>
 </ul>
 <p>NB : you can also delete or duplicate a control</p>
@@ -1230,7 +1303,7 @@ Write and, or, etc. in lowercase</p>
 <h1 id="creation-of-a-goto-or-filter-2">Creation of a Goto (or filter) (2)</h1>
 <p>Fill in :</p>
 <ul>
-<li>Condition : (for which the respondent will go to a further target question and not the immediate following question) : collected variables are referenced by using the dollar character $, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character $. example : if you go from the question Q1 (yes &apos;1&apos;, no &apos;2&apos;) to the question Q10 if Q1 =&apos;2&apos; fill in $Q2$=&apos;2&apos; or $Q2$ != &apos;1&apos; if you want to filter non response also. (see syntax for conditions above to imagine other formulas)</li>
+<li>Condition : (for which the respondent will go to a further target question and not the immediate following question) : collected variables are referenced by using the dollar character $, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character $.  example : if you go from the question Q1 (yes &apos;1&apos;, no &apos;2&apos;) to the question Q10 if Q1 =&apos;2&apos; fill in $Q2$=&apos;2&apos; or $Q2$ != &apos;1&apos; if you want to filter non response also. (see syntax for conditions above to imagine other formulas)</li>
 <li>Target : Target question of the filter. example : $Q10$</li>
 </ul>
 <hr>
@@ -1258,11 +1331,14 @@ A calculated variable is defined via the &quot;Calculated Variables&quot; tab of
 <img src="../../img/en/screen17.png" alt=""></p>
 <hr>
 <h1 id="creation-of-a-calculated-variable-2">Creation of a calculated variable (2)</h1>
-<p>Fill in</p>
+<p>Fill in </p>
 <ul>
 <li>Label</li>
 <li>Id</li>
-<li>Formula : you can use : if, then, else if, else - Example : sum of percentages collected in a table</li>
+<li>Formula : you can use : if, then, else if, else <ul>
+<li>Example : sum of percentages collected in  a table</li>
+</ul>
+</li>
 <li>Reponse type : among Text, Date, Number, Boolean (see Creation for a simple response question)</li>
 </ul>
 <p>Validate</p>
@@ -1270,7 +1346,7 @@ A calculated variable is defined via the &quot;Calculated Variables&quot; tab of
 <h1 id="example-">Example :</h1>
 <p>Count the number of ticked modalities for the variable REN
 (REN has got 7 boolean modalities identified REN1 to REN7)</p>
-<p>number(if ($REN1$=&apos;&apos;) then &apos;0&apos; else $REN1$) +
+<p>number(if ($REN1$=&apos;&apos;) then &apos;0&apos; else $REN1$) + 
 number(if ($REN2$=&apos;&apos;) then &apos;0&apos; else $REN2$) +
 number(if ($REN3$=&apos;&apos;) then &apos;0&apos; else $REN3$) +
 number(if ($REN4$=&apos;&apos;) then &apos;0&apos; else $REN4$) +
@@ -1294,14 +1370,14 @@ On a question, there is also the &quot;Duplicate&quot; button.</p>
 <hr>
 <h1 id="move-elements-by-drag-and-drop">Move elements by drag and drop</h1>
 <p>It is currently possible to move an element of type sequence, sub-sequence, question by drag and drop. To do this, select the element and drag and drop it to the desired location (even if it means unzooming enough to have on the same screen the question to move and the part of the questionnaire tree where you want to move it).
-Be careful, the movement of a sequence or sub-sequence also moves its children (sub-sequences or questions related to it).
+Be careful, the movement of a sequence or sub-sequence also moves its children (sub-sequences or questions related to it). 
 Be careful with the elements moved in case of redirection, the target of a question must not be found before this question.</p>
 <hr>
 <p><img src="../../img/en/screen20.png" alt=""></p>
 <hr>
 <h1 id="save-or-visualise-the-questionnaire">Save or Visualise the questionnaire</h1>
-<p>It is possible to save or view (Web,PDF,Specification or DDI) the questionnaire at any time (or almost) via the dedicated buttons at the bottom of the page of the Pogues interface.
-The &quot;Publish&quot; button will soon be available, it means to publish/register the questionnaire within the RM&#xE9;S repository.
+<p>It is possible to save or view (Web,PDF,Specification or DDI) the questionnaire at any time (or almost) via the dedicated buttons at the bottom of the page of the Pogues interface. 
+The &quot;Publish&quot; button will soon be available, it means to publish/register the questionnaire within the RM&#xE9;S repository. 
 The &quot;Page break&quot; button is currently not working.</p>
 <p><img src="../../img/en/screen21.png" alt=""></p>
 <hr>
@@ -1318,7 +1394,7 @@ The &quot;Page break&quot; button is currently not working.</p>
 </ul>
 <hr>
 <h1 id="what-is-not-yet-working-in-pogues-1">What is not yet working in Pogues (1)</h1>
-<p><em>manual DDI add-on</em></p>
+<p><em>manual DDI add-on</em> </p>
 <ul>
 <li>The addition of a &quot;Specify&quot; field if a &quot;Other&quot; type modality has been checked</li>
 <li>Fill in a pattern (specify a regular expression) for a text response</li>
@@ -1331,8 +1407,8 @@ The &quot;Page break&quot; button is currently not working.</p>
 <ul>
 <li>Taking into account multimode (CAWI, CAPI, PAPI, CATI)
 <em>Can be filled in but is not taken into account in the display of the questionnaire</em></li>
-<li>The link between Pogues and RM&#xE9;S and in particular to publish the questionnaire or reuse a question or a code list (e.g. departments, countries, nomenclature) from the repository</li>
-<li>Condition the label of a question according to the answers previously obtained</li>
+<li>The link between Pogues and RM&#xE9;S and in particular to publish the questionnaire or reuse a question or a code list (e.g. departments, countries, nomenclature) from the repository </li>
+<li>Condition the label of a question according to the answers previously obtained </li>
 <li>Duplicate a code list to create a variant</li>
 <li>The mandatory nature of the response
 <em>Do not fill it in because it blocks the visualization of the web questionnaire</em></li>
@@ -1349,17 +1425,18 @@ The &quot;Page break&quot; button is currently not working.</p>
 <hr>
 <h1 id="what-we-dont-yet-know-how-to-do-in-pogues">What we don&apos;t yet know how to do in Pogues</h1>
 <ul>
-<li>Compare an empty numerical field
+<li>Compare an empty numerical field 
 <em>manual DDI add-on</em></li>
-<li>Add totals (fixed at 100% or calculated as the sum of the elements in the column) to a table of collected variables
+<li><p>Add totals (fixed at 100% or calculated as the sum of the elements in the column) to a table of collected variables
 <em>manual DDI add-on</em>
--...<hr>
-</li>
-</ul>
+-... </p>
+<hr>
 <h1 id="what-we-wont-do-in-pogues">What we won&apos;t do in Pogues</h1>
 <ul>
 <li>Specify if the redirection is of type hidden filter (it is by default) or grayed filter
-<em>manual DDI add-on</em></li>
+<em>manual DDI add-on</em> </li>
+</ul>
+</li>
 </ul>
 
                                 
@@ -1400,7 +1477,7 @@ The &quot;Page break&quot; button is currently not working.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"User guide","level":"2.1","depth":1,"previous":{"title":"Integrity checks","level":"1.2.6.6","depth":3,"path":"developper-guide/implementation-details/integrity-checks.md","ref":"developper-guide/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"developper-guide/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: Code list edition","alt":"Code list edition","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list edition","attributes":{},"title":"Code list edition","skip":false,"key":"1.2.2.1"},{"backlink":"developper-guide/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: CodeEditor component","alt":"CodeEditor component","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"CodeEditor component","attributes":{},"title":"CodeEditor component","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Code list editors should be kept in sync","alt":"Code list editors should be kept in sync","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list editors should be kept in sync","attributes":{},"title":"Code list editors should be kept in sync","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Keep in sync multiple components","alt":"Keep in sync multiple components","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Keep in sync multiple components","attributes":{},"title":"Keep in sync multiple components","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux data flow","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux data flow","attributes":{},"title":"Flux data flow","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: A user selects a questionnaire","alt":"A user selects a questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"A user selects a questionnaire","attributes":{},"title":"A user selects a questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: The questionnaire is shown","alt":"The questionnaire is shown","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"The questionnaire is shown","attributes":{},"title":"The questionnaire is shown","skip":false,"key":"1.2.4.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Pause on exceptions","alt":"Pause on exceptions","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Pause on exceptions","attributes":{},"title":"Pause on exceptions","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"en","gitbook":"*"},"file":{"path":"user-guide/user-guide.md","mtime":"2019-06-13T13:09:44.028Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-06-13T13:14:43.500Z"},"basePath":"..","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"User guide","level":"2.1","depth":1,"previous":{"title":"Integrity checks","level":"1.2.6.6","depth":3,"path":"developper-guide/implementation-details/integrity-checks.md","ref":"developper-guide/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"developper-guide/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: Code list edition","alt":"Code list edition","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list edition","attributes":{},"title":"Code list edition","skip":false,"key":"1.2.2.1"},{"backlink":"developper-guide/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: CodeEditor component","alt":"CodeEditor component","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"CodeEditor component","attributes":{},"title":"CodeEditor component","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Code list editors should be kept in sync","alt":"Code list editors should be kept in sync","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list editors should be kept in sync","attributes":{},"title":"Code list editors should be kept in sync","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Keep in sync multiple components","alt":"Keep in sync multiple components","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Keep in sync multiple components","attributes":{},"title":"Keep in sync multiple components","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux data flow","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux data flow","attributes":{},"title":"Flux data flow","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: A user selects a questionnaire","alt":"A user selects a questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"A user selects a questionnaire","attributes":{},"title":"A user selects a questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: The questionnaire is shown","alt":"The questionnaire is shown","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"The questionnaire is shown","attributes":{},"title":"The questionnaire is shown","skip":false,"key":"1.2.4.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Pause on exceptions","alt":"Pause on exceptions","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Pause on exceptions","attributes":{},"title":"Pause on exceptions","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"en","gitbook":"*"},"file":{"path":"user-guide/user-guide.md","mtime":"2019-06-13T13:59:41.532Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-06-13T14:04:31.641Z"},"basePath":"..","book":{"language":"en"}});
         });
     </script>
 </div>
