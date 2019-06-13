@@ -1,17 +1,18 @@
 # User guide for Pogues
 
+
 ---
 
 # The main principles of Pogues
-
 Questionnaire design tool for metadata-driven collection
 
-- Integrated into the RMéS-Coltrane information system - Using RMéS (Stastical Metadata Repository used by Insee) metadata - Producing survey questionnaires (Coltrane) thanks to a questionnaire generator called Eno
+- Integrated into the RMéS-Coltrane information system
+	- Using RMéS (Stastical Metadata Repository used by Insee) metadata
+	- Producing survey questionnaires (Coltrane) thanks to a questionnaire generator called Eno
 - Target population : survey designer
 - Focus : design questionnaires in a full WYSIWYG way
 
 ---
-
 # Pogues, functional architecture
 
 ![](../../img/en/architecture.png)
@@ -21,14 +22,13 @@ Questionnaire design tool for metadata-driven collection
 # Connection to the application
 
 - with your web browser, enter :
-  http://conception-questionnaires.insee.fr
+http://conception-questionnaires.insee.fr
 
 - enter your login and validate by clicking on "OK"
 
 ---
 
 # Advice for entry
-
 In order to avoid embedding special characters that could sometimes compromise the proper functioning of the application, we strongly recommend using an intermediary like Notepad++ (encoding in UTF8) or Notepad to copy/paste between your original question list and Pogues
 
 ---
@@ -42,19 +42,23 @@ Click on the button "New Questionnaire"
 
 ![](../../img/en/screen2.png)
 
+
 Select for your questionnaire :
-
-- a series : - for example : Enquête trimestrielle de conjoncture dans l'artisanat du bâtiment
-- a statisticial operation: - for example : Enquête trimestrielle de conjoncture dans l'artisanat du bâtiment 2018
-- the involved campaigns : - for example : july and december 2018
-
+- a series :
+	- for example : Enquête trimestrielle de conjoncture dans l'artisanat du bâtiment
+- a statisticial operation:
+	- for example : Enquête trimestrielle de conjoncture dans l'artisanat du bâtiment 2018
+- the involved campaigns :
+	- for example : july and december 2018
 ---
 
 Fill in :
 
 - a title
-- an id - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
-- one or more collection modes (not completely working now) - CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper)
+- an id 
+	- like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
+- one or more collection modes (not completely working now)
+ 	- CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper) 
 
 - Validate all with the "Validate" button.
 
@@ -75,7 +79,6 @@ A sequence is a part or a module of a questionnaire. It corresponds to a dedicat
 ---
 
 # Creation of a sequence (2)
-
 Click on the +Sequence button at the bottom of the Pogues page
 
 ![](../../img/en/screen5.png)
@@ -83,10 +86,9 @@ Click on the +Sequence button at the bottom of the Pogues page
 ---
 
 Fill in :
-
-- a label
+- a label 
 - an id
-  - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
+    - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
 - modify collection modes if this sequence doesn't concern every collection mode defined for the questionnaire
 - If necessary, fill in a Statement (see Creation of a statement)
 - If necessary, fill in a Control (see Creation of a control)
@@ -107,15 +109,14 @@ A sub-sequence is a part of a sequence, therefore a sub-module of a questionnair
 ---
 
 Fill in :
-
-- a label
+- a label 
 - an id
-  - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
+    - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
 - modify collection modes if this sub-sequence doesn't concern every collection mode defined for the questionnaire
 - If necessary, fill in a Statement (see Creation of a statement)
 - If necessary, fill in a Control (see Creation of a control)
 - Validate with the dedicated button
-
+    
 ---
 
 # Web display example of a sequence, sub-sequence, question
@@ -133,14 +134,13 @@ Click on the button +Question
 ---
 
 -Fill in :
-
-- a label
+- a label 
 - an id
-  - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
+    - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
 - modify collection modes if this question doesn't concern every collection mode defined for the questionnaire
-- a question type - Simple response (text, date, number or boolean), single choice response, multiple choice response, table
-- Validate with the dedicated button
-
+- a question type
+	- Simple response (text, date, number or boolean), single choice response, multiple choice response, table
+- Validate with the dedicated button		
 ---
 
 # Creation of a simple response question
@@ -152,18 +152,20 @@ Examples :
 ---
 
 For a simple response question, fill in : (1)
-
 - if mandatory or not : tickable, untickable. Not working now.
-- a response type : - Text, Date, Number, Boolean
+- a response type :
+	- Text, Date, Number, Boolean
 - if response type=Text, fill in a length (maximum number of characters), if necessary a pattern (not working now, useful soon to specify regular expressions like emails, phone numbers, etc.)
 - if response type=Date, fill in a format among YYYY-MM-DD, YYYY-MM, YYYY
-
+ 
+		
 ---
 
 For a simple response question, fill in : (2)
-
 - if response type=number, fill in a minimum and a maximum value, if necessary an unit measurement (now among : €, k€ and %)
+    
 - if response type=Boolean, nothing to fill in and it corresponds to a unique checkbox tickable/untickable.
+    
 - Validate
 
 ---
@@ -177,21 +179,23 @@ Examples :
 ---
 
 For a single choice response question, fill in : (1)
-
 - if mandatory or not : tickable, untickable. Not working now.
-- Visualization Hint : - Checkbox (each modality is tickable/untickable, but only one response possible) - Radio-button (web standard ergonomy for this type of response, if a modality is ticked, impossible to untick all modalities later (respondent can modify his answer, but can't delete it)) - Dropdown (only when the list of modalities is long and well-known by respondent (example : Countries, Country Area)), this response type will be transformed into a free text field on the paper questionnaire
+- Visualization Hint :
+	- Checkbox (each modality is tickable/untickable, but only one response possible)
+	- Radio-button (web standard ergonomy for this type of response, if a modality is ticked, impossible to untick all modalities later (respondent can modify his answer, but can't delete it))
+	- Dropdown (only when the list of modalities is long and well-known by respondent (example : Countries, Country Area)), this response type will be transformed into a free text field on the paper questionnaire
 
+		
 ---
 
 For a single choice response question, fill in : (2)
-
-- Specify the code list with :
-  - Create a list. In this case :
-    - Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the "Add" button.
-  - Retrieve in the repository (not working now) : will soon propose the code lists previously created for all questionnaires published in RMéS from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).
-  - Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire
+-   Specify the code list with :
+    -   Create a list. In this case :
+    	-   Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the "Add" button.
+    -   Retrieve in the repository (not working now)  : will soon propose the code lists previously created for all questionnaires published in RMéS from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).
+    -   Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire
 - Validate
-
+  		
 ---
 
 # Creation of a multiple choice response question
@@ -203,23 +207,32 @@ Examples :
 ---
 
 For a multiple choice response question, fill in : (1)
-
-- Specify the code list with :
-  - Create a list. In this case :
-    - Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the "Add" button.
-  - Retrieve in the repository (not working now) : will soon propose the code lists previously created for all questionnaires published in RMéS from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).
-  - Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire
-
+-   Specify the code list with :
+    -   Create a list. In this case :
+    	-   Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the "Add" button.
+    -   Retrieve in the repository (not working now)  : will soon propose the code lists previously created for all questionnaires published in RMéS from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).
+    -   Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire
+    
+  		
 ---
 
 For a multiple choice response question, fill in : (2)
 
-- Response type : - Code list or boolean - if Code list, specify the code list with : - Create a liste - Retrieve in the repository (not working now) - Retrieve in the questionnare - if Code list, select the visualization hint : - Checkbox - Radio - Dropdown
+- Response type :
+	- Code list or boolean
+		- if Code list, specify the code list with :
+    			- Create a liste
+    			- Retrieve in the repository (not working now) 
+    			- Retrieve in the questionnare
+    	- if Code list, select the visualization hint :
+            	- Checkbox
+    			- Radio
+    			- Dropdown		
 
 - Validate
-
----
-
+      
+---        
+  
 # Creation of a table (Primary information axis : Code list)
 
 Exemple 1 :
@@ -239,26 +252,29 @@ Exemple 3 :
 ![](../../img/en/table3.png)
 
 ---
-
 For a table (with line headers in first column), fill in:
-
-- Primary information axis : - choose code list : - specify the code list as usual
+- Primary information axis :
+	- choose code list :
+		- specify the code list as usual
 - Secondary information axis:
-  - if ticked :
-    - specify the code list as usual
+    - if ticked :
+    	- specify the code list as usual
 - Measure information (only one if a secondary information axis, else one or more with the + button)
-  - fill in a simple response or a single choice response
+    - fill in a simple response or a single choice response     	
 - Validate
-
+  		
+  		
 ---
 
 # Creation of a table (Primary information axis : list)
 
 For a table (without line headers in first column), fill in:
-
-- Primary information axis : - please specify : - number of lines minimum - number of lines maximum
+- Primary information axis :
+	- please specify :
+		- number of lines minimum
+		- number of lines maximum
 - Measure information (one or more with the + button)
-  - fill in a simple response or a single choice response
+    - fill in a simple response or a single choice response     	
 - Validate
 
 ---
@@ -267,47 +283,45 @@ For a table (without line headers in first column), fill in:
 
 go to "collected variables" tab to generate them
 ![](../../img/en/screen9.png)
-
+ 		
 ---
-
 - click on the button "Generate collected variables" and modify label proposed by default by pogues with a significant label (think about your successors) and, if necessary, modify id
 
 - as your changes are made, click on "Validate" displayed at the bottom right of the grey area
 
 - At the end, click on "Validate" in the middle a little lower down to validate all your modifications
 
+
 ---
 
 # How to manage a Code list (1)
-
 ![](../../img/en/codelist.png)
 
 ---
-
 # How to manage a Code list (2)
-
 You can do the following actions
-
-1.  modify one modality : first 2 buttons, up to you, the first one will display the modification screen, the second button will display modality before modification and the modification screen
-2.  delete one modality
-3.  move the modality in the code list : go up or down in the list
-4.  manage a hierarchy between modalities : go up or down in the hierarchy
-
+1. modify one modality : first 2 buttons, up to you, the first one will display the modification screen, the second button will display modality before modification and the modification screen
+2. delete one modality
+3. move the modality in the code list : go up or down in the list
+4. manage a hierarchy between modalities : go up or down in the hierarchy
 ---
 
 # Creation of a statement (1)
 
-In the "Statements", fill in :
-
+In the "Statements", fill in : 
 - a label
-  ![](../../img/en/screen10.png)
+![](../../img/en/screen10.png)
 
 ---
 
 # Creation of a statement (2)
 
-- a type among : - Instruction - Comment - Help - Warning
-  NB : there is no difference now depending on the type of the statement, therefore no difference for the respondent. But, as the information is precisely saved in the DDI file, statements could be one day displayed differently, depending on their type (it is not expected now). We advice therefore to choose the type which seems to you the closest to the statement type, without refining however.
+- a type among :
+	- Instruction
+    - Comment
+    - Help
+    - Warning
+NB : there is no difference now depending on the type of the statement, therefore no difference for the respondent. But, as the information is precisely saved in the DDI file, statements could be one day displayed differently, depending on their type (it is not expected now). We advice therefore to choose the type which seems to you the closest to the statement type, without refining however.
 
 ---
 
@@ -315,13 +329,12 @@ In the "Statements", fill in :
 
 - Position : before or after question label
 - Validate
-
+        
 NB : you can also delete or duplicate a statement
 
 ---
 
 # Creation of a tooltip (1)
-
 Within a label, select the text corresponding to the tooltip and click on the button (surrounded in red in the screenshot below)
 
 ![](../../img/en/screen11.png)
@@ -330,16 +343,15 @@ Within a label, select the text corresponding to the tooltip and click on the bu
 
 # Creation of a tooltip (2)
 
-Fill in the text you want to display in the tooltip and validate by clicking on the button surrounded in red in the screenshot below or click on the cross to delete and don't forget to Validate at the end
+Fill in the text you want to display in the tooltip and validate by clicking on the button surrounded in red in the screenshot below or click on the cross to delete and don't forget to Validate at the end 
 
 ![](../../img/en/screen12.png)
 
 ---
 
 # Deletion of a tooltip
-
-Select the text corresponding to the tooltip and click on the button sourrounded in red in the screenshot attached and don't forget to Validate at the end
-NB : impossible to modify a tooltip but you can delete it and recreate (and then modify) it
+Select the text corresponding to the tooltip and click on the button sourrounded in red in the screenshot attached and don't forget to Validate at the end 
+NB : impossible to modify a tooltip but you can delete it and recreate (and then modify) it 
 
 ![](../../img/en/screen13.png)
 
@@ -349,7 +361,9 @@ NB : impossible to modify a tooltip but you can delete it and recreate (and then
 
 A control verifies the quality of the information entered in a questionnaire. We can also talk about internal consistency checks on the questionnaire. This may include consistency with previous data.
 
-On the web visualization side of the questionnaire (Eno application), a control is triggered when : - the condition is true; - AND I have passed and left a field affected by the conditions (or I have clicked on next).
+On the web visualization side of the questionnaire (Eno application), a control is triggered when :
+    - the condition is true;
+    - AND I have passed and left a field affected by the conditions (or I have clicked on next). 
 
 ---
 
@@ -364,14 +378,12 @@ You can create a control in the "Controls" tab of the question on which you want
 # Creation of a control (3)
 
 Fill in :
-
 - control description : free description of the control (for your successor ;-)
-- Condition (for which questionnaire will display the fail message) : collected variables are referenced by using the dollar character \$, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character \$. example : for the condition the female workforce (for which we can imagine the collected variable with the id WF_F) is strictly greater than the total workforce of the enterprise (for which we can imagine WF_TOTAL), fill in the condition : \$WF_F$ > \$WF_TOTAL$.
+- Condition (for which questionnaire will display the fail message) : collected variables are referenced by using the dollar character \$, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character \$. example : for the condition the female workforce (for which we can imagine the collected variable with the id WF_F) is strictly greater than the total workforce of the enterprise (for which we can imagine WF_TOTAL), fill in the condition : \$WF_F$ > \$WF_TOTAL$. 
 
 ---
 
 # Syntax for conditions (1)
-
 Separe variable id (\$VAR\$) from operators or logical connectors with espaces.
 Exemple : \$WF_F$ >= \$WF_TOTAL$
 
@@ -385,19 +397,19 @@ Exemple : \$SEX$ = '1' but \$WORKFORCE$ = 1
 
 # Syntax for conditions (dates)
 
-- compare a date to an empty value : string(\$DATECOL\$) = ''
-- compare a date with other ones (always compare before that the date is not empty) :
-  string(\$DATECOL\$) != '' and (\$DATECOL$ < xs:date(concat(\$ANNEEDAAAA\$,'-06-01')) or \$DATECOL\$ > xs:date(concat(\$ANNEESUIV\$,'-05-31')))
+ - compare a date to an empty value : string(\$DATECOL\$) = '' 
+ - compare a date with other ones (always compare before that the date is not empty) : 
+ string(\$DATECOL\$) != '' and (\$DATECOL$ < xs:date(concat(\$ANNEEDAAAA\$,'-06-01')) or \$DATECOL\$ > xs:date(concat(\$ANNEESUIV\$,'-05-31')))
 
 ---
-
 # Syntax for conditions (2)
 
 \+ : Addition
-\- : Substraction \* : Multiplication
+\-  : Substraction
+\* : Multiplication
 = : equal to
 != : different from
-< : lower than (<= : lower or equal to )
+< :  lower than (<= : lower or equal to )
 \> : greater than (\>= : greater or equal to)
 and : and
 or : or
@@ -405,14 +417,16 @@ div : division with floating point
 mod : remainder of the division with floating point
 Write and, or, etc. in lowercase
 
+
 ---
 
 # Creation of a control (4)
-
 In the "Controls" tab, fill in :
-
 - Fail message : fill in here the fail message displayed to the respondent if the condition above is satisfied
-- Criticity : (like the statement type, there's no difference now for the questionnaire or the respondent, therefore choose the most appropriate one without refining) - Information - Warning - Error
+- Criticity : (like the statement type, there's no difference now for the questionnaire or the respondent, therefore choose the most appropriate one without refining)
+	- Information
+	- Warning
+	- Error
 - Validate
 
 NB : you can also delete or duplicate a control
@@ -422,7 +436,6 @@ NB : you can also delete or duplicate a control
 # Creation of a Goto (or filter) (1)
 
 In the "Goto" tab of the question on which you want to apply a filter, fill in :
-
 - Goto description : this text will be displayed on the pdf paper questionnaire
 
 ![](../../img/en/screen15.png)
@@ -432,8 +445,7 @@ In the "Goto" tab of the question on which you want to apply a filter, fill in :
 # Creation of a Goto (or filter) (2)
 
 Fill in :
-
-- Condition : (for which the respondent will go to a further target question and not the immediate following question) : collected variables are referenced by using the dollar character \$, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character \$. example : if you go from the question Q1 (yes '1', no '2') to the question Q10 if Q1 ='2' fill in \$Q2\$='2' or \$Q2$ != '1' if you want to filter non response also. (see syntax for conditions above to imagine other formulas)
+- Condition : (for which the respondent will go to a further target question and not the immediate following question) : collected variables are referenced by using the dollar character \$, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character \$.  example : if you go from the question Q1 (yes '1', no '2') to the question Q10 if Q1 ='2' fill in \$Q2\$='2' or \$Q2$ != '1' if you want to filter non response also. (see syntax for conditions above to imagine other formulas)
 - Target : Target question of the filter. example : \$Q10$
 
 ---
@@ -447,7 +459,6 @@ NB : you can also delete or duplicate a Goto
 # Creation of an external variable (1)
 
 An external variable refers to a variable that is not collected in the questionnaire but is useful for customizing it. It can be a variable collected previously and recalled for consistency with past responses (last known turnover, last known headcount) or a variable useful for customizing some elements of the questionnaire (collection wave number to filter questions, date or geographical zoning to be displayed in a question label (year or regions for example) etc.). They are defined via the "External variables" tab of any question in the questionnaire.
-
 - Inform:
   - Label
   - Id : see the one in the customization file
@@ -472,23 +483,22 @@ A calculated variable is defined via the "Calculated Variables" tab of any quest
 
 # Creation of a calculated variable (2)
 
-Fill in
 
+Fill in 
 - Label
 - Id
-- Formula : you can use : if, then, else if, else - Example : sum of percentages collected in a table
+- Formula : you can use : if, then, else if, else 
+	- Example : sum of percentages collected in  a table
 - Reponse type : among Text, Date, Number, Boolean (see Creation for a simple response question)
 
 Validate
 
 ---
-
-# Example :
-
+# Example : 
 Count the number of ticked modalities for the variable REN
 (REN has got 7 boolean modalities identified REN1 to REN7)
 
-number(if (\$REN1\$='') then '0' else \$REN1\$) +
+number(if (\$REN1\$='') then '0' else \$REN1\$) + 
 number(if (\$REN2\$='') then '0' else \$REN2\$) +
 number(if (\$REN3\$='') then '0' else \$REN3\$) +
 number(if (\$REN4\$='') then '0' else \$REN4\$) +
@@ -497,7 +507,6 @@ number(if (\$REN6\$='') then '0' else \$REN6\$) +
 number(if (\$REN7\$='') then '0' else \$REN7\$)
 
 ---
-
 # Style : Bold or Italic
 
 You can put some words in bold or italic with the buttons surrounded in red in the screenshot below
@@ -507,11 +516,11 @@ You can put some words in bold or italic with the buttons surrounded in red in t
 ---
 
 # Functionalities related to a questionnaire element
-
 On each created element of the sequence/sub-sequence or question type questionnaire, there are the "Show the detail", "Visualise" (Web,PDF,Specification or DDI) and "Delete" buttons.
 On a question, there is also the "Duplicate" button.
 
 ![](../../img/en/screen19.png)
+
 
 ---
 
@@ -525,19 +534,20 @@ On a question, there is also the "Duplicate" button.
 # Move elements by drag and drop
 
 It is currently possible to move an element of type sequence, sub-sequence, question by drag and drop. To do this, select the element and drag and drop it to the desired location (even if it means unzooming enough to have on the same screen the question to move and the part of the questionnaire tree where you want to move it).
-Be careful, the movement of a sequence or sub-sequence also moves its children (sub-sequences or questions related to it).
+Be careful, the movement of a sequence or sub-sequence also moves its children (sub-sequences or questions related to it). 
 Be careful with the elements moved in case of redirection, the target of a question must not be found before this question.
 
 ---
 
 ![](../../img/en/screen20.png)
 
+
 ---
 
 # Save or Visualise the questionnaire
 
-It is possible to save or view (Web,PDF,Specification or DDI) the questionnaire at any time (or almost) via the dedicated buttons at the bottom of the page of the Pogues interface.
-The "Publish" button will soon be available, it means to publish/register the questionnaire within the RMéS repository.
+It is possible to save or view (Web,PDF,Specification or DDI) the questionnaire at any time (or almost) via the dedicated buttons at the bottom of the page of the Pogues interface. 
+The "Publish" button will soon be available, it means to publish/register the questionnaire within the RMéS repository. 
 The "Page break" button is currently not working.
 
 ![](../../img/en/screen21.png)
@@ -553,58 +563,48 @@ It is possible to "show the detail" of a questionnaire (you can see and perhaps 
 ---
 
 # Checking the integrity of the questionnaire
-
 The following questionnaire integrity checks are currently being implemented:
-
 - the questionnaire must include at least a sequence and a question
 - uniqueness of question, sequence or sub-sequence identifiers
 - uniqueness of collected, external or calculated variables identifiers
 
 ---
-
 # What is not yet working in Pogues (1)
-
-_manual DDI add-on_
-
+*manual DDI add-on* 
 - The addition of a "Specify" field if a "Other" type modality has been checked
 - Fill in a pattern (specify a regular expression) for a text response
 - Redirection towards the end of the questionnaire
 - Manage date or duration formats
 - Manage units other than €, k€ and %.
 - Loop on the elements of a table (example: individuals aged older than 15 years in a household)
-
 ---
 
 - Taking into account multimode (CAWI, CAPI, PAPI, CATI)
-  _Can be filled in but is not taken into account in the display of the questionnaire_
-- The link between Pogues and RMéS and in particular to publish the questionnaire or reuse a question or a code list (e.g. departments, countries, nomenclature) from the repository
-- Condition the label of a question according to the answers previously obtained
+*Can be filled in but is not taken into account in the display of the questionnaire*
+- The link between Pogues and RMéS and in particular to publish the questionnaire or reuse a question or a code list (e.g. departments, countries, nomenclature) from the repository 
+- Condition the label of a question according to the answers previously obtained 
 - Duplicate a code list to create a variant
 - The mandatory nature of the response
-  _Do not fill it in because it blocks the visualization of the web questionnaire_
+*Do not fill it in because it blocks the visualization of the web questionnaire*
 - The "Page break" button at the bottom center of the interface Pogues
 - pdf settings (number of columns, portrait or landscape layout, type of entry)
-
 ---
 
 choice of numbering type among:
-
 - 1 numbering from 1 to n for all the questions in the questionnaire: this is the most common numbering in the literature, the one found in the insee's household questionnaires in general. It is also the easiest to use when there are filters to describe in a paper questionnaire.
 - 1 numbering from 1 to n for each of the questionnaire sequences (1 is repeated for each new sequence): this is the most common numbering in INSEE company surveys.
 - no numbering: this is a choice that can be made when there are many filters, and leads to an apparent numbering that can be a little strange. This is the choice of the employment survey in particular.
 
 ---
-
 # What we don't yet know how to do in Pogues
-
-- Compare an empty numerical field
-  _manual DDI add-on_
+- Compare an empty numerical field 
+*manual DDI add-on*
 - Add totals (fixed at 100% or calculated as the sum of the elements in the column) to a table of collected variables
-  _manual DDI add-on_
-  -...
-  ***
+*manual DDI add-on*
+-... 
+ 
+ ---
+ # What we won't do in Pogues
+ - Specify if the redirection is of type hidden filter (it is by default) or grayed filter
+*manual DDI add-on* 
 
-# What we won't do in Pogues
-
-- Specify if the redirection is of type hidden filter (it is by default) or grayed filter
-  _manual DDI add-on_
