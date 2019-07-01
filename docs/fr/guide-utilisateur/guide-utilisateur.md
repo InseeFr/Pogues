@@ -1,5 +1,5 @@
 # Guide utilisateur Pogues
-Version au 03/06/2019
+Version au 18/06/2019
 
 ---
 
@@ -398,7 +398,7 @@ Exemple : \$SEXE$ = '1' mais \$EFFECTIF$ = 1
 
  - comparaison avec le vide : string(\$DATECOL\$) = '' (2 apostrophes)
  - comparaison avec une date (toujours comparer d'abord que la date est non vide) : 
- string(\$DATECOL\$) = '' and (\$DATECOL$ < xs:date(concat(\$ANNEEDAAAA\$,'-06-01')) or \$DATECOL\$ > xs:date(concat(\$ANNEESUIV\$,'-05-31')))  
+ string(\$DATECOL\$) != '' and (\$DATECOL$ < xs:date(concat(\$ANNEEDAAAA\$,'-06-01')) or \$DATECOL\$ > xs:date(concat(\$ANNEESUIV\$,'-05-31')))  
 
 
 
