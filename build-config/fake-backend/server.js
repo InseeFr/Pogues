@@ -1,4 +1,7 @@
 const restify = require('restify');
+const restifyBodyParser = require('restify-plugins').bodyParser;
+const restifyQueryParser = require('restify-plugins').queryParser;
+const corsMiddleware = require('restify-cors-middleware');
 const fs = require('fs');
 const server = restify.createServer();
 const listenPort = process.env.PORT || 5000;
@@ -10,8 +13,26 @@ const questionnairesRefInfos = require(__dirname + '/questionnaires-ref-infos');
 const codesListsRefInfos = require(__dirname + '/codes-lists-ref-infos');
 const units = require(__dirname + '/units');
 
-restify.CORS.ALLOW_HEADERS.push('authorization');
-restify.CORS.ALLOW_HEADERS.push('Location');
+const cors = corsMiddleware({
+  origins: ['*'],
+  allowHeaders: ['authorization', 'Location']
+});
+server.pre((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.header('origin'));
+  res.header(
+    'Access-Control-Allow-Headers',
+    req.header('Access-Control-Request-Headers')
+  );
+  res.header('Access-Control-Allow-Credentials', 'true');
+  // other headers go here..
+
+  if (req.method === 'OPTIONS')
+    // if is preflight(OPTIONS) then response status 204(NO CONTENT)
+    return res.send(204);
+
+  next();
+});
+//server.use(cors.actual);
 
 function getQuestionnairePosition(questionnaires, id) {
   for (var i = 0; i < questionnaires.length; i++) {
@@ -23,15 +44,8 @@ function getQuestionnairePosition(questionnaires, id) {
   return -1;
 }
 
-server.use(
-  restify.CORS({
-    headers: ['Location'],
-    credentials: true
-  })
-);
-
-server.use(restify.bodyParser());
-server.use(restify.queryParser());
+server.use(restifyBodyParser());
+server.use(restifyQueryParser());
 
 server.get('/questionnaires/search', function(req, res, next) {
   // @TODO: Take into account the property "owner"

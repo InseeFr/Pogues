@@ -12,6 +12,7 @@
     "draft-js-import-element": "1.2.1",
     "draft-js-utils": "1.2.0",
     "gillespie59-react-rte": "0.14.2",
+    "immutable": "3.8.2",
     "lodash.clonedeep": "4.5.0",
     "lodash.debounce": "4.0.8",
     "lodash.find": "4.6.0",
@@ -37,8 +38,9 @@
     "redux": "3.6.0",
     "redux-form": "6.8.0",
     "redux-thunk": "2.2.0",
-    "synthetic-dom": "1.2.0",
-    "immutable": "3.8.2"
+    "restify-cors-middleware": "^1.1.1",
+    "restify-plugins": "^1.6.0",
+    "synthetic-dom": "1.2.0"
   },
   "devDependencies": {
     "babel-core": "6.26.3",
@@ -83,7 +85,7 @@
     "isomorphic-fetch": "2.2.1",
     "jest": "23.4.0",
     "jison": "0.4.18",
-    "node-sass": "4.11.0",
+    "node-sass": "4.12.0",
     "object-assign": "4.1.1",
     "preload-webpack-plugin": "2.3.0",
     "prettier": "1.13.7",
@@ -96,15 +98,15 @@
     "redux-devtools-extension": "2.13.2",
     "redux-logger": "3.0.1",
     "request": "2.81.0",
-    "restify": "4.3.0",
+    "restify": "8.4.0",
     "rimraf": "2.6.2",
     "sass-loader": "6.0.3",
     "style-loader": "0.21.0",
     "uglify-js": "^3.4.4",
     "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "4.16.0",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "3.1.11",
+    "webpack": "4.39.1",
+    "webpack-cli": "3.3.6",
+    "webpack-dev-server": "3.7.2",
     "webpack-visualizer-plugin": "0.1.11"
   },
   "scripts": {
