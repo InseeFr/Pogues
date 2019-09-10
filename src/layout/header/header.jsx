@@ -10,9 +10,9 @@ function Header() {
     <nav id="header">
       <div id="header-wrapper">
         <div className="header-brand">
-          <dipv className="header-logo">
+          <div className="header-logo">
             <img alt="{Dictionary.homepage}" src={logo} />
-          </dipv>
+          </div>
           <h2>
             <Link className="header-homepage" to="/">
               Pogues
