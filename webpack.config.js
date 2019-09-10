@@ -118,9 +118,9 @@ module.exports = function(env) {
       {
         loader: 'css-loader',
         options: {
-          module: true,
-          minimize: true,
-          localIdentName: '[hash:base64:5]'
+          modules: {
+            localIdentName: '[hash:base64:5]'
+          }
         }
       }
     ];
@@ -130,11 +130,7 @@ module.exports = function(env) {
         loader: MiniCssExtractPlugin.loader
       },
       {
-        loader: 'css-loader',
-        options: {
-          minimize: true,
-          localIdentName: '[hash:base64:5]'
-        }
+        loader: 'css-loader'
       },
       {
         loader: 'sass-loader',
@@ -155,8 +151,9 @@ module.exports = function(env) {
       {
         loader: 'css-loader',
         options: {
-          module: true,
-          localIdentName: '[path][name]-[local]'
+          modules: {
+            localIdentName: '[path][name]-[local]'
+          }
         }
       }
     ];
@@ -166,10 +163,7 @@ module.exports = function(env) {
         loader: 'style-loader'
       },
       {
-        loader: 'css-loader',
-        options: {
-          localIdentName: '[path][name]-[local]'
-        }
+        loader: 'css-loader'
       },
       {
         loader: 'sass-loader',
