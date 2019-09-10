@@ -104,9 +104,9 @@
     "style-loader": "0.21.0",
     "uglify-js": "^3.4.4",
     "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "4.39.1",
-    "webpack-cli": "3.3.6",
-    "webpack-dev-server": "3.7.2",
+    "webpack": "4.39.3",
+    "webpack-cli": "3.3.8",
+    "webpack-dev-server": "3.8.0",
     "webpack-visualizer-plugin": "0.1.11"
   },
   "scripts": {
