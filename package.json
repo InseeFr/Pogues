@@ -100,7 +100,6 @@
     "redux-logger": "3.0.6",
     "request": "2.81.0",
     "restify": "8.4.0",
-    "rimraf": "2.6.3",
     "sass-loader": "6.0.3",
     "style-loader": "0.21.0",
     "uglify-js": "^3.4.4",
