@@ -44,9 +44,9 @@ describe('Codes lists utils', () => {
     );
   });
   test('hasChild should return false', () => {
-    expect(hasChild({ value:'2' }, listCodes)).toBeFalsy();
+    expect(hasChild({ value: '2' }, listCodes)).toBeFalsy();
   });
   test('hasChild should return true', () => {
-    expect(hasChild({ value:'1' }, listCodes)).toBeTruthy();
+    expect(hasChild({ value: '1' }, listCodes)).toBeTruthy();
   });
 });

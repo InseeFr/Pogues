@@ -125,7 +125,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
 
     state.type = QUESTION;
-    state.label = label.replace(/&#xd;/gi,'\n\n');
+    state.label = label.replace(/&#xd;/gi, '\n\n');
     state.responseFormat = ResponseFormat.remoteToState(
       questionType,
       responses,
@@ -232,7 +232,7 @@ function storeToRemoteNested(
     id,
     depth,
     Name,
-    Label: [label.replace(/\n\n/gi,'&#xd;')],
+    Label: [label.replace(/\n\n/gi, '&#xd;')],
     Declaration: Declaration.stateToRemote(declarations),
     Control: Control.stateToRemote(controls),
     // Trello #196 : ouput : GoTo --> FlowControl

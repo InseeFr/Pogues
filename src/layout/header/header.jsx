@@ -21,7 +21,11 @@ function Header() {
           <h6>{Dictionary.headerSubtitle}</h6>
         </div>
         <div className="header-help">
-          <a target="_blank" rel="noopener noreferrer" href={Dictionary.helpUrl}>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={Dictionary.helpUrl}
+          >
             <span className="glyphicon glyphicon-question-sign" />
             <br />
             {Dictionary.HELP}

@@ -64,9 +64,10 @@ const mapDispatchToProps = {
   arrayRemoveAll: actions.arrayRemoveAll
 };
 
-const CodesListsContainer = connect(mapStateToProps, mapDispatchToProps)(
-  CodesLists
-);
+const CodesListsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CodesLists);
 
 CodesListsContainer.propTypes = propTypes;
 CodesListsContainer.defaultProps = defaultProps;

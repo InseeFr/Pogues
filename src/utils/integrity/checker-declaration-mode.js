@@ -4,7 +4,10 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { INTEGRITY_TYPES } from 'constants/pogues-constants';
 
 function checkerTargetMode({
-  appState: { activeComponentsById, activeQuestionnaire: { id, TargetMode } }
+  appState: {
+    activeComponentsById,
+    activeQuestionnaire: { id, TargetMode }
+  }
 }) {
   const errors = [];
 

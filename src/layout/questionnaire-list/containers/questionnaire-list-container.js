@@ -20,4 +20,7 @@ const mapDispatchToProps = {
   loadQuestionnaireList
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuestionnaireList);

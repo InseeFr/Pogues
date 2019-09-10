@@ -32,9 +32,10 @@ const mapDispatchToProps = {
   setErrors: setErrorsByFormPath
 };
 
-const QuestionnaireEditContainer = connect(mapStateToProps, mapDispatchToProps)(
-  QuestionnaireEdit
-);
+const QuestionnaireEditContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuestionnaireEdit);
 
 QuestionnaireEditContainer.propTypes = propTypes;
 

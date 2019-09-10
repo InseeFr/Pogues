@@ -3,7 +3,10 @@ import { COMPONENT_TYPE, INTEGRITY_TYPES } from 'constants/pogues-constants';
 const { QUESTION, SEQUENCE } = COMPONENT_TYPE;
 
 function checkerQuestionnaireLength({
-  appState: { activeComponentsById, activeQuestionnaire: { id } }
+  appState: {
+    activeComponentsById,
+    activeQuestionnaire: { id }
+  }
 }) {
   const errors = [];
   const numSequences = Object.keys(activeComponentsById).filter(

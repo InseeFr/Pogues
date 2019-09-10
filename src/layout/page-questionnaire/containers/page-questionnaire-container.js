@@ -76,9 +76,10 @@ const mapDispatchToProps = {
   setActiveVariables
 };
 
-const PageQuestionnaireContainer = connect(mapStateToProps, mapDispatchToProps)(
-  PageQuestionnaire
-);
+const PageQuestionnaireContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageQuestionnaire);
 
 PageQuestionnaireContainer.propTypes = propTypes;
 

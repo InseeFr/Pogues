@@ -24,7 +24,9 @@ function validateAndSubmit(action, validate, transformer, onSuccess) {
     validate(values);
 
     return action(transformer.formToState(values)).then(result => {
-      const { payload: { id } } = result;
+      const {
+        payload: { id }
+      } = result;
       if (onSuccess) onSuccess(id);
     });
   };

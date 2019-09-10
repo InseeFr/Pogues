@@ -73,7 +73,9 @@ function validateAndSubmit(
       .then(actions.updateParentChildren)
       .then(actions.orderComponents)
       .then(result => {
-        const { payload: { id } } = result;
+        const {
+          payload: { id }
+        } = result;
         actions.setSelectedComponentId(id);
         if (onSuccess) onSuccess(id);
       });

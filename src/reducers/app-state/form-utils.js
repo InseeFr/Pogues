@@ -10,5 +10,5 @@ export function setFocusedInput(state, input, meta) {
 }
 
 export default {
-    '@@redux-form/FOCUS': setFocusedInput,
-}
+  '@@redux-form/FOCUS': setFocusedInput
+};

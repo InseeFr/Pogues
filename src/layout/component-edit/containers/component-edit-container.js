@@ -35,9 +35,10 @@ const mapDispatchToProps = {
   updateComponent
 };
 
-const ComponentEditContainer = connect(mapStateToProps, mapDispatchToProps)(
-  ComponentEdit
-);
+const ComponentEditContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ComponentEdit);
 
 ComponentEditContainer.propTypes = propTypes;
 

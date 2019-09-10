@@ -74,7 +74,10 @@ const mapStateToProps = (state, { componentId }) => {
 
 const mapDispatchToProps = {};
 
-const TabsContainer = connect(mapStateToProps, mapDispatchToProps)(Tabs);
+const TabsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Tabs);
 
 TabsContainer.propTypes = propTypes;
 TabsContainer.defaultProps = defaultProps;

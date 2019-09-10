@@ -126,8 +126,8 @@ server.get('/search/context/collection/:id', function(req, res, next) {
 
   res.send({
     dataCollectionId: req.params.id,
-    serieId: operation.parent,
-    operationId: campaign.parent
+    serieId: operation && operation.parent,
+    operationId: campaign && campaign.parent
   });
   next();
 });

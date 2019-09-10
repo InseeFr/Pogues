@@ -4,7 +4,10 @@ import { INTEGRITY_TYPES } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function checkerUniqueComponentName({
-  appState: { activeComponentsById, activeQuestionnaire: { id } }
+  appState: {
+    activeComponentsById,
+    activeQuestionnaire: { id }
+  }
 }) {
   const errors = [];
   const componentNames = Object.keys(activeComponentsById).map(

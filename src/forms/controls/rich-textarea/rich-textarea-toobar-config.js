@@ -24,9 +24,7 @@ export const toolbarConfigQuestion = {
   extraProps: {
     tabIndex: '-1'
   },
-  INLINE_STYLE_BUTTONS: [
-    { label: 'Italic', style: 'ITALIC' }
-  ],
+  INLINE_STYLE_BUTTONS: [{ label: 'Italic', style: 'ITALIC' }],
   LINK_BUTTONS: {
     ADD: {
       label: 'Link or Tooltip',

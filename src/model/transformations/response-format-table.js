@@ -143,7 +143,10 @@ function remoteToStateSecondary(remote) {
 }
 
 function remoteToStateMeasure(remote) {
-  const { Label: label, response: { CodeListReference, Datatype } } = remote;
+  const {
+    Label: label,
+    response: { CodeListReference, Datatype }
+  } = remote;
   const state = {};
 
   if (CodeListReference) {

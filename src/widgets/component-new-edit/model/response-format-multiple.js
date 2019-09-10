@@ -83,7 +83,12 @@ export function formToState(form, transformers) {
 }
 
 export function stateToForm(currentState, transformers) {
-  const { [MEASURE]: { type, [type]: { visHint } } } = currentState;
+  const {
+    [MEASURE]: {
+      type,
+      [type]: { visHint }
+    }
+  } = currentState;
 
   return {
     [PRIMARY]: {
@@ -138,7 +143,10 @@ const Factory = (initialState = {}, codesListsStore) => {
     },
     getNormalizedValues: form => {
       // Values ready to be validated
-      const { [MEASURE]: { type, [type]: measure }, ...others } = form;
+      const {
+        [MEASURE]: { type, [type]: measure },
+        ...others
+      } = form;
 
       return {
         ...others,

@@ -40,9 +40,10 @@ const mapDispatchToProps = {
   setSelectedComponentId
 };
 
-const ComponentNewContainer = connect(mapStateToProps, mapDispatchToProps)(
-  ComponentNew
-);
+const ComponentNewContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ComponentNew);
 
 ComponentNewContainer.propTypes = propTypes;
 

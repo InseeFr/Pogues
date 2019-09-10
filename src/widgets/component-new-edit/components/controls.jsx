@@ -15,7 +15,6 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
-
 // Utils
 
 const validateForm = (addErrors, validate) => values => {

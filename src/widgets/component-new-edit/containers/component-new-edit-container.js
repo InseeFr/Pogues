@@ -63,9 +63,10 @@ const mapDispatchToProps = {
   clearSubformValidationErrors
 };
 
-const ComponentNewEditContainer = connect(mapStateToProps, mapDispatchToProps)(
-  ComponentNewEdit
-);
+const ComponentNewEditContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ComponentNewEdit);
 
 ComponentNewEditContainer.propTypes = propTypes;
 ComponentNewEditContainer.defaultProps = defaultProps;

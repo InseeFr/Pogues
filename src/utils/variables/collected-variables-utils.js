@@ -37,7 +37,7 @@ export function getCollecteVariable(
     ...reponseFormatValues,
     id: uuid(),
     name,
-    label,
+    label
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
@@ -76,7 +76,9 @@ export function getCollectedVariablesMultiple(
   }
 
   const {
-    [PRIMARY]: { [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes, id } },
+    [PRIMARY]: {
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes, id }
+    },
     [MEASURE]: { type: typeMeasure }
   } = form;
   let listCodes = sortCodes(codes);
@@ -256,7 +258,9 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       }
     }
   } else {
-    const { LIST: { numLinesMin, numLinesMax } } = primaryState;
+    const {
+      LIST: { numLinesMin, numLinesMax }
+    } = primaryState;
 
     // Third case
     for (let j = 0; j < listMeasuresState.measures.length; j += 1) {

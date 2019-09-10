@@ -48,7 +48,7 @@ class ResponseFormatTablePrincipal extends Component {
             />
           </View>
         </SelectorView>
-{/*
+        {/*
   <OptionalView
     name="showTotalLabel"
     label={Dictionary.rowTotal}
@@ -62,7 +62,6 @@ class ResponseFormatTablePrincipal extends Component {
     />
   </OptionalView>
 */}
-
       </FormSection>
     );
   }

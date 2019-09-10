@@ -147,7 +147,9 @@ class CodesListsCodes extends Component {
 
   renderCode(code) {
     const { showInputCode, activeCodeIndex, editing } = this.state;
-    const { fields: { getAll, remove, removeAll, push } } = this.props;
+    const {
+      fields: { getAll, remove, removeAll, push }
+    } = this.props;
     const allCodes = getAll() || [];
     const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
     const actions = {

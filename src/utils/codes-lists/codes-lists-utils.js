@@ -30,7 +30,9 @@ export function getMultipleCodesLists(multipleFormat) {
   const codesListsIds = [
     multipleFormat[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH].id
   ];
-  const { [MEASURE]: { type, [type]: measure } } = multipleFormat;
+  const {
+    [MEASURE]: { type, [type]: measure }
+  } = multipleFormat;
 
   if (type === CODES_LIST) {
     codesListsIds.push(measure[DEFAULT_CODES_LIST_SELECTOR_PATH].id);
@@ -102,7 +104,8 @@ export function removeOrphansCodesLists(codesListsStore, componentsStore) {
 /**
  * This method will check if a code list contains a given child
  */
-export const hasChild = (code, listCodes) => listCodes.reduce((_, c) => {
-  if (c.parent === code.value) _ = true;
-  return _;
-}, false);
+export const hasChild = (code, listCodes) =>
+  listCodes.reduce((_, c) => {
+    if (c.parent === code.value) _ = true;
+    return _;
+  }, false);

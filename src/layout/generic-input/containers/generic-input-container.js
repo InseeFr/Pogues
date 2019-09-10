@@ -75,4 +75,7 @@ const mapDispatchToProps = {
   handleNewPageBreak
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenericInput);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GenericInput);

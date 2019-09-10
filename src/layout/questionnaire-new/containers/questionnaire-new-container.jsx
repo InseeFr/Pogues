@@ -26,9 +26,10 @@ const mapDispatchToProps = {
   setErrors: setValidationErrors
 };
 
-const QuestionnaireNewContainer = connect(mapStateToProps, mapDispatchToProps)(
-  QuestionnaireNew
-);
+const QuestionnaireNewContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuestionnaireNew);
 
 QuestionnaireNewContainer.propTypes = propTypes;
 

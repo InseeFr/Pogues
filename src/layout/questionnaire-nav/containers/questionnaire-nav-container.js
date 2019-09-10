@@ -16,4 +16,7 @@ const mapDispatchToProps = {
   setSelectedComponentId
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireNav);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuestionnaireNav);

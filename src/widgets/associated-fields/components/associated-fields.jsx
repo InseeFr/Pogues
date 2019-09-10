@@ -80,7 +80,7 @@ class AssociatedFields extends Component {
       targetIsQuestion,
       focusOnInit
     } = this.props;
-    
+
     return (
       <div className={COMPONENT_CLASS}>
         {targetIsRichTextarea ? (

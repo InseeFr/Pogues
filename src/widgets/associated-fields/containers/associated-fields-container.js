@@ -50,9 +50,10 @@ const mapDispatchToProps = {
   change: actions.change
 };
 
-const AssociatedFieldsContainer = connect(mapStateToProps, mapDispatchToProps)(
-  AssociatedFields
-);
+const AssociatedFieldsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AssociatedFields);
 
 AssociatedFieldsContainer.propTypes = propTypes;
 AssociatedFieldsContainer.defaultProps = defaultProps;

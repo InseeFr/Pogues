@@ -168,7 +168,9 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             blockStyleFn={() => 'singleline'}
             value={editorValue}
             onChange={this.handleChange}
-            toolbarConfig={targetIsQuestion ? toolbarConfigQuestion : toolbarConfig}
+            toolbarConfig={
+              targetIsQuestion ? toolbarConfigQuestion : toolbarConfig
+            }
             handleReturn={this.handleReturn}
             rootStyle={rootStyle}
             formatURL={formatURL}

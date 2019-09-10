@@ -101,7 +101,6 @@ class ResponseFormatSingle extends Component {
 
           */}
 
-
         <Field
           name="visHint"
           component={ListRadios}

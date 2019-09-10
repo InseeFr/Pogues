@@ -26,9 +26,10 @@ const mapDispatchToProps = {
   change: actions.change
 };
 
-const CodesListsCodesContainer = connect(mapStateToProps, mapDispatchToProps)(
-  CodesListsCodes
-);
+const CodesListsCodesContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CodesListsCodes);
 
 CodesListsCodesContainer.propTypes = propTypes;
 

@@ -75,7 +75,10 @@ class InputAutocomplete extends Component {
   }
 
   componentWillMount() {
-    const { children, input: { value } } = this.props;
+    const {
+      children,
+      input: { value }
+    } = this.props;
     const options = getValuesFromGenericOptions(children);
     this.setState(init(options, value));
   }
@@ -85,7 +88,10 @@ class InputAutocomplete extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { children, input: { value } } = nextProps;
+    const {
+      children,
+      input: { value }
+    } = nextProps;
 
     if (value !== this.props.input.value) {
       this.setState(init(getValuesFromGenericOptions(children), value));
