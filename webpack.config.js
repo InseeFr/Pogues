@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
@@ -64,7 +64,7 @@ module.exports = function(env) {
       }
     }),
     //new PreloadWebpackPlugin(),
-    new CleanWebpackPlugin(buildDirectory)
+    new CleanWebpackPlugin()
   ];
 
   const devEntryPoint = [
@@ -139,9 +139,11 @@ module.exports = function(env) {
       {
         loader: 'sass-loader',
         options: {
-          outputStyle: 'collapsed',
-          sourceMap: true,
-          includePaths: [sourcePath]
+          sassOptions: {
+            outputStyle: 'collapsed',
+            sourceMap: true,
+            includePaths: [sourcePath]
+          }
         }
       }
     ];
@@ -172,9 +174,11 @@ module.exports = function(env) {
       {
         loader: 'sass-loader',
         options: {
-          outputStyle: 'expanded',
-          sourceMap: false,
-          includePaths: [sourcePath]
+          sassOptions: {
+            outputStyle: 'expanded',
+            sourceMap: false,
+            includePaths: [sourcePath]
+          }
         }
       }
     ];
