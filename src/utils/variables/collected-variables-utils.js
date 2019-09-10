@@ -225,9 +225,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
           collectedVariables.push(
             getCollecteVariable(
               `${questionName}${i + 1}${j + 1}`,
-              `${codePrimary.label}-${codeSecondary.label}-${
-                measureState.label
-              }`,
+              `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
               { x: i + 1, y: j + 1 },
               getReponsesValues(measureState),
             ),

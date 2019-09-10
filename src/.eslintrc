@@ -42,6 +42,6 @@ rules:
   no-restricted-globals: 0
   import/named: 0
   no-use-before-define: 0
-  react/destructuring-assignement: 0
+  react/destructuring-assignment: 0
   no-shadow: 0
   no-else-return: 0
