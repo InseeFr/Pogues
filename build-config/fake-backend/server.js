@@ -121,7 +121,7 @@ server.get('/search/context/collection/:id', function(req, res, next) {
   })[0];
 
   var operation = operations.filter(function(o) {
-    return o.id === campaign.parent;
+    return campaign && o.id === campaign.parent;
   })[0];
 
   res.send({
