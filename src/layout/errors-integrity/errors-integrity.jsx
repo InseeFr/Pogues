@@ -22,7 +22,9 @@ function renderComponentsErrors(errorsIntegrity, componentsStore) {
           <li key={componentId}>
             <span>{componentsStore[componentId].name}</span>
             <ul>
-              {integrityErrors.map((e, index) => <li key={index}>{e}</li>)}
+              {integrityErrors.map((e, index) => (
+                <li key={index}>{e}</li>
+              ))}
             </ul>
           </li>
         );

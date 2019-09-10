@@ -1,19 +1,21 @@
 export function remoteToCodesState(codes, parent = '', depth = 1) {
-  return codes.filter(c => c.Parent === parent).reduce((acc, c, index) => {
-    const codeState = {
-      value: c.Value,
-      label: c.Label,
-      parent: c.Parent,
-      depth,
-      weight: index + 1
-    };
+  return codes
+    .filter(c => c.Parent === parent)
+    .reduce((acc, c, index) => {
+      const codeState = {
+        value: c.Value,
+        label: c.Label,
+        parent: c.Parent,
+        depth,
+        weight: index + 1
+      };
 
-    return {
-      ...acc,
-      [codeState.value]: codeState,
-      ...remoteToCodesState(codes, codeState.value, depth + 1)
-    };
-  }, {});
+      return {
+        ...acc,
+        [codeState.value]: codeState,
+        ...remoteToCodesState(codes, codeState.value, depth + 1)
+      };
+    }, {});
 }
 
 export function remoteToStore(remote) {

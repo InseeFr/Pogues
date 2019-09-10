@@ -27,9 +27,7 @@ class ResponseFormatMultipleMeasureCodeslist extends Component {
     super(props);
 
     this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${
-          ResponseFormatMultipleMeasureCodeslist.selectorPath
-        }`
+      ? `${selectorPathParent}.${ResponseFormatMultipleMeasureCodeslist.selectorPath}`
       : ResponseFormatMultipleMeasureCodeslist.selectorPath;
   }
   render() {

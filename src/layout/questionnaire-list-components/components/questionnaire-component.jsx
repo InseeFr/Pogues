@@ -235,23 +235,21 @@ class QuestionnaireComponent extends Component {
                 )}
               </div>
             </div>
-            {component.pageBreak &&
-              component.type !== QUESTION && (
-                <div className="separator">
-                  <hr />
-                  <button onClick={handleRemovePageBreak}>x</button>
-                </div>
-              )}
-            {dropZone}
-            {children}
-          </div>
-          {component.pageBreak &&
-            component.type === QUESTION && (
+            {component.pageBreak && component.type !== QUESTION && (
               <div className="separator">
                 <hr />
                 <button onClick={handleRemovePageBreak}>x</button>
               </div>
             )}
+            {dropZone}
+            {children}
+          </div>
+          {component.pageBreak && component.type === QUESTION && (
+            <div className="separator">
+              <hr />
+              <button onClick={handleRemovePageBreak}>x</button>
+            </div>
+          )}
         </div>
       )
     );

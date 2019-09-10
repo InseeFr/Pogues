@@ -20,9 +20,7 @@ class ResponseFormatTablePrincipalCodeslist extends Component {
     super(props);
 
     this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${
-          ResponseFormatTablePrincipalCodeslist.selectorPath
-        }`
+      ? `${selectorPathParent}.${ResponseFormatTablePrincipalCodeslist.selectorPath}`
       : ResponseFormatTablePrincipalCodeslist.selectorPath;
   }
   render() {

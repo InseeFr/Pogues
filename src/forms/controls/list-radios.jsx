@@ -59,12 +59,11 @@ class ListRadios extends Component {
         </label>
         <div>
           {/* No values */}
-          {values.length === 0 &&
-            noValuesMessage && (
-              <div>
-                <span>{noValuesMessage}</span>
-              </div>
-            )}
+          {values.length === 0 && noValuesMessage && (
+            <div>
+              <span>{noValuesMessage}</span>
+            </div>
+          )}
 
           {values.map(val => {
             // eslint-disable-next-line no-shadow

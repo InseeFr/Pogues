@@ -160,20 +160,20 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
         components[activeComponent.parent].type === SUBSEQUENCE
       ) {
         /*
-        * When we insert an element from a QUESTION, we get weight of the parent, and increase by one
-        *
-        * Example: 
-        * If we have this structure
-        * Sequence 1
-        *   -> SubSequence 1
-        *     -> Question 1
-        * 
-        * If the Question 1 has the focus, and we want to add a sub sequence, we will get this structure
-        * Sequence 1
-        *   -> SubSequence 1
-        *     -> Question 1
-        *   -> SubSequence 2
-        */
+         * When we insert an element from a QUESTION, we get weight of the parent, and increase by one
+         *
+         * Example:
+         * If we have this structure
+         * Sequence 1
+         *   -> SubSequence 1
+         *     -> Question 1
+         *
+         * If the Question 1 has the focus, and we want to add a sub sequence, we will get this structure
+         * Sequence 1
+         *   -> SubSequence 1
+         *     -> Question 1
+         *   -> SubSequence 2
+         */
         weight = components[activeComponent.parent].weight + 1;
       } else if (
         activeComponent.type === QUESTION &&
