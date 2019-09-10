@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
  Logger utility.
  Manage remote or local logging, levels and namespacing.

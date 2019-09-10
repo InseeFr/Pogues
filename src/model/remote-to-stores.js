@@ -70,7 +70,7 @@ export function questionnaireListRemoteToStores(questionnairesList) {
     try {
       questionnaireState = questionnaireRemoteToStores(questionnairesList[i]);
     } catch (e) {
-      console.log(e);
+      //
     }
 
     if (questionnaireState) questionnairesStates.push(questionnaireState);
