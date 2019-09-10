@@ -17,7 +17,7 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
  */
 export const loadUserSuccess = user => ({
   type: LOAD_USER_SUCCESS,
-  payload: user
+  payload: user,
 });
 
 /**
@@ -30,7 +30,7 @@ export const loadUserSuccess = user => ({
  */
 export const loadUserFailure = err => ({
   type: LOAD_USER_FAILURE,
-  payload: err
+  payload: err,
 });
 
 /**
@@ -43,7 +43,7 @@ export const loadUserFailure = err => ({
 export const loadUser = () => dispatch => {
   dispatch({
     type: LOAD_USER,
-    payload: null
+    payload: null,
   });
   return getUserAttributes()
     .then(user => {

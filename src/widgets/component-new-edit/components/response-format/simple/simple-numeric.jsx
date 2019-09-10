@@ -11,7 +11,7 @@ const { NUMERIC } = DATATYPE_NAME;
 function mapUnitData(unit) {
   return {
     label: unit.label,
-    value: unit.id
+    value: unit.id,
   };
 }
 
@@ -19,7 +19,7 @@ class ResponseFormatDatatypeNumeric extends FormSection {
   static defaultProps = {
     name: NUMERIC,
     readOnly: false,
-    required: true
+    required: true,
   };
   render() {
     return (

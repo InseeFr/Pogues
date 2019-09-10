@@ -10,11 +10,11 @@ export function setActiveCodeLists(state, { activeCodeLists }) {
 
 export function updateActiveCodeLists(
   state,
-  { update: { activeCodeListsById } }
+  { update: { activeCodeListsById } },
 ) {
   return {
     ...state,
-    ...activeCodeListsById
+    ...activeCodeListsById,
   };
 }
 

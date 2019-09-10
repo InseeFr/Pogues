@@ -11,7 +11,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 // Prop types and default props
 
 const propTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
 // Component
@@ -23,7 +23,7 @@ export class PageHome extends Component {
     super(props);
 
     this.state = {
-      showModal: false
+      showModal: false,
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);

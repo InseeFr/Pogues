@@ -31,7 +31,7 @@ function ResponseFormatTableSecondaryOptional({ selectorPath }) {
 }
 
 ResponseFormatTableSecondaryOptional.propTypes = {
-  selectorPath: PropTypes.string.isRequired
+  selectorPath: PropTypes.string.isRequired,
 };
 
 export default ResponseFormatTableSecondaryOptional;

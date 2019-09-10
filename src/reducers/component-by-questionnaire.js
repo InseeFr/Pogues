@@ -1,6 +1,6 @@
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
-  CREATE_QUESTIONNAIRE_SUCCESS
+  CREATE_QUESTIONNAIRE_SUCCESS,
 } from 'actions/questionnaire';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
@@ -10,11 +10,11 @@ const actionHandlers = {};
 
 export function loadQuestionnaireSuccess(
   state,
-  { update: { componentByQuestionnaire } }
+  { update: { componentByQuestionnaire } },
 ) {
   return {
     ...state,
-    ...componentByQuestionnaire
+    ...componentByQuestionnaire,
   };
 }
 
@@ -24,7 +24,7 @@ export function loadQuestionnaireListSuccess(state, updatesList) {
   }, {});
   return {
     ...state,
-    ...componentByQuestionnaire
+    ...componentByQuestionnaire,
   };
 }
 

@@ -3,7 +3,7 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DATATYPE_NAME
+  DATATYPE_NAME,
 } from 'constants/pogues-constants';
 import { uuid } from 'utils/utils';
 import { hasChild } from 'utils/codes-lists/codes-lists-utils';
@@ -31,13 +31,13 @@ export function getCollecteVariable(
   name,
   label,
   coordinates,
-  reponseFormatValues = {}
+  reponseFormatValues = {},
 ) {
   let collectedVariable = {
     ...reponseFormatValues,
     id: uuid(),
     name,
-    label
+    label,
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
@@ -48,7 +48,7 @@ export function getCollecteVariable(
 export function getCollectedVariablesMultiple(
   questionName,
   form,
-  codesListStore
+  codesListStore,
 ) {
   /**
    * This method will recursively sort an array of code.
@@ -58,7 +58,7 @@ export function getCollectedVariablesMultiple(
    */
   function sortCodes(codes = [], depth = 1, parent = '') {
     const filtered = codes.filter(
-      code => code.depth === depth && code.parent === parent
+      code => code.depth === depth && code.parent === parent,
     );
     if (filtered.length === 0) {
       return [];
@@ -77,9 +77,9 @@ export function getCollectedVariablesMultiple(
 
   const {
     [PRIMARY]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes, id }
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes, id },
     },
-    [MEASURE]: { type: typeMeasure }
+    [MEASURE]: { type: typeMeasure },
   } = form;
   let listCodes = sortCodes(codes);
   if (listCodes.length === 0 && codesListStore[id]) {
@@ -89,7 +89,7 @@ export function getCollectedVariablesMultiple(
 
   let reponseFormatValues = {
     type: BOOLEAN,
-    [BOOLEAN]: {}
+    [BOOLEAN]: {},
   };
 
   if (typeMeasure === CODES_LIST) {
@@ -99,8 +99,8 @@ export function getCollectedVariablesMultiple(
       type: TEXT,
       [TEXT]: {
         maxLength: 1,
-        pattern: ''
-      }
+        pattern: '',
+      },
     };
   }
   const listFiltered = listCodes.filter(code => !hasChild(code, listCodes));
@@ -109,8 +109,8 @@ export function getCollectedVariablesMultiple(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
       { x: index + 1 },
-      reponseFormatValues
-    )
+      reponseFormatValues,
+    ),
   );
 }
 
@@ -123,7 +123,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
    */
   function sortCodes(codes = [], depth = 1, parent = '') {
     const filtered = codes.filter(
-      code => code.depth === depth && code.parent === parent
+      code => code.depth === depth && code.parent === parent,
     );
     if (filtered.length === 0) {
       return [];
@@ -151,7 +151,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         BOOLEAN: measure[SIMPLE].BOOLEAN,
         DATE: measure[SIMPLE].DATE,
         NUMERIC: measure[SIMPLE].NUMERIC,
-        TEXT: measure[SIMPLE].TEXT
+        TEXT: measure[SIMPLE].TEXT,
       };
     } else if (measure.type === SINGLE_CHOICE) {
       reponseFormatValues = {
@@ -160,8 +160,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         type: TEXT,
         [TEXT]: {
           maxLength: 1,
-          pattern: ''
-        }
+          pattern: '',
+        },
       };
     }
     return reponseFormatValues;
@@ -178,7 +178,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     [PRIMARY]: primaryState,
     [SECONDARY]: secondaryState,
     [MEASURE]: measureState,
-    [LIST_MEASURE]: listMeasuresState
+    [LIST_MEASURE]: listMeasuresState,
   } = form;
 
   if (primaryState.type === CODES_LIST) {
@@ -186,37 +186,37 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       [CODES_LIST]: {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
           codes: componentCodesStatePrimary,
-          id: codesListIdPrimary
-        }
-      }
+          id: codesListIdPrimary,
+        },
+      },
     } = primaryState;
 
     codesListState = codesListStore[codesListIdPrimary] || {};
     codesStore = codesListState.codes || {};
     codesStatePrimary = Object.keys(codesStore).map(key => codesStore[key]);
-    //if (codesStatePrimary.length === 0)
+
     codesStatePrimary = componentCodesStatePrimary;
     codesStatePrimary = sortCodes(codesStatePrimary);
     if (secondaryState && secondaryState.showSecondaryAxis) {
       const {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
           codes: componentCodesStateSecondary,
-          id: codesListIdSecondary
-        }
+          id: codesListIdSecondary,
+        },
       } = secondaryState;
 
       codesListState = codesListStore[codesListIdSecondary] || {};
       codesStore = codesListState.codes || {};
       codesStateSecondary = Object.keys(codesStore).map(key => codesStore[key]);
-      //if (codesStateSecondary.length === 0)
+
       codesStateSecondary = componentCodesStateSecondary;
       codesStateSecondary = sortCodes(codesStateSecondary);
       // First case
       const codesStatePrimaryFiltered = codesStatePrimary.filter(
-        code => !hasChild(code, codesStatePrimary)
+        code => !hasChild(code, codesStatePrimary),
       );
       const codesStateSecondaryFiltered = codesStateSecondary.filter(
-        code => !hasChild(code, codesStateSecondary)
+        code => !hasChild(code, codesStateSecondary),
       );
       for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
         codePrimary = codesStatePrimaryFiltered[i];
@@ -225,17 +225,19 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
           collectedVariables.push(
             getCollecteVariable(
               `${questionName}${i + 1}${j + 1}`,
-              `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
+              `${codePrimary.label}-${codeSecondary.label}-${
+                measureState.label
+              }`,
               { x: i + 1, y: j + 1 },
-              getReponsesValues(measureState)
-            )
+              getReponsesValues(measureState),
+            ),
           );
         }
       }
     } else {
       // Second case
       const codesStatePrimaryFiltered = codesStatePrimary.filter(
-        code => !hasChild(code, codesStatePrimary)
+        code => !hasChild(code, codesStatePrimary),
       );
       for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
         codePrimary = codesStatePrimaryFiltered[i];
@@ -247,20 +249,15 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
               `${codePrimary.label}-${measure.label}`,
               {
                 x: i + 1,
-                y: j + 1
+                y: j + 1,
               },
-              getReponsesValues(measure)
-            )
+              getReponsesValues(measure),
+            ),
           );
         }
       }
     }
   } else {
-    const {
-      LIST: { numLinesMin, numLinesMax }
-    } = primaryState;
-
-    // Third case
     for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
       measure = listMeasuresState.measures[j];
 
@@ -269,8 +266,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
           `${questionName}${j + 1}`,
           `${measure.label}`,
           { x: 1, y: j + 1 },
-          getReponsesValues(measure)
-        )
+          getReponsesValues(measure),
+        ),
       );
     }
   }
@@ -281,7 +278,7 @@ export function generateCollectedVariables(
   responseFormat,
   questionName,
   form,
-  codesListStore
+  codesListStore,
 ) {
   let generatedCollectedVariables = [];
 
@@ -291,8 +288,8 @@ export function generateCollectedVariables(
         questionName,
         `${questionName} label`,
         undefined,
-        form
-      )
+        form,
+      ),
     ];
   } else if (responseFormat === SINGLE_CHOICE) {
     generatedCollectedVariables = [
@@ -302,21 +299,21 @@ export function generateCollectedVariables(
         type: TEXT,
         [TEXT]: {
           maxLength: 1,
-          pattern: ''
-        }
-      })
+          pattern: '',
+        },
+      }),
     ];
   } else if (responseFormat === MULTIPLE_CHOICE) {
     generatedCollectedVariables = getCollectedVariablesMultiple(
       questionName,
       form,
-      codesListStore
+      codesListStore,
     );
   } else if (responseFormat === TABLE) {
     generatedCollectedVariables = getCollectedVariablesTable(
       questionName,
       form,
-      codesListStore
+      codesListStore,
     );
   }
 

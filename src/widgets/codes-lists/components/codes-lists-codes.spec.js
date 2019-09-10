@@ -7,7 +7,7 @@ import {
   fakeFieldArrayMeta,
   fakeFieldArrayFields,
   noop,
-  fakeEnterEvent
+  fakeEnterEvent,
 } from 'utils/test/test-utils';
 
 describe('<CodesListCodes />', () => {
@@ -21,7 +21,7 @@ describe('<CodesListCodes />', () => {
       fields: fakeFieldArrayFields,
       meta: fakeFieldArrayMeta,
       validate: noop,
-      path: 'fake.path'
+      path: 'fake.path',
     };
   });
 
@@ -29,15 +29,15 @@ describe('<CodesListCodes />', () => {
     const wrapper = shallow(<CodesListCodes {...customProps} />);
 
     expect(
-      wrapper.find(`Field[name="${customProps.path}.code.value"]`)
+      wrapper.find(`Field[name="${customProps.path}.code.value"]`),
     ).toHaveLength(1);
     expect(
-      wrapper.find(`Field[name="${customProps.path}.code.label"]`)
+      wrapper.find(`Field[name="${customProps.path}.code.label"]`),
     ).toHaveLength(1);
     expect(
       wrapper.find(
-        `Field[name="${customProps.path}.code.parent"][type="hidden"]`
-      )
+        `Field[name="${customProps.path}.code.parent"][type="hidden"]`,
+      ),
     ).toHaveLength(1);
   });
 

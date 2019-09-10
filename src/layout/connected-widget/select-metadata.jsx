@@ -8,8 +8,8 @@ import GenericOption from 'forms/controls/generic-option';
 
 const mapStateToProps = (state, { type }) => ({
   meatadata: Object.keys(state.metadataByType[type] || {}).map(
-    key => state.metadataByType[type][key]
-  )
+    key => state.metadataByType[type][key],
+  ),
 });
 
 function SelectMetadataContainer({
@@ -18,7 +18,7 @@ function SelectMetadataContainer({
   label,
   emptyValue,
   mapMetadataFunction,
-  disabled
+  disabled,
 }) {
   return (
     <Field
@@ -48,13 +48,13 @@ SelectMetadataContainer.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   emptyValue: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 SelectMetadataContainer.defaultProps = {
   meatadata: [],
   emptyValue: '',
-  disabled: false
+  disabled: false,
 };
 
 export default connect(mapStateToProps)(SelectMetadataContainer);

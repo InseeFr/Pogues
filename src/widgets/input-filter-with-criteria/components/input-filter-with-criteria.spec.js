@@ -8,7 +8,7 @@ import { fakeEvent, noop } from 'utils/test/test-utils';
 
 const {
   SEARCH_INPUT_CLASS,
-  BUTTON_SEARCH_CLASS
+  BUTTON_SEARCH_CLASS,
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 describe('<InputFilterWithCriteria />', () => {
@@ -20,7 +20,7 @@ describe('<InputFilterWithCriteria />', () => {
       typeItem: 'FAKE_TYPE_ITEM',
       loadSearchResult: noop,
       criteriaValues: {},
-      loadOnInit: true
+      loadOnInit: true,
     };
   });
 
@@ -69,7 +69,7 @@ describe('<InputFilterWithCriteria />', () => {
     expect(spySearch).toHaveBeenCalledWith(
       props.typeItem,
       props.criteriaValues,
-      text
+      text,
     );
   });
 });

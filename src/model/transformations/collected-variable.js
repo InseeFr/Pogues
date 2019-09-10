@@ -1,7 +1,7 @@
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME
+  DATATYPE_TYPE_FROM_NAME,
 } from 'constants/pogues-constants';
 
 const { COLLECTED } = VARIABLES_TYPES;
@@ -9,7 +9,7 @@ const { COLLECTED } = VARIABLES_TYPES;
 export function remoteToStore(
   remote = [],
   responsesByVariable,
-  codesListsStore
+  codesListsStore,
 ) {
   return remote.reduce((acc, ev) => {
     ev.Datatype = ev.Datatype || {};
@@ -24,8 +24,8 @@ export function remoteToStore(
         Minimum: minimum,
         Maximum: maximum,
         Decimals: decimals,
-        Unit: unit
-      }
+        Unit: unit,
+      },
     } = ev;
     const id = ev.id || uuid();
 
@@ -46,10 +46,10 @@ export function remoteToStore(
           minimum,
           maximum,
           decimals,
-          unit
+          unit,
         },
-        ...responsesByVariable[id]
-      }
+        ...responsesByVariable[id],
+      },
     };
   }, {});
 }
@@ -74,8 +74,8 @@ export function storeToRemote(store) {
         minimum: Minimum,
         maximum: Maximum,
         decimals: Decimals,
-        unit: Unit
-      }
+        unit: Unit,
+      },
     } = store[key];
     const model = {
       id,
@@ -85,8 +85,8 @@ export function storeToRemote(store) {
       CodeListReference: codeListReference,
       Datatype: {
         typeName,
-        type: DATATYPE_TYPE_FROM_NAME[typeName]
-      }
+        type: DATATYPE_TYPE_FROM_NAME[typeName],
+      },
     };
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;

@@ -10,7 +10,7 @@ import QuestionnaireEdit from '../components/questionnaire-edit';
 
 export const propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired
+  onSuccess: PropTypes.func.isRequired,
 };
 
 // Container
@@ -22,19 +22,19 @@ const mapStateToProps = state => {
     activeCalculatedVariablesById: state.appState.activeCalculatedVariablesById,
     activeExternalVariablesById: state.appState.activeExternalVariablesById,
     activeCollectedVariablesById: state.appState.activeCollectedVariablesById,
-    activeCodeListsById: state.appState.activeCodeListsById
+    activeCodeListsById: state.appState.activeCodeListsById,
   };
 };
 
 const mapDispatchToProps = {
   updateActiveQuestionnaire,
   updateComponent,
-  setErrors: setErrorsByFormPath
+  setErrors: setErrorsByFormPath,
 };
 
 const QuestionnaireEditContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(QuestionnaireEdit);
 
 QuestionnaireEditContainer.propTypes = propTypes;

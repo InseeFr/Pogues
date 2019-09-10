@@ -3,7 +3,7 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function setErrorsByComponent(state, { errors }) {}
+export function setErrorsByComponent() {}
 
 actionHandlers[SET_ERRORS_BY_COMPONENT] = setErrorsByComponent;
 

@@ -1,6 +1,6 @@
 import actionsHandlers, {
   setActiveCalculatedVariables,
-  updateActiveCalculatedVariables
+  updateActiveCalculatedVariables,
 } from './active-calculated-variables-by-id';
 import { SET_ACTIVE_VARIABLES } from 'actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from 'actions/component';
@@ -9,7 +9,7 @@ describe('setActiveCalculatedVariables', () => {
   test('when called directly', () => {
     const result = setActiveCalculatedVariables(
       { state: 'previous' },
-      { activeCalculatedVariablesById: 'activeCalculatedVariablesById' }
+      { activeCalculatedVariablesById: 'activeCalculatedVariablesById' },
     );
     expect(result).toEqual('activeCalculatedVariablesById');
   });
@@ -19,9 +19,9 @@ describe('setActiveCalculatedVariables', () => {
       {
         type: SET_ACTIVE_VARIABLES,
         payload: {
-          activeCalculatedVariablesById: 'activeCalculatedVariablesById'
-        }
-      }
+          activeCalculatedVariablesById: 'activeCalculatedVariablesById',
+        },
+      },
     );
     expect(result).toEqual('activeCalculatedVariablesById');
   });
@@ -33,9 +33,9 @@ describe('setActiveCalculatedVariables', () => {
       { state: 'previous' },
       {
         update: {
-          activeCalculatedVariablesById: 'activeCalculatedVariablesById'
-        }
-      }
+          activeCalculatedVariablesById: 'activeCalculatedVariablesById',
+        },
+      },
     );
     expect(result).toEqual('activeCalculatedVariablesById');
   });
@@ -47,10 +47,10 @@ describe('setActiveCalculatedVariables', () => {
           type: action,
           payload: {
             update: {
-              activeCalculatedVariablesById: 'activeCalculatedVariablesById'
-            }
-          }
-        }
+              activeCalculatedVariablesById: 'activeCalculatedVariablesById',
+            },
+          },
+        },
       );
       expect(result).toEqual('activeCalculatedVariablesById');
     });

@@ -17,25 +17,25 @@ export function remoteToState(type, responses, dimensions, codesListsStore) {
   } else if (type === MULTIPLE_CHOICE) {
     datatypeState = ResponseFormatMultiple.remoteToState({
       responses,
-      dimensions
+      dimensions,
     });
   } else if (type === TABLE) {
     datatypeState = ResponseFormatTable.remoteToState(
       { responses, dimensions },
-      codesListsStore
+      codesListsStore,
     );
   }
 
   return {
     type,
-    [type]: datatypeState
+    [type]: datatypeState,
   };
 }
 
 export function stateToRemote(
   state,
   collectedVariables,
-  collectedVariablesStore
+  collectedVariablesStore,
 ) {
   const { type, [type]: responseFormatState } = state;
   let dataTypeRemote;
@@ -44,40 +44,40 @@ export function stateToRemote(
   if (type === SIMPLE) {
     dataTypeRemote = ResponseFormatSimple.stateToRemote(
       responseFormatState,
-      collectedVariables
+      collectedVariables,
     );
     remote.Response = dataTypeRemote.Response;
   } else if (type === SINGLE_CHOICE) {
     dataTypeRemote = ResponseFormatSingle.stateToRemote(
       responseFormatState,
-      collectedVariables
+      collectedVariables,
     );
     remote.Response = dataTypeRemote.Response;
   } else if (type === MULTIPLE_CHOICE) {
     dataTypeRemote = ResponseFormatMultiple.stateToRemote(
       responseFormatState,
       collectedVariables,
-      collectedVariablesStore
+      collectedVariablesStore,
     );
     remote = {
       ResponseStructure: {
         Dimension: dataTypeRemote.Dimension,
-        Mapping: dataTypeRemote.Mapping
+        Mapping: dataTypeRemote.Mapping,
       },
-      Response: dataTypeRemote.Response
+      Response: dataTypeRemote.Response,
     };
   } else {
     dataTypeRemote = ResponseFormatTable.stateToRemote(
       responseFormatState,
       collectedVariables,
-      collectedVariablesStore
+      collectedVariablesStore,
     );
     remote = {
       ResponseStructure: {
         Dimension: dataTypeRemote.Dimension,
-        Mapping: dataTypeRemote.Mapping
+        Mapping: dataTypeRemote.Mapping,
       },
-      Response: dataTypeRemote.Response
+      Response: dataTypeRemote.Response,
     };
   }
   return remote;

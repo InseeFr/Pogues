@@ -15,7 +15,7 @@ import {
   SET_SELECTED_COMPONENT,
   UPDATE_ACTIVE_QUESTIONNAIRE,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
-  SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
+  SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
 } from 'actions/app-state';
 
 describe('removeControlsAndRedirections', () => {
@@ -35,8 +35,8 @@ describe('removeControlsAndRedirections', () => {
             label:
               'If you are not ready, please go to the end of the questionnaire',
             condition: "$READY != '1'",
-            cible: 'j6z12s2d'
-          }
+            cible: 'j6z12s2d',
+          },
         },
         TargetMode: [],
         type: 'QUESTION',
@@ -47,11 +47,11 @@ describe('removeControlsAndRedirections', () => {
             id: 'jbgd3set',
             type: 'BOOLEAN',
             mandatory: false,
-            BOOLEAN: {}
-          }
+            BOOLEAN: {},
+          },
         },
         collectedVariables: ['jbcgm0ip'],
-        pageBreak: false
+        pageBreak: false,
       },
       j6p0ti5h: {
         id: 'j6p0ti5h',
@@ -65,15 +65,15 @@ describe('removeControlsAndRedirections', () => {
             label:
               "We're going to test your knowledge about the simpsons series.\n**Welcome in the simspons world!**",
             declarationType: 'COMMENT',
-            position: 'AFTER_QUESTION_TEXT'
-          }
+            position: 'AFTER_QUESTION_TEXT',
+          },
         },
         controls: {},
         redirections: {},
         TargetMode: [],
         label: 'Introduction',
         type: 'SEQUENCE',
-        pageBreak: false
+        pageBreak: false,
       },
       i6vwid: {
         id: 'i6vwid',
@@ -86,8 +86,8 @@ describe('removeControlsAndRedirections', () => {
         redirections: {},
         TargetMode: ['CAWI'],
         label: 'Questionnaire SIMPSONS',
-        type: 'QUESTIONNAIRE'
-      }
+        type: 'QUESTIONNAIRE',
+      },
     };
     const output = {
       j6p0np9q: {
@@ -108,11 +108,11 @@ describe('removeControlsAndRedirections', () => {
             id: 'jbgd3set',
             type: 'BOOLEAN',
             mandatory: false,
-            BOOLEAN: {}
-          }
+            BOOLEAN: {},
+          },
         },
         collectedVariables: ['jbcgm0ip'],
-        pageBreak: false
+        pageBreak: false,
       },
       j6p0ti5h: {
         id: 'j6p0ti5h',
@@ -126,15 +126,15 @@ describe('removeControlsAndRedirections', () => {
             label:
               "We're going to test your knowledge about the simpsons series.\n**Welcome in the simspons world!**",
             declarationType: 'COMMENT',
-            position: 'AFTER_QUESTION_TEXT'
-          }
+            position: 'AFTER_QUESTION_TEXT',
+          },
         },
         controls: {},
         redirections: {},
         TargetMode: [],
         label: 'Introduction',
         type: 'SEQUENCE',
-        pageBreak: false
+        pageBreak: false,
       },
       i6vwid: {
         id: 'i6vwid',
@@ -147,8 +147,8 @@ describe('removeControlsAndRedirections', () => {
         redirections: {},
         TargetMode: ['CAWI'],
         label: 'Questionnaire SIMPSONS',
-        type: 'QUESTIONNAIRE'
-      }
+        type: 'QUESTIONNAIRE',
+      },
     };
     expect(removeControlsAndRedirections(input)).toEqual(output);
   });
@@ -158,7 +158,7 @@ describe('setActiveQuestionnaire', () => {
   test('should return the right payload', () => {
     expect(setActiveQuestionnaire('setActiveQuestionnaire')).toEqual({
       type: SET_ACTIVE_QUESTIONNAIRE,
-      payload: 'setActiveQuestionnaire'
+      payload: 'setActiveQuestionnaire',
     });
   });
 });
@@ -167,7 +167,7 @@ describe('setActiveComponents', () => {
   test('should return the right payload', () => {
     expect(setActiveComponents('setActiveComponents')).toEqual({
       type: SET_ACTIVE_COMPONENTS,
-      payload: 'setActiveComponents'
+      payload: 'setActiveComponents',
     });
   });
 });
@@ -177,8 +177,8 @@ describe('setActiveCodeLists', () => {
     expect(setActiveCodeLists('activeCodeLists')).toEqual({
       type: SET_ACTIVE_CODE_LISTS,
       payload: {
-        activeCodeLists: 'activeCodeLists'
-      }
+        activeCodeLists: 'activeCodeLists',
+      },
     });
   });
 });
@@ -187,7 +187,7 @@ describe('setActiveDeclarations', () => {
   test('should return the right payload', () => {
     expect(setActiveDeclarations('setActiveDeclarations')).toEqual({
       type: SET_ACTIVE_DECLARATIONS,
-      payload: 'setActiveDeclarations'
+      payload: 'setActiveDeclarations',
     });
   });
 });
@@ -196,7 +196,7 @@ describe('setSelectedComponentId', () => {
   test('should return the right payload', () => {
     expect(setSelectedComponentId('setSelectedComponentId')).toEqual({
       type: SET_SELECTED_COMPONENT,
-      payload: 'setSelectedComponentId'
+      payload: 'setSelectedComponentId',
     });
   });
 });
@@ -211,8 +211,8 @@ describe('updateActiveQuestionnaire', () => {
         serie: 'serie',
         operation: 'operation',
         campaigns: ['campaign'],
-        final: 'final'
-      })
+        final: 'final',
+      }),
     ).toEqual({
       type: UPDATE_ACTIVE_QUESTIONNAIRE,
       payload: {
@@ -220,8 +220,8 @@ describe('updateActiveQuestionnaire', () => {
         label: 'label',
         serie: 'serie',
         operation: 'operation',
-        campaigns: ['campaign']
-      }
+        campaigns: ['campaign'],
+      },
     });
   });
 });
@@ -234,9 +234,9 @@ describe('saveActiveQuestionnaireSuccess', () => {
         id: 'id',
         update: {
           update: 'update',
-          isQuestionnaireModified: false
-        }
-      }
+          isQuestionnaireModified: false,
+        },
+      },
     });
   });
 });
@@ -247,8 +247,8 @@ describe('saveActiveQuestionnaireFailure', () => {
       type: SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
       payload: {
         id: 'id',
-        err: 'err'
-      }
+        err: 'err',
+      },
     });
   });
 });

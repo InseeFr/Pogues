@@ -16,13 +16,13 @@ const propTypes = {
   targets: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
-    })
-  )
+      label: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
 const defaultProps = {
-  targets: []
+  targets: [],
 };
 
 // Component

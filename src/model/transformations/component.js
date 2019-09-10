@@ -7,7 +7,7 @@ import * as CollectedVariable from './collected-variable';
 import {
   COMPONENT_TYPE,
   SEQUENCE_TYPE_NAME,
-  QUESTION_TYPE_NAME
+  QUESTION_TYPE_NAME,
 } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -28,8 +28,8 @@ function getResponseCoordinate(variablesMapping = []) {
       ...acc,
       [m.MappingSource]: {
         x: parseInt(axis[0], 10),
-        y: parseInt(axis[1], 10)
-      }
+        y: parseInt(axis[1], 10),
+      },
     };
   }, {});
 }
@@ -38,7 +38,7 @@ function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
   return responses.reduce((accInner, response) => {
     const {
       id: responseId,
-      CollectedVariableReference: collectedVariableId
+      CollectedVariableReference: collectedVariableId,
     } = response;
     // Mapping only exists in the questions with a matrix of responses
     const coordinates = coordinatesByResponse[responseId] || {};
@@ -46,8 +46,8 @@ function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
     return {
       ...accInner,
       [collectedVariableId]: {
-        ...coordinates
-      }
+        ...coordinates,
+      },
     };
   }, {});
 }
@@ -57,19 +57,19 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
     const {
       Response: responses,
       ResponseStructure: responseStructure,
-      Child: childrenInner
+      Child: childrenInner,
     } = child;
     const variableResponseMapping = responseStructure
       ? responseStructure.Mapping
       : undefined;
     const coordinatesByResponse = getResponseCoordinate(
-      variableResponseMapping
+      variableResponseMapping,
     );
 
     acc = {
       ...acc,
       ...getResponsesByVariable(responses, coordinatesByResponse),
-      ...remoteToVariableResponseNested(childrenInner, acc)
+      ...remoteToVariableResponseNested(childrenInner, acc),
     };
   });
 
@@ -97,7 +97,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     parent,
     weight,
     TargetMode,
-    declarationMode
+    declarationMode,
   } = remote;
 
   const state = {
@@ -109,7 +109,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarations: Declaration.remoteToState(declarations),
     controls: Control.remoteToState(controls),
     redirections: Redirection.remoteToState(redirections),
-    TargetMode: TargetMode || declarationMode || []
+    TargetMode: TargetMode || declarationMode || [],
   };
 
   if (genericName) {
@@ -130,15 +130,15 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       questionType,
       responses,
       dimensions,
-      codesListsStore
+      codesListsStore,
     );
     state.collectedVariables = CollectedVariable.remoteToComponentState(
-      responses
+      responses,
     );
   }
 
   const cGroupIndex = componentGroup.findIndex(
-    group => group.MemberReference && group.MemberReference.indexOf(id) >= 0
+    group => group.MemberReference && group.MemberReference.indexOf(id) >= 0,
   );
   const cGroup = componentGroup[cGroupIndex];
 
@@ -155,14 +155,14 @@ function remoteToStoreNested(
   parent,
   componentGroup,
   codesListsStore = {},
-  acc = {}
+  acc = {},
 ) {
   let weight = 0;
   children.forEach(child => {
     acc[child.id] = remoteToState(
       { ...child, weight, parent },
       componentGroup,
-      codesListsStore
+      codesListsStore,
     );
     weight += 1;
     if (child.Child)
@@ -171,7 +171,7 @@ function remoteToStoreNested(
         child.id,
         componentGroup,
         codesListsStore,
-        acc
+        acc,
       );
     return acc;
   });
@@ -179,40 +179,11 @@ function remoteToStoreNested(
   return acc;
 }
 
-export function remoteToStore(remote, questionnaireId, codesListsStore) {
-  return {
-    ...remoteToStoreNested(
-      remote.Child,
-      questionnaireId,
-      remote.ComponentGroup,
-      codesListsStore
-    ),
-    [questionnaireId]: remoteToState(remote, [])
-  };
-}
-
-function childrenToRemote(
-  children,
-  store,
-  collectedVariablesStore = {},
-  depth = 0
-) {
-  return children.sort(sortByWeight(store)).map(key => {
-    const newDepth = depth + 1;
-    return storeToRemoteNested(
-      store[key],
-      store,
-      collectedVariablesStore,
-      newDepth
-    ); // eslint-disable-line no-use-before-define
-  });
-}
-
 function storeToRemoteNested(
   state,
   store,
   collectedVariablesStore = {},
-  depth = 1
+  depth = 1,
 ) {
   const {
     id,
@@ -225,7 +196,7 @@ function storeToRemoteNested(
     controls,
     redirections,
     collectedVariables,
-    TargetMode
+    TargetMode,
   } = state;
 
   let remote = {
@@ -237,7 +208,7 @@ function storeToRemoteNested(
     Control: Control.stateToRemote(controls),
     // Trello #196 : ouput : GoTo --> FlowControl
     FlowControl: Redirection.stateToRemote(redirections),
-    TargetMode
+    TargetMode,
   };
 
   if (type === QUESTION) {
@@ -248,8 +219,8 @@ function storeToRemoteNested(
       ...ResponseFormat.stateToRemote(
         responseFormat,
         collectedVariables,
-        collectedVariablesStore
-      )
+        collectedVariablesStore,
+      ),
     };
   } else {
     remote.type = SEQUENCE_TYPE_NAME;
@@ -264,11 +235,40 @@ function storeToRemoteNested(
       children,
       store,
       collectedVariablesStore,
-      depth
+      depth,
     );
   }
 
   return remote;
+}
+
+function childrenToRemote(
+  children,
+  store,
+  collectedVariablesStore = {},
+  depth = 0,
+) {
+  return children.sort(sortByWeight(store)).map(key => {
+    const newDepth = depth + 1;
+    return storeToRemoteNested(
+      store[key],
+      store,
+      collectedVariablesStore,
+      newDepth,
+    ); // eslint-disable-line no-use-before-define
+  });
+}
+
+export function remoteToStore(remote, questionnaireId, codesListsStore) {
+  return {
+    ...remoteToStoreNested(
+      remote.Child,
+      questionnaireId,
+      remote.ComponentGroup,
+      codesListsStore,
+    ),
+    [questionnaireId]: remoteToState(remote, []),
+  };
 }
 
 export function storeToRemote(store, questionnaireId, collectedVariablesStore) {

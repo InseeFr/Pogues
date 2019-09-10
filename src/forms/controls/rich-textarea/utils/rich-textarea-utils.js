@@ -28,14 +28,14 @@ export function getEditorValue(markdownVtl) {
 export function markdownVtlToHtml(markdownVtl) {
   const markdown = removeVtlFromMarkdow(markdownVtl);
   return createFromMarkdownVtl(markdown, 'markdown', decorators).toString(
-    'html'
+    'html',
   );
 }
 
 export function markdownVtlToString(markdownVtl) {
   const markdown = removeVtlFromMarkdow(markdownVtl);
   const raw = createFromMarkdownVtl(markdown, 'markdown', decorators).toString(
-    'raw'
+    'raw',
   );
   return JSON.parse(raw).blocks[0].text.replace(/^\n+|\n+$/, '');
 }

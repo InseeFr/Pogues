@@ -5,6 +5,6 @@ module.exports = function configLoader(remoteConfig) {
   const options = loaderUtils.getOptions(this);
   return fs.readFileSync(
     `${__dirname}/config.${options.environment}.js`,
-    'utf8'
+    'utf8',
   );
 };

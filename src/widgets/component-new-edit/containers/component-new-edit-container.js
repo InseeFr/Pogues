@@ -6,7 +6,7 @@ import ComponentNewEdit from '../components/component-new-edit';
 
 import {
   addSubformValidationErrors,
-  clearSubformValidationErrors
+  clearSubformValidationErrors,
 } from 'actions/errors';
 import { TABS_PATHS } from 'constants/pogues-constants';
 
@@ -16,7 +16,7 @@ function getErrorsIntegrityByTab(integrityErrors = {}) {
   const errorsByTab = Object.keys(TABS_PATHS).reduce((acc, key) => {
     return {
       ...acc,
-      [TABS_PATHS[key]]: []
+      [TABS_PATHS[key]]: [],
     };
   }, {});
 
@@ -41,11 +41,11 @@ function getErrorsIntegrityByTab(integrityErrors = {}) {
 export const propTypes = {
   ...formPropTypes,
   componentType: PropTypes.string.isRequired,
-  componentId: PropTypes.string
+  componentId: PropTypes.string,
 };
 
 export const defaultProps = {
-  componentId: ''
+  componentId: '',
 };
 
 // Container
@@ -54,18 +54,18 @@ const mapStateToProps = (state, { componentId }) => {
   const errorsIntegrity = state.errors.errorsIntegrity[componentId];
   return {
     errorsIntegrityByTab: getErrorsIntegrityByTab(errorsIntegrity),
-    componentsStore: state.appState.activeComponentsById
+    componentsStore: state.appState.activeComponentsById,
   };
 };
 
 const mapDispatchToProps = {
   addSubformValidationErrors,
-  clearSubformValidationErrors
+  clearSubformValidationErrors,
 };
 
 const ComponentNewEditContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ComponentNewEdit);
 
 ComponentNewEditContainer.propTypes = propTypes;

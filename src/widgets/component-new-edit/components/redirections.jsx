@@ -19,11 +19,11 @@ const validateForm = (
   addErrors,
   validate,
   componentsStore,
-  editingComponentId
+  editingComponentId,
 ) => values => {
   return validate(values, addErrors, {
     componentsStore,
-    editingComponentId
+    editingComponentId,
   });
 };
 
@@ -36,13 +36,13 @@ const propTypes = {
   editingComponentId: PropTypes.string.isRequired,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
-  componentsStore: PropTypes.object.isRequired
+  componentsStore: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPath: TABS_PATHS.REDIRECTIONS,
-  errors: []
+  errors: [],
 };
 
 // Component
@@ -54,7 +54,7 @@ function Redirections({
   errors,
   addErrors,
   componentsStore,
-  editingComponentId
+  editingComponentId,
 }) {
   return (
     <FormSection name={selectorPath}>
@@ -68,7 +68,7 @@ function Redirections({
           addErrors,
           validateRedirectionForm,
           componentsStore,
-          editingComponentId
+          editingComponentId,
         )}
       >
         <Field

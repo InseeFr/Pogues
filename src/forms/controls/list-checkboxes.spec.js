@@ -12,15 +12,15 @@ describe('Form controls - List checkboxes', () => {
       ...fakeFieldProps,
       input: {
         ...fakeFieldProps.input,
-        value: ''
+        value: '',
       },
-      label: 'Fake label'
+      label: 'Fake label',
     };
     const wrapper = shallow(
       <ListCheckboxes {...props}>
         <GenericOption value="fakeValue1">Fake label 1</GenericOption>
         <GenericOption value="fakeValue2">Fake label 2</GenericOption>
-      </ListCheckboxes>
+      </ListCheckboxes>,
     );
 
     expect(wrapper.find('input[type="checkbox"]')).toHaveLength(2);
@@ -37,9 +37,9 @@ describe('Form controls - List checkboxes', () => {
         input: {
           ...fakeFieldProps.input,
           value: '',
-          onChange: onChangeSpy
+          onChange: onChangeSpy,
         },
-        label: 'Fake label'
+        label: 'Fake label',
       };
     });
 
@@ -50,7 +50,7 @@ describe('Form controls - List checkboxes', () => {
         <ListCheckboxes {...props}>
           <GenericOption value="fakeValue1">Fake label 1</GenericOption>
           <GenericOption value="fakeValue2">Fake label 2</GenericOption>
-        </ListCheckboxes>
+        </ListCheckboxes>,
       );
 
       wrapper.find('input[value="fakeValue1"]').simulate('change', fakeEvent);
@@ -64,7 +64,7 @@ describe('Form controls - List checkboxes', () => {
         <ListCheckboxes {...props}>
           <GenericOption value="fakeValue1">Fake label 1</GenericOption>
           <GenericOption value="fakeValue2">Fake label 2</GenericOption>
-        </ListCheckboxes>
+        </ListCheckboxes>,
       );
 
       wrapper.find('input[value="fakeValue2"]').simulate('change', fakeEvent);
@@ -78,7 +78,7 @@ describe('Form controls - List checkboxes', () => {
         <ListCheckboxes {...props}>
           <GenericOption value="fakeValue1">Fake label 1</GenericOption>
           <GenericOption value="fakeValue2">Fake label 2</GenericOption>
-        </ListCheckboxes>
+        </ListCheckboxes>,
       );
 
       wrapper.find('input[value="fakeValue2"]').simulate('change', fakeEvent);

@@ -1,3 +1,3 @@
 export {
-  default as PageSearchQuestionnaire
+  default as PageSearchQuestionnaire,
 } from './containers/page-search-questionnaire-container';

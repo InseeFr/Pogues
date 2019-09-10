@@ -6,8 +6,8 @@ module.exports = {
   userPath: '/user',
   log: {
     level: 'DEBUG',
-    activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models']
-  }
+    activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],
+  },
 };
 
 // module.exports = {

@@ -1,7 +1,7 @@
 import {
   remoteToStore,
   remoteToComponentState,
-  storeToRemote
+  storeToRemote,
 } from './collected-variable';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
 
@@ -20,9 +20,9 @@ describe('collected variable tranformations', () => {
           Datatype: {
             typeName: TEXT,
             MaxLength: 100,
-            Pattern: 'pattern'
-          }
-        }
+            Pattern: 'pattern',
+          },
+        },
       ];
       const responsesByVariable = { jdww2n76: {} };
       const codesListStore = { id: { label: 'label' } };
@@ -40,12 +40,12 @@ describe('collected variable tranformations', () => {
             pattern: 'pattern',
             maximum: undefined,
             minimum: undefined,
-            unit: undefined
-          }
-        }
+            unit: undefined,
+          },
+        },
       };
       expect(remoteToStore(input, responsesByVariable, codesListStore)).toEqual(
-        output
+        output,
       );
     });
   });
@@ -58,12 +58,12 @@ describe('collected variable tranformations', () => {
             MaxLength: 255,
             Pattern: '',
             type: 'TextDatatypeType',
-            typeName: 'TEXT'
+            typeName: 'TEXT',
           },
 
           id: 'jbgd6m6e',
-          mandatory: false
-        }
+          mandatory: false,
+        },
       ];
       const output = ['jbcggt4x'];
       expect(remoteToComponentState(input)).toEqual(output);
@@ -85,9 +85,9 @@ describe('collected variable tranformations', () => {
             pattern: 'pattern',
             maximum: undefined,
             minimum: undefined,
-            unit: undefined
-          }
-        }
+            unit: undefined,
+          },
+        },
       };
       const output = [
         {
@@ -99,9 +99,9 @@ describe('collected variable tranformations', () => {
             type: 'TextDatatypeType',
             typeName: TEXT,
             MaxLength: 100,
-            Pattern: 'pattern'
-          }
-        }
+            Pattern: 'pattern',
+          },
+        },
       ];
       expect(storeToRemote(input)).toEqual(output);
     });

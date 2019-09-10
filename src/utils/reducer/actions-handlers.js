@@ -20,7 +20,7 @@ export function makeSubsHandlers(subs) {
     const fn = createOrRemoveSubEntity(entityArrName, op);
     hndlrs[actionType] = (cmpntsById, { cmpntId: id, id: entityId }) => ({
       ...cmpntsById,
-      [id]: fn(cmpntsById[id], entityId)
+      [id]: fn(cmpntsById[id], entityId),
     });
     return hndlrs;
   }, {});

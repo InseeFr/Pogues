@@ -15,13 +15,13 @@ describe('redirection transformation', () => {
                 Minimum: 'minimum',
                 Maximum: 'maximum',
                 Decimals: 'decimals',
-                Unit: 'unit'
+                Unit: 'unit',
               },
               mandatory: true,
-              id: '1'
-            }
-          ]
-        })
+              id: '1',
+            },
+          ],
+        }),
       ).toEqual({
         mandatory: true,
         id: '1',
@@ -32,8 +32,8 @@ describe('redirection transformation', () => {
           minimum: 'minimum',
           maximum: 'maximum',
           decimals: 'decimals',
-          unit: 'unit'
-        }
+          unit: 'unit',
+        },
       });
     });
     it('should return an empty datatype if all datas are undefined', () => {
@@ -42,18 +42,18 @@ describe('redirection transformation', () => {
           responses: [
             {
               Datatype: {
-                typeName: 'typeName'
+                typeName: 'typeName',
               },
               mandatory: true,
-              id: '1'
-            }
-          ]
-        })
+              id: '1',
+            },
+          ],
+        }),
       ).toEqual({
         mandatory: true,
         id: '1',
         type: 'typeName',
-        typeName: {}
+        typeName: {},
       });
     });
   });
@@ -66,9 +66,9 @@ describe('redirection transformation', () => {
           id: '2',
           mandatory: true,
           type: 'typeName',
-          typeName: { typeObject: true }
+          typeName: { typeObject: true },
         },
-        [{ id: '1' }]
+        [{ id: '1' }],
       );
       expect(result).toEqual({ Response: [{ id: '2' }] });
       expect(Response.stateToRemote).toHaveBeenCalledWith({
@@ -76,7 +76,7 @@ describe('redirection transformation', () => {
         id: '2',
         mandatory: true,
         typeName: 'typeName',
-        collectedVariable: { id: '1' }
+        collectedVariable: { id: '1' },
       });
       Response.stateToRemote.mockClear();
     });

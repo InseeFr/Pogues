@@ -1,3 +1,3 @@
 export {
-  default as ComponentEdit
+  default as ComponentEdit,
 } from './containers/component-edit-container';

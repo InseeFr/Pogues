@@ -3,11 +3,11 @@ import {
   isSequence,
   isQuestion,
   toComponents,
-  updateNewComponentParent
+  updateNewComponentParent,
 } from 'utils/component/component-utils';
 import {
   moveQuestionToSubSequence,
-  moveQuestionAndSubSequenceToSequence
+  moveQuestionAndSubSequenceToSequence,
 } from './component-insert';
 import { increaseWeightOfAll } from './component-update';
 
@@ -36,10 +36,10 @@ export const createComponent = (
   codesListsStore,
   calculatedVariablesStore,
   externalVariablesStore,
-  collectedVariablesStore
+  collectedVariablesStore,
 ) => dispatch => {
   const activeComponentsStore = {
-    [componentState.id]: componentState
+    [componentState.id]: componentState,
   };
 
   return new Promise(resolve => {
@@ -52,17 +52,17 @@ export const createComponent = (
           activeCalculatedVariablesById: calculatedVariablesStore,
           activeExternalVariablesById: externalVariablesStore,
           activeCollectedVariablesById: {
-            [componentState.id]: collectedVariablesStore
+            [componentState.id]: collectedVariablesStore,
           },
-          activeCodeListsById: codesListsStore
-        }
-      }
+          activeCodeListsById: codesListsStore,
+        },
+      },
     });
     resolve({
       payload: {
         id: componentState.id,
-        lastCreatedComponent: result.payload.update.activeComponentsById
-      }
+        lastCreatedComponent: result.payload.update.activeComponentsById,
+      },
     });
   });
 };
@@ -76,11 +76,13 @@ export const createComponent = (
  */
 export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
   dispatch,
-  getState
+  getState,
 ) => {
   const state = getState();
-  const selectedComponentId = state.appState.selectedComponentId;
-  const activesComponents = state.appState.activeComponentsById;
+  const {
+    selectedComponentId,
+    activeComponentsById: activesComponents,
+  } = state.appState.selectedComponentId;
   const selectedComponent = activesComponents[selectedComponentId];
 
   let activeComponentsById = {};
@@ -92,7 +94,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
     // We get the next sibling component of the currently selected component
     const siblingSelectedComponent = toComponents(
       activesComponents[selectedComponent.parent].children,
-      activesComponents
+      activesComponents,
     ).find(c => c.weight === selectedComponent.weight + 1);
 
     const childrenSelectedComponentLength = selectedComponent.children.length;
@@ -115,7 +117,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
           ? selectedComponent
           : toComponents(
               activesComponents[selectedComponent.id].children,
-              activesComponents
+              activesComponents,
             ).find(c => c.weight === 0);
 
       activeComponentsById = moveQuestionToSubSequence(
@@ -123,7 +125,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
         comp,
         lastCreatedComponent[id],
         true,
-        comp.id !== selectedComponent.id
+        comp.id !== selectedComponent.id,
       );
 
       /**
@@ -140,18 +142,18 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
           ? selectedComponent
           : toComponents(
               activesComponents[selectedComponent.id].children,
-              activesComponents
+              activesComponents,
             ).find(c => c.weight === 0);
       activeComponentsById = moveQuestionAndSubSequenceToSequence(
         activesComponents,
         comp,
         lastCreatedComponent[id],
-        comp.id !== selectedComponent.id
+        comp.id !== selectedComponent.id,
       );
     } else {
       activeComponentsById = increaseWeightOfAll(
         activesComponents,
-        lastCreatedComponent[id]
+        lastCreatedComponent[id],
       );
     }
   }
@@ -161,9 +163,9 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
     payload: {
       id,
       update: {
-        activeComponentsById
-      }
-    }
+        activeComponentsById,
+      },
+    },
   });
 };
 
@@ -175,7 +177,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
 export const updateParentChildren = ({
-  payload: { id, lastCreatedComponent }
+  payload: { id, lastCreatedComponent },
 }) => (dispatch, getState) => {
   const state = getState();
   return dispatch({
@@ -187,9 +189,9 @@ export const updateParentChildren = ({
         activeComponentsById: updateNewComponentParent(
           state.appState.activeComponentsById,
           lastCreatedComponent[id].parent,
-          id
-        )
-      }
-    }
+          id,
+        ),
+      },
+    },
   });
 };

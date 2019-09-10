@@ -11,10 +11,10 @@ const { LIST } = DIMENSION_FORMATS;
 class ResponseFormatTablePrincipalList extends Component {
   static selectorPath = LIST;
   static propTypes = {
-    selectorPathParent: PropTypes.string
+    selectorPathParent: PropTypes.string,
   };
   static defaultProps = {
-    selectorPathParent: undefined
+    selectorPathParent: undefined,
   };
   constructor(props) {
     const { selectorPathParent } = props;

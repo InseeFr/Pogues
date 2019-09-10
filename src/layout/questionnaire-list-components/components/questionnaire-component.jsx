@@ -15,11 +15,11 @@ import {
   PropType,
   componentSource,
   cardTarget,
-  collect
+  collect,
 } from 'utils/component/component-dragndrop';
 import {
   getDragnDropLevel,
-  calculateMargin
+  calculateMargin,
 } from 'utils/component/component-dragndrop-utils';
 import Dictionary from 'utils/dictionary/dictionary';
 import { getIntegrityErrors } from 'utils/integrity/utils';
@@ -53,15 +53,15 @@ const propTypes = {
   parentType: PropTypes.string.isRequired,
 
   actions: PropTypes.shape({
-    handleOpenComponentDetail: PropTypes.func.isRequired
-  }).isRequired
+    handleOpenComponentDetail: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const defaultProps = {
   children: [],
   draggedItem: {},
   integrityErrorsByType: {},
-  canDrop: true
+  canDrop: true,
 };
 
 // Component
@@ -70,7 +70,7 @@ const defaultProps = {
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver({ shallow: true }),
   draggedItem: monitor.getItem(),
-  canDrop: monitor.canDrop()
+  canDrop: monitor.canDrop(),
 }))
 @DragSource(PropType, componentSource, collect)
 class QuestionnaireComponent extends Component {
@@ -130,7 +130,7 @@ class QuestionnaireComponent extends Component {
       children,
       parentType,
       visualizeActiveQuestionnaire,
-      handleRemovePageBreak
+      handleRemovePageBreak,
     } = this.props;
     const dragndropLevel = getDragnDropLevel(this.props, draggedItem);
     const style = {
@@ -138,8 +138,8 @@ class QuestionnaireComponent extends Component {
         this.props,
         draggedItem,
         dragndropLevel,
-        parentType
-      )}px`
+        parentType,
+      )}px`,
     };
     const dropZone = canDrop && isOver && <DropZone style={style} />;
     const integrityErrors = getIntegrityErrors(integrityErrorsByType);
@@ -157,7 +157,7 @@ class QuestionnaireComponent extends Component {
               selected: selected,
               'questionnaire-sequence': component.type === SEQUENCE,
               'questionnaire-subsequence': component.type === SUBSEQUENCE,
-              'questionnaire-question': component.type === QUESTION
+              'questionnaire-question': component.type === QUESTION,
             })}
             ref={node => {
               this.node = node;
@@ -169,7 +169,7 @@ class QuestionnaireComponent extends Component {
               onClick={this.handleSelectComponent}
               className={ClassSet({
                 'questionnaire-element-info': true,
-                over: isOver
+                over: isOver,
               })}
             >
               <div className="questionnaire-element-name">{component.name}</div>
@@ -179,7 +179,7 @@ class QuestionnaireComponent extends Component {
                     {component.type === QUESTION ? (
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: markdownVtlToHtml(component.label)
+                          __html: markdownVtlToHtml(component.label),
                         }}
                       />
                     ) : (
@@ -250,8 +250,8 @@ class QuestionnaireComponent extends Component {
               <button onClick={handleRemovePageBreak}>x</button>
             </div>
           )}
-        </div>
-      )
+        </div>,
+      ),
     );
   }
 }

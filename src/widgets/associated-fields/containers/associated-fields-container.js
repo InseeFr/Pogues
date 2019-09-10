@@ -15,44 +15,44 @@ const propTypes = {
   selectorPathParent: PropTypes.string,
   fieldOrigin: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }).isRequired,
   fieldTarget: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }).isRequired,
   targetIsRichTextarea: PropTypes.bool,
-  onEnter: PropTypes.func
+  onEnter: PropTypes.func,
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPathParent: '',
   targetIsRichTextarea: false,
-  onEnter: undefined
+  onEnter: undefined,
 };
 
 // Container
 
 const mapStateToProps = (
   state,
-  { formName, selectorPathParent, fieldOrigin, fieldTarget }
+  { formName, selectorPathParent, fieldOrigin, fieldTarget },
 ) => {
   const selector = formValueSelector(formName);
   const path = getCurrentSelectorPath(selectorPathParent);
   return {
     currentValueOrigin: selector(state, `${path}${fieldOrigin.name}`),
-    currentValueTarget: selector(state, `${path}${fieldTarget.name}`)
+    currentValueTarget: selector(state, `${path}${fieldTarget.name}`),
   };
 };
 
 const mapDispatchToProps = {
-  change: actions.change
+  change: actions.change,
 };
 
 const AssociatedFieldsContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AssociatedFields);
 
 AssociatedFieldsContainer.propTypes = propTypes;

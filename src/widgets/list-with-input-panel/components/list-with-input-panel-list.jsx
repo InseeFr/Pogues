@@ -14,11 +14,11 @@ const { LIST_CLASS, LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 export const propTypes = {
   fields: PropTypes.object.isRequired,
   select: PropTypes.func.isRequired,
-  errors: PropTypes.array
+  errors: PropTypes.array,
 };
 
 export const defaultProps = {
-  errors: []
+  errors: [],
 };
 
 // Component

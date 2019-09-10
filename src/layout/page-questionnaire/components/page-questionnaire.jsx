@@ -27,7 +27,7 @@ export const propTypes = {
   calculatedVariables: PropTypes.object,
   externalVariables: PropTypes.object,
   collectedVariablesByQuestion: PropTypes.object,
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
@@ -37,7 +37,7 @@ export const defaultProps = {
   codeLists: {},
   calculatedVariables: {},
   externalVariables: {},
-  collectedVariablesByQuestion: {}
+  collectedVariablesByQuestion: {},
 };
 
 class PageQuestionnaire extends Component {
@@ -52,7 +52,7 @@ class PageQuestionnaire extends Component {
       codeLists,
       calculatedVariables,
       externalVariables,
-      collectedVariablesByQuestion
+      collectedVariablesByQuestion,
     } = this.props;
 
     this.props.loadQuestionnaireIfNeeded(id);
@@ -65,7 +65,7 @@ class PageQuestionnaire extends Component {
       this.props.setActiveVariables({
         activeCalculatedVariablesById: calculatedVariables,
         activeExternalVariablesById: externalVariables,
-        collectedVariableByQuestion: collectedVariablesByQuestion
+        collectedVariableByQuestion: collectedVariablesByQuestion,
       });
       this.props.loadStatisticalContext(idCampaign);
     }
@@ -108,13 +108,13 @@ class PageQuestionnaire extends Component {
       !isEqual(nextProps.externalVariables, this.props.externalVariables) ||
       !isEqual(
         nextProps.collectedVariablesByQuestion,
-        this.props.collectedVariablesByQuestion
+        this.props.collectedVariablesByQuestion,
       )
     ) {
       this.props.setActiveVariables({
         activeCalculatedVariablesById: nextProps.calculatedVariables,
         activeExternalVariablesById: nextProps.externalVariables,
-        collectedVariableByQuestion: nextProps.collectedVariablesByQuestion
+        collectedVariableByQuestion: nextProps.collectedVariablesByQuestion,
       });
     }
   }

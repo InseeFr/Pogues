@@ -21,7 +21,7 @@ const {
   BUTTON_REMOVE_CLASS,
   BUTTON_DUPLICATE_CLASS,
   BUTTON_RESET_CLASS,
-  BUTTON_NEW_CLASS
+  BUTTON_NEW_CLASS,
 } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 // Utils
@@ -69,7 +69,7 @@ export const propTypes = {
   arrayInsert: PropTypes.func.isRequired,
   validateForm: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
-  removeIntegrityError: PropTypes.func.isRequired
+  removeIntegrityError: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -77,7 +77,7 @@ export const defaultProps = {
   canAddNew: true,
   canRemove: true,
   canDuplicate: true,
-  componentsStore: {}
+  componentsStore: {},
 };
 
 // Component
@@ -90,7 +90,7 @@ class ListWithInputPanel extends Component {
     super(props);
 
     this.state = {
-      selectedItemIndex: undefined
+      selectedItemIndex: undefined,
     };
 
     this.validate = this.validate.bind(this);
@@ -101,7 +101,7 @@ class ListWithInputPanel extends Component {
     this.select = this.select.bind(this);
     this.clearAllErrors = this.clearAllErrors.bind(this);
     this.removeErrorIntegrityIfExists = this.removeErrorIntegrityIfExists.bind(
-      this
+      this,
     );
   }
 
@@ -135,7 +135,7 @@ class ListWithInputPanel extends Component {
       formName,
       selectorPath,
       name,
-      canAddNew
+      canAddNew,
     } = this.props;
     const { [name]: items, ...values } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
@@ -148,7 +148,7 @@ class ListWithInputPanel extends Component {
           formName,
           `${path}${name}`,
           this.state.selectedItemIndex,
-          values
+          values,
         );
       } else if (canAddNew) {
         arrayPush(formName, `${path}${name}`, values);
@@ -166,7 +166,7 @@ class ListWithInputPanel extends Component {
       formName,
       selectorPath,
       name,
-      currentValues
+      currentValues,
     } = this.props;
     const { [name]: items, ...values } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
@@ -185,7 +185,7 @@ class ListWithInputPanel extends Component {
       arrayPush,
       formName,
       selectorPath,
-      name
+      name,
     } = this.props;
     const { [name]: items, ...values } = currentValues;
     values.id = null;
@@ -203,7 +203,7 @@ class ListWithInputPanel extends Component {
     this.setState({ selectedItemIndex: undefined }, () => {
       this.clearAllErrors();
       Object.keys(resetObject).forEach(key =>
-        change(formName, `${path}${key}`, resetObject[key])
+        change(formName, `${path}${key}`, resetObject[key]),
       );
     });
   }
@@ -215,7 +215,7 @@ class ListWithInputPanel extends Component {
       change,
       formName,
       selectorPath,
-      formValues
+      formValues,
     } = this.props;
     const path = getCurrentSelectorPath(selectorPath);
     this.setState({ selectedItemIndex: index }, () => {
@@ -224,11 +224,11 @@ class ListWithInputPanel extends Component {
         formValues,
         item,
         selectorPath,
-        name
+        name,
       );
       this.validate(formValuesToValidate);
       Object.keys(item).forEach(key =>
-        change(formName, `${path}${key}`, item[key])
+        change(formName, `${path}${key}`, item[key]),
       );
     });
   }
@@ -255,7 +255,7 @@ class ListWithInputPanel extends Component {
       canAddNew,
       canRemove,
       canDuplicate,
-      selectorPath
+      selectorPath,
     } = this.props;
     const childrenWithDisabledProp = Children.map(children, child => {
       return child
@@ -263,7 +263,7 @@ class ListWithInputPanel extends Component {
             ...child.props,
             disabled:
               child.props.disabled ||
-              (!canAddNew && this.state.selectedItemIndex === undefined)
+              (!canAddNew && this.state.selectedItemIndex === undefined),
           })
         : child;
     }).filter(child => child);

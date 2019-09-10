@@ -60,10 +60,10 @@ export const visualizeHtml = qr => {
     method: 'POST',
     headers: {
       // Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include'
+    credentials: 'include',
   })
     .then(response => response.text())
     .then(url => {
@@ -80,10 +80,10 @@ export const visualizeDDI = qr => {
     method: 'POST',
     headers: {
       // Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include'
+    credentials: 'include',
   }).then(openDocument);
 };
 
@@ -97,10 +97,10 @@ export const visualizePdf = qr => {
     method: 'POST',
     headers: {
       // Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include'
+    credentials: 'include',
   }).then(openDocument);
 };
 
@@ -114,10 +114,10 @@ export const visualizeSpec = qr => {
     method: 'POST',
     headers: {
       // Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include'
+    credentials: 'include',
   }).then(openDocument);
 };
 
@@ -127,9 +127,9 @@ export const visualizeSpec = qr => {
 export const getQuestionnaireList = permission =>
   fetch(`${urlQuestionnaireListSearch}?owner=${permission}`, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => res.json());
 
 /**
@@ -142,10 +142,10 @@ export const postQuestionnaire = qr =>
       // 'Accept': 'application/json'
       // HACK needs to set content-type to text/html ; if not, server returns a 405 error
       // 'Content-Type': 'text/html',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => {
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
@@ -160,10 +160,10 @@ export const putQuestionnaire = (id, qr) =>
     headers: {
       // 'Accept': 'application/json'
       // HACK needs to set content-type to text/html ; if not, server returns a 500 error
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => {
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
@@ -175,9 +175,9 @@ export const putQuestionnaire = (id, qr) =>
 export const getQuestionnaire = id =>
   fetch(`${urlQuestionnaire}/${id}`, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => res.json());
 
 /**
@@ -186,9 +186,9 @@ export const getQuestionnaire = id =>
 export const getUserAttributes = () =>
   fetch(urlUserGetAttributes, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => {
     return res.json();
   });
@@ -201,47 +201,47 @@ export const getUserAttributes = () =>
 export const deleteQuestionnaire = id =>
   fetch(`${urlQuestionnaire}/${id}`, {
     method: 'DELETE',
-    credentials: 'include'
+    credentials: 'include',
   });
 
 export const getSeries = () =>
   fetch(urlSeriesList, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => res.json());
 
 export const getOperations = id =>
   fetch(`${urlSeriesList}/${id}/operations`, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => res.json());
 
 export const getCampaigns = id =>
   fetch(`${urlOperationsList}/${id}/collections`, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => res.json());
 
 export const getContextFromCampaign = id =>
   fetch(`${urlSearch}/context/collection/${id}`, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => res.json());
 
 export const getUnitsList = () =>
   fetch(`${urlMetadata}/units`, {
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   }).then(res => res.json());
 
 export const getSearchResults = (typeItem, criterias, filter = '') => {
@@ -251,12 +251,12 @@ export const getSearchResults = (typeItem, criterias, filter = '') => {
       // Accept: 'application/json',
       // HACK needs to set content-type to text/html ; if not, server returns a 405 error
       // 'Content-Type': 'text/html',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     credentials: 'include',
     body: JSON.stringify({
       types: [typeItem],
-      filter
-    })
+      filter,
+    }),
   }).then(res => res.json());
 };

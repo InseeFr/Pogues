@@ -10,9 +10,9 @@ describe('Form controls - Textarea', () => {
     ...fakeFieldProps,
     input: {
       ...fakeFieldProps.input,
-      value: ''
+      value: '',
     },
-    label: 'Fake label'
+    label: 'Fake label',
   };
 
   test('Should exists a label element with the label text only when this prop is passed', () => {

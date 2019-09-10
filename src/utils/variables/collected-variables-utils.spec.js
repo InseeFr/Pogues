@@ -1,17 +1,18 @@
 import {
+  DIMENSION_TYPE,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DATATYPE_NAME,
+  QUESTION_TYPE_ENUM,
+} from 'constants/pogues-constants';
+
+import {
   sortByYAndX,
   getCollecteVariable,
   getCollectedVariablesMultiple,
   getCollectedVariablesTable,
-  generateCollectedVariables
+  generateCollectedVariables,
 } from './collected-variables-utils';
 
-import {
-  DIMENSION_TYPE,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DATATYPE_NAME,
-  QUESTION_TYPE_ENUM
-} from 'constants/pogues-constants';
 const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
@@ -26,7 +27,7 @@ describe('generateCollectedVariables', () => {
       responseFormat,
       questionName,
       form,
-      codesListStore
+      codesListStore,
     );
 
     expect(output[0].id).toBeDefined();
@@ -42,11 +43,11 @@ describe('generateCollectedVariables', () => {
       responseFormat,
       questionName,
       form,
-      codesListStore
+      codesListStore,
     );
 
     expect(output[0].id).toBeDefined();
-    const id = output[0].id;
+    const { id } = output[0];
     expect(output[0]).toEqual({
       codeListReference: 'id',
       codeListReferenceLabel: 'label',
@@ -54,7 +55,7 @@ describe('generateCollectedVariables', () => {
       TEXT: { maxLength: 1, pattern: '' },
       id,
       name: 'Question',
-      label: 'Question label'
+      label: 'Question label',
     });
   });
 });
@@ -69,7 +70,7 @@ describe('getCollectedVariablesTable', () => {
         type: 'CODES_LIST',
         LIST: {
           numLinesMin: '0',
-          numLinesMax: 0
+          numLinesMax: 0,
         },
         CODES_LIST: {
           CodesList: {
@@ -81,22 +82,22 @@ describe('getCollectedVariablesTable', () => {
                 label: 'a',
                 parent: '',
                 weight: 1,
-                depth: 1
-              }
+                depth: 1,
+              },
             ],
-            panel: 'NEW'
-          }
-        }
+            panel: 'NEW',
+          },
+        },
       },
       SECONDARY: {
         CodesList: {
           id: 'jkwc2eah',
           label: '',
-          codes: []
+          codes: [],
         },
         showSecondaryAxis: false,
         showTotalLabel: '0',
-        totalLabel: ''
+        totalLabel: '',
       },
       LIST_MEASURE: {
         label: '',
@@ -105,23 +106,23 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 255,
-            pattern: ''
+            pattern: '',
           },
           NUMERIC: {
             maximum: '',
             minimum: '',
-            decimals: ''
+            decimals: '',
           },
           DATE: {},
-          BOOLEAN: {}
+          BOOLEAN: {},
         },
         SINGLE_CHOICE: {
           CodesList: {
             id: 'jkwc3neg',
             label: '',
-            codes: []
+            codes: [],
           },
-          visHint: 'CHECKBOX'
+          visHint: 'CHECKBOX',
         },
         measures: [
           {
@@ -131,24 +132,24 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 255,
-                pattern: ''
+                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
                 minimum: '',
-                decimals: ''
+                decimals: '',
               },
               DATE: {},
-              BOOLEAN: {}
+              BOOLEAN: {},
             },
             SINGLE_CHOICE: {
               CodesList: {
                 id: 'jkwc3neg',
                 label: '',
-                codes: []
+                codes: [],
               },
-              visHint: 'CHECKBOX'
-            }
+              visHint: 'CHECKBOX',
+            },
           },
           {
             label: 'm2',
@@ -157,26 +158,26 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 255,
-                pattern: ''
+                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
                 minimum: '',
-                decimals: ''
+                decimals: '',
               },
               DATE: {},
-              BOOLEAN: {}
+              BOOLEAN: {},
             },
             SINGLE_CHOICE: {
               CodesList: {
                 id: 'jkwc3neg',
                 label: '',
-                codes: []
+                codes: [],
               },
-              visHint: 'CHECKBOX'
-            }
-          }
-        ]
+              visHint: 'CHECKBOX',
+            },
+          },
+        ],
       },
       MEASURE: {
         label: '',
@@ -185,31 +186,31 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 255,
-            pattern: ''
+            pattern: '',
           },
           NUMERIC: {
             maximum: '',
             minimum: '',
-            decimals: ''
+            decimals: '',
           },
           DATE: {},
-          BOOLEAN: {}
+          BOOLEAN: {},
         },
         SINGLE_CHOICE: {
           CodesList: {
             id: 'jkwc3neg',
             label: '',
-            codes: []
+            codes: [],
           },
-          visHint: 'CHECKBOX'
-        }
-      }
+          visHint: 'CHECKBOX',
+        },
+      },
     };
     const codesListStore = {};
     const output = getCollectedVariablesTable(
       questionName,
       form,
-      codesListStore
+      codesListStore,
     ).map(variable => variable.label);
     expect(output).toEqual(['a-m1', 'a-m2']);
   });
@@ -222,25 +223,25 @@ describe('getCollectedVariablesTable', () => {
         type: 'LIST',
         LIST: {
           numLinesMin: '1',
-          numLinesMax: '4'
+          numLinesMax: '4',
         },
         CODES_LIST: {
           CodesList: {
             id: 'jkwbsva2',
             label: '',
-            codes: []
-          }
-        }
+            codes: [],
+          },
+        },
       },
       SECONDARY: {
         CodesList: {
           id: 'jkwbklyv',
           label: '',
-          codes: []
+          codes: [],
         },
         showSecondaryAxis: false,
         showTotalLabel: '0',
-        totalLabel: ''
+        totalLabel: '',
       },
       LIST_MEASURE: {
         label: '',
@@ -249,23 +250,23 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 255,
-            pattern: ''
+            pattern: '',
           },
           NUMERIC: {
             maximum: '',
             minimum: '',
-            decimals: ''
+            decimals: '',
           },
           DATE: {},
-          BOOLEAN: {}
+          BOOLEAN: {},
         },
         SINGLE_CHOICE: {
           CodesList: {
             id: 'jkwbf9ub',
             label: '',
-            codes: []
+            codes: [],
           },
-          visHint: 'CHECKBOX'
+          visHint: 'CHECKBOX',
         },
         measures: [
           {
@@ -275,24 +276,24 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 255,
-                pattern: ''
+                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
                 minimum: '',
-                decimals: ''
+                decimals: '',
               },
               DATE: {},
-              BOOLEAN: {}
+              BOOLEAN: {},
             },
             SINGLE_CHOICE: {
               CodesList: {
                 id: 'jkwbf9ub',
                 label: '',
-                codes: []
+                codes: [],
               },
-              visHint: 'CHECKBOX'
-            }
+              visHint: 'CHECKBOX',
+            },
           },
           {
             label: 'measure 2',
@@ -301,26 +302,26 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 255,
-                pattern: ''
+                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
                 minimum: '',
-                decimals: ''
+                decimals: '',
               },
               DATE: {},
-              BOOLEAN: {}
+              BOOLEAN: {},
             },
             SINGLE_CHOICE: {
               CodesList: {
                 id: 'jkwbf9ub',
                 label: '',
-                codes: []
+                codes: [],
               },
-              visHint: 'CHECKBOX'
-            }
-          }
-        ]
+              visHint: 'CHECKBOX',
+            },
+          },
+        ],
       },
       MEASURE: {
         label: '',
@@ -329,31 +330,31 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 255,
-            pattern: ''
+            pattern: '',
           },
           NUMERIC: {
             maximum: '',
             minimum: '',
-            decimals: ''
+            decimals: '',
           },
           DATE: {},
-          BOOLEAN: {}
+          BOOLEAN: {},
         },
         SINGLE_CHOICE: {
           CodesList: {
             id: 'jkwbf9ub',
             label: '',
-            codes: []
+            codes: [],
           },
-          visHint: 'CHECKBOX'
-        }
-      }
+          visHint: 'CHECKBOX',
+        },
+      },
     };
     const codesListStore = {};
     const output = getCollectedVariablesTable(
       questionName,
       form,
-      codesListStore
+      codesListStore,
     );
 
     const outputLabels = output.map(variable => variable.label);
@@ -376,7 +377,7 @@ describe('collected variables utils: ', () => {
       { id: '5', x: 3, y: 4 },
       { id: '6', x: 3, y: 3 },
       { id: '7', x: 1, y: 2 },
-      { id: '8', x: 2, y: 2 }
+      { id: '8', x: 2, y: 2 },
     ];
 
     const store = {
@@ -387,7 +388,7 @@ describe('collected variables utils: ', () => {
       '5': { id: '5', x: 3, y: 4 },
       '6': { id: '6', x: 3, y: 3 },
       '7': { id: '7', x: 1, y: 2 },
-      '8': { id: '8', x: 2, y: 2 }
+      '8': { id: '8', x: 2, y: 2 },
     };
     test('should sort the targetMapping, without the store', () => {
       expect(targets.sort(sortByYAndX())).toEqual([
@@ -398,7 +399,7 @@ describe('collected variables utils: ', () => {
         { id: '2', x: 2, y: 4 },
         { id: '5', x: 3, y: 4 },
         { id: '4', x: 1, y: 5 },
-        { id: '3', x: 3, y: 5 }
+        { id: '3', x: 3, y: 5 },
       ]);
     });
     test('should sort the targetMapping, with the store', () => {
@@ -410,7 +411,7 @@ describe('collected variables utils: ', () => {
         '2',
         '5',
         '4',
-        '3'
+        '3',
       ]);
     });
   });
@@ -423,7 +424,7 @@ describe('collected variables utils: ', () => {
         name: 'name',
         label: 'label',
         x: 1,
-        y: 2
+        y: 2,
       });
     });
 
@@ -432,7 +433,7 @@ describe('collected variables utils: ', () => {
         'name',
         'label',
         { x: 1, y: 2 },
-        { id: 1 }
+        { id: 1 },
       );
       expect(result.id).not.toEqual(1);
     });
@@ -442,7 +443,7 @@ describe('collected variables utils: ', () => {
       expect(result).toEqual({
         id: result.id,
         name: 'name',
-        label: 'label'
+        label: 'label',
       });
     });
   });
@@ -459,26 +460,26 @@ describe('collected variables utils: ', () => {
                 label: 'label1',
                 depth: 1,
                 weight: 1,
-                parent: ''
+                parent: '',
               },
               {
                 value: 'value2',
                 label: 'label2',
                 depth: 1,
                 weight: 2,
-                parent: ''
-              }
+                parent: '',
+              },
             ],
-            id: '1'
-          }
+            id: '1',
+          },
         },
-        [MEASURE]: { type: 'type' }
+        [MEASURE]: { type: 'type' },
       };
       const codesListStore = {};
       const result = getCollectedVariablesMultiple(
         questionName,
         form,
-        codesListStore
+        codesListStore,
       );
       expect(result).toEqual([
         {
@@ -490,7 +491,7 @@ describe('collected variables utils: ', () => {
           [TEXT]: undefined,
           [NUMERIC]: undefined,
           [DATE]: undefined,
-          [BOOLEAN]: {}
+          [BOOLEAN]: {},
         },
         {
           id: result[1].id,
@@ -501,8 +502,8 @@ describe('collected variables utils: ', () => {
           [TEXT]: undefined,
           [NUMERIC]: undefined,
           [DATE]: undefined,
-          [BOOLEAN]: {}
-        }
+          [BOOLEAN]: {},
+        },
       ]);
     });
 
@@ -513,20 +514,20 @@ describe('collected variables utils: ', () => {
           [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
             codes: [
               { value: 'value1', label: 'label1' },
-              { value: 'value2', label: 'label2' }
+              { value: 'value2', label: 'label2' },
             ],
-            id: '1'
-          }
+            id: '1',
+          },
         },
-        [MEASURE]: { type: 'type' }
+        [MEASURE]: { type: 'type' },
       };
       const codesListStore = {
-        '1': { codes: { '1': { value: 'code1', label: 'label1' } } }
+        '1': { codes: { '1': { value: 'code1', label: 'label1' } } },
       };
       const result = getCollectedVariablesMultiple(
         questionName,
         form,
-        codesListStore
+        codesListStore,
       );
       expect(result).toEqual([
         {
@@ -538,8 +539,8 @@ describe('collected variables utils: ', () => {
           [TEXT]: undefined,
           [NUMERIC]: undefined,
           [DATE]: undefined,
-          [BOOLEAN]: {}
-        }
+          [BOOLEAN]: {},
+        },
       ]);
     });
   });

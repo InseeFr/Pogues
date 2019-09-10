@@ -13,10 +13,10 @@ const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 class ResponseFormatMultipleMeasure extends Component {
   static selectorPath = MEASURE;
   static propTypes = {
-    selectorPathParent: PropTypes.string
+    selectorPathParent: PropTypes.string,
   };
   static defaultProps = {
-    selectorPathParent: undefined
+    selectorPathParent: undefined,
   };
   constructor(props) {
     const { selectorPathParent } = props;

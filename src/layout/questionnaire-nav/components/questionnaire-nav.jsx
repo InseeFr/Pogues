@@ -13,14 +13,14 @@ const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 const propTypes = {
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object.isRequired,
-  setSelectedComponentId: PropTypes.func.isRequired
+  setSelectedComponentId: PropTypes.func.isRequired,
 };
 
 // Component
 function QuestionnaireNav({
   questionnaire,
   componentsStore,
-  setSelectedComponentId
+  setSelectedComponentId,
 }) {
   return (
     <div className={COMPONENT_CLASS}>

@@ -1,5 +1,5 @@
 export function increaseWeightOfAll() {
   return {
-    increaseWeightOfAll: true
+    increaseWeightOfAll: true,
   };
 }

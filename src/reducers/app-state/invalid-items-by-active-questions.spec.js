@@ -1,19 +1,19 @@
 import actionsHandlers, {
   setInvalidItems,
   removeInvalidItem,
-  addListInvalidItem
+  addListInvalidItem,
 } from './invalid-items-by-active-question';
 import {
   SET_INVALID_ITEMS,
   REMOVE_INVALID_ITEM,
-  ADD_LIST_INVALID_ITEMS
+  ADD_LIST_INVALID_ITEMS,
 } from 'actions/app-state';
 
 describe('setActiveExternalVariables', () => {
   test('when called directly', () => {
     const result = setInvalidItems(
       { state: 'previous' },
-      { invalidItems: 'invalidItems' }
+      { invalidItems: 'invalidItems' },
     );
     expect(result).toEqual('invalidItems');
   });
@@ -24,9 +24,9 @@ describe('setActiveExternalVariables', () => {
         {
           type: action,
           payload: {
-            invalidItems: 'invalidItems'
-          }
-        }
+            invalidItems: 'invalidItems',
+          },
+        },
       );
       expect(result).toEqual('invalidItems');
     });
@@ -37,7 +37,7 @@ describe('removeInvalidItem', () => {
   test('when called directly', () => {
     const result = removeInvalidItem(
       { '1': 'remove', '2': 'keep' },
-      { invalidItemIdToRemove: '1' }
+      { invalidItemIdToRemove: '1' },
     );
     expect(result).toEqual({ '2': 'keep' });
   });
@@ -47,8 +47,8 @@ describe('removeInvalidItem', () => {
         { '1': 'remove', '2': 'keep' },
         {
           type: action,
-          payload: { invalidItemIdToRemove: '1' }
-        }
+          payload: { invalidItemIdToRemove: '1' },
+        },
       );
       expect(result).toEqual({ '2': 'keep' });
     });
@@ -58,11 +58,11 @@ describe('removeInvalidItem', () => {
 describe('addListInvalidItem', () => {
   test('when called directly', () => {
     const result = addListInvalidItem({ 'test.1': 'remove', '2': 'keep' }, [
-      ['test.1']
+      ['test.1'],
     ]);
     expect(result).toEqual({
       'test.1': { id: 'test.1', type: 'test' },
-      '2': 'keep'
+      '2': 'keep',
     });
   });
   [ADD_LIST_INVALID_ITEMS].forEach(action => {
@@ -71,12 +71,12 @@ describe('addListInvalidItem', () => {
         { 'test.1': 'remove', '2': 'keep' },
         {
           type: action,
-          payload: [['test.1']]
-        }
+          payload: [['test.1']],
+        },
       );
       expect(result).toEqual({
         'test.1': { id: 'test.1', type: 'test' },
-        '2': 'keep'
+        '2': 'keep',
       });
     });
   });

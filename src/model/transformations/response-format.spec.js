@@ -18,40 +18,40 @@ describe('response transformation', () => {
     const mockResponses = {
       [SIMPLE]: {
         type: SIMPLE,
-        [SIMPLE]: { datatypeState: 'true' }
+        [SIMPLE]: { datatypeState: 'true' },
       },
       [SINGLE_CHOICE]: {
         type: SINGLE_CHOICE,
-        [SINGLE_CHOICE]: { datatypeState: 'true' }
+        [SINGLE_CHOICE]: { datatypeState: 'true' },
       },
       [MULTIPLE_CHOICE]: {
         type: MULTIPLE_CHOICE,
-        [MULTIPLE_CHOICE]: { datatypeState: 'true' }
+        [MULTIPLE_CHOICE]: { datatypeState: 'true' },
       },
       [TABLE]: {
         type: TABLE,
-        [TABLE]: { datatypeState: 'true' }
-      }
+        [TABLE]: { datatypeState: 'true' },
+      },
     };
     const responses = [];
     const mockCalls = {
       [SIMPLE]: {
-        responses
+        responses,
       },
       [SINGLE_CHOICE]: {
-        responses
+        responses,
       },
       [MULTIPLE_CHOICE]: {
         responses,
-        dimensions: 'dimensions'
+        dimensions: 'dimensions',
       },
       [TABLE]: [
         {
           responses,
-          dimensions: 'dimensions'
+          dimensions: 'dimensions',
         },
-        'store'
-      ]
+        'store',
+      ],
     };
     [SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE].forEach(type => {
       it(`should call the ${type} remoteToState`, () => {
@@ -70,7 +70,7 @@ describe('response transformation', () => {
             mockFn = ResponseFormatSimple.remoteToState;
         }
         mockFn.mockReturnValueOnce({
-          datatypeState: 'true'
+          datatypeState: 'true',
         });
         const result = remoteToState(type, [], 'dimensions', 'store');
         expect(result).toEqual(mockResponses[type]);
@@ -91,25 +91,25 @@ describe('response transformation', () => {
 
     const mockResponses = {
       [SIMPLE]: {
-        Response: 'true'
+        Response: 'true',
       },
       [SINGLE_CHOICE]: {
-        Response: 'true'
+        Response: 'true',
       },
       [MULTIPLE_CHOICE]: {
         ResponseStructure: {
           Dimension: 'Dimension',
-          Mapping: 'Mapping'
+          Mapping: 'Mapping',
         },
-        Response: 'true'
+        Response: 'true',
       },
       [TABLE]: {
         ResponseStructure: {
           Dimension: 'Dimension',
-          Mapping: 'Mapping'
+          Mapping: 'Mapping',
         },
-        Response: 'true'
-      }
+        Response: 'true',
+      },
     };
     const mockCalls = {
       [SIMPLE]: ['responseFormatState', 'collectedVariables'],
@@ -117,13 +117,13 @@ describe('response transformation', () => {
       [MULTIPLE_CHOICE]: [
         'responseFormatState',
         'collectedVariables',
-        'collectedVariablesStore'
+        'collectedVariablesStore',
       ],
       [TABLE]: [
         'responseFormatState',
         'collectedVariables',
-        'collectedVariablesStore'
-      ]
+        'collectedVariablesStore',
+      ],
     };
 
     [SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE].forEach(type => {
@@ -145,15 +145,15 @@ describe('response transformation', () => {
         mockFn.mockReturnValueOnce({
           Response: 'true',
           Dimension: 'Dimension',
-          Mapping: 'Mapping'
+          Mapping: 'Mapping',
         });
         const result = stateToRemote(
           {
             type,
-            [type]: 'responseFormatState'
+            [type]: 'responseFormatState',
           },
           'collectedVariables',
-          'collectedVariablesStore'
+          'collectedVariablesStore',
         );
         expect(result).toEqual(mockResponses[type]);
 

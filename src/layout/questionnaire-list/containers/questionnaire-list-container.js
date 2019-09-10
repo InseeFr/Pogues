@@ -8,19 +8,19 @@ import { loadQuestionnaireList } from 'actions/questionnaire-list';
 
 const mapStateToProps = state => {
   const questionnaires = Object.keys(state.questionnaireById).map(
-    key => state.questionnaireById[key]
+    key => state.questionnaireById[key],
   );
   return {
     questionnaires,
-    user: state.appState.user
+    user: state.appState.user,
   };
 };
 
 const mapDispatchToProps = {
-  loadQuestionnaireList
+  loadQuestionnaireList,
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(QuestionnaireList);

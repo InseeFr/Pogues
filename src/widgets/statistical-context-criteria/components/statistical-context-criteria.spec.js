@@ -19,7 +19,7 @@ describe('<StatisticalContextCriteria />', () => {
       change: noop,
       formName: 'FAKE_FORM_NAME',
       path: 'FAKE_PATH.',
-      horizontal: false
+      horizontal: false,
     };
   });
 
@@ -28,10 +28,10 @@ describe('<StatisticalContextCriteria />', () => {
       const wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
       expect(wrapper.find('Field[name="serie"]').prop('component')).toBe(
-        Select
+        Select,
       );
       expect(wrapper.find('Field[name="operation"]').prop('component')).toBe(
-        Select
+        Select,
       );
     });
 
@@ -52,7 +52,7 @@ describe('<StatisticalContextCriteria />', () => {
       const wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
       expect(wrapper.find('Field[name="campaigns"]').prop('component')).toBe(
-        ListCheckboxes
+        ListCheckboxes,
       );
     });
 
@@ -60,23 +60,23 @@ describe('<StatisticalContextCriteria />', () => {
       props.series = [{ value: 'FAKE_VALUE_01', label: 'FAKE_LABEL_01' }];
       props.operations = [
         { value: 'FAKE_VALUE_01', label: 'FAKE_LABEL_01' },
-        { value: 'FAKE_VALUE_02', label: 'FAKE_LABEL_02' }
+        { value: 'FAKE_VALUE_02', label: 'FAKE_LABEL_02' },
       ];
       props.campaigns = [
         { value: 'FAKE_VALUE_01', label: 'FAKE_LABEL_01' },
         { value: 'FAKE_VALUE_02', label: 'FAKE_LABEL_02' },
-        { value: 'FAKE_VALUE_03', label: 'FAKE_LABEL_03' }
+        { value: 'FAKE_VALUE_03', label: 'FAKE_LABEL_03' },
       ];
       const wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
       expect(wrapper.find('Field[name="serie"] GenericOption')).toHaveLength(
-        props.series.length
+        props.series.length,
       );
       expect(
-        wrapper.find('Field[name="operation"] GenericOption')
+        wrapper.find('Field[name="operation"] GenericOption'),
       ).toHaveLength(props.operations.length);
       expect(
-        wrapper.find('Field[name="campaigns"] GenericOption')
+        wrapper.find('Field[name="campaigns"] GenericOption'),
       ).toHaveLength(props.campaigns.length);
     });
 
@@ -84,10 +84,10 @@ describe('<StatisticalContextCriteria />', () => {
       props.campaigns = [];
       const wrapper = shallow(<StatisticalContextCriteria {...props} />);
       expect(
-        wrapper.find('Field[name="operation"]').prop('disabled')
+        wrapper.find('Field[name="operation"]').prop('disabled'),
       ).toBeTruthy();
       expect(
-        wrapper.find('Field[name="campaigns"]').prop('disabled')
+        wrapper.find('Field[name="campaigns"]').prop('disabled'),
       ).toBeTruthy();
     });
 
@@ -97,7 +97,7 @@ describe('<StatisticalContextCriteria />', () => {
       const wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
       expect(
-        wrapper.find('Field[name="campaigns"]').prop('disabled')
+        wrapper.find('Field[name="campaigns"]').prop('disabled'),
       ).toBeTruthy();
     });
   });
@@ -122,21 +122,21 @@ describe('<StatisticalContextCriteria />', () => {
         props = {
           ...props,
           selectedSerie: selectedSerieFirst,
-          loadOperationsIfNeeded: spyLoadOperationsIfNeeded
+          loadOperationsIfNeeded: spyLoadOperationsIfNeeded,
         };
 
         const wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
         expect(spyLoadOperationsIfNeeded).toHaveBeenCalledWith(
-          selectedSerieFirst
+          selectedSerieFirst,
         );
 
         wrapper.setProps({ selectedSerie: selectedSerieSecond });
 
         expect(spyLoadOperationsIfNeeded).toHaveBeenCalledWith(
-          selectedSerieSecond
+          selectedSerieSecond,
         );
-      }
+      },
     );
 
     test(
@@ -150,7 +150,7 @@ describe('<StatisticalContextCriteria />', () => {
         props = {
           ...props,
           selectedOperation: selectedOperationFirst,
-          loadCampaignsIfNeeded: spyLoadCampaignsIfNeeded
+          loadCampaignsIfNeeded: spyLoadCampaignsIfNeeded,
         };
 
         // Campaigns doesn't exist
@@ -170,15 +170,15 @@ describe('<StatisticalContextCriteria />', () => {
         wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
         expect(spyLoadCampaignsIfNeeded).toHaveBeenCalledWith(
-          selectedOperationFirst
+          selectedOperationFirst,
         );
 
         wrapper.setProps({ selectedOperation: selectedOperationSecond });
 
         expect(spyLoadCampaignsIfNeeded).toHaveBeenCalledWith(
-          selectedOperationSecond
+          selectedOperationSecond,
         );
-      }
+      },
     );
 
     test(
@@ -202,13 +202,13 @@ describe('<StatisticalContextCriteria />', () => {
         props = {
           ...props,
           campaigns: [],
-          change: spyChangeSecond
+          change: spyChangeSecond,
         };
 
         wrapper = shallow(<StatisticalContextCriteria {...props} />);
         wrapper.setProps({ selectedSerie });
         expect(spyChangeSecond).toHaveBeenCalledTimes(1);
-      }
+      },
     );
 
     test(
@@ -232,13 +232,13 @@ describe('<StatisticalContextCriteria />', () => {
         props = {
           ...props,
           campaigns: [],
-          change: spyChangeSecond
+          change: spyChangeSecond,
         };
 
         wrapper = shallow(<StatisticalContextCriteria {...props} />);
         wrapper.setProps({ selectedOperation });
         expect(spyChangeSecond).toHaveBeenCalledTimes(1);
-      }
+      },
     );
   });
 });

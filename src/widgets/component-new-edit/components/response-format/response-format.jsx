@@ -16,21 +16,21 @@ class ResponseFormat extends FormSection {
   static selectorPath = 'responseFormat';
   static propTypes = {
     edit: PropTypes.bool.isRequired,
-    addErrors: PropTypes.func.isRequired
+    addErrors: PropTypes.func.isRequired,
   };
   static defaultProps = {
-    name: 'responseFormat'
+    name: 'responseFormat',
   };
   render() {
     let customProps = {
       label: Dictionary.responseFormats,
-      selectorPath: ResponseFormat.selectorPath
+      selectorPath: ResponseFormat.selectorPath,
     };
 
     if (!this.props.edit) {
       customProps = {
         ...customProps,
-        emptyOption: Dictionary.selectType
+        emptyOption: Dictionary.selectType,
       };
     }
 

@@ -4,7 +4,7 @@ export function updateSuggestions(text, regex, availableSuggestions) {
 
   if (matches) {
     suggestions = availableSuggestions.filter(suggestion =>
-      suggestion.toLowerCase().includes(matches[1].toLocaleLowerCase())
+      suggestion.toLowerCase().includes(matches[1].toLocaleLowerCase()),
     );
   }
 

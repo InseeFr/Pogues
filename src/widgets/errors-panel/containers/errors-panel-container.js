@@ -7,11 +7,11 @@ import ErrorsPanel from '../components/errors-panel';
 
 const propTypes = {
   path: PropTypes.string.isRequired,
-  includeSubPaths: PropTypes.bool
+  includeSubPaths: PropTypes.bool,
 };
 
 const defaultProps = {
-  includeSubPaths: false
+  includeSubPaths: false,
 };
 
 // Container
@@ -19,7 +19,7 @@ const defaultProps = {
 const mapStateToProps = (state, { path, includeSubPaths }) => {
   const errorsValidation = {
     ...state.errors.errorsValidation,
-    ...state.errors.errorsSubformValidation
+    ...state.errors.errorsSubformValidation,
   };
   const regex = includeSubPaths
     ? new RegExp(`^${path}(.)*$`)

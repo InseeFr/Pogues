@@ -1,11 +1,11 @@
 import actionsHandlers, {
   loadQuestionnaireSuccess,
-  loadQuestionnaireListSuccess
+  loadQuestionnaireListSuccess,
 } from './calculated-variable-by-questionnaire';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
-  CREATE_QUESTIONNAIRE_SUCCESS
+  CREATE_QUESTIONNAIRE_SUCCESS,
 } from 'actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 
@@ -17,20 +17,20 @@ describe('loadQuestionnaireSuccess', () => {
         update: {
           calculatedVariableByQuestionnaire: {
             calculatedVariableByQuestionnaire:
-              'calculatedVariableByQuestionnaire'
-          }
-        }
-      }
+              'calculatedVariableByQuestionnaire',
+          },
+        },
+      },
     );
     expect(result).toEqual({
       state: 'previous',
-      calculatedVariableByQuestionnaire: 'calculatedVariableByQuestionnaire'
+      calculatedVariableByQuestionnaire: 'calculatedVariableByQuestionnaire',
     });
   });
   [
     LOAD_QUESTIONNAIRE_SUCCESS,
     CREATE_QUESTIONNAIRE_SUCCESS,
-    SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS
+    SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   ].forEach(action => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
@@ -41,15 +41,15 @@ describe('loadQuestionnaireSuccess', () => {
             update: {
               calculatedVariableByQuestionnaire: {
                 calculatedVariableByQuestionnaire:
-                  'calculatedVariableByQuestionnaire'
-              }
-            }
-          }
-        }
+                  'calculatedVariableByQuestionnaire',
+              },
+            },
+          },
+        },
       );
       expect(result).toEqual({
         state: 'previous',
-        calculatedVariableByQuestionnaire: 'calculatedVariableByQuestionnaire'
+        calculatedVariableByQuestionnaire: 'calculatedVariableByQuestionnaire',
       });
     });
   });
@@ -59,12 +59,12 @@ describe('loadQuestionnaireListSuccess', () => {
   test('when called directly', () => {
     const result = loadQuestionnaireListSuccess({ state: 'previous' }, [
       { calculatedVariableByQuestionnaire: { '1': { id: '1' } } },
-      { calculatedVariableByQuestionnaire: { '2': { id: '4' } } }
+      { calculatedVariableByQuestionnaire: { '2': { id: '4' } } },
     ]);
     expect(result).toEqual({
       state: 'previous',
       '1': { id: '1' },
-      '2': { id: '4' }
+      '2': { id: '4' },
     });
   });
   [LOAD_QLIST_SUCCESS].forEach(action => {
@@ -75,14 +75,14 @@ describe('loadQuestionnaireListSuccess', () => {
           type: action,
           payload: [
             { calculatedVariableByQuestionnaire: { '1': { id: '1' } } },
-            { calculatedVariableByQuestionnaire: { '2': { id: '4' } } }
-          ]
-        }
+            { calculatedVariableByQuestionnaire: { '2': { id: '4' } } },
+          ],
+        },
       );
       expect(result).toEqual({
         state: 'previous',
         '1': { id: '1' },
-        '2': { id: '4' }
+        '2': { id: '4' },
       });
     });
   });

@@ -31,12 +31,12 @@ const propTypes = {
   removeQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired
+  handleRemovePageBreak: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   componentsStore: {},
-  errorsIntegrity: {}
+  errorsIntegrity: {},
 };
 
 // Utils
@@ -83,26 +83,26 @@ class QuestionnaireListComponents extends Component {
     this.state = {
       showQuestionnaireModal: false,
       showComponentModal: false,
-      showRemoveQuestionnaireDialog: false
+      showRemoveQuestionnaireDialog: false,
     };
 
     this.handleOpenQuestionnaireDetail = this.handleOpenQuestionnaireDetail.bind(
-      this
+      this,
     );
     this.handleCloseQuestionnaireDetail = this.handleCloseQuestionnaireDetail.bind(
-      this
+      this,
     );
 
     this.handleOpenComponentDetail = this.handleOpenComponentDetail.bind(this);
     this.handleCloseComponentDetail = this.handleCloseComponentDetail.bind(
-      this
+      this,
     );
 
     this.handleOpenRemoveQuestionnaireDialog = this.handleOpenRemoveQuestionnaireDialog.bind(
-      this
+      this,
     );
     this.handleCloseRemoveQuestionnaireDialog = this.handleCloseRemoveQuestionnaireDialog.bind(
-      this
+      this,
     );
 
     this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
@@ -158,7 +158,7 @@ class QuestionnaireListComponents extends Component {
       componentsStore,
       editingComponentId,
       errorsIntegrity,
-      setSelectedComponentId
+      setSelectedComponentId,
     } = this.props;
     const componentType =
       componentsStore[editingComponentId] &&
@@ -205,7 +205,7 @@ class QuestionnaireListComponents extends Component {
 
             <div id="questionnaire-items">
               {renderComponentsByParent(questionnaire.id, this.props, {
-                handleOpenComponentDetail: this.handleOpenComponentDetail
+                handleOpenComponentDetail: this.handleOpenComponentDetail,
               })}
             </div>
 

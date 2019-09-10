@@ -7,7 +7,7 @@ const defaultState = {
   errorsByFormPath: {},
   errorsIntegrity: {},
   errorsValidation: {},
-  errorsSubformValidation: {}
+  errorsSubformValidation: {},
 };
 
 const actionHandlers = {};
@@ -23,7 +23,7 @@ export default function(state = defaultState, action) {
     errorsValidation: errorsValidation(state.errorsValidation, action),
     errorsSubformValidation: errorsSubformValidation(
       state.errorsSubformValidation,
-      action
-    )
+      action,
+    ),
   };
 }

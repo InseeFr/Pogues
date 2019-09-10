@@ -3,16 +3,16 @@ import {
   getNewCodeWeight,
   getDescendents,
   getIndexCode,
-  getHeavierSiblings
+  getHeavierSiblings,
 } from './utils';
 
 function getPreviousSibling(code, codes) {
   return getIndexItemsByAttrs(
     {
       parent: code.parent,
-      weight: code.weight - 1
+      weight: code.weight - 1,
     },
-    codes
+    codes,
   );
 }
 
@@ -20,9 +20,9 @@ function getNextSibling(code, codes) {
   return getIndexItemsByAttrs(
     {
       parent: code.parent,
-      weight: code.weight + 1
+      weight: code.weight + 1,
     },
-    codes
+    codes,
   );
 }
 
@@ -33,7 +33,7 @@ function increaseDescendentsDepth(code, codes) {
     if (descendentsValues.indexOf(c.value) !== -1) {
       return {
         ...c,
-        depth: c.depth + 1
+        depth: c.depth + 1,
       };
     }
     return c;
@@ -47,7 +47,7 @@ function decreaseDescendentsDepth(code, codes) {
     if (descendentsValues.indexOf(c.value) !== -1) {
       return {
         ...c,
-        depth: c.depth - 1
+        depth: c.depth - 1,
       };
     }
     return c;
@@ -61,7 +61,7 @@ function decreaseHeavierSiblingsWeight(code, codes) {
     if (heavierSiblings.indexOf(c.value) !== -1) {
       return {
         ...c,
-        weight: c.weight - 1
+        weight: c.weight - 1,
       };
     }
     return c;
@@ -80,7 +80,7 @@ export function moveUp(codeValue, codes) {
       newCodes.splice(indexCode, 1, { ...code, weight: code.weight - 1 });
       newCodes.splice(indexSiblingTarget, 1, {
         ...codes[indexSiblingTarget],
-        weight: codes[indexSiblingTarget].weight + 1
+        weight: codes[indexSiblingTarget].weight + 1,
       });
     }
   }
@@ -100,7 +100,7 @@ export function moveDown(codeValue, codes) {
       newCodes.splice(indexCode, 1, { ...code, weight: code.weight + 1 });
       newCodes.splice(indexSiblingTarget, 1, {
         ...codes[indexSiblingTarget],
-        weight: codes[indexSiblingTarget].weight - 1
+        weight: codes[indexSiblingTarget].weight - 1,
       });
     }
   }
@@ -122,7 +122,7 @@ export function moveLeft(codeValue, codes) {
       ...code,
       depth: code.depth - 1,
       parent: newParent.value || '',
-      weight: getNewCodeWeight(codes, newParent.value)
+      weight: getNewCodeWeight(codes, newParent.value),
     });
 
     newCodes = decreaseDescendentsDepth(code, newCodes);
@@ -146,7 +146,7 @@ export function moveRight(codeValue, codes) {
         ...code,
         depth: newParent.depth + 1,
         parent: newParent.value,
-        weight: getNewCodeWeight(codes, newParent.value)
+        weight: getNewCodeWeight(codes, newParent.value),
       });
 
       newCodes = increaseDescendentsDepth(code, newCodes);

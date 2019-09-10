@@ -15,13 +15,13 @@ const units = require(__dirname + '/units');
 
 const cors = corsMiddleware({
   origins: ['*'],
-  allowHeaders: ['authorization', 'Location']
+  allowHeaders: ['authorization', 'Location'],
 });
 server.pre((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.header('origin'));
   res.header(
     'Access-Control-Allow-Headers',
-    req.header('Access-Control-Request-Headers')
+    req.header('Access-Control-Request-Headers'),
   );
   res.header('Access-Control-Allow-Credentials', 'true');
   // other headers go here..
@@ -57,7 +57,7 @@ server.get('/user/attributes', function(req, res, next) {
   res.send({
     id: 'FAKEID',
     name: 'Fake user',
-    permission: 'FAKEPERMISSION'
+    permission: 'FAKEPERMISSION',
   });
   next();
 });
@@ -86,7 +86,7 @@ server.post('/questionnaires', function(req, res, next) {
   questionnaires.push(qr);
   res.header(
     'Location',
-    'http://' + req.headers.host + '/questionnaires/' + qr.id
+    'http://' + req.headers.host + '/questionnaires/' + qr.id,
   );
   res.send();
   next();
@@ -101,7 +101,7 @@ server.get('/search/series/:id/operations', function(req, res, next) {
   res.send(
     operations.filter(function(o) {
       return o.parent === req.params.id;
-    })
+    }),
   );
   next();
 });
@@ -110,7 +110,7 @@ server.get('/search/operations/:id/collections', function(req, res, next) {
   res.send(
     campaigns.filter(function(c) {
       return c.parent === req.params.id;
-    })
+    }),
   );
   next();
 });
@@ -127,7 +127,7 @@ server.get('/search/context/collection/:id', function(req, res, next) {
   res.send({
     dataCollectionId: req.params.id,
     serieId: operation && operation.parent,
-    operationId: campaign && campaign.parent
+    operationId: campaign && campaign.parent,
   });
   next();
 });
@@ -170,9 +170,9 @@ server.get('/meta-data/units', function(req, res, next) {
       return {
         id: u.uri,
         uri: u.uri,
-        label: u.label
+        label: u.label,
       };
-    })
+    }),
   );
   next();
 });
@@ -186,7 +186,7 @@ server.post(
   '/transform/visualize/:dataCollection/:questionnaire',
   (req, res, next) => {
     res.end('http://google.fr');
-  }
+  },
 );
 server.post('/transform/visualize-pdf', (req, res, next) => {
   const filename = __dirname + '/test.pdf';
@@ -195,7 +195,7 @@ server.post('/transform/visualize-pdf', (req, res, next) => {
     'Content-Type': 'application/pdf',
     'Content-Disposition': 'attachment; filename=some_file.pdf',
     'Content-Length': data.length,
-    'Access-Control-Expose-Headers': 'Content-Disposition'
+    'Access-Control-Expose-Headers': 'Content-Disposition',
   });
   res.end(data);
 });
@@ -207,7 +207,7 @@ server.post('/transform/visualize-ddi', (req, res, next) => {
     'Content-Type': 'application/xml',
     'Content-Disposition': 'attachment; filename=some_file.xml',
     'Content-Length': data.length,
-    'Access-Control-Expose-Headers': 'Content-Disposition'
+    'Access-Control-Expose-Headers': 'Content-Disposition',
   });
   res.end(data);
 });
@@ -219,7 +219,7 @@ server.post('/transform/visualize-spec', (req, res, next) => {
     'Content-Type': 'application/vnd.oasis.opendocument.text',
     'Content-Disposition': 'attachment; filename=some_file.odt',
     'Content-Length': data.length,
-    'Access-Control-Expose-Headers': 'Content-Disposition'
+    'Access-Control-Expose-Headers': 'Content-Disposition',
   });
   res.end(data);
 });

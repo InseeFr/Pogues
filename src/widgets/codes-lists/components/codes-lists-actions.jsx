@@ -18,12 +18,12 @@ const propTypes = {
     moveUp: PropTypes.func.isRequired,
     moveDown: PropTypes.func.isRequired,
     moveLeft: PropTypes.func.isRequired,
-    moveRight: PropTypes.func.isRequired
-  }).isRequired
+    moveRight: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const defaultProps = {
-  disabledActions: []
+  disabledActions: [],
 };
 
 // Component

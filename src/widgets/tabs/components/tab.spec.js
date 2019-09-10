@@ -7,13 +7,13 @@ describe('Tab', () => {
   test('Should exists with the corresponding template', () => {
     const props = {
       label: 'Fake label',
-      path: 'fake path'
+      path: 'fake path',
     };
     const tab = renderer
       .create(
         <Tab {...props}>
           <div>Fake Children</div>
-        </Tab>
+        </Tab>,
       )
       .toJSON();
 

@@ -1,11 +1,11 @@
 import actionsHandlers, {
   loadQuestionnaireSuccess,
-  loadQuestionnaireListSuccess
+  loadQuestionnaireListSuccess,
 } from './code-list-by-questionnaire';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
-  CREATE_QUESTIONNAIRE_SUCCESS
+  CREATE_QUESTIONNAIRE_SUCCESS,
 } from 'actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 
@@ -16,20 +16,20 @@ describe('loadQuestionnaireSuccess', () => {
       {
         update: {
           codeListByQuestionnaire: {
-            codeListByQuestionnaire: 'codeListByQuestionnaire'
-          }
-        }
-      }
+            codeListByQuestionnaire: 'codeListByQuestionnaire',
+          },
+        },
+      },
     );
     expect(result).toEqual({
       state: 'previous',
-      codeListByQuestionnaire: 'codeListByQuestionnaire'
+      codeListByQuestionnaire: 'codeListByQuestionnaire',
     });
   });
   [
     LOAD_QUESTIONNAIRE_SUCCESS,
     CREATE_QUESTIONNAIRE_SUCCESS,
-    SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS
+    SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   ].forEach(action => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
@@ -39,15 +39,15 @@ describe('loadQuestionnaireSuccess', () => {
           payload: {
             update: {
               codeListByQuestionnaire: {
-                codeListByQuestionnaire: 'codeListByQuestionnaire'
-              }
-            }
-          }
-        }
+                codeListByQuestionnaire: 'codeListByQuestionnaire',
+              },
+            },
+          },
+        },
       );
       expect(result).toEqual({
         state: 'previous',
-        codeListByQuestionnaire: 'codeListByQuestionnaire'
+        codeListByQuestionnaire: 'codeListByQuestionnaire',
       });
     });
   });
@@ -57,12 +57,12 @@ describe('loadQuestionnaireListSuccess', () => {
   test('when called directly', () => {
     const result = loadQuestionnaireListSuccess({ state: 'previous' }, [
       { codeListByQuestionnaire: { '1': { id: '1' } } },
-      { codeListByQuestionnaire: { '2': { id: '4' } } }
+      { codeListByQuestionnaire: { '2': { id: '4' } } },
     ]);
     expect(result).toEqual({
       state: 'previous',
       '1': { id: '1' },
-      '2': { id: '4' }
+      '2': { id: '4' },
     });
   });
   [LOAD_QLIST_SUCCESS].forEach(action => {
@@ -73,14 +73,14 @@ describe('loadQuestionnaireListSuccess', () => {
           type: action,
           payload: [
             { codeListByQuestionnaire: { '1': { id: '1' } } },
-            { codeListByQuestionnaire: { '2': { id: '4' } } }
-          ]
-        }
+            { codeListByQuestionnaire: { '2': { id: '4' } } },
+          ],
+        },
       );
       expect(result).toEqual({
         state: 'previous',
         '1': { id: '1' },
-        '2': { id: '4' }
+        '2': { id: '4' },
       });
     });
   });

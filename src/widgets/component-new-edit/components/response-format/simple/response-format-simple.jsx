@@ -15,11 +15,11 @@ class ResponseFormatSimple extends Component {
   static selectorPath = SIMPLE;
   static propTypes = {
     selectorPathParent: PropTypes.string,
-    showMandatory: PropTypes.bool
+    showMandatory: PropTypes.bool,
   };
   static defaultProps = {
     selectorPathParent: undefined,
-    showMandatory: true
+    showMandatory: true,
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -32,7 +32,7 @@ class ResponseFormatSimple extends Component {
   render() {
     const { showMandatory } = this.props;
     const styleMandatory = {
-      display: showMandatory ? 'block' : 'none'
+      display: showMandatory ? 'block' : 'none',
     };
 
     return (

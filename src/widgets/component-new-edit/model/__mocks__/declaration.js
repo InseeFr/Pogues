@@ -7,14 +7,14 @@ export const declarationsFormNew = {
     {
       declarationType: 'INSTRUCTION',
       label: 'This is the first declaration',
-      position: 'AFTER_QUESTION_TEXT'
+      position: 'AFTER_QUESTION_TEXT',
     },
     {
       declarationType: 'INSTRUCTION',
       label: 'This is the second declaration',
-      position: 'AFTER_QUESTION_TEXT'
-    }
-  ]
+      position: 'AFTER_QUESTION_TEXT',
+    },
+  ],
 };
 
 export const declarationsFormUpdate = {
@@ -27,15 +27,15 @@ export const declarationsFormUpdate = {
       id: 'FIRST_DECLARATION',
       declarationType: 'INSTRUCTION',
       label: 'This is the first declaration',
-      position: 'AFTER_QUESTION_TEXT'
+      position: 'AFTER_QUESTION_TEXT',
     },
     {
       id: 'SECOND_DECLARATION',
       declarationType: 'INSTRUCTION',
       label: 'This is the second declaration',
-      position: 'AFTER_QUESTION_TEXT'
-    }
-  ]
+      position: 'AFTER_QUESTION_TEXT',
+    },
+  ],
 };
 
 export const declarationsState = {
@@ -43,14 +43,14 @@ export const declarationsState = {
     id: 'FIRST_DECLARATION',
     declarationType: 'INSTRUCTION',
     label: 'This is the first declaration',
-    position: 'AFTER_QUESTION_TEXT'
+    position: 'AFTER_QUESTION_TEXT',
   },
   SECOND_DECLARATION: {
     id: 'SECOND_DECLARATION',
     declarationType: 'INSTRUCTION',
     label: 'This is the second declaration',
-    position: 'AFTER_QUESTION_TEXT'
-  }
+    position: 'AFTER_QUESTION_TEXT',
+  },
 };
 
 export const declarationsModel = [
@@ -58,12 +58,12 @@ export const declarationsModel = [
     id: 'FIRST_DECLARATION',
     declarationType: 'INSTRUCTION',
     Text: 'This is the first declaration',
-    position: 'AFTER_QUESTION_TEXT'
+    position: 'AFTER_QUESTION_TEXT',
   },
   {
     id: 'SECOND_DECLARATION',
     declarationType: 'INSTRUCTION',
     Text: 'This is the second declaration',
-    position: 'AFTER_QUESTION_TEXT'
-  }
+    position: 'AFTER_QUESTION_TEXT',
+  },
 ];

@@ -1,7 +1,7 @@
 import {
   getQuestionnaire,
   postQuestionnaire,
-  deleteQuestionnaire
+  deleteQuestionnaire,
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
@@ -42,8 +42,8 @@ export const loadQuestionnaireSuccess = (id, update) => ({
   type: LOAD_QUESTIONNAIRE_SUCCESS,
   payload: {
     id,
-    update
-  }
+    update,
+  },
 });
 
 /**
@@ -57,7 +57,7 @@ export const loadQuestionnaireSuccess = (id, update) => ({
  */
 export const loadQuestionnaireFailure = (id, err) => ({
   type: LOAD_QUESTIONNAIRE_FAILURE,
-  payload: { id, err }
+  payload: { id, err },
 });
 
 /**
@@ -71,7 +71,7 @@ export const loadQuestionnaireFailure = (id, err) => ({
 export const loadQuestionnaire = id => dispatch => {
   dispatch({
     type: LOAD_QUESTIONNAIRE,
-    payload: id
+    payload: id,
   });
   return getQuestionnaire(id)
     .then(qr => {
@@ -112,8 +112,8 @@ export const createQuestionnaireSuccess = (id, update) => ({
   type: CREATE_QUESTIONNAIRE_SUCCESS,
   payload: {
     id,
-    update
-  }
+    update,
+  },
 });
 
 /**
@@ -124,7 +124,7 @@ export const createQuestionnaireSuccess = (id, update) => ({
  */
 export const createQuestionnaireFailure = err => ({
   type: CREATE_QUESTIONNAIRE_FAILURE,
-  payload: err
+  payload: err,
 });
 
 /**
@@ -138,28 +138,28 @@ export const createQuestionnaireFailure = err => ({
  */
 export const createQuestionnaire = questionnaireNewState => (
   dispatch,
-  getState
+  getState,
 ) => {
   const state = getState();
   const stores = {
     componentsStore: Component({
       ...questionnaireNewState,
-      type: QUESTIONNAIRE
+      type: QUESTIONNAIRE,
     }).getStore(),
     codesListsStore: {},
     calculatedVariablesStore: {},
     externalVariablesStore: {},
     collectedVariableByQuestionStore: {},
-    campaignsStore: state.metadataByType.campaigns
+    campaignsStore: state.metadataByType.campaigns,
   };
   const questionnaireModel = Questionnaire.stateToRemote(
     questionnaireNewState,
-    stores
+    stores,
   );
 
   dispatch({
     type: CREATE_QUESTIONNAIRE,
-    payload: null
+    payload: null,
   });
 
   return postQuestionnaire(questionnaireModel)
@@ -167,8 +167,8 @@ export const createQuestionnaire = questionnaireNewState => (
       return dispatch(
         createQuestionnaireSuccess(
           questionnaireNewState.id,
-          questionnaireRemoteToStores(questionnaireModel)
-        )
+          questionnaireRemoteToStores(questionnaireModel),
+        ),
       );
     })
     .catch(err => {
@@ -178,18 +178,18 @@ export const createQuestionnaire = questionnaireNewState => (
 
 export const removeQuestionnaireSuccess = payload => ({
   type: DELETE_QUESTIONNAIRE_SUCCESS,
-  payload
+  payload,
 });
 
 export const removeQuestionnaireFailure = (id, err) => ({
   type: DELETE_QUESTIONNAIRE_FAILURE,
-  payload: { id, err }
+  payload: { id, err },
 });
 
 export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
   dispatch({
     type: DELETE_QUESTIONNAIRE,
-    payload: idQuestionnaire
+    payload: idQuestionnaire,
   });
 
   const state = getState().questionnaireById;
@@ -199,8 +199,8 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
       return {
         ...acc,
         [currentId]: {
-          ...state[currentId]
-        }
+          ...state[currentId],
+        },
       };
     }
     return acc;

@@ -45,8 +45,8 @@ export function resetListCodes(codes, removeAll, push) {
 export function getIndexCode(value, codes) {
   return getIndexItemsByAttrs(
     {
-      value
+      value,
     },
-    codes
+    codes,
   );
 }

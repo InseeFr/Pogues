@@ -26,12 +26,12 @@ export const propTypes = {
   currentLabel: PropTypes.string,
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
-  change: PropTypes.func.isRequired
+  change: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   currentValue: '',
-  currentLabel: ''
+  currentLabel: '',
 };
 
 // Componet
@@ -46,7 +46,7 @@ class CodesListsCodes extends Component {
     this.state = {
       showInputCode: false,
       activeCodeIndex: undefined,
-      editing: false
+      editing: false,
     };
 
     this.renderInputCode = this.renderInputCode.bind(this);
@@ -66,7 +66,7 @@ class CodesListsCodes extends Component {
     const {
       currentValue,
       currentLabel,
-      fields: { get, getAll, remove, push }
+      fields: { get, getAll, remove, push },
     } = this.props;
     const { activeCodeIndex, editing } = this.state;
     const allCodes = getAll() || [];
@@ -75,13 +75,13 @@ class CodesListsCodes extends Component {
     if (activeCodeIndex !== undefined) {
       values = {
         value: currentValue,
-        label: currentLabel
+        label: currentLabel,
       };
 
       this.setState({
         showInputCode: false,
         activeCodeIndex: undefined,
-        editing: false
+        editing: false,
       });
 
       if (editing) {
@@ -92,14 +92,14 @@ class CodesListsCodes extends Component {
           ...values,
           parent: code.parent,
           weight: code.weight,
-          depth: code.depth
+          depth: code.depth,
         };
       } else {
         values = {
           ...values,
           parent: '',
           weight: getNewCodeWeight(allCodes),
-          depth: 1
+          depth: 1,
         };
       }
     } else {
@@ -108,7 +108,7 @@ class CodesListsCodes extends Component {
         label: currentLabel,
         parent: '',
         weight: getNewCodeWeight(allCodes),
-        depth: 1
+        depth: 1,
       };
     }
 
@@ -120,7 +120,7 @@ class CodesListsCodes extends Component {
       inputCodePath,
       formName,
       change,
-      fields: { get, getAll }
+      fields: { get, getAll },
     } = this.props;
     const { activeCodeIndex, editing } = this.state;
     const code = get(activeCodeIndex);
@@ -148,7 +148,7 @@ class CodesListsCodes extends Component {
   renderCode(code) {
     const { showInputCode, activeCodeIndex, editing } = this.state;
     const {
-      fields: { getAll, remove, removeAll, push }
+      fields: { getAll, remove, removeAll, push },
     } = this.props;
     const allCodes = getAll() || [];
     const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
@@ -160,7 +160,7 @@ class CodesListsCodes extends Component {
         this.setState({
           showInputCode: true,
           activeCodeIndex: indexCode,
-          editing: true
+          editing: true,
         });
       },
       duplicate: () => {
@@ -177,7 +177,7 @@ class CodesListsCodes extends Component {
       },
       moveRight: () => {
         resetListCodes(moveRight(code.value, allCodes), removeAll, push);
-      }
+      },
     };
 
     return (
@@ -193,7 +193,7 @@ class CodesListsCodes extends Component {
             <div>{code.value}</div>
             <div
               dangerouslySetInnerHTML={{
-                __html: markdownVtlToHtml(code.label)
+                __html: markdownVtlToHtml(code.label),
               }}
             />
 
@@ -237,7 +237,7 @@ class CodesListsCodes extends Component {
             this.setState({
               showInputCode: true,
               activeCodeIndex: undefined,
-              editing: false
+              editing: false,
             });
           }}
         >

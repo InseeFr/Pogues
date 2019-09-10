@@ -9,12 +9,12 @@ const { SEARCH_RESULTS_CLASS } = WIDGET_SEARCH_CODES_LISTS;
 
 import {
   StatisticalContextCriteria,
-  defaultProps as StatisticalContextCriteriaDefaultProps
+  defaultProps as StatisticalContextCriteriaDefaultProps,
 } from 'widgets/statistical-context-criteria';
 
 import {
   InputFilterWithCriteria,
-  defaultProps as InputFilterWithCriteriaDefaultProps
+  defaultProps as InputFilterWithCriteriaDefaultProps,
 } from 'widgets/input-filter-with-criteria';
 
 import { SearchResults } from 'widgets/search-results';
@@ -23,7 +23,7 @@ import {
   DEFAULT_FORM_NAME,
   TYPES_ITEMS,
   SEARCH_CRITERIAS,
-  SEARCH_RESULTS_COLUMNS
+  SEARCH_RESULTS_COLUMNS,
 } from 'constants/pogues-constants';
 
 import Dictionary from 'utils/dictionary/dictionary';
@@ -39,12 +39,12 @@ describe('<SearchCodesLists />', () => {
       path,
       showOperations: false,
       showCampaigns: false,
-      horizontal: true
+      horizontal: true,
     };
     const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(StatisticalContextCriteria).props()).toEqual(
-      expectedProps
+      expectedProps,
     );
   });
 
@@ -55,12 +55,12 @@ describe('<SearchCodesLists />', () => {
       formName: DEFAULT_FORM_NAME,
       path,
       typeItem: TYPES_ITEMS.CODES_LIST,
-      criterias: SEARCH_CRITERIAS.CODES_LIST
+      criterias: SEARCH_CRITERIAS.CODES_LIST,
     };
     const wrapper = shallow(<SearchCodesLists path={path} />);
 
     expect(wrapper.find(InputFilterWithCriteria).props()).toEqual(
-      expectedProps
+      expectedProps,
     );
   });
 
@@ -75,9 +75,9 @@ describe('<SearchCodesLists />', () => {
           dictionary: 'searchResultActionReuse',
           action: noop,
           icon: 'glyphicon-eye-open',
-          iconOnly: true
-        }
-      ]
+          iconOnly: true,
+        },
+      ],
     };
     const wrapper = shallow(<SearchCodesLists path={path} />);
 

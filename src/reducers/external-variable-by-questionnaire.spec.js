@@ -1,11 +1,11 @@
 import actionsHandlers, {
   loadQuestionnaireSuccess,
-  loadQuestionnaireListSuccess
+  loadQuestionnaireListSuccess,
 } from './external-variable-by-questionnaire';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
-  CREATE_QUESTIONNAIRE_SUCCESS
+  CREATE_QUESTIONNAIRE_SUCCESS,
 } from 'actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 
@@ -16,20 +16,20 @@ describe('loadQuestionnaireSuccess', () => {
       {
         update: {
           externalVariableByQuestionnaire: {
-            externalVariableByQuestionnaire: 'externalVariableByQuestionnaire'
-          }
-        }
-      }
+            externalVariableByQuestionnaire: 'externalVariableByQuestionnaire',
+          },
+        },
+      },
     );
     expect(result).toEqual({
       state: 'previous',
-      externalVariableByQuestionnaire: 'externalVariableByQuestionnaire'
+      externalVariableByQuestionnaire: 'externalVariableByQuestionnaire',
     });
   });
   [
     LOAD_QUESTIONNAIRE_SUCCESS,
     CREATE_QUESTIONNAIRE_SUCCESS,
-    SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS
+    SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   ].forEach(action => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
@@ -40,15 +40,15 @@ describe('loadQuestionnaireSuccess', () => {
             update: {
               externalVariableByQuestionnaire: {
                 externalVariableByQuestionnaire:
-                  'externalVariableByQuestionnaire'
-              }
-            }
-          }
-        }
+                  'externalVariableByQuestionnaire',
+              },
+            },
+          },
+        },
       );
       expect(result).toEqual({
         state: 'previous',
-        externalVariableByQuestionnaire: 'externalVariableByQuestionnaire'
+        externalVariableByQuestionnaire: 'externalVariableByQuestionnaire',
       });
     });
   });
@@ -58,12 +58,12 @@ describe('loadQuestionnaireListSuccess', () => {
   test('when called directly', () => {
     const result = loadQuestionnaireListSuccess({ state: 'previous' }, [
       { externalVariableByQuestionnaire: { '1': { id: '1' } } },
-      { externalVariableByQuestionnaire: { '2': { id: '4' } } }
+      { externalVariableByQuestionnaire: { '2': { id: '4' } } },
     ]);
     expect(result).toEqual({
       state: 'previous',
       '1': { id: '1' },
-      '2': { id: '4' }
+      '2': { id: '4' },
     });
   });
   [LOAD_QLIST_SUCCESS].forEach(action => {
@@ -74,14 +74,14 @@ describe('loadQuestionnaireListSuccess', () => {
           type: action,
           payload: [
             { externalVariableByQuestionnaire: { '1': { id: '1' } } },
-            { externalVariableByQuestionnaire: { '2': { id: '4' } } }
-          ]
-        }
+            { externalVariableByQuestionnaire: { '2': { id: '4' } } },
+          ],
+        },
       );
       expect(result).toEqual({
         state: 'previous',
         '1': { id: '1' },
-        '2': { id: '4' }
+        '2': { id: '4' },
       });
     });
   });

@@ -7,5 +7,5 @@ import { QUESTIONNAIRE_NEW_FORM_NAME } from 'constants/pogues-constants';
 // Form
 
 export default reduxForm({
-  form: QUESTIONNAIRE_NEW_FORM_NAME
+  form: QUESTIONNAIRE_NEW_FORM_NAME,
 })(QuestionnaireNewEdit);

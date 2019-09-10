@@ -1,10 +1,11 @@
 import {
   getListGotos,
   getComponentsTargetsByComponent,
-  getComponentsTargetsByPosition
+  getComponentsTargetsByPosition,
 } from './redirections-utils';
-import { componentsStore, listGotos } from './__mocks__/redirections-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
+import { componentsStore, listGotos } from './__mocks__/redirections-utils';
 
 const { SEQUENCE, SUBSEQUENCE, QUESTION } = COMPONENT_TYPE;
 
@@ -15,7 +16,7 @@ describe('Redirections utils', () => {
     });
     test('Should return the expected array if components are provided', () => {
       expect(
-        getListGotos(componentsStore, Object.keys(componentsStore))
+        getListGotos(componentsStore, Object.keys(componentsStore)),
       ).toEqual(listGotos);
     });
     test('Should return the expected array if components are provided and some of then are disabled', () => {
@@ -23,12 +24,12 @@ describe('Redirections utils', () => {
       const expectedListGotos = listGotos.map(goto => {
         return {
           ...goto,
-          disabled: activeComponentsIds.indexOf(goto.value) === -1
+          disabled: activeComponentsIds.indexOf(goto.value) === -1,
         };
       });
 
       expect(getListGotos(componentsStore, activeComponentsIds)).toEqual(
-        expectedListGotos
+        expectedListGotos,
       );
     });
   });
@@ -43,11 +44,11 @@ describe('Redirections utils', () => {
         'SEQUENCE2',
         'SUBSEQUENCE2',
         'QUESTION2',
-        'QUESTION3'
+        'QUESTION3',
       ];
 
       expect(
-        getComponentsTargetsByComponent(componentsStore, sequence)
+        getComponentsTargetsByComponent(componentsStore, sequence),
       ).toEqual(expectedComponentsIds);
     });
 
@@ -58,11 +59,11 @@ describe('Redirections utils', () => {
         'SEQUENCE2',
         'SUBSEQUENCE2',
         'QUESTION2',
-        'QUESTION3'
+        'QUESTION3',
       ];
 
       expect(
-        getComponentsTargetsByComponent(componentsStore, sequence)
+        getComponentsTargetsByComponent(componentsStore, sequence),
       ).toEqual(expectedComponentsIds);
     });
 
@@ -72,11 +73,11 @@ describe('Redirections utils', () => {
         'SEQUENCE2',
         'SUBSEQUENCE2',
         'QUESTION2',
-        'QUESTION3'
+        'QUESTION3',
       ];
 
       expect(
-        getComponentsTargetsByComponent(componentsStore, sequence)
+        getComponentsTargetsByComponent(componentsStore, sequence),
       ).toEqual(expectedComponentsIds);
     });
 
@@ -88,11 +89,11 @@ describe('Redirections utils', () => {
         'SEQUENCE2',
         'SUBSEQUENCE2',
         'QUESTION2',
-        'QUESTION3'
+        'QUESTION3',
       ];
 
       expect(
-        getComponentsTargetsByComponent(componentsStore, sequence)
+        getComponentsTargetsByComponent(componentsStore, sequence),
       ).toEqual(expectedComponentsIds);
     });
   });
@@ -103,7 +104,7 @@ describe('Redirections utils', () => {
         const expectedComponentsIds = [];
 
         expect(getComponentsTargetsByPosition(componentsStore, type)).toEqual(
-          expectedComponentsIds
+          expectedComponentsIds,
         );
       });
 
@@ -112,11 +113,11 @@ describe('Redirections utils', () => {
         const expectedComponentsIds = [
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(getComponentsTargetsByPosition(componentsStore, type)).toEqual(
-          expectedComponentsIds
+          expectedComponentsIds,
         );
       });
 
@@ -125,7 +126,7 @@ describe('Redirections utils', () => {
         const expectedComponentsIds = [];
 
         expect(getComponentsTargetsByPosition(componentsStore, type)).toEqual(
-          expectedComponentsIds
+          expectedComponentsIds,
         );
       });
     });
@@ -141,15 +142,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -162,15 +163,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -182,15 +183,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -204,15 +205,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -224,15 +225,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -245,15 +246,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -267,15 +268,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -288,15 +289,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
 
@@ -308,15 +309,15 @@ describe('Redirections utils', () => {
           'SEQUENCE2',
           'SUBSEQUENCE2',
           'QUESTION2',
-          'QUESTION3'
+          'QUESTION3',
         ];
 
         expect(
           getComponentsTargetsByPosition(
             componentsStore,
             type,
-            selectedComponent
-          )
+            selectedComponent,
+          ),
         ).toEqual(expectedComponentsIds);
       });
     });

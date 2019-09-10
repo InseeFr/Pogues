@@ -1,6 +1,6 @@
 import actionsHandlers, {
   setActiveExternalVariables,
-  updateActiveExternalVariables
+  updateActiveExternalVariables,
 } from './active-external-variables-by-id';
 import { SET_ACTIVE_VARIABLES } from 'actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from 'actions/component';
@@ -9,7 +9,7 @@ describe('setActiveExternalVariables', () => {
   test('when called directly', () => {
     const result = setActiveExternalVariables(
       { state: 'previous' },
-      { activeExternalVariablesById: 'activeExternalVariablesById' }
+      { activeExternalVariablesById: 'activeExternalVariablesById' },
     );
     expect(result).toEqual('activeExternalVariablesById');
   });
@@ -20,9 +20,9 @@ describe('setActiveExternalVariables', () => {
         {
           type: action,
           payload: {
-            activeExternalVariablesById: 'activeExternalVariablesById'
-          }
-        }
+            activeExternalVariablesById: 'activeExternalVariablesById',
+          },
+        },
       );
       expect(result).toEqual('activeExternalVariablesById');
     });
@@ -33,7 +33,9 @@ describe('updateActiveExternalVariables', () => {
   test('when called directly', () => {
     const result = updateActiveExternalVariables(
       { state: 'previous' },
-      { update: { activeExternalVariablesById: 'activeExternalVariablesById' } }
+      {
+        update: { activeExternalVariablesById: 'activeExternalVariablesById' },
+      },
     );
     expect(result).toEqual('activeExternalVariablesById');
   });
@@ -45,10 +47,10 @@ describe('updateActiveExternalVariables', () => {
           type: action,
           payload: {
             update: {
-              activeExternalVariablesById: 'activeExternalVariablesById'
-            }
-          }
-        }
+              activeExternalVariablesById: 'activeExternalVariablesById',
+            },
+          },
+        },
       );
       expect(result).toEqual('activeExternalVariablesById');
     });

@@ -5,7 +5,7 @@ import { CodesListModel } from 'widgets/codes-lists';
 import {
   UI_BEHAVIOUR,
   DATATYPE_VIS_HINT,
-  DEFAULT_CODES_LIST_SELECTOR_PATH
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 
 const { CHECKBOX } = DATATYPE_VIS_HINT;
@@ -18,7 +18,7 @@ export const defaultState = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState)
+  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
 };
 
 export const defaultForm = {
@@ -29,7 +29,7 @@ export const defaultForm = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: CHECKBOX,
-  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm)
+  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
 };
 
 export function formToState(form, transformers) {
@@ -42,7 +42,7 @@ export function formToState(form, transformers) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
   } = form;
 
   return {
@@ -57,8 +57,8 @@ export function formToState(form, transformers) {
       : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.formToStateComponent(
-      codesListForm
-    )
+      codesListForm,
+    ),
   };
 }
 
@@ -71,7 +71,7 @@ export function stateToForm(currentState, transformers) {
     specialLabel,
     specialCode,
     specialUiBehaviour,
-    specialFollowUpMessage
+    specialFollowUpMessage,
   } = currentState;
 
   return {
@@ -83,7 +83,7 @@ export function stateToForm(currentState, transformers) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.stateComponentToForm()
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.stateComponentToForm(),
   };
 }
 
@@ -92,8 +92,8 @@ const Factory = (initialState = {}, codesListsStore) => {
   const transformers = {
     codesList: new CodesListModel.Factory(
       cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]),
-      codesListsStore
-    )
+      codesListsStore,
+    ),
   };
 
   return {
@@ -111,7 +111,7 @@ const Factory = (initialState = {}, codesListsStore) => {
     getNormalizedValues: form => {
       // Values ready to be validated
       return form;
-    }
+    },
   };
 };
 

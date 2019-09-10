@@ -1,4 +1,5 @@
 import { getPattern, getValueWithSuggestion } from './utils';
+
 describe('getPattern', () => {
   test('if substrToTheEnd = true, should return the rest of the string', () => {
     const value = 'voici un $t message';
@@ -21,7 +22,7 @@ describe('getValueWithSuggestion', () => {
     const caretPosition = 11;
     const fullText = 'voici un $blablabla';
     expect(getValueWithSuggestion(suggestion, caretPosition, fullText)).toBe(
-      'voici un $suggestion$'
+      'voici un $suggestion$',
     );
   });
 
@@ -30,7 +31,7 @@ describe('getValueWithSuggestion', () => {
     const caretPosition = 11;
     const fullText = 'voici un $blablabla message';
     expect(getValueWithSuggestion(suggestion, caretPosition, fullText)).toBe(
-      'voici un $suggestion$ message'
+      'voici un $suggestion$ message',
     );
   });
 
@@ -39,7 +40,7 @@ describe('getValueWithSuggestion', () => {
     const caretPosition = 11;
     const fullText = 'voici un $blablabla$ message';
     expect(getValueWithSuggestion(suggestion, caretPosition, fullText)).toBe(
-      'voici un $suggestion$ message'
+      'voici un $suggestion$ message',
     );
   });
 });

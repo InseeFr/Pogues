@@ -3,7 +3,7 @@ import { getIntegrityErrors } from './utils';
 describe('Utils', () => {
   it('getIntegrityErrors', () => {
     const input = {
-      TYPE: [{ message: 'MESSAGE' }]
+      TYPE: [{ message: 'MESSAGE' }],
     };
     const output = ['MESSAGE'];
     expect(getIntegrityErrors(input)).toEqual(output);

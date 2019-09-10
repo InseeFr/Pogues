@@ -32,7 +32,7 @@ export function validate(form, items, stores, state) {
  *
  * @return {object} The builded object.
  */
-function getNestedErrorFromPath(path, [message, ...others]) {
+function getNestedErrorFromPath(path, [message]) {
   const keys = path.split('.');
 
   function getErrorFromKeys(listKeys, errorMessage, errors) {
@@ -40,11 +40,11 @@ function getNestedErrorFromPath(path, [message, ...others]) {
 
     if (keys.length > 0) {
       errors = {
-        [key]: getErrorFromKeys(keys, errorMessage)
+        [key]: getErrorFromKeys(keys, errorMessage),
       };
     } else {
       errors = {
-        [key]: message
+        [key]: message,
       };
     }
 

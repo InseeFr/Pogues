@@ -15,13 +15,13 @@ const propTypes = {
     name: PropTypes.string,
     permission: PropTypes.string,
     id: PropTypes.string,
-    picture: PropTypes.string
-  })
+    picture: PropTypes.string,
+  }),
 };
 
 const defaultProps = {
   questionnaires: [],
-  user: {}
+  user: {},
 };
 
 // Component
@@ -33,7 +33,7 @@ class QuestionnaireList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: ''
+      filter: '',
     };
   }
 

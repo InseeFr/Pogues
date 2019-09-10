@@ -1,18 +1,19 @@
 import { stateToRemote } from './response';
 import {
   DATATYPE_TYPE_FROM_NAME,
-  UI_BEHAVIOUR
+  UI_BEHAVIOUR,
 } from 'constants/pogues-constants';
+
 describe('response tranformations', () => {
   test('should return the default object with a generated id', () => {
     const typeName = 'DATE';
     const result = stateToRemote({
-      typeName
+      typeName,
     });
 
     expect(result.Datatype).toEqual({
       typeName,
-      type: DATATYPE_TYPE_FROM_NAME['DATE']
+      type: DATATYPE_TYPE_FROM_NAME.DATE,
     });
     expect(result.id).toBeDefined();
   });
@@ -21,12 +22,12 @@ describe('response tranformations', () => {
     const typeName = 'DATE';
     const result = stateToRemote({
       typeName,
-      id: '1'
+      id: '1',
     });
 
     expect(result.Datatype).toEqual({
       typeName,
-      type: DATATYPE_TYPE_FROM_NAME['DATE']
+      type: DATATYPE_TYPE_FROM_NAME.DATE,
     });
     expect(result.id).toEqual('1');
   });
@@ -37,7 +38,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      collectedVariable
+      collectedVariable,
     });
 
     expect(result.CollectedVariableReference).toEqual(collectedVariable);
@@ -48,7 +49,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      codesListId
+      codesListId,
     });
 
     expect(result.CodeListReference).toEqual(codesListId);
@@ -59,7 +60,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      mandatory
+      mandatory,
     });
 
     expect(result.mandatory).toEqual(mandatory);
@@ -70,7 +71,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      mandatory
+      mandatory,
     });
 
     expect(result.mandatory).toEqual(false);
@@ -81,7 +82,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      visHint
+      visHint,
     });
 
     expect(result.Datatype.visualizationHint).toEqual(visHint);
@@ -93,7 +94,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      maxLength
+      maxLength,
     });
 
     expect(result.Datatype.MaxLength).toEqual(maxLength);
@@ -104,7 +105,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      pattern
+      pattern,
     });
 
     expect(result.Datatype.Pattern).toEqual(pattern);
@@ -115,7 +116,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      minimum
+      minimum,
     });
 
     expect(result.Datatype.Minimum).toEqual(minimum);
@@ -126,7 +127,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      maximum
+      maximum,
     });
 
     expect(result.Datatype.Maximum).toEqual(maximum);
@@ -137,7 +138,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      decimals
+      decimals,
     });
 
     expect(result.Datatype.Decimals).toEqual(decimals);
@@ -148,7 +149,7 @@ describe('response tranformations', () => {
     const result = stateToRemote({
       typeName,
       id: '1',
-      unit
+      unit,
     });
 
     expect(result.Datatype.Unit).toEqual(unit);
@@ -162,14 +163,14 @@ describe('response tranformations', () => {
       specialCode: 'specialCode',
       specialLabel: 'specialLabel',
       specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
-      specialFollowUpMessage: 'specialFollowUpMessage'
+      specialFollowUpMessage: 'specialFollowUpMessage',
     });
 
     expect(result.nonResponseModality).toEqual({
       value: 'specialCode',
       label: 'specialLabel',
       firstIntentionDisplay: true,
-      invite: 'specialFollowUpMessage'
+      invite: 'specialFollowUpMessage',
     });
   });
   test('when hasSpecialCode is defined ad specialUiBehavior != UI_BEHAVIOUR.FIRST_INTENTION ', () => {
@@ -181,14 +182,14 @@ describe('response tranformations', () => {
       specialCode: 'specialCode',
       specialLabel: 'specialLabel',
       specialUiBehaviour: UI_BEHAVIOUR.SECOND_INTENTION,
-      specialFollowUpMessage: 'specialFollowUpMessage'
+      specialFollowUpMessage: 'specialFollowUpMessage',
     });
 
     expect(result.nonResponseModality).toEqual({
       value: 'specialCode',
       label: 'specialLabel',
       firstIntentionDisplay: false,
-      invite: 'specialFollowUpMessage'
+      invite: 'specialFollowUpMessage',
     });
   });
 });

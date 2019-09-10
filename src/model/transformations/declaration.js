@@ -10,8 +10,8 @@ export function remoteToState(remote = []) {
         id,
         label: label.replace(/&#xd;/gi, '\n\n'),
         declarationType,
-        position
-      }
+        position,
+      },
     };
   }, {});
 }
@@ -23,7 +23,7 @@ export function stateToRemote(state) {
       id,
       Text: Text.replace(/\n\n/gi, '&#xd;'),
       declarationType,
-      position
+      position,
     };
   });
 }

@@ -11,13 +11,13 @@ describe('response format single', () => {
             type: 'TextDatatypeType',
             visualizationHint: 'CHECKBOX',
             MaxLength: 1,
-            Pattern: ''
+            Pattern: '',
           },
           CollectedVariableReference: 'jf0vqq4j',
           CodeListReference: 'jf0w3fab',
-          mandatory: true
-        }
-      ]
+          mandatory: true,
+        },
+      ],
     };
     const output = remoteToState(remote);
     const expected = {
@@ -29,7 +29,7 @@ describe('response format single', () => {
       specialFollowUpMessage: '',
       specialLabel: '',
       specialUiBehaviour: 'FIRST_INTENTION',
-      visHint: 'CHECKBOX'
+      visHint: 'CHECKBOX',
     };
     expect(output).toEqual(expected);
   });
@@ -43,7 +43,7 @@ describe('response format single', () => {
       specialCode: '',
       specialUiBehaviour: 'FIRST_INTENTION',
       specialFollowUpMessage: '',
-      CodesList: { id: 'jf0w3fab' }
+      CodesList: { id: 'jf0w3fab' },
     };
     const collectedVariables = ['jf0vqq4j'];
     const output = stateToRemote(state, collectedVariables);
@@ -57,12 +57,12 @@ describe('response format single', () => {
             Pattern: '',
             type: 'TextDatatypeType',
             typeName: 'TEXT',
-            visualizationHint: 'CHECKBOX'
+            visualizationHint: 'CHECKBOX',
           },
           id: 'jf0w19iw',
-          mandatory: true
-        }
-      ]
+          mandatory: true,
+        },
+      ],
     };
     expect(output).toEqual(expected);
   });

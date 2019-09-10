@@ -1,6 +1,7 @@
 import { uuid } from 'utils/utils';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
 import { sortByYAndX } from 'utils/variables/collected-variables-utils';
+
 const { TEXT, BOOLEAN, NUMERIC, DATE } = DATATYPE_NAME;
 
 export const defaultState = {
@@ -9,7 +10,7 @@ export const defaultState = {
   x: '',
   y: '',
   codeListReference: '',
-  codeListReferenceLabel: ''
+  codeListReferenceLabel: '',
 };
 
 export const defaultForm = {
@@ -20,7 +21,7 @@ export const defaultForm = {
   type: TEXT,
   collectedVariables: [],
   codeListReference: '',
-  codeListReferenceLabel: ''
+  codeListReferenceLabel: '',
 };
 
 function getTypings(object) {
@@ -29,7 +30,7 @@ function getTypings(object) {
     [TEXT]: object[TEXT],
     [NUMERIC]: object[NUMERIC],
     [DATE]: object[DATE],
-    [BOOLEAN]: object[BOOLEAN]
+    [BOOLEAN]: object[BOOLEAN],
   };
 }
 export function formToState(form) {
@@ -44,7 +45,7 @@ export function formToState(form) {
     y,
     ...getTypings(form),
     codeListReference,
-    codeListReferenceLabel
+    codeListReferenceLabel,
   };
 }
 
@@ -56,7 +57,7 @@ export function formToStore(form) {
 
     return {
       ...acc,
-      [state.id]: state
+      [state.id]: state,
     };
   }, {});
 }
@@ -72,7 +73,7 @@ export function storeToForm(currentStore) {
         x,
         y,
         codeListReference,
-        codeListReferenceLabel
+        codeListReferenceLabel,
       } = currentStore[key];
       return {
         id,
@@ -82,13 +83,13 @@ export function storeToForm(currentStore) {
         y,
         ...getTypings(currentStore[key]),
         codeListReference,
-        codeListReferenceLabel
+        codeListReferenceLabel,
       };
     });
 
   return {
     ...defaultForm,
-    collectedVariables
+    collectedVariables,
   };
 }
 
@@ -96,7 +97,7 @@ const Factory = (currentState = [], collectedVariablesStore) => {
   let currentStore = currentState.reduce((acc, key) => {
     return {
       ...acc,
-      [key]: collectedVariablesStore[key]
+      [key]: collectedVariablesStore[key],
     };
   }, {});
 
@@ -115,7 +116,7 @@ const Factory = (currentState = [], collectedVariablesStore) => {
     },
     getStore: () => {
       return currentStore;
-    }
+    },
   };
 };
 

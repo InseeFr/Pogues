@@ -1,3 +1,3 @@
 export {
-  default as QuestionnaireListComponents
+  default as QuestionnaireListComponents,
 } from './containers/questionnaire-list-components-container';

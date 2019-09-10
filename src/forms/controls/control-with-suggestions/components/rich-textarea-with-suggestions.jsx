@@ -7,7 +7,7 @@ import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions, initialize } from './input-with-suggestions-utils';
 import {
   getValueWithSuggestion,
-  getPattern
+  getPattern,
 } from 'forms/controls/control-with-suggestions/components/utils';
 
 import {
@@ -16,7 +16,7 @@ import {
   formatURL,
   toolbarConfig,
   toolbarConfigQuestion,
-  rootStyle
+  rootStyle,
 } from 'forms/controls/rich-textarea';
 import { getControlId } from 'utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
@@ -33,10 +33,10 @@ function myKeyBindingFn(e) {
 // PropTypes and defaultProps
 
 const propTypes = {
-  submitOnEnter: PropTypes.bool
+  submitOnEnter: PropTypes.bool,
 };
 const defaultProps = {
-  submitOnEnter: false
+  submitOnEnter: false,
 };
 
 // Control
@@ -51,7 +51,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     this.state = {
       ...parent.state,
       value: getEditorValue(props.input.value),
-      currentValue: props.input.value
+      currentValue: props.input.value,
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
   }
@@ -74,7 +74,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       this.setState({
         ...parent.state,
         value: getEditorValue(nextProps.input.value),
-        currentValue: nextProps.input.value
+        currentValue: nextProps.input.value,
       });
     }
   }
@@ -93,7 +93,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
 
     let newState = {
       value,
-      currentValue: filteredValue
+      currentValue: filteredValue,
     };
     if (caretCursor > 0) {
       newState = {
@@ -101,8 +101,8 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
         ...updateSuggestions(
           filteredValue,
           RichTextareaWithSuggestions.InputRegex,
-          this.props.availableSuggestions
-        )
+          this.props.availableSuggestions,
+        ),
       };
     }
     this.setState(newState);
@@ -133,7 +133,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     const newCurrentValue = getValueWithSuggestion(
       suggestion,
       caretCursor,
-      fullText
+      fullText,
     );
     this.props.input.onChange(newCurrentValue);
     this.setState({ ...initialize(), value: getEditorValue(newCurrentValue) });
@@ -153,7 +153,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       disabled,
       input,
       meta: { touched, error },
-      targetIsQuestion
+      targetIsQuestion,
     } = this.props;
     const id = getControlId('rich-textarea', input.name);
     const editorValue = this.state.value;

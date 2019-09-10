@@ -5,5 +5,5 @@ module.exports = {
   DeclarationContent: '.nav-content:nth-child(3)',
   DeclarationList: '.list-entry-form_list li',
   DeclarationTextArea: '.list-entry-form_list li',
-  DeclarationAdd: '.list-entry-form_list li:last-child'
+  DeclarationAdd: '.list-entry-form_list li:last-child',
 };

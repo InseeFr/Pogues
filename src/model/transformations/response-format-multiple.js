@@ -7,7 +7,7 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  QUESTION_TYPE_ENUM
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 
 const { BOOLEAN, TEXT } = DATATYPE_NAME;
@@ -27,35 +27,35 @@ export function remoteToState(remote) {
     responses: [
       {
         Datatype: { typeName: type, visualizationHint: visHint },
-        CodeListReference
-      }
-    ]
+        CodeListReference,
+      },
+    ],
   } = remote;
   const primaryDimension = getDimension(PRIMARY, dimensions);
 
   const state = {
     [PRIMARY]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-        primaryDimension.CodeListReference
-      )
+        primaryDimension.CodeListReference,
+      ),
     },
-    [MEASURE]: {}
+    [MEASURE]: {},
   };
 
   if (type === BOOLEAN) {
     state[MEASURE] = {
       type: BOOL,
-      [BOOL]: {}
+      [BOOL]: {},
     };
   } else {
     state[MEASURE] = {
       type: CODES_LIST,
       [CODES_LIST]: {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-          CodeListReference
+          CodeListReference,
         ),
-        visHint
-      }
+        visHint,
+      },
     };
   }
 
@@ -65,31 +65,31 @@ export function remoteToState(remote) {
 export function stateToRemote(
   state,
   collectedVariables,
-  collectedVariablesStore
+  collectedVariablesStore,
 ) {
   const {
     [PRIMARY]: primaryState,
-    [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState }
+    [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState },
   } = state;
   const dimensionsModel = [];
   let responseState;
 
   dimensionsModel.push(
-    Dimension.stateToRemote({ ...primaryState, type: PRIMARY })
+    Dimension.stateToRemote({ ...primaryState, type: PRIMARY }),
   );
   dimensionsModel.push(Dimension.stateToRemote({ type: MEASURE }));
 
   if (typeMeasure === CODES_LIST) {
     const {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
-      visHint
+      visHint,
     } = measureState;
     responseState = {
       codesListId,
       typeName: TEXT,
       visHint,
       maxLength: 1,
-      pattern: ''
+      pattern: '',
     };
   } else {
     responseState = { typeName: BOOLEAN };
@@ -99,11 +99,11 @@ export function stateToRemote(
     responseState,
     collectedVariables,
     collectedVariablesStore,
-    QUESTION_TYPE_ENUM.MULTIPLE_CHOICE
+    QUESTION_TYPE_ENUM.MULTIPLE_CHOICE,
   );
 
   return {
     Dimension: dimensionsModel,
-    ...responsesModel
+    ...responsesModel,
   };
 }

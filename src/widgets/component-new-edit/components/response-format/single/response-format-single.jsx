@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
   UI_BEHAVIOUR,
   DATATYPE_VIS_HINT,
-  QUESTION_TYPE_ENUM
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 import { OptionalView } from 'widgets/optional-view';
 import { CodesLists } from 'widgets/codes-lists';
@@ -22,11 +22,11 @@ class ResponseFormatSingle extends Component {
   static selectorPath = SINGLE_CHOICE;
   static propTypes = {
     selectorPathParent: PropTypes.string,
-    showMandatory: PropTypes.bool
+    showMandatory: PropTypes.bool,
   };
   static defaultProps = {
     selectorPathParent: undefined,
-    showMandatory: true
+    showMandatory: true,
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -39,7 +39,7 @@ class ResponseFormatSingle extends Component {
   render() {
     const { showMandatory } = this.props;
     const styleMandatory = {
-      display: showMandatory ? 'block' : 'none'
+      display: showMandatory ? 'block' : 'none',
     };
 
     return (

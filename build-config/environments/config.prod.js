@@ -6,8 +6,8 @@ const config = {
   userPath: '/user',
   log: {
     level: 'DEBUG',
-    activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models']
-  }
+    activeNamespaces: ['Components', 'Actions', 'Stores', 'Utils', 'Models'],
+  },
 };
 
 export default config;

@@ -49,12 +49,12 @@ UserConnection.propTypes = {
     name: PropTypes.string,
     permission: PropTypes.string,
     id: PropTypes.string,
-    picture: PropTypes.string
-  })
+    picture: PropTypes.string,
+  }),
 };
 
 UserConnection.defaultProps = {
-  user: {}
+  user: {},
 };
 
 export default UserConnection;

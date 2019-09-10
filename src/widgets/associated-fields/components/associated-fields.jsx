@@ -23,21 +23,21 @@ const propTypes = {
   currentValueTarget: PropTypes.string,
   fieldOrigin: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }).isRequired,
   fieldTarget: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }).isRequired,
   targetIsRichTextarea: PropTypes.bool.isRequired,
-  focusOnInit: PropTypes.bool
+  focusOnInit: PropTypes.bool,
 };
 
 const defaultProps = {
   currentValueOrigin: '',
   currentValueTarget: '',
   focusOnInit: false,
-  onEnter: undefined
+  onEnter: undefined,
 };
 
 // Component
@@ -59,7 +59,7 @@ class AssociatedFields extends Component {
       fieldTarget: { name: nameTarget },
       currentValueOrigin,
       currentValueTarget,
-      targetIsRichTextarea
+      targetIsRichTextarea,
     } = this.props;
 
     let valueOrigin = currentValueOrigin;
@@ -78,7 +78,7 @@ class AssociatedFields extends Component {
       fieldTarget,
       targetIsRichTextarea,
       targetIsQuestion,
-      focusOnInit
+      focusOnInit,
     } = this.props;
 
     return (
@@ -87,7 +87,7 @@ class AssociatedFields extends Component {
           <div onBlur={this.onBlur}>
             <Field
               props={{
-                targetIsQuestion
+                targetIsQuestion,
               }}
               name={fieldOrigin.name}
               component={RichTextareaWithVariableAutoCompletion}

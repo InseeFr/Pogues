@@ -11,12 +11,12 @@ export function remoteToState(remote) {
           Minimum: minimum,
           Maximum: maximum,
           Decimals: decimals,
-          Unit: unit
+          Unit: unit,
         },
         mandatory,
-        id
-      }
-    ]
+        id,
+      },
+    ],
   } = remote;
 
   const datatype = {};
@@ -32,7 +32,7 @@ export function remoteToState(remote) {
     id,
     type: typeName,
     mandatory,
-    [typeName]: datatype
+    [typeName]: datatype,
   };
 }
 
@@ -46,8 +46,8 @@ export function stateToRemote(state, collectedVariables) {
         id,
         typeName,
         mandatory,
-        collectedVariable: collectedVariables[0]
-      })
-    ]
+        collectedVariable: collectedVariables[0],
+      }),
+    ],
   };
 }

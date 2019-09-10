@@ -18,7 +18,7 @@ export default function configureStore() {
     undefined,
     composeWithDevTools(
       applyMiddleware(thunkMiddleware, loggerMiddleware),
-      persistState(getDebugSessionKey())
-    )
+      persistState(getDebugSessionKey()),
+    ),
   );
 }

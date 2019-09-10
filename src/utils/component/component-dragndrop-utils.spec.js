@@ -1,6 +1,6 @@
 import {
   getDragnDropLevel,
-  calculateMargin
+  calculateMargin,
 } from './component-dragndrop-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -17,7 +17,7 @@ describe('getDragnDropLevel', () => {
 
   test('if couldInsertToSibling return true, should return 0', () => {
     expect(
-      getDragnDropLevel({ component: { type: QUESTION } }, { type: QUESTION })
+      getDragnDropLevel({ component: { type: QUESTION } }, { type: QUESTION }),
     ).toEqual(0);
   });
 
@@ -25,14 +25,14 @@ describe('getDragnDropLevel', () => {
     expect(
       getDragnDropLevel(
         { component: { type: SUBSEQUENCE } },
-        { type: QUESTION }
-      )
+        { type: QUESTION },
+      ),
     ).toEqual(1);
     expect(
       getDragnDropLevel(
         { component: { type: SEQUENCE } },
-        { type: SUBSEQUENCE }
-      )
+        { type: SUBSEQUENCE },
+      ),
     ).toEqual(1);
   });
 
@@ -40,14 +40,14 @@ describe('getDragnDropLevel', () => {
     expect(
       getDragnDropLevel(
         { component: { type: QUESTION } },
-        { type: SUBSEQUENCE }
-      )
+        { type: SUBSEQUENCE },
+      ),
     ).toEqual(-1);
   });
 
   test('if we dragging a sequence to a question, should return -2', () => {
     expect(
-      getDragnDropLevel({ component: { type: QUESTION } }, { type: SEQUENCE })
+      getDragnDropLevel({ component: { type: QUESTION } }, { type: SEQUENCE }),
     ).toEqual(-2);
   });
 });
@@ -61,12 +61,12 @@ describe('calculateMargin', () => {
   });
   test('should return dragdropLevel*20 if the droppedComponent is a QUESTION and its grand parent a SEQUENCE', () => {
     expect(
-      calculateMargin({ component: { type: QUESTION } }, {}, -1, SEQUENCE)
+      calculateMargin({ component: { type: QUESTION } }, {}, -1, SEQUENCE),
     ).toEqual(-20);
   });
   test('should return (dragdropLevel-1)*20 otherwise', () => {
     expect(
-      calculateMargin({ component: { type: QUESTION } }, {}, -1, SUBSEQUENCE)
+      calculateMargin({ component: { type: QUESTION } }, {}, -1, SUBSEQUENCE),
     ).toEqual(-40);
   });
 });

@@ -15,8 +15,8 @@ describe('external variable transformation', () => {
         Minimum: 'minimum',
         Maximum: 'maximum',
         Decimals: 'decimals',
-        Unit: 'unit'
-      }
+        Unit: 'unit',
+      },
     },
     {
       id: '2',
@@ -31,9 +31,9 @@ describe('external variable transformation', () => {
         Minimum: 'minimum',
         Maximum: 'maximum',
         Decimals: 'decimals',
-        Unit: 'unit'
-      }
-    }
+        Unit: 'unit',
+      },
+    },
   ];
   const state = {
     '1': {
@@ -41,29 +41,29 @@ describe('external variable transformation', () => {
       name: 'Name 1',
       label: 'Label 1',
       type: 'TEXT',
-      ['TEXT']: {
+      TEXT: {
         maxLength: 'maxLength',
         pattern: 'pattern',
         minimum: 'minimum',
         maximum: 'maximum',
         decimals: 'decimals',
-        unit: 'unit'
-      }
+        unit: 'unit',
+      },
     },
     '2': {
       id: '2',
       name: 'Name 2',
       label: 'Label 2',
       type: 'TEXT',
-      ['TEXT']: {
+      TEXT: {
         maxLength: 'maxLength',
         pattern: 'pattern',
         minimum: 'minimum',
         maximum: 'maximum',
         decimals: 'decimals',
-        unit: 'unit'
-      }
-    }
+        unit: 'unit',
+      },
+    },
   };
   describe('remoteToStore', () => {
     it('should return the state representation of an external variable', () => {

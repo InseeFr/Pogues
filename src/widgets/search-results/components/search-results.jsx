@@ -11,7 +11,7 @@ const {
   COLUMN_CLASS,
   ROW_CLASS,
   ROW_EMPTY_CLASS,
-  COLUMN_ACTIONS_CLASS
+  COLUMN_ACTIONS_CLASS,
 } = WIDGET_SEARCH_RESULTS;
 
 // Utils
@@ -19,7 +19,7 @@ const {
 function renderRowValues(values) {
   return values.map((
     v,
-    index // eslint-disable-next-line react/no-array-index-key
+    index, // eslint-disable-next-line react/no-array-index-key
   ) => (
     <div key={index} className={COLUMN_CLASS}>
       {v}
@@ -42,7 +42,7 @@ function renderRowActions(actions, values) {
           {a.icon && <span className={`glyphicon ${a.icon}`} />}
           <span
             className={ClassSet({
-              'sr-only': a.iconOnly
+              'sr-only': a.iconOnly,
             })}
           >
             {Dictionary[a.dictionary]}
@@ -61,23 +61,23 @@ const propTypes = {
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
-      key: PropTypes.string.isRequired
-    })
+      key: PropTypes.string.isRequired,
+    }),
   ).isRequired,
   actions: PropTypes.arrayOf(
     PropTypes.shape({
       dictionary: PropTypes.string.isRequired,
-      action: PropTypes.func.isRequired
-    })
+      action: PropTypes.func.isRequired,
+    }),
   ).isRequired,
   noValuesMessage: PropTypes.string.isRequired,
-  values: PropTypes.arrayOf(PropTypes.object)
+  values: PropTypes.arrayOf(PropTypes.object),
 };
 
 const defaultProps = {
   id: undefined,
   className: undefined,
-  values: []
+  values: [],
 };
 
 // Component
@@ -88,15 +88,15 @@ function SearchResults({
   columns,
   actions,
   noValuesMessage,
-  values
+  values,
 }) {
   // Obtaining the traductions for the different columns and the actions column.
   const headerValues = [
     ...columns.map(c => Dictionary[c.dictionary]),
-    Dictionary.searchResultAction
+    Dictionary.searchResultAction,
   ];
   const props = {
-    className: `${COMPONENT_CLASS} ${COMPONENT_CLASS}-${columns.length + 1}`
+    className: `${COMPONENT_CLASS} ${COMPONENT_CLASS}-${columns.length + 1}`,
   };
 
   if (id) props.id = id;

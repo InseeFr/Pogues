@@ -8,11 +8,11 @@ const { COMPONENT_CLASS, INNER } = WIDGET_ERRORS_PANEL;
 // PropTypes and defaultProps
 
 const propTypes = {
-  errors: PropTypes.array
+  errors: PropTypes.array,
 };
 
 const defaultProps = {
-  errors: []
+  errors: [],
 };
 
 // Component

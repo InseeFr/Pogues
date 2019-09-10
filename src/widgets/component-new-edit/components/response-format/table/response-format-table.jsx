@@ -11,7 +11,7 @@ import TableListMeasures from './table-list-measures';
 import {
   QUESTION_TYPE_ENUM,
   DIMENSION_TYPE,
-  DIMENSION_FORMATS
+  DIMENSION_FORMATS,
 } from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY } = DIMENSION_TYPE;
@@ -24,12 +24,12 @@ class ResponseFormatTable extends Component {
     selectorPathParent: PropTypes.string,
     showSecondaryAxis: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     primaryAxisType: PropTypes.string,
-    addErrors: PropTypes.func.isRequired
+    addErrors: PropTypes.func.isRequired,
   };
   static defaultProps = {
     selectorPathParent: undefined,
     showSecondaryAxis: false,
-    primaryAxisType: LIST
+    primaryAxisType: LIST,
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -88,9 +88,9 @@ const mapStateToProps = (state, { formName, selectorPathParent }) => {
   return {
     showSecondaryAxis: selector(
       state,
-      `${tablePath}.${SECONDARY}.showSecondaryAxis`
+      `${tablePath}.${SECONDARY}.showSecondaryAxis`,
     ),
-    primaryAxisType: selector(state, `${tablePath}.${PRIMARY}.type`)
+    primaryAxisType: selector(state, `${tablePath}.${PRIMARY}.type`),
   };
 };
 

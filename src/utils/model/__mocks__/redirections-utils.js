@@ -6,7 +6,7 @@ export const componentsStore = {
     weight: 0,
     children: ['QUESTION5', 'SUBSEQUENCE1'],
     label: 'S1',
-    type: 'SEQUENCE'
+    type: 'SEQUENCE',
   },
   QUESTION5: {
     id: 'QUESTION5',
@@ -15,7 +15,7 @@ export const componentsStore = {
     weight: 0,
     children: [],
     type: 'QUESTION',
-    label: 'Q5\n'
+    label: 'Q5\n',
   },
   SUBSEQUENCE1: {
     id: 'SUBSEQUENCE1',
@@ -24,7 +24,7 @@ export const componentsStore = {
     weight: 1,
     children: ['QUESTION1'],
     label: 'SS1',
-    type: 'SUBSEQUENCE'
+    type: 'SUBSEQUENCE',
   },
   QUESTION1: {
     id: 'QUESTION1',
@@ -33,7 +33,7 @@ export const componentsStore = {
     weight: 0,
     children: [],
     type: 'QUESTION',
-    label: 'Q1\n'
+    label: 'Q1\n',
   },
   SEQUENCE2: {
     id: 'SEQUENCE2',
@@ -42,7 +42,7 @@ export const componentsStore = {
     weight: 1,
     children: ['SUBSEQUENCE2'],
     label: 'S2',
-    type: 'SEQUENCE'
+    type: 'SEQUENCE',
   },
   SUBSEQUENCE2: {
     id: 'SUBSEQUENCE2',
@@ -51,7 +51,7 @@ export const componentsStore = {
     weight: 0,
     children: ['QUESTION2', 'QUESTION3'],
     label: 'SS2',
-    type: 'SUBSEQUENCE'
+    type: 'SUBSEQUENCE',
   },
   QUESTION2: {
     id: 'QUESTION2',
@@ -60,7 +60,7 @@ export const componentsStore = {
     weight: 0,
     children: [],
     type: 'QUESTION',
-    label: 'Q2\n'
+    label: 'Q2\n',
   },
   QUESTION3: {
     id: 'QUESTION3',
@@ -69,7 +69,7 @@ export const componentsStore = {
     weight: 1,
     children: [],
     type: 'QUESTION',
-    label: 'Q3\n'
+    label: 'Q3\n',
   },
   QUESTIONNAIRE: {
     id: 'QUESTIONNAIRE',
@@ -78,8 +78,8 @@ export const componentsStore = {
     weight: 0,
     children: ['SEQUENCE1', 'SEQUENCE2'],
     label: 'Questionnaire',
-    type: 'QUESTIONNAIRE'
-  }
+    type: 'QUESTIONNAIRE',
+  },
 };
 
 export const listGotos = [
@@ -87,48 +87,48 @@ export const listGotos = [
     value: 'SEQUENCE1',
     depth: 0,
     label: 'S1 - S1',
-    disabled: false
+    disabled: false,
   },
   {
     value: 'QUESTION5',
     depth: 1,
     label: 'Q5 - Q5',
-    disabled: false
+    disabled: false,
   },
   {
     value: 'SUBSEQUENCE1',
     depth: 1,
     label: 'SS1 - SS1',
-    disabled: false
+    disabled: false,
   },
   {
     value: 'QUESTION1',
     depth: 2,
     label: 'Q1 - Q1',
-    disabled: false
+    disabled: false,
   },
   {
     value: 'SEQUENCE2',
     depth: 0,
     label: 'S2 - S2',
-    disabled: false
+    disabled: false,
   },
   {
     value: 'SUBSEQUENCE2',
     depth: 1,
     label: 'SS2 - SS2',
-    disabled: false
+    disabled: false,
   },
   {
     value: 'QUESTION2',
     depth: 2,
     label: 'Q2 - Q2',
-    disabled: false
+    disabled: false,
   },
   {
     value: 'QUESTION3',
     depth: 2,
     label: 'Q3 - Q3',
-    disabled: false
-  }
+    disabled: false,
+  },
 ];

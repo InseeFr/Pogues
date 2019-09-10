@@ -13,12 +13,12 @@ const propTypes = {
   label: PropTypes.string.isRequired,
   formName: PropTypes.string,
   checkbox: PropTypes.bool,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
-  checkbox: false
+  checkbox: false,
 };
 
 // Container
@@ -28,7 +28,7 @@ const mapStateToProps = (state, { selectorPath, name, formName, checkbox }) => {
   return {
     active: checkbox
       ? selector(state, `${selectorPath}.${name}`)
-      : selector(state, `${selectorPath}.${name}`) === '1'
+      : selector(state, `${selectorPath}.${name}`) === '1',
   };
 };
 

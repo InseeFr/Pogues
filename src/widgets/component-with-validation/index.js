@@ -1,3 +1,3 @@
 export {
-  default as ComponentWithValidation
+  default as ComponentWithValidation,
 } from './component-with-validation';

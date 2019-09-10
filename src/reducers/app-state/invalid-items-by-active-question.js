@@ -1,7 +1,7 @@
 import {
   SET_INVALID_ITEMS,
   REMOVE_INVALID_ITEM,
-  ADD_LIST_INVALID_ITEMS
+  ADD_LIST_INVALID_ITEMS,
 } from 'actions/app-state';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
@@ -26,10 +26,10 @@ export function addListInvalidItem(state, invalidItems) {
         ...acc,
         [id]: {
           id,
-          type
-        }
+          type,
+        },
       };
-    }, {})
+    }, {}),
   };
 }
 

@@ -11,26 +11,26 @@ const locale = getLocale();
 describe('<UserConnection />', () => {
   const userWithPicture = {
     name: 'John',
-    picture: '/fake/path/picture.gif'
+    picture: '/fake/path/picture.gif',
   };
   const userWithoutPicture = {
-    name: 'John'
+    name: 'John',
   };
   const propsNoUser = {
-    locale: locale
+    locale: locale,
   };
   const propsUserWithPicture = {
     user: userWithPicture,
-    locale: locale
+    locale: locale,
   };
   const propsUserWithoutPicture = {
     user: userWithoutPicture,
-    locale: locale
+    locale: locale,
   };
   const wrapperNotLogged = shallow(<UserConnection {...propsNoUser} />);
   const wrapperLogged = shallow(<UserConnection {...propsUserWithPicture} />);
   const wrapperLoggedWithoutPicture = shallow(
-    <UserConnection {...propsUserWithoutPicture} />
+    <UserConnection {...propsUserWithoutPicture} />,
   );
 
   test('should render without throwing an error', () => {
@@ -50,7 +50,7 @@ describe('<UserConnection />', () => {
   test('should render the user picture when is defined', () => {
     expect(
       wrapperLogged.find(`.user-picture img[src="${userWithPicture.picture}"]`)
-        .length
+        .length,
     ).toBe(1);
   });
 
@@ -58,7 +58,7 @@ describe('<UserConnection />', () => {
     expect(
       wrapperLoggedWithoutPicture
         .find('.user-picture img')
-        .is('.default-picture')
+        .is('.default-picture'),
     ).toBe(true);
   });
 });

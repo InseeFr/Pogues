@@ -1,3 +1,3 @@
 export {
-  default as QuestionnaireNav
+  default as QuestionnaireNav,
 } from './containers/questionnaire-nav-container';

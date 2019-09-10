@@ -3,7 +3,7 @@ import {
   QUESTION_TYPE_ENUM,
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
-  DEFAULT_CODES_LIST_SELECTOR_PATH
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -28,10 +28,10 @@ export function getSingleCodesLists(singleFormat) {
 
 export function getMultipleCodesLists(multipleFormat) {
   const codesListsIds = [
-    multipleFormat[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH].id
+    multipleFormat[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH].id,
   ];
   const {
-    [MEASURE]: { type, [type]: measure }
+    [MEASURE]: { type, [type]: measure },
   } = multipleFormat;
 
   if (type === CODES_LIST) {
@@ -47,7 +47,7 @@ export function getTableCodesLists(tableFormat) {
     [PRIMARY]: { type: typePrimary, [typePrimary]: primary },
     [SECONDARY]: secondary,
     [MEASURE]: measure,
-    [LIST_MEASURE]: measures
+    [LIST_MEASURE]: measures,
   } = tableFormat;
 
   if (typePrimary === CODES_LIST) {
@@ -91,13 +91,13 @@ export function removeOrphansCodesLists(codesListsStore, componentsStore) {
       const codesListsLinked = codesListsIds.reduce((accInner, keyInner) => {
         return {
           ...accInner,
-          [keyInner]: codesListsStore[keyInner]
+          [keyInner]: codesListsStore[keyInner],
         };
       }, {});
 
       return {
         ...acc,
-        ...codesListsLinked
+        ...codesListsLinked,
       };
     }, {});
 }

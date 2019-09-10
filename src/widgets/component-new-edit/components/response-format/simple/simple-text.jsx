@@ -11,7 +11,7 @@ class ResponseFormatDatatypeText extends FormSection {
   static defaultProps = {
     name: TEXT,
     readOnly: false,
-    required: true
+    required: true,
   };
   render() {
     return (

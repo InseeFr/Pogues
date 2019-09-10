@@ -26,14 +26,14 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   showPosition: PropTypes.bool,
-  addErrors: PropTypes.func.isRequired
+  addErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPath: TABS_PATHS.DECLARATIONS,
   errors: [],
-  showPosition: true
+  showPosition: true,
 };
 
 // Component
@@ -43,7 +43,7 @@ function Declarations({
   selectorPath,
   errors,
   showPosition,
-  addErrors
+  addErrors,
 }) {
   return (
     <FormSection name={selectorPath}>

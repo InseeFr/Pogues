@@ -9,5 +9,5 @@ const mapDispatchToProps = { clearSearchResult };
 
 export default connect(
   undefined,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PageSearchQuestionnaire);

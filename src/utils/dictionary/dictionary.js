@@ -26,7 +26,7 @@ export function getLang(locale) {
 }
 
 const result = createDictionary(
-  getLang(navigator.language || navigator.browserLanguage)
+  getLang(navigator.language || navigator.browserLanguage),
 );
 
 export default result;

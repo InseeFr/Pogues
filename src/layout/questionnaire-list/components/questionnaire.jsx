@@ -10,12 +10,12 @@ const propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   lastUpdatedDate: PropTypes.string,
-  final: PropTypes.bool
+  final: PropTypes.bool,
 };
 
 const defaultProps = {
   final: false,
-  lastUpdatedDate: ''
+  lastUpdatedDate: '',
 };
 
 // Component

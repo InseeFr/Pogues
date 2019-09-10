@@ -15,7 +15,7 @@ describe('Simple Text', () => {
   });
   test('with readOnly', () => {
     const props = {
-      readOnly: true
+      readOnly: true,
     };
     const selectorView = renderer
       .create(decoreFormField(<SimpleText {...props} />))
@@ -25,7 +25,7 @@ describe('Simple Text', () => {
   });
   test('with required', () => {
     const props = {
-      required: true
+      required: true,
     };
     const selectorView = renderer
       .create(decoreFormField(<SimpleText {...props} />))

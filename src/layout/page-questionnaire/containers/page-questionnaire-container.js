@@ -11,7 +11,7 @@ import {
   setActiveComponents,
   setActiveCodeLists,
   setActiveVariables,
-  loadStatisticalContext
+  loadStatisticalContext,
 } from 'actions/app-state';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -20,7 +20,7 @@ const { QUESTION } = COMPONENT_TYPE;
 
 function getCollectedVariablesByQuestionnaire(
   components = {},
-  collectedVariables = {}
+  collectedVariables = {},
 ) {
   return Object.keys(components)
     .filter(key => components[key].type === QUESTION)
@@ -32,11 +32,11 @@ function getCollectedVariablesByQuestionnaire(
           (accInner, keyInner) => {
             return {
               ...accInner,
-              [keyInner]: { ...collectedVariables[keyInner] }
+              [keyInner]: { ...collectedVariables[keyInner] },
             };
           },
-          {}
-        )
+          {},
+        ),
       };
     }, {});
 }
@@ -45,9 +45,9 @@ function getCollectedVariablesByQuestionnaire(
 
 const propTypes = {
   params: PropTypes.shape({
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
   }).isRequired,
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
 // Container
@@ -62,8 +62,8 @@ const mapStateToProps = (state, { params: { id } }) => ({
   externalVariables: state.externalVariableByQuestionnaire[id],
   collectedVariablesByQuestion: getCollectedVariablesByQuestionnaire(
     state.componentByQuestionnaire[id],
-    state.collectedVariableByQuestionnaire[id]
-  )
+    state.collectedVariableByQuestionnaire[id],
+  ),
 });
 
 const mapDispatchToProps = {
@@ -73,12 +73,12 @@ const mapDispatchToProps = {
   setActiveQuestionnaire,
   setActiveComponents,
   setActiveCodeLists,
-  setActiveVariables
+  setActiveVariables,
 };
 
 const PageQuestionnaireContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PageQuestionnaire);
 
 PageQuestionnaireContainer.propTypes = propTypes;

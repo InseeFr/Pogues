@@ -23,5 +23,5 @@ module.exports = {
     //   .click(editQuestion.DeclarationTab)
     //   .assert.cssClassPresent(editQuestion.DeclarationContent, 'active')
     //   .end()
-  }
+  },
 };

@@ -13,7 +13,7 @@ export function getValuesFromGenericOptions(options) {
     return {
       label,
       value,
-      ...otherProps
+      ...otherProps,
     };
   });
 }
@@ -54,7 +54,7 @@ export function getIndexItemsByAttrs(attrs, items) {
     .map(i =>
       Object.keys(attrs)
         .map(attrKey => i[attrKey])
-        .join('')
+        .join(''),
     )
     .indexOf(searchedKey);
 

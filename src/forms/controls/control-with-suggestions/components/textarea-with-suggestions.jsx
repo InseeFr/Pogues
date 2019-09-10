@@ -16,7 +16,7 @@ class TextareaWithSuggestions extends ControlWithSuggestion {
       required,
       disabled,
       input,
-      meta: { touched, error }
+      meta: { touched, error },
     } = this.props;
     const id = getControlId('textarea', input.name);
 

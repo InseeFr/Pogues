@@ -1,7 +1,5 @@
 // @TODO: Refactor to avoid similar validation functions
 import { SubmissionError } from 'redux-form';
-
-import { validate, getErrorsObject } from './validation-utils';
 import {
   questionnaireRules,
   questionRules,
@@ -12,9 +10,10 @@ import {
   externalVariableRules,
   calculatedVariableRules,
   collectedVariableRules,
-  tableListMeasuresRules
+  tableListMeasuresRules,
 } from './validation-rules';
 import { Component } from 'widgets/component-new-edit';
+import { validate, getErrorsObject } from './validation-utils';
 
 export function validateQuestionnaireForm(values, setErrors) {
   const errors = validate(values, questionnaireRules);

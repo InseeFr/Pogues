@@ -9,7 +9,7 @@ describe('control tramsformation', () => {
       FailMessage: 'FailMessage 1',
       criticity: 'criticity 1',
       during_collect: 'during_collect 1',
-      post_collect: 'post_collect 1'
+      post_collect: 'post_collect 1',
     },
     {
       id: '2',
@@ -18,8 +18,8 @@ describe('control tramsformation', () => {
       FailMessage: 'FailMessage 2',
       criticity: 'criticity 2',
       during_collect: 'during_collect 2',
-      post_collect: 'post_collect 2'
-    }
+      post_collect: 'post_collect 2',
+    },
   ];
   const state = {
     '1': {
@@ -29,7 +29,7 @@ describe('control tramsformation', () => {
       message: 'FailMessage 1',
       criticity: 'criticity 1',
       during_collect: 'during_collect 1',
-      post_collect: 'post_collect 1'
+      post_collect: 'post_collect 1',
     },
     '2': {
       id: '2',
@@ -38,8 +38,8 @@ describe('control tramsformation', () => {
       message: 'FailMessage 2',
       criticity: 'criticity 2',
       during_collect: 'during_collect 2',
-      post_collect: 'post_collect 2'
-    }
+      post_collect: 'post_collect 2',
+    },
   };
   describe('remoteToState', () => {
     it('should return the state representation of a control', () => {

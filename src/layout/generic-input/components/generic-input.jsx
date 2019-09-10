@@ -23,13 +23,13 @@ export const propTypes = {
   isQuestionnaireModified: PropTypes.bool.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
 
-  componentIdForPageBreak: PropTypes.string.isRequired
+  componentIdForPageBreak: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
-  componentIdForPageBreak: ''
+  componentIdForPageBreak: '',
 };
 
 // Components
@@ -43,7 +43,7 @@ class GenericInput extends Component {
 
     this.state = {
       showNewComponentModal: false,
-      typeNewComponent: ''
+      typeNewComponent: '',
     };
 
     this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
@@ -54,7 +54,7 @@ class GenericInput extends Component {
     const newState = {
       ...this.state,
       showNewComponentModal: true,
-      typeNewComponent: componentType
+      typeNewComponent: componentType,
     };
     this.setState(newState);
   }
@@ -63,7 +63,7 @@ class GenericInput extends Component {
     const newState = {
       ...this.state,
       showNewComponentModal: false,
-      typeNewComponent: ''
+      typeNewComponent: '',
     };
     this.setState(newState);
   }
@@ -80,7 +80,7 @@ class GenericInput extends Component {
       placeholders,
       isQuestionnaireValid,
       isQuestionnaireModified,
-      componentIdForPageBreak
+      componentIdForPageBreak,
     } = this.props;
     const typeNewComponent = this.state.typeNewComponent;
     const newComponentParent = typeNewComponent

@@ -13,7 +13,7 @@ import { storeToArray, nestedStoreToFlat } from 'utils/utils';
  */
 const withCurrentFormVariables = (
   ComponentToWrap,
-  formName = DEFAULT_FORM_NAME
+  formName = DEFAULT_FORM_NAME,
 ) => {
   const withCurrentFormVariablesComponent = props => (
     <ComponentToWrap {...props} />
@@ -33,13 +33,13 @@ const withCurrentFormVariables = (
     ).map(v => v.name);
 
     const activeCalculatedVariables = storeToArray(
-      state.appState.activeCalculatedVariablesById
+      state.appState.activeCalculatedVariablesById,
     ).map(v => v.name);
     const activeExternalVariables = storeToArray(
-      state.appState.activeExternalVariablesById
+      state.appState.activeExternalVariablesById,
     ).map(v => v.name);
     const activeCollectedVariables = nestedStoreToFlat(
-      state.appState.collectedVariableByQuestion
+      state.appState.collectedVariableByQuestion,
     ).map(v => v.name);
 
     // Dedupe using a Set, which is then spread into a new Array
@@ -50,8 +50,8 @@ const withCurrentFormVariables = (
         ...currentActiveCollectedVariables,
         ...activeCalculatedVariables,
         ...activeExternalVariables,
-        ...activeCollectedVariables
-      ])
+        ...activeCollectedVariables,
+      ]),
     ];
     return { availableSuggestions, focusedInput: state.appState.focusedInput };
   };

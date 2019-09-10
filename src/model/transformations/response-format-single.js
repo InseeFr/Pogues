@@ -4,7 +4,7 @@ import * as CodeList from './codes-list';
 import {
   UI_BEHAVIOUR,
   DATATYPE_NAME,
-  DEFAULT_CODES_LIST_SELECTOR_PATH
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 
 const { TEXT } = DATATYPE_NAME;
@@ -17,14 +17,14 @@ export function remoteToState(remote) {
         mandatory,
         nonResponseModality,
         CodeListReference,
-        id
-      }
-    ]
+        id,
+      },
+    ],
   } = remote;
 
   return {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-      CodeListReference
+      CodeListReference,
     ),
     id,
     mandatory,
@@ -40,7 +40,7 @@ export function remoteToState(remote) {
         : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: nonResponseModality
       ? nonResponseModality.invite
-      : ''
+      : '',
   };
 }
 
@@ -49,7 +49,7 @@ export function stateToRemote(state, collectedVariables) {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     visHint,
     mandatory,
-    id
+    id,
   } = state;
   return {
     Response: [
@@ -61,8 +61,8 @@ export function stateToRemote(state, collectedVariables) {
         typeName: TEXT,
         maxLength: 1,
         pattern: '',
-        collectedVariable: collectedVariables[0]
-      })
-    ]
+        collectedVariable: collectedVariables[0],
+      }),
+    ],
   };
 }

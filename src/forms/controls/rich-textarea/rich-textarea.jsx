@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import RichTextEditor, {
-  ButtonGroup
+  ButtonGroup,
 } from 'gillespie59-react-rte/lib/RichTextEditor';
 import clearEntityForRange from 'gillespie59-react-rte/lib/lib/clearEntityForRange';
 import getEntityAtCursor from 'gillespie59-react-rte/lib/lib/getEntityAtCursor';
@@ -11,7 +11,7 @@ import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
 import { toolbarConfig, rootStyle } from './rich-textarea-toobar-config';
 import {
   getEditorValue,
-  contentStateToString
+  contentStateToString,
 } from './utils/rich-textarea-utils';
 import PopoverIconButton from './ui/popover-icon-button';
 import IconButton from './ui/icon-button';
@@ -40,7 +40,7 @@ const propTypes = {
   required: PropTypes.bool,
   focusOnInit: PropTypes.bool,
   showAddConditions: PropTypes.bool,
-  onEnter: PropTypes.func
+  onEnter: PropTypes.func,
 };
 
 const defaultProps = {
@@ -50,7 +50,7 @@ const defaultProps = {
   className: undefined,
   focusOnInit: false,
   showAddConditions: false,
-  onEnter: undefined
+  onEnter: undefined,
 };
 
 // Control
@@ -65,7 +65,7 @@ class RichTextarea extends Component {
     this.state = {
       editorValue: getEditorValue(props.input.value),
       value: props.input.value,
-      showConditionInput: false
+      showConditionInput: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -79,7 +79,7 @@ class RichTextarea extends Component {
     if (nextProps.input.value !== this.state.value) {
       this.setState({
         editorValue: getEditorValue(nextProps.input.value),
-        value: nextProps.input.value
+        value: nextProps.input.value,
       });
     }
   }
@@ -88,19 +88,19 @@ class RichTextarea extends Component {
     let contentState = editorState.getCurrentContent();
     const targetSelection = editorState.getSelection();
     contentState = contentState.createEntity('CONDITION', 'MUTABLE', {
-      conditions
+      conditions,
     });
     const entityKey = contentState.getLastCreatedEntityKey();
     let newEditorState = EditorState.push(editorState, contentState);
     const withoutCondition = Modifier.applyEntity(
       newEditorState.getCurrentContent(),
       targetSelection,
-      entityKey
+      entityKey,
     );
     newEditorState = EditorState.push(
       newEditorState,
       withoutCondition,
-      'apply-entity'
+      'apply-entity',
     );
 
     this.setState({ showConditionInput: false });
@@ -115,7 +115,7 @@ class RichTextarea extends Component {
         editorState,
         blockKey,
         startOffset,
-        endOffset
+        endOffset,
       );
       this.handleChange(this.state.editorValue.setEditorState(newEditorState));
     }
@@ -149,7 +149,7 @@ class RichTextarea extends Component {
       focusOnInit,
       showAddConditions,
       input,
-      meta: { touched, error }
+      meta: { touched, error },
     } = this.props;
     const id = getControlId('rich-textarea', input.name);
 
@@ -162,7 +162,7 @@ class RichTextarea extends Component {
       autoFocus: focusOnInit,
       keyBindingFn: this.keyBinding,
       rootStyle,
-      formatURL
+      formatURL,
     };
 
     if (showAddConditions) {
@@ -209,8 +209,8 @@ class RichTextarea extends Component {
                 />
               </ButtonGroup>
             );
-          }
-        ]
+          },
+        ],
       };
     }
 

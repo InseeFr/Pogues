@@ -1,3 +1,3 @@
 export {
-  default as PageQuestionnaire
+  default as PageQuestionnaire,
 } from './containers/page-questionnaire-container';

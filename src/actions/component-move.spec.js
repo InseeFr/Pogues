@@ -12,14 +12,14 @@ describe('getWeightAndParentId', () => {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -27,7 +27,7 @@ describe('getWeightAndParentId', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -38,18 +38,18 @@ describe('getWeightAndParentId', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
     const result = component.getWeightAndParentId(
       activesComponents,
       activesComponents['5'],
       activesComponents['12'],
-      -2
+      -2,
     );
     expect(result.newWeight).toEqual(1);
     expect(result.newParentComponentId).toEqual('0');
@@ -62,14 +62,14 @@ describe('getWeightAndParentId', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -77,7 +77,7 @@ describe('getWeightAndParentId', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -88,19 +88,19 @@ describe('getWeightAndParentId', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.getWeightAndParentId(
       activesComponents,
       activesComponents['1'],
       activesComponents['9'],
-      -1
+      -1,
     );
     expect(result.newWeight).toEqual(1);
     expect(result.newParentComponentId).toEqual('0');
@@ -112,14 +112,14 @@ describe('getWeightAndParentId', () => {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -127,7 +127,7 @@ describe('getWeightAndParentId', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -138,19 +138,19 @@ describe('getWeightAndParentId', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.getWeightAndParentId(
       activesComponents,
       activesComponents['4'],
       activesComponents['8'],
-      -1
+      -1,
     );
     expect(result.newWeight).toEqual(2);
     expect(result.newParentComponentId).toEqual('1');
@@ -161,7 +161,7 @@ describe('getWeightAndParentId', () => {
       {},
       { weight: 1, parent: '1' },
       {},
-      0
+      0,
     );
     expect(result.newWeight).toEqual(2);
     expect(result.newParentComponentId).toEqual('1');
@@ -172,7 +172,7 @@ describe('getWeightAndParentId', () => {
       {},
       { weight: 1, id: '1' },
       {},
-      1
+      1,
     );
     expect(result.newWeight).toEqual(0);
     expect(result.newParentComponentId).toEqual('1');
@@ -186,14 +186,14 @@ describe('moveComponent', () => {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -201,7 +201,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -212,12 +212,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
     const result = component.moveComponent(activesComponents, '9', '6');
 
@@ -226,49 +226,49 @@ describe('moveComponent', () => {
       weight: 0,
       type: SUBSEQUENCE,
       parent: '1',
-      children: []
+      children: [],
     });
     expect(result['3']).toEqual({
       id: '3',
       weight: 1,
       type: SUBSEQUENCE,
       children: ['4', '5'],
-      parent: '1'
+      parent: '1',
     });
     expect(result['5']).toEqual({
       id: '5',
       weight: 1,
       type: QUESTION,
       parent: '3',
-      children: []
+      children: [],
     });
     expect(result['6']).toEqual({
       id: '6',
       weight: 1,
       type: QUESTION,
       parent: '8',
-      children: []
+      children: [],
     });
     expect(result['7']).toEqual({
       id: '7',
       weight: 2,
       type: SUBSEQUENCE,
       parent: '1',
-      children: []
+      children: [],
     });
     expect(result['8']).toEqual({
       id: '8',
       weight: 3,
       type: SUBSEQUENCE,
       parent: '1',
-      children: ['9', '10', '6']
+      children: ['9', '10', '6'],
     });
     expect(result['10']).toEqual({
       id: '10',
       weight: 2,
       type: QUESTION,
       parent: '8',
-      children: []
+      children: [],
     });
   });
 
@@ -278,7 +278,7 @@ describe('moveComponent', () => {
         id: '1',
         weight: 0,
         type: SEQUENCE,
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -286,7 +286,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -297,10 +297,10 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] }
+      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '6', '4');
@@ -309,21 +309,21 @@ describe('moveComponent', () => {
       id: '1',
       weight: 0,
       type: SEQUENCE,
-      children: ['2', '3', '7', '8']
+      children: ['2', '3', '7', '8'],
     });
     expect(result['2']).toEqual({
       id: '2',
       weight: 0,
       type: SUBSEQUENCE,
       parent: '1',
-      children: []
+      children: [],
     });
     expect(result['3']).toEqual({
       id: '3',
       weight: 1,
       type: SUBSEQUENCE,
       parent: '1',
-      children: ['4', '5', '6']
+      children: ['4', '5', '6'],
     });
 
     expect(result['5']).toEqual({
@@ -331,21 +331,21 @@ describe('moveComponent', () => {
       weight: 0,
       type: QUESTION,
       parent: '3',
-      children: []
+      children: [],
     });
     expect(result['4']).toEqual({
       id: '4',
       weight: 2,
       type: QUESTION,
       parent: '3',
-      children: []
+      children: [],
     });
     expect(result['6']).toEqual({
       id: '6',
       weight: 1,
       type: QUESTION,
       parent: '3',
-      children: []
+      children: [],
     });
 
     expect(result['7']).toEqual({
@@ -353,28 +353,28 @@ describe('moveComponent', () => {
       weight: 2,
       type: SUBSEQUENCE,
       parent: '1',
-      children: []
+      children: [],
     });
     expect(result['8']).toEqual({
       id: '8',
       weight: 3,
       type: SUBSEQUENCE,
       parent: '1',
-      children: ['9', '10']
+      children: ['9', '10'],
     });
     expect(result['9']).toEqual({
       id: '9',
       weight: 0,
       type: QUESTION,
       parent: '8',
-      children: []
+      children: [],
     });
     expect(result['10']).toEqual({
       id: '10',
       weight: 1,
       type: QUESTION,
       parent: '8',
-      children: []
+      children: [],
     });
   });
 
@@ -385,14 +385,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -400,7 +400,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -411,12 +411,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '5', '12');
@@ -427,14 +427,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3']
+        children: ['2', '3'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -442,7 +442,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5']
+        children: ['4', '5'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -451,7 +451,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SEQUENCE,
         parent: '0',
-        children: ['6', '7', '8']
+        children: ['6', '7', '8'],
       },
       '6': { id: '6', weight: 0, type: QUESTION, parent: '12', children: [] },
       '7': {
@@ -459,18 +459,18 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '12',
-        children: []
+        children: [],
       },
       '8': {
         id: '8',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '12',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '11': { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
@@ -481,14 +481,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -496,7 +496,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -507,12 +507,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '5', '7');
@@ -523,14 +523,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -538,7 +538,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5']
+        children: ['4', '5'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -547,7 +547,7 @@ describe('moveComponent', () => {
         weight: 2,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['6']
+        children: ['6'],
       },
       '6': { id: '6', weight: 0, type: QUESTION, parent: '7', children: [] },
       '8': {
@@ -555,12 +555,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
@@ -571,14 +571,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -586,7 +586,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -597,12 +597,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '12');
@@ -613,7 +613,7 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
       '12': {
@@ -621,21 +621,21 @@ describe('moveComponent', () => {
         weight: 1,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': {
         id: '2',
         weight: 0,
         type: SUBSEQUENCE,
         parent: '12',
-        children: []
+        children: [],
       },
       '3': {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '12',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -645,18 +645,18 @@ describe('moveComponent', () => {
         weight: 2,
         type: SUBSEQUENCE,
         parent: '12',
-        children: []
+        children: [],
       },
       '8': {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '12',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '11': { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
@@ -667,14 +667,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -682,7 +682,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -693,12 +693,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '3', '8');
@@ -709,14 +709,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: [] },
@@ -725,7 +725,7 @@ describe('moveComponent', () => {
         weight: 2,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10', '4', '5', '6']
+        children: ['9', '10', '4', '5', '6'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
@@ -734,7 +734,7 @@ describe('moveComponent', () => {
       '6': { id: '6', weight: 4, type: QUESTION, parent: '8', children: [] },
       '7': { id: '7', weight: 3, type: SUBSEQUENCE, parent: '1', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
@@ -745,14 +745,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': {
@@ -760,7 +760,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -771,12 +771,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '2', '11');
@@ -787,7 +787,7 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2'] },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
@@ -796,14 +796,14 @@ describe('moveComponent', () => {
         weight: 1,
         type: SEQUENCE,
         parent: '0',
-        children: ['3', '7', '8']
+        children: ['3', '7', '8'],
       },
       '3': {
         id: '3',
         weight: 0,
         type: SUBSEQUENCE,
         parent: '11',
-        children: ['4', '5', '6']
+        children: ['4', '5', '6'],
       },
       '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
       '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
@@ -813,19 +813,19 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '11',
-        children: []
+        children: [],
       },
       '8': {
         id: '8',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '11',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
 
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
@@ -836,14 +836,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3', '7', '8']
+        children: ['2', '3', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '3': { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
@@ -853,12 +853,12 @@ describe('moveComponent', () => {
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '2', '7');
@@ -869,14 +869,14 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '11', '12']
+        children: ['1', '11', '12'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '7', '8']
+        children: ['2', '7', '8'],
       },
       '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
       '7': {
@@ -884,7 +884,7 @@ describe('moveComponent', () => {
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['3']
+        children: ['3'],
       },
       '3': { id: '3', weight: 0, type: QUESTION, parent: '7', children: [] },
       '8': {
@@ -892,12 +892,12 @@ describe('moveComponent', () => {
         weight: 2,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['9', '10']
+        children: ['9', '10'],
       },
       '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
       '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
       '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
@@ -908,11 +908,11 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '2', '3']
+        children: ['1', '2', '3'],
       },
       '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
       '2': { id: '2', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '3': { id: '3', weight: 2, type: SEQUENCE, parent: '0', children: [] }
+      '3': { id: '3', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '3');
@@ -923,11 +923,11 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1', '2', '3']
+        children: ['1', '2', '3'],
       },
       '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
       '2': { id: '2', weight: 2, type: SEQUENCE, parent: '0', children: [] },
-      '3': { id: '3', weight: 1, type: SEQUENCE, parent: '0', children: [] }
+      '3': { id: '3', weight: 1, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
@@ -938,17 +938,17 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1']
+        children: ['1'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3']
+        children: ['2', '3'],
       },
       '2': { id: '2', weight: 1, type: QUESTION, parent: '1', children: [] },
-      '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] }
+      '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '3');
@@ -959,7 +959,7 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1']
+        children: ['1'],
       },
       '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['3'] },
       '2': { id: '2', weight: 0, type: QUESTION, parent: '3', children: [] },
@@ -968,8 +968,8 @@ describe('moveComponent', () => {
         weight: 0,
         type: SUBSEQUENCE,
         parent: '1',
-        children: ['2']
-      }
+        children: ['2'],
+      },
     });
   });
 
@@ -980,17 +980,17 @@ describe('moveComponent', () => {
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
-        children: ['1']
+        children: ['1'],
       },
       '1': {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
-        children: ['2', '3']
+        children: ['2', '3'],
       },
       '2': { id: '2', weight: 1, type: QUESTION, parent: '1', children: [] },
-      '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] }
+      '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '1');

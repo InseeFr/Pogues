@@ -16,17 +16,17 @@ const propTypes = {
   criterias: PropTypes.arrayOf(
     PropTypes.shape({
       remoteName: PropTypes.string.isRequired,
-      localName: PropTypes.string.isRequired
-    })
+      localName: PropTypes.string.isRequired,
+    }),
   ),
-  loadOnInit: PropTypes.bool
+  loadOnInit: PropTypes.bool,
 };
 
 export const defaultProps = {
   formName: STATISTICAL_CONTEXT_FORM_NAME,
   path: '',
   criterias: [],
-  loadOnInit: false
+  loadOnInit: false,
 };
 
 // Container
@@ -38,19 +38,19 @@ export const mapStateToProps = (state, { formName, path, criterias }) => {
     criteriaValues: criterias.reduce((acc, cr) => {
       return {
         ...acc,
-        [cr.remoteName]: selector(state, `${path}${cr.localName}`)
+        [cr.remoteName]: selector(state, `${path}${cr.localName}`),
       };
-    }, {})
+    }, {}),
   };
 };
 
 const mapDispatchToProps = {
-  loadSearchResult
+  loadSearchResult,
 };
 
 const InputFilterWithCriteriaContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(InputFilterWithCriteria);
 
 InputFilterWithCriteriaContainer.propTypes = propTypes;

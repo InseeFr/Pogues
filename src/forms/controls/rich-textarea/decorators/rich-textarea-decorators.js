@@ -21,15 +21,15 @@ export function findEntities(type) {
 
 export const customLinkDecorator = {
   strategy: findEntities('LINK'),
-  component: RichTextareaLink
+  component: RichTextareaLink,
 };
 
 export const customConditionDecorator = {
   strategy: findEntities('CONDITION'),
-  component: RichTextareaCondition
+  component: RichTextareaCondition,
 };
 
 export default new CompositeDecorator([
   customLinkDecorator,
-  customConditionDecorator
+  customConditionDecorator,
 ]);

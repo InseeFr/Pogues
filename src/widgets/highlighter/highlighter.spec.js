@@ -8,11 +8,11 @@ describe('<HighLighter />', () => {
     const wrapper = shallow(
       <HighLighter highlight="test">
         Fake test string and anothertest
-      </HighLighter>
+      </HighLighter>,
     );
 
     expect(wrapper.html()).toBe(
-      '<span>Fake <strong>test</strong> string and another<strong>test</strong></span>'
+      '<span>Fake <strong>test</strong> string and another<strong>test</strong></span>',
     );
   });
   // @TODO: Add test for case sensitive feature

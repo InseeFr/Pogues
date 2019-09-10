@@ -4,7 +4,7 @@ import {
   visualizeSpec,
   visualizePdf,
   visualizeHtml,
-  visualizeDDI
+  visualizeDDI,
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
@@ -43,8 +43,8 @@ export const REMOVE_PAGE_BREAK = 'REMOVE_PAGE_BREAK';
 export const handleNewPageBreak = id => ({
   type: CREATE_PAGE_BREAK,
   payload: {
-    id
-  }
+    id,
+  },
 });
 
 /**
@@ -55,8 +55,8 @@ export const handleNewPageBreak = id => ({
 export const handleRemovePageBreak = id => ({
   type: REMOVE_PAGE_BREAK,
   payload: {
-    id
-  }
+    id,
+  },
 });
 
 /**
@@ -69,7 +69,7 @@ export const handleRemovePageBreak = id => ({
  */
 export const setActiveQuestionnaire = questionnaire => ({
   type: SET_ACTIVE_QUESTIONNAIRE,
-  payload: questionnaire
+  payload: questionnaire,
 });
 
 /**
@@ -82,7 +82,7 @@ export const setActiveQuestionnaire = questionnaire => ({
  */
 export const setActiveComponents = activeComponents => ({
   type: SET_ACTIVE_COMPONENTS,
-  payload: activeComponents
+  payload: activeComponents,
 });
 
 /**
@@ -98,8 +98,8 @@ export const setActiveComponents = activeComponents => ({
 export const setActiveCodeLists = activeCodeLists => ({
   type: SET_ACTIVE_CODE_LISTS,
   payload: {
-    activeCodeLists
-  }
+    activeCodeLists,
+  },
 });
 
 /**
@@ -116,15 +116,15 @@ export const setActiveVariables = variables => {
   const {
     activeCalculatedVariablesById,
     activeExternalVariablesById,
-    collectedVariableByQuestion
+    collectedVariableByQuestion,
   } = variables;
   return {
     type: SET_ACTIVE_VARIABLES,
     payload: {
       activeCalculatedVariablesById,
       activeExternalVariablesById,
-      collectedVariableByQuestion
-    }
+      collectedVariableByQuestion,
+    },
   };
 };
 
@@ -138,7 +138,7 @@ export const setActiveVariables = variables => {
  */
 export const setActiveDeclarations = activeDeclarations => ({
   type: SET_ACTIVE_DECLARATIONS,
-  payload: activeDeclarations
+  payload: activeDeclarations,
 });
 
 /**
@@ -151,7 +151,7 @@ export const setActiveDeclarations = activeDeclarations => ({
  */
 export const setSelectedComponentId = id => ({
   type: SET_SELECTED_COMPONENT,
-  payload: id
+  payload: id,
 });
 
 /**
@@ -164,7 +164,7 @@ export const setSelectedComponentId = id => ({
  */
 export const setEditingComponentId = (id = '') => ({
   type: SET_EDITING_COMPONENT,
-  payload: id
+  payload: id,
 });
 
 /**
@@ -187,8 +187,8 @@ export const updateActiveQuestionnaire = updatedState => {
       serie,
       operation,
       campaigns,
-      TargetMode
-    }
+      TargetMode,
+    },
   };
 };
 
@@ -216,9 +216,9 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
     id,
     update: {
       ...update,
-      isQuestionnaireModified: false
-    }
-  }
+      isQuestionnaireModified: false,
+    },
+  },
 });
 
 /**
@@ -234,8 +234,8 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   type: SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   payload: {
     id,
-    err
-  }
+    err,
+  },
 });
 
 function getQuestionnaireModel(state, customComponentsStore) {
@@ -248,12 +248,12 @@ function getQuestionnaireModel(state, customComponentsStore) {
     externalVariablesStore: state.appState.activeExternalVariablesById,
     collectedVariableByQuestionStore:
       state.appState.collectedVariableByQuestion,
-    campaignsStore: state.metadataByType.campaigns
+    campaignsStore: state.metadataByType.campaigns,
   };
   const questionnaireState = {
     ...state.appState.activeQuestionnaire,
     lastUpdatedDate: new Date().toString(),
-    owner: state.appState.user.permission
+    owner: state.appState.user.permission,
   };
 
   return Questionnaire.stateToRemote(questionnaireState, stores);
@@ -270,7 +270,7 @@ export const saveActiveQuestionnaire = () => {
   return (dispatch, getState) => {
     dispatch({
       type: SAVE_ACTIVE_QUESTIONNAIRE,
-      payload: null
+      payload: null,
     });
 
     const state = getState();
@@ -281,13 +281,13 @@ export const saveActiveQuestionnaire = () => {
         return dispatch(
           saveActiveQuestionnaireSuccess(
             questionnaireModel.id,
-            questionnaireRemoteToStores(questionnaireModel, state)
-          )
+            questionnaireRemoteToStores(questionnaireModel, state),
+          ),
         );
       })
       .catch(err => {
         return dispatch(
-          saveActiveQuestionnaireFailure(questionnaireModel.id, err)
+          saveActiveQuestionnaireFailure(questionnaireModel.id, err),
         );
       });
   };
@@ -305,7 +305,7 @@ export const saveActiveQuestionnaire = () => {
  */
 function getPathFromComponent(componentId, componentsById) {
   function addChild(id) {
-    const children = componentsById[id].children;
+    const { children } = componentsById[id];
     if (children.length === 0) {
       return [];
     }
@@ -313,7 +313,7 @@ function getPathFromComponent(componentId, componentsById) {
       ...children.map(i => componentsById[i]),
       ...children.reduce((acc, c) => {
         return [...acc, ...addChild(c)];
-      }, [])
+      }, []),
     ];
   }
   function addParent(id) {
@@ -324,21 +324,21 @@ function getPathFromComponent(componentId, componentsById) {
     return [
       {
         ...componentsById[parentId],
-        children: componentsById[parentId].children.filter(i => i === id)
+        children: componentsById[parentId].children.filter(i => i === id),
       },
-      ...addParent(parentId)
+      ...addParent(parentId),
     ];
   }
   const path = [
     componentsById[componentId],
     ...addChild(componentId),
-    ...addParent(componentId)
+    ...addParent(componentId),
   ];
 
   return path.reduce((acc, c) => {
     return {
       ...acc,
-      [c.id]: c
+      [c.id]: c,
     };
   }, {});
 }
@@ -354,8 +354,8 @@ export const removeControlsAndRedirections = activeComponentsById => {
       [componentId]: {
         ...activeComponentsById[componentId],
         redirections: {},
-        controls: {}
-      }
+        controls: {},
+      },
     };
   }, {});
 };
@@ -371,7 +371,10 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
     const state = getState();
     const componentsById = componentId
       ? removeControlsAndRedirections(
-          getPathFromComponent(componentId, state.appState.activeComponentsById)
+          getPathFromComponent(
+            componentId,
+            state.appState.activeComponentsById,
+          ),
         )
       : state.appState.activeComponentsById;
 
@@ -418,12 +421,12 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
 export const setInvalidItemsFromErrors = questionId => {
   return (dispatch, getState) => {
     const state = getState();
-    const errorsByCode = state.appState.errorsByCode;
+    const { errorsByCode } = state.appState;
 
     const invalidItems = Object.keys(errorsByCode)
       .filter(code => errorsByCode[code].errors.length > 0)
       .reduce((acc, code) => {
-        const errors = errorsByCode[code].errors;
+        const { errors } = errorsByCode[code];
         return {
           ...acc,
           ...errors
@@ -436,18 +439,18 @@ export const setInvalidItemsFromErrors = questionId => {
                   id: itemId,
                   type: errorsByCode[code].type,
                   code,
-                  ...params
-                }
+                  ...params,
+                },
               };
-            }, {})
+            }, {}),
         };
       }, {});
 
     return dispatch({
       type: SET_INVALID_ITEMS,
       payload: {
-        invalidItems
-      }
+        invalidItems,
+      },
     });
   };
 };
@@ -462,36 +465,36 @@ export const setInvalidItemsFromErrors = questionId => {
 export const removeInvalidItem = invalidItemIdToRemove => ({
   type: REMOVE_INVALID_ITEM,
   payload: {
-    invalidItemIdToRemove
-  }
+    invalidItemIdToRemove,
+  },
 });
 
 export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
   type: SET_TAB_ERRORS,
   payload: {
     errorsValidation,
-    errorsIntegrity
-  }
+    errorsIntegrity,
+  },
 });
 
 export const clearTabErrors = () => ({
-  type: CLEAR_TAB_ERRORS
+  type: CLEAR_TAB_ERRORS,
 });
 
 export const loadStatisticalContextSuccess = ({ serie, operation }) => ({
   type: LOAD_STATISTICAL_CONTEXT_SUCCESS,
-  payload: { serie, operation }
+  payload: { serie, operation },
 });
 
 export const loadStatisticalContextFailure = err => ({
   type: LOAD_STATISTICAL_CONTEXT_FAILURE,
-  payload: err
+  payload: err,
 });
 
 export const loadStatisticalContext = idCampaign => dispatch => {
   dispatch({
     type: LOAD_STATISTICAL_CONTEXT,
-    payload: null
+    payload: null,
   });
 
   return getContextFromCampaign(idCampaign)
