@@ -155,7 +155,9 @@
   ],
   "license": "MIT",
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>src/setupTests.js",
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ],
     "moduleNameMapper": {
       "^Config$": "<rootDir>/build-config/environments/config.prod.js",
       "\\.(css|scss|png)$": "identity-obj-proxy"
