@@ -8,9 +8,9 @@
     "url": "https://github.com/InseeFr/Pogues"
   },
   "dependencies": {
-    "draft-js": "0.10.4",
-    "draft-js-import-element": "1.2.1",
-    "draft-js-utils": "1.2.0",
+    "draft-js": "0.11.0",
+    "draft-js-import-element": "1.4.0",
+    "draft-js-utils": "1.4.0",
     "gillespie59-react-rte": "0.14.2",
     "immutable": "3.8.2",
     "lodash.clonedeep": "4.5.0",
@@ -40,7 +40,7 @@
     "redux-thunk": "2.3.0",
     "restify-cors-middleware": "1.1.1",
     "restify-plugins": "1.6.0",
-    "synthetic-dom": "1.2.0"
+    "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -88,7 +88,7 @@
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
     "events": "1.1.1",
-    "file-loader": "1.1.11",
+    "file-loader": "4.2.0",
     "font-awesome": "4.7.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.5",
@@ -102,9 +102,9 @@
     "preload-webpack-plugin": "2.3.0",
     "prettier": "1.18.2",
     "react-addons-perf": "15.4.2",
-    "react-addons-test-utils": "15.6.0",
+    "react-addons-test-utils": "15.6.2",
     "react-classset": "0.0.2",
-    "react-hot-loader": "4.12.12",
+    "react-hot-loader": "4.12.13",
     "react-test-renderer": "15.6.1",
     "redux-devtools": "3.5.0",
     "redux-devtools-extension": "2.13.8",
