@@ -91,6 +91,7 @@
     "file-loader": "1.1.11",
     "font-awesome": "4.7.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.0.5",
     "identity-obj-proxy": "3.0.0",
     "isomorphic-fetch": "2.2.1",
     "jest": "24.9.0",
@@ -136,9 +137,15 @@
     "lint:fix": "eslint ./src -f table --fix || true",
     "start": "npm run dev",
     "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
-    "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\""
+    "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
+    "pre-commit": "npm run lint && npm run test"
   },
   "author": "INSEE (http://www.insee.fr)",
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn pre-commit"
+    }
+  },
   "contributors": [
     {
       "name": "Franck Cotton",
