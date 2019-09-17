@@ -161,6 +161,7 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-share-alt" />
         </button>
         <ReactModal
+          ariaHideApp={false}
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showNewComponentModal}
           onRequestClose={this.handleCloseNewComponent}

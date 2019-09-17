@@ -66,7 +66,7 @@ class CodesListInputCode extends ComponentWithValidation {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.initInputCode(this.props.code);
   }
 

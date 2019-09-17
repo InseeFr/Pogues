@@ -37,7 +37,7 @@ class QuestionnaireList extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.user && this.props.user.permission)
       this.props.loadQuestionnaireList(this.props.user.permission);
   }

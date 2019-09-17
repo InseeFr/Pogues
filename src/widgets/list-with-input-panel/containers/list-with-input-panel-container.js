@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actions, formValueSelector, getFormValues } from 'redux-form';
-
+import { formValueSelector, getFormValues } from 'redux-form';
+import actions from 'redux-form/es/actions';
 import {
   clearSubformValidationErrors,
   removeIntegrityError,

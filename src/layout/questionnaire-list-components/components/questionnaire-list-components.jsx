@@ -108,19 +108,9 @@ class QuestionnaireListComponents extends Component {
     this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.setSelectedComponentId('');
   }
-
-  // componentWillReceiveProps(newProps, oldProps) {
-  //   const oldQuestionnaire =
-  //     Object.keys(oldProps.components || {}).find(id => oldProps.components[id].type === QUESTIONNAIRE) || {};
-  //   const newQuestionnaire =
-  //     Object.keys(newProps.components || {}).find(id => newProps.components[id].type === QUESTIONNAIRE) || {};
-  //   if (oldQuestionnaire !== newQuestionnaire) {
-  //     this.props.setSelectedComponentId(newProps.selectedComponentId);
-  //   }
-  // }
 
   handleOpenQuestionnaireDetail() {
     this.setState({ showQuestionnaireModal: true });
@@ -212,6 +202,7 @@ class QuestionnaireListComponents extends Component {
             {/* Questionnaire edit */}
 
             <ReactModal
+              ariaHideApp={false}
               shouldCloseOnOverlayClick={false}
               isOpen={this.state.showQuestionnaireModal}
               onRequestClose={this.handleCloseQuestionnaireDetail}
@@ -240,6 +231,7 @@ class QuestionnaireListComponents extends Component {
             {/* Component edit */}
 
             <ReactModal
+              ariaHideApp={false}
               shouldCloseOnOverlayClick={false}
               isOpen={this.state.showComponentModal}
               onRequestClose={this.handleCloseComponentDetail}

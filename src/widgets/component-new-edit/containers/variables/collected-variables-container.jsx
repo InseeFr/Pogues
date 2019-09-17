@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import { formValueSelector, actions } from 'redux-form';
+import { formValueSelector } from 'redux-form';
 import PropTypes from 'prop-types';
+import actions from 'redux-form/es/actions';
 
 import CollectedVariables from '../../components/variables/collected-variables';
 

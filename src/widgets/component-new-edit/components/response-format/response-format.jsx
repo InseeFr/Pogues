@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
@@ -12,15 +12,18 @@ import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
-class ResponseFormat extends FormSection {
+class ResponseFormat extends Component {
   static selectorPath = 'responseFormat';
+
   static propTypes = {
     edit: PropTypes.bool.isRequired,
     addErrors: PropTypes.func.isRequired,
   };
+
   static defaultProps = {
     name: 'responseFormat',
   };
+
   render() {
     let customProps = {
       label: Dictionary.responseFormats,
@@ -35,47 +38,49 @@ class ResponseFormat extends FormSection {
     }
 
     return (
-      <div className="response-format">
-        <SelectorView {...customProps}>
-          <View
-            key={SIMPLE}
-            value={SIMPLE}
-            label={Dictionary.responseFormatSimple}
-          >
-            <ResponseFormatSimple
-              selectorPathParent={ResponseFormat.selectorPath}
-            />
-          </View>
-          <View
-            key={SINGLE_CHOICE}
-            value={SINGLE_CHOICE}
-            label={Dictionary.responseFormatSingle}
-          >
-            <ResponseFormatSingle
-              selectorPathParent={ResponseFormat.selectorPath}
-            />
-          </View>
-          <View
-            key={MULTIPLE_CHOICE}
-            value={MULTIPLE_CHOICE}
-            label={Dictionary.responseFormatMultiple}
-          >
-            <ResponseFormatMultiple
-              selectorPathParent={ResponseFormat.selectorPath}
-            />
-          </View>
-          <View
-            key={TABLE}
-            value={TABLE}
-            label={Dictionary.responseFormatTable}
-          >
-            <ResponseFormatTable
-              selectorPathParent={ResponseFormat.selectorPath}
-              addErrors={this.props.addErrors}
-            />
-          </View>
-        </SelectorView>
-      </div>
+      <FormSection name={this.props.name}>
+        <div className="response-format">
+          <SelectorView {...customProps}>
+            <View
+              key={SIMPLE}
+              value={SIMPLE}
+              label={Dictionary.responseFormatSimple}
+            >
+              <ResponseFormatSimple
+                selectorPathParent={ResponseFormat.selectorPath}
+              />
+            </View>
+            <View
+              key={SINGLE_CHOICE}
+              value={SINGLE_CHOICE}
+              label={Dictionary.responseFormatSingle}
+            >
+              <ResponseFormatSingle
+                selectorPathParent={ResponseFormat.selectorPath}
+              />
+            </View>
+            <View
+              key={MULTIPLE_CHOICE}
+              value={MULTIPLE_CHOICE}
+              label={Dictionary.responseFormatMultiple}
+            >
+              <ResponseFormatMultiple
+                selectorPathParent={ResponseFormat.selectorPath}
+              />
+            </View>
+            <View
+              key={TABLE}
+              value={TABLE}
+              label={Dictionary.responseFormatTable}
+            >
+              <ResponseFormatTable
+                selectorPathParent={ResponseFormat.selectorPath}
+                addErrors={this.props.addErrors}
+              />
+            </View>
+          </SelectorView>
+        </div>
+      </FormSection>
     );
   }
 }

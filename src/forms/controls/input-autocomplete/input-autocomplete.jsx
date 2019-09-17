@@ -74,7 +74,7 @@ class InputAutocomplete extends Component {
     this.removeSelectedOption = this.removeSelectedOption.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const {
       children,
       input: { value },

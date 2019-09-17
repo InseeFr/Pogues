@@ -52,6 +52,7 @@ class ConfirmDialog extends Component {
   render() {
     return (
       <ReactModal
+        ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={this.state.showConfirmModal}
         onRequestClose={this.handleCancel}

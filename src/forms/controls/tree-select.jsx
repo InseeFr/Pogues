@@ -45,7 +45,7 @@ class TreeSelect extends Component {
     this.updateListOptions = this.updateListOptions.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({
       filteredOptions: TreeSelect.filterOptions(this.props.options, ''),
     });

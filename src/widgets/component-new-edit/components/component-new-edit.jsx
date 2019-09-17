@@ -49,7 +49,7 @@ class ComponentNewEdit extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.clearSubformValidationErrors();
   }
 

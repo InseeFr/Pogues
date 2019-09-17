@@ -27,7 +27,7 @@ export const propTypes = {
   calculatedVariables: PropTypes.object,
   externalVariables: PropTypes.object,
   collectedVariablesByQuestion: PropTypes.object,
-  router: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
@@ -44,7 +44,7 @@ class PageQuestionnaire extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const {
       id,
       questionnaire,
@@ -123,7 +123,7 @@ class PageQuestionnaire extends Component {
     return (
       <div id={COMPONENT_ID}>
         <QuestionnaireNav />
-        <QuestionnaireListComponents navigate={this.props.router.push} />
+        <QuestionnaireListComponents navigate={this.props.history.push} />
         <GenericInput />
       </div>
     );

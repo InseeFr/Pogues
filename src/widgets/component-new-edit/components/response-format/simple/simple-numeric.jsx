@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { FormSection, Field } from 'redux-form';
 
 import Input from 'forms/controls/input';
@@ -15,7 +15,7 @@ function mapUnitData(unit) {
   };
 }
 
-class ResponseFormatDatatypeNumeric extends FormSection {
+class ResponseFormatDatatypeNumeric extends Component {
   static defaultProps = {
     name: NUMERIC,
     readOnly: false,
@@ -23,42 +23,44 @@ class ResponseFormatDatatypeNumeric extends FormSection {
   };
   render() {
     return (
-      <div className="response-format-datatype-numeric">
-        <Field
-          name="minimum"
-          type="number"
-          step="any"
-          component={Input}
-          label={Dictionary.minimum}
-          required={this.props.required}
-          disabled={this.props.readOnly}
-        />
-        <Field
-          name="maximum"
-          type="number"
-          step="any"
-          component={Input}
-          label={Dictionary.maximum}
-          required={this.props.required}
-          disabled={this.props.readOnly}
-        />
-        <Field
-          name="decimals"
-          type="number"
-          step="any"
-          component={Input}
-          label={Dictionary.decimals}
-          disabled={this.props.readOnly}
-        />
-        <SelectMetaDataContainer
-          type="units"
-          name="unit"
-          label={Dictionary.unit}
-          emptyValue={Dictionary.unitEmptySelect}
-          mapMetadataFunction={mapUnitData}
-          disabled={this.props.readOnly}
-        />
-      </div>
+      <FormSection name={this.props.name}>
+        <div className="response-format-datatype-numeric">
+          <Field
+            name="minimum"
+            type="number"
+            step="any"
+            component={Input}
+            label={Dictionary.minimum}
+            required={this.props.required}
+            disabled={this.props.readOnly}
+          />
+          <Field
+            name="maximum"
+            type="number"
+            step="any"
+            component={Input}
+            label={Dictionary.maximum}
+            required={this.props.required}
+            disabled={this.props.readOnly}
+          />
+          <Field
+            name="decimals"
+            type="number"
+            step="any"
+            component={Input}
+            label={Dictionary.decimals}
+            disabled={this.props.readOnly}
+          />
+          <SelectMetaDataContainer
+            type="units"
+            name="unit"
+            label={Dictionary.unit}
+            emptyValue={Dictionary.unitEmptySelect}
+            mapMetadataFunction={mapUnitData}
+            disabled={this.props.readOnly}
+          />
+        </div>
+      </FormSection>
     );
   }
 }

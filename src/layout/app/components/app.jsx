@@ -23,7 +23,7 @@ const propTypes = {
 class App extends Component {
   static propTypes = propTypes;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.loadUser();
     this.props.loadUnitsIfNeeded();
   }

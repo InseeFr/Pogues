@@ -44,15 +44,24 @@ function getCollectedVariablesByQuestionnaire(
 // Prop types and default props
 
 const propTypes = {
-  params: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-  router: PropTypes.object.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }),
+  history: PropTypes.object.isRequired,
 };
 
 // Container
 
-const mapStateToProps = (state, { params: { id } }) => ({
+const mapStateToProps = (
+  state,
+  {
+    match: {
+      params: { id },
+    },
+  },
+) => ({
   id,
   questionnaire: state.questionnaireById[id],
   activeQuestionnaire: state.appState.activeQuestionnaire,

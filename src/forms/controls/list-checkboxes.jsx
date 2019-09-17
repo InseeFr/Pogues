@@ -50,7 +50,7 @@ class ListCheckboxes extends Component {
     this.toggleCheck = this.toggleCheck.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const values = this.props.input.value;
     this.setState({
       listCheckValues: values !== '' ? values.split(',') : [],

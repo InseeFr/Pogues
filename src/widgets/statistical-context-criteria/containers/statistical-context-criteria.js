@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, actions } from 'redux-form';
-
+import { formValueSelector } from 'redux-form';
+import actions from 'redux-form/es/actions';
 import {
   loadSeriesIfNeeded,
   loadOperationsIfNeeded,

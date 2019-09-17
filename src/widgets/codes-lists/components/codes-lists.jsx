@@ -66,7 +66,7 @@ class CodesList extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const {
       change,
       formName,

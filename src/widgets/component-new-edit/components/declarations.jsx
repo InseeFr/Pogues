@@ -104,10 +104,6 @@ function Declarations({
             >
               {Dictionary.dclPosBeforeText}
             </GenericOption>
-            {/*TRELLO #192 : Delete temporary "DETACHABLE" option*/}
-            {/*<GenericOption key="DETACHABLE" value="DETACHABLE">*/}
-            {/*Dictionary.dclPosDetachable*/}
-            {/*</GenericOption>*/}
           </Field>
         )}
       </ListWithInputPanel>

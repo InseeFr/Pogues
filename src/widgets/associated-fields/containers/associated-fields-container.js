@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import { actions, formValueSelector } from 'redux-form';
+import { formValueSelector } from 'redux-form';
 import PropTypes from 'prop-types';
+import actions from 'redux-form/es/actions';
 
 import AssociatedFields from '../components/associated-fields';
 

@@ -29,7 +29,7 @@ const propTypes = {
 class PageSearchQuestionnaire extends Component {
   static propTypes = propTypes;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.clearSearchResult();
   }
 

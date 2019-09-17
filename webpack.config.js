@@ -27,8 +27,8 @@ const stats = {
   version: false,
   warnings: true,
   colors: {
-    green: '\u001b[32m'
-  }
+    green: '\u001b[32m',
+  },
 };
 
 module.exports = function(env) {
@@ -38,13 +38,13 @@ module.exports = function(env) {
 
   const plugins = [
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
+      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '[name]-[contenthash:8].css',
-      chunkFilename: '[id].css'
+      chunkFilename: '[id].css',
     }),
     new HtmlWebpackPlugin({
       template: './index.ejs',
@@ -60,18 +60,18 @@ module.exports = function(env) {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     //new PreloadWebpackPlugin(),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
   ];
 
   const devEntryPoint = [
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://${host}:${port}`,
     'webpack/hot/only-dev-server',
-    path.resolve(__dirname, './src/index.js')
+    path.resolve(__dirname, './src/index.js'),
   ];
 
   const entryPoint = isProd
@@ -91,13 +91,13 @@ module.exports = function(env) {
             dead_code: true,
             evaluate: true,
             if_return: true,
-            join_vars: true
-          }
-        }
+            join_vars: true,
+          },
+        },
       }),
       new Visualizer({
-        filename: '../docs/stats.html'
-      })
+        filename: '../docs/stats.html',
+      }),
     );
   } else {
     plugins.push(
@@ -106,31 +106,31 @@ module.exports = function(env) {
       // show module names instead of numbers in webpack stats
       new webpack.NamedModulesPlugin(),
       // don't spit out any errors in compiled assets
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.NoEmitOnErrorsPlugin(),
     );
   }
 
   if (isProd) {
     cssLoader = [
       {
-        loader: MiniCssExtractPlugin.loader
+        loader: MiniCssExtractPlugin.loader,
       },
       {
         loader: 'css-loader',
         options: {
           modules: {
-            localIdentName: '[hash:base64:5]'
-          }
-        }
-      }
+            localIdentName: '[hash:base64:5]',
+          },
+        },
+      },
     ];
 
     scssLoader = [
       {
-        loader: MiniCssExtractPlugin.loader
+        loader: MiniCssExtractPlugin.loader,
       },
       {
-        loader: 'css-loader'
+        loader: 'css-loader',
       },
       {
         loader: 'sass-loader',
@@ -138,32 +138,32 @@ module.exports = function(env) {
           sassOptions: {
             outputStyle: 'collapsed',
             sourceMap: true,
-            includePaths: [sourcePath]
-          }
-        }
-      }
+            includePaths: [sourcePath],
+          },
+        },
+      },
     ];
   } else {
     cssLoader = [
       {
-        loader: 'style-loader'
+        loader: 'style-loader',
       },
       {
         loader: 'css-loader',
         options: {
           modules: {
-            localIdentName: '[path][name]-[local]'
-          }
-        }
-      }
+            localIdentName: '[path][name]-[local]',
+          },
+        },
+      },
     ];
 
     scssLoader = [
       {
-        loader: 'style-loader'
+        loader: 'style-loader',
       },
       {
-        loader: 'css-loader'
+        loader: 'css-loader',
       },
       {
         loader: 'sass-loader',
@@ -171,10 +171,10 @@ module.exports = function(env) {
           sassOptions: {
             outputStyle: 'expanded',
             sourceMap: false,
-            includePaths: [sourcePath]
-          }
-        }
-      }
+            includePaths: [sourcePath],
+          },
+        },
+      },
     ];
   }
   return {
@@ -182,20 +182,21 @@ module.exports = function(env) {
     context: sourcePath,
     mode: nodeEnv,
     entry: {
-      main: entryPoint
+      main: entryPoint,
     },
     output: {
       path: buildDirectory,
       publicPath: '',
-      filename: isProd ? '[name]-[chunkhash:8].js' : '[name]-[hash:8].js'
+      filename: isProd ? '[name]-[chunkhash:8].js' : '[name]-[hash:8].js',
     },
     resolveLoader: {
       alias: {
+        'react-dom': '@hot-loader/react-dom',
         'config-loader': path.resolve(
           __dirname,
-          'build-config/environments/config-loader'
-        )
-      }
+          'build-config/environments/config-loader',
+        ),
+      },
     },
     optimization: {
       splitChunks: {
@@ -204,10 +205,10 @@ module.exports = function(env) {
             test: /node_modules/,
             chunks: 'initial',
             name: 'vendor',
-            enforce: true
-          }
-        }
-      }
+            enforce: true,
+          },
+        },
+      },
     },
     resolve: {
       extensions: [
@@ -215,18 +216,21 @@ module.exports = function(env) {
         '.web-loader.js',
         '.loader.js',
         '.js',
-        '.jsx'
+        '.jsx',
       ],
       modules: ['node_modules', sourcePath],
       alias: {
-        Config: path.resolve(__dirname, 'build-config/environments/config.prod')
-      }
+        Config: path.resolve(
+          __dirname,
+          'build-config/environments/config.prod',
+        ),
+      },
     },
     plugins,
     performance: isProd && {
       maxAssetSize: 1300000,
       maxEntrypointSize: 1900000,
-      hints: 'warning'
+      hints: 'warning',
     },
 
     stats: stats,
@@ -239,7 +243,7 @@ module.exports = function(env) {
       host: host,
       hot: !isProd,
       compress: isProd,
-      stats: stats
+      stats: stats,
     },
     module: {
       rules: [
@@ -249,22 +253,22 @@ module.exports = function(env) {
           use: {
             loader: 'file-loader',
             options: {
-              name: 'static/[name]-[hash:8].[ext]'
-            }
-          }
+              name: 'static/[name]-[hash:8].[ext]',
+            },
+          },
         },
         {
           test: /\.css$/,
-          use: cssLoader
+          use: cssLoader,
         },
         {
           test: /\.scss$/,
-          use: scssLoader
+          use: scssLoader,
         },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: ['babel-loader']
+          use: ['babel-loader'],
         },
         {
           test: /config\.prod\.js$/,
@@ -272,11 +276,11 @@ module.exports = function(env) {
           use: {
             loader: 'config-loader',
             options: {
-              environment
-            }
-          }
-        }
-      ]
-    }
+              environment,
+            },
+          },
+        },
+      ],
+    },
   };
 };

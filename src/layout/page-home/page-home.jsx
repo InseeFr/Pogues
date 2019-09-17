@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { QuestionnaireNew } from 'layout/questionnaire-new';
 import { QuestionnaireList } from 'layout/questionnaire-list';
@@ -11,7 +11,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 // Prop types and default props
 
 const propTypes = {
-  router: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 // Component
@@ -40,7 +40,7 @@ export class PageHome extends Component {
   }
 
   handleQuestionnaryCreated(questionnaireId) {
-    this.props.router.push(`/questionnaire/${questionnaireId}`);
+    this.props.history.push(`/questionnaire/${questionnaireId}`);
   }
 
   render() {
@@ -94,6 +94,7 @@ export class PageHome extends Component {
         {/* Create questionnaire modal */}
 
         <ReactModal
+          ariaHideApp={false}
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showModal}
           onRequestClose={this.handleCloseModal}
