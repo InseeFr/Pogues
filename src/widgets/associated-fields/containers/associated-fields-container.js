@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
+import { formValueSelector, change } from 'redux-form';
 import PropTypes from 'prop-types';
-import actions from 'redux-form/es/actions';
 
 import AssociatedFields from '../components/associated-fields';
 
@@ -48,7 +47,7 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = {
-  change: actions.change,
+  change: change,
 };
 
 const AssociatedFieldsContainer = connect(

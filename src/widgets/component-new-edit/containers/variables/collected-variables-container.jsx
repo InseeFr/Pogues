@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
+import { formValueSelector, arrayRemoveAll, arrayPush } from 'redux-form';
 import PropTypes from 'prop-types';
-import actions from 'redux-form/es/actions';
 
 import CollectedVariables from '../../components/variables/collected-variables';
 
@@ -40,8 +39,8 @@ const mapStateToProps = (state, { formName }) => {
 };
 
 const mapDispatchToProps = {
-  arrayRemoveAll: actions.arrayRemoveAll,
-  arrayPush: actions.arrayPush,
+  arrayRemoveAll: arrayRemoveAll,
+  arrayPush: arrayPush,
   removeValidationErrors,
 };
 

@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
-import actions from 'redux-form/es/actions';
+import {
+  formValueSelector,
+  arrayPush,
+  arrayRemoveAll,
+  change,
+} from 'redux-form';
 import CodesLists from '../components/codes-lists';
 
 import { getCurrentSelectorPath } from 'utils/widget-utils';
@@ -59,9 +63,9 @@ export const mapStateToProps = (
 
 const mapDispatchToProps = {
   clearSearchResult,
-  change: actions.change,
-  arrayPush: actions.arrayPush,
-  arrayRemoveAll: actions.arrayRemoveAll,
+  change: change,
+  arrayPush: arrayPush,
+  arrayRemoveAll: arrayRemoveAll,
 };
 
 const CodesListsContainer = connect(

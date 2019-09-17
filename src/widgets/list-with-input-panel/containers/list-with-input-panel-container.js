@@ -1,7 +1,13 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { formValueSelector, getFormValues } from 'redux-form';
-import actions from 'redux-form/es/actions';
+import {
+  formValueSelector,
+  getFormValues,
+  change,
+  arrayInsert,
+  arrayRemove,
+  arrayPush,
+} from 'redux-form';
 import {
   clearSubformValidationErrors,
   removeIntegrityError,
@@ -49,10 +55,10 @@ const mapStateToProps = (state, { formName, selectorPath }) => {
 };
 
 const mapDispatchToProps = {
-  change: actions.change,
-  arrayRemove: actions.arrayRemove,
-  arrayPush: actions.arrayPush,
-  arrayInsert: actions.arrayInsert,
+  change: change,
+  arrayRemove: arrayRemove,
+  arrayPush: arrayPush,
+  arrayInsert: arrayInsert,
   clearSubformValidationErrors,
   removeIntegrityError,
 };

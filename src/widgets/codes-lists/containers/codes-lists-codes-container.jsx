@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
-import actions from 'redux-form/es/actions';
+import { formValueSelector, change } from 'redux-form';
 
 import CodesListsCodes from '../components/codes-lists-codes';
 
@@ -24,7 +23,7 @@ export const mapStateToProps = (state, { inputCodePath, formName }) => {
 };
 
 const mapDispatchToProps = {
-  change: actions.change,
+  change: change,
 };
 
 const CodesListsCodesContainer = connect(

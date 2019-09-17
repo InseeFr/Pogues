@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
-import actions from 'redux-form/es/actions';
+import { formValueSelector, change } from 'redux-form';
 import {
   loadSeriesIfNeeded,
   loadOperationsIfNeeded,
@@ -78,7 +77,7 @@ export const mapStateToProps = (
 };
 
 const mapDispatchToProps = {
-  change: actions.change,
+  change: change,
   loadSeriesIfNeeded,
   loadOperationsIfNeeded,
   loadCampaignsIfNeeded,
