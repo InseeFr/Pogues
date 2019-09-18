@@ -82,7 +82,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
   const {
     selectedComponentId,
     activeComponentsById: activesComponents,
-  } = state.appState.selectedComponentId;
+  } = state.appState;
   const selectedComponent = activesComponents[selectedComponentId];
 
   let activeComponentsById = {};
