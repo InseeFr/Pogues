@@ -5,6 +5,8 @@ import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
+export const defaultState = {};
+
 export const defaultForm = {
   mandatory: false,
   type: TEXT,

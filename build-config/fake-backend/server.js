@@ -14,9 +14,11 @@ const codesListsRefInfos = require(__dirname + '/codes-lists-ref-infos');
 const units = require(__dirname + '/units');
 
 const cors = corsMiddleware({
-  origins: ['*'],
+  origins: ['http://localhost:3000'],
+  credentials: true,
   allowHeaders: ['authorization', 'Location'],
 });
+
 server.pre((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.header('origin'));
   res.header(
@@ -24,12 +26,14 @@ server.pre((req, res, next) => {
     req.header('Access-Control-Request-Headers'),
   );
   res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS');
   // other headers go here..
 
-  if (req.method === 'OPTIONS')
+  if (req.method === 'OPTIONS') {
     // if is preflight(OPTIONS) then response status 204(NO CONTENT)
+    res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS');
     return res.send(204);
-
+  }
   next();
 });
 //server.use(cors.actual);
