@@ -15,9 +15,9 @@ Webpack transformera le `JavaScript`, mais afin de rendre le processus de débug
 
 Pendant la phase de développement, `npm run dev` fonctionne en tâche de fond:
 
-* avec un serveur Web sur le port `3000` qui fournira l'ensemble des ressources de l'application;
-* recompile l'application à chaque fois qu'une ressource est modifiée;
-* recharge automatiquement la page dans le navigateur Web pour prendre en compte ces modifications.
+- avec un serveur Web sur le port `3000` qui fournira l'ensemble des ressources de l'application;
+- recompile l'application à chaque fois qu'une ressource est modifiée;
+- recharge automatiquement la page dans le navigateur Web pour prendre en compte ces modifications.
 
 Le script `npm run dev` est configuré pour fonctionner avec une version "en mémoire" du fichier `JavaScript` (l'option `--content-base` en ligne de commande pour `webpack-dev-server`), le fichier qui est envoyé au navigateur n'est donc pas nécessairement visible dans le dossier `dist`.
 
@@ -29,29 +29,28 @@ Vous trouverez les statistiques de WebPack sur la page [stats](../../stats.html)
 
 Le projet fournit également d'autres scripts NPM afin de gérer au mieux le cycle du vie.
 
-* postinstall : Configure de NightWatch pour les tests End-to-End
-* test : Exécute les tests unitaires
-* test:watch : Exécute les tests unitaires en mode watch
-* dev : Lance l'application utilisant l'API de qualif
-* dev:local : Lance l'application utilisant l'API locale
-* dev:server : Lance les scripts `npm run dev:local` et `npm run server`
-* server : Lance le fake serveur NodeJS
-* build : Génére le livrable de l'application avec la configuration de prod
-* build:dev : Génère le librable avec la configuration de l'environnement de dev
-* build:dv : Génère le librable avec la configuration de l'environnement de dv
-* build:preprod : Génère le librable avec la configuration de l'environnement de preprod
-* build:qa : Génère le librable avec la configuration de l'environnement de qa
-* build:qf : Génère le librable avec la configuration de l'environnement de qf
-* lint : Vérifie la qualité du projet
-* lint:fix : Vérifie la qualité du projet et applique des correctifs automatiquement
-* start : Lance la commande `npm run dev`
-* e2e : Exécute les tests d'intégrations
-* e2e:travis : Exécute les tests d'intégrations avec la configuration de Travis
+- test : Exécute les tests unitaires
+- test:watch : Exécute les tests unitaires en mode watch
+- dev : Lance l'application utilisant l'API de qualif
+- dev:local : Lance l'application utilisant l'API locale
+- dev:server : Lance les scripts `npm run dev:local` et `npm run server`
+- server : Lance le fake serveur NodeJS
+- build : Génére le livrable de l'application avec la configuration de prod
+- build:dev : Génère le librable avec la configuration de l'environnement de dev
+- build:dv : Génère le librable avec la configuration de l'environnement de dv
+- build:preprod : Génère le librable avec la configuration de l'environnement de preprod
+- build:qa : Génère le librable avec la configuration de l'environnement de qa
+- build:qf : Génère le librable avec la configuration de l'environnement de qf
+- lint : Vérifie la qualité du projet
+- lint:fix : Vérifie la qualité du projet et applique des correctifs automatiquement
+- start : Lance la commande `npm run dev`
+- e2e : Exécute les tests d'intégrations
+- e2e:travis : Exécute les tests d'intégrations avec la configuration de Travis
 
 ## Ajour d'un nouvel environnement
 
 Si vous voulez ajouter un nouvel environnement (par exemple qlf2), il suffit de :
 
-* Créer un fichier de configuration `config.qlf2.js` dans le répertoire `build-config/environments`.
-* Récupérer la configuration d'un autre environnement, et faire les ajustements
-* Ajouter un script NPM `build:qlf2`
+- Créer un fichier de configuration `config.qlf2.js` dans le répertoire `build-config/environments`.
+- Récupérer la configuration d'un autre environnement, et faire les ajustements
+- Ajouter un script NPM `build:qlf2`

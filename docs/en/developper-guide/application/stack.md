@@ -10,7 +10,6 @@ These are some tools used by Pogues:
 - [Webpack](https://webpack.github.io/): a module bundler;
 - [Babel](https://babeljs.io/) and the [Babel polyfill](https://babeljs.io/docs/usage/polyfill/) to provide support for ES2015 syntax;
 - [Jest](https://facebook.github.io/jest/) for writing unit tests;
-- [NightWatch](http://nightwatchjs.org/) for writing integration tests;
 - [Travis](https://travis-ci.org/) The Continuous Integration platform;
 - [Git Book CLI](https://github.com/GitbookIO/gitbook-cli) for the generation of the documentation;
 - [ESLint](http://eslint.org/) for managing the quality of the application

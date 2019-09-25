@@ -15,9 +15,9 @@ Webpack will transform the `JavaScript` code you write, but in order to make deb
 
 During development, `npm run dev` will act as a background task:
 
-* providing a simple HTTP server to serve the application assets on port `3000`;
-* watching for file modifications and recompiling the application accordingly;
-* automatically reloading the page in the browser to take the modifications into account.
+- providing a simple HTTP server to serve the application assets on port `3000`;
+- watching for file modifications and recompiling the application accordingly;
+- automatically reloading the page in the browser to take the modifications into account.
   The `npm run dev` script is configured to work with a "in memory" version of the bundle file (`--content-base` command line option for `webpack-dev-server`), hence the `JavaScript` file served to the browsers might not be visible in the `dist` folder on your hard drive.
 
 The Webpack configuration for production is slightly different from the one used for development: it does not need the configuration related to the development web server. It should also provide [other adjustments](https://github.com/InseeFr/Pogues/issues/145) to make the code more production ready. When building code for production, Webpack will automatically minify the `JavaScript` thanks to the command line option `-p`.
@@ -28,29 +28,27 @@ You will find some stats about WebPack in the [stats](../../stats.html) page (At
 
 The project also provide other NPM scripts, in order to manage its lifecycle.
 
-* postinstall : Configure NightWatch for End-to-End tests
-* test : Execute unit tests
-* test:watch : Execute unit tests with watch mode
-* dev : Launch the application with the remote API
-* dev:local : Launch the application with the locale API
-* dev:server : Launch scripts `npm run dev:local` and `npm run server`
-* server : Launch the fake NodeJS server
-* build : Generate the production version of the application with the configuratio for the prod environment
-* build:dev : Generate the production version of the application with the configuratio for the dev environment
-* build:dv : Generate the production version of the application with the configuratio for the dv environment
-* build:preprod : Generate the production version of the application with the configuratio for the preprod environment
-* build:qa : Generate the production version of the application with the configuratio for the qa environment
-* build:qf : Generate the production version of the application with the configuratio for the qf environment
-* lint : Check the quality of the project
-* lint:fix : Check the quality of the project and apply fixes automatically
-* start : Launch the command `npm run dev`
-* e2e : Launch Integration Tests
-* e2e:travis : Launch Integration Tests with the configuration for Travis
+- test:watch : Execute unit tests with watch mode
+- dev : Launch the application with the remote API
+- dev:local : Launch the application with the locale API
+- dev:server : Launch scripts `npm run dev:local` and `npm run server`
+- server : Launch the fake NodeJS server
+- build : Generate the production version of the application with the configuratio for the prod environment
+- build:dev : Generate the production version of the application with the configuratio for the dev environment
+- build:dv : Generate the production version of the application with the configuratio for the dv environment
+- build:preprod : Generate the production version of the application with the configuratio for the preprod environment
+- build:qa : Generate the production version of the application with the configuratio for the qa environment
+- build:qf : Generate the production version of the application with the configuratio for the qf environment
+- lint : Check the quality of the project
+- lint:fix : Check the quality of the project and apply fixes automatically
+- start : Launch the command `npm run dev`
+- e2e : Launch Integration Tests
+- e2e:travis : Launch Integration Tests with the configuration for Travis
 
 ## Add a new environment
 
 If you want to add a new environment (for example qlf2), you just need to :
 
-* Create a configuration file `config.qlf2.js` in the `build-config/environments` folder.
-* Copy/Paste the configuration of another environment, and and do the adjustments
-* Add a `build:qlf2` NPM script.
+- Create a configuration file `config.qlf2.js` in the `build-config/environments` folder.
+- Copy/Paste the configuration of another environment, and and do the adjustments
+- Add a `build:qlf2` NPM script.
