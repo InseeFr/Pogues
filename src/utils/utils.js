@@ -42,7 +42,7 @@ export function nestedStoreToFlat(store = {}) {
   const joinedItems = Object.keys(store).reduce((acc, key) => {
     return {
       ...acc,
-      ...store[key]
+      ...store[key],
     };
   }, {});
 

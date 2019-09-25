@@ -15,7 +15,7 @@ const renderApp = Component => {
         <Component />
       </Root>
     </Provider>,
-    document.getElementById('base')
+    document.getElementById('base'),
   );
 };
 

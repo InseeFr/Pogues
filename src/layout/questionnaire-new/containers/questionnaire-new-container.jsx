@@ -9,7 +9,7 @@ import QuestionnaireNew from '../components/questionnaire-new';
 
 export const propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired
+  onSuccess: PropTypes.func.isRequired,
 };
 
 // Container
@@ -17,18 +17,19 @@ export const propTypes = {
 const mapStateToProps = state => {
   return {
     user: state.appState.user,
-    activeQuestionnaire: state.appState.activeQuestionnaire
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 
 const mapDispatchToProps = {
   createQuestionnaire,
-  setErrors: setValidationErrors
+  setErrors: setValidationErrors,
 };
 
-const QuestionnaireNewContainer = connect(mapStateToProps, mapDispatchToProps)(
-  QuestionnaireNew
-);
+const QuestionnaireNewContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(QuestionnaireNew);
 
 QuestionnaireNewContainer.propTypes = propTypes;
 

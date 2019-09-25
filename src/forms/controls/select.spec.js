@@ -11,16 +11,16 @@ describe('Form controls - Select', () => {
     ...fakeFieldProps,
     input: {
       ...fakeFieldProps.input,
-      value: ''
+      value: '',
     },
-    label: 'Fake label'
+    label: 'Fake label',
   };
 
   let wrapper = shallow(
     <Select {...props}>
       <GenericOption value="fakeValue1">Fake label 1</GenericOption>
       <GenericOption value="fakeValue2">Fake label 2</GenericOption>
-    </Select>
+    </Select>,
   );
 
   test('Should render as many options as GenericOptios passed', () => {
@@ -37,7 +37,7 @@ describe('Form controls - Select', () => {
       <Select {...props}>
         <GenericOption value="fakeValue1">Fake label 1</GenericOption>
         <GenericOption value="fakeValue2">Fake label 2</GenericOption>
-      </Select>
+      </Select>,
     );
     expect(wrapper.find('label').text()).toBe(`${props.label}*`);
   });
@@ -49,7 +49,7 @@ describe('Form controls - Select', () => {
       <Select {...props}>
         <GenericOption value="fakeValue1">Fake label 1</GenericOption>
         <GenericOption value="fakeValue2">Fake label 2</GenericOption>
-      </Select>
+      </Select>,
     );
     expect(wrapper.find('.form-error').text()).toBe(props.meta.error);
   });

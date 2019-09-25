@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { TABS_PATHS } from 'constants/pogues-constants';
 
 import Tabs from '../components/tabs';
-
-import { TABS_PATHS } from 'constants/pogues-constants';
 
 // Utils
 
@@ -40,7 +39,7 @@ function getNumErrorsByTab(integrity = {}, validationErrors = {}) {
   let numErrorsByTab = Object.keys(TABS_PATHS).reduce((acc, key) => {
     return {
       ...acc,
-      [TABS_PATHS[key]]: 0
+      [TABS_PATHS[key]]: 0,
     };
   }, {});
 
@@ -54,11 +53,11 @@ function getNumErrorsByTab(integrity = {}, validationErrors = {}) {
 
 const propTypes = {
   children: PropTypes.array.isRequired,
-  componentId: PropTypes.string
+  componentId: PropTypes.string,
 };
 
 const defaultProps = {
-  componentId: ''
+  componentId: '',
 };
 
 // Container
@@ -68,13 +67,16 @@ const mapStateToProps = (state, { componentId }) => {
   const validationErrors = state.errors.errorsValidation;
 
   return {
-    errorsByTab: getNumErrorsByTab(integrityErrors, validationErrors)
+    errorsByTab: getNumErrorsByTab(integrityErrors, validationErrors),
   };
 };
 
 const mapDispatchToProps = {};
 
-const TabsContainer = connect(mapStateToProps, mapDispatchToProps)(Tabs);
+const TabsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Tabs);
 
 TabsContainer.propTypes = propTypes;
 TabsContainer.defaultProps = defaultProps;

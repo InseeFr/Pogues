@@ -5,7 +5,7 @@ module.exports = [
     title: 'Fake codes list 01',
     version: '01',
     subgroupId: 'serie01',
-    studyUnitId: 'operation01'
+    studyUnitId: 'operation01',
   },
   {
     id: 'FAKE_ID_02',
@@ -13,7 +13,7 @@ module.exports = [
     title: 'Fake codes list 02',
     version: '01',
     subgroupId: 'serie01',
-    studyUnitId: 'operation01'
+    studyUnitId: 'operation01',
   },
   {
     id: 'FAKE_ID_03',
@@ -21,7 +21,7 @@ module.exports = [
     title: 'Fake codes list 03',
     version: '01',
     subgroupId: 'serie01',
-    studyUnitId: 'operation02'
+    studyUnitId: 'operation02',
   },
   {
     id: 'FAKE_ID_04',
@@ -29,7 +29,7 @@ module.exports = [
     title: 'Fake codes list 04',
     version: '01',
     subgroupId: 'serie01',
-    studyUnitId: 'operation02'
+    studyUnitId: 'operation02',
   },
   {
     id: 'FAKE_ID_05',
@@ -37,7 +37,7 @@ module.exports = [
     title: 'Fake codes list 05',
     version: '01',
     subgroupId: 'serie02',
-    studyUnitId: 'operation03'
+    studyUnitId: 'operation03',
   },
   {
     id: 'FAKE_ID_06',
@@ -45,7 +45,7 @@ module.exports = [
     title: 'Fake codes list 06',
     version: '01',
     subgroupId: 'serie02',
-    studyUnitId: 'operation03'
+    studyUnitId: 'operation03',
   },
   {
     id: 'FAKE_ID_07',
@@ -53,7 +53,7 @@ module.exports = [
     title: 'Fake codes list 07',
     version: '01',
     subgroupId: 'serie02',
-    studyUnitId: 'operation04'
+    studyUnitId: 'operation04',
   },
   {
     id: 'FAKE_ID_08',
@@ -61,7 +61,7 @@ module.exports = [
     title: 'Fake codes list 08',
     version: '01',
     subgroupId: 'serie02',
-    studyUnitId: 'operation04'
+    studyUnitId: 'operation04',
   },
   {
     id: 'FAKE_ID_09',
@@ -69,7 +69,7 @@ module.exports = [
     title: 'Fake codes list 09',
     version: '01',
     subgroupId: 'serie03',
-    studyUnitId: 'operation05'
+    studyUnitId: 'operation05',
   },
   {
     id: 'FAKE_ID_10',
@@ -77,6 +77,6 @@ module.exports = [
     title: 'Fake codes list 10',
     version: '01',
     subgroupId: 'serie03',
-    studyUnitId: 'operation05'
-  }
+    studyUnitId: 'operation05',
+  },
 ];

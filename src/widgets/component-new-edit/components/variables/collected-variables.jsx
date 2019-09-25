@@ -38,12 +38,12 @@ export const propTypes = {
   removeValidationErrors: PropTypes.func.isRequired,
 
   codesListsStoreStore: PropTypes.object,
-  reponseFormatValues: PropTypes.object
+  reponseFormatValues: PropTypes.object,
 };
 
 export const defaultProps = {
   codesListsStoreStore: {},
-  reponseFormatValues: {}
+  reponseFormatValues: {},
 };
 
 // Component
@@ -67,14 +67,14 @@ class CollectedVariables extends Component {
       formName,
       arrayRemoveAll,
       arrayPush,
-      removeValidationErrors
+      removeValidationErrors,
     } = this.props;
 
     const newVariables = generateCollectedVariables(
       responseFormatType,
       componentName,
       reponseFormatValues,
-      codesListsStoreStore
+      codesListsStoreStore,
     );
 
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
@@ -94,7 +94,7 @@ class CollectedVariables extends Component {
       errors,
       addErrors,
       componentName,
-      responseFormatType
+      responseFormatType,
     } = this.props;
     return (
       <FormSection name={selectorPath}>

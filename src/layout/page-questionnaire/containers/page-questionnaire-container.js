@@ -11,7 +11,7 @@ import {
   setActiveComponents,
   setActiveCodeLists,
   setActiveVariables,
-  loadStatisticalContext
+  loadStatisticalContext,
 } from 'actions/app-state';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -20,7 +20,7 @@ const { QUESTION } = COMPONENT_TYPE;
 
 function getCollectedVariablesByQuestionnaire(
   components = {},
-  collectedVariables = {}
+  collectedVariables = {},
 ) {
   return Object.keys(components)
     .filter(key => components[key].type === QUESTION)
@@ -32,11 +32,11 @@ function getCollectedVariablesByQuestionnaire(
           (accInner, keyInner) => {
             return {
               ...accInner,
-              [keyInner]: { ...collectedVariables[keyInner] }
+              [keyInner]: { ...collectedVariables[keyInner] },
             };
           },
-          {}
-        )
+          {},
+        ),
       };
     }, {});
 }
@@ -44,15 +44,24 @@ function getCollectedVariablesByQuestionnaire(
 // Prop types and default props
 
 const propTypes = {
-  params: PropTypes.shape({
-    id: PropTypes.string.isRequired
-  }).isRequired,
-  router: PropTypes.object.isRequired
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }),
+  history: PropTypes.object.isRequired,
 };
 
 // Container
 
-const mapStateToProps = (state, { params: { id } }) => ({
+const mapStateToProps = (
+  state,
+  {
+    match: {
+      params: { id },
+    },
+  },
+) => ({
   id,
   questionnaire: state.questionnaireById[id],
   activeQuestionnaire: state.appState.activeQuestionnaire,
@@ -62,8 +71,8 @@ const mapStateToProps = (state, { params: { id } }) => ({
   externalVariables: state.externalVariableByQuestionnaire[id],
   collectedVariablesByQuestion: getCollectedVariablesByQuestionnaire(
     state.componentByQuestionnaire[id],
-    state.collectedVariableByQuestionnaire[id]
-  )
+    state.collectedVariableByQuestionnaire[id],
+  ),
 });
 
 const mapDispatchToProps = {
@@ -73,12 +82,13 @@ const mapDispatchToProps = {
   setActiveQuestionnaire,
   setActiveComponents,
   setActiveCodeLists,
-  setActiveVariables
+  setActiveVariables,
 };
 
-const PageQuestionnaireContainer = connect(mapStateToProps, mapDispatchToProps)(
-  PageQuestionnaire
-);
+const PageQuestionnaireContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PageQuestionnaire);
 
 PageQuestionnaireContainer.propTypes = propTypes;
 

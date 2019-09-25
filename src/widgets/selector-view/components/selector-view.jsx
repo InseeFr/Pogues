@@ -14,7 +14,7 @@ export function getValuesFromViews(views) {
     return {
       value,
       label,
-      view
+      view,
     };
   });
 }
@@ -28,12 +28,12 @@ const propTypes = {
   radio: PropTypes.bool.isRequired,
   children: PropTypes.array.isRequired,
   readOnly: PropTypes.bool.isRequired,
-  required: PropTypes.bool.isRequired
+  required: PropTypes.bool.isRequired,
 };
 
 export const defaultProps = {
   children: [],
-  emptyOption: undefined
+  emptyOption: undefined,
 };
 
 // Component
@@ -45,7 +45,7 @@ function SelectorView({
   radio,
   children,
   readOnly,
-  required
+  required,
 }) {
   const values = getValuesFromViews(children);
   const options = values.map(v => (
@@ -61,7 +61,7 @@ function SelectorView({
     options.unshift(
       <GenericOption key="" value="">
         {emptyOption}
-      </GenericOption>
+      </GenericOption>,
     );
   }
 

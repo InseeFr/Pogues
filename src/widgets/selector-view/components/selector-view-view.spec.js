@@ -7,13 +7,13 @@ describe('Tab', () => {
   test('Should exists with the corresponding template', () => {
     const props = {
       label: 'Fake label',
-      value: 'fake value'
+      value: 'fake value',
     };
     const selectorViewView = renderer
       .create(
         <SelectorViewView {...props}>
           <div>Fake Children</div>
-        </SelectorViewView>
+        </SelectorViewView>,
       )
       .toJSON();
 

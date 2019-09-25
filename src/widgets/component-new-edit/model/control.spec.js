@@ -5,7 +5,7 @@ import {
   controlsFormNew,
   controlsFormUpdate,
   controlsState,
-  controlsModel
+  controlsModel,
 } from './__mocks__/control';
 
 describe.skip('Transformation entities - Control', () => {
@@ -29,20 +29,20 @@ describe.skip('Transformation entities - Control', () => {
   test('Should produce expected STATE from questionnaire MODEL', () => {
     const controlTransformer = ControlTransformerFactory();
     expect(controlTransformer.modelToState(controlsModel)).toEqual(
-      controlsState
+      controlsState,
     );
   });
 
   test('Should produce expected FORM from questionnaire STATE', () => {
     const controlTransformer = ControlTransformerFactory({
-      initialState: controlsState
+      initialState: controlsState,
     });
     expect(controlTransformer.stateToForm()).toEqual(controlsFormUpdate);
   });
 
   test('Should produce expected MODEL from questionnaire STATE', () => {
     const controlTransformer = ControlTransformerFactory({
-      initialState: controlsState
+      initialState: controlsState,
     });
     expect(controlTransformer.stateToModel()).toEqual(controlsModel);
   });

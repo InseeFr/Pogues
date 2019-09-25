@@ -5,12 +5,12 @@ import {
   REMOVE_COMPONENT,
   UPDATE_COMPONENT_PARENT,
   UPDATE_COMPONENT_ORDER,
-  MOVE_COMPONENT
+  MOVE_COMPONENT,
 } from 'actions/component';
 import {
   SET_ACTIVE_COMPONENTS,
   CREATE_PAGE_BREAK,
-  REMOVE_PAGE_BREAK
+  REMOVE_PAGE_BREAK,
 } from 'actions/app-state';
 
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
@@ -23,11 +23,11 @@ export function setActiveComponents(state, activeComponents) {
 
 export function updateActiveComponents(
   state,
-  { update: { activeComponentsById } }
+  { update: { activeComponentsById } },
 ) {
   return {
     ...state,
-    ...activeComponentsById
+    ...activeComponentsById,
   };
 }
 
@@ -36,8 +36,8 @@ export function createPageBreak(state, { id }) {
     ...state,
     [id]: {
       ...state[id],
-      pageBreak: true
-    }
+      pageBreak: true,
+    },
   };
 }
 
@@ -46,8 +46,8 @@ export function removePageBreak(state, { id }) {
     ...state,
     [id]: {
       ...state[id],
-      pageBreak: false
-    }
+      pageBreak: false,
+    },
   };
 }
 

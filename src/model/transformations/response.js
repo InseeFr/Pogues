@@ -1,6 +1,6 @@
 import {
   DATATYPE_TYPE_FROM_NAME,
-  UI_BEHAVIOUR
+  UI_BEHAVIOUR,
 } from 'constants/pogues-constants';
 import { uuid } from 'utils/utils';
 
@@ -22,15 +22,15 @@ export function stateToRemote(state) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    collectedVariable: CollectedVariableReference
+    collectedVariable: CollectedVariableReference,
   } = state;
 
   const model = {
     id: id || uuid(),
     Datatype: {
       typeName,
-      type: DATATYPE_TYPE_FROM_NAME[typeName]
-    }
+      type: DATATYPE_TYPE_FROM_NAME[typeName],
+    },
   };
 
   if (CollectedVariableReference !== undefined)
@@ -53,7 +53,7 @@ export function stateToRemote(state) {
       label: specialLabel,
       firstIntentionDisplay:
         specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
-      invite: specialFollowUpMessage
+      invite: specialFollowUpMessage,
     };
   }
 

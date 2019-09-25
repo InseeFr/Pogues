@@ -5,14 +5,14 @@ export function stateToModel(
   state,
   collectedVariables,
   collectedVariablesStore,
-  type
+  type,
 ) {
   const responsesModel = collectedVariables.map(cv =>
-    Response.stateToRemote({ ...state, collectedVariable: cv })
+    Response.stateToRemote({ ...state, collectedVariable: cv }),
   );
   const mappingModel = responsesModel.map(r => {
-    const x = collectedVariablesStore[r.CollectedVariableReference].x;
-    const y = collectedVariablesStore[r.CollectedVariableReference].y;
+    const { x, y } = collectedVariablesStore[r.CollectedVariableReference];
+
     // Table : Fix lines and look into columns
     const MappingTarget =
       type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
@@ -21,6 +21,6 @@ export function stateToModel(
 
   return {
     Response: responsesModel,
-    Mapping: mappingModel
+    Mapping: mappingModel,
   };
 }

@@ -2,7 +2,6 @@ import { uuid } from 'utils/utils';
 import {
   DATATYPE_TYPE_FROM_NAME,
   VARIABLES_TYPES,
-  DATATYPE_NAME
 } from 'constants/pogues-constants';
 
 const { CALCULATED } = VARIABLES_TYPES;
@@ -21,8 +20,8 @@ export function remoteToStore(remote = []) {
         Minimum: minimum,
         Maximum: maximum,
         Decimals: decimals,
-        Unit: unit
-      }
+        Unit: unit,
+      },
     } = cv;
     const id = cv.id || uuid();
     return {
@@ -39,9 +38,9 @@ export function remoteToStore(remote = []) {
           minimum,
           maximum,
           decimals,
-          unit
-        }
-      }
+          unit,
+        },
+      },
     };
   }, {});
 }
@@ -61,8 +60,8 @@ export function storeToRemote(store) {
         minimum: Minimum,
         maximum: Maximum,
         decimals: Decimals,
-        unit: Unit
-      }
+        unit: Unit,
+      },
     } = store[key];
     const model = {
       id,
@@ -72,8 +71,8 @@ export function storeToRemote(store) {
       type: CALCULATED,
       Datatype: {
         typeName,
-        type: DATATYPE_TYPE_FROM_NAME[typeName]
-      }
+        type: DATATYPE_TYPE_FROM_NAME[typeName],
+      },
     };
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;

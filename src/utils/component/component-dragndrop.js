@@ -11,9 +11,9 @@ export const componentSource = {
       id: props.component.id,
       type: props.component.type,
       parent: props.component.parent,
-      children: props.component.children
+      children: props.component.children,
     };
-  }
+  },
 };
 
 /**
@@ -37,10 +37,10 @@ export const cardTarget = {
     if (monitor.isOver({ shallow: false })) {
       droppedComponent.moveComponent(
         droppedComponent.component.id,
-        monitor.getItem().id
+        monitor.getItem().id,
       );
     }
-  }
+  },
 };
 
 /**
@@ -49,6 +49,6 @@ export const cardTarget = {
 export function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
 }

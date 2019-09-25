@@ -3,13 +3,13 @@ import cloneDeep from 'lodash.clonedeep';
 
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import Simple, {
-  defaultState as simpleDefault
+  defaultState as simpleDefault,
 } from './response-format-simple';
 import Single, {
-  defaultState as singleDefault
+  defaultState as singleDefault,
 } from './response-format-single';
 import Multiple, {
-  defaultState as multipleDefault
+  defaultState as multipleDefault,
 } from './response-format-multiple';
 import Table, { defaultState as tableDefault } from './response-format-table';
 
@@ -20,13 +20,13 @@ export const defaultForm = {
   [SINGLE_CHOICE]: singleDefault,
   [MULTIPLE_CHOICE]: multipleDefault,
   [TABLE]: tableDefault,
-  type: ''
+  type: '',
 };
 
 export function formToState(form, transformers) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
-    type
+    type,
   };
 
   if (type === SINGLE_CHOICE) {
@@ -50,7 +50,7 @@ export function stateToForm(currentState, transformers) {
     [SIMPLE]: transformers.simple.stateToForm(),
     [SINGLE_CHOICE]: transformers.single.stateToForm(),
     [MULTIPLE_CHOICE]: transformers.multiple.stateToForm(),
-    [TABLE]: transformers.table.stateToForm()
+    [TABLE]: transformers.table.stateToForm(),
   });
 }
 
@@ -61,7 +61,7 @@ const Factory = (initialState = {}, codesListsStore) => {
     simple: Simple(currentState[SIMPLE]),
     single: Single(currentState[SINGLE_CHOICE], codesListsStore),
     multiple: Multiple(currentState[MULTIPLE_CHOICE], codesListsStore),
-    table: Table(currentState[TABLE], codesListsStore)
+    table: Table(currentState[TABLE], codesListsStore),
   };
 
   return {
@@ -95,29 +95,29 @@ const Factory = (initialState = {}, codesListsStore) => {
       // Values ready to be validated
       const { type, [type]: responseFormatType } = form;
       const normalized = {
-        type
+        type,
       };
 
       if (form.type === SIMPLE) {
         normalized[SIMPLE] = transformers.simple.getNormalizedValues(
-          responseFormatType
+          responseFormatType,
         );
       } else if (form.type === SINGLE_CHOICE) {
         normalized[SINGLE_CHOICE] = transformers.single.getNormalizedValues(
-          responseFormatType
+          responseFormatType,
         );
       } else if (form.type === MULTIPLE_CHOICE) {
         normalized[MULTIPLE_CHOICE] = transformers.multiple.getNormalizedValues(
-          responseFormatType
+          responseFormatType,
         );
       } else if (form.type === TABLE) {
         normalized[TABLE] = transformers.table.getNormalizedValues(
-          responseFormatType
+          responseFormatType,
         );
       }
 
       return normalized;
-    }
+    },
   };
 };
 

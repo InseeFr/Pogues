@@ -8,10 +8,10 @@ export function remoteToState(remote = []) {
       ...acc,
       [id]: {
         id,
-        label: label.replace(/&#xd;/gi,'\n\n'),
+        label: label.replace(/&#xd;/gi, '\n\n'),
         declarationType,
-        position
-      }
+        position,
+      },
     };
   }, {});
 }
@@ -21,9 +21,9 @@ export function stateToRemote(state) {
     const { id, declarationType, label: Text, position } = state[key];
     return {
       id,
-      Text: Text.replace(/\n\n/gi,'&#xd;'),
+      Text: Text.replace(/\n\n/gi, '&#xd;'),
       declarationType,
-      position
+      position,
     };
   });
 }

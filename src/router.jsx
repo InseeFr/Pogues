@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, hashHistory, Route, IndexRoute, Redirect } from 'react-router';
+import { HashRouter, Route, Redirect } from 'react-router-dom';
 
 import { App } from 'layout/app';
 import { PageHome } from 'layout/page-home';
@@ -8,9 +8,9 @@ import { PageQuestionnaire } from 'layout/page-questionnaire';
 
 function RouterContainer() {
   return (
-    <Router history={hashHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={PageHome} />
+    <HashRouter>
+      <App>
+        <Route exact path="/" component={PageHome} />
         <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
         <Route
           exact
@@ -18,8 +18,8 @@ function RouterContainer() {
           component={PageSearchQuestionnaire}
         />
         <Redirect from="*" to="/" />
-      </Route>
-    </Router>
+      </App>
+    </HashRouter>
   );
 }
 

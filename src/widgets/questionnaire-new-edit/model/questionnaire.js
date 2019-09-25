@@ -11,7 +11,7 @@ export const defaultState = {
   lastUpdatedDate: '',
   final: '',
   agency: '',
-  TargetMode: []
+  TargetMode: [],
 };
 
 export function formToState(form) {
@@ -23,7 +23,7 @@ export function formToState(form) {
     serie,
     operation,
     campaigns: campaigns.split(','),
-    TargetMode: TargetMode.split(',')
+    TargetMode: TargetMode.split(','),
   };
 }
 
@@ -37,7 +37,7 @@ export function stateToForm(currentState) {
     serie,
     operation,
     campaigns: campaigns.join(),
-    TargetMode: TargetMode.join()
+    TargetMode: TargetMode.join(),
   };
 }
 
@@ -45,19 +45,19 @@ const Factory = (initialState = {}) => {
   let currentState = {
     ...defaultState,
     ...initialState,
-    id: initialState.id || uuid()
+    id: initialState.id || uuid(),
   };
   return {
     formToState: form => {
       currentState = {
         ...currentState,
-        ...formToState(form)
+        ...formToState(form),
       };
       return currentState;
     },
     stateToForm: () => {
       return stateToForm(currentState);
-    }
+    },
   };
 };
 

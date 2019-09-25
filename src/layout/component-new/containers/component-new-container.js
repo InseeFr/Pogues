@@ -7,7 +7,7 @@ import { setValidationErrors } from 'actions/errors';
 import {
   createComponent,
   orderComponents,
-  updateParentChildren
+  updateParentChildren,
 } from 'actions/components';
 import { setSelectedComponentId } from 'actions/app-state';
 
@@ -18,7 +18,7 @@ export const propTypes = {
   weight: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired
+  onSuccess: PropTypes.func.isRequired,
 };
 
 // Container
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
     codesListsStore: state.appState.activeCodeListsById,
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,
     externalVariablesStore: state.appState.activeExternalVariablesById,
-    activeQuestionnaire: state.appState.activeQuestionnaire
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 
@@ -37,12 +37,13 @@ const mapDispatchToProps = {
   createComponent,
   orderComponents,
   updateParentChildren,
-  setSelectedComponentId
+  setSelectedComponentId,
 };
 
-const ComponentNewContainer = connect(mapStateToProps, mapDispatchToProps)(
-  ComponentNew
-);
+const ComponentNewContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ComponentNew);
 
 ComponentNewContainer.propTypes = propTypes;
 

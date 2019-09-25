@@ -52,7 +52,7 @@ function InputMeasure(props) {
 }
 
 InputMeasure.propTypes = {
-  selectorPath: PropTypes.string.isRequired
+  selectorPath: PropTypes.string.isRequired,
 };
 
 export default InputMeasure;

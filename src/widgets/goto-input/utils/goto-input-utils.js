@@ -1,6 +1,6 @@
 import {
   getComponentsTargetsByComponent,
-  getComponentsTargetsByPosition
+  getComponentsTargetsByPosition,
 } from 'utils/model/redirections-utils';
 
 export function getTargets(
@@ -8,7 +8,7 @@ export function getTargets(
   selectedTarget,
   editingComponentId,
   selectedComponentId,
-  componentType
+  componentType,
 ) {
   let allowedTargets;
 
@@ -16,14 +16,14 @@ export function getTargets(
     // When a component is been edited.
     allowedTargets = getComponentsTargetsByComponent(
       componentsStore,
-      componentsStore[editingComponentId]
+      componentsStore[editingComponentId],
     );
   } else {
     // When the component is a new one.
     allowedTargets = getComponentsTargetsByPosition(
       componentsStore,
       componentType,
-      selectedComponentId
+      selectedComponentId,
     );
   }
 
@@ -38,7 +38,7 @@ export function getTargets(
   return allowedTargets.map(key => {
     return {
       value: key,
-      label: `${componentsStore[key].name} - ${componentsStore[key].label}`
+      label: `${componentsStore[key].name} - ${componentsStore[key].label}`,
     };
   });
 }

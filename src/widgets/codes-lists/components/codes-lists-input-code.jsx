@@ -14,7 +14,7 @@ const {
   CODE_INPUT_CODE_CLASS,
   CODE_INPUT_LABEL_CLASS,
   CODE_INPUT_ACTIONS_CLASS,
-  CODE_INPUT_ERRORS_CLASS
+  CODE_INPUT_ERRORS_CLASS,
 } = WIDGET_CODES_LISTS;
 
 // PropTypes and defaultProps
@@ -22,7 +22,7 @@ const {
 export const propTypes = {
   code: PropTypes.shape({
     value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }),
   meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
     .isRequired,
@@ -31,14 +31,14 @@ export const propTypes = {
   change: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
-  clear: PropTypes.func.isRequired
+  clear: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   code: {
     value: '',
-    label: ''
-  }
+    label: '',
+  },
 };
 
 // Componet
@@ -66,7 +66,7 @@ class CodesListInputCode extends ComponentWithValidation {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.initInputCode(this.props.code);
   }
 

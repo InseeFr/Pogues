@@ -2,7 +2,7 @@ export const redirectionsFormDefault = {
   label: '',
   condition: '',
   cible: '',
-  redirections: []
+  redirections: [],
 };
 
 export const redirectionsFormNew = {
@@ -13,14 +13,14 @@ export const redirectionsFormNew = {
     {
       label: 'First redirection label',
       condition: 'First redirection condition',
-      cible: 'First redirection cible'
+      cible: 'First redirection cible',
     },
     {
       label: 'Second redirection label',
       condition: 'Second redirection condition',
-      cible: 'Second redirection cible'
-    }
-  ]
+      cible: 'Second redirection cible',
+    },
+  ],
 };
 
 export const redirectionsFormUpdate = {
@@ -32,15 +32,15 @@ export const redirectionsFormUpdate = {
       id: 'FIRST_REDIRECTION',
       label: 'First redirection label',
       condition: 'First redirection condition',
-      cible: 'First redirection cible'
+      cible: 'First redirection cible',
     },
     {
       id: 'SECOND_REDIRECTION',
       label: 'Second redirection label',
       condition: 'Second redirection condition',
-      cible: 'Second redirection cible'
-    }
-  ]
+      cible: 'Second redirection cible',
+    },
+  ],
 };
 
 export const redirectionsState = {
@@ -48,14 +48,14 @@ export const redirectionsState = {
     id: 'FIRST_REDIRECTION',
     label: 'First redirection label',
     condition: 'First redirection condition',
-    cible: 'First redirection cible'
+    cible: 'First redirection cible',
   },
   SECOND_REDIRECTION: {
     id: 'SECOND_REDIRECTION',
     label: 'Second redirection label',
     condition: 'Second redirection condition',
-    cible: 'Second redirection cible'
-  }
+    cible: 'Second redirection cible',
+  },
 };
 
 export const redirectionsModel = [
@@ -63,12 +63,12 @@ export const redirectionsModel = [
     id: 'FIRST_REDIRECTION',
     label: 'First redirection label',
     Expression: 'First redirection condition',
-    IfTrue: 'First redirection cible'
+    IfTrue: 'First redirection cible',
   },
   {
     id: 'SECOND_REDIRECTION',
     label: 'Second redirection label',
     Expression: 'Second redirection condition',
-    IfTrue: 'Second redirection cible'
-  }
+    IfTrue: 'Second redirection cible',
+  },
 ];

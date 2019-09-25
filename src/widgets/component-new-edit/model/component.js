@@ -24,7 +24,7 @@ export const defaultState = {
   collectedVariables: [],
   children: [],
   responseFormat: {},
-  TargetMode: []
+  TargetMode: [],
 };
 
 export function formToState(form, transformers) {
@@ -36,7 +36,7 @@ export function formToState(form, transformers) {
     controls,
     redirections,
     collectedVariables,
-    TargetMode
+    TargetMode,
   } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
@@ -50,9 +50,9 @@ export function formToState(form, transformers) {
     label: label,
     responseFormat: transformers.responseFormat.formToState(responseFormat),
     collectedVariables: transformers.collectedVariable.formToComponentState(
-      collectedVariables
+      collectedVariables,
     ),
-    TargetMode: TargetMode.split(',')
+    TargetMode: TargetMode.split(','),
   };
 }
 
@@ -66,7 +66,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     redirections: transformers.redirection.stateToForm(),
     TargetMode: label
       ? TargetMode.join()
-      : activeQuestionnaire.TargetMode.join()
+      : activeQuestionnaire.TargetMode.join(),
   };
 
   if (type === QUESTION) {
@@ -85,14 +85,14 @@ const Factory = (initialState = {}, stores = {}) => {
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariablesStore,
-    codesListsStore
+    codesListsStore,
   } = stores;
   let currentStore = componentsStore || {};
 
   let currentState = {
     ...defaultState,
     ...initialState,
-    id: initialState.id || uuid()
+    id: initialState.id || uuid(),
   };
 
   const transformers = {
@@ -101,32 +101,32 @@ const Factory = (initialState = {}, stores = {}) => {
     redirection: Redirection(currentState.redirections),
     responseFormat: ResponseFormat(
       currentState.responseFormat,
-      codesListsStore
+      codesListsStore,
     ),
     collectedVariable: CollectedVariable(
       currentState.collectedVariables,
-      collectedVariablesStore
+      collectedVariablesStore,
     ),
     calculatedVariable: CalculatedVariable(calculatedVariablesStore),
-    externalVariable: ExternalVariable(externalVariablesStore)
+    externalVariable: ExternalVariable(externalVariablesStore),
   };
 
   return {
     formToState: form => {
       currentState = {
         ...currentState,
-        ...formToState(form, transformers)
+        ...formToState(form, transformers),
       };
       return currentState;
     },
     formToStore: (form, id) => {
       currentState = {
         ...currentState,
-        ...formToState(form, transformers)
+        ...formToState(form, transformers),
       };
       currentStore = {
         ...currentStore,
-        [id]: currentState
+        [id]: currentState,
       };
       return currentStore;
     },
@@ -136,7 +136,7 @@ const Factory = (initialState = {}, stores = {}) => {
     getStore: () => {
       return {
         ...currentStore,
-        [currentState.id]: currentState
+        [currentState.id]: currentState,
       };
     },
     getCodesListStore: () => {
@@ -157,14 +157,14 @@ const Factory = (initialState = {}, stores = {}) => {
         name: form.name,
         label: form.label,
         responseFormat: transformers.responseFormat.getNormalizedValues(
-          form.responseFormat
+          form.responseFormat,
         ),
         collectedVariables: form.collectedVariables,
         controls: form.controls,
         declarations: form.declarations,
-        redirections: form.redirections
+        redirections: form.redirections,
       };
-    }
+    },
   };
 };
 

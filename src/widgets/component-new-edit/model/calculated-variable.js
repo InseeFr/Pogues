@@ -9,7 +9,7 @@ export const defaultState = {
   label: '',
   name: '',
   formula: '',
-  type: TEXT
+  type: TEXT,
 };
 
 export const defaultForm = {
@@ -17,7 +17,7 @@ export const defaultForm = {
   name: '',
   formula: '',
   calculatedVariables: [],
-  ...defaultTypageForm
+  ...defaultTypageForm,
 };
 
 export function formToState(form) {
@@ -30,7 +30,7 @@ export function formToState(form) {
     name,
     formula,
     type,
-    [type]: { ...simpleForm }
+    [type]: { ...simpleForm },
   };
 }
 
@@ -42,7 +42,7 @@ export function formToStore(form) {
 
     return {
       ...acc,
-      [state.id]: state
+      [state.id]: state,
     };
   }, {});
 }
@@ -57,7 +57,7 @@ export function storeToForm(currentStore) {
       name,
       formula,
       type,
-      [type]: simpleState
+      [type]: simpleState,
     } = currentStore[key];
     calculatedVariables.push({
       id,
@@ -66,14 +66,14 @@ export function storeToForm(currentStore) {
       formula,
       type,
       [type]: {
-        ...simpleState
-      }
+        ...simpleState,
+      },
     });
   });
 
   return {
     ...defaultForm,
-    calculatedVariables
+    calculatedVariables,
   };
 }
 
@@ -88,7 +88,7 @@ const Factory = (currentStore = {}) => {
     },
     getStore: () => {
       return currentStore;
-    }
+    },
   };
 };
 

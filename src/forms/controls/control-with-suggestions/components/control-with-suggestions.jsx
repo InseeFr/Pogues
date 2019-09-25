@@ -4,13 +4,13 @@ import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import ClassSet from 'react-classset';
 import {
   getValueWithSuggestion,
-  getPattern
+  getPattern,
 } from 'forms/controls/control-with-suggestions/components/utils';
 
 import {
   updateSuggestions,
   initialize,
-  getNewIndex
+  getNewIndex,
 } from './input-with-suggestions-utils';
 import { HighLighter } from 'widgets/highlighter';
 import { getKey } from 'utils/widget-utils';
@@ -21,7 +21,7 @@ const {
   COMPONENT_CLASS,
   LIST_CLASS,
   ITEM_CLASS,
-  ITEM_SELECTED_CLASS
+  ITEM_SELECTED_CLASS,
 } = CONTROL_WITH_SUGGESTIONS;
 
 const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
@@ -40,7 +40,7 @@ export const propTypes = {
   disabled: PropTypes.bool,
   numSuggestionsShown: PropTypes.number,
   availableSuggestions: PropTypes.arrayOf(PropTypes.string),
-  focusOnInit: PropTypes.bool
+  focusOnInit: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -48,7 +48,7 @@ export const defaultProps = {
   disabled: false,
   numSuggestionsShown: 10,
   availableSuggestions: [],
-  focusOnInit: false
+  focusOnInit: false,
 };
 
 // Component
@@ -86,8 +86,8 @@ class ControlWithSuggestions extends Component {
       updateSuggestions(
         getPattern(value, this.input.selectionStart),
         InputRegex,
-        this.props.availableSuggestions
-      )
+        this.props.availableSuggestions,
+      ),
     );
 
     // Execute default code afterwards
@@ -99,7 +99,7 @@ class ControlWithSuggestions extends Component {
     const newValue = getValueWithSuggestion(
       suggestion,
       this.input.selectionStart,
-      this.input.value
+      this.input.value,
     );
 
     this.props.input.onChange(newValue);
@@ -124,8 +124,8 @@ class ControlWithSuggestions extends Component {
         hoveredSuggestionIndex: getNewIndex(
           hoveredSuggestionIndex,
           suggestions,
-          numSuggestionsShown
-        )
+          numSuggestionsShown,
+        ),
       });
       e.preventDefault();
     }
@@ -158,7 +158,7 @@ class ControlWithSuggestions extends Component {
             <div className={LIST_CLASS}>
               {suggestions.slice(0, numSuggestionsShown).map((
                 suggest,
-                index // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               ) => (
                 <div
                   key={getKey(suggest)}
@@ -168,7 +168,7 @@ class ControlWithSuggestions extends Component {
                   role="button"
                   className={ClassSet({
                     [ITEM_CLASS]: true,
-                    [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex
+                    [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,
                   })}
                   title={suggest}
                   ref={node => {

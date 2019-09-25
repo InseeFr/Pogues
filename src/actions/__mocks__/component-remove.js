@@ -2,7 +2,7 @@ export function removeLeafComponent(activesComponents, deletedComponent) {
   return {
     removeLeafComponent: true,
     activesComponents,
-    deletedComponent
+    deletedComponent,
   };
 }
 
@@ -10,7 +10,7 @@ export function removeSubSequence(activesComponents, deletedComponent) {
   return {
     removeSubSequence: true,
     activesComponents,
-    deletedComponent
+    deletedComponent,
   };
 }
 
@@ -18,13 +18,13 @@ export function removeSequence(activesComponents, deletedComponent) {
   return {
     removeSequence: true,
     activesComponents,
-    deletedComponent
+    deletedComponent,
   };
 }
 
 export function remove(activeComponentsById, idDeletedComponent) {
   return {
     activeComponentsById,
-    idDeletedComponent
+    idDeletedComponent,
   };
 }

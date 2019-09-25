@@ -31,12 +31,12 @@ const propTypes = {
   removeQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired
+  handleRemovePageBreak: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   componentsStore: {},
-  errorsIntegrity: {}
+  errorsIntegrity: {},
 };
 
 // Utils
@@ -83,44 +83,34 @@ class QuestionnaireListComponents extends Component {
     this.state = {
       showQuestionnaireModal: false,
       showComponentModal: false,
-      showRemoveQuestionnaireDialog: false
+      showRemoveQuestionnaireDialog: false,
     };
 
     this.handleOpenQuestionnaireDetail = this.handleOpenQuestionnaireDetail.bind(
-      this
+      this,
     );
     this.handleCloseQuestionnaireDetail = this.handleCloseQuestionnaireDetail.bind(
-      this
+      this,
     );
 
     this.handleOpenComponentDetail = this.handleOpenComponentDetail.bind(this);
     this.handleCloseComponentDetail = this.handleCloseComponentDetail.bind(
-      this
+      this,
     );
 
     this.handleOpenRemoveQuestionnaireDialog = this.handleOpenRemoveQuestionnaireDialog.bind(
-      this
+      this,
     );
     this.handleCloseRemoveQuestionnaireDialog = this.handleCloseRemoveQuestionnaireDialog.bind(
-      this
+      this,
     );
 
     this.handleQuestionnaireDelete = this.handleQuestionnaireDelete.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.setSelectedComponentId('');
   }
-
-  // componentWillReceiveProps(newProps, oldProps) {
-  //   const oldQuestionnaire =
-  //     Object.keys(oldProps.components || {}).find(id => oldProps.components[id].type === QUESTIONNAIRE) || {};
-  //   const newQuestionnaire =
-  //     Object.keys(newProps.components || {}).find(id => newProps.components[id].type === QUESTIONNAIRE) || {};
-  //   if (oldQuestionnaire !== newQuestionnaire) {
-  //     this.props.setSelectedComponentId(newProps.selectedComponentId);
-  //   }
-  // }
 
   handleOpenQuestionnaireDetail() {
     this.setState({ showQuestionnaireModal: true });
@@ -158,7 +148,7 @@ class QuestionnaireListComponents extends Component {
       componentsStore,
       editingComponentId,
       errorsIntegrity,
-      setSelectedComponentId
+      setSelectedComponentId,
     } = this.props;
     const componentType =
       componentsStore[editingComponentId] &&
@@ -205,13 +195,14 @@ class QuestionnaireListComponents extends Component {
 
             <div id="questionnaire-items">
               {renderComponentsByParent(questionnaire.id, this.props, {
-                handleOpenComponentDetail: this.handleOpenComponentDetail
+                handleOpenComponentDetail: this.handleOpenComponentDetail,
               })}
             </div>
 
             {/* Questionnaire edit */}
 
             <ReactModal
+              ariaHideApp={false}
               shouldCloseOnOverlayClick={false}
               isOpen={this.state.showQuestionnaireModal}
               onRequestClose={this.handleCloseQuestionnaireDetail}
@@ -240,6 +231,7 @@ class QuestionnaireListComponents extends Component {
             {/* Component edit */}
 
             <ReactModal
+              ariaHideApp={false}
               shouldCloseOnOverlayClick={false}
               isOpen={this.state.showComponentModal}
               onRequestClose={this.handleCloseComponentDetail}

@@ -17,14 +17,14 @@ export const propTypes = {
   required: PropTypes.bool,
   disabled: PropTypes.bool,
   noValuesMessage: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
 };
 
 export const defaultProps = {
   required: false,
   disabled: false,
   children: [],
-  noValuesMessage: undefined
+  noValuesMessage: undefined,
 };
 
 // Component
@@ -41,7 +41,7 @@ class ListRadios extends Component {
       noValuesMessage,
       children,
       input,
-      meta: { touched, error }
+      meta: { touched, error },
     } = this.props;
     const values = getValuesFromGenericOptions(children);
 
@@ -51,7 +51,7 @@ class ListRadios extends Component {
           htmlFor={getControlId(
             'radios',
             input.name,
-            values[0] && values[0].value
+            values[0] && values[0].value,
           )}
         >
           {label}
@@ -59,12 +59,11 @@ class ListRadios extends Component {
         </label>
         <div>
           {/* No values */}
-          {values.length === 0 &&
-            noValuesMessage && (
-              <div>
-                <span>{noValuesMessage}</span>
-              </div>
-            )}
+          {values.length === 0 && noValuesMessage && (
+            <div>
+              <span>{noValuesMessage}</span>
+            </div>
+          )}
 
           {values.map(val => {
             // eslint-disable-next-line no-shadow

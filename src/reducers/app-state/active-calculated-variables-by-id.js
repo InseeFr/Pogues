@@ -6,14 +6,14 @@ const actionHandlers = {};
 
 export function setActiveCalculatedVariables(
   state,
-  { activeCalculatedVariablesById }
+  { activeCalculatedVariablesById },
 ) {
   return activeCalculatedVariablesById;
 }
 
 export function updateActiveCalculatedVariables(
   state,
-  { update: { activeCalculatedVariablesById } }
+  { update: { activeCalculatedVariablesById } },
 ) {
   return activeCalculatedVariablesById;
 }

@@ -1,6 +1,6 @@
 import actionsHandlers, {
   setActiveCodeLists,
-  updateActiveCodeLists
+  updateActiveCodeLists,
 } from './active-code-lists-by-id';
 import { SET_ACTIVE_CODE_LISTS } from 'actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from 'actions/component';
@@ -9,7 +9,7 @@ describe('setActiveCodeLists', () => {
   test('when called directly', () => {
     const result = setActiveCodeLists(
       { state: 'previous' },
-      { activeCodeLists: 'activeCodeLists' }
+      { activeCodeLists: 'activeCodeLists' },
     );
     expect(result).toEqual('activeCodeLists');
   });
@@ -19,9 +19,9 @@ describe('setActiveCodeLists', () => {
       {
         type: SET_ACTIVE_CODE_LISTS,
         payload: {
-          activeCodeLists: 'activeCodeLists'
-        }
-      }
+          activeCodeLists: 'activeCodeLists',
+        },
+      },
     );
     expect(result).toEqual('activeCodeLists');
   });
@@ -33,9 +33,9 @@ describe('updateActiveCodeLists', () => {
       { state: 'previous' },
       {
         update: {
-          activeCodeListsById: { '1': 'activeCodeListsById' }
-        }
-      }
+          activeCodeListsById: { '1': 'activeCodeListsById' },
+        },
+      },
     );
     expect(result).toEqual({ state: 'previous', '1': 'activeCodeListsById' });
   });
@@ -47,10 +47,10 @@ describe('updateActiveCodeLists', () => {
           type: action,
           payload: {
             update: {
-              activeCodeListsById: { '1': 'activeCodeListsById' }
-            }
-          }
-        }
+              activeCodeListsById: { '1': 'activeCodeListsById' },
+            },
+          },
+        },
       );
       expect(result).toEqual({ state: 'previous', '1': 'activeCodeListsById' });
     });

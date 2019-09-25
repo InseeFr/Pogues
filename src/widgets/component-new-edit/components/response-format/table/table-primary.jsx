@@ -16,10 +16,10 @@ const { CODES_LIST, LIST } = DIMENSION_FORMATS;
 class ResponseFormatTablePrincipal extends Component {
   static selectorPath = PRIMARY;
   static propTypes = {
-    selectorPathParent: PropTypes.string
+    selectorPathParent: PropTypes.string,
   };
   static defaultProps = {
-    selectorPathParent: undefined
+    selectorPathParent: undefined,
   };
   constructor(props) {
     const { selectorPathParent } = props;
@@ -48,7 +48,7 @@ class ResponseFormatTablePrincipal extends Component {
             />
           </View>
         </SelectorView>
-{/*
+        {/*
   <OptionalView
     name="showTotalLabel"
     label={Dictionary.rowTotal}
@@ -62,7 +62,6 @@ class ResponseFormatTablePrincipal extends Component {
     />
   </OptionalView>
 */}
-
       </FormSection>
     );
   }

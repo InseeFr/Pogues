@@ -2,7 +2,7 @@ import {
   remoteToCodesState,
   remoteToStore,
   remoteToState,
-  storeToRemote
+  storeToRemote,
 } from './codes-list';
 
 describe('codes list tranformations', () => {
@@ -18,7 +18,7 @@ describe('codes list tranformations', () => {
         { Parent: 'B', Label: 'Chicken', Value: 'B3' },
         { Value: 'C', Label: 'Compote', Parent: '' },
         { Value: 'C1', Label: 'Powersauce', Parent: 'C' },
-        { Parent: '', Label: 'Other', Value: 'D' }
+        { Parent: '', Label: 'Other', Value: 'D' },
       ];
       const output = {
         A: {
@@ -26,21 +26,21 @@ describe('codes list tranformations', () => {
           label: 'Frozen products',
           parent: '',
           depth: 1,
-          weight: 1
+          weight: 1,
         },
         A1: {
           value: 'A1',
           label: 'Ice creams',
           parent: 'A',
           depth: 2,
-          weight: 1
+          weight: 1,
         },
         A2: {
           value: 'A2',
           label: 'Jasper Beardly',
           parent: 'A',
           depth: 2,
-          weight: 2
+          weight: 2,
         },
         B: { value: 'B', label: 'Meat', parent: '', depth: 1, weight: 2 },
         B1: { value: 'B1', label: 'Bacon', parent: 'B', depth: 2, weight: 1 },
@@ -49,7 +49,7 @@ describe('codes list tranformations', () => {
           label: 'Pork chop',
           parent: 'B',
           depth: 2,
-          weight: 2
+          weight: 2,
         },
         B3: { value: 'B3', label: 'Chicken', parent: 'B', depth: 2, weight: 3 },
         C: { value: 'C', label: 'Compote', parent: '', depth: 1, weight: 3 },
@@ -58,9 +58,9 @@ describe('codes list tranformations', () => {
           label: 'Powersauce',
           parent: 'C',
           depth: 2,
-          weight: 1
+          weight: 1,
         },
-        D: { value: 'D', label: 'Other', parent: '', depth: 1, weight: 4 }
+        D: { value: 'D', label: 'Other', parent: '', depth: 1, weight: 4 },
       };
       expect(remoteToCodesState(input)).toEqual(output);
     });
@@ -74,9 +74,9 @@ describe('codes list tranformations', () => {
           Code: [
             { Parent: '', Label: 'Springfield', Value: '00001' },
             { Parent: '', Label: 'Shelbyville', Value: '00002' },
-            { Parent: '', Label: 'Seinfeld', Value: '00003' }
+            { Parent: '', Label: 'Seinfeld', Value: '00003' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'MAYOR',
@@ -85,9 +85,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Constance Harm', Value: '1' },
             { Parent: '', Label: 'Timothy Lovejoy', Value: '2' },
             { Parent: '', Label: 'Joe Quimby', Value: '3' },
-            { Parent: '', Label: 'Poochie', Value: '4' }
+            { Parent: '', Label: 'Poochie', Value: '4' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'State',
@@ -105,9 +105,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Massachusetts', Value: '10' },
             { Parent: '', Label: 'Nevada', Value: '11' },
             { Parent: '', Label: 'Illinois', Value: '12' },
-            { Parent: '', Label: 'Not in any state, you fool!', Value: '13' }
+            { Parent: '', Label: 'Not in any state, you fool!', Value: '13' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'ANIMALS',
@@ -116,9 +116,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: "Santa's Little Helper", Value: '1' },
             { Parent: '', Label: 'Snowball I', Value: '2' },
             { Parent: '', Label: 'Coltrane', Value: '3' },
-            { Parent: '', Label: 'Mojo the Helper Monkey', Value: '4' }
+            { Parent: '', Label: 'Mojo the Helper Monkey', Value: '4' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Flavours',
@@ -127,18 +127,18 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Vanilla', Value: '1' },
             { Parent: '', Label: 'Strawberry', Value: '2' },
             { Parent: '', Label: 'Apple', Value: '3' },
-            { Parent: '', Label: 'Bacon', Value: '4' }
+            { Parent: '', Label: 'Bacon', Value: '4' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'YESNO',
           id: 'jbdxh138',
           Code: [
             { Parent: '', Label: 'Yes', Value: '1' },
-            { Parent: '', Label: 'No', Value: '0' }
+            { Parent: '', Label: 'No', Value: '0' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'NUCLEAR_CHARACTERS',
@@ -147,9 +147,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Charles Montgomery Burns', Value: '1' },
             { Parent: '', Label: 'Carl Carlson', Value: '2' },
             { Parent: '', Label: 'Otto Mann', Value: '3' },
-            { Parent: '', Label: 'Carl Carlson', Value: '4' }
+            { Parent: '', Label: 'Carl Carlson', Value: '4' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'BIRTH_CHARACTER',
@@ -159,9 +159,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Kent Brockman', Value: '2' },
             { Parent: '', Label: 'Milhouse Van Houten', Value: '3' },
             { Parent: '', Label: 'Nelson Muntz', Value: '4' },
-            { Parent: '', Label: 'Crazy Cat Lady', Value: '5' }
+            { Parent: '', Label: 'Crazy Cat Lady', Value: '5' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'CITY_BIRTH',
@@ -171,9 +171,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Springfield', Value: '2' },
             { Parent: '', Label: 'Portland', Value: '3' },
             { Parent: '', Label: 'Shelbyville', Value: '4' },
-            { Parent: '', Label: 'Dagstuhl', Value: '5' }
+            { Parent: '', Label: 'Dagstuhl', Value: '5' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Products',
@@ -188,9 +188,9 @@ describe('codes list tranformations', () => {
             { Parent: 'B', Label: 'Chicken', Value: 'B3' },
             { Value: 'C', Label: 'Compote', Parent: '' },
             { Value: 'C1', Label: 'Powersauce', Parent: 'C' },
-            { Parent: '', Label: 'Other', Value: 'D' }
+            { Parent: '', Label: 'Other', Value: 'D' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Clownings',
@@ -199,22 +199,22 @@ describe('codes list tranformations', () => {
             {
               Parent: '',
               Label: '***Break the windows of the whole city***',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: '***Loose the violin of his daughter playing poker***',
-              Value: '2'
+              Value: '2',
             },
             { Parent: '', Label: '***Kill Mr Burns***', Value: '3' },
             {
               Parent: '',
               Label:
                 '***Leaving a mechanical object to control the nuclear power plant***',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Clowning_Characters',
@@ -223,9 +223,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Jay', Value: '1' },
             { Parent: '', Label: 'Bart', Value: '2' },
             { Parent: '', Label: 'Krusty the clown', Value: '3' },
-            { Parent: '', Label: 'Maggie', Value: '4' }
+            { Parent: '', Label: 'Maggie', Value: '4' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Means of transport',
@@ -234,9 +234,9 @@ describe('codes list tranformations', () => {
             { Parent: '', Label: 'Car', Value: '1' },
             { Parent: '', Label: 'Bike', Value: '2' },
             { Parent: '', Label: 'Skateboard', Value: '3' },
-            { Parent: '', Label: 'Plane', Value: '4' }
+            { Parent: '', Label: 'Plane', Value: '4' },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Country',
@@ -249,12 +249,12 @@ describe('codes list tranformations', () => {
             {
               Parent: '',
               Label: '[Other country](. "Included principalities")',
-              Value: '5'
+              Value: '5',
             },
-            { Parent: '', Label: 'Other planet', Value: '6' }
+            { Parent: '', Label: 'Other planet', Value: '6' },
           ],
-          Name: ''
-        }
+          Name: '',
+        },
       ];
 
       const output = {
@@ -267,24 +267,24 @@ describe('codes list tranformations', () => {
               label: 'Springfield',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '00002': {
               value: '00002',
               label: 'Shelbyville',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '00003': {
               value: '00003',
               label: 'Seinfeld',
               parent: '',
               depth: 1,
-              weight: 3
-            }
+              weight: 3,
+            },
           },
-          name: ''
+          name: '',
         },
         j6qdqoen: {
           id: 'j6qdqoen',
@@ -295,31 +295,31 @@ describe('codes list tranformations', () => {
               label: 'Constance Harm',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Timothy Lovejoy',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Joe Quimby',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Poochie',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j4nwo00f: {
           id: 'j4nwo00f',
@@ -330,14 +330,14 @@ describe('codes list tranformations', () => {
               label: 'Washington',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Kentucky',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': { value: '3', label: 'Ohio', parent: '', depth: 1, weight: 3 },
             '4': {
@@ -345,73 +345,73 @@ describe('codes list tranformations', () => {
               label: 'Maine',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: 'North Dakota',
               parent: '',
               depth: 1,
-              weight: 5
+              weight: 5,
             },
             '6': {
               value: '6',
               label: 'Florida',
               parent: '',
               depth: 1,
-              weight: 6
+              weight: 6,
             },
             '7': {
               value: '7',
               label: 'North Takoma',
               parent: '',
               depth: 1,
-              weight: 7
+              weight: 7,
             },
             '8': {
               value: '8',
               label: 'California',
               parent: '',
               depth: 1,
-              weight: 8
+              weight: 8,
             },
             '9': {
               value: '9',
               label: 'Texas',
               parent: '',
               depth: 1,
-              weight: 9
+              weight: 9,
             },
             '10': {
               value: '10',
               label: 'Massachusetts',
               parent: '',
               depth: 1,
-              weight: 10
+              weight: 10,
             },
             '11': {
               value: '11',
               label: 'Nevada',
               parent: '',
               depth: 1,
-              weight: 11
+              weight: 11,
             },
             '12': {
               value: '12',
               label: 'Illinois',
               parent: '',
               depth: 1,
-              weight: 12
+              weight: 12,
             },
             '13': {
               value: '13',
               label: 'Not in any state, you fool!',
               parent: '',
               depth: 1,
-              weight: 13
-            }
+              weight: 13,
+            },
           },
-          name: ''
+          name: '',
         },
         j335cu3c: {
           id: 'j335cu3c',
@@ -422,31 +422,31 @@ describe('codes list tranformations', () => {
               label: "Santa's Little Helper",
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Snowball I',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Coltrane',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Mojo the Helper Monkey',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j6p2mvca: {
           id: 'j6p2mvca',
@@ -457,34 +457,40 @@ describe('codes list tranformations', () => {
               label: 'Vanilla',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Strawberry',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Apple',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
-            '4': { value: '4', label: 'Bacon', parent: '', depth: 1, weight: 4 }
+            '4': {
+              value: '4',
+              label: 'Bacon',
+              parent: '',
+              depth: 1,
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdxh138: {
           id: 'jbdxh138',
           label: 'YESNO',
           codes: {
             '0': { value: '0', label: 'No', parent: '', depth: 1, weight: 2 },
-            '1': { value: '1', label: 'Yes', parent: '', depth: 1, weight: 1 }
+            '1': { value: '1', label: 'Yes', parent: '', depth: 1, weight: 1 },
           },
-          name: ''
+          name: '',
         },
         j6qeytgc: {
           id: 'j6qeytgc',
@@ -495,31 +501,31 @@ describe('codes list tranformations', () => {
               label: 'Charles Montgomery Burns',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Carl Carlson',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Otto Mann',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Carl Carlson',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j6z087mq: {
           id: 'j6z087mq',
@@ -530,38 +536,38 @@ describe('codes list tranformations', () => {
               label: 'Selma Bouvier',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Kent Brockman',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Milhouse Van Houten',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Nelson Muntz',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: 'Crazy Cat Lady',
               parent: '',
               depth: 1,
-              weight: 5
-            }
+              weight: 5,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdxricm: {
           id: 'jbdxricm',
@@ -572,38 +578,38 @@ describe('codes list tranformations', () => {
               label: 'Albuquerque',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Springfield',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Portland',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Shelbyville',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: 'Dagstuhl',
               parent: '',
               depth: 1,
-              weight: 5
-            }
+              weight: 5,
+            },
           },
-          name: ''
+          name: '',
         },
         j4nwh16i: {
           id: 'j4nwh16i',
@@ -614,21 +620,21 @@ describe('codes list tranformations', () => {
               label: 'Frozen products',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             A1: {
               value: 'A1',
               label: 'Ice creams',
               parent: 'A',
               depth: 2,
-              weight: 1
+              weight: 1,
             },
             A2: {
               value: 'A2',
               label: 'Jasper Beardly',
               parent: 'A',
               depth: 2,
-              weight: 2
+              weight: 2,
             },
             B: { value: 'B', label: 'Meat', parent: '', depth: 1, weight: 2 },
             B1: {
@@ -636,39 +642,39 @@ describe('codes list tranformations', () => {
               label: 'Bacon',
               parent: 'B',
               depth: 2,
-              weight: 1
+              weight: 1,
             },
             B2: {
               value: 'B2',
               label: 'Pork chop',
               parent: 'B',
               depth: 2,
-              weight: 2
+              weight: 2,
             },
             B3: {
               value: 'B3',
               label: 'Chicken',
               parent: 'B',
               depth: 2,
-              weight: 3
+              weight: 3,
             },
             C: {
               value: 'C',
               label: 'Compote',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             C1: {
               value: 'C1',
               label: 'Powersauce',
               parent: 'C',
               depth: 2,
-              weight: 1
+              weight: 1,
             },
-            D: { value: 'D', label: 'Other', parent: '', depth: 1, weight: 4 }
+            D: { value: 'D', label: 'Other', parent: '', depth: 1, weight: 4 },
           },
-          name: ''
+          name: '',
         },
         j77dav9b: {
           id: 'j77dav9b',
@@ -679,21 +685,21 @@ describe('codes list tranformations', () => {
               label: '***Break the windows of the whole city***',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: '***Loose the violin of his daughter playing poker***',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: '***Kill Mr Burns***',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
@@ -701,10 +707,10 @@ describe('codes list tranformations', () => {
                 '***Leaving a mechanical object to control the nuclear power plant***',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdyh6b5: {
           id: 'jbdyh6b5',
@@ -717,17 +723,17 @@ describe('codes list tranformations', () => {
               label: 'Krusty the clown',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Maggie',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j6p2kivg: {
           id: 'j6p2kivg',
@@ -740,11 +746,17 @@ describe('codes list tranformations', () => {
               label: 'Skateboard',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
-            '4': { value: '4', label: 'Plane', parent: '', depth: 1, weight: 4 }
+            '4': {
+              value: '4',
+              label: 'Plane',
+              parent: '',
+              depth: 1,
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdye1wa: {
           id: 'jbdye1wa',
@@ -755,46 +767,46 @@ describe('codes list tranformations', () => {
               label: 'Brazil',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Canada',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Japan',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'France',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: '[Other country](. "Included principalities")',
               parent: '',
               depth: 1,
-              weight: 5
+              weight: 5,
             },
             '6': {
               value: '6',
               label: 'Other planet',
               parent: '',
               depth: 1,
-              weight: 6
-            }
+              weight: 6,
+            },
           },
-          name: ''
-        }
+          name: '',
+        },
       };
       expect(remoteToStore(input)).toEqual(output);
     });
@@ -816,24 +828,24 @@ describe('codes list tranformations', () => {
               label: 'Springfield',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '00002': {
               value: '00002',
               label: 'Shelbyville',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '00003': {
               value: '00003',
               label: 'Seinfeld',
               parent: '',
               depth: 1,
-              weight: 3
-            }
+              weight: 3,
+            },
           },
-          name: ''
+          name: '',
         },
         j6qdqoen: {
           id: 'j6qdqoen',
@@ -844,31 +856,31 @@ describe('codes list tranformations', () => {
               label: 'Constance Harm',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Timothy Lovejoy',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Joe Quimby',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Poochie',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j4nwo00f: {
           id: 'j4nwo00f',
@@ -879,14 +891,14 @@ describe('codes list tranformations', () => {
               label: 'Washington',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Kentucky',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': { value: '3', label: 'Ohio', parent: '', depth: 1, weight: 3 },
             '4': {
@@ -894,73 +906,73 @@ describe('codes list tranformations', () => {
               label: 'Maine',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: 'North Dakota',
               parent: '',
               depth: 1,
-              weight: 5
+              weight: 5,
             },
             '6': {
               value: '6',
               label: 'Florida',
               parent: '',
               depth: 1,
-              weight: 6
+              weight: 6,
             },
             '7': {
               value: '7',
               label: 'North Takoma',
               parent: '',
               depth: 1,
-              weight: 7
+              weight: 7,
             },
             '8': {
               value: '8',
               label: 'California',
               parent: '',
               depth: 1,
-              weight: 8
+              weight: 8,
             },
             '9': {
               value: '9',
               label: 'Texas',
               parent: '',
               depth: 1,
-              weight: 9
+              weight: 9,
             },
             '10': {
               value: '10',
               label: 'Massachusetts',
               parent: '',
               depth: 1,
-              weight: 10
+              weight: 10,
             },
             '11': {
               value: '11',
               label: 'Nevada',
               parent: '',
               depth: 1,
-              weight: 11
+              weight: 11,
             },
             '12': {
               value: '12',
               label: 'Illinois',
               parent: '',
               depth: 1,
-              weight: 12
+              weight: 12,
             },
             '13': {
               value: '13',
               label: 'Not in any state, you fool!',
               parent: '',
               depth: 1,
-              weight: 13
-            }
+              weight: 13,
+            },
           },
-          name: ''
+          name: '',
         },
         j335cu3c: {
           id: 'j335cu3c',
@@ -971,31 +983,31 @@ describe('codes list tranformations', () => {
               label: "Santa's Little Helper",
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Snowball I',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Coltrane',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Mojo the Helper Monkey',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j6p2mvca: {
           id: 'j6p2mvca',
@@ -1006,34 +1018,40 @@ describe('codes list tranformations', () => {
               label: 'Vanilla',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Strawberry',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Apple',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
-            '4': { value: '4', label: 'Bacon', parent: '', depth: 1, weight: 4 }
+            '4': {
+              value: '4',
+              label: 'Bacon',
+              parent: '',
+              depth: 1,
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdxh138: {
           id: 'jbdxh138',
           label: 'YESNO',
           codes: {
             '0': { value: '0', label: 'No', parent: '', depth: 1, weight: 2 },
-            '1': { value: '1', label: 'Yes', parent: '', depth: 1, weight: 1 }
+            '1': { value: '1', label: 'Yes', parent: '', depth: 1, weight: 1 },
           },
-          name: ''
+          name: '',
         },
         j6qeytgc: {
           id: 'j6qeytgc',
@@ -1044,31 +1062,31 @@ describe('codes list tranformations', () => {
               label: 'Charles Montgomery Burns',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Carl Carlson',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Otto Mann',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Carl Carlson',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j6z087mq: {
           id: 'j6z087mq',
@@ -1079,38 +1097,38 @@ describe('codes list tranformations', () => {
               label: 'Selma Bouvier',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Kent Brockman',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Milhouse Van Houten',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Nelson Muntz',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: 'Crazy Cat Lady',
               parent: '',
               depth: 1,
-              weight: 5
-            }
+              weight: 5,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdxricm: {
           id: 'jbdxricm',
@@ -1121,38 +1139,38 @@ describe('codes list tranformations', () => {
               label: 'Albuquerque',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Springfield',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Portland',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Shelbyville',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: 'Dagstuhl',
               parent: '',
               depth: 1,
-              weight: 5
-            }
+              weight: 5,
+            },
           },
-          name: ''
+          name: '',
         },
         j4nwh16i: {
           id: 'j4nwh16i',
@@ -1163,21 +1181,21 @@ describe('codes list tranformations', () => {
               label: 'Frozen products',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             A1: {
               value: 'A1',
               label: 'Ice creams',
               parent: 'A',
               depth: 2,
-              weight: 1
+              weight: 1,
             },
             A2: {
               value: 'A2',
               label: 'Jasper Beardly',
               parent: 'A',
               depth: 2,
-              weight: 2
+              weight: 2,
             },
             B: { value: 'B', label: 'Meat', parent: '', depth: 1, weight: 2 },
             B1: {
@@ -1185,39 +1203,39 @@ describe('codes list tranformations', () => {
               label: 'Bacon',
               parent: 'B',
               depth: 2,
-              weight: 1
+              weight: 1,
             },
             B2: {
               value: 'B2',
               label: 'Pork chop',
               parent: 'B',
               depth: 2,
-              weight: 2
+              weight: 2,
             },
             B3: {
               value: 'B3',
               label: 'Chicken',
               parent: 'B',
               depth: 2,
-              weight: 3
+              weight: 3,
             },
             C: {
               value: 'C',
               label: 'Compote',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             C1: {
               value: 'C1',
               label: 'Powersauce',
               parent: 'C',
               depth: 2,
-              weight: 1
+              weight: 1,
             },
-            D: { value: 'D', label: 'Other', parent: '', depth: 1, weight: 4 }
+            D: { value: 'D', label: 'Other', parent: '', depth: 1, weight: 4 },
           },
-          name: ''
+          name: '',
         },
         j77dav9b: {
           id: 'j77dav9b',
@@ -1228,21 +1246,21 @@ describe('codes list tranformations', () => {
               label: '***Break the windows of the whole city***',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: '***Loose the violin of his daughter playing poker***',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: '***Kill Mr Burns***',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
@@ -1250,10 +1268,10 @@ describe('codes list tranformations', () => {
                 '***Leaving a mechanical object to control the nuclear power plant***',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdyh6b5: {
           id: 'jbdyh6b5',
@@ -1266,17 +1284,17 @@ describe('codes list tranformations', () => {
               label: 'Krusty the clown',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'Maggie',
               parent: '',
               depth: 1,
-              weight: 4
-            }
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         j6p2kivg: {
           id: 'j6p2kivg',
@@ -1289,11 +1307,17 @@ describe('codes list tranformations', () => {
               label: 'Skateboard',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
-            '4': { value: '4', label: 'Plane', parent: '', depth: 1, weight: 4 }
+            '4': {
+              value: '4',
+              label: 'Plane',
+              parent: '',
+              depth: 1,
+              weight: 4,
+            },
           },
-          name: ''
+          name: '',
         },
         jbdye1wa: {
           id: 'jbdye1wa',
@@ -1304,46 +1328,46 @@ describe('codes list tranformations', () => {
               label: 'Brazil',
               parent: '',
               depth: 1,
-              weight: 1
+              weight: 1,
             },
             '2': {
               value: '2',
               label: 'Canada',
               parent: '',
               depth: 1,
-              weight: 2
+              weight: 2,
             },
             '3': {
               value: '3',
               label: 'Japan',
               parent: '',
               depth: 1,
-              weight: 3
+              weight: 3,
             },
             '4': {
               value: '4',
               label: 'France',
               parent: '',
               depth: 1,
-              weight: 4
+              weight: 4,
             },
             '5': {
               value: '5',
               label: '[Other country](. "Included principalities")',
               parent: '',
               depth: 1,
-              weight: 5
+              weight: 5,
             },
             '6': {
               value: '6',
               label: 'Other planet',
               parent: '',
               depth: 1,
-              weight: 6
-            }
+              weight: 6,
+            },
           },
-          name: ''
-        }
+          name: '',
+        },
       };
       const output = [
         {
@@ -1353,8 +1377,8 @@ describe('codes list tranformations', () => {
           Code: [
             { Label: 'Springfield', Value: '00001', Parent: '' },
             { Label: 'Shelbyville', Value: '00002', Parent: '' },
-            { Label: 'Seinfeld', Value: '00003', Parent: '' }
-          ]
+            { Label: 'Seinfeld', Value: '00003', Parent: '' },
+          ],
         },
         {
           id: 'j6qdqoen',
@@ -1364,8 +1388,8 @@ describe('codes list tranformations', () => {
             { Label: 'Constance Harm', Value: '1', Parent: '' },
             { Label: 'Timothy Lovejoy', Value: '2', Parent: '' },
             { Label: 'Joe Quimby', Value: '3', Parent: '' },
-            { Label: 'Poochie', Value: '4', Parent: '' }
-          ]
+            { Label: 'Poochie', Value: '4', Parent: '' },
+          ],
         },
         {
           id: 'j4nwo00f',
@@ -1384,8 +1408,8 @@ describe('codes list tranformations', () => {
             { Label: 'Massachusetts', Value: '10', Parent: '' },
             { Label: 'Nevada', Value: '11', Parent: '' },
             { Label: 'Illinois', Value: '12', Parent: '' },
-            { Label: 'Not in any state, you fool!', Value: '13', Parent: '' }
-          ]
+            { Label: 'Not in any state, you fool!', Value: '13', Parent: '' },
+          ],
         },
         {
           id: 'j335cu3c',
@@ -1395,8 +1419,8 @@ describe('codes list tranformations', () => {
             { Label: "Santa's Little Helper", Value: '1', Parent: '' },
             { Label: 'Snowball I', Value: '2', Parent: '' },
             { Label: 'Coltrane', Value: '3', Parent: '' },
-            { Label: 'Mojo the Helper Monkey', Value: '4', Parent: '' }
-          ]
+            { Label: 'Mojo the Helper Monkey', Value: '4', Parent: '' },
+          ],
         },
         {
           id: 'j6p2mvca',
@@ -1406,8 +1430,8 @@ describe('codes list tranformations', () => {
             { Label: 'Vanilla', Value: '1', Parent: '' },
             { Label: 'Strawberry', Value: '2', Parent: '' },
             { Label: 'Apple', Value: '3', Parent: '' },
-            { Label: 'Bacon', Value: '4', Parent: '' }
-          ]
+            { Label: 'Bacon', Value: '4', Parent: '' },
+          ],
         },
         {
           id: 'jbdxh138',
@@ -1415,8 +1439,8 @@ describe('codes list tranformations', () => {
           Name: '',
           Code: [
             { Label: 'Yes', Value: '1', Parent: '' },
-            { Label: 'No', Value: '0', Parent: '' }
-          ]
+            { Label: 'No', Value: '0', Parent: '' },
+          ],
         },
         {
           id: 'j6qeytgc',
@@ -1426,8 +1450,8 @@ describe('codes list tranformations', () => {
             { Label: 'Charles Montgomery Burns', Value: '1', Parent: '' },
             { Label: 'Carl Carlson', Value: '2', Parent: '' },
             { Label: 'Otto Mann', Value: '3', Parent: '' },
-            { Label: 'Carl Carlson', Value: '4', Parent: '' }
-          ]
+            { Label: 'Carl Carlson', Value: '4', Parent: '' },
+          ],
         },
         {
           id: 'j6z087mq',
@@ -1438,8 +1462,8 @@ describe('codes list tranformations', () => {
             { Label: 'Kent Brockman', Value: '2', Parent: '' },
             { Label: 'Milhouse Van Houten', Value: '3', Parent: '' },
             { Label: 'Nelson Muntz', Value: '4', Parent: '' },
-            { Label: 'Crazy Cat Lady', Value: '5', Parent: '' }
-          ]
+            { Label: 'Crazy Cat Lady', Value: '5', Parent: '' },
+          ],
         },
         {
           id: 'jbdxricm',
@@ -1450,8 +1474,8 @@ describe('codes list tranformations', () => {
             { Label: 'Springfield', Value: '2', Parent: '' },
             { Label: 'Portland', Value: '3', Parent: '' },
             { Label: 'Shelbyville', Value: '4', Parent: '' },
-            { Label: 'Dagstuhl', Value: '5', Parent: '' }
-          ]
+            { Label: 'Dagstuhl', Value: '5', Parent: '' },
+          ],
         },
         {
           id: 'j4nwh16i',
@@ -1467,8 +1491,8 @@ describe('codes list tranformations', () => {
             { Label: 'Chicken', Value: 'B3', Parent: 'B' },
             { Label: 'Compote', Value: 'C', Parent: '' },
             { Label: 'Powersauce', Value: 'C1', Parent: 'C' },
-            { Label: 'Other', Value: 'D', Parent: '' }
-          ]
+            { Label: 'Other', Value: 'D', Parent: '' },
+          ],
         },
         {
           id: 'j77dav9b',
@@ -1478,21 +1502,21 @@ describe('codes list tranformations', () => {
             {
               Label: '***Break the windows of the whole city***',
               Value: '1',
-              Parent: ''
+              Parent: '',
             },
             {
               Label: '***Loose the violin of his daughter playing poker***',
               Value: '2',
-              Parent: ''
+              Parent: '',
             },
             { Label: '***Kill Mr Burns***', Value: '3', Parent: '' },
             {
               Label:
                 '***Leaving a mechanical object to control the nuclear power plant***',
               Value: '4',
-              Parent: ''
-            }
-          ]
+              Parent: '',
+            },
+          ],
         },
         {
           id: 'jbdyh6b5',
@@ -1502,8 +1526,8 @@ describe('codes list tranformations', () => {
             { Label: 'Jay', Value: '1', Parent: '' },
             { Label: 'Bart', Value: '2', Parent: '' },
             { Label: 'Krusty the clown', Value: '3', Parent: '' },
-            { Label: 'Maggie', Value: '4', Parent: '' }
-          ]
+            { Label: 'Maggie', Value: '4', Parent: '' },
+          ],
         },
         {
           id: 'j6p2kivg',
@@ -1513,8 +1537,8 @@ describe('codes list tranformations', () => {
             { Label: 'Car', Value: '1', Parent: '' },
             { Label: 'Bike', Value: '2', Parent: '' },
             { Label: 'Skateboard', Value: '3', Parent: '' },
-            { Label: 'Plane', Value: '4', Parent: '' }
-          ]
+            { Label: 'Plane', Value: '4', Parent: '' },
+          ],
         },
         {
           id: 'jbdye1wa',
@@ -1528,11 +1552,11 @@ describe('codes list tranformations', () => {
             {
               Label: '[Other country](. "Included principalities")',
               Value: '5',
-              Parent: ''
+              Parent: '',
             },
-            { Label: 'Other planet', Value: '6', Parent: '' }
-          ]
-        }
+            { Label: 'Other planet', Value: '6', Parent: '' },
+          ],
+        },
       ];
 
       expect(storeToRemote(input)).toEqual(output);

@@ -8,7 +8,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation02',
@@ -19,7 +19,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation03',
@@ -30,7 +30,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation04',
@@ -41,7 +41,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation05',
@@ -52,7 +52,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation06',
@@ -63,7 +63,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation07',
@@ -74,7 +74,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation08',
@@ -85,7 +85,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation09',
@@ -96,7 +96,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation10',
@@ -107,7 +107,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation11',
@@ -118,7 +118,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation12',
@@ -129,7 +129,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation13',
@@ -140,7 +140,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
+    type: 'StudyUnit',
   },
   {
     id: 'operation14',
@@ -151,6 +151,6 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'StudyUnit'
-  }
+    type: 'StudyUnit',
+  },
 ];

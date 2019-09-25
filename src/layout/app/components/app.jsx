@@ -15,7 +15,7 @@ const { COMPONENT_ID } = APP;
 const propTypes = {
   children: PropTypes.object.isRequired,
   loadUser: PropTypes.func.isRequired,
-  loadUnitsIfNeeded: PropTypes.func.isRequired
+  loadUnitsIfNeeded: PropTypes.func.isRequired,
 };
 
 // Component
@@ -23,7 +23,7 @@ const propTypes = {
 class App extends Component {
   static propTypes = propTypes;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.loadUser();
     this.props.loadUnitsIfNeeded();
   }

@@ -1,4 +1,3 @@
-import uniq from 'lodash.uniq';
 import { sortByYAndX } from 'utils/variables/collected-variables-utils';
 import maxBy from 'lodash.maxby';
 
@@ -14,7 +13,7 @@ import {
   DIMENSION_FORMATS,
   QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
-  DEFAULT_CODES_LIST_SELECTOR_PATH
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
@@ -50,21 +49,21 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
   if (primaryState.type === CODES_LIST) {
     const {
       CODES_LIST: {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListIdPrimary }
-      }
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListIdPrimary },
+      },
     } = primaryState;
     let responseOffsetSecondary = 1;
 
     if (secondaryState) {
       const {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListIdSecondary }
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListIdSecondary },
       } = secondaryState;
       responseOffsetSecondary = Object.keys(
-        activeCodeLists[codesListIdSecondary].codes
+        activeCodeLists[codesListIdSecondary].codes,
       ).length;
     }
     const listCodes = Object.keys(
-      activeCodeLists[codesListIdPrimary].codes
+      activeCodeLists[codesListIdPrimary].codes,
     ).map(key => activeCodeLists[codesListIdPrimary].codes[key]);
     const codes = listCodes.filter(code => !hasChild(code, listCodes));
     responseOffset = codes.length * responseOffsetSecondary;
@@ -77,7 +76,7 @@ function getMeasuresModel(responses, dimensions, offset) {
   for (let i = 0; i < dimensions.length; i += 1) {
     responsesModel.push({
       Label: dimensions[i].Label,
-      response: responses[i * offset]
+      response: responses[i * offset],
     });
   }
   return responsesModel;
@@ -106,9 +105,9 @@ function remoteToStatePrimary(remote) {
       type: CODES_LIST,
       [CODES_LIST]: {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-          CodeListReference
-        )
-      }
+          CodeListReference,
+        ),
+      },
     };
   } else {
     const [numLinesMin, numLinesMax] = parseDynamic(dynamic);
@@ -117,8 +116,8 @@ function remoteToStatePrimary(remote) {
       type: LIST,
       [LIST]: {
         numLinesMin: numLinesMin,
-        numLinesMax: numLinesMax
-      }
+        numLinesMax: numLinesMax,
+      },
     };
   }
 
@@ -130,8 +129,8 @@ function remoteToStateSecondary(remote) {
   const state = {
     showSecondaryAxis: true,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-      CodeListReference
-    )
+      CodeListReference,
+    ),
   };
 
   if (totalLabel) {
@@ -143,23 +142,26 @@ function remoteToStateSecondary(remote) {
 }
 
 function remoteToStateMeasure(remote) {
-  const { Label: label, response: { CodeListReference, Datatype } } = remote;
+  const {
+    Label: label,
+    response: { CodeListReference, Datatype },
+  } = remote;
   const state = {};
 
   if (CodeListReference) {
     state.type = SINGLE_CHOICE;
     state[SINGLE_CHOICE] = ResponseFormatSingle.remoteToState({
-      responses: [{ Datatype, CodeListReference }]
+      responses: [{ Datatype, CodeListReference }],
     });
   } else {
     state.type = SIMPLE;
     state[SIMPLE] = ResponseFormatSimple.remoteToState({
-      responses: [{ Datatype }]
+      responses: [{ Datatype }],
     });
   }
   return {
     label,
-    ...state
+    ...state,
   };
 }
 
@@ -183,19 +185,19 @@ export function remoteToState(remote, codesListsStore) {
   const responsesOffset = getResponsesOffset(
     state[PRIMARY],
     state[SECONDARY],
-    codesListsStore
+    codesListsStore,
   );
   const responsesMeasuresModel = getMeasuresModel(
     responses,
     dimensionMeasuresModel,
-    responsesOffset
+    responsesOffset,
   );
 
   if (dimensionSecondaryModel) {
     state[MEASURE] = remoteToStateMeasure(responsesMeasuresModel[0]);
   } else {
     state[LIST_MEASURE] = responsesMeasuresModel.map(m =>
-      remoteToStateMeasure(m)
+      remoteToStateMeasure(m),
     );
   }
 
@@ -212,14 +214,14 @@ function stateToResponseState(state) {
     const {
       mandatory,
       type: typeName,
-      [typeName]: simpleState
+      [typeName]: simpleState,
     } = measureTypeState;
     responseState = { mandatory, typeName, ...simpleState };
   } else {
     const {
       mandatory,
       visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId }
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     } = measureTypeState;
     responseState = {
       mandatory,
@@ -227,7 +229,7 @@ function stateToResponseState(state) {
       typeName: TEXT,
       maxLength: 1,
       pattern: '',
-      visHint
+      visHint,
     };
   }
 
@@ -237,13 +239,13 @@ function stateToResponseState(state) {
 export function stateToRemote(
   state,
   collectedVariables,
-  collectedVariablesStore
+  collectedVariablesStore,
 ) {
   const {
     [PRIMARY]: primaryState,
     [SECONDARY]: secondaryState,
     [MEASURE]: measureState,
-    [LIST_MEASURE]: listMeasuresState
+    [LIST_MEASURE]: listMeasuresState,
   } = state;
   const {
     type,
@@ -258,8 +260,8 @@ export function stateToRemote(
     Dimension.stateToRemote({
       type: PRIMARY,
       ...primaryTypeState,
-      ...totalLabelPrimaryState
-    })
+      ...totalLabelPrimaryState,
+    }),
   );
 
   if (secondaryState) {
@@ -268,14 +270,14 @@ export function stateToRemote(
       ...secondaryTypeState
     } = secondaryState;
     dimensionsModel.push(
-      Dimension.stateToRemote({ type: SECONDARY, ...secondaryTypeState })
+      Dimension.stateToRemote({ type: SECONDARY, ...secondaryTypeState }),
     );
   }
 
   // Measures dimensions
   if (measureState) {
     dimensionsModel.push(
-      Dimension.stateToRemote({ type: MEASURE, label: measureState.label })
+      Dimension.stateToRemote({ type: MEASURE, label: measureState.label }),
     );
     responsesState = [stateToResponseState(measureState)];
   } else {
@@ -283,8 +285,8 @@ export function stateToRemote(
       dimensionsModel.push(
         Dimension.stateToRemote({
           type: MEASURE,
-          label: listMeasuresState[i].label
-        })
+          label: listMeasuresState[i].label,
+        }),
       );
       responsesState.push(stateToResponseState(listMeasuresState[i]));
     }
@@ -309,7 +311,7 @@ export function stateToRemote(
     const responsesModelByRow = Responses.stateToModel(
       responsesState[measureState ? 0 : i],
       collectedVariablesByDatatype,
-      collectedVariablesStore
+      collectedVariablesStore,
     );
 
     responsesModel = [...responsesModel, ...responsesModelByRow.Response];
@@ -319,14 +321,16 @@ export function stateToRemote(
   mappingsModel = mappingsModel.sort((m1, m2) => {
     const [x1, y1] = m1.MappingTarget.split(' ');
     const [x2, y2] = m2.MappingTarget.split(' ');
-    if (!y1) return parseInt(x1) - parseInt(x2);
+    if (!y1) return parseInt(x1, 10) - parseInt(x2, 10);
     return (
-      parseInt(y1) * 100 + parseInt(x1) - (parseInt(y2) * 100 + parseInt(x2))
+      parseInt(y1, 10) * 100 +
+      parseInt(x1, 10) -
+      (parseInt(y2, 10) * 100 + parseInt(x2, 10))
     );
   });
   return {
     Dimension: dimensionsModel,
     Response: responsesModel,
-    Mapping: mappingsModel
+    Mapping: mappingsModel,
   };
 }

@@ -13,13 +13,13 @@ describe('questionnaire', () => {
         {
           id: 'campaign01',
           uri: 'http://ddi:fr.insee:DataCollection.campaign01',
-          Name: 'Campaign 01'
-        }
+          Name: 'Campaign 01',
+        },
       ],
       genericName: 'QUESTIONNAIRE',
 
       agency: 'fr.insee',
-      TargetMode: ['']
+      TargetMode: [''],
     };
     const currentStores = {};
     const output = remoteToState(remote, currentStores);
@@ -34,7 +34,7 @@ describe('questionnaire', () => {
       name: 'QUESTIONNA',
       operation: '',
       owner: 'FAKEPERMISSION',
-      serie: ''
+      serie: '',
     };
     expect(output).toEqual(expected);
   });
@@ -50,7 +50,7 @@ describe('questionnaire', () => {
       serie: 'serie01',
       operation: 'operation01',
       campaigns: ['campaign01'],
-      TargetMode: ['']
+      TargetMode: [''],
     };
     const store = {
       componentsStore: {
@@ -66,7 +66,7 @@ describe('questionnaire', () => {
           TargetMode: [''],
           label: 'sequence',
           type: 'SEQUENCE',
-          pageBreak: false
+          pageBreak: false,
         },
         jf0vtaeb: {
           id: 'jf0vtaeb',
@@ -91,11 +91,11 @@ describe('questionnaire', () => {
               specialCode: '',
               specialUiBehaviour: 'FIRST_INTENTION',
               specialFollowUpMessage: '',
-              CodesList: { id: 'jf0w3fab' }
-            }
+              CodesList: { id: 'jf0w3fab' },
+            },
           },
           TargetMode: [''],
-          pageBreak: false
+          pageBreak: false,
         },
         jf0s8i94: {
           id: 'jf0s8i94',
@@ -108,8 +108,8 @@ describe('questionnaire', () => {
           redirections: {},
           TargetMode: [''],
           label: 'questionnaire',
-          type: 'QUESTIONNAIRE'
-        }
+          type: 'QUESTIONNAIRE',
+        },
       },
       conditionsStore: {},
       codesListsStore: {
@@ -117,9 +117,9 @@ describe('questionnaire', () => {
           id: 'jf0w3fab',
           label: 'code list 1',
           codes: {
-            c1: { value: 'c1', label: 'c1', parent: '', depth: 1, weight: 1 }
-          }
-        }
+            c1: { value: 'c1', label: 'c1', parent: '', depth: 1, weight: 1 },
+          },
+        },
       },
       calculatedVariablesStore: {},
       externalVariablesStore: {},
@@ -132,24 +132,24 @@ describe('questionnaire', () => {
             type: 'TEXT',
             TEXT: { maxLength: 1, pattern: '' },
             codeListReference: 'jf0w3fab',
-            codeListReferenceLabel: 'code list 1'
-          }
-        }
+            codeListReferenceLabel: 'code list 1',
+          },
+        },
       },
       campaignsStore: {
         campaign01: {
           id: 'campaign01',
           value: 'campaign01',
           label: 'Campaign 01',
-          operation: 'operation01'
+          operation: 'operation01',
         },
         campaign02: {
           id: 'campaign02',
           value: 'campaign02',
           label: 'Campaign 02',
-          operation: 'operation01'
-        }
-      }
+          operation: 'operation01',
+        },
+      },
     };
     const output = stateToRemote(state, store);
     const expected = {
@@ -171,18 +171,18 @@ describe('questionnaire', () => {
                     Pattern: '',
                     type: 'TextDatatypeType',
                     typeName: 'TEXT',
-                    visualizationHint: 'CHECKBOX'
+                    visualizationHint: 'CHECKBOX',
                   },
                   id: 'jf0w19iw',
-                  mandatory: true
-                }
+                  mandatory: true,
+                },
               ],
               TargetMode: [''],
               depth: 2,
               id: 'jf0vtaeb',
               questionType: 'SINGLE_CHOICE',
-              type: 'QuestionType'
-            }
+              type: 'QuestionType',
+            },
           ],
           Control: [],
           Declaration: [],
@@ -193,8 +193,8 @@ describe('questionnaire', () => {
           depth: 1,
           genericName: 'MODULE',
           id: 'jf0s3au7',
-          type: 'SequenceType'
-        }
+          type: 'SequenceType',
+        },
       ],
       CodeLists: {
         CodeList: [
@@ -202,24 +202,24 @@ describe('questionnaire', () => {
             Code: [{ Label: 'c1', Parent: '', Value: 'c1' }],
             Label: 'code list 1',
             Name: '',
-            id: 'jf0w3fab'
-          }
-        ]
+            id: 'jf0w3fab',
+          },
+        ],
       },
       ComponentGroup: [
         {
           Label: ['Components for page 1'],
           MemberReference: ['jf0s3au7', 'jf0vtaeb'],
           Name: 'PAGE_1',
-          id: output.ComponentGroup[0].id
-        }
+          id: output.ComponentGroup[0].id,
+        },
       ],
       DataCollection: [
         {
           Name: 'Campaign 01',
           id: 'campaign01',
-          uri: 'http://ddi:fr.insee:DataCollection.campaign01'
-        }
+          uri: 'http://ddi:fr.insee:DataCollection.campaign01',
+        },
       ],
       Label: ['questionnaire'],
       Name: 'QUESTIONNA',
@@ -232,21 +232,21 @@ describe('questionnaire', () => {
               MaxLength: 1,
               Pattern: '',
               type: 'TextDatatypeType',
-              typeName: 'TEXT'
+              typeName: 'TEXT',
             },
             Label: 'QUESTION label',
             Name: 'QUESTION',
             id: 'jf0vqq4j',
-            type: 'CollectedVariableType'
-          }
-        ]
+            type: 'CollectedVariableType',
+          },
+        ],
       },
       agency: 'fr.insee',
       final: false,
       genericName: 'QUESTIONNAIRE',
       id: 'jf0s8i94',
       lastUpdatedDate: output.lastUpdatedDate,
-      owner: 'FAKEPERMISSION'
+      owner: 'FAKEPERMISSION',
     };
     expect(output).toEqual(expected);
   });
@@ -262,13 +262,13 @@ describe('questionnaire', () => {
         {
           id: 'campaign01',
           uri: 'http://ddi:fr.insee:DataCollection.campaign01',
-          Name: 'Campaign 01'
-        }
+          Name: 'Campaign 01',
+        },
       ],
       genericName: 'QUESTIONNAIRE',
 
       agency: 'fr.insee',
-      TargetMode: ['']
+      TargetMode: [''],
     };
     const currentStores = {};
     const output = remoteToStore(remote, currentStores);
@@ -284,8 +284,8 @@ describe('questionnaire', () => {
         name: 'QUESTIONNA',
         operation: '',
         owner: 'FAKEPERMISSION',
-        serie: ''
-      }
+        serie: '',
+      },
     };
     expect(output).toEqual(expected);
   });

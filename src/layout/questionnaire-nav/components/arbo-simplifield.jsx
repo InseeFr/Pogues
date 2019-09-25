@@ -6,13 +6,13 @@ class ArboSimplified extends Component {
   static propTypes = {
     components: PropTypes.object.isRequired,
     questionnaire: PropTypes.object.isRequired,
-    setSelectedComponentId: PropTypes.func.isRequired
+    setSelectedComponentId: PropTypes.func.isRequired,
   };
 
   constructor() {
     super();
     this.state = {
-      expanded: []
+      expanded: [],
     };
 
     this.renderComponentsByParent = this.renderComponentsByParent.bind(this);
@@ -24,11 +24,11 @@ class ArboSimplified extends Component {
     e.preventDefault();
     if (this.state.expanded.indexOf(key) < 0) {
       this.setState({
-        expanded: [...this.state.expanded, key]
+        expanded: [...this.state.expanded, key],
       });
     } else {
       this.setState({
-        expanded: this.state.expanded.filter(k => k !== key)
+        expanded: this.state.expanded.filter(k => k !== key),
       });
     }
   }
@@ -47,22 +47,21 @@ class ArboSimplified extends Component {
           key={key}
           className={isQuestion(components[key]) ? 'questions' : ''}
         >
-          {components[key].children &&
-            components[key].children.length > 0 && (
-              <a
-                onClick={e => this.handleExpand(e, key)}
-                href="#"
-                aria-label="expand/collapse"
-              >
-                <span
-                  className={`glyphicon ${
-                    this.state.expanded.indexOf(key) >= 0
-                      ? 'glyphicon-menu-down'
-                      : 'glyphicon-menu-right'
-                  }`}
-                />
-              </a>
-            )}
+          {components[key].children && components[key].children.length > 0 && (
+            <a
+              onClick={e => this.handleExpand(e, key)}
+              href="#"
+              aria-label="expand/collapse"
+            >
+              <span
+                className={`glyphicon ${
+                  this.state.expanded.indexOf(key) >= 0
+                    ? 'glyphicon-menu-down'
+                    : 'glyphicon-menu-right'
+                }`}
+              />
+            </a>
+          )}
           <a href="#" onClick={e => this.handleClick(e, key)}>
             {components[key].name.toUpperCase()}
           </a>
@@ -78,7 +77,7 @@ class ArboSimplified extends Component {
       <ul className="arbo-simplifield">
         {this.renderComponentsByParent(
           this.props.components,
-          this.props.questionnaire.id
+          this.props.questionnaire.id,
         )}
       </ul>
     );

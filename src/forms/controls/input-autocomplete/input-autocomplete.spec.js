@@ -13,7 +13,7 @@ describe('Form controls - Input autocomplete', () => {
     beforeEach(() => {
       props = {
         ...fakeFieldProps,
-        label: 'Fake label'
+        label: 'Fake label',
       };
     });
 
@@ -52,25 +52,25 @@ describe('Form controls - Input autocomplete', () => {
           <GenericOption value="FAKE_VALUE_3">
             Fake value label second
           </GenericOption>
-        </InputAutocomplete>
+        </InputAutocomplete>,
       );
 
       expect(wrapper.state('options')).toEqual([
         {
           value: 'FAKE_VALUE_1',
           label: 'Fake value label first',
-          className: undefined
+          className: undefined,
         },
         {
           value: 'FAKE_VALUE_2',
           label: 'Fake value label first',
-          className: undefined
+          className: undefined,
         },
         {
           value: 'FAKE_VALUE_3',
           label: 'Fake value label second',
-          className: undefined
-        }
+          className: undefined,
+        },
       ]);
     });
   });
@@ -81,7 +81,7 @@ describe('Form controls - Input autocomplete', () => {
     beforeEach(() => {
       props = {
         ...fakeFieldProps,
-        label: 'Fake label'
+        label: 'Fake label',
       };
     });
 
@@ -97,7 +97,7 @@ describe('Form controls - Input autocomplete', () => {
           <GenericOption value="FAKE_VALUE_3">
             Fake value label second
           </GenericOption>
-        </InputAutocomplete>
+        </InputAutocomplete>,
       );
       const event = { ...fakeEvent, ...{ currentTarget: { value: 'first' } } };
 

@@ -3,7 +3,7 @@ import {
   couldInsertAsChild,
   isQuestion,
   isSequence,
-  isSubSequence
+  isSubSequence,
 } from './component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -56,7 +56,7 @@ export function calculateMargin(
   droppedComponent,
   draggedComponent,
   dragndropLevel,
-  parentType
+  parentType,
 ) {
   if (dragndropLevel < 0) {
     if (parentType === SEQUENCE && isQuestion(droppedComponent.component)) {

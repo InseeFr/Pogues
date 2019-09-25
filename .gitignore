@@ -3,7 +3,6 @@ node_modules/
 npm-debug.log
 deploy-auth.json
 _book
-.vscode
 .DS_Store
 .idea/
 *.iml

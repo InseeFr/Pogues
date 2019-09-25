@@ -1,8 +1,4 @@
-import {
-  stateToRemote,
-  remoteToStore,
-  storeToRemote
-} from './calculated-variable';
+import { remoteToStore, storeToRemote } from './calculated-variable';
 
 import { DATATYPE_NAME, VARIABLES_TYPES } from 'constants/pogues-constants';
 
@@ -27,8 +23,8 @@ describe('calculated variables tranformations', () => {
             Decimals: '',
             Unit: '',
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
+            typeName: TEXT,
+          },
         },
         {
           id: '2',
@@ -43,8 +39,8 @@ describe('calculated variables tranformations', () => {
             Decimals: '',
             Unit: '',
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
+            typeName: TEXT,
+          },
         },
         {
           id: '3',
@@ -59,9 +55,9 @@ describe('calculated variables tranformations', () => {
             Decimals: '',
             Unit: '',
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
-        }
+            typeName: TEXT,
+          },
+        },
       ];
 
       expect(remoteToStore(remote)).toEqual({
@@ -77,8 +73,8 @@ describe('calculated variables tranformations', () => {
             minimum: '',
             maximum: '',
             decimals: '',
-            unit: ''
-          }
+            unit: '',
+          },
         },
         '2': {
           id: '2',
@@ -92,8 +88,8 @@ describe('calculated variables tranformations', () => {
             minimum: '',
             maximum: '',
             decimals: '',
-            unit: ''
-          }
+            unit: '',
+          },
         },
         '3': {
           id: '3',
@@ -107,9 +103,9 @@ describe('calculated variables tranformations', () => {
             minimum: '',
             maximum: '',
             decimals: '',
-            unit: ''
-          }
-        }
+            unit: '',
+          },
+        },
       });
     });
     test('should generate an ID', () => {
@@ -126,8 +122,8 @@ describe('calculated variables tranformations', () => {
             Decimals: '',
             Unit: '',
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
+            typeName: TEXT,
+          },
         },
         {
           Label: 'label 2',
@@ -141,8 +137,8 @@ describe('calculated variables tranformations', () => {
             Decimals: '',
             Unit: '',
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
+            typeName: TEXT,
+          },
         },
         {
           Label: 'label 3',
@@ -156,9 +152,9 @@ describe('calculated variables tranformations', () => {
             Decimals: '',
             Unit: '',
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
-        }
+            typeName: TEXT,
+          },
+        },
       ];
       const result = remoteToStore(remote);
       Object.keys(result).forEach(key => expect(key).toBeDefined());
@@ -173,7 +169,7 @@ describe('calculated variables tranformations', () => {
           name: 'name 1',
           formula: 'formula 1',
           type: TEXT,
-          [TEXT]: { maxLength: 2 }
+          [TEXT]: { maxLength: 2 },
         },
         '2': {
           id: '2',
@@ -181,7 +177,7 @@ describe('calculated variables tranformations', () => {
           name: 'name 2',
           formula: 'formula 2',
           type: TEXT,
-          [TEXT]: { maxLength: 2 }
+          [TEXT]: { maxLength: 2 },
         },
         '3': {
           id: '3',
@@ -189,8 +185,8 @@ describe('calculated variables tranformations', () => {
           name: 'name 3',
           formula: 'formula 3',
           type: TEXT,
-          [TEXT]: { maxLength: 3 }
-        }
+          [TEXT]: { maxLength: 3 },
+        },
       };
 
       expect(storeToRemote(store)).toEqual([
@@ -203,8 +199,8 @@ describe('calculated variables tranformations', () => {
           Datatype: {
             MaxLength: 2,
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
+            typeName: TEXT,
+          },
         },
         {
           id: '2',
@@ -215,8 +211,8 @@ describe('calculated variables tranformations', () => {
           Datatype: {
             MaxLength: 2,
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
+            typeName: TEXT,
+          },
         },
         {
           id: '3',
@@ -227,9 +223,9 @@ describe('calculated variables tranformations', () => {
           Datatype: {
             MaxLength: 3,
             type: 'TextDatatypeType',
-            typeName: TEXT
-          }
-        }
+            typeName: TEXT,
+          },
+        },
       ]);
     });
   });

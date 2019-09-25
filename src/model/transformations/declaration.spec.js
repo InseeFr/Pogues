@@ -8,20 +8,20 @@ describe('declaration tranformations', () => {
           id: '1',
           Text: 'label 1',
           declarationType: 'declarationType1',
-          position: 1
+          position: 1,
         },
         {
           id: '2',
           Text: 'label 2',
           declarationType: 'declarationType2',
-          position: 2
+          position: 2,
         },
         {
           id: '3',
           Text: 'label 3',
           declarationType: 'declarationType3',
-          position: 3
-        }
+          position: 3,
+        },
       ];
 
       expect(remoteToState(remote)).toEqual({
@@ -29,20 +29,20 @@ describe('declaration tranformations', () => {
           id: '1',
           label: 'label 1',
           declarationType: 'declarationType1',
-          position: 1
+          position: 1,
         },
         '2': {
           id: '2',
           label: 'label 2',
           declarationType: 'declarationType2',
-          position: 2
+          position: 2,
         },
         '3': {
           id: '3',
           label: 'label 3',
           declarationType: 'declarationType3',
-          position: 3
-        }
+          position: 3,
+        },
       });
     });
     test('should generate an ID', () => {
@@ -50,18 +50,18 @@ describe('declaration tranformations', () => {
         {
           Text: 'label 1',
           declarationType: 'declarationType1',
-          position: 1
+          position: 1,
         },
         {
           Text: 'label 2',
           declarationType: 'declarationType2',
-          position: 2
+          position: 2,
         },
         {
           Text: 'label 3',
           declarationType: 'declarationType3',
-          position: 3
-        }
+          position: 3,
+        },
       ];
       const result = remoteToState(remote);
       Object.keys(result).forEach(key => expect(key).toBeDefined());
@@ -74,20 +74,20 @@ describe('declaration tranformations', () => {
           id: '1',
           label: 'label 1',
           declarationType: 'declarationType1',
-          position: 1
+          position: 1,
         },
         '2': {
           id: '2',
           label: 'label 2',
           declarationType: 'declarationType2',
-          position: 2
+          position: 2,
         },
         '3': {
           id: '3',
           label: 'label 3',
           declarationType: 'declarationType3',
-          position: 3
-        }
+          position: 3,
+        },
       };
 
       expect(stateToRemote(store)).toEqual([
@@ -95,20 +95,20 @@ describe('declaration tranformations', () => {
           id: '1',
           Text: 'label 1',
           declarationType: 'declarationType1',
-          position: 1
+          position: 1,
         },
         {
           id: '2',
           Text: 'label 2',
           declarationType: 'declarationType2',
-          position: 2
+          position: 2,
         },
         {
           id: '3',
           Text: 'label 3',
           declarationType: 'declarationType3',
-          position: 3
-        }
+          position: 3,
+        },
       ]);
     });
   });

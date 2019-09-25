@@ -7,15 +7,15 @@ describe('removeError', () => {
       {
         '1': {
           typeError: [{ itemListId: '2' }],
-          typeError2: [{ itemListId: '3' }]
+          typeError2: [{ itemListId: '3' }],
         },
-        '2': { typeError2: [{ itemListId: '1' }] }
+        '2': { typeError2: [{ itemListId: '1' }] },
       },
-      { componentId: '1', typeError: 'typeError', itemListId: '2' }
+      { componentId: '1', typeError: 'typeError', itemListId: '2' },
     );
     expect(result).toEqual({
       '1': { typeError: [], typeError2: [{ itemListId: '3' }] },
-      '2': { typeError2: [{ itemListId: '1' }] }
+      '2': { typeError2: [{ itemListId: '1' }] },
     });
   });
   [REMOVE_INTEGRITY_ERROR].forEach(action => {
@@ -24,18 +24,22 @@ describe('removeError', () => {
         {
           '1': {
             typeError: [{ itemListId: '2' }],
-            typeError2: [{ itemListId: '3' }]
+            typeError2: [{ itemListId: '3' }],
           },
-          '2': { typeError2: [{ itemListId: '1' }] }
+          '2': { typeError2: [{ itemListId: '1' }] },
         },
         {
           type: action,
-          payload: { componentId: '1', typeError: 'typeError', itemListId: '2' }
-        }
+          payload: {
+            componentId: '1',
+            typeError: 'typeError',
+            itemListId: '2',
+          },
+        },
       );
       expect(result).toEqual({
         '1': { typeError: [], typeError2: [{ itemListId: '3' }] },
-        '2': { typeError2: [{ itemListId: '1' }] }
+        '2': { typeError2: [{ itemListId: '1' }] },
       });
     });
   });

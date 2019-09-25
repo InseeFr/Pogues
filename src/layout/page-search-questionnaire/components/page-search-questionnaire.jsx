@@ -9,7 +9,7 @@ import { PAGE_SEARCH_QUESTIONNAIRE } from 'constants/dom-constants';
 import {
   TYPES_ITEMS,
   SEARCH_CRITERIAS,
-  SEARCH_RESULTS_COLUMNS
+  SEARCH_RESULTS_COLUMNS,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -21,7 +21,7 @@ import { noop } from 'utils/test/test-utils';
 // PropTypes and defaultProps
 
 const propTypes = {
-  clearSearchResult: PropTypes.func.isRequired
+  clearSearchResult: PropTypes.func.isRequired,
 };
 
 // Component
@@ -29,7 +29,7 @@ const propTypes = {
 class PageSearchQuestionnaire extends Component {
   static propTypes = propTypes;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.clearSearchResult();
   }
 
@@ -37,7 +37,7 @@ class PageSearchQuestionnaire extends Component {
     const propsInputFilterWithCriteria = {
       typeItem: TYPES_ITEMS.QUESTIONNAIRE,
       criterias: SEARCH_CRITERIAS.QUESTIONNAIRE,
-      label: Dictionary.searchInputQuestionnaireLabel
+      label: Dictionary.searchInputQuestionnaireLabel,
     };
     const propsSearchResults = {
       id: SEARCH_RESULTS_ID,
@@ -48,9 +48,9 @@ class PageSearchQuestionnaire extends Component {
           dictionary: 'searchResultActionReuse',
           action: noop,
           iconOnly: true,
-          icon: 'glyphicon-eye-open'
-        }
-      ]
+          icon: 'glyphicon-eye-open',
+        },
+      ],
     };
 
     return (

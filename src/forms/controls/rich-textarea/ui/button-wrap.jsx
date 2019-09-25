@@ -8,11 +8,11 @@ const { COMPONENT_CLASS } = BUTTON_WRAP;
 // PropTypes and defaultProps
 
 const propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 const defaultProps = {
-  className: ''
+  className: '',
 };
 
 // Component

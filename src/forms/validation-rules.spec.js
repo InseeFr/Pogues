@@ -1,10 +1,5 @@
 import {
-  required,
-  unique,
-  uniqueCode,
   maxLength,
-  maxLength15,
-  number,
   minValue,
   maxValue,
   email,
@@ -15,15 +10,9 @@ import {
   nameSize,
   emptyCodes,
   emptyMeasures,
-  uniqueCodeAttr,
-  validCodesList,
   validCollectedVariables,
-  validateEarlyTarget,
   validateExistingTarget,
   validateDuplicates,
-  validateDuplicatesCalculated,
-  validateDuplicatesExternal,
-  validateDuplicatesCollected
 } from './validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -34,7 +23,7 @@ describe('maxLength', () => {
   });
   it('should return the error message if defined', () => {
     expect(maxLength(max)('sdfsfsdfsdfsdfs')).toEqual(
-      `Must be ${max} characters or less`
+      `Must be ${max} characters or less`,
     );
   });
   it('should return undefined', () => {
@@ -49,7 +38,7 @@ describe('minValue', () => {
   });
   it('should return the error message if defined', () => {
     expect(minValue(max)(2)).toEqual(
-      `${Dictionary.validationMinNumber} ${max}`
+      `${Dictionary.validationMinNumber} ${max}`,
     );
   });
   it('should return undefined', () => {
@@ -64,7 +53,7 @@ describe('maxValue', () => {
   });
   it('should return the error message if defined', () => {
     expect(maxValue(max)(6)).toEqual(
-      `${Dictionary.validationMaxNumber} ${max}`
+      `${Dictionary.validationMaxNumber} ${max}`,
     );
   });
   it('should return undefined', () => {
@@ -93,7 +82,7 @@ describe('requiredSelect', () => {
 describe('requiredSelectMultiple', () => {
   it('should return the error message', () => {
     expect(requiredSelectMultiple()).toEqual(
-      Dictionary.validationRequiredMultiple
+      Dictionary.validationRequiredMultiple,
     );
   });
   it('should return undefined', () => {
@@ -104,7 +93,7 @@ describe('requiredSelectMultiple', () => {
 describe('requiredListCheckboxes', () => {
   it('should return the error message', () => {
     expect(requiredListCheckboxes('')).toEqual(
-      Dictionary.validationRequiredMultiple
+      Dictionary.validationRequiredMultiple,
     );
   });
   it('should return undefined', () => {
@@ -124,7 +113,7 @@ describe('name', () => {
 describe('nameSize', () => {
   it('should return the error message', () => {
     expect(nameSize('long long long long long longvalue')).toEqual(
-      Dictionary.validationInvalidNameSize
+      Dictionary.validationInvalidNameSize,
     );
   });
   it('should return undefined', () => {
@@ -153,14 +142,14 @@ describe('emptyMeasures', () => {
 describe('validateExistingTarget', () => {
   it('should return the error message', () => {
     expect(
-      validateExistingTarget('value', { stores: { componentsStore: {} } })
+      validateExistingTarget('value', { stores: { componentsStore: {} } }),
     ).toEqual(Dictionary.errorGoToNonExistingTgt);
   });
   it('should return undefined', () => {
     expect(
       validateExistingTarget('value', {
-        stores: { componentsStore: { value: {} } }
-      })
+        stores: { componentsStore: { value: {} } },
+      }),
     ).toBeUndefined();
   });
 });
@@ -168,12 +157,12 @@ describe('validateExistingTarget', () => {
 describe('validateDuplicates', () => {
   it('should return the error message', () => {
     expect(validateDuplicates('value', { form: [{ name: 'value' }] })).toEqual(
-      'Duplicated'
+      'Duplicated',
     );
   });
   it('should return undefined', () => {
     expect(
-      validateDuplicates('value', { form: [{ name: 'value2' }] })
+      validateDuplicates('value', { form: [{ name: 'value2' }] }),
     ).toBeUndefined();
   });
 });
@@ -190,9 +179,9 @@ describe('validCollectedVariables', () => {
         type: 'TEXT',
         TEXT: {
           maxLength: 1,
-          pattern: ''
-        }
-      }
+          pattern: '',
+        },
+      },
     ];
     const state = {
       form: {
@@ -217,12 +206,12 @@ describe('validCollectedVariables', () => {
                   label: 'sdfsdfs',
                   parent: '',
                   weight: 1,
-                  depth: 1
-                }
+                  depth: 1,
+                },
               ],
-              panel: 'QUEST'
-            }
-          }
+              panel: 'QUEST',
+            },
+          },
         },
         collectedVariables: {
           name: '',
@@ -240,13 +229,13 @@ describe('validCollectedVariables', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 1,
-                pattern: ''
-              }
-            }
+                pattern: '',
+              },
+            },
           ],
           codeListReference: '',
-          codeListReferenceLabel: ''
-        }
+          codeListReferenceLabel: '',
+        },
       },
       stores: {
         jjjynmyp: {
@@ -258,14 +247,14 @@ describe('validCollectedVariables', () => {
               label: 'sdfsdfs',
               parent: '',
               weight: 1,
-              depth: 1
-            }
-          }
-        }
-      }
+              depth: 1,
+            },
+          },
+        },
+      },
     };
     expect(validCollectedVariables(value, state)).toBe(
-      Dictionary.validation_collectedvariable_need_reset
+      Dictionary.validation_collectedvariable_need_reset,
     );
   });
 });

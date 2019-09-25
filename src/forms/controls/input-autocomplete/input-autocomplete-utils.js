@@ -1,7 +1,7 @@
 export function clearSuggestions() {
   return {
     suggestions: [],
-    indexActiveSuggestion: undefined
+    indexActiveSuggestion: undefined,
   };
 }
 
@@ -10,7 +10,7 @@ export function setSuggestions(
   options,
   getOptionLabel,
   numSuggestionsShown,
-  caseSensitive
+  caseSensitive,
 ) {
   let filteredSuggestions = [];
 
@@ -25,7 +25,7 @@ export function setSuggestions(
   return {
     suggestions: filteredSuggestions,
     indexActiveSuggestion: 0,
-    inputSearch: withText
+    inputSearch: withText,
   };
 }
 
@@ -40,7 +40,7 @@ export function init(options, value) {
     inputSearch: selectedOption.label || '',
     indexSelectedOption:
       indexSelectedOption !== -1 ? indexSelectedOption : undefined,
-    showSuggestions: true
+    showSuggestions: true,
   };
 }
 
@@ -75,7 +75,7 @@ export function moveUp(indexActiveSuggestion) {
 export function updateSelectedOption(
   suggestions,
   onChange,
-  indexActiveSuggestion
+  indexActiveSuggestion,
 ) {
   const activeSuggestion =
     indexActiveSuggestion !== undefined && suggestions[indexActiveSuggestion];

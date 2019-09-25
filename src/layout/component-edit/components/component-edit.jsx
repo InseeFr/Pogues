@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
 import {
   validateQuestionForm,
-  validateSequenceForm
+  validateSequenceForm,
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -22,14 +22,14 @@ export const propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
   updateComponent: PropTypes.func.isRequired,
-  setValidationErrors: PropTypes.func.isRequired
+  setValidationErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   calculatedVariablesStore: {},
   externalVariablesStore: {},
   collectedVariablesStore: {},
-  codesListsStore: {}
+  codesListsStore: {},
 };
 
 // Utils
@@ -40,7 +40,7 @@ function validateAndSubmit(
   validateQuestion,
   validateSequence,
   transformer,
-  onSuccess
+  onSuccess,
 ) {
   return function(values) {
     if (component.type === QUESTION) {
@@ -51,7 +51,7 @@ function validateAndSubmit(
 
     const updatedComponentsStore = transformer.formToStore(
       values,
-      component.id
+      component.id,
     );
     const updatedCodesListsStore = transformer.getCodesListStore();
     const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
@@ -64,7 +64,7 @@ function validateAndSubmit(
       updatedCalculatedVariablesStore,
       updatedExternalVariablesStore,
       updatedCollectedlVariablesStore,
-      updatedCodesListsStore
+      updatedCodesListsStore,
     );
     if (onSuccess) onSuccess();
   };
@@ -81,14 +81,14 @@ function ComponentEdit({
   updateComponent,
   onCancel,
   onSuccess,
-  setValidationErrors
+  setValidationErrors,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
   const validateSequence = setValidationErrorsAction => values =>
     validateSequenceForm(values, setValidationErrorsAction);
   const actions = {
-    updateComponent
+    updateComponent,
   };
 
   // Initial values
@@ -97,7 +97,7 @@ function ComponentEdit({
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariablesStore,
-    codesListsStore
+    codesListsStore,
   });
   const initialValues = componentTransformer.stateToForm();
 
@@ -115,7 +115,7 @@ function ComponentEdit({
         validateQuestion(setValidationErrors, codesListsStore),
         validateSequence(setValidationErrors),
         componentTransformer,
-        onSuccess
+        onSuccess,
       )}
     />
   );

@@ -2,7 +2,7 @@ import {
   ADD_VALIDATION_ERRORS,
   SET_VALIDATION_ERRORS,
   REMOVE_VALIDATION_ERRORS,
-  CLEAR_VALIDATION_ERRORS
+  CLEAR_VALIDATION_ERRORS,
 } from 'actions/errors';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
@@ -14,9 +14,9 @@ export function addValidationErrors(state, { errors }) {
     ...errors.reduce((acc, e) => {
       return {
         ...acc,
-        [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors]
+        [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors],
       };
-    }, {})
+    }, {}),
   };
 }
 
@@ -24,7 +24,7 @@ export function setValidationErrors(state, { errors }) {
   return errors.reduce((acc, e) => {
     return {
       ...acc,
-      [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors]
+      [e.path]: acc[e.path] ? [...acc[e.path], e.errors] : [...e.errors],
     };
   }, {});
 }

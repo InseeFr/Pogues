@@ -1,3 +1,3 @@
 export {
-  default as QuestionnaireList
+  default as QuestionnaireList,
 } from './containers/questionnaire-list-container';

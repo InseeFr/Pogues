@@ -16,7 +16,7 @@ class InputWithSuggestions extends ControlWithSuggestion {
       label,
       required,
       disabled,
-      meta: { touched, error }
+      meta: { touched, error },
     } = this.props;
 
     const id = getControlId('input-with-suggestions', input.name);

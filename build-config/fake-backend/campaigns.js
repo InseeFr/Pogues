@@ -8,7 +8,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign02',
@@ -19,7 +19,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign03',
@@ -30,7 +30,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign04',
@@ -41,7 +41,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign05',
@@ -52,7 +52,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign06',
@@ -63,7 +63,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign07',
@@ -74,7 +74,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign08',
@@ -85,7 +85,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign09',
@@ -96,7 +96,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign10',
@@ -107,7 +107,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign11',
@@ -118,7 +118,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign12',
@@ -129,7 +129,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign13',
@@ -140,7 +140,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign14',
@@ -151,7 +151,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign01',
@@ -162,7 +162,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign02',
@@ -173,7 +173,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign03',
@@ -184,7 +184,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign04',
@@ -195,7 +195,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign05',
@@ -206,7 +206,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign06',
@@ -217,7 +217,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign07',
@@ -228,7 +228,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign08',
@@ -239,7 +239,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign09',
@@ -250,7 +250,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign10',
@@ -261,7 +261,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign11',
@@ -272,7 +272,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign12',
@@ -283,7 +283,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign13',
@@ -294,7 +294,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
+    type: 'DataCollection',
   },
   {
     id: 'campaign14',
@@ -305,6 +305,6 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'DataCollection'
-  }
+    type: 'DataCollection',
+  },
 ];

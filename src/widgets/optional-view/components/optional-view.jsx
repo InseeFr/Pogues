@@ -14,11 +14,11 @@ const propTypes = {
   label: PropTypes.string.isRequired,
   active: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   checkbox: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
 const defaultProps = {
-  active: false
+  active: false,
 };
 
 // Component

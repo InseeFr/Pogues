@@ -1,3 +1,3 @@
 export {
-  default as ListWithInputPanel
+  default as ListWithInputPanel,
 } from './containers/list-with-input-panel-container';

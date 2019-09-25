@@ -6,20 +6,20 @@ import QuestionnaireListComponents from '../components/questionnaire-list-compon
 import {
   dragComponent,
   removeComponent,
-  duplicateComponentAndVariables
+  duplicateComponentAndVariables,
 } from 'actions/component';
 import {
   setSelectedComponentId,
   setEditingComponentId,
   visualizeActiveQuestionnaire,
-  handleRemovePageBreak
+  handleRemovePageBreak,
 } from 'actions/app-state';
 import { removeQuestionnaire } from 'actions/questionnaire';
 
 // Prop types and default props
 
 const propTypes = {
-  navigate: PropTypes.func.isRequired
+  navigate: PropTypes.func.isRequired,
 };
 
 // Container
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   componentsStore: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,
   editingComponentId: state.appState.editingComponentId,
-  errorsIntegrity: state.errors.errorsIntegrity
+  errorsIntegrity: state.errors.errorsIntegrity,
 });
 
 const mapDispatchToProps = {
@@ -40,12 +40,12 @@ const mapDispatchToProps = {
   removeQuestionnaire,
   visualizeActiveQuestionnaire,
   dragComponent,
-  handleRemovePageBreak
+  handleRemovePageBreak,
 };
 
 const QuestionnaireListComponentsContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(QuestionnaireListComponents);
 
 QuestionnaireListComponentsContainer.propTypes = propTypes;

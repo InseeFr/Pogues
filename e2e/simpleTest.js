@@ -12,5 +12,5 @@ module.exports = {
       .waitForElementVisible('.home-questionnaires')
       .assert.containsText('.home-questionnaires h4', 'FAKEPERMISSION')
       .end();
-  }
+  },
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { formatDate, getState } from 'utils/component/component-utils';
 
@@ -10,12 +10,12 @@ const propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   lastUpdatedDate: PropTypes.string,
-  final: PropTypes.bool
+  final: PropTypes.bool,
 };
 
 const defaultProps = {
   final: false,
-  lastUpdatedDate: ''
+  lastUpdatedDate: '',
 };
 
 // Component

@@ -1,3 +1,3 @@
 export {
-  default as QuestionnaireErrorsContainers
+  default as QuestionnaireErrorsContainers,
 } from './containers/questionnaire-errors-container';

@@ -5,21 +5,23 @@ import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
+export const defaultState = {};
+
 export const defaultForm = {
   mandatory: false,
   type: TEXT,
   [TEXT]: {
     maxLength: 255,
-    pattern: ''
+    pattern: '',
   },
   [NUMERIC]: {
     minimum: '',
     maximum: '',
     decimals: '',
-    unit: ''
+    unit: '',
   },
   [DATE]: {},
-  [BOOLEAN]: {}
+  [BOOLEAN]: {},
 };
 
 export function formToState(form) {
@@ -29,7 +31,7 @@ export function formToState(form) {
     id,
     type,
     mandatory,
-    [type]: { ...simpleForm }
+    [type]: { ...simpleForm },
   };
 }
 
@@ -41,8 +43,8 @@ export function stateToForm(currentState) {
     mandatory,
     type,
     [type]: {
-      ...simpleState
-    }
+      ...simpleState,
+    },
   });
 }
 
@@ -64,9 +66,9 @@ const Factory = (initialState = {}) => {
 
       return {
         type,
-        [type]: simpleType
+        [type]: simpleType,
       };
-    }
+    },
   };
 };
 

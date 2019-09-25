@@ -4,14 +4,14 @@ export const defaultState = {
   declarationType: 'INSTRUCTION',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
-  id: null
+  id: null,
 };
 
 export const defaultForm = {
   declarationType: 'INSTRUCTION',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
-  declarations: []
+  declarations: [],
 };
 
 export function formToState(form) {
@@ -22,7 +22,7 @@ export function formToState(form) {
     id,
     label,
     declarationType,
-    position
+    position,
   };
 }
 
@@ -34,7 +34,7 @@ export function formToComponentState(form) {
 
     return {
       ...acc,
-      [state.id]: state
+      [state.id]: state,
     };
   }, {});
 }
@@ -48,13 +48,13 @@ export function stateToForm(currentState) {
       id,
       label,
       declarationType,
-      position
+      position,
     });
   });
 
   return {
     ...defaultForm,
-    declarations
+    declarations,
   };
 }
 
@@ -66,7 +66,7 @@ const Factory = (currentState = []) => {
     },
     stateToForm: () => {
       return stateToForm(currentState);
-    }
+    },
   };
 };
 

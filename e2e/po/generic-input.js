@@ -4,5 +4,5 @@ module.exports = {
   AddPageBreak: '#add-pagebreak',
   Save: '#save',
   Visualize: '#visualize',
-  Publish: '#publish'
+  Publish: '#publish',
 };

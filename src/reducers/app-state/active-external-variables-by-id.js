@@ -6,14 +6,14 @@ const actionHandlers = {};
 
 export function setActiveExternalVariables(
   state,
-  { activeExternalVariablesById }
+  { activeExternalVariablesById },
 ) {
   return activeExternalVariablesById;
 }
 
 export function updateActiveExternalVariables(
   state,
-  { update: { activeExternalVariablesById } }
+  { update: { activeExternalVariablesById } },
 ) {
   return activeExternalVariablesById;
 }

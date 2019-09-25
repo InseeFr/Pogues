@@ -17,7 +17,7 @@ import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import {
   COMPONENT_TYPE,
   TABS_PATHS,
-  TargetMode
+  TargetMode,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
@@ -35,21 +35,21 @@ export const propTypes = {
   componentsStore: PropTypes.object,
 
   addSubformValidationErrors: PropTypes.func.isRequired,
-  clearSubformValidationErrors: PropTypes.func.isRequired
+  clearSubformValidationErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
   submitErrors: {},
   componentsStore: {},
-  codesListsStoreStore: {}
+  codesListsStoreStore: {},
 };
 
 class ComponentNewEdit extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.clearSubformValidationErrors();
   }
 
@@ -59,7 +59,7 @@ class ComponentNewEdit extends Component {
       componentId,
       addSubformValidationErrors,
       componentsStore,
-      errorsIntegrityByTab
+      errorsIntegrityByTab,
     } = this.props;
 
     let panels = [
@@ -83,7 +83,7 @@ class ComponentNewEdit extends Component {
           errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
           addErrors={addSubformValidationErrors}
         />
-      </Tab>
+      </Tab>,
     ];
 
     if (componentType === QUESTION) {
@@ -141,7 +141,7 @@ class ComponentNewEdit extends Component {
             errors={errorsIntegrityByTab[TABS_PATHS.COLLECTED_VARIABLES]}
             addErrors={addSubformValidationErrors}
           />
-        </Tab>
+        </Tab>,
       ];
     }
 
@@ -155,7 +155,7 @@ class ComponentNewEdit extends Component {
       form,
       onCancel,
       componentType,
-      componentId
+      componentId,
     } = this.props;
 
     const associatedFieldsProps = {
@@ -166,14 +166,18 @@ class ComponentNewEdit extends Component {
       focusOnInit: true,
       onEnter: () => {
         this.validateButton.click();
-      }
+      },
     };
 
     return (
       <div className={COMPONENT_CLASS}>
         <form onSubmit={handleSubmit}>
           {componentType === QUESTION ? (
-            <AssociatedFields {...associatedFieldsProps} targetIsRichTextarea targetIsQuestion/>
+            <AssociatedFields
+              {...associatedFieldsProps}
+              targetIsRichTextarea
+              targetIsQuestion
+            />
           ) : (
             <AssociatedFields {...associatedFieldsProps} />
           )}

@@ -1,19 +1,19 @@
 import actionsHandlers, {
   setActiveCollectedVariables,
-  updateActiveCollectedVariables
+  updateActiveCollectedVariables,
 } from './collected-variable-by-question';
 import { SET_ACTIVE_VARIABLES } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
   UPDATE_COMPONENT,
-  DUPLICATE_COMPONENT
+  DUPLICATE_COMPONENT,
 } from 'actions/component';
 
 describe('setActiveCollectedVariables', () => {
   test('when called directly', () => {
     const result = setActiveCollectedVariables(
       { state: 'previous' },
-      { collectedVariableByQuestion: 'collectedVariableByQuestion' }
+      { collectedVariableByQuestion: 'collectedVariableByQuestion' },
     );
     expect(result).toEqual('collectedVariableByQuestion');
   });
@@ -24,9 +24,9 @@ describe('setActiveCollectedVariables', () => {
         {
           type: action,
           payload: {
-            collectedVariableByQuestion: 'collectedVariableByQuestion'
-          }
-        }
+            collectedVariableByQuestion: 'collectedVariableByQuestion',
+          },
+        },
       );
       expect(result).toEqual('collectedVariableByQuestion');
     });
@@ -40,14 +40,14 @@ describe('updateActiveCollectedVariables', () => {
       {
         update: {
           activeCollectedVariablesById: {
-            activeCollectedVariablesById: 'activeCollectedVariablesById'
-          }
-        }
-      }
+            activeCollectedVariablesById: 'activeCollectedVariablesById',
+          },
+        },
+      },
     );
     expect(result).toEqual({
       state: 'previous',
-      activeCollectedVariablesById: 'activeCollectedVariablesById'
+      activeCollectedVariablesById: 'activeCollectedVariablesById',
     });
   });
   [UPDATE_COMPONENT, CREATE_COMPONENT, DUPLICATE_COMPONENT].forEach(action => {
@@ -59,15 +59,15 @@ describe('updateActiveCollectedVariables', () => {
           payload: {
             update: {
               activeCollectedVariablesById: {
-                activeCollectedVariablesById: 'activeCollectedVariablesById'
-              }
-            }
-          }
-        }
+                activeCollectedVariablesById: 'activeCollectedVariablesById',
+              },
+            },
+          },
+        },
       );
       expect(result).toEqual({
         state: 'previous',
-        activeCollectedVariablesById: 'activeCollectedVariablesById'
+        activeCollectedVariablesById: 'activeCollectedVariablesById',
       });
     });
   });

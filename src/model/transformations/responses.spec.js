@@ -5,23 +5,23 @@ const collectedVariablesStore = {
   jbdxtl1d: {
     id: 'jbdxtl1d',
     x: 1,
-    y: 1
+    y: 1,
   },
   jbdxvai9: {
     id: 'jbdxvai9',
     x: 2,
-    y: 1
+    y: 1,
   },
   jbdxpltw: {
     id: 'jbdxpltw',
     x: 3,
-    y: 1
+    y: 1,
   },
   jbdxzx2x: {
     id: 'jbdxzx2x',
     x: 4,
-    y: 1
-  }
+    y: 1,
+  },
 };
 
 describe('responses tranformations', () => {
@@ -32,11 +32,11 @@ describe('responses tranformations', () => {
         typeName: 'TEXT',
         visHint: 'RADIO',
         maxLength: 1,
-        pattern: ''
+        pattern: '',
       },
       ['jbdxtl1d', 'jbdxvai9', 'jbdxpltw', 'jbdxzx2x'],
       collectedVariablesStore,
-      QUESTION_TYPE_ENUM.MULTIPLE_CHOICE
+      QUESTION_TYPE_ENUM.MULTIPLE_CHOICE,
     );
 
     results.Mapping.forEach((result, index) => {
@@ -51,11 +51,11 @@ describe('responses tranformations', () => {
         typeName: 'TEXT',
         visHint: 'RADIO',
         maxLength: 1,
-        pattern: ''
+        pattern: '',
       },
       ['jbdxtl1d', 'jbdxvai9', 'jbdxpltw', 'jbdxzx2x'],
       collectedVariablesStore,
-      QUESTION_TYPE_ENUM.SIMPLE
+      QUESTION_TYPE_ENUM.SIMPLE,
     );
 
     results.Mapping.forEach((result, index) => {

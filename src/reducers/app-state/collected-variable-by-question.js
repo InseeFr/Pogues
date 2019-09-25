@@ -2,7 +2,7 @@ import { SET_ACTIVE_VARIABLES } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
   UPDATE_COMPONENT,
-  DUPLICATE_COMPONENT
+  DUPLICATE_COMPONENT,
 } from 'actions/component';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
@@ -10,18 +10,18 @@ const actionHandlers = {};
 
 export function setActiveCollectedVariables(
   state,
-  { collectedVariableByQuestion }
+  { collectedVariableByQuestion },
 ) {
   return collectedVariableByQuestion;
 }
 
 export function updateActiveCollectedVariables(
   state,
-  { update: { activeCollectedVariablesById } }
+  { update: { activeCollectedVariablesById } },
 ) {
   return {
     ...state,
-    ...activeCollectedVariablesById
+    ...activeCollectedVariablesById,
   };
 }
 

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 class DropZone extends Component {
   static defaultProps = {
-    style: {}
+    style: {},
   };
   static propTypes = {
-    style: PropTypes.object
+    style: PropTypes.object,
   };
   render() {
     return (

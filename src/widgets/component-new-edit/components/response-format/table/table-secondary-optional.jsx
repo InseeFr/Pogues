@@ -11,7 +11,7 @@ function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   return (
     <div>
       <CodesLists selectorPathParent={selectorPath} />
-{/*
+      {/*
   <OptionalView
     name="showTotalLabel"
     selectorPath={selectorPath}
@@ -26,13 +26,12 @@ function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   </OptionalView>
 
   */}
-
     </div>
   );
 }
 
 ResponseFormatTableSecondaryOptional.propTypes = {
-  selectorPath: PropTypes.string.isRequired
+  selectorPath: PropTypes.string.isRequired,
 };
 
 export default ResponseFormatTableSecondaryOptional;

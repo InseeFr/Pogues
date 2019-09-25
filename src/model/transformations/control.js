@@ -8,7 +8,7 @@ export function remoteToState(remote = []) {
       FailMessage: message,
       criticity,
       during_collect,
-      post_collect
+      post_collect,
     } = control;
     const id = control.id || uuid();
 
@@ -21,8 +21,8 @@ export function remoteToState(remote = []) {
         message,
         criticity,
         during_collect,
-        post_collect
-      }
+        post_collect,
+      },
     };
   }, {});
 }
@@ -36,7 +36,7 @@ export function stateToRemote(state) {
       message: FailMessage,
       criticity,
       during_collect,
-      post_collect
+      post_collect,
     } = state[key];
 
     return {
@@ -46,7 +46,7 @@ export function stateToRemote(state) {
       FailMessage,
       criticity,
       during_collect,
-      post_collect
+      post_collect,
     };
   });
 }

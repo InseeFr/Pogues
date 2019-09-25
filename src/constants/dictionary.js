@@ -5,1272 +5,1273 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const dictionary = {
   phLabel: {
     en: 'Enter a title for the questionnaire',
-    fr: 'Entrez un titre pour le questionnaire'
+    fr: 'Entrez un titre pour le questionnaire',
   },
   phName: {
     en: 'Enter an ID for the questionnaire',
-    fr: 'Entrez un identifiant pour le questionnaire'
+    fr: 'Entrez un identifiant pour le questionnaire',
   },
   title: {
     en: 'Title',
-    fr: 'Titre'
+    fr: 'Titre',
   },
   label: {
     en: 'Label',
-    fr: 'Libellé'
+    fr: 'Libellé',
   },
   name: {
     en: 'Id',
-    fr: 'Identifiant'
+    fr: 'Identifiant',
   },
   formula: {
     en: 'Formula',
-    fr: 'Formule'
+    fr: 'Formule',
   },
   idRMeS: {
     en: 'Id',
-    fr: 'Identifiant RMéS'
+    fr: 'Identifiant RMéS',
   },
   labelImportRMeS: {
     en: 'Enter the ID for the questionnaire',
-    fr: "Entrez l'identifiant RMéS du questionnaire"
+    fr: "Entrez l'identifiant RMéS du questionnaire",
   },
   add: {
     en: 'Add',
-    fr: 'Ajouter'
+    fr: 'Ajouter',
   },
   no_declarations: {
     en: 'No statement yet',
-    fr: 'Aucune déclaration définie'
+    fr: 'Aucune déclaration définie',
   },
   no_controls: {
     en: 'No control yet',
-    fr: 'Aucun contrôle défini'
+    fr: 'Aucun contrôle défini',
   },
   no_redirections: {
     en: 'No goTo yet',
-    fr: 'Aucune redirection définie'
+    fr: 'Aucune redirection définie',
   },
   no_calculatedVariables: {
     en: 'No calculated variable yet',
-    fr: 'Aucune variable calculée définie'
+    fr: 'Aucune variable calculée définie',
   },
   no_externalVariables: {
     en: 'No external variable yet',
-    fr: 'Aucune variable externe définie'
+    fr: 'Aucune variable externe définie',
   },
   no_collectedVariables: {
     en: 'No collected variable yet',
-    fr: 'Aucune variable collectée définie'
+    fr: 'Aucune variable collectée définie',
   },
   tagline: {
     en: 'Questionnaire design and test',
-    fr: 'Conception et test de questionnaires'
+    fr: 'Conception et test de questionnaires',
   },
   introduction: {
     en: 'Please specify your questionnaire',
-    fr: 'Veuillez spécifier votre questionnaire'
+    fr: 'Veuillez spécifier votre questionnaire',
   },
   errorMessageQuest: {
     en: 'Could not retrieve the questionnaire',
-    fr: 'Impossible de récupérer le questionnaire'
+    fr: 'Impossible de récupérer le questionnaire',
   },
   search: {
     en: 'Search',
-    fr: 'Chercher'
+    fr: 'Chercher',
   },
   inviteExisting: {
     en: 'Select an existing questionnaire',
-    fr: 'Sélectionner un questionnaire existant'
+    fr: 'Sélectionner un questionnaire existant',
   },
   errorMessageQuestList: {
     en: 'Could not retrieve questionnaire list',
-    fr: 'Impossible de récupérer la liste des questionnaires'
+    fr: 'Impossible de récupérer la liste des questionnaires',
   },
   enterLabel: {
     en: 'Enter a label',
-    fr: 'Entrez un libellé'
+    fr: 'Entrez un libellé',
   },
   sequence: {
     en: 'Sequence',
-    fr: 'Séquence'
+    fr: 'Séquence',
   },
   subSequence: {
     en: 'Sub-sequence',
-    fr: 'Sous-séquence'
+    fr: 'Sous-séquence',
   },
   question: {
     en: 'Question',
-    fr: 'Question'
+    fr: 'Question',
   },
   pageBreak: {
     en: 'Page break',
-    fr: 'Saut de page'
+    fr: 'Saut de page',
   },
   visualise: {
     en: 'Visualise',
-    fr: 'Visualiser'
+    fr: 'Visualiser',
   },
   publishQuestionnaire: {
     en: 'Publish',
-    fr: 'Publier'
+    fr: 'Publier',
   },
   duplicate: {
     en: 'Duplicate',
-    fr: 'Dupliquer'
+    fr: 'Dupliquer',
   },
   remove: {
     en: 'Remove',
-    fr: 'Supprimer'
+    fr: 'Supprimer',
   },
   save: {
     en: 'Save',
-    fr: 'Sauvegarder'
+    fr: 'Sauvegarder',
   },
   publish: {
     en: 'Generate',
-    fr: 'Générer'
+    fr: 'Générer',
   },
   create: {
     en: 'Create',
-    fr: 'Créer'
+    fr: 'Créer',
   },
   generateCollectedVariables: {
     en: 'Generate collected variables',
-    fr: 'Générer variables collectées'
+    fr: 'Générer variables collectées',
   },
   import: {
     en: 'Import',
-    fr: 'Importer'
+    fr: 'Importer',
   },
   moveup: {
     en: 'Move up',
-    fr: 'Remonter'
+    fr: 'Remonter',
   },
   movedown: {
     en: 'Move down',
-    fr: 'Descendre'
+    fr: 'Descendre',
   },
   moveright: {
     en: 'Move right',
-    fr: 'Déplacer droite'
+    fr: 'Déplacer droite',
   },
   moveleft: {
     en: 'Move left',
-    fr: 'Déplacer gauche'
+    fr: 'Déplacer gauche',
   },
   declaration_tabTitle: {
     en: 'Statements',
-    fr: 'Déclarations'
+    fr: 'Déclarations',
   },
   declaration_label: {
     en: 'Statement label',
-    fr: 'Libellé de la déclaration'
+    fr: 'Libellé de la déclaration',
   },
   type: {
     en: 'Type',
-    fr: 'Type'
+    fr: 'Type',
   },
   declaration_position: {
     en: 'Position',
-    fr: 'Position'
+    fr: 'Position',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
-    fr: 'Créer un questionnaire'
+    fr: 'Créer un questionnaire',
   },
   import_questionnaire: {
     en: 'Import a questionnaire',
-    fr: 'Importer un questionnaire'
+    fr: 'Importer un questionnaire',
   },
   select_questionnaire: {
     en: 'Select a questionnaire',
-    fr: 'Sélectionner un questionnaire'
+    fr: 'Sélectionner un questionnaire',
   },
   addDeclaration: {
     en: 'Reset a statement',
-    fr: 'Réinitialiser une déclaration'
+    fr: 'Réinitialiser une déclaration',
   },
   addControl: {
     en: 'Reset a control',
-    fr: 'Réinitialiser un contrôle'
+    fr: 'Réinitialiser un contrôle',
   },
   addCalculatedVariable: {
     en: 'Reset a calculated variable',
-    fr: 'Réinitialiser une variable calculée'
+    fr: 'Réinitialiser une variable calculée',
   },
   addExternalVariable: {
     en: 'Reset a external variable',
-    fr: 'Réinitialiser une variable externe'
+    fr: 'Réinitialiser une variable externe',
   },
   addCollectedVariable: {
     en: 'Reset a collected variable',
-    fr: 'Réinitialiser une variable collectée'
+    fr: 'Réinitialiser une variable collectée',
   },
   declarations: {
     en: 'Statements',
-    fr: 'Déclarations'
+    fr: 'Déclarations',
   },
   controls: {
     en: 'Controls',
-    fr: 'Contrôles'
+    fr: 'Contrôles',
   },
   questionEdition: {
     en: 'Edit question properties',
-    fr: 'Éditer les caractéristiques de la question'
+    fr: 'Éditer les caractéristiques de la question',
   },
   numType: {
     en: 'Number',
-    fr: 'Nomber'
+    fr: 'Nomber',
   },
   stringType: {
     en: 'String',
-    fr: 'Chaîne de caractères'
+    fr: 'Chaîne de caractères',
   },
   choiceType: {
     en: 'Choice',
-    fr: 'Choix'
+    fr: 'Choix',
   },
   QUESTIONNAIRE: {
     en: 'Questionnaire',
-    fr: 'Questionnaire'
+    fr: 'Questionnaire',
   },
   MODULE: {
     en: 'Module',
-    fr: 'Module'
+    fr: 'Module',
   },
   PARAGRAPH: {
     en: 'Paragraph',
-    fr: 'Paragraphe'
+    fr: 'Paragraphe',
   },
   SEQUENCE: {
     en: 'Module',
-    fr: 'Module'
+    fr: 'Module',
   },
   DATE: {
     en: 'Date',
-    fr: 'Date'
+    fr: 'Date',
   },
   NUMERIC: {
     en: 'Number',
-    fr: 'Nombre'
+    fr: 'Nombre',
   },
   TEXT: {
     en: 'Text',
-    fr: 'Texte'
+    fr: 'Texte',
   },
   BOOLEAN: {
     en: 'Boolean',
-    fr: 'Booléen'
+    fr: 'Booléen',
   },
   INSTRUCTION: {
     en: 'Instruction',
-    fr: 'Consigne'
+    fr: 'Consigne',
   },
   COMMENT: {
     en: 'Comment',
-    fr: 'Commentaire'
+    fr: 'Commentaire',
   },
   HELP: {
     en: 'Help',
-    fr: 'Aide'
+    fr: 'Aide',
   },
   helpUrl: {
     en: 'http://inseefr.github.io/Pogues/en/user-guide/user-guide.html',
     fr:
-      'http://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html'
+      'http://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html',
   },
   WARNING: {
     en: 'Warning',
-    fr: 'Avertissement'
+    fr: 'Avertissement',
   },
   maxLength: {
     en: 'Length',
-    fr: 'Taille'
+    fr: 'Taille',
   },
   pattern: {
     en: 'Pattern',
-    fr: 'Motif'
+    fr: 'Motif',
   },
   disjoignable: {
     en: 'Detachable statement',
-    fr: 'Déclaration détachable'
+    fr: 'Déclaration détachable',
   },
   goTo: {
     en: 'Goto',
-    fr: 'Redirections'
+    fr: 'Redirections',
   },
   goTo_description: {
     en: 'GoTo description',
-    fr: 'Description de la redirection'
+    fr: 'Description de la redirection',
   },
   calculatedVariables: {
     en: 'Calculated variables',
-    fr: 'Variables calculées'
+    fr: 'Variables calculées',
   },
   externalVariables: {
     en: 'External variables',
-    fr: 'Variables externes'
+    fr: 'Variables externes',
   },
   collectedVariables: {
     en: 'Collected variables',
-    fr: 'Variables collectées'
+    fr: 'Variables collectées',
   },
   addInput_redirections: {
     en: 'Add a goto',
-    fr: 'Ajouter une redirection'
+    fr: 'Ajouter une redirection',
   },
   maximum: {
     en: 'Maximum',
-    fr: 'Maximum'
+    fr: 'Maximum',
   },
   minimum: {
     en: 'Minimum',
-    fr: 'Minimum'
+    fr: 'Minimum',
   },
   decimals: {
     en: 'Precision',
-    fr: 'Précision'
+    fr: 'Précision',
   },
   unit: {
     en: 'Unit of measure',
-    fr: 'Unité de mesure'
+    fr: 'Unité de mesure',
   },
   unitEmptySelect: {
     en: 'Select an unit of measure',
-    fr: 'Sélectionnez une unité de mesure'
+    fr: 'Sélectionnez une unité de mesure',
   },
   edit_config: {
     en: 'Edit config',
-    fr: 'Éditer les paramètres'
+    fr: 'Éditer les paramètres',
   },
   description: {
     en: 'Description',
-    fr: 'Description'
+    fr: 'Description',
   },
   expression: {
     en: 'Condition',
-    fr: 'Condition'
+    fr: 'Condition',
   },
   target: {
     en: 'Target',
-    fr: 'Cible'
+    fr: 'Cible',
   },
   selectTarget: {
     en: 'Select a target',
-    fr: 'Sélectionnez une Cible'
+    fr: 'Sélectionnez une Cible',
   },
   ifCondition: {
     en: 'Target if condition is true',
-    fr: 'Cible si la condition est vérifiée'
+    fr: 'Cible si la condition est vérifiée',
   },
   dev: {
     en: 'dev',
-    fr: 'dev'
+    fr: 'dev',
   },
   remote: {
     en: 'remote',
-    fr: 'remote'
+    fr: 'remote',
   },
   baseURL: {
     en: 'baseURL',
-    fr: 'baseURL'
+    fr: 'baseURL',
   },
   poguesPath: {
     en: 'poguesPath',
-    fr: 'poguesPath'
+    fr: 'poguesPath',
   },
   persistPath: {
     en: 'persistPath',
-    fr: 'persistPath'
+    fr: 'persistPath',
   },
   stromaePath: {
     en: 'stromaePath',
-    fr: 'stromaePath'
+    fr: 'stromaePath',
   },
   logLevel: {
     en: 'logLevel',
-    fr: 'logLevel'
+    fr: 'logLevel',
   },
   logActiveNamespaces: {
     en: 'logActiveNamespaces',
-    fr: 'logActiveNamespaces'
+    fr: 'logActiveNamespaces',
   },
   trueWord: {
     en: 'True',
-    fr: 'Vrai'
+    fr: 'Vrai',
   },
   falseWord: {
     en: 'False',
-    fr: 'Faux'
+    fr: 'Faux',
   },
   datatypeEdition: {
     en: 'Expected datatype',
-    fr: 'Type de données attendu'
+    fr: 'Type de données attendu',
   },
   responsesEdition: {
     en: 'Response format',
-    fr: 'Format des réponses'
+    fr: 'Format des réponses',
   },
   responseType: {
     en: 'Response type',
-    fr: 'Type de réponse'
+    fr: 'Type de réponse',
   },
   addResponse: {
     en: 'Add a response',
-    fr: 'Ajouter une réponse'
+    fr: 'Ajouter une réponse',
   },
   visHint: {
     en: 'Visualization hint',
-    fr: 'Type de saisie'
+    fr: 'Type de saisie',
   },
   newCode: {
     en: 'New code',
-    fr: 'Nouvelle catégorie'
+    fr: 'Nouvelle catégorie',
   },
   typeNewCode: {
     en: 'Type a new code',
-    fr: 'Entrez une nouvelle catégorie'
+    fr: 'Entrez une nouvelle catégorie',
   },
   cl: {
     en: 'Code list',
-    fr: 'Liste de codes'
+    fr: 'Liste de codes',
   },
   newCl: {
     en: 'New code list',
-    fr: 'Nouvelle liste de codes'
+    fr: 'Nouvelle liste de codes',
   },
   selectCl: {
     en: 'Select a code list',
-    fr: 'Sélectionnez une liste de codes'
+    fr: 'Sélectionnez une liste de codes',
   },
   placeholderDeclarationText: {
     en: 'Here, your statement',
-    fr: 'Ici, votre déclaration'
+    fr: 'Ici, votre déclaration',
   },
   deleteGoTo: {
     en: 'Delete GoTo',
-    fr: 'Supprimer la redirection'
+    fr: 'Supprimer la redirection',
   },
   description_label: {
     en: 'Control description',
-    fr: 'Description du contrôle'
+    fr: 'Description du contrôle',
   },
   control_during_collect: {
     en: 'Control during the collect',
-    fr: 'Contrôle pendant la collecte'
+    fr: 'Contrôle pendant la collecte',
   },
   control_post_collect: {
     en: 'Control post-collect',
-    fr: 'Contrôle post-collecte'
+    fr: 'Contrôle post-collecte',
   },
   control_message: {
     en: 'Fail message',
-    fr: "Message d'erreur"
+    fr: "Message d'erreur",
   },
   deleteControl: {
     en: 'Delete control',
-    fr: 'Supprimer le contrôle'
+    fr: 'Supprimer le contrôle',
   },
   deleteDeclaration: {
     en: 'Delete statement',
-    fr: 'Supprimer la déclaration'
+    fr: 'Supprimer la déclaration',
   },
   errorGoToUndefinedTgt: {
     en: `The target defined in the filter question is not avalaible. Please fill in the
  target for each GoTo item.`,
     fr: `Le filtre comporte une cible invalide (non renseignée). Merci de renseigner le
- champ « Cible » pour chaque redirection.`
+ champ « Cible » pour chaque redirection.`,
   },
   errorGoToNonExistingTgt: {
     fr:
       'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément connu du questionnaire.',
     en:
-      'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.'
+      'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
   errorGoToEarlierTgt: {
     fr:
       'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
     en:
-      'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.'
+      'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.',
   },
   errorQuestionnaireTooShort: {
     fr:
       'Votre questionnaire doit comporter au moins une séquence et une question.',
     en:
-      'Your questionnaire must contain at least one sequence and one question.'
+      'Your questionnaire must contain at least one sequence and one question.',
   },
   errorNeedRegenerateCollectedVariables: {
     fr: 'Need regenerate.',
-    en: 'Need regenerate.'
+    en: 'Need regenerate.',
   },
   errorInvalidCollectedVariables: {
     fr: 'La question contient des variables collectées invalides.',
-    en: 'The question contains invalid collected variables.'
+    en: 'The question contains invalid collected variables.',
   },
   errorUniqueVariableName: {
     fr: 'Les noms de variable doivent être uniques :',
-    en: 'Variable names should be unique:'
+    en: 'Variable names should be unique:',
   },
   errorUniqueComponentName: {
     fr:
       'Les noms de composant (séquence, sous-séquence et question) doivent être uniques :',
-    en: 'Component names (sequence, subsequence and question) should be unique:'
+    en:
+      'Component names (sequence, subsequence and question) should be unique:',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
-    fr: 'Votre questionnaire ne comporte aucune erreur'
+    fr: 'Votre questionnaire ne comporte aucune erreur',
   },
   errorQuestionnaireTargetMode: {
     fr:
       "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire :",
     en:
-      'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode:'
+      'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode:',
   },
   errorQuestionnaireTargetModeForComponent: {
     fr:
       "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire",
     en:
-      'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode'
+      'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
   },
   failMessage: {
     en: 'Error message',
-    fr: "Message d'erreur"
+    fr: "Message d'erreur",
   },
   criticity: {
     en: 'Criticity',
-    fr: 'Criticité'
+    fr: 'Criticité',
   },
   INFO: {
     en: 'Information',
-    fr: 'Information'
+    fr: 'Information',
   },
   WARN: {
     en: 'Warning',
-    fr: 'Avertissement'
+    fr: 'Avertissement',
   },
   ERROR: {
     en: 'Error',
-    fr: 'Erreur'
+    fr: 'Erreur',
   },
   responseFormatSimple: {
     fr: 'Réponse simple',
-    en: 'Simple response'
+    en: 'Simple response',
   },
   responseFormatSingle: {
     fr: 'Réponse à choix unique',
-    en: 'Single choice response'
+    en: 'Single choice response',
   },
   responseFormatMultiple: {
     fr: 'Réponse à choix multiples',
-    en: 'Multiple choice response'
+    en: 'Multiple choice response',
   },
   responseFormatTable: {
     fr: 'Tableau',
-    en: 'Table'
+    en: 'Table',
   },
   primaryFormat: {
     fr: "Format de l'axe principal",
-    en: 'Primary axis format'
+    en: 'Primary axis format',
   },
   primaryAxis: {
     fr: "Axe d'information",
-    en: 'Information axis'
+    en: 'Information axis',
   },
   primaryAxisTable: {
     fr: "Axe d'information principal",
-    en: 'Primary information axis'
+    en: 'Primary information axis',
   },
   secondaryAxis: {
     fr: 'Axe secondaire',
-    en: 'Secondary axis'
+    en: 'Secondary axis',
   },
   secondaryAxisTable: {
     fr: "Axe d'information secondaire",
-    en: 'Secondary information axis'
+    en: 'Secondary information axis',
   },
   measuresAxisTable: {
     fr: 'Information mesurée',
-    en: 'Measure information'
+    en: 'Measure information',
   },
   codeList: {
     fr: 'Liste de codes',
-    en: 'Code list'
+    en: 'Code list',
   },
   selectCodesListType: {
     fr: 'Spécifier la liste de codes',
-    en: 'Specify the code list'
+    en: 'Specify the code list',
   },
   selectCodesList: {
     fr: 'Sélectionner une liste de codes',
-    en: 'Select a code list'
+    en: 'Select a code list',
   },
   newCodesList: {
     fr: 'Créer une liste',
-    en: 'Create a list'
+    en: 'Create a list',
   },
   refCodesList: {
     fr: 'Retrouver dans le référentiel',
-    en: 'Retrieve in the repository'
+    en: 'Retrieve in the repository',
   },
   questionnaireCodesList: {
     fr: 'Retrouver dans le questionnaire',
-    en: 'Retrieve in the questionnaire'
+    en: 'Retrieve in the questionnaire',
   },
   list: {
     fr: 'Liste',
-    en: 'List'
+    en: 'List',
   },
   minRowNb: {
     fr: 'Nombre de lignes min.',
-    en: 'Number of lines min.'
+    en: 'Number of lines min.',
   },
   maxRowNb: {
     fr: 'Nombre de lignes max.',
-    en: 'Number of lines max.'
+    en: 'Number of lines max.',
   },
   rowTotal: {
     fr: 'Ajouter la ligne "Total"',
-    en: 'Add the "Total" row'
+    en: 'Add the "Total" row',
   },
   rowTotalLabel: {
     fr: 'Libellé de la ligne "Total"',
-    en: 'Label of the "Total" row'
+    en: 'Label of the "Total" row',
   },
   columnTotal: {
     fr: 'Ajouter la colonne "Total"',
-    en: 'Add the "Total" column'
+    en: 'Add the "Total" column',
   },
   columnTotalLabel: {
     fr: 'Libellé de la colonne "Total"',
-    en: 'Label of the "Total" column'
+    en: 'Label of the "Total" column',
   },
   addScndAxis: {
     fr: 'Ajouter un axe secondaire',
-    en: 'Add a secondary axis'
+    en: 'Add a secondary axis',
   },
   scndInfoAxis: {
     fr: "Axe d'information secondaire",
-    en: 'Second information axis'
+    en: 'Second information axis',
   },
   yes: {
     fr: 'Oui',
-    en: 'Yes'
+    en: 'Yes',
   },
   no: {
     fr: 'Non',
-    en: 'No'
+    en: 'No',
   },
   infoAxis: {
     fr: "Axe d'information",
-    en: 'Information axis'
+    en: 'Information axis',
   },
   measureFormat: {
     fr: "Format de l'information mesurée",
-    en: 'Measure format'
+    en: 'Measure format',
   },
   boolean: {
     fr: 'Booléen',
-    en: 'Boolean'
+    en: 'Boolean',
   },
   measureInfo: {
     fr: 'Représentation des réponses',
-    en: 'Responses representation'
+    en: 'Responses representation',
   },
   measureLabel: {
     fr: "Libellé de l'information mesurée",
-    en: 'Measure label'
+    en: 'Measure label',
   },
   responseFormats: {
     fr: 'Type de question',
-    en: 'Question type'
+    en: 'Question type',
   },
   addMeasure: {
     fr: 'Réinitialiser',
-    en: 'Reset'
+    en: 'Reset',
   },
   noMeasureYet: {
     en: 'No measure yet',
-    fr: 'Aucune information mesurée définie'
+    fr: 'Aucune information mesurée définie',
   },
   typeMeasure: {
     fr: 'Type de mesure',
-    en: 'Measure type'
+    en: 'Measure type',
   },
   addCondition: {
     fr: 'Ajouter une condition',
-    en: 'Add a condition'
+    en: 'Add a condition',
   },
   conditions: {
     fr: 'Conditions',
-    en: 'Conditions'
+    en: 'Conditions',
   },
   deleteCondition: {
     fr: 'Supprimer la condition',
-    en: 'Remove condition'
+    en: 'Remove condition',
   },
   addSpecialCode: {
     fr: "Ajout d'une modalité spécifique",
-    en: 'Add special code'
+    en: 'Add special code',
   },
   addCode: {
     fr: 'Ajouter un code',
-    en: 'Add a code'
+    en: 'Add a code',
   },
   editCode: {
     fr: 'Editer un code',
-    en: 'Edit a code'
+    en: 'Edit a code',
   },
   codeLabel: {
     fr: 'Libellé de la modalité',
-    en: 'Code label'
+    en: 'Code label',
   },
   code: {
     fr: 'Code de la modalité',
-    en: 'Code'
+    en: 'Code',
   },
   codeUnicity: {
     fr: 'Tous les codes doivent être uniques',
-    en: 'All codes should be unique'
+    en: 'All codes should be unique',
   },
   codePh: {
     fr: 'Code',
-    en: 'Code'
+    en: 'Code',
   },
   uiBehaviour: {
     fr: "Comportement d'affichage",
-    en: 'Ui behaviour'
+    en: 'Ui behaviour',
   },
   followUpMsg: {
     fr: 'Message de relance',
-    en: 'Follow-up message'
+    en: 'Follow-up message',
   },
   FIRST_INTENTION: {
     fr: 'En première intention',
-    en: 'Immediately'
+    en: 'Immediately',
   },
   SECOND_INTENTION: {
     fr: 'En deuxième intention',
-    en: 'Later'
+    en: 'Later',
   },
   mandatory: {
     fr: 'Obligatoire',
-    en: 'Mandatory'
+    en: 'Mandatory',
   },
   dclPosAfterQuestion: {
     fr: 'Après le libellé de question',
-    en: 'After question label'
+    en: 'After question label',
   },
   dclPosAfterAnswer: {
     fr: 'Après les champs de réponse',
-    en: 'After response fields'
+    en: 'After response fields',
   },
   dclPosBeforeText: {
     fr: 'Avant le libellé de question',
-    en: 'Before question label'
+    en: 'Before question label',
   },
   dclPosDetachable: {
     fr: 'Note de bas de page',
-    en: 'Foot note'
+    en: 'Foot note',
   },
   dropdown: {
     fr: 'Liste déroulante',
-    en: 'Dropdown'
+    en: 'Dropdown',
   },
   radio: {
     fr: 'Bouton radio',
-    en: 'Radio'
+    en: 'Radio',
   },
   checkbox: {
     fr: 'Case à cocher',
-    en: 'Checkbox'
+    en: 'Checkbox',
   },
   enterURL: {
     fr: 'Entrez une url',
-    en: 'Url'
+    en: 'Url',
   },
   enterInfo: {
     fr: "Entrer un message d'information",
-    en: 'Contextual information'
+    en: 'Contextual information',
   },
   logout: {
     fr: 'Se déconnecter',
-    en: 'Logout'
+    en: 'Logout',
   },
   headerSubtitle: {
     fr: 'Conception et test de questionnaires',
-    en: 'Design and testing of questionnaires'
+    en: 'Design and testing of questionnaires',
   },
   homepage: {
     fr: 'Accueil',
-    en: 'Homepage'
+    en: 'Homepage',
   },
   stamp: {
     fr: 'Habilitation :',
-    en: 'Authorisation:'
+    en: 'Authorisation:',
   },
   welcome: {
     fr: 'Bienvenue dans POGUES',
-    en: 'Welcome to POGUES'
+    en: 'Welcome to POGUES',
   },
   homeQuestionnairesInProgress: {
     fr: 'Questionnaires en cours de conception par votre équipe',
-    en: 'Questionnaires in progress by your team'
+    en: 'Questionnaires in progress by your team',
   },
   emptyQuestionnaire: {
     fr: 'Questionnaire vide',
-    en: 'Empty questionnaire'
+    en: 'Empty questionnaire',
   },
   searchQuestionnaire: {
     fr: 'Rechercher un questionnaire',
-    en: 'Search a questionnaire'
+    en: 'Search a questionnaire',
   },
   fromMyTeam: {
     fr: 'De mon équipe',
-    en: 'From my team'
+    en: 'From my team',
   },
   inProgressAndPublished: {
     fr: 'En cours et publiés',
-    en: 'In progress and published'
+    en: 'In progress and published',
   },
   fromRepository: {
     fr: 'Du référentiel',
-    en: 'From the repository'
+    en: 'From the repository',
   },
   publishedByInsee: {
     fr: "Publiés par l'Insee",
-    en: 'Published by Insee'
+    en: 'Published by Insee',
   },
   collectionMode: {
     fr: 'Mode de collecte',
-    en: 'Collection mode'
+    en: 'Collection mode',
   },
   lastUpdate: {
     fr: 'Dernière mise à jour',
-    en: 'Last update'
+    en: 'Last update',
   },
   state: {
     fr: 'État',
-    en: 'State'
+    en: 'State',
   },
   stateValidated: {
     fr: 'Validé',
-    en: 'Validated'
+    en: 'Validated',
   },
   stateProvisional: {
     fr: 'Provisoire',
-    en: 'Provisional'
+    en: 'Provisional',
   },
   noQuestionnnaires: {
     fr: 'Aucun questionnaire',
-    en: 'No questionnaires'
+    en: 'No questionnaires',
   },
   validate: {
     fr: 'Valider',
-    en: 'Validate'
+    en: 'Validate',
   },
   cancel: {
     fr: 'Annuler',
-    en: 'Cancel'
+    en: 'Cancel',
   },
   newEmptyQuestionnaire: {
     fr: 'Nouveau questionnaire',
-    en: 'New questionnaire'
+    en: 'New questionnaire',
   },
   newQuestionnaireLegend: {
     fr:
       'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
-    en: 'You will now be able to specify the context'
+    en: 'You will now be able to specify the context',
   },
   collectionCampaign: {
     fr: 'Campagne de collecte',
-    en: 'Collection campaign'
+    en: 'Collection campaign',
   },
   collectionCampaignNew: {
     fr: 'Créer une campagne',
-    en: 'Create a collection campaign'
+    en: 'Create a collection campaign',
   },
   contextModel: {
     fr: 'Modèle de contexte',
-    en: 'Context Model'
+    en: 'Context Model',
   },
   showDetail: {
     fr: 'Voir le détail',
-    en: 'Show the detail'
+    en: 'Show the detail',
   },
   questionnaireDetail: {
     fr: 'Détail du questionnaire',
-    en: 'Questionnaire detail'
+    en: 'Questionnaire detail',
   },
   collection: {
     fr: 'Série',
-    en: 'Collection'
+    en: 'Collection',
   },
   operationStat: {
     fr: 'Opération statisque',
-    en: 'Stat operation'
+    en: 'Stat operation',
   },
   model: {
     fr: 'Modèle',
-    en: 'Model'
+    en: 'Model',
   },
   modelNew: {
     fr: 'Créer un modèle',
-    en: 'New model'
+    en: 'New model',
   },
   addObject: {
     fr: 'Ajouter un objet',
-    en: 'Add object'
+    en: 'Add object',
   },
   validationNumber: {
     fr: 'Vous devez introduire un chiffre',
-    en: 'Must be a number'
+    en: 'Must be a number',
   },
   validationRequired: {
     fr: 'Obligatoire',
-    en: 'Required'
+    en: 'Required',
   },
   validationRequiredMultiple: {
     fr: 'Sélectionner au moins une option',
-    en: 'Select at least one option'
+    en: 'Select at least one option',
   },
   validationInvalidName: {
     fr:
       "L'identifiant peut uniquement contenir des lettres non accentuées, chiffres, tirets et underscore",
     en:
-      'The Id can only contain non-accented letters, numbers, dashes and underscore'
+      'The Id can only contain non-accented letters, numbers, dashes and underscore',
   },
   validationInvalidNameSize: {
     fr: "L'identifiant ne peux pas dépasser 32 caractères",
-    en: 'The Id can not exceed 32 characters'
+    en: 'The Id can not exceed 32 characters',
   },
   validationMinNumber: {
     fr: 'Veuillez saisir au minimum',
-    en: 'Must be at least'
+    en: 'Must be at least',
   },
   validationMaxNumber: {
     fr: 'Veuillez saisir au maximum',
-    en: 'Must be at most'
+    en: 'Must be at most',
   },
   validationNoCodes: {
     fr: 'Veuillez ajouter des codes a la liste',
-    en: 'Must be added codes to the list'
+    en: 'Must be added codes to the list',
   },
   dropHere: {
     fr: 'Déposer ici !',
-    en: 'Drop here !'
+    en: 'Drop here !',
   },
   backToHomePage: {
     fr: "Retour à l'accueil",
-    en: 'Back to the Home'
+    en: 'Back to the Home',
   },
   seeFilters: {
     fr: 'Voir les filtres',
-    en: 'See filters'
+    en: 'See filters',
   },
   confirmBodyTitle: {
     fr: 'Confirmation',
-    en: 'Confirmation'
+    en: 'Confirmation',
   },
   confirmBodyMessage: {
     fr:
       'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
     en:
-      'You are deleting the questionnaire. You are going to lose all information entered.'
+      'You are deleting the questionnaire. You are going to lose all information entered.',
   },
   confirmQuestionMessage: {
     fr: 'Êtes-vous sûr ?',
-    en: 'Are you sure?'
+    en: 'Are you sure?',
   },
   serie: {
     fr: 'Série',
-    en: 'Series'
+    en: 'Series',
   },
   operation: {
     fr: 'Opération statistique ',
-    en: 'Statistical operation'
+    en: 'Statistical operation',
   },
   campaigns: {
     fr: 'Campagnes',
-    en: 'Campaigns'
+    en: 'Campaigns',
   },
   campaign: {
     fr: 'Campagne',
-    en: 'Campaign'
+    en: 'Campaign',
   },
   selectSerie: {
     fr: 'Sélectionner une série',
-    en: 'Select a series'
+    en: 'Select a series',
   },
   selectOperation: {
     fr: 'Sélectionner une opération',
-    en: 'Select an operation'
+    en: 'Select an operation',
   },
   selectCampaign: {
     fr: 'Sélectionner une campagne',
-    en: 'Select a campaign'
+    en: 'Select a campaign',
   },
   selectCampaigns: {
     fr: 'Sélectionner au moins une campagne',
-    en: 'Select at least one campaign'
+    en: 'Select at least one campaign',
   },
   selectType: {
     fr: 'Sélectionner un type',
-    en: 'Select a type'
+    en: 'Select a type',
   },
   noValuesCampaigns: {
     fr: 'Sélectionner une opération pour afficher la liste des campagnes',
-    en: 'Select an operation to show a list of campaigns'
+    en: 'Select an operation to show a list of campaigns',
   },
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
-    en: 'Statement label required'
+    en: 'Statement label required',
   },
   validation_control_description: {
     fr: 'Description du contrôle obligatoire',
-    en: 'Control description required'
+    en: 'Control description required',
   },
   validation_expression: {
     fr: 'Condition obligatoire',
-    en: 'Condition required'
+    en: 'Condition required',
   },
   validation_control_message: {
     fr: "Message d'erreur obligatoire",
-    en: 'Fail message required'
+    en: 'Fail message required',
   },
   validation_goTo_description: {
     fr: 'Description de la redirection obligatoire',
-    en: 'Goto description required'
+    en: 'Goto description required',
   },
   validation_condition: {
     fr: 'Condition obligatoire',
-    en: 'Condition required'
+    en: 'Condition required',
   },
   validation_target: {
     fr: 'Cible obligatoire',
-    en: 'Target required'
+    en: 'Target required',
   },
   validation_calculatedvariable_label: {
     fr: 'Libellé de la variable calculée obligatoire',
-    en: 'Calculated variable label required'
+    en: 'Calculated variable label required',
   },
   validation_calculatedvariable_name: {
     fr: 'Nom de la variable calculée obligatoire',
-    en: 'Calculated variable name required'
+    en: 'Calculated variable name required',
   },
   validation_calculatedvariable_formula: {
     fr: 'Formule de la variable calculée obligatoire',
-    en: 'Calculated variable formula required'
+    en: 'Calculated variable formula required',
   },
   validation_calculatedvariable_existing: {
     fr: 'Il existe une variable calculée avec le même nom',
-    en: 'It already exists a calculated variable with this name'
+    en: 'It already exists a calculated variable with this name',
   },
   validation_externalvariable_label: {
     fr: 'Libellé de la variable externe obligatoire',
-    en: 'External variable label required'
+    en: 'External variable label required',
   },
   validation_externalvariable_name: {
     fr: 'Nom de la variable externe obligatoire',
-    en: 'External variable name required'
+    en: 'External variable name required',
   },
   validation_externalvariable_existing: {
     fr: 'Il existe une variable externe avec le même nom',
-    en: 'It already exists an external variable with this name'
+    en: 'It already exists an external variable with this name',
   },
   validation_collectedvariable_label: {
     fr: 'Libellé de la variable collectée obligatoire',
-    en: 'Collected variable label required'
+    en: 'Collected variable label required',
   },
   validation_collectedvariable_name: {
     fr: 'Identifiant de la variable collectée obligatoire',
-    en: 'Collected variable name required'
+    en: 'Collected variable name required',
   },
   validation_collectedvariable_existing: {
     fr: 'Il existe une variable collectée avec le même nom',
-    en: 'It already exists an collected variable with this name'
+    en: 'It already exists an collected variable with this name',
   },
   validation_collectedvariable_no_new: {
     fr: 'Vous ne pouvez pas ajouter des nouvelles variables collectées',
-    en: 'It already exists an collected variable with this name'
+    en: 'It already exists an collected variable with this name',
   },
   validation_collectedvariable_need_reset: {
     fr: 'Veuillez regénérer les variables collectées',
-    en: 'Renew your collected variables'
+    en: 'Renew your collected variables',
   },
   validation_collectedvariable_need_creation: {
     fr: 'Veuillez spécifier une variable collectée',
-    en: 'Specify a collected variable'
+    en: 'Specify a collected variable',
   },
   validation_question_name_required: {
     fr: 'Identifiant de la question obligatoire.',
-    en: 'Question name required.'
+    en: 'Question name required.',
   },
   validation_response_format_required: {
     fr: 'Format de réponse obligatoire.',
-    en: 'Response format required.'
+    en: 'Response format required.',
   },
   validationCodeListCode: {
     fr: 'Code de la modalité obligatoire.',
-    en: 'Code required.'
+    en: 'Code required.',
   },
   validationCodeListLabel: {
     fr: 'Libellé obligatoire.',
-    en: 'Label required.'
+    en: 'Label required.',
   },
   validationMeasureLabel: {
     fr: "Libellé de l'information mesurée obligatoire",
-    en: 'Measure label required'
+    en: 'Measure label required',
   },
   headerSearchQuestionnaire_version: {
     fr: 'Version',
-    en: 'Version'
+    en: 'Version',
   },
   headerSearchQuestionnaire_id: {
     fr: 'Identifiant',
-    en: 'Id'
+    en: 'Id',
   },
   headerSearchQuestionnaire_title: {
     fr: 'Titre',
-    en: 'Title'
+    en: 'Title',
   },
   headerSearchQuestionnaire_serie: {
     fr: 'Série',
-    en: 'Series'
+    en: 'Series',
   },
   headerSearchQuestionnaire_operation: {
     fr: 'Opération statistique',
-    en: 'Statistical operation'
+    en: 'Statistical operation',
   },
   headerSearchQuestionnaire_campaign: {
     fr: 'Campagne',
-    en: 'Campaign'
+    en: 'Campaign',
   },
   headerSearchQuestionnaire_action: {
     fr: 'Action',
-    en: 'Action'
+    en: 'Action',
   },
   actions_reuse: {
     fr: 'Réutiliser',
-    en: 'Reuse'
+    en: 'Reuse',
   },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
-    fr: 'Titre du questionnaire'
+    fr: 'Titre du questionnaire',
   },
   searchInputCodesListsLabel: {
     en: 'Code list label',
-    fr: 'Libellé de la liste de code'
+    fr: 'Libellé de la liste de code',
   },
   searchInputButton: {
     en: 'Search',
-    fr: 'Rechercher'
+    fr: 'Rechercher',
   },
   pageSearchNoResults: {
     en: 'No questionnaire found',
-    fr: 'Aucun questionnaire trouvé'
+    fr: 'Aucun questionnaire trouvé',
   },
   codesListsNoResults: {
     en: 'No code list found',
-    fr: 'Aucune liste de codes trouvée'
+    fr: 'Aucune liste de codes trouvée',
   },
   reset: {
     en: 'Reset',
-    fr: 'Réinitialiser'
+    fr: 'Réinitialiser',
   },
 
   searchResultVersion: {
     fr: 'Version',
-    en: 'Version'
+    en: 'Version',
   },
   searchResultId: {
     fr: 'Identifiant',
-    en: 'Id'
+    en: 'Id',
   },
   searchResultTitle: {
     fr: 'Titre',
-    en: 'Title'
+    en: 'Title',
   },
   searchResultLabel: {
     fr: 'Libellé',
-    en: 'Label'
+    en: 'Label',
   },
   searchResultSerie: {
     fr: 'Série',
-    en: 'Series'
+    en: 'Series',
   },
   searchResultOperation: {
     fr: 'Opération statistique',
-    en: 'Statistical operation'
+    en: 'Statistical operation',
   },
   searchResultCampaign: {
     fr: 'Campagne',
-    en: 'Campaign'
+    en: 'Campaign',
   },
   searchResultAction: {
     fr: 'Action',
-    en: 'Action'
+    en: 'Action',
   },
   searchResultActionReuse: {
     fr: 'Réutiliser',
-    en: 'Reuse'
+    en: 'Reuse',
   },
   actions: {
     fr: 'Actions',
-    en: 'Actions'
+    en: 'Actions',
   },
   level: {
     fr: 'Niveau',
-    en: 'Level'
+    en: 'Level',
   },
   VISUALIZE_WEB: {
     fr: 'Web',
-    en: 'Web'
+    en: 'Web',
   },
   VISUALIZE_PDF: {
     fr: 'PDF',
-    en: 'PDF'
+    en: 'PDF',
   },
   VISUALIZE_DDI: {
     fr: 'DDI',
-    en: 'DDI'
+    en: 'DDI',
   },
   VISUALIZE_SPECIFICATION: {
     fr: 'Spécification',
-    en: 'Specification'
-  }
+    en: 'Specification',
+  },
 };
 
 // Dynamic translations
 
 dictionary[`componentNew${QUESTION}`] = {
   fr: 'Nouvelle question',
-  en: 'New question'
+  en: 'New question',
 };
 
 dictionary[`componentNew${SEQUENCE}`] = {
   fr: 'Nouvelle sequence',
-  en: 'New sequence'
+  en: 'New sequence',
 };
 
 dictionary[`componentNew${SUBSEQUENCE}`] = {
   fr: 'Nouvelle sous-séquence',
-  en: 'New sub-sequence'
+  en: 'New sub-sequence',
 };
 
 dictionary[`componentEdit${QUESTION}`] = {
   fr: 'Modifier la question',
-  en: 'Edit question'
+  en: 'Edit question',
 };
 
 dictionary[`componentEdit${SEQUENCE}`] = {
   fr: 'Modifier la sequence',
-  en: 'Edit sequence'
+  en: 'Edit sequence',
 };
 
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
   fr: 'Modifier la sous-séquence',
-  en: 'Edit sub-sequence'
+  en: 'Edit sub-sequence',
 };
 
 export default dictionary;

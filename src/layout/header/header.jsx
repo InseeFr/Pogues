@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import logo from 'layout/header/logo-insee.png';
 import UserConnectionContainer from 'layout/user/user-connection';
@@ -10,9 +10,9 @@ function Header() {
     <nav id="header">
       <div id="header-wrapper">
         <div className="header-brand">
-          <dipv className="header-logo">
+          <div className="header-logo">
             <img alt="{Dictionary.homepage}" src={logo} />
-          </dipv>
+          </div>
           <h2>
             <Link className="header-homepage" to="/">
               Pogues
@@ -21,7 +21,11 @@ function Header() {
           <h6>{Dictionary.headerSubtitle}</h6>
         </div>
         <div className="header-help">
-          <a target="_blank" href={Dictionary.helpUrl}>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={Dictionary.helpUrl}
+          >
             <span className="glyphicon glyphicon-question-sign" />
             <br />
             {Dictionary.HELP}

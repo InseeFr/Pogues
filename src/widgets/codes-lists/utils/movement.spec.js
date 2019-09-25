@@ -5,7 +5,7 @@ import {
   code03,
   code04,
   code05,
-  codes
+  codes,
 } from './__mocks__/codes';
 
 describe('Codes lists utils - Movement', () => {
@@ -18,19 +18,19 @@ describe('Codes lists utils - Movement', () => {
           code01,
           {
             ...code02,
-            weight: code02.weight + 1
+            weight: code02.weight + 1,
           },
           {
             ...code03,
-            weight: code03.weight - 1
+            weight: code03.weight - 1,
           },
           code04,
-          code05
+          code05,
         ];
 
         expect(moveUp(code03.value, codes)).toEqual(expectedValues);
         expect(moveUp('NOT_EXISTING_VALUE', codes)).toEqual(codes);
-      }
+      },
     );
   });
 
@@ -44,18 +44,18 @@ describe('Codes lists utils - Movement', () => {
           code02,
           {
             ...code03,
-            weight: code03.weight + 1
+            weight: code03.weight + 1,
           },
           {
             ...code04,
-            weight: code04.weight - 1
+            weight: code04.weight - 1,
           },
-          code05
+          code05,
         ];
 
         expect(moveDown(code03.value, codes)).toEqual(expectedValues);
         expect(moveDown('NOT_EXISTING_VALUE', codes)).toEqual(codes);
-      }
+      },
     );
   });
 });

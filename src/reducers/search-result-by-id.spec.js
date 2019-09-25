@@ -1,10 +1,10 @@
 import actionsHandlers, {
   loadSearchResultSuccess,
-  clearSearchResult
+  clearSearchResult,
 } from './search-result-by-id';
 import {
   LOAD_SEARCH_RESULT_SUCCESS,
-  CLEAR_SEARCH_RESULTS
+  CLEAR_SEARCH_RESULTS,
 } from 'actions/search';
 
 describe('clearSearchResult', () => {
@@ -18,8 +18,8 @@ describe('clearSearchResult', () => {
         { state: 'previous' },
         {
           type: action,
-          payload: {}
-        }
+          payload: {},
+        },
       );
       expect(result).toEqual({});
     });
@@ -30,7 +30,7 @@ describe('loadSearchResultSuccess', () => {
   test('when called directly', () => {
     const result = loadSearchResultSuccess({ state: 'previous' }, [
       { id: '1' },
-      { id: '2' }
+      { id: '2' },
     ]);
     expect(result).toEqual({ '1': { id: '1' }, '2': { id: '2' } });
   });
@@ -40,8 +40,8 @@ describe('loadSearchResultSuccess', () => {
         { state: 'previous' },
         {
           type: action,
-          payload: [{ id: '1' }, { id: '2' }]
-        }
+          payload: [{ id: '1' }, { id: '2' }],
+        },
       );
       expect(result).toEqual({ '1': { id: '1' }, '2': { id: '2' } });
     });

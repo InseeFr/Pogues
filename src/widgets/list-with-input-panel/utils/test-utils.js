@@ -8,8 +8,8 @@ export function getFakeFields(items, inputName) {
         index,
         name: `${inputName}[${index}]`,
         listFields: {
-          get: indexInner => items[indexInner]
-        }
+          get: indexInner => items[indexInner],
+        },
       };
     }),
     map(func) {
@@ -17,6 +17,6 @@ export function getFakeFields(items, inputName) {
         const field = this.fields[index];
         return func.call(this, field.name, field.index, field.listFields);
       });
-    }
+    },
   };
 }

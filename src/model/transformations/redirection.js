@@ -5,7 +5,7 @@ export function remoteToState(remote = []) {
     const {
       Description: label,
       Expression: condition,
-      IfTrue: cible
+      IfTrue: cible,
     } = redirection;
     const id = redirection.id || uuid();
     return {
@@ -14,8 +14,8 @@ export function remoteToState(remote = []) {
         id,
         label,
         condition,
-        cible
-      }
+        cible,
+      },
     };
   }, {});
 }
@@ -26,13 +26,13 @@ export function stateToRemote(state) {
       id,
       label: Description,
       condition: Expression,
-      cible: IfTrue
+      cible: IfTrue,
     } = state[key];
     return {
       id,
       Description,
       Expression,
-      IfTrue
+      IfTrue,
     };
   });
 }

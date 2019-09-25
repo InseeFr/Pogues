@@ -7,7 +7,7 @@ import CodesListsCodesContainer from '../containers/codes-lists-codes-container'
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import {
   CODES_LIST_INPUT_ENUM,
-  CODES_LISTS_PANELS
+  CODES_LISTS_PANELS,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'forms/controls/input';
@@ -23,7 +23,7 @@ import { ErrorsPanel } from 'widgets/errors-panel';
 const {
   COMPONENT_CLASS,
   PANEL_CLASS,
-  PANEL_SELECTOR_CLASS
+  PANEL_SELECTOR_CLASS,
 } = WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 
@@ -32,7 +32,7 @@ const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 function getSelectorOptions(panels) {
   return panels.map(p => ({
     label: Dictionary[p.dictionary],
-    value: p.value
+    value: p.value,
   }));
 }
 
@@ -50,14 +50,14 @@ export const propTypes = {
   change: PropTypes.func.isRequired,
   arrayPush: PropTypes.func.isRequired,
   arrayRemoveAll: PropTypes.func.isRequired,
-  clearSearchResult: PropTypes.func.isRequired
+  clearSearchResult: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   activePanel: undefined,
   currentId: '',
   codesListsStore: {},
-  currentCodesListsStore: {}
+  currentCodesListsStore: {},
 };
 
 // Componet
@@ -66,14 +66,14 @@ class CodesList extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const {
       change,
       formName,
       path,
       currentId,
       clearSearchResult,
-      codesListsStore
+      codesListsStore,
     } = this.props;
     let activePanel = NEW;
 
@@ -92,7 +92,7 @@ class CodesList extends Component {
       formName,
       path,
       currentId,
-      codesListsStore
+      codesListsStore,
     } = this.props;
 
     if (nextProps.currentId === '' && nextProps.currentId !== currentId) {
@@ -107,12 +107,12 @@ class CodesList extends Component {
       change(
         formName,
         `${path}label`,
-        codesListsStore[nextProps.currentId].label
+        codesListsStore[nextProps.currentId].label,
       );
       change(
         formName,
         `${path}codes`,
-        Object.keys(codesStore).map(key => codesStore[key])
+        Object.keys(codesStore).map(key => codesStore[key]),
       );
     }
   }
@@ -124,7 +124,7 @@ class CodesList extends Component {
       path,
       formName,
       activePanel,
-      currentCodesListsStore
+      currentCodesListsStore,
     } = this.props;
     return (
       <FormSection name={selectorPath} className={COMPONENT_CLASS}>

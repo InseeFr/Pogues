@@ -7,7 +7,7 @@ export const defaultState = {
   criticity: 'INFO',
   during_collect: false,
   post_collect: false,
-  id: null
+  id: null,
 };
 
 export const defaultForm = {
@@ -17,7 +17,7 @@ export const defaultForm = {
   criticity: 'INFO',
   during_collect: false,
   post_collect: false,
-  controls: []
+  controls: [],
 };
 
 export function formToState(form) {
@@ -27,7 +27,7 @@ export function formToState(form) {
     message,
     criticity,
     during_collect,
-    post_collect
+    post_collect,
   } = form;
   const id = form.id || uuid();
 
@@ -38,7 +38,7 @@ export function formToState(form) {
     message,
     criticity,
     during_collect,
-    post_collect
+    post_collect,
   };
 }
 
@@ -50,7 +50,7 @@ export function formToComponentState(form) {
 
     return {
       ...acc,
-      [state.id]: state
+      [state.id]: state,
     };
   }, {});
 }
@@ -66,7 +66,7 @@ export function stateToForm(currentState) {
       message,
       criticity,
       during_collect,
-      post_collect
+      post_collect,
     } = currentState[key];
     controls.push({
       id,
@@ -75,13 +75,13 @@ export function stateToForm(currentState) {
       message,
       criticity,
       during_collect,
-      post_collect
+      post_collect,
     });
   });
 
   return {
     ...defaultForm,
-    controls
+    controls,
   };
 }
 
@@ -93,7 +93,7 @@ const Factory = (currentState = []) => {
     },
     stateToForm: () => {
       return stateToForm(currentState);
-    }
+    },
   };
 };
 

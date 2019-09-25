@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
   QuestionnaireNewEdit,
-  Questionnaire
+  Questionnaire,
 } from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
 import { Component as ComponentFactory } from 'widgets/component-new-edit';
@@ -20,12 +20,12 @@ export const propTypes = {
   updateComponent: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
   questionnaire: PropTypes.object.isRequired,
-  componentsStore: PropTypes.object
+  componentsStore: PropTypes.object,
 };
 
 const defaultProps = {
   componentsStore: {},
-  setErrors: () => {}
+  setErrors: () => {},
 };
 
 // Utils
@@ -40,7 +40,7 @@ function validateAndSubmit(
   activeCalculatedVariablesById,
   activeExternalVariablesById,
   activeCollectedVariablesById,
-  activeCodeListsById
+  activeCodeListsById,
 ) {
   return function(values) {
     validate(values);
@@ -52,9 +52,9 @@ function validateAndSubmit(
         name: updatedQuestionnaire.name,
         label: updatedQuestionnaire.label,
         children: componentsStore[updatedQuestionnaire.id].children,
-        type: QUESTIONNAIRE
+        type: QUESTIONNAIRE,
       },
-      { componentsStore }
+      { componentsStore },
     ).getStore();
 
     // Updating the questionnaire store.
@@ -67,7 +67,7 @@ function validateAndSubmit(
       activeCalculatedVariablesById,
       activeExternalVariablesById,
       activeCollectedVariablesById,
-      activeCodeListsById
+      activeCodeListsById,
     );
 
     if (onSuccess) onSuccess(values.id);
@@ -87,7 +87,7 @@ function QuestionnaireNew({
   activeCalculatedVariablesById,
   activeExternalVariablesById,
   activeCollectedVariablesById,
-  activeCodeListsById
+  activeCodeListsById,
 }) {
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
@@ -113,7 +113,7 @@ function QuestionnaireNew({
         activeCalculatedVariablesById,
         activeExternalVariablesById,
         activeCollectedVariablesById,
-        activeCodeListsById
+        activeCodeListsById,
       )}
     />
   );

@@ -15,7 +15,7 @@ describe('<ListWithInputPanelItem', () => {
     const wrapper = shallow(
       <ListWithInputPanelItem select={noop}>
         {fakeString}
-      </ListWithInputPanelItem>
+      </ListWithInputPanelItem>,
     );
     expect(wrapper.contains(fakeString)).toBeTruthy();
   });
@@ -24,14 +24,14 @@ describe('<ListWithInputPanelItem', () => {
     let wrapper = shallow(
       <ListWithInputPanelItem select={noop}>
         {fakeString}
-      </ListWithInputPanelItem>
+      </ListWithInputPanelItem>,
     );
     expect(wrapper.hasClass(ITEM_INVALID_CLASS)).toBeFalsy();
 
     wrapper = shallow(
       <ListWithInputPanelItem select={noop} invalid>
         {fakeString}
-      </ListWithInputPanelItem>
+      </ListWithInputPanelItem>,
     );
     expect(wrapper.hasClass(ITEM_INVALID_CLASS)).toBeTruthy();
   });
@@ -41,7 +41,7 @@ describe('<ListWithInputPanelItem', () => {
     const wrapper = shallow(
       <ListWithInputPanelItem select={spySelect}>
         {fakeString}
-      </ListWithInputPanelItem>
+      </ListWithInputPanelItem>,
     );
 
     wrapper.find('button').simulate('click', fakeEvent);

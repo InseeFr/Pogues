@@ -4,14 +4,14 @@ const { QUESTION } = COMPONENT_TYPE;
 
 export function removeOrphansCollectedVariables(
   variablesIdsFromComponents = [],
-  variablesStore = {}
+  variablesStore = {},
 ) {
   return Object.keys(variablesStore)
     .filter(key => variablesIdsFromComponents.indexOf(key) !== -1)
     .reduce((acc, key) => {
       return {
         ...acc,
-        [key]: variablesStore[key]
+        [key]: variablesStore[key],
       };
     }, {});
 }

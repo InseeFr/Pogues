@@ -14,5 +14,5 @@ module.exports = {
     //   .waitForElementNotPresent(questionnairePage.QuestionnaireModalLabelInput)
     //   .assert.containsText(questionnairePage.QuestionnaireTitle, 'nightwatch')
     //   .end()
-  }
+  },
 };

@@ -5,11 +5,11 @@ import TextareaWithSuggestions from '../components/textarea-with-suggestions';
 import RichTextareaWithSuggestions from '../components/rich-textarea-with-suggestions';
 
 export const InputWithSuggestionsContainer = withCurrentFormVariables(
-  InputWithSuggestions
+  InputWithSuggestions,
 );
 export const TextareaWithSuggestionsContainer = withCurrentFormVariables(
-  TextareaWithSuggestions
+  TextareaWithSuggestions,
 );
 export const RichTextareaWithSuggestionsContainer = withCurrentFormVariables(
-  RichTextareaWithSuggestions
+  RichTextareaWithSuggestions,
 );

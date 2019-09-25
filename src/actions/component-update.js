@@ -12,8 +12,8 @@ export function resetChildren(component, children) {
   return {
     [component.id]: {
       ...component,
-      children: toId(children)
-    }
+      children: toId(children),
+    },
   };
 }
 
@@ -51,8 +51,8 @@ export function increaseWeightOfAll(activesComponents, newComponent) {
       ...acc,
       [key]: {
         ...sibling,
-        weight: siblingWeight
-      }
+        weight: siblingWeight,
+      },
     };
   }, {});
 }
@@ -69,8 +69,8 @@ export function resetWeight(components) {
       ...acc,
       [component.id]: {
         ...component,
-        weight: i
-      }
+        weight: i,
+      },
     };
   }, {});
 }
@@ -88,7 +88,7 @@ export function resetAllWeight(activesComponents) {
       if (component.children.length > 0) {
         return {
           ...acc,
-          ...resetWeight(toComponents(component.children, activesComponents))
+          ...resetWeight(toComponents(component.children, activesComponents)),
         };
       }
       return acc;

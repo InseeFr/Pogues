@@ -11,11 +11,11 @@ import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string.isRequired,
-  componentType: PropTypes.string.isRequired
+  componentType: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
-  formName: DEFAULT_FORM_NAME
+  formName: DEFAULT_FORM_NAME,
 };
 
 // Container
@@ -24,8 +24,7 @@ const mapStateToProps = (state, { formName, selectorPath, componentType }) => {
   const selector = formValueSelector(formName);
   const componentsStore = state.appState.activeComponentsById;
   const selectedTarget = selector(state, `${selectorPath}.cible`);
-  const editingComponentId = state.appState.editingComponentId;
-  const selectedComponentId = state.appState.selectedComponentId;
+  const { editingComponentId, selectedComponentId } = state.appState;
 
   return {
     targets: getTargets(
@@ -33,8 +32,8 @@ const mapStateToProps = (state, { formName, selectorPath, componentType }) => {
       selectedTarget,
       editingComponentId,
       selectedComponentId,
-      componentType
-    )
+      componentType,
+    ),
   };
 };
 

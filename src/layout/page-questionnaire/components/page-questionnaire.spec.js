@@ -25,12 +25,12 @@ describe('<PageQuestionnaire />', () => {
     setActiveVariables: spySetActiveVariables,
     loadStatisticalContext: noop,
     loadCampaignsIfNeeded: noop,
-    router: { push: noop },
+    history: { push: noop },
     store: {},
     questionnaire: {
       id: 'FAKE_QUESTIONNAIRE_ID',
-      campaigns: ['FAKE_CAMPAIGN_ID']
-    }
+      campaigns: ['FAKE_CAMPAIGN_ID'],
+    },
   };
 
   const wrapper = shallow(<PageQuestionnaire {...props} />);

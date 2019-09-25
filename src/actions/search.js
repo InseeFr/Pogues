@@ -14,7 +14,7 @@ import { getSearchResults } from 'utils/remote-api';
  */
 export const clearSearchResult = () => ({
   type: CLEAR_SEARCH_RESULTS,
-  payload: null
+  payload: null,
 });
 
 /**
@@ -27,7 +27,7 @@ export const clearSearchResult = () => ({
  */
 export const loadSearchResultSuccess = resultsList => ({
   type: LOAD_SEARCH_RESULT_SUCCESS,
-  payload: resultsList
+  payload: resultsList,
 });
 
 /**
@@ -40,7 +40,7 @@ export const loadSearchResultSuccess = resultsList => ({
  */
 export const loadSearchResultFailure = err => ({
   type: LOAD_SEARCH_RESULT_FAILURE,
-  payload: err
+  payload: err,
 });
 
 /**
@@ -54,7 +54,7 @@ export const loadSearchResultFailure = err => ({
 export const loadSearchResult = (typeItem, criterias, filter) => dispatch => {
   dispatch({
     type: LOAD_SEARCH_RESULT,
-    payload: null
+    payload: null,
   });
   return getSearchResults(typeItem, criterias, filter)
     .then(resultsList => dispatch(loadSearchResultSuccess(resultsList)))

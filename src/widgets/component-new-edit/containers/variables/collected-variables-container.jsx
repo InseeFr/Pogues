@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { formValueSelector, actions } from 'redux-form';
+import { formValueSelector, arrayRemoveAll, arrayPush } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import CollectedVariables from '../../components/variables/collected-variables';
@@ -13,13 +13,13 @@ export const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
-  addErrors: PropTypes.func.isRequired
+  addErrors: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPath: TABS_PATHS.COLLECTED_VARIABLES,
-  errors: []
+  errors: [],
 };
 
 // Container
@@ -32,21 +32,21 @@ const mapStateToProps = (state, { formName }) => {
     responseFormatType,
     reponseFormatValues: selector(
       state,
-      `responseFormat.${responseFormatType}`
+      `responseFormat.${responseFormatType}`,
     ),
-    codesListsStoreStore: state.appState.activeCodeListsById
+    codesListsStoreStore: state.appState.activeCodeListsById,
   };
 };
 
 const mapDispatchToProps = {
-  arrayRemoveAll: actions.arrayRemoveAll,
-  arrayPush: actions.arrayPush,
-  removeValidationErrors
+  arrayRemoveAll: arrayRemoveAll,
+  arrayPush: arrayPush,
+  removeValidationErrors,
 };
 
 const CollectedVariablesContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(CollectedVariables);
 
 CollectedVariablesContainer.propTypes = propTypes;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
   QuestionnaireNewEdit,
-  Questionnaire
+  Questionnaire,
 } from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
 
@@ -14,7 +14,7 @@ export const propTypes = {
   onSuccess: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   createQuestionnaire: PropTypes.func.isRequired,
-  setErrors: PropTypes.func.isRequired
+  setErrors: PropTypes.func.isRequired,
 };
 
 // Utils
@@ -24,7 +24,9 @@ function validateAndSubmit(action, validate, transformer, onSuccess) {
     validate(values);
 
     return action(transformer.formToState(values)).then(result => {
-      const { payload: { id } } = result;
+      const {
+        payload: { id },
+      } = result;
       if (onSuccess) onSuccess(id);
     });
   };
@@ -37,7 +39,7 @@ function QuestionnaireNew({
   onSuccess,
   user,
   createQuestionnaire,
-  setErrors
+  setErrors,
 }) {
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
@@ -58,7 +60,7 @@ function QuestionnaireNew({
         createQuestionnaire,
         validate(setErrors),
         questionnaireTransformer,
-        onSuccess
+        onSuccess,
       )}
     />
   );

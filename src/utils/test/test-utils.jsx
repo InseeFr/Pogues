@@ -38,7 +38,7 @@ export const fakeFieldInput = {
   onChange: noop,
   onDragStart: noop,
   onDrop: noop,
-  onFocus: noop
+  onFocus: noop,
 };
 
 export const fakeFieldMeta = {
@@ -54,7 +54,7 @@ export const fakeFieldMeta = {
   submitFailed: false,
   touched: false,
   valid: true,
-  visited: false
+  visited: false,
 };
 
 export const fakeFieldArrayMeta = {
@@ -66,7 +66,7 @@ export const fakeFieldArrayMeta = {
   error: undefined,
   warning: undefined,
   submitFailed: false,
-  submitting: false
+  submitting: false,
 };
 
 export const fakeFieldArrayFields = {
@@ -85,28 +85,28 @@ export const fakeFieldArrayFields = {
   shift: noop,
   swap: noop,
   unshift: noop,
-  reduce: noop
+  reduce: noop,
 };
 
 export const fakeFieldArray = {
   fields: fakeFieldArrayFields,
-  meta: fakeFieldArrayMeta
+  meta: fakeFieldArrayMeta,
 };
 
 export const fakeFieldProps = {
   input: fakeFieldInput,
-  meta: fakeFieldMeta
+  meta: fakeFieldMeta,
 };
 
 export const fakeEvent = {
-  preventDefault: noop
+  preventDefault: noop,
 };
 
 export const fakeEnterEvent = {
   preventDefault: noop,
   key: 'Enter',
   keyCode: 13,
-  which: 13
+  which: 13,
 };
 
 export default undefined;

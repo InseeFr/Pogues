@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, actions } from 'redux-form';
-
-import StatisticalContextCriteria from '../components/statistical-context-criteria';
-
+import { formValueSelector, change } from 'redux-form';
 import {
   loadSeriesIfNeeded,
   loadOperationsIfNeeded,
-  loadCampaignsIfNeeded
+  loadCampaignsIfNeeded,
 } from 'actions/metadata';
 import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
 import { filterStoreByProp } from 'utils/widget-utils';
 import { storeToArray } from 'utils/utils';
+
+import StatisticalContextCriteria from '../components/statistical-context-criteria';
 
 // PropTypes and defaultProps
 
@@ -22,7 +21,7 @@ const propTypes = {
   showCampaigns: PropTypes.bool,
   multipleCampaign: PropTypes.bool,
   required: PropTypes.bool,
-  horizontal: PropTypes.bool
+  horizontal: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -32,7 +31,7 @@ export const defaultProps = {
   showCampaigns: true,
   multipleCampaign: false,
   required: false,
-  horizontal: false
+  horizontal: false,
 };
 
 // Container
@@ -40,7 +39,7 @@ export const defaultProps = {
 // @TODO: Tests
 export const mapStateToProps = (
   state,
-  { showCampaigns, showOperations, formName, path }
+  { showCampaigns, showOperations, formName, path },
 ) => {
   const selector = formValueSelector(formName);
   const conditionalProps = {};
@@ -56,7 +55,7 @@ export const mapStateToProps = (
     conditionalProps.operations = filterStoreByProp(
       state.metadataByType.operations,
       'serie',
-      selectedSerie
+      selectedSerie,
     );
 
     // Show or not the list of campaigns
@@ -64,7 +63,7 @@ export const mapStateToProps = (
       conditionalProps.campaigns = filterStoreByProp(
         state.metadataByType.campaigns,
         'operation',
-        selectedOperation
+        selectedOperation,
       );
     }
   }
@@ -73,20 +72,20 @@ export const mapStateToProps = (
     ...conditionalProps,
     series: storeToArray(state.metadataByType.series),
     selectedSerie,
-    path
+    path,
   };
 };
 
 const mapDispatchToProps = {
-  change: actions.change,
+  change: change,
   loadSeriesIfNeeded,
   loadOperationsIfNeeded,
-  loadCampaignsIfNeeded
+  loadCampaignsIfNeeded,
 };
 
 const StatisticalContextCriteriaContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(StatisticalContextCriteria);
 
 StatisticalContextCriteriaContainer.propTypes = propTypes;

@@ -23,7 +23,7 @@ function integrityChecker(reducer, checkers) {
     const currentErrorsIntegrity = cloneDeep(newState.errors.errorsIntegrity);
     const componentsIds = uniq([
       ...Object.keys(currentErrorsIntegrity),
-      ...Object.keys(checkerResult)
+      ...Object.keys(checkerResult),
     ]);
 
     const errorsIntegrity = componentsIds.reduce((acc, key) => {
@@ -31,8 +31,8 @@ function integrityChecker(reducer, checkers) {
         ...acc,
         [key]: {
           ...(currentErrorsIntegrity[key] || {}),
-          ...(checkerResult[key] || {})
-        }
+          ...(checkerResult[key] || {}),
+        },
       };
     }, {});
 
@@ -40,8 +40,8 @@ function integrityChecker(reducer, checkers) {
       ...newState,
       errors: {
         ...newState.errors,
-        errorsIntegrity
-      }
+        errorsIntegrity,
+      },
     };
   };
 }

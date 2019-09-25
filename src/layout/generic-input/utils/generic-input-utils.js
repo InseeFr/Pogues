@@ -60,12 +60,12 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
 function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
   let heavyComponentId = '';
   const componentsIds = subgroupIds.filter(
-    key => components[key].type === type
+    key => components[key].type === type,
   );
   if (componentsIds.length > 0) {
     heavyComponentId = getHeavyComponentIdFromGroupIds(
       components,
-      componentsIds
+      componentsIds,
     );
   }
   return heavyComponentId;
@@ -98,7 +98,7 @@ function getWeight(components, componentId) {
 export function getNewSequencePlaceholder(
   components,
   questionnaireId,
-  activeComponent
+  activeComponent,
 ) {
   let weight = 0;
   const parent = components[questionnaireId] ? questionnaireId : '';
@@ -108,13 +108,13 @@ export function getNewSequencePlaceholder(
       const closestSequenceId = getClosestComponentIdByType(
         components,
         activeComponent,
-        SEQUENCE
+        SEQUENCE,
       );
       weight = getWeight(components, closestSequenceId);
     } else {
       const heavySequenceId = getHeavyComponentIdFromGroupIds(
         components,
-        components[questionnaireId].children
+        components[questionnaireId].children,
       );
       weight = getWeight(components, heavySequenceId);
     }
@@ -122,7 +122,7 @@ export function getNewSequencePlaceholder(
 
   return {
     parent,
-    weight
+    weight,
   };
 }
 
@@ -147,7 +147,7 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
     parent = getHeavyComponentIdByTypeFromGroupIds(
       components,
       Object.keys(components),
-      SEQUENCE
+      SEQUENCE,
     );
   }
 
@@ -160,20 +160,20 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
         components[activeComponent.parent].type === SUBSEQUENCE
       ) {
         /*
-        * When we insert an element from a QUESTION, we get weight of the parent, and increase by one
-        *
-        * Example: 
-        * If we have this structure
-        * Sequence 1
-        *   -> SubSequence 1
-        *     -> Question 1
-        * 
-        * If the Question 1 has the focus, and we want to add a sub sequence, we will get this structure
-        * Sequence 1
-        *   -> SubSequence 1
-        *     -> Question 1
-        *   -> SubSequence 2
-        */
+         * When we insert an element from a QUESTION, we get weight of the parent, and increase by one
+         *
+         * Example:
+         * If we have this structure
+         * Sequence 1
+         *   -> SubSequence 1
+         *     -> Question 1
+         *
+         * If the Question 1 has the focus, and we want to add a sub sequence, we will get this structure
+         * Sequence 1
+         *   -> SubSequence 1
+         *     -> Question 1
+         *   -> SubSequence 2
+         */
         weight = components[activeComponent.parent].weight + 1;
       } else if (
         activeComponent.type === QUESTION &&
@@ -183,7 +183,7 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
       } else {
         heavyChildrenId = getHeavyComponentIdFromGroupIds(
           components,
-          components[parent].children
+          components[parent].children,
         );
         weight = getWeight(components, heavyChildrenId);
       }
@@ -194,7 +194,7 @@ export function getNewSubsequencePlaceholder(components, activeComponent) {
 
   return {
     parent,
-    weight
+    weight,
   };
 }
 
@@ -219,13 +219,13 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
     parent = getClosestComponentIdByType(
       components,
       activeComponent,
-      SUBSEQUENCE
+      SUBSEQUENCE,
     );
     if (parent === '')
       parent = getClosestComponentIdByType(
         components,
         activeComponent,
-        SEQUENCE
+        SEQUENCE,
       );
 
     if (activeComponent.type === QUESTION) {
@@ -237,20 +237,20 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
     heavySequenceId = getHeavyComponentIdByTypeFromGroupIds(
       components,
       Object.keys(components),
-      SEQUENCE
+      SEQUENCE,
     );
 
     if (heavySequenceId !== '') {
       heavySubsequenceId = getHeavyComponentIdByTypeFromGroupIds(
         components,
         components[heavySequenceId].children,
-        SUBSEQUENCE
+        SUBSEQUENCE,
       );
       parent = heavySubsequenceId !== '' ? heavySubsequenceId : heavySequenceId;
       heavyQuestionId = getHeavyComponentIdByTypeFromGroupIds(
         components,
         components[parent].children,
-        QUESTION
+        QUESTION,
       );
       weight = getWeight(components, heavyQuestionId);
     }
@@ -258,6 +258,6 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
 
   return {
     parent,
-    weight
+    weight,
   };
 }

@@ -10,11 +10,11 @@ export default function stateFromMarkdown(markdown) {
       let condition;
       if (element.tagName === 'SPAN' && className === 'condition') {
         condition = Entity('CONDITION', {
-          conditions: JSON.parse(element.getAttribute('conditions'))
+          conditions: JSON.parse(element.getAttribute('conditions')),
         });
       }
 
       return condition;
-    }
+    },
   });
 }

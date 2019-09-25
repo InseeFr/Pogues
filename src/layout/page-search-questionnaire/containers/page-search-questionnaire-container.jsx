@@ -7,4 +7,7 @@ import PageSearchQuestionnaire from '../components/page-search-questionnaire';
 
 const mapDispatchToProps = { clearSearchResult };
 
-export default connect(undefined, mapDispatchToProps)(PageSearchQuestionnaire);
+export default connect(
+  undefined,
+  mapDispatchToProps,
+)(PageSearchQuestionnaire);

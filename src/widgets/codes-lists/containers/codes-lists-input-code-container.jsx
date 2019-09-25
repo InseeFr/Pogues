@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, actions } from 'redux-form';
+import { formValueSelector, change } from 'redux-form';
 
 import CodesListsInputCode from '../components/codes-lists-input-code';
 import { validateCode, validationSchema } from '../utils/validation';
@@ -11,7 +11,7 @@ import withErrorValidation from 'hoc/with-error-validation';
 
 const propTypes = {
   formName: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired
+  path: PropTypes.string.isRequired,
 };
 
 // Container
@@ -21,17 +21,17 @@ export const mapStateToProps = (state, { path, formName }) => {
 
   return {
     currentValue: selector(state, `${path}value`),
-    currentLabel: selector(state, `${path}label`)
+    currentLabel: selector(state, `${path}label`),
   };
 };
 
 const mapDispatchToProps = {
-  change: actions.change
+  change: change,
 };
 
 const CodesListsInputCodeContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(withErrorValidation(CodesListsInputCode, validateCode, validationSchema));
 
 CodesListsInputCodeContainer.propTypes = propTypes;

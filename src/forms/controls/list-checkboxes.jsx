@@ -5,7 +5,7 @@ import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import {
   getControlId,
   getValuesFromGenericOptions,
-  toggleValueInList
+  toggleValueInList,
 } from 'utils/widget-utils';
 
 import { CONTROL_LIST_CHECKBOXES } from 'constants/dom-constants';
@@ -23,7 +23,7 @@ export const propTypes = {
   disabled: PropTypes.bool,
   noValuesMessage: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  inline: PropTypes.bool.isRequired
+  inline: PropTypes.bool.isRequired,
 };
 
 export const defaultProps = {
@@ -31,7 +31,7 @@ export const defaultProps = {
   disabled: false,
   children: [],
   noValuesMessage: undefined,
-  inline: false
+  inline: false,
 };
 
 // Component
@@ -44,16 +44,16 @@ class ListCheckboxes extends Component {
     super(props);
 
     this.state = {
-      listCheckValues: []
+      listCheckValues: [],
     };
 
     this.toggleCheck = this.toggleCheck.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const values = this.props.input.value;
     this.setState({
-      listCheckValues: values !== '' ? values.split(',') : []
+      listCheckValues: values !== '' ? values.split(',') : [],
     });
   }
 
@@ -62,14 +62,14 @@ class ListCheckboxes extends Component {
 
     if (this.props.input.value !== values) {
       this.setState({
-        listCheckValues: values !== '' ? values.split(',') : []
+        listCheckValues: values !== '' ? values.split(',') : [],
       });
     }
   }
 
   toggleCheck(checkValue) {
     this.props.input.onChange(
-      toggleValueInList(this.state.listCheckValues, checkValue).join()
+      toggleValueInList(this.state.listCheckValues, checkValue).join(),
     );
   }
 
@@ -82,7 +82,7 @@ class ListCheckboxes extends Component {
       children,
       input,
       meta: { touched, error },
-      inline
+      inline,
     } = this.props;
     const values = getValuesFromGenericOptions(children);
 
@@ -92,7 +92,7 @@ class ListCheckboxes extends Component {
           htmlFor={getControlId(
             'checkbox',
             input.name,
-            values[0] && values[0].value
+            values[0] && values[0].value,
           )}
         >
           {label}
@@ -101,12 +101,11 @@ class ListCheckboxes extends Component {
         <div>
           <input type="hidden" name={input.name} />
           {/* No values */}
-          {values.length === 0 &&
-            noValuesMessage && (
-              <div>
-                <span>{noValuesMessage}</span>
-              </div>
-            )}
+          {values.length === 0 && noValuesMessage && (
+            <div>
+              <span>{noValuesMessage}</span>
+            </div>
+          )}
 
           {values.map(val => {
             // eslint-disable-next-line no-shadow
@@ -116,7 +115,7 @@ class ListCheckboxes extends Component {
             return (
               <div
                 className={ClassSet({
-                  [INLINE_MODE]: inline
+                  [INLINE_MODE]: inline,
                 })}
                 key={id}
               >

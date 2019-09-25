@@ -24,7 +24,7 @@ export const LOAD_QLIST_FAILURE = 'LOAD_QLIST_FAILURE';
  */
 export const loadQuestionnaireListSuccess = updatesList => ({
   type: LOAD_QLIST_SUCCESS,
-  payload: updatesList
+  payload: updatesList,
 });
 
 /**
@@ -37,7 +37,7 @@ export const loadQuestionnaireListSuccess = updatesList => ({
  */
 export const loadQuestionnaireListFailure = err => ({
   type: LOAD_QLIST_FAILURE,
-  payload: err
+  payload: err,
 });
 
 /**
@@ -50,13 +50,13 @@ export const loadQuestionnaireListFailure = err => ({
 export const loadQuestionnaireList = permission => dispatch => {
   dispatch({
     type: LOAD_QLIST,
-    payload: null
+    payload: null,
   });
   return getQuestionnaireList(permission)
     .then(qrList =>
       dispatch(
-        loadQuestionnaireListSuccess(questionnaireListRemoteToStores(qrList))
-      )
+        loadQuestionnaireListSuccess(questionnaireListRemoteToStores(qrList)),
+      ),
     )
     .catch(err => dispatch(loadQuestionnaireListFailure(err)));
 };

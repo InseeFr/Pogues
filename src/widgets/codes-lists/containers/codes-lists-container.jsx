@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, actions } from 'redux-form';
-
+import {
+  formValueSelector,
+  arrayPush,
+  arrayRemoveAll,
+  change,
+} from 'redux-form';
 import CodesLists from '../components/codes-lists';
 
 import { getCurrentSelectorPath } from 'utils/widget-utils';
 import {
   DEFAULT_FORM_NAME,
-  DEFAULT_CODES_LIST_SELECTOR_PATH
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 import { clearSearchResult } from 'actions/search';
 
@@ -16,20 +20,20 @@ import { clearSearchResult } from 'actions/search';
 const propTypes = {
   selectorPathParent: PropTypes.string,
   selectorPath: PropTypes.string,
-  formName: PropTypes.string
+  formName: PropTypes.string,
 };
 
 export const defaultProps = {
   selectorPathParent: '',
   selectorPath: DEFAULT_CODES_LIST_SELECTOR_PATH,
-  formName: DEFAULT_FORM_NAME
+  formName: DEFAULT_FORM_NAME,
 };
 
 // Container
 
 export const mapStateToProps = (
   state,
-  { selectorPathParent, selectorPath, formName }
+  { selectorPathParent, selectorPath, formName },
 ) => {
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
@@ -41,7 +45,7 @@ export const mapStateToProps = (
   if (codesListsStore[currentId]) {
     currentCodesListsStore = {
       ...codesListsStore,
-      [currentId]: { ...codesListsStore[currentId], label: currentLabel }
+      [currentId]: { ...codesListsStore[currentId], label: currentLabel },
     };
   } else {
     currentCodesListsStore = codesListsStore;
@@ -53,20 +57,21 @@ export const mapStateToProps = (
     currentCodesListsStore,
     codesListsStore,
     activePanel: selector(state, `${path}panel`),
-    currentCodes: selector(state, `${path}codes`)
+    currentCodes: selector(state, `${path}codes`),
   };
 };
 
 const mapDispatchToProps = {
   clearSearchResult,
-  change: actions.change,
-  arrayPush: actions.arrayPush,
-  arrayRemoveAll: actions.arrayRemoveAll
+  change: change,
+  arrayPush: arrayPush,
+  arrayRemoveAll: arrayRemoveAll,
 };
 
-const CodesListsContainer = connect(mapStateToProps, mapDispatchToProps)(
-  CodesLists
-);
+const CodesListsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CodesLists);
 
 CodesListsContainer.propTypes = propTypes;
 CodesListsContainer.defaultProps = defaultProps;

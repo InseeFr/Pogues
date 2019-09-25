@@ -7,14 +7,14 @@ describe('checkerUniqueComponentName', () => {
       appState: {
         activeComponentsById: {},
         activeQuestionnaire: {
-          id: '1'
-        }
-      }
+          id: '1',
+        },
+      },
     };
     const output = {
       '1': {
-        [INTEGRITY_TYPES.UNIQUE_COMPONENT_NAME]: []
-      }
+        [INTEGRITY_TYPES.UNIQUE_COMPONENT_NAME]: [],
+      },
     };
     expect(checkerUniqueComponentName(input)).toEqual(output);
   });
@@ -23,21 +23,21 @@ describe('checkerUniqueComponentName', () => {
       appState: {
         activeComponentsById: {
           '1': { name: 'name' },
-          '2': { name: 'name' }
+          '2': { name: 'name' },
         },
         activeQuestionnaire: {
-          id: '1'
-        }
-      }
+          id: '1',
+        },
+      },
     };
     const output = {
       '1': {
         [INTEGRITY_TYPES.UNIQUE_COMPONENT_NAME]: [
           {
-            message: `Component names (sequence, subsequence and question) should be unique: name`
-          }
-        ]
-      }
+            message: `Component names (sequence, subsequence and question) should be unique: name`,
+          },
+        ],
+      },
     };
     expect(checkerUniqueComponentName(input)).toEqual(output);
   });

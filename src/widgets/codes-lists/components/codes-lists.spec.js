@@ -23,7 +23,7 @@ describe('<CodesList />', () => {
     const wrapper = shallow(<CodesLists path={customPath} />);
     expect(wrapper.find('FieldArray').props()).toMatchObject({
       name: `${customPath}codes`,
-      component: CodesListsCodes
+      component: CodesListsCodes,
     });
   });
 
@@ -38,14 +38,14 @@ describe('<CodesList />', () => {
     () => {
       const wrapper = shallow(<CodesLists path={customPath} />);
       expect(
-        wrapper.find(`.${PANEL_CLASS}.${PANEL_CLASS}-${NEW}`)
+        wrapper.find(`.${PANEL_CLASS}.${PANEL_CLASS}-${NEW}`),
       ).toHaveLength(1);
       expect(
-        wrapper.find(`.${PANEL_CLASS}.${PANEL_CLASS}-${REF}`)
+        wrapper.find(`.${PANEL_CLASS}.${PANEL_CLASS}-${REF}`),
       ).toHaveLength(1);
       expect(
-        wrapper.find(`.${PANEL_CLASS}.${PANEL_CLASS}-${QUEST}`)
+        wrapper.find(`.${PANEL_CLASS}.${PANEL_CLASS}-${QUEST}`),
       ).toHaveLength(1);
-    }
+    },
   );
 });

@@ -3,7 +3,7 @@ import cloneDeep from 'lodash.clonedeep';
 import Dictionary from 'utils/dictionary/dictionary';
 import {
   CODES_LIST_INPUT_ENUM,
-  QUESTION_TYPE_ENUM
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
@@ -145,7 +145,7 @@ export function validCodesList(codesList) {
 
 export function validCollectedVariables(
   value,
-  { form, stores: { codesListsStore } }
+  { form, stores: { codesListsStore } },
 ) {
   function checkIfCodesListTheSame(expected, values) {
     if (!expected[0]) {
@@ -156,7 +156,7 @@ export function validCollectedVariables(
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
     name: nameComponent,
-    responseFormat: { type, [type]: responseFormatValues }
+    responseFormat: { type, [type]: responseFormatValues },
   } = form;
   let expectedVariables;
 
@@ -165,7 +165,7 @@ export function validCollectedVariables(
       type,
       nameComponent,
       responseFormatValues,
-      codesListsStore
+      codesListsStore,
     );
   }
 
@@ -175,7 +175,7 @@ export function validCollectedVariables(
    */
   const isCodesTheSame = checkIfCodesListTheSame(
     expectedVariables.map(e => e.codeListReference),
-    value.map(e => e.codeListReference)
+    value.map(e => e.codeListReference),
   );
 
   /**
@@ -195,10 +195,7 @@ export function validCollectedVariables(
    * are in the right order.
    */
   const isTheSameOrder = true;
-  /*expectedVariables[0].name &&
-    expectedVariables.map(v => v.name).join(' ') ===
-      value.map(v => v.name).join(' ');
-*/
+
   if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
@@ -218,7 +215,7 @@ export function validCollectedVariables(
 
 export function validateEarlyTarget(
   value,
-  { stores: { componentsStore, editingComponentId } }
+  { stores: { componentsStore, editingComponentId } },
 ) {
   let result;
 
@@ -228,7 +225,7 @@ export function validateEarlyTarget(
       componentsStore[value] &&
       getComponentsTargetsByComponent(
         componentsStore,
-        componentsStore[editingComponentId]
+        componentsStore[editingComponentId],
       ).indexOf(value) === -1
         ? Dictionary.errorGoToEarlierTgt
         : undefined;
@@ -251,7 +248,7 @@ export function validateDuplicates(value, { form }) {
 
 export function validateDuplicatesCalculated(
   value,
-  { form: { calculatedVariables: values }, state: { selectedItemIndex } }
+  { form: { calculatedVariables: values }, state: { selectedItemIndex } },
 ) {
   const listItems = cloneDeep(values.calculatedVariables);
 
@@ -265,7 +262,7 @@ export function validateDuplicatesCalculated(
 
 export function validateDuplicatesExternal(
   value,
-  { form: { externalVariables: values }, state: { selectedItemIndex } }
+  { form: { externalVariables: values }, state: { selectedItemIndex } },
 ) {
   const listItems = cloneDeep(values.externalVariables);
 
@@ -279,7 +276,7 @@ export function validateDuplicatesExternal(
 
 export function validateDuplicatesCollected(
   value,
-  { form: { collectedVariables: values }, state: { selectedItemIndex } }
+  { form: { collectedVariables: values }, state: { selectedItemIndex } },
 ) {
   const listItems = cloneDeep(values.collectedVariables);
 

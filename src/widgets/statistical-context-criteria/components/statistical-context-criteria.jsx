@@ -13,7 +13,7 @@ import { requiredSelect } from 'forms/validation-rules';
 
 const {
   COMPONENT_CLASS,
-  HORIZONTAL_CLASS
+  HORIZONTAL_CLASS,
 } = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 // PropTypes and defaultProps
@@ -33,7 +33,7 @@ const propTypes = {
   loadSeriesIfNeeded: PropTypes.func.isRequired,
   loadOperationsIfNeeded: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
-  change: PropTypes.func.isRequired
+  change: PropTypes.func.isRequired,
 };
 const defaultProps = {
   multipleCampaign: false,
@@ -42,7 +42,7 @@ const defaultProps = {
   operations: undefined,
   campaigns: undefined,
   selectedSerie: undefined,
-  selectedOperation: undefined
+  selectedOperation: undefined,
 };
 
 // Component
@@ -51,12 +51,12 @@ class StatisticalContextCriteria extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const {
       selectedSerie,
       selectedOperation,
       campaigns,
-      operations
+      operations,
     } = this.props;
 
     this.props.loadSeriesIfNeeded();
@@ -73,7 +73,7 @@ class StatisticalContextCriteria extends Component {
       selectedSerie,
       selectedOperation,
       campaigns,
-      operations
+      operations,
     } = this.props;
 
     if (operations) {
@@ -117,14 +117,14 @@ class StatisticalContextCriteria extends Component {
       focusOnInit,
       horizontal,
       selectedSerie,
-      selectedOperation
+      selectedOperation,
     } = this.props;
 
     return (
       <div
         className={ClassSet({
           [COMPONENT_CLASS]: true,
-          [HORIZONTAL_CLASS]: horizontal
+          [HORIZONTAL_CLASS]: horizontal,
         })}
       >
         <Field

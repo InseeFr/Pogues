@@ -2,12 +2,12 @@ export function moveComponent(
   activesComponents,
   idMovedComponent,
   idTargetComponent,
-  newWeight
+  newWeight,
 ) {
   return {
     activesComponents,
     idMovedComponent,
     idTargetComponent,
-    newWeight
+    newWeight,
   };
 }

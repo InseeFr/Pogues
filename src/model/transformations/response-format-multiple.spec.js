@@ -1,4 +1,5 @@
 import { remoteToState, stateToRemote } from './response-format-multiple';
+
 describe('response format multiple', () => {
   it('remoteToState', () => {
     const remote = {
@@ -6,22 +7,22 @@ describe('response format multiple', () => {
         {
           id: 'jf0wxgwc',
           Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
-          CollectedVariableReference: 'jf0wtl3p'
-        }
+          CollectedVariableReference: 'jf0wtl3p',
+        },
       ],
       dimensions: [
         {
           dimensionType: 'PRIMARY',
           dynamic: '0',
-          CodeListReference: 'jf0w3fab'
+          CodeListReference: 'jf0w3fab',
         },
-        { dimensionType: 'MEASURE', dynamic: '0' }
-      ]
+        { dimensionType: 'MEASURE', dynamic: '0' },
+      ],
     };
     const output = remoteToState(remote);
     const expected = {
       MEASURE: { BOOL: {}, type: 'BOOL' },
-      PRIMARY: { CodesList: { id: 'jf0w3fab' } }
+      PRIMARY: { CodesList: { id: 'jf0w3fab' } },
     };
     expect(output).toEqual(expected);
   });
@@ -29,7 +30,7 @@ describe('response format multiple', () => {
   it('stateToRemote', () => {
     const state = {
       PRIMARY: { CodesList: { id: 'jf0w3fab' } },
-      MEASURE: { type: 'BOOL', BOOL: {} }
+      MEASURE: { type: 'BOOL', BOOL: {} },
     };
     const collectedVariables = ['jf0wtl3p'];
     const collectedVariablesStore = {
@@ -41,31 +42,31 @@ describe('response format multiple', () => {
         y: null,
         type: 'BOOLEAN',
         BOOLEAN: {},
-        codeListReferenceLabel: ''
-      }
+        codeListReferenceLabel: '',
+      },
     };
     const output = stateToRemote(
       state,
       collectedVariables,
-      collectedVariablesStore
+      collectedVariablesStore,
     );
     const expected = {
       Dimension: [
         {
           CodeListReference: 'jf0w3fab',
           dimensionType: 'PRIMARY',
-          dynamic: '0'
+          dynamic: '0',
         },
-        { dimensionType: 'MEASURE', dynamic: '0' }
+        { dimensionType: 'MEASURE', dynamic: '0' },
       ],
       Mapping: [{ MappingSource: output.Response[0].id, MappingTarget: '1' }],
       Response: [
         {
           CollectedVariableReference: 'jf0wtl3p',
           Datatype: { type: 'BooleanDatatypeType', typeName: 'BOOLEAN' },
-          id: output.Response[0].id
-        }
-      ]
+          id: output.Response[0].id,
+        },
+      ],
     };
     expect(output).toEqual(expected);
   });

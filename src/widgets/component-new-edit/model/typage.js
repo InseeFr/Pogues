@@ -6,14 +6,14 @@ export const defaultTypageForm = {
   type: TEXT,
   [TEXT]: {
     maxLength: 255,
-    pattern: ''
+    pattern: '',
   },
   [NUMERIC]: {
     minimum: '',
     maximum: '',
     decimals: '',
-    unit: ''
+    unit: '',
   },
   [DATE]: {},
-  [BOOLEAN]: {}
+  [BOOLEAN]: {},
 };

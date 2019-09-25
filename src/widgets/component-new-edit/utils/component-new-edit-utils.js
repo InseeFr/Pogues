@@ -5,12 +5,12 @@ export function getInvalidItemsByType(invalidItems) {
 
     type = {
       ...type,
-      [item.id]: item
+      [item.id]: item,
     };
 
     return {
       ...acc,
-      [item.type]: type
+      [item.type]: type,
     };
   }, {});
 }

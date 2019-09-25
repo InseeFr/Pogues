@@ -10,7 +10,7 @@ import {
   moveDown,
   moveUp,
   updateSelectedOption,
-  init
+  init,
 } from './input-autocomplete-utils';
 
 import { getControlId, getValuesFromGenericOptions } from 'utils/widget-utils';
@@ -22,7 +22,7 @@ const {
   BUTTON_CLEAR_CLASS,
   NO_OPTION_SELECTED_ICON,
   OPTION_SELECTED_ICON,
-  OPTION_CLEAR_ICON
+  OPTION_CLEAR_ICON,
 } = CONTROL_INPUT_AUTOCOMPLETE;
 
 // PropTypes and defaultProps
@@ -36,7 +36,7 @@ export const propTypes = {
   numSuggestionsShown: PropTypes.number,
   getOptionLabel: PropTypes.func,
   caseSensitive: PropTypes.bool,
-  focusOnInit: PropTypes.bool
+  focusOnInit: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -47,7 +47,7 @@ export const defaultProps = {
     return label;
   },
   caseSensitive: true,
-  focusOnInit: false
+  focusOnInit: false,
 };
 
 // Component
@@ -65,7 +65,7 @@ class InputAutocomplete extends Component {
       suggestions: [],
       indexActiveSuggestion: undefined,
       inputSearch: '',
-      showSuggestions: false
+      showSuggestions: false,
     };
 
     this.onKeyUp = this.onKeyUp.bind(this);
@@ -74,8 +74,11 @@ class InputAutocomplete extends Component {
     this.removeSelectedOption = this.removeSelectedOption.bind(this);
   }
 
-  componentWillMount() {
-    const { children, input: { value } } = this.props;
+  UNSAFE_componentWillMount() {
+    const {
+      children,
+      input: { value },
+    } = this.props;
     const options = getValuesFromGenericOptions(children);
     this.setState(init(options, value));
   }
@@ -85,7 +88,10 @@ class InputAutocomplete extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { children, input: { value } } = nextProps;
+    const {
+      children,
+      input: { value },
+    } = nextProps;
 
     if (value !== this.props.input.value) {
       this.setState(init(getValuesFromGenericOptions(children), value));
@@ -98,7 +104,7 @@ class InputAutocomplete extends Component {
       getOptionLabel,
       numSuggestionsShown,
       caseSensitive,
-      input: { onChange }
+      input: { onChange },
     } = this.props;
     const inputSearchValue = event.currentTarget.value.trim();
 
@@ -117,8 +123,8 @@ class InputAutocomplete extends Component {
           options,
           getOptionLabel,
           numSuggestionsShown,
-          caseSensitive
-        )
+          caseSensitive,
+        ),
       );
     }
   }
@@ -131,7 +137,7 @@ class InputAutocomplete extends Component {
     updateSelectedOption(
       this.state.suggestions,
       this.props.input.onChange,
-      indexClickedSuggestion
+      indexClickedSuggestion,
     );
   }
 
@@ -145,17 +151,17 @@ class InputAutocomplete extends Component {
       label,
       required,
       caseSensitive,
-      meta: { touched, error }
+      meta: { touched, error },
     } = this.props;
     const id = getControlId('input-autocomplete', name);
     const {
       suggestions,
       indexActiveSuggestion,
       showSuggestions,
-      inputSearch
+      inputSearch,
     } = this.state;
     const searchInputStyle = {
-      display: showSuggestions ? 'block' : 'none'
+      display: showSuggestions ? 'block' : 'none',
     };
 
     return (
@@ -173,7 +179,7 @@ class InputAutocomplete extends Component {
                 className={ClassSet({
                   glyphicon: true,
                   [NO_OPTION_SELECTED_ICON]: !this.state.indexSelectedOption,
-                  [OPTION_SELECTED_ICON]: this.state.indexSelectedOption
+                  [OPTION_SELECTED_ICON]: this.state.indexSelectedOption,
                 })}
               />
             </div>
@@ -218,12 +224,12 @@ class InputAutocomplete extends Component {
             <ul style={searchInputStyle}>
               {suggestions.map((
                 su,
-                index // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               ) => (
                 <li
                   key={su.value}
                   className={ClassSet({
-                    active: index === indexActiveSuggestion
+                    active: index === indexActiveSuggestion,
                   })}
                   onClick={() => {
                     this.onClick(index);

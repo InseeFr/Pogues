@@ -11,11 +11,11 @@ const { QUESTIONNAIRE } = COMPONENT_TYPE;
 const propTypes = {
   errorsByComponent: PropTypes.object.isRequired,
   components: PropTypes.object,
-  setSelectedComponentId: PropTypes.func.isRequired
+  setSelectedComponentId: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  components: {}
+  components: {},
 };
 
 // Component
@@ -27,7 +27,7 @@ class QuestionnaireErrors extends Component {
   constructor() {
     super();
     this.state = {
-      expanded: []
+      expanded: [],
     };
 
     this.handleExpand = this.handleExpand.bind(this);
@@ -37,11 +37,11 @@ class QuestionnaireErrors extends Component {
     e.preventDefault();
     if (this.state.expanded.indexOf(key) < 0) {
       this.setState({
-        expanded: [...this.state.expanded, key]
+        expanded: [...this.state.expanded, key],
       });
     } else {
       this.setState({
-        expanded: this.state.expanded.filter(k => k !== key)
+        expanded: this.state.expanded.filter(k => k !== key),
       });
     }
   }

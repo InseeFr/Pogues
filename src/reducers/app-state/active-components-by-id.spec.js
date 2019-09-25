@@ -2,7 +2,7 @@ import actionsHandlers, {
   setActiveComponents,
   updateActiveComponents,
   createPageBreak,
-  removePageBreak
+  removePageBreak,
 } from './active-components-by-id';
 import {
   CREATE_COMPONENT,
@@ -11,19 +11,19 @@ import {
   REMOVE_COMPONENT,
   UPDATE_COMPONENT_PARENT,
   UPDATE_COMPONENT_ORDER,
-  MOVE_COMPONENT
+  MOVE_COMPONENT,
 } from 'actions/component';
 import {
   SET_ACTIVE_COMPONENTS,
   CREATE_PAGE_BREAK,
-  REMOVE_PAGE_BREAK
+  REMOVE_PAGE_BREAK,
 } from 'actions/app-state';
 
 describe('setActiveComponents', () => {
   test('when called directly', () => {
     const result = setActiveComponents(
       { state: 'previous' },
-      { activeComponents: 'activeComponents' }
+      { activeComponents: 'activeComponents' },
     );
     expect(result).toEqual({ activeComponents: 'activeComponents' });
   });
@@ -33,8 +33,8 @@ describe('setActiveComponents', () => {
         { state: 'previous' },
         {
           type: action,
-          payload: { activeComponents: 'activeComponents' }
-        }
+          payload: { activeComponents: 'activeComponents' },
+        },
       );
       expect(result).toEqual({ activeComponents: 'activeComponents' });
     });
@@ -47,13 +47,13 @@ describe('updateActiveComponents', () => {
       { state: 'previous' },
       {
         update: {
-          activeComponentsById: { activeComponents: 'activeComponents' }
-        }
-      }
+          activeComponentsById: { activeComponents: 'activeComponents' },
+        },
+      },
     );
     expect(result).toEqual({
       state: 'previous',
-      activeComponents: 'activeComponents'
+      activeComponents: 'activeComponents',
     });
   });
   [
@@ -62,7 +62,7 @@ describe('updateActiveComponents', () => {
     UPDATE_COMPONENT,
     UPDATE_COMPONENT_ORDER,
     UPDATE_COMPONENT_PARENT,
-    MOVE_COMPONENT
+    MOVE_COMPONENT,
   ].forEach(action => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
@@ -71,14 +71,14 @@ describe('updateActiveComponents', () => {
           type: action,
           payload: {
             update: {
-              activeComponentsById: { activeComponents: 'activeComponents' }
-            }
-          }
-        }
+              activeComponentsById: { activeComponents: 'activeComponents' },
+            },
+          },
+        },
       );
       expect(result).toEqual({
         state: 'previous',
-        activeComponents: 'activeComponents'
+        activeComponents: 'activeComponents',
       });
     });
   });
@@ -87,11 +87,11 @@ describe('updateActiveComponents', () => {
     test('when called directly', () => {
       const result = createPageBreak(
         { '1': { id: '1' }, '2': { id: '2' } },
-        { id: '1' }
+        { id: '1' },
       );
       expect(result).toEqual({
         '1': { id: '1', pageBreak: true },
-        '2': { id: '2' }
+        '2': { id: '2' },
       });
     });
     [CREATE_PAGE_BREAK].forEach(action => {
@@ -100,12 +100,12 @@ describe('updateActiveComponents', () => {
           { '1': { id: '1' }, '2': { id: '2' } },
           {
             type: action,
-            payload: { id: '1' }
-          }
+            payload: { id: '1' },
+          },
         );
         expect(result).toEqual({
           '1': { id: '1', pageBreak: true },
-          '2': { id: '2' }
+          '2': { id: '2' },
         });
       });
     });
@@ -115,11 +115,11 @@ describe('updateActiveComponents', () => {
     test('when called directly', () => {
       const result = removePageBreak(
         { '1': { id: '1' }, '2': { id: '2' } },
-        { id: '1' }
+        { id: '1' },
       );
       expect(result).toEqual({
         '1': { id: '1', pageBreak: false },
-        '2': { id: '2' }
+        '2': { id: '2' },
       });
     });
     [REMOVE_PAGE_BREAK].forEach(action => {
@@ -128,12 +128,12 @@ describe('updateActiveComponents', () => {
           { '1': { id: '1' }, '2': { id: '2' } },
           {
             type: action,
-            payload: { id: '1' }
-          }
+            payload: { id: '1' },
+          },
         );
         expect(result).toEqual({
           '1': { id: '1', pageBreak: false },
-          '2': { id: '2' }
+          '2': { id: '2' },
         });
       });
     });

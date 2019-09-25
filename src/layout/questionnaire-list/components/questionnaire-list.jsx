@@ -15,13 +15,13 @@ const propTypes = {
     name: PropTypes.string,
     permission: PropTypes.string,
     id: PropTypes.string,
-    picture: PropTypes.string
-  })
+    picture: PropTypes.string,
+  }),
 };
 
 const defaultProps = {
   questionnaires: [],
-  user: {}
+  user: {},
 };
 
 // Component
@@ -33,11 +33,11 @@ class QuestionnaireList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: ''
+      filter: '',
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.user && this.props.user.permission)
       this.props.loadQuestionnaireList(this.props.user.permission);
   }

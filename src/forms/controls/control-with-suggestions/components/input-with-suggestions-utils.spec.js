@@ -1,25 +1,24 @@
-import React from 'react';
 import {
   updateSuggestions,
   initialize,
-  getNewIndex
+  getNewIndex,
 } from './input-with-suggestions-utils';
 
 describe('input-with-suggestions-utils', () => {
   describe('updateSuggestions', () => {
     test('if the text match the regexp', () => {
       expect(
-        updateSuggestions('text', /^(text)$/, ['texte', 'other', 'textuel'])
+        updateSuggestions('text', /^(text)$/, ['texte', 'other', 'textuel']),
       ).toEqual({
         suggestions: ['texte', 'textuel'],
-        hoveredSuggestionIndex: 0
+        hoveredSuggestionIndex: 0,
       });
     });
 
     test('if the text do not match the regexp', () => {
       expect(updateSuggestions('text', /^other$/, [])).toEqual({
         suggestions: [],
-        hoveredSuggestionIndex: 0
+        hoveredSuggestionIndex: 0,
       });
     });
   });
@@ -27,7 +26,7 @@ describe('input-with-suggestions-utils', () => {
     test('should return the default value', () => {
       expect(initialize()).toEqual({
         suggestions: [],
-        hoveredSuggestionIndex: 0
+        hoveredSuggestionIndex: 0,
       });
     });
   });

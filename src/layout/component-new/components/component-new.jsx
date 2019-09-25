@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
 import {
   validateQuestionForm,
-  validateSequenceForm
+  validateSequenceForm,
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -29,14 +29,14 @@ export const propTypes = {
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
-  activeQuestionnaire: PropTypes.object.isRequired
+  activeQuestionnaire: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
   codesListsStore: {},
   calculatedVariablesStore: {},
   externalVariablesStore: {},
-  activeQuestionnaire: {}
+  activeQuestionnaire: {},
 };
 
 // Utils
@@ -47,7 +47,7 @@ function validateAndSubmit(
   validateQuestion,
   validateSequence,
   transformer,
-  onSuccess
+  onSuccess,
 ) {
   return function(values) {
     if (type === QUESTION) {
@@ -68,12 +68,14 @@ function validateAndSubmit(
         updatedCodesListsStore,
         updatedCalculatedVariablesStore,
         updatedExternalVariablesStore,
-        updatedCollectedlVariablesStore
+        updatedCollectedlVariablesStore,
       )
       .then(actions.updateParentChildren)
       .then(actions.orderComponents)
       .then(result => {
-        const { payload: { id } } = result;
+        const {
+          payload: { id },
+        } = result;
         actions.setSelectedComponentId(id);
         if (onSuccess) onSuccess(id);
       });
@@ -96,7 +98,7 @@ function ComponentNew({
   parentId,
   weight,
   type,
-  activeQuestionnaire
+  activeQuestionnaire,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -106,7 +108,7 @@ function ComponentNew({
     createComponent,
     updateParentChildren,
     orderComponents,
-    setSelectedComponentId
+    setSelectedComponentId,
   };
 
   // Initial values
@@ -115,7 +117,7 @@ function ComponentNew({
   const componentTransformer = Component(initialState, {
     calculatedVariablesStore,
     externalVariablesStore,
-    codesListsStore
+    codesListsStore,
   });
   const initialValues = componentTransformer.stateToForm(activeQuestionnaire);
 
@@ -132,7 +134,7 @@ function ComponentNew({
         validateQuestion(setValidationErrors, codesListsStore),
         validateSequence(setValidationErrors),
         componentTransformer,
-        onSuccess
+        onSuccess,
       )}
     />
   );

@@ -9,11 +9,14 @@ import { setSelectedComponentId } from 'actions/app-state';
 const mapStateToProps = state => ({
   questionnaire: state.appState.activeQuestionnaire,
   componentsStore: state.appState.activeComponentsById,
-  selectedComponentId: state.appState.selectedComponentId
+  selectedComponentId: state.appState.selectedComponentId,
 });
 
 const mapDispatchToProps = {
-  setSelectedComponentId
+  setSelectedComponentId,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireNav);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(QuestionnaireNav);

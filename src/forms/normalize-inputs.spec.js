@@ -1,13 +1,13 @@
 import {
   componentName,
   stripLeadingUnderscore,
-  capitalize
+  capitalize,
 } from './normalize-inputs';
 
 describe('componentName', () => {
   test('should return the default value', () => {
     expect(componentName('value', 'previousValue', { label: 'label' })).toEqual(
-      'value'
+      'value',
     );
   });
   test('should return the created value', () => {

@@ -22,7 +22,9 @@ function renderComponentsErrors(errorsIntegrity, componentsStore) {
           <li key={componentId}>
             <span>{componentsStore[componentId].name}</span>
             <ul>
-              {integrityErrors.map((e, index) => <li key={index}>{e}</li>)}
+              {integrityErrors.map((e, index) => (
+                <li key={index}>{e}</li>
+              ))}
             </ul>
           </li>
         );
@@ -38,12 +40,12 @@ function renderComponentsErrors(errorsIntegrity, componentsStore) {
 
 const propTypes = {
   errorsIntegrity: PropTypes.object,
-  componentsStore: PropTypes.object.isRequired
+  componentsStore: PropTypes.object.isRequired,
   // setSelectedComponentId: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  errorsIntegrity: {}
+  errorsIntegrity: {},
 };
 
 // Component
@@ -56,7 +58,7 @@ class ErrorsIntegrity extends Component {
     super(props);
 
     this.state = {
-      expanded: []
+      expanded: [],
     };
 
     this.handleExpand = this.handleExpand.bind(this);
@@ -66,11 +68,11 @@ class ErrorsIntegrity extends Component {
   handleExpand(key) {
     if (this.state.expanded.indexOf(key) < 0) {
       this.setState({
-        expanded: [...this.state.expanded, key]
+        expanded: [...this.state.expanded, key],
       });
     } else {
       this.setState({
-        expanded: this.state.expanded.filter(k => k !== key)
+        expanded: this.state.expanded.filter(k => k !== key),
       });
     }
   }
@@ -88,7 +90,7 @@ class ErrorsIntegrity extends Component {
     const { errorsIntegrity, componentsStore } = this.props;
     const componentsErrors = renderComponentsErrors(
       errorsIntegrity,
-      componentsStore
+      componentsStore,
     );
 
     return (

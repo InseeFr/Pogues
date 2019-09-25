@@ -8,8 +8,8 @@ export function loadMetadata(state, { type, metadataByTypeStore }) {
     ...state,
     [type]: {
       ...state[type],
-      ...metadataByTypeStore
-    }
+      ...metadataByTypeStore,
+    },
   };
 }
 

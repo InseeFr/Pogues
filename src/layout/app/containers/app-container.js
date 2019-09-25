@@ -6,19 +6,19 @@ import { loadUnitsIfNeeded } from 'actions/metadata';
 // Prop types and default props
 
 const propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.object.isRequired,
 };
 
 // Container
 
 const mapDispatchToProps = {
   loadUser,
-  loadUnitsIfNeeded
+  loadUnitsIfNeeded,
 };
 
 const AppContainer = connect(
   undefined,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);
 
 AppContainer.propTypes = propTypes;

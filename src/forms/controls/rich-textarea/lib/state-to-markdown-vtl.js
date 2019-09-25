@@ -2,7 +2,7 @@ import {
   getEntityRanges,
   BLOCK_TYPE,
   ENTITY_TYPE,
-  INLINE_STYLE
+  INLINE_STYLE,
 } from 'draft-js-utils';
 
 const { BOLD, CODE, ITALIC, STRIKETHROUGH, UNDERLINE } = INLINE_STYLE;
@@ -11,7 +11,7 @@ const CODE_INDENT = '    ';
 
 function conditionsToVtl(content, conditions) {
   let vtl = `##{"label": "${content}", "conditions": ${JSON.stringify(
-    conditions
+    conditions,
   )} }`;
 
   vtl = `${vtl}#if(${conditions[0].condition})${conditions[0].label}`;
@@ -139,7 +139,7 @@ class MarkupGenerator {
         // TODO: figure out what to do with two-digit numbers
         const count = this.getListItemCount(block) % 10;
         this.output.push(
-          `${indent}${count}. ${this.renderBlockContent(block)}\n`
+          `${indent}${count}. ${this.renderBlockContent(block)}\n`,
         );
         break;
       }

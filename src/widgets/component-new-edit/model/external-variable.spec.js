@@ -5,7 +5,7 @@ import {
   externalVariablesFormNew,
   externalVariablesFormUpdate,
   externalVariablesStore,
-  externalVariablesModel
+  externalVariablesModel,
 } from './__mocks__/external-variable';
 
 describe.skip('Transformation entities - ExternalVariable', () => {
@@ -29,20 +29,20 @@ describe.skip('Transformation entities - ExternalVariable', () => {
   test('Should produce expected STORE from questionnaire MODEL', () => {
     const cvTransformer = ExternalVariableTransformerFactory();
     expect(cvTransformer.modelToStore(externalVariablesModel)).toEqual(
-      externalVariablesStore
+      externalVariablesStore,
     );
   });
 
   test('Should produce expected FORM from questionnaire STORE', () => {
     const cvTransformer = ExternalVariableTransformerFactory({
-      initialStore: externalVariablesStore
+      initialStore: externalVariablesStore,
     });
     expect(cvTransformer.storeToForm()).toEqual(externalVariablesFormUpdate);
   });
 
   test('Should produce expected MODEL from questionnaire STORE', () => {
     const cvTransformer = ExternalVariableTransformerFactory({
-      initialStore: externalVariablesStore
+      initialStore: externalVariablesStore,
     });
     expect(cvTransformer.storeToModel()).toEqual(externalVariablesModel);
   });

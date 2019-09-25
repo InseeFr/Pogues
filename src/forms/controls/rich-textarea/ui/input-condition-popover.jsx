@@ -11,7 +11,7 @@ const {
   INNER,
   BUTTONGROUP,
   CONDITION,
-  INPUT
+  INPUT,
 } = INPUT_CONDITION_POPOVER;
 
 // Utils
@@ -33,12 +33,12 @@ const propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   className: PropTypes.string,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
 
 const defaultProps = {
   className: '',
-  showInvalidConditions: false
+  showInvalidConditions: false,
 };
 
 // Component
@@ -51,7 +51,7 @@ class InputConditionPopover extends Component {
     super(props);
 
     this.state = {
-      conditions: this.props.data.conditions || [{ ...emptyCondition }]
+      conditions: this.props.data.conditions || [{ ...emptyCondition }],
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -170,7 +170,7 @@ class InputConditionPopover extends Component {
         <div className={INNER}>
           {this.state.showInvalidConditions && <div>Invalid conditions</div>}
           {this.state.conditions.map((c, index) =>
-            this.renderCondition(c, index)
+            this.renderCondition(c, index),
           )}
           <ButtonGroup className={BUTTONGROUP}>
             <IconButton

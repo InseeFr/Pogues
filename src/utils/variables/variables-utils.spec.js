@@ -1,6 +1,6 @@
 import {
   removeOrphansCollectedVariables,
-  getCollectedVariablesIdsFromComponents
+  getCollectedVariablesIdsFromComponents,
 } from './variables-utils';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
@@ -18,21 +18,21 @@ describe('variables-utils:', () => {
       '5': { id: '5' },
       '6': { id: '6' },
       '7': { id: '7' },
-      '8': { id: '8' }
+      '8': { id: '8' },
     };
 
     const output = {
       '1': { id: '1' },
       '3': { id: '3' },
       '5': { id: '5' },
-      '7': { id: '7' }
+      '7': { id: '7' },
     };
 
     expect(
       removeOrphansCollectedVariables(
         variablesIdsFromComponents,
-        variablesStore
-      )
+        variablesStore,
+      ),
     ).toEqual(output);
   });
   test('should all collected variables if for all questions', () => {
@@ -43,17 +43,17 @@ describe('variables-utils:', () => {
       '4': { type: QUESTION, collectedVariables: ['collectedVariables4'] },
       '5': { type: SUBSEQUENCE, collectedVariables: ['collectedVariables5'] },
       '6': { type: QUESTION, collectedVariables: ['collectedVariables6'] },
-      '7': { type: QUESTION, collectedVariables: ['collectedVariables7'] }
+      '7': { type: QUESTION, collectedVariables: ['collectedVariables7'] },
     };
     const output = [
       'collectedVariables3',
       'collectedVariables4',
       'collectedVariables6',
-      'collectedVariables7'
+      'collectedVariables7',
     ];
 
     expect(getCollectedVariablesIdsFromComponents(componentsStore)).toEqual(
-      output
+      output,
     );
   });
 });

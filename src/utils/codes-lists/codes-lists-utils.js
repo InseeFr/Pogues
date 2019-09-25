@@ -3,7 +3,7 @@ import {
   QUESTION_TYPE_ENUM,
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
-  DEFAULT_CODES_LIST_SELECTOR_PATH
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -28,9 +28,11 @@ export function getSingleCodesLists(singleFormat) {
 
 export function getMultipleCodesLists(multipleFormat) {
   const codesListsIds = [
-    multipleFormat[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH].id
+    multipleFormat[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH].id,
   ];
-  const { [MEASURE]: { type, [type]: measure } } = multipleFormat;
+  const {
+    [MEASURE]: { type, [type]: measure },
+  } = multipleFormat;
 
   if (type === CODES_LIST) {
     codesListsIds.push(measure[DEFAULT_CODES_LIST_SELECTOR_PATH].id);
@@ -45,7 +47,7 @@ export function getTableCodesLists(tableFormat) {
     [PRIMARY]: { type: typePrimary, [typePrimary]: primary },
     [SECONDARY]: secondary,
     [MEASURE]: measure,
-    [LIST_MEASURE]: measures
+    [LIST_MEASURE]: measures,
   } = tableFormat;
 
   if (typePrimary === CODES_LIST) {
@@ -89,20 +91,21 @@ export function removeOrphansCodesLists(codesListsStore, componentsStore) {
       const codesListsLinked = codesListsIds.reduce((accInner, keyInner) => {
         return {
           ...accInner,
-          [keyInner]: codesListsStore[keyInner]
+          [keyInner]: codesListsStore[keyInner],
         };
       }, {});
 
       return {
         ...acc,
-        ...codesListsLinked
+        ...codesListsLinked,
       };
     }, {});
 }
 /**
  * This method will check if a code list contains a given child
  */
-export const hasChild = (code, listCodes) => listCodes.reduce((_, c) => {
-  if (c.parent === code.value) _ = true;
-  return _;
-}, false);
+export const hasChild = (code, listCodes) =>
+  listCodes.reduce((_, c) => {
+    if (c.parent === code.value) _ = true;
+    return _;
+  }, false);

@@ -31,12 +31,12 @@ module.exports = [
           'j6qfx9qe',
           'j6qg8rc6',
           'j6z12s2d',
-          'j6z0z3us'
+          'j6z0z3us',
         ],
         Label: ['Components for page 1'],
         id: 'jbgd383r',
-        Name: 'PAGE_1'
-      }
+        Name: 'PAGE_1',
+      },
     ],
     agency: 'fr.insee',
     genericName: 'QUESTIONNAIRE',
@@ -49,537 +49,537 @@ module.exports = [
           Label: 'COMMENT label',
           id: 'jbcgfvir',
           type: 'CollectedVariableType',
-          Name: 'COMMENT'
+          Name: 'COMMENT',
         },
         {
           Label: 'READY label',
           id: 'jbcgm0ip',
           type: 'CollectedVariableType',
-          Name: 'READY'
+          Name: 'READY',
         },
         {
           Label: 'PRODUCER label',
           id: 'jbcgf11f',
           type: 'CollectedVariableType',
-          Name: 'PRODUCER'
+          Name: 'PRODUCER',
         },
         {
           Label: 'SEASON_NUMBER label',
           id: 'jbcgcy2x',
           type: 'CollectedVariableType',
-          Name: 'SEASON_NUMBER'
+          Name: 'SEASON_NUMBER',
         },
         {
           Label: 'DATEFIRST label',
           id: 'jbcgbg33',
           type: 'CollectedVariableType',
-          Name: 'DATEFIRST'
+          Name: 'DATEFIRST',
         },
         {
           Label: 'AUDIENCE_SHARE label',
           id: 'jbcgieyw',
           type: 'CollectedVariableType',
-          Name: 'AUDIENCE_SHARE'
+          Name: 'AUDIENCE_SHARE',
         },
         {
           Label: 'CITY label',
           id: 'jbcgasbh',
           type: 'CollectedVariableType',
-          Name: 'CITY'
+          Name: 'CITY',
         },
         {
           Label: 'MAYOR label',
           id: 'jbcg9yr6',
           type: 'CollectedVariableType',
-          Name: 'MAYOR'
+          Name: 'MAYOR',
         },
         {
           Label: 'STATE label',
           id: 'jbcgpija',
           type: 'CollectedVariableType',
-          Name: 'STATE'
+          Name: 'STATE',
         },
         {
           Label: "1 - Santa's Little Helper",
           id: 'jbdxewlq',
           type: 'CollectedVariableType',
-          Name: 'PET1'
+          Name: 'PET1',
         },
         {
           Label: '2 - Snowball I',
           id: 'jbdxjmst',
           type: 'CollectedVariableType',
-          Name: 'PET2'
+          Name: 'PET2',
         },
         {
           Label: '3 - Coltrane',
           id: 'jbdxjuay',
           type: 'CollectedVariableType',
-          Name: 'PET3'
+          Name: 'PET3',
         },
         {
           Label: '4 - Mojo the Helper Monkey',
           id: 'jbdxniuw',
           type: 'CollectedVariableType',
-          Name: 'PET4'
+          Name: 'PET4',
         },
         {
           Label: '1 - Vanilla',
           id: 'jbdxtl1d',
           type: 'CollectedVariableType',
-          Name: 'ICE_FLAVOUR1'
+          Name: 'ICE_FLAVOUR1',
         },
         {
           Label: '2 - Strawberry',
           id: 'jbdxvai9',
           type: 'CollectedVariableType',
-          Name: 'ICE_FLAVOUR2'
+          Name: 'ICE_FLAVOUR2',
         },
         {
           Label: '3 - Apple',
           id: 'jbdxpltw',
           type: 'CollectedVariableType',
-          Name: 'ICE_FLAVOUR3'
+          Name: 'ICE_FLAVOUR3',
         },
         {
           Label: '4 - Bacon',
           id: 'jbdxzx2x',
           type: 'CollectedVariableType',
-          Name: 'ICE_FLAVOUR4'
+          Name: 'ICE_FLAVOUR4',
         },
         {
           Label: '1 - Charles Montgomery Burns',
           id: 'jbdy4nhp',
           type: 'CollectedVariableType',
-          Name: 'NUCLEAR_CHARACTER1'
+          Name: 'NUCLEAR_CHARACTER1',
         },
         {
           Label: '2 - Carl Carlson',
           id: 'jbdxtanu',
           type: 'CollectedVariableType',
-          Name: 'NUCLEAR_CHARACTER2'
+          Name: 'NUCLEAR_CHARACTER2',
         },
         {
           Label: '3 - Otto Mann',
           id: 'jbdy25if',
           type: 'CollectedVariableType',
-          Name: 'NUCLEAR_CHARACTER3'
+          Name: 'NUCLEAR_CHARACTER3',
         },
         {
           Label: '4 - Carl Carlson',
           id: 'jbdxvta8',
           type: 'CollectedVariableType',
-          Name: 'NUCLEAR_CHARACTER4'
+          Name: 'NUCLEAR_CHARACTER4',
         },
         {
           Label: '1 - Selma Bouvier',
           id: 'jbdy3nh7',
           type: 'CollectedVariableType',
-          Name: 'BIRTH_CHARACTER1'
+          Name: 'BIRTH_CHARACTER1',
         },
         {
           Label: '2 - Kent Brockman',
           id: 'jbdy6lk3',
           type: 'CollectedVariableType',
-          Name: 'BIRTH_CHARACTER2'
+          Name: 'BIRTH_CHARACTER2',
         },
         {
           Label: '3 - Milhouse Van Houten',
           id: 'jbdxsby0',
           type: 'CollectedVariableType',
-          Name: 'BIRTH_CHARACTER3'
+          Name: 'BIRTH_CHARACTER3',
         },
         {
           Label: '4 - Nelson Muntz',
           id: 'jbdy7sra',
           type: 'CollectedVariableType',
-          Name: 'BIRTH_CHARACTER4'
+          Name: 'BIRTH_CHARACTER4',
         },
         {
           Label: '5 - Crazy Cat Lady',
           id: 'jbdy2wyl',
           type: 'CollectedVariableType',
-          Name: 'BIRTH_CHARACTER5'
+          Name: 'BIRTH_CHARACTER5',
         },
         {
           Label: 'Frozen products-Percentage',
           id: 'jbgdnfk7',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES11'
+          Name: 'PERCENTAGE_EXPENSES11',
         },
         {
           Label: 'Ice creams-Percentage',
           id: 'jbgdje4w',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES21'
+          Name: 'PERCENTAGE_EXPENSES21',
         },
         {
           Label: 'Jasper Beardly-Percentage',
           id: 'jbgdlth7',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES31'
+          Name: 'PERCENTAGE_EXPENSES31',
         },
         {
           Label: 'Meat-Percentage',
           id: 'jbgdelbl',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES41'
+          Name: 'PERCENTAGE_EXPENSES41',
         },
         {
           Label: 'Bacon-Percentage',
           id: 'jbgd95jq',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES51'
+          Name: 'PERCENTAGE_EXPENSES51',
         },
         {
           Label: 'Pork chop-Percentage',
           id: 'jbgdadd9',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES61'
+          Name: 'PERCENTAGE_EXPENSES61',
         },
         {
           Label: 'Chicken-Percentage',
           id: 'jbgdlwzk',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES71'
+          Name: 'PERCENTAGE_EXPENSES71',
         },
         {
           Label: 'Compote-Percentage',
           id: 'jbgdfz77',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES81'
+          Name: 'PERCENTAGE_EXPENSES81',
         },
         {
           Label: 'Powersauce-Percentage',
           id: 'jbgdepx6',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES91'
+          Name: 'PERCENTAGE_EXPENSES91',
         },
         {
           Label: 'Other-Percentage',
           id: 'jbgdepx7',
           type: 'CollectedVariableType',
-          Name: 'PERCENTAGE_EXPENSES101'
+          Name: 'PERCENTAGE_EXPENSES101',
         },
         {
           Label: 'Break the windows of the whole city-Clowning',
           id: 'jbgd9vqv',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING11'
+          Name: 'CLOWNING11',
         },
         {
           Label: 'Loose the violin of his daughter playing poker-Clowning',
           id: 'jbgden0i',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING21'
+          Name: 'CLOWNING21',
         },
         {
           Label: 'Kill Mr Burns-Clowning',
           id: 'jbgdndju',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING31'
+          Name: 'CLOWNING31',
         },
         {
           Label:
             'Leaving a mechanical object to control the nuclear power plant-Clowning',
           id: 'jbgdfwg9',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING41'
+          Name: 'CLOWNING41',
         },
         {
           Label: 'Break the windows of the whole city-Remember?',
           id: 'jbgdd3ky',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING12'
+          Name: 'CLOWNING12',
         },
         {
           Label: 'Loose the violin of his daughter playing poker-Remember?',
           id: 'jbgdm9lm',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING22'
+          Name: 'CLOWNING22',
         },
         {
           Label: 'Kill Mr Burns-Remember?',
           id: 'jbgdcdhv',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING32'
+          Name: 'CLOWNING32',
         },
         {
           Label:
             'Leaving a mechanical object to control the nuclear power plant-Remember?',
           id: 'jbgdjlit',
           type: 'CollectedVariableType',
-          Name: 'CLOWNING42'
+          Name: 'CLOWNING42',
         },
         {
           Label: 'Car-Brazil-Means',
           id: 'jbgd1zxu',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL11'
+          Name: 'TRAVEL11',
         },
         {
           Label: 'Bike-Brazil-Means',
           id: 'jbgd8lfs',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL21'
+          Name: 'TRAVEL21',
         },
         {
           Label: 'Skateboard-Brazil-Means',
           id: 'jbgd56qo',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL31'
+          Name: 'TRAVEL31',
         },
         {
           Label: 'Plane-Brazil-Means',
           id: 'jbgd4wu8',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL41'
+          Name: 'TRAVEL41',
         },
         {
           Label: 'Car-Canada-Means',
           id: 'jbgdak6h',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL12'
+          Name: 'TRAVEL12',
         },
         {
           Label: 'Bike-Canada-Means',
           id: 'jbgdmsy4',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL22'
+          Name: 'TRAVEL22',
         },
         {
           Label: 'Skateboard-Canada-Means',
           id: 'jbgd2zlu',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL32'
+          Name: 'TRAVEL32',
         },
         {
           Label: 'Plane-Canada-Means',
           id: 'jbgd6v73',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL42'
+          Name: 'TRAVEL42',
         },
         {
           Label: 'Car-Japan-Means',
           id: 'jbgdf5fg',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL13'
+          Name: 'TRAVEL13',
         },
         {
           Label: 'Bike-Japan-Means',
           id: 'jbgd2xg0',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL23'
+          Name: 'TRAVEL23',
         },
         {
           Label: 'Skateboard-Japan-Means',
           id: 'jbgdc06l',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL33'
+          Name: 'TRAVEL33',
         },
         {
           Label: 'Plane-Japan-Means',
           id: 'jbgdb8i9',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL43'
+          Name: 'TRAVEL43',
         },
         {
           Label: 'Car-France-Means',
           id: 'jbgdhzve',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL14'
+          Name: 'TRAVEL14',
         },
         {
           Label: 'Bike-France-Means',
           id: 'jbgd93ks',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL24'
+          Name: 'TRAVEL24',
         },
         {
           Label: 'Skateboard-France-Means',
           id: 'jbgdfw7h',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL34'
+          Name: 'TRAVEL34',
         },
         {
           Label: 'Plane-France-Means',
           id: 'jbgdfavn',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL44'
+          Name: 'TRAVEL44',
         },
         {
           Label: 'Car-Other country-Means',
           id: 'jbgdc199',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL15'
+          Name: 'TRAVEL15',
         },
         {
           Label: 'Bike-Other country-Means',
           id: 'jbgdfqph',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL25'
+          Name: 'TRAVEL25',
         },
         {
           Label: 'Skateboard-Other country-Means',
           id: 'jbgd8r0n',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL35'
+          Name: 'TRAVEL35',
         },
         {
           Label: 'Plane-Other country-Means',
           id: 'jbgd3aqk',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL45'
+          Name: 'TRAVEL45',
         },
         {
           Label: 'Car-Other Planet-Means',
           id: 'jbgdltql',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL16'
+          Name: 'TRAVEL16',
         },
         {
           Label: 'Bike-Other Planet-Means',
           id: 'jbgd9um3',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL26'
+          Name: 'TRAVEL26',
         },
         {
           Label: 'Skateboard-Other Planet-Means',
           id: 'jbgddj7v',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL36'
+          Name: 'TRAVEL36',
         },
         {
           Label: 'Plane-Other Planet-Means',
           id: 'jbgdb4ym',
           type: 'CollectedVariableType',
-          Name: 'TRAVEL46'
+          Name: 'TRAVEL46',
         },
         {
           Label: 'Line1-Name',
           id: 'jbgd3fkz',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS11'
+          Name: 'FAVOURITE_CHARACTERS11',
         },
         {
           Label: 'Line2-Name',
           id: 'jbgdf2md',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS21'
+          Name: 'FAVOURITE_CHARACTERS21',
         },
         {
           Label: 'Line3-Name',
           id: 'jbgdfle1',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS31'
+          Name: 'FAVOURITE_CHARACTERS31',
         },
         {
           Label: 'Line4-Name',
           id: 'jbgdix8x',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS41'
+          Name: 'FAVOURITE_CHARACTERS41',
         },
         {
           Label: 'Line5-Name',
           id: 'jbgd782k',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS51'
+          Name: 'FAVOURITE_CHARACTERS51',
         },
         {
           Label: 'Line6-Name',
           id: 'jbgd68rf',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS61'
+          Name: 'FAVOURITE_CHARACTERS61',
         },
         {
           Label: 'Line7-Name',
           id: 'jbgdfoj4',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS71'
+          Name: 'FAVOURITE_CHARACTERS71',
         },
         {
           Label: 'Line8-Name',
           id: 'jbgdb116',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS81'
+          Name: 'FAVOURITE_CHARACTERS81',
         },
         {
           Label: 'Line9-Name',
           id: 'jbgd7w5p',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS91'
+          Name: 'FAVOURITE_CHARACTERS91',
         },
         {
           Label: 'Line10-Name',
           id: 'jbgd8rj2',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS101'
+          Name: 'FAVOURITE_CHARACTERS101',
         },
         {
           Label: 'Line1-Age',
           id: 'jbgdidnp',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS12'
+          Name: 'FAVOURITE_CHARACTERS12',
         },
         {
           Label: 'Line2-Age',
           id: 'jbgd47wz',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS22'
+          Name: 'FAVOURITE_CHARACTERS22',
         },
         {
           Label: 'Line3-Age',
           id: 'jbgdj2nn',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS32'
+          Name: 'FAVOURITE_CHARACTERS32',
         },
         {
           Label: 'Line4-Age',
           id: 'jbgd2ipx',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS42'
+          Name: 'FAVOURITE_CHARACTERS42',
         },
         {
           Label: 'Line5-Age',
           id: 'jbgd4pe3',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS52'
+          Name: 'FAVOURITE_CHARACTERS52',
         },
         {
           Label: 'Line6-Age',
           id: 'jbgdjgb1',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS62'
+          Name: 'FAVOURITE_CHARACTERS62',
         },
         {
           Label: 'Line7-Age',
           id: 'jbgdb5c1',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS72'
+          Name: 'FAVOURITE_CHARACTERS72',
         },
         {
           Label: 'Line8-Age',
           id: 'jbgdju9y',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS82'
+          Name: 'FAVOURITE_CHARACTERS82',
         },
         {
           Label: 'Line9-Age',
           id: 'jbgdatyx',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS92'
+          Name: 'FAVOURITE_CHARACTERS92',
         },
         {
           Label: 'Line10-Age',
           id: 'jbgdi1dt',
           type: 'CollectedVariableType',
-          Name: 'FAVOURITE_CHARACTERS102'
+          Name: 'FAVOURITE_CHARACTERS102',
         },
         {
           Label: 'SURVEY_COMMENT label',
           id: 'jbcggt4x',
           type: 'CollectedVariableType',
-          Name: 'SURVEY_COMMENT'
+          Name: 'SURVEY_COMMENT',
         },
         {
           Label: 'SUM_EXPENSES label',
@@ -587,15 +587,15 @@ module.exports = [
           type: 'CalculatedVariableType',
           Name: 'SUM_EXPENSES',
           Formula:
-            '$PERCENTAGE_EXPENSES11 + $PERCENTAGE_EXPENSES21 + $PERCENTAGE_EXPENSES31 + $PERCENTAGE_EXPENSES41 + $PERCENTAGE_EXPENSES51 + $PERCENTAGE_EXPENSES61 + $PERCENTAGE_EXPENSES71 + $PERCENTAGE_EXPENSES81 + $PERCENTAGE_EXPENSES91 + $PERCENTAGE_EXPENSES101'
+            '$PERCENTAGE_EXPENSES11 + $PERCENTAGE_EXPENSES21 + $PERCENTAGE_EXPENSES31 + $PERCENTAGE_EXPENSES41 + $PERCENTAGE_EXPENSES51 + $PERCENTAGE_EXPENSES61 + $PERCENTAGE_EXPENSES71 + $PERCENTAGE_EXPENSES81 + $PERCENTAGE_EXPENSES91 + $PERCENTAGE_EXPENSES101',
         },
         {
           Label: 'LAST_BROADCAST label',
           id: 'jbcggtex',
           type: 'ExternalVariableType',
-          Name: 'LAST_BROADCAST'
-        }
-      ]
+          Name: 'LAST_BROADCAST',
+        },
+      ],
     },
     lastUpdatedDate: 'Fri Jan 12 2018 12:06:03 GMT+0100 (Paris, Madrid)',
     DataCollection: [],
@@ -610,20 +610,20 @@ module.exports = [
             {
               Parent: '',
               Label: 'Springfield',
-              Value: '00001'
+              Value: '00001',
             },
             {
               Parent: '',
               Label: 'Shelbyville',
-              Value: '00002'
+              Value: '00002',
             },
             {
               Parent: '',
               Label: 'Seinfeld',
-              Value: '00003'
-            }
+              Value: '00003',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'MAYOR',
@@ -632,25 +632,25 @@ module.exports = [
             {
               Parent: '',
               Label: 'Constance Harm',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Timothy Lovejoy',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Joe Quimby',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Poochie',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'State',
@@ -659,70 +659,70 @@ module.exports = [
             {
               Parent: '',
               Label: 'Washington',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Kentucky',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Ohio',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Maine',
-              Value: '4'
+              Value: '4',
             },
             {
               Parent: '',
               Label: 'North Dakota',
-              Value: '5'
+              Value: '5',
             },
             {
               Parent: '',
               Label: 'Florida',
-              Value: '6'
+              Value: '6',
             },
             {
               Parent: '',
               Label: 'North Takoma',
-              Value: '7'
+              Value: '7',
             },
             {
               Parent: '',
               Label: 'California',
-              Value: '8'
+              Value: '8',
             },
             {
               Parent: '',
               Label: 'Texas',
-              Value: '9'
+              Value: '9',
             },
             {
               Parent: '',
               Label: 'Massachusetts',
-              Value: '10'
+              Value: '10',
             },
             {
               Parent: '',
               Label: 'Nevada',
-              Value: '11'
+              Value: '11',
             },
             {
               Parent: '',
               Label: 'Illinois',
-              Value: '12'
+              Value: '12',
             },
             {
               Parent: '',
               Label: 'Not in any state, you fool!',
-              Value: '13'
-            }
+              Value: '13',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'ANIMALS',
@@ -731,25 +731,25 @@ module.exports = [
             {
               Parent: '',
               Label: "Santa's Little Helper",
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Snowball I',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Coltrane',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Mojo the Helper Monkey',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Flavours',
@@ -758,25 +758,25 @@ module.exports = [
             {
               Parent: '',
               Label: 'Vanilla',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Strawberry',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Apple',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Bacon',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'YESNO',
@@ -785,15 +785,15 @@ module.exports = [
             {
               Parent: '',
               Label: 'Yes',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'No',
-              Value: '0'
-            }
+              Value: '0',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'NUCLEAR_CHARACTERS',
@@ -802,25 +802,25 @@ module.exports = [
             {
               Parent: '',
               Label: 'Charles Montgomery Burns',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Carl Carlson',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Otto Mann',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Carl Carlson',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'BIRTH_CHARACTER',
@@ -829,30 +829,30 @@ module.exports = [
             {
               Parent: '',
               Label: 'Selma Bouvier',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Kent Brockman',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Milhouse Van Houten',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Nelson Muntz',
-              Value: '4'
+              Value: '4',
             },
             {
               Parent: '',
               Label: 'Crazy Cat Lady',
-              Value: '5'
-            }
+              Value: '5',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'CITY_BIRTH',
@@ -861,30 +861,30 @@ module.exports = [
             {
               Parent: '',
               Label: 'Albuquerque',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Springfield',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Portland',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Shelbyville',
-              Value: '4'
+              Value: '4',
             },
             {
               Parent: '',
               Label: 'Dagstuhl',
-              Value: '5'
-            }
+              Value: '5',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Products',
@@ -893,55 +893,55 @@ module.exports = [
             {
               Parent: '',
               Label: 'Frozen products',
-              Value: 'A'
+              Value: 'A',
             },
             {
               Parent: 'A',
               Label: 'Ice creams',
-              Value: 'A1'
+              Value: 'A1',
             },
             {
               Parent: 'A',
               Label: 'Jasper Beardly',
-              Value: 'A2'
+              Value: 'A2',
             },
             {
               Parent: '',
               Label: 'Meat',
-              Value: 'B'
+              Value: 'B',
             },
             {
               Parent: 'B',
               Label: 'Bacon',
-              Value: 'B1'
+              Value: 'B1',
             },
             {
               Parent: 'B',
               Label: 'Pork chop',
-              Value: 'B2'
+              Value: 'B2',
             },
             {
               Parent: 'B',
               Label: 'Chicken',
-              Value: 'B3'
+              Value: 'B3',
             },
             {
               Value: 'C',
               Label: 'Compote',
-              Parent: ''
+              Parent: '',
             },
             {
               Value: 'C1',
               Label: 'Powersauce',
-              Parent: 'C'
+              Parent: 'C',
             },
             {
               Parent: '',
               Label: 'Other',
-              Value: 'D'
-            }
+              Value: 'D',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Clownings',
@@ -950,26 +950,26 @@ module.exports = [
             {
               Parent: '',
               Label: '***Break the windows of the whole city***',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: '***Loose the violin of his daughter playing poker***',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: '***Kill Mr Burns***',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label:
                 '***Leaving a mechanical object to control the nuclear power plant***',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Clowning_Characters',
@@ -978,25 +978,25 @@ module.exports = [
             {
               Parent: '',
               Label: 'Jay',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Bart',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Krusty the clown',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Maggie',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Means of transport',
@@ -1005,25 +1005,25 @@ module.exports = [
             {
               Parent: '',
               Label: 'Car',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Bike',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Skateboard',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'Plane',
-              Value: '4'
-            }
+              Value: '4',
+            },
           ],
-          Name: ''
+          Name: '',
         },
         {
           Label: 'Country',
@@ -1032,37 +1032,37 @@ module.exports = [
             {
               Parent: '',
               Label: 'Brazil',
-              Value: '1'
+              Value: '1',
             },
             {
               Parent: '',
               Label: 'Canada',
-              Value: '2'
+              Value: '2',
             },
             {
               Parent: '',
               Label: 'Japan',
-              Value: '3'
+              Value: '3',
             },
             {
               Parent: '',
               Label: 'France',
-              Value: '4'
+              Value: '4',
             },
             {
               Parent: '',
               Label: '[Other country](. "Included principalities")',
-              Value: '5'
+              Value: '5',
             },
             {
               Parent: '',
               Label: 'Other planet',
-              Value: '6'
-            }
+              Value: '6',
+            },
           ],
-          Name: ''
-        }
-      ]
+          Name: '',
+        },
+      ],
     },
     Child: [
       {
@@ -1078,8 +1078,8 @@ module.exports = [
             Text:
               "We're going to test your knowledge about the simpsons series.\n**Welcome in the simspons world!**",
             id: 'd1',
-            position: 'AFTER_QUESTION_TEXT'
-          }
+            position: 'AFTER_QUESTION_TEXT',
+          },
         ],
         type: 'SequenceType',
         Child: [
@@ -1093,22 +1093,22 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 500
-                }
-              }
+                  MaxLength: 500,
+                },
+              },
             ],
             Control: [],
             depth: 2,
             FlowControl: [],
             Label: [
-              'Before starting, do you have any comments about the Simpsons family?'
+              'Before starting, do you have any comments about the Simpsons family?',
             ],
             id: 'j6p3dkx6',
             Declaration: [],
             type: 'QuestionType',
             questionType: 'SIMPLE',
             declarationMode: [],
-            Name: 'COMMENT'
+            Name: 'COMMENT',
           },
           {
             Response: [
@@ -1118,9 +1118,9 @@ module.exports = [
                 mandatory: false,
                 Datatype: {
                   typeName: 'BOOLEAN',
-                  type: 'BooleanDatatypeType'
-                }
-              }
+                  type: 'BooleanDatatypeType',
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1130,8 +1130,8 @@ module.exports = [
                   'If you are not ready, please go to the end of the questionnaire',
                 Expression: "$READY != '1'",
                 id: 'j6p6my1d',
-                IfTrue: 'j6z12s2d'
-              }
+                IfTrue: 'j6z12s2d',
+              },
             ],
             Label: ['Are you ready?'],
             id: 'j6p0np9q',
@@ -1139,7 +1139,7 @@ module.exports = [
             type: 'QuestionType',
             questionType: 'SIMPLE',
             declarationMode: [],
-            Name: 'READY'
+            Name: 'READY',
           },
           {
             Control: [],
@@ -1161,9 +1161,9 @@ module.exports = [
                       Pattern: '',
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
-                      MaxLength: 30
-                    }
-                  }
+                      MaxLength: 30,
+                    },
+                  },
                 ],
                 Control: [],
                 depth: 3,
@@ -1174,7 +1174,7 @@ module.exports = [
                 type: 'QuestionType',
                 questionType: 'SIMPLE',
                 declarationMode: [],
-                Name: 'PRODUCER'
+                Name: 'PRODUCER',
               },
               {
                 Response: [
@@ -1187,9 +1187,9 @@ module.exports = [
                       Minimum: 0,
                       typeName: 'NUMERIC',
                       type: 'NumericDatatypeType',
-                      Decimals: 0
-                    }
-                  }
+                      Decimals: 0,
+                    },
+                  },
                 ],
                 Control: [],
                 depth: 3,
@@ -1200,7 +1200,7 @@ module.exports = [
                 type: 'QuestionType',
                 questionType: 'SIMPLE',
                 declarationMode: [],
-                Name: 'SEASON_NUMBER'
+                Name: 'SEASON_NUMBER',
               },
               {
                 Response: [
@@ -1210,9 +1210,9 @@ module.exports = [
                     mandatory: false,
                     Datatype: {
                       typeName: 'DATE',
-                      type: 'DateDatatypeType'
-                    }
-                  }
+                      type: 'DateDatatypeType',
+                    },
+                  },
                 ],
                 Control: [],
                 depth: 3,
@@ -1224,13 +1224,13 @@ module.exports = [
                     declarationType: 'COMMENT',
                     Text:
                       'For your information, the date of the last broadcast was on $LAST_BROADCAST',
-                    id: 'd11'
-                  }
+                    id: 'd11',
+                  },
                 ],
                 type: 'QuestionType',
                 questionType: 'SIMPLE',
                 declarationMode: [],
-                Name: 'DATEFIRST'
+                Name: 'DATEFIRST',
               },
               {
                 Response: [
@@ -1243,30 +1243,30 @@ module.exports = [
                       Minimum: 0,
                       typeName: 'NUMERIC',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
-                  }
+                      Decimals: 1,
+                    },
+                  },
                 ],
                 Control: [],
                 depth: 3,
                 FlowControl: [],
                 Label: [
-                  'In your opinion, how much is the part of audience share in US for the 2016 season?'
+                  'In your opinion, how much is the part of audience share in US for the 2016 season?',
                 ],
                 id: 'j6z06z1e',
                 Declaration: [],
                 type: 'QuestionType',
                 questionType: 'SIMPLE',
                 declarationMode: [],
-                Name: 'AUDIENCE_SHARE'
-              }
+                Name: 'AUDIENCE_SHARE',
+              },
             ],
             declarationMode: [],
-            Name: 'MODULE11'
-          }
+            Name: 'MODULE11',
+          },
         ],
         declarationMode: [],
-        Name: 'MODULE1'
+        Name: 'MODULE1',
       },
       {
         Control: [],
@@ -1280,8 +1280,8 @@ module.exports = [
             declarationType: 'COMMENT',
             Text:
               'This module asks about your general knowledge of the Simpsons city',
-            id: 'd2'
-          }
+            id: 'd2',
+          },
         ],
         type: 'SequenceType',
         Child: [
@@ -1297,9 +1297,9 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'RADIO',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
-              }
+                  MaxLength: 1,
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1311,13 +1311,13 @@ module.exports = [
                 declarationType: 'INSTRUCTION',
                 Text: 'One possible answer',
                 id: 'd3',
-                position: 'AFTER_QUESTION_TEXT'
-              }
+                position: 'AFTER_QUESTION_TEXT',
+              },
             ],
             type: 'QuestionType',
             questionType: 'SINGLE_CHOICE',
             declarationMode: [],
-            Name: 'CITY'
+            Name: 'CITY',
           },
           {
             Response: [
@@ -1330,9 +1330,9 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'CHECKBOX',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
-              }
+                  MaxLength: 1,
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1344,13 +1344,13 @@ module.exports = [
                 declarationType: 'INSTRUCTION',
                 Text: 'Only one possible answer',
                 id: 'd4',
-                position: 'AFTER_QUESTION_TEXT'
-              }
+                position: 'AFTER_QUESTION_TEXT',
+              },
             ],
             type: 'QuestionType',
             questionType: 'SINGLE_CHOICE',
             declarationMode: [],
-            Name: 'MAYOR'
+            Name: 'MAYOR',
           },
           {
             Response: [
@@ -1363,9 +1363,9 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'DROPDOWN',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
-              }
+                  MaxLength: 1,
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1376,11 +1376,11 @@ module.exports = [
             type: 'QuestionType',
             questionType: 'SINGLE_CHOICE',
             declarationMode: [],
-            Name: 'STATE'
-          }
+            Name: 'STATE',
+          },
         ],
         declarationMode: [],
-        Name: 'MODULE2'
+        Name: 'MODULE2',
       },
       {
         Control: [],
@@ -1399,33 +1399,33 @@ module.exports = [
                 id: 'jbgd8qmn',
                 Datatype: {
                   typeName: 'BOOLEAN',
-                  type: 'BooleanDatatypeType'
-                }
+                  type: 'BooleanDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbdxjmst',
                 id: 'jbgd60vl',
                 Datatype: {
                   typeName: 'BOOLEAN',
-                  type: 'BooleanDatatypeType'
-                }
+                  type: 'BooleanDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbdxjuay',
                 id: 'jbgda2jo',
                 Datatype: {
                   typeName: 'BOOLEAN',
-                  type: 'BooleanDatatypeType'
-                }
+                  type: 'BooleanDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbdxniuw',
                 id: 'jbgdfssy',
                 Datatype: {
                   typeName: 'BOOLEAN',
-                  type: 'BooleanDatatypeType'
-                }
-              }
+                  type: 'BooleanDatatypeType',
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1435,32 +1435,32 @@ module.exports = [
               Mapping: [
                 {
                   MappingSource: 'jbgd8qmn',
-                  MappingTarget: '1'
+                  MappingTarget: '1',
                 },
                 {
                   MappingSource: 'jbgd60vl',
-                  MappingTarget: '2'
+                  MappingTarget: '2',
                 },
                 {
                   MappingSource: 'jbgda2jo',
-                  MappingTarget: '3'
+                  MappingTarget: '3',
                 },
                 {
                   MappingSource: 'jbgdfssy',
-                  MappingTarget: '4'
-                }
+                  MappingTarget: '4',
+                },
               ],
               Dimension: [
                 {
                   dimensionType: 'PRIMARY',
                   dynamic: '0',
-                  CodeListReference: 'j335cu3c'
+                  CodeListReference: 'j335cu3c',
                 },
                 {
                   dimensionType: 'MEASURE',
-                  dynamic: '0'
-                }
-              ]
+                  dynamic: '0',
+                },
+              ],
             },
             id: 'j334akov',
             Declaration: [
@@ -1468,13 +1468,13 @@ module.exports = [
                 declarationType: 'INSTRUCTION',
                 Text: '*Several possible answers*',
                 id: 'd5',
-                position: 'AFTER_QUESTION_TEXT'
-              }
+                position: 'AFTER_QUESTION_TEXT',
+              },
             ],
             type: 'QuestionType',
             questionType: 'MULTIPLE_CHOICE',
             declarationMode: [],
-            Name: 'PET'
+            Name: 'PET',
           },
           {
             Response: [
@@ -1487,8 +1487,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'RADIO',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdxvai9',
@@ -1499,8 +1499,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'RADIO',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdxpltw',
@@ -1511,8 +1511,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'RADIO',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdxzx2x',
@@ -1523,9 +1523,9 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'RADIO',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
-              }
+                  MaxLength: 1,
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1535,32 +1535,32 @@ module.exports = [
               Mapping: [
                 {
                   MappingSource: 'jbgdb3jx',
-                  MappingTarget: '1'
+                  MappingTarget: '1',
                 },
                 {
                   MappingSource: 'jbgdb61k',
-                  MappingTarget: '2'
+                  MappingTarget: '2',
                 },
                 {
                   MappingSource: 'jbgdl3kc',
-                  MappingTarget: '3'
+                  MappingTarget: '3',
                 },
                 {
                   MappingSource: 'jbgdcobo',
-                  MappingTarget: '4'
-                }
+                  MappingTarget: '4',
+                },
               ],
               Dimension: [
                 {
                   dimensionType: 'PRIMARY',
                   dynamic: '0',
-                  CodeListReference: 'j6p2mvca'
+                  CodeListReference: 'j6p2mvca',
                 },
                 {
                   dimensionType: 'MEASURE',
-                  dynamic: '0'
-                }
-              ]
+                  dynamic: '0',
+                },
+              ],
             },
             id: 'j6p29i81',
             Declaration: [
@@ -1569,13 +1569,13 @@ module.exports = [
                 Text:
                   '**Now we are going to know if you think that Jay is a gluton.**',
                 id: 'd12',
-                position: 'BEFORE_QUESTION_TEXT'
-              }
+                position: 'BEFORE_QUESTION_TEXT',
+              },
             ],
             type: 'QuestionType',
             questionType: 'MULTIPLE_CHOICE',
             declarationMode: [],
-            Name: 'ICE_FLAVOUR'
+            Name: 'ICE_FLAVOUR',
           },
           {
             Response: [
@@ -1588,8 +1588,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'DROPDOWN',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdxtanu',
@@ -1600,8 +1600,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'DROPDOWN',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdy25if',
@@ -1612,8 +1612,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'DROPDOWN',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdxvta8',
@@ -1624,9 +1624,9 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'DROPDOWN',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
-              }
+                  MaxLength: 1,
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1636,39 +1636,39 @@ module.exports = [
               Mapping: [
                 {
                   MappingSource: 'jbgd6p0k',
-                  MappingTarget: '1'
+                  MappingTarget: '1',
                 },
                 {
                   MappingSource: 'jbgd9ato',
-                  MappingTarget: '2'
+                  MappingTarget: '2',
                 },
                 {
                   MappingSource: 'jbgd3e0p',
-                  MappingTarget: '3'
+                  MappingTarget: '3',
                 },
                 {
                   MappingSource: 'jbgdkxne',
-                  MappingTarget: '4'
-                }
+                  MappingTarget: '4',
+                },
               ],
               Dimension: [
                 {
                   dimensionType: 'PRIMARY',
                   dynamic: '0',
-                  CodeListReference: 'j6qeytgc'
+                  CodeListReference: 'j6qeytgc',
                 },
                 {
                   dimensionType: 'MEASURE',
-                  dynamic: '0'
-                }
-              ]
+                  dynamic: '0',
+                },
+              ],
             },
             id: 'j6qefnga',
             Declaration: [],
             type: 'QuestionType',
             questionType: 'MULTIPLE_CHOICE',
             declarationMode: [],
-            Name: 'NUCLEAR_CHARACTER'
+            Name: 'NUCLEAR_CHARACTER',
           },
           {
             Response: [
@@ -1681,8 +1681,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'CHECKBOX',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdy6lk3',
@@ -1693,8 +1693,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'CHECKBOX',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdxsby0',
@@ -1705,8 +1705,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'CHECKBOX',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdy7sra',
@@ -1717,8 +1717,8 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'CHECKBOX',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
+                  MaxLength: 1,
+                },
               },
               {
                 CollectedVariableReference: 'jbdy2wyl',
@@ -1729,9 +1729,9 @@ module.exports = [
                   typeName: 'TEXT',
                   visualizationHint: 'CHECKBOX',
                   type: 'TextDatatypeType',
-                  MaxLength: 1
-                }
-              }
+                  MaxLength: 1,
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -1741,47 +1741,47 @@ module.exports = [
               Mapping: [
                 {
                   MappingSource: 'jbgd7fr6',
-                  MappingTarget: '1'
+                  MappingTarget: '1',
                 },
                 {
                   MappingSource: 'jbgd5e9f',
-                  MappingTarget: '2'
+                  MappingTarget: '2',
                 },
                 {
                   MappingSource: 'jbgd912x',
-                  MappingTarget: '3'
+                  MappingTarget: '3',
                 },
                 {
                   MappingSource: 'jbgd6bdy',
-                  MappingTarget: '4'
+                  MappingTarget: '4',
                 },
                 {
                   MappingSource: 'jbgddyry',
-                  MappingTarget: '5'
-                }
+                  MappingTarget: '5',
+                },
               ],
               Dimension: [
                 {
                   dimensionType: 'PRIMARY',
                   dynamic: '0',
-                  CodeListReference: 'j6z087mq'
+                  CodeListReference: 'j6z087mq',
                 },
                 {
                   dimensionType: 'MEASURE',
-                  dynamic: '0'
-                }
-              ]
+                  dynamic: '0',
+                },
+              ],
             },
             id: 'j6yzoc6g',
             Declaration: [],
             type: 'QuestionType',
             questionType: 'MULTIPLE_CHOICE',
             declarationMode: [],
-            Name: 'BIRTH_CHARACTER'
-          }
+            Name: 'BIRTH_CHARACTER',
+          },
         ],
         declarationMode: [],
-        Name: 'MODULE3'
+        Name: 'MODULE3',
       },
       {
         Control: [],
@@ -1814,8 +1814,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdje4w',
@@ -1826,8 +1826,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdlth7',
@@ -1838,8 +1838,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdelbl',
@@ -1850,8 +1850,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd95jq',
@@ -1862,8 +1862,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdadd9',
@@ -1874,8 +1874,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdlwzk',
@@ -1886,8 +1886,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdfz77',
@@ -1898,8 +1898,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdepx6',
@@ -1910,8 +1910,8 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
+                      Decimals: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdepx7',
@@ -1922,9 +1922,9 @@ module.exports = [
                       typeName: 'NUMERIC',
                       Unit: 'http://id.insee.fr/unit/percent',
                       type: 'NumericDatatypeType',
-                      Decimals: 1
-                    }
-                  }
+                      Decimals: 1,
+                    },
+                  },
                 ],
                 Control: [
                   {
@@ -1934,80 +1934,80 @@ module.exports = [
                     criticity: 'ERROR',
                     FailMessage:
                       'The sum of percentages is: $SUM_EXPENSES %. The total of percentages must be equal to 100%.',
-                    id: 'j6z2680o'
-                  }
+                    id: 'j6z2680o',
+                  },
                 ],
                 depth: 3,
                 FlowControl: [],
                 Label: [
-                  "Please, specify the percentage of Jay's expenses in the Kwik-E-Mart for each product?"
+                  "Please, specify the percentage of Jay's expenses in the Kwik-E-Mart for each product?",
                 ],
                 ResponseStructure: {
                   Mapping: [
                     {
                       MappingSource: 'jbgde5yl',
-                      MappingTarget: '1 1'
+                      MappingTarget: '1 1',
                     },
                     {
                       MappingSource: 'jbgd2x2t',
-                      MappingTarget: '2 1'
+                      MappingTarget: '2 1',
                     },
                     {
                       MappingSource: 'jbgdjypz',
-                      MappingTarget: '3 1'
+                      MappingTarget: '3 1',
                     },
                     {
                       MappingSource: 'jbgdcftu',
-                      MappingTarget: '4 1'
+                      MappingTarget: '4 1',
                     },
                     {
                       MappingSource: 'jbgdiyfe',
-                      MappingTarget: '5 1'
+                      MappingTarget: '5 1',
                     },
                     {
                       MappingSource: 'jbgdj1wd',
-                      MappingTarget: '6 1'
+                      MappingTarget: '6 1',
                     },
                     {
                       MappingSource: 'jbgddylk',
-                      MappingTarget: '7 1'
+                      MappingTarget: '7 1',
                     },
                     {
                       MappingSource: 'jbgd3jj6',
-                      MappingTarget: '8 1'
+                      MappingTarget: '8 1',
                     },
                     {
                       MappingSource: 'jbgd4w3k',
-                      MappingTarget: '9 1'
+                      MappingTarget: '9 1',
                     },
                     {
                       MappingSource: 'jbgd4w4k',
-                      MappingTarget: '10 1'
-                    }
+                      MappingTarget: '10 1',
+                    },
                   ],
                   Dimension: [
                     {
                       dimensionType: 'PRIMARY',
                       dynamic: '0',
-                      CodeListReference: 'j4nwh16i'
+                      CodeListReference: 'j4nwh16i',
                     },
                     {
                       dimensionType: 'MEASURE',
                       Label: 'Percentage',
-                      dynamic: '0'
-                    }
-                  ]
+                      dynamic: '0',
+                    },
+                  ],
                 },
                 id: 'j4nwc63q',
                 Declaration: [],
                 type: 'QuestionType',
                 questionType: 'TABLE',
                 declarationMode: [],
-                Name: 'PERCENTAGE_EXPENSES'
-              }
+                Name: 'PERCENTAGE_EXPENSES',
+              },
             ],
             declarationMode: [],
-            Name: 'MODULE41'
+            Name: 'MODULE41',
           },
           {
             Control: [],
@@ -2030,8 +2030,8 @@ module.exports = [
                       typeName: 'TEXT',
                       visualizationHint: 'DROPDOWN',
                       type: 'TextDatatypeType',
-                      MaxLength: 1
-                    }
+                      MaxLength: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgden0i',
@@ -2042,8 +2042,8 @@ module.exports = [
                       typeName: 'TEXT',
                       visualizationHint: 'DROPDOWN',
                       type: 'TextDatatypeType',
-                      MaxLength: 1
-                    }
+                      MaxLength: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdndju',
@@ -2054,8 +2054,8 @@ module.exports = [
                       typeName: 'TEXT',
                       visualizationHint: 'DROPDOWN',
                       type: 'TextDatatypeType',
-                      MaxLength: 1
-                    }
+                      MaxLength: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdfwg9',
@@ -2066,8 +2066,8 @@ module.exports = [
                       typeName: 'TEXT',
                       visualizationHint: 'DROPDOWN',
                       type: 'TextDatatypeType',
-                      MaxLength: 1
-                    }
+                      MaxLength: 1,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdd3ky',
@@ -2076,8 +2076,8 @@ module.exports = [
                       Pattern: '',
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
-                      MaxLength: 255
-                    }
+                      MaxLength: 255,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdm9lm',
@@ -2086,8 +2086,8 @@ module.exports = [
                       Pattern: '',
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
-                      MaxLength: 255
-                    }
+                      MaxLength: 255,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdcdhv',
@@ -2096,8 +2096,8 @@ module.exports = [
                       Pattern: '',
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
-                      MaxLength: 255
-                    }
+                      MaxLength: 255,
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdjlit',
@@ -2106,79 +2106,79 @@ module.exports = [
                       Pattern: '',
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
-                      MaxLength: 255
-                    }
-                  }
+                      MaxLength: 255,
+                    },
+                  },
                 ],
                 Control: [],
                 depth: 3,
                 FlowControl: [],
                 Label: [
-                  'Who did these clownings and tell us what you remember?'
+                  'Who did these clownings and tell us what you remember?',
                 ],
                 ResponseStructure: {
                   Mapping: [
                     {
                       MappingSource: 'jbgd8tyr',
-                      MappingTarget: '1 1'
+                      MappingTarget: '1 1',
                     },
                     {
                       MappingSource: 'jbgdep36',
-                      MappingTarget: '2 1'
+                      MappingTarget: '2 1',
                     },
                     {
                       MappingSource: 'jbgdjjgi',
-                      MappingTarget: '3 1'
+                      MappingTarget: '3 1',
                     },
                     {
                       MappingSource: 'jbgdgh6k',
-                      MappingTarget: '4 1'
+                      MappingTarget: '4 1',
                     },
                     {
                       MappingSource: 'jbgdit3o',
-                      MappingTarget: '1 2'
+                      MappingTarget: '1 2',
                     },
                     {
                       MappingSource: 'jbgd366k',
-                      MappingTarget: '2 2'
+                      MappingTarget: '2 2',
                     },
                     {
                       MappingSource: 'jbgdax06',
-                      MappingTarget: '3 2'
+                      MappingTarget: '3 2',
                     },
                     {
                       MappingSource: 'jbgdfo1j',
-                      MappingTarget: '4 2'
-                    }
+                      MappingTarget: '4 2',
+                    },
                   ],
                   Dimension: [
                     {
                       dimensionType: 'PRIMARY',
                       dynamic: '0',
-                      CodeListReference: 'j77dav9b'
+                      CodeListReference: 'j77dav9b',
                     },
                     {
                       dimensionType: 'MEASURE',
                       Label: 'Clowning',
-                      dynamic: '0'
+                      dynamic: '0',
                     },
                     {
                       dimensionType: 'MEASURE',
                       Label: 'Remember?',
-                      dynamic: '0'
-                    }
-                  ]
+                      dynamic: '0',
+                    },
+                  ],
                 },
                 id: 'j4nw0rr6',
                 Declaration: [],
                 type: 'QuestionType',
                 questionType: 'TABLE',
                 declarationMode: [],
-                Name: 'CLOWNING'
-              }
+                Name: 'CLOWNING',
+              },
             ],
             declarationMode: [],
-            Name: 'MODULE42'
+            Name: 'MODULE42',
           },
           {
             Control: [],
@@ -2197,316 +2197,316 @@ module.exports = [
                     id: 'jbgd92mb',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd8lfs',
                     id: 'jbgdgsat',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd56qo',
                     id: 'jbgdaxk2',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd4wu8',
                     id: 'jbgd7myn',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdak6h',
                     id: 'jbgdnxkt',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdmsy4',
                     id: 'jbgd3ef5',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd2zlu',
                     id: 'jbgd8p1v',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd6v73',
                     id: 'jbgdgm0c',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdf5fg',
                     id: 'jbgdcppc',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd2xg0',
                     id: 'jbgd4cm6',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdc06l',
                     id: 'jbgdd2lo',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdb8i9',
                     id: 'jbgdo0ay',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdhzve',
                     id: 'jbgd4r2a',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd93ks',
                     id: 'jbgdkfpq',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdfw7h',
                     id: 'jbgd7u52',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdfavn',
                     id: 'jbgdgfwl',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdc199',
                     id: 'jbgd9cff',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdfqph',
                     id: 'jbgddwsp',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd8r0n',
                     id: 'jbgdncn8',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd3aqk',
                     id: 'jbgdnz6b',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdltql',
                     id: 'jbgdiva0',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgd9um3',
                     id: 'jbgd7dqf',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgddj7v',
                     id: 'jbgdnous',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
+                      type: 'BooleanDatatypeType',
+                    },
                   },
                   {
                     CollectedVariableReference: 'jbgdb4ym',
                     id: 'jbgdkfcz',
                     Datatype: {
                       typeName: 'BOOLEAN',
-                      type: 'BooleanDatatypeType'
-                    }
-                  }
+                      type: 'BooleanDatatypeType',
+                    },
+                  },
                 ],
                 Control: [],
                 depth: 3,
                 FlowControl: [],
                 Label: [
-                  'Which of the following means of transport were used by the hero and in which country?'
+                  'Which of the following means of transport were used by the hero and in which country?',
                 ],
                 ResponseStructure: {
                   Mapping: [
                     {
                       MappingSource: 'jbgd92mb',
-                      MappingTarget: '1 1'
+                      MappingTarget: '1 1',
                     },
                     {
                       MappingSource: 'jbgdgsat',
-                      MappingTarget: '2 1'
+                      MappingTarget: '2 1',
                     },
                     {
                       MappingSource: 'jbgdaxk2',
-                      MappingTarget: '3 1'
+                      MappingTarget: '3 1',
                     },
                     {
                       MappingSource: 'jbgd7myn',
-                      MappingTarget: '4 1'
+                      MappingTarget: '4 1',
                     },
                     {
                       MappingSource: 'jbgdnxkt',
-                      MappingTarget: '1 2'
+                      MappingTarget: '1 2',
                     },
                     {
                       MappingSource: 'jbgd3ef5',
-                      MappingTarget: '2 2'
+                      MappingTarget: '2 2',
                     },
                     {
                       MappingSource: 'jbgd8p1v',
-                      MappingTarget: '3 2'
+                      MappingTarget: '3 2',
                     },
                     {
                       MappingSource: 'jbgdgm0c',
-                      MappingTarget: '4 2'
+                      MappingTarget: '4 2',
                     },
                     {
                       MappingSource: 'jbgdcppc',
-                      MappingTarget: '1 3'
+                      MappingTarget: '1 3',
                     },
                     {
                       MappingSource: 'jbgd4cm6',
-                      MappingTarget: '2 3'
+                      MappingTarget: '2 3',
                     },
                     {
                       MappingSource: 'jbgdd2lo',
-                      MappingTarget: '3 3'
+                      MappingTarget: '3 3',
                     },
                     {
                       MappingSource: 'jbgdo0ay',
-                      MappingTarget: '4 3'
+                      MappingTarget: '4 3',
                     },
                     {
                       MappingSource: 'jbgd4r2a',
-                      MappingTarget: '1 4'
+                      MappingTarget: '1 4',
                     },
                     {
                       MappingSource: 'jbgdkfpq',
-                      MappingTarget: '2 4'
+                      MappingTarget: '2 4',
                     },
                     {
                       MappingSource: 'jbgd7u52',
-                      MappingTarget: '3 4'
+                      MappingTarget: '3 4',
                     },
                     {
                       MappingSource: 'jbgdgfwl',
-                      MappingTarget: '4 4'
+                      MappingTarget: '4 4',
                     },
                     {
                       MappingSource: 'jbgd9cff',
-                      MappingTarget: '1 5'
+                      MappingTarget: '1 5',
                     },
                     {
                       MappingSource: 'jbgddwsp',
-                      MappingTarget: '2 5'
+                      MappingTarget: '2 5',
                     },
                     {
                       MappingSource: 'jbgdncn8',
-                      MappingTarget: '3 5'
+                      MappingTarget: '3 5',
                     },
                     {
                       MappingSource: 'jbgdnz6b',
-                      MappingTarget: '4 5'
+                      MappingTarget: '4 5',
                     },
                     {
                       MappingSource: 'jbgdiva0',
-                      MappingTarget: '1 6'
+                      MappingTarget: '1 6',
                     },
                     {
                       MappingSource: 'jbgd7dqf',
-                      MappingTarget: '2 6'
+                      MappingTarget: '2 6',
                     },
                     {
                       MappingSource: 'jbgdnous',
-                      MappingTarget: '3 6'
+                      MappingTarget: '3 6',
                     },
                     {
                       MappingSource: 'jbgdkfcz',
-                      MappingTarget: '4 6'
-                    }
+                      MappingTarget: '4 6',
+                    },
                   ],
                   Dimension: [
                     {
                       dimensionType: 'PRIMARY',
                       dynamic: '0',
-                      CodeListReference: 'j6p2kivg'
+                      CodeListReference: 'j6p2kivg',
                     },
                     {
                       dimensionType: 'SECONDARY',
                       dynamic: '0',
-                      CodeListReference: 'jbdye1wa'
+                      CodeListReference: 'jbdye1wa',
                     },
                     {
                       dimensionType: 'MEASURE',
                       Label: 'Means',
-                      dynamic: '0'
-                    }
-                  ]
+                      dynamic: '0',
+                    },
+                  ],
                 },
                 id: 'j6p2lwuj',
                 Declaration: [
@@ -2515,21 +2515,21 @@ module.exports = [
                     Text:
                       'Several answers possible: check off all the relevant boxes',
                     id: 'd10',
-                    position: 'AFTER_QUESTION_TEXT'
-                  }
+                    position: 'AFTER_QUESTION_TEXT',
+                  },
                 ],
                 type: 'QuestionType',
                 questionType: 'TABLE',
                 declarationMode: [],
-                Name: 'TRAVEL'
-              }
+                Name: 'TRAVEL',
+              },
             ],
             declarationMode: [],
-            Name: 'MODULE43'
-          }
+            Name: 'MODULE43',
+          },
         ],
         declarationMode: [],
-        Name: 'MODULE4'
+        Name: 'MODULE4',
       },
       {
         Control: [],
@@ -2550,8 +2550,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgdf2md',
@@ -2560,8 +2560,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgdfle1',
@@ -2570,8 +2570,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgdix8x',
@@ -2580,8 +2580,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgd782k',
@@ -2590,8 +2590,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgd68rf',
@@ -2600,8 +2600,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgdfoj4',
@@ -2610,8 +2610,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgdb116',
@@ -2620,8 +2620,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgd7w5p',
@@ -2630,8 +2630,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgd8rj2',
@@ -2640,8 +2640,8 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
+                  MaxLength: 255,
+                },
               },
               {
                 CollectedVariableReference: 'jbgdidnp',
@@ -2650,8 +2650,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgd47wz',
@@ -2660,8 +2660,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgdj2nn',
@@ -2670,8 +2670,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgd2ipx',
@@ -2680,8 +2680,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgd4pe3',
@@ -2690,8 +2690,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgdjgb1',
@@ -2700,8 +2700,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgdb5c1',
@@ -2710,8 +2710,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgdju9y',
@@ -2720,8 +2720,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgdatyx',
@@ -2730,8 +2730,8 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
+                  type: 'NumericDatatypeType',
+                },
               },
               {
                 CollectedVariableReference: 'jbgdi1dt',
@@ -2740,126 +2740,126 @@ module.exports = [
                   Maximum: 120,
                   Minimum: 0,
                   typeName: 'NUMERIC',
-                  type: 'NumericDatatypeType'
-                }
-              }
+                  type: 'NumericDatatypeType',
+                },
+              },
             ],
             Control: [],
             depth: 2,
             FlowControl: [],
             Label: [
-              'Please, complete the following grid with your favourite characters'
+              'Please, complete the following grid with your favourite characters',
             ],
             ResponseStructure: {
               Mapping: [
                 {
                   MappingSource: 'jbgdl5jb',
-                  MappingTarget: '1 1'
+                  MappingTarget: '1 1',
                 },
                 {
                   MappingSource: 'jbgd8lwo',
-                  MappingTarget: '2 1'
+                  MappingTarget: '2 1',
                 },
                 {
                   MappingSource: 'jbgdbfag',
-                  MappingTarget: '3 1'
+                  MappingTarget: '3 1',
                 },
                 {
                   MappingSource: 'jbgdlgja',
-                  MappingTarget: '4 1'
+                  MappingTarget: '4 1',
                 },
                 {
                   MappingSource: 'jbgd745y',
-                  MappingTarget: '5 1'
+                  MappingTarget: '5 1',
                 },
                 {
                   MappingSource: 'jbgdjkts',
-                  MappingTarget: '6 1'
+                  MappingTarget: '6 1',
                 },
                 {
                   MappingSource: 'jbgdcax7',
-                  MappingTarget: '7 1'
+                  MappingTarget: '7 1',
                 },
                 {
                   MappingSource: 'jbgdjye1',
-                  MappingTarget: '8 1'
+                  MappingTarget: '8 1',
                 },
                 {
                   MappingSource: 'jbgd5jet',
-                  MappingTarget: '9 1'
+                  MappingTarget: '9 1',
                 },
                 {
                   MappingSource: 'jbgdjw90',
-                  MappingTarget: '10 1'
+                  MappingTarget: '10 1',
                 },
                 {
                   MappingSource: 'jbgdfndq',
-                  MappingTarget: '1 2'
+                  MappingTarget: '1 2',
                 },
                 {
                   MappingSource: 'jbgd7osi',
-                  MappingTarget: '2 2'
+                  MappingTarget: '2 2',
                 },
                 {
                   MappingSource: 'jbgd7bnw',
-                  MappingTarget: '3 2'
+                  MappingTarget: '3 2',
                 },
                 {
                   MappingSource: 'jbgd9k71',
-                  MappingTarget: '4 2'
+                  MappingTarget: '4 2',
                 },
                 {
                   MappingSource: 'jbgdimks',
-                  MappingTarget: '5 2'
+                  MappingTarget: '5 2',
                 },
                 {
                   MappingSource: 'jbgdjquz',
-                  MappingTarget: '6 2'
+                  MappingTarget: '6 2',
                 },
                 {
                   MappingSource: 'jbgdd2w3',
-                  MappingTarget: '7 2'
+                  MappingTarget: '7 2',
                 },
                 {
                   MappingSource: 'jbgdkosc',
-                  MappingTarget: '8 2'
+                  MappingTarget: '8 2',
                 },
                 {
                   MappingSource: 'jbgdk0x4',
-                  MappingTarget: '9 2'
+                  MappingTarget: '9 2',
                 },
                 {
                   MappingSource: 'jbgd2wgf',
-                  MappingTarget: '10 2'
-                }
+                  MappingTarget: '10 2',
+                },
               ],
               Dimension: [
                 {
                   dimensionType: 'PRIMARY',
-                  dynamic: '1-10'
+                  dynamic: '1-10',
                 },
                 {
                   dimensionType: 'MEASURE',
                   Label: 'Name',
-                  dynamic: '0'
+                  dynamic: '0',
                 },
                 {
                   dimensionType: 'MEASURE',
                   Label: 'Age',
-                  dynamic: '0'
-                }
-              ]
+                  dynamic: '0',
+                },
+              ],
             },
             id: 'j6qg8rc6',
             Declaration: [],
             type: 'QuestionType',
             questionType: 'TABLE',
             declarationMode: [],
-            Name: 'FAVOURITE_CHARACTERS'
-          }
+            Name: 'FAVOURITE_CHARACTERS',
+          },
         ],
         declarationMode: [],
-        Name: 'MODULE5'
+        Name: 'MODULE5',
       },
       {
         Control: [],
@@ -2881,9 +2881,9 @@ module.exports = [
                   Pattern: '',
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: 255
-                }
-              }
+                  MaxLength: 255,
+                },
+              },
             ],
             Control: [],
             depth: 2,
@@ -2894,12 +2894,12 @@ module.exports = [
             type: 'QuestionType',
             questionType: 'SIMPLE',
             declarationMode: [],
-            Name: 'SURVEY_COMMENT'
-          }
+            Name: 'SURVEY_COMMENT',
+          },
         ],
         declarationMode: [],
-        Name: 'MODULE6'
-      }
-    ]
-  }
+        Name: 'MODULE6',
+      },
+    ],
+  },
 ];

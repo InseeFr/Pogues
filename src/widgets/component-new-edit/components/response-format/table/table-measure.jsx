@@ -10,10 +10,10 @@ const { MEASURE } = DIMENSION_TYPE;
 class ResponseFormatTableMeasure extends Component {
   static selectorPath = MEASURE;
   static propTypes = {
-    selectorPathParent: PropTypes.string
+    selectorPathParent: PropTypes.string,
   };
   static defaultProps = {
-    selectorPathParent: undefined
+    selectorPathParent: undefined,
   };
   constructor(props) {
     const { selectorPathParent } = props;

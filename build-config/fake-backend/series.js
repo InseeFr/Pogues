@@ -8,7 +8,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'SubGroup'
+    type: 'SubGroup',
   },
   {
     id: 'serie02',
@@ -19,7 +19,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'SubGroup'
+    type: 'SubGroup',
   },
   {
     id: 'serie03',
@@ -30,7 +30,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'SubGroup'
+    type: 'SubGroup',
   },
   {
     id: 'serie04',
@@ -41,7 +41,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'SubGroup'
+    type: 'SubGroup',
   },
   {
     id: 'serie05',
@@ -52,7 +52,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'SubGroup'
+    type: 'SubGroup',
   },
   {
     id: 'serie06',
@@ -63,7 +63,7 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'SubGroup'
+    type: 'SubGroup',
   },
   {
     id: 'serie07',
@@ -74,6 +74,6 @@ module.exports = [
     studyUnitId: null,
     dataCollectionId: null,
     resourcePackageId: null,
-    type: 'SubGroup'
-  }
+    type: 'SubGroup',
+  },
 ];
