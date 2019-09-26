@@ -1,11 +1,13 @@
 import * as Response from './response';
+import { DATATYPE_NAME, DURATION_UNIT } from 'constants/pogues-constants';
 
 export function remoteToState(remote) {
+  console.log(remote);
   const {
     responses: [
       {
         Datatype: {
-          typeName,
+          typeName: remoteTypeName,
           MaxLength: maxLength,
           Pattern: pattern,
           Minimum: minimum,
@@ -19,6 +21,10 @@ export function remoteToState(remote) {
     ],
   } = remote;
 
+  const typeName =
+    remoteTypeName === DATATYPE_NAME.DURATION
+      ? DATATYPE_NAME.NUMERIC
+      : remoteTypeName;
   const datatype = {};
 
   if (maxLength !== undefined) datatype.maxLength = maxLength;
@@ -35,10 +41,21 @@ export function remoteToState(remote) {
     [typeName]: datatype,
   };
 }
-
 export function stateToRemote(state, collectedVariables) {
-  const { type: typeName, mandatory, id } = state;
+  const { mandatory, id } = state;
+  let { type: typeName } = state;
   const dataType = state[typeName];
+
+  const suffix =
+    dataType.unit &&
+    dataType.unit.substr(
+      dataType.unit.lastIndexOf('/') + 1,
+      dataType.unit.length,
+    );
+
+  if (DURATION_UNIT.includes(suffix)) {
+    typeName = DATATYPE_NAME.DURATION;
+  }
   return {
     Response: [
       Response.stateToRemote({

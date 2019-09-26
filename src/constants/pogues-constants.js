@@ -19,7 +19,10 @@ export const DATATYPE_NAME = {
   NUMERIC: 'NUMERIC',
   TEXT: 'TEXT',
   BOOLEAN: 'BOOLEAN',
+  DURATION: 'DURATION',
 };
+
+export const DURATION_UNIT = ['heure', 'mois', 'jour'];
 
 // mapping to convert a type to a type when we serialize a
 // questionnaire

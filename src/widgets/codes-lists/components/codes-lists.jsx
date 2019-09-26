@@ -67,27 +67,16 @@ class CodesList extends Component {
   static defaultProps = defaultProps;
 
   UNSAFE_componentWillMount() {
-    const {
-      change,
-      formName,
-      path,
-      currentId,
-      clearSearchResult,
-      codesListsStore,
-    } = this.props;
-    let activePanel = NEW;
+    const { change, formName, path, clearSearchResult } = this.props;
 
     clearSearchResult();
 
-    if (codesListsStore[currentId]) activePanel = QUEST;
-
-    change(formName, `${path}panel`, activePanel);
+    change(formName, `${path}panel`, NEW);
   }
 
   componentWillReceiveProps(nextProps) {
     const {
       change,
-      arrayPush,
       arrayRemoveAll,
       formName,
       path,

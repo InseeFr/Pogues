@@ -48,6 +48,12 @@ class QuestionnaireList extends Component {
     }
   }
 
+  updateFilter(value) {
+    this.setState({
+      filter: value,
+    });
+  }
+
   render() {
     const { questionnaires, user } = this.props;
 

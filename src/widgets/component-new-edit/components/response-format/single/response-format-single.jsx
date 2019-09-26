@@ -58,48 +58,6 @@ class ResponseFormatSingle extends Component {
             />
           </div>
         </div>
-        {/*
-
-          <OptionalView
-          name="hasSpecialCode"
-          label={Dictionary.addSpecialCode}
-          selectorPath={this.selectorPathComposed}
-          checkbox
-          >
-          <div>
-            <Field
-              name="specialLabel"
-              type="text"
-              component={Input}
-              label={Dictionary.codeLabel}
-            />
-            <Field
-              name="specialCode"
-              type="text"
-              component={Input}
-              label={Dictionary.code}
-            />
-            <Field
-              name="specialUiBehaviour"
-              component={Select}
-              label={Dictionary.uiBehaviour}
-            >
-              {Object.keys(UI_BEHAVIOUR).map(key => (
-                <GenericOption key={key} value={key}>
-                  {Dictionary[key]}
-                </GenericOption>
-              ))}
-            </Field>
-            <Field
-              name="specialFollowUpMessage"
-              type="text"
-              component={Input}
-              label={Dictionary.followUpMsg}
-            />
-          </div>
-          </OptionalView>
-
-          */}
 
         <Field
           name="visHint"
