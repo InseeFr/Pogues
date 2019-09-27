@@ -22,13 +22,14 @@ export const DATATYPE_NAME = {
   DURATION: 'DURATION',
 };
 
-export const DURATION_UNIT = ['heure', 'mois', 'jour'];
+export const DURATION_UNIT = ['heures', 'mois', 'jours', 'années'];
 
 // mapping to convert a type to a type when we serialize a
 // questionnaire
 export const DATATYPE_TYPE_FROM_NAME = {
   DATE: 'DateDatatypeType',
   NUMERIC: 'NumericDatatypeType',
+  DURATION: 'DurationDatatypeType',
   TEXT: 'TextDatatypeType',
   BOOLEAN: 'BooleanDatatypeType',
 };

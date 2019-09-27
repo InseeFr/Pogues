@@ -124,6 +124,7 @@
   },
   "scripts": {
     "test": "jest --coverage -i",
+    "testw": "jest --watch",
     "dev": "webpack-dev-server",
     "dev:dev": "cross-env webpack-dev-server --env.environment=dev",
     "dev:server": "concurrently \"npm run server\" \"npm run dev:dev\"",
