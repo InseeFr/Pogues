@@ -16,7 +16,7 @@ import {
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 
 export const defaultMeasureSimpleState = {
@@ -31,8 +31,25 @@ export const defaultMeasureSimpleState = {
     minimum: '',
     decimals: '',
   },
-  [DATE]: {},
+  [DATE]: {
+    maximum: '',
+    minimum: '',
+    format: '',
+  },
   [BOOLEAN]: {},
+  [DURATION]: {
+    minimum: '',
+    maximum: '',
+    mihours: '',
+    miminutes: '',
+    miyears: '',
+    mimonths: '',
+    mahours: '',
+    maminutes: '',
+    mayears: '',
+    mamonths: '',
+    format: '',
+  },
 };
 
 export const defaultMeasureState = {

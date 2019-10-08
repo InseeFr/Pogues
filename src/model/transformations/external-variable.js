@@ -1,7 +1,7 @@
 import { uuid } from 'utils/utils';
 import {
   DATATYPE_TYPE_FROM_NAME,
-  VARIABLES_TYPES,
+  VARIABLES_TYPES, DURATION_UNIT, DATATYPE_NAME
 } from 'constants/pogues-constants';
 
 const { EXTERNAL } = VARIABLES_TYPES;
@@ -20,9 +20,13 @@ export function remoteToStore(remote = []) {
         Maximum: maximum,
         Decimals: decimals,
         Unit: unit,
+        Format: format,
       },
     } = ev;
     const id = ev.id || uuid();
+
+
+
     return {
       ...acc,
       [id]: {
@@ -37,6 +41,7 @@ export function remoteToStore(remote = []) {
           maximum,
           decimals,
           unit,
+          format,
         },
       },
     };
@@ -44,8 +49,9 @@ export function remoteToStore(remote = []) {
 }
 
 export function storeToRemote(store) {
+  
   return Object.keys(store).map(key => {
-    const {
+    let {
       id,
       name: Name,
       label: Label,
@@ -58,8 +64,10 @@ export function storeToRemote(store) {
         maximum: Maximum,
         decimals: Decimals,
         unit: Unit,
+        format: Format,
       },
     } = store[key];
+    
     const model = {
       id,
       Name,
@@ -70,13 +78,13 @@ export function storeToRemote(store) {
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
-
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
     if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
     if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
+    if (Format !== undefined) model.Datatype.Format = Format;
 
     return model;
   });

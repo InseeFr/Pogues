@@ -74,12 +74,42 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
 function getMeasuresModel(responses, dimensions, offset) {
   const responsesModel = [];
   for (let i = 0; i < dimensions.length; i += 1) {
+
+    if (responses[i].Datatype.Minimum !== undefined && responses[i].Datatype.typeName==='DURATION' ) {
+      let strminimum = responses[i].Datatype.Minimum;
+      let strmaximum = responses[i].Datatype.Maximum;
+      let matches_minimum = strminimum.match(/\d+/g);
+      let matches_maximum = strmaximum.match(/\d+/g);
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PTnHnM" ) responses[i].Datatype.Mihours = matches_minimum[0];
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PTnHnM" ) responses[i].Datatype.Miminutes =  matches_minimum[1];
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PTnHnM" ) responses[i].Datatype.Mahours = matches_maximum[0];
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PTnHnM" ) responses[i].Datatype.Maminutes = matches_maximum[1];
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PnYnM" ) responses[i].Datatype.Miyears = matches_minimum[0];
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PnYnM" ) responses[i].Datatype.Mimonths = matches_minimum[1];
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PnYnM" ) responses[i].Datatype.Mayears = matches_maximum[0];
+      if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PnYnM" ) responses[i].Datatype.Mamonths = matches_maximum[1];
+
+      responses[i].Datatype.Mihours == 0? responses[i].Datatype.Mihours ='': responses[i].Datatype.Mihours;
+      responses[i].Datatype.Miminutes == 0? responses[i].Datatype.Miminutes ='': responses[i].Datatype.Miminutes;
+      responses[i].Datatype.Mahours == 0? responses[i].Datatype.Mahours ='': responses[i].Datatype.Mahours;
+      responses[i].Datatype.Maminutes == 0? responses[i].Datatype.Maminutes ='': responses[i].Datatype.Maminutes;
+      responses[i].Datatype.Miyears == 0? responses[i].Datatype.Miyears ='': responses[i].Datatype.Miyears;
+      responses[i].Datatype.Mimonths == 0? responses[i].Datatype.Mimonths ='': responses[i].Datatype.Mimonths;
+      responses[i].Datatype.Mayears == 0? responses[i].Datatype.Mayears ='': responses[i].Datatype.Mayears;
+      responses[i].Datatype.Mamonths == 0? responses[i].Datatype.Mamonths ='': responses[i].Datatype.Mamonths;
+  
+    }  
+ 
     responsesModel.push({
       Label: dimensions[i].Label,
       response: responses[i * offset],
     });
   }
+
+
+ 
   return responsesModel;
+  
 }
 
 function parseDynamic(dynamic) {
@@ -159,6 +189,7 @@ function remoteToStateMeasure(remote) {
       responses: [{ Datatype }],
     });
   }
+  
   return {
     label,
     ...state,
@@ -233,6 +264,39 @@ function stateToResponseState(state) {
     };
   }
 
+  if (responseState.typeName === 'DURATION' && responseState.format === 'PnYnM' ){
+
+    responseState.miyears==''?responseState.miyears= 0: responseState.miyears;
+    responseState.mimonths==''?responseState.mimonths = 0: responseState.mimonths;
+    responseState.mayears==''?responseState.mayears = 0: responseState.mayears;
+    responseState.mamonths==''?responseState.mamonths = 0: responseState.mamonths;
+
+    responseState.minimum = "P"+responseState.miyears+"Y"+responseState.mimonths+"M";
+    responseState.maximum = "P"+responseState.mayears+"Y"+responseState.mamonths+"M";
+  } 
+
+  if (responseState.typeName === 'DURATION' && responseState.format === 'PTnHnM' ){
+
+    responseState.mihours==''?responseState.mihours= 0: responseState.mihours;
+    responseState.miminutes==''?responseState.miminutes = 0: responseState.miminutes;
+    responseState.mahours==''?responseState.mahours = 0: responseState.mahours;
+    responseState.maminutes==''?responseState.maminutes = 0: responseState.maminutes;
+
+    responseState.minimum = "PT"+responseState.mihours+"H"+responseState.miminutes+"M";
+    responseState.maximum = "PT"+responseState.mahours+"H"+responseState.maminutes+"M";
+  } 
+
+  if(responseState.typeName === 'DURATION'){
+    delete responseState.miyears;
+    delete responseState.mimonths;
+    delete responseState.mihours;
+    delete responseState.miminutes;
+    delete responseState.mayears;
+    delete responseState.mamonths;
+    delete responseState.mahours;
+    delete responseState.maminutes;
+  } 
+
   return responseState;
 }
 
@@ -247,6 +311,7 @@ export function stateToRemote(
     [MEASURE]: measureState,
     [LIST_MEASURE]: listMeasuresState,
   } = state;
+
   const {
     type,
     [type]: { type: typePrimaryCodesList, ...primaryTypeState },
@@ -276,6 +341,7 @@ export function stateToRemote(
 
   // Measures dimensions
   if (measureState) {
+   
     dimensionsModel.push(
       Dimension.stateToRemote({ type: MEASURE, label: measureState.label }),
     );

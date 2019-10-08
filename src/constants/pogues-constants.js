@@ -7,6 +7,22 @@ export const COMPONENT_TYPE = {
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
 
+export const DATEFORMAT = [
+  {
+    format: '1',
+    label: 'jj-mm-aaaa',
+  },
+  {
+    format: '2',
+    label: 'mm-aaaa',
+  },
+  {
+    format: '3',
+    label: 'aaaa',
+  },
+
+];
+
 export const TargetMode = [
   { value: 'CAPI', label: 'CAPI' },
   { value: 'CATI', label: 'CATI' },

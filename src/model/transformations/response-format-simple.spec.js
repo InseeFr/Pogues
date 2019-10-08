@@ -1,5 +1,6 @@
 import { remoteToState, stateToRemote } from './response-format-simple';
 import * as Response from './response';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 describe('redirection transformation', () => {
   describe('remoteToState', () => {
@@ -15,13 +16,14 @@ describe('redirection transformation', () => {
                 Minimum: 'minimum',
                 Maximum: 'maximum',
                 Decimals: 'decimals',
-                Unit: 'unit'
+                Unit: 'unit',
+                Format: 'format',
               },
               mandatory: true,
-              id: '1'
-            }
-          ]
-        })
+              id: '1',
+            },
+          ],
+        }),
       ).toEqual({
         mandatory: true,
         id: '1',
@@ -32,8 +34,9 @@ describe('redirection transformation', () => {
           minimum: 'minimum',
           maximum: 'maximum',
           decimals: 'decimals',
-          unit: 'unit'
-        }
+          unit: 'unit',
+          format: 'format',
+        },
       });
     });
     it('should return an empty datatype if all datas are undefined', () => {
@@ -42,33 +45,42 @@ describe('redirection transformation', () => {
           responses: [
             {
               Datatype: {
-                typeName: 'typeName'
+                typeName: 'typeName',
               },
               mandatory: true,
-              id: '1'
-            }
-          ]
-        })
+              id: '1',
+            },
+          ],
+        }),
       ).toEqual({
         mandatory: true,
         id: '1',
         type: 'typeName',
-        typeName: {}
+        typeName: {},
       });
     });
+
+
   });
   describe('stateToRemote', () => {
-    it('should return the remote representation of an redirection   ', () => {
+    beforeEach(() => {
       Response.stateToRemote = jest.fn();
       Response.stateToRemote.mockReturnValueOnce({ id: '2' });
+    });
+
+    afterEach(() => {
+      Response.stateToRemote.mockClear();
+    });
+
+    it('should return the remote representation of an redirection   ', () => {
       const result = stateToRemote(
         {
           id: '2',
           mandatory: true,
           type: 'typeName',
-          typeName: { typeObject: true }
+          typeName: { typeObject: true },
         },
-        [{ id: '1' }]
+        [{ id: '1' }],
       );
       expect(result).toEqual({ Response: [{ id: '2' }] });
       expect(Response.stateToRemote).toHaveBeenCalledWith({
@@ -76,9 +88,8 @@ describe('redirection transformation', () => {
         id: '2',
         mandatory: true,
         typeName: 'typeName',
-        collectedVariable: { id: '1' }
+        collectedVariable: { id: '1' },
       });
-      Response.stateToRemote.mockClear();
     });
   });
 });

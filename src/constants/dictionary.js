@@ -175,6 +175,11 @@ const dictionary = {
     en: 'Position',
     fr: 'Position',
   },
+
+  date_format: {
+    en: 'format',
+    fr: 'format',
+  },
   createQuestionnaire: {
     en: 'Create a questionnaire',
     fr: 'Créer un questionnaire',
@@ -251,6 +256,12 @@ const dictionary = {
     en: 'Date',
     fr: 'Date',
   },
+
+  DURATION: {
+    en: 'Duration',
+    fr: 'Durée',
+  },
+
   NUMERIC: {
     en: 'Number',
     fr: 'Nombre',
@@ -332,6 +343,42 @@ const dictionary = {
     en: 'Precision',
     fr: 'Précision',
   },
+
+  hours: {
+    en: 'hours',
+    fr: 'heures',
+  }, 
+
+  minutes: {
+    en: 'minutes',
+    fr: 'minutes',
+  }, 
+
+  years: {
+    en: 'years',
+    fr: 'années',
+  }, 
+
+  months: {
+    en: 'months',
+    fr: 'mois',
+  }, 
+
+  dateinitial: {
+    en: 'Date format',
+    fr: 'Date au format',
+  },
+
+  durationinitial: {
+    en: 'Duration format',
+    fr: 'Durée au format',
+  },
+
+  formatDate: {
+    en: 'please respect the date format',
+    fr: 'merci de respecter le format de la date',
+  }, 
+
   unit: {
     en: 'Unit of measure',
     fr: 'Unité de mesure',
@@ -340,6 +387,12 @@ const dictionary = {
     en: 'Select an unit of measure',
     fr: 'Sélectionnez une unité de mesure',
   },
+
+  dateEmptySelect: {
+    en: 'Select a date format',
+    fr: 'Sélectionnez une format de date',
+  },
+
   edit_config: {
     en: 'Edit config',
     fr: 'Éditer les paramètres',
@@ -758,6 +811,31 @@ const dictionary = {
     fr: 'Obligatoire',
     en: 'Mandatory',
   },
+
+  durationformat1: {
+    fr: 'heures/minutes',
+    en: 'hours/minutes',
+  },
+  durationformat2: {
+    fr: 'années/mois',
+    en: 'years/months',
+  },
+
+  dateyyyy: {
+    fr: 'AAAA',
+    en: 'YYYY',
+  },
+
+
+  datemmyyyy: {
+    fr: 'MM-AAAA',
+    en: 'MM-YYYY',
+  },
+  dateddmmyyyy: {
+    fr: 'JJ-MM-AAAA',
+    en: 'DD-MM-YYYY',
+  },
+
   dclPosAfterQuestion: {
     fr: 'Après le libellé de question',
     en: 'After question label',

@@ -15,6 +15,15 @@ export function stateToRemote(state) {
     maximum: Maximum,
     decimals: Decimals,
     unit: Unit,
+    format: Format,
+    mihours: Mihours,
+    miminutes: Miminutes,
+    miyears: Miyears,
+    mimonths: Mimonths,
+    mahours: Mahours,
+    maminutes: Maminutes,
+    mayears: Mayears,
+    mamonths: Mamonths,
     codesListId: CodeListReference,
     visHint: visualizationHint,
     hasSpecialCode,
@@ -47,6 +56,16 @@ export function stateToRemote(state) {
   if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
   if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
   if (Unit !== undefined) model.Datatype.Unit = Unit;
+  if (Format !== undefined) model.Datatype.Format = Format;
+  if (Mihours !== undefined) model.Datatype.Mihours = Mihours;
+  if (Miminutes !== undefined) model.Datatype.Miminutes = Miminutes;
+  if (Miyears !== undefined) model.Datatype.Miyears = Miyears;
+  if (Mimonths !== undefined) model.Datatype.Mimonths = Mimonths;
+  if (Mahours !== undefined) model.Datatype.Mahours = Mahours;
+  if (Maminutes !== undefined) model.Datatype.Maminutes = Maminutes;
+  if (Mayears !== undefined) model.Datatype.Mayears = Mayears;
+  if (Mamonths !== undefined) model.Datatype.Mamonths = Mamonths;
+
   if (hasSpecialCode) {
     model.nonResponseModality = {
       value: specialCode,

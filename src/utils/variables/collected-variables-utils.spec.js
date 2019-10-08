@@ -113,8 +113,17 @@ describe('getCollectedVariablesTable', () => {
             minimum: '',
             decimals: '',
           },
-          DATE: {},
+          DATE: {
+                maximum: '',
+                minimum: '',
+                format: '',
+          },
           BOOLEAN: {},
+          DURATION:{
+                maximum: '',
+                minimum: '',
+                format: '',
+          }
         },
         SINGLE_CHOICE: {
           CodesList: {
@@ -139,7 +148,11 @@ describe('getCollectedVariablesTable', () => {
                 minimum: '',
                 decimals: '',
               },
-              DATE: {},
+              DATE: {
+                maximum: '',
+                minimum: '',
+                format: '',
+              },
               BOOLEAN: {},
             },
             SINGLE_CHOICE: {
@@ -165,7 +178,11 @@ describe('getCollectedVariablesTable', () => {
                 minimum: '',
                 decimals: '',
               },
-              DATE: {},
+              DATE: {
+                maximum: '',
+                minimum: '',
+                format: '',
+              },
               BOOLEAN: {},
             },
             SINGLE_CHOICE: {
@@ -193,7 +210,11 @@ describe('getCollectedVariablesTable', () => {
             minimum: '',
             decimals: '',
           },
-          DATE: {},
+          DATE: {
+                maximum: '',
+                minimum: '',
+                format: '',
+          },
           BOOLEAN: {},
         },
         SINGLE_CHOICE: {
@@ -257,7 +278,11 @@ describe('getCollectedVariablesTable', () => {
             minimum: '',
             decimals: '',
           },
-          DATE: {},
+          DATE: {
+            maximum: '',
+                minimum: '',
+                format: '',
+          },
           BOOLEAN: {},
         },
         SINGLE_CHOICE: {
@@ -283,7 +308,11 @@ describe('getCollectedVariablesTable', () => {
                 minimum: '',
                 decimals: '',
               },
-              DATE: {},
+              DATE: {
+                maximum: '',
+                minimum: '',
+                format: '',
+              },
               BOOLEAN: {},
             },
             SINGLE_CHOICE: {
@@ -309,7 +338,11 @@ describe('getCollectedVariablesTable', () => {
                 minimum: '',
                 decimals: '',
               },
-              DATE: {},
+              DATE: {
+                maximum: '',
+                minimum: '',
+                format: '',
+              },
               BOOLEAN: {},
             },
             SINGLE_CHOICE: {
@@ -337,7 +370,11 @@ describe('getCollectedVariablesTable', () => {
             minimum: '',
             decimals: '',
           },
-          DATE: {},
+          DATE: {
+            maximum: '',
+                minimum: '',
+                format: '',
+          },
           BOOLEAN: {},
         },
         SINGLE_CHOICE: {

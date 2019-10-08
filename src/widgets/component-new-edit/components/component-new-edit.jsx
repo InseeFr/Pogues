@@ -168,7 +168,6 @@ class ComponentNewEdit extends Component {
         this.validateButton.click();
       },
     };
-
     return (
       <div className={COMPONENT_CLASS}>
         <form onSubmit={handleSubmit}>

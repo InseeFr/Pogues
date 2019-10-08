@@ -25,7 +25,7 @@ import {
 import Dictionary from 'utils/dictionary/dictionary';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { NUMERIC, TEXT } = DATATYPE_NAME;
+const { NUMERIC, TEXT , DATE} = DATATYPE_NAME;
 const { PRIMARY, SECONDARY, LIST_MEASURE, MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const {
@@ -94,6 +94,10 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.maximum`]: [
     value => minValue(1)(value),
   ],
+
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
+
+
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
@@ -104,6 +108,7 @@ export const questionRules = {
     value => minValue(0)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
+
     value => minValue(1)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
@@ -114,6 +119,8 @@ export const questionRules = {
     validCodesList,
   ],
   [`${COLLECTED_VARIABLES}.collectedVariables`]: [validCollectedVariables],
+
+ 
 };
 
 export const declarationRules = {

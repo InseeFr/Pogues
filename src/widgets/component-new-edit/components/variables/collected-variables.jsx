@@ -15,6 +15,7 @@ import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
 
+
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 // Utils
 

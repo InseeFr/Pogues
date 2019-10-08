@@ -2,7 +2,7 @@ import { uuid } from 'utils/utils';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
 import { sortByYAndX } from 'utils/variables/collected-variables-utils';
 
-const { TEXT, BOOLEAN, NUMERIC, DATE } = DATATYPE_NAME;
+const { TEXT, BOOLEAN, NUMERIC, DATE, DURATION } = DATATYPE_NAME;
 
 export const defaultState = {
   name: '',
@@ -31,6 +31,7 @@ function getTypings(object) {
     [NUMERIC]: object[NUMERIC],
     [DATE]: object[DATE],
     [BOOLEAN]: object[BOOLEAN],
+    [DURATION]:  object[DURATION],
   };
 }
 export function formToState(form) {

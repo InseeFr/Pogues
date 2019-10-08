@@ -15,9 +15,10 @@ import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
+import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
 import { SelectorView, View } from 'widgets/selector-view';
 
-const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 
 const validateForm = (addErrors, validate) => (values, state) => {
   return validate(values, addErrors, state);
@@ -74,11 +75,14 @@ function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
           <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
             <ResponseFormatDatatypeText required={false} />
           </View>
-          <View key={DATE} value={DATE} label={Dictionary.DATE} />
+          <View key={DATE} value={DATE} label={Dictionary.DATE} >
+            <ResponseFormatDatatypeDate />
+            </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
             <ResponseFormatDatatypeNumeric required={false} />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+         
         </SelectorView>
       </ListWithInputPanel>
     </FormSection>

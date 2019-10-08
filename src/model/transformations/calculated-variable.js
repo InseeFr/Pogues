@@ -1,7 +1,7 @@
 import { uuid } from 'utils/utils';
 import {
   DATATYPE_TYPE_FROM_NAME,
-  VARIABLES_TYPES,
+  VARIABLES_TYPES, DURATION_UNIT, DATATYPE_NAME
 } from 'constants/pogues-constants';
 
 const { CALCULATED } = VARIABLES_TYPES;
@@ -21,9 +21,11 @@ export function remoteToStore(remote = []) {
         Maximum: maximum,
         Decimals: decimals,
         Unit: unit,
+        Format: format,
       },
     } = cv;
     const id = cv.id || uuid();
+
     return {
       ...acc,
       [id]: {
@@ -39,6 +41,7 @@ export function remoteToStore(remote = []) {
           maximum,
           decimals,
           unit,
+          format,
         },
       },
     };
@@ -61,8 +64,11 @@ export function storeToRemote(store) {
         maximum: Maximum,
         decimals: Decimals,
         unit: Unit,
+        format: Format,
       },
     } = store[key];
+
+
     const model = {
       id,
       Label,
@@ -80,7 +86,7 @@ export function storeToRemote(store) {
     if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
-
+    if (Format !== undefined) model.Datatype.Format = Format;
     return model;
   });
 }

@@ -11,6 +11,7 @@ describe('remoteToState', () => {
             type: 'TextDatatypeType',
             MaxLength: 255,
             Pattern: '',
+            Format: '',
           },
           CollectedVariableReference: 'joxzq5qe',
         },
@@ -22,9 +23,23 @@ describe('remoteToState', () => {
             Minimum: '0',
             Maximum: '10',
             Decimals: '',
+            Format: '',
           },
           CollectedVariableReference: 'joxzsdwi',
         },
+
+        {
+          id: 'k1ai8yzv',
+          Datatype: {
+            typeName: 'DATE',
+            type: 'DateDatatypeType',
+            Format: 'dd-mm-yyyy',
+            Minimum: '',
+            Maximum: '',
+          },
+          CollectedVariableReference: 'k1ail7ly',
+        },
+        
       ],
       dimensions: [
         {
@@ -41,6 +56,12 @@ describe('remoteToState', () => {
           dynamic: '0',
           Label: 'mes2',
         },
+        {
+          dimensionType: 'MEASURE',
+          dynamic: '0',
+          Label: 'mes3',
+        },
+
       ],
     };
 
@@ -63,9 +84,11 @@ describe('remoteToState', () => {
             TEXT: {
               maxLength: 255,
               pattern: '',
+              format: "",
             },
           },
         },
+
         {
           label: 'mes2',
           type: 'SIMPLE',
@@ -75,9 +98,25 @@ describe('remoteToState', () => {
               minimum: '0',
               maximum: '10',
               decimals: '',
+              format: "",
             },
           },
         },
+
+        {
+          label: 'mes3',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'DATE',
+            DATE: {
+              minimum: '',
+              maximum: '',
+              format: "dd-mm-yyyy",
+            },
+          },
+        },
+
+        
       ],
     };
     expect(remoteToState(remote, codesListsStore)).toEqual(output);
@@ -95,6 +134,7 @@ describe('remoteToState', () => {
           },
           CollectedVariableReference: 'jjjyjq15',
         },
+
         {
           id: 'jjjz2i63',
           Datatype: {
@@ -347,6 +387,7 @@ describe('stateToRemote', () => {
         type: 'TEXT',
         TEXT: { maxLength: 255, pattern: '' },
         NUMERIC: { maximum: '', minimum: '', decimals: '' },
+        NUMERIC: { maximum: '', minimum: '', format: '' },
         DATE: {},
         BOOLEAN: {},
         codeListReference: '',
@@ -361,6 +402,7 @@ describe('stateToRemote', () => {
         type: 'TEXT',
         TEXT: { maxLength: 255, pattern: '' },
         NUMERIC: { maximum: '', minimum: '', decimals: '' },
+        NUMERIC: { maximum: '', minimum: '', format: '' },
         DATE: {},
         BOOLEAN: {},
         codeListReference: '',
@@ -436,6 +478,7 @@ describe('stateToRemote', () => {
         type: 'TEXT',
         TEXT: { maxLength: 255, pattern: '' },
         NUMERIC: { maximum: '', minimum: '', decimals: '' },
+        NUMERIC: { maximum: '', minimum: '', format: '' },
         DATE: {},
         BOOLEAN: {},
         codeListReference: '',

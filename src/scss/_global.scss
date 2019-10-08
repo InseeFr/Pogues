@@ -5,6 +5,7 @@ body {
   background-color: $color-white_01;
 }
 
+
 // Override Bootstrap styles
 
 .container {
@@ -231,4 +232,37 @@ a {
       height: 1.4em;
     }
   }
+}
+//response format duration
+
+.response-format-datatype-duree-minimum {
+  display: flex;
+  .ctrl-input {
+    flex-basis: 50%;
+  }
+}
+
+.response-format-datatype-duree-maximum{
+  display: flex;
+  .ctrl-input {
+    flex-basis: 50%;
+  }
+}
+
+.response-format-datatype-duree-label-minimum {
+  width: 25%;
+  font-weight: 700
+}
+
+.response-format-datatype-duree-minimum {
+  display: flex;
+}
+
+.response-format-datatype-duree-maximum {
+  display: flex;
+}
+
+.response-format-datatype-duree-label-maximum {
+  width: 25%;
+  font-weight: 700
 }
