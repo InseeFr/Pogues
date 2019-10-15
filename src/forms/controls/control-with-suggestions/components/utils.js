@@ -40,7 +40,7 @@ export function getValueWithSuggestion(suggestion, caretCursor, fullText) {
     end = fullText.length;
   }
 
-  const prefix = fullText.substr(0, start);
+  const prefix = fullText.substr(0, start - 1);
   const suffix = fullText.substr(end + 1, fullText.length);
   const prefixSeparator = prefix ? ' $' : '$';
   const suffixSeparator = suffix ? '$ ' : '$';
@@ -54,7 +54,7 @@ export function getValueWithSuggestion(suggestion, caretCursor, fullText) {
   ].join('');
 }
 
-export function getStartValueWithSuggestion(suggestion, caretCursor, fullText) {
+export function getStartValueWithSuggestion(caretCursor, fullText) {
   
   let start = -1;
   let end = -1;

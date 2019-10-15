@@ -143,7 +143,6 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       .getPlainText();
 
     const newCurrentValue = getStartValueWithSuggestion(
-      suggestion,
       caretCursor,
       fullText,
     );
