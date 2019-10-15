@@ -365,7 +365,7 @@ const dictionary = {
   }, 
 
   dateinitial: {
-    en: 'Date format',
+    en: 'Date au format',
     fr: 'Date au format',
   },
 
@@ -390,7 +390,7 @@ const dictionary = {
 
   dateEmptySelect: {
     en: 'Select a date format',
-    fr: 'Sélectionnez une format de date',
+    fr: 'Sélectionnez un format de date',
   },
 
   edit_config: {
@@ -814,7 +814,7 @@ const dictionary = {
 
   durationformat1: {
     fr: 'heures/minutes',
-    en: 'hours/minutes',
+    en: 'hours/minuts',
   },
   durationformat2: {
     fr: 'années/mois',

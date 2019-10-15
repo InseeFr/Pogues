@@ -8,6 +8,7 @@ import { updateSuggestions, initialize } from './input-with-suggestions-utils';
 import {
   getValueWithSuggestion,
   getPattern,
+  getStartValueWithSuggestion
 } from 'forms/controls/control-with-suggestions/components/utils';
 
 import {
@@ -18,6 +19,7 @@ import {
   toolbarConfigQuestion,
   rootStyle,
 } from 'forms/controls/rich-textarea';
+import { EditorState, Modifier, SelectionState } from 'draft-js';
 import { getControlId } from 'utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 
@@ -54,6 +56,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       currentValue: props.input.value,
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+     this.textChange = this.textChange.bind(this);
   }
 
   componentDidMount() {
@@ -119,24 +122,55 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     }
   };
 
-  // OnClick of an item
+
+  textChange(value) {
+    const contentState = value.getEditorState().getCurrentContent();
+    const currentValue = contentStateToString(contentState);
+    this.props.input.onChange(currentValue);
+    this.setState({ value, currentValue });
+  }
+
   handleSuggestionClick = suggestion => {
+
     const caretCursor = this.state.value
       .getEditorState()
       .getSelection()
       .getStartOffset();
+
     const fullText = this.state.value
       .getEditorState()
       .getCurrentContent()
       .getPlainText();
 
-    const newCurrentValue = getValueWithSuggestion(
+    const newCurrentValue = getStartValueWithSuggestion(
       suggestion,
       caretCursor,
       fullText,
     );
-    this.props.input.onChange(newCurrentValue);
-    this.setState({ ...initialize(), value: getEditorValue(newCurrentValue) });
+
+    const targetSelection = this.state.value.getEditorState().getSelection(); 
+    let contentState = this.state.value.getEditorState().getCurrentContent(); 
+    const contentStateWithEntity  = contentState.createEntity(
+      'suggestion',
+      'MUTABLE', 
+      { status: 'complete' }
+      );
+
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
+    const targetRange = targetSelection.merge({
+      anchorOffset: newCurrentValue+1,
+      focusOffset: caretCursor,
+      isBackward: false
+    });
+
+    const newContentState = Modifier.replaceText(contentState,
+      targetRange,
+     `${suggestion}$`,
+      null,
+      entityKey);
+      const newEditorState = EditorState.push(this.state.value.getEditorState(), newContentState, "addentity");
+      this.textChange(this.state.value.setEditorState(newEditorState));
   };
 
   handleKeyCommand(command) {

@@ -1,31 +1,30 @@
 module.exports = [
   {
-    uri: 'http://id.insee.fr/unit/euro',
-    label: '€',
+    uri: 'unit01',
+    label: 'Unit 01',
   },
   {
-    uri: 'http://id.insee.fr/unit/keuro',
-    label: 'k€',
+    uri: 'unit02',
+    label: 'Unit 02',
   },
   {
-    uri: 'http://id.insee.fr/unit/percent',
-    label: '%',
+    uri: 'unit03',
+    label: 'Unit 03',
   },
   {
-    uri: 'http://id.insee.fr/unit/heures',
-    label: 'heures',
+    uri: 'unit04',
+    label: 'Unit 04',
   },
   {
-    uri: 'http://id.insee.fr/unit/jours',
-    label: 'jours',
+    uri: 'unit05',
+    label: 'Unit 05',
   },
   {
-    uri: 'http://id.insee.fr/unit/mois',
-    label: 'mois',
+    uri: 'unit06',
+    label: 'Unit 06',
   },
   {
-    uri: 'http://id.insee.fr/unit/années',
-    label: 'années',
+    uri: 'unit07',
+    label: 'Unit 07',
   },
-
 ];

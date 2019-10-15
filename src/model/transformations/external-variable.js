@@ -51,7 +51,7 @@ export function remoteToStore(remote = []) {
 export function storeToRemote(store) {
   
   return Object.keys(store).map(key => {
-    let {
+    const {
       id,
       name: Name,
       label: Label,

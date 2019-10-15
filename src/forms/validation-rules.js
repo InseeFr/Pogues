@@ -195,10 +195,7 @@ export function validCollectedVariables(
    * are in the right order.
    */
   const isTheSameOrder = true;
-  /*expectedVariables[0].name &&
-    expectedVariables.map(v => v.name).join(' ') ===
-      value.map(v => v.name).join(' ');
-*/
+ 
   if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
