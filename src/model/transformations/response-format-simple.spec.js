@@ -39,6 +39,73 @@ describe('redirection transformation', () => {
         },
       });
     });
+
+    it('should return miyears, mimonths, mayears, and mamonths from minimum and maximum if type name Duration and format PnYnM', () => {
+      expect(
+        remoteToState({
+          responses: [
+            {
+              Datatype: {
+                Format: "PnYnM",
+                Maximum: "P2Y2M",
+                Minimum: "P2Y2M",
+                type: "DurationDatatypeType",
+                typeName: "DURATION",
+              },
+              mandatory: true,
+              id: '1',
+            },
+          ],
+        }),
+      ).toEqual({
+        mandatory: true,
+        id: '1',
+        type: 'DURATION',
+        DURATION: {
+          minimum: 'P2Y2M',
+          maximum: 'P2Y2M',
+          miyears: '2',
+          mimonths: '2',
+          mayears: "2",
+          mamonths: "2",
+          format: 'PnYnM',
+        },
+      });
+    });
+
+    it('should return "" if type name Duration and format PTnHnM and maminutes = 0', () => {
+      expect(
+        remoteToState({
+          responses: [
+            {
+              Datatype: {
+                Format: "PTnHnM",
+                Maximum: "PT2H0M",
+                Minimum: "PT1H1M",
+                type: "DurationDatatypeType",
+                typeName: "DURATION",
+              },
+              mandatory: true,
+              id: '1',
+            },
+          ],
+        }),
+      ).toEqual({
+        mandatory: true,
+        id: '1',
+        type: 'DURATION',
+        DURATION: {
+          format: "PTnHnM",
+          mahours: "2",
+          maminutes: "",
+          maximum: "PT2H0M",
+          mihours: "1",
+          miminutes: "1",
+          minimum: "PT1H1M",
+        },
+      });
+    });
+
     it('should return an empty datatype if all datas are undefined', () => {
       expect(
         remoteToState({
@@ -151,27 +218,6 @@ describe('redirection transformation', () => {
     });
 
     describe('DATE format', () => {
-      it('should keep the maximum and minimum property if the typeName is a DATE and if the format is empty', () => {
-        const result = stateToRemote(
-          {
-            id: '2',
-            mandatory: true,
-            type: DATATYPE_NAME.DATE,
-
-            [DATATYPE_NAME.DATE]: { minimum: '', maximum: '' },
-          },
-          [{ id: '1' }],
-        );
-        expect(result).toEqual({ Response: [{ id: '2' }] });
-        expect(Response.stateToRemote).toHaveBeenCalledWith({
-          minimum: '',
-          maximum: '',
-          id: '2',
-          mandatory: true,
-          typeName: DATATYPE_NAME.DATE,
-          collectedVariable: { id: '1' },
-        });
-      });
 
       it('should remove the minimum and maximum if the typeName is a DATE and if they are empty', () => {
         const result = stateToRemote(
@@ -180,13 +226,13 @@ describe('redirection transformation', () => {
             mandatory: true,
             type: DATATYPE_NAME.DATE,
 
-            [DATATYPE_NAME.DATE]: { minimum: '', maximum: '', format: 'PnYnM' },
+            [DATATYPE_NAME.DATE]: { minimum: '', maximum: '', format: '2000' },
           },
           [{ id: '1' }],
         );
         expect(result).toEqual({ Response: [{ id: '2' }] });
         expect(Response.stateToRemote).toHaveBeenCalledWith({
-          format: 'PNYNM',
+          format: '2000',
           id: '2',
           mandatory: true,
           typeName: DATATYPE_NAME.DATE,
@@ -200,7 +246,7 @@ describe('redirection transformation', () => {
             id: '2',
             mandatory: true,
             type: DATATYPE_NAME.DATE,
-            [DATATYPE_NAME.DATE]: { minimum: 1, maximum: 2, format: 'PnYnM' },
+            [DATATYPE_NAME.DATE]: { minimum: 1, maximum: 2, format: '2000' },
           },
           [{ id: '1' }],
         );
@@ -208,7 +254,7 @@ describe('redirection transformation', () => {
         expect(Response.stateToRemote).toHaveBeenCalledWith({
           minimum: 1,
           maximum: 2,
-          format: 'PNYNM',
+          format: '2000',
           id: '2',
           mandatory: true,
           typeName: DATATYPE_NAME.DATE,

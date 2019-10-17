@@ -20,10 +20,9 @@ export function remoteToState(remote) {
       },
     ],
   } = remote;
-
   const format =
     typeName === 'DATE' && format1 ? format1.toLowerCase() : format1;
-
+    console.log("remote", remote);
   const datatype = {};
   if (maxLength !== undefined) datatype.maxLength = maxLength;
   if (pattern !== undefined) datatype.pattern = pattern;
@@ -39,28 +38,20 @@ export function remoteToState(remote) {
     let matches_minimum = strminimum.match(/\d+/g);
     let matches_maximum = strmaximum.match(/\d+/g);
     if (format !== undefined && format === 'PTnHnM') {
-      datatype.mihours = matches_minimum[0];
-      datatype.miminutes = matches_minimum[1];
-      datatype.mahours = matches_maximum[0];
-      datatype.maminutes = matches_maximum[1];
+      datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+      datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+      datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+      datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
     }
     if (format !== undefined && format === 'PnYnM') {
-      datatype.miyears = matches_minimum[0];
-      datatype.mimonths = matches_minimum[1];
-      datatype.mayears = matches_maximum[0];
-      datatype.mamonths = matches_maximum[1];
+      datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+      datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+      datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+      datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
     }
 
-    datatype.miyears = datatype.miyears === 0 ? '' : datatype.miyears;
-    datatype.mimonths = datatype.mimonths === 0 ? '' : datatype.mimonths;
-    datatype.mayears = datatype.mayears === 0 ? '' : datatype.mayears;
-    datatype.mamonths = datatype.mamonths === 0 ? '' : datatype.mamonths;
-    datatype.mihours = datatype.mihours === 0 ? '' : datatype.mihours;
-    datatype.miminutes = datatype.miminutes === 0 ? '' : datatype.miminutes;
-    datatype.mahours = datatype.mahours === 0 ? '' : datatype.mahours;
-    datatype.maminutes = datatype.miyears === 0 ? '' : datatype.maminutes;
   }
-
+  
   return {
     id,
     type: typeName,
@@ -126,4 +117,5 @@ export function stateToRemote(state, collectedVariables) {
       }),
     ],
   };
+
 }

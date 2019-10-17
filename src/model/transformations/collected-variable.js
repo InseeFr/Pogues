@@ -94,7 +94,6 @@ export function storeToRemote(store) {
     if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
-
     return model;
   });
 }
