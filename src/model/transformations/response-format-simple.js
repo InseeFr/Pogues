@@ -21,8 +21,7 @@ export function remoteToState(remote) {
     ],
   } = remote;
   const format =
-    typeName === 'DATE' && format1 ? format1.toLowerCase() : format1;
-    console.log("remote", remote);
+    typeName === DATATYPE_NAME.DATE && format1 ? format1.toLowerCase() : format1;
   const datatype = {};
   if (maxLength !== undefined) datatype.maxLength = maxLength;
   if (pattern !== undefined) datatype.pattern = pattern;
@@ -32,7 +31,7 @@ export function remoteToState(remote) {
   if (unit !== undefined) datatype.unit = unit;
   if (format !== undefined) datatype.format = format;
 
-  if (datatype.minimum !== undefined && typeName === 'DURATION') {
+  if (datatype.minimum !== undefined && typeName === DATATYPE_NAME.DURATION) {
     let strminimum = datatype.minimum;
     let strmaximum = datatype.maximum;
     let matches_minimum = strminimum.match(/\d+/g);

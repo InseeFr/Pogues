@@ -21,7 +21,6 @@ export function getValueWithSuggestion(suggestion, caretCursor, fullText) {
   let i = caretCursor;
   while (i >= 0 && start < 0) {
     if (fullText[i] === '$') {
-      console.log('i',i);
       start = i;
     }
     i--;

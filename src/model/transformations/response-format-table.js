@@ -75,7 +75,13 @@ function getMeasuresModel(responses, dimensions, offset) {
   const responsesModel = [];
   for (let i = 0; i < dimensions.length; i += 1) {
 
-    if (responses[i].Datatype.Minimum !== undefined && responses[i].Datatype.typeName==='DURATION' ) {
+    if (responses[i].Datatype.typeName=== DATATYPE_NAME.DATE ) {
+
+      responses[i].Datatype.Format  === responses[i].Datatype.Format .toLowerCase();
+
+    }
+
+    if (responses[i].Datatype.Minimum !== undefined && responses[i].Datatype.typeName=== DATATYPE_NAME.DURATION ) {
       let strminimum = responses[i].Datatype.Minimum;
       let strmaximum = responses[i].Datatype.Maximum;
       let matches_minimum = strminimum.match(/\d+/g);
@@ -255,7 +261,22 @@ function stateToResponseState(state) {
     
     let customsimpleState = simpleState;
 
-    if (typeName === 'DURATION'){
+    if (customsimpleState.format !== undefined && typeName === DATATYPE_NAME.DATE) {
+      const { format, minimum, maximum, ...durationsimpleState } = simpleState;
+  
+      durationsimpleState.format = format.toUpperCase();
+      if (customsimpleState.minimum !== '') {
+        durationsimpleState.minimum = minimum;
+      }
+  
+      if (customsimpleState.maximum !== '') {
+        durationsimpleState.maximum = maximum;
+      }
+  
+      customsimpleState = durationsimpleState;
+    }
+
+    if (typeName === DATATYPE_NAME.DURATION){
       const {
         miyears,
         mimonths,
