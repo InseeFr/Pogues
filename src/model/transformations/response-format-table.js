@@ -77,7 +77,7 @@ function getMeasuresModel(responses, dimensions, offset) {
 
     if (responses[i].Datatype.typeName=== DATATYPE_NAME.DATE ) {
 
-      responses[i].Datatype.Format  === responses[i].Datatype.Format .toLowerCase();
+      responses[i].Datatype.Format  === responses[i].Datatype.Format.toLowerCase();
 
     }
 

@@ -365,7 +365,7 @@ const dictionary = {
   }, 
 
   dateinitial: {
-    en: 'Date au format',
+    en: 'Date format',
     fr: 'Date au format',
   },
 
@@ -825,7 +825,6 @@ const dictionary = {
     fr: 'AAAA',
     en: 'YYYY',
   },
-
 
   datemmyyyy: {
     fr: 'MM-AAAA',
