@@ -10,7 +10,7 @@ import { generateCollectedVariables } from 'utils/variables/collected-variables-
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 
-const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
 
@@ -187,8 +187,38 @@ export function validCollectedVariables(
     value[0] &&
     value[0].codeListReference !== expectedVariables[0].codeListReference
   ) {
+ 
     return Dictionary.validation_collectedvariable_need_reset;
   }
+
+  if (
+    type === MULTIPLE_CHOICE &&
+    value[0] &&
+    value[0].codeListReference !== expectedVariables[0].codeListReference
+  ) {
+ 
+    return Dictionary.validation_collectedvariable_need_reset;
+  }
+
+  if (type === SIMPLE && value[0] || type === TABLE && value[0] ) {
+    const typevalue = value[0].type;
+    const typeexpectedVariables = expectedVariables[0].type;
+    if ((
+      value[0] &&
+      value[0].codeListReference &&
+      value[0].codeListReference !== 'undefined')  || 
+      value[0] &&
+      typevalue !== typeexpectedVariables || 
+      ( value[0] && 
+        typevalue === typeexpectedVariables &&
+        value[0][typevalue] !== expectedVariables[0][typeexpectedVariables]
+        )
+    ) {
+      return Dictionary.validation_collectedvariable_need_reset;
+    }
+  } 
+  
+
 
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list

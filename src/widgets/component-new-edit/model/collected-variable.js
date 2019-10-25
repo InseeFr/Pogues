@@ -37,7 +37,7 @@ function getTypings(object) {
 export function formToState(form) {
   const { name, label, x, y, codeListReference, codeListReferenceLabel } = form;
   const id = form.id || uuid();
-
+  
   return {
     id,
     name,
@@ -55,7 +55,7 @@ export function formToStore(form) {
 
   return collectedVariables.reduce((acc, cv) => {
     const state = formToState(cv);
-
+ 
     return {
       ...acc,
       [state.id]: state,

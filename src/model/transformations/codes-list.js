@@ -74,6 +74,7 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
 
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
+ 
     const { id, label, codes } = store[key];
     return {
       id,

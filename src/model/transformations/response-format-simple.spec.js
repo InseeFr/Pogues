@@ -73,7 +73,7 @@ describe('redirection transformation', () => {
       });
     });
 
-    it('should return "" if type name Duration and format PTnHnM and maminutes = 0', () => {
+    it('should return maminutes = "" if type name Duration and format PTnHnM and maminutes = 0', () => {
       expect(
         remoteToState({
           responses: [

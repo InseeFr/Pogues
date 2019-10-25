@@ -1,9 +1,8 @@
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME,
+  DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME
 } from 'constants/pogues-constants';
-
 const { COLLECTED } = VARIABLES_TYPES;
 
 export function remoteToStore(
@@ -25,9 +24,39 @@ export function remoteToStore(
         Maximum: maximum,
         Decimals: decimals,
         Unit: unit,
+        Format: format1,
       },
     } = ev;
     const id = ev.id || uuid();
+    const format =
+    typeName === DATATYPE_NAME.DATE && format1 ? format1.toLowerCase() : format1;
+    const datatype = {};
+    if (maxLength !== undefined) datatype.maxLength = maxLength;
+    if (pattern !== undefined) datatype.pattern = pattern;
+    if (minimum !== undefined) datatype.minimum = minimum;
+    if (maximum !== undefined) datatype.maximum = maximum;
+    if (decimals !== undefined) datatype.decimals = decimals;
+    if (unit !== undefined) datatype.unit = unit;
+    if (format !== undefined) datatype.format = format;
+    if (typeName === DATATYPE_NAME.DURATION) {
+      let strminimum = datatype.minimum;
+      let strmaximum = datatype.maximum;
+      let matches_minimum = strminimum.match(/\d+/g);
+      let matches_maximum = strmaximum.match(/\d+/g);
+      if (format !== undefined && format === 'PTnHnM') {
+        datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+        datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+        datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+        datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+      }
+      if (format !== undefined && format === 'PnYnM') {
+        datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+        datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+        datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+        datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+      }
+  
+    }
 
     return {
       ...acc,
@@ -40,14 +69,7 @@ export function remoteToStore(
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
-        [typeName]: {
-          maxLength,
-          pattern,
-          minimum,
-          maximum,
-          decimals,
-          unit,
-        },
+        [typeName]: datatype,
         ...responsesByVariable[id],
       },
     };
@@ -62,6 +84,7 @@ export function remoteToComponentState(remote = []) {
 
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
+
     const {
       id,
       name: Name,
@@ -74,7 +97,16 @@ export function storeToRemote(store) {
         minimum: Minimum,
         maximum: Maximum,
         decimals: Decimals,
+        format: Format,
         unit: Unit,
+        miyears: Miyears,
+        mimonths: Mimonths,
+        mayears: Mayears,
+        mamonths: Mamonths,
+        mihours: Mihours,
+        miminutes: Miminutes,
+        mahours: Mahours,
+        maminutes: Maminutes,
       },
     } = store[key];
     const model = {
@@ -88,12 +120,46 @@ export function storeToRemote(store) {
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
+
+
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
-    if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
-    if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
+
+    if (typeName === DATATYPE_NAME.DURATION && Format !== undefined) {
+  
+      if (Format === 'PnYnM' ) {
+        model.Datatype.Minimum = `P${Miyears || 0}Y${Mimonths || 0}M`;
+        model.Datatype.Maximum = `P${Mayears || 0}Y${Mamonths || 0}M`;
+      }
+      if (Format === 'PTnHnM') {
+        model.Datatype.Minimum = `PT${Mihours || 0}H${Miminutes || 0}M`;
+        model.Datatype.Maximum = `PT${Mahours || 0}H${Maminutes || 0}M`;
+      }
+     }
+
+     else if (typeName === DATATYPE_NAME.DATE){
+        if (Minimum !== '') {
+          model.Datatype.Minimum = Minimum;
+        }
+        if (Maximum !== '') {
+          model.Datatype.Maximum = Maximum;
+        }
+     }
+    else {
+      if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
+      if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
+    }
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
+    if (Format !== undefined ) { 
+      if (typeName === DATATYPE_NAME.DATE){
+        model.Datatype.Format = Format.toUpperCase();
+      }
+      else{
+        model.Datatype.Format = Format;
+      }
+       
+    }
     return model;
   });
 }

@@ -257,4 +257,138 @@ describe('validCollectedVariables', () => {
       Dictionary.validation_collectedvariable_need_reset,
     );
   });
+
+  it('should return an error if the codeListReference is not undefined if type === SIMPLE', () => {
+    const value = [
+      {
+        id: 'k25y6zf1',
+        name: 'SD',
+        label: 'SD label',
+        codeListReference: 'k25y8eyw',
+        codeListReferenceLabel: 'tes',
+        type: 'TEXT',
+        TEXT: {
+          maxLength: 1,
+          pattern: '',
+        },
+      },
+    ];
+    const state = {
+      form: {
+        name: "SD",
+        label: "sd",
+        responseFormat: {
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: "TEXT",
+            TEXT: {
+              maxLength: 255,
+              pattern: "",
+            }
+            },
+        },
+        collectedVariables: {
+          name: '',
+          label: '',
+          x: '',
+          y: '',
+          type: 'TEXT',
+          collectedVariables: [
+            {
+              id: 'k25y6zf1',
+              name: 'SD',
+              label: 'SD label',
+              codeListReference: "k25y8eyw",
+              codeListReferenceLabel: "tes",
+              type: 'TEXT',
+              TEXT: {
+                maxLength: 1,
+                pattern: '',
+              },
+            },
+          ],
+          codeListReference: '',
+          codeListReferenceLabel: '',
+        },
+      },
+      stores: {
+        jjjynmyp: {
+          id: 'k25y8eyw',
+          label: 'tes',
+          codes: {
+            asdasd: {
+              depth: 1,
+              label: "ss",
+              parent: "",
+              value: "ss",
+              weight: 1,
+            },
+          },
+        },
+      },
+    };
+    expect(validCollectedVariables(value, state)).toBe(
+      Dictionary.validation_collectedvariable_need_reset,
+    );
+  });
+
+  it('should return an error if change response content ', () => {
+    const value = [
+      {
+        id: 'k25z3biw',
+        name: 'QSD',
+        label: 'QSD label',
+        codeListReference: undefined,
+        codeListReferenceLabel: '',
+        type: 'TEXT',
+        TEXT: {
+          maxLength: 255,
+          pattern: '',
+        },
+      },
+    ];
+    const state = {
+      form: {
+        name: "QSD",
+        label: "qsd",
+        responseFormat: {
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: "TEXT",
+            TEXT: {
+              maxLength: 255,
+              pattern: 222,
+            }
+            },
+        },
+        collectedVariables: {
+          name: '',
+          label: '',
+          x: '',
+          y: '',
+          type: 'TEXT',
+          collectedVariables: [
+            {
+              id: 'k25z3biw',
+              name: 'QSD',
+              label: 'QSD label',
+              codeListReference: undefined,
+              codeListReferenceLabel: "",
+              type: 'TEXT',
+              TEXT: {
+                maxLength: 255,
+                pattern: '',
+              },
+            },
+          ],
+          codeListReference: '',
+          codeListReferenceLabel: '',
+        },
+      },
+      stores: {},
+    };
+    expect(validCollectedVariables(value, state)).toBe(
+      Dictionary.validation_collectedvariable_need_reset,
+    );
+  });
 });
