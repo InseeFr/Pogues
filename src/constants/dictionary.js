@@ -366,12 +366,12 @@ const dictionary = {
 
   dateinitial: {
     en: 'Date format',
-    fr: 'Date de la format',
+    fr: 'Format de la date',
   },
 
   durationinitial: {
     en: 'Duration format',
-    fr: 'Durée au format',
+    fr: 'Format de la durée',
   },
 
   formatDate: {
