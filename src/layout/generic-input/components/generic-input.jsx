@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-
+import NavigationPrompt from "react-router-navigation-prompt";
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -33,6 +33,33 @@ const defaultProps = {
 };
 
 // Components
+
+const customModalStyles = {
+  content : {
+    display               : 'absolute',
+    textAlign             : 'center',
+    verticAlalign         : 'middle',
+    top                   : '10%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    width                 : '400px',
+    alignItems            : "center",
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+const customModalbuttonStyles = {
+    background              : '#15417a',
+    color                   : 'white',
+    boxShadow               : 'none',
+    border                  : 'none',
+    width                   : '70px',
+    height                  : '30px',
+    marginRight             : '10px',
+    background              : '#15417a',
+};
 
 class GenericInput extends Component {
   static propTypes = propTypes;
@@ -95,6 +122,29 @@ class GenericInput extends Component {
         id={COMPONENT_ID}
         style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}
       >
+      <NavigationPrompt
+        renderIfNotActive={true}
+        when={isQuestionnaireModified}
+       >
+         {({ isActive, onCancel, onConfirm }) => {
+           if (isActive) {
+             return (
+               <ReactModal 
+                 isOpen={true}
+                 ariaHideApp={false}
+                 shouldCloseOnOverlayClick={false}
+                 style={customModalStyles}
+                 >
+                 <div>
+                  <p>{Dictionary.modification}</p>
+                   <button onClick={onCancel}    style={customModalbuttonStyles} >{Dictionary.no}</button>
+                   <button onClick={onConfirm} style={customModalbuttonStyles} >{Dictionary.yes}</button>
+                 </div>
+               </ReactModal>
+                    );
+                  }
+                }}
+      </NavigationPrompt>;
         <span>{Dictionary.addObject}</span>
         <button
           id="add-question"

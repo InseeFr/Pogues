@@ -3,6 +3,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 const dictionary = {
+
   phLabel: {
     en: 'Enter a title for the questionnaire',
     fr: 'Entrez un titre pour le questionnaire',
@@ -706,6 +707,10 @@ const dictionary = {
   scndInfoAxis: {
     fr: "Axe d'information secondaire",
     en: 'Second information axis',
+  },
+  modification: {
+    en: 'Your modification is not saved! Are you sure you want to leave?',
+    fr: "Votre modification n'est pas sauvegardée! Êtes-vous sûr de vouloir quitter?",
   },
   yes: {
     fr: 'Oui',
