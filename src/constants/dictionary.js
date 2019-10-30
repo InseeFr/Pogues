@@ -712,6 +712,15 @@ const dictionary = {
     en: 'Your modification is not saved! Are you sure you want to leave?',
     fr: "Votre modification n'est pas sauvegardée! Êtes-vous sûr de vouloir quitter?",
   },
+
+  notSaved: {
+    en: 'an error occurs, your modification can not be saved',
+    fr: "un erreur se produit, votre modification ne peut pas etre sauvegarder",
+  },
+  close: {
+    fr: 'fermer',
+    en: 'close',
+  },
   yes: {
     fr: 'Oui',
     en: 'Yes',

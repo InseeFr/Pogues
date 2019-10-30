@@ -14,6 +14,7 @@ import {
   UPDATE_ACTIVE_QUESTIONNAIRE,
   LOAD_STATISTICAL_CONTEXT_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
+  SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   CREATE_PAGE_BREAK,
   REMOVE_PAGE_BREAK,
 } from 'actions/app-state';
@@ -48,6 +49,7 @@ const defaultState = {
   selectedComponentId: '',
   editingComponentId: '',
   errorsByQuestionTab: {},
+  isQuestionnaireHaveerror: false,
   isQuestionnaireModified: false,
   componentIdForPageBreak: '',
   focusedInput: '',
@@ -145,8 +147,17 @@ export function setQuestionNotModified(state) {
   return {
     ...state,
     isQuestionnaireModified: false,
+    isQuestionnaireHaveerror: false,
   };
 }
+
+export function setQuestionNotSaved(state) {
+  return {
+    ...state,
+    isQuestionnaireHaveerror: true,
+  };
+}
+
 
 export function setQuestionModified(state) {
   return {
@@ -174,7 +185,7 @@ actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
 actionHandlers[SET_EDITING_COMPONENT] = setEditingComponentId;
 actionHandlers[LOAD_STATISTICAL_CONTEXT_SUCCESS] = loadStatisticalContext;
 actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = setQuestionNotModified;
-
+actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_FAILURE] = setQuestionNotSaved;
 actionHandlers[CREATE_COMPONENT] = setQuestionModified;
 actionHandlers[DUPLICATE_COMPONENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT] = setQuestionModified;
