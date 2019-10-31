@@ -16,7 +16,9 @@ export const defaultProps = {
 // Component
 
 function GenericOption({ value, children, className }) {
+  
   return (
+   
     <div data-value={value} className={className}>
       {children}
     </div>

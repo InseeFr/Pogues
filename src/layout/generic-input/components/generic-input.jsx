@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-
+import NavigationPrompt from "react-router-navigation-prompt";
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -27,12 +27,40 @@ export const propTypes = {
 };
 
 const defaultProps = {
+  isQuestionnaireHaveerror: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
   componentIdForPageBreak: '',
 };
 
 // Components
+
+const customModalStyles = {
+  content : {
+    display               : 'absolute',
+    textAlign             : 'center',
+    verticAlalign         : 'middle',
+    top                   : '10%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    width                 : '400px',
+    alignItems            : "center",
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+const customModalbuttonStyles = {
+    background              : '#15417a',
+    color                   : 'white',
+    boxShadow               : 'none',
+    border                  : 'none',
+    width                   : '70px',
+    height                  : '30px',
+    marginRight             : '10px',
+    background              : '#15417a',
+};
 
 class GenericInput extends Component {
   static propTypes = propTypes;
@@ -43,11 +71,13 @@ class GenericInput extends Component {
 
     this.state = {
       showNewComponentModal: false,
+      showNewUnsavedModal: false,
       typeNewComponent: '',
     };
 
     this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
     this.handleCloseNewComponent = this.handleCloseNewComponent.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   handleOpenNewComponent(componentType) {
@@ -66,6 +96,26 @@ class GenericInput extends Component {
       typeNewComponent: '',
     };
     this.setState(newState);
+  }
+
+  handleCloseModal() {
+    const newState = {
+      ...this.state,
+      showNewUnsavedModal: false,
+    };
+    this.setState(newState);
+  }
+
+  saveActiveQuestionnaire() {
+    this.props.saveActiveQuestionnaire().then(()=>{
+    if(this.props.isQuestionnaireHaveerror){
+      const newState = {
+        ...this.state,
+        showNewUnsavedModal: true,
+      };
+      this.setState(newState);
+    }
+   })
   }
 
   /**
@@ -95,6 +145,27 @@ class GenericInput extends Component {
         id={COMPONENT_ID}
         style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}
       >
+      <NavigationPrompt
+        renderIfNotActive={true}
+        when={isQuestionnaireModified}
+       >
+         {({ isActive, onCancel, onConfirm }) => {
+           if (isActive) {
+             return (
+               <ReactModal 
+                 isOpen={true}
+                 ariaHideApp={false}
+                 shouldCloseOnOverlayClick={false}
+                 style={customModalStyles}
+                 >
+                   <p>{Dictionary.modification}</p>
+                   <button onClick={onCancel}    style={customModalbuttonStyles} >{Dictionary.no}</button>
+                   <button onClick={onConfirm} style={customModalbuttonStyles} >{Dictionary.yes}</button>
+               </ReactModal>
+                    );
+                  }
+            }}
+      </NavigationPrompt>;
         <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
@@ -143,7 +214,9 @@ class GenericInput extends Component {
         <button
           className="btn-yellow"
           disabled={!isQuestionnaireModified}
-          onClick={this.props.saveActiveQuestionnaire}
+          onClick={() => {
+            this.saveActiveQuestionnaire();
+          }}
           id="save"
         >
           {Dictionary.save}
@@ -193,6 +266,14 @@ class GenericInput extends Component {
             </div>
           </div>
         </ReactModal>
+        <ReactModal 
+            isOpen={this.state.showNewUnsavedModal}
+            ariaHideApp={false}
+            style={customModalStyles}
+            >
+              <p>{Dictionary.notSaved}</p>
+              <button onClick={this.handleCloseModal} style={customModalbuttonStyles} >{Dictionary.close}</button>
+         </ReactModal>
       </div>
     );
   }

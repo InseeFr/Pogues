@@ -7,6 +7,22 @@ export const COMPONENT_TYPE = {
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
 
+export const DATEFORMAT = [
+  {
+    format: '1',
+    label: 'jj-mm-aaaa',
+  },
+  {
+    format: '2',
+    label: 'mm-aaaa',
+  },
+  {
+    format: '3',
+    label: 'aaaa',
+  },
+
+];
+
 export const TargetMode = [
   { value: 'CAPI', label: 'CAPI' },
   { value: 'CATI', label: 'CATI' },
@@ -19,13 +35,17 @@ export const DATATYPE_NAME = {
   NUMERIC: 'NUMERIC',
   TEXT: 'TEXT',
   BOOLEAN: 'BOOLEAN',
+  DURATION: 'DURATION',
 };
+
+export const DURATION_UNIT = ['heures', 'mois', 'jours', 'années'];
 
 // mapping to convert a type to a type when we serialize a
 // questionnaire
 export const DATATYPE_TYPE_FROM_NAME = {
   DATE: 'DateDatatypeType',
   NUMERIC: 'NumericDatatypeType',
+  DURATION: 'DurationDatatypeType',
   TEXT: 'TextDatatypeType',
   BOOLEAN: 'BooleanDatatypeType',
 };

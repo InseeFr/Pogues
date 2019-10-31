@@ -3,14 +3,14 @@ import cloneDeep from 'lodash.clonedeep';
 import Dictionary from 'utils/dictionary/dictionary';
 import {
   CODES_LIST_INPUT_ENUM,
-  QUESTION_TYPE_ENUM,
+  QUESTION_TYPE_ENUM
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 
-const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
 
@@ -145,7 +145,7 @@ export function validCodesList(codesList) {
 
 export function validCollectedVariables(
   value,
-  { form, stores: { codesListsStore } },
+  { form, stores: { codesListsStore } }
 ) {
   function checkIfCodesListTheSame(expected, values) {
     if (!expected[0]) {
@@ -156,7 +156,7 @@ export function validCollectedVariables(
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
     name: nameComponent,
-    responseFormat: { type, [type]: responseFormatValues },
+    responseFormat: { type, [type]: responseFormatValues }
   } = form;
   let expectedVariables;
 
@@ -165,7 +165,7 @@ export function validCollectedVariables(
       type,
       nameComponent,
       responseFormatValues,
-      codesListsStore,
+      codesListsStore
     );
   }
 
@@ -175,7 +175,7 @@ export function validCollectedVariables(
    */
   const isCodesTheSame = checkIfCodesListTheSame(
     expectedVariables.map(e => e.codeListReference),
-    value.map(e => e.codeListReference),
+    value.map(e => e.codeListReference)
   );
 
   /**
@@ -187,15 +187,45 @@ export function validCollectedVariables(
     value[0] &&
     value[0].codeListReference !== expectedVariables[0].codeListReference
   ) {
+ 
     return Dictionary.validation_collectedvariable_need_reset;
   }
+
+  if (
+    type === MULTIPLE_CHOICE &&
+    value[0] &&
+    value[0].codeListReference !== expectedVariables[0].codeListReference
+  ) {
+ 
+    return Dictionary.validation_collectedvariable_need_reset;
+  }
+
+  if (type === SIMPLE && value[0] || type === TABLE && value[0] ) {
+    const typevalue = value[0].type;
+    const typeexpectedVariables = expectedVariables[0].type;
+    if ((
+      value[0] &&
+      value[0].codeListReference &&
+      value[0].codeListReference !== 'undefined')  || 
+      value[0] &&
+      typevalue !== typeexpectedVariables || 
+      ( value[0] && 
+        typevalue === typeexpectedVariables &&
+        value[0][typevalue] !== expectedVariables[0][typeexpectedVariables]
+        )
+    ) {
+      return Dictionary.validation_collectedvariable_need_reset;
+    }
+  } 
+  
+
 
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list
    * are in the right order.
    */
   const isTheSameOrder = true;
-
+ 
   if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
@@ -215,7 +245,7 @@ export function validCollectedVariables(
 
 export function validateEarlyTarget(
   value,
-  { stores: { componentsStore, editingComponentId } },
+  { stores: { componentsStore, editingComponentId } }
 ) {
   let result;
 
@@ -225,7 +255,7 @@ export function validateEarlyTarget(
       componentsStore[value] &&
       getComponentsTargetsByComponent(
         componentsStore,
-        componentsStore[editingComponentId],
+        componentsStore[editingComponentId]
       ).indexOf(value) === -1
         ? Dictionary.errorGoToEarlierTgt
         : undefined;
@@ -248,7 +278,7 @@ export function validateDuplicates(value, { form }) {
 
 export function validateDuplicatesCalculated(
   value,
-  { form: { calculatedVariables: values }, state: { selectedItemIndex } },
+  { form: { calculatedVariables: values }, state: { selectedItemIndex } }
 ) {
   const listItems = cloneDeep(values.calculatedVariables);
 
@@ -262,7 +292,7 @@ export function validateDuplicatesCalculated(
 
 export function validateDuplicatesExternal(
   value,
-  { form: { externalVariables: values }, state: { selectedItemIndex } },
+  { form: { externalVariables: values }, state: { selectedItemIndex } }
 ) {
   const listItems = cloneDeep(values.externalVariables);
 
@@ -276,7 +306,7 @@ export function validateDuplicatesExternal(
 
 export function validateDuplicatesCollected(
   value,
-  { form: { collectedVariables: values }, state: { selectedItemIndex } },
+  { form: { collectedVariables: values }, state: { selectedItemIndex } }
 ) {
   const listItems = cloneDeep(values.collectedVariables);
 

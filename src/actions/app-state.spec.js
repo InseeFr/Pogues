@@ -235,6 +235,7 @@ describe('saveActiveQuestionnaireSuccess', () => {
         update: {
           update: 'update',
           isQuestionnaireModified: false,
+          isQuestionnaireHaveerror: false,
         },
       },
     });
@@ -248,6 +249,7 @@ describe('saveActiveQuestionnaireFailure', () => {
       payload: {
         id: 'id',
         err: 'err',
+        isQuestionnaireHaveerror: true,
       },
     });
   });

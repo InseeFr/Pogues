@@ -11,6 +11,7 @@ import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateCalculatedVariableForm } from 'utils/validation/validate';
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
+import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
 import Dictionary from 'utils/dictionary/dictionary';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 import { SelectorView, View } from 'widgets/selector-view';
@@ -81,7 +82,9 @@ function CalculatedVariables({ formName, selectorPath, errors, addErrors }) {
           <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
             <ResponseFormatDatatypeText required={false} />
           </View>
-          <View key={DATE} value={DATE} label={Dictionary.DATE} />
+          <View key={DATE} value={DATE} label={Dictionary.DATE} >
+          <ResponseFormatDatatypeDate />
+          </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
             <ResponseFormatDatatypeNumeric required={false} />
           </View>

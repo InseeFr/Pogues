@@ -5,7 +5,7 @@ import {
 } from './collected-variable';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
 
-const { TEXT } = DATATYPE_NAME;
+const { TEXT, DURATION, DATE } = DATATYPE_NAME;
 
 describe('collected variable tranformations', () => {
   describe('remoteToStore', () => {
@@ -41,6 +41,92 @@ describe('collected variable tranformations', () => {
             maximum: undefined,
             minimum: undefined,
             unit: undefined,
+            format: undefined,
+          },
+        },
+      };
+      expect(remoteToStore(input, responsesByVariable, codesListStore)).toEqual(
+        output,
+      );
+    });
+
+    test('should return miyears, mimonths, mayears, and mamonths from minimum and maximum to the store representation of a collected variable', () => {
+      const input = [
+        {
+          id: 'k23boas9',
+          Name: 'QWSS',
+          Label: 'QWSS label',
+          type: 'CollectedVariableType',
+          CodeListReference: 'id',
+          Datatype: {
+            typeName: DURATION,            
+            Format: "PnYnM",
+            Maximum: "P1Y1M",
+            Minimum: "P1Y1M",
+          },
+        },
+      ];
+      const responsesByVariable = { k23boas9: {} };
+      const codesListStore = { id: { label: 'label' } };
+      const output = {
+        k23boas9: {
+          id: 'k23boas9',
+          label: 'QWSS label',
+          name: 'QWSS',
+          type: DURATION,
+          codeListReference: 'id',
+          codeListReferenceLabel: 'label',
+          [DURATION]: {
+            format: "PnYnM",
+            mamonths: "1",
+            maximum: "P1Y1M",
+            mayears: "1",
+            mimonths: "1",
+            minimum: "P1Y1M",
+            miyears: "1",
+          },
+        },
+      };
+      expect(remoteToStore(input, responsesByVariable, codesListStore)).toEqual(
+        output,
+      );
+    });
+
+    test('should return maminutes = "" if type name Duration and format PTnHnM and miminutes = 0 to the store representation of a collected variable', () => {
+      const input = [
+        {
+          id: 'k23bk67e',
+          Name: 'AQS',
+          Label: 'AQS label',
+          type: 'CollectedVariableType',
+          CodeListReference: 'id',
+          Datatype: {
+            Format: "PTnHnM",
+            Maximum: "PT2H2M",
+            Minimum: "PT2H0M",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
+          },
+        },
+      ];
+      const responsesByVariable = { k23bk67e: {} };
+      const codesListStore = { id: { label: 'label' } };
+      const output = {
+        k23bk67e: {
+          id: 'k23bk67e',
+          label: 'AQS label',
+          name: 'AQS',
+          type: DURATION,
+          codeListReference: 'id',
+          codeListReferenceLabel: 'label',
+          [DURATION]: {
+            format: "PTnHnM",
+            mahours: "2",
+            maminutes: "2",
+            maximum: "PT2H2M",
+            mihours: "2",
+            miminutes: "",
+            minimum: "PT2H0M",
           },
         },
       };
@@ -86,11 +172,20 @@ describe('collected variable tranformations', () => {
             maximum: undefined,
             minimum: undefined,
             unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: undefined,
+            miminutes: undefined,
+            mahours: undefined,
+            maminutes: undefined,
           },
         },
       };
       const output = [
         {
+          CodeListReference: undefined,
           Label: 'A label',
           Name: 'A',
           id: 'jdww2n76',
@@ -100,6 +195,146 @@ describe('collected variable tranformations', () => {
             typeName: TEXT,
             MaxLength: 100,
             Pattern: 'pattern',
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
+
+    test('should remove the minimum and maximum in collected variable model if type is DATE', () => {
+      const input = {
+        k23cdv5w: {
+          id: "k23cdv5w",
+          label: "A label",
+          name: "A",
+          x: undefined,
+          y: undefined,
+          type: DATE,
+          [DATE]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "yyyy",
+            minimum: "2090",
+            maximum: '',
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: undefined,
+            miminutes: undefined,
+            mahours: undefined,
+            maminutes: undefined,
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "A label",
+          Name: "A",
+          id: "k23cdv5w",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "YYYY",
+            Minimum: "2090",
+            type: "DateDatatypeType",
+            typeName: DATE,
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
+
+    test('should return collected variable model if type is DURATION and the PTnHnM format', () => {
+      const input = {
+        k23bk67e: {
+          id: "k23bk67e",
+          label: "AQS label",
+          name: "AQS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "PTnHnM",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: 2,
+            miminutes: "",
+            mahours: 2,
+            maminutes: 2,
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "AQS label",
+          Name: "AQS",
+          id: "k23bk67e",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "PTnHnM",
+            Maximum: "PT2H2M",
+            Minimum: "PT2H0M",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
+
+    test('should return collected variable model if type is DURATION and the PnYnM format', () => {
+      const input = {
+        k23boas9: {
+          id: "k23boas9",
+          label: "QWSS label",
+          name: "QWSS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "PnYnM",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: 1,
+            mimonths: 1,
+            mayears: 1,
+            mamonths: 1,
+            mihours: undefined,
+            miminutes: undefined,
+            mahours: undefined,
+            maminutes: undefined,
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "QWSS label",
+          Name: "QWSS",
+          id: "k23boas9",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "PnYnM",
+            Maximum: "P1Y1M",
+            Minimum: "P1Y1M",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
           },
         },
       ];

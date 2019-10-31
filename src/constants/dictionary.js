@@ -3,6 +3,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 const dictionary = {
+
   phLabel: {
     en: 'Enter a title for the questionnaire',
     fr: 'Entrez un titre pour le questionnaire',
@@ -175,6 +176,11 @@ const dictionary = {
     en: 'Position',
     fr: 'Position',
   },
+
+  date_format: {
+    en: 'format',
+    fr: 'format',
+  },
   createQuestionnaire: {
     en: 'Create a questionnaire',
     fr: 'Créer un questionnaire',
@@ -251,6 +257,12 @@ const dictionary = {
     en: 'Date',
     fr: 'Date',
   },
+
+  DURATION: {
+    en: 'Duration',
+    fr: 'Durée',
+  },
+
   NUMERIC: {
     en: 'Number',
     fr: 'Nombre',
@@ -332,6 +344,42 @@ const dictionary = {
     en: 'Precision',
     fr: 'Précision',
   },
+
+  hours: {
+    en: 'hours',
+    fr: 'heures',
+  }, 
+
+  minutes: {
+    en: 'minutes',
+    fr: 'minutes',
+  }, 
+
+  years: {
+    en: 'years',
+    fr: 'années',
+  }, 
+
+  months: {
+    en: 'months',
+    fr: 'mois',
+  }, 
+
+  dateinitial: {
+    en: 'Date format',
+    fr: 'Format de la date',
+  },
+
+  durationinitial: {
+    en: 'Duration format',
+    fr: 'Format de la durée',
+  },
+
+  formatDate: {
+    en: 'please respect the date format',
+    fr: 'merci de respecter le format de la date',
+  }, 
+
   unit: {
     en: 'Unit of measure',
     fr: 'Unité de mesure',
@@ -340,6 +388,12 @@ const dictionary = {
     en: 'Select an unit of measure',
     fr: 'Sélectionnez une unité de mesure',
   },
+
+  dateEmptySelect: {
+    en: 'Select a date format',
+    fr: 'Sélectionnez un format de date',
+  },
+
   edit_config: {
     en: 'Edit config',
     fr: 'Éditer les paramètres',
@@ -654,6 +708,19 @@ const dictionary = {
     fr: "Axe d'information secondaire",
     en: 'Second information axis',
   },
+  modification: {
+    en: 'Your modification is not saved! Are you sure you want to leave?',
+    fr: "Votre modification n'est pas sauvegardée! Êtes-vous sûr de vouloir quitter?",
+  },
+
+  notSaved: {
+    en: 'an error occurs, your modification can not be saved',
+    fr: "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
+  },
+  close: {
+    fr: 'fermer',
+    en: 'close',
+  },
   yes: {
     fr: 'Oui',
     en: 'Yes',
@@ -758,6 +825,30 @@ const dictionary = {
     fr: 'Obligatoire',
     en: 'Mandatory',
   },
+
+  durationformat1: {
+    fr: 'heures/minutes',
+    en: 'hours/minuts',
+  },
+  durationformat2: {
+    fr: 'années/mois',
+    en: 'years/months',
+  },
+
+  dateyyyy: {
+    fr: 'AAAA',
+    en: 'YYYY',
+  },
+
+  datemmyyyy: {
+    fr: 'MM-AAAA',
+    en: 'MM-YYYY',
+  },
+  dateddmmyyyy: {
+    fr: 'JJ-MM-AAAA',
+    en: 'DD-MM-YYYY',
+  },
+
   dclPosAfterQuestion: {
     fr: 'Après le libellé de question',
     en: 'After question label',

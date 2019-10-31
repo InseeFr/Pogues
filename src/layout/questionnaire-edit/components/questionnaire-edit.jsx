@@ -91,14 +91,13 @@ function QuestionnaireNew({
 }) {
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
-
   // Initial values
 
   const questionnaireTransformer = Questionnaire(questionnaire);
   const initialValues = questionnaireTransformer.stateToForm();
 
   // Validation and submit
-
+ 
   return (
     <QuestionnaireNewEdit
       onCancel={onCancel}

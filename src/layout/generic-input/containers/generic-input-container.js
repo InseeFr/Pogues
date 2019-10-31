@@ -66,6 +66,7 @@ const mapStateToProps = state => {
       selectedComponentId,
       activeQuestionnaire.id,
     ),
+    isQuestionnaireHaveerror: state.appState.isQuestionnaireHaveerror, 
     isQuestionnaireModified: state.appState.isQuestionnaireModified,
     isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
     componentIdForPageBreak: state.appState.componentIdForPageBreak,

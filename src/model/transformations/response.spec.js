@@ -3,6 +3,7 @@ import {
   DATATYPE_TYPE_FROM_NAME,
   UI_BEHAVIOUR,
 } from 'constants/pogues-constants';
+import { format } from 'url';
 
 describe('response tranformations', () => {
   test('should return the default object with a generated id', () => {
@@ -153,6 +154,17 @@ describe('response tranformations', () => {
     });
 
     expect(result.Datatype.Unit).toEqual(unit);
+  });
+
+  test('when Format is defined', () => {
+    const typeName = 'DATE';
+    const unit = 1;
+    const result = stateToRemote({
+      typeName,
+      id: '1',
+      format,
+    });
+    expect(result.Datatype.Format).toEqual(format);
   });
   test('when hasSpecialCode is defined ad specialUiBehavior == UI_BEHAVIOUR.FIRST_INTENTION ', () => {
     const typeName = 'DATE';

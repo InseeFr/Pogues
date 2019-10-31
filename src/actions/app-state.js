@@ -217,9 +217,11 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
     update: {
       ...update,
       isQuestionnaireModified: false,
+      isQuestionnaireHaveerror: false,
     },
   },
 });
+
 
 /**
  * Save active questionnaire failure
@@ -235,6 +237,7 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   payload: {
     id,
     err,
+    isQuestionnaireHaveerror: true,
   },
 });
 

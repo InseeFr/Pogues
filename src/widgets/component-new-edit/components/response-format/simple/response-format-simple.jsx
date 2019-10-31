@@ -7,8 +7,10 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatDatatypeNumeric from './simple-numeric';
 import ResponseFormatDatatypeText from './simple-text';
+import ResponseFormatDatatypeDate from './simple-date';
+import ResponseFormatDatatypeDuree from './simple-duree';
 
-const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { SIMPLE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormatSimple extends Component {
@@ -58,11 +60,16 @@ class ResponseFormatSimple extends Component {
           <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
             <ResponseFormatDatatypeText />
           </View>
-          <View key={DATE} value={DATE} label={Dictionary.DATE} />
+          <View key={DATE} value={DATE} label={Dictionary.DATE} >
+          <ResponseFormatDatatypeDate />
+          </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
             <ResponseFormatDatatypeNumeric />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+          <View key={DURATION} value={DURATION} label={Dictionary.DURATION} >
+          <ResponseFormatDatatypeDuree />
+          </View>
         </SelectorView>
       </FormSection>
     );

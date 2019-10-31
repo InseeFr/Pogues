@@ -3,7 +3,7 @@ import cloneDeep from 'lodash.clonedeep';
 
 import { DATATYPE_NAME } from 'constants/pogues-constants';
 
-const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 
 export const defaultState = {};
 
@@ -20,8 +20,26 @@ export const defaultForm = {
     decimals: '',
     unit: '',
   },
-  [DATE]: {},
+  [DATE]: {
+    minimum: '',
+    maximum: '',
+    format: '',
+  },
   [BOOLEAN]: {},
+
+  [DURATION]: {
+    minimum: '',
+    maximum: '',
+    mihours: '',
+    miminutes: '',
+    miyears: '',
+    mimonths: '',
+    mahours: '',
+    maminutes: '',
+    mayears: '',
+    mamonths: '',
+    format: '',
+  },
 };
 
 export function formToState(form) {

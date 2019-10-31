@@ -151,6 +151,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         BOOLEAN: measure[SIMPLE].BOOLEAN,
         DATE: measure[SIMPLE].DATE,
         NUMERIC: measure[SIMPLE].NUMERIC,
+        DURATION: measure[SIMPLE].DURATION,
         TEXT: measure[SIMPLE].TEXT,
       };
     } else if (measure.type === SINGLE_CHOICE) {

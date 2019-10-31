@@ -14,8 +14,11 @@ import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
+import ResponseFormatDatatypeDuree from 'widgets/component-new-edit/components/response-format/simple/simple-duree';
+import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
 
-const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
+
+const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 // Utils
 
 const validateForm = (addErrors, validate) => (values, state) => {
@@ -147,11 +150,16 @@ class CollectedVariables extends Component {
             <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
               <ResponseFormatDatatypeText readOnly required={false} />
             </View>
-            <View key={DATE} value={DATE} label={Dictionary.DATE} />
+            <View key={DATE} value={DATE} label={Dictionary.DATE} >
+            <ResponseFormatDatatypeDate readOnly required={false}/>
+            </View>
             <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
               <ResponseFormatDatatypeNumeric readOnly required={false} />
             </View>
             <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+            <View key={DURATION} value={DURATION} label={Dictionary.DURATION} >
+            <ResponseFormatDatatypeDuree readOnly  required={false}/>
+            </View>
           </SelectorView>
 
           <Field name="codeListReference" type="hidden" component="input" />

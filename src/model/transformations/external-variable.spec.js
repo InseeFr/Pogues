@@ -16,6 +16,7 @@ describe('external variable transformation', () => {
         Maximum: 'maximum',
         Decimals: 'decimals',
         Unit: 'unit',
+        Format: 'format',
       },
     },
     {
@@ -32,6 +33,7 @@ describe('external variable transformation', () => {
         Maximum: 'maximum',
         Decimals: 'decimals',
         Unit: 'unit',
+        Format: 'format',
       },
     },
   ];
@@ -48,6 +50,7 @@ describe('external variable transformation', () => {
         maximum: 'maximum',
         decimals: 'decimals',
         unit: 'unit',
+        format: 'format',
       },
     },
     '2': {
@@ -62,6 +65,7 @@ describe('external variable transformation', () => {
         maximum: 'maximum',
         decimals: 'decimals',
         unit: 'unit',
+        format: 'format',
       },
     },
   };

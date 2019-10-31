@@ -9,7 +9,7 @@ import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
-import { markdownVtlToHtml } from 'forms/controls/rich-textarea';
+import { markdownVtlToHtml, markdownVtlToString } from 'forms/controls/rich-textarea';
 
 import {
   PropType,
@@ -179,7 +179,7 @@ class QuestionnaireComponent extends Component {
                     {component.type === QUESTION ? (
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: markdownVtlToHtml(component.label),
+                          __html: markdownVtlToString(component.label),
                         }}
                       />
                     ) : (
