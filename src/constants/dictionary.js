@@ -715,7 +715,7 @@ const dictionary = {
 
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
-    fr: "un erreur se produit, votre modification ne peut pas etre sauvegarder",
+    fr: "un erreur s'est produite, votre modification ne peut pas être sauvegardée",
   },
   close: {
     fr: 'fermer',
