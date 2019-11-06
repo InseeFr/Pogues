@@ -101,9 +101,8 @@ class ControlWithSuggestions extends Component {
       this.input.selectionStart,
       this.input.value,
     );
-
     const restfullText = this.input.value.substr(this.input.selectionStart, this.input.value.length);
-
+    
     this.props.input.onChange(`${newValue} ${restfullText}`);
     this.setState(initialize());
   };
