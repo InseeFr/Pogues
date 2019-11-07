@@ -81,7 +81,6 @@ class ResponseFormatDatatypeDate extends Component {
             step="any"
             component={Input}
             label={Dictionary.maximum}
-            required='false'
             validate = {date({ format: formatini, message: Dictionary.formatDate? Dictionary.formatDate: '', allowBlank: true })}
             disabled={this.props.readOnly}
           />

@@ -35,7 +35,7 @@ class ResponseFormatDatatypeDuree extends Component {
             label={Dictionary.date_format}
             required={this.props.required}
             disabled={this.props.readOnly}
-            validate = {required()}
+            validate = {required({message: Dictionary.validationRequired})}
           >
             <GenericOption
               key=""
@@ -60,7 +60,7 @@ class ResponseFormatDatatypeDuree extends Component {
 
           </Field>   
           <div className="response-format-datatype-duree-minimum" >
-            <div className="response-format-datatype-duree-label-minimum" >   
+            <div className="response-format-datatype-duree-label-minimum" style= {{ display : formatini==='PTnHnM'? 'flex' : 'none' }}>   
                 {Dictionary.minimum}
             </div>
             <div  style= {{ width: '75%' }}>
@@ -105,7 +105,7 @@ class ResponseFormatDatatypeDuree extends Component {
           </div>
 
           <div className="response-format-datatype-duree-maximum" >
-            <div className="response-format-datatype-duree-label-maximum">   
+            <div className="response-format-datatype-duree-label-maximum" style= {{ display : formatini==='PTnHnM'? 'flex' : 'none' }}>   
                 {Dictionary.maximum}
             </div>
             <div  style= {{ width: '75%'}}>

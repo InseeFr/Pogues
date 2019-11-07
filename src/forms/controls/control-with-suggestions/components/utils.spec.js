@@ -31,7 +31,7 @@ describe('getValueWithSuggestion', () => {
     const caretPosition = 11;
     const fullText = 'voici un $blablabla message';
     expect(getValueWithSuggestion(suggestion, caretPosition, fullText)).toBe(
-      'voici un $suggestion$ message',
+      'voici un $suggestion$',
     );
   });
 
@@ -40,7 +40,7 @@ describe('getValueWithSuggestion', () => {
     const caretPosition = 11;
     const fullText = 'voici un $blablabla$ message';
     expect(getValueWithSuggestion(suggestion, caretPosition, fullText)).toBe(
-      'voici un $suggestion$ message',
+      'voici un $suggestion$',
     );
   });
 });
