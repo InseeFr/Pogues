@@ -154,7 +154,7 @@ export function stateToRemote(state, stores) {
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
   );
-
+console.log('codesListsRemote', codesListsRemote);
   return {
     ...remote,
     Child: componentsRemote,

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import ArboSimplified from './arbo-simplifield';
 
@@ -27,7 +28,9 @@ function QuestionnaireNav({
       <ul>
         <li>
           <span className="glyphicon glyphicon-home" />
-          <a href="#/">{Dictionary.backToHomePage}</a>
+           <Link to="/">
+              {Dictionary.backToHomePage}
+           </Link>
         </li>
       </ul>
       <ArboSimplified

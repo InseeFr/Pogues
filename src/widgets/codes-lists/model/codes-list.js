@@ -16,9 +16,10 @@ export const defaultForm = {
 };
 
 export function formToState(form) {
+ 
   const { id, label, codes } = form;
-
   const codesStore = (codes || []).reduce((acc, c) => {
+    console.log("c", c );
     return {
       ...acc,
       [c.value]: { ...c },

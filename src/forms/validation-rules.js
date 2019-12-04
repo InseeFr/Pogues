@@ -203,16 +203,16 @@ export function validCollectedVariables(
   if (type === SIMPLE && value[0] || type === TABLE && value[0] ) {
     const typevalue = value[0].type;
     const typeexpectedVariables = expectedVariables[0].type;
-    if ((
+    if (
       value[0] &&
       value[0].codeListReference &&
-      value[0].codeListReference !== 'undefined')  || 
+      value[0].codeListReference !== 'undefined'  || 
       value[0] &&
       typevalue !== typeexpectedVariables || 
-      ( value[0] && 
-        typevalue === typeexpectedVariables &&
-        value[0][typevalue] !== expectedVariables[0][typeexpectedVariables]
-        )
+      value[0] && 
+      typevalue === typeexpectedVariables &&
+      JSON.stringify(value[0][typevalue]) !== JSON.stringify(expectedVariables[0][typeexpectedVariables])
+   
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
     }

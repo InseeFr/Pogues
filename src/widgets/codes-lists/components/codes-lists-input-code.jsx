@@ -15,6 +15,7 @@ const {
   CODE_INPUT_LABEL_CLASS,
   CODE_INPUT_ACTIONS_CLASS,
   CODE_INPUT_ERRORS_CLASS,
+  CODE_INPUT_CODE_CLASS_PRECISION,
 } = WIDGET_CODES_LISTS;
 
 // PropTypes and defaultProps
@@ -23,6 +24,9 @@ export const propTypes = {
   code: PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    precisionid: PropTypes.string.isRequired,
+    precisionlabel: PropTypes.string.isRequired,
+    precisionsize: PropTypes.string.isRequired,
   }),
   meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
     .isRequired,
@@ -38,6 +42,9 @@ const defaultProps = {
   code: {
     value: '',
     label: '',
+    precisionid: '',
+    precisionlabel: '',
+    precisionsize: '',
   },
 };
 
@@ -53,7 +60,9 @@ class CodesListInputCode extends ComponentWithValidation {
     this.state = parent.state;
 
     this.addCodeIfIsValid = this.addCodeIfIsValid.bind(this);
+    this.addCodeIfIsValid1 = this.addCodeIfIsValid1.bind(this);
     this.addCode = this.addCode.bind(this);
+    this.addCode1 = this.addCode1.bind(this);
     this.initInputCode = this.initInputCode.bind(this);
   }
 
@@ -63,6 +72,10 @@ class CodesListInputCode extends ComponentWithValidation {
     if (code) {
       change(formName, `${path}value`, code.value);
       change(formName, `${path}label`, code.label);
+      change(formName, `${path}precisionid`, code.precisionid);
+      change(formName, `${path}precisionlabel`, code.precisionlabel);
+      change(formName, `${path}precisionsize`, code.precisionsize);
+      
     }
   }
 
@@ -72,8 +85,11 @@ class CodesListInputCode extends ComponentWithValidation {
 
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.code.label !== this.props.code.label ||
-      nextProps.code.value !== this.props.code.value
+      nextProps.code.label !== this.props.code.label  ||
+      nextProps.code.value !== this.props.code.value  ||
+      nextProps.code.precisionid !== this.props.code.precisionid  ||
+      nextProps.code.precisionlabel !== this.props.code.precisionlabel  ||
+      nextProps.code.precisionsize !== this.props.code.precisionsize
     ) {
       this.initInputCode(nextProps.code);
     }
@@ -81,6 +97,18 @@ class CodesListInputCode extends ComponentWithValidation {
 
   addCodeIfIsValid() {
     this.executeIfValid(this.addCode);
+  }
+
+  addCodeIfIsValid1() {
+    this.executeIfValid(this.addCode1);
+  }
+
+  addCode1() {
+    const { push, clear } = this.props;
+
+    this.firstField.focus();
+    push();
+    clear();
   }
 
   addCode() {
@@ -92,51 +120,105 @@ class CodesListInputCode extends ComponentWithValidation {
   }
 
   render() {
-    const { close } = this.props;
-
+    const { close, precisionShow } = this.props;
     return (
       <div className={CODE_INPUT_CLASS}>
         <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
-        <Field
-          className={CODE_INPUT_CODE_CLASS}
-          name="input-code.value"
-          type="text"
-          component={Input}
-          label={Dictionary.code}
-          onKeyDown={e => {
-            if (e.key === 'Enter') this.addCodeIfIsValid();
-          }}
-          reference={node => {
-            this.firstField = node;
-          }}
-          focusOnInit
-        />
-        <Field
-          className={CODE_INPUT_LABEL_CLASS}
-          name="input-code.label"
-          type="text"
-          component={RichTextareaWithVariableAutoCompletion}
-          label={Dictionary.label}
-          onEnter={this.addCodeIfIsValid}
-        />
+        
+            <div className="Precision"  style= {{ display: precisionShow ? 'none' : 'block' }}>
+              <Field
+                className={CODE_INPUT_CODE_CLASS}
+                name="input-code.value"
+                type="text"
+                component={Input}
+                label={Dictionary.code}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') this.addCodeIfIsValid();
+                }}
+                reference={node => {
+                  this.firstField = node;
+                }}
+                focusOnInit
+              />
+              <Field
+                className={CODE_INPUT_LABEL_CLASS}
+                name="input-code.label"
+                type="text"
+                component={RichTextareaWithVariableAutoCompletion}
+                label={Dictionary.label}
+                onEnter={this.addCodeIfIsValid}
+              />
+
+              <div className={CODE_INPUT_ACTIONS_CLASS}>
+                      <button
+                        className={`${CODE_INPUT_ACTIONS_CLASS}-add`}
+                        onClick={e => {
+                          e.preventDefault();
+                          this.addCodeIfIsValid();
+                        }}
+                      >
+                        {Dictionary.add}
+                      </button>
+                      <button
+                        className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
+                        onClick={close}
+                      >
+                        {Dictionary.cancel}
+                      </button>
+              </div>
+            </div>
+        
         <Field name="input-code.parent" type="hidden" component="input" />
-        <div className={CODE_INPUT_ACTIONS_CLASS}>
-          <button
-            className={`${CODE_INPUT_ACTIONS_CLASS}-add`}
-            onClick={e => {
-              e.preventDefault();
-              this.addCodeIfIsValid();
-            }}
-          >
-            {Dictionary.add}
-          </button>
-          <button
-            className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
-            onClick={close}
-          >
-            {Dictionary.cancel}
-          </button>
-        </div>
+        {precisionShow ? (
+           <div className="Precision">
+                    <Field
+                      className={CODE_INPUT_CODE_CLASS_PRECISION}
+                      name="input-code.precisionid"
+                      type="text"
+                      component={Input}
+                      label={Dictionary.precisionId}
+                      onEnter={this.addCodeIfIsValid1}
+                    />
+                    <Field
+                      className={CODE_INPUT_CODE_CLASS_PRECISION}
+                      name="input-code.precisionlabel"
+                      type="text"
+                      component={RichTextareaWithVariableAutoCompletion}
+                      label={Dictionary.label}
+                      onEnter={this.addCodeIfIsValid1}
+                    />
+                    <Field
+                      className={CODE_INPUT_CODE_CLASS_PRECISION}
+                      name="input-code.precisionsize"
+                      type="number"
+                      component={Input}
+                      label={Dictionary.maxLength}
+                      onEnter={this.addCodeIfIsValid1}
+                    />
+
+                 <div className={CODE_INPUT_ACTIONS_CLASS}>
+                    <button
+                    className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
+                    onClick={close}
+                    >
+                    {Dictionary.cancel}
+                    </button>
+                    <button
+                    className={`${CODE_INPUT_ACTIONS_CLASS}-add`}
+                    onClick={e => {
+                      e.preventDefault();
+                      this.addCodeIfIsValid1();
+                    }}
+                    >
+                    valider
+                    </button>                    
+                 </div>
+           </div>
+
+                  
+        ) : false }
+
+
       </div>
     );
   }

@@ -44,15 +44,15 @@ class ResponseFormatDatatypeDate extends Component {
             </GenericOption>
 
             <GenericOption
-              key="dd-mm-yyyy"
-              value="dd-mm-yyyy"
+              key="yyyy-mm-dd"
+              value="yyyy-mm-dd"
             >
               {Dictionary.dateddmmyyyy}
             </GenericOption>
 
             <GenericOption
-              key="mm-yyyy"
-              value="mm-yyyy"
+              key="yyyy-mm"
+              value="yyyy-mm"
             >
               {Dictionary.datemmyyyy}
             </GenericOption>

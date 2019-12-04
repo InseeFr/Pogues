@@ -19,6 +19,7 @@ const propTypes = {
     moveDown: PropTypes.func.isRequired,
     moveLeft: PropTypes.func.isRequired,
     moveRight: PropTypes.func.isRequired,
+    precision: PropTypes.func.isRequired,
   }).isRequired,
 };
 
@@ -29,6 +30,8 @@ const defaultProps = {
 // Component
 
 function CodesListsActions({ disabledActions, actions }) {
+
+
   return (
     <div className={ACTIONS_CLASS}>
       {Object.keys(ACTIONS).map(key => {

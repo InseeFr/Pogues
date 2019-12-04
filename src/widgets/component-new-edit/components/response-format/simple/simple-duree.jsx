@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormSection, Field, formValueSelector, reduxForm } from 'redux-form';
 import { connect } from "react-redux";
-import { required, date, message } from 'redux-form-validators';
+import { required, numericality, message } from 'redux-form-validators';
 import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -19,6 +19,7 @@ class ResponseFormatDatatypeDuree extends Component {
 
   render() {
     let formatini = this.props.format;
+    console.log('formatini', formatini);
     if(this.props.type === 'TABLE'){
       formatini = this.props.formattable; 
     }
@@ -60,7 +61,7 @@ class ResponseFormatDatatypeDuree extends Component {
 
           </Field>   
           <div className="response-format-datatype-duree-minimum" >
-            <div className="response-format-datatype-duree-label-minimum" style= {{ display : formatini==='PTnHnM'? 'flex' : 'none' }}>   
+            <div className="response-format-datatype-duree-label-minimum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM'? 'flex' : 'none' }}>   
                 {Dictionary.minimum}
             </div>
             <div  style= {{ width: '75%' }}>
@@ -105,7 +106,7 @@ class ResponseFormatDatatypeDuree extends Component {
           </div>
 
           <div className="response-format-datatype-duree-maximum" >
-            <div className="response-format-datatype-duree-label-maximum" style= {{ display : formatini==='PTnHnM'? 'flex' : 'none' }}>   
+            <div className="response-format-datatype-duree-label-maximum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM' ? 'flex' : 'none' }}>   
                 {Dictionary.maximum}
             </div>
             <div  style= {{ width: '75%'}}>

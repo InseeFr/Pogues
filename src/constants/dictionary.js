@@ -709,8 +709,8 @@ const dictionary = {
     en: 'Second information axis',
   },
   modification: {
-    en: 'Your modification is not saved! Are you sure you want to leave?',
-    fr: "Votre modification n'est pas sauvegardée! Êtes-vous sûr de vouloir quitter?",
+    en: 'Your modification is not saved ! Are you sure you want to leave ?',
+    fr: "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
 
   notSaved: {
@@ -797,6 +797,11 @@ const dictionary = {
     fr: 'Code de la modalité',
     en: 'Code',
   },
+
+  precisionId: {
+    fr: 'Identifiant',
+    en: 'Identifiant',
+  },
   codeUnicity: {
     fr: 'Tous les codes doivent être uniques',
     en: 'All codes should be unique',
@@ -828,7 +833,7 @@ const dictionary = {
 
   durationformat1: {
     fr: 'heures/minutes',
-    en: 'hours/minuts',
+    en: 'heures/minutes',
   },
   durationformat2: {
     fr: 'années/mois',
@@ -841,12 +846,12 @@ const dictionary = {
   },
 
   datemmyyyy: {
-    fr: 'MM-AAAA',
-    en: 'MM-YYYY',
+    fr: 'AAAA-MM',
+    en: 'YYYY-MM',
   },
   dateddmmyyyy: {
-    fr: 'JJ-MM-AAAA',
-    en: 'DD-MM-YYYY',
+    fr: 'AAAA-MM-JJ',
+    en: 'YYYY-MM-DD',
   },
 
   dclPosAfterQuestion: {
