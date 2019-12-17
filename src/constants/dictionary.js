@@ -798,10 +798,6 @@ const dictionary = {
     en: 'Code',
   },
 
-  precisionId: {
-    fr: 'Identifiant',
-    en: 'Identifiant',
-  },
   codeUnicity: {
     fr: 'Tous les codes doivent être uniques',
     en: 'All codes should be unique',
@@ -833,7 +829,7 @@ const dictionary = {
 
   durationformat1: {
     fr: 'heures/minutes',
-    en: 'heures/minutes',
+    en: 'hours/minutes',
   },
   durationformat2: {
     fr: 'années/mois',

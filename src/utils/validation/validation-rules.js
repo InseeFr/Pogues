@@ -119,10 +119,7 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.maximum`]: [
     value => minValue(1)(value),
   ],
-
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
-
-
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),

@@ -21,7 +21,6 @@ export function remoteToState(remote) {
       },
     ],
   } = remote;
- 
   return {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
       CodeListReference,
@@ -45,7 +44,6 @@ export function remoteToState(remote) {
 }
 
 export function stateToRemote(state, collectedVariables) {
-
   const {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     visHint,

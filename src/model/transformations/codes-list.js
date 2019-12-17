@@ -17,9 +17,6 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
     .filter(c => c.Parent === parent)
     .reduce((acc, c, index) => {
       const codeState = {
-        precisionid : c.Precisionid,
-        precisionlabel: c.Precisionlabel,
-        precisionsize: c.Precisionsize,
         value: c.Value,
         label: c.Label,
         parent: c.Parent,
@@ -77,18 +74,14 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
 
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
-  console.log ('store', store);
     const { id, label, codes } = store[key];
     return {
       id,
       Label: label,
       Name: '',
       Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-        const { label: labelCode, value, parent, precisionid, precisionlabel, precisionsize } = codes[keyCode];
+        const { label: labelCode, value, parent } = codes[keyCode];
         return {
-          Precisionid : precisionid,
-          Precisionlabel: precisionlabel,
-          Precisionsize: precisionsize,
           Label: labelCode,
           Value: value,
           Parent: parent,

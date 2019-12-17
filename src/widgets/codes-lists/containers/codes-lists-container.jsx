@@ -39,16 +39,13 @@ export const mapStateToProps = (
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
   const currentId = selector(state, `${path}id`);
   const currentLabel = selector(state, `${path}label`);
-  const currentPrecisionid = selector(state, `${path}precisionid`);
-  const currentPrecisionlabel = selector(state, `${path}precisionlabel`);
-  const currentPrecisionsize = selector(state, `${path}precisionsize`);
   const codesListsStore = state.appState.activeCodeListsById;
   let currentCodesListsStore;
 
   if (codesListsStore[currentId]) {
     currentCodesListsStore = {
       ...codesListsStore,
-      [currentId]: { ...codesListsStore[currentId], label: currentLabel, precisionid: currentPrecisionid, precisionlabel: currentPrecisionlabel, precisionsize: currentPrecisionsize },
+      [currentId]: { ...codesListsStore[currentId], label: currentLabel},
     };
   } else {
     currentCodesListsStore = codesListsStore;

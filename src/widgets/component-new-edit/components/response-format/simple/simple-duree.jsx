@@ -19,7 +19,6 @@ class ResponseFormatDatatypeDuree extends Component {
 
   render() {
     let formatini = this.props.format;
-    console.log('formatini', formatini);
     if(this.props.type === 'TABLE'){
       formatini = this.props.formattable; 
     }
@@ -28,7 +27,6 @@ class ResponseFormatDatatypeDuree extends Component {
 
       <FormSection name={this.props.name}>
         <div className="response-format-datatype-duree" >
-       
         <Field
             name="format"
             id="date_format"

@@ -19,9 +19,6 @@ export const mapStateToProps = (state, { inputCodePath, formName }) => {
   return {
     currentValue: selector(state, `${inputCodePath}value`),
     currentLabel: selector(state, `${inputCodePath}label`),
-    currentPrecisionid: selector(state, `${inputCodePath}precisionid`),
-    currentPrecisionlabel: selector(state, `${inputCodePath}precisionlabel`),
-    currentPrecisionsize: selector(state, `${inputCodePath}precisionsize`),
   };
 };
 
