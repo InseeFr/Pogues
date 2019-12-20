@@ -211,7 +211,7 @@ export function validCollectedVariables(
       typevalue !== typeexpectedVariables || 
       value[0] && 
       typevalue === typeexpectedVariables &&
-      JSON.stringify(value[0][typevalue]) !== JSON.stringify(expectedVariables[0][typeexpectedVariables])
+      value[0][typevalue] !== expectedVariables[0][typeexpectedVariables]
    
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
