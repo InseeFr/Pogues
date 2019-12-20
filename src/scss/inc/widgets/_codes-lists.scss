@@ -17,6 +17,26 @@
         .widget-codes-lists__codes__input-code {
           @include make-xs-column(12);
         }
+
+        .widget-codes-lists__codes__input-code-precision {
+          @include make-xs-column(12);
+        }
+
+        .widget-codes-lists__codes__input-code-precision {
+          @include make-xs-column(3);
+          label + div,
+          > label {
+            width: 100%;
+          }
+        }
+        .widget-codes-lists__codes__input-label-precision {
+          @include make-xs-column(3);
+          label + div,
+          > label {
+            width: 50%;
+          }
+        }
+
         .widget-codes-lists__codes__input-code {
           @include make-xs-column(3);
           label + div,

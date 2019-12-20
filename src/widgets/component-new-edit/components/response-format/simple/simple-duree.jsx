@@ -27,6 +27,7 @@ class ResponseFormatDatatypeDuree extends Component {
 
       <FormSection name={this.props.name}>
         <div className="response-format-datatype-duree" >
+       
         <Field
             name="format"
             id="date_format"

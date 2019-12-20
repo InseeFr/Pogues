@@ -16,6 +16,7 @@ export const defaultForm = {
 };
 
 export function formToState(form) {
+ 
   const { id, label, codes } = form;
   const codesStore = (codes || []).reduce((acc, c) => {
     return {
@@ -23,6 +24,7 @@ export function formToState(form) {
       [c.value]: { ...c },
     };
   }, {});
+
   return {
     id: id || uuid(),
     label: label || '',
@@ -32,6 +34,7 @@ export function formToState(form) {
 
 export function stateComponentToForm({ id, label, codes }) {
   const codesList = Object.keys(codes || {}).map(key => codes[key]);
+
   return merge(cloneDeep(defaultForm), {
     id: id || '',
     label: label || '',

@@ -3,22 +3,21 @@ import { INTEGRITY_TYPES } from 'constants/pogues-constants';
 
 function checkerComponentTargets({ appState: { activeComponentsById } }) {
   const errorsByComponent = {};
-
   Object.keys(activeComponentsById).forEach(key => {
     const targetNotFoundErrors = [];
     const targetEarlierErrors = [];
     const redirections = activeComponentsById[key].redirections || {};
     const redirectionsIds = Object.keys(redirections);
-
+    if (Object.values(redirections).flowControlType && Object.values(redirections).flowControlType != undefined) {
+    }
     if (redirectionsIds.length > 0) {
       const activeTargetsIds = getComponentsTargetsByComponent(
         activeComponentsById,
         activeComponentsById[key],
       );
-
       redirectionsIds.forEach(innerKey => {
         const redirection = redirections[innerKey];
-
+        if (redirection.redirectiontest){
         if (!activeComponentsById[redirection.cible]) {
           targetNotFoundErrors.push({
             path: 'redirections.cible',
@@ -34,6 +33,7 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
             type: INTEGRITY_TYPES.TARGET_EARLIER,
           });
         }
+      }
       });
     }
 

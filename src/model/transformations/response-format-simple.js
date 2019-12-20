@@ -104,6 +104,7 @@ export function stateToRemote(state, collectedVariables) {
 
     customDataType = durationDataType;
   }
+
   return {
     Response: [
       Response.stateToRemote({

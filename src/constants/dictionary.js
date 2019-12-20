@@ -798,9 +798,18 @@ const dictionary = {
     en: 'Code',
   },
 
+  precisionId: {
+    fr: 'Identifiant',
+    en: 'Identifiant',
+  },
   codeUnicity: {
     fr: 'Tous les codes doivent être uniques',
     en: 'All codes should be unique',
+  },
+
+  clarificationUnicity: {
+    fr: 'Tous les clarifications doivent être uniques',
+    en: 'All clarifications should be unique',
   },
   codePh: {
     fr: 'Code',

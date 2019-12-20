@@ -34,4 +34,16 @@ export const ACTIONS = {
     distionary: 'moveRight',
     icon: 'glyphicon-arrow-right',
   },
+  
+   PRECESION: {
+    name: 'precision',
+    distionary: 'precision',
+    icon: 'glyphicon-plus-sign',
+  },
+
+  // PRECESION_EDIT: {
+  //   name: 'precision',
+  //   distionary: 'precision',
+  //   icon: 'glyphicon-option-horizontal',
+  // },
 };

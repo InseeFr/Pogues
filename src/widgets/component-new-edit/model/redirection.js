@@ -17,12 +17,13 @@ export const defaultForm = {
 export function formToState(form) {
   const { label, condition, cible } = form;
   const id = form.id || uuid();
-
+  const redirection = true;
   return {
     id,
     label,
     condition,
     cible,
+    redirection,
   };
 }
 
@@ -41,7 +42,6 @@ export function formToComponentState(form) {
 
 export function stateToForm(currentState) {
   const redirections = [];
-
   Object.keys(currentState).forEach(key => {
     const { id, label, condition, cible } = currentState[key];
     redirections.push({

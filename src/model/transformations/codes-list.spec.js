@@ -3,6 +3,7 @@ import {
   remoteToStore,
   remoteToState,
   storeToRemote,
+  getcodelistwithclarification,
 } from './codes-list';
 
 describe('codes list tranformations', () => {
@@ -256,6 +257,49 @@ describe('codes list tranformations', () => {
           Name: '',
         },
       ];
+	  
+	  const clarification = [
+	   {
+	 	  responseclar: {
+            id: "k4e0h8vg",
+          questionType: "SIMPLE",
+          Name: "tests",
+          Label: "Préciser :",
+          TargetMode: ["PAPI","CAWI"], 
+          Response: [
+          {
+            id: "k4e0gjs8",
+            Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: "249", Pattern: ""},
+            CollectedVariableReference: "k4e0g90a",
+            mandatory: false
+          },
+          ]
+		  },
+		  position: 0,
+		  codelistid: "j6p2kivg",
+	   },
+        {
+	 	  responseclar: {
+            id: "k4e0rr9w",
+          questionType: "SIMPLE",
+          Name: "sdd",
+          Label: "Préciser :",
+          TargetMode: ["PAPI","CAWI"], 
+          Response: [
+            {
+              id: "k4e0gjs8",
+              Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: "5", Pattern: ""},
+              CollectedVariableReference: "k4e0akfv",
+              mandatory: false
+            },
+          ]
+		  },
+		  position: 1,
+		  codelistid: "jbdye1wa",
+	   },
+	  ];
+	  
+	  const result = getcodelistwithclarification( input, clarification);
 
       const output = {
         j334iumu: {
@@ -716,7 +760,7 @@ describe('codes list tranformations', () => {
           id: 'jbdyh6b5',
           label: 'Clowning_Characters',
           codes: {
-            '1': { value: '1', label: 'Jay', parent: '', depth: 1, weight: 1 },
+            '1': { value: '1', label: 'Jay', parent: '', depth: 1, weight: 1},
             '2': { value: '2', label: 'Bart', parent: '', depth: 1, weight: 2 },
             '3': {
               value: '3',
@@ -739,8 +783,8 @@ describe('codes list tranformations', () => {
           id: 'j6p2kivg',
           label: 'Means of transport',
           codes: {
-            '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1 },
-            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2 },
+            '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1, precisionid: 'tests', precisionlabel: 'Préciser :', precisionsize: '249' },
+            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2},
             '3': {
               value: '3',
               label: 'Skateboard',
@@ -775,6 +819,9 @@ describe('codes list tranformations', () => {
               parent: '',
               depth: 1,
               weight: 2,
+			        precisionid: 'sdd',
+		      	  precisionlabel: 'Préciser :',
+			        precisionsize: '5'
             },
             '3': {
               value: '3',
@@ -808,7 +855,7 @@ describe('codes list tranformations', () => {
           name: '',
         },
       };
-      expect(remoteToStore(input)).toEqual(output);
+      expect(remoteToStore(input, clarification)).toEqual(output);
     });
   });
   describe('remoteToState', () => {

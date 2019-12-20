@@ -168,7 +168,7 @@ export function validCollectedVariables(
       codesListsStore
     );
   }
-
+ 
   /**
    * for Single Choice Response, we check if the codeListReference for each
    * variable are in the same order as the ones expected
@@ -182,12 +182,34 @@ export function validCollectedVariables(
    * For a SINGLE_CHOICE question with a codelist, the codeListReference should be the same
    * It solves this issue : https://trello.com/c/bZo4vAei/397-255-questionnaire-non-r%C3%A9cup%C3%A9r%C3%A9-par-lapplication
    */
+
+  let codellistprecision = false;
+  if (type === SINGLE_CHOICE){
+    if(expectedVariables.length === value.length){
+      value.forEach(function(val) {
+          const resultat = Object.values(expectedVariables).find(res => res.name === val.name);
+          if (resultat && resultat != undefined) {
+            if( resultat.label != val.label || resultat.TEXT.maxLength != val.TEXT.maxLength)
+              {
+                codellistprecision = true;
+              }
+          }
+          else{
+            codellistprecision = true;
+          } 
+      });
+    }
+   else {
+    codellistprecision = true;
+     }
+  }
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
-    value[0].codeListReference !== expectedVariables[0].codeListReference
+    value[0].codeListReference !== expectedVariables[0].codeListReference || type === SINGLE_CHOICE &&
+    value[0] && codellistprecision
   ) {
- 
+
     return Dictionary.validation_collectedvariable_need_reset;
   }
 
@@ -225,7 +247,7 @@ export function validCollectedVariables(
    * are in the right order.
    */
   const isTheSameOrder = true;
- 
+
   if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
@@ -233,9 +255,9 @@ export function validCollectedVariables(
     expectedVariables &&
     value.length === 1 &&
     expectedVariables.length === 1
-  ) {
+  ){
     return false;
-  }
+   }
   return isCodesTheSame &&
     isTheSameOrder &&
     (expectedVariables && value.length === expectedVariables.length)

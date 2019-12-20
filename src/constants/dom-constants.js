@@ -78,6 +78,7 @@ export const WIDGET_CODES_LISTS = {
   ACTIONS_CLASS: 'widget-codes-lists__codes__actions',
   CODE_INPUT_CLASS: 'widget-codes-lists__codes__input',
   CODE_INPUT_CODE_CLASS: 'widget-codes-lists__codes__input-code',
+  CODE_INPUT_CODE_CLASS_PRECISION: 'widget-codes-lists__codes__input-code-precision',
   CODE_INPUT_LABEL_CLASS: 'widget-codes-lists__codes__input-label',
   CODE_INPUT_ACTIONS_CLASS: 'widget-codes-lists__codes__input-actions',
   CODE_INPUT_ERRORS_CLASS: 'widget-codes-lists__codes__input-errors',

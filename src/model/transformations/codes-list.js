@@ -16,14 +16,19 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
   return codes
     .filter(c => c.Parent === parent)
     .reduce((acc, c, index) => {
-      const codeState = {
+      let codesta = {
         value: c.Value,
         label: c.Label,
         parent: c.Parent,
         depth,
         weight: index + 1,
       };
-
+      if (c.Precisionid != undefined) {
+        codesta.precisionid = c.Precisionid;
+        codesta.precisionlabel = c.Precisionlabel;
+        codesta.precisionsize = c.Precisionsize;
+      }
+      const codeState = codesta;
       return {
         ...acc,
         [codeState.value]: codeState,
@@ -32,10 +37,26 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
     }, {});
 }
 
-export function remoteToStore(remote) {
-  return remote.reduce((acc, codesList) => {
-    const { id, Label: label, Code: codes } = codesList;
+export function getcodelistwithclarification(remote, variableclarification) {
+  remote.forEach(codelist => {
+    variableclarification.forEach( clarif => {
+      if (clarif.codelistid === codelist.id){
+          codelist.Code[clarif.position] = {
+            ...codelist.Code[clarif.position], 
+            Precisionid: clarif.responseclar.Name, 
+            Precisionlabel: clarif.responseclar.Label,
+            Precisionsize: clarif.responseclar.Response[0].Datatype.MaxLength,
+          }
+      }
+    });
+  });
+  return remote;
+}
 
+export function remoteToStore(remote, variableclarification) {
+  const remotecode = getcodelistwithclarification(remote, variableclarification);
+  return remotecode.reduce((acc, codesList) => {
+    const { id, Label: label, Code: codes } = codesList;
     return {
       ...acc,
       [id]: {
@@ -80,7 +101,7 @@ export function storeToRemote(store) {
       Label: label,
       Name: '',
       Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-        const { label: labelCode, value, parent } = codes[keyCode];
+        const { label: labelCode, value, parent} = codes[keyCode];
         return {
           Label: labelCode,
           Value: value,
