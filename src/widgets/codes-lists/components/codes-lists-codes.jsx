@@ -61,8 +61,37 @@ class CodesListsCodes extends Component {
     this.renderInputCode = this.renderInputCode.bind(this);
     this.pushCode = this.pushCode.bind(this);
     this.clearInputCode = this.clearInputCode.bind(this);
+    this.removePrecision = this.removePrecision.bind(this);
     this.renderCode = this.renderCode.bind(this);
     this.renderCodes = this.renderCodes.bind(this);
+  }
+
+  removePrecision() {
+    this.setState({ showInputCode: false, activeCodeIndex: undefined, showPrecision: false });
+    const {
+      currentValue,
+      currentLabel,
+      currentPrecisionlabel,
+      currentPrecisionsize,
+      fields: { push, remove, get },
+    } = this.props;
+    const { activeCodeIndex } = this.state;
+    const code = get(activeCodeIndex);
+
+    const values = {
+      value: currentValue,
+      label: currentLabel,
+      precisionid : undefined,
+      precisionlabel: currentPrecisionlabel,
+      precisionsize: currentPrecisionsize,
+      parent: code.parent,
+      weight: code.weight,
+      depth: code.depth,
+    };
+    this.setState({ showInputCode: false, activeCodeIndex: undefined, showPrecision: false });
+    remove(activeCodeIndex);
+
+    push(values);
   }
 
   clearInputCode() {
@@ -93,17 +122,14 @@ class CodesListsCodes extends Component {
         precisionlabel: currentPrecisionlabel,
         precisionsize: currentPrecisionsize,
       };
-
       this.setState({
         showInputCode: false,
         activeCodeIndex: undefined,
         editing: false,
       });
-
       if (editing) {
         const code = get(activeCodeIndex);
         remove(activeCodeIndex);
-
         values = {
           ...values,
           parent: code.parent,
@@ -142,7 +168,6 @@ class CodesListsCodes extends Component {
     const { activeCodeIndex, editing, showPrecision } = this.state;
     const code = get(activeCodeIndex);
     const allCodes = getAll();
-
     return (
       <CodesListsInputCodeContainer
         meta={this.props.meta}
@@ -152,6 +177,7 @@ class CodesListsCodes extends Component {
         }}
         clear={this.clearInputCode}
         push={this.pushCode}
+        remove={this.removePrecision}
         change={change}
         path={inputCodePath}
         formName={formName}
@@ -162,11 +188,8 @@ class CodesListsCodes extends Component {
       />
     );
   }
-
-
+  
   renderCode(code) {
-    // const { inputCodePath, formName, change } = this.props;
-
     const { showInputCode, activeCodeIndex, editing, showPrecision } = this.state;
     const {
       fields: { getAll, remove, removeAll, push }, currentValue, inputCodePath, formName, change
@@ -208,6 +231,14 @@ class CodesListsCodes extends Component {
               }, () => {
       });
       }, 
+      setprecision: () => {
+        this.setState({
+          showPrecision: true,
+          activeCodeIndex: indexCode,
+          editing: true,
+              }, () => {
+      });
+      }, 
     };
 
     return (
@@ -226,14 +257,11 @@ class CodesListsCodes extends Component {
                 __html: markdownVtlToHtml(code.label),
               }}
             />)  :false } 
-
-
             {/* Code Actions */}
             <CodesListsActions
               disabledActions={getDisabledActions(allCodes, code, ACTIONS)}
               actions={actions}
             />
-
              {showPrecision && editing && activeCodeIndex === indexCode ? (
                 this.renderInputCode()
               ) : false }
@@ -248,7 +276,6 @@ class CodesListsCodes extends Component {
 
   renderCodes(parent = '') {
     const allCodes = this.props.fields.getAll() || [];
-
     return allCodes
       .filter(code => code.parent === parent)
       .sort((code, nexCode) => {
@@ -258,7 +285,6 @@ class CodesListsCodes extends Component {
       })
       .map(code => this.renderCode(code));
   }
-
   render() {
     const { showInputCode, editing } = this.state;
 
@@ -280,7 +306,6 @@ class CodesListsCodes extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.addCode}
         </button>
-
         <div className={`${LIST_CLASS}`}>
           {this.props.fields.length > 0 && (
             <div className={`${LIST_ITEM_CLASS}`}>
@@ -290,10 +315,8 @@ class CodesListsCodes extends Component {
               <div>{Dictionary.actions}</div>
             </div>
           )}
-
           {/* List of codes */}
           {this.renderCodes()}
-
           {/* Input code without a parent code */}
           {showInputCode && !editing && this.renderInputCode()}
         </div>

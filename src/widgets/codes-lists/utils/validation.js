@@ -5,10 +5,6 @@ export const validationSchema = {
     { name: 'required', dictionary: 'validationCodeListCode' },
     { name: 'uniqueCodeAttr', dictionary: 'codeUnicity' },
   ],
-  // precisionid: [
-  //   { name: 'required', dictionary: 'validationCodeListCode' },
-  //   { name: 'uniqueCodeAttr', dictionary: 'clarificationUnicity' },
-  // ],
   label: [{ name: 'required', dictionary: 'validationCodeListLabel' }],
 };
 

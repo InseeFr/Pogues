@@ -32,6 +32,7 @@ export const propTypes = {
   change: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
 };
 
@@ -64,11 +65,19 @@ class CodesListInputCode extends ComponentWithValidation {
   }
 
   initInputCode(code) {
-    const { path, formName, change } = this.props;
+    const { path, formName, change, precisionShow } = this.props;
     if (code) {
       change(formName, `${path}value`, code.value);
       change(formName, `${path}label`, code.label);
-      change(formName, `${path}precisionid`, code.precisionid);
+      if(code.precisionid !== undefined && code.precisionid !== ''){
+        change(formName, `${path}precisionid`, code.precisionid);
+      }
+      else if(precisionShow) {
+        change(formName, `${path}precisionid`, `${code.value}CL`);
+      }
+      else {
+        change(formName, `${path}precisionid`, '');
+      }
       if(code.precisionlabel !== undefined && code.precisionlabel !== ''){
         change(formName, `${path}precisionlabel`, code.precisionlabel);
       }
@@ -126,7 +135,7 @@ class CodesListInputCode extends ComponentWithValidation {
 
   render() {
 
-    const { close, precisionShow } = this.props;
+    const { close, precisionShow, remove} = this.props;
     return (
       <div className={CODE_INPUT_CLASS}>
         <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
@@ -199,6 +208,13 @@ class CodesListInputCode extends ComponentWithValidation {
                       label={Dictionary.maxLength}
                       onEnter={this.addCodeIfIsValid1}
                     />
+                    <button
+                    className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
+                    onClick={remove}
+                    >
+                       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                    
                  <div className={CODE_INPUT_ACTIONS_CLASS}>
                     <button
                     className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}

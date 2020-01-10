@@ -183,31 +183,31 @@ export function validCollectedVariables(
    * It solves this issue : https://trello.com/c/bZo4vAei/397-255-questionnaire-non-r%C3%A9cup%C3%A9r%C3%A9-par-lapplication
    */
 
-  let codellistprecision = false;
+  let codeListPrecision = false;
   if (type === SINGLE_CHOICE){
     if(expectedVariables.length === value.length){
       value.forEach(function(val) {
           const resultat = Object.values(expectedVariables).find(res => res.name === val.name);
-          if (resultat && resultat != undefined) {
+          if (resultat) {
             if( resultat.label != val.label || resultat.TEXT.maxLength != val.TEXT.maxLength)
               {
-                codellistprecision = true;
+                codeListPrecision = true;
               }
           }
           else{
-            codellistprecision = true;
+            codeListPrecision = true;
           } 
       });
     }
-   else {
-    codellistprecision = true;
-     }
+    else {
+      codeListPrecision = true;
+    }
   }
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
     value[0].codeListReference !== expectedVariables[0].codeListReference || type === SINGLE_CHOICE &&
-    value[0] && codellistprecision
+    value[0] && codeListPrecision
   ) {
 
     return Dictionary.validation_collectedvariable_need_reset;

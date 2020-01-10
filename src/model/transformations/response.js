@@ -75,7 +75,6 @@ export function stateToRemote(state) {
       invite: specialFollowUpMessage,
     };
   }
-
   return model;
 }
 

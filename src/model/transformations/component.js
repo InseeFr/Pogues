@@ -53,21 +53,21 @@ function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
   }, {});
 }
 function singlechoiseclarificationquestion(Children){
-  let singlechoisequestion = [];
+  const singleChoiceQuestion = [];
   const childr = Children.filter(children => children.Child.length != 0);
       childr.forEach(item =>{
         item.Child.forEach(clar => 
           {
             if(clar.questionType=== "SINGLE_CHOICE" && clar.ClarificationQuestion != undefined && clar.ClarificationQuestion.length != 0){
-              singlechoisequestion.push(clar);
+              singleChoiceQuestion.push(clar);
             }
-         });
+          });
       });
-      return singlechoisequestion;
+      return singleChoiceQuestion;
 }
 
 export function getClarificarionfromremote(Children) {
-  let variableclarification = [];
+  const variableClarification = [];
   const childclarification = singlechoiseclarificationquestion(Children);
               childclarification.forEach(element => {
                 element.ClarificationQuestion.forEach( item =>{ 
@@ -78,26 +78,25 @@ export function getClarificarionfromremote(Children) {
                     position: position-1,
                     codelistid: codelistid,
                   };
-                  variableclarification.push(variable);
+                  variableClarification.push(variable);
                 });
-
               });
 
-  return variableclarification;
+  return variableClarification;
 }
 
 function remoteToVariableResponseNested(children = [], acc = {}) {
   children.forEach(child => {
     const {
       Response: responses,
-      ClarificationQuestion: responsesclarification,
+      ClarificationQuestion: responsesClarification,
       ResponseStructure: responseStructure,
       Child: childrenInner,
     } = child;
-    let responsefinal =  responses;
-    if ( responsesclarification != undefined ){
-      responsesclarification.forEach(clar => {
-        responsefinal = responsefinal.concat(clar.Response);
+    let responseFinal =  responses;
+    if ( responsesClarification != undefined ){
+      responsesClarification.forEach(clar => {
+        responseFinal = responseFinal.concat(clar.Response);
       });
     }
    
@@ -110,7 +109,7 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
 
     acc = {
       ...acc,
-      ...getResponsesByVariable(responsefinal, coordinatesByResponse),
+      ...getResponsesByVariable(responseFinal, coordinatesByResponse),
       ...remoteToVariableResponseNested(childrenInner, acc),
     };
   });
@@ -133,7 +132,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     FlowControl: redirections,
     Control: controls,
     Response: responses,
-    ClarificationQuestion: responsesclarification,
+    ClarificationQuestion: responsesClarification,
     ResponseStructure: responseStructure,
     Child: children,
     parent,
@@ -141,19 +140,11 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     TargetMode,
     declarationMode,
   } = remote;
-
-  let redirectionclar = [];
-  if ( redirections != undefined ){
-    redirections.forEach(redirec => {
-      if ( redirec.flowControlType === undefined ) {
-       redirectionclar.push(redirec);
-         }
-    });
-  }
-  let responsefinal =  responses;
-  if ( responsesclarification != undefined ){
-    responsesclarification.forEach(clar => {
-      responsefinal = responsefinal.concat(clar.Response);
+  const redirectionClar = redirections != undefined ? redirections.filter(redirec =>  redirec.flowControlType === undefined) : [];
+  let responseFinal =  responses;
+  if ( responsesClarification != undefined ){
+    responsesClarification.forEach(clar => {
+      responseFinal = responseFinal.concat(clar.Response);
     });
   }
   const state = {
@@ -164,9 +155,9 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     children: children ? children.map(child => child.id) : [],
     declarations: Declaration.remoteToState(declarations),
     controls: Control.remoteToState(controls),
-    redirections: Redirection.remoteToState(redirectionclar),
+    redirections: Redirection.remoteToState(redirectionClar),
     TargetMode: TargetMode || declarationMode || [],
-    responsesclarification,
+    responsesClarification,
   };
 
   if (genericName) {
@@ -190,7 +181,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       codesListsStore,
     );
     state.collectedVariables = CollectedVariable.remoteToComponentState(
-      responsefinal,
+      responseFinal,
     );
   }
   const cGroupIndex = componentGroup.findIndex(

@@ -11,24 +11,20 @@ export function sortByWeight(codes) {
     return 0;
   };
 }
-
 export function remoteToCodesState(codes, parent = '', depth = 1) {
   return codes
     .filter(c => c.Parent === parent)
     .reduce((acc, c, index) => {
-      let codesta = {
+      const codeState = {
         value: c.Value,
         label: c.Label,
         parent: c.Parent,
         depth,
         weight: index + 1,
+        precisionid : c.Precisionid,
+        precisionlabel : c.Precisionlabel,
+        precisionsize : c.Precisionsize,
       };
-      if (c.Precisionid != undefined) {
-        codesta.precisionid = c.Precisionid;
-        codesta.precisionlabel = c.Precisionlabel;
-        codesta.precisionsize = c.Precisionsize;
-      }
-      const codeState = codesta;
       return {
         ...acc,
         [codeState.value]: codeState,
@@ -36,7 +32,6 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
       };
     }, {});
 }
-
 export function getcodelistwithclarification(remote, variableclarification) {
   remote.forEach(codelist => {
     variableclarification.forEach( clarif => {
@@ -52,7 +47,6 @@ export function getcodelistwithclarification(remote, variableclarification) {
   });
   return remote;
 }
-
 export function remoteToStore(remote, variableclarification) {
   const remotecode = getcodelistwithclarification(remote, variableclarification);
   return remotecode.reduce((acc, codesList) => {
@@ -68,11 +62,9 @@ export function remoteToStore(remote, variableclarification) {
     };
   }, {});
 }
-
 export function remoteToState(remote) {
   return { id: remote };
 }
-
 /**
  * @param {*} codes The list of codes
  * @param {*} depth The depth of a code
@@ -92,7 +84,6 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
       [],
     );
 }
-
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
     const { id, label, codes } = store[key];

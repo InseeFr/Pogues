@@ -803,7 +803,7 @@ const dictionary = {
     en: 'Identifiant',
   },
   codeUnicity: {
-    fr: 'Tous les codes doivent être uniques',
+    fr: 'Toutes les codes doivent être uniques',
     en: 'All codes should be unique',
   },
 

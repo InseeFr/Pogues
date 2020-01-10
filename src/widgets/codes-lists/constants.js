@@ -41,9 +41,9 @@ export const ACTIONS = {
     icon: 'glyphicon-plus-sign',
   },
 
-  // PRECESION_EDIT: {
-  //   name: 'precision',
-  //   distionary: 'precision',
-  //   icon: 'glyphicon-option-horizontal',
-  // },
+  PRECESION_EDIT: {
+    name: 'setprecision',
+    distionary: 'setprecision',
+    icon: 'glyphicon-option-horizontal',
+  },
 };
