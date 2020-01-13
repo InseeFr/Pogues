@@ -803,12 +803,12 @@ const dictionary = {
     en: 'Identifiant',
   },
   codeUnicity: {
-    fr: 'Toutes les codes doivent être uniques',
+    fr: 'Tous les codes doivent être uniques',
     en: 'All codes should be unique',
   },
 
   clarificationUnicity: {
-    fr: 'Tous les clarifications doivent être uniques',
+    fr: 'Toutes les clarifications doivent être uniques',
     en: 'All clarifications should be unique',
   },
   codePh: {

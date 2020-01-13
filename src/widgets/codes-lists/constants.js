@@ -42,8 +42,8 @@ export const ACTIONS = {
   },
 
   PRECESION_EDIT: {
-    name: 'setprecision',
-    distionary: 'setprecision',
+    name: 'setPrecision',
+    distionary: 'setPrecision',
     icon: 'glyphicon-option-horizontal',
   },
 };

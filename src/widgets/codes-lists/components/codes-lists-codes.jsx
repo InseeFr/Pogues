@@ -231,7 +231,7 @@ class CodesListsCodes extends Component {
               }, () => {
       });
       }, 
-      setprecision: () => {
+      setPrecision: () => {
         this.setState({
           showPrecision: true,
           activeCodeIndex: indexCode,

@@ -20,7 +20,7 @@ const propTypes = {
     moveLeft: PropTypes.func.isRequired,
     moveRight: PropTypes.func.isRequired,
     precision: PropTypes.func.isRequired,
-    setprecision: PropTypes.func.isRequired,
+    setPrecision: PropTypes.func.isRequired,
   }).isRequired,
 };
 

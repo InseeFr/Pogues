@@ -211,6 +211,7 @@ class CodesListInputCode extends ComponentWithValidation {
                     <button
                     className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
                     onClick={remove}
+                    aria-label={Dictionary.remove}
                     >
                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
