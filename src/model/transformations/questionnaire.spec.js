@@ -162,6 +162,7 @@ describe('questionnaire', () => {
               FlowControl: [],
               Label: ['question2'],
               Name: 'QUESTION',
+              ClarificationQuestion: [],
               Response: [
                 {
                   CodeListReference: 'jf0w3fab',

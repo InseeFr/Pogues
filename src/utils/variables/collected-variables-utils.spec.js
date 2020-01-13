@@ -11,6 +11,7 @@ import {
   getCollectedVariablesMultiple,
   getCollectedVariablesTable,
   generateCollectedVariables,
+  getCollectedVariablesSingle,
 } from './collected-variables-utils';
 
 const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;
@@ -34,29 +35,119 @@ describe('generateCollectedVariables', () => {
     expect(output[0].label).toEqual(`${questionName} label`);
     expect(output[0].name).toEqual(questionName);
   });
-  it('SINGLE_CHOICE response format', () => {
-    const responseFormat = SINGLE_CHOICE;
-    const questionName = 'Question';
-    const form = { CodesList: { id: 'id', label: 'label' } };
-    const codesListStore = {};
-    const output = generateCollectedVariables(
-      responseFormat,
-      questionName,
-      form,
-      codesListStore,
-    );
+});
 
-    expect(output[0].id).toBeDefined();
-    const { id } = output[0];
-    expect(output[0]).toEqual({
-      codeListReference: 'id',
-      codeListReferenceLabel: 'label',
-      type: 'TEXT',
-      TEXT: { maxLength: 1, pattern: '' },
-      id,
-      name: 'Question',
-      label: 'Question label',
-    });
+describe('getCollectedVariablesSingle', () => {
+  test('should return collected variables for QCM without precision in codesList', () => {
+    const questionName = 'questionName';
+    const form = {
+        CodesList: {
+          id: 'id', 
+          label: 'label',
+          codes: [
+            {
+              value: 'value1',
+              label: 'label1',
+              depth: 1,
+              weight: 1,
+              parent: '',
+              precisionid: '',
+              precisionlabel: '',
+              precisionsize: '',
+            },
+            {
+              value: 'value2',
+              label: 'label2',
+              depth: 1,
+              weight: 2,
+              parent: '',
+              precisionid: '',
+              precisionlabel: '',
+              precisionsize: '',
+            },
+          ],
+        },
+    };
+    const codesListStore = {};
+      const result = getCollectedVariablesSingle( questionName, form, codesListStore);
+    //   const result = getCollecteVariable(questionName, `${questionName} label`, undefined, {
+    //   codeListReference: form.CodesList.id,
+    //   codeListReferenceLabel: form.CodesList.label,
+    //   type: TEXT,
+    //   [TEXT]: {
+    //     maxLength: 1,
+    //     pattern: '',
+    //   },
+    // });
+
+    expect(result).toEqual([
+       {
+    codeListReference: form.CodesList.id,
+    codeListReferenceLabel: form.CodesList.label,
+    type: 'TEXT',
+    TEXT: { maxLength: 1, pattern: '' },
+    id: result[0].id,
+    name: 'questionName',
+    label: 'questionName label',
+       }
+    ]);
+  });
+
+  test('should return collected variables for QCM with precision in codesList', () => {
+    const questionName = 'questionName';
+    const form = {
+        CodesList: {
+          id: 'id', 
+          label: 'label',
+          codes: [
+            {
+              value: 'value1',
+              label: 'label1',
+              depth: 1,
+              weight: 1,
+              parent: '',
+              precisionid: 'precision',
+              precisionlabel: 'precisionlabel',
+              precisionsize: 249,
+            },
+            {
+              value: 'value2',
+              label: 'label2',
+              depth: 1,
+              weight: 2,
+              parent: '',
+              precisionid: '',
+              precisionlabel: '',
+              precisionsize: '',
+            },
+          ],
+        },
+    };
+    const codesListStore = {};
+    const result = getCollectedVariablesSingle( questionName, form, codesListStore);
+
+    expect(result).toEqual([
+       {
+          codeListReference: form.CodesList.id,
+          codeListReferenceLabel: form.CodesList.label,
+          type: 'TEXT',
+          TEXT: { maxLength: 1, pattern: '' },
+          id: result[0].id,
+          name: 'questionName',
+          label: 'questionName label',
+       },
+       {
+        type: "CollectedVariableType",
+        type: 'TEXT',
+        TEXT: {  
+          maxLength: 249,
+          pattern: "" 
+         },
+        id: result[1].id ,
+        name: 'precision',
+        label: 'precisionlabel',
+         },
+    ]);
   });
 });
 

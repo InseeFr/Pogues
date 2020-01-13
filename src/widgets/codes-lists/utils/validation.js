@@ -9,13 +9,16 @@ export const validationSchema = {
 };
 
 export function validateCode(
-  { editing, code, currentValue = '', currentLabel = '', codes = [] },
+  { editing, code, currentValue = '', currentLabel = '', currentPrecisionid = '', currentPrecisionlabel = '', currentPrecisionsize = '', codes = [] },
   path,
   schema,
 ) {
   const values = {
     value: currentValue,
     label: currentLabel,
+    precisionid: currentPrecisionid,
+    precisionlabel: currentPrecisionlabel,
+    precisionsize: currentPrecisionsize,
     codes,
     editing,
     previousValue: code ? code.value : '',

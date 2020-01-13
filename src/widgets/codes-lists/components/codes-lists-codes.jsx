@@ -24,6 +24,11 @@ export const propTypes = {
     .isRequired,
   currentValue: PropTypes.string,
   currentLabel: PropTypes.string,
+
+  currentPrecisionid: PropTypes.string,
+  currentPrecisionlabel: PropTypes.string,
+  currentPrecisionsize: PropTypes.string,
+
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
@@ -32,6 +37,9 @@ export const propTypes = {
 export const defaultProps = {
   currentValue: '',
   currentLabel: '',
+  currentPrecisionid: '',
+  currentPrecisionlabel: '',
+  currentPrecisionsize: '',
 };
 
 // Componet
@@ -47,25 +55,59 @@ class CodesListsCodes extends Component {
       showInputCode: false,
       activeCodeIndex: undefined,
       editing: false,
+      showPrecision:false,
     };
 
     this.renderInputCode = this.renderInputCode.bind(this);
     this.pushCode = this.pushCode.bind(this);
     this.clearInputCode = this.clearInputCode.bind(this);
+    this.removePrecision = this.removePrecision.bind(this);
     this.renderCode = this.renderCode.bind(this);
     this.renderCodes = this.renderCodes.bind(this);
+  }
+
+  removePrecision() {
+    this.setState({ showInputCode: false, activeCodeIndex: undefined, showPrecision: false });
+    const {
+      currentValue,
+      currentLabel,
+      currentPrecisionlabel,
+      currentPrecisionsize,
+      fields: { push, remove, get },
+    } = this.props;
+    const { activeCodeIndex } = this.state;
+    const code = get(activeCodeIndex);
+
+    const values = {
+      value: currentValue,
+      label: currentLabel,
+      precisionid : undefined,
+      precisionlabel: currentPrecisionlabel,
+      precisionsize: currentPrecisionsize,
+      parent: code.parent,
+      weight: code.weight,
+      depth: code.depth,
+    };
+    this.setState({ showInputCode: false, activeCodeIndex: undefined, showPrecision: false });
+    remove(activeCodeIndex);
+
+    push(values);
   }
 
   clearInputCode() {
     const { inputCodePath, formName, change } = this.props;
     change(formName, `${inputCodePath}value`, '');
     change(formName, `${inputCodePath}label`, '');
+    change(formName, `${inputCodePath}precisionid`, '');
   }
 
   pushCode() {
     const {
       currentValue,
       currentLabel,
+      currentPrecisionid,
+      currentPrecisionlabel,
+      currentPrecisionsize,
       fields: { get, getAll, remove, push },
     } = this.props;
     const { activeCodeIndex, editing } = this.state;
@@ -76,18 +118,18 @@ class CodesListsCodes extends Component {
       values = {
         value: currentValue,
         label: currentLabel,
+        precisionid : currentPrecisionid,
+        precisionlabel: currentPrecisionlabel,
+        precisionsize: currentPrecisionsize,
       };
-
       this.setState({
         showInputCode: false,
         activeCodeIndex: undefined,
         editing: false,
       });
-
       if (editing) {
         const code = get(activeCodeIndex);
         remove(activeCodeIndex);
-
         values = {
           ...values,
           parent: code.parent,
@@ -104,6 +146,9 @@ class CodesListsCodes extends Component {
       }
     } else {
       values = {
+        precisionid : currentPrecisionid,
+        precisionlabel: currentPrecisionlabel,
+        precisionsize: currentPrecisionsize,
         value: currentValue,
         label: currentLabel,
         parent: '',
@@ -111,10 +156,8 @@ class CodesListsCodes extends Component {
         depth: 1,
       };
     }
-
     push(values);
   }
-
   renderInputCode() {
     const {
       inputCodePath,
@@ -122,33 +165,34 @@ class CodesListsCodes extends Component {
       change,
       fields: { get, getAll },
     } = this.props;
-    const { activeCodeIndex, editing } = this.state;
+    const { activeCodeIndex, editing, showPrecision } = this.state;
     const code = get(activeCodeIndex);
     const allCodes = getAll();
-
     return (
       <CodesListsInputCodeContainer
         meta={this.props.meta}
         close={() => {
           this.clearInputCode();
-          this.setState({ showInputCode: false, activeCodeIndex: undefined });
+          this.setState({ showInputCode: false, activeCodeIndex: undefined, showPrecision: false });
         }}
         clear={this.clearInputCode}
         push={this.pushCode}
+        remove={this.removePrecision}
         change={change}
         path={inputCodePath}
         formName={formName}
         code={code}
+        precisionShow={showPrecision}
         codes={allCodes}
         editing={editing}
       />
     );
   }
-
+  
   renderCode(code) {
-    const { showInputCode, activeCodeIndex, editing } = this.state;
+    const { showInputCode, activeCodeIndex, editing, showPrecision } = this.state;
     const {
-      fields: { getAll, remove, removeAll, push },
+      fields: { getAll, remove, removeAll, push }, currentValue, inputCodePath, formName, change
     } = this.props;
     const allCodes = getAll() || [];
     const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
@@ -159,6 +203,7 @@ class CodesListsCodes extends Component {
       edit: () => {
         this.setState({
           showInputCode: true,
+          showPrecision: false,
           activeCodeIndex: indexCode,
           editing: true,
         });
@@ -178,6 +223,22 @@ class CodesListsCodes extends Component {
       moveRight: () => {
         resetListCodes(moveRight(code.value, allCodes), removeAll, push);
       },
+      precision: () => {
+        this.setState({
+          showPrecision: true,
+          activeCodeIndex: indexCode,
+          editing: true,
+              }, () => {
+      });
+      }, 
+      setPrecision: () => {
+        this.setState({
+          showPrecision: true,
+          activeCodeIndex: indexCode,
+          editing: true,
+              }, () => {
+      });
+      }, 
     };
 
     return (
@@ -191,17 +252,19 @@ class CodesListsCodes extends Component {
             {/* Code data */}
             <div>{code.depth}</div>
             <div>{code.value}</div>
-            <div
+            {code.label ? (            <div
               dangerouslySetInnerHTML={{
                 __html: markdownVtlToHtml(code.label),
               }}
-            />
-
+            />)  :false } 
             {/* Code Actions */}
             <CodesListsActions
               disabledActions={getDisabledActions(allCodes, code, ACTIONS)}
               actions={actions}
             />
+             {showPrecision && editing && activeCodeIndex === indexCode ? (
+                this.renderInputCode()
+              ) : false }
           </div>
         )}
 
@@ -213,7 +276,6 @@ class CodesListsCodes extends Component {
 
   renderCodes(parent = '') {
     const allCodes = this.props.fields.getAll() || [];
-
     return allCodes
       .filter(code => code.parent === parent)
       .sort((code, nexCode) => {
@@ -223,7 +285,6 @@ class CodesListsCodes extends Component {
       })
       .map(code => this.renderCode(code));
   }
-
   render() {
     const { showInputCode, editing } = this.state;
 
@@ -238,13 +299,13 @@ class CodesListsCodes extends Component {
               showInputCode: true,
               activeCodeIndex: undefined,
               editing: false,
+              showPrecision:false,
             });
           }}
         >
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.addCode}
         </button>
-
         <div className={`${LIST_CLASS}`}>
           {this.props.fields.length > 0 && (
             <div className={`${LIST_ITEM_CLASS}`}>
@@ -254,10 +315,8 @@ class CodesListsCodes extends Component {
               <div>{Dictionary.actions}</div>
             </div>
           )}
-
           {/* List of codes */}
           {this.renderCodes()}
-
           {/* Input code without a parent code */}
           {showInputCode && !editing && this.renderInputCode()}
         </div>

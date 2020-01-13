@@ -165,7 +165,7 @@ class GenericInput extends Component {
                     );
                   }
             }}
-      </NavigationPrompt>;
+      </NavigationPrompt>
         <span>{Dictionary.addObject}</span>
         <button
           id="add-question"

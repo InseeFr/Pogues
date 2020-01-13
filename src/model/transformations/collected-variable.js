@@ -77,6 +77,7 @@ export function remoteToStore(
 }
 
 export function remoteToComponentState(remote = []) {
+ 
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
@@ -160,6 +161,7 @@ export function storeToRemote(store) {
       }
        
     }
+
     return model;
   });
 }

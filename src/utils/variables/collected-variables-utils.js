@@ -103,15 +103,59 @@ export function getCollectedVariablesMultiple(
       },
     };
   }
+
   const listFiltered = listCodes.filter(code => !hasChild(code, listCodes));
-  return listFiltered.map((c, index) =>
-    getCollecteVariable(
+
+  return  listFiltered.map((c, index) =>
+   getCollecteVariable(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
       { x: index + 1 },
       reponseFormatValues,
-    ),
+    )
   );
+}
+
+
+export function getCollectedVariablesSingle(
+  questionName,
+  form,
+  codesListStore,
+) {
+  const collectedVariables = [];
+    collectedVariables.push(
+      getCollecteVariable(questionName, `${questionName} label`, undefined, {
+        codeListReference: form.CodesList.id,
+        codeListReferenceLabel: form.CodesList.label,
+        type: TEXT,
+        [TEXT]: {
+          maxLength: 1,
+          pattern: '',
+        },
+      }),
+    );
+
+  form.CodesList.codes.forEach(function(code) {
+      if (code.precisionid && code.precisionid != "") {
+        collectedVariables.push(
+          getCollecteVariable(
+            code.precisionid,
+            code.precisionlabel,
+            undefined,
+             {
+              type: TEXT,
+              [TEXT]: {
+              maxLength: code.precisionsize,
+              pattern: '',
+              },
+            },
+          ),
+        );
+      }
+    });
+
+ return collectedVariables;
+
 }
 
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
@@ -139,6 +183,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
       .reduce((acc, res) => [...acc, ...res], []);
   }
+
+
 
   function getReponsesValues(measure) {
     let reponseFormatValues = {};
@@ -291,17 +337,11 @@ export function generateCollectedVariables(
       ),
     ];
   } else if (responseFormat === SINGLE_CHOICE) {
-    generatedCollectedVariables = [
-      getCollecteVariable(questionName, `${questionName} label`, undefined, {
-        codeListReference: form.CodesList.id,
-        codeListReferenceLabel: form.CodesList.label,
-        type: TEXT,
-        [TEXT]: {
-          maxLength: 1,
-          pattern: '',
-        },
-      }),
-    ];
+    generatedCollectedVariables = getCollectedVariablesSingle(
+      questionName,
+      form,
+      codesListStore,
+    );
   } else if (responseFormat === MULTIPLE_CHOICE) {
     generatedCollectedVariables = getCollectedVariablesMultiple(
       questionName,

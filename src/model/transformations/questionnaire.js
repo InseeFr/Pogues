@@ -139,10 +139,12 @@ export function stateToRemote(state, stores) {
     agency: agency || 'fr.insee',
     TargetMode,
   };
+ 
   const componentsRemote = Component.storeToRemote(
     componentsStore,
     id,
     collectedVariablesWithoutOrphans,
+    codesListsStore,
   );
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
@@ -154,7 +156,6 @@ export function stateToRemote(state, stores) {
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
   );
-
   return {
     ...remote,
     Child: componentsRemote,
