@@ -186,18 +186,18 @@ export function validCollectedVariables(
   let codeListPrecision = false;
   if (type === SINGLE_CHOICE){
     if(expectedVariables.length === value.length){
-      value.forEach(function(val) {
-          const resultat = Object.values(expectedVariables).find(res => res.name === val.name);
-          if (resultat) {
-            if( resultat.label != val.label || resultat.TEXT.maxLength != val.TEXT.maxLength)
-              {
-                codeListPrecision = true;
-              }
-          }
-          else{
-            codeListPrecision = true;
-          } 
-      });
+      for (var i=1; i < value.length; i++) {
+        const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name );
+       if (resultat) {
+          if( resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength)
+            {
+              codeListPrecision = true;
+            }
+        }
+        else{
+          codeListPrecision = true;
+        } 
+       }
     }
     else {
       codeListPrecision = true;
@@ -206,9 +206,11 @@ export function validCollectedVariables(
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
-    value[0].codeListReference !== expectedVariables[0].codeListReference || type === SINGLE_CHOICE &&
-    value[0] && codeListPrecision
-  ) {
+    value[0].codeListReference !== expectedVariables[0].codeListReference ||
+    type === SINGLE_CHOICE && value[0] && value[0].codeListReferenceLabel !== expectedVariables[0].codeListReferenceLabel ||
+    type === SINGLE_CHOICE && value[0] && codeListPrecision
+  )
+   {
 
     return Dictionary.validation_collectedvariable_need_reset;
   }
@@ -221,25 +223,18 @@ export function validCollectedVariables(
  
     return Dictionary.validation_collectedvariable_need_reset;
   }
-
-  if (type === SIMPLE && value[0] || type === TABLE && value[0] ) {
+  
+  if (type === TABLE && value[0] || type === SIMPLE && value[0] ) {
     const typevalue = value[0].type;
     const typeexpectedVariables = expectedVariables[0].type;
     if (
-      value[0] &&
-      value[0].codeListReference &&
-      value[0].codeListReference !== 'undefined'  || 
-      value[0] &&
-      typevalue !== typeexpectedVariables || 
-      value[0] && 
-      typevalue === typeexpectedVariables &&
-      value[0][typevalue] !== expectedVariables[0][typeexpectedVariables]
-   
+      value[0].codeListReference ||
+      typevalue !== typeexpectedVariables ||
+      JSON.stringify(value[0][typevalue]) != JSON.stringify(expectedVariables[0][typeexpectedVariables])
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
     }
   } 
-  
 
 
   /**

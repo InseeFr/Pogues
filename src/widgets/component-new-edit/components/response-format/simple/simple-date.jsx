@@ -22,7 +22,6 @@ class ResponseFormatDatatypeDate extends Component {
     if(this.props.type === 'TABLE'){
       formatini = this.props.formattable; 
     }
- 
     return (
 
       <FormSection name={this.props.name}>
@@ -65,7 +64,7 @@ class ResponseFormatDatatypeDate extends Component {
             </GenericOption>
 
           </Field>   
-
+         <div style= {{ display : formatini !== ''? 'block' : 'none' }}>
           <Field
             name="minimum"
             type="text"
@@ -84,7 +83,7 @@ class ResponseFormatDatatypeDate extends Component {
             validate = {date({ format: formatini, message: Dictionary.formatDate? Dictionary.formatDate: '', allowBlank: true })}
             disabled={this.props.readOnly}
           />
-
+         </div>
         </div>
       </FormSection>
          

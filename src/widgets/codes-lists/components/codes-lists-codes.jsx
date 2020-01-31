@@ -168,6 +168,7 @@ class CodesListsCodes extends Component {
     const { activeCodeIndex, editing, showPrecision } = this.state;
     const code = get(activeCodeIndex);
     const allCodes = getAll();
+    
     return (
       <CodesListsInputCodeContainer
         meta={this.props.meta}

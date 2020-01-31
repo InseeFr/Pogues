@@ -266,8 +266,8 @@ function getclarificationresponse(collectedVariablesStore, collectedVariables, c
 
       const clarficationredirection = {
         id: uuid(),
-        label:  Name.concat(' = ', code.weight).concat(' : ', code.precisionid),
-        condition: Name.concat(' = ', code.weight),
+        label:  '$'.concat(Name).concat('$ = ', code.weight).concat(' : ', code.precisionid),
+        condition:'$'.concat(Name).concat('$ = ', code.weight),
         cible: clafication.id,
         flowControlType : "CLARIFICATION",
        };
