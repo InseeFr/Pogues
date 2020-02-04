@@ -64,7 +64,7 @@ class ResponseFormatDatatypeDate extends Component {
             </GenericOption>
 
           </Field>   
-         <div style= {{ visibility : formatini == ''? 'hidden' : 'visible' }}>
+         <div hidden = {formatini == ''? true : false}>
           <Field
             name="minimum"
             type="text"
