@@ -195,7 +195,7 @@ describe('redirection transformation', () => {
             type: DATATYPE_NAME.DURATION,
 
             [DATATYPE_NAME.DURATION]: {
-              mihours: '',
+              mihours: 1,
               miminutes: 2,
               mahours: 3,
               maminutes: 4,
@@ -207,12 +207,39 @@ describe('redirection transformation', () => {
         expect(result).toEqual({ Response: [{ id: '2' }] });
         expect(Response.stateToRemote).toHaveBeenCalledWith({
           maximum: 'PT3H4M',
-          minimum: 'PT0H2M',
+          minimum: 'PT1H2M',
           format: 'PTnHnM',
           id: '2',
           mandatory: true,
           typeName: DATATYPE_NAME.DURATION,
           collectedVariable: { id: '1' },
+        });
+      });
+
+      it('should remove the minimum and maximum if the mihours and miminutes are empty or mahours and maminutes are empty', () => {
+        const result = stateToRemote(
+          {
+            id: '2',
+            mandatory: true,
+            type: DATATYPE_NAME.DURATION,
+
+            [DATATYPE_NAME.DURATION]: {
+              mihours: '',
+              miminutes: '',
+              mahours: '',
+              maminutes: '',
+              format: 'PTnHnM',
+            },
+          },
+          [{ id: '3' }],
+        );
+        expect(result).toEqual({ Response: [{ id: '2' }] });
+        expect(Response.stateToRemote).toHaveBeenCalledWith({
+          format: 'PTnHnM',
+          id: '2',
+          mandatory: true,
+          typeName: DATATYPE_NAME.DURATION,
+          collectedVariable: { id: '3' },
         });
       });
     });

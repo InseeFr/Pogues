@@ -30,27 +30,34 @@ export function remoteToState(remote) {
   if (decimals !== undefined) datatype.decimals = decimals;
   if (unit !== undefined) datatype.unit = unit;
   if (format !== undefined) datatype.format = format;
-
-  if (datatype.minimum !== undefined && typeName === DATATYPE_NAME.DURATION) {
-    let strminimum = datatype.minimum;
-    let strmaximum = datatype.maximum;
-    let matches_minimum = strminimum.match(/\d+/g);
-    let matches_maximum = strmaximum.match(/\d+/g);
-    if (format !== undefined && format === 'PTnHnM') {
-      datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-      datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
-      datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-      datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
-    }
-    if (format !== undefined && format === 'PnYnM') {
-      datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-      datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
-      datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-      datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
-    }
-
-  }
   
+  if ( typeName === DATATYPE_NAME.DURATION) {
+    if(datatype.minimum !== undefined){
+
+      let strminimum = datatype.minimum;
+      let matches_minimum = strminimum.match(/\d+/g);
+      if (format !== undefined && format === 'PTnHnM') {
+        datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+        datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+      }
+      if (format !== undefined && format === 'PnYnM') {
+        datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+        datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+      }
+    }
+    if(datatype.maximum !== undefined){
+      let strmaximum = datatype.maximum;
+      let matches_maximum = strmaximum.match(/\d+/g);
+      if (format !== undefined && format === 'PTnHnM') {
+        datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+        datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+      }
+      if (format !== undefined && format === 'PnYnM') {
+        datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+        datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+      }
+    }
+  }
   return {
     id,
     type: typeName,
@@ -90,16 +97,26 @@ export function stateToRemote(state, collectedVariables) {
       miminutes,
       mahours,
       maminutes,
-      ...durationDataType
     } = customDataType;
+    let durationDataType = {};
+
+    durationDataType.format = dataType.format;
 
     if (dataType.format === 'PnYnM') {
-      durationDataType.minimum = `P${miyears || 0}Y${mimonths || 0}M`;
-      durationDataType.maximum = `P${mayears || 0}Y${mamonths || 0}M`;
+      if(miyears !== "" || mimonths !== ""){
+       durationDataType.minimum = `P${miyears || 0}Y${mimonths || 0}M`;
+      }
+      if(mayears !== "" || mamonths !== "" ){
+        durationDataType.maximum = `P${mayears || 0}Y${mamonths || 0}M`;
+      }
     }
     if (dataType.format === 'PTnHnM') {
-      durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
-      durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
+      if(mihours !== "" || mihours !== ""){
+       durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
+      }
+      if(mahours !== "" || maminutes !== ""){
+       durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
+      }
     }
 
     customDataType = durationDataType;

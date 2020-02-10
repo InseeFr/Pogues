@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
-import { Field, connect } from 'redux-form';
+import { Field, formValueSelector } from 'redux-form';
 
 import { ComponentWithValidation } from 'widgets/component-with-validation';
 import Input from 'forms/controls/input';
-import { RichTextarea } from 'forms/controls/rich-textarea';
 import { fieldArrayMeta } from 'utils/proptypes-utils';
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -63,9 +64,8 @@ class CodesListInputCode extends ComponentWithValidation {
     this.addCode1 = this.addCode1.bind(this);
     this.initInputCode = this.initInputCode.bind(this);
   }
-
   initInputCode(code) {
-    const { path, formName, change, precisionShow } = this.props;
+    const { path, formName, change, precisionShow, Question } = this.props;
     if (code) {
       change(formName, `${path}value`, code.value);
       change(formName, `${path}label`, code.label);
@@ -73,7 +73,7 @@ class CodesListInputCode extends ComponentWithValidation {
         change(formName, `${path}precisionid`, code.precisionid);
       }
       else if(precisionShow) {
-        change(formName, `${path}precisionid`, `${code.value}CL`);
+        change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
       }
       else {
         change(formName, `${path}precisionid`, '');
@@ -134,7 +134,6 @@ class CodesListInputCode extends ComponentWithValidation {
   }
 
   render() {
-
     const { close, precisionShow, remove} = this.props;
     return (
       <div className={CODE_INPUT_CLASS}>
@@ -239,5 +238,12 @@ class CodesListInputCode extends ComponentWithValidation {
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  const selector = formValueSelector('component');
+  return {
+      Question: selector(state, 'name'),
+  }
+};
 
-export default CodesListInputCode;
+export default connect(mapStateToProps)(CodesListInputCode);
+
