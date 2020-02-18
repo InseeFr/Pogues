@@ -101,6 +101,7 @@ export function stateToRemote(
     collectedVariablesStore,
     QUESTION_TYPE_ENUM.MULTIPLE_CHOICE,
   );
+  console.log('responsesModel', responsesModel);
 
   return {
     Dimension: dimensionsModel,

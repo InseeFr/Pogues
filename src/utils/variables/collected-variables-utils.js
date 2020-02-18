@@ -105,15 +105,36 @@ export function getCollectedVariablesMultiple(
   }
 
   const listFiltered = listCodes.filter(code => !hasChild(code, listCodes));
+  const collectedVariables = listFiltered.map((c, index) =>
+  getCollecteVariable(
+     `${questionName}${index + 1}`,
+     `${c.value} - ${c.label}`,
+     { x: index + 1 },
+     reponseFormatValues,
+   )
+ );
+//console.log('CodesList', CodesList)
+//console.log('form', form)
 
-  return  listFiltered.map((c, index) =>
-   getCollecteVariable(
-      `${questionName}${index + 1}`,
-      `${c.value} - ${c.label}`,
-      { x: index + 1 },
-      reponseFormatValues,
-    )
-  );
+ form.PRIMARY.CodesList.codes.forEach(function(code) {
+  if (code.precisionid && code.precisionid != "") {
+    collectedVariables.push(
+      getCollecteVariable(
+        code.precisionid,
+        code.precisionlabel,
+        undefined,
+         {
+          type: TEXT,
+          [TEXT]: {
+          maxLength: code.precisionsize,
+          pattern: '',
+          },
+        },
+      ),
+    );
+  }
+});
+  return  collectedVariables;
 }
 
 

@@ -184,8 +184,7 @@ export function validCollectedVariables(
    */
 
   let codeListPrecision = false;
-  if (type === SINGLE_CHOICE){
-    if(expectedVariables.length === value.length){
+    if(expectedVariables.length === value.length && type === SINGLE_CHOICE){
       for (var i=1; i < value.length; i++) {
         const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name );
        if (resultat) {
@@ -199,10 +198,26 @@ export function validCollectedVariables(
         } 
        }
     }
+   else if(expectedVariables.length === value.length && type === MULTIPLE_CHOICE){
+      for (var i=0; i < value.length; i++) {
+        if(value[i].type == "TEXT" && value[i].codeListReference == undefined){
+          const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name);
+          if (resultat) {
+            if( resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength)
+              {
+                codeListPrecision = true;
+              }
+          }
+          else{
+            codeListPrecision = true;
+          } 
+        }
+       }
+    }
     else {
       codeListPrecision = true;
-    }
-  }
+   }
+   
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
@@ -218,7 +233,8 @@ export function validCollectedVariables(
   if (
     type === MULTIPLE_CHOICE &&
     value[0] &&
-    value[0].codeListReference !== expectedVariables[0].codeListReference
+    value[0].codeListReference !== expectedVariables[0].codeListReference||
+    type === MULTIPLE_CHOICE && value[0] && codeListPrecision
   ) {
  
     return Dictionary.validation_collectedvariable_need_reset;
