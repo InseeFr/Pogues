@@ -113,8 +113,6 @@ export function getCollectedVariablesMultiple(
      reponseFormatValues,
    )
  );
-//console.log('CodesList', CodesList)
-//console.log('form', form)
 
  form.PRIMARY.CodesList.codes.forEach(function(code) {
   if (code.precisionid && code.precisionid != "") {
@@ -136,7 +134,6 @@ export function getCollectedVariablesMultiple(
 });
   return  collectedVariables;
 }
-
 
 export function getCollectedVariablesSingle(
   questionName,

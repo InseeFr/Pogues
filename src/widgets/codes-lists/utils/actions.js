@@ -50,7 +50,7 @@ export function disableMoveRightButton(allCodes, code) {
   return code.depth + maxDepthInChildren > 5;
 }
 
-export function getDisabledActions(allCodes, code, actions) {
+export function getDisabledActions(allCodes, code, actions, type) {
   const disabledActions = [];
   if (disableMoveUpButton(allCodes, code))
     disabledActions.push(actions.MOVE_UP.name);
@@ -59,9 +59,9 @@ export function getDisabledActions(allCodes, code, actions) {
   if (disableMoveLeftButton(code)) disabledActions.push(actions.MOVE_LEFT.name);
   if (disableMoveRightButton(allCodes, code))
     disabledActions.push(actions.MOVE_RIGHT.name);
-  if(code.precisionid === undefined || code.precisionid === "")
+  if(code.precisionid === undefined || code.precisionid === "" || type == "TABLE")
     disabledActions.push(actions.PRECESION_EDIT.name);
-  if(code.precisionid)
+  if(code.precisionid || type == "TABLE")
     disabledActions.push(actions.PRECESION.name);
 
   return disabledActions;

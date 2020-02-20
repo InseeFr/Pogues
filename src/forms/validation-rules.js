@@ -183,6 +183,23 @@ export function validCollectedVariables(
    * It solves this issue : https://trello.com/c/bZo4vAei/397-255-questionnaire-non-r%C3%A9cup%C3%A9r%C3%A9-par-lapplication
    */
 
+  function objectCompare(object1, object2) {
+    let equal = true;
+    for (var p in object1) {
+      if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
+        equal = false;
+      }
+      else if(object1[p] != '' && object2[p] == undefined) {
+        equal = false;
+      }
+      else if( object1[p] != '' && object2[p] != undefined) {
+        if (object1[p] != object2[p]) {
+          equal = false;
+        }
+      }
+     }
+    return equal;
+  }
   let codeListPrecision = false;
     if(expectedVariables.length === value.length && type === SINGLE_CHOICE){
       for (var i=1; i < value.length; i++) {
@@ -217,7 +234,6 @@ export function validCollectedVariables(
     else {
       codeListPrecision = true;
    }
-   
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
@@ -229,7 +245,6 @@ export function validCollectedVariables(
 
     return Dictionary.validation_collectedvariable_need_reset;
   }
-
   if (
     type === MULTIPLE_CHOICE &&
     value[0] &&
@@ -246,13 +261,11 @@ export function validCollectedVariables(
     if (
       value[0].codeListReference ||
       typevalue !== typeexpectedVariables ||
-      JSON.stringify(value[0][typevalue]) != JSON.stringify(expectedVariables[0][typeexpectedVariables])
+      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue])
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
     }
   } 
-
-
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list
    * are in the right order.
