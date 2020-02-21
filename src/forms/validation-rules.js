@@ -216,19 +216,16 @@ export function validCollectedVariables(
        }
     }
    else if(expectedVariables.length === value.length && type === MULTIPLE_CHOICE){
-      for (var i=0; i < value.length; i++) {
+      for (let i=0; i < value.length; i++) {
         if(value[i].type == "TEXT" && value[i].codeListReference == undefined){
           const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name);
-          if (resultat) {
-            if( resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength)
-              {
-                codeListPrecision = true;
-              }
+          if(result){
+                codeListPrecision = resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength;
+            } 
+          else {
+              codeListPrecision = false
+            }
           }
-          else{
-            codeListPrecision = true;
-          } 
-        }
        }
     }
     else {
