@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {formValueSelector } from 'redux-form';
 
 import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
 import CodesListsActions from './codes-lists-actions';
@@ -47,7 +49,6 @@ export const defaultProps = {
 class CodesListsCodes extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
-
   constructor(props) {
     super(props);
 
@@ -241,7 +242,6 @@ class CodesListsCodes extends Component {
       });
       }, 
     };
-
     return (
       <div key={code.value}>
         {showInputCode && editing && activeCodeIndex === indexCode ? (
@@ -260,7 +260,7 @@ class CodesListsCodes extends Component {
             />)  :false } 
             {/* Code Actions */}
             <CodesListsActions
-              disabledActions={getDisabledActions(allCodes, code, ACTIONS)}
+              disabledActions={getDisabledActions(allCodes, code, ACTIONS, this.props.Type)}
               actions={actions}
             />
              {showPrecision && editing && activeCodeIndex === indexCode ? (
@@ -326,4 +326,12 @@ class CodesListsCodes extends Component {
   }
 }
 
-export default CodesListsCodes;
+const mapStateToProps = (state, ownProps) => {
+  const selector = formValueSelector('component');
+  return {
+      Type: selector(state, 'responseFormat.type'),
+  }
+};
+
+export default connect(mapStateToProps)(CodesListsCodes);
+

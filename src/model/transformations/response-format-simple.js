@@ -33,7 +33,6 @@ export function remoteToState(remote) {
   
   if ( typeName === DATATYPE_NAME.DURATION) {
     if(datatype.minimum !== undefined){
-
       let strminimum = datatype.minimum;
       let matches_minimum = strminimum.match(/\d+/g);
       if (format !== undefined && format === 'PTnHnM') {
@@ -103,15 +102,15 @@ export function stateToRemote(state, collectedVariables) {
     durationDataType.format = dataType.format;
 
     if (dataType.format === 'PnYnM') {
-      if(miyears !== "" || mimonths !== ""){
+      if(miyears || mimonths){
        durationDataType.minimum = `P${miyears || 0}Y${mimonths || 0}M`;
       }
-      if(mayears !== "" || mamonths !== "" ){
+      if(mayears || mamonths){
         durationDataType.maximum = `P${mayears || 0}Y${mamonths || 0}M`;
       }
     }
     if (dataType.format === 'PTnHnM') {
-      if(mihours !== "" || mihours !== ""){
+      if(mihours || mihours){
        durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
       }
       if(mahours !== "" || maminutes !== ""){

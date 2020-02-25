@@ -183,9 +183,25 @@ export function validCollectedVariables(
    * It solves this issue : https://trello.com/c/bZo4vAei/397-255-questionnaire-non-r%C3%A9cup%C3%A9r%C3%A9-par-lapplication
    */
 
+  function objectCompare(object1, object2) {
+    let equal = true;
+    for (var p in object1) {
+      if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
+        equal = false;
+      }
+      else if(object1[p] != '' && object2[p] == undefined) {
+        equal = false;
+      }
+      else if( object1[p] != '' && object2[p] != undefined) {
+        if (object1[p] != object2[p]) {
+          equal = false;
+        }
+      }
+     }
+    return equal;
+  }
   let codeListPrecision = false;
-  if (type === SINGLE_CHOICE){
-    if(expectedVariables.length === value.length){
+    if(expectedVariables.length === value.length && type === SINGLE_CHOICE){
       for (var i=1; i < value.length; i++) {
         const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name );
        if (resultat) {
@@ -199,10 +215,22 @@ export function validCollectedVariables(
         } 
        }
     }
+   else if(expectedVariables.length === value.length && type === MULTIPLE_CHOICE){
+      for (let i=0; i < value.length; i++) {
+        if(value[i].type == "TEXT" && value[i].codeListReference == undefined){
+          const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name);
+          if(result){
+                codeListPrecision = resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength;
+            } 
+          else {
+              codeListPrecision = false
+            }
+          }
+       }
+    }
     else {
       codeListPrecision = true;
-    }
-  }
+   }
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
@@ -214,11 +242,11 @@ export function validCollectedVariables(
 
     return Dictionary.validation_collectedvariable_need_reset;
   }
-
   if (
     type === MULTIPLE_CHOICE &&
     value[0] &&
-    value[0].codeListReference !== expectedVariables[0].codeListReference
+    value[0].codeListReference !== expectedVariables[0].codeListReference||
+    type === MULTIPLE_CHOICE && value[0] && codeListPrecision
   ) {
  
     return Dictionary.validation_collectedvariable_need_reset;
@@ -230,13 +258,11 @@ export function validCollectedVariables(
     if (
       value[0].codeListReference ||
       typevalue !== typeexpectedVariables ||
-      JSON.stringify(value[0][typevalue]) != JSON.stringify(expectedVariables[0][typeexpectedVariables])
+      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue])
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
     }
   } 
-
-
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list
    * are in the right order.

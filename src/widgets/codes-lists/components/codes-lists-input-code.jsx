@@ -42,7 +42,7 @@ let defaultProps = {
     value: '',
     label: '',
     precisionid: '',
-    precisionlabel: 'Préciser :',
+    precisionlabel: '',
     precisionsize: '249',
   },
 };
@@ -81,8 +81,8 @@ class CodesListInputCode extends ComponentWithValidation {
       if(code.precisionlabel !== undefined && code.precisionlabel !== ''){
         change(formName, `${path}precisionlabel`, code.precisionlabel);
       }
-      else {
-        change(formName, `${path}precisionlabel`, 'Préciser :');
+      else if(precisionShow) { 
+        change(formName, `${path}precisionlabel`, `${Question}${code.value}CL label`);
       }
       if(code.precisionsize !== undefined && code.precisionsize !== ''){
         change(formName, `${path}precisionsize`, code.precisionsize);

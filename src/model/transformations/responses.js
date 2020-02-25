@@ -7,7 +7,16 @@ export function stateToModel(
   collectedVariablesStore,
   type,
 ) {
-  const responsesModel = collectedVariables.map(cv =>
+  let collectedVariablesFinal = collectedVariables;
+  if(type == 'MULTIPLE_CHOICE') {
+    collectedVariablesFinal.map(collected=> {
+      const find = Object.values(collectedVariablesStore).find(variable=> variable.id == collected);
+      if(find && find.type == 'TEXT' && find.codeListReference == undefined) {
+        collectedVariablesFinal = collectedVariablesFinal.filter(element => element != find.id)
+      }
+    })
+  }
+  const responsesModel = collectedVariablesFinal.map(cv =>
     Response.stateToRemote({ ...state, collectedVariable: cv }),
   );
   const mappingModel = responsesModel.map(r => {

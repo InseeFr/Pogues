@@ -340,5 +340,97 @@ describe('collected variable tranformations', () => {
       ];
       expect(storeToRemote(input)).toEqual(output);
     });
+
+    test('should not return minimum in collected variable model if type is DURATION and the PnYnM format and miyears and mimonths undefined', () => {
+      const input = {
+        k23boas9: {
+          id: "k23boas9",
+          label: "QWSS label",
+          name: "QWSS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "PnYnM",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: 1,
+            mamonths: 1,
+            mihours: undefined,
+            miminutes: undefined,
+            mahours: undefined,
+            maminutes: undefined,
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "QWSS label",
+          Name: "QWSS",
+          id: "k23boas9",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "PnYnM",
+            Maximum: "P1Y1M",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
+
+    test('should not return Maximum collected variable model if type is DURATION and the PTnHnM format and mahours and maminutes undefined', () => {
+      const input = {
+        k23bk67e: {
+          id: "k23bk67e",
+          label: "AQS label",
+          name: "AQS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "PTnHnM",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: 2,
+            miminutes: 1,
+            mahours: undefined,
+            maminutes: undefined,
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "AQS label",
+          Name: "AQS",
+          id: "k23bk67e",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "PTnHnM",
+            Minimum: "PT2H1M",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
   });
 });
