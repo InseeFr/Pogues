@@ -119,7 +119,7 @@ export function getCollectedVariablesMultiple(
     collectedVariables.push(
       getCollecteVariable(
         code.precisionid,
-        code.precisionlabel,
+        `${code.precisionid} label`,
         undefined,
          {
           type: TEXT,
@@ -158,7 +158,7 @@ export function getCollectedVariablesSingle(
         collectedVariables.push(
           getCollecteVariable(
             code.precisionid,
-            code.precisionlabel,
+            `${code.precisionid} label`,
             undefined,
              {
               type: TEXT,

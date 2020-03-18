@@ -105,6 +105,7 @@ export function stateToRemote(state, stores) {
     codesListsStore,
     componentsStore,
   );
+
   const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
     getCollectedVariablesIdsFromComponents(componentsStore),
     collectedVariablesStore,
@@ -125,7 +126,6 @@ export function stateToRemote(state, stores) {
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
     Name: campaignsStore[c].label,
   }));
-
   const remote = {
     owner,
     final,
@@ -139,7 +139,6 @@ export function stateToRemote(state, stores) {
     agency: agency || 'fr.insee',
     TargetMode,
   };
- 
   const componentsRemote = Component.storeToRemote(
     componentsStore,
     id,
@@ -156,6 +155,7 @@ export function stateToRemote(state, stores) {
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
   );
+
   return {
     ...remote,
     Child: componentsRemote,

@@ -205,7 +205,7 @@ export function validCollectedVariables(
       for (var i=1; i < value.length; i++) {
         const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name );
        if (resultat) {
-          if( resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength)
+          if(resultat.TEXT.maxLength != value[i].TEXT.maxLength)
             {
               codeListPrecision = true;
             }
@@ -219,7 +219,7 @@ export function validCollectedVariables(
       for (let i=0; i < value.length; i++) {
         if(value[i].type == "TEXT" && value[i].codeListReference == undefined){
           const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name);
-          if(result){
+          if(resultat){
                 codeListPrecision = resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength;
             } 
           else {

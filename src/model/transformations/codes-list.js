@@ -36,8 +36,9 @@ export function getcodelistwithclarification(remote, variableclarification) {
   remote.forEach(codelist => {
     variableclarification.forEach( clarif => {
       if (clarif.codelistid === codelist.id){
-          codelist.Code[clarif.position] = {
-            ...codelist.Code[clarif.position], 
+      const index = codelist.Code.findIndex(code => code.Value == clarif.position)
+          codelist.Code[index] = {
+            ...codelist.Code[index], 
             Precisionid: clarif.responseclar.Name, 
             Precisionlabel: clarif.responseclar.Label,
             Precisionsize: clarif.responseclar.Response[0].Datatype.MaxLength,
