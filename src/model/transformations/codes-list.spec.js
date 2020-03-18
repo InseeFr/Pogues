@@ -261,7 +261,7 @@ describe('codes list tranformations', () => {
 	  const clarification = [
 	   {
 	 	  responseclar: {
-            id: "k4e0h8vg",
+          id: "k4e0h8vg",
           questionType: "SIMPLE",
           Name: "tests",
           Label: "Préciser :",
@@ -275,7 +275,7 @@ describe('codes list tranformations', () => {
           },
           ]
 		  },
-		  position: 0,
+		  position:   1,
 		  codelistid: "j6p2kivg",
 	   },
         {
@@ -812,6 +812,9 @@ describe('codes list tranformations', () => {
               parent: '',
               depth: 1,
               weight: 1,
+              precisionid: 'sdd',
+		      	  precisionlabel: 'Préciser :',
+			        precisionsize: '5'
             },
             '2': {
               value: '2',
@@ -819,9 +822,6 @@ describe('codes list tranformations', () => {
               parent: '',
               depth: 1,
               weight: 2,
-			        precisionid: 'sdd',
-		      	  precisionlabel: 'Préciser :',
-			        precisionsize: '5'
             },
             '3': {
               value: '3',

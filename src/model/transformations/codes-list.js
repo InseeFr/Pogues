@@ -21,10 +21,12 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         parent: c.Parent,
         depth,
         weight: index + 1,
-        precisionid : c.Precisionid,
-        precisionlabel : c.Precisionlabel,
-        precisionsize : c.Precisionsize,
       };
+      if(c.Precisionid) {
+        codeState.precisionid = c.Precisionid;
+        codeState.precisionlabel = c.Precisionlabel;
+        codeState.precisionsize = c.Precisionsize;
+      }
       return {
         ...acc,
         [codeState.value]: codeState,

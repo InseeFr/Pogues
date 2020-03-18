@@ -69,16 +69,7 @@ describe('getCollectedVariablesSingle', () => {
         },
     };
     const codesListStore = {};
-      const result = getCollectedVariablesSingle( questionName, form, codesListStore);
-    //   const result = getCollecteVariable(questionName, `${questionName} label`, undefined, {
-    //   codeListReference: form.CodesList.id,
-    //   codeListReferenceLabel: form.CodesList.label,
-    //   type: TEXT,
-    //   [TEXT]: {
-    //     maxLength: 1,
-    //     pattern: '',
-    //   },
-    // });
+    const result = getCollectedVariablesSingle( questionName, form, codesListStore);
 
     expect(result).toEqual([
        {
@@ -145,7 +136,7 @@ describe('getCollectedVariablesSingle', () => {
          },
         id: result[1].id ,
         name: 'precision',
-        label: 'precisionlabel',
+        label: 'precision label',
          },
     ]);
   });
