@@ -113,13 +113,14 @@ export function getCollectedVariablesMultiple(
      reponseFormatValues,
    )
  );
+
  form.PRIMARY.CodesList.codes.forEach(function(code) {
   if (code.precisionid && code.precisionid != "") {
     collectedVariables.push(
       getCollecteVariable(
         code.precisionid,
         `${code.precisionid} label`,
-        { z: code.weight },
+        undefined,
          {
           type: TEXT,
           [TEXT]: {
@@ -158,7 +159,7 @@ export function getCollectedVariablesSingle(
           getCollecteVariable(
             code.precisionid,
             `${code.precisionid} label`,
-            { z: code.weight },
+            undefined,
              {
               type: TEXT,
               [TEXT]: {
@@ -170,7 +171,7 @@ export function getCollectedVariablesSingle(
         );
       }
     });
-     
+
  return collectedVariables;
 
 }

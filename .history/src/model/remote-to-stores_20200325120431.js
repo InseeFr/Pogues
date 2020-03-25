@@ -45,7 +45,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
       collectedVariables,
       responsesByVariable,
       codesListsStore,
-      variableclarification
     ),
   };
 

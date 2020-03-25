@@ -12,10 +12,14 @@ export function remoteToStore(
   codesListsStore,
   variableclarification,
 ) {
+  console.log('remote', remote);
+  console.log('variableclarification', variableclarification);
+
   remote.map(variable => {
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
+        console.log('find', find);
         const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value == find.position)
         variable.z = code.weight;
       }

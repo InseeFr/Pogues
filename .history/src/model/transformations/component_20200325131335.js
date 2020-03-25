@@ -227,6 +227,7 @@ function remoteToStoreNested(
         acc,
       );
     return acc;
+
   });
   return acc;
 }
@@ -250,8 +251,8 @@ function getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, c
     }
   });
   collectedvariablequestion.forEach(function(collected) {
-    const code = Object.values(codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes).find(code => code.weight === collected.z);
-    if (code) {
+    const code = Object.values(codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes).find( code => code.precisionid === collected.name);
+    if (collected.codeListReference === undefined && code) {
       let clafication = {
         id: uuid(),
         questionType: QUESTION_TYPE_ENUM.SIMPLE,
@@ -271,8 +272,8 @@ function getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, c
       ClarificationQuestion.push(clafication);
       const clarficationredirection = {
         id: uuid(),
-        label:  `$${collectedvariablequestion[0].name}$ = '${code.value}' : ${collected.name}`,
-        condition: `$${collectedvariablequestion[0].name}$ = '${code.value}'`,
+        label:  `$${collected.name}$ = '${code.value}' : ${code.precisionid}`,
+        condition: `$${collected.name}$ = '${code.value}'`,
         cible: clafication.id,
         flowControlType : "CLARIFICATION",
        };
@@ -285,6 +286,7 @@ function getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, c
     flowcontrolefinal,
     ClarificationQuestion
   }
+
 }
 
 function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, FlowControl, TargetMode, Name){
@@ -305,21 +307,15 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
       flowcontrolefinal.push(flowcon);
     }
   });
-  console.log('collectedvariablequestion', collectedvariablequestion)
-
   collectedvariablequestion.forEach(function(collected) {
-    const code = Object.values(codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id].codes).find(code => code.weight === collected.z);
-    if (!collected.codeListReference && code) {
-      console.log('code', code)
 
-    const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
-    console.log('collectedVar', collectedVar)
-
-    let clafication = {
+    const code = Object.values(codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id].codes).find( code => code.precisionid === collected.name);
+    if (collected.codeListReference=== undefined && code) {
+      let clafication = {
         id: uuid(),
         questionType: QUESTION_TYPE_ENUM.SIMPLE,
-        Name: code.precisionid,
-        Label: code.precisionlabel,
+        Name: collected.name,
+        Label: collected.label,
         TargetMode: TargetMode,
         Response: [
           Response.stateToRemote({
@@ -332,10 +328,11 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
         ],
       };
       ClarificationQuestion.push(clafication);
+
       const clarficationredirection = {
         id: uuid(),
-        label:  `$${collectedVar.name}$ = '${code.value}' : ${collected.name}`,
-        condition: `$${collectedVar.name}$ = '${code.value}'`,
+        label:  `$${collected.name}$ = '${code.value}' : ${code.precisionid}`,
+        condition: `$${collected.name}$ = '${code.value}'`,
         cible: clafication.id,
         flowControlType : "CLARIFICATION",
        };

@@ -305,15 +305,11 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
       flowcontrolefinal.push(flowcon);
     }
   });
-  console.log('collectedvariablequestion', collectedvariablequestion)
-
   collectedvariablequestion.forEach(function(collected) {
     const code = Object.values(codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id].codes).find(code => code.weight === collected.z);
     if (!collected.codeListReference && code) {
-      console.log('code', code)
 
     const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
-    console.log('collectedVar', collectedVar)
 
     let clafication = {
         id: uuid(),

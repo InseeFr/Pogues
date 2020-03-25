@@ -137,7 +137,6 @@ describe('getCollectedVariablesSingle', () => {
         id: result[1].id ,
         name: 'precision',
         label: 'precision label',
-        z: 1
          },
     ]);
   });
