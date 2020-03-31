@@ -16,6 +16,7 @@ export function stateToModel(
       }
     })
   }
+  console.log('collectedVariablesFinal', collectedVariablesFinal)
   const responsesModel = collectedVariablesFinal.map(cv =>
     Response.stateToRemote({ ...state, collectedVariable: cv }),
   );

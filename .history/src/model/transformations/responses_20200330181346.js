@@ -11,11 +11,14 @@ export function stateToModel(
   if(type == 'MULTIPLE_CHOICE') {
     collectedVariablesFinal.map(collected=> {
       const find = Object.values(collectedVariablesStore).find(variable=> variable.id == collected);
+      console.log('!find.codeListReference', !find.codeListReference)
+
       if(find && find.type == 'TEXT' && !find.codeListReference) {
         collectedVariablesFinal = collectedVariablesFinal.filter(element => element != find.id)
       }
     })
   }
+  console.log('collectedVariablesFinal', collectedVariablesFinal)
   const responsesModel = collectedVariablesFinal.map(cv =>
     Response.stateToRemote({ ...state, collectedVariable: cv }),
   );
