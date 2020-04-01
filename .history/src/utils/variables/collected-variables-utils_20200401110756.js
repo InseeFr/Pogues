@@ -201,6 +201,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       .reduce((acc, res) => [...acc, ...res], []);
   }
 
+
+
   function getReponsesValues(measure) {
     let reponseFormatValues = {};
 

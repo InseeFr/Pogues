@@ -61,8 +61,6 @@ export function getDisabledActions(allCodes, code, actions, type) {
     disabledActions.push(actions.MOVE_RIGHT.name);
   if(code.precisionid === undefined || code.precisionid === "")
     disabledActions.push(actions.PRECESION_EDIT.name);
-  if(code.precisionid)
-    disabledActions.push(actions.PRECESION.name);  
 
   return disabledActions;
 }

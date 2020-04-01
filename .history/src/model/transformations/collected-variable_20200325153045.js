@@ -12,7 +12,7 @@ export function remoteToStore(
   codesListsStore,
   variableclarification,
 ) {
-  remote.forEach(variable => {
+  remote.map(variable => {
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
