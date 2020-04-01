@@ -91,7 +91,6 @@ export function getCollectedVariablesMultiple(
     type: BOOLEAN,
     [BOOLEAN]: {},
   };
-console.log('typeMeasure', typeMeasure)
   if (typeMeasure === CODES_LIST) {
     reponseFormatValues = {
       codeListReference: form[MEASURE][CODES_LIST].CodesList.id,
