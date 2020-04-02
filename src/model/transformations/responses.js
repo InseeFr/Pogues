@@ -11,7 +11,7 @@ export function stateToModel(
   if(type == 'MULTIPLE_CHOICE') {
     collectedVariablesFinal.map(collected=> {
       const find = Object.values(collectedVariablesStore).find(variable=> variable.id == collected);
-      if(find && find.type == 'TEXT' && find.codeListReference == undefined) {
+      if(find && find.type == 'TEXT' && !find.codeListReference) {
         collectedVariablesFinal = collectedVariablesFinal.filter(element => element != find.id)
       }
     })

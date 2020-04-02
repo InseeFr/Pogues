@@ -91,7 +91,6 @@ export function getCollectedVariablesMultiple(
     type: BOOLEAN,
     [BOOLEAN]: {},
   };
-
   if (typeMeasure === CODES_LIST) {
     reponseFormatValues = {
       codeListReference: form[MEASURE][CODES_LIST].CodesList.id,
@@ -113,14 +112,13 @@ export function getCollectedVariablesMultiple(
      reponseFormatValues,
    )
  );
-
  form.PRIMARY.CodesList.codes.forEach(function(code) {
   if (code.precisionid && code.precisionid != "") {
     collectedVariables.push(
       getCollecteVariable(
         code.precisionid,
-        code.precisionlabel,
-        undefined,
+        `${code.precisionid} label`,
+        { z: code.weight },
          {
           type: TEXT,
           [TEXT]: {
@@ -158,10 +156,11 @@ export function getCollectedVariablesSingle(
         collectedVariables.push(
           getCollecteVariable(
             code.precisionid,
-            code.precisionlabel,
-            undefined,
+            `${code.precisionid} label`,
+            { z: code.weight },
              {
               type: TEXT,
+              codeListReference: undefined,
               [TEXT]: {
               maxLength: code.precisionsize,
               pattern: '',
@@ -171,7 +170,7 @@ export function getCollectedVariablesSingle(
         );
       }
     });
-
+     
  return collectedVariables;
 
 }
@@ -201,8 +200,6 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
       .reduce((acc, res) => [...acc, ...res], []);
   }
-
-
 
   function getReponsesValues(measure) {
     let reponseFormatValues = {};

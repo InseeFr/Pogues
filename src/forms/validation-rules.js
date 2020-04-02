@@ -151,7 +151,7 @@ export function validCollectedVariables(
     if (!expected[0]) {
       return true;
     }
-    return expected.filter(e => !values.includes(e)).length === 0;
+    return expected.filter(e => e != undefined && !values.includes(e)).length === 0;
   }
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
@@ -201,36 +201,12 @@ export function validCollectedVariables(
     return equal;
   }
   let codeListPrecision = false;
-    if(expectedVariables.length === value.length && type === SINGLE_CHOICE){
-      for (var i=1; i < value.length; i++) {
-        const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name );
-       if (resultat) {
-          if( resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength)
-            {
-              codeListPrecision = true;
-            }
-        }
-        else{
-          codeListPrecision = true;
-        } 
-       }
-    }
-   else if(expectedVariables.length === value.length && type === MULTIPLE_CHOICE){
-      for (let i=0; i < value.length; i++) {
-        if(value[i].type == "TEXT" && value[i].codeListReference == undefined){
-          const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name);
-          if(result){
-                codeListPrecision = resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength;
-            } 
-          else {
-              codeListPrecision = false
-            }
-          }
-       }
-    }
-    else {
+    if(expectedVariables.length != value.length && type === SINGLE_CHOICE){
       codeListPrecision = true;
-   }
+    }
+    if(expectedVariables.length != value.length && type === MULTIPLE_CHOICE){
+      codeListPrecision = true;
+    }
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
@@ -239,7 +215,6 @@ export function validCollectedVariables(
     type === SINGLE_CHOICE && value[0] && codeListPrecision
   )
    {
-
     return Dictionary.validation_collectedvariable_need_reset;
   }
   if (
@@ -248,7 +223,6 @@ export function validCollectedVariables(
     value[0].codeListReference !== expectedVariables[0].codeListReference||
     type === MULTIPLE_CHOICE && value[0] && codeListPrecision
   ) {
- 
     return Dictionary.validation_collectedvariable_need_reset;
   }
   
@@ -279,6 +253,7 @@ export function validCollectedVariables(
   ){
     return false;
    }
+
   return isCodesTheSame &&
     isTheSameOrder &&
     (expectedVariables && value.length === expectedVariables.length)

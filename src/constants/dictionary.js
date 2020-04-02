@@ -345,6 +345,10 @@ const dictionary = {
     fr: 'Précision',
   },
 
+  specify: {
+    en: 'Specify',
+    fr: 'Préciser',
+  },
   hours: {
     en: 'hours',
     fr: 'heures',

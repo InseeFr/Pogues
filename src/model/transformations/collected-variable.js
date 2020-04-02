@@ -3,13 +3,24 @@ import {
   VARIABLES_TYPES,
   DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME
 } from 'constants/pogues-constants';
+import { element } from 'prop-types';
 const { COLLECTED } = VARIABLES_TYPES;
 
 export function remoteToStore(
   remote = [],
   responsesByVariable,
   codesListsStore,
+  variableclarification,
 ) {
+  remote.forEach(variable => {
+    if(variableclarification) {
+      const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
+      if(find) {
+        const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value == find.position)
+        variable.z = code.weight;
+      }
+    }
+  })
   return remote.reduce((acc, ev) => {
     ev.Datatype = ev.Datatype || {};
     const {
@@ -27,6 +38,7 @@ export function remoteToStore(
         Format: format1,
       },
     } = ev;
+    const z = ev.z;
     const id = ev.id || uuid();
     const format =
     typeName === DATATYPE_NAME.DATE && format1 ? format1.toLowerCase() : format1;
@@ -76,6 +88,7 @@ export function remoteToStore(
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
+        z,
         [typeName]: datatype,
         ...responsesByVariable[id],
       },
@@ -84,7 +97,6 @@ export function remoteToStore(
 }
 
 export function remoteToComponentState(remote = []) {
- 
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
@@ -92,7 +104,6 @@ export function remoteToComponentState(remote = []) {
 
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
-
     const {
       id,
       name: Name,
@@ -150,7 +161,6 @@ export function storeToRemote(store) {
         }
       }
      }
-
      else if (typeName === DATATYPE_NAME.DATE){
         if (Minimum !== '') {
           model.Datatype.Minimum = Minimum;
@@ -159,7 +169,6 @@ export function storeToRemote(store) {
           model.Datatype.Maximum = Maximum;
         }
      }
-
     else {
       if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
       if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
@@ -173,9 +182,7 @@ export function storeToRemote(store) {
       else{
         model.Datatype.Format = Format;
       }
-       
     }
-
-    return model;
+        return model;
   });
 }

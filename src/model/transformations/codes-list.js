@@ -21,10 +21,12 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         parent: c.Parent,
         depth,
         weight: index + 1,
-        precisionid : c.Precisionid,
-        precisionlabel : c.Precisionlabel,
-        precisionsize : c.Precisionsize,
       };
+      if(c.Precisionid) {
+        codeState.precisionid = c.Precisionid;
+        codeState.precisionlabel = c.Precisionlabel;
+        codeState.precisionsize = c.Precisionsize;
+      }
       return {
         ...acc,
         [codeState.value]: codeState,
@@ -36,8 +38,9 @@ export function getcodelistwithclarification(remote, variableclarification) {
   remote.forEach(codelist => {
     variableclarification.forEach( clarif => {
       if (clarif.codelistid === codelist.id){
-          codelist.Code[clarif.position] = {
-            ...codelist.Code[clarif.position], 
+        const index = codelist.Code.findIndex(code => code.Value == clarif.position)
+          codelist.Code[index] = {
+            ...codelist.Code[index], 
             Precisionid: clarif.responseclar.Name, 
             Precisionlabel: clarif.responseclar.Label,
             Precisionsize: clarif.responseclar.Response[0].Datatype.MaxLength,
