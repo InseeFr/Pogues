@@ -182,7 +182,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
    * We will first sort codes with the depth=1, and recurively for each code,
    * sort its direct children.
    */
-  console.log('form', form)
+  console.log('form.CodesList.codes', form.CodesList.codes)
 
   function sortCodes(codes = [], depth = 1, parent = '') {
     const filtered = codes.filter(
