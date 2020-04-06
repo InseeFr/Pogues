@@ -11,3 +11,4 @@ screenshots/
 coverage/
 docs/stats.html
 reports*
+.history/
