@@ -76,15 +76,22 @@ export function getClarificarionfromremote(Children) {
           childclarification.forEach(element => {
             element.ClarificationQuestion.forEach(item =>{ 
               const position = element.FlowControl.find( controle => controle.IfTrue === item.id).Expression;
-              const stringFind = position.substring(
+              let stringFind = position.substring(
                 position.lastIndexOf("=") + 3, 
                 position.lastIndexOf("'")
             );
+            if(element.questionType == "MULTIPLE_CHOICE") {
+               stringFind = position.substring(
+                1, 
+                position.lastIndexOf("$")
+                ).replace(element.Name,'');
+            }
               const codelistid = element.questionType == "MULTIPLE_CHOICE" ?element.ResponseStructure.Dimension[0].CodeListReference: element.Response[0].CodeListReference;
               const variable = {
                 responseclar : item,
                 position: stringFind,
                 codelistid: codelistid,
+                type: element.questionType
               };
               variableClarification.push(variable);
             });
@@ -329,8 +336,8 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
       ClarificationQuestion.push(clafication);
       const clarficationredirection = {
         id: uuid(),
-        label:  `$${collectedVar.name}$ = '${code.value}' : ${collected.name}`,
-        condition: `$${collectedVar.name}$ = '${code.value}'`,
+        label:  `$${collectedVar.name}$ = '1' : ${collected.name}`,
+        condition: `$${collectedVar.name}$ = '1'`,
         cible: clafication.id,
         flowControlType : "CLARIFICATION",
        };
