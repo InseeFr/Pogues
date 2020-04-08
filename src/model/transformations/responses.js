@@ -8,10 +8,10 @@ export function stateToModel(
   type,
 ) {
   let collectedVariablesFinal = collectedVariables;
-  if(type == 'MULTIPLE_CHOICE' || type == 'TABLE') {
+  if(type == 'MULTIPLE_CHOICE') {
     collectedVariablesFinal.map(collected=> {
       const find = Object.values(collectedVariablesStore).find(variable=> variable.id == collected);
-      if(find && find.type == 'TEXT' && !find.x) {
+      if(find && find.type == 'TEXT' && !find.codeListReference) {
         collectedVariablesFinal = collectedVariablesFinal.filter(element => element != find.id)
       }
     })
