@@ -16,6 +16,7 @@ export function remoteToStore(
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
+
         if(find.type == 'MULTIPLE_CHOICE') {       
           variable.z = parseInt(find.position) - 1;
         }

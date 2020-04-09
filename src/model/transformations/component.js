@@ -57,16 +57,31 @@ function clarificationQuestion(Children){
   const Clarification = [];
   const childr = Children.filter(children => children.Child.length != 0);
         childr.forEach(item =>{
-          item.Child.forEach(clar => 
+          item.Child.forEach(clar =>
             {
-            if((clar.questionType === "SINGLE_CHOICE" || 
-                clar.questionType === "MULTIPLE_CHOICE" || 
-                clar.questionType == "TABLE") &&
-                clar.ClarificationQuestion != undefined && 
-                clar.ClarificationQuestion.length != 0)
-                {
-                  Clarification.push(clar);
-                }
+            if (clar.type == "SequenceType") {
+              clar.Child.forEach( supseq => {
+                if((supseq.questionType === "SINGLE_CHOICE" || 
+                  supseq.questionType === "MULTIPLE_CHOICE" || 
+                  supseq.questionType == "TABLE") &&
+                  supseq.ClarificationQuestion != undefined && 
+                  supseq.ClarificationQuestion.length != 0)
+                    {
+                      Clarification.push(supseq);
+                    }
+              })
+            }
+            else {
+              if((clar.questionType === "SINGLE_CHOICE" || 
+                  clar.questionType === "MULTIPLE_CHOICE" || 
+                  clar.questionType == "TABLE") &&
+                  clar.ClarificationQuestion != undefined && 
+                  clar.ClarificationQuestion.length != 0)
+              {
+                Clarification.push(clar);
+              }  
+            }
+
             });
         });
   return Clarification;

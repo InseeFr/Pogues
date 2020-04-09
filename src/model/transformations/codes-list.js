@@ -54,6 +54,7 @@ export function getcodelistwithclarification(remote, variableclarification) {
       }
     });
   });
+
   return remote;
 }
 export function remoteToStore(remote, variableclarification) {
