@@ -130,7 +130,6 @@ export function getCollectedVariablesMultiple(
     );
   }
 });
-console.log('collectedVariables', collectedVariables)
   return  collectedVariables;
 }
 
@@ -333,24 +332,24 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       );
     }
   }
-  // form.PRIMARY.CODES_LIST.CodesList.codes.forEach(function(code) {
-  //   if (code.precisionid && code.precisionid != "") {
-  //     collectedVariables.push(
-  //       getCollecteVariable(
-  //         code.precisionid,
-  //         `${code.precisionid} label`,
-  //         { z: code.weight },
-  //          {
-  //           type: TEXT,
-  //           [TEXT]: {
-  //           maxLength: code.precisionsize,
-  //           pattern: '',
-  //           },
-  //         },
-  //       ),
-  //     );
-  //   }
-  // });
+  form.PRIMARY.CODES_LIST.CodesList.codes.forEach(function(code) {
+    if (code.precisionid && code.precisionid != "") {
+      collectedVariables.push(
+        getCollecteVariable(
+          code.precisionid,
+          `${code.precisionid} label`,
+          { z: code.weight },
+           {
+            type: TEXT,
+            [TEXT]: {
+            maxLength: code.precisionsize,
+            pattern: '',
+            },
+          },
+        ),
+      );
+    }
+  });
   return collectedVariables.sort(sortByYAndX());
 }
 

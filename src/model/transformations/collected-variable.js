@@ -14,11 +14,15 @@ export function remoteToStore(
 ) {
   remote.forEach(variable => {
     if(variableclarification) {
-    console.log('variableclarification', variableclarification)  
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
-        const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value == find.position)
-        variable.z = code.weight;
+        if(find.type == 'MULTIPLE_CHOICE') {       
+          variable.z = parseInt(find.position) - 1;
+        }
+        else {
+          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value == find.position)
+          variable.z = code.weight;
+        }
       }
     }
   })

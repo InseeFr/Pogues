@@ -24,7 +24,7 @@ export const code04 = {
 
 export const code05 = {
   value: 'value05',
-  weight: 2,
+  : 2,
   parent: '',
 };
 

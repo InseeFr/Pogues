@@ -398,7 +398,7 @@ export function stateToRemote(
       responsesState[measureState ? 0 : i],
       collectedVariablesByDatatype,
       collectedVariablesStore,
-      //QUESTION_TYPE_ENUM.TABLE
+      QUESTION_TYPE_ENUM.TABLE
     );
 
     responsesModel = [...responsesModel, ...responsesModelByRow.Response];
