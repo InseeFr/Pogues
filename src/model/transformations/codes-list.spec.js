@@ -275,10 +275,11 @@ describe('codes list tranformations', () => {
           },
           ]
 		  },
-		  position:   1,
-		  codelistid: "j6p2kivg",
+		  position:   2,
+      codelistid: "j6p2kivg",
+      type: "MULTIPLE_CHOICE"
 	   },
-        {
+     {
 	 	  responseclar: {
             id: "k4e0rr9w",
           questionType: "SIMPLE",
@@ -294,8 +295,9 @@ describe('codes list tranformations', () => {
             },
           ]
 		  },
-		  position: 1,
-		  codelistid: "jbdye1wa",
+		  position: '1',
+      codelistid: "jbdye1wa",
+      type: "SINGLE_CHOICE"
 	   },
 	  ];
 	  
@@ -783,8 +785,8 @@ describe('codes list tranformations', () => {
           id: 'j6p2kivg',
           label: 'Means of transport',
           codes: {
-            '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1, precisionid: 'tests', precisionlabel: 'Préciser :', precisionsize: '249' },
-            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2},
+            '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1 },
+            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2, precisionid: 'tests', precisionlabel: 'Préciser :', precisionsize: '249'},
             '3': {
               value: '3',
               label: 'Skateboard',

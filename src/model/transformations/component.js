@@ -509,7 +509,6 @@ function storeToRemoteNested(
   }
   return remote;
 }
-
 function childrenToRemote(
   children,
   store,

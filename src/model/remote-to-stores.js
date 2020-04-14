@@ -47,7 +47,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
       variableclarification
     ),
   };
-
   // Components store
   const componentByQuestionnaire = {
     [id]: Component.remoteToStore(remote, id, codesListsStore),

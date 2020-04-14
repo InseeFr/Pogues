@@ -26,7 +26,6 @@ export function remoteToStore(
       }
     }
   })
-  
   return remote.reduce((acc, ev) => {
     ev.Datatype = ev.Datatype || {};
     const {
@@ -100,13 +99,11 @@ export function remoteToStore(
     };
   }, {});
 }
-
 export function remoteToComponentState(remote = []) {
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
 }
-
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
     const {
