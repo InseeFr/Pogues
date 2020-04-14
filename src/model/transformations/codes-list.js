@@ -37,13 +37,13 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
 export function getcodelistwithclarification(remote, variableclarification) {
   remote.forEach(codelist => {
     variableclarification.forEach( clarif => {
-      if (clarif.codelistid == codelist.id && clarif.position){
+      if (clarif.codelistid === codelist.id && clarif.position){
         let index = 0;
-        if(clarif.type == 'MULTIPLE_CHOICE') {       
+        if(clarif.type === 'MULTIPLE_CHOICE') {       
             index = parseInt(clarif.position) - 1
          }
         else {
-          index = codelist.Code.findIndex(code => code.Value == clarif.position);
+          index = codelist.Code.findIndex(code => code.Value === clarif.position);
         }
         codelist.Code[parseInt(index)] = {
           ...codelist.Code[parseInt(index)], 

@@ -39,7 +39,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   };
   // Collected variables store
   const responsesByVariable = Component.remoteToVariableResponse(remote);
-  
   const collectedVariableByQuestionnaire = {
     [id]: CollectedVariable.remoteToStore(
       collectedVariables,

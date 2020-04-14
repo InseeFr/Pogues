@@ -185,18 +185,20 @@ export function validCollectedVariables(
 
   function objectCompare(object1, object2) {
     let equal = true;
-    for (var p in object1) {
-      if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
-        equal = false;
-      }
-      else if(object1[p] != '' && object2[p] == undefined) {
-        equal = false;
-      }
-      else if( object1[p] != '' && object2[p] != undefined) {
-        if (object1[p] != object2[p]) {
-          equal = false;
+    if(object2) {
+      for (var p in object1) {
+          if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
+            equal = false;
+          }
+          else if(object1[p] != '' && object2[p] == undefined) {
+            equal = false;
+          }
+          else if( object1[p] != '' && object2[p] != undefined) {
+            if (object1[p] != object2[p]) {
+              equal = false;
+            }
+          }
         }
-      }
      }
     return equal;
   }
@@ -216,7 +218,7 @@ export function validCollectedVariables(
   )
    {
     return Dictionary.validation_collectedvariable_need_reset;
-  }
+   }
   if (
     type === MULTIPLE_CHOICE &&
     value[0] &&
@@ -224,8 +226,8 @@ export function validCollectedVariables(
     type === MULTIPLE_CHOICE && value[0] && codeListPrecision
   ) {
     return Dictionary.validation_collectedvariable_need_reset;
-  }
-  
+    }
+
   if (type === TABLE && value[0] || type === SIMPLE && value[0] ) {
     const typevalue = value[0].type;
     const typeexpectedVariables = expectedVariables[0].type;
@@ -235,7 +237,7 @@ export function validCollectedVariables(
       !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue])
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
-    }
+      }
   } 
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list

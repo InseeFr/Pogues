@@ -59,13 +59,13 @@ function clarificationQuestion(Children){
         childr.forEach(item =>{
           item.Child.forEach(clar =>
             {
-            if (clar.type == "SequenceType") {
+            if (clar.type === "SequenceType") {
               clar.Child.forEach( supseq => {
                 if((supseq.questionType === "SINGLE_CHOICE" || 
                   supseq.questionType === "MULTIPLE_CHOICE" || 
-                  supseq.questionType == "TABLE") &&
-                  supseq.ClarificationQuestion != undefined && 
-                  supseq.ClarificationQuestion.length != 0)
+                  supseq.questionType === "TABLE") &&
+                  supseq.ClarificationQuestion !== undefined && 
+                  supseq.ClarificationQuestion.length !== 0)
                     {
                       Clarification.push(supseq);
                     }
@@ -74,9 +74,9 @@ function clarificationQuestion(Children){
             else {
               if((clar.questionType === "SINGLE_CHOICE" || 
                   clar.questionType === "MULTIPLE_CHOICE" || 
-                  clar.questionType == "TABLE") &&
-                  clar.ClarificationQuestion != undefined && 
-                  clar.ClarificationQuestion.length != 0)
+                  clar.questionType === "TABLE") &&
+                  clar.ClarificationQuestion !== undefined && 
+                  clar.ClarificationQuestion.length !== 0)
               {
                 Clarification.push(clar);
               }  
@@ -102,10 +102,10 @@ export function getClarificarionfromremote(Children) {
                   1, 
                   position.lastIndexOf("$")
                   ).replace(element.Name,'');
-                  const codelistid = element.questionType == "MULTIPLE_CHOICE" || element.questionType == "TABLE" ? element.ResponseStructure.Dimension[0].CodeListReference: element.Response[0].CodeListReference;
+                  const codelistid = element.questionType === "MULTIPLE_CHOICE" || element.questionType == "TABLE" ? element.ResponseStructure.Dimension[0].CodeListReference: element.Response[0].CodeListReference;
                   const variable = {
                     responseclar : item,
-                    position: element.questionType == "MULTIPLE_CHOICE" ? multiplFind : stringFind,
+                    position: element.questionType === "MULTIPLE_CHOICE" ? multiplFind : stringFind,
                     codelistid: codelistid,
                     type: element.questionType
                   };
@@ -333,8 +333,8 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
     if(responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList)   {
       const code = Object.values(codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id].codes).find(code => code.weight === collected.z);
       if (!collected.codeListReference && code) {
-      const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
-      let clafication = {
+        const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
+        let clafication = {
           id: uuid(),
           questionType: QUESTION_TYPE_ENUM.SIMPLE,
           Name: code.precisionid,
@@ -392,8 +392,8 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
     if(responseFormat.TABLE.PRIMARY.CODES_LIST) {
       const code = Object.values(codesListsStore[responseFormat.TABLE.PRIMARY.CODES_LIST.CodesList.id].codes).find(code => code.weight === collected.z);
       if (!collected.codeListReference && code) {
-      const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
-      let clafication = {
+        const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
+        let clafication = {
           id: uuid(),
           questionType: QUESTION_TYPE_ENUM.SIMPLE,
           Name: code.precisionid,

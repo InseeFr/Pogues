@@ -16,17 +16,17 @@ export function remoteToStore(
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
-
-        if(find.type == 'MULTIPLE_CHOICE') {       
-          variable.z = parseInt(find.position) - 1;
+        if(find.type === 'MULTIPLE_CHOICE') {       
+          variable.z = parseInt(find.position);
         }
         else {
-          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value == find.position)
+          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
           variable.z = code.weight;
         }
       }
     }
   })
+  
   return remote.reduce((acc, ev) => {
     ev.Datatype = ev.Datatype || {};
     const {
@@ -82,7 +82,6 @@ export function remoteToStore(
         }
       }
     }
-
     return {
       ...acc,
       [id]: {

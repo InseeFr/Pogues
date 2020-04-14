@@ -41,7 +41,6 @@ export function getCollecteVariable(
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
-
   return collectedVariable;
 }
 
@@ -119,11 +118,11 @@ export function getCollectedVariablesMultiple(
         code.precisionid,
         `${code.precisionid} label`,
         { z: code.weight },
-         {
+        {
           type: TEXT,
           [TEXT]: {
-          maxLength: code.precisionsize,
-          pattern: '',
+            maxLength: code.precisionsize,
+            pattern: '',
           },
         },
       ),
@@ -158,12 +157,12 @@ export function getCollectedVariablesSingle(
             code.precisionid,
             `${code.precisionid} label`,
             { z: code.weight },
-             {
+            {
               type: TEXT,
               codeListReference: undefined,
               [TEXT]: {
-              maxLength: code.precisionsize,
-              pattern: '',
+                maxLength: code.precisionsize,
+                pattern: '',
               },
             },
           ),
@@ -333,17 +332,17 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     }
   }
   form.PRIMARY.CODES_LIST.CodesList.codes.forEach(function(code) {
-    if (code.precisionid && code.precisionid != "") {
+    if (code.precisionid && code.precisionid !== "") {
       collectedVariables.push(
         getCollecteVariable(
           code.precisionid,
           `${code.precisionid} label`,
           { z: code.weight },
-           {
+          {
             type: TEXT,
             [TEXT]: {
-            maxLength: code.precisionsize,
-            pattern: '',
+              maxLength: code.precisionsize,
+              pattern: '',
             },
           },
         ),
