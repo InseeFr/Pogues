@@ -146,7 +146,6 @@ export const questionRules = {
   [`${COLLECTED_VARIABLES}.collectedVariables`]: [validCollectedVariables],
  
 };
-
 export const declarationRules = {
   [`${DECLARATIONS}.label`]: [
     value => required(value) && Dictionary.validation_declaration_label,

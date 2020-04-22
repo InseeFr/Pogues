@@ -16,8 +16,13 @@ export function remoteToStore(
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
-        const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value == find.position)
-        variable.z = code.weight;
+        if(find.type === 'MULTIPLE_CHOICE') {       
+          variable.z = parseInt(find.position);
+        }
+        else {
+          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
+          variable.z = code.weight;
+        }
       }
     }
   })
@@ -76,7 +81,6 @@ export function remoteToStore(
         }
       }
     }
-
     return {
       ...acc,
       [id]: {
@@ -95,13 +99,11 @@ export function remoteToStore(
     };
   }, {});
 }
-
 export function remoteToComponentState(remote = []) {
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
 }
-
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
     const {

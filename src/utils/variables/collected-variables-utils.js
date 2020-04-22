@@ -41,7 +41,6 @@ export function getCollecteVariable(
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
-
   return collectedVariable;
 }
 
@@ -119,11 +118,11 @@ export function getCollectedVariablesMultiple(
         code.precisionid,
         `${code.precisionid} label`,
         { z: code.weight },
-         {
+        {
           type: TEXT,
           [TEXT]: {
-          maxLength: code.precisionsize,
-          pattern: '',
+            maxLength: code.precisionsize,
+            pattern: '',
           },
         },
       ),
@@ -158,12 +157,12 @@ export function getCollectedVariablesSingle(
             code.precisionid,
             `${code.precisionid} label`,
             { z: code.weight },
-             {
+            {
               type: TEXT,
               codeListReference: undefined,
               [TEXT]: {
-              maxLength: code.precisionsize,
-              pattern: '',
+                maxLength: code.precisionsize,
+                pattern: '',
               },
             },
           ),
@@ -182,6 +181,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
    * We will first sort codes with the depth=1, and recurively for each code,
    * sort its direct children.
    */
+
   function sortCodes(codes = [], depth = 1, parent = '') {
     const filtered = codes.filter(
       code => code.depth === depth && code.parent === parent,
@@ -331,6 +331,24 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       );
     }
   }
+  form.PRIMARY.CODES_LIST.CodesList.codes.forEach(function(code) {
+    if (code.precisionid && code.precisionid !== "") {
+      collectedVariables.push(
+        getCollecteVariable(
+          code.precisionid,
+          `${code.precisionid} label`,
+          { z: code.weight },
+          {
+            type: TEXT,
+            [TEXT]: {
+              maxLength: code.precisionsize,
+              pattern: '',
+            },
+          },
+        ),
+      );
+    }
+  });
   return collectedVariables.sort(sortByYAndX());
 }
 
