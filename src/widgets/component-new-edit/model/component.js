@@ -18,6 +18,9 @@ export const defaultState = {
   weight: '',
   label: '',
   name: '',
+  nameLoop: '',
+  maximum: '',
+  BasedOn: '',
   controls: [],
   declarations: [],
   redirections: [],
@@ -37,11 +40,37 @@ export function formToState(form, transformers) {
     redirections,
     collectedVariables,
     TargetMode,
+    nameLoop,
+    maximum,
+    basedOn,
+    filter,
+    initialMember,
+    finalMember,
+    addButtonLibel,
   } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
 
+  const test =  {
+    name: name || nameFromLabel(label) || nameLoop,
+    declarations: transformers.declaration.formToComponentState(declarations),
+    controls: transformers.control.formToComponentState(controls),
+    redirections: transformers.redirection.formToComponentState(redirections),
+    label: label,
+    responseFormat: transformers.responseFormat.formToState(responseFormat),
+    collectedVariables: transformers.collectedVariable.formToComponentState(
+      collectedVariables,
+    ),
+    TargetMode: TargetMode.split(','),
+    nameLoop: nameLoop,
+    maximum: maximum,
+    basedOn: basedOn,
+    filter: filter,    
+    initialMember: initialMember,
+    finalMember: finalMember,
+    addButtonLibel: addButtonLibel,
+  };
   return {
     name: name || nameFromLabel(label),
     declarations: transformers.declaration.formToComponentState(declarations),
@@ -53,6 +82,13 @@ export function formToState(form, transformers) {
       collectedVariables,
     ),
     TargetMode: TargetMode.split(','),
+    nameLoop: nameLoop,
+    maximum: maximum,
+    basedOn: basedOn,
+    filter: filter,
+    initialMember: initialMember,
+    finalMember: finalMember,
+    addButtonLibel: addButtonLibel,
   };
 }
 

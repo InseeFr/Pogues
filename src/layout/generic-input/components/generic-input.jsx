@@ -8,7 +8,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
 
 // PropTypes and defaultProps
@@ -199,6 +199,17 @@ class GenericInput extends Component {
         >
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.sequence}
+        </button>
+        <button
+          id="add-loop"
+          className="btn-white"
+          disabled={placeholders[LOOP].parent === ''}
+          onClick={() => {
+            this.handleOpenNewComponent(LOOP);
+          }}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.loop}
         </button>
         <button
           className="btn-white disabled"

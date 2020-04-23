@@ -8,7 +8,7 @@ import {
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION } = COMPONENT_TYPE;
+const { QUESTION, LOOP } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -52,7 +52,7 @@ function validateAndSubmit(
   return function(values) {
     if (type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
-    } else {
+    } else if (type !== LOOP && type !== QUESTION){
       validateSequence(values);
     }
 
@@ -61,7 +61,6 @@ function validateAndSubmit(
     const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
     const updatedExternalVariablesStore = transformer.getExternalVariablesStore();
     const updatedCollectedlVariablesStore = transformer.getCollectedVariablesStore();
-
     actions
       .createComponent(
         componentState,
@@ -122,7 +121,6 @@ function ComponentNew({
   const initialValues = componentTransformer.stateToForm(activeQuestionnaire);
 
   // Validation and submit
-
   return (
     <ComponentNewEdit
       componentType={type}

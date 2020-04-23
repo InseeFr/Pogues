@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
 import { formPropTypes, Field } from 'redux-form';
 
 import ResponseFormat from './response-format/response-format';
@@ -23,8 +23,13 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
+import Input from 'forms/controls/input';
+import Select from 'forms/controls/select';
+import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+
+
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
-const { QUESTION } = COMPONENT_TYPE;
+const { QUESTION, LOOP } = COMPONENT_TYPE;
 
 export const propTypes = {
   ...formPropTypes,
@@ -48,6 +53,14 @@ export const defaultProps = {
 class ComponentNewEdit extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initialMemberChoise: '',
+    };
+  }
 
   UNSAFE_componentWillMount() {
     this.props.clearSubformValidationErrors();
@@ -156,9 +169,29 @@ class ComponentNewEdit extends Component {
       onCancel,
       componentType,
       componentId,
+      componentsStore,
     } = this.props;
-
-    const associatedFieldsProps = {
+    const options =  Object.values(componentsStore)
+      .filter(component=> component.type === "SEQUENCE" || component.type === "SUBSEQUENCE")
+      .map(element => {
+       return (<GenericOption
+          key={element.id}
+          value={element.id}
+        >
+          {element.name}
+        </GenericOption>)
+      }); 
+      const optionsTable =  Object.values(componentsStore)
+      .filter(component=> component.type === "QUESTION" && component.responseFormat.type === "TABLE")
+      .map(element => {
+       return (<GenericOption
+          key={element.id}
+          value={element.id}
+        >
+          {element.name}
+        </GenericOption>)
+      });
+     const associatedFieldsProps = {
       formName: form,
       fieldOrigin: { name: 'label', label: Dictionary.label },
       fieldTarget: { name: 'name', label: Dictionary.name },
@@ -171,15 +204,70 @@ class ComponentNewEdit extends Component {
     return (
       <div className={COMPONENT_CLASS}>
         <form onSubmit={handleSubmit}>
-          {componentType === QUESTION ? (
+        { 
+          componentType === QUESTION ? (
             <AssociatedFields
               {...associatedFieldsProps}
               targetIsRichTextarea
               targetIsQuestion
             />
-          ) : (
+          ) : componentType === LOOP ? 
+          ( 
+            <div>
+              <Field
+                name="nameLoop"
+                type="text"
+                component={Input}
+                label={Dictionary.name}
+              />
+              <Field
+                name="maximum"
+                type="number"
+                component={Input}
+                label={Dictionary.maximum}
+              />
+             { componentsStore ?  (
+              <Field
+                name="basedOn"
+                component={Select}
+                label={Dictionary.BasedOn}
+              >
+                 {optionsTable}
+              </Field>) 
+              :false}
+              <Field
+                name="Filter"
+                component={RichTextareaWithVariableAutoCompletion}
+                label={Dictionary.Filter}
+              />
+              { componentsStore ?  (<Field
+                name="initialMember"
+                component={Select}
+                label={Dictionary.InitialMembre}
+              >
+                 {options}
+              </Field>) :false}
+              { componentsStore ?  (<Field
+                name="finalMember"
+                component={Select}
+                label={Dictionary.FinalMembre}
+              >
+                 {options}
+              </Field>) :false}
+
+              <Field
+                name="addButtonLibel"
+                type="text"
+                component={Input}
+                label={Dictionary.AddButton}
+              />  
+               
+            </div>
+          ):
+          (
             <AssociatedFields {...associatedFieldsProps} />
-          )}
+          )} 
+        {componentType !== LOOP ? (
           <Field
             name="TargetMode"
             component={ListCheckboxes}
@@ -191,9 +279,8 @@ class ComponentNewEdit extends Component {
                 {s.label}
               </GenericOption>
             ))}
-          </Field>
-          <Tabs componentId={componentId}>{this.renderPanels()}</Tabs>
-
+          </Field>) : false}
+          {componentType !== LOOP ? ( <Tabs componentId={componentId}>{this.renderPanels()}</Tabs>) : false}
           <div className={FOOTER}>
             <button
               className={VALIDATE}

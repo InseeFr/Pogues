@@ -23,6 +23,16 @@ function QuestionnaireNav({
   componentsStore,
   setSelectedComponentId,
 }) {
+  const options =  Object.values(componentsStore)
+  .filter(component=> component.type === "LOOP")
+  .map(element => {
+   return (
+    <li>
+    <span className="glyphicon glyphicon-menu-right" />
+     {element.nameLoop}
+    </li>
+   )
+  });   
   return (
     <div className={COMPONENT_CLASS}>
       <ul>
@@ -38,7 +48,13 @@ function QuestionnaireNav({
         questionnaire={questionnaire}
         setSelectedComponentId={setSelectedComponentId}
       />
+     <div className={COMPONENT_CLASS}>
+      <ul>
+       {options}
+      </ul>
+      </div>
     </div>
+    
   );
 }
 

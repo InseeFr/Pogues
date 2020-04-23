@@ -42,7 +42,10 @@ function validateAndSubmit(
   transformer,
   onSuccess,
 ) {
+
+
   return function(values) {
+
     if (component.type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
     } else {
