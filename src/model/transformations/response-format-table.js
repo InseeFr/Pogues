@@ -348,7 +348,6 @@ export function stateToRemote(
       ...totalLabelPrimaryState,
     }),
   );
-
   if (secondaryState) {
     const {
       type: typeSecondaryCodesList,
@@ -359,6 +358,7 @@ export function stateToRemote(
     );
   }
 
+  console.log(('dimensionsModel'), dimensionsModel)
   // Measures dimensions
   if (measureState) {
    
