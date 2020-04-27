@@ -1186,7 +1186,7 @@ const dictionary = {
   },
   validation_collectedvariable_name: {
     fr: 'Identifiant de la variable collectée obligatoire',
-    en: 'Collected variable name required',
+    en: 'Collected variable id required',
   },
   validation_collectedvariable_existing: {
     fr: 'Il existe une variable collectée avec le même nom',
