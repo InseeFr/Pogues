@@ -96,11 +96,11 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: [
     value => minValue(1)(value),
-    value => maxValue(100)(value),
+    value => maxValue(300)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMax`]: [
     value => minValue(1)(value),
-    value => maxValue(100)(value),
+    value => maxValue(300)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
