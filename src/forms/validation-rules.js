@@ -219,11 +219,7 @@ export function validCollectedVariables(
    {
     return Dictionary.validation_collectedvariable_need_reset;
    }
-   console.log('expectedVariables', expectedVariables)
-
-   console.log('value', value)
-
-   console.log('codeListPrecision', codeListPrecision)
+   
   if (
     type === MULTIPLE_CHOICE &&
     value[0] && 
