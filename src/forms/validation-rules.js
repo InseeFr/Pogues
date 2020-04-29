@@ -219,9 +219,15 @@ export function validCollectedVariables(
    {
     return Dictionary.validation_collectedvariable_need_reset;
    }
+   console.log('expectedVariables', expectedVariables)
+
+   console.log('value', value)
+
+   console.log('codeListPrecision', codeListPrecision)
   if (
     type === MULTIPLE_CHOICE &&
-    value[0] &&
+    value[0] && 
+    value[0].codeListReference && 
     value[0].codeListReference !== expectedVariables[0].codeListReference||
     type === MULTIPLE_CHOICE && value[0] && codeListPrecision
   ) {
@@ -232,13 +238,14 @@ export function validCollectedVariables(
     const typevalue = value[0].type;
     const typeexpectedVariables = expectedVariables[0].type;
     if (
-      value[0].codeListReference ||
+      value[0].codeListReference !== expectedVariables[0].codeListReference ||
       typevalue !== typeexpectedVariables ||
       !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue])
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
       }
   } 
+
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list
    * are in the right order.

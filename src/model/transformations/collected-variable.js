@@ -106,6 +106,7 @@ export function remoteToComponentState(remote = []) {
 }
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
+
     const {
       id,
       name: Name,
@@ -142,6 +143,7 @@ export function storeToRemote(store) {
       },
     };
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
+
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
 
     if (typeName === DATATYPE_NAME.DURATION && Format !== undefined) {
@@ -185,6 +187,7 @@ export function storeToRemote(store) {
         model.Datatype.Format = Format;
       }
     }
+ 
         return model;
   });
 }
