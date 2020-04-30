@@ -417,7 +417,7 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
           if(code.precisionid && code.precisionid !== "") {
             const collectedvariablequestionPrecision = collectedvariablequestion.filter(varibale => varibale.z === code.weight)
             collectedvariablequestionPrecision.forEach(function(varib){
-            const varibaleTable = collectedvariablequestion.find(varTab => varTab.x === varib.mesureLevel && varTab.codeListReference === mesure.SINGLE_CHOICE.CodesList.id)
+            const variableTable = collectedvariablequestion.find(varTab => varTab.x === varib.mesureLevel && varTab.codeListReference === mesure.SINGLE_CHOICE.CodesList.id)
             let clafication = {
                 id: uuid(),
                 questionType: QUESTION_TYPE_ENUM.SIMPLE,
@@ -437,8 +437,8 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
             ClarificationQuestion.push(clafication);
             const clarficationredirection = {
               id: uuid(),
-              label:  `$${varibaleTable.name}$ = '${code.value}' : ${varib.name}`,
-              condition: `$${varibaleTable.name}$ = '${code.value}'`,
+              label:  `$${variableTable.name}$ = '${code.value}' : ${varib.name}`,
+              condition: `$${variableTable.name}$ = '${code.value}'`,
               cible: clafication.id,
               flowControlType : "CLARIFICATION",
             };
