@@ -134,6 +134,48 @@ describe('collected variable tranformations', () => {
         output,
       );
     });
+    test('should return mihundredths = "" if type name Duration and format HH:CH and mihundredths = 0 to the store representation of a collected variable', () => {
+      const input = [
+        {
+          id: 'k23bk67e',
+          Name: 'AQS',
+          Label: 'AQS label',
+          type: 'CollectedVariableType',
+          CodeListReference: 'id',
+          Datatype: {
+            Format: "HH:CH",
+            Maximum: "02:02",
+            Minimum: "02:0",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
+          },
+        },
+      ];
+      const responsesByVariable = { k23bk67e: {} };
+      const codesListStore = { id: { label: 'label' } };
+      const output = {
+        k23bk67e: {
+          id: 'k23bk67e',
+          label: 'AQS label',
+          name: 'AQS',
+          type: DURATION,
+          codeListReference: 'id',
+          codeListReferenceLabel: 'label',
+          [DURATION]: {
+            format: "HH:CH",
+            mahundhours: "02",
+            mahundredths: "02",
+            maximum: "02:02",
+            mihundhours: "02",
+            mihundredths: "",
+            minimum: "02:0",
+          },
+        },
+      };
+      expect(remoteToStore(input, responsesByVariable, codesListStore)).toEqual(
+        output,
+      );
+    });
   });
   describe('remoteToComponentState', () => {
     test('should return the state representation of a collected variable', () => {
@@ -178,8 +220,12 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: undefined,
             miminutes: undefined,
+            mihundhours: undefined,
+            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
+            mahundhours: undefined,
+            mahundredths: undefined,
           },
         },
       };
@@ -224,8 +270,12 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: undefined,
             miminutes: undefined,
+            mihundhours: undefined,
+            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
+            mahundhours: undefined,
+            mahundredths: undefined,
           },
         },
       };
@@ -241,6 +291,57 @@ describe('collected variable tranformations', () => {
             Minimum: "2090",
             type: "DateDatatypeType",
             typeName: DATE,
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
+
+    test('should return collected variable model if type is DURATION and the HH:CH format', () => {
+      const input = {
+        k23bk67e: {
+          id: "k23bk67e",
+          label: "AQS label",
+          name: "AQS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "HH:CH",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: undefined,
+            miminutes: undefined,
+            mihundhours: 2,
+            mihundredths: 2,
+            mahours: undefined,
+            maminutes: undefined,
+            mahundhours: 3,
+            mahundredths: "",
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "AQS label",
+          Name: "AQS",
+          id: "k23bk67e",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "HH:CH",
+            Maximum: "03:0",
+            Minimum: "02:02",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
           },
         },
       ];
@@ -270,8 +371,12 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: 2,
             miminutes: "",
+            mihundhours: undefined,
+            mihundredths: undefined,
             mahours: 2,
             maminutes: 2,
+            mahundhours: undefined,
+            mahundredths: undefined,
           },
         },
       };
@@ -317,8 +422,12 @@ describe('collected variable tranformations', () => {
             mamonths: 1,
             mihours: undefined,
             miminutes: undefined,
+            mihundhours: undefined,
+            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
+            mahundhours: undefined,
+            mahundredths: undefined,
           },
         },
       };
@@ -364,8 +473,12 @@ describe('collected variable tranformations', () => {
             mamonths: 1,
             mihours: undefined,
             miminutes: undefined,
+            mihundhours: undefined,
+            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
+            mahundhours: undefined,
+            mahundredths: undefined,
           },
         },
       };
@@ -410,8 +523,12 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: 2,
             miminutes: 1,
+            mihundhours: undefined,
+            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
+            mahundhours: undefined,
+            mahundredths: undefined,
           },
         },
       };
@@ -425,6 +542,104 @@ describe('collected variable tranformations', () => {
           Datatype: {
             Format: "PTnHnM",
             Minimum: "PT2H1M",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
+    test('should not return Maximum collected variable model if type is DURATION and the HH:CH format and mahundhours and mahundredths are undefined', () => {
+      const input = {
+        k23bk67e: {
+          id: "k23bk67e",
+          label: "AQS label",
+          name: "AQS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "HH:CH",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: undefined,
+            miminutes: undefined,
+            mihundhours: 2,
+            mihundredths: 3,
+            mahours: undefined,
+            maminutes: undefined,
+            mahundhours: undefined,
+            mahundredths: undefined,
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "AQS label",
+          Name: "AQS",
+          id: "k23bk67e",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "HH:CH",
+            Minimum: "02:03",
+            type: "DurationDatatypeType",
+            typeName: DURATION,
+          },
+        },
+      ];
+      expect(storeToRemote(input)).toEqual(output);
+    });
+    test('should not return Minimum collected variable model if type is DURATION and the HH:CH format and mihundhours and mihundredths are undefined', () => {
+      const input = {
+        k23bk67e: {
+          id: "k23bk67e",
+          label: "AQS label",
+          name: "AQS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "HH:CH",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: undefined,
+            miminutes: undefined,
+            mihundhours: undefined,
+            mihundredths: undefined,
+            mahours: undefined,
+            maminutes: undefined,
+            mahundhours: 1,
+            mahundredths: 2,
+          },
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: "AQS label",
+          Name: "AQS",
+          id: "k23bk67e",
+          type: 'CollectedVariableType',
+          Datatype: {
+            Format: "HH:CH",
+            Maximum: "01:02",
             type: "DurationDatatypeType",
             typeName: DURATION,
           },
