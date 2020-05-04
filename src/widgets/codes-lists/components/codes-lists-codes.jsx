@@ -34,6 +34,7 @@ export const propTypes = {
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
+  
 };
 
 export const defaultProps = {
@@ -66,7 +67,6 @@ class CodesListsCodes extends Component {
     this.renderCode = this.renderCode.bind(this);
     this.renderCodes = this.renderCodes.bind(this);
   }
-
   removePrecision() {
     this.setState({ showInputCode: false, activeCodeIndex: undefined, showPrecision: false });
     const {
@@ -242,6 +242,7 @@ class CodesListsCodes extends Component {
       });
       }, 
     };
+    
     return (
       <div key={code.value}>
         {showInputCode && editing && activeCodeIndex === indexCode ? (
