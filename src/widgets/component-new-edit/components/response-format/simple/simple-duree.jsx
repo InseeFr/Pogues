@@ -58,9 +58,16 @@ class ResponseFormatDatatypeDuree extends Component {
               {Dictionary.durationformat2}
             </GenericOption>
 
+            <GenericOption
+              key="HH:CH"
+              value="HH:CH"
+            >
+              {Dictionary.durationformat3}
+            </GenericOption>
+
           </Field>   
           <div className="response-format-datatype-duree-minimum" >
-            <div className="response-format-datatype-duree-label-minimum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM'? 'flex' : 'none' }}>   
+            <div className="response-format-datatype-duree-label-minimum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM' || formatini==='HH:CH' ? 'flex' : 'none' }}>   
                 {Dictionary.minimum}
             </div>
             <div  style= {{ width: '75%' }}>
@@ -101,11 +108,31 @@ class ResponseFormatDatatypeDuree extends Component {
                     disabled={this.props.readOnly}
                 />
             </div>
+
+            <div className="response-format-datatype-duree-minimum" style= {{ display : formatini==='HH:CH'? 'flex' : 'none' }}>
+                <Field
+                    name="mihundhours"
+                    type="number"
+                    step="any"
+                    component={Input}
+                    label={Dictionary.hours}
+                    disabled={this.props.readOnly}
+                />
+                <Field
+                    name="mihundredths"
+                    type="number"
+                    step="any"
+                    component={Input}
+                    label={Dictionary.hundredths}
+                    disabled={this.props.readOnly}
+                />
+            </div>
+
             </div>
           </div>
 
           <div className="response-format-datatype-duree-maximum" >
-            <div className="response-format-datatype-duree-label-maximum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM' ? 'flex' : 'none' }}>   
+            <div className="response-format-datatype-duree-label-maximum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM' || formatini==='HH:CH' ? 'flex' : 'none' }}>   
                 {Dictionary.maximum}
             </div>
             <div  style= {{ width: '75%'}}>
@@ -142,6 +169,25 @@ class ResponseFormatDatatypeDuree extends Component {
                     step="any"
                     component={Input}
                     label={Dictionary.months}
+                    disabled={this.props.readOnly}
+                />
+            </div>
+
+            <div className="response-format-datatype-duree-maximum" style= {{ display : formatini==='HH:CH'? 'flex' : 'none' }}>
+                <Field
+                    name="mahundhours"
+                    type="number"
+                    step="any"
+                    component={Input}
+                    label={Dictionary.hours}
+                    disabled={this.props.readOnly}
+                />
+                <Field
+                    name="mahundredths"
+                    type="number"
+                    step="any"
+                    component={Input}
+                    label={Dictionary.hundredths}
                     disabled={this.props.readOnly}
                 />
             </div>

@@ -73,6 +73,10 @@ export function remoteToStore(
           datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
+        if (format !== undefined && format === 'HH:CH') {
+          datatype.mihundhours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+          datatype.mihundredths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+        }
       }
       if(datatype.maximum !== undefined){
         let strmaximum = datatype.maximum;
@@ -84,6 +88,10 @@ export function remoteToStore(
         if (format !== undefined && format === 'PnYnM') {
           datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+        }
+        if (format !== undefined && format === 'HH:CH') {
+          datatype.mahundhours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+          datatype.mahundredths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
       }
     }
@@ -136,6 +144,10 @@ export function storeToRemote(store) {
         miminutes: Miminutes,
         mahours: Mahours,
         maminutes: Maminutes,
+        mihundhours: Mihundhours,
+        mihundredths: Mihundredths,
+        mahundhours: Mahundhours,
+        mahundredths: Mahundredths,
       },
     } = store[key];
     const model = {
@@ -169,6 +181,14 @@ export function storeToRemote(store) {
         }
          if(Mahours || Maminutes){
           model.Datatype.Maximum = `PT${Mahours || 0}H${Maminutes || 0}M`;
+        }
+      }
+      if (Format === 'HH:CH') {
+        if(Mihundhours || Mihundredths){
+          model.Datatype.Minimum = `${('0' + Mihundhours).slice(-2) || 0}:${('0' + Mihundredths).slice(-2) || 0}`;
+        }
+         if(Mahundhours || Mahundredths){
+          model.Datatype.Maximum = `${('0' + Mahundhours).slice(-2) || 0}:${('0' + Mahundredths).slice(-2) || 0}`;
         }
       }
      }

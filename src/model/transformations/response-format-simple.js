@@ -43,6 +43,10 @@ export function remoteToState(remote) {
         datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
         datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
       }
+      if (format !== undefined && format === 'HH:CH') {
+        datatype.mihundhours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+        datatype.mihundredths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+      }
     }
     if(datatype.maximum !== undefined){
       let strmaximum = datatype.maximum;
@@ -54,6 +58,10 @@ export function remoteToState(remote) {
       if (format !== undefined && format === 'PnYnM') {
         datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
         datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+      }
+      if (format !== undefined && format === 'HH:CH') {
+        datatype.mahundhours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+        datatype.mahundredths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
       }
     }
   }
@@ -96,6 +104,10 @@ export function stateToRemote(state, collectedVariables) {
       miminutes,
       mahours,
       maminutes,
+      mihundhours,
+      mihundredths,
+      mahundhours,
+      mahundredths,
     } = customDataType;
     let durationDataType = {};
 
@@ -110,11 +122,19 @@ export function stateToRemote(state, collectedVariables) {
       }
     }
     if (dataType.format === 'PTnHnM') {
-      if(mihours || mihours){
+      if(mihours || miminutes){
        durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
       }
       if(mahours !== "" || maminutes !== ""){
        durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
+      }
+    }
+    if (dataType.format === 'HH:CH') {
+      if(mihundhours || mihundredths){
+       durationDataType.minimum = `${('0' + mihundhours).slice(-2) || 0}:${('0' + mihundredths).slice(-2) || 0}`;
+      }
+      if(mahundhours !== "" || mahundredths !== ""){
+       durationDataType.maximum = `${('0' + mahundhours).slice(-2) || 0}:${('0' + mahundredths).slice(-2) || 0}`;
       }
     }
 
