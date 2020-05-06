@@ -9,7 +9,7 @@ import ExternalVariable from './external-variable';
 import { uuid, nameFromLabel } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION } = COMPONENT_TYPE;
+const { QUESTION, LOOP} = COMPONENT_TYPE;
 
 export const defaultState = {
   id: '',
@@ -19,6 +19,7 @@ export const defaultState = {
   label: '',
   name: '',
   nameLoop: '',
+  filter: '',
   maximum: '',
   BasedOn: '',
   controls: [],
@@ -72,7 +73,7 @@ export function formToState(form, transformers) {
     addButtonLibel: addButtonLibel,
   };
   return {
-    name: name || nameFromLabel(label),
+    name: name || nameFromLabel(label) || nameLoop,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
@@ -93,16 +94,24 @@ export function formToState(form, transformers) {
 }
 
 export function stateToForm(currentState, transformers, activeQuestionnaire) {
-  const { label, name, type, TargetMode } = currentState;
+  const { label, name, type, TargetMode, nameLoop, maximum, basedOn, filter, initialMember, finalMember, addButtonLibel} = currentState;
+  console.log('currentState', currentState)
   const form = {
     label: label || '',
     name: name || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
-    TargetMode: label
+    TargetMode: type !== LOOP ? label
       ? TargetMode.join()
-      : activeQuestionnaire.TargetMode.join(),
+      : activeQuestionnaire.TargetMode.join() : '',
+    nameLoop: nameLoop || '',
+    maximum: maximum || '',
+    basedOn: basedOn || '',
+    filter: filter || '',
+    initialMember: initialMember || '',
+    finalMember: finalMember || '',
+    addButtonLibel: addButtonLibel || '',
   };
 
   if (type === QUESTION) {

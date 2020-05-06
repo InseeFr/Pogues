@@ -25,7 +25,7 @@ import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
-import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
@@ -184,13 +184,15 @@ class ComponentNewEdit extends Component {
       .filter(component => 
         component.type === "QUESTION" && 
         component.responseFormat.type === "TABLE"
-        && component.responseFormat.TABLE.PRIMARY.type === "LIST" )
+        && component.responseFormat.TABLE.PRIMARY.type === "LIST" ||
+        component.type === "LOOP" && !component.basedOn)
       .map(element => {
-       return (<GenericOption
+       return (
+        <GenericOption
           key={element.id}
           value={element.id}
         >
-          {element.name}
+          {element.name || element.nameLoop}
         </GenericOption>)
       });
       console.log('optionsTable', Object.values(componentsStore)
@@ -236,28 +238,52 @@ class ComponentNewEdit extends Component {
                 component={Select}
                 label={Dictionary.BasedOn}
               >
-                 {optionsTable}
+              <GenericOption
+                key=''
+                value=''
+              >
+                {Dictionary.selectBasedOn}
+              </GenericOption>
+              {optionsTable}
               </Field>) 
               :false}
               <Field
-                name="Filter"
-                component={RichTextareaWithVariableAutoCompletion}
+                name="filter"
+                type="text"
+                focusOnInit
+                component={InputWithVariableAutoCompletion}
                 label={Dictionary.Filter}
               />
-              { componentsStore ?  (<Field
+              { componentsStore ?  (
+              <Field
                 name="initialMember"
                 component={Select}
                 label={Dictionary.InitialMembre}
               >
+              <GenericOption
+                key=''
+                value=''
+              >
+                {Dictionary.selectInitialMembre}
+              </GenericOption>
                  {options}
-              </Field>) :false}
-              { componentsStore ?  (<Field
+              </Field>
+              ) :false}
+              { componentsStore ?  (
+              <Field
                 name="finalMember"
                 component={Select}
                 label={Dictionary.FinalMembre}
               >
+              <GenericOption
+                key=''
+                value=''
+              >
+                {Dictionary.selectFinalMembre}
+              </GenericOption>
                  {options}
-              </Field>) :false}
+              </Field>
+              ) :false}
 
               <Field
                 name="addButtonLibel"

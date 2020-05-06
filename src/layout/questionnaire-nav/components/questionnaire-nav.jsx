@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import ArboSimplified from './arbo-simplifield';
+import NavLoop from './nav-loop';
+
 
 import { QUESTIONNAIRE_NAV } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -15,46 +17,44 @@ const propTypes = {
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
+  setEditingComponentId: PropTypes.func.isRequired,
+  editingComponentId: PropTypes.string.isRequired,
 };
+
 
 // Component
 function QuestionnaireNav({
   questionnaire,
   componentsStore,
   setSelectedComponentId,
+  setEditingComponentId,
+  editingComponentId
 }) {
-  const options =  Object.values(componentsStore)
-  .filter(component=> component.type === "LOOP")
-  .map(element => {
-   return (
-    <li>
-    <span className="glyphicon glyphicon-menu-right" />
-     {element.nameLoop}
-    </li>
-   )
-  });   
+   
   return (
-    <div className={COMPONENT_CLASS}>
-      <ul>
-        <li>
-          <span className="glyphicon glyphicon-home" />
-           <Link to="/">
-              {Dictionary.backToHomePage}
-           </Link>
-        </li>
-      </ul>
-      <ArboSimplified
-        components={componentsStore}
-        questionnaire={questionnaire}
-        setSelectedComponentId={setSelectedComponentId}
-      />
-     <div className={COMPONENT_CLASS}>
-      <ul>
-       {options}
-      </ul>
+      <div className={COMPONENT_CLASS}>
+        <ul>
+          <li>
+            <span className="glyphicon glyphicon-home" />
+            <Link to="/">
+                {Dictionary.backToHomePage}
+            </Link>
+          </li>
+        </ul>
+        
+        <ArboSimplified
+          components={componentsStore}
+          questionnaire={questionnaire}
+          setSelectedComponentId={setSelectedComponentId}
+        />
+        <NavLoop 
+          componentsStore={componentsStore}
+          questionnaire={questionnaire}
+          setSelectedComponentId={setSelectedComponentId}
+          setEditingComponentId = {setEditingComponentId}
+          editingComponentId={editingComponentId}
+        />
       </div>
-    </div>
-    
   );
 }
 

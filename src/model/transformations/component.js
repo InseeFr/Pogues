@@ -490,7 +490,11 @@ function storeToRemoteNested(
         collectedVariablesStore,
       ),
     };
-  } else {
+  }
+  else if( type === "LOOP") {
+    console.log('remote', remote)
+  }
+   else {
     remote.type = SEQUENCE_TYPE_NAME;
     if (type === QUESTIONNAIRE) {
       remote.genericName = 'QUESTIONNAIRE';

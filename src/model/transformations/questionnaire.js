@@ -3,6 +3,7 @@ import * as CodesList from './codes-list';
 import * as CalculatedVariable from './calculated-variable';
 import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
+import * as Loop from './loop';
 
 import { uuid } from 'utils/utils';
 import { getOrderedComponents } from 'utils/model/redirections-utils';
@@ -155,6 +156,8 @@ export function stateToRemote(state, stores) {
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
   );
+  const Iterations = Loop.stateToRemote(componentsStore);
+  console.log('Iterations', Iterations)
   const result = {
     ...remote,
     Child: componentsRemote,

@@ -2,6 +2,7 @@ import {
   required,
   requiredSelect,
   name,
+  nameLoop,
   nameSize,
   minValue,
   maxValue,
@@ -50,6 +51,12 @@ export const sequenceRules = {
   name: [required, name],
   label: [required],
 };
+
+export const loopRules = {
+  nameLoop: [required, nameLoop],
+  initialMember: [required],
+  finalMember: [required],
+}
 
 export const questionRules = {
   name: [required, name],

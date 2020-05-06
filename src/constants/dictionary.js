@@ -371,6 +371,21 @@ const dictionary = {
     en: 'Add button label',
     fr: 'Libellé du bouton d\'ajout',
   },
+
+  selectBasedOn: {
+    fr: 'Spécifier Basé sur',
+    en: 'Specify Based on',
+  },
+
+  selectInitialMembre: {
+    fr: 'Spécifier Membre initial',
+    en: 'Specify Initial member',
+  },
+
+  selectFinalMembre: {
+    fr: 'Spécifier Membre final',
+    en: 'Specify Final member',
+  },
    
   specify: {
     en: 'Specify',
@@ -599,9 +614,9 @@ const dictionary = {
   },
   errorUniqueComponentName: {
     fr:
-      'Les noms de composant (séquence, sous-séquence et question) doivent être uniques :',
+      'Les noms de composant (séquence, sous-séquence, boucle et question) doivent être uniques :',
     en:
-      'Component names (sequence, subsequence and question) should be unique:',
+      'Component names (sequence, subsequence, loop and question) should be unique:',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
@@ -1408,6 +1423,11 @@ dictionary[`componentEdit${SEQUENCE}`] = {
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
   fr: 'Modifier la sous-séquence',
   en: 'Edit sub-sequence',
+};
+
+dictionary[`componentEdit${LOOP}`] = {
+  fr: 'Modifier le boucle',
+  en: 'Edit loop',
 };
 
 export default dictionary;

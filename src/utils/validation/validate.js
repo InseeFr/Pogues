@@ -4,6 +4,7 @@ import {
   questionnaireRules,
   questionRules,
   sequenceRules,
+  loopRules,
   controlRules,
   declarationRules,
   redirectionRules,
@@ -35,6 +36,16 @@ export function validateQuestionForm(values, setErrors, codesListsStore) {
 
 export function validateSequenceForm(values, setErrors) {
   const errors = validate(values, sequenceRules);
+
+  if (errors.length > 0) {
+    setErrors(errors);
+    throw new SubmissionError(getErrorsObject(errors));
+  }
+}
+
+export function validateLoopForm(values, setErrors) {
+  console.log('values', values)
+  const errors = validate(values, loopRules);
 
   if (errors.length > 0) {
     setErrors(errors);
