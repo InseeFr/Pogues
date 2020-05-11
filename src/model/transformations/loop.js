@@ -1,59 +1,81 @@
 import { uuid } from 'utils/utils';
+import { element } from 'prop-types';
 
-export function remoteToState(remote = []) {
-  return remote.reduce((acc, loop) => {
+export function remoteToState(remote, parent) {
       const {
-        Name: nameLoop,
-        MemberReference: [
-          initialMember,
-          finalMember,
-        ],
+        Name: name,
+        MemberReference: memberReference,
         IterableReference: basedOn,
         Filter: filter,
+        Label: addButtonLibel,
         Maximum: maximum
-      } = loop;
-      const id = loop.id || uuid();
+      } = remote;
+
+      const id = remote.id || uuid(); 
+      let initialMember = "";
+      let finalMember = "";
+
+      if(memberReference && memberReference.length > 0) {
+        initialMember = memberReference[0]
+      }
+
+      if(memberReference && memberReference.length > 1) {
+        finalMember = memberReference[1]
+      }
       return {
-        ...acc,
-        [id]: {
           id,
-          nameLoop,
+          name: name,
+          nameLoop: name,
           initialMember,
           finalMember,
           basedOn,
           filter,
           maximum,
-        },
+          addButtonLibel,
+          type: 'LOOP',
+          TargetMode: [],
+          pageBreak: false,
+          parent: parent,
       };
-  }, {});
 }
 
-export function stateToRemote(state) {
-  console.log('Object.keys(state)', state)
-  return Object.keys(state).map(key => {
-    const {
-      id,
-      nameLoop,
-      maximum,
-      basedOn,
-      filter,    
-      initialMember,
-      finalMember,
-      addButtonLibel,
-      type,
-    } = state[key];
-
-    return { 
-      id,
-      type: "DynamicIterationType",
-      Name: nameLoop,
-      MemberReference: [
+export function stateToRemote(store) {
+  return Object.values(store).filter(element => element.type === "LOOP").map(component => {
+      const {
+        id,
+        name,
+        nameLoop,
+        maximum,
+        basedOn,
+        filter,    
         initialMember,
         finalMember,
-      ],
-      IterableReference: basedOn,
-      Filter: filter,
-      Maximum: maximum
-  };
-  });
+        addButtonLibel,
+        type,
+      } = component;
+
+      const memberReference = [];
+      memberReference[0]= initialMember;
+      memberReference[1]= finalMember;
+
+      let response = {
+        id,
+        Name: nameLoop,
+        MemberReference: memberReference,  
+        type: "DynamicIterationType",
+      };  
+      if(maximum) {
+        response.Maximum = maximum;
+      }
+      if(basedOn) {
+        response.IterableReference = basedOn;
+      }
+      if(addButtonLibel) {
+        response.Label = addButtonLibel;
+      }
+      if(filter) {
+        response.Filter = filter;
+      }
+      return response;
+    })
 }

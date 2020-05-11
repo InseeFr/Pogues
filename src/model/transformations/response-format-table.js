@@ -357,8 +357,6 @@ export function stateToRemote(
       Dimension.stateToRemote({ type: SECONDARY, ...secondaryTypeState }),
     );
   }
-
-  console.log(('dimensionsModel'), dimensionsModel)
   // Measures dimensions
   if (measureState) {
    

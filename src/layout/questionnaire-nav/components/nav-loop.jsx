@@ -10,8 +10,6 @@ class NavLoop extends Component {
     componentsStore: PropTypes.object.isRequired,
     questionnaire: PropTypes.object.isRequired,
     setSelectedComponentId: PropTypes.func.isRequired,
-    setEditingComponentId: PropTypes.func.isRequired,
-    editingComponentId: PropTypes.string.isRequired,
     };
 
   constructor() {

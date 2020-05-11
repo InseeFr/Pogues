@@ -161,7 +161,6 @@ class QuestionnaireListComponents extends Component {
       componentsStore[editingComponentId].type;
 
     const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
-    console.log('componentsStore', componentsStore)
     return (
       <div id="questionnaire">
         {!questionnaire.id ? (

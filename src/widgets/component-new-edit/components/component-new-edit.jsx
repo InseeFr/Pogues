@@ -195,8 +195,6 @@ class ComponentNewEdit extends Component {
           {element.name || element.nameLoop}
         </GenericOption>)
       });
-      console.log('optionsTable', Object.values(componentsStore)
-      .filter(component=> component.type === "QUESTION" && component.responseFormat.type === "TABLE"))
      const associatedFieldsProps = {
       formName: form,
       fieldOrigin: { name: 'label', label: Dictionary.label },

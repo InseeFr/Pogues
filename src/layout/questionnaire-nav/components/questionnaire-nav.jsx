@@ -17,8 +17,6 @@ const propTypes = {
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
-  setEditingComponentId: PropTypes.func.isRequired,
-  editingComponentId: PropTypes.string.isRequired,
 };
 
 
@@ -30,9 +28,9 @@ function QuestionnaireNav({
   setEditingComponentId,
   editingComponentId
 }) {
-   
   return (
-      <div className={COMPONENT_CLASS}>
+      <div  className={COMPONENT_CLASS}>
+
         <ul>
           <li>
             <span className="glyphicon glyphicon-home" />
@@ -47,6 +45,7 @@ function QuestionnaireNav({
           questionnaire={questionnaire}
           setSelectedComponentId={setSelectedComponentId}
         />
+
         <NavLoop 
           componentsStore={componentsStore}
           questionnaire={questionnaire}
@@ -54,6 +53,7 @@ function QuestionnaireNav({
           setEditingComponentId = {setEditingComponentId}
           editingComponentId={editingComponentId}
         />
+
       </div>
   );
 }

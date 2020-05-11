@@ -3,7 +3,6 @@ import {
   DATATYPE_TYPE_FROM_NAME,
   VARIABLES_TYPES, DURATION_UNIT, DATATYPE_NAME
 } from 'constants/pogues-constants';
-
 const { EXTERNAL } = VARIABLES_TYPES;
 
 export function remoteToStore(remote = []) {
@@ -24,9 +23,6 @@ export function remoteToStore(remote = []) {
       },
     } = ev;
     const id = ev.id || uuid();
-
-
-
     return {
       ...acc,
       [id]: {
@@ -49,7 +45,6 @@ export function remoteToStore(remote = []) {
 }
 
 export function storeToRemote(store) {
-  
   return Object.keys(store).map(key => {
     const {
       id,

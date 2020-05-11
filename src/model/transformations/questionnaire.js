@@ -156,8 +156,10 @@ export function stateToRemote(state, stores) {
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
   );
-  const Iterations = Loop.stateToRemote(componentsStore);
-  console.log('Iterations', Iterations)
+  const Iterations = Loop.stateToRemote(
+    componentsStore
+  )
+
   const result = {
     ...remote,
     Child: componentsRemote,
@@ -171,13 +173,20 @@ export function stateToRemote(state, stores) {
         ...collectedVariablesRemote,
       ],
     },
+    Iterations: {
+      Iteration: {
+        ...Iterations
+      }
+    },
   }; 
-  console.log('result', result);
   return {
     ...remote,
     Child: componentsRemote,
     CodeLists: {
       CodeList: codesListsRemote,
+    },
+    Iterations: {
+      Iteration: [...Iterations]
     },
     Variables: {
       Variable: [

@@ -82,6 +82,7 @@ export const updateParentChildren = ({
   payload: { id, lastCreatedComponent },
 }) => (dispatch, getState) => {
   const state = getState();
+
   return dispatch({
     type: UPDATE_COMPONENT_PARENT,
     payload: {

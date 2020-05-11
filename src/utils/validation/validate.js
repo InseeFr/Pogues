@@ -44,9 +44,7 @@ export function validateSequenceForm(values, setErrors) {
 }
 
 export function validateLoopForm(values, setErrors) {
-  console.log('values', values)
   const errors = validate(values, loopRules);
-
   if (errors.length > 0) {
     setErrors(errors);
     throw new SubmissionError(getErrorsObject(errors));

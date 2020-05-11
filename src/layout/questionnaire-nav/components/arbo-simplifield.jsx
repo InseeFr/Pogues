@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isQuestion, getSortedChildren } from 'utils/component/component-utils';
+import { isQuestion, getSortedChildren, isLoop } from 'utils/component/component-utils';
 
 class ArboSimplified extends Component {
   static propTypes = {
@@ -42,34 +42,37 @@ class ArboSimplified extends Component {
 
     return getSortedChildren(components, parent).map(key => {
       const subTree = renderComponentsByParent(components, key);
-      return (
-        <li
-          key={key}
-          className={isQuestion(components[key]) ? 'questions' : ''}
-        >
-          {components[key].children && components[key].children.length > 0 && (
-            <a
-              onClick={e => this.handleExpand(e, key)}
-              href="#"
-              aria-label="expand/collapse"
-            >
-              <span
-                className={`glyphicon ${
-                  this.state.expanded.indexOf(key) >= 0
-                    ? 'glyphicon-menu-down'
-                    : 'glyphicon-menu-right'
-                }`}
-              />
+      if(!isLoop(components[key])) {
+        return (
+          <li
+            key={key}
+            className={isQuestion(components[key]) ? 'questions' : ''}
+          >
+            {components[key].children && components[key].children.length > 0 && (
+              <a
+                onClick={e => this.handleExpand(e, key)}
+                href="#"
+                aria-label="expand/collapse"
+              >
+                <span
+                  className={`glyphicon ${
+                    this.state.expanded.indexOf(key) >= 0
+                      ? 'glyphicon-menu-down'
+                      : 'glyphicon-menu-right'
+                  }`}
+                />
+              </a>
+            )}
+            <a href="#" onClick={e => this.handleClick(e, key)}>
+              {components[key].name.toUpperCase()}
             </a>
-          )}
-          <a href="#" onClick={e => this.handleClick(e, key)}>
-            {components[key].name.toUpperCase()}
-          </a>
-          {this.state.expanded.indexOf(key) >= 0 && (
-            <ul className="arbo-simplifield">{subTree}</ul>
-          )}
-        </li>
-      );
+            {this.state.expanded.indexOf(key) >= 0 && (
+              <ul className="arbo-simplifield">{subTree}</ul>
+            )}
+          </li>
+        );
+      }
+
     }, {});
   }
   render() {

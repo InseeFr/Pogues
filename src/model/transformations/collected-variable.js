@@ -21,7 +21,6 @@ export function remoteToStore(
         }
         else {
           const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
-          console.log("code", code)
           variable.z = code.weight;
         }
       }

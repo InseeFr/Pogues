@@ -53,25 +53,6 @@ export function formToState(form, transformers) {
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
 
-  const test =  {
-    name: name || nameFromLabel(label) || nameLoop,
-    declarations: transformers.declaration.formToComponentState(declarations),
-    controls: transformers.control.formToComponentState(controls),
-    redirections: transformers.redirection.formToComponentState(redirections),
-    label: label,
-    responseFormat: transformers.responseFormat.formToState(responseFormat),
-    collectedVariables: transformers.collectedVariable.formToComponentState(
-      collectedVariables,
-    ),
-    TargetMode: TargetMode.split(','),
-    nameLoop: nameLoop,
-    maximum: maximum,
-    basedOn: basedOn,
-    filter: filter,    
-    initialMember: initialMember,
-    finalMember: finalMember,
-    addButtonLibel: addButtonLibel,
-  };
   return {
     name: name || nameFromLabel(label) || nameLoop,
     declarations: transformers.declaration.formToComponentState(declarations),
@@ -95,10 +76,9 @@ export function formToState(form, transformers) {
 
 export function stateToForm(currentState, transformers, activeQuestionnaire) {
   const { label, name, type, TargetMode, nameLoop, maximum, basedOn, filter, initialMember, finalMember, addButtonLibel} = currentState;
-  console.log('currentState', currentState)
   const form = {
     label: label || '',
-    name: name || '',
+    name: name || nameLoop || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
