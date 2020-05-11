@@ -395,6 +395,7 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
   let ClarificationQuestion= [];
   let collectedvariablequestion = [];
   let flowcontrolefinal = [];
+
   Object.values(collectedVariablesStore).forEach(collec => {
    if (collectedVariables != undefined){
     collectedVariables.forEach(variables =>{
@@ -421,7 +422,7 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
             let clafication = {
                 id: uuid(),
                 questionType: QUESTION_TYPE_ENUM.SIMPLE,
-                Name: code.precisionid,
+                Name: varib.name,
                 Label: code.precisionlabel,
                 TargetMode: TargetMode,
                 Response: [

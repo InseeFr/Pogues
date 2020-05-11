@@ -116,6 +116,7 @@ export function storeToRemote(store) {
 
     const {
       id,
+      z,
       name: Name,
       label: Label,
       type: typeName,
@@ -143,12 +144,14 @@ export function storeToRemote(store) {
       Name,
       Label,
       type: COLLECTED,
-      CodeListReference: codeListReference,
       Datatype: {
         typeName,
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
+    if(!z) {
+      model.CodeListReference = codeListReference;
+    }
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
 
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
