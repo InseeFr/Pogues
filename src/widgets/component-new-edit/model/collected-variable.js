@@ -10,6 +10,7 @@ export const defaultState = {
   x: '',
   y: '',
   z:'',
+  mesureLevel:'',
   codeListReference: '',
   codeListReferenceLabel: '',
 };
@@ -20,6 +21,7 @@ export const defaultForm = {
   x: '',
   y: '',
   z:'',
+  mesureLevel:'',
   type: TEXT,
   collectedVariables: [],
   codeListReference: '',
@@ -37,7 +39,7 @@ function getTypings(object) {
   };
 }
 export function formToState(form) {
-  const { name, label, x, y, z, codeListReference, codeListReferenceLabel } = form;
+  const { name, label, x, y, z, mesureLevel, codeListReference, codeListReferenceLabel } = form;
   const id = form.id || uuid();
   
   return {
@@ -47,6 +49,7 @@ export function formToState(form) {
     x,
     y,
     z,
+    mesureLevel,
     ...getTypings(form),
     codeListReference,
     codeListReferenceLabel,
@@ -77,6 +80,7 @@ export function storeToForm(currentStore) {
         x,
         y,
         z,
+        mesureLevel,
         codeListReference,
         codeListReferenceLabel,
       } = currentStore[key];
@@ -87,6 +91,7 @@ export function storeToForm(currentStore) {
         x,
         y,
         z,
+        mesureLevel,
         ...getTypings(currentStore[key]),
         codeListReference,
         codeListReferenceLabel,

@@ -19,6 +19,11 @@ export function remoteToStore(
         if(find.type === 'MULTIPLE_CHOICE') {       
           variable.z = parseInt(find.position);
         }
+        else if(find.type === 'TABLE') {
+          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
+          variable.z = code.weight;
+          variable.mesureLevel = find.level
+        }
         else {
           const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
           variable.z = code.weight;
@@ -44,6 +49,7 @@ export function remoteToStore(
       },
     } = ev;
     const z = ev.z;
+    const mesureLevel = ev.mesureLevel;
     const id = ev.id || uuid();
     const format =
     typeName === DATATYPE_NAME.DATE && format1 ? format1.toLowerCase() : format1;
@@ -93,6 +99,7 @@ export function remoteToStore(
           ? codesListsStore[CodeListReference].label
           : '',
         z,
+        mesureLevel,
         [typeName]: datatype,
         ...responsesByVariable[id],
       },
@@ -106,6 +113,7 @@ export function remoteToComponentState(remote = []) {
 }
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
+
     const {
       id,
       name: Name,
@@ -142,6 +150,7 @@ export function storeToRemote(store) {
       },
     };
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
+
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
 
     if (typeName === DATATYPE_NAME.DURATION && Format !== undefined) {
@@ -185,6 +194,7 @@ export function storeToRemote(store) {
         model.Datatype.Format = Format;
       }
     }
+ 
         return model;
   });
 }

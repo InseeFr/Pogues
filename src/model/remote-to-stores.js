@@ -33,7 +33,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     [id]: ExternalVariable.remoteToStore(externalVariables),
   };
   // Codes lists store
-  const variableclarification = Component.getClarificarionfromremote(remote.Child);
+  const variableclarification = Component.getClarificarionfromremote(remote.Child, collectedVariables);
   const codesListsStore = CodesList.remoteToStore(codesLists, variableclarification);
   
   const codeListByQuestionnaire = {

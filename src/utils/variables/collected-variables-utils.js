@@ -331,27 +331,36 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       );
     }
   }
-  if(form.PRIMARY.CODES_LIST) {
-    form.PRIMARY.CODES_LIST.CodesList.codes.forEach(function(code) {
-      if (code.precisionid && code.precisionid !== "") {
-        collectedVariables.push(
-          getCollecteVariable(
-            code.precisionid,
-            `${code.precisionid} label`,
-            { z: code.weight },
-            {
-              type: TEXT,
-              [TEXT]: {
-                maxLength: code.precisionsize,
-                pattern: '',
-              },
-            },
-          ),
-        );
-      }
-    });
-  }
 
+    if(form.LIST_MEASURE && form.LIST_MEASURE.measures){
+    form.LIST_MEASURE.measures.forEach(function(mesure){
+        if(mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList && mesure.SINGLE_CHOICE.CodesList.codes) {
+          mesure.SINGLE_CHOICE.CodesList.codes.forEach(function(code) {
+            if (code.precisionid && code.precisionid !== "") {
+              collectedVariables.filter(variable => variable.codeListReference && variable.codeListReference === mesure.SINGLE_CHOICE.CodesList.id).forEach(function(variable) {
+                collectedVariables.push(
+                  getCollecteVariable(
+                    `${variable.name}${code.value}CL`,
+                    `${variable.name}${code.value}CL label`,
+                    {
+                      z: code.weight,
+                      mesureLevel: variable.x 
+                     },
+                    {
+                      type: "TEXT",
+                      ["TEXT"]: {
+                        maxLength: code.precisionsize,
+                        pattern: '',
+                      },
+                    },
+                  ),
+                );
+              })
+            }
+          });
+        }
+      })
+    }
   return collectedVariables.sort(sortByYAndX());
 }
 
