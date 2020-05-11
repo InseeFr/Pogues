@@ -22,9 +22,9 @@ class ResponseFormatDatatypeDuree extends Component {
     if(this.props.type === 'TABLE'){
       formatini = this.props.formattable; 
     }
+    let isDuration = formatini==='PTnHnM' || formatini==='PnYnM' || formatini==='HH:CH';
 
     return (
-
       <FormSection name={this.props.name}>
         <div className="response-format-datatype-duree" >
        
@@ -67,7 +67,7 @@ class ResponseFormatDatatypeDuree extends Component {
 
           </Field>   
           <div className="response-format-datatype-duree-minimum" >
-            <div className="response-format-datatype-duree-label-minimum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM' || formatini==='HH:CH' ? 'flex' : 'none' }}>   
+            <div className="response-format-datatype-duree-label-minimum" style= {{ display : isDuration ? 'flex' : 'none' }}>   
                 {Dictionary.minimum}
             </div>
             <div  style= {{ width: '75%' }}>
@@ -132,7 +132,7 @@ class ResponseFormatDatatypeDuree extends Component {
           </div>
 
           <div className="response-format-datatype-duree-maximum" >
-            <div className="response-format-datatype-duree-label-maximum" style= {{ display : formatini==='PTnHnM' || formatini==='PnYnM' || formatini==='HH:CH' ? 'flex' : 'none' }}>   
+            <div className="response-format-datatype-duree-label-maximum" style= {{ display : isDuration ? 'flex' : 'none' }}>   
                 {Dictionary.maximum}
             </div>
             <div  style= {{ width: '75%'}}>

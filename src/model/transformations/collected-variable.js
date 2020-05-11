@@ -65,15 +65,15 @@ export function remoteToStore(
       if(datatype.minimum !== undefined){
         let strminimum = datatype.minimum;
         let matches_minimum = strminimum.match(/\d+/g);
-        if (format !== undefined && format === 'PTnHnM') {
+        if (format === 'PTnHnM') {
           datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
-        if (format !== undefined && format === 'PnYnM') {
+        if (format === 'PnYnM') {
           datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
-        if (format !== undefined && format === 'HH:CH') {
+        if (format === 'HH:CH') {
           datatype.mihundhours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.mihundredths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
@@ -81,15 +81,15 @@ export function remoteToStore(
       if(datatype.maximum !== undefined){
         let strmaximum = datatype.maximum;
         let matches_maximum = strmaximum.match(/\d+/g);
-        if (format !== undefined && format === 'PTnHnM') {
+        if (format === 'PTnHnM') {
           datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
-        if (format !== undefined && format === 'PnYnM') {
+        if (format === 'PnYnM') {
           datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
-        if (format !== undefined && format === 'HH:CH') {
+        if (format === 'HH:CH') {
           datatype.mahundhours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.mahundredths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
