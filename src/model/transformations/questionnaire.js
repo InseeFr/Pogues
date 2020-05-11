@@ -159,26 +159,7 @@ export function stateToRemote(state, stores) {
   const Iterations = Loop.stateToRemote(
     componentsStore
   )
-
-  const result = {
-    ...remote,
-    Child: componentsRemote,
-    CodeLists: {
-      CodeList: codesListsRemote,
-    },
-    Variables: {
-      Variable: [
-        ...calculatedVariablesRemote,
-        ...externalVariablesRemote,
-        ...collectedVariablesRemote,
-      ],
-    },
-    Iterations: {
-      Iteration: {
-        ...Iterations
-      }
-    },
-  }; 
+  
   return {
     ...remote,
     Child: componentsRemote,
