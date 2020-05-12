@@ -29,8 +29,8 @@ function QuestionnaireNav({
   editingComponentId
 }) {
   return (
-      <div  className={COMPONENT_CLASS}>
-
+    <div className={COMPONENT_CLASS}>
+      <div className="nav-style">
         <ul>
           <li>
             <span className="glyphicon glyphicon-home" />
@@ -45,7 +45,9 @@ function QuestionnaireNav({
           questionnaire={questionnaire}
           setSelectedComponentId={setSelectedComponentId}
         />
-
+      </div>
+      <div className="nav-style">
+        <span className="nav-title">{Dictionary.loop}</span>
         <NavLoop 
           componentsStore={componentsStore}
           questionnaire={questionnaire}
@@ -53,8 +55,8 @@ function QuestionnaireNav({
           setEditingComponentId = {setEditingComponentId}
           editingComponentId={editingComponentId}
         />
-
       </div>
+    </div>  
   );
 }
 

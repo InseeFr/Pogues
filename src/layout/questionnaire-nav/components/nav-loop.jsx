@@ -7,9 +7,9 @@ import { ComponentEdit } from 'layout/component-edit';
 
 class NavLoop extends Component {
   static propTypes = {
-    componentsStore: PropTypes.object.isRequired,
-    questionnaire: PropTypes.object.isRequired,
-    setSelectedComponentId: PropTypes.func.isRequired,
+      componentsStore: PropTypes.object.isRequired,
+      questionnaire: PropTypes.object.isRequired,
+      setSelectedComponentId: PropTypes.func.isRequired,
     };
 
   constructor() {
@@ -57,7 +57,7 @@ class NavLoop extends Component {
 
     const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
     return (
-      <div className="arbo-simplifield">
+      <div>
         <ul>
           {options}
         </ul>

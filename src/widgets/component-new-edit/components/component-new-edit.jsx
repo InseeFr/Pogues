@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {formValueSelector } from 'redux-form';
+
 import PropTypes, { element } from 'prop-types';
 import { formPropTypes, Field } from 'redux-form';
 
@@ -160,6 +163,31 @@ class ComponentNewEdit extends Component {
 
     return panels;
   }
+
+ getFinalOptions (store) {
+    let optionsFinal = 
+          (<GenericOption
+              key=''
+              value=''
+           >
+        </GenericOption>);
+    if(this.props.InitialMember) {
+      const componentinitial = Object.values(store)
+      .filter(component=> component.id === this.props.InitialMember);
+      optionsFinal =  Object.values(store)
+      .filter(component=> component.type === componentinitial[0].type)
+      .map(element => {
+        return (
+        <GenericOption
+          key={element.id}
+          value={element.id}
+        >
+          {element.name}
+        </GenericOption>)
+      }); 
+    }
+    return optionsFinal;
+  };
   render() {
     const {
       handleSubmit,
@@ -170,7 +198,7 @@ class ComponentNewEdit extends Component {
       componentId,
       componentsStore,
     } = this.props;
-    const options =  Object.values(componentsStore)
+    const optionsInitial =  Object.values(componentsStore)
       .filter(component=> component.type === "SEQUENCE" || component.type === "SUBSEQUENCE")
       .map(element => {
        return (<GenericOption
@@ -180,31 +208,32 @@ class ComponentNewEdit extends Component {
           {element.name}
         </GenericOption>)
       }); 
-      const optionsTable =  Object.values(componentsStore)
-      .filter(component => 
-        component.type === "QUESTION" && 
-        component.responseFormat.type === "TABLE"
-        && component.responseFormat.TABLE.PRIMARY.type === "LIST" ||
-        component.type === "LOOP" && !component.basedOn)
-      .map(element => {
-       return (
-        <GenericOption
-          key={element.id}
-          value={element.id}
-        >
-          {element.name || element.nameLoop}
-        </GenericOption>)
-      });
-     const associatedFieldsProps = {
-      formName: form,
-      fieldOrigin: { name: 'label', label: Dictionary.label },
-      fieldTarget: { name: 'name', label: Dictionary.name },
-      action: updateNameField,
-      focusOnInit: true,
-      onEnter: () => {
-        this.validateButton.click();
-      },
-    };
+
+    const optionsTable =  Object.values(componentsStore)
+    .filter(component => 
+      component.type === "QUESTION" && 
+      component.responseFormat.type === "TABLE"
+      && component.responseFormat.TABLE.PRIMARY.type === "LIST" ||
+      component.type === "LOOP" && !component.basedOn)
+    .map(element => {
+      return (
+      <GenericOption
+        key={element.id}
+        value={element.id}
+      >
+        {element.name || element.nameLoop}
+      </GenericOption>)
+    });
+    const associatedFieldsProps = {
+    formName: form,
+    fieldOrigin: { name: 'label', label: Dictionary.label },
+    fieldTarget: { name: 'name', label: Dictionary.name },
+    action: updateNameField,
+    focusOnInit: true,
+    onEnter: () => {
+      this.validateButton.click();
+    },
+  };
     return (
       <div className={COMPONENT_CLASS}>
         <form onSubmit={handleSubmit}>
@@ -264,7 +293,7 @@ class ComponentNewEdit extends Component {
               >
                 {Dictionary.selectInitialMembre}
               </GenericOption>
-                 {options}
+                 {optionsInitial}
               </Field>
               ) :false}
               { componentsStore ?  (
@@ -272,6 +301,7 @@ class ComponentNewEdit extends Component {
                 name="finalMember"
                 component={Select}
                 label={Dictionary.FinalMembre}
+                disabled={!this.props.InitialMember}
               >
               <GenericOption
                 key=''
@@ -279,7 +309,7 @@ class ComponentNewEdit extends Component {
               >
                 {Dictionary.selectFinalMembre}
               </GenericOption>
-                 {options}
+                 {this.getFinalOptions(componentsStore)}
               </Field>
               ) :false}
 
@@ -329,5 +359,11 @@ class ComponentNewEdit extends Component {
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  const selector = formValueSelector('component');
+  return {
+    InitialMember: selector(state, 'initialMember'),
+  }
+};
 
-export default ComponentNewEdit;
+export default  connect(mapStateToProps)(ComponentNewEdit);

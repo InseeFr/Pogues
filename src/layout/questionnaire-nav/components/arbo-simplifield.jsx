@@ -49,23 +49,18 @@ class ArboSimplified extends Component {
             className={isQuestion(components[key]) ? 'questions' : ''}
           >
             {components[key].children && components[key].children.length > 0 && (
-              <a
-                onClick={e => this.handleExpand(e, key)}
-                href="#"
-                aria-label="expand/collapse"
-              >
                 <span
+                  onClick={e => this.handleExpand(e, key)} 
                   className={`glyphicon ${
                     this.state.expanded.indexOf(key) >= 0
                       ? 'glyphicon-menu-down'
                       : 'glyphicon-menu-right'
                   }`}
                 />
-              </a>
             )}
-            <a href="#" onClick={e => this.handleClick(e, key)}>
+            <span onClick={e => this.handleClick(e, key)}>
               {components[key].name.toUpperCase()}
-            </a>
+            </span>
             {this.state.expanded.indexOf(key) >= 0 && (
               <ul className="arbo-simplifield">{subTree}</ul>
             )}

@@ -1,18 +1,27 @@
+
+
 .questionnaire-nav {
   position: relative;
   float: left;
-  min-height: 1px;
-  margin-top: 20px;
-  margin-bottom: 80px;
-  padding-top: 20px;
-  padding-right: 5px;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  background-color: #f1f1f1;
-  color: black;
-  margin-right: 5px;
   max-width: 15%;
   width: 15%;
+  .nav-style {
+    position: relative;
+    float: left;
+    min-height: 1px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: black;
+    margin-right: 5px;
+    width: 100%;
+    .nav-title {
+      color: #337ab7;
+      margin-left: 15px;
+    }
+  }
   ul {
     list-style-type: none;
     padding-left: 10%;
@@ -24,4 +33,5 @@
       margin-right: 5px;
     }
   }
+
 }

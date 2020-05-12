@@ -100,6 +100,10 @@ const dictionary = {
     en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
+  loop: {
+    en: 'Loop',
+    fr: 'Boucles',
+  },
   question: {
     en: 'Question',
     fr: 'Question',
