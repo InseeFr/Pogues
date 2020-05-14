@@ -85,7 +85,7 @@ export function resetAllWeight(activesComponents) {
   return Object.keys(activesComponents)
     .map(key => activesComponents[key])
     .reduce((acc, component) => {
-      if (component.children.length > 0) {
+      if (component.children && component.children.length > 0) {
         return {
           ...acc,
           ...resetWeight(toComponents(component.children, activesComponents)),

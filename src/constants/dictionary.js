@@ -104,6 +104,10 @@ const dictionary = {
     en: 'Loop',
     fr: 'Boucles',
   },
+  Scope : {
+    en: 'Scope',
+    fr: 'Portée',
+  },
   question: {
     en: 'Question',
     fr: 'Question',
@@ -389,6 +393,11 @@ const dictionary = {
   selectFinalMembre: {
     fr: 'Spécifier Membre final',
     en: 'Specify Final member',
+  },
+
+  selectScope: {
+    fr: 'Spécifier Portée',
+    en: 'Specify Scope',
   },
    
   specify: {
