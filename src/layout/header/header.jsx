@@ -15,7 +15,7 @@ function Header() {
           </div>
           <h2>
             <Link className="header-homepage" to="/">
-              Cypress
+              Poguess
             </Link>
           </h2>
           <h6>{Dictionary.headerSubtitle}</h6>
