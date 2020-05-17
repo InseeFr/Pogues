@@ -49,7 +49,7 @@ class ArboSimplified extends Component {
             className={isQuestion(components[key]) ? 'questions' : ''}
           >
             {components[key].children && components[key].children.length > 0 && (
-                <span
+                <button
                   onClick={e => this.handleExpand(e, key)} 
                   className={`glyphicon ${
                     this.state.expanded.indexOf(key) >= 0
@@ -58,9 +58,9 @@ class ArboSimplified extends Component {
                   }`}
                 />
             )}
-            <span onClick={e => this.handleClick(e, key)}>
+            <button onClick={e => this.handleClick(e, key)}>
               {components[key].name.toUpperCase()}
-            </span>
+            </button>
             {this.state.expanded.indexOf(key) >= 0 && (
               <ul className="arbo-simplifield">{subTree}</ul>
             )}

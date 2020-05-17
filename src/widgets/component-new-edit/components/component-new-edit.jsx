@@ -32,7 +32,7 @@ import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-sug
 
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
-const { QUESTION, LOOP } = COMPONENT_TYPE;
+const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 export const propTypes = {
   ...formPropTypes,
@@ -136,6 +136,7 @@ class ComponentNewEdit extends Component {
           <ExternalVariables
             errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
             addErrors={addSubformValidationErrors}
+            componentsStore={componentsStore}
           />
         </Tab>,
         <Tab
@@ -146,6 +147,7 @@ class ComponentNewEdit extends Component {
           <CalculatedVariables
             errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
             addErrors={addSubformValidationErrors}
+            componentsStore={componentsStore}
           />
         </Tab>,
         <Tab
@@ -173,9 +175,15 @@ class ComponentNewEdit extends Component {
         </GenericOption>);
     if(this.props.InitialMember) {
       const componentinitial = Object.values(store)
-      .filter(component=> component.id === this.props.InitialMember);
+      .filter(component => component.id === this.props.InitialMember);
       optionsFinal =  Object.values(store)
-      .filter(component=> component.type === componentinitial[0].type)
+      .filter(component => component.type === componentinitial[0].type
+              && component.type === SEQUENCE 
+              && component.weight >= componentinitial[0].weight
+              || component.type === SUBSEQUENCE
+              && component.type === componentinitial[0].type
+              && component.weight >= componentinitial[0].weight
+              && component.parent === componentinitial[0].parent)
       .map(element => {
         return (
         <GenericOption
@@ -199,7 +207,7 @@ class ComponentNewEdit extends Component {
       componentsStore,
     } = this.props;
     const optionsInitial =  Object.values(componentsStore)
-      .filter(component=> component.type === "SEQUENCE" || component.type === "SUBSEQUENCE")
+      .filter(component=> component.type === SEQUENCE || component.type === SUBSEQUENCE)
       .map(element => {
        return (<GenericOption
           key={element.id}
@@ -211,18 +219,19 @@ class ComponentNewEdit extends Component {
 
     const optionsTable =  Object.values(componentsStore)
     .filter(component => 
-      component.type === "QUESTION" && 
+      component.type === QUESTION && 
       component.responseFormat.type === "TABLE"
       && component.responseFormat.TABLE.PRIMARY.type === "LIST" ||
-      component.type === "LOOP" && !component.basedOn)
+      component.type === LOOP && !component.basedOn)
     .map(element => {
       return (
-      <GenericOption
-        key={element.id}
-        value={element.id}
-      >
-        {element.name || element.nameLoop}
-      </GenericOption>)
+        <GenericOption
+          key={element.id}
+          value={element.id}
+        >
+          {element.name || element.nameLoop}
+        </GenericOption>
+      )
     });
     const associatedFieldsProps = {
     formName: form,

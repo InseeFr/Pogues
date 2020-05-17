@@ -11,6 +11,7 @@ export function remoteToStore(remote = []) {
     const {
       Name: name,
       Label: label,
+      Scope: scope,
       Datatype: {
         typeName,
         MaxLength: maxLength,
@@ -30,6 +31,7 @@ export function remoteToStore(remote = []) {
         name,
         label,
         type: typeName,
+        scope: scope? scope: '',
         [typeName]: {
           maxLength,
           pattern,
@@ -51,7 +53,7 @@ export function storeToRemote(store) {
       name: Name,
       label: Label,
       type: typeName,
-
+      scope: Scope,
       [typeName]: {
         maxLength: MaxLength,
         pattern: Pattern,
@@ -80,7 +82,7 @@ export function storeToRemote(store) {
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
     if (Format !== undefined) model.Datatype.Format = Format;
-
+    if (Scope) model.Scope = Scope;
     return model;
   });
 }
