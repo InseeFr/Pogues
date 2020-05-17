@@ -67,6 +67,7 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@percy/cypress": "^2.3.1",
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
@@ -79,6 +80,8 @@
     "coveralls": "3.0.6",
     "cross-env": "5.2.1",
     "css-loader": "3.2.0",
+    "cypress": "^4.5.0",
+    "cypress-axe": "^0.8.1",
     "deep-freeze": "0.0.1",
     "env2": "2.2.2",
     "enzyme": "3.10.0",
@@ -143,7 +146,9 @@
     "start": "npm run dev",
     "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
     "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
-    "pre-commit": "npm run lint && npm run test"
+    "pre-commit": "npm run lint && npm run test",
+    "cypress:open": "cypress open   --env EXTERNAL_API=http://localhost:3000",
+    "cypress:run": "cypress run   --env EXTERNAL_API=http://localhost:3000"
   },
   "author": "INSEE (http://www.insee.fr)",
   "husky": {
