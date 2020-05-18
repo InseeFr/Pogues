@@ -304,6 +304,10 @@ const dictionary = {
     en: 'Pattern',
     fr: 'Motif',
   },
+  collected: {
+    en: 'Collected',
+    fr: 'Collectée',
+  },
   disjoignable: {
     en: 'Detachable statement',
     fr: 'Déclaration détachable',

@@ -99,6 +99,8 @@ class CollectedVariables extends Component {
       componentName,
       responseFormatType,
     } = this.props;
+    const hiddenCollected = responseFormatType !== "TABLE";
+
     return (
       <FormSection name={selectorPath}>
         <ListWithInputPanel
@@ -151,14 +153,14 @@ class CollectedVariables extends Component {
               <ResponseFormatDatatypeText readOnly required={false} />
             </View>
             <View key={DATE} value={DATE} label={Dictionary.DATE} >
-            <ResponseFormatDatatypeDate readOnly required={false}/>
+              <ResponseFormatDatatypeDate readOnly required={false} />
             </View>
             <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
               <ResponseFormatDatatypeNumeric readOnly required={false} />
             </View>
             <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
             <View key={DURATION} value={DURATION} label={Dictionary.DURATION} >
-            <ResponseFormatDatatypeDuree readOnly  required={false}/>
+              <ResponseFormatDatatypeDuree readOnly required={false} />
             </View>
           </SelectorView>
 
@@ -170,6 +172,17 @@ class CollectedVariables extends Component {
             component={Input}
             label={Dictionary.cl}
           />
+          <div className="ctrl-checkbox" hidden={hiddenCollected}>
+            <label htmlFor="collected-variables-isCollected">{Dictionary.collected}</label>
+            <div>
+              <Field
+                name="isCollected"
+                id="collected-variables-isCollected"
+                component="input"
+                type="checkbox"
+              />
+            </div> 
+          </div>
         </ListWithInputPanel>
       </FormSection>
     );

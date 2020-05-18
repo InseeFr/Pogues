@@ -76,6 +76,7 @@ export function stateToRemote(
       ResponseStructure: {
         Dimension: dataTypeRemote.Dimension,
         Mapping: dataTypeRemote.Mapping,
+        Attribute: dataTypeRemote.Attribute,
       },
       Response: dataTypeRemote.Response,
     };

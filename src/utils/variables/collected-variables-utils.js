@@ -288,7 +288,11 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
             getCollecteVariable(
               `${questionName}${i + 1}${j + 1}`,
               `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
-              { x: i + 1, y: j + 1 },
+              {
+                x: i + 1,
+                y: j + 1,
+                isCollected: true
+              },
               getReponsesValues(measureState),
             ),
           );
@@ -310,6 +314,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
               {
                 x: i + 1,
                 y: j + 1,
+                isCollected: true
               },
               getReponsesValues(measure),
             ),
@@ -325,7 +330,11 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         getCollecteVariable(
           `${questionName}${j + 1}`,
           `${measure.label}`,
-          { x: 1, y: j + 1 },
+          { 
+            x: 1,
+            y: j + 1,
+            isCollected: true
+          },
           getReponsesValues(measure),
         ),
       );
@@ -344,7 +353,8 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
                     `${variable.name}${code.value}CL label`,
                     {
                       z: code.weight,
-                      mesureLevel: variable.x 
+                      mesureLevel: variable.x, 
+                      isCollected: true
                      },
                     {
                       type: "TEXT",
