@@ -35,6 +35,21 @@ export const toolbarConfigQuestion = {
   },
 };
 
+export const toolbarConfigTooltip = {
+  display: ['LINK_BUTTONS'],
+  extraProps: {
+    tabIndex: '-1',
+  },
+  LINK_BUTTONS: {
+    ADD: {
+      label: 'Link or Tooltip',
+      iconName: 'link',
+      placeholder: 'Insert an URL or a tooltip',
+    },
+    REMOVE: { label: 'Remove Link or Tooltip', iconName: 'remove-link' },
+  },
+};
+
 export const rootStyle = {
   display: 'flex',
   flexDirection: 'column-reverse',

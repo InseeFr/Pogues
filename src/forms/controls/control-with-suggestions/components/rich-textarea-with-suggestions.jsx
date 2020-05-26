@@ -36,9 +36,11 @@ function myKeyBindingFn(e) {
 
 const propTypes = {
   submitOnEnter: PropTypes.bool,
+  toolbar: PropTypes.object,
 };
 const defaultProps = {
   submitOnEnter: false,
+  toolbar: toolbarConfig,
 };
 
 // Control
@@ -185,6 +187,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       required,
       disabled,
       input,
+      toolbar,
       meta: { touched, error },
       targetIsQuestion,
     } = this.props;
@@ -202,7 +205,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             value={editorValue}
             onChange={this.handleChange}
             toolbarConfig={
-              targetIsQuestion ? toolbarConfigQuestion : toolbarConfig
+              targetIsQuestion ? toolbarConfigQuestion : toolbar
             }
             handleReturn={this.handleReturn}
             rootStyle={rootStyle}
