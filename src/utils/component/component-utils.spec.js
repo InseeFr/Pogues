@@ -6,12 +6,13 @@ import {
   isQuestion,
   isSequence,
   isSubSequence,
+  isLoop,
   getSortedChildren,
   updateNewComponentParent,
 } from './component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP } = COMPONENT_TYPE;
 
 describe('isQuestion', () => {
   test(`should return true when calling isQuestion with a QUESTION as a parameter`, () => {
@@ -30,6 +31,16 @@ describe('isSubSequence', () => {
 
   test(`should return false when calling isSubSequence without a SUBSEQUENCE as a parameter`, () => {
     expect(isSubSequence()).toBeFalsy();
+  });
+});
+
+describe('isLoop', () => {
+  test(`should return true when calling isLoop with a LOOP as a parameter`, () => {
+    expect(isLoop({ type: LOOP })).toBeTruthy();
+  });
+
+  test(`should return false when calling isLoop without a LOOP as a parameter`, () => {
+    expect(isLoop()).toBeFalsy();
   });
 });
 

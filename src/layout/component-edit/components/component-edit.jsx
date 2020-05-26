@@ -5,10 +5,11 @@ import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
 import {
   validateQuestionForm,
   validateSequenceForm,
+  validateLoopForm,
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION } = COMPONENT_TYPE;
+const { QUESTION, LOOP } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -39,15 +40,24 @@ function validateAndSubmit(
   component,
   validateQuestion,
   validateSequence,
+  validateLoop,
   transformer,
   onSuccess,
 ) {
+
+
   return function(values) {
+
     if (component.type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
-    } else {
+    } 
+    else if (component.type === LOOP){
+      validateLoop(values);
+    }
+    else {
       validateSequence(values);
     }
+
 
     const updatedComponentsStore = transformer.formToStore(
       values,
@@ -87,6 +97,8 @@ function ComponentEdit({
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
   const validateSequence = setValidationErrorsAction => values =>
     validateSequenceForm(values, setValidationErrorsAction);
+  const validateLoop = setValidationErrorsAction => values =>
+    validateLoopForm(values, setValidationErrorsAction);  
   const actions = {
     updateComponent,
   };
@@ -114,6 +126,7 @@ function ComponentEdit({
         initialState,
         validateQuestion(setValidationErrors, codesListsStore),
         validateSequence(setValidationErrors),
+        validateLoop(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}

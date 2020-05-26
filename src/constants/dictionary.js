@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 
 const dictionary = {
 
@@ -100,9 +100,21 @@ const dictionary = {
     en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
+  loop: {
+    en: 'Loop',
+    fr: 'Boucles',
+  },
+  Scope : {
+    en: 'Scope',
+    fr: 'Portée',
+  },
   question: {
     en: 'Question',
     fr: 'Question',
+  },
+  loop: {
+    en: 'Loop',
+    fr: 'Boucle',
   },
   pageBreak: {
     en: 'Page break',
@@ -344,7 +356,50 @@ const dictionary = {
     en: 'Precision',
     fr: 'Précision',
   },
+  BasedOn: {
+    en: 'Based on',
+    fr: 'Basé sur',
+  },
 
+  Filter: {
+    en: 'Filter',
+    fr: 'Filtre',
+  },
+  InitialMembre: {
+    en: 'Initial member',
+    fr: 'Membre initial',
+  },
+
+  FinalMembre: {
+    en: 'Final member',
+    fr: 'Membre final',
+  },
+  
+  AddButton: {
+    en: 'Add button label',
+    fr: 'Libellé du bouton d\'ajout',
+  },
+
+  selectBasedOn: {
+    fr: 'Spécifier Basé sur',
+    en: 'Specify Based on',
+  },
+
+  selectInitialMembre: {
+    fr: 'Spécifier Membre initial',
+    en: 'Specify Initial member',
+  },
+
+  selectFinalMembre: {
+    fr: 'Spécifier Membre final',
+    en: 'Specify Final member',
+  },
+
+  selectScope: {
+    fr: 'Spécifier Portée',
+    en: 'Specify Scope',
+  },
+   
   specify: {
     en: 'Specify',
     fr: 'Préciser',
@@ -572,9 +627,9 @@ const dictionary = {
   },
   errorUniqueComponentName: {
     fr:
-      'Les noms de composant (séquence, sous-séquence et question) doivent être uniques :',
+      'Les noms de composant (séquence, sous-séquence, boucle et question) doivent être uniques :',
     en:
-      'Component names (sequence, subsequence and question) should be unique:',
+      'Component names (sequence, subsequence, loop and question) should be unique:',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
@@ -1359,6 +1414,10 @@ dictionary[`componentNew${SEQUENCE}`] = {
   en: 'New sequence',
 };
 
+dictionary[`componentNew${LOOP}`] = {
+  fr: 'Nouvelle boucle',
+  en: 'New loop',
+};
 dictionary[`componentNew${SUBSEQUENCE}`] = {
   fr: 'Nouvelle sous-séquence',
   en: 'New sub-sequence',
@@ -1377,6 +1436,11 @@ dictionary[`componentEdit${SEQUENCE}`] = {
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
   fr: 'Modifier la sous-séquence',
   en: 'Edit sub-sequence',
+};
+
+dictionary[`componentEdit${LOOP}`] = {
+  fr: 'Modifier le boucle',
+  en: 'Edit loop',
 };
 
 export default dictionary;
