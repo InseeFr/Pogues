@@ -31,6 +31,7 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
+  componentsStore: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
@@ -41,7 +42,17 @@ export const defaultProps = {
 
 // Component
 
-function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
+function ExternalVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
+  const scopeOption = Object.values(componentsStore)
+  .filter(component=> component.type === "LOOP" && !component.basedOn || component.type === "LOOP" && component.basedOn && componentsStore[component.basedOn].type != "LOOP" )
+  .map(element => {
+  return (<GenericOption
+      key={element.id}
+      value={element.id}
+    >
+      {element.name}
+    </GenericOption>)
+  }); 
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -84,6 +95,19 @@ function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
          
         </SelectorView>
+        <Field
+          name="scope"
+          component={Select}
+          label={Dictionary.Scope}
+        >
+          <GenericOption
+            key=''
+            value=''
+          >
+            {Dictionary.selectScope}
+          </GenericOption>
+            {scopeOption}
+        </Field>
       </ListWithInputPanel>
     </FormSection>
   );

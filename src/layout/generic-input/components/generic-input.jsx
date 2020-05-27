@@ -93,6 +93,7 @@ class GenericInput extends Component {
     const newState = {
       ...this.state,
       showNewComponentModal: false,
+      showNewUnsavedModal: false,
       typeNewComponent: '',
     };
     this.setState(newState);

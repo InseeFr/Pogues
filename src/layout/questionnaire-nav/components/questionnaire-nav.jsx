@@ -17,6 +17,7 @@ const propTypes = {
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
+  removeComponent: PropTypes.func.isRequired,
 };
 
 
@@ -26,7 +27,8 @@ function QuestionnaireNav({
   componentsStore,
   setSelectedComponentId,
   setEditingComponentId,
-  editingComponentId
+  editingComponentId,
+  removeComponent,
 }) {
   return (
     <div className={COMPONENT_CLASS}>
@@ -53,7 +55,8 @@ function QuestionnaireNav({
           questionnaire={questionnaire}
           setSelectedComponentId={setSelectedComponentId}
           setEditingComponentId = {setEditingComponentId}
-          editingComponentId={editingComponentId}
+          editingComponentId = {editingComponentId}
+          removeComponent = {removeComponent}
         />
       </div>
     </div>  

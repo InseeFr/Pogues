@@ -89,6 +89,7 @@ function ComponentEdit({
   collectedVariablesStore,
   codesListsStore,
   updateComponent,
+  deleteComponent,
   onCancel,
   onSuccess,
   setValidationErrors,
@@ -121,6 +122,7 @@ function ComponentEdit({
       componentId={component.id}
       onCancel={onCancel}
       initialValues={initialValues}
+      deleteComponent= {deleteComponent}
       onSubmit={validateAndSubmit(
         actions,
         initialState,

@@ -10,6 +10,7 @@ class NavLoop extends Component {
       componentsStore: PropTypes.object.isRequired,
       questionnaire: PropTypes.object.isRequired,
       setSelectedComponentId: PropTypes.func.isRequired,
+      removeComponent: PropTypes.func.isRequired,
     };
 
   constructor() {
@@ -35,12 +36,18 @@ class NavLoop extends Component {
   handleCloseComponentDetail() {
     this.setState({ showComponentModal: false });
   }
+   
+   handleDeleteComponent = () => {
+    this.props.removeComponent(this.props.editingComponentId)
+    this.setState({ showComponentModal: false });
+  }
 
   render() {
     const {
       componentsStore,
-      editingComponentId
+      editingComponentId,
     } = this.props;
+
     const options =  Object.values(componentsStore)
     .filter(component=> component.type === "LOOP")
     .map(element => {
@@ -82,6 +89,7 @@ class NavLoop extends Component {
                   <ComponentEdit
                     onCancel={this.handleCloseComponentDetail}
                     onSuccess={this.handleCloseComponentDetail}
+                    deleteComponent={this.handleDeleteComponent}
                   />
                 </div>
               </div>

@@ -15,6 +15,8 @@ import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/re
 import Dictionary from 'utils/dictionary/dictionary';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 import { SelectorView, View } from 'widgets/selector-view';
+import GenericOption from 'forms/controls/generic-option';
+import Select from 'forms/controls/select';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
@@ -31,6 +33,7 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
+  componentsStore: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
@@ -39,9 +42,17 @@ export const defaultProps = {
   errors: [],
 };
 
-// Component
-
-function CalculatedVariables({ formName, selectorPath, errors, addErrors }) {
+function CalculatedVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
+  const scopeOption = Object.values(componentsStore)
+  .filter(component=> component.type === "LOOP" && !component.basedOn || component.type === "LOOP" && component.basedOn && componentsStore[component.basedOn].type != "LOOP" )
+  .map(element => {
+  return (<GenericOption
+      key={element.id}
+      value={element.id}
+    >
+      {element.name}
+    </GenericOption>)
+  }); 
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -90,6 +101,19 @@ function CalculatedVariables({ formName, selectorPath, errors, addErrors }) {
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         </SelectorView>
+        <Field
+          name="scope"
+          component={Select}
+          label={Dictionary.Scope}
+        >
+          <GenericOption
+            key=''
+            value=''
+          >
+            {Dictionary.selectScope}
+          </GenericOption>
+            {scopeOption}
+        </Field>
       </ListWithInputPanel>
     </FormSection>
   );
