@@ -272,7 +272,7 @@ describe('collected variable tranformations', () => {
           },
         },
       };
-     const input1 = {
+      const input1 = {
         kapgzmji: {
           TargetMode: ["CAWI", "PAPI"],
           children: [],
@@ -605,60 +605,33 @@ describe('collected variable tranformations', () => {
 
     test('should not return Maximum collected variable model if type is DURATION and the PTnHnM format and mahours and maminutes undefined', () => {
       const input = {
-        kaphc2ly: {
-                    TEXT: {maxLength: 255, pattern: ""},
-                    codeListReference: undefined,
-                    codeListReferenceLabel: "",
-                    id: "kaphc2ly",
-                    label: "QUESTION1 label",
-                    mesureLevel: undefined,
-                    name: "QUESTION1",
-                    type: "TEXT",
-                    z: undefined,
-                  },
-        kaphdzm1: {
-                  TEXT: {maxLength: 255, pattern: ""},
-                  codeListReference: "",
-                  codeListReferenceLabel: "",
-                  id: "kaphdzm1",
-                  label: "sdd",
-                  mesureLevel: undefined,
-                  name: "QUESTION21",
-                  type: "TEXT",
-                  x: 1,
-                  y: 1,
-                  z: undefined,
+        k23bk67e: {
+          id: "k23bk67e",
+          label: "AQS label",
+          name: "AQS",
+          x: undefined,
+          y: undefined,
+          type: DURATION,
+          [DURATION]: {
+            decimals: undefined,
+            maxLength: undefined,
+            pattern: undefined,
+            format: "PTnHnM",
+            minimum: undefined,
+            maximum: undefined,
+            unit: undefined,
+            miyears: undefined,
+            mimonths: undefined,
+            mayears: undefined,
+            mamonths: undefined,
+            mihours: 2,
+            miminutes: 1,
+            mahours: undefined,
+            maminutes: undefined,
+          },
         },
-        kaphgxz7: {
-                    BOOLEAN: {},
-                    DATE: {minimum: "", maximum: "", format: ""},
-                    DURATION: {
-                      format: "",
-                      mahours: "",
-                      maminutes: "",
-                      mamonths: "",
-                      maximum: "",
-                      mayears: "",
-                      mihours: "",
-                      miminutes: "",
-                      mimonths: "",
-                      minimum: "",
-                      miyears: "",
-                    },
-                    NUMERIC: {minimum: "", maximum: "", decimals: "", unit: ""},
-                    TEXT: {maxLength: 255, pattern: ""},
-                    codeListReference: undefined,
-                    codeListReferenceLabel: undefined,
-                    id: "kaphgxz7",
-                    label: "TEST1 label",
-                    mesureLevel: undefined,
-                    name: "TEST1",
-                    type: "TEXT",
-                    x: undefined,
-                    y: undefined,
-                    z: undefined,
-        }
       };
+
       const input1 = {
         kapgzmji: {
           TargetMode: ["CAWI", "PAPI"],
