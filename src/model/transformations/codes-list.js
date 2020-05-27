@@ -35,7 +35,6 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
     }, {});
 }
 export function getcodelistwithclarification(remote, variableclarification) {
-  console.log('variableclarification', variableclarification);
   remote.forEach(codelist => {
     variableclarification.forEach( clarif => {
       if (clarif.codelistid === codelist.id && clarif.position){

@@ -108,10 +108,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
                   let varibale = null;
                   if(element.questionType === "MULTIPLE_CHOICE") {
                     codelistid = element.ResponseStructure.Dimension[0].CodeListReference;
-                    const codeCollectedVarible = position.substring(
-                      1, 
-                      position.lastIndexOf("$")
-                      );
+                    const codeCollectedVarible = position.substring(1, position.lastIndexOf("$"));
                     const variable =  collectedVariables.find(varib => varib.Name === codeCollectedVarible);
                     if(variable) {
                       multiplFind = element.Response.findIndex((response)=> response.CollectedVariableReference === variable.id)
