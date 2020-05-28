@@ -98,10 +98,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
                     position.lastIndexOf("=") + 3, 
                     position.lastIndexOf("'")
                   );
-                  const multiplFind = position.substring(
-                  1, 
-                  position.lastIndexOf("$")
-                  ).replace(element.Name,'');
+                  let multiplFind = "";
                   const tableFind = position.substring(
                     1, 
                     position.lastIndexOf("$")
@@ -111,6 +108,11 @@ export function getClarificarionfromremote(Children, collectedVariables) {
                   let varibale = null;
                   if(element.questionType === "MULTIPLE_CHOICE") {
                     codelistid = element.ResponseStructure.Dimension[0].CodeListReference;
+                    const codeCollectedVarible = position.substring(1, position.lastIndexOf("$"));
+                    const variable =  collectedVariables.find(varib => varib.Name === codeCollectedVarible);
+                    if(variable) {
+                      multiplFind = element.Response.findIndex((response)=> response.CollectedVariableReference === variable.id)
+                    }  
                   }
                   else if(element.questionType == "TABLE") {
                      varibale = collectedVariables.find(varib => varib.Name === tableFind)
@@ -353,7 +355,7 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
   collectedvariablequestion.forEach(function(collected) {
     if(responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList)   {
       const code = Object.values(codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id].codes).find(code => code.weight === collected.z);
-      if (!collected.codeListReference && code) {
+      if (code) {
         const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
         let clafication = {
           id: uuid(),

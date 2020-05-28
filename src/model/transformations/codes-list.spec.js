@@ -786,13 +786,16 @@ describe('codes list tranformations', () => {
           label: 'Means of transport',
           codes: {
             '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1 },
-            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2, precisionid: 'tests', precisionlabel: 'Préciser :', precisionsize: '249'},
+            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2},
             '3': {
               value: '3',
               label: 'Skateboard',
               parent: '',
               depth: 1,
               weight: 3,
+              precisionid: 'tests',
+              precisionlabel: 'Préciser :',
+              precisionsize: '249'
             },
             '4': {
               value: '4',

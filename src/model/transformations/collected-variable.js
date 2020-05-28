@@ -17,7 +17,7 @@ export function remoteToStore(
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
         if(find.type === 'MULTIPLE_CHOICE') {       
-          variable.z = parseInt(find.position);
+          variable.z = parseInt(find.position) + 1;
         }
         else if(find.type === 'TABLE') {
           const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
@@ -149,7 +149,7 @@ export function storeToRemote(store) {
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
-    if(!z) {
+    if(codeListReference !== "") {
       model.CodeListReference = codeListReference;
     }
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;

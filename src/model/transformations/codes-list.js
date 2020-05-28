@@ -40,7 +40,7 @@ export function getcodelistwithclarification(remote, variableclarification) {
       if (clarif.codelistid === codelist.id && clarif.position){
         let index = 0;
         if(clarif.type === 'MULTIPLE_CHOICE') {       
-            index = parseInt(clarif.position) - 1
+            index = parseInt(clarif.position)
          }
         else {
           index = codelist.Code.findIndex(code => code.Value === clarif.position);
