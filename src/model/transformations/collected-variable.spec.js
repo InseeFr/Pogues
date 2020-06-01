@@ -920,7 +920,6 @@ describe('collected variable tranformations', () => {
       };
       const output = [
         {
-          CodeListReference: "",
           Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: 255, Pattern: ""},
           Label: "tab",
           Name: "QUESTION21",
