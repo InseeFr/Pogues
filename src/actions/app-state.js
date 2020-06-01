@@ -278,7 +278,6 @@ export const saveActiveQuestionnaire = () => {
 
     const state = getState();
     const questionnaireModel = getQuestionnaireModel(state);
-
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
         return dispatch(

@@ -173,10 +173,10 @@ class ComponentNewEdit extends Component {
               value=''
            >
         </GenericOption>);
-    if(this.props.InitialMember) {
-      const componentinitial = Object.values(store)
-      .filter(component => component.id === this.props.InitialMember);
-      optionsFinal =  Object.values(store)
+    const componentinitial = Object.values(store)
+    .filter(component => component.id === this.props.InitialMember);   
+    if(this.props.InitialMember && componentinitial.length > 0) {
+      optionsFinal = Object.values(store)
       .filter(component => component.type === componentinitial[0].type
               && component.type === SEQUENCE 
               && component.weight >= componentinitial[0].weight

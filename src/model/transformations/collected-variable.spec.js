@@ -693,229 +693,243 @@ describe('collected variable tranformations', () => {
       expect(storeToRemote(input, input1)).toEqual(output);
     });
 
-    test('should not return Scoop collected variable model if there is LOOP', () => {
+    test('should return Scoop from loop ID in collected variable model if there is LOOP and question is not table', () => {
       const input = {
         k23bk67e: {
           id: "k23bk67e",
-          label: "AQS label",
-          name: "AQS",
-          x: undefined,
-          y: undefined,
-          type: DURATION,
-          [DURATION]: {
-            decimals: undefined,
-            maxLength: undefined,
-            pattern: undefined,
-            format: "PTnHnM",
-            minimum: undefined,
-            maximum: undefined,
-            unit: undefined,
-            miyears: undefined,
-            mimonths: undefined,
-            mayears: undefined,
-            mamonths: undefined,
-            mihours: 2,
-            miminutes: 1,
-            mahours: undefined,
-            maminutes: undefined,
-          },
+          TEXT: {maxLength: 255, pattern: ""},
+          codeListReference: undefined,
+          codeListReferenceLabel: "",
+          id: "kawknt1k",
+          label: "QUESTION1 label",
+          mesureLevel: undefined,
+          name: "QUESTION1",
+          type: "TEXT",
+          z: undefined
         },
       };
       const input1 = {
-        kapgzmji: {
-          TargetMode: ["CAWI", "PAPI"],
+        kawkitxu: {
+          TargetMode: ["CAWI"],
           children: [],
-          collectedVariables: ["kaphc2ly"],
+          collectedVariables: ["kawknt1k"],
           controls: {},
           declarations: {},
-          id: "kapgzmji",
+          id: "kawkitxu",
           label: "question1",
           name: "QUESTION1",
           pageBreak: false,
-          parent: "kaph7dbh",
+          parent: "kawkbwbv",
           redirections: {},
           responseFormat: {
             type: "SIMPLE",
             SIMPLE: 
               {
-              TEXT: {maxLength: 255, pattern: ""},
-              id: "kaph6l3y",
-              mandatory: false,
-              type: "TEXT"
+                TEXT: {maxLength: 255, pattern: ""},
+                id: "kawknyfn",
+                mandatory: false,
+                type: "TEXT"
               }
-           },
+          },
           responsesClarification: undefined,
           type: "QUESTION",
           weight: 0,
         },
-        kaph7dbh: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: ["kapgzmji", "kaphg7pd"],
+        kawkbwbv: {
+          TargetMode: ["CAWI"],
+          children: ["kawkitxu", "kawknrqr"],
           controls: {},
           declarations: {},
-          id: "kaph7dbh",
+          id: "kawkbwbv",
           label: "sequence1",
           name: "SEQUENCE1",
           pageBreak: false,
-          parent: "kaphhxpd",
+          parent: "kawkne43",
           redirections: {},
           responsesClarification: undefined,
           type: "SEQUENCE",
           weight: 0,
         },
-        kaph99on: {
+        kawkne43: {
+          TargetMode: ["CAWI"],
+          children: ["kawkbwbv"],
+          controls: {},
+          declarations: {},
+          id: "kawkne43",
+          label: "testloop",
+          name: "TESTLOOP",
+          pageBreak: undefined,
+          parent: "",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "QUESTIONNAIRE",
+          weight: 0,
+        },
+        kawlwdra: {
           BasedOn: "",
-          TargetMode: ["CAWI", "PAPI"],
+          TargetMode: ["CAWI"],
           addButtonLibel: "",
           basedOn: "",
           children: [],
-          collectedVariables: ["kaphgxz7"],
+          collectedVariables: [],
           controls: {},
           declarations: {},
           filter: "",
-          finalMember: "",
-          id: "kaph99on",
-          initialMember: "",
-          label: "test1",
+          finalMember: "kawkbwbv",
+          id: "kawlwdra",
+          initialMember: "kawkbwbv",
+          label: "",
           maximum: "",
-          name: "TEST1",
-          nameLoop: "",
-          parent: "kaph699u",
+          name: "LOOP",
+          nameLoop: "LOOP",
+          parent: undefined,
           redirections: {},
-          responseFormat: {
-             type: "SIMPLE",
-             SIMPLE: {
-                  TEXT: {maxLength: 255, pattern: ""},
-              id: undefined,
-              mandatory: false,
-              type: "TEXT",
-             }
-            },
-          type: "QUESTION",
-          weight: 0,
-        },
-        kaph699u: {
-            BasedOn: "",
-            TargetMode: ["CAWI", "PAPI"],
-            addButtonLibel: "",
-            basedOn: "",
-            children: ["kaph99on"],
-            collectedVariables: [],
-            controls: {},
-            declarations: {},
-            filter: "",
-            finalMember: "",
-            id: "kaph699u",
-            initialMember: "",
-            label: "subsequence",
-            maximum: "",
-            name: "SUBSEQUENC",
-            nameLoop: "",
-            parent: "kaphlk90",
-            redirections: {},
-            responseFormat: {},
-            type: "SUBSEQUENCE",
-            weight: 0
-        },
-        kaphg7pd: {
-            TargetMode: ["CAWI", "PAPI"],
-            children: [],
-            collectedVariables: ["kaphdzm1"],
-            controls: {},
-            declarations: {},
-            id: "kaphg7pd",
-            label: "question2",
-            name: "QUESTION2",
-            pageBreak: false,
-            parent: "kaph7dbh",
-            redirections: {},
-            responseFormat: {
-                type: "TABLE",
-                TABLE: {
-                      LIST_MEASURE: [
-                       {
-                        label: "sdd",
-                        type: "SIMPLE",
-                        SIMPLE: {
-                                SIMPLE: {  
-                                   id: undefined, 
-                                   type: "TEXT",
-                                   mandatory: undefined,
-                                   TEXT: {
-                                      maxLength: 255,
-                                      pattern: ""
-                                    }
-                                  },
-                                label: "sdd",
-                                type: "SIMPLE"
-                                }
-                       },
-                      ],
-                      PRIMARY: {
-                        LIST: {numLinesMin: 3, numLinesMax: 1},
-                        type: "LIST"
-                      },
-                }
-            },
-            responsesClarification: [],
-            type: "QUESTION",
-            weight: 1,
-        },
-        kaphhxpd: {
-              TargetMode: ["CAWI", "PAPI"],
-              children: ["kaph7dbh", "kaphlk90"],
-              controls: {},
-              declarations: {},
-              id: "kaphhxpd",
-              label: "Loop",
-              name: "LOOP",
-              pageBreak: undefined,
-              parent: "",
-              redirections: {},
-              responsesClarification: undefined,
-              type: "QUESTIONNAIRE",
-              weight: 0,
-        },
-        kaphlk90: {
-              BasedOn: "",
-              TargetMode: ["CAWI", "PAPI"],
-              addButtonLibel: "",
-              basedOn: "",
-              children: ["kaph699u"],
-              collectedVariables: [],
-              controls: {},
-              declarations: {},
-              filter: "",
-              finalMember: "",
-              id: "kaphlk90",
-              initialMember: "",
-              label: "sequence2",
-              maximum: "",
-              name: "SEQUENCE2",
-              nameLoop: "",
-              parent: "kaphhxpd",
-              redirections: {},
-              responseFormat: {},
-              type: "SEQUENCE",
-              weight: 1,
+          responseFormat: {},
+          type: "LOOP",
+          weight: undefined,
         }
-        };
+      };
       const output = [
         {
           CodeListReference: undefined,
-          Label: "AQS label",
-          Name: "AQS",
-          id: "k23bk67e",
-          type: 'CollectedVariableType',
-          Datatype: {
-            Format: "PTnHnM",
-            Minimum: "PT2H1M",
-            type: "DurationDatatypeType",
-            typeName: DURATION,
-          },
+          Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: 255, Pattern: ""},
+          Label: "QUESTION1 label",
+          Name: "QUESTION1",
+          Scope: "kawlwdra",
+          id: "kawknt1k",
+          type: "CollectedVariableType",
         },
       ];
       expect(storeToRemote(input, input1)).toEqual(output);
     });
+
+    test('should return Scoop from Question ID in collected variable model if there is LOOP and question is table', () => {
+      const input = {
+        kawkrelo: {
+          BOOLEAN: undefined,
+          DATE: undefined,
+          DURATION: undefined,
+          NUMERIC: undefined,
+          TEXT: {maxLength: 255, pattern: ""},
+          codeListReference: "",
+          codeListReferenceLabel: "",
+          id: "kawkrelo",
+          label: "tab",
+          mesureLevel: undefined,
+          name: "QUESTION21",
+          type: "TEXT",
+          x: 1,
+          y: 1,
+          z: undefined,
+        }
+      };
+      const input1 = {
+        kawkbwbv: {
+          TargetMode: ["CAWI"],
+          children: ["kawkitxu", "kawknrqr"],
+          controls: {},
+          declarations: {},
+          id: "kawkbwbv",
+          label: "sequence1",
+          name: "SEQUENCE1",
+          pageBreak: false,
+          parent: "kawkne43",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "SEQUENCE",
+          weight: 0,
+        },
+        kawknrqr: {
+          TargetMode: ["CAWI"],
+          children: [],
+          collectedVariables: ["kawkrelo"],
+          controls: {},
+          declarations: {},
+          id: "kawknrqr",
+          label: "question2",
+          name: "QUESTION2",
+          pageBreak: false,
+          parent: "kawkbwbv",
+          redirections: {},
+          responseFormat: {
+            type: "TABLE",
+            TABLE: {
+              LIST_MEASURE: [
+                {
+                  label: "tab",
+                  type: "SIMPLE",
+                  SIMPLE: {  
+                    id: undefined, 
+                    type: "TEXT",
+                    mandatory: undefined,
+                    TEXT: {
+                      maxLength: 255,
+                      pattern: ""
+                    }
+                  },
+                },
+              ],
+              PRIMARY: {
+                LIST: {numLinesMin: 4, numLinesMax: 2},
+                type: "LIST"
+              },
+            }
+          },
+          responsesClarification: [],
+          type: "QUESTION",
+          weight: 0,
+        },
+        kawkne43: {
+          TargetMode: ["CAWI"],
+          children: ["kawkbwbv"],
+          controls: {},
+          declarations: {},
+          id: "kawkne43",
+          label: "testloop",
+          name: "TESTLOOP",
+          pageBreak: undefined,
+          parent: "",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "QUESTIONNAIRE",
+          weight: 0,
+        },
+        kawlwdra: {
+          BasedOn: "",
+          TargetMode: ["CAWI"],
+          addButtonLibel: "",
+          basedOn: "",
+          children: [],
+          collectedVariables: [],
+          controls: {},
+          declarations: {},
+          filter: "",
+          finalMember: "kawkbwbv",
+          id: "kawlwdra",
+          initialMember: "kawkbwbv",
+          label: "",
+          maximum: "",
+          name: "LOOP",
+          nameLoop: "LOOP",
+          parent: undefined,
+          redirections: {},
+          responseFormat: {},
+          type: "LOOP",
+          weight: undefined,
+        }
+      };
+      const output = [
+        {
+          CodeListReference: "",
+          Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: 255, Pattern: ""},
+          Label: "tab",
+          Name: "QUESTION21",
+          Scope: "kawknrqr",
+          id: "kawkrelo",
+          type: "CollectedVariableType",
+        }
+      ];
+      expect(storeToRemote(input, input1)).toEqual(output);
+    });    
   });
 });

@@ -85,7 +85,7 @@ describe('loop tramsformation', () => {
       Filter: "$AGE$ < 18",
       IterableReference: "ka08eg6w",
       Label: "ekk",
-      MemberReference: ["j6p0ti5h", "j6p0ti5h"],
+      MemberReference: ["j6p0ti5h"],
       Name: "BOUCLE1",
       id: "jqqchose",
       type: "DynamicIterationType",

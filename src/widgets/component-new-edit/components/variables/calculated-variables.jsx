@@ -44,7 +44,7 @@ export const defaultProps = {
 
 function CalculatedVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
   const scopeOption = Object.values(componentsStore)
-  .filter(component=> component.type === "LOOP" && !component.basedOn || component.type === "LOOP" && component.basedOn && componentsStore[component.basedOn].type != "LOOP" )
+  .filter(component=> component.type === "LOOP" && !component.basedOn || component.type === "LOOP" && component.basedOn && componentsStore[component.basedOn] && componentsStore[component.basedOn].type != "LOOP" )
   .map(element => {
   return (<GenericOption
       key={element.id}

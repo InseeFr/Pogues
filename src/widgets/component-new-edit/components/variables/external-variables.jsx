@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { defaultState } from '../../model/external-variable';
 
 import Input from 'forms/controls/input';
+import GenericOption from 'forms/controls/generic-option';
+import Select from 'forms/controls/select';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateExternalVariableForm } from 'utils/validation/validate';
 
@@ -44,7 +46,7 @@ export const defaultProps = {
 
 function ExternalVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
   const scopeOption = Object.values(componentsStore)
-  .filter(component=> component.type === "LOOP" && !component.basedOn || component.type === "LOOP" && component.basedOn && componentsStore[component.basedOn].type != "LOOP" )
+  .filter(component=> component.type === "LOOP" && !component.basedOn || component.type === "LOOP" && component.basedOn && componentsStore[component.basedOn] && componentsStore[component.basedOn].type != "LOOP" )
   .map(element => {
   return (<GenericOption
       key={element.id}

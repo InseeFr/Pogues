@@ -118,13 +118,15 @@ export function remoteToComponentState(remote = []) {
 function getQuestionFromSequence (componentsStore, id) {
   let sequenceQuestions = [];
   componentsStore[id].children.forEach(child=> {
-    if(componentsStore[child].type === QUESTION) {
-      sequenceQuestions.push(componentsStore[child]);
-    }
-    else {
-     componentsStore[child].children.forEach(chil => {
-      sequenceQuestions.push(componentsStore[chil]);
-     })
+    if(componentsStore[child]) {
+      if(componentsStore[child].type === QUESTION) {
+        sequenceQuestions.push(componentsStore[child]);
+      }
+      else {
+       componentsStore[child].children.forEach(chil => {
+        sequenceQuestions.push(componentsStore[chil]);
+       })
+      }
     }
  })
  return sequenceQuestions;
@@ -134,7 +136,7 @@ function getQuestionFromSubSequence (componentsStore, id) {
   let SubSequenceQuestions = [];
   if(componentsStore[id].children) {
     componentsStore[id].children.forEach(child=> {
-      if(componentsStore[child].type === QUESTION) {
+      if(componentsStore[child] && componentsStore[child].type === QUESTION) {
          SubSequenceQuestions.push(componentsStore[child]);
         } 
       })
@@ -147,33 +149,36 @@ function findQuestionInLoop(componentsStore) {
   let LoopsQuestions = {};
   Object.values(componentsStore).filter(element => element.type === LOOP).forEach(component => {
     let LoopQuestions = [];
-    if(componentsStore[component.initialMember].type === SEQUENCE) {
-      if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
-        for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
-          const sequence = Object.values(componentsStore).find(element => element.type === SEQUENCE && element.weight === i)
-          if(sequence) {
-            LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, sequence.id));
+    if(componentsStore[component.initialMember]) {
+      if(componentsStore[component.initialMember].type === SEQUENCE) {
+        if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
+          for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
+            const sequence = Object.values(componentsStore).find(element => element.type === SEQUENCE && element.weight === i)
+            if(sequence) {
+              LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, sequence.id));
+            }
           }
         }
-      }
-      else {
+        else {
           LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, componentsStore[component.initialMember].id));
-      }
-
-    }
-    else {
-      if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
-        for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
-          const subsequence = Object.values(componentsStore).find(element => element.type === SUBSEQUENCE && element.weight === i && element.parent === componentsStore[component.initialMember].parent)
-          if(subsequence) {
-            LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, subsequence.id));
-          }
         }
+  
       }
       else {
-          LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, componentsStore[component.initialMember].id));
+        if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
+          for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
+            const subsequence = Object.values(componentsStore).find(element => element.type === SUBSEQUENCE && element.weight === i && element.parent === componentsStore[component.initialMember].parent)
+            if(subsequence) {
+              LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, subsequence.id));
+            }
+          }
+        }
+        else {
+            LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, componentsStore[component.initialMember].id));
+        }
       }
     }
+
     LoopsQuestions[component.id] = LoopQuestions;
   })
   return LoopsQuestions;
@@ -194,9 +199,6 @@ function getCollectedScope(questionsLoop, id) {
   return isfound;
 }
 export function storeToRemote(store, componentsStore) {
-  // console.log('componentsStore', componentsStore)
-  // console.log('store', store)
-
   return Object.keys(store).map(key => {
     const {
       id,
@@ -296,7 +298,6 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
-  //  console.log('model', model)
 
     return model;
   });

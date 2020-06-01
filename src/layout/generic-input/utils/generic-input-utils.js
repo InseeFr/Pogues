@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP} = COMPONENT_TYPE;
 
 /**
  * Get closest component id by type
@@ -15,8 +15,7 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 export function getClosestComponentIdByType(components, activeComponent, type) {
   let componentId = '';
   let currentComponent = activeComponent;
-
-  while (currentComponent.parent !== '') {
+  while (currentComponent.parent !== '' && currentComponent.type != LOOP) {
     if (currentComponent.type === type) {
       componentId = currentComponent.id;
       break;
@@ -261,3 +260,21 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
     weight,
   };
 }
+
+/**
+ * Get new loop placeholder
+ *
+ * It finds from a list of components if it have at least one sequence
+ *
+ * @param  {object} components        List of components
+ * @return {string} true if component have a sequence
+ */
+export function getNewLoopPlaceholder(components) {
+  let componentHaveSequence = true;
+  const componentsSequence = Object.values(components).filter(component => component.type === SEQUENCE);
+  if(componentsSequence && componentsSequence.length > 0) {
+    componentHaveSequence = false;
+  }
+  return componentHaveSequence;
+}
+

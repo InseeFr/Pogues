@@ -2,6 +2,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import {
   getNewSubsequencePlaceholder,
   getNewQuestionPlaceholder,
+  getNewLoopPlaceholder,
 } from './generic-input-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
@@ -186,5 +187,28 @@ describe('getNewQuestionPlaceholder', () => {
     const activeComponent = components.j59q5m8i;
     const result = getNewQuestionPlaceholder(components, activeComponent);
     expect(result.weight).toEqual(0);
+  });
+});
+describe('getNewLoopPlaceholder', () => {
+  test(`if component dont have any sequence`, () => {
+    const components = {
+
+    };
+    const result = getNewLoopPlaceholder(components);
+    expect(result).toEqual(true);
+  });
+
+  test(`if we component have one sequence`, () => {
+    const components = {
+      j59q5m8i: {
+        id: 'j59q5m8i',
+        type: 'SEQUENCE',
+        parent: 'j59pzbd3',
+        weight: 0,
+        children: ['j59qj2q7'],
+      },
+    };
+    const result = getNewLoopPlaceholder(components);
+    expect(result).toEqual(false);
   });
 });

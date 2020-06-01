@@ -19,7 +19,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   if(remote.Iterations && remote.Iterations.Iteration) {
     iterations = remote.Iterations.Iteration
   }
- // console.log('iterations', iterations);
   const calculatedVariables = variables.filter(v => v.type === CALCULATED);
   const externalVariables = variables.filter(v => v.type === EXTERNAL);
   const collectedVariables = variables.filter(v => v.type === COLLECTED);
