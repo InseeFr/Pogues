@@ -202,6 +202,7 @@ export function storeToRemote(store, componentsStore) {
   return Object.keys(store).map(key => {
     const {
       id,
+      z,
       name: Name,
       label: Label,
       type: typeName,
@@ -230,12 +231,12 @@ export function storeToRemote(store, componentsStore) {
       Name,
       Label,
       type: COLLECTED,
-      CodeListReference: codeListReference,
       Datatype: {
         typeName,
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
+    
     const questionsInLoop =  findQuestionInLoop(componentsStore);
     const collectedScop = getCollectedScope(questionsInLoop, id);
 
@@ -251,6 +252,10 @@ export function storeToRemote(store, componentsStore) {
           model.Scope = collectedScop.loop
         }
 
+    }
+    
+    if(codeListReference) {
+      model.CodeListReference = codeListReference;
     }
 
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
