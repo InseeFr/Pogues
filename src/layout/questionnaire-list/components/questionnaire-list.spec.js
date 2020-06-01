@@ -62,7 +62,14 @@ describe('<QuestionnaireList />', () => {
     );
   });
 
-  test('should render "No results" message only if no questionnaries are passed', () => {
+  test('should render "Loading" while `loaded` is false', () => {
+    expect(
+      wrapperWithoutQuestionnaires.find('.questionnaire-list_loading').length,
+    ).toBe(1);
+  });
+
+  test('should render "No results" message only if no questionnaries are passed and `loaded` is true', () => {
+    wrapperWithoutQuestionnaires.setState({ loaded: true });
     expect(
       wrapperWithoutQuestionnaires.find('.questionnaire-list_noresults').length,
     ).toBe(1);
@@ -71,3 +78,5 @@ describe('<QuestionnaireList />', () => {
     ).toBe(0);
   });
 });
+
+
