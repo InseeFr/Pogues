@@ -1,13 +1,16 @@
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME,
-  COMPONENT_TYPE
+  DATATYPE_TYPE_FROM_NAME, 
+  DATATYPE_NAME,
+  COMPONENT_TYPE,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_FORMATS
 } from 'constants/pogues-constants';
-import { element } from 'prop-types';
 const { COLLECTED } = VARIABLES_TYPES;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
-
+const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { LIST } = DIMENSION_FORMATS;
 
 export function remoteToStore(
   remote = [],
@@ -19,10 +22,10 @@ export function remoteToStore(
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
-        if(find.type === 'MULTIPLE_CHOICE') {       
+        if(find.type === MULTIPLE_CHOICE) {       
           variable.z = parseInt(find.position);
         }
-        else if(find.type === 'TABLE') {
+        else if(find.type === TABLE) {
           const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
           variable.z = code.weight;
           variable.mesureLevel = find.level
@@ -242,8 +245,8 @@ export function storeToRemote(store, componentsStore) {
 
     if(collectedScop.component) {
        if(collectedScop.component.type === QUESTION && 
-          collectedScop.component.responseFormat.type === "TABLE"
-          && collectedScop.component.responseFormat.TABLE.PRIMARY.type === "LIST"
+          collectedScop.component.responseFormat.type === TABLE
+          && collectedScop.component.responseFormat.TABLE.PRIMARY.type === LIST
           ) 
           {
             model.Scope = collectedScop.component.id

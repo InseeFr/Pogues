@@ -195,7 +195,7 @@ describe('getNewLoopPlaceholder', () => {
 
     };
     const result = getNewLoopPlaceholder(components);
-    expect(result).toEqual(true);
+    expect(result).toEqual(undefined);
   });
 
   test(`if we component have one sequence`, () => {
@@ -209,6 +209,12 @@ describe('getNewLoopPlaceholder', () => {
       },
     };
     const result = getNewLoopPlaceholder(components);
-    expect(result).toEqual(false);
+    expect(result).toEqual({
+      id: 'j59q5m8i',
+      type: 'SEQUENCE',
+      parent: 'j59pzbd3',
+      weight: 0,
+      children: ['j59qj2q7'],
+    });
   });
 });

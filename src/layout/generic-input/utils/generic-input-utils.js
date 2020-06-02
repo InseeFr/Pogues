@@ -267,14 +267,9 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
  * It finds from a list of components if it have at least one sequence
  *
  * @param  {object} components        List of components
- * @return {string} true if component have a sequence
+ * @return {object|undefined} first sequence in component
  */
 export function getNewLoopPlaceholder(components) {
-  let componentHaveSequence = true;
-  const componentsSequence = Object.values(components).filter(component => component.type === SEQUENCE);
-  if(componentsSequence && componentsSequence.length > 0) {
-    componentHaveSequence = false;
-  }
-  return componentHaveSequence;
+  return Object.values(components).find(component => component.type === SEQUENCE);
 }
 

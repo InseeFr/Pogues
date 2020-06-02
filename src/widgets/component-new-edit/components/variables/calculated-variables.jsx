@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
-import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { DATATYPE_NAME, COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { defaultState } from '../../model/calculated-variable';
 
@@ -19,7 +19,7 @@ import GenericOption from 'forms/controls/generic-option';
 import Select from 'forms/controls/select';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
-
+const { LOOP } = COMPONENT_TYPE;
 // Utils
 
 const validateForm = (addErrors, validate) => (values, state) => {
@@ -44,14 +44,16 @@ export const defaultProps = {
 
 function CalculatedVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
   const scopeOption = Object.values(componentsStore)
-  .filter(component=> component.type === "LOOP" && !component.basedOn || component.type === "LOOP" && component.basedOn && componentsStore[component.basedOn] && componentsStore[component.basedOn].type != "LOOP" )
+  .filter(component => component.type === LOOP && !component.basedOn)
   .map(element => {
-  return (<GenericOption
-      key={element.id}
-      value={element.id}
-    >
-      {element.name}
-    </GenericOption>)
+    return (
+      <GenericOption
+        key={element.id}
+        value={element.id}
+      >
+       {element.name}
+      </GenericOption>
+    )
   }); 
   return (
     <FormSection name={selectorPath}>

@@ -28,7 +28,7 @@ export const propTypes = {
 };
 
 const defaultProps = {
-  isQuestionnaireHaveerror: false,
+  isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
   componentIdForPageBreak: '',
@@ -135,7 +135,7 @@ class GenericInput extends Component {
     }
     else {
       this.props.saveActiveQuestionnaire().then(()=>{
-        if(this.props.isQuestionnaireHaveerror){
+        if(this.props.isQuestionnaireHaveError){
           const newState = {
             ...this.state,
             showNewUnsavedModal: true,
@@ -231,7 +231,7 @@ class GenericInput extends Component {
         <button
           id="add-loop"
           className="btn-white"
-          disabled={placeholders[LOOP]}
+          disabled={placeholders[LOOP]? false : true}
           onClick={() => {
             this.handleOpenNewComponent(LOOP);
           }}
