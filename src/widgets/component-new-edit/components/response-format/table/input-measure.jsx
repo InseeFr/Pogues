@@ -3,7 +3,7 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
-import {toolbarConfigTooltip} from "forms/controls/rich-textarea";
+import {toolbarConfigTooltip} from 'forms/controls/rich-textarea';
 import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatSimple from '../simple/response-format-simple';
 import ResponseFormatSingle from '../single/response-format-single';
