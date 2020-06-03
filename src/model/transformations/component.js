@@ -92,7 +92,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
   const childclarification = clarificationQuestion(Children);
           childclarification.forEach(element => {
             element.ClarificationQuestion.forEach(item =>{ 
-              const position = element.FlowControl.find( controle => controle.IfTrue === item.id).Expression;
+              const position = element.FlowControl.find(controle => controle.IfTrue === item.id).Expression;
                 if(position) {
                   const stringFind = position.substring(
                     position.lastIndexOf("=") + 3, 
@@ -115,7 +115,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
                     }  
                   }
                   else if(element.questionType == "TABLE") {
-                     varibale = collectedVariables.find(varib => varib.Name === tableFind)
+                    varibale = collectedVariables.find(varib => varib.Name === tableFind)
                     if(varibale) {
                       codelistid = varibale.CodeListReference;
                       const respones = element.Response.filter((response)=> response.CodeListReference === varibale.CodeListReference)

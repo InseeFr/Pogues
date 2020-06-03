@@ -151,7 +151,7 @@ export function validCollectedVariables(
     if (!expected[0]) {
       return true;
     }
-    return expected.filter(e => e != undefined && !values.includes(e)).length === 0;
+    return expected.filter(e => e != undefined && e != "" && !values.includes(e)).length === 0;
   }
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
@@ -202,6 +202,7 @@ export function validCollectedVariables(
      }
     return equal;
   }
+
   let codeListPrecision = false;
     if(expectedVariables.length != value.length && type === SINGLE_CHOICE){
       codeListPrecision = true;
@@ -236,7 +237,8 @@ export function validCollectedVariables(
     if (
       value[0].codeListReference !== expectedVariables[0].codeListReference ||
       typevalue !== typeexpectedVariables ||
-      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue])
+      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue]) ||
+      expectedVariables.length != value.length
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
       }
@@ -258,7 +260,6 @@ export function validCollectedVariables(
   ){
     return false;
    }
-
   return isCodesTheSame &&
     isTheSameOrder &&
     (expectedVariables && value.length === expectedVariables.length)
