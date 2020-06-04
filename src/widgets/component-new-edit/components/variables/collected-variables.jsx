@@ -3,7 +3,7 @@ import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import { defaultState } from '../../model/collected-variable';
-import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { DATATYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 import Input from 'forms/controls/input';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
@@ -19,6 +19,8 @@ import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/re
 
 
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
+const { TABLE } = QUESTION_TYPE_ENUM;
+
 // Utils
 
 const validateForm = (addErrors, validate) => (values, state) => {
@@ -99,7 +101,7 @@ class CollectedVariables extends Component {
       componentName,
       responseFormatType,
     } = this.props;
-    const hiddenCollected = responseFormatType !== "TABLE";
+    const hiddenCollected = responseFormatType !== TABLE;
 
     return (
       <FormSection name={selectorPath}>
