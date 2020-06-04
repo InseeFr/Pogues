@@ -8,8 +8,8 @@ export function stateToModel(
   type,
 ) {
   let collectedVariablesFinal = collectedVariables;
-  if(type == 'MULTIPLE_CHOICE' || type == 'TABLE') {
-    collectedVariablesFinal.map(collected=> {
+  if(type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE || type === QUESTION_TYPE_ENUM.TABLE) {
+    collectedVariablesFinal.map(collected => {
       const find = Object.values(collectedVariablesStore).find(variable=> variable.id == collected);
       if(find && find.type == 'TEXT' && !find.x) {
         collectedVariablesFinal = collectedVariablesFinal.filter(element => element != find.id)
@@ -28,7 +28,7 @@ export function stateToModel(
     const MappingTarget =
       type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
     
-      if (isCollected === false ) {
+      if (!isCollected) {
         attributeModel.push({
           "AttributeValue": "NoDataByDefinition",
           "AttributeTarget": MappingTarget
@@ -37,7 +37,7 @@ export function stateToModel(
     return { MappingSource: r.id, MappingTarget };
   });
 
-  if (type == 'TABLE') {
+  if (type === QUESTION_TYPE_ENUM.TABLE) {
     return {
       Response: responsesModel,
       Mapping: mappingModel,
