@@ -79,29 +79,37 @@ function getMeasuresModel(responses, dimensions, offset) {
       responses[i].Datatype.Format  === responses[i].Datatype.Format.toLowerCase();
     }
 
-    if (responses[i].Datatype.typeName=== DATATYPE_NAME.DURATION ) {
+    if (responses[i].Datatype.typeName=== DATATYPE_NAME.DURATION) {
       if(responses[i].Datatype.Minimum !== undefined){
         let strminimum = responses[i].Datatype.Minimum;
         let matches_minimum = strminimum.match(/\d+/g);
-        if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === "PTnHnM") {
+        if (responses[i].Datatype.Format === 'PTnHnM') {
           responses[i].Datatype.Mihours = matches_minimum[0] == 0 ? '' :matches_minimum[0];
           responses[i].Datatype.Miminutes =  matches_minimum[1] == 0 ? '' :matches_minimum[0];
         }
-        if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === 'PnYnM') {
+        if (responses[i].Datatype.Format === 'PnYnM') {
           responses[i].Datatype.Miyears = matches_minimum[0] == 0 ? '' :matches_minimum[0];
           responses[i].Datatype.Mimonths = matches_minimum[1] == 0 ? '' :matches_minimum[0];
+        }
+        if (responses[i].Datatype.Format === 'HH:CH') {
+          responses[i].Datatype.Mihundhours = matches_minimum[0] == 0 ? '' :matches_minimum[0];
+          responses[i].Datatype.Mihundredths = matches_minimum[1] == 0 ? '' :matches_minimum[0];
         }
       }
       if(responses[i].Datatype.Maximum !== undefined){
         let strmaximum = responses[i].Datatype.Maximum;
         let matches_maximum = strmaximum.match(/\d+/g);
-        if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === 'PTnHnM') {
+        if (responses[i].Datatype.Format === 'PTnHnM') {
           responses[i].Datatype.Mahours = matches_maximum[0] == 0 ? '' :matches_maximum[0];
           responses[i].Datatype.Maminutes = matches_maximum[1] == 0 ? '' :matches_maximum[0];
         }
-        if (responses[i].Datatype.Format !== undefined && responses[i].Datatype.Format === 'PnYnM') {
+        if (responses[i].Datatype.Format === 'PnYnM') {
           responses[i].Datatype.Mayears = matches_maximum[0] == 0 ? '' :matches_maximum[0];
           responses[i].Datatype.Mamonths = matches_maximum[1] == 0 ? '' :matches_maximum[0];
+        }
+        if (responses[i].Datatype.Format === 'HH:CH') {
+          responses[i].Datatype.Mahundhours = matches_maximum[0] == 0 ? '' :matches_maximum[0];
+          responses[i].Datatype.Mahundredths = matches_maximum[1] == 0 ? '' :matches_maximum[0];
         }
       }
     }  
@@ -276,6 +284,10 @@ function stateToResponseState(state) {
         miminutes,
         mahours,
         maminutes,
+        mihundhours,
+        mihundredths,
+        mahundhours,
+        mahundredths
       } = customsimpleState;
       let durationDataType = {};
       durationDataType.format = simpleState.format;
@@ -288,11 +300,19 @@ function stateToResponseState(state) {
         }
       }
       if (simpleState.format === 'PTnHnM') {
-        if(mihours || mihours){
+        if(mihours || miminutes){
           durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
         }
         if(mahours || maminutes){
        durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
+        }
+      }
+      if (simpleState.format === 'HH:CH') {
+        if(mihundhours || mihundredths){
+          durationDataType.minimum = `${('0' + mihundhours).slice(-2) || 0}:${('0' + mihundredths).slice(-2) || 0}`;
+        }
+        if(mahundhours || mahundredths){
+       durationDataType.maximum = `${('0' + mahundhours).slice(-2) || 0}:${('0' + mahundredths).slice(-2) || 0}`;
         }
       }
     customsimpleState = durationDataType;
