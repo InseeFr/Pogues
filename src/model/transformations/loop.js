@@ -15,11 +15,13 @@ export function remoteToState(remote, parent) {
       let initialMember = "";
       let finalMember = "";
 
-      if(memberReference && memberReference.length > 0) {
+      if(memberReference && memberReference.length === 1) {
         initialMember = memberReference[0]
+        finalMember = memberReference[0]
       }
 
       if(memberReference && memberReference.length > 1) {
+        initialMember = memberReference[0]
         finalMember = memberReference[1]
       }
       return {
@@ -55,8 +57,13 @@ export function stateToRemote(store) {
       } = component;
 
       const memberReference = [];
-      memberReference[0]= initialMember;
-      memberReference[1]= finalMember;
+      if(initialMember === finalMember) {
+        memberReference[0]= initialMember;
+      }
+      else {
+        memberReference[0]= initialMember;
+        memberReference[1]= finalMember;
+      }
 
       let response = {
         id,
@@ -66,6 +73,8 @@ export function stateToRemote(store) {
       };  
       if(maximum) {
         response.Maximum = maximum;
+        response.Step = "1";
+        response.Minimum = "1";
       }
       if(basedOn) {
         response.IterableReference = basedOn;

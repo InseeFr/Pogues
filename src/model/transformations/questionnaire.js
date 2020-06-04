@@ -155,6 +155,7 @@ export function stateToRemote(state, stores) {
   );
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
+    componentsStore
   );
   
   const Iterations = Loop.stateToRemote(

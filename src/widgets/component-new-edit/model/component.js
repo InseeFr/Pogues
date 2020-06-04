@@ -82,7 +82,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
-    TargetMode: type !== LOOP ? label
+    TargetMode: type !== LOOP && type != "" ? label
       ? TargetMode.join()
       : activeQuestionnaire.TargetMode.join() : '',
     nameLoop: nameLoop || '',

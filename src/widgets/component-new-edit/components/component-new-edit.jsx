@@ -31,7 +31,7 @@ import Select from 'forms/controls/select';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 
-const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } = WIDGET_COMPONENT_NEW_EDIT;
+const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE} = WIDGET_COMPONENT_NEW_EDIT;
 const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 export const propTypes = {
@@ -44,7 +44,7 @@ export const propTypes = {
 
   addSubformValidationErrors: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
-};
+  };
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
@@ -166,17 +166,17 @@ class ComponentNewEdit extends Component {
     return panels;
   }
 
- getFinalOptions (store) {
+  getFinalOptions (store) {
     let optionsFinal = 
           (<GenericOption
               key=''
               value=''
            >
         </GenericOption>);
-    if(this.props.InitialMember) {
-      const componentinitial = Object.values(store)
-      .filter(component => component.id === this.props.InitialMember);
-      optionsFinal =  Object.values(store)
+    const componentinitial = Object.values(store)
+    .filter(component => component.id === this.props.InitialMember);   
+    if(this.props.InitialMember && componentinitial.length > 0) {
+      optionsFinal = Object.values(store)
       .filter(component => component.type === componentinitial[0].type
               && component.type === SEQUENCE 
               && component.weight >= componentinitial[0].weight
@@ -196,6 +196,7 @@ class ComponentNewEdit extends Component {
     }
     return optionsFinal;
   };
+
   render() {
     const {
       handleSubmit,
@@ -205,6 +206,7 @@ class ComponentNewEdit extends Component {
       componentType,
       componentId,
       componentsStore,
+      deleteComponent,
     } = this.props;
     const optionsInitial =  Object.values(componentsStore)
       .filter(component=> component.type === SEQUENCE || component.type === SUBSEQUENCE)
@@ -225,13 +227,12 @@ class ComponentNewEdit extends Component {
       component.type === LOOP && !component.basedOn)
     .map(element => {
       return (
-        <GenericOption
-          key={element.id}
-          value={element.id}
-        >
-          {element.name || element.nameLoop}
-        </GenericOption>
-      )
+      <GenericOption
+        key={element.id}
+        value={element.id}
+      >
+        {element.name || element.nameLoop}
+      </GenericOption>)
     });
     const associatedFieldsProps = {
     formName: form,
@@ -348,7 +349,7 @@ class ComponentNewEdit extends Component {
             ))}
           </Field>) : false}
           {componentType !== LOOP ? ( <Tabs componentId={componentId}>{this.renderPanels()}</Tabs>) : false}
-          <div className={FOOTER}>
+          <div className={componentType !== LOOP ? FOOTER : FOOTERLOOP}>
             <button
               className={VALIDATE}
               type="submit"
@@ -362,6 +363,15 @@ class ComponentNewEdit extends Component {
             <button className={CANCEL} disabled={submitting} onClick={onCancel}>
               {Dictionary.cancel}
             </button>
+            {componentType === LOOP && componentId ?
+            <button
+              className={DELETE}
+              disabled={submitting}
+              onClick={deleteComponent}
+            >
+              {Dictionary.remove}
+            </button>
+            :false}
           </div>
         </form>
       </div>
