@@ -26,7 +26,7 @@ function generateComponentGroups(componentsStore) {
   );
 
   let startPage = 1;
-  const result = [];
+  let result = [];
   orderedComponents.forEach(componentId => {
     if (!result[startPage - 1]) {
       result.push({
@@ -41,6 +41,9 @@ function generateComponentGroups(componentsStore) {
       startPage += 1;
     }
   });
+  if(result[result.length-1]) {
+    result[result.length-1].MemberReference.push("idendquest");
+  }
   return result;
 }
 
@@ -145,6 +148,21 @@ export function stateToRemote(state, stores) {
     collectedVariablesWithoutOrphans,
     codesListsStore,
   );
+  componentsRemote.push({
+    id: "idendquest",
+    depth: 1,
+    Name: "QUESTIONNAIRE_END",
+    Label: [
+      "QUESTIONNAIRE_END"
+    ],
+    Declaration: [],
+    genericName: "MODULE",
+    Control: [],
+    FlowControl: [],
+    TargetMode: TargetMode,
+    type: "SequenceType",
+    Child: [],
+  }) 
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
@@ -155,7 +173,21 @@ export function stateToRemote(state, stores) {
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
   );
-
+  const json = {
+    ...remote,
+    Child: componentsRemote,
+    CodeLists: {
+      CodeList: codesListsRemote,
+    },
+    Variables: {
+      Variable: [
+        ...calculatedVariablesRemote,
+        ...externalVariablesRemote,
+        ...collectedVariablesRemote,
+      ],
+    },
+  };
+  console.log('json', json)
   return {
     ...remote,
     Child: componentsRemote,
