@@ -259,6 +259,7 @@ function getQuestionnaireModel(state, customComponentsStore) {
     owner: state.appState.user.permission,
   };
 
+
   return Questionnaire.stateToRemote(questionnaireState, stores);
 }
 
@@ -381,7 +382,7 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
         )
       : state.appState.activeComponentsById;
 
-    const questionnaireModel = getQuestionnaireModel(state, componentsById);
+    const questionnaireModel = getQuestionnaireModel(state);
     if (type === 'pdf') {
       visualizePdf(questionnaireModel);
     } else if (type === 'spec') {

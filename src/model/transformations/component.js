@@ -415,8 +415,8 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
 
   if(responseFormat.TABLE.LIST_MEASURE) {
     responseFormat.TABLE.LIST_MEASURE.forEach(function(mesure){
-      if(mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList && mesure.SINGLE_CHOICE.CodesList.codes){
-        Object.values(mesure.SINGLE_CHOICE.CodesList.codes).forEach(function(code){
+      if(mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList.id){
+        Object.values(codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes).forEach(function(code){
           if(code.precisionid && code.precisionid !== "") {
             const collectedvariablequestionPrecision = collectedvariablequestion.filter(varibale => varibale.z === code.weight)
             collectedvariablequestionPrecision.forEach(function(varib){
@@ -454,7 +454,6 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
       }
     })
   }
-
   return {
     flowcontrolefinal,
     ClarificationQuestion
