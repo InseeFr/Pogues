@@ -11,7 +11,7 @@ import {
   removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 
@@ -148,21 +148,9 @@ export function stateToRemote(state, stores) {
     collectedVariablesWithoutOrphans,
     codesListsStore,
   );
-  componentsRemote.push({
-    id: "idendquest",
-    depth: 1,
-    Name: "QUESTIONNAIRE_END",
-    Label: [
-      "QUESTIONNAIRE_END"
-    ],
-    Declaration: [],
-    genericName: "MODULE",
-    Control: [],
-    FlowControl: [],
-    TargetMode: TargetMode,
-    type: "SequenceType",
-    Child: [],
-  }) 
+  const questionEnd = QUESTION_END_CHILD;
+  questionEnd.TargetMode = TargetMode,
+  componentsRemote.push(QUESTION_END_CHILD); 
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,

@@ -11,6 +11,7 @@ import {
   SEQUENCE_TYPE_NAME,
   QUESTION_TYPE_NAME,
   QUESTION_TYPE_ENUM,
+  QUESTION_END
 } from 'constants/pogues-constants';
 import { checkPropTypes } from 'prop-types';
 
@@ -258,7 +259,7 @@ function remoteToStoreNested(
 
   let weight = 0;
   children.forEach(child => {
-    if(child.Name !== "QUESTIONNAIRE_END") {
+    if(child.Name !== QUESTION_END) {
       acc[child.id] = remoteToState(
         { ...child, weight, parent },
         componentGroup,

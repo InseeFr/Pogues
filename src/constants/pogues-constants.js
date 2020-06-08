@@ -231,3 +231,19 @@ export const DEFAULT_LANG = 'fr';
 export const ENV_TEST = 'test';
 export const SEQUENCE_TYPE_NAME = 'SequenceType';
 export const QUESTION_TYPE_NAME = 'QuestionType';
+
+export const QUESTION_END = 'QUESTIONNAIRE_END';
+export const QUESTION_END_CHILD = {
+  id: "idendquest",
+  depth: 1,
+  Name: "QUESTIONNAIRE_END",
+  Label: [
+    "QUESTIONNAIRE_END"
+  ],
+  Declaration: [],
+  genericName: "MODULE",
+  Control: [],
+  FlowControl: [],
+  type: "SequenceType",
+  Child: [],
+};
