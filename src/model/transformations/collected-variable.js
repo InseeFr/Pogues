@@ -1,16 +1,10 @@
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME, 
-  DATATYPE_NAME,
-  COMPONENT_TYPE,
-  QUESTION_TYPE_ENUM,
-  DIMENSION_FORMATS
+  DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME
 } from 'constants/pogues-constants';
+import { element } from 'prop-types';
 const { COLLECTED } = VARIABLES_TYPES;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
-const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { LIST } = DIMENSION_FORMATS;
 
 export function remoteToStore(
   remote = [],
@@ -22,10 +16,10 @@ export function remoteToStore(
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
-        if(find.type === MULTIPLE_CHOICE) {       
-          variable.z = parseInt(find.position);
+        if(find.type === 'MULTIPLE_CHOICE') {       
+          variable.z = parseInt(find.position) + 1;
         }
-        else if(find.type === TABLE) {
+        else if(find.type === 'TABLE') {
           const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
           variable.z = code.weight;
           variable.mesureLevel = find.level
@@ -116,93 +110,10 @@ export function remoteToComponentState(remote = []) {
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
-} 
-
-function getQuestionFromSequence (componentsStore, id) {
-  let sequenceQuestions = [];
-  componentsStore[id].children.forEach(child=> {
-    if(componentsStore[child]) {
-      if(componentsStore[child].type === QUESTION) {
-        sequenceQuestions.push(componentsStore[child]);
-      }
-      else {
-       componentsStore[child].children.forEach(chil => {
-        sequenceQuestions.push(componentsStore[chil]);
-       })
-      }
-    }
- })
- return sequenceQuestions;
 }
-
-function getQuestionFromSubSequence (componentsStore, id) {
-  let SubSequenceQuestions = [];
-  if(componentsStore[id].children) {
-    componentsStore[id].children.forEach(child=> {
-      if(componentsStore[child] && componentsStore[child].type === QUESTION) {
-         SubSequenceQuestions.push(componentsStore[child]);
-        } 
-      })
-  }
-
- return SubSequenceQuestions;
-}
-
-function findQuestionInLoop(componentsStore) {
-  let LoopsQuestions = {};
-  Object.values(componentsStore).filter(element => element.type === LOOP).forEach(component => {
-    let LoopQuestions = [];
-    if(componentsStore[component.initialMember]) {
-      if(componentsStore[component.initialMember].type === SEQUENCE) {
-        if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
-          for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
-            const sequence = Object.values(componentsStore).find(element => element.type === SEQUENCE && element.weight === i)
-            if(sequence) {
-              LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, sequence.id));
-            }
-          }
-        }
-        else {
-          LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, componentsStore[component.initialMember].id));
-        }
-  
-      }
-      else {
-        if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
-          for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
-            const subsequence = Object.values(componentsStore).find(element => element.type === SUBSEQUENCE && element.weight === i && element.parent === componentsStore[component.initialMember].parent)
-            if(subsequence) {
-              LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, subsequence.id));
-            }
-          }
-        }
-        else {
-            LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, componentsStore[component.initialMember].id));
-        }
-      }
-    }
-
-    LoopsQuestions[component.id] = LoopQuestions;
-  })
-  return LoopsQuestions;
-}
-function getCollectedScope(questionsLoop, id) {
-  let isfound = {};
-  Object.keys(questionsLoop).map(key => {
-    questionsLoop[key].forEach(element => {
-      if(element.collectedVariables && element.collectedVariables.find(collected=> collected === id)) {
-        isfound = {
-         loop : key,
-         component : element
-        } 
-      }
-    });
-
-  })
-  return isfound;
-}
-export function storeToRemote(store, componentsStore) {
+export function storeToRemote(store) {
   return Object.keys(store).map(key => {
+
     const {
       id,
       z,
@@ -228,7 +139,6 @@ export function storeToRemote(store, componentsStore) {
         maminutes: Maminutes,
       },
     } = store[key];
-
     const model = {
       id,
       Name,
@@ -239,28 +149,9 @@ export function storeToRemote(store, componentsStore) {
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
-    
-    const questionsInLoop =  findQuestionInLoop(componentsStore);
-    const collectedScop = getCollectedScope(questionsInLoop, id);
-
-    if(collectedScop.component) {
-       if(collectedScop.component.type === QUESTION && 
-          collectedScop.component.responseFormat.type === TABLE
-          && collectedScop.component.responseFormat.TABLE.PRIMARY.type === LIST
-          ) 
-          {
-            model.Scope = collectedScop.component.id
-          }
-       else {
-          model.Scope = collectedScop.loop
-        }
-
-    }
-    
     if(codeListReference !== "") {
       model.CodeListReference = codeListReference;
     }
-
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
 
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
@@ -306,7 +197,6 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
-
-    return model;
+        return model;
   });
 }
