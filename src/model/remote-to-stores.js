@@ -14,6 +14,11 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     CodeLists: { CodeList: codesLists },
     Variables: { Variable: variables },
   } = remote;
+
+  let iterations = [];
+  if(remote.Iterations && remote.Iterations.Iteration) {
+    iterations = remote.Iterations.Iteration
+  }
   const calculatedVariables = variables.filter(v => v.type === CALCULATED);
   const externalVariables = variables.filter(v => v.type === EXTERNAL);
   const collectedVariables = variables.filter(v => v.type === COLLECTED);
@@ -49,7 +54,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   };
   // Components store
   const componentByQuestionnaire = {
-    [id]: Component.remoteToStore(remote, id, codesListsStore),
+    [id]: Component.remoteToStore(remote, id, codesListsStore, iterations),
   };
   return {
     questionnaireById,

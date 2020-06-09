@@ -242,6 +242,9 @@ describe('questionnaire', () => {
           },
         ],
       },
+      Iterations: {
+        Iteration: []
+      },
       agency: 'fr.insee',
       final: false,
       genericName: 'QUESTIONNAIRE',

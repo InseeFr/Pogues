@@ -139,7 +139,7 @@ Click on the button +Question
     - like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
 - modify collection modes if this question doesn't concern every collection mode defined for the questionnaire
 - a question type
-	- Simple response (text, date, number or boolean), single choice response, multiple choice response, table
+	- Simple response (text, date, number, boolean or duration), single choice response, multiple choice response, table
 - Validate with the dedicated button		
 ---
 
@@ -151,20 +151,28 @@ Examples :
 
 ---
 
+# Creation of a simple response question
+
+Examples :
+
+![](../../img/en/sr2.png)
+
+---
 For a simple response question, fill in : (1)
-- if mandatory or not : tickable, untickable. Not working now.
+- if mandatory or not : tickable, untickable. Only saved as an information for now. No effect on the display of the questionnaire.
 - a response type :
-	- Text, Date, Number, Boolean
+	- Text, Date, Number, Boolean, Duration
 - if response type=Text, fill in a length (maximum number of characters), if necessary a pattern (not working now, useful soon to specify regular expressions like emails, phone numbers, etc.)
-- if response type=Date, fill in a format among YYYY-MM-DD, YYYY-MM, YYYY
+- if response type=Date, fill in a format among YYYY-MM-DD, YYYY-MM, YYYY as well as a possible minimum and/or maximum (by default set to the equivalent of 1900-01-01 for the minimum and to the equivalent of the current date for the maximum).
  
 		
 ---
 
 For a simple response question, fill in : (2)
-- if response type=number, fill in a minimum and a maximum value, if necessary an unit measurement (now among : €, k€ and %)
+- if response type=Number, fill in a minimum and a maximum value, a precision (number of decimals, by default none), if necessary an unit measurement (now among : €, k€, %, hours, months, days and years)
     
 - if response type=Boolean, nothing to fill in and it corresponds to a unique checkbox tickable/untickable.
+- if response type=Duration, fill in the output format among hours-minutes or years-months as well as a possible minimum and/or maximum (by default respectively configured at 0 hours 0 minutes and 99 hours 59 minutes, 0 years 0 months and 99 years 11 months).
     
 - Validate
 
@@ -179,7 +187,7 @@ Examples :
 ---
 
 For a single choice response question, fill in : (1)
-- if mandatory or not : tickable, untickable. Not working now.
+- if mandatory or not : tickable, untickable. Only saved as an information for now. No effect on the display of the questionnaire.
 - Visualization Hint :
 	- Checkbox (each modality is tickable/untickable, but only one response possible)
 	- Radio-button (web standard ergonomy for this type of response, if a modality is ticked, impossible to untick all modalities later (respondent can modify his answer, but can't delete it))
@@ -252,7 +260,7 @@ Exemple 3 :
 ![](../../img/en/table3.png)
 
 ---
-For a table (with line headers in first column), fill in:
+For a fixed table (with line headers in first column, no possibility to add new lines), fill in:
 - Primary information axis :
 	- choose code list :
 		- specify the code list as usual
@@ -268,7 +276,7 @@ For a table (with line headers in first column), fill in:
 
 # Creation of a table (Primary information axis : list)
 
-For a table (without line headers in first column), fill in:
+For a dynamic table (without line headers in first column, possibility to add new lines), fill in:
 - Primary information axis :
 	- please specify :
 		- number of lines minimum
@@ -388,8 +396,7 @@ Separe variable id (\$VAR\$) from operators or logical connectors with espaces.
 Exemple : \$WF_F$ >= \$WF_TOTAL$
 
 The decimal separator is character : .
-'' : empty for a qualitative variable
-99 : empty for a numeric variable (to modify manually in the DDI file)
+'' : empty for a qualitative or a numeric variable
 Value 1 : write '1' if the variable is qualitative (code list), 1 if the variable is numeric
 Exemple : \$SEX$ = '1' but \$WORKFORCE$ = 1
 
@@ -415,6 +422,7 @@ and : and
 or : or
 div : division with floating point
 mod : remainder of the division with floating point
+sum($VAR$)=sum of a collected variable inside a dynamic table
 Write and, or, etc. in lowercase
 
 
@@ -507,6 +515,34 @@ number(if (\$REN6\$='') then '0' else \$REN6\$) +
 number(if (\$REN7\$='') then '0' else \$REN7\$)
 
 ---
+# Example : 
+customize the wording of a question :
+
+if (\$LOGEMENT\$='1') then 'de l''appartement'
+else if (\$LOGEMENT\$='2') then 'de la maison'
+else 'de votre logement'
+
+NB: to put a single quote in a heading, you must enter two single quotes instead of only one
+
+---
+# Example : 
+Calculate the exact age at the collection date knowing the date of birth DATEBIRTH :
+Report the calculated variables
+Current day and month DDMMMCURRENT=number(concat(concat(substring(string(current-date()),6,2)),substring(string(current-date()),9,2)))
+Day and month of birth DDMMBIRTH=number(concat(concat(substring(\$DATEBIRTH\$),6,2),substring(\$DATEBIRTH\$),9,2))
+Current year CURRENTYEAR=number(substring(string(current-date()),1,4)) 
+Year of birth YEARBIRTH=number(substring(\$DATEBIRTH\$),1,4)) 
+
+---
+# Example (continued) : 
+
+The exact age at the date of collection is given by :
+if ( \$DDMMCURRENT\$ >= \$DDMMBIRTH$ and \$CURRENTYEAR\$ > \$YEARBIRTH\$) then \$CURRENTYEAR\$-\$YEARBIRTH\$
+else if (\$DDMMCURRENT\$ < \$DDMMBIRTH\$ and \$CURRENTYEAR\$ > \$YEARBIRTH\$) then \$CURRENTYEAR\$-\$YEARBIRTH\$-1
+else 0
+The age in difference of vintage will be given by the formula : \$CURRENTYEAR\$-\$YEARBIRTH\$
+
+---
 # Style : Bold or Italic
 
 You can put some words in bold or italic with the buttons surrounded in red in the screenshot below
@@ -574,8 +610,7 @@ The following questionnaire integrity checks are currently being implemented:
 - The addition of a "Specify" field if a "Other" type modality has been checked
 - Fill in a pattern (specify a regular expression) for a text response
 - Redirection towards the end of the questionnaire
-- Manage date or duration formats
-- Manage units other than €, k€ and %.
+- Manage units other than €, k€, %, hours, days, months, years
 - Loop on the elements of a table (example: individuals aged older than 15 years in a household)
 ---
 
@@ -584,8 +619,6 @@ The following questionnaire integrity checks are currently being implemented:
 - The link between Pogues and RMéS and in particular to publish the questionnaire or reuse a question or a code list (e.g. departments, countries, nomenclature) from the repository 
 - Condition the label of a question according to the answers previously obtained 
 - Duplicate a code list to create a variant
-- The mandatory nature of the response
-*Do not fill it in because it blocks the visualization of the web questionnaire*
 - The "Page break" button at the bottom center of the interface Pogues
 - pdf settings (number of columns, portrait or landscape layout, type of entry)
 ---
@@ -597,8 +630,6 @@ choice of numbering type among:
 
 ---
 # What we don't yet know how to do in Pogues
-- Compare an empty numerical field 
-*manual DDI add-on*
 - Add totals (fixed at 100% or calculated as the sum of the elements in the column) to a table of collected variables
 *manual DDI add-on*
 -... 

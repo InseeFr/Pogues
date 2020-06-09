@@ -11,10 +11,11 @@ import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
   getNewQuestionPlaceholder,
+  getNewLoopPlaceholder
 } from '../utils/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 
 // Utils
 
@@ -36,6 +37,7 @@ function getPlaceholders(
       selectedComponent,
     ),
     [QUESTION]: getNewQuestionPlaceholder(componentsStore, selectedComponent),
+    [LOOP]: getNewLoopPlaceholder(componentsStore),
   };
 }
 
@@ -46,6 +48,23 @@ function isQuestionnaireValid(questionnaireErrors = {}) {
       0,
     ) === 0
   );
+}
+
+function isLoopsValid(componentsStore) {
+  let loopsValid = true;
+  const componentsLoop =  Object.values(componentsStore).filter(component => component.type === LOOP);
+  if(componentsLoop.length > 0) {
+    componentsLoop.forEach(component => {
+      if(!componentsStore[component.initialMember] ||
+         !componentsStore[component.finalMember] ||
+         componentsStore[component.initialMember].weight > componentsStore[component.finalMember].weight ||
+         component.basedOn && !componentsStore[component.basedOn] 
+         ) {
+        loopsValid = false
+      }
+    })
+  }
+  return loopsValid;
 }
 
 // Container
@@ -66,10 +85,11 @@ const mapStateToProps = state => {
       selectedComponentId,
       activeQuestionnaire.id,
     ),
-    isQuestionnaireHaveerror: state.appState.isQuestionnaireHaveerror, 
+    isQuestionnaireHaveError: state.appState.isQuestionnaireHaveError, 
     isQuestionnaireModified: state.appState.isQuestionnaireModified,
     isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
     componentIdForPageBreak: state.appState.componentIdForPageBreak,
+    isLoopsValid: isLoopsValid(activeComponentsById)
   };
 };
 
