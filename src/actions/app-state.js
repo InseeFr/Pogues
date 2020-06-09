@@ -217,7 +217,7 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
     update: {
       ...update,
       isQuestionnaireModified: false,
-      isQuestionnaireHaveError: false,
+      isQuestionnaireHaveerror: false,
     },
   },
 });
@@ -237,7 +237,7 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   payload: {
     id,
     err,
-    isQuestionnaireHaveError: true,
+    isQuestionnaireHaveerror: true,
   },
 });
 
@@ -279,6 +279,7 @@ export const saveActiveQuestionnaire = () => {
 
     const state = getState();
     const questionnaireModel = getQuestionnaireModel(state);
+
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
         return dispatch(

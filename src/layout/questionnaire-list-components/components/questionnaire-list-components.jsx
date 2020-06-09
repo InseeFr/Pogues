@@ -5,7 +5,6 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import QuestionnaireComponent from './questionnaire-component';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { ComponentEdit } from 'layout/component-edit';
 import { ConfirmDialog } from 'layout/confirm-dialog';
@@ -14,8 +13,6 @@ import { ErrorsIntegrity as ErrorsIntegrityPanel } from 'layout/errors-integrity
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
-const {LOOP} = COMPONENT_TYPE;
-
 
 // Prop types and default Props
 const propTypes = {
@@ -48,31 +45,28 @@ function renderComponentsByParent(parent, props, actions) {
   return getSortedChildren(props.componentsStore, parent).map(key => {
     const subTree = renderComponentsByParent(key, props, actions);
     const component = props.componentsStore[key];
-    if(component.type !== LOOP) {
-      return (
-        <QuestionnaireComponent
-          key={component.id}
-          selected={props.selectedComponentId === key}
-          component={component}
-          visualizeActiveQuestionnaire={props.visualizeActiveQuestionnaire}
-          setSelectedComponentId={props.setSelectedComponentId}
-          setEditingComponentId={props.setEditingComponentId}
-          duplicateComponentAndVariables={props.duplicateComponentAndVariables}
-          moveComponent={props.dragComponent}
-          removeComponent={props.removeComponent}
-          integrityErrorsByType={props.errorsIntegrity[key]}
-          parentType={props.componentsStore[component.parent].type}
-          actions={actions}
-          handleRemovePageBreak={event => {
-            event.preventDefault();
-            props.handleRemovePageBreak(key);
-          }}
-        >
-          {subTree}
-        </QuestionnaireComponent>
-      );
-    }
-
+    return (
+      <QuestionnaireComponent
+        key={component.id}
+        selected={props.selectedComponentId === key}
+        component={component}
+        visualizeActiveQuestionnaire={props.visualizeActiveQuestionnaire}
+        setSelectedComponentId={props.setSelectedComponentId}
+        setEditingComponentId={props.setEditingComponentId}
+        duplicateComponentAndVariables={props.duplicateComponentAndVariables}
+        moveComponent={props.dragComponent}
+        removeComponent={props.removeComponent}
+        integrityErrorsByType={props.errorsIntegrity[key]}
+        parentType={props.componentsStore[component.parent].type}
+        actions={actions}
+        handleRemovePageBreak={event => {
+          event.preventDefault();
+          props.handleRemovePageBreak(key);
+        }}
+      >
+        {subTree}
+      </QuestionnaireComponent>
+    );
   }, {});
 }
 

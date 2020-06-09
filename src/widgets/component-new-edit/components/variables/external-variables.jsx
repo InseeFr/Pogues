@@ -5,15 +5,13 @@ import PropTypes from 'prop-types';
 import { defaultState } from '../../model/external-variable';
 
 import Input from 'forms/controls/input';
-import GenericOption from 'forms/controls/generic-option';
-import Select from 'forms/controls/select';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateExternalVariableForm } from 'utils/validation/validate';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
-import { DATATYPE_NAME, COMPONENT_TYPE} from 'constants/pogues-constants';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
@@ -21,7 +19,6 @@ import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/re
 import { SelectorView, View } from 'widgets/selector-view';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
-const { LOOP } = COMPONENT_TYPE;
 
 const validateForm = (addErrors, validate) => (values, state) => {
   return validate(values, addErrors, state);
@@ -34,7 +31,6 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
-  componentsStore: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
@@ -45,19 +41,7 @@ export const defaultProps = {
 
 // Component
 
-function ExternalVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
-  const scopeOption = Object.values(componentsStore)
-  .filter(component => component.type === LOOP && !component.basedOn)
-  .map(element => {
-    return (
-      <GenericOption
-        key={element.id}
-        value={element.id}
-      >
-       {element.name}
-      </GenericOption>
-    )
-  }); 
+function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -100,19 +84,6 @@ function ExternalVariables({ formName, selectorPath, errors, addErrors, componen
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
          
         </SelectorView>
-        <Field
-          name="scope"
-          component={Select}
-          label={Dictionary.Scope}
-        >
-          <GenericOption
-            key=''
-            value=''
-          >
-            {Dictionary.selectScope}
-          </GenericOption>
-            {scopeOption}
-        </Field>
       </ListWithInputPanel>
     </FormSection>
   );

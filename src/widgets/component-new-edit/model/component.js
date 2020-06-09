@@ -9,7 +9,7 @@ import ExternalVariable from './external-variable';
 import { uuid, nameFromLabel } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP} = COMPONENT_TYPE;
+const { QUESTION } = COMPONENT_TYPE;
 
 export const defaultState = {
   id: '',
@@ -18,10 +18,6 @@ export const defaultState = {
   weight: '',
   label: '',
   name: '',
-  nameLoop: '',
-  filter: '',
-  maximum: '',
-  BasedOn: '',
   controls: [],
   declarations: [],
   redirections: [],
@@ -41,20 +37,13 @@ export function formToState(form, transformers) {
     redirections,
     collectedVariables,
     TargetMode,
-    nameLoop,
-    maximum,
-    basedOn,
-    filter,
-    initialMember,
-    finalMember,
-    addButtonLibel,
   } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
 
   return {
-    name: name || nameFromLabel(label) || nameLoop,
+    name: name || nameFromLabel(label),
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
@@ -64,34 +53,20 @@ export function formToState(form, transformers) {
       collectedVariables,
     ),
     TargetMode: TargetMode.split(','),
-    nameLoop: nameLoop,
-    maximum: maximum,
-    basedOn: basedOn,
-    filter: filter,
-    initialMember: initialMember,
-    finalMember: finalMember,
-    addButtonLibel: addButtonLibel,
   };
 }
 
 export function stateToForm(currentState, transformers, activeQuestionnaire) {
-  const { label, name, type, TargetMode, nameLoop, maximum, basedOn, filter, initialMember, finalMember, addButtonLibel} = currentState;
+  const { label, name, type, TargetMode } = currentState;
   const form = {
     label: label || '',
-    name: name || nameLoop || '',
+    name: name || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
-    TargetMode: type !== LOOP && type != "" ? label
+    TargetMode: label
       ? TargetMode.join()
-      : activeQuestionnaire.TargetMode.join() : '',
-    nameLoop: nameLoop || '',
-    maximum: maximum || '',
-    basedOn: basedOn || '',
-    filter: filter || '',
-    initialMember: initialMember || '',
-    finalMember: finalMember || '',
-    addButtonLibel: addButtonLibel || '',
+      : activeQuestionnaire.TargetMode.join(),
   };
 
   if (type === QUESTION) {

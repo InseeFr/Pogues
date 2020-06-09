@@ -32,7 +32,6 @@ describe('calculated variables tranformations', () => {
           Label: 'label 2',
           Name: 'name 2',
           Formula: 'formula 2',
-          Scope : 'jbcggtca',
           Datatype: {
             MaxLength: 2,
             Pattern: '',
@@ -70,7 +69,6 @@ describe('calculated variables tranformations', () => {
           label: 'label 1',
           name: 'name 1',
           formula: 'formula 1',
-          scope: '',
           type: TEXT,
           [TEXT]: {
             maxLength: 2,
@@ -87,7 +85,6 @@ describe('calculated variables tranformations', () => {
           label: 'label 2',
           name: 'name 2',
           formula: 'formula 2',
-          scope: 'jbcggtca',
           type: TEXT,
           [TEXT]: {
             maxLength: 2,
@@ -104,7 +101,6 @@ describe('calculated variables tranformations', () => {
           label: 'label 3',
           name: 'name 3',
           formula: 'formula 3',
-          scope: '',
           type: TEXT,
           [TEXT]: {
             maxLength: 3,
@@ -189,7 +185,6 @@ describe('calculated variables tranformations', () => {
           label: 'label 2',
           name: 'name 2',
           formula: 'formula 2',
-          scope : 'jbcggtca',
           type: TEXT,
           [TEXT]: { maxLength: 2 },
         },
@@ -222,7 +217,6 @@ describe('calculated variables tranformations', () => {
           Name: 'name 2',
           Formula: 'formula 2',
           type: CALCULATED,
-          Scope: 'jbcggtca',
           Datatype: {
             MaxLength: 2,
             type: 'TextDatatypeType',

@@ -110,7 +110,7 @@ export function stateToRemote(state, collectedVariables) {
       }
     }
     if (dataType.format === 'PTnHnM') {
-      if(mihours || miminutes){
+      if(mihours || mihours){
        durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
       }
       if(mahours !== "" || maminutes !== ""){

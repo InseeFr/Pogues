@@ -5,11 +5,10 @@ import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
 import {
   validateQuestionForm,
   validateSequenceForm,
-  validateLoopForm
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP } = COMPONENT_TYPE;
+const { QUESTION } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -47,18 +46,13 @@ function validateAndSubmit(
   type,
   validateQuestion,
   validateSequence,
-  validateLoop,
   transformer,
   onSuccess,
 ) {
   return function(values) {
     if (type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
-    }
-     else if (type === LOOP) {
-      validateLoop(values);
-    }
-    else{
+    } else {
       validateSequence(values);
     }
 
@@ -67,6 +61,7 @@ function validateAndSubmit(
     const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
     const updatedExternalVariablesStore = transformer.getExternalVariablesStore();
     const updatedCollectedlVariablesStore = transformer.getCollectedVariablesStore();
+
     actions
       .createComponent(
         componentState,
@@ -109,8 +104,6 @@ function ComponentNew({
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
   const validateSequence = setValidationErrorsAction => values =>
     validateSequenceForm(values, setValidationErrorsAction);
-  const validateLoop = setValidationErrorsAction => values =>
-    validateLoopForm(values, setValidationErrorsAction);  
   const actions = {
     createComponent,
     updateParentChildren,
@@ -129,6 +122,7 @@ function ComponentNew({
   const initialValues = componentTransformer.stateToForm(activeQuestionnaire);
 
   // Validation and submit
+
   return (
     <ComponentNewEdit
       componentType={type}
@@ -139,7 +133,6 @@ function ComponentNew({
         type,
         validateQuestion(setValidationErrors, codesListsStore),
         validateSequence(setValidationErrors),
-        validateLoop(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}

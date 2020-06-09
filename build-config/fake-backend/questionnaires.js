@@ -597,33 +597,6 @@ module.exports = [
         },
       ],
     },
-    Iterations: {
-      Iteration: [
-        {
-          id: "jqqchose",
-          type: "DynamicIterationType",
-          Name: "BOUCLE1",
-          IterableReference: "ka08eg6w",
-          Filter: "$AGE$ < 18",
-          Label: "ekk",
-          Minimum: 1,
-          Step: 1
-        },
-        {
-          id: "ka08hypo",
-          type: "DynamicIterationType",
-          Name: "BOUCLE_INDIVIDU",
-          MemberReference: [
-            "j6p0ti5h", "j6p0ti5h"
-          ],
-          IterableReference: "ka08eg6w",
-          Filter: "$AGE$ < 18",
-          Label: "ekkcoco",
-          Minimum: 1,
-          Step: 1
-        },
-      ]
-    },
     lastUpdatedDate: 'Fri Jan 12 2018 12:06:03 GMT+0100 (Paris, Madrid)',
     DataCollection: [],
     final: false,

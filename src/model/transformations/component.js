@@ -3,8 +3,6 @@ import * as Declaration from './declaration';
 import * as Control from './control';
 import * as Redirection from './redirection';
 import * as Response from './response';
-import * as Loop from './loop';
-
 import { uuid } from 'utils/utils';
 import * as CollectedVariable from './collected-variable';
 
@@ -16,7 +14,7 @@ import {
 } from 'constants/pogues-constants';
 import { checkPropTypes } from 'prop-types';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP} = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 function sortByWeight(store) {
   return (keyA, keyB) => {
@@ -256,9 +254,9 @@ function remoteToStoreNested(
   parent,
   componentGroup,
   codesListsStore = {},
-  iterations,
   acc = {},
 ) {
+
   let weight = 0;
   children.forEach(child => {
     acc[child.id] = remoteToState(
@@ -273,14 +271,10 @@ function remoteToStoreNested(
         child.id,
         componentGroup,
         codesListsStore,
-        iterations,
         acc,
       );
     return acc;
   });
-  iterations.forEach(iteration => {
-    acc[iteration.id] = Loop.remoteToState(iteration, parent)
-  })
   return acc;
 }
 
@@ -486,68 +480,65 @@ function storeToRemoteNested(
     collectedVariables,
     TargetMode,
   } = state;
+ 
+  let remote = {
+    id,
+    depth,
+    Name,
+    Label: [label.replace(/\n\n/gi, '&#xd;')],
+    Declaration: Declaration.stateToRemote(declarations),
+    Control: Control.stateToRemote(controls),
+    // Trello #196 : ouput : GoTo --> FlowControl
+    FlowControl: Redirection.stateToRemote(redirections),
+    TargetMode,
+  };
 
-  if(type !== LOOP) {
-    let remote = {
-      id,
-      depth,
-      Name,
-      Label: [label.replace(/\n\n/gi, '&#xd;')],
-      Declaration: Declaration.stateToRemote(declarations),
-      Control: Control.stateToRemote(controls),
-      // Trello #196 : ouput : GoTo --> FlowControl
-      FlowControl: Redirection.stateToRemote(redirections),
-      TargetMode,
+  if (type === QUESTION) {
+    if(responseFormat.type === "SINGLE_CHOICE" && collectedVariablesStore !=undefined){
+      const remoteclarification = getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
+      remote.FlowControl = remoteclarification.flowcontrolefinal;
+      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
+    } 
+
+    if(responseFormat.type === "MULTIPLE_CHOICE" && collectedVariablesStore !=undefined){
+      const remoteclarification = getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
+      remote.FlowControl = remoteclarification.flowcontrolefinal;
+      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
+    } 
+    if(responseFormat.type === "TABLE" && collectedVariablesStore !=undefined){
+      const remoteclarification = getClarificationResponseTableQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
+      remote.FlowControl = remoteclarification.flowcontrolefinal;
+      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
+    } 
+  
+    remote.type = QUESTION_TYPE_NAME;
+    remote.questionType = responseFormat.type;
+    remote = {
+      ...remote,
+      ...ResponseFormat.stateToRemote(
+        responseFormat,
+        collectedVariables,
+        collectedVariablesStore,
+      ),
     };
-
-    if (type === QUESTION) {
-      if(responseFormat.type === "SINGLE_CHOICE" && collectedVariablesStore !=undefined){
-        const remoteclarification = getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
-        remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
-      } 
-
-      if(responseFormat.type === "MULTIPLE_CHOICE" && collectedVariablesStore !=undefined){
-        const remoteclarification = getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
-        remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
-      } 
-      if(responseFormat.type === "TABLE" && collectedVariablesStore !=undefined){
-        const remoteclarification = getClarificationResponseTableQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
-        remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
-      } 
-    
-      remote.type = QUESTION_TYPE_NAME;
-      remote.questionType = responseFormat.type;
-      remote = {
-        ...remote,
-        ...ResponseFormat.stateToRemote(
-          responseFormat,
-          collectedVariables,
-          collectedVariablesStore,
-        ),
-      };
+  } else {
+    remote.type = SEQUENCE_TYPE_NAME;
+    if (type === QUESTIONNAIRE) {
+      remote.genericName = 'QUESTIONNAIRE';
+    } else if (type === SEQUENCE) {
+      remote.genericName = 'MODULE';
+    } else {
+      remote.genericName = 'SUBMODULE';
     }
-    else {
-      remote.type = SEQUENCE_TYPE_NAME;
-      if (type === QUESTIONNAIRE) {
-        remote.genericName = 'QUESTIONNAIRE';
-      } else if (type === SEQUENCE) {
-        remote.genericName = 'MODULE';
-      } else {
-        remote.genericName = 'SUBMODULE';
-      }
-      remote.Child = childrenToRemote(
-        children,
-        store,
-        collectedVariablesStore,  
-        codesListsStore,
-        depth,
-      );
-    }
-    return remote;
+    remote.Child = childrenToRemote(
+      children,
+      store,
+      collectedVariablesStore,  
+      codesListsStore,
+      depth,
+    );
   }
+  return remote;
 }
 function childrenToRemote(
   children,
@@ -568,14 +559,13 @@ function childrenToRemote(
   });
 }
 
-export function remoteToStore(remote, questionnaireId, codesListsStore, iterations) {
+export function remoteToStore(remote, questionnaireId, codesListsStore) {
   return {
     ...remoteToStoreNested(
       remote.Child,
       questionnaireId,
       remote.ComponentGroup,
       codesListsStore,
-      iterations,
     ),
     [questionnaireId]: remoteToState(remote, []),
   };

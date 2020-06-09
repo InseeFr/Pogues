@@ -183,49 +183,6 @@ describe('collected variable tranformations', () => {
           },
         },
       };
-     const input1 = {
-        kapgzmji: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: [],
-          collectedVariables: ["kaphc2ly"],
-          controls: {},
-          declarations: {},
-          id: "kapgzmji",
-          label: "question1",
-          name: "QUESTION1",
-          pageBreak: false,
-          parent: "kaph7dbh",
-          redirections: {},
-          responseFormat: {
-            type: "SIMPLE",
-            SIMPLE: 
-              {
-              TEXT: {maxLength: 255, pattern: ""},
-              id: "kaph6l3y",
-              mandatory: false,
-              type: "TEXT"
-              }
-           },
-          responsesClarification: undefined,
-          type: "QUESTION",
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: ["kapgzmji", "kaphg7pd"],
-          controls: {},
-          declarations: {},
-          id: "kaph7dbh",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kaphhxpd",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-      }
       const output = [
         {
           CodeListReference: undefined,
@@ -241,7 +198,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input, input1)).toEqual(output);
+      expect(storeToRemote(input)).toEqual(output);
     });
 
     test('should remove the minimum and maximum in collected variable model if type is DATE', () => {
@@ -272,49 +229,6 @@ describe('collected variable tranformations', () => {
           },
         },
       };
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: [],
-          collectedVariables: ["kaphc2ly"],
-          controls: {},
-          declarations: {},
-          id: "kapgzmji",
-          label: "question1",
-          name: "QUESTION1",
-          pageBreak: false,
-          parent: "kaph7dbh",
-          redirections: {},
-          responseFormat: {
-            type: "SIMPLE",
-            SIMPLE: 
-              {
-              TEXT: {maxLength: 255, pattern: ""},
-              id: "kaph6l3y",
-              mandatory: false,
-              type: "TEXT"
-              }
-           },
-          responsesClarification: undefined,
-          type: "QUESTION",
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: ["kapgzmji", "kaphg7pd"],
-          controls: {},
-          declarations: {},
-          id: "kaph7dbh",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kaphhxpd",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-      }
       const output = [
         {
           CodeListReference: undefined,
@@ -330,7 +244,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input, input1)).toEqual(output);
+      expect(storeToRemote(input)).toEqual(output);
     });
 
     test('should return collected variable model if type is DURATION and the PTnHnM format', () => {
@@ -361,49 +275,6 @@ describe('collected variable tranformations', () => {
           },
         },
       };
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: [],
-          collectedVariables: ["kaphc2ly"],
-          controls: {},
-          declarations: {},
-          id: "kapgzmji",
-          label: "question1",
-          name: "QUESTION1",
-          pageBreak: false,
-          parent: "kaph7dbh",
-          redirections: {},
-          responseFormat: {
-            type: "SIMPLE",
-            SIMPLE: 
-              {
-              TEXT: {maxLength: 255, pattern: ""},
-              id: "kaph6l3y",
-              mandatory: false,
-              type: "TEXT"
-              }
-           },
-          responsesClarification: undefined,
-          type: "QUESTION",
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: ["kapgzmji", "kaphg7pd"],
-          controls: {},
-          declarations: {},
-          id: "kaph7dbh",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kaphhxpd",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-      }
       const output = [
         {
           CodeListReference: undefined,
@@ -420,7 +291,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input, input1)).toEqual(output);
+      expect(storeToRemote(input)).toEqual(output);
     });
 
     test('should return collected variable model if type is DURATION and the PnYnM format', () => {
@@ -451,50 +322,6 @@ describe('collected variable tranformations', () => {
           },
         },
       };
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: [],
-          collectedVariables: ["kaphc2ly"],
-          controls: {},
-          declarations: {},
-          id: "kapgzmji",
-          label: "question1",
-          name: "QUESTION1",
-          pageBreak: false,
-          parent: "kaph7dbh",
-          redirections: {},
-          responseFormat: {
-            type: "SIMPLE",
-            SIMPLE: 
-              {
-              TEXT: {maxLength: 255, pattern: ""},
-              id: "kaph6l3y",
-              mandatory: false,
-              type: "TEXT"
-              }
-           },
-          responsesClarification: undefined,
-          type: "QUESTION",
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: ["kapgzmji", "kaphg7pd"],
-          controls: {},
-          declarations: {},
-          id: "kaph7dbh",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kaphhxpd",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-      }
-      
       const output = [
         {
           CodeListReference: undefined,
@@ -511,7 +338,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input, input1)).toEqual(output);
+      expect(storeToRemote(input)).toEqual(output);
     });
 
     test('should not return minimum in collected variable model if type is DURATION and the PnYnM format and miyears and mimonths undefined', () => {
@@ -542,49 +369,6 @@ describe('collected variable tranformations', () => {
           },
         },
       };
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: [],
-          collectedVariables: ["kaphc2ly"],
-          controls: {},
-          declarations: {},
-          id: "kapgzmji",
-          label: "question1",
-          name: "QUESTION1",
-          pageBreak: false,
-          parent: "kaph7dbh",
-          redirections: {},
-          responseFormat: {
-            type: "SIMPLE",
-            SIMPLE: 
-              {
-              TEXT: {maxLength: 255, pattern: ""},
-              id: "kaph6l3y",
-              mandatory: false,
-              type: "TEXT"
-              }
-           },
-          responsesClarification: undefined,
-          type: "QUESTION",
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: ["kapgzmji", "kaphg7pd"],
-          controls: {},
-          declarations: {},
-          id: "kaph7dbh",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kaphhxpd",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-      }
       const output = [
         {
           CodeListReference: undefined,
@@ -600,7 +384,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input, input1)).toEqual(output);
+      expect(storeToRemote(input)).toEqual(output);
     });
 
     test('should not return Maximum collected variable model if type is DURATION and the PTnHnM format and mahours and maminutes undefined', () => {
@@ -631,50 +415,6 @@ describe('collected variable tranformations', () => {
           },
         },
       };
-
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: [],
-          collectedVariables: ["kaphc2ly"],
-          controls: {},
-          declarations: {},
-          id: "kapgzmji",
-          label: "question1",
-          name: "QUESTION1",
-          pageBreak: false,
-          parent: "kaph7dbh",
-          redirections: {},
-          responseFormat: {
-            type: "SIMPLE",
-            SIMPLE: 
-              {
-              TEXT: {maxLength: 255, pattern: ""},
-              id: "kaph6l3y",
-              mandatory: false,
-              type: "TEXT"
-              }
-           },
-          responsesClarification: undefined,
-          type: "QUESTION",
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ["CAWI", "PAPI"],
-          children: ["kapgzmji", "kaphg7pd"],
-          controls: {},
-          declarations: {},
-          id: "kaph7dbh",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kaphhxpd",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-      }
       const output = [
         {
           CodeListReference: undefined,
@@ -690,245 +430,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input, input1)).toEqual(output);
+      expect(storeToRemote(input)).toEqual(output);
     });
-
-    test('should return Scoop from loop ID in collected variable model if there is LOOP and question is not table', () => {
-      const input = {
-        k23bk67e: {
-          id: "k23bk67e",
-          TEXT: {maxLength: 255, pattern: ""},
-          codeListReference: undefined,
-          codeListReferenceLabel: "",
-          id: "kawknt1k",
-          label: "QUESTION1 label",
-          mesureLevel: undefined,
-          name: "QUESTION1",
-          type: "TEXT",
-          z: undefined
-        },
-      };
-      const input1 = {
-        kawkitxu: {
-          TargetMode: ["CAWI"],
-          children: [],
-          collectedVariables: ["kawknt1k"],
-          controls: {},
-          declarations: {},
-          id: "kawkitxu",
-          label: "question1",
-          name: "QUESTION1",
-          pageBreak: false,
-          parent: "kawkbwbv",
-          redirections: {},
-          responseFormat: {
-            type: "SIMPLE",
-            SIMPLE: 
-              {
-                TEXT: {maxLength: 255, pattern: ""},
-                id: "kawknyfn",
-                mandatory: false,
-                type: "TEXT"
-              }
-          },
-          responsesClarification: undefined,
-          type: "QUESTION",
-          weight: 0,
-        },
-        kawkbwbv: {
-          TargetMode: ["CAWI"],
-          children: ["kawkitxu", "kawknrqr"],
-          controls: {},
-          declarations: {},
-          id: "kawkbwbv",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kawkne43",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-        kawkne43: {
-          TargetMode: ["CAWI"],
-          children: ["kawkbwbv"],
-          controls: {},
-          declarations: {},
-          id: "kawkne43",
-          label: "testloop",
-          name: "TESTLOOP",
-          pageBreak: undefined,
-          parent: "",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "QUESTIONNAIRE",
-          weight: 0,
-        },
-        kawlwdra: {
-          BasedOn: "",
-          TargetMode: ["CAWI"],
-          addButtonLibel: "",
-          basedOn: "",
-          children: [],
-          collectedVariables: [],
-          controls: {},
-          declarations: {},
-          filter: "",
-          finalMember: "kawkbwbv",
-          id: "kawlwdra",
-          initialMember: "kawkbwbv",
-          label: "",
-          maximum: "",
-          name: "LOOP",
-          nameLoop: "LOOP",
-          parent: undefined,
-          redirections: {},
-          responseFormat: {},
-          type: "LOOP",
-          weight: undefined,
-        }
-      };
-      const output = [
-        {
-          CodeListReference: undefined,
-          Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: 255, Pattern: ""},
-          Label: "QUESTION1 label",
-          Name: "QUESTION1",
-          Scope: "kawlwdra",
-          id: "kawknt1k",
-          type: "CollectedVariableType",
-        },
-      ];
-      expect(storeToRemote(input, input1)).toEqual(output);
-    });
-
-    test('should return Scoop from Question ID in collected variable model if there is LOOP and question is table', () => {
-      const input = {
-        kawkrelo: {
-          BOOLEAN: undefined,
-          DATE: undefined,
-          DURATION: undefined,
-          NUMERIC: undefined,
-          TEXT: {maxLength: 255, pattern: ""},
-          codeListReference: "",
-          codeListReferenceLabel: "",
-          id: "kawkrelo",
-          label: "tab",
-          mesureLevel: undefined,
-          name: "QUESTION21",
-          type: "TEXT",
-          x: 1,
-          y: 1,
-          z: undefined,
-        }
-      };
-      const input1 = {
-        kawkbwbv: {
-          TargetMode: ["CAWI"],
-          children: ["kawkitxu", "kawknrqr"],
-          controls: {},
-          declarations: {},
-          id: "kawkbwbv",
-          label: "sequence1",
-          name: "SEQUENCE1",
-          pageBreak: false,
-          parent: "kawkne43",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "SEQUENCE",
-          weight: 0,
-        },
-        kawknrqr: {
-          TargetMode: ["CAWI"],
-          children: [],
-          collectedVariables: ["kawkrelo"],
-          controls: {},
-          declarations: {},
-          id: "kawknrqr",
-          label: "question2",
-          name: "QUESTION2",
-          pageBreak: false,
-          parent: "kawkbwbv",
-          redirections: {},
-          responseFormat: {
-            type: "TABLE",
-            TABLE: {
-              LIST_MEASURE: [
-                {
-                  label: "tab",
-                  type: "SIMPLE",
-                  SIMPLE: {  
-                    id: undefined, 
-                    type: "TEXT",
-                    mandatory: undefined,
-                    TEXT: {
-                      maxLength: 255,
-                      pattern: ""
-                    }
-                  },
-                },
-              ],
-              PRIMARY: {
-                LIST: {numLinesMin: 4, numLinesMax: 2},
-                type: "LIST"
-              },
-            }
-          },
-          responsesClarification: [],
-          type: "QUESTION",
-          weight: 0,
-        },
-        kawkne43: {
-          TargetMode: ["CAWI"],
-          children: ["kawkbwbv"],
-          controls: {},
-          declarations: {},
-          id: "kawkne43",
-          label: "testloop",
-          name: "TESTLOOP",
-          pageBreak: undefined,
-          parent: "",
-          redirections: {},
-          responsesClarification: undefined,
-          type: "QUESTIONNAIRE",
-          weight: 0,
-        },
-        kawlwdra: {
-          BasedOn: "",
-          TargetMode: ["CAWI"],
-          addButtonLibel: "",
-          basedOn: "",
-          children: [],
-          collectedVariables: [],
-          controls: {},
-          declarations: {},
-          filter: "",
-          finalMember: "kawkbwbv",
-          id: "kawlwdra",
-          initialMember: "kawkbwbv",
-          label: "",
-          maximum: "",
-          name: "LOOP",
-          nameLoop: "LOOP",
-          parent: undefined,
-          redirections: {},
-          responseFormat: {},
-          type: "LOOP",
-          weight: undefined,
-        }
-      };
-      const output = [
-        {
-          Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: 255, Pattern: ""},
-          Label: "tab",
-          Name: "QUESTION21",
-          Scope: "kawknrqr",
-          id: "kawkrelo",
-          type: "CollectedVariableType",
-        }
-      ];
-      expect(storeToRemote(input, input1)).toEqual(output);
-    });    
   });
 });

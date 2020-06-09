@@ -101,12 +101,6 @@ export function name(value = '') {
     : undefined;
 }
 
-export function nameLoop(value = '') {
-  return value !== '' && !/^[A-Z0-9\-_]+$/i.test(value)
-    ? Dictionary.validationInvalidName
-    : undefined;
-}
-
 export function nameSize(value) {
   return value && value.length > 32
     ? Dictionary.validationInvalidNameSize
