@@ -258,7 +258,8 @@ function getQuestionnaireModel(state, customComponentsStore) {
     lastUpdatedDate: new Date().toString(),
     owner: state.appState.user.permission,
   };
-  
+
+
   return Questionnaire.stateToRemote(questionnaireState, stores);
 }
 
