@@ -71,7 +71,6 @@ export function questionnaireListRemoteToStores(questionnairesList) {
     } catch (e) {
       //
     }
-
     if (questionnaireState) questionnairesStates.push(questionnaireState);
   }
   return questionnairesStates;
