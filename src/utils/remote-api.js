@@ -65,7 +65,9 @@ export const visualizeHtml = qr => {
     body: JSON.stringify(qr),
     credentials: 'include',
   })
-    .then(response => response.text())
+    .then(response =>{
+      response.text()
+    })
     .then(url => {
       const a = document.createElement('a');
       a.href = url;
