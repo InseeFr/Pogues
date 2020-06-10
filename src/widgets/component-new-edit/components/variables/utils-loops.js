@@ -14,11 +14,11 @@ const { LIST } = DIMENSION_FORMATS;
  */
 export function getQuestionnaireScope(components) {
   return Object.values(components)
-         .filter(component => component.type === LOOP && 
-                 !component.basedOn ||
-                 component.type === QUESTION && 
+         .filter(component => (component.type === LOOP && 
+                 !component.basedOn) ||
+                 (component.type === QUESTION && 
                  component.responseFormat.type === TABLE &&
-                 component.responseFormat.TABLE.PRIMARY.type === LIST
+                 component.responseFormat.TABLE.PRIMARY.type === LIST)
                 )
 }
 
