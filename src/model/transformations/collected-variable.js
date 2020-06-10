@@ -165,7 +165,6 @@ function findQuestionInLoop(componentsStore) {
         else {
           LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, componentsStore[component.initialMember].id));
         }
-  
       }
       else {
         if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
@@ -186,18 +185,17 @@ function findQuestionInLoop(componentsStore) {
   })
   return LoopsQuestions;
 }
-function getCollectedScope(questionsLoop, id) {
+function getCollectedScope(questionsLoop, id, componentsStore) {
   let isfound = {};
   Object.keys(questionsLoop).map(key => {
     questionsLoop[key].forEach(element => {
       if(element.collectedVariables && element.collectedVariables.find(collected=> collected === id)) {
         isfound = {
-         loop : key,
+         loop : componentsStore[key],
          component : element
         } 
       }
     });
-
   })
   return isfound;
 }
@@ -228,7 +226,7 @@ export function storeToRemote(store, componentsStore) {
         maminutes: Maminutes,
       },
     } = store[key];
-
+    
     const model = {
       id,
       Name,
@@ -241,20 +239,17 @@ export function storeToRemote(store, componentsStore) {
     };
     
     const questionsInLoop =  findQuestionInLoop(componentsStore);
-    const collectedScop = getCollectedScope(questionsInLoop, id);
-
+    const collectedScop = getCollectedScope(questionsInLoop, id, componentsStore);
     if(collectedScop.component) {
-       if(collectedScop.component.type === QUESTION && 
-          collectedScop.component.responseFormat.type === TABLE
-          && collectedScop.component.responseFormat.TABLE.PRIMARY.type === LIST
-          ) 
-          {
-            model.Scope = collectedScop.component.id
-          }
-       else {
-          model.Scope = collectedScop.loop
+      if(collectedScop.component.type === QUESTION && 
+         collectedScop.loop && collectedScop.loop.basedOn
+        ) 
+        {
+          model.Scope = collectedScop.loop.basedOn
         }
-
+      else {
+        model.Scope = collectedScop.loop.id
+      }
     }
     
     if(codeListReference !== "") {

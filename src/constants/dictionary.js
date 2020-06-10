@@ -396,8 +396,8 @@ const dictionary = {
   },
 
   selectScope: {
-    fr: 'Spécifier Portée',
-    en: 'Specify Scope',
+    fr: 'Portée Questionnaire',
+    en: 'Scope Questionnaire',
   },
    
   specify: {

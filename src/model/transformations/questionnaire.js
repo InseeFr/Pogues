@@ -157,11 +157,10 @@ export function stateToRemote(state, stores) {
     collectedVariablesWithoutOrphans,
     componentsStore
   );
-  
   const Iterations = Loop.stateToRemote(
     componentsStore
   )
-  
+
   return {
     ...remote,
     Child: componentsRemote,
