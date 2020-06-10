@@ -232,12 +232,12 @@ export function validCollectedVariables(
     }
 
   if (type === TABLE && value[0] || type === SIMPLE && value[0] ) {
-    const typevalue = value[0].type;
-    const typeexpectedVariables = expectedVariables[0].type;
+    const typeValue = value[0].type;
+    const typeExpectedVariables = expectedVariables[0].type;
     if (
       value[0].codeListReference !== expectedVariables[0].codeListReference ||
-      typevalue !== typeexpectedVariables ||
-      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue]) ||
+      typeValue !== typeExpectedVariables ||
+      !objectCompare(expectedVariables[0][typeExpectedVariables], value[0][typeValue]) ||
       expectedVariables.length != value.length
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
