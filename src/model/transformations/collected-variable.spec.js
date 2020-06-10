@@ -134,7 +134,7 @@ describe('collected variable tranformations', () => {
         output,
       );
     });
-    test('should return mihundredths = "" if type name Duration and format HH:CH and mihundredths = 0 to the store representation of a collected variable', () => {
+    test('should return mihundredths = "00" if type name Duration and format HH:CH and mihundredths = 0 to the store representation of a collected variable', () => {
       const input = [
         {
           id: 'k23bk67e',
@@ -145,7 +145,7 @@ describe('collected variable tranformations', () => {
           Datatype: {
             Format: "HH:CH",
             Maximum: "02:02",
-            Minimum: "02:0",
+            Minimum: "02:00",
             type: "DurationDatatypeType",
             typeName: DURATION,
           },
@@ -167,8 +167,8 @@ describe('collected variable tranformations', () => {
             mahundredths: "02",
             maximum: "02:02",
             mihundhours: "02",
-            mihundredths: "",
-            minimum: "02:0",
+            mihundredths: "00",
+            minimum: "02:00",
           },
         },
       };
@@ -325,7 +325,7 @@ describe('collected variable tranformations', () => {
             mahours: undefined,
             maminutes: undefined,
             mahundhours: 3,
-            mahundredths: "",
+            mahundredths: 0,
           },
         },
       };
@@ -338,7 +338,7 @@ describe('collected variable tranformations', () => {
           type: 'CollectedVariableType',
           Datatype: {
             Format: "HH:CH",
-            Maximum: "03:0",
+            Maximum: "03:00",
             Minimum: "02:02",
             type: "DurationDatatypeType",
             typeName: DURATION,
@@ -572,7 +572,7 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: undefined,
             miminutes: undefined,
-            mihundhours: 2,
+            mihundhours: 0,
             mihundredths: 3,
             mahours: undefined,
             maminutes: undefined,
@@ -590,7 +590,7 @@ describe('collected variable tranformations', () => {
           type: 'CollectedVariableType',
           Datatype: {
             Format: "HH:CH",
-            Minimum: "02:03",
+            Minimum: "00:03",
             type: "DurationDatatypeType",
             typeName: DURATION,
           },
@@ -625,7 +625,7 @@ describe('collected variable tranformations', () => {
             mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
-            mahundhours: 1,
+            mahundhours: 0,
             mahundredths: 2,
           },
         },
@@ -639,7 +639,7 @@ describe('collected variable tranformations', () => {
           type: 'CollectedVariableType',
           Datatype: {
             Format: "HH:CH",
-            Maximum: "01:02",
+            Maximum: "00:02",
             type: "DurationDatatypeType",
             typeName: DURATION,
           },
