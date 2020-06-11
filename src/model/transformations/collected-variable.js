@@ -74,8 +74,8 @@ export function remoteToStore(
           datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
         if (format === 'HH:CH') {
-          datatype.mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];;
-          datatype.mihundredths = matches_minimum[1][0] == 0 ? matches_minimum[1].slice(1) : matches_minimum[1];;
+          datatype.mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];
+          datatype.mihundredths = matches_minimum[1][0] == 0 ? matches_minimum[1].slice(1) : matches_minimum[1];
         }
       }
       if(datatype.maximum !== undefined){
