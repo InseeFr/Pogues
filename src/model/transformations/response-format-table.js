@@ -93,7 +93,7 @@ function getMeasuresModel(responses, dimensions, offset) {
         }
         if (responses[i].Datatype.Format === 'HH:CH') {
           responses[i].Datatype.Mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];
-          responses[i].Datatype.Mihundredths = matches_minimum[1][0] == 0 ? matches_maximum[1].slice(1) :matches_minimum[1];
+          responses[i].Datatype.Mihundredths = matches_minimum[1][0] == 0 ? matches_minimum[1].slice(1) : matches_minimum[1];
         }
       }
       if(responses[i].Datatype.Maximum !== undefined){
