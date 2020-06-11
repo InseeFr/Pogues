@@ -134,7 +134,7 @@ describe('collected variable tranformations', () => {
         output,
       );
     });
-    test('should return mihundredths = "00" if type name Duration and format HH:CH and mihundredths = 0 to the store representation of a collected variable', () => {
+    test('should return mihundredths = "0" if type name Duration and format HH:CH and mihundredths = 0 to the store representation of a collected variable', () => {
       const input = [
         {
           id: 'k23bk67e',
@@ -144,7 +144,7 @@ describe('collected variable tranformations', () => {
           CodeListReference: 'id',
           Datatype: {
             Format: "HH:CH",
-            Maximum: "02:02",
+            Maximum: "02:12",
             Minimum: "02:00",
             type: "DurationDatatypeType",
             typeName: DURATION,
@@ -163,11 +163,11 @@ describe('collected variable tranformations', () => {
           codeListReferenceLabel: 'label',
           [DURATION]: {
             format: "HH:CH",
-            mahundhours: "02",
-            mahundredths: "02",
-            maximum: "02:02",
-            mihundhours: "02",
-            mihundredths: "00",
+            mahundhours: "2",
+            mahundredths: "12",
+            maximum: "02:12",
+            mihundhours: "2",
+            mihundredths: "0",
             minimum: "02:00",
           },
         },

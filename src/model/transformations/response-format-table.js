@@ -92,8 +92,8 @@ function getMeasuresModel(responses, dimensions, offset) {
           responses[i].Datatype.Mimonths = matches_minimum[1] == 0 ? '' :matches_minimum[0];
         }
         if (responses[i].Datatype.Format === 'HH:CH') {
-          responses[i].Datatype.Mihundhours = matches_minimum[0] == 0 ? '' :matches_minimum[0];
-          responses[i].Datatype.Mihundredths = matches_minimum[1] == 0 ? '' :matches_minimum[0];
+          responses[i].Datatype.Mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];
+          responses[i].Datatype.Mihundredths = matches_minimum[1][0] == 0 ? matches_maximum[1].slice(1) :matches_minimum[1];
         }
       }
       if(responses[i].Datatype.Maximum !== undefined){
@@ -108,8 +108,8 @@ function getMeasuresModel(responses, dimensions, offset) {
           responses[i].Datatype.Mamonths = matches_maximum[1] == 0 ? '' :matches_maximum[0];
         }
         if (responses[i].Datatype.Format === 'HH:CH') {
-          responses[i].Datatype.Mahundhours = matches_maximum[0];
-          responses[i].Datatype.Mahundredths = matches_maximum[0];
+          responses[i].Datatype.Mahundhours = matches_maximum[0][0] == 0 ? matches_maximum[0].slice(1) : matches_maximum[0];
+          responses[i].Datatype.Mahundredths = matches_maximum[1][0] == 0 ? matches_maximum[1].slice(1) : matches_maximum[1];
         }
       }
     }  

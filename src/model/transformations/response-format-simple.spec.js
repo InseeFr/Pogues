@@ -97,10 +97,10 @@ describe('redirection transformation', () => {
         DURATION: {
           minimum: '00:02',
           maximum: '02:00',
-          mihundhours: '00',
-          mihundredths: '02',
-          mahundhours: '02',
-          mahundredths: '00',
+          mihundhours: '0',
+          mihundredths: '2',
+          mahundhours: '2',
+          mahundredths: '0',
           format: 'HH:CH',
         },
       });
@@ -139,7 +139,7 @@ describe('redirection transformation', () => {
       });
     });
 
-    it('should return mahundhours = "00" if type name Duration and format HH:CH and mahundhours = 0', () => {
+    it('should return mahundhours = "0" if type name Duration and format HH:CH and mahundhours = 0', () => {
       expect(
         remoteToState({
           responses: [
@@ -162,11 +162,11 @@ describe('redirection transformation', () => {
         type: 'DURATION',
         DURATION: {
           format: "HH:CH",
-          mahundhours: "00",
-          mahundredths: "02",
+          mahundhours: "0",
+          mahundredths: "2",
           maximum: "00:02",
-          mihundhours: "00",
-          mihundredths: "01",
+          mihundhours: "0",
+          mihundredths: "1",
           minimum: "00:01",
         },
       });

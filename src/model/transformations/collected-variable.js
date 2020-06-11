@@ -74,8 +74,8 @@ export function remoteToStore(
           datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
         if (format === 'HH:CH') {
-          datatype.mihundhours = matches_minimum[0];
-          datatype.mihundredths = matches_minimum[1];
+          datatype.mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];;
+          datatype.mihundredths = matches_minimum[1][0] == 0 ? matches_minimum[1].slice(1) : matches_minimum[1];;
         }
       }
       if(datatype.maximum !== undefined){
@@ -90,8 +90,8 @@ export function remoteToStore(
           datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
         if (format === 'HH:CH') {
-          datatype.mahundhours = matches_maximum[0];
-          datatype.mahundredths = matches_maximum[1];
+          datatype.mahundhours = matches_maximum[0][0] == 0 ? matches_maximum[0].slice(1) : matches_maximum[0];
+          datatype.mahundredths = matches_maximum[1][0] == 0 ? matches_maximum[1].slice(1) : matches_maximum[1];
         }
       }
     }
