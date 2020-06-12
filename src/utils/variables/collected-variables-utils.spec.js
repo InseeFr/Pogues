@@ -537,14 +537,15 @@ describe('collected variables utils: ', () => {
   });
 
   describe('getCollecteVariable', () => {
-    test('should return the collected variablem with coordinates', () => {
-      const result = getCollecteVariable('name', 'label', { x: 1, y: 2 });
+    test('should return the collected variable with coordinates', () => {
+      const result = getCollecteVariable('name', 'label', { x: 1, y: 2, isCollected: false});
       expect(result).toEqual({
         id: result.id,
         name: 'name',
         label: 'label',
         x: 1,
         y: 2,
+        isCollected: false,
       });
     });
 
@@ -552,13 +553,13 @@ describe('collected variables utils: ', () => {
       const result = getCollecteVariable(
         'name',
         'label',
-        { x: 1, y: 2 },
+        { x: 1, y: 2,  isCollected: true},
         { id: 1 },
       );
       expect(result.id).not.toEqual(1);
     });
 
-    test('should return the collected variablem without coordinates', () => {
+    test('should return the collected variable without coordinates', () => {
       const result = getCollecteVariable('name', 'label');
       expect(result).toEqual({
         id: result.id,

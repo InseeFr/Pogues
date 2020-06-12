@@ -406,6 +406,7 @@ export function stateToRemote(
     : listMeasuresState.length;
   let responsesModel = [];
   let mappingsModel = [];
+  let attributesModel = [];
 
   for (let i = 0; i < numDataTypes; i += 1) {
     const collectedVariablesByDatatype = collectedVariables
@@ -423,6 +424,7 @@ export function stateToRemote(
 
     responsesModel = [...responsesModel, ...responsesModelByRow.Response];
     mappingsModel = [...mappingsModel, ...responsesModelByRow.Mapping];
+    attributesModel = [...attributesModel, ...responsesModelByRow.Attribute];
   }
 
   mappingsModel = mappingsModel.sort((m1, m2) => {
@@ -439,5 +441,6 @@ export function stateToRemote(
     Dimension: dimensionsModel,
     Response: responsesModel,
     Mapping: mappingsModel,
+    Attribute: attributesModel,
   };
 }

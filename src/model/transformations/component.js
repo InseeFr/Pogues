@@ -24,16 +24,19 @@ function sortByWeight(store) {
     return 0;
   };
 }
-function getResponseCoordinate(variablesMapping = []) {
+function getResponseCoordinate(variablesMapping = [], variablesAttribute) {
   return variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
-    return {
+    const find = variablesAttribute ? variablesAttribute.find(ele => ele.AttributeTarget ===  m.MappingTarget) : false;
+    const variableRes =  {
       ...acc,
       [m.MappingSource]: {
         x: parseInt(axis[0], 10),
         y: parseInt(axis[1], 10),
       },
     };
+    find ? variableRes[m.MappingSource].isCollected = false : variableRes[m.MappingSource].isCollected = true;
+    return variableRes;
   }, {});
 }
 
@@ -158,8 +161,13 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
     const variableResponseMapping = responseStructure
       ? responseStructure.Mapping
       : undefined;
+
+    const variableResponseAttribute = responseStructure
+    ? responseStructure.Attribute
+    : undefined;
+
     const coordinatesByResponse = getResponseCoordinate(
-      variableResponseMapping,
+      variableResponseMapping, variableResponseAttribute
     );
 
     acc = {

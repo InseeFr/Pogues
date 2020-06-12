@@ -428,6 +428,7 @@ describe('stateToRemote', () => {
         DURATION: { maximum: '', minimum: '', format: '' },
         DATE: { maximum: '', minimum: '', format: '' },
         BOOLEAN: {},
+        isCollected: false,
         codeListReference: '',
         codeListReferenceLabel: '',
       },
@@ -443,6 +444,7 @@ describe('stateToRemote', () => {
         DURATION: { maximum: '', minimum: '', format: '' },
         DATE: { maximum: '', minimum: '', format: '' },
         BOOLEAN: {},
+        isCollected: false,
         codeListReference: '',
         codeListReferenceLabel: '',
       },
@@ -464,6 +466,17 @@ describe('stateToRemote', () => {
         dynamic: '0',
       },
     ]);
+
+    expect(result.Attribute).toEqual([
+      {
+        AttributeValue: 'NoDataByDefinition',
+        AttributeTarget: '1 1',
+      },
+      {
+        AttributeValue: 'NoDataByDefinition',
+        AttributeTarget: '2 1',
+      },
+    ])
 
     const outputMapping = result.Mapping;
     const outputResponse = result.Response;
@@ -519,6 +532,7 @@ describe('stateToRemote', () => {
         DURATION: { maximum: '', minimum: '', format: '' },
         DATE: {},
         BOOLEAN: {},
+        isCollected: false,
         codeListReference: '',
         codeListReferenceLabel: '',
       },
@@ -537,6 +551,13 @@ describe('stateToRemote', () => {
         dynamic: '0',
       },
       { Label: 'fsdfsdfsdf', dimensionType: 'MEASURE', dynamic: '0' },
+    ]);
+
+    expect(result.Attribute).toEqual([
+      { 
+        AttributeValue: 'NoDataByDefinition',
+        AttributeTarget: '1 1'
+      }
     ]);
 
     const outputMapping = result.Mapping;
