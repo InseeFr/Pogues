@@ -14,7 +14,7 @@ export function getPattern(value, caretPosition, substrToTheEnd = false) {
 }
 
 export function getValueWithSuggestion(suggestion, caretCursor, fullText) {
-  
+
   let start = -1;
   let end = -1;
 
@@ -38,11 +38,12 @@ export function getValueWithSuggestion(suggestion, caretCursor, fullText) {
   if (end < 0) {
     end = fullText.length;
   }
-
-  const prefix = fullText.substr(0, start - 1);
+  
+  const prefix = fullText.substr(0, start);
   const suffix = '';
-  const prefixSeparator = prefix ? ' $' : '$';
+  const prefixSeparator = prefix && '$';
   const suffixSeparator = suffix ? '$ ' : '$';
+  
   return [
     ...prefix,
     prefixSeparator,
