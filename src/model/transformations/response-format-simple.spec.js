@@ -73,6 +73,39 @@ describe('redirection transformation', () => {
       });
     });
 
+    it('should return mihundhours, mihundredths, mahundhours, and mahundredths from minimum and maximum if type name Duration and format HH:CH', () => {
+      expect(
+        remoteToState({
+          responses: [
+            {
+              Datatype: {
+                Format: "HH:CH",
+                Maximum: "02:02",
+                Minimum: "02:02",
+                type: "DurationDatatypeType",
+                typeName: "DURATION",
+              },
+              mandatory: true,
+              id: '1',
+            },
+          ],
+        }),
+      ).toEqual({
+        mandatory: true,
+        id: '1',
+        type: 'DURATION',
+        DURATION: {
+          minimum: '02:02',
+          maximum: '02:02',
+          mihundhours: '02',
+          mihundredths: '02',
+          mahundhours: '02',
+          mahundredths: '02',
+          format: 'HH:CH',
+        },
+      });
+    });
+
     it('should return maminutes = "" if type name Duration and format PTnHnM and maminutes = 0', () => {
       expect(
         remoteToState({
@@ -102,6 +135,39 @@ describe('redirection transformation', () => {
           mihours: "1",
           miminutes: "1",
           minimum: "PT1H1M",
+        },
+      });
+    });
+
+    it('should return mahundhours = "" if type name Duration and format HH:CH and mahundhours = 0', () => {
+      expect(
+        remoteToState({
+          responses: [
+            {
+              Datatype: {
+                Format: "HH:CH",
+                Maximum: "0:02",
+                Minimum: "01:01",
+                type: "DurationDatatypeType",
+                typeName: "DURATION",
+              },
+              mandatory: true,
+              id: '1',
+            },
+          ],
+        }),
+      ).toEqual({
+        mandatory: true,
+        id: '1',
+        type: 'DURATION',
+        DURATION: {
+          format: "HH:CH",
+          mahundhours: "",
+          mahundredths: "02",
+          maximum: "0:02",
+          mihundhours: "01",
+          mihundredths: "01",
+          minimum: "01:01",
         },
       });
     });
@@ -216,6 +282,35 @@ describe('redirection transformation', () => {
         });
       });
 
+      it('should return the remote representation for the HH:CH format', () => {
+        const result = stateToRemote(
+          {
+            id: '2',
+            mandatory: true,
+            type: DATATYPE_NAME.DURATION,
+
+            [DATATYPE_NAME.DURATION]: {
+              mihundhours: 1,
+              mihundredths: 2,
+              mahundhours: 3,
+              mahundredths: 4,
+              format: 'HH:CH',
+            },
+          },
+          [{ id: '1' }],
+        );
+        expect(result).toEqual({ Response: [{ id: '2' }] });
+        expect(Response.stateToRemote).toHaveBeenCalledWith({
+          maximum: '03:04',
+          minimum: '01:02',
+          format: 'HH:CH',
+          id: '2',
+          mandatory: true,
+          typeName: DATATYPE_NAME.DURATION,
+          collectedVariable: { id: '1' },
+        });
+      });
+
       it('should remove the minimum and maximum if the mihours and miminutes are empty or mahours and maminutes are empty', () => {
         const result = stateToRemote(
           {
@@ -241,6 +336,33 @@ describe('redirection transformation', () => {
           typeName: DATATYPE_NAME.DURATION,
           collectedVariable: { id: '3' },
         });
+      });
+    });
+
+    it('should remove the minimum and maximum if the mihundhours and mihundredths are empty or mahundhours and mahundredths are empty', () => {
+      const result = stateToRemote(
+        {
+          id: '2',
+          mandatory: true,
+          type: DATATYPE_NAME.DURATION,
+
+          [DATATYPE_NAME.DURATION]: {
+            mihundhours: '',
+            mihundredths: '',
+            mahundhours: '',
+            mahundredths: '',
+            format: 'HH:CH',
+          },
+        },
+        [{ id: '3' }],
+      );
+      expect(result).toEqual({ Response: [{ id: '2' }] });
+      expect(Response.stateToRemote).toHaveBeenCalledWith({
+        format: 'HH:CH',
+        id: '2',
+        mandatory: true,
+        typeName: DATATYPE_NAME.DURATION,
+        collectedVariable: { id: '3' },
       });
     });
 

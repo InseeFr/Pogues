@@ -18,10 +18,14 @@ export function stateToRemote(state) {
     format: Format,
     mihours: Mihours,
     miminutes: Miminutes,
+    mihundhours: Mihundhours,
+    mihundredths: Mihundredths,
     miyears: Miyears,
     mimonths: Mimonths,
     mahours: Mahours,
     maminutes: Maminutes,
+    mahundhours: Mahundhours,
+    mahundredths: Mahundredths,
     mayears: Mayears,
     mamonths: Mamonths,
     codesListId: CodeListReference,
@@ -59,10 +63,14 @@ export function stateToRemote(state) {
   if (Format !== undefined) model.Datatype.Format = Format;
   if (Mihours !== undefined) model.Datatype.Mihours = Mihours;
   if (Miminutes !== undefined) model.Datatype.Miminutes = Miminutes;
+  if (Mihundhours !== undefined) model.Datatype.Mihundhours = Mihundhours;
+  if (Mihundredths !== undefined) model.Datatype.Mihundredths = Mihundredths;
   if (Miyears !== undefined) model.Datatype.Miyears = Miyears;
   if (Mimonths !== undefined) model.Datatype.Mimonths = Mimonths;
   if (Mahours !== undefined) model.Datatype.Mahours = Mahours;
   if (Maminutes !== undefined) model.Datatype.Maminutes = Maminutes;
+  if (Mahundhours !== undefined) model.Datatype.Mahundhours = Mahundhours;
+  if (Mahundredths !== undefined) model.Datatype.Mahundredths = Mahundredths;
   if (Mayears !== undefined) model.Datatype.Mayears = Mayears;
   if (Mamonths !== undefined) model.Datatype.Mamonths = Mamonths;
 

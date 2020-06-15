@@ -65,25 +65,33 @@ export function remoteToStore(
       if(datatype.minimum !== undefined){
         let strminimum = datatype.minimum;
         let matches_minimum = strminimum.match(/\d+/g);
-        if (format !== undefined && format === 'PTnHnM') {
+        if (format === 'PTnHnM') {
           datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
-        if (format !== undefined && format === 'PnYnM') {
+        if (format === 'PnYnM') {
           datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+        }
+        if (format === 'HH:CH') {
+          datatype.mihundhours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+          datatype.mihundredths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
       }
       if(datatype.maximum !== undefined){
         let strmaximum = datatype.maximum;
         let matches_maximum = strmaximum.match(/\d+/g);
-        if (format !== undefined && format === 'PTnHnM') {
+        if (format === 'PTnHnM') {
           datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
-        if (format !== undefined && format === 'PnYnM') {
+        if (format === 'PnYnM') {
           datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+        }
+        if (format === 'HH:CH') {
+          datatype.mahundhours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+          datatype.mahundredths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
       }
     }
@@ -202,6 +210,10 @@ export function storeToRemote(store, componentsStore) {
         miminutes: Miminutes,
         mahours: Mahours,
         maminutes: Maminutes,
+        mihundhours: Mihundhours,
+        mihundredths: Mihundredths,
+        mahundhours: Mahundhours,
+        mahundredths: Mahundredths,
       },
     } = store[key];
     
@@ -253,6 +265,14 @@ export function storeToRemote(store, componentsStore) {
         }
          if(Mahours || Maminutes){
           model.Datatype.Maximum = `PT${Mahours || 0}H${Maminutes || 0}M`;
+        }
+      }
+      if (Format === 'HH:CH') {
+        if(Mihundhours || Mihundredths){
+          model.Datatype.Minimum = `${('0' + Mihundhours).slice(-2) || 0}:${('0' + Mihundredths).slice(-2) || 0}`;
+        }
+         if(Mahundhours || Mahundredths){
+          model.Datatype.Maximum = `${('0' + Mahundhours).slice(-2) || 0}:${('0' + Mahundredths).slice(-2) || 0}`;
         }
       }
      }

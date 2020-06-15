@@ -372,7 +372,12 @@ const dictionary = {
   minutes: {
     en: 'minutes',
     fr: 'minutes',
-  }, 
+  },
+
+  hundredths: {
+    en: 'hundredths',
+    fr: 'centièmes',
+  },
 
   years: {
     en: 'years',
@@ -862,6 +867,10 @@ const dictionary = {
   durationformat2: {
     fr: 'années/mois',
     en: 'years/months',
+  },
+  durationformat3: {
+    fr: 'heures/centièmes',
+    en: 'hours/hundredths',
   },
 
   dateyyyy: {

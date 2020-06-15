@@ -11,6 +11,7 @@ import {
   SEQUENCE_TYPE_NAME,
   QUESTION_TYPE_NAME,
   QUESTION_TYPE_ENUM,
+  QUESTION_END
 } from 'constants/pogues-constants';
 import { checkPropTypes } from 'prop-types';
 
@@ -206,14 +207,13 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     name,
     parent: parent || '',
     weight: weight || 0,
-    children: children ? children.map(child => child.id) : [],
+    children: children ? children.filter(child => child.id && child.id !== "idendquest").map(childr => childr.id) : [],
     declarations: Declaration.remoteToState(declarations),
     controls: Control.remoteToState(controls),
     redirections: Redirection.remoteToState(redirectionClar),
     TargetMode: TargetMode || declarationMode || [],
     responsesClarification,
   };
-
   if (genericName) {
     state.label = label;
     if (genericName === QUESTIONNAIRE) {
@@ -259,21 +259,23 @@ function remoteToStoreNested(
 
   let weight = 0;
   children.forEach(child => {
-    acc[child.id] = remoteToState(
-      { ...child, weight, parent },
-      componentGroup,
-      codesListsStore,
-    );
-    weight += 1;
-    if (child.Child)
-      remoteToStoreNested(
-        child.Child,
-        child.id,
+    if(child.Name !== QUESTION_END) {
+      acc[child.id] = remoteToState(
+        { ...child, weight, parent },
         componentGroup,
         codesListsStore,
-        acc,
       );
-    return acc;
+      weight += 1;
+      if (child.Child)
+        remoteToStoreNested(
+          child.Child,
+          child.id,
+          componentGroup,
+          codesListsStore,
+          acc,
+        );
+      return acc;
+    }
   });
   return acc;
 }

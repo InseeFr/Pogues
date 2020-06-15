@@ -70,7 +70,6 @@ function getUnclesHeaviest(componentsStore, component) {
   const componentsIds = [];
   const parentId = component.parent;
   const grandFatherId = componentsStore[parentId].parent;
-
   if (grandFatherId) {
     const uncles = componentsStore[grandFatherId].children.filter(
       key =>
