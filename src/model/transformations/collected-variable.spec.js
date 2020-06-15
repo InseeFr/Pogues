@@ -895,10 +895,10 @@ describe('collected variable tranformations', () => {
           weight: 0,
         },
         kawlwdra: {
-          BasedOn: "",
+          BasedOn: "kawknrqr",
           TargetMode: ["CAWI"],
           addButtonLibel: "",
-          basedOn: "",
+          basedOn: "kawknrqr",
           children: [],
           collectedVariables: [],
           controls: {},

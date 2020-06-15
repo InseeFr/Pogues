@@ -112,6 +112,90 @@ export function remoteToComponentState(remote = []) {
     .map(r => r.CollectedVariableReference);
 }
 export function storeToRemote(store) {
+} 
+
+function getQuestionFromSequence (componentsStore, id) {
+  let sequenceQuestions = [];
+  componentsStore[id].children.forEach(child=> {
+    if(componentsStore[child]) {
+      if(componentsStore[child].type === QUESTION) {
+        sequenceQuestions.push(componentsStore[child]);
+      }
+      else {
+       componentsStore[child].children.forEach(chil => {
+        sequenceQuestions.push(componentsStore[chil]);
+       })
+      }
+    }
+ })
+ return sequenceQuestions;
+}
+
+function getQuestionFromSubSequence (componentsStore, id) {
+  let SubSequenceQuestions = [];
+  if(componentsStore[id].children) {
+    componentsStore[id].children.forEach(child=> {
+      if(componentsStore[child] && componentsStore[child].type === QUESTION) {
+         SubSequenceQuestions.push(componentsStore[child]);
+        } 
+      })
+  }
+
+ return SubSequenceQuestions;
+}
+
+function findQuestionInLoop(componentsStore) {
+  let LoopsQuestions = {};
+  Object.values(componentsStore).filter(element => element.type === LOOP).forEach(component => {
+    let LoopQuestions = [];
+    if(componentsStore[component.initialMember]) {
+      if(componentsStore[component.initialMember].type === SEQUENCE) {
+        if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
+          for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
+            const sequence = Object.values(componentsStore).find(element => element.type === SEQUENCE && element.weight === i)
+            if(sequence) {
+              LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, sequence.id));
+            }
+          }
+        }
+        else {
+          LoopQuestions = LoopQuestions.concat(getQuestionFromSequence(componentsStore, componentsStore[component.initialMember].id));
+        }
+      }
+      else {
+        if(componentsStore[component.initialMember].weight != componentsStore[component.finalMember].weight) {
+          for ( var i = componentsStore[component.initialMember].weight; i <= componentsStore[component.finalMember].weight; i++) {
+            const subsequence = Object.values(componentsStore).find(element => element.type === SUBSEQUENCE && element.weight === i && element.parent === componentsStore[component.initialMember].parent)
+            if(subsequence) {
+              LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, subsequence.id));
+            }
+          }
+        }
+        else {
+            LoopQuestions = LoopQuestions.concat(getQuestionFromSubSequence(componentsStore, componentsStore[component.initialMember].id));
+        }
+      }
+    }
+
+    LoopsQuestions[component.id] = LoopQuestions;
+  })
+  return LoopsQuestions;
+}
+function getCollectedScope(questionsLoop, id, componentsStore) {
+  let isfound = {};
+  Object.keys(questionsLoop).map(key => {
+    questionsLoop[key].forEach(element => {
+      if(element.collectedVariables && element.collectedVariables.find(collected=> collected === id)) {
+        isfound = {
+         loop : componentsStore[key],
+         component : element
+        } 
+      }
+    });
+  })
+  return isfound;
+}
+export function storeToRemote(store, componentsStore) {
   return Object.keys(store).map(key => {
 
     const {
@@ -139,6 +223,7 @@ export function storeToRemote(store) {
         maminutes: Maminutes,
       },
     } = store[key];
+    
     const model = {
       id,
       Name,
@@ -149,6 +234,21 @@ export function storeToRemote(store) {
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
+    
+    const questionsInLoop =  findQuestionInLoop(componentsStore);
+    const collectedScop = getCollectedScope(questionsInLoop, id, componentsStore);
+    if(collectedScop.component) {
+      if(collectedScop.component.type === QUESTION && 
+         collectedScop.loop && collectedScop.loop.basedOn
+        ) 
+        {
+          model.Scope = collectedScop.loop.basedOn
+        }
+      else {
+        model.Scope = collectedScop.loop.id
+      }
+    }
+    
     if(codeListReference !== "") {
       model.CodeListReference = codeListReference;
     }

@@ -17,9 +17,9 @@ import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 import { SelectorView, View } from 'widgets/selector-view';
 import GenericOption from 'forms/controls/generic-option';
 import Select from 'forms/controls/select';
+import { getQuestionnaireScope } from './utils-loops';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
-const { LOOP } = COMPONENT_TYPE;
 // Utils
 
 const validateForm = (addErrors, validate) => (values, state) => {
@@ -43,9 +43,7 @@ export const defaultProps = {
 };
 
 function CalculatedVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
-  const scopeOption = Object.values(componentsStore)
-  .filter(component => component.type === LOOP && !component.basedOn)
-  .map(element => {
+  const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
     return (
       <GenericOption
         key={element.id}
