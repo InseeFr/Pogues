@@ -34,7 +34,7 @@ describe('checkerUniqueComponentName', () => {
       '1': {
         [INTEGRITY_TYPES.UNIQUE_COMPONENT_NAME]: [
           {
-            message: `Component names (sequence, subsequence, loop and question) should be unique: name`,
+            message: `Component names (sequence, subsequence and question) should be unique: name`,
           },
         ],
       },

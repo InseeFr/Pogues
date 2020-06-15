@@ -196,6 +196,8 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
   return isfound;
 }
 export function storeToRemote(store, componentsStore) {
+}
+export function storeToRemote(store) {
   return Object.keys(store).map(key => {
 
     const {
@@ -297,6 +299,7 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
+ 
         return model;
   });
 }
