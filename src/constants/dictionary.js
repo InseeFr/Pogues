@@ -345,6 +345,21 @@ const dictionary = {
     fr: 'Précision',
   },
 
+  selectInitialMembre: {
+    fr: 'Spécifier Membre initial',
+    en: 'Specify Initial member',
+  },
+
+  selectFinalMembre: {
+    fr: 'Spécifier Membre final',
+    en: 'Specify Final member',
+  },
+
+  selectScope: {
+    fr: 'Portée Questionnaire',
+    en: 'Scope Questionnaire',
+  },
+   
   specify: {
     en: 'Specify',
     fr: 'Préciser',

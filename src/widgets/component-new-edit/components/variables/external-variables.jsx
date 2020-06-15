@@ -11,14 +11,15 @@ import { validateExternalVariableForm } from 'utils/validation/validate';
 import Dictionary from 'utils/dictionary/dictionary';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 
-import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { DATATYPE_NAME} from 'constants/pogues-constants';
 
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
 import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
 import { SelectorView, View } from 'widgets/selector-view';
+import { getQuestionnaireScope } from './utils-loops';
 
-const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
+const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
 const validateForm = (addErrors, validate) => (values, state) => {
   return validate(values, addErrors, state);
@@ -41,7 +42,17 @@ export const defaultProps = {
 
 // Component
 
-function ExternalVariables({ formName, selectorPath, errors, addErrors }) {
+function ExternalVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
+  const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
+    return (
+      <GenericOption
+        key={element.id}
+        value={element.id}
+      >
+       {element.name}
+      </GenericOption>
+    )
+  }); 
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel

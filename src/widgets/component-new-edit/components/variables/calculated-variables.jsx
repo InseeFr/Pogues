@@ -15,9 +15,11 @@ import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/re
 import Dictionary from 'utils/dictionary/dictionary';
 import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
 import { SelectorView, View } from 'widgets/selector-view';
+import GenericOption from 'forms/controls/generic-option';
+import Select from 'forms/controls/select';
+import { getQuestionnaireScope } from './utils-loops';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
-
 // Utils
 
 const validateForm = (addErrors, validate) => (values, state) => {
@@ -39,9 +41,17 @@ export const defaultProps = {
   errors: [],
 };
 
-// Component
-
-function CalculatedVariables({ formName, selectorPath, errors, addErrors }) {
+function CalculatedVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
+  const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
+    return (
+      <GenericOption
+        key={element.id}
+        value={element.id}
+      >
+       {element.name}
+      </GenericOption>
+    )
+  }); 
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
