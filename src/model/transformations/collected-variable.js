@@ -74,8 +74,8 @@ export function remoteToStore(
           datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
         if (format === 'HH:CH') {
-          datatype.mihundhours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-          datatype.mihundredths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+          datatype.mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];
+          datatype.mihundredths = matches_minimum[1][0] == 0 ? matches_minimum[1].slice(1) : matches_minimum[1];
         }
       }
       if(datatype.maximum !== undefined){
@@ -90,8 +90,8 @@ export function remoteToStore(
           datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
         if (format === 'HH:CH') {
-          datatype.mahundhours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-          datatype.mahundredths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+          datatype.mahundhours = matches_maximum[0][0] == 0 ? matches_maximum[0].slice(1) : matches_maximum[0];
+          datatype.mahundredths = matches_maximum[1][0] == 0 ? matches_maximum[1].slice(1) : matches_maximum[1];
         }
       }
     }
@@ -188,10 +188,10 @@ export function storeToRemote(store) {
       }
       if (Format === 'HH:CH') {
         if(Mihundhours || Mihundredths){
-          model.Datatype.Minimum = `${('0' + Mihundhours).slice(-2) || 0}:${('0' + Mihundredths).slice(-2) || 0}`;
+          model.Datatype.Minimum = `${Mihundhours ? ('0' + Mihundhours).slice(-2) : '00'}:${Mihundredths ? ('0' + Mihundredths).slice(-2) : '00'}`;
         }
          if(Mahundhours || Mahundredths){
-          model.Datatype.Maximum = `${('0' + Mahundhours).slice(-2) || 0}:${('0' + Mahundredths).slice(-2) || 0}`;
+          model.Datatype.Maximum = `${Mahundhours ? ('0' + Mahundhours).slice(-2) : '00'}:${Mahundredths ?  ('0' + Mahundredths).slice(-2) : '00'}`;
         }
       }
      }
@@ -217,7 +217,7 @@ export function storeToRemote(store) {
         model.Datatype.Format = Format;
       }
     }
- 
+
         return model;
   });
 }

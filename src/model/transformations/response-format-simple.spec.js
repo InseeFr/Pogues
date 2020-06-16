@@ -80,8 +80,8 @@ describe('redirection transformation', () => {
             {
               Datatype: {
                 Format: "HH:CH",
-                Maximum: "02:02",
-                Minimum: "02:02",
+                Maximum: "02:00",
+                Minimum: "00:02",
                 type: "DurationDatatypeType",
                 typeName: "DURATION",
               },
@@ -95,12 +95,12 @@ describe('redirection transformation', () => {
         id: '1',
         type: 'DURATION',
         DURATION: {
-          minimum: '02:02',
-          maximum: '02:02',
-          mihundhours: '02',
-          mihundredths: '02',
-          mahundhours: '02',
-          mahundredths: '02',
+          minimum: '00:02',
+          maximum: '02:00',
+          mihundhours: '0',
+          mihundredths: '2',
+          mahundhours: '2',
+          mahundredths: '0',
           format: 'HH:CH',
         },
       });
@@ -139,15 +139,15 @@ describe('redirection transformation', () => {
       });
     });
 
-    it('should return mahundhours = "" if type name Duration and format HH:CH and mahundhours = 0', () => {
+    it('should return mahundhours = "0" if type name Duration and format HH:CH and mahundhours = 0', () => {
       expect(
         remoteToState({
           responses: [
             {
               Datatype: {
                 Format: "HH:CH",
-                Maximum: "0:02",
-                Minimum: "01:01",
+                Maximum: "00:02",
+                Minimum: "00:01",
                 type: "DurationDatatypeType",
                 typeName: "DURATION",
               },
@@ -162,12 +162,12 @@ describe('redirection transformation', () => {
         type: 'DURATION',
         DURATION: {
           format: "HH:CH",
-          mahundhours: "",
-          mahundredths: "02",
-          maximum: "0:02",
-          mihundhours: "01",
-          mihundredths: "01",
-          minimum: "01:01",
+          mahundhours: "0",
+          mahundredths: "2",
+          maximum: "00:02",
+          mihundhours: "0",
+          mihundredths: "1",
+          minimum: "00:01",
         },
       });
     });
@@ -203,7 +203,7 @@ describe('redirection transformation', () => {
       Response.stateToRemote.mockClear();
     });
 
-    it('should return the remote representation of a simple response   ', () => {
+    it('should return the remote representation of a simple response', () => {
       const result = stateToRemote(
         {
           id: '2',
@@ -290,7 +290,7 @@ describe('redirection transformation', () => {
             type: DATATYPE_NAME.DURATION,
 
             [DATATYPE_NAME.DURATION]: {
-              mihundhours: 1,
+              mihundhours: 0,
               mihundredths: 2,
               mahundhours: 3,
               mahundredths: 4,
@@ -302,7 +302,7 @@ describe('redirection transformation', () => {
         expect(result).toEqual({ Response: [{ id: '2' }] });
         expect(Response.stateToRemote).toHaveBeenCalledWith({
           maximum: '03:04',
-          minimum: '01:02',
+          minimum: '00:02',
           format: 'HH:CH',
           id: '2',
           mandatory: true,

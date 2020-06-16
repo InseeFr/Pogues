@@ -75,15 +75,6 @@ export const questionRules = {
     value => value !== undefined && value !== ''? maxValue(59)(value): false,
   ],
 
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahundhours`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value != undefined && value != ''? maxValue(50)(value): false,
-  ],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mihundhours`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value !== undefined && value !== ''? maxValue(50)(value): false,
-  ],
-
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahundredths`]: [
     value => value !== undefined && value !== ''? minValue(0)(value) : false,
     value => value != undefined && value != ''? maxValue(99)(value): false,
