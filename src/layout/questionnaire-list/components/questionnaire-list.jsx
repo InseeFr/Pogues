@@ -34,17 +34,25 @@ class QuestionnaireList extends Component {
     super(props);
     this.state = {
       filter: '',
+      loaded: false,
     };
   }
 
   UNSAFE_componentWillMount() {
-    if (this.props.user && this.props.user.permission)
+    if (this.props.user && this.props.user.permission){
       this.props.loadQuestionnaireList(this.props.user.permission);
+      this.setState({
+        loaded: true,
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.permission !== this.props.user.permission) {
       this.props.loadQuestionnaireList(nextProps.user.permission);
+      this.setState({
+        loaded: true,
+      });
     }
   }
 
@@ -107,9 +115,13 @@ class QuestionnaireList extends Component {
               </div>
               {list}
             </div>
-          ) : (
+          ) : this.state.loaded? (
             <div className="questionnaire-list_noresults">
-              {Dictionary.noQuestionnnaires}
+              {Dictionary.noQuestionnaires}
+            </div>
+          ) : (
+            <div className="questionnaire-list_loading">
+              {Dictionary.loading}
             </div>
           )}
         </div>

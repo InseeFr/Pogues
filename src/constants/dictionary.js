@@ -980,9 +980,13 @@ const dictionary = {
     fr: 'Provisoire',
     en: 'Provisional',
   },
-  noQuestionnnaires: {
+  noQuestionnaires: {
     fr: 'Aucun questionnaire',
     en: 'No questionnaires',
+  },
+  loading: {
+    fr: 'En cours de chargement',
+    en: 'Loading',
   },
   validate: {
     fr: 'Valider',
