@@ -160,7 +160,7 @@ export function stateToRemote(state, stores) {
   const Iterations = Loop.stateToRemote(
     componentsStore
   )
-
+  
   return {
     ...remote,
     Child: componentsRemote,
