@@ -259,7 +259,7 @@ function remoteToStoreNested(
 
   let weight = 0;
   children.forEach(child => {
-    if(child.Name !== QUESTION_END) {
+   // if(child.Name !== QUESTION_END) {
       acc[child.id] = remoteToState(
         { ...child, weight, parent },
         componentGroup,
@@ -275,7 +275,7 @@ function remoteToStoreNested(
           acc,
         );
       return acc;
-    }
+    //}
   });
   return acc;
 }
