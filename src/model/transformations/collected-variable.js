@@ -237,6 +237,13 @@ export function storeToRemote(store, componentsStore) {
         {
           model.Scope = collectedScop.loop.basedOn
         }
+      else if (collectedScop.component.type === QUESTION && 
+         collectedScop.component.responseFormat.type === TABLE && 
+         collectedScop.component.responseFormat.TABLE.PRIMARY.type === LIST
+        ) 
+        {
+          model.Scope = collectedScop.component.id
+        }  
       else {
         model.Scope = collectedScop.loop.id
       }
