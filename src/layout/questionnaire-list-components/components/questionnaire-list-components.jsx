@@ -43,30 +43,32 @@ const defaultProps = {
 
 function renderComponentsByParent(parent, props, actions) {
   return getSortedChildren(props.componentsStore, parent).map(key => {
-    const subTree = renderComponentsByParent(key, props, actions);
-    const component = props.componentsStore[key];
-    return (
-      <QuestionnaireComponent
-        key={component.id}
-        selected={props.selectedComponentId === key}
-        component={component}
-        visualizeActiveQuestionnaire={props.visualizeActiveQuestionnaire}
-        setSelectedComponentId={props.setSelectedComponentId}
-        setEditingComponentId={props.setEditingComponentId}
-        duplicateComponentAndVariables={props.duplicateComponentAndVariables}
-        moveComponent={props.dragComponent}
-        removeComponent={props.removeComponent}
-        integrityErrorsByType={props.errorsIntegrity[key]}
-        parentType={props.componentsStore[component.parent].type}
-        actions={actions}
-        handleRemovePageBreak={event => {
-          event.preventDefault();
-          props.handleRemovePageBreak(key);
-        }}
-      >
-        {subTree}
-      </QuestionnaireComponent>
-    );
+    if(props.componentsStore[key].id !== "idendquest") {
+      const subTree = renderComponentsByParent(key, props, actions);
+      const component = props.componentsStore[key];
+      return (
+        <QuestionnaireComponent
+          key={component.id}
+          selected={props.selectedComponentId === key}
+          component={component}
+          visualizeActiveQuestionnaire={props.visualizeActiveQuestionnaire}
+          setSelectedComponentId={props.setSelectedComponentId}
+          setEditingComponentId={props.setEditingComponentId}
+          duplicateComponentAndVariables={props.duplicateComponentAndVariables}
+          moveComponent={props.dragComponent}
+          removeComponent={props.removeComponent}
+          integrityErrorsByType={props.errorsIntegrity[key]}
+          parentType={props.componentsStore[component.parent].type}
+          actions={actions}
+          handleRemovePageBreak={event => {
+            event.preventDefault();
+            props.handleRemovePageBreak(key);
+          }}
+        >
+          {subTree}
+        </QuestionnaireComponent>
+      );
+    }
   }, {});
 }
 
