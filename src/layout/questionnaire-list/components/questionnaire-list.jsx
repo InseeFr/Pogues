@@ -6,8 +6,6 @@ import Questionnaire from './questionnaire';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
-// Component
-
 const QuestionnaireList = props => {
   const { questionnaires, user } = props;
   const [filter, setFilter] = useState('');

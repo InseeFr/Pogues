@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Field, FieldArray, FormSection } from 'redux-form';
 
@@ -60,131 +60,124 @@ export const defaultProps = {
   currentCodesListsStore: {},
 };
 
-// Componet
+const CodesList = props => {
+  
+  const {
+    change,
+    arrayRemoveAll,
+    formName,
+    path,
+    currentId,
+    codesListsStore,
+    clearSearchResult,
+    selectorPathParent,
+    selectorPath,
+    activePanel,
+    currentCodesListsStore,
+  } = props;
 
-class CodesList extends Component {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
+  const refDiv = useRef(null);
+  const [currentIdState, setCurrentIdState] = useState(currentId);
 
-  UNSAFE_componentWillMount() {
-    const { change, formName, path, clearSearchResult } = this.props;
-
+  useEffect(() => {
     clearSearchResult();
-
     change(formName, `${path}panel`, NEW);
-  }
+  }, []);
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      change,
-      arrayRemoveAll,
-      formName,
-      path,
-      currentId,
-      codesListsStore,
-    } = this.props;
+  useEffect(() => {
 
-    if (nextProps.currentId === '' && nextProps.currentId !== currentId) {
+    if (currentIdState !== currentId && currentId === '') {
       change(formName, `${path}id`, '');
       change(formName, `${path}label`, '');
       arrayRemoveAll(formName, `${path}codes`);
+      setCurrentIdState(currentId);
     }
 
-    if (nextProps.currentId !== '' && nextProps.currentId !== currentId) {
-      const codesStore = codesListsStore[nextProps.currentId].codes;
-
+    if (currentIdState !== currentId && currentId !== '') {
+      const codesStore = codesListsStore[currentId].codes;
       change(
         formName,
         `${path}label`,
-        codesListsStore[nextProps.currentId].label,
+        codesListsStore[currentId].label,
       );
       change(
         formName,
         `${path}codes`,
         Object.keys(codesStore).map(key => codesStore[key]),
       );
+      setCurrentIdState(currentId);
     }
-  }
 
-  render() {
-    const {
-      selectorPathParent,
-      selectorPath,
-      path,
-      formName,
-      activePanel,
-      currentCodesListsStore,
-    } = this.props;
-    return (
-      <FormSection name={selectorPath} className={COMPONENT_CLASS}>
-        {/* Selector panel */}
-        <div className={PANEL_SELECTOR_CLASS}>
-          <Field
-            name="panel"
-            component={ListRadios}
-            label={Dictionary.selectCodesListType}
-            required
-          >
-            {getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
-              <GenericOption key={panel.value} value={panel.value}>
-                {panel.label}
+  }, [currentId]);
+
+
+  return (
+    <FormSection name={selectorPath} className={COMPONENT_CLASS}>
+      {/* Selector panel */}
+      <div className={PANEL_SELECTOR_CLASS}>
+        <Field
+          name="panel"
+          component={ListRadios}
+          label={Dictionary.selectCodesListType}
+          required
+        >
+          {getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
+            <GenericOption key={panel.value} value={panel.value}>
+              {panel.label}
+            </GenericOption>
+          ))}
+        </Field>
+      </div>
+
+      {activePanel && (
+        <div className={`${PANEL_CLASS} ${PANEL_CLASS}-${activePanel}`}>
+          {activePanel === REF && <SearchCodesLists path={path} />}
+          {activePanel === QUEST && (
+            <Field
+              name="id"
+              component={Select}
+              label={Dictionary.selectCodesListType}
+              required
+            >
+              <GenericOption key="" value="">
+                {Dictionary.selectCodesListType}
               </GenericOption>
-            ))}
-          </Field>
-        </div>
-
-        {activePanel && (
-          <div className={`${PANEL_CLASS} ${PANEL_CLASS}-${activePanel}`}>
-            {activePanel === REF && <SearchCodesLists path={path} />}
-            {activePanel === QUEST && (
-              <Field
-                name="id"
-                component={Select}
-                label={Dictionary.selectCodesListType}
-                required
-              >
-                <GenericOption key="" value="">
-                  {Dictionary.selectCodesListType}
+              {storeToArray(currentCodesListsStore).map(cl => (
+                <GenericOption key={cl.id} value={cl.id}>
+                  {cl.label}
                 </GenericOption>
-                {storeToArray(currentCodesListsStore).map(cl => (
-                  <GenericOption key={cl.id} value={cl.id}>
-                    {cl.label}
-                  </GenericOption>
-                ))}
-              </Field>
-            )}
-            {activePanel === NEW && (
-              <div
-                ref={node => {
-                  this.blockNewCl = node;
+              ))}
+            </Field>
+          )}
+          {activePanel === NEW && (
+            <div
+              ref={refDiv}
+            >
+              <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
+              <Field
+                name="label"
+                component={InputWithVariableAutoCompletion}
+                type="text"
+                label={Dictionary.newCl}
+                focusOnInit
+                required
+                onEnter={e => {
+                  e.preventDefault();
+                  refDiv.querySelector('button').click();
                 }}
-              >
-                <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
-                <Field
-                  name="label"
-                  component={InputWithVariableAutoCompletion}
-                  type="text"
-                  label={Dictionary.newCl}
-                  focusOnInit
-                  required
-                  onEnter={e => {
-                    e.preventDefault();
-                    this.blockNewCl.querySelector('button').click();
-                  }}
-                />
-                <FieldArray
-                  name="codes"
-                  component={CodesListsCodesContainer}
-                  inputCodePath={`${path}input-code.`}
-                  formName={formName}
-                />
-              </div>
-            )}
-          </div>
-        )}
-      </FormSection>
-    );
-  }
+              />
+              <FieldArray
+                name="codes"
+                component={CodesListsCodesContainer}
+                inputCodePath={`${path}input-code.`}
+                formName={formName}
+              />
+            </div>
+          )}
+        </div>
+      )}
+    </FormSection>
+  );
 }
 
 export default CodesList;

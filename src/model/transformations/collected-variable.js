@@ -1,10 +1,16 @@
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME
+  DATATYPE_TYPE_FROM_NAME, 
+  DATATYPE_NAME,
+  COMPONENT_TYPE,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_FORMATS
 } from 'constants/pogues-constants';
-import { element } from 'prop-types';
 const { COLLECTED } = VARIABLES_TYPES;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { LIST } = DIMENSION_FORMATS;
 
 export function remoteToStore(
   remote = [],
@@ -16,10 +22,10 @@ export function remoteToStore(
     if(variableclarification) {
       const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
       if(find) {
-        if(find.type === 'MULTIPLE_CHOICE') {       
+        if(find.type === MULTIPLE_CHOICE) {       
           variable.z = parseInt(find.position) + 1;
         }
-        else if(find.type === 'TABLE') {
+        else if(find.type === TABLE) {
           const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
           variable.z = code.weight;
           variable.mesureLevel = find.level
@@ -118,6 +124,23 @@ export function remoteToComponentState(remote = []) {
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
+}
+
+function getQuestionFromSequence (componentsStore, id) {
+  let sequenceQuestions = [];
+  componentsStore[id].children.forEach(child=> {
+    if(componentsStore[child]) {
+      if(componentsStore[child].type === QUESTION) {
+        sequenceQuestions.push(componentsStore[child]);
+      }
+      else {
+       componentsStore[child].children.forEach(chil => {
+        sequenceQuestions.push(componentsStore[chil]);
+       })
+      }
+    }
+ })
+ return sequenceQuestions;
 }
 
 function getQuestionFromSubSequence (componentsStore, id) {

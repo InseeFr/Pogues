@@ -59,8 +59,6 @@ const PageQuestionnaire = props => {
     collectedVariablesByQuestion,
   } = props;
 
-  console.log('questionnaire', questionnaire)
-  console.log('activeQuestionnaireState', activeQuestionnaireState)
   useEffect(() => {
     if(id) {
       props.loadQuestionnaireIfNeeded(id);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { formPropTypes, Field } from 'redux-form';
 
@@ -45,23 +45,27 @@ export const defaultProps = {
   codesListsStoreStore: {},
 };
 
-class ComponentNewEdit extends Component {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
+const ComponentNewEdit = props => {
 
-  UNSAFE_componentWillMount() {
-    this.props.clearSubformValidationErrors();
-  }
+  const {
+    componentType,
+    componentId,
+    addSubformValidationErrors,
+    componentsStore,
+    errorsIntegrityByTab,
+    handleSubmit,
+    submitting,
+    form,
+    onCancel,
+  } = props;
 
-  renderPanels() {
-    const {
-      componentType,
-      componentId,
-      addSubformValidationErrors,
-      componentsStore,
-      errorsIntegrityByTab,
-    } = this.props;
+  const buttonRef = useRef(null);
 
+	useEffect(() => {
+    props.clearSubformValidationErrors();
+  }, []);
+
+  const renderPanels = () => {
     let panels = [
       <Tab
         label={Dictionary.declaration_tabTitle}
@@ -144,75 +148,62 @@ class ComponentNewEdit extends Component {
         </Tab>,
       ];
     }
-
     return panels;
-  }
+  };
 
-  render() {
-    const {
-      handleSubmit,
-      submitting,
-      form,
-      onCancel,
-      componentType,
-      componentId,
-    } = this.props;
 
-    const associatedFieldsProps = {
-      formName: form,
-      fieldOrigin: { name: 'label', label: Dictionary.label },
-      fieldTarget: { name: 'name', label: Dictionary.name },
-      action: updateNameField,
-      focusOnInit: true,
-      onEnter: () => {
-        this.validateButton.click();
-      },
-    };
-    return (
-      <div className={COMPONENT_CLASS}>
-        <form onSubmit={handleSubmit}>
-          {componentType === QUESTION ? (
-            <AssociatedFields
-              {...associatedFieldsProps}
-              targetIsRichTextarea
-              targetIsQuestion
-            />
-          ) : (
-            <AssociatedFields {...associatedFieldsProps} />
-          )}
-          <Field
-            name="TargetMode"
-            component={ListCheckboxes}
-            label={Dictionary.collectionMode}
-            inline
+  const associatedFieldsProps = {
+    formName: form,
+    fieldOrigin: { name: 'label', label: Dictionary.label },
+    fieldTarget: { name: 'name', label: Dictionary.name },
+    action: updateNameField,
+    focusOnInit: true,
+    onEnter: () => {
+      buttonRef.click();
+    },
+  };
+  return (
+    <div className={COMPONENT_CLASS}>
+      <form onSubmit={handleSubmit}>
+        {componentType === QUESTION ? (
+          <AssociatedFields
+            {...associatedFieldsProps}
+            targetIsRichTextarea
+            targetIsQuestion
+          />
+        ) : (
+          <AssociatedFields {...associatedFieldsProps} />
+        )}
+        <Field
+          name="TargetMode"
+          component={ListCheckboxes}
+          label={Dictionary.collectionMode}
+          inline
+        >
+          {TargetMode.map(s => (
+            <GenericOption key={s.value} value={s.value}>
+              {s.label}
+            </GenericOption>
+          ))}
+        </Field>
+        <Tabs componentId={componentId}>{renderPanels()}</Tabs>
+
+        <div className={FOOTER}>
+          <button
+            className={VALIDATE}
+            type="submit"
+            disabled={submitting}
+            ref={buttonRef}
           >
-            {TargetMode.map(s => (
-              <GenericOption key={s.value} value={s.value}>
-                {s.label}
-              </GenericOption>
-            ))}
-          </Field>
-          <Tabs componentId={componentId}>{this.renderPanels()}</Tabs>
-
-          <div className={FOOTER}>
-            <button
-              className={VALIDATE}
-              type="submit"
-              disabled={submitting}
-              ref={validateButton => {
-                this.validateButton = validateButton;
-              }}
-            >
-              {Dictionary.validate}
-            </button>
-            <button className={CANCEL} disabled={submitting} onClick={onCancel}>
-              {Dictionary.cancel}
-            </button>
-          </div>
-        </form>
-      </div>
-    );
-  }
+            {Dictionary.validate}
+          </button>
+          <button className={CANCEL} disabled={submitting} onClick={onCancel}>
+            {Dictionary.cancel}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
 export default ComponentNewEdit;
