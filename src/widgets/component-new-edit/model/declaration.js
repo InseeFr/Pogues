@@ -17,7 +17,7 @@ export const defaultForm = {
 export function formToState(form) {
   const { declarationType, label, position } = form;
   const id = form.id || uuid();
-
+   
   return {
     id,
     label,

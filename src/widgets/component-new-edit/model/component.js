@@ -41,7 +41,7 @@ export function formToState(form, transformers) {
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
-
+ 
   return {
     name: name || nameFromLabel(label),
     declarations: transformers.declaration.formToComponentState(declarations),
