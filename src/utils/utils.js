@@ -68,3 +68,13 @@ export function updateNameField(currentValueLabel, currentValueName) {
 
   return value;
 }
+
+export function verifyVariable(label) {
+  const numSigns = (label.match(/\$/g) || []).length;
+
+  if (numSigns === 1) {
+    label = `${label}$`
+  }
+
+  return label;
+}
