@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
-import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { DATATYPE_NAME, COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { defaultState } from '../../model/calculated-variable';
 
@@ -33,6 +33,7 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
+  componentsStore: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
@@ -100,6 +101,19 @@ function CalculatedVariables({ formName, selectorPath, errors, addErrors, compon
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         </SelectorView>
+        <Field
+          name="scope"
+          component={Select}
+          label={Dictionary.Scope}
+        >
+          <GenericOption
+            key=''
+            value=''
+          >
+            {Dictionary.selectScope}
+          </GenericOption>
+            {scopeOption}
+        </Field>
       </ListWithInputPanel>
     </FormSection>
   );

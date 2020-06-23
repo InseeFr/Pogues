@@ -42,7 +42,7 @@ function generateComponentGroups(componentsStore) {
       startPage += 1;
     }
   });
-  if(result[result.length-1] && !result[result.length-1].MemberReference.includes("idendquest")) {
+  if(result[result.length-1]) {
     result[result.length-1].MemberReference.push("idendquest");
   }
   return result;

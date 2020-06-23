@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Header from 'layout/header/header';
@@ -10,27 +10,33 @@ import { APP } from 'constants/dom-constants';
 
 const { COMPONENT_ID } = APP;
 
-// Component
-const App = props => {
-
-  useEffect(() => {
-    props.loadUser();
-    props.loadUnitsIfNeeded();
-  }, []);
-
-  return (
-    <div id={COMPONENT_ID}>
-      <Header />
-      {props.children}
-      <Footer />
-    </div>
-  );
-}
 // Prop types and default props
 
-App.propTypes = {
+const propTypes = {
   children: PropTypes.object.isRequired,
   loadUser: PropTypes.func.isRequired,
   loadUnitsIfNeeded: PropTypes.func.isRequired,
 };
+
+// Component
+
+class App extends Component {
+  static propTypes = propTypes;
+
+  UNSAFE_componentWillMount() {
+    this.props.loadUser();
+    this.props.loadUnitsIfNeeded();
+  }
+
+  render() {
+    return (
+      <div id={COMPONENT_ID}>
+        <Header />
+        {this.props.children}
+        <Footer />
+      </div>
+    );
+  }
+}
+
 export default App;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Criteria from '../containers/criteria';
@@ -18,45 +18,49 @@ const { COMPONENT_ID, SEARCH_RESULTS_ID } = PAGE_SEARCH_QUESTIONNAIRE;
 // @TODO: noop is used temporally
 import { noop } from 'utils/test/test-utils';
 
-// Component
+// PropTypes and defaultProps
 
-const PageSearchQuestionnaire = props => {
-
-  useEffect(() => {
-    props.clearSearchResult();
-  }, []);
-
-  const propsInputFilterWithCriteria = {
-    typeItem: TYPES_ITEMS.QUESTIONNAIRE,
-    criterias: SEARCH_CRITERIAS.QUESTIONNAIRE,
-    label: Dictionary.searchInputQuestionnaireLabel,
-  };
-  const propsSearchResults = {
-    id: SEARCH_RESULTS_ID,
-    noValuesMessage: Dictionary.pageSearchNoResults,
-    columns: SEARCH_RESULTS_COLUMNS.QUESTIONNAIRE,
-    actions: [
-      {
-        dictionary: 'searchResultActionReuse',
-        action: noop,
-        iconOnly: true,
-        icon: 'glyphicon-eye-open',
-      },
-    ],
-  };
-
-  return (
-    <div id={COMPONENT_ID} className="container">
-      <Criteria />
-      <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
-      <SearchResults {...propsSearchResults} />
-    </div>
-  );
-}
-  // PropTypes and defaultProps
-
-PageSearchQuestionnaire.propTypes = {
+const propTypes = {
   clearSearchResult: PropTypes.func.isRequired,
 };
+
+// Component
+
+class PageSearchQuestionnaire extends Component {
+  static propTypes = propTypes;
+
+  UNSAFE_componentWillMount() {
+    this.props.clearSearchResult();
+  }
+
+  render() {
+    const propsInputFilterWithCriteria = {
+      typeItem: TYPES_ITEMS.QUESTIONNAIRE,
+      criterias: SEARCH_CRITERIAS.QUESTIONNAIRE,
+      label: Dictionary.searchInputQuestionnaireLabel,
+    };
+    const propsSearchResults = {
+      id: SEARCH_RESULTS_ID,
+      noValuesMessage: Dictionary.pageSearchNoResults,
+      columns: SEARCH_RESULTS_COLUMNS.QUESTIONNAIRE,
+      actions: [
+        {
+          dictionary: 'searchResultActionReuse',
+          action: noop,
+          iconOnly: true,
+          icon: 'glyphicon-eye-open',
+        },
+      ],
+    };
+
+    return (
+      <div id={COMPONENT_ID} className="container">
+        <Criteria />
+        <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
+        <SearchResults {...propsSearchResults} />
+      </div>
+    );
+  }
+}
 
 export default PageSearchQuestionnaire;

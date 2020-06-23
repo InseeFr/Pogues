@@ -125,8 +125,10 @@ export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {
 export const WIDGET_COMPONENT_NEW_EDIT = {
   COMPONENT_CLASS: 'widget-component-new-edit',
   FOOTER: 'widget-component-new-edit__footer',
+  FOOTERLOOP: 'widget-component-new-edit__footerloop',
   VALIDATE: 'widget-component-new-edit__button-validate',
   CANCEL: 'widget-component-new-edit__button-cancel',
+  DELETE: 'widget-component-new-edit__button-delete',
 };
 
 export const WIDGET_ASSOCIATED_FIELDS = {

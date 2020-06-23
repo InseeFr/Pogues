@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { defaultState } from '../../model/external-variable';
 
 import Input from 'forms/controls/input';
+import GenericOption from 'forms/controls/generic-option';
+import Select from 'forms/controls/select';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateExternalVariableForm } from 'utils/validation/validate';
 
@@ -32,6 +34,7 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
+  componentsStore: PropTypes.object.isRequired,
 };
 
 export const defaultProps = {
@@ -95,6 +98,19 @@ function ExternalVariables({ formName, selectorPath, errors, addErrors, componen
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
          
         </SelectorView>
+        <Field
+          name="scope"
+          component={Select}
+          label={Dictionary.Scope}
+        >
+          <GenericOption
+            key=''
+            value=''
+          >
+            {Dictionary.selectScope}
+          </GenericOption>
+            {scopeOption}
+        </Field>
       </ListWithInputPanel>
     </FormSection>
   );

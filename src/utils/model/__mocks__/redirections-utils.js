@@ -80,15 +80,6 @@ export const componentsStore = {
     label: 'Questionnaire',
     type: 'QUESTIONNAIRE',
   },
-  idendquest: {
-    id: 'idendquest',
-    name: 'QUESTIONNAIRE_END',
-    parent: '',
-    weight: 0,
-    children: [],
-    label: 'QUESTIONNAIRE_END',
-    type: 'SEQUENCE',
-  },
 };
 
 export const listGotos = [

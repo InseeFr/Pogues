@@ -45,7 +45,6 @@ describe('Redirections utils', () => {
         'SUBSEQUENCE2',
         'QUESTION2',
         'QUESTION3',
-        'idendquest',
       ];
 
       expect(
@@ -61,7 +60,6 @@ describe('Redirections utils', () => {
         'SUBSEQUENCE2',
         'QUESTION2',
         'QUESTION3',
-        'idendquest',
       ];
 
       expect(
@@ -76,7 +74,6 @@ describe('Redirections utils', () => {
         'SUBSEQUENCE2',
         'QUESTION2',
         'QUESTION3',
-        'idendquest',
       ];
 
       expect(
@@ -93,7 +90,6 @@ describe('Redirections utils', () => {
         'SUBSEQUENCE2',
         'QUESTION2',
         'QUESTION3',
-        'idendquest',
       ];
 
       expect(
@@ -147,7 +143,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -169,7 +164,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -190,7 +184,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -213,7 +206,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -234,7 +226,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -256,7 +247,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -279,7 +269,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -301,7 +290,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(
@@ -322,7 +310,6 @@ describe('Redirections utils', () => {
           'SUBSEQUENCE2',
           'QUESTION2',
           'QUESTION3',
-          'idendquest',
         ];
 
         expect(

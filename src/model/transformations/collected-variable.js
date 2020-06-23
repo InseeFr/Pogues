@@ -124,7 +124,7 @@ export function remoteToComponentState(remote = []) {
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
-}
+} 
 
 function getQuestionFromSequence (componentsStore, id) {
   let sequenceQuestions = [];
@@ -209,7 +209,6 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
 }
 export function storeToRemote(store, componentsStore) {
   return Object.keys(store).map(key => {
-
     const {
       id,
       z,
@@ -275,6 +274,7 @@ export function storeToRemote(store, componentsStore) {
     if(codeListReference !== "") {
       model.CodeListReference = codeListReference;
     }
+
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
 
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
@@ -328,7 +328,7 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
- 
-        return model;
+
+    return model;
   });
 }

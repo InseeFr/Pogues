@@ -101,6 +101,12 @@ export function name(value = '') {
     : undefined;
 }
 
+export function nameLoop(value = '') {
+  return value !== '' && !/^[A-Z0-9\-_]+$/i.test(value)
+    ? Dictionary.validationInvalidName
+    : undefined;
+}
+
 export function nameSize(value) {
   return value && value.length > 32
     ? Dictionary.validationInvalidNameSize
@@ -232,12 +238,12 @@ export function validCollectedVariables(
     }
 
   if (type === TABLE && value[0] || type === SIMPLE && value[0] ) {
-    const typeValue = value[0].type;
-    const typeExpectedVariables = expectedVariables[0].type;
+    const typevalue = value[0].type;
+    const typeexpectedVariables = expectedVariables[0].type;
     if (
       value[0].codeListReference !== expectedVariables[0].codeListReference ||
-      typeValue !== typeExpectedVariables ||
-      !objectCompare(expectedVariables[0][typeExpectedVariables], value[0][typeValue]) ||
+      typevalue !== typeexpectedVariables ||
+      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue]) ||
       expectedVariables.length != value.length
     ) {
       return Dictionary.validation_collectedvariable_need_reset;

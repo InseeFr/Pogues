@@ -229,6 +229,49 @@ describe('collected variable tranformations', () => {
           },
         },
       };
+     const input1 = {
+        kapgzmji: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: [],
+          collectedVariables: ["kaphc2ly"],
+          controls: {},
+          declarations: {},
+          id: "kapgzmji",
+          label: "question1",
+          name: "QUESTION1",
+          pageBreak: false,
+          parent: "kaph7dbh",
+          redirections: {},
+          responseFormat: {
+            type: "SIMPLE",
+            SIMPLE: 
+              {
+              TEXT: {maxLength: 255, pattern: ""},
+              id: "kaph6l3y",
+              mandatory: false,
+              type: "TEXT"
+              }
+           },
+          responsesClarification: undefined,
+          type: "QUESTION",
+          weight: 0,
+        },
+        kaph7dbh: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: ["kapgzmji", "kaphg7pd"],
+          controls: {},
+          declarations: {},
+          id: "kaph7dbh",
+          label: "sequence1",
+          name: "SEQUENCE1",
+          pageBreak: false,
+          parent: "kaphhxpd",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "SEQUENCE",
+          weight: 0,
+        },
+      }
       const output = [
         {
           CodeListReference: undefined,
@@ -244,7 +287,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input)).toEqual(output);
+      expect(storeToRemote(input, input1)).toEqual(output);
     });
 
     test('should remove the minimum and maximum in collected variable model if type is DATE', () => {
@@ -279,6 +322,49 @@ describe('collected variable tranformations', () => {
           },
         },
       };
+      const input1 = {
+        kapgzmji: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: [],
+          collectedVariables: ["kaphc2ly"],
+          controls: {},
+          declarations: {},
+          id: "kapgzmji",
+          label: "question1",
+          name: "QUESTION1",
+          pageBreak: false,
+          parent: "kaph7dbh",
+          redirections: {},
+          responseFormat: {
+            type: "SIMPLE",
+            SIMPLE: 
+              {
+              TEXT: {maxLength: 255, pattern: ""},
+              id: "kaph6l3y",
+              mandatory: false,
+              type: "TEXT"
+              }
+           },
+          responsesClarification: undefined,
+          type: "QUESTION",
+          weight: 0,
+        },
+        kaph7dbh: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: ["kapgzmji", "kaphg7pd"],
+          controls: {},
+          declarations: {},
+          id: "kaph7dbh",
+          label: "sequence1",
+          name: "SEQUENCE1",
+          pageBreak: false,
+          parent: "kaphhxpd",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "SEQUENCE",
+          weight: 0,
+        },
+      }
       const output = [
         {
           CodeListReference: undefined,
@@ -294,7 +380,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input)).toEqual(output);
+      expect(storeToRemote(input, input1)).toEqual(output);
     });
 
     test('should return collected variable model if type is DURATION and the HH:CH format', () => {
@@ -424,6 +510,49 @@ describe('collected variable tranformations', () => {
           },
         },
       };
+      const input1 = {
+        kapgzmji: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: [],
+          collectedVariables: ["kaphc2ly"],
+          controls: {},
+          declarations: {},
+          id: "kapgzmji",
+          label: "question1",
+          name: "QUESTION1",
+          pageBreak: false,
+          parent: "kaph7dbh",
+          redirections: {},
+          responseFormat: {
+            type: "SIMPLE",
+            SIMPLE: 
+              {
+              TEXT: {maxLength: 255, pattern: ""},
+              id: "kaph6l3y",
+              mandatory: false,
+              type: "TEXT"
+              }
+           },
+          responsesClarification: undefined,
+          type: "QUESTION",
+          weight: 0,
+        },
+        kaph7dbh: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: ["kapgzmji", "kaphg7pd"],
+          controls: {},
+          declarations: {},
+          id: "kaph7dbh",
+          label: "sequence1",
+          name: "SEQUENCE1",
+          pageBreak: false,
+          parent: "kaphhxpd",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "SEQUENCE",
+          weight: 0,
+        },
+      }
       const output = [
         {
           CodeListReference: undefined,
@@ -440,7 +569,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input)).toEqual(output);
+      expect(storeToRemote(input, input1)).toEqual(output);
     });
 
     test('should return collected variable model if type is DURATION and the PnYnM format', () => {
@@ -475,6 +604,50 @@ describe('collected variable tranformations', () => {
           },
         },
       };
+      const input1 = {
+        kapgzmji: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: [],
+          collectedVariables: ["kaphc2ly"],
+          controls: {},
+          declarations: {},
+          id: "kapgzmji",
+          label: "question1",
+          name: "QUESTION1",
+          pageBreak: false,
+          parent: "kaph7dbh",
+          redirections: {},
+          responseFormat: {
+            type: "SIMPLE",
+            SIMPLE: 
+              {
+              TEXT: {maxLength: 255, pattern: ""},
+              id: "kaph6l3y",
+              mandatory: false,
+              type: "TEXT"
+              }
+           },
+          responsesClarification: undefined,
+          type: "QUESTION",
+          weight: 0,
+        },
+        kaph7dbh: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: ["kapgzmji", "kaphg7pd"],
+          controls: {},
+          declarations: {},
+          id: "kaph7dbh",
+          label: "sequence1",
+          name: "SEQUENCE1",
+          pageBreak: false,
+          parent: "kaphhxpd",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "SEQUENCE",
+          weight: 0,
+        },
+      }
+      
       const output = [
         {
           CodeListReference: undefined,
@@ -491,7 +664,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input)).toEqual(output);
+      expect(storeToRemote(input, input1)).toEqual(output);
     });
 
     test('should not return minimum in collected variable model if type is DURATION and the PnYnM format and miyears and mimonths undefined', () => {
@@ -526,6 +699,49 @@ describe('collected variable tranformations', () => {
           },
         },
       };
+      const input1 = {
+        kapgzmji: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: [],
+          collectedVariables: ["kaphc2ly"],
+          controls: {},
+          declarations: {},
+          id: "kapgzmji",
+          label: "question1",
+          name: "QUESTION1",
+          pageBreak: false,
+          parent: "kaph7dbh",
+          redirections: {},
+          responseFormat: {
+            type: "SIMPLE",
+            SIMPLE: 
+              {
+              TEXT: {maxLength: 255, pattern: ""},
+              id: "kaph6l3y",
+              mandatory: false,
+              type: "TEXT"
+              }
+           },
+          responsesClarification: undefined,
+          type: "QUESTION",
+          weight: 0,
+        },
+        kaph7dbh: {
+          TargetMode: ["CAWI", "PAPI"],
+          children: ["kapgzmji", "kaphg7pd"],
+          controls: {},
+          declarations: {},
+          id: "kaph7dbh",
+          label: "sequence1",
+          name: "SEQUENCE1",
+          pageBreak: false,
+          parent: "kaphhxpd",
+          redirections: {},
+          responsesClarification: undefined,
+          type: "SEQUENCE",
+          weight: 0,
+        },
+      }
       const output = [
         {
           CodeListReference: undefined,
@@ -541,7 +757,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input)).toEqual(output);
+      expect(storeToRemote(input, input1)).toEqual(output);
     });
 
     test('should not return Maximum collected variable model if type is DURATION and the PTnHnM format and mahours and maminutes undefined', () => {
@@ -636,7 +852,7 @@ describe('collected variable tranformations', () => {
           },
         },
       ];
-      expect(storeToRemote(input)).toEqual(output);
+      expect(storeToRemote(input, input1)).toEqual(output);
     });
     test('should not return Maximum collected variable model if type is DURATION and the HH:CH format and mahundhours and mahundredths are undefined', () => {
       const input = {

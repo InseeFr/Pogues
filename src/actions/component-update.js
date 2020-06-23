@@ -35,26 +35,28 @@ export function resetChildren(component, children) {
  * @param {object} newComponent The latests created component
  */
 export function increaseWeightOfAll(activesComponents, newComponent) {
-  const siblingsIds = activesComponents[newComponent.parent].children;
-  return siblingsIds.reduce((acc, key) => {
-    const sibling = activesComponents[key];
-    let siblingWeight = sibling.weight;
-    if (key !== newComponent.id && newComponent.weight <= siblingWeight) {
-      siblingWeight += 1;
-    }
-
-    if (key === newComponent.id) {
-      return acc;
-    }
-
-    return {
-      ...acc,
-      [key]: {
-        ...sibling,
-        weight: siblingWeight,
-      },
-    };
-  }, {});
+  if (newComponent.type !== "LOOP") {
+    const siblingsIds = activesComponents[newComponent.parent].children;
+    return siblingsIds.reduce((acc, key) => {
+      const sibling = activesComponents[key];
+      let siblingWeight = sibling.weight;
+      if (key !== newComponent.id && newComponent.weight <= siblingWeight) {
+        siblingWeight += 1;
+      }
+  
+      if (key === newComponent.id) {
+        return acc;
+      }
+  
+      return {
+        ...acc,
+        [key]: {
+          ...sibling,
+          weight: siblingWeight,
+        },
+      };
+    }, {});
+  }
 }
 
 /**
@@ -85,7 +87,7 @@ export function resetAllWeight(activesComponents) {
   return Object.keys(activesComponents)
     .map(key => activesComponents[key])
     .reduce((acc, component) => {
-      if (component.children.length > 0) {
+      if (component.children && component.children.length > 0) {
         return {
           ...acc,
           ...resetWeight(toComponents(component.children, activesComponents)),
