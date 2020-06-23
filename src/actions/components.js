@@ -2,7 +2,6 @@ import {
   isSubSequence,
   isSequence,
   isQuestion,
-  isLoop,
   toComponents,
   updateNewComponentParent,
 } from 'utils/component/component-utils';
@@ -91,7 +90,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
   /**
    * We do the reorder only if we have a selected component
    */
-  if (selectedComponent && !isLoop(selectedComponent)) {
+  if (selectedComponent) {
     // We get the next sibling component of the currently selected component
     const siblingSelectedComponent = toComponents(
       activesComponents[selectedComponent.parent].children,

@@ -56,6 +56,7 @@ function Redirections({
   componentsStore,
   editingComponentId,
 }) {
+
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel

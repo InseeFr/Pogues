@@ -1,7 +1,7 @@
 import { uuid } from 'utils/utils';
 import {
   DATATYPE_TYPE_FROM_NAME,
-  VARIABLES_TYPES, DURATION_UNIT, DATATYPE_NAME,
+  VARIABLES_TYPES, DURATION_UNIT, DATATYPE_NAME
 } from 'constants/pogues-constants';
 
 const { CALCULATED } = VARIABLES_TYPES;
@@ -13,7 +13,6 @@ export function remoteToStore(remote = []) {
       Label: label,
       Name: name,
       Formula: formula,
-      Scope: scope,
       Datatype: {
         typeName,
         MaxLength: maxLength,
@@ -34,7 +33,6 @@ export function remoteToStore(remote = []) {
         label,
         name,
         formula,
-        scope: scope? scope: '',
         type: typeName,
         [typeName]: {
           maxLength,
@@ -57,7 +55,6 @@ export function storeToRemote(store) {
       label: Label,
       name: Name,
       formula: Formula,
-      scope: Scope,
       type: typeName,
 
       [typeName]: {
@@ -90,7 +87,6 @@ export function storeToRemote(store) {
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
     if (Format !== undefined) model.Datatype.Format = Format;
-    if (Scope) model.Scope = Scope;
     return model;
   });
 }

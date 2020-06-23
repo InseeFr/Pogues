@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import ClassSet from 'react-classset';
@@ -16,9 +16,118 @@ const {
   HORIZONTAL_CLASS,
 } = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
+const StatisticalContextCriteria = props => {
+
+  const {
+    formName,
+    path,
+    selectedSerie,
+    selectedOperation,
+    campaigns,
+    operations,
+    series,
+    multipleCampaign,
+    required,
+    focusOnInit,
+    horizontal,
+  } = props;
+
+  const [selectedSerieState, setSelectedSerieState] = useState(selectedSerie);
+  const [selectedOperationState, setSelectedOperationState] = useState(selectedOperation);
+
+	useEffect(() => {
+    props.loadSeriesIfNeeded();
+    if (operations &&  selectedSerie)
+     props.loadOperationsIfNeeded(selectedSerie);
+    if (campaigns && selectedOperation)
+     props.loadCampaignsIfNeeded(selectedOperation);
+    if (campaigns && selectedOperation)
+     props.loadCampaignsIfNeeded(selectedOperation);
+  }, []);
+
+  useEffect(() => {
+    if (
+      selectedSerie !== selectedSerieState
+    ) {
+      props.loadOperationsIfNeeded(selectedSerie);
+      props.change(formName, `${path}operation`, '');
+      setSelectedSerieState(selectedSerie)
+    }
+
+    if (
+      selectedOperation !== selectedOperationState
+    ) {
+        props.loadCampaignsIfNeeded(selectedOperation);
+        props.change(formName, `${path}campaigns`, '');
+      setSelectedOperationState(selectedOperation);
+    }
+
+  }, [selectedSerie, selectedOperation]);
+
+  return (
+    <div
+      className={ClassSet({
+        [COMPONENT_CLASS]: true,
+        [HORIZONTAL_CLASS]: horizontal,
+      })}
+    >
+      <Field
+        name="serie"
+        component={Select}
+        required={required}
+        focusOnInit={focusOnInit}
+        validate={required ? [requiredSelect] : []}
+        label={Dictionary.serie}
+        emptyOption={Dictionary.selectSerie}
+      >
+        {series.map(s => (
+          <GenericOption key={s.value} value={s.value}>
+            {s.label}
+          </GenericOption>
+        ))}
+      </Field>
+      {operations && (
+        <Field
+          name="operation"
+          component={Select}
+          required={required}
+          validate={required ? [requiredSelect] : []}
+          disabled={!selectedSerie}
+          label={Dictionary.operation}
+          emptyOption={Dictionary.selectOperation}
+        >
+          {operations.map(s => (
+            <GenericOption key={s.value} value={s.value}>
+              {s.label}
+            </GenericOption>
+          ))}
+        </Field>
+      )}
+
+      {campaigns && (
+        <Field
+          name="campaigns"
+          component={multipleCampaign ? ListCheckboxes : Select}
+          required={required}
+          validate={required ? [requiredSelect] : []}
+          disabled={!selectedSerie || !selectedOperation}
+          label={Dictionary.campaign}
+          emptyOption={Dictionary.selectCampaign}
+          noValuesMessage={Dictionary.noValuesCampaigns}
+        >
+          {campaigns.map(s => (
+            <GenericOption key={s.value} value={s.value}>
+              {s.label}
+            </GenericOption>
+          ))}
+        </Field>
+      )}
+    </div>
+  );
+}
 // PropTypes and defaultProps
 
-const propTypes = {
+StatisticalContextCriteria.propTypes = {
   series: PropTypes.array.isRequired,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
@@ -35,7 +144,7 @@ const propTypes = {
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
 };
-const defaultProps = {
+StatisticalContextCriteria.defaultProps = {
   multipleCampaign: false,
   required: false,
   focusOnInit: false,
@@ -44,143 +153,5 @@ const defaultProps = {
   selectedSerie: undefined,
   selectedOperation: undefined,
 };
-
-// Component
-
-class StatisticalContextCriteria extends Component {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
-
-  UNSAFE_componentWillMount() {
-    const {
-      selectedSerie,
-      selectedOperation,
-      campaigns,
-      operations,
-    } = this.props;
-
-    this.props.loadSeriesIfNeeded();
-    if (operations && selectedSerie)
-      this.props.loadOperationsIfNeeded(selectedSerie);
-    if (campaigns && selectedOperation)
-      this.props.loadCampaignsIfNeeded(selectedOperation);
-  }
-
-  componentWillUpdate(nextProps) {
-    const {
-      formName,
-      path,
-      selectedSerie,
-      selectedOperation,
-      campaigns,
-      operations,
-    } = this.props;
-
-    if (operations) {
-      // Updating operations list if the selected serie changes
-      if (
-        nextProps.selectedSerie &&
-        selectedSerie !== nextProps.selectedSerie
-      ) {
-        this.props.loadOperationsIfNeeded(nextProps.selectedSerie);
-      }
-
-      // Setting to empty the selected operation when the selected serie changes
-      if (selectedSerie !== nextProps.selectedSerie) {
-        this.props.change(formName, `${path}operation`, '');
-      }
-
-      if (campaigns) {
-        // Updating campaigns list if the selected operation changes
-        if (
-          nextProps.selectedOperation &&
-          selectedOperation !== nextProps.selectedOperation
-        ) {
-          this.props.loadCampaignsIfNeeded(nextProps.selectedOperation);
-        }
-
-        // Setting to empty the selected campaign when the selected serie or operation changes
-        if (selectedOperation !== nextProps.selectedOperation) {
-          this.props.change(formName, `${path}campaigns`, '');
-        }
-      }
-    }
-  }
-
-  render() {
-    const {
-      series,
-      operations,
-      campaigns,
-      multipleCampaign,
-      required,
-      focusOnInit,
-      horizontal,
-      selectedSerie,
-      selectedOperation,
-    } = this.props;
-
-    return (
-      <div
-        className={ClassSet({
-          [COMPONENT_CLASS]: true,
-          [HORIZONTAL_CLASS]: horizontal,
-        })}
-      >
-        <Field
-          name="serie"
-          component={Select}
-          required={required}
-          focusOnInit={focusOnInit}
-          validate={required ? [requiredSelect] : []}
-          label={Dictionary.serie}
-          emptyOption={Dictionary.selectSerie}
-        >
-          {series.map(s => (
-            <GenericOption key={s.value} value={s.value}>
-              {s.label}
-            </GenericOption>
-          ))}
-        </Field>
-        {operations && (
-          <Field
-            name="operation"
-            component={Select}
-            required={required}
-            validate={required ? [requiredSelect] : []}
-            disabled={!selectedSerie}
-            label={Dictionary.operation}
-            emptyOption={Dictionary.selectOperation}
-          >
-            {operations.map(s => (
-              <GenericOption key={s.value} value={s.value}>
-                {s.label}
-              </GenericOption>
-            ))}
-          </Field>
-        )}
-
-        {campaigns && (
-          <Field
-            name="campaigns"
-            component={multipleCampaign ? ListCheckboxes : Select}
-            required={required}
-            validate={required ? [requiredSelect] : []}
-            disabled={!selectedSerie || !selectedOperation}
-            label={Dictionary.campaign}
-            emptyOption={Dictionary.selectCampaign}
-            noValuesMessage={Dictionary.noValuesCampaigns}
-          >
-            {campaigns.map(s => (
-              <GenericOption key={s.value} value={s.value}>
-                {s.label}
-              </GenericOption>
-            ))}
-          </Field>
-        )}
-      </div>
-    );
-  }
-}
 
 export default StatisticalContextCriteria;

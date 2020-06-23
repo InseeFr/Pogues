@@ -56,7 +56,7 @@ describe('<ArboSimplified />', () => {
   test('should render two level if a node is selected', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
     wrapper
-      .find('button')
+      .find('a')
       .at(0)
       .simulate('click', mockEvent);
     expect(wrapper.find('.arbo-simplifield').length).toBe(2);
@@ -65,7 +65,7 @@ describe('<ArboSimplified />', () => {
   test('for a question, should add the questions class', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
     wrapper
-      .find('button')
+      .find('a')
       .at(0)
       .simulate('click', mockEvent);
     expect(wrapper.find('.questions').length).toBe(1);
@@ -75,7 +75,7 @@ describe('<ArboSimplified />', () => {
     spysetSelectedComponentId.mockClear();
     const wrapper = shallow(<ArboSimplified {...props} />);
     wrapper
-      .find('button')
+      .find('a')
       .at(1)
       .simulate('click', mockEvent);
     expect(spysetSelectedComponentId).toBeCalledWith('1');
@@ -84,11 +84,11 @@ describe('<ArboSimplified />', () => {
   test('should have an icon for all element with children', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
     wrapper
-      .find('button')
+      .find('a')
       .at(0)
       .simulate('click', mockEvent);
     wrapper
-      .find('button')
+      .find('a')
       .at(1)
       .simulate('click', mockEvent);
     expect(wrapper.find('.glyphicon').length).toBe(2);
@@ -98,17 +98,17 @@ describe('<ArboSimplified />', () => {
     const wrapper = shallow(<ArboSimplified {...props} />);
     expect(
       wrapper
-        .find('button')
+        .find('span')
         .at(0)
         .hasClass('glyphicon-menu-right'),
     ).toBe(true);
     wrapper
-      .find('button')
+      .find('a')
       .at(0)
       .simulate('click', mockEvent);
     expect(
       wrapper
-        .find('button')
+        .find('span')
         .at(0)
         .hasClass('glyphicon-menu-down'),
     ).toBe(true);

@@ -2,7 +2,6 @@ import {
   required,
   requiredSelect,
   name,
-  nameLoop,
   nameSize,
   minValue,
   maxValue,
@@ -51,15 +50,6 @@ export const sequenceRules = {
   name: [required, name],
   label: [required],
 };
-
-export const loopRules = {
-  nameLoop: [required, nameLoop],
-  initialMember: [required],
-  finalMember: [required],
-  maximum: [ 
-   value => value !== undefined && value !== ''? minValue(2)(value) : false,
-  ]
-}
 
 export const questionRules = {
   name: [required, name],
@@ -115,11 +105,11 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: [
     value => minValue(1)(value),
-    value => maxValue(300)(value),
+    value => maxValue(100)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMax`]: [
     value => minValue(1)(value),
-    value => maxValue(300)(value),
+    value => maxValue(100)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,

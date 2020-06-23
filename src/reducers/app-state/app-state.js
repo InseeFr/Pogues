@@ -49,7 +49,7 @@ const defaultState = {
   selectedComponentId: '',
   editingComponentId: '',
   errorsByQuestionTab: {},
-  isQuestionnaireHaveError: false,
+  isQuestionnaireHaveerror: false,
   isQuestionnaireModified: false,
   componentIdForPageBreak: '',
   focusedInput: '',
@@ -147,14 +147,14 @@ export function setQuestionNotModified(state) {
   return {
     ...state,
     isQuestionnaireModified: false,
-    isQuestionnaireHaveError: false,
+    isQuestionnaireHaveerror: false,
   };
 }
 
 export function setQuestionNotSaved(state) {
   return {
     ...state,
-    isQuestionnaireHaveError: true,
+    isQuestionnaireHaveerror: true,
   };
 }
 

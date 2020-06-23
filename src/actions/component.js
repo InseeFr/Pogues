@@ -82,7 +82,6 @@ export const updateParentChildren = ({
   payload: { id, lastCreatedComponent },
 }) => (dispatch, getState) => {
   const state = getState();
-
   return dispatch({
     type: UPDATE_COMPONENT_PARENT,
     payload: {
@@ -118,6 +117,7 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
   const selectedComponent = activesComponents[selectedComponentId];
 
   let activeComponentsById = {};
+
   /**
    * We do the reorder only if we have a selected component
    */
@@ -268,14 +268,14 @@ export const dragComponent = (
  *
  * @param {string} idDeletedComponent the id of the component we want to remove
  */
- export const removeComponent = idDeletedComponent => (dispatch, getState) => {
-    const state = getState();
-    const { activeComponentsById } = state.appState;
+export const removeComponent = idDeletedComponent => (dispatch, getState) => {
+  const state = getState();
+  const { activeComponentsById } = state.appState;
 
-      dispatch({
-        type: REMOVE_COMPONENT,
-        payload: remove(activeComponentsById, idDeletedComponent),
-      });      
+  dispatch({
+    type: REMOVE_COMPONENT,
+    payload: remove(activeComponentsById, idDeletedComponent),
+  });
 };
 
 /**
