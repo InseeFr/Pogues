@@ -3,7 +3,6 @@ import {
   DATATYPE_TYPE_FROM_NAME,
   VARIABLES_TYPES, DURATION_UNIT, DATATYPE_NAME
 } from 'constants/pogues-constants';
-
 const { EXTERNAL } = VARIABLES_TYPES;
 
 export function remoteToStore(remote = []) {
@@ -12,6 +11,7 @@ export function remoteToStore(remote = []) {
     const {
       Name: name,
       Label: label,
+      Scope: scope,
       Datatype: {
         typeName,
         MaxLength: maxLength,
@@ -24,9 +24,6 @@ export function remoteToStore(remote = []) {
       },
     } = ev;
     const id = ev.id || uuid();
-
-
-
     return {
       ...acc,
       [id]: {
@@ -34,6 +31,7 @@ export function remoteToStore(remote = []) {
         name,
         label,
         type: typeName,
+        scope: scope? scope: '',
         [typeName]: {
           maxLength,
           pattern,
@@ -49,14 +47,13 @@ export function remoteToStore(remote = []) {
 }
 
 export function storeToRemote(store) {
-  
   return Object.keys(store).map(key => {
     const {
       id,
       name: Name,
       label: Label,
       type: typeName,
-
+      scope: Scope,
       [typeName]: {
         maxLength: MaxLength,
         pattern: Pattern,
@@ -85,7 +82,7 @@ export function storeToRemote(store) {
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
     if (Format !== undefined) model.Datatype.Format = Format;
-
+    if (Scope) model.Scope = Scope;
     return model;
   });
 }

@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 
 const dictionary = {
 
@@ -100,9 +100,21 @@ const dictionary = {
     en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
+  loop: {
+    en: 'Loop',
+    fr: 'Boucles',
+  },
+  Scope : {
+    en: 'Scope',
+    fr: 'Portée',
+  },
   question: {
     en: 'Question',
     fr: 'Question',
+  },
+  loop: {
+    en: 'Loop',
+    fr: 'Boucle',
   },
   pageBreak: {
     en: 'Page break',
@@ -348,7 +360,50 @@ const dictionary = {
     en: 'Precision',
     fr: 'Précision',
   },
+  BasedOn: {
+    en: 'Based on',
+    fr: 'Basé sur',
+  },
 
+  Filter: {
+    en: 'Filter',
+    fr: 'Filtre',
+  },
+  InitialMembre: {
+    en: 'Initial member',
+    fr: 'Membre initial',
+  },
+
+  FinalMembre: {
+    en: 'Final member',
+    fr: 'Membre final',
+  },
+  
+  AddButton: {
+    en: 'Add button label',
+    fr: 'Libellé du bouton d\'ajout',
+  },
+
+  selectBasedOn: {
+    fr: 'Spécifier Basé sur',
+    en: 'Specify Based on',
+  },
+
+  selectInitialMembre: {
+    fr: 'Spécifier Membre initial',
+    en: 'Specify Initial member',
+  },
+
+  selectFinalMembre: {
+    fr: 'Spécifier Membre final',
+    en: 'Specify Final member',
+  },
+
+  selectScope: {
+    fr: 'Portée Questionnaire',
+    en: 'Scope Questionnaire',
+  },
+   
   specify: {
     en: 'Specify',
     fr: 'Préciser',
@@ -581,9 +636,9 @@ const dictionary = {
   },
   errorUniqueComponentName: {
     fr:
-      'Les noms de composant (séquence, sous-séquence et question) doivent être uniques :',
+      'Les noms de composant (séquence, sous-séquence, boucle et question) doivent être uniques :',
     en:
-      'Component names (sequence, subsequence and question) should be unique:',
+      'Component names (sequence, subsequence, loop and question) should be unique:',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
@@ -730,6 +785,12 @@ const dictionary = {
     en: 'an error occurs, your modification can not be saved',
     fr: "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
   },
+
+  loopNotSaved: {
+    en: "Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.",
+    fr: "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider."
+  },
+
   close: {
     fr: 'fermer',
     en: 'close',
@@ -1376,6 +1437,10 @@ dictionary[`componentNew${SEQUENCE}`] = {
   en: 'New sequence',
 };
 
+dictionary[`componentNew${LOOP}`] = {
+  fr: 'Nouvelle boucle',
+  en: 'New loop',
+};
 dictionary[`componentNew${SUBSEQUENCE}`] = {
   fr: 'Nouvelle sous-séquence',
   en: 'New sub-sequence',
@@ -1394,6 +1459,11 @@ dictionary[`componentEdit${SEQUENCE}`] = {
 dictionary[`componentEdit${SUBSEQUENCE}`] = {
   fr: 'Modifier la sous-séquence',
   en: 'Edit sub-sequence',
+};
+
+dictionary[`componentEdit${LOOP}`] = {
+  fr: 'Modifier la boucle',
+  en: 'Edit loop',
 };
 
 export default dictionary;
