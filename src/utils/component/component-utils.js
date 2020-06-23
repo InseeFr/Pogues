@@ -2,7 +2,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getLocale } from 'reducers/dictionary';
 import Dictionary from 'utils/dictionary/dictionary';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP } = COMPONENT_TYPE;
 
 /**
  * This method return true if the component passed as a parameter is a QUESTION
@@ -40,6 +40,14 @@ export function isQuestionnaire(component) {
   return component && component.type === QUESTIONNAIRE;
 }
 
+/**
+ * This method return true if the component passed as a parameter is a  LOOP
+ *
+ * @param {object} component The component we should test
+ */
+export function isLoop(component) {
+  return component && component.type === LOOP;
+}
 /**
  * This method will return an array of component based of the ids passed as parameter
  *
@@ -129,10 +137,12 @@ export function updateNewComponentParent(
   newComponentId,
 ) {
   const parent = activeComponents[parentId];
-  return {
-    [parentId]: {
-      ...parent,
-      children: [...parent.children, newComponentId],
-    },
-  };
+  if(!isLoop(activeComponents[newComponentId])) {
+    return {
+      [parentId]: {
+        ...parent,
+        children: [...parent.children, newComponentId],
+      },
+    };
+  }
 }
