@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from 'constants/dom-constants';
@@ -13,9 +13,65 @@ const {
   BUTTON_SEARCH_CLASS,
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
+const InputFilterWithCriteria = props => {
+
+  const { 
+    typeItem,
+    criteriaValues,
+    label 
+  } = props;
+
+  useEffect(() => {
+    if (props.loadOnInit)
+      props.loadSearchResult(props.typeItem);
+  }, []);
+
+  const id = getControlId('input', 'search', uuid());
+
+  return (
+    <div className={COMPONENT_CLASS}>
+      <div className={PANEL_INPUT_CLASS}>
+        <label htmlFor={id}>{label}</label>
+        <div>
+          <input
+            id={id}
+            className={SEARCH_INPUT_CLASS}
+            type="text"
+            placeholder={label}
+            ref={node => {
+              inputSearch = node;
+            }}
+            onKeyDown={e => {
+              if (e.key === 'Enter')
+                props.loadSearchResult(
+                  typeItem,
+                  criteriaValues,
+                  inputSearch.value.trim(),
+                );
+            }}
+          />
+        </div>
+      </div>
+      <button
+        className={BUTTON_SEARCH_CLASS}
+        onClick={event => {
+          event.preventDefault();
+          props.loadSearchResult(
+            typeItem,
+            criteriaValues,
+            inputSearch.value.trim(),
+          );
+        }}
+      >
+        {Dictionary.searchInputButton}
+      </button>
+    </div>
+  );
+};
+
 // PropTypes and defaultProps
 
-const propTypes = {
+InputFilterWithCriteria.propTypes = {
   typeItem: PropTypes.string.isRequired,
   loadSearchResult: PropTypes.func.isRequired,
   criteriaValues: PropTypes.object,
@@ -23,64 +79,8 @@ const propTypes = {
   label: PropTypes.string.isRequired,
 };
 
-const defaultProps = {
+InputFilterWithCriteria.defaultProps = {
   criteriaValues: {},
 };
-
-// Component
-
-class InputFilterWithCriteria extends Component {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
-
-  UNSAFE_componentWillMount() {
-    if (this.props.loadOnInit) this.props.loadSearchResult(this.props.typeItem);
-  }
-
-  render() {
-    const { typeItem, criteriaValues, label } = this.props;
-    const id = getControlId('input', 'search', uuid());
-
-    return (
-      <div className={COMPONENT_CLASS}>
-        <div className={PANEL_INPUT_CLASS}>
-          <label htmlFor={id}>{label}</label>
-          <div>
-            <input
-              id={id}
-              className={SEARCH_INPUT_CLASS}
-              type="text"
-              placeholder={label}
-              ref={node => {
-                this.inputSearch = node;
-              }}
-              onKeyDown={e => {
-                if (e.key === 'Enter')
-                  this.props.loadSearchResult(
-                    typeItem,
-                    criteriaValues,
-                    this.inputSearch.value.trim(),
-                  );
-              }}
-            />
-          </div>
-        </div>
-        <button
-          className={BUTTON_SEARCH_CLASS}
-          onClick={event => {
-            event.preventDefault();
-            this.props.loadSearchResult(
-              typeItem,
-              criteriaValues,
-              this.inputSearch.value.trim(),
-            );
-          }}
-        >
-          {Dictionary.searchInputButton}
-        </button>
-      </div>
-    );
-  }
-}
 
 export default InputFilterWithCriteria;
