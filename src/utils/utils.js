@@ -70,10 +70,16 @@ export function updateNameField(currentValueLabel, currentValueName) {
 }
 
 export function verifyVariable(label) {
-  const numSigns = (label.match(/\$/g) || []).length;
 
-  if (numSigns === 1) {
-    label = `${label}$`
+  const expression = (/\$([^\s]+)/g);
+  const variables = label.match(expression);
+
+  if (variables) {
+    variables.forEach(variable => {
+      if (variable[variable.length - 1] !== '$') {
+        label = label.replace(variable, variable+'$');
+      }
+    })
   }
 
   return label;
