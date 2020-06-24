@@ -9,17 +9,19 @@ export const defaultState = {
   name: '',
   label: '',
   type: TEXT,
+  scope: '',
 };
 
 export const defaultForm = {
   name: '',
   label: '',
+  scope: '',
   externalVariables: [],
   ...defaultTypageForm,
 };
 
 export function formToState(form) {
-  const { name, label, type, [type]: simpleForm } = form;
+  const { name, label, type, [type]: simpleForm, scope } = form;
   const id = form.id || uuid();
 
   return {
@@ -27,6 +29,7 @@ export function formToState(form) {
     name,
     label,
     type,
+    scope,
     [type]: { ...simpleForm },
   };
 }
@@ -48,12 +51,13 @@ export function storeToForm(currentStore) {
   const externalVariables = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, name, label, type, [type]: simpleState } = currentStore[key];
+    const { id, name, label, type, [type]: simpleState, scope} = currentStore[key];
     externalVariables.push({
       id,
       name,
       label,
       type,
+      scope,
       [type]: {
         ...simpleState,
       },
