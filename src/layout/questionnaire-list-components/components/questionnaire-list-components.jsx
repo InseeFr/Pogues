@@ -16,8 +16,6 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
 const {LOOP} = COMPONENT_TYPE;
 
-//@DragDropContext(HTML5Backend)
-
 const QuestionnaireListComponents = props => {
 
   const {
