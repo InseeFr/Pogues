@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import ClassSet from 'react-classset';
@@ -49,17 +49,19 @@ const QuestionnaireComponent = props => {
 
   const myRef = useRef(null);
   const executeScroll = () => scrollToRef(myRef);
+  const [selectedState, setSelectedState] = useState(selected);
+
 
   const ensureSelected = () => {
     executeScroll();
   }
 
   useEffect(() => {
-    if (selected && selected !== selectedState) {
+    if (selectedState) {
       ensureSelected();
       setSelectedState(selected);
     }
-  }, [selected]);
+  }, [setSelectedState]);
 
   const handleSelectComponent = () => {
     props.setSelectedComponentId(component.id);
