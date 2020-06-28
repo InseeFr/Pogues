@@ -43,4 +43,22 @@ describe('getValueWithSuggestion', () => {
       'voici un $suggestion$',
     );
   });
+
+  test('if there is text before $, it should not be removed', () => {
+    const suggestion = 'suggestion';
+    const caretPosition = 11;
+    const fullText = 'here $sug';
+    expect(getValueWithSuggestion(suggestion, caretPosition, fullText)).toBe(
+      'here $suggestion$',
+    );
+  });
+
+  test('if there is no prefix, the first $ should not be removed and if there is no sufix, the second $ should not be removed', () => {
+    const suggestion = 'suggestion';
+    const caretPosition = 11;
+    const fullText = '$sug';
+    expect(getValueWithSuggestion(suggestion, caretPosition, fullText)).toBe(
+      '$suggestion$',
+    );
+  });
 });
