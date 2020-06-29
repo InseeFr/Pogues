@@ -34,25 +34,18 @@ class QuestionnaireList extends Component {
     super(props);
     this.state = {
       filter: '',
-      loaded: false,
     };
   }
 
   UNSAFE_componentWillMount() {
     if (this.props.user && this.props.user.permission){
       this.props.loadQuestionnaireList(this.props.user.permission);
-      this.setState({
-        loaded: true,
-      });
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.permission !== this.props.user.permission) {
       this.props.loadQuestionnaireList(nextProps.user.permission);
-      this.setState({
-        loaded: true,
-      });
     }
   }
 
@@ -64,8 +57,11 @@ class QuestionnaireList extends Component {
 
   render() {
     const { questionnaires, user } = this.props;
-
-    const list = questionnaires
+    
+    const listQuestionnaires = questionnaires
+      .filter(question => question.id)
+    
+    const list = listQuestionnaires
       .filter(q => {
         return (
           this.state.filter === '' ||
@@ -91,6 +87,13 @@ class QuestionnaireList extends Component {
         );
       });
 
+    const loadingState = questionnaires
+      .filter(loader => loader.loaded);
+      
+    const noQuestionnaires = loadingState
+      .filter(loader => loader.isEmpty)
+      .length > 0 ? true : false;
+
     return (
       <div className="box home-questionnaires">
         <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
@@ -98,7 +101,7 @@ class QuestionnaireList extends Component {
           {Dictionary.stamp} {user.permission}
         </h4>
         <div id="questionnaire-list">
-          {questionnaires.length > 0 ? (
+          {listQuestionnaires.length > 0 ? (
             <div>
               <div className="ctrl-input">
                 <input
@@ -115,7 +118,7 @@ class QuestionnaireList extends Component {
               </div>
               {list}
             </div>
-          ) : this.state.loaded? (
+          ) : noQuestionnaires ? (
             <div className="questionnaire-list_noresults">
               {Dictionary.noQuestionnaires}
             </div>

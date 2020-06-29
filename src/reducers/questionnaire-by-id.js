@@ -21,12 +21,27 @@ export function loadQuestionnaireSuccess(
 
 export function loadQuestionnaireListSuccess(state, updatesList) {
   const questionnaireById = updatesList.reduce((acc, questionnaire) => {
-    return { ...acc, ...questionnaire.questionnaireById };
+    return { ...acc, ...questionnaire.questionnaireById};
   }, {});
-  return {
-    ...state,
-    ...questionnaireById,
-  };
+
+  if(questionnaireById.length === 0) {
+    questionnaireById.loader = {
+      loaded: true,
+      isEmpty: true,
+    };
+    return {
+      ...state,
+      ...questionnaireById,
+    };
+  } else {
+    questionnaireById.loader = {
+      loaded: true,
+    };
+    return {
+      ...state,
+      ...questionnaireById,
+    };
+  }
 }
 
 export function deleteQuestionnaireListSuccess(state, questionnairesList) {
