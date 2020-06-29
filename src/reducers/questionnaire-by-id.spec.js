@@ -107,6 +107,7 @@ describe('questionnaire-by-id reducer', () => {
     ).toEqual({
       '2': { id: '2' },
       '1': { id: '1' },
+      'loader': {'loaded': true},
     });
   });
   test('should handle DELETE_QUESTIONNAIRE_SUCCESS', () => {
