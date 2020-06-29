@@ -1,5 +1,6 @@
 # User guide for Pogues
 
+Last release 2020/07/02
 
 ---
 
@@ -172,7 +173,7 @@ For a simple response question, fill in : (2)
 - if response type=Number, fill in a minimum and a maximum value, a precision (number of decimals, by default none), if necessary an unit measurement (now among : €, k€, %, hours, months, days and years)
     
 - if response type=Boolean, nothing to fill in and it corresponds to a unique checkbox tickable/untickable.
-- if response type=Duration, fill in the output format among hours-minutes or years-months as well as a possible minimum and/or maximum (by default respectively configured at 0 hours 0 minutes and 99 hours 59 minutes, 0 years 0 months and 99 years 11 months).
+- if response type=Duration, fill in the output format among hours-minutes, years-months or hours-hundredths as well as a possible minimum and/or maximum (by default respectively configured at 0 hours 0 minutes and 99 hours 59 minutes, 0 years 0 months and 99 years 11 months, 00:00 and 99:99).
     
 - Validate
 
@@ -280,10 +281,27 @@ For a dynamic table (without line headers in first column, possibility to add ne
 - Primary information axis :
 	- please specify :
 		- number of lines minimum
-		- number of lines maximum
+		- number of lines maximum (limited to 300)
 - Measure information (one or more with the + button)
     - fill in a simple response or a single choice response     	
 - Validate
+
+---
+# Creation of a text complement to specify the choice of an "Other" type modality
+It is possible to specify by a textual complement the tick of a modality of type "Other" for a question calling for a single choice or multiple choice answer or for a column of a fixed size table calling for a single choice answer.
+
+To do this, click on "see in detail" for the question concerned in Pogues then click on the + icon of the modality for which you want to trigger this text complement, modify if necessary the length (by default 249 characters) and the wording of the field (by default "Specify :").
+
+- Validate 
+
+---
+![](../../img/en/otherprecise1.png)
+
+ ---
+
+![](../../img/en/otherprecise2.png)
+
+It is also possible to modify or delete these text additions.
 
 ---
 
@@ -293,9 +311,10 @@ go to "collected variables" tab to generate them
 ![](../../img/en/screen9.png)
  		
 ---
-- click on the button "Generate collected variables" and modify label proposed by default by pogues with a significant label (think about your successors) and, if necessary, modify id
+- Click on the button "Generate collected variables" and modify label proposed by default by pogues with a significant label (think about your successors) and, if necessary, modify id
+- **If some cells in a table are not to be collected because they are not applicable or are intended, for example, to recall a calculated, collected or hard total (for example 100%), uncheck for each cell concerned the Collected boolean associated with the variable collected ad hoc.**
 
-- as your changes are made, click on "Validate" displayed at the bottom right of the grey area
+- As your changes are made, click on "Validate" displayed at the bottom right of the grey area
 
 - At the end, click on "Validate" in the middle a little lower down to validate all your modifications
 
@@ -453,8 +472,8 @@ In the "Goto" tab of the question on which you want to apply a filter, fill in :
 # Creation of a Goto (or filter) (2)
 
 Fill in :
-- Condition : (for which the respondent will go to a further target question and not the immediate following question) : collected variables are referenced by using the dollar character \$, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character \$.  example : if you go from the question Q1 (yes '1', no '2') to the question Q10 if Q1 ='2' fill in \$Q2\$='2' or \$Q2$ != '1' if you want to filter non response also. (see syntax for conditions above to imagine other formulas)
-- Target : Target question of the filter. example : \$Q10$
+- Condition : (for which the respondent will go to a further target question and not to the immediate following question) : collected variables are referenced by using the dollar character \$, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character \$.  example : if you go from the question Q1 (yes '1', no '2') to the question Q10 if Q1 ='2' fill in \$Q2\$='2' or \$Q2$ != '1' if you want to filter non response also. 
+- Target : Target question of the filter. example : Q10 or S2 or QUESTIONNAIRE_END to reach the end of the questionnaire
 
 ---
 
