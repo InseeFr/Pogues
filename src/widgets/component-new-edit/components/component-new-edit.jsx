@@ -133,6 +133,7 @@ const ComponentNewEdit = props => {
           <ExternalVariables
             errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
             addErrors={addSubformValidationErrors}
+            componentsStore={componentsStore}
           />
         </Tab>,
         <Tab
@@ -143,6 +144,7 @@ const ComponentNewEdit = props => {
           <CalculatedVariables
             errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
             addErrors={addSubformValidationErrors}
+            componentsStore={componentsStore}
           />
         </Tab>,
         <Tab

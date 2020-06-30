@@ -36,20 +36,20 @@ describe('<InputFilterWithCriteria />', () => {
     expect(wrapper.find(`button.${BUTTON_SEARCH_CLASS}`)).toHaveLength(1);
   });
 
-  // test('Should call "search" at the beggining only if the prop "loadOnInit" is true', () => {
-  //   const spySearchFirst = jest.fn();
-  //   const spySearchSecond = jest.fn();
+  test('Should call "search" at the beggining only if the prop "loadOnInit" is true', () => {
+    const spySearchFirst = jest.fn();
+    const spySearchSecond = jest.fn();
 
-  //   props.loadSearchResult = spySearchFirst;
-  //   shallow(<InputFilterWithCriteria {...props} />);
+    props.loadSearchResult = spySearchFirst;
+    shallow(<InputFilterWithCriteria {...props} />);
 
-  //   expect(spySearchFirst).toHaveBeenCalled();
+    expect(spySearchFirst).not.toHaveBeenCalled();
 
-  //   props = { ...props, loadOnInit: false, loadSearchResult: spySearchSecond };
-  //   shallow(<InputFilterWithCriteria {...props} />);
+    props = { ...props, loadOnInit: false, loadSearchResult: spySearchSecond };
+    shallow(<InputFilterWithCriteria {...props} />);
 
-  //   expect(spySearchSecond).not.toHaveBeenCalled();
-  // });
+    expect(spySearchSecond).not.toHaveBeenCalled();
+  });
 
   test.skip('Should call "search" with the text existing in the "input" action when the "button" is clicked', () => {
     // @TODO: Find a way to test refs

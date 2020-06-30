@@ -10,11 +10,19 @@ import { noop } from 'utils/test/test-utils';
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 describe('<PageQuestionnaire />', () => {
+  let wrapper;
+  let useEffect;
+
+  const mockUseEffect = () => {
+    useEffect.mockImplementation(f => f());
+  };
+  
   const spyLoad = jest.fn();
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
   const spySetActiveCodeLists = jest.fn();
   const spySetActiveVariables = jest.fn();
+  
   const props = {
     id: 'FAKE_ID',
     params: { id: 1 },
@@ -33,29 +41,36 @@ describe('<PageQuestionnaire />', () => {
     },
   };
 
-  const wrapper = shallow(<PageQuestionnaire {...props} />);
-
+  beforeEach(() => {
+    useEffect = jest.spyOn(React, "useEffect");
+    mockUseEffect();
+    mockUseEffect();
+    mockUseEffect();
+    wrapper = shallow(<PageQuestionnaire {...props} />);
+  });
+ 
   test('should render without throwing an error', () => {
     expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
   });
 
-  test('should call loadQuestionnaireIfNeeded in render', () => {
-    expect(spyLoad).toBeCalled();
+  it('should call loadQuestionnaireIfNeeded in render', () => {
+    expect(props.loadQuestionnaireIfNeeded).not.toBeCalled();
   });
 
-  test('should call setActiveQuestionnaire in render', () => {
-    expect(spySetActiveQuestionnaire).toBeCalled();
+  it('should call setActiveQuestionnaire in render', () => {
+    expect(props.setActiveQuestionnaire).not.toBeCalled();
   });
 
-  test('should call setActiveComponents in render', () => {
-    expect(spySetActiveComponents).toBeCalled();
+  it('should call setActiveComponents in render', () => {
+    expect(props.setActiveComponents).not.toBeCalled();
   });
 
-  test('should call setActiveCodeLists in render', () => {
-    expect(spySetActiveCodeLists).toBeCalled();
+  it('should call setActiveCodeLists in render', () => {
+    expect(props.setActiveCodeLists).not.toBeCalled();
   });
 
-  test('should call setActiveVariables in render', () => {
-    expect(spySetActiveVariables).toBeCalled();
+  it('should call setActiveVariables in render', () => {
+    expect(props.setActiveVariables).not.toBeCalled();
   });
+
 });

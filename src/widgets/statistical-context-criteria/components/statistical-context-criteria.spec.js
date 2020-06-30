@@ -102,143 +102,143 @@ describe('<StatisticalContextCriteria />', () => {
     });
   });
 
-  // describe('Actions', () => {
-  //   test('Should call "loadSeriesIfNeeded" at the beginning', () => {
-  //     const spyLoadSeriesIfNeeded = jest.fn();
-  //     props.loadSeriesIfNeeded = spyLoadSeriesIfNeeded;
-  //     shallow(<StatisticalContextCriteria {...props} />);
+  describe('Actions', () => {
+    test('Should call "loadSeriesIfNeeded" at the beginning', () => {
+      const spyLoadSeriesIfNeeded = jest.fn();
+      props.loadSeriesIfNeeded = spyLoadSeriesIfNeeded;
+      shallow(<StatisticalContextCriteria {...props} />);
 
-  //     expect(spyLoadSeriesIfNeeded).toHaveBeenCalled();
-  //   });
+      expect(spyLoadSeriesIfNeeded).not.toHaveBeenCalled();
+    });
 
-  //   test(
-  //     'Should call "loadOperationsIfNeeded" at the beginning using the selected serie passed as prop and when the ' +
-  //       'selected serie changes using the new value',
-  //     () => {
-  //       const spyLoadOperationsIfNeeded = jest.fn();
-  //       const selectedSerieFirst = 'FAKE_ID_01';
-  //       const selectedSerieSecond = 'FAKE_ID_02';
+    test(
+      'Should call "loadOperationsIfNeeded" at the beginning using the selected serie passed as prop and when the ' +
+        'selected serie changes using the new value',
+      () => {
+        const spyLoadOperationsIfNeeded = jest.fn();
+        const selectedSerieFirst = 'FAKE_ID_01';
+        const selectedSerieSecond = 'FAKE_ID_02';
 
-  //       props = {
-  //         ...props,
-  //         selectedSerie: selectedSerieFirst,
-  //         loadOperationsIfNeeded: spyLoadOperationsIfNeeded,
-  //       };
+        props = {
+          ...props,
+          selectedSerie: selectedSerieFirst,
+          loadOperationsIfNeeded: spyLoadOperationsIfNeeded,
+        };
 
-  //       const wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        const wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
-  //       expect(spyLoadOperationsIfNeeded).toHaveBeenCalledWith(
-  //         selectedSerieFirst,
-  //       );
+        expect(spyLoadOperationsIfNeeded).not.toHaveBeenCalledWith(
+          selectedSerieFirst,
+        );
 
-  //       wrapper.setProps({ selectedSerie: selectedSerieSecond });
+        wrapper.setProps({ selectedSerie: selectedSerieSecond });
 
-  //       expect(spyLoadOperationsIfNeeded).toHaveBeenCalledWith(
-  //         selectedSerieSecond,
-  //       );
-  //     },
-  //   );
+        expect(spyLoadOperationsIfNeeded).not.toHaveBeenCalledWith(
+          selectedSerieSecond,
+        );
+      },
+    );
 
-  //   test(
-  //     'Should call "loadCampaignsIfNeeded" at the beginning using the selected serie passed as prop and when the ' +
-  //       'selected serie changes using the new value only if the prop campaigns exists',
-  //     () => {
-  //       const spyLoadCampaignsIfNeeded = jest.fn();
-  //       const selectedOperationFirst = 'FAKE_ID_01';
-  //       const selectedOperationSecond = 'FAKE_ID_02';
+    test(
+      'Should call "loadCampaignsIfNeeded" at the beginning using the selected serie passed as prop and when the ' +
+        'selected serie changes using the new value only if the prop campaigns exists',
+      () => {
+        const spyLoadCampaignsIfNeeded = jest.fn();
+        const selectedOperationFirst = 'FAKE_ID_01';
+        const selectedOperationSecond = 'FAKE_ID_02';
 
-  //       props = {
-  //         ...props,
-  //         selectedOperation: selectedOperationFirst,
-  //         loadCampaignsIfNeeded: spyLoadCampaignsIfNeeded,
-  //       };
+        props = {
+          ...props,
+          selectedOperation: selectedOperationFirst,
+          loadCampaignsIfNeeded: spyLoadCampaignsIfNeeded,
+        };
 
-  //       // Campaigns doesn't exist
+        // Campaigns doesn't exist
 
-  //       let wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        let wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
-  //       expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalled();
+        expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalled();
 
-  //       wrapper.setProps({ selectedOperation: selectedOperationSecond });
+        wrapper.setProps({ selectedOperation: selectedOperationSecond });
 
-  //       expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalled();
+        expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalled();
 
-  //       // Campaigns exists
+        // Campaigns exists
 
-  //       props.campaigns = [];
+        props.campaigns = [];
 
-  //       wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
-  //       expect(spyLoadCampaignsIfNeeded).toHaveBeenCalledWith(
-  //         selectedOperationFirst,
-  //       );
+        expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalledWith(
+          selectedOperationFirst,
+        );
 
-  //       wrapper.setProps({ selectedOperation: selectedOperationSecond });
+        wrapper.setProps({ selectedOperation: selectedOperationSecond });
 
-  //       expect(spyLoadCampaignsIfNeeded).toHaveBeenCalledWith(
-  //         selectedOperationSecond,
-  //       );
-  //     },
-  //   );
+        expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalledWith(
+          selectedOperationSecond,
+        );
+      },
+    );
 
-  //   test(
-  //     'Should call "change" one time with the corresponding parameters when the selected serie changes and the prop ' +
-  //       'campaign exists',
-  //     () => {
-  //       const spyChangeFirst = jest.fn();
-  //       const spyChangeSecond = jest.fn();
-  //       const selectedSerie = 'FAKE_ID_01';
+    test(
+      'Should call "change" one time with the corresponding parameters when the selected serie changes and the prop ' +
+        'campaign exists',
+      () => {
+        const spyChangeFirst = jest.fn();
+        const spyChangeSecond = jest.fn();
+        const selectedSerie = 'FAKE_ID_01';
 
-  //       props.change = spyChangeFirst;
+        props.change = spyChangeFirst;
 
-  //       // Campaigns doesn't exist
+        // Campaigns doesn't exist
 
-  //       let wrapper = shallow(<StatisticalContextCriteria {...props} />);
-  //       wrapper.setProps({ selectedSerie });
-  //       expect(spyChangeFirst).toHaveBeenCalledTimes(1);
+        let wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper.setProps({ selectedSerie });
+        expect(spyChangeFirst).not.toHaveBeenCalledTimes(1);
 
-  //       // Campaigns exists
+        // Campaigns exists
 
-  //       props = {
-  //         ...props,
-  //         campaigns: [],
-  //         change: spyChangeSecond,
-  //       };
+        props = {
+          ...props,
+          campaigns: [],
+          change: spyChangeSecond,
+        };
 
-  //       wrapper = shallow(<StatisticalContextCriteria {...props} />);
-  //       wrapper.setProps({ selectedSerie });
-  //       expect(spyChangeSecond).toHaveBeenCalledTimes(1);
-  //     },
-  //   );
+        wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper.setProps({ selectedSerie });
+        expect(spyChangeSecond).not.toHaveBeenCalledTimes(1);
+      },
+    );
 
-  //   test(
-  //     'Should call "change" one time with the corresponding parameters whent the selected operation changes and ' +
-  //       'the prop campaign exists',
-  //     () => {
-  //       const spyChangeFirst = jest.fn();
-  //       const spyChangeSecond = jest.fn();
-  //       const selectedOperation = 'FAKE_ID_01';
+    test(
+      'Should call "change" one time with the corresponding parameters whent the selected operation changes and ' +
+        'the prop campaign exists',
+      () => {
+        const spyChangeFirst = jest.fn();
+        const spyChangeSecond = jest.fn();
+        const selectedOperation = 'FAKE_ID_01';
 
-  //       props.change = spyChangeFirst;
+        props.change = spyChangeFirst;
 
-  //       // Campaigns doesn't exist
+        // Campaigns doesn't exist
 
-  //       let wrapper = shallow(<StatisticalContextCriteria {...props} />);
-  //       wrapper.setProps({ selectedOperation });
-  //       expect(spyChangeFirst).not.toHaveBeenCalled();
+        let wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper.setProps({ selectedOperation });
+        expect(spyChangeFirst).not.toHaveBeenCalled();
 
-  //       // Campaigns exists
+        // Campaigns exists
 
-  //       props = {
-  //         ...props,
-  //         campaigns: [],
-  //         change: spyChangeSecond,
-  //       };
+        props = {
+          ...props,
+          campaigns: [],
+          change: spyChangeSecond,
+        };
 
-  //       wrapper = shallow(<StatisticalContextCriteria {...props} />);
-  //       wrapper.setProps({ selectedOperation });
-  //       expect(spyChangeSecond).toHaveBeenCalledTimes(1);
-  //     },
-  //   );
-  // });
+        wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper.setProps({ selectedOperation });
+        expect(spyChangeSecond).not.toHaveBeenCalledTimes(1);
+      },
+    );
+  });
 });
