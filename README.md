@@ -38,8 +38,11 @@ It is also possible to modify or delete these text additions;
 -**External and calculated variables: taking into account variable formats...** This will solve some formula bugs currently encountered. The syntaxes to be used for the different types of variables are recalled in the online user guide, accessible via the help button ;
 
 -**Some ergonomic evolutions ...**
+
 By default, for answers associated to a code list, the button specify code list will now be set to "Create a list". You can therefore view the code list directly, without having to change its position within "Specify the list", in order to consult and possibly modify it (many users were regularly trapped by the current ergonomics and did not know how to consult the code list associated with the answer and were afraid of losing their previously created code list by manually positioning the button on "Create a list"). 
+
 Furthermore, when searching for a list within the questionnaire, the drop-down list of available code lists will now be sorted in alphabetical order of the list label.
 In cases where the regeneration of the collected variables is indispensable (modification of the response format for example), the application now requires you to regenerate the collected variables.
+
 At last, the application now alerts you when you ask to exit the survey without first saving your last changes or when saving is impossible due to the loss of your user session (reminder: reconnect to Pogues in a new tab of your browser, go back to the previous tab and click Save again!). 
 
