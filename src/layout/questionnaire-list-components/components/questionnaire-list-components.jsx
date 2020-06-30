@@ -34,15 +34,6 @@ const QuestionnaireListComponents = props => {
   const [showComponentModal, setShowComponentModal] = useState(false);
   const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] = useState(false);
 
-
-  const handleOpenQuestionnaireDetail = () => {
-    setShowQuestionnaireModal(true)
-    }
-
-  const handleCloseQuestionnaireDetail = () => {
-    setShowQuestionnaireModal(false)
-    }
-
   const handleOpenComponentDetail = () => {
     setShowComponentModal(true)
     }
@@ -103,7 +94,6 @@ const QuestionnaireListComponents = props => {
   componentsStore[editingComponentId].type;
 
   const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
-
 
   return (
     <div id="questionnaire">
