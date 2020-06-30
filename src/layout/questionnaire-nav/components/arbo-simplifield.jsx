@@ -39,7 +39,6 @@ class ArboSimplified extends Component {
 
   renderComponentsByParent(components, parent) {
     const renderComponentsByParent = this.renderComponentsByParent;
-
     return getSortedChildren(components, parent).map(key => {
       if(key !== "idendquest") {
         const subTree = renderComponentsByParent(components, key);
