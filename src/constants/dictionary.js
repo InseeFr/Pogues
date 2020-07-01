@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTRE } = COMPONENT_TYPE;
 
 const dictionary = {
 
@@ -103,6 +103,10 @@ const dictionary = {
   loop: {
     en: 'Loop',
     fr: 'Boucles',
+  },
+  filtre: {
+    en: 'Filter',
+    fr: 'Filtre',
   },
   Scope : {
     en: 'Scope',
@@ -1441,6 +1445,12 @@ dictionary[`componentNew${LOOP}`] = {
   fr: 'Nouvelle boucle',
   en: 'New loop',
 };
+
+dictionary[`componentNew${FILTRE}`] = {
+  fr: 'Nouvelle filtre',
+  en: 'New filter',
+};
+
 dictionary[`componentNew${SUBSEQUENCE}`] = {
   fr: 'Nouvelle sous-séquence',
   en: 'New sub-sequence',
@@ -1464,6 +1474,11 @@ dictionary[`componentEdit${SUBSEQUENCE}`] = {
 dictionary[`componentEdit${LOOP}`] = {
   fr: 'Modifier la boucle',
   en: 'Edit loop',
+};
+
+dictionary[`componentEdit${FILTRE}`] = {
+  fr: 'Modifier la filter',
+  en: 'Edit filter',
 };
 
 export default dictionary;

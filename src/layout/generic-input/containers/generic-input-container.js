@@ -15,7 +15,7 @@ import {
 } from '../utils/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTRE } = COMPONENT_TYPE;
 
 // Utils
 
@@ -38,6 +38,7 @@ function getPlaceholders(
     ),
     [QUESTION]: getNewQuestionPlaceholder(componentsStore, selectedComponent),
     [LOOP]: getNewLoopPlaceholder(componentsStore),
+    [FILTRE]: getNewLoopPlaceholder(componentsStore),
   };
 }
 
