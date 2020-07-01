@@ -213,8 +213,8 @@ function getTableDynamique(componentsStore, id) {
   let tableId = "";
   Object.values(componentsStore).filter(components => 
     components.type === QUESTION && 
-    components.responseFormat.type === "TABLE" && 
-    components.responseFormat.TABLE.PRIMARY.type === "LIST"
+    components.responseFormat.type === TABLE && 
+    components.responseFormat.TABLE.PRIMARY.type === LIST
   ).map(component => {
     if(component && component.collectedVariables && component.collectedVariables.includes(id)) {
       tableId = component.id;
