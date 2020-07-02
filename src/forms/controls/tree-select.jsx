@@ -36,7 +36,7 @@ const TreeSelect = props => {
 
   const inputSearchRef = useRef(null);
 
-  const filterOption = (options, q) => {
+  const filterOptions = (options, q) => {
     return q !== '' ? options.filter(o => o.label.indexOf(q) !== -1) : options;
   };
 
@@ -44,11 +44,11 @@ const TreeSelect = props => {
   const [optionsState, setOptionsState] = useState(props.options);
  
 	useEffect(() => {
-    setFilteredOptions(filterOption(props.options, ''))
+    setFilteredOptions(filterOptions(props.options, ''))
   }, [optionsState]);
 
   const updateListOptions = () => {
-    setFilteredOptions(filterOption(props.options, inputSearchRef.current.value))
+    setFilteredOptions(filterOptions(props.options, inputSearchRef.current.value))
   };
 
   const selectValue = (value = '') => {
