@@ -40,19 +40,23 @@ class QuestionnaireList extends Component {
 
   UNSAFE_componentWillMount() {
     if (this.props.user && this.props.user.permission){
-      this.props.loadQuestionnaireList(this.props.user.permission);
-      this.setState({
-        loaded: true,
-      });
+      this.props.loadQuestionnaireList(this.props.user.permission)        
+        .then(() => {
+          this.setState({	
+            loaded: true,	
+          });
+        });
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.permission !== this.props.user.permission) {
-      this.props.loadQuestionnaireList(nextProps.user.permission);
-      this.setState({
-        loaded: true,
-      });
+      this.props.loadQuestionnaireList(nextProps.user.permission)
+        .then(() => {
+          this.setState({	
+            loaded: true,	
+           });
+        });
     }
   }
 
