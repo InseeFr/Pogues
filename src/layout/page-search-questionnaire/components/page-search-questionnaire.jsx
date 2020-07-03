@@ -21,10 +21,9 @@ import { noop } from 'utils/test/test-utils';
 // Component
 
 const PageSearchQuestionnaire = props => {
-
   useEffect(() => {
     props.clearSearchResult();
-  }, []);
+  }, [props]);
 
   const propsInputFilterWithCriteria = {
     typeItem: TYPES_ITEMS.QUESTIONNAIRE,
@@ -52,9 +51,9 @@ const PageSearchQuestionnaire = props => {
       <SearchResults {...propsSearchResults} />
     </div>
   );
-}
-  // PropTypes and defaultProps
+};
 
+// PropTypes and defaultProps
 PageSearchQuestionnaire.propTypes = {
   clearSearchResult: PropTypes.func.isRequired,
 };

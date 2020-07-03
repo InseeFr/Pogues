@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from 'constants/dom-constants';
@@ -14,17 +14,12 @@ const {
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 const InputFilterWithCriteria = props => {
-
-  const { 
-    typeItem,
-    criteriaValues,
-    label 
-  } = props;
+  const { typeItem, criteriaValues, label } = props;
+  const inputSearchRef = useRef(null);
 
   useEffect(() => {
-    if (props.loadOnInit)
-      props.loadSearchResult(props.typeItem);
-  }, []);
+    if (props.loadOnInit) props.loadSearchResult(props.typeItem);
+  }, [props.typeItem, props.loadOnInit]);
 
   const id = getControlId('input', 'search', uuid());
 
@@ -38,15 +33,13 @@ const InputFilterWithCriteria = props => {
             className={SEARCH_INPUT_CLASS}
             type="text"
             placeholder={label}
-            ref={node => {
-              inputSearch = node;
-            }}
+            ref={inputSearchRef}
             onKeyDown={e => {
               if (e.key === 'Enter')
                 props.loadSearchResult(
                   typeItem,
                   criteriaValues,
-                  inputSearch.value.trim(),
+                  inputSearchRef.current.value.trim(),
                 );
             }}
           />
@@ -59,7 +52,7 @@ const InputFilterWithCriteria = props => {
           props.loadSearchResult(
             typeItem,
             criteriaValues,
-            inputSearch.value.trim(),
+            inputSearchRef.current.value.trim(),
           );
         }}
       >

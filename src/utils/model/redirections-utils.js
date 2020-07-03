@@ -148,7 +148,7 @@ export function getComponentsTargetsByComponent(componentsStore, component) {
   ];
   targets.push('idendquest');
 
-  return targets
+  return targets;
 }
 
 export function getComponentsTargetsByPosition(

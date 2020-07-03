@@ -16,13 +16,13 @@ describe('<PageQuestionnaire />', () => {
   const mockUseEffect = () => {
     useEffect.mockImplementation(f => f());
   };
-  
+
   const spyLoad = jest.fn();
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
   const spySetActiveCodeLists = jest.fn();
   const spySetActiveVariables = jest.fn();
-  
+
   const props = {
     id: 'FAKE_ID',
     params: { id: 1 },
@@ -42,13 +42,13 @@ describe('<PageQuestionnaire />', () => {
   };
 
   beforeEach(() => {
-    useEffect = jest.spyOn(React, "useEffect");
+    useEffect = jest.spyOn(React, 'useEffect');
     mockUseEffect();
     mockUseEffect();
     mockUseEffect();
     wrapper = shallow(<PageQuestionnaire {...props} />);
   });
- 
+
   test('should render without throwing an error', () => {
     expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
   });
@@ -72,5 +72,4 @@ describe('<PageQuestionnaire />', () => {
   it('should call setActiveVariables in render', () => {
     expect(props.setActiveVariables).not.toBeCalled();
   });
-
 });

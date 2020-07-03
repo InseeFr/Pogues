@@ -46,11 +46,11 @@ describe('redirection transformation', () => {
           responses: [
             {
               Datatype: {
-                Format: "PnYnM",
-                Maximum: "P2Y2M",
-                Minimum: "P2Y2M",
-                type: "DurationDatatypeType",
-                typeName: "DURATION",
+                Format: 'PnYnM',
+                Maximum: 'P2Y2M',
+                Minimum: 'P2Y2M',
+                type: 'DurationDatatypeType',
+                typeName: 'DURATION',
               },
               mandatory: true,
               id: '1',
@@ -66,8 +66,8 @@ describe('redirection transformation', () => {
           maximum: 'P2Y2M',
           miyears: '2',
           mimonths: '2',
-          mayears: "2",
-          mamonths: "2",
+          mayears: '2',
+          mamonths: '2',
           format: 'PnYnM',
         },
       });
@@ -79,11 +79,11 @@ describe('redirection transformation', () => {
           responses: [
             {
               Datatype: {
-                Format: "HH:CH",
-                Maximum: "02:00",
-                Minimum: "00:02",
-                type: "DurationDatatypeType",
-                typeName: "DURATION",
+                Format: 'HH:CH',
+                Maximum: '02:00',
+                Minimum: '00:02',
+                type: 'DurationDatatypeType',
+                typeName: 'DURATION',
               },
               mandatory: true,
               id: '1',
@@ -112,11 +112,11 @@ describe('redirection transformation', () => {
           responses: [
             {
               Datatype: {
-                Format: "PTnHnM",
-                Maximum: "PT2H0M",
-                Minimum: "PT1H1M",
-                type: "DurationDatatypeType",
-                typeName: "DURATION",
+                Format: 'PTnHnM',
+                Maximum: 'PT2H0M',
+                Minimum: 'PT1H1M',
+                type: 'DurationDatatypeType',
+                typeName: 'DURATION',
               },
               mandatory: true,
               id: '1',
@@ -128,13 +128,13 @@ describe('redirection transformation', () => {
         id: '1',
         type: 'DURATION',
         DURATION: {
-          format: "PTnHnM",
-          mahours: "2",
-          maminutes: "",
-          maximum: "PT2H0M",
-          mihours: "1",
-          miminutes: "1",
-          minimum: "PT1H1M",
+          format: 'PTnHnM',
+          mahours: '2',
+          maminutes: '',
+          maximum: 'PT2H0M',
+          mihours: '1',
+          miminutes: '1',
+          minimum: 'PT1H1M',
         },
       });
     });
@@ -145,11 +145,11 @@ describe('redirection transformation', () => {
           responses: [
             {
               Datatype: {
-                Format: "HH:CH",
-                Maximum: "00:02",
-                Minimum: "00:01",
-                type: "DurationDatatypeType",
-                typeName: "DURATION",
+                Format: 'HH:CH',
+                Maximum: '00:02',
+                Minimum: '00:01',
+                type: 'DurationDatatypeType',
+                typeName: 'DURATION',
               },
               mandatory: true,
               id: '1',
@@ -161,13 +161,13 @@ describe('redirection transformation', () => {
         id: '1',
         type: 'DURATION',
         DURATION: {
-          format: "HH:CH",
-          mahundhours: "0",
-          mahundredths: "2",
-          maximum: "00:02",
-          mihundhours: "0",
-          mihundredths: "1",
-          minimum: "00:01",
+          format: 'HH:CH',
+          mahundhours: '0',
+          mahundredths: '2',
+          maximum: '00:02',
+          mihundhours: '0',
+          mihundredths: '1',
+          minimum: '00:01',
         },
       });
     });
@@ -367,7 +367,6 @@ describe('redirection transformation', () => {
     });
 
     describe('DATE format', () => {
-
       it('should remove the minimum and maximum if the typeName is a DATE and if they are empty', () => {
         const result = stateToRemote(
           {

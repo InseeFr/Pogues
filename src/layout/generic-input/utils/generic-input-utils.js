@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP} = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 
 /**
  * Get closest component id by type
@@ -254,7 +254,7 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
       weight = getWeight(components, heavyQuestionId);
     }
   }
-  
+
   return {
     parent,
     weight,
@@ -270,6 +270,7 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
  * @return {object|undefined} first sequence in component
  */
 export function getNewLoopPlaceholder(components) {
-  return !!Object.values(components).find(component => component.type === SEQUENCE);
+  return !!Object.values(components).find(
+    component => component.type === SEQUENCE,
+  );
 }
-

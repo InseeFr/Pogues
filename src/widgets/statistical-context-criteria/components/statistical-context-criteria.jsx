@@ -17,7 +17,6 @@ const {
 } = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = props => {
-
   const {
     formName,
     path,
@@ -33,36 +32,41 @@ const StatisticalContextCriteria = props => {
   } = props;
 
   const [selectedSerieState, setSelectedSerieState] = useState(selectedSerie);
-  const [selectedOperationState, setSelectedOperationState] = useState(selectedOperation);
-
-	useEffect(() => {
-    props.loadSeriesIfNeeded();
-    if (operations &&  selectedSerie)
-     props.loadOperationsIfNeeded(selectedSerie);
-    if (campaigns && selectedOperation)
-     props.loadCampaignsIfNeeded(selectedOperation);
-    if (campaigns && selectedOperation)
-     props.loadCampaignsIfNeeded(selectedOperation);
-  }, []);
+  const [selectedOperationState, setSelectedOperationState] = useState(
+    selectedOperation,
+  );
 
   useEffect(() => {
-    if (
-      selectedSerie !== selectedSerieState
-    ) {
+    props.loadSeriesIfNeeded();
+    if (operations && selectedSerie)
+      props.loadOperationsIfNeeded(selectedSerie);
+    if (campaigns && selectedOperation)
+      props.loadCampaignsIfNeeded(selectedOperation);
+    if (campaigns && selectedOperation)
+      props.loadCampaignsIfNeeded(selectedOperation);
+  }, [props, campaigns, operations, selectedOperation, selectedSerie]);
+
+  useEffect(() => {
+    if (selectedSerie !== selectedSerieState) {
       props.loadOperationsIfNeeded(selectedSerie);
       props.change(formName, `${path}operation`, '');
-      setSelectedSerieState(selectedSerie)
+      setSelectedSerieState(selectedSerie);
     }
 
-    if (
-      selectedOperation !== selectedOperationState
-    ) {
-        props.loadCampaignsIfNeeded(selectedOperation);
-        props.change(formName, `${path}campaigns`, '');
+    if (selectedOperation !== selectedOperationState) {
+      props.loadCampaignsIfNeeded(selectedOperation);
+      props.change(formName, `${path}campaigns`, '');
       setSelectedOperationState(selectedOperation);
     }
-
-  }, [selectedSerie, selectedOperation]);
+  }, [
+    props,
+    selectedSerie,
+    selectedOperation,
+    formName,
+    path,
+    selectedOperationState,
+    selectedSerieState,
+  ]);
 
   return (
     <div
@@ -124,7 +128,7 @@ const StatisticalContextCriteria = props => {
       )}
     </div>
   );
-}
+};
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {

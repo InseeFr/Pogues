@@ -51,19 +51,28 @@ const PageQuestionnaire = props => {
     collectedVariablesByQuestion,
     activeQuestionnaire,
   } = props;
-  
-  const [idState, setIdState] = useState(id);
+
+  const [idState] = useState(id);
   const [questionnaireState, setQuestionnaireState] = useState(questionnaire);
-  const [activeQuestionnaireState, setActiveQuestionnaireState] = useState(activeQuestionnaire);
+  const [activeQuestionnaireState, setActiveQuestionnaireState] = useState(
+    activeQuestionnaire,
+  );
   const [componentsState, setComponentsState] = useState(components);
   const [codeListsState, setCodeListsState] = useState(codeLists);
-  const [externalVariablesState, setExternalVariables] = useState(externalVariables);
-  const [calculatedVariablesState, setCalculatedVariables] = useState(calculatedVariables);
-  const [collectedVariablesByQuestionState, setCollectedVariablesByQuestion] = useState(collectedVariablesByQuestion);
+  const [externalVariablesState, setExternalVariables] = useState(
+    externalVariables,
+  );
+  const [calculatedVariablesState, setCalculatedVariables] = useState(
+    calculatedVariables,
+  );
+  const [
+    collectedVariablesByQuestionState,
+    setCollectedVariablesByQuestion,
+  ] = useState(collectedVariablesByQuestion);
 
   useEffect(() => {
-    if(idState) {
-      props.loadQuestionnaireIfNeeded(id);
+    if (idState) {
+      props.loadQuestionnaireIfNeeded(idState);
     }
     if (questionnaireState && questionnaireState.id) {
       const idCampaign = questionnaireState.campaigns[0];
@@ -77,30 +86,45 @@ const PageQuestionnaire = props => {
       });
       props.loadStatisticalContext(idCampaign);
     }
-
-  }, [idState, questionnaireState, componentsState, codeListsState, externalVariablesState, calculatedVariablesState, collectedVariablesByQuestionState]);
+  }, [
+    idState,
+    questionnaireState,
+    componentsState,
+    codeListsState,
+    externalVariablesState,
+    calculatedVariablesState,
+    collectedVariablesByQuestionState,
+  ]);
 
   useEffect(() => {
-
-    if (activeQuestionnaire && !isEqual(activeQuestionnaire, activeQuestionnaireState)) {
-      if (activeQuestionnaire.campaigns && activeQuestionnaire.campaigns.length > 0) {
+    if (
+      activeQuestionnaire &&
+      !isEqual(activeQuestionnaire, activeQuestionnaireState)
+    ) {
+      if (
+        activeQuestionnaire.campaigns &&
+        activeQuestionnaire.campaigns.length > 0
+      ) {
         const idCampaign = activeQuestionnaire.campaigns[0];
         props.loadStatisticalContext(idCampaign);
       }
-      if(activeQuestionnaire.operation !== activeQuestionnaireState.operation)
-      props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
+      if (activeQuestionnaire.operation !== activeQuestionnaireState.operation)
+        props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
       setActiveQuestionnaireState(activeQuestionnaire);
     }
-    
+
     if (!isEqual(questionnaire, questionnaireState)) {
       props.setActiveQuestionnaire(questionnaire);
       setQuestionnaireState(questionnaire);
     }
-
-  }, [activeQuestionnaire, questionnaire]);
+  }, [
+    activeQuestionnaire,
+    questionnaire,
+    activeQuestionnaireState,
+    questionnaireState,
+  ]);
 
   useEffect(() => {
-
     if (!isEqual(components, componentsState)) {
       props.setActiveComponents(components);
       setComponentsState(components);
@@ -110,11 +134,9 @@ const PageQuestionnaire = props => {
       props.setActiveCodeLists(codeLists);
       setCodeListsState(codeLists);
     }
-
-  }, [components, codeLists]);
+  }, [components, codeLists, codeListsState, componentsState]);
 
   useEffect(() => {
-
     if (
       !isEqual(calculatedVariables, calculatedVariablesState) ||
       !isEqual(externalVariables, externalVariablesState) ||
@@ -129,8 +151,14 @@ const PageQuestionnaire = props => {
       setCalculatedVariables(externalVariables);
       setCollectedVariablesByQuestion(collectedVariablesByQuestion);
     }
-
-  }, [calculatedVariables, externalVariables, collectedVariablesByQuestion]);
+  }, [
+    calculatedVariables,
+    externalVariables,
+    collectedVariablesByQuestion,
+    calculatedVariablesState,
+    collectedVariablesByQuestionState,
+    externalVariablesState,
+  ]);
 
   return (
     <div id={COMPONENT_ID}>
@@ -139,7 +167,6 @@ const PageQuestionnaire = props => {
       <GenericInput />
     </div>
   );
-  
-}
+};
 
 export default PageQuestionnaire;

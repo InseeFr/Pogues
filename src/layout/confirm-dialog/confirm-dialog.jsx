@@ -5,31 +5,33 @@ import Dictionary from 'utils/dictionary/dictionary';
 
 const ConfirmDialog = props => {
   const cancelButtonRef = useRef(null);
-  const [showConfirmModal, setShowConfirmModal] = useState(props.showConfirmModal);
+  const [showConfirmModal, setShowConfirmModal] = useState(
+    props.showConfirmModal,
+  );
 
   useEffect(() => {
     if (props.showConfirmModal !== showConfirmModal) {
       setShowConfirmModal(props.showConfirmModal);
     }
-  }, [props.showConfirmModal]); 
+  }, [props.showConfirmModal, showConfirmModal]);
 
   useEffect(() => {
     if (showConfirmModal && cancelButtonRef.current) {
       cancelButtonRef.current.focus();
     }
-  }, []); 
+  }, [showConfirmModal]);
 
-  const handleValidate = (event) => {
+  const handleValidate = event => {
     event.stopPropagation();
     setShowConfirmModal(false);
     props.confirm();
-  }
+  };
 
-  const handleCancel = (event) => {
+  const handleCancel = event => {
     event.stopPropagation();
     props.closePopup();
     setShowConfirmModal(false);
-  }
+  };
 
   return (
     <ReactModal
@@ -63,8 +65,7 @@ const ConfirmDialog = props => {
       </div>
     </ReactModal>
   );
-}
-
+};
 
 ConfirmDialog.propTypes = {
   confirm: PropTypes.func.isRequired,

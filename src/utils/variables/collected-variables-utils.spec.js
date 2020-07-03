@@ -41,104 +41,112 @@ describe('getCollectedVariablesSingle', () => {
   test('should return collected variables for QCM without precision in codesList', () => {
     const questionName = 'questionName';
     const form = {
-        CodesList: {
-          id: 'id', 
-          label: 'label',
-          codes: [
-            {
-              value: 'value1',
-              label: 'label1',
-              depth: 1,
-              weight: 1,
-              parent: '',
-              precisionid: '',
-              precisionlabel: '',
-              precisionsize: '',
-            },
-            {
-              value: 'value2',
-              label: 'label2',
-              depth: 1,
-              weight: 2,
-              parent: '',
-              precisionid: '',
-              precisionlabel: '',
-              precisionsize: '',
-            },
-          ],
-        },
+      CodesList: {
+        id: 'id',
+        label: 'label',
+        codes: [
+          {
+            value: 'value1',
+            label: 'label1',
+            depth: 1,
+            weight: 1,
+            parent: '',
+            precisionid: '',
+            precisionlabel: '',
+            precisionsize: '',
+          },
+          {
+            value: 'value2',
+            label: 'label2',
+            depth: 1,
+            weight: 2,
+            parent: '',
+            precisionid: '',
+            precisionlabel: '',
+            precisionsize: '',
+          },
+        ],
+      },
     };
     const codesListStore = {};
-    const result = getCollectedVariablesSingle( questionName, form, codesListStore);
+    const result = getCollectedVariablesSingle(
+      questionName,
+      form,
+      codesListStore,
+    );
 
     expect(result).toEqual([
-       {
-    codeListReference: form.CodesList.id,
-    codeListReferenceLabel: form.CodesList.label,
-    type: 'TEXT',
-    TEXT: { maxLength: 1, pattern: '' },
-    id: result[0].id,
-    name: 'questionName',
-    label: 'questionName label',
-       }
+      {
+        codeListReference: form.CodesList.id,
+        codeListReferenceLabel: form.CodesList.label,
+        type: 'TEXT',
+        TEXT: { maxLength: 1, pattern: '' },
+        id: result[0].id,
+        name: 'questionName',
+        label: 'questionName label',
+      },
     ]);
   });
 
   test('should return collected variables for QCM with precision in codesList', () => {
     const questionName = 'questionName';
     const form = {
-        CodesList: {
-          id: 'id', 
-          label: 'label',
-          codes: [
-            {
-              value: 'value1',
-              label: 'label1',
-              depth: 1,
-              weight: 1,
-              parent: '',
-              precisionid: 'precision',
-              precisionlabel: 'precisionlabel',
-              precisionsize: 249,
-            },
-            {
-              value: 'value2',
-              label: 'label2',
-              depth: 1,
-              weight: 2,
-              parent: '',
-              precisionid: '',
-              precisionlabel: '',
-              precisionsize: '',
-            },
-          ],
-        },
+      CodesList: {
+        id: 'id',
+        label: 'label',
+        codes: [
+          {
+            value: 'value1',
+            label: 'label1',
+            depth: 1,
+            weight: 1,
+            parent: '',
+            precisionid: 'precision',
+            precisionlabel: 'precisionlabel',
+            precisionsize: 249,
+          },
+          {
+            value: 'value2',
+            label: 'label2',
+            depth: 1,
+            weight: 2,
+            parent: '',
+            precisionid: '',
+            precisionlabel: '',
+            precisionsize: '',
+          },
+        ],
+      },
     };
     const codesListStore = {};
-    const result = getCollectedVariablesSingle( questionName, form, codesListStore);
+    const result = getCollectedVariablesSingle(
+      questionName,
+      form,
+      codesListStore,
+    );
 
     expect(result).toEqual([
-       {
-          codeListReference: form.CodesList.id,
-          codeListReferenceLabel: form.CodesList.label,
-          type: 'TEXT',
-          TEXT: { maxLength: 1, pattern: '' },
-          id: result[0].id,
-          name: 'questionName',
-          label: 'questionName label',
-       },
-       {
-        type: "CollectedVariableType",
+      {
+        codeListReference: form.CodesList.id,
+        codeListReferenceLabel: form.CodesList.label,
         type: 'TEXT',
-        TEXT: {  
+        TEXT: { maxLength: 1, pattern: '' },
+        id: result[0].id,
+        name: 'questionName',
+        label: 'questionName label',
+      },
+      {
+        type: 'CollectedVariableType',
+        type: 'TEXT',
+        TEXT: {
           maxLength: 249,
-          pattern: "" 
-         },
-        id: result[1].id ,
+          pattern: '',
+        },
+        id: result[1].id,
         name: 'precision',
         label: 'precision label',
-        z: 1
-         },
+        z: 1,
+      },
     ]);
   });
 });
@@ -197,16 +205,16 @@ describe('getCollectedVariablesTable', () => {
             decimals: '',
           },
           DATE: {
-                maximum: '',
-                minimum: '',
-                format: '',
+            maximum: '',
+            minimum: '',
+            format: '',
           },
           BOOLEAN: {},
-          DURATION:{
-                maximum: '',
-                minimum: '',
-                format: '',
-          }
+          DURATION: {
+            maximum: '',
+            minimum: '',
+            format: '',
+          },
         },
         SINGLE_CHOICE: {
           CodesList: {
@@ -294,9 +302,9 @@ describe('getCollectedVariablesTable', () => {
             decimals: '',
           },
           DATE: {
-                maximum: '',
-                minimum: '',
-                format: '',
+            maximum: '',
+            minimum: '',
+            format: '',
           },
           BOOLEAN: {},
         },
@@ -363,8 +371,8 @@ describe('getCollectedVariablesTable', () => {
           },
           DATE: {
             maximum: '',
-                minimum: '',
-                format: '',
+            minimum: '',
+            format: '',
           },
           BOOLEAN: {},
         },
@@ -455,8 +463,8 @@ describe('getCollectedVariablesTable', () => {
           },
           DATE: {
             maximum: '',
-                minimum: '',
-                format: '',
+            minimum: '',
+            format: '',
           },
           BOOLEAN: {},
         },
@@ -538,7 +546,11 @@ describe('collected variables utils: ', () => {
 
   describe('getCollecteVariable', () => {
     test('should return the collected variable with coordinates', () => {
-      const result = getCollecteVariable('name', 'label', { x: 1, y: 2, isCollected: false});
+      const result = getCollecteVariable('name', 'label', {
+        x: 1,
+        y: 2,
+        isCollected: false,
+      });
       expect(result).toEqual({
         id: result.id,
         name: 'name',
@@ -553,7 +565,7 @@ describe('collected variables utils: ', () => {
       const result = getCollecteVariable(
         'name',
         'label',
-        { x: 1, y: 2,  isCollected: true},
+        { x: 1, y: 2, isCollected: true },
         { id: 1 },
       );
       expect(result.id).not.toEqual(1);

@@ -51,7 +51,9 @@ export function storeToForm(currentStore) {
   const externalVariables = [];
 
   Object.keys(currentStore).forEach(key => {
-    const { id, name, label, type, [type]: simpleState, scope} = currentStore[key];
+    const { id, name, label, type, [type]: simpleState, scope } = currentStore[
+      key
+    ];
     externalVariables.push({
       id,
       name,

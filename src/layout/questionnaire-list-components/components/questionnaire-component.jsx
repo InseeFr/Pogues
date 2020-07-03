@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import ClassSet from 'react-classset';
@@ -10,7 +10,7 @@ import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
-import { markdownVtlToHtml, markdownVtlToString } from 'forms/controls/rich-textarea';
+import { markdownVtlToString } from 'forms/controls/rich-textarea';
 
 import {
   PropType,
@@ -28,10 +28,9 @@ import { getIntegrityErrors } from 'utils/integrity/utils';
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)  
+const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
 const QuestionnaireComponent = props => {
-  
   const {
     component,
     connectDragSource,
@@ -51,34 +50,32 @@ const QuestionnaireComponent = props => {
   const executeScroll = () => scrollToRef(myRef);
   const [selectedState, setSelectedState] = useState(selected);
 
-
-  const ensureSelected = () => {
-    executeScroll();
-  }
-
   useEffect(() => {
+    const ensureSelected = () => {
+      executeScroll();
+    };
     if (selectedState) {
       ensureSelected();
       setSelectedState(selected);
     }
-  }, [setSelectedState]);
+  }, [setSelectedState, selected, selectedState]);
 
   const handleSelectComponent = () => {
     props.setSelectedComponentId(component.id);
-  }
+  };
 
   const handleEditComponent = () => {
     props.setEditingComponentId(component.id);
     props.actions.handleOpenComponentDetail();
-  }
+  };
 
   const handleDuplicateComponent = () => {
     props.duplicateComponentAndVariables(component.id);
-  }
+  };
 
   const handleDeleteComponent = () => {
     props.removeComponent(component.id);
-  }
+  };
 
   const dragndropLevel = getDragnDropLevel(props, draggedItem);
   const style = {
@@ -106,7 +103,7 @@ const QuestionnaireComponent = props => {
         >
           {/* eslint-disable jsx-a11y/no-static-element-interactions */}
           <div
-            tabIndex="0"
+            role="presentation"
             onClick={handleSelectComponent}
             className={ClassSet({
               'questionnaire-element-info': true,
@@ -194,7 +191,7 @@ const QuestionnaireComponent = props => {
       </div>,
     ),
   );
-}
+};
 
 QuestionnaireComponent.propTypes = {
   component: PropTypes.object.isRequired,
@@ -238,5 +235,5 @@ export default compose(
     draggedItem: monitor.getItem(),
     canDrop: monitor.canDrop(),
   })),
-  DragSource(PropType, componentSource, collect)
+  DragSource(PropType, componentSource, collect),
 )(QuestionnaireComponent);

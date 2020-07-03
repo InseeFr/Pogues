@@ -2,13 +2,12 @@ import { connect } from 'react-redux';
 
 import QuestionnaireNav from '../components/questionnaire-nav';
 
-import { setSelectedComponentId, 
-          setEditingComponentId,
-         } from 'actions/app-state';
-
 import {
-  removeComponent,
-} from 'actions/component';
+  setSelectedComponentId,
+  setEditingComponentId,
+} from 'actions/app-state';
+
+import { removeComponent } from 'actions/component';
 // Container
 
 const mapStateToProps = state => ({
