@@ -32,7 +32,7 @@ describe('calculated variables tranformations', () => {
           Label: 'label 2',
           Name: 'name 2',
           Formula: 'formula 2',
-          Scope : 'jbcggtca',
+          Scope: 'jbcggtca',
           Datatype: {
             MaxLength: 2,
             Pattern: '',
@@ -189,7 +189,7 @@ describe('calculated variables tranformations', () => {
           label: 'label 2',
           name: 'name 2',
           formula: 'formula 2',
-          scope : 'jbcggtca',
+          scope: 'jbcggtca',
           type: TEXT,
           [TEXT]: { maxLength: 2 },
         },

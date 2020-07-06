@@ -22,7 +22,6 @@ export const DATEFORMAT = [
     format: '3',
     label: 'aaaa',
   },
-
 ];
 
 export const TargetMode = [
@@ -236,16 +235,14 @@ export const QUESTION_TYPE_NAME = 'QuestionType';
 
 export const QUESTION_END = 'QUESTIONNAIRE_END';
 export const QUESTION_END_CHILD = {
-  id: "idendquest",
+  id: 'idendquest',
   depth: 1,
-  Name: "QUESTIONNAIRE_END",
-  Label: [
-    "QUESTIONNAIRE_END"
-  ],
+  Name: 'QUESTIONNAIRE_END',
+  Label: ['QUESTIONNAIRE_END'],
   Declaration: [],
-  genericName: "MODULE",
+  genericName: 'MODULE',
   Control: [],
   FlowControl: [],
-  type: "SequenceType",
+  type: 'SequenceType',
   Child: [],
 };

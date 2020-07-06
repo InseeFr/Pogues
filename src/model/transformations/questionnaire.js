@@ -13,6 +13,7 @@ import {
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
 import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
+import { checkPropTypes } from 'prop-types';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 
@@ -27,7 +28,7 @@ function generateComponentGroups(componentsStore) {
   );
 
   let startPage = 1;
-  let result = [];
+  const result = [];
   orderedComponents.forEach(componentId => {
     if (!result[startPage - 1]) {
       result.push({
@@ -42,8 +43,11 @@ function generateComponentGroups(componentsStore) {
       startPage += 1;
     }
   });
-  if(result[result.length-1] && !result[result.length-1].MemberReference.includes("idendquest")) {
-    result[result.length-1].MemberReference.push("idendquest");
+  if (
+    result[result.length - 1] &&
+    !result[result.length - 1].MemberReference.includes('idendquest')
+  ) {
+    result[result.length - 1].MemberReference.push('idendquest');
   }
   return result;
 }
@@ -150,8 +154,8 @@ export function stateToRemote(state, stores) {
     codesListsStore,
   );
   const questionEnd = QUESTION_END_CHILD;
-  questionEnd.TargetMode = TargetMode,
-  componentsRemote.push(QUESTION_END_CHILD); 
+  questionEnd.TargetMode = TargetMode;
+  componentsRemote.push(QUESTION_END_CHILD);
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
@@ -161,20 +165,15 @@ export function stateToRemote(state, stores) {
   );
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
-    componentsStore
+    componentsStore,
   );
-  const Iterations = Loop.stateToRemote(
-    componentsStore
-  )
+  const Iterations = Loop.stateToRemote(componentsStore);
 
-  return {
+  const json = {
     ...remote,
     Child: componentsRemote,
     CodeLists: {
       CodeList: codesListsRemote,
-    },
-    Iterations: {
-      Iteration: [...Iterations]
     },
     Variables: {
       Variable: [
@@ -184,4 +183,11 @@ export function stateToRemote(state, stores) {
       ],
     },
   };
+  if (Iterations.length !== 0) {
+    json.Iterations = {
+      Iteration: Iterations,
+    };
+  }
+
+  return json;
 }

@@ -158,7 +158,6 @@ export function setQuestionNotSaved(state) {
   };
 }
 
-
 export function setQuestionModified(state) {
   return {
     ...state,

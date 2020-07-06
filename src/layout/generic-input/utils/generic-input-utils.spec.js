@@ -191,9 +191,7 @@ describe('getNewQuestionPlaceholder', () => {
 });
 describe('getNewLoopPlaceholder', () => {
   test(`if component dont have any sequence`, () => {
-    const components = {
-
-    };
+    const components = {};
     const result = getNewLoopPlaceholder(components);
     expect(result).toEqual(false);
   });

@@ -10,10 +10,10 @@ const QuestionnaireList = props => {
   const { questionnaires, user } = props;
   const [filter, setFilter] = useState('');
 
-  const updateFilter = (value) => {
-		setFilter(value);
+  const updateFilter = value => {
+    setFilter(value);
   };
-  
+
   const list = questionnaires
     .filter(q => {
       return (
@@ -40,7 +40,7 @@ const QuestionnaireList = props => {
       );
     });
 
-	useEffect(() => {
+  useEffect(() => {
     if (props.user && props.user.permission)
       props.loadQuestionnaireList(props.user.permission);
   }, []);
@@ -49,39 +49,38 @@ const QuestionnaireList = props => {
     props.loadQuestionnaireList(props.user.permission);
   }, [props.user.permission]);
 
-
-	return (
+  return (
     <div className="box home-questionnaires">
-    <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
-    <h4>
-      {Dictionary.stamp} {user.permission}
-    </h4>
-    <div id="questionnaire-list">
-      {questionnaires.length > 0 ? (
-        <div>
-          <div className="ctrl-input">
-            <input
-              className="form-control"
-              placeholder={Dictionary.search}
-              type="text"
-              onChange={e => updateFilter(e.target.value)}
-            />
+      <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
+      <h4>
+        {Dictionary.stamp} {user.permission}
+      </h4>
+      <div id="questionnaire-list">
+        {questionnaires.length > 0 ? (
+          <div>
+            <div className="ctrl-input">
+              <input
+                className="form-control"
+                placeholder={Dictionary.search}
+                type="text"
+                onChange={e => updateFilter(e.target.value)}
+              />
+            </div>
+            <div className="questionnaire-list_header">
+              <div>{Dictionary.QUESTIONNAIRE}</div>
+              <div>{Dictionary.state}</div>
+              <div>{Dictionary.lastUpdate}</div>
+            </div>
+            {list}
           </div>
-          <div className="questionnaire-list_header">
-            <div>{Dictionary.QUESTIONNAIRE}</div>
-            <div>{Dictionary.state}</div>
-            <div>{Dictionary.lastUpdate}</div>
+        ) : (
+          <div className="questionnaire-list_noresults">
+            {Dictionary.noQuestionnnaires}
           </div>
-          {list}
-        </div>
-      ) : (
-        <div className="questionnaire-list_noresults">
-          {Dictionary.noQuestionnnaires}
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  </div>
-	);
+  );
 };
 // Prop types and default props
 

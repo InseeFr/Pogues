@@ -7,23 +7,6 @@ import { CONTROL_TREE_SELECT } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_TREE_SELECT;
 
-// PropTypes and defaultProps
-
-export const propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-  emptyValue: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.object),
-  meta: PropTypes.object.isRequired,
-};
-
-export const defaultProps = {
-  required: false,
-  options: [],
-  emptyValue: '',
-};
-
 // Control
 const TreeSelect = props => {
   const {
@@ -36,31 +19,32 @@ const TreeSelect = props => {
 
   const inputSearchRef = useRef(null);
 
-  const filterOption = (options, q) => {
+  const filterOptions = (options, q) => {
     return q !== '' ? options.filter(o => o.label.indexOf(q) !== -1) : options;
   };
 
   const [filteredOptions, setFilteredOptions] = useState([]);
-  const [optionsState, setOptionsState] = useState(props.options);
- 
-	useEffect(() => {
-    setFilteredOptions(filterOption(props.options, ''))
-  }, [optionsState]);
+
+  useEffect(() => {
+    setFilteredOptions(filterOptions(props.options, ''));
+  }, [props.options]);
 
   const updateListOptions = () => {
-    setFilteredOptions(filterOption(props.options, inputSearchRef.current.value))
+    setFilteredOptions(
+      filterOptions(props.options, inputSearchRef.current.value),
+    );
   };
 
   const selectValue = (value = '') => {
     props.input.onChange(value);
   };
-  
   const listOptions = filteredOptions.map(op => {
     const padding = Array(op.depth + 1).join('-');
     const isSelectedValue = op.value === input.value;
-    const value = op.value;
+    const { value } = op;
     return (
       <li
+        role="presentation"
         key={value}
         className={ClassSet({
           selected: isSelectedValue,
@@ -79,6 +63,7 @@ const TreeSelect = props => {
   if (emptyValue !== '') {
     listOptions.unshift(
       <li
+        role="presentation"
         key="-1"
         onClick={event => {
           event.preventDefault();
@@ -109,6 +94,23 @@ const TreeSelect = props => {
       </div>
     </div>
   );
-}
+};
+
+// PropTypes and defaultProps
+
+TreeSelect.propTypes = {
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  required: PropTypes.bool,
+  emptyValue: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.object),
+  meta: PropTypes.object.isRequired,
+};
+
+TreeSelect.defaultProps = {
+  required: false,
+  options: [],
+  emptyValue: '',
+};
 
 export default TreeSelect;

@@ -197,18 +197,16 @@ describe('questionnaire', () => {
           type: 'SequenceType',
         },
         {
-          id: "idendquest",
+          id: 'idendquest',
           depth: 1,
-          Name: "QUESTIONNAIRE_END",
-          Label: [
-            "QUESTIONNAIRE_END"
-          ],
+          Name: 'QUESTIONNAIRE_END',
+          Label: ['QUESTIONNAIRE_END'],
           Declaration: [],
-          genericName: "MODULE",
+          genericName: 'MODULE',
           Control: [],
           FlowControl: [],
           TargetMode: [''],
-          type: "SequenceType",
+          type: 'SequenceType',
           Child: [],
         },
       ],
@@ -225,7 +223,7 @@ describe('questionnaire', () => {
       ComponentGroup: [
         {
           Label: ['Components for page 1'],
-          MemberReference: ['jf0s3au7', 'jf0vtaeb', "idendquest"],
+          MemberReference: ['jf0s3au7', 'jf0vtaeb', 'idendquest'],
           Name: 'PAGE_1',
           id: output.ComponentGroup[0].id,
         },
@@ -256,9 +254,6 @@ describe('questionnaire', () => {
             type: 'CollectedVariableType',
           },
         ],
-      },
-      Iterations: {
-        Iteration: []
       },
       agency: 'fr.insee',
       final: false,

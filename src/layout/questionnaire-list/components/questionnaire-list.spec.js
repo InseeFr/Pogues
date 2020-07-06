@@ -63,7 +63,4 @@ describe('<QuestionnaireList />', () => {
   });
 
   // to be added when loading ticket finish
-
 });
-
-

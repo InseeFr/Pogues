@@ -7,7 +7,7 @@ describe('external variable transformation', () => {
       Name: 'Name 1',
       Label: 'Label 1',
       type: 'ExternalVariableType',
-      Scope: "jqqchose",
+      Scope: 'jqqchose',
       Datatype: {
         type: 'TextDatatypeType',
         typeName: 'TEXT',

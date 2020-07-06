@@ -14,10 +14,10 @@ import { ErrorsIntegrity as ErrorsIntegrityPanel } from 'layout/errors-integrity
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
-const {LOOP} = COMPONENT_TYPE;
+
+const { LOOP } = COMPONENT_TYPE;
 
 const QuestionnaireListComponents = props => {
-
   const {
     questionnaire,
     componentsStore,
@@ -26,51 +26,53 @@ const QuestionnaireListComponents = props => {
     setSelectedComponentId,
   } = props;
 
-	useEffect(() => {
+  useEffect(() => {
     props.setSelectedComponentId('');
   }, []);
 
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);
-  const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] = useState(false);
-
+  const [
+    showRemoveQuestionnaireDialog,
+    setShowRemoveQuestionnaireDialog,
+  ] = useState(false);
 
   const handleOpenQuestionnaireDetail = () => {
-    setShowQuestionnaireModal(true)
-    }
+    setShowQuestionnaireModal(true);
+  };
 
   const handleCloseQuestionnaireDetail = () => {
-    setShowQuestionnaireModal(false)
-    }
+    setShowQuestionnaireModal(false);
+  };
 
   const handleOpenComponentDetail = () => {
-    setShowComponentModal(true)
-    }
+    setShowComponentModal(true);
+  };
 
   const handleCloseComponentDetail = () => {
-    setShowComponentModal(false)
-    }
+    setShowComponentModal(false);
+  };
 
   const handleOpenRemoveQuestionnaireDialog = () => {
-    setShowRemoveQuestionnaireDialog(true)
-    }
+    setShowRemoveQuestionnaireDialog(true);
+  };
 
   const handleCloseRemoveQuestionnaireDialog = () => {
-    setShowRemoveQuestionnaireDialog(false)
-    }  
+    setShowRemoveQuestionnaireDialog(false);
+  };
 
   const handleQuestionnaireDelete = () => {
     props.removeQuestionnaire(props.questionnaire.id).then(() => {
       props.navigate('/');
     });
-  } 
-  
-  const  renderComponentsByParent = (parent, props, actions) => {
+  };
+
+  const renderComponentsByParent = (parent, props, actions) => {
     return getSortedChildren(props.componentsStore, parent).map(key => {
-      if(props.componentsStore[key].id !== "idendquest") { 
+      if (props.componentsStore[key].id !== 'idendquest') {
         const subTree = renderComponentsByParent(key, props, actions);
         const component = props.componentsStore[key];
-        if(component.type !== LOOP) {
+        if (component.type !== LOOP) {
           return (
             <QuestionnaireComponent
               key={component.id}
@@ -79,7 +81,9 @@ const QuestionnaireListComponents = props => {
               visualizeActiveQuestionnaire={props.visualizeActiveQuestionnaire}
               setSelectedComponentId={props.setSelectedComponentId}
               setEditingComponentId={props.setEditingComponentId}
-              duplicateComponentAndVariables={props.duplicateComponentAndVariables}
+              duplicateComponentAndVariables={
+                props.duplicateComponentAndVariables
+              }
               moveComponent={props.dragComponent}
               removeComponent={props.removeComponent}
               integrityErrorsByType={props.errorsIntegrity[key]}
@@ -94,16 +98,15 @@ const QuestionnaireListComponents = props => {
             </QuestionnaireComponent>
           );
         }
-      } 
+      }
     }, {});
-  }
+  };
 
   const componentType =
-  componentsStore[editingComponentId] &&
-  componentsStore[editingComponentId].type;
+    componentsStore[editingComponentId] &&
+    componentsStore[editingComponentId].type;
 
   const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
-
 
   return (
     <div id="questionnaire">
@@ -162,10 +165,7 @@ const QuestionnaireListComponents = props => {
               <div className="popup-header">
                 <h3>{Dictionary.questionnaireDetail}</h3>
 
-                <button
-                  type="button"
-                  onClick={handleCloseQuestionnaireDetail}
-                >
+                <button type="button" onClick={handleCloseQuestionnaireDetail}>
                   <span>X</span>
                 </button>
               </div>
@@ -190,10 +190,7 @@ const QuestionnaireListComponents = props => {
             <div className="popup">
               <div className="popup-header">
                 <h3>{componentHeader}</h3>
-                <button
-                  type="button"
-                  onClick={handleCloseComponentDetail}
-                >
+                <button type="button" onClick={handleCloseComponentDetail}>
                   <span>X</span>
                 </button>
               </div>
@@ -217,7 +214,7 @@ const QuestionnaireListComponents = props => {
       )}
     </div>
   );
-}
+};
 
 // Prop types and default Props
 QuestionnaireListComponents.propTypes = {

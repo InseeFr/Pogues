@@ -9,8 +9,8 @@ export const defaultState = {
   label: '',
   x: '',
   y: '',
-  z:'',
-  mesureLevel:'',
+  z: '',
+  mesureLevel: '',
   codeListReference: '',
   codeListReferenceLabel: '',
   isCollected: true,
@@ -21,8 +21,8 @@ export const defaultForm = {
   label: '',
   x: '',
   y: '',
-  z:'',
-  mesureLevel:'',
+  z: '',
+  mesureLevel: '',
   type: TEXT,
   collectedVariables: [],
   codeListReference: '',
@@ -37,13 +37,23 @@ function getTypings(object) {
     [NUMERIC]: object[NUMERIC],
     [DATE]: object[DATE],
     [BOOLEAN]: object[BOOLEAN],
-    [DURATION]:  object[DURATION],
+    [DURATION]: object[DURATION],
   };
 }
 export function formToState(form) {
-  const { name, label, x, y, z, mesureLevel, codeListReference, codeListReferenceLabel, isCollected } = form;
+  const {
+    name,
+    label,
+    x,
+    y,
+    z,
+    mesureLevel,
+    codeListReference,
+    codeListReferenceLabel,
+    isCollected,
+  } = form;
   const id = form.id || uuid();
-  
+
   return {
     id,
     name,
@@ -64,7 +74,7 @@ export function formToStore(form) {
 
   return collectedVariables.reduce((acc, cv) => {
     const state = formToState(cv);
- 
+
     return {
       ...acc,
       [state.id]: state,

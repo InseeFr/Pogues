@@ -3,7 +3,7 @@ import cloneDeep from 'lodash.clonedeep';
 import Dictionary from 'utils/dictionary/dictionary';
 import {
   CODES_LIST_INPUT_ENUM,
-  QUESTION_TYPE_ENUM
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
@@ -151,18 +151,21 @@ export function validCodesList(codesList) {
 
 export function validCollectedVariables(
   value,
-  { form, stores: { codesListsStore } }
+  { form, stores: { codesListsStore } },
 ) {
   function checkIfCodesListTheSame(expected, values) {
     if (!expected[0]) {
       return true;
     }
-    return expected.filter(e => e != undefined && e != "" && !values.includes(e)).length === 0;
+    return (
+      expected.filter(e => e !== undefined && e !== '' && !values.includes(e))
+        .length === 0
+    );
   }
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
     name: nameComponent,
-    responseFormat: { type, [type]: responseFormatValues }
+    responseFormat: { type, [type]: responseFormatValues },
   } = form;
   let expectedVariables;
 
@@ -171,17 +174,17 @@ export function validCollectedVariables(
       type,
       nameComponent,
       responseFormatValues,
-      codesListsStore
+      codesListsStore,
     );
   }
- 
+
   /**
    * for Single Choice Response, we check if the codeListReference for each
    * variable are in the same order as the ones expected
    */
   const isCodesTheSame = checkIfCodesListTheSame(
     expectedVariables.map(e => e.codeListReference),
-    value.map(e => e.codeListReference)
+    value.map(e => e.codeListReference),
   );
 
   /**
@@ -191,65 +194,70 @@ export function validCollectedVariables(
 
   function objectCompare(object1, object2) {
     let equal = true;
-    if(object2) {
-      for (var p in object1) {
-          if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
+    if (object2) {
+      for (const p in object1) {
+        if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
+          equal = false;
+        } else if (object1[p] != '' && object2[p] == undefined) {
+          equal = false;
+        } else if (object1[p] != '' && object2[p] != undefined) {
+          if (object1[p] != object2[p]) {
             equal = false;
-          }
-          else if(object1[p] != '' && object2[p] == undefined) {
-            equal = false;
-          }
-          else if( object1[p] != '' && object2[p] != undefined) {
-            if (object1[p] != object2[p]) {
-              equal = false;
-            }
           }
         }
-     }
+      }
+    }
     return equal;
   }
 
   let codeListPrecision = false;
-    if(expectedVariables.length != value.length && type === SINGLE_CHOICE){
-      codeListPrecision = true;
-    }
-    if(expectedVariables.length != value.length && type === MULTIPLE_CHOICE){
-      codeListPrecision = true;
-    }
+  if (expectedVariables.length !== value.length && type === SINGLE_CHOICE) {
+    codeListPrecision = true;
+  }
+  if (expectedVariables.length !== value.length && type === MULTIPLE_CHOICE) {
+    codeListPrecision = true;
+  }
   if (
-    type === SINGLE_CHOICE &&
-    value[0] &&
-    value[0].codeListReference !== expectedVariables[0].codeListReference ||
-    type === SINGLE_CHOICE && value[0] && value[0].codeListReferenceLabel !== expectedVariables[0].codeListReferenceLabel ||
-    type === SINGLE_CHOICE && value[0] && codeListPrecision
-  )
-   {
-    return Dictionary.validation_collectedvariable_need_reset;
-   }
-   
-  if (
-    type === MULTIPLE_CHOICE &&
-    value[0] && 
-    value[0].codeListReference && 
-    value[0].codeListReference !== expectedVariables[0].codeListReference||
-    type === MULTIPLE_CHOICE && value[0] && codeListPrecision
+    (type === SINGLE_CHOICE &&
+      value[0] &&
+      value[0].codeListReference !== expectedVariables[0].codeListReference) ||
+    (type === SINGLE_CHOICE &&
+      value[0] &&
+      value[0].codeListReferenceLabel !==
+        expectedVariables[0].codeListReferenceLabel) ||
+    (type === SINGLE_CHOICE && value[0] && codeListPrecision)
   ) {
     return Dictionary.validation_collectedvariable_need_reset;
-    }
+  }
 
-  if (type === TABLE && value[0] || type === SIMPLE && value[0] ) {
+  if (
+    (type === MULTIPLE_CHOICE &&
+      value[0] &&
+      value[0].codeListReference &&
+      value[0].codeListReference !== expectedVariables[0].codeListReference) ||
+    (type === MULTIPLE_CHOICE && value[0] && codeListPrecision)
+  ) {
+    return Dictionary.validation_collectedvariable_need_reset;
+  }
+
+  if ((type === TABLE && value[0]) || (type === SIMPLE && value[0])) {
     const typevalue = value[0].type;
     const typeexpectedVariables = expectedVariables[0].type;
     if (
-      value[0].codeListReference && expectedVariables[0].codeListReference && 
-      value[0].codeListReference !== expectedVariables[0].codeListReference ||
+      (value[0].codeListReference &&
+        expectedVariables[0].codeListReference &&
+        value[0].codeListReference !==
+          expectedVariables[0].codeListReference) ||
       typevalue !== typeexpectedVariables ||
-      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue]) ||
-      expectedVariables.length != value.length
+      !objectCompare(
+        expectedVariables[0][typeexpectedVariables],
+        value[0][typevalue],
+      ) ||
+      expectedVariables.length !== value.length
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
-      }
-  } 
+    }
+  }
 
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list
@@ -264,9 +272,9 @@ export function validCollectedVariables(
     expectedVariables &&
     value.length === 1 &&
     expectedVariables.length === 1
-  ){
+  ) {
     return false;
-   }
+  }
   return isCodesTheSame &&
     isTheSameOrder &&
     (expectedVariables && value.length === expectedVariables.length)
@@ -276,7 +284,7 @@ export function validCollectedVariables(
 
 export function validateEarlyTarget(
   value,
-  { stores: { componentsStore, editingComponentId } }
+  { stores: { componentsStore, editingComponentId } },
 ) {
   let result;
 
@@ -286,7 +294,7 @@ export function validateEarlyTarget(
       componentsStore[value] &&
       getComponentsTargetsByComponent(
         componentsStore,
-        componentsStore[editingComponentId]
+        componentsStore[editingComponentId],
       ).indexOf(value) === -1
         ? Dictionary.errorGoToEarlierTgt
         : undefined;
@@ -309,7 +317,7 @@ export function validateDuplicates(value, { form }) {
 
 export function validateDuplicatesCalculated(
   value,
-  { form: { calculatedVariables: values }, state: { selectedItemIndex } }
+  { form: { calculatedVariables: values }, state: { selectedItemIndex } },
 ) {
   const listItems = cloneDeep(values.calculatedVariables);
 
@@ -323,7 +331,7 @@ export function validateDuplicatesCalculated(
 
 export function validateDuplicatesExternal(
   value,
-  { form: { externalVariables: values }, state: { selectedItemIndex } }
+  { form: { externalVariables: values }, state: { selectedItemIndex } },
 ) {
   const listItems = cloneDeep(values.externalVariables);
 
@@ -337,7 +345,7 @@ export function validateDuplicatesExternal(
 
 export function validateDuplicatesCollected(
   value,
-  { form: { collectedVariables: values }, state: { selectedItemIndex } }
+  { form: { collectedVariables: values }, state: { selectedItemIndex } },
 ) {
   const listItems = cloneDeep(values.collectedVariables);
 
