@@ -88,7 +88,6 @@ export function stateToForm(currentState, transformers) {
 }
 
 const Factory = (initialState = {}, codesListsStore) => {
-  
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {
     codesList: new CodesListModel.Factory(

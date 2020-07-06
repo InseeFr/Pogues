@@ -268,14 +268,14 @@ export const dragComponent = (
  *
  * @param {string} idDeletedComponent the id of the component we want to remove
  */
- export const removeComponent = idDeletedComponent => (dispatch, getState) => {
-    const state = getState();
-    const { activeComponentsById } = state.appState;
+export const removeComponent = idDeletedComponent => (dispatch, getState) => {
+  const state = getState();
+  const { activeComponentsById } = state.appState;
 
-      dispatch({
-        type: REMOVE_COMPONENT,
-        payload: remove(activeComponentsById, idDeletedComponent),
-      });      
+  dispatch({
+    type: REMOVE_COMPONENT,
+    payload: remove(activeComponentsById, idDeletedComponent),
+  });
 };
 
 /**

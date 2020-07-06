@@ -11,7 +11,7 @@ import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
   getNewQuestionPlaceholder,
-  getNewLoopPlaceholder
+  getNewLoopPlaceholder,
 } from '../utils/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
@@ -52,17 +52,21 @@ function isQuestionnaireValid(questionnaireErrors = {}) {
 
 function isLoopsValid(componentsStore) {
   let loopsValid = true;
-  const componentsLoop =  Object.values(componentsStore).filter(component => component.type === LOOP);
-  if(componentsLoop.length > 0) {
+  const componentsLoop = Object.values(componentsStore).filter(
+    component => component.type === LOOP,
+  );
+  if (componentsLoop.length > 0) {
     componentsLoop.forEach(component => {
-      if(!componentsStore[component.initialMember] ||
-         !componentsStore[component.finalMember] ||
-         componentsStore[component.initialMember].weight > componentsStore[component.finalMember].weight ||
-         component.basedOn && !componentsStore[component.basedOn] 
-         ) {
-        loopsValid = false
+      if (
+        !componentsStore[component.initialMember] ||
+        !componentsStore[component.finalMember] ||
+        componentsStore[component.initialMember].weight >
+          componentsStore[component.finalMember].weight ||
+        (component.basedOn && !componentsStore[component.basedOn])
+      ) {
+        loopsValid = false;
       }
-    })
+    });
   }
   return loopsValid;
 }
@@ -85,11 +89,11 @@ const mapStateToProps = state => {
       selectedComponentId,
       activeQuestionnaire.id,
     ),
-    isQuestionnaireHaveError: state.appState.isQuestionnaireHaveError, 
+    isQuestionnaireHaveError: state.appState.isQuestionnaireHaveError,
     isQuestionnaireModified: state.appState.isQuestionnaireModified,
     isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
     componentIdForPageBreak: state.appState.componentIdForPageBreak,
-    isLoopsValid: isLoopsValid(activeComponentsById)
+    isLoopsValid: isLoopsValid(activeComponentsById),
   };
 };
 

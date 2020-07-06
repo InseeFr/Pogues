@@ -257,51 +257,61 @@ describe('codes list tranformations', () => {
           Name: '',
         },
       ];
-	  
-	  const clarification = [
-	   {
-	 	  responseclar: {
-          id: "k4e0h8vg",
-          questionType: "SIMPLE",
-          Name: "tests",
-          Label: "Préciser :",
-          TargetMode: ["PAPI","CAWI"], 
-          Response: [
-          {
-            id: "k4e0gjs8",
-            Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: "249", Pattern: ""},
-            CollectedVariableReference: "k4e0g90a",
-            mandatory: false
+
+      const clarification = [
+        {
+          responseclar: {
+            id: 'k4e0h8vg',
+            questionType: 'SIMPLE',
+            Name: 'tests',
+            Label: 'Préciser :',
+            TargetMode: ['PAPI', 'CAWI'],
+            Response: [
+              {
+                id: 'k4e0gjs8',
+                Datatype: {
+                  typeName: 'TEXT',
+                  type: 'TextDatatypeType',
+                  MaxLength: '249',
+                  Pattern: '',
+                },
+                CollectedVariableReference: 'k4e0g90a',
+                mandatory: false,
+              },
+            ],
           },
-          ]
-		  },
-		  position:   2,
-      codelistid: "j6p2kivg",
-      type: "MULTIPLE_CHOICE"
-	   },
-     {
-	 	  responseclar: {
-            id: "k4e0rr9w",
-          questionType: "SIMPLE",
-          Name: "sdd",
-          Label: "Préciser :",
-          TargetMode: ["PAPI","CAWI"], 
-          Response: [
-            {
-              id: "k4e0gjs8",
-              Datatype: {typeName: "TEXT", type: "TextDatatypeType", MaxLength: "5", Pattern: ""},
-              CollectedVariableReference: "k4e0akfv",
-              mandatory: false
-            },
-          ]
-		  },
-		  position: '1',
-      codelistid: "jbdye1wa",
-      type: "SINGLE_CHOICE"
-	   },
-	  ];
-	  
-	  const result = getcodelistwithclarification( input, clarification);
+          position: 2,
+          codelistid: 'j6p2kivg',
+          type: 'MULTIPLE_CHOICE',
+        },
+        {
+          responseclar: {
+            id: 'k4e0rr9w',
+            questionType: 'SIMPLE',
+            Name: 'sdd',
+            Label: 'Préciser :',
+            TargetMode: ['PAPI', 'CAWI'],
+            Response: [
+              {
+                id: 'k4e0gjs8',
+                Datatype: {
+                  typeName: 'TEXT',
+                  type: 'TextDatatypeType',
+                  MaxLength: '5',
+                  Pattern: '',
+                },
+                CollectedVariableReference: 'k4e0akfv',
+                mandatory: false,
+              },
+            ],
+          },
+          position: '1',
+          codelistid: 'jbdye1wa',
+          type: 'SINGLE_CHOICE',
+        },
+      ];
+
+      const result = getcodelistwithclarification(input, clarification);
 
       const output = {
         j334iumu: {
@@ -762,7 +772,7 @@ describe('codes list tranformations', () => {
           id: 'jbdyh6b5',
           label: 'Clowning_Characters',
           codes: {
-            '1': { value: '1', label: 'Jay', parent: '', depth: 1, weight: 1},
+            '1': { value: '1', label: 'Jay', parent: '', depth: 1, weight: 1 },
             '2': { value: '2', label: 'Bart', parent: '', depth: 1, weight: 2 },
             '3': {
               value: '3',
@@ -786,7 +796,7 @@ describe('codes list tranformations', () => {
           label: 'Means of transport',
           codes: {
             '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1 },
-            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2},
+            '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2 },
             '3': {
               value: '3',
               label: 'Skateboard',
@@ -795,7 +805,7 @@ describe('codes list tranformations', () => {
               weight: 3,
               precisionid: 'tests',
               precisionlabel: 'Préciser :',
-              precisionsize: '249'
+              precisionsize: '249',
             },
             '4': {
               value: '4',
@@ -818,8 +828,8 @@ describe('codes list tranformations', () => {
               depth: 1,
               weight: 1,
               precisionid: 'sdd',
-		      	  precisionlabel: 'Préciser :',
-			        precisionsize: '5'
+              precisionlabel: 'Préciser :',
+              precisionsize: '5',
             },
             '2': {
               value: '2',

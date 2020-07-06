@@ -104,32 +104,32 @@ export function getCollectedVariablesMultiple(
 
   const listFiltered = listCodes.filter(code => !hasChild(code, listCodes));
   const collectedVariables = listFiltered.map((c, index) =>
-  getCollecteVariable(
-     `${questionName}${index + 1}`,
-     `${c.value} - ${c.label}`,
-     { x: index + 1 },
-     reponseFormatValues,
-   )
- );
- form.PRIMARY.CodesList.codes.forEach(function(code) {
-  if (code.precisionid && code.precisionid != "") {
-    collectedVariables.push(
-      getCollecteVariable(
-        code.precisionid,
-        `${code.precisionid} label`,
-        { z: code.weight },
-        {
-          type: TEXT,
-          [TEXT]: {
-            maxLength: code.precisionsize,
-            pattern: '',
+    getCollecteVariable(
+      `${questionName}${index + 1}`,
+      `${c.value} - ${c.label}`,
+      { x: index + 1 },
+      reponseFormatValues,
+    ),
+  );
+  form.PRIMARY.CodesList.codes.forEach(function(code) {
+    if (code.precisionid && code.precisionid != '') {
+      collectedVariables.push(
+        getCollecteVariable(
+          code.precisionid,
+          `${code.precisionid} label`,
+          { z: code.weight },
+          {
+            type: TEXT,
+            [TEXT]: {
+              maxLength: code.precisionsize,
+              pattern: '',
+            },
           },
-        },
-      ),
-    );
-  }
-});
-  return  collectedVariables;
+        ),
+      );
+    }
+  });
+  return collectedVariables;
 }
 
 export function getCollectedVariablesSingle(
@@ -138,40 +138,39 @@ export function getCollectedVariablesSingle(
   codesListStore,
 ) {
   const collectedVariables = [];
-    collectedVariables.push(
-      getCollecteVariable(questionName, `${questionName} label`, undefined, {
-        codeListReference: form.CodesList.id,
-        codeListReferenceLabel: form.CodesList.label,
-        type: TEXT,
-        [TEXT]: {
-          maxLength: 1,
-          pattern: '',
-        },
-      }),
-    );
+  collectedVariables.push(
+    getCollecteVariable(questionName, `${questionName} label`, undefined, {
+      codeListReference: form.CodesList.id,
+      codeListReferenceLabel: form.CodesList.label,
+      type: TEXT,
+      [TEXT]: {
+        maxLength: 1,
+        pattern: '',
+      },
+    }),
+  );
 
   form.CodesList.codes.forEach(function(code) {
-      if (code.precisionid && code.precisionid != "") {
-        collectedVariables.push(
-          getCollecteVariable(
-            code.precisionid,
-            `${code.precisionid} label`,
-            { z: code.weight },
-            {
-              type: TEXT,
-              codeListReference: undefined,
-              [TEXT]: {
-                maxLength: code.precisionsize,
-                pattern: '',
-              },
+    if (code.precisionid && code.precisionid != '') {
+      collectedVariables.push(
+        getCollecteVariable(
+          code.precisionid,
+          `${code.precisionid} label`,
+          { z: code.weight },
+          {
+            type: TEXT,
+            codeListReference: undefined,
+            [TEXT]: {
+              maxLength: code.precisionsize,
+              pattern: '',
             },
-          ),
-        );
-      }
-    });
-     
- return collectedVariables;
+          },
+        ),
+      );
+    }
+  });
 
+  return collectedVariables;
 }
 
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
@@ -291,7 +290,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
               {
                 x: i + 1,
                 y: j + 1,
-                isCollected: true
+                isCollected: true,
               },
               getReponsesValues(measureState),
             ),
@@ -314,7 +313,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
               {
                 x: i + 1,
                 y: j + 1,
-                isCollected: true
+                isCollected: true,
               },
               getReponsesValues(measure),
             ),
@@ -330,10 +329,10 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         getCollecteVariable(
           `${questionName}${j + 1}`,
           `${measure.label}`,
-          { 
+          {
             x: 1,
             y: j + 1,
-            isCollected: true
+            isCollected: true,
           },
           getReponsesValues(measure),
         ),
@@ -341,36 +340,47 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     }
   }
 
-    if(form.LIST_MEASURE && form.LIST_MEASURE.measures){
-    form.LIST_MEASURE.measures.forEach(function(mesure){
-        if(mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList && mesure.SINGLE_CHOICE.CodesList.codes) {
-          mesure.SINGLE_CHOICE.CodesList.codes.forEach(function(code) {
-            if (code.precisionid && code.precisionid !== "") {
-              collectedVariables.filter(variable => variable.codeListReference && variable.codeListReference === mesure.SINGLE_CHOICE.CodesList.id).forEach(function(variable) {
+  if (form.LIST_MEASURE && form.LIST_MEASURE.measures) {
+    form.LIST_MEASURE.measures.forEach(function(mesure) {
+      if (
+        mesure.SINGLE_CHOICE &&
+        mesure.SINGLE_CHOICE.CodesList &&
+        mesure.SINGLE_CHOICE.CodesList.codes
+      ) {
+        mesure.SINGLE_CHOICE.CodesList.codes.forEach(function(code) {
+          if (code.precisionid && code.precisionid !== '') {
+            collectedVariables
+              .filter(
+                variable =>
+                  variable.codeListReference &&
+                  variable.codeListReference ===
+                    mesure.SINGLE_CHOICE.CodesList.id,
+              )
+              .forEach(function(variable) {
                 collectedVariables.push(
                   getCollecteVariable(
                     `${variable.name}${code.value}CL`,
                     `${variable.name}${code.value}CL label`,
                     {
                       z: code.weight,
-                      mesureLevel: variable.x, 
-                      isCollected: true
-                     },
+                      mesureLevel: variable.x,
+                      isCollected: true,
+                    },
                     {
-                      type: "TEXT",
-                      ["TEXT"]: {
+                      type: 'TEXT',
+                      TEXT: {
                         maxLength: code.precisionsize,
                         pattern: '',
                       },
                     },
                   ),
                 );
-              })
-            }
-          });
-        }
-      })
-    }
+              });
+          }
+        });
+      }
+    });
+  }
   return collectedVariables.sort(sortByYAndX());
 }
 

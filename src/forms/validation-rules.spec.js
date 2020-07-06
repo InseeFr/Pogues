@@ -297,9 +297,9 @@ describe('validCollectedVariables', () => {
                   parent: '',
                   weight: 1,
                   depth: 1,
-				  precisionsize: 249,
-				  precisionid: 'test',
-				  precisionlabel: 'Préciser :'
+                  precisionsize: 249,
+                  precisionid: 'test',
+                  precisionlabel: 'Préciser :',
                 },
               ],
               panel: 'QUEST',
@@ -368,17 +368,17 @@ describe('validCollectedVariables', () => {
     ];
     const state = {
       form: {
-        name: "SD",
-        label: "sd",
+        name: 'SD',
+        label: 'sd',
         responseFormat: {
           type: 'SIMPLE',
           SIMPLE: {
-            type: "TEXT",
+            type: 'TEXT',
             TEXT: {
               maxLength: 255,
-              pattern: "",
-            }
+              pattern: '',
             },
+          },
         },
         collectedVariables: {
           name: '',
@@ -391,8 +391,8 @@ describe('validCollectedVariables', () => {
               id: 'k25y6zf1',
               name: 'SD',
               label: 'SD label',
-              codeListReference: "k25y8eyw",
-              codeListReferenceLabel: "tes",
+              codeListReference: 'k25y8eyw',
+              codeListReferenceLabel: 'tes',
               type: 'TEXT',
               TEXT: {
                 maxLength: 1,
@@ -411,9 +411,9 @@ describe('validCollectedVariables', () => {
           codes: {
             asdasd: {
               depth: 1,
-              label: "ss",
-              parent: "",
-              value: "ss",
+              label: 'ss',
+              parent: '',
+              value: 'ss',
               weight: 1,
             },
           },
@@ -442,17 +442,17 @@ describe('validCollectedVariables', () => {
     ];
     const state = {
       form: {
-        name: "QSD",
-        label: "qsd",
+        name: 'QSD',
+        label: 'qsd',
         responseFormat: {
           type: 'SIMPLE',
           SIMPLE: {
-            type: "TEXT",
+            type: 'TEXT',
             TEXT: {
               maxLength: 255,
               pattern: 222,
-            }
             },
+          },
         },
         collectedVariables: {
           name: '',
@@ -466,7 +466,7 @@ describe('validCollectedVariables', () => {
               name: 'QSD',
               label: 'QSD label',
               codeListReference: undefined,
-              codeListReferenceLabel: "",
+              codeListReferenceLabel: '',
               type: 'TEXT',
               TEXT: {
                 maxLength: 255,
