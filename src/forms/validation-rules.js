@@ -158,7 +158,7 @@ export function validCollectedVariables(
       return true;
     }
     return (
-      expected.filter(e => e != undefined && e != '' && !values.includes(e))
+      expected.filter(e => e !== undefined && e !== '' && !values.includes(e))
         .length === 0
     );
   }
@@ -211,10 +211,10 @@ export function validCollectedVariables(
   }
 
   let codeListPrecision = false;
-  if (expectedVariables.length != value.length && type === SINGLE_CHOICE) {
+  if (expectedVariables.length !== value.length && type === SINGLE_CHOICE) {
     codeListPrecision = true;
   }
-  if (expectedVariables.length != value.length && type === MULTIPLE_CHOICE) {
+  if (expectedVariables.length !== value.length && type === MULTIPLE_CHOICE) {
     codeListPrecision = true;
   }
   if (
@@ -253,7 +253,7 @@ export function validCollectedVariables(
         expectedVariables[0][typeexpectedVariables],
         value[0][typevalue],
       ) ||
-      expectedVariables.length != value.length
+      expectedVariables.length !== value.length
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
     }

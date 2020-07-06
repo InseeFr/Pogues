@@ -271,6 +271,6 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
  */
 export function getNewLoopPlaceholder(components) {
   return !!Object.values(components).find(
-    component => component.type === SEQUENCE,
+    component => component.type === SEQUENCE && component.id !== 'idendquest',
   );
 }

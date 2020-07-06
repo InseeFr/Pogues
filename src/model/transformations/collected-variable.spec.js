@@ -1278,4 +1278,114 @@ describe('collected variable tranformations', () => {
     ];
     expect(storeToRemote(input, input1)).toEqual(output);
   });
+
+  test('should return Scoop from Question ID in collected variable model if there is question type table dynamique', () => {
+    const input = {
+      kawkrelo: {
+        BOOLEAN: undefined,
+        DATE: undefined,
+        DURATION: undefined,
+        NUMERIC: undefined,
+        TEXT: { maxLength: 255, pattern: '' },
+        codeListReference: '',
+        codeListReferenceLabel: '',
+        id: 'kawkrelo',
+        label: 'tab',
+        mesureLevel: undefined,
+        name: 'QUESTION21',
+        type: 'TEXT',
+        x: 1,
+        y: 1,
+        z: undefined,
+      },
+    };
+    const input1 = {
+      kawkbwbv: {
+        TargetMode: ['CAWI'],
+        children: ['kawkitxu', 'kawknrqr'],
+        controls: {},
+        declarations: {},
+        id: 'kawkbwbv',
+        label: 'sequence1',
+        name: 'SEQUENCE1',
+        pageBreak: false,
+        parent: 'kawkne43',
+        redirections: {},
+        responsesClarification: undefined,
+        type: 'SEQUENCE',
+        weight: 0,
+      },
+      kawknrqr: {
+        TargetMode: ['CAWI'],
+        children: [],
+        collectedVariables: ['kawkrelo'],
+        controls: {},
+        declarations: {},
+        id: 'kawknrqr',
+        label: 'question2',
+        name: 'QUESTION2',
+        pageBreak: false,
+        parent: 'kawkbwbv',
+        redirections: {},
+        responseFormat: {
+          type: 'TABLE',
+          TABLE: {
+            LIST_MEASURE: [
+              {
+                label: 'tab',
+                type: 'SIMPLE',
+                SIMPLE: {
+                  id: undefined,
+                  type: 'TEXT',
+                  mandatory: undefined,
+                  TEXT: {
+                    maxLength: 255,
+                    pattern: '',
+                  },
+                },
+              },
+            ],
+            PRIMARY: {
+              LIST: { numLinesMin: 4, numLinesMax: 2 },
+              type: 'LIST',
+            },
+          },
+        },
+        responsesClarification: [],
+        type: 'QUESTION',
+        weight: 0,
+      },
+      kawkne43: {
+        TargetMode: ['CAWI'],
+        children: ['kawkbwbv'],
+        controls: {},
+        declarations: {},
+        id: 'kawkne43',
+        label: 'testloop',
+        name: 'TESTLOOP',
+        pageBreak: undefined,
+        parent: '',
+        redirections: {},
+        responsesClarification: undefined,
+        type: 'QUESTIONNAIRE',
+        weight: 0,
+      },
+    };
+    const output = [
+      {
+        Datatype: {
+          typeName: 'TEXT',
+          type: 'TextDatatypeType',
+          MaxLength: 255,
+          Pattern: '',
+        },
+        Label: 'tab',
+        Name: 'QUESTION21',
+        Scope: 'kawknrqr',
+        id: 'kawkrelo',
+        type: 'CollectedVariableType',
+      },
+    ];
+    expect(storeToRemote(input, input1)).toEqual(output);
+  });
 });
