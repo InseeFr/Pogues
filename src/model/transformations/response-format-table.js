@@ -72,7 +72,6 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
 }
 
 function getMeasuresModel(responses, dimensions, offset) {
-  debugger;
   const responsesModel = [];
   for (let i = 0; i < dimensions.length; i += 1) {
 
