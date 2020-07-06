@@ -213,7 +213,6 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
   let heavySequenceId;
   let heavySubsequenceId;
   let heavyQuestionId;
-  console.log("activeComponent", activeComponent)
 
   if (activeComponent) {
     parent = getClosestComponentIdByType(
