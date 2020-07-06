@@ -168,8 +168,6 @@ export function stateToRemote(state, stores) {
     componentsStore
   );
 
-  console.log('Iterations', Iterations);
-
   const json = {
     ...remote,
     Child: componentsRemote,
