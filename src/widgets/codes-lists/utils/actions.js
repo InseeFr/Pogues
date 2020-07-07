@@ -59,10 +59,10 @@ export function getDisabledActions(allCodes, code, actions, type) {
   if (disableMoveLeftButton(code)) disabledActions.push(actions.MOVE_LEFT.name);
   if (disableMoveRightButton(allCodes, code))
     disabledActions.push(actions.MOVE_RIGHT.name);
-  if(code.precisionid === undefined || code.precisionid === "" || type == "TABLE")
+  if(code.precisionid === undefined || code.precisionid === "")
     disabledActions.push(actions.PRECESION_EDIT.name);
-  if(code.precisionid || type == "TABLE")
-    disabledActions.push(actions.PRECESION.name);
+  if(code.precisionid)
+    disabledActions.push(actions.PRECESION.name);  
 
   return disabledActions;
 }

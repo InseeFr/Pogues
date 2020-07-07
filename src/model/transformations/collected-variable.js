@@ -3,13 +3,34 @@ import {
   VARIABLES_TYPES,
   DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME
 } from 'constants/pogues-constants';
+import { element } from 'prop-types';
 const { COLLECTED } = VARIABLES_TYPES;
 
 export function remoteToStore(
   remote = [],
   responsesByVariable,
   codesListsStore,
+  variableclarification,
 ) {
+  remote.forEach(variable => {
+    if(variableclarification) {
+      const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
+      if(find) {
+        if(find.type === 'MULTIPLE_CHOICE') {       
+          variable.z = parseInt(find.position) + 1;
+        }
+        else if(find.type === 'TABLE') {
+          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
+          variable.z = code.weight;
+          variable.mesureLevel = find.level
+        }
+        else {
+          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
+          variable.z = code.weight;
+        }
+      }
+    }
+  })
   return remote.reduce((acc, ev) => {
     ev.Datatype = ev.Datatype || {};
     const {
@@ -27,6 +48,8 @@ export function remoteToStore(
         Format: format1,
       },
     } = ev;
+    const z = ev.z;
+    const mesureLevel = ev.mesureLevel;
     const id = ev.id || uuid();
     const format =
     typeName === DATATYPE_NAME.DATE && format1 ? format1.toLowerCase() : format1;
@@ -42,29 +65,36 @@ export function remoteToStore(
       if(datatype.minimum !== undefined){
         let strminimum = datatype.minimum;
         let matches_minimum = strminimum.match(/\d+/g);
-        if (format !== undefined && format === 'PTnHnM') {
+        if (format === 'PTnHnM') {
           datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
         }
-        if (format !== undefined && format === 'PnYnM') {
+        if (format === 'PnYnM') {
           datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
           datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+        }
+        if (format === 'HH:CH') {
+          datatype.mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];
+          datatype.mihundredths = matches_minimum[1][0] == 0 ? matches_minimum[1].slice(1) : matches_minimum[1];
         }
       }
       if(datatype.maximum !== undefined){
         let strmaximum = datatype.maximum;
         let matches_maximum = strmaximum.match(/\d+/g);
-        if (format !== undefined && format === 'PTnHnM') {
+        if (format === 'PTnHnM') {
           datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
-        if (format !== undefined && format === 'PnYnM') {
+        if (format === 'PnYnM') {
           datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
           datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
         }
+        if (format === 'HH:CH') {
+          datatype.mahundhours = matches_maximum[0][0] == 0 ? matches_maximum[0].slice(1) : matches_maximum[0];
+          datatype.mahundredths = matches_maximum[1][0] == 0 ? matches_maximum[1].slice(1) : matches_maximum[1];
+        }
       }
     }
-
     return {
       ...acc,
       [id]: {
@@ -76,25 +106,25 @@ export function remoteToStore(
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
+        z,
+        mesureLevel,
         [typeName]: datatype,
         ...responsesByVariable[id],
       },
     };
   }, {});
 }
-
 export function remoteToComponentState(remote = []) {
- 
   return remote
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
 }
-
 export function storeToRemote(store) {
   return Object.keys(store).map(key => {
 
     const {
       id,
+      z,
       name: Name,
       label: Label,
       type: typeName,
@@ -115,6 +145,10 @@ export function storeToRemote(store) {
         miminutes: Miminutes,
         mahours: Mahours,
         maminutes: Maminutes,
+        mihundhours: Mihundhours,
+        mihundredths: Mihundredths,
+        mahundhours: Mahundhours,
+        mahundredths: Mahundredths,
       },
     } = store[key];
     const model = {
@@ -122,13 +156,16 @@ export function storeToRemote(store) {
       Name,
       Label,
       type: COLLECTED,
-      CodeListReference: codeListReference,
       Datatype: {
         typeName,
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
+    if(codeListReference !== "") {
+      model.CodeListReference = codeListReference;
+    }
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
+
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
 
     if (typeName === DATATYPE_NAME.DURATION && Format !== undefined) {
@@ -149,8 +186,15 @@ export function storeToRemote(store) {
           model.Datatype.Maximum = `PT${Mahours || 0}H${Maminutes || 0}M`;
         }
       }
+      if (Format === 'HH:CH') {
+        if(Mihundhours || Mihundredths){
+          model.Datatype.Minimum = `${Mihundhours ? ('0' + Mihundhours).slice(-2) : '00'}:${Mihundredths ? ('0' + Mihundredths).slice(-2) : '00'}`;
+        }
+         if(Mahundhours || Mahundredths){
+          model.Datatype.Maximum = `${Mahundhours ? ('0' + Mahundhours).slice(-2) : '00'}:${Mahundredths ?  ('0' + Mahundredths).slice(-2) : '00'}`;
+        }
+      }
      }
-
      else if (typeName === DATATYPE_NAME.DATE){
         if (Minimum !== '') {
           model.Datatype.Minimum = Minimum;
@@ -159,7 +203,6 @@ export function storeToRemote(store) {
           model.Datatype.Maximum = Maximum;
         }
      }
-
     else {
       if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
       if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
@@ -173,9 +216,8 @@ export function storeToRemote(store) {
       else{
         model.Datatype.Format = Format;
       }
-       
     }
 
-    return model;
+        return model;
   });
 }

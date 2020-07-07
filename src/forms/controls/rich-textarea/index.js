@@ -9,5 +9,6 @@ export {
 export {
   toolbarConfig,
   toolbarConfigQuestion,
+  toolbarConfigTooltip,
   rootStyle,
 } from './rich-textarea-toobar-config';

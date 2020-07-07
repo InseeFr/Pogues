@@ -151,7 +151,7 @@ export function validCollectedVariables(
     if (!expected[0]) {
       return true;
     }
-    return expected.filter(e => !values.includes(e)).length === 0;
+    return expected.filter(e => e != undefined && e != "" && !values.includes(e)).length === 0;
   }
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
@@ -185,52 +185,31 @@ export function validCollectedVariables(
 
   function objectCompare(object1, object2) {
     let equal = true;
-    for (var p in object1) {
-      if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
-        equal = false;
-      }
-      else if(object1[p] != '' && object2[p] == undefined) {
-        equal = false;
-      }
-      else if( object1[p] != '' && object2[p] != undefined) {
-        if (object1[p] != object2[p]) {
-          equal = false;
+    if(object2) {
+      for (var p in object1) {
+          if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
+            equal = false;
+          }
+          else if(object1[p] != '' && object2[p] == undefined) {
+            equal = false;
+          }
+          else if( object1[p] != '' && object2[p] != undefined) {
+            if (object1[p] != object2[p]) {
+              equal = false;
+            }
+          }
         }
-      }
      }
     return equal;
   }
+
   let codeListPrecision = false;
-    if(expectedVariables.length === value.length && type === SINGLE_CHOICE){
-      for (var i=1; i < value.length; i++) {
-        const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name );
-       if (resultat) {
-          if( resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength)
-            {
-              codeListPrecision = true;
-            }
-        }
-        else{
-          codeListPrecision = true;
-        } 
-       }
-    }
-   else if(expectedVariables.length === value.length && type === MULTIPLE_CHOICE){
-      for (let i=0; i < value.length; i++) {
-        if(value[i].type == "TEXT" && value[i].codeListReference == undefined){
-          const resultat = Object.values(expectedVariables).find(res => res.name === value[i].name);
-          if(result){
-                codeListPrecision = resultat.label != value[i].label || resultat.TEXT.maxLength != value[i].TEXT.maxLength;
-            } 
-          else {
-              codeListPrecision = false
-            }
-          }
-       }
-    }
-    else {
+    if(expectedVariables.length != value.length && type === SINGLE_CHOICE){
       codeListPrecision = true;
-   }
+    }
+    if(expectedVariables.length != value.length && type === MULTIPLE_CHOICE){
+      codeListPrecision = true;
+    }
   if (
     type === SINGLE_CHOICE &&
     value[0] &&
@@ -239,30 +218,33 @@ export function validCollectedVariables(
     type === SINGLE_CHOICE && value[0] && codeListPrecision
   )
    {
-
     return Dictionary.validation_collectedvariable_need_reset;
-  }
+   }
+   
   if (
     type === MULTIPLE_CHOICE &&
-    value[0] &&
+    value[0] && 
+    value[0].codeListReference && 
     value[0].codeListReference !== expectedVariables[0].codeListReference||
     type === MULTIPLE_CHOICE && value[0] && codeListPrecision
   ) {
- 
     return Dictionary.validation_collectedvariable_need_reset;
-  }
-  
+    }
+
   if (type === TABLE && value[0] || type === SIMPLE && value[0] ) {
     const typevalue = value[0].type;
     const typeexpectedVariables = expectedVariables[0].type;
     if (
-      value[0].codeListReference ||
+      value[0].codeListReference && expectedVariables[0].codeListReference && 
+      value[0].codeListReference !== expectedVariables[0].codeListReference ||
       typevalue !== typeexpectedVariables ||
-      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue])
+      !objectCompare(expectedVariables[0][typeexpectedVariables], value[0][typevalue]) ||
+      expectedVariables.length != value.length
     ) {
       return Dictionary.validation_collectedvariable_need_reset;
-    }
+      }
   } 
+
   /**
    * For Multiple Choice Reponse, we check if all the codes of a code list
    * are in the right order.

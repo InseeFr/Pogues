@@ -304,6 +304,10 @@ const dictionary = {
     en: 'Pattern',
     fr: 'Motif',
   },
+  collected: {
+    en: 'Collected',
+    fr: 'Collectée',
+  },
   disjoignable: {
     en: 'Detachable statement',
     fr: 'Déclaration détachable',
@@ -345,6 +349,10 @@ const dictionary = {
     fr: 'Précision',
   },
 
+  specify: {
+    en: 'Specify',
+    fr: 'Préciser',
+  },
   hours: {
     en: 'hours',
     fr: 'heures',
@@ -353,7 +361,12 @@ const dictionary = {
   minutes: {
     en: 'minutes',
     fr: 'minutes',
-  }, 
+  },
+
+  hundredths: {
+    en: 'hundredths',
+    fr: 'centièmes',
+  },
 
   years: {
     en: 'years',
@@ -844,6 +857,10 @@ const dictionary = {
     fr: 'années/mois',
     en: 'years/months',
   },
+  durationformat3: {
+    fr: 'heures/centièmes',
+    en: 'hours/hundredths',
+  },
 
   dateyyyy: {
     fr: 'AAAA',
@@ -963,9 +980,13 @@ const dictionary = {
     fr: 'Provisoire',
     en: 'Provisional',
   },
-  noQuestionnnaires: {
+  noQuestionnaires: {
     fr: 'Aucun questionnaire',
     en: 'No questionnaires',
+  },
+  loading: {
+    fr: 'En cours de chargement',
+    en: 'Loading',
   },
   validate: {
     fr: 'Valider',
@@ -1186,7 +1207,7 @@ const dictionary = {
   },
   validation_collectedvariable_name: {
     fr: 'Identifiant de la variable collectée obligatoire',
-    en: 'Collected variable name required',
+    en: 'Collected variable id required',
   },
   validation_collectedvariable_existing: {
     fr: 'Il existe une variable collectée avec le même nom',

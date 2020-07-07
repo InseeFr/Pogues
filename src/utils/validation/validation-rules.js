@@ -75,6 +75,15 @@ export const questionRules = {
     value => value !== undefined && value !== ''? maxValue(59)(value): false,
   ],
 
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahundredths`]: [
+    value => value !== undefined && value !== ''? minValue(0)(value) : false,
+    value => value != undefined && value != ''? maxValue(99)(value): false,
+  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mihundredths`]: [
+    value => value !== undefined && value !== ''? minValue(0)(value) : false,
+    value => value !== undefined && value !== ''? maxValue(99)(value): false,
+  ],
+
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mamonths`]: [
     value => value !== undefined && value !== ''? minValue(0)(value) : false,
     value => value !== undefined && value !== ''? maxValue(11)(value): false,
@@ -96,11 +105,11 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: [
     value => minValue(1)(value),
-    value => maxValue(100)(value),
+    value => maxValue(300)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMax`]: [
     value => minValue(1)(value),
-    value => maxValue(100)(value),
+    value => maxValue(300)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
@@ -146,7 +155,6 @@ export const questionRules = {
   [`${COLLECTED_VARIABLES}.collectedVariables`]: [validCollectedVariables],
  
 };
-
 export const declarationRules = {
   [`${DECLARATIONS}.label`]: [
     value => required(value) && Dictionary.validation_declaration_label,

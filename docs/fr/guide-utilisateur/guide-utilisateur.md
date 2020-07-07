@@ -1,5 +1,5 @@
 # Guide utilisateur Pogues
-Version au 18/06/2019
+Version au 02/07/2020
 
 ---
 
@@ -140,7 +140,7 @@ Renseigner
 	- libre choix du concepteur mais dans le cas où la question correspond à une seule réponse et donc à une seule variable collectée, l'identifiant métier de la variable collectée semble la meilleure option !
 - modifier les modes de collecte si la question ne concerne pas tous les modes associés au questionnaire
 - le type de question
-	- Réponse simple (texte, date, nombre ou booléen), Réponse à choix unique, Réponse à choix multiple (cf. batterie de questions), Tableau
+	- Réponse simple (texte, date, nombre, booléen ou durée), Réponse à choix unique, Réponse à choix multiple (cf. batterie de questions), Tableau
 		
 ---
 
@@ -152,20 +152,29 @@ Exemples :
 
 ---
 
+# Création d'une question de type Réponse simple
+
+Exemples :
+
+![](../../img/fr/rs2.png)
+
+---
+
 Si j'ai créé une question de type Réponse simple, renseigner :
-- le caractère Obligatoire  de la réponse : cochable, décochable. Non fonctionnel à ce jour.
+- le caractère Obligatoire de la réponse : cochable, décochable. Pour le moment, l'information est enregistrée dans le DDI mais n'a pas d'effet sur l'affichage de la question au sein du questionnaire.
 - le type de réponse :
-	- Texte, Date, Nombre, Booléen
+	- Texte, Date,Nombre, Booléen, Durée
 - si type de réponse=Texte, renseigner la taille maximale de la réponse en nombre de caractères, le motif (non fonctionnel pour l'instant, il permettra de spécifier des expressions régulières comme un Siret, un mèl etc.)
-- si type de réponse=Date, on ne renseigne rien d'autre pour l'instant et on se retrouve avec une réponse au format JJ/MM/AAAA et une aide à la saisie de type calendrier cliquable
-![](../../img/fr/date.png)   
+- si type de réponse=Date, renseigner le format de sortie parmi AAAA-MM-JJ, AAAA-MM et AAAA ainsi qu'un éventuel minimum et/ou maximum (par défaut configurés à l'équivalent de 1900-01-01 pour le minimum et à l'équivalent de la date du jour pour le maximum)
+
 		
 ---
 
 Si j'ai créé une question de type Réponse simple, renseigner (suite) :
-- si type de réponse=Nombre, renseigner le minimum et le maximum attendu (ce qui génèrera des contrôles bloquants de format et un exemple de réponse calculée comme min+1/4*(max-min) avec la précision souhaitée), la précision (nombre de chiffres après la virgule attendu), l'unité de mesure (parmi pour l'instant : €, k€ et %)
-    
+- si type de réponse=Nombre, renseigner le minimum et le maximum attendu, la précision (nombre de chiffres après la virgule, par défaut : aucun), l'unité de mesure (parmi pour l'instant : €, k€, %,  heures, mois, jours, années)
 - si type de réponse=Booléen, on ne renseigne rien pour l'instant et on se retrouve avec une unique cache à cocher cochable/décochable.
+- si type de réponse=Durée, renseigner le format de sortie parmi heures-minutes, années-mois ou heures-centièmes ainsi qu'un éventuel minimum et/ou maximum (par défaut respectivement configurés à 0 heures 0 minutes et 99 heures 59 minutes, 0 années 0 mois et 99 années 11 mois ou 00:00 et 99:99)
+
     
 - Valider
 
@@ -180,7 +189,7 @@ Exemples :
 ---
 
 Si la question est de type Réponse à choix unique, renseigner :
-- le caractère Obligatoire  de la réponse : cochable, décochable. Non fonctionnel à ce jour.
+- le caractère Obligatoire  de la réponse : cochable, décochable. Pour le moment, l'information est enregistrée dans le DDI mais n'a pas d'effet sur l'affichage de la question au sein du questionnaire.
 - le type de saisie :
 	- Case à cocher (chaque modalité sera cochable ou décochable, mais une seule réponse possible)
 	- Bouton-radio (ergonomie web standard pour ce type de réponse, on ne peut pas décocher la réponse à la question (on peut changer la réponse, mais on ne peut pas supprimer une réponse))
@@ -200,7 +209,7 @@ Si la question est de type Réponse à choix unique, renseigner (suite) :
 
 # Création d'une question de type Réponse à choix multiples
 
-Exemples :
+
 
 ![](../../img/fr/rcm.png)
 
@@ -252,7 +261,7 @@ Exemple 3 :
 ![](../../img/fr/tableau3.png)
 
 ---
-Si je veux créer une question de type Tableau (avec en-tête de lignes en première colonne), renseigner :
+Si je veux créer une question de type Tableau fixe (avec en-tête de lignes en première colonne et sans possibilité d'ajouter dynamiquement une ligne au tableau), renseigner :
 - Axe d'information principal
 	- choisir Liste de codes :
 		- Spécifier la liste de codes via les fonctionnalités habituelles
@@ -268,14 +277,33 @@ Si je veux créer une question de type Tableau (avec en-tête de lignes en premi
 
 # Création d'une question de type Tableau (Axe d'information principal : Liste)
 
-Si je veux créer une question de type Tableau (sans en-tête de lignes en première colonne), renseigner :
+Si je veux créer une question de type Tableau dynamique (sans en-tête de lignes en première colonne et possibilité d'ajouter dynamiquement une ligne au tableau), renseigner :
 - Axe d'information principal
 	- choisir Liste :
 		- Nombre de lignes min.
-		- Nombre de lignes max.
+		- Nombre de lignes max. (borné à 300)
 - Information mesurée (une ou plusieurs possibles via le bouton +)
 	- renseigner une information de type Réponse simple ou Réponse à choix unique
 - Valider
+
+---
+# Création d'un complément textuel pour préciser le choix d'une modalité de type "Autre"
+Il est possible de préciser par un complément textuel la coche d'une modalité de type "Autre" à une question appelant une réponse à choix unique ou à choix multiple ou pour une colonne d'un tableau de taille fixe appelant une réponse à choix unique.
+
+Pour cela, cliquer sur "voir en détail" pour la question concernée dans Pogues puis cliquer sur l'icône + de la modalité pour laquelle vous souhaitez déclencher ce complément textuel, modifier si nécessaire la longueur (par défaut 249 caractères) et le libellé du champ (par défaut "Préciser :").
+
+- Valider 
+
+---
+
+![](../../img/fr/autrepreciser1.png)
+
+ ---
+
+![](../../img/fr/autrepreciser2.png)
+
+Il est également possible de modifier ou de supprimer ces compléments textuels.
+
 
 ---
 
@@ -286,11 +314,12 @@ aller dans l'onglet "Variables collectées" pour les générer
  		
 ---
 
-- cliquer sur le bouton "Générer les variables collectées" et modifier les libellés et identifiants proposés par défaut par l'application par un libellé signifiant (penser à vos successeurs) et l'identifiant métier de la ou des variables collectées. 
+- Cliquer sur le bouton "Générer les variables collectées" et modifier les libellés et identifiants proposés par défaut par l'application par un libellé signifiant (penser à vos successeurs) et l'identifiant métier de la ou des variables collectées. 
+- **Dans le cas où certaines cellules d'un tableau ne sont pas à collecter car sans objet ou destinées par exemple à rappeler un total calculé, collecté ou en dur (par exemple 100%), décocher pour chaque cellule concernée le booléen Collectée associée à la variable collectée ad hoc.**
 
-- au fur et à mesure de vos modifications, cliquer sur le bouton "Valider" affiché le plus haut et le plus à droite de votre écran (en bas à droite de l'écran grisé) 
+- Au fur et à mesure de vos modifications, cliquer sur le bouton "Valider" affiché le plus haut et le plus à droite de votre écran (en bas à droite de l'écran grisé). 
 
-- A la fin de vos modifications, cliquer sur le bouton "Valider" au milieu un peu plus bas dans la partie blanche de l'écran pour valider l'ensemble de vos modification
+- A la fin de vos modifications, cliquer sur le bouton "Valider" au milieu un peu plus bas dans la partie blanche de l'écran pour valider l'ensemble de vos modifications.
 
 ---
 
@@ -387,8 +416,7 @@ Bien séparer les noms de variables (\$VAR\$) des opérateurs ou connecteurs log
 Exemple : \$EFF_F$ >= \$EFF_TOTAL$
 
 Le séparateur de décimales est le. 
-'' : vide qualitatif
-99 : vide numérique (repris ensuite manuellement au sein du DDI en attendant mieux)
+'' : vide qualitatif ou numérique
 Pour la valeur 1 : écrire '1' si elle est caractère (liste de codes), 1 si elle est numérique
 Exemple : \$SEXE$ = '1' mais \$EFFECTIF$ = 1
 
@@ -416,6 +444,7 @@ and : et
 or : ou
 div : division avec virgule flottante 
 mod : reste de la division avec virgule flottante
+sum(\$VAR$)=somme d'une variable collectée au sein d'un tableau dynamique
 Ecrire and, or, etc. en minuscules.
 
 
@@ -446,8 +475,8 @@ Dans l'onglet "Redirections" de la question sur laquelle appliquer le filtre, re
 # Création d'une redirection (ou renvoi ou filtre) (suite)
 
 Renseigner :
-- Condition : (pour laquelle on redirige vers une question cible plus loin dans le questionnaire que la question suivante) : on appelle les variables du questionnaire en saisissant le caractère dollar \$, au fur et à mesure de la saisie des caractères suivants, l'application propose de l'autocomplétion avec les variables du questionnaire comportant ces caractères et suffixe ensuite automatiquement le nom de la variable saisie avec le caractère \$. exemple : si l'on va de la question Q1 (oui '1', non '2') à la question Q10 si Q1='2' on écrira ici \$Q2\$='2' ou bien \$Q2$ != '1' si on veut filtrer aussi en cas de non-réponse. (cf. syntaxe des contrôles pour l'éventail des possibilités de formules de renvois)
-- Cible : question cible du filtre. exemple : \$Q10$
+- Condition : (pour laquelle on redirige vers une question cible plus loin dans le questionnaire que la question suivante) : on appelle les variables du questionnaire en saisissant le caractère dollar \$, au fur et à mesure de la saisie des caractères suivants, l'application propose de l'autocomplétion avec les variables du questionnaire comportant ces caractères et suffixe ensuite automatiquement le nom de la variable saisie avec le caractère \$. exemple : si l'on va de la question Q1 (oui '1', non '2') à la question Q10 si Q1='2' on écrira ici \$Q2\$='2' ou bien \$Q2$ != '1' si on veut filtrer aussi en cas de non-réponse. 
+- Cible : cible du filtre. exemple : Q10 ou S2 ou QUESTIONNAIRE_END (pour rediriger vers la fin du questionnaire)
 
 ---
 
@@ -496,7 +525,7 @@ Valider
 
 ---
 # Exemple : 
-Compter le nombre de modalités cochées pour la variable REN
+Compter le nombre de modalités cochées pour la variable REN :
 (les modalités étant 7 booléens d'identifiant REN1 à REN7)
 
 number(if (\$REN1\$='') then '0' else \$REN1\$) + 
@@ -506,6 +535,99 @@ number(if (\$REN4\$='') then '0' else \$REN4\$) +
 number(if (\$REN5\$='') then '0' else \$REN5\$) +
 number(if (\$REN6\$='') then '0' else \$REN6\$) +
 number(if (\$REN7\$='') then '0' else \$REN7\$)
+
+---
+# Exemple : 
+personnaliser le libellé d'une question :
+
+if (\$LOGEMENT\$='1') then 'de l''appartement'
+else if (\$LOGEMENT\$='2') then 'de la maison'
+else 'de votre logement'
+
+NB : pour mettre une apostrophe dans un libellé, il faut en saisir deux d'affilée
+
+---
+# Exemple : 
+Calculer l'âge exact à la date de collecte sachant la date de naissance DATENAISSANCE :
+Déclarer les variables calculées
+Jour et mois courant JJMMCOURANT=number(concat(substring(string(current-date()),6,2),substring(string(current-date()),9,2)))
+Jour et mois de naissance JJMMNAISS=number(concat(substring(string(\$DATENAISSANCE\$),6,2),substring(string(\$DATENAISSANCE\$),9,2)))
+Année courante ANNEECOURANTE=number(substring(string(current-date()),1,4)) 
+Année de naissance ANNEENAISS=number(substring(string(\$DATENAISSANCE\$),1,4)) 
+
+---
+# Exemple (suite) : 
+
+L'âge exact à la date de collecte est donnée par :
+if ( \$JJMMCOURANT\$ >= \$JJMMNAISS\$ and \$ANNEECOURANTE\$ > \$ANNEENAISS\$) then \$ANNEECOURANTE\$-\$ANNEENAISS\$
+else if (\$JJMMCOURANT\$ < \$JJMMNAISS\$ and \$ANNEECOURANTE\$ > \$ANNEENAISS\$) then \$ANNEECOURANTE\$-\$ANNEENAISS\$-1
+else 0
+
+L'âge en différence de millésime sera donné par la formule : \$ANNEECOURANTE\$-\$ANNEENAISS\$
+
+---
+
+# Exemple : Vérifier la clé Siren
+\$SIREN\$ != '' and \$SIREN\$ castable as xs:integer
+                     and string-length(\$SIREN\$) = 14
+                     and (((number(substring(\$SIREN\$,1,1))
+                     + number(substring(\$SIREN\$,2,1))*2 
+                     - (if (number(substring(\$SIREN\$,2,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,3,1))
+                     + number(substring(\$SIREN\$,4,1))*2 
+                     - (if (number(substring(\$SIREN\$,4,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,5,1))
+                     + number(substring(\$SIREN\$,6,1))*2 
+                     - (if (number(substring(\$SIREN\$,6,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,7,1))
+                     + number(substring(\$SIREN\$,8,1))*2 
+                     - (if (number(substring(\$SIREN\$,8,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,9,1))) mod 10) != 0)
+
+---
+# Exemple : Vérifier la clé Siret
+\$SIREN\$ != '' and \$SIREN\$  castable as xs:integer
+                     and string-length(\$SIREN\$) = 14
+                     and (((
+                     number(substring(\$SIREN\$,1,1))
+                     + number(substring(\$SIREN\$,2,1))*2 
+                     -(if (number(substring(\$SIREN\$,2,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,3,1))
+                     + number(substring(\$SIREN\$,4,1))*2 
+                     -(if (number(substring(\$SIREN\$,4,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,5,1))
+                     + number(substring(\$SIREN\$,6,1))*2 
+                     -(if (number(substring(\$SIREN\$,6,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,7,1))
+                     + number(substring(\$SIREN\$,8,1))*2 
+                     -(if (number(substring(\$SIREN\$,8,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,9,1)) ) mod 10) = 0)
+                     
+---
+
+and (((number(substring(\$SIREN\$,1,1))*2 
+                     -(if (number(substring(\$SIREN\$,1,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,2,1))
+                     + number(substring(\$SIREN\$,3,1))*2 
+                     -(if (number(substring(\$SIREN\$,3,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,4,1))
+                     + number(substring(\$SIREN\$,5,1))*2 
+                     -(if (number(substring(\$SIREN\$,5,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,6,1))
+                     + number(substring(\$SIREN\$,7,1))*2 
+                     -(if (number(substring(\$SIREN\$,7,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,8,1))
+                     + number(substring(\$SIREN\$,9,1))*2 
+                     -(if (number(substring(\$SIREN\$,9,1)) > 4) then 9 else 0)
+                     
+---
++number(substring(\$SIREN\$,10,1))
+                     + number(substring(\$SIREN\$,11,1))*2 
+                     -(if (number(substring(\$SIREN\$,11,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,12,1))
+                     + number(substring(\$SIREN\$,13,1))*2
+                     -(if (number(substring(\$SIREN\$,13,1)) > 4) then 9 else 0)
+                     + number(substring(\$SIREN\$,14,1))) mod 10) != 0)
 
 ---
 # Style gras/italique
@@ -579,8 +701,7 @@ Les contrôles d'intégrité du questionnaire suivants sont actuellement implém
 - L'ajout d'un champ "Précisez" si une modalité de type "Autre" a été cochée
 - Renseigner un motif (spécifier une expression régulière) pour une réponse de type texte
 - Redirection vers la fin du questionnaire
-- Gérer les formats de date
-- Gérer des unités autres que €, k€ et %
+- Gérer des unités autres que €, k€, %, heures, jours, mois, années
 - Boucler sur les éléments d'un tableau (exemple : individus de plus de 15 ans d'un ménage)
 ---
 
@@ -591,13 +712,11 @@ Les contrôles d'intégrité du questionnaire suivants sont actuellement implém
 - Le lien entre Pogues et RMéS et notamment publier le questionnaire ou réutiliser une question ou une liste de codes (exemple départements, pays, nomenclature) du référentiel 
 - Conditionner le libellé d'une question selon les réponses précédemment obtenues 
 - Dupliquer une liste de codes pour en créer une variante
-- Le caractère obligatoire de la réponse
-*Ne pas le renseigner car cela bloque la visualisation du questionnaire web*
 - Le bouton "Saut de page" en bas au centre de l'IHM Pogues
 - paramétrages du pdf (nombre de colonnes, mise en page portrait ou paysage, type de saisie)
 ---
 
-# Ce qui ne fonctionne pas encore dans Pogues (suite)
+# 
 choix du type de numérotation parmi :
 - 1 numérotation de 1 à n pour l'ensemble des questions du questionnaire : c'est la numérotation la plus courante dans la littérature, celle que l'on retrouve dans les questionnaires ménages de l'insee en général. C'est aussi la plus simple à utiliser lorsqu'il y a des filtres à décrire dans un questionnaire papier.
 - 1 numérotation de 1 à n pour chacun des modules du questionnaire (on recommence à 1 à chaque nouveau module) : c'est la numérotation la plus courante dans les enquêtes entreprises de l'Insee.
@@ -606,8 +725,6 @@ choix du type de numérotation parmi :
 ---
 
 # Ce que l'on ne sait pas encore faire dans Pogues
-- Comparer un champ numérique vide 
-*complément DDI manuel*
 - Ajouter des totaux (fixe à 100% ou calculer comme la somme des éléments de la colonne) à un tableau de variables collectées
 *complément DDI manuel*
 -... 

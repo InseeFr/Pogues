@@ -196,6 +196,21 @@ describe('questionnaire', () => {
           id: 'jf0s3au7',
           type: 'SequenceType',
         },
+        {
+          id: "idendquest",
+          depth: 1,
+          Name: "QUESTIONNAIRE_END",
+          Label: [
+            "QUESTIONNAIRE_END"
+          ],
+          Declaration: [],
+          genericName: "MODULE",
+          Control: [],
+          FlowControl: [],
+          TargetMode: [''],
+          type: "SequenceType",
+          Child: [],
+        },
       ],
       CodeLists: {
         CodeList: [
@@ -210,7 +225,7 @@ describe('questionnaire', () => {
       ComponentGroup: [
         {
           Label: ['Components for page 1'],
-          MemberReference: ['jf0s3au7', 'jf0vtaeb'],
+          MemberReference: ['jf0s3au7', 'jf0vtaeb', "idendquest"],
           Name: 'PAGE_1',
           id: output.ComponentGroup[0].id,
         },

@@ -41,7 +41,6 @@ export function getCollecteVariable(
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
-
   return collectedVariable;
 }
 
@@ -91,7 +90,6 @@ export function getCollectedVariablesMultiple(
     type: BOOLEAN,
     [BOOLEAN]: {},
   };
-
   if (typeMeasure === CODES_LIST) {
     reponseFormatValues = {
       codeListReference: form[MEASURE][CODES_LIST].CodesList.id,
@@ -113,19 +111,18 @@ export function getCollectedVariablesMultiple(
      reponseFormatValues,
    )
  );
-
  form.PRIMARY.CodesList.codes.forEach(function(code) {
   if (code.precisionid && code.precisionid != "") {
     collectedVariables.push(
       getCollecteVariable(
         code.precisionid,
-        code.precisionlabel,
-        undefined,
-         {
+        `${code.precisionid} label`,
+        { z: code.weight },
+        {
           type: TEXT,
           [TEXT]: {
-          maxLength: code.precisionsize,
-          pattern: '',
+            maxLength: code.precisionsize,
+            pattern: '',
           },
         },
       ),
@@ -158,20 +155,21 @@ export function getCollectedVariablesSingle(
         collectedVariables.push(
           getCollecteVariable(
             code.precisionid,
-            code.precisionlabel,
-            undefined,
-             {
+            `${code.precisionid} label`,
+            { z: code.weight },
+            {
               type: TEXT,
+              codeListReference: undefined,
               [TEXT]: {
-              maxLength: code.precisionsize,
-              pattern: '',
+                maxLength: code.precisionsize,
+                pattern: '',
               },
             },
           ),
         );
       }
     });
-
+     
  return collectedVariables;
 
 }
@@ -183,6 +181,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
    * We will first sort codes with the depth=1, and recurively for each code,
    * sort its direct children.
    */
+
   function sortCodes(codes = [], depth = 1, parent = '') {
     const filtered = codes.filter(
       code => code.depth === depth && code.parent === parent,
@@ -201,8 +200,6 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
       .reduce((acc, res) => [...acc, ...res], []);
   }
-
-
 
   function getReponsesValues(measure) {
     let reponseFormatValues = {};
@@ -291,7 +288,11 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
             getCollecteVariable(
               `${questionName}${i + 1}${j + 1}`,
               `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
-              { x: i + 1, y: j + 1 },
+              {
+                x: i + 1,
+                y: j + 1,
+                isCollected: true
+              },
               getReponsesValues(measureState),
             ),
           );
@@ -313,6 +314,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
               {
                 x: i + 1,
                 y: j + 1,
+                isCollected: true
               },
               getReponsesValues(measure),
             ),
@@ -328,12 +330,47 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
         getCollecteVariable(
           `${questionName}${j + 1}`,
           `${measure.label}`,
-          { x: 1, y: j + 1 },
+          { 
+            x: 1,
+            y: j + 1,
+            isCollected: true
+          },
           getReponsesValues(measure),
         ),
       );
     }
   }
+
+    if(form.LIST_MEASURE && form.LIST_MEASURE.measures){
+    form.LIST_MEASURE.measures.forEach(function(mesure){
+        if(mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList && mesure.SINGLE_CHOICE.CodesList.codes) {
+          mesure.SINGLE_CHOICE.CodesList.codes.forEach(function(code) {
+            if (code.precisionid && code.precisionid !== "") {
+              collectedVariables.filter(variable => variable.codeListReference && variable.codeListReference === mesure.SINGLE_CHOICE.CodesList.id).forEach(function(variable) {
+                collectedVariables.push(
+                  getCollecteVariable(
+                    `${variable.name}${code.value}CL`,
+                    `${variable.name}${code.value}CL label`,
+                    {
+                      z: code.weight,
+                      mesureLevel: variable.x, 
+                      isCollected: true
+                     },
+                    {
+                      type: "TEXT",
+                      ["TEXT"]: {
+                        maxLength: code.precisionsize,
+                        pattern: '',
+                      },
+                    },
+                  ),
+                );
+              })
+            }
+          });
+        }
+      })
+    }
   return collectedVariables.sort(sortByYAndX());
 }
 

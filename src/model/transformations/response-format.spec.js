@@ -107,6 +107,7 @@ describe('response transformation', () => {
         ResponseStructure: {
           Dimension: 'Dimension',
           Mapping: 'Mapping',
+          Attribute: 'Attribute',
         },
         Response: 'true',
       },
@@ -127,7 +128,7 @@ describe('response transformation', () => {
     };
 
     [SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE].forEach(type => {
-      it(`should call the ${type} stateRToRemote`, () => {
+      it(`should call the ${type} stateToRemote`, () => {
         let mockFn;
         switch (type) {
           case SINGLE_CHOICE:
@@ -146,6 +147,7 @@ describe('response transformation', () => {
           Response: 'true',
           Dimension: 'Dimension',
           Mapping: 'Mapping',
+          Attribute: 'Attribute',
         });
         const result = stateToRemote(
           {

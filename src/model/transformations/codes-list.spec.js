@@ -261,7 +261,7 @@ describe('codes list tranformations', () => {
 	  const clarification = [
 	   {
 	 	  responseclar: {
-            id: "k4e0h8vg",
+          id: "k4e0h8vg",
           questionType: "SIMPLE",
           Name: "tests",
           Label: "Préciser :",
@@ -275,10 +275,11 @@ describe('codes list tranformations', () => {
           },
           ]
 		  },
-		  position: 0,
-		  codelistid: "j6p2kivg",
+		  position:   2,
+      codelistid: "j6p2kivg",
+      type: "MULTIPLE_CHOICE"
 	   },
-        {
+     {
 	 	  responseclar: {
             id: "k4e0rr9w",
           questionType: "SIMPLE",
@@ -294,8 +295,9 @@ describe('codes list tranformations', () => {
             },
           ]
 		  },
-		  position: 1,
-		  codelistid: "jbdye1wa",
+		  position: '1',
+      codelistid: "jbdye1wa",
+      type: "SINGLE_CHOICE"
 	   },
 	  ];
 	  
@@ -783,7 +785,7 @@ describe('codes list tranformations', () => {
           id: 'j6p2kivg',
           label: 'Means of transport',
           codes: {
-            '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1, precisionid: 'tests', precisionlabel: 'Préciser :', precisionsize: '249' },
+            '1': { value: '1', label: 'Car', parent: '', depth: 1, weight: 1 },
             '2': { value: '2', label: 'Bike', parent: '', depth: 1, weight: 2},
             '3': {
               value: '3',
@@ -791,6 +793,9 @@ describe('codes list tranformations', () => {
               parent: '',
               depth: 1,
               weight: 3,
+              precisionid: 'tests',
+              precisionlabel: 'Préciser :',
+              precisionsize: '249'
             },
             '4': {
               value: '4',
@@ -812,6 +817,9 @@ describe('codes list tranformations', () => {
               parent: '',
               depth: 1,
               weight: 1,
+              precisionid: 'sdd',
+		      	  precisionlabel: 'Préciser :',
+			        precisionsize: '5'
             },
             '2': {
               value: '2',
@@ -819,9 +827,6 @@ describe('codes list tranformations', () => {
               parent: '',
               depth: 1,
               weight: 2,
-			        precisionid: 'sdd',
-		      	  precisionlabel: 'Préciser :',
-			        precisionsize: '5'
             },
             '3': {
               value: '3',

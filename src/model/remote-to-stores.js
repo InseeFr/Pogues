@@ -31,7 +31,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     [id]: ExternalVariable.remoteToStore(externalVariables),
   };
   // Codes lists store
-  const variableclarification = Component.getClarificarionfromremote(remote.Child);
+  const variableclarification = Component.getClarificarionfromremote(remote.Child, collectedVariables);
   const codesListsStore = CodesList.remoteToStore(codesLists, variableclarification);
   
   const codeListByQuestionnaire = {
@@ -39,15 +39,14 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   };
   // Collected variables store
   const responsesByVariable = Component.remoteToVariableResponse(remote);
- 
   const collectedVariableByQuestionnaire = {
     [id]: CollectedVariable.remoteToStore(
       collectedVariables,
       responsesByVariable,
       codesListsStore,
+      variableclarification
     ),
   };
-
   // Components store
   const componentByQuestionnaire = {
     [id]: Component.remoteToStore(remote, id, codesListsStore),
@@ -72,7 +71,6 @@ export function questionnaireListRemoteToStores(questionnairesList) {
     } catch (e) {
       //
     }
-
     if (questionnaireState) questionnairesStates.push(questionnaireState);
   }
   return questionnairesStates;

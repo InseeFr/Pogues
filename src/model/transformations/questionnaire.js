@@ -11,7 +11,7 @@ import {
   removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 
@@ -26,7 +26,7 @@ function generateComponentGroups(componentsStore) {
   );
 
   let startPage = 1;
-  const result = [];
+  let result = [];
   orderedComponents.forEach(componentId => {
     if (!result[startPage - 1]) {
       result.push({
@@ -41,6 +41,9 @@ function generateComponentGroups(componentsStore) {
       startPage += 1;
     }
   });
+  if(result[result.length-1]) {
+    result[result.length-1].MemberReference.push("idendquest");
+  }
   return result;
 }
 
@@ -105,6 +108,7 @@ export function stateToRemote(state, stores) {
     codesListsStore,
     componentsStore,
   );
+
   const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
     getCollectedVariablesIdsFromComponents(componentsStore),
     collectedVariablesStore,
@@ -125,7 +129,6 @@ export function stateToRemote(state, stores) {
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
     Name: campaignsStore[c].label,
   }));
-
   const remote = {
     owner,
     final,
@@ -139,13 +142,15 @@ export function stateToRemote(state, stores) {
     agency: agency || 'fr.insee',
     TargetMode,
   };
- 
   const componentsRemote = Component.storeToRemote(
     componentsStore,
     id,
     collectedVariablesWithoutOrphans,
     codesListsStore,
   );
+  const questionEnd = QUESTION_END_CHILD;
+  questionEnd.TargetMode = TargetMode,
+  componentsRemote.push(QUESTION_END_CHILD); 
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
@@ -156,6 +161,7 @@ export function stateToRemote(state, stores) {
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
   );
+  
   return {
     ...remote,
     Child: componentsRemote,

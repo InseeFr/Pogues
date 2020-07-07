@@ -69,16 +69,7 @@ describe('getCollectedVariablesSingle', () => {
         },
     };
     const codesListStore = {};
-      const result = getCollectedVariablesSingle( questionName, form, codesListStore);
-    //   const result = getCollecteVariable(questionName, `${questionName} label`, undefined, {
-    //   codeListReference: form.CodesList.id,
-    //   codeListReferenceLabel: form.CodesList.label,
-    //   type: TEXT,
-    //   [TEXT]: {
-    //     maxLength: 1,
-    //     pattern: '',
-    //   },
-    // });
+    const result = getCollectedVariablesSingle( questionName, form, codesListStore);
 
     expect(result).toEqual([
        {
@@ -145,7 +136,8 @@ describe('getCollectedVariablesSingle', () => {
          },
         id: result[1].id ,
         name: 'precision',
-        label: 'precisionlabel',
+        label: 'precision label',
+        z: 1
          },
     ]);
   });
@@ -545,14 +537,15 @@ describe('collected variables utils: ', () => {
   });
 
   describe('getCollecteVariable', () => {
-    test('should return the collected variablem with coordinates', () => {
-      const result = getCollecteVariable('name', 'label', { x: 1, y: 2 });
+    test('should return the collected variable with coordinates', () => {
+      const result = getCollecteVariable('name', 'label', { x: 1, y: 2, isCollected: false});
       expect(result).toEqual({
         id: result.id,
         name: 'name',
         label: 'label',
         x: 1,
         y: 2,
+        isCollected: false,
       });
     });
 
@@ -560,13 +553,13 @@ describe('collected variables utils: ', () => {
       const result = getCollecteVariable(
         'name',
         'label',
-        { x: 1, y: 2 },
+        { x: 1, y: 2,  isCollected: true},
         { id: 1 },
       );
       expect(result.id).not.toEqual(1);
     });
 
-    test('should return the collected variablem without coordinates', () => {
+    test('should return the collected variable without coordinates', () => {
       const result = getCollecteVariable('name', 'label');
       expect(result).toEqual({
         id: result.id,

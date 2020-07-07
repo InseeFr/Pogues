@@ -36,6 +36,7 @@ const propTypes = {
   input: PropTypes.shape(fieldInputPropTypes).isRequired,
   meta: PropTypes.shape(fieldMetaPropTypes).isRequired,
   label: PropTypes.string.isRequired,
+  toolbar: PropTypes.object,
   className: PropTypes.string,
   required: PropTypes.bool,
   focusOnInit: PropTypes.bool,
@@ -51,6 +52,7 @@ const defaultProps = {
   focusOnInit: false,
   showAddConditions: false,
   onEnter: undefined,
+  toolbar: toolbarConfig,
 };
 
 // Control
@@ -148,6 +150,7 @@ class RichTextarea extends Component {
       required,
       focusOnInit,
       showAddConditions,
+      toolbar,
       input,
       meta: { touched, error },
     } = this.props;
@@ -158,7 +161,7 @@ class RichTextarea extends Component {
       placeholder: label,
       value: this.state.editorValue,
       onChange: this.handleChange,
-      toolbarConfig: toolbarConfig,
+      toolbarConfig: toolbar,
       autoFocus: focusOnInit,
       keyBindingFn: this.keyBinding,
       rootStyle,
