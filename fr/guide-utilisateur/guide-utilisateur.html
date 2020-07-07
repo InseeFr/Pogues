@@ -893,7 +893,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="guide-utilisateur-pogues">Guide utilisateur Pogues</h1>
-<p>Version au 18/06/2019</p>
+<p>Version au 02/07/2020</p>
 <hr>
 <h1 id="les-grands-principes-de-pogues">Les grands principes de Pogues</h1>
 <p>Outil de conception de questionnaires pour la collecte pilot&#xE9;e par la m&#xE9;tadonn&#xE9;e</p>
@@ -1021,7 +1021,7 @@
 </li>
 <li>modifier les modes de collecte si la question ne concerne pas tous les modes associ&#xE9;s au questionnaire</li>
 <li>le type de question<ul>
-<li>R&#xE9;ponse simple (texte, date, nombre ou bool&#xE9;en), R&#xE9;ponse &#xE0; choix unique, R&#xE9;ponse &#xE0; choix multiple (cf. batterie de questions), Tableau</li>
+<li>R&#xE9;ponse simple (texte, date, nombre, bool&#xE9;en ou dur&#xE9;e), R&#xE9;ponse &#xE0; choix unique, R&#xE9;ponse &#xE0; choix multiple (cf. batterie de questions), Tableau</li>
 </ul>
 </li>
 </ul>
@@ -1030,26 +1030,29 @@
 <p>Exemples :</p>
 <p><img src="../../img/fr/rs1.png" alt=""></p>
 <hr>
+<h1 id="cr&#xE9;ation-dune-question-de-type-r&#xE9;ponse-simple">Cr&#xE9;ation d&apos;une question de type R&#xE9;ponse simple</h1>
+<p>Exemples :</p>
+<p><img src="../../img/fr/rs2.png" alt=""></p>
+<hr>
 <p>Si j&apos;ai cr&#xE9;&#xE9; une question de type R&#xE9;ponse simple, renseigner :</p>
 <ul>
-<li>le caract&#xE8;re Obligatoire  de la r&#xE9;ponse : cochable, d&#xE9;cochable. Non fonctionnel &#xE0; ce jour.</li>
+<li>le caract&#xE8;re Obligatoire de la r&#xE9;ponse : cochable, d&#xE9;cochable. Pour le moment, l&apos;information est enregistr&#xE9;e dans le DDI mais n&apos;a pas d&apos;effet sur l&apos;affichage de la question au sein du questionnaire.</li>
 <li>le type de r&#xE9;ponse :<ul>
-<li>Texte, Date, Nombre, Bool&#xE9;en</li>
+<li>Texte, Date,Nombre, Bool&#xE9;en, Dur&#xE9;e</li>
 </ul>
 </li>
 <li>si type de r&#xE9;ponse=Texte, renseigner la taille maximale de la r&#xE9;ponse en nombre de caract&#xE8;res, le motif (non fonctionnel pour l&apos;instant, il permettra de sp&#xE9;cifier des expressions r&#xE9;guli&#xE8;res comme un Siret, un m&#xE8;l etc.)</li>
-<li>si type de r&#xE9;ponse=Date, on ne renseigne rien d&apos;autre pour l&apos;instant et on se retrouve avec une r&#xE9;ponse au format JJ/MM/AAAA et une aide &#xE0; la saisie de type calendrier cliquable
-<img src="../../img/fr/date.png" alt="">   </li>
+<li>si type de r&#xE9;ponse=Date, renseigner le format de sortie parmi AAAA-MM-JJ, AAAA-MM et AAAA ainsi qu&apos;un &#xE9;ventuel minimum et/ou maximum (par d&#xE9;faut configur&#xE9;s &#xE0; l&apos;&#xE9;quivalent de 1900-01-01 pour le minimum et &#xE0; l&apos;&#xE9;quivalent de la date du jour pour le maximum)</li>
 </ul>
 <hr>
 <p>Si j&apos;ai cr&#xE9;&#xE9; une question de type R&#xE9;ponse simple, renseigner (suite) :</p>
 <ul>
-<li><p>si type de r&#xE9;ponse=Nombre, renseigner le minimum et le maximum attendu (ce qui g&#xE9;n&#xE8;rera des contr&#xF4;les bloquants de format et un exemple de r&#xE9;ponse calcul&#xE9;e comme min+1/4*(max-min) avec la pr&#xE9;cision souhait&#xE9;e), la pr&#xE9;cision (nombre de chiffres apr&#xE8;s la virgule attendu), l&apos;unit&#xE9; de mesure (parmi pour l&apos;instant : &#x20AC;, k&#x20AC; et %)</p>
-</li>
-<li><p>si type de r&#xE9;ponse=Bool&#xE9;en, on ne renseigne rien pour l&apos;instant et on se retrouve avec une unique cache &#xE0; cocher cochable/d&#xE9;cochable.</p>
-</li>
-<li><p>Valider</p>
-</li>
+<li>si type de r&#xE9;ponse=Nombre, renseigner le minimum et le maximum attendu, la pr&#xE9;cision (nombre de chiffres apr&#xE8;s la virgule, par d&#xE9;faut : aucun), l&apos;unit&#xE9; de mesure (parmi pour l&apos;instant : &#x20AC;, k&#x20AC;, %,  heures, mois, jours, ann&#xE9;es)</li>
+<li>si type de r&#xE9;ponse=Bool&#xE9;en, on ne renseigne rien pour l&apos;instant et on se retrouve avec une unique cache &#xE0; cocher cochable/d&#xE9;cochable.</li>
+<li>si type de r&#xE9;ponse=Dur&#xE9;e, renseigner le format de sortie parmi heures-minutes, ann&#xE9;es-mois ou heures-centi&#xE8;mes ainsi qu&apos;un &#xE9;ventuel minimum et/ou maximum (par d&#xE9;faut respectivement configur&#xE9;s &#xE0; 0 heures 0 minutes et 99 heures 59 minutes, 0 ann&#xE9;es 0 mois et 99 ann&#xE9;es 11 mois ou 00:00 et 99:99)</li>
+</ul>
+<ul>
+<li>Valider</li>
 </ul>
 <hr>
 <h1 id="cr&#xE9;ation-dune-question-de-type-r&#xE9;ponse-&#xE0;-choix-unique">Cr&#xE9;ation d&apos;une question de type R&#xE9;ponse &#xE0; choix unique</h1>
@@ -1058,7 +1061,7 @@
 <hr>
 <p>Si la question est de type R&#xE9;ponse &#xE0; choix unique, renseigner :</p>
 <ul>
-<li>le caract&#xE8;re Obligatoire  de la r&#xE9;ponse : cochable, d&#xE9;cochable. Non fonctionnel &#xE0; ce jour.</li>
+<li>le caract&#xE8;re Obligatoire  de la r&#xE9;ponse : cochable, d&#xE9;cochable. Pour le moment, l&apos;information est enregistr&#xE9;e dans le DDI mais n&apos;a pas d&apos;effet sur l&apos;affichage de la question au sein du questionnaire.</li>
 <li>le type de saisie :<ul>
 <li>Case &#xE0; cocher (chaque modalit&#xE9; sera cochable ou d&#xE9;cochable, mais une seule r&#xE9;ponse possible)</li>
 <li>Bouton-radio (ergonomie web standard pour ce type de r&#xE9;ponse, on ne peut pas d&#xE9;cocher la r&#xE9;ponse &#xE0; la question (on peut changer la r&#xE9;ponse, mais on ne peut pas supprimer une r&#xE9;ponse))</li>
@@ -1082,7 +1085,6 @@
 </ul>
 <hr>
 <h1 id="cr&#xE9;ation-dune-question-de-type-r&#xE9;ponse-&#xE0;-choix-multiples">Cr&#xE9;ation d&apos;une question de type R&#xE9;ponse &#xE0; choix multiples</h1>
-<p>Exemples :</p>
 <p><img src="../../img/fr/rcm.png" alt=""></p>
 <hr>
 <p>Si j&apos;ai cr&#xE9;&#xE9; une question de type R&#xE9;ponse &#xE0; choix multiples, renseigner :</p>
@@ -1129,7 +1131,7 @@
 <p>Exemple 3 :</p>
 <p><img src="../../img/fr/tableau3.png" alt=""></p>
 <hr>
-<p>Si je veux cr&#xE9;er une question de type Tableau (avec en-t&#xEA;te de lignes en premi&#xE8;re colonne), renseigner :</p>
+<p>Si je veux cr&#xE9;er une question de type Tableau fixe (avec en-t&#xEA;te de lignes en premi&#xE8;re colonne et sans possibilit&#xE9; d&apos;ajouter dynamiquement une ligne au tableau), renseigner :</p>
 <ul>
 <li>Axe d&apos;information principal<ul>
 <li>choisir Liste de codes :<ul>
@@ -1153,12 +1155,12 @@
 </ul>
 <hr>
 <h1 id="cr&#xE9;ation-dune-question-de-type-tableau-axe-dinformation-principal--liste">Cr&#xE9;ation d&apos;une question de type Tableau (Axe d&apos;information principal : Liste)</h1>
-<p>Si je veux cr&#xE9;er une question de type Tableau (sans en-t&#xEA;te de lignes en premi&#xE8;re colonne), renseigner :</p>
+<p>Si je veux cr&#xE9;er une question de type Tableau dynamique (sans en-t&#xEA;te de lignes en premi&#xE8;re colonne et possibilit&#xE9; d&apos;ajouter dynamiquement une ligne au tableau), renseigner :</p>
 <ul>
 <li>Axe d&apos;information principal<ul>
 <li>choisir Liste :<ul>
 <li>Nombre de lignes min.</li>
-<li>Nombre de lignes max.</li>
+<li>Nombre de lignes max. (born&#xE9; &#xE0; 300)</li>
 </ul>
 </li>
 </ul>
@@ -1170,16 +1172,29 @@
 <li>Valider</li>
 </ul>
 <hr>
+<h1 id="cr&#xE9;ation-dun-compl&#xE9;ment-textuel-pour-pr&#xE9;ciser-le-choix-dune-modalit&#xE9;-de-type-autre">Cr&#xE9;ation d&apos;un compl&#xE9;ment textuel pour pr&#xE9;ciser le choix d&apos;une modalit&#xE9; de type &quot;Autre&quot;</h1>
+<p>Il est possible de pr&#xE9;ciser par un compl&#xE9;ment textuel la coche d&apos;une modalit&#xE9; de type &quot;Autre&quot; &#xE0; une question appelant une r&#xE9;ponse &#xE0; choix unique ou &#xE0; choix multiple ou pour une colonne d&apos;un tableau de taille fixe appelant une r&#xE9;ponse &#xE0; choix unique.</p>
+<p>Pour cela, cliquer sur &quot;voir en d&#xE9;tail&quot; pour la question concern&#xE9;e dans Pogues puis cliquer sur l&apos;ic&#xF4;ne + de la modalit&#xE9; pour laquelle vous souhaitez d&#xE9;clencher ce compl&#xE9;ment textuel, modifier si n&#xE9;cessaire la longueur (par d&#xE9;faut 249 caract&#xE8;res) et le libell&#xE9; du champ (par d&#xE9;faut &quot;Pr&#xE9;ciser :&quot;).</p>
+<ul>
+<li>Valider </li>
+</ul>
+<hr>
+<p><img src="../../img/fr/autrepreciser1.png" alt=""></p>
+<hr>
+<p><img src="../../img/fr/autrepreciser2.png" alt=""></p>
+<p>Il est &#xE9;galement possible de modifier ou de supprimer ces compl&#xE9;ments textuels.</p>
+<hr>
 <h1 id="pour-toute-question-cr&#xE9;&#xE9;e-il-faut-g&#xE9;n&#xE9;rer-les-variables-collect&#xE9;es">Pour toute question cr&#xE9;&#xE9;e, il faut g&#xE9;n&#xE9;rer les variables collect&#xE9;es</h1>
 <p>aller dans l&apos;onglet &quot;Variables collect&#xE9;es&quot; pour les g&#xE9;n&#xE9;rer
 <img src="../../img/fr/ecran9.png" alt=""></p>
 <hr>
 <ul>
-<li><p>cliquer sur le bouton &quot;G&#xE9;n&#xE9;rer les variables collect&#xE9;es&quot; et modifier les libell&#xE9;s et identifiants propos&#xE9;s par d&#xE9;faut par l&apos;application par un libell&#xE9; signifiant (penser &#xE0; vos successeurs) et l&apos;identifiant m&#xE9;tier de la ou des variables collect&#xE9;es. </p>
+<li>Cliquer sur le bouton &quot;G&#xE9;n&#xE9;rer les variables collect&#xE9;es&quot; et modifier les libell&#xE9;s et identifiants propos&#xE9;s par d&#xE9;faut par l&apos;application par un libell&#xE9; signifiant (penser &#xE0; vos successeurs) et l&apos;identifiant m&#xE9;tier de la ou des variables collect&#xE9;es. </li>
+<li><p><strong>Dans le cas o&#xF9; certaines cellules d&apos;un tableau ne sont pas &#xE0; collecter car sans objet ou destin&#xE9;es par exemple &#xE0; rappeler un total calcul&#xE9;, collect&#xE9; ou en dur (par exemple 100%), d&#xE9;cocher pour chaque cellule concern&#xE9;e le bool&#xE9;en Collect&#xE9;e associ&#xE9;e &#xE0; la variable collect&#xE9;e ad hoc.</strong></p>
 </li>
-<li><p>au fur et &#xE0; mesure de vos modifications, cliquer sur le bouton &quot;Valider&quot; affich&#xE9; le plus haut et le plus &#xE0; droite de votre &#xE9;cran (en bas &#xE0; droite de l&apos;&#xE9;cran gris&#xE9;) </p>
+<li><p>Au fur et &#xE0; mesure de vos modifications, cliquer sur le bouton &quot;Valider&quot; affich&#xE9; le plus haut et le plus &#xE0; droite de votre &#xE9;cran (en bas &#xE0; droite de l&apos;&#xE9;cran gris&#xE9;). </p>
 </li>
-<li><p>A la fin de vos modifications, cliquer sur le bouton &quot;Valider&quot; au milieu un peu plus bas dans la partie blanche de l&apos;&#xE9;cran pour valider l&apos;ensemble de vos modification</p>
+<li><p>A la fin de vos modifications, cliquer sur le bouton &quot;Valider&quot; au milieu un peu plus bas dans la partie blanche de l&apos;&#xE9;cran pour valider l&apos;ensemble de vos modifications.</p>
 </li>
 </ul>
 <hr>
@@ -1255,8 +1270,7 @@ NB : on ne peut pas modifier une info-bulle mais on peut la supprimer et la r&#x
 <p>Bien s&#xE9;parer les noms de variables ($VAR$) des op&#xE9;rateurs ou connecteurs logiques par des espaces.
 Exemple : $EFF_F$ &gt;= $EFF_TOTAL$</p>
 <p>Le s&#xE9;parateur de d&#xE9;cimales est le. 
-&apos;&apos; : vide qualitatif
-99 : vide num&#xE9;rique (repris ensuite manuellement au sein du DDI en attendant mieux)
+&apos;&apos; : vide qualitatif ou num&#xE9;rique
 Pour la valeur 1 : &#xE9;crire &apos;1&apos; si elle est caract&#xE8;re (liste de codes), 1 si elle est num&#xE9;rique
 Exemple : $SEXE$ = &apos;1&apos; mais $EFFECTIF$ = 1</p>
 <hr>
@@ -1279,6 +1293,7 @@ and : et
 or : ou
 div : division avec virgule flottante 
 mod : reste de la division avec virgule flottante
+sum($VAR$)=somme d&apos;une variable collect&#xE9;e au sein d&apos;un tableau dynamique
 Ecrire and, or, etc. en minuscules.</p>
 <hr>
 <h1 id="cr&#xE9;ation-dun-contr&#xF4;le-fin">Cr&#xE9;ation d&apos;un contr&#xF4;le (fin)</h1>
@@ -1305,8 +1320,8 @@ Ecrire and, or, etc. en minuscules.</p>
 <h1 id="cr&#xE9;ation-dune-redirection-ou-renvoi-ou-filtre-suite">Cr&#xE9;ation d&apos;une redirection (ou renvoi ou filtre) (suite)</h1>
 <p>Renseigner :</p>
 <ul>
-<li>Condition : (pour laquelle on redirige vers une question cible plus loin dans le questionnaire que la question suivante) : on appelle les variables du questionnaire en saisissant le caract&#xE8;re dollar $, au fur et &#xE0; mesure de la saisie des caract&#xE8;res suivants, l&apos;application propose de l&apos;autocompl&#xE9;tion avec les variables du questionnaire comportant ces caract&#xE8;res et suffixe ensuite automatiquement le nom de la variable saisie avec le caract&#xE8;re $. exemple : si l&apos;on va de la question Q1 (oui &apos;1&apos;, non &apos;2&apos;) &#xE0; la question Q10 si Q1=&apos;2&apos; on &#xE9;crira ici $Q2$=&apos;2&apos; ou bien $Q2$ != &apos;1&apos; si on veut filtrer aussi en cas de non-r&#xE9;ponse. (cf. syntaxe des contr&#xF4;les pour l&apos;&#xE9;ventail des possibilit&#xE9;s de formules de renvois)</li>
-<li>Cible : question cible du filtre. exemple : $Q10$</li>
+<li>Condition : (pour laquelle on redirige vers une question cible plus loin dans le questionnaire que la question suivante) : on appelle les variables du questionnaire en saisissant le caract&#xE8;re dollar $, au fur et &#xE0; mesure de la saisie des caract&#xE8;res suivants, l&apos;application propose de l&apos;autocompl&#xE9;tion avec les variables du questionnaire comportant ces caract&#xE8;res et suffixe ensuite automatiquement le nom de la variable saisie avec le caract&#xE8;re $. exemple : si l&apos;on va de la question Q1 (oui &apos;1&apos;, non &apos;2&apos;) &#xE0; la question Q10 si Q1=&apos;2&apos; on &#xE9;crira ici $Q2$=&apos;2&apos; ou bien $Q2$ != &apos;1&apos; si on veut filtrer aussi en cas de non-r&#xE9;ponse. </li>
+<li>Cible : cible du filtre. exemple : Q10 ou S2 ou QUESTIONNAIRE_END (pour rediriger vers la fin du questionnaire)</li>
 </ul>
 <hr>
 <h1 id="cr&#xE9;ation-dune-redirection-ou-renvoi-ou-filtre-fin">Cr&#xE9;ation d&apos;une redirection (ou renvoi ou filtre) (fin)</h1>
@@ -1346,7 +1361,7 @@ Une variable calcul&#xE9;e se d&#xE9;finit via l&apos;onglet &quot;Variables cal
 <p>Valider</p>
 <hr>
 <h1 id="exemple-">Exemple :</h1>
-<p>Compter le nombre de modalit&#xE9;s coch&#xE9;es pour la variable REN
+<p>Compter le nombre de modalit&#xE9;s coch&#xE9;es pour la variable REN :
 (les modalit&#xE9;s &#xE9;tant 7 bool&#xE9;ens d&apos;identifiant REN1 &#xE0; REN7)</p>
 <p>number(if ($REN1$=&apos;&apos;) then &apos;0&apos; else $REN1$) + 
 number(if ($REN2$=&apos;&apos;) then &apos;0&apos; else $REN2$) +
@@ -1356,6 +1371,86 @@ number(if ($REN5$=&apos;&apos;) then &apos;0&apos; else $REN5$) +
 number(if ($REN6$=&apos;&apos;) then &apos;0&apos; else $REN6$) +
 number(if ($REN7$=&apos;&apos;) then &apos;0&apos; else $REN7$)</p>
 <hr>
+<h1 id="exemple-">Exemple :</h1>
+<p>personnaliser le libell&#xE9; d&apos;une question :</p>
+<p>if ($LOGEMENT$=&apos;1&apos;) then &apos;de l&apos;&apos;appartement&apos;
+else if ($LOGEMENT$=&apos;2&apos;) then &apos;de la maison&apos;
+else &apos;de votre logement&apos;</p>
+<p>NB : pour mettre une apostrophe dans un libell&#xE9;, il faut en saisir deux d&apos;affil&#xE9;e</p>
+<hr>
+<h1 id="exemple-">Exemple :</h1>
+<p>Calculer l&apos;&#xE2;ge exact &#xE0; la date de collecte sachant la date de naissance DATENAISSANCE :
+D&#xE9;clarer les variables calcul&#xE9;es
+Jour et mois courant JJMMCOURANT=number(concat(substring(string(current-date()),6,2),substring(string(current-date()),9,2)))
+Jour et mois de naissance JJMMNAISS=number(concat(substring(string($DATENAISSANCE$),6,2),substring(string($DATENAISSANCE$),9,2)))
+Ann&#xE9;e courante ANNEECOURANTE=number(substring(string(current-date()),1,4)) 
+Ann&#xE9;e de naissance ANNEENAISS=number(substring(string($DATENAISSANCE$),1,4)) </p>
+<hr>
+<h1 id="exemple-suite-">Exemple (suite) :</h1>
+<p>L&apos;&#xE2;ge exact &#xE0; la date de collecte est donn&#xE9;e par :
+if ( $JJMMCOURANT$ &gt;= $JJMMNAISS$ and $ANNEECOURANTE$ &gt; $ANNEENAISS$) then $ANNEECOURANTE$-$ANNEENAISS$
+else if ($JJMMCOURANT$ &lt; $JJMMNAISS$ and $ANNEECOURANTE$ &gt; $ANNEENAISS$) then $ANNEECOURANTE$-$ANNEENAISS$-1
+else 0</p>
+<p>L&apos;&#xE2;ge en diff&#xE9;rence de mill&#xE9;sime sera donn&#xE9; par la formule : $ANNEECOURANTE$-$ANNEENAISS$</p>
+<hr>
+<h1 id="exemple--v&#xE9;rifier-la-cl&#xE9;-siren">Exemple : V&#xE9;rifier la cl&#xE9; Siren</h1>
+<p>$SIREN$ != &apos;&apos; and $SIREN$ castable as xs:integer
+                     and string-length($SIREN$) = 14
+                     and (((number(substring($SIREN$,1,1))</p>
+<pre class="language-"><code>                 + number(substring(\$SIREN\$,2,1))*2 
+                 - (if (number(substring(\$SIREN\$,2,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,3,1))
+                 + number(substring(\$SIREN\$,4,1))*2 
+                 - (if (number(substring(\$SIREN\$,4,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,5,1))
+                 + number(substring(\$SIREN\$,6,1))*2 
+                 - (if (number(substring(\$SIREN\$,6,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,7,1))
+                 + number(substring(\$SIREN\$,8,1))*2 
+                 - (if (number(substring(\$SIREN\$,8,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,9,1))) mod 10) != 0)
+</code></pre><hr>
+<h1 id="exemple--v&#xE9;rifier-la-cl&#xE9;-siret">Exemple : V&#xE9;rifier la cl&#xE9; Siret</h1>
+<p>$SIREN$ != &apos;&apos; and $SIREN$  castable as xs:integer
+                     and string-length($SIREN$) = 14
+                     and (((
+                     number(substring($SIREN$,1,1))</p>
+<pre class="language-"><code>                 + number(substring(\$SIREN\$,2,1))*2 
+                 -(if (number(substring(\$SIREN\$,2,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,3,1))
+                 + number(substring(\$SIREN\$,4,1))*2 
+                 -(if (number(substring(\$SIREN\$,4,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,5,1))
+                 + number(substring(\$SIREN\$,6,1))*2 
+                 -(if (number(substring(\$SIREN\$,6,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,7,1))
+                 + number(substring(\$SIREN\$,8,1))*2 
+                 -(if (number(substring(\$SIREN\$,8,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,9,1)) ) mod 10) = 0)
+</code></pre><hr>
+<p>and (((number(substring($SIREN$,1,1))*2 
+                     -(if (number(substring($SIREN$,1,1)) &gt; 4) then 9 else 0)</p>
+<pre class="language-"><code>                 + number(substring(\$SIREN\$,2,1))
+                 + number(substring(\$SIREN\$,3,1))*2 
+                 -(if (number(substring(\$SIREN\$,3,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,4,1))
+                 + number(substring(\$SIREN\$,5,1))*2 
+                 -(if (number(substring(\$SIREN\$,5,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,6,1))
+                 + number(substring(\$SIREN\$,7,1))*2 
+                 -(if (number(substring(\$SIREN\$,7,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,8,1))
+                 + number(substring(\$SIREN\$,9,1))*2 
+                 -(if (number(substring(\$SIREN\$,9,1)) &gt; 4) then 9 else 0)
+</code></pre><hr>
+<p>+number(substring($SIREN$,10,1))</p>
+<pre class="language-"><code>                 + number(substring(\$SIREN\$,11,1))*2 
+                 -(if (number(substring(\$SIREN\$,11,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,12,1))
+                 + number(substring(\$SIREN\$,13,1))*2
+                 -(if (number(substring(\$SIREN\$,13,1)) &gt; 4) then 9 else 0)
+                 + number(substring(\$SIREN\$,14,1))) mod 10) != 0)
+</code></pre><hr>
 <h1 id="style-grasitalique">Style gras/italique</h1>
 <p>Il est actuellement possible de mettre du gras et/ou de l&apos;italique sur des &#xE9;l&#xE9;ments textuels via les boutons d&#xE9;di&#xE9;s (cf. copie d&apos;&#xE9;cran en page suivante) au sein des libell&#xE9;s de d&#xE9;claration ou de liste de codes.
 NB : les boutons gras et italique sont &#xE9;galement disponibles pour les libell&#xE9;s de question mais le g&#xE9;n&#xE9;rateur de questionnaire Eno ne prend pas en compte la mise en forme sp&#xE9;cifi&#xE9;e. En effet, conform&#xE9;ment aux bonnes pratiques d&apos;ergonomie d&apos;un questionnaire, tous les libell&#xE9;s de questions s&apos;affichent en gras sur le web. Les boutons gras et italique ne sont pas disponibles pour les libell&#xE9;s de s&#xE9;quence ou de sous-s&#xE9;quence.
@@ -1403,8 +1498,7 @@ Attention aux &#xE9;l&#xE9;ments d&#xE9;plac&#xE9;s en cas de redirection, la ci
 <li>L&apos;ajout d&apos;un champ &quot;Pr&#xE9;cisez&quot; si une modalit&#xE9; de type &quot;Autre&quot; a &#xE9;t&#xE9; coch&#xE9;e</li>
 <li>Renseigner un motif (sp&#xE9;cifier une expression r&#xE9;guli&#xE8;re) pour une r&#xE9;ponse de type texte</li>
 <li>Redirection vers la fin du questionnaire</li>
-<li>G&#xE9;rer les formats de date</li>
-<li>G&#xE9;rer des unit&#xE9;s autres que &#x20AC;, k&#x20AC; et %</li>
+<li>G&#xE9;rer des unit&#xE9;s autres que &#x20AC;, k&#x20AC;, %, heures, jours, mois, ann&#xE9;es</li>
 <li>Boucler sur les &#xE9;l&#xE9;ments d&apos;un tableau (exemple : individus de plus de 15 ans d&apos;un m&#xE9;nage)</li>
 </ul>
 <hr>
@@ -1415,13 +1509,11 @@ Attention aux &#xE9;l&#xE9;ments d&#xE9;plac&#xE9;s en cas de redirection, la ci
 <li>Le lien entre Pogues et RM&#xE9;S et notamment publier le questionnaire ou r&#xE9;utiliser une question ou une liste de codes (exemple d&#xE9;partements, pays, nomenclature) du r&#xE9;f&#xE9;rentiel </li>
 <li>Conditionner le libell&#xE9; d&apos;une question selon les r&#xE9;ponses pr&#xE9;c&#xE9;demment obtenues </li>
 <li>Dupliquer une liste de codes pour en cr&#xE9;er une variante</li>
-<li>Le caract&#xE8;re obligatoire de la r&#xE9;ponse
-<em>Ne pas le renseigner car cela bloque la visualisation du questionnaire web</em></li>
 <li>Le bouton &quot;Saut de page&quot; en bas au centre de l&apos;IHM Pogues</li>
 <li>param&#xE9;trages du pdf (nombre de colonnes, mise en page portrait ou paysage, type de saisie)</li>
 </ul>
 <hr>
-<h1 id="ce-qui-ne-fonctionne-pas-encore-dans-pogues-suite">Ce qui ne fonctionne pas encore dans Pogues (suite)</h1>
+<h1 id=""> </h1>
 <p>choix du type de num&#xE9;rotation parmi :</p>
 <ul>
 <li>1 num&#xE9;rotation de 1 &#xE0; n pour l&apos;ensemble des questions du questionnaire : c&apos;est la num&#xE9;rotation la plus courante dans la litt&#xE9;rature, celle que l&apos;on retrouve dans les questionnaires m&#xE9;nages de l&apos;insee en g&#xE9;n&#xE9;ral. C&apos;est aussi la plus simple &#xE0; utiliser lorsqu&apos;il y a des filtres &#xE0; d&#xE9;crire dans un questionnaire papier.</li>
@@ -1431,8 +1523,6 @@ Attention aux &#xE9;l&#xE9;ments d&#xE9;plac&#xE9;s en cas de redirection, la ci
 <hr>
 <h1 id="ce-que-lon-ne-sait-pas-encore-faire-dans-pogues">Ce que l&apos;on ne sait pas encore faire dans Pogues</h1>
 <ul>
-<li>Comparer un champ num&#xE9;rique vide 
-<em>compl&#xE9;ment DDI manuel</em></li>
 <li><p>Ajouter des totaux (fixe &#xE0; 100% ou calculer comme la somme des &#xE9;l&#xE9;ments de la colonne) &#xE0; un tableau de variables collect&#xE9;es
 <em>compl&#xE9;ment DDI manuel</em>
 -... </p>
@@ -1483,7 +1573,7 @@ Attention aux &#xE9;l&#xE9;ments d&#xE9;plac&#xE9;s en cas de redirection, la ci
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Guide utilisateur","level":"2.1","depth":1,"previous":{"title":"Contrôles d'intégrité","level":"1.2.6.6","depth":3,"path":"guide-developpeur/implementation-details/integrity-checks.md","ref":"guide-developpeur/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-utilisateur/guide-utilisateur.md","mtime":"2020-02-25T14:49:48.091Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-02-25T14:54:17.400Z"},"basePath":"..","book":{"language":"fr"}});
+            gitbook.page.hasChanged({"page":{"title":"Guide utilisateur","level":"2.1","depth":1,"previous":{"title":"Contrôles d'intégrité","level":"1.2.6.6","depth":3,"path":"guide-developpeur/implementation-details/integrity-checks.md","ref":"guide-developpeur/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-utilisateur/guide-utilisateur.md","mtime":"2020-07-07T09:54:12.385Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-07-07T09:58:26.587Z"},"basePath":"..","book":{"language":"fr"}});
         });
     </script>
 </div>
