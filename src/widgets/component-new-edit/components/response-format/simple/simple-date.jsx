@@ -64,14 +64,16 @@ class ResponseFormatDatatypeDate extends Component {
             </GenericOption>
 
           </Field>   
-         <div hidden = {formatini == ''}>
+         <div hidden = {formatini == '' && !this.props.collectedFormat}>
           <Field
             name="minimum"
             type="text"
             step="any"
             component={Input}
             label={Dictionary.minimum}
-            validate = {date({ format: formatini, message: Dictionary.formatDate? Dictionary.formatDate: '', allowBlank: true })}
+            validate = {!this.props.collectedFormat ? 
+              date({ format: formatini, message: Dictionary.formatDate? Dictionary.formatDate: '', allowBlank: true })
+              : false}
             disabled={this.props.readOnly}
           />
           <Field
@@ -80,7 +82,9 @@ class ResponseFormatDatatypeDate extends Component {
             step="any"
             component={Input}
             label={Dictionary.maximum}
-            validate = {date({ format: formatini, message: Dictionary.formatDate? Dictionary.formatDate: '', allowBlank: true })}
+            validate = {!this.props.collectedFormat ? 
+              date({ format: formatini, message: Dictionary.formatDate? Dictionary.formatDate: '', allowBlank: true })
+              : false}
             disabled={this.props.readOnly}
           />
          </div>
