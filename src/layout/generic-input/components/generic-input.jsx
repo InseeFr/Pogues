@@ -167,7 +167,6 @@ class GenericInput extends Component {
     const newComponentWeight = typeNewComponent
       ? placeholders[typeNewComponent].weight
       : 0;
-
     return (
       <div
         id={COMPONENT_ID}
@@ -198,7 +197,7 @@ class GenericInput extends Component {
         <button
           id="add-question"
           className="btn-white"
-          disabled={placeholders[QUESTION].parent === ''}
+          disabled={placeholders[QUESTION].parent === ('' || "idendquest")}
           onClick={() => {
             this.handleOpenNewComponent(QUESTION);
           }}
@@ -209,7 +208,7 @@ class GenericInput extends Component {
         <button
           id="add-subsequence"
           className="btn-white"
-          disabled={placeholders[SUBSEQUENCE].parent === ''}
+          disabled={placeholders[SUBSEQUENCE].parent === ('' || "idendquest")}
           onClick={() => {
             this.handleOpenNewComponent(SUBSEQUENCE);
           }}

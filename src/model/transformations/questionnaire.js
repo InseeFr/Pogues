@@ -13,6 +13,7 @@ import {
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
 import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
+import { checkPropTypes } from 'prop-types';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 
@@ -165,16 +166,13 @@ export function stateToRemote(state, stores) {
   );
   const Iterations = Loop.stateToRemote(
     componentsStore
-  )
+  );
 
-  return {
+  const json = {
     ...remote,
     Child: componentsRemote,
     CodeLists: {
       CodeList: codesListsRemote,
-    },
-    Iterations: {
-      Iteration: [...Iterations]
     },
     Variables: {
       Variable: [
@@ -184,4 +182,11 @@ export function stateToRemote(state, stores) {
       ],
     },
   };
+  if(Iterations.length !== 0 ) {
+    json.Iterations = {
+      Iteration: Iterations
+    }
+  }
+  
+  return json;
 }
