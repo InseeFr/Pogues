@@ -48,6 +48,8 @@ export function formToState(form, transformers) {
     initialMember,
     finalMember,
     addButtonLibel,
+    description,
+    imbriquer,
   } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
@@ -71,6 +73,8 @@ export function formToState(form, transformers) {
     initialMember: initialMember,
     finalMember: finalMember,
     addButtonLibel: addButtonLibel,
+    description: description,
+    imbriquer: imbriquer || '',
   };
 }
 
@@ -87,6 +91,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     initialMember,
     finalMember,
     addButtonLibel,
+    description,
   } = currentState;
   const form = {
     label: label || '',
@@ -95,7 +100,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
     TargetMode:
-      type !== LOOP && type != ''
+      type !== LOOP && type !== ''
         ? label
           ? TargetMode.join()
           : activeQuestionnaire.TargetMode.join()
@@ -107,6 +112,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     initialMember: initialMember || '',
     finalMember: finalMember || '',
     addButtonLibel: addButtonLibel || '',
+    description: description || '',
   };
 
   if (type === QUESTION) {

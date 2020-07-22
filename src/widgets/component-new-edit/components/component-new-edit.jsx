@@ -36,8 +36,9 @@ const {
   VALIDATE,
   FOOTERLOOP,
   DELETE,
+  FILTRE_IMBRIQUER,
 } = WIDGET_COMPONENT_NEW_EDIT;
-const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTRE } = COMPONENT_TYPE;
 
 export const propTypes = {
   ...formPropTypes,
@@ -171,17 +172,14 @@ const ComponentNewEdit = props => {
     const componentinitial = Object.values(store).filter(
       component => component.id === props.InitialMember,
     );
+    console.log('store', store);
     if (props.InitialMember && componentinitial.length > 0) {
       optionsFinal = Object.values(store)
         .filter(
           component =>
-            (component.type === componentinitial[0].type &&
-              component.type === SEQUENCE &&
-              component.weight >= componentinitial[0].weight) ||
-            (component.type === SUBSEQUENCE &&
-              component.type === componentinitial[0].type &&
-              component.weight >= componentinitial[0].weight &&
-              component.parent === componentinitial[0].parent),
+            component.type === componentinitial[0].type &&
+            component.weight >= componentinitial[0].weight &&
+            component.parent === componentinitial[0].parent,
         )
         .map(element => {
           return (
@@ -194,19 +192,32 @@ const ComponentNewEdit = props => {
     return optionsFinal;
   };
 
-  const optionsInitial = Object.values(componentsStore)
-    .filter(
-      component =>
-        component.type === SEQUENCE || component.type === SUBSEQUENCE,
-    )
-    .map(element => {
-      return (
-        <GenericOption key={element.id} value={element.id}>
-          {element.name}
-        </GenericOption>
-      );
-    });
-
+  const optionsInitial = type => {
+    let options = <GenericOption key="" value="" />;
+    if (type === LOOP) {
+      options = Object.values(componentsStore)
+        .filter(
+          component =>
+            component.type === SEQUENCE || component.type === SUBSEQUENCE,
+        )
+        .map(element => {
+          return (
+            <GenericOption key={element.id} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
+    } else {
+      options = Object.values(componentsStore).map(element => {
+        return (
+          <GenericOption key={element.id} value={element.id}>
+            {element.name}
+          </GenericOption>
+        );
+      });
+    }
+    return options;
+  };
   const optionsTable = Object.values(componentsStore)
     .filter(
       component =>
@@ -232,7 +243,7 @@ const ComponentNewEdit = props => {
       buttonRef.click();
     },
   };
-
+  console.log('componentType', componentType);
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit}>
@@ -242,7 +253,7 @@ const ComponentNewEdit = props => {
             targetIsRichTextarea
             targetIsQuestion
           />
-        ) : componentType === LOOP ? (
+        ) : componentType === LOOP || componentType === FILTRE ? (
           <div>
             <Field
               name="nameLoop"
@@ -250,34 +261,47 @@ const ComponentNewEdit = props => {
               component={Input}
               label={Dictionary.name}
             />
-            <Field
-              name="maximum"
-              type="text"
-              focusOnInit
-              component={InputWithVariableAutoCompletion}
-              label={Dictionary.maximum}
-            />
-            {componentsStore ? (
-              <Field
-                name="basedOn"
-                component={Select}
-                label={Dictionary.BasedOn}
-              >
-                <GenericOption key="" value="">
-                  {Dictionary.selectBasedOn}
-                </GenericOption>
-                {optionsTable}
-              </Field>
+
+            {componentsStore && componentType === LOOP ? (
+              <div>
+                <Field
+                  name="maximum"
+                  type="text"
+                  focusOnInit
+                  component={InputWithVariableAutoCompletion}
+                  label={Dictionary.maximum}
+                />
+                <Field
+                  name="basedOn"
+                  component={Select}
+                  label={Dictionary.BasedOn}
+                >
+                  <GenericOption key="" value="">
+                    {Dictionary.selectBasedOn}
+                  </GenericOption>
+                  {optionsTable}
+                </Field>
+              </div>
             ) : (
-              false
+              <Field
+                name="description"
+                type="text"
+                component={Input}
+                label={Dictionary.description}
+              />
             )}
             <Field
               name="filter"
               type="text"
               focusOnInit
               component={InputWithVariableAutoCompletion}
-              label={Dictionary.Filter}
+              label={
+                componentType === LOOP
+                  ? Dictionary.Filter
+                  : Dictionary.expression
+              }
             />
+
             {componentsStore ? (
               <Field
                 name="initialMember"
@@ -287,8 +311,22 @@ const ComponentNewEdit = props => {
                 <GenericOption key="" value="">
                   {Dictionary.selectInitialMembre}
                 </GenericOption>
-                {optionsInitial}
+                {optionsInitial(componentType)}
               </Field>
+            ) : (
+              false
+            )}
+            {componentType === FILTRE ? (
+              <div className={FILTRE_IMBRIQUER}>
+                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+                {Dictionary.filtreImbriquer}
+                <Field
+                  name="imbriquer"
+                  type="text"
+                  component={Input}
+                  initialValues={[{ test: 1, heh: 2 }, { test2: 1, heh2: 2 }]}
+                />
+              </div>
             ) : (
               false
             )}
@@ -307,18 +345,21 @@ const ComponentNewEdit = props => {
             ) : (
               false
             )}
-
-            <Field
-              name="addButtonLibel"
-              type="text"
-              component={Input}
-              label={Dictionary.AddButton}
-            />
+            {componentType === LOOP ? (
+              <Field
+                name="addButtonLibel"
+                type="text"
+                component={Input}
+                label={Dictionary.AddButton}
+              />
+            ) : (
+              false
+            )}
           </div>
         ) : (
           <AssociatedFields {...associatedFieldsProps} />
         )}
-        {componentType !== LOOP ? (
+        {componentType !== LOOP && componentType !== FILTRE ? (
           <Field
             name="TargetMode"
             component={ListCheckboxes}
@@ -334,12 +375,18 @@ const ComponentNewEdit = props => {
         ) : (
           false
         )}
-        {componentType !== LOOP ? (
+        {componentType !== LOOP && componentType !== FILTRE ? (
           <Tabs componentId={componentId}>{renderPanels()}</Tabs>
         ) : (
           false
         )}
-        <div className={componentType !== LOOP ? FOOTER : FOOTERLOOP}>
+        <div
+          className={
+            componentType !== LOOP && componentType !== FILTRE
+              ? FOOTER
+              : FOOTERLOOP
+          }
+        >
           <button
             className={VALIDATE}
             type="submit"

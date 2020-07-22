@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isQuestion, getSortedChildren, isLoop } from 'utils/component/component-utils';
+import {
+  isQuestion,
+  getSortedChildren,
+  isLoop,
+} from 'utils/component/component-utils';
 
 class ArboSimplified extends Component {
   static propTypes = {
@@ -32,32 +36,34 @@ class ArboSimplified extends Component {
       });
     }
   }
+
   handleClick(e, key) {
     e.preventDefault();
     this.props.setSelectedComponentId(key);
   }
 
   renderComponentsByParent(components, parent) {
-    const renderComponentsByParent = this.renderComponentsByParent;
+    const { renderComponentsByParent } = this;
     return getSortedChildren(components, parent).map(key => {
-      if(key !== "idendquest") {
+      if (key !== 'idendquest') {
         const subTree = renderComponentsByParent(components, key);
-        if(!isLoop(components[key])) {
+        if (!isLoop(components[key])) {
           return (
             <li
               key={key}
               className={isQuestion(components[key]) ? 'questions' : ''}
             >
-              {components[key].children && components[key].children.length > 0 && (
+              {components[key].children &&
+                components[key].children.length > 0 && (
                   <button
-                    onClick={e => this.handleExpand(e, key)} 
+                    onClick={e => this.handleExpand(e, key)}
                     className={`glyphicon ${
                       this.state.expanded.indexOf(key) >= 0
                         ? 'glyphicon-menu-down'
                         : 'glyphicon-menu-right'
                     }`}
                   />
-              )}
+                )}
               <button onClick={e => this.handleClick(e, key)}>
                 {components[key].name.toUpperCase()}
               </button>
@@ -70,6 +76,7 @@ class ArboSimplified extends Component {
       }
     }, {});
   }
+
   render() {
     return (
       <ul className="arbo-simplifield">

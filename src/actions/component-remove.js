@@ -3,6 +3,7 @@ import {
   isQuestion,
   isSubSequence,
   isLoop,
+  isFilter,
   toId,
 } from 'utils/component/component-utils';
 import { resetWeight } from './component-update';
@@ -261,7 +262,7 @@ export function removeSequence(activesComponents, deletedComponent) {
 export function remove(activesComponents, idDeletedComponent) {
   const deletedComponent = activesComponents[idDeletedComponent];
 
-  if (isLoop(deletedComponent)) {
+  if (isLoop(deletedComponent) || isFilter(deletedComponent)) {
     return removeComponentFromActivesComponent(
       activesComponents,
       deletedComponent,

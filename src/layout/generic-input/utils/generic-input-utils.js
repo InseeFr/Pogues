@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTRE } = COMPONENT_TYPE;
 
 /**
  * Get closest component id by type
@@ -15,7 +15,11 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 export function getClosestComponentIdByType(components, activeComponent, type) {
   let componentId = '';
   let currentComponent = activeComponent;
-  while (currentComponent.parent !== '' && currentComponent.type != LOOP) {
+  while (
+    currentComponent.parent !== '' &&
+    currentComponent.type !== LOOP &&
+    currentComponent.type !== FILTRE
+  ) {
     if (currentComponent.type === type) {
       componentId = currentComponent.id;
       break;

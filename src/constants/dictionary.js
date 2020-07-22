@@ -107,7 +107,11 @@ const dictionary = {
     en: 'Filter',
     fr: 'Filtre',
   },
-  Scope : {
+  filtreImbriquer: {
+    en: 'Add a nested filter',
+    fr: 'Ajouter un filtre imbriqué',
+  },
+  Scope: {
     en: 'Scope',
     fr: 'Portée',
   },
@@ -1446,7 +1450,7 @@ dictionary[`componentNew${LOOP}`] = {
 };
 
 dictionary[`componentNew${FILTRE}`] = {
-  fr: 'Nouvelle filtre',
+  fr: 'Nouveau filtre',
   en: 'New filter',
 };
 
@@ -1476,7 +1480,7 @@ dictionary[`componentEdit${LOOP}`] = {
 };
 
 dictionary[`componentEdit${FILTRE}`] = {
-  fr: 'Modifier la filter',
+  fr: 'Modifier le filtre',
   en: 'Edit filter',
 };
 

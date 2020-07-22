@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import NavigationPrompt from "react-router-navigation-prompt";
+import NavigationPrompt from 'react-router-navigation-prompt';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -19,7 +19,6 @@ export const propTypes = {
   saveActiveQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func,
   handleNewPageBreak: PropTypes.func.isRequired,
-
   isQuestionnaireModified: PropTypes.bool.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
@@ -37,49 +36,50 @@ const defaultProps = {
 // Components
 
 const customModalStyles = {
-  content : {
-    display               : 'absolute',
-    textAlign             : 'center',
-    verticAlalign         : 'middle',
-    top                   : '10%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    width                 : '400px',
-    alignItems            : "center",
-    transform             : 'translate(-50%, -50%)'
-  }
+  content: {
+    display: 'absolute',
+    textAlign: 'center',
+    verticAlalign: 'middle',
+    top: '10%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    width: '400px',
+    alignItems: 'center',
+    transform: 'translate(-50%, -50%)',
+  },
 };
 const customLoopModalStyles = {
-  content : {
-    display               : 'absolute',
-    textAlign             : 'center',
-    verticAlalign         : 'middle',
-    top                   : '25%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    width                 : '800px',
-    alignItems            : "center",
-    transform             : 'translate(-50%, -50%)'
-  }
+  content: {
+    display: 'absolute',
+    textAlign: 'center',
+    verticAlalign: 'middle',
+    top: '25%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    width: '800px',
+    alignItems: 'center',
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 const customModalbuttonStyles = {
-    background              : '#15417a',
-    color                   : 'white',
-    boxShadow               : 'none',
-    border                  : 'none',
-    width                   : '70px',
-    height                  : '30px',
-    marginRight             : '10px',
-    background              : '#15417a',
+  background: '#15417a',
+  color: 'white',
+  boxShadow: 'none',
+  border: 'none',
+  width: '70px',
+  height: '30px',
+  marginRight: '10px',
+  background: '#15417a',
 };
 
 class GenericInput extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -126,23 +126,22 @@ class GenericInput extends Component {
   }
 
   saveActiveQuestionnaire() {
-    if(!this.props.isLoopsValid) {
+    if (!this.props.isLoopsValid) {
       const newState = {
         ...this.state,
         showNewLoopModal: true,
       };
       this.setState(newState);
-    }
-    else {
-      this.props.saveActiveQuestionnaire().then(()=>{
-        if(this.props.isQuestionnaireHaveError){
+    } else {
+      this.props.saveActiveQuestionnaire().then(() => {
+        if (this.props.isQuestionnaireHaveError) {
           const newState = {
             ...this.state,
             showNewUnsavedModal: true,
           };
           this.setState(newState);
         }
-       })
+      });
     }
   }
 
@@ -160,7 +159,7 @@ class GenericInput extends Component {
       isQuestionnaireModified,
       componentIdForPageBreak,
     } = this.props;
-    const typeNewComponent = this.state.typeNewComponent;
+    const { typeNewComponent } = this.state;
     const newComponentParent = typeNewComponent
       ? placeholders[typeNewComponent].parent
       : '';
@@ -172,32 +171,33 @@ class GenericInput extends Component {
         id={COMPONENT_ID}
         style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}
       >
-      <NavigationPrompt
-        renderIfNotActive={true}
-        when={isQuestionnaireModified}
-       >
-         {({ isActive, onCancel, onConfirm }) => {
-           if (isActive) {
-             return (
-               <ReactModal 
-                 isOpen={true}
-                 ariaHideApp={false}
-                 shouldCloseOnOverlayClick={false}
-                 style={customModalStyles}
-                 >
-                   <p>{Dictionary.modification}</p>
-                   <button onClick={onCancel}    style={customModalbuttonStyles} >{Dictionary.no}</button>
-                   <button onClick={onConfirm} style={customModalbuttonStyles} >{Dictionary.yes}</button>
-               </ReactModal>
-                    );
-                  }
-            }}
-      </NavigationPrompt>
+        <NavigationPrompt renderIfNotActive when={isQuestionnaireModified}>
+          {({ isActive, onCancel, onConfirm }) => {
+            if (isActive) {
+              return (
+                <ReactModal
+                  isOpen
+                  ariaHideApp={false}
+                  shouldCloseOnOverlayClick={false}
+                  style={customModalStyles}
+                >
+                  <p>{Dictionary.modification}</p>
+                  <button onClick={onCancel} style={customModalbuttonStyles}>
+                    {Dictionary.no}
+                  </button>
+                  <button onClick={onConfirm} style={customModalbuttonStyles}>
+                    {Dictionary.yes}
+                  </button>
+                </ReactModal>
+              );
+            }
+          }}
+        </NavigationPrompt>
         <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
           className="btn-white"
-          disabled={placeholders[QUESTION].parent === ('' || "idendquest")}
+          disabled={placeholders[QUESTION].parent === ('' || 'idendquest')}
           onClick={() => {
             this.handleOpenNewComponent(QUESTION);
           }}
@@ -208,7 +208,7 @@ class GenericInput extends Component {
         <button
           id="add-subsequence"
           className="btn-white"
-          disabled={placeholders[SUBSEQUENCE].parent === ('' || "idendquest")}
+          disabled={placeholders[SUBSEQUENCE].parent === ('' || 'idendquest')}
           onClick={() => {
             this.handleOpenNewComponent(SUBSEQUENCE);
           }}
@@ -230,7 +230,7 @@ class GenericInput extends Component {
         <button
           id="add-loop"
           className="btn-white"
-          disabled={placeholders[LOOP]? false : true}
+          disabled={!placeholders[LOOP]}
           onClick={() => {
             this.handleOpenNewComponent(LOOP);
           }}
@@ -241,7 +241,7 @@ class GenericInput extends Component {
         <button
           id="add-loop"
           className="btn-white"
-          disabled={placeholders[FILTRE]? false : true}
+          disabled={!placeholders[FILTRE]}
           onClick={() => {
             this.handleOpenNewComponent(FILTRE);
           }}
@@ -315,21 +315,31 @@ class GenericInput extends Component {
             </div>
           </div>
         </ReactModal>
-        <ReactModal 
-            isOpen={this.state.showNewUnsavedModal}
-            ariaHideApp={false}
-            style={customModalStyles}
-            >
-              <p>{Dictionary.notSaved}</p>
-              <button onClick={this.handleCloseModal} style={customModalbuttonStyles} >{Dictionary.close}</button>
+        <ReactModal
+          isOpen={this.state.showNewUnsavedModal}
+          ariaHideApp={false}
+          style={customModalStyles}
+        >
+          <p>{Dictionary.notSaved}</p>
+          <button
+            onClick={this.handleCloseModal}
+            style={customModalbuttonStyles}
+          >
+            {Dictionary.close}
+          </button>
         </ReactModal>
-        <ReactModal 
-            isOpen={this.state.showNewLoopModal}
-            ariaHideApp={false}
-            style={customLoopModalStyles}
-            >
-              <p>{Dictionary.loopNotSaved}</p>
-              <button onClick={this.handleCloseModal} style={customModalbuttonStyles} >{Dictionary.close}</button>
+        <ReactModal
+          isOpen={this.state.showNewLoopModal}
+          ariaHideApp={false}
+          style={customLoopModalStyles}
+        >
+          <p>{Dictionary.loopNotSaved}</p>
+          <button
+            onClick={this.handleCloseModal}
+            style={customModalbuttonStyles}
+          >
+            {Dictionary.close}
+          </button>
         </ReactModal>
       </div>
     );

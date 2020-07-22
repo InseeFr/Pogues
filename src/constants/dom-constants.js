@@ -130,6 +130,7 @@ export const WIDGET_COMPONENT_NEW_EDIT = {
   VALIDATE: 'widget-component-new-edit__button-validate',
   CANCEL: 'widget-component-new-edit__button-cancel',
   DELETE: 'widget-component-new-edit__button-delete',
+  FILTRE_IMBRIQUER: 'widget-component-new-edit__filtre_imbriquer',
 };
 
 export const WIDGET_ASSOCIATED_FIELDS = {

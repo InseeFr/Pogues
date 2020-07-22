@@ -5,11 +5,12 @@ import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
 import {
   validateQuestionForm,
   validateSequenceForm,
-  validateLoopForm
+  validateLoopForm,
+  validateFilterForm,
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTRE } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -48,21 +49,23 @@ function validateAndSubmit(
   validateQuestion,
   validateSequence,
   validateLoop,
+  validateFilter,
   transformer,
   onSuccess,
 ) {
   return function(values) {
     if (type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
-    }
-     else if (type === LOOP) {
+    } else if (type === LOOP) {
       validateLoop(values);
-    }
-    else{
+    } else if (type === FILTRE) {
+      validateFilter(values);
+    } else {
       validateSequence(values);
     }
 
     const componentState = transformer.formToState(values);
+    console.log('componentState', componentState)
     const updatedCodesListsStore = transformer.getCodesListStore();
     const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
     const updatedExternalVariablesStore = transformer.getExternalVariablesStore();
@@ -110,7 +113,9 @@ function ComponentNew({
   const validateSequence = setValidationErrorsAction => values =>
     validateSequenceForm(values, setValidationErrorsAction);
   const validateLoop = setValidationErrorsAction => values =>
-    validateLoopForm(values, setValidationErrorsAction);  
+    validateLoopForm(values, setValidationErrorsAction);
+  const validateFilter = setValidationErrorsAction => values =>
+    validateFilterForm(values, setValidationErrorsAction);
   const actions = {
     createComponent,
     updateParentChildren,
@@ -140,6 +145,7 @@ function ComponentNew({
         validateQuestion(setValidationErrors, codesListsStore),
         validateSequence(setValidationErrors),
         validateLoop(setValidationErrors),
+        validateFilter(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}
