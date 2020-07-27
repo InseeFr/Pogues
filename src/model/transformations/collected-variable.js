@@ -210,7 +210,7 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
 }
 
 function getTableDynamique(componentsStore, id) {
-  let tableId = "";
+  let tableId = '';
   Object.values(componentsStore).filter(components => 
     components.type === QUESTION && 
     components.responseFormat.type === TABLE && 

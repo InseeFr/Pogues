@@ -197,7 +197,7 @@ class GenericInput extends Component {
         <button
           id="add-question"
           className="btn-white"
-          disabled={placeholders[QUESTION].parent === ('' || "idendquest")}
+          disabled={placeholders[QUESTION].parent === ('' || 'idendquest')}
           onClick={() => {
             this.handleOpenNewComponent(QUESTION);
           }}
@@ -208,7 +208,7 @@ class GenericInput extends Component {
         <button
           id="add-subsequence"
           className="btn-white"
-          disabled={placeholders[SUBSEQUENCE].parent === ('' || "idendquest")}
+          disabled={placeholders[SUBSEQUENCE].parent === ('' || 'idendquest')}
           onClick={() => {
             this.handleOpenNewComponent(SUBSEQUENCE);
           }}
