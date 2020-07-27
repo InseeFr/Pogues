@@ -65,7 +65,6 @@ function validateAndSubmit(
     }
 
     const componentState = transformer.formToState(values);
-    console.log('componentState', componentState)
     const updatedCodesListsStore = transformer.getCodesListStore();
     const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
     const updatedExternalVariablesStore = transformer.getExternalVariablesStore();

@@ -40,11 +40,16 @@ const StatisticalContextCriteria = props => {
     props.loadSeriesIfNeeded();
     if (operations && selectedSerie)
       props.loadOperationsIfNeeded(selectedSerie);
-    if (campaigns && selectedOperation)
+    if (campaigns && selectedOperation !== selectedOperationState)
       props.loadCampaignsIfNeeded(selectedOperation);
-    if (campaigns && selectedOperation)
-      props.loadCampaignsIfNeeded(selectedOperation);
-  }, [props, campaigns, operations, selectedOperation, selectedSerie]);
+  }, [
+    props,
+    campaigns,
+    operations,
+    selectedOperation,
+    selectedSerie,
+    selectedOperationState,
+  ]);
 
   useEffect(() => {
     if (selectedSerie !== selectedSerieState) {

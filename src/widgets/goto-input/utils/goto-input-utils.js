@@ -38,7 +38,9 @@ export function getTargets(
   return allowedTargets.map(key => {
     return {
       value: key,
-      label: `${componentsStore[key].name} - ${componentsStore[key].label}`,
+      label: componentsStore[key]
+        ? `${componentsStore[key].name} - ${componentsStore[key].label}`
+        : '',
     };
   });
 }

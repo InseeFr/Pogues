@@ -2,8 +2,6 @@ import { uuid } from 'utils/utils';
 import {
   DATATYPE_TYPE_FROM_NAME,
   VARIABLES_TYPES,
-  DURATION_UNIT,
-  DATATYPE_NAME,
 } from 'constants/pogues-constants';
 
 const { CALCULATED } = VARIABLES_TYPES;

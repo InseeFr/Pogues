@@ -17,7 +17,6 @@ import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/re
 import ResponseFormatDatatypeDuree from 'widgets/component-new-edit/components/response-format/simple/simple-duree';
 import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
 
-
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { TABLE } = QUESTION_TYPE_ENUM;
 
@@ -55,6 +54,7 @@ export const defaultProps = {
 
 class CollectedVariables extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -154,14 +154,14 @@ class CollectedVariables extends Component {
             <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
               <ResponseFormatDatatypeText readOnly required={false} />
             </View>
-            <View key={DATE} value={DATE} label={Dictionary.DATE} >
+            <View key={DATE} value={DATE} label={Dictionary.DATE}>
               <ResponseFormatDatatypeDate readOnly required={false} />
             </View>
             <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
               <ResponseFormatDatatypeNumeric readOnly required={false} />
             </View>
             <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
-            <View key={DURATION} value={DURATION} label={Dictionary.DURATION} >
+            <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>
               <ResponseFormatDatatypeDuree readOnly required={false} />
             </View>
           </SelectorView>
@@ -175,7 +175,9 @@ class CollectedVariables extends Component {
             label={Dictionary.cl}
           />
           <div className="ctrl-checkbox" hidden={hiddenCollected}>
-            <label htmlFor="collected-variables-isCollected">{Dictionary.collected}</label>
+            <label htmlFor="collected-variables-isCollected">
+              {Dictionary.collected}
+            </label>
             <div>
               <Field
                 name="isCollected"
@@ -183,7 +185,7 @@ class CollectedVariables extends Component {
                 component="input"
                 type="checkbox"
               />
-            </div> 
+            </div>
           </div>
         </ListWithInputPanel>
       </FormSection>

@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { formValueSelector, formPropTypes, Field } from 'redux-form';
-
+import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
 import ResponseFormat from './response-format/response-format';
@@ -28,6 +28,7 @@ import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import FilterNested from './filter-nested';
 
 const {
   COMPONENT_CLASS,
@@ -73,7 +74,16 @@ const ComponentNewEdit = props => {
     deleteComponent,
   } = props;
 
+  const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const buttonRef = useRef(null);
+
+  const handleCloseNestedFilter = () => {
+    setShowNewNestedFilter(false);
+  };
+  const handleOpenNestedFilter = e => {
+    e.preventDefault();
+    setShowNewNestedFilter(true);
+  };
 
   useEffect(() => {
     props.clearSubformValidationErrors();
@@ -166,13 +176,13 @@ const ComponentNewEdit = props => {
     }
     return panels;
   };
+  console.log('componentId', componentId)
 
   const getFinalOptions = store => {
     let optionsFinal = <GenericOption key="" value="" />;
     const componentinitial = Object.values(store).filter(
       component => component.id === props.InitialMember,
     );
-    console.log('store', store);
     if (props.InitialMember && componentinitial.length > 0) {
       optionsFinal = Object.values(store)
         .filter(
@@ -243,7 +253,6 @@ const ComponentNewEdit = props => {
       buttonRef.click();
     },
   };
-  console.log('componentType', componentType);
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit}>
@@ -317,16 +326,13 @@ const ComponentNewEdit = props => {
               false
             )}
             {componentType === FILTRE ? (
-              <div className={FILTRE_IMBRIQUER}>
+              <button
+                className={FILTRE_IMBRIQUER}
+                onClick={handleOpenNestedFilter}
+              >
                 <span className="glyphicon glyphicon-plus" aria-hidden="true" />
                 {Dictionary.filtreImbriquer}
-                <Field
-                  name="imbriquer"
-                  type="text"
-                  component={Input}
-                  initialValues={[{ test: 1, heh: 2 }, { test2: 1, heh2: 2 }]}
-                />
-              </div>
+              </button>
             ) : (
               false
             )}
@@ -411,6 +417,28 @@ const ComponentNewEdit = props => {
           )}
         </div>
       </form>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showNewNestedFilter}
+        onRequestClose={handleCloseNestedFilter}
+        contentLabel="FILTRE IMBRIQUE"
+      >
+        <div className="popup">
+          <div className="popup-header">
+            <h3>FILTRE IMBRIQUE</h3>
+            <button type="button" onClick={handleCloseNestedFilter}>
+              <span>X</span>
+            </button>
+          </div>
+          <div className="popup-body">
+            <FilterNested
+              componentsStore={componentsStore}
+              editingComponentId={componentId}
+            />
+          </div>
+        </div>
+      </ReactModal>
     </div>
   );
 };

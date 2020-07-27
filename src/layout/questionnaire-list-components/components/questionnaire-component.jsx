@@ -48,17 +48,15 @@ const QuestionnaireComponent = props => {
 
   const myRef = useRef(null);
   const executeScroll = () => scrollToRef(myRef);
-  const [selectedState, setSelectedState] = useState(selected);
+  const ensureSelected = () => {
+    executeScroll();
+  };
 
   useEffect(() => {
-    const ensureSelected = () => {
-      executeScroll();
-    };
-    if (selectedState) {
+    if (selected) {
       ensureSelected();
-      setSelectedState(selected);
     }
-  }, [setSelectedState, selected, selectedState]);
+  }, [selected]);
 
   const handleSelectComponent = () => {
     props.setSelectedComponentId(component.id);

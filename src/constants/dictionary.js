@@ -854,6 +854,10 @@ const dictionary = {
     fr: 'Conditions',
     en: 'Conditions',
   },
+  condition: {
+    fr: 'Condition',
+    en: 'Condition',
+  },
   deleteCondition: {
     fr: 'Supprimer la condition',
     en: 'Remove condition',
