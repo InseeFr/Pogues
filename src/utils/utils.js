@@ -72,11 +72,12 @@ export function updateNameField(currentValueLabel, currentValueName) {
 export function verifyVariable(label) {
 
   const expression = (/\$([^\s]+)/g);
+  const symbols = ['=', '*', '+', '-'];
   const variables = label.match(expression);
 
   if (variables) {
     variables.forEach(variable => {
-      if (variable[variable.length - 1] !== '$') {
+      if (variable[variable.length - 1] !== '$' && !symbols.includes(variable[variable.length - 1])) {
         label = label.replace(variable, variable+'$');
       }
     })
