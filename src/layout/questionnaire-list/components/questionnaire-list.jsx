@@ -10,6 +10,7 @@ import { formatDate, getState } from 'utils/component/component-utils';
 
 const propTypes = {
   loadQuestionnaireList: PropTypes.func.isRequired,
+  duplicateQuestionnaire:  PropTypes.func.isRequired,
   questionnaires: PropTypes.array,
   user: PropTypes.shape({
     name: PropTypes.string,
@@ -91,6 +92,7 @@ class QuestionnaireList extends Component {
             label={q.label}
             lastUpdatedDate={q.lastUpdatedDate}
             final={q.final}
+            duplicateQuestionnaire = {this.props.duplicateQuestionnaire}
           />
         );
       });
