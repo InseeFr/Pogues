@@ -265,8 +265,9 @@ class ComponentNewEdit extends Component {
               />
               <Field
                 name="maximum"
-                type="number"
-                component={Input}
+                type="text"
+                focusOnInit
+                component={InputWithVariableAutoCompletion}
                 label={Dictionary.maximum}
               />
              { componentsStore ?  (

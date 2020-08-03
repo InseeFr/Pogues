@@ -193,6 +193,7 @@ function findQuestionInLoop(componentsStore) {
   })
   return LoopsQuestions;
 }
+
 function getCollectedScope(questionsLoop, id, componentsStore) {
   let isfound = {};
   Object.keys(questionsLoop).map(key => {
@@ -207,6 +208,21 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
   })
   return isfound;
 }
+
+function getTableDynamique(componentsStore, id) {
+  let tableId = '';
+  Object.values(componentsStore).filter(components => 
+    components.type === QUESTION && 
+    components.responseFormat.type === TABLE && 
+    components.responseFormat.TABLE.PRIMARY.type === LIST
+  ).map(component => {
+    if(component && component.collectedVariables && component.collectedVariables.includes(id)) {
+      tableId = component.id;
+    }
+  })
+  return tableId;
+}
+
 export function storeToRemote(store, componentsStore) {
   return Object.keys(store).map(key => {
     const {
@@ -270,7 +286,11 @@ export function storeToRemote(store, componentsStore) {
         model.Scope = collectedScop.loop.id
       }
     }
-    
+    const dynamique = getTableDynamique(componentsStore, id);
+    if (dynamique) {
+      model.Scope = dynamique;
+    }
+      
     if(codeListReference !== "") {
       model.CodeListReference = codeListReference;
     }
@@ -328,7 +348,6 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
-
     return model;
   });
 }
