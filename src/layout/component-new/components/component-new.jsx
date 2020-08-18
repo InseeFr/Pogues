@@ -54,15 +54,22 @@ function validateAndSubmit(
   onSuccess,
 ) {
   return function(values) {
+    console.log("type", type)
+
     if (type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
     } else if (type === LOOP) {
       validateLoop(values);
     } else if (type === FILTRE) {
+      console.log("values", values)
+
+      console.log("validateFilter(values)", validateFilter(values))
       validateFilter(values);
+
     } else {
       validateSequence(values);
     }
+    console.log('values', values);
 
     const componentState = transformer.formToState(values);
     const updatedCodesListsStore = transformer.getCodesListStore();

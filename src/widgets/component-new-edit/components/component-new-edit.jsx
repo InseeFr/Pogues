@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { formValueSelector, formPropTypes, Field } from 'redux-form';
 import ReactModal from 'react-modal';
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
 
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
@@ -11,6 +11,7 @@ import Redirections from './redirections';
 import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
 import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
+import { ComponentNew } from 'layout/component-new';
 
 import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
@@ -28,7 +29,7 @@ import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
-import FilterNested from './filter-nested';
+import NestedFilter from './nestedFilter';
 
 const {
   COMPONENT_CLASS,
@@ -39,7 +40,14 @@ const {
   DELETE,
   FILTRE_IMBRIQUER,
 } = WIDGET_COMPONENT_NEW_EDIT;
-const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTRE } = COMPONENT_TYPE;
+const {
+  QUESTION,
+  LOOP,
+  SEQUENCE,
+  SUBSEQUENCE,
+  FILTRE,
+  FILTREIMBRIQUE,
+} = COMPONENT_TYPE;
 
 export const propTypes = {
   ...formPropTypes,
@@ -72,22 +80,69 @@ const ComponentNewEdit = props => {
     form,
     onCancel,
     deleteComponent,
+    onSubmit,
   } = props;
 
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
+  const [filterImbriquers, setFilterImbriquers] = useState([]);
+  const [filterImbriquer, setFilterImbriquer] = useState({});
+  const [indexFilter, setIndexFilter] = useState(null);
+
   const buttonRef = useRef(null);
 
   const handleCloseNestedFilter = () => {
     setShowNewNestedFilter(false);
+    setFilterImbriquer({});
+    setIndexFilter(null);
   };
-  const handleOpenNestedFilter = e => {
-    e.preventDefault();
+
+  const handleOpenFilter = index => {
+    if (index !== null) {
+      setIndexFilter(index);
+      setFilterImbriquer(filterImbriquers[index]);
+    }
     setShowNewNestedFilter(true);
+  };
+  const handleDeleteNestedFilter = index => {
+    const filters = [...filterImbriquers];
+    filters.splice(index, 1);
+    setFilterImbriquers(filters);
+    setIndexFilter(null);
+    handleCloseNestedFilter();
+  };
+
+  const handleSubmitImbriquer = (value, index) => {
+    if (index === null) {
+      setFilterImbriquers([...filterImbriquers, value]);
+    } else {
+      const filters = [...filterImbriquers];
+      filters[index] = value;
+      setFilterImbriquers(filters);
+      setFilterImbriquer({});
+      setIndexFilter(null);
+    }
+    handleCloseNestedFilter();
+  };
+
+  const showFiltersImbriquer = myfilters => {
+    return myfilters.length !== 0
+      ? myfilters.map((filter, index) => {
+          return (
+            <div
+              className={FILTRE_IMBRIQUER}
+              onClick={() => handleOpenFilter(index)}
+            >
+              <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+              {filter.name}
+            </div>
+          );
+        })
+      : false;
   };
 
   useEffect(() => {
     props.clearSubformValidationErrors();
-  }, []);
+  }, [filterImbriquers]);
 
   const renderPanels = () => {
     let panels = [
@@ -176,7 +231,21 @@ const ComponentNewEdit = props => {
     }
     return panels;
   };
-  console.log('componentId', componentId)
+
+  const supImbriquer = (store, initial) => {
+    let superieur = initial;
+    if (filterImbriquers.length > 0) {
+      filterImbriquers.forEach(element => {
+        if (
+          store[element.finalMember].type === initial.type &&
+          store[element.finalMember].weight > initial.weight
+        ) {
+          superieur = store[element.finalMember];
+        }
+      });
+    }
+    return superieur;
+  };
 
   const getFinalOptions = store => {
     let optionsFinal = <GenericOption key="" value="" />;
@@ -188,7 +257,8 @@ const ComponentNewEdit = props => {
         .filter(
           component =>
             component.type === componentinitial[0].type &&
-            component.weight >= componentinitial[0].weight &&
+            component.weight >=
+              supImbriquer(store, componentinitial[0]).weight &&
             component.parent === componentinitial[0].parent,
         )
         .map(element => {
@@ -253,9 +323,14 @@ const ComponentNewEdit = props => {
       buttonRef.click();
     },
   };
+
   return (
     <div className={COMPONENT_CLASS}>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit(data =>
+          onSubmit({ ...data, imbriquers: filterImbriquers }),
+        )}
+      >
         {componentType === QUESTION ? (
           <AssociatedFields
             {...associatedFieldsProps}
@@ -325,17 +400,16 @@ const ComponentNewEdit = props => {
             ) : (
               false
             )}
-            {componentType === FILTRE ? (
-              <button
-                className={FILTRE_IMBRIQUER}
-                onClick={handleOpenNestedFilter}
-              >
-                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-                {Dictionary.filtreImbriquer}
-              </button>
-            ) : (
-              false
-            )}
+            {showFiltersImbriquer(filterImbriquers)}
+
+            <span
+              className={FILTRE_IMBRIQUER}
+              onClick={() => handleOpenFilter(null)}
+            >
+              <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+              {Dictionary.filtreImbriquer}
+            </span>
+
             {componentsStore ? (
               <Field
                 name="finalMember"
@@ -432,9 +506,16 @@ const ComponentNewEdit = props => {
             </button>
           </div>
           <div className="popup-body">
-            <FilterNested
+            <NestedFilter
+              indexFilter={indexFilter}
+              filterImbriquer={filterImbriquer}
               componentsStore={componentsStore}
-              editingComponentId={componentId}
+              handleSubmitImbriquer={(value, index) =>
+                handleSubmitImbriquer(value, index)
+              }
+              handleCloseNestedFilter={handleCloseNestedFilter}
+              componentType={FILTREIMBRIQUE}
+              handleDeleteNestedFilter={handleDeleteNestedFilter}
             />
           </div>
         </div>
@@ -446,7 +527,7 @@ const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {
     InitialMember: selector(state, 'initialMember'),
+    imbriquers: selector(state, 'imbriquers'),
   };
 };
-
 export default connect(mapStateToProps)(ComponentNewEdit);

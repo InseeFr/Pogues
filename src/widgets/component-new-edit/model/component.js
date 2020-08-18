@@ -29,6 +29,7 @@ export const defaultState = {
   children: [],
   responseFormat: {},
   TargetMode: [],
+  imbriquers: [],
 };
 
 export function formToState(form, transformers) {
@@ -49,14 +50,14 @@ export function formToState(form, transformers) {
     finalMember,
     addButtonLibel,
     description,
-    imbriquer,
+    imbriquers,
   } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
 
   return {
-    name: name || nameFromLabel(label) || nameLoop,
+    name: name || label ? nameFromLabel(label) : false || nameLoop,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
@@ -74,7 +75,7 @@ export function formToState(form, transformers) {
     finalMember: finalMember,
     addButtonLibel: addButtonLibel,
     description: description,
-    imbriquer: imbriquer || '',
+    imbriquers: imbriquers,
   };
 }
 

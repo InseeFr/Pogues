@@ -59,7 +59,6 @@ class Input extends Component {
       ...otherProps
     } = this.props;
     const id = getControlId('input', input.name);
-
     return (
       <div className={`${COMPONENT_CLASS} ${className}`}>
         <label htmlFor={id}>

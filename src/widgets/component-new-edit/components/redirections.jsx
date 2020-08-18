@@ -56,6 +56,7 @@ function Redirections({
   componentsStore,
   editingComponentId,
 }) {
+  console.log('editingComponentId', editingComponentId)
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel

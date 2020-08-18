@@ -1434,6 +1434,18 @@ const dictionary = {
     fr: 'Spécification',
     en: 'Specification',
   },
+  NEW: {
+    fr: 'Nouveau',
+    en: 'New',
+  },
+  EXISTING: {
+    fr: 'Existant',
+    en: 'Existing',
+  },
+  TYPEFILTER: {
+    fr: 'Type de filtre',
+    en: 'Filtre type',
+  },
 };
 
 // Dynamic translations

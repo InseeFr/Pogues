@@ -1,0 +1,415 @@
+import React, { useRef, useEffect, useState } from 'react';
+import ReactModal from 'react-modal';
+
+import PropTypes from 'prop-types';
+import {
+  TABS_PATHS,
+  DEFAULT_FORM_NAME,
+  COMPONENT_TYPE,
+} from 'constants/pogues-constants';
+import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
+import { validateFilterForm } from 'utils/validation/validate';
+import Input from 'forms/controls/input';
+import Dictionary from 'utils/dictionary/dictionary';
+
+const {
+  COMPONENT_CLASS,
+  FOOTER,
+  CANCEL,
+  VALIDATE,
+  FOOTERLOOP,
+  DELETE,
+  FILTRE_IMBRIQUER,
+} = WIDGET_COMPONENT_NEW_EDIT;
+const { FILTREIMBRIQUE } = COMPONENT_TYPE;
+
+// Prop types and default props
+
+export const propTypes = {
+  formName: PropTypes.string,
+  selectorPath: PropTypes.string,
+  errors: PropTypes.array,
+  addErrors: PropTypes.func.isRequired,
+  componentsStore: PropTypes.object.isRequired,
+};
+
+export const defaultProps = {
+  formName: DEFAULT_FORM_NAME,
+  selectorPath: TABS_PATHS.CALCULATED_VARIABLES,
+  errors: [],
+};
+const NestedFilter = props => {
+  const {
+    componentsStore,
+    handleSubmitImbriquer,
+    filterImbriquer,
+    indexFilter,
+    componentType,
+    handleDeleteNestedFilter,
+    handleCloseNestedFilter,
+  } = props;
+  const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
+  const [error, setError] = useState({
+    name: false,
+    initialMember: false,
+    finalMember: false,
+  });
+  const [filterImbriquer1, setFilterImbriquer1] = useState({
+    typeFilter: '',
+    name: '',
+    descriptionImbriquer: '',
+    conditionImbriquer: '',
+    initialMember: '',
+    finalMember: '',
+    filterImbriquer: [],
+  });
+  const [indexImbriquer, setIndexImbriquer] = useState(null);
+  const [newNestedFilter, setNewNestedFilter] = useState({
+    typeFilter: '',
+    name: '',
+    descriptionImbriquer: '',
+    conditionImbriquer: '',
+    initialMember: '',
+    finalMember: '',
+    filterImbriquer: [],
+  });
+
+  useEffect(() => {
+    console.log('indexFilter', indexFilter);
+    console.log('newNestedFilter', newNestedFilter);
+    setNewNestedFilter(filterImbriquer);
+  }, [filterImbriquer, indexFilter]);
+
+  const handleSubmitImbriquer1 = (value, index) => {
+    console.log('index', index);
+
+    if (index === null) {
+      const filters = newNestedFilter.filterImbriquer
+        ? newNestedFilter.filterImbriquer
+        : [];
+      filters.push(value);
+      setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
+    } else {
+      const filters = [...newNestedFilter.filterImbriquer];
+      console.log('filters', filters);
+
+      filters[index] = value;
+      setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
+      setIndexImbriquer(null);
+    }
+    handleCloseNestedFilter();
+  };
+
+  const handleChange = e => {
+    setNewNestedFilter({
+      ...newNestedFilter,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCloseNestedFilter1 = () => {
+    setShowNewNestedFilter(false);
+    setFilterImbriquer1({});
+    setIndexImbriquer(null);
+  };
+  const handleOpenNestedFilter = index => {
+    if (index !== null) {
+      setIndexImbriquer(index);
+      setFilterImbriquer1(newNestedFilter.filterImbriquer[index]);
+    }
+    setShowNewNestedFilter(true);
+  };
+
+  const handleDeleteNested = index => {
+    const filters = [...newNestedFilter.filterImbriquer];
+    filters.splice(index, 1);
+    setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
+    setIndexImbriquer(null);
+    handleCloseNestedFilter();
+  };
+
+  const handleSubmit = () => {
+    if (
+      !newNestedFilter.name ||
+      !newNestedFilter.initialMember ||
+      !newNestedFilter.finalMember
+    ) {
+      setError({
+        ...error,
+        name: !newNestedFilter.name,
+        initialMember: !newNestedFilter.initialMember,
+        finalMember: !newNestedFilter.finalMember,
+      });
+    } else {
+      handleSubmitImbriquer(newNestedFilter, indexFilter);
+      setNewNestedFilter({
+        typeFilter: '',
+        name: '',
+        descriptionImbriquer: '',
+        conditionImbriquer: '',
+        initialMember: '',
+        finalMember: '',
+        filterImbriquer: [],
+      });
+    }
+  };
+
+  const showFiltersImbriquer = myfilters => {
+    return myfilters && myfilters.length !== 0
+      ? myfilters.map((filter, index) => {
+          return (
+            <div
+              className={FILTRE_IMBRIQUER}
+              onClick={() => handleOpenNestedFilter(index)}
+            >
+              <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+              {filter.name}
+            </div>
+          );
+        })
+      : false;
+  };
+
+  const supImbriquer = (store, initial) => {
+    let superieur = initial;
+    if (
+      newNestedFilter.filterImbriquer &&
+      newNestedFilter.filterImbriquer.length > 0
+    ) {
+      newNestedFilter.filterImbriquer.forEach(element => {
+        if (
+          store[element.finalMember].type === initial.type &&
+          store[element.finalMember].weight > initial.weight
+        ) {
+          superieur = store[element.finalMember];
+        }
+      });
+    }
+    return superieur;
+  };
+
+  const getFinalOptions = store => {
+    let optionsFinal = <option key="" value="" />;
+    const componentinitial = Object.values(store).filter(
+      component => component.id === newNestedFilter.initialMember,
+    );
+    if (newNestedFilter.initialMember && componentinitial.length > 0) {
+      optionsFinal = Object.values(store)
+        .filter(
+          component =>
+            component.type === componentinitial[0].type &&
+            component.weight >=
+              supImbriquer(store, componentinitial[0]).weight &&
+            component.parent === componentinitial[0].parent,
+        )
+        .map(element => {
+          return (
+            <option key={element.id} value={element.id}>
+              {element.name}
+            </option>
+          );
+        });
+    }
+    return optionsFinal;
+  };
+
+  const optionsInitial = () => {
+    let options = <option key="" value="" />;
+    options = Object.values(componentsStore).map(element => {
+      return (
+        <option key={element.id} value={element.id}>
+          {element.name}
+        </option>
+      );
+    });
+    return options;
+  };
+
+  return (
+    <div className={COMPONENT_CLASS}>
+      <div className="ctrl-list-radios">
+        <label>
+          {Dictionary.TYPEFILTER}
+          <span className="ctrl-required">*</span>
+        </label>
+        <div>
+          <label
+            htmlFor="input-nestedFilter.typeFilter"
+            className="radio-inline"
+          >
+            <input
+              type="radio"
+              name="typeFilter"
+              value="new"
+              onChange={e => handleChange(e)}
+              checked={newNestedFilter.typeFilter === 'new'}
+            />
+            {Dictionary.NEW}
+          </label>
+          <label
+            htmlFor="input-nestedFilter.typeFilter"
+            className="radio-inline"
+          >
+            <input
+              type="radio"
+              name="typeFilter"
+              value="exist"
+              onChange={e => handleChange(e)}
+              checked={newNestedFilter.typeFilter === 'exist'}
+            />
+            {Dictionary.EXISTING}
+          </label>
+        </div>
+      </div>
+      <div className="ctrl-input ">
+        <label htmlFor="input-nestedFilter.name">{Dictionary.name}</label>
+        <div>
+          <input
+            name="name"
+            type="text"
+            value={newNestedFilter.name}
+            onChange={e => handleChange(e)}
+            required
+          />
+          {error && error.name ? (
+            <span className="form-error">{Dictionary.mandatory}</span>
+          ) : (
+            false
+          )}
+        </div>
+      </div>
+      <div className="ctrl-input ">
+        <label htmlFor="input-nestedFilter.description">
+          {Dictionary.description}
+        </label>
+        <div>
+          <input
+            name="descriptionImbriquer"
+            type="text"
+            value={newNestedFilter.descriptionImbriquer}
+            onChange={e => handleChange(e)}
+          />
+        </div>
+      </div>
+      <div className="ctrl-input ">
+        <label htmlFor="input-nestedFilter.condition">
+          {Dictionary.condition}
+        </label>
+        <div>
+          <input
+            name="conditionImbriquer"
+            type="text"
+            value={newNestedFilter.conditionImbriquer}
+            onChange={e => handleChange(e)}
+          />
+        </div>
+      </div>
+      <div className="ctrl-select">
+        <label htmlFor="input-nestedFilter.InitialMembre">
+          {Dictionary.InitialMembre}
+        </label>
+        <div>
+          <select
+            value={newNestedFilter.initialMember}
+            name="initialMember"
+            onChange={e => handleChange(e)}
+          >
+            <option key="" value="">
+              {Dictionary.selectInitialMembre}
+            </option>
+            {optionsInitial()}
+          </select>
+          {error && error.initialMember ? (
+            <span className="form-error">{Dictionary.mandatory}</span>
+          ) : (
+            false
+          )}
+        </div>
+      </div>
+      {showFiltersImbriquer(newNestedFilter.filterImbriquer)}
+      <span
+        className={FILTRE_IMBRIQUER}
+        onClick={() => handleOpenNestedFilter(null)}
+      >
+        <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+        {Dictionary.filtreImbriquer}
+      </span>
+      <div className="ctrl-select">
+        <label htmlFor="input-nestedFilter.FinalMembre">
+          {Dictionary.FinalMembre}
+        </label>
+        <div>
+          <select
+            value={newNestedFilter.finalMember}
+            name="finalMember"
+            disabled={!newNestedFilter.initialMember}
+            onChange={e => handleChange(e)}
+          >
+            <option key="" value="">
+              {Dictionary.selectFinalMembre}
+            </option>
+            {getFinalOptions(componentsStore)}
+          </select>
+          {error && error.finalMember ? (
+            <span className="form-error">{Dictionary.mandatory}</span>
+          ) : (
+            false
+          )}
+        </div>
+      </div>
+      <div className={FOOTERLOOP}>
+        <button className={VALIDATE} type="submit" onClick={handleSubmit}>
+          {Dictionary.validate}
+        </button>
+        <button className={CANCEL} onClick={() => handleCloseNestedFilter()}>
+          {Dictionary.cancel}
+        </button>
+        {indexFilter !== null ? (
+          <button
+            className={DELETE}
+            // disabled={submitting}
+            onClick={() => handleDeleteNestedFilter(indexFilter)}
+          >
+            {Dictionary.remove}
+          </button>
+        ) : (
+          false
+        )}
+      </div>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showNewNestedFilter}
+        onRequestClose={handleCloseNestedFilter1}
+        contentLabel="FILTRE IMBRIQUE"
+      >
+        <div className="popup">
+          <div className="popup-header">
+            <h3>FILTRE IMBRIQUE</h3>
+            <button type="button" onClick={handleCloseNestedFilter1}>
+              <span>X</span>
+            </button>
+          </div>
+          <div className="popup-body">
+            <NestedFilter
+              filterImbriquer={filterImbriquer1}
+              indexFilter={indexImbriquer}
+              componentsStore={componentsStore}
+              handleSubmitImbriquer={(value, index) =>
+                handleSubmitImbriquer1(value, index)
+              }
+              handleCloseNestedFilter={handleCloseNestedFilter1}
+              componentType={FILTREIMBRIQUE}
+              handleDeleteNestedFilter={handleDeleteNested}
+            />
+          </div>
+        </div>
+      </ReactModal>
+    </div>
+  );
+};
+
+NestedFilter.propTypes = propTypes;
+NestedFilter.defaultProps = defaultProps;
+
+export default NestedFilter;
