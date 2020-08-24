@@ -4,6 +4,7 @@ import {
   isQuestion,
   getSortedChildren,
   isLoop,
+  isFilter 
 } from 'utils/component/component-utils';
 
 class ArboSimplified extends Component {
@@ -47,7 +48,7 @@ class ArboSimplified extends Component {
     return getSortedChildren(components, parent).map(key => {
       if (key !== 'idendquest') {
         const subTree = renderComponentsByParent(components, key);
-        if (!isLoop(components[key])) {
+        if (!isLoop(components[key]) && !isFilter(components[key])) {
           return (
             <li
               key={key}

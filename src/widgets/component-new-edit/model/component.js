@@ -9,7 +9,7 @@ import ExternalVariable from './external-variable';
 import { uuid, nameFromLabel } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTRE } = COMPONENT_TYPE;
 
 export const defaultState = {
   id: '',
@@ -57,7 +57,13 @@ export function formToState(form, transformers) {
   transformers.externalVariable.formToStore(form.externalVariables);
 
   return {
-    name: name || label ? nameFromLabel(label) : false || nameLoop,
+    name: name
+      ? nameFromLabel(name)
+      : false || label
+      ? nameFromLabel(label)
+      : false || nameLoop
+      ? nameFromLabel(nameLoop)
+      : false,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
@@ -101,7 +107,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
     TargetMode:
-      type !== LOOP && type !== ''
+      type !== LOOP && type !== '' && type !== FILTRE
         ? label
           ? TargetMode.join()
           : activeQuestionnaire.TargetMode.join()

@@ -108,8 +108,12 @@ const dictionary = {
     fr: 'Filtre',
   },
   filtreImbriquer: {
-    en: 'Add a nested filter',
-    fr: 'Ajouter un filtre imbriqué',
+    fr: 'Nouveau filtre imbriqué',
+    en: 'New nested filter',
+  },
+  editFiltreImbriquer: {
+    fr: 'Editer filtre imbriqué',
+    en: 'Edit nested filter',
   },
   Scope: {
     en: 'Scope',

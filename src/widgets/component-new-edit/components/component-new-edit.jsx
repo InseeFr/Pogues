@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { formValueSelector, formPropTypes, Field } from 'redux-form';
 import ReactModal from 'react-modal';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
@@ -11,7 +11,6 @@ import Redirections from './redirections';
 import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
 import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
-import { ComponentNew } from 'layout/component-new';
 
 import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
@@ -128,13 +127,13 @@ const ComponentNewEdit = props => {
     return myfilters.length !== 0
       ? myfilters.map((filter, index) => {
           return (
-            <div
+            <button
               className={FILTRE_IMBRIQUER}
               onClick={() => handleOpenFilter(index)}
             >
               <span className="glyphicon glyphicon-plus" aria-hidden="true" />
               {filter.name}
-            </div>
+            </button>
           );
         })
       : false;
@@ -233,18 +232,38 @@ const ComponentNewEdit = props => {
   };
 
   const supImbriquer = (store, initial) => {
-    let superieur = initial;
+    let superieur = initial.weight;
     if (filterImbriquers.length > 0) {
       filterImbriquers.forEach(element => {
         if (
           store[element.finalMember].type === initial.type &&
           store[element.finalMember].weight > initial.weight
         ) {
-          superieur = store[element.finalMember];
+          superieur = store[element.finalMember].weight;
         }
       });
     }
     return superieur;
+  };
+
+  const infImbriquer = (store, initial) => {
+    const filters = Object.values(store).filter(
+      component =>
+        component.type === FILTRE &&
+        store[component.initialMember].weight < initial.weight &&
+        store[component.finalMember].weight > initial.weight,
+    );
+    const inferieurComponent = filters.reduce(
+      (min, p) =>
+        store[p.initialMember].weight > store[min.initialMember].weight
+          ? p
+          : min,
+      filters[0],
+    );
+    const inferieur = inferieurComponent
+      ? store[inferieurComponent.finalMember].weight
+      : undefined;
+    return inferieur;
   };
 
   const getFinalOptions = store => {
@@ -253,21 +272,38 @@ const ComponentNewEdit = props => {
       component => component.id === props.InitialMember,
     );
     if (props.InitialMember && componentinitial.length > 0) {
-      optionsFinal = Object.values(store)
-        .filter(
-          component =>
-            component.type === componentinitial[0].type &&
-            component.weight >=
-              supImbriquer(store, componentinitial[0]).weight &&
-            component.parent === componentinitial[0].parent,
-        )
-        .map(element => {
-          return (
-            <GenericOption key={element.id} value={element.id}>
-              {element.name}
-            </GenericOption>
-          );
-        });
+      if (infImbriquer(store, componentinitial[0])) {
+        optionsFinal = Object.values(store)
+          .filter(
+            component =>
+              component.type === componentinitial[0].type &&
+              component.weight >= supImbriquer(store, componentinitial[0]) &&
+              component.weight <= infImbriquer(store, componentinitial[0]) &&
+              component.parent === componentinitial[0].parent,
+          )
+          .map(element => {
+            return (
+              <GenericOption key={element.id} value={element.id}>
+                {element.name}
+              </GenericOption>
+            );
+          });
+      } else {
+        optionsFinal = Object.values(store)
+          .filter(
+            component =>
+              component.type === componentinitial[0].type &&
+              component.weight >= supImbriquer(store, componentinitial[0]) &&
+              component.parent === componentinitial[0].parent,
+          )
+          .map(element => {
+            return (
+              <GenericOption key={element.id} value={element.id}>
+                {element.name}
+              </GenericOption>
+            );
+          });
+      }
     }
     return optionsFinal;
   };
@@ -288,13 +324,15 @@ const ComponentNewEdit = props => {
           );
         });
     } else {
-      options = Object.values(componentsStore).map(element => {
-        return (
-          <GenericOption key={element.id} value={element.id}>
-            {element.name}
-          </GenericOption>
-        );
-      });
+      options = Object.values(componentsStore)
+        .filter(component => component.type !== LOOP)
+        .map(element => {
+          return (
+            <GenericOption key={element.id} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
     }
     return options;
   };
@@ -345,7 +383,6 @@ const ComponentNewEdit = props => {
               component={Input}
               label={Dictionary.name}
             />
-
             {componentsStore && componentType === LOOP ? (
               <div>
                 <Field
@@ -385,7 +422,6 @@ const ComponentNewEdit = props => {
                   : Dictionary.expression
               }
             />
-
             {componentsStore ? (
               <Field
                 name="initialMember"
@@ -400,16 +436,20 @@ const ComponentNewEdit = props => {
             ) : (
               false
             )}
-            {showFiltersImbriquer(filterImbriquers)}
-
-            <span
-              className={FILTRE_IMBRIQUER}
-              onClick={() => handleOpenFilter(null)}
-            >
-              <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-              {Dictionary.filtreImbriquer}
-            </span>
-
+            {componentType === FILTRE
+              ? showFiltersImbriquer(filterImbriquers)
+              : false}
+            {componentType === FILTRE ? (
+              <span
+                className={FILTRE_IMBRIQUER}
+                onClick={() => handleOpenFilter(null)}
+              >
+                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+                {Dictionary.filtreImbriquer}
+              </span>
+            ) : (
+              false
+            )}
             {componentsStore ? (
               <Field
                 name="finalMember"
@@ -500,7 +540,11 @@ const ComponentNewEdit = props => {
       >
         <div className="popup">
           <div className="popup-header">
-            <h3>FILTRE IMBRIQUE</h3>
+            <h3>
+              {indexFilter !== null
+                ? Dictionary.editFiltreImbriquer
+                : Dictionary.filtreImbriquer}
+            </h3>
             <button type="button" onClick={handleCloseNestedFilter}>
               <span>X</span>
             </button>

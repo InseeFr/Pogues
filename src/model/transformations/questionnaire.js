@@ -4,6 +4,7 @@ import * as CalculatedVariable from './calculated-variable';
 import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
 import * as Loop from './loop';
+import * as RedirectionsFilter from './redirection-filters';
 
 import { uuid } from 'utils/utils';
 import { getOrderedComponents } from 'utils/model/redirections-utils';
@@ -167,6 +168,7 @@ export function stateToRemote(state, stores) {
     componentsStore,
   );
   const Iterations = Loop.stateToRemote(componentsStore);
+  const FlowControl = RedirectionsFilter.stateToRemote(componentsStore);
 
   const json = {
     ...remote,
@@ -187,6 +189,10 @@ export function stateToRemote(state, stores) {
       Iteration: Iterations,
     };
   }
-
+  if (FlowControl.length !== 0) {
+    json.FlowControl = {
+      FlowControl: FlowControl,
+    };
+  }
   return json;
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
 import PropTypes from 'prop-types';
@@ -8,20 +8,19 @@ import {
   COMPONENT_TYPE,
 } from 'constants/pogues-constants';
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import { validateFilterForm } from 'utils/validation/validate';
-import Input from 'forms/controls/input';
 import Dictionary from 'utils/dictionary/dictionary';
+import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import * as rules from 'forms/validation-rules';
 
 const {
   COMPONENT_CLASS,
-  FOOTER,
   CANCEL,
   VALIDATE,
   FOOTERLOOP,
   DELETE,
   FILTRE_IMBRIQUER,
 } = WIDGET_COMPONENT_NEW_EDIT;
-const { FILTREIMBRIQUE } = COMPONENT_TYPE;
+const { FILTREIMBRIQUE, LOOP, FILTRE } = COMPONENT_TYPE;
 
 // Prop types and default props
 
@@ -44,15 +43,14 @@ const NestedFilter = props => {
     handleSubmitImbriquer,
     filterImbriquer,
     indexFilter,
-    componentType,
     handleDeleteNestedFilter,
-    handleCloseNestedFilter,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [error, setError] = useState({
     name: false,
     initialMember: false,
     finalMember: false,
+    nameValid: '',
   });
   const [filterImbriquer1, setFilterImbriquer1] = useState({
     typeFilter: '',
@@ -75,14 +73,10 @@ const NestedFilter = props => {
   });
 
   useEffect(() => {
-    console.log('indexFilter', indexFilter);
-    console.log('newNestedFilter', newNestedFilter);
     setNewNestedFilter(filterImbriquer);
   }, [filterImbriquer, indexFilter]);
 
   const handleSubmitImbriquer1 = (value, index) => {
-    console.log('index', index);
-
     if (index === null) {
       const filters = newNestedFilter.filterImbriquer
         ? newNestedFilter.filterImbriquer
@@ -91,8 +85,6 @@ const NestedFilter = props => {
       setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
     } else {
       const filters = [...newNestedFilter.filterImbriquer];
-      console.log('filters', filters);
-
       filters[index] = value;
       setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
       setIndexImbriquer(null);
@@ -107,7 +99,7 @@ const NestedFilter = props => {
     });
   };
 
-  const handleCloseNestedFilter1 = () => {
+  const handleCloseNestedFilter = () => {
     setShowNewNestedFilter(false);
     setFilterImbriquer1({});
     setIndexImbriquer(null);
@@ -129,16 +121,19 @@ const NestedFilter = props => {
   };
 
   const handleSubmit = () => {
+    console.log('rules', rules.name(newNestedFilter.name));
     if (
       !newNestedFilter.name ||
       !newNestedFilter.initialMember ||
-      !newNestedFilter.finalMember
+      !newNestedFilter.finalMember ||
+      rules.name(newNestedFilter.name)
     ) {
       setError({
         ...error,
         name: !newNestedFilter.name,
         initialMember: !newNestedFilter.initialMember,
         finalMember: !newNestedFilter.finalMember,
+        nameValid: rules.name(newNestedFilter.name),
       });
     } else {
       handleSubmitImbriquer(newNestedFilter, indexFilter);
@@ -158,20 +153,20 @@ const NestedFilter = props => {
     return myfilters && myfilters.length !== 0
       ? myfilters.map((filter, index) => {
           return (
-            <div
+            <button
               className={FILTRE_IMBRIQUER}
               onClick={() => handleOpenNestedFilter(index)}
             >
               <span className="glyphicon glyphicon-plus" aria-hidden="true" />
               {filter.name}
-            </div>
+            </button>
           );
         })
       : false;
   };
 
   const supImbriquer = (store, initial) => {
-    let superieur = initial;
+    let superieur = initial.weight;
     if (
       newNestedFilter.filterImbriquer &&
       newNestedFilter.filterImbriquer.length > 0
@@ -181,11 +176,30 @@ const NestedFilter = props => {
           store[element.finalMember].type === initial.type &&
           store[element.finalMember].weight > initial.weight
         ) {
-          superieur = store[element.finalMember];
+          superieur = store[element.finalMember].weight;
         }
       });
     }
     return superieur;
+  };
+
+  const infImbriquer = (store, initial) => {
+    const filters = newNestedFilter.filterImbriquer.filter(
+      nested =>
+        store[nested.initialMember].weight < initial.weight &&
+        store[nested.finalMember].weight > initial.weight,
+    );
+    const inferieurComponent = filters.reduce(
+      (min, p) =>
+        store[p.initialMember].weight > store[min.initialMember].weight
+          ? p
+          : min,
+      filters[0],
+    );
+    const inferieur = inferieurComponent
+      ? store[inferieurComponent.finalMember].weight
+      : undefined;
+    return inferieur;
   };
 
   const getFinalOptions = store => {
@@ -194,34 +208,55 @@ const NestedFilter = props => {
       component => component.id === newNestedFilter.initialMember,
     );
     if (newNestedFilter.initialMember && componentinitial.length > 0) {
-      optionsFinal = Object.values(store)
-        .filter(
-          component =>
-            component.type === componentinitial[0].type &&
-            component.weight >=
-              supImbriquer(store, componentinitial[0]).weight &&
-            component.parent === componentinitial[0].parent,
-        )
-        .map(element => {
-          return (
-            <option key={element.id} value={element.id}>
-              {element.name}
-            </option>
-          );
-        });
+      if (
+        newNestedFilter.filterImbriquer > 0 &&
+        infImbriquer(store, componentinitial[0])
+      ) {
+        optionsFinal = Object.values(store)
+          .filter(
+            component =>
+              component.type === componentinitial[0].type &&
+              component.weight >= supImbriquer(store, componentinitial[0]) &&
+              component.weight <= infImbriquer(store, componentinitial[0]) &&
+              component.parent === componentinitial[0].parent,
+          )
+          .map(element => {
+            return (
+              <option key={element.id} value={element.id}>
+                {element.name}
+              </option>
+            );
+          });
+      } else {
+        optionsFinal = Object.values(store)
+          .filter(
+            component =>
+              component.type === componentinitial[0].type &&
+              component.weight >= supImbriquer(store, componentinitial[0]) &&
+              component.parent === componentinitial[0].parent,
+          )
+          .map(element => {
+            return (
+              <option key={element.id} value={element.id}>
+                {element.name}
+              </option>
+            );
+          });
+      }
+      return optionsFinal;
     }
-    return optionsFinal;
   };
-
   const optionsInitial = () => {
     let options = <option key="" value="" />;
-    options = Object.values(componentsStore).map(element => {
-      return (
-        <option key={element.id} value={element.id}>
-          {element.name}
-        </option>
-      );
-    });
+    options = Object.values(componentsStore)
+      .filter(component => component.type !== LOOP)
+      .map(element => {
+        return (
+          <option key={element.id} value={element.id}>
+            {element.name}
+          </option>
+        );
+      });
     return options;
   };
 
@@ -273,6 +308,8 @@ const NestedFilter = props => {
           />
           {error && error.name ? (
             <span className="form-error">{Dictionary.mandatory}</span>
+          ) : error && error.nameValid ? (
+            <span className="form-error">{error.nameValid}</span>
           ) : (
             false
           )}
@@ -380,13 +417,17 @@ const NestedFilter = props => {
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showNewNestedFilter}
-        onRequestClose={handleCloseNestedFilter1}
+        onRequestClose={handleCloseNestedFilter}
         contentLabel="FILTRE IMBRIQUE"
       >
         <div className="popup">
           <div className="popup-header">
-            <h3>FILTRE IMBRIQUE</h3>
-            <button type="button" onClick={handleCloseNestedFilter1}>
+            <h3>
+              {indexImbriquer !== null
+                ? Dictionary.editFiltreImbriquer
+                : Dictionary.filtreImbriquer}
+            </h3>
+            <button type="button" onClick={handleCloseNestedFilter}>
               <span>X</span>
             </button>
           </div>
@@ -398,7 +439,7 @@ const NestedFilter = props => {
               handleSubmitImbriquer={(value, index) =>
                 handleSubmitImbriquer1(value, index)
               }
-              handleCloseNestedFilter={handleCloseNestedFilter1}
+              handleCloseNestedFilter={handleCloseNestedFilter}
               componentType={FILTREIMBRIQUE}
               handleDeleteNestedFilter={handleDeleteNested}
             />

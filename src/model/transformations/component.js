@@ -17,7 +17,7 @@ import {
 } from 'constants/pogues-constants';
 import { checkPropTypes } from 'prop-types';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP, FILTRE } = COMPONENT_TYPE;
 
 function sortByWeight(store) {
   return (keyA, keyB) => {
@@ -221,11 +221,11 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarationMode,
   } = remote;
   const redirectionClar =
-    redirections != undefined
+    redirections !== undefined
       ? redirections.filter(redirec => redirec.flowControlType === undefined)
       : [];
   let responseFinal = responses;
-  if (responsesClarification != undefined) {
+  if (responsesClarification !== undefined) {
     responsesClarification.forEach(clar => {
       responseFinal = responseFinal.concat(clar.Response);
     });
@@ -321,13 +321,12 @@ function getClarificationresponseSingleChoiseQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
-  Name,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
   const flowcontrolefinal = [];
   Object.values(collectedVariablesStore).forEach(collec => {
-    if (collectedVariables != undefined) {
+    if (collectedVariables !== undefined) {
       collectedVariables.forEach(variables => {
         if (collec.id === variables) {
           collectedvariablequestion.push(collec);
@@ -389,13 +388,12 @@ function getClarificationResponseMultipleChoiceQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
-  Name,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
   const flowcontrolefinal = [];
   Object.values(collectedVariablesStore).forEach(collec => {
-    if (collectedVariables != undefined) {
+    if (collectedVariables !== undefined) {
       collectedVariables.forEach(variables => {
         if (collec.id === variables) {
           collectedvariablequestion.push(collec);
@@ -416,7 +414,7 @@ function getClarificationResponseMultipleChoiceQuestion(
       ).find(code => code.weight === collected.z);
       if (code) {
         const collectedVar = collectedvariablequestion.find(
-          collectedVarible => collectedVarible.x == code.weight,
+          collectedVarible => collectedVarible.x === code.weight,
         );
         const clafication = {
           id: uuid(),
@@ -463,14 +461,13 @@ function getClarificationResponseTableQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
-  Name,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
   const flowcontrolefinal = [];
 
   Object.values(collectedVariablesStore).forEach(collec => {
-    if (collectedVariables != undefined) {
+    if (collectedVariables !== undefined) {
       collectedVariables.forEach(variables => {
         if (collec.id === variables) {
           collectedvariablequestion.push(collec);
@@ -564,7 +561,7 @@ function storeToRemoteNested(
     TargetMode,
   } = state;
 
-  if (type !== LOOP) {
+  if (type !== LOOP && type !== FILTRE) {
     let remote = {
       id,
       depth,
@@ -580,7 +577,7 @@ function storeToRemoteNested(
     if (type === QUESTION) {
       if (
         responseFormat.type === 'SINGLE_CHOICE' &&
-        collectedVariablesStore != undefined
+        collectedVariablesStore !== undefined
       ) {
         const remoteclarification = getClarificationresponseSingleChoiseQuestion(
           collectedVariablesStore,
@@ -598,7 +595,7 @@ function storeToRemoteNested(
 
       if (
         responseFormat.type === 'MULTIPLE_CHOICE' &&
-        collectedVariablesStore != undefined
+        collectedVariablesStore !== undefined
       ) {
         const remoteclarification = getClarificationResponseMultipleChoiceQuestion(
           collectedVariablesStore,
@@ -615,7 +612,7 @@ function storeToRemoteNested(
       }
       if (
         responseFormat.type === 'TABLE' &&
-        collectedVariablesStore != undefined
+        collectedVariablesStore !== undefined
       ) {
         const remoteclarification = getClarificationResponseTableQuestion(
           collectedVariablesStore,
