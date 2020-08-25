@@ -9,6 +9,7 @@ const {
   QUESTIONNAIRE,
   LOOP,
   FILTRE,
+  NYSTEDFILTRE,
 } = COMPONENT_TYPE;
 
 /**
@@ -54,6 +55,15 @@ export function isQuestionnaire(component) {
  */
 export function isLoop(component) {
   return component && component.type === LOOP;
+}
+
+/**
+ * This method return true if the component passed as a parameter is a  NYSTEDFILTRE
+ *
+ * @param {object} component The component we should test
+ */
+export function isNestedFilter(component) {
+  return component && component.type === NYSTEDFILTRE;
 }
 
 /**

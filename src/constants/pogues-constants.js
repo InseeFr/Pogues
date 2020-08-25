@@ -5,7 +5,7 @@ export const COMPONENT_TYPE = {
   QUESTIONNAIRE: 'QUESTIONNAIRE',
   LOOP: 'LOOP',
   FILTRE: 'FILTRE',
-  FILTREIMBRIQUE: 'FILTRE-IMBRIQUE',
+  NYSTEDFILTRE: 'NYSTEDFILTRE',
   // used as a placeholder to place the generic input within the questionnaire
   GENERIC_INPUT: 'GENERIC_INPUT',
 };

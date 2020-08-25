@@ -45,7 +45,7 @@ const {
   SEQUENCE,
   SUBSEQUENCE,
   FILTRE,
-  FILTREIMBRIQUE,
+  NYSTEDFILTRE,
 } = COMPONENT_TYPE;
 
 export const propTypes = {
@@ -84,55 +84,44 @@ const ComponentNewEdit = props => {
 
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [filterImbriquers, setFilterImbriquers] = useState([]);
-  const [filterImbriquer, setFilterImbriquer] = useState({});
-  const [indexFilter, setIndexFilter] = useState(null);
-
+  const [filterId, setFilterId] = useState(null);
   const buttonRef = useRef(null);
 
   const handleCloseNestedFilter = () => {
     setShowNewNestedFilter(false);
-    setFilterImbriquer({});
-    setIndexFilter(null);
+    setFilterId(null);
   };
 
   const handleOpenFilter = index => {
     if (index !== null) {
-      setIndexFilter(index);
-      setFilterImbriquer(filterImbriquers[index]);
+      setFilterId(index);
     }
     setShowNewNestedFilter(true);
   };
+
   const handleDeleteNestedFilter = index => {
     const filters = [...filterImbriquers];
     filters.splice(index, 1);
     setFilterImbriquers(filters);
-    setIndexFilter(null);
+    setFilterId(null);
     handleCloseNestedFilter();
   };
 
   const handleSubmitImbriquer = (value, index) => {
-    if (index === null) {
-      setFilterImbriquers([...filterImbriquers, value]);
-    } else {
-      const filters = [...filterImbriquers];
-      filters[index] = value;
-      setFilterImbriquers(filters);
-      setFilterImbriquer({});
-      setIndexFilter(null);
-    }
+    setFilterImbriquers([...filterImbriquers, value]);
     handleCloseNestedFilter();
   };
 
   const showFiltersImbriquer = myfilters => {
     return myfilters.length !== 0
-      ? myfilters.map((filter, index) => {
+      ? myfilters.map(filter => {
           return (
             <button
               className={FILTRE_IMBRIQUER}
-              onClick={() => handleOpenFilter(index)}
+              onClick={() => handleOpenFilter(filter)}
             >
               <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-              {filter.name}
+              {componentsStore[filter].name}
             </button>
           );
         })
@@ -236,10 +225,10 @@ const ComponentNewEdit = props => {
     if (filterImbriquers.length > 0) {
       filterImbriquers.forEach(element => {
         if (
-          store[element.finalMember].type === initial.type &&
-          store[element.finalMember].weight > initial.weight
+          store[store[element].finalMember].type === initial.type &&
+          store[store[element].finalMember].weight > initial.weight
         ) {
-          superieur = store[element.finalMember].weight;
+          superieur = store[store[element].finalMember].weight;
         }
       });
     }
@@ -361,7 +350,6 @@ const ComponentNewEdit = props => {
       buttonRef.click();
     },
   };
-
   return (
     <div className={COMPONENT_CLASS}>
       <form
@@ -541,7 +529,7 @@ const ComponentNewEdit = props => {
         <div className="popup">
           <div className="popup-header">
             <h3>
-              {indexFilter !== null
+              {filterId !== null
                 ? Dictionary.editFiltreImbriquer
                 : Dictionary.filtreImbriquer}
             </h3>
@@ -551,15 +539,16 @@ const ComponentNewEdit = props => {
           </div>
           <div className="popup-body">
             <NestedFilter
-              indexFilter={indexFilter}
-              filterImbriquer={filterImbriquer}
+              filterId={filterId}
               componentsStore={componentsStore}
               handleSubmitImbriquer={(value, index) =>
                 handleSubmitImbriquer(value, index)
               }
               handleCloseNestedFilter={handleCloseNestedFilter}
-              componentType={FILTREIMBRIQUE}
+              componentType={NYSTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}
+              removeComponent={props.removeComponent}
+              updateComponent={props.updateComponent}
             />
           </div>
         </div>

@@ -3,7 +3,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { FILTRE } = COMPONENT_TYPE;
 
-function getNextFlowControle(filterImbriquers) {
+function getNextFlowControle(filterImbriquers, store) {
   const imbriquerControle = [];
   filterImbriquers.forEach(filter => {
     const {
@@ -13,15 +13,15 @@ function getNextFlowControle(filterImbriquers) {
       initialMember,
       finalMember,
       filterImbriquer,
-    } = filter;
+    } = store[filter];
     const redirection = {
       id: name,
-      description: descriptionImbriquer,
+      Description: descriptionImbriquer,
       Expression: conditionImbriquer,
       IfTrue: `${initialMember}-${finalMember}`,
     };
     if (filterImbriquer && filterImbriquer.length > 0) {
-      redirection.Next = getNextFlowControle(filterImbriquer);
+      redirection.Next = getNextFlowControle(filterImbriquer, store);
     }
     imbriquerControle.push(redirection);
   });
@@ -42,12 +42,12 @@ export function stateToRemote(store) {
       } = component;
       const redirection = {
         id: name,
-        description,
+        Description: description,
         Expression: filter,
         IfTrue: `${initialMember}-${finalMember}`,
       };
       if (imbriquers.length > 0) {
-        redirection.Next = getNextFlowControle(imbriquers);
+        redirection.Next = getNextFlowControle(imbriquers, store);
       }
       return redirection;
     });

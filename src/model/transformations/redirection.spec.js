@@ -1,42 +1,82 @@
-import { remoteToState, stateToRemote } from './redirection';
+import { remoteToState, stateToRemote } from './redirection-filters';
 
-describe('redirection transformation', () => {
-  const remote = [
-    {
-      id: '1',
-      Description: 'Description 1',
-      Expression: 'Expression 1',
-      IfTrue: 'IfTrue 1',
-    },
-    {
-      id: '2',
-      Description: 'Description 2',
-      Expression: 'Expression 2',
-      IfTrue: 'IfTrue 2',
-    },
-  ];
-  const state = {
-    '1': {
-      id: '1',
-      label: 'Description 1',
-      condition: 'Expression 1',
-      cible: 'IfTrue 1',
-    },
-    '2': {
-      id: '2',
-      label: 'Description 2',
-      condition: 'Expression 2',
-      cible: 'IfTrue 2',
-    },
-  };
-  describe('remoteToState', () => {
-    it('should return the state representation of an redirection', () => {
-      expect(remoteToState(remote)).toEqual(state);
-    });
-  });
+describe('redirection filters tramsformation', () => {
   describe('stateToRemote', () => {
-    it('should return the remote representation of an redirection   ', () => {
-      expect(stateToRemote(state)).toEqual(remote);
+    const store = {
+      j6z12s2d: {
+        TargetMode: [],
+        children: ['j6z0z3us'],
+        controls: {},
+        declarations: {},
+        id: 'j6z12s2d',
+        label: 'Comment',
+        name: 'MODULE6',
+        pageBreak: false,
+        parent: 'i6vwid',
+        redirections: {},
+        responsesClarification: undefined,
+        type: 'SEQUENCE',
+        weight: 5,
+      },
+      mlr12s2d: {
+        TargetMode: [],
+        children: ['ffscdvfs'],
+        controls: {},
+        declarations: {},
+        id: 'mlr12s2d',
+        label: 'Comment',
+        name: 'MODULE2',
+        pageBreak: false,
+        parent: 'i6vwid',
+        redirections: {},
+        responsesClarification: undefined,
+        type: 'SEQUENCE',
+        weight: 2,
+      },
+      jqqchose: {
+        TargetMode: [],
+        filter: '$AGE$ < 18',
+        finalMember: 'j6z12s2d',
+        id: 'jqqchose',
+        initialMember: 'j6p0ti5h',
+        name: 'FILTRE',
+        nameLoop: 'FILTRE',
+        pageBreak: false,
+        parent: 'i6vwid',
+        type: 'FILTRE',
+        imbriquers: ['kea3voc7'],
+        description: 'desc',
+      },
+      kea3voc7: {
+        typeFilter: 'new',
+        name: 'TEST',
+        descriptionImbriquer: 'dqddd',
+        conditionImbriquer: '',
+        initialMember: 'j6p0ti5h',
+        finalMember: 'j6p0ti5h',
+        filterImbriquer: [],
+        type: 'NYSTEDFILTRE',
+        id: 'kea3voc7',
+      },
+    };
+    const remote = [
+      {
+        id: 'FILTRE',
+        Description: 'desc',
+        Expression: '$AGE$ < 18',
+        IfTrue: 'j6p0ti5h-j6z12s2d',
+        Next: [
+          {
+            id: 'TEST',
+            Description: 'dqddd',
+            Expression: '',
+            IfTrue: 'j6p0ti5h-j6p0ti5h',
+          },
+        ],
+      },
+    ];
+    it('should return the remote representation of a redirection filters', () => {
+      expect(stateToRemote(store)).toEqual(remote);
     });
   });
 });

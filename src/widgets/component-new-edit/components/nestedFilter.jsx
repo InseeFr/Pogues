@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
+import { connect } from 'react-redux';
+import { setSelectedComponentId } from 'actions/app-state';
+import { createComponent } from 'actions/components';
+import { updateComponent, removeComponent } from 'actions/actionComponent';
 
 import PropTypes from 'prop-types';
 import {
@@ -9,7 +13,7 @@ import {
 } from 'constants/pogues-constants';
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
-import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { uuid, nameFromLabel } from 'utils/utils';
 import * as rules from 'forms/validation-rules';
 
 const {
@@ -20,7 +24,7 @@ const {
   DELETE,
   FILTRE_IMBRIQUER,
 } = WIDGET_COMPONENT_NEW_EDIT;
-const { FILTREIMBRIQUE, LOOP, FILTRE } = COMPONENT_TYPE;
+const { LOOP, NYSTEDFILTRE } = COMPONENT_TYPE;
 
 // Prop types and default props
 
@@ -30,6 +34,7 @@ export const propTypes = {
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
   componentsStore: PropTypes.object.isRequired,
+  removeComponent: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -41,9 +46,10 @@ const NestedFilter = props => {
   const {
     componentsStore,
     handleSubmitImbriquer,
-    filterImbriquer,
-    indexFilter,
     handleDeleteNestedFilter,
+    componentType,
+    filterId,
+    removeComponent,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [error, setError] = useState({
@@ -51,15 +57,6 @@ const NestedFilter = props => {
     initialMember: false,
     finalMember: false,
     nameValid: '',
-  });
-  const [filterImbriquer1, setFilterImbriquer1] = useState({
-    typeFilter: '',
-    name: '',
-    descriptionImbriquer: '',
-    conditionImbriquer: '',
-    initialMember: '',
-    finalMember: '',
-    filterImbriquer: [],
   });
   const [indexImbriquer, setIndexImbriquer] = useState(null);
   const [newNestedFilter, setNewNestedFilter] = useState({
@@ -70,25 +67,24 @@ const NestedFilter = props => {
     initialMember: '',
     finalMember: '',
     filterImbriquer: [],
+    type: '',
+    id: '',
+    TargetMode: [],
   });
 
   useEffect(() => {
-    setNewNestedFilter(filterImbriquer);
-  }, [filterImbriquer, indexFilter]);
-
-  const handleSubmitImbriquer1 = (value, index) => {
-    if (index === null) {
-      const filters = newNestedFilter.filterImbriquer
-        ? newNestedFilter.filterImbriquer
-        : [];
-      filters.push(value);
-      setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
-    } else {
-      const filters = [...newNestedFilter.filterImbriquer];
-      filters[index] = value;
-      setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
-      setIndexImbriquer(null);
+    if (filterId !== null && filterId !== undefined) {
+      setNewNestedFilter(componentsStore[filterId]);
     }
+  }, [filterId]);
+
+  const handleSubmitImbriquer1 = value => {
+    const filters = newNestedFilter.filterImbriquer
+      ? newNestedFilter.filterImbriquer
+      : [];
+    filters.push(value);
+    setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
+
     handleCloseNestedFilter();
   };
 
@@ -101,13 +97,12 @@ const NestedFilter = props => {
 
   const handleCloseNestedFilter = () => {
     setShowNewNestedFilter(false);
-    setFilterImbriquer1({});
     setIndexImbriquer(null);
   };
+
   const handleOpenNestedFilter = index => {
-    if (index !== null) {
+    if (index !== null || index !== undefined) {
       setIndexImbriquer(index);
-      setFilterImbriquer1(newNestedFilter.filterImbriquer[index]);
     }
     setShowNewNestedFilter(true);
   };
@@ -121,7 +116,6 @@ const NestedFilter = props => {
   };
 
   const handleSubmit = () => {
-    console.log('rules', rules.name(newNestedFilter.name));
     if (
       !newNestedFilter.name ||
       !newNestedFilter.initialMember ||
@@ -136,29 +130,50 @@ const NestedFilter = props => {
         nameValid: rules.name(newNestedFilter.name),
       });
     } else {
-      handleSubmitImbriquer(newNestedFilter, indexFilter);
-      setNewNestedFilter({
-        typeFilter: '',
-        name: '',
-        descriptionImbriquer: '',
-        conditionImbriquer: '',
-        initialMember: '',
-        finalMember: '',
-        filterImbriquer: [],
-      });
+      if (filterId === null || filterId === undefined) {
+        newNestedFilter.type = componentType;
+        newNestedFilter.TargetMode = [''];
+        newNestedFilter.id = uuid();
+        props.createComponent(newNestedFilter).then(result => {
+          const {
+            payload: { id },
+          } = result;
+          handleSubmitImbriquer(id);
+        });
+      } else {
+        const conponentUpdated = {};
+        conponentUpdated[filterId] = newNestedFilter;
+        const updatedCalculatedVariablesStore = {};
+        const updatedExternalVariablesStore = {};
+        const updatedCollectedlVariablesStore = {};
+        const updatedCodesListsStore = {};
+        updateComponent(
+          filterId,
+          conponentUpdated,
+          updatedCalculatedVariablesStore,
+          updatedExternalVariablesStore,
+          updatedCollectedlVariablesStore,
+          updatedCodesListsStore,
+        );
+      }
     }
+  };
+
+  const handleDeleteComponent = () => {
+    props.removeComponent(filterId);
+    handleDeleteNestedFilter(filterId);
   };
 
   const showFiltersImbriquer = myfilters => {
     return myfilters && myfilters.length !== 0
-      ? myfilters.map((filter, index) => {
+      ? myfilters.map(filter => {
           return (
             <button
               className={FILTRE_IMBRIQUER}
-              onClick={() => handleOpenNestedFilter(index)}
+              onClick={() => handleOpenNestedFilter(filter)}
             >
               <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-              {filter.name}
+              {componentsStore[filter].name}
             </button>
           );
         })
@@ -173,10 +188,10 @@ const NestedFilter = props => {
     ) {
       newNestedFilter.filterImbriquer.forEach(element => {
         if (
-          store[element.finalMember].type === initial.type &&
-          store[element.finalMember].weight > initial.weight
+          store[store[element].finalMember].type === initial.type &&
+          store[store[element].finalMember].weight > initial.weight
         ) {
-          superieur = store[element.finalMember].weight;
+          superieur = store[store[element].finalMember].weight;
         }
       });
     }
@@ -277,7 +292,11 @@ const NestedFilter = props => {
               name="typeFilter"
               value="new"
               onChange={e => handleChange(e)}
-              checked={newNestedFilter.typeFilter === 'new'}
+              checked={
+                newNestedFilter && newNestedFilter.typeFilter
+                  ? newNestedFilter.typeFilter === 'new'
+                  : false
+              }
             />
             {Dictionary.NEW}
           </label>
@@ -290,7 +309,11 @@ const NestedFilter = props => {
               name="typeFilter"
               value="exist"
               onChange={e => handleChange(e)}
-              checked={newNestedFilter.typeFilter === 'exist'}
+              checked={
+                newNestedFilter && newNestedFilter.typeFilter
+                  ? newNestedFilter.typeFilter === 'exist'
+                  : false
+              }
             />
             {Dictionary.EXISTING}
           </label>
@@ -395,17 +418,21 @@ const NestedFilter = props => {
         </div>
       </div>
       <div className={FOOTERLOOP}>
-        <button className={VALIDATE} type="submit" onClick={handleSubmit}>
+        <button
+          className={VALIDATE}
+          type="submit"
+          onClick={() => handleSubmit()}
+        >
           {Dictionary.validate}
         </button>
         <button className={CANCEL} onClick={() => handleCloseNestedFilter()}>
           {Dictionary.cancel}
         </button>
-        {indexFilter !== null ? (
+        {filterId !== null ? (
           <button
             className={DELETE}
             // disabled={submitting}
-            onClick={() => handleDeleteNestedFilter(indexFilter)}
+            onClick={handleDeleteComponent}
           >
             {Dictionary.remove}
           </button>
@@ -433,14 +460,15 @@ const NestedFilter = props => {
           </div>
           <div className="popup-body">
             <NestedFilter
-              filterImbriquer={filterImbriquer1}
-              indexFilter={indexImbriquer}
+              filterId={indexImbriquer}
               componentsStore={componentsStore}
+              createComponent={props.createComponent}
+              setSelectedComponentId={props.setSelectedComponentId}
               handleSubmitImbriquer={(value, index) =>
                 handleSubmitImbriquer1(value, index)
               }
               handleCloseNestedFilter={handleCloseNestedFilter}
-              componentType={FILTREIMBRIQUE}
+              componentType={NYSTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNested}
             />
           </div>
@@ -452,5 +480,15 @@ const NestedFilter = props => {
 
 NestedFilter.propTypes = propTypes;
 NestedFilter.defaultProps = defaultProps;
+const mapStateToProps = state => {};
+const mapDispatchToProps = {
+  removeComponent,
+  createComponent,
+  setSelectedComponentId,
+  updateComponent,
+};
 
-export default NestedFilter;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NestedFilter);
