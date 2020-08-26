@@ -15,10 +15,7 @@ const { QUESTION, LOOP, FILTRE } = COMPONENT_TYPE;
 // PropTypes and defaultProps
 
 export const propTypes = {
-  parentId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-
-  weight: PropTypes.number.isRequired,
 
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,

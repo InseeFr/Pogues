@@ -411,6 +411,11 @@ const dictionary = {
     en: 'Scope Questionnaire',
   },
 
+  selectNestedFilter: {
+    fr: 'Spécifier Filtre imbriqué',
+    en: 'Specify Nested filter',
+  },
+
   specify: {
     en: 'Specify',
     fr: 'Préciser',

@@ -84,16 +84,16 @@ const ComponentNewEdit = props => {
 
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [filterImbriquers, setFilterImbriquers] = useState([]);
-  const [filterId, setFilterId] = useState(null);
+  const [filterId, setFilterId] = useState('');
   const buttonRef = useRef(null);
 
   const handleCloseNestedFilter = () => {
     setShowNewNestedFilter(false);
-    setFilterId(null);
+    setFilterId('');
   };
 
   const handleOpenFilter = index => {
-    if (index !== null) {
+    if (index) {
       setFilterId(index);
     }
     setShowNewNestedFilter(true);
@@ -103,12 +103,14 @@ const ComponentNewEdit = props => {
     const filters = [...filterImbriquers];
     filters.splice(index, 1);
     setFilterImbriquers(filters);
-    setFilterId(null);
+    setFilterId('');
     handleCloseNestedFilter();
   };
 
   const handleSubmitImbriquer = (value, index) => {
-    setFilterImbriquers([...filterImbriquers, value]);
+    if (!filterImbriquers.includes(value)) {
+      setFilterImbriquers([...filterImbriquers, value]);
+    }
     handleCloseNestedFilter();
   };
 
@@ -529,7 +531,7 @@ const ComponentNewEdit = props => {
         <div className="popup">
           <div className="popup-header">
             <h3>
-              {filterId !== null
+              {filterId
                 ? Dictionary.editFiltreImbriquer
                 : Dictionary.filtreImbriquer}
             </h3>
