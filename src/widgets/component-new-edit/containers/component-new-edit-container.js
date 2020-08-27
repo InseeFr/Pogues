@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { formPropTypes } from 'redux-form';
 
 import ComponentNewEdit from '../components/component-new-edit';
-import { updateComponent, removeComponent } from 'actions/component.js';
 import {
   addSubformValidationErrors,
   clearSubformValidationErrors,
@@ -61,8 +60,6 @@ const mapStateToProps = (state, { componentId }) => {
 const mapDispatchToProps = {
   addSubformValidationErrors,
   clearSubformValidationErrors,
-  removeComponent,
-  updateComponent,
 };
 
 const ComponentNewEditContainer = connect(

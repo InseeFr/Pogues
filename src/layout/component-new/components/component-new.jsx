@@ -24,6 +24,7 @@ export const propTypes = {
   updateParentChildren: PropTypes.func.isRequired,
   orderComponents: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
+  updateComponent: PropTypes.func.isRequired,
 
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
@@ -102,6 +103,8 @@ function ComponentNew({
   weight,
   type,
   activeQuestionnaire,
+  removeComponent,
+  updateComponent,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -134,6 +137,8 @@ function ComponentNew({
       componentType={type}
       onCancel={onCancel}
       initialValues={initialValues}
+      removeComponent={removeComponent}
+      updateComponent={updateComponent}
       onSubmit={validateAndSubmit(
         actions,
         type,

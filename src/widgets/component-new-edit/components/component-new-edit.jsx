@@ -92,7 +92,8 @@ const ComponentNewEdit = props => {
     setFilterId('');
   };
 
-  const handleOpenFilter = index => {
+  const handleOpenFilter = (e, index) => {
+    e.preventDefault();
     if (index) {
       setFilterId(index);
     }
@@ -100,15 +101,15 @@ const ComponentNewEdit = props => {
   };
 
   const handleDeleteNestedFilter = index => {
-    const filters = [...filterImbriquers];
-    filters.splice(index, 1);
+    let filters = [...filterImbriquers];
+    filters = filters.filter(filt => filt !== index);
     setFilterImbriquers(filters);
     setFilterId('');
     handleCloseNestedFilter();
   };
 
   const handleSubmitImbriquer = (value, index) => {
-    if (!filterImbriquers.includes(value)) {
+    if (!filterImbriquers.includes(value) && value) {
       setFilterImbriquers([...filterImbriquers, value]);
     }
     handleCloseNestedFilter();
@@ -120,7 +121,7 @@ const ComponentNewEdit = props => {
           return (
             <button
               className={FILTRE_IMBRIQUER}
-              onClick={() => handleOpenFilter(filter)}
+              onClick={e => handleOpenFilter(e, filter)}
             >
               <span className="glyphicon glyphicon-plus" aria-hidden="true" />
               {componentsStore[filter].name}
@@ -132,8 +133,8 @@ const ComponentNewEdit = props => {
 
   useEffect(() => {
     props.clearSubformValidationErrors();
+    console.log('props', props)
   }, [filterImbriquers]);
-
   const renderPanels = () => {
     let panels = [
       <Tab
@@ -430,13 +431,13 @@ const ComponentNewEdit = props => {
               ? showFiltersImbriquer(filterImbriquers)
               : false}
             {componentType === FILTRE ? (
-              <span
+              <button
                 className={FILTRE_IMBRIQUER}
-                onClick={() => handleOpenFilter(null)}
+                onClick={e => handleOpenFilter(e)}
               >
                 <span className="glyphicon glyphicon-plus" aria-hidden="true" />
                 {Dictionary.filtreImbriquer}
-              </span>
+              </button>
             ) : (
               false
             )}
