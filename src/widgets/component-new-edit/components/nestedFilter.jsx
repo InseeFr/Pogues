@@ -52,8 +52,8 @@ const NestedFilter = props => {
   const [newNestedFilter, setNewNestedFilter] = useState({
     typeFilter: 'new',
     name: '',
-    descriptionImbriquer: '',
-    conditionImbriquer: '',
+    description: '',
+    filter: '',
     initialMember: '',
     finalMember: '',
     filterImbriquer: [],
@@ -277,7 +277,6 @@ const NestedFilter = props => {
           </option>
         );
       });
-    console.log('options', options);
     return options;
   };
 
@@ -375,9 +374,9 @@ const NestedFilter = props => {
             </label>
             <div>
               <input
-                name="descriptionImbriquer"
+                name="description"
                 type="text"
-                value={newNestedFilter.descriptionImbriquer}
+                value={newNestedFilter.description}
                 onChange={e => handleChange(e)}
               />
             </div>
@@ -388,9 +387,9 @@ const NestedFilter = props => {
             </label>
             <div>
               <input
-                name="conditionImbriquer"
+                name="filter"
                 type="text"
-                value={newNestedFilter.conditionImbriquer}
+                value={newNestedFilter.filter}
                 onChange={e => handleChange(e)}
               />
             </div>

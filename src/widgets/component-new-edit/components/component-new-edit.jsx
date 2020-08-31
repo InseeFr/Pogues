@@ -133,7 +133,6 @@ const ComponentNewEdit = props => {
 
   useEffect(() => {
     props.clearSubformValidationErrors();
-    console.log('props', props)
   }, [filterImbriquers]);
   const renderPanels = () => {
     let panels = [
@@ -357,7 +356,7 @@ const ComponentNewEdit = props => {
     <div className={COMPONENT_CLASS}>
       <form
         onSubmit={handleSubmit(data =>
-          onSubmit({ ...data, imbriquers: filterImbriquers }),
+          onSubmit({ ...data, filterImbriquer: filterImbriquers }),
         )}
       >
         {componentType === QUESTION ? (

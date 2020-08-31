@@ -29,7 +29,7 @@ export const defaultState = {
   children: [],
   responseFormat: {},
   TargetMode: [],
-  imbriquers: [],
+  filterImbriquer: [],
 };
 
 export function formToState(form, transformers) {
@@ -50,7 +50,7 @@ export function formToState(form, transformers) {
     finalMember,
     addButtonLibel,
     description,
-    imbriquers,
+    filterImbriquer,
   } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
@@ -81,7 +81,7 @@ export function formToState(form, transformers) {
     finalMember: finalMember,
     addButtonLibel: addButtonLibel,
     description: description,
-    imbriquers: imbriquers,
+    filterImbriquer: filterImbriquer,
   };
 }
 

@@ -18,9 +18,9 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   if (remote.Iterations && remote.Iterations.Iteration) {
     iterations = remote.Iterations.Iteration;
   }
-  let flowControl = [];
+  let filters = [];
   if (remote.FlowControl && remote.FlowControl.FlowControl) {
-    flowControl = remote.FlowControl.FlowControl;
+    filters = remote.FlowControl.FlowControl;
   }
   const calculatedVariables = variables.filter(v => v.type === CALCULATED);
   const externalVariables = variables.filter(v => v.type === EXTERNAL);
@@ -63,7 +63,13 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   };
   // Components store
   const componentByQuestionnaire = {
-    [id]: Component.remoteToStore(remote, id, codesListsStore, iterations),
+    [id]: Component.remoteToStore(
+      remote,
+      id,
+      codesListsStore,
+      iterations,
+      filters,
+    ),
   };
   return {
     questionnaireById,
