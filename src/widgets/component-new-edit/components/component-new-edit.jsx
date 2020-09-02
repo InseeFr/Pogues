@@ -244,13 +244,15 @@ const ComponentNewEdit = props => {
         store[component.initialMember].weight < initial.weight &&
         store[component.finalMember].weight > initial.weight,
     );
-    const inferieurComponent = filters.reduce(
-      (min, p) =>
-        store[p.initialMember].weight > store[min.initialMember].weight
-          ? p
-          : min,
-      filters[0],
-    );
+    const inferieurComponent = filters
+      ? filters.reduce(
+          (min, p) =>
+            store[p.initialMember].weight > store[min.initialMember].weight
+              ? p
+              : min,
+          filters[0],
+        )
+      : undefined;
     const inferieur = inferieurComponent
       ? store[inferieurComponent.finalMember].weight
       : undefined;
@@ -551,6 +553,7 @@ const ComponentNewEdit = props => {
               handleDeleteNestedFilter={handleDeleteNestedFilter}
               removeComponent={props.removeComponent}
               updateComponent={props.updateComponent}
+              initialMemberFilter={props.InitialMember}
             />
           </div>
         </div>

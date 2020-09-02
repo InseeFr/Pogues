@@ -10,6 +10,7 @@ import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { uuid } from 'utils/utils';
 import * as rules from 'forms/validation-rules';
+import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 const {
   COMPONENT_CLASS,
@@ -40,12 +41,15 @@ const NestedFilter = props => {
     filterId,
     removeComponent,
     updateComponent,
+    initialMemberFilter,
   } = props;
+  console.log('initialMemberFilter', initialMemberFilter);
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [error, setError] = useState({
     name: false,
     initialMember: false,
     finalMember: false,
+    filter: false,
     nameValid: '',
   });
   const [indexImbriquer, setIndexImbriquer] = useState('');
@@ -88,6 +92,13 @@ const NestedFilter = props => {
       [e.target.name]: e.target.value,
     });
   };
+  const onChange = value => {
+    setNewNestedFilter({
+      ...newNestedFilter,
+      filter: value,
+    });
+  };
+  const onFocus = () => {};
 
   const handleCloseNestedFilter = () => {
     setShowNewNestedFilter(false);
@@ -123,6 +134,7 @@ const NestedFilter = props => {
           name: !newNestedFilter.name,
           initialMember: !newNestedFilter.initialMember,
           finalMember: !newNestedFilter.finalMember,
+          filter: !newNestedFilter.filter,
           nameValid: rules.name(newNestedFilter.name),
         });
       } else if (!filterId) {
@@ -268,15 +280,23 @@ const NestedFilter = props => {
   };
 
   const getNestedFilters = () => {
-    const options = Object.values(componentsStore)
-      .filter(component => component.type === NYSTEDFILTRE)
-      .map(element => {
-        return (
-          <option key={element.id} value={element.id}>
-            {element.name}
-          </option>
-        );
-      });
+    let options = <option key="" value="" />;
+    if (initialMemberFilter) {
+      options = Object.values(componentsStore)
+        .filter(
+          component =>
+            component.type === NYSTEDFILTRE &&
+            componentsStore[component.initialMember].weight >=
+              componentsStore[initialMemberFilter].weight,
+        )
+        .map(element => {
+          return (
+            <option key={element.id} value={element.id}>
+              {element.name}
+            </option>
+          );
+        });
+    }
     return options;
   };
 
@@ -382,16 +402,30 @@ const NestedFilter = props => {
             </div>
           </div>
           <div className="ctrl-input ">
-            <label htmlFor="input-nestedFilter.condition">
-              {Dictionary.condition}
-            </label>
             <div>
-              <input
+              <InputWithVariableAutoCompletion
+                input={{
+                  name: 'filter',
+                  onChange,
+                  onFocus,
+                  value: newNestedFilter.filter,
+                }}
+                meta={{ touched: false, error: undefined }}
+                required="true"
+                type="text"
+                label={Dictionary.condition}
+              />
+              {/* <input
                 name="filter"
                 type="text"
                 value={newNestedFilter.filter}
                 onChange={e => handleChange(e)}
-              />
+              /> */}
+              {error && error.filter ? (
+                <span className="form-error">{Dictionary.mandatory}</span>
+              ) : (
+                false
+              )}
             </div>
           </div>
           <div className="ctrl-select">
@@ -501,6 +535,7 @@ const NestedFilter = props => {
               handleDeleteNestedFilter={handleDeleteNested}
               removeComponent={removeComponent}
               updateComponent={updateComponent}
+              initialMemberFilter={newNestedFilter.initialMember}
             />
           </div>
         </div>

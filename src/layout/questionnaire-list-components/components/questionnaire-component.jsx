@@ -62,6 +62,9 @@ const QuestionnaireComponent = props => {
     props.setSelectedComponentId(component.id);
   };
 
+  // const componentFilterCondition = id => {
+  // };
+
   const handleEditComponent = () => {
     props.setEditingComponentId(component.id);
     props.actions.handleOpenComponentDetail();

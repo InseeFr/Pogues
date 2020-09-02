@@ -11,7 +11,7 @@ function getFiltersState(filter, parent, type) {
     id,
     name,
   } = filter;
-  const initialMember = members.substring(1, members.lastIndexOf('-'));
+  const initialMember = members.substring(0, members.lastIndexOf('-'));
   const finalMember = members.substring(
     members.indexOf('-') + 1,
     members.length,
