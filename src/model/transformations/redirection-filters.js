@@ -8,9 +8,9 @@ function getFiltersState(filter, parent, type) {
     Description: description,
     Expression: expression,
     IfTrue: members,
-    id: name,
+    id,
+    name,
   } = filter;
-  const id = name.toLowerCase();
   const initialMember = members.substring(1, members.lastIndexOf('-'));
   const finalMember = members.substring(
     members.indexOf('-') + 1,
@@ -77,6 +77,7 @@ function getNextFlowControle(filterImbriquers, store) {
   const imbriquerControle = [];
   filterImbriquers.forEach(filtere => {
     const {
+      id,
       name,
       description,
       filter,
@@ -85,7 +86,8 @@ function getNextFlowControle(filterImbriquers, store) {
       filterImbriquer,
     } = store[filtere];
     const redirection = {
-      id: name,
+      id,
+      name,
       Description: description,
       Expression: filter,
       IfTrue: `${initialMember}-${finalMember}`,
@@ -103,6 +105,7 @@ export function stateToRemote(store) {
     .filter(element => element.type === FILTRE)
     .map(component => {
       const {
+        id,
         name,
         filterImbriquer,
         description,
@@ -111,7 +114,8 @@ export function stateToRemote(store) {
         finalMember,
       } = component;
       const redirection = {
-        id: name,
+        id,
+        name,
         Description: description,
         Expression: filter,
         IfTrue: `${initialMember}-${finalMember}`,

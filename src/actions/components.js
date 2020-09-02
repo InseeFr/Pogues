@@ -4,6 +4,7 @@ import {
   isQuestion,
   isLoop,
   isFilter,
+  isNestedFilter,
   toComponents,
   updateNewComponentParent,
 } from 'utils/component/component-utils';
@@ -95,7 +96,8 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
   if (
     selectedComponent &&
     !isLoop(selectedComponent) &&
-    !isFilter(selectedComponent)
+    !isFilter(selectedComponent) &&
+    !isNestedFilter(selectedComponent)
   ) {
     // We get the next sibling component of the currently selected component
     const siblingSelectedComponent = toComponents(

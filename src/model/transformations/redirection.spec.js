@@ -1,87 +1,92 @@
 import { remoteToState, stateToRemote } from './redirection-filters';
 import { uuid } from 'utils/utils';
+
 describe('redirection filters tramsformation', () => {
   describe('remoteToState', () => {
     it('should return the state representation of a filter', () => {
       expect(
         remoteToState(
           {
+            id: 'jqqchose',
             Description: '',
             Expression: '',
             IfTrue: 'j6p0ti5h-j4nw88h2',
             Next: [
               {
+                id: 'j6z12s2d',
                 Description: '',
                 Expression: '',
                 IfTrue: 'j6p0ti5h-j4nw88h2',
                 Next: [
                   {
+                    id: 'kea3voc7',
                     Description: '',
                     Expression: '',
                     IfTrue: 'j6p0ti5h-j3341528',
-                    id: 'TIPZ',
+                    name: 'TIPZ',
                   },
                   {
+                    id: 'j7p0ti5h',
                     Description: '',
                     Expression: '',
                     IfTrue: 'j6p0ti5h-j6qe0h9q',
-                    id: 'QSD',
+                    name: 'QSD',
                   },
                 ],
-                id: 'SEQ',
+                name: 'SEQ',
               },
             ],
-            id: 'TETS',
+            name: 'TETS',
           },
           'i6vwid',
         ),
       ).toEqual({
-        qsd: {
+        j7p0ti5h: {
           TargetMode: [],
           description: '',
           filter: '',
           filterImbriquer: [],
           finalMember: 'j6qe0h9q',
-          id: 'qsd',
+          id: 'j7p0ti5h',
           initialMember: '6p0ti5h',
           name: 'QSD',
           pageBreak: false,
           parent: 'i6vwid',
           type: 'NYSTEDFILTRE',
         },
-        tets: {
+        jqqchose: {
           TargetMode: [],
           description: '',
           filter: '',
-          filterImbriquer: ['seq'],
+          filterImbriquer: ['j6z12s2d'],
           finalMember: 'j4nw88h2',
-          id: 'tets',
+          id: 'jqqchose',
           initialMember: '6p0ti5h',
           name: 'TETS',
           pageBreak: false,
           parent: 'i6vwid',
           type: 'FILTRE',
         },
-        tipz: {
+        kea3voc7: {
           TargetMode: [],
           description: '',
           filter: '',
           filterImbriquer: [],
           finalMember: 'j3341528',
-          id: 'tipz',
+          id: 'kea3voc7',
           initialMember: '6p0ti5h',
           name: 'TIPZ',
           pageBreak: false,
           parent: 'i6vwid',
           type: 'NYSTEDFILTRE',
         },
-        seq: {
+        j6z12s2d: {
           TargetMode: [],
           description: '',
           filter: '',
-          filterImbriquer: ['tipz', 'qsd'],
+          filterImbriquer: ['kea3voc7', 'j7p0ti5h'],
           finalMember: 'j4nw88h2',
-          id: 'seq',
+          id: 'j6z12s2d',
           initialMember: '6p0ti5h',
           name: 'SEQ',
           pageBreak: false,
@@ -151,13 +156,15 @@ describe('redirection filters tramsformation', () => {
     };
     const remote = [
       {
-        id: 'FILTRE',
+        id: 'jqqchose',
+        name: 'FILTRE',
         Description: 'desc',
         Expression: '$AGE$ < 18',
         IfTrue: 'j6p0ti5h-j6z12s2d',
         Next: [
           {
-            id: 'TEST',
+            id: 'kea3voc7',
+            name: 'TEST',
             Description: 'dqddd',
             Expression: '',
             IfTrue: 'j6p0ti5h-j6p0ti5h',
