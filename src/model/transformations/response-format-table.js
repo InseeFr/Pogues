@@ -75,7 +75,13 @@ function getMeasuresModel(responses, dimensions, offset) {
   const responsesModel = [];
   for (let i = 0; i < dimensions.length; i += 1) {
     if (responses[i].Datatype.typeName === DATATYPE_NAME.DATE) {
-      responses[i].Datatype.Format = responses[i].Datatype.Format.toLowerCase();
+      if (responses[i].Datatype.Format) {
+        responses[i].Datatype.Format = responses[
+          i
+        ].Datatype.Format.toLowerCase();
+      } else {
+        responses[i].Datatype.Format = 'yyyy-mm-dd';
+      }
     }
 
     if (responses[i].Datatype.typeName === DATATYPE_NAME.DURATION) {
