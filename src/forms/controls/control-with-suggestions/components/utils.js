@@ -1,4 +1,5 @@
 export function getPattern(value, caretPosition, substrToTheEnd = false) {
+
   let start = -1;
   let i = caretPosition;
   while (i >= 0 && start < 0) {
@@ -40,7 +41,7 @@ export function getValueWithSuggestion(suggestion, caretCursor, fullText) {
 
   const prefix = fullText.substr(0, start);
   const suffix = '';
-  const prefixSeparator = prefix && '$';
+  const prefixSeparator = '$';
   const suffixSeparator = suffix ? '$ ' : '$';
 
   return [

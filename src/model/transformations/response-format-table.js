@@ -73,10 +73,15 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
 
 function getMeasuresModel(responses, dimensions, offset) {
   const responsesModel = [];
-  for (let i = 0; i < dimensions.length; i += 1) {
+  for (let i = 0; i < dimensions.length; i += 1) 
     if (responses[i].Datatype.typeName === DATATYPE_NAME.DATE) {
-      responses[i].Datatype.Format ===
-        responses[i].Datatype.Format.toLowerCase();
+      if (responses[i].Datatype.Format) {
+        responses[i].Datatype.Format === responses[i].Datatype.Format.toLowerCase();
+      }
+      else {
+        console.log("WARNING : No Format for Datatype DATE in the remote instrument");
+        responses[i].Datatype.Format === "yyyy-mm-dd";
+      }
     }
 
     if (responses[i].Datatype.typeName === DATATYPE_NAME.DURATION) {
@@ -340,6 +345,7 @@ function stateToResponseState(state) {
           durationDataType.maximum = `${
             mahundhours ? `0${mahundhours}`.slice(-2) : '00'
           }:${mahundredths ? `0${mahundredths}`.slice(-2) : '00'}`;
+
         }
       }
       customsimpleState = durationDataType;
@@ -424,7 +430,7 @@ export function stateToRemote(
 
   const numDataTypes = measureState
     ? maxBy(collectedVariables.map(key => collectedVariablesStore[key]), 'y')
-        .y || 1
+      .y || 1
     : listMeasuresState.length;
   let responsesModel = [];
   let mappingsModel = [];
