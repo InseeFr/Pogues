@@ -13,7 +13,6 @@ import {
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
 import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
-import { checkPropTypes } from 'prop-types';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 
