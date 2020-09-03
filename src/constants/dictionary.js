@@ -365,13 +365,13 @@ const dictionary = {
     fr: 'Filtre',
   },
   InitialMembre: {
-    en: 'Initial member',
-    fr: 'Membre initial',
+    en: 'Start',
+    fr: 'Début',
   },
 
   FinalMembre: {
-    en: 'Final member',
-    fr: 'Membre final',
+    en: 'End',
+    fr: 'Fin',
   },
 
   AddButton: {
