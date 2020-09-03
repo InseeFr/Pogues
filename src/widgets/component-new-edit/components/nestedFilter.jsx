@@ -43,7 +43,6 @@ const NestedFilter = props => {
     updateComponent,
     initialMemberFilter,
   } = props;
-  console.log('initialMemberFilter', initialMemberFilter);
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [error, setError] = useState({
     name: false,

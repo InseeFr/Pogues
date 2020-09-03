@@ -67,6 +67,13 @@ const QuestionnaireListComponents = props => {
     });
   };
 
+  const componentFilterCondition = id => {
+    const filters = Object.values(props.componentsStore).filter(
+      component => component.type === FILTRE && component.initialMember === id,
+    );
+    return filters;
+  };
+
   const renderComponentsByParent = (parent, props, actions) => {
     return getSortedChildren(props.componentsStore, parent).map(key => {
       if (props.componentsStore[key].id !== 'idendquest') {
@@ -97,6 +104,9 @@ const QuestionnaireListComponents = props => {
                 event.preventDefault();
                 props.handleRemovePageBreak(key);
               }}
+              componentFilters={componentFilterCondition(
+                props.componentsStore[key].id,
+              )}
             >
               {subTree}
             </QuestionnaireComponent>

@@ -44,6 +44,7 @@ const QuestionnaireComponent = props => {
     parentType,
     visualizeActiveQuestionnaire,
     handleRemovePageBreak,
+    componentFilters,
   } = props;
 
   const myRef = useRef(null);
@@ -62,12 +63,14 @@ const QuestionnaireComponent = props => {
     props.setSelectedComponentId(component.id);
   };
 
-  // const componentFilterCondition = id => {
-  // };
-
   const handleEditComponent = () => {
     props.setEditingComponentId(component.id);
     props.actions.handleOpenComponentDetail();
+  };
+  const handleEditFilterComponent = id => {
+    console.log('id', id);
+    props.setEditingComponentId(id);
+    //props.actions.handleOpenComponentDetail();
   };
 
   const handleDuplicateComponent = () => {
@@ -125,6 +128,21 @@ const QuestionnaireComponent = props => {
                     component.label
                   )}
                 </div>
+                {componentFilters.length > 0
+                  ? componentFilters.map(filter => {
+                      return (
+                        <div className="questionnaire-element-filter">
+                          <button
+                            className="btn-white"
+                            onClick={handleEditFilterComponent(filter.id)}
+                          >
+                            {filter.name}
+                          </button>
+                        </div>
+                      );
+                    })
+                  : false}
+
                 {selected ? (
                   <div className="questionnaire-element-actions">
                     <button
