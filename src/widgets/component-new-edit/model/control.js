@@ -1,4 +1,4 @@
-import { uuid, verifyVariable } from 'utils/utils';
+import { uuid } from 'utils/utils';
 
 export const defaultState = {
   label: '',
@@ -34,8 +34,8 @@ export function formToState(form) {
   return {
     id,
     label,
-    condition: verifyVariable(condition),
-    message: verifyVariable(message),
+    condition,
+    message,
     criticity,
     during_collect,
     post_collect,
