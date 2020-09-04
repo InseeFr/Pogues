@@ -239,17 +239,6 @@ class GenericInput extends Component {
           {Dictionary.loop}
         </button>
         <button
-          id="add-loop"
-          className="btn-white"
-          disabled={placeholders[FILTRE]? false : true}
-          onClick={() => {
-            this.handleOpenNewComponent(FILTRE);
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.filtre}
-        </button>
-        <button
           className="btn-white disabled"
           id="add-pagebreak"
           disabled={!componentIdForPageBreak}

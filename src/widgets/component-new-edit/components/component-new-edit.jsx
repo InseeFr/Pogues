@@ -177,11 +177,13 @@ const ComponentNewEdit = props => {
           component =>
             (component.type === componentinitial[0].type &&
               component.type === SEQUENCE &&
-              component.weight >= componentinitial[0].weight) ||
+              component.weight >= componentinitial[0].weight &&
+              component.id !== 'idendquest') ||
             (component.type === SUBSEQUENCE &&
               component.type === componentinitial[0].type &&
               component.weight >= componentinitial[0].weight &&
-              component.parent === componentinitial[0].parent),
+              component.parent === componentinitial[0].parent &&
+              component.id !== 'idendquest'),
         )
         .map(element => {
           return (
@@ -197,7 +199,8 @@ const ComponentNewEdit = props => {
   const optionsInitial = Object.values(componentsStore)
     .filter(
       component =>
-        component.type === SEQUENCE || component.type === SUBSEQUENCE,
+        (component.type === SEQUENCE && component.id !== 'idendquest') ||
+        component.type === SUBSEQUENCE,
     )
     .map(element => {
       return (
