@@ -23,7 +23,7 @@ export function remoteToStore(
     if (variableclarification) {
       const find = variableclarification.find(
         element =>
-          element.responseclar.Response[0].CollectedVariableReference ==
+          element.responseclar.Response[0].CollectedVariableReference ===
           variable.id,
       );
       if (find) {
@@ -81,21 +81,21 @@ export function remoteToStore(
         const strminimum = datatype.minimum;
         const matches_minimum = strminimum.match(/\d+/g);
         if (format === 'PTnHnM') {
-          datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+          datatype.mihours = matches_minimum[0] === 0 ? '' : matches_minimum[0];
           datatype.miminutes =
-            matches_minimum[1] == 0 ? '' : matches_minimum[1];
+            matches_minimum[1] === 0 ? '' : matches_minimum[1];
         }
         if (format === 'PnYnM') {
-          datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-          datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+          datatype.miyears = matches_minimum[0] === 0 ? '' : matches_minimum[0];
+          datatype.mimonths = matches_minimum[1] === 0 ? '' : matches_minimum[1];
         }
         if (format === 'HH:CH') {
           datatype.mihundhours =
-            matches_minimum[0][0] == 0
+            matches_minimum[0][0] === 0
               ? matches_minimum[0].slice(1)
               : matches_minimum[0];
           datatype.mihundredths =
-            matches_minimum[1][0] == 0
+            matches_minimum[1][0] === 0
               ? matches_minimum[1].slice(1)
               : matches_minimum[1];
         }
@@ -104,21 +104,21 @@ export function remoteToStore(
         const strmaximum = datatype.maximum;
         const matches_maximum = strmaximum.match(/\d+/g);
         if (format === 'PTnHnM') {
-          datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+          datatype.mahours = matches_maximum[0] === 0 ? '' : matches_maximum[0];
           datatype.maminutes =
-            matches_maximum[1] == 0 ? '' : matches_maximum[1];
+            matches_maximum[1] === 0 ? '' : matches_maximum[1];
         }
         if (format === 'PnYnM') {
-          datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-          datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+          datatype.mayears = matches_maximum[0] === 0 ? '' : matches_maximum[0];
+          datatype.mamonths = matches_maximum[1] === 0 ? '' : matches_maximum[1];
         }
         if (format === 'HH:CH') {
           datatype.mahundhours =
-            matches_maximum[0][0] == 0
+            matches_maximum[0][0] === 0
               ? matches_maximum[0].slice(1)
               : matches_maximum[0];
           datatype.mahundredths =
-            matches_maximum[1][0] == 0
+            matches_maximum[1][0] === 0
               ? matches_maximum[1].slice(1)
               : matches_maximum[1];
         }
@@ -187,7 +187,7 @@ function findQuestionInLoop(componentsStore) {
       if (componentsStore[component.initialMember]) {
         if (componentsStore[component.initialMember].type === SEQUENCE) {
           if (
-            componentsStore[component.initialMember].weight !=
+            componentsStore[component.initialMember].weight !==
             componentsStore[component.finalMember].weight
           ) {
             for (
@@ -213,7 +213,7 @@ function findQuestionInLoop(componentsStore) {
             );
           }
         } else if (
-          componentsStore[component.initialMember].weight !=
+          componentsStore[component.initialMember].weight !==
           componentsStore[component.finalMember].weight
         ) {
           for (
