@@ -87,7 +87,8 @@ export function remoteToStore(
         }
         if (format === 'PnYnM') {
           datatype.miyears = matches_minimum[0] === 0 ? '' : matches_minimum[0];
-          datatype.mimonths = matches_minimum[1] === 0 ? '' : matches_minimum[1];
+          datatype.mimonths =
+            matches_minimum[1] === 0 ? '' : matches_minimum[1];
         }
         if (format === 'HH:CH') {
           datatype.mihundhours =
@@ -110,7 +111,8 @@ export function remoteToStore(
         }
         if (format === 'PnYnM') {
           datatype.mayears = matches_maximum[0] === 0 ? '' : matches_maximum[0];
-          datatype.mamonths = matches_maximum[1] === 0 ? '' : matches_maximum[1];
+          datatype.mamonths =
+            matches_maximum[1] === 0 ? '' : matches_maximum[1];
         }
         if (format === 'HH:CH') {
           datatype.mahundhours =
@@ -124,7 +126,7 @@ export function remoteToStore(
         }
       }
     }
-    return {
+    const remote = {
       ...acc,
       [id]: {
         id,
@@ -135,12 +137,17 @@ export function remoteToStore(
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
-        z,
-        mesureLevel,
         [typeName]: datatype,
         ...responsesByVariable[id],
       },
     };
+    if (z) {
+      remote.z = z;
+    }
+    if (mesureLevel) {
+      remote.mesureLevel = mesureLevel;
+    }
+    return remote;
   }, {});
 }
 export function remoteToComponentState(remote = []) {
@@ -277,11 +284,7 @@ function getTableDynamique(componentsStore, id) {
         components.responseFormat.TABLE.PRIMARY.type === LIST,
     )
     .map(component => {
-      if (
-        component &&
-        component.collectedVariables &&
-        component.collectedVariables.includes(id)
-      ) {
+      if (component?.collectedVariables?.includes(id)) {
         tableId = component.id;
       }
     });
