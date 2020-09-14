@@ -29,7 +29,7 @@ export function remoteToStore(
       if (find) {
         if (find.type === MULTIPLE_CHOICE) {
           variable.z = parseInt(find.position) + 1;
-        } else if (find.type === 'TABLE') {
+        } else if (find.type === TABLE) {
           const code = Object.values(
             codesListsStore[find.codelistid].codes,
           ).find(cod => cod.value === find.position);

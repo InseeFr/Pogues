@@ -17,6 +17,7 @@ import {
 } from 'constants/pogues-constants';
 import { checkPropTypes } from 'prop-types';
 
+const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP } = COMPONENT_TYPE;
 
 function sortByWeight(store) {
@@ -71,9 +72,9 @@ function clarificationQuestion(Children) {
       if (clar.type === 'SequenceType') {
         clar.Child.forEach(supseq => {
           if (
-            (supseq.questionType === 'SINGLE_CHOICE' ||
-              supseq.questionType === 'MULTIPLE_CHOICE' ||
-              supseq.questionType === 'TABLE') &&
+            (supseq.questionType === SINGLE_CHOICE ||
+              supseq.questionType === MULTIPLE_CHOICE ||
+              supseq.questionType === TABLE) &&
             supseq.ClarificationQuestion !== undefined &&
             supseq.ClarificationQuestion.length !== 0
           ) {
@@ -81,9 +82,9 @@ function clarificationQuestion(Children) {
           }
         });
       } else if (
-        (clar.questionType === 'SINGLE_CHOICE' ||
-          clar.questionType === 'MULTIPLE_CHOICE' ||
-          clar.questionType === 'TABLE') &&
+        (clar.questionType === SINGLE_CHOICE ||
+          clar.questionType === MULTIPLE_CHOICE ||
+          clar.questionType === TABLE) &&
         clar.ClarificationQuestion !== undefined &&
         clar.ClarificationQuestion.length !== 0
       ) {
@@ -112,7 +113,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
         let codelistid = null;
         let level = null;
         let varibale = null;
-        if (element.questionType === 'MULTIPLE_CHOICE') {
+        if (element.questionType === MULTIPLE_CHOICE) {
           codelistid = element.ResponseStructure.Dimension[0].CodeListReference;
           const codeCollectedVarible = position.substring(
             1,
@@ -126,7 +127,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
               response => response.CollectedVariableReference === variable.id,
             );
           }
-        } else if (element.questionType == 'TABLE') {
+        } else if (element.questionType === TABLE) {
           varibale = collectedVariables.find(varib => varib.Name === tableFind);
           if (varibale) {
             codelistid = varibale.CodeListReference;
@@ -146,9 +147,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
         const variable = {
           responseclar: item,
           position:
-            element.questionType === 'MULTIPLE_CHOICE'
-              ? multiplFind
-              : stringFind,
+            element.questionType === MULTIPLE_CHOICE ? multiplFind : stringFind,
           codelistid: codelistid,
           type: element.questionType,
           level: parseInt(level) + 1,
@@ -169,7 +168,7 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
       Child: childrenInner,
     } = child;
     let responseFinal = responses;
-    if (responsesClarification != undefined) {
+    if (responsesClarification !== undefined) {
       responsesClarification.forEach(clar => {
         responseFinal = responseFinal.concat(clar.Response);
       });
@@ -221,11 +220,11 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarationMode,
   } = remote;
   const redirectionClar =
-    redirections != undefined
+    redirections !== undefined
       ? redirections.filter(redirec => redirec.flowControlType === undefined)
       : [];
   let responseFinal = responses;
-  if (responsesClarification != undefined) {
+  if (responsesClarification !== undefined) {
     responsesClarification.forEach(clar => {
       responseFinal = responseFinal.concat(clar.Response);
     });
@@ -327,7 +326,7 @@ function getClarificationresponseSingleChoiseQuestion(
   const collectedvariablequestion = [];
   const flowcontrolefinal = [];
   Object.values(collectedVariablesStore).forEach(collec => {
-    if (collectedVariables != undefined) {
+    if (collectedVariables !== undefined) {
       collectedVariables.forEach(variables => {
         if (collec.id === variables) {
           collectedvariablequestion.push(collec);
@@ -395,7 +394,7 @@ function getClarificationResponseMultipleChoiceQuestion(
   const collectedvariablequestion = [];
   const flowcontrolefinal = [];
   Object.values(collectedVariablesStore).forEach(collec => {
-    if (collectedVariables != undefined) {
+    if (collectedVariables !== undefined) {
       collectedVariables.forEach(variables => {
         if (collec.id === variables) {
           collectedvariablequestion.push(collec);
@@ -416,7 +415,7 @@ function getClarificationResponseMultipleChoiceQuestion(
       ).find(code => code.weight === collected.z);
       if (code) {
         const collectedVar = collectedvariablequestion.find(
-          collectedVarible => collectedVarible.x == code.weight,
+          collectedVarible => collectedVarible.x === code.weight,
         );
         const clafication = {
           id: uuid(),
@@ -470,7 +469,7 @@ function getClarificationResponseTableQuestion(
   const flowcontrolefinal = [];
 
   Object.values(collectedVariablesStore).forEach(collec => {
-    if (collectedVariables != undefined) {
+    if (collectedVariables !== undefined) {
       collectedVariables.forEach(variables => {
         if (collec.id === variables) {
           collectedvariablequestion.push(collec);
@@ -579,8 +578,8 @@ function storeToRemoteNested(
 
     if (type === QUESTION) {
       if (
-        responseFormat.type === 'SINGLE_CHOICE' &&
-        collectedVariablesStore != undefined
+        responseFormat.type === SINGLE_CHOICE &&
+        collectedVariablesStore !== undefined
       ) {
         const remoteclarification = getClarificationresponseSingleChoiseQuestion(
           collectedVariablesStore,
@@ -597,8 +596,8 @@ function storeToRemoteNested(
       }
 
       if (
-        responseFormat.type === 'MULTIPLE_CHOICE' &&
-        collectedVariablesStore != undefined
+        responseFormat.type === MULTIPLE_CHOICE &&
+        collectedVariablesStore !== undefined
       ) {
         const remoteclarification = getClarificationResponseMultipleChoiceQuestion(
           collectedVariablesStore,
@@ -614,8 +613,8 @@ function storeToRemoteNested(
           remoteclarification.ClarificationQuestion;
       }
       if (
-        responseFormat.type === 'TABLE' &&
-        collectedVariablesStore != undefined
+        responseFormat.type === TABLE &&
+        collectedVariablesStore !== undefined
       ) {
         const remoteclarification = getClarificationResponseTableQuestion(
           collectedVariablesStore,
