@@ -23,7 +23,7 @@ export function remoteToStore(
     if (variableclarification) {
       const find = variableclarification.find(
         element =>
-          element.responseclar.Response[0].CollectedVariableReference ==
+          element.responseclar.Response[0].CollectedVariableReference ===
           variable.id,
       );
       if (find) {
@@ -126,7 +126,7 @@ export function remoteToStore(
         }
       }
     }
-    return {
+    const remote = {
       ...acc,
       [id]: {
         id,
@@ -137,12 +137,17 @@ export function remoteToStore(
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
-        z,
-        mesureLevel,
         [typeName]: datatype,
         ...responsesByVariable[id],
       },
     };
+    if (z) {
+      remote.z = z;
+    }
+    if (mesureLevel) {
+      remote.mesureLevel = mesureLevel;
+    }
+    return remote;
   }, {});
 }
 export function remoteToComponentState(remote = []) {
