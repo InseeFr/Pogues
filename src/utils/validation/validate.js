@@ -139,14 +139,3 @@ export function validateTableListMeasuresForm(values, addErrors) {
   }
   return true;
 }
-
-export function validateFilterNested(values, addErrors, state) {
-  // const errors = validate(values, calculatedVariableRules, {}, state);
-
-  // // SubmissionError can't be used in subforms validations
-  // if (errors.length > 0) {
-  //   addErrors(errors);
-  //   return false;
-  // }
-  // return true;
-}

@@ -158,7 +158,7 @@ export function validCollectedVariables(
       return true;
     }
     return (
-      expected.filter(e => e !== undefined && e !== '' && !values.includes(e))
+      expected.find(e => e !== undefined && e !== '' && !values.includes(e))
         .length === 0
     );
   }

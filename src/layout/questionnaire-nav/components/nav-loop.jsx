@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import Dictionary from 'utils/dictionary/dictionary';
-
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { ComponentEdit } from 'layout/component-edit';
+
+const { LOOP } = COMPONENT_TYPE;
 
 class NavLoop extends Component {
   static propTypes = {
@@ -26,6 +28,11 @@ class NavLoop extends Component {
     this.handleEditComponent = this.handleEditComponent.bind(this);
   }
 
+  handleDeleteComponent = () => {
+    this.props.removeComponent(this.props.editingComponentId);
+    this.setState({ showComponentModal: false });
+  };
+
   handleOpenComponentDetail() {
     this.setState({ showComponentModal: true });
   }
@@ -39,22 +46,20 @@ class NavLoop extends Component {
     this.setState({ showComponentModal: false });
   }
 
-  handleDeleteComponent = () => {
-    this.props.removeComponent(this.props.editingComponentId);
-    this.setState({ showComponentModal: false });
-  };
-
   render() {
     const { componentsStore, editingComponentId } = this.props;
 
     const options = Object.values(componentsStore)
-      .filter(component => component.type === 'LOOP')
+      .filter(component => component.type === LOOP)
       .map(element => {
         return (
-          <li onClick={() => this.handleEditComponent(element.id)}>
+          <button
+            className="loopLists"
+            onClick={() => this.handleEditComponent(element.id)}
+          >
             <span className="glyphicon glyphicon-menu-right" />
             {element.nameLoop}
-          </li>
+          </button>
         );
       });
     const componentType =

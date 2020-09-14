@@ -52,7 +52,7 @@ describe('redirection filters tramsformation', () => {
           name: 'QSD',
           pageBreak: false,
           parent: 'i6vwid',
-          type: 'NYSTEDFILTRE',
+          type: 'NESTEDFILTRE',
         },
         jqqchose: {
           TargetMode: [],
@@ -65,7 +65,7 @@ describe('redirection filters tramsformation', () => {
           name: 'TETS',
           pageBreak: false,
           parent: 'i6vwid',
-          type: 'FILTRE',
+          type: 'FILTER',
         },
         kea3voc7: {
           TargetMode: [],
@@ -78,7 +78,7 @@ describe('redirection filters tramsformation', () => {
           name: 'TIPZ',
           pageBreak: false,
           parent: 'i6vwid',
-          type: 'NYSTEDFILTRE',
+          type: 'NESTEDFILTRE',
         },
         j6z12s2d: {
           TargetMode: [],
@@ -91,7 +91,7 @@ describe('redirection filters tramsformation', () => {
           name: 'SEQ',
           pageBreak: false,
           parent: 'i6vwid',
-          type: 'NYSTEDFILTRE',
+          type: 'NESTEDFILTRE',
         },
       });
     });
@@ -134,11 +134,11 @@ describe('redirection filters tramsformation', () => {
         finalMember: 'j6z12s2d',
         id: 'jqqchose',
         initialMember: 'j6p0ti5h',
-        name: 'FILTRE',
-        nameLoop: 'FILTRE',
+        name: 'FILTER',
+        nameLoop: 'FILTER',
         pageBreak: false,
         parent: 'i6vwid',
-        type: 'FILTRE',
+        type: 'FILTER',
         filterImbriquer: ['kea3voc7'],
         description: 'desc',
       },
@@ -150,14 +150,14 @@ describe('redirection filters tramsformation', () => {
         initialMember: 'j6p0ti5h',
         finalMember: 'j6p0ti5h',
         filterImbriquer: [],
-        type: 'NYSTEDFILTRE',
+        type: 'NESTEDFILTRE',
         id: 'kea3voc7',
       },
     };
     const remote = [
       {
         id: 'jqqchose',
-        name: 'FILTRE',
+        name: 'FILTER',
         Description: 'desc',
         Expression: '$AGE$ < 18',
         IfTrue: 'j6p0ti5h-j6z12s2d',

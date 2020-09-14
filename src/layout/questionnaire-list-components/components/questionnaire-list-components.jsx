@@ -15,7 +15,7 @@ import { ErrorsIntegrity as ErrorsIntegrityPanel } from 'layout/errors-integrity
 import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
 
-const { LOOP, FILTRE, NYSTEDFILTRE } = COMPONENT_TYPE;
+const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
 const QuestionnaireListComponents = props => {
   const {
@@ -69,7 +69,7 @@ const QuestionnaireListComponents = props => {
 
   const componentFilterCondition = id => {
     const filters = Object.values(props.componentsStore).filter(
-      component => component.type === FILTRE && component.initialMember === id,
+      component => component.type === FILTER && component.initialMember === id,
     );
     return filters;
   };
@@ -81,8 +81,8 @@ const QuestionnaireListComponents = props => {
         const component = props.componentsStore[key];
         if (
           component.type !== LOOP &&
-          component.type !== FILTRE &&
-          component.type !== NYSTEDFILTRE
+          component.type !== FILTER &&
+          component.type !== NESTEDFILTRE
         ) {
           return (
             <QuestionnaireComponent

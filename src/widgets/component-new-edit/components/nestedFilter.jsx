@@ -20,7 +20,7 @@ const {
   DELETE,
   FILTRE_IMBRIQUER,
 } = WIDGET_COMPONENT_NEW_EDIT;
-const { LOOP, NYSTEDFILTRE } = COMPONENT_TYPE;
+const { LOOP, NESTEDFILTRE } = COMPONENT_TYPE;
 
 // Prop types and default props
 
@@ -284,7 +284,7 @@ const NestedFilter = props => {
       options = Object.values(componentsStore)
         .filter(
           component =>
-            component.type === NYSTEDFILTRE &&
+            component.type === NESTEDFILTRE &&
             componentsStore[component.initialMember].weight >=
               componentsStore[initialMemberFilter].weight,
         )
@@ -530,7 +530,7 @@ const NestedFilter = props => {
                 handleSubmitImbriquer1(value, index)
               }
               handleCloseNestedFilter={handleCloseNestedFilter}
-              componentType={NYSTEDFILTRE}
+              componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNested}
               removeComponent={removeComponent}
               updateComponent={updateComponent}

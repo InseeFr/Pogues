@@ -1,7 +1,7 @@
 import { uuid } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { FILTRE, NYSTEDFILTRE } = COMPONENT_TYPE;
+const { FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
 function getFiltersState(filter, parent, type) {
   const {
@@ -39,7 +39,7 @@ function remoteToStateNestedFilter(remote, parent, type, store) {
       const nested = remoteToStateNestedFilter(
         filt,
         parent,
-        NYSTEDFILTRE,
+        NESTEDFILTRE,
         store,
       );
       stateNestedFilter.filterImbriquer.push(nested.stateNestedFilter.id);
@@ -54,7 +54,7 @@ function remoteToStateNestedFilter(remote, parent, type, store) {
 }
 
 export function remoteToState(remote, parent) {
-  const stateFilter = getFiltersState(remote, parent, FILTRE);
+  const stateFilter = getFiltersState(remote, parent, FILTER);
   const { Next: filters } = remote;
 
   const store = {};
@@ -63,7 +63,7 @@ export function remoteToState(remote, parent) {
       const nested = remoteToStateNestedFilter(
         filt,
         parent,
-        NYSTEDFILTRE,
+        NESTEDFILTRE,
         store,
       );
       stateFilter.filterImbriquer.push(nested.stateNestedFilter.id);
@@ -102,7 +102,7 @@ function getNextFlowControle(filterImbriquers, store) {
 
 export function stateToRemote(store) {
   return Object.values(store)
-    .filter(element => element.type === FILTRE)
+    .filter(element => element.type === FILTER)
     .map(component => {
       const {
         id,

@@ -68,9 +68,7 @@ const QuestionnaireComponent = props => {
     props.actions.handleOpenComponentDetail();
   };
   const handleEditFilterComponent = id => {
-    console.log('id', id);
     props.setEditingComponentId(id);
-    //props.actions.handleOpenComponentDetail();
   };
 
   const handleDuplicateComponent = () => {
@@ -132,12 +130,7 @@ const QuestionnaireComponent = props => {
                   ? componentFilters.map(filter => {
                       return (
                         <div className="questionnaire-element-filter">
-                          <button
-                            className="btn-white"
-                            onClick={handleEditFilterComponent(filter.id)}
-                          >
-                            {filter.name}
-                          </button>
+                          <button className="btn-white">{filter.name}</button>
                         </div>
                       );
                     })

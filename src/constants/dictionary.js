@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTRE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
 const dictionary = {
   phLabel: {
@@ -1474,7 +1474,7 @@ dictionary[`componentNew${LOOP}`] = {
   en: 'New loop',
 };
 
-dictionary[`componentNew${FILTRE}`] = {
+dictionary[`componentNew${FILTER}`] = {
   fr: 'Nouveau filtre',
   en: 'New filter',
 };
@@ -1504,7 +1504,7 @@ dictionary[`componentEdit${LOOP}`] = {
   en: 'Edit loop',
 };
 
-dictionary[`componentEdit${FILTRE}`] = {
+dictionary[`componentEdit${FILTER}`] = {
   fr: 'Modifier le filtre',
   en: 'Edit filter',
 };

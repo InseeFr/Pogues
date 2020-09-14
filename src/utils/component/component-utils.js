@@ -8,8 +8,8 @@ const {
   SUBSEQUENCE,
   QUESTIONNAIRE,
   LOOP,
-  FILTRE,
-  NYSTEDFILTRE,
+  FILTER,
+  NESTEDFILTRE,
 } = COMPONENT_TYPE;
 
 /**
@@ -58,21 +58,21 @@ export function isLoop(component) {
 }
 
 /**
- * This method return true if the component passed as a parameter is a  NYSTEDFILTRE
+ * This method return true if the component passed as a parameter is a  NESTEDFILTRE
  *
  * @param {object} component The component we should test
  */
 export function isNestedFilter(component) {
-  return component && component.type === NYSTEDFILTRE;
+  return component && component.type === NESTEDFILTRE;
 }
 
 /**
- * This method return true if the component passed as a parameter is a  FILTRE
+ * This method return true if the component passed as a parameter is a  FILTER
  *
  * @param {object} component The component we should test
  */
 export function isFilter(component) {
-  return component && component.type === FILTRE;
+  return component && component.type === FILTER;
 }
 /**
  * This method will return an array of component based of the ids passed as parameter

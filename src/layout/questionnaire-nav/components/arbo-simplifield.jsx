@@ -59,17 +59,16 @@ class ArboSimplified extends Component {
               key={key}
               className={isQuestion(components[key]) ? 'questions' : ''}
             >
-              {components[key].children &&
-                components[key].children.length > 0 && (
-                  <button
-                    onClick={e => this.handleExpand(e, key)}
-                    className={`glyphicon ${
-                      this.state.expanded.indexOf(key) >= 0
-                        ? 'glyphicon-menu-down'
-                        : 'glyphicon-menu-right'
-                    }`}
-                  />
-                )}
+              {components[key].children?.length > 0 && (
+                <button
+                  onClick={e => this.handleExpand(e, key)}
+                  className={`glyphicon ${
+                    this.state.expanded.indexOf(key) >= 0
+                      ? 'glyphicon-menu-down'
+                      : 'glyphicon-menu-right'
+                  }`}
+                />
+              )}
               <button onClick={e => this.handleClick(e, key)}>
                 {components[key].name.toUpperCase()}
               </button>

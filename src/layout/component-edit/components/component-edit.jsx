@@ -10,7 +10,7 @@ import {
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP, FILTRE } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -51,7 +51,7 @@ function validateAndSubmit(
       validateQuestion(transformer.getNormalizedValues(values));
     } else if (component.type === LOOP) {
       validateLoop(values);
-    } else if (component.type === FILTRE) {
+    } else if (component.type === FILTER) {
       validateFilter(values);
     } else {
       validateSequence(values);

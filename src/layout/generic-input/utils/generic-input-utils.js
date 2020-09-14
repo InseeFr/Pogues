@@ -5,8 +5,8 @@ const {
   SEQUENCE,
   SUBSEQUENCE,
   LOOP,
-  FILTRE,
-  NYSTEDFILTRE,
+  FILTER,
+  NESTEDFILTRE,
 } = COMPONENT_TYPE;
 
 /**
@@ -25,8 +25,8 @@ export function getClosestComponentIdByType(components, activeComponent, type) {
   while (
     currentComponent.parent !== '' &&
     currentComponent.type !== LOOP &&
-    currentComponent.type !== FILTRE &&
-    currentComponent.type !== NYSTEDFILTRE
+    currentComponent.type !== FILTER &&
+    currentComponent.type !== NESTEDFILTRE
   ) {
     if (currentComponent.type === type) {
       componentId = currentComponent.id;

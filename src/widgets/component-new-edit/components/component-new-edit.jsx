@@ -44,8 +44,8 @@ const {
   LOOP,
   SEQUENCE,
   SUBSEQUENCE,
-  FILTRE,
-  NYSTEDFILTRE,
+  FILTER,
+  NESTEDFILTRE,
 } = COMPONENT_TYPE;
 
 export const propTypes = {
@@ -240,7 +240,7 @@ const ComponentNewEdit = props => {
   const infImbriquer = (store, initial) => {
     const filters = Object.values(store).filter(
       component =>
-        component.type === FILTRE &&
+        component.type === FILTER &&
         store[component.initialMember].weight < initial.weight &&
         store[component.finalMember].weight > initial.weight,
     );
@@ -367,7 +367,7 @@ const ComponentNewEdit = props => {
             targetIsRichTextarea
             targetIsQuestion
           />
-        ) : componentType === LOOP || componentType === FILTRE ? (
+        ) : componentType === LOOP || componentType === FILTER ? (
           <div>
             <Field
               name="nameLoop"
@@ -428,10 +428,10 @@ const ComponentNewEdit = props => {
             ) : (
               false
             )}
-            {componentType === FILTRE
+            {componentType === FILTER
               ? showFiltersImbriquer(filterImbriquers)
               : false}
-            {componentType === FILTRE ? (
+            {componentType === FILTER ? (
               <button
                 className={FILTRE_IMBRIQUER}
                 onClick={e => handleOpenFilter(e)}
@@ -471,7 +471,7 @@ const ComponentNewEdit = props => {
         ) : (
           <AssociatedFields {...associatedFieldsProps} />
         )}
-        {componentType !== LOOP && componentType !== FILTRE ? (
+        {componentType !== LOOP && componentType !== FILTER ? (
           <Field
             name="TargetMode"
             component={ListCheckboxes}
@@ -487,14 +487,14 @@ const ComponentNewEdit = props => {
         ) : (
           false
         )}
-        {componentType !== LOOP && componentType !== FILTRE ? (
+        {componentType !== LOOP && componentType !== FILTER ? (
           <Tabs componentId={componentId}>{renderPanels()}</Tabs>
         ) : (
           false
         )}
         <div
           className={
-            componentType !== LOOP && componentType !== FILTRE
+            componentType !== LOOP && componentType !== FILTER
               ? FOOTER
               : FOOTERLOOP
           }
@@ -549,7 +549,7 @@ const ComponentNewEdit = props => {
                 handleSubmitImbriquer(value, index)
               }
               handleCloseNestedFilter={handleCloseNestedFilter}
-              componentType={NYSTEDFILTRE}
+              componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}
               removeComponent={props.removeComponent}
               updateComponent={props.updateComponent}
