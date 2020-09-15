@@ -11,6 +11,8 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { markdownVtlToString } from 'forms/controls/rich-textarea';
+import { ComponentEdit } from 'layout/component-edit';
+import ReactModal from 'react-modal';
 
 import {
   PropType,
@@ -26,7 +28,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { getIntegrityErrors } from 'utils/integrity/utils';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER } = COMPONENT_TYPE;
 
 const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
@@ -46,6 +48,8 @@ const QuestionnaireComponent = props => {
     handleRemovePageBreak,
     componentFilters,
   } = props;
+
+  const [showComponentModal, setShowComponentModal] = useState(false);
 
   const myRef = useRef(null);
   const executeScroll = () => scrollToRef(myRef);
@@ -69,6 +73,11 @@ const QuestionnaireComponent = props => {
   };
   const handleEditFilterComponent = id => {
     props.setEditingComponentId(id);
+    handleOpenComponentDetail();
+  };
+
+  const handleCloseComponentDetail = () => {
+    setShowComponentModal(false);
   };
 
   const handleDuplicateComponent = () => {
@@ -77,6 +86,13 @@ const QuestionnaireComponent = props => {
 
   const handleDeleteComponent = () => {
     props.removeComponent(component.id);
+  };
+  const handleDeleteComponent1 = id => {
+    props.removeComponent(id);
+    setShowComponentModal(false);
+  };
+  const handleOpenComponentDetail = () => {
+    setShowComponentModal(true);
   };
 
   const dragndropLevel = getDragnDropLevel(props, draggedItem);
@@ -90,6 +106,7 @@ const QuestionnaireComponent = props => {
   };
   const dropZone = canDrop && isOver && <DropZone style={style} />;
   const integrityErrors = getIntegrityErrors(integrityErrorsByType);
+  const componentHeader = Dictionary[`componentEdit${FILTER}`] || '';
   return connectDragSource(
     connectDropTarget(
       <div className={COMPONENT_CLASS}>
@@ -114,7 +131,7 @@ const QuestionnaireComponent = props => {
           >
             <div className="questionnaire-element-name">{component.name}</div>
             <div className="questionnaire-element-body">
-              <div>
+              <div className="questionnaire-elements">
                 <div className="questionnaire-element-label">
                   {component.type === QUESTION ? (
                     <span
@@ -126,11 +143,16 @@ const QuestionnaireComponent = props => {
                     component.label
                   )}
                 </div>
-                {componentFilters.length > 0
+                {componentFilters?.length > 0
                   ? componentFilters.map(filter => {
                       return (
                         <div className="questionnaire-element-filter">
-                          <button className="btn-white">{filter.name}</button>
+                          <button
+                            onClick={() => handleEditFilterComponent(filter.id)}
+                            className="btn-white-filter"
+                          >
+                            {filter?.filter}
+                          </button>
                         </div>
                       );
                     })
@@ -200,6 +222,29 @@ const QuestionnaireComponent = props => {
             <button onClick={handleRemovePageBreak}>x</button>
           </div>
         )}
+        <ReactModal
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={false}
+          isOpen={showComponentModal}
+          onRequestClose={handleCloseComponentDetail}
+          contentLabel={componentHeader}
+        >
+          <div className="popup">
+            <div className="popup-header">
+              <h3>{componentHeader}</h3>
+              <button type="button" onClick={handleCloseComponentDetail}>
+                <span>X</span>
+              </button>
+            </div>
+            <div className="popup-body">
+              <ComponentEdit
+                onCancel={handleCloseComponentDetail}
+                onSuccess={handleCloseComponentDetail}
+                deleteComponent={id => handleDeleteComponent1(id)}
+              />
+            </div>
+          </div>
+        </ReactModal>
       </div>,
     ),
   );

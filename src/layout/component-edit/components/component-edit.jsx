@@ -115,7 +115,6 @@ function ComponentEdit({
   const initialValues = componentTransformer.stateToForm();
 
   // Validation and submit
-
   return (
     <ComponentNewEdit
       componentType={component.type}
@@ -123,6 +122,7 @@ function ComponentEdit({
       onCancel={onCancel}
       initialValues={initialValues}
       deleteComponent={deleteComponent}
+      updateComponent={updateComponent}
       onSubmit={validateAndSubmit(
         actions,
         initialState,

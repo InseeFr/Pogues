@@ -270,3 +270,18 @@ a {
 .loopLists {
   border : none;
 }
+
+.questionnaire-element-filter {
+  margin: 10px;
+}
+.btn-white-filter {
+  text-align: center;
+  background-color: white;
+  border-radius: 0;
+  border: 3px solid #15417a;
+  font-weight: initial;
+  font-size: 14px;
+}
+.questionnaire-elements {
+  display: flex;
+}

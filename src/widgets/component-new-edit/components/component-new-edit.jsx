@@ -20,6 +20,8 @@ import {
   COMPONENT_TYPE,
   TABS_PATHS,
   TargetMode,
+  DIMENSION_FORMATS,
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
@@ -47,6 +49,8 @@ const {
   FILTER,
   NESTEDFILTRE,
 } = COMPONENT_TYPE;
+const { LIST } = DIMENSION_FORMATS;
+const { TABLE } = QUESTION_TYPE_ENUM;
 
 export const propTypes = {
   ...formPropTypes,
@@ -80,10 +84,14 @@ const ComponentNewEdit = props => {
     onCancel,
     deleteComponent,
     onSubmit,
+    filterImbriquer,
+    removeComponent,
   } = props;
 
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
-  const [filterImbriquers, setFilterImbriquers] = useState([]);
+  const [filterImbriquers, setFilterImbriquers] = useState(
+    filterImbriquer?.length > 0 ? filterImbriquer : [],
+  );
   const [filterId, setFilterId] = useState('');
   const buttonRef = useRef(null);
 
@@ -272,7 +280,8 @@ const ComponentNewEdit = props => {
               component.type === componentinitial[0].type &&
               component.weight >= supImbriquer(store, componentinitial[0]) &&
               component.weight <= infImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent,
+              component.parent === componentinitial[0].parent &&
+              component.id !== 'idendquest',
           )
           .map(element => {
             return (
@@ -287,7 +296,8 @@ const ComponentNewEdit = props => {
             component =>
               component.type === componentinitial[0].type &&
               component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent,
+              component.parent === componentinitial[0].parent &&
+              component.id !== 'idendquest',
           )
           .map(element => {
             return (
@@ -307,7 +317,8 @@ const ComponentNewEdit = props => {
       options = Object.values(componentsStore)
         .filter(
           component =>
-            component.type === SEQUENCE || component.type === SUBSEQUENCE,
+            component.id !== 'idendquest' &&
+            (component.type === SEQUENCE || component.type === SUBSEQUENCE),
         )
         .map(element => {
           return (
@@ -318,7 +329,9 @@ const ComponentNewEdit = props => {
         });
     } else {
       options = Object.values(componentsStore)
-        .filter(component => component.type !== LOOP)
+        .filter(
+          component => component.type !== LOOP && component.id !== 'idendquest',
+        )
         .map(element => {
           return (
             <GenericOption key={element.id} value={element.id}>
@@ -333,8 +346,8 @@ const ComponentNewEdit = props => {
     .filter(
       component =>
         (component.type === QUESTION &&
-          component.responseFormat.type === 'TABLE' &&
-          component.responseFormat.TABLE.PRIMARY.type === 'LIST') ||
+          component.responseFormat.type === TABLE &&
+          component.responseFormat.TABLE.PRIMARY.type === LIST) ||
         (component.type === LOOP && !component.basedOn),
     )
     .map(element => {
@@ -521,6 +534,17 @@ const ComponentNewEdit = props => {
           ) : (
             false
           )}
+          {componentType === FILTER && componentId ? (
+            <button
+              className={DELETE}
+              disabled={submitting}
+              onClick={() => deleteComponent(componentId)}
+            >
+              {Dictionary.remove}
+            </button>
+          ) : (
+            false
+          )}
         </div>
       </form>
       <ReactModal
@@ -548,10 +572,9 @@ const ComponentNewEdit = props => {
               handleSubmitImbriquer={(value, index) =>
                 handleSubmitImbriquer(value, index)
               }
-              handleCloseNestedFilter={handleCloseNestedFilter}
+              handleCloseNestedFilter1={handleCloseNestedFilter}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}
-              removeComponent={props.removeComponent}
               updateComponent={props.updateComponent}
               initialMemberFilter={props.InitialMember}
             />
@@ -565,7 +588,7 @@ const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {
     InitialMember: selector(state, 'initialMember'),
-    imbriquers: selector(state, 'imbriquers'),
+    filterImbriquer: selector(state, 'filterImbriquer'),
   };
 };
 export default connect(mapStateToProps)(ComponentNewEdit);

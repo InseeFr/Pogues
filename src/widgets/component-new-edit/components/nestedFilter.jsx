@@ -39,9 +39,9 @@ const NestedFilter = props => {
     handleDeleteNestedFilter,
     componentType,
     filterId,
-    removeComponent,
     updateComponent,
     initialMemberFilter,
+    handleCloseNestedFilter1,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [error, setError] = useState({
@@ -81,7 +81,6 @@ const NestedFilter = props => {
       filters.push(value);
     }
     setNewNestedFilter({ ...newNestedFilter, filterImbriquer: filters });
-
     handleCloseNestedFilter();
   };
 
@@ -163,7 +162,6 @@ const NestedFilter = props => {
   };
 
   const handleDeleteComponent = () => {
-    removeComponent(filterId);
     handleDeleteNestedFilter(filterId);
   };
 
@@ -414,12 +412,6 @@ const NestedFilter = props => {
                 type="text"
                 label={Dictionary.condition}
               />
-              {/* <input
-                name="filter"
-                type="text"
-                value={newNestedFilter.filter}
-                onChange={e => handleChange(e)}
-              /> */}
               {error && error.filter ? (
                 <span className="form-error">{Dictionary.mandatory}</span>
               ) : (
@@ -491,7 +483,7 @@ const NestedFilter = props => {
         >
           {Dictionary.validate}
         </button>
-        <button className={CANCEL} onClick={() => handleCloseNestedFilter()}>
+        <button className={CANCEL} onClick={() => handleCloseNestedFilter1()}>
           {Dictionary.cancel}
         </button>
         {filterId ? (
@@ -529,10 +521,9 @@ const NestedFilter = props => {
               handleSubmitImbriquer={(value, index) =>
                 handleSubmitImbriquer1(value, index)
               }
-              handleCloseNestedFilter={handleCloseNestedFilter}
+              handleCloseNestedFilter1={() => handleCloseNestedFilter()}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNested}
-              removeComponent={removeComponent}
               updateComponent={updateComponent}
               initialMemberFilter={newNestedFilter.initialMember}
             />

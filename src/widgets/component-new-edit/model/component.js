@@ -99,6 +99,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     finalMember,
     addButtonLibel,
     description,
+    filterImbriquer,
   } = currentState;
   const form = {
     label: label || '',
@@ -112,7 +113,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
           ? TargetMode.join()
           : activeQuestionnaire.TargetMode.join()
         : '',
-    nameLoop: nameLoop || '',
+    nameLoop: nameLoop || name || '',
     maximum: maximum || '',
     basedOn: basedOn || '',
     filter: filter || '',
@@ -120,6 +121,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     finalMember: finalMember || '',
     addButtonLibel: addButtonLibel || '',
     description: description || '',
+    filterImbriquer: filterImbriquer,
   };
 
   if (type === QUESTION) {
