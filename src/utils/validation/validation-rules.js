@@ -65,6 +65,7 @@ export const filterRules = {
   nameLoop: [required, nameLoop],
   initialMember: [required],
   finalMember: [required],
+  filter: [required],
 };
 
 export const questionRules = {

@@ -69,7 +69,9 @@ const NestedFilter = props => {
 
   useEffect(() => {
     if (filterId) {
-      setNewNestedFilter(componentsStore[filterId]);
+      const component = componentsStore[filterId];
+      component.typeFilter = 'new';
+      setNewNestedFilter(component);
     }
   }, [filterId]);
 
@@ -124,6 +126,7 @@ const NestedFilter = props => {
       if (
         !newNestedFilter.name ||
         !newNestedFilter.initialMember ||
+        !newNestedFilter.filter ||
         !newNestedFilter.finalMember ||
         rules.name(newNestedFilter.name)
       ) {
@@ -232,6 +235,7 @@ const NestedFilter = props => {
           .filter(
             component =>
               component.type === componentinitial[0].type &&
+              component.id !== 'idendquest' &&
               component.weight >= supImbriquer(store, componentinitial[0]) &&
               component.weight <= infImbriquer(store, componentinitial[0]) &&
               component.parent === componentinitial[0].parent,
@@ -248,6 +252,7 @@ const NestedFilter = props => {
           .filter(
             component =>
               component.type === componentinitial[0].type &&
+              component.id !== 'idendquest' &&
               component.weight >= supImbriquer(store, componentinitial[0]) &&
               component.parent === componentinitial[0].parent,
           )
@@ -265,7 +270,9 @@ const NestedFilter = props => {
   const optionsInitial = () => {
     let options = <option key="" value="" />;
     options = Object.values(componentsStore)
-      .filter(component => component.type !== LOOP)
+      .filter(
+        component => component.type !== LOOP && component.id !== 'idendquest',
+      )
       .map(element => {
         return (
           <option key={element.id} value={element.id}>
@@ -398,26 +405,24 @@ const NestedFilter = props => {
               />
             </div>
           </div>
-          <div className="ctrl-input ">
-            <div>
-              <InputWithVariableAutoCompletion
-                input={{
-                  name: 'filter',
-                  onChange,
-                  onFocus,
-                  value: newNestedFilter.filter,
-                }}
-                meta={{ touched: false, error: undefined }}
-                required="true"
-                type="text"
-                label={Dictionary.condition}
-              />
-              {error && error.filter ? (
-                <span className="form-error">{Dictionary.mandatory}</span>
-              ) : (
-                false
-              )}
-            </div>
+          <div>
+            <InputWithVariableAutoCompletion
+              input={{
+                name: 'filter',
+                onChange,
+                onFocus,
+                value: newNestedFilter.filter,
+              }}
+              meta={{ touched: false, error: undefined }}
+              required="true"
+              type="text"
+              label={Dictionary.condition}
+            />
+            {error && error.filter ? (
+              <span className="form-error">{Dictionary.mandatory}</span>
+            ) : (
+              false
+            )}
           </div>
           <div className="ctrl-select">
             <label htmlFor="input-nestedFilter.InitialMembre">
