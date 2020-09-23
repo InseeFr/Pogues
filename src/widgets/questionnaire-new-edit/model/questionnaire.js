@@ -12,10 +12,19 @@ export const defaultState = {
   final: '',
   agency: '',
   TargetMode: [],
+  dynamiqueSpecified: 'Redirections',
 };
 
 export function formToState(form) {
-  const { label, name, serie, operation, campaigns, TargetMode } = form;
+  const {
+    label,
+    name,
+    serie,
+    operation,
+    campaigns,
+    TargetMode,
+    dynamiqueSpecified,
+  } = form;
 
   return {
     label,
@@ -24,6 +33,7 @@ export function formToState(form) {
     operation,
     campaigns: campaigns.split(','),
     TargetMode: TargetMode.split(','),
+    dynamiqueSpecified,
   };
 }
 

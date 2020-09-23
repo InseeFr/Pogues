@@ -1045,6 +1045,10 @@ const dictionary = {
     fr: 'Mode de collecte',
     en: 'Collection mode',
   },
+  dynamiqueSpecified: {
+    fr: 'Dynamique spécifiée en',
+    en: 'Dynamics specified in',
+  },
   lastUpdate: {
     fr: 'Dernière mise à jour',
     en: 'Last update',

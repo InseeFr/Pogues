@@ -50,6 +50,20 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
             </GenericOption>
           ))}
         </Field>
+
+        <Field
+          name="dynamiqueSpecified"
+          component={ListCheckboxes}
+          label={Dictionary.dynamiqueSpecified}
+          inline
+        >
+          <GenericOption key="Redirections" value="Redirections">
+            {'Redirections'}
+          </GenericOption>
+          <GenericOption key="Filtres" value="Filtres">
+            {'Filtres'}
+          </GenericOption>
+        </Field>
         <div className={FOOTER}>
           <button className={VALIDATE} type="submit" disabled={submitting}>
             {Dictionary.validate}
