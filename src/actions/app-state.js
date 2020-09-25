@@ -178,7 +178,15 @@ export const setEditingComponentId = (id = '') => ({
  * @return {object}       UPDATE_ACTIVE_QUESTIONNAIRE action
  */
 export const updateActiveQuestionnaire = updatedState => {
-  const { name, label, serie, operation, campaigns, TargetMode } = updatedState;
+  const {
+    name,
+    label,
+    serie,
+    operation,
+    campaigns,
+    TargetMode,
+    dynamiqueSpecified,
+  } = updatedState;
   return {
     type: UPDATE_ACTIVE_QUESTIONNAIRE,
     payload: {
@@ -188,6 +196,7 @@ export const updateActiveQuestionnaire = updatedState => {
       operation,
       campaigns,
       TargetMode,
+      dynamiqueSpecified,
     },
   };
 };

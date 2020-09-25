@@ -91,6 +91,7 @@ function ComponentEdit({
   onCancel,
   onSuccess,
   setValidationErrors,
+  activeQuestionnaire,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -123,6 +124,7 @@ function ComponentEdit({
       initialValues={initialValues}
       deleteComponent={deleteComponent}
       updateComponent={updateComponent}
+      activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,
         initialState,

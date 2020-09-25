@@ -35,6 +35,7 @@ describe('questionnaire', () => {
       operation: '',
       owner: 'FAKEPERMISSION',
       serie: '',
+      dynamiqueSpecified: 'Redirections',
     };
     expect(output).toEqual(expected);
   });
@@ -299,6 +300,7 @@ describe('questionnaire', () => {
         operation: '',
         owner: 'FAKEPERMISSION',
         serie: '',
+        dynamiqueSpecified: 'Redirections',
       },
     };
     expect(output).toEqual(expected);

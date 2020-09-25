@@ -139,6 +139,7 @@ function ComponentNew({
       initialValues={initialValues}
       removeComponent={removeComponent}
       updateComponent={updateComponent}
+      activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,
         type,

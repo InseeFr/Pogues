@@ -158,6 +158,7 @@ class GenericInput extends Component {
       isQuestionnaireValid,
       isQuestionnaireModified,
       componentIdForPageBreak,
+      activeQuestionnaire,
     } = this.props;
     const { typeNewComponent } = this.state;
     const newComponentParent = typeNewComponent
@@ -166,6 +167,7 @@ class GenericInput extends Component {
     const newComponentWeight = typeNewComponent
       ? placeholders[typeNewComponent].weight
       : 0;
+
     return (
       <div
         id={COMPONENT_ID}
@@ -238,17 +240,22 @@ class GenericInput extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.loop}
         </button>
-        <button
-          id="add-loop"
-          className="btn-white"
-          disabled={!placeholders[FILTER]}
-          onClick={() => {
-            this.handleOpenNewComponent(FILTER);
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.filtre}
-        </button>
+        {activeQuestionnaire.dynamiqueSpecified === 'Filtres' ? (
+          <button
+            id="add-loop"
+            className="btn-white"
+            disabled={!placeholders[FILTER]}
+            onClick={() => {
+              this.handleOpenNewComponent(FILTER);
+            }}
+          >
+            <span className="glyphicon glyphicon-plus" />
+            {Dictionary.filtre}
+          </button>
+        ) : (
+          false
+        )}
+
         <button
           className="btn-white disabled"
           id="add-pagebreak"

@@ -26,6 +26,7 @@ const mapStateToProps = state => {
       state.appState.collectedVariableByQuestion[
         state.appState.editingComponentId
       ],
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 

@@ -64,6 +64,7 @@ export function remoteToState(remote, currentStores = {}) {
     lastUpdatedDate,
     TargetMode,
     declarationMode,
+    FlowControl,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -83,6 +84,7 @@ export function remoteToState(remote, currentStores = {}) {
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
     TargetMode: TargetMode || declarationMode || [],
+    dynamiqueSpecified: FlowControl ? 'Filtres' : 'Redirections',
   };
 }
 
@@ -128,12 +130,15 @@ export function stateToRemote(state, stores) {
     campaigns,
     final,
     TargetMode,
+    dynamiqueSpecified,
   } = state;
+
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore[c].label,
+    Name: campaignsStore[c]?.label,
   }));
+
   const remote = {
     owner,
     final,
@@ -189,10 +194,9 @@ export function stateToRemote(state, stores) {
       Iteration: Iterations,
     };
   }
-  if (FlowControl.length !== 0) {
-    json.FlowControl = {
-      FlowControl: FlowControl,
-    };
+  if (dynamiqueSpecified === 'Filtres') {
+    json.FlowControl = FlowControl;
   }
+
   return json;
 }

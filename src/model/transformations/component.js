@@ -228,7 +228,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarationMode,
   } = remote;
   const redirectionClar =
-    redirections !== undefined && Array.isArray(redirections)
+    redirections !== undefined && Array.isArray(redirections) && questionType
       ? redirections.filter(redirec => redirec.flowControlType === undefined)
       : [];
   let responseFinal = responses;

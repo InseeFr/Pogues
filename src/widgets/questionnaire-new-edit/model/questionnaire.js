@@ -38,7 +38,15 @@ export function formToState(form) {
 }
 
 export function stateToForm(currentState) {
-  const { label, name, serie, operation, campaigns, TargetMode } = currentState;
+  const {
+    label,
+    name,
+    serie,
+    operation,
+    campaigns,
+    TargetMode,
+    dynamiqueSpecified,
+  } = currentState;
 
   // If serie and operation doesn't exist, we use campaigns to obtain them calling a service
   return {
@@ -48,6 +56,7 @@ export function stateToForm(currentState) {
     operation,
     campaigns: campaigns.join(),
     TargetMode: TargetMode.join(),
+    dynamiqueSpecified,
   };
 }
 

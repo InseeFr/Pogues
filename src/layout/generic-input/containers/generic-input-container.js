@@ -95,6 +95,7 @@ const mapStateToProps = state => {
     isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
     componentIdForPageBreak: state.appState.componentIdForPageBreak,
     isLoopsValid: isLoopsValid(activeComponentsById),
+    activeQuestionnaire: activeQuestionnaire,
   };
 };
 

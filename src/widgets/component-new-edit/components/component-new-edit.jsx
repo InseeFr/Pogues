@@ -85,9 +85,8 @@ const ComponentNewEdit = props => {
     deleteComponent,
     onSubmit,
     filterImbriquer,
-    removeComponent,
+    activeQuestionnaire,
   } = props;
-
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [filterImbriquers, setFilterImbriquers] = useState(
     filterImbriquer?.length > 0 ? filterImbriquer : [],
@@ -180,19 +179,19 @@ const ComponentNewEdit = props => {
           />
         </Tab>,
         ...panels,
-        <Tab
-          label={Dictionary.goTo}
-          path={TABS_PATHS.REDIRECTIONS}
-          key={TABS_PATHS.REDIRECTIONS}
-        >
-          <Redirections
-            errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
-            addErrors={addSubformValidationErrors}
-            componentType={componentType}
-            componentsStore={componentsStore}
-            editingComponentId={componentId}
-          />
-        </Tab>,
+        // <Tab
+        //   label={Dictionary.goTo}
+        //   path={TABS_PATHS.REDIRECTIONS}
+        //   key={TABS_PATHS.REDIRECTIONS}
+        // >
+        //   <Redirections
+        //     errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
+        //     addErrors={addSubformValidationErrors}
+        //     componentType={componentType}
+        //     componentsStore={componentsStore}
+        //     editingComponentId={componentId}
+        //   />
+        // </Tab>,
         <Tab
           label={Dictionary.externalVariables}
           path={TABS_PATHS.EXTERNAL_VARIABLES}
@@ -226,6 +225,24 @@ const ComponentNewEdit = props => {
           />
         </Tab>,
       ];
+      if (activeQuestionnaire.dynamiqueSpecified !== 'Filtres')
+        panels.splice(
+          3,
+          0,
+          <Tab
+            label={Dictionary.goTo}
+            path={TABS_PATHS.REDIRECTIONS}
+            key={TABS_PATHS.REDIRECTIONS}
+          >
+            <Redirections
+              errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
+              addErrors={addSubformValidationErrors}
+              componentType={componentType}
+              componentsStore={componentsStore}
+              editingComponentId={componentId}
+            />
+          </Tab>,
+        );
     }
     return panels;
   };
