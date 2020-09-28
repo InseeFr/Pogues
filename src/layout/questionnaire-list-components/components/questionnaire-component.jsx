@@ -127,6 +127,8 @@ const QuestionnaireComponent = props => {
             className={ClassSet({
               'questionnaire-element-info': true,
               over: isOver,
+              'question-filter':
+                component.type === QUESTION && componentFilters?.length > 0,
             })}
           >
             <div className="questionnaire-element-name">{component.name}</div>

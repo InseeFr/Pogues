@@ -115,7 +115,7 @@ const ComponentNewEdit = props => {
     handleCloseNestedFilter();
   };
 
-  const handleSubmitImbriquer = (value, index) => {
+  const handleSubmitImbriquer = value => {
     if (!filterImbriquers.includes(value) && value) {
       setFilterImbriquers([...filterImbriquers, value]);
     }
@@ -179,19 +179,6 @@ const ComponentNewEdit = props => {
           />
         </Tab>,
         ...panels,
-        // <Tab
-        //   label={Dictionary.goTo}
-        //   path={TABS_PATHS.REDIRECTIONS}
-        //   key={TABS_PATHS.REDIRECTIONS}
-        // >
-        //   <Redirections
-        //     errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
-        //     addErrors={addSubformValidationErrors}
-        //     componentType={componentType}
-        //     componentsStore={componentsStore}
-        //     editingComponentId={componentId}
-        //   />
-        // </Tab>,
         <Tab
           label={Dictionary.externalVariables}
           path={TABS_PATHS.EXTERNAL_VARIABLES}
