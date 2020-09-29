@@ -35,6 +35,7 @@ describe('questionnaire', () => {
       operation: '',
       owner: 'FAKEPERMISSION',
       serie: '',
+      dynamiqueSpecified: 'Redirections',
     };
     expect(output).toEqual(expected);
   });
@@ -255,9 +256,6 @@ describe('questionnaire', () => {
           },
         ],
       },
-      Iterations: {
-        Iteration: [],
-      },
       agency: 'fr.insee',
       final: false,
       genericName: 'QUESTIONNAIRE',
@@ -302,6 +300,7 @@ describe('questionnaire', () => {
         operation: '',
         owner: 'FAKEPERMISSION',
         serie: '',
+        dynamiqueSpecified: 'Redirections',
       },
     };
     expect(output).toEqual(expected);

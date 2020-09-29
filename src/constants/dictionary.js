@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
 const dictionary = {
   phLabel: {
@@ -99,6 +99,22 @@ const dictionary = {
     en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
+  loop: {
+    en: 'Loop',
+    fr: 'Boucles',
+  },
+  filtre: {
+    en: 'Filter',
+    fr: 'Filtre',
+  },
+  filtreImbriquer: {
+    fr: 'Nouveau filtre imbriqué',
+    en: 'New nested filter',
+  },
+  editFiltreImbriquer: {
+    fr: 'Editer filtre imbriqué',
+    en: 'Edit nested filter',
+  },
   Scope: {
     en: 'Scope',
     fr: 'Portée',
@@ -106,10 +122,6 @@ const dictionary = {
   question: {
     en: 'Question',
     fr: 'Question',
-  },
-  loop: {
-    en: 'Loop',
-    fr: 'Boucle',
   },
   pageBreak: {
     en: 'Page break',
@@ -397,6 +409,11 @@ const dictionary = {
   selectScope: {
     fr: 'Portée Questionnaire',
     en: 'Scope Questionnaire',
+  },
+
+  selectNestedFilter: {
+    fr: 'Spécifier Filtre imbriqué',
+    en: 'Specify Nested filter',
   },
 
   specify: {
@@ -846,6 +863,10 @@ const dictionary = {
     fr: 'Conditions',
     en: 'Conditions',
   },
+  condition: {
+    fr: 'Condition',
+    en: 'Condition',
+  },
   deleteCondition: {
     fr: 'Supprimer la condition',
     en: 'Remove condition',
@@ -1023,6 +1044,10 @@ const dictionary = {
   collectionMode: {
     fr: 'Mode de collecte',
     en: 'Collection mode',
+  },
+  dynamiqueSpecified: {
+    fr: 'Dynamique spécifiée en',
+    en: 'Dynamics specified in',
   },
   lastUpdate: {
     fr: 'Dernière mise à jour',
@@ -1422,6 +1447,18 @@ const dictionary = {
     fr: 'Spécification',
     en: 'Specification',
   },
+  NEW: {
+    fr: 'Nouveau',
+    en: 'New',
+  },
+  EXISTING: {
+    fr: 'Existant',
+    en: 'Existing',
+  },
+  TYPEFILTER: {
+    fr: 'Type de filtre',
+    en: 'Filtre type',
+  },
 };
 
 // Dynamic translations
@@ -1440,6 +1477,12 @@ dictionary[`componentNew${LOOP}`] = {
   fr: 'Nouvelle boucle',
   en: 'New loop',
 };
+
+dictionary[`componentNew${FILTER}`] = {
+  fr: 'Nouveau filtre',
+  en: 'New filter',
+};
+
 dictionary[`componentNew${SUBSEQUENCE}`] = {
   fr: 'Nouvelle sous-séquence',
   en: 'New sub-sequence',
@@ -1463,6 +1506,11 @@ dictionary[`componentEdit${SUBSEQUENCE}`] = {
 dictionary[`componentEdit${LOOP}`] = {
   fr: 'Modifier la boucle',
   en: 'Edit loop',
+};
+
+dictionary[`componentEdit${FILTER}`] = {
+  fr: 'Modifier le filtre',
+  en: 'Edit filter',
 };
 
 export default dictionary;

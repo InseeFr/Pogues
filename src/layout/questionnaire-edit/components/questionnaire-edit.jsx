@@ -97,7 +97,7 @@ function QuestionnaireNew({
   const initialValues = questionnaireTransformer.stateToForm();
 
   // Validation and submit
- 
+
   return (
     <QuestionnaireNewEdit
       onCancel={onCancel}

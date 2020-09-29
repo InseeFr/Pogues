@@ -35,7 +35,7 @@ export function stateToRemote(state) {
       Expression,
       IfTrue,
     };
-    if (flowControlType && flowControlType != undefined) {
+    if (flowControlType && flowControlType !== undefined) {
       redirection.flowControlType = flowControlType;
     }
     return redirection;

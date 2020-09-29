@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
-import { getDefaultKeyBinding } from 'draft-js';
+import {
+  getDefaultKeyBinding,
+  EditorState,
+  Modifier,
+  SelectionState,
+} from 'draft-js';
 
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions, initialize } from './input-with-suggestions-utils';
 import {
   getValueWithSuggestion,
   getPattern,
-  getStartValueWithSuggestion
+  getStartValueWithSuggestion,
 } from 'forms/controls/control-with-suggestions/components/utils';
 
 import {
@@ -19,7 +24,7 @@ import {
   toolbarConfigQuestion,
   rootStyle,
 } from 'forms/controls/rich-textarea';
-import { EditorState, Modifier, SelectionState } from 'draft-js';
+
 import { getControlId } from 'utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 
@@ -47,6 +52,7 @@ const defaultProps = {
 
 class RichTextareaWithSuggestions extends ControlWithSuggestion {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -58,7 +64,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       currentValue: props.input.value,
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
-     this.textChange = this.textChange.bind(this);
+    this.textChange = this.textChange.bind(this);
   }
 
   componentDidMount() {
@@ -124,7 +130,6 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     }
   };
 
-
   textChange(value) {
     const contentState = value.getEditorState().getCurrentContent();
     const currentValue = contentStateToString(contentState);
@@ -133,7 +138,6 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   }
 
   handleSuggestionClick = suggestion => {
-
     const caretCursor = this.state.value
       .getEditorState()
       .getSelection()
@@ -144,34 +148,38 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
       .getCurrentContent()
       .getPlainText();
 
-    const newCurrentValue = getStartValueWithSuggestion(
-      caretCursor,
-      fullText,
-    );
+    const newCurrentValue = getStartValueWithSuggestion(caretCursor, fullText);
 
-    const targetSelection = this.state.value.getEditorState().getSelection(); 
-    let contentState = this.state.value.getEditorState().getCurrentContent(); 
-    const contentStateWithEntity  = contentState.createEntity(
+    const targetSelection = this.state.value.getEditorState().getSelection();
+    const contentState = this.state.value.getEditorState().getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
       'suggestion',
-      'MUTABLE', 
-      { status: 'complete' }
-      );
+      'MUTABLE',
+      { status: 'complete' },
+    );
 
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
 
     const targetRange = targetSelection.merge({
-      anchorOffset: newCurrentValue+1,
+      anchorOffset: newCurrentValue + 1,
       focusOffset: caretCursor,
-      isBackward: false
+      isBackward: false,
     });
 
-    const newContentState = Modifier.replaceText(contentState,
+    const newContentState = Modifier.replaceText(
+      contentState,
       targetRange,
-     `${suggestion}$`,
+      `${suggestion}$`,
       null,
-      entityKey);
-      const newEditorState = EditorState.push(this.state.value.getEditorState(), newContentState, "addentity");
-      this.textChange(this.state.value.setEditorState(newEditorState));
+      entityKey,
+    );
+
+    const newEditorState = EditorState.push(
+      this.state.value.getEditorState(),
+      newContentState,
+      'addentity',
+    );
+    this.textChange(this.state.value.setEditorState(newEditorState));
   };
 
   handleKeyCommand(command) {
@@ -204,9 +212,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             blockStyleFn={() => 'singleline'}
             value={editorValue}
             onChange={this.handleChange}
-            toolbarConfig={
-              targetIsQuestion ? toolbarConfigQuestion : toolbar
-            }
+            toolbarConfig={targetIsQuestion ? toolbarConfigQuestion : toolbar}
             handleReturn={this.handleReturn}
             rootStyle={rootStyle}
             formatURL={formatURL}

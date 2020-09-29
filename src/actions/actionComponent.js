@@ -2,17 +2,18 @@ import {
   isSubSequence,
   isSequence,
   isQuestion,
-  isLoop,
-  isFilter,
-  isNestedFilter,
   toComponents,
   updateNewComponentParent,
 } from 'utils/component/component-utils';
+import { increaseWeightOfAll } from './component-update';
+import { remove } from './component-remove';
 import {
   moveQuestionToSubSequence,
   moveQuestionAndSubSequenceToSequence,
+  duplicate,
+  duplicateComponentAndVars,
 } from './component-insert';
-import { increaseWeightOfAll } from './component-update';
+import { moveComponent } from './component-move';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const DUPLICATE_COMPONENT = 'DUPLICATE_COMPONENT';
@@ -36,10 +37,10 @@ export const MOVE_COMPONENT = 'MOVE_COMPONENT';
  */
 export const createComponent = (
   componentState,
-  codesListsStore,
   calculatedVariablesStore,
   externalVariablesStore,
   collectedVariablesStore,
+  codesListsStore,
 ) => dispatch => {
   const activeComponentsStore = {
     [componentState.id]: componentState,
@@ -71,6 +72,34 @@ export const createComponent = (
 };
 
 /**
+ * Method exectued right after the creation of a component. We will trigger
+ * the UPDATE_COMPONENT action in order add to the parent element the id of
+ * this new component.
+ *
+ * @param {object} param Result of the previous CREATE_COMPONENT action
+ */
+export const updateParentChildren = ({
+  payload: { id, lastCreatedComponent },
+}) => (dispatch, getState) => {
+  const state = getState();
+
+  return dispatch({
+    type: UPDATE_COMPONENT_PARENT,
+    payload: {
+      id,
+      lastCreatedComponent,
+      update: {
+        activeComponentsById: updateNewComponentParent(
+          state.appState.activeComponentsById,
+          lastCreatedComponent[id].parent,
+          id,
+        ),
+      },
+    },
+  });
+};
+
+/**
  * Method executed right after the createComponent and updateParentChildren functions.
  * Based on the type of the new component, we will call the right functions in order to
  * the updated list of components.
@@ -89,16 +118,10 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
   const selectedComponent = activesComponents[selectedComponentId];
 
   let activeComponentsById = {};
-
   /**
    * We do the reorder only if we have a selected component
    */
-  if (
-    selectedComponent &&
-    !isLoop(selectedComponent) &&
-    !isFilter(selectedComponent) &&
-    !isNestedFilter(selectedComponent)
-  ) {
+  if (selectedComponent) {
     // We get the next sibling component of the currently selected component
     const siblingSelectedComponent = toComponents(
       activesComponents[selectedComponent.parent].children,
@@ -176,30 +199,123 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
     },
   });
 };
-
 /**
- * Method exectued right after the creation of a component. We will trigger
- * the UPDATE_COMPONENT action in order add to the parent element the id of
- * this new component.
+ * Update component
  *
- * @param {object} param Result of the previous CREATE_COMPONENT action
+ * It updates in the store appState.activeComponents the corresponding component with the new values.
+ *
+ * @param   {string}  componentId The component id
+ * @param   {object}  update      The properties which need to be updated
+ * @return  {object}              UPDATE_COMPONENT action
  */
-export const updateParentChildren = ({
-  payload: { id, lastCreatedComponent },
-}) => (dispatch, getState) => {
-  const state = getState();
-  return dispatch({
-    type: UPDATE_COMPONENT_PARENT,
+export const updateComponent = (
+  componentId,
+  componentsStore,
+  calculatedVariablesStore = {},
+  externalVariablesStore = {},
+  collectedVariablesStore = {},
+  codesListsStore = {},
+) => {
+  return {
+    type: UPDATE_COMPONENT,
     payload: {
-      id,
-      lastCreatedComponent,
+      componentId,
       update: {
-        activeComponentsById: updateNewComponentParent(
-          state.appState.activeComponentsById,
-          lastCreatedComponent[id].parent,
-          id,
+        activeComponentsById: componentsStore,
+        activeCalculatedVariablesById: calculatedVariablesStore,
+        activeExternalVariablesById: externalVariablesStore,
+        activeCollectedVariablesById: {
+          [componentId]: collectedVariablesStore,
+        },
+        activeCodeListsById: codesListsStore,
+      },
+    },
+  };
+};
+/**
+ * Method used when we drag a component next to another one.
+ *
+ * @param {string} idMovedComponent id of the dragged component
+ * @param {string} idTargetComponent id of the dropped component
+ * @param {number} newWeight the new weight of the dragged component
+ */
+export const dragComponent = (
+  idMovedComponent,
+  idTargetComponent,
+  newWeight,
+) => (dispatch, getState) => {
+  const state = getState();
+  const activesComponents = state.appState.activeComponentsById;
+  return dispatch({
+    type: MOVE_COMPONENT,
+    payload: {
+      idMovedComponent,
+      idTargetComponent,
+      update: {
+        activeComponentsById: moveComponent(
+          activesComponents,
+          idMovedComponent,
+          idTargetComponent,
+          newWeight,
         ),
       },
     },
+  });
+};
+
+/**
+ * Method used when we click on the DELETE button on a SEQUENCE, SUBSEQUENCE or QUESTION
+ *
+ * @param {string} idDeletedComponent the id of the component we want to remove
+ */
+export const removeComponent = idDeletedComponent => (dispatch, getState) => {
+  const state = getState();
+  const { activeComponentsById } = state.appState;
+
+  dispatch({
+    type: REMOVE_COMPONENT,
+    payload: remove(activeComponentsById, idDeletedComponent),
+  });
+};
+
+/**
+ * Method used when we click on the DUPLICATE button on a SEQUENCE, SUBSEQUENCE or QUESTION
+ *
+ * @param {string} idDeletedComponent the id of the component we want to remove
+ */
+export const duplicateComponent = idComponent => (dispatch, getState) => {
+  const state = getState();
+  const { activeComponentsById } = state.appState;
+  dispatch({
+    type: DUPLICATE_COMPONENT,
+    payload: {
+      update: {
+        activeComponentsById: duplicate(activeComponentsById, idComponent),
+      },
+    },
+  });
+};
+
+/**
+ * Method used when we click on the DUPLICATE button on a SEQUENCE, SUBSEQUENCE or QUESTION
+ *
+ * @param {string} idComponent the id of the component we want to remove
+ */
+export const duplicateComponentAndVariables = idComponent => (
+  dispatch,
+  getState,
+) => {
+  const state = getState();
+  const { activeComponentsById } = state.appState;
+  const collectedVariables =
+    state.appState.collectedVariableByQuestion[idComponent];
+  const update = duplicateComponentAndVars(
+    activeComponentsById,
+    collectedVariables,
+    idComponent,
+  );
+  dispatch({
+    type: DUPLICATE_COMPONENT,
+    payload: { update },
   });
 };

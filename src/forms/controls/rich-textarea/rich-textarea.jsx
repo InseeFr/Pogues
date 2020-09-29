@@ -20,6 +20,7 @@ import InputConditionPopover from './ui/input-condition-popover';
 import { getControlId } from 'utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
 import { formatURL } from 'forms/controls/rich-textarea';
+
 const { COMPONENT_CLASS, EDITOR_CLASS } = CONTROL_RICH_TEXTAREA;
 
 // Utils
@@ -47,12 +48,12 @@ const RichTextarea = props => {
   const [value, setValue] = useState(props.input.value);
   const [showConditionInput, setShowConditionInput] = useState(false);
 
-	useEffect(() => {
+  useEffect(() => {
     if (props.input.value !== value) {
       setEditorValue(getEditorValue(props.input.value));
       setValue(props.input.value);
     }
-  }, [props.input.value]); 
+  }, [props.input.value]);
 
   const setCondition = (conditions, editorState) => {
     let contentState = editorState.getCurrentContent();
@@ -77,8 +78,7 @@ const RichTextarea = props => {
     handleChange(editorValue.setEditorState(newEditorState));
   };
 
-
-  const removeCondition = (editorState) => {
+  const removeCondition = editorState => {
     const entity = getEntityAtCursor(editorState);
     if (entity != null) {
       const { blockKey, startOffset, endOffset } = entity;
@@ -90,28 +90,27 @@ const RichTextarea = props => {
       );
       handleChange(editorValue.setEditorState(newEditorState));
     }
-  }
+  };
 
   const toggleShowConditionInput = () => {
     const isShowing = showLinkInput;
     setShowConditionInput(!isShowing);
-  }
+  };
 
-  const handleChange = (editorValue) => {
+  const handleChange = editorValue => {
     const contentState = editorValue.getEditorState().getCurrentContent();
     const value = contentStateToString(contentState);
     props.input.onChange(value);
     setEditorValue(value);
-  }
+  };
 
-  const keyBinding = (e) => {
+  const keyBinding = e => {
     if (e.keyCode === 13 && props.onEnter) {
       props.onEnter();
       return 'rich-textarea-enter';
     }
     return getDefaultKeyBinding(e);
-  }
-
+  };
 
   const id = getControlId('rich-textarea', input.name);
 
@@ -143,8 +142,7 @@ const RichTextarea = props => {
             isCursorOnCondition = true;
           }
 
-          const shouldShowConditionButton =
-            hasSelection || isCursorOnCondition;
+          const shouldShowConditionButton = hasSelection || isCursorOnCondition;
 
           return (
             <ButtonGroup key="conditions">
@@ -189,7 +187,7 @@ const RichTextarea = props => {
       </div>
     </div>
   );
-}
+};
 
 // PropTypes and defaultProps
 

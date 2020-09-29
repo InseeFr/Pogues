@@ -1,9 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {formValueSelector } from 'redux-form';
-
-import PropTypes, { element } from 'prop-types';
-import { formPropTypes, Field } from 'redux-form';
+import { formValueSelector, formPropTypes, Field } from 'redux-form';
+import ReactModal from 'react-modal';
+import PropTypes from 'prop-types';
 
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
@@ -21,6 +20,8 @@ import {
   COMPONENT_TYPE,
   TABS_PATHS,
   TargetMode,
+  DIMENSION_FORMATS,
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
@@ -29,10 +30,27 @@ import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import NestedFilter from './nestedFilter';
 
-
-const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE} = WIDGET_COMPONENT_NEW_EDIT;
-const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const {
+  COMPONENT_CLASS,
+  FOOTER,
+  CANCEL,
+  VALIDATE,
+  FOOTERLOOP,
+  DELETE,
+  FILTRE_IMBRIQUER,
+} = WIDGET_COMPONENT_NEW_EDIT;
+const {
+  QUESTION,
+  LOOP,
+  SEQUENCE,
+  SUBSEQUENCE,
+  FILTER,
+  NESTEDFILTRE,
+} = COMPONENT_TYPE;
+const { LIST } = DIMENSION_FORMATS;
+const { TABLE } = QUESTION_TYPE_ENUM;
 
 export const propTypes = {
   ...formPropTypes,
@@ -44,7 +62,7 @@ export const propTypes = {
 
   addSubformValidationErrors: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
-  };
+};
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
@@ -54,7 +72,6 @@ export const defaultProps = {
 };
 
 const ComponentNewEdit = props => {
-
   const {
     componentType,
     componentId,
@@ -66,14 +83,64 @@ const ComponentNewEdit = props => {
     form,
     onCancel,
     deleteComponent,
+    onSubmit,
+    filterImbriquer,
+    activeQuestionnaire,
   } = props;
-
+  const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
+  const [filterImbriquers, setFilterImbriquers] = useState(
+    filterImbriquer?.length > 0 ? filterImbriquer : [],
+  );
+  const [filterId, setFilterId] = useState('');
   const buttonRef = useRef(null);
 
-	useEffect(() => {
-    props.clearSubformValidationErrors();
-  }, []);
+  const handleCloseNestedFilter = () => {
+    setShowNewNestedFilter(false);
+    setFilterId('');
+  };
 
+  const handleOpenFilter = (e, index) => {
+    e.preventDefault();
+    if (index) {
+      setFilterId(index);
+    }
+    setShowNewNestedFilter(true);
+  };
+
+  const handleDeleteNestedFilter = index => {
+    let filters = [...filterImbriquers];
+    filters = filters.filter(filt => filt !== index);
+    setFilterImbriquers(filters);
+    setFilterId('');
+    handleCloseNestedFilter();
+  };
+
+  const handleSubmitImbriquer = value => {
+    if (!filterImbriquers.includes(value) && value) {
+      setFilterImbriquers([...filterImbriquers, value]);
+    }
+    handleCloseNestedFilter();
+  };
+
+  const showFiltersImbriquer = myfilters => {
+    return myfilters.length !== 0
+      ? myfilters.map(filter => {
+          return (
+            <button
+              className={FILTRE_IMBRIQUER}
+              onClick={e => handleOpenFilter(e, filter)}
+            >
+              <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+              {componentsStore[filter].name}
+            </button>
+          );
+        })
+      : false;
+  };
+
+  useEffect(() => {
+    props.clearSubformValidationErrors();
+  }, [filterImbriquers]);
   const renderPanels = () => {
     let panels = [
       <Tab
@@ -113,19 +180,6 @@ const ComponentNewEdit = props => {
         </Tab>,
         ...panels,
         <Tab
-          label={Dictionary.goTo}
-          path={TABS_PATHS.REDIRECTIONS}
-          key={TABS_PATHS.REDIRECTIONS}
-        >
-          <Redirections
-            errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
-            addErrors={addSubformValidationErrors}
-            componentType={componentType}
-            componentsStore={componentsStore}
-            editingComponentId={componentId}
-          />
-        </Tab>,
-        <Tab
           label={Dictionary.externalVariables}
           path={TABS_PATHS.EXTERNAL_VARIABLES}
           key={TABS_PATHS.EXTERNAL_VARIABLES}
@@ -158,91 +212,179 @@ const ComponentNewEdit = props => {
           />
         </Tab>,
       ];
+      if (activeQuestionnaire.dynamiqueSpecified !== 'Filtres')
+        panels.splice(
+          3,
+          0,
+          <Tab
+            label={Dictionary.goTo}
+            path={TABS_PATHS.REDIRECTIONS}
+            key={TABS_PATHS.REDIRECTIONS}
+          >
+            <Redirections
+              errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
+              addErrors={addSubformValidationErrors}
+              componentType={componentType}
+              componentsStore={componentsStore}
+              editingComponentId={componentId}
+            />
+          </Tab>,
+        );
     }
     return panels;
   };
 
-  const getFinalOptions = (store) => {
-    let optionsFinal = 
-          (<GenericOption
-              key=''
-              value=''
-           >
-        </GenericOption>);
-    const componentinitial = Object.values(store)
-    .filter(component => component.id === props.InitialMember);   
-    if(props.InitialMember && componentinitial.length > 0) {
-      optionsFinal = Object.values(store)
-      .filter(component => component.type === componentinitial[0].type
-              && component.type === SEQUENCE 
-              && component.weight >= componentinitial[0].weight
-              || component.type === SUBSEQUENCE
-              && component.type === componentinitial[0].type
-              && component.weight >= componentinitial[0].weight
-              && component.parent === componentinitial[0].parent)
-      .map(element => {
-        return (
-        <GenericOption
-          key={element.id}
-          value={element.id}
-        >
-          {element.name}
-        </GenericOption>)
-      }); 
+  const supImbriquer = (store, initial) => {
+    let superieur = initial.weight;
+    if (filterImbriquers.length > 0) {
+      filterImbriquers.forEach(element => {
+        if (
+          store[store[element].finalMember].type === initial.type &&
+          store[store[element].finalMember].weight > initial.weight
+        ) {
+          superieur = store[store[element].finalMember].weight;
+        }
+      });
+    }
+    return superieur;
+  };
+
+  const infImbriquer = (store, initial) => {
+    const filters = Object.values(store).filter(
+      component =>
+        component.type === FILTER &&
+        store[component.initialMember].weight < initial.weight &&
+        store[component.finalMember].weight > initial.weight,
+    );
+    const inferieurComponent = filters
+      ? filters.reduce(
+          (min, p) =>
+            store[p.initialMember].weight > store[min.initialMember].weight
+              ? p
+              : min,
+          filters[0],
+        )
+      : undefined;
+    const inferieur = inferieurComponent
+      ? store[inferieurComponent.finalMember].weight
+      : undefined;
+    return inferieur;
+  };
+
+  const getFinalOptions = store => {
+    let optionsFinal = <GenericOption key="" value="" />;
+    const componentinitial = Object.values(store).filter(
+      component => component.id === props.InitialMember,
+    );
+    if (props.InitialMember && componentinitial.length > 0) {
+      if (infImbriquer(store, componentinitial[0])) {
+        optionsFinal = Object.values(store)
+          .filter(
+            component =>
+              component.type === componentinitial[0].type &&
+              component.weight >= supImbriquer(store, componentinitial[0]) &&
+              component.weight <= infImbriquer(store, componentinitial[0]) &&
+              component.parent === componentinitial[0].parent &&
+              component.id !== 'idendquest',
+          )
+          .map(element => {
+            return (
+              <GenericOption key={element.id} value={element.id}>
+                {element.name}
+              </GenericOption>
+            );
+          });
+      } else {
+        optionsFinal = Object.values(store)
+          .filter(
+            component =>
+              component.type === componentinitial[0].type &&
+              component.weight >= supImbriquer(store, componentinitial[0]) &&
+              component.parent === componentinitial[0].parent &&
+              component.id !== 'idendquest',
+          )
+          .map(element => {
+            return (
+              <GenericOption key={element.id} value={element.id}>
+                {element.name}
+              </GenericOption>
+            );
+          });
+      }
     }
     return optionsFinal;
   };
 
-  const optionsInitial =  Object.values(componentsStore)
-    .filter(component=> component.type === SEQUENCE || component.type === SUBSEQUENCE)
-    .map(element => {
-      return (<GenericOption
-        key={element.id}
-        value={element.id}
-      >
-        {element.name}
-      </GenericOption>)
-    }); 
-
-  const optionsTable =  Object.values(componentsStore)
-  .filter(component => 
-    component.type === QUESTION && 
-    component.responseFormat.type === "TABLE"
-    && component.responseFormat.TABLE.PRIMARY.type === "LIST" ||
-    component.type === LOOP && !component.basedOn)
-  .map(element => {
-    return (
-    <GenericOption
-      key={element.id}
-      value={element.id}
-    >
-      {element.name || element.nameLoop}
-    </GenericOption>)
-  });
-  const associatedFieldsProps = {
-  formName: form,
-  fieldOrigin: { name: 'label', label: Dictionary.label },
-  fieldTarget: { name: 'name', label: Dictionary.name },
-  action: updateNameField,
-  focusOnInit: true,
-  onEnter: () => {
-    buttonRef.click();
-   },
+  const optionsInitial = type => {
+    let options = <GenericOption key="" value="" />;
+    if (type === LOOP) {
+      options = Object.values(componentsStore)
+        .filter(
+          component =>
+            component.id !== 'idendquest' &&
+            (component.type === SEQUENCE || component.type === SUBSEQUENCE),
+        )
+        .map(element => {
+          return (
+            <GenericOption key={element.id} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
+    } else {
+      options = Object.values(componentsStore)
+        .filter(
+          component => component.type !== LOOP && component.id !== 'idendquest',
+        )
+        .map(element => {
+          return (
+            <GenericOption key={element.id} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
+    }
+    return options;
   };
-
-
+  const optionsTable = Object.values(componentsStore)
+    .filter(
+      component =>
+        (component.type === QUESTION &&
+          component.responseFormat.type === TABLE &&
+          component.responseFormat.TABLE.PRIMARY.type === LIST) ||
+        (component.type === LOOP && !component.basedOn),
+    )
+    .map(element => {
+      return (
+        <GenericOption key={element.id} value={element.id}>
+          {element.name || element.nameLoop}
+        </GenericOption>
+      );
+    });
+  const associatedFieldsProps = {
+    formName: form,
+    fieldOrigin: { name: 'label', label: Dictionary.label },
+    fieldTarget: { name: 'name', label: Dictionary.name },
+    action: updateNameField,
+    focusOnInit: true,
+    onEnter: () => {
+      buttonRef.click();
+    },
+  };
   return (
     <div className={COMPONENT_CLASS}>
-      <form onSubmit={handleSubmit}>
-      { 
-        componentType === QUESTION ? (
+      <form
+        onSubmit={handleSubmit(data =>
+          onSubmit({ ...data, filterImbriquer: filterImbriquers }),
+        )}
+      >
+        {componentType === QUESTION ? (
           <AssociatedFields
             {...associatedFieldsProps}
             targetIsRichTextarea
             targetIsQuestion
           />
-        ) : componentType === LOOP ? 
-        ( 
+        ) : componentType === LOOP || componentType === FILTER ? (
           <div>
             <Field
               name="nameLoop"
@@ -250,93 +392,130 @@ const ComponentNewEdit = props => {
               component={Input}
               label={Dictionary.name}
             />
-            <Field
-              name="maximum"
-              type="number"
-              component={Input}
-              label={Dictionary.maximum}
-            />
-            { componentsStore ?  (
-            <Field
-              name="basedOn"
-              component={Select}
-              label={Dictionary.BasedOn}
-            >
-            <GenericOption
-              key=''
-              value=''
-            >
-              {Dictionary.selectBasedOn}
-            </GenericOption>
-            {optionsTable}
-            </Field>) 
-            :false}
+            {componentsStore && componentType === LOOP ? (
+              <div>
+                <Field
+                  name="maximum"
+                  type="text"
+                  focusOnInit
+                  component={InputWithVariableAutoCompletion}
+                  label={Dictionary.maximum}
+                />
+                <Field
+                  name="basedOn"
+                  component={Select}
+                  label={Dictionary.BasedOn}
+                >
+                  <GenericOption key="" value="">
+                    {Dictionary.selectBasedOn}
+                  </GenericOption>
+                  {optionsTable}
+                </Field>
+              </div>
+            ) : (
+              <Field
+                name="description"
+                type="text"
+                component={Input}
+                label={Dictionary.description}
+              />
+            )}
             <Field
               name="filter"
               type="text"
               focusOnInit
               component={InputWithVariableAutoCompletion}
-              label={Dictionary.Filter}
+              label={
+                componentType === LOOP
+                  ? Dictionary.Filter
+                  : Dictionary.expression
+              }
             />
-            { componentsStore ?  (
-            <Field
-              name="initialMember"
-              component={Select}
-              label={Dictionary.InitialMembre}
-            >
-            <GenericOption
-              key=''
-              value=''
-            >
-              {Dictionary.selectInitialMembre}
-            </GenericOption>
-                {optionsInitial}
-            </Field>
-            ) :false}
-            { componentsStore ?  (
-            <Field
-              name="finalMember"
-              component={Select}
-              label={Dictionary.FinalMembre}
-              disabled={!props.InitialMember}
-            >
-            <GenericOption
-              key=''
-              value=''
-            >
-              {Dictionary.selectFinalMembre}
-            </GenericOption>
+            {componentsStore ? (
+              <Field
+                name="initialMember"
+                component={Select}
+                label={Dictionary.InitialMembre}
+              >
+                <GenericOption key="" value="">
+                  {Dictionary.selectInitialMembre}
+                </GenericOption>
+                {optionsInitial(componentType)}
+              </Field>
+            ) : (
+              false
+            )}
+            {componentType === FILTER
+              ? showFiltersImbriquer(filterImbriquers)
+              : false}
+            {componentType === FILTER ? (
+              <button
+                className={FILTRE_IMBRIQUER}
+                onClick={e => handleOpenFilter(e)}
+              >
+                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+                {Dictionary.filtreImbriquer}
+              </button>
+            ) : (
+              false
+            )}
+            {componentsStore ? (
+              <Field
+                name="finalMember"
+                component={Select}
+                label={Dictionary.FinalMembre}
+                disabled={!props.InitialMember}
+              >
+                <GenericOption key="" value="">
+                  {Dictionary.selectFinalMembre}
+                </GenericOption>
                 {getFinalOptions(componentsStore)}
-            </Field>
-            ) :false}
-
-            <Field
-              name="addButtonLibel"
-              type="text"
-              component={Input}
-              label={Dictionary.AddButton}
-            />  
-              
+              </Field>
+            ) : (
+              false
+            )}
+            {componentType === LOOP ? (
+              <Field
+                name="addButtonLibel"
+                type="text"
+                component={Input}
+                label={Dictionary.AddButton}
+              />
+            ) : (
+              false
+            )}
           </div>
-        ):
-        (
+        ) : (
           <AssociatedFields {...associatedFieldsProps} />
-        )} 
-      {componentType !== LOOP ? (
-        <Field
-          name="TargetMode"
-          component={ListCheckboxes}
-          label={Dictionary.collectionMode}
-          inline
+        )}
+        {componentType !== LOOP && componentType !== FILTER ? (
+          <Field
+            name="TargetMode"
+            component={ListCheckboxes}
+            label={Dictionary.collectionMode}
+            inline
+          >
+            {TargetMode.map(s => (
+              <GenericOption key={s.value} value={s.value}>
+                {s.label}
+              </GenericOption>
+            ))}
+          </Field>
+        ) : (
+          false
+        )}
+        {componentType !== LOOP && componentType !== FILTER ? (
+          <Tabs componentId={componentId}>{renderPanels()}</Tabs>
+        ) : (
+          false
+        )}
+        <div
+          className={
+            componentType !== LOOP && componentType !== FILTER
+              ? FOOTER
+              : FOOTERLOOP
+          }
         >
-          {TargetMode.map(s => (
-            <GenericOption key={s.value} value={s.value}>
-              {s.label}
-            </GenericOption>
-          ))}
-        </Field>) : false}
-        {componentType !== LOOP ? ( <Tabs componentId={componentId}>{renderPanels()}</Tabs>) : false}
-        <div className={componentType !== LOOP ? FOOTER : FOOTERLOOP}>
           <button
             className={VALIDATE}
             type="submit"
@@ -348,25 +527,72 @@ const ComponentNewEdit = props => {
           <button className={CANCEL} disabled={submitting} onClick={onCancel}>
             {Dictionary.cancel}
           </button>
-          {componentType === LOOP && componentId ?
-          <button
-            className={DELETE}
-            disabled={submitting}
-            onClick={deleteComponent}
-          >
-            {Dictionary.remove}
-          </button>
-          :false}
+          {componentType === LOOP && componentId ? (
+            <button
+              className={DELETE}
+              disabled={submitting}
+              onClick={deleteComponent}
+            >
+              {Dictionary.remove}
+            </button>
+          ) : (
+            false
+          )}
+          {componentType === FILTER && componentId ? (
+            <button
+              className={DELETE}
+              disabled={submitting}
+              onClick={() => deleteComponent(componentId)}
+            >
+              {Dictionary.remove}
+            </button>
+          ) : (
+            false
+          )}
         </div>
       </form>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showNewNestedFilter}
+        onRequestClose={handleCloseNestedFilter}
+        contentLabel="FILTRE IMBRIQUE"
+      >
+        <div className="popup">
+          <div className="popup-header">
+            <h3>
+              {filterId
+                ? Dictionary.editFiltreImbriquer
+                : Dictionary.filtreImbriquer}
+            </h3>
+            <button type="button" onClick={handleCloseNestedFilter}>
+              <span>X</span>
+            </button>
+          </div>
+          <div className="popup-body">
+            <NestedFilter
+              filterId={filterId}
+              componentsStore={componentsStore}
+              handleSubmitImbriquer={(value, index) =>
+                handleSubmitImbriquer(value, index)
+              }
+              handleCloseNestedFilter1={handleCloseNestedFilter}
+              componentType={NESTEDFILTRE}
+              handleDeleteNestedFilter={handleDeleteNestedFilter}
+              updateComponent={props.updateComponent}
+              initialMemberFilter={props.InitialMember}
+            />
+          </div>
+        </div>
+      </ReactModal>
     </div>
   );
-}
-const mapStateToProps = (state, ownProps) => {
+};
+const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {
     InitialMember: selector(state, 'initialMember'),
-  }
+    filterImbriquer: selector(state, 'filterImbriquer'),
+  };
 };
-
-export default  connect(mapStateToProps)(ComponentNewEdit);
+export default connect(mapStateToProps)(ComponentNewEdit);

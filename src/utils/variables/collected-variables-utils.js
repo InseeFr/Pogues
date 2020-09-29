@@ -112,7 +112,7 @@ export function getCollectedVariablesMultiple(
     ),
   );
   form.PRIMARY.CodesList.codes.forEach(function(code) {
-    if (code.precisionid && code.precisionid != '') {
+    if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollecteVariable(
           code.precisionid,
@@ -132,11 +132,7 @@ export function getCollectedVariablesMultiple(
   return collectedVariables;
 }
 
-export function getCollectedVariablesSingle(
-  questionName,
-  form,
-  codesListStore,
-) {
+export function getCollectedVariablesSingle(questionName, form) {
   const collectedVariables = [];
   collectedVariables.push(
     getCollecteVariable(questionName, `${questionName} label`, undefined, {
@@ -151,7 +147,7 @@ export function getCollectedVariablesSingle(
   );
 
   form.CodesList.codes.forEach(function(code) {
-    if (code.precisionid && code.precisionid != '') {
+    if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollecteVariable(
           code.precisionid,

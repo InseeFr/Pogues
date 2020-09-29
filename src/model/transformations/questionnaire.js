@@ -4,6 +4,7 @@ import * as CalculatedVariable from './calculated-variable';
 import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
 import * as Loop from './loop';
+import * as RedirectionsFilter from './redirection-filters';
 
 import { uuid } from 'utils/utils';
 import { getOrderedComponents } from 'utils/model/redirections-utils';
@@ -63,6 +64,7 @@ export function remoteToState(remote, currentStores = {}) {
     lastUpdatedDate,
     TargetMode,
     declarationMode,
+    FlowControl,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -82,6 +84,7 @@ export function remoteToState(remote, currentStores = {}) {
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
     TargetMode: TargetMode || declarationMode || [],
+    dynamiqueSpecified: FlowControl ? 'Filtres' : 'Redirections',
   };
 }
 
@@ -127,12 +130,15 @@ export function stateToRemote(state, stores) {
     campaigns,
     final,
     TargetMode,
+    dynamiqueSpecified,
   } = state;
+
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore[c].label,
+    Name: campaignsStore[c]?.label,
   }));
+
   const remote = {
     owner,
     final,
@@ -153,8 +159,8 @@ export function stateToRemote(state, stores) {
     codesListsStore,
   );
   const questionEnd = QUESTION_END_CHILD;
-  (questionEnd.TargetMode = TargetMode),
-    componentsRemote.push(QUESTION_END_CHILD);
+  questionEnd.TargetMode = TargetMode;
+  componentsRemote.push(QUESTION_END_CHILD);
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
@@ -167,15 +173,13 @@ export function stateToRemote(state, stores) {
     componentsStore,
   );
   const Iterations = Loop.stateToRemote(componentsStore);
+  const FlowControl = RedirectionsFilter.stateToRemote(componentsStore);
 
-  return {
+  const json = {
     ...remote,
     Child: componentsRemote,
     CodeLists: {
       CodeList: codesListsRemote,
-    },
-    Iterations: {
-      Iteration: [...Iterations],
     },
     Variables: {
       Variable: [
@@ -185,4 +189,13 @@ export function stateToRemote(state, stores) {
       ],
     },
   };
+  if (Iterations.length !== 0) {
+    json.Iterations = {
+      Iteration: Iterations,
+    };
+  }
+  if (dynamiqueSpecified === 'Filtres') {
+    json.FlowControl = FlowControl;
+  }
+  return json;
 }

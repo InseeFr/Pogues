@@ -84,6 +84,7 @@ export const defaultProps = {
 
 class ListWithInputPanel extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {

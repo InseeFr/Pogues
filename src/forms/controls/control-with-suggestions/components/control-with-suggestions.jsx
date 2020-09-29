@@ -55,7 +55,9 @@ export const defaultProps = {
 
 class ControlWithSuggestions extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
+
   static InputRegex = InputRegex;
 
   constructor(props) {
@@ -101,8 +103,10 @@ class ControlWithSuggestions extends Component {
       this.input.selectionStart,
       this.input.value,
     );
-    const restfullText = this.input.value.substr(this.input.selectionStart, this.input.value.length);
-    
+    const restfullText = this.input.value.substr(
+      this.input.selectionStart,
+      this.input.value.length,
+    );
     this.props.input.onChange(`${newValue} ${restfullText}`);
     this.setState(initialize());
   };

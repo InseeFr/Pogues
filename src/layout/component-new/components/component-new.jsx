@@ -5,19 +5,17 @@ import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
 import {
   validateQuestionForm,
   validateSequenceForm,
-  validateLoopForm
+  validateLoopForm,
+  validateFilterForm,
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
 export const propTypes = {
-  parentId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-
-  weight: PropTypes.number.isRequired,
 
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
@@ -26,6 +24,7 @@ export const propTypes = {
   updateParentChildren: PropTypes.func.isRequired,
   orderComponents: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
+  updateComponent: PropTypes.func.isRequired,
 
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
@@ -48,20 +47,20 @@ function validateAndSubmit(
   validateQuestion,
   validateSequence,
   validateLoop,
+  validateFilter,
   transformer,
   onSuccess,
 ) {
   return function(values) {
     if (type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
-    }
-     else if (type === LOOP) {
+    } else if (type === LOOP) {
       validateLoop(values);
-    }
-    else{
+    } else if (type === FILTER) {
+      validateFilter(values);
+    } else {
       validateSequence(values);
     }
-
     const componentState = transformer.formToState(values);
     const updatedCodesListsStore = transformer.getCodesListStore();
     const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
@@ -104,13 +103,17 @@ function ComponentNew({
   weight,
   type,
   activeQuestionnaire,
+  removeComponent,
+  updateComponent,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
   const validateSequence = setValidationErrorsAction => values =>
     validateSequenceForm(values, setValidationErrorsAction);
   const validateLoop = setValidationErrorsAction => values =>
-    validateLoopForm(values, setValidationErrorsAction);  
+    validateLoopForm(values, setValidationErrorsAction);
+  const validateFilter = setValidationErrorsAction => values =>
+    validateFilterForm(values, setValidationErrorsAction);
   const actions = {
     createComponent,
     updateParentChildren,
@@ -134,12 +137,16 @@ function ComponentNew({
       componentType={type}
       onCancel={onCancel}
       initialValues={initialValues}
+      removeComponent={removeComponent}
+      updateComponent={updateComponent}
+      activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,
         type,
         validateQuestion(setValidationErrors, codesListsStore),
         validateSequence(setValidationErrors),
         validateLoop(setValidationErrors),
+        validateFilter(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}

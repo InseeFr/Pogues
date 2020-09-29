@@ -23,13 +23,13 @@ export function remoteToStore(
     if (variableclarification) {
       const find = variableclarification.find(
         element =>
-          element.responseclar.Response[0].CollectedVariableReference ==
+          element.responseclar.Response[0].CollectedVariableReference ===
           variable.id,
       );
       if (find) {
-        if (find.type === 'MULTIPLE_CHOICE') {
+        if (find.type === MULTIPLE_CHOICE) {
           variable.z = parseInt(find.position) + 1;
-        } else if (find.type === 'TABLE') {
+        } else if (find.type === TABLE) {
           const code = Object.values(
             codesListsStore[find.codelistid].codes,
           ).find(cod => cod.value === find.position);
@@ -81,21 +81,22 @@ export function remoteToStore(
         const strminimum = datatype.minimum;
         const matches_minimum = strminimum.match(/\d+/g);
         if (format === 'PTnHnM') {
-          datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
+          datatype.mihours = matches_minimum[0] === 0 ? '' : matches_minimum[0];
           datatype.miminutes =
-            matches_minimum[1] == 0 ? '' : matches_minimum[1];
+            matches_minimum[1] === 0 ? '' : matches_minimum[1];
         }
         if (format === 'PnYnM') {
-          datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-          datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+          datatype.miyears = matches_minimum[0] === 0 ? '' : matches_minimum[0];
+          datatype.mimonths =
+            matches_minimum[1] === 0 ? '' : matches_minimum[1];
         }
         if (format === 'HH:CH') {
           datatype.mihundhours =
-            matches_minimum[0][0] == 0
+            matches_minimum[0][0] === 0
               ? matches_minimum[0].slice(1)
               : matches_minimum[0];
           datatype.mihundredths =
-            matches_minimum[1][0] == 0
+            matches_minimum[1][0] === 0
               ? matches_minimum[1].slice(1)
               : matches_minimum[1];
         }
@@ -104,27 +105,28 @@ export function remoteToStore(
         const strmaximum = datatype.maximum;
         const matches_maximum = strmaximum.match(/\d+/g);
         if (format === 'PTnHnM') {
-          datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
+          datatype.mahours = matches_maximum[0] === 0 ? '' : matches_maximum[0];
           datatype.maminutes =
-            matches_maximum[1] == 0 ? '' : matches_maximum[1];
+            matches_maximum[1] === 0 ? '' : matches_maximum[1];
         }
         if (format === 'PnYnM') {
-          datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-          datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+          datatype.mayears = matches_maximum[0] === 0 ? '' : matches_maximum[0];
+          datatype.mamonths =
+            matches_maximum[1] === 0 ? '' : matches_maximum[1];
         }
         if (format === 'HH:CH') {
           datatype.mahundhours =
-            matches_maximum[0][0] == 0
+            matches_maximum[0][0] === 0
               ? matches_maximum[0].slice(1)
               : matches_maximum[0];
           datatype.mahundredths =
-            matches_maximum[1][0] == 0
+            matches_maximum[1][0] === 0
               ? matches_maximum[1].slice(1)
               : matches_maximum[1];
         }
       }
     }
-    return {
+    const remote = {
       ...acc,
       [id]: {
         id,
@@ -135,12 +137,17 @@ export function remoteToStore(
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
-        z,
-        mesureLevel,
         [typeName]: datatype,
         ...responsesByVariable[id],
       },
     };
+    if (z) {
+      remote.z = z;
+    }
+    if (mesureLevel) {
+      remote.mesureLevel = mesureLevel;
+    }
+    return remote;
   }, {});
 }
 export function remoteToComponentState(remote = []) {
@@ -187,7 +194,7 @@ function findQuestionInLoop(componentsStore) {
       if (componentsStore[component.initialMember]) {
         if (componentsStore[component.initialMember].type === SEQUENCE) {
           if (
-            componentsStore[component.initialMember].weight !=
+            componentsStore[component.initialMember].weight !==
             componentsStore[component.finalMember].weight
           ) {
             for (
@@ -213,7 +220,7 @@ function findQuestionInLoop(componentsStore) {
             );
           }
         } else if (
-          componentsStore[component.initialMember].weight !=
+          componentsStore[component.initialMember].weight !==
           componentsStore[component.finalMember].weight
         ) {
           for (
@@ -248,6 +255,7 @@ function findQuestionInLoop(componentsStore) {
     });
   return LoopsQuestions;
 }
+
 function getCollectedScope(questionsLoop, id, componentsStore) {
   let isfound = {};
   Object.keys(questionsLoop).map(key => {
@@ -265,6 +273,24 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
   });
   return isfound;
 }
+
+function getTableDynamique(componentsStore, id) {
+  let tableId = '';
+  Object.values(componentsStore)
+    .filter(
+      components =>
+        components.type === QUESTION &&
+        components.responseFormat.type === TABLE &&
+        components.responseFormat.TABLE.PRIMARY.type === LIST,
+    )
+    .map(component => {
+      if (component?.collectedVariables?.includes(id)) {
+        tableId = component.id;
+      }
+    });
+  return tableId;
+}
+
 export function storeToRemote(store, componentsStore) {
   return Object.keys(store).map(key => {
     const {
@@ -331,6 +357,10 @@ export function storeToRemote(store, componentsStore) {
         model.Scope = collectedScop.loop.id;
       }
     }
+    const dynamique = getTableDynamique(componentsStore, id);
+    if (dynamique) {
+      model.Scope = dynamique;
+    }
 
     if (codeListReference !== '') {
       model.CodeListReference = codeListReference;
@@ -389,7 +419,6 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
-
     return model;
   });
 }

@@ -1,6 +1,13 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const {
+  QUESTION,
+  SEQUENCE,
+  SUBSEQUENCE,
+  LOOP,
+  FILTER,
+  NESTEDFILTRE,
+} = COMPONENT_TYPE;
 
 /**
  * Get closest component id by type
@@ -15,14 +22,18 @@ const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 export function getClosestComponentIdByType(components, activeComponent, type) {
   let componentId = '';
   let currentComponent = activeComponent;
-  while (currentComponent.parent !== '' && currentComponent.type != LOOP) {
+  while (
+    currentComponent.parent !== '' &&
+    currentComponent.type !== LOOP &&
+    currentComponent.type !== FILTER &&
+    currentComponent.type !== NESTEDFILTRE
+  ) {
     if (currentComponent.type === type) {
       componentId = currentComponent.id;
       break;
     }
     currentComponent = components[currentComponent.parent];
   }
-
   return componentId;
 }
 
@@ -271,6 +282,6 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
  */
 export function getNewLoopPlaceholder(components) {
   return !!Object.values(components).find(
-    component => component.type === SEQUENCE,
+    component => component.type === SEQUENCE && component.id !== 'idendquest',
   );
 }

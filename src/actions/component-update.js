@@ -1,6 +1,8 @@
 import sortBy from 'lodash.sortby';
 import { toComponents, toId } from 'utils/component/component-utils';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
+const { FILTER, LOOP } = COMPONENT_TYPE;
 /**
  * This function generate a componentById with the children passed as
  * a parameter.
@@ -35,8 +37,10 @@ export function resetChildren(component, children) {
  * @param {object} newComponent The latests created component
  */
 export function increaseWeightOfAll(activesComponents, newComponent) {
-  if (newComponent.type !== 'LOOP') {
-    const siblingsIds = activesComponents[newComponent.parent].children;
+  if (newComponent.type !== LOOP || newComponent.type !== FILTER) {
+    const siblingsIds = activesComponents[newComponent.parent]
+      ? activesComponents[newComponent.parent].children
+      : [];
     return siblingsIds.reduce((acc, key) => {
       const sibling = activesComponents[key];
       let siblingWeight = sibling.weight;

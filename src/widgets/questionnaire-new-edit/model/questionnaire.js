@@ -12,10 +12,19 @@ export const defaultState = {
   final: '',
   agency: '',
   TargetMode: [],
+  dynamiqueSpecified: 'Redirections',
 };
 
 export function formToState(form) {
-  const { label, name, serie, operation, campaigns, TargetMode } = form;
+  const {
+    label,
+    name,
+    serie,
+    operation,
+    campaigns,
+    TargetMode,
+    dynamiqueSpecified,
+  } = form;
 
   return {
     label,
@@ -24,11 +33,20 @@ export function formToState(form) {
     operation,
     campaigns: campaigns.split(','),
     TargetMode: TargetMode.split(','),
+    dynamiqueSpecified,
   };
 }
 
 export function stateToForm(currentState) {
-  const { label, name, serie, operation, campaigns, TargetMode } = currentState;
+  const {
+    label,
+    name,
+    serie,
+    operation,
+    campaigns,
+    TargetMode,
+    dynamiqueSpecified,
+  } = currentState;
 
   // If serie and operation doesn't exist, we use campaigns to obtain them calling a service
   return {
@@ -38,6 +56,7 @@ export function stateToForm(currentState) {
     operation,
     campaigns: campaigns.join(),
     TargetMode: TargetMode.join(),
+    dynamiqueSpecified,
   };
 }
 

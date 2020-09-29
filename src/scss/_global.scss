@@ -266,3 +266,28 @@ a {
   width: 25%;
   font-weight: 700
 }
+
+.loopLists {
+  border : none;
+}
+
+.questionnaire-element-filter {
+  margin: 10px;
+}
+.btn-white-filter {
+  text-align: center;
+  background-color: white;
+  border-radius: 0;
+  border: 3px solid #15417a;
+  font-weight: initial;
+  font-size: 14px;
+  font-weight: 700;
+  color: #15417a;
+}
+.questionnaire-elements {
+  display: flex;
+}
+
+.question-filter {
+  border: 4px solid #e0e0e0 !important;
+}

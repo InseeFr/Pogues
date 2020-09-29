@@ -1,12 +1,11 @@
 import React from 'react';
-import { formPropTypes } from 'redux-form';
+import { formPropTypes, Field } from 'redux-form';
 
 import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria';
 import { AssociatedFields } from 'widgets/associated-fields';
 import Dictionary from 'utils/dictionary/dictionary';
 import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
 
-import { Field } from 'redux-form';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
 import { TargetMode } from 'constants/pogues-constants';
@@ -50,6 +49,20 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
               {s.label}
             </GenericOption>
           ))}
+        </Field>
+
+        <Field
+          name="dynamiqueSpecified"
+          component={ListCheckboxes}
+          label={Dictionary.dynamiqueSpecified}
+          inline
+        >
+          <GenericOption key="Redirections" value="Redirections">
+            {'Redirections'}
+          </GenericOption>
+          <GenericOption key="Filtres" value="Filtres">
+            {'Filtres'}
+          </GenericOption>
         </Field>
         <div className={FOOTER}>
           <button className={VALIDATE} type="submit" disabled={submitting}>

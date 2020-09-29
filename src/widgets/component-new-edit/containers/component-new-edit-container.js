@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { formPropTypes } from 'redux-form';
 
 import ComponentNewEdit from '../components/component-new-edit';
-
 import {
   addSubformValidationErrors,
   clearSubformValidationErrors,

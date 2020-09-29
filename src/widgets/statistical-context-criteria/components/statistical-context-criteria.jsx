@@ -18,8 +18,6 @@ const {
 
 const StatisticalContextCriteria = props => {
   const {
-    formName,
-    path,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -31,39 +29,23 @@ const StatisticalContextCriteria = props => {
     horizontal,
   } = props;
 
-  const [selectedSerieState, setSelectedSerieState] = useState(selectedSerie);
-  const [selectedOperationState, setSelectedOperationState] = useState(
-    selectedOperation,
-  );
+  const [selectedSerieState, setSelectedSerieState] = useState();
+  const [selectedOperationState, setSelectedOperationState] = useState();
 
   useEffect(() => {
     props.loadSeriesIfNeeded();
-    if (operations && selectedSerie)
-      props.loadOperationsIfNeeded(selectedSerie);
-    if (campaigns && selectedOperation)
-      props.loadCampaignsIfNeeded(selectedOperation);
-    if (campaigns && selectedOperation)
-      props.loadCampaignsIfNeeded(selectedOperation);
-  }, [props, campaigns, operations, selectedOperation, selectedSerie]);
-
-  useEffect(() => {
     if (selectedSerie !== selectedSerieState) {
       props.loadOperationsIfNeeded(selectedSerie);
-      props.change(formName, `${path}operation`, '');
       setSelectedSerieState(selectedSerie);
     }
 
     if (selectedOperation !== selectedOperationState) {
       props.loadCampaignsIfNeeded(selectedOperation);
-      props.change(formName, `${path}campaigns`, '');
       setSelectedOperationState(selectedOperation);
     }
   }, [
-    props,
     selectedSerie,
     selectedOperation,
-    formName,
-    path,
     selectedOperationState,
     selectedSerieState,
   ]);
