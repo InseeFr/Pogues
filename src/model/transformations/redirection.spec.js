@@ -39,6 +39,7 @@ describe('redirection filters tramsformation', () => {
             name: 'TETS',
           },
           'i6vwid',
+          {},
         ),
       ).toEqual({
         j7p0ti5h: {

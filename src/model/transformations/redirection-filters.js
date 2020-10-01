@@ -47,7 +47,7 @@ function remoteToStateNestedFilter(remote, parent, type, store) {
   }
 
   const store1 = store;
-  if (!store1[stateNestedFilter.id]) {
+  if (stateNestedFilter.id && !store1[stateNestedFilter.id]) {
     store1[stateNestedFilter.id] = stateNestedFilter;
   }
 
@@ -69,7 +69,7 @@ export function remoteToState(remote, parent, store) {
       stateFilter.filterImbriquer.push(nested.stateNestedFilter.id);
     });
   }
-  if (!store[stateFilter.id]) {
+  if (stateFilter.id && !store[stateFilter.id]) {
     store[stateFilter.id] = stateFilter;
   }
   return store;
