@@ -137,7 +137,7 @@ export function updateNewComponentParent(
   newComponentId,
 ) {
   const parent = activeComponents[parentId];
-  if(!isLoop(activeComponents[newComponentId])) {
+  if (!isLoop(activeComponents[newComponentId])) {
     return {
       [parentId]: {
         ...parent,

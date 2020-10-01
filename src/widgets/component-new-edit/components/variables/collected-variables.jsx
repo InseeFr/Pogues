@@ -155,7 +155,7 @@ class CollectedVariables extends Component {
               <ResponseFormatDatatypeText readOnly required={false} />
             </View>
             <View key={DATE} value={DATE} label={Dictionary.DATE} >
-              <ResponseFormatDatatypeDate readOnly required={false} collectedFormat={true}/>
+              <ResponseFormatDatatypeDate readOnly required={false} />
             </View>
             <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
               <ResponseFormatDatatypeNumeric readOnly required={false} />

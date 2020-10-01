@@ -222,7 +222,6 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
   },
 });
 
-
 /**
  * Save active questionnaire failure
  *

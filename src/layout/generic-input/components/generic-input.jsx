@@ -8,7 +8,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTRE } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
 
 // PropTypes and defaultProps
@@ -197,7 +197,7 @@ class GenericInput extends Component {
         <button
           id="add-question"
           className="btn-white"
-          disabled={placeholders[QUESTION].parent === ('' || 'idendquest')}
+          disabled={placeholders[QUESTION].parent === ('' || "idendquest")}
           onClick={() => {
             this.handleOpenNewComponent(QUESTION);
           }}
@@ -208,7 +208,7 @@ class GenericInput extends Component {
         <button
           id="add-subsequence"
           className="btn-white"
-          disabled={placeholders[SUBSEQUENCE].parent === ('' || 'idendquest')}
+          disabled={placeholders[SUBSEQUENCE].parent === ('' || "idendquest")}
           onClick={() => {
             this.handleOpenNewComponent(SUBSEQUENCE);
           }}

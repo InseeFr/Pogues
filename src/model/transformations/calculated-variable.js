@@ -1,7 +1,9 @@
 import { uuid } from 'utils/utils';
 import {
   DATATYPE_TYPE_FROM_NAME,
-  VARIABLES_TYPES, DURATION_UNIT, DATATYPE_NAME,
+  VARIABLES_TYPES,
+  DURATION_UNIT,
+  DATATYPE_NAME,
 } from 'constants/pogues-constants';
 
 const { CALCULATED } = VARIABLES_TYPES;
@@ -34,7 +36,7 @@ export function remoteToStore(remote = []) {
         label,
         name,
         formula,
-        scope: scope? scope: '',
+        scope: scope || '',
         type: typeName,
         [typeName]: {
           maxLength,
@@ -70,7 +72,6 @@ export function storeToRemote(store) {
         format: Format,
       },
     } = store[key];
-
 
     const model = {
       id,

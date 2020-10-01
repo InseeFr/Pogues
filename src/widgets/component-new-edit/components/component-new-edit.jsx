@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import {formValueSelector } from 'redux-form';
+import { formValueSelector, formPropTypes, Field } from 'redux-form';
 
-import PropTypes, { element } from 'prop-types';
-import { formPropTypes, Field } from 'redux-form';
+import PropTypes from 'prop-types';
 
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
@@ -30,8 +29,14 @@ import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
-
-const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE} = WIDGET_COMPONENT_NEW_EDIT;
+const {
+  COMPONENT_CLASS,
+  FOOTER,
+  CANCEL,
+  VALIDATE,
+  FOOTERLOOP,
+  DELETE,
+} = WIDGET_COMPONENT_NEW_EDIT;
 const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 
 export const propTypes = {
@@ -44,7 +49,7 @@ export const propTypes = {
 
   addSubformValidationErrors: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
-  };
+};
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
@@ -53,31 +58,27 @@ export const defaultProps = {
   codesListsStoreStore: {},
 };
 
-class ComponentNewEdit extends Component {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
+const ComponentNewEdit = props => {
+  const {
+    componentType,
+    componentId,
+    addSubformValidationErrors,
+    componentsStore,
+    errorsIntegrityByTab,
+    handleSubmit,
+    submitting,
+    form,
+    onCancel,
+    deleteComponent,
+  } = props;
 
-  constructor(props) {
-    super(props);
+  const buttonRef = useRef(null);
 
-    this.state = {
-      initialMemberChoise: '',
-    };
-  }
+  useEffect(() => {
+    props.clearSubformValidationErrors();
+  }, []);
 
-  UNSAFE_componentWillMount() {
-    this.props.clearSubformValidationErrors();
-  }
-
-  renderPanels() {
-    const {
-      componentType,
-      componentId,
-      addSubformValidationErrors,
-      componentsStore,
-      errorsIntegrityByTab,
-    } = this.props;
-
+  const renderPanels = () => {
     let panels = [
       <Tab
         label={Dictionary.declaration_tabTitle}
@@ -162,180 +163,164 @@ class ComponentNewEdit extends Component {
         </Tab>,
       ];
     }
-
     return panels;
-  }
+  };
 
-  getFinalOptions (store) {
-    let optionsFinal = 
-          (<GenericOption
-              key=''
-              value=''
-           >
-        </GenericOption>);
-    const componentinitial = Object.values(store)
-    .filter(component => component.id === this.props.InitialMember);   
-    if(this.props.InitialMember && componentinitial.length > 0) {
+  const getFinalOptions = store => {
+    let optionsFinal = <GenericOption key="" value="" />;
+    const componentinitial = Object.values(store).filter(
+      component => component.id === props.InitialMember,
+    );
+    if (props.InitialMember && componentinitial.length > 0) {
       optionsFinal = Object.values(store)
-      .filter(component => component.type === componentinitial[0].type
-              && component.type === SEQUENCE 
-              && component.weight >= componentinitial[0].weight
-              || component.type === SUBSEQUENCE
-              && component.type === componentinitial[0].type
-              && component.weight >= componentinitial[0].weight
-              && component.parent === componentinitial[0].parent)
-      .map(element => {
-        return (
-        <GenericOption
-          key={element.id}
-          value={element.id}
-        >
-          {element.name}
-        </GenericOption>)
-      }); 
+        .filter(
+          component =>
+            (component.type === componentinitial[0].type &&
+              component.type === SEQUENCE &&
+              component.weight >= componentinitial[0].weight &&
+              component.id !== 'idendquest') ||
+            (component.type === SUBSEQUENCE &&
+              component.type === componentinitial[0].type &&
+              component.weight >= componentinitial[0].weight &&
+              component.parent === componentinitial[0].parent &&
+              component.id !== 'idendquest'),
+        )
+        .map(element => {
+          return (
+            <GenericOption key={element.id} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
     }
     return optionsFinal;
   };
 
-  render() {
-    const {
-      handleSubmit,
-      submitting,
-      form,
-      onCancel,
-      componentType,
-      componentId,
-      componentsStore,
-      deleteComponent,
-    } = this.props;
-    const optionsInitial =  Object.values(componentsStore)
-      .filter(component=> component.type === SEQUENCE || component.type === SUBSEQUENCE)
-      .map(element => {
-       return (<GenericOption
-          key={element.id}
-          value={element.id}
-        >
-          {element.name}
-        </GenericOption>)
-      }); 
-
-    const optionsTable =  Object.values(componentsStore)
-    .filter(component => 
-      component.type === QUESTION && 
-      component.responseFormat.type === "TABLE"
-      && component.responseFormat.TABLE.PRIMARY.type === "LIST" ||
-      component.type === LOOP && !component.basedOn)
+  const optionsInitial = Object.values(componentsStore)
+    .filter(
+      component =>
+        (component.type === SEQUENCE && component.id !== 'idendquest') ||
+        component.type === SUBSEQUENCE,
+    )
     .map(element => {
       return (
-      <GenericOption
-        key={element.id}
-        value={element.id}
-      >
-        {element.name || element.nameLoop}
-      </GenericOption>)
+        <GenericOption key={element.id} value={element.id}>
+          {element.name}
+        </GenericOption>
+      );
     });
-    const associatedFieldsProps = {
+
+  const optionsTable = Object.values(componentsStore)
+    .filter(
+      component =>
+        (component.type === QUESTION &&
+          component.responseFormat.type === 'TABLE' &&
+          component.responseFormat.TABLE.PRIMARY.type === 'LIST') ||
+        (component.type === LOOP && !component.basedOn),
+    )
+    .map(element => {
+      return (
+        <GenericOption key={element.id} value={element.id}>
+          {element.name || element.nameLoop}
+        </GenericOption>
+      );
+    });
+  const associatedFieldsProps = {
     formName: form,
     fieldOrigin: { name: 'label', label: Dictionary.label },
     fieldTarget: { name: 'name', label: Dictionary.name },
     action: updateNameField,
     focusOnInit: true,
     onEnter: () => {
-      this.validateButton.click();
+      buttonRef.click();
     },
   };
-    return (
-      <div className={COMPONENT_CLASS}>
-        <form onSubmit={handleSubmit}>
-        { 
-          componentType === QUESTION ? (
-            <AssociatedFields
-              {...associatedFieldsProps}
-              targetIsRichTextarea
-              targetIsQuestion
+
+  return (
+    <div className={COMPONENT_CLASS}>
+      <form onSubmit={handleSubmit}>
+        {componentType === QUESTION ? (
+          <AssociatedFields
+            {...associatedFieldsProps}
+            targetIsRichTextarea
+            targetIsQuestion
+          />
+        ) : componentType === LOOP ? (
+          <div>
+            <Field
+              name="nameLoop"
+              type="text"
+              component={Input}
+              label={Dictionary.name}
             />
-          ) : componentType === LOOP ? 
-          ( 
-            <div>
-              <Field
-                name="nameLoop"
-                type="text"
-                component={Input}
-                label={Dictionary.name}
-              />
-              <Field
-                name="maximum"
-                type="text"
-                focusOnInit
-                component={InputWithVariableAutoCompletion}
-                label={Dictionary.maximum}
-              />
-             { componentsStore ?  (
+            <Field
+              name="maximum"
+              type="text"
+              focusOnInit
+              component={InputWithVariableAutoCompletion}
+              label={Dictionary.maximum}
+            />
+            {componentsStore ? (
               <Field
                 name="basedOn"
                 component={Select}
                 label={Dictionary.BasedOn}
               >
-              <GenericOption
-                key=''
-                value=''
-              >
-                {Dictionary.selectBasedOn}
-              </GenericOption>
-              {optionsTable}
-              </Field>) 
-              :false}
-              <Field
-                name="filter"
-                type="text"
-                focusOnInit
-                component={InputWithVariableAutoCompletion}
-                label={Dictionary.Filter}
-              />
-              { componentsStore ?  (
+                <GenericOption key="" value="">
+                  {Dictionary.selectBasedOn}
+                </GenericOption>
+                {optionsTable}
+              </Field>
+            ) : (
+              false
+            )}
+            <Field
+              name="filter"
+              type="text"
+              focusOnInit
+              component={InputWithVariableAutoCompletion}
+              label={Dictionary.Filter}
+            />
+            {componentsStore ? (
               <Field
                 name="initialMember"
                 component={Select}
                 label={Dictionary.InitialMembre}
               >
-              <GenericOption
-                key=''
-                value=''
-              >
-                {Dictionary.selectInitialMembre}
-              </GenericOption>
-                 {optionsInitial}
+                <GenericOption key="" value="">
+                  {Dictionary.selectInitialMembre}
+                </GenericOption>
+                {optionsInitial}
               </Field>
-              ) :false}
-              { componentsStore ?  (
+            ) : (
+              false
+            )}
+            {componentsStore ? (
               <Field
                 name="finalMember"
                 component={Select}
                 label={Dictionary.FinalMembre}
-                disabled={!this.props.InitialMember}
+                disabled={!props.InitialMember}
               >
-              <GenericOption
-                key=''
-                value=''
-              >
-                {Dictionary.selectFinalMembre}
-              </GenericOption>
-                 {this.getFinalOptions(componentsStore)}
+                <GenericOption key="" value="">
+                  {Dictionary.selectFinalMembre}
+                </GenericOption>
+                {getFinalOptions(componentsStore)}
               </Field>
-              ) :false}
+            ) : (
+              false
+            )}
 
-              <Field
-                name="addButtonLibel"
-                type="text"
-                component={Input}
-                label={Dictionary.AddButton}
-              />  
-               
-            </div>
-          ):
-          (
-            <AssociatedFields {...associatedFieldsProps} />
-          )} 
+            <Field
+              name="addButtonLibel"
+              type="text"
+              component={Input}
+              label={Dictionary.AddButton}
+            />
+          </div>
+        ) : (
+          <AssociatedFields {...associatedFieldsProps} />
+        )}
         {componentType !== LOOP ? (
           <Field
             name="TargetMode"
@@ -348,23 +333,28 @@ class ComponentNewEdit extends Component {
                 {s.label}
               </GenericOption>
             ))}
-          </Field>) : false}
-          {componentType !== LOOP ? ( <Tabs componentId={componentId}>{this.renderPanels()}</Tabs>) : false}
-          <div className={componentType !== LOOP ? FOOTER : FOOTERLOOP}>
-            <button
-              className={VALIDATE}
-              type="submit"
-              disabled={submitting}
-              ref={validateButton => {
-                this.validateButton = validateButton;
-              }}
-            >
-              {Dictionary.validate}
-            </button>
-            <button className={CANCEL} disabled={submitting} onClick={onCancel}>
-              {Dictionary.cancel}
-            </button>
-            {componentType === LOOP && componentId ?
+          </Field>
+        ) : (
+          false
+        )}
+        {componentType !== LOOP ? (
+          <Tabs componentId={componentId}>{renderPanels()}</Tabs>
+        ) : (
+          false
+        )}
+        <div className={componentType !== LOOP ? FOOTER : FOOTERLOOP}>
+          <button
+            className={VALIDATE}
+            type="submit"
+            disabled={submitting}
+            ref={buttonRef}
+          >
+            {Dictionary.validate}
+          </button>
+          <button className={CANCEL} disabled={submitting} onClick={onCancel}>
+            {Dictionary.cancel}
+          </button>
+          {componentType === LOOP && componentId ? (
             <button
               className={DELETE}
               disabled={submitting}
@@ -372,18 +362,19 @@ class ComponentNewEdit extends Component {
             >
               {Dictionary.remove}
             </button>
-            :false}
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
-const mapStateToProps = (state, ownProps) => {
+          ) : (
+            false
+          )}
+        </div>
+      </form>
+    </div>
+  );
+};
+const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {
     InitialMember: selector(state, 'initialMember'),
-  }
+  };
 };
 
-export default  connect(mapStateToProps)(ComponentNewEdit);
+export default connect(mapStateToProps)(ComponentNewEdit);

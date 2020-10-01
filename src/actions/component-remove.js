@@ -26,9 +26,12 @@ export function removeComponentFromActivesComponent(
     if (currentId !== deletedComponent.id) {
       acc[currentId] = {
         ...activesComponents[currentId],
-        children: activesComponents[currentId] && activesComponents[currentId].children ? activesComponents[currentId].children.filter(
-          childId => childId !== deletedComponent.id,
-        ): [],
+        children:
+          activesComponents[currentId] && activesComponents[currentId].children
+            ? activesComponents[currentId].children.filter(
+                childId => childId !== deletedComponent.id,
+              )
+            : [],
       };
     }
     return acc;
@@ -257,9 +260,12 @@ export function removeSequence(activesComponents, deletedComponent) {
  */
 export function remove(activesComponents, idDeletedComponent) {
   const deletedComponent = activesComponents[idDeletedComponent];
-  
-  if(isLoop(deletedComponent)) {
-    return removeComponentFromActivesComponent(activesComponents, deletedComponent);
+
+  if (isLoop(deletedComponent)) {
+    return removeComponentFromActivesComponent(
+      activesComponents,
+      deletedComponent,
+    );
   }
   if (deletedComponent.children.length === 0) {
     return removeLeafComponent(activesComponents, deletedComponent);

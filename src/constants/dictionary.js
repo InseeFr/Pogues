@@ -3,7 +3,6 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
 
 const dictionary = {
-
   phLabel: {
     en: 'Enter a title for the questionnaire',
     fr: 'Entrez un titre pour le questionnaire',
@@ -100,11 +99,7 @@ const dictionary = {
     en: 'Sub-sequence',
     fr: 'Sous-séquence',
   },
-  loop: {
-    en: 'Loop',
-    fr: 'Boucles',
-  },
-  Scope : {
+  Scope: {
     en: 'Scope',
     fr: 'Portée',
   },
@@ -370,18 +365,18 @@ const dictionary = {
     fr: 'Filtre',
   },
   InitialMembre: {
-    en: 'Initial member',
-    fr: 'Membre initial',
+    en: 'Start',
+    fr: 'Début',
   },
 
   FinalMembre: {
-    en: 'Final member',
-    fr: 'Membre final',
+    en: 'End',
+    fr: 'Fin',
   },
-  
+
   AddButton: {
     en: 'Add button label',
-    fr: 'Libellé du bouton d\'ajout',
+    fr: "Libellé du bouton d'ajout",
   },
 
   selectBasedOn: {
@@ -403,7 +398,7 @@ const dictionary = {
     fr: 'Portée Questionnaire',
     en: 'Scope Questionnaire',
   },
-   
+
   specify: {
     en: 'Specify',
     fr: 'Préciser',
@@ -411,7 +406,7 @@ const dictionary = {
   hours: {
     en: 'hours',
     fr: 'heures',
-  }, 
+  },
 
   minutes: {
     en: 'minutes',
@@ -426,12 +421,12 @@ const dictionary = {
   years: {
     en: 'years',
     fr: 'années',
-  }, 
+  },
 
   months: {
     en: 'months',
     fr: 'mois',
-  }, 
+  },
 
   dateinitial: {
     en: 'Date format',
@@ -446,7 +441,7 @@ const dictionary = {
   formatDate: {
     en: 'please respect the date format',
     fr: 'merci de respecter le format de la date',
-  }, 
+  },
 
   unit: {
     en: 'Unit of measure',
@@ -778,17 +773,21 @@ const dictionary = {
   },
   modification: {
     en: 'Your modification is not saved ! Are you sure you want to leave ?',
-    fr: "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
+    fr:
+      "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
 
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
-    fr: "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
+    fr:
+      "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
   },
 
   loopNotSaved: {
-    en: "Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.",
-    fr: "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider."
+    en:
+      'Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.',
+    fr:
+      "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider.",
   },
 
   close: {

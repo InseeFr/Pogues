@@ -1,4 +1,4 @@
-import { getUrlFromCriterias, storeToArray, verifyVariable } from './utils';
+import { getUrlFromCriterias, storeToArray } from './utils';
 
 describe('Utils', () => {
   test('getUrlFromCriterias', () => {
@@ -17,9 +17,5 @@ describe('Utils', () => {
   });
   test('storeToArray', () => {
     expect(storeToArray()).toEqual([]);
-  });
-  test('verifyVariable', () => {
-    const label = 'Value0: $Value1 $Value2 $Value3$ Value4';
-    expect(verifyVariable(label)).toBe('Value0: $Value1$ $Value2$ $Value3$ Value4');
   });
 });

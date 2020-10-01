@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
 
@@ -42,6 +42,7 @@ export const defaultProps = {
 
 class PageQuestionnaire extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   UNSAFE_componentWillMount() {
@@ -119,18 +120,13 @@ class PageQuestionnaire extends Component {
     }
   }
 
-
-
   render() {
-
     return (
-      
       <div id={COMPONENT_ID}>
         <QuestionnaireNav />
         <QuestionnaireListComponents navigate={this.props.history.push} />
         <GenericInput />
       </div>
-     
     );
   }
 }

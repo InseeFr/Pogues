@@ -1,4 +1,4 @@
-import { uuid, verifyVariable } from 'utils/utils';
+import { uuid } from 'utils/utils';
 
 export const defaultState = {
   declarationType: 'INSTRUCTION',
@@ -20,7 +20,7 @@ export function formToState(form) {
 
   return {
     id,
-    label: verifyVariable(label),
+    label,
     declarationType,
     position,
   };

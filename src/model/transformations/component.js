@@ -13,11 +13,12 @@ import {
   SEQUENCE_TYPE_NAME,
   QUESTION_TYPE_NAME,
   QUESTION_TYPE_ENUM,
-  QUESTION_END
+  QUESTION_END,
 } from 'constants/pogues-constants';
 import { checkPropTypes } from 'prop-types';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP} = COMPONENT_TYPE;
+const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP } = COMPONENT_TYPE;
 
 function sortByWeight(store) {
   return (keyA, keyB) => {
@@ -29,15 +30,19 @@ function sortByWeight(store) {
 function getResponseCoordinate(variablesMapping = [], variablesAttribute) {
   return variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
-    const find = variablesAttribute ? variablesAttribute.find(ele => ele.AttributeTarget ===  m.MappingTarget) : false;
-    const variableRes =  {
+    const find = variablesAttribute
+      ? variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget)
+      : false;
+    const variableRes = {
       ...acc,
       [m.MappingSource]: {
         x: parseInt(axis[0], 10),
         y: parseInt(axis[1], 10),
       },
     };
-    find ? variableRes[m.MappingSource].isCollected = false : variableRes[m.MappingSource].isCollected = true;
+    find
+      ? (variableRes[m.MappingSource].isCollected = false)
+      : (variableRes[m.MappingSource].isCollected = true);
     return variableRes;
   }, {});
 }
@@ -59,89 +64,98 @@ function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
     };
   }, {});
 }
-function clarificationQuestion(Children){
+function clarificationQuestion(Children) {
   const Clarification = [];
   const childr = Children.filter(children => children.Child.length != 0);
-        childr.forEach(item =>{
-          item.Child.forEach(clar =>
-            {
-            if (clar.type === "SequenceType") {
-              clar.Child.forEach( supseq => {
-                if((supseq.questionType === "SINGLE_CHOICE" || 
-                  supseq.questionType === "MULTIPLE_CHOICE" || 
-                  supseq.questionType === "TABLE") &&
-                  supseq.ClarificationQuestion !== undefined && 
-                  supseq.ClarificationQuestion.length !== 0)
-                    {
-                      Clarification.push(supseq);
-                    }
-              })
-            }
-            else {
-              if((clar.questionType === "SINGLE_CHOICE" || 
-                  clar.questionType === "MULTIPLE_CHOICE" || 
-                  clar.questionType === "TABLE") &&
-                  clar.ClarificationQuestion !== undefined && 
-                  clar.ClarificationQuestion.length !== 0)
-              {
-                Clarification.push(clar);
-              }  
-            }
-
-            });
+  childr.forEach(item => {
+    item.Child.forEach(clar => {
+      if (clar.type === 'SequenceType') {
+        clar.Child.forEach(supseq => {
+          if (
+            (supseq.questionType === SINGLE_CHOICE ||
+              supseq.questionType === MULTIPLE_CHOICE ||
+              supseq.questionType === TABLE) &&
+            supseq.ClarificationQuestion !== undefined &&
+            supseq.ClarificationQuestion.length !== 0
+          ) {
+            Clarification.push(supseq);
+          }
         });
+      } else if (
+        (clar.questionType === SINGLE_CHOICE ||
+          clar.questionType === MULTIPLE_CHOICE ||
+          clar.questionType === TABLE) &&
+        clar.ClarificationQuestion !== undefined &&
+        clar.ClarificationQuestion.length !== 0
+      ) {
+        Clarification.push(clar);
+      }
+    });
+  });
   return Clarification;
 }
 
 export function getClarificarionfromremote(Children, collectedVariables) {
   const variableClarification = [];
   const childclarification = clarificationQuestion(Children);
-          childclarification.forEach(element => {
-            element.ClarificationQuestion.forEach(item =>{ 
-              const position = element.FlowControl.find(controle => controle.IfTrue === item.id).Expression;
-                if(position) {
-                  const stringFind = position.substring(
-                    position.lastIndexOf("=") + 3, 
-                    position.lastIndexOf("'")
-                  );
-                  let multiplFind = "";
-                  const tableFind = position.substring(
-                    1, 
-                    position.lastIndexOf("$")
-                    );
-                  let codelistid = null;
-                  let level = null;
-                  let varibale = null;
-                  if(element.questionType === "MULTIPLE_CHOICE") {
-                    codelistid = element.ResponseStructure.Dimension[0].CodeListReference;
-                    const codeCollectedVarible = position.substring(1, position.lastIndexOf("$"));
-                    const variable =  collectedVariables.find(varib => varib.Name === codeCollectedVarible);
-                    if(variable) {
-                      multiplFind = element.Response.findIndex((response)=> response.CollectedVariableReference === variable.id)
-                    }  
-                  }
-                  else if(element.questionType == "TABLE") {
-                    varibale = collectedVariables.find(varib => varib.Name === tableFind)
-                    if(varibale) {
-                      codelistid = varibale.CodeListReference;
-                      const respones = element.Response.filter((response)=> response.CodeListReference === varibale.CodeListReference)
-                      level = respones.indexOf(respones.find((resp)=> resp.CollectedVariableReference === varibale.id))
-                    }
-                  }
-                  else {
-                    codelistid = element.Response[0].CodeListReference;
-                  }
-                  const variable = {
-                    responseclar : item,
-                    position: element.questionType === "MULTIPLE_CHOICE" ? multiplFind : stringFind,
-                    codelistid: codelistid,
-                    type: element.questionType,
-                    level: parseInt(level)+1
-                  };
-                  variableClarification.push(variable);
-                }
-            });
-          });
+  childclarification.forEach(element => {
+    element.ClarificationQuestion.forEach(item => {
+      const position = element.FlowControl.find(
+        controle => controle.IfTrue === item.id,
+      ).Expression;
+      if (position) {
+        const stringFind = position.substring(
+          position.lastIndexOf('=') + 3,
+          position.lastIndexOf("'"),
+        );
+        let multiplFind = '';
+        const tableFind = position.substring(1, position.lastIndexOf('$'));
+        let codelistid = null;
+        let level = null;
+        let varibale = null;
+        if (element.questionType === MULTIPLE_CHOICE) {
+          codelistid = element.ResponseStructure.Dimension[0].CodeListReference;
+          const codeCollectedVarible = position.substring(
+            1,
+            position.lastIndexOf('$'),
+          );
+          const variable = collectedVariables.find(
+            varib => varib.Name === codeCollectedVarible,
+          );
+          if (variable) {
+            multiplFind = element.Response.findIndex(
+              response => response.CollectedVariableReference === variable.id,
+            );
+          }
+        } else if (element.questionType === TABLE) {
+          varibale = collectedVariables.find(varib => varib.Name === tableFind);
+          if (varibale) {
+            codelistid = varibale.CodeListReference;
+            const respones = element.Response.filter(
+              response =>
+                response.CodeListReference === varibale.CodeListReference,
+            );
+            level = respones.indexOf(
+              respones.find(
+                resp => resp.CollectedVariableReference === varibale.id,
+              ),
+            );
+          }
+        } else {
+          codelistid = element.Response[0].CodeListReference;
+        }
+        const variable = {
+          responseclar: item,
+          position:
+            element.questionType === MULTIPLE_CHOICE ? multiplFind : stringFind,
+          codelistid: codelistid,
+          type: element.questionType,
+          level: parseInt(level) + 1,
+        };
+        variableClarification.push(variable);
+      }
+    });
+  });
   return variableClarification;
 }
 
@@ -153,23 +167,24 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
       ResponseStructure: responseStructure,
       Child: childrenInner,
     } = child;
-    let responseFinal =  responses;
-    if ( responsesClarification != undefined ){
+    let responseFinal = responses;
+    if (responsesClarification !== undefined) {
       responsesClarification.forEach(clar => {
         responseFinal = responseFinal.concat(clar.Response);
       });
     }
-   
+
     const variableResponseMapping = responseStructure
       ? responseStructure.Mapping
       : undefined;
 
     const variableResponseAttribute = responseStructure
-    ? responseStructure.Attribute
-    : undefined;
+      ? responseStructure.Attribute
+      : undefined;
 
     const coordinatesByResponse = getResponseCoordinate(
-      variableResponseMapping, variableResponseAttribute
+      variableResponseMapping,
+      variableResponseAttribute,
     );
 
     acc = {
@@ -181,7 +196,6 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
   return acc;
 }
 export function remoteToVariableResponse(remote) {
-  
   return remoteToVariableResponseNested(remote.Child);
 }
 
@@ -205,9 +219,12 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     TargetMode,
     declarationMode,
   } = remote;
-  const redirectionClar = redirections != undefined ? redirections.filter(redirec =>  redirec.flowControlType === undefined) : [];
-  let responseFinal =  responses;
-  if ( responsesClarification != undefined ){
+  const redirectionClar =
+    redirections !== undefined
+      ? redirections.filter(redirec => redirec.flowControlType === undefined)
+      : [];
+  let responseFinal = responses;
+  if (responsesClarification !== undefined) {
     responsesClarification.forEach(clar => {
       responseFinal = responseFinal.concat(clar.Response);
     });
@@ -217,7 +234,11 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     name,
     parent: parent || '',
     weight: weight || 0,
-    children: children ? children.filter(child => child.id && child.id !== "idendquest").map(childr => childr.id) : [],
+    children: children
+      ? children
+          .filter(child => child.id && child.id !== 'idendquest')
+          .map(childr => childr.id)
+      : [],
     declarations: Declaration.remoteToState(declarations),
     controls: Control.remoteToState(controls),
     redirections: Redirection.remoteToState(redirectionClar),
@@ -287,33 +308,43 @@ function remoteToStoreNested(
     return acc;
   });
   iterations.forEach(iteration => {
-    acc[iteration.id] = Loop.remoteToState(iteration, parent)
-  })
+    acc[iteration.id] = Loop.remoteToState(iteration, parent);
+  });
   return acc;
 }
 
-function getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, FlowControl, TargetMode, Name){
-  let ClarificationQuestion= [];
-  let collectedvariablequestion = [];
-  let flowcontrolefinal = [];
+function getClarificationresponseSingleChoiseQuestion(
+  collectedVariablesStore,
+  collectedVariables,
+  codesListsStore,
+  responseFormat,
+  FlowControl,
+  TargetMode,
+  Name,
+) {
+  const ClarificationQuestion = [];
+  const collectedvariablequestion = [];
+  const flowcontrolefinal = [];
   Object.values(collectedVariablesStore).forEach(collec => {
-   if (collectedVariables != undefined){
-    collectedVariables.forEach(variables =>{
-      if(collec.id === variables ){
-        collectedvariablequestion.push(collec);
-      }
-    });
-   }
+    if (collectedVariables !== undefined) {
+      collectedVariables.forEach(variables => {
+        if (collec.id === variables) {
+          collectedvariablequestion.push(collec);
+        }
+      });
+    }
   });
   FlowControl.forEach(flowcon => {
-    if(flowcon.flowControlType === undefined){
+    if (flowcon.flowControlType === undefined) {
       flowcontrolefinal.push(flowcon);
     }
   });
   collectedvariablequestion.forEach(function(collected) {
-    const code = Object.values(codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes).find(code => code.weight === collected.z);
+    const code = Object.values(
+      codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
+    ).find(code => code.weight === collected.z);
     if (code) {
-      let clafication = {
+      const clafication = {
         id: uuid(),
         questionType: QUESTION_TYPE_ENUM.SIMPLE,
         Name: code.precisionid,
@@ -321,7 +352,7 @@ function getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, c
         TargetMode: TargetMode,
         Response: [
           Response.stateToRemote({
-            mandatory : false,
+            mandatory: false,
             typeName: collected.type,
             maxLength: collected.TEXT.maxLength,
             pattern: '',
@@ -332,46 +363,61 @@ function getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, c
       ClarificationQuestion.push(clafication);
       const clarficationredirection = {
         id: uuid(),
-        label:  `$${collectedvariablequestion[0].name}$ = '${code.value}' : ${collected.name}`,
+        label: `$${collectedvariablequestion[0].name}$ = '${code.value}' : ${collected.name}`,
         condition: `$${collectedvariablequestion[0].name}$ = '${code.value}'`,
         cible: clafication.id,
-        flowControlType : "CLARIFICATION",
-       };
+        flowControlType: 'CLARIFICATION',
+      };
       const clarficationredirectionid = clarficationredirection.id;
-      const flow = Redirection.stateToRemote({[clarficationredirectionid] : clarficationredirection});
+      const flow = Redirection.stateToRemote({
+        [clarficationredirectionid]: clarficationredirection,
+      });
       flowcontrolefinal.push(flow[0]);
     }
   });
   return {
     flowcontrolefinal,
-    ClarificationQuestion
-  }
+    ClarificationQuestion,
+  };
 }
 
-function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, FlowControl, TargetMode, Name){
-  let ClarificationQuestion= [];
-  let collectedvariablequestion = [];
-  let flowcontrolefinal = [];
+function getClarificationResponseMultipleChoiceQuestion(
+  collectedVariablesStore,
+  collectedVariables,
+  codesListsStore,
+  responseFormat,
+  FlowControl,
+  TargetMode,
+  Name,
+) {
+  const ClarificationQuestion = [];
+  const collectedvariablequestion = [];
+  const flowcontrolefinal = [];
   Object.values(collectedVariablesStore).forEach(collec => {
-   if (collectedVariables != undefined){
-    collectedVariables.forEach(variables =>{
-      if(collec.id === variables ){
-        collectedvariablequestion.push(collec);
-      }
-    });
-   }
+    if (collectedVariables !== undefined) {
+      collectedVariables.forEach(variables => {
+        if (collec.id === variables) {
+          collectedvariablequestion.push(collec);
+        }
+      });
+    }
   });
   FlowControl.forEach(flowcon => {
-    if(flowcon.flowControlType === undefined){
+    if (flowcon.flowControlType === undefined) {
       flowcontrolefinal.push(flowcon);
     }
   });
   collectedvariablequestion.forEach(function(collected) {
-    if(responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList)   {
-      const code = Object.values(codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id].codes).find(code => code.weight === collected.z);
+    if (responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList) {
+      const code = Object.values(
+        codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id]
+          .codes,
+      ).find(code => code.weight === collected.z);
       if (code) {
-        const collectedVar =  collectedvariablequestion.find(collectedVarible=> collectedVarible.x == code.weight)
-        let clafication = {
+        const collectedVar = collectedvariablequestion.find(
+          collectedVarible => collectedVarible.x === code.weight,
+        );
+        const clafication = {
           id: uuid(),
           questionType: QUESTION_TYPE_ENUM.SIMPLE,
           Name: code.precisionid,
@@ -379,7 +425,7 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
           TargetMode: TargetMode,
           Response: [
             Response.stateToRemote({
-              mandatory : false,
+              mandatory: false,
               typeName: collected.type,
               maxLength: collected.TEXT.maxLength,
               pattern: '',
@@ -390,52 +436,71 @@ function getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore,
         ClarificationQuestion.push(clafication);
         const clarficationredirection = {
           id: uuid(),
-          label:  `$${collectedVar.name}$ = '1' : ${collected.name}`,
+          label: `$${collectedVar.name}$ = '1' : ${collected.name}`,
           condition: `$${collectedVar.name}$ = '1'`,
           cible: clafication.id,
-          flowControlType : "CLARIFICATION",
+          flowControlType: 'CLARIFICATION',
         };
         const clarficationredirectionid = clarficationredirection.id;
-        const flow = Redirection.stateToRemote({[clarficationredirectionid] : clarficationredirection});
+        const flow = Redirection.stateToRemote({
+          [clarficationredirectionid]: clarficationredirection,
+        });
         flowcontrolefinal.push(flow[0]);
       }
     }
   });
   return {
     flowcontrolefinal,
-    ClarificationQuestion
-  }
+    ClarificationQuestion,
+  };
 }
 
-function getClarificationResponseTableQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, FlowControl, TargetMode, Name){
-  let ClarificationQuestion= [];
-  let collectedvariablequestion = [];
-  let flowcontrolefinal = [];
+function getClarificationResponseTableQuestion(
+  collectedVariablesStore,
+  collectedVariables,
+  codesListsStore,
+  responseFormat,
+  FlowControl,
+  TargetMode,
+  Name,
+) {
+  const ClarificationQuestion = [];
+  const collectedvariablequestion = [];
+  const flowcontrolefinal = [];
 
   Object.values(collectedVariablesStore).forEach(collec => {
-   if (collectedVariables != undefined){
-    collectedVariables.forEach(variables =>{
-      if(collec.id === variables ){
-        collectedvariablequestion.push(collec);
-      }
-    });
-   }
+    if (collectedVariables !== undefined) {
+      collectedVariables.forEach(variables => {
+        if (collec.id === variables) {
+          collectedvariablequestion.push(collec);
+        }
+      });
+    }
   });
   FlowControl.forEach(flowcon => {
-    if(flowcon.flowControlType === undefined){
+    if (flowcon.flowControlType === undefined) {
       flowcontrolefinal.push(flowcon);
     }
   });
 
-  if(responseFormat.TABLE.LIST_MEASURE) {
-    responseFormat.TABLE.LIST_MEASURE.forEach(function(mesure){
-      if(mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList.id){
-        Object.values(codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes).forEach(function(code){
-          if(code.precisionid && code.precisionid !== "") {
-            const collectedvariablequestionPrecision = collectedvariablequestion.filter(varibale => varibale.z === code.weight)
-            collectedvariablequestionPrecision.forEach(function(varib){
-            const variableTable = collectedvariablequestion.find(varTab => varTab.x === varib.mesureLevel && varTab.codeListReference === mesure.SINGLE_CHOICE.CodesList.id)
-            let clafication = {
+  if (responseFormat.TABLE.LIST_MEASURE) {
+    responseFormat.TABLE.LIST_MEASURE.forEach(function(mesure) {
+      if (mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList.id) {
+        Object.values(
+          codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes,
+        ).forEach(function(code) {
+          if (code.precisionid && code.precisionid !== '') {
+            const collectedvariablequestionPrecision = collectedvariablequestion.filter(
+              varibale => varibale.z === code.weight,
+            );
+            collectedvariablequestionPrecision.forEach(function(varib) {
+              const variableTable = collectedvariablequestion.find(
+                varTab =>
+                  varTab.x === varib.mesureLevel &&
+                  varTab.codeListReference ===
+                    mesure.SINGLE_CHOICE.CodesList.id,
+              );
+              const clafication = {
                 id: uuid(),
                 questionType: QUESTION_TYPE_ENUM.SIMPLE,
                 Name: varib.name,
@@ -443,7 +508,7 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
                 TargetMode: TargetMode,
                 Response: [
                   Response.stateToRemote({
-                    mandatory : false,
+                    mandatory: false,
                     typeName: varib.type,
                     maxLength: code.precisionsize,
                     pattern: '',
@@ -451,28 +516,30 @@ function getClarificationResponseTableQuestion(collectedVariablesStore, collecte
                   }),
                 ],
               };
-            ClarificationQuestion.push(clafication);
-            const clarficationredirection = {
-              id: uuid(),
-              label:  `$${variableTable.name}$ = '${code.value}' : ${varib.name}`,
-              condition: `$${variableTable.name}$ = '${code.value}'`,
-              cible: clafication.id,
-              flowControlType : "CLARIFICATION",
-            };
-            const clarficationredirectionid = clarficationredirection.id;
-            const flow = Redirection.stateToRemote({[clarficationredirectionid] : clarficationredirection});
-            flowcontrolefinal.push(flow[0]);
-            })
+              ClarificationQuestion.push(clafication);
+              const clarficationredirection = {
+                id: uuid(),
+                label: `$${variableTable.name}$ = '${code.value}' : ${varib.name}`,
+                condition: `$${variableTable.name}$ = '${code.value}'`,
+                cible: clafication.id,
+                flowControlType: 'CLARIFICATION',
+              };
+              const clarficationredirectionid = clarficationredirection.id;
+              const flow = Redirection.stateToRemote({
+                [clarficationredirectionid]: clarficationredirection,
+              });
+              flowcontrolefinal.push(flow[0]);
+            });
           }
-        })
+        });
       }
-    })
+    });
   }
 
   return {
     flowcontrolefinal,
-    ClarificationQuestion
-  }
+    ClarificationQuestion,
+  };
 }
 
 function storeToRemoteNested(
@@ -480,7 +547,7 @@ function storeToRemoteNested(
   store,
   collectedVariablesStore,
   codesListsStore,
-  depth = 1
+  depth = 1,
 ) {
   const {
     id,
@@ -496,7 +563,7 @@ function storeToRemoteNested(
     TargetMode,
   } = state;
 
-  if(type !== LOOP) {
+  if (type !== LOOP) {
     let remote = {
       id,
       depth,
@@ -510,23 +577,59 @@ function storeToRemoteNested(
     };
 
     if (type === QUESTION) {
-      if(responseFormat.type === "SINGLE_CHOICE" && collectedVariablesStore !=undefined){
-        const remoteclarification = getClarificationresponseSingleChoiseQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
+      if (
+        responseFormat.type === SINGLE_CHOICE &&
+        collectedVariablesStore !== undefined
+      ) {
+        const remoteclarification = getClarificationresponseSingleChoiseQuestion(
+          collectedVariablesStore,
+          collectedVariables,
+          codesListsStore,
+          responseFormat,
+          remote.FlowControl,
+          TargetMode,
+          Name,
+        );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
-      } 
+        remote.ClarificationQuestion =
+          remoteclarification.ClarificationQuestion;
+      }
 
-      if(responseFormat.type === "MULTIPLE_CHOICE" && collectedVariablesStore !=undefined){
-        const remoteclarification = getClarificationResponseMultipleChoiceQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
+      if (
+        responseFormat.type === MULTIPLE_CHOICE &&
+        collectedVariablesStore !== undefined
+      ) {
+        const remoteclarification = getClarificationResponseMultipleChoiceQuestion(
+          collectedVariablesStore,
+          collectedVariables,
+          codesListsStore,
+          responseFormat,
+          remote.FlowControl,
+          TargetMode,
+          Name,
+        );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
-      } 
-      if(responseFormat.type === "TABLE" && collectedVariablesStore !=undefined){
-        const remoteclarification = getClarificationResponseTableQuestion(collectedVariablesStore, collectedVariables, codesListsStore, responseFormat, remote.FlowControl, TargetMode, Name);
+        remote.ClarificationQuestion =
+          remoteclarification.ClarificationQuestion;
+      }
+      if (
+        responseFormat.type === TABLE &&
+        collectedVariablesStore !== undefined
+      ) {
+        const remoteclarification = getClarificationResponseTableQuestion(
+          collectedVariablesStore,
+          collectedVariables,
+          codesListsStore,
+          responseFormat,
+          remote.FlowControl,
+          TargetMode,
+          Name,
+        );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
-      } 
-    
+        remote.ClarificationQuestion =
+          remoteclarification.ClarificationQuestion;
+      }
+
       remote.type = QUESTION_TYPE_NAME;
       remote.questionType = responseFormat.type;
       remote = {
@@ -537,8 +640,7 @@ function storeToRemoteNested(
           collectedVariablesStore,
         ),
       };
-    }
-    else {
+    } else {
       remote.type = SEQUENCE_TYPE_NAME;
       if (type === QUESTIONNAIRE) {
         remote.genericName = 'QUESTIONNAIRE';
@@ -550,7 +652,7 @@ function storeToRemoteNested(
       remote.Child = childrenToRemote(
         children,
         store,
-        collectedVariablesStore,  
+        collectedVariablesStore,
         codesListsStore,
         depth,
       );
@@ -577,7 +679,12 @@ function childrenToRemote(
   });
 }
 
-export function remoteToStore(remote, questionnaireId, codesListsStore, iterations) {
+export function remoteToStore(
+  remote,
+  questionnaireId,
+  codesListsStore,
+  iterations,
+) {
   return {
     ...remoteToStoreNested(
       remote.Child,
@@ -590,8 +697,18 @@ export function remoteToStore(remote, questionnaireId, codesListsStore, iteratio
   };
 }
 
-export function storeToRemote(store, questionnaireId, collectedVariablesStore, codesListsStore) {
+export function storeToRemote(
+  store,
+  questionnaireId,
+  collectedVariablesStore,
+  codesListsStore,
+) {
   return store[questionnaireId].children.sort(sortByWeight(store)).map(key => {
-    return storeToRemoteNested(store[key], store, collectedVariablesStore, codesListsStore);
+    return storeToRemoteNested(
+      store[key],
+      store,
+      collectedVariablesStore,
+      codesListsStore,
+    );
   });
 }

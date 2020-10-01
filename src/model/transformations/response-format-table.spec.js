@@ -41,23 +41,22 @@ describe('remoteToState', () => {
         {
           id: 'k1tcqelo',
           Datatype: {
-            Format: "PTnHnM",
-            Mahours: "2",
-            Maminutes: "1",
-            Mamonths: "",
-            Maximum: "PT2H1M",
-            Mayears: "",
-            Mihours: "1",
-            Miminutes: "1",
-            Mimonths: "",
-            Minimum: "PT1H1M",
-            Miyears: "",
-            type: "DurationDatatypeType",
-            typeName: "DURATION",
+            Format: 'PTnHnM',
+            Mahours: '2',
+            Maminutes: '1',
+            Mamonths: '',
+            Maximum: 'PT2H1M',
+            Mayears: '',
+            Mihours: '1',
+            Miminutes: '1',
+            Mimonths: '',
+            Minimum: 'PT1H1M',
+            Miyears: '',
+            type: 'DurationDatatypeType',
+            typeName: 'DURATION',
           },
           CollectedVariableReference: 'k1tcqec4',
         },
-
       ],
       dimensions: [
         {
@@ -84,7 +83,6 @@ describe('remoteToState', () => {
           dynamic: '0',
           Label: 'mes4',
         },
-
       ],
     };
 
@@ -132,7 +130,7 @@ describe('remoteToState', () => {
             DATE: {
               minimum: '',
               maximum: '',
-              format: "dd-mm-yyyy",
+              format: 'dd-mm-yyyy',
             },
           },
         },
@@ -150,11 +148,9 @@ describe('remoteToState', () => {
               miminutes: '1',
               mahours: '2',
               maminutes: '1',
-
             },
           },
         },
-        
       ],
     };
     expect(remoteToState(remote, codesListsStore)).toEqual(output);
@@ -476,7 +472,7 @@ describe('stateToRemote', () => {
         AttributeValue: 'NoDataByDefinition',
         AttributeTarget: '2 1',
       },
-    ])
+    ]);
 
     const outputMapping = result.Mapping;
     const outputResponse = result.Response;
@@ -554,10 +550,10 @@ describe('stateToRemote', () => {
     ]);
 
     expect(result.Attribute).toEqual([
-      { 
+      {
         AttributeValue: 'NoDataByDefinition',
-        AttributeTarget: '1 1'
-      }
+        AttributeTarget: '1 1',
+      },
     ]);
 
     const outputMapping = result.Mapping;
