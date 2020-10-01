@@ -376,14 +376,15 @@ const dictionary = {
     en: 'Filter',
     fr: 'Filtre',
   },
+
   InitialMembre: {
-    en: 'Initial member',
-    fr: 'Membre initial',
+    en: 'Start',
+    fr: 'Début',
   },
 
   FinalMembre: {
-    en: 'Final member',
-    fr: 'Membre final',
+    en: 'End',
+    fr: 'Fin',
   },
 
   AddButton: {
@@ -1458,6 +1459,14 @@ const dictionary = {
   TYPEFILTER: {
     fr: 'Type de filtre',
     en: 'Filtre type',
+  },
+  If: {
+    fr: 'Si',
+    en: 'If',
+  },
+  EndIf: {
+    fr: 'Fin si',
+    en: 'End if',
   },
 };
 

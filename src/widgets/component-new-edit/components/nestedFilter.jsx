@@ -20,7 +20,7 @@ const {
   DELETE,
   FILTRE_IMBRIQUER,
 } = WIDGET_COMPONENT_NEW_EDIT;
-const { LOOP, NESTEDFILTRE } = COMPONENT_TYPE;
+const { LOOP, NESTEDFILTRE, FILTER } = COMPONENT_TYPE;
 
 // Prop types and default props
 
@@ -271,7 +271,12 @@ const NestedFilter = props => {
     let options = <option key="" value="" />;
     options = Object.values(componentsStore)
       .filter(
-        component => component.type !== LOOP && component.id !== 'idendquest',
+        component =>
+          component.type !== LOOP &&
+          component.type === componentsStore[initialMemberFilter].type &&
+          component.parent === componentsStore[initialMemberFilter].parent &&
+          component.weight >= componentsStore[initialMemberFilter].weight &&
+          component.id !== 'idendquest',
       )
       .map(element => {
         return (
@@ -289,7 +294,7 @@ const NestedFilter = props => {
       options = Object.values(componentsStore)
         .filter(
           component =>
-            component.type === NESTEDFILTRE &&
+            (component.type === NESTEDFILTRE || component.type === FILTER) &&
             componentsStore[component.initialMember].weight >=
               componentsStore[initialMemberFilter].weight,
         )

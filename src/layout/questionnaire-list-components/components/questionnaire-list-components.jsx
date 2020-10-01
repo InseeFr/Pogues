@@ -67,9 +67,18 @@ const QuestionnaireListComponents = props => {
     });
   };
 
-  const componentFilterCondition = id => {
+  const componentFilterConditionInitial = id => {
     const filters = Object.values(props.componentsStore).filter(
       component => component.type === FILTER && component.initialMember === id,
+    );
+    return filters;
+  };
+  const componentFilterConditionFinal = id => {
+    const filters = Object.values(props.componentsStore).filter(
+      component =>
+        component.type === FILTER &&
+        component.finalMember === id &&
+        component.initialMember !== component.finalMember,
     );
     return filters;
   };
@@ -104,7 +113,10 @@ const QuestionnaireListComponents = props => {
                 event.preventDefault();
                 props.handleRemovePageBreak(key);
               }}
-              componentFilters={componentFilterCondition(
+              componentFiltersInitial={componentFilterConditionInitial(
+                props.componentsStore[key].id,
+              )}
+              componentFiltersFinal={componentFilterConditionFinal(
                 props.componentsStore[key].id,
               )}
             >

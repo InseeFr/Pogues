@@ -253,6 +253,7 @@ const ComponentNewEdit = props => {
     const filters = Object.values(store).filter(
       component =>
         component.type === FILTER &&
+        component.type === initial.type &&
         store[component.initialMember].weight < initial.weight &&
         store[component.finalMember].weight > initial.weight,
     );
