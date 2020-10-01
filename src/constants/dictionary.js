@@ -361,8 +361,8 @@ const dictionary = {
   },
 
   Filter: {
-    en: 'Filter',
-    fr: 'Filtre',
+    en: 'Excepted',
+    fr: 'Sauf',
   },
   InitialMembre: {
     en: 'Start',
