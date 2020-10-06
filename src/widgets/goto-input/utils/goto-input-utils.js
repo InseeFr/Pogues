@@ -35,12 +35,10 @@ export function getTargets(
     allowedTargets.unshift(selectedTarget);
   }
 
-  return allowedTargets
-    .filter(key => key !== 'idendquest')
-    .map(key => {
-      return {
-        value: key,
-        label: `${componentsStore[key].name} - ${componentsStore[key].label}`,
-      };
-    });
+  return allowedTargets.map(key => {
+    return {
+      value: key,
+      label: `${componentsStore[key].name} - ${componentsStore[key].label}`,
+    };
+  });
 }
