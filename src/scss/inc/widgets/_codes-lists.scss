@@ -58,13 +58,23 @@
           button {
             display: inline-block;
             margin-left: 10px;
+            text-transform: uppercase;
+            font-size: $font-xs;
+            font-weight: 700;
 
-            &.widget-codes-lists__codes__input-actions-add {
+            &.widget-codes-lists__codes__input-actions-add,
+            &.widget-codes-lists__codes__input-actions-validate {
               @extend .btn-yellow;
+              margin-left: 10px;
+              margin-right: 10px;
+              font-size: $font-xs;
+              font-weight: 700;
+              border-radius: 5px;
             }
 
             &.widget-codes-lists__codes__input-actions-cancel {
-              @extend .btn-yellow;
+              background: none;
+              border: none;
             }
           }
         }
