@@ -269,22 +269,25 @@ const NestedFilter = props => {
   };
   const optionsInitial = () => {
     let options = <option key="" value="" />;
-    options = Object.values(componentsStore)
-      .filter(
-        component =>
-          component.type !== LOOP &&
-          component.type === componentsStore[initialMemberFilter].type &&
-          component.parent === componentsStore[initialMemberFilter].parent &&
-          component.weight >= componentsStore[initialMemberFilter].weight &&
-          component.id !== 'idendquest',
-      )
-      .map(element => {
-        return (
-          <option key={element.id} value={element.id}>
-            {element.name}
-          </option>
-        );
-      });
+    if (initialMemberFilter) {
+      options = Object.values(componentsStore)
+        .filter(
+          component =>
+            component.type !== LOOP &&
+            component.type === componentsStore[initialMemberFilter].type &&
+            component.parent === componentsStore[initialMemberFilter].parent &&
+            component.weight >= componentsStore[initialMemberFilter].weight &&
+            component.id !== 'idendquest',
+        )
+        .map(element => {
+          return (
+            <option key={element.id} value={element.id}>
+              {element.name}
+            </option>
+          );
+        });
+    }
+
     return options;
   };
 
