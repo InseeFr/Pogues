@@ -267,25 +267,66 @@ const NestedFilter = props => {
       return optionsFinal;
     }
   };
+  const inferieur = () => {
+    let inferieurFilter =
+      componentsStore[
+        componentsStore[newNestedFilter.filterImbriquer[0]].initialMember
+      ]?.weight;
+
+    newNestedFilter.filterImbriquer.forEach(filter => {
+      if (
+        inferieurFilter &&
+        componentsStore[componentsStore[filter].initialMember].weight <
+          inferieurFilter
+      ) {
+        inferieurFilter =
+          componentsStore[componentsStore[filter].initialMember].weight;
+      }
+    });
+    return inferieurFilter;
+  };
+
   const optionsInitial = () => {
     let options = <option key="" value="" />;
     if (initialMemberFilter) {
-      options = Object.values(componentsStore)
-        .filter(
-          component =>
-            component.type !== LOOP &&
-            component.type === componentsStore[initialMemberFilter].type &&
-            component.parent === componentsStore[initialMemberFilter].parent &&
-            component.weight >= componentsStore[initialMemberFilter].weight &&
-            component.id !== 'idendquest',
-        )
-        .map(element => {
-          return (
-            <option key={element.id} value={element.id}>
-              {element.name}
-            </option>
-          );
-        });
+      if (newNestedFilter.filterImbriquer?.length > 0) {
+        options = Object.values(componentsStore)
+          .filter(
+            component =>
+              component.type !== LOOP &&
+              component.type === componentsStore[initialMemberFilter].type &&
+              component.parent ===
+                componentsStore[initialMemberFilter].parent &&
+              component.weight >= componentsStore[initialMemberFilter].weight &&
+              component.weight <= inferieur() &&
+              component.id !== 'idendquest',
+          )
+          .map(element => {
+            return (
+              <option key={element.id} value={element.id}>
+                {element.name}
+              </option>
+            );
+          });
+      } else {
+        options = Object.values(componentsStore)
+          .filter(
+            component =>
+              component.type !== LOOP &&
+              component.type === componentsStore[initialMemberFilter].type &&
+              component.parent ===
+                componentsStore[initialMemberFilter].parent &&
+              component.weight >= componentsStore[initialMemberFilter].weight &&
+              component.id !== 'idendquest',
+          )
+          .map(element => {
+            return (
+              <option key={element.id} value={element.id}>
+                {element.name}
+              </option>
+            );
+          });
+      }
     }
 
     return options;

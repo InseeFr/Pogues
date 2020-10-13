@@ -316,6 +316,23 @@ const ComponentNewEdit = props => {
     return optionsFinal;
   };
 
+  const inferieur = () => {
+    let inferieurFilter =
+      componentsStore[componentsStore[filterImbriquers[0]].initialMember]
+        ?.weight;
+
+    filterImbriquers.forEach(filter => {
+      if (
+        inferieurFilter &&
+        componentsStore[componentsStore[filter].initialMember].weight <
+          inferieurFilter
+      ) {
+        inferieurFilter =
+          componentsStore[componentsStore[filter].initialMember].weight;
+      }
+    });
+    return inferieurFilter;
+  };
   const optionsInitial = type => {
     let options = <GenericOption key="" value="" />;
     if (type === LOOP) {
@@ -332,10 +349,39 @@ const ComponentNewEdit = props => {
             </GenericOption>
           );
         });
+    } else if (filterImbriquers?.length > 0) {
+      options = Object.values(componentsStore)
+        .filter(
+          component =>
+            component.type !== LOOP &&
+            component.type !== FILTER &&
+            component.type !== NESTEDFILTRE &&
+            component.id !== 'idendquest' &&
+            component.type ===
+              componentsStore[
+                componentsStore[filterImbriquers[0]].initialMember
+              ].type &&
+            component.parent ===
+              componentsStore[
+                componentsStore[filterImbriquers[0]].initialMember
+              ].parent &&
+            component.weight <= inferieur(),
+        )
+        .map(element => {
+          return (
+            <GenericOption key={element.id} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
     } else {
       options = Object.values(componentsStore)
         .filter(
-          component => component.type !== LOOP && component.id !== 'idendquest',
+          component =>
+            component.type !== LOOP &&
+            component.type !== FILTER &&
+            component.type !== NESTEDFILTRE &&
+            component.id !== 'idendquest',
         )
         .map(element => {
           return (

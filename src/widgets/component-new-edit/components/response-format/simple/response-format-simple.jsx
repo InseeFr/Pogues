@@ -15,14 +15,17 @@ const { SIMPLE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormatSimple extends Component {
   static selectorPath = SIMPLE;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
     showMandatory: PropTypes.bool,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
     showMandatory: true,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -31,6 +34,7 @@ class ResponseFormatSimple extends Component {
       ? `${selectorPathParent}.${ResponseFormatSimple.selectorPath}`
       : ResponseFormatSimple.selectorPath;
   }
+
   render() {
     const { showMandatory } = this.props;
     const styleMandatory = {
@@ -60,15 +64,15 @@ class ResponseFormatSimple extends Component {
           <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
             <ResponseFormatDatatypeText />
           </View>
-          <View key={DATE} value={DATE} label={Dictionary.DATE} >
-          <ResponseFormatDatatypeDate />
+          <View key={DATE} value={DATE} label={Dictionary.DATE}>
+            <ResponseFormatDatatypeDate />
           </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
             <ResponseFormatDatatypeNumeric />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
-          <View key={DURATION} value={DURATION} label={Dictionary.DURATION} >
-          <ResponseFormatDatatypeDuree />
+          <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>
+            <ResponseFormatDatatypeDuree />
           </View>
         </SelectorView>
       </FormSection>

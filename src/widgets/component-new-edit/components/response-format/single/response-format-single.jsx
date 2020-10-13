@@ -3,16 +3,12 @@ import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import {
-  UI_BEHAVIOUR,
   DATATYPE_VIS_HINT,
   QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
-import { OptionalView } from 'widgets/optional-view';
 import { CodesLists } from 'widgets/codes-lists';
 import Dictionary from 'utils/dictionary/dictionary';
 import GenericOption from 'forms/controls/generic-option';
-import Input from 'forms/controls/input';
-import Select from 'forms/controls/select';
 import ListRadios from 'forms/controls/list-radios';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
@@ -20,14 +16,17 @@ const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
 class ResponseFormatSingle extends Component {
   static selectorPath = SINGLE_CHOICE;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
     showMandatory: PropTypes.bool,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
     showMandatory: true,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -36,6 +35,7 @@ class ResponseFormatSingle extends Component {
       ? `${selectorPathParent}.${ResponseFormatSingle.selectorPath}`
       : ResponseFormatSingle.selectorPath;
   }
+
   render() {
     const { showMandatory } = this.props;
     const styleMandatory = {

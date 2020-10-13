@@ -11,9 +11,11 @@ import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateExternalVariableForm } from 'utils/validation/validate';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
-
-import { DATATYPE_NAME} from 'constants/pogues-constants';
+import {
+  TABS_PATHS,
+  DEFAULT_FORM_NAME,
+  DATATYPE_NAME,
+} from 'constants/pogues-constants';
 
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
@@ -45,17 +47,20 @@ export const defaultProps = {
 
 // Component
 
-function ExternalVariables({ formName, selectorPath, errors, addErrors, componentsStore }) {
+function ExternalVariables({
+  formName,
+  selectorPath,
+  errors,
+  addErrors,
+  componentsStore,
+}) {
   const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
     return (
-      <GenericOption
-        key={element.id}
-        value={element.id}
-      >
-       {element.name}
+      <GenericOption key={element.id} value={element.id}>
+        {element.name}
       </GenericOption>
-    )
-  }); 
+    );
+  });
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -89,27 +94,19 @@ function ExternalVariables({ formName, selectorPath, errors, addErrors, componen
           <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
             <ResponseFormatDatatypeText required={false} />
           </View>
-          <View key={DATE} value={DATE} label={Dictionary.DATE} >
+          <View key={DATE} value={DATE} label={Dictionary.DATE}>
             <ResponseFormatDatatypeDate />
-            </View>
+          </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
             <ResponseFormatDatatypeNumeric required={false} />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
-         
         </SelectorView>
-        <Field
-          name="scope"
-          component={Select}
-          label={Dictionary.Scope}
-        >
-          <GenericOption
-            key=''
-            value=''
-          >
+        <Field name="scope" component={Select} label={Dictionary.Scope}>
+          <GenericOption key="" value="">
             {Dictionary.selectScope}
           </GenericOption>
-            {scopeOption}
+          {scopeOption}
         </Field>
       </ListWithInputPanel>
     </FormSection>
