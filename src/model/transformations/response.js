@@ -37,6 +37,7 @@ export function stateToRemote(state) {
     specialFollowUpMessage,
     collectedVariable: CollectedVariableReference,
   } = state;
+  console.log('state', state)
 
   const model = {
     id: id || uuid(),
