@@ -235,10 +235,6 @@ export const updateComponent = (
   };
 };
 
-// const modifieFilters = idTargetComponent => (dispatch, getState) => {
-//   const store = getState().appState.activeComponentsById;
-//   console.log('store', store);
-// };
 /**
  * Method used when we drag a component next to another one.
  *
@@ -259,12 +255,9 @@ export const dragComponent = (
       (element.initialMember === idTargetComponent ||
         element.finalMember === idTargetComponent),
   );
-  if (find_Filters?.length > 0) {
+  if (find_Filters.length > 0) {
     find_Filters.forEach(filter => {
-      if (
-        filter.initialMember === idTargetComponent &&
-        filter.finalMember !== idTargetComponent
-      ) {
+      if (filter.finalMember !== idTargetComponent) {
         const next_element = Object.values(activesComponents).find(
           element =>
             activesComponents[filter.initialMember] &&
@@ -295,10 +288,7 @@ export const dragComponent = (
             },
           });
         }
-      } else if (
-        filter.initialMember !== idTargetComponent &&
-        filter.finalMember === idTargetComponent
-      ) {
+      } else if (filter.initialMember !== idTargetComponent) {
         const next_element = Object.values(activesComponents).find(
           element =>
             activesComponents[filter.finalMember] &&
