@@ -235,10 +235,6 @@ export const updateComponent = (
   };
 };
 
-// const modifieFilters = idTargetComponent => (dispatch, getState) => {
-//   const store = getState().appState.activeComponentsById;
-//   console.log('store', store);
-// };
 /**
  * Method used when we drag a component next to another one.
  *

@@ -52,6 +52,7 @@ describe('questionnaire', () => {
       operation: 'operation01',
       campaigns: ['campaign01'],
       TargetMode: [''],
+      ComponentGroup: [],
     };
     const store = {
       componentsStore: {

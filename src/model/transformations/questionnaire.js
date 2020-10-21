@@ -31,9 +31,10 @@ function generateComponentGroups(componentsStore, ComponentGroup) {
   orderedComponents.forEach(componentId => {
     if (!result[startPage - 1]) {
       result.push({
-        id: ComponentGroup[startPage - 1].id
-          ? ComponentGroup[startPage - 1].id
-          : uuid(),
+        id:
+          ComponentGroup && ComponentGroup[startPage - 1]?.id
+            ? ComponentGroup[startPage - 1].id
+            : uuid(),
         Name: `PAGE_${startPage}`,
         Label: [`Components for page ${startPage}`],
         MemberReference: [],
@@ -200,6 +201,5 @@ export function stateToRemote(state, stores) {
   if (dynamiqueSpecified === 'Filtres') {
     json.FlowControl = FlowControl;
   }
-  console.log('json', json);
   return json;
 }

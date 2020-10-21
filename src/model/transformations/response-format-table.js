@@ -368,6 +368,7 @@ export function stateToRemote(
   state,
   collectedVariables,
   collectedVariablesStore,
+  response,
 ) {
   const {
     [PRIMARY]: primaryState,
@@ -441,6 +442,7 @@ export function stateToRemote(
       collectedVariablesByDatatype,
       collectedVariablesStore,
       QUESTION_TYPE_ENUM.TABLE,
+      response,
     );
 
     responsesModel = [...responsesModel, ...responsesModelByRow.Response];

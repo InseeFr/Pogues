@@ -389,7 +389,6 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
       : state.appState.activeComponentsById;
 
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
-    console.log('questionnaireModel', questionnaireModel);
     if (type === 'pdf') {
       visualizePdf(questionnaireModel);
     } else if (type === 'spec') {

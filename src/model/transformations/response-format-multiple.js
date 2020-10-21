@@ -66,6 +66,7 @@ export function stateToRemote(
   state,
   collectedVariables,
   collectedVariablesStore,
+  response,
 ) {
   const {
     [PRIMARY]: primaryState,
@@ -100,6 +101,7 @@ export function stateToRemote(
     collectedVariables,
     collectedVariablesStore,
     QUESTION_TYPE_ENUM.MULTIPLE_CHOICE,
+    response,
   );
   return {
     Dimension: dimensionsModel,

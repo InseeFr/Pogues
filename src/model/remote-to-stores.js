@@ -14,7 +14,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     CodeLists: { CodeList: codesLists },
     Variables: { Variable: variables },
   } = remote;
-console.log('remote', remote);
   let iterations = [];
   if (remote.Iterations && remote.Iterations.Iteration) {
     iterations = remote.Iterations.Iteration;

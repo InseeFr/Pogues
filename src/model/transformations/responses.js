@@ -6,6 +6,7 @@ export function stateToModel(
   collectedVariables,
   collectedVariablesStore,
   type,
+  response,
 ) {
   let collectedVariablesFinal = collectedVariables;
   if (
@@ -23,13 +24,9 @@ export function stateToModel(
       }
     });
   }
-  console.log('collectedVariablesFinal', collectedVariablesFinal);
-
   const responsesModel = collectedVariablesFinal.map(cv =>
-    Response.stateToRemote({ ...state, collectedVariable: cv }),
+    Response.stateToRemote({ ...state, collectedVariable: cv }, response),
   );
-  console.log('responsesModel', responsesModel);
-
   const attributeModel = [];
   const mappingModel = responsesModel.map(r => {
     const { x, y, isCollected } = collectedVariablesStore[
@@ -47,8 +44,6 @@ export function stateToModel(
     }
     return { MappingSource: r.id, MappingTarget };
   });
-  console.log('mappingModel', mappingModel)
-
   if (type === QUESTION_TYPE_ENUM.TABLE) {
     return {
       Response: responsesModel,
