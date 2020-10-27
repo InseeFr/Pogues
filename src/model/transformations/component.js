@@ -322,8 +322,7 @@ function remoteToStoreNested(
   });
   let acc1 = acc;
   filters.forEach(filter => {
-    const filt = Filters.remoteToState(filter, parent, acc);
-    acc1 = { ...acc1, ...filt };
+    acc1 = Filters.remoteToState(filter, parent, acc1);
   });
   return acc1;
 }

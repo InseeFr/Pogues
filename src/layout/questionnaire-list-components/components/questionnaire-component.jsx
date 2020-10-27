@@ -46,7 +46,8 @@ const QuestionnaireComponent = props => {
     parentType,
     visualizeActiveQuestionnaire,
     handleRemovePageBreak,
-    componentFilters,
+    componentFiltersInitial,
+    componentFiltersFinal,
   } = props;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
@@ -128,7 +129,9 @@ const QuestionnaireComponent = props => {
               'questionnaire-element-info': true,
               over: isOver,
               'question-filter':
-                component.type === QUESTION && componentFilters?.length > 0,
+                component.type === QUESTION &&
+                (componentFiltersInitial?.length > 0 ||
+                  componentFiltersFinal?.length > 0),
             })}
           >
             <div className="questionnaire-element-name">{component.name}</div>
@@ -145,21 +148,34 @@ const QuestionnaireComponent = props => {
                     component.label
                   )}
                 </div>
-                {componentFilters?.length > 0
-                  ? componentFilters.map(filter => {
+                {componentFiltersInitial?.length > 0
+                  ? componentFiltersInitial.map(filter => {
                       return (
                         <div className="questionnaire-element-filter">
                           <button
                             onClick={() => handleEditFilterComponent(filter.id)}
                             className="btn-white-filter"
                           >
-                            {filter?.filter}
+                            {`${Dictionary.If} ${filter?.filter}`}
                           </button>
                         </div>
                       );
                     })
                   : false}
-
+                {componentFiltersFinal?.length > 0
+                  ? componentFiltersFinal.map(filter => {
+                      return (
+                        <div className="questionnaire-element-filter">
+                          <button
+                            onClick={() => handleEditFilterComponent(filter.id)}
+                            className="btn-white-filter"
+                          >
+                            {`${Dictionary.EndIf} ${filter?.filter}`}
+                          </button>
+                        </div>
+                      );
+                    })
+                  : false}
                 {selected ? (
                   <div className="questionnaire-element-actions">
                     <button
