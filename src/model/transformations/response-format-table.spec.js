@@ -568,4 +568,91 @@ describe('stateToRemote', () => {
     });
     expect(outputMapping[0].MappingTarget).toEqual('1 1');
   });
+
+  it('get responses id when edting question', () => {
+    const state = {
+      LIST_MEASURE: [
+        {
+          SIMPLE: {
+            TEXT: { maxLength: 255, pattern: '' },
+            type: 'TEXT',
+          },
+          label: 'testlibe',
+          type: 'SIMPLE',
+        },
+      ],
+      PRIMARY: {
+        LIST: { numLinesMin: 2, numLinesMax: 1 },
+        showTotalLabel: '0',
+        totalLabel: '',
+        type: 'LIST',
+      },
+    };
+    const collectedVariables = ['kgs2nhvj'];
+    const collectedVariablesStore = {
+      kgs2nhvj: {
+        BOOLEAN: undefined,
+        DATE: undefined,
+        DURATION: undefined,
+        NUMERIC: undefined,
+        TEXT: { maxLength: 255, pattern: '' },
+        codeListReference: undefined,
+        codeListReferenceLabel: '',
+        id: 'kgs2nhvj',
+        isCollected: true,
+        label: 'testlibe',
+        mesureLevel: undefined,
+        name: 'QUESTIONTA1',
+        type: 'TEXT',
+        x: 1,
+        y: 1,
+        z: undefined,
+      },
+    };
+    const response = [
+      {
+        CollectedVariableReference: 'kgs2nhvj',
+        Datatype: {
+          typeName: 'TEXT',
+          type: 'TextDatatypeType',
+          MaxLength: 255,
+          Pattern: '',
+        },
+        id: 'kgs2rz8e',
+      },
+    ];
+    const result = stateToRemote(
+      state,
+      collectedVariables,
+      collectedVariablesStore,
+      response,
+    );
+
+    expect(result.Dimension).toEqual([
+      { dimensionType: 'PRIMARY', dynamic: '2-1' },
+      {
+        Label: 'testlibe',
+        dimensionType: 'MEASURE',
+        dynamic: '0',
+      },
+    ]);
+
+    expect(result.Attribute).toEqual([]);
+
+    const outputMapping = result.Mapping;
+    const outputResponse = result.Response;
+
+    expect(outputMapping.length).toEqual(outputResponse.length);
+    expect(outputResponse[0]).toEqual({
+      CollectedVariableReference: 'kgs2nhvj',
+      Datatype: {
+        typeName: 'TEXT',
+        type: 'TextDatatypeType',
+        MaxLength: 255,
+        Pattern: '',
+      },
+      id: 'kgs2rz8e',
+    });
+    expect(outputMapping[0].MappingTarget).toEqual('1 1');
+  });
 });
