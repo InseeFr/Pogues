@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Header from 'layout/header/header';
@@ -12,7 +12,6 @@ const { COMPONENT_ID } = APP;
 
 // Component
 const App = props => {
-
   useEffect(() => {
     props.loadUser();
     props.loadUnitsIfNeeded();
@@ -25,7 +24,7 @@ const App = props => {
       <Footer />
     </div>
   );
-}
+};
 // Prop types and default props
 
 App.propTypes = {

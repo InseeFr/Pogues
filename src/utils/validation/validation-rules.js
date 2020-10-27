@@ -81,7 +81,8 @@ export const questionRules = {
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.maminutes`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value => (value != undefined && value != '' ? maxValue(59)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(59)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miminutes`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
@@ -91,7 +92,8 @@ export const questionRules = {
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahundredths`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value => (value != undefined && value != '' ? maxValue(99)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(99)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mihundredths`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),

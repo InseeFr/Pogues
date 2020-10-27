@@ -11,12 +11,15 @@ const { SECONDARY } = DIMENSION_TYPE;
 
 class ResponseFormatTableSecondary extends Component {
   static selectorPath = SECONDARY;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -25,6 +28,7 @@ class ResponseFormatTableSecondary extends Component {
       ? `${selectorPathParent}.${ResponseFormatTableSecondary.selectorPath}`
       : ResponseFormatTableSecondary.selectorPath;
   }
+
   render() {
     return (
       <FormSection name={ResponseFormatTableSecondary.selectorPath}>

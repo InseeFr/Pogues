@@ -14,6 +14,7 @@ import {
   SEQUENCE_TYPE_NAME,
   QUESTION_TYPE_NAME,
   QUESTION_TYPE_ENUM,
+  QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
 
 const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
@@ -25,6 +26,7 @@ const {
   LOOP,
   FILTER,
 } = COMPONENT_TYPE;
+const { Filtres } = QUESTIONNAIRE_TYPE;
 
 function sortByWeight(store) {
   return (keyA, keyB) => {
@@ -162,6 +164,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
       }
     });
   });
+  console.log('variableClarification', variableClarification)
   return variableClarification;
 }
 
@@ -353,10 +356,14 @@ function getClarificationresponseSingleChoiseQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
+  console.log('collectedvariablequestion', collectedvariablequestion);
+
   collectedvariablequestion.forEach(function(collected) {
     const code = Object.values(
       codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
     ).find(code => code.weight === collected.z);
+    console.log('code', code);
+
     if (code) {
       const clafication = {
         id: uuid(),
@@ -559,6 +566,7 @@ function storeToRemoteNested(
   store,
   collectedVariablesStore,
   codesListsStore,
+  dynamiqueSpecified,
   depth = 1,
 ) {
   const {
@@ -584,9 +592,12 @@ function storeToRemoteNested(
       Declaration: Declaration.stateToRemote(declarations),
       Control: Control.stateToRemote(controls),
       // Trello #196 : ouput : GoTo --> FlowControl
-      FlowControl: Redirection.stateToRemote(redirections),
+      FlowControl: [],
       TargetMode,
     };
+    if (dynamiqueSpecified !== Filtres) {
+      remote.FlowControl = Redirection.stateToRemote(redirections);
+    }
 
     if (type === QUESTION) {
       if (
@@ -606,7 +617,6 @@ function storeToRemoteNested(
         remote.ClarificationQuestion =
           remoteclarification.ClarificationQuestion;
       }
-
       if (
         responseFormat.type === MULTIPLE_CHOICE &&
         collectedVariablesStore !== undefined
@@ -667,9 +677,12 @@ function storeToRemoteNested(
         store,
         collectedVariablesStore,
         codesListsStore,
+        dynamiqueSpecified,
         depth,
       );
     }
+    console.log('remote', remote)
+
     return remote;
   }
 }
@@ -678,6 +691,7 @@ function childrenToRemote(
   store,
   collectedVariablesStore = {},
   codesListsStore,
+  dynamiqueSpecified,
   depth = 0,
 ) {
   return children.sort(sortByWeight(store)).map(key => {
@@ -687,6 +701,7 @@ function childrenToRemote(
       store,
       collectedVariablesStore,
       codesListsStore,
+      dynamiqueSpecified,
       newDepth,
     ); // eslint-disable-line no-use-before-define
   });
@@ -717,6 +732,7 @@ export function storeToRemote(
   questionnaireId,
   collectedVariablesStore,
   codesListsStore,
+  dynamiqueSpecified,
 ) {
   return store[questionnaireId].children.sort(sortByWeight(store)).map(key => {
     return storeToRemoteNested(
@@ -724,6 +740,7 @@ export function storeToRemote(
       store,
       collectedVariablesStore,
       codesListsStore,
+      dynamiqueSpecified,
     );
   });
 }

@@ -8,7 +8,7 @@ import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
 
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
-import { TargetMode } from 'constants/pogues-constants';
+import { TargetMode, QUESTIONNAIRE_TYPE } from 'constants/pogues-constants';
 
 import { updateNameField } from 'utils/utils';
 
@@ -19,6 +19,7 @@ const {
   VALIDATE,
 } = WIDGET_QUESTIONNAIRE_NEW_EDIT;
 
+const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 // Componet
 
 function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
@@ -57,11 +58,11 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
           label={Dictionary.dynamiqueSpecified}
           inline
         >
-          <GenericOption key="Redirections" value="Redirections">
-            {'Redirections'}
+          <GenericOption key={Redirections} value={Redirections}>
+            {Redirections}
           </GenericOption>
-          <GenericOption key="Filtres" value="Filtres">
-            {'Filtres'}
+          <GenericOption key={Filtres} value={Filtres}>
+            {Filtres}
           </GenericOption>
         </Field>
         <div className={FOOTER}>

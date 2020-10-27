@@ -247,3 +247,8 @@ export const QUESTION_END_CHILD = {
   type: 'SequenceType',
   Child: [],
 };
+
+export const QUESTIONNAIRE_TYPE = {
+  Filtres: 'Filtres',
+  Redirections: 'Redirections',
+};
