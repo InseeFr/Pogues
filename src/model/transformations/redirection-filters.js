@@ -1,4 +1,3 @@
-import { uuid } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
