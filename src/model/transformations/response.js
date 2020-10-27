@@ -89,6 +89,5 @@ export function stateToRemote(state, response) {
       invite: specialFollowUpMessage,
     };
   }
-  console.log('model', model)
   return model;
 }
