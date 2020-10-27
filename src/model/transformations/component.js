@@ -164,7 +164,6 @@ export function getClarificarionfromremote(Children, collectedVariables) {
       }
     });
   });
-  console.log('variableClarification', variableClarification)
   return variableClarification;
 }
 
@@ -356,14 +355,11 @@ function getClarificationresponseSingleChoiseQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
-  console.log('collectedvariablequestion', collectedvariablequestion);
 
   collectedvariablequestion.forEach(function(collected) {
     const code = Object.values(
       codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
     ).find(code => code.weight === collected.z);
-    console.log('code', code);
-
     if (code) {
       const clafication = {
         id: uuid(),
@@ -681,8 +677,6 @@ function storeToRemoteNested(
         depth,
       );
     }
-    console.log('remote', remote)
-
     return remote;
   }
 }
