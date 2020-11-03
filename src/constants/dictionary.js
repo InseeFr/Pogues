@@ -1468,6 +1468,10 @@ const dictionary = {
     fr: 'Fin si',
     en: 'End if',
   },
+  IsNotLetter: {
+    en: 'Id should begin with a letter',
+    fr: "L'identifiant de la variable doit commencer par une lettre",
+  },
 };
 
 // Dynamic translations

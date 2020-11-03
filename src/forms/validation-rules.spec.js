@@ -13,6 +13,7 @@ import {
   validCollectedVariables,
   validateExistingTarget,
   validateDuplicates,
+  letterStart,
 } from './validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -483,5 +484,14 @@ describe('validCollectedVariables', () => {
     expect(validCollectedVariables(value, state)).toBe(
       Dictionary.validation_collectedvariable_need_reset,
     );
+  });
+});
+
+describe('letterStart', () => {
+  it('should return the error message if  Identifiant start with number', () => {
+    expect(letterStart('5TTJDJ')).toEqual(Dictionary.IsNotLetter);
+  });
+  it('should return undefined if value undefined', () => {
+    expect(letterStart(undefined)).toBeUndefined();
   });
 });
