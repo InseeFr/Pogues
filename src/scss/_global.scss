@@ -166,6 +166,42 @@ a {
   }
 }
 
+.popup-notSaved {
+    position: relative;
+    top: 20%;
+    left: 30%;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+    width: 40%;
+    text-align: center;
+    height: 30%;
+  .popup-header {
+    @include make-row();
+    text-transform: uppercase;
+    color: $color-blue_02;
+
+    h3 {
+      @include make-xs-column(11);
+      margin-top: 0;
+    }
+
+    button {
+      @include make-xs-column(1);
+      background: none;
+      border: none;
+      text-align: right;
+
+      &:hover {
+        color: darken($color-blue_02, 50%);
+      }
+    }
+  }
+}
+
 .alert-triangle {
   position: relative;
   background-color: red;

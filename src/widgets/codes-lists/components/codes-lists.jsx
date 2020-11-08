@@ -79,7 +79,6 @@ const CodesList = props => {
 
   useEffect(() => {
     clearSearchResult();
-    change(formName, `${path}panel`, NEW);
   }, []);
 
   useEffect(() => {

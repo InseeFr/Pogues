@@ -13,6 +13,10 @@ export const defaultForm = {
   id: '',
   label: '',
   codes: [],
+  panel: 'NEW',
+  precisionid: '',
+  precisionlabel: '',
+  precisionsize: '',
 };
 
 export function formToState(form) {

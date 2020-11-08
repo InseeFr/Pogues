@@ -794,7 +794,14 @@ const dictionary = {
     fr:
       "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
-
+  saveLower: {
+    en: 'Thanks to save your lower level edits',
+    fr: 'Merci de valider tes modifications de niveau inferieur',
+  },
+  saveLowerTitle: {
+    en: 'Modifications not validate',
+    fr: "Modifications n'ont pas validés",
+  },
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
     fr:

@@ -88,6 +88,7 @@ const ComponentNewEdit = props => {
     activeQuestionnaire,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [filterImbriquers, setFilterImbriquers] = useState(
     filterImbriquer?.length > 0 ? filterImbriquer : [],
   );
@@ -97,6 +98,35 @@ const ComponentNewEdit = props => {
   const handleCloseNestedFilter = () => {
     setShowNewNestedFilter(false);
     setFilterId('');
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const checkUnsavedChange = data => {
+    if (
+      data.collectedVariables.name ||
+      data.calculatedVariables.name ||
+      data.externalVariables.name ||
+      data.redirections.label ||
+      data.controls.label ||
+      data.declarations.label ||
+      data.responseFormat.SINGLE_CHOICE.CodesList['input-code']?.value ||
+      data.responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList['input-code']
+        ?.value ||
+      data.responseFormat.MULTIPLE_CHOICE.MEASURE.CODES_LIST.CodesList[
+        'input-code'
+      ]?.value ||
+      data.responseFormat.TABLE.PRIMARY.CODES_LIST.CodesList['input-code']
+        ?.value ||
+      data.responseFormat.TABLE.SECONDARY.CodesList['input-code']?.value ||
+      data.responseFormat.TABLE.LIST_MEASURE.label
+    ) {
+      setShowPopup(true);
+    } else {
+      onSubmit({ ...data, filterImbriquer: filterImbriquers });
+    }
   };
 
   const handleOpenFilter = (e, index) => {
@@ -420,11 +450,7 @@ const ComponentNewEdit = props => {
   };
   return (
     <div className={COMPONENT_CLASS}>
-      <form
-        onSubmit={handleSubmit(data =>
-          onSubmit({ ...data, filterImbriquer: filterImbriquers }),
-        )}
-      >
+      <form onSubmit={handleSubmit(data => checkUnsavedChange(data))}>
         {componentType === QUESTION ? (
           <AssociatedFields
             {...associatedFieldsProps}
@@ -630,6 +656,23 @@ const ComponentNewEdit = props => {
               initialMemberFilter={props.InitialMember}
             />
           </div>
+        </div>
+      </ReactModal>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showPopup}
+        onRequestClose={handleClosePopup}
+        contentLabel="Alert Save"
+      >
+        <div className="popup-notSaved">
+          <div className="popup-header">
+            <h3>{Dictionary.saveLowerTitle}</h3>
+            <button type="button" onClick={handleClosePopup}>
+              <span>X</span>
+            </button>
+          </div>
+          <div className="popup-body">{Dictionary.saveLower}</div>
         </div>
       </ReactModal>
     </div>
