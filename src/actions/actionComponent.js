@@ -215,8 +215,13 @@ export const updateComponent = (
   externalVariablesStore = {},
   collectedVariablesStore = {},
   codesListsStore = {},
-) => {
-  return {
+) => (dispatch, getState) => {
+  const state = getState();
+  console.log('componentId', componentId);
+  console.log('componentsStore', componentsStore);
+  console.log('state', state);
+
+  return dispatch({
     type: UPDATE_COMPONENT,
     payload: {
       componentId,
@@ -230,7 +235,7 @@ export const updateComponent = (
         activeCodeListsById: codesListsStore,
       },
     },
-  };
+  });
 };
 /**
  * Method used when we drag a component next to another one.

@@ -106,22 +106,23 @@ const ComponentNewEdit = props => {
 
   const checkUnsavedChange = data => {
     if (
-      data.collectedVariables.name ||
-      data.calculatedVariables.name ||
-      data.externalVariables.name ||
-      data.redirections.label ||
-      data.controls.label ||
-      data.declarations.label ||
-      data.responseFormat.SINGLE_CHOICE.CodesList['input-code']?.value ||
-      data.responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList['input-code']
-        ?.value ||
-      data.responseFormat.MULTIPLE_CHOICE.MEASURE.CODES_LIST.CodesList[
-        'input-code'
-      ]?.value ||
-      data.responseFormat.TABLE.PRIMARY.CODES_LIST.CodesList['input-code']
-        ?.value ||
-      data.responseFormat.TABLE.SECONDARY.CodesList['input-code']?.value ||
-      data.responseFormat.TABLE.LIST_MEASURE.label
+      componentType === QUESTION &&
+      (data.collectedVariables.name ||
+        data.calculatedVariables.name ||
+        data.externalVariables.name ||
+        data.redirections.label ||
+        data.controls.label ||
+        data.declarations.label ||
+        data.responseFormat.SINGLE_CHOICE.CodesList['input-code']?.value ||
+        data.responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList['input-code']
+          ?.value ||
+        data.responseFormat.MULTIPLE_CHOICE.MEASURE.CODES_LIST.CodesList[
+          'input-code'
+        ]?.value ||
+        data.responseFormat.TABLE.PRIMARY.CODES_LIST.CodesList['input-code']
+          ?.value ||
+        data.responseFormat.TABLE.SECONDARY.CodesList['input-code']?.value ||
+        data.responseFormat.TABLE.LIST_MEASURE.label)
     ) {
       setShowPopup(true);
     } else {
