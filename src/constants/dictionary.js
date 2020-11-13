@@ -794,7 +794,14 @@ const dictionary = {
     fr:
       "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
-
+  saveLower: {
+    en: 'Thanks to save all the action of the page',
+    fr: 'Merci de valider toutes les actions de la page',
+  },
+  saveLowerTitle: {
+    en: 'Modifications not validate',
+    fr: "Modifications n'ont pas validées",
+  },
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
     fr:
@@ -1467,6 +1474,10 @@ const dictionary = {
   EndIf: {
     fr: 'Fin si',
     en: 'End if',
+  },
+  IsNotLetter: {
+    en: 'Id should begin with a letter',
+    fr: "L'identifiant de la variable doit commencer par une lettre",
   },
 };
 

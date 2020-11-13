@@ -43,8 +43,8 @@ const defaultProps = {
     value: '',
     label: '',
     precisionid: '',
-    precisionlabel: `${Dictionary.specify} :`,
-    precisionsize: '249',
+    precisionlabel: '',
+    precisionsize: '',
   },
 };
 
@@ -74,20 +74,16 @@ class CodesListInputCode extends ComponentWithValidation {
       change(formName, `${path}label`, code.label);
       if (code.precisionid !== undefined && code.precisionid !== '') {
         change(formName, `${path}precisionid`, code.precisionid);
+        change(formName, `${path}precisionlabel`, code.precisionlabel);
+        change(formName, `${path}precisionsize`, code.precisionsize);
       } else if (precisionShow) {
         change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
+        change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
+        change(formName, `${path}precisionsize`, '249');
       } else {
         change(formName, `${path}precisionid`, '');
-      }
-      if (code.precisionlabel !== undefined && code.precisionlabel !== '') {
-        change(formName, `${path}precisionlabel`, code.precisionlabel);
-      } else if (precisionShow) {
-        change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
-      }
-      if (code.precisionsize !== undefined && code.precisionsize !== '') {
-        change(formName, `${path}precisionsize`, code.precisionsize);
-      } else {
-        change(formName, `${path}precisionsize`, '249');
+        change(formName, `${path}precisionlabel`, '');
+        change(formName, `${path}precisionsize`, '');
       }
     }
   }

@@ -14,6 +14,7 @@ import {
   validateDuplicatesExternal,
   validateDuplicatesCollected,
   validCollectedVariables,
+  letterStart,
 } from 'forms/validation-rules';
 import {
   TABS_PATHS,
@@ -211,6 +212,7 @@ export const calculatedVariableRules = {
     value => required(value) && Dictionary.validation_calculatedvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesCalculated(value, conf) &&
       Dictionary.validation_calculatedvariable_existing,
@@ -229,6 +231,7 @@ export const externalVariableRules = {
     value => required(value) && Dictionary.validation_externalvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesExternal(value, conf) &&
       Dictionary.validation_externalvariable_existing,
@@ -243,6 +246,7 @@ export const collectedVariableRules = {
     value => required(value) && Dictionary.validation_collectedvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesCollected(value, conf) &&
       Dictionary.validation_collectedvariable_existing,

@@ -78,8 +78,6 @@ class CodesListsCodes extends Component {
     const {
       currentValue,
       currentLabel,
-      currentPrecisionlabel,
-      currentPrecisionsize,
       fields: { push, remove, get },
     } = this.props;
     const { activeCodeIndex } = this.state;
@@ -89,8 +87,8 @@ class CodesListsCodes extends Component {
       value: currentValue,
       label: currentLabel,
       precisionid: undefined,
-      precisionlabel: currentPrecisionlabel,
-      precisionsize: currentPrecisionsize,
+      precisionlabel: undefined,
+      precisionsize: undefined,
       parent: code.parent,
       weight: code.weight,
       depth: code.depth,
@@ -103,6 +101,7 @@ class CodesListsCodes extends Component {
     remove(activeCodeIndex);
 
     push(values);
+    this.clearInputCode();
   }
 
   clearInputCode() {
@@ -110,6 +109,8 @@ class CodesListsCodes extends Component {
     change(formName, `${inputCodePath}value`, '');
     change(formName, `${inputCodePath}label`, '');
     change(formName, `${inputCodePath}precisionid`, '');
+    change(formName, `${inputCodePath}precisionlabel`, '');
+    change(formName, `${inputCodePath}precisionsize`, '');
   }
 
   pushCode() {
@@ -168,6 +169,7 @@ class CodesListsCodes extends Component {
       };
     }
     push(values);
+    this.clearInputCode();
   }
 
   renderInputCode() {
