@@ -14,9 +14,7 @@ import {
   SEQUENCE_TYPE_NAME,
   QUESTION_TYPE_NAME,
   QUESTION_TYPE_ENUM,
-  QUESTION_END,
 } from 'constants/pogues-constants';
-import { checkPropTypes } from 'prop-types';
 
 const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const {
@@ -285,6 +283,9 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     cGroup &&
     cGroupIndex < componentGroup.length - 1 &&
     cGroup.MemberReference.indexOf(id) === cGroup.MemberReference.length - 1;
+  if (questionType === MULTIPLE_CHOICE || questionType === TABLE) {
+    state.response = responses;
+  }
   return state;
 }
 
@@ -572,8 +573,8 @@ function storeToRemoteNested(
     redirections,
     collectedVariables,
     TargetMode,
+    response,
   } = state;
-
   if (type !== LOOP && type !== FILTER) {
     let remote = {
       id,
@@ -649,6 +650,7 @@ function storeToRemoteNested(
           responseFormat,
           collectedVariables,
           collectedVariablesStore,
+          response,
         ),
       };
     } else {

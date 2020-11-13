@@ -17,7 +17,7 @@ import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 
-function generateComponentGroups(componentsStore) {
+function generateComponentGroups(componentsStore, ComponentGroup) {
   const orderedComponents = getOrderedComponents(
     componentsStore,
     Object.keys(componentsStore)
@@ -26,13 +26,15 @@ function generateComponentGroups(componentsStore) {
         (c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight,
       ),
   );
-
   let startPage = 1;
   const result = [];
   orderedComponents.forEach(componentId => {
     if (!result[startPage - 1]) {
       result.push({
-        id: uuid(),
+        id:
+          ComponentGroup && ComponentGroup[startPage - 1]?.id
+            ? ComponentGroup[startPage - 1].id
+            : uuid(),
         Name: `PAGE_${startPage}`,
         Label: [`Components for page ${startPage}`],
         MemberReference: [],
@@ -65,6 +67,7 @@ export function remoteToState(remote, currentStores = {}) {
     TargetMode,
     declarationMode,
     FlowControl,
+    ComponentGroup,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -85,6 +88,7 @@ export function remoteToState(remote, currentStores = {}) {
     campaigns: dataCollection.map(dc => dc.id),
     TargetMode: TargetMode || declarationMode || [],
     dynamiqueSpecified: FlowControl ? 'Filtres' : 'Redirections',
+    ComponentGroup,
   };
 }
 
@@ -103,7 +107,6 @@ export function stateToRemote(state, stores) {
     collectedVariableByQuestionStore,
     campaignsStore,
   } = stores;
-
   const collectedVariablesStore = Object.keys(
     collectedVariableByQuestionStore,
   ).reduce((acc, key) => {
@@ -131,6 +134,7 @@ export function stateToRemote(state, stores) {
     final,
     TargetMode,
     dynamiqueSpecified,
+    ComponentGroup,
   } = state;
 
   const dataCollections = campaigns.map(c => ({
@@ -148,7 +152,7 @@ export function stateToRemote(state, stores) {
     lastUpdatedDate: new Date().toString(),
     DataCollection: dataCollections,
     genericName: QUESTIONNAIRE,
-    ComponentGroup: generateComponentGroups(componentsStore),
+    ComponentGroup: generateComponentGroups(componentsStore, ComponentGroup),
     agency: agency || 'fr.insee',
     TargetMode,
   };

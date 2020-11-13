@@ -13,6 +13,7 @@ export const defaultState = {
   agency: '',
   TargetMode: [],
   dynamiqueSpecified: 'Redirections',
+  ComponentGroup: [],
 };
 
 export function formToState(form) {

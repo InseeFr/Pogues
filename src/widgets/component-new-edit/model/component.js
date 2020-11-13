@@ -143,13 +143,11 @@ const Factory = (initialState = {}, stores = {}) => {
     codesListsStore,
   } = stores;
   let currentStore = componentsStore || {};
-
   let currentState = {
     ...defaultState,
     ...initialState,
     id: initialState.id || uuid(),
   };
-
   const transformers = {
     control: Control(currentState.controls),
     declaration: Declaration(currentState.declarations),

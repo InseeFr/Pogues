@@ -6,29 +6,28 @@ export function stateToModel(
   collectedVariables,
   collectedVariablesStore,
   type,
+  response,
 ) {
   let collectedVariablesFinal = collectedVariables;
   if (
     type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ||
     type === QUESTION_TYPE_ENUM.TABLE
   ) {
-    collectedVariablesFinal.map(collected => {
+    collectedVariablesFinal.forEach(collected => {
       const find = Object.values(collectedVariablesStore).find(
-        variable => variable.id == collected,
+        variable => variable.id === collected,
       );
-      if (find && find.type == 'TEXT' && !find.x) {
+      if (find && find.type === 'TEXT' && !find.x) {
         collectedVariablesFinal = collectedVariablesFinal.filter(
-          element => element != find.id,
+          element => element !== find.id,
         );
       }
     });
   }
   const responsesModel = collectedVariablesFinal.map(cv =>
-    Response.stateToRemote({ ...state, collectedVariable: cv }),
+    Response.stateToRemote({ ...state, collectedVariable: cv }, response),
   );
-
   const attributeModel = [];
-
   const mappingModel = responsesModel.map(r => {
     const { x, y, isCollected } = collectedVariablesStore[
       r.CollectedVariableReference
@@ -45,7 +44,6 @@ export function stateToModel(
     }
     return { MappingSource: r.id, MappingTarget };
   });
-
   if (type === QUESTION_TYPE_ENUM.TABLE) {
     return {
       Response: responsesModel,
