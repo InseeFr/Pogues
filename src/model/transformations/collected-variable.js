@@ -60,8 +60,8 @@ export function remoteToStore(
         Unit: unit,
         Format: format1,
       },
+      z,
     } = ev;
-    const { z } = ev;
     const { mesureLevel } = ev;
     const id = ev.id || uuid();
     const format =
@@ -139,14 +139,11 @@ export function remoteToStore(
           : '',
         [typeName]: datatype,
         ...responsesByVariable[id],
+        z,
+        mesureLevel,
       },
     };
-    if (z) {
-      remote.z = z;
-    }
-    if (mesureLevel) {
-      remote.mesureLevel = mesureLevel;
-    }
+
     return remote;
   }, {});
 }
@@ -295,7 +292,6 @@ export function storeToRemote(store, componentsStore) {
   return Object.keys(store).map(key => {
     const {
       id,
-      z,
       name: Name,
       label: Label,
       type: typeName,

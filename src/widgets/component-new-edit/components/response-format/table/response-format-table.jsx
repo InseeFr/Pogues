@@ -20,17 +20,20 @@ const { TABLE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormatTable extends Component {
   static selectorPath = TABLE;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
     showSecondaryAxis: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     primaryAxisType: PropTypes.string,
     addErrors: PropTypes.func.isRequired,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
     showSecondaryAxis: false,
     primaryAxisType: LIST,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -39,6 +42,7 @@ class ResponseFormatTable extends Component {
       ? `${selectorPathParent}.${ResponseFormatTable.selectorPath}`
       : ResponseFormatTable.selectorPath;
   }
+
   render() {
     const { showSecondaryAxis, primaryAxisType, addErrors } = this.props;
 

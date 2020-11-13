@@ -13,9 +13,14 @@ import {
   removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
-import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  QUESTION_END_CHILD,
+  QUESTIONNAIRE_TYPE,
+} from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
+const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 
 function generateComponentGroups(componentsStore, ComponentGroup) {
   const orderedComponents = getOrderedComponents(
@@ -87,7 +92,7 @@ export function remoteToState(remote, currentStores = {}) {
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
     TargetMode: TargetMode || declarationMode || [],
-    dynamiqueSpecified: FlowControl ? 'Filtres' : 'Redirections',
+    dynamiqueSpecified: FlowControl ? Filtres : Redirections,
     ComponentGroup,
   };
 }
@@ -161,6 +166,7 @@ export function stateToRemote(state, stores) {
     id,
     collectedVariablesWithoutOrphans,
     codesListsStore,
+    dynamiqueSpecified,
   );
   const questionEnd = QUESTION_END_CHILD;
   questionEnd.TargetMode = TargetMode;
@@ -198,7 +204,7 @@ export function stateToRemote(state, stores) {
       Iteration: Iterations,
     };
   }
-  if (dynamiqueSpecified === 'Filtres') {
+  if (dynamiqueSpecified === Filtres) {
     json.FlowControl = FlowControl;
   }
   return json;

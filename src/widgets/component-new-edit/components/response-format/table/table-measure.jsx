@@ -9,12 +9,15 @@ const { MEASURE } = DIMENSION_TYPE;
 
 class ResponseFormatTableMeasure extends Component {
   static selectorPath = MEASURE;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -23,6 +26,7 @@ class ResponseFormatTableMeasure extends Component {
       ? `${selectorPathParent}.${ResponseFormatTableMeasure.selectorPath}`
       : ResponseFormatTableMeasure.selectorPath;
   }
+
   render() {
     return (
       <FormSection name={ResponseFormatTableMeasure.selectorPath}>
