@@ -95,3 +95,18 @@ export function questionnaireListRemoteToStores(questionnairesList) {
   }
   return questionnairesStates;
 }
+
+export function questionnaireListRemoteToStores1(questionnairesList) {
+  const questionnaireById = [];
+
+  for (let i = 0; i < questionnairesList.length; i += 1) {
+    let questionnaireState;
+    try {
+      questionnaireState = Questionnaire.remoteToStore1(questionnairesList[i]);
+    } catch (e) {
+      //
+    }
+    if (questionnaireState) questionnaireById.push(questionnaireState);
+  }
+  return questionnaireById;
+}

@@ -53,6 +53,17 @@ server.use(restifyQueryParser());
 
 server.get('/questionnaires/search', function(req, res, next) {
   // @TODO: Take into account the property "owner"
+  const questionnaires1 = [];
+  questionnaires.forEach(question => {
+    questionnaires1.push({
+      label: question.Label,
+      id: question.id, 
+      lastUpdatedDate: question.lastUpdatedDate,
+      final: question.final
+    })
+  });
+  console.log('questionnaires1', questionnaires1);
+
   res.send(questionnaires);
   next();
 });
@@ -75,11 +86,10 @@ server.get('/questionnaire/:id', function(req, res, next) {
 
 server.put('/questionnaire/:id', function(req, res, next) {
   var qr = req.body;
-  var position = getQuestionnairePosition(questionnaires, req.params.id);
+  var position = getQuestionnairePosition(questionnaires, req.params.id);  
   if (position > -1) {
     questionnaires.splice(position, 1);
   }
-
   questionnaires.push(qr);
   res.send();
   next();
@@ -88,6 +98,7 @@ server.put('/questionnaire/:id', function(req, res, next) {
 server.post('/questionnaires', function(req, res, next) {
   var qr = req.body;
   questionnaires.push(qr);
+  console.log("qr", qr)
   res.header(
     'Location',
     'http://' + req.headers.host + '/questionnaires/' + qr.id,

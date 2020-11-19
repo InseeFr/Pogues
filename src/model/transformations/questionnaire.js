@@ -97,9 +97,32 @@ export function remoteToState(remote, currentStores = {}) {
   };
 }
 
+export function remoteToState1(remote) {
+  const {
+    final,
+    id,
+    Label: [label],
+    lastUpdatedDate,
+  } = remote;
+
+  return {
+    final: final === undefined,
+    id,
+    name,
+    label,
+    lastUpdatedDate,
+  };
+}
+
 export function remoteToStore(remote, currentStores = {}) {
   return {
     [remote.id]: remoteToState(remote, currentStores),
+  };
+}
+
+export function remoteToStore1(remote) {
+  return {
+    [remote.id]: remoteToState1(remote),
   };
 }
 
