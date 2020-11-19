@@ -800,7 +800,7 @@ const dictionary = {
   },
   saveLowerTitle: {
     en: 'Modifications not validate',
-    fr: "Modifications n'ont pas validées",
+    fr: 'Modifications non validées',
   },
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
