@@ -70,7 +70,7 @@ export const filterRules = {
 };
 
 export const questionRules = {
-  name: [required, name],
+  name: [required, name, letterStart],
   label: [required],
   [`${RESPONSE_FORMAT}.type`]: [requiredSelect],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${TEXT}.maxLength`]: [
