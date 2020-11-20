@@ -798,10 +798,7 @@ const dictionary = {
     en: 'Thank you to validate all the actions on the page',
     fr: 'Merci de valider toutes les actions de la page',
   },
-  // saveLower: {
-  //   en: 'One collected variable start with integer',
-  //   fr: 'un variable collecter ',
-  // },
+
   saveLowerTitle: {
     en: 'Modifications not validated',
     fr: 'Modifications non validées',
