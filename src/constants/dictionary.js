@@ -795,11 +795,15 @@ const dictionary = {
       "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
   saveLower: {
-    en: 'Thanks to save all the action of the page',
+    en: 'Thank you to validate all the actions on the page',
     fr: 'Merci de valider toutes les actions de la page',
   },
+  // saveLower: {
+  //   en: 'One collected variable start with integer',
+  //   fr: 'un variable collecter ',
+  // },
   saveLowerTitle: {
-    en: 'Modifications not validate',
+    en: 'Modifications not validated',
     fr: 'Modifications non validées',
   },
   notSaved: {
