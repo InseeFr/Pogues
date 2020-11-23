@@ -31,7 +31,7 @@ import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import NestedFilter from './nestedFilter';
-import { checkVaribleNumberStart } from '../utils/component-new-edit-utils';
+import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 
 const {
   COMPONENT_CLASS,
@@ -131,7 +131,7 @@ const ComponentNewEdit = props => {
     } else if (
       componentType === QUESTION &&
       data.collectedVariables.collectedVariables.length > 0 &&
-      checkVaribleNumberStart(data.collectedVariables.collectedVariables)
+      checkVariableNumberStart(data.collectedVariables.collectedVariables)
     ) {
       setShowPopup(true);
       setIntegerVarible(true);

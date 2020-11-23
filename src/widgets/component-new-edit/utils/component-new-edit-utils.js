@@ -15,7 +15,7 @@ export function getInvalidItemsByType(invalidItems) {
   }, {});
 }
 
-export function checkVaribleNumberStart(variables) {
+export function checkVariableNumberStart(variables) {
   let numberStart = false;
   variables.forEach(variable => {
     if (!isNaN(Number(variable.name.charAt(0)))) {
