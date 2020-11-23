@@ -90,7 +90,7 @@ const ComponentNewEdit = props => {
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [integerVarible, setIntegerVarible] = useState(false);
+  const [integerVariable, setIntegerVariable] = useState(false);
   const [filterImbriquers, setFilterImbriquers] = useState(
     filterImbriquer?.length > 0 ? filterImbriquer : [],
   );
@@ -104,7 +104,7 @@ const ComponentNewEdit = props => {
 
   const handleClosePopup = () => {
     setShowPopup(false);
-    setIntegerVarible(false);
+    setIntegerVariable(false);
   };
 
   const checkUnsavedChange = data => {
@@ -134,7 +134,7 @@ const ComponentNewEdit = props => {
       checkVariableNumberStart(data.collectedVariables.collectedVariables)
     ) {
       setShowPopup(true);
-      setIntegerVarible(true);
+      setIntegerVariable(true);
     } else {
       onSubmit({ ...data, filterImbriquer: filterImbriquers });
     }
@@ -685,7 +685,7 @@ const ComponentNewEdit = props => {
           </div>
           <div className="popup-body">
             {' '}
-            {integerVarible ? Dictionary.IsNotLetter : Dictionary.saveLower}
+            {integerVariable ? Dictionary.IsNotLetter : Dictionary.saveLower}
           </div>
         </div>
       </ReactModal>
