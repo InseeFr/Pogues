@@ -1,6 +1,6 @@
-import { checkVaribleNumberStart } from './component-new-edit-utils';
+import { checkVariableNumberStart } from './component-new-edit-utils';
 
-describe('checkVaribleNumberStart', () => {
+describe('checkVariableNumberStart', () => {
   test('should validate the form', () => {
     const variables = [
       {
@@ -22,7 +22,7 @@ describe('checkVaribleNumberStart', () => {
         type: 'TEXT',
       },
     ];
-    const result = checkVaribleNumberStart(variables);
+    const result = checkVariableNumberStart(variables);
     expect(result).toEqual(true);
   });
 });
