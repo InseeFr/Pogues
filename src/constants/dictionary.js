@@ -101,7 +101,7 @@ const dictionary = {
   },
   loop: {
     en: 'Loop',
-    fr: 'Boucles',
+    fr: 'Boucle',
   },
   filtre: {
     en: 'Filter',
@@ -373,8 +373,8 @@ const dictionary = {
   },
 
   Filter: {
-    en: 'Filter',
-    fr: 'Filtre',
+    en: 'Excepted',
+    fr: 'Sauf',
   },
 
   InitialMembre: {
