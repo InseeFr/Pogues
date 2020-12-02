@@ -534,7 +534,7 @@ const ComponentNewEdit = props => {
             {componentType === FILTER
               ? showFiltersImbriquer(filterImbriquers)
               : false}
-            {componentType === FILTER ? (
+            {/* {componentType === FILTER ? (
               <button
                 className={FILTRE_IMBRIQUER}
                 onClick={e => handleOpenFilter(e)}
@@ -544,7 +544,7 @@ const ComponentNewEdit = props => {
               </button>
             ) : (
               false
-            )}
+            )} */}
             {componentsStore ? (
               <Field
                 name="finalMember"

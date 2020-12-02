@@ -417,6 +417,16 @@ const dictionary = {
     en: 'Specify Nested filter',
   },
 
+  QGoTo: {
+    fr: 'Redirections',
+    en: 'GoTo',
+  },
+
+  QFilter: {
+    fr: 'Filtres',
+    en: 'Filter',
+  },
+
   specify: {
     en: 'Specify',
     fr: 'Préciser',
