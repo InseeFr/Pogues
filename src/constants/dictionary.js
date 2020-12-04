@@ -101,7 +101,7 @@ const dictionary = {
   },
   loop: {
     en: 'Loop',
-    fr: 'Boucles',
+    fr: 'Boucle',
   },
   filtre: {
     en: 'Filter',
@@ -373,8 +373,8 @@ const dictionary = {
   },
 
   Filter: {
-    en: 'Filter',
-    fr: 'Filtre',
+    en: 'Excepted',
+    fr: 'Sauf',
   },
 
   InitialMembre: {
@@ -415,6 +415,16 @@ const dictionary = {
   selectNestedFilter: {
     fr: 'Spécifier Filtre imbriqué',
     en: 'Specify Nested filter',
+  },
+
+  QGoTo: {
+    fr: 'Redirections',
+    en: 'GoTo',
+  },
+
+  QFilter: {
+    fr: 'Filtres',
+    en: 'Filter',
   },
 
   specify: {

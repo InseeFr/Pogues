@@ -475,6 +475,7 @@ const ComponentNewEdit = props => {
               type="text"
               component={Input}
               label={Dictionary.name}
+              required
             />
             {componentsStore && componentType === LOOP ? (
               <div>
@@ -520,6 +521,7 @@ const ComponentNewEdit = props => {
                 name="initialMember"
                 component={Select}
                 label={Dictionary.InitialMembre}
+                required
               >
                 <GenericOption key="" value="">
                   {Dictionary.selectInitialMembre}
@@ -532,7 +534,7 @@ const ComponentNewEdit = props => {
             {componentType === FILTER
               ? showFiltersImbriquer(filterImbriquers)
               : false}
-            {componentType === FILTER ? (
+            {/* {componentType === FILTER ? (
               <button
                 className={FILTRE_IMBRIQUER}
                 onClick={e => handleOpenFilter(e)}
@@ -542,13 +544,14 @@ const ComponentNewEdit = props => {
               </button>
             ) : (
               false
-            )}
+            )} */}
             {componentsStore ? (
               <Field
                 name="finalMember"
                 component={Select}
                 label={Dictionary.FinalMembre}
                 disabled={!props.InitialMember}
+                required
               >
                 <GenericOption key="" value="">
                   {Dictionary.selectFinalMembre}
