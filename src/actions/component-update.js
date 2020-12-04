@@ -1,6 +1,7 @@
 import sortBy from 'lodash.sortby';
 import { toComponents, toId } from 'utils/component/component-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
 const { FILTER, LOOP } = COMPONENT_TYPE;
 /**
  * This function generate a componentById with the children passed as

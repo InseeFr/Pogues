@@ -354,4 +354,3 @@ class GenericInput extends Component {
 }
 
 export default GenericInput;
-
