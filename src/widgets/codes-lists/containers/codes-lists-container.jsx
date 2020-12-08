@@ -48,7 +48,13 @@ export const mapStateToProps = (
   if (codesListsStore[currentId]) {
     currentCodesListsStore = {
       ...codesListsStore,
-      [currentId]: { ...codesListsStore[currentId], label: currentLabel, precisionid: currentPrecisionid, precisionlabel: currentPrecisionlabel, precisionsize: currentPrecisionsize },
+      [currentId]: {
+        ...codesListsStore[currentId],
+        label: currentLabel,
+        precisionid: currentPrecisionid,
+        precisionlabel: currentPrecisionlabel,
+        precisionsize: currentPrecisionsize,
+      },
     };
   } else {
     currentCodesListsStore = codesListsStore;

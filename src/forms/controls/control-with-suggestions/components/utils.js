@@ -42,7 +42,6 @@ export function getValueWithSuggestion(suggestion, caretCursor, fullText) {
   const suffix = '';
   const prefixSeparator = '$';
   const suffixSeparator = suffix ? '$ ' : '$';
-
   return [
     ...prefix,
     prefixSeparator,

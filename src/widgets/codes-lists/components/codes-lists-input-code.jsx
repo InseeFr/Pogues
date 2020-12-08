@@ -10,6 +10,7 @@ import { fieldArrayMeta } from 'utils/proptypes-utils';
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+
 const {
   CODE_INPUT_CLASS,
   CODE_INPUT_CODE_CLASS,
@@ -37,13 +38,13 @@ export const propTypes = {
   clear: PropTypes.func.isRequired,
 };
 
-let defaultProps = {
+const defaultProps = {
   code: {
     value: '',
     label: '',
     precisionid: '',
-    precisionlabel: `${Dictionary.specify} :`,
-    precisionsize: '249',
+    precisionlabel: '',
+    precisionsize: '',
   },
 };
 
@@ -51,6 +52,7 @@ let defaultProps = {
 
 class CodesListInputCode extends ComponentWithValidation {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -64,6 +66,7 @@ class CodesListInputCode extends ComponentWithValidation {
     this.addCode1 = this.addCode1.bind(this);
     this.initInputCode = this.initInputCode.bind(this);
   }
+
   initInputCode(code) {
     const { path, formName, change, precisionShow, Question } = this.props;
     if (code) {
@@ -71,24 +74,16 @@ class CodesListInputCode extends ComponentWithValidation {
       change(formName, `${path}label`, code.label);
       if (code.precisionid !== undefined && code.precisionid !== '') {
         change(formName, `${path}precisionid`, code.precisionid);
-      }
-      else if (precisionShow) {
-        change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
-      }
-      else {
-        change(formName, `${path}precisionid`, '');
-      }
-      if (code.precisionlabel !== undefined && code.precisionlabel !== '') {
         change(formName, `${path}precisionlabel`, code.precisionlabel);
-      }
-      else if (precisionShow) {
-        change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
-      }
-      if (code.precisionsize !== undefined && code.precisionsize !== '') {
         change(formName, `${path}precisionsize`, code.precisionsize);
-      }
-      else {
+      } else if (precisionShow) {
+        change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
+        change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
         change(formName, `${path}precisionsize`, '249');
+      } else {
+        change(formName, `${path}precisionid`, '');
+        change(formName, `${path}precisionlabel`, '');
+        change(formName, `${path}precisionsize`, '');
       }
     }
   }
@@ -139,7 +134,10 @@ class CodesListInputCode extends ComponentWithValidation {
       <div className={CODE_INPUT_CLASS}>
         <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
 
-        <div className="Precision" style={{ display: precisionShow ? 'none' : 'block' }}>
+        <div
+          className="Precision"
+          style={{ display: precisionShow ? 'none' : 'block' }}
+        >
           <Field
             className={CODE_INPUT_CODE_CLASS}
             name="input-code.value"
@@ -212,7 +210,7 @@ class CodesListInputCode extends ComponentWithValidation {
               onClick={remove}
               aria-label={Dictionary.remove}
             >
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              <span className="glyphicon glyphicon-trash" aria-hidden="true" />
             </button>
 
             <div className={CODE_INPUT_ACTIONS_CLASS}>
@@ -233,17 +231,18 @@ class CodesListInputCode extends ComponentWithValidation {
               </button>
             </div>
           </div>
-        ) : false}
+        ) : (
+          false
+        )}
       </div>
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {
     Question: selector(state, 'name'),
-  }
+  };
 };
 
 export default connect(mapStateToProps)(CodesListInputCode);
-

@@ -50,6 +50,17 @@
       }
     }
   }
+  .widget-component-new-edit__filtre_imbriquer {
+    position: relative;
+    float: right;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 15px;
+    padding-left: 26%;
+    border: none;
+    background: transparent;
+    color: #286ac7;
+  }
 
   .response-format__table,
   .response-format__multiple {

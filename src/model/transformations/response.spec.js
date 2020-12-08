@@ -158,7 +158,6 @@ describe('response tranformations', () => {
 
   test('when Format is defined', () => {
     const typeName = 'DATE';
-    const unit = 1;
     const result = stateToRemote({
       typeName,
       id: '1',
@@ -202,6 +201,33 @@ describe('response tranformations', () => {
       label: 'specialLabel',
       firstIntentionDisplay: false,
       invite: 'specialFollowUpMessage',
+    });
+  });
+  test('test when response is undefined ', () => {
+    const response = undefined;
+    const state = { collectedVariable: 'kgs406le', typeName: 'BOOLEAN' };
+    const result = stateToRemote(state, response);
+    expect(result.Datatype).toEqual({
+      typeName: 'BOOLEAN',
+      type: 'BooleanDatatypeType',
+    });
+    expect(result.id).toBeDefined();
+  });
+  test('test when response is not undefined ', () => {
+    const response = [
+      {
+        CollectedVariableReference: 'kgs406le',
+        Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
+        id: 'kgs3mlsd',
+      },
+    ];
+    const state = { collectedVariable: 'kgs406le', typeName: 'BOOLEAN' };
+    const result = stateToRemote(state, response);
+
+    expect(result).toEqual({
+      CollectedVariableReference: 'kgs406le',
+      Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
+      id: 'kgs3mlsd',
     });
   });
 });

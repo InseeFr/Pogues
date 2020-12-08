@@ -196,12 +196,16 @@ export function validCollectedVariables(
     let equal = true;
     if (object2) {
       for (const p in object1) {
-        if (object1[p] == '' && object2[p] != undefined && object2[p] != '') {
+        if (
+          object1[p] === '' &&
+          object2[p] !== undefined &&
+          object2[p] !== ''
+        ) {
           equal = false;
-        } else if (object1[p] != '' && object2[p] == undefined) {
+        } else if (object1[p] !== '' && object2[p] === undefined) {
           equal = false;
-        } else if (object1[p] != '' && object2[p] != undefined) {
-          if (object1[p] != object2[p]) {
+        } else if (object1[p] !== '' && object2[p] !== undefined) {
+          if (object1[p] !== object2[p]) {
             equal = false;
           }
         }
@@ -355,4 +359,11 @@ export function validateDuplicatesCollected(
   }
 
   return validateDuplicates(value, { form: listItems });
+}
+
+// We need to check is element start with a number
+export function letterStart(value) {
+  return value && !isNaN(Number(value.charAt(0)))
+    ? Dictionary.IsNotLetter
+    : undefined;
 }

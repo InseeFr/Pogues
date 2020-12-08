@@ -16,12 +16,15 @@ const { CODES_LIST } = DIMENSION_FORMATS;
 
 class ResponseFormatMultipleMeasureCodeslist extends Component {
   static selectorPath = CODES_LIST;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -30,6 +33,7 @@ class ResponseFormatMultipleMeasureCodeslist extends Component {
       ? `${selectorPathParent}.${ResponseFormatMultipleMeasureCodeslist.selectorPath}`
       : ResponseFormatMultipleMeasureCodeslist.selectorPath;
   }
+
   render() {
     return (
       <FormSection name={ResponseFormatMultipleMeasureCodeslist.selectorPath}>

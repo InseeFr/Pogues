@@ -10,7 +10,6 @@ import {
   CODES_LISTS_PANELS,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
-import Input from 'forms/controls/input';
 import ListRadios from 'forms/controls/list-radios';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
@@ -61,7 +60,6 @@ export const defaultProps = {
 };
 
 const CodesList = props => {
-  
   const {
     change,
     arrayRemoveAll,
@@ -81,11 +79,9 @@ const CodesList = props => {
 
   useEffect(() => {
     clearSearchResult();
-    change(formName, `${path}panel`, NEW);
   }, []);
 
   useEffect(() => {
-
     if (currentIdState !== currentId && currentId === '') {
       change(formName, `${path}id`, '');
       change(formName, `${path}label`, '');
@@ -95,11 +91,7 @@ const CodesList = props => {
 
     if (currentIdState !== currentId && currentId !== '') {
       const codesStore = codesListsStore[currentId].codes;
-      change(
-        formName,
-        `${path}label`,
-        codesListsStore[currentId].label,
-      );
+      change(formName, `${path}label`, codesListsStore[currentId].label);
       change(
         formName,
         `${path}codes`,
@@ -107,9 +99,7 @@ const CodesList = props => {
       );
       setCurrentIdState(currentId);
     }
-
   }, [currentId]);
-
 
   return (
     <FormSection name={selectorPath} className={COMPONENT_CLASS}>
@@ -150,9 +140,7 @@ const CodesList = props => {
             </Field>
           )}
           {activePanel === NEW && (
-            <div
-              ref={refDiv}
-            >
+            <div ref={refDiv}>
               <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
               <Field
                 name="label"
@@ -178,6 +166,6 @@ const CodesList = props => {
       )}
     </FormSection>
   );
-}
+};
 
 export default CodesList;

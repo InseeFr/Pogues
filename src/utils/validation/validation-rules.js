@@ -14,6 +14,7 @@ import {
   validateDuplicatesExternal,
   validateDuplicatesCollected,
   validCollectedVariables,
+  letterStart,
 } from 'forms/validation-rules';
 import {
   TABS_PATHS,
@@ -61,8 +62,15 @@ export const loopRules = {
   ],
 };
 
+export const filterRules = {
+  nameLoop: [required, nameLoop],
+  initialMember: [required],
+  finalMember: [required],
+  filter: [required],
+};
+
 export const questionRules = {
-  name: [required, name],
+  name: [required, name, letterStart],
   label: [required],
   [`${RESPONSE_FORMAT}.type`]: [requiredSelect],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${TEXT}.maxLength`]: [
@@ -74,7 +82,8 @@ export const questionRules = {
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.maminutes`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value => (value != undefined && value != '' ? maxValue(59)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(59)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miminutes`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
@@ -84,7 +93,8 @@ export const questionRules = {
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahundredths`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value => (value != undefined && value != '' ? maxValue(99)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(99)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mihundredths`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
@@ -202,6 +212,7 @@ export const calculatedVariableRules = {
     value => required(value) && Dictionary.validation_calculatedvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesCalculated(value, conf) &&
       Dictionary.validation_calculatedvariable_existing,
@@ -220,6 +231,7 @@ export const externalVariableRules = {
     value => required(value) && Dictionary.validation_externalvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesExternal(value, conf) &&
       Dictionary.validation_externalvariable_existing,
@@ -234,6 +246,7 @@ export const collectedVariableRules = {
     value => required(value) && Dictionary.validation_collectedvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesCollected(value, conf) &&
       Dictionary.validation_collectedvariable_existing,

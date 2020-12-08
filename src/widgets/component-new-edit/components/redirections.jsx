@@ -90,7 +90,6 @@ function Redirections({
           selectorPath={selectorPath}
           componentType={componentType}
         />
-
       </ListWithInputPanel>
     </FormSection>
   );

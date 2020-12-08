@@ -9,12 +9,15 @@ const { CODES_LIST } = DIMENSION_FORMATS;
 
 class ResponseFormatTablePrincipalCodeslist extends Component {
   static selectorPath = CODES_LIST;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -23,6 +26,7 @@ class ResponseFormatTablePrincipalCodeslist extends Component {
       ? `${selectorPathParent}.${ResponseFormatTablePrincipalCodeslist.selectorPath}`
       : ResponseFormatTablePrincipalCodeslist.selectorPath;
   }
+
   render() {
     return (
       <div className="axis-primary__panel">

@@ -5,6 +5,7 @@ import {
   questionRules,
   sequenceRules,
   loopRules,
+  filterRules,
   controlRules,
   declarationRules,
   redirectionRules,
@@ -45,6 +46,14 @@ export function validateSequenceForm(values, setErrors) {
 
 export function validateLoopForm(values, setErrors) {
   const errors = validate(values, loopRules);
+  if (errors.length > 0) {
+    setErrors(errors);
+    throw new SubmissionError(getErrorsObject(errors));
+  }
+}
+
+export function validateFilterForm(values, setErrors) {
+  const errors = validate(values, filterRules);
   if (errors.length > 0) {
     setErrors(errors);
     throw new SubmissionError(getErrorsObject(errors));

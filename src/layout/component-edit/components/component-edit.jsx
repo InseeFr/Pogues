@@ -6,10 +6,11 @@ import {
   validateQuestionForm,
   validateSequenceForm,
   validateLoopForm,
+  validateFilterForm,
 } from 'utils/validation/validate';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -41,23 +42,20 @@ function validateAndSubmit(
   validateQuestion,
   validateSequence,
   validateLoop,
+  validateFilter,
   transformer,
   onSuccess,
 ) {
-
-
   return function(values) {
-
     if (component.type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
-    } 
-    else if (component.type === LOOP){
+    } else if (component.type === LOOP) {
       validateLoop(values);
-    }
-    else {
+    } else if (component.type === FILTER) {
+      validateFilter(values);
+    } else {
       validateSequence(values);
     }
-
 
     const updatedComponentsStore = transformer.formToStore(
       values,
@@ -93,13 +91,16 @@ function ComponentEdit({
   onCancel,
   onSuccess,
   setValidationErrors,
+  activeQuestionnaire,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
   const validateSequence = setValidationErrorsAction => values =>
     validateSequenceForm(values, setValidationErrorsAction);
   const validateLoop = setValidationErrorsAction => values =>
-    validateLoopForm(values, setValidationErrorsAction);  
+    validateLoopForm(values, setValidationErrorsAction);
+  const validateFilter = setValidationErrorsAction => values =>
+    validateFilterForm(values, setValidationErrorsAction);
   const actions = {
     updateComponent,
   };
@@ -115,20 +116,22 @@ function ComponentEdit({
   const initialValues = componentTransformer.stateToForm();
 
   // Validation and submit
-
   return (
     <ComponentNewEdit
       componentType={component.type}
       componentId={component.id}
       onCancel={onCancel}
       initialValues={initialValues}
-      deleteComponent= {deleteComponent}
+      deleteComponent={deleteComponent}
+      updateComponent={updateComponent}
+      activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,
         initialState,
         validateQuestion(setValidationErrors, codesListsStore),
         validateSequence(setValidationErrors),
         validateLoop(setValidationErrors),
+        validateFilter(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}

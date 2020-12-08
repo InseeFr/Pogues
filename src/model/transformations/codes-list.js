@@ -40,7 +40,7 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
 export function getcodelistwithclarification(remote, variableclarification) {
   remote.forEach(codelist => {
     variableclarification.forEach(clarif => {
-      if (clarif.codelistid === codelist.id && clarif.position) {
+      if (clarif.codelistid === codelist.id) {
         let index = 0;
         if (clarif.type === MULTIPLE_CHOICE) {
           index = parseInt(clarif.position);
@@ -58,7 +58,6 @@ export function getcodelistwithclarification(remote, variableclarification) {
       }
     });
   });
-
   return remote;
 }
 export function remoteToStore(remote, variableclarification) {

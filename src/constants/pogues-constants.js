@@ -4,6 +4,8 @@ export const COMPONENT_TYPE = {
   SUBSEQUENCE: 'SUBSEQUENCE',
   QUESTIONNAIRE: 'QUESTIONNAIRE',
   LOOP: 'LOOP',
+  FILTER: 'FILTER',
+  NESTEDFILTRE: 'NESTEDFILTRE',
   // used as a placeholder to place the generic input within the questionnaire
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
@@ -244,4 +246,9 @@ export const QUESTION_END_CHILD = {
   FlowControl: [],
   type: 'SequenceType',
   Child: [],
+};
+
+export const QUESTIONNAIRE_TYPE = {
+  Filtres: 'Filtres',
+  Redirections: 'Redirections',
 };

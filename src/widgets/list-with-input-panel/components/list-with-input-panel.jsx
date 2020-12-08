@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
 import isEqual from 'lodash.isequal';
 import cloneDeep from 'lodash.clonedeep';
+import ReactModal from 'react-modal';
 
 import ListWithInputPanelList from './list-with-input-panel-list';
 
@@ -84,6 +85,7 @@ export const defaultProps = {
 
 class ListWithInputPanel extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -91,9 +93,11 @@ class ListWithInputPanel extends Component {
 
     this.state = {
       selectedItemIndex: undefined,
+      showPopup: false,
     };
 
     this.validate = this.validate.bind(this);
+    this.handleClosePopup = this.handleClosePopup.bind(this);
     this.submit = this.submit.bind(this);
     this.remove = this.remove.bind(this);
     this.duplicate = this.duplicate.bind(this);
@@ -125,6 +129,10 @@ class ListWithInputPanel extends Component {
     return this.props.validateForm(values, this.state);
   }
 
+  handleClosePopup() {
+    this.setState({ showPopup: false });
+  }
+
   submit() {
     const {
       formValues,
@@ -137,26 +145,37 @@ class ListWithInputPanel extends Component {
       name,
       canAddNew,
     } = this.props;
-    const { [name]: items, ...values } = currentValues;
-    const path = getCurrentSelectorPath(selectorPath);
-    const canValidate = this.state.selectedItemIndex !== undefined || canAddNew;
+    if (
+      currentValues.SINGLE_CHOICE &&
+      currentValues.SINGLE_CHOICE.CodesList &&
+      currentValues.SINGLE_CHOICE.CodesList['input-code'] &&
+      (currentValues.SINGLE_CHOICE.CodesList['input-code'].value ||
+        currentValues.SINGLE_CHOICE.CodesList['input-code'].label)
+    ) {
+      this.setState({ showPopup: true });
+    } else {
+      const { [name]: items, ...values } = currentValues;
+      const path = getCurrentSelectorPath(selectorPath);
+      const canValidate =
+        this.state.selectedItemIndex !== undefined || canAddNew;
 
-    if (canValidate && this.validate(formValues)) {
-      if (this.state.selectedItemIndex !== undefined) {
-        arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
-        arrayInsert(
-          formName,
-          `${path}${name}`,
-          this.state.selectedItemIndex,
-          values,
-        );
-      } else if (canAddNew) {
-        arrayPush(formName, `${path}${name}`, values);
+      if (canValidate && this.validate(formValues)) {
+        if (this.state.selectedItemIndex !== undefined) {
+          arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
+          arrayInsert(
+            formName,
+            `${path}${name}`,
+            this.state.selectedItemIndex,
+            values,
+          );
+        } else if (canAddNew) {
+          arrayPush(formName, `${path}${name}`, values);
+        }
+
+        this.removeErrorIntegrityIfExists(values);
+
+        this.reset();
       }
-
-      this.removeErrorIntegrityIfExists(values);
-
-      this.reset();
     }
   }
 
@@ -368,6 +387,23 @@ class ListWithInputPanel extends Component {
             </div>
           </div>
         </div>
+        <ReactModal
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={false}
+          isOpen={this.state.showPopup}
+          onRequestClose={this.handleClosePopup}
+          contentLabel="Alert Save"
+        >
+          <div className="popup-notSaved">
+            <div className="popup-header">
+              <h3>{Dictionary.saveLowerTitle}</h3>
+              <button type="button" onClick={this.handleClosePopup}>
+                <span>X</span>
+              </button>
+            </div>
+            <div className="popup-body">{Dictionary.saveLower}</div>
+          </div>
+        </ReactModal>
       </div>
     );
   }

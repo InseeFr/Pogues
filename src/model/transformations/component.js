@@ -4,6 +4,7 @@ import * as Control from './control';
 import * as Redirection from './redirection';
 import * as Response from './response';
 import * as Loop from './loop';
+import * as Filters from './redirection-filters';
 
 import { uuid } from 'utils/utils';
 import * as CollectedVariable from './collected-variable';
@@ -13,12 +14,19 @@ import {
   SEQUENCE_TYPE_NAME,
   QUESTION_TYPE_NAME,
   QUESTION_TYPE_ENUM,
-  QUESTION_END,
+  QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
-import { checkPropTypes } from 'prop-types';
 
 const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP } = COMPONENT_TYPE;
+const {
+  QUESTION,
+  SEQUENCE,
+  SUBSEQUENCE,
+  QUESTIONNAIRE,
+  LOOP,
+  FILTER,
+} = COMPONENT_TYPE;
+const { Filtres } = QUESTIONNAIRE_TYPE;
 
 function sortByWeight(store) {
   return (keyA, keyB) => {
@@ -66,7 +74,7 @@ function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
 }
 function clarificationQuestion(Children) {
   const Clarification = [];
-  const childr = Children.filter(children => children.Child.length != 0);
+  const childr = Children.filter(children => children.Child.length !== 0);
   childr.forEach(item => {
     item.Child.forEach(clar => {
       if (clar.type === 'SequenceType') {
@@ -220,7 +228,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarationMode,
   } = remote;
   const redirectionClar =
-    redirections !== undefined
+    redirections !== undefined && Array.isArray(redirections) && questionType
       ? redirections.filter(redirec => redirec.flowControlType === undefined)
       : [];
   let responseFinal = responses;
@@ -277,6 +285,9 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     cGroup &&
     cGroupIndex < componentGroup.length - 1 &&
     cGroup.MemberReference.indexOf(id) === cGroup.MemberReference.length - 1;
+  if (questionType === MULTIPLE_CHOICE || questionType === TABLE) {
+    state.response = responses;
+  }
   return state;
 }
 
@@ -286,6 +297,7 @@ function remoteToStoreNested(
   componentGroup,
   codesListsStore = {},
   iterations,
+  filters,
   acc = {},
 ) {
   let weight = 0;
@@ -303,6 +315,7 @@ function remoteToStoreNested(
         componentGroup,
         codesListsStore,
         iterations,
+        filters,
         acc,
       );
     return acc;
@@ -310,7 +323,11 @@ function remoteToStoreNested(
   iterations.forEach(iteration => {
     acc[iteration.id] = Loop.remoteToState(iteration, parent);
   });
-  return acc;
+  let acc1 = acc;
+  filters.forEach(filter => {
+    acc1 = Filters.remoteToState(filter, parent, acc1);
+  });
+  return acc1;
 }
 
 function getClarificationresponseSingleChoiseQuestion(
@@ -320,7 +337,6 @@ function getClarificationresponseSingleChoiseQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
-  Name,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
@@ -339,6 +355,7 @@ function getClarificationresponseSingleChoiseQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
+
   collectedvariablequestion.forEach(function(collected) {
     const code = Object.values(
       codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
@@ -388,7 +405,6 @@ function getClarificationResponseMultipleChoiceQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
-  Name,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
@@ -462,7 +478,6 @@ function getClarificationResponseTableQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
-  Name,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
@@ -547,6 +562,7 @@ function storeToRemoteNested(
   store,
   collectedVariablesStore,
   codesListsStore,
+  dynamiqueSpecified,
   depth = 1,
 ) {
   const {
@@ -561,9 +577,9 @@ function storeToRemoteNested(
     redirections,
     collectedVariables,
     TargetMode,
+    response,
   } = state;
-
-  if (type !== LOOP) {
+  if (type !== LOOP && type !== FILTER) {
     let remote = {
       id,
       depth,
@@ -572,9 +588,12 @@ function storeToRemoteNested(
       Declaration: Declaration.stateToRemote(declarations),
       Control: Control.stateToRemote(controls),
       // Trello #196 : ouput : GoTo --> FlowControl
-      FlowControl: Redirection.stateToRemote(redirections),
+      FlowControl: [],
       TargetMode,
     };
+    if (dynamiqueSpecified !== Filtres) {
+      remote.FlowControl = Redirection.stateToRemote(redirections);
+    }
 
     if (type === QUESTION) {
       if (
@@ -594,7 +613,6 @@ function storeToRemoteNested(
         remote.ClarificationQuestion =
           remoteclarification.ClarificationQuestion;
       }
-
       if (
         responseFormat.type === MULTIPLE_CHOICE &&
         collectedVariablesStore !== undefined
@@ -638,6 +656,7 @@ function storeToRemoteNested(
           responseFormat,
           collectedVariables,
           collectedVariablesStore,
+          response,
         ),
       };
     } else {
@@ -654,6 +673,7 @@ function storeToRemoteNested(
         store,
         collectedVariablesStore,
         codesListsStore,
+        dynamiqueSpecified,
         depth,
       );
     }
@@ -665,6 +685,7 @@ function childrenToRemote(
   store,
   collectedVariablesStore = {},
   codesListsStore,
+  dynamiqueSpecified,
   depth = 0,
 ) {
   return children.sort(sortByWeight(store)).map(key => {
@@ -674,6 +695,7 @@ function childrenToRemote(
       store,
       collectedVariablesStore,
       codesListsStore,
+      dynamiqueSpecified,
       newDepth,
     ); // eslint-disable-line no-use-before-define
   });
@@ -684,6 +706,7 @@ export function remoteToStore(
   questionnaireId,
   codesListsStore,
   iterations,
+  filters,
 ) {
   return {
     ...remoteToStoreNested(
@@ -692,6 +715,7 @@ export function remoteToStore(
       remote.ComponentGroup,
       codesListsStore,
       iterations,
+      filters,
     ),
     [questionnaireId]: remoteToState(remote, []),
   };
@@ -702,6 +726,7 @@ export function storeToRemote(
   questionnaireId,
   collectedVariablesStore,
   codesListsStore,
+  dynamiqueSpecified,
 ) {
   return store[questionnaireId].children.sort(sortByWeight(store)).map(key => {
     return storeToRemoteNested(
@@ -709,6 +734,7 @@ export function storeToRemote(
       store,
       collectedVariablesStore,
       codesListsStore,
+      dynamiqueSpecified,
     );
   });
 }

@@ -12,12 +12,15 @@ const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 
 class ResponseFormatMultipleMeasure extends Component {
   static selectorPath = MEASURE;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -26,6 +29,7 @@ class ResponseFormatMultipleMeasure extends Component {
       ? `${selectorPathParent}.${ResponseFormatMultipleMeasure.selectorPath}`
       : ResponseFormatMultipleMeasure.selectorPath;
   }
+
   render() {
     return (
       <FormSection name={ResponseFormatMultipleMeasure.selectorPath}>

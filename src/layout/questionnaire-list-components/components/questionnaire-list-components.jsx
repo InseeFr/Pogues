@@ -15,7 +15,7 @@ import { ErrorsIntegrity as ErrorsIntegrityPanel } from 'layout/errors-integrity
 import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
 
-const { LOOP } = COMPONENT_TYPE;
+const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
 const QuestionnaireListComponents = props => {
   const {
@@ -67,12 +67,32 @@ const QuestionnaireListComponents = props => {
     });
   };
 
+  const componentFilterConditionInitial = id => {
+    const filters = Object.values(props.componentsStore).filter(
+      component => component.type === FILTER && component.initialMember === id,
+    );
+    return filters;
+  };
+  const componentFilterConditionFinal = id => {
+    const filters = Object.values(props.componentsStore).filter(
+      component =>
+        component.type === FILTER &&
+        component.finalMember === id &&
+        component.initialMember !== component.finalMember,
+    );
+    return filters;
+  };
+
   const renderComponentsByParent = (parent, props, actions) => {
     return getSortedChildren(props.componentsStore, parent).map(key => {
       if (props.componentsStore[key].id !== 'idendquest') {
         const subTree = renderComponentsByParent(key, props, actions);
         const component = props.componentsStore[key];
-        if (component.type !== LOOP) {
+        if (
+          component.type !== LOOP &&
+          component.type !== FILTER &&
+          component.type !== NESTEDFILTRE
+        ) {
           return (
             <QuestionnaireComponent
               key={component.id}
@@ -93,6 +113,12 @@ const QuestionnaireListComponents = props => {
                 event.preventDefault();
                 props.handleRemovePageBreak(key);
               }}
+              componentFiltersInitial={componentFilterConditionInitial(
+                props.componentsStore[key].id,
+              )}
+              componentFiltersFinal={componentFilterConditionFinal(
+                props.componentsStore[key].id,
+              )}
             >
               {subTree}
             </QuestionnaireComponent>

@@ -1,15 +1,15 @@
 import React from 'react';
-import { formPropTypes } from 'redux-form';
+import { formPropTypes, Field } from 'redux-form';
 
 import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria';
 import { AssociatedFields } from 'widgets/associated-fields';
 import Dictionary from 'utils/dictionary/dictionary';
 import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
 
-import { Field } from 'redux-form';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
-import { TargetMode } from 'constants/pogues-constants';
+import ListRadios from 'forms/controls/list-radios';
+import { TargetMode, QUESTIONNAIRE_TYPE } from 'constants/pogues-constants';
 
 import { updateNameField } from 'utils/utils';
 
@@ -20,6 +20,7 @@ const {
   VALIDATE,
 } = WIDGET_QUESTIONNAIRE_NEW_EDIT;
 
+const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 // Componet
 
 function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
@@ -50,6 +51,19 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
               {s.label}
             </GenericOption>
           ))}
+        </Field>
+        <Field
+          name="dynamiqueSpecified"
+          component={ListRadios}
+          label={Dictionary.dynamiqueSpecified}
+          inline
+        >
+          <GenericOption key={Redirections} value={Redirections}>
+            {Redirections}
+          </GenericOption>
+          <GenericOption key={Filtres} value={Filtres}>
+            {Filtres}
+          </GenericOption>
         </Field>
         <div className={FOOTER}>
           <button className={VALIDATE} type="submit" disabled={submitting}>

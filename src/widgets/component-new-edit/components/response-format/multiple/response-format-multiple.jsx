@@ -11,12 +11,15 @@ const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 class ResponseFormatMultiple extends Component {
   static selectorPath = MULTIPLE_CHOICE;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -25,6 +28,7 @@ class ResponseFormatMultiple extends Component {
       ? `${selectorPathParent}.${ResponseFormatMultiple.selectorPath}`
       : ResponseFormatMultiple.selectorPath;
   }
+
   render() {
     return (
       <FormSection

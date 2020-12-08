@@ -9,7 +9,7 @@ import ExternalVariable from './external-variable';
 import { uuid, nameFromLabel, verifyVariable } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, LOOP } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 
 export const defaultState = {
   id: '',
@@ -29,6 +29,7 @@ export const defaultState = {
   children: [],
   responseFormat: {},
   TargetMode: [],
+  filterImbriquer: [],
 };
 
 export function formToState(form, transformers) {
@@ -48,13 +49,21 @@ export function formToState(form, transformers) {
     initialMember,
     finalMember,
     addButtonLibel,
+    description,
+    filterImbriquer,
   } = form;
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
 
   return {
-    name: name || nameFromLabel(label) || nameLoop,
+    name: name
+      ? nameFromLabel(name)
+      : label
+      ? nameFromLabel(label)
+      : nameLoop
+      ? nameFromLabel(nameLoop)
+      : false,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
@@ -71,6 +80,8 @@ export function formToState(form, transformers) {
     initialMember: initialMember,
     finalMember: finalMember,
     addButtonLibel: addButtonLibel,
+    description: description,
+    filterImbriquer: filterImbriquer,
   };
 }
 
@@ -87,6 +98,8 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     initialMember,
     finalMember,
     addButtonLibel,
+    description,
+    filterImbriquer,
   } = currentState;
   const form = {
     label: label || '',
@@ -95,18 +108,20 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
     TargetMode:
-      type !== LOOP && type != ''
+      type !== LOOP && type !== '' && type !== FILTER
         ? label
           ? TargetMode.join()
           : activeQuestionnaire.TargetMode.join()
         : '',
-    nameLoop: nameLoop || '',
+    nameLoop: nameLoop || name || '',
     maximum: maximum || '',
     basedOn: basedOn || '',
     filter: filter || '',
     initialMember: initialMember || '',
     finalMember: finalMember || '',
     addButtonLibel: addButtonLibel || '',
+    description: description || '',
+    filterImbriquer: filterImbriquer,
   };
 
   if (type === QUESTION) {
@@ -128,13 +143,11 @@ const Factory = (initialState = {}, stores = {}) => {
     codesListsStore,
   } = stores;
   let currentStore = componentsStore || {};
-
   let currentState = {
     ...defaultState,
     ...initialState,
     id: initialState.id || uuid(),
   };
-
   const transformers = {
     control: Control(currentState.controls),
     declaration: Declaration(currentState.declarations),
