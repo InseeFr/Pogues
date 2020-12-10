@@ -165,8 +165,6 @@ export const putQuestionnaire = (id, qr) =>
     body: JSON.stringify(qr),
     credentials: 'include',
   }).then(res => {
-    console.log("res", res)
-
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
   });

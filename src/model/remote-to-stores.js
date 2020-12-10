@@ -81,22 +81,22 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   };
 }
 
+// export function questionnaireListRemoteToStores(questionnairesList) {
+//   const questionnairesStates = [];
+
+//   for (let i = 0; i < questionnairesList.length; i += 1) {
+//     let questionnaireState;
+//     try {
+//       questionnaireState = questionnaireRemoteToStores(questionnairesList[i]);
+//     } catch (e) {
+//       //
+//     }
+//     if (questionnaireState) questionnairesStates.push(questionnaireState);
+//   }
+//   return questionnairesStates;
+// }
+
 export function questionnaireListRemoteToStores(questionnairesList) {
-  const questionnairesStates = [];
-
-  for (let i = 0; i < questionnairesList.length; i += 1) {
-    let questionnaireState;
-    try {
-      questionnaireState = questionnaireRemoteToStores(questionnairesList[i]);
-    } catch (e) {
-      //
-    }
-    if (questionnaireState) questionnairesStates.push(questionnaireState);
-  }
-  return questionnairesStates;
-}
-
-export function questionnaireListRemoteToStores1(questionnairesList) {
   const questionnaireById = [];
 
   for (let i = 0; i < questionnairesList.length; i += 1) {

@@ -34,14 +34,12 @@ export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
  * - componentByQuestionnaire
  * - conditionById
  *
- * @param   {string} id     The questionnaire id.
  * @param   {object} update The new values to update in the different stores affected.
  * @return  {object}        LOAD_QUESTIONNAIRE_SUCCESS action.
  */
-export const loadQuestionnaireSuccess = (id, update) => ({
+export const loadQuestionnaireSuccess = update => ({
   type: LOAD_QUESTIONNAIRE_SUCCESS,
   payload: {
-    id,
     update,
   },
 });
@@ -75,7 +73,7 @@ export const loadQuestionnaire = id => dispatch => {
   });
   return getQuestionnaire(id)
     .then(qr => {
-      dispatch(loadQuestionnaireSuccess(id, questionnaireRemoteToStores(qr)));
+      dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));

@@ -1,8 +1,5 @@
 import { getQuestionnaireList } from 'utils/remote-api';
-import {
-  questionnaireListRemoteToStores,
-  questionnaireListRemoteToStores1,
-} from 'model/remote-to-stores';
+import { questionnaireListRemoteToStores } from 'model/remote-to-stores';
 
 export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
@@ -58,7 +55,7 @@ export const loadQuestionnaireList = permission => dispatch => {
   return getQuestionnaireList(permission)
     .then(qrList =>
       dispatch(
-        loadQuestionnaireListSuccess(questionnaireListRemoteToStores1(qrList)),
+        loadQuestionnaireListSuccess(questionnaireListRemoteToStores(qrList)),
       ),
     )
     .catch(err => dispatch(loadQuestionnaireListFailure(err)));

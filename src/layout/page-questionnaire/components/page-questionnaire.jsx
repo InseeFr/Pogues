@@ -66,7 +66,7 @@ const PageQuestionnaire = props => {
 
   useEffect(() => {
     if (idState !== id) {
-      props.loadQuestionnaireIfNeeded(idState);
+      props.loadQuestionnaire(id);
       setIdState(id);
     }
     if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
@@ -104,7 +104,6 @@ const PageQuestionnaire = props => {
       setCollectedVariablesByQuestion(collectedVariablesByQuestion);
     }
   }, [
-    id,
     idState,
     questionnaire,
     questionnaireState,

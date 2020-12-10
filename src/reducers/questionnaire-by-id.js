@@ -14,7 +14,6 @@ export function loadQuestionnaireSuccess(
   { update: { questionnaireById } },
 ) {
   return {
-    ...state,
     ...questionnaireById,
   };
 }
@@ -23,7 +22,6 @@ export function loadQuestionnaireListSuccess(state, updatesList) {
   const questionnaireById = updatesList.reduce((acc, questionnaire) => {
     return { ...acc, ...questionnaire };
   }, {});
-  console.log('updatesList', updatesList)
   return {
     ...state,
     ...questionnaireById,

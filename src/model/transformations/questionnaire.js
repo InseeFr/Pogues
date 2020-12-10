@@ -103,14 +103,18 @@ export function remoteToState1(remote) {
     id,
     Label: [label],
     lastUpdatedDate,
+    DataCollection,
+    TargetMode,
   } = remote;
-
+console.log('remote', remote)
   return {
     final: final === undefined,
     id,
     name,
     label,
     lastUpdatedDate,
+    campaigns: DataCollection || [],
+    TargetMode,
   };
 }
 
