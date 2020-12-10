@@ -494,8 +494,8 @@ const dictionary = {
     fr: 'Description',
   },
   expression: {
-    en: 'Condition',
-    fr: 'Condition',
+    en: 'Display condition',
+    fr: "Condition d'affichage",
   },
   target: {
     en: 'Target',
