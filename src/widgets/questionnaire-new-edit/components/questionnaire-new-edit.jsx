@@ -59,10 +59,10 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
           inline
         >
           <GenericOption key={Redirections} value={Redirections}>
-            {Redirections}
+            {Dictionary.QGoTo}
           </GenericOption>
           <GenericOption key={Filtres} value={Filtres}>
-            {Filtres}
+            {Dictionary.QFilter}
           </GenericOption>
         </Field>
         <div className={FOOTER}>

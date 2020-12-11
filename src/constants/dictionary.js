@@ -101,7 +101,7 @@ const dictionary = {
   },
   loop: {
     en: 'Loop',
-    fr: 'Boucles',
+    fr: 'Boucle',
   },
   filtre: {
     en: 'Filter',
@@ -417,6 +417,16 @@ const dictionary = {
     en: 'Specify Nested filter',
   },
 
+  QGoTo: {
+    fr: 'Redirections',
+    en: 'GoTo',
+  },
+
+  QFilter: {
+    fr: 'Filtres',
+    en: 'Filter',
+  },
+
   specify: {
     en: 'Specify',
     fr: 'Préciser',
@@ -484,8 +494,8 @@ const dictionary = {
     fr: 'Description',
   },
   expression: {
-    en: 'Condition',
-    fr: 'Condition',
+    en: 'Display condition',
+    fr: "Condition d'affichage",
   },
   target: {
     en: 'Target',
@@ -1535,3 +1545,4 @@ dictionary[`componentEdit${FILTER}`] = {
 };
 
 export default dictionary;
+
