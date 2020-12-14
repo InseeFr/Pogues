@@ -59,11 +59,11 @@ server.get('/questionnaires/search', function(req, res, next) {
       label: question.Label,
       id: question.id, 
       lastUpdatedDate: question.lastUpdatedDate,
-      final: question.final
+      final: question.final,
+      DataCollection: question.DataCollection,
+      TargetMode: question.TargetMode
     })
   });
-  console.log('questionnaires1', questionnaires1);
-
   res.send(questionnaires);
   next();
 });

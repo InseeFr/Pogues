@@ -26,9 +26,6 @@ describe('questionnaire-by-id reducer', () => {
         },
       ),
     ).toEqual({
-      '2': {
-        id: '2',
-      },
       '1': {
         id: '1',
       },
@@ -53,9 +50,6 @@ describe('questionnaire-by-id reducer', () => {
         },
       ),
     ).toEqual({
-      '2': {
-        id: '2',
-      },
       '1': {
         id: '1',
       },
@@ -80,9 +74,6 @@ describe('questionnaire-by-id reducer', () => {
         },
       ),
     ).toEqual({
-      '2': {
-        id: '2',
-      },
       '1': {
         id: '1',
       },
@@ -97,9 +88,7 @@ describe('questionnaire-by-id reducer', () => {
           type: LOAD_QLIST_SUCCESS,
           payload: [
             {
-              questionnaireById: {
-                '1': { id: '1' },
-              },
+              '1': { id: '1' },
             },
           ],
         },
