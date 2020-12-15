@@ -31,7 +31,8 @@ import Input from 'forms/controls/input';
 import Select from 'forms/controls/select';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import NestedFilter from './nestedFilter';
-import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
+import { 
+} from '../utils/component-new-edit-utils';
 
 const {
   COMPONENT_CLASS,
@@ -516,7 +517,7 @@ const ComponentNewEdit = props => {
                   : Dictionary.expression
               }
               required
-            />
+              />
             {componentsStore ? (
               <Field
                 name="initialMember"
