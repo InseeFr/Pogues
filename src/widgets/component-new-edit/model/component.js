@@ -55,13 +55,12 @@ export function formToState(form, transformers) {
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
-
   return {
     name: name
       ? nameFromLabel(name)
       : label
       ? nameFromLabel(label)
-      : nameLoop
+      : initialMember
       ? nameFromLabel(nameLoop)
       : false,
     declarations: transformers.declaration.formToComponentState(declarations),
