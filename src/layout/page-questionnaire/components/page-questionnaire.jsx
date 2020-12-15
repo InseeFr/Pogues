@@ -70,7 +70,8 @@ const PageQuestionnaire = props => {
       setIdState(id);
     }
     if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
-      const idCampaign = questionnaire.campaigns[0];
+      const idCampaign =
+        questionnaire.campaigns[questionnaire.campaigns.length - 1];
       props.setActiveQuestionnaire(questionnaire);
       props.loadStatisticalContext(idCampaign);
       setQuestionnaireState(questionnaire);
@@ -120,17 +121,10 @@ const PageQuestionnaire = props => {
   useEffect(() => {
     if (
       activeQuestionnaire &&
-      !isEqual(activeQuestionnaire, activeQuestionnaireState)
+      activeQuestionnaireState &&
+      activeQuestionnaire.id !== activeQuestionnaireState.id
     ) {
       if (
-        activeQuestionnaire.campaigns &&
-        activeQuestionnaire.campaigns.length > 0
-      ) {
-        const idCampaign = activeQuestionnaire.campaigns[0];
-        props.loadStatisticalContext(idCampaign);
-      }
-      if (
-        activeQuestionnaireState &&
         activeQuestionnaire.operation !== activeQuestionnaireState.operation
       ) {
         props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
