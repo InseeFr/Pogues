@@ -515,6 +515,7 @@ const ComponentNewEdit = props => {
                   ? Dictionary.Filter
                   : Dictionary.expression
               }
+              required
             />
             {componentsStore ? (
               <Field
