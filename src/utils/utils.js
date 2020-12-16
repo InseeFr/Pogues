@@ -53,10 +53,7 @@ export const uuid = () =>
   (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
 export function nameFromLabel(label) {
-  return label
-    .replace(/[^a-z0-9_]/gi, '')
-    .toUpperCase()
-    .slice(0, 10);
+  return label.replace(/[^a-z0-9_]/gi, '').toUpperCase();
 }
 
 export function updateNameField(currentValueLabel, currentValueName) {
@@ -70,17 +67,19 @@ export function updateNameField(currentValueLabel, currentValueName) {
 }
 
 export function verifyVariable(label) {
-
-  const expression = (/\$([^\s]+)/g);
+  const expression = /\$([^\s]+)/g;
   const symbols = ['=', '*', '+', '-', '!'];
   const variables = label.match(expression);
 
   if (variables) {
     variables.forEach(variable => {
-      if (variable[variable.length - 1] !== '$' && !symbols.includes(variable[variable.length - 1])) {
-        label = label.replace(variable, variable+'$');
+      if (
+        variable[variable.length - 1] !== '$' &&
+        !symbols.includes(variable[variable.length - 1])
+      ) {
+        label = label.replace(variable, `${variable}$`);
       }
-    })
+    });
   }
 
   return label;
