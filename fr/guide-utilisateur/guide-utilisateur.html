@@ -893,7 +893,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="guide-utilisateur-pogues">Guide utilisateur Pogues</h1>
-<p>Version au 02/07/2020</p>
+<p>Version au 11/12/2020</p>
 <hr>
 <h1 id="les-grands-principes-de-pogues">Les grands principes de Pogues</h1>
 <p>Outil de conception de questionnaires pour la collecte pilot&#xE9;e par la m&#xE9;tadonn&#xE9;e</p>
@@ -914,6 +914,8 @@
 <ul>
 <li><p>Dans son navigateur Internet, saisir :
 <a href="http://conception-questionnaires.insee.fr" target="_blank">http://conception-questionnaires.insee.fr</a></p>
+</li>
+<li><p>Si le champ de saisie de l&apos;idep n&apos;appara&#xEE;t pas, rafra&#xEE;chir la page &#xE0; l&apos;aide de la touche F5 </p>
 </li>
 <li><p>Saisir son idep puis valider en cliquant sur &quot;OK&quot;</p>
 </li>
@@ -950,9 +952,17 @@
 <li>correspond &#xE0; un libell&#xE9; court, par d&#xE9;faut l&apos;application propose les premiers caract&#xE8;res du libell&#xE9; long, saisir le nom du mod&#xE8;le de l&apos;enqu&#xEA;te dans Coltrane</li>
 </ul>
 </li>
-<li><p>le mode de collecte (pas encore fonctionnel)</p>
+</ul>
+<hr>
+<p>Renseigner (suite) :</p>
 <ul>
+<li>le mode de collecte (pas encore fonctionnel)<ul>
 <li>CAPI (face &#xE0; face), CATI (t&#xE9;l&#xE9;phone), CAWI (Internet), PAPI (papier) </li>
+</ul>
+</li>
+<li><p>la logique utilis&#xE9;e pour sp&#xE9;cifier la dynamique du questionnaire</p>
+<ul>
+<li>Redirections (conditionner le masquage de certains &#xE9;l&#xE9;ments du questionnaire : sauter d&apos;un &#xE9;l&#xE9;ment de d&#xE9;part &#xE0; un &#xE9;l&#xE9;ment cible selon une certaine condition) ou Filtres (conditionner l&apos;affichage d&apos;une s&#xE9;quence, sous-s&#xE9;quence ou d&apos;un ensemble de questions). Attention, le changement de logique entra&#xEE;ne la suppression des sp&#xE9;cifications selon la logique pr&#xE9;c&#xE9;dente.</li>
 </ul>
 </li>
 <li><p>Valider la saisie via le bouton &quot;Valider&quot;.</p>
@@ -1310,42 +1320,83 @@ Ecrire and, or, etc. en minuscules.</p>
 </ul>
 <p>NB : il est &#xE9;galement possible de supprimer ou dupliquer un contr&#xF4;le</p>
 <hr>
-<h1 id="cr&#xE9;ation-dune-redirection-ou-renvoi-ou-filtre">Cr&#xE9;ation d&apos;une redirection (ou renvoi ou filtre)</h1>
+<h1 id="cr&#xE9;ation-dune-redirection--si-la-dynamique-du-questionnaire-est-sp&#xE9;cifi&#xE9;e-en-redirections">Cr&#xE9;ation d&apos;une redirection  (si la dynamique du questionnaire est sp&#xE9;cifi&#xE9;e en redirections)</h1>
 <p>Dans l&apos;onglet &quot;Redirections&quot; de la question sur laquelle appliquer le filtre, renseigner :</p>
 <ul>
 <li>Description de la redirection : ce texte s&apos;affichera sur le questionnaire pdf papier</li>
 </ul>
 <p><img src="../../img/fr/ecran15.png" alt=""></p>
 <hr>
-<h1 id="cr&#xE9;ation-dune-redirection-ou-renvoi-ou-filtre-suite">Cr&#xE9;ation d&apos;une redirection (ou renvoi ou filtre) (suite)</h1>
+<h1 id="cr&#xE9;ation-dune-redirection-suite">Cr&#xE9;ation d&apos;une redirection (suite)</h1>
 <p>Renseigner :</p>
 <ul>
 <li>Condition : (pour laquelle on redirige vers une question cible plus loin dans le questionnaire que la question suivante) : on appelle les variables du questionnaire en saisissant le caract&#xE8;re dollar $, au fur et &#xE0; mesure de la saisie des caract&#xE8;res suivants, l&apos;application propose de l&apos;autocompl&#xE9;tion avec les variables du questionnaire comportant ces caract&#xE8;res et suffixe ensuite automatiquement le nom de la variable saisie avec le caract&#xE8;re $. exemple : si l&apos;on va de la question Q1 (oui &apos;1&apos;, non &apos;2&apos;) &#xE0; la question Q10 si Q1=&apos;2&apos; on &#xE9;crira ici $Q2$=&apos;2&apos; ou bien $Q2$ != &apos;1&apos; si on veut filtrer aussi en cas de non-r&#xE9;ponse. </li>
 <li>Cible : cible du filtre. exemple : Q10 ou S2 ou QUESTIONNAIRE_END (pour rediriger vers la fin du questionnaire)</li>
 </ul>
 <hr>
-<h1 id="cr&#xE9;ation-dune-redirection-ou-renvoi-ou-filtre-fin">Cr&#xE9;ation d&apos;une redirection (ou renvoi ou filtre) (fin)</h1>
+<h1 id="cr&#xE9;ation-dune-redirection-fin">Cr&#xE9;ation d&apos;une redirection (fin)</h1>
 <p>NB : il est &#xE9;galement possible de supprimer ou dupliquer une redirection</p>
+<hr>
+<h1 id="cr&#xE9;ation-dun-filtre-si-la-dynamique-du-questionnaire-est-sp&#xE9;cifi&#xE9;e-en-filtres">Cr&#xE9;ation d&apos;un filtre (si la dynamique du questionnaire est sp&#xE9;cifi&#xE9;e en filtres)</h1>
+<p>Si l&#x2019;on choisit de sp&#xE9;cifier la dynamique du questionnaire en filtres, un bouton +Filtre appara&#xEE;t dans la barre de boutons du bas de l&#x2019;&#xE9;cran d&#x2019;&#xE9;dition/modification d&#x2019;un questionnaire (c&#x2019;est donc un bouton &#xAB; g&#xE9;n&#xE9;ral &#xBB;), imm&#xE9;diatement &#xE0; droite du bouton +Boucle, tandis que l&#x2019;onglet Redirections, pr&#xE9;sent lui lors de la description des questions, dispara&#xEE;t de Pogues.
+Le clic sur +Filtre ouvre l&#x2019;&#xE9;cran ci-apr&#xE8;s.</p>
+<p><img src="../../img/fr/filtre1.png" alt=""></p>
+<hr>
+<h1 id="cr&#xE9;ation-dun-filtre-suite">Cr&#xE9;ation d&apos;un filtre (suite)</h1>
+<p>Renseigner :</p>
+<ul>
+<li><p>Identifiant : Identifiant m&#xE9;tier &#xE0; votre discr&#xE9;tion. Unique. Attention &#xE0; ne pas choisir un nom de variable ou de boucle existant.</p>
+</li>
+<li><p>Description : description du filtre, &#xE0; soigner si on utilise le questionnaire papier issu de Pogues car il s&#x2019;agit du texte qui appara&#xEE;tra sur le questionnaire papier pour indiquer au r&#xE9;pondant la dynamique &#xE0; suivre en fonction de ses r&#xE9;ponses.</p>
+</li>
+<li><p>Condition : Condition d&#x2019;affichage des &#xE9;l&#xE9;ments du filtre (et non plus de disparition comme c&#x2019;est le cas en logique Redirections)</p>
+</li>
+<li><p>D&#xE9;but : Premier &#xE9;l&#xE9;ment concern&#xE9; par le filtre</p>
+</li>
+<li><p>Fin : Dernier &#xE9;l&#xE9;ment concern&#xE9; par le filtre. Si le filtre concerne un unique &#xE9;l&#xE9;ment, D&#xE9;but=Fin=cet &#xE9;l&#xE9;ment</p>
+</li>
+</ul>
+<p>Valider</p>
+<hr>
+<h1 id="cr&#xE9;ation-dun-filtre-suite">Cr&#xE9;ation d&apos;un filtre (suite)</h1>
+<p>Une fois ajout&#xE9;s, les filtres sont &#xE9;ditables, modifiables et supprimables via un clic sur le rappel de leur condition d&apos;affichage sur leur premier &#xE9;l&#xE9;ment (cf. Si ...). </p>
+<p><img src="../../img/fr/filtre2.png" alt=""></p>
+<hr>
+<h1 id="cr&#xE9;ation-dun-filtre-fin">Cr&#xE9;ation d&apos;un filtre (fin)</h1>
+<p>Deux points de vigilance :</p>
+<ol>
+<li><p>Il n&#x2019;est pas possible de d&#xE9;finir un unique filtre portant sur des &#xE9;l&#xE9;ments de nature diff&#xE9;rente (questions, s&#xE9;quences ou sous-s&#xE9;quences). 
+Si une m&#xEA;me formule ($Q1$=&#x2019;1&#x2019; par exemple) conditionne l&#x2019;affichage de Q2 &#xE0; Q4, de Sous-S&#xE9;quence1 puis de S&#xE9;quence 2 par exemple, vous devrez sp&#xE9;cifier trois filtres : un pour Q2 &#xE0; Q4 (car ce sont des &#xE9;l&#xE9;ments de nature questions), un pour la Sous-S&#xE9;quence 1 et un pour la S&#xE9;quence 2.</p>
+</li>
+<li><p>Si un m&#xEA;me &#xE9;l&#xE9;ment est concern&#xE9; par plusieurs filtres, cet &#xE9;l&#xE9;ment ne sera affich&#xE9; que si toutes les conditions des filtres l&#x2019;incluant sont r&#xE9;alis&#xE9;es.</p>
+</li>
+</ol>
+<p>A noter qu&#x2019;en attente des moyens informatiques ad hoc, les filtres ne sont malheureusement pas &#xE9;dit&#xE9;s actuellement dans le format sp&#xE9;cification odt.</p>
 <hr>
 <h1 id="cr&#xE9;ation-dune-variable-externe">Cr&#xE9;ation d&apos;une variable externe</h1>
 <p>Une variable externe d&#xE9;signe une variable non collect&#xE9;e dans le questionnaire mais utile pour sa personnalisation. Elle peut &#xEA;tre une variable collect&#xE9;e ant&#xE9;rieurement et rappel&#xE9;e &#xE0; des fins de contr&#xF4;le de coh&#xE9;rence avec les r&#xE9;ponses pass&#xE9;es (dernier CA connu, dernier effectif connu) ou une variable utile pour personnaliser certains &#xE9;l&#xE9;ments du questionnaire (num&#xE9;ro de vague de collecte pour filtrer des questions, une date ou un zonage g&#xE9;ographique &#xE0; afficher dans un libell&#xE9; de question (ann&#xE9;e ou r&#xE9;gions par exemple) etc.). Elles se d&#xE9;finissement via l&apos;onglet &quot;Variables externes&quot; de n&apos;importe quelle question du questionnaire.</p>
+<hr>
+<h1 id="cr&#xE9;ation-dune-variable-externe-suite">Cr&#xE9;ation d&apos;une variable externe (suite)</h1>
 <ul>
-<li>Renseigner :<ul>
+<li><p>Renseigner :</p>
+<ul>
 <li>Libell&#xE9;</li>
 <li>Identifiant : cf. celui dans le fichier de personnalisation</li>
 <li>Type de r&#xE9;ponse  : parmi Texte, Date, Nombre, Bool&#xE9;en</li>
+<li>Port&#xE9;e : par d&#xE9;faut Questionnaire si la variable vaut la m&#xEA;me valeur sur l&#x2019;ensemble du questionnaire. Si la variable est occurrentielle (ie sa valeur d&#xE9;pend de la ligne sur laquelle on se trouve au sein d&#x2019;un tableau dynamique ou de l&#x2019;occurrence sur laquelle on se trouve au sein d&#x2019;une boucle), renseigner ici l&apos;&#xE9;l&#xE9;ment it&#xE9;rable (tableau dynamique ou boucle du questionnaire) auquel se r&#xE9;f&#xE8;re la variable.</li>
 </ul>
 </li>
-<li>Valider</li>
+<li><p>Valider</p>
+</li>
 </ul>
 <hr>
 <h1 id="cr&#xE9;ation-dune-variable-externe-suite">Cr&#xE9;ation d&apos;une variable externe (suite)</h1>
-<p><img src="../../img/fr/ecran16.png" alt=""></p>
+<p><img src="../../img/fr/ecran17.png" alt=""></p>
 <hr>
 <h1 id="cr&#xE9;ation-dune-variable-calcul&#xE9;e">Cr&#xE9;ation d&apos;une variable calcul&#xE9;e</h1>
 <p>Il peut &#xEA;tre n&#xE9;cessaire de calculer des variables &#xE0; partir d&apos;autres variables du questionnaire pour certains contr&#xF4;les notamment.
 Une variable calcul&#xE9;e se d&#xE9;finit via l&apos;onglet &quot;Variables calcul&#xE9;es&quot; de n&apos;importe quelle question du questionnaire.
-<img src="../../img/fr/ecran17.png" alt=""></p>
+<img src="../../img/fr/ecran16.png" alt=""></p>
 <hr>
 <h1 id="cr&#xE9;ation-dune-variable-calcul&#xE9;e-suite">Cr&#xE9;ation d&apos;une variable calcul&#xE9;e (suite)</h1>
 <p>Renseigner </p>
@@ -1357,6 +1408,11 @@ Une variable calcul&#xE9;e se d&#xE9;finit via l&apos;onglet &quot;Variables cal
 </ul>
 </li>
 <li>Type de r&#xE9;ponse : parmi Texte, Date, Nombre, Bool&#xE9;en (cf. Cr&#xE9;ation d&apos;une question de type r&#xE9;ponse simple)</li>
+</ul>
+<hr>
+<h1 id="cr&#xE9;ation-dune-variable-calcul&#xE9;e-suite">Cr&#xE9;ation d&apos;une variable calcul&#xE9;e (suite)</h1>
+<ul>
+<li>Port&#xE9;e : par d&#xE9;faut Questionnaire si la variable vaut la m&#xEA;me valeur sur l&#x2019;ensemble du questionnaire. Si la variable est occurrentielle (ie sa valeur d&#xE9;pend de la ligne sur laquelle on se trouve au sein d&#x2019;un tableau dynamique ou de l&#x2019;occurrence sur laquelle on se trouve au sein d&#x2019;une boucle), renseigner ici l&apos;&#xE9;l&#xE9;ment it&#xE9;rable (tableau dynamique ou boucle du questionnaire) auquel se r&#xE9;f&#xE8;re la variable.</li>
 </ul>
 <p>Valider</p>
 <hr>
@@ -1456,6 +1512,48 @@ else 0</p>
 NB : les boutons gras et italique sont &#xE9;galement disponibles pour les libell&#xE9;s de question mais le g&#xE9;n&#xE9;rateur de questionnaire Eno ne prend pas en compte la mise en forme sp&#xE9;cifi&#xE9;e. En effet, conform&#xE9;ment aux bonnes pratiques d&apos;ergonomie d&apos;un questionnaire, tous les libell&#xE9;s de questions s&apos;affichent en gras sur le web. Les boutons gras et italique ne sont pas disponibles pour les libell&#xE9;s de s&#xE9;quence ou de sous-s&#xE9;quence.
 NB2 : le gras est visible aussi c&#xF4;t&#xE9; pdf, mais pas l&apos;italique (normal ou bug ?)</p>
 <hr>
+<h1 id="cr&#xE9;ation-dune-boucle-1">Cr&#xE9;ation d&apos;une boucle (1)</h1>
+<p>Une boucle est un ensemble de questions (s&#xE9;quences ou sous-s&#xE9;quences cons&#xE9;cutives du questionnaire) qui seront pos&#xE9;es &#xE0; n &#xAB; occurrences &#xBB; (individus, produits, salari&#xE9;s par exemple).</p>
+<p>Un bouton +Boucle permettant l&#x2019;ajout d&#x2019;une boucle a rejoint la barre de boutons du bas de l&#x2019;&#xE9;cran Pogues d&#x2019;&#xE9;dition/modification d&#x2019;un questionnaire, imm&#xE9;diatement &#xE0; droite du bouton +S&#xE9;quence. Le clic sur le bouton +Boucle ouvre l&#x2019;&#xE9;cran correspondant suivant.
+<img src="../../img/fr/boucle1.png" alt=""></p>
+<hr>
+<h1 id="cr&#xE9;ation-dune-boucle-2">Cr&#xE9;ation d&apos;une boucle (2)</h1>
+<p>Renseigner :</p>
+<ul>
+<li><p>Identifiant : obligatoire, identifiant m&#xE9;tier de la boucle, &#xE0; votre discr&#xE9;tion. </p>
+</li>
+<li><p>Maximum : facultatif, nombre maximal d&#x2019;occurrences de la boucle, utile uniquement pour les boucles qui ne s&#x2019;appuient pas sur un tableau dynamique ou une boucle pr&#xE9;alable.</p>
+</li>
+<li><p>Bas&#xE9; sur  : facultatif, permet d&#x2019;indiquer si la boucle doit se baser sur un tableau dynamique ou une autre boucle
+Exemple : Ecmoss (boucle des questions pos&#xE9;es aux salari&#xE9;s d&#xE9;crit dans l&#x2019;&#xE9;chantillon qui se base sur le tableau dynamique les listant), VQS (boucle contenant les questions pos&#xE9;es aux individus d&#xE9;crits en d&#xE9;but de questionnaire, qui se base sur la premi&#xE8;re boucle qui permet de pr&#xE9;senter chaque habitant du logement).</p>
+</li>
+</ul>
+<hr>
+<h1 id="cr&#xE9;ation-dune-boucle-3">Cr&#xE9;ation d&apos;une boucle (3)</h1>
+<ul>
+<li>Sauf : facultatif, permet d&#x2019;indiquer via une formule les unit&#xE9;s &#xE0; exclure de la boucle (exemple : les mineurs). Attention : ce filtre ne s&#x2019;applique actuellement qu&#x2019;&#xE0; des variables qualitatives. Pour une restriction sur l&#x2019;&#xE2;ge par exemple, il faut raisonner sur une indicatrice (par exemple on d&#xE9;finit TRANCHE_AGE<em>  = &#x2018;1&#x2019; pour les mineurs,  TRANCHE_AGE = &#x2018;2&#x2019; pour les autres) : exclure les mineurs s&#x2019;&#xE9;crira : $TRANCHE_AGE$ =&#x2019;1&#x2019; 
+</em>Par exemple avec une variable calcul&#xE9;e ayant une formule du type 
+if ($AGE$&lt;18) then &#x2018;1&#x2019; else &#x2018;2&#x2019;
+Pr&#xE9;voir aussi au cas o&#xF9; la variable  filtrante est non renseign&#xE9;e. Dans l&#x2019;exemple sur l&#x2019;&#xE2;ge, il faut savoir si on souhaite afficher ou non les individus dont l&#x2019;&#xE2;ge est non renseign&#xE9;.</li>
+</ul>
+<hr>
+<h1 id="cr&#xE9;ation-dune-boucle-4">Cr&#xE9;ation d&apos;une boucle (4)</h1>
+<ul>
+<li><p>D&#xE9;but : obligatoire, permet d&#x2019;indiquer le premier &#xE9;l&#xE9;ment (s&#xE9;quence ou sous-s&#xE9;quence) sur lequel boucler</p>
+</li>
+<li><p>Fin : obligatoire, permet d&#x2019;indiquer le dernier &#xE9;l&#xE9;ment (s&#xE9;quence ou sous-s&#xE9;quence) sur lequel boucler. Quand la boucle se compose d&#x2019;une unique s&#xE9;quence ou sous-s&#xE9;quence, D&#xE9;but et Fin seront identiques.</p>
+</li>
+<li><p>Libell&#xE9; du bouton d&#x2019;ajout : facultatif, libell&#xE9; du bouton d&#x2019;ajout d&#x2019;une occurrence de boucle quand il existe. Exemple : Ajouter un produit, Ajouter un service, Ajouter un individu
+Si &#xAB; Bas&#xE9; sur &#xBB; est renseign&#xE9;, alors ce bouton ne doit pas &#xEA;tre rempli, puisque la boucle se base sur une boucle pr&#xE9;c&#xE9;dente.</p>
+</li>
+</ul>
+<p>Valider</p>
+<hr>
+<h1 id="cr&#xE9;ation-dune-boucle-5">Cr&#xE9;ation d&apos;une boucle (5)</h1>
+<p>Si vous souhaitez relire la sp&#xE9;cification d&#x2019;une boucle et/ou la modifier et/ou la supprimer, vous retrouverez l&#x2019;ensemble des boucles sp&#xE9;cifi&#xE9;es &#xE0; gauche de l&#x2019;&#xE9;cran d&#x2019;&#xE9;dition/modification de questionnaires dans Pogues, sous la liste des s&#xE9;quences.
+A noter qu&#x2019;en attente des moyens informatiques ad hoc, les boucles ne sont pas actuellement &#xE9;dit&#xE9;es dans le format sp&#xE9;cification odt.</p>
+<p><img src="../../img/fr/boucle2.png" alt=""></p>
+<hr>
 <h1 id="style-grasitalique-suite">Style gras/italique (suite)</h1>
 <p><img src="../../img/fr/ecran18.png" alt=""></p>
 <hr>
@@ -1465,7 +1563,7 @@ Sur un &#xE9;l&#xE9;ment question, on trouve &#xE9;galement le bouton &quot;Dupl
 <p><img src="../../img/fr/ecran19.png" alt=""></p>
 <hr>
 <p>&quot;Voir le d&#xE9;tail&quot; permet de consulter l&apos;&#xE9;l&#xE9;ment et de le modifier &#xE9;ventuellement.
-&quot;Visualiser&quot; permet de visualiser uniquement l&apos;&#xE9;l&#xE9;ment sur lequel on se trouve.
+&quot;Visualiser&quot; permet de visualiser uniquement l&apos;&#xE9;l&#xE9;ment sur lequel on se trouve. Attention, les formules (contr&#xF4;les, redirections) ne sont pas appliqu&#xE9;es lors de la visualisation unitaire mais seulement sur celle du questionnaire entier (visualiser en bas de l&apos;IHM).
 &quot;Supprimer&quot; permet de supprimer un &#xE9;l&#xE9;ment.
 &quot;Dupliquer&quot; permet de recopier une question. Il faudra bien penser &#xE0; modifier l&apos;identifiant de la question et celui ou ceux de la ou des variables collect&#xE9;es associ&#xE9;es au duplicata. Il n&apos;est actuellement pas possible de dupliquer une liste de codes et de conserver la liste de codes initiale et une liste de codes duplicata modifi&#xE9;e. Tout changement sur la liste de codes duplicata est actuellement r&#xE9;percut&#xE9;e sur la liste de codes initiale dupliqu&#xE9;e.</p>
 <hr>
@@ -1495,22 +1593,22 @@ Attention aux &#xE9;l&#xE9;ments d&#xE9;plac&#xE9;s en cas de redirection, la ci
 <h1 id="ce-qui-ne-fonctionne-pas-encore-dans-pogues">Ce qui ne fonctionne pas encore dans Pogues</h1>
 <p><em>compl&#xE9;ment DDI manuel</em> </p>
 <ul>
-<li>L&apos;ajout d&apos;un champ &quot;Pr&#xE9;cisez&quot; si une modalit&#xE9; de type &quot;Autre&quot; a &#xE9;t&#xE9; coch&#xE9;e</li>
 <li>Renseigner un motif (sp&#xE9;cifier une expression r&#xE9;guli&#xE8;re) pour une r&#xE9;ponse de type texte</li>
-<li>Redirection vers la fin du questionnaire</li>
 <li>G&#xE9;rer des unit&#xE9;s autres que &#x20AC;, k&#x20AC;, %, heures, jours, mois, ann&#xE9;es</li>
-<li>Boucler sur les &#xE9;l&#xE9;ments d&apos;un tableau (exemple : individus de plus de 15 ans d&apos;un m&#xE9;nage)</li>
+<li>G&#xE9;rer les hyperliens et les mailto</li>
+<li>G&#xE9;rer les enqu&#xEA;tes multi-mod&#xE8;les</li>
+<li>Associer des images &#xE0; des modalit&#xE9;s de r&#xE9;ponse (exemple : fl&#xE8;ches des e enqu&#xEA;tes de conjoncture)</li>
+<li>La prise en compte du multimode (CAWI, CAPI, PAPI, CATI)
+<em>Possible de le renseigner mais n&apos;est pas pris en compte dans l&apos;affichage du questionnaire</em></li>
 </ul>
 <hr>
 <h1 id="ce-qui-ne-fonctionne-pas-encore-dans-pogues-suite">Ce qui ne fonctionne pas encore dans Pogues (suite)</h1>
 <ul>
-<li>La prise en compte du multimode (CAWI, CAPI, PAPI, CATI)
-<em>Possible de le renseigner mais n&apos;est pas pris en compte dans l&apos;affichage du questionnaire</em></li>
 <li>Le lien entre Pogues et RM&#xE9;S et notamment publier le questionnaire ou r&#xE9;utiliser une question ou une liste de codes (exemple d&#xE9;partements, pays, nomenclature) du r&#xE9;f&#xE9;rentiel </li>
 <li>Conditionner le libell&#xE9; d&apos;une question selon les r&#xE9;ponses pr&#xE9;c&#xE9;demment obtenues </li>
 <li>Dupliquer une liste de codes pour en cr&#xE9;er une variante</li>
 <li>Le bouton &quot;Saut de page&quot; en bas au centre de l&apos;IHM Pogues</li>
-<li>param&#xE9;trages du pdf (nombre de colonnes, mise en page portrait ou paysage, type de saisie)</li>
+<li>param&#xE9;trages du pdf (nombre de colonnes, mise en page portrait ou paysage, type de saisie, num&#xE9;rotation, nombre de questions par page)</li>
 </ul>
 <hr>
 <h1 id=""> </h1>
@@ -1573,7 +1671,7 @@ Attention aux &#xE9;l&#xE9;ments d&#xE9;plac&#xE9;s en cas de redirection, la ci
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Guide utilisateur","level":"2.1","depth":1,"previous":{"title":"Contrôles d'intégrité","level":"1.2.6.6","depth":3,"path":"guide-developpeur/implementation-details/integrity-checks.md","ref":"guide-developpeur/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-utilisateur/guide-utilisateur.md","mtime":"2020-07-07T09:54:12.385Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-07-07T09:58:26.587Z"},"basePath":"..","book":{"language":"fr"}});
+            gitbook.page.hasChanged({"page":{"title":"Guide utilisateur","level":"2.1","depth":1,"previous":{"title":"Contrôles d'intégrité","level":"1.2.6.6","depth":3,"path":"guide-developpeur/implementation-details/integrity-checks.md","ref":"guide-developpeur/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-utilisateur/guide-utilisateur.md","mtime":"2020-12-17T13:46:28.049Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-12-17T13:50:32.177Z"},"basePath":"..","book":{"language":"fr"}});
         });
     </script>
 </div>

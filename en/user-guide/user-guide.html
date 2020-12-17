@@ -893,7 +893,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="user-guide-for-pogues">User guide for Pogues</h1>
-<p>Last release 2020/07/02</p>
+<p>Last release 2020/12/11</p>
 <hr>
 <h1 id="the-main-principles-of-pogues">The main principles of Pogues</h1>
 <p>Questionnaire design tool for metadata-driven collection</p>
@@ -950,13 +950,21 @@
 <li>like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title</li>
 </ul>
 </li>
-<li><p>one or more collection modes (not completely working now)</p>
-<ul>
-<li>CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper) </li>
+<li>one or more collection modes (not completely working now)<ul>
+<li>CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper)</li>
 </ul>
 </li>
-<li><p>Validate all with the &quot;Validate&quot; button.</p>
+</ul>
+<hr>
+<p>Fill in :</p>
+<ul>
+<li>the logic used to specify the dynamics of the questionnaire<ul>
+<li>GoTo (condition the hiding of certain elements of the questionnaire: jump from a starting element to a target element according to a certain condition) or Filter (condition the display of a sequence, sub-sequence or set of questions). Attention, the change of logic leads to the deletion of the specifications according to the previous logic.</li>
+</ul>
 </li>
+</ul>
+<ul>
+<li>Validate all with the &quot;Validate&quot; button.</li>
 </ul>
 <hr>
 <h1 id="input-of-the-questionnaire-metadata">Input of the questionnaire metadata</h1>
@@ -1086,8 +1094,7 @@
 <li>Validate</li>
 </ul>
 <hr>
-<h1 id="creation-of-a-multiple-choice-response-question">Creation of a multiple choice response question</h1>
-<p>Examples :</p>
+<h1 id="multiple-choice-question">Multiple choice question</h1>
 <p><img src="../../img/en/mcr.png" alt=""></p>
 <hr>
 <p>For a multiple choice response question, fill in : (1)</p>
@@ -1201,10 +1208,10 @@
 </li>
 </ul>
 <hr>
-<h1 id="how-to-manage-a-code-list-1">How to manage a Code list (1)</h1>
+<h1 id="how-to-manage-a-codelist-1">How to manage a Codelist (1)</h1>
 <p><img src="../../img/en/codelist.png" alt=""></p>
 <hr>
-<h1 id="how-to-manage-a-code-list-2">How to manage a Code list (2)</h1>
+<h1 id="how-to-manage-a-codelist-2">How to manage a Codelist (2)</h1>
 <p>You can do the following actions</p>
 <ol>
 <li>modify one modality : first 2 buttons, up to you, the first one will display the modification screen, the second button will display modality before modification and the modification screen</li>
@@ -1313,42 +1320,83 @@ Write and, or, etc. in lowercase</p>
 </ul>
 <p>NB : you can also delete or duplicate a control</p>
 <hr>
-<h1 id="creation-of-a-goto-or-filter-1">Creation of a Goto (or filter) (1)</h1>
+<h1 id="creation-of-a-goto-1-if-the-logic-used-to-specify-the-dynamics-of-the-questionnaire-is-goto">Creation of a Goto (1) (if the logic used to specify the dynamics of the questionnaire is GoTo)</h1>
 <p>In the &quot;Goto&quot; tab of the question on which you want to apply a filter, fill in :</p>
 <ul>
 <li>Goto description : this text will be displayed on the pdf paper questionnaire</li>
 </ul>
 <p><img src="../../img/en/screen15.png" alt=""></p>
 <hr>
-<h1 id="creation-of-a-goto-or-filter-2">Creation of a Goto (or filter) (2)</h1>
+<h1 id="creation-of-a-goto-2">Creation of a Goto (2)</h1>
 <p>Fill in :</p>
 <ul>
 <li>Condition : (for which the respondent will go to a further target question and not to the immediate following question) : collected variables are referenced by using the dollar character $, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character $.  example : if you go from the question Q1 (yes &apos;1&apos;, no &apos;2&apos;) to the question Q10 if Q1 =&apos;2&apos; fill in $Q2$=&apos;2&apos; or $Q2$ != &apos;1&apos; if you want to filter non response also. </li>
 <li>Target : Target question of the filter. example : Q10 or S2 or QUESTIONNAIRE_END to reach the end of the questionnaire</li>
 </ul>
 <hr>
-<h1 id="creation-of-a-goto-or-filter-3">Creation of a Goto (or filter) (3)</h1>
+<h1 id="creation-of-a-goto-3">Creation of a Goto (3)</h1>
 <p>NB : you can also delete or duplicate a Goto</p>
+<hr>
+<h1 id="creation-of-a-filter-1">Creation of a filter (1)</h1>
+<p>If you choose to specify the dynamics of the questionnaire in filters, a +Filter button appears in the bottom button bar of the questionnaire edit/modification screen (it is therefore a &quot;general&quot; button), immediately to the right of the +Loop button, while the Redirections tab, which is present when describing the questions, disappears from Pogues.
+Clicking on +Filter opens the following screen.</p>
+<p><img src="../../img/en/filter1.png" alt=""></p>
+<hr>
+<h1 id="creation-of-a-filter-2">Creation of a filter (2)</h1>
+<p>Fill in :</p>
+<ul>
+<li><p>Id : Id at your discretion. Unique. Be careful not to choose an existing variable or loop name.</p>
+</li>
+<li><p>Description: Description of the filter, take care if you use the paper questionnaire from Pogues because it is the text that will appear on the paper questionnaire to indicate to the respondent the dynamics to follow according to his answers.</p>
+</li>
+<li><p>Diplay condition: Condition of display of the filter elements (and not of disappearance as it is the case in logic Redirections).</p>
+</li>
+<li><p>Start: First element affected by the filter</p>
+</li>
+<li><p>End: Last item affected by the filter. If the filter concerns a single element, Start=End=this element.</p>
+</li>
+</ul>
+<p>Validate</p>
+<hr>
+<h1 id="creation-of-a-filter-3">Creation of a filter (3)</h1>
+<p>Once added, filters can be edited, modified and deleted by clicking on the reminder of their display condition on their first item (see If ...). </p>
+<p><img src="../../img/en/filter2.png" alt=""> </p>
+<hr>
+<h1 id="creation-of-a-filter-4">Creation of a filter (4)</h1>
+<p>Two points of vigilance :</p>
+<ol>
+<li><p>It is not possible to define a single filter covering elements of a different nature (questions, sequences or sub-sequences). 
+If the same formula ($Q1$=&apos;1&apos; for example) conditions the display of Q2 to Q4, Sub-Sequence 1 and then Sequence 2 for example, you will have to specify three filters: one for Q2 to Q4 (because they are question elements), one for Sub-Sequence 1 and one for Sequence 2.</p>
+</li>
+<li><p>If the same item is affected by more than one filter, this item will only be displayed if all the conditions of the filters including it are fulfilled.</p>
+</li>
+</ol>
+<p>Please note that, pending the availability of ad hoc computer resources, the filters are unfortunately not currently edited in the odt specification format.</p>
 <hr>
 <h1 id="creation-of-an-external-variable-1">Creation of an external variable (1)</h1>
 <p>An external variable refers to a variable that is not collected in the questionnaire but is useful for customizing it. It can be a variable collected previously and recalled for consistency with past responses (last known turnover, last known headcount) or a variable useful for customizing some elements of the questionnaire (collection wave number to filter questions, date or geographical zoning to be displayed in a question label (year or regions for example) etc.). They are defined via the &quot;External variables&quot; tab of any question in the questionnaire.</p>
+<hr>
+<h1 id="creation-of-an-external-variable-2">Creation of an external variable (2)</h1>
 <ul>
-<li>Inform:<ul>
+<li><p>Inform:</p>
+<ul>
 <li>Label</li>
 <li>Id : see the one in the customization file</li>
 <li>Response type : from Text, Date, Number, Boolean</li>
+<li>Scope : Questionnaire if the variable has the same value throughout the questionnaire. If the variable is an occurrence variable (i.e. its value depends on the line on which one is in a dynamic table or the occurrence on which one is in a loop), fill in here the iterable element (dynamic table or loop of the questionnaire) to which the variable refers.</li>
 </ul>
 </li>
-<li>Validate</li>
+<li><p>Validate</p>
+</li>
 </ul>
 <hr>
-<h1 id="creation-of-an-external-variable-2">Creation of an external variable (2)</h1>
-<p><img src="../../img/en/screen16.png" alt=""></p>
+<h1 id="creation-of-an-external-variable-3">Creation of an external variable (3)</h1>
+<p><img src="../../img/en/screen17.png" alt=""></p>
 <hr>
 <h1 id="creation-of-a-calculated-variable-1">Creation of a calculated variable (1)</h1>
 <p>It may be necessary to calculate variables from other variables in the questionnaire for some controls in particular.
 A calculated variable is defined via the &quot;Calculated Variables&quot; tab of any question in the questionnaire.
-<img src="../../img/en/screen17.png" alt=""></p>
+<img src="../../img/en/screen16.png" alt=""></p>
 <hr>
 <h1 id="creation-of-a-calculated-variable-2">Creation of a calculated variable (2)</h1>
 <p>Fill in </p>
@@ -1360,6 +1408,7 @@ A calculated variable is defined via the &quot;Calculated Variables&quot; tab of
 </ul>
 </li>
 <li>Reponse type : among Text, Date, Number, Boolean (see Creation for a simple response question)</li>
+<li>Scope : Questionnaire if the variable has the same value throughout the questionnaire. If the variable is an occurrence variable (i.e. its value depends on the line on which one is in a dynamic table or the occurrence on which one is in a loop), fill in here the iterable element (dynamic table or loop of the questionnaire) to which the variable refers.</li>
 </ul>
 <p>Validate</p>
 <hr>
@@ -1396,6 +1445,47 @@ else if ($DDMMCURRENT$ &lt; $DDMMBIRTH$ and $CURRENTYEAR$ &gt; $YEARBIRTH$) then
 else 0
 The age in difference of vintage will be given by the formula : $CURRENTYEAR$-$YEARBIRTH$</p>
 <hr>
+<h1 id="creation-of-a-loop-1">Creation of a loop (1)</h1>
+<p>A loop is a set of questions (consecutive sequences or subsequences of the questionnaire) that will be asked at n &quot;occurrences&quot; (e.g. individuals, products, employees).</p>
+<p>A +Loop button allowing the addition of a loop has joined the button bar at the bottom of the Pogues screen for editing/modifying a questionnaire, immediately to the right of the +Sequence button. Clicking on the +Boucle button opens the next corresponding screen.
+<img src="../../img/en/loop1.png" alt=""></p>
+<hr>
+<h1 id="creation-of-a-loop-2">Creation of a loop (2)</h1>
+<p>Fill in :</p>
+<ul>
+<li><p>Id: compulsory, Id for the loop, at your discretion. </p>
+</li>
+<li><p>Maximum: optional, maximum number of occurrences of the loop, useful only for loops that are not based on a dynamic table or a previous loop.</p>
+</li>
+<li><p>Based on: optional, allows you to indicate whether the loop should be based on a dynamic table or another loop.</p>
+</li>
+</ul>
+<hr>
+<h1 id="creation-of-a-loop-3">Creation of a loop (3)</h1>
+<ul>
+<li>Excepted: optional, allows you to indicate via a formula the units to exclude from the loop (example: people younger than 18 years old). Warning: this filter currently only applies to qualitative variables. For a restriction on age, for example, you have to think about an indicator (for example we define AGE_RANGE = &apos;1&apos; for people younger than 18, TRANCHE_AGE = &apos;2&apos; for others): excluding people younger than 18 will be written : $AGE_RANGE$= &apos;1&apos;.</li>
+</ul>
+<p>For example with a calculated variable having a formula of the type 
+if ($AGE$&lt;18) then &apos;1&apos; else &apos;2&apos;...
+Also provide for the case where the filter variable is not filled in. In the example on age, you need to know whether you want to display or not the individuals whose age is not filled in.</p>
+<hr>
+<h1 id="creation-of-a-loop-4">Creation of a loop (4)</h1>
+<ul>
+<li><p>Start: obligatory, allows you to indicate the first element (sequence or sub-sequence) on which to loop.</p>
+</li>
+<li><p>End: obligatory, allows you to indicate the last element (sequence or sub-sequence) on which to loop. When the loop consists of a single sequence or sub-sequence, Start and End will be identical.</p>
+</li>
+<li><p>Add button label: optional, label of the add button of a loop occurrence when it exists. Example: Add a product, Add a service, Add an individual
+If &quot;Based on&quot; is entered, then this button does not need to be filled in, as the loop is based on a previous loop.</p>
+</li>
+</ul>
+<p>Validate</p>
+<hr>
+<h1 id="creation-of-a-loop-5">Creation of a loop (5)</h1>
+<p>If you want to review the specification of a loop and/or modify and/or delete it, you will find all the specified loops on the left hand side of the questionnaire edit screen in Pogues, under the sequence list.
+Please note that, pending the availability of ad hoc computer resources, the loops are not currently edited in the odt specification format.</p>
+<p><img src="../../img/en/loop2.png" alt=""></p>
+<hr>
 <h1 id="style--bold-or-italic">Style : Bold or Italic</h1>
 <p>You can put some words in bold or italic with the buttons surrounded in red in the screenshot below</p>
 <p><img src="../../img/en/screen18.png" alt=""></p>
@@ -1406,7 +1496,7 @@ On a question, there is also the &quot;Duplicate&quot; button.</p>
 <p><img src="../../img/en/screen19.png" alt=""></p>
 <hr>
 <p>&quot;Show the detail&quot; allows you to view the element and modify it if necessary.
-&quot;Visualise&quot; allows you to view only the element you are on.
+&quot;Visualise&quot; allows you to view only the element you are on. Please note that the formulas (controls, redirections) are not applied to the unit view but only to the whole questionnaire (visualise at the bottom of the HMI).
 &quot;Delete&quot; allows you to delete an item.
 &quot;Duplicate&quot; is used to copy a question. Don&apos;t forget to modify the identifier of the duplicate question and the identifier of the collected variable(s) associated with the duplicate, as you can&apos;t have the same id for several questions or several collected variables. It is currently not possible to duplicate a code list and keep the original code list and a modified duplicate code list. Any changes to the duplicate code list are currently reflected in the original duplicate code list.</p>
 <hr>
@@ -1424,7 +1514,7 @@ The &quot;Page break&quot; button is currently not working.</p>
 <p><img src="../../img/en/screen21.png" alt=""></p>
 <hr>
 <h1 id="show-the-detail-or-delete-the-questionnaire">Show the detail or delete the questionnaire</h1>
-<p>It is possible to &quot;show the detail&quot; of a questionnaire (you can see and perhaps modify informations filled in when creating a questionnaire) or to &quot;delete&quot; it with the dedicated buttons at the top of the page.</p>
+<p>It is possible to &quot;show the detail&quot; of a questionnaire (you can see and perhaps modify informations filled in when creating a questionnaire) or to &quot;delete&quot; it with the dedicated buttons at the top of the page. </p>
 <p><img src="../../img/en/screen22.png" alt=""></p>
 <hr>
 <h1 id="checking-the-integrity-of-the-questionnaire">Checking the integrity of the questionnaire</h1>
@@ -1438,11 +1528,11 @@ The &quot;Page break&quot; button is currently not working.</p>
 <h1 id="what-is-not-yet-working-in-pogues-1">What is not yet working in Pogues (1)</h1>
 <p><em>manual DDI add-on</em> </p>
 <ul>
-<li>The addition of a &quot;Specify&quot; field if a &quot;Other&quot; type modality has been checked</li>
 <li>Fill in a pattern (specify a regular expression) for a text response</li>
-<li>Redirection towards the end of the questionnaire</li>
+<li>Manage hypelinks and mailtos</li>
+<li>Manage surveys linked to several models of questionnaires</li>
+<li>Associate images to response modalities (example : arrows for conjuncture surveys)</li>
 <li>Manage units other than &#x20AC;, k&#x20AC;, %, hours, days, months, years</li>
-<li>Loop on the elements of a table (example: individuals aged older than 15 years in a household)</li>
 </ul>
 <hr>
 <ul>
@@ -1452,7 +1542,7 @@ The &quot;Page break&quot; button is currently not working.</p>
 <li>Condition the label of a question according to the answers previously obtained </li>
 <li>Duplicate a code list to create a variant</li>
 <li>The &quot;Page break&quot; button at the bottom center of the interface Pogues</li>
-<li>pdf settings (number of columns, portrait or landscape layout, type of entry)</li>
+<li>pdf settings (number of columns, portrait or landscape layout, type of entry, numbering, number of questions per page)</li>
 </ul>
 <hr>
 <p>choice of numbering type among:</p>
@@ -1514,7 +1604,7 @@ The &quot;Page break&quot; button is currently not working.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"User guide","level":"2.1","depth":1,"previous":{"title":"Integrity checks","level":"1.2.6.6","depth":3,"path":"developper-guide/implementation-details/integrity-checks.md","ref":"developper-guide/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"developper-guide/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: Code list edition","alt":"Code list edition","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list edition","attributes":{},"title":"Code list edition","skip":false,"key":"1.2.2.1"},{"backlink":"developper-guide/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: CodeEditor component","alt":"CodeEditor component","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"CodeEditor component","attributes":{},"title":"CodeEditor component","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Code list editors should be kept in sync","alt":"Code list editors should be kept in sync","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list editors should be kept in sync","attributes":{},"title":"Code list editors should be kept in sync","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Keep in sync multiple components","alt":"Keep in sync multiple components","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Keep in sync multiple components","attributes":{},"title":"Keep in sync multiple components","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux data flow","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux data flow","attributes":{},"title":"Flux data flow","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: A user selects a questionnaire","alt":"A user selects a questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"A user selects a questionnaire","attributes":{},"title":"A user selects a questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: The questionnaire is shown","alt":"The questionnaire is shown","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"The questionnaire is shown","attributes":{},"title":"The questionnaire is shown","skip":false,"key":"1.2.4.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Pause on exceptions","alt":"Pause on exceptions","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Pause on exceptions","attributes":{},"title":"Pause on exceptions","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"en","gitbook":"*"},"file":{"path":"user-guide/user-guide.md","mtime":"2020-07-07T09:54:12.385Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-07-07T09:58:26.587Z"},"basePath":"..","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"User guide","level":"2.1","depth":1,"previous":{"title":"Integrity checks","level":"1.2.6.6","depth":3,"path":"developper-guide/implementation-details/integrity-checks.md","ref":"developper-guide/implementation-details/integrity-checks.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"developper-guide/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: Code list edition","alt":"Code list edition","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list edition","attributes":{},"title":"Code list edition","skip":false,"key":"1.2.2.1"},{"backlink":"developper-guide/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: CodeEditor component","alt":"CodeEditor component","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"CodeEditor component","attributes":{},"title":"CodeEditor component","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Code list editors should be kept in sync","alt":"Code list editors should be kept in sync","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Code list editors should be kept in sync","attributes":{},"title":"Code list editors should be kept in sync","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Keep in sync multiple components","alt":"Keep in sync multiple components","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Keep in sync multiple components","attributes":{},"title":"Keep in sync multiple components","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"developper-guide/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux data flow","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux data flow","attributes":{},"title":"Flux data flow","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: A user selects a questionnaire","alt":"A user selects a questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"A user selects a questionnaire","attributes":{},"title":"A user selects a questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"developper-guide/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: The questionnaire is shown","alt":"The questionnaire is shown","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"The questionnaire is shown","attributes":{},"title":"The questionnaire is shown","skip":false,"key":"1.2.4.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"developper-guide/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Pause on exceptions","alt":"Pause on exceptions","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Pause on exceptions","attributes":{},"title":"Pause on exceptions","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"en","gitbook":"*"},"file":{"path":"user-guide/user-guide.md","mtime":"2020-12-17T13:46:28.049Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-12-17T13:50:32.177Z"},"basePath":"..","book":{"language":"en"}});
         });
     </script>
 </div>
