@@ -30,18 +30,17 @@ form {
   .form-footer {
     @extend .ok-cancel-buttons;
   }
+}
+.form-error,
+.form-warm {
+  display: inline-block;
+  margin: 5px 0 0 5px;
+  font-size: $font-xxs;
+  font-weight: bold;
+}
 
-  .form-error,
-  .form-warm {
-    display: inline-block;
-    margin: 5px 0 0 5px;
-    font-size: $font-xxs;
-    font-weight: bold;
-  }
-
-  .form-error {
-    color: red;
-  }
+.form-error {
+  color: red;
 }
 
 .error-block {

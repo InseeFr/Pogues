@@ -34,8 +34,8 @@ export const ACTIONS = {
     distionary: 'moveRight',
     icon: 'glyphicon-arrow-right',
   },
-  
-   PRECESION: {
+
+  PRECESION: {
     name: 'precision',
     distionary: 'precision',
     icon: 'glyphicon-plus-sign',

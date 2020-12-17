@@ -3,6 +3,8 @@ import * as CodesList from './codes-list';
 import * as CalculatedVariable from './calculated-variable';
 import * as ExternalVariable from './external-variable';
 import * as CollectedVariable from './collected-variable';
+import * as Loop from './loop';
+import * as RedirectionsFilter from './redirection-filters';
 
 import { uuid } from 'utils/utils';
 import { getOrderedComponents } from 'utils/model/redirections-utils';
@@ -11,11 +13,16 @@ import {
   removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
 } from 'utils/variables/variables-utils';
-import { COMPONENT_TYPE, QUESTION_END_CHILD } from 'constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  QUESTION_END_CHILD,
+  QUESTIONNAIRE_TYPE,
+} from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
+const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 
-function generateComponentGroups(componentsStore) {
+function generateComponentGroups(componentsStore, ComponentGroup) {
   const orderedComponents = getOrderedComponents(
     componentsStore,
     Object.keys(componentsStore)
@@ -24,13 +31,15 @@ function generateComponentGroups(componentsStore) {
         (c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight,
       ),
   );
-
   let startPage = 1;
-  let result = [];
+  const result = [];
   orderedComponents.forEach(componentId => {
     if (!result[startPage - 1]) {
       result.push({
-        id: uuid(),
+        id:
+          ComponentGroup && ComponentGroup[startPage - 1]?.id
+            ? ComponentGroup[startPage - 1].id
+            : uuid(),
         Name: `PAGE_${startPage}`,
         Label: [`Components for page ${startPage}`],
         MemberReference: [],
@@ -41,8 +50,11 @@ function generateComponentGroups(componentsStore) {
       startPage += 1;
     }
   });
-  if(result[result.length-1]) {
-    result[result.length-1].MemberReference.push("idendquest");
+  if (
+    result[result.length - 1] &&
+    !result[result.length - 1].MemberReference.includes('idendquest')
+  ) {
+    result[result.length - 1].MemberReference.push('idendquest');
   }
   return result;
 }
@@ -59,6 +71,8 @@ export function remoteToState(remote, currentStores = {}) {
     lastUpdatedDate,
     TargetMode,
     declarationMode,
+    FlowControl,
+    ComponentGroup,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -78,6 +92,8 @@ export function remoteToState(remote, currentStores = {}) {
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
     TargetMode: TargetMode || declarationMode || [],
+    dynamiqueSpecified: FlowControl ? Filtres : Redirections,
+    ComponentGroup,
   };
 }
 
@@ -96,7 +112,6 @@ export function stateToRemote(state, stores) {
     collectedVariableByQuestionStore,
     campaignsStore,
   } = stores;
-
   const collectedVariablesStore = Object.keys(
     collectedVariableByQuestionStore,
   ).reduce((acc, key) => {
@@ -123,12 +138,16 @@ export function stateToRemote(state, stores) {
     campaigns,
     final,
     TargetMode,
+    dynamiqueSpecified,
+    ComponentGroup,
   } = state;
+
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore[c].label,
+    Name: campaignsStore[c]?.label,
   }));
+
   const remote = {
     owner,
     final,
@@ -138,7 +157,7 @@ export function stateToRemote(state, stores) {
     lastUpdatedDate: new Date().toString(),
     DataCollection: dataCollections,
     genericName: QUESTIONNAIRE,
-    ComponentGroup: generateComponentGroups(componentsStore),
+    ComponentGroup: generateComponentGroups(componentsStore, ComponentGroup),
     agency: agency || 'fr.insee',
     TargetMode,
   };
@@ -147,10 +166,11 @@ export function stateToRemote(state, stores) {
     id,
     collectedVariablesWithoutOrphans,
     codesListsStore,
+    dynamiqueSpecified,
   );
   const questionEnd = QUESTION_END_CHILD;
-  questionEnd.TargetMode = TargetMode,
-  componentsRemote.push(QUESTION_END_CHILD); 
+  questionEnd.TargetMode = TargetMode;
+  componentsRemote.push(QUESTION_END_CHILD);
   const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
@@ -160,9 +180,12 @@ export function stateToRemote(state, stores) {
   );
   const collectedVariablesRemote = CollectedVariable.storeToRemote(
     collectedVariablesWithoutOrphans,
+    componentsStore,
   );
-  
-  return {
+  const Iterations = Loop.stateToRemote(componentsStore);
+  const FlowControl = RedirectionsFilter.stateToRemote(componentsStore);
+
+  const json = {
     ...remote,
     Child: componentsRemote,
     CodeLists: {
@@ -176,4 +199,13 @@ export function stateToRemote(state, stores) {
       ],
     },
   };
+  if (Iterations.length !== 0) {
+    json.Iterations = {
+      Iteration: Iterations,
+    };
+  }
+  if (dynamiqueSpecified === Filtres) {
+    json.FlowControl = FlowControl;
+  }
+  return json;
 }

@@ -10,7 +10,7 @@ import {
   updateParentChildren,
 } from 'actions/components';
 import { setSelectedComponentId } from 'actions/app-state';
-
+import { updateComponent, removeComponent } from 'actions/actionComponent';
 // PropTypes and defaultProps
 
 export const propTypes = {
@@ -38,6 +38,8 @@ const mapDispatchToProps = {
   orderComponents,
   updateParentChildren,
   setSelectedComponentId,
+  updateComponent,
+  removeComponent,
 };
 
 const ComponentNewContainer = connect(

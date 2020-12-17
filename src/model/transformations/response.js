@@ -4,7 +4,7 @@ import {
 } from 'constants/pogues-constants';
 import { uuid } from 'utils/utils';
 
-export function stateToRemote(state) {
+export function stateToRemote(state, response) {
   const {
     id,
     mandatory,
@@ -37,9 +37,15 @@ export function stateToRemote(state) {
     specialFollowUpMessage,
     collectedVariable: CollectedVariableReference,
   } = state;
+  const find = response
+    ? response.find(
+        element =>
+          element.CollectedVariableReference === CollectedVariableReference,
+      )
+    : undefined;
 
   const model = {
-    id: id || uuid(),
+    id: find ? find.id : id || uuid(),
     Datatype: {
       typeName,
       type: DATATYPE_TYPE_FROM_NAME[typeName],
@@ -85,4 +91,3 @@ export function stateToRemote(state) {
   }
   return model;
 }
-

@@ -23,6 +23,44 @@
       }
     }
   }
+  .widget-component-new-edit__footerloop {
+    @include make-row();
+    text-align: center;
+    max-width: 60%;
+    margin: auto;
+
+    button {
+      @extend .btn;
+      margin-left: 10px;
+      margin-right: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: 175px;
+
+      &.widget-component-new-edit__button-validate {
+        @extend .btn-yellow;
+      }
+
+      &.widget-component-new-edit__button-cancel {
+        background: none;
+        float: left;
+      }
+      &.widget-component-new-edit__button-delete {
+        background: #e9edf2;
+      }
+    }
+  }
+  .widget-component-new-edit__filtre_imbriquer {
+    position: relative;
+    float: right;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 15px;
+    padding-left: 26%;
+    border: none;
+    background: transparent;
+    color: #286ac7;
+  }
 
   .response-format__table,
   .response-format__multiple {

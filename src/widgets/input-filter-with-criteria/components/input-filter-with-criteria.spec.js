@@ -43,7 +43,7 @@ describe('<InputFilterWithCriteria />', () => {
     props.loadSearchResult = spySearchFirst;
     shallow(<InputFilterWithCriteria {...props} />);
 
-    expect(spySearchFirst).toHaveBeenCalled();
+    expect(spySearchFirst).not.toHaveBeenCalled();
 
     props = { ...props, loadOnInit: false, loadSearchResult: spySearchSecond };
     shallow(<InputFilterWithCriteria {...props} />);

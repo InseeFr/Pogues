@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import ComponentEdit from '../components/component-edit';
 
 import { setValidationErrors } from 'actions/errors';
-import { updateComponent } from 'actions/component';
-
+import { updateComponent } from 'actions/actionComponent';
 // PropTypes and defaultProps
 
 export const propTypes = {
@@ -27,6 +26,7 @@ const mapStateToProps = state => {
       state.appState.collectedVariableByQuestion[
         state.appState.editingComponentId
       ],
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 

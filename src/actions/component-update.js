@@ -1,6 +1,8 @@
 import sortBy from 'lodash.sortby';
 import { toComponents, toId } from 'utils/component/component-utils';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
+const { FILTER, LOOP } = COMPONENT_TYPE;
 /**
  * This function generate a componentById with the children passed as
  * a parameter.
@@ -35,26 +37,30 @@ export function resetChildren(component, children) {
  * @param {object} newComponent The latests created component
  */
 export function increaseWeightOfAll(activesComponents, newComponent) {
-  const siblingsIds = activesComponents[newComponent.parent].children;
-  return siblingsIds.reduce((acc, key) => {
-    const sibling = activesComponents[key];
-    let siblingWeight = sibling.weight;
-    if (key !== newComponent.id && newComponent.weight <= siblingWeight) {
-      siblingWeight += 1;
-    }
+  if (newComponent.type !== LOOP || newComponent.type !== FILTER) {
+    const siblingsIds = activesComponents[newComponent.parent]
+      ? activesComponents[newComponent.parent].children
+      : [];
+    return siblingsIds.reduce((acc, key) => {
+      const sibling = activesComponents[key];
+      let siblingWeight = sibling.weight;
+      if (key !== newComponent.id && newComponent.weight <= siblingWeight) {
+        siblingWeight += 1;
+      }
 
-    if (key === newComponent.id) {
-      return acc;
-    }
+      if (key === newComponent.id) {
+        return acc;
+      }
 
-    return {
-      ...acc,
-      [key]: {
-        ...sibling,
-        weight: siblingWeight,
-      },
-    };
-  }, {});
+      return {
+        ...acc,
+        [key]: {
+          ...sibling,
+          weight: siblingWeight,
+        },
+      };
+    }, {});
+  }
 }
 
 /**
@@ -85,7 +91,7 @@ export function resetAllWeight(activesComponents) {
   return Object.keys(activesComponents)
     .map(key => activesComponents[key])
     .reduce((acc, component) => {
-      if (component.children.length > 0) {
+      if (component.children && component.children.length > 0) {
         return {
           ...acc,
           ...resetWeight(toComponents(component.children, activesComponents)),

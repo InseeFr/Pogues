@@ -3,6 +3,9 @@ export const COMPONENT_TYPE = {
   SEQUENCE: 'SEQUENCE',
   SUBSEQUENCE: 'SUBSEQUENCE',
   QUESTIONNAIRE: 'QUESTIONNAIRE',
+  LOOP: 'LOOP',
+  FILTER: 'FILTER',
+  NESTEDFILTRE: 'NESTEDFILTRE',
   // used as a placeholder to place the generic input within the questionnaire
   GENERIC_INPUT: 'GENERIC_INPUT',
 };
@@ -20,7 +23,6 @@ export const DATEFORMAT = [
     format: '3',
     label: 'aaaa',
   },
-
 ];
 
 export const TargetMode = [
@@ -234,16 +236,19 @@ export const QUESTION_TYPE_NAME = 'QuestionType';
 
 export const QUESTION_END = 'QUESTIONNAIRE_END';
 export const QUESTION_END_CHILD = {
-  id: "idendquest",
+  id: 'idendquest',
   depth: 1,
-  Name: "QUESTIONNAIRE_END",
-  Label: [
-    "QUESTIONNAIRE_END"
-  ],
+  Name: 'QUESTIONNAIRE_END',
+  Label: ['QUESTIONNAIRE_END'],
   Declaration: [],
-  genericName: "MODULE",
+  genericName: 'MODULE',
   Control: [],
   FlowControl: [],
-  type: "SequenceType",
+  type: 'SequenceType',
   Child: [],
+};
+
+export const QUESTIONNAIRE_TYPE = {
+  Filtres: 'Filtres',
+  Redirections: 'Redirections',
 };

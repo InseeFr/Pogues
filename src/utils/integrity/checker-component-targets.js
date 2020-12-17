@@ -8,7 +8,10 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
     const targetEarlierErrors = [];
     const redirections = activeComponentsById[key].redirections || {};
     const redirectionsIds = Object.keys(redirections);
-    if (Object.values(redirections).flowControlType && Object.values(redirections).flowControlType != undefined) {
+    if (
+      Object.values(redirections).flowControlType &&
+      Object.values(redirections).flowControlType != undefined
+    ) {
     }
     if (redirectionsIds.length > 0) {
       const activeTargetsIds = getComponentsTargetsByComponent(
@@ -17,23 +20,23 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
       );
       redirectionsIds.forEach(innerKey => {
         const redirection = redirections[innerKey];
-        if (redirection.redirectiontest){
-        if (!activeComponentsById[redirection.cible]) {
-          targetNotFoundErrors.push({
-            path: 'redirections.cible',
-            itemListId: innerKey,
-            dictionary: 'errorGoToNonExistingTgt',
-            type: INTEGRITY_TYPES.TARGET_NOT_FOUND,
-          });
-        } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
-          targetEarlierErrors.push({
-            path: 'redirections.cible',
-            itemListId: innerKey,
-            dictionary: 'errorGoToNonExistingTgt',
-            type: INTEGRITY_TYPES.TARGET_EARLIER,
-          });
+        if (redirection.redirectiontest) {
+          if (!activeComponentsById[redirection.cible]) {
+            targetNotFoundErrors.push({
+              path: 'redirections.cible',
+              itemListId: innerKey,
+              dictionary: 'errorGoToNonExistingTgt',
+              type: INTEGRITY_TYPES.TARGET_NOT_FOUND,
+            });
+          } else if (activeTargetsIds.indexOf(redirection.cible) === -1) {
+            targetEarlierErrors.push({
+              path: 'redirections.cible',
+              itemListId: innerKey,
+              dictionary: 'errorGoToNonExistingTgt',
+              type: INTEGRITY_TYPES.TARGET_EARLIER,
+            });
+          }
         }
-      }
       });
     }
 

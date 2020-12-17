@@ -119,11 +119,13 @@ describe('response transformation', () => {
         'responseFormatState',
         'collectedVariables',
         'collectedVariablesStore',
+        'response',
       ],
       [TABLE]: [
         'responseFormatState',
         'collectedVariables',
         'collectedVariablesStore',
+        'response',
       ],
     };
 
@@ -156,6 +158,7 @@ describe('response transformation', () => {
           },
           'collectedVariables',
           'collectedVariablesStore',
+          'response',
         );
         expect(result).toEqual(mockResponses[type]);
 

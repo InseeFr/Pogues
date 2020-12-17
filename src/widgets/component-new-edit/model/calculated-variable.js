@@ -10,18 +10,20 @@ export const defaultState = {
   name: '',
   formula: '',
   type: TEXT,
+  scope: '',
 };
 
 export const defaultForm = {
   label: '',
   name: '',
   formula: '',
+  scope: '',
   calculatedVariables: [],
   ...defaultTypageForm,
 };
 
 export function formToState(form) {
-  const { label, name, formula, type, [type]: simpleForm } = form;
+  const { label, name, formula, scope, type, [type]: simpleForm } = form;
   const id = form.id || uuid();
 
   return {
@@ -30,6 +32,7 @@ export function formToState(form) {
     name,
     formula,
     type,
+    scope,
     [type]: { ...simpleForm },
   };
 }
@@ -39,7 +42,6 @@ export function formToStore(form) {
 
   return calculatedVariables.reduce((acc, cv) => {
     const state = formToState(cv);
-
     return {
       ...acc,
       [state.id]: state,
@@ -57,6 +59,7 @@ export function storeToForm(currentStore) {
       name,
       formula,
       type,
+      scope,
       [type]: simpleState,
     } = currentStore[key];
     calculatedVariables.push({
@@ -65,6 +68,7 @@ export function storeToForm(currentStore) {
       name,
       formula,
       type,
+      scope,
       [type]: {
         ...simpleState,
       },

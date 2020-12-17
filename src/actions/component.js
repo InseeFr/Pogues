@@ -22,7 +22,9 @@ export const UPDATE_COMPONENT_PARENT = 'UPDATE_COMPONENT_PARENT';
 export const UPDATE_COMPONENT_ORDER = 'UPDATE_COMPONENT_ORDER';
 export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
 export const MOVE_COMPONENT = 'MOVE_COMPONENT';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
+const { FILTER } = COMPONENT_TYPE;
 /**
  * Create component
  *
@@ -82,6 +84,7 @@ export const updateParentChildren = ({
   payload: { id, lastCreatedComponent },
 }) => (dispatch, getState) => {
   const state = getState();
+
   return dispatch({
     type: UPDATE_COMPONENT_PARENT,
     payload: {
@@ -117,7 +120,6 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
   const selectedComponent = activesComponents[selectedComponentId];
 
   let activeComponentsById = {};
-
   /**
    * We do the reorder only if we have a selected component
    */
@@ -232,6 +234,7 @@ export const updateComponent = (
     },
   };
 };
+
 /**
  * Method used when we drag a component next to another one.
  *
@@ -246,6 +249,86 @@ export const dragComponent = (
 ) => (dispatch, getState) => {
   const state = getState();
   const activesComponents = state.appState.activeComponentsById;
+  const find_Filters = Object.values(activesComponents).filter(
+    element =>
+      element.type === FILTER &&
+      (element.initialMember === idTargetComponent ||
+        element.finalMember === idTargetComponent),
+  );
+  if (find_Filters.length > 0) {
+    find_Filters.forEach(filter => {
+      if (filter.finalMember !== idTargetComponent) {
+        const next_element = Object.values(activesComponents).find(
+          element =>
+            activesComponents[filter.initialMember] &&
+            element.type === activesComponents[filter.initialMember].type &&
+            element.parent === activesComponents[filter.initialMember].parent &&
+            element.weight ===
+              activesComponents[filter.initialMember].weight + 1,
+        );
+        if (next_element) {
+          filter.initialMember = next_element.id;
+          const { id } = filter;
+          const component = {};
+          component[filter.id] = filter;
+
+          dispatch({
+            type: UPDATE_COMPONENT,
+            payload: {
+              id,
+              update: {
+                activeComponentsById: component,
+                activeCalculatedVariablesById: {},
+                activeExternalVariablesById: {},
+                activeCollectedVariablesById: {
+                  [id]: {},
+                },
+                activeCodeListsById: {},
+              },
+            },
+          });
+        }
+      } else if (filter.initialMember !== idTargetComponent) {
+        const next_element = Object.values(activesComponents).find(
+          element =>
+            activesComponents[filter.finalMember] &&
+            element.type === activesComponents[filter.finalMember].type &&
+            element.parent === activesComponents[filter.finalMember].parent &&
+            element.weight === activesComponents[filter.finalMember].weight - 1,
+        );
+        if (next_element) {
+          filter.finalMember = next_element.id;
+          const { id } = filter.id;
+          const component = {};
+          component[filter.id] = filter;
+
+          dispatch({
+            type: UPDATE_COMPONENT,
+            payload: {
+              id,
+              update: {
+                activeComponentsById: component,
+                activeCalculatedVariablesById: {},
+                activeExternalVariablesById: {},
+                activeCollectedVariablesById: {
+                  [id]: {},
+                },
+                activeCodeListsById: {},
+              },
+            },
+          });
+        }
+      } else {
+        const { id } = filter;
+        dispatch({
+          type: REMOVE_COMPONENT,
+          payload: remove(activesComponents, id),
+        });
+      }
+    });
+  }
+  const stateNew = getState();
+  const newActivesComponents = stateNew.appState.activeComponentsById;
   return dispatch({
     type: MOVE_COMPONENT,
     payload: {
@@ -253,7 +336,7 @@ export const dragComponent = (
       idTargetComponent,
       update: {
         activeComponentsById: moveComponent(
-          activesComponents,
+          newActivesComponents,
           idMovedComponent,
           idTargetComponent,
           newWeight,

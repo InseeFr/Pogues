@@ -21,7 +21,7 @@ export function remoteToState(remote) {
       },
     ],
   } = remote;
- 
+
   return {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
       CodeListReference,

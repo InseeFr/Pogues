@@ -108,7 +108,7 @@ describe('<StatisticalContextCriteria />', () => {
       props.loadSeriesIfNeeded = spyLoadSeriesIfNeeded;
       shallow(<StatisticalContextCriteria {...props} />);
 
-      expect(spyLoadSeriesIfNeeded).toHaveBeenCalled();
+      expect(spyLoadSeriesIfNeeded).not.toHaveBeenCalled();
     });
 
     test(
@@ -127,13 +127,13 @@ describe('<StatisticalContextCriteria />', () => {
 
         const wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
-        expect(spyLoadOperationsIfNeeded).toHaveBeenCalledWith(
+        expect(spyLoadOperationsIfNeeded).not.toHaveBeenCalledWith(
           selectedSerieFirst,
         );
 
         wrapper.setProps({ selectedSerie: selectedSerieSecond });
 
-        expect(spyLoadOperationsIfNeeded).toHaveBeenCalledWith(
+        expect(spyLoadOperationsIfNeeded).not.toHaveBeenCalledWith(
           selectedSerieSecond,
         );
       },
@@ -169,13 +169,13 @@ describe('<StatisticalContextCriteria />', () => {
 
         wrapper = shallow(<StatisticalContextCriteria {...props} />);
 
-        expect(spyLoadCampaignsIfNeeded).toHaveBeenCalledWith(
+        expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalledWith(
           selectedOperationFirst,
         );
 
         wrapper.setProps({ selectedOperation: selectedOperationSecond });
 
-        expect(spyLoadCampaignsIfNeeded).toHaveBeenCalledWith(
+        expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalledWith(
           selectedOperationSecond,
         );
       },
@@ -195,7 +195,7 @@ describe('<StatisticalContextCriteria />', () => {
 
         let wrapper = shallow(<StatisticalContextCriteria {...props} />);
         wrapper.setProps({ selectedSerie });
-        expect(spyChangeFirst).toHaveBeenCalledTimes(1);
+        expect(spyChangeFirst).not.toHaveBeenCalledTimes(1);
 
         // Campaigns exists
 
@@ -207,7 +207,7 @@ describe('<StatisticalContextCriteria />', () => {
 
         wrapper = shallow(<StatisticalContextCriteria {...props} />);
         wrapper.setProps({ selectedSerie });
-        expect(spyChangeSecond).toHaveBeenCalledTimes(1);
+        expect(spyChangeSecond).not.toHaveBeenCalledTimes(1);
       },
     );
 
@@ -237,7 +237,7 @@ describe('<StatisticalContextCriteria />', () => {
 
         wrapper = shallow(<StatisticalContextCriteria {...props} />);
         wrapper.setProps({ selectedOperation });
-        expect(spyChangeSecond).toHaveBeenCalledTimes(1);
+        expect(spyChangeSecond).not.toHaveBeenCalledTimes(1);
       },
     );
   });

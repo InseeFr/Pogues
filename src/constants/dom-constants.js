@@ -78,7 +78,8 @@ export const WIDGET_CODES_LISTS = {
   ACTIONS_CLASS: 'widget-codes-lists__codes__actions',
   CODE_INPUT_CLASS: 'widget-codes-lists__codes__input',
   CODE_INPUT_CODE_CLASS: 'widget-codes-lists__codes__input-code',
-  CODE_INPUT_CODE_CLASS_PRECISION: 'widget-codes-lists__codes__input-code-precision',
+  CODE_INPUT_CODE_CLASS_PRECISION:
+    'widget-codes-lists__codes__input-code-precision',
   CODE_INPUT_LABEL_CLASS: 'widget-codes-lists__codes__input-label',
   CODE_INPUT_ACTIONS_CLASS: 'widget-codes-lists__codes__input-actions',
   CODE_INPUT_ERRORS_CLASS: 'widget-codes-lists__codes__input-errors',
@@ -125,8 +126,11 @@ export const WIDGET_QUESTIONNAIRE_NEW_EDIT = {
 export const WIDGET_COMPONENT_NEW_EDIT = {
   COMPONENT_CLASS: 'widget-component-new-edit',
   FOOTER: 'widget-component-new-edit__footer',
+  FOOTERLOOP: 'widget-component-new-edit__footerloop',
   VALIDATE: 'widget-component-new-edit__button-validate',
   CANCEL: 'widget-component-new-edit__button-cancel',
+  DELETE: 'widget-component-new-edit__button-delete',
+  FILTRE_IMBRIQUER: 'widget-component-new-edit__filtre_imbriquer',
 };
 
 export const WIDGET_ASSOCIATED_FIELDS = {

@@ -13,10 +13,13 @@ export const defaultForm = {
   id: '',
   label: '',
   codes: [],
+  panel: 'NEW',
+  precisionid: '',
+  precisionlabel: '',
+  precisionsize: '',
 };
 
 export function formToState(form) {
- 
   const { id, label, codes } = form;
   const codesStore = (codes || []).reduce((acc, c) => {
     return {

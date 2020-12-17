@@ -140,12 +140,15 @@ export function getComponentsTargetsByComponent(componentsStore, component) {
     component,
   );
 
-  return [
+  const targets = [
     ...descendants,
     ...siblingHeaviest,
     ...unclesHeaviest,
     ...greatUnclesHeaviest,
   ];
+  targets.push('idendquest');
+
+  return targets;
 }
 
 export function getComponentsTargetsByPosition(

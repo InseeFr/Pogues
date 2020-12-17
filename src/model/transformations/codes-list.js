@@ -1,3 +1,6 @@
+import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+
+const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 /**
  *
  * @param {*} codes The list of codes
@@ -22,7 +25,7 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         depth,
         weight: index + 1,
       };
-      if(c.Precisionid) {
+      if (c.Precisionid) {
         codeState.precisionid = c.Precisionid;
         codeState.precisionlabel = c.Precisionlabel;
         codeState.precisionsize = c.Precisionsize;
@@ -36,29 +39,32 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
 }
 export function getcodelistwithclarification(remote, variableclarification) {
   remote.forEach(codelist => {
-    variableclarification.forEach( clarif => {
-      if (clarif.codelistid === codelist.id && clarif.position){
+    variableclarification.forEach(clarif => {
+      if (clarif.codelistid === codelist.id) {
         let index = 0;
-        if(clarif.type === 'MULTIPLE_CHOICE') {       
-            index = parseInt(clarif.position)
-         }
-        else {
-          index = codelist.Code.findIndex(code => code.Value === clarif.position);
+        if (clarif.type === MULTIPLE_CHOICE) {
+          index = parseInt(clarif.position);
+        } else {
+          index = codelist.Code.findIndex(
+            code => code.Value === clarif.position,
+          );
         }
         codelist.Code[parseInt(index)] = {
-          ...codelist.Code[parseInt(index)], 
-          Precisionid: clarif.responseclar.Name, 
+          ...codelist.Code[parseInt(index)],
+          Precisionid: clarif.responseclar.Name,
           Precisionlabel: clarif.responseclar.Label,
           Precisionsize: clarif.responseclar.Response[0].Datatype.MaxLength,
-        }
+        };
       }
     });
   });
-
   return remote;
 }
 export function remoteToStore(remote, variableclarification) {
-  const remotecode = getcodelistwithclarification(remote, variableclarification);
+  const remotecode = getcodelistwithclarification(
+    remote,
+    variableclarification,
+  );
   return remotecode.reduce((acc, codesList) => {
     const { id, Label: label, Code: codes } = codesList;
     return {
@@ -102,7 +108,7 @@ export function storeToRemote(store) {
       Label: label,
       Name: '',
       Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-        const { label: labelCode, value, parent} = codes[keyCode];
+        const { label: labelCode, value, parent } = codes[keyCode];
         return {
           Label: labelCode,
           Value: value,

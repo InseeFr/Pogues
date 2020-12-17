@@ -1,9 +1,8 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
 const dictionary = {
-
   phLabel: {
     en: 'Enter a title for the questionnaire',
     fr: 'Entrez un titre pour le questionnaire',
@@ -99,6 +98,26 @@ const dictionary = {
   subSequence: {
     en: 'Sub-sequence',
     fr: 'Sous-séquence',
+  },
+  loop: {
+    en: 'Loop',
+    fr: 'Boucle',
+  },
+  filtre: {
+    en: 'Filter',
+    fr: 'Filtre',
+  },
+  filtreImbriquer: {
+    fr: 'Nouveau filtre imbriqué',
+    en: 'New nested filter',
+  },
+  editFiltreImbriquer: {
+    fr: 'Editer filtre imbriqué',
+    en: 'Edit nested filter',
+  },
+  Scope: {
+    en: 'Scope',
+    fr: 'Portée',
   },
   question: {
     en: 'Question',
@@ -348,6 +367,65 @@ const dictionary = {
     en: 'Precision',
     fr: 'Précision',
   },
+  BasedOn: {
+    en: 'Based on',
+    fr: 'Basé sur',
+  },
+
+  Filter: {
+    en: 'Excepted',
+    fr: 'Sauf',
+  },
+
+  InitialMembre: {
+    en: 'Start',
+    fr: 'Début',
+  },
+
+  FinalMembre: {
+    en: 'End',
+    fr: 'Fin',
+  },
+
+  AddButton: {
+    en: 'Add button label',
+    fr: "Libellé du bouton d'ajout",
+  },
+
+  selectBasedOn: {
+    fr: 'Spécifier Basé sur',
+    en: 'Specify Based on',
+  },
+
+  selectInitialMembre: {
+    fr: 'Spécifier Membre initial',
+    en: 'Specify Initial member',
+  },
+
+  selectFinalMembre: {
+    fr: 'Spécifier Membre final',
+    en: 'Specify Final member',
+  },
+
+  selectScope: {
+    fr: 'Portée Questionnaire',
+    en: 'Scope Questionnaire',
+  },
+
+  selectNestedFilter: {
+    fr: 'Spécifier Filtre imbriqué',
+    en: 'Specify Nested filter',
+  },
+
+  QGoTo: {
+    fr: 'Redirections',
+    en: 'GoTo',
+  },
+
+  QFilter: {
+    fr: 'Filtres',
+    en: 'Filter',
+  },
 
   specify: {
     en: 'Specify',
@@ -356,7 +434,7 @@ const dictionary = {
   hours: {
     en: 'hours',
     fr: 'heures',
-  }, 
+  },
 
   minutes: {
     en: 'minutes',
@@ -371,12 +449,12 @@ const dictionary = {
   years: {
     en: 'years',
     fr: 'années',
-  }, 
+  },
 
   months: {
     en: 'months',
     fr: 'mois',
-  }, 
+  },
 
   dateinitial: {
     en: 'Date format',
@@ -391,7 +469,7 @@ const dictionary = {
   formatDate: {
     en: 'please respect the date format',
     fr: 'merci de respecter le format de la date',
-  }, 
+  },
 
   unit: {
     en: 'Unit of measure',
@@ -416,8 +494,8 @@ const dictionary = {
     fr: 'Description',
   },
   expression: {
-    en: 'Condition',
-    fr: 'Condition',
+    en: 'Display condition',
+    fr: "Condition d'affichage",
   },
   target: {
     en: 'Target',
@@ -581,9 +659,9 @@ const dictionary = {
   },
   errorUniqueComponentName: {
     fr:
-      'Les noms de composant (séquence, sous-séquence et question) doivent être uniques :',
+      'Les noms de composant (séquence, sous-séquence, boucle et question) doivent être uniques :',
     en:
-      'Component names (sequence, subsequence and question) should be unique:',
+      'Component names (sequence, subsequence, loop and question) should be unique:',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
@@ -723,13 +801,31 @@ const dictionary = {
   },
   modification: {
     en: 'Your modification is not saved ! Are you sure you want to leave ?',
-    fr: "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
+    fr:
+      "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
+  },
+  saveLower: {
+    en: 'Thank you to validate all the actions on the page',
+    fr: 'Merci de valider toutes les actions de la page',
   },
 
+  saveLowerTitle: {
+    en: 'Modifications not validated',
+    fr: 'Modifications non validées',
+  },
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
-    fr: "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
+    fr:
+      "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
   },
+
+  loopNotSaved: {
+    en:
+      'Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.',
+    fr:
+      "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider.",
+  },
+
   close: {
     fr: 'fermer',
     en: 'close',
@@ -785,6 +881,10 @@ const dictionary = {
   conditions: {
     fr: 'Conditions',
     en: 'Conditions',
+  },
+  condition: {
+    fr: 'Condition',
+    en: 'Condition',
   },
   deleteCondition: {
     fr: 'Supprimer la condition',
@@ -963,6 +1063,10 @@ const dictionary = {
   collectionMode: {
     fr: 'Mode de collecte',
     en: 'Collection mode',
+  },
+  dynamiqueSpecified: {
+    fr: 'Dynamique spécifiée en',
+    en: 'Dynamics specified in',
   },
   lastUpdate: {
     fr: 'Dernière mise à jour',
@@ -1362,6 +1466,30 @@ const dictionary = {
     fr: 'Spécification',
     en: 'Specification',
   },
+  NEW: {
+    fr: 'Nouveau',
+    en: 'New',
+  },
+  EXISTING: {
+    fr: 'Existant',
+    en: 'Existing',
+  },
+  TYPEFILTER: {
+    fr: 'Type de filtre',
+    en: 'Filtre type',
+  },
+  If: {
+    fr: 'Si',
+    en: 'If',
+  },
+  EndIf: {
+    fr: 'Fin si',
+    en: 'End if',
+  },
+  IsNotLetter: {
+    en: 'Id should begin with a letter',
+    fr: "L'identifiant de la variable doit commencer par une lettre",
+  },
 };
 
 // Dynamic translations
@@ -1374,6 +1502,16 @@ dictionary[`componentNew${QUESTION}`] = {
 dictionary[`componentNew${SEQUENCE}`] = {
   fr: 'Nouvelle sequence',
   en: 'New sequence',
+};
+
+dictionary[`componentNew${LOOP}`] = {
+  fr: 'Nouvelle boucle',
+  en: 'New loop',
+};
+
+dictionary[`componentNew${FILTER}`] = {
+  fr: 'Nouveau filtre',
+  en: 'New filter',
 };
 
 dictionary[`componentNew${SUBSEQUENCE}`] = {
@@ -1396,4 +1534,15 @@ dictionary[`componentEdit${SUBSEQUENCE}`] = {
   en: 'Edit sub-sequence',
 };
 
+dictionary[`componentEdit${LOOP}`] = {
+  fr: 'Modifier la boucle',
+  en: 'Edit loop',
+};
+
+dictionary[`componentEdit${FILTER}`] = {
+  fr: 'Modifier le filtre',
+  en: 'Edit filter',
+};
+
 export default dictionary;
+

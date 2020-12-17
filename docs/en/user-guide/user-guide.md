@@ -1,6 +1,6 @@
 # User guide for Pogues
 
-Last release 2020/07/02
+Last release 2020/12/11
 
 ---
 
@@ -59,7 +59,14 @@ Fill in :
 - an id 
 	- like a short label, by default, Pogues proposes to pre-fill it whith the first characters of the title
 - one or more collection modes (not completely working now)
- 	- CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper) 
+ 	- CAPI (face to face), CATI (phone), CAWI (Internet), PAPI (paper)
+---
+
+Fill in :
+
+- the logic used to specify the dynamics of the questionnaire
+	- GoTo (condition the hiding of certain elements of the questionnaire: jump from a starting element to a target element according to a certain condition) or Filter (condition the display of a sequence, sub-sequence or set of questions). Attention, the change of logic leads to the deletion of the specifications according to the previous logic.
+
 
 - Validate all with the "Validate" button.
 
@@ -207,9 +214,7 @@ For a single choice response question, fill in : (2)
   		
 ---
 
-# Creation of a multiple choice response question
-
-Examples :
+# Multiple choice question
 
 ![](../../img/en/mcr.png)
 
@@ -321,11 +326,11 @@ go to "collected variables" tab to generate them
 
 ---
 
-# How to manage a Code list (1)
+# How to manage a Codelist (1)
 ![](../../img/en/codelist.png)
 
 ---
-# How to manage a Code list (2)
+# How to manage a Codelist (2)
 You can do the following actions
 1. modify one modality : first 2 buttons, up to you, the first one will display the modification screen, the second button will display modality before modification and the modification screen
 2. delete one modality
@@ -460,7 +465,7 @@ NB : you can also delete or duplicate a control
 
 ---
 
-# Creation of a Goto (or filter) (1)
+# Creation of a Goto (1) (if the logic used to specify the dynamics of the questionnaire is GoTo)
 
 In the "Goto" tab of the question on which you want to apply a filter, fill in :
 - Goto description : this text will be displayed on the pdf paper questionnaire
@@ -469,7 +474,7 @@ In the "Goto" tab of the question on which you want to apply a filter, fill in :
 
 ---
 
-# Creation of a Goto (or filter) (2)
+# Creation of a Goto (2)
 
 Fill in :
 - Condition : (for which the respondent will go to a further target question and not to the immediate following question) : collected variables are referenced by using the dollar character \$, as you fill in following characters, pogues will propose to autocomplete your entry with the collected variables of the questionnaire containing these characters and then suffix automatically their id with the character \$.  example : if you go from the question Q1 (yes '1', no '2') to the question Q10 if Q1 ='2' fill in \$Q2\$='2' or \$Q2$ != '1' if you want to filter non response also. 
@@ -477,26 +482,74 @@ Fill in :
 
 ---
 
-# Creation of a Goto (or filter) (3)
+# Creation of a Goto (3)
 
 NB : you can also delete or duplicate a Goto
 
 ---
+# Creation of a filter (1)
+If you choose to specify the dynamics of the questionnaire in filters, a +Filter button appears in the bottom button bar of the questionnaire edit/modification screen (it is therefore a "general" button), immediately to the right of the +Loop button, while the Redirections tab, which is present when describing the questions, disappears from Pogues.
+Clicking on +Filter opens the following screen.
 
+![](../../img/en/filter1.png)
+
+---
+# Creation of a filter (2)
+Fill in :
+
+- Id : Id at your discretion. Unique. Be careful not to choose an existing variable or loop name.
+
+- Description: Description of the filter, take care if you use the paper questionnaire from Pogues because it is the text that will appear on the paper questionnaire to indicate to the respondent the dynamics to follow according to his answers.
+
+- Diplay condition: Condition of display of the filter elements (and not of disappearance as it is the case in logic Redirections).
+
+- Start: First element affected by the filter
+
+- End: Last item affected by the filter. If the filter concerns a single element, Start=End=this element.
+
+Validate
+
+
+---
+# Creation of a filter (3)
+Once added, filters can be edited, modified and deleted by clicking on the reminder of their display condition on their first item (see If ...). 
+
+![](../../img/en/filter2.png) 
+
+---
+# Creation of a filter (4)
+Two points of vigilance :
+
+1. It is not possible to define a single filter covering elements of a different nature (questions, sequences or sub-sequences). 
+If the same formula (\$Q1$='1' for example) conditions the display of Q2 to Q4, Sub-Sequence 1 and then Sequence 2 for example, you will have to specify three filters: one for Q2 to Q4 (because they are question elements), one for Sub-Sequence 1 and one for Sequence 2.
+
+2. If the same item is affected by more than one filter, this item will only be displayed if all the conditions of the filters including it are fulfilled.
+
+Please note that, pending the availability of ad hoc computer resources, the filters are unfortunately not currently edited in the odt specification format.
+
+
+---
 # Creation of an external variable (1)
 
 An external variable refers to a variable that is not collected in the questionnaire but is useful for customizing it. It can be a variable collected previously and recalled for consistency with past responses (last known turnover, last known headcount) or a variable useful for customizing some elements of the questionnaire (collection wave number to filter questions, date or geographical zoning to be displayed in a question label (year or regions for example) etc.). They are defined via the "External variables" tab of any question in the questionnaire.
-- Inform:
-  - Label
-  - Id : see the one in the customization file
-  - Response type : from Text, Date, Number, Boolean
-- Validate
 
 ---
 
 # Creation of an external variable (2)
 
-![](../../img/en/screen16.png)
+- Inform:
+  - Label
+  - Id : see the one in the customization file
+  - Response type : from Text, Date, Number, Boolean
+  - Scope : Questionnaire if the variable has the same value throughout the questionnaire. If the variable is an occurrence variable (i.e. its value depends on the line on which one is in a dynamic table or the occurrence on which one is in a loop), fill in here the iterable element (dynamic table or loop of the questionnaire) to which the variable refers.
+  
+- Validate
+
+---
+
+# Creation of an external variable (3)
+
+![](../../img/en/screen17.png)
 
 ---
 
@@ -504,7 +557,7 @@ An external variable refers to a variable that is not collected in the questionn
 
 It may be necessary to calculate variables from other variables in the questionnaire for some controls in particular.
 A calculated variable is defined via the "Calculated Variables" tab of any question in the questionnaire.
-![](../../img/en/screen17.png)
+![](../../img/en/screen16.png)
 
 ---
 
@@ -517,6 +570,7 @@ Fill in
 - Formula : you can use : if, then, else if, else 
 	- Example : sum of percentages collected in  a table
 - Reponse type : among Text, Date, Number, Boolean (see Creation for a simple response question)
+- Scope : Questionnaire if the variable has the same value throughout the questionnaire. If the variable is an occurrence variable (i.e. its value depends on the line on which one is in a dynamic table or the occurrence on which one is in a loop), fill in here the iterable element (dynamic table or loop of the questionnaire) to which the variable refers.
 
 Validate
 
@@ -562,6 +616,49 @@ else 0
 The age in difference of vintage will be given by the formula : \$CURRENTYEAR\$-\$YEARBIRTH\$
 
 ---
+# Creation of a loop (1)
+A loop is a set of questions (consecutive sequences or subsequences of the questionnaire) that will be asked at n "occurrences" (e.g. individuals, products, employees).
+
+A +Loop button allowing the addition of a loop has joined the button bar at the bottom of the Pogues screen for editing/modifying a questionnaire, immediately to the right of the +Sequence button. Clicking on the +Boucle button opens the next corresponding screen.
+![](../../img/en/loop1.png)
+
+---
+# Creation of a loop (2)
+Fill in :
+
+- Id: compulsory, Id for the loop, at your discretion. 
+
+- Maximum: optional, maximum number of occurrences of the loop, useful only for loops that are not based on a dynamic table or a previous loop.
+
+- Based on: optional, allows you to indicate whether the loop should be based on a dynamic table or another loop.
+
+---
+# Creation of a loop (3)
+- Excepted: optional, allows you to indicate via a formula the units to exclude from the loop (example: people younger than 18 years old). Warning: this filter currently only applies to qualitative variables. For a restriction on age, for example, you have to think about an indicator (for example we define AGE_RANGE = '1' for people younger than 18, TRANCHE_AGE = '2' for others): excluding people younger than 18 will be written : \$AGE_RANGE$= '1'.
+
+For example with a calculated variable having a formula of the type 
+if (\$AGE$<18) then '1' else '2'...
+Also provide for the case where the filter variable is not filled in. In the example on age, you need to know whether you want to display or not the individuals whose age is not filled in.
+
+---
+# Creation of a loop (4)
+- Start: obligatory, allows you to indicate the first element (sequence or sub-sequence) on which to loop.
+
+- End: obligatory, allows you to indicate the last element (sequence or sub-sequence) on which to loop. When the loop consists of a single sequence or sub-sequence, Start and End will be identical.
+
+- Add button label: optional, label of the add button of a loop occurrence when it exists. Example: Add a product, Add a service, Add an individual
+If "Based on" is entered, then this button does not need to be filled in, as the loop is based on a previous loop.
+
+Validate
+
+---
+# Creation of a loop (5)
+If you want to review the specification of a loop and/or modify and/or delete it, you will find all the specified loops on the left hand side of the questionnaire edit screen in Pogues, under the sequence list.
+Please note that, pending the availability of ad hoc computer resources, the loops are not currently edited in the odt specification format.
+
+![](../../img/en/loop2.png)
+
+---
 # Style : Bold or Italic
 
 You can put some words in bold or italic with the buttons surrounded in red in the screenshot below
@@ -580,7 +677,7 @@ On a question, there is also the "Duplicate" button.
 ---
 
 "Show the detail" allows you to view the element and modify it if necessary.
-"Visualise" allows you to view only the element you are on.
+"Visualise" allows you to view only the element you are on. Please note that the formulas (controls, redirections) are not applied to the unit view but only to the whole questionnaire (visualise at the bottom of the HMI).
 "Delete" allows you to delete an item.
 "Duplicate" is used to copy a question. Don't forget to modify the identifier of the duplicate question and the identifier of the collected variable(s) associated with the duplicate, as you can't have the same id for several questions or several collected variables. It is currently not possible to duplicate a code list and keep the original code list and a modified duplicate code list. Any changes to the duplicate code list are currently reflected in the original duplicate code list.
 
@@ -611,7 +708,7 @@ The "Page break" button is currently not working.
 
 # Show the detail or delete the questionnaire
 
-It is possible to "show the detail" of a questionnaire (you can see and perhaps modify informations filled in when creating a questionnaire) or to "delete" it with the dedicated buttons at the top of the page.
+It is possible to "show the detail" of a questionnaire (you can see and perhaps modify informations filled in when creating a questionnaire) or to "delete" it with the dedicated buttons at the top of the page. 
 
 ![](../../img/en/screen22.png)
 
@@ -626,11 +723,13 @@ The following questionnaire integrity checks are currently being implemented:
 ---
 # What is not yet working in Pogues (1)
 *manual DDI add-on* 
-- The addition of a "Specify" field if a "Other" type modality has been checked
+
 - Fill in a pattern (specify a regular expression) for a text response
-- Redirection towards the end of the questionnaire
+- Manage hypelinks and mailtos
+- Manage surveys linked to several models of questionnaires
+- Associate images to response modalities (example : arrows for conjuncture surveys)
 - Manage units other than €, k€, %, hours, days, months, years
-- Loop on the elements of a table (example: individuals aged older than 15 years in a household)
+
 ---
 
 - Taking into account multimode (CAWI, CAPI, PAPI, CATI)
@@ -639,7 +738,7 @@ The following questionnaire integrity checks are currently being implemented:
 - Condition the label of a question according to the answers previously obtained 
 - Duplicate a code list to create a variant
 - The "Page break" button at the bottom center of the interface Pogues
-- pdf settings (number of columns, portrait or landscape layout, type of entry)
+- pdf settings (number of columns, portrait or landscape layout, type of entry, numbering, number of questions per page)
 ---
 
 choice of numbering type among:

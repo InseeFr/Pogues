@@ -36,6 +36,7 @@ export function stateToRemote(
   state,
   collectedVariables,
   collectedVariablesStore,
+  response,
 ) {
   const { type, [type]: responseFormatState } = state;
   let dataTypeRemote;
@@ -58,6 +59,7 @@ export function stateToRemote(
       responseFormatState,
       collectedVariables,
       collectedVariablesStore,
+      response,
     );
     remote = {
       ResponseStructure: {
@@ -71,6 +73,7 @@ export function stateToRemote(
       responseFormatState,
       collectedVariables,
       collectedVariablesStore,
+      response,
     );
     remote = {
       ResponseStructure: {

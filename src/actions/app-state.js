@@ -178,7 +178,15 @@ export const setEditingComponentId = (id = '') => ({
  * @return {object}       UPDATE_ACTIVE_QUESTIONNAIRE action
  */
 export const updateActiveQuestionnaire = updatedState => {
-  const { name, label, serie, operation, campaigns, TargetMode } = updatedState;
+  const {
+    name,
+    label,
+    serie,
+    operation,
+    campaigns,
+    TargetMode,
+    dynamiqueSpecified,
+  } = updatedState;
   return {
     type: UPDATE_ACTIVE_QUESTIONNAIRE,
     payload: {
@@ -188,6 +196,7 @@ export const updateActiveQuestionnaire = updatedState => {
       operation,
       campaigns,
       TargetMode,
+      dynamiqueSpecified,
     },
   };
 };
@@ -217,11 +226,10 @@ export const saveActiveQuestionnaireSuccess = (id, update) => ({
     update: {
       ...update,
       isQuestionnaireModified: false,
-      isQuestionnaireHaveerror: false,
+      isQuestionnaireHaveError: false,
     },
   },
 });
-
 
 /**
  * Save active questionnaire failure
@@ -237,7 +245,7 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   payload: {
     id,
     err,
-    isQuestionnaireHaveerror: true,
+    isQuestionnaireHaveError: true,
   },
 });
 
@@ -278,7 +286,6 @@ export const saveActiveQuestionnaire = () => {
 
     const state = getState();
     const questionnaireModel = getQuestionnaireModel(state);
-
     return putQuestionnaire(questionnaireModel.id, questionnaireModel)
       .then(() => {
         return dispatch(

@@ -1,10 +1,17 @@
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME, DATATYPE_NAME
+  DATATYPE_TYPE_FROM_NAME,
+  DATATYPE_NAME,
+  COMPONENT_TYPE,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_FORMATS,
 } from 'constants/pogues-constants';
-import { element } from 'prop-types';
+
 const { COLLECTED } = VARIABLES_TYPES;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { LIST } = DIMENSION_FORMATS;
 
 export function remoteToStore(
   remote = [],
@@ -13,24 +20,30 @@ export function remoteToStore(
   variableclarification,
 ) {
   remote.forEach(variable => {
-    if(variableclarification) {
-      const find = variableclarification.find(element => element.responseclar.Response[0].CollectedVariableReference == variable.id)
-      if(find) {
-        if(find.type === 'MULTIPLE_CHOICE') {       
+    if (variableclarification) {
+      const find = variableclarification.find(
+        element =>
+          element.responseclar.Response[0].CollectedVariableReference ===
+          variable.id,
+      );
+      if (find) {
+        if (find.type === MULTIPLE_CHOICE) {
           variable.z = parseInt(find.position) + 1;
-        }
-        else if(find.type === 'TABLE') {
-          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
+        } else if (find.type === TABLE) {
+          const code = Object.values(
+            codesListsStore[find.codelistid].codes,
+          ).find(cod => cod.value === find.position);
           variable.z = code.weight;
-          variable.mesureLevel = find.level
-        }
-        else {
-          const code = Object.values(codesListsStore[find.codelistid].codes).find(cod => cod.value === find.position)
+          variable.mesureLevel = find.level;
+        } else {
+          const code = Object.values(
+            codesListsStore[find.codelistid].codes,
+          ).find(cod => cod.value === find.position);
           variable.z = code.weight;
         }
       }
     }
-  })
+  });
   return remote.reduce((acc, ev) => {
     ev.Datatype = ev.Datatype || {};
     const {
@@ -47,12 +60,14 @@ export function remoteToStore(
         Unit: unit,
         Format: format1,
       },
+      z,
     } = ev;
-    const z = ev.z;
-    const mesureLevel = ev.mesureLevel;
+    const { mesureLevel } = ev;
     const id = ev.id || uuid();
     const format =
-    typeName === DATATYPE_NAME.DATE && format1 ? format1.toLowerCase() : format1;
+      typeName === DATATYPE_NAME.DATE && format1
+        ? format1.toLowerCase()
+        : format1;
     const datatype = {};
     if (maxLength !== undefined) datatype.maxLength = maxLength;
     if (pattern !== undefined) datatype.pattern = pattern;
@@ -61,41 +76,57 @@ export function remoteToStore(
     if (decimals !== undefined) datatype.decimals = decimals;
     if (unit !== undefined) datatype.unit = unit;
     if (format !== undefined) datatype.format = format;
-    if ( typeName === DATATYPE_NAME.DURATION) {
-      if(datatype.minimum !== undefined){
-        let strminimum = datatype.minimum;
-        let matches_minimum = strminimum.match(/\d+/g);
+    if (typeName === DATATYPE_NAME.DURATION) {
+      if (datatype.minimum !== undefined) {
+        const strminimum = datatype.minimum;
+        const matches_minimum = strminimum.match(/\d+/g);
         if (format === 'PTnHnM') {
-          datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-          datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+          datatype.mihours = matches_minimum[0] === 0 ? '' : matches_minimum[0];
+          datatype.miminutes =
+            matches_minimum[1] === 0 ? '' : matches_minimum[1];
         }
         if (format === 'PnYnM') {
-          datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-          datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+          datatype.miyears = matches_minimum[0] === 0 ? '' : matches_minimum[0];
+          datatype.mimonths =
+            matches_minimum[1] === 0 ? '' : matches_minimum[1];
         }
         if (format === 'HH:CH') {
-          datatype.mihundhours = matches_minimum[0][0] == 0 ? matches_minimum[0].slice(1) : matches_minimum[0];
-          datatype.mihundredths = matches_minimum[1][0] == 0 ? matches_minimum[1].slice(1) : matches_minimum[1];
+          datatype.mihundhours =
+            matches_minimum[0][0] === 0
+              ? matches_minimum[0].slice(1)
+              : matches_minimum[0];
+          datatype.mihundredths =
+            matches_minimum[1][0] === 0
+              ? matches_minimum[1].slice(1)
+              : matches_minimum[1];
         }
       }
-      if(datatype.maximum !== undefined){
-        let strmaximum = datatype.maximum;
-        let matches_maximum = strmaximum.match(/\d+/g);
+      if (datatype.maximum !== undefined) {
+        const strmaximum = datatype.maximum;
+        const matches_maximum = strmaximum.match(/\d+/g);
         if (format === 'PTnHnM') {
-          datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-          datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+          datatype.mahours = matches_maximum[0] === 0 ? '' : matches_maximum[0];
+          datatype.maminutes =
+            matches_maximum[1] === 0 ? '' : matches_maximum[1];
         }
         if (format === 'PnYnM') {
-          datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-          datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+          datatype.mayears = matches_maximum[0] === 0 ? '' : matches_maximum[0];
+          datatype.mamonths =
+            matches_maximum[1] === 0 ? '' : matches_maximum[1];
         }
         if (format === 'HH:CH') {
-          datatype.mahundhours = matches_maximum[0][0] == 0 ? matches_maximum[0].slice(1) : matches_maximum[0];
-          datatype.mahundredths = matches_maximum[1][0] == 0 ? matches_maximum[1].slice(1) : matches_maximum[1];
+          datatype.mahundhours =
+            matches_maximum[0][0] === 0
+              ? matches_maximum[0].slice(1)
+              : matches_maximum[0];
+          datatype.mahundredths =
+            matches_maximum[1][0] === 0
+              ? matches_maximum[1].slice(1)
+              : matches_maximum[1];
         }
       }
     }
-    return {
+    const remote = {
       ...acc,
       [id]: {
         id,
@@ -106,12 +137,14 @@ export function remoteToStore(
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
-        z,
-        mesureLevel,
         [typeName]: datatype,
         ...responsesByVariable[id],
+        z,
+        mesureLevel,
       },
     };
+
+    return remote;
   }, {});
 }
 export function remoteToComponentState(remote = []) {
@@ -119,12 +152,146 @@ export function remoteToComponentState(remote = []) {
     .filter(r => r.CollectedVariableReference)
     .map(r => r.CollectedVariableReference);
 }
-export function storeToRemote(store) {
-  return Object.keys(store).map(key => {
 
+function getQuestionFromSequence(componentsStore, id) {
+  const sequenceQuestions = [];
+  componentsStore[id].children.forEach(child => {
+    if (componentsStore[child]) {
+      if (componentsStore[child].type === QUESTION) {
+        sequenceQuestions.push(componentsStore[child]);
+      } else {
+        componentsStore[child].children.forEach(chil => {
+          sequenceQuestions.push(componentsStore[chil]);
+        });
+      }
+    }
+  });
+  return sequenceQuestions;
+}
+
+function getQuestionFromSubSequence(componentsStore, id) {
+  const SubSequenceQuestions = [];
+  if (componentsStore[id].children) {
+    componentsStore[id].children.forEach(child => {
+      if (componentsStore[child] && componentsStore[child].type === QUESTION) {
+        SubSequenceQuestions.push(componentsStore[child]);
+      }
+    });
+  }
+
+  return SubSequenceQuestions;
+}
+
+function findQuestionInLoop(componentsStore) {
+  const LoopsQuestions = {};
+  Object.values(componentsStore)
+    .filter(element => element.type === LOOP)
+    .forEach(component => {
+      let LoopQuestions = [];
+      if (componentsStore[component.initialMember]) {
+        if (componentsStore[component.initialMember].type === SEQUENCE) {
+          if (
+            componentsStore[component.initialMember].weight !==
+            componentsStore[component.finalMember].weight
+          ) {
+            for (
+              var i = componentsStore[component.initialMember].weight;
+              i <= componentsStore[component.finalMember].weight;
+              i++
+            ) {
+              const sequence = Object.values(componentsStore).find(
+                element => element.type === SEQUENCE && element.weight === i,
+              );
+              if (sequence) {
+                LoopQuestions = LoopQuestions.concat(
+                  getQuestionFromSequence(componentsStore, sequence.id),
+                );
+              }
+            }
+          } else {
+            LoopQuestions = LoopQuestions.concat(
+              getQuestionFromSequence(
+                componentsStore,
+                componentsStore[component.initialMember].id,
+              ),
+            );
+          }
+        } else if (
+          componentsStore[component.initialMember].weight !==
+          componentsStore[component.finalMember].weight
+        ) {
+          for (
+            var i = componentsStore[component.initialMember].weight;
+            i <= componentsStore[component.finalMember].weight;
+            i++
+          ) {
+            const subsequence = Object.values(componentsStore).find(
+              element =>
+                element.type === SUBSEQUENCE &&
+                element.weight === i &&
+                element.parent ===
+                  componentsStore[component.initialMember].parent,
+            );
+            if (subsequence) {
+              LoopQuestions = LoopQuestions.concat(
+                getQuestionFromSubSequence(componentsStore, subsequence.id),
+              );
+            }
+          }
+        } else {
+          LoopQuestions = LoopQuestions.concat(
+            getQuestionFromSubSequence(
+              componentsStore,
+              componentsStore[component.initialMember].id,
+            ),
+          );
+        }
+      }
+
+      LoopsQuestions[component.id] = LoopQuestions;
+    });
+  return LoopsQuestions;
+}
+
+function getCollectedScope(questionsLoop, id, componentsStore) {
+  let isfound = {};
+  Object.keys(questionsLoop).map(key => {
+    questionsLoop[key].forEach(element => {
+      if (
+        element.collectedVariables &&
+        element.collectedVariables.find(collected => collected === id)
+      ) {
+        isfound = {
+          loop: componentsStore[key],
+          component: element,
+        };
+      }
+    });
+  });
+  return isfound;
+}
+
+function getTableDynamique(componentsStore, id) {
+  let tableId = '';
+  Object.values(componentsStore)
+    .filter(
+      components =>
+        components.type === QUESTION &&
+        components.responseFormat.type === TABLE &&
+        components.responseFormat.TABLE.PRIMARY.type === LIST,
+    )
+    .map(component => {
+      if (component?.collectedVariables?.includes(id)) {
+        tableId = component.id;
+      }
+    });
+  return tableId;
+}
+
+export function storeToRemote(store, componentsStore) {
+  return Object.keys(store).map(key => {
     const {
       id,
-      z,
       name: Name,
       label: Label,
       type: typeName,
@@ -151,6 +318,7 @@ export function storeToRemote(store) {
         mahundredths: Mahundredths,
       },
     } = store[key];
+
     const model = {
       id,
       Name,
@@ -161,63 +329,92 @@ export function storeToRemote(store) {
         type: DATATYPE_TYPE_FROM_NAME[typeName],
       },
     };
-    if(codeListReference !== "") {
+
+    const questionsInLoop = findQuestionInLoop(componentsStore);
+    const collectedScop = getCollectedScope(
+      questionsInLoop,
+      id,
+      componentsStore,
+    );
+    if (collectedScop.component) {
+      if (
+        collectedScop.component.type === QUESTION &&
+        collectedScop.loop &&
+        collectedScop.loop.basedOn
+      ) {
+        model.Scope = collectedScop.loop.basedOn;
+      } else if (
+        collectedScop.component.type === QUESTION &&
+        collectedScop.component.responseFormat.type === TABLE &&
+        collectedScop.component.responseFormat.TABLE.PRIMARY.type === LIST
+      ) {
+        model.Scope = collectedScop.component.id;
+      } else {
+        model.Scope = collectedScop.loop.id;
+      }
+    }
+    const dynamique = getTableDynamique(componentsStore, id);
+    if (dynamique) {
+      model.Scope = dynamique;
+    }
+
+    if (codeListReference !== '') {
       model.CodeListReference = codeListReference;
     }
+
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
 
     if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
 
     if (typeName === DATATYPE_NAME.DURATION && Format !== undefined) {
-  
-      if (Format === 'PnYnM' ) {
-        if(Miyears || Mimonths){
+      if (Format === 'PnYnM') {
+        if (Miyears || Mimonths) {
           model.Datatype.Minimum = `P${Miyears || 0}Y${Mimonths || 0}M`;
         }
-         if(Mayears || Mamonths){
+        if (Mayears || Mamonths) {
           model.Datatype.Maximum = `P${Mayears || 0}Y${Mamonths || 0}M`;
         }
       }
       if (Format === 'PTnHnM') {
-        if(Mihours || Miminutes){
+        if (Mihours || Miminutes) {
           model.Datatype.Minimum = `PT${Mihours || 0}H${Miminutes || 0}M`;
         }
-         if(Mahours || Maminutes){
+        if (Mahours || Maminutes) {
           model.Datatype.Maximum = `PT${Mahours || 0}H${Maminutes || 0}M`;
         }
       }
       if (Format === 'HH:CH') {
-        if(Mihundhours || Mihundredths){
-          model.Datatype.Minimum = `${Mihundhours ? ('0' + Mihundhours).slice(-2) : '00'}:${Mihundredths ? ('0' + Mihundredths).slice(-2) : '00'}`;
+        if (Mihundhours || Mihundredths) {
+          model.Datatype.Minimum = `${
+            Mihundhours ? `0${Mihundhours}`.slice(-2) : '00'
+          }:${Mihundredths ? `0${Mihundredths}`.slice(-2) : '00'}`;
         }
-         if(Mahundhours || Mahundredths){
-          model.Datatype.Maximum = `${Mahundhours ? ('0' + Mahundhours).slice(-2) : '00'}:${Mahundredths ?  ('0' + Mahundredths).slice(-2) : '00'}`;
+        if (Mahundhours || Mahundredths) {
+          model.Datatype.Maximum = `${
+            Mahundhours ? `0${Mahundhours}`.slice(-2) : '00'
+          }:${Mahundredths ? `0${Mahundredths}`.slice(-2) : '00'}`;
         }
       }
-     }
-     else if (typeName === DATATYPE_NAME.DATE){
-        if (Minimum !== '') {
-          model.Datatype.Minimum = Minimum;
-        }
-        if (Maximum !== '') {
-          model.Datatype.Maximum = Maximum;
-        }
-     }
-    else {
+    } else if (typeName === DATATYPE_NAME.DATE) {
+      if (Minimum !== '') {
+        model.Datatype.Minimum = Minimum;
+      }
+      if (Maximum !== '') {
+        model.Datatype.Maximum = Maximum;
+      }
+    } else {
       if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
       if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
     }
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
-    if (Format !== undefined ) { 
-      if (typeName === DATATYPE_NAME.DATE){
+    if (Format !== undefined) {
+      if (typeName === DATATYPE_NAME.DATE) {
         model.Datatype.Format = Format.toUpperCase();
-      }
-      else{
+      } else {
         model.Datatype.Format = Format;
       }
     }
-
-        return model;
+    return model;
   });
 }

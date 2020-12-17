@@ -6,9 +6,11 @@ class DropZone extends Component {
   static defaultProps = {
     style: {},
   };
+
   static propTypes = {
     style: PropTypes.object,
   };
+
   render() {
     return (
       <div className="questionnaire-element-drop-zone" style={this.props.style}>

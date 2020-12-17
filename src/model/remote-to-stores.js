@@ -14,6 +14,14 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     CodeLists: { CodeList: codesLists },
     Variables: { Variable: variables },
   } = remote;
+  let iterations = [];
+  if (remote.Iterations && remote.Iterations.Iteration) {
+    iterations = remote.Iterations.Iteration;
+  }
+  let filters = [];
+  if (remote.FlowControl) {
+    filters = remote.FlowControl;
+  }
   const calculatedVariables = variables.filter(v => v.type === CALCULATED);
   const externalVariables = variables.filter(v => v.type === EXTERNAL);
   const collectedVariables = variables.filter(v => v.type === COLLECTED);
@@ -31,9 +39,15 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     [id]: ExternalVariable.remoteToStore(externalVariables),
   };
   // Codes lists store
-  const variableclarification = Component.getClarificarionfromremote(remote.Child, collectedVariables);
-  const codesListsStore = CodesList.remoteToStore(codesLists, variableclarification);
-  
+  const variableclarification = Component.getClarificarionfromremote(
+    remote.Child,
+    collectedVariables,
+  );
+  const codesListsStore = CodesList.remoteToStore(
+    codesLists,
+    variableclarification,
+  );
+
   const codeListByQuestionnaire = {
     [id]: codesListsStore,
   };
@@ -44,12 +58,18 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
       collectedVariables,
       responsesByVariable,
       codesListsStore,
-      variableclarification
+      variableclarification,
     ),
   };
   // Components store
   const componentByQuestionnaire = {
-    [id]: Component.remoteToStore(remote, id, codesListsStore),
+    [id]: Component.remoteToStore(
+      remote,
+      id,
+      codesListsStore,
+      iterations,
+      filters,
+    ),
   };
   return {
     questionnaireById,

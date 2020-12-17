@@ -2,6 +2,7 @@ import {
   required,
   requiredSelect,
   name,
+  nameLoop,
   nameSize,
   minValue,
   maxValue,
@@ -13,6 +14,7 @@ import {
   validateDuplicatesExternal,
   validateDuplicatesCollected,
   validCollectedVariables,
+  letterStart,
 } from 'forms/validation-rules';
 import {
   TABS_PATHS,
@@ -25,7 +27,7 @@ import {
 import Dictionary from 'utils/dictionary/dictionary';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { NUMERIC, TEXT , DATE, DURATION} = DATATYPE_NAME;
+const { NUMERIC, TEXT, DATE, DURATION } = DATATYPE_NAME;
 const { PRIMARY, SECONDARY, LIST_MEASURE, MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const {
@@ -51,46 +53,64 @@ export const sequenceRules = {
   label: [required],
 };
 
+export const loopRules = {
+  nameLoop: [required, nameLoop],
+  initialMember: [required],
+  finalMember: [required],
+  maximum: [
+    value => (value !== undefined && value !== '' ? minValue(2)(value) : false),
+  ],
+};
+
+export const filterRules = {
+  nameLoop: [required, nameLoop],
+  initialMember: [required],
+  finalMember: [required],
+  filter: [required],
+};
+
 export const questionRules = {
-  name: [required, name],
+  name: [required, name, letterStart],
   label: [required],
   [`${RESPONSE_FORMAT}.type`]: [requiredSelect],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
   ],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.minimum`]: [
-    required,
-  ],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    required,
-  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.minimum`]: [required],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.maximum`]: [required],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.maminutes`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value != undefined && value != ''? maxValue(59)(value): false,
+    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(59)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miminutes`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value !== undefined && value !== ''? maxValue(59)(value): false,
+    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(59)(value) : false,
   ],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahundredths`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value != undefined && value != ''? maxValue(99)(value): false,
+    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(99)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mihundredths`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value !== undefined && value !== ''? maxValue(99)(value): false,
+    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(99)(value) : false,
   ],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mamonths`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value !== undefined && value !== ''? maxValue(11)(value): false,
+    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(11)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mimonths`]: [
-    value => value !== undefined && value !== ''? minValue(0)(value) : false,
-    value => value !== undefined && value !== ''? maxValue(11)(value): false,
+    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
+    value =>
+      value !== undefined && value !== '' ? maxValue(11)(value) : false,
   ],
 
   [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
@@ -131,7 +151,6 @@ export const questionRules = {
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
 
-
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
@@ -142,7 +161,6 @@ export const questionRules = {
     value => minValue(0)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-
     value => minValue(1)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
@@ -153,7 +171,6 @@ export const questionRules = {
     validCodesList,
   ],
   [`${COLLECTED_VARIABLES}.collectedVariables`]: [validCollectedVariables],
- 
 };
 export const declarationRules = {
   [`${DECLARATIONS}.label`]: [
@@ -195,6 +212,7 @@ export const calculatedVariableRules = {
     value => required(value) && Dictionary.validation_calculatedvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesCalculated(value, conf) &&
       Dictionary.validation_calculatedvariable_existing,
@@ -213,6 +231,7 @@ export const externalVariableRules = {
     value => required(value) && Dictionary.validation_externalvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesExternal(value, conf) &&
       Dictionary.validation_externalvariable_existing,
@@ -227,6 +246,7 @@ export const collectedVariableRules = {
     value => required(value) && Dictionary.validation_collectedvariable_name,
     name,
     nameSize,
+    letterStart,
     (value, conf) =>
       validateDuplicatesCollected(value, conf) &&
       Dictionary.validation_collectedvariable_existing,

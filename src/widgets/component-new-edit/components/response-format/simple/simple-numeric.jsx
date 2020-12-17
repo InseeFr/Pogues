@@ -20,6 +20,7 @@ class ResponseFormatDatatypeNumeric extends Component {
     readOnly: false,
     required: true,
   };
+
   render() {
     return (
       <FormSection name={this.props.name}>

@@ -1,5 +1,5 @@
 # Guide utilisateur Pogues
-Version au 02/07/2020
+Version au 11/12/2020
 
 ---
 
@@ -23,6 +23,8 @@ Outil de conception de questionnaires pour la collecte pilotée par la métadonn
 
 - Dans son navigateur Internet, saisir :
 http://conception-questionnaires.insee.fr
+
+- Si le champ de saisie de l'idep n'apparaît pas, rafraîchir la page à l'aide de la touche F5 
 
 - Saisir son idep puis valider en cliquant sur "OK"
 
@@ -58,8 +60,14 @@ Renseigner (suite) :
 - le titre du questionnaire
 - l'identifiant métier du questionnaire 
 	- correspond à un libellé court, par défaut l'application propose les premiers caractères du libellé long, saisir le nom du modèle de l'enquête dans Coltrane
+
+---
+
+Renseigner (suite) :
 - le mode de collecte (pas encore fonctionnel)
  	- CAPI (face à face), CATI (téléphone), CAWI (Internet), PAPI (papier) 
+- la logique utilisée pour spécifier la dynamique du questionnaire
+	- Redirections (conditionner le masquage de certains éléments du questionnaire : sauter d'un élément de départ à un élément cible selon une certaine condition) ou Filtres (conditionner l'affichage d'une séquence, sous-séquence ou d'un ensemble de questions). Attention, le changement de logique entraîne la suppression des spécifications selon la logique précédente.
 
 - Valider la saisie via le bouton "Valider".
 
@@ -463,7 +471,7 @@ NB : il est également possible de supprimer ou dupliquer un contrôle
 
 ---
 
-# Création d'une redirection (ou renvoi ou filtre)
+# Création d'une redirection  (si la dynamique du questionnaire est spécifiée en redirections)
 
 Dans l'onglet "Redirections" de la question sur laquelle appliquer le filtre, renseigner :
 - Description de la redirection : ce texte s'affichera sur le questionnaire pdf papier
@@ -472,7 +480,7 @@ Dans l'onglet "Redirections" de la question sur laquelle appliquer le filtre, re
 
 ---
 
-# Création d'une redirection (ou renvoi ou filtre) (suite)
+# Création d'une redirection (suite)
 
 Renseigner :
 - Condition : (pour laquelle on redirige vers une question cible plus loin dans le questionnaire que la question suivante) : on appelle les variables du questionnaire en saisissant le caractère dollar \$, au fur et à mesure de la saisie des caractères suivants, l'application propose de l'autocomplétion avec les variables du questionnaire comportant ces caractères et suffixe ensuite automatiquement le nom de la variable saisie avec le caractère \$. exemple : si l'on va de la question Q1 (oui '1', non '2') à la question Q10 si Q1='2' on écrira ici \$Q2\$='2' ou bien \$Q2$ != '1' si on veut filtrer aussi en cas de non-réponse. 
@@ -480,26 +488,75 @@ Renseigner :
 
 ---
 
-# Création d'une redirection (ou renvoi ou filtre) (fin)
+# Création d'une redirection (fin)
 
 NB : il est également possible de supprimer ou dupliquer une redirection
+
+---
+# Création d'un filtre (si la dynamique du questionnaire est spécifiée en filtres)
+
+Si l’on choisit de spécifier la dynamique du questionnaire en filtres, un bouton +Filtre apparaît dans la barre de boutons du bas de l’écran d’édition/modification d’un questionnaire (c’est donc un bouton « général »), immédiatement à droite du bouton +Boucle, tandis que l’onglet Redirections, présent lui lors de la description des questions, disparaît de Pogues.
+Le clic sur +Filtre ouvre l’écran ci-après.
+
+![](../../img/fr/filtre1.png)
+
+---
+# Création d'un filtre (suite)
+
+Renseigner :
+
+- Identifiant : Identifiant métier à votre discrétion. Unique. Attention à ne pas choisir un nom de variable ou de boucle existant.
+
+- Description : description du filtre, à soigner si on utilise le questionnaire papier issu de Pogues car il s’agit du texte qui apparaîtra sur le questionnaire papier pour indiquer au répondant la dynamique à suivre en fonction de ses réponses.
+
+- Condition : Condition d’affichage des éléments du filtre (et non plus de disparition comme c’est le cas en logique Redirections)
+
+- Début : Premier élément concerné par le filtre
+
+- Fin : Dernier élément concerné par le filtre. Si le filtre concerne un unique élément, Début=Fin=cet élément
+
+Valider
+
+---
+# Création d'un filtre (suite)
+Une fois ajoutés, les filtres sont éditables, modifiables et supprimables via un clic sur le rappel de leur condition d'affichage sur leur premier élément (cf. Si ...). 
+
+![](../../img/fr/filtre2.png)
+
+---
+# Création d'un filtre (fin)
+Deux points de vigilance :
+
+1. Il n’est pas possible de définir un unique filtre portant sur des éléments de nature différente (questions, séquences ou sous-séquences). 
+Si une même formule (\$Q1$=’1’ par exemple) conditionne l’affichage de Q2 à Q4, de Sous-Séquence1 puis de Séquence 2 par exemple, vous devrez spécifier trois filtres : un pour Q2 à Q4 (car ce sont des éléments de nature questions), un pour la Sous-Séquence 1 et un pour la Séquence 2.
+
+2. Si un même élément est concerné par plusieurs filtres, cet élément ne sera affiché que si toutes les conditions des filtres l’incluant sont réalisées.
+
+A noter qu’en attente des moyens informatiques ad hoc, les filtres ne sont malheureusement pas édités actuellement dans le format spécification odt.
 
 ---
 
 # Création d'une variable externe
 
 Une variable externe désigne une variable non collectée dans le questionnaire mais utile pour sa personnalisation. Elle peut être une variable collectée antérieurement et rappelée à des fins de contrôle de cohérence avec les réponses passées (dernier CA connu, dernier effectif connu) ou une variable utile pour personnaliser certains éléments du questionnaire (numéro de vague de collecte pour filtrer des questions, une date ou un zonage géographique à afficher dans un libellé de question (année ou régions par exemple) etc.). Elles se définissement via l'onglet "Variables externes" de n'importe quelle question du questionnaire.
+
+---
+
+# Création d'une variable externe (suite)
+
 - Renseigner :
   - Libellé
   - Identifiant : cf. celui dans le fichier de personnalisation
   - Type de réponse  : parmi Texte, Date, Nombre, Booléen
+  - Portée : par défaut Questionnaire si la variable vaut la même valeur sur l’ensemble du questionnaire. Si la variable est occurrentielle (ie sa valeur dépend de la ligne sur laquelle on se trouve au sein d’un tableau dynamique ou de l’occurrence sur laquelle on se trouve au sein d’une boucle), renseigner ici l'élément itérable (tableau dynamique ou boucle du questionnaire) auquel se réfère la variable.
+  
 - Valider
 
 ---
 
 # Création d'une variable externe (suite)
 
-![](../../img/fr/ecran16.png)
+![](../../img/fr/ecran17.png)
 
 ---
 
@@ -507,12 +564,11 @@ Une variable externe désigne une variable non collectée dans le questionnaire 
 
 Il peut être nécessaire de calculer des variables à partir d'autres variables du questionnaire pour certains contrôles notamment.
 Une variable calculée se définit via l'onglet "Variables calculées" de n'importe quelle question du questionnaire.
-![](../../img/fr/ecran17.png)
+![](../../img/fr/ecran16.png)
 
 ---
 
 # Création d'une variable calculée (suite)
-
 
 Renseigner 
 - Libellé
@@ -520,6 +576,12 @@ Renseigner
 - Formule : possibilité d'utiliser des if, then, else if, else 
 	- Exemple : somme des pourcentages du CA dédiés à certaines activités ou somme des dépenses de 			l'entreprise liées à différentes postes budgétaires
 - Type de réponse : parmi Texte, Date, Nombre, Booléen (cf. Création d'une question de type réponse simple)
+
+---
+
+# Création d'une variable calculée (suite)
+
+- Portée : par défaut Questionnaire si la variable vaut la même valeur sur l’ensemble du questionnaire. Si la variable est occurrentielle (ie sa valeur dépend de la ligne sur laquelle on se trouve au sein d’un tableau dynamique ou de l’occurrence sur laquelle on se trouve au sein d’une boucle), renseigner ici l'élément itérable (tableau dynamique ou boucle du questionnaire) auquel se réfère la variable.
 
 Valider
 
@@ -637,6 +699,54 @@ NB : les boutons gras et italique sont également disponibles pour les libellés
 NB2 : le gras est visible aussi côté pdf, mais pas l'italique (normal ou bug ?)
 
 ---
+# Création d'une boucle (1)
+
+Une boucle est un ensemble de questions (séquences ou sous-séquences consécutives du questionnaire) qui seront posées à n « occurrences » (individus, produits, salariés par exemple).
+
+Un bouton +Boucle permettant l’ajout d’une boucle a rejoint la barre de boutons du bas de l’écran Pogues d’édition/modification d’un questionnaire, immédiatement à droite du bouton +Séquence. Le clic sur le bouton +Boucle ouvre l’écran correspondant suivant.
+![](../../img/fr/boucle1.png)
+
+---
+# Création d'une boucle (2)
+
+Renseigner :
+
+- Identifiant : obligatoire, identifiant métier de la boucle, à votre discrétion. 
+
+- Maximum : facultatif, nombre maximal d’occurrences de la boucle, utile uniquement pour les boucles qui ne s’appuient pas sur un tableau dynamique ou une boucle préalable.
+
+- Basé sur  : facultatif, permet d’indiquer si la boucle doit se baser sur un tableau dynamique ou une autre boucle
+Exemple : Ecmoss (boucle des questions posées aux salariés décrit dans l’échantillon qui se base sur le tableau dynamique les listant), VQS (boucle contenant les questions posées aux individus décrits en début de questionnaire, qui se base sur la première boucle qui permet de présenter chaque habitant du logement).
+
+---
+# Création d'une boucle (3)
+
+- Sauf : facultatif, permet d’indiquer via une formule les unités à exclure de la boucle (exemple : les mineurs). Attention : ce filtre ne s’applique actuellement qu’à des variables qualitatives. Pour une restriction sur l’âge par exemple, il faut raisonner sur une indicatrice (par exemple on définit TRANCHE_AGE*  = ‘1’ pour les mineurs,  TRANCHE_AGE = ‘2’ pour les autres) : exclure les mineurs s’écrira : \$TRANCHE_AGE$ =’1’ 
+*Par exemple avec une variable calculée ayant une formule du type 
+if (\$AGE$<18) then ‘1’ else ‘2’
+Prévoir aussi au cas où la variable  filtrante est non renseignée. Dans l’exemple sur l’âge, il faut savoir si on souhaite afficher ou non les individus dont l’âge est non renseigné.
+
+---
+# Création d'une boucle (4)
+
+- Début : obligatoire, permet d’indiquer le premier élément (séquence ou sous-séquence) sur lequel boucler
+
+- Fin : obligatoire, permet d’indiquer le dernier élément (séquence ou sous-séquence) sur lequel boucler. Quand la boucle se compose d’une unique séquence ou sous-séquence, Début et Fin seront identiques.
+
+- Libellé du bouton d’ajout : facultatif, libellé du bouton d’ajout d’une occurrence de boucle quand il existe. Exemple : Ajouter un produit, Ajouter un service, Ajouter un individu
+Si « Basé sur » est renseigné, alors ce bouton ne doit pas être rempli, puisque la boucle se base sur une boucle précédente.
+
+Valider
+
+---
+# Création d'une boucle (5)
+
+Si vous souhaitez relire la spécification d’une boucle et/ou la modifier et/ou la supprimer, vous retrouverez l’ensemble des boucles spécifiées à gauche de l’écran d’édition/modification de questionnaires dans Pogues, sous la liste des séquences.
+A noter qu’en attente des moyens informatiques ad hoc, les boucles ne sont pas actuellement éditées dans le format spécification odt.
+
+![](../../img/fr/boucle2.png)
+
+---
 
 # Style gras/italique (suite)
 ![](../../img/fr/ecran18.png)
@@ -653,7 +763,7 @@ Sur un élément question, on trouve également le bouton "Dupliquer".
 ---
 
 "Voir le détail" permet de consulter l'élément et de le modifier éventuellement.
-"Visualiser" permet de visualiser uniquement l'élément sur lequel on se trouve.
+"Visualiser" permet de visualiser uniquement l'élément sur lequel on se trouve. Attention, les formules (contrôles, redirections) ne sont pas appliquées lors de la visualisation unitaire mais seulement sur celle du questionnaire entier (visualiser en bas de l'IHM).
 "Supprimer" permet de supprimer un élément.
 "Dupliquer" permet de recopier une question. Il faudra bien penser à modifier l'identifiant de la question et celui ou ceux de la ou des variables collectées associées au duplicata. Il n'est actuellement pas possible de dupliquer une liste de codes et de conserver la liste de codes initiale et une liste de codes duplicata modifiée. Tout changement sur la liste de codes duplicata est actuellement répercutée sur la liste de codes initiale dupliquée.
 
@@ -698,22 +808,23 @@ Les contrôles d'intégrité du questionnaire suivants sont actuellement implém
 
 # Ce qui ne fonctionne pas encore dans Pogues 
 *complément DDI manuel* 
-- L'ajout d'un champ "Précisez" si une modalité de type "Autre" a été cochée
 - Renseigner un motif (spécifier une expression régulière) pour une réponse de type texte
-- Redirection vers la fin du questionnaire
 - Gérer des unités autres que €, k€, %, heures, jours, mois, années
-- Boucler sur les éléments d'un tableau (exemple : individus de plus de 15 ans d'un ménage)
+- Gérer les hyperliens et les mailto
+- Gérer les enquêtes multi-modèles
+- Associer des images à des modalités de réponse (exemple : flèches des e enquêtes de conjoncture)
+- La prise en compte du multimode (CAWI, CAPI, PAPI, CATI)
+*Possible de le renseigner mais n'est pas pris en compte dans l'affichage du questionnaire*
 ---
 
 # Ce qui ne fonctionne pas encore dans Pogues (suite)
 
-- La prise en compte du multimode (CAWI, CAPI, PAPI, CATI)
-*Possible de le renseigner mais n'est pas pris en compte dans l'affichage du questionnaire*
+
 - Le lien entre Pogues et RMéS et notamment publier le questionnaire ou réutiliser une question ou une liste de codes (exemple départements, pays, nomenclature) du référentiel 
 - Conditionner le libellé d'une question selon les réponses précédemment obtenues 
 - Dupliquer une liste de codes pour en créer une variante
 - Le bouton "Saut de page" en bas au centre de l'IHM Pogues
-- paramétrages du pdf (nombre de colonnes, mise en page portrait ou paysage, type de saisie)
+- paramétrages du pdf (nombre de colonnes, mise en page portrait ou paysage, type de saisie, numérotation, nombre de questions par page)
 ---
 
 # 

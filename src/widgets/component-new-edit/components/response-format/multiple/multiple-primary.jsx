@@ -9,12 +9,15 @@ const { PRIMARY } = DIMENSION_TYPE;
 
 class ResponseFormatMultiplePrimary extends Component {
   static selectorPath = PRIMARY;
+
   static propTypes = {
     selectorPathParent: PropTypes.string,
   };
+
   static defaultProps = {
     selectorPathParent: undefined,
   };
+
   constructor(props) {
     const { selectorPathParent } = props;
     super(props);
@@ -23,6 +26,7 @@ class ResponseFormatMultiplePrimary extends Component {
       ? `${selectorPathParent}.${ResponseFormatMultiplePrimary.selectorPath}`
       : ResponseFormatMultiplePrimary.selectorPath;
   }
+
   render() {
     return (
       <FormSection name={ResponseFormatMultiplePrimary.selectorPath}>
