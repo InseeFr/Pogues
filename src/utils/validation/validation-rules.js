@@ -57,7 +57,6 @@ export const loopRules = {
   nameLoop: [required, nameLoop],
   initialMember: [required],
   finalMember: [required],
-  filter: [required],
   maximum: [
     value => (value !== undefined && value !== '' ? minValue(2)(value) : false),
   ],
