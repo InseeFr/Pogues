@@ -98,7 +98,6 @@ server.put('/questionnaire/:id', function(req, res, next) {
 server.post('/questionnaires', function(req, res, next) {
   var qr = req.body;
   questionnaires.push(qr);
-  console.log("qr", qr)
   res.header(
     'Location',
     'http://' + req.headers.host + '/questionnaires/' + qr.id,
