@@ -101,7 +101,7 @@ const dictionary = {
   },
   loop: {
     en: 'Loop',
-    fr: 'Boucles',
+    fr: 'Boucle',
   },
   filtre: {
     en: 'Filter',
@@ -373,8 +373,8 @@ const dictionary = {
   },
 
   Filter: {
-    en: 'Filter',
-    fr: 'Filtre',
+    en: 'Excepted',
+    fr: 'Sauf',
   },
 
   InitialMembre: {
@@ -415,6 +415,16 @@ const dictionary = {
   selectNestedFilter: {
     fr: 'Spécifier Filtre imbriqué',
     en: 'Specify Nested filter',
+  },
+
+  QGoTo: {
+    fr: 'Redirections',
+    en: 'GoTo',
+  },
+
+  QFilter: {
+    fr: 'Filtres',
+    en: 'Filter',
   },
 
   specify: {
@@ -484,8 +494,8 @@ const dictionary = {
     fr: 'Description',
   },
   expression: {
-    en: 'Condition',
-    fr: 'Condition',
+    en: 'Display condition',
+    fr: "Condition d'affichage",
   },
   target: {
     en: 'Target',
@@ -795,11 +805,12 @@ const dictionary = {
       "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
   saveLower: {
-    en: 'Thanks to save all the action of the page',
+    en: 'Thank you to validate all the actions on the page',
     fr: 'Merci de valider toutes les actions de la page',
   },
+
   saveLowerTitle: {
-    en: 'Modifications not validate',
+    en: 'Modifications not validated',
     fr: 'Modifications non validées',
   },
   notSaved: {

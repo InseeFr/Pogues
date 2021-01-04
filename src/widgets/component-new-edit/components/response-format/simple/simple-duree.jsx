@@ -20,7 +20,9 @@ class ResponseFormatDatatypeDuree extends Component {
   render() {
     let formatini = this.props.format;
     if (this.props.type === 'TABLE') {
-      formatini = this.props.formattable;
+      formatini = this.props.formatTableList
+        ? this.props.formatTableList
+        : this.props.formatTable;
     }
     const isDuration =
       formatini === 'PTnHnM' || formatini === 'PnYnM' || formatini === 'HH:CH';
@@ -209,12 +211,16 @@ class ResponseFormatDatatypeDuree extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const selector = formValueSelector('component');
   return {
-    formattable: selector(
+    formatTable: selector(
       state,
       'responseFormat.TABLE.LIST_MEASURE.SIMPLE.DURATION.format',
+    ),
+    formatTableList: selector(
+      state,
+      'responseFormat.TABLE.MEASURE.SIMPLE.DURATION.format',
     ),
     format: selector(state, 'responseFormat.SIMPLE.DURATION.format'),
     type: selector(state, 'responseFormat.type'),

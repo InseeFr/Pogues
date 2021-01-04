@@ -1,3 +1,6 @@
+import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+
+const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 /**
  *
  * @param {*} codes The list of codes
@@ -39,7 +42,7 @@ export function getcodelistwithclarification(remote, variableclarification) {
     variableclarification.forEach(clarif => {
       if (clarif.codelistid === codelist.id) {
         let index = 0;
-        if (clarif.type === 'MULTIPLE_CHOICE') {
+        if (clarif.type === MULTIPLE_CHOICE) {
           index = parseInt(clarif.position);
         } else {
           index = codelist.Code.findIndex(

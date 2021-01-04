@@ -6,7 +6,7 @@ import CollectedVariable from './collected-variable';
 import CalculatedVariable from './calculated-variable';
 import ExternalVariable from './external-variable';
 
-import { uuid, nameFromLabel } from 'utils/utils';
+import { uuid, nameFromLabel, verifyVariable } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
@@ -55,19 +55,19 @@ export function formToState(form, transformers) {
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
-
   return {
-    name: name
-      ? nameFromLabel(name)
-      : label
-      ? nameFromLabel(label)
-      : nameLoop
-      ? nameFromLabel(nameLoop)
-      : false,
+    name:
+      name && !initialMember
+        ? name
+        : label
+        ? nameFromLabel(label)
+        : initialMember
+        ? nameFromLabel(nameLoop)
+        : false,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
-    label: label,
+    label: verifyVariable(label),
     responseFormat: transformers.responseFormat.formToState(responseFormat),
     collectedVariables: transformers.collectedVariable.formToComponentState(
       collectedVariables,
