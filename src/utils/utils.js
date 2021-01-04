@@ -71,9 +71,8 @@ export function updateNameField(currentValueLabel, currentValueName) {
 
 export function verifyVariable(label) {
   const expression = /\$([^\s]+)/g;
-  const symbols = ['=', '*', '+', '-', '!'];
+  const symbols = ['=', '*', '+', '-', '!', ')'];
   const variables = label.match(expression);
-
   if (variables) {
     variables.forEach(variable => {
       if (
