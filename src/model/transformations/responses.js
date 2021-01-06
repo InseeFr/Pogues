@@ -1,6 +1,8 @@
 import * as Response from './response';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
+const { TABLE, MULTIPLE_CHOICE, TEXT } = QUESTION_TYPE_ENUM;
+
 export function stateToModel(
   state,
   collectedVariables,
@@ -9,15 +11,12 @@ export function stateToModel(
   response,
 ) {
   let collectedVariablesFinal = collectedVariables;
-  if (
-    type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ||
-    type === QUESTION_TYPE_ENUM.TABLE
-  ) {
+  if (type === MULTIPLE_CHOICE || type === TABLE) {
     collectedVariablesFinal.forEach(collected => {
       const find = Object.values(collectedVariablesStore).find(
         variable => variable.id === collected,
       );
-      if (find && find.type === 'TEXT' && !find.x) {
+      if (find && find.type === TEXT && !find.x) {
         collectedVariablesFinal = collectedVariablesFinal.filter(
           element => element !== find.id,
         );
@@ -33,8 +32,7 @@ export function stateToModel(
       r.CollectedVariableReference
     ];
     // Table : Fix lines and look into columns
-    const MappingTarget =
-      type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
+    const MappingTarget = type === MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
 
     if (!isCollected) {
       attributeModel.push({
@@ -44,16 +42,9 @@ export function stateToModel(
     }
     return { MappingSource: r.id, MappingTarget };
   });
-  if (type === QUESTION_TYPE_ENUM.TABLE) {
-    return {
-      Response: responsesModel,
-      Mapping: mappingModel,
-      Attribute: attributeModel,
-    };
-  } else {
-    return {
-      Response: responsesModel,
-      Mapping: mappingModel,
-    };
-  }
+  return {
+    Response: responsesModel,
+    Mapping: mappingModel,
+    Attribute: attributeModel,
+  };
 }
