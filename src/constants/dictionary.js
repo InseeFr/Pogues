@@ -1545,4 +1545,3 @@ dictionary[`componentEdit${FILTER}`] = {
 };
 
 export default dictionary;
-
