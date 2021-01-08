@@ -70,11 +70,14 @@ export function updateNameField(currentValueLabel, currentValueName) {
 }
 
 export function verifyVariable(label) {
+  console.log('label', label)
+
   const expression = /\$([^\s]+)/g;
   const symbols = ['=', '*', '+', '-', '!', ')'];
   const variables = label.match(expression);
   if (variables) {
     variables.forEach(variable => {
+      console.log('variable', variable)
       if (
         variable[variable.length - 1] !== '$' &&
         !symbols.includes(variable[variable.length - 1])
