@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
+import Loader from 'react-loader-spinner';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
 import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
@@ -50,9 +51,11 @@ const PageQuestionnaire = props => {
     externalVariables,
     collectedVariablesByQuestion,
     activeQuestionnaire,
+    loading,
   } = props;
 
   const [idState, setIdState] = useState();
+  const [loadingState, setLoadingState] = useState(loading);
   const [questionnaireState, setQuestionnaireState] = useState();
   const [activeQuestionnaireState, setActiveQuestionnaireState] = useState();
   const [componentsState, setComponentsState] = useState();
@@ -69,6 +72,12 @@ const PageQuestionnaire = props => {
       props.loadQuestionnaire(id);
       setIdState(id);
     }
+    console.log('loading', loading);
+
+    // if (loading !== loadingState) {
+    //   console.log('loading', loading)
+    //   setLoadingState(loading);
+    // }
     if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
@@ -105,6 +114,7 @@ const PageQuestionnaire = props => {
       setCollectedVariablesByQuestion(collectedVariablesByQuestion);
     }
   }, [
+    loading,
     idState,
     questionnaire,
     questionnaireState,
@@ -135,9 +145,21 @@ const PageQuestionnaire = props => {
 
   return (
     <div id={COMPONENT_ID}>
-      <QuestionnaireNav />
-      <QuestionnaireListComponents navigate={props.history.push} />
-      <GenericInput />
+      {loading !== false ? (
+        <Loader
+          className="loaderClass"
+          type="RevolvingDot"
+          color="#facb21"
+          height={100}
+          width={100}
+        />
+      ) : (
+        <div>
+          <QuestionnaireNav />
+          <QuestionnaireListComponents navigate={props.history.push} />
+          <GenericInput />
+        </div>
+      )}
     </div>
   );
 };

@@ -76,6 +76,7 @@ const mapStateToProps = (
     state.componentByQuestionnaire[id],
     state.collectedVariableByQuestionnaire[id],
   ),
+  loading: state.questionnaireById.loader,
 });
 
 const mapDispatchToProps = {

@@ -1,5 +1,7 @@
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
+  LOAD_QUESTIONNAIRE_START,
+  LOAD_QUESTIONNAIRE_FAILURE,
   CREATE_QUESTIONNAIRE_SUCCESS,
   DELETE_QUESTIONNAIRE_SUCCESS,
 } from 'actions/questionnaire';
@@ -9,12 +11,24 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
+export function loadQuestionnaireStart(state) {
+  return {
+    loader: true,
+  };
+}
+
 export function loadQuestionnaireSuccess(
   state,
   { update: { questionnaireById } },
 ) {
   return {
     ...questionnaireById,
+    loader: false,
+  };
+}
+export function loadQuestionnaireFail(state) {
+  return {
+    loader: false,
   };
 }
 
@@ -33,6 +47,8 @@ export function deleteQuestionnaireListSuccess(state, questionnairesList) {
 }
 
 actionHandlers[LOAD_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
+actionHandlers[LOAD_QUESTIONNAIRE_START] = loadQuestionnaireStart;
+actionHandlers[LOAD_QUESTIONNAIRE_FAILURE] = loadQuestionnaireFail;
 actionHandlers[CREATE_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
 actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;
 actionHandlers[LOAD_QLIST_SUCCESS] = loadQuestionnaireListSuccess;
