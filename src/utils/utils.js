@@ -75,7 +75,7 @@ export function verifyVariable(label) {
 
   if (variables) {
     variables.forEach(variable => {
-      const find = variable.search(/[/\-*?^{}[\]=><+()!.:[\\]/g);
+      const find = variable.search(/[/\-*?^{€"%,}[\]@&'&=><+()!.:[\\]/g);
       let variable1 = variable;
       if (find !== -1 && variable[find - 1] !== '$') {
         variable1 = [variable.slice(0, find), '$', variable.slice(find)].join(
@@ -88,7 +88,7 @@ export function verifyVariable(label) {
           variable.slice(variable.length),
         ].join('');
       }
-      label = label.replace(variable, variable1);
+      label = label.split(variable).join(variable1)
     });
   }
   return label;
