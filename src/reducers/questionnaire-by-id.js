@@ -11,7 +11,7 @@ import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
-export function loadQuestionnaireStart(state) {
+export function loadQuestionnaireStart() {
   return {
     loader: true,
   };
@@ -26,7 +26,7 @@ export function loadQuestionnaireSuccess(
     loader: false,
   };
 }
-export function loadQuestionnaireFail(state) {
+export function loadQuestionnaireFail() {
   return {
     loader: false,
   };
