@@ -55,7 +55,6 @@ const PageQuestionnaire = props => {
   } = props;
 
   const [idState, setIdState] = useState();
-  const [loadingState, setLoadingState] = useState(loading);
   const [questionnaireState, setQuestionnaireState] = useState();
   const [activeQuestionnaireState, setActiveQuestionnaireState] = useState();
   const [componentsState, setComponentsState] = useState();
@@ -74,10 +73,6 @@ const PageQuestionnaire = props => {
     }
     console.log('loading', loading);
 
-    // if (loading !== loadingState) {
-    //   console.log('loading', loading)
-    //   setLoadingState(loading);
-    // }
     if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
@@ -145,7 +140,7 @@ const PageQuestionnaire = props => {
 
   return (
     <div id={COMPONENT_ID}>
-      {loading !== false ? (
+      {loading ? (
         <Loader
           className="loaderClass"
           type="RevolvingDot"

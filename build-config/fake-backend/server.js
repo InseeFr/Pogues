@@ -54,7 +54,7 @@ server.use(restifyQueryParser());
 server.get('/questionnaires/search', function(req, res, next) {
   // @TODO: Take into account the property "owner"
   const questionnaires1 = [];
-  questionnaires.forEach(question => {
+  questionnaires.map(question => {
     questionnaires1.push({
       label: question.Label,
       id: question.id, 
