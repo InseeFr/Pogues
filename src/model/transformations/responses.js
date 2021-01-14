@@ -12,17 +12,18 @@ export function stateToModel(
 ) {
   let collectedVariablesFinal = collectedVariables;
   if (type === MULTIPLE_CHOICE || type === TABLE) {
-    collectedVariablesFinal.forEach(collected => {
+    collectedVariables.forEach(collected => {
       const find = Object.values(collectedVariablesStore).find(
         variable => variable.id === collected,
       );
-      if (find && find.type === TEXT && !find.x) {
+      if (find && find.type === 'TEXT' && !find.x) {
         collectedVariablesFinal = collectedVariablesFinal.filter(
           element => element !== find.id,
         );
       }
     });
   }
+
   const responsesModel = collectedVariablesFinal.map(cv =>
     Response.stateToRemote({ ...state, collectedVariable: cv }, response),
   );
@@ -42,6 +43,7 @@ export function stateToModel(
     }
     return { MappingSource: r.id, MappingTarget };
   });
+
   return {
     Response: responsesModel,
     Mapping: mappingModel,
