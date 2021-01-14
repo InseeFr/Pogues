@@ -71,7 +71,6 @@ const PageQuestionnaire = props => {
       props.loadQuestionnaire(id);
       setIdState(id);
     }
-    console.log('loading', loading);
 
     if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
       const idCampaign =

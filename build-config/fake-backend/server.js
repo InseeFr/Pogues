@@ -53,18 +53,17 @@ server.use(restifyQueryParser());
 
 server.get('/questionnaires/search', function(req, res, next) {
   // @TODO: Take into account the property "owner"
-  const questionnaires1 = [];
-  questionnaires.map(question => {
-    questionnaires1.push({
-      label: question.Label,
+  const questionnaires1 = questionnaires.map(question => {
+    return {
+      Label: question.Label,
       id: question.id, 
       lastUpdatedDate: question.lastUpdatedDate,
       final: question.final,
       DataCollection: question.DataCollection,
       TargetMode: question.TargetMode
-    })
-  });
-  res.send(questionnaires);
+   }
+ })
+  res.send(questionnaires1);
   next();
 });
 
