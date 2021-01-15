@@ -25,20 +25,28 @@ const QuestionnaireList = props => {
         (q.lastUpdatedDate &&
           formatDate(q.lastUpdatedDate)
             .toLowerCase()
-            .indexOf(filter) >= 0)
+            .indexOf(filter) >= 0) ||
+        !q
       );
     })
-    .sort((a, b) => { return new Date(b.lastUpdatedDate).getTime() - new Date(a.lastUpdatedDate).getTime(); })
-    .map(q => {
+    .sort((a, b) => {
       return (
-        <Questionnaire
-          key={q.id}
-          id={q.id}
-          label={q.label}
-          lastUpdatedDate={q.lastUpdatedDate}
-          final={q.final}
-        />
+        new Date(b.lastUpdatedDate).getTime() -
+        new Date(a.lastUpdatedDate).getTime()
       );
+    })
+    .map(q => {
+      if (q) {
+        return (
+          <Questionnaire
+            key={q.id}
+            id={q.id}
+            label={q.label}
+            lastUpdatedDate={q.lastUpdatedDate}
+            final={q.final}
+          />
+        );
+      }
     });
 
   useEffect(() => {

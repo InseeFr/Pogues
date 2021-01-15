@@ -22,7 +22,6 @@ describe('loadQuestionnaireSuccess', () => {
       },
     );
     expect(result).toEqual({
-      state: 'previous',
       externalVariableByQuestionnaire: 'externalVariableByQuestionnaire',
     });
   });
@@ -47,7 +46,6 @@ describe('loadQuestionnaireSuccess', () => {
         },
       );
       expect(result).toEqual({
-        state: 'previous',
         externalVariableByQuestionnaire: 'externalVariableByQuestionnaire',
       });
     });
