@@ -125,10 +125,18 @@ const PageQuestionnaire = props => {
   useEffect(() => {
     if (
       activeQuestionnaire &&
-      activeQuestionnaireState &&
-      activeQuestionnaire.id !== activeQuestionnaireState.id
+      !isEqual(activeQuestionnaire, activeQuestionnaireState)
     ) {
+      if (activeQuestionnaire.campaigns) {
+        const idCampaign =
+          activeQuestionnaire.campaigns[
+            activeQuestionnaire.campaigns.length - 1
+          ];
+        props.loadStatisticalContext(idCampaign);
+      }
+
       if (
+        activeQuestionnaire.operation &&
         activeQuestionnaire.operation !== activeQuestionnaireState.operation
       ) {
         props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
