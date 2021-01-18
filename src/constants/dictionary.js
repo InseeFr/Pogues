@@ -139,6 +139,10 @@ const dictionary = {
     en: 'Duplicate',
     fr: 'Dupliquer',
   },
+  copy: {
+    en: 'Copy',
+    fr: 'Copie',
+  },
   remove: {
     en: 'Remove',
     fr: 'Supprimer',

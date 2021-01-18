@@ -3,6 +3,8 @@ import {
   postQuestionnaire,
   deleteQuestionnaire,
 } from 'utils/remote-api';
+import { uuid } from 'utils/utils';
+import Dictionary from 'utils/dictionary/dictionary';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 import { Component } from 'widgets/component-new-edit';
@@ -20,6 +22,7 @@ export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE';
 export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
 export const DELETE_QUESTIONNAIRE_SUCCESS = 'DELETE_QUESTIONNAIRE_SUCCESS';
 export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
+export const DUPLICATE_QUESTIONNAIRE = 'DUPLICATE_QUESTIONNAIRE';
 
 /**
  * Load questionnaire success
@@ -224,5 +227,68 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     })
     .catch(err => {
       return dispatch(removeQuestionnaireFailure(idQuestionnaire, err));
+    });
+};
+
+export const duplicateQuestionnaire = idQuestionnaire => (
+  dispatch,
+  getState,
+) => {
+  const state = getState();
+  const questionnaires = getState().questionnaireById;
+
+  const model = {
+    ...questionnaires[idQuestionnaire],
+    id: uuid(),
+  };
+  model.name = `${model.name}-${Dictionary.copy}`;
+  model.label = `${model.label} - ${Dictionary.copy}`;
+
+  console.log('model', model);
+  console.log('state', state);
+
+  const codeListStore = {
+    ...state.codeListByQuestionnaire[idQuestionnaire],
+  };
+  const calculatedVariablesStore = {
+    ...state.calculatedVariableByQuestionnaire[idQuestionnaire],
+  };
+  const externalVariablesStore = {
+    ...state.externalVariableByQuestionnaire[idQuestionnaire],
+  };
+  const collectedVariableByQuestionStore = {
+    ...state.collectedVariableByQuestionnaire[idQuestionnaire],
+  };
+
+  const stores = {
+    componentsStore: Component({
+      ...model,
+      type: QUESTIONNAIRE,
+    }).getStore(),
+    codesListsStore: codeListStore,
+    calculatedVariablesStore: calculatedVariablesStore,
+    externalVariablesStore: externalVariablesStore,
+    collectedVariableByQuestionStore: collectedVariableByQuestionStore,
+    campaignsStore: state.metadataByType.campaigns,
+  };
+
+  const questionnaireModel = Questionnaire.stateToRemote(model, stores);
+
+  dispatch({
+    type: CREATE_QUESTIONNAIRE,
+    payload: null,
+  });
+
+  return postQuestionnaire(questionnaireModel)
+    .then(() => {
+      return dispatch(
+        createQuestionnaireSuccess(
+          model.id,
+          questionnaireRemoteToStores(questionnaireModel),
+        ),
+      );
+    })
+    .catch(err => {
+      return dispatch(createQuestionnaireFailure(err, err.errors));
     });
 };
