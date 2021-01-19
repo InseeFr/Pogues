@@ -28,7 +28,7 @@ function QuestionnaireListItem({
   label,
   lastUpdatedDate,
   final,
-  duplicateQuestionnaire,
+  handleOpenPopup,
 }) {
   return (
     <div className="questionnaire-list_item">
@@ -41,7 +41,7 @@ function QuestionnaireListItem({
           className={BUTTON_DUPLICATE_CLASS}
           onClick={event => {
             event.preventDefault();
-            duplicateQuestionnaire(id);
+            handleOpenPopup(id);
           }}
         >
           {Dictionary.duplicate}

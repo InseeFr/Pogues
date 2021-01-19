@@ -1,17 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import ReactModal from 'react-modal';
 
 import Questionnaire from './questionnaire';
+import isEqual from 'lodash.isequal';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
 const QuestionnaireList = props => {
-  const { questionnaires, user } = props;
+  const { questionnaires, user, duplicateQuestionnaire } = props;
   const [filter, setFilter] = useState('');
+  const [questionId, setQuestionId] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [questionList, seQuestionList] = useState([]);
+  // useEffect(() => {
+  //   props.loadQuestionnaireList(user.permission);
+  // }, []);
+
+  useEffect(() => {
+    if (!isEqual(questionnaires, questionList)) {
+      props.loadQuestionnaireList(user.permission);
+      seQuestionList(questionnaires);
+    }
+  }, [user, questionnaires]);
+
+  // useEffect(() => {
+  //   if (props.user && props.user.permission)
+  //     props.loadQuestionnaireList(props.user.permission);
+  // }, []);
+
+  useEffect(() => {
+    props.loadQuestionnaireList(user.permission);
+  }, [user.permission]);
 
   const updateFilter = value => {
     setFilter(value);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+  const handleOpenPopup = id => {
+    setShowPopup(true);
+    setQuestionId(id);
+  };
+  const handleSubmit = () => {
+    duplicateQuestionnaire(questionId);
+    props.loadQuestionnaireList(props.user.permission);
+
+    setShowPopup(false);
   };
 
   const list = questionnaires
@@ -44,20 +82,12 @@ const QuestionnaireList = props => {
             label={q.label}
             lastUpdatedDate={q.lastUpdatedDate}
             final={q.final}
-            duplicateQuestionnaire={props.duplicateQuestionnaire}
+            // duplicateQuestionnaire={props.duplicateQuestionnaire}
+            handleOpenPopup={id => handleOpenPopup(id)}
           />
         );
       }
     });
-
-  useEffect(() => {
-    if (props.user && props.user.permission)
-      props.loadQuestionnaireList(props.user.permission);
-  }, []);
-
-  useEffect(() => {
-    props.loadQuestionnaireList(props.user.permission);
-  }, [props.user.permission]);
 
   return (
     <div className="box home-questionnaires">
@@ -89,6 +119,28 @@ const QuestionnaireList = props => {
           </div>
         )}
       </div>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showPopup}
+        onRequestClose={handleClosePopup}
+        contentLabel="Alert Save"
+        className="popup-duplication"
+      >
+        <div className="popup-header">
+          <h3>{Dictionary.dupliquate}</h3>
+          <button type="button" onClick={handleClosePopup}>
+            <span>X</span>
+          </button>
+        </div>
+        <div className="popup-body">{Dictionary.duplicateQuestion}</div>
+        <button className="popup-yes" onClick={() => handleSubmit()}>
+          {Dictionary.yes}
+        </button>
+        <button className="popup-no" onClick={id => handleClosePopup(id)}>
+          {Dictionary.no}
+        </button>
+      </ReactModal>
     </div>
   );
 };

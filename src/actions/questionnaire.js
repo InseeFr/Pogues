@@ -230,65 +230,23 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     });
 };
 
-export const duplicateQuestionnaire = idQuestionnaire => (
-  dispatch,
-  getState,
-) => {
-  const state = getState();
-  const questionnaires = getState().questionnaireById;
-
-  const model = {
-    ...questionnaires[idQuestionnaire],
-    id: uuid(),
-  };
-  model.name = `${model.name}-${Dictionary.copy}`;
-  model.label = `${model.label} - ${Dictionary.copy}`;
-
-  console.log('model', model);
-  console.log('state', state);
-
-  const codeListStore = {
-    ...state.codeListByQuestionnaire[idQuestionnaire],
-  };
-  const calculatedVariablesStore = {
-    ...state.calculatedVariableByQuestionnaire[idQuestionnaire],
-  };
-  const externalVariablesStore = {
-    ...state.externalVariableByQuestionnaire[idQuestionnaire],
-  };
-  const collectedVariableByQuestionStore = {
-    ...state.collectedVariableByQuestionnaire[idQuestionnaire],
-  };
-
-  const stores = {
-    componentsStore: Component({
-      ...model,
-      type: QUESTIONNAIRE,
-    }).getStore(),
-    codesListsStore: codeListStore,
-    calculatedVariablesStore: calculatedVariablesStore,
-    externalVariablesStore: externalVariablesStore,
-    collectedVariableByQuestionStore: collectedVariableByQuestionStore,
-    campaignsStore: state.metadataByType.campaigns,
-  };
-
-  const questionnaireModel = Questionnaire.stateToRemote(model, stores);
-
-  dispatch({
-    type: CREATE_QUESTIONNAIRE,
-    payload: null,
+export const duplicateQuestionnaire = idQuestionnaire => dispatch => {
+  getQuestionnaire(idQuestionnaire).then(question => {
+    question.id = uuid();
+    question.genericName += '-Copie';
+    question.Name += '-Copie';
+    question.Label[0] += ' Copie';
+    return postQuestionnaire(question)
+      .then(() => {
+        return dispatch(
+          createQuestionnaireSuccess(
+            question.id,
+            questionnaireRemoteToStores(question),
+          ),
+        );
+      })
+      .catch(err => {
+        return dispatch(createQuestionnaireFailure(err, err.errors));
+      });
   });
-
-  return postQuestionnaire(questionnaireModel)
-    .then(() => {
-      return dispatch(
-        createQuestionnaireSuccess(
-          model.id,
-          questionnaireRemoteToStores(questionnaireModel),
-        ),
-      );
-    })
-    .catch(err => {
-      return dispatch(createQuestionnaireFailure(err, err.errors));
-    });
 };

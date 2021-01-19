@@ -928,6 +928,18 @@ const dictionary = {
     fr: 'Toutes les clarifications doivent être uniques',
     en: 'All clarifications should be unique',
   },
+
+  duplicateQuestion: {
+    fr:
+      'Vous avez demandé à dupliquer le questionnaire "titre à insérer ici". Confirmez-vous votre demande',
+    en: 'You asked to duplicate the questionnaire "titre à insérer ici',
+  },
+
+  dupliquate: {
+    fr: 'dupliquer un questionnaire',
+    en: 'duplicate a question',
+  },
+
   codePh: {
     fr: 'Code',
     en: 'Code',
@@ -1549,4 +1561,3 @@ dictionary[`componentEdit${FILTER}`] = {
 };
 
 export default dictionary;
-
