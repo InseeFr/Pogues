@@ -1,7 +1,7 @@
 const config = {
   dev: true,
   allowRemovalOfQuestionnaire: false,
-  baseURL: 'https://dvrmspogbolht01.ad.insee.intra/rmspogfo/pogues',
+  baseURL: './pogues',
   persistancePath: '/persistence',
   userPath: '/user',
   log: {
