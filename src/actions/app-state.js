@@ -4,6 +4,7 @@ import {
   visualizeSpec,
   visualizePdf,
   visualizeHtml,
+  visualizeLunatic,
   visualizeDDI,
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
