@@ -171,7 +171,7 @@ export function stateToRemote(state, stores) {
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore[c]?.label,
+    Name: campaignsStore ? campaignsStore[c]?.label : undefined,
   }));
 
   const remote = {
