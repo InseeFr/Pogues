@@ -75,6 +75,31 @@ export const visualizeHtml = qr => {
     });
 };
 
+/**
+ * This method will send a request in order to get the URL
+ * of the generated Queen page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeLunatic = qr => {
+  fetch(`${visualisationUrl}-lunatic/${qr.Name}`, {
+    method: 'POST',
+    headers: {
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(qr),
+    credentials: 'include',
+  })
+    .then(response => response.text())
+    .then(url => {
+      const a = document.createElement('a');
+      a.href = url;
+      a.setAttribute('target', '_blank');
+      document.body.appendChild(a);
+      a.click();
+    });
+};
+
 export const visualizeDDI = qr => {
   fetch(urlVisualizeDDI, {
     method: 'POST',

@@ -1454,6 +1454,10 @@ const dictionary = {
     fr: 'Web',
     en: 'Web',
   },
+  VISUALIZE_QUEEN: {
+    fr: 'Queen',
+    en: 'Queen',
+  },
   VISUALIZE_PDF: {
     fr: 'PDF',
     en: 'PDF',

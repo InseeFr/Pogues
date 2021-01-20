@@ -395,6 +395,8 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
       visualizeSpec(questionnaireModel);
     } else if (type === 'html') {
       visualizeHtml(questionnaireModel);
+    } else if (type === 'lunatic') {
+      visualizeLunatic(questionnaireModel);
     } else if (type === 'ddi') {
       visualizeDDI(questionnaireModel);
     }
