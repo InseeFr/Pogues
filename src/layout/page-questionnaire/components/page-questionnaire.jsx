@@ -134,12 +134,8 @@ const PageQuestionnaire = props => {
           ];
         props.loadStatisticalContext(idCampaign);
       }
-
-      if (
-        activeQuestionnaire &&
-        activeQuestionnaire.operation &&
-        activeQuestionnaire.operation !== activeQuestionnaireState.operation
-      ) {
+      
+      if (activeQuestionnaire.operation) {
         props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
       }
       setActiveQuestionnaireState(activeQuestionnaire);
