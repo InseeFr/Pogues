@@ -36,7 +36,6 @@ const QuestionnaireList = props => {
     setShowPopup(false);
   };
   const handleOpenPopup = (id, label) => {
-    console.log('label', label);
     setShowPopup(true);
     setQuestionId(id);
     setQuestionLabel(label);
