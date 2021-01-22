@@ -12,11 +12,10 @@ const QuestionnaireList = props => {
   const { questionnaires, user, duplicateQuestionnaire } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
+  const [questionLabel, setQuestionLabel] = useState('');
+
   const [showPopup, setShowPopup] = useState(false);
   const [questionList, seQuestionList] = useState([]);
-  // useEffect(() => {
-  //   props.loadQuestionnaireList(user.permission);
-  // }, []);
 
   useEffect(() => {
     if (!isEqual(questionnaires, questionList)) {
@@ -24,11 +23,6 @@ const QuestionnaireList = props => {
       seQuestionList(questionnaires);
     }
   }, [user, questionnaires]);
-
-  // useEffect(() => {
-  //   if (props.user && props.user.permission)
-  //     props.loadQuestionnaireList(props.user.permission);
-  // }, []);
 
   useEffect(() => {
     props.loadQuestionnaireList(user.permission);
@@ -41,14 +35,15 @@ const QuestionnaireList = props => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
-  const handleOpenPopup = id => {
+  const handleOpenPopup = (id, label) => {
+    console.log('label', label);
     setShowPopup(true);
     setQuestionId(id);
+    setQuestionLabel(label);
   };
   const handleSubmit = () => {
     duplicateQuestionnaire(questionId);
     props.loadQuestionnaireList(props.user.permission);
-
     setShowPopup(false);
   };
 
@@ -82,8 +77,7 @@ const QuestionnaireList = props => {
             label={q.label}
             lastUpdatedDate={q.lastUpdatedDate}
             final={q.final}
-            // duplicateQuestionnaire={props.duplicateQuestionnaire}
-            handleOpenPopup={id => handleOpenPopup(id)}
+            handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
           />
         );
       }
@@ -133,7 +127,7 @@ const QuestionnaireList = props => {
             <span>X</span>
           </button>
         </div>
-        <div className="popup-body">{Dictionary.duplicateQuestion}</div>
+        <div className="popup-body">{`${Dictionary.duplicateQuestion}${questionLabel}${Dictionary.duplicateQuestionConfirmation}`}</div>
         <button className="popup-yes" onClick={() => handleSubmit()}>
           {Dictionary.yes}
         </button>

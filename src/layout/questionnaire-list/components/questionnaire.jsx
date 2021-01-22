@@ -41,7 +41,7 @@ function QuestionnaireListItem({
           className={BUTTON_DUPLICATE_CLASS}
           onClick={event => {
             event.preventDefault();
-            handleOpenPopup(id);
+            handleOpenPopup(id, label);
           }}
         >
           {Dictionary.duplicate}

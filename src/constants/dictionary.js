@@ -929,12 +929,6 @@ const dictionary = {
     en: 'All clarifications should be unique',
   },
 
-  duplicateQuestion: {
-    fr:
-      'Vous avez demandé à dupliquer le questionnaire "titre à insérer ici". Confirmez-vous votre demande',
-    en: 'You asked to duplicate the questionnaire "titre à insérer ici',
-  },
-
   dupliquate: {
     fr: 'dupliquer un questionnaire',
     en: 'duplicate a question',
@@ -1505,6 +1499,14 @@ const dictionary = {
   IsNotLetter: {
     en: 'Id should begin with a letter',
     fr: "L'identifiant de la variable doit commencer par une lettre",
+  },
+  duplicateQuestion: {
+    fr: 'Vous avez demandé à dupliquer le questionnaire "',
+    en: 'You asked to duplicate the questionnaire "',
+  },
+  duplicateQuestionConfirmation: {
+    fr: '". Confirmez-vous votre demande ?',
+    en: '". Are you sure ?',
   },
 };
 
