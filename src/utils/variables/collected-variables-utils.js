@@ -107,7 +107,7 @@ export function getCollectedVariablesMultiple(
     getCollecteVariable(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
-      { x: index + 1 },
+      { x: index + 1, isCollected: true },
       reponseFormatValues,
     ),
   );
@@ -117,7 +117,7 @@ export function getCollectedVariablesMultiple(
         getCollecteVariable(
           code.precisionid,
           `${code.precisionid} label`,
-          { z: code.weight },
+          { z: code.weight, isCollected: true },
           {
             type: TEXT,
             [TEXT]: {

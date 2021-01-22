@@ -54,6 +54,12 @@ describe('response format multiple', () => {
         response,
       );
       const expected = {
+        Attribute: [
+          {
+            AttributeTarget: '1',
+            AttributeValue: 'NoDataByDefinition',
+          },
+        ],
         Dimension: [
           {
             CodeListReference: 'jf0w3fab',
@@ -137,6 +143,7 @@ describe('response format multiple', () => {
         response,
       );
       const expected = {
+        Attribute: [],
         Dimension: [
           {
             CodeListReference: 'kgs19ihv',

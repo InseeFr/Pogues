@@ -71,6 +71,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
       filters,
     ),
   };
+
   return {
     questionnaireById,
     calculatedVariableByQuestionnaire,
