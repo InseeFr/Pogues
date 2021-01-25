@@ -71,17 +71,23 @@ export function updateNameField(currentValueLabel, currentValueName) {
 
 export function verifyVariable(label) {
   const expression = /\$([^\s]+)/g;
-  const symbols = ['=', '*', '+', '-', '!'];
   const variables = label.match(expression);
-
   if (variables) {
     variables.forEach(variable => {
-      if (
-        variable[variable.length - 1] !== '$' &&
-        !symbols.includes(variable[variable.length - 1])
-      ) {
-        label = label.replace(variable, `${variable}$`);
+      const find = variable.search(/[/\-*?^{€"%,}[\]@&'&=><+()!.:[\\]/g);
+      let variable1 = variable;
+      if (find !== -1 && variable[find - 1] !== '$') {
+        variable1 = [variable.slice(0, find), '$', variable.slice(find)].join(
+          '',
+        );
+      } else if (find === -1 && variable[variable.length - 1] !== '$') {
+        variable1 = [
+          variable.slice(0, variable.length),
+          '$',
+          variable.slice(variable.length),
+        ].join('');
       }
+      label = label.split(variable).join(variable1);
     });
   }
   return label;

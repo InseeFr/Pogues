@@ -132,11 +132,13 @@ const CodesList = props => {
               <GenericOption key="" value="">
                 {Dictionary.selectCodesListType}
               </GenericOption>
-              {storeToArray(currentCodesListsStore).map(cl => (
-                <GenericOption key={cl.id} value={cl.id}>
-                  {cl.label}
-                </GenericOption>
-              ))}
+              {storeToArray(currentCodesListsStore)
+                .sort((cl1, cl2) => cl1.label.localeCompare(cl2.label))
+                .map(cl => (
+                  <GenericOption key={cl.id} value={cl.id}>
+                    {cl.label}
+                  </GenericOption>
+                ))}
             </Field>
           )}
           {activePanel === NEW && (

@@ -82,7 +82,7 @@ function Redirections({
           type="text"
           name="condition"
           component={TextareaWithVariableAutoCompletion}
-          label={Dictionary.expression}
+          label={Dictionary.condition}
           required
         />
         <GotoInput
