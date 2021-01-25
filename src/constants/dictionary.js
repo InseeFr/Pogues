@@ -1455,8 +1455,8 @@ const dictionary = {
     en: 'Web',
   },
   VISUALIZE_QUEEN: {
-    fr: 'Queen',
-    en: 'Queen',
+    fr: 'Poste enquêteur',
+    en: 'Interviewer form',
   },
   VISUALIZE_PDF: {
     fr: 'PDF',
