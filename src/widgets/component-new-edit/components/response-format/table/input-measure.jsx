@@ -35,6 +35,7 @@ function InputMeasure(props) {
           <ResponseFormatSimple
             selectorPathParent={props.selectorPath}
             showMandatory={false}
+            required
           />
         </View>
         <View
