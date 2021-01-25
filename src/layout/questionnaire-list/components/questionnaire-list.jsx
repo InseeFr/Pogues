@@ -28,7 +28,12 @@ const QuestionnaireList = props => {
             .indexOf(filter) >= 0)
       );
     })
-    .sort((a, b) => { return new Date(b.lastUpdatedDate).getTime() - new Date(a.lastUpdatedDate).getTime(); })
+    .sort((a, b) => {
+      return (
+        new Date(b.lastUpdatedDate).getTime() -
+        new Date(a.lastUpdatedDate).getTime()
+      );
+    })
     .map(q => {
       return (
         <Questionnaire

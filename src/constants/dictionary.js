@@ -1293,6 +1293,14 @@ const dictionary = {
     fr: 'Il existe une variable calculée avec le même nom',
     en: 'It already exists a calculated variable with this name',
   },
+  validation_minimum: {
+    fr: 'minimum obligatoire',
+    en: 'minimum required',
+  },
+  validation_maximum: {
+    fr: 'maximum obligatoire',
+    en: 'maximum required',
+  },
   validation_externalvariable_label: {
     fr: 'Libellé de la variable externe obligatoire',
     en: 'External variable label required',

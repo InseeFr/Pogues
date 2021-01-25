@@ -98,7 +98,7 @@ function ExternalVariables({
             <ResponseFormatDatatypeDate />
           </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-            <ResponseFormatDatatypeNumeric required={false} />
+            <ResponseFormatDatatypeNumeric required />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         </SelectorView>

@@ -221,6 +221,12 @@ export const calculatedVariableRules = {
     value =>
       required(value) && Dictionary.validation_calculatedvariable_formula,
   ],
+  [`${CALCULATED_VARIABLES}.${NUMERIC}.minimum`]: [
+    value => required(value) && Dictionary.validation_minimum,
+  ],
+  [`${CALCULATED_VARIABLES}.${NUMERIC}.maximum`]: [
+    value => required(value) && Dictionary.validation_maximum,
+  ],
 };
 
 export const externalVariableRules = {
@@ -235,6 +241,12 @@ export const externalVariableRules = {
     (value, conf) =>
       validateDuplicatesExternal(value, conf) &&
       Dictionary.validation_externalvariable_existing,
+  ],
+  [`${EXTERNAL_VARIABLES}.${NUMERIC}.minimum`]: [
+    value => required(value) && Dictionary.validation_minimum,
+  ],
+  [`${EXTERNAL_VARIABLES}.${NUMERIC}.maximum`]: [
+    value => required(value) && Dictionary.validation_maximum,
   ],
 };
 
