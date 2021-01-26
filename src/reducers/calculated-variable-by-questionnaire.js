@@ -13,7 +13,6 @@ export function loadQuestionnaireSuccess(
   { update: { calculatedVariableByQuestionnaire } },
 ) {
   return {
-    ...state,
     ...calculatedVariableByQuestionnaire,
   };
 }

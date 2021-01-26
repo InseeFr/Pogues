@@ -3,6 +3,8 @@ import {
   postQuestionnaire,
   deleteQuestionnaire,
 } from 'utils/remote-api';
+import { uuid } from 'utils/utils';
+import Dictionary from 'utils/dictionary/dictionary';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 import { Component } from 'widgets/component-new-edit';
@@ -11,6 +13,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
+export const LOAD_QUESTIONNAIRE_START = 'LOAD_QUESTIONNAIRE_START';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
 export const LOAD_QUESTIONNAIRE_FAILURE = 'LOAD_QUESTIONNAIRE_FAILURE';
 export const CREATE_QUESTIONNAIRE = 'CREATE_QUESTIONNAIRE';
@@ -19,6 +22,7 @@ export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE';
 export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
 export const DELETE_QUESTIONNAIRE_SUCCESS = 'DELETE_QUESTIONNAIRE_SUCCESS';
 export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
+export const DUPLICATE_QUESTIONNAIRE = 'DUPLICATE_QUESTIONNAIRE';
 
 /**
  * Load questionnaire success
@@ -34,14 +38,12 @@ export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
  * - componentByQuestionnaire
  * - conditionById
  *
- * @param   {string} id     The questionnaire id.
  * @param   {object} update The new values to update in the different stores affected.
  * @return  {object}        LOAD_QUESTIONNAIRE_SUCCESS action.
  */
-export const loadQuestionnaireSuccess = (id, update) => ({
+export const loadQuestionnaireSuccess = update => ({
   type: LOAD_QUESTIONNAIRE_SUCCESS,
   payload: {
-    id,
     update,
   },
 });
@@ -61,6 +63,18 @@ export const loadQuestionnaireFailure = (id, err) => ({
 });
 
 /**
+ * Load questionnaire failure
+ *
+ *  * It's executed before the remote fetch of a questionnaire.
+ *
+ * @return  {object}       LOAD_QUESTIONNAIRE_START action
+ */
+export const loadQuestionnaireStart = () => ({
+  type: LOAD_QUESTIONNAIRE_START,
+  payload: {},
+});
+
+/**
  * Load questionnaire
  *
  * Asyc action that fetch a questionnaire.
@@ -69,13 +83,14 @@ export const loadQuestionnaireFailure = (id, err) => ({
  * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
  */
 export const loadQuestionnaire = id => dispatch => {
+  dispatch(loadQuestionnaireStart());
   dispatch({
     type: LOAD_QUESTIONNAIRE,
     payload: id,
   });
   return getQuestionnaire(id)
     .then(qr => {
-      dispatch(loadQuestionnaireSuccess(id, questionnaireRemoteToStores(qr)));
+      dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));
@@ -213,4 +228,25 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     .catch(err => {
       return dispatch(removeQuestionnaireFailure(idQuestionnaire, err));
     });
+};
+
+export const duplicateQuestionnaire = idQuestionnaire => dispatch => {
+  getQuestionnaire(idQuestionnaire).then(question => {
+    question.id = uuid();
+    question.genericName += '-Copie';
+    question.Name += '-Copie';
+    question.Label[0] += ' Copie';
+    return postQuestionnaire(question)
+      .then(() => {
+        return dispatch(
+          createQuestionnaireSuccess(
+            question.id,
+            questionnaireRemoteToStores(question),
+          ),
+        );
+      })
+      .catch(err => {
+        return dispatch(createQuestionnaireFailure(err, err.errors));
+      });
+  });
 };

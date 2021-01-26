@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import PageQuestionnaire from '../components/page-questionnaire';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { loadQuestionnaireIfNeeded } from 'actions/questionnaire';
+import {
+  loadQuestionnaireIfNeeded,
+  loadQuestionnaire,
+} from 'actions/questionnaire';
 import { loadCampaignsIfNeeded } from 'actions/metadata';
 import {
   setActiveQuestionnaire,
@@ -73,6 +76,7 @@ const mapStateToProps = (
     state.componentByQuestionnaire[id],
     state.collectedVariableByQuestionnaire[id],
   ),
+  loading: state.questionnaireById.loader,
 });
 
 const mapDispatchToProps = {
@@ -83,6 +87,7 @@ const mapDispatchToProps = {
   setActiveComponents,
   setActiveCodeLists,
   setActiveVariables,
+  loadQuestionnaire,
 };
 
 const PageQuestionnaireContainer = connect(
