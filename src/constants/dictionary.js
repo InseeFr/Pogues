@@ -898,6 +898,14 @@ const dictionary = {
     fr: 'Ajouter un code',
     en: 'Add a code',
   },
+  uploadCode: {
+    fr: 'Importer une liste de codes',
+    en: 'Import a code list',
+  },
+  fileImport: {
+    fr: 'Fichier à importer',
+    en: 'File to import',
+  },
   editCode: {
     fr: 'Editer un code',
     en: 'Edit a code',

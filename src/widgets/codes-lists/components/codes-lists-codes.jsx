@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
+import ReactModal from 'react-modal';
 
 import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
 import CodesListsActions from './codes-lists-actions';
+import UploadCSV from './upload-csv';
+
 import { ACTIONS } from '../constants';
 import { getNewCodeWeight, resetListCodes } from '../utils/utils';
 import { getDisabledActions } from '../utils/actions';
@@ -59,6 +62,7 @@ class CodesListsCodes extends Component {
       activeCodeIndex: undefined,
       editing: false,
       showPrecision: false,
+      showUploadCode: false,
     };
 
     this.renderInputCode = this.renderInputCode.bind(this);
@@ -67,6 +71,20 @@ class CodesListsCodes extends Component {
     this.removePrecision = this.removePrecision.bind(this);
     this.renderCode = this.renderCode.bind(this);
     this.renderCodes = this.renderCodes.bind(this);
+    this.uploadCodeList = this.uploadCodeList.bind(this);
+    this.closeUpload = this.closeUpload.bind(this);
+  }
+
+  uploadCodeList() {
+    this.setState({
+      showUploadCode: true,
+    });
+  }
+
+  closeUpload() {
+    this.setState({
+      showUploadCode: false,
+    });
   }
 
   removePrecision() {
@@ -344,6 +362,18 @@ class CodesListsCodes extends Component {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.addCode}
         </button>
+        <button
+          type="button"
+          onClick={e => {
+            e.preventDefault();
+            this.setState({
+              showUploadCode: true,
+            });
+          }}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.uploadCode}
+        </button>
         <div className={`${LIST_CLASS}`}>
           {this.props.fields.length > 0 && (
             <div className={`${LIST_ITEM_CLASS}`}>
@@ -358,6 +388,24 @@ class CodesListsCodes extends Component {
           {/* Input code without a parent code */}
           {showInputCode && !editing && this.renderInputCode()}
         </div>
+        <ReactModal
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={false}
+          isOpen={this.state.showUploadCode}
+          onRequestClose={this.closeUpload}
+          contentLabel="FILTRE IMBRIQUE"
+        >
+          <div className="popup">
+            <div className="popup-header">
+              <button type="button" onClick={this.closeUpload}>
+                <span>X</span>
+              </button>
+            </div>
+            <div className="popup-body">
+              <UploadCSV />
+            </div>
+          </div>
+        </ReactModal>
       </div>
     );
   }
