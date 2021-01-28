@@ -1,5 +1,6 @@
 import { remove } from './component-remove';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { setActiveVariables } from './app-state';
 
 const { LOOP } = COMPONENT_TYPE;
 
@@ -24,7 +25,12 @@ export const updateComponent = (
   codesListsStore = {},
 ) => (dispatch, getState) => {
   const state = getState();
-  const { activeComponentsById } = state.appState;
+  const {
+    activeComponentsById,
+    activeExternalVariablesById,
+    activeCalculatedVariablesById,
+    collectedVariableByQuestion,
+  } = state.appState;
   if (
     componentsStore[componentId]?.type === LOOP &&
     componentsStore[componentId]?.basedOn &&
@@ -33,6 +39,26 @@ export const updateComponent = (
     const loops = Object.values(activeComponentsById).filter(
       element => element.type === LOOP && element.basedOn === componentId,
     );
+    const loopsCalculated = {};
+    const loopsExternel = {};
+    Object.values(activeCalculatedVariablesById).forEach(element => {
+      if (element.scope === componentId) {
+        element.scope = componentsStore[componentId].basedOn;
+      }
+      loopsCalculated[element.id] = element;
+    });
+
+    Object.values(activeExternalVariablesById).forEach(element => {
+      if (element.scope === componentId) {
+        element.scope = componentsStore[componentId].basedOn;
+      }
+      loopsExternel[element.id] = element;
+    });
+    setActiveVariables({
+      activeCalculatedVariablesById: loopsCalculated,
+      activeExternalVariablesById: loopsExternel,
+      collectedVariableByQuestion: collectedVariableByQuestion,
+    });
     if (loops.length > 0) {
       loops.forEach(loop => {
         loop.basedOn = componentsStore[componentId].basedOn;
