@@ -233,8 +233,6 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
 export const duplicateQuestionnaire = idQuestionnaire => dispatch => {
   getQuestionnaire(idQuestionnaire).then(question => {
     question.id = uuid();
-    question.genericName += '-Copie';
-    question.Name += '-Copie';
     question.Label[0] += ' Copie';
     return postQuestionnaire(question)
       .then(() => {
