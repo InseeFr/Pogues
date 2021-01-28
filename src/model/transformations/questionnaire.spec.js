@@ -1,4 +1,10 @@
-import { remoteToState, stateToRemote, remoteToStore } from './questionnaire';
+import {
+  remoteToState,
+  remoteToState1,
+  stateToRemote,
+  remoteToStore,
+  remoteToStore1,
+} from './questionnaire';
 
 describe('questionnaire', () => {
   it('remoteToState', () => {
@@ -36,6 +42,33 @@ describe('questionnaire', () => {
       owner: 'FAKEPERMISSION',
       serie: '',
       dynamiqueSpecified: 'Redirections',
+    };
+    expect(output).toEqual(expected);
+  });
+
+  it('remoteToState1', () => {
+    const remote = {
+      final: false,
+      id: 'jf0s8i94',
+      Label: ['questionnaire'],
+      lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
+      DataCollection: [
+        {
+          id: 'campaign01',
+          uri: 'http://ddi:fr.insee:DataCollection.campaign01',
+          Name: 'Campaign 01',
+        },
+      ],
+      TargetMode: [''],
+    };
+    const output = remoteToState1(remote);
+    const expected = {
+      TargetMode: [''],
+      campaigns: ['campaign01'],
+      final: false,
+      id: 'jf0s8i94',
+      label: 'questionnaire',
+      lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
     };
     expect(output).toEqual(expected);
   });
@@ -564,6 +597,36 @@ describe('questionnaire', () => {
         owner: 'FAKEPERMISSION',
         serie: '',
         dynamiqueSpecified: 'Redirections',
+      },
+    };
+    expect(output).toEqual(expected);
+  });
+
+  it('remoteToStore1', () => {
+    const remote = {
+      final: false,
+      id: 'jf0s8i94',
+      Label: ['questionnaire'],
+      lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
+      DataCollection: [
+        {
+          id: 'campaign01',
+          uri: 'http://ddi:fr.insee:DataCollection.campaign01',
+          Name: 'Campaign 01',
+        },
+      ],
+      TargetMode: [''],
+    };
+    const currentStores = {};
+    const output = remoteToStore1(remote, currentStores);
+    const expected = {
+      jf0s8i94: {
+        TargetMode: [''],
+        campaigns: ['campaign01'],
+        final: false,
+        id: 'jf0s8i94',
+        label: 'questionnaire',
+        lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
       },
     };
     expect(output).toEqual(expected);

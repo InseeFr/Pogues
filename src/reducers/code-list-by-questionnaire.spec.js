@@ -22,7 +22,6 @@ describe('loadQuestionnaireSuccess', () => {
       },
     );
     expect(result).toEqual({
-      state: 'previous',
       codeListByQuestionnaire: 'codeListByQuestionnaire',
     });
   });
@@ -46,7 +45,6 @@ describe('loadQuestionnaireSuccess', () => {
         },
       );
       expect(result).toEqual({
-        state: 'previous',
         codeListByQuestionnaire: 'codeListByQuestionnaire',
       });
     });

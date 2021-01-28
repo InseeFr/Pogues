@@ -37,7 +37,6 @@ export function formToState(form) {
 
 export function stateComponentToForm({ id, label, codes }) {
   const codesList = Object.keys(codes || {}).map(key => codes[key]);
-
   return merge(cloneDeep(defaultForm), {
     id: id || '',
     label: label || '',

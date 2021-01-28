@@ -100,6 +100,7 @@ describe('response transformation', () => {
         ResponseStructure: {
           Dimension: 'Dimension',
           Mapping: 'Mapping',
+          Attribute: 'Attribute',
         },
         Response: 'true',
       },

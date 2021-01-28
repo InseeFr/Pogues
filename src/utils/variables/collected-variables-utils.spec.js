@@ -625,6 +625,7 @@ describe('collected variables utils: ', () => {
           [NUMERIC]: undefined,
           [DATE]: undefined,
           [BOOLEAN]: {},
+          isCollected: true,
         },
         {
           id: result[1].id,
@@ -636,6 +637,7 @@ describe('collected variables utils: ', () => {
           [NUMERIC]: undefined,
           [DATE]: undefined,
           [BOOLEAN]: {},
+          isCollected: true,
         },
       ]);
     });
@@ -668,6 +670,7 @@ describe('collected variables utils: ', () => {
           label: 'code1 - label1',
           name: 'questionName1',
           x: 1,
+          isCollected: true,
           type: BOOLEAN,
           [TEXT]: undefined,
           [NUMERIC]: undefined,

@@ -23,7 +23,6 @@ describe('loadQuestionnaireSuccess', () => {
       },
     );
     expect(result).toEqual({
-      state: 'previous',
       collectedVariableByQuestionnaire: 'collectedVariableByQuestionnaire',
     });
   });
@@ -48,7 +47,6 @@ describe('loadQuestionnaireSuccess', () => {
         },
       );
       expect(result).toEqual({
-        state: 'previous',
         collectedVariableByQuestionnaire: 'collectedVariableByQuestionnaire',
       });
     });
