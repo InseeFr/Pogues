@@ -1,5 +1,13 @@
-import React, { createRef } from 'react';
+import React, { useState } from 'react';
 import CSVReader from 'react-csv-reader';
+import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
+
+const {
+  COMPONENT_CLASS,
+  CANCEL,
+  VALIDATE,
+  FOOTERLOOP,
+} = WIDGET_COMPONENT_NEW_EDIT;
 
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -8,12 +16,35 @@ const papaparseOptions = {
   dynamicTyping: true,
   skipEmptyLines: true,
   transformHeader: header => header.toLowerCase().replace(/\W/g, '_'),
-  fileEncoding: 'UTF-8',
+  fileEncoding: 'utf-8',
+  encoding: 'utf-8',
 };
 const UploadCSV = props => {
+  const [errorFile, setErrorFile] = useState(false);
+  const [dataFile, setDataFile] = useState();
+
   const handleForce = data => {
-    console.log(data);
+    setDataFile(data.length);
+    setErrorFile(false);
+    console.log('data', data);
+    if (data.length > 0) {
+      data.forEach(element => {
+        if (
+          !element.label ||
+          !element.value ||
+          'label' in element === false ||
+          'value' in element === false ||
+          'parent' in element === false
+        ) {
+          setErrorFile(true);
+        }
+      });
+    } else {
+      setErrorFile(true);
+    }
   };
+
+  console.log('errorFile', errorFile);
 
   const buttonRef = React.useRef();
 
@@ -27,17 +58,32 @@ const UploadCSV = props => {
 
   return (
     <div>
-      <div className="response-format-datatype-text">
+      <div className={COMPONENT_CLASS}>
         <CSVReader
           ref={buttonRef}
           cssClass="Csv-input"
           label={Dictionary.fileImport}
           onFileLoaded={handleForce}
           parserOptions={papaparseOptions}
-          noClick
           noDrag
         />
-        <button onClick={openCsvReader}> sayeb </button>
+        <p>
+          {errorFile ? (
+            <span style={{ color: 'red' }}>{Dictionary.invalidFile} </span>
+          ) : dataFile ? (
+            <span style={{ color: 'black' }}>
+              {dataFile} {Dictionary.codeNumber}{' '}
+            </span>
+          ) : (
+            false
+          )}
+        </p>
+        <div className={FOOTERLOOP}>
+          <button className={VALIDATE} type="submit">
+            {Dictionary.validate}
+          </button>
+          <button className={CANCEL}>{Dictionary.cancel}</button>
+        </div>{' '}
       </div>
     </div>
   );

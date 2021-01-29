@@ -393,10 +393,10 @@ class CodesListsCodes extends Component {
           shouldCloseOnOverlayClick={false}
           isOpen={this.state.showUploadCode}
           onRequestClose={this.closeUpload}
-          contentLabel="FILTRE IMBRIQUE"
         >
           <div className="popup">
             <div className="popup-header">
+              <h3>{Dictionary.uploadCode}</h3>
               <button type="button" onClick={this.closeUpload}>
                 <span>X</span>
               </button>
