@@ -16,17 +16,18 @@ const papaparseOptions = {
   dynamicTyping: true,
   skipEmptyLines: true,
   transformHeader: header => header.toLowerCase().replace(/\W/g, '_'),
-  fileEncoding: 'utf-8',
   encoding: 'utf-8',
 };
 const UploadCSV = props => {
   const [errorFile, setErrorFile] = useState(false);
   const [dataFile, setDataFile] = useState();
+  const [codesFile, setCodesFile] = useState();
 
   const handleForce = data => {
     setDataFile(data.length);
     setErrorFile(false);
-    console.log('data', data);
+    setCodesFile(data);
+
     if (data.length > 0) {
       data.forEach(element => {
         if (
@@ -44,7 +45,12 @@ const UploadCSV = props => {
     }
   };
 
-  console.log('errorFile', errorFile);
+  const validation = () => {
+    if (!errorFile) {
+      props.getFileCodes(codesFile);
+      props.closeUpload();
+    }
+  };
 
   const buttonRef = React.useRef();
 
@@ -79,10 +85,12 @@ const UploadCSV = props => {
           )}
         </p>
         <div className={FOOTERLOOP}>
-          <button className={VALIDATE} type="submit">
+          <button className={VALIDATE} onClick={validation}>
             {Dictionary.validate}
           </button>
-          <button className={CANCEL}>{Dictionary.cancel}</button>
+          <button onClick={props.closeUpload()} className={CANCEL}>
+            {Dictionary.cancel}
+          </button>
         </div>{' '}
       </div>
     </div>

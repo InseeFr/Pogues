@@ -73,6 +73,7 @@ class CodesListsCodes extends Component {
     this.renderCodes = this.renderCodes.bind(this);
     this.uploadCodeList = this.uploadCodeList.bind(this);
     this.closeUpload = this.closeUpload.bind(this);
+    this.getFileCodes = this.getFileCodes.bind(this);
   }
 
   uploadCodeList() {
@@ -341,6 +342,12 @@ class CodesListsCodes extends Component {
       .map(code => this.renderCode(code));
   }
 
+  getFileCodes(codes) {
+    if (codes && codes.length > 0) {
+      console.log('codes', codes);
+    }
+  }
+
   render() {
     const { showInputCode, editing } = this.state;
 
@@ -402,7 +409,10 @@ class CodesListsCodes extends Component {
               </button>
             </div>
             <div className="popup-body">
-              <UploadCSV />
+              <UploadCSV
+                closeUpload={() => this.closeUpload}
+                getFileCodes={this.getFileCodes}
+              />
             </div>
           </div>
         </ReactModal>
