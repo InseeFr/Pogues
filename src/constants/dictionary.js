@@ -139,6 +139,10 @@ const dictionary = {
     en: 'Duplicate',
     fr: 'Dupliquer',
   },
+  copy: {
+    en: 'Copy',
+    fr: 'Copie',
+  },
   remove: {
     en: 'Remove',
     fr: 'Supprimer',
@@ -417,6 +421,16 @@ const dictionary = {
     en: 'Specify Nested filter',
   },
 
+  QGoTo: {
+    fr: 'Redirections',
+    en: 'GoTo',
+  },
+
+  QFilter: {
+    fr: 'Filtres',
+    en: 'Filter',
+  },
+
   specify: {
     en: 'Specify',
     fr: 'Préciser',
@@ -484,8 +498,8 @@ const dictionary = {
     fr: 'Description',
   },
   expression: {
-    en: 'Condition',
-    fr: 'Condition',
+    en: 'Display condition',
+    fr: "Condition d'affichage",
   },
   target: {
     en: 'Target',
@@ -795,12 +809,13 @@ const dictionary = {
       "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
   saveLower: {
-    en: 'Thanks to save all the action of the page',
+    en: 'Thank you to validate all the actions on the page',
     fr: 'Merci de valider toutes les actions de la page',
   },
+
   saveLowerTitle: {
-    en: 'Modifications not validate',
-    fr: "Modifications n'ont pas validées",
+    en: 'Modifications not validated',
+    fr: 'Modifications non validées',
   },
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
@@ -913,6 +928,12 @@ const dictionary = {
     fr: 'Toutes les clarifications doivent être uniques',
     en: 'All clarifications should be unique',
   },
+
+  dupliquate: {
+    fr: 'dupliquer un questionnaire',
+    en: 'duplicate a question',
+  },
+
   codePh: {
     fr: 'Code',
     en: 'Code',
@@ -1478,6 +1499,14 @@ const dictionary = {
   IsNotLetter: {
     en: 'Id should begin with a letter',
     fr: "L'identifiant de la variable doit commencer par une lettre",
+  },
+  duplicateQuestion: {
+    fr: 'Vous avez demandé à dupliquer le questionnaire "',
+    en: 'You asked to duplicate the questionnaire "',
+  },
+  duplicateQuestionConfirmation: {
+    fr: '". Confirmez-vous votre demande ?',
+    en: '". Are you sure ?',
   },
 };
 

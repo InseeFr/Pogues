@@ -8,6 +8,7 @@ import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
 
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
+import ListRadios from 'forms/controls/list-radios';
 import { TargetMode, QUESTIONNAIRE_TYPE } from 'constants/pogues-constants';
 
 import { updateNameField } from 'utils/utils';
@@ -51,18 +52,17 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
             </GenericOption>
           ))}
         </Field>
-
         <Field
           name="dynamiqueSpecified"
-          component={ListCheckboxes}
+          component={ListRadios}
           label={Dictionary.dynamiqueSpecified}
           inline
         >
           <GenericOption key={Redirections} value={Redirections}>
-            {Redirections}
+            {Dictionary.QGoTo}
           </GenericOption>
           <GenericOption key={Filtres} value={Filtres}>
-            {Filtres}
+            {Dictionary.QFilter}
           </GenericOption>
         </Field>
         <div className={FOOTER}>

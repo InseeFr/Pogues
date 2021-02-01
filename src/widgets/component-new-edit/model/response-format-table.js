@@ -1,6 +1,6 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
-import { uuid } from 'utils/utils';
+import { uuid, verifyVariable } from 'utils/utils';
 
 import { CodesListModel } from 'widgets/codes-lists';
 import {
@@ -156,7 +156,7 @@ export function formToStateSecondary(form, codesListSecondary) {
 export function formToStateMeasure(form, codesListMeasure) {
   const { label, type, [type]: measureForm } = form;
   const state = {
-    label,
+    label: verifyVariable(label),
     type,
   };
 
@@ -316,7 +316,6 @@ export function stateToForm(currentState, transformers, codesListsStore) {
   if (listMeasureState) {
     listMeasureForm = stateToFormMeasureList(listMeasureState, codesListsStore);
   }
-
   return {
     [PRIMARY]: stateToFormPrimary(primaryState, transformers.codesListPrimary),
     [SECONDARY]: secondaryForm,
@@ -499,7 +498,6 @@ const Factory = (initialState = {}, codesListsStore) => {
           measures: listMeasures,
         };
       }
-
       return normalized;
     },
   };

@@ -163,19 +163,19 @@ class CodesListInputCode extends ComponentWithValidation {
           <Field name="input-code.parent" type="hidden" component="input" />
           <div className={CODE_INPUT_ACTIONS_CLASS}>
             <button
-              className={`${CODE_INPUT_ACTIONS_CLASS}-add`}
+              className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
+              onClick={close}
+            >
+              {Dictionary.cancel}
+            </button>
+            <button
+              className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
               onClick={e => {
                 e.preventDefault();
                 this.addCodeIfIsValid();
               }}
             >
-              {Dictionary.add}
-            </button>
-            <button
-              className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
-              onClick={close}
-            >
-              {Dictionary.cancel}
+              {Dictionary.validate}
             </button>
           </div>
         </div>
@@ -221,7 +221,7 @@ class CodesListInputCode extends ComponentWithValidation {
                 {Dictionary.cancel}
               </button>
               <button
-                className={`${CODE_INPUT_ACTIONS_CLASS}-add`}
+                className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
                 onClick={e => {
                   e.preventDefault();
                   this.addCodeIfIsValid1();
