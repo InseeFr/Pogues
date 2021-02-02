@@ -20,7 +20,6 @@ describe('loadQuestionnaireSuccess', () => {
       },
     );
     expect(result).toEqual({
-      state: 'previous',
       componentByQuestionnaire: 'componentByQuestionnaire',
     });
   });
@@ -44,7 +43,6 @@ describe('loadQuestionnaireSuccess', () => {
         },
       );
       expect(result).toEqual({
-        state: 'previous',
         componentByQuestionnaire: 'componentByQuestionnaire',
       });
     });

@@ -1,6 +1,5 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
-
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 import Simple, {
   defaultState as simpleDefault,
@@ -45,7 +44,7 @@ export function formToState(form, transformers) {
 export function stateToForm(currentState, transformers) {
   const { type } = currentState;
 
-  return merge(cloneDeep(defaultForm), {
+  return merge({}, cloneDeep(defaultForm), {
     type,
     [SIMPLE]: transformers.simple.stateToForm(),
     [SINGLE_CHOICE]: transformers.single.stateToForm(),

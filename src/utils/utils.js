@@ -72,7 +72,6 @@ export function updateNameField(currentValueLabel, currentValueName) {
 export function verifyVariable(label) {
   const expression = /\$([^\s]+)/g;
   const variables = label.match(expression);
-
   if (variables) {
     variables.forEach(variable => {
       const find = variable.search(/[/\-*?^{€"%,}[\]@&'&=><+()!.:[\\]/g);

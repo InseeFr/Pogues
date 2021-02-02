@@ -71,6 +71,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
       filters,
     ),
   };
+
   return {
     questionnaireById,
     calculatedVariableByQuestionnaire,
@@ -82,16 +83,16 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
 }
 
 export function questionnaireListRemoteToStores(questionnairesList) {
-  const questionnairesStates = [];
+  const questionnaireById = [];
 
   for (let i = 0; i < questionnairesList.length; i += 1) {
     let questionnaireState;
     try {
-      questionnaireState = questionnaireRemoteToStores(questionnairesList[i]);
+      questionnaireState = Questionnaire.remoteToStore1(questionnairesList[i]);
     } catch (e) {
       //
     }
-    if (questionnaireState) questionnairesStates.push(questionnaireState);
+    if (questionnaireState) questionnaireById.push(questionnaireState);
   }
-  return questionnairesStates;
+  return questionnaireById;
 }
