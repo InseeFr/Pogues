@@ -31,10 +31,11 @@ export const updateComponent = (
     activeCalculatedVariablesById,
     collectedVariableByQuestion,
   } = state.appState;
+
   if (
     componentsStore[componentId]?.type === LOOP &&
     componentsStore[componentId]?.basedOn &&
-    activeComponentsById[componentId]?.basedOn === undefined
+    !activeComponentsById[componentId]?.basedOn
   ) {
     const loops = Object.values(activeComponentsById).filter(
       element => element.type === LOOP && element.basedOn === componentId,

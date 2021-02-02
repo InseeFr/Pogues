@@ -57,7 +57,7 @@ const PageQuestionnaire = props => {
   const [idState, setIdState] = useState();
   const [questionnaireState, setQuestionnaireState] = useState();
   const [activeQuestionnaireState, setActiveQuestionnaireState] = useState();
-  const [componentsState, setComponentsState] = useState();
+  const [componentsState, setComponentsState] = useState({});
   const [codeListsState, setCodeListsState] = useState();
   const [externalVariablesState, setExternalVariables] = useState();
   const [calculatedVariablesState, setCalculatedVariables] = useState();
@@ -65,7 +65,6 @@ const PageQuestionnaire = props => {
     collectedVariablesByQuestionState,
     setCollectedVariablesByQuestion,
   ] = useState();
-
   useEffect(() => {
     if (idState !== id) {
       props.loadQuestionnaire(id);
@@ -79,7 +78,10 @@ const PageQuestionnaire = props => {
       props.loadStatisticalContext(idCampaign);
       setQuestionnaireState(questionnaire);
     }
-    if (components && !isEqual(componentsState, components)) {
+    if (
+      components &&
+      Object.values(componentsState).length !== Object.values(components).length
+    ) {
       props.setActiveComponents(components);
       setComponentsState(components);
     }
