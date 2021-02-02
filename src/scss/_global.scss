@@ -202,6 +202,40 @@ a {
   }
 }
 
+.popup-duplication {
+  position: relative;
+  top: 20%;
+  left: 30%;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  width: 40%;
+  text-align: center;
+  height: 30%;
+  background: rgb(255, 255, 255);
+
+.popup-header {
+  @include make-row();
+  text-transform: uppercase;
+  color: $color-blue_02;
+}
+
+  h3 {
+    @include make-xs-column(11);
+    margin-top: 0;
+  }
+  .popup-yes {
+    background-color: #fce285;
+    margin: 0px 10px;
+    text-align: center;
+  }
+  .popup-body {
+    margin: 20px 0px;
+    text-align: center;
+  }
+}
+
 .alert-triangle {
   position: relative;
   background-color: red;
@@ -305,6 +339,7 @@ a {
 
 .loopLists {
   border : none;
+  display: flex;
 }
 
 .Csv-input {
@@ -316,9 +351,15 @@ a {
   }
 }
 
+.loaderClass {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0px 0px -50px;
+}
 .questionnaire-element-filter {
   margin: 10px;
-  width: 25%;
+  width: 35%;
 }
 .btn-white-filter {
   text-align: center;
