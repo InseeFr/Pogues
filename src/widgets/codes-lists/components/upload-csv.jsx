@@ -8,7 +8,6 @@ const {
   VALIDATE,
   FOOTERLOOP,
 } = WIDGET_COMPONENT_NEW_EDIT;
-
 import Dictionary from 'utils/dictionary/dictionary';
 
 const papaparseOptions = {
@@ -48,17 +47,6 @@ const UploadCSV = props => {
   const validation = () => {
     if (!errorFile) {
       props.getFileCodes(codesFile);
-      props.closeUpload();
-    }
-  };
-
-  const buttonRef = React.useRef();
-
-  const openCsvReader = () => {
-    if (buttonRef.current) {
-      console.log('buttonRef.current.', buttonRef.current);
-
-      buttonRef.current.click();
     }
   };
 
@@ -66,7 +54,6 @@ const UploadCSV = props => {
     <div>
       <div className={COMPONENT_CLASS}>
         <CSVReader
-          ref={buttonRef}
           cssClass="Csv-input"
           label={Dictionary.fileImport}
           onFileLoaded={handleForce}

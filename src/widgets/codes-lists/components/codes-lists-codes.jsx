@@ -76,16 +76,43 @@ class CodesListsCodes extends Component {
     this.getFileCodes = this.getFileCodes.bind(this);
   }
 
-  uploadCodeList() {
-    this.setState({
-      showUploadCode: true,
-    });
+  getFileCodes(codes) {
+    const {
+      fields: { getAll, removeAll, push },
+    } = this.props;
+    const allCodes = getAll();
+    if (codes && codes.length > 0) {
+      removeAll();
+      codes.forEach((code, index) => {
+        code.weight = index;
+        code.depth = allCodes[0]?.depth ? allCodes[0].depth : 1;
+        code.parent = code.parent ? code.parent : '';
+        push(code);
+      });
+    }
+    this.closeUpload();
+    this.clearInputCode();
   }
 
   closeUpload() {
     this.setState({
       showUploadCode: false,
     });
+  }
+
+  uploadCodeList() {
+    this.setState({
+      showUploadCode: true,
+    });
+  }
+
+  clearInputCode() {
+    const { inputCodePath, formName, change } = this.props;
+    change(formName, `${inputCodePath}value`, '');
+    change(formName, `${inputCodePath}label`, '');
+    change(formName, `${inputCodePath}precisionid`, '');
+    change(formName, `${inputCodePath}precisionlabel`, '');
+    change(formName, `${inputCodePath}precisionsize`, '');
   }
 
   removePrecision() {
@@ -123,15 +150,6 @@ class CodesListsCodes extends Component {
     this.clearInputCode();
   }
 
-  clearInputCode() {
-    const { inputCodePath, formName, change } = this.props;
-    change(formName, `${inputCodePath}value`, '');
-    change(formName, `${inputCodePath}label`, '');
-    change(formName, `${inputCodePath}precisionid`, '');
-    change(formName, `${inputCodePath}precisionlabel`, '');
-    change(formName, `${inputCodePath}precisionsize`, '');
-  }
-
   pushCode() {
     const {
       currentValue,
@@ -144,7 +162,6 @@ class CodesListsCodes extends Component {
     const { activeCodeIndex, editing } = this.state;
     const allCodes = getAll() || [];
     let values;
-
     if (activeCodeIndex !== undefined) {
       values = {
         value: currentValue,
@@ -340,12 +357,6 @@ class CodesListsCodes extends Component {
         return 0;
       })
       .map(code => this.renderCode(code));
-  }
-
-  getFileCodes(codes) {
-    if (codes && codes.length > 0) {
-      console.log('codes', codes);
-    }
   }
 
   render() {
