@@ -910,7 +910,22 @@ const dictionary = {
     fr: 'Code de la modalité',
     en: 'Code',
   },
-
+  uploadCode: {
+    fr: "Import d'une liste de codes",
+    en: 'Import a code list',
+  },
+  fileImport: {
+    fr: 'Fichier à importer',
+    en: 'File to import',
+  },
+  invalidFile: {
+    fr: "Fichier invalide : merci d'importer un fichier valide",
+    en: 'Invalid file: please import a valid file',
+  },
+  codeNumber: {
+    fr: 'modalités importées',
+    en: 'code found',
+  },
   precisionId: {
     fr: 'Identifiant',
     en: 'Identifiant',
