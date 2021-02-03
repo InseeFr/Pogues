@@ -747,6 +747,10 @@ const dictionary = {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
   },
+  duplicateCodeList: {
+    fr: 'Dupliquer la liste de codes',
+    en: 'Duplicate the codelist',
+  },
   selectCodesList: {
     fr: 'Sélectionner une liste de codes',
     en: 'Select a code list',

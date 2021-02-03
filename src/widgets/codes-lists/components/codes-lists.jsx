@@ -141,6 +141,18 @@ const CodesList = props => {
                 ))}
             </Field>
           )}
+          <div className="ctrl-checkbox" style={{ display: 'clock' }}>
+            <label htmlFor="rf-single-duplicate">
+              {Dictionary.duplicateCodeList}
+            </label>
+            <div>
+              <Field
+                name="duplicateCodeList"
+                component="input"
+                type="checkbox"
+              />
+            </div>
+          </div>
           {activePanel === NEW && (
             <div ref={refDiv}>
               <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
