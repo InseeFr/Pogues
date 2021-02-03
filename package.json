@@ -47,7 +47,8 @@
     "redux-thunk": "2.3.0",
     "restify-cors-middleware": "1.1.1",
     "restify-plugins": "1.6.0",
-    "synthetic-dom": "1.4.0"
+    "synthetic-dom": "1.4.0",
+    "terser-webpack-plugin": "^4.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

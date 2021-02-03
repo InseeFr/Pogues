@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CSVReader from 'react-csv-reader';
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const {
   COMPONENT_CLASS,
@@ -8,20 +9,19 @@ const {
   VALIDATE,
   FOOTERLOOP,
 } = WIDGET_COMPONENT_NEW_EDIT;
-import Dictionary from 'utils/dictionary/dictionary';
 
-const papaparseOptions = {
-  header: true,
-  dynamicTyping: true,
-  skipEmptyLines: true,
-  transformHeader: header => header.toLowerCase().replace(/\W/g, '_'),
-  encoding: 'utf-8',
-};
 const UploadCSV = props => {
   const [errorFile, setErrorFile] = useState(false);
   const [dataFile, setDataFile] = useState();
   const [codesFile, setCodesFile] = useState();
 
+  const papaparseOptions = {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true,
+    transformHeader: header => header.toLowerCase().replace(/\W/g, '_'),
+    encoding: 'utf-8',
+  };
   const handleForce = data => {
     setDataFile(data.length);
     setErrorFile(false);
