@@ -18,6 +18,7 @@ import {
   QUESTION_END_CHILD,
   QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
+import { element, object } from 'prop-types';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
@@ -123,6 +124,14 @@ export function stateToRemote(state, stores) {
     codesListsStore,
     componentsStore,
   );
+  const codesListDuplicated = Object.values(codesListsStore).filter(
+    code => code.isDuplicated,
+  );
+  if (codesListDuplicated.length > 0) {
+    codesListDuplicated.forEach(element => {
+      codesListsWihoutOrphans[element.id] = element;
+    });
+  }
 
   const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
     getCollectedVariablesIdsFromComponents(componentsStore),
@@ -207,6 +216,5 @@ export function stateToRemote(state, stores) {
   if (dynamiqueSpecified === Filtres) {
     json.FlowControl = FlowControl;
   }
-  console.log('json', json)
   return json;
 }

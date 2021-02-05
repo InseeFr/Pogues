@@ -5,6 +5,8 @@ import * as CollectedVariable from './transformations/collected-variable';
 import * as CodesList from './transformations/codes-list';
 import * as Component from './transformations/component';
 import { VARIABLES_TYPES } from 'constants/pogues-constants';
+import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
+import { element } from 'prop-types';
 
 const { CALCULATED, EXTERNAL, COLLECTED } = VARIABLES_TYPES;
 
@@ -47,10 +49,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     codesLists,
     variableclarification,
   );
-
-  const codeListByQuestionnaire = {
-    [id]: codesListsStore,
-  };
   // Collected variables store
   const responsesByVariable = Component.remoteToVariableResponse(remote);
   const collectedVariableByQuestionnaire = {
@@ -70,6 +68,23 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
       iterations,
       filters,
     ),
+  };
+  const condListLinked = removeOrphansCodesLists(
+    codesListsStore,
+    componentByQuestionnaire[id],
+  );
+  if (
+    Object.values(condListLinked).length !==
+    Object.values(codesListsStore).length
+  ) {
+    Object.values(codesListsStore).forEach(code => {
+      if (!condListLinked[code.id]) {
+        code.isDuplicated = true;
+      }
+    });
+  }
+  const codeListByQuestionnaire = {
+    [id]: codesListsStore,
   };
   return {
     questionnaireById,

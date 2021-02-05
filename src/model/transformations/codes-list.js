@@ -137,40 +137,4 @@ export function storeToRemote(store) {
     }
   });
   return codeList;
-  // return Object.keys(store).map(key => {
-  //   const { id, label, codes, duplicateCodeList } = store[key];
-  //   const code = {
-  //     id,
-  //     Label: label,
-  //     Name: '',
-  //     Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-  //       const { label: labelCode, value, parent } = codes[keyCode];
-  //       return {
-  //         Label: labelCode,
-  //         Value: value,
-  //         Parent: parent,
-  //       };
-  //     }),
-  //   };
-  //   if (duplicateCodeList) {
-  //     const codeDub = {
-  //       id: uuid(),
-  //       Label: `${label}_2`,
-  //       Name: '',
-  //       Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-  //         const { label: labelCode, value, parent } = codes[keyCode];
-  //         return {
-  //           Label: labelCode,
-  //           Value: value,
-  //           Parent: parent,
-  //         };
-  //       }),
-  //     };
-  //     console.log('store[key]', { code, codeDub });
-
-  //     return code;
-  //   } else {
-  //     return code;
-  //   }
-  // });
 }
