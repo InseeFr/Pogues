@@ -139,6 +139,10 @@ const dictionary = {
     en: 'Duplicate',
     fr: 'Dupliquer',
   },
+  copy: {
+    en: 'Copy',
+    fr: 'Copie',
+  },
   remove: {
     en: 'Remove',
     fr: 'Supprimer',
@@ -928,6 +932,12 @@ const dictionary = {
     fr: 'Toutes les clarifications doivent être uniques',
     en: 'All clarifications should be unique',
   },
+
+  dupliquate: {
+    fr: 'dupliquer un questionnaire',
+    en: 'duplicate a question',
+  },
+
   codePh: {
     fr: 'Code',
     en: 'Code',
@@ -1494,6 +1504,14 @@ const dictionary = {
     en: 'Id should begin with a letter',
     fr: "L'identifiant de la variable doit commencer par une lettre",
   },
+  duplicateQuestion: {
+    fr: 'Vous avez demandé à dupliquer le questionnaire "',
+    en: 'You asked to duplicate the questionnaire "',
+  },
+  duplicateQuestionConfirmation: {
+    fr: '". Confirmez-vous votre demande ?',
+    en: '". Are you sure ?',
+  },
 };
 
 // Dynamic translations
@@ -1549,4 +1567,3 @@ dictionary[`componentEdit${FILTER}`] = {
 };
 
 export default dictionary;
-

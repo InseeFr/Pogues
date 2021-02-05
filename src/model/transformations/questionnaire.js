@@ -98,9 +98,35 @@ export function remoteToState(remote, currentStores = {}) {
   };
 }
 
+export function remoteToState1(remote) {
+  const {
+    final,
+    id,
+    Label: [label],
+    lastUpdatedDate,
+    DataCollection,
+    TargetMode,
+  } = remote;
+
+  return {
+    final: final === undefined,
+    id,
+    label,
+    lastUpdatedDate,
+    campaigns: DataCollection.map(dc => dc.id),
+    TargetMode: TargetMode || [],
+  };
+}
+
 export function remoteToStore(remote, currentStores = {}) {
   return {
     [remote.id]: remoteToState(remote, currentStores),
+  };
+}
+
+export function remoteToStore1(remote) {
+  return {
+    [remote.id]: remoteToState1(remote),
   };
 }
 
@@ -154,7 +180,7 @@ export function stateToRemote(state, stores) {
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore[c]?.label,
+    Name: campaignsStore ? campaignsStore[c]?.label : undefined,
   }));
 
   const remote = {

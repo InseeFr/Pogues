@@ -13,7 +13,6 @@ export function loadQuestionnaireSuccess(
   { update: { codeListByQuestionnaire } },
 ) {
   return {
-    ...state,
     ...codeListByQuestionnaire,
   };
 }
