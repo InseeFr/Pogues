@@ -17,10 +17,11 @@ export const defaultForm = {
   precisionid: '',
   precisionlabel: '',
   precisionsize: '',
+  duplicateCodeList: false,
 };
 
 export function formToState(form) {
-  const { id, label, codes } = form;
+  const { id, label, codes, duplicateCodeList } = form;
   const codesStore = (codes || []).reduce((acc, c) => {
     return {
       ...acc,
@@ -31,6 +32,7 @@ export function formToState(form) {
   return {
     id: id || uuid(),
     label: label || '',
+    duplicateCodeList,
     codes: codesStore,
   };
 }
