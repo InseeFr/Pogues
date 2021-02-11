@@ -23,6 +23,7 @@ describe('loadQuestionnaireSuccess', () => {
       },
     );
     expect(result).toEqual({
+      state: 'previous',
       collectedVariableByQuestionnaire: 'collectedVariableByQuestionnaire',
     });
   });
@@ -47,6 +48,7 @@ describe('loadQuestionnaireSuccess', () => {
         },
       );
       expect(result).toEqual({
+        state: 'previous',
         collectedVariableByQuestionnaire: 'collectedVariableByQuestionnaire',
       });
     });
@@ -60,6 +62,7 @@ describe('loadQuestionnaireListSuccess', () => {
       { collectedVariableByQuestionnaire: { '2': { id: '4' } } },
     ]);
     expect(result).toEqual({
+      state: 'previous',
       '1': { id: '1' },
       '2': { id: '4' },
     });
@@ -77,6 +80,7 @@ describe('loadQuestionnaireListSuccess', () => {
         },
       );
       expect(result).toEqual({
+        state: 'previous',
         '1': { id: '1' },
         '2': { id: '4' },
       });
