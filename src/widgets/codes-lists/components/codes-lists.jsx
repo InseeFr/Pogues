@@ -148,6 +148,7 @@ const CodesList = props => {
             <div>
               <Field
                 name="duplicateCodeList"
+                id="rf-single-duplicate"
                 component="input"
                 type="checkbox"
               />
