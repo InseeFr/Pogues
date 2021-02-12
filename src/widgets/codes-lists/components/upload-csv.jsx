@@ -54,7 +54,7 @@ const UploadCSV = props => {
     <div>
       <div className={COMPONENT_CLASS}>
         <CSVReader
-          cssClass="Csv-input"
+          cssClass="csv-input"
           label={Dictionary.fileImport}
           onFileLoaded={handleForce}
           parserOptions={papaparseOptions}
