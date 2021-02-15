@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import QuestionnaireList from '../components/questionnaire-list';
 
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
+import { setModifiedFalse } from 'actions/app-state';
 
 // Contanier
 
@@ -18,6 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loadQuestionnaireList,
+  setModifiedFalse,
 };
 
 export default connect(

@@ -17,6 +17,7 @@ import {
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   CREATE_PAGE_BREAK,
   REMOVE_PAGE_BREAK,
+  CLEAR_MODIFICATION,
 } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -165,6 +166,13 @@ export function setQuestionModified(state) {
   };
 }
 
+export function setQuestionModifiedFalse(state) {
+  return {
+    ...state,
+    isQuestionnaireModified: false,
+  };
+}
+
 export function setQuestionModifiedAndResetSelectedComponent(state) {
   return {
     ...setSelectedComponentId(
@@ -195,6 +203,7 @@ actionHandlers[MOVE_COMPONENT] = setQuestionModified;
 
 actionHandlers[CREATE_PAGE_BREAK] = setQuestionModified;
 actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
+actionHandlers[CLEAR_MODIFICATION] = setQuestionModifiedFalse;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function(state = defaultState, action) {

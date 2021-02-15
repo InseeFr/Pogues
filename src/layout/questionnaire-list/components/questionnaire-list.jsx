@@ -56,6 +56,7 @@ const QuestionnaireList = props => {
 
   useEffect(() => {
     props.loadQuestionnaireList(props.user.permission);
+    props.setModifiedFalse();
   }, [props.user.permission]);
 
   return (
