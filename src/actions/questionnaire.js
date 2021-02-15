@@ -3,6 +3,8 @@ import {
   postQuestionnaire,
   deleteQuestionnaire,
 } from 'utils/remote-api';
+import { uuid } from 'utils/utils';
+import Dictionary from 'utils/dictionary/dictionary';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 import { Component } from 'widgets/component-new-edit';
@@ -20,6 +22,7 @@ export const CREATE_QUESTIONNAIRE_FAILURE = 'CREATE_QUESTIONNAIRE_FAILURE';
 export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
 export const DELETE_QUESTIONNAIRE_SUCCESS = 'DELETE_QUESTIONNAIRE_SUCCESS';
 export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
+export const DUPLICATE_QUESTIONNAIRE = 'DUPLICATE_QUESTIONNAIRE';
 
 /**
  * Load questionnaire success
@@ -225,4 +228,23 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     .catch(err => {
       return dispatch(removeQuestionnaireFailure(idQuestionnaire, err));
     });
+};
+
+export const duplicateQuestionnaire = idQuestionnaire => dispatch => {
+  getQuestionnaire(idQuestionnaire).then(question => {
+    question.id = uuid();
+    question.Label[0] += ' Copie';
+    return postQuestionnaire(question)
+      .then(() => {
+        return dispatch(
+          createQuestionnaireSuccess(
+            question.id,
+            questionnaireRemoteToStores(question),
+          ),
+        );
+      })
+      .catch(err => {
+        return dispatch(createQuestionnaireFailure(err, err.errors));
+      });
+  });
 };
