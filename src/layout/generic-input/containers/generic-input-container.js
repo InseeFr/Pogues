@@ -7,6 +7,7 @@ import {
   visualizeActiveQuestionnaire,
   handleNewPageBreak,
 } from 'actions/app-state';
+import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
@@ -79,6 +80,7 @@ const mapStateToProps = state => {
     activeComponentsById,
     selectedComponentId,
     activeQuestionnaire,
+    user,
   } = state.appState;
   const errors = state.errors || { errorsIntegrity: {} };
   const questionnaireErrors =
@@ -96,6 +98,7 @@ const mapStateToProps = state => {
     componentIdForPageBreak: state.appState.componentIdForPageBreak,
     isLoopsValid: isLoopsValid(activeComponentsById),
     activeQuestionnaire: activeQuestionnaire,
+    user: user,
   };
 };
 
@@ -103,6 +106,7 @@ const mapDispatchToProps = {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
   handleNewPageBreak,
+  loadQuestionnaireList,
 };
 
 export default connect(

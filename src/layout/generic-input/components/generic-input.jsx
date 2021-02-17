@@ -90,11 +90,32 @@ class GenericInput extends Component {
       showNewUnsavedModal: false,
       showNewLoopModal: false,
       typeNewComponent: '',
+      showNewQuestionnaire: false,
     };
 
     this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
     this.handleCloseNewComponent = this.handleCloseNewComponent.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleNewQuestion = this.handleNewQuestion.bind(this);
+    this.handleCloseNewQuestion = this.handleCloseNewQuestion.bind(this);
+  }
+
+  handleNewQuestion() {
+    console.log('user', this.props.user);
+    const newState = {
+      ...this.state,
+      showNewQuestionnaire: true,
+    };
+    this.setState(newState);
+    this.props.loadQuestionnaireList(this.props.user.permission);
+  }
+
+  handleCloseNewQuestion() {
+    const newState = {
+      ...this.state,
+      showNewQuestionnaire: false,
+    };
+    this.setState(newState);
   }
 
   handleOpenNewComponent(componentType) {
@@ -284,6 +305,16 @@ class GenericInput extends Component {
           disabled={!isQuestionnaireValid}
           visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
         />
+        <button
+          id="add-questionnaire"
+          className="btn-white"
+          onClick={() => {
+            this.handleNewQuestion();
+          }}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.QUESTIONNAIRE}
+        </button>
 
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
