@@ -160,7 +160,6 @@ class GenericInput extends Component {
       componentIdForPageBreak,
       activeQuestionnaire,
     } = this.props;
-    console.log('isQuestionnaireModified', isQuestionnaireModified)
     const { typeNewComponent } = this.state;
     const newComponentParent = typeNewComponent
       ? placeholders[typeNewComponent].parent
