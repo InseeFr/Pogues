@@ -25,6 +25,7 @@ export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
 export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
 export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
 export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
+export const CLEAR_MODIFICATION = 'CLEAR_MODIFICATION';
 export const SET_ACTIVE_VARIABLES = 'SET_ACTIVE_VARIABLES';
 export const LOAD_STATISTICAL_CONTEXT = 'LOAD_STATISTICAL_CONTEXT';
 export const LOAD_STATISTICAL_CONTEXT_SUCCESS =
@@ -489,6 +490,10 @@ export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
 
 export const clearTabErrors = () => ({
   type: CLEAR_TAB_ERRORS,
+});
+
+export const setModifiedFalse = () => ({
+  type: CLEAR_MODIFICATION,
 });
 
 export const loadStatisticalContextSuccess = ({ serie, operation }) => ({

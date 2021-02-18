@@ -82,6 +82,16 @@ const QuestionnaireList = props => {
       }
     });
 
+  useEffect(() => {
+    if (props.user && props.user.permission)
+      props.loadQuestionnaireList(props.user.permission);
+  }, []);
+
+  useEffect(() => {
+    props.loadQuestionnaireList(props.user.permission);
+    props.setModifiedFalse();
+  }, [props.user.permission]);
+
   return (
     <div className="box home-questionnaires">
       <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
