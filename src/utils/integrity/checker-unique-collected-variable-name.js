@@ -34,7 +34,7 @@ function checkerUniqueCollectedVariableName({
     }),
   );
 
-  if (duplicatedVariablesNames.length > 0) {
+  if (duplicatedVariablesNames.length > 0 && duplicatedVariablesNames[0]) {
     errors.push({
       message: `${
         Dictionary.errorUniqueVariableName

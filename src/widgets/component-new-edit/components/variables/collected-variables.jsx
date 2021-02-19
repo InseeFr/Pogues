@@ -18,7 +18,7 @@ import ResponseFormatDatatypeDuree from 'widgets/component-new-edit/components/r
 import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
-const { TABLE } = QUESTION_TYPE_ENUM;
+const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 // Utils
 
@@ -101,7 +101,8 @@ class CollectedVariables extends Component {
       componentName,
       responseFormatType,
     } = this.props;
-    const hiddenCollected = responseFormatType !== TABLE;
+    const hiddenCollected =
+      responseFormatType !== TABLE && responseFormatType !== MULTIPLE_CHOICE;
 
     return (
       <FormSection name={selectorPath}>

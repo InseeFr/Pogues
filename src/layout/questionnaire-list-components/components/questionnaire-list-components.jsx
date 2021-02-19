@@ -75,10 +75,7 @@ const QuestionnaireListComponents = props => {
   };
   const componentFilterConditionFinal = id => {
     const filters = Object.values(props.componentsStore).filter(
-      component =>
-        component.type === FILTER &&
-        component.finalMember === id &&
-        component.initialMember !== component.finalMember,
+      component => component.type === FILTER && component.finalMember === id,
     );
     return filters;
   };
