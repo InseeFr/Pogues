@@ -316,7 +316,6 @@ export function stateToForm(currentState, transformers, codesListsStore) {
   if (listMeasureState) {
     listMeasureForm = stateToFormMeasureList(listMeasureState, codesListsStore);
   }
-
   return {
     [PRIMARY]: stateToFormPrimary(primaryState, transformers.codesListPrimary),
     [SECONDARY]: secondaryForm,
@@ -499,7 +498,6 @@ const Factory = (initialState = {}, codesListsStore) => {
           measures: listMeasures,
         };
       }
-
       return normalized;
     },
   };

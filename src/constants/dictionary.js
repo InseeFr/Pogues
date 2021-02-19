@@ -139,6 +139,10 @@ const dictionary = {
     en: 'Duplicate',
     fr: 'Dupliquer',
   },
+  copy: {
+    en: 'Copy',
+    fr: 'Copie',
+  },
   remove: {
     en: 'Remove',
     fr: 'Supprimer',
@@ -633,6 +637,12 @@ const dictionary = {
     en:
       'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
+  notExistingTarget: {
+    fr:
+      "Les cibles de redirections suivantes n'existent pas au sein du questionnaire :",
+    en:
+      "The following targets of redirections don't exist for the questionnaire :",
+  },
   errorGoToEarlierTgt: {
     fr:
       'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
@@ -746,6 +756,10 @@ const dictionary = {
   selectCodesListType: {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
+  },
+  duplicateCodeList: {
+    fr: 'Dupliquer la liste de codes',
+    en: 'Duplicate the code list',
   },
   selectCodesList: {
     fr: 'Sélectionner une liste de codes',
@@ -898,6 +912,22 @@ const dictionary = {
     fr: 'Ajouter un code',
     en: 'Add a code',
   },
+  uploadCode: {
+    fr: "Import d'une liste de codes",
+    en: 'Import a code list',
+  },
+  invalidFile: {
+    fr: "Fichier invalide : merci d'importer un fichier valide",
+    en: 'Invalid file: please import a valid file',
+  },
+  codeNumber: {
+    fr: 'modalités importées',
+    en: 'code found',
+  },
+  fileImport: {
+    fr: 'Fichier à importer',
+    en: 'File to import',
+  },
   editCode: {
     fr: 'Editer un code',
     en: 'Edit a code',
@@ -924,6 +954,12 @@ const dictionary = {
     fr: 'Toutes les clarifications doivent être uniques',
     en: 'All clarifications should be unique',
   },
+
+  dupliquate: {
+    fr: 'dupliquer un questionnaire',
+    en: 'duplicate a question',
+  },
+
   codePh: {
     fr: 'Code',
     en: 'Code',
@@ -1498,6 +1534,14 @@ const dictionary = {
     en: 'Id should begin with a letter',
     fr: "L'identifiant de la variable doit commencer par une lettre",
   },
+  duplicateQuestion: {
+    fr: 'Vous avez demandé à dupliquer le questionnaire "',
+    en: 'You asked to duplicate the questionnaire "',
+  },
+  duplicateQuestionConfirmation: {
+    fr: '". Confirmez-vous votre demande ?',
+    en: '". Are you sure ?',
+  },
 };
 
 // Dynamic translations
@@ -1553,4 +1597,3 @@ dictionary[`componentEdit${FILTER}`] = {
 };
 
 export default dictionary;
-

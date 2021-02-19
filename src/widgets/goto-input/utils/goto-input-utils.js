@@ -34,7 +34,9 @@ export function getTargets(
   ) {
     allowedTargets.unshift(selectedTarget);
   }
-
+  if (!componentsStore.idendquest) {
+    allowedTargets = allowedTargets.filter(target => target !== 'idendquest');
+  }
   return allowedTargets.map(key => {
     return {
       value: key,

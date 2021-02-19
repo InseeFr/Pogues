@@ -4,6 +4,10 @@ import QuestionnaireList from '../components/questionnaire-list';
 
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
 
+import { setModifiedFalse } from 'actions/app-state';
+
+import { duplicateQuestionnaire } from 'actions/questionnaire';
+
 // Contanier
 
 const mapStateToProps = state => {
@@ -18,6 +22,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loadQuestionnaireList,
+  setModifiedFalse,
+  duplicateQuestionnaire,
 };
 
 export default connect(

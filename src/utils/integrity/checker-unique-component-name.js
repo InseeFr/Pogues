@@ -19,7 +19,6 @@ function checkerUniqueComponentName({
       return componentNames.filter(innerName => innerName === name).length > 1;
     }),
   );
-
   if (duplicatedComponentNames.length > 0) {
     errors.push({
       message: `${
