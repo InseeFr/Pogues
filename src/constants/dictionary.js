@@ -637,6 +637,12 @@ const dictionary = {
     en:
       'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
+  notExistingTarget: {
+    fr:
+      "Les cibles de redirections suivantes n'existent pas au sein du questionnaire :",
+    en:
+      "The following targets of redirections don't exist for the questionnaire :",
+  },
   errorGoToEarlierTgt: {
     fr:
       'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',

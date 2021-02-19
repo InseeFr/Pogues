@@ -12,6 +12,7 @@ import checkerComponentTarget from './checker-component-targets';
 import checkerUniqueCollectedVariableName from './checker-unique-collected-variable-name';
 import checkerUniqueComponentName from './checker-unique-component-name';
 import checkerTargetMode from './checker-declaration-mode';
+import checkerExistingTarget from './checker-existing-target';
 
 export default {
   [SET_ACTIVE_COMPONENTS]: combineCheckers(
@@ -39,6 +40,7 @@ export default {
     checkerComponentTarget,
     checkerUniqueComponentName,
     checkerUniqueCollectedVariableName,
+    checkerExistingTarget,
   ),
   [MOVE_COMPONENT]: combineCheckers(checkerComponentTarget),
   [DUPLICATE_COMPONENT]: combineCheckers(
