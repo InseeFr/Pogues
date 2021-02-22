@@ -157,12 +157,6 @@ export const questionRules = {
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.measures`]: [emptyMeasures],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.label`]: [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [
-    value => minValue(0)(value),
-  ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    value => minValue(1)(value),
-  ],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
@@ -264,5 +258,11 @@ export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
+  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [
+    required,
+  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
+    required,
   ],
 };
