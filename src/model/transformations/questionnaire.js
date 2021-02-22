@@ -18,6 +18,7 @@ import {
   QUESTION_END_CHILD,
   QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
+import { element, object } from 'prop-types';
 
 const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
@@ -97,9 +98,35 @@ export function remoteToState(remote, currentStores = {}) {
   };
 }
 
+export function remoteToState1(remote) {
+  const {
+    final,
+    id,
+    Label: [label],
+    lastUpdatedDate,
+    DataCollection,
+    TargetMode,
+  } = remote;
+
+  return {
+    final: final === undefined,
+    id,
+    label,
+    lastUpdatedDate,
+    campaigns: DataCollection.map(dc => dc.id),
+    TargetMode: TargetMode || [],
+  };
+}
+
 export function remoteToStore(remote, currentStores = {}) {
   return {
     [remote.id]: remoteToState(remote, currentStores),
+  };
+}
+
+export function remoteToStore1(remote) {
+  return {
+    [remote.id]: remoteToState1(remote),
   };
 }
 
@@ -123,6 +150,14 @@ export function stateToRemote(state, stores) {
     codesListsStore,
     componentsStore,
   );
+  const codesListDuplicated = Object.values(codesListsStore).filter(
+    code => code.isDuplicated,
+  );
+  if (codesListDuplicated.length > 0) {
+    codesListDuplicated.forEach(element => {
+      codesListsWihoutOrphans[element.id] = element;
+    });
+  }
 
   const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
     getCollectedVariablesIdsFromComponents(componentsStore),
@@ -145,7 +180,7 @@ export function stateToRemote(state, stores) {
   const dataCollections = campaigns.map(c => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore[c]?.label,
+    Name: campaignsStore ? campaignsStore[c]?.label : undefined,
   }));
 
   const remote = {

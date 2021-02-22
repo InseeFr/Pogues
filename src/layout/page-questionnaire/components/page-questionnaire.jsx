@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
+import Loader from 'react-loader-spinner';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
 import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
@@ -50,12 +51,13 @@ const PageQuestionnaire = props => {
     externalVariables,
     collectedVariablesByQuestion,
     activeQuestionnaire,
+    loading,
   } = props;
 
   const [idState, setIdState] = useState();
   const [questionnaireState, setQuestionnaireState] = useState();
   const [activeQuestionnaireState, setActiveQuestionnaireState] = useState();
-  const [componentsState, setComponentsState] = useState();
+  const [componentsState, setComponentsState] = useState({});
   const [codeListsState, setCodeListsState] = useState();
   const [externalVariablesState, setExternalVariables] = useState();
   const [calculatedVariablesState, setCalculatedVariables] = useState();
@@ -63,19 +65,23 @@ const PageQuestionnaire = props => {
     collectedVariablesByQuestionState,
     setCollectedVariablesByQuestion,
   ] = useState();
-
   useEffect(() => {
     if (idState !== id) {
-      props.loadQuestionnaireIfNeeded(idState);
+      props.loadQuestionnaire(id);
       setIdState(id);
     }
+
     if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
-      const idCampaign = questionnaire.campaigns[0];
+      const idCampaign =
+        questionnaire.campaigns[questionnaire.campaigns.length - 1];
       props.setActiveQuestionnaire(questionnaire);
       props.loadStatisticalContext(idCampaign);
       setQuestionnaireState(questionnaire);
     }
-    if (components && !isEqual(componentsState, components)) {
+    if (
+      components &&
+      Object.values(componentsState).length !== Object.values(components).length
+    ) {
       props.setActiveComponents(components);
       setComponentsState(components);
     }
@@ -104,7 +110,7 @@ const PageQuestionnaire = props => {
       setCollectedVariablesByQuestion(collectedVariablesByQuestion);
     }
   }, [
-    id,
+    loading,
     idState,
     questionnaire,
     questionnaireState,
@@ -123,17 +129,15 @@ const PageQuestionnaire = props => {
       activeQuestionnaire &&
       !isEqual(activeQuestionnaire, activeQuestionnaireState)
     ) {
-      if (
-        activeQuestionnaire.campaigns &&
-        activeQuestionnaire.campaigns.length > 0
-      ) {
-        const idCampaign = activeQuestionnaire.campaigns[0];
+      if (activeQuestionnaire.campaigns) {
+        const idCampaign =
+          activeQuestionnaire.campaigns[
+            activeQuestionnaire.campaigns.length - 1
+          ];
         props.loadStatisticalContext(idCampaign);
       }
-      if (
-        activeQuestionnaireState &&
-        activeQuestionnaire.operation !== activeQuestionnaireState.operation
-      ) {
+      
+      if (activeQuestionnaire.operation) {
         props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
       }
       setActiveQuestionnaireState(activeQuestionnaire);
@@ -142,9 +146,21 @@ const PageQuestionnaire = props => {
 
   return (
     <div id={COMPONENT_ID}>
-      <QuestionnaireNav />
-      <QuestionnaireListComponents navigate={props.history.push} />
-      <GenericInput />
+      {loading ? (
+        <Loader
+          className="loaderClass"
+          type="RevolvingDot"
+          color="#facb21"
+          height={100}
+          width={100}
+        />
+      ) : (
+        <div>
+          <QuestionnaireNav />
+          <QuestionnaireListComponents navigate={props.history.push} />
+          <GenericInput />
+        </div>
+      )}
     </div>
   );
 };

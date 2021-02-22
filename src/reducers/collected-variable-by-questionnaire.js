@@ -19,9 +19,17 @@ export function loadQuestionnaireSuccess(
 }
 
 export function loadQuestionnaireListSuccess(state, updatesList) {
-  return updatesList.reduce((acc, questionnaire) => {
-    return { ...acc, ...questionnaire.collectedVariableByQuestionnaire };
-  }, {});
+  const collectedVariableByQuestionnaire = updatesList.reduce(
+    (acc, questionnaire) => {
+      return { ...acc, ...questionnaire.collectedVariableByQuestionnaire };
+    },
+    {},
+  );
+
+  return {
+    ...state,
+    ...collectedVariableByQuestionnaire,
+  };
 }
 
 actionHandlers[LOAD_QUESTIONNAIRE_SUCCESS] = loadQuestionnaireSuccess;

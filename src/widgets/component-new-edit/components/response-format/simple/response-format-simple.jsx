@@ -68,7 +68,7 @@ class ResponseFormatSimple extends Component {
             <ResponseFormatDatatypeDate />
           </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-            <ResponseFormatDatatypeNumeric />
+            <ResponseFormatDatatypeNumeric required={!!this.props.required} />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
           <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>

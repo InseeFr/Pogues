@@ -139,6 +139,10 @@ const dictionary = {
     en: 'Duplicate',
     fr: 'Dupliquer',
   },
+  copy: {
+    en: 'Copy',
+    fr: 'Copie',
+  },
   remove: {
     en: 'Remove',
     fr: 'Supprimer',
@@ -753,6 +757,10 @@ const dictionary = {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
   },
+  duplicateCodeList: {
+    fr: 'Dupliquer la liste de codes',
+    en: 'Duplicate the code list',
+  },
   selectCodesList: {
     fr: 'Sélectionner une liste de codes',
     en: 'Select a code list',
@@ -904,6 +912,22 @@ const dictionary = {
     fr: 'Ajouter un code',
     en: 'Add a code',
   },
+  uploadCode: {
+    fr: "Import d'une liste de codes",
+    en: 'Import a code list',
+  },
+  invalidFile: {
+    fr: "Fichier invalide : merci d'importer un fichier valide",
+    en: 'Invalid file: please import a valid file',
+  },
+  codeNumber: {
+    fr: 'modalités importées',
+    en: 'code found',
+  },
+  fileImport: {
+    fr: 'Fichier à importer',
+    en: 'File to import',
+  },
   editCode: {
     fr: 'Editer un code',
     en: 'Edit a code',
@@ -930,6 +954,12 @@ const dictionary = {
     fr: 'Toutes les clarifications doivent être uniques',
     en: 'All clarifications should be unique',
   },
+
+  dupliquate: {
+    fr: 'dupliquer un questionnaire',
+    en: 'duplicate a question',
+  },
+
   codePh: {
     fr: 'Code',
     en: 'Code',
@@ -1299,6 +1329,14 @@ const dictionary = {
     fr: 'Il existe une variable calculée avec le même nom',
     en: 'It already exists a calculated variable with this name',
   },
+  validation_minimum: {
+    fr: 'minimum obligatoire',
+    en: 'minimum required',
+  },
+  validation_maximum: {
+    fr: 'maximum obligatoire',
+    en: 'maximum required',
+  },
   validation_externalvariable_label: {
     fr: 'Libellé de la variable externe obligatoire',
     en: 'External variable label required',
@@ -1496,6 +1534,14 @@ const dictionary = {
     en: 'Id should begin with a letter',
     fr: "L'identifiant de la variable doit commencer par une lettre",
   },
+  duplicateQuestion: {
+    fr: 'Vous avez demandé à dupliquer le questionnaire "',
+    en: 'You asked to duplicate the questionnaire "',
+  },
+  duplicateQuestionConfirmation: {
+    fr: '". Confirmez-vous votre demande ?',
+    en: '". Are you sure ?',
+  },
 };
 
 // Dynamic translations
@@ -1551,4 +1597,3 @@ dictionary[`componentEdit${FILTER}`] = {
 };
 
 export default dictionary;
-

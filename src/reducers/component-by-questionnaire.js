@@ -13,7 +13,6 @@ export function loadQuestionnaireSuccess(
   { update: { componentByQuestionnaire } },
 ) {
   return {
-    ...state,
     ...componentByQuestionnaire,
   };
 }
