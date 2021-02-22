@@ -142,12 +142,6 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.minimum`]: [
-    value => minValue(0)(value),
-  ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    value => minValue(1)(value),
-  ],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
 
@@ -215,6 +209,12 @@ export const calculatedVariableRules = {
     value =>
       required(value) && Dictionary.validation_calculatedvariable_formula,
   ],
+  [`${CALCULATED_VARIABLES}.${NUMERIC}.minimum`]: [
+    value => required(value) && Dictionary.validation_minimum,
+  ],
+  [`${CALCULATED_VARIABLES}.${NUMERIC}.maximum`]: [
+    value => required(value) && Dictionary.validation_maximum,
+  ],
 };
 
 export const externalVariableRules = {
@@ -229,6 +229,12 @@ export const externalVariableRules = {
     (value, conf) =>
       validateDuplicatesExternal(value, conf) &&
       Dictionary.validation_externalvariable_existing,
+  ],
+  [`${EXTERNAL_VARIABLES}.${NUMERIC}.minimum`]: [
+    value => required(value) && Dictionary.validation_minimum,
+  ],
+  [`${EXTERNAL_VARIABLES}.${NUMERIC}.maximum`]: [
+    value => required(value) && Dictionary.validation_maximum,
   ],
 };
 
@@ -254,13 +260,13 @@ export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
   ],
-
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
     required,
+    value => minValue(0)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
     required,

@@ -1,4 +1,5 @@
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { uuid } from 'utils/utils';
 
 const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 /**
@@ -101,9 +102,10 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
     );
 }
 export function storeToRemote(store) {
-  return Object.keys(store).map(key => {
-    const { id, label, codes } = store[key];
-    return {
+  const codeList = [];
+  Object.keys(store).map(key => {
+    const { id, label, codes, duplicateCodeList } = store[key];
+    const code = {
       id,
       Label: label,
       Name: '',
@@ -116,5 +118,23 @@ export function storeToRemote(store) {
         };
       }),
     };
+    codeList.push(code);
+    if (duplicateCodeList) {
+      const codeDub = {
+        id: uuid(),
+        Label: `${label}_2`,
+        Name: '',
+        Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
+          const { label: labelCode, value, parent } = codes[keyCode];
+          return {
+            Label: labelCode,
+            Value: value,
+            Parent: parent,
+          };
+        }),
+      };
+      codeList.push(codeDub);
+    }
   });
+  return codeList;
 }
