@@ -1,5 +1,5 @@
 # Guide utilisateur Pogues
-Version au 11/12/2020
+Version au 01/03/2021
 
 ---
 
@@ -33,6 +33,10 @@ http://conception-questionnaires.insee.fr
 # Conseil pour la saisie 
 
 Afin d'éviter d'embarquer des caractères spéciaux qui pourraient compromettre parfois le bon fonctionnement de l'application, on conseille fortement d'utiliser un intermédiaire de type Notepad++ (encodage en UTF8) voire Bloc-Notes comme intermédiaire pour les copier/coller entre votre liste de questions originelle et Pogues.
+
+---
+# Page d'accueil
+Depuis la page d'accueil de Pogues, il est possible d'accéder à l'ensemble des questionnaires dont vous êtes propriétaire afin de les visualiser et ou de les modifier en cliquant sur leur titre ou de dupliquer un questionnaire en cliquant sur le bouton Dupliquer. 
 
 ---
 
@@ -323,7 +327,7 @@ aller dans l'onglet "Variables collectées" pour les générer
 ---
 
 - Cliquer sur le bouton "Générer les variables collectées" et modifier les libellés et identifiants proposés par défaut par l'application par un libellé signifiant (penser à vos successeurs) et l'identifiant métier de la ou des variables collectées. 
-- **Dans le cas où certaines cellules d'un tableau ne sont pas à collecter car sans objet ou destinées par exemple à rappeler un total calculé, collecté ou en dur (par exemple 100%), décocher pour chaque cellule concernée le booléen Collectée associée à la variable collectée ad hoc.**
+- **Dans le cas où certaines cellules d'un tableau ou d'une question à choix multiples ne sont pas à collecter car sans objet ou destinées par exemple à rappeler un total calculé, collecté ou en dur (par exemple 100%), décocher pour chaque cellule concernée le booléen Collectée associée à la variable collectée ad hoc.**
 
 - Au fur et à mesure de vos modifications, cliquer sur le bouton "Valider" affiché le plus haut et le plus à droite de votre écran (en bas à droite de l'écran grisé). 
 
@@ -613,9 +617,9 @@ NB : pour mettre une apostrophe dans un libellé, il faut en saisir deux d'affil
 Calculer l'âge exact à la date de collecte sachant la date de naissance DATENAISSANCE :
 Déclarer les variables calculées
 Jour et mois courant JJMMCOURANT=number(concat(substring(string(current-date()),6,2),substring(string(current-date()),9,2)))
-Jour et mois de naissance JJMMNAISS=number(concat(substring(string(\$DATENAISSANCE\$),6,2),substring(string(\$DATENAISSANCE\$),9,2)))
+Jour et mois de naissance JJMMNAISS=if string (\$DATENAISSANCE\$) != '' then number(concat(substring(string(\$DATENAISSANCE\$),6,2),substring(string(\$DATENAISSANCE\$),9,2))) else 0
 Année courante ANNEECOURANTE=number(substring(string(current-date()),1,4)) 
-Année de naissance ANNEENAISS=number(substring(string(\$DATENAISSANCE\$),1,4)) 
+Année de naissance ANNEENAISS=if string (\$DATENAISSANCE\$) != '' then number(substring(string(\$DATENAISSANCE\$),1,4)) else 0
 
 ---
 # Exemple (suite) : 
@@ -784,7 +788,7 @@ Attention aux éléments déplacés en cas de redirection, la cible d'une questi
 
 # Sauvegarder ou Visualiser le questionnaire
 
-Il est possible de sauvegarder ou de visualiser (Web,PDF,Spécification ou DDI) le questionnaire à tout moment (ou presque) via les boutons dédiés en bas de page de l'IHM Pogues. Le bouton "Publier" sera prochainement accessible, il signifie publier/enregistrer le questionnaire au sein du référentiel RMéS. Le bouton "Saut de page" n'est actuellement pas fonctionnel.
+Il est possible de sauvegarder ou de visualiser (Web,PDF,Poste enquêteur, Spécification ou DDI) le questionnaire à tout moment (ou presque) via les boutons dédiés en bas de page de l'IHM Pogues. Le bouton "Publier" sera prochainement accessible, il signifie publier/enregistrer le questionnaire au sein du référentiel RMéS. Le bouton "Saut de page" n'est actuellement pas fonctionnel.
 
 ![](../../img/fr/ecran21.png)
 
@@ -812,7 +816,7 @@ Les contrôles d'intégrité du questionnaire suivants sont actuellement implém
 - Gérer des unités autres que €, k€, %, heures, jours, mois, années
 - Gérer les hyperliens et les mailto
 - Gérer les enquêtes multi-modèles
-- Associer des images à des modalités de réponse (exemple : flèches des e enquêtes de conjoncture)
+- Associer des images à des modalités de réponse (exemple : flèches des  enquêtes de conjoncture)
 - La prise en compte du multimode (CAWI, CAPI, PAPI, CATI)
 *Possible de le renseigner mais n'est pas pris en compte dans l'affichage du questionnaire*
 ---

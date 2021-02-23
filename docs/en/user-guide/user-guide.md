@@ -1,6 +1,6 @@
 # User guide for Pogues
 
-Last release 2020/12/11
+Last release 2021/03/01
 
 ---
 
@@ -31,6 +31,11 @@ http://conception-questionnaires.insee.fr
 
 # Advice for entry
 In order to avoid embedding special characters that could sometimes compromise the proper functioning of the application, we strongly recommend using an intermediary like Notepad++ (encoding in UTF8) or Notepad to copy/paste between your original question list and Pogues
+
+---
+# Homepage
+
+From the Pogues home page, you can access all the questionnaires you own in order to view and or modify them by clicking on their title or to duplicate a questionnaire by clicking on the Duplicate button. 
 
 ---
 
@@ -317,7 +322,7 @@ go to "collected variables" tab to generate them
  		
 ---
 - Click on the button "Generate collected variables" and modify label proposed by default by pogues with a significant label (think about your successors) and, if necessary, modify id
-- **If some cells in a table are not to be collected because they are not applicable or are intended, for example, to recall a calculated, collected or hard total (for example 100%), uncheck for each cell concerned the Collected boolean associated with the variable collected ad hoc.**
+- **If some cells in a table or a multiple choice question are not to be collected because they are not applicable or are intended, for example, to recall a calculated, collected or hard total (for example 100%), uncheck for each cell concerned the Collected boolean associated with the variable collected ad hoc.**
 
 - As your changes are made, click on "Validate" displayed at the bottom right of the grey area
 
@@ -698,7 +703,7 @@ Be careful with the elements moved in case of redirection, the target of a quest
 
 # Save or Visualise the questionnaire
 
-It is possible to save or view (Web,PDF,Specification or DDI) the questionnaire at any time (or almost) via the dedicated buttons at the bottom of the page of the Pogues interface. 
+It is possible to save or view (Web,PDF,Interviewer form, Specification or DDI) the questionnaire at any time (or almost) via the dedicated buttons at the bottom of the page of the Pogues interface. 
 The "Publish" button will soon be available, it means to publish/register the questionnaire within the RMéS repository. 
 The "Page break" button is currently not working.
 
