@@ -9,14 +9,29 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
 const QuestionnaireList = props => {
-  const { questionnaires, user, duplicateQuestionnaire } = props;
+  const {
+    questionnaires,
+    user,
+    duplicateQuestionnaire,
+    fusion,
+    handleCloseNewQuestion,
+    mergeQuestions,
+    currentQuestion,
+  } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
-
+  const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [questionList, seQuestionList] = useState([]);
 
+  const handelCheck = id => {
+    setCheckedQuestion(id);
+  };
+  const fusionateQuestion = () => {
+    mergeQuestions(checkedQuestion);
+    handleCloseNewQuestion();
+  };
   useEffect(() => {
     if (!isEqual(questionnaires, questionList)) {
       props.loadQuestionnaireList(user.permission);
@@ -49,16 +64,17 @@ const QuestionnaireList = props => {
   const list = questionnaires
     .filter(q => {
       return (
-        filter === '' ||
-        q.label.toLowerCase().indexOf(filter) >= 0 ||
-        getState(q.final)
-          .toLowerCase()
-          .indexOf(filter) >= 0 ||
-        (q.lastUpdatedDate &&
-          formatDate(q.lastUpdatedDate)
+        currentQuestion !== q.id &&
+        (filter === '' ||
+          (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
+          getState(q.final)
             .toLowerCase()
-            .indexOf(filter) >= 0) ||
-        !q
+            .indexOf(filter) >= 0 ||
+          (q.lastUpdatedDate &&
+            formatDate(q.lastUpdatedDate)
+              .toLowerCase()
+              .indexOf(filter) >= 0) ||
+          !q)
       );
     })
     .sort((a, b) => {
@@ -77,41 +93,65 @@ const QuestionnaireList = props => {
             lastUpdatedDate={q.lastUpdatedDate}
             final={q.final}
             handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
+            fusion={!!fusion}
+            handelCheck={handelCheck}
+            fusionateQuestion={fusionateQuestion}
           />
         );
       }
     });
 
   return (
-    <div className="box home-questionnaires">
-      <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
-      <h4>
-        {Dictionary.stamp} {user.permission}
-      </h4>
-      <div id="questionnaire-list">
-        {questionnaires.length > 0 ? (
-          <div>
-            <div className="ctrl-input">
-              <input
-                className="form-control"
-                placeholder={Dictionary.search}
-                type="text"
-                onChange={e => updateFilter(e.target.value)}
-              />
+    <div>
+      <div className="box home-questionnaires">
+        <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
+        <h4>
+          {Dictionary.stamp} {user.permission}
+        </h4>
+        <div id="questionnaire-list">
+          {questionnaires.length > 0 ? (
+            <div>
+              <div className="ctrl-input">
+                <input
+                  className="form-control"
+                  placeholder={Dictionary.search}
+                  type="text"
+                  onChange={e => updateFilter(e.target.value)}
+                />
+              </div>
+              <div className="questionnaire-list_header">
+                <div>{Dictionary.QUESTIONNAIRE}</div>
+                <div>{Dictionary.state}</div>
+                <div>{Dictionary.lastUpdate}</div>
+              </div>
+              {list}
             </div>
-            <div className="questionnaire-list_header">
-              <div>{Dictionary.QUESTIONNAIRE}</div>
-              <div>{Dictionary.state}</div>
-              <div>{Dictionary.lastUpdate}</div>
+          ) : (
+            <div className="questionnaire-list_noresults">
+              {Dictionary.noQuestionnnaires}
             </div>
-            {list}
-          </div>
-        ) : (
-          <div className="questionnaire-list_noresults">
-            {Dictionary.noQuestionnnaires}
-          </div>
-        )}
+          )}
+        </div>
       </div>
+      {fusion ? (
+        <div className="footer_quesionList">
+          <button
+            className="footer_quesionList-validate"
+            type="submit"
+            onClick={() => fusionateQuestion()}
+          >
+            {Dictionary.validate}
+          </button>
+          <button
+            className="footer_quesionList-cancel"
+            onClick={() => handleCloseNewQuestion()}
+          >
+            {Dictionary.cancel}
+          </button>
+        </div>
+      ) : (
+        false
+      )}
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}

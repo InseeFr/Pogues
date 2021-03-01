@@ -136,7 +136,6 @@ const PageQuestionnaire = props => {
           ];
         props.loadStatisticalContext(idCampaign);
       }
-      
       if (activeQuestionnaire.operation) {
         props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
       }

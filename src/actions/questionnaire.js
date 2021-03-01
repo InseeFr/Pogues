@@ -3,14 +3,14 @@ import {
   postQuestionnaire,
   deleteQuestionnaire,
 } from 'utils/remote-api';
-import { uuid } from 'utils/utils';
-import Dictionary from 'utils/dictionary/dictionary';
+import { uuid, getSupWeight } from 'utils/utils';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
+
 import * as Questionnaire from 'model/transformations/questionnaire';
 import { Component } from 'widgets/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 export const LOAD_QUESTIONNAIRE_START = 'LOAD_QUESTIONNAIRE_START';
@@ -23,6 +23,9 @@ export const DELETE_QUESTIONNAIRE = 'DELETE_QUESTIONNAIRE';
 export const DELETE_QUESTIONNAIRE_SUCCESS = 'DELETE_QUESTIONNAIRE_SUCCESS';
 export const DELETE_QUESTIONNAIRE_FAILURE = 'DELETE_QUESTIONNAIRE_FAILURE';
 export const DUPLICATE_QUESTIONNAIRE = 'DUPLICATE_QUESTIONNAIRE';
+export const MERGE_QUESTIONNAIRE = 'MERGE_QUESTIONNAIRE';
+export const CREATE_COMPONENT = 'CREATE_COMPONENT';
+export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
 
 /**
  * Load questionnaire success
@@ -245,6 +248,164 @@ export const duplicateQuestionnaire = idQuestionnaire => dispatch => {
       })
       .catch(err => {
         return dispatch(createQuestionnaireFailure(err, err.errors));
+      });
+  });
+};
+
+/**
+ * Method used when we click on merge question to merge 2 questions
+ *
+ * @param {string} idMerge the id of the question we want to merge
+ */
+export const mergeQuestions = idMerge => (dispatch, getState) => {
+  const state = getState();
+  const {
+    activeQuestionnaire,
+    activeComponentsById,
+    activeExternalVariablesById,
+    activeCalculatedVariablesById,
+    collectedVariableByQuestion,
+    activeCodeListsById,
+  } = state.appState;
+  dispatch({
+    type: MERGE_QUESTIONNAIRE,
+    payload: idMerge,
+  });
+  return getQuestionnaire(idMerge).then(qr => {
+    const medgerQuestion = questionnaireRemoteToStores(qr);
+    const medgerQuestionId = Object.keys(medgerQuestion.questionnaireById)[0];
+    const mergedCollectedVariables =
+      medgerQuestion.collectedVariableByQuestionnaire[medgerQuestionId];
+    const mergesCodeListByQuestionnaire =
+      medgerQuestion.codeListByQuestionnaire[medgerQuestionId];
+    const mergesCalculatedVariableByQuestionnaire =
+      medgerQuestion.calculatedVariableByQuestionnaire[medgerQuestionId];
+    const mergesExternalVariableByQuestionnaire =
+      medgerQuestion.externalVariableByQuestionnaire[medgerQuestionId];
+    const mergesComponentByQuestionnaire =
+      medgerQuestion.componentByQuestionnaire[medgerQuestionId];
+    const QuestionnaireId = activeQuestionnaire.id;
+
+    Object.values(mergedCollectedVariables).forEach(variable => {
+      Object.values(collectedVariableByQuestion).forEach(element => {
+        const find = Object.values(element).find(
+          varib => varib.name === variable.name,
+        );
+        if (find) {
+          variable.name = `${variable.name}_2`;
+        }
+      });
+    });
+    Object.values(mergesCodeListByQuestionnaire).forEach(code => {
+      const find = Object.values(activeCodeListsById).find(
+        element => element.label === code.label,
+      );
+      if (find) {
+        code.label = `${code.label}_2`;
+      }
+    });
+    Object.values(mergesCalculatedVariableByQuestionnaire).forEach(variable => {
+      const find = Object.values(activeCalculatedVariablesById).find(
+        element => element.name === variable.name,
+      );
+      if (find) {
+        variable.name = `${variable.name}_2`;
+      }
+    });
+    Object.values(mergesExternalVariableByQuestionnaire).forEach(variable => {
+      const find = Object.values(activeExternalVariablesById).find(
+        element => element.name === variable.name,
+      );
+      if (find) {
+        variable.name = `${variable.name}_2`;
+      }
+    });
+
+    const supSequence = getSupWeight(activeComponentsById);
+    Object.values(mergesComponentByQuestionnaire)
+      .filter(element => element.type !== QUESTIONNAIRE)
+      .forEach(component => {
+        const find = Object.values(activeComponentsById).find(
+          active => active.name === component.name,
+        );
+        if (find) {
+          component.name = `${component.name}_2`;
+        }
+        const collectedVaribles = {};
+        if (component.type === SEQUENCE) {
+          component.weight += supSequence;
+          component.parent = QuestionnaireId;
+          if (component.id !== 'idendquest') {
+            const questionnaire = activeComponentsById[QuestionnaireId];
+            questionnaire.children.push(component.id);
+            const activeComponent = {
+              [component.id]: component,
+            };
+            dispatch({
+              type: CREATE_COMPONENT,
+              payload: {
+                id: component.id,
+                update: {
+                  activeComponentsById: activeComponent,
+                  activeCalculatedVariablesById: mergesCalculatedVariableByQuestionnaire,
+                  activeExternalVariablesById: mergesExternalVariableByQuestionnaire,
+                  activeCollectedVariablesById: {
+                    [component.id]: collectedVaribles,
+                  },
+                  activeCodeListsById: mergesCodeListByQuestionnaire,
+                },
+              },
+            });
+            dispatch({
+              type: UPDATE_COMPONENT,
+              payload: {
+                QuestionnaireId,
+                update: {
+                  activeComponentsById: { [questionnaire.id]: questionnaire },
+                  activeCalculatedVariablesById: {},
+                  activeExternalVariablesById: {},
+                  activeCollectedVariablesById: {
+                    [QuestionnaireId]: {},
+                  },
+                  activeCodeListsById: {},
+                },
+              },
+            });
+          }
+        } else {
+          if (component.type === QUESTION) {
+            component.collectedVariables.forEach(variable => {
+              const find = Object.values(mergedCollectedVariables).find(
+                element => element.id === variable,
+              );
+              collectedVaribles[variable] = find;
+            });
+          }
+          const activeComponent = {
+            [component.id]: component,
+          };
+          dispatch({
+            type: CREATE_COMPONENT,
+            payload: {
+              id: component.id,
+              update: {
+                activeComponentsById: activeComponent,
+                activeCalculatedVariablesById: {
+                  ...activeCalculatedVariablesById,
+                  ...mergesCalculatedVariableByQuestionnaire,
+                },
+                activeExternalVariablesById: {
+                  ...activeExternalVariablesById,
+                  ...mergesExternalVariableByQuestionnaire,
+                },
+                activeCollectedVariablesById: {
+                  [component.id]: collectedVaribles,
+                },
+                activeCodeListsById: mergesCodeListByQuestionnaire,
+              },
+            },
+          });
+        }
       });
   });
 };

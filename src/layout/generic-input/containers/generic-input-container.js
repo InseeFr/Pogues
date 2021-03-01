@@ -99,6 +99,7 @@ const mapStateToProps = state => {
     isLoopsValid: isLoopsValid(activeComponentsById),
     activeQuestionnaire: activeQuestionnaire,
     user: user,
+    currentQuestion: state.appState.activeQuestionnaire.id,
   };
 };
 

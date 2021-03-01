@@ -7,6 +7,7 @@ import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
+import { QuestionnaireList } from 'layout/questionnaire-list';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
@@ -101,7 +102,6 @@ class GenericInput extends Component {
   }
 
   handleNewQuestion() {
-    console.log('user', this.props.user);
     const newState = {
       ...this.state,
       showNewQuestionnaire: true,
@@ -378,6 +378,27 @@ class GenericInput extends Component {
           >
             {Dictionary.close}
           </button>
+        </ReactModal>
+        <ReactModal
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={false}
+          isOpen={this.state.showNewQuestionnaire}
+          onRequestClose={this.handleCloseNewQuestion}
+        >
+          <div className="popup">
+            <div className="popup-header">
+              <button type="button" onClick={this.handleCloseNewQuestion}>
+                <span>X</span>
+              </button>
+            </div>
+            <div className="popup-body">
+              <QuestionnaireList
+                fusion
+                currentQuestion={this.props.currentQuestion}
+                handleCloseNewQuestion={this.handleCloseNewQuestion}
+              />
+            </div>
+          </div>
         </ReactModal>
       </div>
     );
