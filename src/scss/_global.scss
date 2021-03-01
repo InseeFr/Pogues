@@ -342,12 +342,22 @@ a {
   display: flex;
 }
 
+.csv-input {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  .csv-label {
+    margin-right: 25px;
+  }
+}
+
 .loaderClass {
   position: fixed;
   top: 50%;
   left: 50%;
   margin: -50px 0px 0px -50px;
 }
+
 .questionnaire-element-filter {
   margin: 10px;
   width: 35%;

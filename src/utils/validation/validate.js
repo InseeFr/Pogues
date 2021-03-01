@@ -131,7 +131,6 @@ export function validateCollectedVariableForm(values, addErrors, state) {
 export function validateTableListMeasuresForm(values, addErrors) {
   const normalizedValues = Component().getNormalizedValues(values);
   const errors = validate(normalizedValues, tableListMeasuresRules);
-
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {
     addErrors(errors);

@@ -4,6 +4,7 @@ import QuestionnaireList from '../components/questionnaire-list';
 
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import { duplicateQuestionnaire, mergeQuestions } from 'actions/questionnaire';
+import { setModifiedFalse } from 'actions/app-state';
 
 // Contanier
 
@@ -19,6 +20,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loadQuestionnaireList,
+  setModifiedFalse,
   duplicateQuestionnaire,
   mergeQuestions,
 };

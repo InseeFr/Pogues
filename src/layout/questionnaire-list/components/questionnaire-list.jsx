@@ -101,6 +101,16 @@ const QuestionnaireList = props => {
       }
     });
 
+  useEffect(() => {
+    if (props.user && props.user.permission)
+      props.loadQuestionnaireList(props.user.permission);
+  }, []);
+
+  useEffect(() => {
+    props.loadQuestionnaireList(props.user.permission);
+    props.setModifiedFalse();
+  }, [props.user.permission]);
+
   return (
     <div>
       <div className="box home-questionnaires">

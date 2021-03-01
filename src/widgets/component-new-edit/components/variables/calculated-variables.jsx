@@ -104,7 +104,7 @@ function CalculatedVariables({
             <ResponseFormatDatatypeDate />
           </View>
           <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-            <ResponseFormatDatatypeNumeric required={false} />
+            <ResponseFormatDatatypeNumeric required={true} />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         </SelectorView>
