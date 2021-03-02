@@ -43,6 +43,16 @@ exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
         href="#"
         onClick={[Function]}
       >
+         
+        Interviewer form
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
         Specification
       </a>
     </li>
@@ -101,6 +111,16 @@ exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] =
         href="#"
         onClick={[Function]}
       >
+         
+        Interviewer form
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
         Specification
       </a>
     </li>
@@ -152,6 +172,16 @@ exports[`Visualize Dropdown Component:  Should return the right HTML 1`] = `
         onClick={[Function]}
       >
         PDF
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+         
+        Interviewer form
+         
       </a>
     </li>
     <li>
