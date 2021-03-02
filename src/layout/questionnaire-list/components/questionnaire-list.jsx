@@ -154,6 +154,7 @@ const QuestionnaireList = props => {
           </button>
           <button
             className="footer_quesionList-cancel"
+            type="button"
             onClick={() => handleCloseNewQuestion()}
           >
             {Dictionary.cancel}
@@ -177,10 +178,18 @@ const QuestionnaireList = props => {
           </button>
         </div>
         <div className="popup-body">{`${Dictionary.duplicateQuestion}${questionLabel}${Dictionary.duplicateQuestionConfirmation}`}</div>
-        <button className="popup-yes" onClick={() => handleSubmit()}>
+        <button
+          className="popup-yes"
+          type="button"
+          onClick={() => handleSubmit()}
+        >
           {Dictionary.yes}
         </button>
-        <button className="popup-no" onClick={id => handleClosePopup(id)}>
+        <button
+          className="popup-no"
+          type="button"
+          onClick={id => handleClosePopup(id)}
+        >
           {Dictionary.no}
         </button>
       </ReactModal>

@@ -308,6 +308,7 @@ class GenericInput extends Component {
         <button
           id="add-questionnaire"
           className="btn-white"
+          type="button"
           onClick={() => {
             this.handleNewQuestion();
           }}
