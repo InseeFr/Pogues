@@ -265,10 +265,9 @@ export const tableListMeasuresRules = {
     value => minValue(1)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    required,
-    value => minValue(0)(value),
+    value => required(value) && Dictionary.validation_maximum,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    required,
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [
+    value => required(value) && Dictionary.validation_minimum,
   ],
 };
