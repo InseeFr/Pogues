@@ -26,7 +26,17 @@ exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
         onClick={[Function]}
       >
          
-        Web
+        Web enterprise
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+         
+        Web household
          
       </a>
     </li>
@@ -94,7 +104,17 @@ exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] =
         onClick={[Function]}
       >
          
-        Web
+        Web enterprise
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+         
+        Web household
          
       </a>
     </li>
@@ -162,7 +182,17 @@ exports[`Visualize Dropdown Component:  Should return the right HTML 1`] = `
         onClick={[Function]}
       >
          
-        Web
+        Web enterprise
+         
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+         
+        Web household
          
       </a>
     </li>
