@@ -1451,8 +1451,12 @@ const dictionary = {
     en: 'Level',
   },
   VISUALIZE_WEB: {
-    fr: 'Web',
-    en: 'Web',
+    fr: 'Web entreprises',
+    en: 'Web enterprise',
+  },
+  VISUALIZE_WEB_STROMAE_V2: {
+    fr: 'Web ménages',
+    en: 'Web household',
   },
   VISUALIZE_QUEEN: {
     fr: 'Poste enquêteur',

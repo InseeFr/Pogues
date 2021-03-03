@@ -80,8 +80,33 @@ export const visualizeHtml = qr => {
  * of the generated Queen page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeLunatic = qr => {
-  fetch(`${visualisationUrl}-lunatic/${qr.Name}`, {
+export const visualizeQueen = qr => {
+  fetch(`${visualisationUrl}-queen/${qr.Name}`, {
+    method: 'POST',
+    headers: {
+      // Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(qr),
+    credentials: 'include',
+  })
+    .then(response => response.text())
+    .then(url => {
+      const a = document.createElement('a');
+      a.href = url;
+      a.setAttribute('target', '_blank');
+      document.body.appendChild(a);
+      a.click();
+    });
+};
+
+/**
+ * This method will send a request in order to get the URL
+ * of the generated Queen page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeWebStromaeV2 = qr => {
+  fetch(`${visualisationUrl}-stromae-v2/${qr.Name}`, {
     method: 'POST',
     headers: {
       // Accept: 'application/json',
