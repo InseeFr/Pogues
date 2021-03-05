@@ -1,3 +1,4 @@
+import { func } from 'prop-types';
 import { uuid, verifyVariable } from 'utils/utils';
 
 export const defaultState = {
@@ -5,6 +6,7 @@ export const defaultState = {
   label: '',
   position: 'AFTER_QUESTION_TEXT',
   id: null,
+  TargetMode: [],
 };
 
 export const defaultForm = {
@@ -12,10 +14,21 @@ export const defaultForm = {
   label: '',
   position: 'AFTER_QUESTION_TEXT',
   declarations: [],
+  TargetMode: [],
 };
 
+function defaultCustum(activeQuestionnaire) {
+  console.log('activeQuestionnaire', activeQuestionnaire)
+  const form = defaultForm;
+  form.TargetMode =
+    Object.values(activeQuestionnaire).length > 0
+      ? activeQuestionnaire.TargetMode.join()
+      : [];
+  return form;
+}
+
 export function formToState(form) {
-  const { declarationType, label, position } = form;
+  const { declarationType, label, position, TargetMode } = form;
   const id = form.id || uuid();
 
   return {
@@ -23,6 +36,7 @@ export function formToState(form) {
     label: verifyVariable(label),
     declarationType,
     position,
+    TargetMode: TargetMode.split(','),
   };
 }
 
@@ -39,33 +53,36 @@ export function formToComponentState(form) {
   }, {});
 }
 
-export function stateToForm(currentState) {
-  const declarations = [];
+export function stateToForm(currentState, activeQuestionnaire) {
+  console.log('activeQuestionnaire', activeQuestionnaire)
 
+  const declarations = [];
   Object.keys(currentState).forEach(key => {
-    const { id, declarationType, label, position } = currentState[key];
+    const { id, declarationType, label, position, TargetMode } = currentState[
+      key
+    ];
     declarations.push({
       id,
       label,
       declarationType,
       position,
+      TargetMode: TargetMode.join(),
     });
   });
-
   return {
-    ...defaultForm,
+    ...defaultCustum(activeQuestionnaire),
     declarations,
   };
 }
 
-const Factory = (currentState = []) => {
+const Factory = (currentState = [], activeQuestionnaire = {}) => {
   return {
     formToComponentState: form => {
       if (form) currentState = formToComponentState(form);
       return currentState;
     },
     stateToForm: () => {
-      return stateToForm(currentState);
+      return stateToForm(currentState, activeQuestionnaire);
     },
   };
 };

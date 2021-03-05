@@ -124,11 +124,15 @@ function ComponentNew({
   // Initial values
 
   const initialState = { type, parent: parentId, weight };
-  const componentTransformer = Component(initialState, {
-    calculatedVariablesStore,
-    externalVariablesStore,
-    codesListsStore,
-  });
+  const componentTransformer = Component(
+    initialState,
+    {
+      calculatedVariablesStore,
+      externalVariablesStore,
+      codesListsStore,
+    },
+    activeQuestionnaire,
+  );
   const initialValues = componentTransformer.stateToForm(activeQuestionnaire);
 
   // Validation and submit

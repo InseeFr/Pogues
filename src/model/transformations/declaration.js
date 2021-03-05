@@ -2,7 +2,8 @@ import { uuid } from 'utils/utils';
 
 export function remoteToState(remote = []) {
   return remote.reduce((acc, declaration) => {
-    const { declarationType, Text: label, position } = declaration;
+    console.log('declaration', declaration);
+    const { declarationType, Text: label, position, TargetMode } = declaration;
     const id = declaration.id || uuid();
     return {
       ...acc,
@@ -11,6 +12,7 @@ export function remoteToState(remote = []) {
         label: label.replace(/&#xd;/gi, '\n\n'),
         declarationType,
         position,
+        TargetMode: TargetMode || [],
       },
     };
   }, {});
@@ -18,12 +20,23 @@ export function remoteToState(remote = []) {
 
 export function stateToRemote(state) {
   return Object.keys(state).map(key => {
-    const { id, declarationType, label: Text, position } = state[key];
+    const { id, declarationType, label: Text, position, TargetMode } = state[
+      key
+    ];
+    console.log('state', {
+      id,
+      Text: Text.replace(/\n\n/gi, '&#xd;'),
+      declarationType,
+      position,
+      TargetMode,
+    });
+
     return {
       id,
       Text: Text.replace(/\n\n/gi, '&#xd;'),
       declarationType,
       position,
+      TargetMode,
     };
   });
 }

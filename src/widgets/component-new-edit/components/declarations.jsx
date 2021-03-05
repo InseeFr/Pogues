@@ -9,9 +9,14 @@ import GenericOption from 'forms/controls/generic-option';
 import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateDeclarationForm } from 'utils/validation/validate';
+import ListCheckboxes from 'forms/controls/list-checkboxes';
 
 import Dictionary from 'utils/dictionary/dictionary';
-import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
+import {
+  TABS_PATHS,
+  DEFAULT_FORM_NAME,
+  TargetMode,
+} from 'constants/pogues-constants';
 
 // Utils
 
@@ -106,6 +111,18 @@ function Declarations({
             </GenericOption>
           </Field>
         )}
+        <Field
+          name="TargetMode"
+          component={ListCheckboxes}
+          label={Dictionary.collectionMode}
+          inline
+        >
+          {TargetMode.map(s => (
+            <GenericOption key={s.value} value={s.value}>
+              {s.label}
+            </GenericOption>
+          ))}
+        </Field>
       </ListWithInputPanel>
     </FormSection>
   );
