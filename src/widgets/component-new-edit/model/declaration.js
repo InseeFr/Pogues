@@ -2,7 +2,7 @@ import { func } from 'prop-types';
 import { uuid, verifyVariable } from 'utils/utils';
 
 export const defaultState = {
-  declarationType: 'INSTRUCTION',
+  declarationType: 'HELP',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
   id: null,
@@ -10,7 +10,7 @@ export const defaultState = {
 };
 
 export const defaultForm = {
-  declarationType: 'INSTRUCTION',
+  declarationType: 'HELP',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
   declarations: [],
@@ -18,7 +18,6 @@ export const defaultForm = {
 };
 
 function defaultCustum(activeQuestionnaire) {
-  console.log('activeQuestionnaire', activeQuestionnaire)
   const form = defaultForm;
   form.TargetMode =
     Object.values(activeQuestionnaire).length > 0
@@ -54,8 +53,6 @@ export function formToComponentState(form) {
 }
 
 export function stateToForm(currentState, activeQuestionnaire) {
-  console.log('activeQuestionnaire', activeQuestionnaire)
-
   const declarations = [];
   Object.keys(currentState).forEach(key => {
     const { id, declarationType, label, position, TargetMode } = currentState[
