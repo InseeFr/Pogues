@@ -75,17 +75,14 @@ function Declarations({
           label={Dictionary.type}
           required
         >
-          <GenericOption key="INSTRUCTION" value="INSTRUCTION">
-            {Dictionary.INSTRUCTION}
-          </GenericOption>
-          <GenericOption key="COMMENT" value="COMMENT">
-            {Dictionary.COMMENT}
-          </GenericOption>
           <GenericOption key="HELP" value="HELP">
             {Dictionary.HELP}
           </GenericOption>
           <GenericOption key="WARNING" value="WARNING">
             {Dictionary.WARNING}
+          </GenericOption>
+          <GenericOption key="CODECARD" value="CODECARD">
+            {Dictionary.CODECARD}
           </GenericOption>
         </Field>
 

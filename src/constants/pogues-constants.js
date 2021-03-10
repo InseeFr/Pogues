@@ -70,6 +70,7 @@ export const DECLARATION_TYPE = {
   COMMENT: 'COMMENT',
   HELP: 'HELP',
   WARNING: 'WARNING',
+  CODECARD: 'CODECARD',
 };
 
 export const UI_BEHAVIOUR = {
