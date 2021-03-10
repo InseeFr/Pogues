@@ -33,6 +33,7 @@ export default {
     checkerTargetMode,
     checkerUniqueCollectedVariableName,
     checkerUniqueComponentName,
+    checkerExistingTarget,
   ),
   [REMOVE_COMPONENT]: combineCheckers(
     checkerQuestionnaireLength,
