@@ -107,6 +107,8 @@ export function remoteToState1(remote) {
     lastUpdatedDate,
     DataCollection,
     TargetMode,
+    Name: name,
+    flowLogic,
   } = remote;
 
   return {
@@ -116,6 +118,9 @@ export function remoteToState1(remote) {
     lastUpdatedDate,
     campaigns: DataCollection.map(dc => dc.id),
     TargetMode: TargetMode || [],
+    name,
+    dynamiqueSpecified:
+      flowLogic && flowLogic === FILTER ? Filtres : Redirections
   };
 }
 
