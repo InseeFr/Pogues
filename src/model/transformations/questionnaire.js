@@ -19,7 +19,7 @@ import {
   QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
 
-const { QUESTIONNAIRE, SEQUENCE } = COMPONENT_TYPE;
+const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 
 function generateComponentGroups(componentsStore, ComponentGroup) {
@@ -73,6 +73,7 @@ export function remoteToState(remote, currentStores = {}) {
     declarationMode,
     FlowControl,
     ComponentGroup,
+    flowLogic,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -92,7 +93,8 @@ export function remoteToState(remote, currentStores = {}) {
     operation: questionnaireCurrentState.operation || '',
     campaigns: dataCollection.map(dc => dc.id),
     TargetMode: TargetMode || declarationMode || [],
-    dynamiqueSpecified: FlowControl ? Filtres : Redirections,
+    dynamiqueSpecified:
+      flowLogic && flowLogic === FILTER ? Filtres : Redirections,
     ComponentGroup,
   };
 }
@@ -105,6 +107,8 @@ export function remoteToState1(remote) {
     lastUpdatedDate,
     DataCollection,
     TargetMode,
+    Name: name,
+    flowLogic,
   } = remote;
 
   return {
@@ -114,6 +118,9 @@ export function remoteToState1(remote) {
     lastUpdatedDate,
     campaigns: DataCollection.map(dc => dc.id),
     TargetMode: TargetMode || [],
+    name,
+    dynamiqueSpecified:
+      flowLogic && flowLogic === FILTER ? Filtres : Redirections
   };
 }
 
@@ -186,6 +193,7 @@ export function stateToRemote(state, stores) {
     ComponentGroup: generateComponentGroups(componentsStore, ComponentGroup),
     agency: agency || 'fr.insee',
     TargetMode,
+    flowLogic: dynamiqueSpecified === Redirections ? REDIRECTION : FILTER,
   };
   const componentsRemote = Component.storeToRemote(
     componentsStore,
