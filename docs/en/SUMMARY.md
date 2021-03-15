@@ -57,3 +57,4 @@
 ##User guide
 
 * [User guide](user-guide/user-guide.md)
+* [User release note](user-guide/user-release-note.md)
