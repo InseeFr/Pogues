@@ -7,6 +7,7 @@ import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
+import { QuestionnaireList } from 'layout/questionnaire-list';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
@@ -90,11 +91,31 @@ class GenericInput extends Component {
       showNewUnsavedModal: false,
       showNewLoopModal: false,
       typeNewComponent: '',
+      showNewQuestionnaire: false,
     };
 
     this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
     this.handleCloseNewComponent = this.handleCloseNewComponent.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleNewQuestion = this.handleNewQuestion.bind(this);
+    this.handleCloseNewQuestion = this.handleCloseNewQuestion.bind(this);
+  }
+
+  handleNewQuestion() {
+    const newState = {
+      ...this.state,
+      showNewQuestionnaire: true,
+    };
+    this.setState(newState);
+    this.props.loadQuestionnaireList(this.props.user.permission);
+  }
+
+  handleCloseNewQuestion() {
+    const newState = {
+      ...this.state,
+      showNewQuestionnaire: false,
+    };
+    this.setState(newState);
   }
 
   handleOpenNewComponent(componentType) {
@@ -284,6 +305,17 @@ class GenericInput extends Component {
           disabled={!isQuestionnaireValid}
           visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
         />
+        <button
+          id="add-questionnaire"
+          className="btn-white"
+          type="button"
+          onClick={() => {
+            this.handleNewQuestion();
+          }}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.QUESTIONNAIRE}
+        </button>
 
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
@@ -347,6 +379,27 @@ class GenericInput extends Component {
           >
             {Dictionary.close}
           </button>
+        </ReactModal>
+        <ReactModal
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={false}
+          isOpen={this.state.showNewQuestionnaire}
+          onRequestClose={this.handleCloseNewQuestion}
+        >
+          <div className="popup">
+            <div className="popup-header">
+              <button type="button" onClick={this.handleCloseNewQuestion}>
+                <span>X</span>
+              </button>
+            </div>
+            <div className="popup-body">
+              <QuestionnaireList
+                fusion
+                currentQuestion={this.props.currentQuestion}
+                handleCloseNewQuestion={this.handleCloseNewQuestion}
+              />
+            </div>
+          </div>
         </ReactModal>
       </div>
     );

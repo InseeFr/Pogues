@@ -7,6 +7,7 @@ import {
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
 } from 'actions/component';
+
 import {
   SET_ACTIVE_COMPONENTS,
   CREATE_PAGE_BREAK,

@@ -10,6 +10,8 @@ describe('remote to stores', () => {
         lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
         DataCollection: [],
         TargetMode: [''],
+        Name: 'QUESTIONNA',
+        flowLogic: 'REDIRECTION'
       },
     ];
     const output = questionnaireListRemoteToStores(remote);
@@ -18,10 +20,12 @@ describe('remote to stores', () => {
         jf0s8i94: {
           TargetMode: [''],
           campaigns: [],
+          dynamiqueSpecified: 'Redirections',
           final: false,
           id: 'jf0s8i94',
           label: 'questionnaire',
           lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
+          name: 'QUESTIONNA'
         },
       },
     ];

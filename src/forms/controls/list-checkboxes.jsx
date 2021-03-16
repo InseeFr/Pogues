@@ -38,6 +38,7 @@ export const defaultProps = {
 
 class ListCheckboxes extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -53,16 +54,17 @@ class ListCheckboxes extends Component {
   UNSAFE_componentWillMount() {
     const values = this.props.input.value;
     this.setState({
-      listCheckValues: values !== '' ? values.split(',') : [],
+      listCheckValues:
+        values !== '' && values.length > 0 ? values.split(',') : [],
     });
   }
 
   componentWillUpdate(nextProps) {
     const values = nextProps.input.value;
-
     if (this.props.input.value !== values) {
       this.setState({
-        listCheckValues: values !== '' ? values.split(',') : [],
+        listCheckValues:
+          values !== '' && values.length > 0 ? values.split(',') : [],
       });
     }
   }
