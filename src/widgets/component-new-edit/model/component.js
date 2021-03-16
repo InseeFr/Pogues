@@ -134,7 +134,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
   return form;
 }
 
-const Factory = (initialState = {}, stores = {}) => {
+const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
   const {
     componentsStore,
     calculatedVariablesStore,
@@ -150,7 +150,7 @@ const Factory = (initialState = {}, stores = {}) => {
   };
   const transformers = {
     control: Control(currentState.controls),
-    declaration: Declaration(currentState.declarations),
+    declaration: Declaration(currentState.declarations, activeQuestionnaire),
     redirection: Redirection(currentState.redirections),
     responseFormat: ResponseFormat(
       currentState.responseFormat,
