@@ -4,11 +4,13 @@ import Dictionary from 'utils/dictionary/dictionary';
 import {
   CODES_LIST_INPUT_ENUM,
   QUESTION_TYPE_ENUM,
+  DATATYPE_NAME,
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
+const { NUMERIC } = DATATYPE_NAME;
 
 const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 export function required(value = '') {
@@ -333,6 +335,9 @@ export function validateDuplicatesCalculated(
   return validateDuplicates(value, { form: listItems });
 }
 
+export function typeExternal({ form: { externalVariables: values } }) {
+  return values.type === NUMERIC;
+}
 export function validateDuplicatesExternal(
   value,
   { form: { externalVariables: values }, state: { selectedItemIndex } },

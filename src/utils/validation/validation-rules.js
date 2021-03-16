@@ -12,6 +12,7 @@ import {
   validateExistingTarget,
   validateDuplicatesCalculated,
   validateDuplicatesExternal,
+  typeExternal,
   validateDuplicatesCollected,
   validCollectedVariables,
   letterStart,
@@ -209,11 +210,14 @@ export const calculatedVariableRules = {
     value =>
       required(value) && Dictionary.validation_calculatedvariable_formula,
   ],
+
   [`${CALCULATED_VARIABLES}.${NUMERIC}.minimum`]: [
-    value => required(value) && Dictionary.validation_minimum,
+    (value, conf) =>
+      required(value) && typeExternal(conf) && Dictionary.validation_minimum,
   ],
   [`${CALCULATED_VARIABLES}.${NUMERIC}.maximum`]: [
-    value => required(value) && Dictionary.validation_maximum,
+    (value, conf) =>
+      required(value) && typeExternal(conf) && Dictionary.validation_maximum,
   ],
 };
 
@@ -231,10 +235,12 @@ export const externalVariableRules = {
       Dictionary.validation_externalvariable_existing,
   ],
   [`${EXTERNAL_VARIABLES}.${NUMERIC}.minimum`]: [
-    value => required(value) && Dictionary.validation_minimum,
+    (value, conf) =>
+      required(value) && typeExternal(conf) && Dictionary.validation_minimum,
   ],
   [`${EXTERNAL_VARIABLES}.${NUMERIC}.maximum`]: [
-    value => required(value) && Dictionary.validation_maximum,
+    (value, conf) =>
+      required(value) && typeExternal(conf) && Dictionary.validation_maximum,
   ],
 };
 

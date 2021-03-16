@@ -19,7 +19,6 @@ export function validate(form, items, stores, state) {
         if (errors.length > 0) acc = [...acc, { path, errors }];
       }
     }
-
     return acc;
   }, []);
 }
