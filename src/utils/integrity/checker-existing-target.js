@@ -1,5 +1,4 @@
 import { INTEGRITY_TYPES } from 'constants/pogues-constants';
-import { element } from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function checkerExistingTarget({
