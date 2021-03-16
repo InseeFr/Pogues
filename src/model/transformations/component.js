@@ -226,6 +226,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     weight,
     TargetMode,
     declarationMode,
+    FlowControl: flowControl,
   } = remote;
   const redirectionClar =
     redirections !== undefined && Array.isArray(redirections) && questionType
@@ -252,6 +253,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     redirections: Redirection.remoteToState(redirectionClar),
     TargetMode: TargetMode || declarationMode || [],
     responsesClarification,
+    flowControl,
   };
   if (genericName) {
     state.label = label;
@@ -337,6 +339,8 @@ function getClarificationresponseSingleChoiseQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
+  responsesClarification,
+  flowControl,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
@@ -355,14 +359,21 @@ function getClarificationresponseSingleChoiseQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
-
   collectedvariablequestion.forEach(function(collected) {
     const code = Object.values(
       codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
     ).find(code => code.weight === collected.z);
     if (code) {
+      const findResponse = responsesClarification
+        ? responsesClarification.find(
+            element => element.Name === collected.name,
+          )
+        : undefined;
+      const findFlow = flowControl
+        ? flowControl.find(element => element.IfTrue === findResponse?.id)
+        : undefined;
       const clafication = {
-        id: uuid(),
+        id: findResponse ? findResponse.id : uuid(),
         questionType: QUESTION_TYPE_ENUM.SIMPLE,
         Name: code.precisionid,
         Label: code.precisionlabel,
@@ -379,7 +390,7 @@ function getClarificationresponseSingleChoiseQuestion(
       };
       ClarificationQuestion.push(clafication);
       const clarficationredirection = {
-        id: uuid(),
+        id: findFlow ? findFlow.id : uuid(),
         label: `$${collectedvariablequestion[0].name}$ = '${code.value}' : ${collected.name}`,
         condition: `$${collectedvariablequestion[0].name}$ = '${code.value}'`,
         cible: clafication.id,
@@ -405,6 +416,8 @@ function getClarificationResponseMultipleChoiceQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
+  responsesClarification,
+  flowControl,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
@@ -433,8 +446,16 @@ function getClarificationResponseMultipleChoiceQuestion(
         const collectedVar = collectedvariablequestion.find(
           collectedVarible => collectedVarible.x === code.weight,
         );
+        const findResponse = responsesClarification
+          ? responsesClarification.find(
+              element => element.Name === collected.name,
+            )
+          : undefined;
+        const findFlow = flowControl
+          ? flowControl.find(element => element.IfTrue === findResponse?.id)
+          : undefined;
         const clafication = {
-          id: uuid(),
+          id: findResponse ? findResponse.id : uuid(),
           questionType: QUESTION_TYPE_ENUM.SIMPLE,
           Name: code.precisionid,
           Label: code.precisionlabel,
@@ -451,7 +472,7 @@ function getClarificationResponseMultipleChoiceQuestion(
         };
         ClarificationQuestion.push(clafication);
         const clarficationredirection = {
-          id: uuid(),
+          id: findFlow ? findFlow.id : uuid(),
           label: `$${collectedVar.name}$ = '1' : ${collected.name}`,
           condition: `$${collectedVar.name}$ = '1'`,
           cible: clafication.id,
@@ -478,6 +499,8 @@ function getClarificationResponseTableQuestion(
   responseFormat,
   FlowControl,
   TargetMode,
+  responsesClarification,
+  flowControl,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
@@ -515,8 +538,18 @@ function getClarificationResponseTableQuestion(
                   varTab.codeListReference ===
                     mesure.SINGLE_CHOICE.CodesList.id,
               );
+              const findResponse = responsesClarification
+                ? responsesClarification.find(
+                    element => element.Name === varib.name,
+                  )
+                : undefined;
+              const findFlow = flowControl
+                ? flowControl.find(
+                    element => element.IfTrue === findResponse?.id,
+                  )
+                : undefined;
               const clafication = {
-                id: uuid(),
+                id: findResponse ? findResponse.id : uuid(),
                 questionType: QUESTION_TYPE_ENUM.SIMPLE,
                 Name: varib.name,
                 Label: code.precisionlabel,
@@ -533,7 +566,7 @@ function getClarificationResponseTableQuestion(
               };
               ClarificationQuestion.push(clafication);
               const clarficationredirection = {
-                id: uuid(),
+                id: findFlow ? findFlow.id : uuid(),
                 label: `$${variableTable.name}$ = '${code.value}' : ${varib.name}`,
                 condition: `$${variableTable.name}$ = '${code.value}'`,
                 cible: clafication.id,
@@ -578,6 +611,8 @@ function storeToRemoteNested(
     collectedVariables,
     TargetMode,
     response,
+    responsesClarification,
+    flowControl,
   } = state;
   if (type !== LOOP && type !== FILTER) {
     let remote = {
@@ -607,7 +642,8 @@ function storeToRemoteNested(
           responseFormat,
           remote.FlowControl,
           TargetMode,
-          Name,
+          responsesClarification,
+          flowControl,
         );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
         remote.ClarificationQuestion =
@@ -624,7 +660,8 @@ function storeToRemoteNested(
           responseFormat,
           remote.FlowControl,
           TargetMode,
-          Name,
+          responsesClarification,
+          flowControl,
         );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
         remote.ClarificationQuestion =
@@ -641,7 +678,8 @@ function storeToRemoteNested(
           responseFormat,
           remote.FlowControl,
           TargetMode,
-          Name,
+          responsesClarification,
+          flowControl,
         );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
         remote.ClarificationQuestion =
