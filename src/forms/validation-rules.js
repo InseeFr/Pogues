@@ -338,6 +338,9 @@ export function validateDuplicatesCalculated(
 export function typeExternal({ form: { externalVariables: values } }) {
   return values.type === NUMERIC;
 }
+export function typeCalculated({ form: { calculatedVariables: values } }) {
+  return values.type === NUMERIC;
+}
 export function validateDuplicatesExternal(
   value,
   { form: { externalVariables: values }, state: { selectedItemIndex } },
