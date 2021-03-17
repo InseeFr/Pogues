@@ -303,8 +303,8 @@ const dictionary = {
     fr: 'Consigne',
   },
   CODECARD: {
-    en: 'code-card',
-    fr: 'carte-code',
+    en: 'Code-Card',
+    fr: 'Carte-Code',
   },
   COMMENT: {
     en: 'Comment',
