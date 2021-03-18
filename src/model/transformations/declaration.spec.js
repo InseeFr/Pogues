@@ -9,21 +9,21 @@ describe('declaration tranformations', () => {
           Text: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
-          TargetMode: ['CATI'],
+          DeclarationMode: ['CATI'],
         },
         {
           id: '2',
           Text: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
-          TargetMode: ['CATI'],
+          DeclarationMode: ['CATI'],
         },
         {
           id: '3',
           Text: 'label 3',
           declarationType: 'declarationType3',
           position: 3,
-          TargetMode: ['CATI'],
+          DeclarationMode: ['CATI'],
         },
       ];
 
@@ -105,21 +105,21 @@ describe('declaration tranformations', () => {
           Text: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
-          TargetMode: ['CAWI'],
+          DeclarationMode: ['CAWI'],
         },
         {
           id: '2',
           Text: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
-          TargetMode: [],
+          DeclarationMode: [],
         },
         {
           id: '3',
           Text: 'label 3',
           declarationType: 'declarationType3',
           position: 3,
-          TargetMode: [],
+          DeclarationMode: [],
         },
       ]);
     });
