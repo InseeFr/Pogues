@@ -100,5 +100,5 @@ export function getSupWeight(components) {
     .forEach(compo => {
       if (compo.weight && compo.weight > sup) sup = compo.weight;
     });
-  return sup;
+  return sup + 1;
 }
