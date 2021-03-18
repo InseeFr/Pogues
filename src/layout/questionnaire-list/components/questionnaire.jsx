@@ -53,6 +53,7 @@ function QuestionnaireListItem({
             type="button"
             style={{ float: 'right' }}
             className={BUTTON_DUPLICATE_CLASS}
+            aria-label={Dictionary.duplicate}
             onClick={event => {
               event.preventDefault();
               handleOpenPopup(id, label);
