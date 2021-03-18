@@ -70,7 +70,7 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
 function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
   let heavyComponentId = '';
   const componentsIds = subgroupIds.filter(
-    key => components[key].type === type,
+    key => components[key] && components[key].type === type,
   );
   if (componentsIds.length > 0) {
     heavyComponentId = getHeavyComponentIdFromGroupIds(

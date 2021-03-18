@@ -26,7 +26,7 @@ const {
   LOOP,
   FILTER,
 } = COMPONENT_TYPE;
-const { Filtres } = QUESTIONNAIRE_TYPE;
+const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 
 function sortByWeight(store) {
   return (keyA, keyB) => {
@@ -226,6 +226,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     weight,
     TargetMode,
     declarationMode,
+    flowLogic,
   } = remote;
   const redirectionClar =
     redirections !== undefined && Array.isArray(redirections) && questionType
@@ -252,6 +253,8 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     redirections: Redirection.remoteToState(redirectionClar),
     TargetMode: TargetMode || declarationMode || [],
     responsesClarification,
+    dynamiqueSpecified:
+        flowLogic && flowLogic === FILTER ? Filtres : Redirections
   };
   if (genericName) {
     state.label = label;

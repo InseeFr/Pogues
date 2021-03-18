@@ -11,12 +11,12 @@ function checkerExistingTarget({
   const errors = [];
   Object.keys(activeComponentsById).forEach(key => {
     const redirections = activeComponentsById[key].redirections || {};
-    if (
-      Object.values(redirections)[0] &&
-      Object.values(redirections)[0].cible &&
-      !Object.values(activeComponentsById)[Object.values(redirections)[0].cible]
-    ) {
-      targetNotFoundErrors.push(Object.values(redirections)[0].label);
+    if (Object.values(redirections).length > 0) {
+      Object.values(redirections).forEach(redir => {
+        if (redir.cible && !activeComponentsById[redir.cible]) {
+          targetNotFoundErrors.push(redir.label);
+        }
+      });
     }
   });
   if (targetNotFoundErrors.length > 0) {

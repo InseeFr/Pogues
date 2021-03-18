@@ -29,12 +29,25 @@ function QuestionnaireListItem({
   lastUpdatedDate,
   final,
   handleOpenPopup,
+  handelCheck,
+  fusion,
 }) {
   return (
     <div className="questionnaire-list_item">
-      <div>
+      <div className="question-list-item-name">
         <span className="glyphicon glyphicon-chevron-right" />
         <Link to={`/questionnaire/${id}`}>{label}</Link>
+        {fusion ? (
+          <input
+            type="radio"
+            name="questionId"
+            onChange={event => handelCheck(event.target.value)}
+            value={id}
+            style={{ height: '20px', width: '20px' }}
+          />
+        ) : (
+          false
+        )}
         <button
           type="button"
           style={{ float: 'right' }}

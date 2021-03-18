@@ -53,7 +53,7 @@ describe('<QuestionnaireList />', () => {
   );
 
   test('should render without throwing an error', () => {
-    expect(wrapperWithoutQuestionnaires.is('.home-questionnaires')).toBe(true);
+    expect(wrapperWithoutQuestionnaires.is('.home-questionnaires')).toBe(false);
   });
 
   test('should render as many <QuestionnaireListItem /> as questionnaires passed', () => {

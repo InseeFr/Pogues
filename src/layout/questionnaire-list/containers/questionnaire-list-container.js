@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import QuestionnaireList from '../components/questionnaire-list';
 
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
-
+import { duplicateQuestionnaire, mergeQuestions } from 'actions/questionnaire';
 import { setModifiedFalse } from 'actions/app-state';
-
-import { duplicateQuestionnaire } from 'actions/questionnaire';
 
 // Contanier
 
@@ -24,6 +22,7 @@ const mapDispatchToProps = {
   loadQuestionnaireList,
   setModifiedFalse,
   duplicateQuestionnaire,
+  mergeQuestions,
 };
 
 export default connect(
