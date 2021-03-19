@@ -470,15 +470,15 @@ const ComponentNewEdit = props => {
           />
         ) : componentType === LOOP || componentType === FILTER ? (
           <div>
-            <Field
-              name="nameLoop"
-              type="text"
-              component={Input}
-              label={Dictionary.name}
-              required
-            />
             {componentsStore && componentType === LOOP ? (
               <div>
+                <Field
+                  name="nameLoop"
+                  type="text"
+                  component={Input}
+                  label={Dictionary.name}
+                  required
+                />
                 <Field
                   name="maximum"
                   type="text"
