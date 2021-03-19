@@ -105,53 +105,22 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
 export function storeToRemote(store) {
   const codeList = [];
   Object.keys(store).map(key => {
-    const { id, label, codes, duplicateCodeList } = store[key];
+    const { id, label, codes } = store[key];
 
-    if (duplicateCodeList) {
-      const code = {
-        id: uuid(),
-        Label: label,
-        Name: '',
-        Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-          const { label: labelCode, value, parent } = codes[keyCode];
-          return {
-            Label: labelCode,
-            Value: value,
-            Parent: parent,
-          };
-        }),
-      };
-      codeList.push(code);
-      const codeDub = {
-        id: id,
-        Label: `${label}_2`,
-        Name: '',
-        Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-          const { label: labelCode, value, parent } = codes[keyCode];
-          return {
-            Label: labelCode,
-            Value: value,
-            Parent: parent,
-          };
-        }),
-      };
-      codeList.push(codeDub);
-    } else {
-      const code = {
-        id,
-        Label: label,
-        Name: '',
-        Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-          const { label: labelCode, value, parent } = codes[keyCode];
-          return {
-            Label: labelCode,
-            Value: value,
-            Parent: parent,
-          };
-        }),
-      };
-      codeList.push(code);
-    }
+    const code = {
+      id,
+      Label: label,
+      Name: '',
+      Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
+        const { label: labelCode, value, parent } = codes[keyCode];
+        return {
+          Label: labelCode,
+          Value: value,
+          Parent: parent,
+        };
+      }),
+    };
+    codeList.push(code);
   });
   return codeList;
 }

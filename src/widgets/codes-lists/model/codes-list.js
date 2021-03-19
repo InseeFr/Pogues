@@ -28,13 +28,21 @@ export function formToState(form) {
       [c.value]: { ...c },
     };
   }, {});
-
-  return {
-    id: id || uuid(),
-    label: label || '',
-    duplicateCodeList,
-    codes: codesStore,
-  };
+  if (duplicateCodeList) {
+    return {
+      id: uuid(),
+      label: `${label}_2`,
+      duplicateCodeList,
+      codes: codesStore,
+    };
+  } else {
+    return {
+      id: id || uuid(),
+      label: label || '',
+      duplicateCodeList,
+      codes: codesStore,
+    };
+  }
 }
 
 export function stateComponentToForm({ id, label, codes }) {
