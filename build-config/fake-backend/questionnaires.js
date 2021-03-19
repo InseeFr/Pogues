@@ -2906,4 +2906,3 @@ module.exports = [
     ],
   },
 ];
-

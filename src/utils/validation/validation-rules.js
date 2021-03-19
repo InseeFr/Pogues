@@ -13,6 +13,7 @@ import {
   validateDuplicatesCalculated,
   validateDuplicatesExternal,
   typeExternal,
+  typeCalculated,
   validateDuplicatesCollected,
   validCollectedVariables,
   letterStart,
@@ -213,11 +214,11 @@ export const calculatedVariableRules = {
 
   [`${CALCULATED_VARIABLES}.${NUMERIC}.minimum`]: [
     (value, conf) =>
-      required(value) && typeExternal(conf) && Dictionary.validation_minimum,
+      required(value) && typeCalculated(conf) && Dictionary.validation_minimum,
   ],
   [`${CALCULATED_VARIABLES}.${NUMERIC}.maximum`]: [
     (value, conf) =>
-      required(value) && typeExternal(conf) && Dictionary.validation_maximum,
+      required(value) && typeCalculated(conf) && Dictionary.validation_maximum,
   ],
 };
 
