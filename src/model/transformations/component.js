@@ -256,7 +256,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     responsesClarification,
     flowControl,
     dynamiqueSpecified:
-        flowLogic && flowLogic === FILTER ? Filtres : Redirections
+      flowLogic && flowLogic === FILTER ? Filtres : Redirections,
   };
   if (genericName) {
     state.label = label;
@@ -375,21 +375,23 @@ function getClarificationresponseSingleChoiseQuestion(
       const findFlow = flowControl
         ? flowControl.find(element => element.IfTrue === findResponse?.id)
         : undefined;
+      const responseModel = {
+        mandatory: false,
+        typeName: collected.type,
+        maxLength: collected.TEXT.maxLength,
+        pattern: '',
+        collectedVariable: collected.id,
+      };
+      if (findResponse) {
+        responseModel.id = findResponse.Response[0]?.id;
+      }
       const clafication = {
         id: findResponse ? findResponse.id : uuid(),
         questionType: QUESTION_TYPE_ENUM.SIMPLE,
         Name: code.precisionid,
         Label: code.precisionlabel,
         TargetMode: TargetMode,
-        Response: [
-          Response.stateToRemote({
-            mandatory: false,
-            typeName: collected.type,
-            maxLength: collected.TEXT.maxLength,
-            pattern: '',
-            collectedVariable: collected.id,
-          }),
-        ],
+        Response: [Response.stateToRemote(responseModel)],
       };
       ClarificationQuestion.push(clafication);
       const clarficationredirection = {
@@ -457,21 +459,23 @@ function getClarificationResponseMultipleChoiceQuestion(
         const findFlow = flowControl
           ? flowControl.find(element => element.IfTrue === findResponse?.id)
           : undefined;
+        const responseModel = {
+          mandatory: false,
+          typeName: collected.type,
+          maxLength: collected.TEXT.maxLength,
+          pattern: '',
+          collectedVariable: collected.id,
+        };
+        if (findResponse) {
+          responseModel.id = findResponse.Response[0]?.id;
+        }
         const clafication = {
           id: findResponse ? findResponse.id : uuid(),
           questionType: QUESTION_TYPE_ENUM.SIMPLE,
           Name: code.precisionid,
           Label: code.precisionlabel,
           TargetMode: TargetMode,
-          Response: [
-            Response.stateToRemote({
-              mandatory: false,
-              typeName: collected.type,
-              maxLength: collected.TEXT.maxLength,
-              pattern: '',
-              collectedVariable: collected.id,
-            }),
-          ],
+          Response: [Response.stateToRemote(responseModel)],
         };
         ClarificationQuestion.push(clafication);
         const clarficationredirection = {
@@ -551,21 +555,23 @@ function getClarificationResponseTableQuestion(
                     element => element.IfTrue === findResponse?.id,
                   )
                 : undefined;
+              const responseModel = {
+                mandatory: false,
+                typeName: varib.type,
+                maxLength: code.precisionsize,
+                pattern: '',
+                collectedVariable: varib.id,
+              };
+              if (findResponse) {
+                responseModel.id = findResponse.Response[0]?.id;
+              }
               const clafication = {
                 id: findResponse ? findResponse.id : uuid(),
                 questionType: QUESTION_TYPE_ENUM.SIMPLE,
                 Name: varib.name,
                 Label: code.precisionlabel,
                 TargetMode: TargetMode,
-                Response: [
-                  Response.stateToRemote({
-                    mandatory: false,
-                    typeName: varib.type,
-                    maxLength: code.precisionsize,
-                    pattern: '',
-                    collectedVariable: varib.id,
-                  }),
-                ],
+                Response: [Response.stateToRemote(responseModel)],
               };
               ClarificationQuestion.push(clafication);
               const clarficationredirection = {
