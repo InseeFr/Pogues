@@ -9,6 +9,7 @@ import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 import { Component } from 'widgets/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { element } from 'prop-types';
 
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -329,6 +330,21 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
           active => active.name === component.name,
         );
         if (find) {
+          if (find.id === component.id) {
+            component.id = uuid();
+            Object.values(mergesComponentByQuestionnaire).forEach(element => {
+              if (element.parent === find.id) {
+                element.parent = component.id;
+              }
+              if (
+                element.children.length > 0 &&
+                element.children.includes(find.id)
+              ) {
+                const index = element.children.indexOf(find.id);
+                element.children[index] = component.id;
+              }
+            });
+          }
           component.name = `${component.name}_2`;
         }
         const collectedVaribles = {};

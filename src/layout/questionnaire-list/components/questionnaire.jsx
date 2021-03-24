@@ -37,28 +37,31 @@ function QuestionnaireListItem({
       <div className="question-list-item-name">
         <span className="glyphicon glyphicon-chevron-right" />
         <Link to={`/questionnaire/${id}`}>{label}</Link>
-        {fusion ? (
-          <input
-            type="radio"
-            name="questionId"
-            onChange={event => handelCheck(event.target.value)}
-            value={id}
-            style={{ height: '20px', width: '20px' }}
-          />
-        ) : (
-          false
-        )}
-        <button
-          type="button"
-          style={{ float: 'right' }}
-          className={BUTTON_DUPLICATE_CLASS}
-          onClick={event => {
-            event.preventDefault();
-            handleOpenPopup(id, label);
-          }}
-        >
-          {Dictionary.duplicate}
-        </button>
+        <div className="check-button">
+          {fusion ? (
+            <input
+              type="radio"
+              name="questionId"
+              onChange={event => handelCheck(event.target.value)}
+              value={id}
+              style={{ height: '20px', width: '20px', marginRight: '30px' }}
+            />
+          ) : (
+            false
+          )}
+          <button
+            type="button"
+            style={{ float: 'right' }}
+            className={BUTTON_DUPLICATE_CLASS}
+            aria-label={Dictionary.duplicate}
+            onClick={event => {
+              event.preventDefault();
+              handleOpenPopup(id, label);
+            }}
+          >
+            {Dictionary.duplicate}
+          </button>
+        </div>
       </div>
       <div>{getState(final)}</div>
       <div>{lastUpdatedDate && formatDate(lastUpdatedDate)}</div>
