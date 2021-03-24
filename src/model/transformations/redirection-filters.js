@@ -17,7 +17,7 @@ function getFiltersState(filter, parent, type) {
   );
   return {
     id,
-    name: name || false,
+    name: name || '',
     initialMember,
     finalMember,
     description,
