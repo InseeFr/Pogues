@@ -167,7 +167,7 @@ export const declarationRules = {
   ],
   [`${DECLARATIONS}.declarationType`]: [
     (value, conf) =>
-      cartCodeModeCollecte(value, conf) && Dictionary.validation_catte_code,
+      cartCodeModeCollecte(value, conf) && Dictionary.validation_card_code,
   ],
 };
 
