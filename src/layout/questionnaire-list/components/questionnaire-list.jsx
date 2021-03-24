@@ -64,6 +64,7 @@ const QuestionnaireList = props => {
   const list = questionnaires
     .filter(q => {
       return (
+        currentQuestion !== q.id &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
           getState(q.final)
