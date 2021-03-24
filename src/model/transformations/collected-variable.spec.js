@@ -183,7 +183,7 @@ describe('collected variable tranformations', () => {
         {
           CollectedVariableReference: 'jbcggt4x',
           Datatype: {
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
             type: 'TextDatatypeType',
             typeName: 'TEXT',
@@ -245,7 +245,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -337,7 +337,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -430,7 +430,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -523,7 +523,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -616,7 +616,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -710,7 +710,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -803,7 +803,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -896,7 +896,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -988,7 +988,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -1036,7 +1036,7 @@ describe('collected variable tranformations', () => {
     const input = {
       k23bk67e: {
         id: 'k23bk67e',
-        TEXT: { maxLength: 255, pattern: '' },
+        TEXT: { maxLength: 249, pattern: '' },
         codeListReference: undefined,
         codeListReferenceLabel: '',
         id: 'kawknt1k',
@@ -1063,7 +1063,7 @@ describe('collected variable tranformations', () => {
         responseFormat: {
           type: 'SIMPLE',
           SIMPLE: {
-            TEXT: { maxLength: 255, pattern: '' },
+            TEXT: { maxLength: 249, pattern: '' },
             id: 'kawknyfn',
             mandatory: false,
             type: 'TEXT',
@@ -1133,7 +1133,7 @@ describe('collected variable tranformations', () => {
         Datatype: {
           typeName: 'TEXT',
           type: 'TextDatatypeType',
-          MaxLength: 255,
+          MaxLength: 249,
           Pattern: '',
         },
         Label: 'QUESTION1 label',
@@ -1153,7 +1153,7 @@ describe('collected variable tranformations', () => {
         DATE: undefined,
         DURATION: undefined,
         NUMERIC: undefined,
-        TEXT: { maxLength: 255, pattern: '' },
+        TEXT: { maxLength: 249, pattern: '' },
         codeListReference: '',
         codeListReferenceLabel: '',
         id: 'kawkrelo',
@@ -1206,7 +1206,7 @@ describe('collected variable tranformations', () => {
                   type: 'TEXT',
                   mandatory: undefined,
                   TEXT: {
-                    maxLength: 255,
+                    maxLength: 249,
                     pattern: '',
                   },
                 },
@@ -1266,7 +1266,7 @@ describe('collected variable tranformations', () => {
         Datatype: {
           typeName: 'TEXT',
           type: 'TextDatatypeType',
-          MaxLength: 255,
+          MaxLength: 249,
           Pattern: '',
         },
         Label: 'tab',
@@ -1286,7 +1286,7 @@ describe('collected variable tranformations', () => {
         DATE: undefined,
         DURATION: undefined,
         NUMERIC: undefined,
-        TEXT: { maxLength: 255, pattern: '' },
+        TEXT: { maxLength: 249, pattern: '' },
         codeListReference: '',
         codeListReferenceLabel: '',
         id: 'kawkrelo',
@@ -1339,7 +1339,7 @@ describe('collected variable tranformations', () => {
                   type: 'TEXT',
                   mandatory: undefined,
                   TEXT: {
-                    maxLength: 255,
+                    maxLength: 249,
                     pattern: '',
                   },
                 },
@@ -1376,7 +1376,7 @@ describe('collected variable tranformations', () => {
         Datatype: {
           typeName: 'TEXT',
           type: 'TextDatatypeType',
-          MaxLength: 255,
+          MaxLength: 249,
           Pattern: '',
         },
         Label: 'tab',
