@@ -13,7 +13,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import ListRadios from 'forms/controls/list-radios';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
-import { storeToArray } from 'utils/utils';
+import { storeToArray, uuid } from 'utils/utils';
 import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 import { SearchCodesLists } from 'widgets/search-codes-lists';
@@ -89,7 +89,11 @@ const CodesList = props => {
       setCurrentIdState(currentId);
     }
 
-    if (currentIdState !== currentId && currentId !== '') {
+    if (
+      currentIdState !== currentId &&
+      currentId !== '' &&
+      codesListsStore[currentId]
+    ) {
       const codesStore = codesListsStore[currentId].codes;
       change(formName, `${path}label`, codesListsStore[currentId].label);
       change(
@@ -100,6 +104,14 @@ const CodesList = props => {
       setCurrentIdState(currentId);
     }
   }, [currentId]);
+
+  const handleCheck = () => {
+    const id = uuid();
+    if (currentId && codesListsStore[currentId]) {
+      change(formName, `${path}label`, `${codesListsStore[currentId].label}_2`);
+      change(formName, `${path}id`, id);
+    }
+  };
 
   return (
     <FormSection name={selectorPath} className={COMPONENT_CLASS}>
@@ -146,12 +158,7 @@ const CodesList = props => {
               {Dictionary.duplicateCodeList}
             </label>
             <div>
-              <Field
-                name="duplicateCodeList"
-                id="rf-single-duplicate"
-                component="input"
-                type="checkbox"
-              />
+              <input type="checkbox" onChange={() => handleCheck()} />
             </div>
           </div>
           {activePanel === NEW && (
