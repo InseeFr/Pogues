@@ -65,7 +65,6 @@ export const loopRules = {
 };
 
 export const filterRules = {
-  nameLoop: [required, nameLoop],
   initialMember: [required],
   finalMember: [required],
   filter: [required],

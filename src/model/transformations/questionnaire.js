@@ -121,7 +121,7 @@ export function remoteToState1(remote) {
     TargetMode: TargetMode || [],
     name,
     dynamiqueSpecified:
-      flowLogic && flowLogic === FILTER ? Filtres : Redirections
+      flowLogic && flowLogic === FILTER ? Filtres : Redirections,
   };
 }
 
@@ -227,7 +227,6 @@ export function stateToRemote(state, stores) {
   );
   const Iterations = Loop.stateToRemote(componentsStore);
   const FlowControl = RedirectionsFilter.stateToRemote(componentsStore);
-
   const json = {
     ...remote,
     Child: componentsRemote,

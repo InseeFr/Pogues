@@ -533,7 +533,6 @@ describe('questionnaire', () => {
             Expression: '$QUESTION1$  > 1',
             IfTrue: 'kgs4yv5b-kgs4yv5b',
             id: 'kgs5dobf',
-            name: 'FILTRE1',
           },
         ],
         Label: ['questionnaire'],
