@@ -376,7 +376,7 @@ describe('validCollectedVariables', () => {
           SIMPLE: {
             type: 'TEXT',
             TEXT: {
-              maxLength: 255,
+              maxLength: 249,
               pattern: '',
             },
           },
@@ -436,7 +436,7 @@ describe('validCollectedVariables', () => {
         codeListReferenceLabel: '',
         type: 'TEXT',
         TEXT: {
-          maxLength: 255,
+          maxLength: 249,
           pattern: '',
         },
       },
@@ -450,7 +450,7 @@ describe('validCollectedVariables', () => {
           SIMPLE: {
             type: 'TEXT',
             TEXT: {
-              maxLength: 255,
+              maxLength: 249,
               pattern: 222,
             },
           },
@@ -470,7 +470,7 @@ describe('validCollectedVariables', () => {
               codeListReferenceLabel: '',
               type: 'TEXT',
               TEXT: {
-                maxLength: 255,
+                maxLength: 249,
                 pattern: '',
               },
             },
