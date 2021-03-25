@@ -1231,6 +1231,10 @@ const dictionary = {
     fr: "Retour à l'accueil",
     en: 'Back to the Home',
   },
+  back: {
+    fr: 'Retour',
+    en: 'Back',
+  },
   seeFilters: {
     fr: 'Voir les filtres',
     en: 'See filters',
