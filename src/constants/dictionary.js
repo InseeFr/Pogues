@@ -826,6 +826,10 @@ const dictionary = {
     en: 'Thank you to validate all the actions on the page',
     fr: 'Merci de valider toutes les actions de la page',
   },
+  validateEtat: {
+    en: 'Validate as it is',
+    fr: "Valider en l'état",
+  },
 
   saveLowerTitle: {
     en: 'Modifications not validated',
