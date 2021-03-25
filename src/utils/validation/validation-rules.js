@@ -17,6 +17,7 @@ import {
   validateDuplicatesCollected,
   validCollectedVariables,
   letterStart,
+  cartCodeModeCollecte,
 } from 'forms/validation-rules';
 import {
   TABS_PATHS,
@@ -164,6 +165,10 @@ export const questionRules = {
 export const declarationRules = {
   [`${DECLARATIONS}.label`]: [
     value => required(value) && Dictionary.validation_declaration_label,
+  ],
+  [`${DECLARATIONS}.declarationType`]: [
+    (value, conf) =>
+      cartCodeModeCollecte(value, conf) && Dictionary.validation_card_code,
   ],
 };
 

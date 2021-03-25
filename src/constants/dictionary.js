@@ -1293,6 +1293,11 @@ const dictionary = {
     fr: 'Libellé de la déclaration obligatoire',
     en: 'Statement label required',
   },
+  validation_card_code: {
+    fr:
+      "La modalité carte-code n'a de sens que pour les modes de collecte CAPI et/ou CATI.",
+    en: 'The codecard modality is meanful only for CAPI and/or CATI mode.',
+  },
   validation_control_description: {
     fr: 'Description du contrôle obligatoire',
     en: 'Control description required',
