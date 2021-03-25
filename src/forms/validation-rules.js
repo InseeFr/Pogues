@@ -375,6 +375,7 @@ export function cartCodeModeCollecte(
   return (
     value === 'CODECARD' &&
     (values.TargetMode.split(',').includes('CAWI') ||
-      values.TargetMode.split(',').includes('PAPI'))
+      values.TargetMode.split(',').includes('PAPI') ||
+      values.TargetMode.length === 0)
   );
 }
