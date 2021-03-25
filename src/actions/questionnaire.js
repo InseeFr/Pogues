@@ -286,7 +286,6 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
     const mergesComponentByQuestionnaire =
       medgerQuestion.componentByQuestionnaire[medgerQuestionId];
     const QuestionnaireId = activeQuestionnaire.id;
-
     Object.values(mergedCollectedVariables).forEach(variable => {
       Object.values(collectedVariableByQuestion).forEach(element => {
         const find = Object.values(element).find(
@@ -311,7 +310,9 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
       );
       if (find) {
         variable.name = `${variable.name}_2`;
+        variable.id = uuid();
       }
+      activeCalculatedVariablesById[variable.id] = variable;
     });
     Object.values(mergesExternalVariableByQuestionnaire).forEach(variable => {
       const find = Object.values(activeExternalVariablesById).find(
@@ -319,9 +320,10 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
       );
       if (find) {
         variable.name = `${variable.name}_2`;
+        variable.id = uuid();
       }
+      activeExternalVariablesById[variable.id] = variable;
     });
-
     const supSequence = getSupWeight(activeComponentsById);
     Object.values(mergesComponentByQuestionnaire)
       .filter(element => element.type !== QUESTIONNAIRE)
@@ -363,8 +365,8 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
                 id: component.id,
                 update: {
                   activeComponentsById: activeComponent,
-                  activeCalculatedVariablesById: mergesCalculatedVariableByQuestionnaire,
-                  activeExternalVariablesById: mergesExternalVariableByQuestionnaire,
+                  activeCalculatedVariablesById: activeCalculatedVariablesById,
+                  activeExternalVariablesById: activeExternalVariablesById,
                   activeCollectedVariablesById: {
                     [component.id]: collectedVaribles,
                   },
@@ -378,12 +380,12 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
                 QuestionnaireId,
                 update: {
                   activeComponentsById: { [questionnaire.id]: questionnaire },
-                  activeCalculatedVariablesById: {},
-                  activeExternalVariablesById: {},
+                  activeCalculatedVariablesById: activeCalculatedVariablesById,
+                  activeExternalVariablesById: activeExternalVariablesById,
                   activeCollectedVariablesById: {
                     [QuestionnaireId]: {},
                   },
-                  activeCodeListsById: {},
+                  activeCodeListsById: mergesCodeListByQuestionnaire,
                 },
               },
             });
@@ -406,14 +408,8 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
               id: component.id,
               update: {
                 activeComponentsById: activeComponent,
-                activeCalculatedVariablesById: {
-                  ...activeCalculatedVariablesById,
-                  ...mergesCalculatedVariableByQuestionnaire,
-                },
-                activeExternalVariablesById: {
-                  ...activeExternalVariablesById,
-                  ...mergesExternalVariableByQuestionnaire,
-                },
+                activeCalculatedVariablesById: activeCalculatedVariablesById,
+                activeExternalVariablesById: activeExternalVariablesById,
                 activeCollectedVariablesById: {
                   [component.id]: collectedVaribles,
                 },
