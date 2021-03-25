@@ -824,7 +824,7 @@ const dictionary = {
   },
   saveLower: {
     en: 'Thank you to validate all the actions on the page',
-    fr: 'Merci de valider toutes les actions de la page',
+    fr: "Merci de valider toutes les actions sur l'élément",
   },
   validateEtat: {
     en: 'Validate as it is',
