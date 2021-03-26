@@ -710,7 +710,7 @@ const ComponentNewEdit = props => {
                 onClick={handleValidate}
                 type="button"
               >
-                {Dictionary.validate}
+                {Dictionary.validateEtat}
               </button>
             </div>
           </div>
