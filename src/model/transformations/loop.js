@@ -9,6 +9,7 @@ export function remoteToState(remote, parent) {
     Filter: filter,
     Label: addButtonLibel,
     Maximum: maximum,
+    Minimum: minimum,
   } = remote;
 
   const id = remote.id || uuid();
@@ -33,6 +34,7 @@ export function remoteToState(remote, parent) {
     basedOn,
     filter,
     maximum,
+    minimum,
     addButtonLibel,
     type: 'LOOP',
     TargetMode: [],
@@ -50,6 +52,7 @@ export function stateToRemote(store) {
         name,
         nameLoop,
         maximum,
+        minimum,
         basedOn,
         filter,
         initialMember,
@@ -75,7 +78,7 @@ export function stateToRemote(store) {
       if (maximum) {
         response.Maximum = maximum;
         response.Step = '1';
-        response.Minimum = '1';
+        response.Minimum = minimum;
       }
       if (basedOn) {
         response.IterableReference = basedOn;
