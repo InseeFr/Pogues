@@ -300,7 +300,7 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
       const find = Object.values(activeCodeListsById).find(
         element => element.label === code.label,
       );
-      if (find) {
+      if (find && code.id !== find.id) {
         code.label = `${code.label}_2`;
       }
     });
@@ -326,7 +326,7 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
     });
     const supSequence = getSupWeight(activeComponentsById);
     Object.values(mergesComponentByQuestionnaire)
-      .filter(element => element.type !== QUESTIONNAIRE)
+      .filter(element => element.type !== QUESTIONNAIRE  && element.id !== 'idendquest')
       .forEach(component => {
         const find = Object.values(activeComponentsById).find(
           active => active.name === component.name,
@@ -339,7 +339,7 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
                 element.parent = component.id;
               }
               if (
-                element.children.length > 0 &&
+                element.children?.length > 0 &&
                 element.children.includes(find.id)
               ) {
                 const index = element.children.indexOf(find.id);
