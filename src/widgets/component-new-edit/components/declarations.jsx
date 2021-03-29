@@ -78,8 +78,8 @@ function Declarations({
           <GenericOption key="HELP" value="HELP">
             {Dictionary.HELP}
           </GenericOption>
-          <GenericOption key="WARNING" value="WARNING">
-            {Dictionary.WARNING}
+          <GenericOption key="INSTRUCTION" value="INSTRUCTION">
+            {Dictionary.INSTRUCTION}
           </GenericOption>
           <GenericOption key="CODECARD" value="CODECARD">
             {Dictionary.CODECARD}
