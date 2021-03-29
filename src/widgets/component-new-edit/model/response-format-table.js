@@ -23,7 +23,7 @@ export const defaultMeasureSimpleState = {
   mandatory: undefined,
   type: TEXT,
   [TEXT]: {
-    maxLength: 255,
+    maxLength: 249,
     pattern: '',
   },
   [NUMERIC]: {

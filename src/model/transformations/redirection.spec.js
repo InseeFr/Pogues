@@ -158,7 +158,6 @@ describe('redirection filters tramsformation', () => {
     const remote = [
       {
         id: 'jqqchose',
-        name: 'FILTER',
         Description: 'desc',
         Expression: '$AGE$ < 18',
         IfTrue: 'j6p0ti5h-j6z12s2d',

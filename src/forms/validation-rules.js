@@ -380,3 +380,15 @@ export function letterStart(value) {
     ? Dictionary.IsNotLetter
     : undefined;
 }
+
+export function cartCodeModeCollecte(
+  value,
+  { form: { declarations: values } },
+) {
+  return (
+    value === 'CODECARD' &&
+    (values.TargetMode.split(',').includes('CAWI') ||
+      values.TargetMode.split(',').includes('PAPI') ||
+      values.TargetMode.length === 0)
+  );
+}

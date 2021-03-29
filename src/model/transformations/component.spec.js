@@ -19,7 +19,7 @@ describe('component tranformations', () => {
                     Datatype: {
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
-                      MaxLength: 255,
+                      MaxLength: 249,
                       Pattern: '',
                     },
                     id: 'khj4qhmd',
@@ -84,7 +84,7 @@ describe('component tranformations', () => {
               Datatype: {
                 typeName: 'TEXT',
                 type: 'TextDatatypeType',
-                MaxLength: 255,
+                MaxLength: 249,
                 Pattern: '',
               },
               Label: 'QUESTION label',
@@ -142,7 +142,7 @@ describe('component tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
               id: 'khj4qhmd',
               mandatory: false,
               type: 'TEXT',
@@ -245,7 +245,7 @@ describe('component tranformations', () => {
               type: 'TEXT',
               mandatory: false,
               TEXT: {
-                maxLength: 255,
+                maxLength: 249,
                 pattern: '',
               },
             },
@@ -292,7 +292,7 @@ describe('component tranformations', () => {
           DATE: undefined,
           DURATION: undefined,
           NUMERIC: undefined,
-          TEXT: { maxLength: 255, pattern: '' },
+          TEXT: { maxLength: 249, pattern: '' },
           codeListReference: undefined,
           codeListReferenceLabel: '',
           id: 'khj4uvok',
@@ -323,7 +323,7 @@ describe('component tranformations', () => {
                   Datatype: {
                     typeName: 'TEXT',
                     type: 'TextDatatypeType',
-                    MaxLength: 255,
+                    MaxLength: 249,
                     Pattern: '',
                   },
                   id: 'khj4qhmd',

@@ -9,7 +9,7 @@ describe('remoteToState', () => {
           Datatype: {
             typeName: 'TEXT',
             type: 'TextDatatypeType',
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
           },
           CollectedVariableReference: 'joxzq5qe',
@@ -103,7 +103,7 @@ describe('remoteToState', () => {
           SIMPLE: {
             type: 'TEXT',
             TEXT: {
-              maxLength: 255,
+              maxLength: 249,
               pattern: '',
             },
           },
@@ -163,7 +163,7 @@ describe('remoteToState', () => {
           Datatype: {
             typeName: 'TEXT',
             type: 'TextDatatypeType',
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
           },
           CollectedVariableReference: 'jjjyjq15',
@@ -174,7 +174,7 @@ describe('remoteToState', () => {
           Datatype: {
             typeName: 'TEXT',
             type: 'TextDatatypeType',
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
           },
           CollectedVariableReference: 'jjjyymbc',
@@ -237,7 +237,7 @@ describe('remoteToState', () => {
           SIMPLE: {
             type: 'TEXT',
             TEXT: {
-              maxLength: 255,
+              maxLength: 249,
               pattern: '',
             },
           },
@@ -248,7 +248,7 @@ describe('remoteToState', () => {
           SIMPLE: {
             type: 'TEXT',
             TEXT: {
-              maxLength: 255,
+              maxLength: 249,
               pattern: '',
             },
           },
@@ -265,7 +265,7 @@ describe('remoteToState', () => {
           Datatype: {
             typeName: 'TEXT',
             type: 'TextDatatypeType',
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
           },
           CollectedVariableReference: 'jf0vzlbq',
@@ -275,7 +275,7 @@ describe('remoteToState', () => {
           Datatype: {
             typeName: 'TEXT',
             type: 'TextDatatypeType',
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
           },
           CollectedVariableReference: 'jf0vjphy',
@@ -285,7 +285,7 @@ describe('remoteToState', () => {
           Datatype: {
             typeName: 'TEXT',
             type: 'TextDatatypeType',
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
           },
           CollectedVariableReference: 'jf0vyha5',
@@ -301,7 +301,7 @@ describe('remoteToState', () => {
       LIST_MEASURE: [
         {
           SIMPLE: {
-            TEXT: { maxLength: 255, pattern: '' },
+            TEXT: { maxLength: 249, pattern: '' },
             id: undefined,
             mandatory: undefined,
             type: 'TEXT',
@@ -322,7 +322,7 @@ describe('remoteToState', () => {
           Datatype: {
             typeName: 'TEXT',
             type: 'TextDatatypeType',
-            MaxLength: 255,
+            MaxLength: 249,
             Pattern: '',
           },
           CollectedVariableReference: 'jf0vahmg',
@@ -364,7 +364,7 @@ describe('remoteToState', () => {
       MEASURE: {
         SIMPLE: {
           TEXT: {
-            maxLength: 255,
+            maxLength: 249,
             pattern: '',
           },
           id: undefined,
@@ -406,7 +406,7 @@ describe('stateToRemote', () => {
         {
           label: 'measure 1',
           type: 'SIMPLE',
-          SIMPLE: { type: 'TEXT', TEXT: { maxLength: 255, pattern: '' } },
+          SIMPLE: { type: 'TEXT', TEXT: { maxLength: 249, pattern: '' } },
         },
       ],
     };
@@ -419,7 +419,7 @@ describe('stateToRemote', () => {
         x: 1,
         y: 1,
         type: 'TEXT',
-        TEXT: { maxLength: 255, pattern: '' },
+        TEXT: { maxLength: 249, pattern: '' },
         NUMERIC: { maximum: '', minimum: '', decimals: '' },
         DURATION: { maximum: '', minimum: '', format: '' },
         DATE: { maximum: '', minimum: '', format: '' },
@@ -435,7 +435,7 @@ describe('stateToRemote', () => {
         x: 2,
         y: 1,
         type: 'TEXT',
-        TEXT: { maxLength: 255, pattern: '' },
+        TEXT: { maxLength: 249, pattern: '' },
         NUMERIC: { maximum: '', minimum: '', decimals: '' },
         DURATION: { maximum: '', minimum: '', format: '' },
         DATE: { maximum: '', minimum: '', format: '' },
@@ -479,13 +479,13 @@ describe('stateToRemote', () => {
 
     expect(outputMapping.length).toEqual(outputResponse.length);
     expect(outputResponse[0].Datatype).toEqual({
-      MaxLength: 255,
+      MaxLength: 249,
       Pattern: '',
       type: 'TextDatatypeType',
       typeName: 'TEXT',
     });
     expect(outputResponse[1].Datatype).toEqual({
-      MaxLength: 255,
+      MaxLength: 249,
       Pattern: '',
       type: 'TextDatatypeType',
       typeName: 'TEXT',
@@ -511,7 +511,7 @@ describe('stateToRemote', () => {
       MEASURE: {
         label: 'fsdfsdfsdf',
         type: 'SIMPLE',
-        SIMPLE: { type: 'TEXT', TEXT: { maxLength: 255, pattern: '' } },
+        SIMPLE: { type: 'TEXT', TEXT: { maxLength: 249, pattern: '' } },
       },
     };
     const collectedVariables = ['jf0vahmg'];
@@ -523,7 +523,7 @@ describe('stateToRemote', () => {
         x: 1,
         y: 1,
         type: 'TEXT',
-        TEXT: { maxLength: 255, pattern: '' },
+        TEXT: { maxLength: 249, pattern: '' },
         NUMERIC: { maximum: '', minimum: '', decimals: '' },
         DURATION: { maximum: '', minimum: '', format: '' },
         DATE: {},
@@ -561,7 +561,7 @@ describe('stateToRemote', () => {
 
     expect(outputMapping.length).toEqual(outputResponse.length);
     expect(outputResponse[0].Datatype).toEqual({
-      MaxLength: 255,
+      MaxLength: 249,
       Pattern: '',
       type: 'TextDatatypeType',
       typeName: 'TEXT',
@@ -574,7 +574,7 @@ describe('stateToRemote', () => {
       LIST_MEASURE: [
         {
           SIMPLE: {
-            TEXT: { maxLength: 255, pattern: '' },
+            TEXT: { maxLength: 249, pattern: '' },
             type: 'TEXT',
           },
           label: 'testlibe',
@@ -595,7 +595,7 @@ describe('stateToRemote', () => {
         DATE: undefined,
         DURATION: undefined,
         NUMERIC: undefined,
-        TEXT: { maxLength: 255, pattern: '' },
+        TEXT: { maxLength: 249, pattern: '' },
         codeListReference: undefined,
         codeListReferenceLabel: '',
         id: 'kgs2nhvj',
@@ -615,7 +615,7 @@ describe('stateToRemote', () => {
         Datatype: {
           typeName: 'TEXT',
           type: 'TextDatatypeType',
-          MaxLength: 255,
+          MaxLength: 249,
           Pattern: '',
         },
         id: 'kgs2rz8e',
@@ -648,7 +648,7 @@ describe('stateToRemote', () => {
       Datatype: {
         typeName: 'TEXT',
         type: 'TextDatatypeType',
-        MaxLength: 255,
+        MaxLength: 249,
         Pattern: '',
       },
       id: 'kgs2rz8e',

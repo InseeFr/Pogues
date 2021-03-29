@@ -824,7 +824,11 @@ const dictionary = {
   },
   saveLower: {
     en: 'Thank you to validate all the actions on the page',
-    fr: 'Merci de valider toutes les actions de la page',
+    fr: "Merci de valider toutes les actions sur l'élément",
+  },
+  validateEtat: {
+    en: 'Validate as it is',
+    fr: "Valider en l'état",
   },
 
   saveLowerTitle: {
@@ -1231,6 +1235,10 @@ const dictionary = {
     fr: "Retour à l'accueil",
     en: 'Back to the Home',
   },
+  back: {
+    fr: 'Retour',
+    en: 'Back',
+  },
   seeFilters: {
     fr: 'Voir les filtres',
     en: 'See filters',
@@ -1292,6 +1300,11 @@ const dictionary = {
   validation_declaration_label: {
     fr: 'Libellé de la déclaration obligatoire',
     en: 'Statement label required',
+  },
+  validation_card_code: {
+    fr:
+      "La modalité carte-code n'a de sens que pour les modes de collecte CAPI et/ou CATI.",
+    en: 'The codecard modality is meanful only for CAPI and/or CATI mode.',
   },
   validation_control_description: {
     fr: 'Description du contrôle obligatoire',

@@ -91,6 +91,7 @@ const ComponentNewEdit = props => {
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
+  const [formData, setFormData] = useState({});
   const [filterImbriquers, setFilterImbriquers] = useState(
     filterImbriquer?.length > 0 ? filterImbriquer : [],
   );
@@ -107,7 +108,13 @@ const ComponentNewEdit = props => {
     setIntegerVariable(false);
   };
 
+  const handleValidate = () => {
+    setShowPopup(false);
+    onSubmit(formData);
+  };
+
   const checkUnsavedChange = data => {
+    setFormData({ ...data, filterImbriquer: filterImbriquers });
     if (
       componentType === QUESTION &&
       (data.collectedVariables.name ||
@@ -470,15 +477,15 @@ const ComponentNewEdit = props => {
           />
         ) : componentType === LOOP || componentType === FILTER ? (
           <div>
-            <Field
-              name="nameLoop"
-              type="text"
-              component={Input}
-              label={Dictionary.name}
-              required
-            />
             {componentsStore && componentType === LOOP ? (
               <div>
+                <Field
+                  name="nameLoop"
+                  type="text"
+                  component={Input}
+                  label={Dictionary.name}
+                  required
+                />
                 <Field
                   name="maximum"
                   type="text"
@@ -697,6 +704,22 @@ const ComponentNewEdit = props => {
           <div className="popup-body">
             {' '}
             {integerVariable ? Dictionary.IsNotLetter : Dictionary.saveLower}
+            <div className="popup-notSaved-footer">
+              <button
+                className="popup-notSaved-footer-cancel"
+                type="button"
+                onClick={handleClosePopup}
+              >
+                {Dictionary.back}
+              </button>
+              <button
+                className="popup-notSaved-footer-validate"
+                onClick={handleValidate}
+                type="button"
+              >
+                {Dictionary.validateEtat}
+              </button>
+            </div>
           </div>
         </div>
       </ReactModal>

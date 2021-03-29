@@ -17,7 +17,7 @@ function getFiltersState(filter, parent, type) {
   );
   return {
     id,
-    name,
+    name: name || '',
     initialMember,
     finalMember,
     description,
@@ -107,7 +107,6 @@ export function stateToRemote(store) {
     .map(component => {
       const {
         id,
-        name,
         filterImbriquer,
         description,
         filter,
@@ -116,7 +115,6 @@ export function stateToRemote(store) {
       } = component;
       const redirection = {
         id,
-        name,
         Description: description,
         Expression: filter,
         IfTrue: `${initialMember}-${finalMember}`,

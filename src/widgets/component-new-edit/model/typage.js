@@ -5,7 +5,7 @@ const { BOOLEAN, TEXT, DATE, NUMERIC, DURATION } = DATATYPE_NAME;
 export const defaultTypageForm = {
   type: TEXT,
   [TEXT]: {
-    maxLength: 255,
+    maxLength: 249,
     pattern: '',
   },
   [NUMERIC]: {

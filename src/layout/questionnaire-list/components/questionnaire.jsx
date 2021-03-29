@@ -47,20 +47,19 @@ function QuestionnaireListItem({
               style={{ height: '20px', width: '20px', marginRight: '30px' }}
             />
           ) : (
-            false
+            <button
+              type="button"
+              style={{ float: 'right' }}
+              className={BUTTON_DUPLICATE_CLASS}
+              aria-label={Dictionary.duplicate}
+              onClick={event => {
+                event.preventDefault();
+                handleOpenPopup(id, label);
+              }}
+            >
+              {Dictionary.duplicate}
+            </button>
           )}
-          <button
-            type="button"
-            style={{ float: 'right' }}
-            className={BUTTON_DUPLICATE_CLASS}
-            aria-label={Dictionary.duplicate}
-            onClick={event => {
-              event.preventDefault();
-              handleOpenPopup(id, label);
-            }}
-          >
-            {Dictionary.duplicate}
-          </button>
         </div>
       </div>
       <div>{getState(final)}</div>
