@@ -14,6 +14,7 @@ import {
   validateExistingTarget,
   validateDuplicates,
   letterStart,
+  cartCodeModeCollecte,
 } from './validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -493,5 +494,39 @@ describe('letterStart', () => {
   });
   it('should return undefined if value undefined', () => {
     expect(letterStart(undefined)).toBeUndefined();
+  });
+});
+describe('cartCodeModeCollecte', () => {
+  it('should return true declaration TargetMode empty and declaration type is CODECARD', () => {
+    const value = 'CODECARD';
+    const state = {
+      form: {
+        declarations: {
+          TargetMode: '',
+          declarationType: 'CODECARD',
+          declarations: [],
+          label: 'declar',
+          position: 'AFTER_QUESTION_TEXT',
+        },
+      },
+      stores: {},
+    };
+    expect(cartCodeModeCollecte(value, state)).toEqual(true);
+  });
+  it('should return true declaration CAWI or PAPI include in TargetMode and declaration type is CODECARD', () => {
+    const value = 'CODECARD';
+    const state = {
+      form: {
+        declarations: {
+          TargetMode: 'CAWI,CAPI,CATI',
+          declarationType: 'CODECARD',
+          declarations: [],
+          label: 'declar',
+          position: 'AFTER_QUESTION_TEXT',
+        },
+      },
+      stores: {},
+    };
+    expect(cartCodeModeCollecte(value, state)).toEqual(true);
   });
 });
