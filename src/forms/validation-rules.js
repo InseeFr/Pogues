@@ -110,8 +110,12 @@ export function nameLoop(value = '') {
     : undefined;
 }
 
-export function minumRequired(value, { form: { maximum } }) {
+export function minimumRequired(value, { form: { maximum } }) {
   return maximum && !value;
+}
+
+export function maximumRequired(value, { form: { minimum } }) {
+  return minimum && !value;
 }
 
 export function nameSize(value) {

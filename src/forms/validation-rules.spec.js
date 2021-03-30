@@ -14,7 +14,8 @@ import {
   validateExistingTarget,
   validateDuplicates,
   letterStart,
-  minumRequired,
+  minimumRequired,
+  maximumRequired,
   cartCodeModeCollecte,
 } from './validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -498,7 +499,7 @@ describe('letterStart', () => {
   });
 });
 
-describe('minumRequired', () => {
+describe('minimumRequired', () => {
   const value = '';
   const state = {
     form: {
@@ -521,9 +522,37 @@ describe('minumRequired', () => {
     },
   };
   it('should return the error message if maximum is defined and mimimum is not', () => {
-    expect(minumRequired(value, state)).toEqual(true);
+    expect(minimumRequired(value, state)).toEqual(true);
   });
 });
+
+describe('maximumRequired', () => {
+  const value = '';
+  const state = {
+    form: {
+      TargetMode: '',
+      addButtonLibel: '',
+      basedOn: 'j6qg8rc6',
+      controls: {},
+      declarations: {},
+      description: '',
+      filter: '',
+      filterImbriquer: [],
+      finalMember: 'j6p0ti5h',
+      initialMember: 'j6p0ti5h',
+      label: '',
+      maximum: '',
+      minimum: '$MAYOR$  > 1',
+      name: '',
+      nameLoop: 'loop1',
+      redirections: {},
+    },
+  };
+  it('should return the error message if maximum is defined and mimimum is not', () => {
+    expect(maximumRequired(value, state)).toEqual(true);
+  });
+});
+
 describe('cartCodeModeCollecte', () => {
   it('should return true declaration TargetMode empty and declaration type is CODECARD', () => {
     const value = 'CODECARD';
