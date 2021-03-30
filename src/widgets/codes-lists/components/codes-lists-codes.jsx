@@ -365,21 +365,26 @@ class CodesListsCodes extends Component {
     return (
       <div className={CODES_CLASS}>
         {/* Show input code button */}
-        <button
-          type="button"
-          onClick={e => {
-            e.preventDefault();
-            this.setState({
-              showInputCode: true,
-              activeCodeIndex: undefined,
-              editing: false,
-              showPrecision: false,
-            });
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.addCode}
-        </button>
+        {!showInputCode ? (
+          <button
+            type="button"
+            onClick={e => {
+              e.preventDefault();
+              this.setState({
+                showInputCode: true,
+                activeCodeIndex: undefined,
+                editing: false,
+                showPrecision: false,
+              });
+            }}
+          >
+            <span className="glyphicon glyphicon-plus" />
+            {Dictionary.addCode}
+          </button>
+        ) : (
+          false
+        )}
+
         <button
           type="button"
           onClick={e => {
