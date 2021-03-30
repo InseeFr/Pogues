@@ -14,6 +14,7 @@ import {
   validateExistingTarget,
   validateDuplicates,
   letterStart,
+  minumRequired,
   cartCodeModeCollecte,
 } from './validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -494,6 +495,33 @@ describe('letterStart', () => {
   });
   it('should return undefined if value undefined', () => {
     expect(letterStart(undefined)).toBeUndefined();
+  });
+});
+
+describe('minumRequired', () => {
+  const value = '';
+  const state = {
+    form: {
+      TargetMode: '',
+      addButtonLibel: '',
+      basedOn: 'j6qg8rc6',
+      controls: {},
+      declarations: {},
+      description: '',
+      filter: '',
+      filterImbriquer: [],
+      finalMember: 'j6p0ti5h',
+      initialMember: 'j6p0ti5h',
+      label: '',
+      maximum: '$MAYOR$  > 1',
+      minimum: '',
+      name: '',
+      nameLoop: 'loop1',
+      redirections: {},
+    },
+  };
+  it('should return the error message if maximum is defined and mimimum is not', () => {
+    expect(minumRequired(value, state)).toEqual(true);
   });
 });
 describe('cartCodeModeCollecte', () => {

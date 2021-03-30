@@ -8,6 +8,7 @@ import {
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
+import { values } from 'lodash';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 const { NUMERIC } = DATATYPE_NAME;
@@ -107,6 +108,10 @@ export function nameLoop(value = '') {
   return value !== '' && !/^[A-Z0-9\-_]+$/i.test(value)
     ? Dictionary.validationInvalidName
     : undefined;
+}
+
+export function minumRequired(value, { form: { maximum } }) {
+  return maximum && !value;
 }
 
 export function nameSize(value) {

@@ -44,6 +44,7 @@ export function formToState(form, transformers) {
     TargetMode,
     nameLoop,
     maximum,
+    minimum,
     basedOn,
     filter,
     initialMember,
@@ -75,6 +76,7 @@ export function formToState(form, transformers) {
     TargetMode: TargetMode.split(','),
     nameLoop: nameLoop,
     maximum: maximum,
+    minimum: minimum,
     basedOn: basedOn,
     filter: filter,
     initialMember: initialMember,
@@ -100,6 +102,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     addButtonLibel,
     description,
     filterImbriquer,
+    minimum,
   } = currentState;
   const form = {
     label: label || '',
@@ -115,6 +118,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
         : '',
     nameLoop: nameLoop || name || '',
     maximum: maximum || '',
+    minimum: minimum || '',
     basedOn: basedOn || '',
     filter: filter || '',
     initialMember: initialMember || '',

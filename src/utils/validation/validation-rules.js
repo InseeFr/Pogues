@@ -17,6 +17,7 @@ import {
   validateDuplicatesCollected,
   validCollectedVariables,
   letterStart,
+  minumRequired,
   cartCodeModeCollecte,
 } from 'forms/validation-rules';
 import {
@@ -62,6 +63,10 @@ export const loopRules = {
   finalMember: [required],
   maximum: [
     value => (value !== undefined && value !== '' ? minValue(2)(value) : false),
+  ],
+  minimum: [
+    (value, conf) =>
+      minumRequired(value, conf) && Dictionary.validation_minimum,
   ],
 };
 
