@@ -169,21 +169,21 @@ a {
 .popup-notSaved {
     position: relative;
     top: 20%;
-    left: 30%;
-    border: 1px solid rgb(204, 204, 204);
-    background: rgb(255, 255, 255);
+    left: 25%;
+    border: 1px solid #cccccc;
+    background: white;
     overflow: auto;
     border-radius: 4px;
     outline: none;
     padding: 20px;
-    width: 40%;
+    width: 50%;
     text-align: center;
-    height: 30%;
+    height: 40%;
   .popup-header {
     @include make-row();
     text-transform: uppercase;
     color: $color-blue_02;
-
+    margin-bottom: 15px;
     h3 {
       @include make-xs-column(11);
       margin-top: 0;
