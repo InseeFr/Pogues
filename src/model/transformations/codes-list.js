@@ -1,6 +1,4 @@
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import { element } from 'prop-types';
-import { uuid } from 'utils/utils';
 
 const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 /**
