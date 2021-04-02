@@ -4,11 +4,14 @@ import Dictionary from 'utils/dictionary/dictionary';
 import {
   CODES_LIST_INPUT_ENUM,
   QUESTION_TYPE_ENUM,
+  DATATYPE_NAME,
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
+import { values } from 'lodash';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
+const { NUMERIC } = DATATYPE_NAME;
 
 const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 export function required(value = '') {
@@ -105,6 +108,14 @@ export function nameLoop(value = '') {
   return value !== '' && !/^[A-Z0-9\-_]+$/i.test(value)
     ? Dictionary.validationInvalidName
     : undefined;
+}
+
+export function minimumRequired(value, { form: { maximum } }) {
+  return maximum && !value;
+}
+
+export function maximumRequired(value, { form: { minimum } }) {
+  return minimum && !value;
 }
 
 export function nameSize(value) {
@@ -333,6 +344,12 @@ export function validateDuplicatesCalculated(
   return validateDuplicates(value, { form: listItems });
 }
 
+export function typeExternal({ form: { externalVariables: values } }) {
+  return values.type === NUMERIC;
+}
+export function typeCalculated({ form: { calculatedVariables: values } }) {
+  return values.type === NUMERIC;
+}
 export function validateDuplicatesExternal(
   value,
   { form: { externalVariables: values }, state: { selectedItemIndex } },
@@ -366,4 +383,16 @@ export function letterStart(value) {
   return value && !isNaN(Number(value.charAt(0)))
     ? Dictionary.IsNotLetter
     : undefined;
+}
+
+export function cartCodeModeCollecte(
+  value,
+  { form: { declarations: values } },
+) {
+  return (
+    value === 'CODECARD' &&
+    (values.TargetMode.split(',').includes('CAWI') ||
+      values.TargetMode.split(',').includes('PAPI') ||
+      values.TargetMode.length === 0)
+  );
 }

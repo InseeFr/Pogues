@@ -3,8 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//const PreloadWebpackPlugin = require('preload-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
 
 const Visualizer = require('webpack-visualizer-plugin');
 
@@ -80,9 +79,8 @@ module.exports = function(env) {
 
   if (isProd) {
     plugins.push(
-      new UglifyJSPlugin({
-        uglifyOptions: {
-          warnings: false,
+      new TerserPlugin({
+        terserOptions: {
           compress: {
             conditionals: true,
             unused: true,

@@ -6,6 +6,7 @@ const { LOOP } = COMPONENT_TYPE;
 
 export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
 export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
+export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
 
 /**
  * Update component
@@ -82,7 +83,6 @@ export const updateComponent = (
       });
     }
   }
-
   return dispatch({
     type: UPDATE_COMPONENT,
     payload: {

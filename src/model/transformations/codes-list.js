@@ -101,9 +101,11 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
     );
 }
 export function storeToRemote(store) {
-  return Object.keys(store).map(key => {
+  const codeList = [];
+  Object.keys(store).map(key => {
     const { id, label, codes } = store[key];
-    return {
+
+    const code = {
       id,
       Label: label,
       Name: '',
@@ -116,5 +118,7 @@ export function storeToRemote(store) {
         };
       }),
     };
+    codeList.push(code);
   });
+  return codeList;
 }

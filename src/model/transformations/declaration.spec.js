@@ -9,18 +9,21 @@ describe('declaration tranformations', () => {
           Text: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
+          DeclarationMode: ['CATI'],
         },
         {
           id: '2',
           Text: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
+          DeclarationMode: ['CATI'],
         },
         {
           id: '3',
           Text: 'label 3',
           declarationType: 'declarationType3',
           position: 3,
+          DeclarationMode: ['CATI'],
         },
       ];
 
@@ -30,18 +33,21 @@ describe('declaration tranformations', () => {
           label: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
+          TargetMode: ['CATI'],
         },
         '2': {
           id: '2',
           label: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
+          TargetMode: ['CATI'],
         },
         '3': {
           id: '3',
           label: 'label 3',
           declarationType: 'declarationType3',
           position: 3,
+          TargetMode: ['CATI'],
         },
       });
     });
@@ -75,18 +81,21 @@ describe('declaration tranformations', () => {
           label: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
+          TargetMode: ['CAWI'],
         },
         '2': {
           id: '2',
           label: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
+          TargetMode: [],
         },
         '3': {
           id: '3',
           label: 'label 3',
           declarationType: 'declarationType3',
           position: 3,
+          TargetMode: [],
         },
       };
 
@@ -96,18 +105,21 @@ describe('declaration tranformations', () => {
           Text: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
+          DeclarationMode: ['CAWI'],
         },
         {
           id: '2',
           Text: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
+          DeclarationMode: [],
         },
         {
           id: '3',
           Text: 'label 3',
           declarationType: 'declarationType3',
           position: 3,
+          DeclarationMode: [],
         },
       ]);
     });

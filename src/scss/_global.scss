@@ -169,21 +169,21 @@ a {
 .popup-notSaved {
     position: relative;
     top: 20%;
-    left: 30%;
-    border: 1px solid rgb(204, 204, 204);
-    background: rgb(255, 255, 255);
+    left: 25%;
+    border: 1px solid #cccccc;
+    background: white;
     overflow: auto;
     border-radius: 4px;
     outline: none;
     padding: 20px;
-    width: 40%;
+    width: 50%;
     text-align: center;
-    height: 30%;
+    height: 40%;
   .popup-header {
     @include make-row();
     text-transform: uppercase;
     color: $color-blue_02;
-
+    margin-bottom: 15px;
     h3 {
       @include make-xs-column(11);
       margin-top: 0;
@@ -197,6 +197,28 @@ a {
 
       &:hover {
         color: darken($color-blue_02, 50%);
+      }
+    }
+  }
+  .popup-notSaved-footer {
+    @include make-row();
+    text-align: center;
+    max-width: 60%;
+    margin: auto;
+  
+    button {
+      @extend .btn;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+  
+      &.popup-notSaved-footer-validate {
+        @extend .btn-yellow;
+      }
+      &.popup-notSaved-footer-cancel {
+        float: left;
       }
     }
   }
@@ -342,12 +364,22 @@ a {
   display: flex;
 }
 
+.csv-input {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  .csv-label {
+    margin-right: 25px;
+  }
+}
+
 .loaderClass {
   position: fixed;
   top: 50%;
   left: 50%;
   margin: -50px 0px 0px -50px;
 }
+
 .questionnaire-element-filter {
   margin: 10px;
   width: 35%;

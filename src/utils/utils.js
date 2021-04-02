@@ -92,3 +92,13 @@ export function verifyVariable(label) {
   }
   return label;
 }
+
+export function getSupWeight(components) {
+  let sup = 1;
+  Object.values(components)
+    .filter(component => component.type === 'SEQUENCE')
+    .forEach(compo => {
+      if (compo.weight && compo.weight > sup) sup = compo.weight;
+    });
+  return sup + 1;
+}

@@ -27,7 +27,6 @@ export function formToState(form) {
       [c.value]: { ...c },
     };
   }, {});
-
   return {
     id: id || uuid(),
     label: label || '',

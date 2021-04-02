@@ -18,6 +18,7 @@ import {
   QUESTION_END_CHILD,
   QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
+import { element, object } from 'prop-types';
 
 const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
@@ -120,7 +121,7 @@ export function remoteToState1(remote) {
     TargetMode: TargetMode || [],
     name,
     dynamiqueSpecified:
-      flowLogic && flowLogic === FILTER ? Filtres : Redirections
+      flowLogic && flowLogic === FILTER ? Filtres : Redirections,
   };
 }
 
@@ -156,6 +157,14 @@ export function stateToRemote(state, stores) {
     codesListsStore,
     componentsStore,
   );
+  const codesListDuplicated = Object.values(codesListsStore).filter(
+    code => code.isDuplicated,
+  );
+  if (codesListDuplicated.length > 0) {
+    codesListDuplicated.forEach(element => {
+      codesListsWihoutOrphans[element.id] = element;
+    });
+  }
 
   const collectedVariablesWithoutOrphans = removeOrphansCollectedVariables(
     getCollectedVariablesIdsFromComponents(componentsStore),
@@ -218,7 +227,6 @@ export function stateToRemote(state, stores) {
   );
   const Iterations = Loop.stateToRemote(componentsStore);
   const FlowControl = RedirectionsFilter.stateToRemote(componentsStore);
-
   const json = {
     ...remote,
     Child: componentsRemote,

@@ -196,7 +196,7 @@ describe('getCollectedVariablesTable', () => {
         SIMPLE: {
           type: 'TEXT',
           TEXT: {
-            maxLength: 255,
+            maxLength: 249,
             pattern: '',
           },
           NUMERIC: {
@@ -231,7 +231,7 @@ describe('getCollectedVariablesTable', () => {
             SIMPLE: {
               type: 'TEXT',
               TEXT: {
-                maxLength: 255,
+                maxLength: 249,
                 pattern: '',
               },
               NUMERIC: {
@@ -261,7 +261,7 @@ describe('getCollectedVariablesTable', () => {
             SIMPLE: {
               type: 'TEXT',
               TEXT: {
-                maxLength: 255,
+                maxLength: 249,
                 pattern: '',
               },
               NUMERIC: {
@@ -293,7 +293,7 @@ describe('getCollectedVariablesTable', () => {
         SIMPLE: {
           type: 'TEXT',
           TEXT: {
-            maxLength: 255,
+            maxLength: 249,
             pattern: '',
           },
           NUMERIC: {
@@ -361,7 +361,7 @@ describe('getCollectedVariablesTable', () => {
         SIMPLE: {
           type: 'TEXT',
           TEXT: {
-            maxLength: 255,
+            maxLength: 249,
             pattern: '',
           },
           NUMERIC: {
@@ -391,7 +391,7 @@ describe('getCollectedVariablesTable', () => {
             SIMPLE: {
               type: 'TEXT',
               TEXT: {
-                maxLength: 255,
+                maxLength: 249,
                 pattern: '',
               },
               NUMERIC: {
@@ -421,7 +421,7 @@ describe('getCollectedVariablesTable', () => {
             SIMPLE: {
               type: 'TEXT',
               TEXT: {
-                maxLength: 255,
+                maxLength: 249,
                 pattern: '',
               },
               NUMERIC: {
@@ -453,7 +453,7 @@ describe('getCollectedVariablesTable', () => {
         SIMPLE: {
           type: 'TEXT',
           TEXT: {
-            maxLength: 255,
+            maxLength: 249,
             pattern: '',
           },
           NUMERIC: {

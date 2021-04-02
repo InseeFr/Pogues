@@ -107,12 +107,16 @@ function ComponentEdit({
 
   // Initial values
   const initialState = component;
-  const componentTransformer = Component(initialState, {
-    calculatedVariablesStore,
-    externalVariablesStore,
-    collectedVariablesStore,
-    codesListsStore,
-  });
+  const componentTransformer = Component(
+    initialState,
+    {
+      calculatedVariablesStore,
+      externalVariablesStore,
+      collectedVariablesStore,
+      codesListsStore,
+    },
+    activeQuestionnaire,
+  );
   const initialValues = componentTransformer.stateToForm();
 
   // Validation and submit

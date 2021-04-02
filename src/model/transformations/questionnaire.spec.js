@@ -348,7 +348,7 @@ describe('questionnaire', () => {
             responseFormat: {
               type: 'SIMPLE',
               SIMPLE: {
-                TEXT: { maxLength: 255, pattern: '' },
+                TEXT: { maxLength: 249, pattern: '' },
                 id: 'kgs4v6eo',
                 mandatory: false,
                 type: 'TEXT',
@@ -434,7 +434,7 @@ describe('questionnaire', () => {
               label: 'QUESTION1 label',
               name: 'QUESTION1',
               type: 'TEXT',
-              TEXT: { maxLength: 255, pattern: '' },
+              TEXT: { maxLength: 249, pattern: '' },
             },
           },
         },
@@ -470,7 +470,7 @@ describe('questionnaire', () => {
                     Datatype: {
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
-                      MaxLength: 255,
+                      MaxLength: 249,
                       Pattern: '',
                     },
                     id: 'kgs4v6eo',
@@ -533,7 +533,6 @@ describe('questionnaire', () => {
             Expression: '$QUESTION1$  > 1',
             IfTrue: 'kgs4yv5b-kgs4yv5b',
             id: 'kgs5dobf',
-            name: 'FILTRE1',
           },
         ],
         Label: ['questionnaire'],
@@ -546,7 +545,7 @@ describe('questionnaire', () => {
               Datatype: {
                 typeName: 'TEXT',
                 type: 'TextDatatypeType',
-                MaxLength: 255,
+                MaxLength: 249,
                 Pattern: '',
               },
               Label: 'QUESTION1 label',

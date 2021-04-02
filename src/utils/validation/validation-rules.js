@@ -12,9 +12,14 @@ import {
   validateExistingTarget,
   validateDuplicatesCalculated,
   validateDuplicatesExternal,
+  typeExternal,
+  typeCalculated,
   validateDuplicatesCollected,
   validCollectedVariables,
   letterStart,
+  minimumRequired,
+  maximumRequired,
+  cartCodeModeCollecte,
 } from 'forms/validation-rules';
 import {
   TABS_PATHS,
@@ -60,10 +65,17 @@ export const loopRules = {
   maximum: [
     value => (value !== undefined && value !== '' ? minValue(2)(value) : false),
   ],
+  minimum: [
+    (value, conf) =>
+      minimumRequired(value, conf) && Dictionary.validation_minimum,
+  ],
+  maximum: [
+    (value, conf) =>
+      maximumRequired(value, conf) && Dictionary.validation_maximum,
+  ],
 };
 
 export const filterRules = {
-  nameLoop: [required, nameLoop],
   initialMember: [required],
   finalMember: [required],
   filter: [required],
@@ -142,12 +154,6 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.minimum`]: [
-    value => minValue(0)(value),
-  ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    value => minValue(1)(value),
-  ],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
 
@@ -157,12 +163,6 @@ export const questionRules = {
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.measures`]: [emptyMeasures],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.label`]: [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [
-    value => minValue(0)(value),
-  ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    value => minValue(1)(value),
-  ],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
@@ -175,6 +175,10 @@ export const questionRules = {
 export const declarationRules = {
   [`${DECLARATIONS}.label`]: [
     value => required(value) && Dictionary.validation_declaration_label,
+  ],
+  [`${DECLARATIONS}.declarationType`]: [
+    (value, conf) =>
+      cartCodeModeCollecte(value, conf) && Dictionary.validation_card_code,
   ],
 };
 
@@ -221,6 +225,15 @@ export const calculatedVariableRules = {
     value =>
       required(value) && Dictionary.validation_calculatedvariable_formula,
   ],
+
+  [`${CALCULATED_VARIABLES}.${NUMERIC}.minimum`]: [
+    (value, conf) =>
+      required(value) && typeCalculated(conf) && Dictionary.validation_minimum,
+  ],
+  [`${CALCULATED_VARIABLES}.${NUMERIC}.maximum`]: [
+    (value, conf) =>
+      required(value) && typeCalculated(conf) && Dictionary.validation_maximum,
+  ],
 };
 
 export const externalVariableRules = {
@@ -235,6 +248,14 @@ export const externalVariableRules = {
     (value, conf) =>
       validateDuplicatesExternal(value, conf) &&
       Dictionary.validation_externalvariable_existing,
+  ],
+  [`${EXTERNAL_VARIABLES}.${NUMERIC}.minimum`]: [
+    (value, conf) =>
+      required(value) && typeExternal(conf) && Dictionary.validation_minimum,
+  ],
+  [`${EXTERNAL_VARIABLES}.${NUMERIC}.maximum`]: [
+    (value, conf) =>
+      required(value) && typeExternal(conf) && Dictionary.validation_maximum,
   ],
 };
 
@@ -260,9 +281,14 @@ export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
   ],
-
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
+  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
+    value => required(value) && Dictionary.validation_maximum,
+  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [
+    value => required(value) && Dictionary.validation_minimum,
   ],
 };

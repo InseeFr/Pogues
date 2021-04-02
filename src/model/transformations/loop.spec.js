@@ -13,7 +13,6 @@ describe('loop tramsformation', () => {
             IterableReference: 'ka08eg6w',
             Filter: '$AGE$ < 18',
             Label: 'ekkcoco',
-            Minimum: 1,
             Step: 1,
           },
           parent,

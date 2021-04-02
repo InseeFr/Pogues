@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
+import ReactModal from 'react-modal';
 
 import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
 import CodesListsActions from './codes-lists-actions';
+import UploadCSV from './upload-csv';
+
 import { ACTIONS } from '../constants';
 import { getNewCodeWeight, resetListCodes } from '../utils/utils';
 import { getDisabledActions } from '../utils/actions';
@@ -59,6 +62,7 @@ class CodesListsCodes extends Component {
       activeCodeIndex: undefined,
       editing: false,
       showPrecision: false,
+      showUploadCode: false,
     };
 
     this.renderInputCode = this.renderInputCode.bind(this);
@@ -67,6 +71,48 @@ class CodesListsCodes extends Component {
     this.removePrecision = this.removePrecision.bind(this);
     this.renderCode = this.renderCode.bind(this);
     this.renderCodes = this.renderCodes.bind(this);
+    this.uploadCodeList = this.uploadCodeList.bind(this);
+    this.closeUpload = this.closeUpload.bind(this);
+    this.getFileCodes = this.getFileCodes.bind(this);
+  }
+
+  getFileCodes(codes) {
+    const {
+      fields: { getAll, removeAll, push },
+    } = this.props;
+    const allCodes = getAll();
+    if (codes && codes.length > 0) {
+      removeAll();
+      codes.forEach((code, index) => {
+        code.weight = index;
+        code.depth = allCodes[0]?.depth ? allCodes[0].depth : 1;
+        code.parent = code.parent ? code.parent : '';
+        push(code);
+      });
+    }
+    this.closeUpload();
+    this.clearInputCode();
+  }
+
+  closeUpload() {
+    this.setState({
+      showUploadCode: false,
+    });
+  }
+
+  uploadCodeList() {
+    this.setState({
+      showUploadCode: true,
+    });
+  }
+
+  clearInputCode() {
+    const { inputCodePath, formName, change } = this.props;
+    change(formName, `${inputCodePath}value`, '');
+    change(formName, `${inputCodePath}label`, '');
+    change(formName, `${inputCodePath}precisionid`, '');
+    change(formName, `${inputCodePath}precisionlabel`, '');
+    change(formName, `${inputCodePath}precisionsize`, '');
   }
 
   removePrecision() {
@@ -104,15 +150,6 @@ class CodesListsCodes extends Component {
     this.clearInputCode();
   }
 
-  clearInputCode() {
-    const { inputCodePath, formName, change } = this.props;
-    change(formName, `${inputCodePath}value`, '');
-    change(formName, `${inputCodePath}label`, '');
-    change(formName, `${inputCodePath}precisionid`, '');
-    change(formName, `${inputCodePath}precisionlabel`, '');
-    change(formName, `${inputCodePath}precisionsize`, '');
-  }
-
   pushCode() {
     const {
       currentValue,
@@ -125,7 +162,6 @@ class CodesListsCodes extends Component {
     const { activeCodeIndex, editing } = this.state;
     const allCodes = getAll() || [];
     let values;
-
     if (activeCodeIndex !== undefined) {
       values = {
         value: currentValue,
@@ -329,20 +365,37 @@ class CodesListsCodes extends Component {
     return (
       <div className={CODES_CLASS}>
         {/* Show input code button */}
+        {!showInputCode ? (
+          <button
+            type="button"
+            onClick={e => {
+              e.preventDefault();
+              this.setState({
+                showInputCode: true,
+                activeCodeIndex: undefined,
+                editing: false,
+                showPrecision: false,
+              });
+            }}
+          >
+            <span className="glyphicon glyphicon-plus" />
+            {Dictionary.addCode}
+          </button>
+        ) : (
+          false
+        )}
+
         <button
           type="button"
           onClick={e => {
             e.preventDefault();
             this.setState({
-              showInputCode: true,
-              activeCodeIndex: undefined,
-              editing: false,
-              showPrecision: false,
+              showUploadCode: true,
             });
           }}
         >
           <span className="glyphicon glyphicon-plus" />
-          {Dictionary.addCode}
+          {Dictionary.uploadCode}
         </button>
         <div className={`${LIST_CLASS}`}>
           {this.props.fields.length > 0 && (
@@ -358,6 +411,27 @@ class CodesListsCodes extends Component {
           {/* Input code without a parent code */}
           {showInputCode && !editing && this.renderInputCode()}
         </div>
+        <ReactModal
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={false}
+          isOpen={this.state.showUploadCode}
+          onRequestClose={this.closeUpload}
+        >
+          <div className="popup">
+            <div className="popup-header">
+              <h3>{Dictionary.uploadCode}</h3>
+              <button type="button" onClick={this.closeUpload}>
+                <span>X</span>
+              </button>
+            </div>
+            <div className="popup-body">
+              <UploadCSV
+                closeUpload={() => this.closeUpload}
+                getFileCodes={this.getFileCodes}
+              />
+            </div>
+          </div>
+        </ReactModal>
       </div>
     );
   }

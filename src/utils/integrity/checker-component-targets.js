@@ -8,11 +8,6 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
     const targetEarlierErrors = [];
     const redirections = activeComponentsById[key].redirections || {};
     const redirectionsIds = Object.keys(redirections);
-    if (
-      Object.values(redirections).flowControlType &&
-      Object.values(redirections).flowControlType != undefined
-    ) {
-    }
     if (redirectionsIds.length > 0) {
       const activeTargetsIds = getComponentsTargetsByComponent(
         activeComponentsById,

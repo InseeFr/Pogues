@@ -44,7 +44,6 @@ export const createComponent = (
   const activeComponentsStore = {
     [componentState.id]: componentState,
   };
-
   return new Promise(resolve => {
     const result = dispatch({
       type: CREATE_COMPONENT,

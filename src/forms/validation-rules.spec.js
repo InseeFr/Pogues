@@ -14,6 +14,9 @@ import {
   validateExistingTarget,
   validateDuplicates,
   letterStart,
+  minimumRequired,
+  maximumRequired,
+  cartCodeModeCollecte,
 } from './validation-rules';
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -376,7 +379,7 @@ describe('validCollectedVariables', () => {
           SIMPLE: {
             type: 'TEXT',
             TEXT: {
-              maxLength: 255,
+              maxLength: 249,
               pattern: '',
             },
           },
@@ -436,7 +439,7 @@ describe('validCollectedVariables', () => {
         codeListReferenceLabel: '',
         type: 'TEXT',
         TEXT: {
-          maxLength: 255,
+          maxLength: 249,
           pattern: '',
         },
       },
@@ -450,7 +453,7 @@ describe('validCollectedVariables', () => {
           SIMPLE: {
             type: 'TEXT',
             TEXT: {
-              maxLength: 255,
+              maxLength: 249,
               pattern: 222,
             },
           },
@@ -470,7 +473,7 @@ describe('validCollectedVariables', () => {
               codeListReferenceLabel: '',
               type: 'TEXT',
               TEXT: {
-                maxLength: 255,
+                maxLength: 249,
                 pattern: '',
               },
             },
@@ -493,5 +496,94 @@ describe('letterStart', () => {
   });
   it('should return undefined if value undefined', () => {
     expect(letterStart(undefined)).toBeUndefined();
+  });
+});
+
+describe('minimumRequired', () => {
+  const value = '';
+  const state = {
+    form: {
+      TargetMode: '',
+      addButtonLibel: '',
+      basedOn: 'j6qg8rc6',
+      controls: {},
+      declarations: {},
+      description: '',
+      filter: '',
+      filterImbriquer: [],
+      finalMember: 'j6p0ti5h',
+      initialMember: 'j6p0ti5h',
+      label: '',
+      maximum: '$MAYOR$  > 1',
+      minimum: '',
+      name: '',
+      nameLoop: 'loop1',
+      redirections: {},
+    },
+  };
+  it('should return the error message if maximum is defined and mimimum is not', () => {
+    expect(minimumRequired(value, state)).toEqual(true);
+  });
+});
+
+describe('maximumRequired', () => {
+  const value = '';
+  const state = {
+    form: {
+      TargetMode: '',
+      addButtonLibel: '',
+      basedOn: 'j6qg8rc6',
+      controls: {},
+      declarations: {},
+      description: '',
+      filter: '',
+      filterImbriquer: [],
+      finalMember: 'j6p0ti5h',
+      initialMember: 'j6p0ti5h',
+      label: '',
+      maximum: '',
+      minimum: '$MAYOR$  > 1',
+      name: '',
+      nameLoop: 'loop1',
+      redirections: {},
+    },
+  };
+  it('should return the error message if maximum is defined and mimimum is not', () => {
+    expect(maximumRequired(value, state)).toEqual(true);
+  });
+});
+
+describe('cartCodeModeCollecte', () => {
+  it('should return true declaration TargetMode empty and declaration type is CODECARD', () => {
+    const value = 'CODECARD';
+    const state = {
+      form: {
+        declarations: {
+          TargetMode: '',
+          declarationType: 'CODECARD',
+          declarations: [],
+          label: 'declar',
+          position: 'AFTER_QUESTION_TEXT',
+        },
+      },
+      stores: {},
+    };
+    expect(cartCodeModeCollecte(value, state)).toEqual(true);
+  });
+  it('should return true declaration CAWI or PAPI include in TargetMode and declaration type is CODECARD', () => {
+    const value = 'CODECARD';
+    const state = {
+      form: {
+        declarations: {
+          TargetMode: 'CAWI,CAPI,CATI',
+          declarationType: 'CODECARD',
+          declarations: [],
+          label: 'declar',
+          position: 'AFTER_QUESTION_TEXT',
+        },
+      },
+      stores: {},
+    };
+    expect(cartCodeModeCollecte(value, state)).toEqual(true);
   });
 });

@@ -302,6 +302,10 @@ const dictionary = {
     en: 'Instruction',
     fr: 'Consigne',
   },
+  CODECARD: {
+    en: 'Code-Card',
+    fr: 'Carte-Code',
+  },
   COMMENT: {
     en: 'Comment',
     fr: 'Commentaire',
@@ -637,6 +641,12 @@ const dictionary = {
     en:
       'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
+  notExistingTarget: {
+    fr:
+      "Les cibles de redirections suivantes n'existent pas au sein du questionnaire :",
+    en:
+      "The following targets of redirections don't exist for the questionnaire :",
+  },
   errorGoToEarlierTgt: {
     fr:
       'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
@@ -751,6 +761,10 @@ const dictionary = {
     fr: 'Spécifier la liste de codes',
     en: 'Specify the code list',
   },
+  duplicateCodeList: {
+    fr: 'Dupliquer la liste de codes',
+    en: 'Duplicate the code list',
+  },
   selectCodesList: {
     fr: 'Sélectionner une liste de codes',
     en: 'Select a code list',
@@ -810,7 +824,11 @@ const dictionary = {
   },
   saveLower: {
     en: 'Thank you to validate all the actions on the page',
-    fr: 'Merci de valider toutes les actions de la page',
+    fr: "Merci de valider toutes les actions sur l'élément",
+  },
+  validateEtat: {
+    en: 'Validate as it is',
+    fr: "Valider en l'état",
   },
 
   saveLowerTitle: {
@@ -901,6 +919,22 @@ const dictionary = {
   addCode: {
     fr: 'Ajouter un code',
     en: 'Add a code',
+  },
+  uploadCode: {
+    fr: "Import d'une liste de codes",
+    en: 'Import a code list',
+  },
+  invalidFile: {
+    fr: "Fichier invalide : merci d'importer un fichier valide",
+    en: 'Invalid file: please import a valid file',
+  },
+  codeNumber: {
+    fr: 'modalités importées',
+    en: 'code found',
+  },
+  fileImport: {
+    fr: 'Fichier à importer',
+    en: 'File to import',
   },
   editCode: {
     fr: 'Editer un code',
@@ -1201,6 +1235,10 @@ const dictionary = {
     fr: "Retour à l'accueil",
     en: 'Back to the Home',
   },
+  back: {
+    fr: 'Retour',
+    en: 'Back',
+  },
   seeFilters: {
     fr: 'Voir les filtres',
     en: 'See filters',
@@ -1263,6 +1301,11 @@ const dictionary = {
     fr: 'Libellé de la déclaration obligatoire',
     en: 'Statement label required',
   },
+  validation_card_code: {
+    fr:
+      "La modalité carte-code n'a de sens que pour les modes de collecte CAPI et/ou CATI.",
+    en: 'The codecard modality is meanful only for CAPI and/or CATI mode.',
+  },
   validation_control_description: {
     fr: 'Description du contrôle obligatoire',
     en: 'Control description required',
@@ -1302,6 +1345,14 @@ const dictionary = {
   validation_calculatedvariable_existing: {
     fr: 'Il existe une variable calculée avec le même nom',
     en: 'It already exists a calculated variable with this name',
+  },
+  validation_minimum: {
+    fr: 'minimum obligatoire',
+    en: 'minimum required',
+  },
+  validation_maximum: {
+    fr: 'maximum obligatoire',
+    en: 'maximum required',
   },
   validation_externalvariable_label: {
     fr: 'Libellé de la variable externe obligatoire',

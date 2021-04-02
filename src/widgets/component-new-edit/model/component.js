@@ -44,6 +44,7 @@ export function formToState(form, transformers) {
     TargetMode,
     nameLoop,
     maximum,
+    minimum,
     basedOn,
     filter,
     initialMember,
@@ -75,6 +76,7 @@ export function formToState(form, transformers) {
     TargetMode: TargetMode.split(','),
     nameLoop: nameLoop,
     maximum: maximum,
+    minimum: minimum,
     basedOn: basedOn,
     filter: filter,
     initialMember: initialMember,
@@ -100,6 +102,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     addButtonLibel,
     description,
     filterImbriquer,
+    minimum,
   } = currentState;
   const form = {
     label: label || '',
@@ -115,6 +118,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
         : '',
     nameLoop: nameLoop || name || '',
     maximum: maximum || '',
+    minimum: minimum || '',
     basedOn: basedOn || '',
     filter: filter || '',
     initialMember: initialMember || '',
@@ -134,7 +138,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
   return form;
 }
 
-const Factory = (initialState = {}, stores = {}) => {
+const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
   const {
     componentsStore,
     calculatedVariablesStore,
@@ -150,7 +154,7 @@ const Factory = (initialState = {}, stores = {}) => {
   };
   const transformers = {
     control: Control(currentState.controls),
-    declaration: Declaration(currentState.declarations),
+    declaration: Declaration(currentState.declarations, activeQuestionnaire),
     redirection: Redirection(currentState.redirections),
     responseFormat: ResponseFormat(
       currentState.responseFormat,
