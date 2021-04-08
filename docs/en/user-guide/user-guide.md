@@ -1,6 +1,6 @@
 # User guide for Pogues
 
-Last release 2021/03/01
+Last release 2021/04/01
 
 ---
 
@@ -212,10 +212,26 @@ For a single choice response question, fill in : (1)
 For a single choice response question, fill in : (2)
 -   Specify the code list with :
     -   Create a list. In this case :
-    	-   Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the "Add" button.
+    	- Give a name to the New code list and then either :
+    		- enter for each modality, the code of the modality and its label as you go along via the "Add a code" button.
+    		- "import a code list" via a csv file in utf8 and respecting the following file format:
+    		Parent;Value;Label;
+			;1;label 1;
+			;2;label 2;
+
+	Parent will store the parent code when the code list is hierarchical and will therefore be empty in general.
+	Value will store the code of each modality.
+	Label will store the label of each modality.
+
+---
+-
     -   Retrieve in the repository (not working now)  : will soon propose the code lists previously created for all questionnaires published in RMéS from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).
     -   Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire
+
 - Validate
+
+Note for these two features the possibility to duplicate a list of codes to create a variant by checking the dedicated box. The title of the initial list will be suffixed by _2 at first for the list resulting from the duplication then will be modifiable by your care in Pogues.
+    
   		
 ---
 
@@ -228,9 +244,25 @@ For a single choice response question, fill in : (2)
 For a multiple choice response question, fill in : (1)
 -   Specify the code list with :
     -   Create a list. In this case :
-    	-   Give a significant name to the New code list and fill in for each response modality, a code and a label, progressively with the "Add" button.
+    	- Give a name to the New code list and then either :
+    		- enter for each modality, the code of the modality and its label as you go along via the "Add a code" button.
+    		- "import a code list" via a csv file in utf8 and respecting the following file format:
+    		Parent;Value;Label;
+			;1;label 1;
+			;2;label 2;
+
+	Parent will store the parent code when the code list is hierarchical and will therefore be empty in general.
+	Value will store the code of each modality.
+	Label will store the label of each modality.
+
+---
+-
     -   Retrieve in the repository (not working now)  : will soon propose the code lists previously created for all questionnaires published in RMéS from Pogues. Will be particularly useful for long code lists (countries, nomenclatures, etc.).
     -   Retrieve in the questionnaire : proposes the code lists previously created for the questionnaire
+
+- Validate
+
+Note for these two features the possibility to duplicate a list of codes to create a variant by checking the dedicated box. The title of the initial list will be suffixed by _2 at first for the list resulting from the duplication then will be modifiable by your care in Pogues.
     
   		
 ---
@@ -354,10 +386,9 @@ In the "Statements", fill in :
 # Creation of a statement (2)
 
 - a type among :
-	- Instruction
-    - Comment
-    - Help
-    - Warning
+	- Help (for statement regarding the respondent, whatever the collect mode)
+	- Instruction (for statement regarding only the interviewer)
+    - Codecard (when the interviewer must show a code card to the respondent)
 NB : there is no difference now depending on the type of the statement, therefore no difference for the respondent. But, as the information is precisely saved in the DDI file, statements could be one day displayed differently, depending on their type (it is not expected now). We advice therefore to choose the type which seems to you the closest to the statement type, without refining however.
 
 ---
@@ -365,6 +396,7 @@ NB : there is no difference now depending on the type of the statement, therefor
 # Creation of a statement (3)
 
 - Position : before or after question label
+- Collection Mode: to specify the mode of collection concerned by the statement
 - Validate
         
 NB : you can also delete or duplicate a statement
@@ -621,6 +653,14 @@ else 0
 The age in difference of vintage will be given by the formula : \$CURRENTYEAR\$-\$YEARBIRTH\$
 
 ---
+
+# Style : Bold or Italic
+
+You can put some words in bold or italic with the buttons surrounded in red in the screenshot below
+
+![](../../img/en/screen18.png)
+
+---
 # Creation of a loop (1)
 A loop is a set of questions (consecutive sequences or subsequences of the questionnaire) that will be asked at n "occurrences" (e.g. individuals, products, employees).
 
@@ -633,7 +673,9 @@ Fill in :
 
 - Id: compulsory, Id for the loop, at your discretion. 
 
-- Maximum: optional, maximum number of occurrences of the loop, useful only for loops that are not based on a dynamic table or a previous loop.
+- Maximum: optional, required only if Minimum is set, maximum number of occurrences of the loop, useful only for loops that are not based on a dynamic table or a previous loop
+
+-  Minimum: optional, required only if Maximum is set, minimum number of loop occurrences displayed, useful only for loops that are not based on a dynamic array or a previous loop
 
 - Based on: optional, allows you to indicate whether the loop should be based on a dynamic table or another loop.
 
@@ -651,7 +693,7 @@ Also provide for the case where the filter variable is not filled in. In the exa
 
 - End: obligatory, allows you to indicate the last element (sequence or sub-sequence) on which to loop. When the loop consists of a single sequence or sub-sequence, Start and End will be identical.
 
-- Add button label: optional, label of the add button of a loop occurrence when it exists. Example: Add a product, Add a service, Add an individual
+- Add button label: optional, label of the add button of a loop occurrence when it exists and when Minimum is different from Maximum. Example: Add a product, Add a service, Add an individual
 If "Based on" is entered, then this button does not need to be filled in, as the loop is based on a previous loop.
 
 Validate
@@ -663,14 +705,16 @@ Please note that, pending the availability of ad hoc computer resources, the loo
 
 ![](../../img/en/loop2.png)
 
----
-# Style : Bold or Italic
 
-You can put some words in bold or italic with the buttons surrounded in red in the screenshot below
-
-![](../../img/en/screen18.png)
 
 ---
+
+# Adding an existing questionnaire
+
+It is now possible to merge two questionnaires by clicking on the +Questionnaire button (at the bottom of the GUI and to the right of the Visualise button) from the questionnaire you wish to place first. You can then choose among the questionnaires you own (be careful to define beforehand the same collection modes for the initial questionnaire and the questionnaire to be added afterwards), the one you wish to add to it afterwards. If some elements share the same identifier, the identifier of the second occurrence will be suffixed by _2, excepting codelist sharing the same technical id (if the two lists are different, the one from the second questionnaire will be taken into account).
+
+---
+
 
 # Functionalities related to a questionnaire element
 On each created element of the sequence/sub-sequence or question type questionnaire, there are the "Show the detail", "Visualise" (Web,PDF,Specification or DDI) and "Delete" buttons.
@@ -741,7 +785,6 @@ The following questionnaire integrity checks are currently being implemented:
 *Can be filled in but is not taken into account in the display of the questionnaire*
 - The link between Pogues and RMéS and in particular to publish the questionnaire or reuse a question or a code list (e.g. departments, countries, nomenclature) from the repository 
 - Condition the label of a question according to the answers previously obtained 
-- Duplicate a code list to create a variant
 - The "Page break" button at the bottom center of the interface Pogues
 - pdf settings (number of columns, portrait or landscape layout, type of entry, numbering, number of questions per page)
 ---
@@ -759,6 +802,6 @@ choice of numbering type among:
  
  ---
  # What we won't do in Pogues
- - Specify if the redirection is of type hidden filter (it is by default) or grayed filter
+ - Specify if the redirection or filter is of type hidden filter (it is by default) or grayed filter
 *manual DDI add-on* 
 
