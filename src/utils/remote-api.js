@@ -51,15 +51,14 @@ function openDocument(data) {
 }
 
 /**
- * This method will send a request in order to get the URL
- * of the generated HTML page for the active questionnaire.
- * @param {*} qr The active questionnaire
+ * This method will call the back in order to get an url for
+ * the visualization of the questionnaire in Stromae V1/V2 and 
+ * Lunatic (Queen) formats
  */
-export const visualizeHtml = qr => {
-  fetch(`${visualisationUrl}/${qr.DataCollection[0].id}/${qr.Name}`, {
+function getVizualisationUrl(url,qr){
+  fetch(url, {
     method: 'POST',
     headers: {
-      // Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
@@ -73,6 +72,15 @@ export const visualizeHtml = qr => {
       document.body.appendChild(a);
       a.click();
     });
+}
+
+/**
+ * This method will send a request in order to get the URL
+ * of the generated HTML page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeHtml = qr => {
+  getVizualisationUrl(`${visualisationUrl}/${qr.DataCollection[0].id}/${qr.Name}`,qr)
 };
 
 /**
@@ -81,50 +89,23 @@ export const visualizeHtml = qr => {
  * @param {*} qr The active questionnaire
  */
 export const visualizeQueen = qr => {
-  fetch(`${visualisationUrl}-queen/${qr.Name}`, {
-    method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(qr),
-    credentials: 'include',
-  })
-    .then(response => response.text())
-    .then(url => {
-      const a = document.createElement('a');
-      a.href = url;
-      a.setAttribute('target', '_blank');
-      document.body.appendChild(a);
-      a.click();
-    });
+  getVizualisationUrl(`${visualisationUrl}-queen/${qr.Name}`,qr)
 };
 
 /**
  * This method will send a request in order to get the URL
- * of the generated Queen page for the active questionnaire.
+ * of the generated Stromae v2 page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
 export const visualizeWebStromaeV2 = qr => {
-  fetch(`${visualisationUrl}-stromae-v2/${qr.Name}`, {
-    method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(qr),
-    credentials: 'include',
-  })
-    .then(response => response.text())
-    .then(url => {
-      const a = document.createElement('a');
-      a.href = url;
-      a.setAttribute('target', '_blank');
-      document.body.appendChild(a);
-      a.click();
-    });
+  getVizualisationUrl(`${visualisationUrl}-stromae-v2/${qr.Name}`,qr)
 };
 
+/**
+ * This method will send a request in order to get the content
+ * of the generated DDI document for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
 export const visualizeDDI = qr => {
   fetch(urlVisualizeDDI, {
     method: 'POST',
