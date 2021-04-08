@@ -1,5 +1,5 @@
 # Guide utilisateur Pogues
-Version au 01/03/2021
+Version au 01/04/2021
 
 ---
 
@@ -211,12 +211,29 @@ Si la question est de type Réponse à choix unique, renseigner :
 
 Si la question est de type Réponse à choix unique, renseigner (suite) :
 -   Spécifier la liste de codes soit via :
-    -   Créer une liste. Dans ce cas :
-    	-   Donner un nom signifiant à la Nouvelle liste de codes et entrer pour chaque modalité de réponse, le code de la modalité et son libellé au fur et à mesure via le bouton "Ajouter un Code".
-    -   Retrouver dans le référentiel (non fontionnel à ce jour)  : proposera les listes de codes précédemment créées pour l'ensemble des questionnaires publiés dans RMéS depuis Pogues. Sera particulièrement utile pour les listes connues et longues (départements, nomenclatures, etc.).
-    -   Retrouver dans le questionnaire : propose les listes de codes précédemment créées pour le questionnaire    
-- Valider
-  		
+     - Créer une liste. Dans ce cas :
+ 
+    	- Donner un nom à la Nouvelle liste de codes puis soit :
+    		-  entrer pour chaque modalité de réponse, le code de la modalité et son libellé au fur et à mesure via le bouton "Ajouter un Code".
+    		-  "importer une liste de codes" via un fichier csv en utf8 et respectant le format de fichier suivant :
+    		Parent;Value;Label;
+			;1;libellé 1;
+			;2;libellé 2;
+
+	Parent stockera le code parent lorsque la liste de codes est hiérarchique 		et sera donc vide en général.
+	Value stockera le code de chaque modalité.
+	Label stockera le libellé de chaque modalité.
+
+---
+
+- 
+	- 	Retrouver dans le référentiel (non fontionnel à ce jour)  : proposera les listes de codes précédemment créées pour l'ensemble des questionnaires publiés dans RMéS depuis Pogues
+	- Retrouver dans le questionnaire : propose les listes de codes précédemment créées pour le questionnaire
+   
+ - Valider
+   
+A noter pour ces deux fonctionnalités la possibilité de dupliquer une liste de codes pour en créer une variante en cochant la case dédiée. Le titre de la liste initiale sera suffixé par _2 dans un premier temps pour la liste issue de la duplication puis sera modifiable par vos soins dans Pogues.
+
 ---
 
 # Création d'une question de type Réponse à choix multiples
@@ -230,10 +247,25 @@ Si la question est de type Réponse à choix unique, renseigner (suite) :
 Si j'ai créé une question de type Réponse à choix multiples, renseigner :
 - Spécifier la liste de codes soit via :
    - Créer une liste. Dans ce cas :
-    	- Donner un nom signifiant à la Nouvelle liste de codes et entrer pour chaque modalité de réponse, le code de la modalité et son libellé au fur et à mesure via le bouton "Ajouter un Code".
-   - Retrouver dans le référentiel (non fontionnel à ce jour)  : proposera les listes de codes précédemment créées pour l'ensemble des questionnaires publiés dans RMéS depuis Pogues
-   - Retrouver dans le questionnaire : propose les listes de codes précédemment créées pour le questionnaire
-    
+    	- Donner un nom à la Nouvelle liste de codes puis soit :
+    		-  entrer pour chaque modalité de réponse, le code de la modalité et son libellé au fur et à mesure via le bouton "Ajouter un Code".
+    		-  "importer une liste de codes" via un fichier csv en utf8 et respectant le format de fichier suivant :
+    		Parent;Value;Label;
+			;1;libellé 1;
+			;2;libellé 2;
+
+	Parent stockera le code parent lorsque la liste de codes est hiérarchique 		et sera donc vide en général.
+	Value stockera le code de chaque modalité.
+	Label stockera le libellé de chaque modalité.
+
+---
+- 
+	- 	Retrouver dans le référentiel (non fontionnel à ce jour)  : proposera les listes de codes précédemment créées pour l'ensemble des questionnaires publiés dans RMéS depuis Pogues
+	- Retrouver dans le questionnaire : propose les listes de codes précédemment créées pour le questionnaire
+   
+ - Valider
+   
+A noter pour ces deux fonctionnalités la possibilité de dupliquer une liste de codes pour en créer une variante en cochant la case dédiée. Le titre de la liste initiale sera suffixé par _2 dans un premier temps pour la liste issue de la duplication puis sera modifiable par vos soins dans Pogues.
   		
 ---
 
@@ -357,17 +389,17 @@ Dans l'onglet "Déclarations", renseigner :
 # Création d'une déclaration (suite)
 
 - le type de la déclaration, parmi:
-	- Consigne
-    - Commentaire
-    - Aide
-    - Avertissement
-NB : il n'existe pas de différence de comportement ou d'affichage sur le questionnaire selon le type de déclaration, donc pas de différence pour l'enquêté et pas vraiment pour le concepteur d'enquête. Cependant, puisque l'information est stockée précisément dans le DDI, l'affichage pourrait différer un jour (ce n'est pas prévu pour l'instant). Nous conseillons donc de renseigner ce qui paraît le plus proche du type de la déclaration, sans trop raffiner cependant.
+	- Aide (quand elle concerne le répondant, quelque soit le mode)
+    - Consigne (quand elle ne concerne que l'enquêteur)
+    - Carte-Code (pour les questions où l'enquêteur sera amené à présenter une carte-code à l'enquêté)
+
 
 ---
 
 # Création d'une déclaration (fin)
 
 - Position : avant ou après le libellé de question
+- Mode de collecte : pour préciser le mode de collecte concerné par la déclaration
 - Valider
         
 NB : il est également possible de supprimer ou dupliquer une déclaration
@@ -696,11 +728,17 @@ and (((number(substring(\$SIREN\$,1,1))*2
                      + number(substring(\$SIREN\$,14,1))) mod 10) != 0)
 
 ---
+
 # Style gras/italique
 
 Il est actuellement possible de mettre du gras et/ou de l'italique sur des éléments textuels via les boutons dédiés (cf. copie d'écran en page suivante) au sein des libellés de déclaration ou de liste de codes.
 NB : les boutons gras et italique sont également disponibles pour les libellés de question mais le générateur de questionnaire Eno ne prend pas en compte la mise en forme spécifiée. En effet, conformément aux bonnes pratiques d'ergonomie d'un questionnaire, tous les libellés de questions s'affichent en gras sur le web. Les boutons gras et italique ne sont pas disponibles pour les libellés de séquence ou de sous-séquence.
 NB2 : le gras est visible aussi côté pdf, mais pas l'italique (normal ou bug ?)
+
+---
+
+# Style gras/italique (suite)
+![](../../img/fr/ecran18.png)
 
 ---
 # Création d'une boucle (1)
@@ -717,13 +755,17 @@ Renseigner :
 
 - Identifiant : obligatoire, identifiant métier de la boucle, à votre discrétion. 
 
-- Maximum : facultatif, nombre maximal d’occurrences de la boucle, utile uniquement pour les boucles qui ne s’appuient pas sur un tableau dynamique ou une boucle préalable.
+- Maximum : facultatif, obligatoire seulement si Minimum est renseigné, nombre maximal d’occurrences de la boucle, utile uniquement pour les boucles qui ne s’appuient pas sur un tableau dynamique ou une boucle préalable.
+
+- Minimum : facultatif, obligatoire seulement si Maximum est renseigné, nombre minimal affiché d’occurrences de la boucle, utile uniquement pour les boucles qui ne s’appuient pas sur un tableau dynamique ou une boucle préalable.
+---
+# Création d'une boucle (3)
 
 - Basé sur  : facultatif, permet d’indiquer si la boucle doit se baser sur un tableau dynamique ou une autre boucle
 Exemple : Ecmoss (boucle des questions posées aux salariés décrit dans l’échantillon qui se base sur le tableau dynamique les listant), VQS (boucle contenant les questions posées aux individus décrits en début de questionnaire, qui se base sur la première boucle qui permet de présenter chaque habitant du logement).
 
 ---
-# Création d'une boucle (3)
+# Création d'une boucle (4)
 
 - Sauf : facultatif, permet d’indiquer via une formule les unités à exclure de la boucle (exemple : les mineurs). Attention : ce filtre ne s’applique actuellement qu’à des variables qualitatives. Pour une restriction sur l’âge par exemple, il faut raisonner sur une indicatrice (par exemple on définit TRANCHE_AGE*  = ‘1’ pour les mineurs,  TRANCHE_AGE = ‘2’ pour les autres) : exclure les mineurs s’écrira : \$TRANCHE_AGE$ =’1’ 
 *Par exemple avec une variable calculée ayant une formule du type 
@@ -731,19 +773,19 @@ if (\$AGE$<18) then ‘1’ else ‘2’
 Prévoir aussi au cas où la variable  filtrante est non renseignée. Dans l’exemple sur l’âge, il faut savoir si on souhaite afficher ou non les individus dont l’âge est non renseigné.
 
 ---
-# Création d'une boucle (4)
+# Création d'une boucle (5)
 
 - Début : obligatoire, permet d’indiquer le premier élément (séquence ou sous-séquence) sur lequel boucler
 
 - Fin : obligatoire, permet d’indiquer le dernier élément (séquence ou sous-séquence) sur lequel boucler. Quand la boucle se compose d’une unique séquence ou sous-séquence, Début et Fin seront identiques.
 
-- Libellé du bouton d’ajout : facultatif, libellé du bouton d’ajout d’une occurrence de boucle quand il existe. Exemple : Ajouter un produit, Ajouter un service, Ajouter un individu
+- Libellé du bouton d’ajout : facultatif, libellé du bouton d’ajout d’une occurrence de boucle quand il existe et que minimum et maximum de la boucle sont différents. Exemple : Ajouter un produit, Ajouter un service, Ajouter un individu
 Si « Basé sur » est renseigné, alors ce bouton ne doit pas être rempli, puisque la boucle se base sur une boucle précédente.
 
 Valider
 
 ---
-# Création d'une boucle (5)
+# Création d'une boucle (6)
 
 Si vous souhaitez relire la spécification d’une boucle et/ou la modifier et/ou la supprimer, vous retrouverez l’ensemble des boucles spécifiées à gauche de l’écran d’édition/modification de questionnaires dans Pogues, sous la liste des séquences.
 A noter qu’en attente des moyens informatiques ad hoc, les boucles ne sont pas actuellement éditées dans le format spécification odt.
@@ -751,12 +793,11 @@ A noter qu’en attente des moyens informatiques ad hoc, les boucles ne sont pas
 ![](../../img/fr/boucle2.png)
 
 ---
+# Ajouter un questionnaire existant
+Il est désormais possible de fusionner deux questionnaires en cliquant depuis le questionnaire que l'on souhaite placer en premier sur le bouton +Questionnaire (en bas de l’IHM et à droite de Visualiser). Vous pouvez alors choisir parmi les questionnaires de votre timbre (attention cependant à bien définir en amont les mêmes modes de collecte pour le questionnaire initial et le questionnaire à lui ajouter ensuite), celui que vous souhaitez lui ajouter à la suite. Si certains éléments partagent le même identifiant, l’identifiant de la deuxième occurrence sera suffixée par _2, à l'exception des listes de codes partageant le même identifiant technique (si les deux listes sont différentes, c'est celle du deuxième questionnaire qui sera prise en compte).
 
-# Style gras/italique (suite)
-![](../../img/fr/ecran18.png)
 
 ---
-
 # Fonctionnalités liés à un élément du questionnaire
 Sur chaque élément créé du questionnaire de type séquence/sous-séquence ou question, on trouve les boutons "Voir le détail", "Visualiser" (Web,PDF,Spécification ou DDI) et "Supprimer".
 Sur un élément question, on trouve également le bouton "Dupliquer".
@@ -826,7 +867,6 @@ Les contrôles d'intégrité du questionnaire suivants sont actuellement implém
 
 - Le lien entre Pogues et RMéS et notamment publier le questionnaire ou réutiliser une question ou une liste de codes (exemple départements, pays, nomenclature) du référentiel 
 - Conditionner le libellé d'une question selon les réponses précédemment obtenues 
-- Dupliquer une liste de codes pour en créer une variante
 - Le bouton "Saut de page" en bas au centre de l'IHM Pogues
 - paramétrages du pdf (nombre de colonnes, mise en page portrait ou paysage, type de saisie, numérotation, nombre de questions par page)
 ---
@@ -846,7 +886,7 @@ choix du type de numérotation parmi :
  
  ---
  # Ce que l'on ne fera pas dans Pogues
- - Spécifier si la redirection est de type filtre masqué (elle l'est par défaut) ou filtre grisé
+ - Spécifier si la redirection ou le filtre est de type filtre masqué (elle l'est par défaut) ou filtre grisé
 *complément DDI manuel* 
 
 
