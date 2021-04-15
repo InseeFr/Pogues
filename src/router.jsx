@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 import { App } from 'layout/app';
 import { PageHome } from 'layout/page-home';
@@ -8,7 +8,7 @@ import { PageQuestionnaire } from 'layout/page-questionnaire';
 
 function RouterContainer() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <App>
         <Route exact path="/" component={PageHome} />
         <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
@@ -19,7 +19,7 @@ function RouterContainer() {
         />
         <Redirect from="*" to="/" />
       </App>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
