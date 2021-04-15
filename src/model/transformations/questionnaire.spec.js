@@ -61,18 +61,18 @@ describe('questionnaire', () => {
       ],
       TargetMode: [''],
       Name: 'QUESTIONNA',
-      flowLogic: 'REDIRECTION'
+      flowLogic: 'REDIRECTION',
     };
     const output = remoteToState1(remote);
     const expected = {
       TargetMode: [''],
       campaigns: ['campaign01'],
-      dynamiqueSpecified: "Redirections",
+      dynamiqueSpecified: 'Redirections',
       final: false,
       id: 'jf0s8i94',
       label: 'questionnaire',
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
-      name: "QUESTIONNA"
+      name: 'QUESTIONNA',
     };
     expect(output).toEqual(expected);
   });
@@ -621,8 +621,8 @@ describe('questionnaire', () => {
         },
       ],
       TargetMode: [''],
-      Name : 'QUESTIONNA',
-      flowLogic: 'REDIRECTION'
+      Name: 'QUESTIONNA',
+      flowLogic: 'REDIRECTION',
     };
     const currentStores = {};
     const output = remoteToStore1(remote, currentStores);
@@ -635,7 +635,7 @@ describe('questionnaire', () => {
         id: 'jf0s8i94',
         label: 'questionnaire',
         lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
-        name: 'QUESTIONNA'
+        name: 'QUESTIONNA',
       },
     };
     expect(output).toEqual(expected);

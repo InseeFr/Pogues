@@ -5,7 +5,6 @@ body {
   background-color: $color-white_01;
 }
 
-
 // Override Bootstrap styles
 
 .container {
@@ -167,18 +166,18 @@ a {
 }
 
 .popup-notSaved {
-    position: relative;
-    top: 20%;
-    left: 25%;
-    border: 1px solid #cccccc;
-    background: white;
-    overflow: auto;
-    border-radius: 4px;
-    outline: none;
-    padding: 20px;
-    width: 50%;
-    text-align: center;
-    height: 40%;
+  position: relative;
+  top: 20%;
+  left: 25%;
+  border: 1px solid #cccccc;
+  background: white;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  width: 50%;
+  text-align: center;
+  height: 40%;
   .popup-header {
     @include make-row();
     text-transform: uppercase;
@@ -205,7 +204,7 @@ a {
     text-align: center;
     max-width: 60%;
     margin: auto;
-  
+
     button {
       @extend .btn;
       margin-left: 10px;
@@ -213,7 +212,7 @@ a {
       margin-top: 20px;
       text-transform: uppercase;
       font-weight: bold;
-  
+
       &.popup-notSaved-footer-validate {
         @extend .btn-yellow;
       }
@@ -237,11 +236,11 @@ a {
   height: 30%;
   background: rgb(255, 255, 255);
 
-.popup-header {
-  @include make-row();
-  text-transform: uppercase;
-  color: $color-blue_02;
-}
+  .popup-header {
+    @include make-row();
+    text-transform: uppercase;
+    color: $color-blue_02;
+  }
 
   h3 {
     @include make-xs-column(11);
@@ -334,7 +333,7 @@ a {
   }
 }
 
-.response-format-datatype-duree-maximum{
+.response-format-datatype-duree-maximum {
   display: flex;
   .ctrl-input {
     flex-basis: 50%;
@@ -343,7 +342,7 @@ a {
 
 .response-format-datatype-duree-label-minimum {
   width: 25%;
-  font-weight: 700
+  font-weight: 700;
 }
 
 .response-format-datatype-duree-minimum {
@@ -356,11 +355,11 @@ a {
 
 .response-format-datatype-duree-label-maximum {
   width: 25%;
-  font-weight: 700
+  font-weight: 700;
 }
 
 .loopLists {
-  border : none;
+  border: none;
   display: flex;
 }
 

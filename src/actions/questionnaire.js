@@ -326,7 +326,10 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
     });
     const supSequence = getSupWeight(activeComponentsById);
     Object.values(mergesComponentByQuestionnaire)
-      .filter(element => element.type !== QUESTIONNAIRE  && element.id !== 'idendquest')
+      .filter(
+        element =>
+          element.type !== QUESTIONNAIRE && element.id !== 'idendquest',
+      )
       .forEach(component => {
         const find = Object.values(activeComponentsById).find(
           active => active.name === component.name,

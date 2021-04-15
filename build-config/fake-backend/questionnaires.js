@@ -1213,7 +1213,7 @@ module.exports = [
                       type: 'DateDatatypeType',
                       Maximum: 2000,
                       Minimum: 2020,
-                      Format:'YYYY'
+                      Format: 'YYYY',
                     },
                   },
                 ],
