@@ -51,7 +51,7 @@ function getQuestionnairePosition(questionnaires, id) {
 server.use(restifyBodyParser());
 server.use(restifyQueryParser());
 
-server.get('/questionnaires/search', function(req, res, next) {
+server.get('/persistence/questionnaires/search', function(req, res, next) {
   // @TODO: Take into account the property "owner"
   const questionnaires1 = questionnaires.map(question => {
     return {
@@ -76,14 +76,14 @@ server.get('/user/attributes', function(req, res, next) {
   next();
 });
 
-server.get('/questionnaire/:id', function(req, res, next) {
+server.get('/persistence/questionnaire/:id', function(req, res, next) {
   var position = getQuestionnairePosition(questionnaires, req.params.id);
   var questionnaire = position !== -1 ? questionnaires[position] : {};
   res.send(questionnaire);
   next();
 });
 
-server.put('/questionnaire/:id', function(req, res, next) {
+server.put('/persistence/questionnaire/:id', function(req, res, next) {
   var qr = req.body;
   var position = getQuestionnairePosition(questionnaires, req.params.id);
   if (position > -1) {
@@ -94,7 +94,7 @@ server.put('/questionnaire/:id', function(req, res, next) {
   next();
 });
 
-server.post('/questionnaires', function(req, res, next) {
+server.post('/persistence/questionnaires', function(req, res, next) {
   var qr = req.body;
   questionnaires.push(qr);
   res.header(
