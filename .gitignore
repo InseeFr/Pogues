@@ -13,3 +13,4 @@ docs/stats.html
 reports*
 .history/*
 .history*
+.env.local
