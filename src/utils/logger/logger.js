@@ -4,8 +4,11 @@
  Manage remote or local logging, levels and namespacing.
  'Beauty is in the eye of the beholder'
  */
-import Config from 'Config';
 import { ENV_TEST } from 'constants/pogues-constants';
+const {
+  REACT_APP_LOG_LEVEL: level,
+  REACT_APP_ACTIVE_NAMESPACES: activeNamespaces,
+} = process.env;
 
 const LEVELS = {
   DEBUG: 0,
@@ -21,7 +24,7 @@ class Logger {
   }
 
   static getCurrentLevel() {
-    return Config.log.level;
+    return level;
   }
 
   static setLevel() {}
@@ -42,7 +45,7 @@ class Logger {
     messageArray.unshift(this.getPrefix());
     if (
       LEVELS[testLevel] >= LEVELS[Logger.getCurrentLevel()] &&
-      Config.log.activeNamespaces.indexOf(this.namespace) >= 0
+      activeNamespaces.split(',').indexOf(this.namespace) >= 0
     ) {
       switch (testLevel) {
         case 'DEBUG':
