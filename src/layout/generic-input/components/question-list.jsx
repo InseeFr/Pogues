@@ -51,13 +51,9 @@ const QuestionnaireList = props => {
       return (
         filter === '' ||
         q.label.toLowerCase().indexOf(filter) >= 0 ||
-        getState(q.final)
-          .toLowerCase()
-          .indexOf(filter) >= 0 ||
+        getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
         (q.lastUpdatedDate &&
-          formatDate(q.lastUpdatedDate)
-            .toLowerCase()
-            .indexOf(filter) >= 0) ||
+          formatDate(q.lastUpdatedDate).toLowerCase().indexOf(filter) >= 0) ||
         !q
       );
     })

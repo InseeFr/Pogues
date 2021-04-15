@@ -7,8 +7,9 @@ const {
 } = process.env;
 
 const urlQuestionnaireList = `${baseURL + persistencePath}/questionnaires`;
-const urlQuestionnaireListSearch = `${baseURL +
-  persistencePath}/questionnaires/search`;
+const urlQuestionnaireListSearch = `${
+  baseURL + persistencePath
+}/questionnaires/search`;
 const urlQuestionnaire = `${baseURL + persistencePath}/questionnaire`;
 const urlUserGetAttributes = `${baseURL}/user/attributes`;
 const urlSearch = `${baseURL}/search`;

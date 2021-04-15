@@ -16,10 +16,7 @@ const mapDispatchToProps = {
   loadUnitsIfNeeded,
 };
 
-const AppContainer = connect(
-  undefined,
-  mapDispatchToProps,
-)(App);
+const AppContainer = connect(undefined, mapDispatchToProps)(App);
 
 AppContainer.propTypes = propTypes;
 

@@ -19,13 +19,13 @@ describe('moveComponents', () => {
     ];
 
     expect(component.moveComponents(componentsToMove, parent)).toEqual({
-      '1': {
+      1: {
         id: '1',
         prop: 'value',
         children: ['2', '3'],
       },
-      '2': { id: '2', prop: 'value2', parent: '1' },
-      '3': { id: '3', prop: 'value3', parent: '1' },
+      2: { id: '2', prop: 'value2', parent: '1' },
+      3: { id: '3', prop: 'value3', parent: '1' },
     });
   });
 });
@@ -171,7 +171,7 @@ describe('moveQuestionToSubSequence', () => {
 describe('moveQuestionAndSubSequenceToSequence', () => {
   test('should return nothing if the parent does not exist', () => {
     const activeComponents = {
-      '2': { id: '2', parent: '1', children: [] },
+      2: { id: '2', parent: '1', children: [] },
     };
     expect(
       component.moveQuestionAndSubSequenceToSequence(activeComponents, '2'),
@@ -180,8 +180,8 @@ describe('moveQuestionAndSubSequenceToSequence', () => {
 
   test('should return nothing if the selected component is a SEQUENCE', () => {
     const activeComponents = {
-      '1': { id: '1', children: ['2'] },
-      '2': { id: '2', parent: '1', type: SEQUENCE, children: [] },
+      1: { id: '1', children: ['2'] },
+      2: { id: '2', parent: '1', type: SEQUENCE, children: [] },
     };
     expect(
       component.moveQuestionAndSubSequenceToSequence(activeComponents, '2'),
@@ -190,21 +190,21 @@ describe('moveQuestionAndSubSequenceToSequence', () => {
 
   test('should return all changes need', () => {
     const activesComponents = {
-      '0': { id: '0', children: ['1', '7'] },
-      '1': { id: '1', weight: 0, type: SEQUENCE, children: ['2', '3', '4'] },
-      '2': { id: '2', weight: 0, type: QUESTION, parent: '1', children: [] },
-      '3': { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
-      '4': {
+      0: { id: '0', children: ['1', '7'] },
+      1: { id: '1', weight: 0, type: SEQUENCE, children: ['2', '3', '4'] },
+      2: { id: '2', weight: 0, type: QUESTION, parent: '1', children: [] },
+      3: { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
+      4: {
         id: '4',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['5', '6'],
       },
-      '5': { id: '5', weight: 0, type: QUESTION, parent: '4', children: [] },
-      '6': { id: '6', weight: 1, type: QUESTION, parent: '4', children: [] },
-      '7': { id: '7', weight: 1, type: SEQUENCE, children: ['8'] },
-      '8': { id: '8', weight: 0, type: QUESTION, parent: '7', children: [] },
+      5: { id: '5', weight: 0, type: QUESTION, parent: '4', children: [] },
+      6: { id: '6', weight: 1, type: QUESTION, parent: '4', children: [] },
+      7: { id: '7', weight: 1, type: SEQUENCE, children: ['8'] },
+      8: { id: '8', weight: 0, type: QUESTION, parent: '7', children: [] },
     };
     const newComponent = {
       id: '9',
@@ -370,21 +370,21 @@ describe('moveQuestionAndSubSequenceToSequence', () => {
 
 describe('duplicate', () => {
   const activesComponents = {
-    '0': { id: '0', children: ['1', '7'] },
-    '1': { id: '1', weight: 0, type: SEQUENCE, children: ['2', '3', '4'] },
-    '2': { id: '2', weight: 0, type: QUESTION, parent: '1', children: [] },
-    '3': { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
-    '4': {
+    0: { id: '0', children: ['1', '7'] },
+    1: { id: '1', weight: 0, type: SEQUENCE, children: ['2', '3', '4'] },
+    2: { id: '2', weight: 0, type: QUESTION, parent: '1', children: [] },
+    3: { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
+    4: {
       id: '4',
       weight: 2,
       type: SUBSEQUENCE,
       parent: '1',
       children: ['5', '6'],
     },
-    '5': { id: '5', weight: 0, type: QUESTION, parent: '4', children: [] },
-    '6': { id: '6', weight: 1, type: QUESTION, parent: '4', children: [] },
-    '7': { id: '7', weight: 1, type: SEQUENCE, children: ['8'] },
-    '8': { id: '8', weight: 0, type: QUESTION, parent: '7', children: [] },
+    5: { id: '5', weight: 0, type: QUESTION, parent: '4', children: [] },
+    6: { id: '6', weight: 1, type: QUESTION, parent: '4', children: [] },
+    7: { id: '7', weight: 1, type: SEQUENCE, children: ['8'] },
+    8: { id: '8', weight: 0, type: QUESTION, parent: '7', children: [] },
   };
 
   test('should duplicate the question', () => {

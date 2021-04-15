@@ -61,7 +61,7 @@ class Textarea extends Component {
             }}
           />
 
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

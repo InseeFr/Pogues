@@ -65,7 +65,7 @@ describe('calculated variables tranformations', () => {
       ];
 
       expect(remoteToStore(remote)).toEqual({
-        '1': {
+        1: {
           id: '1',
           label: 'label 1',
           name: 'name 1',
@@ -82,7 +82,7 @@ describe('calculated variables tranformations', () => {
             format: '',
           },
         },
-        '2': {
+        2: {
           id: '2',
           label: 'label 2',
           name: 'name 2',
@@ -99,7 +99,7 @@ describe('calculated variables tranformations', () => {
             format: '',
           },
         },
-        '3': {
+        3: {
           id: '3',
           label: 'label 3',
           name: 'name 3',
@@ -176,7 +176,7 @@ describe('calculated variables tranformations', () => {
   describe('storeToRemote', () => {
     it('should return an array of collected variables', () => {
       const store = {
-        '1': {
+        1: {
           id: '1',
           label: 'label 1',
           name: 'name 1',
@@ -184,7 +184,7 @@ describe('calculated variables tranformations', () => {
           type: TEXT,
           [TEXT]: { maxLength: 2 },
         },
-        '2': {
+        2: {
           id: '2',
           label: 'label 2',
           name: 'name 2',
@@ -193,7 +193,7 @@ describe('calculated variables tranformations', () => {
           type: TEXT,
           [TEXT]: { maxLength: 2 },
         },
-        '3': {
+        3: {
           id: '3',
           label: 'label 3',
           name: 'name 3',

@@ -28,21 +28,21 @@ describe('declaration tranformations', () => {
       ];
 
       expect(remoteToState(remote)).toEqual({
-        '1': {
+        1: {
           id: '1',
           label: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
           TargetMode: ['CATI'],
         },
-        '2': {
+        2: {
           id: '2',
           label: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
           TargetMode: ['CATI'],
         },
-        '3': {
+        3: {
           id: '3',
           label: 'label 3',
           declarationType: 'declarationType3',
@@ -76,21 +76,21 @@ describe('declaration tranformations', () => {
   describe('storeToRemote', () => {
     it('should return an array of collected variables', () => {
       const store = {
-        '1': {
+        1: {
           id: '1',
           label: 'label 1',
           declarationType: 'declarationType1',
           position: 1,
           TargetMode: ['CAWI'],
         },
-        '2': {
+        2: {
           id: '2',
           label: 'label 2',
           declarationType: 'declarationType2',
           position: 2,
           TargetMode: [],
         },
-        '3': {
+        3: {
           id: '3',
           label: 'label 3',
           declarationType: 'declarationType3',

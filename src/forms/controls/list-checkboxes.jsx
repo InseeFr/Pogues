@@ -142,7 +142,7 @@ class ListCheckboxes extends Component {
               </div>
             );
           })}
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

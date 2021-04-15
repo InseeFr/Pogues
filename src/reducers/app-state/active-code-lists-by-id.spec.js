@@ -33,11 +33,11 @@ describe('updateActiveCodeLists', () => {
       { state: 'previous' },
       {
         update: {
-          activeCodeListsById: { '1': 'activeCodeListsById' },
+          activeCodeListsById: { 1: 'activeCodeListsById' },
         },
       },
     );
-    expect(result).toEqual({ state: 'previous', '1': 'activeCodeListsById' });
+    expect(result).toEqual({ state: 'previous', 1: 'activeCodeListsById' });
   });
   [CREATE_COMPONENT, UPDATE_COMPONENT].forEach(action => {
     test(`when called when we trigger ${action}`, () => {
@@ -47,12 +47,12 @@ describe('updateActiveCodeLists', () => {
           type: action,
           payload: {
             update: {
-              activeCodeListsById: { '1': 'activeCodeListsById' },
+              activeCodeListsById: { 1: 'activeCodeListsById' },
             },
           },
         },
       );
-      expect(result).toEqual({ state: 'previous', '1': 'activeCodeListsById' });
+      expect(result).toEqual({ state: 'previous', 1: 'activeCodeListsById' });
     });
   });
 });

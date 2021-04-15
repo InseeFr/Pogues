@@ -83,7 +83,7 @@ class Select extends Component {
             })}
           </select>
 
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

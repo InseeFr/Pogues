@@ -183,7 +183,7 @@ const RichTextarea = props => {
       <div>
         <RichTextEditor {...customProps} />
 
-        {touched && (error && <span className="form-error">{error}</span>)}
+        {touched && error && <span className="form-error">{error}</span>}
       </div>
     </div>
   );

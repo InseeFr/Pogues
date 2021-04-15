@@ -123,10 +123,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   handleReturn = e => {
     if (this.props.submitOnEnter) {
       e.preventDefault();
-      e.target
-        .closest('form')
-        .querySelector('button[type=submit]')
-        .click();
+      e.target.closest('form').querySelector('button[type=submit]').click();
     }
   };
 
@@ -227,7 +224,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             handleKeyCommand={this.handleKeyCommand}
             keyBindingFn={myKeyBindingFn}
           />
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
           {super.render()}
         </div>
       </div>
