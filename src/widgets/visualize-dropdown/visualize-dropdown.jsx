@@ -14,6 +14,12 @@ const VisualizeDropdown = props => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
+  const handleClickOutside = event => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
+  };
+
   useEffect(() => {
     window.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -38,12 +44,6 @@ const VisualizeDropdown = props => {
     event.preventDefault();
     props.visualizeActiveQuestionnaire(type, props.componentId);
     setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleClickOutside = event => {
-    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-      setDropdownOpen(false);
-    }
   };
 
   const classDropDown = classSet({

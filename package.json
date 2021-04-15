@@ -69,6 +69,8 @@
     "concurrently": "4.1.2",
     "coveralls": "3.0.6",
     "cross-env": "5.2.1",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "6.3.0",
     "eslint-plugin-import": "2.18.2",
@@ -79,8 +81,13 @@
     "eslint-plugin-react-hooks": "^4.0.5",
     "font-awesome": "4.7.0",
     "husky": "^3.0.5",
+    "isomorphic-fetch": "2.2.1",
     "jison": "0.4.18",
     "prettier": "1.18.2",
+    "react-classset": "0.0.2",
+    "redux-devtools": "3.5.0",
+    "redux-devtools-extension": "2.13.8",
+    "redux-logger": "3.0.6",
     "restify": "8.4.0"
   },
   "scripts": {
