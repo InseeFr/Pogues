@@ -1,4 +1,4 @@
-dist/
+build/
 node_modules/
 npm-debug.log
 deploy-auth.json
@@ -13,3 +13,4 @@ docs/stats.html
 reports*
 .history/*
 .history*
+.env.local

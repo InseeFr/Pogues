@@ -2,17 +2,30 @@
   "name": "pogues",
   "version": "0.0.2",
   "description": "Outil de conception et de test de questionnaires.",
-  "main": "js/pogues.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/InseeFr/Pogues"
   },
+  "author": "INSEE (http://www.insee.fr)",
+  "contributors": [
+    {
+      "name": "Franck Cotton",
+      "email": "franck.cotton@insee.fr"
+    },
+    {
+      "name": "Romain Tailhurat",
+      "email": "romain.tailhurat@insee.fr"
+    },
+    {
+      "name": "Jean-Baptiste Rudant",
+      "email": "jb@noknot.fr"
+    }
+  ],
+  "license": "MIT",
   "dependencies": {
-    "@hot-loader/react-dom": "^16.9.0",
     "draft-js": "0.11.7",
     "draft-js-import-element": "1.4.0",
     "draft-js-utils": "1.4.0",
-    "eslint-plugin-react-hooks": "^4.0.5",
     "gillespie59-react-rte": "0.15.0",
     "immutable": "3.8.2",
     "lodash.clonedeep": "4.5.0",
@@ -30,17 +43,18 @@
     "lodash.takewhile": "4.6.0",
     "lodash.uniq": "4.5.0",
     "prop-types": "15.7.2",
-    "react": "16.9.0",
+    "react": "^17.0.2",
     "react-csv-reader": "^3.1.2",
     "react-dnd": "2.6.0",
     "react-dnd-html5-backend": "2.6.0",
-    "react-dom": "16.9.0",
+    "react-dom": "^17.0.2",
     "react-loader-spinner": "^3.1.14",
     "react-modal": "3.10.1",
     "react-redux": "7.1.1",
     "react-router": "5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-navigation-prompt": "^1.8.10",
+    "react-scripts": "4.0.3",
     "redux": "4.0.4",
     "redux-form": "8.2.6",
     "redux-form-validators": "^3.3.2",
@@ -48,47 +62,15 @@
     "restify-cors-middleware": "1.1.1",
     "restify-plugins": "1.6.0",
     "sass": "^1.32.8",
-    "synthetic-dom": "1.4.0",
-    "terser-webpack-plugin": "^4.2.3"
+    "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-decorators": "^7.0.0",
-    "@babel/plugin-proposal-do-expressions": "^7.0.0",
-    "@babel/plugin-proposal-export-default-from": "^7.0.0",
-    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
-    "@babel/plugin-proposal-function-sent": "^7.0.0",
-    "@babel/plugin-proposal-json-strings": "^7.0.0",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
-    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
-    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
-    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/plugin-syntax-import-meta": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "10.0.3",
-    "babel-jest": "24.9.0",
-    "babel-loader": "8.0.6",
-    "babel-plugin-lodash": "3.3.4",
-    "babel-plugin-module-resolver": "3.2.0",
     "bootstrap-sass": "3.4.1",
-    "classnames": "2.2.6",
-    "clean-webpack-plugin": "3.0.0",
     "concurrently": "4.1.2",
     "coveralls": "3.0.6",
     "cross-env": "5.2.1",
-    "css-loader": "3.2.0",
-    "deep-freeze": "0.0.1",
-    "env2": "2.2.2",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "6.4.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "6.3.0",
     "eslint-plugin-import": "2.18.2",
@@ -96,97 +78,53 @@
     "eslint-plugin-node": "10.0.0",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
-    "events": "1.1.1",
-    "file-loader": "4.2.0",
+    "eslint-plugin-react-hooks": "^4.0.5",
     "font-awesome": "4.7.0",
-    "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.5",
-    "identity-obj-proxy": "3.0.0",
     "isomorphic-fetch": "2.2.1",
-    "jest": "24.9.0",
     "jison": "0.4.18",
-    "mini-css-extract-plugin": "0.8.0",
-    "object-assign": "4.1.1",
-    "preload-webpack-plugin": "2.3.0",
     "prettier": "1.18.2",
-    "react-addons-perf": "15.4.2",
-    "react-addons-test-utils": "15.6.2",
     "react-classset": "0.0.2",
-    "react-hot-loader": "4.12.13",
-    "react-test-renderer": "16.9.0",
     "redux-devtools": "3.5.0",
     "redux-devtools-extension": "2.13.8",
     "redux-logger": "3.0.6",
-    "request": "2.81.0",
-    "restify": "8.4.0",
-    "sass-loader": "8.0.0",
-    "style-loader": "1.0.0",
-    "uglify-js": "3.6.0",
-    "uglifyjs-webpack-plugin": "2.2.0",
-    "webpack": "4.40.2",
-    "webpack-cli": "3.3.9",
-    "webpack-dev-server": "^3.8.1",
-    "webpack-visualizer-plugin": "0.1.11"
+    "restify": "8.4.0"
   },
   "scripts": {
-    "test": "jest --coverage -i",
-    "testw": "jest --watch",
-    "dev": "webpack-dev-server",
-    "dev:dev": "cross-env webpack-dev-server --env.environment=dev",
-    "dev:server": "concurrently \"npm run server\" \"npm run dev:dev\"",
+    "test": "react-scripts test --coverage -i",
+    "testw": "react-scripts test --watch",
+    "start": "react-scripts start",
+    "dev:server": "concurrently \"npm run server\" \"npm run start\"",
     "server": "node ./build-config/fake-backend/server.js",
-    "build": "cross-env webpack --display-error-details --env.prod=true --env.environment=prod",
-    "build:dev": "cross-env webpack --env.prod=true --env.environment=dev",
-    "build:dv": "cross-env webpack --env.prod=true --env.environment=dv",
-    "build:preprod": "cross-env webpack --env.prod=true --env.environment=preprod",
-    "build:qa": "cross-env webpack --env.prod=true --env.environment=qa",
-    "build:qf": "cross-env webpack --env.prod=true --env.environment=qf",
-    "build:travis": "cross-env webpack --env.prod=true --env.environment=dev",
+    "build": "react-scripts build",
     "lint": "eslint ./src -f table || true",
     "lint:fix": "eslint ./src -f table --fix || true",
-    "start": "npm run dev",
     "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
     "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
     "pre-commit": "npm run lint && npm run test"
   },
-  "author": "INSEE (http://www.insee.fr)",
   "husky": {
     "hooks": {
       "pre-push": "yarn pre-commit"
     }
   },
-  "contributors": [
-    {
-      "name": "Franck Cotton",
-      "email": "franck.cotton@insee.fr"
-    },
-    {
-      "name": "Romain Tailhurat",
-      "email": "romain.tailhurat@insee.fr"
-    },
-    {
-      "name": "Jean-Baptiste Rudant",
-      "email": "jb@noknot.fr"
-    }
-  ],
-  "license": "MIT",
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>src/setupTests.js"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
-    "moduleNameMapper": {
-      "^Config$": "<rootDir>/build-config/environments/config.prod.js",
-      "\\.(css|scss|png)$": "identity-obj-proxy"
-    },
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/jison/",
-      "<rootDir>/_book/"
-    ],
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{js,jsx}"
-    ],
-    "testURL": "http://localhost/"
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "prettier": {
     "singleQuote": true,

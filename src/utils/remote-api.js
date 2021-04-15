@@ -1,14 +1,16 @@
 import fetch from 'isomorphic-fetch';
-import Config from 'Config';
 import { getUrlFromCriterias } from 'utils/utils';
 
-const { baseURL, persistancePath, userPath } = Config;
+const {
+  REACT_APP_API_URL: baseURL,
+  REACT_APP_PERSISTENCE_PATH: persistencePath,
+} = process.env;
 
-const urlQuestionnaireList = `${baseURL + persistancePath}/questionnaires`;
+const urlQuestionnaireList = `${baseURL + persistencePath}/questionnaires`;
 const urlQuestionnaireListSearch = `${baseURL +
-  persistancePath}/questionnaires/search`;
-const urlQuestionnaire = `${baseURL + persistancePath}/questionnaire`;
-const urlUserGetAttributes = `${baseURL + userPath}/attributes`;
+  persistencePath}/questionnaires/search`;
+const urlQuestionnaire = `${baseURL + persistencePath}/questionnaire`;
+const urlUserGetAttributes = `${baseURL}/user/attributes`;
 const urlSearch = `${baseURL}/search`;
 const urlSeriesList = `${urlSearch}/series`;
 const urlOperationsList = `${urlSearch}/operations`;

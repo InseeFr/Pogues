@@ -56,13 +56,13 @@ server.get('/questionnaires/search', function(req, res, next) {
   const questionnaires1 = questionnaires.map(question => {
     return {
       Label: question.Label,
-      id: question.id, 
+      id: question.id,
       lastUpdatedDate: question.lastUpdatedDate,
       final: question.final,
       DataCollection: question.DataCollection,
-      TargetMode: question.TargetMode
-   }
- })
+      TargetMode: question.TargetMode,
+    };
+  });
   res.send(questionnaires1);
   next();
 });
@@ -85,7 +85,7 @@ server.get('/questionnaire/:id', function(req, res, next) {
 
 server.put('/questionnaire/:id', function(req, res, next) {
   var qr = req.body;
-  var position = getQuestionnairePosition(questionnaires, req.params.id);  
+  var position = getQuestionnairePosition(questionnaires, req.params.id);
   if (position > -1) {
     questionnaires.splice(position, 1);
   }

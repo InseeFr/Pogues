@@ -7,9 +7,9 @@ before_script:
   - npm run server &
 
 script:
-  - npm run build:travis
+  - npm run build
   - sleep 30
-  - pushd ./dist
+  - pushd ./build
   - python -m SimpleHTTPServer 3000 &
   - popd
   - sleep 30

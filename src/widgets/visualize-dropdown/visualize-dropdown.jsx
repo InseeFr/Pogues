@@ -11,11 +11,16 @@ import Dictionary from 'utils/dictionary/dictionary';
  * visualizations of the PDF : WEB, PDF or ODT
  */
 const VisualizeDropdown = props => {
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-	useEffect(() => {
+  const handleClickOutside = event => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
     window.addEventListener('mousedown', handleClickOutside);
     return () => {
       window.removeEventListener('mousedown', handleClickOutside);
@@ -25,7 +30,7 @@ const VisualizeDropdown = props => {
   /**
    * Will toggle the dropdown menu
    */
-  const openDropDown = (e) => {
+  const openDropDown = e => {
     e.preventDefault();
     e.stopPropagation();
     setDropdownOpen(!dropdownOpen);
@@ -39,12 +44,6 @@ const VisualizeDropdown = props => {
     event.preventDefault();
     props.visualizeActiveQuestionnaire(type, props.componentId);
     setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleClickOutside = (event) => {
-    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-      setDropdownOpen(false);
-    }
   };
 
   const classDropDown = classSet({
@@ -99,7 +98,7 @@ const VisualizeDropdown = props => {
       </ul>
     </div>
   );
-}
+};
 
 // PropTypes and defaultProps
 
