@@ -96,7 +96,7 @@
     "start": "react-scripts start",
     "dev:server": "concurrently \"npm run server\" \"npm run start\"",
     "server": "node ./build-config/fake-backend/server.js",
-    "build": "cross-env ESLINT_NO_DEV_ERRORS=true react-scripts build",
+    "build": "react-scripts build",
     "lint": "eslint ./src -f table || true",
     "lint:fix": "eslint ./src -f table --fix || true",
     "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
