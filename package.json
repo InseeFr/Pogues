@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@hot-loader/react-dom": "^16.9.0",
-    "draft-js": "0.11.0",
+    "draft-js": "0.11.7",
     "draft-js-import-element": "1.4.0",
     "draft-js-utils": "1.4.0",
     "eslint-plugin-react-hooks": "^4.0.5",
@@ -47,6 +47,7 @@
     "redux-thunk": "2.3.0",
     "restify-cors-middleware": "1.1.1",
     "restify-plugins": "1.6.0",
+    "sass": "^1.32.8",
     "synthetic-dom": "1.4.0",
     "terser-webpack-plugin": "^4.2.3"
   },
@@ -105,7 +106,6 @@
     "jest": "24.9.0",
     "jison": "0.4.18",
     "mini-css-extract-plugin": "0.8.0",
-    "node-sass": "4.13.1",
     "object-assign": "4.1.1",
     "preload-webpack-plugin": "2.3.0",
     "prettier": "1.18.2",
