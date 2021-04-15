@@ -9,7 +9,7 @@ before_script:
 script:
   - npm run build
   - sleep 30
-  - pushd ./dist
+  - pushd ./build
   - python -m SimpleHTTPServer 3000 &
   - popd
   - sleep 30
