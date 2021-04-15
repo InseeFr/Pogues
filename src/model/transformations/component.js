@@ -35,12 +35,9 @@ function sortByWeight(store) {
     return 0;
   };
 }
-function getResponseCoordinate(variablesMapping = [], variablesAttribute) {
+function getResponseCoordinate(variablesMapping = []) {
   return variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
-    const find = variablesAttribute
-      ? variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget)
-      : false;
     const variableRes = {
       ...acc,
       [m.MappingSource]: {
@@ -48,9 +45,6 @@ function getResponseCoordinate(variablesMapping = [], variablesAttribute) {
         y: parseInt(axis[1], 10),
       },
     };
-    find
-      ? (variableRes[m.MappingSource].isCollected = false)
-      : (variableRes[m.MappingSource].isCollected = true);
     return variableRes;
   }, {});
 }
@@ -158,7 +152,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
             element.questionType === MULTIPLE_CHOICE ? multiplFind : stringFind,
           codelistid: codelistid,
           type: element.questionType,
-          level: parseInt(level) + 1,
+          level: parseInt(level, 10) + 1,
         };
         variableClarification.push(variable);
       }
@@ -362,7 +356,7 @@ function getClarificationresponseSingleChoiseQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
-  collectedvariablequestion.forEach(function (collected) {
+  collectedvariablequestion.forEach(function(collected) {
     const code = Object.values(
       codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
     ).find(code => code.weight === collected.z);
@@ -441,7 +435,7 @@ function getClarificationResponseMultipleChoiceQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
-  collectedvariablequestion.forEach(function (collected) {
+  collectedvariablequestion.forEach(function(collected) {
     if (responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList) {
       const code = Object.values(
         codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id]
@@ -529,16 +523,16 @@ function getClarificationResponseTableQuestion(
   });
 
   if (responseFormat.TABLE.LIST_MEASURE) {
-    responseFormat.TABLE.LIST_MEASURE.forEach(function (mesure) {
+    responseFormat.TABLE.LIST_MEASURE.forEach(function(mesure) {
       if (mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList.id) {
         Object.values(
           codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes,
-        ).forEach(function (code) {
+        ).forEach(function(code) {
           if (code.precisionid && code.precisionid !== '') {
             const collectedvariablequestionPrecision = collectedvariablequestion.filter(
               varibale => varibale.z === code.weight,
             );
-            collectedvariablequestionPrecision.forEach(function (varib) {
+            collectedvariablequestionPrecision.forEach(function(varib) {
               const variableTable = collectedvariablequestion.find(
                 varTab =>
                   varTab.x === varib.mesureLevel &&

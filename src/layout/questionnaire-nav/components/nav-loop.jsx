@@ -10,8 +10,6 @@ const { LOOP } = COMPONENT_TYPE;
 class NavLoop extends Component {
   static propTypes = {
     componentsStore: PropTypes.object.isRequired,
-    questionnaire: PropTypes.object.isRequired,
-    setSelectedComponentId: PropTypes.func.isRequired,
     removeComponent: PropTypes.func.isRequired,
   };
 

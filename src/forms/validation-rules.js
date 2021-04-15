@@ -8,7 +8,6 @@ import {
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
-import { values } from 'lodash';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 const { NUMERIC } = DATATYPE_NAME;
@@ -24,7 +23,7 @@ export function required(value = '') {
 }
 
 export function unique(property) {
-  return function (values) {
+  return function(values) {
     if (values.length <= 1) {
       return undefined;
     }
@@ -43,7 +42,7 @@ export function uniqueCode() {
 }
 
 export function maxLength(max) {
-  return function (value) {
+  return function(value) {
     return value && value.length > max
       ? `Must be ${max} characters or less`
       : undefined;
@@ -61,7 +60,7 @@ export function number(value) {
 }
 
 export function minValue(min) {
-  return function (value) {
+  return function(value) {
     if (value === undefined || value === '')
       return `${Dictionary.validationMinNumber} ${min}`;
     return parseInt(value, 10) < min
@@ -71,7 +70,7 @@ export function minValue(min) {
 }
 
 export function maxValue(max) {
-  return function (value) {
+  return function(value) {
     if (value === undefined || value === '')
       return `${Dictionary.validationMaxNumber} ${max}`;
     return parseInt(value, 10) > max

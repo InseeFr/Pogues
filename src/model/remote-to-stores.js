@@ -6,7 +6,6 @@ import * as CodesList from './transformations/codes-list';
 import * as Component from './transformations/component';
 import { VARIABLES_TYPES } from 'constants/pogues-constants';
 import { removeOrphansCodesLists } from 'utils/codes-lists/codes-lists-utils';
-import { element } from 'prop-types';
 
 const { CALCULATED, EXTERNAL, COLLECTED } = VARIABLES_TYPES;
 

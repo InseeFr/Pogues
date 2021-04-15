@@ -40,7 +40,6 @@ const {
   VALIDATE,
   FOOTERLOOP,
   DELETE,
-  FILTRE_IMBRIQUER,
 } = WIDGET_COMPONENT_NEW_EDIT;
 const {
   QUESTION,
@@ -147,13 +146,13 @@ const ComponentNewEdit = props => {
     }
   };
 
-  const handleOpenFilter = (e, index) => {
-    e.preventDefault();
-    if (index) {
-      setFilterId(index);
-    }
-    setShowNewNestedFilter(true);
-  };
+  // const handleOpenFilter = (e, index) => {
+  //   e.preventDefault();
+  //   if (index) {
+  //     setFilterId(index);
+  //   }
+  //   setShowNewNestedFilter(true);
+  // };
 
   const handleDeleteNestedFilter = index => {
     let filters = [...filterImbriquers];
@@ -170,21 +169,21 @@ const ComponentNewEdit = props => {
     handleCloseNestedFilter();
   };
 
-  const showFiltersImbriquer = myfilters => {
-    return myfilters.length !== 0
-      ? myfilters.map(filter => {
-          return (
-            <button
-              className={FILTRE_IMBRIQUER}
-              onClick={e => handleOpenFilter(e, filter)}
-            >
-              <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-              {componentsStore[filter].name}
-            </button>
-          );
-        })
-      : false;
-  };
+  // const showFiltersImbriquer = myfilters => {
+  //   return myfilters.length !== 0
+  //     ? myfilters.map(filter => {
+  //         return (
+  //           <button
+  //             className={FILTRE_IMBRIQUER}
+  //             onClick={e => handleOpenFilter(e, filter)}
+  //           >
+  //             <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+  //             {componentsStore[filter].name}
+  //           </button>
+  //         );
+  //       })
+  //     : false;
+  // };
 
   useEffect(() => {
     props.clearSubformValidationErrors();

@@ -146,6 +146,13 @@ class GenericInput extends Component {
     this.setState(newState);
   }
 
+  /**
+   * Handler when the user want to add pageBreak to a question
+   */
+  handleNewPageBreak() {
+    this.props.handleNewPageBreak(this.props.componentIdForPageBreak);
+  }
+
   saveActiveQuestionnaire() {
     if (!this.props.isLoopsValid) {
       const newState = {
@@ -164,13 +171,6 @@ class GenericInput extends Component {
         }
       });
     }
-  }
-
-  /**
-   * Handler when the user want to add pageBreak to a question
-   */
-  handleNewPageBreak() {
-    this.props.handleNewPageBreak(this.props.componentIdForPageBreak);
   }
 
   render() {
@@ -214,6 +214,7 @@ class GenericInput extends Component {
                 </ReactModal>
               );
             }
+            return null;
           }}
         </NavigationPrompt>
         <span>{Dictionary.addObject}</span>

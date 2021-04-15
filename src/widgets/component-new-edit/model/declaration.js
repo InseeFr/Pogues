@@ -1,4 +1,3 @@
-import { func } from 'prop-types';
 import { uuid, verifyVariable } from 'utils/utils';
 
 export const defaultState = {

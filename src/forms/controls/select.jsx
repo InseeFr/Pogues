@@ -34,6 +34,7 @@ export const defaultProps = {
 
 class Select extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   componentDidMount() {

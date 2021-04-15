@@ -9,7 +9,6 @@ import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 import { Component } from 'widgets/component-new-edit';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { element } from 'prop-types';
 
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 

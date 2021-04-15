@@ -43,14 +43,14 @@ export function getcodelistwithclarification(remote, variableclarification) {
       if (clarif.codelistid === codelist.id) {
         let index = 0;
         if (clarif.type === MULTIPLE_CHOICE) {
-          index = parseInt(clarif.position);
+          index = parseInt(clarif.position, 10);
         } else {
           index = codelist.Code.findIndex(
             code => code.Value === clarif.position,
           );
         }
-        codelist.Code[parseInt(index)] = {
-          ...codelist.Code[parseInt(index)],
+        codelist.Code[parseInt(index, 10)] = {
+          ...codelist.Code[parseInt(index, 10)],
           Precisionid: clarif.responseclar.Name,
           Precisionlabel: clarif.responseclar.Label,
           Precisionsize: clarif.responseclar.Response[0].Datatype.MaxLength,
@@ -101,10 +101,8 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
     );
 }
 export function storeToRemote(store) {
-  const codeList = [];
-  Object.keys(store).map(key => {
+  return Object.keys(store).reduce((acc, key) => {
     const { id, label, codes } = store[key];
-
     const code = {
       id,
       Label: label,
@@ -118,7 +116,6 @@ export function storeToRemote(store) {
         };
       }),
     };
-    codeList.push(code);
+    return [...acc, code];
   });
-  return codeList;
 }

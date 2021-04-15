@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Header from 'layout/header/header';
 import Footer from 'layout/footer/footer';
 
-//TODO
-//import 'scss/pogues.scss';
+// TODO
+// import 'scss/pogues.scss';
 
 import { APP } from 'constants/dom-constants';
 

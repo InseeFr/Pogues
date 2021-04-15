@@ -1,7 +1,7 @@
 import * as Response from './response';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
-const { TABLE, MULTIPLE_CHOICE, TEXT } = QUESTION_TYPE_ENUM;
+const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export function stateToModel(
   state,

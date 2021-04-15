@@ -93,8 +93,7 @@ const RichTextarea = props => {
   };
 
   const toggleShowConditionInput = () => {
-    const isShowing = showLinkInput;
-    setShowConditionInput(!isShowing);
+    setShowConditionInput(!showConditionInput);
   };
 
   const handleChange = editorValue => {

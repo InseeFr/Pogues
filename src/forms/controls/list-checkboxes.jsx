@@ -59,7 +59,7 @@ class ListCheckboxes extends Component {
     });
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     const values = nextProps.input.value;
     if (this.props.input.value !== values) {
       this.setState({

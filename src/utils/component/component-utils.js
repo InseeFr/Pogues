@@ -174,4 +174,5 @@ export function updateNewComponentParent(
       },
     };
   }
+  return {};
 }

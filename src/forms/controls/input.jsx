@@ -36,6 +36,7 @@ export const defaultProps = {
 
 class Input extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   componentDidMount() {

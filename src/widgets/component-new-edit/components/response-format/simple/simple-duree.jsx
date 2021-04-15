@@ -211,7 +211,7 @@ class ResponseFormatDatatypeDuree extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {
     formatTable: selector(

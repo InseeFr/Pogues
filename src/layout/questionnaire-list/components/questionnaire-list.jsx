@@ -67,9 +67,13 @@ const QuestionnaireList = props => {
         currentQuestion !== q.id &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
-          getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
+          getState(q.final)
+            .toLowerCase()
+            .indexOf(filter) >= 0 ||
           (q.lastUpdatedDate &&
-            formatDate(q.lastUpdatedDate).toLowerCase().indexOf(filter) >= 0) ||
+            formatDate(q.lastUpdatedDate)
+              .toLowerCase()
+              .indexOf(filter) >= 0) ||
           !q)
       );
     })
@@ -95,6 +99,7 @@ const QuestionnaireList = props => {
           />
         );
       }
+      return null;
     });
 
   useEffect(() => {

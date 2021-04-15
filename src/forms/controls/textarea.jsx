@@ -28,6 +28,7 @@ export const defaultProps = {
 
 class Textarea extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   componentDidMount() {

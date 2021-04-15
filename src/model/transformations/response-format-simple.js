@@ -1,5 +1,5 @@
 import * as Response from './response';
-import { DATATYPE_NAME, DURATION_UNIT } from 'constants/pogues-constants';
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 export function remoteToState(remote) {
   const {
@@ -38,20 +38,20 @@ export function remoteToState(remote) {
       const strminimum = datatype.minimum;
       const matches_minimum = strminimum.match(/\d+/g);
       if (format === 'PTnHnM') {
-        datatype.mihours = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-        datatype.miminutes = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+        datatype.mihours = matches_minimum[0] === 0 ? '' : matches_minimum[0];
+        datatype.miminutes = matches_minimum[1] === 0 ? '' : matches_minimum[1];
       }
       if (format === 'PnYnM') {
-        datatype.miyears = matches_minimum[0] == 0 ? '' : matches_minimum[0];
-        datatype.mimonths = matches_minimum[1] == 0 ? '' : matches_minimum[1];
+        datatype.miyears = matches_minimum[0] === 0 ? '' : matches_minimum[0];
+        datatype.mimonths = matches_minimum[1] === 0 ? '' : matches_minimum[1];
       }
       if (format === 'HH:CH') {
         datatype.mihundhours =
-          matches_minimum[0][0] == 0
+          matches_minimum[0][0] === 0
             ? matches_minimum[0].slice(1)
             : matches_minimum[0];
         datatype.mihundredths =
-          matches_minimum[1][0] == 0
+          matches_minimum[1][0] === 0
             ? matches_minimum[1].slice(1)
             : matches_minimum[1];
       }
@@ -60,20 +60,20 @@ export function remoteToState(remote) {
       const strmaximum = datatype.maximum;
       const matches_maximum = strmaximum.match(/\d+/g);
       if (format === 'PTnHnM') {
-        datatype.mahours = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-        datatype.maminutes = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+        datatype.mahours = matches_maximum[0] === 0 ? '' : matches_maximum[0];
+        datatype.maminutes = matches_maximum[1] === 0 ? '' : matches_maximum[1];
       }
       if (format === 'PnYnM') {
-        datatype.mayears = matches_maximum[0] == 0 ? '' : matches_maximum[0];
-        datatype.mamonths = matches_maximum[1] == 0 ? '' : matches_maximum[1];
+        datatype.mayears = matches_maximum[0] === 0 ? '' : matches_maximum[0];
+        datatype.mamonths = matches_maximum[1] === 0 ? '' : matches_maximum[1];
       }
       if (format === 'HH:CH') {
         datatype.mahundhours =
-          matches_maximum[0][0] == 0
+          matches_maximum[0][0] === 0
             ? matches_maximum[0].slice(1)
             : matches_maximum[0];
         datatype.mahundredths =
-          matches_maximum[1][0] == 0
+          matches_maximum[1][0] === 0
             ? matches_maximum[1].slice(1)
             : matches_maximum[1];
       }
