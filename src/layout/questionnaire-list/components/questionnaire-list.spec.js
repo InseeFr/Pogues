@@ -41,9 +41,13 @@ describe('<QuestionnaireList />', () => {
   ];
   const propsWithQuestionnaires = {
     questionnaires: mockQuestionnaires,
+    duplicateQuestionnaire: () => {},
   };
   const wrapperWithoutQuestionnaires = shallow(
-    <QuestionnaireList loadQuestionnaireList={noop} />,
+    <QuestionnaireList
+      loadQuestionnaireList={noop}
+      duplicateQuestionnaire={() => {}}
+    />,
   );
   const wrapperWithQuestionnaires = shallow(
     <QuestionnaireList

@@ -117,5 +117,5 @@ export function storeToRemote(store) {
       }),
     };
     return [...acc, code];
-  });
+  }, []);
 }
