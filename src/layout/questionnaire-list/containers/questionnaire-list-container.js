@@ -27,4 +27,7 @@ const mapDispatchToProps = {
   mergeQuestions,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(QuestionnaireList);

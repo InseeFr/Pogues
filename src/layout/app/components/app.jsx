@@ -11,15 +11,15 @@ import { APP } from 'constants/dom-constants';
 const { COMPONENT_ID } = APP;
 
 // Component
-const App = props => {
+const App = ({ children, loadUnitsIfNeeded }) => {
   useEffect(() => {
-    props.loadUnitsIfNeeded();
+    loadUnitsIfNeeded();
   }, []);
 
   return (
     <div id={COMPONENT_ID}>
       <Header />
-      {props.children}
+      {children}
       <Footer />
     </div>
   );

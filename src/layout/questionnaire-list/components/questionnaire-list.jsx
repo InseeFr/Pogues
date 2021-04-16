@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import Questionnaire from './questionnaire';
-import isEqual from 'lodash.isequal';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
@@ -33,17 +32,12 @@ const QuestionnaireList = props => {
     mergeQuestions(checkedQuestion);
     handleCloseNewQuestion();
   };
-  // useEffect(() => {
-  //   if (!isEqual(questionnaires, questionList)) {
-  //     props.loadQuestionnaireList(stamp, token);
-  //     seQuestionList(questionnaires);
-  //   }
-  // }, [stamp, questionnaires]);
 
+  // TODO: Find why 2 calls
   useEffect(() => {
-    console.log('questionnaires', questionnaires);
-    console.log('stamp', stamp);
     props.loadQuestionnaireList(stamp, token);
+    props.setModifiedFalse();
+    return () => console.log('Why UNMOUNT????????');
   }, [stamp, token]);
 
   const updateFilter = value => {
@@ -70,9 +64,13 @@ const QuestionnaireList = props => {
         currentQuestion !== q.id &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
-          getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
+          getState(q.final)
+            .toLowerCase()
+            .indexOf(filter) >= 0 ||
           (q.lastUpdatedDate &&
-            formatDate(q.lastUpdatedDate).toLowerCase().indexOf(filter) >= 0) ||
+            formatDate(q.lastUpdatedDate)
+              .toLowerCase()
+              .indexOf(filter) >= 0) ||
           !q)
       );
     })
@@ -100,15 +98,6 @@ const QuestionnaireList = props => {
       }
       return null;
     });
-
-  useEffect(() => {
-    if (props.stamp && props.stamp) props.loadQuestionnaireList(props.stamp);
-  }, []);
-
-  useEffect(() => {
-    props.loadQuestionnaireList(props.stamp);
-    props.setModifiedFalse();
-  }, [props.stamp]);
 
   return (
     <div>
