@@ -15,6 +15,7 @@ import {
   getNewLoopPlaceholder,
 } from '../utils/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { getUser } from 'reducers/selectors';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -80,7 +81,6 @@ const mapStateToProps = state => {
     activeComponentsById,
     selectedComponentId,
     activeQuestionnaire,
-    user,
   } = state.appState;
   const errors = state.errors || { errorsIntegrity: {} };
   const questionnaireErrors =
@@ -98,7 +98,7 @@ const mapStateToProps = state => {
     componentIdForPageBreak: state.appState.componentIdForPageBreak,
     isLoopsValid: isLoopsValid(activeComponentsById),
     activeQuestionnaire: activeQuestionnaire,
-    user: user,
+    stamp: getUser(state).stamp,
     currentQuestion: state.appState.activeQuestionnaire.id,
   };
 };

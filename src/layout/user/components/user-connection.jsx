@@ -23,7 +23,7 @@ function UserConnection({ user }) {
             <strong>{user.name}</strong>
           </div>
           {/* <div className="user-stamp">
-              {Dictionary.stamp} {user.permission}
+              {Dictionary.stamp} {user.stamp}
             </div> */}
         </div>
         {/* <div className="user-logout">
@@ -41,7 +41,7 @@ function UserConnection({ user }) {
 UserConnection.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
-    permission: PropTypes.string,
+    stamp: PropTypes.string,
     id: PropTypes.string,
     picture: PropTypes.string,
   }),

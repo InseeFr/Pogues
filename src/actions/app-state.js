@@ -8,6 +8,7 @@ import {
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
+import { getUser } from 'reducers/selectors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -265,8 +266,7 @@ function getQuestionnaireModel(state, customComponentsStore) {
   const questionnaireState = {
     ...state.appState.activeQuestionnaire,
     lastUpdatedDate: new Date().toString(),
-    // TODO owner: state.appState.user.permission,
-    owner: 'toto',
+    owner: getUser(state).stamp,
   };
 
   return Questionnaire.stateToRemote(questionnaireState, stores);
