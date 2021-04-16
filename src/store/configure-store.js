@@ -12,10 +12,10 @@ function getDebugSessionKey() {
   return matches && matches.length > 0 ? matches[1] : null;
 }
 
-export default function configureStore() {
+export default function configureStore(init) {
   return createStore(
     rootReducer,
-    undefined,
+    init,
     composeWithDevTools(
       applyMiddleware(thunkMiddleware, loggerMiddleware),
       persistState(getDebugSessionKey()),

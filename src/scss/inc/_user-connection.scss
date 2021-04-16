@@ -29,6 +29,9 @@
     .user-stamp {
       @include make-xs-column(10, 0px);
     }
+    .user-name {
+      margin-top: 0.7em;
+    }
   }
 
   .user-logout {

@@ -28,7 +28,6 @@ import {
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
 } from 'actions/component';
-import { LOAD_USER_SUCCESS } from 'actions/user';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -38,7 +37,6 @@ const actionHandlers = {
 };
 
 const defaultState = {
-  user: {},
   activeQuestionnaire: {},
   activeComponentsById: {},
   activeCodeListsById: {},
@@ -55,13 +53,6 @@ const defaultState = {
   componentIdForPageBreak: '',
   focusedInput: '',
 };
-
-export function loadUserSuccess(state, user) {
-  return {
-    ...state,
-    user: user,
-  };
-}
 
 export function setActiveQuestionnaire(state, questionnaire) {
   const { components, codeLists, ...activeQuestionnaire } = questionnaire;
@@ -185,7 +176,6 @@ export function setQuestionModifiedAndResetSelectedComponent(state) {
   };
 }
 
-actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;

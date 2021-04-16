@@ -13,7 +13,6 @@ const { COMPONENT_ID } = APP;
 // Component
 const App = props => {
   useEffect(() => {
-    props.loadUser();
     props.loadUnitsIfNeeded();
   }, []);
 

@@ -107,7 +107,7 @@ class GenericInput extends Component {
       showNewQuestionnaire: true,
     };
     this.setState(newState);
-    this.props.loadQuestionnaireList(this.props.user.permission);
+    this.props.loadQuestionnaireList(this.props.stamp);
   }
 
   handleCloseNewQuestion() {

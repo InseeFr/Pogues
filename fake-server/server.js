@@ -67,15 +67,6 @@ server.get('/persistence/questionnaires/search', function(req, res, next) {
   next();
 });
 
-server.get('/user/attributes', function(req, res, next) {
-  res.send({
-    id: 'FAKEID',
-    name: 'Fake user',
-    permission: 'FAKEPERMISSION',
-  });
-  next();
-});
-
 server.get('/persistence/questionnaire/:id', function(req, res, next) {
   var position = getQuestionnairePosition(questionnaires, req.params.id);
   var questionnaire = position !== -1 ? questionnaires[position] : {};

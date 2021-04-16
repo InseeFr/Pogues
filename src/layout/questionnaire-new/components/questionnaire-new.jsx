@@ -12,7 +12,7 @@ import { validateQuestionnaireForm } from 'utils/validation/validate';
 export const propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  stamp: PropTypes.string.isRequired,
   createQuestionnaire: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
 };
@@ -37,7 +37,7 @@ function validateAndSubmit(action, validate, transformer, onSuccess) {
 function QuestionnaireNew({
   onCancel,
   onSuccess,
-  user,
+  stamp,
   createQuestionnaire,
   setErrors,
 }) {
@@ -46,7 +46,7 @@ function QuestionnaireNew({
 
   // Initial values
 
-  const initialState = { owner: user.permission };
+  const initialState = { owner: stamp };
   const questionnaireTransformer = Questionnaire(initialState);
   const initialValues = questionnaireTransformer.stateToForm();
 

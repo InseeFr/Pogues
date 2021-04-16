@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from 'layout/header/logo-insee.png';
-import UserConnectionContainer from 'layout/user/user-connection';
+import UserConnectionContainer from 'layout/user/user-connection-container';
 import Dictionary from 'utils/dictionary/dictionary';
 
 function Header() {

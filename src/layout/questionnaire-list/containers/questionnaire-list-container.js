@@ -5,6 +5,7 @@ import QuestionnaireList from '../components/questionnaire-list';
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import { duplicateQuestionnaire, mergeQuestions } from 'actions/questionnaire';
 import { setModifiedFalse } from 'actions/app-state';
+import { getToken, getUser } from 'reducers/selectors';
 
 // Contanier
 
@@ -14,7 +15,8 @@ const mapStateToProps = state => {
   );
   return {
     questionnaires,
-    user: state.appState.user,
+    stamp: getUser(state).stamp,
+    token: getToken(state),
   };
 };
 

@@ -1,4 +1,4 @@
-jest.dontMock('./user-connection');
+jest.dontMock('./user-connection-container');
 
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -34,12 +34,7 @@ describe('<UserConnection />', () => {
   );
 
   test('should render without throwing an error', () => {
-    expect(wrapperNotLogged.is('#user-connection')).toBe(true);
-  });
-
-  // @TODO: We need wireframes of the login form
-  test('should render a login form if the user is not defined', () => {
-    expect(wrapperNotLogged.find('.user-login').length).toBe(1);
+    expect(wrapperNotLogged.isEmptyRender()).toBe(true);
   });
 
   // @TODO: We don't know yet the structure of the user object
