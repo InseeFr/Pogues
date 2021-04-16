@@ -94,11 +94,12 @@
     "start": "react-scripts start",
     "dev:server": "concurrently \"npm run server\" \"npm run start\"",
     "server": "node ./fake-server/server.js",
-    "build": "react-scripts build",
+    "build": "npm run generate-entrypoint && react-scripts build",
     "lint": "eslint ./src -f table || true",
     "lint:fix": "eslint ./src -f table --fix || true",
     "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
     "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
+    "generate-entrypoint": "node scripts/generate-entrypoint.js",
     "pre-commit": "npm run lint && npm run test"
   },
   "husky": {
