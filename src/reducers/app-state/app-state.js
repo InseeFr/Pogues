@@ -28,7 +28,6 @@ import {
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
 } from 'actions/component';
-import { LOAD_USER_SUCCESS } from 'actions/user';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -185,7 +184,6 @@ export function setQuestionModifiedAndResetSelectedComponent(state) {
   };
 }
 
-actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
@@ -206,7 +204,7 @@ actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
 actionHandlers[CLEAR_MODIFICATION] = setQuestionModifiedFalse;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
-export default function (state = defaultState, action) {
+export default function(state = defaultState, action) {
   if (!action) return state;
   const { type, payload, meta } = action;
   const hndlr = actionHandlers[type];

@@ -7,7 +7,6 @@ const baseURL = getEnvVar('API_URL');
 const urlQuestionnaireList = `${baseURL}/persistence/questionnaires`;
 const urlQuestionnaireListSearch = `${baseURL}/persistence/questionnaires/search`;
 const urlQuestionnaire = `${baseURL}/persistence/questionnaire`;
-const urlUserGetAttributes = `${baseURL}/user/attributes`;
 const urlSearch = `${baseURL}/search`;
 const urlSeriesList = `${urlSearch}/series`;
 const urlOperationsList = `${urlSearch}/operations`;
@@ -62,7 +61,6 @@ export const visualizeHtml = qr => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include',
   })
     .then(response => response.text())
     .then(url => {
@@ -82,7 +80,6 @@ export const visualizeDDI = qr => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include',
   }).then(openDocument);
 };
 
@@ -99,7 +96,6 @@ export const visualizePdf = qr => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include',
   }).then(openDocument);
 };
 
@@ -116,7 +112,6 @@ export const visualizeSpec = qr => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include',
   }).then(openDocument);
 };
 
@@ -128,7 +123,6 @@ export const getQuestionnaireList = permission =>
     headers: {
       Accept: 'application/json',
     },
-    credentials: 'include',
   }).then(res => res.json());
 
 /**
@@ -144,7 +138,6 @@ export const postQuestionnaire = qr =>
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include',
   }).then(res => {
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
@@ -162,7 +155,6 @@ export const putQuestionnaire = (id, qr) =>
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(qr),
-    credentials: 'include',
   }).then(res => {
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
@@ -176,21 +168,7 @@ export const getQuestionnaire = id =>
     headers: {
       Accept: 'application/json',
     },
-    credentials: 'include',
   }).then(res => res.json());
-
-/**
- * Retrieve user attributes
- */
-export const getUserAttributes = () =>
-  fetch(urlUserGetAttributes, {
-    headers: {
-      Accept: 'application/json',
-    },
-    credentials: 'include',
-  }).then(res => {
-    return res.json();
-  });
 
 /**
  * Will send a DELETE request in order to remove an existing questionnaire
@@ -200,7 +178,6 @@ export const getUserAttributes = () =>
 export const deleteQuestionnaire = id =>
   fetch(`${urlQuestionnaire}/${id}`, {
     method: 'DELETE',
-    credentials: 'include',
   });
 
 export const getSeries = () =>
@@ -208,7 +185,6 @@ export const getSeries = () =>
     headers: {
       Accept: 'application/json',
     },
-    credentials: 'include',
   }).then(res => res.json());
 
 export const getOperations = id =>
@@ -216,7 +192,6 @@ export const getOperations = id =>
     headers: {
       Accept: 'application/json',
     },
-    credentials: 'include',
   }).then(res => res.json());
 
 export const getCampaigns = id =>
@@ -224,7 +199,6 @@ export const getCampaigns = id =>
     headers: {
       Accept: 'application/json',
     },
-    credentials: 'include',
   }).then(res => res.json());
 
 export const getContextFromCampaign = id =>
@@ -232,7 +206,6 @@ export const getContextFromCampaign = id =>
     headers: {
       Accept: 'application/json',
     },
-    credentials: 'include',
   }).then(res => res.json());
 
 export const getUnitsList = () =>
@@ -240,7 +213,6 @@ export const getUnitsList = () =>
     headers: {
       Accept: 'application/json',
     },
-    credentials: 'include',
   }).then(res => res.json());
 
 export const getSearchResults = (typeItem, criterias, filter = '') => {
@@ -252,7 +224,6 @@ export const getSearchResults = (typeItem, criterias, filter = '') => {
       // 'Content-Type': 'text/html',
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
     body: JSON.stringify({
       types: [typeItem],
       filter,

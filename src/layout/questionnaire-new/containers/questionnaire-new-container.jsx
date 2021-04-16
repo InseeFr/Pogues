@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createQuestionnaire } from 'actions/questionnaire';
 import { setValidationErrors } from 'actions/errors';
 import QuestionnaireNew from '../components/questionnaire-new';
+import { getUser } from 'reducers/selectors';
 
 // PropTypes and defaultProps
 
@@ -16,7 +17,7 @@ export const propTypes = {
 
 const mapStateToProps = state => {
   return {
-    user: state.appState.user,
+    stamp: getUser(state).stamp,
     activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };

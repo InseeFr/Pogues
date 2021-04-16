@@ -11,7 +11,7 @@ import { formatDate, getState } from 'utils/component/component-utils';
 const QuestionnaireList = props => {
   const {
     questionnaires,
-    user,
+    stamp,
     duplicateQuestionnaire,
     fusion,
     handleCloseNewQuestion,
@@ -34,14 +34,14 @@ const QuestionnaireList = props => {
   };
   useEffect(() => {
     if (!isEqual(questionnaires, questionList)) {
-      props.loadQuestionnaireList(user.permission);
+      props.loadQuestionnaireList(stamp);
       seQuestionList(questionnaires);
     }
-  }, [user, questionnaires]);
+  }, [stamp, questionnaires]);
 
   useEffect(() => {
-    props.loadQuestionnaireList(user.permission);
-  }, [user.permission]);
+    props.loadQuestionnaireList(stamp);
+  }, [stamp]);
 
   const updateFilter = value => {
     setFilter(value);
@@ -57,7 +57,7 @@ const QuestionnaireList = props => {
   };
   const handleSubmit = () => {
     duplicateQuestionnaire(questionId);
-    props.loadQuestionnaireList(props.user.permission);
+    props.loadQuestionnaireList(props.stamp);
     setShowPopup(false);
   };
 
@@ -67,13 +67,9 @@ const QuestionnaireList = props => {
         currentQuestion !== q.id &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
-          getState(q.final)
-            .toLowerCase()
-            .indexOf(filter) >= 0 ||
+          getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
           (q.lastUpdatedDate &&
-            formatDate(q.lastUpdatedDate)
-              .toLowerCase()
-              .indexOf(filter) >= 0) ||
+            formatDate(q.lastUpdatedDate).toLowerCase().indexOf(filter) >= 0) ||
           !q)
       );
     })
@@ -103,21 +99,20 @@ const QuestionnaireList = props => {
     });
 
   useEffect(() => {
-    if (props.user && props.user.permission)
-      props.loadQuestionnaireList(props.user.permission);
+    if (props.stamp && props.stamp) props.loadQuestionnaireList(props.stamp);
   }, []);
 
   useEffect(() => {
-    props.loadQuestionnaireList(props.user.permission);
+    props.loadQuestionnaireList(props.stamp);
     props.setModifiedFalse();
-  }, [props.user.permission]);
+  }, [props.stamp]);
 
   return (
     <div>
       <div className="box home-questionnaires">
         <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
         <h4>
-          {Dictionary.stamp} {user.permission}
+          {Dictionary.stamp} {stamp}
         </h4>
         <div id="questionnaire-list">
           {questionnaires.length > 0 ? (
@@ -203,16 +198,11 @@ QuestionnaireList.propTypes = {
   loadQuestionnaireList: PropTypes.func.isRequired,
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    permission: PropTypes.string,
-    id: PropTypes.string,
-    picture: PropTypes.string,
-  }),
+  stamp: PropTypes.string,
 };
 
 QuestionnaireList.defaultProps = {
   questionnaires: [],
-  user: {},
+  stamp: '',
 };
 export default QuestionnaireList;

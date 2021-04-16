@@ -265,7 +265,8 @@ function getQuestionnaireModel(state, customComponentsStore) {
   const questionnaireState = {
     ...state.appState.activeQuestionnaire,
     lastUpdatedDate: new Date().toString(),
-    owner: state.appState.user.permission,
+    // TODO owner: state.appState.user.permission,
+    owner: 'toto',
   };
 
   return Questionnaire.stateToRemote(questionnaireState, stores);

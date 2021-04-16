@@ -1,4 +1,4 @@
-jest.dontMock('./user-connection');
+jest.dontMock('./user-connection-container');
 
 import React from 'react';
 import { shallow } from 'enzyme';
