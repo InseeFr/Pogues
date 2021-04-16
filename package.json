@@ -86,7 +86,8 @@
     "redux-devtools": "3.7.0",
     "redux-devtools-extension": "2.13.9",
     "redux-logger": "3.0.6",
-    "restify": "8.5.1"
+    "restify": "8.5.1",
+    "shx": "^0.3.3"
   },
   "scripts": {
     "test": "react-scripts test --coverage -i",
@@ -100,7 +101,8 @@
     "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
     "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
     "generate-entrypoint": "node scripts/generate-entrypoint.js",
-    "pre-commit": "npm run lint && npm run test"
+    "pre-commit": "npm run lint && npm run test",
+    "postinstall": "shx cp src/bootstrap-custom/_variables.scss node_modules/bootstrap-sass/assets/stylesheets/bootstrap/"
   },
   "husky": {
     "hooks": {
