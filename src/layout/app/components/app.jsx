@@ -27,8 +27,7 @@ const App = props => {
 // Prop types and default props
 
 App.propTypes = {
-  children: PropTypes.object.isRequired,
-  loadUser: PropTypes.func.isRequired,
+  children: PropTypes.array.isRequired,
   loadUnitsIfNeeded: PropTypes.func.isRequired,
 };
 export default App;
