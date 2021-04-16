@@ -15,7 +15,7 @@ import {
   getNewLoopPlaceholder,
 } from '../utils/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getUser } from 'reducers/selectors';
+import { getToken, getUser } from 'reducers/selectors';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -99,6 +99,7 @@ const mapStateToProps = state => {
     isLoopsValid: isLoopsValid(activeComponentsById),
     activeQuestionnaire: activeQuestionnaire,
     stamp: getUser(state).stamp,
+    token: getToken(state),
     currentQuestion: state.appState.activeQuestionnaire.id,
   };
 };
@@ -110,4 +111,7 @@ const mapDispatchToProps = {
   loadQuestionnaireList,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenericInput);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(GenericInput);

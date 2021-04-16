@@ -54,7 +54,7 @@ const QuestionnaireList = props => {
   };
   const handleSubmit = () => {
     duplicateQuestionnaire(questionId);
-    props.loadQuestionnaireList(props.stamp);
+    props.loadQuestionnaireList(props.stamp, props.token);
     setShowPopup(false);
   };
 
