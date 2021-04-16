@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
+import { reducer as oidc } from '@axa-fr/react-oidc-redux';
 
 import locale from 'reducers/dictionary';
 import appState from 'reducers/app-state/app-state';
@@ -18,6 +19,8 @@ import checkers from 'utils/integrity/checkers';
 
 export default integrityChecker(
   combineReducers({
+    authType: (s = '') => s,
+    oidc,
     form,
     locale,
     appState,

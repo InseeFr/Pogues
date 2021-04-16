@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
-import Loader from 'react-loader-spinner';
+import Loader from 'layout/loader';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
 import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
@@ -146,13 +146,7 @@ const PageQuestionnaire = props => {
   return (
     <div id={COMPONENT_ID}>
       {loading ? (
-        <Loader
-          className="loaderClass"
-          type="RevolvingDot"
-          color="#facb21"
-          height={100}
-          width={100}
-        />
+        <Loader />
       ) : (
         <div>
           <QuestionnaireNav />
