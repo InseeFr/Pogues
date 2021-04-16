@@ -423,8 +423,10 @@ export function stateToRemote(
   // Responses
 
   const numDataTypes = measureState
-    ? maxBy(collectedVariables.map(key => collectedVariablesStore[key]), 'y')
-        .y || 1
+    ? maxBy(
+        collectedVariables.map(key => collectedVariablesStore[key]),
+        'y',
+      ).y || 1
     : listMeasuresState.length;
   let responsesModel = [];
   let mappingsModel = [];

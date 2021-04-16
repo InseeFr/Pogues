@@ -35,12 +35,9 @@ function sortByWeight(store) {
     return 0;
   };
 }
-function getResponseCoordinate(variablesMapping = [], variablesAttribute) {
+function getResponseCoordinate(variablesMapping = []) {
   return variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
-    const find = variablesAttribute
-      ? variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget)
-      : false;
     const variableRes = {
       ...acc,
       [m.MappingSource]: {
@@ -48,9 +45,6 @@ function getResponseCoordinate(variablesMapping = [], variablesAttribute) {
         y: parseInt(axis[1], 10),
       },
     };
-    find
-      ? (variableRes[m.MappingSource].isCollected = false)
-      : (variableRes[m.MappingSource].isCollected = true);
     return variableRes;
   }, {});
 }
@@ -158,7 +152,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
             element.questionType === MULTIPLE_CHOICE ? multiplFind : stringFind,
           codelistid: codelistid,
           type: element.questionType,
-          level: parseInt(level) + 1,
+          level: parseInt(level, 10) + 1,
         };
         variableClarification.push(variable);
       }

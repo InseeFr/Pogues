@@ -6,8 +6,8 @@ describe('checkerExistingTarget', () => {
     const input = {
       appState: {
         activeComponentsById: {
-          '1': { name: 'question1', redirections: {} },
-          '2': { name: 'question', redirections: {} },
+          1: { name: 'question1', redirections: {} },
+          2: { name: 'question', redirections: {} },
         },
         activeQuestionnaire: {
           id: '1',
@@ -15,7 +15,7 @@ describe('checkerExistingTarget', () => {
       },
     };
     const output = {
-      '1': {
+      1: {
         [INTEGRITY_TYPES.NOT_EXISTING_TARGET]: [],
       },
     };
@@ -25,7 +25,7 @@ describe('checkerExistingTarget', () => {
     const input = {
       appState: {
         activeComponentsById: {
-          '1': {
+          1: {
             name: 'question1',
             redirections: {
               j6p6my1d: {
@@ -36,7 +36,7 @@ describe('checkerExistingTarget', () => {
               },
             },
           },
-          '2': { name: 'question', redirections: {} },
+          2: { name: 'question', redirections: {} },
         },
         activeQuestionnaire: {
           id: '1',
@@ -44,7 +44,7 @@ describe('checkerExistingTarget', () => {
       },
     };
     const output = {
-      '1': {
+      1: {
         [INTEGRITY_TYPES.NOT_EXISTING_TARGET]: [
           {
             message: `The following targets of redirections don't exist for the questionnaire : Cible1`,

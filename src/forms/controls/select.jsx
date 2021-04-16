@@ -34,6 +34,7 @@ export const defaultProps = {
 
 class Select extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   componentDidMount() {
@@ -83,7 +84,7 @@ class Select extends Component {
             })}
           </select>
 
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

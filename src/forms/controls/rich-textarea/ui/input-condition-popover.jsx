@@ -45,6 +45,7 @@ const defaultProps = {
 
 class InputConditionPopover extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -101,13 +102,17 @@ class InputConditionPopover extends Component {
   }
 
   onChange(value, index, property) {
-    const newConditions = [...this.state.conditions];
-    newConditions[index][property] = value;
-    this.setState({ conditions: newConditions });
+    this.setState(prevState => {
+      const newConditions = [...prevState.conditions];
+      newConditions[index][property] = value;
+      return { conditions: newConditions };
+    });
   }
 
   toggleInvalidConditions() {
-    this.setState({ showInvalidConditions: !this.state.showInvalidConditions });
+    this.setState(prevState => ({
+      showInvalidConditions: !prevState.showInvalidConditions,
+    }));
   }
 
   doSubmit() {
@@ -115,15 +120,15 @@ class InputConditionPopover extends Component {
   }
 
   addCondition() {
-    const newConditions = [...this.state.conditions];
-    newConditions.push({ ...emptyCondition });
-    this.setState({ conditions: newConditions });
+    this.setState(prevState => ({
+      conditions: [...prevState.conditions, { ...emptyCondition }],
+    }));
   }
 
   removeCondition(index) {
-    const newConditions = [...this.state.conditions];
-    newConditions.splice(index, 1);
-    this.setState({ conditions: newConditions });
+    this.setState(prevState => ({
+      conditions: [...prevState.conditions].splice(index, 1),
+    }));
   }
 
   renderCondition({ condition, label }, index) {
@@ -136,7 +141,7 @@ class InputConditionPopover extends Component {
             placeholder="Condition"
             className={INPUT}
             onChange={event => {
-              const value = event.currentTarget.value;
+              const { value } = event.currentTarget;
               this.onChange(value, index, 'condition');
             }}
           />
@@ -146,13 +151,14 @@ class InputConditionPopover extends Component {
             placeholder="Label"
             className={INPUT}
             onChange={event => {
-              const value = event.currentTarget.value;
+              const { value } = event.currentTarget;
               this.onChange(value, index, 'label');
             }}
           />
         </div>
         <div>
           <span
+            role="button"
             className="glyphicon glyphicon-remove"
             onClick={() => {
               this.removeCondition(index);

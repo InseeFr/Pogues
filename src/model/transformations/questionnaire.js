@@ -18,7 +18,6 @@ import {
   QUESTION_END_CHILD,
   QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
-import { element, object } from 'prop-types';
 
 const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
@@ -72,7 +71,6 @@ export function remoteToState(remote, currentStores = {}) {
     lastUpdatedDate,
     TargetMode,
     declarationMode,
-    FlowControl,
     ComponentGroup,
     flowLogic,
   } = remote;

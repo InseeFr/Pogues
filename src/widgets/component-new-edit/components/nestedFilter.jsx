@@ -5,7 +5,7 @@ import { setSelectedComponentId } from 'actions/app-state';
 import { createComponent } from 'actions/components';
 
 import PropTypes from 'prop-types';
-import { DEFAULT_FORM_NAME, COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { uuid } from 'utils/utils';
@@ -25,13 +25,11 @@ const { LOOP, NESTEDFILTRE, FILTER } = COMPONENT_TYPE;
 // Prop types and default props
 
 export const propTypes = {
-  formName: PropTypes.string,
   componentsStore: PropTypes.object.isRequired,
 };
 
-export const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-};
+export const defaultProps = {};
+
 const NestedFilter = props => {
   const {
     componentsStore,
@@ -266,6 +264,7 @@ const NestedFilter = props => {
       }
       return optionsFinal;
     }
+    return null;
   };
   const inferieur = () => {
     let inferieurFilter =
@@ -590,13 +589,13 @@ const NestedFilter = props => {
 
 NestedFilter.propTypes = propTypes;
 NestedFilter.defaultProps = defaultProps;
-const mapStateToProps = state => {};
+
 const mapDispatchToProps = {
   createComponent,
   setSelectedComponentId,
 };
 
 export default connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps,
 )(NestedFilter);

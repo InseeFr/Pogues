@@ -54,11 +54,11 @@ export const defaultProps = {
 
 class InputAutocomplete extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
     super(props);
-
     this.state = {
       options: [],
       indexSelectedOption: undefined,
@@ -87,7 +87,7 @@ class InputAutocomplete extends Component {
     if (this.props.focusOnInit) this.input.focus();
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     const {
       children,
       input: { value },
@@ -245,7 +245,7 @@ class InputAutocomplete extends Component {
               ))}
             </ul>
           )}
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

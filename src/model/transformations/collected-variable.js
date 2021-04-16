@@ -28,7 +28,7 @@ export function remoteToStore(
       );
       if (find) {
         if (find.type === MULTIPLE_CHOICE) {
-          variable.z = parseInt(find.position) + 1;
+          variable.z = parseInt(find.position, 10) + 1;
         } else if (find.type === TABLE) {
           const code = Object.values(
             codesListsStore[find.codelistid].codes,
@@ -195,7 +195,7 @@ function findQuestionInLoop(componentsStore) {
             componentsStore[component.finalMember].weight
           ) {
             for (
-              var i = componentsStore[component.initialMember].weight;
+              let i = componentsStore[component.initialMember].weight;
               i <= componentsStore[component.finalMember].weight;
               i++
             ) {
@@ -221,7 +221,7 @@ function findQuestionInLoop(componentsStore) {
           componentsStore[component.finalMember].weight
         ) {
           for (
-            var i = componentsStore[component.initialMember].weight;
+            let i = componentsStore[component.initialMember].weight;
             i <= componentsStore[component.finalMember].weight;
             i++
           ) {
@@ -267,6 +267,7 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
         };
       }
     });
+    return null;
   });
   return isfound;
 }
@@ -284,6 +285,7 @@ function getTableDynamique(componentsStore, id) {
       if (component?.collectedVariables?.includes(id)) {
         tableId = component.id;
       }
+      return null;
     });
   return tableId;
 }

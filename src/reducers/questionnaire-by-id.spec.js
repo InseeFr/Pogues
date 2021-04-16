@@ -13,13 +13,13 @@ describe('questionnaire-by-id reducer', () => {
   test('should handle LOAD_QUESTIONNAIRE_SUCCESS', () => {
     expect(
       reducer(
-        { '2': { id: '2' } },
+        { 2: { id: '2' } },
         {
           type: LOAD_QUESTIONNAIRE_SUCCESS,
           payload: {
             update: {
               questionnaireById: {
-                '1': {
+                1: {
                   id: '1',
                 },
               },
@@ -28,7 +28,7 @@ describe('questionnaire-by-id reducer', () => {
         },
       ),
     ).toEqual({
-      '1': {
+      1: {
         id: '1',
       },
       loader: false,
@@ -57,13 +57,13 @@ describe('questionnaire-by-id reducer', () => {
   test('should handle CREATE_QUESTIONNAIRE_SUCCESS', () => {
     expect(
       reducer(
-        { '2': { id: '2' } },
+        { 2: { id: '2' } },
         {
           type: CREATE_QUESTIONNAIRE_SUCCESS,
           payload: {
             update: {
               questionnaireById: {
-                '1': {
+                1: {
                   id: '1',
                 },
               },
@@ -72,7 +72,7 @@ describe('questionnaire-by-id reducer', () => {
         },
       ),
     ).toEqual({
-      '1': {
+      1: {
         id: '1',
       },
       loader: false,
@@ -82,13 +82,13 @@ describe('questionnaire-by-id reducer', () => {
   test('should handle SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS', () => {
     expect(
       reducer(
-        { '2': { id: '2' } },
+        { 2: { id: '2' } },
         {
           type: SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
           payload: {
             update: {
               questionnaireById: {
-                '1': {
+                1: {
                   id: '1',
                 },
               },
@@ -97,7 +97,7 @@ describe('questionnaire-by-id reducer', () => {
         },
       ),
     ).toEqual({
-      '1': {
+      1: {
         id: '1',
       },
       loader: false,
@@ -107,19 +107,19 @@ describe('questionnaire-by-id reducer', () => {
   test('should handle LOAD_QLIST_SUCCESS', () => {
     expect(
       reducer(
-        { '2': { id: '2' } },
+        { 2: { id: '2' } },
         {
           type: LOAD_QLIST_SUCCESS,
           payload: [
             {
-              '1': { id: '1' },
+              1: { id: '1' },
             },
           ],
         },
       ),
     ).toEqual({
-      '2': { id: '2' },
-      '1': { id: '1' },
+      2: { id: '2' },
+      1: { id: '1' },
     });
   });
   test('should handle DELETE_QUESTIONNAIRE_SUCCESS', () => {

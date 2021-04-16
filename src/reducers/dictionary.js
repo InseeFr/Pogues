@@ -8,7 +8,7 @@ const locale = Object.keys(dictionary).reduce((localeInner, k) => {
   return localeInner;
 }, {});
 
-export default function() {
+export default function () {
   return locale;
 }
 

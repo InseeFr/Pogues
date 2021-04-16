@@ -52,6 +52,7 @@ const defaultProps = {
 
 class ErrorsIntegrity extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -67,13 +68,13 @@ class ErrorsIntegrity extends Component {
 
   handleExpand(key) {
     if (this.state.expanded.indexOf(key) < 0) {
-      this.setState({
-        expanded: [...this.state.expanded, key],
-      });
+      this.setState(prevState => ({
+        expanded: [...prevState.expanded, key],
+      }));
     } else {
-      this.setState({
-        expanded: this.state.expanded.filter(k => k !== key),
-      });
+      this.setState(prevState => ({
+        expanded: prevState.expanded.filter(k => k !== key),
+      }));
     }
   }
 

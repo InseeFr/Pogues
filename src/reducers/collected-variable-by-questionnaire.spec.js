@@ -58,13 +58,13 @@ describe('loadQuestionnaireSuccess', () => {
 describe('loadQuestionnaireListSuccess', () => {
   test('when called directly', () => {
     const result = loadQuestionnaireListSuccess({ state: 'previous' }, [
-      { collectedVariableByQuestionnaire: { '1': { id: '1' } } },
-      { collectedVariableByQuestionnaire: { '2': { id: '4' } } },
+      { collectedVariableByQuestionnaire: { 1: { id: '1' } } },
+      { collectedVariableByQuestionnaire: { 2: { id: '4' } } },
     ]);
     expect(result).toEqual({
       state: 'previous',
-      '1': { id: '1' },
-      '2': { id: '4' },
+      1: { id: '1' },
+      2: { id: '4' },
     });
   });
   [LOAD_QLIST_SUCCESS].forEach(action => {
@@ -74,15 +74,15 @@ describe('loadQuestionnaireListSuccess', () => {
         {
           type: action,
           payload: [
-            { collectedVariableByQuestionnaire: { '1': { id: '1' } } },
-            { collectedVariableByQuestionnaire: { '2': { id: '4' } } },
+            { collectedVariableByQuestionnaire: { 1: { id: '1' } } },
+            { collectedVariableByQuestionnaire: { 2: { id: '4' } } },
           ],
         },
       );
       expect(result).toEqual({
         state: 'previous',
-        '1': { id: '1' },
-        '2': { id: '4' },
+        1: { id: '1' },
+        2: { id: '4' },
       });
     });
   });

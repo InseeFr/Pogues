@@ -123,12 +123,9 @@ StatisticalContextCriteria.propTypes = {
   focusOnInit: PropTypes.bool.isRequired,
   selectedSerie: PropTypes.string,
   selectedOperation: PropTypes.string,
-  formName: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
   loadSeriesIfNeeded: PropTypes.func.isRequired,
   loadOperationsIfNeeded: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
-  change: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
   multipleCampaign: false,

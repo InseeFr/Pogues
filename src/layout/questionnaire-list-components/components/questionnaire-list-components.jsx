@@ -121,7 +121,9 @@ const QuestionnaireListComponents = props => {
             </QuestionnaireComponent>
           );
         }
+        return null;
       }
+      return null;
     }, {});
   };
 

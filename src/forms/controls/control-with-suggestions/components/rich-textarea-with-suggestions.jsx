@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
-import {
-  getDefaultKeyBinding,
-  EditorState,
-  Modifier,
-  SelectionState,
-} from 'draft-js';
+import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
 
 import ControlWithSuggestion from './control-with-suggestions';
-import { updateSuggestions, initialize } from './input-with-suggestions-utils';
+import { updateSuggestions } from './input-with-suggestions-utils';
 import {
-  getValueWithSuggestion,
   getPattern,
   getStartValueWithSuggestion,
 } from 'forms/controls/control-with-suggestions/components/utils';
@@ -182,12 +176,12 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     this.textChange(this.state.value.setEditorState(newEditorState));
   };
 
-  handleKeyCommand(command) {
+  handleKeyCommand = command => {
     if (command === 'myeditor-save') {
       return 'handled';
     }
     return 'not-handled';
-  }
+  };
 
   render() {
     const {
@@ -227,7 +221,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             handleKeyCommand={this.handleKeyCommand}
             keyBindingFn={myKeyBindingFn}
           />
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
           {super.render()}
         </div>
       </div>

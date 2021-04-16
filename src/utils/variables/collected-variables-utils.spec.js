@@ -491,7 +491,10 @@ describe('getCollectedVariablesTable', () => {
     const outputCoordinates = output.map(({ x, y }) => {
       return { x, y };
     });
-    expect(outputCoordinates).toEqual([{ x: 1, y: 1 }, { x: 1, y: 2 }]);
+    expect(outputCoordinates).toEqual([
+      { x: 1, y: 1 },
+      { x: 1, y: 2 },
+    ]);
   });
 });
 
@@ -509,14 +512,14 @@ describe('collected variables utils: ', () => {
     ];
 
     const store = {
-      '1': { id: '1', x: 1, y: 1 },
-      '2': { id: '2', x: 2, y: 4 },
-      '3': { id: '3', x: 3, y: 5 },
-      '4': { id: '4', x: 1, y: 5 },
-      '5': { id: '5', x: 3, y: 4 },
-      '6': { id: '6', x: 3, y: 3 },
-      '7': { id: '7', x: 1, y: 2 },
-      '8': { id: '8', x: 2, y: 2 },
+      1: { id: '1', x: 1, y: 1 },
+      2: { id: '2', x: 2, y: 4 },
+      3: { id: '3', x: 3, y: 5 },
+      4: { id: '4', x: 1, y: 5 },
+      5: { id: '5', x: 3, y: 4 },
+      6: { id: '6', x: 3, y: 3 },
+      7: { id: '7', x: 1, y: 2 },
+      8: { id: '8', x: 2, y: 2 },
     };
     test('should sort the targetMapping, without the store', () => {
       expect(targets.sort(sortByYAndX())).toEqual([
@@ -657,7 +660,7 @@ describe('collected variables utils: ', () => {
         [MEASURE]: { type: 'type' },
       };
       const codesListStore = {
-        '1': { codes: { '1': { value: 'code1', label: 'label1' } } },
+        1: { codes: { 1: { value: 'code1', label: 'label1' } } },
       };
       const result = getCollectedVariablesMultiple(
         questionName,

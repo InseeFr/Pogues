@@ -51,7 +51,7 @@ function validateAndSubmit(
   transformer,
   onSuccess,
 ) {
-  return function(values) {
+  return function (values) {
     if (type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
     } else if (type === LOOP) {

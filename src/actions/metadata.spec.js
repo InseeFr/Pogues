@@ -2,7 +2,7 @@ import { loadUnitsIfNeeded } from './metadata';
 
 describe('loadUnitsIfNeeded', () => {
   it('should not call the dispatch method if the units are defined', () => {
-    const getState = function() {
+    const getState = function () {
       return { metadataByType: { units: 'units' } };
     };
     const dispatch = jest.fn();
@@ -11,7 +11,7 @@ describe('loadUnitsIfNeeded', () => {
   });
 
   it('should call the dispatch method if the units are undefined', () => {
-    const getState = function() {
+    const getState = function () {
       return { metadataByType: {} };
     };
     const dispatch = jest.fn();

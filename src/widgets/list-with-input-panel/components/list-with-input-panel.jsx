@@ -109,8 +109,8 @@ class ListWithInputPanel extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { [this.props.name]: list, id, ...values } = nextProps.currentValues;
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { [this.props.name]: list } = nextProps.currentValues;
 
     if (!this.props.canAddNew && this.state.selectedItemIndex === undefined)
       return;
@@ -124,13 +124,13 @@ class ListWithInputPanel extends Component {
     }
   }
 
+  handleClosePopup() {
+    this.setState({ showPopup: false });
+  }
+
   validate(values) {
     this.clearAllErrors();
     return this.props.validateForm(values, this.state);
-  }
-
-  handleClosePopup() {
-    this.setState({ showPopup: false });
   }
 
   submit() {
@@ -187,7 +187,7 @@ class ListWithInputPanel extends Component {
       name,
       currentValues,
     } = this.props;
-    const { [name]: items, ...values } = currentValues;
+    const { [name]: items } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
 
     this.removeErrorIntegrityIfExists(items[this.state.selectedItemIndex]);

@@ -8,7 +8,6 @@ import {
 } from 'constants/pogues-constants';
 import { getComponentsTargetsByComponent } from 'utils/model/redirections-utils';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
-import { values } from 'lodash';
 
 const { NEW } = CODES_LIST_INPUT_ENUM;
 const { NUMERIC } = DATATYPE_NAME;
@@ -292,7 +291,8 @@ export function validCollectedVariables(
   }
   return isCodesTheSame &&
     isTheSameOrder &&
-    (expectedVariables && value.length === expectedVariables.length)
+    expectedVariables &&
+    value.length === expectedVariables.length
     ? undefined
     : Dictionary.validation_collectedvariable_need_reset;
 }

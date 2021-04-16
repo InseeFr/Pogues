@@ -23,6 +23,7 @@ const defaultProps = {
 
 class PopoverIconButton extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {

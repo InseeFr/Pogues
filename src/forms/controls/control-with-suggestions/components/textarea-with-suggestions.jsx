@@ -44,7 +44,7 @@ class TextareaWithSuggestions extends ControlWithSuggestion {
               this.input = node;
             }}
           />
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
           {super.render()}
         </div>
       </div>

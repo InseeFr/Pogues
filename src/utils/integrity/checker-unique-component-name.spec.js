@@ -12,7 +12,7 @@ describe('checkerUniqueComponentName', () => {
       },
     };
     const output = {
-      '1': {
+      1: {
         [INTEGRITY_TYPES.UNIQUE_COMPONENT_NAME]: [],
       },
     };
@@ -22,8 +22,8 @@ describe('checkerUniqueComponentName', () => {
     const input = {
       appState: {
         activeComponentsById: {
-          '1': { name: 'name' },
-          '2': { name: 'name' },
+          1: { name: 'name' },
+          2: { name: 'name' },
         },
         activeQuestionnaire: {
           id: '1',
@@ -31,7 +31,7 @@ describe('checkerUniqueComponentName', () => {
       },
     };
     const output = {
-      '1': {
+      1: {
         [INTEGRITY_TYPES.UNIQUE_COMPONENT_NAME]: [
           {
             message: `Component names (sequence, subsequence, loop and question) should be unique: name`,

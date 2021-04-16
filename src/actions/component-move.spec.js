@@ -8,42 +8,42 @@ jest.mock('./component-remove');
 describe('getWeightAndParentId', () => {
   test('if dragndropLevel = -2', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
     const result = component.getWeightAndParentId(
       activesComponents,
@@ -57,43 +57,43 @@ describe('getWeightAndParentId', () => {
 
   test('id dragndropLevel = -1 and if the parent has the same type as the dragged component', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.getWeightAndParentId(
@@ -108,42 +108,42 @@ describe('getWeightAndParentId', () => {
 
   test('id dragndropLevel = -1 and if the parent has not the same type as the dragged component', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.getWeightAndParentId(
@@ -182,42 +182,42 @@ describe('getWeightAndParentId', () => {
 describe('moveComponent', () => {
   test('should return all moves from the new and old parent when their are not the same', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
     const result = component.moveComponent(activesComponents, '9', '6');
 
@@ -274,33 +274,33 @@ describe('moveComponent', () => {
 
   test('should return only the update of the weight when the new and old parent are the same', () => {
     const activesComponents = {
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '6', '4');
@@ -380,590 +380,590 @@ describe('moveComponent', () => {
 
   test('when we move a sequence on a question', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '5', '12');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '12': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      12: {
         id: '12',
         weight: 1,
         type: SEQUENCE,
         parent: '0',
         children: ['6', '7', '8'],
       },
-      '6': { id: '6', weight: 0, type: QUESTION, parent: '12', children: [] },
-      '7': {
+      6: { id: '6', weight: 0, type: QUESTION, parent: '12', children: [] },
+      7: {
         id: '7',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '12',
         children: [],
       },
-      '8': {
+      8: {
         id: '8',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '12',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
   test('when we move a subsequence on a question', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '5', '7');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '7': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      7: {
         id: '7',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['6'],
       },
-      '6': { id: '6', weight: 0, type: QUESTION, parent: '7', children: [] },
-      '8': {
+      6: { id: '6', weight: 0, type: QUESTION, parent: '7', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
   test('can insert sequence right after a sequence', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '12');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
-      '12': {
+      1: { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
+      12: {
         id: '12',
         weight: 1,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': {
+      2: {
         id: '2',
         weight: 0,
         type: SUBSEQUENCE,
         parent: '12',
         children: [],
       },
-      '3': {
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '12',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: {
         id: '7',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '12',
         children: [],
       },
-      '8': {
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '12',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
   test('can insert subsequence right after a subsequence', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '3', '8');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: { id: '3', weight: 1, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10', '4', '5', '6'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '4': { id: '4', weight: 2, type: QUESTION, parent: '8', children: [] },
-      '5': { id: '5', weight: 3, type: QUESTION, parent: '8', children: [] },
-      '6': { id: '6', weight: 4, type: QUESTION, parent: '8', children: [] },
-      '7': { id: '7', weight: 3, type: SUBSEQUENCE, parent: '1', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      4: { id: '4', weight: 2, type: QUESTION, parent: '8', children: [] },
+      5: { id: '5', weight: 3, type: QUESTION, parent: '8', children: [] },
+      6: { id: '6', weight: 4, type: QUESTION, parent: '8', children: [] },
+      7: { id: '7', weight: 3, type: SUBSEQUENCE, parent: '1', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
   test('can insert sequence right after a subsequence', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: {
         id: '3',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '2', '11');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2'] },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '11': {
+      1: { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['2'] },
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      11: {
         id: '11',
         weight: 1,
         type: SEQUENCE,
         parent: '0',
         children: ['3', '7', '8'],
       },
-      '3': {
+      3: {
         id: '3',
         weight: 0,
         type: SUBSEQUENCE,
         parent: '11',
         children: ['4', '5', '6'],
       },
-      '4': { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '5': { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
-      '6': { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
-      '7': {
+      4: { id: '4', weight: 0, type: QUESTION, parent: '3', children: [] },
+      5: { id: '5', weight: 1, type: QUESTION, parent: '3', children: [] },
+      6: { id: '6', weight: 2, type: QUESTION, parent: '3', children: [] },
+      7: {
         id: '7',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '11',
         children: [],
       },
-      '8': {
+      8: {
         id: '8',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '11',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
 
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
   test('all questions should be attached to its closest sibling subsequence', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '3': { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
-      '7': { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
-      '8': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      3: { id: '3', weight: 1, type: QUESTION, parent: '1', children: [] },
+      7: { id: '7', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      8: {
         id: '8',
         weight: 3,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '2', '7');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '11', '12'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '7', '8'],
       },
-      '2': { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
-      '7': {
+      2: { id: '2', weight: 0, type: SUBSEQUENCE, parent: '1', children: [] },
+      7: {
         id: '7',
         weight: 1,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['3'],
       },
-      '3': { id: '3', weight: 0, type: QUESTION, parent: '7', children: [] },
-      '8': {
+      3: { id: '3', weight: 0, type: QUESTION, parent: '7', children: [] },
+      8: {
         id: '8',
         weight: 2,
         type: SUBSEQUENCE,
         parent: '1',
         children: ['9', '10'],
       },
-      '9': { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
-      '10': { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
-      '11': { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '12': { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      9: { id: '9', weight: 0, type: QUESTION, parent: '8', children: [] },
+      10: { id: '10', weight: 1, type: QUESTION, parent: '8', children: [] },
+      11: { id: '11', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      12: { id: '12', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
   test('can insert sequence right after a sequence, but the sequence right after do not become a child of the inserted one', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '2', '3'],
       },
-      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
-      '2': { id: '2', weight: 1, type: SEQUENCE, parent: '0', children: [] },
-      '3': { id: '3', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      1: { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
+      2: { id: '2', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      3: { id: '3', weight: 2, type: SEQUENCE, parent: '0', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '3');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1', '2', '3'],
       },
-      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
-      '2': { id: '2', weight: 2, type: SEQUENCE, parent: '0', children: [] },
-      '3': { id: '3', weight: 1, type: SEQUENCE, parent: '0', children: [] },
+      1: { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: [] },
+      2: { id: '2', weight: 2, type: SEQUENCE, parent: '0', children: [] },
+      3: { id: '3', weight: 1, type: SEQUENCE, parent: '0', children: [] },
     });
   });
 
   test('when we move a subsequence right before a question, this question become a child of the subsequence', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3'],
       },
-      '2': { id: '2', weight: 1, type: QUESTION, parent: '1', children: [] },
-      '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      2: { id: '2', weight: 1, type: QUESTION, parent: '1', children: [] },
+      3: { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '3');
 
     expect(result).toEqual({
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1'],
       },
-      '1': { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['3'] },
-      '2': { id: '2', weight: 0, type: QUESTION, parent: '3', children: [] },
-      '3': {
+      1: { id: '1', weight: 0, type: SEQUENCE, parent: '0', children: ['3'] },
+      2: { id: '2', weight: 0, type: QUESTION, parent: '3', children: [] },
+      3: {
         id: '3',
         weight: 0,
         type: SUBSEQUENCE,
@@ -975,22 +975,22 @@ describe('moveComponent', () => {
 
   test('should return an empty object if the dragged and dropped component are the same', () => {
     const activesComponents = {
-      '0': {
+      0: {
         id: '0',
         weight: 0,
         type: QUESTIONNAIRE,
         parent: '',
         children: ['1'],
       },
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         type: SEQUENCE,
         parent: '0',
         children: ['2', '3'],
       },
-      '2': { id: '2', weight: 1, type: QUESTION, parent: '1', children: [] },
-      '3': { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
+      2: { id: '2', weight: 1, type: QUESTION, parent: '1', children: [] },
+      3: { id: '3', weight: 2, type: SUBSEQUENCE, parent: '1', children: [] },
     };
 
     const result = component.moveComponent(activesComponents, '1', '1');

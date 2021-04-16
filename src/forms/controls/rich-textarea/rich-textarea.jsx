@@ -93,8 +93,7 @@ const RichTextarea = props => {
   };
 
   const toggleShowConditionInput = () => {
-    const isShowing = showLinkInput;
-    setShowConditionInput(!isShowing);
+    setShowConditionInput(!showConditionInput);
   };
 
   const handleChange = editorValue => {
@@ -183,7 +182,7 @@ const RichTextarea = props => {
       <div>
         <RichTextEditor {...customProps} />
 
-        {touched && (error && <span className="form-error">{error}</span>)}
+        {touched && error && <span className="form-error">{error}</span>}
       </div>
     </div>
   );

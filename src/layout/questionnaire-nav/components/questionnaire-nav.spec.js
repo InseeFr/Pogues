@@ -13,6 +13,7 @@ describe('<QuestionnaireNav />', () => {
     questionnaire: {},
     componentsStore: {},
     setSelectedComponentId: noop,
+    removeComponent: () => {},
   };
 
   const wrapper = shallow(<QuestionnaireNav {...props} />);

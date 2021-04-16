@@ -5,10 +5,10 @@
  'Beauty is in the eye of the beholder'
  */
 import { ENV_TEST } from 'constants/pogues-constants';
-const {
-  REACT_APP_LOG_LEVEL: level,
-  REACT_APP_ACTIVE_NAMESPACES: activeNamespaces,
-} = process.env;
+import { getEnvVar } from 'utils/env';
+
+const level = getEnvVar('LOG_LEVEL');
+const activeNamespaces = getEnvVar('ACTIVE_NAMESPACES');
 
 const LEVELS = {
   DEBUG: 0,

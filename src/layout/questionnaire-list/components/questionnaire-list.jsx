@@ -99,6 +99,7 @@ const QuestionnaireList = props => {
           />
         );
       }
+      return null;
     });
 
   useEffect(() => {

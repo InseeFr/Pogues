@@ -1,5 +1,4 @@
 import { uuid } from 'utils/utils';
-import { element } from 'prop-types';
 
 export function remoteToState(remote, parent) {
   const {
@@ -17,13 +16,12 @@ export function remoteToState(remote, parent) {
   let finalMember = '';
 
   if (memberReference && memberReference.length === 1) {
-    initialMember = memberReference[0];
-    finalMember = memberReference[0];
+    [initialMember] = memberReference;
+    [finalMember] = memberReference;
   }
 
   if (memberReference && memberReference.length > 1) {
-    initialMember = memberReference[0];
-    finalMember = memberReference[1];
+    [initialMember, finalMember] = memberReference;
   }
   return {
     id,
@@ -49,7 +47,6 @@ export function stateToRemote(store) {
     .map(component => {
       const {
         id,
-        name,
         nameLoop,
         maximum,
         minimum,
@@ -58,7 +55,6 @@ export function stateToRemote(store) {
         initialMember,
         finalMember,
         addButtonLibel,
-        type,
       } = component;
 
       const memberReference = [];

@@ -12,7 +12,7 @@ const defaultState = {
 
 const actionHandlers = {};
 
-export default function(state = defaultState, action) {
+export default function (state = defaultState, action) {
   if (!action) return state;
   const { type, payload } = action;
   const hndlr = actionHandlers[type];

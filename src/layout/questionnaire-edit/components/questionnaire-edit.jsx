@@ -42,7 +42,7 @@ function validateAndSubmit(
   activeCollectedVariablesById,
   activeCodeListsById,
 ) {
-  return function(values) {
+  return function (values) {
     validate(values);
 
     const updatedQuestionnaire = transformer.formToState(values);

@@ -39,7 +39,7 @@ describe('external variable transformation', () => {
     },
   ];
   const state = {
-    '1': {
+    1: {
       id: '1',
       name: 'Name 1',
       label: 'Label 1',
@@ -55,7 +55,7 @@ describe('external variable transformation', () => {
         format: 'format',
       },
     },
-    '2': {
+    2: {
       id: '2',
       name: 'Name 2',
       label: 'Label 2',

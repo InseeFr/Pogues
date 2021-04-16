@@ -15,7 +15,7 @@ import merge from 'lodash.merge';
  * @return {function}                global reducers
  */
 export default function combineCheckers(...checkers) {
-  return function(state) {
+  return function (state) {
     return checkers.reduce((errorsByComponent, checker) => {
       return merge(cloneDeep(errorsByComponent), checker(state) || {});
     }, {});
