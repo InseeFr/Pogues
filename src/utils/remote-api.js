@@ -118,10 +118,11 @@ export const visualizeSpec = qr => {
 /**
  * Retrieve all questionnaires
  */
-export const getQuestionnaireList = permission =>
-  fetch(`${urlQuestionnaireListSearch}?owner=${permission}`, {
+export const getQuestionnaireList = (stamp, token) =>
+  fetch(`${urlQuestionnaireListSearch}?owner=${stamp}`, {
     headers: {
       Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
     },
   }).then(res => res.json());
 

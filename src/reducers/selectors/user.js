@@ -24,11 +24,14 @@ export const getUser = state => {
 };
 
 export const getToken = state => {
+  const { authType } = state;
   if (authType === 'OIDC') {
     const {
-      oidc: { access_token: token },
+      oidc: {
+        user: { access_token: token },
+      },
     } = state;
-    return { token };
+    return token;
   }
-  return { token: 'token' };
+  return '';
 };

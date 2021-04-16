@@ -12,6 +12,7 @@ const QuestionnaireList = props => {
   const {
     questionnaires,
     stamp,
+    token,
     duplicateQuestionnaire,
     fusion,
     handleCloseNewQuestion,
@@ -23,7 +24,7 @@ const QuestionnaireList = props => {
   const [questionLabel, setQuestionLabel] = useState('');
   const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const [questionList, seQuestionList] = useState([]);
+  //const [questionList, seQuestionList] = useState([]);
 
   const handelCheck = id => {
     setCheckedQuestion(id);
@@ -32,16 +33,18 @@ const QuestionnaireList = props => {
     mergeQuestions(checkedQuestion);
     handleCloseNewQuestion();
   };
-  useEffect(() => {
-    if (!isEqual(questionnaires, questionList)) {
-      props.loadQuestionnaireList(stamp);
-      seQuestionList(questionnaires);
-    }
-  }, [stamp, questionnaires]);
+  // useEffect(() => {
+  //   if (!isEqual(questionnaires, questionList)) {
+  //     props.loadQuestionnaireList(stamp, token);
+  //     seQuestionList(questionnaires);
+  //   }
+  // }, [stamp, questionnaires]);
 
   useEffect(() => {
-    props.loadQuestionnaireList(stamp);
-  }, [stamp]);
+    console.log('questionnaires', questionnaires);
+    console.log('stamp', stamp);
+    props.loadQuestionnaireList(stamp, token);
+  }, [stamp, token]);
 
   const updateFilter = value => {
     setFilter(value);
@@ -199,10 +202,12 @@ QuestionnaireList.propTypes = {
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
   stamp: PropTypes.string,
+  token: PropTypes.string,
 };
 
 QuestionnaireList.defaultProps = {
   questionnaires: [],
   stamp: '',
+  token: '',
 };
 export default QuestionnaireList;
