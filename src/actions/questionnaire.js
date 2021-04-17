@@ -85,32 +85,19 @@ export const loadQuestionnaireStart = () => ({
  * @param   {string}    id  The questionnaire id.
  * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
  */
-export const loadQuestionnaire = id => dispatch => {
+export const loadQuestionnaire = (id, token) => dispatch => {
   dispatch(loadQuestionnaireStart());
   dispatch({
     type: LOAD_QUESTIONNAIRE,
     payload: id,
   });
-  return getQuestionnaire(id)
+  return getQuestionnaire(id, token)
     .then(qr => {
       dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
     })
     .catch(err => {
       dispatch(loadQuestionnaireFailure(id, err));
     });
-};
-/**
- * Load questionnaire if needed
- *
- * Load the questionnaire if it's not present in the store "questionnaireById"
- *
- * @param   {string}              id  The questionnaire id.
- * @return  {function|undefined}      Thunk which may dispatch LOAD_QUESTIONNAIRE
- */
-export const loadQuestionnaireIfNeeded = id => (dispatch, getState) => {
-  const state = getState();
-  const questionnaire = state.questionnaireById[id];
-  if (!questionnaire) dispatch(loadQuestionnaire(id));
 };
 
 /**
@@ -154,7 +141,7 @@ export const createQuestionnaireFailure = err => ({
  * @param   {string}   label The questionnaire label.
  * @return  {function}       Thunk which may dispatch CREATE_QUESTIONNAIRE_SUCCESS or CREATE_QUESTIONNAIRE_FAILURE
  */
-export const createQuestionnaire = questionnaireNewState => (
+export const createQuestionnaire = (questionnaireNewState, token) => (
   dispatch,
   getState,
 ) => {
@@ -180,7 +167,7 @@ export const createQuestionnaire = questionnaireNewState => (
     payload: null,
   });
 
-  return postQuestionnaire(questionnaireModel)
+  return postQuestionnaire(questionnaireModel, token)
     .then(() => {
       return dispatch(
         createQuestionnaireSuccess(
@@ -204,7 +191,10 @@ export const removeQuestionnaireFailure = (id, err) => ({
   payload: { id, err },
 });
 
-export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
+export const removeQuestionnaire = (idQuestionnaire, token) => (
+  dispatch,
+  getState,
+) => {
   dispatch({
     type: DELETE_QUESTIONNAIRE,
     payload: idQuestionnaire,
@@ -224,7 +214,7 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     return acc;
   }, {});
 
-  return deleteQuestionnaire(idQuestionnaire)
+  return deleteQuestionnaire(idQuestionnaire, token)
     .then(() => {
       return dispatch(removeQuestionnaireSuccess(questionnairesList));
     })
@@ -233,11 +223,11 @@ export const removeQuestionnaire = idQuestionnaire => (dispatch, getState) => {
     });
 };
 
-export const duplicateQuestionnaire = idQuestionnaire => dispatch => {
-  getQuestionnaire(idQuestionnaire).then(question => {
+export const duplicateQuestionnaire = (idQuestionnaire, token) => dispatch => {
+  getQuestionnaire(idQuestionnaire, token).then(question => {
     question.id = uuid();
     question.Label[0] += ' Copie';
-    return postQuestionnaire(question)
+    return postQuestionnaire(question, token)
       .then(() => {
         return dispatch(
           createQuestionnaireSuccess(
@@ -257,7 +247,7 @@ export const duplicateQuestionnaire = idQuestionnaire => dispatch => {
  *
  * @param {string} idMerge the id of the question we want to merge
  */
-export const mergeQuestions = idMerge => (dispatch, getState) => {
+export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
   const state = getState();
   const {
     activeQuestionnaire,
@@ -271,7 +261,7 @@ export const mergeQuestions = idMerge => (dispatch, getState) => {
     type: MERGE_QUESTIONNAIRE,
     payload: idMerge,
   });
-  return getQuestionnaire(idMerge).then(qr => {
+  return getQuestionnaire(idMerge, token).then(qr => {
     const medgerQuestion = questionnaireRemoteToStores(qr);
     const medgerQuestionId = Object.keys(medgerQuestion.questionnaireById)[0];
     const mergedCollectedVariables =

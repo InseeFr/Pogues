@@ -21,8 +21,4 @@ describe('<QuestionnaireNav />', () => {
   test('should render without throwing an error', () => {
     expect(wrapper.is(`.${COMPONENT_CLASS}`)).toBe(true);
   });
-
-  test('should call loadQuestionnaireIfNeeded in render', () => {
-    expect(wrapper.find('.glyphicon-home').length).toBe(1);
-  });
 });

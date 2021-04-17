@@ -18,6 +18,7 @@ const {
 
 const StatisticalContextCriteria = props => {
   const {
+    token,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -33,17 +34,18 @@ const StatisticalContextCriteria = props => {
   const [selectedOperationState, setSelectedOperationState] = useState();
 
   useEffect(() => {
-    props.loadSeriesIfNeeded();
+    props.loadSeriesIfNeeded(token);
     if (selectedSerie !== selectedSerieState) {
-      props.loadOperationsIfNeeded(selectedSerie);
+      props.loadOperationsIfNeeded(selectedSerie, token);
       setSelectedSerieState(selectedSerie);
     }
 
     if (selectedOperation !== selectedOperationState) {
-      props.loadCampaignsIfNeeded(selectedOperation);
+      props.loadCampaignsIfNeeded(selectedOperation, token);
       setSelectedOperationState(selectedOperation);
     }
   }, [
+    token,
     selectedSerie,
     selectedOperation,
     selectedOperationState,
@@ -114,6 +116,7 @@ const StatisticalContextCriteria = props => {
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {
+  token: PropTypes.string,
   series: PropTypes.array.isRequired,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
@@ -128,6 +131,7 @@ StatisticalContextCriteria.propTypes = {
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
+  token: '',
   multipleCampaign: false,
   required: false,
   focusOnInit: false,

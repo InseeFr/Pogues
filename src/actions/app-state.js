@@ -279,7 +279,7 @@ function getQuestionnaireModel(state, customComponentsStore) {
  *
  * @return {function} Thunk which may dispatch SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS or SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
  */
-export const saveActiveQuestionnaire = () => {
+export const saveActiveQuestionnaire = token => {
   return (dispatch, getState) => {
     dispatch({
       type: SAVE_ACTIVE_QUESTIONNAIRE,
@@ -288,7 +288,7 @@ export const saveActiveQuestionnaire = () => {
 
     const state = getState();
     const questionnaireModel = getQuestionnaireModel(state);
-    return putQuestionnaire(questionnaireModel.id, questionnaireModel)
+    return putQuestionnaire(questionnaireModel.id, questionnaireModel, token)
       .then(() => {
         return dispatch(
           saveActiveQuestionnaireSuccess(
@@ -507,13 +507,13 @@ export const loadStatisticalContextFailure = err => ({
   payload: err,
 });
 
-export const loadStatisticalContext = idCampaign => dispatch => {
+export const loadStatisticalContext = (idCampaign, token) => dispatch => {
   dispatch({
     type: LOAD_STATISTICAL_CONTEXT,
     payload: null,
   });
 
-  return getContextFromCampaign(idCampaign)
+  return getContextFromCampaign(idCampaign, token)
     .then(({ serieId: serie, operationId: operation }) => {
       return dispatch(loadStatisticalContextSuccess({ serie, operation }));
     })

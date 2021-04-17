@@ -11,10 +11,10 @@ import { APP } from 'constants/dom-constants';
 const { COMPONENT_ID } = APP;
 
 // Component
-const App = ({ children, loadUnitsIfNeeded }) => {
+const App = ({ children, loadUnitsIfNeeded, token }) => {
   useEffect(() => {
-    loadUnitsIfNeeded();
-  }, []);
+    loadUnitsIfNeeded(token);
+  }, [token]);
 
   return (
     <div id={COMPONENT_ID}>
@@ -27,7 +27,13 @@ const App = ({ children, loadUnitsIfNeeded }) => {
 // Prop types and default props
 
 App.propTypes = {
+  token: PropTypes.string,
   children: PropTypes.array.isRequired,
   loadUnitsIfNeeded: PropTypes.func.isRequired,
 };
+
+App.defaultProps = {
+  token: '',
+};
+
 export default App;

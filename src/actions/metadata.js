@@ -43,12 +43,12 @@ export const loadMetadataFailure = err => ({
  *
  * @return  {function}  Thunk which may dispatch LOAD_METADATA_SUCCESS or LOAD_METADATA_FAILURE
  */
-export const loadUnits = () => dispatch => {
+export const loadUnits = token => dispatch => {
   dispatch({
     type: LOAD_UNITS,
     payload: null,
   });
-  return getUnitsList()
+  return getUnitsList(token)
     .then(listUnits => {
       const units = listUnits.map(u => ({
         id: u.uri,
@@ -60,21 +60,21 @@ export const loadUnits = () => dispatch => {
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadUnitsIfNeeded = () => (dispatch, getState) => {
+export const loadUnitsIfNeeded = token => (dispatch, getState) => {
   const state = getState();
   const { units } = state.metadataByType;
-  if (!units) dispatch(loadUnits());
+  if (!units) dispatch(loadUnits(token));
 };
 
 // Metadata series
 
-export const loadSeries = () => dispatch => {
+export const loadSeries = token => dispatch => {
   dispatch({
     type: LOAD_SERIES,
     payload: null,
   });
 
-  return getSeries()
+  return getSeries(token)
     .then(series => {
       const seriesMetadata = series.map(s => ({
         id: s.id,
@@ -86,21 +86,21 @@ export const loadSeries = () => dispatch => {
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadSeriesIfNeeded = () => (dispatch, getState) => {
+export const loadSeriesIfNeeded = token => (dispatch, getState) => {
   const state = getState();
   const { series } = state.metadataByType;
-  if (!series) dispatch(loadSeries());
+  if (!series) dispatch(loadSeries(token));
 };
 
 // Metadata operations
 
-export const loadOperations = idSerie => dispatch => {
+export const loadOperations = (idSerie, token) => dispatch => {
   dispatch({
     type: LOAD_OPERATIONS,
     payload: null,
   });
 
-  return getOperations(idSerie)
+  return getOperations(idSerie, token)
     .then(operations => {
       const operationsMetadata = operations.map(o => ({
         id: o.id,
@@ -113,7 +113,7 @@ export const loadOperations = idSerie => dispatch => {
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadOperationsIfNeeded = (idSerie = '') => (
+export const loadOperationsIfNeeded = (idSerie = '', token) => (
   dispatch,
   getState,
 ) => {
@@ -125,18 +125,18 @@ export const loadOperationsIfNeeded = (idSerie = '') => (
   }, {});
 
   if (idSerie !== '' && Object.keys(operationsBySerie).length === 0)
-    dispatch(loadOperations(idSerie));
+    dispatch(loadOperations(idSerie, token));
 };
 
 // Metadata operations
 
-export const loadCampaigns = idOperation => dispatch => {
+export const loadCampaigns = (idOperation, token) => dispatch => {
   dispatch({
     type: LOAD_CAMPAIGNS,
     payload: null,
   });
 
-  return getCampaigns(idOperation)
+  return getCampaigns(idOperation, token)
     .then(campaigns => {
       const campaignsMetadata = campaigns.map(c => ({
         id: c.id,
@@ -149,7 +149,10 @@ export const loadCampaigns = idOperation => dispatch => {
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadCampaignsIfNeeded = idOperation => (dispatch, getState) => {
+export const loadCampaignsIfNeeded = (idOperation, token) => (
+  dispatch,
+  getState,
+) => {
   const state = getState();
   const campaigns = state.metadataByType.campaigns || {};
   const campaignsBySerie = Object.keys(campaigns).reduce((acc, key) => {
@@ -158,5 +161,5 @@ export const loadCampaignsIfNeeded = idOperation => (dispatch, getState) => {
   }, {});
 
   if (idOperation !== '' && Object.keys(campaignsBySerie).length === 0)
-    dispatch(loadCampaigns(idOperation));
+    dispatch(loadCampaigns(idOperation, token));
 };

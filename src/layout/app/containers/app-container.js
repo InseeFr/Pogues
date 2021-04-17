@@ -11,12 +11,16 @@ const propTypes = {
 
 // Container
 
+const mapStateToProps = state => ({
+  token: getToken(state),
+});
+
 const mapDispatchToProps = {
   loadUnitsIfNeeded,
 };
 
 const AppContainer = connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps,
 )(App);
 

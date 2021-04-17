@@ -201,7 +201,7 @@ export const getUnitsList = token =>
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
-export const getSearchResults = (typeItem, criterias, filter = '', token) => {
+export const getSearchResults = (token, typeItem, criterias, filter = '') => {
   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),

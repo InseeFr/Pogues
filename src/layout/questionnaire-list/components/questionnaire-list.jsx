@@ -29,7 +29,7 @@ const QuestionnaireList = props => {
     setCheckedQuestion(id);
   };
   const fusionateQuestion = () => {
-    mergeQuestions(checkedQuestion);
+    mergeQuestions(checkedQuestion, token);
     handleCloseNewQuestion();
   };
 
@@ -53,8 +53,8 @@ const QuestionnaireList = props => {
     setQuestionLabel(label);
   };
   const handleSubmit = () => {
-    duplicateQuestionnaire(questionId);
-    props.loadQuestionnaireList(props.stamp, props.token);
+    duplicateQuestionnaire(questionId, token);
+    props.loadQuestionnaireList(stamp, token);
     setShowPopup(false);
   };
 

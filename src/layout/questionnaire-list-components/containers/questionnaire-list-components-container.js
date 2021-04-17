@@ -15,6 +15,7 @@ import {
   handleRemovePageBreak,
 } from 'actions/app-state';
 import { removeQuestionnaire } from 'actions/questionnaire';
+import { getToken } from 'reducers/selectors';
 
 // Prop types and default props
 
@@ -25,6 +26,7 @@ const propTypes = {
 // Container
 
 const mapStateToProps = state => ({
+  token: getToken(state),
   questionnaire: state.appState.activeQuestionnaire,
   componentsStore: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,

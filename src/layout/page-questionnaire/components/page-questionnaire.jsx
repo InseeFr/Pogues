@@ -14,7 +14,8 @@ const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 export const propTypes = {
   id: PropTypes.string.isRequired,
-  loadQuestionnaireIfNeeded: PropTypes.func.isRequired,
+  token: PropTypes.string,
+  loadQuestionnaire: PropTypes.func.isRequired,
   loadStatisticalContext: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
   setActiveQuestionnaire: PropTypes.func.isRequired,
@@ -32,6 +33,7 @@ export const propTypes = {
 };
 
 export const defaultProps = {
+  token: '',
   questionnaire: {},
   activeQuestionnaire: {},
   components: {},
@@ -44,6 +46,7 @@ export const defaultProps = {
 const PageQuestionnaire = props => {
   const {
     id,
+    token,
     questionnaire,
     components,
     codeLists,
@@ -65,9 +68,10 @@ const PageQuestionnaire = props => {
     collectedVariablesByQuestionState,
     setCollectedVariablesByQuestion,
   ] = useState();
+
   useEffect(() => {
     if (idState !== id) {
-      props.loadQuestionnaire(id);
+      props.loadQuestionnaire(id, token);
       setIdState(id);
     }
 
@@ -75,7 +79,7 @@ const PageQuestionnaire = props => {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
       props.setActiveQuestionnaire(questionnaire);
-      props.loadStatisticalContext(idCampaign);
+      props.loadStatisticalContext(idCampaign, token);
       setQuestionnaireState(questionnaire);
     }
     if (
@@ -110,6 +114,7 @@ const PageQuestionnaire = props => {
       setCollectedVariablesByQuestion(collectedVariablesByQuestion);
     }
   }, [
+    token,
     loading,
     idState,
     questionnaire,
@@ -134,10 +139,10 @@ const PageQuestionnaire = props => {
           activeQuestionnaire.campaigns[
             activeQuestionnaire.campaigns.length - 1
           ];
-        props.loadStatisticalContext(idCampaign);
+        props.loadStatisticalContext(idCampaign, token);
       }
       if (activeQuestionnaire.operation) {
-        props.loadCampaignsIfNeeded(activeQuestionnaire.operation);
+        props.loadCampaignsIfNeeded(activeQuestionnaire.operation, token);
       }
       setActiveQuestionnaireState(activeQuestionnaire);
     }
