@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import App from 'layout/app/components/app';
 import { loadUnitsIfNeeded } from 'actions/metadata';
+import { getToken } from 'reducers/selectors';
 
 // Prop types and default props
 
