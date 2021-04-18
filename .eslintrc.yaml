@@ -1,7 +1,6 @@
 extends:
   - eslint-config-airbnb
   - prettier
-  - prettier/react
   - plugin:react-hooks/recommended
 
 plugins:
@@ -35,7 +34,16 @@ rules:
   react/no-children-prop: 0
   react/forbid-prop-types: 0
   react/no-unescaped-entities: 0
-  prettier/prettier: ["error", {"trailingComma": "all", "singleQuote": true, "endOfLine":"auto", "react/forbid-prop-types": 0}]
+  prettier/prettier:
+    [
+      'error',
+      {
+        'trailingComma': 'all',
+        'singleQuote': true,
+        'endOfLine': 'auto',
+        'react/forbid-prop-types': 0,
+      },
+    ]
   import/prefer-default-export: 0
   react/jsx-props-no-spreading: 0
   import/order: 0
@@ -47,8 +55,8 @@ rules:
   react/destructuring-assignment: 0
   no-shadow: 0
   no-else-return: 0
-  react-hooks/rules-of-hooks: "error"
-  react-hooks/exhaustive-deps: "warn"
+  react-hooks/rules-of-hooks: 'error'
+  react-hooks/exhaustive-deps: 'warn'
   react/prop-types: 0
   handlers: 0
   react/button-has-type: 0
