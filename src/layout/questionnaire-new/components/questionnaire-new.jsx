@@ -20,7 +20,7 @@ export const propTypes = {
 // Utils
 
 function validateAndSubmit(action, validate, transformer, onSuccess, token) {
-  return function(values) {
+  return function (values) {
     validate(values);
 
     return action(transformer.formToState(values), token).then(result => {

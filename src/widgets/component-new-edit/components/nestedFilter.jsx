@@ -595,7 +595,4 @@ const mapDispatchToProps = {
   setSelectedComponentId,
 };
 
-export default connect(
-  undefined,
-  mapDispatchToProps,
-)(NestedFilter);
+export default connect(undefined, mapDispatchToProps)(NestedFilter);

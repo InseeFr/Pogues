@@ -111,7 +111,4 @@ const mapDispatchToProps = {
   loadQuestionnaireList,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(GenericInput);
+export default connect(mapStateToProps, mapDispatchToProps)(GenericInput);

@@ -20,10 +20,7 @@ const mapDispatchToProps = {
   loadUnitsIfNeeded,
 };
 
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
 AppContainer.propTypes = propTypes;
 
