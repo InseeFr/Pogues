@@ -2,7 +2,7 @@ import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 import { uuid, verifyVariable } from 'utils/utils';
 
-import { CodesListModel } from 'widgets/codes-lists';
+import * as CodesListModel from 'widgets/codes-lists';
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,

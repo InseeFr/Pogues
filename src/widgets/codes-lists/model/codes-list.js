@@ -74,5 +74,3 @@ export const Factory = (currentState = {}, codesListsStore) => {
     },
   };
 };
-
-export default Factory;
