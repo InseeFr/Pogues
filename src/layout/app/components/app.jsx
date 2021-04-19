@@ -28,7 +28,7 @@ const App = ({ children, loadUnitsIfNeeded, token }) => {
 
 App.propTypes = {
   token: PropTypes.string,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.object.isRequired,
   loadUnitsIfNeeded: PropTypes.func.isRequired,
 };
 

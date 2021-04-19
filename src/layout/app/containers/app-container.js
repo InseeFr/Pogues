@@ -7,7 +7,7 @@ import { getToken } from 'reducers/selectors';
 // Prop types and default props
 
 const propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 // Container

@@ -26,12 +26,7 @@ export const getUser = state => {
 export const getToken = state => {
   const { authType } = state;
   if (authType === 'OIDC') {
-    const {
-      oidc: {
-        user: { access_token: token },
-      },
-    } = state;
-    return token;
+    return state.oidc.user?.access_token || '';
   }
   return '';
 };
