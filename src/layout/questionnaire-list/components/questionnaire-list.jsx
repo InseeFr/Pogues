@@ -15,6 +15,8 @@ const QuestionnaireList = props => {
     handleCloseNewQuestion,
     mergeQuestions,
     currentQuestion,
+    loadQuestionnaireList,
+    setModifiedFalse,
   } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
@@ -25,6 +27,7 @@ const QuestionnaireList = props => {
   const handelCheck = id => {
     setCheckedQuestion(id);
   };
+
   const fusionateQuestion = () => {
     mergeQuestions(checkedQuestion, token);
     handleCloseNewQuestion();
@@ -32,10 +35,9 @@ const QuestionnaireList = props => {
 
   // TODO: Find why 2 calls
   useEffect(() => {
-    props.loadQuestionnaireList(stamp, token);
-    props.setModifiedFalse();
-    return () => console.log('Why UNMOUNT????????');
-  }, [stamp, token]);
+    loadQuestionnaireList(stamp, token);
+    setModifiedFalse();
+  }, [stamp, token, loadQuestionnaireList, setModifiedFalse]);
 
   const updateFilter = value => {
     setFilter(value);
@@ -44,11 +46,13 @@ const QuestionnaireList = props => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
+
   const handleOpenPopup = (id, label) => {
     setShowPopup(true);
     setQuestionId(id);
     setQuestionLabel(label);
   };
+
   const handleSubmit = () => {
     duplicateQuestionnaire(questionId, token);
     props.loadQuestionnaireList(stamp, token);

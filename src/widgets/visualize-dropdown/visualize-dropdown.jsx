@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
@@ -14,11 +14,11 @@ const VisualizeDropdown = props => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-  const handleClickOutside = event => {
+  const handleClickOutside = useCallback(event => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
       setDropdownOpen(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     window.addEventListener('mousedown', handleClickOutside);

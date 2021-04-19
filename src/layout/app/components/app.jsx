@@ -14,7 +14,7 @@ const { COMPONENT_ID } = APP;
 const App = ({ children, loadUnitsIfNeeded, token }) => {
   useEffect(() => {
     loadUnitsIfNeeded(token);
-  }, [token]);
+  }, [token, loadUnitsIfNeeded]);
 
   return (
     <div id={COMPONENT_ID}>

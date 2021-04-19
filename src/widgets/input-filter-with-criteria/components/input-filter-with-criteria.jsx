@@ -14,12 +14,19 @@ const {
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 const InputFilterWithCriteria = props => {
-  const { typeItem, criteriaValues, label, token } = props;
+  const {
+    typeItem,
+    criteriaValues,
+    label,
+    token,
+    loadOnInit,
+    loadSearchResult,
+  } = props;
   const inputSearchRef = useRef(null);
 
   useEffect(() => {
-    if (props.loadOnInit) props.loadSearchResult(token, props.typeItem);
-  }, [props.typeItem, props.loadOnInit, token]);
+    if (loadOnInit) loadSearchResult(token, typeItem);
+  }, [typeItem, loadOnInit, token, loadSearchResult]);
 
   const id = getControlId('input', 'search', uuid());
 

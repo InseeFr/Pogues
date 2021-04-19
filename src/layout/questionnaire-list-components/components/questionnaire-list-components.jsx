@@ -28,8 +28,8 @@ const QuestionnaireListComponents = props => {
   } = props;
 
   useEffect(() => {
-    props.setSelectedComponentId('');
-  }, []);
+    setSelectedComponentId('');
+  }, [setSelectedComponentId]);
 
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);

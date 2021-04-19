@@ -53,7 +53,7 @@ const RichTextarea = props => {
       setEditorValue(getEditorValue(props.input.value));
       setValue(props.input.value);
     }
-  }, [props.input.value]);
+  }, [props.input.value, value]);
 
   const setCondition = (conditions, editorState) => {
     let contentState = editorState.getCurrentContent();

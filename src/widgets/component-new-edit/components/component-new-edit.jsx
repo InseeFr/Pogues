@@ -86,6 +86,7 @@ const ComponentNewEdit = props => {
     onSubmit,
     filterImbriquer,
     activeQuestionnaire,
+    clearSubformValidationErrors,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -169,25 +170,10 @@ const ComponentNewEdit = props => {
     handleCloseNestedFilter();
   };
 
-  // const showFiltersImbriquer = myfilters => {
-  //   return myfilters.length !== 0
-  //     ? myfilters.map(filter => {
-  //         return (
-  //           <button
-  //             className={FILTRE_IMBRIQUER}
-  //             onClick={e => handleOpenFilter(e, filter)}
-  //           >
-  //             <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-  //             {componentsStore[filter].name}
-  //           </button>
-  //         );
-  //       })
-  //     : false;
-  // };
-
   useEffect(() => {
-    props.clearSubformValidationErrors();
-  }, [filterImbriquers]);
+    clearSubformValidationErrors();
+  }, [clearSubformValidationErrors]);
+
   const renderPanels = () => {
     let panels = [
       <Tab

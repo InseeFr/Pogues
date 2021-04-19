@@ -28,20 +28,23 @@ const StatisticalContextCriteria = props => {
     required,
     focusOnInit,
     horizontal,
+    loadSeriesIfNeeded,
+    loadOperationsIfNeeded,
+    loadCampaignsIfNeeded,
   } = props;
 
   const [selectedSerieState, setSelectedSerieState] = useState();
   const [selectedOperationState, setSelectedOperationState] = useState();
 
   useEffect(() => {
-    props.loadSeriesIfNeeded(token);
+    loadSeriesIfNeeded(token);
     if (selectedSerie !== selectedSerieState) {
-      props.loadOperationsIfNeeded(selectedSerie, token);
+      loadOperationsIfNeeded(selectedSerie, token);
       setSelectedSerieState(selectedSerie);
     }
 
     if (selectedOperation !== selectedOperationState) {
-      props.loadCampaignsIfNeeded(selectedOperation, token);
+      loadCampaignsIfNeeded(selectedOperation, token);
       setSelectedOperationState(selectedOperation);
     }
   }, [
@@ -50,6 +53,9 @@ const StatisticalContextCriteria = props => {
     selectedOperation,
     selectedOperationState,
     selectedSerieState,
+    loadSeriesIfNeeded,
+    loadOperationsIfNeeded,
+    loadCampaignsIfNeeded,
   ]);
 
   return (

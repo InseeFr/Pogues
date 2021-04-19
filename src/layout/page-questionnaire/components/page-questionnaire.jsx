@@ -55,6 +55,13 @@ const PageQuestionnaire = props => {
     collectedVariablesByQuestion,
     activeQuestionnaire,
     loading,
+    loadQuestionnaire,
+    setActiveQuestionnaire,
+    loadStatisticalContext,
+    setActiveComponents,
+    setActiveCodeLists,
+    setActiveVariables,
+    loadCampaignsIfNeeded,
   } = props;
 
   const [idState, setIdState] = useState();
@@ -71,26 +78,26 @@ const PageQuestionnaire = props => {
 
   useEffect(() => {
     if (idState !== id) {
-      props.loadQuestionnaire(id, token);
+      loadQuestionnaire(id, token);
       setIdState(id);
     }
 
     if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
-      props.setActiveQuestionnaire(questionnaire);
-      props.loadStatisticalContext(idCampaign, token);
+      setActiveQuestionnaire(questionnaire);
+      loadStatisticalContext(idCampaign, token);
       setQuestionnaireState(questionnaire);
     }
     if (
       components &&
       Object.values(componentsState).length !== Object.values(components).length
     ) {
-      props.setActiveComponents(components);
+      setActiveComponents(components);
       setComponentsState(components);
     }
     if (codeLists && !isEqual(codeListsState, codeLists)) {
-      props.setActiveCodeLists(codeLists);
+      setActiveCodeLists(codeLists);
       setCodeListsState(codeLists);
     }
     if (
@@ -104,7 +111,7 @@ const PageQuestionnaire = props => {
           collectedVariablesByQuestion,
         ))
     ) {
-      props.setActiveVariables({
+      setActiveVariables({
         activeCalculatedVariablesById: calculatedVariables,
         activeExternalVariablesById: externalVariables,
         collectedVariableByQuestion: collectedVariablesByQuestion,
@@ -127,6 +134,15 @@ const PageQuestionnaire = props => {
     calculatedVariablesState,
     collectedVariablesByQuestion,
     collectedVariablesByQuestionState,
+    codeLists,
+    codeListsState,
+    id,
+    loadQuestionnaire,
+    loadStatisticalContext,
+    setActiveCodeLists,
+    setActiveComponents,
+    setActiveQuestionnaire,
+    setActiveVariables,
   ]);
 
   useEffect(() => {
@@ -139,14 +155,20 @@ const PageQuestionnaire = props => {
           activeQuestionnaire.campaigns[
             activeQuestionnaire.campaigns.length - 1
           ];
-        props.loadStatisticalContext(idCampaign, token);
+        loadStatisticalContext(idCampaign, token);
       }
       if (activeQuestionnaire.operation) {
-        props.loadCampaignsIfNeeded(activeQuestionnaire.operation, token);
+        loadCampaignsIfNeeded(activeQuestionnaire.operation, token);
       }
       setActiveQuestionnaireState(activeQuestionnaire);
     }
-  }, [activeQuestionnaire, activeQuestionnaireState]);
+  }, [
+    token,
+    activeQuestionnaire,
+    activeQuestionnaireState,
+    loadStatisticalContext,
+    loadCampaignsIfNeeded,
+  ]);
 
   return (
     <div id={COMPONENT_ID}>

@@ -71,7 +71,7 @@ const NestedFilter = props => {
       component.typeFilter = 'new';
       setNewNestedFilter(component);
     }
-  }, [filterId]);
+  }, [filterId, componentsStore]);
 
   const handleSubmitImbriquer1 = value => {
     const filters = newNestedFilter.filterImbriquer
