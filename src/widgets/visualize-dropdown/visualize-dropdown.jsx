@@ -76,8 +76,7 @@ const VisualizeDropdown = props => {
       <ul className={classDropDownList}>
         <li>
           <a href="#" onClick={e => visualize(e, 'html')}>
-            {' '}
-            {Dictionary.VISUALIZE_WEB}{' '}
+            {Dictionary.VISUALIZE_WEB}
           </a>
         </li>
         <li>

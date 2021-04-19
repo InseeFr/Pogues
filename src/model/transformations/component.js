@@ -28,15 +28,14 @@ const {
 } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 
-function sortByWeight(store) {
-  return (keyA, keyB) => {
-    if (store[keyA].weight < store[keyB].weight) return -1;
-    if (store[keyA].weight > store[keyB].weight) return 1;
-    return 0;
-  };
-}
-function getResponseCoordinate(variablesMapping = []) {
-  return variablesMapping.reduce((acc, m) => {
+const sortByWeight = store => (keyA, keyB) => {
+  if (store[keyA].weight < store[keyB].weight) return -1;
+  if (store[keyA].weight > store[keyB].weight) return 1;
+  return 0;
+};
+
+const getResponseCoordinate = (variablesMapping = []) =>
+  variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
     const variableRes = {
       ...acc,
@@ -47,10 +46,9 @@ function getResponseCoordinate(variablesMapping = []) {
     };
     return variableRes;
   }, {});
-}
 
-function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
-  return responses.reduce((accInner, response) => {
+const getResponsesByVariable = (responses = [], coordinatesByResponse = []) =>
+  responses.reduce((accInner, response) => {
     const {
       id: responseId,
       CollectedVariableReference: collectedVariableId,
@@ -65,8 +63,8 @@ function getResponsesByVariable(responses = [], coordinatesByResponse = []) {
       },
     };
   }, {});
-}
-function clarificationQuestion(Children) {
+
+const clarificationQuestion = Children => {
   const Clarification = [];
   const childr = Children.filter(children => children.Child.length !== 0);
   childr.forEach(item => {
@@ -95,9 +93,9 @@ function clarificationQuestion(Children) {
     });
   });
   return Clarification;
-}
+};
 
-export function getClarificarionfromremote(Children, collectedVariables) {
+export const getClarificarionfromremote = (Children, collectedVariables) => {
   const variableClarification = [];
   const childclarification = clarificationQuestion(Children);
   childclarification.forEach(element => {
@@ -159,7 +157,7 @@ export function getClarificarionfromremote(Children, collectedVariables) {
     });
   });
   return variableClarification;
-}
+};
 
 function remoteToVariableResponseNested(children = [], acc = {}) {
   children.forEach(child => {
@@ -356,7 +354,7 @@ function getClarificationresponseSingleChoiseQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
-  collectedvariablequestion.forEach(function (collected) {
+  collectedvariablequestion.forEach(collected => {
     const code = Object.values(
       codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
     ).find(code => code.weight === collected.z);
@@ -435,7 +433,7 @@ function getClarificationResponseMultipleChoiceQuestion(
       flowcontrolefinal.push(flowcon);
     }
   });
-  collectedvariablequestion.forEach(function (collected) {
+  collectedvariablequestion.forEach(collected => {
     if (responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList) {
       const code = Object.values(
         codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id]
@@ -523,16 +521,16 @@ function getClarificationResponseTableQuestion(
   });
 
   if (responseFormat.TABLE.LIST_MEASURE) {
-    responseFormat.TABLE.LIST_MEASURE.forEach(function (mesure) {
+    responseFormat.TABLE.LIST_MEASURE.forEach(mesure => {
       if (mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList.id) {
         Object.values(
           codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes,
-        ).forEach(function (code) {
+        ).forEach(code => {
           if (code.precisionid && code.precisionid !== '') {
             const collectedvariablequestionPrecision = collectedvariablequestion.filter(
               varibale => varibale.z === code.weight,
             );
-            collectedvariablequestionPrecision.forEach(function (varib) {
+            collectedvariablequestionPrecision.forEach(varib => {
               const variableTable = collectedvariablequestion.find(
                 varTab =>
                   varTab.x === varib.mesureLevel &&
@@ -720,6 +718,7 @@ function storeToRemoteNested(
     }
     return remote;
   }
+  return {};
 }
 function childrenToRemote(
   children,

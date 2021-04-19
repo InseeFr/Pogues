@@ -205,7 +205,7 @@ export function validCollectedVariables(
   function objectCompare(object1, object2) {
     let equal = true;
     if (object2) {
-      for (const p in object1) {
+      Object.keys(object1).forEach(p => {
         if (
           object1[p] === '' &&
           object2[p] !== undefined &&
@@ -219,7 +219,7 @@ export function validCollectedVariables(
             equal = false;
           }
         }
-      }
+      });
     }
     return equal;
   }

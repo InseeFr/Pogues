@@ -67,3 +67,7 @@ rules:
   react/default-props-match-prop-types: 0
   react/require-default-props: 0
   jsx-a11y/control-has-associated-label: 0
+  jsx-a11y/click-events-have-key-events: 0
+  react/no-find-dom-node: 0
+  react/no-danger: 0
+  jsx-a11y/anchor-is-valid: 0

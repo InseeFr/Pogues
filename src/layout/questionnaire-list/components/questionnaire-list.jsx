@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-
 import Questionnaire from './questionnaire';
-
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
@@ -23,7 +21,6 @@ const QuestionnaireList = props => {
   const [questionLabel, setQuestionLabel] = useState('');
   const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  //const [questionList, seQuestionList] = useState([]);
 
   const handelCheck = id => {
     setCheckedQuestion(id);

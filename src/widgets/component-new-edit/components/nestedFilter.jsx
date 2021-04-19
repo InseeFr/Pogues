@@ -355,6 +355,7 @@ const NestedFilter = props => {
   return (
     <div className={COMPONENT_CLASS}>
       <div className="ctrl-list-radios">
+        {/* eslint jsx-a11y/label-has-associated-control: ["error", { assert: "either" } ] */}
         <label>
           {Dictionary.TYPEFILTER}
           <span className="ctrl-required">*</span>
