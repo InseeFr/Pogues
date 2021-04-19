@@ -1,7 +1,6 @@
 extends:
   - eslint-config-airbnb
   - prettier
-  - plugin:react-hooks/recommended
 
 plugins:
   - prettier
@@ -9,7 +8,7 @@ plugins:
   - react
 
 settings:
-  ecmascript: 6
+  ecmascript: 2020
 
 env:
   browser: true
@@ -71,3 +70,5 @@ rules:
   react/no-find-dom-node: 0
   react/no-danger: 0
   jsx-a11y/anchor-is-valid: 0
+  no-console: 1
+  no-debugger: 1
