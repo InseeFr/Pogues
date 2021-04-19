@@ -25,9 +25,7 @@ exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
         href="#"
         onClick={[Function]}
       >
-         
-        Web
-         
+        Web    
       </a>
     </li>
     <li>
