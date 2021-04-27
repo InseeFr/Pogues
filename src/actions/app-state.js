@@ -4,6 +4,8 @@ import {
   visualizeSpec,
   visualizePdf,
   visualizeHtml,
+  visualizeWebStromaeV2,
+  visualizeQueen,
   visualizeDDI,
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
@@ -396,6 +398,10 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
       visualizeSpec(questionnaireModel);
     } else if (type === 'html') {
       visualizeHtml(questionnaireModel);
+    } else if (type === 'stromae-v2') {
+      visualizeWebStromaeV2(questionnaireModel);
+    } else if (type === 'queen') {
+      visualizeQueen(questionnaireModel);
     } else if (type === 'ddi') {
       visualizeDDI(questionnaireModel);
     }
