@@ -1451,12 +1451,12 @@ const dictionary = {
     en: 'Level',
   },
   VISUALIZE_WEB: {
-    fr: 'Web entreprises',
-    en: 'Web enterprise',
+    fr: 'Web V1',
+    en: 'Web V1',
   },
   VISUALIZE_WEB_STROMAE_V2: {
-    fr: 'Web ménages',
-    en: 'Web household',
+    fr: 'Web V2',
+    en: 'Web V2',
   },
   VISUALIZE_QUEEN: {
     fr: 'Poste enquêteur',
@@ -1553,4 +1553,3 @@ dictionary[`componentEdit${FILTER}`] = {
 };
 
 export default dictionary;
-
