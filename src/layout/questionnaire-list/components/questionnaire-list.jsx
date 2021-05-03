@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import Questionnaire from './questionnaire';
+import Dropdown from 'widgets/dropdown';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
@@ -23,6 +24,8 @@ const QuestionnaireList = props => {
   const [questionLabel, setQuestionLabel] = useState('');
   const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [selectedStamp, setSelectedStamp] = useState('');
+  const [options, setOptions] = useState([]);
 
   const handelCheck = id => {
     setCheckedQuestion(id);
@@ -33,11 +36,19 @@ const QuestionnaireList = props => {
     handleCloseNewQuestion();
   };
 
+  useEffect(() => {
+    Promise.resolve([
+      { id: 'TEST', label: 'Test' },
+      { id: 'DR59-SNDI', label: 'DR59-SNDI' },
+    ]).then(r => {
+      setOptions(r);
+    });
+  }, []);
   // TODO: Find why 2 calls
   useEffect(() => {
-    loadQuestionnaireList(stamp, token);
+    if (selectedStamp) loadQuestionnaireList(selectedStamp, token);
     setModifiedFalse();
-  }, [stamp, token, loadQuestionnaireList, setModifiedFalse]);
+  }, [selectedStamp, token, loadQuestionnaireList, setModifiedFalse]);
 
   const updateFilter = value => {
     setFilter(value);
@@ -99,6 +110,11 @@ const QuestionnaireList = props => {
   return (
     <div>
       <div className="box home-questionnaires">
+        <Dropdown
+          onChange={setSelectedStamp}
+          value={selectedStamp}
+          options={options}
+        />
         <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
         <h4>
           {Dictionary.stamp} {stamp}
