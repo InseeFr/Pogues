@@ -13,6 +13,7 @@ import collectedVariableByQuestionnaire from 'reducers/collected-variable-by-que
 import searchResultById from 'reducers/search-result-by-id';
 import metadataByType from 'reducers/metadata-by-type';
 import errors from 'reducers/errors/errors';
+import general from 'reducers/general';
 
 import integrityChecker from 'utils/integrity/integrity-checker';
 import checkers from 'utils/integrity/checkers';
@@ -33,6 +34,7 @@ export default integrityChecker(
     searchResultById,
     metadataByType,
     errors,
+    general,
   }),
   checkers,
 );
