@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, useLocation } from 'react-router-dom';
+import { Route, Redirect, useLocation, Switch } from 'react-router-dom';
 
 import { App } from 'layout/app';
 import { PageHome } from 'layout/page-home';
@@ -11,18 +11,20 @@ function Router() {
   const { pathname } = useLocation();
   return (
     <App>
-      <Route exact path="/" component={secure(PageHome)} />
-      <Route
-        exact
-        path="/questionnaire/:id"
-        component={secure(PageQuestionnaire)}
-      />
-      <Route
-        exact
-        path="/search/questionnaires"
-        component={secure(PageSearchQuestionnaire)}
-      />
-      {!pathname.startsWith('/authentication') && <Redirect to="/" />}
+      <Switch>
+        <Route exact path="/" component={secure(PageHome)} />
+        <Route
+          exact
+          path="/questionnaire/:id"
+          component={secure(PageQuestionnaire)}
+        />
+        <Route
+          exact
+          path="/search/questionnaires"
+          component={secure(PageSearchQuestionnaire)}
+        />
+        {!pathname.startsWith('/authentication') && <Redirect to="/" />}
+      </Switch>
     </App>
   );
 }

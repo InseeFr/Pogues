@@ -115,29 +115,29 @@ export const visualizeSpec = qr => {
   }).then(openDocument);
 };
 
+const getHeaders = (base, token) => {
+  if (!token) return base;
+  return {
+    ...base,
+    Authorization: `Bearer ${token}`,
+  };
+};
+
 /**
  * Retrieve all questionnaires
  */
 export const getQuestionnaireList = (stamp, token) =>
   fetch(`${urlQuestionnaireListSearch}?owner=${stamp}`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+    headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
 /**
  * Create new questionnaire
  */
-export const postQuestionnaire = qr =>
+export const postQuestionnaire = (qr, token) =>
   fetch(urlQuestionnaireList, {
     method: 'POST',
-    headers: {
-      // 'Accept': 'application/json'
-      // HACK needs to set content-type to text/html ; if not, server returns a 405 error
-      // 'Content-Type': 'text/html',
-      'Content-Type': 'application/json',
-    },
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   }).then(res => {
     if (res.ok) return res;
@@ -147,14 +147,10 @@ export const postQuestionnaire = qr =>
 /**
  * Update questionnaire by id
  */
-export const putQuestionnaire = (id, qr) =>
+export const putQuestionnaire = (id, qr, token) =>
   fetch(`${urlQuestionnaire}/${id}`, {
     method: 'PUT',
-    headers: {
-      // 'Accept': 'application/json'
-      // HACK needs to set content-type to text/html ; if not, server returns a 500 error
-      'Content-Type': 'application/json',
-    },
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   }).then(res => {
     if (res.ok) return res;
@@ -164,11 +160,9 @@ export const putQuestionnaire = (id, qr) =>
 /**
  * Retrieve questionnaire by id
  */
-export const getQuestionnaire = id =>
+export const getQuestionnaire = (id, token) =>
   fetch(`${urlQuestionnaire}/${id}`, {
-    headers: {
-      Accept: 'application/json',
-    },
+    headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
 /**
@@ -176,55 +170,41 @@ export const getQuestionnaire = id =>
  *
  * @param {deleteQuestionnaire} id The id of the questionnaire we want to delete
  */
-export const deleteQuestionnaire = id =>
+export const deleteQuestionnaire = (id, token) =>
   fetch(`${urlQuestionnaire}/${id}`, {
     method: 'DELETE',
+    headers: getHeaders({}, token),
   });
 
-export const getSeries = () =>
+export const getSeries = token =>
   fetch(urlSeriesList, {
-    headers: {
-      Accept: 'application/json',
-    },
+    headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
-export const getOperations = id =>
+export const getOperations = (id, token) =>
   fetch(`${urlSeriesList}/${id}/operations`, {
-    headers: {
-      Accept: 'application/json',
-    },
+    headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
-export const getCampaigns = id =>
+export const getCampaigns = (id, token) =>
   fetch(`${urlOperationsList}/${id}/collections`, {
-    headers: {
-      Accept: 'application/json',
-    },
+    headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
-export const getContextFromCampaign = id =>
+export const getContextFromCampaign = (id, token) =>
   fetch(`${urlSearch}/context/collection/${id}`, {
-    headers: {
-      Accept: 'application/json',
-    },
+    headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
-export const getUnitsList = () =>
+export const getUnitsList = token =>
   fetch(`${urlMetadata}/units`, {
-    headers: {
-      Accept: 'application/json',
-    },
+    headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
-export const getSearchResults = (typeItem, criterias, filter = '') => {
+export const getSearchResults = (token, typeItem, criterias, filter = '') => {
   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      // HACK needs to set content-type to text/html ; if not, server returns a 405 error
-      // 'Content-Type': 'text/html',
-      'Content-Type': 'application/json',
-    },
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify({
       types: [typeItem],
       filter,

@@ -19,6 +19,7 @@ const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
 const QuestionnaireListComponents = props => {
   const {
+    token,
     questionnaire,
     componentsStore,
     editingComponentId,
@@ -27,8 +28,8 @@ const QuestionnaireListComponents = props => {
   } = props;
 
   useEffect(() => {
-    props.setSelectedComponentId('');
-  }, []);
+    setSelectedComponentId('');
+  }, [setSelectedComponentId]);
 
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);
@@ -62,7 +63,7 @@ const QuestionnaireListComponents = props => {
   };
 
   const handleQuestionnaireDelete = () => {
-    props.removeQuestionnaire(props.questionnaire.id).then(() => {
+    props.removeQuestionnaire(props.questionnaire.id, token).then(() => {
       props.navigate('/');
     });
   };
@@ -243,6 +244,7 @@ const QuestionnaireListComponents = props => {
 
 // Prop types and default Props
 QuestionnaireListComponents.propTypes = {
+  token: PropTypes.string,
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
   errorsIntegrity: PropTypes.object,
@@ -262,6 +264,7 @@ QuestionnaireListComponents.propTypes = {
 };
 
 QuestionnaireListComponents.defaultProps = {
+  token: '',
   componentsStore: {},
   errorsIntegrity: {},
 };

@@ -159,6 +159,7 @@ class InputConditionPopover extends Component {
         <div>
           <span
             role="button"
+            tabIndex={0}
             className="glyphicon glyphicon-remove"
             onClick={() => {
               this.removeCondition(index);

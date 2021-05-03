@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RichTextEditor from 'gillespie59-react-rte/lib/RichTextEditor';
+import RichTextEditor from 'gillespie59-react-rte/dist/react-rte';
 import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
 
 import ControlWithSuggestion from './control-with-suggestions';
@@ -117,10 +117,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
   handleReturn = e => {
     if (this.props.submitOnEnter) {
       e.preventDefault();
-      e.target
-        .closest('form')
-        .querySelector('button[type=submit]')
-        .click();
+      e.target.closest('form').querySelector('button[type=submit]').click();
     }
   };
 

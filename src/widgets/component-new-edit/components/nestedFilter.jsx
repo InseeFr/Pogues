@@ -71,7 +71,7 @@ const NestedFilter = props => {
       component.typeFilter = 'new';
       setNewNestedFilter(component);
     }
-  }, [filterId]);
+  }, [filterId, componentsStore]);
 
   const handleSubmitImbriquer1 = value => {
     const filters = newNestedFilter.filterImbriquer
@@ -355,6 +355,7 @@ const NestedFilter = props => {
   return (
     <div className={COMPONENT_CLASS}>
       <div className="ctrl-list-radios">
+        {/* eslint jsx-a11y/label-has-associated-control: ["error", { assert: "either" } ] */}
         <label>
           {Dictionary.TYPEFILTER}
           <span className="ctrl-required">*</span>
@@ -595,7 +596,4 @@ const mapDispatchToProps = {
   setSelectedComponentId,
 };
 
-export default connect(
-  undefined,
-  mapDispatchToProps,
-)(NestedFilter);
+export default connect(undefined, mapDispatchToProps)(NestedFilter);

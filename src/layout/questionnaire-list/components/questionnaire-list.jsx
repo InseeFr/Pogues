@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-
 import Questionnaire from './questionnaire';
-import isEqual from 'lodash.isequal';
-
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
@@ -18,33 +15,29 @@ const QuestionnaireList = props => {
     handleCloseNewQuestion,
     mergeQuestions,
     currentQuestion,
+    loadQuestionnaireList,
+    setModifiedFalse,
   } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
   const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  //const [questionList, seQuestionList] = useState([]);
 
   const handelCheck = id => {
     setCheckedQuestion(id);
   };
+
   const fusionateQuestion = () => {
-    mergeQuestions(checkedQuestion);
+    mergeQuestions(checkedQuestion, token);
     handleCloseNewQuestion();
   };
-  // useEffect(() => {
-  //   if (!isEqual(questionnaires, questionList)) {
-  //     props.loadQuestionnaireList(stamp, token);
-  //     seQuestionList(questionnaires);
-  //   }
-  // }, [stamp, questionnaires]);
 
+  // TODO: Find why 2 calls
   useEffect(() => {
-    console.log('questionnaires', questionnaires);
-    console.log('stamp', stamp);
-    props.loadQuestionnaireList(stamp, token);
-  }, [stamp, token]);
+    loadQuestionnaireList(stamp, token);
+    setModifiedFalse();
+  }, [stamp, token, loadQuestionnaireList, setModifiedFalse]);
 
   const updateFilter = value => {
     setFilter(value);
@@ -53,14 +46,16 @@ const QuestionnaireList = props => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
+
   const handleOpenPopup = (id, label) => {
     setShowPopup(true);
     setQuestionId(id);
     setQuestionLabel(label);
   };
+
   const handleSubmit = () => {
-    duplicateQuestionnaire(questionId);
-    props.loadQuestionnaireList(props.stamp);
+    duplicateQuestionnaire(questionId, token);
+    props.loadQuestionnaireList(stamp, token);
     setShowPopup(false);
   };
 
@@ -100,15 +95,6 @@ const QuestionnaireList = props => {
       }
       return null;
     });
-
-  useEffect(() => {
-    if (props.stamp && props.stamp) props.loadQuestionnaireList(props.stamp);
-  }, []);
-
-  useEffect(() => {
-    props.loadQuestionnaireList(props.stamp);
-    props.setModifiedFalse();
-  }, [props.stamp]);
 
   return (
     <div>

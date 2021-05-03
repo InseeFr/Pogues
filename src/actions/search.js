@@ -45,18 +45,23 @@ export const loadSearchResultFailure = err => ({
 
 /**
  * Load search results list
- *
+ * @param   {string} token   The user token.
  * @param   {string} typeItem   The type of item to search.
  * @param   {object} criterias  The list of criterias.
  * @param   {string} filter     The text to filter.
  * @return  {object}  LOAD_SEARCH_RESULT action
  */
-export const loadSearchResult = (typeItem, criterias, filter) => dispatch => {
+export const loadSearchResult = (
+  token,
+  typeItem,
+  criterias,
+  filter,
+) => dispatch => {
   dispatch({
     type: LOAD_SEARCH_RESULT,
     payload: null,
   });
-  return getSearchResults(typeItem, criterias, filter)
+  return getSearchResults(token, typeItem, criterias, filter)
     .then(resultsList => dispatch(loadSearchResultSuccess(resultsList)))
     .catch(err => dispatch(loadSearchResultFailure(err)));
 };

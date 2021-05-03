@@ -79,7 +79,7 @@ const CodesList = props => {
 
   useEffect(() => {
     clearSearchResult();
-  }, []);
+  }, [clearSearchResult]);
 
   useEffect(() => {
     if (currentIdState !== currentId && currentId === '') {
@@ -103,7 +103,15 @@ const CodesList = props => {
       );
       setCurrentIdState(currentId);
     }
-  }, [currentId]);
+  }, [
+    currentId,
+    arrayRemoveAll,
+    change,
+    codesListsStore,
+    currentIdState,
+    formName,
+    path,
+  ]);
 
   const handleCheck = () => {
     const id = uuid();

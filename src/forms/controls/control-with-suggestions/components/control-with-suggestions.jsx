@@ -171,6 +171,7 @@ class ControlWithSuggestions extends Component {
                     this.handleSuggestionClick(suggest);
                   }}
                   role="button"
+                  tabIndex={0}
                   className={ClassSet({
                     [ITEM_CLASS]: true,
                     [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,

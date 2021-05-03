@@ -94,6 +94,7 @@ class InputAutocomplete extends Component {
     } = nextProps;
 
     if (value !== this.props.input.value) {
+      // eslint-disable-next-line react/no-will-update-set-state
       this.setState(init(getValuesFromGenericOptions(children), value));
     }
   }
@@ -228,6 +229,7 @@ class InputAutocomplete extends Component {
               ) => (
                 <li
                   key={su.value}
+                  aria-hidden
                   className={ClassSet({
                     active: index === indexActiveSuggestion,
                   })}

@@ -1,7 +1,7 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 
-import { CodesListModel } from 'widgets/codes-lists';
+import * as CodesListModel from 'widgets/codes-lists';
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
@@ -107,13 +107,12 @@ export function stateToForm(currentState, transformers) {
 
 const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
-
   const transformers = {
-    codesListPrimary: new CodesListModel.Factory(
+    codesListPrimary: CodesListModel.Factory(
       cloneDeep(currentState[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH]),
       codesListsStore,
     ),
-    codesListMeasure: new CodesListModel.Factory(
+    codesListMeasure: CodesListModel.Factory(
       cloneDeep(
         currentState[MEASURE][CODES_LIST][DEFAULT_CODES_LIST_SELECTOR_PATH],
       ),

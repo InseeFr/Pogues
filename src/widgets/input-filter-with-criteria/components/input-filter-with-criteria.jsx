@@ -14,12 +14,19 @@ const {
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 const InputFilterWithCriteria = props => {
-  const { typeItem, criteriaValues, label } = props;
+  const {
+    typeItem,
+    criteriaValues,
+    label,
+    token,
+    loadOnInit,
+    loadSearchResult,
+  } = props;
   const inputSearchRef = useRef(null);
 
   useEffect(() => {
-    if (props.loadOnInit) props.loadSearchResult(props.typeItem);
-  }, [props.typeItem, props.loadOnInit]);
+    if (loadOnInit) loadSearchResult(token, typeItem);
+  }, [typeItem, loadOnInit, token, loadSearchResult]);
 
   const id = getControlId('input', 'search', uuid());
 
@@ -37,6 +44,7 @@ const InputFilterWithCriteria = props => {
             onKeyDown={e => {
               if (e.key === 'Enter')
                 props.loadSearchResult(
+                  token,
                   typeItem,
                   criteriaValues,
                   inputSearchRef.current.value.trim(),
@@ -50,6 +58,7 @@ const InputFilterWithCriteria = props => {
         onClick={event => {
           event.preventDefault();
           props.loadSearchResult(
+            token,
             typeItem,
             criteriaValues,
             inputSearchRef.current.value.trim(),
@@ -65,6 +74,7 @@ const InputFilterWithCriteria = props => {
 // PropTypes and defaultProps
 
 InputFilterWithCriteria.propTypes = {
+  token: PropTypes.string,
   typeItem: PropTypes.string.isRequired,
   loadSearchResult: PropTypes.func.isRequired,
   criteriaValues: PropTypes.object,
@@ -73,6 +83,7 @@ InputFilterWithCriteria.propTypes = {
 };
 
 InputFilterWithCriteria.defaultProps = {
+  token: '',
   criteriaValues: {},
 };
 

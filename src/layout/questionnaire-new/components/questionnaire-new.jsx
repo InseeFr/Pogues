@@ -19,11 +19,11 @@ export const propTypes = {
 
 // Utils
 
-function validateAndSubmit(action, validate, transformer, onSuccess) {
+function validateAndSubmit(action, validate, transformer, onSuccess, token) {
   return function (values) {
     validate(values);
 
-    return action(transformer.formToState(values)).then(result => {
+    return action(transformer.formToState(values), token).then(result => {
       const {
         payload: { id },
       } = result;
@@ -38,6 +38,7 @@ function QuestionnaireNew({
   onCancel,
   onSuccess,
   stamp,
+  token,
   createQuestionnaire,
   setErrors,
 }) {
@@ -61,6 +62,7 @@ function QuestionnaireNew({
         validate(setErrors),
         questionnaireTransformer,
         onSuccess,
+        token,
       )}
     />
   );

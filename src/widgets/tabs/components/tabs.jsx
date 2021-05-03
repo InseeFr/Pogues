@@ -45,6 +45,7 @@ class Tabs extends Component {
         <li key={`tab-${childProps.path}`} className={ITEM}>
           <a
             role="button"
+            tabIndex={0}
             className={classTab}
             onClick={event => {
               event.preventDefault();

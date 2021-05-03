@@ -107,7 +107,7 @@ class GenericInput extends Component {
       showNewQuestionnaire: true,
     };
     this.setState(newState);
-    this.props.loadQuestionnaireList(this.props.stamp);
+    this.props.loadQuestionnaireList(this.props.stamp, this.props.token);
   }
 
   handleCloseNewQuestion() {
@@ -161,7 +161,7 @@ class GenericInput extends Component {
       };
       this.setState(newState);
     } else {
-      this.props.saveActiveQuestionnaire().then(() => {
+      this.props.saveActiveQuestionnaire(this.props.token).then(() => {
         if (this.props.isQuestionnaireHaveError) {
           const newState = {
             ...this.state,
