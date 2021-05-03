@@ -17,7 +17,7 @@ const QuestionnaireList = props => {
     mergeQuestions,
     currentQuestion,
     loadQuestionnaireList,
-    setModifiedFalse,
+    deleteQuestionnaireList,
   } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
@@ -39,6 +39,7 @@ const QuestionnaireList = props => {
   useEffect(() => {
     Promise.resolve([
       { id: 'TEST', label: 'Test' },
+      { id: 'DG75-L201', label: 'DG75-L201' },
       { id: 'DR59-SNDI', label: 'DR59-SNDI' },
     ]).then(r => {
       setOptions(r);
@@ -47,8 +48,8 @@ const QuestionnaireList = props => {
   // TODO: Find why 2 calls
   useEffect(() => {
     if (selectedStamp) loadQuestionnaireList(selectedStamp, token);
-    setModifiedFalse();
-  }, [selectedStamp, token, loadQuestionnaireList, setModifiedFalse]);
+    else deleteQuestionnaireList();
+  }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
 
   const updateFilter = value => {
     setFilter(value);
