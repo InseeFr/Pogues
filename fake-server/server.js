@@ -51,30 +51,32 @@ function getQuestionnairePosition(questionnaires, id) {
 server.use(restifyBodyParser());
 server.use(restifyQueryParser());
 
-server.get('/persistence/questionnaires/search', function(req, res, next) {
-  // @TODO: Take into account the property "owner"
-  const questionnaires1 = questionnaires.map(question => {
-    return {
-      Label: question.Label,
-      id: question.id,
-      lastUpdatedDate: question.lastUpdatedDate,
-      final: question.final,
-      DataCollection: question.DataCollection,
-      TargetMode: question.TargetMode,
-    };
-  });
+server.get('/persistence/questionnaires/search', function (req, res, next) {
+  const questionnaires1 = questionnaires
+    .map(question => {
+      return {
+        Label: question.Label,
+        id: question.id,
+        lastUpdatedDate: question.lastUpdatedDate,
+        final: question.final,
+        DataCollection: question.DataCollection,
+        TargetMode: question.TargetMode,
+        owner: question.owner,
+      };
+    })
+    .filter(q => q.owner === req.query.owner);
   res.send(questionnaires1);
   next();
 });
 
-server.get('/persistence/questionnaire/:id', function(req, res, next) {
+server.get('/persistence/questionnaire/:id', function (req, res, next) {
   var position = getQuestionnairePosition(questionnaires, req.params.id);
   var questionnaire = position !== -1 ? questionnaires[position] : {};
   res.send(questionnaire);
   next();
 });
 
-server.put('/persistence/questionnaire/:id', function(req, res, next) {
+server.put('/persistence/questionnaire/:id', function (req, res, next) {
   var qr = req.body;
   var position = getQuestionnairePosition(questionnaires, req.params.id);
   if (position > -1) {
@@ -85,7 +87,7 @@ server.put('/persistence/questionnaire/:id', function(req, res, next) {
   next();
 });
 
-server.post('/persistence/questionnaires', function(req, res, next) {
+server.post('/persistence/questionnaires', function (req, res, next) {
   var qr = req.body;
   questionnaires.push(qr);
   res.header(
@@ -96,35 +98,35 @@ server.post('/persistence/questionnaires', function(req, res, next) {
   next();
 });
 
-server.get('/search/series', function(req, res, next) {
+server.get('/search/series', function (req, res, next) {
   res.send(series);
   next();
 });
 
-server.get('/search/series/:id/operations', function(req, res, next) {
+server.get('/search/series/:id/operations', function (req, res, next) {
   res.send(
-    operations.filter(function(o) {
+    operations.filter(function (o) {
       return o.parent === req.params.id;
     }),
   );
   next();
 });
 
-server.get('/search/operations/:id/collections', function(req, res, next) {
+server.get('/search/operations/:id/collections', function (req, res, next) {
   res.send(
-    campaigns.filter(function(c) {
+    campaigns.filter(function (c) {
       return c.parent === req.params.id;
     }),
   );
   next();
 });
 
-server.get('/search/context/collection/:id', function(req, res, next) {
-  var campaign = campaigns.filter(function(c) {
+server.get('/search/context/collection/:id', function (req, res, next) {
+  var campaign = campaigns.filter(function (c) {
     return c.id === req.params.id;
   })[0];
 
-  var operation = operations.filter(function(o) {
+  var operation = operations.filter(function (o) {
     return campaign && o.id === campaign.parent;
   })[0];
 
@@ -136,7 +138,7 @@ server.get('/search/context/collection/:id', function(req, res, next) {
   next();
 });
 
-server.post('/search', function(req, res, next) {
+server.post('/search', function (req, res, next) {
   var body = JSON.parse(req.body);
   var typeItem = body.types[0];
   var result = [];
@@ -149,16 +151,16 @@ server.post('/search', function(req, res, next) {
 
   var params = req.params;
 
-  Object.keys(params).forEach(function(key) {
+  Object.keys(params).forEach(function (key) {
     if (params[key] !== '') {
-      result = result.filter(function(qr) {
+      result = result.filter(function (qr) {
         return qr[key] === params[key];
       });
     }
   });
 
   if (body.filter !== '') {
-    result = result.filter(function(qr) {
+    result = result.filter(function (qr) {
       return qr.title.search(body.filter) !== -1;
     });
   }
@@ -168,9 +170,9 @@ server.post('/search', function(req, res, next) {
   next();
 });
 
-server.get('/meta-data/units', function(req, res, next) {
+server.get('/meta-data/units', function (req, res, next) {
   res.send(
-    units.map(function(u) {
+    units.map(function (u) {
       return {
         id: u.uri,
         uri: u.uri,
