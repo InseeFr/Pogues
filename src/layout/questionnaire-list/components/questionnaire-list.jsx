@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import Questionnaire from './questionnaire';
 import Dropdown from 'widgets/dropdown';
+import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 
@@ -26,6 +27,7 @@ const QuestionnaireList = props => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedStamp, setSelectedStamp] = useState('');
   const [options, setOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handelCheck = id => {
     setCheckedQuestion(id);
@@ -47,8 +49,12 @@ const QuestionnaireList = props => {
   }, []);
   // TODO: Find why 2 calls
   useEffect(() => {
-    if (selectedStamp) loadQuestionnaireList(selectedStamp, token);
-    else deleteQuestionnaireList();
+    if (selectedStamp) {
+      setLoading(true);
+      loadQuestionnaireList(selectedStamp, token).then(() => {
+        setLoading(false);
+      });
+    } else deleteQuestionnaireList();
   }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
 
   const updateFilter = value => {
@@ -120,30 +126,33 @@ const QuestionnaireList = props => {
         <h4>
           {Dictionary.stamp} {stamp}
         </h4>
-        <div id="questionnaire-list">
-          {questionnaires.length > 0 ? (
-            <div>
-              <div className="ctrl-input">
-                <input
-                  className="form-control"
-                  placeholder={Dictionary.search}
-                  type="text"
-                  onChange={e => updateFilter(e.target.value)}
-                />
+        {loading && <Loader />}
+        {!loading && (
+          <div id="questionnaire-list">
+            {questionnaires.length > 0 ? (
+              <div>
+                <div className="ctrl-input">
+                  <input
+                    className="form-control"
+                    placeholder={Dictionary.search}
+                    type="text"
+                    onChange={e => updateFilter(e.target.value)}
+                  />
+                </div>
+                <div className="questionnaire-list_header">
+                  <div>{Dictionary.QUESTIONNAIRE}</div>
+                  <div>{Dictionary.state}</div>
+                  <div>{Dictionary.lastUpdate}</div>
+                </div>
+                {list}
               </div>
-              <div className="questionnaire-list_header">
-                <div>{Dictionary.QUESTIONNAIRE}</div>
-                <div>{Dictionary.state}</div>
-                <div>{Dictionary.lastUpdate}</div>
+            ) : (
+              <div className="questionnaire-list_noresults">
+                {Dictionary.noQuestionnnaires}
               </div>
-              {list}
-            </div>
-          ) : (
-            <div className="questionnaire-list_noresults">
-              {Dictionary.noQuestionnnaires}
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
       {fusion ? (
         <div className="footer_quesionList">
