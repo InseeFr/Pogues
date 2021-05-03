@@ -19,13 +19,14 @@ const QuestionnaireList = props => {
     currentQuestion,
     loadQuestionnaireList,
     deleteQuestionnaireList,
+    selectedStamp,
+    setSelectedStamp,
   } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
   const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedStamp, setSelectedStamp] = useState('');
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
 
