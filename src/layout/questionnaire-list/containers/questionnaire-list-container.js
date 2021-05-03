@@ -2,9 +2,11 @@ import { connect } from 'react-redux';
 
 import QuestionnaireList from '../components/questionnaire-list';
 
-import { loadQuestionnaireList } from 'actions/questionnaire-list';
+import {
+  loadQuestionnaireList,
+  deleteQuestionnaireList,
+} from 'actions/questionnaire-list';
 import { duplicateQuestionnaire, mergeQuestions } from 'actions/questionnaire';
-import { setModifiedFalse } from 'actions/app-state';
 import { getToken, getUser } from 'reducers/selectors';
 
 // Contanier
@@ -22,7 +24,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   loadQuestionnaireList,
-  setModifiedFalse,
+  deleteQuestionnaireList,
   duplicateQuestionnaire,
   mergeQuestions,
 };
