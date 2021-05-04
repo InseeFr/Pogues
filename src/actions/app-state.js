@@ -378,7 +378,7 @@ export const removeControlsAndRedirections = activeComponentsById => {
  * @param {*} type the type of visualization we want
  * @param {*} componentId The ID of the selected component (optional)
  */
-export const visualizeActiveQuestionnaire = (type, componentId) => {
+export const visualizeActiveQuestionnaire = (type, componentId, token) => {
   return (dispatch, getState) => {
     const state = getState();
     const componentsById = componentId
@@ -392,13 +392,13 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
 
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
     if (type === 'pdf') {
-      visualizePdf(questionnaireModel);
+      visualizePdf(questionnaireModel, token);
     } else if (type === 'spec') {
-      visualizeSpec(questionnaireModel);
+      visualizeSpec(questionnaireModel, token);
     } else if (type === 'html') {
-      visualizeHtml(questionnaireModel);
+      visualizeHtml(questionnaireModel, token);
     } else if (type === 'ddi') {
-      visualizeDDI(questionnaireModel);
+      visualizeDDI(questionnaireModel, token);
     }
   };
 };

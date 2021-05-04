@@ -305,6 +305,7 @@ class GenericInput extends Component {
           top
           disabled={!isQuestionnaireValid}
           visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
+          token={this.props.token}
         />
         <button
           id="add-questionnaire"
