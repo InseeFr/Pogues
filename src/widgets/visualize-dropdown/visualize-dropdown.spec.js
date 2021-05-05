@@ -72,6 +72,7 @@ describe('Visualize Dropdown Component: ', () => {
     expect(props.visualizeActiveQuestionnaire).toHaveBeenCalledWith(
       'html',
       props.componentId,
+      props.token,
     );
   });
 });
