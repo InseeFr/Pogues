@@ -192,6 +192,11 @@ export const getUnitsList = token =>
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 
+export const getStampsList = token =>
+  fetch(`${baseURL}/persistence/questionnaires/stamps`, {
+    headers: getHeaders({ Accept: 'application/json' }, token),
+  }).then(res => res.json());
+
 export const getSearchResults = (token, typeItem, criterias, filter = '') => {
   return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',

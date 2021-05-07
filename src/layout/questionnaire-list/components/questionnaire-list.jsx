@@ -6,6 +6,7 @@ import Dropdown from 'widgets/dropdown';
 import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
+import { getStampsList } from 'utils/remote-api';
 
 const QuestionnaireList = props => {
   const {
@@ -40,14 +41,11 @@ const QuestionnaireList = props => {
   };
 
   useEffect(() => {
-    Promise.resolve([
-      { id: 'TEST', label: 'Test' },
-      { id: 'DG75-L201', label: 'DG75-L201' },
-      { id: 'DR59-SNDI', label: 'DR59-SNDI' },
-    ]).then(r => {
+    getStampsList(token).then(r => {
       setOptions(r);
     });
-  }, []);
+  }, [token]);
+
   // TODO: Find why 2 calls
   useEffect(() => {
     if (selectedStamp) {
