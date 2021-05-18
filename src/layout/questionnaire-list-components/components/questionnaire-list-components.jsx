@@ -33,10 +33,8 @@ const QuestionnaireListComponents = props => {
 
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);
-  const [
-    showRemoveQuestionnaireDialog,
-    setShowRemoveQuestionnaireDialog,
-  ] = useState(false);
+  const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] =
+    useState(false);
 
   const handleOpenQuestionnaireDetail = () => {
     setShowQuestionnaireModal(true);
@@ -93,6 +91,7 @@ const QuestionnaireListComponents = props => {
         ) {
           return (
             <QuestionnaireComponent
+              token={props.token}
               key={component.id}
               selected={props.selectedComponentId === key}
               component={component}
