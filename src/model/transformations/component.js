@@ -18,14 +18,8 @@ import {
 } from 'constants/pogues-constants';
 
 const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const {
-  QUESTION,
-  SEQUENCE,
-  SUBSEQUENCE,
-  QUESTIONNAIRE,
-  LOOP,
-  FILTER,
-} = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP, FILTER } =
+  COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 
 const sortByWeight = store => (keyA, keyB) => {
@@ -34,9 +28,15 @@ const sortByWeight = store => (keyA, keyB) => {
   return 0;
 };
 
-const getResponseCoordinate = (variablesMapping = []) =>
+export const getResponseCoordinate = (
+  variablesMapping = [],
+  variablesAttribute,
+) =>
   variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
+    const find = variablesAttribute
+      ? variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget)
+      : false;
     const variableRes = {
       ...acc,
       [m.MappingSource]: {
@@ -44,15 +44,18 @@ const getResponseCoordinate = (variablesMapping = []) =>
         y: parseInt(axis[1], 10),
       },
     };
+    if (find) {
+      variableRes[m.MappingSource].isCollected = false;
+    } else {
+      variableRes[m.MappingSource].isCollected = true;
+    }
     return variableRes;
   }, {});
 
 const getResponsesByVariable = (responses = [], coordinatesByResponse = []) =>
   responses.reduce((accInner, response) => {
-    const {
-      id: responseId,
-      CollectedVariableReference: collectedVariableId,
-    } = response;
+    const { id: responseId, CollectedVariableReference: collectedVariableId } =
+      response;
     // Mapping only exists in the questions with a matrix of responses
     const coordinates = coordinatesByResponse[responseId] || {};
 
@@ -181,7 +184,6 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
     const variableResponseAttribute = responseStructure
       ? responseStructure.Attribute
       : undefined;
-
     const coordinatesByResponse = getResponseCoordinate(
       variableResponseMapping,
       variableResponseAttribute,
@@ -270,9 +272,8 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       dimensions,
       codesListsStore,
     );
-    state.collectedVariables = CollectedVariable.remoteToComponentState(
-      responseFinal,
-    );
+    state.collectedVariables =
+      CollectedVariable.remoteToComponentState(responseFinal);
   }
   const cGroupIndex = componentGroup.findIndex(
     group => group.MemberReference && group.MemberReference.indexOf(id) >= 0,
@@ -527,9 +528,10 @@ function getClarificationResponseTableQuestion(
           codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes,
         ).forEach(code => {
           if (code.precisionid && code.precisionid !== '') {
-            const collectedvariablequestionPrecision = collectedvariablequestion.filter(
-              varibale => varibale.z === code.weight,
-            );
+            const collectedvariablequestionPrecision =
+              collectedvariablequestion.filter(
+                varibale => varibale.z === code.weight,
+              );
             collectedvariablequestionPrecision.forEach(varib => {
               const variableTable = collectedvariablequestion.find(
                 varTab =>
@@ -636,16 +638,17 @@ function storeToRemoteNested(
         responseFormat.type === SINGLE_CHOICE &&
         collectedVariablesStore !== undefined
       ) {
-        const remoteclarification = getClarificationresponseSingleChoiseQuestion(
-          collectedVariablesStore,
-          collectedVariables,
-          codesListsStore,
-          responseFormat,
-          remote.FlowControl,
-          TargetMode,
-          responsesClarification,
-          flowControl,
-        );
+        const remoteclarification =
+          getClarificationresponseSingleChoiseQuestion(
+            collectedVariablesStore,
+            collectedVariables,
+            codesListsStore,
+            responseFormat,
+            remote.FlowControl,
+            TargetMode,
+            responsesClarification,
+            flowControl,
+          );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
         remote.ClarificationQuestion =
           remoteclarification.ClarificationQuestion;
@@ -654,16 +657,17 @@ function storeToRemoteNested(
         responseFormat.type === MULTIPLE_CHOICE &&
         collectedVariablesStore !== undefined
       ) {
-        const remoteclarification = getClarificationResponseMultipleChoiceQuestion(
-          collectedVariablesStore,
-          collectedVariables,
-          codesListsStore,
-          responseFormat,
-          remote.FlowControl,
-          TargetMode,
-          responsesClarification,
-          flowControl,
-        );
+        const remoteclarification =
+          getClarificationResponseMultipleChoiceQuestion(
+            collectedVariablesStore,
+            collectedVariables,
+            codesListsStore,
+            responseFormat,
+            remote.FlowControl,
+            TargetMode,
+            responsesClarification,
+            flowControl,
+          );
         remote.FlowControl = remoteclarification.flowcontrolefinal;
         remote.ClarificationQuestion =
           remoteclarification.ClarificationQuestion;

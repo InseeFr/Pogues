@@ -1,4 +1,8 @@
-import { remoteToStore, storeToRemote } from './component';
+import {
+  remoteToStore,
+  storeToRemote,
+  getResponseCoordinate,
+} from './component';
 
 describe('component tranformations', () => {
   describe('remoteToStore', () => {
@@ -356,6 +360,59 @@ describe('component tranformations', () => {
           collectedVariablesStore,
           codesListsStore,
           dynamiqueSpecified,
+        ),
+      ).toEqual(output);
+    });
+  });
+
+  describe('getResponseCoordinate', () => {
+    test('should return response coordinate', () => {
+      const variableResponseMapping = [
+        {
+          MappingSource: 'khokqjtw',
+          MappingTarget: '1',
+        },
+        {
+          MappingSource: 'khokur7a',
+          MappingTarget: '2',
+        },
+        {
+          MappingSource: 'khol82ux',
+          MappingTarget: '3',
+        },
+        {
+          MappingSource: 'khokqee5',
+          MappingTarget: '4',
+        },
+      ];
+      const variableResponseAttribute = [];
+
+      const output = {
+        khokqjtw: {
+          x: 1,
+          y: NaN,
+          isCollected: true,
+        },
+        khokur7a: {
+          x: 2,
+          y: NaN,
+          isCollected: true,
+        },
+        khol82ux: {
+          x: 3,
+          y: NaN,
+          isCollected: true,
+        },
+        khokqee5: {
+          x: 4,
+          y: NaN,
+          isCollected: true,
+        },
+      };
+      expect(
+        getResponseCoordinate(
+          variableResponseMapping,
+          variableResponseAttribute,
         ),
       ).toEqual(output);
     });
