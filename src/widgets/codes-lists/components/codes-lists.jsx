@@ -19,11 +19,8 @@ import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-sug
 import { SearchCodesLists } from 'widgets/search-codes-lists';
 import { ErrorsPanel } from 'widgets/errors-panel';
 
-const {
-  COMPONENT_CLASS,
-  PANEL_CLASS,
-  PANEL_SELECTOR_CLASS,
-} = WIDGET_CODES_LISTS;
+const { COMPONENT_CLASS, PANEL_CLASS, PANEL_SELECTOR_CLASS } =
+  WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 
 // Utils

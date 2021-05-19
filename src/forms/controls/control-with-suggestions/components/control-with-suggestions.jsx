@@ -17,12 +17,8 @@ import { getKey } from 'utils/widget-utils';
 
 import { CONTROL_WITH_SUGGESTIONS } from 'constants/dom-constants';
 
-const {
-  COMPONENT_CLASS,
-  LIST_CLASS,
-  ITEM_CLASS,
-  ITEM_SELECTED_CLASS,
-} = CONTROL_WITH_SUGGESTIONS;
+const { COMPONENT_CLASS, LIST_CLASS, ITEM_CLASS, ITEM_SELECTED_CLASS } =
+  CONTROL_WITH_SUGGESTIONS;
 
 const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
 
@@ -161,32 +157,34 @@ class ControlWithSuggestions extends Component {
         <div className={COMPONENT_CLASS}>
           {suggestions.length > 0 && (
             <div className={LIST_CLASS}>
-              {suggestions.slice(0, numSuggestionsShown).map((
-                suggest,
-                index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-              ) => (
-                <div
-                  key={getKey(suggest)}
-                  onClick={() => {
-                    this.handleSuggestionClick(suggest);
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  className={ClassSet({
-                    [ITEM_CLASS]: true,
-                    [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,
-                  })}
-                  title={suggest}
-                  ref={node => {
-                    if (index === hoveredSuggestionIndex)
-                      this.activeItem = node;
-                  }}
-                >
-                  <HighLighter highlight={highlight} caseSensitive={false}>
-                    {suggest}
-                  </HighLighter>
-                </div>
-              ))}
+              {suggestions.slice(0, numSuggestionsShown).map(
+                (
+                  suggest,
+                  index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                ) => (
+                  <div
+                    key={getKey(suggest)}
+                    onClick={() => {
+                      this.handleSuggestionClick(suggest);
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    className={ClassSet({
+                      [ITEM_CLASS]: true,
+                      [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,
+                    })}
+                    title={suggest}
+                    ref={node => {
+                      if (index === hoveredSuggestionIndex)
+                        this.activeItem = node;
+                    }}
+                  >
+                    <HighLighter highlight={highlight} caseSensitive={false}>
+                      {suggest}
+                    </HighLighter>
+                  </div>
+                ),
+              )}
             </div>
           )}
         </div>

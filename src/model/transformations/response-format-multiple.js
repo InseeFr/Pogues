@@ -51,9 +51,8 @@ export function remoteToState(remote) {
     state[MEASURE] = {
       type: CODES_LIST,
       [CODES_LIST]: {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-          CodeListReference,
-        ),
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+          CodeList.remoteToState(CodeListReference),
         visHint,
       },
     };

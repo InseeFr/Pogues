@@ -155,12 +155,8 @@ class InputAutocomplete extends Component {
       meta: { touched, error },
     } = this.props;
     const id = getControlId('input-autocomplete', name);
-    const {
-      suggestions,
-      indexActiveSuggestion,
-      showSuggestions,
-      inputSearch,
-    } = this.state;
+    const { suggestions, indexActiveSuggestion, showSuggestions, inputSearch } =
+      this.state;
     const searchInputStyle = {
       display: showSuggestions ? 'block' : 'none',
     };
@@ -223,28 +219,30 @@ class InputAutocomplete extends Component {
 
           {suggestions.length > 0 && (
             <ul style={searchInputStyle}>
-              {suggestions.map((
-                su,
-                index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-              ) => (
-                <li
-                  key={su.value}
-                  aria-hidden
-                  className={ClassSet({
-                    active: index === indexActiveSuggestion,
-                  })}
-                  onClick={() => {
-                    this.onClick(index);
-                  }}
-                >
-                  <HighLighter
-                    highlight={inputSearch}
-                    caseSensitive={caseSensitive}
+              {suggestions.map(
+                (
+                  su,
+                  index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                ) => (
+                  <li
+                    key={su.value}
+                    aria-hidden
+                    className={ClassSet({
+                      active: index === indexActiveSuggestion,
+                    })}
+                    onClick={() => {
+                      this.onClick(index);
+                    }}
                   >
-                    {this.props.getOptionLabel(su.label, su.value)}
-                  </HighLighter>
-                </li>
-              ))}
+                    <HighLighter
+                      highlight={inputSearch}
+                      caseSensitive={caseSensitive}
+                    >
+                      {this.props.getOptionLabel(su.label, su.value)}
+                    </HighLighter>
+                  </li>
+                ),
+              )}
             </ul>
           )}
           {touched && error && <span className="form-error">{error}</span>}

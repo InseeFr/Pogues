@@ -33,22 +33,10 @@ import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-sug
 import NestedFilter from './nestedFilter';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 
-const {
-  COMPONENT_CLASS,
-  FOOTER,
-  CANCEL,
-  VALIDATE,
-  FOOTERLOOP,
-  DELETE,
-} = WIDGET_COMPONENT_NEW_EDIT;
-const {
-  QUESTION,
-  LOOP,
-  SEQUENCE,
-  SUBSEQUENCE,
-  FILTER,
-  NESTEDFILTRE,
-} = COMPONENT_TYPE;
+const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
+  WIDGET_COMPONENT_NEW_EDIT;
+const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, NESTEDFILTRE } =
+  COMPONENT_TYPE;
 const { LIST } = DIMENSION_FORMATS;
 const { TABLE } = QUESTION_TYPE_ENUM;
 

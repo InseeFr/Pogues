@@ -3,12 +3,8 @@ import CSVReader from 'react-csv-reader';
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
-const {
-  COMPONENT_CLASS,
-  CANCEL,
-  VALIDATE,
-  FOOTERLOOP,
-} = WIDGET_COMPONENT_NEW_EDIT;
+const { COMPONENT_CLASS, CANCEL, VALIDATE, FOOTERLOOP } =
+  WIDGET_COMPONENT_NEW_EDIT;
 
 const UploadCSV = props => {
   const [errorFile, setErrorFile] = useState(false);

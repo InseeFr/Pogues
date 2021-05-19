@@ -16,11 +16,8 @@ import Dictionary from 'utils/dictionary/dictionary';
 // @TODO: noop is used temporally
 import { noop } from 'utils/test/test-utils';
 
-const {
-  COMPONENT_CLASS,
-  SEARCH_RESULTS_CLASS,
-  SEARCH_CLASS,
-} = WIDGET_SEARCH_CODES_LISTS;
+const { COMPONENT_CLASS, SEARCH_RESULTS_CLASS, SEARCH_CLASS } =
+  WIDGET_SEARCH_CODES_LISTS;
 
 // PropTypes and defaultProps
 

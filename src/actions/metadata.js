@@ -113,20 +113,19 @@ export const loadOperations = (idSerie, token) => dispatch => {
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadOperationsIfNeeded = (idSerie = '', token) => (
-  dispatch,
-  getState,
-) => {
-  const state = getState();
-  const operations = state.metadataByType.operations || {};
-  const operationsBySerie = Object.keys(operations).reduce((acc, key) => {
-    const operation = operations[key];
-    return operation.serie === idSerie ? { ...acc, [key]: operation } : acc;
-  }, {});
+export const loadOperationsIfNeeded =
+  (idSerie = '', token) =>
+  (dispatch, getState) => {
+    const state = getState();
+    const operations = state.metadataByType.operations || {};
+    const operationsBySerie = Object.keys(operations).reduce((acc, key) => {
+      const operation = operations[key];
+      return operation.serie === idSerie ? { ...acc, [key]: operation } : acc;
+    }, {});
 
-  if (idSerie !== '' && Object.keys(operationsBySerie).length === 0)
-    dispatch(loadOperations(idSerie, token));
-};
+    if (idSerie !== '' && Object.keys(operationsBySerie).length === 0)
+      dispatch(loadOperations(idSerie, token));
+  };
 
 // Metadata operations
 
@@ -149,17 +148,15 @@ export const loadCampaigns = (idOperation, token) => dispatch => {
     .catch(err => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadCampaignsIfNeeded = (idOperation, token) => (
-  dispatch,
-  getState,
-) => {
-  const state = getState();
-  const campaigns = state.metadataByType.campaigns || {};
-  const campaignsBySerie = Object.keys(campaigns).reduce((acc, key) => {
-    const campaign = campaigns[key];
-    return campaign.serie === idOperation ? { ...acc, [key]: campaign } : acc;
-  }, {});
+export const loadCampaignsIfNeeded =
+  (idOperation, token) => (dispatch, getState) => {
+    const state = getState();
+    const campaigns = state.metadataByType.campaigns || {};
+    const campaignsBySerie = Object.keys(campaigns).reduce((acc, key) => {
+      const campaign = campaigns[key];
+      return campaign.serie === idOperation ? { ...acc, [key]: campaign } : acc;
+    }, {});
 
-  if (idOperation !== '' && Object.keys(campaignsBySerie).length === 0)
-    dispatch(loadCampaigns(idOperation, token));
-};
+    if (idOperation !== '' && Object.keys(campaignsBySerie).length === 0)
+      dispatch(loadCampaigns(idOperation, token));
+  };

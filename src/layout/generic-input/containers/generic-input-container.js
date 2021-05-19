@@ -77,11 +77,8 @@ function isLoopsValid(componentsStore) {
 // Container
 
 const mapStateToProps = state => {
-  const {
-    activeComponentsById,
-    selectedComponentId,
-    activeQuestionnaire,
-  } = state.appState;
+  const { activeComponentsById, selectedComponentId, activeQuestionnaire } =
+    state.appState;
   const errors = state.errors || { errorsIntegrity: {} };
   const questionnaireErrors =
     errors.errorsIntegrity[activeQuestionnaire.id] || {};

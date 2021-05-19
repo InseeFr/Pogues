@@ -56,9 +56,8 @@ export function formToState(form, transformers) {
       ? specialUiBehaviour
       : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.formToStateComponent(
-      codesListForm,
-    ),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      transformers.codesList.formToStateComponent(codesListForm),
   };
 }
 
@@ -83,7 +82,8 @@ export function stateToForm(currentState, transformers) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.stateComponentToForm(),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      transformers.codesList.stateComponentToForm(),
   };
 }
 

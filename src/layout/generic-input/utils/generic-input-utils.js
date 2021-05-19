@@ -1,13 +1,7 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const {
-  QUESTION,
-  SEQUENCE,
-  SUBSEQUENCE,
-  LOOP,
-  FILTER,
-  NESTEDFILTRE,
-} = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, NESTEDFILTRE } =
+  COMPONENT_TYPE;
 
 /**
  * Get closest component id by type

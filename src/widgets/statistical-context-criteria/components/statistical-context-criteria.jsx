@@ -11,10 +11,8 @@ import GenericOption from 'forms/controls/generic-option';
 import Dictionary from 'utils/dictionary/dictionary';
 import { requiredSelect } from 'forms/validation-rules';
 
-const {
-  COMPONENT_CLASS,
-  HORIZONTAL_CLASS,
-} = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
+const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
+  WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = props => {
   const {

@@ -42,9 +42,8 @@ export function clearSubformValidationErrors() {
 
 actionHandlers[ADD_SUBFORM_VALIDATION_ERRORS] = addSubformValidationErrors;
 actionHandlers[SET_SUBFORM_VALIDATION_ERRORS] = setSubformValidationErrors;
-actionHandlers[
-  REMOVE_SUBFORM_VALIDATION_ERRORS
-] = removeSubformValidationErrors;
+actionHandlers[REMOVE_SUBFORM_VALIDATION_ERRORS] =
+  removeSubformValidationErrors;
 actionHandlers[CLEAR_SUBFORM_VALIDATION_ERRORS] = clearSubformValidationErrors;
 
 export default createActionHandlers(actionHandlers);

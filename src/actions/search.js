@@ -51,17 +51,13 @@ export const loadSearchResultFailure = err => ({
  * @param   {string} filter     The text to filter.
  * @return  {object}  LOAD_SEARCH_RESULT action
  */
-export const loadSearchResult = (
-  token,
-  typeItem,
-  criterias,
-  filter,
-) => dispatch => {
-  dispatch({
-    type: LOAD_SEARCH_RESULT,
-    payload: null,
-  });
-  return getSearchResults(token, typeItem, criterias, filter)
-    .then(resultsList => dispatch(loadSearchResultSuccess(resultsList)))
-    .catch(err => dispatch(loadSearchResultFailure(err)));
-};
+export const loadSearchResult =
+  (token, typeItem, criterias, filter) => dispatch => {
+    dispatch({
+      type: LOAD_SEARCH_RESULT,
+      payload: null,
+    });
+    return getSearchResults(token, typeItem, criterias, filter)
+      .then(resultsList => dispatch(loadSearchResultSuccess(resultsList)))
+      .catch(err => dispatch(loadSearchResultFailure(err)));
+  };

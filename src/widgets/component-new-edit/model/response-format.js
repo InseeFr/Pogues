@@ -98,21 +98,17 @@ const Factory = (initialState = {}, codesListsStore) => {
       };
 
       if (form.type === SIMPLE) {
-        normalized[SIMPLE] = transformers.simple.getNormalizedValues(
-          responseFormatType,
-        );
+        normalized[SIMPLE] =
+          transformers.simple.getNormalizedValues(responseFormatType);
       } else if (form.type === SINGLE_CHOICE) {
-        normalized[SINGLE_CHOICE] = transformers.single.getNormalizedValues(
-          responseFormatType,
-        );
+        normalized[SINGLE_CHOICE] =
+          transformers.single.getNormalizedValues(responseFormatType);
       } else if (form.type === MULTIPLE_CHOICE) {
-        normalized[MULTIPLE_CHOICE] = transformers.multiple.getNormalizedValues(
-          responseFormatType,
-        );
+        normalized[MULTIPLE_CHOICE] =
+          transformers.multiple.getNormalizedValues(responseFormatType);
       } else if (form.type === TABLE) {
-        normalized[TABLE] = transformers.table.getNormalizedValues(
-          responseFormatType,
-        );
+        normalized[TABLE] =
+          transformers.table.getNormalizedValues(responseFormatType);
       }
 
       return normalized;
