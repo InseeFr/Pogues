@@ -8,7 +8,6 @@ import {
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
-import { getUser } from 'reducers/selectors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -266,7 +265,6 @@ function getQuestionnaireModel(state, customComponentsStore) {
   const questionnaireState = {
     ...state.appState.activeQuestionnaire,
     lastUpdatedDate: new Date().toString(),
-    owner: getUser(state).stamp,
   };
 
   return Questionnaire.stateToRemote(questionnaireState, stores);
@@ -378,7 +376,7 @@ export const removeControlsAndRedirections = activeComponentsById => {
  * @param {*} type the type of visualization we want
  * @param {*} componentId The ID of the selected component (optional)
  */
-export const visualizeActiveQuestionnaire = (type, componentId) => {
+export const visualizeActiveQuestionnaire = (type, componentId, token) => {
   return (dispatch, getState) => {
     const state = getState();
     const componentsById = componentId
@@ -389,16 +387,15 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
           ),
         )
       : state.appState.activeComponentsById;
-
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
     if (type === 'pdf') {
-      visualizePdf(questionnaireModel);
+      visualizePdf(questionnaireModel, token);
     } else if (type === 'spec') {
-      visualizeSpec(questionnaireModel);
+      visualizeSpec(questionnaireModel, token);
     } else if (type === 'html') {
-      visualizeHtml(questionnaireModel);
+      visualizeHtml(questionnaireModel, token);
     } else if (type === 'ddi') {
-      visualizeDDI(questionnaireModel);
+      visualizeDDI(questionnaireModel, token);
     }
   };
 };

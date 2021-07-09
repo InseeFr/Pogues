@@ -34,40 +34,42 @@ export const MOVE_COMPONENT = 'MOVE_COMPONENT';
  * @param   {string}  type      The type of component
  * @return  {object}            CREATE_COMPONENT action
  */
-export const createComponent = (
-  componentState,
-  codesListsStore,
-  calculatedVariablesStore,
-  externalVariablesStore,
-  collectedVariablesStore,
-) => dispatch => {
-  const activeComponentsStore = {
-    [componentState.id]: componentState,
-  };
-  return new Promise(resolve => {
-    const result = dispatch({
-      type: CREATE_COMPONENT,
-      payload: {
-        id: componentState.id,
-        update: {
-          activeComponentsById: activeComponentsStore,
-          activeCalculatedVariablesById: calculatedVariablesStore,
-          activeExternalVariablesById: externalVariablesStore,
-          activeCollectedVariablesById: {
-            [componentState.id]: collectedVariablesStore,
+export const createComponent =
+  (
+    componentState,
+    codesListsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+    collectedVariablesStore,
+  ) =>
+  dispatch => {
+    const activeComponentsStore = {
+      [componentState.id]: componentState,
+    };
+    return new Promise(resolve => {
+      const result = dispatch({
+        type: CREATE_COMPONENT,
+        payload: {
+          id: componentState.id,
+          update: {
+            activeComponentsById: activeComponentsStore,
+            activeCalculatedVariablesById: calculatedVariablesStore,
+            activeExternalVariablesById: externalVariablesStore,
+            activeCollectedVariablesById: {
+              [componentState.id]: collectedVariablesStore,
+            },
+            activeCodeListsById: codesListsStore,
           },
-          activeCodeListsById: codesListsStore,
         },
-      },
+      });
+      resolve({
+        payload: {
+          id: componentState.id,
+          lastCreatedComponent: result.payload.update.activeComponentsById,
+        },
+      });
     });
-    resolve({
-      payload: {
-        id: componentState.id,
-        lastCreatedComponent: result.payload.update.activeComponentsById,
-      },
-    });
-  });
-};
+  };
 
 /**
  * Method executed right after the createComponent and updateParentChildren functions.
@@ -76,105 +78,104 @@ export const createComponent = (
  *
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
-export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
-  dispatch,
-  getState,
-) => {
-  const state = getState();
-  const {
-    selectedComponentId,
-    activeComponentsById: activesComponents,
-  } = state.appState;
-  const selectedComponent = activesComponents[selectedComponentId];
+export const orderComponents =
+  ({ payload: { id, lastCreatedComponent } }) =>
+  (dispatch, getState) => {
+    const state = getState();
+    const { selectedComponentId, activeComponentsById: activesComponents } =
+      state.appState;
+    const selectedComponent = activesComponents[selectedComponentId];
 
-  let activeComponentsById = {};
-
-  /**
-   * We do the reorder only if we have a selected component
-   */
-  if (
-    selectedComponent &&
-    !isLoop(selectedComponent) &&
-    !isFilter(selectedComponent) &&
-    !isNestedFilter(selectedComponent)
-  ) {
-    // We get the next sibling component of the currently selected component
-    const siblingSelectedComponent = toComponents(
-      activesComponents[selectedComponent.parent].children,
-      activesComponents,
-    ).find(c => c.weight === selectedComponent.weight + 1);
-
-    const childrenSelectedComponentLength = selectedComponent.children.length;
+    let activeComponentsById = {};
 
     /**
-     * When we insert a SUBSEQUENCE, we have to do a reorder only in these two cases :
-     * 1. The currently selected component is QUESTION and its sibling is also a QUESTION
-     * 2. The currently selecteed component is a SUBSEQUENCE with children (of course QUESTION)
+     * We do the reorder only if we have a selected component
      */
     if (
-      isSubSequence(lastCreatedComponent[id]) &&
-      ((isQuestion(selectedComponent) &&
-        isQuestion(siblingSelectedComponent)) ||
-        (isSubSequence(selectedComponent) &&
-          childrenSelectedComponentLength > 0))
+      selectedComponent &&
+      !isLoop(selectedComponent) &&
+      !isFilter(selectedComponent) &&
+      !isNestedFilter(selectedComponent)
     ) {
-      // If the selected component have children, we will use the first child as the component used for the insert
-      const comp =
-        childrenSelectedComponentLength === 0
-          ? selectedComponent
-          : toComponents(
-              activesComponents[selectedComponent.id].children,
-              activesComponents,
-            ).find(c => c.weight === 0);
-
-      activeComponentsById = moveQuestionToSubSequence(
+      // We get the next sibling component of the currently selected component
+      const siblingSelectedComponent = toComponents(
+        activesComponents[selectedComponent.parent].children,
         activesComponents,
-        comp,
-        lastCreatedComponent[id],
-        true,
-        comp.id !== selectedComponent.id,
-      );
+      ).find(c => c.weight === selectedComponent.weight + 1);
+
+      const childrenSelectedComponentLength = selectedComponent.children.length;
 
       /**
-       * We move components into the new
-       *  sequence only if the selected is not a sequence without children
+       * When we insert a SUBSEQUENCE, we have to do a reorder only in these two cases :
+       * 1. The currently selected component is QUESTION and its sibling is also a QUESTION
+       * 2. The currently selecteed component is a SUBSEQUENCE with children (of course QUESTION)
        */
-    } else if (
-      isSequence(lastCreatedComponent[id]) &&
-      !(isSequence(selectedComponent) && childrenSelectedComponentLength === 0)
-    ) {
-      // If the selected component have children, we will use the first child as the component used for the in
-      const comp =
-        childrenSelectedComponentLength === 0
-          ? selectedComponent
-          : toComponents(
-              activesComponents[selectedComponent.id].children,
-              activesComponents,
-            ).find(c => c.weight === 0);
-      activeComponentsById = moveQuestionAndSubSequenceToSequence(
-        activesComponents,
-        comp,
-        lastCreatedComponent[id],
-        comp.id !== selectedComponent.id,
-      );
-    } else {
-      activeComponentsById = increaseWeightOfAll(
-        activesComponents,
-        lastCreatedComponent[id],
-      );
-    }
-  }
+      if (
+        isSubSequence(lastCreatedComponent[id]) &&
+        ((isQuestion(selectedComponent) &&
+          isQuestion(siblingSelectedComponent)) ||
+          (isSubSequence(selectedComponent) &&
+            childrenSelectedComponentLength > 0))
+      ) {
+        // If the selected component have children, we will use the first child as the component used for the insert
+        const comp =
+          childrenSelectedComponentLength === 0
+            ? selectedComponent
+            : toComponents(
+                activesComponents[selectedComponent.id].children,
+                activesComponents,
+              ).find(c => c.weight === 0);
 
-  return dispatch({
-    type: UPDATE_COMPONENT_ORDER,
-    payload: {
-      id,
-      update: {
-        activeComponentsById,
+        activeComponentsById = moveQuestionToSubSequence(
+          activesComponents,
+          comp,
+          lastCreatedComponent[id],
+          true,
+          comp.id !== selectedComponent.id,
+        );
+
+        /**
+         * We move components into the new
+         *  sequence only if the selected is not a sequence without children
+         */
+      } else if (
+        isSequence(lastCreatedComponent[id]) &&
+        !(
+          isSequence(selectedComponent) && childrenSelectedComponentLength === 0
+        )
+      ) {
+        // If the selected component have children, we will use the first child as the component used for the in
+        const comp =
+          childrenSelectedComponentLength === 0
+            ? selectedComponent
+            : toComponents(
+                activesComponents[selectedComponent.id].children,
+                activesComponents,
+              ).find(c => c.weight === 0);
+        activeComponentsById = moveQuestionAndSubSequenceToSequence(
+          activesComponents,
+          comp,
+          lastCreatedComponent[id],
+          comp.id !== selectedComponent.id,
+        );
+      } else {
+        activeComponentsById = increaseWeightOfAll(
+          activesComponents,
+          lastCreatedComponent[id],
+        );
+      }
+    }
+
+    return dispatch({
+      type: UPDATE_COMPONENT_ORDER,
+      payload: {
+        id,
+        update: {
+          activeComponentsById,
+        },
       },
-    },
-  });
-};
+    });
+  };
 
 /**
  * Method exectued right after the creation of a component. We will trigger
@@ -183,22 +184,22 @@ export const orderComponents = ({ payload: { id, lastCreatedComponent } }) => (
  *
  * @param {object} param Result of the previous CREATE_COMPONENT action
  */
-export const updateParentChildren = ({
-  payload: { id, lastCreatedComponent },
-}) => (dispatch, getState) => {
-  const state = getState();
-  return dispatch({
-    type: UPDATE_COMPONENT_PARENT,
-    payload: {
-      id,
-      lastCreatedComponent,
-      update: {
-        activeComponentsById: updateNewComponentParent(
-          state.appState.activeComponentsById,
-          lastCreatedComponent[id].parent,
-          id,
-        ),
+export const updateParentChildren =
+  ({ payload: { id, lastCreatedComponent } }) =>
+  (dispatch, getState) => {
+    const state = getState();
+    return dispatch({
+      type: UPDATE_COMPONENT_PARENT,
+      payload: {
+        id,
+        lastCreatedComponent,
+        update: {
+          activeComponentsById: updateNewComponentParent(
+            state.appState.activeComponentsById,
+            lastCreatedComponent[id].parent,
+            id,
+          ),
+        },
       },
-    },
-  });
-};
+    });
+  };

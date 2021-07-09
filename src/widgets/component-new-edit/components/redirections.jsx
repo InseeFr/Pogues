@@ -15,17 +15,13 @@ import Dictionary from 'utils/dictionary/dictionary';
 
 // Utils
 
-const validateForm = (
-  addErrors,
-  validate,
-  componentsStore,
-  editingComponentId,
-) => values => {
-  return validate(values, addErrors, {
-    componentsStore,
-    editingComponentId,
-  });
-};
+const validateForm =
+  (addErrors, validate, componentsStore, editingComponentId) => values => {
+    return validate(values, addErrors, {
+      componentsStore,
+      editingComponentId,
+    });
+  };
 
 // Prop types and default props
 

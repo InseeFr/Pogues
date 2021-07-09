@@ -34,6 +34,7 @@ const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
 const QuestionnaireComponent = props => {
   const {
+    token,
     component,
     connectDragSource,
     integrityErrorsByType,
@@ -198,6 +199,7 @@ const QuestionnaireComponent = props => {
                       visualizeActiveQuestionnaire={
                         visualizeActiveQuestionnaire
                       }
+                      token={token}
                     />
                     <button
                       className="btn-yellow"

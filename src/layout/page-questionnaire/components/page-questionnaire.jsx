@@ -71,10 +71,8 @@ const PageQuestionnaire = props => {
   const [codeListsState, setCodeListsState] = useState();
   const [externalVariablesState, setExternalVariables] = useState();
   const [calculatedVariablesState, setCalculatedVariables] = useState();
-  const [
-    collectedVariablesByQuestionState,
-    setCollectedVariablesByQuestion,
-  ] = useState();
+  const [collectedVariablesByQuestionState, setCollectedVariablesByQuestion] =
+    useState();
 
   useEffect(() => {
     if (idState !== id) {

@@ -29,9 +29,8 @@ export function stateToModel(
   );
   const attributeModel = [];
   const mappingModel = responsesModel.map(r => {
-    const { x, y, isCollected } = collectedVariablesStore[
-      r.CollectedVariableReference
-    ];
+    const { x, y, isCollected } =
+      collectedVariablesStore[r.CollectedVariableReference];
     // Table : Fix lines and look into columns
     const MappingTarget = type === MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
 

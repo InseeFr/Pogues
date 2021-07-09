@@ -69,7 +69,6 @@
   "devDependencies": {
     "bootstrap-sass": "3.4.1",
     "concurrently": "6.0.2",
-    "coveralls": "3.1.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^7.24.0",

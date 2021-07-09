@@ -104,9 +104,8 @@ class ListWithInputPanel extends Component {
     this.reset = this.reset.bind(this);
     this.select = this.select.bind(this);
     this.clearAllErrors = this.clearAllErrors.bind(this);
-    this.removeErrorIntegrityIfExists = this.removeErrorIntegrityIfExists.bind(
-      this,
-    );
+    this.removeErrorIntegrityIfExists =
+      this.removeErrorIntegrityIfExists.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -180,13 +179,8 @@ class ListWithInputPanel extends Component {
   }
 
   remove() {
-    const {
-      arrayRemove,
-      formName,
-      selectorPath,
-      name,
-      currentValues,
-    } = this.props;
+    const { arrayRemove, formName, selectorPath, name, currentValues } =
+      this.props;
     const { [name]: items } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
 
@@ -228,14 +222,8 @@ class ListWithInputPanel extends Component {
   }
 
   select(index) {
-    const {
-      currentValues,
-      name,
-      change,
-      formName,
-      selectorPath,
-      formValues,
-    } = this.props;
+    const { currentValues, name, change, formName, selectorPath, formValues } =
+      this.props;
     const path = getCurrentSelectorPath(selectorPath);
     this.setState({ selectedItemIndex: index }, () => {
       const item = currentValues[name][index];

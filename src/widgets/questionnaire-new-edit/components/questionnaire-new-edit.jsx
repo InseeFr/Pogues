@@ -13,12 +13,8 @@ import { TargetMode, QUESTIONNAIRE_TYPE } from 'constants/pogues-constants';
 
 import { updateNameField } from 'utils/utils';
 
-const {
-  COMPONENT_CLASS,
-  FOOTER,
-  CANCEL,
-  VALIDATE,
-} = WIDGET_QUESTIONNAIRE_NEW_EDIT;
+const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } =
+  WIDGET_QUESTIONNAIRE_NEW_EDIT;
 
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 // Componet

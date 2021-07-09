@@ -50,15 +50,12 @@ export function formToStateMeasure(form, codesListMeasure) {
   };
 
   if (type === CODES_LIST) {
-    const {
-      visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
-    } = measureForm;
+    const { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } =
+      measureForm;
     state[CODES_LIST] = {
       visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListMeasure.formToStateComponent(
-        codesListForm,
-      ),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+        codesListMeasure.formToStateComponent(codesListForm),
     };
   } else {
     state[BOOL] = {};
@@ -74,9 +71,8 @@ export function formToState(form, transformers) {
   } = form;
   return {
     [PRIMARY]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesListPrimary.formToStateComponent(
-        codesListForm,
-      ),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+        transformers.codesListPrimary.formToStateComponent(codesListForm),
     },
     [MEASURE]: formToStateMeasure(measureForm, transformers.codesListMeasure),
   };
@@ -92,14 +88,16 @@ export function stateToForm(currentState, transformers) {
 
   return {
     [PRIMARY]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesListPrimary.stateComponentToForm(),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+        transformers.codesListPrimary.stateComponentToForm(),
     },
     [MEASURE]: {
       type,
       [BOOL]: {},
       [CODES_LIST]: {
         visHint,
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesListMeasure.stateComponentToForm(),
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+          transformers.codesListMeasure.stateComponentToForm(),
       },
     },
   };

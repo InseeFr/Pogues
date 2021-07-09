@@ -49,17 +49,25 @@ function openDocument(data) {
 }
 
 /**
+ * This method adds the OIDC token to the headers of the request
+ */
+const getHeaders = (base, token) => {
+  if (!token) return base;
+  return {
+    ...base,
+    Authorization: `Bearer ${token}`,
+  };
+};
+
+/**
  * This method will send a request in order to get the URL
  * of the generated HTML page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeHtml = qr => {
+export const visualizeHtml = (qr, token) => {
   fetch(`${visualisationUrl}/${qr.DataCollection[0].id}/${qr.Name}`, {
     method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   })
     .then(response => response.text())
@@ -72,13 +80,10 @@ export const visualizeHtml = qr => {
     });
 };
 
-export const visualizeDDI = qr => {
+export const visualizeDDI = (qr, token) => {
   fetch(urlVisualizeDDI, {
     method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   }).then(openDocument);
 };
@@ -88,13 +93,10 @@ export const visualizeDDI = qr => {
  * of the generated PDF document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizePdf = qr => {
+export const visualizePdf = (qr, token) => {
   fetch(urlVisualizePdf, {
     method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   }).then(openDocument);
 };
@@ -104,23 +106,12 @@ export const visualizePdf = qr => {
  * of the generated ODT document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeSpec = qr => {
+export const visualizeSpec = (qr, token) => {
   fetch(urlVisualizeSpec, {
     method: 'POST',
-    headers: {
-      // Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   }).then(openDocument);
-};
-
-const getHeaders = (base, token) => {
-  if (!token) return base;
-  return {
-    ...base,
-    Authorization: `Bearer ${token}`,
-  };
 };
 
 /**
@@ -198,6 +189,11 @@ export const getContextFromCampaign = (id, token) =>
 
 export const getUnitsList = token =>
   fetch(`${urlMetadata}/units`, {
+    headers: getHeaders({ Accept: 'application/json' }, token),
+  }).then(res => res.json());
+
+export const getStampsList = token =>
+  fetch(`${baseURL}/persistence/questionnaires/stamps`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 

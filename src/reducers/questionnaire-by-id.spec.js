@@ -2,7 +2,7 @@ import reducer from './questionnaire-by-id';
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
   CREATE_QUESTIONNAIRE_SUCCESS,
-  DELETE_QUESTIONNAIRE_SUCCESS,
+  DELETE_QLIST_SUCCESS,
   LOAD_QUESTIONNAIRE_START,
   LOAD_QUESTIONNAIRE_FAILURE,
 } from 'actions/questionnaire';
@@ -118,20 +118,14 @@ describe('questionnaire-by-id reducer', () => {
         },
       ),
     ).toEqual({
-      2: { id: '2' },
       1: { id: '1' },
     });
   });
-  test('should handle DELETE_QUESTIONNAIRE_SUCCESS', () => {
+  test('should handle DELETE_QLIST_SUCCESS', () => {
     expect(
-      reducer([], {
-        type: DELETE_QUESTIONNAIRE_SUCCESS,
-        payload: {
-          DELETE_QUESTIONNAIRE_SUCCESS: true,
-        },
+      reducer({
+        type: DELETE_QLIST_SUCCESS,
       }),
-    ).toEqual({
-      DELETE_QUESTIONNAIRE_SUCCESS: true,
-    });
+    ).toEqual({});
   });
 });

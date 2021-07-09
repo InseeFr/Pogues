@@ -42,7 +42,7 @@ const VisualizeDropdown = props => {
    */
   const visualize = (event, type) => {
     event.preventDefault();
-    props.visualizeActiveQuestionnaire(type, props.componentId);
+    props.visualizeActiveQuestionnaire(type, props.componentId, props.token);
     setDropdownOpen(!dropdownOpen);
   };
 

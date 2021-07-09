@@ -54,9 +54,8 @@ export function formToComponentState(form) {
 export function stateToForm(currentState, activeQuestionnaire) {
   const declarations = [];
   Object.keys(currentState).forEach(key => {
-    const { id, declarationType, label, position, TargetMode } = currentState[
-      key
-    ];
+    const { id, declarationType, label, position, TargetMode } =
+      currentState[key];
     declarations.push({
       id,
       label,
