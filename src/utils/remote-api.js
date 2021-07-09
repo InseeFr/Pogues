@@ -4,6 +4,7 @@ import { getEnvVar } from 'utils/env';
 
 const baseURL = getEnvVar('API_URL');
 
+const urlInit = `${baseURL}/init`;
 const urlQuestionnaireList = `${baseURL}/persistence/questionnaires`;
 const urlQuestionnaireListSearch = `${baseURL}/persistence/questionnaires/search`;
 const urlQuestionnaire = `${baseURL}/persistence/questionnaire`;
@@ -166,6 +167,11 @@ export const deleteQuestionnaire = (id, token) =>
     method: 'DELETE',
     headers: getHeaders({}, token),
   });
+
+export const getInit = () =>
+  fetch(urlInit, {
+    headers: getHeaders({ Accept: 'application/json' }),
+  }).then(res => res.json());
 
 export const getSeries = token =>
   fetch(urlSeriesList, {
