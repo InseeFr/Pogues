@@ -2,21 +2,36 @@ import fetch from 'isomorphic-fetch';
 import { getUrlFromCriterias } from 'utils/utils';
 import { getEnvVar } from 'utils/env';
 
-const baseURL = getEnvVar('API_URL');
+const configurationURL = `${window.location.origin}/configuration.json`;
 
-const urlInit = `${baseURL}/init`;
-const urlQuestionnaireList = `${baseURL}/persistence/questionnaires`;
-const urlQuestionnaireListSearch = `${baseURL}/persistence/questionnaires/search`;
-const urlQuestionnaire = `${baseURL}/persistence/questionnaire`;
-const urlSearch = `${baseURL}/search`;
-const urlSeriesList = `${urlSearch}/series`;
-const urlOperationsList = `${urlSearch}/operations`;
-const urlMetadata = `${baseURL}/meta-data`;
-const urlVisualizePdf = `${baseURL}/transform/visualize-pdf`;
-const urlVisualizeSpec = `${baseURL}/transform/visualize-spec`;
-const urlVisualizeDDI = `${baseURL}/transform/visualize-ddi`;
+let saveApiURL = '';
 
-export const visualisationUrl = `${baseURL}/transform/visualize`;
+const getBaseURI = () => {
+  if (saveApiURL) return Promise.resolve(saveApiURL);
+  return getEnvVar('INSEE')
+    ? fetch(configurationURL).then(res => {
+        saveApiURL = res.json().then(config => config.POGUES_API_BASE_HOST);
+        return saveApiURL;
+      })
+    : Promise.resolve(getEnvVar('API_URL')).then(u => {
+        saveApiURL = u;
+        return u;
+      });
+};
+
+const pathInit = 'init';
+const pathQuestionnaireList = 'persistence/questionnaires';
+const pathQuestionnaireListSearch = 'persistence/questionnaires/search';
+const pathQuestionnaire = 'persistence/questionnaire';
+const pathSearch = 'search';
+const pathSeriesList = 'search/series';
+const pathOperationsList = 'search/operations';
+const pathMetadata = 'meta-data';
+const pathVisualizePdf = 'transform/visualize-pdf';
+const pathVisualizeSpec = 'transform/visualize-spec';
+const pathVisualizeDDI = 'transform/visualize-ddi';
+
+export const pathVisualisation = 'transform/visualize';
 
 /**
  * This method will emulate the download of file, received from a POST request.
@@ -66,27 +81,31 @@ const getHeaders = (base, token) => {
  * @param {*} qr The active questionnaire
  */
 export const visualizeHtml = (qr, token) => {
-  fetch(`${visualisationUrl}/${qr.DataCollection[0].id}/${qr.Name}`, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  })
-    .then(response => response.text())
-    .then(url => {
-      const a = document.createElement('a');
-      a.href = url;
-      a.setAttribute('target', '_blank');
-      document.body.appendChild(a);
-      a.click();
-    });
+  getBaseURI().then(b => {
+    fetch(`${b}/${pathVisualisation}/${qr.DataCollection[0].id}/${qr.Name}`, {
+      method: 'POST',
+      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
+      body: JSON.stringify(qr),
+    })
+      .then(response => response.text())
+      .then(url => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.setAttribute('target', '_blank');
+        document.body.appendChild(a);
+        a.click();
+      });
+  });
 };
 
 export const visualizeDDI = (qr, token) => {
-  fetch(urlVisualizeDDI, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  }).then(openDocument);
+  getBaseURI().then(b => {
+    fetch(`${b}/${pathVisualizeDDI}`, {
+      method: 'POST',
+      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
+      body: JSON.stringify(qr),
+    }).then(openDocument);
+  });
 };
 
 /**
@@ -95,11 +114,13 @@ export const visualizeDDI = (qr, token) => {
  * @param {*} qr The active questionnaire
  */
 export const visualizePdf = (qr, token) => {
-  fetch(urlVisualizePdf, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  }).then(openDocument);
+  getBaseURI().then(b => {
+    fetch(`${b}/${pathVisualizePdf}`, {
+      method: 'POST',
+      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
+      body: JSON.stringify(qr),
+    }).then(openDocument);
+  });
 };
 
 /**
@@ -108,26 +129,31 @@ export const visualizePdf = (qr, token) => {
  * @param {*} qr The active questionnaire
  */
 export const visualizeSpec = (qr, token) => {
-  fetch(urlVisualizeSpec, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  }).then(openDocument);
+  getBaseURI().then(b => {
+    fetch(`${b}/${pathVisualizeSpec}`, {
+      method: 'POST',
+      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
+      body: JSON.stringify(qr),
+    }).then(openDocument);
+  });
 };
 
 /**
  * Retrieve all questionnaires
  */
-export const getQuestionnaireList = (stamp, token) =>
-  fetch(`${urlQuestionnaireListSearch}?owner=${stamp}`, {
+export const getQuestionnaireList = async (stamp, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathQuestionnaireListSearch}?owner=${stamp}`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
 /**
  * Create new questionnaire
  */
-export const postQuestionnaire = (qr, token) =>
-  fetch(urlQuestionnaireList, {
+export const postQuestionnaire = async (qr, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathQuestionnaireList}`, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
@@ -135,12 +161,14 @@ export const postQuestionnaire = (qr, token) =>
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
   });
+};
 
 /**
  * Update questionnaire by id
  */
-export const putQuestionnaire = (id, qr, token) =>
-  fetch(`${urlQuestionnaire}/${id}`, {
+export const putQuestionnaire = async (id, qr, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathQuestionnaire}/${id}`, {
     method: 'PUT',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
@@ -148,63 +176,88 @@ export const putQuestionnaire = (id, qr, token) =>
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
   });
+};
 
 /**
  * Retrieve questionnaire by id
  */
-export const getQuestionnaire = (id, token) =>
-  fetch(`${urlQuestionnaire}/${id}`, {
+export const getQuestionnaire = async (id, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathQuestionnaire}/${id}`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
 /**
  * Will send a DELETE request in order to remove an existing questionnaire
  *
  * @param {deleteQuestionnaire} id The id of the questionnaire we want to delete
  */
-export const deleteQuestionnaire = (id, token) =>
-  fetch(`${urlQuestionnaire}/${id}`, {
+export const deleteQuestionnaire = async (id, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathQuestionnaire}/${id}`, {
     method: 'DELETE',
     headers: getHeaders({}, token),
   });
+};
 
-export const getInit = () =>
-  fetch(urlInit, {
+export const getInit = async () => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathInit}`, {
     headers: getHeaders({ Accept: 'application/json' }),
   }).then(res => res.json());
+};
 
-export const getSeries = token =>
-  fetch(urlSeriesList, {
+export const getSeries = async token => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathSeriesList}`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
-export const getOperations = (id, token) =>
-  fetch(`${urlSeriesList}/${id}/operations`, {
+export const getOperations = async (id, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathSeriesList}/${id}/operations`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
-export const getCampaigns = (id, token) =>
-  fetch(`${urlOperationsList}/${id}/collections`, {
+export const getCampaigns = async (id, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathOperationsList}/${id}/collections`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
-export const getContextFromCampaign = (id, token) =>
-  fetch(`${urlSearch}/context/collection/${id}`, {
+export const getContextFromCampaign = async (id, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathSearch}/context/collection/${id}`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
-export const getUnitsList = token =>
-  fetch(`${urlMetadata}/units`, {
+export const getUnitsList = async token => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathMetadata}/units`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
-export const getStampsList = token =>
-  fetch(`${baseURL}/persistence/questionnaires/stamps`, {
+export const getStampsList = async token => {
+  const b = await getBaseURI();
+  return fetch(`${b}/persistence/questionnaires/stamps`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
+};
 
-export const getSearchResults = (token, typeItem, criterias, filter = '') => {
-  return fetch(`${urlSearch}${getUrlFromCriterias(criterias)}`, {
+export const getSearchResults = async (
+  token,
+  typeItem,
+  criterias,
+  filter = '',
+) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathSearch}${getUrlFromCriterias(criterias)}`, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify({
