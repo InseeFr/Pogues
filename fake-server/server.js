@@ -5,6 +5,8 @@ const corsMiddleware = require('restify-cors-middleware');
 const fs = require('fs');
 const server = restify.createServer();
 const listenPort = process.env.PORT || 5000;
+const init = require(__dirname + '/init');
+const stamps = require(__dirname + '/stamps');
 const questionnaires = require(__dirname + '/questionnaires');
 const series = require(__dirname + '/series');
 const operations = require(__dirname + '/operations');
@@ -50,6 +52,16 @@ function getQuestionnairePosition(questionnaires, id) {
 
 server.use(restifyBodyParser());
 server.use(restifyQueryParser());
+
+server.get('/init', function (req, res, next) {
+  res.send(init);
+  next();
+});
+
+server.get('/persistence/questionnaires/stamps', function (req, res, next) {
+  res.send(stamps);
+  next();
+});
 
 server.get('/persistence/questionnaires/search', function (req, res, next) {
   const questionnaires1 = questionnaires
