@@ -6,10 +6,10 @@ import { defaultState } from '../model/declaration';
 
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
-import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateDeclarationForm } from 'utils/validation/validate';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
+import { VTLEditorContainer } from 'forms/controls/control-with-suggestions/containers/control-with-suggestions-container';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import {
@@ -63,7 +63,7 @@ function Declarations({
         <Field
           name="label"
           id="declaration_text"
-          component={RichTextareaWithVariableAutoCompletion}
+          component={VTLEditorContainer}
           label={Dictionary.declaration_label}
           required
         />
