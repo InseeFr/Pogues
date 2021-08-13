@@ -2404,10 +2404,10 @@ ansi-styles@~1.0.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-1.0.0.tgz#cb102df1c56f5123eab8b67cd7b98027a0279178"
   integrity sha1-yxAt8cVvUSPquLZ817mAJ6AnkXg=
 
-antlr-editor@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/antlr-editor/-/antlr-editor-1.1.1.tgz#5a16ba3ca9507a9e8820e22ac6db2af295f6185d"
-  integrity sha512-njTuAEbEpeZZnpfetykDjbO6kMu0xPpFAbZtX6D7qHc1XX+kRgQUx2JCpEav/NkM4AQXs6/vrvPtPSilOX2JVw==
+antlr-editor@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/antlr-editor/-/antlr-editor-1.1.2.tgz#ebe20b919c4f6e9f45f34316c58c8891fed27309"
+  integrity sha512-4MRKf7bzvLu1b0uiIKQRMPBmSWpL6ZSilNEqZFh+Gz9f8sNH7s+9aQVeL+wm0oe71DS4aRJacrxB9uCD3yQ+ng==
   optionalDependencies:
     "@types/react" "^17.0.14"
 

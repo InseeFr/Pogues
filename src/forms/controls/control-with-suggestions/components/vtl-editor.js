@@ -30,8 +30,6 @@ const VTLEditor = ({
   };
   console.log(props);
   const { value, onChange, name: id } = input;
-  console.log('value', value);
-  console.log('errors', errors);
   return (
     <div className={COMPONENT_CLASS}>
       <label htmlFor={id}>
@@ -41,10 +39,7 @@ const VTLEditor = ({
       <div>
         <AntlrEditor
           script={value}
-          setScript={e => {
-            if (e === '') setErrors([]);
-            onChange(e);
-          }}
+          setScript={onChange}
           languageVersion="my-language"
           setErrors={setErrors}
           variables={variables}
@@ -60,27 +55,6 @@ const VTLEditor = ({
           }}
         />
         {errors.length > 0 && <div>{`Errors: ${errors.join(' - ')}`}</div>}
-        {/* <RichTextEditor
-          blockStyleFn={() => 'singleline'}
-          value={editorValue}
-          onChange={this.handleChange}
-          toolbarConfig={targetIsQuestion ? toolbarConfigQuestion : toolbar}
-          handleReturn={this.handleReturn}
-          rootStyle={rootStyle}
-          formatURL={formatURL}
-          disabled={disabled}
-          onFocus={() => {
-            this.handleInputFocus();
-            input.onFocus();
-          }}
-          ref={node => {
-            this.input = node;
-          }}
-          handleKeyCommand={this.handleKeyCommand}
-          keyBindingFn={myKeyBindingFn}
-        />
-        {touched && error && <span className="form-error">{error}</span>}
-        {super.render()} */}
       </div>
     </div>
   );

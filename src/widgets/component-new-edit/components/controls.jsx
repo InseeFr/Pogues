@@ -6,8 +6,8 @@ import { defaultState } from '../model/control';
 
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
-import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import Textarea from 'forms/controls/textarea';
+import { RichEditorContainer } from 'forms/controls/control-with-suggestions/containers/control-with-suggestions-container';
 
 import { validateControlForm } from 'utils/validation/validate';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -58,13 +58,13 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
         />
         <Field
           name="condition"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorContainer}
           label={Dictionary.expression}
           required
         />
         <Field
           name="message"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorContainer}
           label={Dictionary.control_message}
           required
         />

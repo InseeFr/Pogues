@@ -20,8 +20,7 @@ import {
   FORMULA_LANGUAGE,
 } from 'constants/pogues-constants';
 
-const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION, XPATH, VTL } =
-  COMPONENT_TYPE;
+const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 

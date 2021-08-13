@@ -112,8 +112,8 @@ const dictionary = {
     en: 'Xpath',
   },
   formulaVtl: {
-    fr: 'Vtl',
-    en: 'Vtl',
+    fr: 'VTL',
+    en: 'VTL',
   },
   filtreImbriquer: {
     fr: 'Nouveau filtre imbriqué',
