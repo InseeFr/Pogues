@@ -39,6 +39,11 @@ export const CONTROL_RICH_TEXTAREA = {
   EDITOR_CLASS: 'ctrl-rich-textarea__editor',
 };
 
+export const CONTROL_VTL_EDITOR = {
+  COMPONENT_CLASS: 'ctrl-vtl-editor',
+  EDITOR_CLASS: 'ctrl-vtl-editor__editor',
+};
+
 export const CONTROL_TREE_SELECT = {
   COMPONENT_CLASS: 'ctrl-tree-select',
 };
