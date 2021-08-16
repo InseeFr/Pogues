@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 
 import Input from 'forms/controls/input';
 import { markdownVtlToString } from 'forms/controls/rich-textarea';
-import {
-  RichTextareaWithVariableAutoCompletion,
-  InputWithVariableAutoCompletion,
-} from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 
 import { WIDGET_ASSOCIATED_FIELDS } from 'constants/dom-constants';
 
@@ -93,7 +90,7 @@ class AssociatedFields extends Component {
                 targetIsQuestion,
               }}
               name={fieldOrigin.name}
-              component={RichTextareaWithVariableAutoCompletion}
+              component={RichEditorWithVariable}
               label={fieldOrigin.label}
               focusOnInit={focusOnInit}
             />
@@ -103,7 +100,7 @@ class AssociatedFields extends Component {
             onBlur={this.onBlur}
             name={fieldOrigin.name}
             type="text"
-            component={InputWithVariableAutoCompletion}
+            component={RichEditorWithVariable}
             label={fieldOrigin.label}
             focusOnInit={focusOnInit}
             onEnter={this.props.onEnter}

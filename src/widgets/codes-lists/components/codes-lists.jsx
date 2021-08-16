@@ -14,7 +14,7 @@ import ListRadios from 'forms/controls/list-radios';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
 import { storeToArray, uuid } from 'utils/utils';
-import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 
 import { SearchCodesLists } from 'widgets/search-codes-lists';
 import { ErrorsPanel } from 'widgets/errors-panel';
@@ -171,7 +171,7 @@ const CodesList = props => {
               <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
               <Field
                 name="label"
-                component={InputWithVariableAutoCompletion}
+                component={RichEditorWithVariable}
                 type="text"
                 label={Dictionary.newCl}
                 focusOnInit

@@ -10,7 +10,7 @@ import {
 import { defaultState } from '../../model/calculated-variable';
 
 import Input from 'forms/controls/input';
-import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateCalculatedVariableForm } from 'utils/validation/validate';
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
@@ -88,7 +88,7 @@ function CalculatedVariables({
         <Field
           name="formula"
           type="text"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorWithVariable}
           label={Dictionary.formula}
           required
         />

@@ -3,9 +3,9 @@ import { AntlrEditor } from 'antlr-editor';
 import * as tools from 'vtl-2-0-antlr-tools-ts';
 import { getSuggestions } from './vtl-suggestions';
 
-import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
+import { CONTROL_VTL_EDITOR } from 'constants/dom-constants';
 
-const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
+const { COMPONENT_CLASS } = CONTROL_VTL_EDITOR;
 
 const VTLEditor = ({
   availableSuggestions,

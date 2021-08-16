@@ -6,7 +6,7 @@ import { defaultState } from '../model/redirection';
 
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { GotoInput } from 'widgets/goto-input';
-import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import Textarea from 'forms/controls/textarea';
 import { validateRedirectionForm } from 'utils/validation/validate';
 
@@ -77,7 +77,7 @@ function Redirections({
         <Field
           type="text"
           name="condition"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorWithVariable}
           label={Dictionary.condition}
           required
         />
