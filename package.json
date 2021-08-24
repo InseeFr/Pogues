@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@axa-fr/react-oidc-redux": "^3.1.6",
-    "antlr-editor": "^1.1.2",
+    "antlr-editor": "^1.1.4",
     "antlr4ts": "^0.5.0-alpha.4",
     "draft-js": "0.11.7",
     "draft-js-import-element": "1.4.0",
@@ -53,14 +53,14 @@
     "react-dnd-html5-backend": "2.6.0",
     "react-dom": "^17.0.2",
     "react-loader-spinner": "^4.0.0",
-    "react-modal": "3.13.1",
+    "react-modal": "3.14.3",
     "react-monaco-editor": "^0.44.0",
-    "react-redux": "7.2.3",
+    "react-redux": "7.2.4",
     "react-router-dom": "^5.0.1",
     "react-router-navigation-prompt": "^1.8.10",
     "react-scripts": "4.0.3",
     "recompose": "^0.30.0",
-    "redux": "4.0.5",
+    "redux": "4.1.1",
     "redux-form": "8.3.7",
     "redux-form-validators": "^3.3.2",
     "redux-oidc": "^4.0.0-beta1",
@@ -73,17 +73,17 @@
   },
   "devDependencies": {
     "bootstrap-sass": "3.4.1",
-    "concurrently": "6.0.2",
+    "concurrently": "6.2.1",
     "cross-env": "^7.0.3",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^7.24.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "^8.2.0",
-    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-import": "2.24.1",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "7.21.5",
+    "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "font-awesome": "4.7.0",
     "husky": "^6.0.0",
@@ -141,5 +141,16 @@
     "arrowParens": "avoid",
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "monaco-editor": "monaco-editor/esm/vs/editor/editor.api.js"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(monaco-editor)/)"
+    ],
+    "setupFiles": [
+      "./src/setupFiles.js"
+    ]
   }
 }

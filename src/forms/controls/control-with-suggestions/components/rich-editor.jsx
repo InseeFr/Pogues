@@ -7,7 +7,7 @@ import { FORMULA_LANGUAGE } from 'constants/pogues-constants';
 
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 
-export const RichEditor = ({ formulasLanguage, ...props }) => {
+const RichEditor = ({ formulasLanguage, ...props }) => {
   if (formulasLanguage === VTL) return <VTLEditor {...props} />;
   if (formulasLanguage === XPATH) return <TextareaWithSuggestions {...props} />;
   return null;
