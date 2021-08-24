@@ -148,9 +148,6 @@
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(monaco-editor)/)"
-    ],
-    "setupFiles": [
-      "./src/setupFiles.js"
     ]
   }
 }
