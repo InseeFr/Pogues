@@ -1487,8 +1487,16 @@ const dictionary = {
     en: 'Level',
   },
   VISUALIZE_WEB: {
-    fr: 'Web',
-    en: 'Web',
+    fr: 'Web V1',
+    en: 'Web V1',
+  },
+  VISUALIZE_WEB_STROMAE_V2: {
+    fr: 'Web V2',
+    en: 'Web V2',
+  },
+  VISUALIZE_QUEEN: {
+    fr: 'Poste enquêteur',
+    en: 'Interviewer form',
   },
   VISUALIZE_PDF: {
     fr: 'PDF',

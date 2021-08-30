@@ -30,6 +30,7 @@ const pathMetadata = 'meta-data';
 const pathVisualizePdf = 'transform/visualize-pdf';
 const pathVisualizeSpec = 'transform/visualize-spec';
 const pathVisualizeDDI = 'transform/visualize-ddi';
+const pathVisualizeQueen = 'transform/visualize-queen';
 
 export const pathVisualisation = 'transform/visualize';
 
@@ -76,13 +77,13 @@ const getHeaders = (base, token) => {
 };
 
 /**
- * This method will send a request in order to get the URL
- * of the generated HTML page for the active questionnaire.
- * @param {*} qr The active questionnaire
+ * This method will call the back in order to get an url for
+ * the visualization of the questionnaire in Stromae V1/V2 and
+ * Lunatic (Queen) formats
  */
-export const visualizeHtml = (qr, token) => {
+function getVizualisationUrl(path, qr, token) {
   getBaseURI().then(b => {
-    fetch(`${b}/${pathVisualisation}/${qr.DataCollection[0].id}/${qr.Name}`, {
+    fetch(`${b}/${path}`, {
       method: 'POST',
       headers: getHeaders({ 'Content-Type': 'application/json' }, token),
       body: JSON.stringify(qr),
@@ -96,8 +97,44 @@ export const visualizeHtml = (qr, token) => {
         a.click();
       });
   });
+}
+
+/**
+ * This method will send a request in order to get the URL
+ * of the generated HTML page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeHtml = (qr, token) => {
+  getVizualisationUrl(
+    `${pathVisualisation}/${qr.DataCollection[0].id}/${qr.Name}`,
+    qr,
+    token,
+  );
 };
 
+/**
+ * This method will send a request in order to get the URL
+ * of the generated Queen page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeQueen = (qr, token) => {
+  getVizualisationUrl(`${pathVisualizeQueen}/${qr.Name}`, qr, token);
+};
+
+/**
+ * This method will send a request in order to get the URL
+ * of the generated Stromae v2 page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeWebStromaeV2 = (qr, token) => {
+  getVizualisationUrl(`${pathVisualisation}-stromae-v2/${qr.Name}`, qr, token);
+};
+
+/**
+ * This method will send a request in order to get the content
+ * of the generated DDI document for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
 export const visualizeDDI = (qr, token) => {
   getBaseURI().then(b => {
     fetch(`${b}/${pathVisualizeDDI}`, {

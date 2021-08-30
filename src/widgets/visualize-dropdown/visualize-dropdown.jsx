@@ -80,8 +80,20 @@ const VisualizeDropdown = props => {
           </a>
         </li>
         <li>
+          <a href="#" onClick={e => visualize(e, 'stromae-v2')}>
+            {' '}
+            {Dictionary.VISUALIZE_WEB_STROMAE_V2}{' '}
+          </a>
+        </li>
+        <li>
           <a href="#" onClick={e => visualize(e, 'pdf')}>
             {Dictionary.VISUALIZE_PDF}
+          </a>
+        </li>
+        <li>
+          <a href="#" onClick={e => visualize(e, 'queen')}>
+            {' '}
+            {Dictionary.VISUALIZE_QUEEN}{' '}
           </a>
         </li>
         <li>
