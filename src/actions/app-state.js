@@ -397,9 +397,9 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
     } else if (type === 'html') {
       visualizeHtml(questionnaireModel, token);
     } else if (type === 'stromae-v2') {
-      visualizeWebStromaeV2(questionnaireModel);
+      visualizeWebStromaeV2(questionnaireModel, token);
     } else if (type === 'queen') {
-      visualizeQueen(questionnaireModel);
+      visualizeQueen(questionnaireModel, token);
     } else if (type === 'ddi') {
       visualizeDDI(questionnaireModel, token);
     }
