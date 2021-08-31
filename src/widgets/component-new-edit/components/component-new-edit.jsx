@@ -460,18 +460,18 @@ const ComponentNewEdit = props => {
                   required
                 />
                 <Field
-                  name="maximum"
-                  type="text"
-                  focusOnInit
-                  component={InputWithVariableAutoCompletion}
-                  label={Dictionary.maximum}
-                />
-                <Field
                   name="minimum"
                   type="text"
                   focusOnInit
                   component={InputWithVariableAutoCompletion}
                   label={Dictionary.minimum}
+                />
+                <Field
+                  name="maximum"
+                  type="text"
+                  focusOnInit
+                  component={InputWithVariableAutoCompletion}
+                  label={Dictionary.maximum}
                 />
                 <Field
                   name="basedOn"
