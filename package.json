@@ -63,7 +63,7 @@
     "redux-thunk": "2.3.0",
     "restify-cors-middleware": "1.1.1",
     "restify-plugins": "1.6.0",
-    "sass": "^1.32.10",
+    "sass": "1.32.13",
     "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
