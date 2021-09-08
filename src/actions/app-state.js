@@ -189,6 +189,7 @@ export const updateActiveQuestionnaire = updatedState => {
     campaigns,
     TargetMode,
     dynamiqueSpecified,
+    formulaSpecified,
   } = updatedState;
   return {
     type: UPDATE_ACTIVE_QUESTIONNAIRE,
@@ -200,6 +201,7 @@ export const updateActiveQuestionnaire = updatedState => {
       campaigns,
       TargetMode,
       dynamiqueSpecified,
+      formulaSpecified,
     },
   };
 };

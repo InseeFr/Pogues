@@ -17,10 +17,12 @@ import {
   COMPONENT_TYPE,
   QUESTION_END_CHILD,
   QUESTIONNAIRE_TYPE,
+  FORMULA_LANGUAGE,
 } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
+const { XPATH, VTL } = FORMULA_LANGUAGE;
 
 function generateComponentGroups(componentsStore, ComponentGroup) {
   const orderedComponents = getOrderedComponents(
@@ -73,6 +75,7 @@ export function remoteToState(remote, currentStores = {}) {
     declarationMode,
     ComponentGroup,
     flowLogic,
+    formulasLanguage,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -94,6 +97,8 @@ export function remoteToState(remote, currentStores = {}) {
     TargetMode: TargetMode || declarationMode || [],
     dynamiqueSpecified:
       flowLogic && flowLogic === FILTER ? Filtres : Redirections,
+    formulaSpecified:
+      formulasLanguage && formulasLanguage === VTL ? VTL : XPATH,
     ComponentGroup,
   };
 }
@@ -108,6 +113,7 @@ export function remoteToState1(remote) {
     TargetMode,
     Name: name,
     flowLogic,
+    formulasLanguage,
   } = remote;
 
   return {
@@ -120,6 +126,8 @@ export function remoteToState1(remote) {
     name,
     dynamiqueSpecified:
       flowLogic && flowLogic === FILTER ? Filtres : Redirections,
+    formulaSpecified:
+      formulasLanguage && formulasLanguage === VTL ? VTL : XPATH,
   };
 }
 
@@ -179,6 +187,7 @@ export function stateToRemote(state, stores) {
     final,
     TargetMode,
     dynamiqueSpecified,
+    formulaSpecified,
     ComponentGroup,
   } = state;
 
@@ -201,6 +210,8 @@ export function stateToRemote(state, stores) {
     agency: agency || 'fr.insee',
     TargetMode,
     flowLogic: dynamiqueSpecified === Redirections ? REDIRECTION : FILTER,
+    formulasLanguage:
+      formulaSpecified && formulaSpecified === VTL ? VTL : XPATH,
   };
   const componentsRemote = Component.storeToRemote(
     componentsStore,
@@ -208,6 +219,7 @@ export function stateToRemote(state, stores) {
     collectedVariablesWithoutOrphans,
     codesListsStore,
     dynamiqueSpecified,
+    formulaSpecified,
   );
   const questionEnd = QUESTION_END_CHILD;
   questionEnd.TargetMode = TargetMode;

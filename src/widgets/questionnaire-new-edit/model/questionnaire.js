@@ -13,6 +13,7 @@ export const defaultState = {
   agency: '',
   TargetMode: [],
   dynamiqueSpecified: 'Redirections',
+  formulaSpecified: '',
   ComponentGroup: [],
 };
 
@@ -25,6 +26,7 @@ export function formToState(form) {
     campaigns,
     TargetMode,
     dynamiqueSpecified,
+    formulaSpecified,
   } = form;
 
   return {
@@ -35,6 +37,7 @@ export function formToState(form) {
     campaigns: campaigns.split(','),
     TargetMode: TargetMode.split(','),
     dynamiqueSpecified,
+    formulaSpecified,
   };
 }
 
@@ -47,6 +50,7 @@ export function stateToForm(currentState) {
     campaigns,
     TargetMode,
     dynamiqueSpecified,
+    formulaSpecified,
   } = currentState;
 
   // If serie and operation doesn't exist, we use campaigns to obtain them calling a service
@@ -58,6 +62,7 @@ export function stateToForm(currentState) {
     campaigns: campaigns.join(),
     TargetMode: TargetMode.join(),
     dynamiqueSpecified,
+    formulaSpecified,
   };
 }
 

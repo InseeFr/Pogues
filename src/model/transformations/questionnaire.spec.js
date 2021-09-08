@@ -42,6 +42,7 @@ describe('questionnaire', () => {
       owner: 'FAKEPERMISSION',
       serie: '',
       dynamiqueSpecified: 'Redirections',
+      formulaSpecified: 'XPATH',
     };
     expect(output).toEqual(expected);
   });
@@ -68,6 +69,7 @@ describe('questionnaire', () => {
       TargetMode: [''],
       campaigns: ['campaign01'],
       dynamiqueSpecified: 'Redirections',
+      formulaSpecified: 'XPATH',
       final: false,
       id: 'jf0s8i94',
       label: 'questionnaire',
@@ -297,6 +299,7 @@ describe('questionnaire', () => {
         },
         agency: 'fr.insee',
         flowLogic: 'FILTER',
+        formulasLanguage: 'XPATH',
         final: false,
         genericName: 'QUESTIONNAIRE',
         id: 'jf0s8i94',
@@ -557,6 +560,7 @@ describe('questionnaire', () => {
         },
         agency: 'fr.insee',
         flowLogic: 'FILTER',
+        formulasLanguage: 'XPATH',
         final: false,
         genericName: 'QUESTIONNAIRE',
         id: 'kgs4uwzd',
@@ -602,6 +606,7 @@ describe('questionnaire', () => {
         owner: 'FAKEPERMISSION',
         serie: '',
         dynamiqueSpecified: 'Redirections',
+        formulaSpecified: 'XPATH',
       },
     };
     expect(output).toEqual(expected);
@@ -623,6 +628,7 @@ describe('questionnaire', () => {
       TargetMode: [''],
       Name: 'QUESTIONNA',
       flowLogic: 'REDIRECTION',
+      formulasLanguage: 'VTL',
     };
     const currentStores = {};
     const output = remoteToStore1(remote, currentStores);
@@ -631,6 +637,7 @@ describe('questionnaire', () => {
         TargetMode: [''],
         campaigns: ['campaign01'],
         dynamiqueSpecified: 'Redirections',
+        formulaSpecified: 'VTL',
         final: false,
         id: 'jf0s8i94',
         label: 'questionnaire',

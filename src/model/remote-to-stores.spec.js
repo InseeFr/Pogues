@@ -12,6 +12,7 @@ describe('remote to stores', () => {
         TargetMode: [''],
         Name: 'QUESTIONNA',
         flowLogic: 'REDIRECTION',
+        formulasLanguage: 'VTL',
       },
     ];
     const output = questionnaireListRemoteToStores(remote);
@@ -21,6 +22,7 @@ describe('remote to stores', () => {
           TargetMode: [''],
           campaigns: [],
           dynamiqueSpecified: 'Redirections',
+          formulaSpecified: 'VTL',
           final: false,
           id: 'jf0s8i94',
           label: 'questionnaire',

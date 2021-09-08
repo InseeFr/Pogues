@@ -433,7 +433,14 @@ const dictionary = {
     fr: 'Filtres',
     en: 'Filter',
   },
-
+  formulaXpath: {
+    fr: 'Xpath',
+    en: 'Xpath',
+  },
+  formulaVTL: {
+    fr: 'VTL',
+    en: 'VTL',
+  },
   specify: {
     en: 'Specify',
     fr: 'Préciser',
@@ -1092,6 +1099,10 @@ const dictionary = {
   dynamiqueSpecified: {
     fr: 'Dynamique spécifiée en',
     en: 'Dynamics specified in',
+  },
+  formulaSpecified: {
+    fr: 'Formules spécifiées en',
+    en: 'Formulas specified in',
   },
   lastUpdate: {
     fr: 'Dernière mise à jour',
