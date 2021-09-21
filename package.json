@@ -27,7 +27,7 @@
     "draft-js": "0.11.7",
     "draft-js-import-element": "1.4.0",
     "draft-js-utils": "1.4.0",
-    "gillespie59-react-rte": "0.15.0",
+    "gillespie59-react-rte": "loichenninger/react-rte#fix-build",
     "lodash.clonedeep": "4.5.0",
     "lodash.debounce": "4.0.8",
     "lodash.find": "4.6.0",
