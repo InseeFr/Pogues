@@ -116,6 +116,7 @@ const QuestionnaireList = props => {
   return (
     <div>
       <div className="box home-questionnaires">
+        <h5 style={{ fontWeight: 'bold' }}>{Dictionary.homeStampChoice}</h5>
         <Dropdown
           onChange={setSelectedStamp}
           value={selectedStamp}

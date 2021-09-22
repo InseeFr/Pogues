@@ -1068,6 +1068,10 @@ const dictionary = {
     fr: 'Questionnaires en cours de conception par votre équipe',
     en: 'Questionnaires in progress by your team',
   },
+  homeStampChoice: {
+    fr: 'Choisissez le timbre associé à votre questionnaire : ',
+    en: 'Choose the stamp associated with your questionnaire : ',
+  },
   emptyQuestionnaire: {
     fr: 'Questionnaire vide',
     en: 'Empty questionnaire',
