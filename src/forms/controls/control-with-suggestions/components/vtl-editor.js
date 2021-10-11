@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
-import { AntlrEditor } from 'antlr-editor';
+import React from 'react';
+import { AntlrEditor } from '@eurostat/vtl-editor';
 import * as tools from 'vtl-2-0-antlr-tools-ts';
 import { getSuggestions } from './vtl-suggestions';
 
@@ -8,14 +8,8 @@ import { CONTROL_VTL_EDITOR } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_VTL_EDITOR;
 
-const VTLEditor = ({
-  availableSuggestions,
-  label,
-  input,
-  required,
-  ...props
-}) => {
-  const [errors, setErrors] = useState([]);
+const VTLEditor = ({ availableSuggestions, label, input, required }) => {
+  // const [errors, setErrors] = useState([]);
   const variables = availableSuggestions.reduce(
     (acc, s) => ({
       ...acc,
@@ -29,7 +23,6 @@ const VTLEditor = ({
     getSuggestionsFromRange: getSuggestions,
     initialRule: 'expr',
   };
-  console.log(props);
   const { value, onChange, name: id } = input;
   return (
     <div className={COMPONENT_CLASS}>
@@ -42,7 +35,7 @@ const VTLEditor = ({
           script={value}
           setScript={onChange}
           languageVersion="my-language"
-          setErrors={setErrors}
+          // onListErrors={setErrors}
           variables={variables}
           variableURLs={[]}
           tools={customTools}
@@ -55,7 +48,6 @@ const VTLEditor = ({
             },
           }}
         />
-        {errors.length > 0 && <div>{`Errors: ${errors.join(' - ')}`}</div>}
       </div>
     </div>
   );
