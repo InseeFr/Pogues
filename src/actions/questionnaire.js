@@ -175,7 +175,7 @@ export const createQuestionnaire =
         );
       })
       .catch(err => {
-        return dispatch(createQuestionnaireFailure(err, err.errors));
+        return dispatch(createQuestionnaireFailure(err));
       });
   };
 

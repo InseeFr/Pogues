@@ -401,7 +401,6 @@ export function generateCollectedVariables(
     generatedCollectedVariables = getCollectedVariablesSingle(
       questionName,
       form,
-      codesListStore,
     );
   } else if (responseFormat === MULTIPLE_CHOICE) {
     generatedCollectedVariables = getCollectedVariablesMultiple(

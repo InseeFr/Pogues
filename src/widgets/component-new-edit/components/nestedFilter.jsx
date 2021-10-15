@@ -572,9 +572,7 @@ const NestedFilter = props => {
               componentsStore={componentsStore}
               createComponent={props.createComponent}
               setSelectedComponentId={props.setSelectedComponentId}
-              handleSubmitImbriquer={(value, index) =>
-                handleSubmitImbriquer1(value, index)
-              }
+              handleSubmitImbriquer={value => handleSubmitImbriquer1(value)}
               handleCloseNestedFilter1={() => handleCloseNestedFilter()}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNested}

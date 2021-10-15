@@ -648,9 +648,7 @@ const ComponentNewEdit = props => {
             <NestedFilter
               filterId={filterId}
               componentsStore={componentsStore}
-              handleSubmitImbriquer={(value, index) =>
-                handleSubmitImbriquer(value, index)
-              }
+              handleSubmitImbriquer={value => handleSubmitImbriquer(value)}
               handleCloseNestedFilter1={handleCloseNestedFilter}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}

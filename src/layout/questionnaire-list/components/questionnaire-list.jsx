@@ -196,11 +196,7 @@ const QuestionnaireList = props => {
         >
           {Dictionary.yes}
         </button>
-        <button
-          className="popup-no"
-          type="button"
-          onClick={id => handleClosePopup(id)}
-        >
+        <button className="popup-no" type="button" onClick={handleClosePopup}>
           {Dictionary.no}
         </button>
       </ReactModal>
