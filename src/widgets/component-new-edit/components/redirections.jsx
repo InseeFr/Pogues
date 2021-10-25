@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
@@ -43,7 +43,7 @@ const defaultProps = {
 
 // Component
 
-function Redirections({
+const Redirections = ({
   formName,
   selectorPath,
   componentType,
@@ -51,7 +51,8 @@ function Redirections({
   addErrors,
   componentsStore,
   editingComponentId,
-}) {
+}) => {
+  const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -66,6 +67,7 @@ function Redirections({
           componentsStore,
           editingComponentId,
         )}
+        disableValidation={disableValidation}
       >
         <Field
           type="text"
@@ -80,6 +82,7 @@ function Redirections({
           component={RichEditorWithVariable}
           label={Dictionary.condition}
           required
+          setDisableValidation={setDisableValidation}
         />
         <GotoInput
           formName={formName}
@@ -89,7 +92,7 @@ function Redirections({
       </ListWithInputPanel>
     </FormSection>
   );
-}
+};
 
 Redirections.propTypes = propTypes;
 Redirections.defaultProps = defaultProps;

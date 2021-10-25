@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
@@ -38,7 +38,8 @@ export const defaultProps = {
 
 // Component
 
-function Controls({ formName, selectorPath, errors, addErrors }) {
+const Controls = ({ formName, selectorPath, errors, addErrors }) => {
+  const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -48,6 +49,7 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
         errors={errors}
         validateForm={validateForm(addErrors, validateControlForm)}
         resetObject={defaultState}
+        disableValidation={disableValidation}
       >
         <Field
           type="text"
@@ -61,12 +63,14 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
           component={RichEditorWithVariable}
           label={Dictionary.expression}
           required
+          setDisableValidation={setDisableValidation}
         />
         <Field
           name="message"
           component={RichEditorWithVariable}
           label={Dictionary.control_message}
           required
+          setDisableValidation={setDisableValidation}
         />
         <Field
           name="criticity"
@@ -100,7 +104,7 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
       </ListWithInputPanel>
     </FormSection>
   );
-}
+};
 
 Controls.propTypes = propTypes;
 Controls.defaultProps = defaultProps;

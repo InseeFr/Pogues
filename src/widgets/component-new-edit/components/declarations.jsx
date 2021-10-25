@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
@@ -43,13 +43,14 @@ export const defaultProps = {
 
 // Component
 
-function Declarations({
+const Declarations = ({
   formName,
   selectorPath,
   errors,
   showPosition,
   addErrors,
-}) {
+}) => {
+  const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -59,6 +60,7 @@ function Declarations({
         errors={errors}
         validateForm={validateForm(addErrors, validateDeclarationForm)}
         resetObject={defaultState}
+        disableValidation={disableValidation}
       >
         <Field
           name="label"
@@ -66,6 +68,7 @@ function Declarations({
           component={RichEditorWithVariable}
           label={Dictionary.declaration_label}
           required
+          setDisableValidation={setDisableValidation}
         />
 
         <Field
@@ -123,7 +126,7 @@ function Declarations({
       </ListWithInputPanel>
     </FormSection>
   );
-}
+};
 
 Declarations.propTypes = propTypes;
 Declarations.defaultProps = defaultProps;

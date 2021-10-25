@@ -34,14 +34,18 @@ const VTLEditor = ({
 
   const handleErrors = e => {
     setErrors(e);
-    if (e.length > 0 && value.length > 0) setDisableValidation(true);
-    else setDisableValidation(false);
+    if (setDisableValidation) {
+      if (e.length > 0) setDisableValidation(true);
+      else setDisableValidation(false);
+    }
   };
 
   const localOnChange = e => {
     onChange(e);
     if (!e) {
-      setDisableValidation(false);
+      if (setDisableValidation) {
+        setDisableValidation(false);
+      }
       setErrors([]);
     }
   };
@@ -71,8 +75,13 @@ const VTLEditor = ({
           }}
         />
       </div>
-      <div style={{ color: 'red' }}>
-        {errors.map(({ message }) => message).join(' - ')}
+      <div style={{ color: 'red', display: 'inline-block' }}>
+        {errors.map(({ line, column, message }) => (
+          <div style={{ marginBottom: '20px' }}>
+            <div>{`Ligne : ${line} - Colonne : ${column}`}</div>
+            <div>{message}</div>
+          </div>
+        ))}
       </div>
     </div>
   );

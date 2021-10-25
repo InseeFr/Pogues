@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 import {
@@ -46,13 +46,14 @@ export const defaultProps = {
   errors: [],
 };
 
-function CalculatedVariables({
+const CalculatedVariables = ({
   formName,
   selectorPath,
   errors,
   addErrors,
   componentsStore,
-}) {
+}) => {
+  const [disableValidation, setDisableValidation] = useState(false);
   const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
     return (
       <GenericOption key={element.id} value={element.id}>
@@ -70,6 +71,7 @@ function CalculatedVariables({
         validateForm={validateForm(addErrors, validateCalculatedVariableForm)}
         resetObject={defaultState}
         canDuplicate={false}
+        disableValidation={disableValidation}
       >
         <Field
           name="label"
@@ -91,6 +93,7 @@ function CalculatedVariables({
           component={RichEditorWithVariable}
           label={Dictionary.formula}
           required
+          setDisableValidation={setDisableValidation}
         />
         <SelectorView
           label={Dictionary.responseType}
@@ -117,7 +120,7 @@ function CalculatedVariables({
       </ListWithInputPanel>
     </FormSection>
   );
-}
+};
 
 CalculatedVariables.propTypes = propTypes;
 CalculatedVariables.defaultProps = defaultProps;
