@@ -1249,10 +1249,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@eurostat/vtl-editor@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@eurostat/vtl-editor/-/vtl-editor-0.1.2.tgz#c249247c3add42adc994f1a7fcca90ea8d67c21a"
-  integrity sha512-drB3e6qW2tSe7YDZGPo8eFeyBLNSaJBNupmMyecKFmooJxJO6n8jNLcQ/m10upj2vOtkPVM4/NnYSkq+JS6cOw==
+"@eurostat/vtl-editor@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@eurostat/vtl-editor/-/vtl-editor-0.1.3.tgz#eff04135f0b60762f07d8b4253883ba778742528"
+  integrity sha512-YmGhvF3u95aTORI9WBaX7XdD70YJuntfSr5e64F4Vl5XGV1Qdu6wxfyx5viWxJhx5aWfyZ7sMQqcEE44czVKbg==
   optionalDependencies:
     "@types/react" "^17.0.14"
 
