@@ -82,6 +82,7 @@ class AssociatedFields extends Component {
       targetIsRichTextarea,
       targetIsQuestion,
       focusOnInit,
+      setDisableValidation,
     } = this.props;
 
     return (
@@ -96,6 +97,7 @@ class AssociatedFields extends Component {
               component={RichEditorWithVariable}
               label={fieldOrigin.label}
               focusOnInit={focusOnInit}
+              setDisableValidation={setDisableValidation}
             />
           </div>
         ) : (

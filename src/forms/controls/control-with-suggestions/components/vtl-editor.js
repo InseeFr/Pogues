@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useState } from 'react';
 import { AntlrEditor } from '@eurostat/vtl-editor';
 import * as tools from 'vtl-2-0-antlr-tools-ts';
 import { getSuggestions } from './vtl-suggestions';
@@ -8,8 +8,14 @@ import { CONTROL_VTL_EDITOR } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_VTL_EDITOR;
 
-const VTLEditor = ({ availableSuggestions, label, input, required }) => {
-  // const [errors, setErrors] = useState([]);
+const VTLEditor = ({
+  availableSuggestions,
+  label,
+  input,
+  required,
+  setDisableValidation,
+}) => {
+  const [errors, setErrors] = useState([]);
   const variables = availableSuggestions.reduce(
     (acc, s) => ({
       ...acc,
@@ -23,7 +29,23 @@ const VTLEditor = ({ availableSuggestions, label, input, required }) => {
     getSuggestionsFromRange: getSuggestions,
     initialRule: 'expr',
   };
+
   const { value, onChange, name: id } = input;
+
+  const handleErrors = e => {
+    setErrors(e);
+    if (e.length > 0 && value.length > 0) setDisableValidation(true);
+    else setDisableValidation(false);
+  };
+
+  const localOnChange = e => {
+    onChange(e);
+    if (!e) {
+      setDisableValidation(false);
+      setErrors([]);
+    }
+  };
+
   return (
     <div className={COMPONENT_CLASS}>
       <label htmlFor={id}>
@@ -33,9 +55,9 @@ const VTLEditor = ({ availableSuggestions, label, input, required }) => {
       <div>
         <AntlrEditor
           script={value}
-          setScript={onChange}
+          setScript={localOnChange}
           languageVersion="my-language"
-          // onListErrors={setErrors}
+          onListErrors={handleErrors}
           variables={variables}
           variableURLs={[]}
           tools={customTools}
@@ -48,6 +70,9 @@ const VTLEditor = ({ availableSuggestions, label, input, required }) => {
             },
           }}
         />
+      </div>
+      <div style={{ color: 'red' }}>
+        {errors.map(({ message }) => message).join(' - ')}
       </div>
     </div>
   );

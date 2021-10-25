@@ -83,6 +83,7 @@ const ComponentNewEdit = props => {
   const [filterImbriquers, setFilterImbriquers] = useState(
     filterImbriquer?.length > 0 ? filterImbriquer : [],
   );
+  const [disableValidation, setDisableValidation] = useState(false);
   const [filterId, setFilterId] = useState('');
   const buttonRef = useRef(null);
 
@@ -438,6 +439,7 @@ const ComponentNewEdit = props => {
     onEnter: () => {
       buttonRef.click();
     },
+    setDisableValidation,
   };
   return (
     <div className={COMPONENT_CLASS}>
@@ -594,7 +596,7 @@ const ComponentNewEdit = props => {
           <button
             className={VALIDATE}
             type="submit"
-            disabled={submitting}
+            disabled={submitting || disableValidation}
             ref={buttonRef}
           >
             {Dictionary.validate}
