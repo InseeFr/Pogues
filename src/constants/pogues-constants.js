@@ -255,3 +255,8 @@ export const QUESTIONNAIRE_TYPE = {
   Filtres: 'Filtres',
   Redirections: 'Redirections',
 };
+
+export const FORMULA_LANGUAGE = {
+  XPATH: 'XPATH',
+  VTL: 'VTL',
+};

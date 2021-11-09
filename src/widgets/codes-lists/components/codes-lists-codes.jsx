@@ -245,12 +245,8 @@ class CodesListsCodes extends Component {
   }
 
   renderCode(code) {
-    const {
-      showInputCode,
-      activeCodeIndex,
-      editing,
-      showPrecision,
-    } = this.state;
+    const { showInputCode, activeCodeIndex, editing, showPrecision } =
+      this.state;
     const {
       fields: { getAll, remove, removeAll, push },
     } = this.props;

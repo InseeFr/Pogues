@@ -2,7 +2,7 @@ import { createActionHandlers } from './actions-handlers';
 
 describe('createActionHandlers', () => {
   const defaultState = {
-    '1': {
+    1: {
       id: '1',
     },
   };
@@ -18,7 +18,7 @@ describe('createActionHandlers', () => {
 
   test('should return the default state if the action does not exist', () => {
     const payloadSample = {
-      '2': {
+      2: {
         id: '2',
       },
     };

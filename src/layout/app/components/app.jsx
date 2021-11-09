@@ -11,16 +11,15 @@ import { APP } from 'constants/dom-constants';
 const { COMPONENT_ID } = APP;
 
 // Component
-const App = props => {
+const App = ({ children, loadUnitsIfNeeded, token }) => {
   useEffect(() => {
-    props.loadUser();
-    props.loadUnitsIfNeeded();
-  }, []);
+    loadUnitsIfNeeded(token);
+  }, [token, loadUnitsIfNeeded]);
 
   return (
     <div id={COMPONENT_ID}>
       <Header />
-      {props.children}
+      {children}
       <Footer />
     </div>
   );
@@ -28,8 +27,13 @@ const App = props => {
 // Prop types and default props
 
 App.propTypes = {
+  token: PropTypes.string,
   children: PropTypes.object.isRequired,
-  loadUser: PropTypes.func.isRequired,
   loadUnitsIfNeeded: PropTypes.func.isRequired,
 };
+
+App.defaultProps = {
+  token: '',
+};
+
 export default App;

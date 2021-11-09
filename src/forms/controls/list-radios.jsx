@@ -31,6 +31,7 @@ export const defaultProps = {
 
 class ListRadios extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   render() {
@@ -87,7 +88,7 @@ class ListRadios extends Component {
               </label>
             );
           })}
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

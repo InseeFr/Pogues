@@ -10,10 +10,7 @@ export function componentName(value, previousValue, allValues) {
     label &&
     label.length > 0
   ) {
-    value = label
-      .replace(rNameNeg, '')
-      .toUpperCase()
-      .slice(0, 10);
+    value = label.replace(rNameNeg, '').toUpperCase().slice(0, 10);
   }
 
   return value;

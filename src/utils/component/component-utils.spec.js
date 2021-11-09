@@ -58,9 +58,9 @@ describe('toComponents', () => {
   test('should return a list of components', () => {
     expect(
       toComponents(['1', '2'], {
-        '1': { id: '1' },
-        '2': { id: '2' },
-        '3': { id: '3' },
+        1: { id: '1' },
+        2: { id: '2' },
+        3: { id: '3' },
       }),
     ).toEqual([{ id: '1' }, { id: '2' }]);
   });
@@ -237,10 +237,10 @@ describe('couldInsertAsChild', () => {
 describe('getSortedChildren', () => {
   test('should return a sorted array', () => {
     const components = {
-      '1': { id: '1', weight: 0, children: ['2', '3', '4'] },
-      '2': { id: '2', weight: 1, parent: '1', children: [] },
-      '3': { id: '3', weight: 2, parent: '1', children: [] },
-      '4': { id: '4', weight: 0, parent: '1', children: [] },
+      1: { id: '1', weight: 0, children: ['2', '3', '4'] },
+      2: { id: '2', weight: 1, parent: '1', children: [] },
+      3: { id: '3', weight: 2, parent: '1', children: [] },
+      4: { id: '4', weight: 0, parent: '1', children: [] },
     };
     const result = getSortedChildren(components, '1');
     expect(result).toEqual(['4', '2', '3']);
@@ -250,13 +250,13 @@ describe('getSortedChildren', () => {
 describe('updateNewComponentParent', () => {
   test('should return an parent component with the new children', () => {
     const activeComponents = {
-      '1': {
+      1: {
         id: '1',
         children: ['2', '3'],
       },
     };
     expect(updateNewComponentParent(activeComponents, '1', '4')).toEqual({
-      '1': {
+      1: {
         id: '1',
         children: ['2', '3', '4'],
       },

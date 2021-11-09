@@ -50,7 +50,7 @@ export function disableMoveRightButton(allCodes, code) {
   return code.depth + maxDepthInChildren > 5;
 }
 
-export function getDisabledActions(allCodes, code, actions, type) {
+export function getDisabledActions(allCodes, code, actions) {
   const disabledActions = [];
   if (disableMoveUpButton(allCodes, code))
     disabledActions.push(actions.MOVE_UP.name);

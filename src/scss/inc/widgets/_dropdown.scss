@@ -1,0 +1,7 @@
+.widget-dropdown {
+  .widget-dropdown__select {
+    @extend .form-control;
+    margin-left: 0px;
+    width: 40%;
+  }
+}

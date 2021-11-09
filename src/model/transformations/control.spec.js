@@ -22,7 +22,7 @@ describe('control tramsformation', () => {
     },
   ];
   const state = {
-    '1': {
+    1: {
       id: '1',
       label: 'Description 1',
       condition: 'Expression 1',
@@ -31,7 +31,7 @@ describe('control tramsformation', () => {
       during_collect: 'during_collect 1',
       post_collect: 'post_collect 1',
     },
-    '2': {
+    2: {
       id: '2',
       label: 'Description 2',
       condition: 'Expression 2',

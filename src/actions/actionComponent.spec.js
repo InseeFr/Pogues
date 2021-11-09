@@ -61,7 +61,7 @@ describe('removeComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
+          activeComponentsById: { 2: { id: '2', children: [] } },
         },
       };
     }
@@ -77,7 +77,7 @@ describe('removeComponent', () => {
     function getState() {
       return {
         appState: {
-          activeComponentsById: { '2': { id: '2', children: [] } },
+          activeComponentsById: { 2: { id: '2', children: [] } },
         },
       };
     }

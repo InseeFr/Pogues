@@ -5,6 +5,8 @@ import {
   visualizePdf,
   visualizeHtml,
   visualizeDDI,
+  visualizeQueen,
+  visualizeWebStromaeV2,
 } from 'utils/remote-api';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
@@ -187,6 +189,7 @@ export const updateActiveQuestionnaire = updatedState => {
     campaigns,
     TargetMode,
     dynamiqueSpecified,
+    formulaSpecified,
   } = updatedState;
   return {
     type: UPDATE_ACTIVE_QUESTIONNAIRE,
@@ -198,6 +201,7 @@ export const updateActiveQuestionnaire = updatedState => {
       campaigns,
       TargetMode,
       dynamiqueSpecified,
+      formulaSpecified,
     },
   };
 };
@@ -265,7 +269,6 @@ function getQuestionnaireModel(state, customComponentsStore) {
   const questionnaireState = {
     ...state.appState.activeQuestionnaire,
     lastUpdatedDate: new Date().toString(),
-    owner: state.appState.user.permission,
   };
 
   return Questionnaire.stateToRemote(questionnaireState, stores);
@@ -278,7 +281,7 @@ function getQuestionnaireModel(state, customComponentsStore) {
  *
  * @return {function} Thunk which may dispatch SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS or SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
  */
-export const saveActiveQuestionnaire = () => {
+export const saveActiveQuestionnaire = token => {
   return (dispatch, getState) => {
     dispatch({
       type: SAVE_ACTIVE_QUESTIONNAIRE,
@@ -287,7 +290,7 @@ export const saveActiveQuestionnaire = () => {
 
     const state = getState();
     const questionnaireModel = getQuestionnaireModel(state);
-    return putQuestionnaire(questionnaireModel.id, questionnaireModel)
+    return putQuestionnaire(questionnaireModel.id, questionnaireModel, token)
       .then(() => {
         return dispatch(
           saveActiveQuestionnaireSuccess(
@@ -377,7 +380,7 @@ export const removeControlsAndRedirections = activeComponentsById => {
  * @param {*} type the type of visualization we want
  * @param {*} componentId The ID of the selected component (optional)
  */
-export const visualizeActiveQuestionnaire = (type, componentId) => {
+export const visualizeActiveQuestionnaire = (type, componentId, token) => {
   return (dispatch, getState) => {
     const state = getState();
     const componentsById = componentId
@@ -388,16 +391,19 @@ export const visualizeActiveQuestionnaire = (type, componentId) => {
           ),
         )
       : state.appState.activeComponentsById;
-
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
     if (type === 'pdf') {
-      visualizePdf(questionnaireModel);
+      visualizePdf(questionnaireModel, token);
     } else if (type === 'spec') {
-      visualizeSpec(questionnaireModel);
+      visualizeSpec(questionnaireModel, token);
     } else if (type === 'html') {
-      visualizeHtml(questionnaireModel);
+      visualizeHtml(questionnaireModel, token);
+    } else if (type === 'stromae-v2') {
+      visualizeWebStromaeV2(questionnaireModel, token);
+    } else if (type === 'queen') {
+      visualizeQueen(questionnaireModel, token);
     } else if (type === 'ddi') {
-      visualizeDDI(questionnaireModel);
+      visualizeDDI(questionnaireModel, token);
     }
   };
 };
@@ -506,13 +512,13 @@ export const loadStatisticalContextFailure = err => ({
   payload: err,
 });
 
-export const loadStatisticalContext = idCampaign => dispatch => {
+export const loadStatisticalContext = (idCampaign, token) => dispatch => {
   dispatch({
     type: LOAD_STATISTICAL_CONTEXT,
     payload: null,
   });
 
-  return getContextFromCampaign(idCampaign)
+  return getContextFromCampaign(idCampaign, token)
     .then(({ serieId: serie, operationId: operation }) => {
       return dispatch(loadStatisticalContextSuccess({ serie, operation }));
     })

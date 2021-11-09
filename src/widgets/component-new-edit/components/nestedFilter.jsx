@@ -5,7 +5,7 @@ import { setSelectedComponentId } from 'actions/app-state';
 import { createComponent } from 'actions/components';
 
 import PropTypes from 'prop-types';
-import { DEFAULT_FORM_NAME, COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { uuid } from 'utils/utils';
@@ -25,13 +25,11 @@ const { LOOP, NESTEDFILTRE, FILTER } = COMPONENT_TYPE;
 // Prop types and default props
 
 export const propTypes = {
-  formName: PropTypes.string,
   componentsStore: PropTypes.object.isRequired,
 };
 
-export const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-};
+export const defaultProps = {};
+
 const NestedFilter = props => {
   const {
     componentsStore,
@@ -73,7 +71,7 @@ const NestedFilter = props => {
       component.typeFilter = 'new';
       setNewNestedFilter(component);
     }
-  }, [filterId]);
+  }, [filterId, componentsStore]);
 
   const handleSubmitImbriquer1 = value => {
     const filters = newNestedFilter.filterImbriquer
@@ -266,6 +264,7 @@ const NestedFilter = props => {
       }
       return optionsFinal;
     }
+    return null;
   };
   const inferieur = () => {
     let inferieurFilter =
@@ -356,6 +355,7 @@ const NestedFilter = props => {
   return (
     <div className={COMPONENT_CLASS}>
       <div className="ctrl-list-radios">
+        {/* eslint jsx-a11y/label-has-associated-control: ["error", { assert: "either" } ] */}
         <label>
           {Dictionary.TYPEFILTER}
           <span className="ctrl-required">*</span>
@@ -572,9 +572,7 @@ const NestedFilter = props => {
               componentsStore={componentsStore}
               createComponent={props.createComponent}
               setSelectedComponentId={props.setSelectedComponentId}
-              handleSubmitImbriquer={(value, index) =>
-                handleSubmitImbriquer1(value, index)
-              }
+              handleSubmitImbriquer={value => handleSubmitImbriquer1(value)}
               handleCloseNestedFilter1={() => handleCloseNestedFilter()}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNested}
@@ -590,13 +588,10 @@ const NestedFilter = props => {
 
 NestedFilter.propTypes = propTypes;
 NestedFilter.defaultProps = defaultProps;
-const mapStateToProps = state => {};
+
 const mapDispatchToProps = {
   createComponent,
   setSelectedComponentId,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NestedFilter);
+export default connect(undefined, mapDispatchToProps)(NestedFilter);

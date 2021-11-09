@@ -70,9 +70,8 @@ export function formToState(form, transformers) {
     redirections: transformers.redirection.formToComponentState(redirections),
     label: verifyVariable(label),
     responseFormat: transformers.responseFormat.formToState(responseFormat),
-    collectedVariables: transformers.collectedVariable.formToComponentState(
-      collectedVariables,
-    ),
+    collectedVariables:
+      transformers.collectedVariable.formToComponentState(collectedVariables),
     TargetMode: TargetMode.split(','),
     nameLoop: nameLoop,
     maximum: maximum,

@@ -104,13 +104,12 @@ class ListWithInputPanel extends Component {
     this.reset = this.reset.bind(this);
     this.select = this.select.bind(this);
     this.clearAllErrors = this.clearAllErrors.bind(this);
-    this.removeErrorIntegrityIfExists = this.removeErrorIntegrityIfExists.bind(
-      this,
-    );
+    this.removeErrorIntegrityIfExists =
+      this.removeErrorIntegrityIfExists.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { [this.props.name]: list, id, ...values } = nextProps.currentValues;
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { [this.props.name]: list } = nextProps.currentValues;
 
     if (!this.props.canAddNew && this.state.selectedItemIndex === undefined)
       return;
@@ -124,13 +123,13 @@ class ListWithInputPanel extends Component {
     }
   }
 
+  handleClosePopup() {
+    this.setState({ showPopup: false });
+  }
+
   validate(values) {
     this.clearAllErrors();
     return this.props.validateForm(values, this.state);
-  }
-
-  handleClosePopup() {
-    this.setState({ showPopup: false });
   }
 
   submit() {
@@ -180,14 +179,9 @@ class ListWithInputPanel extends Component {
   }
 
   remove() {
-    const {
-      arrayRemove,
-      formName,
-      selectorPath,
-      name,
-      currentValues,
-    } = this.props;
-    const { [name]: items, ...values } = currentValues;
+    const { arrayRemove, formName, selectorPath, name, currentValues } =
+      this.props;
+    const { [name]: items } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
 
     this.removeErrorIntegrityIfExists(items[this.state.selectedItemIndex]);
@@ -228,14 +222,8 @@ class ListWithInputPanel extends Component {
   }
 
   select(index) {
-    const {
-      currentValues,
-      name,
-      change,
-      formName,
-      selectorPath,
-      formValues,
-    } = this.props;
+    const { currentValues, name, change, formName, selectorPath, formValues } =
+      this.props;
     const path = getCurrentSelectorPath(selectorPath);
     this.setState({ selectedItemIndex: index }, () => {
       const item = currentValues[name][index];

@@ -29,13 +29,13 @@ class ArboSimplified extends Component {
   handleExpand(e, key) {
     e.preventDefault();
     if (this.state.expanded.indexOf(key) < 0) {
-      this.setState({
-        expanded: [...this.state.expanded, key],
-      });
+      this.setState(prevState => ({
+        expanded: [...prevState.expanded, key],
+      }));
     } else {
-      this.setState({
-        expanded: this.state.expanded.filter(k => k !== key),
-      });
+      this.setState(prevState => ({
+        expanded: prevState.expanded.filter(k => k !== key),
+      }));
     }
   }
 
@@ -78,7 +78,9 @@ class ArboSimplified extends Component {
             </li>
           );
         }
+        return null;
       }
+      return null;
     }, {});
   }
 

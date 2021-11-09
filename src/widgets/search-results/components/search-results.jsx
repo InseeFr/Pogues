@@ -17,14 +17,16 @@ const {
 // Utils
 
 function renderRowValues(values) {
-  return values.map((
-    v,
-    index, // eslint-disable-next-line react/no-array-index-key
-  ) => (
-    <div key={index} className={COLUMN_CLASS}>
-      {v}
-    </div>
-  ));
+  return values.map(
+    (
+      v,
+      index, // eslint-disable-next-line react/no-array-index-key
+    ) => (
+      <div key={index} className={COLUMN_CLASS}>
+        {v}
+      </div>
+    ),
+  );
 }
 
 function renderRowActions(actions, values) {

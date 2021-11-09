@@ -1,7 +1,7 @@
 import * as Response from './response';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
-const { TABLE, MULTIPLE_CHOICE, TEXT } = QUESTION_TYPE_ENUM;
+const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 
 export function stateToModel(
   state,
@@ -29,9 +29,8 @@ export function stateToModel(
   );
   const attributeModel = [];
   const mappingModel = responsesModel.map(r => {
-    const { x, y, isCollected } = collectedVariablesStore[
-      r.CollectedVariableReference
-    ];
+    const { x, y, isCollected } =
+      collectedVariablesStore[r.CollectedVariableReference];
     // Table : Fix lines and look into columns
     const MappingTarget = type === MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
 

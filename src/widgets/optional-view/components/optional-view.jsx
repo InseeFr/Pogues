@@ -25,6 +25,7 @@ const defaultProps = {
 
 class OptionalView extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   render() {

@@ -20,6 +20,6 @@ describe('<Header />', () => {
   });
 
   test('should render a <UserConnection /> component', () => {
-    expect(wrapper.find('Connect(UserConnectionContainer)').length).toBe(1);
+    expect(wrapper.find('Connect(UserConnection)').length).toBe(1);
   });
 });

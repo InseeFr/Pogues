@@ -1,0 +1,74 @@
+extends:
+  - eslint-config-airbnb
+  - prettier
+
+plugins:
+  - prettier
+  - react-hooks
+  - react
+
+settings:
+  ecmascript: 2020
+
+env:
+  browser: true
+  jest: true
+
+rules:
+  indent: 0
+  func-style: 0
+  func-names: 0
+  comma-dangle: 0
+  no-param-reassign: 0
+  linebreak-style: 0
+  object-shorthand: 0
+  no-underscore-dangle: 0
+  arrow-body-style: 0
+  import/no-extraneous-dependencies: 0
+  import/no-unresolved: 0
+  import/extensions: 0
+  import/first: 0
+  react/jsx-filename-extension: 0
+  react/prefer-stateless-function: 0
+  react/no-children-prop: 0
+  react/forbid-prop-types: 0
+  react/no-unescaped-entities: 0
+  prettier/prettier:
+    [
+      'error',
+      {
+        'trailingComma': 'all',
+        'singleQuote': true,
+        'endOfLine': 'auto',
+        'react/forbid-prop-types': 0,
+      },
+    ]
+  import/prefer-default-export: 0
+  react/jsx-props-no-spreading: 0
+  import/order: 0
+  camelcase: 0
+  no-plusplus: 0
+  no-restricted-globals: 0
+  import/named: 0
+  no-use-before-define: 0
+  react/destructuring-assignment: 0
+  no-shadow: 0
+  no-else-return: 0
+  react-hooks/rules-of-hooks: 'error'
+  react-hooks/exhaustive-deps: 'warn'
+  react/prop-types: 0
+  handlers: 0
+  react/button-has-type: 0
+  react/no-array-index-key: 0
+  no-nested-ternary: 0
+  react/static-property-placement: 0
+  no-dupe-keys: 0
+  react/default-props-match-prop-types: 0
+  react/require-default-props: 0
+  jsx-a11y/control-has-associated-label: 0
+  jsx-a11y/click-events-have-key-events: 0
+  react/no-find-dom-node: 0
+  react/no-danger: 0
+  jsx-a11y/anchor-is-valid: 0
+  no-console: 1
+  no-debugger: 1

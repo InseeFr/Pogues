@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import App from 'layout/app/components/app';
-import { loadUser } from 'actions/user';
 import { loadUnitsIfNeeded } from 'actions/metadata';
+import { getToken } from 'reducers/selectors';
+
 // Prop types and default props
 
 const propTypes = {
@@ -11,15 +12,15 @@ const propTypes = {
 
 // Container
 
+const mapStateToProps = state => ({
+  token: getToken(state),
+});
+
 const mapDispatchToProps = {
-  loadUser,
   loadUnitsIfNeeded,
 };
 
-const AppContainer = connect(
-  undefined,
-  mapDispatchToProps,
-)(App);
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
 AppContainer.propTypes = propTypes;
 

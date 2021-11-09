@@ -17,7 +17,6 @@ import {
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   CREATE_PAGE_BREAK,
   REMOVE_PAGE_BREAK,
-  CLEAR_MODIFICATION,
 } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -28,7 +27,6 @@ import {
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
 } from 'actions/component';
-import { LOAD_USER_SUCCESS } from 'actions/user';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
@@ -38,7 +36,6 @@ const actionHandlers = {
 };
 
 const defaultState = {
-  user: {},
   activeQuestionnaire: {},
   activeComponentsById: {},
   activeCodeListsById: {},
@@ -55,13 +52,6 @@ const defaultState = {
   componentIdForPageBreak: '',
   focusedInput: '',
 };
-
-export function loadUserSuccess(state, user) {
-  return {
-    ...state,
-    user: user,
-  };
-}
 
 export function setActiveQuestionnaire(state, questionnaire) {
   const { components, codeLists, ...activeQuestionnaire } = questionnaire;
@@ -185,7 +175,6 @@ export function setQuestionModifiedAndResetSelectedComponent(state) {
   };
 }
 
-actionHandlers[LOAD_USER_SUCCESS] = loadUserSuccess;
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
@@ -203,10 +192,9 @@ actionHandlers[MOVE_COMPONENT] = setQuestionModified;
 
 actionHandlers[CREATE_PAGE_BREAK] = setQuestionModified;
 actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
-actionHandlers[CLEAR_MODIFICATION] = setQuestionModifiedFalse;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
-export default function(state = defaultState, action) {
+export default function (state = defaultState, action) {
   if (!action) return state;
   const { type, payload, meta } = action;
   const hndlr = actionHandlers[type];

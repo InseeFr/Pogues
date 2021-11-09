@@ -107,7 +107,7 @@ class GenericInput extends Component {
       showNewQuestionnaire: true,
     };
     this.setState(newState);
-    this.props.loadQuestionnaireList(this.props.user.permission);
+    this.props.loadQuestionnaireList(this.props.stamp, this.props.token);
   }
 
   handleCloseNewQuestion() {
@@ -146,6 +146,13 @@ class GenericInput extends Component {
     this.setState(newState);
   }
 
+  /**
+   * Handler when the user want to add pageBreak to a question
+   */
+  handleNewPageBreak() {
+    this.props.handleNewPageBreak(this.props.componentIdForPageBreak);
+  }
+
   saveActiveQuestionnaire() {
     if (!this.props.isLoopsValid) {
       const newState = {
@@ -154,7 +161,7 @@ class GenericInput extends Component {
       };
       this.setState(newState);
     } else {
-      this.props.saveActiveQuestionnaire().then(() => {
+      this.props.saveActiveQuestionnaire(this.props.token).then(() => {
         if (this.props.isQuestionnaireHaveError) {
           const newState = {
             ...this.state,
@@ -164,13 +171,6 @@ class GenericInput extends Component {
         }
       });
     }
-  }
-
-  /**
-   * Handler when the user want to add pageBreak to a question
-   */
-  handleNewPageBreak() {
-    this.props.handleNewPageBreak(this.props.componentIdForPageBreak);
   }
 
   render() {
@@ -214,6 +214,7 @@ class GenericInput extends Component {
                 </ReactModal>
               );
             }
+            return null;
           }}
         </NavigationPrompt>
         <span>{Dictionary.addObject}</span>
@@ -304,6 +305,7 @@ class GenericInput extends Component {
           top
           disabled={!isQuestionnaireValid}
           visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
+          token={this.props.token}
         />
         <button
           id="add-questionnaire"

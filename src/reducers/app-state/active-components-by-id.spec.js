@@ -86,26 +86,26 @@ describe('updateActiveComponents', () => {
   describe('createPageBreak', () => {
     test('when called directly', () => {
       const result = createPageBreak(
-        { '1': { id: '1' }, '2': { id: '2' } },
+        { 1: { id: '1' }, 2: { id: '2' } },
         { id: '1' },
       );
       expect(result).toEqual({
-        '1': { id: '1', pageBreak: true },
-        '2': { id: '2' },
+        1: { id: '1', pageBreak: true },
+        2: { id: '2' },
       });
     });
     [CREATE_PAGE_BREAK].forEach(action => {
       test(`when called when we trigger ${action}`, () => {
         const result = actionsHandlers(
-          { '1': { id: '1' }, '2': { id: '2' } },
+          { 1: { id: '1' }, 2: { id: '2' } },
           {
             type: action,
             payload: { id: '1' },
           },
         );
         expect(result).toEqual({
-          '1': { id: '1', pageBreak: true },
-          '2': { id: '2' },
+          1: { id: '1', pageBreak: true },
+          2: { id: '2' },
         });
       });
     });
@@ -114,26 +114,26 @@ describe('updateActiveComponents', () => {
   describe('removePageBreak', () => {
     test('when called directly', () => {
       const result = removePageBreak(
-        { '1': { id: '1' }, '2': { id: '2' } },
+        { 1: { id: '1' }, 2: { id: '2' } },
         { id: '1' },
       );
       expect(result).toEqual({
-        '1': { id: '1', pageBreak: false },
-        '2': { id: '2' },
+        1: { id: '1', pageBreak: false },
+        2: { id: '2' },
       });
     });
     [REMOVE_PAGE_BREAK].forEach(action => {
       test(`when called when we trigger ${action}`, () => {
         const result = actionsHandlers(
-          { '1': { id: '1' }, '2': { id: '2' } },
+          { 1: { id: '1' }, 2: { id: '2' } },
           {
             type: action,
             payload: { id: '1' },
           },
         );
         expect(result).toEqual({
-          '1': { id: '1', pageBreak: false },
-          '2': { id: '2' },
+          1: { id: '1', pageBreak: false },
+          2: { id: '2' },
         });
       });
     });

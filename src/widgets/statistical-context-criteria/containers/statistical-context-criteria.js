@@ -11,6 +11,7 @@ import { filterStoreByProp } from 'utils/widget-utils';
 import { storeToArray } from 'utils/utils';
 
 import StatisticalContextCriteria from '../components/statistical-context-criteria';
+import { getToken } from 'reducers/selectors';
 
 // PropTypes and defaultProps
 
@@ -70,6 +71,7 @@ export const mapStateToProps = (
 
   return {
     ...conditionalProps,
+    token: getToken(state),
     series: storeToArray(state.metadataByType.series),
     selectedSerie,
     path,

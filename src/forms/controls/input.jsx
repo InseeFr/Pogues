@@ -36,6 +36,7 @@ export const defaultProps = {
 
 class Input extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   componentDidMount() {
@@ -84,7 +85,7 @@ class Input extends Component {
             }}
           />
 
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

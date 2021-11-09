@@ -54,11 +54,11 @@ export const defaultProps = {
 
 class InputAutocomplete extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
     super(props);
-
     this.state = {
       options: [],
       indexSelectedOption: undefined,
@@ -87,13 +87,14 @@ class InputAutocomplete extends Component {
     if (this.props.focusOnInit) this.input.focus();
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     const {
       children,
       input: { value },
     } = nextProps;
 
     if (value !== this.props.input.value) {
+      // eslint-disable-next-line react/no-will-update-set-state
       this.setState(init(getValuesFromGenericOptions(children), value));
     }
   }
@@ -154,12 +155,8 @@ class InputAutocomplete extends Component {
       meta: { touched, error },
     } = this.props;
     const id = getControlId('input-autocomplete', name);
-    const {
-      suggestions,
-      indexActiveSuggestion,
-      showSuggestions,
-      inputSearch,
-    } = this.state;
+    const { suggestions, indexActiveSuggestion, showSuggestions, inputSearch } =
+      this.state;
     const searchInputStyle = {
       display: showSuggestions ? 'block' : 'none',
     };
@@ -222,30 +219,33 @@ class InputAutocomplete extends Component {
 
           {suggestions.length > 0 && (
             <ul style={searchInputStyle}>
-              {suggestions.map((
-                su,
-                index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-              ) => (
-                <li
-                  key={su.value}
-                  className={ClassSet({
-                    active: index === indexActiveSuggestion,
-                  })}
-                  onClick={() => {
-                    this.onClick(index);
-                  }}
-                >
-                  <HighLighter
-                    highlight={inputSearch}
-                    caseSensitive={caseSensitive}
+              {suggestions.map(
+                (
+                  su,
+                  index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                ) => (
+                  <li
+                    key={su.value}
+                    aria-hidden
+                    className={ClassSet({
+                      active: index === indexActiveSuggestion,
+                    })}
+                    onClick={() => {
+                      this.onClick(index);
+                    }}
                   >
-                    {this.props.getOptionLabel(su.label, su.value)}
-                  </HighLighter>
-                </li>
-              ))}
+                    <HighLighter
+                      highlight={inputSearch}
+                      caseSensitive={caseSensitive}
+                    >
+                      {this.props.getOptionLabel(su.label, su.value)}
+                    </HighLighter>
+                  </li>
+                ),
+              )}
             </ul>
           )}
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

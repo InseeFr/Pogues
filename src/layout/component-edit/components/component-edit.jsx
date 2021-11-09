@@ -46,7 +46,7 @@ function validateAndSubmit(
   transformer,
   onSuccess,
 ) {
-  return function(values) {
+  return function (values) {
     if (component.type === QUESTION) {
       validateQuestion(transformer.getNormalizedValues(values));
     } else if (component.type === LOOP) {
@@ -62,9 +62,12 @@ function validateAndSubmit(
       component.id,
     );
     const updatedCodesListsStore = transformer.getCodesListStore();
-    const updatedCalculatedVariablesStore = transformer.getCalculatedVariablesStore();
-    const updatedExternalVariablesStore = transformer.getExternalVariablesStore();
-    const updatedCollectedlVariablesStore = transformer.getCollectedVariablesStore();
+    const updatedCalculatedVariablesStore =
+      transformer.getCalculatedVariablesStore();
+    const updatedExternalVariablesStore =
+      transformer.getExternalVariablesStore();
+    const updatedCollectedlVariablesStore =
+      transformer.getCollectedVariablesStore();
 
     actions.updateComponent(
       component.id,

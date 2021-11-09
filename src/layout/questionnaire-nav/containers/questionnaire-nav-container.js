@@ -23,7 +23,4 @@ const mapDispatchToProps = {
   removeComponent,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(QuestionnaireNav);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireNav);

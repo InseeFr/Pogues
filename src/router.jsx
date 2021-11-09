@@ -1,26 +1,32 @@
 import React from 'react';
-import { HashRouter, Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation, Switch } from 'react-router-dom';
 
 import { App } from 'layout/app';
 import { PageHome } from 'layout/page-home';
 import { PageSearchQuestionnaire } from 'layout/page-search-questionnaire';
 import { PageQuestionnaire } from 'layout/page-questionnaire';
+import { secure } from 'auth';
 
-function RouterContainer() {
+function Router() {
+  const { pathname } = useLocation();
   return (
-    <HashRouter>
-      <App>
-        <Route exact path="/" component={PageHome} />
-        <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
+    <App>
+      <Switch>
+        <Route exact path="/" component={secure(PageHome)} />
+        <Route
+          exact
+          path="/questionnaire/:id"
+          component={secure(PageQuestionnaire)}
+        />
         <Route
           exact
           path="/search/questionnaires"
-          component={PageSearchQuestionnaire}
+          component={secure(PageSearchQuestionnaire)}
         />
-        <Redirect from="*" to="/" />
-      </App>
-    </HashRouter>
+        {!pathname.startsWith('/authentication') && <Redirect to="/" />}
+      </Switch>
+    </App>
   );
 }
 
-export default RouterContainer;
+export default Router;

@@ -11,13 +11,12 @@ import GenericOption from 'forms/controls/generic-option';
 import Dictionary from 'utils/dictionary/dictionary';
 import { requiredSelect } from 'forms/validation-rules';
 
-const {
-  COMPONENT_CLASS,
-  HORIZONTAL_CLASS,
-} = WIDGET_STATISTICAL_CONTEXT_CRITERIA;
+const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
+  WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = props => {
   const {
+    token,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -27,27 +26,34 @@ const StatisticalContextCriteria = props => {
     required,
     focusOnInit,
     horizontal,
+    loadSeriesIfNeeded,
+    loadOperationsIfNeeded,
+    loadCampaignsIfNeeded,
   } = props;
 
   const [selectedSerieState, setSelectedSerieState] = useState();
   const [selectedOperationState, setSelectedOperationState] = useState();
 
   useEffect(() => {
-    props.loadSeriesIfNeeded();
+    loadSeriesIfNeeded(token);
     if (selectedSerie !== selectedSerieState) {
-      props.loadOperationsIfNeeded(selectedSerie);
+      loadOperationsIfNeeded(selectedSerie, token);
       setSelectedSerieState(selectedSerie);
     }
 
     if (selectedOperation !== selectedOperationState) {
-      props.loadCampaignsIfNeeded(selectedOperation);
+      loadCampaignsIfNeeded(selectedOperation, token);
       setSelectedOperationState(selectedOperation);
     }
   }, [
+    token,
     selectedSerie,
     selectedOperation,
     selectedOperationState,
     selectedSerieState,
+    loadSeriesIfNeeded,
+    loadOperationsIfNeeded,
+    loadCampaignsIfNeeded,
   ]);
 
   return (
@@ -114,6 +120,7 @@ const StatisticalContextCriteria = props => {
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {
+  token: PropTypes.string,
   series: PropTypes.array.isRequired,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
@@ -123,14 +130,12 @@ StatisticalContextCriteria.propTypes = {
   focusOnInit: PropTypes.bool.isRequired,
   selectedSerie: PropTypes.string,
   selectedOperation: PropTypes.string,
-  formName: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
   loadSeriesIfNeeded: PropTypes.func.isRequired,
   loadOperationsIfNeeded: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
-  change: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
+  token: '',
   multipleCampaign: false,
   required: false,
   focusOnInit: false,

@@ -24,9 +24,13 @@ export function remoteToState(remote = []) {
 
 export function stateToRemote(state) {
   return Object.keys(state).map(key => {
-    const { id, declarationType, label: Text, position, TargetMode } = state[
-      key
-    ];
+    const {
+      id,
+      declarationType,
+      label: Text,
+      position,
+      TargetMode,
+    } = state[key];
     return {
       id,
       Text: Text.replace(/\n\n/gi, '&#xd;'),

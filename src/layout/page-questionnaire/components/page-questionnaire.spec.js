@@ -26,7 +26,6 @@ describe('<PageQuestionnaire />', () => {
   const props = {
     id: 'FAKE_ID',
     params: { id: 1 },
-    loadQuestionnaireIfNeeded: spyLoad,
     setActiveQuestionnaire: spySetActiveQuestionnaire,
     setActiveComponents: spySetActiveComponents,
     setActiveCodeLists: spySetActiveCodeLists,
@@ -51,10 +50,6 @@ describe('<PageQuestionnaire />', () => {
 
   test('should render without throwing an error', () => {
     expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
-  });
-
-  it('should call loadQuestionnaireIfNeeded in render', () => {
-    expect(props.loadQuestionnaireIfNeeded).not.toBeCalled();
   });
 
   it('should call setActiveQuestionnaire in render', () => {

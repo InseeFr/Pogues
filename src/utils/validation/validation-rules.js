@@ -128,12 +128,10 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
   ],
-  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${PRIMARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
-  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
+  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${PRIMARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
+    [validCodesList],
+  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
+    [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: [
     value => minValue(1)(value),
@@ -143,17 +141,14 @@ export const questionRules = {
     value => minValue(1)(value),
     value => maxValue(300)(value),
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
+    [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.totalLabel`]: [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
+    [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.label`]: [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
+    [validCodesList],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
 
@@ -167,9 +162,8 @@ export const questionRules = {
     required,
     value => minValue(1)(value),
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
+    [validCodesList],
   [`${COLLECTED_VARIABLES}.collectedVariables`]: [validCollectedVariables],
 };
 export const declarationRules = {
@@ -278,17 +272,14 @@ export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.label`]: [
     value => required(value) && Dictionary.validationMeasureLabel,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
+    [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     value => minValue(1)(value),
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]: [
-    value => required(value) && Dictionary.validation_maximum,
-  ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]: [
-    value => required(value) && Dictionary.validation_minimum,
-  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]:
+    [value => required(value) && Dictionary.validation_maximum],
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]:
+    [value => required(value) && Dictionary.validation_minimum],
 };

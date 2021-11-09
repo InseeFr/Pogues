@@ -164,9 +164,8 @@ function remoteToStatePrimary(remote) {
       ...state,
       type: CODES_LIST,
       [CODES_LIST]: {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-          CodeListReference,
-        ),
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+          CodeList.remoteToState(CodeListReference),
       },
     };
   } else {
@@ -188,9 +187,8 @@ function remoteToStateSecondary(remote) {
   const { totalLabel, CodeListReference } = remote;
   const state = {
     showSecondaryAxis: true,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
-      CodeListReference,
-    ),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      CodeList.remoteToState(CodeListReference),
   };
 
   if (totalLabel) {
@@ -394,10 +392,8 @@ export function stateToRemote(
     }),
   );
   if (secondaryState) {
-    const {
-      type: typeSecondaryCodesList,
-      ...secondaryTypeState
-    } = secondaryState;
+    const { type: typeSecondaryCodesList, ...secondaryTypeState } =
+      secondaryState;
     dimensionsModel.push(
       Dimension.stateToRemote({ type: SECONDARY, ...secondaryTypeState }),
     );
@@ -423,8 +419,10 @@ export function stateToRemote(
   // Responses
 
   const numDataTypes = measureState
-    ? maxBy(collectedVariables.map(key => collectedVariablesStore[key]), 'y')
-        .y || 1
+    ? maxBy(
+        collectedVariables.map(key => collectedVariablesStore[key]),
+        'y',
+      ).y || 1
     : listMeasuresState.length;
   let responsesModel = [];
   let mappingsModel = [];

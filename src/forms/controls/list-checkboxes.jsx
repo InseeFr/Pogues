@@ -59,9 +59,10 @@ class ListCheckboxes extends Component {
     });
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     const values = nextProps.input.value;
     if (this.props.input.value !== values) {
+      // eslint-disable-next-line react/no-will-update-set-state
       this.setState({
         listCheckValues:
           values !== '' && values.length > 0 ? values.split(',') : [],
@@ -142,7 +143,7 @@ class ListCheckboxes extends Component {
               </div>
             );
           })}
-          {touched && (error && <span className="form-error">{error}</span>)}
+          {touched && error && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

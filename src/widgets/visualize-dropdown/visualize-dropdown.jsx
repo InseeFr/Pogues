@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
@@ -11,11 +11,16 @@ import Dictionary from 'utils/dictionary/dictionary';
  * visualizations of the PDF : WEB, PDF or ODT
  */
 const VisualizeDropdown = props => {
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-	useEffect(() => {
+  const handleClickOutside = useCallback(event => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('mousedown', handleClickOutside);
     return () => {
       window.removeEventListener('mousedown', handleClickOutside);
@@ -25,7 +30,7 @@ const VisualizeDropdown = props => {
   /**
    * Will toggle the dropdown menu
    */
-  const openDropDown = (e) => {
+  const openDropDown = e => {
     e.preventDefault();
     e.stopPropagation();
     setDropdownOpen(!dropdownOpen);
@@ -37,14 +42,8 @@ const VisualizeDropdown = props => {
    */
   const visualize = (event, type) => {
     event.preventDefault();
-    props.visualizeActiveQuestionnaire(type, props.componentId);
+    props.visualizeActiveQuestionnaire(type, props.componentId, props.token);
     setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleClickOutside = (event) => {
-    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-      setDropdownOpen(false);
-    }
   };
 
   const classDropDown = classSet({
@@ -77,13 +76,24 @@ const VisualizeDropdown = props => {
       <ul className={classDropDownList}>
         <li>
           <a href="#" onClick={e => visualize(e, 'html')}>
+            {Dictionary.VISUALIZE_WEB}
+          </a>
+        </li>
+        <li>
+          <a href="#" onClick={e => visualize(e, 'stromae-v2')}>
             {' '}
-            {Dictionary.VISUALIZE_WEB}{' '}
+            {Dictionary.VISUALIZE_WEB_STROMAE_V2}{' '}
           </a>
         </li>
         <li>
           <a href="#" onClick={e => visualize(e, 'pdf')}>
             {Dictionary.VISUALIZE_PDF}
+          </a>
+        </li>
+        <li>
+          <a href="#" onClick={e => visualize(e, 'queen')}>
+            {' '}
+            {Dictionary.VISUALIZE_QUEEN}{' '}
           </a>
         </li>
         <li>
@@ -99,7 +109,7 @@ const VisualizeDropdown = props => {
       </ul>
     </div>
   );
-}
+};
 
 // PropTypes and defaultProps
 

@@ -1,6 +1,7 @@
-dist/
+build/
 node_modules/
 npm-debug.log
+yarn-error.log
 deploy-auth.json
 _book
 .DS_Store
@@ -13,3 +14,5 @@ docs/stats.html
 reports*
 .history/*
 .history*
+.env.local
+package-lock.json

@@ -2,7 +2,7 @@ import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 import { uuid, verifyVariable } from 'utils/utils';
 
-import { CodesListModel } from 'widgets/codes-lists';
+import * as CodesListModel from 'widgets/codes-lists';
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
@@ -127,9 +127,8 @@ export function formToStatePrimary(form, codesListPrimary) {
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;
     state[CODES_LIST] = {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListPrimary.formToStateComponent(
-        codesListForm,
-      ),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+        codesListPrimary.formToStateComponent(codesListForm),
     };
   }
 
@@ -147,9 +146,8 @@ export function formToStateSecondary(form, codesListSecondary) {
     showSecondaryAxis,
     showTotalLabel,
     totalLabel,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListSecondary.formToStateComponent(
-      codesListForm,
-    ),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      codesListSecondary.formToStateComponent(codesListForm),
   };
 }
 
@@ -168,10 +166,8 @@ export function formToStateMeasure(form, codesListMeasure) {
       [simpleType]: { ...simpleForm },
     };
   } else {
-    const {
-      visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
-    } = measureForm;
+    const { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } =
+      measureForm;
     const codesList = codesListMeasure
       ? codesListMeasure.formToStateComponent(codesListForm)
       : CodesListModel.Factory().formToState(codesListForm);
@@ -228,7 +224,8 @@ export function stateToFormPrimary(currentState, codesListPrimary) {
     type,
     [LIST]: { ...listState },
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListPrimary.stateComponentToForm(),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+        codesListPrimary.stateComponentToForm(),
     },
   };
 }
@@ -239,7 +236,8 @@ export function stateToFormSecondary(currentState, codesListSecondary) {
     showSecondaryAxis,
     showTotalLabel,
     totalLabel,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListSecondary.stateComponentToForm(),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      codesListSecondary.stateComponentToForm(),
   };
 }
 

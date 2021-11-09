@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
+import { reducer as oidc } from '@axa-fr/react-oidc-redux';
 
 import locale from 'reducers/dictionary';
 import appState from 'reducers/app-state/app-state';
@@ -12,12 +13,15 @@ import collectedVariableByQuestionnaire from 'reducers/collected-variable-by-que
 import searchResultById from 'reducers/search-result-by-id';
 import metadataByType from 'reducers/metadata-by-type';
 import errors from 'reducers/errors/errors';
+import general from 'reducers/general';
 
 import integrityChecker from 'utils/integrity/integrity-checker';
 import checkers from 'utils/integrity/checkers';
 
 export default integrityChecker(
   combineReducers({
+    authType: (s = '') => s,
+    oidc,
     form,
     locale,
     appState,
@@ -30,6 +34,7 @@ export default integrityChecker(
     searchResultById,
     metadataByType,
     errors,
+    general,
   }),
   checkers,
 );

@@ -2,9 +2,13 @@ import { connect } from 'react-redux';
 
 import QuestionnaireList from '../components/questionnaire-list';
 
-import { loadQuestionnaireList } from 'actions/questionnaire-list';
+import {
+  loadQuestionnaireList,
+  deleteQuestionnaireList,
+} from 'actions/questionnaire-list';
 import { duplicateQuestionnaire, mergeQuestions } from 'actions/questionnaire';
-import { setModifiedFalse } from 'actions/app-state';
+import { setSelectedStamp } from 'actions/general';
+import { getToken, getUser } from 'reducers/selectors';
 
 // Contanier
 
@@ -14,18 +18,18 @@ const mapStateToProps = state => {
   );
   return {
     questionnaires,
-    user: state.appState.user,
+    stamp: getUser(state).stamp,
+    token: getToken(state),
+    selectedStamp: state.general.selectedStamp,
   };
 };
 
 const mapDispatchToProps = {
   loadQuestionnaireList,
-  setModifiedFalse,
+  deleteQuestionnaireList,
   duplicateQuestionnaire,
   mergeQuestions,
+  setSelectedStamp,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(QuestionnaireList);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireList);

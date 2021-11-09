@@ -22,14 +22,12 @@ const defaultProps = {
 
 class Tabs extends Component {
   static propTypes = propTypes;
+
   static defaultProps = defaultProps;
 
   constructor(props) {
     super(props);
-    const paths = Children.map(this.props.children, child => child.props.path);
-
     this.state = {
-      paths,
       activePanelIndex: 0,
     };
   }
@@ -46,6 +44,8 @@ class Tabs extends Component {
       return (
         <li key={`tab-${childProps.path}`} className={ITEM}>
           <a
+            role="button"
+            tabIndex={0}
             className={classTab}
             onClick={event => {
               event.preventDefault();

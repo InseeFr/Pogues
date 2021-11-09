@@ -20,9 +20,9 @@ function checkerTargetMode({
 
   if (wrongComponentIds.length > 0) {
     errors.push({
-      message: `${
-        Dictionary.errorQuestionnaireTargetMode
-      } ${wrongComponentIds.map(cid => activeComponentsById[cid].name).join()}`,
+      message: `${Dictionary.errorQuestionnaireTargetMode} ${wrongComponentIds
+        .map(cid => activeComponentsById[cid].name)
+        .join()}`,
     });
   }
 

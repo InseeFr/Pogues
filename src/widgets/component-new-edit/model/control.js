@@ -21,14 +21,8 @@ export const defaultForm = {
 };
 
 export function formToState(form) {
-  const {
-    label,
-    condition,
-    message,
-    criticity,
-    during_collect,
-    post_collect,
-  } = form;
+  const { label, condition, message, criticity, during_collect, post_collect } =
+    form;
   const id = form.id || uuid();
 
   return {

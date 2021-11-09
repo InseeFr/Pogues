@@ -2468,7 +2468,10 @@ const questionnaires = [
           id: 'isg1uorv',
           name: '',
           label: 'Oui_Non',
-          codes: [{ label: 'Oui', value: '' }, { label: 'Non', value: '' }],
+          codes: [
+            { label: 'Oui', value: '' },
+            { label: 'Non', value: '' },
+          ],
         },
         {
           id: 'isg27fpv',
@@ -2616,13 +2619,19 @@ const questionnaires = [
           id: 'iwgeg7ek',
           name: '',
           label: 'LIST_SEX_EN',
-          codes: [{ label: 'Man', value: '' }, { label: 'Woman', value: '' }],
+          codes: [
+            { label: 'Man', value: '' },
+            { label: 'Woman', value: '' },
+          ],
         },
         {
           id: 'iwgehiif',
           name: '',
           label: 'Yes_No_EN',
-          codes: [{ label: 'Yes', value: '' }, { label: 'No', value: '' }],
+          codes: [
+            { label: 'Yes', value: '' },
+            { label: 'No', value: '' },
+          ],
         },
         {
           id: 'iwm8rfv5',

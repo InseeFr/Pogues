@@ -1,47 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-
 import Questionnaire from './questionnaire';
-import isEqual from 'lodash.isequal';
-
+import Dropdown from 'widgets/dropdown';
+import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
+import { getStampsList } from 'utils/remote-api';
 
 const QuestionnaireList = props => {
   const {
     questionnaires,
-    user,
+    stamp,
+    token,
     duplicateQuestionnaire,
     fusion,
     handleCloseNewQuestion,
     mergeQuestions,
     currentQuestion,
+    loadQuestionnaireList,
+    deleteQuestionnaireList,
+    selectedStamp,
+    setSelectedStamp,
   } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
   const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const [questionList, seQuestionList] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handelCheck = id => {
     setCheckedQuestion(id);
   };
+
   const fusionateQuestion = () => {
-    mergeQuestions(checkedQuestion);
+    mergeQuestions(checkedQuestion, token);
     handleCloseNewQuestion();
   };
-  useEffect(() => {
-    if (!isEqual(questionnaires, questionList)) {
-      props.loadQuestionnaireList(user.permission);
-      seQuestionList(questionnaires);
-    }
-  }, [user, questionnaires]);
 
   useEffect(() => {
-    props.loadQuestionnaireList(user.permission);
-  }, [user.permission]);
+    getStampsList(token).then(r => {
+      setOptions(r);
+    });
+  }, [token]);
+
+  // TODO: Find why 2 calls
+  useEffect(() => {
+    if (selectedStamp) {
+      setLoading(true);
+      loadQuestionnaireList(selectedStamp, token).then(() => {
+        setLoading(false);
+      });
+    } else deleteQuestionnaireList();
+  }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
 
   const updateFilter = value => {
     setFilter(value);
@@ -50,14 +63,16 @@ const QuestionnaireList = props => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
+
   const handleOpenPopup = (id, label) => {
     setShowPopup(true);
     setQuestionId(id);
     setQuestionLabel(label);
   };
+
   const handleSubmit = () => {
-    duplicateQuestionnaire(questionId);
-    props.loadQuestionnaireList(props.user.permission);
+    duplicateQuestionnaire(questionId, token);
+    props.loadQuestionnaireList(stamp, token);
     setShowPopup(false);
   };
 
@@ -67,13 +82,9 @@ const QuestionnaireList = props => {
         currentQuestion !== q.id &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
-          getState(q.final)
-            .toLowerCase()
-            .indexOf(filter) >= 0 ||
+          getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
           (q.lastUpdatedDate &&
-            formatDate(q.lastUpdatedDate)
-              .toLowerCase()
-              .indexOf(filter) >= 0) ||
+            formatDate(q.lastUpdatedDate).toLowerCase().indexOf(filter) >= 0) ||
           !q)
       );
     })
@@ -99,49 +110,49 @@ const QuestionnaireList = props => {
           />
         );
       }
+      return null;
     });
-
-  useEffect(() => {
-    if (props.user && props.user.permission)
-      props.loadQuestionnaireList(props.user.permission);
-  }, []);
-
-  useEffect(() => {
-    props.loadQuestionnaireList(props.user.permission);
-    props.setModifiedFalse();
-  }, [props.user.permission]);
 
   return (
     <div>
       <div className="box home-questionnaires">
+        <h5 style={{ fontWeight: 'bold' }}>{Dictionary.homeStampChoice}</h5>
+        <Dropdown
+          onChange={setSelectedStamp}
+          value={selectedStamp}
+          options={options}
+        />
         <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
         <h4>
-          {Dictionary.stamp} {user.permission}
+          {Dictionary.stamp} {stamp}
         </h4>
-        <div id="questionnaire-list">
-          {questionnaires.length > 0 ? (
-            <div>
-              <div className="ctrl-input">
-                <input
-                  className="form-control"
-                  placeholder={Dictionary.search}
-                  type="text"
-                  onChange={e => updateFilter(e.target.value)}
-                />
+        {loading && <Loader />}
+        {!loading && (
+          <div id="questionnaire-list">
+            {questionnaires.length > 0 ? (
+              <div>
+                <div className="ctrl-input">
+                  <input
+                    className="form-control"
+                    placeholder={Dictionary.search}
+                    type="text"
+                    onChange={e => updateFilter(e.target.value)}
+                  />
+                </div>
+                <div className="questionnaire-list_header">
+                  <div>{Dictionary.QUESTIONNAIRE}</div>
+                  <div>{Dictionary.state}</div>
+                  <div>{Dictionary.lastUpdate}</div>
+                </div>
+                {list}
               </div>
-              <div className="questionnaire-list_header">
-                <div>{Dictionary.QUESTIONNAIRE}</div>
-                <div>{Dictionary.state}</div>
-                <div>{Dictionary.lastUpdate}</div>
+            ) : (
+              <div className="questionnaire-list_noresults">
+                {Dictionary.noQuestionnnaires}
               </div>
-              {list}
-            </div>
-          ) : (
-            <div className="questionnaire-list_noresults">
-              {Dictionary.noQuestionnnaires}
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
       {fusion ? (
         <div className="footer_quesionList">
@@ -185,11 +196,7 @@ const QuestionnaireList = props => {
         >
           {Dictionary.yes}
         </button>
-        <button
-          className="popup-no"
-          type="button"
-          onClick={id => handleClosePopup(id)}
-        >
+        <button className="popup-no" type="button" onClick={handleClosePopup}>
           {Dictionary.no}
         </button>
       </ReactModal>
@@ -202,16 +209,13 @@ QuestionnaireList.propTypes = {
   loadQuestionnaireList: PropTypes.func.isRequired,
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    permission: PropTypes.string,
-    id: PropTypes.string,
-    picture: PropTypes.string,
-  }),
+  stamp: PropTypes.string,
+  token: PropTypes.string,
 };
 
 QuestionnaireList.defaultProps = {
   questionnaires: [],
-  user: {},
+  stamp: '',
+  token: '',
 };
 export default QuestionnaireList;

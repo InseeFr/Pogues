@@ -315,9 +315,8 @@ const dictionary = {
     fr: 'Aide',
   },
   helpUrl: {
-    en: 'http://inseefr.github.io/Pogues/en/user-guide/user-guide.html',
-    fr:
-      'http://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html',
+    en: 'https://inseefr.github.io/Pogues/en/user-guide/user-guide.html',
+    fr: 'https://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html',
   },
   WARNING: {
     en: 'Warning',
@@ -434,7 +433,14 @@ const dictionary = {
     fr: 'Filtres',
     en: 'Filter',
   },
-
+  formulaXpath: {
+    fr: 'Xpath',
+    en: 'Xpath',
+  },
+  formulaVTL: {
+    fr: 'VTL',
+    en: 'VTL',
+  },
   specify: {
     en: 'Specify',
     fr: 'Préciser',
@@ -636,28 +642,20 @@ const dictionary = {
  champ « Cible » pour chaque redirection.`,
   },
   errorGoToNonExistingTgt: {
-    fr:
-      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément connu du questionnaire.',
-    en:
-      'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
+    fr: 'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément connu du questionnaire.',
+    en: 'The target defined in the filter question is not avalaible. Please fill in the target with an existing element of the questionnaire.',
   },
   notExistingTarget: {
-    fr:
-      "Les cibles de redirections suivantes n'existent pas au sein du questionnaire :",
-    en:
-      "The following targets of redirections don't exist for the questionnaire :",
+    fr: "Les cibles de redirections suivantes n'existent pas au sein du questionnaire :",
+    en: "The following targets of redirections don't exist for the questionnaire :",
   },
   errorGoToEarlierTgt: {
-    fr:
-      'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
-    en:
-      'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.',
+    fr: 'Le filtre comporte une cible invalide. Le champ « Cible » doit faire référence à un élément postérieur du questionnaire.',
+    en: 'The target defined in the filter question is not avalaible. Please fill in the target with a further element of the questionnaire.',
   },
   errorQuestionnaireTooShort: {
-    fr:
-      'Votre questionnaire doit comporter au moins une séquence et une question.',
-    en:
-      'Your questionnaire must contain at least one sequence and one question.',
+    fr: 'Votre questionnaire doit comporter au moins une séquence et une question.',
+    en: 'Your questionnaire must contain at least one sequence and one question.',
   },
   errorNeedRegenerateCollectedVariables: {
     fr: 'Need regenerate.',
@@ -672,26 +670,20 @@ const dictionary = {
     en: 'Variable names should be unique:',
   },
   errorUniqueComponentName: {
-    fr:
-      'Les noms de composant (séquence, sous-séquence, boucle et question) doivent être uniques :',
-    en:
-      'Component names (sequence, subsequence, loop and question) should be unique:',
+    fr: 'Les noms de composant (séquence, sous-séquence, boucle et question) doivent être uniques :',
+    en: 'Component names (sequence, subsequence, loop and question) should be unique:',
   },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',
   },
   errorQuestionnaireTargetMode: {
-    fr:
-      "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire :",
-    en:
-      'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode:',
+    fr: "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire :",
+    en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode:',
   },
   errorQuestionnaireTargetModeForComponent: {
-    fr:
-      "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire",
-    en:
-      'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
+    fr: "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire",
+    en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
   },
   failMessage: {
     en: 'Error message',
@@ -819,8 +811,7 @@ const dictionary = {
   },
   modification: {
     en: 'Your modification is not saved ! Are you sure you want to leave ?',
-    fr:
-      "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
+    fr: "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
   },
   saveLower: {
     en: 'Thank you to validate all the actions on the page',
@@ -837,15 +828,12 @@ const dictionary = {
   },
   notSaved: {
     en: 'an error occurs, your modification can not be saved',
-    fr:
-      "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
+    fr: "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
   },
 
   loopNotSaved: {
-    en:
-      'Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.',
-    fr:
-      "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider.",
+    en: 'Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.',
+    fr: "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider.",
   },
 
   close: {
@@ -1080,6 +1068,10 @@ const dictionary = {
     fr: 'Questionnaires en cours de conception par votre équipe',
     en: 'Questionnaires in progress by your team',
   },
+  homeStampChoice: {
+    fr: 'Choisissez le timbre associé à votre questionnaire : ',
+    en: 'Choose the stamp associated with your questionnaire : ',
+  },
   emptyQuestionnaire: {
     fr: 'Questionnaire vide',
     en: 'Empty questionnaire',
@@ -1111,6 +1103,10 @@ const dictionary = {
   dynamiqueSpecified: {
     fr: 'Dynamique spécifiée en',
     en: 'Dynamics specified in',
+  },
+  formulaSpecified: {
+    fr: 'Formules spécifiées en',
+    en: 'Formulas specified in',
   },
   lastUpdate: {
     fr: 'Dernière mise à jour',
@@ -1149,8 +1145,7 @@ const dictionary = {
     en: 'New questionnaire',
   },
   newQuestionnaireLegend: {
-    fr:
-      'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
+    fr: 'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
     en: 'You will now be able to specify the context',
   },
   collectionCampaign: {
@@ -1206,10 +1201,8 @@ const dictionary = {
     en: 'Select at least one option',
   },
   validationInvalidName: {
-    fr:
-      "L'identifiant peut uniquement contenir des lettres non accentuées, chiffres, tirets et underscore",
-    en:
-      'The Id can only contain non-accented letters, numbers, dashes and underscore',
+    fr: "L'identifiant peut uniquement contenir des lettres non accentuées, chiffres, tirets et underscore",
+    en: 'The Id can only contain non-accented letters, numbers, dashes and underscore',
   },
   validationInvalidNameSize: {
     fr: "L'identifiant ne peux pas dépasser 32 caractères",
@@ -1248,10 +1241,8 @@ const dictionary = {
     en: 'Confirmation',
   },
   confirmBodyMessage: {
-    fr:
-      'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
-    en:
-      'You are deleting the questionnaire. You are going to lose all information entered.',
+    fr: 'Vous allez supprimer le questionnaire et perdre toutes les informations saisies.',
+    en: 'You are deleting the questionnaire. You are going to lose all information entered.',
   },
   confirmQuestionMessage: {
     fr: 'Êtes-vous sûr ?',
@@ -1302,8 +1293,7 @@ const dictionary = {
     en: 'Statement label required',
   },
   validation_card_code: {
-    fr:
-      "La modalité carte-code n'a de sens que pour les modes de collecte CAPI et/ou CATI.",
+    fr: "La modalité carte-code n'a de sens que pour les modes de collecte CAPI et/ou CATI.",
     en: 'The codecard modality is meanful only for CAPI and/or CATI mode.',
   },
   validation_control_description: {
@@ -1512,8 +1502,16 @@ const dictionary = {
     en: 'Level',
   },
   VISUALIZE_WEB: {
-    fr: 'Web',
-    en: 'Web',
+    fr: 'Web V1',
+    en: 'Web V1',
+  },
+  VISUALIZE_WEB_STROMAE_V2: {
+    fr: 'Web V2',
+    en: 'Web V2',
+  },
+  VISUALIZE_QUEEN: {
+    fr: 'Poste enquêteur',
+    en: 'Interviewer form',
   },
   VISUALIZE_PDF: {
     fr: 'PDF',

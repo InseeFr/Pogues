@@ -111,7 +111,7 @@ export function getCollectedVariablesMultiple(
       reponseFormatValues,
     ),
   );
-  form.PRIMARY.CodesList.codes.forEach(function(code) {
+  form.PRIMARY.CodesList.codes.forEach(code => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollecteVariable(
@@ -146,7 +146,7 @@ export function getCollectedVariablesSingle(questionName, form) {
     }),
   );
 
-  form.CodesList.codes.forEach(function(code) {
+  form.CodesList.codes.forEach(code => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollecteVariable(
@@ -337,13 +337,13 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
   }
 
   if (form.LIST_MEASURE && form.LIST_MEASURE.measures) {
-    form.LIST_MEASURE.measures.forEach(function(mesure) {
+    form.LIST_MEASURE.measures.forEach(mesure => {
       if (
         mesure.SINGLE_CHOICE &&
         mesure.SINGLE_CHOICE.CodesList &&
         mesure.SINGLE_CHOICE.CodesList.codes
       ) {
-        mesure.SINGLE_CHOICE.CodesList.codes.forEach(function(code) {
+        mesure.SINGLE_CHOICE.CodesList.codes.forEach(code => {
           if (code.precisionid && code.precisionid !== '') {
             collectedVariables
               .filter(
@@ -352,7 +352,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
                   variable.codeListReference ===
                     mesure.SINGLE_CHOICE.CodesList.id,
               )
-              .forEach(function(variable) {
+              .forEach(variable => {
                 collectedVariables.push(
                   getCollecteVariable(
                     `${variable.name}${code.value}CL`,
@@ -401,7 +401,6 @@ export function generateCollectedVariables(
     generatedCollectedVariables = getCollectedVariablesSingle(
       questionName,
       form,
-      codesListStore,
     );
   } else if (responseFormat === MULTIPLE_CHOICE) {
     generatedCollectedVariables = getCollectedVariablesMultiple(

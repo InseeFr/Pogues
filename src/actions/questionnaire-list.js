@@ -5,6 +5,8 @@ export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
 export const LOAD_QLIST_FAILURE = 'LOAD_QLIST_FAILURE';
 
+export const DELETE_QLIST_SUCCESS = 'DELETE_QLIST_SUCCESS';
+
 /**
  * Load questionnaire list success
  *
@@ -47,16 +49,22 @@ export const loadQuestionnaireListFailure = err => ({
  *
  * @return  {function}  Thunk which may dispatch LOAD_QLIST_SUCCESS or LOAD_QLIST_FAILURE
  */
-export const loadQuestionnaireList = permission => dispatch => {
+export const loadQuestionnaireList = (stamp, token) => dispatch => {
   dispatch({
     type: LOAD_QLIST,
     payload: null,
   });
-  return getQuestionnaireList(permission)
+  return getQuestionnaireList(stamp, token)
     .then(qrList =>
       dispatch(
         loadQuestionnaireListSuccess(questionnaireListRemoteToStores(qrList)),
       ),
     )
     .catch(err => dispatch(loadQuestionnaireListFailure(err)));
+};
+
+export const deleteQuestionnaireList = () => dispatch => {
+  dispatch({
+    type: DELETE_QLIST_SUCCESS,
+  });
 };

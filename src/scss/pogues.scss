@@ -1,5 +1,5 @@
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import '~font-awesome/scss/font-awesome';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap';
+@import 'font-awesome/scss/font-awesome';
 
 @import '_variables';
 @import '_mixins';
@@ -35,6 +35,7 @@
 @import 'inc/widgets/_component-new-edit';
 @import 'inc/widgets/_errors-panel';
 @import 'inc/widgets/_list-with-input-panel';
+@import 'inc/widgets/_dropdown';
 
 //Controls
 @import 'inc/controls/_common';

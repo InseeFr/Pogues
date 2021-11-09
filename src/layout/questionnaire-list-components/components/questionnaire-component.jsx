@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import ClassSet from 'react-classset';
@@ -34,6 +34,7 @@ const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
 const QuestionnaireComponent = props => {
   const {
+    token,
     component,
     connectDragSource,
     integrityErrorsByType,
@@ -53,16 +54,16 @@ const QuestionnaireComponent = props => {
   const [showComponentModal, setShowComponentModal] = useState(false);
 
   const myRef = useRef(null);
-  const executeScroll = () => scrollToRef(myRef);
-  const ensureSelected = () => {
-    executeScroll();
-  };
+
+  const ensureSelected = useCallback(() => {
+    scrollToRef(myRef);
+  }, []);
 
   useEffect(() => {
     if (selected) {
       ensureSelected();
     }
-  }, [selected]);
+  }, [selected, ensureSelected]);
 
   const handleSelectComponent = () => {
     props.setSelectedComponentId(component.id);
@@ -198,6 +199,7 @@ const QuestionnaireComponent = props => {
                       visualizeActiveQuestionnaire={
                         visualizeActiveQuestionnaire
                       }
+                      token={token}
                     />
                     <button
                       className="btn-yellow"

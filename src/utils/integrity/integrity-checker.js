@@ -13,7 +13,7 @@ import uniq from 'lodash.uniq';
  * @return {Function}         enhanced reducer
  */
 function integrityChecker(reducer, checkers) {
-  return function(state, action) {
+  return function (state, action) {
     const checker = checkers[action.type];
     const newState = reducer(state, action);
 

@@ -70,6 +70,11 @@ export const WIDGET_SEARCH_CODES_LISTS = {
   SEARCH_RESULTS_CLASS: 'widget-search-codes-lists__results',
 };
 
+export const WIDGET_DROPDOWN = {
+  COMPONENT_CLASS: 'widget-dropdown',
+  SELECT_CLASS: 'widget-dropdown__select',
+};
+
 export const WIDGET_CODES_LISTS = {
   COMPONENT_CLASS: 'widget-codes-lists',
   CODES_CLASS: 'widget-codes-lists__codes',

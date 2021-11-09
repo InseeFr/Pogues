@@ -32,7 +32,7 @@ describe('loadSearchResultSuccess', () => {
       { id: '1' },
       { id: '2' },
     ]);
-    expect(result).toEqual({ '1': { id: '1' }, '2': { id: '2' } });
+    expect(result).toEqual({ 1: { id: '1' }, 2: { id: '2' } });
   });
   [LOAD_SEARCH_RESULT_SUCCESS].forEach(action => {
     test(`when called when we trigger ${action}`, () => {
@@ -43,7 +43,7 @@ describe('loadSearchResultSuccess', () => {
           payload: [{ id: '1' }, { id: '2' }],
         },
       );
-      expect(result).toEqual({ '1': { id: '1' }, '2': { id: '2' } });
+      expect(result).toEqual({ 1: { id: '1' }, 2: { id: '2' } });
     });
   });
 });

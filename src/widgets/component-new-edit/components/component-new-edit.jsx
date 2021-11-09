@@ -33,23 +33,10 @@ import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-sug
 import NestedFilter from './nestedFilter';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 
-const {
-  COMPONENT_CLASS,
-  FOOTER,
-  CANCEL,
-  VALIDATE,
-  FOOTERLOOP,
-  DELETE,
-  FILTRE_IMBRIQUER,
-} = WIDGET_COMPONENT_NEW_EDIT;
-const {
-  QUESTION,
-  LOOP,
-  SEQUENCE,
-  SUBSEQUENCE,
-  FILTER,
-  NESTEDFILTRE,
-} = COMPONENT_TYPE;
+const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
+  WIDGET_COMPONENT_NEW_EDIT;
+const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, NESTEDFILTRE } =
+  COMPONENT_TYPE;
 const { LIST } = DIMENSION_FORMATS;
 const { TABLE } = QUESTION_TYPE_ENUM;
 
@@ -87,6 +74,7 @@ const ComponentNewEdit = props => {
     onSubmit,
     filterImbriquer,
     activeQuestionnaire,
+    clearSubformValidationErrors,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -147,13 +135,13 @@ const ComponentNewEdit = props => {
     }
   };
 
-  const handleOpenFilter = (e, index) => {
-    e.preventDefault();
-    if (index) {
-      setFilterId(index);
-    }
-    setShowNewNestedFilter(true);
-  };
+  // const handleOpenFilter = (e, index) => {
+  //   e.preventDefault();
+  //   if (index) {
+  //     setFilterId(index);
+  //   }
+  //   setShowNewNestedFilter(true);
+  // };
 
   const handleDeleteNestedFilter = index => {
     let filters = [...filterImbriquers];
@@ -170,25 +158,10 @@ const ComponentNewEdit = props => {
     handleCloseNestedFilter();
   };
 
-  const showFiltersImbriquer = myfilters => {
-    return myfilters.length !== 0
-      ? myfilters.map(filter => {
-          return (
-            <button
-              className={FILTRE_IMBRIQUER}
-              onClick={e => handleOpenFilter(e, filter)}
-            >
-              <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-              {componentsStore[filter].name}
-            </button>
-          );
-        })
-      : false;
-  };
-
   useEffect(() => {
-    props.clearSubformValidationErrors();
-  }, [filterImbriquers]);
+    clearSubformValidationErrors();
+  }, [clearSubformValidationErrors]);
+
   const renderPanels = () => {
     let panels = [
       <Tab
@@ -487,18 +460,18 @@ const ComponentNewEdit = props => {
                   required
                 />
                 <Field
-                  name="maximum"
-                  type="text"
-                  focusOnInit
-                  component={InputWithVariableAutoCompletion}
-                  label={Dictionary.maximum}
-                />
-                <Field
                   name="minimum"
                   type="text"
                   focusOnInit
                   component={InputWithVariableAutoCompletion}
                   label={Dictionary.minimum}
+                />
+                <Field
+                  name="maximum"
+                  type="text"
+                  focusOnInit
+                  component={InputWithVariableAutoCompletion}
+                  label={Dictionary.maximum}
                 />
                 <Field
                   name="basedOn"
@@ -675,9 +648,7 @@ const ComponentNewEdit = props => {
             <NestedFilter
               filterId={filterId}
               componentsStore={componentsStore}
-              handleSubmitImbriquer={(value, index) =>
-                handleSubmitImbriquer(value, index)
-              }
+              handleSubmitImbriquer={value => handleSubmitImbriquer(value)}
               handleCloseNestedFilter1={handleCloseNestedFilter}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}

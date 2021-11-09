@@ -1,7 +1,7 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 
-import { CodesListModel } from 'widgets/codes-lists';
+import * as CodesListModel from 'widgets/codes-lists';
 import {
   UI_BEHAVIOUR,
   DATATYPE_VIS_HINT,
@@ -56,9 +56,8 @@ export function formToState(form, transformers) {
       ? specialUiBehaviour
       : UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: hasSpecialCode ? specialFollowUpMessage : '',
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.formToStateComponent(
-      codesListForm,
-    ),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      transformers.codesList.formToStateComponent(codesListForm),
   };
 }
 
@@ -83,14 +82,15 @@ export function stateToForm(currentState, transformers) {
     specialCode,
     specialUiBehaviour,
     specialFollowUpMessage,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: transformers.codesList.stateComponentToForm(),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      transformers.codesList.stateComponentToForm(),
   };
 }
 
-const Factory = (initialState = {}, codesListsStore) => {
+export const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {
-    codesList: new CodesListModel.Factory(
+    codesList: CodesListModel.Factory(
       cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]),
       codesListsStore,
     ),

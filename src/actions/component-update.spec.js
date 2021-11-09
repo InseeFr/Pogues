@@ -26,45 +26,45 @@ describe('increaseWeightOfAll', () => {
     };
 
     const components = {
-      '1': {
+      1: {
         id: '1',
         weight: 0,
         parent: '1',
         children: ['5', '3', '4'],
       },
-      '4': {
+      4: {
         id: '4',
         weight: 1,
         parent: '1',
       },
-      '5': {
+      5: {
         id: '5',
         weight: 2,
         parent: '1',
       },
-      '3': {
+      3: {
         id: '3',
         weight: 3,
         parent: '1',
       },
-      '7': {
+      7: {
         id: '4',
         weight: 0,
         parent: '2',
       },
     };
     expect(increaseWeightOfAll(components, newComponent)).toEqual({
-      '4': {
+      4: {
         id: '4',
         weight: 1,
         parent: '1',
       },
-      '5': {
+      5: {
         id: '5',
         weight: 3,
         parent: '1',
       },
-      '3': {
+      3: {
         id: '3',
         weight: 4,
         parent: '1',
@@ -91,13 +91,13 @@ describe('resetWeight', () => {
 
 describe('resetAllWeight', () => {
   const components = {
-    '0': { id: '0', weight: 0, children: ['1', '6'] },
-    '1': { id: '1', weight: 7, children: ['3', '5'] },
-    '3': { id: '3', weight: 2, children: [] },
-    '5': { id: '5', weight: 4, children: [] },
-    '6': { id: '6', weight: 5, children: ['7', '8'] },
-    '7': { id: '7', weight: 2, children: [] },
-    '8': { id: '8', weight: 4, children: [] },
+    0: { id: '0', weight: 0, children: ['1', '6'] },
+    1: { id: '1', weight: 7, children: ['3', '5'] },
+    3: { id: '3', weight: 2, children: [] },
+    5: { id: '5', weight: 4, children: [] },
+    6: { id: '6', weight: 5, children: ['7', '8'] },
+    7: { id: '7', weight: 2, children: [] },
+    8: { id: '8', weight: 4, children: [] },
   };
 
   const result = resetAllWeight(components);

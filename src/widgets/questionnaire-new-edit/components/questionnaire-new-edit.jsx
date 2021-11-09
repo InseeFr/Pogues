@@ -9,20 +9,21 @@ import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
 import ListRadios from 'forms/controls/list-radios';
-import { TargetMode, QUESTIONNAIRE_TYPE } from 'constants/pogues-constants';
+import {
+  TargetMode,
+  QUESTIONNAIRE_TYPE,
+  FORMULA_LANGUAGE,
+} from 'constants/pogues-constants';
 
 import { updateNameField } from 'utils/utils';
 
-const {
-  COMPONENT_CLASS,
-  FOOTER,
-  CANCEL,
-  VALIDATE,
-} = WIDGET_QUESTIONNAIRE_NEW_EDIT;
+const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } =
+  WIDGET_QUESTIONNAIRE_NEW_EDIT;
 
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
-// Componet
+const { XPATH, VTL } = FORMULA_LANGUAGE;
 
+// Component
 function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
   return (
     <div className={COMPONENT_CLASS}>
@@ -63,6 +64,19 @@ function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
           </GenericOption>
           <GenericOption key={Filtres} value={Filtres}>
             {Dictionary.QFilter}
+          </GenericOption>
+        </Field>
+        <Field
+          name="formulaSpecified"
+          component={ListRadios}
+          label={Dictionary.formulaSpecified}
+          inline
+        >
+          <GenericOption key={XPATH} value={XPATH}>
+            {Dictionary.formulaXpath}
+          </GenericOption>
+          <GenericOption key={VTL} value={VTL}>
+            {Dictionary.formulaVTL}
           </GenericOption>
         </Field>
         <div className={FOOTER}>
