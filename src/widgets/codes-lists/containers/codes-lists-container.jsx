@@ -43,6 +43,7 @@ export const mapStateToProps = (
   const currentPrecisionlabel = selector(state, `${path}precisionlabel`);
   const currentPrecisionsize = selector(state, `${path}precisionsize`);
   const codesListsStore = state.appState.activeCodeListsById;
+  const { isSearchDisable } = state;
   let currentCodesListsStore;
 
   if (codesListsStore[currentId]) {
@@ -65,6 +66,7 @@ export const mapStateToProps = (
     currentId,
     currentCodesListsStore,
     codesListsStore,
+    isSearchDisable,
     activePanel: selector(state, `${path}panel`),
     currentCodes: selector(state, `${path}codes`),
   };
