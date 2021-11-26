@@ -50,11 +50,15 @@ export const loadUnits = token => dispatch => {
   });
   return getUnitsList(token)
     .then(listUnits => {
-      const units = listUnits.map(u => ({
-        id: u.uri,
-        uri: u.uri,
-        label: u.label,
-      }));
+      const units = listUnits
+        .map(u => ({
+          id: u.uri,
+          uri: u.uri,
+          label: u.label,
+        }))
+        .sort((a, b) => {
+          return `${a.label}`.localeCompare(b.label);
+        });
       return dispatch(loadMetadataSuccess('units', units));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
