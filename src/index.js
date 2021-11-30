@@ -9,7 +9,6 @@ import Router from 'router';
 
 const renderApp = (Component, init) => {
   const store = configureStore(init);
-  console.log('store', store.getState());
   ReactDOM.render(
     <Provider store={store}>
       <AuthProvider store={store}>
