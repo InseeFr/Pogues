@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Guide VTL Pogues</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/spectre.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guide VTL Pogues</h1>
+</header>
+<div class="container">
+<p>Ce document guide l’utilisateur de Pogues dans son usage du langage VTL.</p>
+<h1 id="vtl">VTL</h1>
+<blockquote>
+<p>TODO qu’est-ce que VTL ?</p>
+</blockquote>
+<h1 id="utiliser-vtl">Utiliser VTL</h1>
+<p>VTL est utilisé dès que l’on souhaite :</p>
+<ul>
+<li>créer un libellé personnalisé</li>
+<li>définir un contrôle</li>
+<li>créer une variable calculée</li>
+<li>définir la condition d’un filtre</li>
+</ul>
+<p>Les champs correspondants dans Pogues proposent dans la plupart des cas un <strong>éditeur VTL</strong> :</p>
+<figure>
+<img src="img/vtl-in-pogues-editeur-variable.png" alt="L’éditeur VTL" /><figcaption aria-hidden="true">L’éditeur VTL</figcaption>
+</figure>
+<h2 id="fonctionnalités-de-léditeur">Fonctionnalités de l’éditeur</h2>
+<p><span class="label label-rounded label-primary">À noter</span> L’éditeur disponible actuellement reste un work-in-progress</p>
+<p>L’éditeur fournit :</p>
+<ul>
+<li>un soulignement syntaxique</li>
+<li>une autocomplétion des fonctions et variables</li>
+<li>une gestion des erreurs de syntaxe</li>
+</ul>
+<h1 id="libellés">Libellés</h1>
+<p>Voici un exemple de syntaxe pour un libellé personnalisé :</p>
+<figure>
+<img src="img/vtl-in-pogues-custom-label.png" alt="Libellé personnalisé" /><figcaption aria-hidden="true">Libellé personnalisé</figcaption>
+</figure>
+<p>On utilise ici l’opérateur VTL <code>||</code> qui permet de concaténer des chaînes de caractères, ou une chaîne de caractères et une variable (ici <code>NOM</code>).</p>
+<p><span class="label label-rounded label-warning">Attention !</span> Pour des raisons d’implémentation historique, il est encore nécessaire d’encadrer les noms de variables par <code>$</code>. Ainsi, on pourra rechercher la variable <code>NOM</code> en la tappant telle quelle dans l’éditeur, puis on ajoutera <code>$</code> en préfixe et suffixe, pour obtenir <code>$NOM$</code></p>
+<p><span class="label label-rounded label-success">Astuce :)</span> Dans l’exemple précédent, on ne gère pas le cas où la variable n’a pas été remplie. Pour anticiper ce cas, on peut utiliser la fonction VTL <code>nvl</code>, le libellé personnalisé devient ainsi :</p>
+<figure>
+<img src="img/vtl-in-pogues-custom-label-nvl.png" alt="Libellé personnalisé avec gestion de la nullité" /><figcaption aria-hidden="true">Libellé personnalisé avec gestion de la nullité</figcaption>
+</figure>
+<p>Plus d’infos sur l’usage de <code>nvl</code> plus bas.</p>
+<p>On pourra mobiliser dans un libellé personnalisé des variables collectées, calculées ou externes.</p>
+<h1 id="contrôles">Contrôles</h1>
+<blockquote>
+<p>TODO</p>
+</blockquote>
+<h1 id="variables-calculées">Variables calculées</h1>
+<p>Pogues permet de créer des variables calculées à partir de variables collectées. Dans l’exemple ci-dessous, on somme les variables de revenus de l’enquêté et de son conjoint :</p>
+<figure>
+<img src="img/vtl-in-pogues-computed-variable-earnings.png" alt="Une variable calculée" /><figcaption aria-hidden="true">Une variable calculée</figcaption>
+</figure>
+<p>L’expression VTL est :</p>
+<pre><code>cast(nvl($REVENUS$, &quot;0&quot;), integer) + 
+cast(nvl($REVENUS_CONJOINT$, &quot;0&quot;), integer)</code></pre>
+<p><span class="label label-rounded label-warning">Attention !</span> Les variables collectées sont de type “chaîne de caractères” (<code>string</code> en VTL), pour les utiliser dans un calcul il faut les transformer, en entier par exemple. Pour cela, c’est la fonction <code>cast</code> qui est utilisé. Pour transformer la variable <code>REVENUS</code> en entier, j’écris donc <code>cast(nvl($REVENUS$, "0"), integer)</code>.</p>
+<h1 id="filtres">Filtres</h1>
+<p>Voici un exemple de filtre simple exprimé en VTL :</p>
+<figure>
+<img src="img/vtl-in-pogues-simple-filter.png" alt="Un filtre simple" /><figcaption aria-hidden="true">Un filtre simple</figcaption>
+</figure>
+<p><span class="label label-rounded label-primary">À noter</span> À ce jour, le champ “Condition d’affichage” du filtre n’est pas branché sur l’éditeur VTL.</p>
+<h1 id="gestion-de-la-nullité">Gestion de la nullité</h1>
+<blockquote>
+<p>TODO usage de <code>nvl()</code></p>
+</blockquote>
+<h1 id="types-des-variables">Types des variables</h1>
+<blockquote>
+<p>TODO</p>
+</blockquote>
+<h1 id="fonctions">Fonctions</h1>
+<h2 id="chaînes-de-caractères">Chaînes de caractères</h2>
+<h3 id="remplacer">Remplacer</h3>
+<p>Avec <code>MA_VARIABLE</code> égale à “bag”.</p>
+<pre><code>replace($MA_VARIABLE$, &quot;g&quot;, &quot;c&quot;) # → bac</code></pre>
+</div>
+</body>
+</html>
