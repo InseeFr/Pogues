@@ -56,23 +56,24 @@
 </figure>
 <p>On utilise ici l’opérateur VTL <code>||</code> qui permet de concaténer des chaînes de caractères, ou une chaîne de caractères et une variable (ici <code>NOM</code>).</p>
 <p><span class="label label-rounded label-warning">Attention !</span> Pour des raisons d’implémentation historique, il est encore nécessaire d’encadrer les noms de variables par <code>$</code>. Ainsi, on pourra rechercher la variable <code>NOM</code> en la tappant telle quelle dans l’éditeur, puis on ajoutera <code>$</code> en préfixe et suffixe, pour obtenir <code>$NOM$</code></p>
-<p><span class="label label-rounded label-success">Astuce :)</span> Dans l’exemple précédent, on ne gère pas le cas où la variable n’a pas été remplie. Pour anticiper ce cas, on peut utiliser la fonction VTL <code>nvl</code>, le libellé personnalisé devient ainsi :</p>
+<p><span class="label label-rounded label-success">Attention !</span> Astuce :) Dans l’exemple précédent, on ne gère pas le cas où la variable n’a pas été remplie. Pour anticiper ce cas, on peut utiliser la fonction VTL <code>nvl</code>, le libellé personnalisé devient ainsi :</p>
 <figure>
 <img src="img/vtl-in-pogues-custom-label-nvl.png" alt="Libellé personnalisé avec gestion de la nullité" /><figcaption aria-hidden="true">Libellé personnalisé avec gestion de la nullité</figcaption>
 </figure>
 <p>Plus d’infos sur l’usage de <code>nvl</code> plus bas.</p>
 <p>On pourra mobiliser dans un libellé personnalisé des variables collectées, calculées ou externes.</p>
 <h1 id="contrôles">Contrôles</h1>
-<blockquote>
-<p>TODO</p>
-</blockquote>
+<p>Un exemple de contrôle sur une valeur numérique :</p>
+<figure>
+<img src="img/vtl-in-pogues-simple-control.png" alt="Vérification de l’âge du répondant" /><figcaption aria-hidden="true">Vérification de l’âge du répondant</figcaption>
+</figure>
 <h1 id="variables-calculées">Variables calculées</h1>
 <p>Pogues permet de créer des variables calculées à partir de variables collectées. Dans l’exemple ci-dessous, on somme les variables de revenus de l’enquêté et de son conjoint :</p>
 <figure>
 <img src="img/vtl-in-pogues-computed-variable-earnings.png" alt="Une variable calculée" /><figcaption aria-hidden="true">Une variable calculée</figcaption>
 </figure>
 <p>L’expression VTL est :</p>
-<pre><code>cast(nvl($REVENUS$, &quot;0&quot;), integer) + 
+<pre class="code"><code>cast(nvl($REVENUS$, &quot;0&quot;), integer) + 
 cast(nvl($REVENUS_CONJOINT$, &quot;0&quot;), integer)</code></pre>
 <p><span class="label label-rounded label-warning">Attention !</span> Les variables collectées sont de type “chaîne de caractères” (<code>string</code> en VTL), pour les utiliser dans un calcul il faut les transformer, en entier par exemple. Pour cela, c’est la fonction <code>cast</code> qui est utilisé. Pour transformer la variable <code>REVENUS</code> en entier, j’écris donc <code>cast(nvl($REVENUS$, "0"), integer)</code>.</p>
 <h1 id="filtres">Filtres</h1>
@@ -80,7 +81,19 @@ cast(nvl($REVENUS_CONJOINT$, &quot;0&quot;), integer)</code></pre>
 <figure>
 <img src="img/vtl-in-pogues-simple-filter.png" alt="Un filtre simple" /><figcaption aria-hidden="true">Un filtre simple</figcaption>
 </figure>
-<p><span class="label label-rounded label-primary">À noter</span> À ce jour, le champ “Condition d’affichage” du filtre n’est pas branché sur l’éditeur VTL.</p>
+<p><span class="label label-rounded label-primary">À noter</span> À ce jour, le champ “Condition d’affichage” du filtre n’utilise pas l’éditeur VTL.</p>
+<p>Toutes formes d’expression booléenne est valide :</p>
+<pre class="code"><code># Possible
+$MA_VARIABLE_CHAINE$ = &quot;a value&quot;
+
+# Ou
+$MA_VARIABLE_NUMERIQUE$ = 42
+
+# Plus direct
+$MA_VARIABLE_BOOLEENNE$</code></pre>
+<p>Un exemple plus complexe combinant plusieurs variables avec des “et” (<code>and</code>) et des “ou” (<code>or</code>) :</p>
+<pre class="code"><code>nvl($EXCLUSIVE_VAR$, false) and 
+(nvl($OTHER_VAR1$, false) or nvl($OTHER_VAR2$, false) or nvl($OTHER_VAR3$, false))</code></pre>
 <h1 id="gestion-de-la-nullité">Gestion de la nullité</h1>
 <blockquote>
 <p>TODO usage de <code>nvl()</code></p>
@@ -89,11 +102,57 @@ cast(nvl($REVENUS_CONJOINT$, &quot;0&quot;), integer)</code></pre>
 <blockquote>
 <p>TODO</p>
 </blockquote>
-<h1 id="fonctions">Fonctions</h1>
+<h1 id="fonctions-et-opérateurs">Fonctions et opérateurs</h1>
+<h2 id="logique">Logique</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Nom</th>
+<th>Symbole</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ou</td>
+<td>or</td>
+<td>true or false</td>
+</tr>
+<tr class="even">
+<td>Et</td>
+<td>and</td>
+<td>true and false</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="chaînes-de-caractères">Chaînes de caractères</h2>
 <h3 id="remplacer">Remplacer</h3>
-<p>Avec <code>MA_VARIABLE</code> égale à “bag”.</p>
-<pre><code>replace($MA_VARIABLE$, &quot;g&quot;, &quot;c&quot;) # → bac</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nom</th>
+<th style="text-align: left;">Symbole</th>
+<th style="text-align: left;">Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Remplacement</td>
+<td style="text-align: left;">replace</td>
+<td style="text-align: left;"><code>replace("bag", "g", "c") # → bac</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
 </div>
 </body>
 </html>
