@@ -105,6 +105,7 @@ export function remoteToState(remote, currentStores = {}) {
 
 export function remoteToState1(remote) {
   const {
+    owner,
     final,
     id,
     Label: [label],
@@ -117,6 +118,7 @@ export function remoteToState1(remote) {
   } = remote;
 
   return {
+    owner,
     final: final === undefined,
     id,
     label,
