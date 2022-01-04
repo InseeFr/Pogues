@@ -32,8 +32,10 @@
 <p>Les éléments les plus importants à retenir de l’usage de VTL dans Pogues :</p>
 <ul>
 <li>l’écriture se fait via un éditeur de code VTL,</li>
-<li>le type des variables que l’on collecte est toujours “texte”, ce qui oblige à changer ce type pour des opérations numériques,</li>
-<li>…</li>
+<li>le type des variables que l’on collecte est toujours “texte”, ce qui oblige à changer ce type pour des opérations numériques : <code>cast($VARIABLE, integer)</code>,</li>
+<li>les références aux variables doivent être encadrées par des <code>$</code></li>
+<li>il est dans la plupart des cas nécessaires de gérer le cas où la variable n’est pas encore ou plus renseignée - sa valeur est nulle : <code>nvl($MA_VARIABLE, "valeur si nulle")</code>,</li>
+<li>VTL fournit un certains nombres de fonctions utilitaires - on vient de voir <code>cast</code> et <code>nvl</code> - on répertorie les plus utiles dans ce document.</li>
 </ul>
 <h1 id="utiliser-vtl">Utiliser VTL</h1>
 <p>VTL est utilisé dès que l’on souhaite :</p>
@@ -102,8 +104,8 @@ $MA_VARIABLE_NUMERIQUE$ = 42
 # Plus direct
 $MA_VARIABLE_BOOLEENNE$</code></pre>
 <p>Un exemple plus complexe combinant plusieurs variables avec des “et” (<code>and</code>) et des “ou” (<code>or</code>) :</p>
-<pre class="code"><code>nvl($EXCLUSIVE_VAR$, false) and 
-(nvl($OTHER_VAR1$, false) or nvl($OTHER_VAR2$, false) or nvl($OTHER_VAR3$, false))</code></pre>
+<pre class="code"><code>nvl($VARIABLE_EXCLUSIVE$, false) and 
+(nvl($AUTRE_VARIABLE_1$, false) or nvl($AUTRE_VARIABLE_2$, false) or nvl($AUTRE_VARIABLE_3$, false))</code></pre>
 <h1 id="gestion-de-la-nullité">Gestion de la nullité</h1>
 <blockquote>
 <p>TODO usage de <code>nvl()</code></p>
