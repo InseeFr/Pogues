@@ -2,6 +2,8 @@ name: Pogues Tag Release CI
 
 on:
   push:
+    branches:
+      - 'main'
     tags:
       - '*.*.*'
 
