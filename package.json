@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
@@ -17,8 +17,16 @@
       "email": "romain.tailhurat@insee.fr"
     },
     {
-      "name": "Jean-Baptiste Rudant",
-      "email": "jb@noknot.fr"
+      "name": "Loic Henninger",
+      "email": "loic.henninger@insee.fr"
+    },
+    {
+      "name": "Ophelie Rogel",
+      "email": "ophelie.rogel@insee.fr"
+    },
+    {
+      "name": "Nicolas Laval",
+      "email": "nicolas.laval@insee.fr"
     }
   ],
   "license": "MIT",
