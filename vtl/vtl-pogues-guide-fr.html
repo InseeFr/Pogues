@@ -121,6 +121,13 @@ $MA_VARIABLE_BOOLEENNE$</code></pre>
 <blockquote>
 <p>TODO</p>
 </blockquote>
+<h2 id="transtypage">Transtypage</h2>
+<p>Il est parfois nécessaire de passer d’un type de variable à un autre, on parle dans ce cas de transtypage.</p>
+<p>Par exemple, si l’on veut extraire l’année de la date du jour, on va dans un premier temps transformer cette date en chaîne :</p>
+<pre class="code"><code>cast(current_date(),string,&quot;YYYY-MM-DD&quot;)</code></pre>
+<p>C’est la fonction cast qui opère ce transtypage, sa syntaxe est :</p>
+<pre class="code"><code>cast(&lt;variable&gt;, &lt;type cible&gt; [, &lt;motif&gt;])</code></pre>
+<p>Comme vu plus haut, on utilisera fréquemment <code>cast</code> pour correctement typer une variable numérique dans Pogues mais récupérée comme une chaîne dans les outils de collecte.</p>
 <h1 id="fonctions-et-opérateurs">Fonctions et opérateurs</h1>
 <h2 id="logique">Logique</h2>
 <table>
