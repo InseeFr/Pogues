@@ -114,7 +114,7 @@ export const loadOperations = (idSerie, token) => dispatch => {
 };
 
 export const loadOperationsIfNeeded =
-  (idSerie = '', token) =>
+  (token, idSerie = '') =>
   (dispatch, getState) => {
     const state = getState();
     const operations = state.metadataByType.operations || {};
