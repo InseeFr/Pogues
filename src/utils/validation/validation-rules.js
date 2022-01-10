@@ -62,9 +62,6 @@ export const loopRules = {
   nameLoop: [required, nameLoop],
   initialMember: [required],
   finalMember: [required],
-  maximum: [
-    value => (value !== undefined && value !== '' ? minValue(2)(value) : false),
-  ],
   minimum: [
     (value, conf) =>
       minimumRequired(value, conf) && Dictionary.validation_minimum,
