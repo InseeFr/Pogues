@@ -255,7 +255,7 @@ function findQuestionInLoop(componentsStore) {
 
 function getCollectedScope(questionsLoop, id, componentsStore) {
   let isfound = {};
-  Object.keys(questionsLoop).map(key => {
+  Object.keys(questionsLoop).forEach(key => {
     questionsLoop[key].forEach(element => {
       if (
         element.collectedVariables &&
@@ -267,7 +267,6 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
         };
       }
     });
-    return null;
   });
   return isfound;
 }
