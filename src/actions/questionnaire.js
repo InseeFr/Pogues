@@ -310,7 +310,6 @@ export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
       activeExternalVariablesById[variable.id] = variable;
     });
     const supSequence = getSupWeight(activeComponentsById);
-    debugger;
     Object.values(mergesComponentByQuestionnaire)
       .filter(
         element =>
