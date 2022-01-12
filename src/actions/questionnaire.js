@@ -358,9 +358,9 @@ export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
                   activeComponentsById: activeComponent,
                   activeCalculatedVariablesById: activeCalculatedVariablesById,
                   activeExternalVariablesById: activeExternalVariablesById,
-                  activeCollectedVariablesById: {
-                    [component.id]: collectedVaribles,
-                  },
+                  // activeCollectedVariablesById: {
+                  //   [component.id]: collectedVaribles,
+                  // },
                   activeCodeListsById: mergesCodeListByQuestionnaire,
                 },
               },
@@ -373,9 +373,9 @@ export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
                   activeComponentsById: { [questionnaire.id]: questionnaire },
                   activeCalculatedVariablesById: activeCalculatedVariablesById,
                   activeExternalVariablesById: activeExternalVariablesById,
-                  activeCollectedVariablesById: {
-                    [QuestionnaireId]: {},
-                  },
+                  // activeCollectedVariablesById: {
+                  //   [QuestionnaireId]: {},
+                  // },
                   activeCodeListsById: mergesCodeListByQuestionnaire,
                 },
               },
@@ -383,11 +383,20 @@ export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
           }
         } else {
           if (component.type === QUESTION) {
-            component.collectedVariables.forEach(variable => {
-              const find = Object.values(mergedCollectedVariables).find(
-                element => element.id === variable,
-              );
-              collectedVaribles[variable] = find;
+            component.collectedVariables = component.collectedVariables.map(
+              variable => {
+                const find = Object.values(mergedCollectedVariables).find(
+                  element => element.id === variable,
+                );
+                const newId = uuid();
+                find.id = newId;
+                collectedVaribles[newId] = find;
+                return newId;
+              },
+            );
+            // We change Id of the responseFormat (to deal with the case of the fusion of questionnaires sharing the same ids (duplication))
+            Object.values(component.responseFormat).forEach(resp => {
+              if (resp?.id) resp.id = uuid();
             });
           }
           const activeComponent = {
