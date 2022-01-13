@@ -63,23 +63,25 @@ server.get('/persistence/questionnaires/stamps', function (req, res, next) {
   next();
 });
 
-server.get('/persistence/questionnaires/search', function (req, res, next) {
-  const questionnaires1 = questionnaires
-    .map(question => {
-      return {
-        Label: question.Label,
-        id: question.id,
-        lastUpdatedDate: question.lastUpdatedDate,
-        final: question.final,
-        DataCollection: question.DataCollection,
-        TargetMode: question.TargetMode,
-        owner: question.owner,
-      };
-    })
-    .filter(q => q.owner === req.query.owner);
-  res.send(questionnaires1);
-  next();
-});
+server.get(
+  '/persistence/questionnaires/search/meta',
+  function (req, res, next) {
+    const questionnaires1 = questionnaires
+      .filter(q => q.owner === req.query.owner)
+      .map(question => {
+        return {
+          Label: question.Label,
+          id: question.id,
+          lastUpdatedDate: question.lastUpdatedDate,
+          final: question.final,
+          DataCollection: question.DataCollection,
+          TargetMode: question.TargetMode,
+        };
+      });
+    res.send(questionnaires1);
+    next();
+  },
+);
 
 server.get('/persistence/questionnaire/:id', function (req, res, next) {
   var position = getQuestionnairePosition(questionnaires, req.params.id);

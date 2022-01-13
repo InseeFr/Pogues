@@ -21,7 +21,7 @@ const getBaseURI = () => {
 
 const pathInit = 'init';
 const pathQuestionnaireList = 'persistence/questionnaires';
-const pathQuestionnaireListSearch = 'persistence/questionnaires/search';
+const pathQuestionnaireListSearch = 'persistence/questionnaires/search/meta';
 const pathQuestionnaire = 'persistence/questionnaire';
 const pathSearch = 'search';
 const pathSeriesList = 'search/series';
