@@ -19,10 +19,12 @@ class ResponseFormatDatatypeDate extends Component {
 
   render() {
     let formatini = this.props.format;
-    if (this.props.type === 'TABLE') {
+    if (this.props.type === 'TABLE' && !this.props.isCollectedVariables) {
       formatini = this.props.formatTableList
         ? this.props.formatTableList
         : this.props.formatTable;
+    } else if (this.props.type === 'TABLE' && this.props.isCollectedVariables) {
+      formatini = this.props.formatCollectedVariables;
     }
     return (
       <FormSection name={this.props.name}>
@@ -88,6 +90,7 @@ class ResponseFormatDatatypeDate extends Component {
 const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {
+    formatCollectedVariables: selector(state, 'collectedVariables.DATE.format'),
     formatTable: selector(
       state,
       'responseFormat.TABLE.LIST_MEASURE.SIMPLE.DATE.format',
