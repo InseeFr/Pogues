@@ -203,6 +203,17 @@ export const CODES_LISTS_PANELS = [
   },
 ];
 
+export const CODES_LISTS_PANELS_SEARCH_DISABLE = [
+  {
+    dictionary: 'newCodesList',
+    value: CODES_LIST_INPUT_ENUM.NEW,
+  },
+  {
+    dictionary: 'questionnaireCodesList',
+    value: CODES_LIST_INPUT_ENUM.QUEST,
+  },
+];
+
 export const INTEGRITY_TYPES = {
   QUESTIONNAIRE_LENGTH: 'QUESTIONNAIRE_LENGTH',
   UNIQUE_COMPONENT_NAME: 'UNIQUE_COMPONENT_NAME',
