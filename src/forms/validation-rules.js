@@ -104,9 +104,7 @@ export function name(value = '') {
 }
 
 export function nameLoop(value = '') {
-  return value !== '' && !/^[A-Z0-9\-_]+$/i.test(value)
-    ? Dictionary.validationInvalidName
-    : undefined;
+  return name(value);
 }
 
 export function minimumRequired(value, { form: { maximum } }) {

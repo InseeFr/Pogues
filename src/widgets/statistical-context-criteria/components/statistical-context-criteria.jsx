@@ -37,7 +37,7 @@ const StatisticalContextCriteria = props => {
   useEffect(() => {
     loadSeriesIfNeeded(token);
     if (selectedSerie !== selectedSerieState) {
-      loadOperationsIfNeeded(selectedSerie, token);
+      loadOperationsIfNeeded(token, selectedSerie);
       setSelectedSerieState(selectedSerie);
     }
 
