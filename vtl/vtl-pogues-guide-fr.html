@@ -129,6 +129,8 @@ $MA_VARIABLE_BOOLEENNE$</code></pre>
 <pre class="code"><code>cast(&lt;variable&gt;, &lt;type cible&gt; [, &lt;motif&gt;])</code></pre>
 <p>Comme vu plus haut, on utilisera fréquemment <code>cast</code> pour correctement typer une variable numérique dans Pogues mais récupérée comme une chaîne dans les outils de collecte.</p>
 <h1 id="fonctions-et-opérateurs">Fonctions et opérateurs</h1>
+<p>L’usage de VTL dans Pogues et les outils de collecte s’appuie sur les bibliothèques Lunatic (pour les composants graphiques) et Trevas (qui fournit le moteur VTL).</p>
+<p>C’est l’état d’avancement de cette dernière qui permet de connaître les opérateurs et fonctions disponibles : la référence est donc la <a href="https://inseefr.github.io/Trevas-JS/fr/coverage.html">page de suivi de l’implémentation</a>.</p>
 <h2 id="logique">Logique</h2>
 <table>
 <thead>
@@ -179,6 +181,14 @@ $MA_VARIABLE_BOOLEENNE$</code></pre>
 </tr>
 </tbody>
 </table>
+<h1 id="cookbook">Cookbook</h1>
+<h2 id="dates">Dates</h2>
+<h3 id="récupérer-lannée">Récupérer l’année</h3>
+<p>On a créé une question dont la réponse est au format Date dans Pogues, la variable collectée <code>DATE_NAISSANCE</code>.</p>
+<p>Voici comment obtenir l’année :</p>
+<pre class="code"><code>substr(cast($DATE_NAISSANCE$, string), 1, 4)</code></pre>
+<p>On transforme la variable de type date en chaîne de caractères, puis on extrait les 4 premiers caractères.</p>
+<p><span class="label label-rounded label-warning">Attention !</span> Si Pogues permet de choisir trois types de formats de date, seul le format JJMMAAAA (jour, mois, année) est aujourd’hui proposé à l’enquêté. Par ailleurs, si le format présenté lui-même est JJMMAAAA, la variable collectée est au format AAAAMMJJ, ce qui explique le code VTL précédent.</p>
 </div>
 </body>
 </html>
