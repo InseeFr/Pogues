@@ -80,11 +80,13 @@ export const loadSeries = token => dispatch => {
 
   return getSeries(token)
     .then(series => {
-      const seriesMetadata = series.map(s => ({
-        id: s.id,
-        value: s.id,
-        label: s.label,
-      }));
+      const seriesMetadata = series
+        .map(s => ({
+          id: s.id,
+          value: s.id,
+          label: s.label.filter(lab => lab.langue === 'fr')[0].contenu,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label));
       return dispatch(loadMetadataSuccess('series', seriesMetadata));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
@@ -106,12 +108,14 @@ export const loadOperations = (idSerie, token) => dispatch => {
 
   return getOperations(idSerie, token)
     .then(operations => {
-      const operationsMetadata = operations.map(o => ({
-        id: o.id,
-        value: o.id,
-        label: o.label,
-        serie: o.parent,
-      }));
+      const operationsMetadata = operations
+        .map(o => ({
+          id: o.id,
+          value: o.id,
+          label: o.label.filter(lab => lab.langue === 'fr')[0].contenu,
+          serie: o.parent,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label));
       return dispatch(loadMetadataSuccess('operations', operationsMetadata));
     })
     .catch(err => dispatch(loadMetadataFailure(err)));
@@ -144,7 +148,7 @@ export const loadCampaigns = (idOperation, token) => dispatch => {
       const campaignsMetadata = campaigns.map(c => ({
         id: c.id,
         value: c.id,
-        label: c.label,
+        label: c.label.filter(lab => lab.langue === 'fr')[0].contenu,
         operation: c.parent,
       }));
       return dispatch(loadMetadataSuccess('campaigns', campaignsMetadata));

@@ -84,7 +84,9 @@ const PageQuestionnaire = props => {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
       setActiveQuestionnaire(questionnaire);
-      loadStatisticalContext(idCampaign, token);
+      if (idCampaign) {
+        loadStatisticalContext(idCampaign, token);
+      }
       setQuestionnaireState(questionnaire);
     }
     if (
@@ -153,7 +155,9 @@ const PageQuestionnaire = props => {
           activeQuestionnaire.campaigns[
             activeQuestionnaire.campaigns.length - 1
           ];
-        loadStatisticalContext(idCampaign, token);
+        if (idCampaign) {
+          loadStatisticalContext(idCampaign, token);
+        }
       }
       if (activeQuestionnaire.operation) {
         loadCampaignsIfNeeded(activeQuestionnaire.operation, token);
