@@ -1,79 +1,89 @@
 module.exports = [
   {
+    label: [
+      {
+        langue: 'fr',
+        contenu: 'Serie 01',
+      },
+      {
+        langue: 'en',
+        contenu: 'Serie 01',
+      },
+    ],
     id: 'serie01',
-    label: 'Serie 01',
-    parent: null,
-    groupId: null,
-    subGroupId: null,
-    studyUnitId: null,
-    dataCollectionId: null,
-    resourcePackageId: null,
-    type: 'SubGroup',
+    frequence: [
+      {
+        id: 'Q',
+        label: [
+          {
+            langue: 'fr',
+            contenu: 'Trimestrielle',
+          },
+          {
+            langue: 'en',
+            contenu: 'Quartely',
+          },
+        ],
+        uri: 'http://bauhaus/codes/frequence/T',
+      },
+    ],
   },
   {
+    label: [
+      {
+        langue: 'fr',
+        contenu: 'Serie 02',
+      },
+      {
+        langue: 'en',
+        contenu: 'Serie 02',
+      },
+    ],
     id: 'serie02',
-    label: 'Serie 02',
-    parent: null,
-    groupId: null,
-    subGroupId: null,
-    studyUnitId: null,
-    dataCollectionId: null,
-    resourcePackageId: null,
-    type: 'SubGroup',
+    frequence: [
+      {
+        id: 'P',
+        label: [
+          {
+            langue: 'fr',
+            contenu: 'Ponctuelle ou apériodique',
+          },
+          {
+            langue: 'en',
+            contenu: 'Punctual or aperiodic',
+          },
+        ],
+        uri: 'http://bauhaus/codes/frequence/P',
+      },
+    ],
   },
   {
+    label: [
+      {
+        langue: 'fr',
+        contenu: 'Serie 03',
+      },
+      {
+        langue: 'en',
+        contenu: 'Serie 03',
+      },
+    ],
     id: 'serie03',
-    label: 'Serie 03',
-    parent: null,
-    groupId: null,
-    subGroupId: null,
-    studyUnitId: null,
-    dataCollectionId: null,
-    resourcePackageId: null,
-    type: 'SubGroup',
-  },
-  {
-    id: 'serie04',
-    label: 'Serie 04',
-    parent: null,
-    groupId: null,
-    subGroupId: null,
-    studyUnitId: null,
-    dataCollectionId: null,
-    resourcePackageId: null,
-    type: 'SubGroup',
-  },
-  {
-    id: 'serie05',
-    label: 'Serie 05',
-    parent: null,
-    groupId: null,
-    subGroupId: null,
-    studyUnitId: null,
-    dataCollectionId: null,
-    resourcePackageId: null,
-    type: 'SubGroup',
-  },
-  {
-    id: 'serie06',
-    label: 'Serie 06',
-    parent: null,
-    groupId: null,
-    subGroupId: null,
-    studyUnitId: null,
-    dataCollectionId: null,
-    resourcePackageId: null,
-    type: 'SubGroup',
-  },
-  {
-    id: 'serie07',
-    label: 'Serie 07',
-    parent: null,
-    groupId: null,
-    subGroupId: null,
-    studyUnitId: null,
-    dataCollectionId: null,
-    resourcePackageId: null,
-    type: 'SubGroup',
+    frequence: [
+      {
+        id: 'M',
+        label: [
+          {
+            langue: 'fr',
+            contenu: 'Mensuelle',
+          },
+          {
+            langue: 'en',
+            contenu: 'Monthly',
+          },
+        ],
+        uri: 'http://bauhaus/codes/frequence/M',
+      },
+    ],
   },
 ];

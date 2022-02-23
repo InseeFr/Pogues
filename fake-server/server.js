@@ -112,12 +112,12 @@ server.post('/persistence/questionnaires', function (req, res, next) {
   next();
 });
 
-server.get('/search/series', function (req, res, next) {
+server.get('/meta-data/series', function (req, res, next) {
   res.send(series);
   next();
 });
 
-server.get('/search/series/:id/operations', function (req, res, next) {
+server.get('/meta-data/series/:id/operations', function (req, res, next) {
   res.send(
     operations.filter(function (o) {
       return o.parent === req.params.id;
@@ -126,7 +126,7 @@ server.get('/search/series/:id/operations', function (req, res, next) {
   next();
 });
 
-server.get('/search/operations/:id/collections', function (req, res, next) {
+server.get('/meta-data/operations/:id/collections', function (req, res, next) {
   res.send(
     campaigns.filter(function (c) {
       return c.parent === req.params.id;
@@ -135,7 +135,7 @@ server.get('/search/operations/:id/collections', function (req, res, next) {
   next();
 });
 
-server.get('/search/context/collection/:id', function (req, res, next) {
+server.get('/meta-data/context/collection/:id', function (req, res, next) {
   var campaign = campaigns.filter(function (c) {
     return c.id === req.params.id;
   })[0];
