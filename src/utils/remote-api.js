@@ -24,8 +24,8 @@ const pathQuestionnaireList = 'persistence/questionnaires';
 const pathQuestionnaireListSearch = 'persistence/questionnaires/search/meta';
 const pathQuestionnaire = 'persistence/questionnaire';
 const pathSearch = 'search';
-const pathSeriesList = 'search/series';
-const pathOperationsList = 'search/operations';
+const pathSeriesList = 'meta-data/series';
+const pathOperationsList = 'meta-data/operations';
 const pathMetadata = 'meta-data';
 const pathVisualizePdf = 'transform/visualize-pdf';
 const pathVisualizeSpec = 'transform/visualize-spec';
@@ -261,14 +261,14 @@ export const getOperations = async (id, token) => {
 
 export const getCampaigns = async (id, token) => {
   const b = await getBaseURI();
-  return fetch(`${b}/${pathOperationsList}/${id}/collections`, {
+  return fetch(`${b}/${pathOperationsList}/${id}/data-collections`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 };
 
 export const getContextFromCampaign = async (id, token) => {
   const b = await getBaseURI();
-  return fetch(`${b}/${pathSearch}/context/collection/${id}`, {
+  return fetch(`${b}/${pathMetadata}/context/collection/${id}`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 };
