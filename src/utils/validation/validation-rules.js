@@ -46,9 +46,9 @@ const {
 } = TABS_PATHS;
 
 export const questionnaireRules = {
-  serie: [requiredSelect],
-  operation: [requiredSelect],
-  campaigns: [required],
+  // serie: [requiredSelect],
+  // operation: [requiredSelect],
+  // campaigns: [required],
   name: [required, name],
   label: [required],
 };

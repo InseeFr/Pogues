@@ -673,6 +673,10 @@ const dictionary = {
     fr: 'Les noms de composant (séquence, sous-séquence, boucle et question) doivent être uniques :',
     en: 'Component names (sequence, subsequence, loop and question) should be unique:',
   },
+  errorMissingStatisticalContext: {
+    fr: "La série, l'opération statistique ou la campagne est manquante",
+    en: 'The serie, the study unit or the data collection is missing',
+  },
   questionnaireValid: {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',

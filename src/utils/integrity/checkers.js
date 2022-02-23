@@ -14,6 +14,7 @@ import checkerUniqueCollectedVariableName from './checker-unique-collected-varia
 import checkerUniqueComponentName from './checker-unique-component-name';
 import checkerTargetMode from './checker-declaration-mode';
 import checkerExistingTarget from './checker-existing-target';
+import checkerMissingStatisticalContext from './checker-missing-statistical-context';
 
 export default {
   [SET_ACTIVE_COMPONENTS]: combineCheckers(
@@ -21,6 +22,7 @@ export default {
     checkerComponentTarget,
     checkerUniqueComponentName,
     checkerTargetMode,
+    checkerMissingStatisticalContext,
   ),
   [SET_ACTIVE_VARIABLES]: combineCheckers(checkerUniqueCollectedVariableName),
   [CREATE_COMPONENT]: combineCheckers(
