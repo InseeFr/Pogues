@@ -42,6 +42,7 @@ const QuestionnaireList = props => {
 
   useEffect(() => {
     getStampsList(token).then(r => {
+      r.sort((a, b) => a.label.localeCompare(b.label));
       setOptions(r);
     });
   }, [token]);
