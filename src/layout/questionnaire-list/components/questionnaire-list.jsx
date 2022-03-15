@@ -47,6 +47,10 @@ const QuestionnaireList = props => {
     });
   }, [token]);
 
+  useEffect(() => {
+    setSelectedStamp(stamp || 'FAKEPERMISSION');
+  }, []);
+
   // TODO: Find why 2 calls
   useEffect(() => {
     if (selectedStamp) {
