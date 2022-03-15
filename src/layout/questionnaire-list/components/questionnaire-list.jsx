@@ -49,6 +49,7 @@ const QuestionnaireList = props => {
 
   useEffect(() => {
     setSelectedStamp(stamp || 'FAKEPERMISSION');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // TODO: Find why 2 calls
