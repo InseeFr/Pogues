@@ -8,6 +8,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
 import { QuestionnaireList } from 'layout/questionnaire-list';
+import Loader from 'layout/loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
@@ -41,7 +42,7 @@ const customModalStyles = {
     display: 'absolute',
     textAlign: 'center',
     verticAlalign: 'middle',
-    top: '10%',
+    top: '40%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
@@ -194,6 +195,7 @@ class GenericInput extends Component {
         id={COMPONENT_ID}
         style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}
       >
+        {this.props.isLoadingVisualization && <Loader />}
         <NavigationPrompt renderIfNotActive when={isQuestionnaireModified}>
           {({ isActive, onCancel, onConfirm }) => {
             if (isActive) {
@@ -364,6 +366,19 @@ class GenericInput extends Component {
           <p>{Dictionary.notSaved}</p>
           <button
             onClick={this.handleCloseModal}
+            style={customModalbuttonStyles}
+          >
+            {Dictionary.close}
+          </button>
+        </ReactModal>
+        <ReactModal
+          isOpen={this.props.showVisualizationErrorPopup}
+          ariaHideApp={false}
+          style={customModalStyles}
+        >
+          <p>{Dictionary.visualizationError}</p>
+          <button
+            onClick={this.props.removeVisualizationError}
             style={customModalbuttonStyles}
           >
             {Dictionary.close}
