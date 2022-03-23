@@ -88,6 +88,12 @@ export const getVizualisationUrl = async (path, qr, token) => {
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      }
+      throw new Error('Something went wrong');
+    })
     .then(response => response.text())
     .then(url => {
       const a = document.createElement('a');
@@ -165,7 +171,14 @@ export const visualizePdf = async (qr, token) => {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
-  }).then(openDocument);
+  })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      }
+      throw new Error('Something went wrong');
+    })
+    .then(openDocument);
 };
 
 /**
@@ -179,7 +192,14 @@ export const visualizeSpec = async (qr, token) => {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
-  }).then(openDocument);
+  })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      }
+      throw new Error('Something went wrong');
+    })
+    .then(openDocument);
 };
 
 /**
