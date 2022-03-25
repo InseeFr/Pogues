@@ -191,6 +191,10 @@ const dictionary = {
     en: 'Statement label',
     fr: 'Libellé de la déclaration',
   },
+  declaration_label_code_card: {
+    en: 'Code of the card',
+    fr: 'Code de la carte',
+  },
   type: {
     en: 'Type',
     fr: 'Type',
