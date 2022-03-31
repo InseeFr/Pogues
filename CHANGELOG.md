@@ -8,3 +8,10 @@
 - **[Fixes][merge]** : Fixing bug where merging two questionnaires delete the owner part of the resulting questionnaire
 - **[Techs]** : Use a feature flag for referential code lists
 - **[Techs]** Upgrading dependancies.
+
+## 1.1.1 - 31/03/22
+
+- **[Features]** : A spinner is displayed on the screen when waiting for a visualization and an information box appears if an error occured
+- **[Features]** : Stamps are sorted alphabetically on Home page
+- **[Features]** : The stamp of the user is pre-selected on Home page
+- **[Features]** : In the declaration tab, the label is modified when card code is selected
