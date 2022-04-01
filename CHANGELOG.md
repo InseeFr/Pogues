@@ -15,3 +15,4 @@
 - **[Features]** : Stamps are sorted alphabetically on Home page
 - **[Features]** : The stamp of the user is pre-selected on Home page
 - **[Features]** : In the declaration tab, the label is modified when card code is selected
+- **[Techs]** Upgrading dependancies.
