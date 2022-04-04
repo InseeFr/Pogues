@@ -140,13 +140,12 @@ export const visualizeWebStromaeV2 = async (qr, token) => {
 };
 
 /**
- * This method will send a request in order to get the content
- * of the generated DDI document for the active questionnaire.
- * @param {*} qr The active questionnaire
+ * This method will call the back in order to get a documpent for
+ * the visualization of the questionnaire in DDI, PDF and ODT (Spec)
  */
-export const visualizeDDI = async (qr, token) => {
+export const getVizualisationDocument = async (path, qr, token) => {
   const b = await getBaseURI();
-  return fetch(`${b}/${pathVisualizeDDI}`, {
+  return fetch(`${b}/${path}`, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
@@ -158,6 +157,15 @@ export const visualizeDDI = async (qr, token) => {
       throw new Error('Something went wrong');
     })
     .then(openDocument);
+};
+
+/**
+ * This method will send a request in order to get the content
+ * of the generated DDI document for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeDDI = async (qr, token) => {
+  await getVizualisationDocument(`${pathVisualizeDDI}`, qr, token);
 };
 
 /**
@@ -166,19 +174,7 @@ export const visualizeDDI = async (qr, token) => {
  * @param {*} qr The active questionnaire
  */
 export const visualizePdf = async (qr, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathVisualizePdf}`, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      }
-      throw new Error('Something went wrong');
-    })
-    .then(openDocument);
+  await getVizualisationDocument(`${pathVisualizePdf}`, qr, token);
 };
 
 /**
@@ -187,19 +183,7 @@ export const visualizePdf = async (qr, token) => {
  * @param {*} qr The active questionnaire
  */
 export const visualizeSpec = async (qr, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathVisualizeSpec}`, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      }
-      throw new Error('Something went wrong');
-    })
-    .then(openDocument);
+  await getVizualisationDocument(`${pathVisualizeSpec}`, qr, token);
 };
 
 /**
