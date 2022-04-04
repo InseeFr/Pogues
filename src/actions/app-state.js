@@ -413,49 +413,32 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
         )
       : state.appState.activeComponentsById;
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
-    if (type === 'pdf') {
-      visualizePdf(questionnaireModel, token)
+    const getVisualization = () => {
+      if (type === 'pdf') {
+        return visualizePdf;
+      } else if (type === 'spec') {
+        return visualizeSpec;
+      } else if (type === 'html') {
+        return visualizeHtml;
+      } else if (type === 'stromae-v2') {
+        return visualizeWebStromaeV2;
+      } else if (type === 'queen') {
+        return visualizeQueen;
+      } else if (type === 'ddi') {
+        return visualizeDDI;
+      } else {
+        return null;
+      }
+    };
+    const visualize = () => {
+      getVisualization()(questionnaireModel, token)
         .then(() => dispatch(loadingVisualizationSuccess()))
         .catch(error => {
           dispatch(loadingVisualizationFailure(error));
           dispatch(addVisualizationError());
         });
-    } else if (type === 'spec') {
-      visualizeSpec(questionnaireModel, token)
-        .then(() => dispatch(loadingVisualizationSuccess()))
-        .catch(error => {
-          dispatch(loadingVisualizationFailure(error));
-          dispatch(addVisualizationError());
-        });
-    } else if (type === 'html') {
-      visualizeHtml(questionnaireModel, token)
-        .then(() => dispatch(loadingVisualizationSuccess()))
-        .catch(error => {
-          dispatch(loadingVisualizationFailure(error));
-          dispatch(addVisualizationError());
-        });
-    } else if (type === 'stromae-v2') {
-      visualizeWebStromaeV2(questionnaireModel, token)
-        .then(() => dispatch(loadingVisualizationSuccess()))
-        .catch(error => {
-          dispatch(loadingVisualizationFailure(error));
-          dispatch(addVisualizationError());
-        });
-    } else if (type === 'queen') {
-      visualizeQueen(questionnaireModel, token)
-        .then(() => dispatch(loadingVisualizationSuccess()))
-        .catch(error => {
-          dispatch(loadingVisualizationFailure(error));
-          dispatch(addVisualizationError());
-        });
-    } else if (type === 'ddi') {
-      visualizeDDI(questionnaireModel, token)
-        .then(() => dispatch(loadingVisualizationSuccess()))
-        .catch(error => {
-          dispatch(loadingVisualizationFailure(error));
-          dispatch(addVisualizationError());
-        });
-    }
+    };
+    visualize();
   };
 };
 
