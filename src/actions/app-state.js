@@ -8,6 +8,7 @@ import {
   visualizeQueen,
   visualizeWebStromaeV2,
 } from 'utils/remote-api';
+import { addVisualizationError } from './errors';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 
@@ -37,6 +38,10 @@ export const LOAD_STATISTICAL_CONTEXT_FAILURE =
 export const ADD_LIST_INVALID_ITEMS = 'ADD_LIST_INVALID_ITEMS';
 export const CREATE_PAGE_BREAK = 'CREATE_PAGE_BREAK';
 export const REMOVE_PAGE_BREAK = 'REMOVE_PAGE_BREAK';
+
+export const START_LOADING_VISUALIZATION = 'START_LOADING_VISUALIZATION';
+export const LOADING_VISUALIZATION_SUCCESS = 'LOADING_VISUALIZATION_SUCCESS';
+export const LOADING_VISUALIZATION_FAILURE = 'LOADING_VISUALIZATION_FAILURE';
 
 /**
  * Add a pagebreak to a component
@@ -374,6 +379,21 @@ export const removeControlsAndRedirections = activeComponentsById => {
   }, {});
 };
 
+export const startLoadingVisualization = () => ({
+  type: START_LOADING_VISUALIZATION,
+});
+
+export const loadingVisualizationSuccess = () => ({
+  type: LOADING_VISUALIZATION_SUCCESS,
+});
+
+export const loadingVisualizationFailure = error => ({
+  type: LOADING_VISUALIZATION_FAILURE,
+  payload: {
+    error,
+  },
+});
+
 /**
  * This method will call the corresponding REST endpoint based on the type of visualization we want.
  * Also, thanks to the componentId parameter, we can generate a part of the questionnaire
@@ -382,6 +402,7 @@ export const removeControlsAndRedirections = activeComponentsById => {
  */
 export const visualizeActiveQuestionnaire = (type, componentId, token) => {
   return (dispatch, getState) => {
+    dispatch(startLoadingVisualization());
     const state = getState();
     const componentsById = componentId
       ? removeControlsAndRedirections(
@@ -392,19 +413,32 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
         )
       : state.appState.activeComponentsById;
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
-    if (type === 'pdf') {
-      visualizePdf(questionnaireModel, token);
-    } else if (type === 'spec') {
-      visualizeSpec(questionnaireModel, token);
-    } else if (type === 'html') {
-      visualizeHtml(questionnaireModel, token);
-    } else if (type === 'stromae-v2') {
-      visualizeWebStromaeV2(questionnaireModel, token);
-    } else if (type === 'queen') {
-      visualizeQueen(questionnaireModel, token);
-    } else if (type === 'ddi') {
-      visualizeDDI(questionnaireModel, token);
-    }
+    const getVisualization = () => {
+      if (type === 'pdf') {
+        return visualizePdf;
+      } else if (type === 'spec') {
+        return visualizeSpec;
+      } else if (type === 'html') {
+        return visualizeHtml;
+      } else if (type === 'stromae-v2') {
+        return visualizeWebStromaeV2;
+      } else if (type === 'queen') {
+        return visualizeQueen;
+      } else if (type === 'ddi') {
+        return visualizeDDI;
+      } else {
+        return null;
+      }
+    };
+    const visualize = () => {
+      getVisualization()(questionnaireModel, token)
+        .then(() => dispatch(loadingVisualizationSuccess()))
+        .catch(error => {
+          dispatch(loadingVisualizationFailure(error));
+          dispatch(addVisualizationError());
+        });
+    };
+    visualize();
   };
 };
 

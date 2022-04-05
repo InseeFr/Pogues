@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
@@ -8,6 +8,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
 import { QuestionnaireList } from 'layout/questionnaire-list';
+import Loader from 'layout/loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
@@ -27,7 +28,7 @@ export const propTypes = {
   componentIdForPageBreak: PropTypes.string.isRequired,
 };
 
-const defaultProps = {
+export const defaultProps = {
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
@@ -36,12 +37,12 @@ const defaultProps = {
 
 // Components
 
-const customModalStyles = {
+export const customModalStyles = {
   content: {
     display: 'absolute',
     textAlign: 'center',
     verticAlalign: 'middle',
-    top: '10%',
+    top: '40%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
@@ -51,7 +52,7 @@ const customModalStyles = {
     transform: 'translate(-50%, -50%)',
   },
 };
-const customLoopModalStyles = {
+export const customLoopModalStyles = {
   content: {
     display: 'absolute',
     textAlign: 'center',
@@ -67,7 +68,7 @@ const customLoopModalStyles = {
   },
 };
 
-const customModalbuttonStyles = {
+export const customModalbuttonStyles = {
   background: '#15417a',
   color: 'white',
   boxShadow: 'none',
@@ -78,334 +79,299 @@ const customModalbuttonStyles = {
   background: '#15417a',
 };
 
-class GenericInput extends Component {
-  static propTypes = propTypes;
+const GenericInput = props => {
+  const {
+    activeQuestionnaire,
+    currentQuestion,
+    componentIdForPageBreak,
+    isLoadingVisualization,
+    isLoopsValid,
+    isQuestionnaireModified,
+    isQuestionnaireValid,
+    isQuestionnaireHaveError,
+    placeholders,
+    stamp,
+    token,
+    handleNewPageBreak,
+    loadQuestionnaireList,
+    removeVisualizationError,
+    saveActiveQuestionnaire,
+    showVisualizationErrorPopup,
+    visualizeActiveQuestionnaire,
+  } = props;
 
-  static defaultProps = defaultProps;
+  const [showNewComponentModal, setShowNewComponentModal] = useState(false);
+  const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
+  const [showNewLoopModal, setShowNewLoopModal] = useState(false);
+  const [typeNewComponent, setTypeNewComponent] = useState('');
+  const [showNewQuestionnaire, setShowNewQuestionnaire] = useState(false);
 
-  constructor(props) {
-    super(props);
+  const handleNewQuestion = () => {
+    setShowNewQuestionnaire(true);
+    loadQuestionnaireList(stamp, token);
+  };
 
-    this.state = {
-      showNewComponentModal: false,
-      showNewUnsavedModal: false,
-      showNewLoopModal: false,
-      typeNewComponent: '',
-      showNewQuestionnaire: false,
-    };
+  const handleCloseNewQuestion = () => {
+    setShowNewQuestionnaire(false);
+  };
 
-    this.handleOpenNewComponent = this.handleOpenNewComponent.bind(this);
-    this.handleCloseNewComponent = this.handleCloseNewComponent.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleNewQuestion = this.handleNewQuestion.bind(this);
-    this.handleCloseNewQuestion = this.handleCloseNewQuestion.bind(this);
-  }
+  const handleOpenNewComponent = componentType => {
+    setShowNewComponentModal(true);
+    setTypeNewComponent(componentType);
+  };
 
-  handleNewQuestion() {
-    const newState = {
-      ...this.state,
-      showNewQuestionnaire: true,
-    };
-    this.setState(newState);
-    this.props.loadQuestionnaireList(this.props.stamp, this.props.token);
-  }
+  const handleCloseNewComponent = () => {
+    setShowNewComponentModal(false);
+    setShowNewUnsavedModal(false);
+    setTypeNewComponent('');
+  };
 
-  handleCloseNewQuestion() {
-    const newState = {
-      ...this.state,
-      showNewQuestionnaire: false,
-    };
-    this.setState(newState);
-  }
+  const handleCloseModal = () => {
+    setShowNewUnsavedModal(false);
+    setShowNewLoopModal(false);
+  };
 
-  handleOpenNewComponent(componentType) {
-    const newState = {
-      ...this.state,
-      showNewComponentModal: true,
-      typeNewComponent: componentType,
-    };
-    this.setState(newState);
-  }
-
-  handleCloseNewComponent() {
-    const newState = {
-      ...this.state,
-      showNewComponentModal: false,
-      showNewUnsavedModal: false,
-      typeNewComponent: '',
-    };
-    this.setState(newState);
-  }
-
-  handleCloseModal() {
-    const newState = {
-      ...this.state,
-      showNewUnsavedModal: false,
-      showNewLoopModal: false,
-    };
-    this.setState(newState);
-  }
-
-  /**
-   * Handler when the user want to add pageBreak to a question
-   */
-  handleNewPageBreak() {
-    this.props.handleNewPageBreak(this.props.componentIdForPageBreak);
-  }
-
-  saveActiveQuestionnaire() {
-    if (!this.props.isLoopsValid) {
-      const newState = {
-        ...this.state,
-        showNewLoopModal: true,
-      };
-      this.setState(newState);
+  const saveQuestionnaire = () => {
+    if (!isLoopsValid) {
+      setShowNewLoopModal(true);
     } else {
-      this.props.saveActiveQuestionnaire(this.props.token).then(() => {
-        if (this.props.isQuestionnaireHaveError) {
-          const newState = {
-            ...this.state,
-            showNewUnsavedModal: true,
-          };
-          this.setState(newState);
+      saveActiveQuestionnaire(token).then(() => {
+        if (isQuestionnaireHaveError) {
+          setShowNewUnsavedModal(true);
         }
       });
     }
-  }
+  };
 
-  render() {
-    const {
-      placeholders,
-      isQuestionnaireValid,
-      isQuestionnaireModified,
-      componentIdForPageBreak,
-      activeQuestionnaire,
-    } = this.props;
-    const { typeNewComponent } = this.state;
-    const newComponentParent = typeNewComponent
-      ? placeholders[typeNewComponent].parent
-      : '';
-    const newComponentWeight = typeNewComponent
-      ? placeholders[typeNewComponent].weight
-      : 0;
+  const newComponentParent = typeNewComponent
+    ? placeholders[typeNewComponent].parent
+    : '';
+  const newComponentWeight = typeNewComponent
+    ? placeholders[typeNewComponent].weight
+    : 0;
 
-    return (
-      <div
-        id={COMPONENT_ID}
-        style={{ display: this.state.showNewComponentModal ? 'none' : 'block' }}
+  return (
+    <div
+      id={COMPONENT_ID}
+      style={{ display: showNewComponentModal ? 'none' : 'block' }}
+    >
+      {isLoadingVisualization && <Loader />}
+      <NavigationPrompt renderIfNotActive when={isQuestionnaireModified}>
+        {({ isActive, onCancel, onConfirm }) => {
+          if (isActive) {
+            return (
+              <ReactModal
+                isOpen
+                ariaHideApp={false}
+                shouldCloseOnOverlayClick={false}
+                style={customModalStyles}
+              >
+                <p>{Dictionary.modification}</p>
+                <button onClick={onCancel} style={customModalbuttonStyles}>
+                  {Dictionary.no}
+                </button>
+                <button onClick={onConfirm} style={customModalbuttonStyles}>
+                  {Dictionary.yes}
+                </button>
+              </ReactModal>
+            );
+          }
+          return null;
+        }}
+      </NavigationPrompt>
+      <span>{Dictionary.addObject}</span>
+      <button
+        id="add-question"
+        className="btn-white"
+        disabled={placeholders[QUESTION].parent === ('' || 'idendquest')}
+        onClick={() => {
+          handleOpenNewComponent(QUESTION);
+        }}
       >
-        <NavigationPrompt renderIfNotActive when={isQuestionnaireModified}>
-          {({ isActive, onCancel, onConfirm }) => {
-            if (isActive) {
-              return (
-                <ReactModal
-                  isOpen
-                  ariaHideApp={false}
-                  shouldCloseOnOverlayClick={false}
-                  style={customModalStyles}
-                >
-                  <p>{Dictionary.modification}</p>
-                  <button onClick={onCancel} style={customModalbuttonStyles}>
-                    {Dictionary.no}
-                  </button>
-                  <button onClick={onConfirm} style={customModalbuttonStyles}>
-                    {Dictionary.yes}
-                  </button>
-                </ReactModal>
-              );
-            }
-            return null;
-          }}
-        </NavigationPrompt>
-        <span>{Dictionary.addObject}</span>
-        <button
-          id="add-question"
-          className="btn-white"
-          disabled={placeholders[QUESTION].parent === ('' || 'idendquest')}
-          onClick={() => {
-            this.handleOpenNewComponent(QUESTION);
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.question}
-        </button>
-        <button
-          id="add-subsequence"
-          className="btn-white"
-          disabled={placeholders[SUBSEQUENCE].parent === ('' || 'idendquest')}
-          onClick={() => {
-            this.handleOpenNewComponent(SUBSEQUENCE);
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.subSequence}
-        </button>
-        <button
-          id="add-sequence"
-          className="btn-white"
-          disabled={placeholders[SEQUENCE].parent === ''}
-          onClick={() => {
-            this.handleOpenNewComponent(SEQUENCE);
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.sequence}
-        </button>
+        <span className="glyphicon glyphicon-plus" />
+        {Dictionary.question}
+      </button>
+      <button
+        id="add-subsequence"
+        className="btn-white"
+        disabled={placeholders[SUBSEQUENCE].parent === ('' || 'idendquest')}
+        onClick={() => {
+          handleOpenNewComponent(SUBSEQUENCE);
+        }}
+      >
+        <span className="glyphicon glyphicon-plus" />
+        {Dictionary.subSequence}
+      </button>
+      <button
+        id="add-sequence"
+        className="btn-white"
+        disabled={placeholders[SEQUENCE].parent === ''}
+        onClick={() => {
+          handleOpenNewComponent(SEQUENCE);
+        }}
+      >
+        <span className="glyphicon glyphicon-plus" />
+        {Dictionary.sequence}
+      </button>
+      <button
+        id="add-loop"
+        className="btn-white"
+        disabled={!placeholders[LOOP]}
+        onClick={() => {
+          handleOpenNewComponent(LOOP);
+        }}
+      >
+        <span className="glyphicon glyphicon-plus" />
+        {Dictionary.loop}
+      </button>
+      {activeQuestionnaire.dynamiqueSpecified === 'Filtres' ? (
         <button
           id="add-loop"
           className="btn-white"
-          disabled={!placeholders[LOOP]}
+          disabled={!placeholders[FILTER]}
           onClick={() => {
-            this.handleOpenNewComponent(LOOP);
+            handleOpenNewComponent(FILTER);
           }}
         >
           <span className="glyphicon glyphicon-plus" />
-          {Dictionary.loop}
+          {Dictionary.filtre}
         </button>
-        {activeQuestionnaire.dynamiqueSpecified === 'Filtres' ? (
-          <button
-            id="add-loop"
-            className="btn-white"
-            disabled={!placeholders[FILTER]}
-            onClick={() => {
-              this.handleOpenNewComponent(FILTER);
-            }}
-          >
-            <span className="glyphicon glyphicon-plus" />
-            {Dictionary.filtre}
-          </button>
-        ) : (
-          false
-        )}
+      ) : (
+        false
+      )}
 
-        <button
-          className="btn-white disabled"
-          id="add-pagebreak"
-          disabled={!componentIdForPageBreak}
-          onClick={() => {
-            this.handleNewPageBreak();
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.pageBreak}
-        </button>
-        <button
-          className="btn-yellow"
-          disabled={!isQuestionnaireModified}
-          onClick={() => {
-            this.saveActiveQuestionnaire();
-          }}
-          id="save"
-        >
-          {Dictionary.save}
-          <span className="glyphicon glyphicon-floppy-disk" />
-        </button>
+      <button
+        className="btn-white disabled"
+        id="add-pagebreak"
+        disabled={!componentIdForPageBreak}
+        onClick={() => {
+          handleNewPageBreak(componentIdForPageBreak);
+        }}
+      >
+        <span className="glyphicon glyphicon-plus" />
+        {Dictionary.pageBreak}
+      </button>
+      <button
+        className="btn-yellow"
+        disabled={!isQuestionnaireModified}
+        onClick={() => {
+          saveQuestionnaire();
+        }}
+        id="save"
+      >
+        {Dictionary.save}
+        <span className="glyphicon glyphicon-floppy-disk" />
+      </button>
 
-        <VisualizeDropdown
-          top
-          disabled={!isQuestionnaireValid}
-          visualizeActiveQuestionnaire={this.props.visualizeActiveQuestionnaire}
-          token={this.props.token}
-        />
-        <button
-          id="add-questionnaire"
-          className="btn-white"
-          type="button"
-          onClick={() => {
-            this.handleNewQuestion();
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.QUESTIONNAIRE}
-        </button>
+      <VisualizeDropdown
+        top
+        disabled={!isQuestionnaireValid}
+        visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
+        token={token}
+      />
+      <button
+        id="add-questionnaire"
+        className="btn-white"
+        type="button"
+        onClick={() => {
+          handleNewQuestion();
+        }}
+      >
+        <span className="glyphicon glyphicon-plus" />
+        {Dictionary.QUESTIONNAIRE}
+      </button>
 
-        <button className="btn-yellow disabled" id="publish">
-          {Dictionary.publishQuestionnaire}
-          <span className="glyphicon glyphicon-share-alt" />
-        </button>
-        <ReactModal
-          ariaHideApp={false}
-          shouldCloseOnOverlayClick={false}
-          isOpen={this.state.showNewComponentModal}
-          onRequestClose={this.handleCloseNewComponent}
-          contentLabel={
-            this.state.typeNewComponent
-              ? Dictionary[`componentNew${this.state.typeNewComponent}`]
-              : ''
-          }
-        >
-          <div className="popup">
-            <div className="popup-header">
-              <h3>
-                {this.state.typeNewComponent
-                  ? Dictionary[`componentNew${this.state.typeNewComponent}`]
-                  : ''}
-              </h3>
-              <button type="button" onClick={this.handleCloseNewComponent}>
-                <span>X</span>
-              </button>
-            </div>
-            <div className="popup-body">
-              <ComponentNew
-                parentId={newComponentParent}
-                weight={newComponentWeight}
-                type={this.state.typeNewComponent}
-                onCancel={this.handleCloseNewComponent}
-                onSuccess={this.handleCloseNewComponent}
-              />
-            </div>
+      <button className="btn-yellow disabled" id="publish">
+        {Dictionary.publishQuestionnaire}
+        <span className="glyphicon glyphicon-share-alt" />
+      </button>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showNewComponentModal}
+        onRequestClose={handleCloseNewComponent}
+        contentLabel={
+          typeNewComponent ? Dictionary[`componentNew${typeNewComponent}`] : ''
+        }
+      >
+        <div className="popup">
+          <div className="popup-header">
+            <h3>
+              {typeNewComponent
+                ? Dictionary[`componentNew${typeNewComponent}`]
+                : ''}
+            </h3>
+            <button type="button" onClick={handleCloseNewComponent}>
+              <span>X</span>
+            </button>
           </div>
-        </ReactModal>
-        <ReactModal
-          isOpen={this.state.showNewUnsavedModal}
-          ariaHideApp={false}
-          style={customModalStyles}
-        >
-          <p>{Dictionary.notSaved}</p>
-          <button
-            onClick={this.handleCloseModal}
-            style={customModalbuttonStyles}
-          >
-            {Dictionary.close}
-          </button>
-        </ReactModal>
-        <ReactModal
-          isOpen={this.state.showNewLoopModal}
-          ariaHideApp={false}
-          style={customLoopModalStyles}
-        >
-          <p>{Dictionary.loopNotSaved}</p>
-          <button
-            onClick={this.handleCloseModal}
-            style={customModalbuttonStyles}
-          >
-            {Dictionary.close}
-          </button>
-        </ReactModal>
-        <ReactModal
-          ariaHideApp={false}
-          shouldCloseOnOverlayClick={false}
-          isOpen={this.state.showNewQuestionnaire}
-          onRequestClose={this.handleCloseNewQuestion}
-        >
-          <div className="popup">
-            <div className="popup-header">
-              <button type="button" onClick={this.handleCloseNewQuestion}>
-                <span>X</span>
-              </button>
-            </div>
-            <div className="popup-body">
-              <QuestionnaireList
-                fusion
-                currentQuestion={this.props.currentQuestion}
-                handleCloseNewQuestion={this.handleCloseNewQuestion}
-              />
-            </div>
+          <div className="popup-body">
+            <ComponentNew
+              parentId={newComponentParent}
+              weight={newComponentWeight}
+              type={typeNewComponent}
+              onCancel={handleCloseNewComponent}
+              onSuccess={handleCloseNewComponent}
+            />
           </div>
-        </ReactModal>
-      </div>
-    );
-  }
-}
+        </div>
+      </ReactModal>
+      <ReactModal
+        isOpen={showNewUnsavedModal}
+        ariaHideApp={false}
+        style={customModalStyles}
+      >
+        <p>{Dictionary.notSaved}</p>
+        <button onClick={handleCloseModal} style={customModalbuttonStyles}>
+          {Dictionary.close}
+        </button>
+      </ReactModal>
+      <ReactModal
+        isOpen={showVisualizationErrorPopup}
+        ariaHideApp={false}
+        style={customModalStyles}
+      >
+        <p>{Dictionary.visualizationError}</p>
+        <button
+          onClick={removeVisualizationError}
+          style={customModalbuttonStyles}
+        >
+          {Dictionary.close}
+        </button>
+      </ReactModal>
+      <ReactModal
+        isOpen={showNewLoopModal}
+        ariaHideApp={false}
+        style={customLoopModalStyles}
+      >
+        <p>{Dictionary.loopNotSaved}</p>
+        <button onClick={handleCloseModal} style={customModalbuttonStyles}>
+          {Dictionary.close}
+        </button>
+      </ReactModal>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showNewQuestionnaire}
+        onRequestClose={handleCloseNewQuestion}
+      >
+        <div className="popup">
+          <div className="popup-header">
+            <button type="button" onClick={handleCloseNewQuestion}>
+              <span>X</span>
+            </button>
+          </div>
+          <div className="popup-body">
+            <QuestionnaireList
+              fusion
+              currentQuestion={currentQuestion}
+              handleCloseNewQuestion={handleCloseNewQuestion}
+            />
+          </div>
+        </div>
+      </ReactModal>
+    </div>
+  );
+};
 
 export default GenericInput;

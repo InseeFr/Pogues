@@ -839,6 +839,10 @@ const dictionary = {
     en: 'Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.',
     fr: "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider.",
   },
+  visualizationError: {
+    en: 'An error occurred while visualizing the questionnaire',
+    fr: 'Une erreur a été rencontrée lors de la visualisation du questionnaire',
+  },
 
   close: {
     fr: 'fermer',
