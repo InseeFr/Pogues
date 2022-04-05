@@ -3,6 +3,8 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { SEQUENCE, SUBSEQUENCE, QUESTION } = COMPONENT_TYPE;
 
+jest.mock('./component-update');
+
 describe('moveComponents', () => {
   test(`should return an empty object if the parameter is undefined`, () => {
     expect(component.moveComponents()).toEqual({});
