@@ -42,9 +42,15 @@ const QuestionnaireList = props => {
 
   useEffect(() => {
     getStampsList(token).then(r => {
+      r.sort((a, b) => a.label.localeCompare(b.label));
       setOptions(r);
     });
   }, [token]);
+
+  useEffect(() => {
+    setSelectedStamp(stamp || 'FAKEPERMISSION');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // TODO: Find why 2 calls
   useEffect(() => {
