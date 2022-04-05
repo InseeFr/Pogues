@@ -9,7 +9,7 @@
 - **[Techs]** : Use a feature flag for referential code lists
 - **[Techs]** Upgrading dependancies.
 
-## 1.1.1 - 31/03/22
+## 1.2.0 - 31/03/22
 
 - **[Features]** : A spinner is displayed on the screen when waiting for a visualization and an information box appears if an error occured
 - **[Features]** : Stamps are sorted alphabetically on Home page
