@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from '../../model/external-variable';
+import { defaultState } from 'model/component-new-edit/external-variable';
 
 import Input from 'forms/controls/input';
 import GenericOption from 'forms/controls/generic-option';

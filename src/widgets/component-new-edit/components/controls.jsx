@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from '../model/control';
+import { defaultState } from 'model/component-new-edit/control';
 
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';

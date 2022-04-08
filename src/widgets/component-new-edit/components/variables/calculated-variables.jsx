@@ -7,7 +7,7 @@ import {
   DEFAULT_FORM_NAME,
 } from 'constants/pogues-constants';
 
-import { defaultState } from '../../model/calculated-variable';
+import { defaultState } from '../../../../model/component-new-edit/calculated-variable';
 
 import Input from 'forms/controls/input';
 import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';

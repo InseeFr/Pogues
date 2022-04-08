@@ -644,7 +644,6 @@ describe('questionnaire', () => {
         dynamiqueSpecified: 'Redirections',
         formulaSpecified: 'VTL',
         final: false,
-        formulaSpecified: 'XPATH',
         id: 'jf0s8i94',
         label: 'questionnaire',
         lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',

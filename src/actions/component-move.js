@@ -4,7 +4,7 @@ import {
   isQuestion,
   toComponents,
 } from 'utils/component/component-utils';
-import { getClosestComponentIdByType } from 'layout/generic-input';
+import { getClosestComponentIdByType } from 'utils/component/generic-input-utils';
 import { getDragnDropLevel } from 'utils/component/component-dragndrop-utils';
 import { resetAllWeight, increaseWeightOfAll } from './component-update';
 import {
@@ -12,6 +12,11 @@ import {
   moveQuestionAndSubSequenceToSequence,
 } from './component-insert';
 import sortBy from 'lodash.sortby';
+
+export function dummyFunction() {
+  return 'Hello world';
+}
+
 /**
  * This method will get the new weight and new parent, based on the dragndrop level
  *

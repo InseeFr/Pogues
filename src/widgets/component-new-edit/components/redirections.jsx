@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from '../model/redirection';
+import { defaultState } from 'model/component-new-edit/redirection';
 
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { GotoInput } from 'widgets/goto-input';

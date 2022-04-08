@@ -2,7 +2,7 @@ import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultMeasureState } from '../../../model/response-format-table';
+import { defaultMeasureState } from 'model/component-new-edit/response-format-table';
 import InputMeasure from './input-measure';
 
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';

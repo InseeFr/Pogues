@@ -1,7 +1,7 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 
-import * as CodesListModel from 'widgets/codes-lists';
+import * as CodesListModel from 'model';
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,

@@ -7,7 +7,7 @@ import {
   toId,
   updateNewComponentParent,
 } from 'utils/component/component-utils';
-import { getClosestComponentIdByType } from 'layout/generic-input';
+import { getClosestComponentIdByType } from 'utils/component/generic-input-utils';
 import {
   resetWeight,
   increaseWeightOfAll,
