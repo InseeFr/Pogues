@@ -8,6 +8,7 @@ import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import {
   CODES_LIST_INPUT_ENUM,
   CODES_LISTS_PANELS,
+  CODES_LISTS_PANELS_SEARCH_DISABLE,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import ListRadios from 'forms/controls/list-radios';
@@ -69,6 +70,7 @@ const CodesList = props => {
     selectorPath,
     activePanel,
     currentCodesListsStore,
+    isSearchDisable,
   } = props;
 
   const refDiv = useRef(null);
@@ -128,11 +130,19 @@ const CodesList = props => {
           label={Dictionary.selectCodesListType}
           required
         >
-          {getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
-            <GenericOption key={panel.value} value={panel.value}>
-              {panel.label}
-            </GenericOption>
-          ))}
+          {isSearchDisable
+            ? getSelectorOptions(CODES_LISTS_PANELS_SEARCH_DISABLE).map(
+                panel => (
+                  <GenericOption key={panel.value} value={panel.value}>
+                    {panel.label}
+                  </GenericOption>
+                ),
+              )
+            : getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
+                <GenericOption key={panel.value} value={panel.value}>
+                  {panel.label}
+                </GenericOption>
+              ))}
         </Field>
       </div>
 

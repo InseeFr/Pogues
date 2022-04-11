@@ -8,6 +8,7 @@ import {
   handleNewPageBreak,
 } from 'actions/app-state';
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
+import { removeVisualizationError } from 'actions/errors';
 import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
@@ -98,6 +99,9 @@ const mapStateToProps = state => {
     stamp: getUser(state).stamp,
     token: getToken(state),
     currentQuestion: state.appState.activeQuestionnaire.id,
+    showVisualizationErrorPopup:
+      state.errors.errorsVisualization.showErrorVisualizationPopup,
+    isLoadingVisualization: state.appState.isLoadingVisualization,
   };
 };
 
@@ -106,6 +110,7 @@ const mapDispatchToProps = {
   visualizeActiveQuestionnaire,
   handleNewPageBreak,
   loadQuestionnaireList,
+  removeVisualizationError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenericInput);

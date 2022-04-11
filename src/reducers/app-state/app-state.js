@@ -17,6 +17,9 @@ import {
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   CREATE_PAGE_BREAK,
   REMOVE_PAGE_BREAK,
+  START_LOADING_VISUALIZATION,
+  LOADING_VISUALIZATION_SUCCESS,
+  LOADING_VISUALIZATION_FAILURE,
 } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -49,6 +52,8 @@ const defaultState = {
   errorsByQuestionTab: {},
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
+  isVisualizationLoading: false,
+  isVisualizationHaveError: false,
   componentIdForPageBreak: '',
   focusedInput: '',
 };
@@ -163,6 +168,27 @@ export function setQuestionModifiedFalse(state) {
   };
 }
 
+export function startLoadingVisualization(state) {
+  return {
+    ...state,
+    isLoadingVisualization: true,
+  };
+}
+
+export function loadingVisualizationSuccess(state) {
+  return {
+    ...state,
+    isLoadingVisualization: false,
+  };
+}
+
+export function loadingVisualizationFailure(state) {
+  return {
+    ...state,
+    isLoadingVisualization: false,
+  };
+}
+
 export function setQuestionModifiedAndResetSelectedComponent(state) {
   return {
     ...setSelectedComponentId(
@@ -189,6 +215,9 @@ actionHandlers[REMOVE_COMPONENT] = setQuestionModifiedAndResetSelectedComponent;
 actionHandlers[UPDATE_COMPONENT_PARENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
 actionHandlers[MOVE_COMPONENT] = setQuestionModified;
+actionHandlers[START_LOADING_VISUALIZATION] = startLoadingVisualization;
+actionHandlers[LOADING_VISUALIZATION_SUCCESS] = loadingVisualizationSuccess;
+actionHandlers[LOADING_VISUALIZATION_FAILURE] = loadingVisualizationFailure;
 
 actionHandlers[CREATE_PAGE_BREAK] = setQuestionModified;
 actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;

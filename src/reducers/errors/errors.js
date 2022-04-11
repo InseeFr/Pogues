@@ -2,6 +2,7 @@ import errorsByComponent from './errors-by-component';
 import errorsIntegrity from './errors-integrity';
 import errorsValidation from './errors-validation';
 import errorsSubformValidation from './errors-subform-validation';
+import errorsVisualization from './errors-visualization';
 
 const defaultState = {
   errorsByFormPath: {},
@@ -25,5 +26,6 @@ export default function (state = defaultState, action) {
       state.errorsSubformValidation,
       action,
     ),
+    errorsVisualization: errorsVisualization(state.errorsVisualization, action),
   };
 }

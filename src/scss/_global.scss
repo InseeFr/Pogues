@@ -374,6 +374,7 @@ a {
 
 .loaderClass {
   position: fixed;
+  z-index: 2;
   top: 50%;
   left: 50%;
   margin: -50px 0px 0px -50px;
@@ -388,7 +389,6 @@ a {
   background-color: white;
   border-radius: 0;
   border: 3px solid #15417a;
-  font-weight: initial;
   font-size: 14px;
   font-weight: 700;
   color: #15417a;

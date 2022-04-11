@@ -21,7 +21,7 @@ const getBaseURI = () => {
 
 const pathInit = 'init';
 const pathQuestionnaireList = 'persistence/questionnaires';
-const pathQuestionnaireListSearch = 'persistence/questionnaires/search';
+const pathQuestionnaireListSearch = 'persistence/questionnaires/search/meta';
 const pathQuestionnaire = 'persistence/questionnaire';
 const pathSearch = 'search';
 const pathSeriesList = 'search/series';
@@ -81,31 +81,36 @@ const getHeaders = (base, token) => {
  * the visualization of the questionnaire in Stromae V1/V2 and
  * Lunatic (Queen) formats
  */
-function getVizualisationUrl(path, qr, token) {
-  getBaseURI().then(b => {
-    fetch(`${b}/${path}`, {
-      method: 'POST',
-      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-      body: JSON.stringify(qr),
+export const getVizualisationUrl = async (path, qr, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${path}`, {
+    method: 'POST',
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
+    body: JSON.stringify(qr),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      }
+      throw new Error('Something went wrong');
     })
-      .then(response => response.text())
-      .then(url => {
-        const a = document.createElement('a');
-        a.href = url;
-        a.setAttribute('target', '_blank');
-        document.body.appendChild(a);
-        a.click();
-      });
-  });
-}
+    .then(response => response.text())
+    .then(url => {
+      const a = document.createElement('a');
+      a.href = url;
+      a.setAttribute('target', '_blank');
+      document.body.appendChild(a);
+      a.click();
+    });
+};
 
 /**
  * This method will send a request in order to get the URL
  * of the generated HTML page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeHtml = (qr, token) => {
-  getVizualisationUrl(
+export const visualizeHtml = async (qr, token) => {
+  await getVizualisationUrl(
     `${pathVisualisation}/${qr.DataCollection[0].id}/${qr.Name}`,
     qr,
     token,
@@ -117,8 +122,8 @@ export const visualizeHtml = (qr, token) => {
  * of the generated Queen page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeQueen = (qr, token) => {
-  getVizualisationUrl(`${pathVisualizeQueen}/${qr.Name}`, qr, token);
+export const visualizeQueen = async (qr, token) => {
+  await getVizualisationUrl(`${pathVisualizeQueen}/${qr.Name}`, qr, token);
 };
 
 /**
@@ -126,8 +131,32 @@ export const visualizeQueen = (qr, token) => {
  * of the generated Stromae v2 page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeWebStromaeV2 = (qr, token) => {
-  getVizualisationUrl(`${pathVisualisation}-stromae-v2/${qr.Name}`, qr, token);
+export const visualizeWebStromaeV2 = async (qr, token) => {
+  await getVizualisationUrl(
+    `${pathVisualisation}-stromae-v2/${qr.Name}`,
+    qr,
+    token,
+  );
+};
+
+/**
+ * This method will call the back in order to get a documpent for
+ * the visualization of the questionnaire in DDI, PDF and ODT (Spec)
+ */
+export const getVizualisationDocument = async (path, qr, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${path}`, {
+    method: 'POST',
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
+    body: JSON.stringify(qr),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      }
+      throw new Error('Something went wrong');
+    })
+    .then(openDocument);
 };
 
 /**
@@ -135,14 +164,8 @@ export const visualizeWebStromaeV2 = (qr, token) => {
  * of the generated DDI document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeDDI = (qr, token) => {
-  getBaseURI().then(b => {
-    fetch(`${b}/${pathVisualizeDDI}`, {
-      method: 'POST',
-      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-      body: JSON.stringify(qr),
-    }).then(openDocument);
-  });
+export const visualizeDDI = async (qr, token) => {
+  await getVizualisationDocument(`${pathVisualizeDDI}`, qr, token);
 };
 
 /**
@@ -150,14 +173,8 @@ export const visualizeDDI = (qr, token) => {
  * of the generated PDF document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizePdf = (qr, token) => {
-  getBaseURI().then(b => {
-    fetch(`${b}/${pathVisualizePdf}`, {
-      method: 'POST',
-      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-      body: JSON.stringify(qr),
-    }).then(openDocument);
-  });
+export const visualizePdf = async (qr, token) => {
+  await getVizualisationDocument(`${pathVisualizePdf}`, qr, token);
 };
 
 /**
@@ -165,14 +182,8 @@ export const visualizePdf = (qr, token) => {
  * of the generated ODT document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeSpec = (qr, token) => {
-  getBaseURI().then(b => {
-    fetch(`${b}/${pathVisualizeSpec}`, {
-      method: 'POST',
-      headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-      body: JSON.stringify(qr),
-    }).then(openDocument);
-  });
+export const visualizeSpec = async (qr, token) => {
+  await getVizualisationDocument(`${pathVisualizeSpec}`, qr, token);
 };
 
 /**

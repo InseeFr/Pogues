@@ -1,30 +1,82 @@
 module.exports = [
   {
-    uri: 'unit01',
-    label: 'Unit 01',
+    uri: 'http://id.insee.fr/unit/euro',
+    label: '€',
   },
   {
-    uri: 'unit02',
-    label: 'Unit 02',
+    uri: 'http://id.insee.fr/unit/keuro',
+    label: 'k€',
   },
   {
-    uri: 'unit03',
-    label: 'Unit 03',
+    uri: 'http://id.insee.fr/unit/percent',
+    label: '%',
   },
   {
-    uri: 'unit04',
-    label: 'Unit 04',
+    uri: 'http://id.insee.fr/unit/heure',
+    label: 'heures',
   },
   {
-    uri: 'unit05',
-    label: 'Unit 05',
+    uri: 'http://id.insee.fr/unit/jour',
+    label: 'jours',
   },
   {
-    uri: 'unit06',
-    label: 'Unit 06',
+    uri: 'http://id.insee.fr/unit/semaine',
+    label: 'semaines',
   },
   {
-    uri: 'unit07',
-    label: 'Unit 07',
+    uri: 'http://id.insee.fr/unit/mois',
+    label: 'mois',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/annee',
+    label: 'années',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/watt',
+    label: 'W',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/kilowatt',
+    label: 'kW',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/megawatt',
+    label: 'MW',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/megawattpcs',
+    label: 'MW PCS',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/kilowattthermique',
+    label: 'kWth',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/tonne',
+    label: 'tonnes',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/tonnematiereseche',
+    label: 'tonnes matières sèches',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/degrecelsius',
+    label: '°C',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/bar',
+    label: 'bars',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/litre',
+    label: 'litres',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/metre',
+    label: 'mètres',
+  },
+  {
+    uri: 'http://id.insee.fr/unit/metrecarre',
+    label: 'mètres carrés',
   },
 ];

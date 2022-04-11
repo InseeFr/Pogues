@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Field, FormSection } from 'redux-form';
+import { Field, FormSection, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
 
 import { defaultState } from '../model/declaration';
@@ -32,6 +34,7 @@ export const propTypes = {
   errors: PropTypes.array,
   showPosition: PropTypes.bool,
   addErrors: PropTypes.func.isRequired,
+  declarationType: PropTypes.string,
 };
 
 export const defaultProps = {
@@ -39,6 +42,7 @@ export const defaultProps = {
   selectorPath: TABS_PATHS.DECLARATIONS,
   errors: [],
   showPosition: true,
+  declarationType: '',
 };
 
 // Component
@@ -49,8 +53,10 @@ const Declarations = ({
   errors,
   showPosition,
   addErrors,
+  declarationType,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);
+
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -66,7 +72,11 @@ const Declarations = ({
           name="label"
           id="declaration_text"
           component={RichEditorWithVariable}
-          label={Dictionary.declaration_label}
+          label={
+            declarationType === 'CODECARD'
+              ? Dictionary.declaration_label_code_card
+              : Dictionary.declaration_label
+          }
           required
           setDisableValidation={setDisableValidation}
         />
@@ -131,4 +141,11 @@ const Declarations = ({
 Declarations.propTypes = propTypes;
 Declarations.defaultProps = defaultProps;
 
-export default Declarations;
+const mapStateToProps = state => {
+  const selector = formValueSelector('component');
+  return {
+    declarationType: selector(state, `declarations.declarationType`),
+  };
+};
+
+export default connect(mapStateToProps)(Declarations);
