@@ -10,6 +10,18 @@ import {
   fakeEnterEvent,
 } from 'utils/test/test-utils';
 
+// We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
+
+jest.mock('../containers/codes-lists-input-code-container', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      // if you exporting component as default
+      return <div />;
+    },
+  };
+});
+
 describe('<CodesListCodes />', () => {
   let customProps;
 

@@ -9,6 +9,46 @@ import { noop } from 'utils/test/test-utils';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
+// We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
+
+jest.mock('layout/questionnaire-list-components', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      // if you exporting component as default
+      return <div />;
+    },
+    QuestionnaireListComponents: () => {
+      // if you exporting component as not default
+      return <div />;
+    },
+  };
+});
+
+jest.mock('layout/component-edit', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div />;
+    },
+    ComponentEdit: () => {
+      return <div />;
+    },
+  };
+});
+
+jest.mock('layout/component-new', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div />;
+    },
+    ComponentNew: () => {
+      return <div />;
+    },
+  };
+});
+
 describe('<PageQuestionnaire />', () => {
   let wrapper;
   let useEffect;
@@ -17,7 +57,6 @@ describe('<PageQuestionnaire />', () => {
     useEffect.mockImplementation(f => f());
   };
 
-  const spyLoad = jest.fn();
   const spySetActiveQuestionnaire = jest.fn();
   const spySetActiveComponents = jest.fn();
   const spySetActiveCodeLists = jest.fn();
