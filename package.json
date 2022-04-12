@@ -112,7 +112,7 @@
     "start-insee": "cross-env REACT_APP_INSEE=true react-scripts start",
     "dev:server": "concurrently \"npm run server\" \"npm run start\"",
     "server": "node ./fake-server/server.js",
-    "build": "npm run generate-entrypoint && react-scripts build",
+    "build": "npm run generate-entrypoint && react-scripts --max-old-space-size=4096 build",
     "build-insee": "cross-env REACT_APP_INSEE=true react-scripts build",
     "lint": "eslint ./src -f table || true",
     "lint:fix": "eslint ./src -f table --fix || true",
