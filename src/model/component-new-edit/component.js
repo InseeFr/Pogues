@@ -54,17 +54,19 @@ export function formToState(form, transformers) {
     filterImbriquer,
   } = form;
 
+  let newName;
+  if (name && !initialMember) {
+    newName = name;
+  } else if (label) {
+    newName = nameFromLabel(label);
+  } else if (initialMember) {
+    newName = nameFromLabel(nameLoop);
+  }
+
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
   return {
-    name:
-      name && !initialMember
-        ? name
-        : label
-        ? nameFromLabel(label)
-        : initialMember
-        ? nameFromLabel(nameLoop)
-        : false,
+    name: newName,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
