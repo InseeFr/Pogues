@@ -223,7 +223,6 @@ export const getSuggestions = range => {
           'The operator returns TRUE if the value of the operand is NULL, FALSE otherwise.     \n\n **Syntax** \n\n    isnull(op)  ',
       },
     },
-    //TODO
     {
       label: 'ex',
       kind: KEYWORD,
@@ -240,7 +239,6 @@ export const getSuggestions = range => {
           'The union operator implements the union of functions (i.e., Data Sets).   \n\n **Syntax** \n\n    union ( ds { , ds }*) ',
       },
     },
-    //TODO
     {
       label: 'diff',
       kind: KEYWORD,
