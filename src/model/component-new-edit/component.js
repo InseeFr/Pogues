@@ -105,18 +105,22 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     filterImbriquer,
     minimum,
   } = currentState;
+
+  let target = '';
+  if (type !== LOOP && type !== '' && type !== FILTER) {
+    if (label) {
+      target = TargetMode.join();
+    } else {
+      target = activeQuestionnaire.TargetMode.join();
+    }
+  }
   const form = {
     label: label || '',
     name: name || nameLoop || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
-    TargetMode:
-      type !== LOOP && type !== '' && type !== FILTER
-        ? label
-          ? TargetMode.join()
-          : activeQuestionnaire.TargetMode.join()
-        : '',
+    TargetMode: target,
     nameLoop: nameLoop || name || '',
     maximum: maximum || '',
     minimum: minimum || '',
