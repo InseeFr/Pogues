@@ -387,7 +387,7 @@ const Factory = (initialState = {}, codesListsStore) => {
 
   return {
     formToState: form => {
-      if (form) currentState = formToState(form, transformers, codesListsStore);
+      if (form) currentState = formToState(form, transformers);
       return currentState;
     },
     stateToForm: () => {

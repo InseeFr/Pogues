@@ -107,14 +107,6 @@ const dictionary = {
     en: 'Filter',
     fr: 'Filtre',
   },
-  formulaXpath: {
-    fr: 'Xpath',
-    en: 'Xpath',
-  },
-  formulaVtl: {
-    fr: 'VTL',
-    en: 'VTL',
-  },
   filtreImbriquer: {
     fr: 'Nouveau filtre imbriqué',
     en: 'New nested filter',
