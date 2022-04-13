@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
-import { defaultState } from 'model/component-new-edit/declaration';
+import { defaultState } from 'model/formToState/component-new-edit/declaration';
 
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';

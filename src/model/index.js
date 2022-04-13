@@ -1,2 +1,2 @@
-export { default as Component } from './component-new-edit/component';
-export * from './codes-lists/codes-list';
+export { default as Component } from './formToState/component-new-edit/component';
+export * from './formToState/codes-lists/codes-list';
