@@ -51,6 +51,9 @@ export const questionnaireRules = {
   campaigns: [required],
   name: [required, name],
   label: [required],
+  TargetMode: [required],
+  dynamiqueSpecified: [required],
+  formulaSpecified: [required],
 };
 
 export const sequenceRules = {

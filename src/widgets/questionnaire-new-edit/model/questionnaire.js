@@ -12,7 +12,7 @@ export const defaultState = {
   final: '',
   agency: '',
   TargetMode: [],
-  dynamiqueSpecified: 'Redirections',
+  dynamiqueSpecified: '',
   formulaSpecified: '',
   ComponentGroup: [],
 };
