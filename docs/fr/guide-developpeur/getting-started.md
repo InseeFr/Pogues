@@ -4,26 +4,31 @@ Pogues est une application Web monopage construite avec [React](https://facebook
 
 ```
 # Téléchargement des dépendances
-npm install
-# Compilation du code et démarrage d'un serveur de développement (cf. infra)
-npm run dev 
+yarn
+# Compilation du code et démarrage d'un serveur de développement avec un mock de l'API (cf. infra)
+yarn dev:server
 ```
 
-Vous serez uniquement en mesure de créer et d'éditer un questionnaire localement. Vous ne pourez pas le sauvegarder, le visualiser ou utiliser des ressources externes (comme des listes de codes): Pogues est une application front-end pour convevoir des questionnaires et s'appuie sur des Web services externes pour réaliser ces opérations. Plus d'information à ce sujet au chapitre [appels distants](./remote-apis/README.md). 
+Vous serez uniquement en mesure de créer et d'éditer un questionnaire localement. Vous ne pourez pas le sauvegarder, le visualiser ou utiliser des ressources externes (comme des listes de codes): Pogues est une application front-end pour convevoir des questionnaires et s'appuie sur des Web services externes pour réaliser ces opérations. Plus d'information à ce sujet au chapitre [appels distants](./remote-apis/README.md).
 
 ## Build
 
-Pour produire la version de production, lancez la commande `npm run build`. Vous pouvez désormais servir le contenu du dossier `dist` avec le serveur web de votre choix.
+Pour produire la version de production, lancez la commande `yarn build`. Vous pouvez désormais servir le contenu du dossier `dist` avec le serveur web de votre choix.
 
-Remarquez que vous aurez vraisemblablement besoin dans un premier temps de mettre à jour le [fichier de configuration](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js) pour pointer vers les bonnes URLs et les bons chemins pour les services Web qui seront utilisés par Pogues.
+Remarquez que vous aurez vraisemblablement besoin dans un premier temps de mettre à jour le [fichier de configuration](https://github.com/InseeFr/Pogues/blob/main/public/configuration.json) pour pointer vers la bonne URL de l'API qui sera utilisée par Pogues.
 
 ## Débuter avec JavaScript et Node.js
 
-Si vous débutez avec ces technologies, vous aurez vraisemblablement besoin d'installer dans un premier temps sur votre ordinateur [node et npm](https://nodejs.org/en/download/). Vous devez télécharger NodeJS < 8
+Si vous débutez avec ces technologies, vous aurez vraisemblablement besoin d'installer dans un premier temps sur votre ordinateur [node](https://nodejs.org/en/download/).
 
+Dans le projet Pogues nous utilisons `yarn` comme gestionnaire de modules. Pour l'installer il faut utiliser `npm` qui est le gestionnaire de modules installé par défaut avec `Node.js` .
 
-`npm` est un gestionnaire de modules pour `Node.js`. `npm install` téléchargera toutes les dépendances du projet, décrites dans la section `dependencies` et `devDepedencies` du fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json).
+```
+npm install --global yarn
+```
 
-`npm run dev` lancera la commande `dev` décrite dans la section `scripts` du même fichier `package.json`. Cette commande démarre un serveur de développement qui sert la page d'accueil de l'application ([src/js/index.html](https://github.com/InseeFr/Pogues/blob/master/src/index.html)) et toutes les ressources nécessaires. En savoir plus: [utilisation de Webpack](./application/build-process.md).
+La commande `yarn` téléchargera toutes les dépendances du projet, décrites dans la section `dependencies` et `devDepedencies` du fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json).
 
-`npm run build` lance la compilation du code avec des optimisations pour la mise en production. Elle copie toutes les ressources statiques et le fichier `JavaScript` compilé dans le dossier `dist`.
+`yarn dev:server` lancera la commande `dev:server` décrite dans la section `scripts` du même fichier `package.json`. Cette commande démarre un serveur de développement qui sert la page d'accueil de l'application en mode sans authentification avec les deux questionnaires présents sur le serveur mocké.
+
+`yarn build` lance la compilation du code avec des optimisations pour la mise en production. Elle produit un code compilé dans le dossier `dist`.
