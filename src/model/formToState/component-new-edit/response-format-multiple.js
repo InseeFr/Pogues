@@ -1,7 +1,11 @@
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 
-import * as CodesListModel from 'model';
+import {
+  CodesListDefaultState,
+  CodesListDefaultForm,
+  CodesListFactory,
+} from 'model';
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
@@ -15,15 +19,13 @@ const { CHECKBOX } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
   [PRIMARY]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
   },
   [MEASURE]: {
     type: BOOL,
     [BOOL]: {},
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(
-        CodesListModel.defaultState,
-      ),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
       visHint: CHECKBOX,
     },
   },
@@ -31,13 +33,13 @@ export const defaultState = {
 
 export const defaultForm = {
   [PRIMARY]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
   },
   [MEASURE]: {
     type: BOOL,
     [BOOL]: {},
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
       visHint: CHECKBOX,
     },
   },
@@ -106,11 +108,11 @@ export function stateToForm(currentState, transformers) {
 const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {
-    codesListPrimary: CodesListModel.Factory(
+    codesListPrimary: CodesListFactory(
       cloneDeep(currentState[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH]),
       codesListsStore,
     ),
-    codesListMeasure: CodesListModel.Factory(
+    codesListMeasure: CodesListFactory(
       cloneDeep(
         currentState[MEASURE][CODES_LIST][DEFAULT_CODES_LIST_SELECTOR_PATH],
       ),
