@@ -102,6 +102,10 @@ const ComponentNewEdit = props => {
     onSubmit(formData);
   };
 
+  const handleDisableValidation = isDisable => {
+    setDisableValidation(isDisable);
+  };
+
   const checkUnsavedChange = data => {
     setFormData({ ...data, filterImbriquer: filterImbriquers });
     if (
@@ -439,7 +443,7 @@ const ComponentNewEdit = props => {
     onEnter: () => {
       buttonRef.click();
     },
-    setDisableValidation,
+    handleDisableValidation,
   };
   return (
     <div className={COMPONENT_CLASS}>
