@@ -2,9 +2,9 @@ import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 
 import {
-  CodesListDefaultState,
-  CodesListDefaultForm,
-  CodesListFactory,
+  defaultState as CodesListDefaultState,
+  defaultForm as CodesListDefaultForm,
+  Factory as CodesListFactory,
 } from 'model';
 import {
   UI_BEHAVIOUR,

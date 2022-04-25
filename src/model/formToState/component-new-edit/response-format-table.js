@@ -3,9 +3,9 @@ import cloneDeep from 'lodash.clonedeep';
 import { uuid, verifyVariable } from 'utils/utils';
 
 import {
-  CodesListDefaultState,
-  CodesListDefaultForm,
-  CodesListFactory,
+  defaultState as CodesListDefaultState,
+  defaultForm as CodesListDefaultForm,
+  Factory as CodesListFactory,
 } from 'model';
 import {
   DIMENSION_TYPE,
