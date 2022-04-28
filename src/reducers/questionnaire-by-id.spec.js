@@ -2,12 +2,10 @@ import reducer from './questionnaire-by-id';
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
   CREATE_QUESTIONNAIRE_SUCCESS,
-  DELETE_QLIST_SUCCESS,
   LOAD_QUESTIONNAIRE_START,
   LOAD_QUESTIONNAIRE_FAILURE,
 } from 'actions/questionnaire';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
-import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
 
 describe('questionnaire-by-id reducer', () => {
   test('should handle LOAD_QUESTIONNAIRE_SUCCESS', () => {
@@ -102,30 +100,5 @@ describe('questionnaire-by-id reducer', () => {
       },
       loader: false,
     });
-  });
-
-  test('should handle LOAD_QLIST_SUCCESS', () => {
-    expect(
-      reducer(
-        { 2: { id: '2' } },
-        {
-          type: LOAD_QLIST_SUCCESS,
-          payload: [
-            {
-              1: { id: '1' },
-            },
-          ],
-        },
-      ),
-    ).toEqual({
-      1: { id: '1' },
-    });
-  });
-  test('should handle DELETE_QLIST_SUCCESS', () => {
-    expect(
-      reducer({
-        type: DELETE_QLIST_SUCCESS,
-      }),
-    ).toEqual({});
   });
 });
