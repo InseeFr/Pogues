@@ -409,7 +409,6 @@ const ComponentNewEdit = props => {
           );
         });
     } else {
-      console.log('componentsStore', componentsStore);
       options = Object.values(componentsStore)
         .filter(
           component =>
