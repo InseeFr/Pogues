@@ -8,6 +8,20 @@ import { noop } from 'utils/test/test-utils';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 
+// We need to mock this import, otherwise the import of VTL-Editor crashes the test
+
+jest.mock('layout/component-edit', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div />;
+    },
+    ComponentEdit: () => {
+      return <div />;
+    },
+  };
+});
+
 describe('<QuestionnaireNav />', () => {
   const props = {
     questionnaire: {},

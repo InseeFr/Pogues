@@ -14,7 +14,7 @@ import {
   getNewSubsequencePlaceholder,
   getNewQuestionPlaceholder,
   getNewLoopPlaceholder,
-} from '../utils/generic-input-utils';
+} from 'utils/component/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getToken, getUser } from 'reducers/selectors';
 

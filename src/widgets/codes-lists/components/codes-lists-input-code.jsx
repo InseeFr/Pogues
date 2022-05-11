@@ -9,7 +9,7 @@ import Input from 'forms/controls/input';
 import { fieldArrayMeta } from 'utils/proptypes-utils';
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
-import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 
 const {
   CODE_INPUT_CLASS,
@@ -156,7 +156,7 @@ class CodesListInputCode extends ComponentWithValidation {
             className={CODE_INPUT_LABEL_CLASS}
             name="input-code.label"
             type="text"
-            component={RichTextareaWithVariableAutoCompletion}
+            component={RichEditorWithVariable}
             label={Dictionary.label}
             onEnter={this.addCodeIfIsValid}
           />
@@ -193,7 +193,7 @@ class CodesListInputCode extends ComponentWithValidation {
               className={CODE_INPUT_CODE_CLASS_PRECISION}
               name="input-code.precisionlabel"
               type="text"
-              component={RichTextareaWithVariableAutoCompletion}
+              component={RichEditorWithVariable}
               label={Dictionary.label}
               onEnter={this.addCodeIfIsValid1}
             />

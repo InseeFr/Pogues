@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from '../../model/collected-variable';
+import { defaultState } from 'model/formToState/component-new-edit/collected-variable';
 import { DATATYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
 import Input from 'forms/controls/input';

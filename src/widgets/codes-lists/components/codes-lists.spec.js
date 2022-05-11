@@ -10,6 +10,18 @@ import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
 const { PANEL_CLASS } = WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 
+// We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
+
+jest.mock('forms/controls/control-with-suggestions', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      // if you exporting component as default
+      return <div />;
+    },
+  };
+});
+
 describe('<CodesList />', () => {
   const customPath = 'this.is.a.fake.path';
 

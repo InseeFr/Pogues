@@ -333,6 +333,7 @@ class ListWithInputPanel extends Component {
                   event.preventDefault();
                   this.submit();
                 }}
+                disabled={this.props.disableValidation}
               >
                 {Dictionary.validate}
               </button>

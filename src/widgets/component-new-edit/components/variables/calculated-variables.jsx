@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 import {
@@ -7,10 +7,10 @@ import {
   DEFAULT_FORM_NAME,
 } from 'constants/pogues-constants';
 
-import { defaultState } from '../../model/calculated-variable';
+import { defaultState } from 'model/formToState/component-new-edit/calculated-variable';
 
 import Input from 'forms/controls/input';
-import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateCalculatedVariableForm } from 'utils/validation/validate';
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
@@ -46,13 +46,14 @@ export const defaultProps = {
   errors: [],
 };
 
-function CalculatedVariables({
+const CalculatedVariables = ({
   formName,
   selectorPath,
   errors,
   addErrors,
   componentsStore,
-}) {
+}) => {
+  const [disableValidation, setDisableValidation] = useState(false);
   const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
     return (
       <GenericOption key={element.id} value={element.id}>
@@ -70,6 +71,7 @@ function CalculatedVariables({
         validateForm={validateForm(addErrors, validateCalculatedVariableForm)}
         resetObject={defaultState}
         canDuplicate={false}
+        disableValidation={disableValidation}
       >
         <Field
           name="label"
@@ -88,9 +90,10 @@ function CalculatedVariables({
         <Field
           name="formula"
           type="text"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorWithVariable}
           label={Dictionary.formula}
           required
+          setDisableValidation={setDisableValidation}
         />
         <SelectorView
           label={Dictionary.responseType}
@@ -117,7 +120,7 @@ function CalculatedVariables({
       </ListWithInputPanel>
     </FormSection>
   );
-}
+};
 
 CalculatedVariables.propTypes = propTypes;
 CalculatedVariables.defaultProps = defaultProps;

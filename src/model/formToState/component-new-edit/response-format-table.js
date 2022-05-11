@@ -2,7 +2,11 @@ import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
 import { uuid, verifyVariable } from 'utils/utils';
 
-import * as CodesListModel from 'widgets/codes-lists';
+import {
+  defaultState as CodesListDefaultState,
+  defaultForm as CodesListDefaultForm,
+  Factory as CodesListFactory,
+} from 'model';
 import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
@@ -62,7 +66,7 @@ export const defaultMeasureState = {
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
-      cloneDeep(CodesListModel.defaultState),
+      cloneDeep(CodesListDefaultState),
       { id: uuid() },
     ),
     visHint: CHECKBOX,
@@ -79,7 +83,7 @@ export const defaultMeasureForm = {
     specialCode: '',
     specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: '',
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultForm),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
     visHint: CHECKBOX,
   },
 };
@@ -94,13 +98,11 @@ export const defaultState = {
       numLinesMax: 0,
     },
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(
-        CodesListModel.defaultState,
-      ),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     },
   },
   [SECONDARY]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListModel.defaultState),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     showSecondaryAxis: false,
     showTotalLabel: '0',
     totalLabel: '',
@@ -170,7 +172,7 @@ export function formToStateMeasure(form, codesListMeasure) {
       measureForm;
     const codesList = codesListMeasure
       ? codesListMeasure.formToStateComponent(codesListForm)
-      : CodesListModel.Factory().formToState(codesListForm);
+      : CodesListFactory().formToState(codesListForm);
 
     state[SINGLE_CHOICE] = {
       visHint,
@@ -260,7 +262,7 @@ export function stateToFormMeasure(
   if (codesListMeasure) {
     codesListForm = codesListMeasure.stateComponentToForm();
   } else {
-    codesListForm = CodesListModel.Factory(
+    codesListForm = CodesListFactory(
       codesListState,
       codesListsStore,
     ).stateComponentToForm();
@@ -371,15 +373,15 @@ const Factory = (initialState = {}, codesListsStore) => {
   );
 
   const transformers = {
-    codesListPrimary: CodesListModel.Factory(
+    codesListPrimary: CodesListFactory(
       currentState[PRIMARY][CODES_LIST][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore,
     ),
-    codesListSecondary: CodesListModel.Factory(
+    codesListSecondary: CodesListFactory(
       currentState[SECONDARY][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore,
     ),
-    codesListMeasure: CodesListModel.Factory(
+    codesListMeasure: CodesListFactory(
       currentState[MEASURE][SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore,
     ),
@@ -387,7 +389,7 @@ const Factory = (initialState = {}, codesListsStore) => {
 
   return {
     formToState: form => {
-      if (form) currentState = formToState(form, transformers, codesListsStore);
+      if (form) currentState = formToState(form, transformers);
       return currentState;
     },
     stateToForm: () => {

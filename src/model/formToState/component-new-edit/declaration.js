@@ -5,7 +5,7 @@ export const defaultState = {
   label: '',
   position: 'AFTER_QUESTION_TEXT',
   id: null,
-  TargetMode: [],
+  TargetMode: '',
 };
 
 export const defaultForm = {

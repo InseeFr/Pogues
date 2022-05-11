@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Input from 'forms/controls/input';
 import { markdownVtlToString } from 'forms/controls/rich-textarea';
 import {
-  RichTextareaWithVariableAutoCompletion,
+  RichEditorWithVariable,
   InputWithVariableAutoCompletion,
 } from 'forms/controls/control-with-suggestions';
 
@@ -82,6 +82,7 @@ class AssociatedFields extends Component {
       targetIsRichTextarea,
       targetIsQuestion,
       focusOnInit,
+      handleDisableValidation,
     } = this.props;
 
     return (
@@ -93,9 +94,10 @@ class AssociatedFields extends Component {
                 targetIsQuestion,
               }}
               name={fieldOrigin.name}
-              component={RichTextareaWithVariableAutoCompletion}
+              component={RichEditorWithVariable}
               label={fieldOrigin.label}
               focusOnInit={focusOnInit}
+              setDisableValidation={handleDisableValidation}
             />
           </div>
         ) : (

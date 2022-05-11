@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ComponentNewEdit, Component } from 'widgets/component-new-edit';
+import { ComponentNewEdit } from 'widgets/component-new-edit';
+import { Component } from 'model';
 import {
   validateQuestionForm,
   validateSequenceForm,

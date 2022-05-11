@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from '../model/control';
+import { defaultState } from 'model/formToState/component-new-edit/control';
 
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
-import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import Textarea from 'forms/controls/textarea';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 
 import { validateControlForm } from 'utils/validation/validate';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -38,7 +38,8 @@ export const defaultProps = {
 
 // Component
 
-function Controls({ formName, selectorPath, errors, addErrors }) {
+const Controls = ({ formName, selectorPath, errors, addErrors }) => {
+  const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -48,6 +49,7 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
         errors={errors}
         validateForm={validateForm(addErrors, validateControlForm)}
         resetObject={defaultState}
+        disableValidation={disableValidation}
       >
         <Field
           type="text"
@@ -58,15 +60,17 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
         />
         <Field
           name="condition"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorWithVariable}
           label={Dictionary.expression}
           required
+          setDisableValidation={setDisableValidation}
         />
         <Field
           name="message"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorWithVariable}
           label={Dictionary.control_message}
           required
+          setDisableValidation={setDisableValidation}
         />
         <Field
           name="criticity"
@@ -100,7 +104,7 @@ function Controls({ formName, selectorPath, errors, addErrors }) {
       </ListWithInputPanel>
     </FormSection>
   );
-}
+};
 
 Controls.propTypes = propTypes;
 Controls.defaultProps = defaultProps;

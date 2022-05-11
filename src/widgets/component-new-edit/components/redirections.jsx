@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from '../model/redirection';
+import { defaultState } from 'model/formToState/component-new-edit/redirection';
 
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { GotoInput } from 'widgets/goto-input';
-import { TextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import Textarea from 'forms/controls/textarea';
 import { validateRedirectionForm } from 'utils/validation/validate';
 
@@ -43,7 +43,7 @@ const defaultProps = {
 
 // Component
 
-function Redirections({
+const Redirections = ({
   formName,
   selectorPath,
   componentType,
@@ -51,7 +51,8 @@ function Redirections({
   addErrors,
   componentsStore,
   editingComponentId,
-}) {
+}) => {
+  const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -66,6 +67,7 @@ function Redirections({
           componentsStore,
           editingComponentId,
         )}
+        disableValidation={disableValidation}
       >
         <Field
           type="text"
@@ -77,9 +79,10 @@ function Redirections({
         <Field
           type="text"
           name="condition"
-          component={TextareaWithVariableAutoCompletion}
+          component={RichEditorWithVariable}
           label={Dictionary.condition}
           required
+          setDisableValidation={setDisableValidation}
         />
         <GotoInput
           formName={formName}
@@ -89,7 +92,7 @@ function Redirections({
       </ListWithInputPanel>
     </FormSection>
   );
-}
+};
 
 Redirections.propTypes = propTypes;
 Redirections.defaultProps = defaultProps;

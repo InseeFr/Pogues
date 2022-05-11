@@ -14,7 +14,7 @@ import {
   collectedVariableRules,
   tableListMeasuresRules,
 } from './validation-rules';
-import { Component } from 'widgets/component-new-edit';
+import { Component } from 'model';
 import { validate, getErrorsObject } from './validation-utils';
 
 export function validateQuestionnaireForm(values, setErrors) {

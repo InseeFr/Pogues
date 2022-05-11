@@ -54,17 +54,19 @@ export function formToState(form, transformers) {
     filterImbriquer,
   } = form;
 
+  let newName;
+  if (name && !initialMember) {
+    newName = name;
+  } else if (label) {
+    newName = nameFromLabel(label);
+  } else if (initialMember) {
+    newName = nameFromLabel(nameLoop);
+  }
+
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
   return {
-    name:
-      name && !initialMember
-        ? name
-        : label
-        ? nameFromLabel(label)
-        : initialMember
-        ? nameFromLabel(nameLoop)
-        : false,
+    name: newName,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
@@ -103,18 +105,22 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     filterImbriquer,
     minimum,
   } = currentState;
+
+  let target = '';
+  if (type !== LOOP && type !== '' && type !== FILTER) {
+    if (label) {
+      target = TargetMode.join();
+    } else {
+      target = activeQuestionnaire.TargetMode.join();
+    }
+  }
   const form = {
     label: label || '',
     name: name || nameLoop || '',
     declarations: transformers.declaration.stateToForm(),
     controls: transformers.control.stateToForm(),
     redirections: transformers.redirection.stateToForm(),
-    TargetMode:
-      type !== LOOP && type !== '' && type !== FILTER
-        ? label
-          ? TargetMode.join()
-          : activeQuestionnaire.TargetMode.join()
-        : '',
+    TargetMode: target,
     nameLoop: nameLoop || name || '',
     maximum: maximum || '',
     minimum: minimum || '',

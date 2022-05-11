@@ -7,7 +7,7 @@ import { uuid, getSupWeight } from 'utils/utils';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 
 import * as Questionnaire from 'model/transformations/questionnaire';
-import { Component } from 'widgets/component-new-edit';
+import { Component } from 'model';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;

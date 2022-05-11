@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { RichTextareaWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import { toolbarConfigTooltip } from 'forms/controls/rich-textarea';
 import { SelectorView, View } from 'widgets/selector-view';
 import ResponseFormatSimple from '../simple/response-format-simple';
@@ -17,7 +17,7 @@ function InputMeasure(props) {
     <div>
       <Field
         name="label"
-        component={RichTextareaWithVariableAutoCompletion}
+        component={RichEditorWithVariable}
         label={Dictionary.measureLabel}
         toolbar={toolbarConfigTooltip}
         required

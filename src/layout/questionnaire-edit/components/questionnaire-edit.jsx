@@ -6,7 +6,7 @@ import {
   Questionnaire,
 } from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
-import { Component as ComponentFactory } from 'widgets/component-new-edit';
+import { Component as ComponentFactory } from 'model';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
