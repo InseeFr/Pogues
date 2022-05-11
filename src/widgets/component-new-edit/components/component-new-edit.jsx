@@ -35,8 +35,15 @@ import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
   WIDGET_COMPONENT_NEW_EDIT;
-const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, NESTEDFILTRE } =
-  COMPONENT_TYPE;
+const {
+  QUESTION,
+  LOOP,
+  SEQUENCE,
+  SUBSEQUENCE,
+  FILTER,
+  NESTEDFILTRE,
+  QUESTIONNAIRE,
+} = COMPONENT_TYPE;
 const { LIST } = DIMENSION_FORMATS;
 const { TABLE } = QUESTION_TYPE_ENUM;
 
@@ -382,6 +389,7 @@ const ComponentNewEdit = props => {
             component.type !== LOOP &&
             component.type !== FILTER &&
             component.type !== NESTEDFILTRE &&
+            component.type !== QUESTIONNAIRE &&
             component.id !== 'idendquest' &&
             component.type ===
               componentsStore[
@@ -407,6 +415,7 @@ const ComponentNewEdit = props => {
             component.type !== LOOP &&
             component.type !== FILTER &&
             component.type !== NESTEDFILTRE &&
+            component.type !== QUESTIONNAIRE &&
             component.id !== 'idendquest',
         )
         .map(element => {

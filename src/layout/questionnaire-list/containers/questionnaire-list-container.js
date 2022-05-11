@@ -13,8 +13,8 @@ import { getToken, getUser } from 'reducers/selectors';
 // Contanier
 
 const mapStateToProps = state => {
-  const questionnaires = Object.keys(state.questionnaireById).map(
-    key => state.questionnaireById[key],
+  const questionnaires = Object.keys(state.questionnaireListById).map(
+    key => state.questionnaireListById[key],
   );
   return {
     questionnaires,

@@ -5,6 +5,7 @@ import { reducer as oidc } from '@axa-fr/react-oidc-redux';
 import locale from 'reducers/dictionary';
 import appState from 'reducers/app-state/app-state';
 import questionnaireById from 'reducers/questionnaire-by-id';
+import questionnaireListById from 'reducers/questionnaire-list-by-id';
 import componentByQuestionnaire from 'reducers/component-by-questionnaire';
 import codeListByQuestionnaire from 'reducers/code-list-by-questionnaire';
 import calculatedVariableByQuestionnaire from 'reducers/calculated-variable-by-questionnaire';
@@ -27,6 +28,7 @@ export default integrityChecker(
     locale,
     appState,
     questionnaireById,
+    questionnaireListById,
     componentByQuestionnaire,
     codeListByQuestionnaire,
     calculatedVariableByQuestionnaire,
