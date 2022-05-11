@@ -5,8 +5,8 @@
 - **[Features]** : Integration of the VTL Editor
 - **[Features]** : All fields are now mandatory for the creation of a questionnaire
 - **[Fixes][merge]** : Fixing another bug where the owner part part of a questionnaire disappears after merging two questionnaires
-- **[Fixes][merge]** : Fixing a bug where it was imposssible to validate a element of the questionnaire after making two declarations in a row
-- **[Fixes][merge]** : Fixing a bug where the questionnaire appears as a filter target
+- **[Fixes]** : Fixing a bug where it was imposssible to validate a element of the questionnaire after making two declarations in a row
+- **[Fixes]** : Fixing a bug where the questionnaire appears as a filter target
 - **[Techs]** Sonar fixes
 - **[Techs]** Fixing units tests after integration of VTL Editor
 - **[Techs]** Upgrading dependancies : moment, async et cross-fetch
