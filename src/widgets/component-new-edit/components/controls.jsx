@@ -7,7 +7,7 @@ import { defaultState } from 'model/formToState/component-new-edit/control';
 import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
 import Textarea from 'forms/controls/textarea';
-import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import { SimpleEditorWithVariable } from 'forms/controls/control-with-suggestions';
 
 import { validateControlForm } from 'utils/validation/validate';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -60,14 +60,14 @@ const Controls = ({ formName, selectorPath, errors, addErrors }) => {
         />
         <Field
           name="condition"
-          component={RichEditorWithVariable}
+          component={SimpleEditorWithVariable}
           label={Dictionary.expression}
           required
           setDisableValidation={setDisableValidation}
         />
         <Field
           name="message"
-          component={RichEditorWithVariable}
+          component={SimpleEditorWithVariable}
           label={Dictionary.control_message}
           required
           setDisableValidation={setDisableValidation}

@@ -10,7 +10,7 @@ import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { uuid } from 'utils/utils';
 import * as rules from 'forms/validation-rules';
-import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 
 const {
   COMPONENT_CLASS,
@@ -455,7 +455,7 @@ const NestedFilter = props => {
             </div>
           </div>
           <div>
-            <RichEditorWithVariable
+            <InputWithVariableAutoCompletion
               input={{
                 name: 'filter',
                 onChange,

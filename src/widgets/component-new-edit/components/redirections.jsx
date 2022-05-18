@@ -6,7 +6,7 @@ import { defaultState } from 'model/formToState/component-new-edit/redirection';
 
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { GotoInput } from 'widgets/goto-input';
-import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import { SimpleEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import Textarea from 'forms/controls/textarea';
 import { validateRedirectionForm } from 'utils/validation/validate';
 
@@ -79,7 +79,7 @@ const Redirections = ({
         <Field
           type="text"
           name="condition"
-          component={RichEditorWithVariable}
+          component={SimpleEditorWithVariable}
           label={Dictionary.condition}
           required
           setDisableValidation={setDisableValidation}
