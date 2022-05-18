@@ -10,7 +10,7 @@ import {
 import { defaultState } from 'model/formToState/component-new-edit/calculated-variable';
 
 import Input from 'forms/controls/input';
-import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import { SimpleEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
 import { validateCalculatedVariableForm } from 'utils/validation/validate';
 import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
@@ -90,7 +90,7 @@ const CalculatedVariables = ({
         <Field
           name="formula"
           type="text"
-          component={RichEditorWithVariable}
+          component={SimpleEditorWithVariable}
           label={Dictionary.formula}
           required
           setDisableValidation={setDisableValidation}
