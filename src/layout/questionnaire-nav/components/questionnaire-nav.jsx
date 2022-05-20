@@ -36,6 +36,12 @@ function QuestionnaireNav({
             <span className="glyphicon glyphicon-home" />
             <Link to="/">{Dictionary.backToHomePage}</Link>
           </li>
+          <li>
+            <span className="glyphicon glyphicon-arrow-left" />
+            <Link to={`/questionnaire/${questionnaire.id}`}>
+              Retour au questionnaire
+            </Link>
+          </li>
         </ul>
 
         <ArboSimplified

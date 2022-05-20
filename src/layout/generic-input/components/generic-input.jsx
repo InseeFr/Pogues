@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
@@ -12,6 +12,7 @@ import Loader from 'layout/loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
+const { VISUALIZATION, EXTERNAL_ELEMENT } = DROPDOWN_TYPE;
 
 // PropTypes and defaultProps
 
@@ -251,6 +252,7 @@ const GenericInput = props => {
         <span className="glyphicon glyphicon-plus" />
         {Dictionary.pageBreak}
       </button>
+      <VisualizeDropdown top typeDropDown={EXTERNAL_ELEMENT} />
       <button
         className="btn-yellow"
         disabled={!isQuestionnaireModified}
@@ -265,6 +267,7 @@ const GenericInput = props => {
 
       <VisualizeDropdown
         top
+        typeDropDown={VISUALIZATION}
         disabled={!isQuestionnaireValid}
         visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
         token={token}

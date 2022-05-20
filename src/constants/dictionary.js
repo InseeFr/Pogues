@@ -127,6 +127,10 @@ const dictionary = {
     en: 'Page break',
     fr: 'Saut de page',
   },
+  externalElement: {
+    en: 'External element',
+    fr: 'Élément externe',
+  },
   visualise: {
     en: 'Visualise',
     fr: 'Visualiser',
