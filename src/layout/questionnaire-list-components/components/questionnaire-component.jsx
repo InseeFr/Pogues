@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import DropZone from './drop-zone/drop-zone';
 
 import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { markdownVtlToString } from 'forms/controls/rich-textarea';
@@ -29,6 +29,7 @@ import { getIntegrityErrors } from 'utils/integrity/utils';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER } = COMPONENT_TYPE;
+const { VISUALIZATION } = DROPDOWN_TYPE;
 
 const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
@@ -195,6 +196,7 @@ const QuestionnaireComponent = props => {
                       </button>
                     )}
                     <VisualizeDropdown
+                      typeDropDown={VISUALIZATION}
                       componentId={component.id}
                       visualizeActiveQuestionnaire={
                         visualizeActiveQuestionnaire

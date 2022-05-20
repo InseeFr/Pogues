@@ -15,6 +15,7 @@ const QuestionnaireList = props => {
     token,
     duplicateQuestionnaire,
     fusion,
+    isComposition,
     handleCloseNewQuestion,
     mergeQuestions,
     currentQuestion,
@@ -38,6 +39,15 @@ const QuestionnaireList = props => {
   const fusionateQuestion = () => {
     mergeQuestions(checkedQuestion, token);
     handleCloseNewQuestion();
+  };
+
+  const addExternalReference = () => {
+    console.log("Ajout d'une référence à un élément externe");
+    handleCloseNewQuestion();
+  };
+
+  const handleValidation = () => {
+    return fusion ? fusionateQuestion() : addExternalReference();
   };
 
   useEffect(() => {
@@ -110,7 +120,7 @@ const QuestionnaireList = props => {
             lastUpdatedDate={q.lastUpdatedDate}
             final={q.final}
             handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
-            fusion={!!fusion}
+            fusion={fusion || isComposition}
             handelCheck={handelCheck}
             fusionateQuestion={fusionateQuestion}
           />
@@ -160,12 +170,12 @@ const QuestionnaireList = props => {
           </div>
         )}
       </div>
-      {fusion ? (
+      {fusion || isComposition ? (
         <div className="footer_quesionList">
           <button
             className="footer_quesionList-validate"
             type="submit"
-            onClick={() => fusionateQuestion()}
+            onClick={() => handleValidation()}
           >
             {Dictionary.validate}
           </button>
