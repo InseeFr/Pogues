@@ -7,9 +7,14 @@ import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 import { getStampsList } from 'utils/remote-api';
+import {
+  getHeavyComponentIdByTypeFromGroupIds,
+  getWeight,
+} from 'utils/component/generic-input-utils';
 
 const QuestionnaireList = props => {
   const {
+    activeQuestionnaire,
     questionnaires,
     stamp,
     token,
@@ -23,26 +28,69 @@ const QuestionnaireList = props => {
     deleteQuestionnaireList,
     selectedStamp,
     setSelectedStamp,
+    createComponent,
+    updateParentChildren,
+    orderComponents,
+    componentsStore,
+    codesListsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+    collectedVariablesStore,
   } = props;
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
-  const [checkedQuestion, setCheckedQuestion] = useState('');
+  const [checkedQuestionnaire, setCheckedQuestionnaire] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handelCheck = id => {
-    setCheckedQuestion(id);
+  const handleCheck = id => {
+    setCheckedQuestionnaire(id);
   };
 
   const fusionateQuestion = () => {
-    mergeQuestions(checkedQuestion, token);
+    mergeQuestions(setCheckedQuestionnaire, token);
     handleCloseNewQuestion();
   };
 
   const addExternalReference = () => {
-    console.log("Ajout d'une référence à un élément externe");
+    const SEQUENCE = 'SEQUENCE';
+    const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(
+      componentsStore,
+      Object.keys(componentsStore),
+      SEQUENCE,
+    );
+    const weight = getWeight(componentsStore, heavierSeqId);
+    const labelQuest = questionnaires.find(
+      q => q.id === checkedQuestionnaire,
+    ).label;
+    const componentState = {
+      id: checkedQuestionnaire,
+      name: 'REFQUEST',
+      parent: activeQuestionnaire.id,
+      weight: weight,
+      children: [],
+      declarations: '',
+      controls: '',
+      TargetMode: [''],
+      flowcontrol: [],
+      dynamiqueSpecified: '',
+      label: labelQuest,
+      type: 'SEQUENCE',
+    };
+
+    createComponent(
+      componentState,
+      codesListsStore,
+      calculatedVariablesStore,
+      externalVariablesStore,
+      collectedVariablesStore,
+    )
+      .then(res => updateParentChildren(res))
+      .then(res => orderComponents(res))
+      .catch(e => console.log(e));
+
     handleCloseNewQuestion();
   };
 
@@ -121,7 +169,7 @@ const QuestionnaireList = props => {
             final={q.final}
             handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
             fusion={fusion || isComposition}
-            handelCheck={handelCheck}
+            handleCheck={handleCheck}
             fusionateQuestion={fusionateQuestion}
           />
         );
@@ -175,6 +223,7 @@ const QuestionnaireList = props => {
           <button
             className="footer_quesionList-validate"
             type="submit"
+            disabled={checkedQuestionnaire === ''}
             onClick={() => handleValidation()}
           >
             {Dictionary.validate}

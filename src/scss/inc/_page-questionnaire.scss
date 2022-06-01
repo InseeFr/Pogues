@@ -122,7 +122,8 @@
         }
       }
 
-      .questionnaire-element.questionnaire-sequence {
+      .questionnaire-element.questionnaire-sequence,
+      .questionnaire-element.questionnaire-external-element {
         & > .questionnaire-element-info {
           color: $color-blue_01;
           font-weight: bold;

@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-import VisualizeDropdown from './visualize-dropdown';
+import VisualizeDropdown from './components/visualize-dropdown';
 
 describe('Visualize Dropdown Component: ', () => {
   test('Should return the right HTML', () => {

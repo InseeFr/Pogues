@@ -89,8 +89,8 @@ const VisualizeDropdown = props => {
     { actionType: 'ddi', actionLabel: Dictionary.VISUALIZE_DDI },
   ];
   const linksQuestionnaire = [
-    { actionLabel: 'Module TCM' },
-    { actionLabel: 'Questionnaire' },
+    { actionLabel: 'Référence au TCM' },
+    { actionLabel: 'Référence à un questionnaire' },
   ];
   return (
     <div className={classDropDown} ref={wrapperRef}>

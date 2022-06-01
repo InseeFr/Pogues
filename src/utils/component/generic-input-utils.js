@@ -61,7 +61,11 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
  * @param  {QUESTION|SEQUENCE|SUBSEQUENCE}  type              Type of component
  * @return {string} The id of the component with heaviest weight and corresponding type or an empty string
  */
-function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
+export function getHeavyComponentIdByTypeFromGroupIds(
+  components,
+  subgroupIds,
+  type,
+) {
   let heavyComponentId = '';
   const componentsIds = subgroupIds.filter(
     key => components[key] && components[key].type === type,
@@ -84,7 +88,7 @@ function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
  * @param  {string} siblingId   Component id
  * @return {string} The next component weight or 0
  */
-function getWeight(components, componentId) {
+export function getWeight(components, componentId) {
   return componentId !== '' ? components[componentId].weight + 1 : 0;
 }
 
