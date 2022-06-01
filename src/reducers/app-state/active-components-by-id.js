@@ -12,6 +12,7 @@ import {
   SET_ACTIVE_COMPONENTS,
   CREATE_PAGE_BREAK,
   REMOVE_PAGE_BREAK,
+  DELETE_APPSTATE,
 } from 'actions/app-state';
 
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
@@ -52,6 +53,10 @@ export function removePageBreak(state, { id }) {
   };
 }
 
+export function deleteComponentsById() {
+  return {};
+}
+
 actionHandlers[SET_ACTIVE_COMPONENTS] = setActiveComponents;
 actionHandlers[REMOVE_COMPONENT] = setActiveComponents;
 
@@ -64,5 +69,7 @@ actionHandlers[MOVE_COMPONENT] = updateActiveComponents;
 
 actionHandlers[CREATE_PAGE_BREAK] = createPageBreak;
 actionHandlers[REMOVE_PAGE_BREAK] = removePageBreak;
+
+actionHandlers[DELETE_APPSTATE] = deleteComponentsById;
 
 export default createActionHandlers(actionHandlers);

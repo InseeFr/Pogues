@@ -38,6 +38,7 @@ export const LOAD_STATISTICAL_CONTEXT_FAILURE =
 export const ADD_LIST_INVALID_ITEMS = 'ADD_LIST_INVALID_ITEMS';
 export const CREATE_PAGE_BREAK = 'CREATE_PAGE_BREAK';
 export const REMOVE_PAGE_BREAK = 'REMOVE_PAGE_BREAK';
+export const DELETE_APPSTATE = 'DELETE_APPSTATE';
 
 export const START_LOADING_VISUALIZATION = 'START_LOADING_VISUALIZATION';
 export const LOADING_VISUALIZATION_SUCCESS = 'LOADING_VISUALIZATION_SUCCESS';
@@ -557,4 +558,10 @@ export const loadStatisticalContext = (idCampaign, token) => dispatch => {
       return dispatch(loadStatisticalContextSuccess({ serie, operation }));
     })
     .catch(err => dispatch(loadStatisticalContextFailure(err)));
+};
+
+export const deleteAppState = () => dispatch => {
+  dispatch({
+    type: DELETE_APPSTATE,
+  });
 };

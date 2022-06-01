@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,13 @@ export const propTypes = {
 // Component
 
 const PageHome = props => {
+  const { history, deleteAppState } = props;
+
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    deleteAppState();
+  }, [deleteAppState]);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -28,7 +34,7 @@ const PageHome = props => {
   };
 
   const handleQuestionnaryCreated = questionnaireId => {
-    props.history.push(`/questionnaire/${questionnaireId}`);
+    history.push(`/questionnaire/${questionnaireId}`);
   };
 
   return (

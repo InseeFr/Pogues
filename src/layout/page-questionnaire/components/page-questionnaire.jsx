@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
 import Loader from 'layout/loader';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
@@ -53,7 +52,7 @@ const PageQuestionnaire = props => {
     calculatedVariables,
     externalVariables,
     collectedVariablesByQuestion,
-    activeQuestionnaire,
+    // activeQuestionnaire,
     loading,
     loadQuestionnaire,
     setActiveQuestionnaire,
@@ -61,112 +60,198 @@ const PageQuestionnaire = props => {
     setActiveComponents,
     setActiveCodeLists,
     setActiveVariables,
-    loadCampaignsIfNeeded,
+    // loadCampaignsIfNeeded,
+    appState,
   } = props;
 
-  const [idState, setIdState] = useState();
-  const [questionnaireState, setQuestionnaireState] = useState();
-  const [activeQuestionnaireState, setActiveQuestionnaireState] = useState();
-  const [componentsState, setComponentsState] = useState({});
-  const [codeListsState, setCodeListsState] = useState();
-  const [externalVariablesState, setExternalVariables] = useState();
-  const [calculatedVariablesState, setCalculatedVariables] = useState();
-  const [collectedVariablesByQuestionState, setCollectedVariablesByQuestion] =
-    useState();
+  // const [idState, setIdState] = useState();
+  // const [questionnaireState, setQuestionnaireState] = useState();
+  // const [activeQuestionnaireState, setActiveQuestionnaireState] = useState();
+  // const [componentsState, setComponentsState] = useState({});
+  // const [codeListsState, setCodeListsState] = useState();
+  // const [externalVariablesState, setExternalVariables] = useState();
+  // const [calculatedVariablesState, setCalculatedVariables] = useState();
+  // const [collectedVariablesByQuestionState, setCollectedVariablesByQuestion] =
+  //   useState();
+
+  // useEffect(() => {
+  //   console.log(id);
+  //   console.log(questionnaire.id);
+  //   if (questionnaire?.id !== id) {
+  //     loadQuestionnaire(id, token);
+  //   }
+
+  //   if (questionnaire && !appState.activeQuestionnaire) {
+  //     const idCampaign =
+  //       questionnaire.campaigns[questionnaire.campaigns.length - 1];
+  //     setActiveQuestionnaire(questionnaire);
+  //     loadStatisticalContext(idCampaign, token);
+  //   }
+  //   if (components && !appState.activeComponentsById) {
+  //     setActiveComponents(components);
+  //   }
+  //   if (codeLists && !appState.activeCodeListsById) {
+  //     setActiveCodeLists(codeLists);
+  //   }
+  //   if (
+  //     (calculatedVariables && !appState.activeCalculatedVariablesById) ||
+  //     (externalVariables && !appState.activeExternalVariablesById) ||
+  //     (collectedVariablesByQuestion && !appState.collectedVariableByQuestion)
+  //   ) {
+  //     setActiveVariables({
+  //       activeCalculatedVariablesById: calculatedVariables,
+  //       activeExternalVariablesById: externalVariables,
+  //       collectedVariableByQuestion: collectedVariablesByQuestion,
+  //     });
+  //   }
+  // }, [
+  //   token,
+  //   loading,
+  //   questionnaire,
+  //   components,
+  //   externalVariables,
+  //   calculatedVariables,
+  //   collectedVariablesByQuestion,
+  //   codeLists,
+  //   id,
+  //   loadQuestionnaire,
+  //   loadStatisticalContext,
+  //   setActiveCodeLists,
+  //   setActiveComponents,
+  //   setActiveQuestionnaire,
+  //   setActiveVariables,
+  //   appState.activeQuestionnaire,
+  //   appState.activeComponentsById,
+  //   appState.activeCodeListsById,
+  //   appState.activeCalculatedVariablesById,
+  //   appState.activeExternalVariablesById,
+  //   appState.collectedVariableByQuestion,
+  // ]);
 
   useEffect(() => {
-    if (idState !== id) {
+    if (!questionnaire || questionnaire.id !== id) {
       loadQuestionnaire(id, token);
-      setIdState(id);
     }
 
-    if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
+    if (
+      questionnaire &&
+      Object.keys(appState.activeQuestionnaire).length === 0
+    ) {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
       setActiveQuestionnaire(questionnaire);
       loadStatisticalContext(idCampaign, token);
-      setQuestionnaireState(questionnaire);
     }
-    if (
-      components &&
-      Object.values(componentsState).length !== Object.values(components).length
-    ) {
+    if (components && Object.keys(appState.activeComponentsById).length === 0) {
       setActiveComponents(components);
-      setComponentsState(components);
     }
-    if (codeLists && !isEqual(codeListsState, codeLists)) {
+    if (codeLists && Object.keys(appState.activeCodeListsById).length === 0) {
       setActiveCodeLists(codeLists);
-      setCodeListsState(codeLists);
     }
     if (
-      (calculatedVariablesState &&
-        !isEqual(calculatedVariablesState, calculatedVariables)) ||
+      (calculatedVariables &&
+        Object.keys(calculatedVariables).length !== 0 &&
+        Object.keys(appState.activeCalculatedVariablesById).length === 0) ||
       (externalVariables &&
-        !isEqual(externalVariablesState, externalVariables)) ||
-      (collectedVariablesByQuestionState &&
-        !isEqual(
-          collectedVariablesByQuestionState,
-          collectedVariablesByQuestion,
-        ))
+        Object.keys(externalVariables).length !== 0 &&
+        Object.keys(appState.activeExternalVariablesById).length === 0) ||
+      (collectedVariablesByQuestion &&
+        Object.keys(collectedVariablesByQuestion).length !== 0 &&
+        Object.keys(appState.collectedVariableByQuestion).length === 0)
     ) {
       setActiveVariables({
         activeCalculatedVariablesById: calculatedVariables,
         activeExternalVariablesById: externalVariables,
         collectedVariableByQuestion: collectedVariablesByQuestion,
       });
-      setExternalVariables(externalVariables);
-      setCalculatedVariables(calculatedVariables);
-      setCollectedVariablesByQuestion(collectedVariablesByQuestion);
     }
+    if (
+      calculatedVariables &&
+      externalVariables &&
+      collectedVariablesByQuestion
+    ) {
+      console.log(Object.keys(calculatedVariables).length);
+      console.log(Object.keys(externalVariables).length);
+      console.log(Object.keys(collectedVariablesByQuestion).length);
+    }
+
+    // if (
+    //   calculatedVariables &&
+    //   Object.keys(calculatedVariables).length !== 0 &&
+    //   Object.keys(appState.activeCalculatedVariablesById).length === 0
+    // ) {
+    //   setActiveVariables({
+    //     activeCalculatedVariablesById: calculatedVariables,
+    //     activeExternalVariablesById: {},
+    //     collectedVariableByQuestion: {},
+    //   });
+    // }
+    // if (externalVariables) console.log(Object.keys(externalVariables).length);
+    // if (
+    //   externalVariables &&
+    //   Object.keys(externalVariables).length !== 0 &&
+    //   Object.keys(appState.activeExternalVariablesById).length === 0
+    // ) {
+    //   console.log('Dans externalVariables');
+    //   setActiveVariables({
+    //     activeCalculatedVariablesById: {},
+    //     activeExternalVariablesById: externalVariables,
+    //     collectedVariableByQuestion: {},
+    //   });
+    // }
+    // if (
+    //   calculatedVariables &&
+    //   Object.keys(calculatedVariables).length !== 0 &&
+    //   Object.keys(appState.activeCalculatedVariablesById).length === 0
+    // ) {
+    //   setActiveVariables({
+    //     activeCalculatedVariablesById: calculatedVariables,
+    //     activeExternalVariablesById: {},
+    //     collectedVariableByQuestion: {},
+    //   });
+    // }
   }, [
-    token,
-    loading,
-    idState,
-    questionnaire,
-    questionnaireState,
-    components,
-    componentsState,
-    externalVariables,
-    externalVariablesState,
-    calculatedVariables,
-    calculatedVariablesState,
-    collectedVariablesByQuestion,
-    collectedVariablesByQuestionState,
-    codeLists,
-    codeListsState,
     id,
     loadQuestionnaire,
-    loadStatisticalContext,
-    setActiveCodeLists,
-    setActiveComponents,
+    token,
+    questionnaire,
     setActiveQuestionnaire,
+    loadStatisticalContext,
+    externalVariables,
+    calculatedVariables,
+    components,
+    setActiveComponents,
+    codeLists,
+    setActiveCodeLists,
+    appState.activeQuestionnaire,
+    appState.activeComponentsById,
+    appState.activeCodeListsById,
+    appState.activeCalculatedVariablesById,
+    appState.activeExternalVariablesById,
+    appState.collectedVariableByQuestion,
+    // collectedVariablesByQuestion,
     setActiveVariables,
   ]);
 
-  useEffect(() => {
-    if (
-      activeQuestionnaire &&
-      !isEqual(activeQuestionnaire, activeQuestionnaireState)
-    ) {
-      if (activeQuestionnaire.campaigns) {
-        const idCampaign =
-          activeQuestionnaire.campaigns[
-            activeQuestionnaire.campaigns.length - 1
-          ];
-        loadStatisticalContext(idCampaign, token);
-      }
-      if (activeQuestionnaire.operation) {
-        loadCampaignsIfNeeded(activeQuestionnaire.operation, token);
-      }
-      setActiveQuestionnaireState(activeQuestionnaire);
-    }
-  }, [
-    token,
-    activeQuestionnaire,
-    activeQuestionnaireState,
-    loadStatisticalContext,
-    loadCampaignsIfNeeded,
-  ]);
+  // useEffect(() => {
+  //   if (appState.activeQuestionnaire) {
+  //     if (appState.activeQuestionnaire.campaigns) {
+  //       const idCampaign =
+  //         appState.activeQuestionnaire.campaigns[
+  //           appState.activeQuestionnaire.campaigns.length - 1
+  //         ];
+  //       loadStatisticalContext(idCampaign, token);
+  //     }
+  //     if (appState.activeQuestionnaire.operation) {
+  //       loadCampaignsIfNeeded(appState.activeQuestionnaire.operation, token);
+  //     }
+  //   }
+  // }, [
+  //   token,
+  //   appState.activeQuestionnaire,
+  //   loadStatisticalContext,
+  //   loadCampaignsIfNeeded,
+  // ]);
 
   return (
     <div id={COMPONENT_ID}>

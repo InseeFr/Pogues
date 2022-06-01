@@ -65,6 +65,7 @@ const mapStateToProps = (
 ) => ({
   id,
   token: getToken(state),
+  appState: state.appState,
   questionnaire: state.questionnaireById[id],
   activeQuestionnaire: state.appState.activeQuestionnaire,
   components: state.componentByQuestionnaire[id],
