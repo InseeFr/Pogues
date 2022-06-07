@@ -7,6 +7,7 @@ import {
   isNestedFilter,
   toComponents,
   updateNewComponentParent,
+  isExternalElement,
 } from 'utils/component/component-utils';
 import {
   moveQuestionToSubSequence,
@@ -141,7 +142,9 @@ export const orderComponents =
       } else if (
         isSequence(lastCreatedComponent[id]) &&
         !(
-          isSequence(selectedComponent) && childrenSelectedComponentLength === 0
+          isSequence(selectedComponent) &&
+          isExternalElement(selectedComponent) &&
+          childrenSelectedComponentLength === 0
         )
       ) {
         // If the selected component have children, we will use the first child as the component used for the in

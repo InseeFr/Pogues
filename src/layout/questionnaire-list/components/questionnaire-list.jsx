@@ -91,8 +91,7 @@ const QuestionnaireList = props => {
       collectedVariablesStore,
     )
       .then(res => updateParentChildren(res))
-      .then(res => orderComponents(res))
-      .catch(e => console.log(e));
+      .then(res => orderComponents(res));
 
     handleCloseNewQuestion();
   };

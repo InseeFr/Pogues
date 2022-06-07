@@ -183,12 +183,14 @@ const QuestionnaireComponent = props => {
                   : false}
                 {selected ? (
                   <div className="questionnaire-element-actions">
-                    <button
-                      className="btn-yellow"
-                      onClick={handleEditComponent}
-                    >
-                      {Dictionary.showDetail}
-                    </button>
+                    {!(component.type === EXTERNAL_ELEMENT) && (
+                      <button
+                        className="btn-yellow"
+                        onClick={handleEditComponent}
+                      >
+                        {Dictionary.showDetail}
+                      </button>
+                    )}
                     {component.type === QUESTION && (
                       <button
                         className="btn-yellow"
@@ -198,14 +200,16 @@ const QuestionnaireComponent = props => {
                         <span className="glyphicon glyphicon-duplicate" />
                       </button>
                     )}
-                    <VisualizeDropdown
-                      typeDropDown={VISUALIZATION}
-                      componentId={component.id}
-                      visualizeActiveQuestionnaire={
-                        visualizeActiveQuestionnaire
-                      }
-                      token={token}
-                    />
+                    {!(component.type === EXTERNAL_ELEMENT) && (
+                      <VisualizeDropdown
+                        typeDropDown={VISUALIZATION}
+                        componentId={component.id}
+                        visualizeActiveQuestionnaire={
+                          visualizeActiveQuestionnaire
+                        }
+                        token={token}
+                      />
+                    )}
                     <button
                       className="btn-yellow"
                       disabled={
