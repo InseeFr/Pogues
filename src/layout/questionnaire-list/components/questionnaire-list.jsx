@@ -12,6 +12,8 @@ import {
   getWeight,
 } from 'utils/component/generic-input-utils';
 
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+
 const QuestionnaireList = props => {
   const {
     activeQuestionnaire,
@@ -37,6 +39,9 @@ const QuestionnaireList = props => {
     externalVariablesStore,
     collectedVariablesStore,
   } = props;
+
+  const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
+
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
@@ -55,7 +60,6 @@ const QuestionnaireList = props => {
   };
 
   const addExternalReference = () => {
-    const SEQUENCE = 'SEQUENCE';
     const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(
       componentsStore,
       Object.keys(componentsStore),
@@ -77,9 +81,8 @@ const QuestionnaireList = props => {
       flowcontrol: [],
       dynamiqueSpecified: '',
       label: labelQuest,
-      type: 'SEQUENCE',
+      type: EXTERNAL_ELEMENT,
     };
-
     createComponent(
       componentState,
       codesListsStore,

@@ -122,8 +122,7 @@
         }
       }
 
-      .questionnaire-element.questionnaire-sequence,
-      .questionnaire-element.questionnaire-external-element {
+      .questionnaire-element.questionnaire-sequence {
         & > .questionnaire-element-info {
           color: $color-blue_01;
           font-weight: bold;
@@ -133,6 +132,20 @@
 
           .questionnaire-element-name {
             background-color: $color-blue_01;
+          }
+        }
+      }
+
+      .questionnaire-element.questionnaire-external-element {
+        & > .questionnaire-element-info {
+          color: red;
+          font-weight: bold;
+        }
+        &.selected > .questionnaire-element-info {
+          border-color: red;
+
+          .questionnaire-element-name {
+            background-color: red;
           }
         }
       }

@@ -49,7 +49,6 @@ export const createComponent =
     const activeComponentsStore = {
       [componentState.id]: componentState,
     };
-
     return new Promise(resolve => {
       const result = dispatch({
         type: CREATE_COMPONENT,
@@ -117,7 +116,6 @@ export const orderComponents =
     const { selectedComponentId, activeComponentsById: activesComponents } =
       state.appState;
     const selectedComponent = activesComponents[selectedComponentId];
-
     let activeComponentsById = {};
     /**
      * We do the reorder only if we have a selected component
@@ -128,7 +126,6 @@ export const orderComponents =
         activesComponents[selectedComponent.parent].children,
         activesComponents,
       ).find(c => c.weight === selectedComponent.weight + 1);
-
       const childrenSelectedComponentLength = selectedComponent.children.length;
 
       /**
@@ -202,6 +199,7 @@ export const orderComponents =
       },
     });
   };
+
 /**
  * Update component
  *

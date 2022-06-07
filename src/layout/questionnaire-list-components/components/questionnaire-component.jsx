@@ -28,7 +28,8 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { getIntegrityErrors } from 'utils/integrity/utils';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
 const { VISUALIZATION } = DROPDOWN_TYPE;
 
 const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
@@ -120,6 +121,8 @@ const QuestionnaireComponent = props => {
             'questionnaire-sequence': component.type === SEQUENCE,
             'questionnaire-subsequence': component.type === SUBSEQUENCE,
             'questionnaire-question': component.type === QUESTION,
+            'questionnaire-external-element':
+              component.type === EXTERNAL_ELEMENT,
           })}
           ref={myRef}
         >
