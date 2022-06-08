@@ -18,8 +18,15 @@ import {
 } from 'constants/pogues-constants';
 
 const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP, FILTER } =
-  COMPONENT_TYPE;
+const {
+  QUESTION,
+  SEQUENCE,
+  SUBSEQUENCE,
+  QUESTIONNAIRE,
+  LOOP,
+  FILTER,
+  EXTERNAL_ELEMENT,
+} = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 
 const sortByWeight = store => (keyA, keyB) => {
@@ -260,6 +267,8 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       state.type = SEQUENCE;
     } else if (genericName === 'SUBMODULE') {
       state.type = SUBSEQUENCE;
+    } else if (genericName === 'EXTERNAL_ELEMENT') {
+      state.type = EXTERNAL_ELEMENT;
     }
   } else {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
@@ -708,6 +717,8 @@ function storeToRemoteNested(
         remote.genericName = 'QUESTIONNAIRE';
       } else if (type === SEQUENCE) {
         remote.genericName = 'MODULE';
+      } else if (type === EXTERNAL_ELEMENT) {
+        remote.genericName = 'EXTERNAL_ELEMENT';
       } else {
         remote.genericName = 'SUBMODULE';
       }

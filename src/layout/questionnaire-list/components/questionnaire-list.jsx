@@ -79,6 +79,7 @@ const QuestionnaireList = props => {
       controls: '',
       TargetMode: [''],
       flowcontrol: [],
+      redirections: {},
       dynamiqueSpecified: '',
       label: labelQuest,
       type: EXTERNAL_ELEMENT,
