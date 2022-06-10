@@ -11,7 +11,7 @@ import {
   getHeavyComponentIdByTypeFromGroupIds,
   getWeight,
 } from 'utils/component/generic-input-utils';
-
+import { nameFromLabel } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const QuestionnaireList = props => {
@@ -71,7 +71,7 @@ const QuestionnaireList = props => {
     ).label;
     const componentState = {
       id: checkedQuestionnaire,
-      name: 'REFQUEST',
+      name: labelQuest ? nameFromLabel(labelQuest) : 'REFQUEST',
       parent: activeQuestionnaire.id,
       weight: weight,
       children: [],
