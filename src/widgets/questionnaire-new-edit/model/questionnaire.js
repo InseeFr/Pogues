@@ -15,6 +15,7 @@ export const defaultState = {
   dynamiqueSpecified: '',
   formulaSpecified: '',
   ComponentGroup: [],
+  childQuestionnaireRef: [],
 };
 
 export function formToState(form) {
