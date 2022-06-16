@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { useHistory, useLocation } from 'react-router-dom';
 import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
