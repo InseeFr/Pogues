@@ -155,9 +155,6 @@ const GenericInput = props => {
     ? placeholders[typeNewComponent].weight
     : 0;
 
-  console.log('history', history);
-  console.log('location', location);
-
   return (
     <div
       id={COMPONENT_ID}

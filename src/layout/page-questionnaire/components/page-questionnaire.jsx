@@ -165,15 +165,6 @@ const PageQuestionnaire = props => {
         collectedVariableByQuestion: collectedVariablesByQuestion,
       });
     }
-    if (
-      calculatedVariables &&
-      externalVariables &&
-      collectedVariablesByQuestion
-    ) {
-      console.log(Object.keys(calculatedVariables).length);
-      console.log(Object.keys(externalVariables).length);
-      console.log(Object.keys(collectedVariablesByQuestion).length);
-    }
 
     // if (
     //   calculatedVariables &&
@@ -210,6 +201,7 @@ const PageQuestionnaire = props => {
     //     collectedVariableByQuestion: {},
     //   });
     // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     id,
     loadQuestionnaire,
