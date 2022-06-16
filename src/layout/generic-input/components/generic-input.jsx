@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
+import { useHistory, useLocation } from 'react-router-dom';
 import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -107,6 +108,9 @@ const GenericInput = props => {
   const [typeNewComponent, setTypeNewComponent] = useState('');
   const [showNewQuestionnaire, setShowNewQuestionnaire] = useState(false);
 
+  const history = useHistory();
+  const location = useLocation();
+
   const handleNewQuestion = () => {
     setShowNewQuestionnaire(true);
     loadQuestionnaireList(stamp, token);
@@ -151,13 +155,23 @@ const GenericInput = props => {
     ? placeholders[typeNewComponent].weight
     : 0;
 
+  console.log('history', history);
+  console.log('location', location);
+
   return (
     <div
       id={COMPONENT_ID}
       style={{ display: showNewComponentModal ? 'none' : 'block' }}
     >
       {isLoadingVisualization && <Loader />}
-      <NavigationPrompt renderIfNotActive when={isQuestionnaireModified}>
+      <NavigationPrompt
+        renderIfNotActive
+        when={(crntLocation, nextLocation) =>
+          (!nextLocation ||
+            !nextLocation.pathname.startsWith(crntLocation.pathname)) &&
+          isQuestionnaireModified
+        }
+      >
         {({ isActive, onCancel, onConfirm }) => {
           if (isActive) {
             return (
