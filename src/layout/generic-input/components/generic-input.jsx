@@ -108,9 +108,6 @@ const GenericInput = props => {
   const [typeNewComponent, setTypeNewComponent] = useState('');
   const [showNewQuestionnaire, setShowNewQuestionnaire] = useState(false);
 
-  const history = useHistory();
-  const location = useLocation();
-
   const handleNewQuestion = () => {
     setShowNewQuestionnaire(true);
     loadQuestionnaireList(stamp, token);
