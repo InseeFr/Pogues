@@ -20,14 +20,16 @@ const propTypes = {
 };
 
 // Component
-function QuestionnaireNav({
-  questionnaire,
-  componentsStore,
-  setSelectedComponentId,
-  setEditingComponentId,
-  editingComponentId,
-  removeComponent,
-}) {
+const QuestionnaireNav = props => {
+  const {
+    questionnaire,
+    componentsStore,
+    setSelectedComponentId,
+    setEditingComponentId,
+    editingComponentId,
+    removeComponent,
+  } = props;
+
   return (
     <div className={COMPONENT_CLASS}>
       <div className="nav-style">
@@ -57,7 +59,7 @@ function QuestionnaireNav({
       </div>
     </div>
   );
-}
+};
 
 QuestionnaireNav.propTypes = propTypes;
 

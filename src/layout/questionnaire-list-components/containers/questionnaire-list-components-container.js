@@ -32,6 +32,8 @@ const mapStateToProps = state => ({
   selectedComponentId: state.appState.selectedComponentId,
   editingComponentId: state.appState.editingComponentId,
   errorsIntegrity: state.errors.errorsIntegrity,
+  activeCalculatedVariables: state.appState.activeCalculatedVariablesById,
+  calculatedVariables: state.calculatedVariableByQuestionnaire,
 });
 
 const mapDispatchToProps = {

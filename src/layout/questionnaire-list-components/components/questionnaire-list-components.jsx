@@ -14,6 +14,9 @@ import { ErrorsIntegrity as ErrorsIntegrityPanel } from 'layout/errors-integrity
 
 import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
+import { ERRORS_INTEGRITY } from 'constants/dom-constants';
+
+const { INNER, ALERT } = ERRORS_INTEGRITY;
 
 const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
@@ -25,6 +28,8 @@ const QuestionnaireListComponents = props => {
     editingComponentId,
     errorsIntegrity,
     setSelectedComponentId,
+    activeCalculatedVariables,
+    calculatedVariables,
   } = props;
 
   useEffect(() => {
@@ -35,6 +40,16 @@ const QuestionnaireListComponents = props => {
   const [showComponentModal, setShowComponentModal] = useState(false);
   const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] =
     useState(false);
+  const [showWarning, setShowWarning] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(calculatedVariables) !== 0 && questionnaire.id) {
+      setShowWarning(
+        Object.keys(activeCalculatedVariables).length === 0 &&
+          Object.keys(calculatedVariables[questionnaire.id]).length !== 0,
+      );
+    }
+  }, [activeCalculatedVariables, calculatedVariables, questionnaire]);
 
   const handleOpenQuestionnaireDetail = () => {
     setShowQuestionnaireModal(true);
@@ -162,6 +177,21 @@ const QuestionnaireListComponents = props => {
           </div>
 
           {/* Questionnaire integrity errors */}
+          {showWarning && (
+            <div id="errors-integrity">
+              <div className={INNER}>
+                <div className={ALERT}>
+                  <div className="alert-icon big">
+                    <div className="alert-triangle" />!
+                  </div>
+                </div>
+                <div>
+                  Les variables calculées ne sont plus dans l'état courant du
+                  questionnaire. Veuillez contactez l'équipe Pogues.
+                </div>
+              </div>
+            </div>
+          )}
 
           <ErrorsIntegrityPanel
             errorsIntegrity={errorsIntegrity}
