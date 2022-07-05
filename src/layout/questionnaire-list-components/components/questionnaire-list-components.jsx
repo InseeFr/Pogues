@@ -16,7 +16,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { getSortedChildren } from 'utils/component/component-utils';
 import { ERRORS_INTEGRITY } from 'constants/dom-constants';
 
-const { INNER, ALERT } = ERRORS_INTEGRITY;
+const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
 const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
@@ -176,18 +176,31 @@ const QuestionnaireListComponents = props => {
             </div>
           </div>
 
-          {/* Questionnaire integrity errors */}
+          {/* Temporary warning to help diagnose the bug concerning disappearing of calculated variables */}
           {showWarning && (
             <div id="errors-integrity">
               <div className={INNER}>
-                <div className={ALERT}>
+                <div className={ALERT} style={{ marginTop: '2.5em' }}>
                   <div className="alert-icon big">
                     <div className="alert-triangle" />!
                   </div>
                 </div>
-                <div>
-                  Les variables calculées ne sont plus dans l'état courant du
-                  questionnaire. Veuillez contactez l'équipe Pogues.
+                <div className={LIST}>
+                  <ul>
+                    <li>
+                      Il n'y a plus de variables calculées dans votre
+                      questionnaire. Si ce n'est pas une action voulue de votre
+                      part, il s'agit probablement d'une erreur de
+                      l'application. Dans ce cas, veuillez contacter au plus
+                      vite l'équipe de l'atelier de conception pour que nous
+                      corrigions ce problème. Merci.
+                    </li>
+                    <li>
+                      Par ailleurs, si vous quittez votre questionnaire
+                      maintenant sans le sauvegarder, vous retrouverez les
+                      variables calculées en retournant sur le questionnaire.
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
