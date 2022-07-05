@@ -189,10 +189,12 @@ const QuestionnaireListComponents = props => {
                   <ul>
                     <li>
                       Il n'y a plus de variables calculées dans votre
-                      questionnaire. Si ce n'est pas une action voulue de votre
-                      part, il s'agit probablement d'une erreur de
-                      l'application. Dans ce cas, veuillez contacter au plus
-                      vite{' '}
+                      questionnaire.{' '}
+                      <strong>
+                        Si ce n'est pas une action voulue de votre part
+                      </strong>
+                      , il s'agit probablement d'une erreur de l'application.
+                      Dans ce cas, veuillez contacter au plus vite{' '}
                       <a href="mailto:romain.tailhurat@insee.fr;anne.husseini-skalitz@insee.fr;ophelie.rogel@insee.fr;loic.henninger@insee.fr">
                         l'équipe de l'atelier de conception
                       </a>{' '}
