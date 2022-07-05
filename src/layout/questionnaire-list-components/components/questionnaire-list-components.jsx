@@ -43,7 +43,7 @@ const QuestionnaireListComponents = props => {
   const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(calculatedVariables) !== 0 && questionnaire.id) {
+    if (questionnaire.id) {
       setShowWarning(
         Object.keys(activeCalculatedVariables).length === 0 &&
           Object.keys(calculatedVariables[questionnaire.id]).length !== 0,
