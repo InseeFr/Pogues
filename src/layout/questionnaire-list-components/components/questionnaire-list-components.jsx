@@ -192,8 +192,11 @@ const QuestionnaireListComponents = props => {
                       questionnaire. Si ce n'est pas une action voulue de votre
                       part, il s'agit probablement d'une erreur de
                       l'application. Dans ce cas, veuillez contacter au plus
-                      vite l'équipe de l'atelier de conception pour que nous
-                      corrigions ce problème. Merci.
+                      vite{' '}
+                      <a href="mailto:romain.tailhurat@insee.fr;anne.husseini-skalitz@insee.fr;ophelie.rogel@insee.fr;loic.henninger@insee.fr">
+                        l'équipe de l'atelier de conception
+                      </a>{' '}
+                      pour que nous corrigions ce problème.
                     </li>
                     <li>
                       Par ailleurs, si vous quittez votre questionnaire
