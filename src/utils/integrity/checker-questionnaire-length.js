@@ -24,7 +24,6 @@ function checkerQuestionnaireLength({
     (numSequences.length < 1 || numQuestions.length < 1) &&
     numReferences.length === 0
   ) {
-    console.log('numReferences', numReferences.length);
     errors.push({ dictionary: 'errorQuestionnaireTooShort' });
   }
   return {
