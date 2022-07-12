@@ -42,8 +42,9 @@ const QuestionnaireListComponents = props => {
     useState(false);
   const [showWarning, setShowWarning] = useState(false);
 
+  // Temporary : to help diagnose calculated variables bug
   useEffect(() => {
-    if (questionnaire.id) {
+    if (questionnaire.id && calculatedVariables[questionnaire.id]) {
       setShowWarning(
         Object.keys(activeCalculatedVariables).length === 0 &&
           Object.keys(calculatedVariables[questionnaire.id]).length !== 0,
