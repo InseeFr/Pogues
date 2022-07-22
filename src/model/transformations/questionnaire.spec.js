@@ -308,6 +308,7 @@ describe('questionnaire', () => {
         id: 'jf0s8i94',
         lastUpdatedDate: output.lastUpdatedDate,
         owner: 'FAKEPERMISSION',
+        childQuestionnaireRef: [],
       };
       expect(output).toEqual(expected);
     });
@@ -570,6 +571,7 @@ describe('questionnaire', () => {
         id: 'kgs4uwzd',
         lastUpdatedDate: output.lastUpdatedDate,
         owner: 'FAKEPERMISSION',
+        childQuestionnaireRef: [],
       };
       expect(output).toEqual(expected);
     });

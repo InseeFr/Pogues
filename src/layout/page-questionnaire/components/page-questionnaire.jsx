@@ -52,7 +52,6 @@ const PageQuestionnaire = props => {
     calculatedVariables,
     externalVariables,
     collectedVariablesByQuestion,
-    activeQuestionnaire,
     loading,
     loadQuestionnaire,
     setActiveQuestionnaire,
@@ -127,15 +126,15 @@ const PageQuestionnaire = props => {
 
   useEffect(() => {
     if (
-      activeQuestionnaire.childQuestionnaireRef &&
-      activeQuestionnaire.childQuestionnaireRef.length !== 0
+      appState.activeQuestionnaire.childQuestionnaireRef &&
+      appState.activeQuestionnaire.childQuestionnaireRef.length !== 0
     ) {
-      activeQuestionnaire.childQuestionnaireRef.map(ref =>
+      appState.activeQuestionnaire.childQuestionnaireRef.map(ref =>
         loadExternalElementsIfNeeded(ref, token),
       );
     }
   }, [
-    activeQuestionnaire.childQuestionnaireRef,
+    appState.activeQuestionnaire.childQuestionnaireRef,
     loadExternalElementsIfNeeded,
     token,
   ]);

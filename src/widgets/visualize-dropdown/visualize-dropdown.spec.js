@@ -11,6 +11,7 @@ describe('Visualize Dropdown Component: ', () => {
       disabled: false,
       top: false,
       componentId: 'component-id',
+      typeDropDown: 'VISUALIZATION',
     };
     const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
 
@@ -22,6 +23,7 @@ describe('Visualize Dropdown Component: ', () => {
       disabled: false,
       top: true,
       componentId: 'component-id',
+      typeDropDown: 'VISUALIZATION',
     };
     const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
 
@@ -33,6 +35,7 @@ describe('Visualize Dropdown Component: ', () => {
       disabled: true,
       top: false,
       componentId: 'component-id',
+      typeDropDown: 'VISUALIZATION',
     };
     const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
 
@@ -44,6 +47,7 @@ describe('Visualize Dropdown Component: ', () => {
       disabled: true,
       top: false,
       componentId: 'component-id',
+      typeDropDown: 'VISUALIZATION',
     };
     const wrapper = shallow(<VisualizeDropdown {...props} />);
     expect(wrapper.find('div').hasClass('open')).toBeFalsy();
@@ -63,6 +67,7 @@ describe('Visualize Dropdown Component: ', () => {
       disabled: true,
       top: false,
       componentId: 'component-id',
+      typeDropDown: 'VISUALIZATION',
     };
     const wrapper = shallow(<VisualizeDropdown {...props} />);
     wrapper

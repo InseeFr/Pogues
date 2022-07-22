@@ -71,17 +71,19 @@ describe('<PageQuestionnaire />', () => {
     setActiveVariables: spySetActiveVariables,
     loadStatisticalContext: noop,
     loadCampaignsIfNeeded: noop,
+    loadExternalElementsIfNeeded: noop,
     history: { push: noop },
     store: {},
-    questionnaire: {
-      id: 'FAKE_QUESTIONNAIRE_ID',
-      campaigns: ['FAKE_CAMPAIGN_ID'],
+    appState: {
+      activeQuestionnaire: {
+        id: 'FAKE_QUESTIONNAIRE_ID',
+        campaigns: ['FAKE_CAMPAIGN_ID'],
+      },
     },
   };
 
   beforeEach(() => {
     useEffect = jest.spyOn(React, 'useEffect');
-    mockUseEffect();
     mockUseEffect();
     mockUseEffect();
     wrapper = shallow(<PageQuestionnaire {...props} />);
