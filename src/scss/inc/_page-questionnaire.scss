@@ -138,14 +138,21 @@
 
       .questionnaire-element.questionnaire-external-element {
         & > .questionnaire-element-info {
-          color: red;
+          color: #e7a10b;
           font-weight: bold;
         }
         &.selected > .questionnaire-element-info {
-          border-color: red;
+          border-color: #e7a10b;
 
           .questionnaire-element-name {
-            background-color: red;
+            background-color: #e7a10b;
+          }
+
+          .questionnaire-element-body
+            .questionnaire-elements
+            .questionnaire-element-actions
+            .btn-yellow {
+            color: black;
           }
         }
       }
