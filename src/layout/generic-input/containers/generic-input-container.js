@@ -28,7 +28,6 @@ function getPlaceholders(
   questionnaireId,
 ) {
   const selectedComponent = componentsStore[selectedComponentId];
-
   return {
     [SEQUENCE]: getNewSequencePlaceholder(
       componentsStore,
@@ -83,6 +82,7 @@ const mapStateToProps = state => {
   const errors = state.errors || { errorsIntegrity: {} };
   const questionnaireErrors =
     errors.errorsIntegrity[activeQuestionnaire.id] || {};
+  const selectedComponent = activeComponentsById[selectedComponentId];
 
   return {
     placeholders: getPlaceholders(
@@ -102,6 +102,7 @@ const mapStateToProps = state => {
     showVisualizationErrorPopup:
       state.errors.errorsVisualization.showErrorVisualizationPopup,
     isLoadingVisualization: state.appState.isLoadingVisualization,
+    selectedComponent: selectedComponent,
   };
 };
 

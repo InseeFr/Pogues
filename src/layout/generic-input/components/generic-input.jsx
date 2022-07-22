@@ -10,9 +10,10 @@ import { ComponentNew } from 'layout/component-new';
 import { QuestionnaireList } from 'layout/questionnaire-list';
 import Loader from 'layout/loader';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
-const { VISUALIZATION, EXTERNAL_ELEMENT } = DROPDOWN_TYPE;
+const { VISUALIZATION } = DROPDOWN_TYPE;
 
 // PropTypes and defaultProps
 
@@ -93,6 +94,7 @@ const GenericInput = props => {
     placeholders,
     stamp,
     token,
+    selectedComponent,
     handleNewPageBreak,
     loadQuestionnaireList,
     removeVisualizationError,
@@ -191,7 +193,10 @@ const GenericInput = props => {
       <button
         id="add-question"
         className="btn-white"
-        disabled={placeholders[QUESTION].parent === ('' || 'idendquest')}
+        disabled={
+          placeholders[QUESTION].parent === ('' || 'idendquest') ||
+          (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
+        }
         onClick={() => {
           handleOpenNewComponent(QUESTION);
         }}
@@ -202,7 +207,10 @@ const GenericInput = props => {
       <button
         id="add-subsequence"
         className="btn-white"
-        disabled={placeholders[SUBSEQUENCE].parent === ('' || 'idendquest')}
+        disabled={
+          placeholders[SUBSEQUENCE].parent === ('' || 'idendquest') ||
+          (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
+        }
         onClick={() => {
           handleOpenNewComponent(SUBSEQUENCE);
         }}
