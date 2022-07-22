@@ -42,6 +42,19 @@ const withCurrentFormVariables = (
       state.appState.collectedVariableByQuestion,
     ).map(v => v.name);
 
+    // Adding the variables of external references
+    const externalVarsAvailable =
+      state.metadataByType.externalElementsVariables || {};
+    const refIds =
+      state.appState.activeQuestionnaire.childQuestionnaireRef || [];
+    const externalVarsWanted = Object.keys(externalVarsAvailable)
+      .filter(key => refIds.includes(key))
+      .reduce(
+        (acc, key) => acc.concat(externalVarsAvailable[key].variables),
+        [],
+      )
+      .map(v => v.Name);
+
     // Dedupe using a Set, which is then spread into a new Array
     const availableSuggestions = [
       ...new Set([
@@ -51,6 +64,7 @@ const withCurrentFormVariables = (
         ...activeCalculatedVariables,
         ...activeExternalVariables,
         ...activeCollectedVariables,
+        ...externalVarsWanted,
       ]),
     ];
     return {

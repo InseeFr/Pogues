@@ -237,6 +237,16 @@ export const getQuestionnaire = async (id, token) => {
 };
 
 /**
+ * Retrieve the variables of a given questionnaire
+ */
+export const getVariablesById = async (id, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathQuestionnaire}/${id}/variables`, {
+    headers: getHeaders({ Accept: 'application/json' }, token),
+  }).then(res => res.json());
+};
+
+/**
  * Will send a DELETE request in order to remove an existing questionnaire
  *
  * @param {deleteQuestionnaire} id The id of the questionnaire we want to delete

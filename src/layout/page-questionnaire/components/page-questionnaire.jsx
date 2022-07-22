@@ -52,6 +52,7 @@ const PageQuestionnaire = props => {
     calculatedVariables,
     externalVariables,
     collectedVariablesByQuestion,
+    activeQuestionnaire,
     loading,
     loadQuestionnaire,
     setActiveQuestionnaire,
@@ -60,6 +61,7 @@ const PageQuestionnaire = props => {
     setActiveCodeLists,
     setActiveVariables,
     // loadCampaignsIfNeeded,
+    loadExternalElementsIfNeeded,
     appState,
   } = props;
 
@@ -121,6 +123,21 @@ const PageQuestionnaire = props => {
     appState.activeExternalVariablesById,
     appState.collectedVariableByQuestion,
     setActiveVariables,
+  ]);
+
+  useEffect(() => {
+    if (
+      activeQuestionnaire.childQuestionnaireRef &&
+      activeQuestionnaire.childQuestionnaireRef.length !== 0
+    ) {
+      activeQuestionnaire.childQuestionnaireRef.map(ref =>
+        loadExternalElementsIfNeeded(ref, token),
+      );
+    }
+  }, [
+    activeQuestionnaire.childQuestionnaireRef,
+    loadExternalElementsIfNeeded,
+    token,
   ]);
 
   return (
