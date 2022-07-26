@@ -4,7 +4,7 @@ Ce service est utilisé pour sauvegarder et récupérer les questionnaires.
 
 ## Configuration
 
-Ce service partage l'URL `baseURL` avec le service de visualisation et utilise le chemin `basePath` défini dans le même [fichier de configuration]([src/js/config/config.js](https://github.com/InseeFr/Pogues/blob/master/src/js/config/config.js). À l'avenir, la configuration de ces deux services devra être séparée.
+Ce service partage l'URL de base de l'API, fournie par la méthode `getBaseURI`, avec le service de visualisation. Lorsque que l'on travaille sur un serveur de développement, cette URL doit être définie dans le fichier [.env](https://github.com/InseeFr/Pogues/blob/main/.env) dans la variable `REACT_APP_API_URL`. Pour un déploiement sur un serveur apache, il faut surcharger la variable `POGUES_API_BASE_HOST` dans le fichier [configuration.json](https://github.com/InseeFr/Pogues/blob/main/public/configuration.json) se trouvant dans le dossier `public`.
 
 ## Représentation en JSON
 
@@ -12,8 +12,7 @@ Pour l'instant, la représentation du questionnaire pour ce service Web est lég
 
 Cette représentation (avec des blancs soulignées au début de chaque entrée) était à une époque requise pour le service de persistence. Les conventions de nommages sont plus proches de celles utilisées dans le code de Pogues (par exemple, on utilise des pluriels pour nommer des tableaux). Pour en savoir plus sur les différences entre ces deux représentations, vous pouvez comparer le `JSON` ci-dessous avec celui fourni dans la section [questionnaire en JSON](/remote-apis/questionnaire-json.md).
 
-Le code utilisé par Pogues pour passer de cette représentation à la représentation formelle (utilisée pour la visualisation) se trouve dans le fichier  [src/js/utils/data-JSON-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-JSON-utils.js).
-
+Le code utilisé par Pogues pour passer de cette représentation à la représentation formelle (utilisée pour la visualisation) se trouve dans le fichier [src/js/utils/data-JSON-utils.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-JSON-utils.js).
 
 ```json
 {
@@ -30,9 +29,7 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
     {
       "id": "iytt3i83",
       "name": "SEQ1",
-      "label": [
-        "About you"
-      ],
+      "label": ["About you"],
       "declarations": [],
       "goTos": [],
       "controls": [],
@@ -41,7 +38,9 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
         {
           "id": "iytssbr3",
           "name": "QUESTION11",
-          "label": ["##{\"label\":\"How old are you ?\",\"conditions\":[]}\nHow old are you ?"],
+          "label": [
+            "##{\"label\":\"How old are you ?\",\"conditions\":[]}\nHow old are you ?"
+          ],
           "declarations": [],
           "goTos": [],
           "controls": [],
@@ -75,7 +74,9 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
         {
           "id": "iytt2wlp",
           "name": "QUESTION12",
-          "label": ["##{\"label\":\"Are you happy ?\",\"conditions\":[]}\nAre you happy ?"],
+          "label": [
+            "##{\"label\":\"Are you happy ?\",\"conditions\":[]}\nAre you happy ?"
+          ],
           "declarations": [],
           "goTos": [],
           "controls": [],
@@ -91,11 +92,11 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
                 "type": "TextDatatypeType",
                 "visHint": "CHECKBOX"
               },
-              "nonResponseModality":{
-                "value":"blabla2",
-                "label":"blabla",
-                "firstIntentionDisplay":false,
-                "invite":"blabla3"
+              "nonResponseModality": {
+                "value": "blabla2",
+                "label": "blabla",
+                "firstIntentionDisplay": false,
+                "invite": "blabla3"
               }
             }
           ],
@@ -152,13 +153,7 @@ Le code utilisé par Pogues pour passer de cette représentation à la représen
     {
       "name": "PAGE_1",
       "label": "Components for page 1",
-      "Member": [
-        "iytt3i83",
-        "iytssbr3",
-        "iytt2wlp",
-        "iyttf4qh",
-        "iytth8g0"
-      ],
+      "Member": ["iytt3i83", "iytssbr3", "iytt2wlp", "iyttf4qh", "iytth8g0"],
       "id": "iytt88sv"
     }
   ],

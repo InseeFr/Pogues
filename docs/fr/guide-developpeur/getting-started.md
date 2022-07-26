@@ -29,6 +29,6 @@ npm install --global yarn
 
 La commande `yarn` téléchargera toutes les dépendances du projet, décrites dans la section `dependencies` et `devDepedencies` du fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json).
 
-`yarn dev:server` lancera la commande `dev:server` décrite dans la section `scripts` du même fichier `package.json`. Cette commande démarre un serveur de développement qui sert la page d'accueil de l'application en mode sans authentification avec les deux questionnaires présents sur le serveur mocké.
+`yarn dev:server` lancera la commande `dev:server` décrite dans la section `scripts` du même fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json). Cette commande démarre un serveur de développement qui sert la page d'accueil de l'application en mode sans authentification avec les deux questionnaires présents sur le serveur mocké.
 
 `yarn build` lance la compilation du code avec des optimisations pour la mise en production. Elle produit un code compilé dans le dossier `dist`.
