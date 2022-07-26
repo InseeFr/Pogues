@@ -123,7 +123,7 @@ const VisualizeDropdown = props => {
         {typeDropDown === 'VISUALIZATION'
           ? links.map(link => {
               return (
-                <li>
+                <li key={link.actionLabel}>
                   <a href="#" onClick={e => visualize(e, link.actionType)}>
                     {link.actionLabel}
                   </a>
@@ -132,7 +132,7 @@ const VisualizeDropdown = props => {
             })
           : linksQuestionnaire.map(link => {
               return (
-                <li>
+                <li key={link.actionLabel}>
                   <Link to={`/questionnaire/${questionnaireId}/composition`}>
                     {link.actionLabel}
                   </Link>
