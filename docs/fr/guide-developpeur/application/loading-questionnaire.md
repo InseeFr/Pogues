@@ -6,7 +6,7 @@ Cette section illustre la manière dont l'information circule au sein de l'appli
 
 Lorsqu'un utilisateur sélectionne un questionnaire au sein de la liste des questionnaires, le processus est composé de nombreuses étapes élémentaires, qui vont de l'envoi de la requête au service Web dédié à l'actualisation de l'interface. Globalement:
 
-1. L'application affiche le composant `QuestionnairePicker`.
+1. L'application affiche le composant `QuestionnaireList`.
 2. L'utilisateur sélectionne un questionnaire dans la liste.
 3. Le [créateur d'actions](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/components/questionnaire-list.js#L34) `switchQuestionnaire` est appelé.
 4. L'[action](https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/app-state.js#L7) `SWITCH_TO_QUESTIONNAIRE` est envoyée. Elle contient l'identifiant du questionnaire.
