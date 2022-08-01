@@ -32,12 +32,10 @@ pre[class*="language-"] {
 	position: relative;
 	margin: .5em 0;
 	overflow: visible;
-	padding: 1px;
+	padding: 0;
 }
-
-pre[class*="language-"] > code {
+pre[class*="language-"]>code {
 	position: relative;
-	z-index: 1;
 	border-left: 10px solid #358ccb;
 	box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
 	background-color: #fdfdfd;
@@ -79,6 +77,7 @@ pre[class*="language-"] {
 pre[class*="language-"]:before,
 pre[class*="language-"]:after {
 	content: '';
+	z-index: -2;
 	display: block;
 	position: absolute;
 	bottom: 0.75em;
