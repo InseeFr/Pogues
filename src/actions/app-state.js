@@ -431,8 +431,13 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
         return null;
       }
     };
+    const refs =
+      state.appState.activeQuestionnaire.childQuestionnaireRef !== undefined
+        ? state.appState.activeQuestionnaire.childQuestionnaireRef
+        : [];
+    const containsRef = refs.length !== 0;
     const visualize = () => {
-      getVisualization()(questionnaireModel, token)
+      getVisualization()(questionnaireModel, containsRef, token)
         .then(() => dispatch(loadingVisualizationSuccess()))
         .catch(error => {
           dispatch(loadingVisualizationFailure(error));
