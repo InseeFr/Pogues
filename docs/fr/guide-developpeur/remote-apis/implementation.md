@@ -1,6 +1,6 @@
 # Implementation
 
-Les requêtes sont déclenchées par les composants React qui requièrent des ressources distantes. Ces composants utilisent les fonctions du type `loadSomethingIfNeeded` au sein la méthode cycle de vie `componentWillMount`. Par exemple, le composant `QuestionnaireContainer` appelle `loadQuestionnaireIfNeeded` lorsqu'il est [instancié](https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/components/questionnaire-container.js#L38). Ce chapitre décrit comment ce processus fonctionne.
+Les requêtes sont déclenchées par les composants React qui requièrent des ressources distantes. Ces composants utilisent les fonctions du type `loadSomethingIfNeeded` au sein de hooks useEffect() React. Par exemple, le composant `PageQuestionnaire` appelle `loadCampaignsIfNeeded` lorsqu'il est [instancié](https://github.com/InseeFr/Pogues/blob/main/src/layout/page-questionnaire/components/page-questionnaire.jsx). Ce chapitre décrit comment ce processus fonctionne.
 
 ## Appels distants
 
@@ -31,7 +31,6 @@ Ce fichier comporte les appels pour les 3 services utilisés par Pogues:
 
 - [visualisation](./visualization.md) (`visualizeDDI`,`visualizePdf`,...);
 - [persistance](./persistence.md) (`getQuestionnaire`, `putQuestionnaire`, `getQuestionnaireList`...);
-- [ressources externes](./repository.md) (`getCodeListSpecs`, `getCodeList`).
 
 ## Créateurs d'actions
 
@@ -40,52 +39,49 @@ Pour déclencher un appel distant, nous utilisons les créateurs d'actions avec 
 Grâce à Redux Thunk, les créateurs d'actions peuvent retourner une fonction au lieu d'un objet `JavaScript`. Ainsi, on peut écrire des actions asyncrhones avec une fonction qui:
 
 - envoie immédiatement au store une action sous la forme d'un objet `JavaScript`, pour indiquer que la requête a bien été enregistrée; le type d'action prend la forme `LOAD_SOMETHING`;
-- envoie la requête (grâce aux [utilitaires](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/remote-api.js) mentionnés plus haut, par exemple la fonction `getQuestionnaire`);
+- envoie la requête (grâce aux [utilitaires](https://github.com/InseeFr/Pogues/blob/main/src/utils/remote-api.js) mentionnés plus haut, par exemple la fonction `getQuestionnaire`);
 - envoie au store de façon différée une action de la forme `LOAD_SOMTHING_SUCCESS` si la Promesse renvoyée par fetch a été résolue (le gestionnaire `then` défini dans la Promesse), ou une action de la forme `LOAD_QUESTIONNAIRE_FAILURE` si elle échoue (gestionnaire `catch`);
 - retourne la Promesse pour d'éventuelles valorisations ultérieures.
 
-Exemple à partir du fichier [src/js/actions/questionnaire.js](https://github.com/InseeFr/Pogues/blob/master/src/js/actions/questionnaire.js) (dans le code initial, nous utilisons des fonctions flêchées à la place des fonctions classiques):
+Exemple à partir du fichier [src/actions/questionnaire.js](https://github.com/InseeFr/Pogues/blob/main/src/actions/questionnaire.js) (dans le code initial, nous utilisons des fonctions flêchées à la place des fonctions classiques):
 
 ```javascript
 import { getQuestionnaire } from '(...)/remote-api';
 
-export function loadQuestionnaire(id) {
-  //Grâce à Redux Thunk, nous pouvons retourner une action à partir du
-  //créateur d'actions. Cette fonction recevra deux arguments grâche au
-  //middleware: une fonction `dispatch` qui permet d'envoyer l'action au store,
-  //et une fonction `getState` (qui n'est pas utilisée ici) pour lire l'état
-  //courant de l'application.
-  return function (dispatch, getState) {
-    dispatch({
-      type: LOAD_QUESTIONNAIRE,
-      payload: id,
+export const loadQuestionnaire = (id, token) => dispatch => {
+  dispatch(loadQuestionnaireStart());
+  dispatch({
+    type: LOAD_QUESTIONNAIRE,
+    payload: id,
+  });
+  return getQuestionnaire(id, token)
+    .then(qr => {
+      dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
+    })
+    .catch(err => {
+      dispatch(loadQuestionnaireFailure(id, err));
     });
-    return getQuestionnaire(id)
-      .then(qr => {
-        dispatch(loadQuestionnaireSuccess(id, questionnaireToState(qr)));
-      })
-      .catch(err => {
-        dispatch(loadQuestionnaireFailure(id, err.toString()));
-      });
-  };
-}
+};
 
-export function loadQuestionnaireSuccess(id, update) {
-  return {
-    type: LOAD_QUESTIONNAIRE_SUCCESS,
-    payload: { id, update },
-  };
-}
+export const loadQuestionnaireStart = () => ({
+  type: LOAD_QUESTIONNAIRE_START,
+  payload: {},
+});
 
-export function loadQuestionnaireFailure(id, err) {
-  return {
-    type: LOAD_QUESTIONNAIRE_FAILURE,
-    payload: { id, err },
-  };
-}
+export const loadQuestionnaireSuccess = update => ({
+  type: LOAD_QUESTIONNAIRE_SUCCESS,
+  payload: {
+    update,
+  },
+});
+
+export const loadQuestionnaireFailure = (id, err) => ({
+  type: LOAD_QUESTIONNAIRE_FAILURE,
+  payload: { id, err },
+});
 ```
 
-Remarque: on devrait vraisemblablement éviter l'usate de `catch` ici (cf. [#146](https://github.com/InseeFr/Pogues/issues/146))
+Remarque: on devrait vraisemblablement éviter l'usage de `catch` ici (cf. [#146](https://github.com/InseeFr/Pogues/issues/146))
 
 TODO screenshot devtools
 
@@ -94,34 +90,48 @@ TODO screenshot devtools
 Nous utilisons également Redux Thunk pour définir des créateurs d'actions qui veilleront à ne pas effectuer un appel distant pour ressource qui aurait déjà été récupérée, et qui serait donc disponible localement dans l'état de l'application.
 
 ```javascript
-export function loadQuestionnaireIfNeeded(id) {
-  return function (dispatch, getState) {
-    const state = getState();
-    const qr = state.questionnaireById[id];
-    if (!qr) return dispatch(loadQuestionnaire(id));
-  };
-}
+export const loadUnitsIfNeeded = token => (dispatch, getState) => {
+  const state = getState();
+  const { units } = state.metadataByType;
+  if (!units) dispatch(loadUnits(token));
+};
 ```
 
-Les créateurs d'actions du type `loadSomethingIfNeeded` sont appelés à partir des méthodes `componentWillMount` et `componentWillReceiveProps` des composants React qui ont besoin de la ressource `Something`.
+Les créateurs d'actions du type `loadSomethingIfNeeded` sont appelés à partir des hooks `useEffect()` des composants React qui ont besoin de la ressource `Something`.
 
-Exemple issu du fichier [src/js/components/questionnaire-container.js](https://github.com/InseeFr/Pogues/blob/master/src/js/components/questionnaire-container.js):
+Exemple issu du fichier [src/layout/page-questionnaire/components/page-questionnaire.jsx](https://github.com/InseeFr/Pogues/blob/main/src/layout/page-questionnaire/components/page-questionnaire.jsx):
 
 ```javascript
-class QuestionnaireContainer extends Component {
+const PageQuestionnaire = props => {
 
-  constructor(props) {
-    super(props)
-  }
-
-  componentWillMount() {
-    this.props.loadQuestionnaireIfNeeded(this.props.qrId)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.qrId !== this.props.qrId)
-      this.props.loadQuestionnaireIfNeeded(nextProps.qrId)
-  }
   ...
+
+  useEffect(() => {
+    if (
+      activeQuestionnaire &&
+      !isEqual(activeQuestionnaire, activeQuestionnaireState)
+    ) {
+      if (activeQuestionnaire.campaigns) {
+        const idCampaign =
+          activeQuestionnaire.campaigns[
+            activeQuestionnaire.campaigns.length - 1
+          ];
+        loadStatisticalContext(idCampaign, token);
+      }
+      if (activeQuestionnaire.operation) {
+        loadCampaignsIfNeeded(activeQuestionnaire.operation, token);
+      }
+      setActiveQuestionnaireState(activeQuestionnaire);
+    }
+  }, [
+    token,
+    activeQuestionnaire,
+    activeQuestionnaireState,
+    loadStatisticalContext,
+    loadCampaignsIfNeeded,
+  ]);
+
+  ...
+
 }
 ```
