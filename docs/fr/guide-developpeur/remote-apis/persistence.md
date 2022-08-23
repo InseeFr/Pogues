@@ -2,12 +2,6 @@
 
 Ces services sont utilisés pour sauvegarder et récupérer les données liés aux questionnaires.
 
-## Configuration
-
-Ce service partage l'URL de base de l'API, fournie par la méthode `getBaseURI`, avec le service de visualisation. Lorsque que l'on travaille sur un serveur de développement, cette URL doit être définie dans le fichier [.env](https://github.com/InseeFr/Pogues/blob/main/.env) dans la variable `REACT_APP_API_URL`. Pour un déploiement sur un serveur apache, il faut surcharger la variable `POGUES_API_BASE_HOST` dans le fichier [configuration.json](https://github.com/InseeFr/Pogues/blob/main/public/configuration.json) se trouvant dans le dossier `public`.
-
-## Les différents services de persistance
-
 ### Sauvegarde et récupération de questionnaires
 
 Les questionnaires sont stockés au format JSON Pogues dans une base de données PostgreSql. Pour la création d'un questionnaire on soumet une requête `POST` sur le endpoint `/api/persistence/questionnaires`, le body contient le questionnaire au format JSON. Si l'identifiant du questionnaire n'existe pas en base de données, le questionnaire est créé.
