@@ -11,4 +11,4 @@ La [configuration](./configuration.md) de l'API dans l'application dépend de l'
 
 Vous pouvez vous référer à la [documentation swagger](./swagger.md) pour savoir ce que ces services fournissent (la partie "référentiel externe" n'est pas documentée).
 
-Un [serveur minimaliste](https://github.com/InseeFr/Pogues/tree/main/fake-server) est fourni à titre d'exemple: il illsutre le comportement attendu de ces services. Ce serveur peut être lancé avec la commande `yarn dev:server`.
+Un [serveur mocké](./fake-server.md) est fourni à titre d'exemple: il illustre le comportement attendu de ces services.
