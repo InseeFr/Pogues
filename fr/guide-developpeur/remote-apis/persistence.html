@@ -65,7 +65,7 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="repository.html" />
+    <link rel="next" href="fake-server.html" />
     
     
     <link rel="prev" href="visualization.html" />
@@ -450,7 +450,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.3.1" data-path="implementation.html">
+        <li class="chapter " data-level="1.2.3.1" data-path="configuration.html">
+            
+                <a href="configuration.html">
+            
+                    
+                    Configuration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="implementation.html">
             
                 <a href="implementation.html">
             
@@ -463,7 +476,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.2" data-path="visualization.html">
+        <li class="chapter " data-level="1.2.3.3" data-path="visualization.html">
             
                 <a href="visualization.html">
             
@@ -476,7 +489,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.3.3" data-path="persistence.html">
+        <li class="chapter active" data-level="1.2.3.4" data-path="persistence.html">
             
                 <a href="persistence.html">
             
@@ -489,12 +502,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.4" data-path="repository.html">
+        <li class="chapter " data-level="1.2.3.5" data-path="fake-server.html">
             
-                <a href="repository.html">
+                <a href="fake-server.html">
             
                     
-                    Référentiel externe
+                    Serveur mocké
             
                 </a>
             
@@ -502,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.5" data-path="swagger.html">
+        <li class="chapter " data-level="1.2.3.6" data-path="swagger.html">
             
                 <a href="swagger.html">
             
@@ -515,7 +528,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.6" data-path="schema.html">
+        <li class="chapter " data-level="1.2.3.7" data-path="schema.html">
             
                 <a href="schema.html">
             
@@ -528,7 +541,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.7" data-path="questionnaire-json.html">
+        <li class="chapter " data-level="1.2.3.8" data-path="questionnaire-json.html">
             
                 <a href="questionnaire-json.html">
             
@@ -894,182 +907,19 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="sauvegarder-et-r&#xE9;cup&#xE9;rer-des-questionnaires">Sauvegarder et r&#xE9;cup&#xE9;rer des questionnaires</h1>
-<p>Ce service est utilis&#xE9; pour sauvegarder et r&#xE9;cup&#xE9;rer les questionnaires.</p>
-<h2 id="configuration">Configuration</h2>
-<p>Ce service partage l&apos;URL de base de l&apos;API, fournie par la m&#xE9;thode <code>getBaseURI</code>, avec le service de visualisation. Lorsque que l&apos;on travaille sur un serveur de d&#xE9;veloppement, cette URL doit &#xEA;tre d&#xE9;finie dans le fichier <a href="https://github.com/InseeFr/Pogues/blob/main/.env" target="_blank">.env</a> dans la variable <code>REACT_APP_API_URL</code>. Pour un d&#xE9;ploiement sur un serveur apache, il faut surcharger la variable <code>POGUES_API_BASE_HOST</code> dans le fichier <a href="https://github.com/InseeFr/Pogues/blob/main/public/configuration.json" target="_blank">configuration.json</a> se trouvant dans le dossier <code>public</code>.</p>
-<h2 id="repr&#xE9;sentation-en-json">Repr&#xE9;sentation en JSON</h2>
-<p>Pour l&apos;instant, la repr&#xE9;sentation du questionnaire pour ce service Web est l&#xE9;g&#xE8;rement diff&#xE9;rente de la description formelle fournie par le <a href="schema.html">mod&#xE8;le de donn&#xE9;es Pogues</a>. Ces deux repr&#xE9;sentations devront fusionner dans le futur (pour ne conserver que la repr&#xE9;sentation qui satisfait le mod&#xE8;le de donn&#xE9;es).</p>
-<p>Cette repr&#xE9;sentation (avec des blancs soulign&#xE9;es au d&#xE9;but de chaque entr&#xE9;e) &#xE9;tait &#xE0; une &#xE9;poque requise pour le service de persistence. Les conventions de nommages sont plus proches de celles utilis&#xE9;es dans le code de Pogues (par exemple, on utilise des pluriels pour nommer des tableaux). Pour en savoir plus sur les diff&#xE9;rences entre ces deux repr&#xE9;sentations, vous pouvez comparer le <code>JSON</code> ci-dessous avec celui fourni dans la section <a href="../../remote-apis/questionnaire-json.md">questionnaire en JSON</a>.</p>
-<p>Le code utilis&#xE9; par Pogues pour passer de cette repr&#xE9;sentation &#xE0; la repr&#xE9;sentation formelle (utilis&#xE9;e pour la visualisation) se trouve dans le fichier <a href="https://github.com/InseeFr/Pogues/blob/master/src/js/utils/data-JSON-utils.js" target="_blank">src/js/utils/data-JSON-utils.js</a>.</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iytt95l9&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FIRSTQUESTIONNAIRE&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;declarations&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;goTos&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;controls&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;genericName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;QUESTIONNAIRE&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;collectMode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;TELEPHONE&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;lastUpdatedDate&quot;</span><span class="token operator">:</span> <span class="token string">&quot;01/01/2016&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iytt3i83&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SEQ1&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;About you&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;declarations&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;goTos&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;controls&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;genericName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;MODULE&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iytssbr3&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;QUESTION11&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token string">&quot;##{\&quot;label\&quot;:\&quot;How old are you ?\&quot;,\&quot;conditions\&quot;:[]}\nHow old are you ?&quot;</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;declarations&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;goTos&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;controls&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;questionType&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SIMPLE&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;calculatedVariables&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token punctuation">{</span>
-              <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;label&quot;</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;name&quot;</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;formula&quot;</span><span class="token operator">:</span> <span class="token string">&quot;formula&quot;</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;collectedVariables&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token punctuation">{</span>
-              <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;label&quot;</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;name&quot;</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;responses&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token punctuation">{</span>
-              <span class="token property">&quot;mandatory&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;datatype&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">&quot;typeName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;TEXT&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;maxLength&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;pattern&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;TextDatatypeType&quot;</span>
-              <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;QuestionType&quot;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iytt2wlp&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;QUESTION12&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token string">&quot;##{\&quot;label\&quot;:\&quot;Are you happy ?\&quot;,\&quot;conditions\&quot;:[]}\nAre you happy ?&quot;</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;declarations&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;goTos&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;controls&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;questionType&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SINGLE_CHOICE&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;responses&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token punctuation">{</span>
-              <span class="token property">&quot;codeListReference&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iyttj4zk&quot;</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;mandatory&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;datatype&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">&quot;typeName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;TEXT&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;maxLength&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;pattern&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;TextDatatypeType&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;visHint&quot;</span><span class="token operator">:</span> <span class="token string">&quot;CHECKBOX&quot;</span>
-              <span class="token punctuation">}</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;nonResponseModality&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">&quot;value&quot;</span><span class="token operator">:</span> <span class="token string">&quot;blabla2&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;blabla&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;firstIntentionDisplay&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;invite&quot;</span><span class="token operator">:</span> <span class="token string">&quot;blabla3&quot;</span>
-              <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;QuestionType&quot;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;depth&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SequenceType&quot;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iyttf4qh&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SEQ2&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;About your job&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;declarations&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;goTos&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;controls&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;genericName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;MODULE&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iytth8g0&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;QUESTION21&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token string">&quot;##{\&quot;label\&quot;:\&quot;Do you have a job ?\&quot;,\&quot;conditions\&quot;:[]}\nDo you have a job ?&quot;</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;declarations&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;goTos&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;controls&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;questionType&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SIMPLE&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;responses&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-            <span class="token punctuation">{</span>
-              <span class="token property">&quot;mandatory&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-              <span class="token property">&quot;datatype&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">&quot;typeName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;BOOLEAN&quot;</span><span class="token punctuation">,</span>
-                <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;BooleanDatatypeType&quot;</span>
-              <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;QuestionType&quot;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;depth&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SequenceType&quot;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;depth&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SequenceType&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;agency&quot;</span><span class="token operator">:</span> <span class="token string">&quot;fr.insee&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;survey&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;agency&quot;</span><span class="token operator">:</span> <span class="token string">&quot;fr.insee&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;POPO&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iytszu62&quot;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;componentGroups&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;PAGE_1&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Components for page 1&quot;</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;Member&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;iytt3i83&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;iytssbr3&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;iytt2wlp&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;iyttf4qh&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;iytth8g0&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iytt88sv&quot;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;codeLists&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;codeList&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;iyttj4zk&quot;</span><span class="token punctuation">,</span>
-        <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
-        <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;mood&quot;</span><span class="token punctuation">,</span>
-        <span class="token property">&quot;codes&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-          <span class="token punctuation">{</span>
-            <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;unhappy&quot;</span><span class="token punctuation">,</span>
-            <span class="token property">&quot;value&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span>
-            <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;happy&quot;</span><span class="token punctuation">,</span>
-            <span class="token property">&quot;value&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token punctuation">{</span>
-            <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;very happy&quot;</span><span class="token punctuation">,</span>
-            <span class="token property">&quot;value&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;codeListSpecification&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
+                                <h1 id="webservices-de-persistance-des-donn&#xE9;es">Webservices de persistance des donn&#xE9;es</h1>
+<p>Ces services sont utilis&#xE9;s pour sauvegarder et r&#xE9;cup&#xE9;rer les donn&#xE9;es li&#xE9;s aux questionnaires.</p>
+<h3 id="sauvegarde-et-r&#xE9;cup&#xE9;ration-de-questionnaires">Sauvegarde et r&#xE9;cup&#xE9;ration de questionnaires</h3>
+<p>Les questionnaires sont stock&#xE9;s au format JSON Pogues dans une base de donn&#xE9;es PostgreSql. Pour la cr&#xE9;ation d&apos;un questionnaire on soumet une requ&#xEA;te <code>POST</code> sur le endpoint <code>/api/persistence/questionnaires</code>, le body contient le questionnaire au format JSON. Si l&apos;identifiant du questionnaire n&apos;existe pas en base de donn&#xE9;es, le questionnaire est cr&#xE9;&#xE9;.</p>
+<p>On peut ensuite r&#xE9;cup&#xE9;rer, modifier ou supprimer les questionnaires via leur identifiant en effectuant respectivement un <code>GET</code>, <code>UPDATE</code> ou <code>DELETE</code> &#xE0; l&apos;url <code>/api/persistence/questionnaire/{id}</code>.</p>
+<h3 id="r&#xE9;cup&#xE9;ration-des-m&#xE9;tadonn&#xE9;es-des-questionnaires">R&#xE9;cup&#xE9;ration des m&#xE9;tadonn&#xE9;es des questionnaires</h3>
+<p>Pour l&apos;affichage de la page d&apos;accueil l&apos;application se repose sur des web services permettant de r&#xE9;cup&#xE9;rer :</p>
+<ul>
+<li>les timbres pr&#xE9;sents en base de donn&#xE9;es sur <code>/api/persistence/questionnaires/stamps</code></li>
+<li>la liste des questionnaires d&apos;un timbre en particulier sur <code>/api/persistence/questionnaires/search/meta</code></li>
+</ul>
+<h3 id="r&#xE9;cup&#xE9;ration-des-variables-dun-questionnaire">R&#xE9;cup&#xE9;ration des variables d&apos;un questionnaire</h3>
+<p>Dans Pogues il est possible de faire r&#xE9;f&#xE9;rence &#xE0; un autre questionnaire pour l&apos;int&#xE9;grer au questionnaire courant. Le questionnaire courant ne contient alors pas les donn&#xE9;es des questionnaires r&#xE9;f&#xE9;renc&#xE9;s. Cependant on veut pouvoir utiliser les variables cr&#xE9;&#xE9;es dans les questionnaires r&#xE9;f&#xE9;renc&#xE9;s pour &#xE9;crire les questions du questionnaire courant. Pour cela on se repose sur le endpoint <code>/api/persistence/questionnaire/{id}/variables</code>, qui permet de r&#xE9;cup&#xE9;rer les variables collect&#xE9;es, calcul&#xE9;es et externes d&apos;un questionnaire &#xE0; partir de son id.</p>
 
                                 
                                 </section>
@@ -1102,7 +952,7 @@
                 </a>
                 
                 
-                <a href="repository.html" class="navigation navigation-next " aria-label="Next page: Référentiel externe">
+                <a href="fake-server.html" class="navigation navigation-next " aria-label="Next page: Serveur mocké">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1113,7 +963,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Persistance","level":"1.2.3.3","depth":3,"next":{"title":"Référentiel externe","level":"1.2.3.4","depth":3,"path":"guide-developpeur/remote-apis/repository.md","ref":"guide-developpeur/remote-apis/repository.md","articles":[]},"previous":{"title":"Visualisation","level":"1.2.3.2","depth":3,"path":"guide-developpeur/remote-apis/visualization.md","ref":"guide-developpeur/remote-apis/visualization.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-developpeur/remote-apis/persistence.md","mtime":"2022-08-01T14:55:42.622Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2022-08-01T14:56:34.259Z"},"basePath":"../..","book":{"language":"fr"}});
+            gitbook.page.hasChanged({"page":{"title":"Persistance","level":"1.2.3.4","depth":3,"next":{"title":"Serveur mocké","level":"1.2.3.5","depth":3,"path":"guide-developpeur/remote-apis/fake-server.md","ref":"guide-developpeur/remote-apis/fake-server.md","articles":[]},"previous":{"title":"Visualisation","level":"1.2.3.3","depth":3,"path":"guide-developpeur/remote-apis/visualization.md","ref":"guide-developpeur/remote-apis/visualization.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-developpeur/remote-apis/persistence.md","mtime":"2022-08-24T15:28:03.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2022-08-24T15:29:12.917Z"},"basePath":"../..","book":{"language":"fr"}});
         });
     </script>
 </div>

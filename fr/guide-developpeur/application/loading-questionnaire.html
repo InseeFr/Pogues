@@ -450,7 +450,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.3.1" data-path="../remote-apis/implementation.html">
+        <li class="chapter " data-level="1.2.3.1" data-path="../remote-apis/configuration.html">
+            
+                <a href="../remote-apis/configuration.html">
+            
+                    
+                    Configuration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../remote-apis/implementation.html">
             
                 <a href="../remote-apis/implementation.html">
             
@@ -463,7 +476,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.2" data-path="../remote-apis/visualization.html">
+        <li class="chapter " data-level="1.2.3.3" data-path="../remote-apis/visualization.html">
             
                 <a href="../remote-apis/visualization.html">
             
@@ -476,7 +489,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.3" data-path="../remote-apis/persistence.html">
+        <li class="chapter " data-level="1.2.3.4" data-path="../remote-apis/persistence.html">
             
                 <a href="../remote-apis/persistence.html">
             
@@ -489,12 +502,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.4" data-path="../remote-apis/repository.html">
+        <li class="chapter " data-level="1.2.3.5" data-path="../remote-apis/fake-server.html">
             
-                <a href="../remote-apis/repository.html">
+                <a href="../remote-apis/fake-server.html">
             
                     
-                    Référentiel externe
+                    Serveur mocké
             
                 </a>
             
@@ -502,7 +515,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.5" data-path="../remote-apis/swagger.html">
+        <li class="chapter " data-level="1.2.3.6" data-path="../remote-apis/swagger.html">
             
                 <a href="../remote-apis/swagger.html">
             
@@ -515,7 +528,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.6" data-path="../remote-apis/schema.html">
+        <li class="chapter " data-level="1.2.3.7" data-path="../remote-apis/schema.html">
             
                 <a href="../remote-apis/schema.html">
             
@@ -528,7 +541,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3.7" data-path="../remote-apis/questionnaire-json.html">
+        <li class="chapter " data-level="1.2.3.8" data-path="../remote-apis/questionnaire-json.html">
             
                 <a href="../remote-apis/questionnaire-json.html">
             
@@ -901,20 +914,19 @@
 <ol>
 <li>L&apos;application affiche le composant <code>QuestionnaireList</code>.</li>
 <li>L&apos;utilisateur s&#xE9;lectionne un questionnaire dans la liste.</li>
-<li>Le <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/components/questionnaire-list.js#L34" target="_blank">cr&#xE9;ateur d&apos;actions</a> <code>switchQuestionnaire</code> est appel&#xE9;.</li>
-<li>L&apos;<a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/app-state.js#L7" target="_blank">action</a> <code>SWITCH_TO_QUESTIONNAIRE</code> est envoy&#xE9;e. Elle contient l&apos;identifiant du questionnaire.</li>
-<li>La fonction <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/reducers/app-state/index.js#L111" target="_blank">switchToQuestionnaire</a> du reducer <code>appState</code> met &#xE0; jour la propri&#xE9;t&#xE9; <code>view</code> avec la valeur <code>QUESTIONNAIRE</code>.</li>
-<li>L&apos;application est r&#xE9;-affich&#xE9;e.</li>
-<li>Lorsque React affiche le composant  <code>PoguesApp</code>, la propri&#xE9;t&#xE9; <code>view</code> est valoris&#xE9;e, et le composant <code>QuestionnaireContainer</code> est <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/components/pogues-app.js#L27-L30" target="_blank">affich&#xE9;</a>, &#xE0; la place du composant <code>QuestionnairePicker</code>.</li>
-<li>La m&#xE9;thode <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/components/pogues-app.js#L27-L30" target="_blank">componentWillMount</a> du <code>QuestionnaireContainer</code> appelle le cr&#xE9;ateur d&apos;actions <a href="https://github.com/InseeFr/Pogues/blob/5df2bc748fc947b1e92d5ec637dc32ec437b11c9/src/js/actions/questionnaire.js#L94" target="_blank">loadQuestionnaireIfNeeded</a>. Celui-ci prend l&apos;identifiant du questionnaire en param&#xE8;tre.</li>
-<li>En imaginant que le questionnaire n&apos;a pas &#xE9;t&#xE9; pr&#xE9;alablement charg&#xE9;, le cr&#xE9;ateur d&apos;actions <code>loadQuestionnaire</code> est <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/questionnaire.js#L98" target="_blank">appel&#xE9;</a>.</li>
-<li>Le composant affiche une <a href="https://github.com/InseeFr/Pogues/blob/465665aaf56e835f7b5ae13dff899531d44ed4bd/src/js/components/questionnaire-container.js#L48" target="_blank">ic&#xF4;ne d&apos;attente</a> pour indiquer que le questionnaire est en cours de chargement.</li>
-<li>L&apos;action <code>LOAD_QUESTIONNAIRE</code> est <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/questionnaire.js#L103" target="_blank">envoy&#xE9;e</a>, elle contient l&apos;identifiant du questionnaire.</li>
-<li>La fonction <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/utils/remote-api.js#L118" target="_blank">getQuestionnaire</a> est appel&#xE9;e. Le navigateur lance la requ&#xEA;te et retourne une Promesse.</li>
+<li>La librairie de routage envoie l&apos;utilisateur sur la page de modification de questionnaire</li>
+<li>Le hook d&apos;effet du composant page-questionnaire.jsx se d&#xE9;clenche</li>
+<li>Le <a href="https://github.com/InseeFr/Pogues/blob/main/src/actions/questionnaire.js" target="_blank">cr&#xE9;ateur d&apos;actions</a> <code>loadQuestionnaire</code> est appel&#xE9;.</li>
+<li>L&apos;action <code>LOAD_QUESTIONNAIRE_START</code> est envoy&#xE9;e.</li>
+<li>La fonction <code>loadQuestionnaireStart</code> du reducer <code>questionnaire-by-id.js</code> met &#xE0; jour la propri&#xE9;t&#xE9; loader avec la valeur <code>true</code>.</li>
+<li>Un spinner s&apos;affiche &#xE0; l&apos;&#xE9;cran pour indiquer le chargement des donn&#xE9;es du questionnaire.</li>
+<li>L&apos;action <code>LOAD_QUESTIONNAIRE</code> est envoy&#xE9;e. Elle contient l&apos;identifiant du questionnaire dans le payload.</li>
+<li>La fonction <a href="https://github.com/InseeFr/Pogues/blob/main/src/utils/remote-api.js#L232" target="_blank">getQuestionnaire</a> est appel&#xE9;e. Le navigateur lance la requ&#xEA;te et retourne une Promesse.</li>
 <li>La requ&#xEA;te est r&#xE9;ussie et la Promesse renvoie une repr&#xE9;sentation en <code>JSON</code> du questionnaire.</li>
-<li><a href="(https:/github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/actions/questionnaire.js#L101">La suite de la promesse</a> d&#xE9;finie par le cr&#xE9;ateur d&apos;actions est ex&#xE9;cut&#xE9;e.</li>
-<li>Elle appelle la fonction <a href="https://github.com/InseeFr/Pogues/blob/cc5ee57a6dabaeaa3a752ec48e632b3f7e04801d/src/js/utils/model-to-state-questionnaire.js#L17" target="_blank">toSate</a> et envoie l&apos;action <code>LOAD_QUESTIONNAIRE_SUCCESS</code> accompagn&#xE9;e du r&#xE9;sultat retourn&#xE9; par cette fonction.</li>
-<li>L&apos;action <code>LOAD_QUESTIONNAIRE_SUCCESS</code> est trait&#xE9;e par de nombreux reducers pour mettre &#xE0; jour l&apos;&#xE9;tat de l&apos;application: ajouter une entr&#xE9;e &#xE0; l&apos;&#xE9;tat g&#xE9;r&#xE9; par le reducer <code>questionnaires-by-id</code>, ajouter plusieurs entr&#xE9;es &#xE0; l&apos;objet <code>components-by-id</code> (une pour chaque s&#xE9;quence et pour chaque question du questionnaire), ajouter plusieurs entr&#xE9;es &#xE0; <code>code-by-id</code> (une pour chaque code de chaque liste de codes utilis&#xE9;e dans le questionnaire)...</li>
+<li><a href="https://github.com/InseeFr/Pogues/blob/main/src/actions/questionnaire.js#L88" target="_blank">La suite de la promesse</a> d&#xE9;finie par le cr&#xE9;ateur d&apos;actions est ex&#xE9;cut&#xE9;e.</li>
+<li>Elle appelle la fonction <a href="https://github.com/InseeFr/Pogues/blob/main/src/model/remote-to-stores.js" target="_blank">questionnaireRemoteToStores </a> et envoie l&apos;action <code>LOAD_QUESTIONNAIRE_SUCCESS</code> accompagn&#xE9;e du r&#xE9;sultat retourn&#xE9; par cette fonction.</li>
+<li>L&apos;action <code>LOAD_QUESTIONNAIRE_SUCCESS</code> est trait&#xE9;e par de nombreux reducers pour mettre &#xE0; jour l&apos;&#xE9;tat du questionnaire au moment du chargement : par exemple les entr&#xE9;es <code>questionnaireById</code>, <code>componentsByQuestionnaire</code>, <code>codeListByQuestionnaire</code>, etc...</li>
+<li>Lorsque le store est mis &#xE0; jour le hook d&apos;effet de page-questionnaire.jsx est relanc&#xE9; et les cr&#xE9;ateurs d&apos;action de la forme <code>setActiveSomething</code> sont appel&#xE9;s. Ces actions sont intercept&#xE9;es par le reducer combin&#xE9; <a href="https://github.com/InseeFr/Pogues/blob/main/src/reducers/app-state/app-state.js" target="_blank">app-state.js</a>. L&apos;&#xE9;tat courant du questionnaire est mise &#xE0; jour dans l&apos;entr&#xE9;e <code>appState</code> du store.</li>
 <li>L&apos;interface est actualis&#xE9;e. Le contenu du questionnaire est d&#xE9;sormais visible.</li>
 </ol>
 <figure id="fig1.2.4.2.2"><img src="../../../img/questionnaire.png" alt="Le questionnaire est affich&#xE9;" title="Le questionnaire est affich&#xE9;"><figcaption>Figure: Le questionnaire est affich&#xE9;</figcaption></figure>
@@ -961,7 +973,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Circulation de l'information","level":"1.2.4.2","depth":3,"next":{"title":"Compilation","level":"1.2.4.3","depth":3,"path":"guide-developpeur/application/build-process.md","ref":"guide-developpeur/application/build-process.md","articles":[]},"previous":{"title":"Amorcer l'application","level":"1.2.4.1","depth":3,"path":"guide-developpeur/application/bootstrap.md","ref":"guide-developpeur/application/bootstrap.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-developpeur/application/loading-questionnaire.md","mtime":"2022-08-01T14:55:42.622Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2022-08-01T14:56:34.259Z"},"basePath":"../..","book":{"language":"fr"}});
+            gitbook.page.hasChanged({"page":{"title":"Circulation de l'information","level":"1.2.4.2","depth":3,"next":{"title":"Compilation","level":"1.2.4.3","depth":3,"path":"guide-developpeur/application/build-process.md","ref":"guide-developpeur/application/build-process.md","articles":[]},"previous":{"title":"Amorcer l'application","level":"1.2.4.1","depth":3,"path":"guide-developpeur/application/bootstrap.md","ref":"guide-developpeur/application/bootstrap.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","image-captions","include-codeblock","smart-nav-collapse"],"root":"./","styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/InseeFr/Pogues/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"smart-nav-collapse":{},"include-codeblock":{"check":false,"edit":false,"fixlang":false,"lang":"","template":"default","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/InseeFr/Pogues/tree/master/doc"},"theme-default":{"styles":{"website":"gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"guide-developpeur/react-redux/index.html#fig1.2.2.1","level":"1.2.2","list_caption":"Figure: L'édition d'une liste de codes","alt":"L'édition d'une liste de codes","nro":1,"url":"../../../img/code-list-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"L'édition d'une liste de codes","attributes":{},"title":"L'édition d'une liste de codes","skip":false,"key":"1.2.2.1"},{"backlink":"guide-developpeur/react-redux/react/components.html#fig1.2.2.1.1.1","level":"1.2.2.1.1","list_caption":"Figure: Le composant CodeEditor","alt":"\"Le composant CodeEditor\"","nro":2,"url":"../../../../img/code-editor.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Le composant CodeEditor","attributes":{},"title":"Le composant CodeEditor","skip":false,"key":"1.2.2.1.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.1","level":"1.2.2.2.1","list_caption":"Figure: Les éditeurs doivent être synchronisés","alt":"Les éditeurs doivent être synchronisés","nro":3,"url":"../../../../img/sync.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Les éditeurs doivent être synchronisés","attributes":{},"title":"Les éditeurs doivent être synchronisés","skip":false,"key":"1.2.2.2.1.1"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.2","level":"1.2.2.2.1","list_caption":"Figure: Synchronisés plusieurs composants","alt":"Synchronisés plusieurs composants","nro":4,"url":"../../../../img/keep-in-sync-multiple-components.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Synchronisés plusieurs composants","attributes":{},"title":"Synchronisés plusieurs composants","skip":false,"key":"1.2.2.2.1.2"},{"backlink":"guide-developpeur/react-redux/redux/application-state.html#fig1.2.2.2.1.3","level":"1.2.2.2.1","list_caption":"Figure: Flux de données","alt":"https://github.com/facebook/flux/tree/master/examples/flux-concepts#flow-of-data","nro":5,"url":"../../../../img/flux-diagram.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Flux de données","attributes":{},"title":"Flux de données","skip":false,"key":"1.2.2.2.1.3"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.1","level":"1.2.4.2","list_caption":"Figure: Un utilisateur sélectionne un questionnaire","alt":"Un utilisateur sélectionne un questionnaire","nro":6,"url":"../../../img/select-questionnaire.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Un utilisateur sélectionne un questionnaire","attributes":{},"title":"Un utilisateur sélectionne un questionnaire","skip":false,"key":"1.2.4.2.1"},{"backlink":"guide-developpeur/application/loading-questionnaire.html#fig1.2.4.2.2","level":"1.2.4.2","list_caption":"Figure: Le questionnaire est affiché","alt":"Le questionnaire est affiché","nro":7,"url":"../../../img/questionnaire.png","index":2,"caption_template":"Figure: _CAPTION_","label":"Le questionnaire est affiché","attributes":{},"title":"Le questionnaire est affiché","skip":false,"key":"1.2.4.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.1","level":"1.2.5.2","list_caption":"Figure: Redux DevTools","alt":"Redux DevTools","nro":8,"url":"../../../img/redux-devtools.gif","index":1,"caption_template":"Figure: _CAPTION_","label":"Redux DevTools","attributes":{},"title":"Redux DevTools","skip":false,"key":"1.2.5.2.1"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.2","level":"1.2.5.2","list_caption":"Figure: React DevTools","alt":"React DevTools","nro":9,"url":"../../../img/react-devtools.png","index":2,"caption_template":"Figure: _CAPTION_","label":"React DevTools","attributes":{},"title":"React DevTools","skip":false,"key":"1.2.5.2.2"},{"backlink":"guide-developpeur/javascript/debugging.html#fig1.2.5.2.3","level":"1.2.5.2","list_caption":"Figure: Interrompre l'exécution en cas d'erreur","alt":"Interrompre l'exécution en cas d'erreur","nro":10,"url":"../../../img/pause-exceptions.png","index":3,"caption_template":"Figure: _CAPTION_","label":"Interrompre l'exécution en cas d'erreur","attributes":{},"title":"Interrompre l'exécution en cas d'erreur","skip":false,"key":"1.2.5.2.3"}]},"title":"Pogues","language":"fr","gitbook":"*"},"file":{"path":"guide-developpeur/application/loading-questionnaire.md","mtime":"2022-08-24T15:28:02.996Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2022-08-24T15:29:12.917Z"},"basePath":"../..","book":{"language":"fr"}});
         });
     </script>
 </div>
