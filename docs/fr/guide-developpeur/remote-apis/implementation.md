@@ -1,6 +1,6 @@
 # Implémentation
 
-Les requêtes sont déclenchées par les composants React qui requièrent des ressources distantes. Ces composants utilisent les fonctions du type `loadSomethingIfNeeded` au sein de hooks useEffect() React. Par exemple, le composant `PageQuestionnaire` appelle `loadCampaignsIfNeeded` lorsqu'il est [instancié](https://github.com/InseeFr/Pogues/blob/main/src/layout/page-questionnaire/components/page-questionnaire.jsx). Ce chapitre décrit comment ce processus fonctionne.
+Les requêtes sont déclenchées par les composants React qui requièrent des ressources distantes. Ces composants utilisent les fonctions du type `loadSomethingIfNeeded` au sein de hooks `useEffect()` React. Par exemple, le composant `PageQuestionnaire` appelle `loadCampaignsIfNeeded` lorsqu'il est [instancié](https://github.com/InseeFr/Pogues/blob/main/src/layout/page-questionnaire/components/page-questionnaire.jsx). Ce chapitre décrit comment ce processus fonctionne.
 
 ## Appels distants
 
