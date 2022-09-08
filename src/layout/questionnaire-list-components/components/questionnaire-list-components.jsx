@@ -196,7 +196,7 @@ const QuestionnaireListComponents = props => {
                       </strong>
                       , il s'agit probablement d'une erreur de l'application.
                       Dans ce cas, veuillez contacter au plus vite{' '}
-                      <a href="mailto:romain.tailhurat@insee.fr;anne.husseini-skalitz@insee.fr;ophelie.rogel@insee.fr;loic.henninger@insee.fr">
+                      <a href="mailto:romain.tailhurat@insee.fr;anne.husseini-skalitz@insee.fr;ophelie.bibonne@insee.fr;francois.bulot@insee.fr">
                         l'équipe de l'atelier de conception
                       </a>{' '}
                       pour que nous corrigions ce problème.
