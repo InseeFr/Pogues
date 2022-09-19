@@ -140,8 +140,9 @@ const QuestionnaireComponent = props => {
               over: isOver,
               'question-filter':
                 component.type === QUESTION &&
-                (componentFiltersInitial?.length > 0 ||
-                  componentFiltersFinal?.length > 0),
+                ((componentFiltersInitial &&
+                  componentFiltersInitial.length > 0) ||
+                  (componentFiltersFinal && componentFiltersFinal.length > 0)),
             })}
           >
             <div className="questionnaire-element-name">{component.name}</div>
@@ -158,7 +159,7 @@ const QuestionnaireComponent = props => {
                     component.label
                   )}
                 </div>
-                {componentFiltersInitial?.length > 0
+                {componentFiltersInitial && componentFiltersInitial.length > 0
                   ? componentFiltersInitial.map(filter => {
                       return (
                         <div className="questionnaire-element-filter">
@@ -166,13 +167,13 @@ const QuestionnaireComponent = props => {
                             onClick={() => handleEditFilterComponent(filter.id)}
                             className="btn-white-filter"
                           >
-                            {`${Dictionary.If} ${filter?.filter}`}
+                            {`${Dictionary.If} ${filter && filter.filter}`}
                           </button>
                         </div>
                       );
                     })
                   : false}
-                {componentFiltersFinal?.length > 0
+                {componentFiltersFinal && componentFiltersFinal.length > 0
                   ? componentFiltersFinal.map(filter => {
                       return (
                         <div className="questionnaire-element-filter">
@@ -180,7 +181,7 @@ const QuestionnaireComponent = props => {
                             onClick={() => handleEditFilterComponent(filter.id)}
                             className="btn-white-filter"
                           >
-                            {`${Dictionary.EndIf} ${filter?.filter}`}
+                            {`${Dictionary.EndIf} ${filter && filter.filter}`}
                           </button>
                         </div>
                       );

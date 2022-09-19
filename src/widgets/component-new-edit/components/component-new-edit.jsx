@@ -88,7 +88,7 @@ function ComponentNewEdit(props) {
   const [integerVariable, setIntegerVariable] = useState(false);
   const [formData, setFormData] = useState({});
   const [filterImbriquers, setFilterImbriquers] = useState(
-    filterImbriquer?.length > 0 ? filterImbriquer : [],
+    filterImbriquer[0] ? filterImbriquer : [],
   );
   const [disableValidation, setDisableValidation] = useState(false);
   const [filterId, setFilterId] = useState('');
@@ -123,15 +123,22 @@ function ComponentNewEdit(props) {
         data.redirections.label ||
         data.controls.label ||
         data.declarations.label ||
-        data.responseFormat.SINGLE_CHOICE.CodesList['input-code']?.value ||
-        data.responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList['input-code']
-          ?.value ||
-        data.responseFormat.MULTIPLE_CHOICE.MEASURE.CODES_LIST.CodesList[
+        (data.responseFormat.SINGLE_CHOICE.CodesList['input-code'] &&
+          data.responseFormat.SINGLE_CHOICE.CodesList['input-code'].value) ||
+        (data.responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList['input-code'] &&
+          data.responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList['input-code']
+            .value) ||
+        (data.responseFormat.MULTIPLE_CHOICE.MEASURE.CODES_LIST.CodesList[
           'input-code'
-        ]?.value ||
-        data.responseFormat.TABLE.PRIMARY.CODES_LIST.CodesList['input-code']
-          ?.value ||
-        data.responseFormat.TABLE.SECONDARY.CodesList['input-code']?.value ||
+        ] &&
+          data.responseFormat.MULTIPLE_CHOICE.MEASURE.CODES_LIST.CodesList[
+            'input-code'
+          ].value) ||
+        (data.responseFormat.TABLE.PRIMARY.CODES_LIST.CodesList['input-code'] &&
+          data.responseFormat.TABLE.PRIMARY.CODES_LIST.CodesList['input-code']
+            .value) ||
+        (data.responseFormat.TABLE.SECONDARY.CodesList['input-code'] &&
+          data.responseFormat.TABLE.SECONDARY.CodesList['input-code'].value) ||
         data.responseFormat.TABLE.LIST_MEASURE.label)
     ) {
       setShowPopup(true);
@@ -351,8 +358,9 @@ function ComponentNewEdit(props) {
 
   const inferieur = () => {
     let inferieurFilter =
+      componentsStore[componentsStore[filterImbriquers[0]].initialMember] &&
       componentsStore[componentsStore[filterImbriquers[0]].initialMember]
-        ?.weight;
+        .weight;
 
     filterImbriquers.forEach(filter => {
       if (
@@ -382,7 +390,7 @@ function ComponentNewEdit(props) {
             </GenericOption>
           );
         });
-    } else if (filterImbriquers?.length > 0) {
+    } else if (filterImbriquers[0]) {
       options = Object.values(componentsStore)
         .filter(
           component =>

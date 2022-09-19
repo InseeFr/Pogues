@@ -268,9 +268,10 @@ function NestedFilter(props) {
   };
   const inferieur = () => {
     let inferieurFilter =
+      componentsStore[newNestedFilter.filterImbriquer[0]].initialMember &&
       componentsStore[
         componentsStore[newNestedFilter.filterImbriquer[0]].initialMember
-      ]?.weight;
+      ].weight;
 
     newNestedFilter.filterImbriquer.forEach(filter => {
       if (
@@ -288,7 +289,7 @@ function NestedFilter(props) {
   const optionsInitial = () => {
     let options = <option key="" value="" />;
     if (initialMemberFilter) {
-      if (newNestedFilter.filterImbriquer?.length > 0) {
+      if (newNestedFilter.filterImbriquer[0]) {
         options = Object.values(componentsStore)
           .filter(
             component =>

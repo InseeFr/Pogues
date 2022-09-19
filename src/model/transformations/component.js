@@ -374,9 +374,10 @@ function getClarificationresponseSingleChoiseQuestion(
             element => element.Name === collected.name,
           )
         : undefined;
-      const findFlow = flowControl
-        ? flowControl.find(element => element.IfTrue === findResponse?.id)
-        : undefined;
+      const findFlow =
+        flowControl && findResponse
+          ? flowControl.find(element => element.IfTrue === findResponse.id)
+          : undefined;
       const responseModel = {
         mandatory: false,
         typeName: collected.type,
@@ -384,8 +385,8 @@ function getClarificationresponseSingleChoiseQuestion(
         pattern: '',
         collectedVariable: collected.id,
       };
-      if (findResponse) {
-        responseModel.id = findResponse.Response[0]?.id;
+      if (findResponse && findResponse.Response) {
+        responseModel.id = findResponse.Response[0].id;
       }
       const clafication = {
         id: findResponse ? findResponse.id : uuid(),
@@ -458,9 +459,10 @@ function getClarificationResponseMultipleChoiceQuestion(
               element => element.Name === collected.name,
             )
           : undefined;
-        const findFlow = flowControl
-          ? flowControl.find(element => element.IfTrue === findResponse?.id)
-          : undefined;
+        const findFlow =
+          flowControl && findResponse
+            ? flowControl.find(element => element.IfTrue === findResponse.id)
+            : undefined;
         const responseModel = {
           mandatory: false,
           typeName: collected.type,
@@ -468,8 +470,8 @@ function getClarificationResponseMultipleChoiceQuestion(
           pattern: '',
           collectedVariable: collected.id,
         };
-        if (findResponse) {
-          responseModel.id = findResponse.Response[0]?.id;
+        if (findResponse && findResponse.Response) {
+          responseModel.id = findResponse.Response[0].id;
         }
         const clafication = {
           id: findResponse ? findResponse.id : uuid(),
@@ -553,11 +555,12 @@ function getClarificationResponseTableQuestion(
                     element => element.Name === varib.name,
                   )
                 : undefined;
-              const findFlow = flowControl
-                ? flowControl.find(
-                    element => element.IfTrue === findResponse?.id,
-                  )
-                : undefined;
+              const findFlow =
+                flowControl && findResponse
+                  ? flowControl.find(
+                      element => element.IfTrue === findResponse.id,
+                    )
+                  : undefined;
               const responseModel = {
                 mandatory: false,
                 typeName: varib.type,
@@ -565,8 +568,8 @@ function getClarificationResponseTableQuestion(
                 pattern: '',
                 collectedVariable: varib.id,
               };
-              if (findResponse) {
-                responseModel.id = findResponse.Response[0]?.id;
+              if (findResponse && findResponse.Response) {
+                responseModel.id = findResponse.Response[0].id;
               }
               const clafication = {
                 id: findResponse ? findResponse.id : uuid(),
