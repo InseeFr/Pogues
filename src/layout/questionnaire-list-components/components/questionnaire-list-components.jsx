@@ -17,7 +17,7 @@ import { getSortedChildren } from 'utils/component/component-utils';
 
 const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
-const QuestionnaireListComponents = props => {
+function QuestionnaireListComponents(props) {
   const {
     token,
     questionnaire,
@@ -239,7 +239,7 @@ const QuestionnaireListComponents = props => {
       )}
     </div>
   );
-};
+}
 
 // Prop types and default Props
 QuestionnaireListComponents.propTypes = {

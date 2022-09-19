@@ -6,7 +6,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 const { COMPONENT_CLASS, CANCEL, VALIDATE, FOOTERLOOP } =
   WIDGET_COMPONENT_NEW_EDIT;
 
-const UploadCSV = props => {
+function UploadCSV(props) {
   const [errorFile, setErrorFile] = useState(false);
   const [dataFile, setDataFile] = useState();
   const [codesFile, setCodesFile] = useState();
@@ -78,6 +78,6 @@ const UploadCSV = props => {
       </div>
     </div>
   );
-};
+}
 
 export default UploadCSV;

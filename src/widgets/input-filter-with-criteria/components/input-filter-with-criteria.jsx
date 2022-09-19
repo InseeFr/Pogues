@@ -13,7 +13,7 @@ const {
   BUTTON_SEARCH_CLASS,
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
-const InputFilterWithCriteria = props => {
+function InputFilterWithCriteria(props) {
   const {
     typeItem,
     criteriaValues,
@@ -69,7 +69,7 @@ const InputFilterWithCriteria = props => {
       </button>
     </div>
   );
-};
+}
 
 // PropTypes and defaultProps
 

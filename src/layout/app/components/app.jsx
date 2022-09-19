@@ -11,7 +11,7 @@ import { APP } from 'constants/dom-constants';
 const { COMPONENT_ID } = APP;
 
 // Component
-const App = ({ children, loadUnitsIfNeeded, token }) => {
+function App({ children, loadUnitsIfNeeded, token }) {
   useEffect(() => {
     loadUnitsIfNeeded(token);
   }, [token, loadUnitsIfNeeded]);
@@ -23,7 +23,7 @@ const App = ({ children, loadUnitsIfNeeded, token }) => {
       <Footer />
     </div>
   );
-};
+}
 // Prop types and default props
 
 App.propTypes = {

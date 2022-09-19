@@ -14,7 +14,7 @@ import {
 import { nameFromLabel } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const QuestionnaireList = props => {
+function QuestionnaireList(props) {
   const {
     activeQuestionnaire,
     questionnaires,
@@ -270,7 +270,7 @@ const QuestionnaireList = props => {
       </ReactModal>
     </div>
   );
-};
+}
 // Prop types and default props
 
 QuestionnaireList.propTypes = {

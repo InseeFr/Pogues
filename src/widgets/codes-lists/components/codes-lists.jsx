@@ -57,7 +57,7 @@ export const defaultProps = {
   currentCodesListsStore: {},
 };
 
-const CodesList = props => {
+function CodesList(props) {
   const {
     change,
     arrayRemoveAll,
@@ -203,6 +203,6 @@ const CodesList = props => {
       )}
     </FormSection>
   );
-};
+}
 
 export default CodesList;

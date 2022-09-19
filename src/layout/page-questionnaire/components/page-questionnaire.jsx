@@ -42,7 +42,7 @@ export const defaultProps = {
   collectedVariablesByQuestion: {},
 };
 
-const PageQuestionnaire = props => {
+function PageQuestionnaire(props) {
   const {
     id,
     token,
@@ -152,6 +152,6 @@ const PageQuestionnaire = props => {
       )}
     </div>
   );
-};
+}
 
 export default PageQuestionnaire;

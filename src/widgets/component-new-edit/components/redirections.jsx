@@ -43,7 +43,7 @@ const defaultProps = {
 
 // Component
 
-const Redirections = ({
+function Redirections({
   formName,
   selectorPath,
   componentType,
@@ -51,7 +51,7 @@ const Redirections = ({
   addErrors,
   componentsStore,
   editingComponentId,
-}) => {
+}) {
   const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
@@ -92,7 +92,7 @@ const Redirections = ({
       </ListWithInputPanel>
     </FormSection>
   );
-};
+}
 
 Redirections.propTypes = propTypes;
 Redirections.defaultProps = defaultProps;

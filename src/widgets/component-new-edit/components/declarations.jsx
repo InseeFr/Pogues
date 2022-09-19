@@ -47,14 +47,14 @@ export const defaultProps = {
 
 // Component
 
-const Declarations = ({
+function Declarations({
   formName,
   selectorPath,
   errors,
   showPosition,
   addErrors,
   declarationType,
-}) => {
+}) {
   const [disableValidation, setDisableValidation] = useState(false);
 
   return (
@@ -136,7 +136,7 @@ const Declarations = ({
       </ListWithInputPanel>
     </FormSection>
   );
-};
+}
 
 Declarations.propTypes = propTypes;
 Declarations.defaultProps = defaultProps;

@@ -20,7 +20,7 @@ import { noop } from 'utils/test/test-utils';
 
 // Component
 
-const PageSearchQuestionnaire = props => {
+function PageSearchQuestionnaire(props) {
   useEffect(() => {
     props.clearSearchResult();
   }, [props]);
@@ -51,7 +51,7 @@ const PageSearchQuestionnaire = props => {
       <SearchResults {...propsSearchResults} />
     </div>
   );
-};
+}
 
 // PropTypes and defaultProps
 PageSearchQuestionnaire.propTypes = {

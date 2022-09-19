@@ -16,7 +16,7 @@ export const propTypes = {
 
 // Component
 
-const PageHome = props => {
+function PageHome(props) {
   const { history, deleteAppState } = props;
 
   const [showModal, setShowModal] = useState(false);
@@ -110,6 +110,6 @@ const PageHome = props => {
       </ReactModal>
     </div>
   );
-};
+}
 
 export default PageHome;

@@ -9,21 +9,22 @@ import React from 'react';
  * @param schema
  * @returns <div><ComponentToWrap props.meta.error=withCodeValidation(input.value) /></div>
  */
-const withErrorValidation = (ComponentToWrap, validate, schema) => props => {
-  let childProps = props;
+const withErrorValidation = (ComponentToWrap, validate, schema) =>
+  function (props) {
+    let childProps = props;
 
-  const error = validate(props, props.path, schema);
+    const error = validate(props, props.path, schema);
 
-  if (error.length > 0) {
-    childProps = { ...props, meta: { ...props.meta, error } };
-  }
+    if (error.length > 0) {
+      childProps = { ...props, meta: { ...props.meta, error } };
+    }
 
-  return (
-    <div>
-      <ComponentToWrap {...childProps} />
-    </div>
-  );
-};
+    return (
+      <div>
+        <ComponentToWrap {...childProps} />
+      </div>
+    );
+  };
 
 // Don't use hoc directly in render, define them outside
 export default withErrorValidation;

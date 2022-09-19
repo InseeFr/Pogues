@@ -38,7 +38,7 @@ export const defaultProps = {
 
 // Component
 
-const Controls = ({ formName, selectorPath, errors, addErrors }) => {
+function Controls({ formName, selectorPath, errors, addErrors }) {
   const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
@@ -104,7 +104,7 @@ const Controls = ({ formName, selectorPath, errors, addErrors }) => {
       </ListWithInputPanel>
     </FormSection>
   );
-};
+}
 
 Controls.propTypes = propTypes;
 Controls.defaultProps = defaultProps;

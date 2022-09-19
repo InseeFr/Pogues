@@ -7,10 +7,10 @@ import { FORMULA_LANGUAGE } from 'constants/pogues-constants';
 
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 
-const SimpleEditor = ({ formulasLanguage, ...props }) => {
+function SimpleEditor({ formulasLanguage, ...props }) {
   if (formulasLanguage === VTL) return <VTLEditor {...props} />;
   if (formulasLanguage === XPATH) return <TextareaWithSuggestions {...props} />;
   return null;
-};
+}
 
 export default SimpleEditor;

@@ -14,7 +14,7 @@ import { requiredSelect } from 'forms/validation-rules';
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
   WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
-const StatisticalContextCriteria = props => {
+function StatisticalContextCriteria(props) {
   const {
     token,
     selectedSerie,
@@ -116,7 +116,7 @@ const StatisticalContextCriteria = props => {
       )}
     </div>
   );
-};
+}
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {

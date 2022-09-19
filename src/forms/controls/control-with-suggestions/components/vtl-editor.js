@@ -8,13 +8,13 @@ import { CONTROL_VTL_EDITOR } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_VTL_EDITOR;
 
-const VTLEditor = ({
+function VTLEditor({
   availableSuggestions,
   label,
   input,
   required,
   setDisableValidation,
-}) => {
+}) {
   const [errors, setErrors] = useState([]);
   const variables = availableSuggestions.reduce(
     (acc, s) => ({
@@ -85,6 +85,6 @@ const VTLEditor = ({
       </div>
     </div>
   );
-};
+}
 
 export default VTLEditor;

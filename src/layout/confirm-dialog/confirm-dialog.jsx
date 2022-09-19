@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import Dictionary from 'utils/dictionary/dictionary';
 
-const ConfirmDialog = props => {
+function ConfirmDialog(props) {
   const cancelButtonRef = useRef(null);
   const [showConfirmModal, setShowConfirmModal] = useState(
     props.showConfirmModal,
@@ -65,7 +65,7 @@ const ConfirmDialog = props => {
       </div>
     </ReactModal>
   );
-};
+}
 
 ConfirmDialog.propTypes = {
   confirm: PropTypes.func.isRequired,

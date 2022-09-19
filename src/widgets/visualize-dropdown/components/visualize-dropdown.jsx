@@ -11,7 +11,7 @@ import Dictionary from 'utils/dictionary/dictionary';
  * with a dropdown behavior with links to different
  * visualizations of the PDF : WEB, PDF or ODT
  */
-const VisualizeDropdown = props => {
+function VisualizeDropdown(props) {
   const {
     questionnaireId,
     componentId,
@@ -142,7 +142,7 @@ const VisualizeDropdown = props => {
       </ul>
     </div>
   );
-};
+}
 
 // PropTypes and defaultProps
 

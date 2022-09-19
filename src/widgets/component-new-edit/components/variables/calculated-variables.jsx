@@ -46,13 +46,13 @@ export const defaultProps = {
   errors: [],
 };
 
-const CalculatedVariables = ({
+function CalculatedVariables({
   formName,
   selectorPath,
   errors,
   addErrors,
   componentsStore,
-}) => {
+}) {
   const [disableValidation, setDisableValidation] = useState(false);
   const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
     return (
@@ -120,7 +120,7 @@ const CalculatedVariables = ({
       </ListWithInputPanel>
     </FormSection>
   );
-};
+}
 
 CalculatedVariables.propTypes = propTypes;
 CalculatedVariables.defaultProps = defaultProps;

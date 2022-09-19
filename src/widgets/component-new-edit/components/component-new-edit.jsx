@@ -66,7 +66,7 @@ export const defaultProps = {
   codesListsStoreStore: {},
 };
 
-const ComponentNewEdit = props => {
+function ComponentNewEdit(props) {
   const {
     componentType,
     componentId,
@@ -711,7 +711,7 @@ const ComponentNewEdit = props => {
       </ReactModal>
     </div>
   );
-};
+}
 const mapStateToProps = state => {
   const selector = formValueSelector('component');
   return {

@@ -81,7 +81,7 @@ export const customModalbuttonStyles = {
   background: '#15417a',
 };
 
-const GenericInput = props => {
+function GenericInput(props) {
   const {
     activeQuestionnaire,
     currentQuestionnaire,
@@ -255,7 +255,6 @@ const GenericInput = props => {
       ) : (
         false
       )}
-
       <button
         className="btn-white disabled"
         id="add-pagebreak"
@@ -390,6 +389,6 @@ const GenericInput = props => {
       </ReactModal>
     </div>
   );
-};
+}
 
 export default GenericInput;

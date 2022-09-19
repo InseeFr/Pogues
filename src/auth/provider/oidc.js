@@ -3,7 +3,7 @@ import { Oidc, InMemoryWebStorage } from '@axa-fr/react-oidc-redux';
 import Loader from 'layout/loader';
 import { buildOidcConfiguration } from 'utils/oidc/build-configuration';
 
-const AuthProviderOIDC = ({ store, children }) => {
+function AuthProviderOIDC({ store, children }) {
   const [conf, setConf] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +31,6 @@ const AuthProviderOIDC = ({ store, children }) => {
       {children}
     </Oidc>
   );
-};
+}
 
 export default AuthProviderOIDC;

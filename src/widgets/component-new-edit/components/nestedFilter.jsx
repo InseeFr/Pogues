@@ -30,7 +30,7 @@ export const propTypes = {
 
 export const defaultProps = {};
 
-const NestedFilter = props => {
+function NestedFilter(props) {
   const {
     componentsStore,
     handleSubmitImbriquer,
@@ -584,7 +584,7 @@ const NestedFilter = props => {
       </ReactModal>
     </div>
   );
-};
+}
 
 NestedFilter.propTypes = propTypes;
 NestedFilter.defaultProps = defaultProps;

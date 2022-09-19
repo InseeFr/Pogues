@@ -6,7 +6,7 @@ import { QuestionnaireList } from 'layout/questionnaire-list';
 
 // Prop types and default props
 
-const QuestionnaireComposition = props => {
+function QuestionnaireComposition(props) {
   const { questionnaire } = props;
   const history = useHistory();
 
@@ -25,6 +25,6 @@ const QuestionnaireComposition = props => {
       </div>
     </div>
   );
-};
+}
 
 export default QuestionnaireComposition;
