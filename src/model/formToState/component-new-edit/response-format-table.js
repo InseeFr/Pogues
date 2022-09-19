@@ -344,6 +344,7 @@ export function getNormalizedMeasureValues(measure) {
   return normalized;
 }
 
+// eslint-disable-next-line default-param-last
 const Factory = (initialState = {}, codesListsStore) => {
   const { [LIST_MEASURE]: measures, ...otherState } = initialState;
   let currentState = merge(cloneDeep(defaultState), {

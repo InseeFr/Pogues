@@ -229,6 +229,7 @@ actionHandlers[CREATE_PAGE_BREAK] = setQuestionModified;
 actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
+// eslint-disable-next-line default-param-last
 export default function (state = defaultState, action) {
   if (!action) return state;
   const { type, payload, meta } = action;

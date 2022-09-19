@@ -306,8 +306,8 @@ export function duplicate(activesComponents, idComponent) {
 
 export function duplicateComponentAndVars(
   activesComponents,
-  collectedVariables = {},
   idComponent,
+  collectedVariables = {},
 ) {
   const stores = {
     activeComponentsById: {},

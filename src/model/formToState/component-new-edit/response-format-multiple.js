@@ -105,6 +105,7 @@ export function stateToForm(currentState, transformers) {
   };
 }
 
+// eslint-disable-next-line default-param-last
 const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {

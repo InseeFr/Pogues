@@ -5,6 +5,7 @@
  * @param {object} actionHandlers redux actions/reducers
  */
 export function createActionHandlers(actionHandlers, initialState = {}) {
+  // eslint-disable-next-line default-param-last
   return function (state = initialState, action) {
     if (!action) return state;
     const { type, payload } = action;

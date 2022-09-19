@@ -43,6 +43,7 @@ export function stateComponentToForm({ id, label, codes }) {
   });
 }
 
+// eslint-disable-next-line default-param-last
 export const Factory = (currentState = {}, codesListsStore) => {
   if (codesListsStore && currentState.id) {
     currentState = merge(

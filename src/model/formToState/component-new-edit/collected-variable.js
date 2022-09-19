@@ -119,6 +119,7 @@ export function storeToForm(currentStore) {
   };
 }
 
+// eslint-disable-next-line default-param-last
 const Factory = (currentState = [], collectedVariablesStore) => {
   let currentStore = currentState.reduce((acc, key) => {
     return {

@@ -54,17 +54,17 @@ export const mapStateToProps = (
 
     conditionalProps.selectedOperation = selectedOperation;
     conditionalProps.operations = filterStoreByProp(
-      state.metadataByType.operations,
       'serie',
       selectedSerie,
+      state.metadataByType.operations,
     );
 
     // Show or not the list of campaigns
     if (showCampaigns) {
       conditionalProps.campaigns = filterStoreByProp(
-        state.metadataByType.campaigns,
         'operation',
         selectedOperation,
+        state.metadataByType.campaigns,
       );
     }
   }

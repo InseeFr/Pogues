@@ -13,6 +13,7 @@ const defaultState = {
 
 const actionHandlers = {};
 
+// eslint-disable-next-line default-param-last
 export default function (state = defaultState, action) {
   if (!action) return state;
   const { type, payload } = action;

@@ -36,8 +36,8 @@ const sortByWeight = store => (keyA, keyB) => {
 };
 
 export const getResponseCoordinate = (
-  variablesMapping = [],
   variablesAttribute,
+  variablesMapping = [],
 ) =>
   variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
@@ -192,8 +192,8 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
       ? responseStructure.Attribute
       : undefined;
     const coordinatesByResponse = getResponseCoordinate(
-      variableResponseMapping,
       variableResponseAttribute,
+      variableResponseMapping,
     );
 
     acc = {
@@ -302,9 +302,9 @@ function remoteToStoreNested(
   children,
   parent,
   componentGroup,
-  codesListsStore = {},
   iterations,
   filters,
+  codesListsStore = {},
   acc = {},
 ) {
   let weight = 0;
@@ -320,9 +320,9 @@ function remoteToStoreNested(
         child.Child,
         child.id,
         componentGroup,
-        codesListsStore,
         iterations,
         filters,
+        codesListsStore,
         acc,
       );
     return acc;

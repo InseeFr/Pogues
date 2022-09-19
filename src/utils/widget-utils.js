@@ -35,7 +35,7 @@ export function getCurrentSelectorPath(selectorPath = '') {
   return selectorPath !== '' ? `${selectorPath}.` : selectorPath;
 }
 
-export function filterStoreByProp(store = {}, propName, value) {
+export function filterStoreByProp(propName, value, store = {}) {
   return Object.keys(store)
     .filter(key => store[key][propName] === value)
     .map(key => store[key]);

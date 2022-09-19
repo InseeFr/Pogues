@@ -14,6 +14,7 @@ const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { LIST } = DIMENSION_FORMATS;
 
 export function remoteToStore(
+  // eslint-disable-next-line default-param-last
   remote = [],
   responsesByVariable,
   codesListsStore,
