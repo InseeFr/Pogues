@@ -1,2 +1,2 @@
-export { default as AuthProvider } from './provider';
-export { default as secure } from './hoc';
+export { AuthProvider } from './provider';
+export { secure } from './hoc';

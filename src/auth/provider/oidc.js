@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Oidc, InMemoryWebStorage } from '@axa-fr/react-oidc-redux';
-import Loader from 'layout/loader';
+import { Loader } from 'layout/loader';
 import { buildOidcConfiguration } from 'utils/oidc/build-configuration';
 
 function AuthProviderOIDC({ store, children }) {

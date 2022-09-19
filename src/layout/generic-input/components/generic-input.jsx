@@ -8,7 +8,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
 import { QuestionnaireList } from 'layout/questionnaire-list';
-import Loader from 'layout/loader';
+import { Loader } from 'layout/loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;

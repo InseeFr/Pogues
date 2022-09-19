@@ -725,9 +725,9 @@ function storeToRemoteNested(
       remote.Child = childrenToRemote(
         children,
         store,
-        collectedVariablesStore,
         codesListsStore,
         dynamiqueSpecified,
+        collectedVariablesStore,
         depth,
       );
     }
@@ -738,9 +738,9 @@ function storeToRemoteNested(
 function childrenToRemote(
   children,
   store,
-  collectedVariablesStore = {},
   codesListsStore,
   dynamiqueSpecified,
+  collectedVariablesStore = {},
   depth = 0,
 ) {
   return children.sort(sortByWeight(store)).map(key => {
@@ -768,9 +768,9 @@ export function remoteToStore(
       remote.Child,
       questionnaireId,
       remote.ComponentGroup,
-      codesListsStore,
       iterations,
       filters,
+      codesListsStore,
     ),
     [questionnaireId]: remoteToState(remote, []),
   };

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Loader from 'layout/loader';
+import { Loader } from 'layout/loader';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
 import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
