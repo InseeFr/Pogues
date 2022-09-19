@@ -51,6 +51,11 @@ const QuestionnaireComponent = props => {
     handleRemovePageBreak,
     componentFiltersInitial,
     componentFiltersFinal,
+    removeComponent,
+    setSelectedComponentId,
+    setEditingComponentId,
+    actions,
+    duplicateComponentAndVariables,
   } = props;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
@@ -68,15 +73,15 @@ const QuestionnaireComponent = props => {
   }, [selected, ensureSelected]);
 
   const handleSelectComponent = () => {
-    props.setSelectedComponentId(component.id);
+    setSelectedComponentId(component.id);
   };
 
   const handleEditComponent = () => {
-    props.setEditingComponentId(component.id);
-    props.actions.handleOpenComponentDetail();
+    setEditingComponentId(component.id);
+    actions.handleOpenComponentDetail();
   };
   const handleEditFilterComponent = id => {
-    props.setEditingComponentId(id);
+    setEditingComponentId(id);
     handleOpenComponentDetail();
   };
 
@@ -85,14 +90,14 @@ const QuestionnaireComponent = props => {
   };
 
   const handleDuplicateComponent = () => {
-    props.duplicateComponentAndVariables(component.id);
+    duplicateComponentAndVariables(component.id);
   };
 
   const handleDeleteComponent = () => {
-    props.removeComponent(component.id);
+    removeComponent(component.id);
   };
   const handleDeleteComponent1 = id => {
-    props.removeComponent(id);
+    removeComponent(id);
     setShowComponentModal(false);
   };
   const handleOpenComponentDetail = () => {
