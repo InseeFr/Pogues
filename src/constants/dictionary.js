@@ -131,6 +131,18 @@ const dictionary = {
     en: 'External element',
     fr: 'Élément externe',
   },
+  tcmReference: {
+    en: 'TCM reference',
+    fr: 'Référence au TCM',
+  },
+  questionnaireReference: {
+    en: 'Questionnaire reference',
+    fr: 'Référence à un questionnaire',
+  },
+  questionnaireMerge: {
+    en: 'Questionnaire merging',
+    fr: 'Fusion avec un questionnaire',
+  },
   visualise: {
     en: 'Visualise',
     fr: 'Visualiser',

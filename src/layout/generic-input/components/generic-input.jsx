@@ -266,7 +266,11 @@ function GenericInput(props) {
         <span className="glyphicon glyphicon-plus" />
         {Dictionary.pageBreak}
       </button>
-      <VisualizeDropdown top typeDropDown={EXTERNAL_ELEMENT} />
+      <VisualizeDropdown
+        top=""
+        typeDropDown={EXTERNAL_ELEMENT}
+        questMergeAction={handleQuestionnaireRef}
+      />
       <button
         className="btn-yellow"
         disabled={!isQuestionnaireModified}
@@ -285,18 +289,6 @@ function GenericInput(props) {
         visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
         token={token}
       />
-      <button
-        id="add-questionnaire"
-        className="btn-white"
-        type="button"
-        onClick={() => {
-          handleNewQuestion();
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.QUESTIONNAIRE}
-      </button>
-
       <button className="btn-yellow disabled" id="publish">
         {Dictionary.publishQuestionnaire}
         <span className="glyphicon glyphicon-share-alt" />
@@ -380,7 +372,6 @@ function GenericInput(props) {
           <div className="popup-body">
             <QuestionnaireList
               fusion
-              handleCloseNewQuestion={handleCloseNewQuestion}
               currentQuestionnaire={currentQuestionnaire}
               handleCloseNewQuestionnaire={handleCloseNewQuestionnaire}
             />

@@ -20,6 +20,7 @@ function VisualizeDropdown(props) {
     top,
     visualizeActiveQuestionnaire,
     typeDropDown,
+    questMergeAction,
   } = props;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -89,8 +90,9 @@ function VisualizeDropdown(props) {
     { actionType: 'ddi', actionLabel: Dictionary.VISUALIZE_DDI },
   ];
   const linksQuestionnaire = [
-    { actionLabel: 'Référence au TCM' },
-    { actionLabel: 'Référence à un questionnaire' },
+    { actionType: 'tcmRef', actionLabel: Dictionary.tcmReference },
+    { actionType: 'questRef', actionLabel: Dictionary.questionnaireReference },
+    { actionType: 'questMerge', actionLabel: Dictionary.questionnaireMerge },
   ];
   return (
     <div className={classDropDown} ref={wrapperRef}>
@@ -133,9 +135,15 @@ function VisualizeDropdown(props) {
           : linksQuestionnaire.map(link => {
               return (
                 <li key={link.actionLabel}>
-                  <Link to={`/questionnaire/${questionnaireId}/composition`}>
-                    {link.actionLabel}
-                  </Link>
+                  {link.actionType === 'questMerge' ? (
+                    <Link onClick={() => questMergeAction()}>
+                      {link.actionLabel}
+                    </Link>
+                  ) : (
+                    <Link to={`/questionnaire/${questionnaireId}/composition`}>
+                      {link.actionLabel}
+                    </Link>
+                  )}
                 </li>
               );
             })}
@@ -151,12 +159,14 @@ VisualizeDropdown.propTypes = {
   disabled: PropTypes.bool.isRequired,
   top: PropTypes.bool.isRequired,
   componentId: PropTypes.string,
+  questMergeAction: PropTypes.func,
 };
 VisualizeDropdown.defaultProps = {
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,
   componentId: '',
+  questMergeAction: undefined,
 };
 
 export default VisualizeDropdown;
