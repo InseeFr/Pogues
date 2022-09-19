@@ -45,7 +45,7 @@ export function isSequence(component) {
  *
  * @param {object} component The component we should test
  */
-export function isExternalElement(component) {
+export function isExternalQuestionnaire(component) {
   return component && component.type === EXTERNAL_ELEMENT;
 }
 

@@ -7,7 +7,7 @@ import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { loadQuestionnaire } from 'actions/questionnaire';
 import {
   loadCampaignsIfNeeded,
-  loadExternalElementsIfNeeded,
+  loadExternalQuestionnairesIfNeeded,
 } from 'actions/metadata';
 import {
   setActiveQuestionnaire,
@@ -84,7 +84,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   loadCampaignsIfNeeded,
-  loadExternalElementsIfNeeded,
+  loadExternalQuestionnairesIfNeeded,
   loadStatisticalContext,
   setActiveQuestionnaire,
   setActiveComponents,

@@ -84,7 +84,7 @@ export const customModalbuttonStyles = {
 const GenericInput = props => {
   const {
     activeQuestionnaire,
-    currentQuestion,
+    currentQuestionnaire,
     componentIdForPageBreak,
     isLoadingVisualization,
     isLoopsValid,
@@ -109,12 +109,12 @@ const GenericInput = props => {
   const [typeNewComponent, setTypeNewComponent] = useState('');
   const [showNewQuestionnaire, setShowNewQuestionnaire] = useState(false);
 
-  const handleNewQuestion = () => {
+  const handleQuestionnaireRef = () => {
     setShowNewQuestionnaire(true);
     loadQuestionnaireList(stamp, token);
   };
 
-  const handleCloseNewQuestion = () => {
+  const handleCloseNewQuestionnaire = () => {
     setShowNewQuestionnaire(false);
   };
 
@@ -279,7 +279,6 @@ const GenericInput = props => {
         {Dictionary.save}
         <span className="glyphicon glyphicon-floppy-disk" />
       </button>
-
       <VisualizeDropdown
         top
         typeDropDown={VISUALIZATION}
@@ -371,19 +370,20 @@ const GenericInput = props => {
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showNewQuestionnaire}
-        onRequestClose={handleCloseNewQuestion}
+        onRequestClose={handleCloseNewQuestionnaire}
       >
         <div className="popup">
           <div className="popup-header">
-            <button type="button" onClick={handleCloseNewQuestion}>
+            <button type="button" onClick={handleCloseNewQuestionnaire}>
               <span>X</span>
             </button>
           </div>
           <div className="popup-body">
             <QuestionnaireList
               fusion
-              currentQuestion={currentQuestion}
               handleCloseNewQuestion={handleCloseNewQuestion}
+              currentQuestionnaire={currentQuestionnaire}
+              handleCloseNewQuestionnaire={handleCloseNewQuestionnaire}
             />
           </div>
         </div>

@@ -23,9 +23,9 @@ const QuestionnaireList = props => {
     duplicateQuestionnaire,
     fusion,
     isComposition,
-    handleCloseNewQuestion,
-    mergeQuestions,
-    currentQuestion,
+    handleCloseNewQuestionnaire,
+    mergeQuestionnaires,
+    currentQuestionnaire,
     loadQuestionnaireList,
     deleteQuestionnaireList,
     selectedStamp,
@@ -54,12 +54,12 @@ const QuestionnaireList = props => {
     setCheckedQuestionnaire(id);
   };
 
-  const fusionateQuestion = () => {
-    mergeQuestions(setCheckedQuestionnaire, token);
-    handleCloseNewQuestion();
+  const fusionateQuestionnaire = () => {
+    mergeQuestionnaires(setCheckedQuestionnaire, token);
+    handleCloseNewQuestionnaire();
   };
 
-  const addExternalReference = () => {
+  const addQuestionnaireRef = () => {
     const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(
       componentsStore,
       Object.keys(componentsStore),
@@ -94,11 +94,11 @@ const QuestionnaireList = props => {
       .then(res => updateParentChildren(res))
       .then(res => orderComponents(res));
 
-    handleCloseNewQuestion();
+    handleCloseNewQuestionnaire();
   };
 
   const handleValidation = () => {
-    return fusion ? fusionateQuestion() : addExternalReference();
+    return fusion ? fusionateQuestionnaire() : addQuestionnaireRef();
   };
 
   useEffect(() => {
@@ -146,7 +146,7 @@ const QuestionnaireList = props => {
   const list = questionnaires
     .filter(q => {
       return (
-        currentQuestion !== q.id &&
+        currentQuestionnaire !== q.id &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
           getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
@@ -173,7 +173,7 @@ const QuestionnaireList = props => {
             handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
             fusion={fusion || isComposition}
             handleCheck={handleCheck}
-            fusionateQuestion={fusionateQuestion}
+            fusionateQuestionnaire={fusionateQuestionnaire}
           />
         );
       }
@@ -234,7 +234,7 @@ const QuestionnaireList = props => {
           <button
             className="footer_quesionList-cancel"
             type="button"
-            onClick={() => handleCloseNewQuestion()}
+            onClick={() => handleCloseNewQuestionnaire()}
           >
             {Dictionary.cancel}
           </button>

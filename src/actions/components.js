@@ -7,7 +7,7 @@ import {
   isNestedFilter,
   toComponents,
   updateNewComponentParent,
-  isExternalElement,
+  isExternalQuestionnaire,
 } from 'utils/component/component-utils';
 import {
   moveQuestionToSubSequence,
@@ -143,7 +143,7 @@ export const orderComponents =
         isSequence(lastCreatedComponent[id]) &&
         !(
           isSequence(selectedComponent) &&
-          isExternalElement(selectedComponent) &&
+          isExternalQuestionnaire(selectedComponent) &&
           childrenSelectedComponentLength === 0
         )
       ) {

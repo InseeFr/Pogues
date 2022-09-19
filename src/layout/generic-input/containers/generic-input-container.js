@@ -98,7 +98,7 @@ const mapStateToProps = state => {
     activeQuestionnaire: activeQuestionnaire,
     stamp: getUser(state).stamp,
     token: getToken(state),
-    currentQuestion: state.appState.activeQuestionnaire.id,
+    currentQuestionnaire: state.appState.activeQuestionnaire.id,
     showVisualizationErrorPopup:
       state.errors.errorsVisualization.showErrorVisualizationPopup,
     isLoadingVisualization: state.appState.isLoadingVisualization,

@@ -20,7 +20,7 @@ const QuestionnaireComposition = props => {
       <div id="composition">
         <QuestionnaireList
           isComposition
-          handleCloseNewQuestion={routeBackToQuestionnaire}
+          handleCloseNewQuestionnaire={routeBackToQuestionnaire}
         />
       </div>
     </div>

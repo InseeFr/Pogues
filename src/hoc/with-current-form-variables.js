@@ -44,7 +44,7 @@ const withCurrentFormVariables = (
 
     // Adding the variables of external references
     const externalVarsAvailable =
-      state.metadataByType.externalElementsVariables || {};
+      state.metadataByType.externalQuestionnairesVariables || {};
     const refIds =
       state.appState.activeQuestionnaire.childQuestionnaireRef || [];
     const externalVarsWanted = Object.keys(externalVarsAvailable)

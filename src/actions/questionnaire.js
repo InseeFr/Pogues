@@ -32,8 +32,9 @@ export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
  *
  * It's executed after the remote fetch of a questionnaire.
  *
- * The parameter "update" is a complex object. Entries correspond to reducers, they contain
- * an update to apply to the piece of state handled by the reducer to represent locally the questionnaire.
+ * The parameter "update" is a complex object.
+ * Entries correspond to reducers. they contain an update to apply to the piece of state
+ * handled by the reducer to represent locally the questionnaire.
  *
  * It will update the stores:
  * - questionnaireById
@@ -243,7 +244,7 @@ export const duplicateQuestionnaire = (idQuestionnaire, token) => dispatch => {
  *
  * @param {string} idMerge the id of the question we want to merge
  */
-export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
+export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
   const state = getState();
   const {
     activeQuestionnaire,

@@ -1,7 +1,7 @@
 import {
   isSubSequence,
   isSequence,
-  isExternalElement,
+  isExternalQuestionnaire,
   isQuestion,
   toComponents,
   updateNewComponentParent,
@@ -166,7 +166,7 @@ export const orderComponents =
         isSequence(lastCreatedComponent[id]) &&
         !(
           isSequence(selectedComponent) &&
-          isExternalElement(selectedComponent) &&
+          isExternalQuestionnaire(selectedComponent) &&
           childrenSelectedComponentLength === 0
         )
       ) {

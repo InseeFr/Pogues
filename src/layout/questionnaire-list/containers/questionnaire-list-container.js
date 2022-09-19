@@ -6,7 +6,10 @@ import {
   loadQuestionnaireList,
   deleteQuestionnaireList,
 } from 'actions/questionnaire-list';
-import { duplicateQuestionnaire, mergeQuestions } from 'actions/questionnaire';
+import {
+  duplicateQuestionnaire,
+  mergeQuestionnaires,
+} from 'actions/questionnaire';
 import {
   createComponent,
   updateParentChildren,
@@ -39,7 +42,7 @@ const mapDispatchToProps = {
   loadQuestionnaireList,
   deleteQuestionnaireList,
   duplicateQuestionnaire,
-  mergeQuestions,
+  mergeQuestionnaires,
   setSelectedStamp,
   createComponent,
   updateParentChildren,

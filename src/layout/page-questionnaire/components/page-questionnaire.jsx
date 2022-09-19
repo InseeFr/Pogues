@@ -60,7 +60,7 @@ const PageQuestionnaire = props => {
     setActiveCodeLists,
     setActiveVariables,
     // loadCampaignsIfNeeded,
-    loadExternalElementsIfNeeded,
+    loadExternalQuestionnairesIfNeeded,
     appState,
   } = props;
 
@@ -130,12 +130,12 @@ const PageQuestionnaire = props => {
       appState.activeQuestionnaire.childQuestionnaireRef.length !== 0
     ) {
       appState.activeQuestionnaire.childQuestionnaireRef.map(ref =>
-        loadExternalElementsIfNeeded(ref, token),
+        loadExternalQuestionnairesIfNeeded(ref, token),
       );
     }
   }, [
     appState.activeQuestionnaire.childQuestionnaireRef,
-    loadExternalElementsIfNeeded,
+    loadExternalQuestionnairesIfNeeded,
     token,
   ]);
 
