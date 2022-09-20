@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
@@ -36,94 +36,118 @@ export const defaultProps = {
 
 // Component
 
-function ListCheckboxes(props) {
-  const {
-    label,
-    required,
-    disabled,
-    noValuesMessage,
-    children,
-    input,
-    meta: { touched, error },
-    inline,
-  } = props;
+class ListCheckboxes extends Component {
+  static propTypes = propTypes;
 
-  const [listCheckValues, setListCheckValues] = useState(
-    input.value !== '' && input.value[0] ? input.value.split(',') : [],
-  );
+  static defaultProps = defaultProps;
 
-  const toggleCheck = checkValue => {
-    input.onChange(toggleValueInList(listCheckValues, checkValue).join());
-  };
+  constructor(props) {
+    super(props);
 
-  useEffect(() => {
-    setListCheckValues(
-      values !== '' && values.length > 0 ? values.split(',') : [],
+    this.state = {
+      listCheckValues: [],
+    };
+
+    this.toggleCheck = this.toggleCheck.bind(this);
+  }
+
+  UNSAFE_componentWillMount() {
+    const values = this.props.input.value;
+    this.setState({
+      listCheckValues:
+        values !== '' && values.length > 0 ? values.split(',') : [],
+    });
+  }
+
+  UNSAFE_componentWillUpdate(nextProps) {
+    const values = nextProps.input.value;
+    if (this.props.input.value !== values) {
+      // eslint-disable-next-line react/no-will-update-set-state
+      this.setState({
+        listCheckValues:
+          values !== '' && values.length > 0 ? values.split(',') : [],
+      });
+    }
+  }
+
+  toggleCheck(checkValue) {
+    this.props.input.onChange(
+      toggleValueInList(this.state.listCheckValues, checkValue).join(),
     );
-  }, [values]);
+  }
 
-  const values = getValuesFromGenericOptions(children);
+  render() {
+    const {
+      label,
+      required,
+      disabled,
+      noValuesMessage,
+      children,
+      input,
+      meta: { touched, error },
+      inline,
+    } = this.props;
+    const values = getValuesFromGenericOptions(children);
 
-  return (
-    <div className={COMPONENT_CLASS}>
-      <label
-        htmlFor={getControlId(
-          'checkbox',
-          input.name,
-          values[0] && values[0].value,
-        )}
-      >
-        {label}
-        {required && <span className="ctrl-required">*</span>}
-      </label>
-      <div>
-        <input type="hidden" name={input.name} />
-        {/* No values */}
-        {values.length === 0 && noValuesMessage && (
-          <div>
-            <span>{noValuesMessage}</span>
-          </div>
-        )}
-
-        {values.map(val => {
-          // eslint-disable-next-line no-shadow
-          const { label, value, ...otherProps } = val;
-          const id = getControlId('checkbox', input.name, value);
-
-          return (
-            <div
-              className={ClassSet({
-                [INLINE_MODE]: inline,
-              })}
-              key={id}
-            >
-              <label htmlFor={id} className="form-check-label">
-                <input
-                  {...otherProps}
-                  type="checkbox"
-                  id={id}
-                  value={value}
-                  checked={
-                    listCheckValues.indexOf(value) !== -1 ? 'checked' : false
-                  }
-                  onChange={() => {
-                    toggleCheck(value);
-                  }}
-                  disabled={disabled}
-                />
-                {label}
-              </label>
+    return (
+      <div className={COMPONENT_CLASS}>
+        <label
+          htmlFor={getControlId(
+            'checkbox',
+            input.name,
+            values[0] && values[0].value,
+          )}
+        >
+          {label}
+          {required && <span className="ctrl-required">*</span>}
+        </label>
+        <div>
+          <input type="hidden" name={input.name} />
+          {/* No values */}
+          {values.length === 0 && noValuesMessage && (
+            <div>
+              <span>{noValuesMessage}</span>
             </div>
-          );
-        })}
-        {touched && error && <span className="form-error">{error}</span>}
+          )}
+
+          {values.map(val => {
+            // eslint-disable-next-line no-shadow
+            const { label, value, ...otherProps } = val;
+            const id = getControlId('checkbox', input.name, value);
+
+            return (
+              <div
+                className={ClassSet({
+                  [INLINE_MODE]: inline,
+                })}
+                key={id}
+              >
+                <label htmlFor={id} className="form-check-label">
+                  <input
+                    {...otherProps}
+                    type="checkbox"
+                    id={id}
+                    value={value}
+                    checked={
+                      this.state.listCheckValues.indexOf(value) !== -1
+                        ? 'checked'
+                        : false
+                    }
+                    onChange={() => {
+                      this.toggleCheck(value);
+                    }}
+                    disabled={disabled}
+                  />
+                  {label}
+                </label>
+              </div>
+            );
+          })}
+          {touched && error && <span className="form-error">{error}</span>}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-ListCheckboxes.propTypes = propTypes;
-
-ListCheckboxes.defaultProps = defaultProps;
 
 export default ListCheckboxes;

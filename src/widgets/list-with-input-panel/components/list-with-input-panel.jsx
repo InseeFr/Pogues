@@ -1,6 +1,7 @@
-import React, { useState, useEffect, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
+import isEqual from 'lodash.isequal';
 import cloneDeep from 'lodash.clonedeep';
 import ReactModal from 'react-modal';
 
@@ -82,50 +83,67 @@ export const defaultProps = {
 
 // Component
 
-function ListWithInputPanel(props) {
-  const {
-    children,
-    errors,
-    name,
-    canAddNew,
-    canRemove,
-    canDuplicate,
-    selectorPath,
-    formValues,
-    currentValues,
-    arrayPush,
-    arrayRemove,
-    arrayInsert,
-    formName,
-    validateForm,
-    clearSubformValidationErrors,
-    resetObject,
-    change,
-    componentId,
-    removeIntegrityError,
-    disableValidation,
-  } = props;
+class ListWithInputPanel extends Component {
+  static propTypes = propTypes;
 
-  const [state, setState] = useState({
-    selectedItemIndex: undefined,
-    showPopup: false,
-  });
+  static defaultProps = defaultProps;
 
-  useEffect(() => {
-    if (state.selectedItemIndex !== undefined) reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentValues[name]]);
+  constructor(props) {
+    super(props);
 
-  const handleClosePopup = () => {
-    setState({ ...state, showPopup: false });
-  };
+    this.state = {
+      selectedItemIndex: undefined,
+      showPopup: false,
+    };
 
-  const validate = values => {
-    clearAllErrors();
-    return validateForm(values, state);
-  };
+    this.validate = this.validate.bind(this);
+    this.handleClosePopup = this.handleClosePopup.bind(this);
+    this.submit = this.submit.bind(this);
+    this.remove = this.remove.bind(this);
+    this.duplicate = this.duplicate.bind(this);
+    this.reset = this.reset.bind(this);
+    this.select = this.select.bind(this);
+    this.clearAllErrors = this.clearAllErrors.bind(this);
+    this.removeErrorIntegrityIfExists =
+      this.removeErrorIntegrityIfExists.bind(this);
+  }
 
-  const submit = () => {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { [this.props.name]: list } = nextProps.currentValues;
+
+    if (!this.props.canAddNew && this.state.selectedItemIndex === undefined)
+      return;
+
+    // Generation items when another item is selected
+    if (
+      this.state.selectedItemIndex !== undefined &&
+      !isEqual(list, this.props.currentValues[this.props.name])
+    ) {
+      this.reset();
+    }
+  }
+
+  handleClosePopup() {
+    this.setState({ showPopup: false });
+  }
+
+  validate(values) {
+    this.clearAllErrors();
+    return this.props.validateForm(values, this.state);
+  }
+
+  submit() {
+    const {
+      formValues,
+      currentValues,
+      arrayPush,
+      arrayRemove,
+      arrayInsert,
+      formName,
+      selectorPath,
+      name,
+      canAddNew,
+    } = this.props;
     if (
       currentValues.SINGLE_CHOICE &&
       currentValues.SINGLE_CHOICE.CodesList &&
@@ -133,219 +151,251 @@ function ListWithInputPanel(props) {
       (currentValues.SINGLE_CHOICE.CodesList['input-code'].value ||
         currentValues.SINGLE_CHOICE.CodesList['input-code'].label)
     ) {
-      setState({ ...state, showPopup: true });
+      this.setState({ showPopup: true });
     } else {
       const { [name]: items, ...values } = currentValues;
       const path = getCurrentSelectorPath(selectorPath);
-      const canValidate = state.selectedItemIndex !== undefined || canAddNew;
+      const canValidate =
+        this.state.selectedItemIndex !== undefined || canAddNew;
 
-      if (canValidate && validate(formValues)) {
-        if (state.selectedItemIndex !== undefined) {
-          arrayRemove(formName, `${path}${name}`, state.selectedItemIndex);
+      if (canValidate && this.validate(formValues)) {
+        if (this.state.selectedItemIndex !== undefined) {
+          arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
           arrayInsert(
             formName,
             `${path}${name}`,
-            state.selectedItemIndex,
+            this.state.selectedItemIndex,
             values,
           );
         } else if (canAddNew) {
           arrayPush(formName, `${path}${name}`, values);
         }
 
-        removeErrorIntegrityIfExists(values);
+        this.removeErrorIntegrityIfExists(values);
 
-        reset();
+        this.reset();
       }
     }
-  };
+  }
 
-  const remove = () => {
+  remove() {
+    const { arrayRemove, formName, selectorPath, name, currentValues } =
+      this.props;
     const { [name]: items } = currentValues;
     const path = getCurrentSelectorPath(selectorPath);
 
-    removeErrorIntegrityIfExists(items[state.selectedItemIndex]);
-    arrayRemove(formName, `${path}${name}`, state.selectedItemIndex);
-    reset();
-  };
+    this.removeErrorIntegrityIfExists(items[this.state.selectedItemIndex]);
 
-  const duplicate = () => {
+    arrayRemove(formName, `${path}${name}`, this.state.selectedItemIndex);
+
+    this.reset();
+  }
+
+  duplicate() {
+    const {
+      formValues,
+      currentValues,
+      arrayPush,
+      formName,
+      selectorPath,
+      name,
+    } = this.props;
     const { [name]: items, ...values } = currentValues;
     values.id = null;
     const path = getCurrentSelectorPath(selectorPath);
 
-    if (validate(formValues)) {
+    if (this.validate(formValues)) {
       arrayPush(formName, `${path}${name}`, values);
-      reset();
+      this.reset();
     }
-  };
+  }
 
-  const reset = () => {
+  reset() {
+    const { resetObject, change, formName, selectorPath } = this.props;
     const path = getCurrentSelectorPath(selectorPath);
-    setState({ ...state, selectedItemIndex: undefined });
+    this.setState({ selectedItemIndex: undefined }, () => {
+      this.clearAllErrors();
+      Object.keys(resetObject).forEach(key =>
+        change(formName, `${path}${key}`, resetObject[key]),
+      );
+    });
+  }
 
-    clearAllErrors();
-    Object.keys(resetObject).forEach(key =>
-      change(formName, `${path}${key}`, resetObject[key]),
-    );
-  };
-
-  const select = index => {
+  select(index) {
+    const { currentValues, name, change, formName, selectorPath, formValues } =
+      this.props;
     const path = getCurrentSelectorPath(selectorPath);
-    setState({ ...state, selectedItemIndex: index });
-    const item = currentValues[name][index];
-    const formValuesToValidate = getFormValuesToValidate(
-      formValues,
-      item,
-      selectorPath,
-      name,
-    );
-    validate(formValuesToValidate);
-    Object.keys(item).forEach(key =>
-      change(formName, `${path}${key}`, item[key]),
-    );
-  };
+    this.setState({ selectedItemIndex: index }, () => {
+      const item = currentValues[name][index];
+      const formValuesToValidate = getFormValuesToValidate(
+        formValues,
+        item,
+        selectorPath,
+        name,
+      );
+      this.validate(formValuesToValidate);
+      Object.keys(item).forEach(key =>
+        change(formName, `${path}${key}`, item[key]),
+      );
+    });
+  }
 
-  const clearAllErrors = () => {
-    clearSubformValidationErrors();
-  };
+  clearAllErrors() {
+    this.props.clearSubformValidationErrors();
+  }
 
-  const removeErrorIntegrityIfExists = values => {
+  removeErrorIntegrityIfExists(values) {
+    const { errors, componentId, removeIntegrityError } = this.props;
+
     const error = errors.filter(e => e.itemListId === values.id);
 
     if (error.length > 0) {
       removeIntegrityError(componentId, error[0].type, error[0].itemListId);
     }
-  };
+  }
 
-  const childrenWithDisabledProp = Children.map(children, child => {
-    return child
-      ? cloneElement(child, {
-          ...child.props,
-          disabled:
-            child.props.disabled ||
-            (!canAddNew && state.selectedItemIndex === undefined),
-        })
-      : child;
-  }).filter(child => child);
+  render() {
+    const {
+      children,
+      errors,
+      name,
+      canAddNew,
+      canRemove,
+      canDuplicate,
+      selectorPath,
+    } = this.props;
+    const childrenWithDisabledProp = Children.map(children, child => {
+      return child
+        ? cloneElement(child, {
+            ...child.props,
+            disabled:
+              child.props.disabled ||
+              (!canAddNew && this.state.selectedItemIndex === undefined),
+          })
+        : child;
+    }).filter(child => child);
 
-  return (
-    <div className={COMPONENT_CLASS}>
-      <ErrorsPanel path={selectorPath} includeSubPaths />
+    return (
+      <div className={COMPONENT_CLASS}>
+        <ErrorsPanel path={selectorPath} includeSubPaths />
 
-      <div className={WRAPPER_CLASS}>
-        <div className={LIST_CLASS}>
-          <FieldArray
-            name={name}
-            rerenderOnEveryChange
-            component={ListWithInputPanelList}
-            errors={errors}
-            select={select}
-          />
-        </div>
+        <div className={WRAPPER_CLASS}>
+          <div className={LIST_CLASS}>
+            <FieldArray
+              name={name}
+              rerenderOnEveryChange
+              component={ListWithInputPanelList}
+              errors={errors}
+              select={this.select}
+            />
+          </div>
 
-        <div className={PANEL_CLASS}>
-          <div className={ACTIONS_CLASS}>
-            {canAddNew && (
+          <div className={PANEL_CLASS}>
+            <div className={ACTIONS_CLASS}>
+              {canAddNew && (
+                <button
+                  type="button"
+                  className={BUTTON_NEW_CLASS}
+                  onClick={event => {
+                    if (event.target.className === BUTTON_NEW_CLASS) {
+                      event.preventDefault();
+                      this.reset();
+                    }
+                  }}
+                >
+                  <span
+                    className="glyphicon glyphicon-plus"
+                    aria-hidden="true"
+                  />
+                  {Dictionary.reset}
+                </button>
+              )}
+            </div>
+
+            {childrenWithDisabledProp}
+
+            <div className={ACTIONS_CLASS}>
               <button
                 type="button"
-                className={BUTTON_NEW_CLASS}
+                className={BUTTON_RESET_CLASS}
                 onClick={event => {
-                  if (event.target.className === BUTTON_NEW_CLASS) {
+                  event.preventDefault();
+                  this.reset();
+                }}
+              >
+                {Dictionary.cancel}
+              </button>
+
+              <button
+                type="submit"
+                className={BUTTON_SUBMIT_CLASS}
+                onClick={event => {
+                  event.preventDefault();
+                  this.submit();
+                }}
+                disabled={this.props.disableValidation}
+              >
+                {Dictionary.validate}
+              </button>
+
+              {canDuplicate && (
+                <button
+                  type="button"
+                  disabled={this.state.selectedItemIndex === undefined}
+                  className={BUTTON_DUPLICATE_CLASS}
+                  onClick={event => {
                     event.preventDefault();
-                    reset();
-                  }
-                }}
-              >
-                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-                {Dictionary.reset}
-              </button>
-            )}
-          </div>
+                    this.duplicate();
+                  }}
+                >
+                  <span
+                    className="glyphicon glyphicon-file"
+                    aria-hidden="true"
+                  />
+                  {Dictionary.duplicate}
+                </button>
+              )}
 
-          {childrenWithDisabledProp}
-
-          <div className={ACTIONS_CLASS}>
-            <button
-              type="button"
-              className={BUTTON_RESET_CLASS}
-              onClick={event => {
-                event.preventDefault();
-                reset();
-              }}
-            >
-              {Dictionary.cancel}
-            </button>
-
-            <button
-              type="submit"
-              className={BUTTON_SUBMIT_CLASS}
-              onClick={event => {
-                event.preventDefault();
-                submit();
-              }}
-              disabled={disableValidation}
-            >
-              {Dictionary.validate}
-            </button>
-
-            {canDuplicate && (
-              <button
-                type="button"
-                disabled={state.selectedItemIndex === undefined}
-                className={BUTTON_DUPLICATE_CLASS}
-                onClick={event => {
-                  event.preventDefault();
-                  duplicate();
-                }}
-              >
-                <span className="glyphicon glyphicon-file" aria-hidden="true" />
-                {Dictionary.duplicate}
-              </button>
-            )}
-
-            {canRemove && (
-              <button
-                type="button"
-                disabled={state.selectedItemIndex === undefined}
-                className={BUTTON_REMOVE_CLASS}
-                onClick={event => {
-                  event.preventDefault();
-                  remove();
-                }}
-              >
-                <span
-                  className="glyphicon glyphicon-trash"
-                  aria-hidden="true"
-                />
-                {Dictionary.remove}
-              </button>
-            )}
+              {canRemove && (
+                <button
+                  type="button"
+                  disabled={this.state.selectedItemIndex === undefined}
+                  className={BUTTON_REMOVE_CLASS}
+                  onClick={event => {
+                    event.preventDefault();
+                    this.remove();
+                  }}
+                >
+                  <span
+                    className="glyphicon glyphicon-trash"
+                    aria-hidden="true"
+                  />
+                  {Dictionary.remove}
+                </button>
+              )}
+            </div>
           </div>
         </div>
+        <ReactModal
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={false}
+          isOpen={this.state.showPopup}
+          onRequestClose={this.handleClosePopup}
+          contentLabel="Alert Save"
+        >
+          <div className="popup-notSaved">
+            <div className="popup-header">
+              <h3>{Dictionary.saveLowerTitle}</h3>
+              <button type="button" onClick={this.handleClosePopup}>
+                <span>X</span>
+              </button>
+            </div>
+            <div className="popup-body">{Dictionary.saveLower}</div>
+          </div>
+        </ReactModal>
       </div>
-      <ReactModal
-        ariaHideApp={false}
-        shouldCloseOnOverlayClick={false}
-        isOpen={state.showPopup}
-        onRequestClose={handleClosePopup}
-        contentLabel="Alert Save"
-      >
-        <div className="popup-notSaved">
-          <div className="popup-header">
-            <h3>{Dictionary.saveLowerTitle}</h3>
-            <button type="button" onClick={handleClosePopup}>
-              <span>X</span>
-            </button>
-          </div>
-          <div className="popup-body">{Dictionary.saveLower}</div>
-        </div>
-      </ReactModal>
-    </div>
-  );
+    );
+  }
 }
-
-ListWithInputPanel.propTypes = propTypes;
-
-ListWithInputPanel.defaultProps = defaultProps;
 
 export default ListWithInputPanel;

@@ -100,9 +100,6 @@ const QuestionnaireComponent = props => {
     removeComponent(id);
     setShowComponentModal(false);
   };
-  const handleDeleteQuestionnaireRef = () => {
-    removeComponent(component.id);
-  };
   const handleOpenComponentDetail = () => {
     setShowComponentModal(true);
   };
@@ -224,11 +221,7 @@ const QuestionnaireComponent = props => {
                       disabled={
                         component.weight === 0 && component.type === SEQUENCE
                       }
-                      onClick={
-                        component.type === EXTERNAL_ELEMENT
-                          ? handleDeleteQuestionnaireRef
-                          : handleDeleteComponent
-                      }
+                      onClick={handleDeleteComponent}
                     >
                       {Dictionary.remove}
                       <span className="glyphicon glyphicon-trash" />

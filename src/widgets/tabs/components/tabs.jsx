@@ -1,4 +1,4 @@
-import React, { useState, Children } from 'react';
+import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
@@ -20,17 +20,26 @@ const defaultProps = {
 
 // Component
 
-function Tabs({ children, errorsByTab }) {
-  const [activePanelIndex, setActivePanelIndex] = useState(0);
+class Tabs extends Component {
+  static propTypes = propTypes;
 
-  const renderTabs = () => {
-    return Children.map(children, (child, index) => {
+  static defaultProps = defaultProps;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePanelIndex: 0,
+    };
+  }
+
+  renderTabs() {
+    return Children.map(this.props.children, (child, index) => {
       const childProps = child.props;
       const classTab = classSet({
         'nav-link': true,
-        active: activePanelIndex === index,
+        active: this.state.activePanelIndex === index,
       });
-      const numErrors = errorsByTab[childProps.path];
+      const numErrors = this.props.errorsByTab[childProps.path];
 
       return (
         <li key={`tab-${childProps.path}`} className={ITEM}>
@@ -40,8 +49,9 @@ function Tabs({ children, errorsByTab }) {
             className={classTab}
             onClick={event => {
               event.preventDefault();
-
-              setActivePanelIndex(index);
+              this.setState({
+                activePanelIndex: index,
+              });
             }}
           >
             {childProps.label}
@@ -55,18 +65,16 @@ function Tabs({ children, errorsByTab }) {
         </li>
       );
     });
-  };
+  }
 
-  return (
-    <div className={COMPONENT_CLASS}>
-      <ul className="nav nav-tabs">{renderTabs()}</ul>
-      {children[activePanelIndex]}
-    </div>
-  );
+  render() {
+    return (
+      <div className={COMPONENT_CLASS}>
+        <ul className="nav nav-tabs">{this.renderTabs()}</ul>
+        {this.props.children[this.state.activePanelIndex]}
+      </div>
+    );
+  }
 }
-
-Tabs.propTypes = propTypes;
-
-Tabs.defaultProps = defaultProps;
 
 export default Tabs;

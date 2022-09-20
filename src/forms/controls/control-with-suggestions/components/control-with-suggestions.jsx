@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import ClassSet from 'react-classset';
 import {
   getValueWithSuggestion,
-  /* getPattern, */
+  getPattern,
 } from 'forms/controls/control-with-suggestions/components/utils';
 
 import {
-  /* updateSuggestions, */
+  updateSuggestions,
   initialize,
-  /* getNewIndex, */
+  getNewIndex,
 } from './input-with-suggestions-utils';
 import { HighLighter } from 'widgets/highlighter';
 import { getKey } from 'utils/widget-utils';
@@ -19,6 +19,8 @@ import { CONTROL_WITH_SUGGESTIONS } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS, LIST_CLASS, ITEM_CLASS, ITEM_SELECTED_CLASS } =
   CONTROL_WITH_SUGGESTIONS;
+
+const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
 
 // PropTypes and defaultProps
 
@@ -33,7 +35,6 @@ export const propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   numSuggestionsShown: PropTypes.number,
-  // eslint-disable-next-line react/no-unused-prop-types
   availableSuggestions: PropTypes.arrayOf(PropTypes.string),
   focusOnInit: PropTypes.bool,
 };
@@ -48,28 +49,23 @@ export const defaultProps = {
 
 // Component
 
-function ControlWithSuggestions(props) {
-  const InputRegex = /\$(\w+)\b(?!\s)/;
+class ControlWithSuggestions extends Component {
+  static propTypes = propTypes;
 
-  const [state, setState] = useState(null);
-  const [activeItem, setActiveItem] = useState(null);
-  /* const [input, setInput] = useState(props.input); */
+  static defaultProps = defaultProps;
 
-  useEffect(() => {
-    setState(initialize());
-    // input
-    if (props.focusOnInit) props.input.focus();
-  }, [props.focusOnInit, props.input]);
+  static InputRegex = InputRegex;
 
-  /* const Modal = React.memo(
-    props => {...},
-    (prevProps, nextProps) => nextProps.input.value === prevProps.input.value &&
-    nextProps.meta.error === prevProps.meta.error &&
-    nextState.hoveredSuggestionIndex === prevProps.hoveredSuggestionIndex &&
-    nextProps.focusedInput === prevProps.focusedInput
-  ); */
+  constructor(props) {
+    super(props);
+    this.state = initialize();
+  }
 
-  /*   shouldComponentUpdate(nextProps, nextState) {
+  componentDidMount() {
+    if (this.props.focusOnInit) this.input.focus();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.input.value !== this.props.input.value ||
       nextProps.meta.error !== this.props.meta.error ||
@@ -77,128 +73,124 @@ function ControlWithSuggestions(props) {
       nextProps.focusedInput !== this.props.focusedInput
     );
   }
- */
 
-  useEffect(() => {
-    if (activeItem) activeItem.scrollIntoView(false);
-  }, [activeItem]);
+  componentDidUpdate() {
+    if (this.activeItem) this.activeItem.scrollIntoView(false);
+  }
 
   // OnChange of the input
-  /* const handleInputChange = value => {
-    // props
-    setState(
+  handleInputChange = value => {
+    this.setState(
       updateSuggestions(
-        getPattern(value, props.input.selectionStart),
+        getPattern(value, this.input.selectionStart),
         InputRegex,
-        props.availableSuggestions,
+        this.props.availableSuggestions,
       ),
     );
 
     // Execute default code afterwards
-    props.input.onChange(value);
-  }; */
+    this.props.input.onChange(value);
+  };
 
   // OnClick of an item
-  const handleSuggestionClick = suggestion => {
-    // props
+  handleSuggestionClick = suggestion => {
     const newValue = getValueWithSuggestion(
       suggestion,
-      props.input.selectionStart,
-      props.input.value,
+      this.input.selectionStart,
+      this.input.value,
     );
-    // props
-    const restfullText = props.input.value.substr(
-      props.input.selectionStart,
-      props.input.value.length,
+    const restfullText = this.input.value.substr(
+      this.input.selectionStart,
+      this.input.value.length,
     );
-    props.input.onChange(`${newValue} ${restfullText}`);
-    setState(initialize());
+    this.props.input.onChange(`${newValue} ${restfullText}`);
+    this.setState(initialize());
   };
 
   // OnKeyDown of the input
-  /* const handleInputKeyDown = e => {
+  handleInputKeyDown = e => {
     if (e.key === 'Tab') {
-      handleTab(e);
+      this.handleTab(e);
     } else if (e.key === 'Enter') {
-      handleEnter(e);
+      this.handleEnter(e);
     }
-  }; */
+  };
 
-  /* const handleTab = e => {
-    const { suggestions, hoveredSuggestionIndex } = state;
+  handleTab = e => {
+    const { numSuggestionsShown } = this.props;
+    const { suggestions, hoveredSuggestionIndex } = this.state;
 
     if (suggestions.length > 0) {
-      setState({
+      this.setState({
         hoveredSuggestionIndex: getNewIndex(
           hoveredSuggestionIndex,
           suggestions,
-          props.numSuggestionsShown,
+          numSuggestionsShown,
         ),
       });
       e.preventDefault();
     }
   };
 
-  const handleEnter = e => {
-    const { suggestions, hoveredSuggestionIndex } = state;
+  handleEnter = e => {
+    const { suggestions, hoveredSuggestionIndex } = this.state;
 
     if (suggestions.length > 0) {
-      handleSuggestionClick(suggestions[hoveredSuggestionIndex]);
+      this.handleSuggestionClick(suggestions[hoveredSuggestionIndex]);
       e.preventDefault();
     }
-  }; */
+  };
 
   // OnFocus of the input
-  /* const handleInputFocus = () => {
-    setState({ ...state, hoveredSuggestionIndex: 0 });
-  }; */
+  handleInputFocus = () => {
+    this.setState({ hoveredSuggestionIndex: 0 });
+  };
 
-  const { input, numSuggestionsShown, focusedInput } = props;
-  const { suggestions, hoveredSuggestionIndex } = state;
-  const matches = input.value.match(InputRegex);
-  const highlight = matches ? matches[1] : '';
+  render() {
+    const { input, numSuggestionsShown, focusedInput } = this.props;
+    const { suggestions, hoveredSuggestionIndex } = this.state;
+    const matches = input.value.match(InputRegex);
+    const highlight = matches ? matches[1] : '';
 
-  return (
-    focusedInput === input.name && (
-      <div className={COMPONENT_CLASS}>
-        {suggestions.length > 0 && (
-          <div className={LIST_CLASS}>
-            {suggestions.slice(0, numSuggestionsShown).map(
-              (
-                suggest,
-                index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-              ) => (
-                <div
-                  key={getKey(suggest)}
-                  onClick={() => {
-                    handleSuggestionClick(suggest);
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  className={ClassSet({
-                    [ITEM_CLASS]: true,
-                    [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,
-                  })}
-                  title={suggest}
-                  ref={node => {
-                    if (index === hoveredSuggestionIndex) setActiveItem(node);
-                  }}
-                >
-                  <HighLighter highlight={highlight} caseSensitive={false}>
-                    {suggest}
-                  </HighLighter>
-                </div>
-              ),
-            )}
-          </div>
-        )}
-      </div>
-    )
-  );
+    return (
+      focusedInput === input.name && (
+        <div className={COMPONENT_CLASS}>
+          {suggestions.length > 0 && (
+            <div className={LIST_CLASS}>
+              {suggestions.slice(0, numSuggestionsShown).map(
+                (
+                  suggest,
+                  index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                ) => (
+                  <div
+                    key={getKey(suggest)}
+                    onClick={() => {
+                      this.handleSuggestionClick(suggest);
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    className={ClassSet({
+                      [ITEM_CLASS]: true,
+                      [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,
+                    })}
+                    title={suggest}
+                    ref={node => {
+                      if (index === hoveredSuggestionIndex)
+                        this.activeItem = node;
+                    }}
+                  >
+                    <HighLighter highlight={highlight} caseSensitive={false}>
+                      {suggest}
+                    </HighLighter>
+                  </div>
+                ),
+              )}
+            </div>
+          )}
+        </div>
+      )
+    );
+  }
 }
-
-ControlWithSuggestions.propTypes = propTypes;
-
-ControlWithSuggestions.defaultProps = defaultProps;
 
 export default ControlWithSuggestions;

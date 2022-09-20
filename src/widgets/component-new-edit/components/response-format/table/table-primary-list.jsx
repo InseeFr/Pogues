@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormSection, Field } from 'redux-form';
-/* import PropTypes from 'prop-types'; */
+import PropTypes from 'prop-types';
 
 import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'forms/controls/input';
@@ -11,22 +11,22 @@ const { LIST } = DIMENSION_FORMATS;
 class ResponseFormatTablePrincipalList extends Component {
   static selectorPath = LIST;
 
-  /*   static propTypes = {
+  static propTypes = {
     selectorPathParent: PropTypes.string,
   };
 
   static defaultProps = {
     selectorPathParent: undefined,
   };
- */
-  /* constructor(props) {
+
+  constructor(props) {
     const { selectorPathParent } = props;
     super(props);
 
     this.selectorPathComposed = selectorPathParent
       ? `${selectorPathParent}.${ResponseFormatTablePrincipalList.selectorPath}`
       : ResponseFormatTablePrincipalList.selectorPath;
-  } */
+  }
 
   render() {
     return (
