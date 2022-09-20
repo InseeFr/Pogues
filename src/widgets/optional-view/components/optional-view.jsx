@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
@@ -23,32 +23,30 @@ const defaultProps = {
 
 // Component
 
-class OptionalView extends Component {
-  static propTypes = propTypes;
+function OptionalView(props) {
+  const { name, label, children, active, checkbox } = props;
 
-  static defaultProps = defaultProps;
-
-  render() {
-    const { name, label, children, active, checkbox } = this.props;
-
-    return (
-      <div className="optional-view">
-        {checkbox ? (
-          <Field type="checkbox" name={name} component={Input} label={label} />
-        ) : (
-          <Field name={name} component={ListRadios} label={label} required>
-            <GenericOption key="0" value="0">
-              {Dictionary.no}
-            </GenericOption>
-            <GenericOption key="1" value="1">
-              {Dictionary.yes}
-            </GenericOption>
-          </Field>
-        )}
-        {active && children}
-      </div>
-    );
-  }
+  return (
+    <div className="optional-view">
+      {checkbox ? (
+        <Field type="checkbox" name={name} component={Input} label={label} />
+      ) : (
+        <Field name={name} component={ListRadios} label={label} required>
+          <GenericOption key="0" value="0">
+            {Dictionary.no}
+          </GenericOption>
+          <GenericOption key="1" value="1">
+            {Dictionary.yes}
+          </GenericOption>
+        </Field>
+      )}
+      {active && children}
+    </div>
+  );
 }
+
+OptionalView.propTypes = propTypes;
+
+OptionalView.defaultProps = defaultProps;
 
 export default OptionalView;
