@@ -11,7 +11,7 @@ import Dictionary from 'utils/dictionary/dictionary';
  * with a dropdown behavior with links to different
  * visualizations of the PDF : WEB, PDF or ODT
  */
-const VisualizeDropdown = props => {
+function VisualizeDropdown(props) {
   const {
     questionnaireId,
     componentId,
@@ -20,6 +20,7 @@ const VisualizeDropdown = props => {
     top,
     visualizeActiveQuestionnaire,
     typeDropDown,
+    questMergeAction,
   } = props;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -89,8 +90,9 @@ const VisualizeDropdown = props => {
     { actionType: 'ddi', actionLabel: Dictionary.VISUALIZE_DDI },
   ];
   const linksQuestionnaire = [
-    { actionLabel: 'Référence au TCM' },
-    { actionLabel: 'Référence à un questionnaire' },
+    { actionType: 'tcmRef', actionLabel: Dictionary.tcmReference },
+    { actionType: 'questRef', actionLabel: Dictionary.questionnaireReference },
+    { actionType: 'questMerge', actionLabel: Dictionary.questionnaireMerge },
   ];
   return (
     <div className={classDropDown} ref={wrapperRef}>
@@ -133,16 +135,22 @@ const VisualizeDropdown = props => {
           : linksQuestionnaire.map(link => {
               return (
                 <li key={link.actionLabel}>
-                  <Link to={`/questionnaire/${questionnaireId}/composition`}>
-                    {link.actionLabel}
-                  </Link>
+                  {link.actionType === 'questMerge' ? (
+                    <a href="#" onClick={() => questMergeAction()}>
+                      {link.actionLabel}
+                    </a>
+                  ) : (
+                    <Link to={`/questionnaire/${questionnaireId}/composition`}>
+                      {link.actionLabel}
+                    </Link>
+                  )}
                 </li>
               );
             })}
       </ul>
     </div>
   );
-};
+}
 
 // PropTypes and defaultProps
 
@@ -151,12 +159,14 @@ VisualizeDropdown.propTypes = {
   disabled: PropTypes.bool.isRequired,
   top: PropTypes.bool.isRequired,
   componentId: PropTypes.string,
+  questMergeAction: PropTypes.func,
 };
 VisualizeDropdown.defaultProps = {
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,
   componentId: '',
+  questMergeAction: undefined,
 };
 
 export default VisualizeDropdown;

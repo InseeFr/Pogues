@@ -81,7 +81,7 @@ export const customModalbuttonStyles = {
   background: '#15417a',
 };
 
-const GenericInput = props => {
+function GenericInput(props) {
   const {
     activeQuestionnaire,
     currentQuestionnaire,
@@ -255,7 +255,6 @@ const GenericInput = props => {
       ) : (
         false
       )}
-
       <button
         className="btn-white disabled"
         id="add-pagebreak"
@@ -267,7 +266,11 @@ const GenericInput = props => {
         <span className="glyphicon glyphicon-plus" />
         {Dictionary.pageBreak}
       </button>
-      <VisualizeDropdown top typeDropDown={EXTERNAL_ELEMENT} />
+      <VisualizeDropdown
+        top
+        typeDropDown={EXTERNAL_ELEMENT}
+        questMergeAction={handleQuestionnaireRef}
+      />
       <button
         className="btn-yellow"
         disabled={!isQuestionnaireModified}
@@ -286,18 +289,6 @@ const GenericInput = props => {
         visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
         token={token}
       />
-      <button
-        id="add-questionnaire"
-        className="btn-white"
-        type="button"
-        onClick={() => {
-          handleNewQuestion();
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.QUESTIONNAIRE}
-      </button>
-
       <button className="btn-yellow disabled" id="publish">
         {Dictionary.publishQuestionnaire}
         <span className="glyphicon glyphicon-share-alt" />
@@ -381,7 +372,6 @@ const GenericInput = props => {
           <div className="popup-body">
             <QuestionnaireList
               fusion
-              handleCloseNewQuestion={handleCloseNewQuestion}
               currentQuestionnaire={currentQuestionnaire}
               handleCloseNewQuestionnaire={handleCloseNewQuestionnaire}
             />
@@ -390,6 +380,6 @@ const GenericInput = props => {
       </ReactModal>
     </div>
   );
-};
+}
 
 export default GenericInput;

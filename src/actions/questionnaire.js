@@ -333,7 +333,8 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
               element.parent = component.id;
             }
             if (
-              element.children?.length > 0 &&
+              element.children &&
+              element.children.length > 0 &&
               element.children.includes(findId.id)
             ) {
               const index = element.children.indexOf(findId.id);
@@ -397,7 +398,7 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
             );
             // We change Id of the responseFormat (to deal with the case of the fusion of questionnaires sharing the same ids (duplication))
             Object.values(component.responseFormat).forEach(resp => {
-              if (resp?.id) resp.id = uuid();
+              if (resp && resp.id) resp.id = uuid();
             });
           }
           const activeComponent = {

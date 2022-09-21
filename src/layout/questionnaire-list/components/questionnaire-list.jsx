@@ -48,14 +48,14 @@ const QuestionnaireList = props => {
   const [checkedQuestionnaire, setCheckedQuestionnaire] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [options, setOptions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleCheck = id => {
     setCheckedQuestionnaire(id);
   };
 
   const fusionateQuestionnaire = () => {
-    mergeQuestionnaires(setCheckedQuestionnaire, token);
+    mergeQuestionnaires(checkedQuestionnaire, token);
     handleCloseNewQuestionnaire();
   };
 
@@ -115,12 +115,9 @@ const QuestionnaireList = props => {
 
   // TODO: Find why 2 calls
   useEffect(() => {
-    if (selectedStamp) {
-      setLoading(true);
-      loadQuestionnaireList(selectedStamp, token).then(() => {
-        setLoading(false);
-      });
-    } else deleteQuestionnaireList();
+    if (selectedStamp)
+      loadQuestionnaireList(selectedStamp, token).then(() => setLoading(false));
+    else deleteQuestionnaireList();
   }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
 
   const updateFilter = value => {
@@ -279,11 +276,13 @@ QuestionnaireList.propTypes = {
   duplicateQuestionnaire: PropTypes.func.isRequired,
   stamp: PropTypes.string,
   token: PropTypes.string,
+  selectedStamp: PropTypes.string,
 };
 
 QuestionnaireList.defaultProps = {
   questionnaires: [],
   stamp: '',
   token: '',
+  selectedStamp: 'FAKEPERMISSION',
 };
 export default QuestionnaireList;
