@@ -48,7 +48,6 @@ const QuestionnaireComponent = props => {
     children,
     parentType,
     visualizeActiveQuestionnaire,
-    handleRemovePageBreak,
     componentFiltersInitial,
     componentFiltersFinal,
   } = props;
@@ -236,21 +235,9 @@ const QuestionnaireComponent = props => {
               )}
             </div>
           </div>
-          {component.pageBreak && component.type !== QUESTION && (
-            <div className="separator">
-              <hr />
-              <button onClick={handleRemovePageBreak}>x</button>
-            </div>
-          )}
           {dropZone}
           {children}
         </div>
-        {component.pageBreak && component.type === QUESTION && (
-          <div className="separator">
-            <hr />
-            <button onClick={handleRemovePageBreak}>x</button>
-          </div>
-        )}
         <ReactModal
           ariaHideApp={false}
           shouldCloseOnOverlayClick={false}
@@ -292,7 +279,6 @@ QuestionnaireComponent.propTypes = {
   duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired,
 
   children: PropTypes.array,
 

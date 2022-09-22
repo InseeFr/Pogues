@@ -5,7 +5,6 @@ import GenericInput from '../components/generic-input';
 import {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
-  handleNewPageBreak,
 } from 'actions/app-state';
 import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import { removeVisualizationError } from 'actions/errors';
@@ -93,7 +92,6 @@ const mapStateToProps = state => {
     isQuestionnaireHaveError: state.appState.isQuestionnaireHaveError,
     isQuestionnaireModified: state.appState.isQuestionnaireModified,
     isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
-    componentIdForPageBreak: state.appState.componentIdForPageBreak,
     isLoopsValid: isLoopsValid(activeComponentsById),
     activeQuestionnaire: activeQuestionnaire,
     stamp: getUser(state).stamp,
@@ -109,7 +107,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
-  handleNewPageBreak,
   loadQuestionnaireList,
   removeVisualizationError,
 };

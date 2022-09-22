@@ -12,7 +12,6 @@ import {
   setSelectedComponentId,
   setEditingComponentId,
   visualizeActiveQuestionnaire,
-  handleRemovePageBreak,
 } from 'actions/app-state';
 import { removeQuestionnaire } from 'actions/questionnaire';
 import { getToken } from 'reducers/selectors';
@@ -42,7 +41,6 @@ const mapDispatchToProps = {
   removeQuestionnaire,
   visualizeActiveQuestionnaire,
   dragComponent,
-  handleRemovePageBreak,
 };
 
 const QuestionnaireListComponentsContainer = connect(

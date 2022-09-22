@@ -123,10 +123,6 @@ const dictionary = {
     en: 'Question',
     fr: 'Question',
   },
-  pageBreak: {
-    en: 'Page break',
-    fr: 'Saut de page',
-  },
   externalElement: {
     en: 'External element',
     fr: 'Élément externe',

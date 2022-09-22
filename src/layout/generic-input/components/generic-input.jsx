@@ -22,19 +22,15 @@ export const propTypes = {
 
   saveActiveQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func,
-  handleNewPageBreak: PropTypes.func.isRequired,
   isQuestionnaireModified: PropTypes.bool.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
-
-  componentIdForPageBreak: PropTypes.string.isRequired,
 };
 
 export const defaultProps = {
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
-  componentIdForPageBreak: '',
 };
 
 // Components
@@ -85,7 +81,6 @@ function GenericInput(props) {
   const {
     activeQuestionnaire,
     currentQuestionnaire,
-    componentIdForPageBreak,
     isLoadingVisualization,
     isLoopsValid,
     isQuestionnaireModified,
@@ -95,7 +90,6 @@ function GenericInput(props) {
     stamp,
     token,
     selectedComponent,
-    handleNewPageBreak,
     loadQuestionnaireList,
     removeVisualizationError,
     saveActiveQuestionnaire,
@@ -255,17 +249,6 @@ function GenericInput(props) {
       ) : (
         false
       )}
-      <button
-        className="btn-white disabled"
-        id="add-pagebreak"
-        disabled={!componentIdForPageBreak}
-        onClick={() => {
-          handleNewPageBreak(componentIdForPageBreak);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.pageBreak}
-      </button>
       <VisualizeDropdown
         top
         typeDropDown={EXTERNAL_ELEMENT}
