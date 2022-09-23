@@ -110,7 +110,6 @@ describe('questionnaire', () => {
             TargetMode: [''],
             label: 'sequence',
             type: 'SEQUENCE',
-            pageBreak: false,
           },
           jf0vtaeb: {
             id: 'jf0vtaeb',
@@ -139,7 +138,6 @@ describe('questionnaire', () => {
               },
             },
             TargetMode: [''],
-            pageBreak: false,
           },
           jf0s8i94: {
             id: 'jf0s8i94',
@@ -372,7 +370,6 @@ describe('questionnaire', () => {
             id: 'kgs4uwzd',
             label: 'questionnaire',
             name: 'QUESTIONNA',
-            pageBreak: undefined,
             parent: '',
             redirections: {},
             responsesClarification: undefined,
