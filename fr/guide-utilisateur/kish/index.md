@@ -64,4 +64,4 @@ Le filtre a pour formule `$KISH_INDICATOR$ = 1`
 
 ## Questionnaire exemple
 
-→ mettre sur pogues.dev.insee.io
+Pour référence, [un questionnaire implémentant cette solution](https://pogues.dev.insee.io/questionnaire/l8lfytfu).
