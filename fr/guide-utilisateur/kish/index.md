@@ -48,13 +48,16 @@ On sélectionne ensuite l'individu dont le score est le plus bas.
 
 Les variables calculées nécessaires sont :
 
-- `MOIS_NAISSANCE_INT` → `cast(cast(cast($DATE_DE_NAISSANCE$, date, "YYYY-MM-DD"), string, "MM"), integer)`
-- `JOUR_NAISSANCE_STR` → `cast(cast($DATE_DE_NAISSANCE$, date, "YYYY-MM-DD"),string, "DD")`
-- `SCORE_KISH` → `cast(if $MOIS_NAISSANCE_INT$ < 6 then $MOIS_NAISSANCE_INT$ + 12 else $MOIS_NAISSANCE_INT$, string) || "." || $JOUR_NAISSANCE_STR$`
-- `KISH_MIN` → `min($SCORE_KISH_INT$)`
-- `KISH_INDICATOR` → `if $KISH_MIN$ = $SCORE_KISH_INT$ then 1 else 0`
-- `SCORE_KISH_INT` → `cast($SCORE_KISH$, number)`
-- `NB_POTENTIAL_KISH` → `sum($KISH_INDICATOR$)`
+| Variable           | Portée         | VTL                                                                                |
+|--------------------|----------------|------------------------------------------------------------------------------------|
+| MOIS_NAISSANCE_INT | BOUCLE_PRENOMS | `cast(cast(cast($DATE_DE_NAISSANCE$, date, "YYYY-MM-DD"), string, "MM"), integer)` |
+| JOUR_NAISSANCE_STR | BOUCLE_PRENOMS | `cast(cast($DATE_DE_NAISSANCE$, date, "YYYY-MM-DD"),string, "DD")`                 |
+| SCORE_KISH         | BOUCLE_PRENOMS | `cast(if $MOIS_NAISSANCE_INT$ < 6 then $MOIS_NAISSANCE_INT$ + 12 else $MOIS_NAISSANCE_INT$, string) || "." || $JOUR_NAISSANCE_STR$`   |
+| KISH_MIN           | Questionnaire  | `min($SCORE_KISH_INT$)`                                                            |
+| KISH_INDICATOR     | BOUCLE_PRENOMS | `if $KISH_MIN$ = $SCORE_KISH_INT$ then 1 else 0`                                   |
+| SCORE_KISH_INT     | BOUCLE_PRENOMS | `cast($SCORE_KISH$, number)`                                                       |
+| NB_POTENTIAL_KISH  | Questionnaire  | `sum($KISH_INDICATOR$)`                                                            |
+
 
 ## Filtre 
 
