@@ -45,7 +45,7 @@ function VisualizeDropdown(props) {
   const openDropDown = e => {
     e.preventDefault();
     e.stopPropagation();
-    setDropdownOpen(!dropdownOpen);
+    setDropdownOpen(true);
   };
 
   /**
@@ -55,27 +55,24 @@ function VisualizeDropdown(props) {
   const visualize = (event, type) => {
     event.preventDefault();
     visualizeActiveQuestionnaire(type, componentId, token);
-    setDropdownOpen(!dropdownOpen);
+    setDropdownOpen(false);
   };
 
   const classDropDown = classSet({
     'btn-group': true,
+    dropup: top,
+    'flex-column': !top,
+    'flex-column-reverse': top,
     open: dropdownOpen,
   });
   const classDropDownTrigger = classSet({
     btn: true,
     'dropdown-toggle': true,
-    'btn-yellow': true,
-    disabled: disabled,
-  });
-  const classDropDownTriggerQuestionnaire = classSet({
-    btn: true,
-    'dropdown-toggle': true,
-    'btn-white': true,
+    'btn-yellow': typeDropDown === 'VISUALIZATION',
+    'btn-white': typeDropDown !== 'VISUALIZATION',
     disabled: disabled,
   });
   const classDropDownList = classSet({
-    top: top,
     'dropdown-menu': true,
   });
   const links = [
@@ -96,31 +93,19 @@ function VisualizeDropdown(props) {
   ];
   return (
     <div className={classDropDown} ref={wrapperRef}>
-      {typeDropDown === 'VISUALIZATION' ? (
-        <button
-          className={classDropDownTrigger}
-          disabled={disabled}
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded={dropdownOpen}
-          onClick={e => openDropDown(e)}
-        >
-          {Dictionary.visualise}
-          <span className="caret" />
-        </button>
-      ) : (
-        <button
-          className={classDropDownTriggerQuestionnaire}
-          disabled={disabled}
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded={dropdownOpen}
-          onClick={e => openDropDown(e)}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.externalElement}
-        </button>
-      )}
+      <button
+        className={classDropDownTrigger}
+        disabled={disabled}
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded={dropdownOpen}
+        onClick={e => openDropDown(e)}
+      >
+        {typeDropDown === 'VISUALIZATION' && Dictionary.visualise}
+        {typeDropDown !== 'VISUALIZATION' && Dictionary.externalElement}
+        <span className="caret" />
+      </button>
+
       <ul className={classDropDownList}>
         {typeDropDown === 'VISUALIZATION'
           ? links.map(link => {

@@ -115,9 +115,11 @@
 
         .questionnaire-element-actions {
           @include make-xs-column(8);
+          display: flex;
+          justify-content: space-around;
           text-align: right;
           button {
-            margin: 5px 5px 0 0;
+            margin: 5px 5px 2px 2px;
           }
         }
       }

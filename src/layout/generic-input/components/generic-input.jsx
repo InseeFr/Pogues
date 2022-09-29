@@ -183,99 +183,88 @@ function GenericInput(props) {
           return null;
         }}
       </NavigationPrompt>
-      <span>{Dictionary.addObject}</span>
-      <button
-        id="add-question"
-        className="btn-white"
-        disabled={
-          placeholders[QUESTION].parent === ('' || 'idendquest') ||
-          (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
-        }
-        onClick={() => {
-          handleOpenNewComponent(QUESTION);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.question}
-      </button>
-      <button
-        id="add-subsequence"
-        className="btn-white"
-        disabled={
-          placeholders[SUBSEQUENCE].parent === ('' || 'idendquest') ||
-          (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
-        }
-        onClick={() => {
-          handleOpenNewComponent(SUBSEQUENCE);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.subSequence}
-      </button>
-      <button
-        id="add-sequence"
-        className="btn-white"
-        disabled={placeholders[SEQUENCE].parent === ''}
-        onClick={() => {
-          handleOpenNewComponent(SEQUENCE);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.sequence}
-      </button>
-      <button
-        id="add-loop"
-        className="btn-white"
-        disabled={!placeholders[LOOP]}
-        onClick={() => {
-          handleOpenNewComponent(LOOP);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.loop}
-      </button>
-      {activeQuestionnaire.dynamiqueSpecified === 'Filtres' ? (
+      <div className="actionBar">
+        <span>{Dictionary.addObject}</span>
+        <button
+          id="add-question"
+          className="btn-white"
+          disabled={
+            placeholders[QUESTION].parent === ('' || 'idendquest') ||
+            (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
+          }
+          onClick={() => handleOpenNewComponent(QUESTION)}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.question}
+        </button>
+        <button
+          id="add-subsequence"
+          className="btn-white"
+          disabled={
+            placeholders[SUBSEQUENCE].parent === ('' || 'idendquest') ||
+            (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
+          }
+          onClick={() => handleOpenNewComponent(SUBSEQUENCE)}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.subSequence}
+        </button>
+        <button
+          id="add-sequence"
+          className="btn-white"
+          disabled={placeholders[SEQUENCE].parent === ''}
+          onClick={() => handleOpenNewComponent(SEQUENCE)}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.sequence}
+        </button>
         <button
           id="add-loop"
           className="btn-white"
-          disabled={!placeholders[FILTER]}
-          onClick={() => {
-            handleOpenNewComponent(FILTER);
-          }}
+          disabled={!placeholders[LOOP]}
+          onClick={() => handleOpenNewComponent(LOOP)}
         >
           <span className="glyphicon glyphicon-plus" />
-          {Dictionary.filtre}
+          {Dictionary.loop}
         </button>
-      ) : (
-        false
-      )}
-      <VisualizeDropdown
-        top
-        typeDropDown={EXTERNAL_ELEMENT}
-        questMergeAction={handleQuestionnaireRef}
-      />
-      <button
-        className="btn-yellow"
-        disabled={!isQuestionnaireModified}
-        onClick={() => {
-          saveQuestionnaire();
-        }}
-        id="save"
-      >
-        {Dictionary.save}
-        <span className="glyphicon glyphicon-floppy-disk" />
-      </button>
-      <VisualizeDropdown
-        top
-        typeDropDown={VISUALIZATION}
-        disabled={!isQuestionnaireValid}
-        visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
-        token={token}
-      />
-      <button className="btn-yellow disabled" id="publish">
-        {Dictionary.publishQuestionnaire}
-        <span className="glyphicon glyphicon-share-alt" />
-      </button>
+        {activeQuestionnaire.dynamiqueSpecified === 'Filtres' && (
+          <button
+            id="add-loop"
+            className="btn-white"
+            disabled={!placeholders[FILTER]}
+            onClick={() => handleOpenNewComponent(FILTER)}
+          >
+            <span className="glyphicon glyphicon-plus" />
+            {Dictionary.filtre}
+          </button>
+        )}
+        <VisualizeDropdown
+          top
+          typeDropDown={EXTERNAL_ELEMENT}
+          questMergeAction={handleQuestionnaireRef}
+        />
+        <button
+          className="btn-yellow"
+          disabled={!isQuestionnaireModified}
+          onClick={() => saveQuestionnaire()}
+          id="save"
+        >
+          {Dictionary.save}
+          <span className="glyphicon glyphicon-floppy-disk" />
+        </button>
+        <VisualizeDropdown
+          top
+          typeDropDown={VISUALIZATION}
+          disabled={!isQuestionnaireValid}
+          visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
+          token={token}
+        />
+        <button className="btn-yellow disabled" id="publish">
+          {Dictionary.publishQuestionnaire}
+          <span className="glyphicon glyphicon-share-alt" />
+        </button>
+      </div>
+
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
