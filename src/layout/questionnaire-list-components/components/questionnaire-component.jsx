@@ -155,7 +155,10 @@ const QuestionnaireComponent = props => {
                 {componentFiltersInitial?.length > 0
                   ? componentFiltersInitial.map(filter => {
                       return (
-                        <div className="questionnaire-element-filter">
+                        <div
+                          key={`${filter}-if`}
+                          className="questionnaire-element-filter"
+                        >
                           <button
                             onClick={() => handleEditFilterComponent(filter.id)}
                             className="btn-white-filter"
@@ -169,7 +172,10 @@ const QuestionnaireComponent = props => {
                 {componentFiltersFinal?.length > 0
                   ? componentFiltersFinal.map(filter => {
                       return (
-                        <div className="questionnaire-element-filter">
+                        <div
+                          key={`${filter}-endif`}
+                          className="questionnaire-element-filter"
+                        >
                           <button
                             onClick={() => handleEditFilterComponent(filter.id)}
                             className="btn-white-filter"
