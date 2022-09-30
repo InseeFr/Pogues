@@ -2,7 +2,7 @@
 
 exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
 <div
-  className="btn-group"
+  className="btn-group flex-column"
 >
   <button
     aria-expanded={false}
@@ -74,7 +74,7 @@ exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
 
 exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] = `
 <div
-  className="btn-group"
+  className="btn-group dropup flex-column-reverse"
 >
   <button
     aria-expanded={false}
@@ -90,7 +90,7 @@ exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] =
     />
   </button>
   <ul
-    className="top dropdown-menu"
+    className="dropdown-menu"
   >
     <li>
       <a
@@ -146,7 +146,7 @@ exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] =
 
 exports[`Visualize Dropdown Component:  Should return the right HTML 1`] = `
 <div
-  className="btn-group"
+  className="btn-group flex-column"
 >
   <button
     aria-expanded={false}

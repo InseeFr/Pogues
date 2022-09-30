@@ -45,7 +45,7 @@ function VisualizeDropdown(props) {
   const openDropDown = e => {
     e.preventDefault();
     e.stopPropagation();
-    setDropdownOpen(true);
+    setDropdownOpen(!dropdownOpen);
   };
 
   /**
