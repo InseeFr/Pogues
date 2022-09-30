@@ -2,12 +2,15 @@
 
 Ce document décrit une méthode pour sélectionner le Kish dans Pogues.
 
+⚠️
+Cette documentation se place dans le contexte où les questionnaires utilisent la version 2 de la bibliothèque de composant Lunatic. L'impact de cette nouvelle version sur la solution de sélection du Kish est essentiellement dans la gestion des champs numériques : précédemment, il était nécessaire de transformer la variable issue de ces champs pour obtenir en VTL de "vrais" nombres. En Lunatic V2, ce n'est plus le cas et en conséquence, il n'est plus nécessaire d'écrire `cast($MA_VARIABLE_NUMERIQUE$, integer)` avant de l'utiliser pour un calcul par exemple.
+⚠️
+
 ## Principe
 
 On considère que l'on procède à l'identification du Kish à travers les étapes suivantes :
-- on demande le nombre d'habitants du ménages
-- on boucle sur ce nombre pour collecter les prénoms de chacun des membres du ménage
-- une deuxième boucle sert à récupérer la date de naissance de chacun des membres du ménage
+- on demande le nombre d'habitants du ménage
+- on boucle sur ce nombre pour collecter les prénoms et les dates de naissance de chacun des membres du ménage
 - une dernière boucle va permettre de filtrer le questionnement sur le seul Kish
 
 ## Structure du questionnaire
@@ -22,7 +25,7 @@ On crée ensuite dans cette même séquence une sous-séquence `IDENTIFICATION` 
 - une question pour collecter le prénom de chaque habitant (variable texte collectée `PRENOM`).
 - une question pour collecter la date de naissance (variable date `DATE_DE_NAISANCE`)
 
-Il faut ensuite créer une boucle sur cette sous-séquence avec la formule `cast($HABITANTS$, integer)` pour le minimum et le maximum.
+Il faut ensuite créer une boucle `BOUCLE_PRENOMS` sur cette sous-séquence avec la formule `cast($NBHAB$, integer)` pour le minimum et le maximum.
 
 ### Séquence de questions
 
@@ -30,6 +33,7 @@ Il faut ensuite créer une boucle sur cette sous-séquence avec la formule `cast
 
 Une séquence contenant une question `QUESTION_POUR_LE_KISH`, dont le libellé est personnalisé avec le prénom (via la formule VTL `"Question pour " || cast($PRENOM$, string)`)
 
+On crée la boucle `BOUCLE_QUESTION_KISH` basée sur `BOUCLE_PRENOMS` qui englobe la séquence de questions pour le Kish.
 
 ## Calcul du Kish
 
@@ -67,4 +71,4 @@ Le filtre a pour formule `$KISH_INDICATOR$ = 1`
 
 ## Questionnaire exemple
 
-Pour référence, [un questionnaire implémentant cette solution](https://pogues.dev.insee.io/questionnaire/l8lfytfu).
+Pour référence, [un questionnaire implémentant cette solution](https://pogues-sandbox.dev.insee.io/questionnaire/l8lfytfu).
