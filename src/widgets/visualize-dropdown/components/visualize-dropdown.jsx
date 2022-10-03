@@ -121,9 +121,9 @@ function VisualizeDropdown(props) {
               return (
                 <li key={link.actionLabel}>
                   {link.actionType === 'questMerge' ? (
-                    <a href="#" onClick={() => questMergeAction()}>
+                    <button onClick={() => questMergeAction()}>
                       {link.actionLabel}
-                    </a>
+                    </button>
                   ) : (
                     <Link to={`/questionnaire/${questionnaireId}/composition`}>
                       {link.actionLabel}
