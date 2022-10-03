@@ -71,7 +71,7 @@ describe('<PageQuestionnaire />', () => {
     setActiveVariables: spySetActiveVariables,
     loadStatisticalContext: noop,
     loadCampaignsIfNeeded: noop,
-    loadExternalElementsIfNeeded: noop,
+    loadExternalQuestionnairesIfNeeded: noop,
     history: { push: noop },
     store: {},
     appState: {

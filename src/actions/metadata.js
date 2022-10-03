@@ -172,36 +172,41 @@ export const loadCampaignsIfNeeded =
 // Metadata : variables from external elements
 
 export const loadExternalQuestionnairesVariables =
-  (idExternalQuestionnaire, token) => dispatch => {
+  (idExternalQuestionnaire, token) => async dispatch => {
     dispatch({
       type: LOAD_EXTERNAL_ELEMENTS_VARIABLES,
       payload: null,
     });
 
-    return getVariablesById(idExternalQuestionnaire, token)
-      .then(externalQuestionnaireVariables => {
-        const externalQuestionnairesMetadata = [
-          {
-            id: idExternalQuestionnaire,
-            variables: externalQuestionnaireVariables.Variable,
-          },
-        ];
-        return dispatch(
-          loadMetadataSuccess(
-            'externalQuestionnairesVariables',
-            externalQuestionnairesMetadata,
-          ),
-        );
-      })
-      .catch(err => dispatch(loadMetadataFailure(err)));
+    try {
+      const externalQuestionnaireVariables = await getVariablesById(
+        idExternalQuestionnaire,
+        token,
+      );
+      const externalQuestionnairesMetadata = [
+        {
+          id: idExternalQuestionnaire,
+          variables: externalQuestionnaireVariables.Variable,
+        },
+      ];
+      return dispatch(
+        loadMetadataSuccess(
+          'externalQuestionnairesVariables',
+          externalQuestionnairesMetadata,
+        ),
+      );
+    } catch (err) {
+      return dispatch(loadMetadataFailure(err));
+    }
   };
 
 export const loadExternalQuestionnairesIfNeeded =
   (idExternalQuestionnaire, token) => (dispatch, getState) => {
     const state = getState();
     if (
+      !state.metadataByType.externalQuestionnairesVariables ||
       !state.metadataByType.externalQuestionnairesVariables
-        ?.idExternalQuestionnaire
+        .idExternalQuestionnaire
     )
       dispatch(
         loadExternalQuestionnairesVariables(idExternalQuestionnaire, token),

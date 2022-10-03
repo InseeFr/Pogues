@@ -103,7 +103,7 @@ function GenericInput(props) {
   const [typeNewComponent, setTypeNewComponent] = useState('');
   const [showNewQuestionnaire, setShowNewQuestionnaire] = useState(false);
 
-  const handleQuestionnaireRef = () => {
+  const handleQuestionnaireMerge = () => {
     setShowNewQuestionnaire(true);
     loadQuestionnaireList(stamp, token);
   };
@@ -241,7 +241,7 @@ function GenericInput(props) {
         <VisualizeDropdown
           top
           typeDropDown={EXTERNAL_ELEMENT}
-          questMergeAction={handleQuestionnaireRef}
+          questMergeAction={handleQuestionnaireMerge}
         />
         <button
           className="btn-yellow"
