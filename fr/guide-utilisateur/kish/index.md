@@ -19,7 +19,7 @@ On considère que l'on procède à l'identification du Kish à travers les étap
 
 > On construit une séquence contenant les questions permettant d'identifier le Kish contenant la question du nombre d'habitants et la sous-séquence d'identification.
 
-On crée une séquence contenant une première question pour collecter le nombre d'habitants (variable numérique collectée `HABITANTS`).
+On crée une séquence contenant une première question pour collecter le nombre d'habitants (variable numérique collectée `NBHAB`).
 
 On crée ensuite dans cette même séquence une sous-séquence `IDENTIFICATION` contenant :
 - une question pour collecter le prénom de chaque habitant (variable texte collectée `PRENOM`).
@@ -31,7 +31,7 @@ Il faut ensuite créer une boucle `BOUCLE_PRENOMS` sur cette sous-séquence avec
 
 > On crée la séquence de questionnement
 
-Une séquence contenant une question `QUESTION_POUR_LE_KISH`, dont le libellé est personnalisé avec le prénom (via la formule VTL `"Question pour " || cast($PRENOM$, string)`)
+Une séquence contenant une question `QUESTION_POUR_LE_KISH`, dont le libellé est personnalisé avec le prénom (via la formule VTL `"Question pour " || cast($PRENOM$, string)`).
 
 On crée la boucle `BOUCLE_QUESTION_KISH` basée sur `BOUCLE_PRENOMS` qui englobe la séquence de questions pour le Kish.
 
@@ -65,9 +65,9 @@ Les variables calculées nécessaires sont :
 
 ## Filtre 
 
-Pour ne présenter qu'un seul jeu de questions à l'individu sélectionner, il est nécessaire d'ajouter un filtre sur ces questions à partir du score calculée en amont.
+Pour ne présenter qu'un seul jeu de questions à l'individu sélectionné, il est nécessaire d'ajouter un filtre sur ces questions à partir du score calculé en amont.
 
-Le filtre a pour formule `$KISH_INDICATOR$ = 1`
+Le filtre a pour formule `$KISH_INDICATOR$ = 1`.
 
 ## Questionnaire exemple
 
