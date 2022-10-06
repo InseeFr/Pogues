@@ -74,7 +74,6 @@ export const customModalbuttonStyles = {
   width: '70px',
   height: '30px',
   marginRight: '10px',
-  background: '#15417a',
 };
 
 function GenericInput(props) {
