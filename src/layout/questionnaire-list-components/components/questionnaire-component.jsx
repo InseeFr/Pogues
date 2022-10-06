@@ -188,7 +188,7 @@ const QuestionnaireComponent = props => {
                   : false}
                 {selected ? (
                   <div className="questionnaire-element-actions">
-                    {!(component.type === EXTERNAL_ELEMENT) && (
+                    {component.type !== EXTERNAL_ELEMENT && (
                       <button
                         className="btn-yellow"
                         onClick={handleEditComponent}
@@ -205,7 +205,7 @@ const QuestionnaireComponent = props => {
                         <span className="glyphicon glyphicon-duplicate" />
                       </button>
                     )}
-                    {!(component.type === EXTERNAL_ELEMENT) && (
+                    {component.type !== EXTERNAL_ELEMENT && (
                       <VisualizeDropdown
                         typeDropDown={VISUALIZATION}
                         componentId={component.id}
