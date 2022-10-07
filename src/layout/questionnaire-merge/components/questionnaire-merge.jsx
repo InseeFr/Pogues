@@ -1,14 +1,13 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { QuestionnaireNav } from 'layout/questionnaire-nav';
 import { QuestionnaireList } from 'layout/questionnaire-list';
 
 // Prop types and default props
 
-const QuestionnaireMerge = () => {
+const QuestionnaireMerge = ({ id }) => {
   const history = useHistory();
-  const { id } = useParams();
 
   const routeBackToQuestionnaire = () => {
     const path = `/questionnaire/${id}`;
