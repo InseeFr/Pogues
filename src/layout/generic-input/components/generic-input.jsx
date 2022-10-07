@@ -7,7 +7,6 @@ import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
-import { QuestionnaireList } from 'layout/questionnaire-list';
 import Loader from 'layout/loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
@@ -79,17 +78,14 @@ export const customModalbuttonStyles = {
 function GenericInput(props) {
   const {
     activeQuestionnaire,
-    currentQuestionnaire,
     isLoadingVisualization,
     isLoopsValid,
     isQuestionnaireModified,
     isQuestionnaireValid,
     isQuestionnaireHaveError,
     placeholders,
-    stamp,
     token,
     selectedComponent,
-    loadQuestionnaireList,
     removeVisualizationError,
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
@@ -100,16 +96,6 @@ function GenericInput(props) {
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
   const [typeNewComponent, setTypeNewComponent] = useState('');
-  const [showNewQuestionnaire, setShowNewQuestionnaire] = useState(false);
-
-  const handleQuestionnaireMerge = () => {
-    setShowNewQuestionnaire(true);
-    loadQuestionnaireList(stamp, token);
-  };
-
-  const handleCloseNewQuestionnaire = () => {
-    setShowNewQuestionnaire(false);
-  };
 
   const handleOpenNewComponent = componentType => {
     setShowNewComponentModal(true);
@@ -237,11 +223,7 @@ function GenericInput(props) {
             {Dictionary.filtre}
           </button>
         )}
-        <VisualizeDropdown
-          top
-          typeDropDown={EXTERNAL_ELEMENT}
-          questMergeAction={handleQuestionnaireMerge}
-        />
+        <VisualizeDropdown top typeDropDown={EXTERNAL_ELEMENT} />
         <button
           className="btn-yellow"
           disabled={!isQuestionnaireModified}
@@ -327,27 +309,6 @@ function GenericInput(props) {
         <button onClick={handleCloseModal} style={customModalbuttonStyles}>
           {Dictionary.close}
         </button>
-      </ReactModal>
-      <ReactModal
-        ariaHideApp={false}
-        shouldCloseOnOverlayClick={false}
-        isOpen={showNewQuestionnaire}
-        onRequestClose={handleCloseNewQuestionnaire}
-      >
-        <div className="popup">
-          <div className="popup-header">
-            <button type="button" onClick={handleCloseNewQuestionnaire}>
-              <span>X</span>
-            </button>
-          </div>
-          <div className="popup-body">
-            <QuestionnaireList
-              fusion
-              currentQuestionnaire={currentQuestionnaire}
-              handleCloseNewQuestionnaire={handleCloseNewQuestionnaire}
-            />
-          </div>
-        </div>
       </ReactModal>
     </div>
   );

@@ -6,7 +6,6 @@ import {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
 } from 'actions/app-state';
-import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import { removeVisualizationError } from 'actions/errors';
 import {
   getNewSequencePlaceholder,
@@ -15,7 +14,7 @@ import {
   getNewLoopPlaceholder,
 } from 'utils/component/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getToken, getUser } from 'reducers/selectors';
+import { getToken } from 'reducers/selectors';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -94,9 +93,7 @@ const mapStateToProps = state => {
     isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
     isLoopsValid: isLoopsValid(activeComponentsById),
     activeQuestionnaire: activeQuestionnaire,
-    stamp: getUser(state).stamp,
     token: getToken(state),
-    currentQuestionnaire: state.appState.activeQuestionnaire.id,
     showVisualizationErrorPopup:
       state.errors.errorsVisualization.showErrorVisualizationPopup,
     isLoadingVisualization: state.appState.isLoadingVisualization,
@@ -107,7 +104,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
-  loadQuestionnaireList,
   removeVisualizationError,
 };
 

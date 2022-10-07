@@ -11,18 +11,15 @@ import Dictionary from 'utils/dictionary/dictionary';
  * with a dropdown behavior with links to different
  * visualizations of the PDF : WEB, PDF or ODT
  */
-function VisualizeDropdown(props) {
-  const {
-    questionnaireId,
-    componentId,
-    token,
-    disabled,
-    top,
-    visualizeActiveQuestionnaire,
-    typeDropDown,
-    questMergeAction,
-  } = props;
-
+function VisualizeDropdown({
+  questionnaireId,
+  componentId,
+  token,
+  disabled,
+  top,
+  visualizeActiveQuestionnaire,
+  typeDropDown,
+}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -87,9 +84,21 @@ function VisualizeDropdown(props) {
     { actionType: 'ddi', actionLabel: Dictionary.VISUALIZE_DDI },
   ];
   const linksQuestionnaire = [
-    { actionType: 'tcmRef', actionLabel: Dictionary.tcmReference },
-    { actionType: 'questRef', actionLabel: Dictionary.questionnaireReference },
-    { actionType: 'questMerge', actionLabel: Dictionary.questionnaireMerge },
+    {
+      actionType: 'tcmRef',
+      actionLabel: Dictionary.tcmReference,
+      page: 'composition',
+    },
+    {
+      actionType: 'questRef',
+      actionLabel: Dictionary.questionnaireReference,
+      page: 'composition',
+    },
+    {
+      actionType: 'questMerge',
+      actionLabel: Dictionary.questionnaireMerge,
+      page: 'merge',
+    },
   ];
   return (
     <div className={classDropDown} ref={wrapperRef}>
@@ -120,15 +129,9 @@ function VisualizeDropdown(props) {
           : linksQuestionnaire.map(link => {
               return (
                 <li key={link.actionLabel}>
-                  {link.actionType === 'questMerge' ? (
-                    <button onClick={() => questMergeAction()}>
-                      {link.actionLabel}
-                    </button>
-                  ) : (
-                    <Link to={`/questionnaire/${questionnaireId}/composition`}>
-                      {link.actionLabel}
-                    </Link>
-                  )}
+                  <Link to={`/questionnaire/${questionnaireId}/${link.page}`}>
+                    {link.actionLabel}
+                  </Link>
                 </li>
               );
             })}
@@ -144,14 +147,12 @@ VisualizeDropdown.propTypes = {
   disabled: PropTypes.bool.isRequired,
   top: PropTypes.bool.isRequired,
   componentId: PropTypes.string,
-  questMergeAction: PropTypes.func,
 };
 VisualizeDropdown.defaultProps = {
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,
   componentId: '',
-  questMergeAction: undefined,
 };
 
 export default VisualizeDropdown;
