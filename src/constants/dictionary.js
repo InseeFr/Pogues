@@ -1517,21 +1517,25 @@ const dictionary = {
     fr: 'Web V2',
     en: 'Web V2',
   },
-  VISUALIZE_QUEEN: {
-    fr: 'Poste enquêteur',
-    en: 'Interviewer form',
+  VISUALIZE_QUEEN_CAPI: {
+    fr: 'Enquêteur face à face',
+    en: 'Interviewer face to face',
+  },
+  VISUALIZE_QUEEN_CATI: {
+    fr: 'Enquêteur téléphone',
+    en: 'Interviewer phone',
   },
   VISUALIZE_PDF: {
-    fr: 'PDF',
-    en: 'PDF',
-  },
-  VISUALIZE_DDI: {
-    fr: 'DDI',
-    en: 'DDI',
+    fr: 'Papier',
+    en: 'Paper',
   },
   VISUALIZE_SPECIFICATION: {
     fr: 'Spécification',
     en: 'Specification',
+  },
+  VISUALIZE_DDI: {
+    fr: 'Métadonnées',
+    en: 'Metadata',
   },
   NEW: {
     fr: 'Nouveau',

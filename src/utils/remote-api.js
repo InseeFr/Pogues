@@ -30,7 +30,8 @@ const pathMetadata = 'meta-data';
 const pathVisualizePdf = 'transform/visualize-pdf';
 const pathVisualizeSpec = 'transform/visualize-spec';
 const pathVisualizeDDI = 'transform/visualize-ddi';
-const pathVisualizeQueen = 'transform/visualize-queen';
+const pathVisualizeQueenCapi = 'transform/visualize-queen';
+const pathVisualizeQueenCati = 'transform/visualize-queen-telephone';
 
 export const pathVisualisation = 'transform/visualize';
 
@@ -119,11 +120,20 @@ export const visualizeHtml = async (qr, token) => {
 
 /**
  * This method will send a request in order to get the URL
- * of the generated Queen page for the active questionnaire.
+ * of the generated Queen page for face to face and the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeQueen = async (qr, token) => {
-  await getVizualisationUrl(`${pathVisualizeQueen}/${qr.Name}`, qr, token);
+export const visualizeQueenCapi = async (qr, token) => {
+  await getVizualisationUrl(`${pathVisualizeQueenCapi}/${qr.Name}`, qr, token);
+};
+
+/**
+ * This method will send a request in order to get the URL
+ * of the generated Queen page for telephone and the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeQueenCati = async (qr, token) => {
+  await getVizualisationUrl(`${pathVisualizeQueenCati}/${qr.Name}`, qr, token);
 };
 
 /**
