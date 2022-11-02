@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import { toolbarConfigTooltip } from 'forms/controls/rich-textarea';
 import { SelectorView, View } from 'widgets/selector-view';
-import ResponseFormatSimple from '../simple/response-format-simple';
-import ResponseFormatSingle from '../single/response-format-single';
 import Dictionary from 'utils/dictionary/dictionary';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import ResponseFormatSimple from '../simple/response-format-simple';
+import ResponseFormatSingle from '../single/response-format-single';
 
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
-function InputMeasure(props) {
+function InputMeasure({ selectorPath }) {
   return (
     <div>
       <Field
@@ -23,17 +23,14 @@ function InputMeasure(props) {
         required
       />
 
-      <SelectorView
-        label={Dictionary.typeMeasure}
-        selectorPath={props.selectorPath}
-      >
+      <SelectorView label={Dictionary.typeMeasure} selectorPath={selectorPath}>
         <View
           key={SIMPLE}
           value={SIMPLE}
           label={Dictionary.responseFormatSimple}
         >
           <ResponseFormatSimple
-            selectorPathParent={props.selectorPath}
+            selectorPathParent={selectorPath}
             showMandatory={false}
             required
           />
@@ -44,7 +41,7 @@ function InputMeasure(props) {
           label={Dictionary.responseFormatSingle}
         >
           <ResponseFormatSingle
-            selectorPathParent={props.selectorPath}
+            selectorPathParent={selectorPath}
             showMandatory={false}
           />
         </View>
