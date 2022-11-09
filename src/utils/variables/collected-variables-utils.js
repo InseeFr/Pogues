@@ -398,7 +398,7 @@ export function generateCollectedVariables(
         form,
       ),
     ];
-  } else if (responseFormat === SINGLE_CHOICE) {
+  } else if (responseFormat === SINGLE_CHOICE || responseFormat === PAIRING) {
     generatedCollectedVariables = getCollectedVariablesSingle(
       questionName,
       form,
@@ -408,11 +408,6 @@ export function generateCollectedVariables(
       questionName,
       form,
       codesListStore,
-    );
-  } else if (responseFormat === PAIRING) {
-    generatedCollectedVariables = getCollectedVariablesSingle(
-      questionName,
-      form,
     );
   } else if (responseFormat === TABLE) {
     generatedCollectedVariables = getCollectedVariablesTable(

@@ -22,11 +22,10 @@ function ResponseFormatDatatypeDate({
   readOnly,
 }) {
   const formatInit =
-    type !== 'TABLE'
-      ? format
-      : isCollectedVariables
+    (type !== 'TABLE' && format) ||
+    (type === 'TABLE' && isCollectedVariables
       ? formatCollectedVariables
-      : formatTableList || formatTable;
+      : formatTableList || formatTable);
   return (
     <FormSection name={name}>
       <div className="response-format-datatype-date">
