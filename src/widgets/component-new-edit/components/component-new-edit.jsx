@@ -45,7 +45,7 @@ const {
   QUESTIONNAIRE,
 } = COMPONENT_TYPE;
 const { LIST } = DIMENSION_FORMATS;
-const { TABLE } = QUESTION_TYPE_ENUM;
+const { TABLE, PAIRING } = QUESTION_TYPE_ENUM;
 
 export const propTypes = {
   ...formPropTypes,
@@ -434,7 +434,9 @@ const ComponentNewEdit = props => {
         (component.type === QUESTION &&
           component.responseFormat.type === TABLE &&
           component.responseFormat.TABLE.PRIMARY.type === LIST) ||
-        (component.type === LOOP && !component.basedOn),
+        (component.type === LOOP && !component.basedOn) ||
+        (component.type === QUESTION &&
+          component.responseFormat.type === PAIRING),
     )
     .map(element => {
       return (
