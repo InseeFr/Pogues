@@ -16,6 +16,7 @@ const { CHECKBOX } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
   mandatory: false,
+  scope: '',
   hasSpecialCode: false,
   specialLabel: '',
   specialCode: '',
@@ -27,6 +28,7 @@ export const defaultState = {
 
 export const defaultForm = {
   mandatory: false,
+  scope: '',
   hasSpecialCode: false,
   specialLabel: '',
   specialCode: '',

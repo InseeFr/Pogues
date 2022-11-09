@@ -170,21 +170,6 @@ export function getCollectedVariablesSingle(questionName, form) {
   return collectedVariables;
 }
 
-export function getCollectedVariablesPairing(questionName) {
-  const collectedVariables = [];
-  collectedVariables.push(
-    getCollecteVariable(questionName, `${questionName} label`, undefined, {
-      type: TEXT,
-      [TEXT]: {
-        maxLength: 1,
-        pattern: '',
-      },
-    }),
-  );
-
-  return collectedVariables;
-}
-
 export function getCollectedVariablesTable(questionName, form, codesListStore) {
   /**
    * This method will recursively sort an array of code.
@@ -425,7 +410,10 @@ export function generateCollectedVariables(
       codesListStore,
     );
   } else if (responseFormat === PAIRING) {
-    generatedCollectedVariables = getCollectedVariablesPairing(questionName);
+    generatedCollectedVariables = getCollectedVariablesSingle(
+      questionName,
+      form,
+    );
   } else if (responseFormat === TABLE) {
     generatedCollectedVariables = getCollectedVariablesTable(
       questionName,

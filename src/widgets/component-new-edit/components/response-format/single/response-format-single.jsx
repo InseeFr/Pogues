@@ -99,7 +99,6 @@ function ResponseFormatSingle({
         component={ListRadios}
         label={Dictionary.visHint}
         required
-        disabled={responseFormatType === PAIRING}
       >
         <GenericOption key={CHECKBOX} value={CHECKBOX}>
           {Dictionary.checkbox}
@@ -111,9 +110,7 @@ function ResponseFormatSingle({
           {Dictionary.dropdown}
         </GenericOption>
       </Field>
-      {responseFormatType !== PAIRING && (
-        <CodesLists selectorPathParent={selectorPathComposed} />
-      )}
+      <CodesLists selectorPathParent={selectorPathComposed} />
     </FormSection>
   );
 }
