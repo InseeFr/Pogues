@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Dictionary from 'utils/dictionary/dictionary';
 import PropTypes from 'prop-types';
 
-class DropZone extends Component {
-  static defaultProps = {
-    style: {},
-  };
+const DropZone = ({ style }) => {
+  return (
+    <div className="questionnaire-element-drop-zone" style={style}>
+      <div className="questionnaire-element-label">{Dictionary.dropHere}</div>
+    </div>
+  );
+};
 
-  static propTypes = {
-    style: PropTypes.object,
-  };
+DropZone.defaultProps = {
+  style: {},
+};
 
-  render() {
-    return (
-      <div className="questionnaire-element-drop-zone" style={this.props.style}>
-        <div className="questionnaire-element-label">{Dictionary.dropHere}</div>
-      </div>
-    );
-  }
-}
+DropZone.propTypes = {
+  style: PropTypes.object,
+};
 
 export default DropZone;

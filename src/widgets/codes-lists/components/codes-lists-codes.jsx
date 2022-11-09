@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
@@ -21,114 +21,60 @@ import { markdownVtlToHtml } from 'forms/controls/rich-textarea';
 
 const { CODES_CLASS, LIST_CLASS, LIST_ITEM_CLASS } = WIDGET_CODES_LISTS;
 
-// PropTypes and defaultProps
+function CodesListsCodes(props) {
+  const {
+    inputCodePath,
+    formName,
+    change,
+    currentValue,
+    currentLabel,
+    currentPrecisionid,
+    currentPrecisionlabel,
+    currentPrecisionsize,
+    meta,
+    Type,
+    fields: { getAll, removeAll, push, remove, get },
+  } = props;
 
-export const propTypes = {
-  fields: PropTypes.shape(fieldArrayFields).isRequired,
-  meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
-    .isRequired,
-  currentValue: PropTypes.string,
-  currentLabel: PropTypes.string,
+  const [showInputCode, setShowInputCode] = useState(false);
+  const [activeCodeIndex, setActiveCodeIndex] = useState(undefined);
+  const [editing, setEditing] = useState(false);
+  const [showPrecision, setShowPrecision] = useState(false);
+  const [showUploadCode, setShowUploadCode] = useState(false);
 
-  currentPrecisionid: PropTypes.string,
-  currentPrecisionlabel: PropTypes.string,
-  currentPrecisionsize: PropTypes.string,
+  const closeUpload = () => {
+    setShowUploadCode(false);
+  };
 
-  formName: PropTypes.string.isRequired,
-  inputCodePath: PropTypes.string.isRequired,
-  change: PropTypes.func.isRequired,
-};
-
-export const defaultProps = {
-  currentValue: '',
-  currentLabel: '',
-  currentPrecisionid: '',
-  currentPrecisionlabel: '',
-  currentPrecisionsize: '',
-};
-
-// Componet
-
-class CodesListsCodes extends Component {
-  static propTypes = propTypes;
-
-  static defaultProps = defaultProps;
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showInputCode: false,
-      activeCodeIndex: undefined,
-      editing: false,
-      showPrecision: false,
-      showUploadCode: false,
-    };
-
-    this.renderInputCode = this.renderInputCode.bind(this);
-    this.pushCode = this.pushCode.bind(this);
-    this.clearInputCode = this.clearInputCode.bind(this);
-    this.removePrecision = this.removePrecision.bind(this);
-    this.renderCode = this.renderCode.bind(this);
-    this.renderCodes = this.renderCodes.bind(this);
-    this.uploadCodeList = this.uploadCodeList.bind(this);
-    this.closeUpload = this.closeUpload.bind(this);
-    this.getFileCodes = this.getFileCodes.bind(this);
-  }
-
-  getFileCodes(codes) {
-    const {
-      fields: { getAll, removeAll, push },
-    } = this.props;
-    const allCodes = getAll();
-    if (codes && codes.length > 0) {
-      removeAll();
-      codes.forEach((code, index) => {
-        code.weight = index;
-        code.depth = allCodes[0]?.depth ? allCodes[0].depth : 1;
-        code.parent = code.parent ? code.parent : '';
-        push(code);
-      });
-    }
-    this.closeUpload();
-    this.clearInputCode();
-  }
-
-  closeUpload() {
-    this.setState({
-      showUploadCode: false,
-    });
-  }
-
-  uploadCodeList() {
-    this.setState({
-      showUploadCode: true,
-    });
-  }
-
-  clearInputCode() {
-    const { inputCodePath, formName, change } = this.props;
+  const clearInputCode = () => {
     change(formName, `${inputCodePath}value`, '');
     change(formName, `${inputCodePath}label`, '');
     change(formName, `${inputCodePath}precisionid`, '');
     change(formName, `${inputCodePath}precisionlabel`, '');
     change(formName, `${inputCodePath}precisionsize`, '');
-  }
+  };
 
-  removePrecision() {
-    this.setState({
-      showInputCode: false,
-      activeCodeIndex: undefined,
-      showPrecision: false,
-    });
-    const {
-      currentValue,
-      currentLabel,
-      fields: { push, remove, get },
-    } = this.props;
-    const { activeCodeIndex } = this.state;
+  const getFileCodes = codes => {
+    const allCodes = getAll();
+    if (codes && codes.length > 0) {
+      removeAll();
+      codes.forEach((code, index) => {
+        code.weight = index;
+        code.depth = allCodes[0] && allCodes[0].depth ? allCodes[0].depth : 1;
+        code.parent = code.parent ? code.parent : '';
+        push(code);
+      });
+    }
+    closeUpload();
+    clearInputCode();
+  };
+
+  const removePrecision = () => {
+    setShowInputCode(false);
+    setActiveCodeIndex(undefined);
+    setShowPrecision(false);
+
     const code = get(activeCodeIndex);
-
     const values = {
       value: currentValue,
       label: currentLabel,
@@ -139,27 +85,15 @@ class CodesListsCodes extends Component {
       weight: code.weight,
       depth: code.depth,
     };
-    this.setState({
-      showInputCode: false,
-      activeCodeIndex: undefined,
-      showPrecision: false,
-    });
+    setShowInputCode(false);
+    setActiveCodeIndex(undefined);
+    setShowPrecision(false);
     remove(activeCodeIndex);
-
     push(values);
-    this.clearInputCode();
-  }
+    clearInputCode();
+  };
 
-  pushCode() {
-    const {
-      currentValue,
-      currentLabel,
-      currentPrecisionid,
-      currentPrecisionlabel,
-      currentPrecisionsize,
-      fields: { get, getAll, remove, push },
-    } = this.props;
-    const { activeCodeIndex, editing } = this.state;
+  const pushCode = () => {
     const allCodes = getAll() || [];
     let values;
     if (activeCodeIndex !== undefined) {
@@ -170,11 +104,10 @@ class CodesListsCodes extends Component {
         precisionlabel: currentPrecisionlabel,
         precisionsize: currentPrecisionsize,
       };
-      this.setState({
-        showInputCode: false,
-        activeCodeIndex: undefined,
-        editing: false,
-      });
+      setShowInputCode(false);
+      setActiveCodeIndex(undefined);
+      setEditing(false);
+
       if (editing) {
         const code = get(activeCodeIndex);
         remove(activeCodeIndex);
@@ -205,34 +138,25 @@ class CodesListsCodes extends Component {
       };
     }
     push(values);
-    this.clearInputCode();
-  }
+    clearInputCode();
+  };
 
-  renderInputCode() {
-    const {
-      inputCodePath,
-      formName,
-      change,
-      fields: { get, getAll },
-    } = this.props;
-    const { activeCodeIndex, editing, showPrecision } = this.state;
+  function renderInputCode() {
     const code = get(activeCodeIndex);
     const allCodes = getAll();
 
     return (
       <CodesListsInputCodeContainer
-        meta={this.props.meta}
+        meta={meta}
         close={() => {
-          this.clearInputCode();
-          this.setState({
-            showInputCode: false,
-            activeCodeIndex: undefined,
-            showPrecision: false,
-          });
+          clearInputCode();
+          setShowInputCode(false);
+          setActiveCodeIndex(undefined);
+          setShowPrecision(false);
         }}
-        clear={this.clearInputCode}
-        push={this.pushCode}
-        remove={this.removePrecision}
+        clear={clearInputCode}
+        push={pushCode}
+        remove={removePrecision}
         change={change}
         path={inputCodePath}
         formName={formName}
@@ -244,12 +168,7 @@ class CodesListsCodes extends Component {
     );
   }
 
-  renderCode(code) {
-    const { showInputCode, activeCodeIndex, editing, showPrecision } =
-      this.state;
-    const {
-      fields: { getAll, remove, removeAll, push },
-    } = this.props;
+  function renderCode(code) {
     const allCodes = getAll() || [];
     const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
     const actions = {
@@ -257,15 +176,14 @@ class CodesListsCodes extends Component {
         remove(indexCode);
       },
       edit: () => {
-        this.setState({
-          showInputCode: true,
-          showPrecision: false,
-          activeCodeIndex: indexCode,
-          editing: true,
-        });
+        setShowInputCode(true);
+        setShowPrecision(false);
+        setActiveCodeIndex(indexCode);
+        setEditing(true);
       },
       duplicate: () => {
-        this.setState({ showInputCode: true, activeCodeIndex: indexCode });
+        setShowInputCode(true);
+        setActiveCodeIndex(indexCode);
       },
       moveUp: () => {
         resetListCodes(moveUp(code.value, allCodes), removeAll, push);
@@ -279,32 +197,23 @@ class CodesListsCodes extends Component {
       moveRight: () => {
         resetListCodes(moveRight(code.value, allCodes), removeAll, push);
       },
+      // pour precision et setPrecision, il y avait rajout dans le setState d'un () => {}
       precision: () => {
-        this.setState(
-          {
-            showPrecision: true,
-            activeCodeIndex: indexCode,
-            editing: true,
-          },
-          () => {},
-        );
+        setShowPrecision(true);
+        setActiveCodeIndex(indexCode);
+        setEditing(true);
       },
       setPrecision: () => {
-        this.setState(
-          {
-            showPrecision: true,
-            activeCodeIndex: indexCode,
-            editing: true,
-          },
-          () => {},
-        );
+        setShowPrecision(true);
+        setActiveCodeIndex(indexCode);
+        setEditing(true);
       },
     };
 
     return (
       <div key={code.value}>
         {showInputCode && editing && activeCodeIndex === indexCode ? (
-          this.renderInputCode()
+          renderInputCode()
         ) : (
           <div
             className={`${LIST_ITEM_CLASS} ${LIST_ITEM_CLASS}-${code.depth}`}
@@ -327,24 +236,24 @@ class CodesListsCodes extends Component {
                 allCodes,
                 code,
                 ACTIONS,
-                this.props.Type,
+                Type,
               )}
               actions={actions}
             />
             {showPrecision && editing && activeCodeIndex === indexCode
-              ? this.renderInputCode()
+              ? renderInputCode()
               : false}
           </div>
         )}
 
         {/* Children codes */}
-        {this.renderCodes(code.value)}
+        {renderCodes(code.value)}
       </div>
     );
   }
 
-  renderCodes(parent = '') {
-    const allCodes = this.props.fields.getAll() || [];
+  function renderCodes(parent = '') {
+    const allCodes = getAll() || [];
     return allCodes
       .filter(code => code.parent === parent)
       .sort((code, nexCode) => {
@@ -352,86 +261,102 @@ class CodesListsCodes extends Component {
         if (code.weight > nexCode.weight) return 1;
         return 0;
       })
-      .map(code => this.renderCode(code));
+      .map(code => renderCode(code));
   }
 
-  render() {
-    const { showInputCode, editing } = this.state;
-
-    return (
-      <div className={CODES_CLASS}>
-        {/* Show input code button */}
-        {!showInputCode ? (
-          <button
-            type="button"
-            onClick={e => {
-              e.preventDefault();
-              this.setState({
-                showInputCode: true,
-                activeCodeIndex: undefined,
-                editing: false,
-                showPrecision: false,
-              });
-            }}
-          >
-            <span className="glyphicon glyphicon-plus" />
-            {Dictionary.addCode}
-          </button>
-        ) : (
-          false
-        )}
-
+  return (
+    <div className={CODES_CLASS}>
+      {/* Show input code button */}
+      {!showInputCode ? (
         <button
           type="button"
           onClick={e => {
             e.preventDefault();
-            this.setState({
-              showUploadCode: true,
-            });
+            setShowInputCode(true);
+            setActiveCodeIndex(undefined);
+            setEditing(false);
+            setShowPrecision(false);
           }}
         >
           <span className="glyphicon glyphicon-plus" />
-          {Dictionary.uploadCode}
+          {Dictionary.addCode}
         </button>
-        <div className={`${LIST_CLASS}`}>
-          {this.props.fields.length > 0 && (
-            <div className={`${LIST_ITEM_CLASS}`}>
-              <div>{Dictionary.level}</div>
-              <div>{Dictionary.code}</div>
-              <div>{Dictionary.label}</div>
-              <div>{Dictionary.actions}</div>
-            </div>
-          )}
-          {/* List of codes */}
-          {this.renderCodes()}
-          {/* Input code without a parent code */}
-          {showInputCode && !editing && this.renderInputCode()}
-        </div>
-        <ReactModal
-          ariaHideApp={false}
-          shouldCloseOnOverlayClick={false}
-          isOpen={this.state.showUploadCode}
-          onRequestClose={this.closeUpload}
-        >
-          <div className="popup">
-            <div className="popup-header">
-              <h3>{Dictionary.uploadCode}</h3>
-              <button type="button" onClick={this.closeUpload}>
-                <span>X</span>
-              </button>
-            </div>
-            <div className="popup-body">
-              <UploadCSV
-                closeUpload={() => this.closeUpload}
-                getFileCodes={this.getFileCodes}
-              />
-            </div>
+      ) : (
+        false
+      )}
+
+      <button
+        type="button"
+        onClick={e => {
+          e.preventDefault();
+          setShowUploadCode(true);
+        }}
+      >
+        <span className="glyphicon glyphicon-plus" />
+        {Dictionary.uploadCode}
+      </button>
+      <div className={`${LIST_CLASS}`}>
+        {props.fields.length > 0 && (
+          <div className={`${LIST_ITEM_CLASS}`}>
+            <div>{Dictionary.level}</div>
+            <div>{Dictionary.code}</div>
+            <div>{Dictionary.label}</div>
+            <div>{Dictionary.actions}</div>
           </div>
-        </ReactModal>
+        )}
+        {/* List of codes */}
+        {renderCodes()}
+        {/* Input code without a parent code */}
+        {showInputCode && !editing && renderInputCode()}
       </div>
-    );
-  }
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showUploadCode}
+        onRequestClose={closeUpload}
+      >
+        <div className="popup">
+          <div className="popup-header">
+            <h3>{Dictionary.uploadCode}</h3>
+            <button type="button" onClick={closeUpload}>
+              <span>X</span>
+            </button>
+          </div>
+          <div className="popup-body">
+            <UploadCSV
+              closeUpload={() => closeUpload}
+              getFileCodes={getFileCodes}
+            />
+          </div>
+        </div>
+      </ReactModal>
+    </div>
+  );
 }
+
+CodesListsCodes.propTypes = {
+  fields: PropTypes.shape(fieldArrayFields).isRequired,
+  meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
+    .isRequired,
+  currentValue: PropTypes.string,
+  currentLabel: PropTypes.string,
+
+  currentPrecisionid: PropTypes.string,
+  currentPrecisionlabel: PropTypes.string,
+  currentPrecisionsize: PropTypes.string,
+
+  formName: PropTypes.string.isRequired,
+  inputCodePath: PropTypes.string.isRequired,
+  change: PropTypes.func.isRequired,
+};
+
+CodesListsCodes.defaultProps = {
+  currentValue: '',
+  currentLabel: '',
+  currentPrecisionid: '',
+  currentPrecisionlabel: '',
+  currentPrecisionsize: '',
+};
 
 const mapStateToProps = state => {
   const selector = formValueSelector('component');
