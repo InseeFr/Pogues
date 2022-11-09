@@ -8,7 +8,8 @@ import {
 import { uuid } from 'utils/utils';
 import { hasChild } from 'utils/codes-lists/codes-lists-utils';
 
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
+  QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 const { TEXT, BOOLEAN } = DATATYPE_NAME;
@@ -165,6 +166,21 @@ export function getCollectedVariablesSingle(questionName, form) {
       );
     }
   });
+
+  return collectedVariables;
+}
+
+export function getCollectedVariablesPairing(questionName) {
+  const collectedVariables = [];
+  collectedVariables.push(
+    getCollecteVariable(questionName, `${questionName} label`, undefined, {
+      type: TEXT,
+      [TEXT]: {
+        maxLength: 1,
+        pattern: '',
+      },
+    }),
+  );
 
   return collectedVariables;
 }
@@ -408,6 +424,8 @@ export function generateCollectedVariables(
       form,
       codesListStore,
     );
+  } else if (responseFormat === PAIRING) {
+    generatedCollectedVariables = getCollectedVariablesPairing(questionName);
   } else if (responseFormat === TABLE) {
     generatedCollectedVariables = getCollectedVariablesTable(
       questionName,

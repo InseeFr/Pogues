@@ -725,6 +725,14 @@ const dictionary = {
     fr: 'Tableau',
     en: 'Table',
   },
+  responseFormatPairing: {
+    fr: 'Liens deux à deux',
+    en: 'Household members pairing',
+  },
+  pairingSourceVariable: {
+    fr: 'Variable source',
+    en: 'Source variable',
+  },
   primaryFormat: {
     fr: "Format de l'axe principal",
     en: 'Primary axis format',

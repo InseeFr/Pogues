@@ -10,7 +10,8 @@ import ResponseFormatSingle from './single/response-format-single';
 import ResponseFormatMultiple from './multiple/response-format-multiple';
 import ResponseFormatTable from './table/response-format-table';
 
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
+  QUESTION_TYPE_ENUM;
 const { RESPONSE_FORMAT } = TABS_PATHS;
 const selectorPath = RESPONSE_FORMAT;
 
@@ -60,6 +61,16 @@ function ResponseFormat({ edit, name, addErrors }) {
             <ResponseFormatTable
               selectorPathParent={selectorPath}
               addErrors={addErrors}
+            />
+          </View>
+          <View
+            key={PAIRING}
+            value={PAIRING}
+            label={Dictionary.responseFormatPairing}
+          >
+            <ResponseFormatSingle
+              selectorPathParent={selectorPath}
+              responseFormatType={PAIRING}
             />
           </View>
         </SelectorView>

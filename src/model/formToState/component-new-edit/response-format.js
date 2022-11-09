@@ -11,14 +11,19 @@ import Multiple, {
   defaultState as multipleDefault,
 } from './response-format-multiple';
 import Table, { defaultState as tableDefault } from './response-format-table';
+import Pairing, {
+  defaultState as pairingDefault,
+} from './response-format-pairing';
 
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
+  QUESTION_TYPE_ENUM;
 
 export const defaultForm = {
   [SIMPLE]: simpleDefault,
   [SINGLE_CHOICE]: singleDefault,
   [MULTIPLE_CHOICE]: multipleDefault,
   [TABLE]: tableDefault,
+  [PAIRING]: pairingDefault,
   type: '',
 };
 
@@ -34,6 +39,8 @@ export function formToState(form, transformers) {
     state[type] = transformers.multiple.formToState(responseFormatForm);
   } else if (type === TABLE) {
     state[type] = transformers.table.formToState(responseFormatForm);
+  } else if (type === PAIRING) {
+    state[type] = transformers.pairing.formToState(responseFormatForm);
   } else {
     state[type] = transformers.simple.formToState(responseFormatForm);
   }
@@ -50,6 +57,7 @@ export function stateToForm(currentState, transformers) {
     [SINGLE_CHOICE]: transformers.single.stateToForm(),
     [MULTIPLE_CHOICE]: transformers.multiple.stateToForm(),
     [TABLE]: transformers.table.stateToForm(),
+    [PAIRING]: transformers.pairing.stateToForm(),
   });
 }
 
@@ -61,6 +69,7 @@ const Factory = (initialState = {}, codesListsStore) => {
     single: Single(currentState[SINGLE_CHOICE], codesListsStore),
     multiple: Multiple(currentState[MULTIPLE_CHOICE], codesListsStore),
     table: Table(currentState[TABLE], codesListsStore),
+    pairing: Pairing(currentState[PAIRING], codesListsStore),
   };
 
   return {
@@ -84,6 +93,8 @@ const Factory = (initialState = {}, codesListsStore) => {
         codesLists = transformers.multiple.getCodesListStore();
       } else if (currentState.type === TABLE) {
         codesLists = transformers.table.getCodesListStore();
+      } else if (currentState.type === PAIRING) {
+        codesLists = transformers.pairing.getCodesListStore();
       } else {
         codesLists = {};
       }
@@ -109,6 +120,9 @@ const Factory = (initialState = {}, codesListsStore) => {
       } else if (form.type === TABLE) {
         normalized[TABLE] =
           transformers.table.getNormalizedValues(responseFormatType);
+      } else if (form.type === PAIRING) {
+        normalized[PAIRING] =
+          transformers.pairing.getNormalizedValues(responseFormatType);
       }
 
       return normalized;
