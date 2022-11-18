@@ -35,6 +35,7 @@ function ResponseFormatSingle({
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
+  // gets the ids of the responses of dynamic arrays
   const RosterVariablesId = Object.values(componentsStore)
     .filter(
       component =>
@@ -44,6 +45,7 @@ function ResponseFormatSingle({
     )
     .map(q => q.collectedVariables)
     .flat();
+  // reduces from each question and from each question's variable the pairing structure including the id and the name of the RosterVariablesId
   const pairingSourceVariable = Object.values(collectedVariablesStore).reduce(
     (acc, questionVariable) => [
       ...acc,
