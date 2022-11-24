@@ -17,7 +17,7 @@ import {
   QUESTIONNAIRE_TYPE,
 } from 'constants/pogues-constants';
 
-const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE, PAIRING } = QUESTION_TYPE_ENUM;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP, FILTER } =
   COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
@@ -222,6 +222,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     declarationMode,
     FlowControl: flowControl,
     flowLogic,
+    Scope: scope,
   } = remote;
   const redirectionClar =
     redirections !== undefined && Array.isArray(redirections) && questionType
@@ -271,6 +272,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       responses,
       dimensions,
       codesListsStore,
+      scope,
     );
     state.collectedVariables =
       CollectedVariable.remoteToComponentState(responseFinal);
@@ -365,9 +367,10 @@ function getClarificationresponseSingleChoiseQuestion(
             element => element.Name === collected.name,
           )
         : undefined;
-      const findFlow = flowControl
-        ? flowControl.find(element => element.IfTrue === findResponse?.id)
-        : undefined;
+      const findFlow =
+        flowControl && findResponse
+          ? flowControl.find(element => element.IfTrue === findResponse.id)
+          : undefined;
       const responseModel = {
         mandatory: false,
         typeName: collected.type,
@@ -375,8 +378,8 @@ function getClarificationresponseSingleChoiseQuestion(
         pattern: '',
         collectedVariable: collected.id,
       };
-      if (findResponse) {
-        responseModel.id = findResponse.Response[0]?.id;
+      if (findResponse && findResponse.Response) {
+        responseModel.id = findResponse.Response[0].id;
       }
       const clafication = {
         id: findResponse ? findResponse.id : uuid(),
@@ -449,9 +452,10 @@ function getClarificationResponseMultipleChoiceQuestion(
               element => element.Name === collected.name,
             )
           : undefined;
-        const findFlow = flowControl
-          ? flowControl.find(element => element.IfTrue === findResponse?.id)
-          : undefined;
+        const findFlow =
+          flowControl && findResponse
+            ? flowControl.find(element => element.IfTrue === findResponse.id)
+            : undefined;
         const responseModel = {
           mandatory: false,
           typeName: collected.type,
@@ -459,8 +463,8 @@ function getClarificationResponseMultipleChoiceQuestion(
           pattern: '',
           collectedVariable: collected.id,
         };
-        if (findResponse) {
-          responseModel.id = findResponse.Response[0]?.id;
+        if (findResponse && findResponse.Response[0]) {
+          responseModel.id = findResponse.Response[0].id;
         }
         const clafication = {
           id: findResponse ? findResponse.id : uuid(),
@@ -544,11 +548,12 @@ function getClarificationResponseTableQuestion(
                     element => element.Name === varib.name,
                   )
                 : undefined;
-              const findFlow = flowControl
-                ? flowControl.find(
-                    element => element.IfTrue === findResponse?.id,
-                  )
-                : undefined;
+              const findFlow =
+                flowControl && findResponse
+                  ? flowControl.find(
+                      element => element.IfTrue === findResponse.id,
+                    )
+                  : undefined;
               const responseModel = {
                 mandatory: false,
                 typeName: varib.type,
@@ -556,8 +561,8 @@ function getClarificationResponseTableQuestion(
                 pattern: '',
                 collectedVariable: varib.id,
               };
-              if (findResponse) {
-                responseModel.id = findResponse.Response[0]?.id;
+              if (findResponse && findResponse.Response[0]) {
+                responseModel.id = findResponse.Response[0].id;
               }
               const clafication = {
                 id: findResponse ? findResponse.id : uuid(),
@@ -689,6 +694,9 @@ function storeToRemoteNested(
         remote.FlowControl = remoteclarification.flowcontrolefinal;
         remote.ClarificationQuestion =
           remoteclarification.ClarificationQuestion;
+      }
+      if (responseFormat.type === PAIRING) {
+        remote.Scope = responseFormat[PAIRING].scope;
       }
 
       remote.type = QUESTION_TYPE_NAME;

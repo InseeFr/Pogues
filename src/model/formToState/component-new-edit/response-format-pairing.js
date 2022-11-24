@@ -12,7 +12,7 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 
-const { CHECKBOX } = DATATYPE_VIS_HINT;
+const { DROPDOWN } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
   mandatory: false,
@@ -22,7 +22,7 @@ export const defaultState = {
   specialCode: '',
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
-  visHint: CHECKBOX,
+  visHint: DROPDOWN,
   [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
 };
 
@@ -34,7 +34,7 @@ export const defaultForm = {
   specialCode: '',
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
-  visHint: CHECKBOX,
+  visHint: DROPDOWN,
   [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
 };
 

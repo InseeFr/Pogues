@@ -9,7 +9,13 @@ import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;
 
-export function remoteToState(type, responses, dimensions, codesListsStore) {
+export function remoteToState(
+  type,
+  responses,
+  dimensions,
+  codesListsStore,
+  scope,
+) {
   let datatypeState = {};
 
   if (type === SIMPLE) {
@@ -27,7 +33,7 @@ export function remoteToState(type, responses, dimensions, codesListsStore) {
       codesListsStore,
     );
   } else if (type === PAIRING) {
-    datatypeState = ResponseFormatPairing.remoteToState({ responses });
+    datatypeState = ResponseFormatPairing.remoteToState({ responses, scope });
   }
 
   return {
@@ -52,14 +58,8 @@ export function stateToRemote(
       collectedVariables,
     );
     remote.Response = dataTypeRemote.Response;
-  } else if (type === SINGLE_CHOICE) {
+  } else if (type === SINGLE_CHOICE || type === PAIRING) {
     dataTypeRemote = ResponseFormatSingle.stateToRemote(
-      responseFormatState,
-      collectedVariables,
-    );
-    remote.Response = dataTypeRemote.Response;
-  } else if (type === PAIRING) {
-    dataTypeRemote = ResponseFormatPairing.stateToRemote(
       responseFormatState,
       collectedVariables,
     );

@@ -1,13 +1,9 @@
-import * as Response from './response';
 import * as CodeList from './codes-list';
 
 import {
   UI_BEHAVIOUR,
-  DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
-
-const { TEXT } = DATATYPE_NAME;
 
 export function remoteToState(remote) {
   const {
@@ -15,14 +11,13 @@ export function remoteToState(remote) {
       {
         Datatype: { visualizationHint: visHint },
         mandatory,
-        scope,
         nonResponseModality,
         CodeListReference,
         id,
       },
     ],
+    scope,
   } = remote;
-
   return {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       CodeList.remoteToState(CodeListReference),
@@ -42,30 +37,5 @@ export function remoteToState(remote) {
     specialFollowUpMessage: nonResponseModality
       ? nonResponseModality.invite
       : '',
-  };
-}
-
-export function stateToRemote(state, collectedVariables) {
-  const {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
-    visHint,
-    scope,
-    mandatory,
-    id,
-  } = state;
-  return {
-    Response: [
-      Response.stateToRemote({
-        id,
-        mandatory,
-        scope,
-        visHint,
-        codesListId,
-        typeName: TEXT,
-        maxLength: 1,
-        pattern: '',
-        collectedVariable: collectedVariables[0],
-      }),
-    ],
   };
 }
