@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
-import { ACTIONS } from '../constants';
+import { CODELISTS_ACTIONS } from 'constants/pogues-constants';
 
 const { ACTIONS_CLASS } = WIDGET_CODES_LISTS;
 
@@ -33,19 +33,24 @@ const defaultProps = {
 function CodesListsActions({ disabledActions, actions }) {
   return (
     <div className={ACTIONS_CLASS}>
-      {Object.keys(ACTIONS).map(key => {
+      {Object.keys(CODELISTS_ACTIONS).map(key => {
         return (
           <button
             key={key}
             type="button"
-            onClick={actions[ACTIONS[key].name]}
-            disabled={disabledActions.indexOf(ACTIONS[key].name) !== -1}
+            onClick={actions[CODELISTS_ACTIONS[key].name]}
+            disabled={
+              disabledActions.indexOf(CODELISTS_ACTIONS[key].name) !== -1
+            }
+            title={
+              Dictionary[`componentCodeList${CODELISTS_ACTIONS[key].name}`]
+            }
           >
             <span className="sr-only">
               {' '}
-              {Dictionary[ACTIONS[key].dictionary]}
+              {Dictionary[CODELISTS_ACTIONS[key].dictionary]}
             </span>
-            <span className={`glyphicon ${ACTIONS[key].icon}`} />
+            <span className={`glyphicon ${CODELISTS_ACTIONS[key].icon}`} />
           </button>
         );
       })}
