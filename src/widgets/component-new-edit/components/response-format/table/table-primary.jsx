@@ -8,9 +8,8 @@ import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
 import Dictionary from 'utils/dictionary/dictionary';
 import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 
-const { PRIMARY } = DIMENSION_TYPE;
+const { PRIMARY: selectorPath } = DIMENSION_TYPE;
 const { CODES_LIST, LIST } = DIMENSION_FORMATS;
-const selectorPath = PRIMARY;
 
 function ResponseFormatTablePrincipal({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent

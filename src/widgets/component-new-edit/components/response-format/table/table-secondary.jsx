@@ -7,8 +7,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { OptionalView } from 'widgets/optional-view';
 import { DIMENSION_TYPE } from 'constants/pogues-constants';
 
-const { SECONDARY } = DIMENSION_TYPE;
-const selectorPath = SECONDARY;
+const { SECONDARY: selectorPath } = DIMENSION_TYPE;
 
 function ResponseFormatTableSecondary({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent

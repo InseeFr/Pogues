@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import { CodesLists } from 'widgets/codes-lists';
 import { DIMENSION_FORMATS } from 'constants/pogues-constants';
 
-const { CODES_LIST } = DIMENSION_FORMATS;
-const selectorPath = CODES_LIST;
+const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;
 
 const ResponseFormatTablePrincipalCodeslist = ({ selectorPathParent }) => {
   const selectorPathComposed = selectorPathParent

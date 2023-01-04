@@ -24,41 +24,39 @@ function ArboSimplified({ setSelectedComponentId, components, questionnaire }) {
 
   function renderComponentsByParent(components, parent) {
     return getSortedChildren(components, parent).map(key => {
-      if (key !== 'idendquest') {
-        const subTree = renderComponentsByParent(components, key);
-        if (
-          !isLoop(components[key]) &&
-          !isFilter(components[key]) &&
-          !isNestedFilter(components[key])
-        ) {
-          return (
-            <li
-              key={key}
-              className={isQuestion(components[key]) ? 'questions' : ''}
-            >
-              {components[key].children &&
-                components[key].children.length > 0 && (
-                  <button
-                    onClick={e => handleExpand(e, key)}
-                    className={`glyphicon ${
-                      expanded.indexOf(key) >= 0
-                        ? 'glyphicon-menu-down'
-                        : 'glyphicon-menu-right'
-                    }`}
-                  />
-                )}
-              <button onClick={e => handleClick(e, key)}>
-                {components[key].name.toUpperCase()}
-              </button>
-              {expanded.indexOf(key) >= 0 && (
-                <ul className="arbo-simplifield">{subTree}</ul>
-              )}
-            </li>
-          );
-        }
+      if (key === 'idendquest') return null;
+
+      const subTree = renderComponentsByParent(components, key);
+      if (
+        isLoop(components[key]) ||
+        isFilter(components[key]) ||
+        isNestedFilter(components[key])
+      )
         return null;
-      }
-      return null;
+
+      return (
+        <li
+          key={key}
+          className={isQuestion(components[key]) ? 'questions' : ''}
+        >
+          {components[key].children && components[key].children.length > 0 && (
+            <button
+              onClick={e => handleExpand(e, key)}
+              className={`glyphicon ${
+                expanded.indexOf(key) >= 0
+                  ? 'glyphicon-menu-down'
+                  : 'glyphicon-menu-right'
+              }`}
+            />
+          )}
+          <button onClick={e => handleClick(e, key)}>
+            {components[key].name.toUpperCase()}
+          </button>
+          {expanded.indexOf(key) >= 0 && (
+            <ul className="arbo-simplifield">{subTree}</ul>
+          )}
+        </li>
+      );
     }, {});
   }
 

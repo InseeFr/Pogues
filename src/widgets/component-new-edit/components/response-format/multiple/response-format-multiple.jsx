@@ -7,8 +7,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import ResponseFormatMultiplePrimary from './multiple-primary';
 import ResponseFormatMultipleMeasure from './multiple-measure';
 
-const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
-const selectorPath = MULTIPLE_CHOICE;
+const { MULTIPLE_CHOICE: selectorPath } = QUESTION_TYPE_ENUM;
 
 function ResponseFormatMultiple({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent

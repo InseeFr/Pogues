@@ -11,8 +11,7 @@ import ResponseFormatDatatypeDate from './simple-date';
 import ResponseFormatDatatypeDuree from './simple-duree';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
-const { SIMPLE } = QUESTION_TYPE_ENUM;
-const selectorPath = SIMPLE;
+const { SIMPLE: selectorPath } = QUESTION_TYPE_ENUM;
 
 function ResponseFormatSimple({ selectorPathParent, showMandatory, required }) {
   const selectorPathComposed = selectorPathParent

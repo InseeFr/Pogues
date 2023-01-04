@@ -234,15 +234,11 @@ export function validCollectedVariables(
     codeListPrecision = true;
   }
   if (
-    ((type === SINGLE_CHOICE || type === PAIRING) &&
-      value[0] &&
-      value[0].codeListReference !== expectedVariables[0].codeListReference) ||
-    ((type === SINGLE_CHOICE || type === PAIRING) &&
-      value[0] &&
+    (type === SINGLE_CHOICE || type === PAIRING) &&
+    value[0] &&
+    (value[0].codeListReference !== expectedVariables[0].codeListReference ||
       value[0].codeListReferenceLabel !==
-        expectedVariables[0].codeListReferenceLabel) ||
-    ((type === SINGLE_CHOICE || type === PAIRING) &&
-      value[0] &&
+        expectedVariables[0].codeListReferenceLabel ||
       codeListPrecision)
   ) {
     return Dictionary.validation_collectedvariable_need_reset;

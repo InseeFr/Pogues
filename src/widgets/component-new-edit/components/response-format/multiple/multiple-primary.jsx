@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import { CodesLists } from 'widgets/codes-lists';
 import { DIMENSION_TYPE } from 'constants/pogues-constants';
 
-const { PRIMARY } = DIMENSION_TYPE;
-const selectorPath = PRIMARY;
+const { PRIMARY: selectorPath } = DIMENSION_TYPE;
 
 function ResponseFormatMultiplePrimary({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent

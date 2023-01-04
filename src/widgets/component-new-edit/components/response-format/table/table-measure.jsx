@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import InputMeasure from './input-measure';
 import { DIMENSION_TYPE } from 'constants/pogues-constants';
 
-const { MEASURE } = DIMENSION_TYPE;
-const selectorPath = MEASURE;
+const { MEASURE: selectorPath } = DIMENSION_TYPE;
 
 function ResponseFormatTableMeasure({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent

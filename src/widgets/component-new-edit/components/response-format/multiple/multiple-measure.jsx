@@ -7,9 +7,8 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 import ResponseFormatMultipleMeasureCodeslist from './multiple-measure-codeslist';
 
-const { MEASURE } = DIMENSION_TYPE;
+const { MEASURE: selectorPath } = DIMENSION_TYPE;
 const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
-const selectorPath = MEASURE;
 
 function ResponseFormatMultipleMeasure({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent

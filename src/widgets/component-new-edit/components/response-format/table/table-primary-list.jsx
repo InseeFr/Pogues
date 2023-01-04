@@ -5,8 +5,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import Input from 'forms/controls/input';
 import { DIMENSION_FORMATS } from 'constants/pogues-constants';
 
-const { LIST } = DIMENSION_FORMATS;
-const selectorPath = LIST;
+const { LIST: selectorPath } = DIMENSION_FORMATS;
 
 function ResponseFormatTablePrincipalList() {
   return (

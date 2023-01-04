@@ -12,8 +12,7 @@ import Select from 'forms/controls/select';
 import GenericOption from 'forms/controls/generic-option';
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
-const { CODES_LIST } = DIMENSION_FORMATS;
-const selectorPath = CODES_LIST;
+const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;
 
 function ResponseFormatMultipleMeasureCodeslist({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent

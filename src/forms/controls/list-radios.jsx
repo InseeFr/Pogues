@@ -38,8 +38,7 @@ function ListRadios({
         )}
 
         {values.map(val => {
-          // eslint-disable-next-line no-shadow
-          const { label, value, ...otherProps } = val;
+          const { label: radioLabel, value, ...otherProps } = val;
           const id = getControlId('radios', input.name, value);
 
           return (
@@ -54,8 +53,7 @@ function ListRadios({
                 checked={input.value === value}
                 onChange={input.onChange}
               />
-
-              {label}
+              {radioLabel}
             </label>
           );
         })}
