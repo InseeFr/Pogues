@@ -1577,6 +1577,10 @@ const dictionary = {
     fr: '". Confirmez-vous votre demande ?',
     en: '". Are you sure ?',
   },
+  openQuestionnaire: {
+    fr: 'Ouvrir',
+    en: 'Open',
+  },
 };
 
 // Dynamic translations

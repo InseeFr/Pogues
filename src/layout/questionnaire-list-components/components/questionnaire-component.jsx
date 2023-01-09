@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import ClassSet from 'react-classset';
 import { compose } from 'redux';
@@ -205,7 +206,15 @@ const QuestionnaireComponent = props => {
                         <span className="glyphicon glyphicon-duplicate" />
                       </button>
                     )}
-                    {component.type !== EXTERNAL_ELEMENT && (
+                    {component.type === EXTERNAL_ELEMENT ? (
+                      <Link
+                        className="btn-yellow"
+                        to={`/questionnaire/${component.id}`}
+                        target="_blank"
+                      >
+                        {Dictionary.openQuestionnaire}
+                      </Link>
+                    ) : (
                       <VisualizeDropdown
                         typeDropDown={VISUALIZATION}
                         componentId={component.id}
