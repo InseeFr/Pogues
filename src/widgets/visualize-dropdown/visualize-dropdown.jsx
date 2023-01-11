@@ -86,14 +86,20 @@ const VisualizeDropdown = props => {
           </a>
         </li>
         <li>
-          <a href="#" onClick={e => visualize(e, 'pdf')}>
-            {Dictionary.VISUALIZE_PDF}
+          <a href="#" onClick={e => visualize(e, 'queen-capi')}>
+            {' '}
+            {Dictionary.VISUALIZE_QUEEN_CAPI}{' '}
           </a>
         </li>
         <li>
-          <a href="#" onClick={e => visualize(e, 'queen')}>
+          <a href="#" onClick={e => visualize(e, 'queen-cati')}>
             {' '}
-            {Dictionary.VISUALIZE_QUEEN}{' '}
+            {Dictionary.VISUALIZE_QUEEN_CATI}{' '}
+          </a>
+        </li>
+        <li>
+          <a href="#" onClick={e => visualize(e, 'pdf')}>
+            {Dictionary.VISUALIZE_PDF}
           </a>
         </li>
         <li>
