@@ -17,7 +17,7 @@ import Select from 'forms/controls/select';
 
 const { SINGLE_CHOICE, PAIRING, TABLE } = QUESTION_TYPE_ENUM;
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
-const { QUESTION } = COMPONENT_TYPE;
+const { QUESTION, LOOP } = COMPONENT_TYPE;
 const { LIST } = DIMENSION_FORMATS;
 
 function ResponseFormatSingle({
@@ -35,16 +35,42 @@ function ResponseFormatSingle({
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
-  // gets the ids of the responses of dynamic arrays
+
+  // The sequences directly depending of the loops
+  const loopSequences = Object.values(componentsStore)
+    .filter(component => component.type === LOOP)
+    .reduce((acc, loop) => {
+      return [
+        ...acc,
+        Object.values(componentsStore)
+          .filter(
+            // members are all SEQUENCE or all SUBSEQUENCE
+            component =>
+              component.type === componentsStore[loop.initialMember].type &&
+              component.weight >= componentsStore[loop.initialMember].weight &&
+              component.weight <= componentsStore[loop.finalMember].weight,
+          )
+          .map(component => component.id),
+      ];
+    }, [])
+    .flat();
+
+  // gets the ids of the responses of dynamic arrays and questions in loops
   const RosterVariablesId = Object.values(componentsStore)
     .filter(
       component =>
         component.type === QUESTION &&
-        component.responseFormat.type === TABLE &&
-        component.responseFormat.TABLE.PRIMARY.type === LIST,
+        // dynamic arrays
+        ((component.responseFormat.type === TABLE &&
+          component.responseFormat.TABLE.PRIMARY.type === LIST) ||
+          // questions directly depending on loop loopSequences
+          loopSequences.includes(component.parent) ||
+          // questions indirectly depending on loop loopSequences
+          loopSequences.includes(componentsStore[component.parent].parent)),
     )
     .map(q => q.collectedVariables)
     .flat();
+
   // reduces from each question and from each question's variable the pairing structure including the id and the name of the RosterVariablesId
   const pairingSourceVariable = Object.values(collectedVariablesStore).reduce(
     (acc, questionVariable) => [
