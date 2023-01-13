@@ -60,8 +60,8 @@ export function getDisabledActions(allCodes, code, actions) {
   if (disableMoveRightButton(allCodes, code))
     disabledActions.push(actions.MOVE_RIGHT.name);
   if (code.precisionid === undefined || code.precisionid === '')
-    disabledActions.push(actions.PRECESION_EDIT.name);
-  if (code.precisionid) disabledActions.push(actions.PRECESION.name);
+    disabledActions.push(actions.PRECISION_EDIT.name);
+  if (code.precisionid) disabledActions.push(actions.PRECISION.name);
 
   return disabledActions;
 }

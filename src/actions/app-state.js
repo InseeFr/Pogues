@@ -5,7 +5,8 @@ import {
   visualizePdf,
   visualizeHtml,
   visualizeDDI,
-  visualizeQueen,
+  visualizeQueenCapi,
+  visualizeQueenCati,
   visualizeWebStromaeV2,
 } from 'utils/remote-api';
 import { addVisualizationError } from './errors';
@@ -397,8 +398,10 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
         return visualizeHtml;
       } else if (type === 'stromae-v2') {
         return visualizeWebStromaeV2;
-      } else if (type === 'queen') {
-        return visualizeQueen;
+      } else if (type === 'queen-capi') {
+        return visualizeQueenCapi;
+      } else if (type === 'queen-cati') {
+        return visualizeQueenCati;
       } else if (type === 'ddi') {
         return visualizeDDI;
       } else {

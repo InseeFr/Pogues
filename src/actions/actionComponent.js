@@ -36,9 +36,10 @@ export const updateComponent =
     } = state.appState;
 
     if (
-      componentsStore[componentId]?.type === LOOP &&
-      componentsStore[componentId]?.basedOn &&
-      !activeComponentsById[componentId]?.basedOn
+      componentsStore[componentId] &&
+      componentsStore[componentId].type === LOOP &&
+      componentsStore[componentId].basedOn &&
+      !activeComponentsById[componentId].basedOn
     ) {
       const loops = Object.values(activeComponentsById).filter(
         element => element.type === LOOP && element.basedOn === componentId,
