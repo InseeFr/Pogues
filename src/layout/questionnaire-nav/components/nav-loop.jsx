@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -15,10 +15,10 @@ function NavLoop({
 }) {
   const [showComponentModal, setShowComponentModal] = useState(false);
 
-  const handleDeleteComponent = () => {
+  const handleDeleteComponent = useCallback(() => {
     removeComponent(editingComponentId);
     setShowComponentModal(false);
-  };
+  }, [editingComponentId, removeComponent]);
 
   function handleOpenComponentDetail() {
     setShowComponentModal(true);
@@ -29,9 +29,10 @@ function NavLoop({
     handleOpenComponentDetail();
   }
 
-  const handleCloseComponentDetail = () => {
-    setShowComponentModal(false);
-  };
+  const handleCloseComponentDetail = useCallback(
+    () => setShowComponentModal(false),
+    [],
+  );
 
   const options = Object.values(componentsStore)
     .filter(component => component.type === LOOP)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
@@ -42,34 +42,35 @@ function CodesListsCodes(props) {
   const [showPrecision, setShowPrecision] = useState(false);
   const [showUploadCode, setShowUploadCode] = useState(false);
 
-  const closeUpload = () => {
-    setShowUploadCode(false);
-  };
+  const closeUpload = useCallback(() => setShowUploadCode(false), []);
 
-  const clearInputCode = () => {
+  const clearInputCode = useCallback(() => {
     change(formName, `${inputCodePath}value`, '');
     change(formName, `${inputCodePath}label`, '');
     change(formName, `${inputCodePath}precisionid`, '');
     change(formName, `${inputCodePath}precisionlabel`, '');
     change(formName, `${inputCodePath}precisionsize`, '');
-  };
+  }, [change, formName, inputCodePath]);
 
-  const getFileCodes = codes => {
-    const allCodes = getAll();
-    if (codes && codes.length > 0) {
-      removeAll();
-      codes.forEach((code, index) => {
-        code.weight = index;
-        code.depth = allCodes[0] && allCodes[0].depth ? allCodes[0].depth : 1;
-        code.parent = code.parent ? code.parent : '';
-        push(code);
-      });
-    }
-    closeUpload();
-    clearInputCode();
-  };
+  const getFileCodes = useCallback(
+    codes => {
+      const allCodes = getAll();
+      if (codes && codes.length > 0) {
+        removeAll();
+        codes.forEach((code, index) => {
+          code.weight = index;
+          code.depth = allCodes[0] && allCodes[0].depth ? allCodes[0].depth : 1;
+          code.parent = code.parent ? code.parent : '';
+          push(code);
+        });
+      }
+      closeUpload();
+      clearInputCode();
+    },
+    [clearInputCode, closeUpload, getAll, push, removeAll],
+  );
 
-  const removePrecision = () => {
+  const removePrecision = useCallback(() => {
     setShowInputCode(false);
     setActiveCodeIndex(undefined);
     setShowPrecision(false);
@@ -91,9 +92,17 @@ function CodesListsCodes(props) {
     remove(activeCodeIndex);
     push(values);
     clearInputCode();
-  };
+  }, [
+    activeCodeIndex,
+    clearInputCode,
+    currentLabel,
+    currentValue,
+    get,
+    push,
+    remove,
+  ]);
 
-  const pushCode = () => {
+  const pushCode = useCallback(() => {
     const allCodes = getAll() || [];
     let values;
     if (activeCodeIndex !== undefined) {
@@ -139,7 +148,20 @@ function CodesListsCodes(props) {
     }
     push(values);
     clearInputCode();
-  };
+  }, [
+    activeCodeIndex,
+    clearInputCode,
+    currentLabel,
+    currentPrecisionid,
+    currentPrecisionlabel,
+    currentPrecisionsize,
+    currentValue,
+    editing,
+    get,
+    getAll,
+    push,
+    remove,
+  ]);
 
   function renderInputCode() {
     const code = get(activeCodeIndex);

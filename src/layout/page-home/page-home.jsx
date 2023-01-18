@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -15,13 +15,12 @@ const PageHome = ({ history }) => {
     setShowModal(true);
   }
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  const handleCloseModal = useCallback(() => setShowModal(false), []);
 
-  const handleQuestionnaryCreated = questionnaireId => {
-    history.push(`/questionnaire/${questionnaireId}`);
-  };
+  const handleQuestionnaryCreated = useCallback(
+    questionnaireId => history.push(`/questionnaire/${questionnaireId}`),
+    [history],
+  );
 
   return (
     <div id="page-home">

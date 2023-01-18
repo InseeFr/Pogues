@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
@@ -28,14 +28,22 @@ function AssociatedFields({
   handleDisableValidation,
   onEnter,
 }) {
-  const onBlur = () => {
+  const onBlur = useCallback(() => {
     let valueOrigin = currentValueOrigin;
     if (targetIsRichTextarea) {
       valueOrigin = markdownVtlToString(currentValueOrigin);
     }
     const newValueTarget = action(valueOrigin, currentValueTarget);
     change(formName, nameTarget, newValueTarget);
-  };
+  }, [
+    action,
+    change,
+    currentValueOrigin,
+    currentValueTarget,
+    formName,
+    nameTarget,
+    targetIsRichTextarea,
+  ]);
 
   return (
     <div className={COMPONENT_CLASS}>
