@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { QuestionnaireNav } from 'layout/questionnaire-nav';
@@ -9,10 +9,11 @@ import { QuestionnaireList } from 'layout/questionnaire-list';
 const QuestionnaireMerge = ({ id }) => {
   const history = useHistory();
 
-  const routeBackToQuestionnaire = () => {
+  const routeBackToQuestionnaire = useCallback(() => {
     const path = `/questionnaire/${id}`;
     history.push(path);
-  };
+  }, [history, id]);
+
   return (
     <div id="questionnaire-composition">
       <QuestionnaireNav />

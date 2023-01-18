@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -21,21 +21,15 @@ const PageHome = props => {
 
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    deleteAppState();
-  }, [deleteAppState]);
+  useEffect(() => deleteAppState(), [deleteAppState]);
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
+  const handleOpenModal = useCallback(() => setShowModal(true), []);
+  const handleCloseModal = useCallback(() => setShowModal(false), []);
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleQuestionnaryCreated = questionnaireId => {
-    history.push(`/questionnaire/${questionnaireId}`);
-  };
+  const handleQuestionnaryCreated = useCallback(
+    questionnaireId => history.push(`/questionnaire/${questionnaireId}`),
+    [history],
+  );
 
   return (
     <div id="page-home">

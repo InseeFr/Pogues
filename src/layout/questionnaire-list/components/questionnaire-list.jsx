@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import Questionnaire from './questionnaire';
@@ -50,14 +50,17 @@ const QuestionnaireList = props => {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const handleCheck = id => {
-    setCheckedQuestionnaire(id);
-  };
+  const handleCheck = useCallback(id => setCheckedQuestionnaire(id), []);
 
-  const fusionateQuestionnaire = () => {
+  const fusionateQuestionnaire = useCallback(() => {
     mergeQuestionnaires(checkedQuestionnaire, token);
     handleCloseNewQuestionnaire();
-  };
+  }, [
+    checkedQuestionnaire,
+    handleCloseNewQuestionnaire,
+    mergeQuestionnaires,
+    token,
+  ]);
 
   const addQuestionnaireRef = () => {
     const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(

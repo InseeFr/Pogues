@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
@@ -125,6 +125,14 @@ function GenericInput(props) {
     }
   };
 
+  const testExistFromQuestionnaire = useCallback(
+    (crntLocation, nextLocation) =>
+      (!nextLocation ||
+        !nextLocation.pathname.startsWith(crntLocation.pathname)) &&
+      isQuestionnaireModified,
+    [isQuestionnaireModified],
+  );
+
   const newComponentParent = typeNewComponent
     ? placeholders[typeNewComponent].parent
     : '';
@@ -138,14 +146,7 @@ function GenericInput(props) {
       style={{ display: showNewComponentModal ? 'none' : 'block' }}
     >
       {isLoadingVisualization && <Loader />}
-      <NavigationPrompt
-        renderIfNotActive
-        when={(crntLocation, nextLocation) =>
-          (!nextLocation ||
-            !nextLocation.pathname.startsWith(crntLocation.pathname)) &&
-          isQuestionnaireModified
-        }
-      >
+      <NavigationPrompt renderIfNotActive when={testExistFromQuestionnaire}>
         {({ isActive, onCancel, onConfirm }) => {
           if (isActive) {
             return (
