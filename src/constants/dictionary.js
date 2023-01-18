@@ -1,6 +1,17 @@
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, CODELISTS_ACTIONS } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
+const {
+  EDIT,
+  DUPLICATE,
+  REMOVE,
+  MOVE_UP,
+  MOVE_DOWN,
+  MOVE_LEFT,
+  MOVE_RIGHT,
+  PRECISION,
+  PRECISION_EDIT,
+} = CODELISTS_ACTIONS;
 
 const dictionary = {
   phLabel: {
@@ -1629,6 +1640,44 @@ dictionary[`componentEdit${LOOP}`] = {
 dictionary[`componentEdit${FILTER}`] = {
   fr: 'Modifier le filtre',
   en: 'Edit filter',
+};
+
+dictionary[`componentCodeList${EDIT.name}`] = {
+  fr: 'Modifier',
+  en: 'Modify',
+};
+
+dictionary[`componentCodeList${DUPLICATE.name}`] = {
+  fr: 'Dupliquer',
+  en: 'Copy',
+};
+dictionary[`componentCodeList${REMOVE.name}`] = {
+  fr: 'Supprimer',
+  en: 'Delete',
+};
+dictionary[`componentCodeList${MOVE_UP.name}`] = {
+  fr: 'Monter',
+  en: 'Up',
+};
+dictionary[`componentCodeList${MOVE_DOWN.name}`] = {
+  fr: 'Descendre',
+  en: 'Down',
+};
+dictionary[`componentCodeList${MOVE_LEFT.name}`] = {
+  fr: 'Mettre au niveau inférieur',
+  en: 'Level down',
+};
+dictionary[`componentCodeList${MOVE_RIGHT.name}`] = {
+  fr: 'Mettre au niveau supérieur',
+  en: 'Level up',
+};
+dictionary[`componentCodeList${PRECISION.name}`] = {
+  fr: `Ajouter un "Préciser"`,
+  en: `Add a "Specify"`,
+};
+dictionary[`componentCodeList${PRECISION_EDIT.name}`] = {
+  fr: `Modifier le "Préciser"`,
+  en: `Modify "Specify"`,
 };
 
 export default dictionary;
