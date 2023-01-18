@@ -345,10 +345,7 @@ function CodesListsCodes(props) {
             </button>
           </div>
           <div className="popup-body">
-            <UploadCSV
-              closeUpload={() => closeUpload}
-              getFileCodes={getFileCodes}
-            />
+            <UploadCSV closeUpload={closeUpload} getFileCodes={getFileCodes} />
           </div>
         </div>
       </ReactModal>
