@@ -206,12 +206,40 @@ On a créé une question dont la réponse est au format Date dans Pogues, la var
 Voici comment obtenir l’année :
 
 ```
-substr(cast($DATE_NAISSANCE$, string), 1, 4)
+substr(cast($DATE_NAISSANCE$, string, "YYYY-MM-DD"), 1, 4)
 ```
 
-On transforme la variable de type date en chaîne de caractères, puis on extrait les 4 premiers caractères.
+On transforme la variable de type date en chaîne de caractères, puis on extrait les 4 premiers caractères. Le motif "YYYY-MM-DD" permet de la traduction
 
 <span class="label label-rounded label-warning">Attention !</span> Si Pogues permet de choisir trois types de formats de date, seul le format JJMMAAAA (jour, mois, année) est aujourd’hui proposé à l’enquêté. Par ailleurs, si le format présenté lui-même est JJMMAAAA, la variable collectée est au format AAAAMMJJ, ce qui explique le code VTL précédent.
+
+#### Comparaison
+
+<span class="label label-rounded label-warning">Bientôt disponible !</span>
+
+Pour comparer des dates :
+
+```
+$ARRIVEE$ > $DEPART$
+```
+
+Renvoie `true` si la date d'arrivée est postérieure à la date de départ.
+
+#### Calcul de durée
+
+<span class="label label-rounded label-warning">Bientôt disponible !</span>
+
+Pour calculer une durée à partir de variables collectées de type Date :
+
+```
+$ARRIVEE$ - $DEPART$
+```
+
+Qui fournira le résultat en millisecondes. Pour avoir, par exemple en jour :
+
+```
+($ARRIVEE$ - $DEPART$) / 86400000
+```
 
 ### Liste à choix multiples
 
