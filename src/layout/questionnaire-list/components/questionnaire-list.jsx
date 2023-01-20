@@ -23,6 +23,7 @@ const QuestionnaireList = props => {
     duplicateQuestionnaire,
     fusion,
     isComposition,
+    isTcm,
     handleCloseNewQuestionnaire,
     mergeQuestionnaires,
     currentQuestionnaire,
@@ -147,6 +148,7 @@ const QuestionnaireList = props => {
     .filter(q => {
       return (
         currentQuestionnaire !== q.id &&
+        (!isTcm || q.campaigns.some(campaign => campaign.startsWith('tcm'))) &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
           getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
@@ -279,6 +281,7 @@ QuestionnaireList.propTypes = {
   stamp: PropTypes.string,
   token: PropTypes.string,
   selectedStamp: PropTypes.string,
+  isTcm: PropTypes.bool,
 };
 
 QuestionnaireList.defaultProps = {
@@ -286,5 +289,6 @@ QuestionnaireList.defaultProps = {
   stamp: '',
   token: '',
   selectedStamp: 'FAKEPERMISSION',
+  isTcm: false,
 };
 export default QuestionnaireList;
