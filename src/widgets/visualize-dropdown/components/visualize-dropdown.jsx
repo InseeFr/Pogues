@@ -88,7 +88,7 @@ function VisualizeDropdown({
     {
       actionType: 'tcmRef',
       actionLabel: Dictionary.tcmReference,
-      page: 'composition',
+      page: 'tcm-composition',
     },
     {
       actionType: 'questRef',

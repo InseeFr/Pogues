@@ -6,6 +6,7 @@ import { PageHome } from 'layout/page-home';
 import { PageSearchQuestionnaire } from 'layout/page-search-questionnaire';
 import { PageQuestionnaire } from 'layout/page-questionnaire';
 import { QuestionnaireComposition } from 'layout/questionnaire-composition';
+import { QuestionnaireTcmComposition } from 'layout/questionnaire-tcm-composition';
 import { QuestionnaireMerge } from 'layout/questionnaire-merge';
 import { secure } from 'auth';
 
@@ -24,6 +25,11 @@ function Router() {
           exact
           path="/questionnaire/:id/composition"
           component={secure(QuestionnaireComposition)}
+        />
+        <Route
+          exact
+          path="/questionnaire/:id/tcm-composition"
+          component={secure(QuestionnaireTcmComposition)}
         />
         <Route
           exact
