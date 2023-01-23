@@ -255,3 +255,86 @@ On souhaite calculer le nombre de cases cochées dans une liste à choix multipl
 ```
 
 <span class="label label-rounded label-primary">À noter</span> Cette solution est fastidieuse et difficile à mettre en place pour des longues listes. Des fonctionnalités non-encore disponibles dans VTL permettront à terme une expression plus directe de ce calcul.
+
+### Contrôles
+
+#### Contrôle de validité d'un SIRET
+
+On se place dans le cas où le Siret est collecté à travers la variable `SIRET`. Le contrôle est alors :
+
+```
+mod(
+cast(substr($SIRET$, 1, 1), integer) +
+(
+    if cast(substr($SIRET$, 2, 1), integer) > 4 
+    then cast(substr($SIRET$, 2, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 2, 1), integer) * 2
+) +
+cast(substr($SIRET$, 3, 1), integer) +
+(
+    if cast(substr($SIRET$, 4, 1), integer) > 4 
+    then cast(substr($SIRET$, 4, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 4, 1), integer) * 2
+) +
+cast(substr($SIRET$, 5, 1), integer) +
+(
+    if cast(substr($SIRET$, 6, 1), integer) > 4 
+    then cast(substr($SIRET$, 6, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 6, 1), integer) * 2
+) +
+cast(substr($SIRET$, 7, 1), integer) +
+(
+    if cast(substr($SIRET$, 8, 1), integer) > 4 
+    then cast(substr($SIRET$, 8, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 8, 1), integer) * 2
+) +
+cast(substr($SIRET$, 9, 1), integer)
+, 10) = 0
+and
+mod(
+(
+    if cast(substr($SIRET$, 1, 1), integer) > 4 
+    then cast(substr($SIRET$, 1, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 1, 1), integer) * 2
+) + 
+cast(substr($SIRET$, 2, 1), integer) +
+(
+    if cast(substr($SIRET$, 3, 1), integer) > 4 
+    then cast(substr($SIRET$, 3, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 3, 1), integer) * 2
+) + 
+cast(substr($SIRET$, 4, 1), integer) +
+(
+    if cast(substr($SIRET$, 5, 1), integer) > 4 
+    then cast(substr($SIRET$, 5, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 5, 1), integer) * 2
+) + 
+cast(substr($SIRET$, 6, 1), integer) +
+(
+    if cast(substr($SIRET$, 7, 1), integer) > 4 
+    then cast(substr($SIRET$, 7, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 7, 1), integer) * 2
+) + 
+cast(substr($SIRET$, 8, 1), integer) +
+(
+    if cast(substr($SIRET$, 9, 1), integer) > 4 
+    then cast(substr($SIRET$, 9, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 9, 1), integer) * 2
+) + 
+cast(substr($SIRET$, 10, 1), integer) +
+(
+    if cast(substr($SIRET$, 11, 1), integer) > 4 
+    then cast(substr($SIRET$, 11, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 11, 1), integer) * 2
+) + 
+cast(substr($SIRET$, 12, 1), integer) +
+(
+    if cast(substr($SIRET$, 13, 1), integer) > 4 
+    then cast(substr($SIRET$, 13, 1), integer) * 2 - 9 
+    else cast(substr($SIRET$, 13, 1), integer) * 2
+) + 
+cast(substr($SIRET$, 14, 1), integer)
+, 10) <> 0
+```
+
+La première partie du contrôle s'assure que les 9 premiers chiffres forment un SIREN valide, la seconde que le SIRET est valide.
