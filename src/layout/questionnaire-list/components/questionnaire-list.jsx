@@ -12,7 +12,7 @@ import {
   getWeight,
 } from 'utils/component/generic-input-utils';
 import { nameFromLabel } from 'utils/utils';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, TCM } from 'constants/pogues-constants';
 
 const QuestionnaireList = props => {
   const {
@@ -148,7 +148,7 @@ const QuestionnaireList = props => {
     .filter(q => {
       return (
         currentQuestionnaire !== q.id &&
-        (!isTcm || q.campaigns.some(campaign => campaign.startsWith('tcm'))) &&
+        (!isTcm || q.campaigns.some(campaign => campaign === TCM.id)) &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
           getState(q.final).toLowerCase().indexOf(filter) >= 0 ||

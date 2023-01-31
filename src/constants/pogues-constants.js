@@ -321,3 +321,10 @@ export const CODELISTS_ACTIONS = {
     icon: 'glyphicon-option-horizontal',
   },
 };
+
+export const TCM = {
+  id: 'TCM',
+  value: 'TCM',
+  label: 'TCM',
+  owner: 'DG75-L120',
+};

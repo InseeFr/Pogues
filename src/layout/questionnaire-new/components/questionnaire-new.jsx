@@ -1,21 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { TCM } from 'constants/pogues-constants';
 import {
   QuestionnaireNewEdit,
   Questionnaire,
 } from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
-
-// PropTypes and defaultProps
-
-export const propTypes = {
-  onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  stamp: PropTypes.string.isRequired,
-  createQuestionnaire: PropTypes.func.isRequired,
-  setErrors: PropTypes.func.isRequired,
-};
 
 // Utils
 
@@ -41,13 +31,16 @@ function QuestionnaireNew({
   token,
   createQuestionnaire,
   setErrors,
+  isTcm,
 }) {
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
 
   // Initial values
 
-  const initialState = { owner: stamp };
+  const initialState = isTcm
+    ? { owner: stamp, serie: TCM.id, operation: TCM.id, campaigns: [TCM.id] }
+    : { owner: stamp };
   const questionnaireTransformer = Questionnaire(initialState);
   const initialValues = questionnaireTransformer.stateToForm();
 
@@ -68,6 +61,17 @@ function QuestionnaireNew({
   );
 }
 
-QuestionnaireNew.propTypes = propTypes;
+QuestionnaireNew.propTypes = {
+  onCancel: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  stamp: PropTypes.string.isRequired,
+  createQuestionnaire: PropTypes.func.isRequired,
+  setErrors: PropTypes.func.isRequired,
+  isTcm: PropTypes.bool,
+};
+
+QuestionnaireNew.defaultProps = {
+  isTcm: false,
+};
 
 export default QuestionnaireNew;
