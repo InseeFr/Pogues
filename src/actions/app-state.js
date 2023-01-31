@@ -10,6 +10,7 @@ import {
   visualizeWebStromaeV2,
 } from 'utils/remote-api';
 import { addVisualizationError } from './errors';
+import { TCM } from 'constants/pogues-constants';
 import { questionnaireRemoteToStores } from 'model/remote-to-stores';
 import * as Questionnaire from 'model/transformations/questionnaire';
 
@@ -535,6 +536,11 @@ export const loadStatisticalContext = (idCampaign, token) => dispatch => {
     payload: null,
   });
 
+  if (idCampaign === TCM.id) {
+    return dispatch(
+      loadStatisticalContextSuccess({ serie: TCM.id, operation: TCM.id }),
+    );
+  }
   return getContextFromCampaign(idCampaign, token)
     .then(({ serieId: serie, operationId: operation }) => {
       return dispatch(loadStatisticalContextSuccess({ serie, operation }));

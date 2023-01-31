@@ -4,7 +4,7 @@ import { Field } from 'redux-form';
 import ClassSet from 'react-classset';
 
 import { WIDGET_STATISTICAL_CONTEXT_CRITERIA } from 'constants/dom-constants';
-
+import { TCM } from 'constants/pogues-constants';
 import Select from 'forms/controls/select';
 import ListCheckboxes from 'forms/controls/list-checkboxes';
 import GenericOption from 'forms/controls/generic-option';
@@ -72,11 +72,17 @@ const StatisticalContextCriteria = props => {
         label={Dictionary.serie}
         emptyOption={Dictionary.selectSerie}
       >
-        {series.map(s => (
-          <GenericOption key={s.value} value={s.value}>
-            {s.label}
+        {selectedSerie === TCM.id ? (
+          <GenericOption key={TCM.id} value={TCM.value}>
+            {TCM.label}
           </GenericOption>
-        ))}
+        ) : (
+          series.map(s => (
+            <GenericOption key={s.value} value={s.value}>
+              {s.label}
+            </GenericOption>
+          ))
+        )}
       </Field>
       {operations && (
         <Field
@@ -88,11 +94,17 @@ const StatisticalContextCriteria = props => {
           label={Dictionary.operation}
           emptyOption={Dictionary.selectOperation}
         >
-          {operations.map(s => (
-            <GenericOption key={s.value} value={s.value}>
-              {s.label}
+          {selectedOperation === TCM.id ? (
+            <GenericOption key={TCM.id} value={TCM.value}>
+              {TCM.label}
             </GenericOption>
-          ))}
+          ) : (
+            operations.map(s => (
+              <GenericOption key={s.value} value={s.value}>
+                {s.label}
+              </GenericOption>
+            ))
+          )}
         </Field>
       )}
 
@@ -107,11 +119,17 @@ const StatisticalContextCriteria = props => {
           emptyOption={Dictionary.selectCampaign}
           noValuesMessage={Dictionary.noValuesCampaigns}
         >
-          {campaigns.map(s => (
-            <GenericOption key={s.value} value={s.value}>
-              {s.label}
+          {selectedOperation === TCM.id ? (
+            <GenericOption key={TCM.id} value={TCM.value}>
+              {TCM.label}
             </GenericOption>
-          ))}
+          ) : (
+            campaigns.map(s => (
+              <GenericOption key={s.value} value={s.value}>
+                {s.label}
+              </GenericOption>
+            ))
+          )}
         </Field>
       )}
     </div>

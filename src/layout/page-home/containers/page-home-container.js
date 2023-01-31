@@ -1,13 +1,21 @@
 import { connect } from 'react-redux';
-
-import PageHome from '../components/page-home';
-
 import { deleteAppState } from 'actions/app-state';
+import { getUser } from 'reducers/selectors';
+import PageHome from '../components/page-home';
 
 const mapDispatchToProps = {
   deleteAppState,
 };
 
-const PageHomeContainer = connect(null, mapDispatchToProps)(PageHome);
+const mapStateToProps = state => {
+  return {
+    stamp: getUser(state).stamp,
+  };
+};
+
+const PageHomeContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PageHome);
 
 export default PageHomeContainer;
