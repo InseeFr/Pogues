@@ -1,5 +1,5 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
 
 import { DATATYPE_NAME } from 'constants/pogues-constants';
 
@@ -19,6 +19,7 @@ export const defaultForm = {
     maximum: '',
     decimals: '',
     unit: '',
+    thousandSeparator: true,
   },
   [DATE]: {
     minimum: '',

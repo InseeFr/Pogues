@@ -45,6 +45,11 @@ export const DATATYPE_NAME = {
 
 export const DURATION_UNIT = ['heures', 'mois', 'jours', 'années'];
 
+export const NUMERIC_FORMAT = {
+  THOUSAND_SEPARATOR: 'thousandSeparator',
+  NO_FORMAT: '',
+};
+
 // mapping to convert a type to a type when we serialize a
 // questionnaire
 export const DATATYPE_TYPE_FROM_NAME = {

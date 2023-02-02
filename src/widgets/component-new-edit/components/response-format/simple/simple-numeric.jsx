@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { FormSection, Field } from 'redux-form';
-import Input from 'forms/controls/input';
-import Dictionary from 'utils/dictionary/dictionary';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
+import Input from 'forms/controls/input';
 import SelectMetaDataContainer from 'layout/connected-widget/select-metadata';
+import { Component } from 'react';
+import { Field, FormSection } from 'redux-form';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { NUMERIC } = DATATYPE_NAME;
 
@@ -59,6 +59,19 @@ class ResponseFormatDatatypeNumeric extends Component {
             mapMetadataFunction={mapUnitData}
             disabled={this.props.readOnly}
           />
+          <div className="ctrl-checkbox">
+            <label htmlFor="rf-thousand-separator">
+              {Dictionary.thousandSeparator}
+            </label>
+            <div>
+              <Field
+                name="thousandSeparator"
+                id="rf-thousand-separator"
+                component="input"
+                type="checkbox"
+              />
+            </div>
+          </div>
         </div>
       </FormSection>
     );

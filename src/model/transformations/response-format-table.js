@@ -1,19 +1,20 @@
-import { sortByYAndX } from 'utils/variables/collected-variables-utils';
 import maxBy from 'lodash.maxby';
+import { sortByYAndX } from 'utils/variables/collected-variables-utils';
 
-import * as ResponseFormatSimple from './response-format-simple';
-import * as ResponseFormatSingle from './response-format-single';
+import { hasChild } from 'utils/codes-lists/codes-lists-utils';
 import * as CodeList from './codes-list';
 import * as Dimension from './dimension';
+import * as ResponseFormatSimple from './response-format-simple';
+import * as ResponseFormatSingle from './response-format-single';
 import * as Responses from './responses';
-import { hasChild } from 'utils/codes-lists/codes-lists-utils';
 
 import {
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-  QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  NUMERIC_FORMAT,
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
@@ -131,6 +132,12 @@ function getMeasuresModel(responses, dimensions, offset) {
               : matches_maximum[1];
         }
       }
+    }
+
+    if (responses[i].Datatype.typeName === DATATYPE_NAME.NUMERIC) {
+      responses[i].Datatype.thousandSeparator =
+        (responses[i].Datatype.Format || '') ===
+        NUMERIC_FORMAT.THOUSAND_SEPARATOR;
     }
 
     responsesModel.push({
@@ -341,6 +348,15 @@ function stateToResponseState(state) {
       }
       customsimpleState = durationDataType;
     }
+    if (typeName === DATATYPE_NAME.NUMERIC) {
+      const { thousandSeparator, ...other } = customsimpleState;
+      customsimpleState = {
+        ...other,
+        format: thousandSeparator
+          ? NUMERIC_FORMAT.THOUSAND_SEPARATOR
+          : NUMERIC_FORMAT.NO_FORMAT,
+      };
+    }
 
     responseState = { mandatory, typeName, ...customsimpleState };
   } else {
@@ -358,7 +374,6 @@ function stateToResponseState(state) {
       visHint,
     };
   }
-
   return responseState;
 }
 

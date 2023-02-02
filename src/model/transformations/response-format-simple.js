@@ -1,5 +1,5 @@
+import { DATATYPE_NAME, NUMERIC_FORMAT } from 'constants/pogues-constants';
 import * as Response from './response';
-import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 export function remoteToState(remote) {
   const {
@@ -87,6 +87,11 @@ export function remoteToState(remote) {
       }
     }
   }
+
+  if (typeName === DATATYPE_NAME.NUMERIC) {
+    datatype.thousandSeparator =
+      (format || '') === NUMERIC_FORMAT.THOUSAND_SEPARATOR;
+  }
   return {
     id,
     type: typeName,
@@ -165,6 +170,16 @@ export function stateToRemote(state, collectedVariables) {
     }
 
     customDataType = durationDataType;
+  }
+  if (typeName === DATATYPE_NAME.NUMERIC) {
+    const { thousandSeparator, ...other } = customDataType;
+    const format = customDataType.thousandSeparator
+      ? NUMERIC_FORMAT.THOUSAND_SEPARATOR
+      : NUMERIC_FORMAT.NO_FORMAT;
+    customDataType = {
+      ...other,
+      format,
+    };
   }
 
   return {

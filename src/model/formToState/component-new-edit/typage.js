@@ -13,6 +13,7 @@ export const defaultTypageForm = {
     maximum: '',
     decimals: '',
     unit: '',
+    thousandSeparator: true,
   },
   [DATE]: {
     maximum: '',

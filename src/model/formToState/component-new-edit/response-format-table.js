@@ -1,21 +1,21 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
 import { uuid, verifyVariable } from 'utils/utils';
 
 import {
-  defaultState as CodesListDefaultState,
-  defaultForm as CodesListDefaultForm,
-  Factory as CodesListFactory,
-} from 'model';
-import {
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-  QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
   UI_BEHAVIOUR,
 } from 'constants/pogues-constants';
+import {
+  defaultForm as CodesListDefaultForm,
+  defaultState as CodesListDefaultState,
+  Factory as CodesListFactory,
+} from 'model';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
@@ -34,6 +34,7 @@ export const defaultMeasureSimpleState = {
     maximum: '',
     minimum: '',
     decimals: '',
+    thousandSeparator: true,
   },
   [DATE]: {
     maximum: '',

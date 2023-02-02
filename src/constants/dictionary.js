@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, CODELISTS_ACTIONS } from 'constants/pogues-constants';
+import { CODELISTS_ACTIONS, COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const {
@@ -507,6 +507,10 @@ const dictionary = {
   unitEmptySelect: {
     en: 'Select an unit of measure',
     fr: 'Sélectionnez une unité de mesure',
+  },
+  thousandSeparator: {
+    en: 'Thousand separator',
+    fr: 'Séparateur de milliers',
   },
 
   dateEmptySelect: {

@@ -1,12 +1,13 @@
-import { uuid } from 'utils/utils';
 import {
-  VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME,
-  DATATYPE_NAME,
   COMPONENT_TYPE,
-  QUESTION_TYPE_ENUM,
+  DATATYPE_NAME,
+  DATATYPE_TYPE_FROM_NAME,
   DIMENSION_FORMATS,
+  NUMERIC_FORMAT,
+  QUESTION_TYPE_ENUM,
+  VARIABLES_TYPES,
 } from 'constants/pogues-constants';
+import { uuid } from 'utils/utils';
 
 const { COLLECTED } = VARIABLES_TYPES;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
@@ -125,6 +126,11 @@ export function remoteToStore(
               : matches_maximum[1];
         }
       }
+    }
+    if (typeName === DATATYPE_NAME.NUMERIC) {
+      datatype.thousandSeparator =
+        datatype.format === NUMERIC_FORMAT.THOUSAND_SEPARATOR;
+      delete datatype.format;
     }
     const remote = {
       ...acc,
@@ -305,6 +311,7 @@ export function storeToRemote(store, componentsStore) {
         decimals: Decimals,
         format: Format,
         unit: Unit,
+        thousandSeparator,
         miyears: Miyears,
         mimonths: Mimonths,
         mayears: Mayears,
@@ -415,6 +422,11 @@ export function storeToRemote(store, componentsStore) {
       } else {
         model.Datatype.Format = Format;
       }
+    }
+    if (typeName === DATATYPE_NAME.NUMERIC) {
+      model.Datatype.Format = thousandSeparator
+        ? NUMERIC_FORMAT.THOUSAND_SEPARATOR
+        : NUMERIC_FORMAT.NO_FORMAT;
     }
     return model;
   });
