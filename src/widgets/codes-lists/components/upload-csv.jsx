@@ -71,7 +71,7 @@ const UploadCSV = props => {
           <button className={VALIDATE} onClick={validation}>
             {Dictionary.validate}
           </button>
-          <button onClick={props.closeUpload()} className={CANCEL}>
+          <button onClick={props.closeUpload} className={CANCEL}>
             {Dictionary.cancel}
           </button>
         </div>{' '}
