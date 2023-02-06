@@ -8,17 +8,7 @@ import { QuestionnaireList } from 'layout/questionnaire-list';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-// Prop types and default props
-
-export const propTypes = {
-  history: PropTypes.object.isRequired,
-};
-
-// Component
-
-const PageHome = props => {
-  const { history, deleteAppState } = props;
-
+const PageHome = ({ history, deleteAppState }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => deleteAppState(), [deleteAppState]);
@@ -104,6 +94,10 @@ const PageHome = props => {
       </ReactModal>
     </div>
   );
+};
+
+PageHome.propTypes = {
+  history: PropTypes.object.isRequired,
 };
 
 export default PageHome;
