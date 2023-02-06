@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
 import Loader from 'layout/loader';
 
 import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
@@ -53,7 +52,6 @@ const PageQuestionnaire = props => {
     calculatedVariables,
     externalVariables,
     collectedVariablesByQuestion,
-    activeQuestionnaire,
     loading,
     loadQuestionnaire,
     setActiveQuestionnaire,
@@ -61,111 +59,84 @@ const PageQuestionnaire = props => {
     setActiveComponents,
     setActiveCodeLists,
     setActiveVariables,
-    loadCampaignsIfNeeded,
+    // loadCampaignsIfNeeded,
+    loadExternalQuestionnairesIfNeeded,
+    appState,
   } = props;
 
-  const [idState, setIdState] = useState();
-  const [questionnaireState, setQuestionnaireState] = useState();
-  const [activeQuestionnaireState, setActiveQuestionnaireState] = useState();
-  const [componentsState, setComponentsState] = useState({});
-  const [codeListsState, setCodeListsState] = useState();
-  const [externalVariablesState, setExternalVariables] = useState();
-  const [calculatedVariablesState, setCalculatedVariables] = useState();
-  const [collectedVariablesByQuestionState, setCollectedVariablesByQuestion] =
-    useState();
-
   useEffect(() => {
-    if (idState !== id) {
+    if (!questionnaire || questionnaire.id !== id) {
       loadQuestionnaire(id, token);
-      setIdState(id);
     }
 
-    if (questionnaire && !isEqual(questionnaireState, questionnaire)) {
+    if (
+      questionnaire &&
+      Object.keys(appState.activeQuestionnaire).length === 0
+    ) {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
       setActiveQuestionnaire(questionnaire);
       loadStatisticalContext(idCampaign, token);
-      setQuestionnaireState(questionnaire);
     }
-    if (
-      components &&
-      Object.values(componentsState).length !== Object.values(components).length
-    ) {
+    if (components && Object.keys(appState.activeComponentsById).length === 0) {
       setActiveComponents(components);
-      setComponentsState(components);
     }
-    if (codeLists && !isEqual(codeListsState, codeLists)) {
+    if (codeLists && Object.keys(appState.activeCodeListsById).length === 0) {
       setActiveCodeLists(codeLists);
-      setCodeListsState(codeLists);
     }
     if (
-      (calculatedVariablesState &&
-        !isEqual(calculatedVariablesState, calculatedVariables)) ||
+      (calculatedVariables &&
+        Object.keys(calculatedVariables).length !== 0 &&
+        Object.keys(appState.activeCalculatedVariablesById).length === 0) ||
       (externalVariables &&
-        !isEqual(externalVariablesState, externalVariables)) ||
-      (collectedVariablesByQuestionState &&
-        !isEqual(
-          collectedVariablesByQuestionState,
-          collectedVariablesByQuestion,
-        ))
+        Object.keys(externalVariables).length !== 0 &&
+        Object.keys(appState.activeExternalVariablesById).length === 0) ||
+      (collectedVariablesByQuestion &&
+        Object.keys(collectedVariablesByQuestion).length !== 0 &&
+        Object.keys(appState.collectedVariableByQuestion).length === 0)
     ) {
       setActiveVariables({
         activeCalculatedVariablesById: calculatedVariables,
         activeExternalVariablesById: externalVariables,
         collectedVariableByQuestion: collectedVariablesByQuestion,
       });
-      setExternalVariables(externalVariables);
-      setCalculatedVariables(calculatedVariables);
-      setCollectedVariablesByQuestion(collectedVariablesByQuestion);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    token,
-    loading,
-    idState,
-    questionnaire,
-    questionnaireState,
-    components,
-    componentsState,
-    externalVariables,
-    externalVariablesState,
-    calculatedVariables,
-    calculatedVariablesState,
-    collectedVariablesByQuestion,
-    collectedVariablesByQuestionState,
-    codeLists,
-    codeListsState,
     id,
     loadQuestionnaire,
-    loadStatisticalContext,
-    setActiveCodeLists,
-    setActiveComponents,
+    token,
+    questionnaire,
     setActiveQuestionnaire,
+    loadStatisticalContext,
+    externalVariables,
+    calculatedVariables,
+    components,
+    setActiveComponents,
+    codeLists,
+    setActiveCodeLists,
+    appState.activeQuestionnaire,
+    appState.activeComponentsById,
+    appState.activeCodeListsById,
+    appState.activeCalculatedVariablesById,
+    appState.activeExternalVariablesById,
+    appState.collectedVariableByQuestion,
     setActiveVariables,
   ]);
 
   useEffect(() => {
     if (
-      activeQuestionnaire &&
-      !isEqual(activeQuestionnaire, activeQuestionnaireState)
+      appState.activeQuestionnaire.childQuestionnaireRef &&
+      appState.activeQuestionnaire.childQuestionnaireRef.length !== 0
     ) {
-      if (activeQuestionnaire.campaigns) {
-        const idCampaign =
-          activeQuestionnaire.campaigns[
-            activeQuestionnaire.campaigns.length - 1
-          ];
-        loadStatisticalContext(idCampaign, token);
-      }
-      if (activeQuestionnaire.operation) {
-        loadCampaignsIfNeeded(activeQuestionnaire.operation, token);
-      }
-      setActiveQuestionnaireState(activeQuestionnaire);
+      appState.activeQuestionnaire.childQuestionnaireRef.map(ref =>
+        loadExternalQuestionnairesIfNeeded(ref, token),
+      );
     }
   }, [
+    appState.activeQuestionnaire.childQuestionnaireRef,
+    loadExternalQuestionnairesIfNeeded,
     token,
-    activeQuestionnaire,
-    activeQuestionnaireState,
-    loadStatisticalContext,
-    loadCampaignsIfNeeded,
   ]);
 
   return (

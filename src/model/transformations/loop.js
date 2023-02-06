@@ -36,7 +36,6 @@ export function remoteToState(remote, parent) {
     addButtonLibel,
     type: 'LOOP',
     TargetMode: [],
-    pageBreak: false,
     parent: parent,
   };
 }

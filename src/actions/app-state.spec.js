@@ -51,7 +51,6 @@ describe('removeControlsAndRedirections', () => {
           },
         },
         collectedVariables: ['jbcgm0ip'],
-        pageBreak: false,
       },
       j6p0ti5h: {
         id: 'j6p0ti5h',
@@ -73,7 +72,6 @@ describe('removeControlsAndRedirections', () => {
         TargetMode: [],
         label: 'Introduction',
         type: 'SEQUENCE',
-        pageBreak: false,
       },
       i6vwid: {
         id: 'i6vwid',
@@ -112,7 +110,6 @@ describe('removeControlsAndRedirections', () => {
           },
         },
         collectedVariables: ['jbcgm0ip'],
-        pageBreak: false,
       },
       j6p0ti5h: {
         id: 'j6p0ti5h',
@@ -134,7 +131,6 @@ describe('removeControlsAndRedirections', () => {
         TargetMode: [],
         label: 'Introduction',
         type: 'SEQUENCE',
-        pageBreak: false,
       },
       i6vwid: {
         id: 'i6vwid',

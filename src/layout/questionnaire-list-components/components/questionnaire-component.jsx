@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import DropZone from './drop-zone/drop-zone';
 
 import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { markdownVtlToString } from 'forms/controls/rich-textarea';
@@ -28,7 +28,9 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { getIntegrityErrors } from 'utils/integrity/utils';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
+const { VISUALIZATION } = DROPDOWN_TYPE;
 
 const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
@@ -46,7 +48,6 @@ const QuestionnaireComponent = props => {
     children,
     parentType,
     visualizeActiveQuestionnaire,
-    handleRemovePageBreak,
     componentFiltersInitial,
     componentFiltersFinal,
   } = props;
@@ -119,6 +120,8 @@ const QuestionnaireComponent = props => {
             'questionnaire-sequence': component.type === SEQUENCE,
             'questionnaire-subsequence': component.type === SUBSEQUENCE,
             'questionnaire-question': component.type === QUESTION,
+            'questionnaire-external-element':
+              component.type === EXTERNAL_ELEMENT,
           })}
           ref={myRef}
         >
@@ -152,7 +155,10 @@ const QuestionnaireComponent = props => {
                 {componentFiltersInitial?.length > 0
                   ? componentFiltersInitial.map(filter => {
                       return (
-                        <div className="questionnaire-element-filter">
+                        <div
+                          key={`${filter}-if`}
+                          className="questionnaire-element-filter"
+                        >
                           <button
                             onClick={() => handleEditFilterComponent(filter.id)}
                             className="btn-white-filter"
@@ -166,7 +172,10 @@ const QuestionnaireComponent = props => {
                 {componentFiltersFinal?.length > 0
                   ? componentFiltersFinal.map(filter => {
                       return (
-                        <div className="questionnaire-element-filter">
+                        <div
+                          key={`${filter}-endif`}
+                          className="questionnaire-element-filter"
+                        >
                           <button
                             onClick={() => handleEditFilterComponent(filter.id)}
                             className="btn-white-filter"
@@ -179,12 +188,14 @@ const QuestionnaireComponent = props => {
                   : false}
                 {selected ? (
                   <div className="questionnaire-element-actions">
-                    <button
-                      className="btn-yellow"
-                      onClick={handleEditComponent}
-                    >
-                      {Dictionary.showDetail}
-                    </button>
+                    {component.type !== EXTERNAL_ELEMENT && (
+                      <button
+                        className="btn-yellow"
+                        onClick={handleEditComponent}
+                      >
+                        {Dictionary.showDetail}
+                      </button>
+                    )}
                     {component.type === QUESTION && (
                       <button
                         className="btn-yellow"
@@ -194,13 +205,16 @@ const QuestionnaireComponent = props => {
                         <span className="glyphicon glyphicon-duplicate" />
                       </button>
                     )}
-                    <VisualizeDropdown
-                      componentId={component.id}
-                      visualizeActiveQuestionnaire={
-                        visualizeActiveQuestionnaire
-                      }
-                      token={token}
-                    />
+                    {component.type !== EXTERNAL_ELEMENT && (
+                      <VisualizeDropdown
+                        typeDropDown={VISUALIZATION}
+                        componentId={component.id}
+                        visualizeActiveQuestionnaire={
+                          visualizeActiveQuestionnaire
+                        }
+                        token={token}
+                      />
+                    )}
                     <button
                       className="btn-yellow"
                       disabled={
@@ -227,21 +241,9 @@ const QuestionnaireComponent = props => {
               )}
             </div>
           </div>
-          {component.pageBreak && component.type !== QUESTION && (
-            <div className="separator">
-              <hr />
-              <button onClick={handleRemovePageBreak}>x</button>
-            </div>
-          )}
           {dropZone}
           {children}
         </div>
-        {component.pageBreak && component.type === QUESTION && (
-          <div className="separator">
-            <hr />
-            <button onClick={handleRemovePageBreak}>x</button>
-          </div>
-        )}
         <ReactModal
           ariaHideApp={false}
           shouldCloseOnOverlayClick={false}
@@ -283,7 +285,6 @@ QuestionnaireComponent.propTypes = {
   duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired,
 
   children: PropTypes.array,
 

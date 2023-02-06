@@ -15,11 +15,10 @@ import {
   LOAD_STATISTICAL_CONTEXT_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
-  CREATE_PAGE_BREAK,
-  REMOVE_PAGE_BREAK,
   START_LOADING_VISUALIZATION,
   LOADING_VISUALIZATION_SUCCESS,
   LOADING_VISUALIZATION_FAILURE,
+  DELETE_APPSTATE,
 } from 'actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -30,9 +29,6 @@ import {
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
 } from 'actions/component';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-
-const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
 const actionHandlers = {
   ...formUtilsReducers,
@@ -54,7 +50,6 @@ const defaultState = {
   isQuestionnaireModified: false,
   isVisualizationLoading: false,
   isVisualizationHaveError: false,
-  componentIdForPageBreak: '',
   focusedInput: '',
 };
 
@@ -78,45 +73,9 @@ export function updateActiveQuestionnaire(state, updatedQuestionnaire) {
   };
 }
 
-export function getComponentIdForPageBreak(id, componentsStore, state) {
-  const defaultReturn = {
-    ...state,
-  };
-
-  if (id && componentsStore[id]) {
-    return {
-      ...state,
-      componentIdForPageBreak: componentsStore[id].pageBreak ? '' : id,
-    };
-  }
-
-  const questionnaire = Object.keys(componentsStore).find(
-    key => componentsStore[key].type === QUESTIONNAIRE,
-  );
-
-  if (
-    !questionnaire ||
-    !componentsStore[questionnaire].children ||
-    componentsStore[questionnaire].children.length === 0
-  )
-    return defaultReturn;
-
-  const lastChildId = componentsStore[questionnaire].children
-    .map(key => componentsStore[key])
-    .sort((c1, c2) => c1.weight < c2.weight)[0].id;
-
-  return lastChildId
-    ? getComponentIdForPageBreak(lastChildId, componentsStore, state)
-    : defaultReturn;
-}
-
 export function setSelectedComponentId(state, id) {
   return {
     ...state,
-    ...getComponentIdForPageBreak(id, state.activeComponentsById, {
-      ...state,
-      componentIdForPageBreak: '',
-    }),
     selectedComponentId: id,
   };
 }
@@ -201,6 +160,10 @@ export function setQuestionModifiedAndResetSelectedComponent(state) {
   };
 }
 
+export function deleteAppState() {
+  return defaultState;
+}
+
 actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
@@ -218,9 +181,7 @@ actionHandlers[MOVE_COMPONENT] = setQuestionModified;
 actionHandlers[START_LOADING_VISUALIZATION] = startLoadingVisualization;
 actionHandlers[LOADING_VISUALIZATION_SUCCESS] = loadingVisualizationSuccess;
 actionHandlers[LOADING_VISUALIZATION_FAILURE] = loadingVisualizationFailure;
-
-actionHandlers[CREATE_PAGE_BREAK] = setQuestionModified;
-actionHandlers[REMOVE_PAGE_BREAK] = setQuestionModified;
+actionHandlers[DELETE_APPSTATE] = deleteAppState;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function (state = defaultState, action) {

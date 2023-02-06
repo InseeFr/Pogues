@@ -134,9 +134,21 @@ const dictionary = {
     en: 'Question',
     fr: 'Question',
   },
-  pageBreak: {
-    en: 'Page break',
-    fr: 'Saut de page',
+  externalElement: {
+    en: 'External element',
+    fr: 'Élément externe',
+  },
+  tcmReference: {
+    en: 'TCM reference',
+    fr: 'Référence au TCM',
+  },
+  questionnaireReference: {
+    en: 'Questionnaire reference',
+    fr: 'Référence à un questionnaire',
+  },
+  questionnaireMerge: {
+    en: 'Questionnaire merging',
+    fr: 'Fusion avec un questionnaire',
   },
   visualise: {
     en: 'Visualise',

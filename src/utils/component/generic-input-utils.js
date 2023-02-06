@@ -1,7 +1,14 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, NESTEDFILTRE } =
-  COMPONENT_TYPE;
+const {
+  QUESTION,
+  SEQUENCE,
+  SUBSEQUENCE,
+  LOOP,
+  FILTER,
+  NESTEDFILTRE,
+  EXTERNAL_ELEMENT,
+} = COMPONENT_TYPE;
 
 /**
  * Get closest component id by type
@@ -22,7 +29,12 @@ export function getClosestComponentIdByType(components, activeComponent, type) {
     currentComponent.type !== FILTER &&
     currentComponent.type !== NESTEDFILTRE
   ) {
-    if (currentComponent.type === type) {
+    if (
+      currentComponent.type === type ||
+      ((currentComponent.type === SEQUENCE ||
+        currentComponent.type === EXTERNAL_ELEMENT) &&
+        (type === SEQUENCE || type === EXTERNAL_ELEMENT))
+    ) {
       componentId = currentComponent.id;
       break;
     }
@@ -61,7 +73,11 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
  * @param  {QUESTION|SEQUENCE|SUBSEQUENCE}  type              Type of component
  * @return {string} The id of the component with heaviest weight and corresponding type or an empty string
  */
-function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
+export function getHeavyComponentIdByTypeFromGroupIds(
+  components,
+  subgroupIds,
+  type,
+) {
   let heavyComponentId = '';
   const componentsIds = subgroupIds.filter(
     key => components[key] && components[key].type === type,
@@ -84,7 +100,7 @@ function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
  * @param  {string} siblingId   Component id
  * @return {string} The next component weight or 0
  */
-function getWeight(components, componentId) {
+export function getWeight(components, componentId) {
   return componentId !== '' ? components[componentId].weight + 1 : 0;
 }
 

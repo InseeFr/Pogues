@@ -20,7 +20,8 @@ import {
   FORMULA_LANGUAGE,
 } from 'constants/pogues-constants';
 
-const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION } = COMPONENT_TYPE;
+const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 
@@ -28,7 +29,11 @@ function generateComponentGroups(componentsStore, ComponentGroup) {
   const orderedComponents = getOrderedComponents(
     componentsStore,
     Object.keys(componentsStore)
-      .filter(id => componentsStore[id].type === SEQUENCE)
+      .filter(
+        id =>
+          componentsStore[id].type === SEQUENCE ||
+          componentsStore[id].type === EXTERNAL_ELEMENT,
+      )
       .sort(
         (c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight,
       ),
@@ -61,6 +66,12 @@ function generateComponentGroups(componentsStore, ComponentGroup) {
   return result;
 }
 
+const generateChildQuestionnaireRef = componentsStore => {
+  return Object.keys(componentsStore).filter(
+    id => componentsStore[id].type === EXTERNAL_ELEMENT,
+  );
+};
+
 export function remoteToState(remote, currentStores = {}) {
   const {
     owner,
@@ -76,6 +87,7 @@ export function remoteToState(remote, currentStores = {}) {
     ComponentGroup,
     flowLogic,
     formulasLanguage,
+    childQuestionnaireRef,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -100,6 +112,7 @@ export function remoteToState(remote, currentStores = {}) {
     formulaSpecified:
       formulasLanguage && formulasLanguage === VTL ? VTL : XPATH,
     ComponentGroup,
+    childQuestionnaireRef,
   };
 }
 
@@ -115,6 +128,7 @@ export function remoteToState1(remote) {
     Name: name,
     flowLogic,
     formulasLanguage,
+    childQuestionnaireRef,
   } = remote;
 
   return {
@@ -130,6 +144,7 @@ export function remoteToState1(remote) {
       flowLogic && flowLogic === FILTER ? Filtres : Redirections,
     formulaSpecified:
       formulasLanguage && formulasLanguage === VTL ? VTL : XPATH,
+    childQuestionnaireRef,
   };
 }
 
@@ -214,6 +229,7 @@ export function stateToRemote(state, stores) {
     flowLogic: dynamiqueSpecified === Redirections ? REDIRECTION : FILTER,
     formulasLanguage:
       formulaSpecified && formulaSpecified === VTL ? VTL : XPATH,
+    childQuestionnaireRef: generateChildQuestionnaireRef(componentsStore),
   };
   const componentsRemote = Component.storeToRemote(
     componentsStore,

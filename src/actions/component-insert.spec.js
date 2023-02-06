@@ -447,7 +447,6 @@ describe('duplicateComponentAndVars', () => {
       TargetMode: [''],
       label: 's',
       type: 'SEQUENCE',
-      pageBreak: false,
     },
     jkwdir4v: {
       id: 'jkwdir4v',
@@ -498,7 +497,6 @@ describe('duplicateComponentAndVars', () => {
         },
       },
       collectedVariables: ['jkwd6r31'],
-      pageBreak: false,
     },
     jkwbl1oe: {
       id: 'jkwbl1oe',

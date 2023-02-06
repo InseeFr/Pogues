@@ -29,7 +29,7 @@ function QuestionnaireListItem({
   lastUpdatedDate,
   final,
   handleOpenPopup,
-  handelCheck,
+  handleCheck,
   fusion,
 }) {
   return (
@@ -42,7 +42,7 @@ function QuestionnaireListItem({
             <input
               type="radio"
               name="questionId"
-              onChange={event => handelCheck(event.target.value)}
+              onChange={event => handleCheck(event.target.value)}
               value={id}
               style={{ height: '20px', width: '20px', marginRight: '30px' }}
             />

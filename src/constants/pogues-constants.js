@@ -9,6 +9,7 @@ export const COMPONENT_TYPE = {
   REDIRECTION: 'REDIRECTION',
   // used as a placeholder to place the generic input within the questionnaire
   GENERIC_INPUT: 'GENERIC_INPUT',
+  EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
   XPATH: 'XPATH',
   VTL: 'VTL',
 };
@@ -273,6 +274,11 @@ export const QUESTIONNAIRE_TYPE = {
 export const FORMULA_LANGUAGE = {
   XPATH: 'XPATH',
   VTL: 'VTL',
+};
+
+export const DROPDOWN_TYPE = {
+  VISUALIZATION: 'VISUALIZATION',
+  EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
 };
 
 export const CODELISTS_ACTIONS = {

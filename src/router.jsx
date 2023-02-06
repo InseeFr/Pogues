@@ -5,6 +5,8 @@ import { App } from 'layout/app';
 import { PageHome } from 'layout/page-home';
 import { PageSearchQuestionnaire } from 'layout/page-search-questionnaire';
 import { PageQuestionnaire } from 'layout/page-questionnaire';
+import { QuestionnaireComposition } from 'layout/questionnaire-composition';
+import { QuestionnaireMerge } from 'layout/questionnaire-merge';
 import { secure } from 'auth';
 
 function Router() {
@@ -17,6 +19,16 @@ function Router() {
           exact
           path="/questionnaire/:id"
           component={secure(PageQuestionnaire)}
+        />
+        <Route
+          exact
+          path="/questionnaire/:id/composition"
+          component={secure(QuestionnaireComposition)}
+        />
+        <Route
+          exact
+          path="/questionnaire/:id/merge"
+          component={secure(QuestionnaireMerge)}
         />
         <Route
           exact

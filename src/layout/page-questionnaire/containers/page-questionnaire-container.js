@@ -5,7 +5,10 @@ import PageQuestionnaire from '../components/page-questionnaire';
 
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { loadQuestionnaire } from 'actions/questionnaire';
-import { loadCampaignsIfNeeded } from 'actions/metadata';
+import {
+  loadCampaignsIfNeeded,
+  loadExternalQuestionnairesIfNeeded,
+} from 'actions/metadata';
 import {
   setActiveQuestionnaire,
   setActiveComponents,
@@ -65,6 +68,7 @@ const mapStateToProps = (
 ) => ({
   id,
   token: getToken(state),
+  appState: state.appState,
   questionnaire: state.questionnaireById[id],
   activeQuestionnaire: state.appState.activeQuestionnaire,
   components: state.componentByQuestionnaire[id],
@@ -80,6 +84,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   loadCampaignsIfNeeded,
+  loadExternalQuestionnairesIfNeeded,
   loadStatisticalContext,
   setActiveQuestionnaire,
   setActiveComponents,

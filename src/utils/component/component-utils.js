@@ -10,6 +10,7 @@ const {
   LOOP,
   FILTER,
   NESTEDFILTRE,
+  EXTERNAL_ELEMENT,
 } = COMPONENT_TYPE;
 
 /**
@@ -37,6 +38,15 @@ export function isSubSequence(component) {
  */
 export function isSequence(component) {
   return component && component.type === SEQUENCE;
+}
+
+/**
+ * This method return true if the component passed as a parameter is a EXTERNAL_ELEMENT
+ *
+ * @param {object} component The component we should test
+ */
+export function isExternalQuestionnaire(component) {
+  return component && component.type === EXTERNAL_ELEMENT;
 }
 
 /**

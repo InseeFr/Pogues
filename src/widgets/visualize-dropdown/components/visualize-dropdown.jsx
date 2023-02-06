@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
+import { Link } from 'react-router-dom';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
@@ -10,7 +11,15 @@ import Dictionary from 'utils/dictionary/dictionary';
  * with a dropdown behavior with links to different
  * visualizations of the PDF : WEB, PDF or ODT
  */
-const VisualizeDropdown = props => {
+function VisualizeDropdown({
+  questionnaireId,
+  componentId,
+  token,
+  disabled,
+  top,
+  visualizeActiveQuestionnaire,
+  typeDropDown,
+}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -42,80 +51,95 @@ const VisualizeDropdown = props => {
    */
   const visualize = (event, type) => {
     event.preventDefault();
-    props.visualizeActiveQuestionnaire(type, props.componentId, props.token);
-    setDropdownOpen(!dropdownOpen);
+    visualizeActiveQuestionnaire(type, componentId, token);
+    setDropdownOpen(false);
   };
 
   const classDropDown = classSet({
     'btn-group': true,
+    dropup: top,
+    'flex-column': !top,
+    'flex-column-reverse': top,
     open: dropdownOpen,
   });
   const classDropDownTrigger = classSet({
     btn: true,
     'dropdown-toggle': true,
-    'btn-yellow': true,
-    disabled: props.disabled,
+    'btn-yellow': typeDropDown === 'VISUALIZATION',
+    'btn-white': typeDropDown !== 'VISUALIZATION',
+    disabled: disabled,
   });
   const classDropDownList = classSet({
-    top: props.top,
     'dropdown-menu': true,
   });
+  const links = [
+    { actionType: 'html', actionLabel: Dictionary.VISUALIZE_WEB },
+    {
+      actionType: 'stromae-v2',
+      actionLabel: Dictionary.VISUALIZE_WEB_STROMAE_V2,
+    },
+    { actionType: 'queen-capi', actionLabel: Dictionary.VISUALIZE_QUEEN_CAPI },
+    { actionType: 'queen-cati', actionLabel: Dictionary.VISUALIZE_QUEEN_CATI },
+    { actionType: 'pdf', actionLabel: Dictionary.VISUALIZE_PDF },
+    { actionType: 'spec', actionLabel: Dictionary.VISUALIZE_SPECIFICATION },
+    { actionType: 'ddi', actionLabel: Dictionary.VISUALIZE_DDI },
+  ];
+  const linksQuestionnaire = [
+    {
+      actionType: 'tcmRef',
+      actionLabel: Dictionary.tcmReference,
+      page: 'composition',
+    },
+    {
+      actionType: 'questRef',
+      actionLabel: Dictionary.questionnaireReference,
+      page: 'composition',
+    },
+    {
+      actionType: 'questMerge',
+      actionLabel: Dictionary.questionnaireMerge,
+      page: 'merge',
+    },
+  ];
   return (
     <div className={classDropDown} ref={wrapperRef}>
       <button
         className={classDropDownTrigger}
-        disabled={props.disabled}
+        disabled={disabled}
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded={dropdownOpen}
         onClick={e => openDropDown(e)}
       >
-        {Dictionary.visualise}
+        {typeDropDown === 'VISUALIZATION' && Dictionary.visualise}
+        {typeDropDown !== 'VISUALIZATION' && Dictionary.externalElement}
         <span className="caret" />
       </button>
+
       <ul className={classDropDownList}>
-        <li>
-          <a href="#" onClick={e => visualize(e, 'html')}>
-            {Dictionary.VISUALIZE_WEB}
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick={e => visualize(e, 'stromae-v2')}>
-            {' '}
-            {Dictionary.VISUALIZE_WEB_STROMAE_V2}{' '}
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick={e => visualize(e, 'queen-capi')}>
-            {' '}
-            {Dictionary.VISUALIZE_QUEEN_CAPI}{' '}
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick={e => visualize(e, 'queen-cati')}>
-            {' '}
-            {Dictionary.VISUALIZE_QUEEN_CATI}{' '}
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick={e => visualize(e, 'pdf')}>
-            {Dictionary.VISUALIZE_PDF}
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick={e => visualize(e, 'spec')}>
-            {Dictionary.VISUALIZE_SPECIFICATION}
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick={e => visualize(e, 'ddi')}>
-            {Dictionary.VISUALIZE_DDI}
-          </a>
-        </li>
+        {typeDropDown === 'VISUALIZATION'
+          ? links.map(link => {
+              return (
+                <li key={link.actionLabel}>
+                  <a href="#" onClick={e => visualize(e, link.actionType)}>
+                    {link.actionLabel}
+                  </a>
+                </li>
+              );
+            })
+          : linksQuestionnaire.map(link => {
+              return (
+                <li key={link.actionLabel}>
+                  <Link to={`/questionnaire/${questionnaireId}/${link.page}`}>
+                    {link.actionLabel}
+                  </Link>
+                </li>
+              );
+            })}
       </ul>
     </div>
   );
-};
+}
 
 // PropTypes and defaultProps
 

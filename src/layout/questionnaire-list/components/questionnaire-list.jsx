@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import Questionnaire from './questionnaire';
@@ -7,37 +7,101 @@ import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 import { getStampsList } from 'utils/remote-api';
+import {
+  getHeavyComponentIdByTypeFromGroupIds,
+  getWeight,
+} from 'utils/component/generic-input-utils';
+import { nameFromLabel } from 'utils/utils';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const QuestionnaireList = props => {
   const {
+    activeQuestionnaire,
     questionnaires,
     stamp,
     token,
     duplicateQuestionnaire,
     fusion,
-    handleCloseNewQuestion,
-    mergeQuestions,
-    currentQuestion,
+    isComposition,
+    handleCloseNewQuestionnaire,
+    mergeQuestionnaires,
+    currentQuestionnaire,
     loadQuestionnaireList,
     deleteQuestionnaireList,
     selectedStamp,
     setSelectedStamp,
+    createComponent,
+    updateParentChildren,
+    orderComponents,
+    componentsStore,
+    codesListsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+    collectedVariablesStore,
   } = props;
+
+  const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
+
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
-  const [checkedQuestion, setCheckedQuestion] = useState('');
+  const [checkedQuestionnaire, setCheckedQuestionnaire] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [options, setOptions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const handelCheck = id => {
-    setCheckedQuestion(id);
+  const handleCheck = useCallback(id => setCheckedQuestionnaire(id), []);
+
+  const fusionateQuestionnaire = useCallback(() => {
+    mergeQuestionnaires(checkedQuestionnaire, token);
+    handleCloseNewQuestionnaire();
+  }, [
+    checkedQuestionnaire,
+    handleCloseNewQuestionnaire,
+    mergeQuestionnaires,
+    token,
+  ]);
+
+  const addQuestionnaireRef = () => {
+    const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(
+      componentsStore,
+      Object.keys(componentsStore),
+      SEQUENCE,
+    );
+    const weight = getWeight(componentsStore, heavierSeqId);
+    const labelQuest = questionnaires.find(
+      q => q.id === checkedQuestionnaire,
+    ).label;
+    const componentState = {
+      id: checkedQuestionnaire,
+      name: labelQuest ? nameFromLabel(labelQuest) : 'REFQUEST',
+      parent: activeQuestionnaire.id,
+      weight: weight,
+      children: [],
+      declarations: '',
+      controls: '',
+      TargetMode: [''],
+      flowcontrol: [],
+      redirections: {},
+      dynamiqueSpecified: '',
+      label: labelQuest,
+      type: EXTERNAL_ELEMENT,
+    };
+    createComponent(
+      componentState,
+      codesListsStore,
+      calculatedVariablesStore,
+      externalVariablesStore,
+      collectedVariablesStore,
+    )
+      .then(res => updateParentChildren(res))
+      .then(res => orderComponents(res));
+
+    handleCloseNewQuestionnaire();
   };
 
-  const fusionateQuestion = () => {
-    mergeQuestions(checkedQuestion, token);
-    handleCloseNewQuestion();
+  const handleValidation = () => {
+    return fusion ? fusionateQuestionnaire() : addQuestionnaireRef();
   };
 
   useEffect(() => {
@@ -54,12 +118,9 @@ const QuestionnaireList = props => {
 
   // TODO: Find why 2 calls
   useEffect(() => {
-    if (selectedStamp) {
-      setLoading(true);
-      loadQuestionnaireList(selectedStamp, token).then(() => {
-        setLoading(false);
-      });
-    } else deleteQuestionnaireList();
+    if (selectedStamp)
+      loadQuestionnaireList(selectedStamp, token).then(() => setLoading(false));
+    else deleteQuestionnaireList();
   }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
 
   const updateFilter = value => {
@@ -85,7 +146,7 @@ const QuestionnaireList = props => {
   const list = questionnaires
     .filter(q => {
       return (
-        currentQuestion !== q.id &&
+        currentQuestionnaire !== q.id &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
           getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
@@ -110,9 +171,9 @@ const QuestionnaireList = props => {
             lastUpdatedDate={q.lastUpdatedDate}
             final={q.final}
             handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
-            fusion={!!fusion}
-            handelCheck={handelCheck}
-            fusionateQuestion={fusionateQuestion}
+            fusion={fusion || isComposition}
+            handleCheck={handleCheck}
+            fusionateQuestionnaire={fusionateQuestionnaire}
           />
         );
       }
@@ -160,19 +221,20 @@ const QuestionnaireList = props => {
           </div>
         )}
       </div>
-      {fusion ? (
+      {fusion || isComposition ? (
         <div className="footer_quesionList">
           <button
             className="footer_quesionList-validate"
             type="submit"
-            onClick={() => fusionateQuestion()}
+            disabled={checkedQuestionnaire === ''}
+            onClick={() => handleValidation()}
           >
             {Dictionary.validate}
           </button>
           <button
             className="footer_quesionList-cancel"
             type="button"
-            onClick={() => handleCloseNewQuestion()}
+            onClick={() => handleCloseNewQuestionnaire()}
           >
             {Dictionary.cancel}
           </button>
@@ -217,11 +279,13 @@ QuestionnaireList.propTypes = {
   duplicateQuestionnaire: PropTypes.func.isRequired,
   stamp: PropTypes.string,
   token: PropTypes.string,
+  selectedStamp: PropTypes.string,
 };
 
 QuestionnaireList.defaultProps = {
   questionnaires: [],
   stamp: '',
   token: '',
+  selectedStamp: 'FAKEPERMISSION',
 };
 export default QuestionnaireList;

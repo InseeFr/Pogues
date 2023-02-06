@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
-import { QuestionnaireList } from 'layout/questionnaire-list';
 import Loader from 'layout/loader';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
+const { VISUALIZATION } = DROPDOWN_TYPE;
 
 // PropTypes and defaultProps
 
@@ -20,19 +21,15 @@ export const propTypes = {
 
   saveActiveQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func,
-  handleNewPageBreak: PropTypes.func.isRequired,
   isQuestionnaireModified: PropTypes.bool.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
-
-  componentIdForPageBreak: PropTypes.string.isRequired,
 };
 
 export const defaultProps = {
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
-  componentIdForPageBreak: '',
 };
 
 // Components
@@ -76,24 +73,19 @@ export const customModalbuttonStyles = {
   width: '70px',
   height: '30px',
   marginRight: '10px',
-  background: '#15417a',
 };
 
-const GenericInput = props => {
+function GenericInput(props) {
   const {
     activeQuestionnaire,
-    currentQuestion,
-    componentIdForPageBreak,
     isLoadingVisualization,
     isLoopsValid,
     isQuestionnaireModified,
     isQuestionnaireValid,
     isQuestionnaireHaveError,
     placeholders,
-    stamp,
     token,
-    handleNewPageBreak,
-    loadQuestionnaireList,
+    selectedComponent,
     removeVisualizationError,
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
@@ -104,16 +96,6 @@ const GenericInput = props => {
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
   const [typeNewComponent, setTypeNewComponent] = useState('');
-  const [showNewQuestionnaire, setShowNewQuestionnaire] = useState(false);
-
-  const handleNewQuestion = () => {
-    setShowNewQuestionnaire(true);
-    loadQuestionnaireList(stamp, token);
-  };
-
-  const handleCloseNewQuestion = () => {
-    setShowNewQuestionnaire(false);
-  };
 
   const handleOpenNewComponent = componentType => {
     setShowNewComponentModal(true);
@@ -143,6 +125,14 @@ const GenericInput = props => {
     }
   };
 
+  const testExistFromQuestionnaire = useCallback(
+    (crntLocation, nextLocation) =>
+      (!nextLocation ||
+        !nextLocation.pathname.startsWith(crntLocation.pathname)) &&
+      isQuestionnaireModified,
+    [isQuestionnaireModified],
+  );
+
   const newComponentParent = typeNewComponent
     ? placeholders[typeNewComponent].parent
     : '';
@@ -156,7 +146,7 @@ const GenericInput = props => {
       style={{ display: showNewComponentModal ? 'none' : 'block' }}
     >
       {isLoadingVisualization && <Loader />}
-      <NavigationPrompt renderIfNotActive when={isQuestionnaireModified}>
+      <NavigationPrompt renderIfNotActive when={testExistFromQuestionnaire}>
         {({ isActive, onCancel, onConfirm }) => {
           if (isActive) {
             return (
@@ -179,112 +169,84 @@ const GenericInput = props => {
           return null;
         }}
       </NavigationPrompt>
-      <span>{Dictionary.addObject}</span>
-      <button
-        id="add-question"
-        className="btn-white"
-        disabled={placeholders[QUESTION].parent === ('' || 'idendquest')}
-        onClick={() => {
-          handleOpenNewComponent(QUESTION);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.question}
-      </button>
-      <button
-        id="add-subsequence"
-        className="btn-white"
-        disabled={placeholders[SUBSEQUENCE].parent === ('' || 'idendquest')}
-        onClick={() => {
-          handleOpenNewComponent(SUBSEQUENCE);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.subSequence}
-      </button>
-      <button
-        id="add-sequence"
-        className="btn-white"
-        disabled={placeholders[SEQUENCE].parent === ''}
-        onClick={() => {
-          handleOpenNewComponent(SEQUENCE);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.sequence}
-      </button>
-      <button
-        id="add-loop"
-        className="btn-white"
-        disabled={!placeholders[LOOP]}
-        onClick={() => {
-          handleOpenNewComponent(LOOP);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.loop}
-      </button>
-      {activeQuestionnaire.dynamiqueSpecified === 'Filtres' ? (
+      <div className="actionBar">
+        <span>{Dictionary.addObject}</span>
+        <button
+          id="add-question"
+          className="btn-white"
+          disabled={
+            placeholders[QUESTION].parent === ('' || 'idendquest') ||
+            (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
+          }
+          onClick={() => handleOpenNewComponent(QUESTION)}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.question}
+        </button>
+        <button
+          id="add-subsequence"
+          className="btn-white"
+          disabled={
+            placeholders[SUBSEQUENCE].parent === ('' || 'idendquest') ||
+            (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
+          }
+          onClick={() => handleOpenNewComponent(SUBSEQUENCE)}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.subSequence}
+        </button>
+        <button
+          id="add-sequence"
+          className="btn-white"
+          disabled={placeholders[SEQUENCE].parent === ''}
+          onClick={() => handleOpenNewComponent(SEQUENCE)}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.sequence}
+        </button>
         <button
           id="add-loop"
           className="btn-white"
-          disabled={!placeholders[FILTER]}
-          onClick={() => {
-            handleOpenNewComponent(FILTER);
-          }}
+          disabled={!placeholders[LOOP]}
+          onClick={() => handleOpenNewComponent(LOOP)}
         >
           <span className="glyphicon glyphicon-plus" />
-          {Dictionary.filtre}
+          {Dictionary.loop}
         </button>
-      ) : (
-        false
-      )}
+        {activeQuestionnaire.dynamiqueSpecified === 'Filtres' && (
+          <button
+            id="add-loop"
+            className="btn-white"
+            disabled={!placeholders[FILTER]}
+            onClick={() => handleOpenNewComponent(FILTER)}
+          >
+            <span className="glyphicon glyphicon-plus" />
+            {Dictionary.filtre}
+          </button>
+        )}
+        <VisualizeDropdown top typeDropDown={EXTERNAL_ELEMENT} />
+        <button
+          className="btn-yellow"
+          disabled={!isQuestionnaireModified}
+          onClick={() => saveQuestionnaire()}
+          id="save"
+        >
+          {Dictionary.save}
+          <span className="glyphicon glyphicon-floppy-disk" />
+        </button>
+        <VisualizeDropdown
+          top
+          typeDropDown={VISUALIZATION}
+          disabled={!isQuestionnaireValid}
+          visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
+          token={token}
+        />
+        <button className="btn-yellow disabled" id="publish">
+          {Dictionary.publishQuestionnaire}
+          <span className="glyphicon glyphicon-share-alt" />
+        </button>
+      </div>
 
-      <button
-        className="btn-white disabled"
-        id="add-pagebreak"
-        disabled={!componentIdForPageBreak}
-        onClick={() => {
-          handleNewPageBreak(componentIdForPageBreak);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.pageBreak}
-      </button>
-      <button
-        className="btn-yellow"
-        disabled={!isQuestionnaireModified}
-        onClick={() => {
-          saveQuestionnaire();
-        }}
-        id="save"
-      >
-        {Dictionary.save}
-        <span className="glyphicon glyphicon-floppy-disk" />
-      </button>
-
-      <VisualizeDropdown
-        top
-        disabled={!isQuestionnaireValid}
-        visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
-        token={token}
-      />
-      <button
-        id="add-questionnaire"
-        className="btn-white"
-        type="button"
-        onClick={() => {
-          handleNewQuestion();
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.QUESTIONNAIRE}
-      </button>
-
-      <button className="btn-yellow disabled" id="publish">
-        {Dictionary.publishQuestionnaire}
-        <span className="glyphicon glyphicon-share-alt" />
-      </button>
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
@@ -349,29 +311,8 @@ const GenericInput = props => {
           {Dictionary.close}
         </button>
       </ReactModal>
-      <ReactModal
-        ariaHideApp={false}
-        shouldCloseOnOverlayClick={false}
-        isOpen={showNewQuestionnaire}
-        onRequestClose={handleCloseNewQuestion}
-      >
-        <div className="popup">
-          <div className="popup-header">
-            <button type="button" onClick={handleCloseNewQuestion}>
-              <span>X</span>
-            </button>
-          </div>
-          <div className="popup-body">
-            <QuestionnaireList
-              fusion
-              currentQuestion={currentQuestion}
-              handleCloseNewQuestion={handleCloseNewQuestion}
-            />
-          </div>
-        </div>
-      </ReactModal>
     </div>
   );
-};
+}
 
 export default GenericInput;

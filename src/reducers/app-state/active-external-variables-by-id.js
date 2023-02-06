@@ -1,4 +1,4 @@
-import { SET_ACTIVE_VARIABLES } from 'actions/app-state';
+import { SET_ACTIVE_VARIABLES, DELETE_APPSTATE } from 'actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from 'actions/component';
 import { createActionHandlers } from 'utils/reducer/actions-handlers';
 
@@ -18,8 +18,13 @@ export function updateActiveExternalVariables(
   return activeExternalVariablesById;
 }
 
+export function deleteActiveExternalVariables() {
+  return {};
+}
+
 actionHandlers[SET_ACTIVE_VARIABLES] = setActiveExternalVariables;
 actionHandlers[CREATE_COMPONENT] = updateActiveExternalVariables;
 actionHandlers[UPDATE_COMPONENT] = updateActiveExternalVariables;
+actionHandlers[DELETE_APPSTATE] = deleteActiveExternalVariables;
 
 export default createActionHandlers(actionHandlers);

@@ -32,8 +32,9 @@ export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
  *
  * It's executed after the remote fetch of a questionnaire.
  *
- * The parameter "update" is a complex object. Entries correspond to reducers, they contain
- * an update to apply to the piece of state handled by the reducer to represent locally the questionnaire.
+ * The parameter "update" is a complex object.
+ * Entries correspond to reducers. they contain an update to apply to the piece of state
+ * handled by the reducer to represent locally the questionnaire.
  *
  * It will update the stores:
  * - questionnaireById
@@ -243,7 +244,7 @@ export const duplicateQuestionnaire = (idQuestionnaire, token) => dispatch => {
  *
  * @param {string} idMerge the id of the question we want to merge
  */
-export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
+export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
   const state = getState();
   const {
     activeQuestionnaire,
@@ -257,167 +258,200 @@ export const mergeQuestions = (idMerge, token) => (dispatch, getState) => {
     type: MERGE_QUESTIONNAIRE,
     payload: idMerge,
   });
-  return getQuestionnaire(idMerge, token).then(qr => {
-    const medgerQuestion = questionnaireRemoteToStores(qr);
-    const medgerQuestionId = Object.keys(medgerQuestion.questionnaireById)[0];
-    const mergedCollectedVariables =
-      medgerQuestion.collectedVariableByQuestionnaire[medgerQuestionId];
-    const mergesCodeListByQuestionnaire =
-      medgerQuestion.codeListByQuestionnaire[medgerQuestionId];
-    const mergesCalculatedVariableByQuestionnaire =
-      medgerQuestion.calculatedVariableByQuestionnaire[medgerQuestionId];
-    const mergesExternalVariableByQuestionnaire =
-      medgerQuestion.externalVariableByQuestionnaire[medgerQuestionId];
-    const mergesComponentByQuestionnaire =
-      medgerQuestion.componentByQuestionnaire[medgerQuestionId];
-    const QuestionnaireId = activeQuestionnaire.id;
-    Object.values(mergedCollectedVariables).forEach(variable => {
-      Object.values(collectedVariableByQuestion).forEach(element => {
-        const find = Object.values(element).find(
-          varib => varib.name === variable.name,
-        );
-        if (find) {
-          variable.name = `${variable.name}_2`;
+
+  const manageDuplicateCollectedVariable = mergedCollectedVariable => {
+    Object.values(collectedVariableByQuestion).forEach(element => {
+      const find = Object.values(element).find(
+        varib => varib.name === mergedCollectedVariable.name,
+      );
+      if (find) {
+        mergedCollectedVariable.name = `${mergedCollectedVariable.name}_2`;
+      }
+    });
+  };
+  const manageDuplicateCodeList = mergedCodeList => {
+    const find = Object.values(activeCodeListsById).find(
+      element => element.label === mergedCodeList.label,
+    );
+    if (find && mergedCodeList.id !== find.id) {
+      mergedCodeList.label = `${mergedCodeList.label}_2`;
+    }
+  };
+  const manageDuplicateCalculatedVariable = mergedCalculatedVariable => {
+    const find = Object.values(activeCalculatedVariablesById).find(
+      element => element.name === mergedCalculatedVariable.name,
+    );
+    if (find) {
+      mergedCalculatedVariable.name = `${mergedCalculatedVariable.name}_2`;
+      mergedCalculatedVariable.id = uuid();
+    }
+    activeCalculatedVariablesById[mergedCalculatedVariable.id] =
+      mergedCalculatedVariable;
+  };
+  const manageDuplicateExternalVariable = mergedExternalVariable => {
+    const find = Object.values(activeExternalVariablesById).find(
+      element => element.name === mergedExternalVariable.name,
+    );
+    if (find) {
+      mergedExternalVariable.name = `${mergedExternalVariable.name}_2`;
+      mergedExternalVariable.id = uuid();
+    }
+    activeExternalVariablesById[mergedExternalVariable.id] =
+      mergedExternalVariable;
+  };
+
+  const manageComponentOnMerge = (
+    mergedComponent,
+    QuestionnaireId,
+    mergedComponentByQuestionnaire,
+    mergedCollectedVariables,
+    mergedCodeListByQuestionnaire,
+    addedWeight,
+  ) => {
+    const findName = Object.values(activeComponentsById).find(
+      active => active.name === mergedComponent.name,
+    );
+    if (findName) {
+      mergedComponent.name = `${mergedComponent.name}_2`;
+    }
+    const findId = Object.values(activeComponentsById).find(
+      active => active.id === mergedComponent.id,
+    );
+    if (findId) {
+      mergedComponent.id = uuid();
+      Object.values(mergedComponentByQuestionnaire).forEach(element => {
+        if (element.parent === findId.id) {
+          element.parent = mergedComponent.id;
+        }
+        if (
+          element.children &&
+          element.children.length > 0 &&
+          element.children.includes(findId.id)
+        ) {
+          const index = element.children.indexOf(findId.id);
+          element.children[index] = mergedComponent.id;
         }
       });
-    });
-    Object.values(mergesCodeListByQuestionnaire).forEach(code => {
-      const find = Object.values(activeCodeListsById).find(
-        element => element.label === code.label,
-      );
-      if (find && code.id !== find.id) {
-        code.label = `${code.label}_2`;
+    }
+    const collectedVariables = {};
+    if (mergedComponent.type === SEQUENCE) {
+      mergedComponent.weight += addedWeight;
+      mergedComponent.parent = QuestionnaireId;
+      const questionnaire = activeComponentsById[QuestionnaireId];
+      questionnaire.children.push(mergedComponent.id);
+      const activeComponent = {
+        [mergedComponent.id]: mergedComponent,
+      };
+      dispatch({
+        type: CREATE_COMPONENT,
+        payload: {
+          id: mergedComponent.id,
+          update: {
+            activeComponentsById: activeComponent,
+            activeCalculatedVariablesById: activeCalculatedVariablesById,
+            activeExternalVariablesById: activeExternalVariablesById,
+            activeCodeListsById: mergedCodeListByQuestionnaire,
+          },
+        },
+      });
+      dispatch({
+        type: UPDATE_COMPONENT,
+        payload: {
+          QuestionnaireId,
+          update: {
+            activeComponentsById: { [questionnaire.id]: questionnaire },
+            activeCalculatedVariablesById: activeCalculatedVariablesById,
+            activeExternalVariablesById: activeExternalVariablesById,
+            activeCodeListsById: mergedCodeListByQuestionnaire,
+          },
+        },
+      });
+    } else {
+      if (mergedComponent.type === QUESTION) {
+        mergedComponent.collectedVariables =
+          mergedComponent.collectedVariables.map(variable => {
+            const find = Object.values(mergedCollectedVariables).find(
+              element => element.id === variable,
+            );
+            const newId = uuid();
+            find.id = newId;
+            collectedVariables[newId] = find;
+            return newId;
+          });
+        // We change Id of the responseFormat (to deal with the case of the fusion of questionnaires sharing the same ids (duplication))
+        Object.values(mergedComponent.responseFormat).forEach(resp => {
+          if (resp && resp.id) resp.id = uuid();
+        });
       }
-    });
-    Object.values(mergesCalculatedVariableByQuestionnaire).forEach(variable => {
-      const find = Object.values(activeCalculatedVariablesById).find(
-        element => element.name === variable.name,
-      );
-      if (find) {
-        variable.name = `${variable.name}_2`;
-        variable.id = uuid();
-      }
-      activeCalculatedVariablesById[variable.id] = variable;
-    });
-    Object.values(mergesExternalVariableByQuestionnaire).forEach(variable => {
-      const find = Object.values(activeExternalVariablesById).find(
-        element => element.name === variable.name,
-      );
-      if (find) {
-        variable.name = `${variable.name}_2`;
-        variable.id = uuid();
-      }
-      activeExternalVariablesById[variable.id] = variable;
-    });
-    const supSequence = getSupWeight(activeComponentsById);
-    Object.values(mergesComponentByQuestionnaire)
+      const activeComponent = {
+        [mergedComponent.id]: mergedComponent,
+      };
+      dispatch({
+        type: CREATE_COMPONENT,
+        payload: {
+          id: mergedComponent.id,
+          update: {
+            activeComponentsById: activeComponent,
+            activeCalculatedVariablesById: activeCalculatedVariablesById,
+            activeExternalVariablesById: activeExternalVariablesById,
+            activeCollectedVariablesById: {
+              [mergedComponent.id]: collectedVariables,
+            },
+            activeCodeListsById: mergedCodeListByQuestionnaire,
+          },
+        },
+      });
+    }
+  };
+
+  return getQuestionnaire(idMerge, token).then(qr => {
+    const mergedQuestionnaire = questionnaireRemoteToStores(qr);
+    const mergedQuestionnaireId = Object.keys(
+      mergedQuestionnaire.questionnaireById,
+    )[0];
+    const mergedCollectedVariables =
+      mergedQuestionnaire.collectedVariableByQuestionnaire[
+        mergedQuestionnaireId
+      ];
+    const mergedCodeListByQuestionnaire =
+      mergedQuestionnaire.codeListByQuestionnaire[mergedQuestionnaireId];
+    const mergedCalculatedVariableByQuestionnaire =
+      mergedQuestionnaire.calculatedVariableByQuestionnaire[
+        mergedQuestionnaireId
+      ];
+    const mergedExternalVariableByQuestionnaire =
+      mergedQuestionnaire.externalVariableByQuestionnaire[
+        mergedQuestionnaireId
+      ];
+    const mergedComponentByQuestionnaire =
+      mergedQuestionnaire.componentByQuestionnaire[mergedQuestionnaireId];
+    const QuestionnaireId = activeQuestionnaire.id;
+    Object.values(mergedCollectedVariables).forEach(variable =>
+      manageDuplicateCollectedVariable(variable),
+    );
+    Object.values(mergedCodeListByQuestionnaire).forEach(codelist =>
+      manageDuplicateCodeList(codelist),
+    );
+    Object.values(mergedCalculatedVariableByQuestionnaire).forEach(variable =>
+      manageDuplicateCalculatedVariable(variable),
+    );
+    Object.values(mergedExternalVariableByQuestionnaire).forEach(variable =>
+      manageDuplicateExternalVariable(variable),
+    );
+    Object.values(mergedComponentByQuestionnaire)
       .filter(
         element =>
           element.type !== QUESTIONNAIRE && element.id !== 'idendquest',
       )
       .forEach(component => {
-        const findName = Object.values(activeComponentsById).find(
-          active => active.name === component.name,
+        manageComponentOnMerge(
+          component,
+          QuestionnaireId,
+          mergedComponentByQuestionnaire,
+          mergedCollectedVariables,
+          mergedCodeListByQuestionnaire,
+          getSupWeight(activeComponentsById),
         );
-        if (findName) {
-          component.name = `${component.name}_2`;
-        }
-        const findId = Object.values(activeComponentsById).find(
-          active => active.id === component.id,
-        );
-        if (findId) {
-          component.id = uuid();
-          Object.values(mergesComponentByQuestionnaire).forEach(element => {
-            if (element.parent === findId.id) {
-              element.parent = component.id;
-            }
-            if (
-              element.children?.length > 0 &&
-              element.children.includes(findId.id)
-            ) {
-              const index = element.children.indexOf(findId.id);
-              element.children[index] = component.id;
-            }
-          });
-        }
-        const collectedVaribles = {};
-        if (component.type === SEQUENCE) {
-          component.weight += supSequence;
-          component.parent = QuestionnaireId;
-          if (component.id !== 'idendquest') {
-            const questionnaire = activeComponentsById[QuestionnaireId];
-            questionnaire.children.push(component.id);
-            const activeComponent = {
-              [component.id]: component,
-            };
-            dispatch({
-              type: CREATE_COMPONENT,
-              payload: {
-                id: component.id,
-                update: {
-                  activeComponentsById: activeComponent,
-                  activeCalculatedVariablesById: activeCalculatedVariablesById,
-                  activeExternalVariablesById: activeExternalVariablesById,
-                  // activeCollectedVariablesById: {
-                  //   [component.id]: collectedVaribles,
-                  // },
-                  activeCodeListsById: mergesCodeListByQuestionnaire,
-                },
-              },
-            });
-            dispatch({
-              type: UPDATE_COMPONENT,
-              payload: {
-                QuestionnaireId,
-                update: {
-                  activeComponentsById: { [questionnaire.id]: questionnaire },
-                  activeCalculatedVariablesById: activeCalculatedVariablesById,
-                  activeExternalVariablesById: activeExternalVariablesById,
-                  // activeCollectedVariablesById: {
-                  //   [QuestionnaireId]: {},
-                  // },
-                  activeCodeListsById: mergesCodeListByQuestionnaire,
-                },
-              },
-            });
-          }
-        } else {
-          if (component.type === QUESTION) {
-            component.collectedVariables = component.collectedVariables.map(
-              variable => {
-                const find = Object.values(mergedCollectedVariables).find(
-                  element => element.id === variable,
-                );
-                const newId = uuid();
-                find.id = newId;
-                collectedVaribles[newId] = find;
-                return newId;
-              },
-            );
-            // We change Id of the responseFormat (to deal with the case of the fusion of questionnaires sharing the same ids (duplication))
-            Object.values(component.responseFormat).forEach(resp => {
-              if (resp?.id) resp.id = uuid();
-            });
-          }
-          const activeComponent = {
-            [component.id]: component,
-          };
-          dispatch({
-            type: CREATE_COMPONENT,
-            payload: {
-              id: component.id,
-              update: {
-                activeComponentsById: activeComponent,
-                activeCalculatedVariablesById: activeCalculatedVariablesById,
-                activeExternalVariablesById: activeExternalVariablesById,
-                activeCollectedVariablesById: {
-                  [component.id]: collectedVaribles,
-                },
-                activeCodeListsById: mergesCodeListByQuestionnaire,
-              },
-            },
-          });
-        }
       });
   });
 };

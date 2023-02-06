@@ -1,6 +1,7 @@
 import {
   isSubSequence,
   isSequence,
+  isExternalQuestionnaire,
   isQuestion,
   toComponents,
   updateNewComponentParent,
@@ -49,7 +50,6 @@ export const createComponent =
     const activeComponentsStore = {
       [componentState.id]: componentState,
     };
-
     return new Promise(resolve => {
       const result = dispatch({
         type: CREATE_COMPONENT,
@@ -117,7 +117,6 @@ export const orderComponents =
     const { selectedComponentId, activeComponentsById: activesComponents } =
       state.appState;
     const selectedComponent = activesComponents[selectedComponentId];
-
     let activeComponentsById = {};
     /**
      * We do the reorder only if we have a selected component
@@ -128,7 +127,6 @@ export const orderComponents =
         activesComponents[selectedComponent.parent].children,
         activesComponents,
       ).find(c => c.weight === selectedComponent.weight + 1);
-
       const childrenSelectedComponentLength = selectedComponent.children.length;
 
       /**
@@ -167,7 +165,9 @@ export const orderComponents =
       } else if (
         isSequence(lastCreatedComponent[id]) &&
         !(
-          isSequence(selectedComponent) && childrenSelectedComponentLength === 0
+          isSequence(selectedComponent) &&
+          isExternalQuestionnaire(selectedComponent) &&
+          childrenSelectedComponentLength === 0
         )
       ) {
         // If the selected component have children, we will use the first child as the component used for the in
@@ -202,6 +202,7 @@ export const orderComponents =
       },
     });
   };
+
 /**
  * Update component
  *
