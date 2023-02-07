@@ -164,10 +164,9 @@ export const orderComponents =
          */
       } else if (
         isSequence(lastCreatedComponent[id]) &&
+        !isExternalQuestionnaire(selectedComponent) &&
         !(
-          isSequence(selectedComponent) &&
-          isExternalQuestionnaire(selectedComponent) &&
-          childrenSelectedComponentLength === 0
+          isSequence(selectedComponent) && childrenSelectedComponentLength === 0
         )
       ) {
         // If the selected component have children, we will use the first child as the component used for the in

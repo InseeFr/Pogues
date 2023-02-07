@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import Questionnaire from './questionnaire';
+import QuestionnaireListItem from './questionnaire-list-item';
 import Dropdown from 'widgets/dropdown';
 import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -164,7 +164,7 @@ const QuestionnaireList = props => {
     .map(q => {
       if (q) {
         return (
-          <Questionnaire
+          <QuestionnaireListItem
             key={q.id}
             id={q.id}
             label={q.label}
@@ -193,8 +193,9 @@ const QuestionnaireList = props => {
         <h4>
           {Dictionary.stamp} {stamp}
         </h4>
-        {loading && <Loader />}
-        {!loading && (
+        {loading ? (
+          <Loader />
+        ) : (
           <div id="questionnaire-list">
             {questionnaires.length > 0 ? (
               <div>
@@ -221,7 +222,7 @@ const QuestionnaireList = props => {
           </div>
         )}
       </div>
-      {fusion || isComposition ? (
+      {(fusion || isComposition) && (
         <div className="footer_quesionList">
           <button
             className="footer_quesionList-validate"
@@ -239,8 +240,6 @@ const QuestionnaireList = props => {
             {Dictionary.cancel}
           </button>
         </div>
-      ) : (
-        false
       )}
       <ReactModal
         ariaHideApp={false}
