@@ -4,6 +4,7 @@ import {
   getOperations,
   getCampaigns,
   getVariablesById,
+  getQuestionnaire,
 } from 'utils/remote-api';
 
 export const LOAD_METADATA_SUCCESS = 'LOAD_METADATA_SUCCESS';
@@ -13,6 +14,7 @@ const LOAD_UNITS = 'LOAD_UNITS';
 const LOAD_OPERATIONS = 'LOAD_OPERATIONS';
 const LOAD_CAMPAIGNS = 'LOAD_CAMPAIGNS';
 const LOAD_EXTERNAL_ELEMENTS_VARIABLES = 'LOAD_EXTERNAL_ELEMENTS_VARIABLES';
+const LOAD_EXTERNAL_ELEMENTS_LOOPS = 'LOAD_EXTERNAL_ELEMENTS_LOOPS';
 
 export const loadMetadataSuccess = (type, metadata) => {
   const metadataByTypeStore = metadata.reduce((acc, m) => {
@@ -200,6 +202,41 @@ export const loadExternalQuestionnairesVariables =
     }
   };
 
+// Metadata : loops from external elements
+
+export const loadExternalQuestionnairesLoops =
+  (idExternalQuestionnaire, token) => async dispatch => {
+    dispatch({
+      type: LOAD_EXTERNAL_ELEMENTS_LOOPS,
+      payload: null,
+    });
+
+    try {
+      const externalQuestionnaire = await getQuestionnaire(
+        idExternalQuestionnaire,
+        token,
+      );
+      const externalQuestionnairesMetadata =
+        externalQuestionnaire.Iterations &&
+        externalQuestionnaire.Iterations.Iteration
+          ? [
+              {
+                id: idExternalQuestionnaire,
+                loops: externalQuestionnaire.Iterations.Iteration,
+              },
+            ]
+          : [];
+      return dispatch(
+        loadMetadataSuccess(
+          'externalQuestionnairesLoops',
+          externalQuestionnairesMetadata,
+        ),
+      );
+    } catch (err) {
+      return dispatch(loadMetadataFailure(err));
+    }
+  };
+
 export const loadExternalQuestionnairesIfNeeded =
   (idExternalQuestionnaire, token) => (dispatch, getState) => {
     const state = getState();
@@ -211,4 +248,9 @@ export const loadExternalQuestionnairesIfNeeded =
       dispatch(
         loadExternalQuestionnairesVariables(idExternalQuestionnaire, token),
       );
+    if (
+      !state.metadataByType.externalQuestionnairesLoops ||
+      !state.metadataByType.externalQuestionnairesLoops.idExternalQuestionnaire
+    )
+      dispatch(loadExternalQuestionnairesLoops(idExternalQuestionnaire, token));
   };

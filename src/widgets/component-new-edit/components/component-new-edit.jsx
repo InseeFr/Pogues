@@ -4,6 +4,7 @@ import { formValueSelector, formPropTypes, Field } from 'redux-form';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
+import { getQuestionnaireScope } from 'widgets/component-new-edit/components/variables/utils-loops';
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
 import Controls from './controls';
@@ -20,8 +21,6 @@ import {
   COMPONENT_TYPE,
   TABS_PATHS,
   TargetMode,
-  DIMENSION_FORMATS,
-  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
@@ -44,8 +43,7 @@ const {
   NESTEDFILTRE,
   QUESTIONNAIRE,
 } = COMPONENT_TYPE;
-const { LIST } = DIMENSION_FORMATS;
-const { TABLE, PAIRING } = QUESTION_TYPE_ENUM;
+const { PAIRING } = QUESTION_TYPE_ENUM;
 
 export const propTypes = {
   ...formPropTypes,
@@ -82,6 +80,7 @@ const ComponentNewEdit = props => {
     filterImbriquer,
     activeQuestionnaire,
     clearSubformValidationErrors,
+    externalLoopsStore,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -306,7 +305,7 @@ const ComponentNewEdit = props => {
   };
 
   const getFinalOptions = store => {
-    let optionsFinal = <GenericOption key="" value="" />;
+    let optionsFinal = <GenericOption key="emptyFinal" value="" />;
     const componentinitial = Object.values(store).filter(
       component => component.id === props.InitialMember,
     );
@@ -323,7 +322,7 @@ const ComponentNewEdit = props => {
           )
           .map(element => {
             return (
-              <GenericOption key={element.id} value={element.id}>
+              <GenericOption key={`final-'${element.id}`} value={element.id}>
                 {element.name}
               </GenericOption>
             );
@@ -339,7 +338,7 @@ const ComponentNewEdit = props => {
           )
           .map(element => {
             return (
-              <GenericOption key={element.id} value={element.id}>
+              <GenericOption key={`final-'${element.id}`} value={element.id}>
                 {element.name}
               </GenericOption>
             );
@@ -367,7 +366,7 @@ const ComponentNewEdit = props => {
     return inferieurFilter;
   };
   const optionsInitial = type => {
-    let options = <GenericOption key="" value="" />;
+    let options = <GenericOption key="selectInitial" value="" />;
     if (type === LOOP) {
       options = Object.values(componentsStore)
         .filter(
@@ -377,7 +376,7 @@ const ComponentNewEdit = props => {
         )
         .map(element => {
           return (
-            <GenericOption key={element.id} value={element.id}>
+            <GenericOption key={`initial-${element.id}`} value={element.id}>
               {element.name}
             </GenericOption>
           );
@@ -403,7 +402,7 @@ const ComponentNewEdit = props => {
         )
         .map(element => {
           return (
-            <GenericOption key={element.id} value={element.id}>
+            <GenericOption key={`initial-${element.id}`} value={element.id}>
               {element.name}
             </GenericOption>
           );
@@ -420,7 +419,7 @@ const ComponentNewEdit = props => {
         )
         .map(element => {
           return (
-            <GenericOption key={element.id} value={element.id}>
+            <GenericOption key={`initial-${element.id}`} value={element.id}>
               {element.name}
             </GenericOption>
           );
@@ -428,23 +427,20 @@ const ComponentNewEdit = props => {
     }
     return options;
   };
-  const optionsTable = Object.values(componentsStore)
-    .filter(
-      component =>
-        (component.type === QUESTION &&
-          component.responseFormat.type === TABLE &&
-          component.responseFormat.TABLE.PRIMARY.type === LIST) ||
-        (component.type === LOOP && !component.basedOn) ||
-        (component.type === QUESTION &&
-          component.responseFormat.type === PAIRING),
-    )
-    .map(element => {
-      return (
-        <GenericOption key={element.id} value={element.id}>
-          {element.name || element.nameLoop}
-        </GenericOption>
-      );
-    });
+
+  const optionsTable = [
+    ...getQuestionnaireScope(componentsStore),
+    ...externalLoopsStore,
+    Object.values(componentsStore).filter(
+      component.type === QUESTION && component.responseFormat.type === PAIRING,
+    ),
+  ].map(element => {
+    return (
+      <GenericOption key={`basedOn-${element.id}`} value={element.id}>
+        {element.name || element.nameLoop || element.Name}
+      </GenericOption>
+    );
+  });
   const associatedFieldsProps = {
     formName: form,
     fieldOrigin: { name: 'label', label: Dictionary.label },
@@ -495,7 +491,7 @@ const ComponentNewEdit = props => {
                   component={Select}
                   label={Dictionary.BasedOn}
                 >
-                  <GenericOption key="" value="">
+                  <GenericOption key="selectBasedOn" value="">
                     {Dictionary.selectBasedOn}
                   </GenericOption>
                   {optionsTable}
@@ -528,7 +524,7 @@ const ComponentNewEdit = props => {
                 label={Dictionary.InitialMembre}
                 required
               >
-                <GenericOption key="" value="">
+                <GenericOption key="selectInitialMember" value="">
                   {Dictionary.selectInitialMembre}
                 </GenericOption>
                 {optionsInitial(componentType)}
@@ -558,7 +554,7 @@ const ComponentNewEdit = props => {
                 disabled={!props.InitialMember}
                 required
               >
-                <GenericOption key="" value="">
+                <GenericOption key="selectFinalMember" value="">
                   {Dictionary.selectFinalMembre}
                 </GenericOption>
                 {getFinalOptions(componentsStore)}
