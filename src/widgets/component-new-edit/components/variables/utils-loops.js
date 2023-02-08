@@ -5,7 +5,7 @@ import {
 } from 'constants/pogues-constants';
 
 const { LOOP, QUESTION } = COMPONENT_TYPE;
-const { TABLE } = QUESTION_TYPE_ENUM;
+const { TABLE, PAIRING } = QUESTION_TYPE_ENUM;
 const { LIST } = DIMENSION_FORMATS;
 
 /**
@@ -21,7 +21,8 @@ export function getQuestionnaireScope(components) {
     component =>
       (component.type === LOOP && !component.basedOn) ||
       (component.type === QUESTION &&
-        component.responseFormat.type === TABLE &&
-        component.responseFormat.TABLE.PRIMARY.type === LIST),
+        (component.responseFormat.type === PAIRING ||
+          (component.responseFormat.type === TABLE &&
+            component.responseFormat.TABLE.PRIMARY.type === LIST))),
   );
 }

@@ -43,7 +43,6 @@ const {
   NESTEDFILTRE,
   QUESTIONNAIRE,
 } = COMPONENT_TYPE;
-const { PAIRING } = QUESTION_TYPE_ENUM;
 
 export const propTypes = {
   ...formPropTypes,
@@ -431,9 +430,6 @@ const ComponentNewEdit = props => {
   const optionsTable = [
     ...getQuestionnaireScope(componentsStore),
     ...externalLoopsStore,
-    Object.values(componentsStore).filter(
-      component.type === QUESTION && component.responseFormat.type === PAIRING,
-    ),
   ].map(element => {
     return (
       <GenericOption key={`basedOn-${element.id}`} value={element.id}>
