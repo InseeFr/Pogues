@@ -365,7 +365,7 @@ const ComponentNewEdit = props => {
     return inferieurFilter;
   };
   const optionsInitial = type => {
-    let options = <GenericOption key="selectInitial" value="" />;
+    let options = <GenericOption key="" value="" />;
     if (type === LOOP) {
       options = Object.values(componentsStore)
         .filter(
