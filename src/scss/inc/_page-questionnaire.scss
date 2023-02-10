@@ -110,14 +110,13 @@
         }
 
         .questionnaire-element-label {
-          @include make-xs-column(4);
+          @include make-xs-column(6);
         }
 
         .questionnaire-element-actions {
-          @include make-xs-column(8);
+          @include make-xs-column(6);
           display: flex;
-          justify-content: space-around;
-          text-align: right;
+          justify-content: flex-end;
           align-items: center;
           a, button {
             margin: 5px 5px 2px 2px;
