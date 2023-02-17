@@ -116,6 +116,7 @@
         .questionnaire-element-actions {
           @include make-xs-column(6);
           display: flex;
+          flex-wrap: wrap;
           justify-content: flex-end;
           align-items: center;
           a, button {

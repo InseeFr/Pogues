@@ -153,60 +153,41 @@ const QuestionnaireComponent = props => {
                     component.label
                   )}
                 </div>
-                {componentFiltersInitial?.length > 0
-                  ? componentFiltersInitial.map(filter => {
-                      return (
-                        <div
-                          key={`${filter}-if`}
-                          className="questionnaire-element-filter"
+                {componentFiltersInitial?.length > 0 &&
+                  componentFiltersInitial.map(filter => {
+                    return (
+                      <div
+                        key={`${filter}-if`}
+                        className="questionnaire-element-filter"
+                      >
+                        <button
+                          onClick={() => handleEditFilterComponent(filter.id)}
+                          className="btn-white-filter"
                         >
-                          <button
-                            onClick={() => handleEditFilterComponent(filter.id)}
-                            className="btn-white-filter"
-                          >
-                            {`${Dictionary.If} ${filter?.filter}`}
-                          </button>
-                        </div>
-                      );
-                    })
-                  : false}
-                {componentFiltersFinal?.length > 0
-                  ? componentFiltersFinal.map(filter => {
-                      return (
-                        <div
-                          key={`${filter}-endif`}
-                          className="questionnaire-element-filter"
+                          {`${Dictionary.If} ${filter?.filter}`}
+                        </button>
+                      </div>
+                    );
+                  })}
+                {componentFiltersFinal?.length > 0 &&
+                  componentFiltersFinal.map(filter => {
+                    return (
+                      <div
+                        key={`${filter}-endif`}
+                        className="questionnaire-element-filter"
+                      >
+                        <button
+                          onClick={() => handleEditFilterComponent(filter.id)}
+                          className="btn-white-filter"
                         >
-                          <button
-                            onClick={() => handleEditFilterComponent(filter.id)}
-                            className="btn-white-filter"
-                          >
-                            {`${Dictionary.EndIf} ${filter?.filter}`}
-                          </button>
-                        </div>
-                      );
-                    })
-                  : false}
-                {selected ? (
+                          {`${Dictionary.EndIf} ${filter?.filter}`}
+                        </button>
+                      </div>
+                    );
+                  })}
+                {selected && (
                   <div className="questionnaire-element-actions">
-                    {component.type !== EXTERNAL_ELEMENT && (
-                      <button
-                        className="btn-yellow"
-                        onClick={handleEditComponent}
-                      >
-                        {Dictionary.showDetail}
-                      </button>
-                    )}
-                    {component.type === QUESTION && (
-                      <button
-                        className="btn-yellow"
-                        onClick={handleDuplicateComponent}
-                      >
-                        {Dictionary.duplicate}
-                        <span className="glyphicon glyphicon-duplicate" />
-                      </button>
-                    )}
-                    {component.type === EXTERNAL_ELEMENT ? (
+                    {component.type === EXTERNAL_ELEMENT && (
                       <Link
                         className="btn-yellow"
                         to={`/questionnaire/${component.id}`}
@@ -214,15 +195,33 @@ const QuestionnaireComponent = props => {
                       >
                         {Dictionary.openQuestionnaire}
                       </Link>
-                    ) : (
-                      <VisualizeDropdown
-                        typeDropDown={VISUALIZATION}
-                        componentId={component.id}
-                        visualizeActiveQuestionnaire={
-                          visualizeActiveQuestionnaire
-                        }
-                        token={token}
-                      />
+                    )}
+                    {component.type !== EXTERNAL_ELEMENT && (
+                      <>
+                        <button
+                          className="btn-yellow"
+                          onClick={handleEditComponent}
+                        >
+                          {Dictionary.showDetail}
+                        </button>
+                        {component.type === QUESTION && (
+                          <button
+                            className="btn-yellow"
+                            onClick={handleDuplicateComponent}
+                          >
+                            {Dictionary.duplicate}
+                            <span className="glyphicon glyphicon-duplicate" />
+                          </button>
+                        )}
+                        <VisualizeDropdown
+                          typeDropDown={VISUALIZATION}
+                          componentId={component.id}
+                          visualizeActiveQuestionnaire={
+                            visualizeActiveQuestionnaire
+                          }
+                          token={token}
+                        />
+                      </>
                     )}
                     <button
                       className="btn-yellow"
@@ -235,8 +234,6 @@ const QuestionnaireComponent = props => {
                       <span className="glyphicon glyphicon-trash" />
                     </button>
                   </div>
-                ) : (
-                  ''
                 )}
               </div>
               {integrityErrors.length > 0 && (
