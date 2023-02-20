@@ -8,20 +8,12 @@ import { QuestionnaireList } from 'layout/questionnaire-list';
 
 import Dictionary from 'utils/dictionary/dictionary';
 
-const PageHome = ({ history, deleteAppState, stamp }) => {
+const PageHome = ({ history, deleteAppState }) => {
   const [showModal, setShowModal] = useState(false);
-  const [isNewQuestionnaireTcm, setIsNewQuestionnaireTcm] = useState(false);
 
   useEffect(() => deleteAppState(), [deleteAppState]);
 
-  const handleOpenModal = useCallback(() => {
-    setShowModal(true);
-    setIsNewQuestionnaireTcm(false);
-  }, []);
-  const handleOpenTcmModal = useCallback(() => {
-    setShowModal(true);
-    setIsNewQuestionnaireTcm(true);
-  }, []);
+  const handleOpenModal = useCallback(() => setShowModal(true), []);
   const handleCloseModal = useCallback(() => setShowModal(false), []);
 
   const handleQuestionnaryCreated = useCallback(
@@ -52,17 +44,6 @@ const PageHome = ({ history, deleteAppState, stamp }) => {
                 <strong>{Dictionary.newEmptyQuestionnaire}</strong>
               </button>
             </li>
-            {stamp === 'FAKEPERMISSION' && (
-              <li>
-                <button
-                  id="tcm-new"
-                  className="btn-yellow"
-                  onClick={handleOpenTcmModal}
-                >
-                  <strong>{Dictionary.newEmptyTcm}</strong>
-                </button>
-              </li>
-            )}
           </ul>
         </div>
         <ul className="menu-navigation">
@@ -105,7 +86,6 @@ const PageHome = ({ history, deleteAppState, stamp }) => {
           </div>
           <div className="popup-body">
             <QuestionnaireNew
-              isTcm={isNewQuestionnaireTcm}
               onCancel={handleCloseModal}
               onSuccess={handleQuestionnaryCreated}
             />
@@ -119,7 +99,6 @@ const PageHome = ({ history, deleteAppState, stamp }) => {
 PageHome.propTypes = {
   history: PropTypes.object.isRequired,
   deleteAppState: PropTypes.func.isRequired,
-  stamp: PropTypes.string,
 };
 
 export default PageHome;

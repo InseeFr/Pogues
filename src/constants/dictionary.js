@@ -1183,11 +1183,6 @@ const dictionary = {
     fr: 'Nouveau questionnaire',
     en: 'New questionnaire',
   },
-  newEmptyTcm: {
-    fr: 'Nouveau TCM',
-    en: 'New household commun trunc',
-  },
-
   newQuestionnaireLegend: {
     fr: 'Vous allez maintenant pouvoir préciser le contexte de création de votre questionnaire. Ceci permettra de classer et retrouver le questionnaire dans le référentiel.',
     en: 'You will now be able to specify the context',

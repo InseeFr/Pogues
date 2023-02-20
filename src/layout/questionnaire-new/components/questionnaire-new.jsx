@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TCM } from 'constants/pogues-constants';
 import {
   QuestionnaireNewEdit,
   Questionnaire,
@@ -31,16 +30,13 @@ function QuestionnaireNew({
   token,
   createQuestionnaire,
   setErrors,
-  isTcm,
 }) {
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
 
   // Initial values
 
-  const initialState = isTcm
-    ? { owner: stamp, serie: TCM.id, operation: TCM.id, campaigns: [TCM.id] }
-    : { owner: stamp };
+  const initialState = { owner: stamp };
   const questionnaireTransformer = Questionnaire(initialState);
   const initialValues = questionnaireTransformer.stateToForm();
 
@@ -67,11 +63,6 @@ QuestionnaireNew.propTypes = {
   stamp: PropTypes.string.isRequired,
   createQuestionnaire: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
-  isTcm: PropTypes.bool,
-};
-
-QuestionnaireNew.defaultProps = {
-  isTcm: false,
 };
 
 export default QuestionnaireNew;
