@@ -1,74 +1,101 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Dictionary from 'utils/dictionary/dictionary';
-
 import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
-import { formatDate, getState } from 'utils/component/component-utils';
+import { TargetMode } from 'constants/pogues-constants';
+import { formatDate } from 'utils/component/component-utils';
 
 const { BUTTON_DUPLICATE_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
-// Prop types and default props
-
-const propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  lastUpdatedDate: PropTypes.string,
-  final: PropTypes.bool,
-};
-
-const defaultProps = {
-  final: false,
-  lastUpdatedDate: '',
-};
-
-// Component
-
 function QuestionnaireListItem({
   id,
   label,
   lastUpdatedDate,
-  final,
-  handleOpenPopup,
-  handleCheck,
-  fusion,
+  isHome,
+  handleAction,
+  actionLabel,
+  activeQuestionnaireTargetMode,
+  questionnaireTargetMode,
 }) {
+  const modesEvolution = mode => {
+    if (activeQuestionnaireTargetMode.includes(mode.value)) {
+      return questionnaireTargetMode.includes(mode.value) ? '=' : '-';
+    }
+    return questionnaireTargetMode.includes(mode.value) && '+';
+  };
+
   return (
     <div className="questionnaire-list_item">
-      <div className="question-list-item-name">
-        <span className="glyphicon glyphicon-chevron-right" />
-        <Link to={`/questionnaire/${id}`}>{label}</Link>
-        <div className="check-button">
-          {fusion ? (
-            <input
-              type="radio"
-              name="questionId"
-              onChange={event => handleCheck(event.target.value)}
-              value={id}
-              style={{ height: '20px', width: '20px', marginRight: '30px' }}
-            />
+      <div className="questionnaire-list-item-header">
+        <div className="question-list-item-name-modes">
+          {isHome ? (
+            <div className="question-list-item-name">
+              <span className="glyphicon glyphicon-chevron-right" />
+              <Link to={`/questionnaire/${id}`}>{label}</Link>
+            </div>
           ) : (
-            <button
-              type="button"
-              style={{ float: 'right' }}
-              className={BUTTON_DUPLICATE_CLASS}
-              aria-label={Dictionary.duplicate}
-              onClick={event => {
-                event.preventDefault();
-                handleOpenPopup(id, label);
-              }}
-            >
-              {Dictionary.duplicate}
-            </button>
+            <>
+              <div className="question-list-item-name">
+                <span className="glyphicon glyphicon-chevron-right" />
+                {label}
+              </div>
+
+              <div className="question-list-item-modes">
+                {TargetMode.map(mode => (
+                  <div key={mode.value} className="question-list-item-mode">
+                    {modesEvolution(mode) && (
+                      <>
+                        {`${modesEvolution(mode)} `}
+                        <span className="item-mode">{mode.label}</span>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
-      <div>{getState(final)}</div>
+      <div className="check-button">
+        {isHome ||
+        activeQuestionnaireTargetMode.find(activetargetMode =>
+          questionnaireTargetMode.includes(activetargetMode),
+        ) ? (
+          <button
+            type="button"
+            style={{ float: 'right' }}
+            className={BUTTON_DUPLICATE_CLASS}
+            aria-label={actionLabel}
+            onClick={event => {
+              if (isHome) event.preventDefault();
+              handleAction(id, label);
+            }}
+          >
+            {actionLabel}
+          </button>
+        ) : (
+          <div>Aucun mode commun</div>
+        )}
+      </div>
       <div>{lastUpdatedDate && formatDate(lastUpdatedDate)}</div>
     </div>
   );
 }
 
-QuestionnaireListItem.propTypes = propTypes;
+QuestionnaireListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  lastUpdatedDate: PropTypes.string,
+  isHome: PropTypes.bool.isRequired,
+  handleAction: PropTypes.func.isRequired,
+  actionLabel: PropTypes.string.isRequired,
+  activeQuestionnaireTargetMode: PropTypes.arrayOf(PropTypes.string),
+  questionnaireTargetMode: PropTypes.arrayOf(PropTypes.string),
+};
 
-QuestionnaireListItem.defaultProps = defaultProps;
+QuestionnaireListItem.defaultProps = {
+  lastUpdatedDate: '',
+  activeQuestionnaireTargetMode: [],
+  questionnaireTargetMode: [],
+};
+
 export default QuestionnaireListItem;

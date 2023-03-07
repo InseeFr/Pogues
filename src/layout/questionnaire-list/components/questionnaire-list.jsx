@@ -21,7 +21,7 @@ const QuestionnaireList = props => {
     stamp,
     token,
     duplicateQuestionnaire,
-    fusion,
+    isFusion,
     isComposition,
     isTcm,
     handleCloseNewQuestionnaire,
@@ -42,28 +42,22 @@ const QuestionnaireList = props => {
   } = props;
 
   const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
-
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
-  const [checkedQuestionnaire, setCheckedQuestionnaire] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const handleCheck = useCallback(id => setCheckedQuestionnaire(id), []);
+  const fusionateQuestionnaire = useCallback(
+    checkedQuestionnaire => {
+      mergeQuestionnaires(checkedQuestionnaire, token);
+      handleCloseNewQuestionnaire();
+    },
+    [handleCloseNewQuestionnaire, mergeQuestionnaires, token],
+  );
 
-  const fusionateQuestionnaire = useCallback(() => {
-    mergeQuestionnaires(checkedQuestionnaire, token);
-    handleCloseNewQuestionnaire();
-  }, [
-    checkedQuestionnaire,
-    handleCloseNewQuestionnaire,
-    mergeQuestionnaires,
-    token,
-  ]);
-
-  const addQuestionnaireRef = () => {
+  function addQuestionnaireRef(checkedQuestionnaire) {
     const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(
       componentsStore,
       Object.keys(componentsStore),
@@ -99,10 +93,12 @@ const QuestionnaireList = props => {
       .then(res => orderComponents(res));
 
     handleCloseNewQuestionnaire();
-  };
+  }
 
-  const handleValidation = () => {
-    return fusion ? fusionateQuestionnaire() : addQuestionnaireRef();
+  const handleAction = (id, label) => {
+    if (isComposition) return addQuestionnaireRef(id);
+    if (isFusion) return fusionateQuestionnaire(id);
+    return handleOpenPopup(id, label);
   };
 
   useEffect(() => {
@@ -171,11 +167,17 @@ const QuestionnaireList = props => {
             id={q.id}
             label={q.label}
             lastUpdatedDate={q.lastUpdatedDate}
-            final={q.final}
-            handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
-            fusion={fusion || isComposition}
-            handleCheck={handleCheck}
-            fusionateQuestionnaire={fusionateQuestionnaire}
+            isHome={!isFusion && !isComposition}
+            handleAction={handleAction}
+            actionLabel={
+              isComposition
+                ? Dictionary.add
+                : isFusion
+                ? Dictionary.merge
+                : Dictionary.duplicate
+            }
+            activeQuestionnaireTargetMode={activeQuestionnaire.TargetMode}
+            questionnaireTargetMode={q.TargetMode}
           />
         );
       }
@@ -183,7 +185,18 @@ const QuestionnaireList = props => {
     });
 
   return (
-    <div>
+    <div className="home-questionnaires-container">
+      {(isFusion || isComposition) && (
+        <div className="questionList-cancel-zone">
+          <button
+            className="glyphicon glyphicon-arrow-left questionList-cancel"
+            type="button"
+            onClick={() => handleCloseNewQuestionnaire()}
+          >
+            {Dictionary.cancel}
+          </button>
+        </div>
+      )}
       <div className="box home-questionnaires">
         <h5 style={{ fontWeight: 'bold' }}>{Dictionary.homeStampChoice}</h5>
         <Dropdown
@@ -211,7 +224,7 @@ const QuestionnaireList = props => {
                 </div>
                 <div className="questionnaire-list_header">
                   <div>{Dictionary.QUESTIONNAIRE}</div>
-                  <div>{Dictionary.state}</div>
+                  <div />
                   <div>{Dictionary.lastUpdate}</div>
                 </div>
                 {list}
@@ -224,25 +237,6 @@ const QuestionnaireList = props => {
           </div>
         )}
       </div>
-      {(fusion || isComposition) && (
-        <div className="footer_quesionList">
-          <button
-            className="footer_quesionList-validate"
-            type="submit"
-            disabled={checkedQuestionnaire === ''}
-            onClick={() => handleValidation()}
-          >
-            {Dictionary.validate}
-          </button>
-          <button
-            className="footer_quesionList-cancel"
-            type="button"
-            onClick={() => handleCloseNewQuestionnaire()}
-          >
-            {Dictionary.cancel}
-          </button>
-        </div>
-      )}
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
@@ -281,6 +275,8 @@ QuestionnaireList.propTypes = {
   stamp: PropTypes.string,
   token: PropTypes.string,
   selectedStamp: PropTypes.string,
+  isFusion: PropTypes.bool,
+  isComposition: PropTypes.bool,
   isTcm: PropTypes.bool,
 };
 
@@ -289,6 +285,8 @@ QuestionnaireList.defaultProps = {
   stamp: '',
   token: '',
   selectedStamp: 'FAKEPERMISSION',
+  isFusion: false,
+  isComposition: false,
   isTcm: false,
 };
 export default QuestionnaireList;

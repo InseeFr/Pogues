@@ -19,7 +19,7 @@ const QuestionnaireMerge = ({ id }) => {
       <QuestionnaireNav />
       <div id="composition">
         <QuestionnaireList
-          fusion
+          isFusion
           handleCloseNewQuestionnaire={routeBackToQuestionnaire}
         />
       </div>
