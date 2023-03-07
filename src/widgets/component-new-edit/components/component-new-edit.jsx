@@ -331,7 +331,11 @@ const ComponentNewEdit = props => {
         optionsFinal = Object.values(store)
           .filter(
             component =>
-              component.type === componentinitial[0].type &&
+              (component.type === componentinitial[0].type ||
+                (component.type === EXTERNAL_ELEMENT &&
+                  componentinitial[0].type === SEQUENCE) ||
+                (component.type === SEQUENCE &&
+                  componentinitial[0].type === EXTERNAL_ELEMENT)) &&
               component.weight >= supImbriquer(store, componentinitial[0]) &&
               component.parent === componentinitial[0].parent &&
               component.id !== 'idendquest',
