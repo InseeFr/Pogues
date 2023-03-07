@@ -42,6 +42,7 @@ const {
   FILTER,
   NESTEDFILTRE,
   QUESTIONNAIRE,
+  EXTERNAL_ELEMENT,
 } = COMPONENT_TYPE;
 
 export const propTypes = {
@@ -371,7 +372,9 @@ const ComponentNewEdit = props => {
         .filter(
           component =>
             component.id !== 'idendquest' &&
-            (component.type === SEQUENCE || component.type === SUBSEQUENCE),
+            (component.type === SEQUENCE ||
+              component.type === SUBSEQUENCE ||
+              component.type === EXTERNAL_ELEMENT),
         )
         .map(element => {
           return (
