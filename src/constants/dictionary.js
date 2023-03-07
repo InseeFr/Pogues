@@ -50,6 +50,10 @@ const dictionary = {
     en: 'Add',
     fr: 'Ajouter',
   },
+  merge: {
+    en: 'Merge',
+    fr: 'Fusionner',
+  },
   no_declarations: {
     en: 'No statement yet',
     fr: 'Aucune déclaration définie',
