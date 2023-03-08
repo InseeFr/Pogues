@@ -14,6 +14,8 @@ import {
 import { nameFromLabel } from 'utils/utils';
 import { COMPONENT_TYPE, TCM } from 'constants/pogues-constants';
 
+const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
+
 const QuestionnaireList = props => {
   const {
     activeQuestionnaire,
@@ -41,7 +43,10 @@ const QuestionnaireList = props => {
     collectedVariablesStore,
   } = props;
 
-  const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
+  let actionLabel = Dictionary.duplicate;
+  if (isComposition) actionLabel = Dictionary.add;
+  if (isFusion) actionLabel = Dictionary.merge;
+
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
@@ -169,13 +174,7 @@ const QuestionnaireList = props => {
             lastUpdatedDate={q.lastUpdatedDate}
             isHome={!isFusion && !isComposition}
             handleAction={handleAction}
-            actionLabel={
-              isComposition
-                ? Dictionary.add
-                : isFusion
-                ? Dictionary.merge
-                : Dictionary.duplicate
-            }
+            actionLabel={actionLabel}
             activeQuestionnaireTargetMode={activeQuestionnaire.TargetMode}
             questionnaireTargetMode={q.TargetMode}
           />
@@ -189,7 +188,7 @@ const QuestionnaireList = props => {
       {(isFusion || isComposition) && (
         <div className="questionList-cancel-zone">
           <button
-            className="glyphicon glyphicon-arrow-left questionList-cancel"
+            className="btn-grey glyphicon glyphicon-arrow-left questionList-cancel"
             type="button"
             onClick={() => handleCloseNewQuestionnaire()}
           >

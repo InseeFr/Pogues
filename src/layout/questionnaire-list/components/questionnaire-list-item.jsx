@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 import { TargetMode } from 'constants/pogues-constants';
 import { formatDate } from 'utils/component/component-utils';
+import Dictionary from 'utils/dictionary/dictionary';
 
 const { BUTTON_DUPLICATE_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 function QuestionnaireListItem({
@@ -62,7 +63,6 @@ function QuestionnaireListItem({
         ) ? (
           <button
             type="button"
-            style={{ float: 'right' }}
             className={BUTTON_DUPLICATE_CLASS}
             aria-label={actionLabel}
             onClick={event => {
@@ -73,7 +73,7 @@ function QuestionnaireListItem({
             {actionLabel}
           </button>
         ) : (
-          <div>Aucun mode commun</div>
+          <span>{Dictionary.noCommonMode}</span>
         )}
       </div>
       <div>{lastUpdatedDate && formatDate(lastUpdatedDate)}</div>

@@ -54,6 +54,10 @@ const dictionary = {
     en: 'Merge',
     fr: 'Fusionner',
   },
+  noCommonMode: {
+    en: 'No common collect mode',
+    fr: 'Aucun mode commun',
+  },
   no_declarations: {
     en: 'No statement yet',
     fr: 'Aucune déclaration définie',

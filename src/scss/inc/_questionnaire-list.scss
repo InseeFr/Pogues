@@ -103,26 +103,23 @@
   .question-list-item-modes {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
   }
 
   .question-list-item-mode{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    width: 4em;
+    .glyphicon {
+      margin-right: 6px;
+    }
   }
 
   .item-mode{
     font-size: $font-xs;
     color: $color-blue_02;
-    width: 4em;
   }
 }
 
 .questionList-cancel {
-  background: none;
   float: right;
-  font-weight: bold;
-  font-size: $font-l;
+  box-sizing: border-box;
 }
 
