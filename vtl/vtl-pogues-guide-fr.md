@@ -258,6 +258,20 @@ On souhaite calculer le nombre de cases cochées dans une liste à choix multipl
 
 ### Contrôles
 
+#### Non-réponse
+
+Dans la plupart des cas, vérifier une potentielle non-réponse c'est s'assurer que la variable sous-jacente a été valorisée. Il faut donc écrire un contrôle pour tester la _nullité_ de la variable :
+
+```
+isnull($VAR_A$)
+```
+
+Selon les questions, on peut vouloir aller plus loin, par exemple pour une réponse textuelle s'assurer que l'on n'a pas aussi une chaîne vide :
+
+```
+isnull($VAR_A$) or $VAR_A$ = ""
+```
+
 #### Contrôle de validité d'un SIRET
 
 On se place dans le cas où le Siret est collecté à travers la variable `SIRET`. Le contrôle est alors :
