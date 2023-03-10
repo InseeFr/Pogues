@@ -260,7 +260,7 @@ On souhaite calculer le nombre de cases cochées dans une liste à choix multipl
 
 #### Non-réponse
 
-Dans la plupart des cas, vérifier une potentielle non-réponse c'est s'assurer que la variable sous-jacente a été valorisée. Il faut donc écrire un contrôle pour tester la _nullité_ de la variable :
+Dans la plupart des cas, vérifier une potentielle non-réponse c'est vérifier que la variable sous-jacente n'a pas été valorisée. Il faut donc écrire un contrôle pour tester la _nullité_ de la variable :
 
 ```
 isnull($VAR_A$)
@@ -270,6 +270,12 @@ Selon les questions, on peut vouloir aller plus loin, par exemple pour une répo
 
 ```
 isnull($VAR_A$) or $VAR_A$ = ""
+```
+
+Et dans ce cas, on peut encore plus simplement tirer partie de la fonction `nvl` :
+
+```
+nvl($VAR_A$, "") = ""
 ```
 
 #### Contrôle de validité d'un SIRET
