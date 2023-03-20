@@ -15,6 +15,7 @@ import {
   updateParentChildren,
   orderComponents,
 } from 'actions/components';
+import { handleNewChildQuestionnaireRef } from 'actions/external-questionnaire';
 import { setSelectedStamp } from 'actions/general';
 import { getToken, getUser } from 'reducers/selectors';
 
@@ -47,6 +48,7 @@ const mapDispatchToProps = {
   createComponent,
   updateParentChildren,
   orderComponents,
+  handleNewChildQuestionnaireRef,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionnaireList);

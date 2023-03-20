@@ -6,6 +6,7 @@ import activeExternalVariablesById from 'reducers/app-state/active-external-vari
 import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
 import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
 import formUtilsReducers from 'reducers/app-state/form-utils';
+import { setActiveExternalQuestionnaires } from 'reducers/app-state/active-external-questionnaires-by-id';
 
 import {
   SET_ACTIVE_QUESTIONNAIRE,
@@ -29,6 +30,7 @@ import {
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
 } from 'actions/component';
+import { CREATE_QUESTIONNAIRE_REF } from 'actions/external-questionnaire';
 
 const actionHandlers = {
   ...formUtilsReducers,
@@ -182,6 +184,7 @@ actionHandlers[START_LOADING_VISUALIZATION] = startLoadingVisualization;
 actionHandlers[LOADING_VISUALIZATION_SUCCESS] = loadingVisualizationSuccess;
 actionHandlers[LOADING_VISUALIZATION_FAILURE] = loadingVisualizationFailure;
 actionHandlers[DELETE_APPSTATE] = deleteAppState;
+actionHandlers[CREATE_QUESTIONNAIRE_REF] = setActiveExternalQuestionnaires;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function (state = defaultState, action) {

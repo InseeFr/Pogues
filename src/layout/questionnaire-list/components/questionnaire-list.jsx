@@ -41,6 +41,7 @@ const QuestionnaireList = props => {
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariablesStore,
+    handleNewChildQuestionnaireRef,
   } = props;
 
   let actionLabel = Dictionary.duplicate;
@@ -96,7 +97,7 @@ const QuestionnaireList = props => {
     )
       .then(res => updateParentChildren(res))
       .then(res => orderComponents(res));
-
+    handleNewChildQuestionnaireRef(checkedQuestionnaire);
     handleCloseNewQuestionnaire();
   }
 
@@ -277,6 +278,7 @@ QuestionnaireList.propTypes = {
   isFusion: PropTypes.bool,
   isComposition: PropTypes.bool,
   isTcm: PropTypes.bool,
+  handleNewChildQuestionnaireRef: PropTypes.func.isRequired,
 };
 
 QuestionnaireList.defaultProps = {
