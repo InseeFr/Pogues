@@ -47,6 +47,7 @@ describe('<QuestionnaireList />', () => {
     <QuestionnaireList
       loadQuestionnaireList={noop}
       duplicateQuestionnaire={() => {}}
+      handleNewChildQuestionnaireRef={() => {}}
     />,
   );
   /* const wrapperWithQuestionnaires = shallow(
