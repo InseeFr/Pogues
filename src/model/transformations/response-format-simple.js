@@ -13,17 +13,13 @@ export function remoteToState(remote) {
           Maximum: maximum,
           Decimals: decimals,
           Unit: unit,
-          Format: format1,
+          Format: format,
         },
         mandatory,
         id,
       },
     ],
   } = remote;
-  const format =
-    typeName === DATATYPE_NAME.DATE && format1
-      ? format1.toLowerCase()
-      : format1;
   const datatype = {};
   if (maxLength !== undefined) datatype.maxLength = maxLength;
   if (pattern !== undefined) datatype.pattern = pattern;

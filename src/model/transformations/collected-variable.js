@@ -58,16 +58,12 @@ export function remoteToStore(
         Maximum: maximum,
         Decimals: decimals,
         Unit: unit,
-        Format: format1,
+        Format: format,
       },
       z,
     } = ev;
     const { mesureLevel } = ev;
     const id = ev.id || uuid();
-    const format =
-      typeName === DATATYPE_NAME.DATE && format1
-        ? format1.toLowerCase()
-        : format1;
     const datatype = {};
     if (maxLength !== undefined) datatype.maxLength = maxLength;
     if (pattern !== undefined) datatype.pattern = pattern;

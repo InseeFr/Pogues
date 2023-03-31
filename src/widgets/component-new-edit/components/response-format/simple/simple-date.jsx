@@ -40,13 +40,13 @@ function ResponseFormatDatatypeDate({
           <GenericOption key="" value="">
             {Dictionary.dateinitial}
           </GenericOption>
-          <GenericOption key="yyyy-mm-dd" value="yyyy-mm-dd">
+          <GenericOption key="YYYY-MM-DD" value="YYYY-MM-DD">
             {Dictionary.dateddmmyyyy}
           </GenericOption>
-          <GenericOption key="yyyy-mm" value="yyyy-mm">
+          <GenericOption key="YYYY-MM" value="YYYY-MM">
             {Dictionary.datemmyyyy}
           </GenericOption>
-          <GenericOption key="yyyy" value="yyyy">
+          <GenericOption key="YYYY" value="YYYY">
             {Dictionary.dateyyyy}
           </GenericOption>
         </Field>
