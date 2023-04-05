@@ -58,6 +58,14 @@ const dictionary = {
     en: 'No common collect mode',
     fr: 'Aucun mode commun',
   },
+  incompatibleDynamic: {
+    en: 'Different dynamics (goto or filter)',
+    fr: 'Dynamisme différent (redirection ou filtre)',
+  },
+  incompatibleFormulaLanguage: {
+    en: 'Different languages (<ref language, XPath or VTL>)',
+    fr: 'Langage différents (<langage ref, XPath ou VTL>)',
+  },
   no_declarations: {
     en: 'No statement yet',
     fr: 'Aucune déclaration définie',

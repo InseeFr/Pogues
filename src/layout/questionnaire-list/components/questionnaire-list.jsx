@@ -6,12 +6,11 @@ import Dropdown from 'widgets/dropdown';
 import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
-import { getStampsList } from 'utils/remote-api';
+import { getStampsList, getQuestionnaire } from 'utils/remote-api';
 import {
   getHeavyComponentIdByTypeFromGroupIds,
   getWeight,
 } from 'utils/component/generic-input-utils';
-import { nameFromLabel } from 'utils/utils';
 import { COMPONENT_TYPE, TCM } from 'constants/pogues-constants';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
@@ -28,7 +27,6 @@ const QuestionnaireList = props => {
     isTcm,
     handleCloseNewQuestionnaire,
     mergeQuestionnaires,
-    currentQuestionnaire,
     loadQuestionnaireList,
     deleteQuestionnaireList,
     selectedStamp,
@@ -63,19 +61,24 @@ const QuestionnaireList = props => {
     [handleCloseNewQuestionnaire, mergeQuestionnaires, token],
   );
 
-  function addQuestionnaireRef(checkedQuestionnaire) {
+  // function addQuestionnaireRef (checkedQuestionnaire)  {
+  const addQuestionnaireRef = async checkedQuestionnaire => {
     const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(
       componentsStore,
       Object.keys(componentsStore),
       SEQUENCE,
     );
     const weight = getWeight(componentsStore, heavierSeqId);
-    const labelQuest = questionnaires.find(
+    const externalQuestionnaire = await getQuestionnaire(
+      checkedQuestionnaire,
+      token,
+    );
+    /* const externalQuestionnaire = questionnaires.find(
       q => q.id === checkedQuestionnaire,
-    ).label;
+    ); */
     const componentState = {
       id: checkedQuestionnaire,
-      name: labelQuest ? nameFromLabel(labelQuest) : 'REFQUEST',
+      name: externalQuestionnaire.name || externalQuestionnaire.Name,
       parent: activeQuestionnaire.id,
       weight: weight,
       children: [],
@@ -85,7 +88,7 @@ const QuestionnaireList = props => {
       flowcontrol: [],
       redirections: {},
       dynamiqueSpecified: '',
-      label: labelQuest,
+      label: externalQuestionnaire.label || externalQuestionnaire.Label,
       type: EXTERNAL_ELEMENT,
     };
     createComponent(
@@ -99,7 +102,7 @@ const QuestionnaireList = props => {
       .then(res => orderComponents(res));
     handleNewChildQuestionnaireRef(checkedQuestionnaire);
     handleCloseNewQuestionnaire();
-  }
+  };
 
   const handleAction = (id, label) => {
     if (isComposition) return addQuestionnaireRef(id);
@@ -149,7 +152,9 @@ const QuestionnaireList = props => {
   const list = questionnaires
     .filter(q => {
       return (
-        currentQuestionnaire !== q.id &&
+        activeQuestionnaire.id !== q.id &&
+        (!activeQuestionnaire.childQuestionnaireRef ||
+          !activeQuestionnaire.childQuestionnaireRef.includes(q.id)) &&
         (!isTcm || q.campaigns.some(campaign => campaign === TCM.id)) &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
@@ -178,6 +183,12 @@ const QuestionnaireList = props => {
             actionLabel={actionLabel}
             activeQuestionnaireTargetMode={activeQuestionnaire.TargetMode}
             questionnaireTargetMode={q.TargetMode}
+            sameFormulaLanguage={
+              activeQuestionnaire.formulaSpecified === q.formulaSpecified
+            }
+            sameDynamic={
+              activeQuestionnaire.dynamiqueSpecified === q.dynamiqueSpecified
+            }
           />
         );
       }

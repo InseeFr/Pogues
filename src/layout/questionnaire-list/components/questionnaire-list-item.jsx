@@ -16,6 +16,8 @@ function QuestionnaireListItem({
   actionLabel,
   activeQuestionnaireTargetMode,
   questionnaireTargetMode,
+  sameFormulaLanguage,
+  sameDynamic,
 }) {
   const modesEvolution = mode => {
     if (activeQuestionnaireTargetMode.includes(mode.value)) {
@@ -73,7 +75,19 @@ function QuestionnaireListItem({
             {actionLabel}
           </button>
         ) : (
-          <span>{Dictionary.noCommonMode}</span>
+          <>
+            {(!sameDynamic || !sameFormulaLanguage) && (
+              <>
+                {!sameDynamic && <div>{Dictionary.incompatibleDynamic}</div>}
+                {!sameFormulaLanguage && (
+                  <div>{Dictionary.incompatibleFormulaLanguage}</div>
+                )}
+              </>
+            )}
+            {sameDynamic && sameFormulaLanguage && (
+              <div>{Dictionary.noCommonMode}</div>
+            )}
+          </>
         )}
       </div>
       <div>{lastUpdatedDate && formatDate(lastUpdatedDate)}</div>
