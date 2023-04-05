@@ -14,21 +14,6 @@ export const COMPONENT_TYPE = {
   VTL: 'VTL',
 };
 
-export const DATEFORMAT = [
-  {
-    format: '1',
-    label: 'jj-mm-aaaa',
-  },
-  {
-    format: '2',
-    label: 'mm-aaaa',
-  },
-  {
-    format: '3',
-    label: 'aaaa',
-  },
-];
-
 export const TargetMode = [
   { value: 'CAPI', label: 'CAPI' },
   { value: 'CATI', label: 'CATI' },
