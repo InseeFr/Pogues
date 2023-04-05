@@ -88,7 +88,7 @@ const QuestionnaireList = props => {
       flowcontrol: [],
       redirections: {},
       dynamiqueSpecified: '',
-      label: externalQuestionnaire.label || externalQuestionnaire.Label,
+      label: externalQuestionnaire.label || externalQuestionnaire.Label[0],
       type: EXTERNAL_ELEMENT,
     };
     createComponent(
