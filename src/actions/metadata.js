@@ -216,16 +216,15 @@ export const loadExternalQuestionnairesLoops =
         idExternalQuestionnaire,
         token,
       );
-      const externalQuestionnairesMetadata =
-        externalQuestionnaire.Iterations &&
-        externalQuestionnaire.Iterations.Iteration
-          ? [
-              {
-                id: idExternalQuestionnaire,
-                loops: externalQuestionnaire.Iterations.Iteration,
-              },
-            ]
-          : [];
+      const externalQuestionnairesMetadata = [
+        {
+          id: idExternalQuestionnaire,
+          loops:
+            (externalQuestionnaire.Iterations &&
+              externalQuestionnaire.Iterations.Iteration) ||
+            [],
+        },
+      ];
       return dispatch(
         loadMetadataSuccess(
           'externalQuestionnairesLoops',
