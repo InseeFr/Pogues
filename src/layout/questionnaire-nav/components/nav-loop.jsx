@@ -40,6 +40,7 @@ function NavLoop({
       return (
         <button
           className="loopLists"
+          key={element.id}
           onClick={() => handleEditComponent(element.id)}
         >
           <span className="glyphicon glyphicon-menu-right" />

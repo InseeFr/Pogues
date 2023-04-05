@@ -220,7 +220,7 @@ const NestedFilter = props => {
   };
 
   const getFinalOptions = store => {
-    let optionsFinal = <option key="" value="" />;
+    let optionsFinal = <option key="emptyfinal" value="" />;
     const componentinitial = Object.values(store).filter(
       component => component.id === newNestedFilter.initialMember,
     );
@@ -286,7 +286,7 @@ const NestedFilter = props => {
   };
 
   const optionsInitial = () => {
-    let options = <option key="" value="" />;
+    let options = <option key="emptyinitial" value="" />;
     if (initialMemberFilter) {
       if (newNestedFilter.filterImbriquer?.length > 0) {
         options = Object.values(componentsStore)
@@ -332,7 +332,7 @@ const NestedFilter = props => {
   };
 
   const getNestedFilters = () => {
-    let options = <option key="" value="" />;
+    let options = <option key="emptynestedfilter" value="" />;
     if (initialMemberFilter) {
       options = Object.values(componentsStore)
         .filter(
@@ -408,7 +408,7 @@ const NestedFilter = props => {
               name="nestedSelectedFilter"
               onChange={e => setNestedSelectedFilter(e.target.value)}
             >
-              <option key="" value="">
+              <option key="emptynestedfilter" value="">
                 {Dictionary.selectNestedFilter}
               </option>
               {getNestedFilters()}
@@ -483,7 +483,7 @@ const NestedFilter = props => {
                 name="initialMember"
                 onChange={e => handleChange(e)}
               >
-                <option key="" value="">
+                <option key="emptynestedfilterinitial" value="">
                   {Dictionary.selectInitialMembre}
                 </option>
                 {optionsInitial()}
@@ -514,7 +514,7 @@ const NestedFilter = props => {
                 disabled={!newNestedFilter.initialMember}
                 onChange={e => handleChange(e)}
               >
-                <option key="" value="">
+                <option key="emptynestedfilterfinal" value="">
                   {Dictionary.selectFinalMembre}
                 </option>
                 {getFinalOptions(componentsStore)}
