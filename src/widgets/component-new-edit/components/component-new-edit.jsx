@@ -305,51 +305,52 @@ const ComponentNewEdit = props => {
   };
 
   const getFinalOptions = store => {
-    let optionsFinal = <GenericOption key="emptyFinal" value="" />;
     const componentinitial = Object.values(store).filter(
       component => component.id === props.InitialMember,
     );
-    if (props.InitialMember && componentinitial.length > 0) {
-      if (infImbriquer(store, componentinitial[0])) {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              component.type === componentinitial[0].type &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.weight <= infImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <GenericOption key={`final-'${element.id}`} value={element.id}>
-                {element.name}
-              </GenericOption>
-            );
-          });
-      } else {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              (component.type === componentinitial[0].type ||
-                (component.type === EXTERNAL_ELEMENT &&
-                  componentinitial[0].type === SEQUENCE) ||
-                (component.type === SEQUENCE &&
-                  componentinitial[0].type === EXTERNAL_ELEMENT)) &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <GenericOption key={`final-'${element.id}`} value={element.id}>
-                {element.name}
-              </GenericOption>
-            );
-          });
-      }
+    if (!props.InitialMember || componentinitial.length === 0)
+      return (
+        <GenericOption key="emptyFinal" value="">
+          empty
+        </GenericOption>
+      );
+    if (infImbriquer(store, componentinitial[0])) {
+      return Object.values(store)
+        .filter(
+          component =>
+            component.type === componentinitial[0].type &&
+            component.weight >= supImbriquer(store, componentinitial[0]) &&
+            component.weight <= infImbriquer(store, componentinitial[0]) &&
+            component.parent === componentinitial[0].parent &&
+            component.id !== 'idendquest',
+        )
+        .map(element => {
+          return (
+            <GenericOption key={`final-'${element.id}`} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
     }
-    return optionsFinal;
+    return Object.values(store)
+      .filter(
+        component =>
+          (component.type === componentinitial[0].type ||
+            (component.type === EXTERNAL_ELEMENT &&
+              componentinitial[0].type === SEQUENCE) ||
+            (component.type === SEQUENCE &&
+              componentinitial[0].type === EXTERNAL_ELEMENT)) &&
+          component.weight >= supImbriquer(store, componentinitial[0]) &&
+          component.parent === componentinitial[0].parent &&
+          component.id !== 'idendquest',
+      )
+      .map(element => {
+        return (
+          <GenericOption key={`final-'${element.id}`} value={element.id}>
+            {element.name}
+          </GenericOption>
+        );
+      });
   };
 
   const inferieur = () => {
@@ -370,9 +371,8 @@ const ComponentNewEdit = props => {
     return inferieurFilter;
   };
   const optionsInitial = type => {
-    let options = <GenericOption key="" value="" />;
     if (type === LOOP) {
-      options = Object.values(componentsStore)
+      return Object.values(componentsStore)
         .filter(
           component =>
             component.id !== 'idendquest' &&
@@ -387,8 +387,9 @@ const ComponentNewEdit = props => {
             </GenericOption>
           );
         });
-    } else if (filterImbriquers?.length > 0) {
-      options = Object.values(componentsStore)
+    }
+    if (filterImbriquers?.length > 0) {
+      return Object.values(componentsStore)
         .filter(
           component =>
             component.type !== LOOP &&
@@ -413,25 +414,23 @@ const ComponentNewEdit = props => {
             </GenericOption>
           );
         });
-    } else {
-      options = Object.values(componentsStore)
-        .filter(
-          component =>
-            component.type !== LOOP &&
-            component.type !== FILTER &&
-            component.type !== NESTEDFILTRE &&
-            component.type !== QUESTIONNAIRE &&
-            component.id !== 'idendquest',
-        )
-        .map(element => {
-          return (
-            <GenericOption key={`initial-${element.id}`} value={element.id}>
-              {element.name}
-            </GenericOption>
-          );
-        });
     }
-    return options;
+    return Object.values(componentsStore)
+      .filter(
+        component =>
+          component.type !== LOOP &&
+          component.type !== FILTER &&
+          component.type !== NESTEDFILTRE &&
+          component.type !== QUESTIONNAIRE &&
+          component.id !== 'idendquest',
+      )
+      .map(element => {
+        return (
+          <GenericOption key={`initial-${element.id}`} value={element.id}>
+            {element.name}
+          </GenericOption>
+        );
+      });
   };
 
   const optionsTable = [
@@ -520,7 +519,7 @@ const ComponentNewEdit = props => {
               }
               required={componentType !== LOOP ? 'required' : false}
             />
-            {componentsStore ? (
+            {componentsStore && (
               <Field
                 name="initialMember"
                 component={Select}
@@ -532,8 +531,6 @@ const ComponentNewEdit = props => {
                 </GenericOption>
                 {optionsInitial(componentType)}
               </Field>
-            ) : (
-              false
             )}
             {/* {componentType === FILTER
               ? showFiltersImbriquer(filterImbriquers)
