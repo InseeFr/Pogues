@@ -10,6 +10,9 @@ plugins:
 settings:
   ecmascript: 2020
 
+parserOptions:
+  ecmaVersion: 2020
+
 env:
   browser: true
   jest: true
