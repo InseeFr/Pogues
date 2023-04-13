@@ -24,13 +24,18 @@ export function removeComponentFromActivesComponent(
   activesComponents,
   deletedComponent,
 ) {
-  return Object.keys(activesComponents).reduce((acc, currentId) => {
-    if (currentId !== deletedComponent.id) {
-      acc[currentId] = {
-        ...activesComponents[currentId],
+  return Object.values(activesComponents).reduce((acc, currentElement) => {
+    if (
+      currentElement.id !== deletedComponent.id &&
+      currentElement.initialMember !== deletedComponent.id &&
+      currentElement.finalMember !== deletedComponent.id
+    ) {
+      acc[currentElement.id] = {
+        ...activesComponents[currentElement.id],
         children:
-          activesComponents[currentId] && activesComponents[currentId].children
-            ? activesComponents[currentId].children.filter(
+          activesComponents[currentElement.id] &&
+          activesComponents[currentElement.id].children
+            ? activesComponents[currentElement.id].children.filter(
                 childId => childId !== deletedComponent.id,
               )
             : [],
