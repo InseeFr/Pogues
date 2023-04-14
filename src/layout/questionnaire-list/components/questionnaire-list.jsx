@@ -18,6 +18,7 @@ const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
 const QuestionnaireList = props => {
   const {
     activeQuestionnaire,
+    selectedComponentId,
     questionnaires,
     stamp,
     token,
@@ -68,7 +69,9 @@ const QuestionnaireList = props => {
       Object.keys(componentsStore),
       SEQUENCE,
     );
-    const weight = getWeight(componentsStore, heavierSeqId);
+    const weight = selectedComponentId
+      ? getWeight(componentsStore, selectedComponentId)
+      : getWeight(componentsStore, heavierSeqId);
     const externalQuestionnaire = await getQuestionnaire(
       checkedQuestionnaire,
       token,
@@ -98,10 +101,10 @@ const QuestionnaireList = props => {
       externalVariablesStore,
       collectedVariablesStore,
     )
-      .then(res => updateParentChildren(res))
-      .then(res => orderComponents(res));
-    handleNewChildQuestionnaireRef(checkedQuestionnaire);
-    handleCloseNewQuestionnaire();
+      .then(updateParentChildren)
+      .then(orderComponents)
+      .then(handleNewChildQuestionnaireRef(checkedQuestionnaire))
+      .then(handleCloseNewQuestionnaire);
   };
 
   const handleAction = (id, label) => {
@@ -281,6 +284,8 @@ const QuestionnaireList = props => {
 
 QuestionnaireList.propTypes = {
   loadQuestionnaireList: PropTypes.func.isRequired,
+  activeQuestionnaire: PropTypes.object.isRequired,
+  selectedComponentId: PropTypes.string,
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
   stamp: PropTypes.string,
@@ -293,6 +298,7 @@ QuestionnaireList.propTypes = {
 };
 
 QuestionnaireList.defaultProps = {
+  selectedComponentId: undefined,
   questionnaires: [],
   stamp: '',
   token: '',

@@ -10,7 +10,6 @@ const mapStateToProps = (
     },
   },
 ) => ({
-  id,
   questionnaire: state.questionnaireById[id],
 });
 

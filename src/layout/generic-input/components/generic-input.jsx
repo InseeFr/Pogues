@@ -224,7 +224,15 @@ function GenericInput(props) {
             {Dictionary.filtre}
           </button>
         )}
-        <VisualizeDropdown top typeDropDown={EXTERNAL_ELEMENT} />
+        <VisualizeDropdown
+          disabled={
+            selectedComponent &&
+            selectedComponent.type !== SEQUENCE &&
+            selectedComponent.type !== EXTERNAL_ELEMENT
+          }
+          top
+          typeDropDown={EXTERNAL_ELEMENT}
+        />
         <button
           className="btn-yellow"
           disabled={!isQuestionnaireModified}

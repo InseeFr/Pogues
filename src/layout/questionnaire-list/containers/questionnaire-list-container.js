@@ -14,7 +14,7 @@ import {
   createComponent,
   updateParentChildren,
   orderComponents,
-} from 'actions/components';
+} from 'actions/component';
 import { handleNewChildQuestionnaireRef } from 'actions/external-questionnaire';
 import { setSelectedStamp } from 'actions/general';
 import { getToken, getUser } from 'reducers/selectors';
@@ -30,6 +30,7 @@ const mapStateToProps = state => {
     questionnaires,
     stamp: getUser(state).stamp,
     token: getToken(state),
+    selectedComponentId: state.appState.selectedComponentId,
     selectedStamp: state.general.selectedStamp,
     componentsStore: state.appState.activeComponentsById,
     codesListsStore: state.appState.activeCodeListsById,
