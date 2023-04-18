@@ -157,7 +157,7 @@ const QuestionnaireComponent = props => {
                   componentFiltersInitial.map(filter => {
                     return (
                       <div
-                        key={`${filter}-if`}
+                        key={`${filter.id}-if`}
                         className="questionnaire-element-filter"
                       >
                         <button
@@ -173,7 +173,7 @@ const QuestionnaireComponent = props => {
                   componentFiltersFinal.map(filter => {
                     return (
                       <div
-                        key={`${filter}-endif`}
+                        key={`${filter.id}-endif`}
                         className="questionnaire-element-filter"
                       >
                         <button

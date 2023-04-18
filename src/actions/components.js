@@ -38,10 +38,10 @@ export const MOVE_COMPONENT = 'MOVE_COMPONENT';
 export const createComponent =
   (
     componentState,
-    codesListsStore,
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariablesStore,
+    codesListsStore,
   ) =>
   dispatch => {
     const activeComponentsStore = {

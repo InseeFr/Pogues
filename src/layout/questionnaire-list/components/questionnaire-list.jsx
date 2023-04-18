@@ -96,10 +96,10 @@ const QuestionnaireList = props => {
     };
     createComponent(
       componentState,
-      codesListsStore,
       calculatedVariablesStore,
       externalVariablesStore,
       collectedVariablesStore,
+      codesListsStore,
     )
       .then(updateParentChildren)
       .then(orderComponents)
