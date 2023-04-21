@@ -49,10 +49,8 @@ export const propTypes = {
   ...formPropTypes,
   componentType: PropTypes.string.isRequired,
   componentId: PropTypes.string.isRequired,
-
   errorsIntegrityByTab: PropTypes.object,
   componentsStore: PropTypes.object,
-
   addSubformValidationErrors: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
 };
@@ -81,6 +79,7 @@ const ComponentNewEdit = props => {
     activeQuestionnaire,
     clearSubformValidationErrors,
     externalLoopsStore,
+    InitialMember,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -145,14 +144,6 @@ const ComponentNewEdit = props => {
       onSubmit({ ...data, filterImbriquer: filterImbriquers });
     }
   };
-
-  // const handleOpenFilter = (e, index) => {
-  //   e.preventDefault();
-  //   if (index) {
-  //     setFilterId(index);
-  //   }
-  //   setShowNewNestedFilter(true);
-  // };
 
   const handleDeleteNestedFilter = index => {
     let filters = [...filterImbriquers];
@@ -219,7 +210,7 @@ const ComponentNewEdit = props => {
           <ExternalVariables
             errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
             addErrors={addSubformValidationErrors}
-            componentsStore={componentsStore}
+            scopes={scopes}
           />
         </Tab>,
         <Tab
@@ -230,7 +221,7 @@ const ComponentNewEdit = props => {
           <CalculatedVariables
             errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
             addErrors={addSubformValidationErrors}
-            componentsStore={componentsStore}
+            scopes={scopes}
           />
         </Tab>,
         <Tab
@@ -306,9 +297,9 @@ const ComponentNewEdit = props => {
 
   const getFinalOptions = store => {
     const componentinitial = Object.values(store).filter(
-      component => component.id === props.InitialMember,
+      component => component.id === InitialMember,
     );
-    if (!props.InitialMember || componentinitial.length === 0)
+    if (!InitialMember || componentinitial.length === 0)
       return (
         <GenericOption key="emptyFinal" value="">
           empty
@@ -433,12 +424,12 @@ const ComponentNewEdit = props => {
       });
   };
 
-  const optionsTable = [
+  const scopes = [
     ...getQuestionnaireScope(componentsStore),
     ...externalLoopsStore,
   ].map(element => {
     return (
-      <GenericOption key={`basedOn-${element.id}`} value={element.id}>
+      <GenericOption key={`scope-${element.id}`} value={element.id}>
         {element.name || element.nameLoop || element.Name}
       </GenericOption>
     );
@@ -496,7 +487,7 @@ const ComponentNewEdit = props => {
                   <GenericOption key="selectBasedOn" value="">
                     {Dictionary.selectBasedOn}
                   </GenericOption>
-                  {optionsTable}
+                  {scopes}
                 </Field>
               </div>
             ) : (
@@ -520,57 +511,39 @@ const ComponentNewEdit = props => {
               required={componentType !== LOOP ? 'required' : false}
             />
             {componentsStore && (
-              <Field
-                name="initialMember"
-                component={Select}
-                label={Dictionary.InitialMembre}
-                required
-              >
-                <GenericOption key="selectInitialMember" value="">
-                  {Dictionary.selectInitialMembre}
-                </GenericOption>
-                {optionsInitial(componentType)}
-              </Field>
+              <>
+                <Field
+                  name="initialMember"
+                  component={Select}
+                  label={Dictionary.InitialMembre}
+                  required
+                >
+                  <GenericOption key="selectInitialMember" value="">
+                    {Dictionary.selectInitialMembre}
+                  </GenericOption>
+                  {optionsInitial(componentType)}
+                </Field>
+                <Field
+                  name="finalMember"
+                  component={Select}
+                  label={Dictionary.FinalMembre}
+                  disabled={!InitialMember}
+                  required
+                >
+                  <GenericOption key="selectFinalMember" value="">
+                    {Dictionary.selectFinalMembre}
+                  </GenericOption>
+                  {getFinalOptions(componentsStore)}
+                </Field>
+              </>
             )}
-            {/* {componentType === FILTER
-              ? showFiltersImbriquer(filterImbriquers)
-              : false}
-            {componentType === FILTER ? (
-              <button
-                className={FILTRE_IMBRIQUER}
-                onClick={e => handleOpenFilter(e)}
-              >
-                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-                {Dictionary.filtreImbriquer}
-              </button>
-            ) : (
-              false
-            )} */}
-            {componentsStore ? (
-              <Field
-                name="finalMember"
-                component={Select}
-                label={Dictionary.FinalMembre}
-                disabled={!props.InitialMember}
-                required
-              >
-                <GenericOption key="selectFinalMember" value="">
-                  {Dictionary.selectFinalMembre}
-                </GenericOption>
-                {getFinalOptions(componentsStore)}
-              </Field>
-            ) : (
-              false
-            )}
-            {componentType === LOOP ? (
+            {componentType === LOOP && (
               <Field
                 name="addButtonLibel"
                 type="text"
                 component={Input}
                 label={Dictionary.AddButton}
               />
-            ) : (
-              false
             )}
           </div>
         ) : (
@@ -592,10 +565,8 @@ const ComponentNewEdit = props => {
         ) : (
           false
         )}
-        {componentType !== LOOP && componentType !== FILTER ? (
+        {componentType !== LOOP && componentType !== FILTER && (
           <Tabs componentId={componentId}>{renderPanels()}</Tabs>
-        ) : (
-          false
         )}
         <div
           className={
@@ -666,7 +637,7 @@ const ComponentNewEdit = props => {
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}
               updateComponent={props.updateComponent}
-              initialMemberFilter={props.InitialMember}
+              initialMemberFilter={InitialMember}
             />
           </div>
         </div>

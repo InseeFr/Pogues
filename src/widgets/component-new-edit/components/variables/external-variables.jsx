@@ -21,7 +21,6 @@ import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components
 import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
 import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
 import { SelectorView, View } from 'widgets/selector-view';
-import { getQuestionnaireScope } from './utils-loops';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 
@@ -36,7 +35,7 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
-  componentsStore: PropTypes.object.isRequired,
+  scopes: PropTypes.array.isRequired,
 };
 
 export const defaultProps = {
@@ -52,15 +51,8 @@ function ExternalVariables({
   selectorPath,
   errors,
   addErrors,
-  componentsStore,
+  scopes,
 }) {
-  const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
-    return (
-      <GenericOption key={element.id} value={element.id}>
-        {element.name}
-      </GenericOption>
-    );
-  });
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -106,7 +98,7 @@ function ExternalVariables({
           <GenericOption key="" value="">
             {Dictionary.selectScope}
           </GenericOption>
-          {scopeOption}
+          {scopes}
         </Field>
       </ListWithInputPanel>
     </FormSection>
