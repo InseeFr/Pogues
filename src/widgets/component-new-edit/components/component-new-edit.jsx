@@ -448,13 +448,7 @@ const ComponentNewEdit = props => {
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit(data => checkUnsavedChange(data))}>
-        {componentType === QUESTION ? (
-          <AssociatedFields
-            {...associatedFieldsProps}
-            targetIsRichTextarea
-            targetIsQuestion
-          />
-        ) : componentType === LOOP || componentType === FILTER ? (
+        {(componentType === LOOP || componentType === FILTER) && (
           <div>
             {componentsStore && componentType === LOOP ? (
               <div>
@@ -546,27 +540,28 @@ const ComponentNewEdit = props => {
               />
             )}
           </div>
-        ) : (
-          <AssociatedFields {...associatedFieldsProps} />
-        )}
-        {componentType !== LOOP && componentType !== FILTER ? (
-          <Field
-            name="TargetMode"
-            component={ListCheckboxes}
-            label={Dictionary.collectionMode}
-            inline
-          >
-            {TargetMode.map(s => (
-              <GenericOption key={s.value} value={s.value}>
-                {s.label}
-              </GenericOption>
-            ))}
-          </Field>
-        ) : (
-          false
         )}
         {componentType !== LOOP && componentType !== FILTER && (
-          <Tabs componentId={componentId}>{renderPanels()}</Tabs>
+          <>
+            <AssociatedFields
+              {...associatedFieldsProps}
+              targetIsRichTextarea={componentType === QUESTION}
+              targetIsQuestion={componentType === QUESTION}
+            />
+            <Field
+              name="TargetMode"
+              component={ListCheckboxes}
+              label={Dictionary.collectionMode}
+              inline
+            >
+              {TargetMode.map(s => (
+                <GenericOption key={s.value} value={s.value}>
+                  {s.label}
+                </GenericOption>
+              ))}
+            </Field>
+            <Tabs componentId={componentId}>{renderPanels()}</Tabs>
+          </>
         )}
         <div
           className={
@@ -586,7 +581,7 @@ const ComponentNewEdit = props => {
           <button className={CANCEL} disabled={submitting} onClick={onCancel}>
             {Dictionary.cancel}
           </button>
-          {componentType === LOOP && componentId ? (
+          {componentType === LOOP && componentId && (
             <button
               className={DELETE}
               disabled={submitting}
@@ -594,10 +589,8 @@ const ComponentNewEdit = props => {
             >
               {Dictionary.remove}
             </button>
-          ) : (
-            false
           )}
-          {componentType === FILTER && componentId ? (
+          {componentType === FILTER && componentId && (
             <button
               className={DELETE}
               disabled={submitting}
@@ -605,8 +598,6 @@ const ComponentNewEdit = props => {
             >
               {Dictionary.remove}
             </button>
-          ) : (
-            false
           )}
         </div>
       </form>
