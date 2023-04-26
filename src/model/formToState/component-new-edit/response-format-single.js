@@ -12,7 +12,7 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 
-const { CHECKBOX } = DATATYPE_VIS_HINT;
+const { RADIO } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
   mandatory: false,
@@ -21,7 +21,7 @@ export const defaultState = {
   specialCode: '',
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
-  visHint: CHECKBOX,
+  visHint: RADIO,
   [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
 };
 
@@ -32,7 +32,7 @@ export const defaultForm = {
   specialCode: '',
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
-  visHint: CHECKBOX,
+  visHint: RADIO,
   [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
 };
 

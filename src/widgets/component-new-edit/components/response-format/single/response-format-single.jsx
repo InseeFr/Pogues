@@ -128,14 +128,14 @@ function ResponseFormatSingle({
         label={Dictionary.visHint}
         required
       >
-        <GenericOption key={CHECKBOX} value={CHECKBOX}>
-          {Dictionary.checkbox}
-        </GenericOption>
         <GenericOption key={RADIO} value={RADIO}>
           {Dictionary.radio}
         </GenericOption>
         <GenericOption key={DROPDOWN} value={DROPDOWN}>
           {Dictionary.dropdown}
+        </GenericOption>
+        <GenericOption key={CHECKBOX} value={CHECKBOX}>
+          {Dictionary.checkbox}
         </GenericOption>
       </Field>
       <CodesLists selectorPathParent={selectorPathComposed} />
