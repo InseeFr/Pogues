@@ -86,19 +86,18 @@ export const loadQuestionnaireStart = () => ({
  * @param   {string}    id  The questionnaire id.
  * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
  */
-export const loadQuestionnaire = (id, token) => dispatch => {
+export const loadQuestionnaire = (id, token) => async dispatch => {
   dispatch(loadQuestionnaireStart());
   dispatch({
     type: LOAD_QUESTIONNAIRE,
     payload: id,
   });
-  return getQuestionnaire(id, token)
-    .then(qr => {
-      dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
-    })
-    .catch(err => {
-      dispatch(loadQuestionnaireFailure(id, err));
-    });
+  try {
+    const qr = await getQuestionnaire(id, token);
+    dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
+  } catch (err) {
+    dispatch(loadQuestionnaireFailure(id, err));
+  }
 };
 
 /**

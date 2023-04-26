@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'layout/loader';
 
@@ -59,70 +59,36 @@ const PageQuestionnaire = props => {
     setActiveComponents,
     setActiveCodeLists,
     setActiveVariables,
-    // loadCampaignsIfNeeded,
     loadExternalQuestionnairesIfNeeded,
     appState,
   } = props;
 
+  const [toInitialize, setToInitialize] = useState(false);
+
   useEffect(() => {
     if (!questionnaire || questionnaire.id !== id) {
       loadQuestionnaire(id, token);
+      setToInitialize(true);
     }
+  }, [id, loadQuestionnaire, questionnaire, token]);
 
-    if (
-      questionnaire &&
-      Object.keys(appState.activeQuestionnaire).length === 0
-    ) {
+  useEffect(() => {
+    if (toInitialize && questionnaire) {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
       setActiveQuestionnaire(questionnaire);
       loadStatisticalContext(idCampaign, token);
-    }
-    if (components && Object.keys(appState.activeComponentsById).length === 0) {
       setActiveComponents(components);
-    }
-    if (codeLists && Object.keys(appState.activeCodeListsById).length === 0) {
       setActiveCodeLists(codeLists);
-    }
-    if (
-      (calculatedVariables &&
-        Object.keys(calculatedVariables).length !== 0 &&
-        Object.keys(appState.activeCalculatedVariablesById).length === 0) ||
-      (externalVariables &&
-        Object.keys(externalVariables).length !== 0 &&
-        Object.keys(appState.activeExternalVariablesById).length === 0) ||
-      (collectedVariablesByQuestion &&
-        Object.keys(collectedVariablesByQuestion).length !== 0 &&
-        Object.keys(appState.collectedVariableByQuestion).length === 0)
-    ) {
       setActiveVariables({
         activeCalculatedVariablesById: calculatedVariables,
         activeExternalVariablesById: externalVariables,
         collectedVariableByQuestion: collectedVariablesByQuestion,
       });
+      setToInitialize(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    id,
-    loadQuestionnaire,
-    token,
-    questionnaire,
-    setActiveQuestionnaire,
-    loadStatisticalContext,
-    externalVariables,
-    calculatedVariables,
-    components,
-    setActiveComponents,
-    codeLists,
-    setActiveCodeLists,
-    appState.activeQuestionnaire,
-    appState.activeComponentsById,
-    appState.activeCodeListsById,
-    appState.activeCalculatedVariablesById,
-    appState.activeExternalVariablesById,
-    appState.collectedVariableByQuestion,
-    setActiveVariables,
-  ]);
+  }, [toInitialize, questionnaire?.id]);
 
   useEffect(() => {
     if (
