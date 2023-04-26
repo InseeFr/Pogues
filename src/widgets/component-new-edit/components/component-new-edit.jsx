@@ -425,15 +425,28 @@ const ComponentNewEdit = props => {
   };
 
   const scopes = [
-    ...getQuestionnaireScope(componentsStore),
-    ...externalLoopsStore,
-  ].map(element => {
-    return (
-      <GenericOption key={`scope-${element.id}`} value={element.id}>
-        {element.name || element.nameLoop || element.Name}
-      </GenericOption>
-    );
-  });
+    getQuestionnaireScope(componentsStore).map(questionnaireIteration => {
+      return (
+        <GenericOption
+          key={`scope-${questionnaireIteration.id}`}
+          value={questionnaireIteration.id}
+        >
+          {questionnaireIteration.nameLoop}
+        </GenericOption>
+      );
+    }),
+    externalLoopsStore.map(externalIteration => {
+      return (
+        <GenericOption
+          key={`scope-${externalIteration.id}`}
+          value={externalIteration.id}
+        >
+          {externalIteration.Name}
+        </GenericOption>
+      );
+    }),
+  ];
+
   const associatedFieldsProps = {
     formName: form,
     fieldOrigin: { name: 'label', label: Dictionary.label },
