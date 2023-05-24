@@ -66,11 +66,16 @@ const PageQuestionnaire = props => {
   const [toInitialize, setToInitialize] = useState(false);
 
   useEffect(() => {
-    if (!questionnaire || questionnaire.id !== id) {
+    if (
+      !questionnaire ||
+      questionnaire.id !== id ||
+      Object.keys(appState.activeComponentsById).length === 0
+    ) {
       loadQuestionnaire(id, token);
       setToInitialize(true);
     }
-  }, [id, loadQuestionnaire, questionnaire, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, questionnaire?.id]);
 
   useEffect(() => {
     if (toInitialize && questionnaire) {
