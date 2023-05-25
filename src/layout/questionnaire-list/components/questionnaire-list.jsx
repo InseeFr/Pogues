@@ -121,7 +121,7 @@ const QuestionnaireList = props => {
   }, [token]);
 
   useEffect(() => {
-    setSelectedStamp(stamp || 'FAKEPERMISSION');
+    setSelectedStamp(isTcm ? TCM.owner : stamp || 'FAKEPERMISSION');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
