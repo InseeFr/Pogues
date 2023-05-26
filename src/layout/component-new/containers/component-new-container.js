@@ -8,7 +8,7 @@ import {
   createComponent,
   orderComponents,
   updateParentChildren,
-} from 'actions/components';
+} from 'actions/component';
 import { setSelectedComponentId } from 'actions/app-state';
 import { updateComponent, removeComponent } from 'actions/actionComponent';
 // PropTypes and defaultProps

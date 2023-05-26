@@ -1,10 +1,13 @@
 import {
   isSubSequence,
   isSequence,
-  isExternalQuestionnaire,
   isQuestion,
   toComponents,
   updateNewComponentParent,
+  isExternalQuestionnaire,
+  isLoop,
+  isFilter,
+  isNestedFilter,
 } from 'utils/component/component-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
@@ -121,7 +124,12 @@ export const orderComponents =
     /**
      * We do the reorder only if we have a selected component
      */
-    if (selectedComponent) {
+    if (
+      selectedComponent &&
+      !isLoop(selectedComponent) &&
+      !isFilter(selectedComponent) &&
+      !isNestedFilter(selectedComponent)
+    ) {
       // We get the next sibling component of the currently selected component
       const siblingSelectedComponent = toComponents(
         activesComponents[selectedComponent.parent].children,
@@ -132,7 +140,7 @@ export const orderComponents =
       /**
        * When we insert a SUBSEQUENCE, we have to do a reorder only in these two cases :
        * 1. The currently selected component is QUESTION and its sibling is also a QUESTION
-       * 2. The currently selecteed component is a SUBSEQUENCE with children (of course QUESTION)
+       * 2. The currently selected component is a SUBSEQUENCE with children (of course QUESTION)
        */
       if (
         isSubSequence(lastCreatedComponent[id]) &&
@@ -141,7 +149,7 @@ export const orderComponents =
           (isSubSequence(selectedComponent) &&
             childrenSelectedComponentLength > 0))
       ) {
-        // If the selected component have children, we will use the first child as the component used for the insert
+        // If the selected component has children, we will use the first child as the component used for the insert
         const comp =
           childrenSelectedComponentLength === 0
             ? selectedComponent
@@ -169,7 +177,7 @@ export const orderComponents =
           isSequence(selectedComponent) && childrenSelectedComponentLength === 0
         )
       ) {
-        // If the selected component have children, we will use the first child as the component used for the in
+        // If the selected component has children, we will use the first child as the component used for the in
         const comp =
           childrenSelectedComponentLength === 0
             ? selectedComponent
