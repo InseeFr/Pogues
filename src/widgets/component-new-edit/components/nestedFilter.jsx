@@ -217,51 +217,34 @@ const NestedFilter = props => {
   };
 
   const getFinalOptions = store => {
-    let optionsFinal = <option key="emptyfinal" value="" />;
     const componentinitial = Object.values(store).filter(
       component => component.id === newNestedFilter.initialMember,
     );
-    if (newNestedFilter.initialMember && componentinitial.length > 0) {
-      if (
-        newNestedFilter.filterImbriquer > 0 &&
-        infImbriquer(store, componentinitial[0])
-      ) {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              component.type === componentinitial[0].type &&
-              component.id !== 'idendquest' &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.weight <= infImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent,
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      } else {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              component.type === componentinitial[0].type &&
-              component.id !== 'idendquest' &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent,
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      }
-      return optionsFinal;
-    }
-    return null;
+
+    if (!newNestedFilter.initialMember || componentinitial.length === 0)
+      return null;
+
+    return Object.values(store)
+      .filter(
+        component =>
+          component.type === componentinitial[0].type &&
+          component.id !== 'idendquest' &&
+          component.weight >= supImbriquer(store, componentinitial[0]) &&
+          component.parent === componentinitial[0].parent &&
+          (newNestedFilter.filterImbriquer === 0 ||
+            !infImbriquer(
+              store,
+              componentinitial[0] ||
+                component.weight <= infImbriquer(store, componentinitial[0]),
+            )),
+      )
+      .map(element => {
+        return (
+          <option key={element.id} value={element.id}>
+            {element.name}
+          </option>
+        );
+      });
   };
   const inferieur = () => {
     let inferieurFilter =
@@ -283,70 +266,44 @@ const NestedFilter = props => {
   };
 
   const optionsInitial = () => {
-    let options = <option key="emptyinitial" value="" />;
-    if (initialMemberFilter) {
-      if (newNestedFilter.filterImbriquer?.length > 0) {
-        options = Object.values(componentsStore)
-          .filter(
-            component =>
-              component.type !== LOOP &&
-              component.type === componentsStore[initialMemberFilter].type &&
-              component.parent ===
-                componentsStore[initialMemberFilter].parent &&
-              component.weight >= componentsStore[initialMemberFilter].weight &&
-              component.weight <= inferieur() &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      } else {
-        options = Object.values(componentsStore)
-          .filter(
-            component =>
-              component.type !== LOOP &&
-              component.type === componentsStore[initialMemberFilter].type &&
-              component.parent ===
-                componentsStore[initialMemberFilter].parent &&
-              component.weight >= componentsStore[initialMemberFilter].weight &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      }
-    }
+    if (!initialMemberFilter) return <option key="emptyinitial" value="" />;
 
-    return options;
+    return Object.values(componentsStore)
+      .filter(
+        component =>
+          component.type !== LOOP &&
+          component.type === componentsStore[initialMemberFilter].type &&
+          component.parent === componentsStore[initialMemberFilter].parent &&
+          component.weight >= componentsStore[initialMemberFilter].weight &&
+          component.id !== 'idendquest' &&
+          (newNestedFilter.filterImbriquer?.length === 0 ||
+            component.weight <= inferieur()),
+      )
+      .map(element => {
+        return (
+          <option key={element.id} value={element.id}>
+            {element.name}
+          </option>
+        );
+      });
   };
 
   const getNestedFilters = () => {
-    let options = <option key="emptynestedfilter" value="" />;
-    if (initialMemberFilter) {
-      options = Object.values(componentsStore)
-        .filter(
-          component =>
-            (component.type === NESTEDFILTRE || component.type === FILTER) &&
-            componentsStore[component.initialMember].weight >=
-              componentsStore[initialMemberFilter].weight,
-        )
-        .map(element => {
-          return (
-            <option key={element.id} value={element.id}>
-              {element.name}
-            </option>
-          );
-        });
-    }
-    return options;
+    if (initialMemberFilter) return <option key="emptynestedfilter" value="" />;
+    return Object.values(componentsStore)
+      .filter(
+        component =>
+          (component.type === NESTEDFILTRE || component.type === FILTER) &&
+          componentsStore[component.initialMember].weight >=
+            componentsStore[initialMemberFilter].weight,
+      )
+      .map(element => {
+        return (
+          <option key={element.id} value={element.id}>
+            {element.name}
+          </option>
+        );
+      });
   };
 
   return (
@@ -528,12 +485,10 @@ const NestedFilter = props => {
         <button className={CANCEL} onClick={() => handleCloseNestedFilter1()}>
           {Dictionary.cancel}
         </button>
-        {filterId ? (
+        {filterId && (
           <button className={DELETE} onClick={handleDeleteComponent}>
             {Dictionary.remove}
           </button>
-        ) : (
-          false
         )}
       </div>
       <ReactModal
