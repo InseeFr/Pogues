@@ -127,8 +127,7 @@ function GenericInput(props) {
 
   const testExistFromQuestionnaire = useCallback(
     (crntLocation, nextLocation) =>
-      (!nextLocation ||
-        !nextLocation.pathname.startsWith(crntLocation.pathname)) &&
+      !nextLocation?.pathname.startsWith(crntLocation.pathname) &&
       isQuestionnaireModified,
     [isQuestionnaireModified],
   );

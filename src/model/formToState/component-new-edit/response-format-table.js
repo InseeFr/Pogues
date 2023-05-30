@@ -398,24 +398,18 @@ const Factory = (initialState = {}, codesListsStore) => {
     getCodesListStore: () => {
       let codesLists = {};
 
-      if (currentState[PRIMARY] && currentState[PRIMARY].type === CODES_LIST) {
+      if (currentState[PRIMARY]?.type === CODES_LIST) {
         codesLists = transformers.codesListPrimary.getStore();
       }
 
-      if (
-        currentState[SECONDARY] &&
-        currentState[SECONDARY].showSecondaryAxis
-      ) {
+      if (currentState[SECONDARY]?.showSecondaryAxis) {
         codesLists = {
           ...codesLists,
           ...transformers.codesListSecondary.getStore(),
         };
       }
 
-      if (
-        currentState[MEASURE] &&
-        currentState[MEASURE].type === SINGLE_CHOICE
-      ) {
+      if (currentState[MEASURE]?.type === SINGLE_CHOICE) {
         codesLists = {
           ...codesLists,
           ...transformers.codesListMeasure.getStore(),

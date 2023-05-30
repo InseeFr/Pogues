@@ -253,10 +253,7 @@ function getCollectedScope(questionsLoop, id, componentsStore) {
   let isfound = {};
   Object.keys(questionsLoop).forEach(key => {
     questionsLoop[key].forEach(element => {
-      if (
-        element.collectedVariables &&
-        element.collectedVariables.find(collected => collected === id)
-      ) {
+      if (element.collectedVariables?.find(collected => collected === id)) {
         isfound = {
           loop: componentsStore[key],
           component: element,

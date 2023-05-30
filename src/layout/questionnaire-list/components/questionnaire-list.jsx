@@ -152,8 +152,7 @@ const QuestionnaireList = props => {
     .filter(q => {
       return (
         activeQuestionnaire.id !== q.id &&
-        (!activeQuestionnaire.childQuestionnaireRef ||
-          !activeQuestionnaire.childQuestionnaireRef.includes(q.id)) &&
+        !activeQuestionnaire.childQuestionnaireRef?.includes(q.id) &&
         (!isTcm || q.campaigns.some(campaign => campaign === TCM.id)) &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||

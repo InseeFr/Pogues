@@ -287,7 +287,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       CollectedVariable.remoteToComponentState(responseFinal);
   }
   const cGroupIndex = componentGroup.findIndex(
-    group => group.MemberReference && group.MemberReference.indexOf(id) >= 0,
+    group => group.MemberReference?.indexOf(id) >= 0,
   );
   const cGroup = componentGroup[cGroupIndex];
   state.pageBreak =
@@ -387,7 +387,7 @@ function getClarificationresponseSingleChoiseQuestion(
         pattern: '',
         collectedVariable: collected.id,
       };
-      if (findResponse && findResponse.Response) {
+      if (findResponse?.Response) {
         responseModel.id = findResponse.Response[0].id;
       }
       const clafication = {
@@ -472,7 +472,7 @@ function getClarificationResponseMultipleChoiceQuestion(
           pattern: '',
           collectedVariable: collected.id,
         };
-        if (findResponse && findResponse.Response[0]) {
+        if (findResponse?.Response[0]) {
           responseModel.id = findResponse.Response[0].id;
         }
         const clafication = {
@@ -536,7 +536,7 @@ function getClarificationResponseTableQuestion(
 
   if (responseFormat.TABLE.LIST_MEASURE) {
     responseFormat.TABLE.LIST_MEASURE.forEach(mesure => {
-      if (mesure.SINGLE_CHOICE && mesure.SINGLE_CHOICE.CodesList.id) {
+      if (mesure.SINGLE_CHOICE?.CodesList.id) {
         Object.values(
           codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes,
         ).forEach(code => {
@@ -570,7 +570,7 @@ function getClarificationResponseTableQuestion(
                 pattern: '',
                 collectedVariable: varib.id,
               };
-              if (findResponse && findResponse.Response[0]) {
+              if (findResponse?.Response[0]) {
                 responseModel.id = findResponse.Response[0].id;
               }
               const clafication = {

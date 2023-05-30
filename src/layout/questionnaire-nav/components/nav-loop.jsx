@@ -48,9 +48,7 @@ function NavLoop({
         </button>
       );
     });
-  const componentType =
-    componentsStore[editingComponentId] &&
-    componentsStore[editingComponentId].type;
+  const componentType = componentsStore[editingComponentId]?.type;
 
   const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
   return (

@@ -255,7 +255,7 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
 
     codesStatePrimary = componentCodesStatePrimary;
     codesStatePrimary = sortCodes(codesStatePrimary);
-    if (secondaryState && secondaryState.showSecondaryAxis) {
+    if (secondaryState?.showSecondaryAxis) {
       const {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
           codes: componentCodesStateSecondary,
@@ -337,13 +337,9 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
     }
   }
 
-  if (form.LIST_MEASURE && form.LIST_MEASURE.measures) {
+  if (form.LIST_MEASURE?.measures) {
     form.LIST_MEASURE.measures.forEach(mesure => {
-      if (
-        mesure.SINGLE_CHOICE &&
-        mesure.SINGLE_CHOICE.CodesList &&
-        mesure.SINGLE_CHOICE.CodesList.codes
-      ) {
+      if (mesure.SINGLE_CHOICE?.CodesList?.codes) {
         mesure.SINGLE_CHOICE.CodesList.codes.forEach(code => {
           if (code.precisionid && code.precisionid !== '') {
             collectedVariables

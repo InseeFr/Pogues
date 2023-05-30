@@ -44,7 +44,7 @@ export const pathVisualisation = 'transform/visualize';
 function openDocument(data) {
   let filename = '';
   const disposition = data.headers.get('Content-Disposition');
-  if (disposition && disposition.indexOf('attachment') !== -1) {
+  if (disposition?.indexOf('attachment') !== -1) {
     const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
     const matches = filenameRegex.exec(disposition);
     if (matches != null && matches[1])

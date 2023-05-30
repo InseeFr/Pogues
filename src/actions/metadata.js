@@ -219,10 +219,7 @@ export const loadExternalQuestionnairesLoops =
       const externalQuestionnairesMetadata = [
         {
           id: idExternalQuestionnaire,
-          loops:
-            (externalQuestionnaire.Iterations &&
-              externalQuestionnaire.Iterations.Iteration) ||
-            [],
+          loops: externalQuestionnaire.Iterations?.Iteration || [],
         },
       ];
       return dispatch(
@@ -240,16 +237,14 @@ export const loadExternalQuestionnairesIfNeeded =
   (idExternalQuestionnaire, token) => (dispatch, getState) => {
     const state = getState();
     if (
-      !state.metadataByType.externalQuestionnairesVariables ||
       !state.metadataByType.externalQuestionnairesVariables
-        .idExternalQuestionnaire
+        ?.idExternalQuestionnaire
     )
       dispatch(
         loadExternalQuestionnairesVariables(idExternalQuestionnaire, token),
       );
     if (
-      !state.metadataByType.externalQuestionnairesLoops ||
-      !state.metadataByType.externalQuestionnairesLoops.idExternalQuestionnaire
+      !state.metadataByType.externalQuestionnairesLoops?.idExternalQuestionnaire
     )
       dispatch(loadExternalQuestionnairesLoops(idExternalQuestionnaire, token));
   };

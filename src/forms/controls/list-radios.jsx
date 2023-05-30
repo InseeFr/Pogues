@@ -19,13 +19,7 @@ function ListRadios({
 
   return (
     <div className={COMPONENT_CLASS}>
-      <label
-        htmlFor={getControlId(
-          'radios',
-          input.name,
-          values[0] && values[0].value,
-        )}
-      >
+      <label htmlFor={getControlId('radios', input.name, values[0]?.value)}>
         {label}
         {required && <span className="ctrl-required">*</span>}
       </label>

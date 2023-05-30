@@ -379,7 +379,7 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
           });
         // We change Id of the responseFormat (to deal with the case of the fusion of questionnaires sharing the same ids (duplication))
         Object.values(mergedComponent.responseFormat).forEach(resp => {
-          if (resp && resp.id) resp.id = uuid();
+          if (resp?.id) resp.id = uuid();
         });
       }
       const activeComponent = {

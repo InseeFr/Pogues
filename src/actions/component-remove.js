@@ -32,13 +32,11 @@ export function removeComponentFromActivesComponent(
     ) {
       acc[currentElement.id] = {
         ...activesComponents[currentElement.id],
-        children:
-          activesComponents[currentElement.id] &&
-          activesComponents[currentElement.id].children
-            ? activesComponents[currentElement.id].children.filter(
-                childId => childId !== deletedComponent.id,
-              )
-            : [],
+        children: activesComponents[currentElement.id]?.children
+          ? activesComponents[currentElement.id].children.filter(
+              childId => childId !== deletedComponent.id,
+            )
+          : [],
       };
     }
     return acc;
