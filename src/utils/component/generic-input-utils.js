@@ -73,11 +73,7 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
  * @param  {QUESTION|SEQUENCE|SUBSEQUENCE}  type              Type of component
  * @return {string} The id of the component with heaviest weight and corresponding type or an empty string
  */
-export function getHeavyComponentIdByTypeFromGroupIds(
-  components,
-  subgroupIds,
-  type,
-) {
+function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
   let heavyComponentId = '';
   const componentsIds = subgroupIds.filter(
     key => components[key] && components[key].type === type,

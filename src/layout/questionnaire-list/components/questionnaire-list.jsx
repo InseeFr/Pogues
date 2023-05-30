@@ -7,10 +7,7 @@ import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
 import { getStampsList, getQuestionnaire } from 'utils/remote-api';
-import {
-  getHeavyComponentIdByTypeFromGroupIds,
-  getWeight,
-} from 'utils/component/generic-input-utils';
+import { getWeight } from 'utils/component/generic-input-utils';
 import { COMPONENT_TYPE, TCM } from 'constants/pogues-constants';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
@@ -64,14 +61,13 @@ const QuestionnaireList = props => {
 
   // function addQuestionnaireRef (checkedQuestionnaire)  {
   const addQuestionnaireRef = async checkedQuestionnaire => {
-    const heavierSeqId = getHeavyComponentIdByTypeFromGroupIds(
-      componentsStore,
-      Object.keys(componentsStore),
-      SEQUENCE,
-    );
     const weight = selectedComponentId
       ? getWeight(componentsStore, selectedComponentId)
-      : getWeight(componentsStore, heavierSeqId);
+      : Object.values(componentsStore).filter(
+          component =>
+            (component.type === SEQUENCE && component.id !== 'idendquest') ||
+            component.type === EXTERNAL_ELEMENT,
+        ).length;
     const externalQuestionnaire = await getQuestionnaire(
       checkedQuestionnaire,
       token,
