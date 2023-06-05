@@ -115,9 +115,12 @@
 
         .questionnaire-element-actions {
           @include make-xs-column(8);
-          text-align: right;
-          button {
-            margin: 5px 5px 0 0;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          align-items: center;
+          a, button {
+            margin: 5px 5px 2px 2px;
           }
         }
       }
@@ -132,6 +135,27 @@
 
           .questionnaire-element-name {
             background-color: $color-blue_01;
+          }
+        }
+      }
+
+      .questionnaire-element.questionnaire-external-element {
+        & > .questionnaire-element-info {
+          color: #e7a10b;
+          font-weight: bold;
+        }
+        &.selected > .questionnaire-element-info {
+          border-color: #e7a10b;
+
+          .questionnaire-element-name {
+            background-color: #e7a10b;
+          }
+
+          .questionnaire-element-body
+            .questionnaire-elements
+            .questionnaire-element-actions
+            .btn-yellow {
+            color: black;
           }
         }
       }
@@ -159,11 +183,6 @@
         }
       }
     }
-  }
-
-  .dropdown-menu.top {
-    top: -250%;
-    left: 10px;
   }
 }
 

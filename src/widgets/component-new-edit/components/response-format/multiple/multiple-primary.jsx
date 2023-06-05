@@ -1,39 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import { CodesLists } from 'widgets/codes-lists';
 import { DIMENSION_TYPE } from 'constants/pogues-constants';
 
-const { PRIMARY } = DIMENSION_TYPE;
+const { PRIMARY: selectorPath } = DIMENSION_TYPE;
 
-class ResponseFormatMultiplePrimary extends Component {
-  static selectorPath = PRIMARY;
+function ResponseFormatMultiplePrimary({ selectorPathParent }) {
+  const selectorPathComposed = selectorPathParent
+    ? `${selectorPathParent}.${selectorPath}`
+    : selectorPath;
 
-  static propTypes = {
-    selectorPathParent: PropTypes.string,
-  };
-
-  static defaultProps = {
-    selectorPathParent: undefined,
-  };
-
-  constructor(props) {
-    const { selectorPathParent } = props;
-    super(props);
-
-    this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${ResponseFormatMultiplePrimary.selectorPath}`
-      : ResponseFormatMultiplePrimary.selectorPath;
-  }
-
-  render() {
-    return (
-      <FormSection name={ResponseFormatMultiplePrimary.selectorPath}>
-        <CodesLists selectorPathParent={this.selectorPathComposed} />
-      </FormSection>
-    );
-  }
+  return (
+    <FormSection name={selectorPath}>
+      <CodesLists selectorPathParent={selectorPathComposed} />
+    </FormSection>
+  );
 }
+
+ResponseFormatMultiplePrimary.propTypes = {
+  selectorPathParent: PropTypes.string,
+};
+
+ResponseFormatMultiplePrimary.defaultProps = {
+  selectorPathParent: undefined,
+};
 
 export default ResponseFormatMultiplePrimary;

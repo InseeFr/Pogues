@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import ClassSet from 'react-classset';
 import { compose } from 'redux';
@@ -7,7 +8,7 @@ import { compose } from 'redux';
 import DropZone from './drop-zone/drop-zone';
 
 import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { markdownVtlToString } from 'forms/controls/rich-textarea';
@@ -28,7 +29,9 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { getIntegrityErrors } from 'utils/integrity/utils';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
+const { VISUALIZATION } = DROPDOWN_TYPE;
 
 const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
@@ -46,7 +49,6 @@ const QuestionnaireComponent = props => {
     children,
     parentType,
     visualizeActiveQuestionnaire,
-    handleRemovePageBreak,
     componentFiltersInitial,
     componentFiltersFinal,
   } = props;
@@ -119,6 +121,8 @@ const QuestionnaireComponent = props => {
             'questionnaire-sequence': component.type === SEQUENCE,
             'questionnaire-subsequence': component.type === SUBSEQUENCE,
             'questionnaire-question': component.type === QUESTION,
+            'questionnaire-external-element':
+              component.type === EXTERNAL_ELEMENT,
           })}
           ref={myRef}
         >
@@ -149,58 +153,76 @@ const QuestionnaireComponent = props => {
                     component.label
                   )}
                 </div>
-                {componentFiltersInitial?.length > 0
-                  ? componentFiltersInitial.map(filter => {
-                      return (
-                        <div className="questionnaire-element-filter">
-                          <button
-                            onClick={() => handleEditFilterComponent(filter.id)}
-                            className="btn-white-filter"
-                          >
-                            {`${Dictionary.If} ${filter?.filter}`}
-                          </button>
-                        </div>
-                      );
-                    })
-                  : false}
-                {componentFiltersFinal?.length > 0
-                  ? componentFiltersFinal.map(filter => {
-                      return (
-                        <div className="questionnaire-element-filter">
-                          <button
-                            onClick={() => handleEditFilterComponent(filter.id)}
-                            className="btn-white-filter"
-                          >
-                            {`${Dictionary.EndIf} ${filter?.filter}`}
-                          </button>
-                        </div>
-                      );
-                    })
-                  : false}
-                {selected ? (
-                  <div className="questionnaire-element-actions">
-                    <button
-                      className="btn-yellow"
-                      onClick={handleEditComponent}
-                    >
-                      {Dictionary.showDetail}
-                    </button>
-                    {component.type === QUESTION && (
-                      <button
-                        className="btn-yellow"
-                        onClick={handleDuplicateComponent}
+                {componentFiltersInitial?.length > 0 &&
+                  componentFiltersInitial.map(filter => {
+                    return (
+                      <div
+                        key={`${filter.id}-if`}
+                        className="questionnaire-element-filter"
                       >
-                        {Dictionary.duplicate}
-                        <span className="glyphicon glyphicon-duplicate" />
-                      </button>
+                        <button
+                          onClick={() => handleEditFilterComponent(filter.id)}
+                          className="btn-white-filter"
+                        >
+                          {`${Dictionary.If} ${filter?.filter}`}
+                        </button>
+                      </div>
+                    );
+                  })}
+                {componentFiltersFinal?.length > 0 &&
+                  componentFiltersFinal.map(filter => {
+                    return (
+                      <div
+                        key={`${filter.id}-endif`}
+                        className="questionnaire-element-filter"
+                      >
+                        <button
+                          onClick={() => handleEditFilterComponent(filter.id)}
+                          className="btn-white-filter"
+                        >
+                          {`${Dictionary.EndIf} ${filter?.filter}`}
+                        </button>
+                      </div>
+                    );
+                  })}
+                {selected && (
+                  <div className="questionnaire-element-actions">
+                    {component.type === EXTERNAL_ELEMENT && (
+                      <Link
+                        className="btn-yellow"
+                        to={`/questionnaire/${component.id}`}
+                        target="_blank"
+                      >
+                        {Dictionary.openQuestionnaire}
+                      </Link>
                     )}
-                    <VisualizeDropdown
-                      componentId={component.id}
-                      visualizeActiveQuestionnaire={
-                        visualizeActiveQuestionnaire
-                      }
-                      token={token}
-                    />
+                    {component.type !== EXTERNAL_ELEMENT && (
+                      <>
+                        <button
+                          className="btn-yellow"
+                          onClick={handleEditComponent}
+                        >
+                          {Dictionary.showDetail}
+                        </button>
+                        {component.type === QUESTION && (
+                          <button
+                            className="btn-yellow"
+                            onClick={handleDuplicateComponent}
+                          >
+                            {Dictionary.duplicate}
+                            <span className="glyphicon glyphicon-duplicate" />
+                          </button>
+                        )}
+                        <VisualizeDropdown
+                          typeDropDown={VISUALIZATION}
+                          componentId={component.id}
+                          visualizeActiveQuestionnaire={
+                            visualizeActiveQuestionnaire
+                          }
+                          token={token}
+                        />
+                      </>
+                    )}
                     <button
                       className="btn-yellow"
                       disabled={
@@ -212,8 +234,6 @@ const QuestionnaireComponent = props => {
                       <span className="glyphicon glyphicon-trash" />
                     </button>
                   </div>
-                ) : (
-                  ''
                 )}
               </div>
               {integrityErrors.length > 0 && (
@@ -227,21 +247,9 @@ const QuestionnaireComponent = props => {
               )}
             </div>
           </div>
-          {component.pageBreak && component.type !== QUESTION && (
-            <div className="separator">
-              <hr />
-              <button onClick={handleRemovePageBreak}>x</button>
-            </div>
-          )}
           {dropZone}
           {children}
         </div>
-        {component.pageBreak && component.type === QUESTION && (
-          <div className="separator">
-            <hr />
-            <button onClick={handleRemovePageBreak}>x</button>
-          </div>
-        )}
         <ReactModal
           ariaHideApp={false}
           shouldCloseOnOverlayClick={false}
@@ -283,7 +291,6 @@ QuestionnaireComponent.propTypes = {
   duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired,
 
   children: PropTypes.array,
 

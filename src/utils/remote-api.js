@@ -44,7 +44,7 @@ export const pathVisualisation = 'transform/visualize';
 function openDocument(data) {
   let filename = '';
   const disposition = data.headers.get('Content-Disposition');
-  if (disposition && disposition.indexOf('attachment') !== -1) {
+  if (disposition?.indexOf('attachment') !== -1) {
     const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
     const matches = filenameRegex.exec(disposition);
     if (matches != null && matches[1])
@@ -82,9 +82,9 @@ const getHeaders = (base, token) => {
  * the visualization of the questionnaire in Stromae V1/V2 and
  * Lunatic (Queen) formats
  */
-export const getVizualisationUrl = async (path, qr, token) => {
+export const getVizualisationUrl = async (path, qr, ref, token) => {
   const b = await getBaseURI();
-  return fetch(`${b}/${path}`, {
+  return fetch(`${b}/${path}?references=${ref}`, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
@@ -110,10 +110,11 @@ export const getVizualisationUrl = async (path, qr, token) => {
  * of the generated HTML page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeHtml = async (qr, token) => {
+export const visualizeHtml = async (qr, ref, token) => {
   await getVizualisationUrl(
     `${pathVisualisation}/${qr.DataCollection[0].id}/${qr.Name}`,
     qr,
+    ref,
     token,
   );
 };
@@ -123,8 +124,13 @@ export const visualizeHtml = async (qr, token) => {
  * of the generated Queen page for face to face and the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeQueenCapi = async (qr, token) => {
-  await getVizualisationUrl(`${pathVisualizeQueenCapi}/${qr.Name}`, qr, token);
+export const visualizeQueenCapi = async (qr, ref, token) => {
+  await getVizualisationUrl(
+    `${pathVisualizeQueenCapi}/${qr.Name}`,
+    qr,
+    ref,
+    token,
+  );
 };
 
 /**
@@ -132,8 +138,13 @@ export const visualizeQueenCapi = async (qr, token) => {
  * of the generated Queen page for telephone and the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeQueenCati = async (qr, token) => {
-  await getVizualisationUrl(`${pathVisualizeQueenCati}/${qr.Name}`, qr, token);
+export const visualizeQueenCati = async (qr, ref, token) => {
+  await getVizualisationUrl(
+    `${pathVisualizeQueenCati}/${qr.Name}`,
+    qr,
+    ref,
+    token,
+  );
 };
 
 /**
@@ -141,10 +152,11 @@ export const visualizeQueenCati = async (qr, token) => {
  * of the generated Stromae v2 page for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeWebStromaeV2 = async (qr, token) => {
+export const visualizeWebStromaeV2 = async (qr, ref, token) => {
   await getVizualisationUrl(
     `${pathVisualisation}-stromae-v2/${qr.Name}`,
     qr,
+    ref,
     token,
   );
 };
@@ -153,9 +165,9 @@ export const visualizeWebStromaeV2 = async (qr, token) => {
  * This method will call the back in order to get a documpent for
  * the visualization of the questionnaire in DDI, PDF and ODT (Spec)
  */
-export const getVizualisationDocument = async (path, qr, token) => {
+export const getVizualisationDocument = async (path, qr, ref, token) => {
   const b = await getBaseURI();
-  return fetch(`${b}/${path}`, {
+  return fetch(`${b}/${path}?references=${ref}`, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
@@ -174,8 +186,8 @@ export const getVizualisationDocument = async (path, qr, token) => {
  * of the generated DDI document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeDDI = async (qr, token) => {
-  await getVizualisationDocument(`${pathVisualizeDDI}`, qr, token);
+export const visualizeDDI = async (qr, ref, token) => {
+  await getVizualisationDocument(`${pathVisualizeDDI}`, qr, ref, token);
 };
 
 /**
@@ -183,8 +195,8 @@ export const visualizeDDI = async (qr, token) => {
  * of the generated PDF document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizePdf = async (qr, token) => {
-  await getVizualisationDocument(`${pathVisualizePdf}`, qr, token);
+export const visualizePdf = async (qr, ref, token) => {
+  await getVizualisationDocument(`${pathVisualizePdf}`, qr, ref, token);
 };
 
 /**
@@ -192,8 +204,8 @@ export const visualizePdf = async (qr, token) => {
  * of the generated ODT document for the active questionnaire.
  * @param {*} qr The active questionnaire
  */
-export const visualizeSpec = async (qr, token) => {
-  await getVizualisationDocument(`${pathVisualizeSpec}`, qr, token);
+export const visualizeSpec = async (qr, ref, token) => {
+  await getVizualisationDocument(`${pathVisualizeSpec}`, qr, ref, token);
 };
 
 /**
@@ -242,6 +254,16 @@ export const putQuestionnaire = async (id, qr, token) => {
 export const getQuestionnaire = async (id, token) => {
   const b = await getBaseURI();
   return fetch(`${b}/${pathQuestionnaire}/${id}`, {
+    headers: getHeaders({ Accept: 'application/json' }, token),
+  }).then(res => res.json());
+};
+
+/**
+ * Retrieve the variables of a given questionnaire
+ */
+export const getVariablesById = async (id, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathQuestionnaire}/${id}/variables`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then(res => res.json());
 };

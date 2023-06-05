@@ -36,7 +36,6 @@ export function remoteToState(remote, parent) {
     addButtonLibel,
     type: 'LOOP',
     TargetMode: [],
-    pageBreak: false,
     parent: parent,
   };
 }
@@ -57,18 +56,10 @@ export function stateToRemote(store) {
         addButtonLibel,
       } = component;
 
-      const memberReference = [];
-      if (initialMember === finalMember) {
-        memberReference[0] = initialMember;
-      } else {
-        memberReference[0] = initialMember;
-        memberReference[1] = finalMember;
-      }
-
       const response = {
         id,
         Name: nameLoop,
-        MemberReference: memberReference,
+        MemberReference: [initialMember, finalMember],
         type: 'DynamicIterationType',
       };
       if (maximum) {

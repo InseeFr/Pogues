@@ -51,9 +51,17 @@ export const defaultProps = {
 
 const mapStateToProps = (state, { componentId }) => {
   const errorsIntegrity = state.errors.errorsIntegrity[componentId];
+  const externalLoopsAvailable =
+    state.metadataByType.externalQuestionnairesLoops || {};
+  const externalQuestionnnairesId =
+    state.appState.activeQuestionnaire.childQuestionnaireRef || [];
+  const externalLoopsWanted = Object.keys(externalLoopsAvailable)
+    .filter(key => externalQuestionnnairesId.includes(key))
+    .reduce((acc, key) => [...acc, ...externalLoopsAvailable[key].loops], []);
   return {
     errorsIntegrityByTab: getErrorsIntegrityByTab(errorsIntegrity),
     componentsStore: state.appState.activeComponentsById,
+    externalLoopsStore: externalLoopsWanted,
   };
 };
 

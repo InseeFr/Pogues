@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
@@ -8,65 +8,42 @@ import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
 import Dictionary from 'utils/dictionary/dictionary';
 import { DIMENSION_TYPE, DIMENSION_FORMATS } from 'constants/pogues-constants';
 
-const { PRIMARY } = DIMENSION_TYPE;
+const { PRIMARY: selectorPath } = DIMENSION_TYPE;
 const { CODES_LIST, LIST } = DIMENSION_FORMATS;
 
-class ResponseFormatTablePrincipal extends Component {
-  static selectorPath = PRIMARY;
+function ResponseFormatTablePrincipal({ selectorPathParent }) {
+  const selectorPathComposed = selectorPathParent
+    ? `${selectorPathParent}.${selectorPath}`
+    : selectorPath;
 
-  static propTypes = {
-    selectorPathParent: PropTypes.string,
-  };
-
-  static defaultProps = {
-    selectorPathParent: undefined,
-  };
-
-  constructor(props) {
-    const { selectorPathParent } = props;
-    super(props);
-
-    this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${ResponseFormatTablePrincipal.selectorPath}`
-      : ResponseFormatTablePrincipal.selectorPath;
-  }
-
-  render() {
-    return (
-      <FormSection name={ResponseFormatTablePrincipal.selectorPath}>
-        <SelectorView
-          label={Dictionary.primaryFormat}
-          selectorPath={this.selectorPathComposed}
-          radio
-        >
-          <View key={LIST} value={LIST} label={Dictionary.list}>
-            <ResponseFormatTablePrincipalList
-              selectorPathParent={this.selectorPathComposed}
-            />
-          </View>
-          <View key={CODES_LIST} value={CODES_LIST} label={Dictionary.codeList}>
-            <ResponseFormatTablePrincipalCodeslist
-              selectorPathParent={this.selectorPathComposed}
-            />
-          </View>
-        </SelectorView>
-        {/*
-  <OptionalView
-    name="showTotalLabel"
-    label={Dictionary.rowTotal}
-    selectorPath={this.selectorPathComposed}
-  >
-    <Field
-      name="totalLabel"
-      type="text"
-      component={Input}
-      label={Dictionary.rowTotalLabel}
-    />
-  </OptionalView>
-*/}
-      </FormSection>
-    );
-  }
+  return (
+    <FormSection name={selectorPath}>
+      <SelectorView
+        label={Dictionary.primaryFormat}
+        selectorPath={selectorPathComposed}
+        radio
+      >
+        <View key={LIST} value={LIST} label={Dictionary.list}>
+          <ResponseFormatTablePrincipalList
+            selectorPathParent={selectorPathComposed}
+          />
+        </View>
+        <View key={CODES_LIST} value={CODES_LIST} label={Dictionary.codeList}>
+          <ResponseFormatTablePrincipalCodeslist
+            selectorPathParent={selectorPathComposed}
+          />
+        </View>
+      </SelectorView>
+    </FormSection>
+  );
 }
+
+ResponseFormatTablePrincipal.propTypes = {
+  selectorPathParent: PropTypes.string,
+};
+
+ResponseFormatTablePrincipal.defaultProps = {
+  selectorPathParent: undefined,
+};
 
 export default ResponseFormatTablePrincipal;

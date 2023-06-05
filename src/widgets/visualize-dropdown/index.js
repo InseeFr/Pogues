@@ -1,1 +1,1 @@
-export { default as VisualizeDropdown } from './visualize-dropdown';
+export { default as VisualizeDropdown } from './containers/visualize-dropdown-container';

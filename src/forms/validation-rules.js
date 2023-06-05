@@ -12,7 +12,8 @@ import { generateCollectedVariables } from 'utils/variables/collected-variables-
 const { NEW } = CODES_LIST_INPUT_ENUM;
 const { NUMERIC } = DATATYPE_NAME;
 
-const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE, PAIRING } =
+  QUESTION_TYPE_ENUM;
 export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
 
@@ -223,21 +224,22 @@ export function validCollectedVariables(
   }
 
   let codeListPrecision = false;
-  if (expectedVariables.length !== value.length && type === SINGLE_CHOICE) {
+  if (
+    expectedVariables.length !== value.length &&
+    (type === SINGLE_CHOICE || type === PAIRING)
+  ) {
     codeListPrecision = true;
   }
   if (expectedVariables.length !== value.length && type === MULTIPLE_CHOICE) {
     codeListPrecision = true;
   }
   if (
-    (type === SINGLE_CHOICE &&
-      value[0] &&
-      value[0].codeListReference !== expectedVariables[0].codeListReference) ||
-    (type === SINGLE_CHOICE &&
-      value[0] &&
+    (type === SINGLE_CHOICE || type === PAIRING) &&
+    value[0] &&
+    (value[0].codeListReference !== expectedVariables[0].codeListReference ||
       value[0].codeListReferenceLabel !==
-        expectedVariables[0].codeListReferenceLabel) ||
-    (type === SINGLE_CHOICE && value[0] && codeListPrecision)
+        expectedVariables[0].codeListReferenceLabel ||
+      codeListPrecision)
   ) {
     return Dictionary.validation_collectedvariable_need_reset;
   }

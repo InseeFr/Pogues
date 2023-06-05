@@ -2,6 +2,7 @@ import { uuid } from 'utils/utils';
 import {
   DATATYPE_TYPE_FROM_NAME,
   VARIABLES_TYPES,
+  DATATYPE_NAME,
 } from 'constants/pogues-constants';
 
 const { EXTERNAL } = VARIABLES_TYPES;
@@ -82,7 +83,13 @@ export function storeToRemote(store) {
     if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
-    if (Format !== undefined) model.Datatype.Format = Format;
+    if (Format !== undefined) {
+      if (typeName === DATATYPE_NAME.DATE) {
+        model.Datatype.Format = Format.toUpperCase();
+      } else {
+        model.Datatype.Format = Format;
+      }
+    }
     if (Scope) model.Scope = Scope;
     return model;
   });

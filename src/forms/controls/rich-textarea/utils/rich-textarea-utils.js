@@ -16,7 +16,7 @@ export function createFromMarkdownVtl(markdownVtl, format, decorator) {
 }
 
 export function contentStateToString(contentState) {
-  return stateToMarkdownVtl(contentState).replace(/^\n+|\n+$/, '');
+  return stateToMarkdownVtl(contentState).replace(/(^\n+)|(\n+$)/, '');
 }
 
 export function getEditorValue(markdownVtl) {
@@ -37,7 +37,7 @@ export function markdownVtlToString(markdownVtl) {
   const raw = createFromMarkdownVtl(markdown, 'markdown', decorators).toString(
     'raw',
   );
-  return JSON.parse(raw).blocks[0].text.replace(/^\n+|\n+$/, '');
+  return JSON.parse(raw).blocks[0].text.replace(/(^\n+)|(\n+$)/, '');
 }
 
 /**

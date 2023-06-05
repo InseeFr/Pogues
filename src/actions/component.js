@@ -4,6 +4,10 @@ import {
   isQuestion,
   toComponents,
   updateNewComponentParent,
+  isExternalQuestionnaire,
+  isLoop,
+  isFilter,
+  isNestedFilter,
 } from 'utils/component/component-utils';
 import { increaseWeightOfAll } from './component-update';
 import { remove } from './component-remove';
@@ -49,7 +53,6 @@ export const createComponent =
     const activeComponentsStore = {
       [componentState.id]: componentState,
     };
-
     return new Promise(resolve => {
       const result = dispatch({
         type: CREATE_COMPONENT,
@@ -117,24 +120,27 @@ export const orderComponents =
     const { selectedComponentId, activeComponentsById: activesComponents } =
       state.appState;
     const selectedComponent = activesComponents[selectedComponentId];
-
     let activeComponentsById = {};
     /**
      * We do the reorder only if we have a selected component
      */
-    if (selectedComponent) {
+    if (
+      selectedComponent &&
+      !isLoop(selectedComponent) &&
+      !isFilter(selectedComponent) &&
+      !isNestedFilter(selectedComponent)
+    ) {
       // We get the next sibling component of the currently selected component
       const siblingSelectedComponent = toComponents(
         activesComponents[selectedComponent.parent].children,
         activesComponents,
       ).find(c => c.weight === selectedComponent.weight + 1);
-
       const childrenSelectedComponentLength = selectedComponent.children.length;
 
       /**
        * When we insert a SUBSEQUENCE, we have to do a reorder only in these two cases :
        * 1. The currently selected component is QUESTION and its sibling is also a QUESTION
-       * 2. The currently selecteed component is a SUBSEQUENCE with children (of course QUESTION)
+       * 2. The currently selected component is a SUBSEQUENCE with children (of course QUESTION)
        */
       if (
         isSubSequence(lastCreatedComponent[id]) &&
@@ -143,7 +149,7 @@ export const orderComponents =
           (isSubSequence(selectedComponent) &&
             childrenSelectedComponentLength > 0))
       ) {
-        // If the selected component have children, we will use the first child as the component used for the insert
+        // If the selected component has children, we will use the first child as the component used for the insert
         const comp =
           childrenSelectedComponentLength === 0
             ? selectedComponent
@@ -166,11 +172,12 @@ export const orderComponents =
          */
       } else if (
         isSequence(lastCreatedComponent[id]) &&
+        !isExternalQuestionnaire(selectedComponent) &&
         !(
           isSequence(selectedComponent) && childrenSelectedComponentLength === 0
         )
       ) {
-        // If the selected component have children, we will use the first child as the component used for the in
+        // If the selected component has children, we will use the first child as the component used for the in
         const comp =
           childrenSelectedComponentLength === 0
             ? selectedComponent
@@ -202,6 +209,7 @@ export const orderComponents =
       },
     });
   };
+
 /**
  * Update component
  *

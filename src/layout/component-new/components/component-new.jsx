@@ -73,10 +73,10 @@ function validateAndSubmit(
     actions
       .createComponent(
         componentState,
-        updatedCodesListsStore,
         updatedCalculatedVariablesStore,
         updatedExternalVariablesStore,
         updatedCollectedlVariablesStore,
+        updatedCodesListsStore,
       )
       .then(actions.updateParentChildren)
       .then(actions.orderComponents)

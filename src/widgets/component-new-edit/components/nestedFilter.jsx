@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { setSelectedComponentId } from 'actions/app-state';
-import { createComponent } from 'actions/components';
+import { createComponent } from 'actions/component';
 
 import PropTypes from 'prop-types';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
@@ -167,7 +167,7 @@ const NestedFilter = props => {
   };
 
   const showFiltersImbriquer = myfilters => {
-    return myfilters && myfilters.length !== 0
+    return myfilters?.length !== 0
       ? myfilters.map(filter => {
           return (
             <button
@@ -184,10 +184,7 @@ const NestedFilter = props => {
 
   const supImbriquer = (store, initial) => {
     let superieur = initial.weight;
-    if (
-      newNestedFilter.filterImbriquer &&
-      newNestedFilter.filterImbriquer.length > 0
-    ) {
+    if (newNestedFilter.filterImbriquer?.length > 0) {
       newNestedFilter.filterImbriquer.forEach(element => {
         if (
           store[store[element].finalMember].type === initial.type &&
@@ -220,51 +217,34 @@ const NestedFilter = props => {
   };
 
   const getFinalOptions = store => {
-    let optionsFinal = <option key="" value="" />;
     const componentinitial = Object.values(store).filter(
       component => component.id === newNestedFilter.initialMember,
     );
-    if (newNestedFilter.initialMember && componentinitial.length > 0) {
-      if (
-        newNestedFilter.filterImbriquer > 0 &&
-        infImbriquer(store, componentinitial[0])
-      ) {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              component.type === componentinitial[0].type &&
-              component.id !== 'idendquest' &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.weight <= infImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent,
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      } else {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              component.type === componentinitial[0].type &&
-              component.id !== 'idendquest' &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent,
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      }
-      return optionsFinal;
-    }
-    return null;
+
+    if (!newNestedFilter.initialMember || componentinitial.length === 0)
+      return null;
+
+    return Object.values(store)
+      .filter(
+        component =>
+          component.type === componentinitial[0].type &&
+          component.id !== 'idendquest' &&
+          component.weight >= supImbriquer(store, componentinitial[0]) &&
+          component.parent === componentinitial[0].parent &&
+          (newNestedFilter.filterImbriquer === 0 ||
+            !infImbriquer(
+              store,
+              componentinitial[0] ||
+                component.weight <= infImbriquer(store, componentinitial[0]),
+            )),
+      )
+      .map(element => {
+        return (
+          <option key={element.id} value={element.id}>
+            {element.name}
+          </option>
+        );
+      });
   };
   const inferieur = () => {
     let inferieurFilter =
@@ -286,70 +266,44 @@ const NestedFilter = props => {
   };
 
   const optionsInitial = () => {
-    let options = <option key="" value="" />;
-    if (initialMemberFilter) {
-      if (newNestedFilter.filterImbriquer?.length > 0) {
-        options = Object.values(componentsStore)
-          .filter(
-            component =>
-              component.type !== LOOP &&
-              component.type === componentsStore[initialMemberFilter].type &&
-              component.parent ===
-                componentsStore[initialMemberFilter].parent &&
-              component.weight >= componentsStore[initialMemberFilter].weight &&
-              component.weight <= inferieur() &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      } else {
-        options = Object.values(componentsStore)
-          .filter(
-            component =>
-              component.type !== LOOP &&
-              component.type === componentsStore[initialMemberFilter].type &&
-              component.parent ===
-                componentsStore[initialMemberFilter].parent &&
-              component.weight >= componentsStore[initialMemberFilter].weight &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <option key={element.id} value={element.id}>
-                {element.name}
-              </option>
-            );
-          });
-      }
-    }
+    if (!initialMemberFilter) return <option key="emptyinitial" value="" />;
 
-    return options;
+    return Object.values(componentsStore)
+      .filter(
+        component =>
+          component.type !== LOOP &&
+          component.type === componentsStore[initialMemberFilter].type &&
+          component.parent === componentsStore[initialMemberFilter].parent &&
+          component.weight >= componentsStore[initialMemberFilter].weight &&
+          component.id !== 'idendquest' &&
+          (newNestedFilter.filterImbriquer?.length === 0 ||
+            component.weight <= inferieur()),
+      )
+      .map(element => {
+        return (
+          <option key={element.id} value={element.id}>
+            {element.name}
+          </option>
+        );
+      });
   };
 
   const getNestedFilters = () => {
-    let options = <option key="" value="" />;
-    if (initialMemberFilter) {
-      options = Object.values(componentsStore)
-        .filter(
-          component =>
-            (component.type === NESTEDFILTRE || component.type === FILTER) &&
-            componentsStore[component.initialMember].weight >=
-              componentsStore[initialMemberFilter].weight,
-        )
-        .map(element => {
-          return (
-            <option key={element.id} value={element.id}>
-              {element.name}
-            </option>
-          );
-        });
-    }
-    return options;
+    if (initialMemberFilter) return <option key="emptynestedfilter" value="" />;
+    return Object.values(componentsStore)
+      .filter(
+        component =>
+          (component.type === NESTEDFILTRE || component.type === FILTER) &&
+          componentsStore[component.initialMember].weight >=
+            componentsStore[initialMemberFilter].weight,
+      )
+      .map(element => {
+        return (
+          <option key={element.id} value={element.id}>
+            {element.name}
+          </option>
+        );
+      });
   };
 
   return (
@@ -371,7 +325,7 @@ const NestedFilter = props => {
               value="new"
               onChange={e => handleChange(e)}
               checked={
-                newNestedFilter && newNestedFilter.typeFilter
+                newNestedFilter?.typeFilter
                   ? newNestedFilter.typeFilter === 'new'
                   : false
               }
@@ -388,7 +342,7 @@ const NestedFilter = props => {
               value="exist"
               onChange={e => handleChange(e)}
               checked={
-                newNestedFilter && newNestedFilter.typeFilter
+                newNestedFilter?.typeFilter
                   ? newNestedFilter.typeFilter === 'exist'
                   : false
               }
@@ -397,7 +351,7 @@ const NestedFilter = props => {
           </label>
         </div>
       </div>
-      {newNestedFilter && newNestedFilter.typeFilter === 'exist' ? (
+      {newNestedFilter?.typeFilter === 'exist' ? (
         <div className="ctrl-select">
           <label htmlFor="input-selectNestedFilter">
             {Dictionary.selectNestedFilter}
@@ -408,15 +362,13 @@ const NestedFilter = props => {
               name="nestedSelectedFilter"
               onChange={e => setNestedSelectedFilter(e.target.value)}
             >
-              <option key="" value="">
+              <option key="emptynestedfilter" value="">
                 {Dictionary.selectNestedFilter}
               </option>
               {getNestedFilters()}
             </select>
-            {error && error.selectFilter ? (
+            {error?.selectFilter && (
               <span className="form-error">{Dictionary.mandatory}</span>
-            ) : (
-              false
             )}
           </div>
         </div>
@@ -432,12 +384,11 @@ const NestedFilter = props => {
                 onChange={e => handleChange(e)}
                 required
               />
-              {error && error.name ? (
+              {error?.name && (
                 <span className="form-error">{Dictionary.mandatory}</span>
-              ) : error && error.nameValid ? (
+              )}
+              {!error?.name && error?.nameValid && (
                 <span className="form-error">{error.nameValid}</span>
-              ) : (
-                false
               )}
             </div>
           </div>
@@ -467,10 +418,8 @@ const NestedFilter = props => {
               type="text"
               label={Dictionary.condition}
             />
-            {error && error.filter ? (
+            {error?.filter && (
               <span className="form-error">{Dictionary.mandatory}</span>
-            ) : (
-              false
             )}
           </div>
           <div className="ctrl-select">
@@ -483,15 +432,13 @@ const NestedFilter = props => {
                 name="initialMember"
                 onChange={e => handleChange(e)}
               >
-                <option key="" value="">
+                <option key="emptynestedfilterinitial" value="">
                   {Dictionary.selectInitialMembre}
                 </option>
                 {optionsInitial()}
               </select>
-              {error && error.initialMember ? (
+              {error?.initialMember && (
                 <span className="form-error">{Dictionary.mandatory}</span>
-              ) : (
-                false
               )}
             </div>
           </div>
@@ -514,15 +461,13 @@ const NestedFilter = props => {
                 disabled={!newNestedFilter.initialMember}
                 onChange={e => handleChange(e)}
               >
-                <option key="" value="">
+                <option key="emptynestedfilterfinal" value="">
                   {Dictionary.selectFinalMembre}
                 </option>
                 {getFinalOptions(componentsStore)}
               </select>
-              {error && error.finalMember ? (
+              {error?.finalMember && (
                 <span className="form-error">{Dictionary.mandatory}</span>
-              ) : (
-                false
               )}
             </div>
           </div>
@@ -540,12 +485,10 @@ const NestedFilter = props => {
         <button className={CANCEL} onClick={() => handleCloseNestedFilter1()}>
           {Dictionary.cancel}
         </button>
-        {filterId ? (
+        {filterId && (
           <button className={DELETE} onClick={handleDeleteComponent}>
             {Dictionary.remove}
           </button>
-        ) : (
-          false
         )}
       </div>
       <ReactModal

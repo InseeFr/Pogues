@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react';
+import React, { useState, Children } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
@@ -6,40 +6,17 @@ import { WIDGET_TABS } from 'constants/dom-constants';
 
 const { COMPONENT_CLASS, INVALID, ITEM } = WIDGET_TABS;
 
-// PropTypes and defaultProps
+function Tabs({ children, errorsByTab }) {
+  const [activePanelIndex, setActivePanelIndex] = useState(0);
 
-const propTypes = {
-  errorsByTab: PropTypes.object,
-  children: PropTypes.array.isRequired,
-};
-
-const defaultProps = {
-  errorsByTab: {},
-  validationErrors: {},
-};
-
-// Component
-
-class Tabs extends Component {
-  static propTypes = propTypes;
-
-  static defaultProps = defaultProps;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      activePanelIndex: 0,
-    };
-  }
-
-  renderTabs() {
-    return Children.map(this.props.children, (child, index) => {
+  function renderTabs() {
+    return Children.map(children, (child, index) => {
       const childProps = child.props;
       const classTab = classSet({
         'nav-link': true,
-        active: this.state.activePanelIndex === index,
+        active: activePanelIndex === index,
       });
-      const numErrors = this.props.errorsByTab[childProps.path];
+      const numErrors = errorsByTab[childProps.path];
 
       return (
         <li key={`tab-${childProps.path}`} className={ITEM}>
@@ -49,9 +26,7 @@ class Tabs extends Component {
             className={classTab}
             onClick={event => {
               event.preventDefault();
-              this.setState({
-                activePanelIndex: index,
-              });
+              setActivePanelIndex(index);
             }}
           >
             {childProps.label}
@@ -67,14 +42,22 @@ class Tabs extends Component {
     });
   }
 
-  render() {
-    return (
-      <div className={COMPONENT_CLASS}>
-        <ul className="nav nav-tabs">{this.renderTabs()}</ul>
-        {this.props.children[this.state.activePanelIndex]}
-      </div>
-    );
-  }
+  return (
+    <div className={COMPONENT_CLASS}>
+      <ul className="nav nav-tabs">{renderTabs()}</ul>
+      {children[activePanelIndex]}
+    </div>
+  );
 }
+
+Tabs.propTypes = {
+  errorsByTab: PropTypes.object,
+  children: PropTypes.array.isRequired,
+};
+
+Tabs.defaultProps = {
+  errorsByTab: {},
+  validationErrors: {},
+};
 
 export default Tabs;

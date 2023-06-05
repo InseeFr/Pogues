@@ -3,6 +3,8 @@ import {
   getSeries,
   getOperations,
   getCampaigns,
+  getVariablesById,
+  getQuestionnaire,
 } from 'utils/remote-api';
 
 export const LOAD_METADATA_SUCCESS = 'LOAD_METADATA_SUCCESS';
@@ -11,6 +13,8 @@ const LOAD_SERIES = 'LOAD_SERIES';
 const LOAD_UNITS = 'LOAD_UNITS';
 const LOAD_OPERATIONS = 'LOAD_OPERATIONS';
 const LOAD_CAMPAIGNS = 'LOAD_CAMPAIGNS';
+const LOAD_EXTERNAL_ELEMENTS_VARIABLES = 'LOAD_EXTERNAL_ELEMENTS_VARIABLES';
+const LOAD_EXTERNAL_ELEMENTS_LOOPS = 'LOAD_EXTERNAL_ELEMENTS_LOOPS';
 
 export const loadMetadataSuccess = (type, metadata) => {
   const metadataByTypeStore = metadata.reduce((acc, m) => {
@@ -131,7 +135,7 @@ export const loadOperationsIfNeeded =
       dispatch(loadOperations(idSerie, token));
   };
 
-// Metadata operations
+// Metadata campaigns
 
 export const loadCampaigns = (idOperation, token) => dispatch => {
   dispatch({
@@ -156,11 +160,91 @@ export const loadCampaignsIfNeeded =
   (idOperation, token) => (dispatch, getState) => {
     const state = getState();
     const campaigns = state.metadataByType.campaigns || {};
-    const campaignsBySerie = Object.keys(campaigns).reduce((acc, key) => {
+    const campaignsByOperation = Object.keys(campaigns).reduce((acc, key) => {
       const campaign = campaigns[key];
-      return campaign.serie === idOperation ? { ...acc, [key]: campaign } : acc;
+      return campaign.operation === idOperation
+        ? { ...acc, [key]: campaign }
+        : acc;
     }, {});
 
-    if (idOperation !== '' && Object.keys(campaignsBySerie).length === 0)
+    if (idOperation !== '' && Object.keys(campaignsByOperation).length === 0)
       dispatch(loadCampaigns(idOperation, token));
+  };
+
+// Metadata : variables from external elements
+
+export const loadExternalQuestionnairesVariables =
+  (idExternalQuestionnaire, token) => async dispatch => {
+    dispatch({
+      type: LOAD_EXTERNAL_ELEMENTS_VARIABLES,
+      payload: null,
+    });
+
+    try {
+      const externalQuestionnaireVariables = await getVariablesById(
+        idExternalQuestionnaire,
+        token,
+      );
+      const externalQuestionnairesMetadata = [
+        {
+          id: idExternalQuestionnaire,
+          variables: externalQuestionnaireVariables.Variable,
+        },
+      ];
+      return dispatch(
+        loadMetadataSuccess(
+          'externalQuestionnairesVariables',
+          externalQuestionnairesMetadata,
+        ),
+      );
+    } catch (err) {
+      return dispatch(loadMetadataFailure(err));
+    }
+  };
+
+// Metadata : loops from external elements
+
+export const loadExternalQuestionnairesLoops =
+  (idExternalQuestionnaire, token) => async dispatch => {
+    dispatch({
+      type: LOAD_EXTERNAL_ELEMENTS_LOOPS,
+      payload: null,
+    });
+
+    try {
+      const externalQuestionnaire = await getQuestionnaire(
+        idExternalQuestionnaire,
+        token,
+      );
+      const externalQuestionnairesMetadata = [
+        {
+          id: idExternalQuestionnaire,
+          loops: externalQuestionnaire.Iterations?.Iteration || [],
+        },
+      ];
+      return dispatch(
+        loadMetadataSuccess(
+          'externalQuestionnairesLoops',
+          externalQuestionnairesMetadata,
+        ),
+      );
+    } catch (err) {
+      return dispatch(loadMetadataFailure(err));
+    }
+  };
+
+export const loadExternalQuestionnairesIfNeeded =
+  (idExternalQuestionnaire, token) => (dispatch, getState) => {
+    const state = getState();
+    if (
+      !state.metadataByType.externalQuestionnairesVariables
+        ?.idExternalQuestionnaire
+    )
+      dispatch(
+        loadExternalQuestionnairesVariables(idExternalQuestionnaire, token),
+      );
+    if (
+      !state.metadataByType.externalQuestionnairesLoops?.idExternalQuestionnaire
+    )
+      dispatch(loadExternalQuestionnairesLoops(idExternalQuestionnaire, token));
   };

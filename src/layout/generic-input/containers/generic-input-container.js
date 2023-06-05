@@ -5,9 +5,7 @@ import GenericInput from '../components/generic-input';
 import {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
-  handleNewPageBreak,
 } from 'actions/app-state';
-import { loadQuestionnaireList } from 'actions/questionnaire-list';
 import { removeVisualizationError } from 'actions/errors';
 import {
   getNewSequencePlaceholder,
@@ -16,7 +14,7 @@ import {
   getNewLoopPlaceholder,
 } from 'utils/component/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getToken, getUser } from 'reducers/selectors';
+import { getToken } from 'reducers/selectors';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -28,7 +26,6 @@ function getPlaceholders(
   questionnaireId,
 ) {
   const selectedComponent = componentsStore[selectedComponentId];
-
   return {
     [SEQUENCE]: getNewSequencePlaceholder(
       componentsStore,
@@ -54,11 +51,22 @@ function isQuestionnaireValid(questionnaireErrors = {}) {
   );
 }
 
-function isLoopsValid(componentsStore) {
+function isLoopsValid(
+  componentsStore,
+  activeQuestionnaire,
+  externalQuestionnairesLoops,
+) {
   let loopsValid = true;
   const componentsLoop = Object.values(componentsStore).filter(
     component => component.type === LOOP,
   );
+  const externalLoopsAvailable = externalQuestionnairesLoops || {};
+  const externalQuestionnnairesId =
+    activeQuestionnaire.childQuestionnaireRef || [];
+  const referencedLoops = Object.keys(externalLoopsAvailable)
+    .filter(key => externalQuestionnnairesId.includes(key))
+    .reduce((acc, key) => [...acc, ...externalLoopsAvailable[key].loops], []);
+
   if (componentsLoop.length > 0) {
     componentsLoop.forEach(component => {
       if (
@@ -66,7 +74,9 @@ function isLoopsValid(componentsStore) {
         !componentsStore[component.finalMember] ||
         componentsStore[component.initialMember].weight >
           componentsStore[component.finalMember].weight ||
-        (component.basedOn && !componentsStore[component.basedOn])
+        (component.basedOn &&
+          !componentsStore[component.basedOn] &&
+          !referencedLoops.some(loop => loop.id === component.basedOn))
       ) {
         loopsValid = false;
       }
@@ -80,9 +90,11 @@ function isLoopsValid(componentsStore) {
 const mapStateToProps = state => {
   const { activeComponentsById, selectedComponentId, activeQuestionnaire } =
     state.appState;
+  const { externalQuestionnairesLoops } = state.metadataByType;
   const errors = state.errors || { errorsIntegrity: {} };
   const questionnaireErrors =
     errors.errorsIntegrity[activeQuestionnaire.id] || {};
+  const selectedComponent = activeComponentsById[selectedComponentId];
 
   return {
     placeholders: getPlaceholders(
@@ -93,23 +105,23 @@ const mapStateToProps = state => {
     isQuestionnaireHaveError: state.appState.isQuestionnaireHaveError,
     isQuestionnaireModified: state.appState.isQuestionnaireModified,
     isQuestionnaireValid: isQuestionnaireValid(questionnaireErrors),
-    componentIdForPageBreak: state.appState.componentIdForPageBreak,
-    isLoopsValid: isLoopsValid(activeComponentsById),
+    isLoopsValid: isLoopsValid(
+      activeComponentsById,
+      activeQuestionnaire,
+      externalQuestionnairesLoops,
+    ),
     activeQuestionnaire: activeQuestionnaire,
-    stamp: getUser(state).stamp,
     token: getToken(state),
-    currentQuestion: state.appState.activeQuestionnaire.id,
     showVisualizationErrorPopup:
       state.errors.errorsVisualization.showErrorVisualizationPopup,
     isLoadingVisualization: state.appState.isLoadingVisualization,
+    selectedComponent: selectedComponent,
   };
 };
 
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
   visualizeActiveQuestionnaire,
-  handleNewPageBreak,
-  loadQuestionnaireList,
   removeVisualizationError,
 };
 

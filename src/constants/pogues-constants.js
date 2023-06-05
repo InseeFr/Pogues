@@ -9,24 +9,10 @@ export const COMPONENT_TYPE = {
   REDIRECTION: 'REDIRECTION',
   // used as a placeholder to place the generic input within the questionnaire
   GENERIC_INPUT: 'GENERIC_INPUT',
+  EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
   XPATH: 'XPATH',
   VTL: 'VTL',
 };
-
-export const DATEFORMAT = [
-  {
-    format: '1',
-    label: 'jj-mm-aaaa',
-  },
-  {
-    format: '2',
-    label: 'mm-aaaa',
-  },
-  {
-    format: '3',
-    label: 'aaaa',
-  },
-];
 
 export const TargetMode = [
   { value: 'CAPI', label: 'CAPI' },
@@ -99,6 +85,7 @@ export const QUESTION_TYPE_ENUM = {
   SINGLE_CHOICE: 'SINGLE_CHOICE',
   MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
   TABLE: 'TABLE',
+  PAIRING: 'PAIRWISE',
 };
 
 export const CODES_LIST_INPUT_ENUM = {
@@ -274,6 +261,11 @@ export const FORMULA_LANGUAGE = {
   VTL: 'VTL',
 };
 
+export const DROPDOWN_TYPE = {
+  VISUALIZATION: 'VISUALIZATION',
+  EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
+};
+
 export const CODELISTS_ACTIONS = {
   EDIT: {
     name: 'edit',
@@ -313,4 +305,11 @@ export const CODELISTS_ACTIONS = {
     name: 'setPrecision',
     icon: 'glyphicon-option-horizontal',
   },
+};
+
+export const TCM = {
+  id: 'TCM',
+  value: 'TCM',
+  label: 'TCM',
+  owner: 'DG75-L120',
 };

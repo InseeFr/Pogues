@@ -21,7 +21,6 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { SelectorView, View } from 'widgets/selector-view';
 import GenericOption from 'forms/controls/generic-option';
 import Select from 'forms/controls/select';
-import { getQuestionnaireScope } from './utils-loops';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 // Utils
@@ -37,7 +36,7 @@ export const propTypes = {
   selectorPath: PropTypes.string,
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
-  componentsStore: PropTypes.object.isRequired,
+  scopes: PropTypes.array.isRequired,
 };
 
 export const defaultProps = {
@@ -51,16 +50,9 @@ const CalculatedVariables = ({
   selectorPath,
   errors,
   addErrors,
-  componentsStore,
+  scopes,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);
-  const scopeOption = getQuestionnaireScope(componentsStore).map(element => {
-    return (
-      <GenericOption key={element.id} value={element.id}>
-        {element.name}
-      </GenericOption>
-    );
-  });
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -115,7 +107,7 @@ const CalculatedVariables = ({
           <GenericOption key="" value="">
             {Dictionary.selectScope}
           </GenericOption>
-          {scopeOption}
+          {scopes}
         </Field>
       </ListWithInputPanel>
     </FormSection>

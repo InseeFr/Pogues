@@ -50,6 +50,22 @@ const dictionary = {
     en: 'Add',
     fr: 'Ajouter',
   },
+  merge: {
+    en: 'Merge',
+    fr: 'Fusionner',
+  },
+  noCommonMode: {
+    en: 'No common collect mode',
+    fr: 'Aucun mode commun',
+  },
+  incompatibleDynamic: {
+    en: 'Different dynamics (goto or filter)',
+    fr: 'Dynamisme différent (redirection ou filtre)',
+  },
+  incompatibleFormulaLanguage: {
+    en: 'Different languages (<ref language, XPath or VTL>)',
+    fr: 'Langage différents (<langage ref, XPath ou VTL>)',
+  },
   no_declarations: {
     en: 'No statement yet',
     fr: 'Aucune déclaration définie',
@@ -134,9 +150,21 @@ const dictionary = {
     en: 'Question',
     fr: 'Question',
   },
-  pageBreak: {
-    en: 'Page break',
-    fr: 'Saut de page',
+  externalElement: {
+    en: 'External element',
+    fr: 'Élément externe',
+  },
+  tcmReference: {
+    en: 'TCM reference',
+    fr: 'Référence au TCM',
+  },
+  questionnaireReference: {
+    en: 'Questionnaire reference',
+    fr: 'Référence à un questionnaire',
+  },
+  questionnaireMerge: {
+    en: 'Questionnaire merging',
+    fr: 'Fusion avec un questionnaire',
   },
   visualise: {
     en: 'Visualise',
@@ -736,6 +764,14 @@ const dictionary = {
     fr: 'Tableau',
     en: 'Table',
   },
+  responseFormatPairing: {
+    fr: 'Liens deux à deux',
+    en: 'Household members pairing',
+  },
+  pairingSourceVariable: {
+    fr: 'Variable source',
+    en: 'Source variable',
+  },
   primaryFormat: {
     fr: "Format de l'axe principal",
     en: 'Primary axis format',
@@ -1272,7 +1308,7 @@ const dictionary = {
     en: 'Series',
   },
   operation: {
-    fr: 'Opération statistique ',
+    fr: 'Opération statistique',
     en: 'Statistical operation',
   },
   campaigns: {
@@ -1579,6 +1615,10 @@ const dictionary = {
   duplicateQuestionConfirmation: {
     fr: '". Confirmez-vous votre demande ?',
     en: '". Are you sure ?',
+  },
+  openQuestionnaire: {
+    fr: 'Ouvrir',
+    en: 'Open',
   },
 };
 

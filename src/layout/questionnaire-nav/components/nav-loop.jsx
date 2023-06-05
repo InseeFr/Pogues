@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -7,92 +7,83 @@ import { ComponentEdit } from 'layout/component-edit';
 
 const { LOOP } = COMPONENT_TYPE;
 
-class NavLoop extends Component {
-  static propTypes = {
-    componentsStore: PropTypes.object.isRequired,
-    removeComponent: PropTypes.func.isRequired,
-  };
+function NavLoop({
+  componentsStore,
+  editingComponentId,
+  removeComponent,
+  setEditingComponentId,
+}) {
+  const [showComponentModal, setShowComponentModal] = useState(false);
 
-  constructor() {
-    super();
-    this.state = {
-      showComponentModal: false,
-    };
+  const handleDeleteComponent = useCallback(() => {
+    removeComponent(editingComponentId);
+    setShowComponentModal(false);
+  }, [editingComponentId, removeComponent]);
 
-    this.handleOpenComponentDetail = this.handleOpenComponentDetail.bind(this);
-    this.handleCloseComponentDetail =
-      this.handleCloseComponentDetail.bind(this);
-    this.handleEditComponent = this.handleEditComponent.bind(this);
+  function handleOpenComponentDetail() {
+    setShowComponentModal(true);
   }
 
-  handleDeleteComponent = () => {
-    this.props.removeComponent(this.props.editingComponentId);
-    this.setState({ showComponentModal: false });
-  };
-
-  handleOpenComponentDetail() {
-    this.setState({ showComponentModal: true });
+  function handleEditComponent(id) {
+    setEditingComponentId(id);
+    handleOpenComponentDetail();
   }
 
-  handleEditComponent(id) {
-    this.props.setEditingComponentId(id);
-    this.handleOpenComponentDetail();
-  }
+  const handleCloseComponentDetail = useCallback(
+    () => setShowComponentModal(false),
+    [],
+  );
 
-  handleCloseComponentDetail() {
-    this.setState({ showComponentModal: false });
-  }
-
-  render() {
-    const { componentsStore, editingComponentId } = this.props;
-
-    const options = Object.values(componentsStore)
-      .filter(component => component.type === LOOP)
-      .map(element => {
-        return (
-          <button
-            className="loopLists"
-            onClick={() => this.handleEditComponent(element.id)}
-          >
-            <span className="glyphicon glyphicon-menu-right" />
-            {element.nameLoop}
-          </button>
-        );
-      });
-    const componentType =
-      componentsStore[editingComponentId] &&
-      componentsStore[editingComponentId].type;
-
-    const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
-    return (
-      <div>
-        <ul>{options}</ul>
-        <ReactModal
-          ariaHideApp={false}
-          shouldCloseOnOverlayClick={false}
-          isOpen={this.state.showComponentModal}
-          onRequestClose={this.handleCloseComponentDetail}
-          contentLabel={componentHeader}
+  const options = Object.values(componentsStore)
+    .filter(component => component.type === LOOP)
+    .map(element => {
+      return (
+        <button
+          className="loopLists"
+          key={element.id}
+          onClick={() => handleEditComponent(element.id)}
         >
-          <div className="popup">
-            <div className="popup-header">
-              <h3>{componentHeader}</h3>
-              <button type="button" onClick={this.handleCloseComponentDetail}>
-                <span>X</span>
-              </button>
-            </div>
-            <div className="popup-body">
-              <ComponentEdit
-                onCancel={this.handleCloseComponentDetail}
-                onSuccess={this.handleCloseComponentDetail}
-                deleteComponent={this.handleDeleteComponent}
-              />
-            </div>
+          <span className="glyphicon glyphicon-menu-right" />
+          {element.nameLoop}
+        </button>
+      );
+    });
+  const componentType = componentsStore[editingComponentId]?.type;
+
+  const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
+  return (
+    <div>
+      <ul>{options}</ul>
+      <ReactModal
+        ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
+        isOpen={showComponentModal}
+        onRequestClose={handleCloseComponentDetail}
+        contentLabel={componentHeader}
+      >
+        <div className="popup">
+          <div className="popup-header">
+            <h3>{componentHeader}</h3>
+            <button type="button" onClick={handleCloseComponentDetail}>
+              <span>X</span>
+            </button>
           </div>
-        </ReactModal>
-      </div>
-    );
-  }
+          <div className="popup-body">
+            <ComponentEdit
+              onCancel={handleCloseComponentDetail}
+              onSuccess={handleCloseComponentDetail}
+              deleteComponent={handleDeleteComponent}
+            />
+          </div>
+        </div>
+      </ReactModal>
+    </div>
+  );
 }
+
+NavLoop.propTypes = {
+  componentsStore: PropTypes.object.isRequired,
+  removeComponent: PropTypes.func.isRequired,
+};
 
 export default NavLoop;

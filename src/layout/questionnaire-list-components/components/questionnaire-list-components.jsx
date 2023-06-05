@@ -122,10 +122,6 @@ const QuestionnaireListComponents = props => {
               integrityErrorsByType={props.errorsIntegrity[key]}
               parentType={props.componentsStore[component.parent].type}
               actions={actions}
-              handleRemovePageBreak={event => {
-                event.preventDefault();
-                props.handleRemovePageBreak(key);
-              }}
               componentFiltersInitial={componentFilterConditionInitial(
                 props.componentsStore[key].id,
               )}
@@ -143,9 +139,7 @@ const QuestionnaireListComponents = props => {
     }, {});
   };
 
-  const componentType =
-    componentsStore[editingComponentId] &&
-    componentsStore[editingComponentId].type;
+  const componentType = componentsStore[editingComponentId]?.type;
 
   const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
 
@@ -308,7 +302,6 @@ QuestionnaireListComponents.propTypes = {
   removeQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
-  handleRemovePageBreak: PropTypes.func.isRequired,
 };
 
 QuestionnaireListComponents.defaultProps = {

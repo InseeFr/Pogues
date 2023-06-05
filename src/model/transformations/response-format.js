@@ -2,12 +2,20 @@ import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
 import * as ResponseFormatMultiple from './response-format-multiple';
 import * as ResponseFormatTable from './response-format-table';
+import * as ResponseFormatPairing from './response-format-pairing';
 
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
-const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
+  QUESTION_TYPE_ENUM;
 
-export function remoteToState(type, responses, dimensions, codesListsStore) {
+export function remoteToState(
+  type,
+  responses,
+  dimensions,
+  codesListsStore,
+  scope,
+) {
   let datatypeState = {};
 
   if (type === SIMPLE) {
@@ -24,6 +32,8 @@ export function remoteToState(type, responses, dimensions, codesListsStore) {
       { responses, dimensions },
       codesListsStore,
     );
+  } else if (type === PAIRING) {
+    datatypeState = ResponseFormatPairing.remoteToState({ responses, scope });
   }
 
   return {
@@ -48,7 +58,7 @@ export function stateToRemote(
       collectedVariables,
     );
     remote.Response = dataTypeRemote.Response;
-  } else if (type === SINGLE_CHOICE) {
+  } else if (type === SINGLE_CHOICE || type === PAIRING) {
     dataTypeRemote = ResponseFormatSingle.stateToRemote(
       responseFormatState,
       collectedVariables,

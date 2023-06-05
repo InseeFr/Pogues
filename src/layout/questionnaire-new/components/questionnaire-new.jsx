@@ -1,21 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   QuestionnaireNewEdit,
   Questionnaire,
 } from 'widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from 'utils/validation/validate';
-
-// PropTypes and defaultProps
-
-export const propTypes = {
-  onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  stamp: PropTypes.string.isRequired,
-  createQuestionnaire: PropTypes.func.isRequired,
-  setErrors: PropTypes.func.isRequired,
-};
 
 // Utils
 
@@ -68,6 +57,12 @@ function QuestionnaireNew({
   );
 }
 
-QuestionnaireNew.propTypes = propTypes;
+QuestionnaireNew.propTypes = {
+  onCancel: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  stamp: PropTypes.string.isRequired,
+  createQuestionnaire: PropTypes.func.isRequired,
+  setErrors: PropTypes.func.isRequired,
+};
 
 export default QuestionnaireNew;

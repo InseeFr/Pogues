@@ -4,6 +4,7 @@ import { formValueSelector, formPropTypes, Field } from 'redux-form';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
+import { getQuestionnaireScope } from 'widgets/component-new-edit/components/variables/utils-loops';
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
 import Controls from './controls';
@@ -20,8 +21,6 @@ import {
   COMPONENT_TYPE,
   TABS_PATHS,
   TargetMode,
-  DIMENSION_FORMATS,
-  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { updateNameField } from 'utils/utils';
@@ -43,18 +42,15 @@ const {
   FILTER,
   NESTEDFILTRE,
   QUESTIONNAIRE,
+  EXTERNAL_ELEMENT,
 } = COMPONENT_TYPE;
-const { LIST } = DIMENSION_FORMATS;
-const { TABLE } = QUESTION_TYPE_ENUM;
 
 export const propTypes = {
   ...formPropTypes,
   componentType: PropTypes.string.isRequired,
   componentId: PropTypes.string.isRequired,
-
   errorsIntegrityByTab: PropTypes.object,
   componentsStore: PropTypes.object,
-
   addSubformValidationErrors: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
 };
@@ -82,6 +78,8 @@ const ComponentNewEdit = props => {
     filterImbriquer,
     activeQuestionnaire,
     clearSubformValidationErrors,
+    externalLoopsStore,
+    InitialMember,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -146,14 +144,6 @@ const ComponentNewEdit = props => {
       onSubmit({ ...data, filterImbriquer: filterImbriquers });
     }
   };
-
-  // const handleOpenFilter = (e, index) => {
-  //   e.preventDefault();
-  //   if (index) {
-  //     setFilterId(index);
-  //   }
-  //   setShowNewNestedFilter(true);
-  // };
 
   const handleDeleteNestedFilter = index => {
     let filters = [...filterImbriquers];
@@ -220,7 +210,7 @@ const ComponentNewEdit = props => {
           <ExternalVariables
             errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
             addErrors={addSubformValidationErrors}
-            componentsStore={componentsStore}
+            scopes={scopes}
           />
         </Tab>,
         <Tab
@@ -231,7 +221,7 @@ const ComponentNewEdit = props => {
           <CalculatedVariables
             errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
             addErrors={addSubformValidationErrors}
-            componentsStore={componentsStore}
+            scopes={scopes}
           />
         </Tab>,
         <Tab
@@ -306,47 +296,52 @@ const ComponentNewEdit = props => {
   };
 
   const getFinalOptions = store => {
-    let optionsFinal = <GenericOption key="" value="" />;
     const componentinitial = Object.values(store).filter(
-      component => component.id === props.InitialMember,
+      component => component.id === InitialMember,
     );
-    if (props.InitialMember && componentinitial.length > 0) {
-      if (infImbriquer(store, componentinitial[0])) {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              component.type === componentinitial[0].type &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.weight <= infImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <GenericOption key={element.id} value={element.id}>
-                {element.name}
-              </GenericOption>
-            );
-          });
-      } else {
-        optionsFinal = Object.values(store)
-          .filter(
-            component =>
-              component.type === componentinitial[0].type &&
-              component.weight >= supImbriquer(store, componentinitial[0]) &&
-              component.parent === componentinitial[0].parent &&
-              component.id !== 'idendquest',
-          )
-          .map(element => {
-            return (
-              <GenericOption key={element.id} value={element.id}>
-                {element.name}
-              </GenericOption>
-            );
-          });
-      }
+    if (!InitialMember || componentinitial.length === 0)
+      return (
+        <GenericOption key="emptyFinal" value="">
+          empty
+        </GenericOption>
+      );
+    if (infImbriquer(store, componentinitial[0])) {
+      return Object.values(store)
+        .filter(
+          component =>
+            component.type === componentinitial[0].type &&
+            component.weight >= supImbriquer(store, componentinitial[0]) &&
+            component.weight <= infImbriquer(store, componentinitial[0]) &&
+            component.parent === componentinitial[0].parent &&
+            component.id !== 'idendquest',
+        )
+        .map(element => {
+          return (
+            <GenericOption key={`final-'${element.id}`} value={element.id}>
+              {element.name}
+            </GenericOption>
+          );
+        });
     }
-    return optionsFinal;
+    return Object.values(store)
+      .filter(
+        component =>
+          (component.type === componentinitial[0].type ||
+            (component.type === EXTERNAL_ELEMENT &&
+              componentinitial[0].type === SEQUENCE) ||
+            (component.type === SEQUENCE &&
+              componentinitial[0].type === EXTERNAL_ELEMENT)) &&
+          component.weight >= supImbriquer(store, componentinitial[0]) &&
+          component.parent === componentinitial[0].parent &&
+          component.id !== 'idendquest',
+      )
+      .map(element => {
+        return (
+          <GenericOption key={`final-'${element.id}`} value={element.id}>
+            {element.name}
+          </GenericOption>
+        );
+      });
   };
 
   const inferieur = () => {
@@ -367,23 +362,25 @@ const ComponentNewEdit = props => {
     return inferieurFilter;
   };
   const optionsInitial = type => {
-    let options = <GenericOption key="" value="" />;
     if (type === LOOP) {
-      options = Object.values(componentsStore)
+      return Object.values(componentsStore)
         .filter(
           component =>
             component.id !== 'idendquest' &&
-            (component.type === SEQUENCE || component.type === SUBSEQUENCE),
+            (component.type === SEQUENCE ||
+              component.type === SUBSEQUENCE ||
+              component.type === EXTERNAL_ELEMENT),
         )
         .map(element => {
           return (
-            <GenericOption key={element.id} value={element.id}>
+            <GenericOption key={`initial-${element.id}`} value={element.id}>
               {element.name}
             </GenericOption>
           );
         });
-    } else if (filterImbriquers?.length > 0) {
-      options = Object.values(componentsStore)
+    }
+    if (filterImbriquers?.length > 0) {
+      return Object.values(componentsStore)
         .filter(
           component =>
             component.type !== LOOP &&
@@ -403,46 +400,53 @@ const ComponentNewEdit = props => {
         )
         .map(element => {
           return (
-            <GenericOption key={element.id} value={element.id}>
-              {element.name}
-            </GenericOption>
-          );
-        });
-    } else {
-      options = Object.values(componentsStore)
-        .filter(
-          component =>
-            component.type !== LOOP &&
-            component.type !== FILTER &&
-            component.type !== NESTEDFILTRE &&
-            component.type !== QUESTIONNAIRE &&
-            component.id !== 'idendquest',
-        )
-        .map(element => {
-          return (
-            <GenericOption key={element.id} value={element.id}>
+            <GenericOption key={`initial-${element.id}`} value={element.id}>
               {element.name}
             </GenericOption>
           );
         });
     }
-    return options;
+    return Object.values(componentsStore)
+      .filter(
+        component =>
+          component.type !== LOOP &&
+          component.type !== FILTER &&
+          component.type !== NESTEDFILTRE &&
+          component.type !== QUESTIONNAIRE &&
+          component.id !== 'idendquest',
+      )
+      .map(element => {
+        return (
+          <GenericOption key={`initial-${element.id}`} value={element.id}>
+            {element.name}
+          </GenericOption>
+        );
+      });
   };
-  const optionsTable = Object.values(componentsStore)
-    .filter(
-      component =>
-        (component.type === QUESTION &&
-          component.responseFormat.type === TABLE &&
-          component.responseFormat.TABLE.PRIMARY.type === LIST) ||
-        (component.type === LOOP && !component.basedOn),
-    )
-    .map(element => {
+
+  const scopes = [
+    getQuestionnaireScope(componentsStore).map(questionnaireIteration => {
       return (
-        <GenericOption key={element.id} value={element.id}>
-          {element.name || element.nameLoop}
+        <GenericOption
+          key={`scope-${questionnaireIteration.id}`}
+          value={questionnaireIteration.id}
+        >
+          {questionnaireIteration.nameLoop}
         </GenericOption>
       );
-    });
+    }),
+    externalLoopsStore.map(externalIteration => {
+      return (
+        <GenericOption
+          key={`scope-${externalIteration.id}`}
+          value={externalIteration.id}
+        >
+          {externalIteration.Name}
+        </GenericOption>
+      );
+    }),
+  ];
+
   const associatedFieldsProps = {
     formName: form,
     fieldOrigin: { name: 'label', label: Dictionary.label },
@@ -457,13 +461,7 @@ const ComponentNewEdit = props => {
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit(data => checkUnsavedChange(data))}>
-        {componentType === QUESTION ? (
-          <AssociatedFields
-            {...associatedFieldsProps}
-            targetIsRichTextarea
-            targetIsQuestion
-          />
-        ) : componentType === LOOP || componentType === FILTER ? (
+        {(componentType === LOOP || componentType === FILTER) && (
           <div>
             {componentsStore && componentType === LOOP ? (
               <div>
@@ -493,10 +491,10 @@ const ComponentNewEdit = props => {
                   component={Select}
                   label={Dictionary.BasedOn}
                 >
-                  <GenericOption key="" value="">
+                  <GenericOption key="selectBasedOn" value="">
                     {Dictionary.selectBasedOn}
                   </GenericOption>
-                  {optionsTable}
+                  {scopes}
                 </Field>
               </div>
             ) : (
@@ -519,85 +517,64 @@ const ComponentNewEdit = props => {
               }
               required={componentType !== LOOP ? 'required' : false}
             />
-            {componentsStore ? (
-              <Field
-                name="initialMember"
-                component={Select}
-                label={Dictionary.InitialMembre}
-                required
-              >
-                <GenericOption key="" value="">
-                  {Dictionary.selectInitialMembre}
-                </GenericOption>
-                {optionsInitial(componentType)}
-              </Field>
-            ) : (
-              false
+            {componentsStore && (
+              <>
+                <Field
+                  name="initialMember"
+                  component={Select}
+                  label={Dictionary.InitialMembre}
+                  required
+                >
+                  <GenericOption key="selectInitialMember" value="">
+                    {Dictionary.selectInitialMembre}
+                  </GenericOption>
+                  {optionsInitial(componentType)}
+                </Field>
+                <Field
+                  name="finalMember"
+                  component={Select}
+                  label={Dictionary.FinalMembre}
+                  disabled={!InitialMember}
+                  required
+                >
+                  <GenericOption key="selectFinalMember" value="">
+                    {Dictionary.selectFinalMembre}
+                  </GenericOption>
+                  {getFinalOptions(componentsStore)}
+                </Field>
+              </>
             )}
-            {/* {componentType === FILTER
-              ? showFiltersImbriquer(filterImbriquers)
-              : false}
-            {componentType === FILTER ? (
-              <button
-                className={FILTRE_IMBRIQUER}
-                onClick={e => handleOpenFilter(e)}
-              >
-                <span className="glyphicon glyphicon-plus" aria-hidden="true" />
-                {Dictionary.filtreImbriquer}
-              </button>
-            ) : (
-              false
-            )} */}
-            {componentsStore ? (
-              <Field
-                name="finalMember"
-                component={Select}
-                label={Dictionary.FinalMembre}
-                disabled={!props.InitialMember}
-                required
-              >
-                <GenericOption key="" value="">
-                  {Dictionary.selectFinalMembre}
-                </GenericOption>
-                {getFinalOptions(componentsStore)}
-              </Field>
-            ) : (
-              false
-            )}
-            {componentType === LOOP ? (
+            {componentType === LOOP && (
               <Field
                 name="addButtonLibel"
                 type="text"
                 component={Input}
                 label={Dictionary.AddButton}
               />
-            ) : (
-              false
             )}
           </div>
-        ) : (
-          <AssociatedFields {...associatedFieldsProps} />
         )}
-        {componentType !== LOOP && componentType !== FILTER ? (
-          <Field
-            name="TargetMode"
-            component={ListCheckboxes}
-            label={Dictionary.collectionMode}
-            inline
-          >
-            {TargetMode.map(s => (
-              <GenericOption key={s.value} value={s.value}>
-                {s.label}
-              </GenericOption>
-            ))}
-          </Field>
-        ) : (
-          false
-        )}
-        {componentType !== LOOP && componentType !== FILTER ? (
-          <Tabs componentId={componentId}>{renderPanels()}</Tabs>
-        ) : (
-          false
+        {componentType !== LOOP && componentType !== FILTER && (
+          <>
+            <AssociatedFields
+              {...associatedFieldsProps}
+              targetIsRichTextarea={componentType === QUESTION}
+              targetIsQuestion={componentType === QUESTION}
+            />
+            <Field
+              name="TargetMode"
+              component={ListCheckboxes}
+              label={Dictionary.collectionMode}
+              inline
+            >
+              {TargetMode.map(s => (
+                <GenericOption key={s.value} value={s.value}>
+                  {s.label}
+                </GenericOption>
+              ))}
+            </Field>
+            <Tabs componentId={componentId}>{renderPanels()}</Tabs>
+          </>
         )}
         <div
           className={
@@ -617,7 +594,7 @@ const ComponentNewEdit = props => {
           <button className={CANCEL} disabled={submitting} onClick={onCancel}>
             {Dictionary.cancel}
           </button>
-          {componentType === LOOP && componentId ? (
+          {componentType === LOOP && componentId && (
             <button
               className={DELETE}
               disabled={submitting}
@@ -625,10 +602,8 @@ const ComponentNewEdit = props => {
             >
               {Dictionary.remove}
             </button>
-          ) : (
-            false
           )}
-          {componentType === FILTER && componentId ? (
+          {componentType === FILTER && componentId && (
             <button
               className={DELETE}
               disabled={submitting}
@@ -636,8 +611,6 @@ const ComponentNewEdit = props => {
             >
               {Dictionary.remove}
             </button>
-          ) : (
-            false
           )}
         </div>
       </form>
@@ -668,7 +641,7 @@ const ComponentNewEdit = props => {
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}
               updateComponent={props.updateComponent}
-              initialMemberFilter={props.InitialMember}
+              initialMemberFilter={InitialMember}
             />
           </div>
         </div>

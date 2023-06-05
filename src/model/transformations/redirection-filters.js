@@ -24,7 +24,6 @@ function getFiltersState(filter, parent, type) {
     filter: expression,
     type: type,
     TargetMode: [],
-    pageBreak: false,
     parent: parent,
     filterImbriquer: [],
   };

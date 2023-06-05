@@ -1,43 +1,112 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import Questionnaire from './questionnaire';
+import QuestionnaireListItem from './questionnaire-list-item';
 import Dropdown from 'widgets/dropdown';
 import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
-import { getStampsList } from 'utils/remote-api';
+import { getStampsList, getQuestionnaire } from 'utils/remote-api';
+import { getWeight } from 'utils/component/generic-input-utils';
+import { COMPONENT_TYPE, TCM } from 'constants/pogues-constants';
+
+const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
 
 const QuestionnaireList = props => {
   const {
+    activeQuestionnaire,
+    selectedComponentId,
     questionnaires,
     stamp,
     token,
     duplicateQuestionnaire,
-    fusion,
-    handleCloseNewQuestion,
-    mergeQuestions,
-    currentQuestion,
+    isFusion,
+    isComposition,
+    isTcm,
+    handleCloseNewQuestionnaire,
+    mergeQuestionnaires,
     loadQuestionnaireList,
     deleteQuestionnaireList,
     selectedStamp,
     setSelectedStamp,
+    createComponent,
+    updateParentChildren,
+    orderComponents,
+    componentsStore,
+    codesListsStore,
+    calculatedVariablesStore,
+    externalVariablesStore,
+    collectedVariablesStore,
+    handleNewChildQuestionnaireRef,
   } = props;
+
+  let actionLabel = Dictionary.duplicate;
+  if (isComposition) actionLabel = Dictionary.add;
+  if (isFusion) actionLabel = Dictionary.merge;
+
   const [filter, setFilter] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [questionLabel, setQuestionLabel] = useState('');
-  const [checkedQuestion, setCheckedQuestion] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [options, setOptions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const handelCheck = id => {
-    setCheckedQuestion(id);
+  const fusionateQuestionnaire = useCallback(
+    checkedQuestionnaire => {
+      mergeQuestionnaires(checkedQuestionnaire, token);
+      handleCloseNewQuestionnaire();
+    },
+    [handleCloseNewQuestionnaire, mergeQuestionnaires, token],
+  );
+
+  // function addQuestionnaireRef (checkedQuestionnaire)  {
+  const addQuestionnaireRef = async checkedQuestionnaire => {
+    const weight = selectedComponentId
+      ? getWeight(componentsStore, selectedComponentId)
+      : Object.values(componentsStore).filter(
+          component =>
+            (component.type === SEQUENCE && component.id !== 'idendquest') ||
+            component.type === EXTERNAL_ELEMENT,
+        ).length;
+    const externalQuestionnaire = await getQuestionnaire(
+      checkedQuestionnaire,
+      token,
+    );
+    /* const externalQuestionnaire = questionnaires.find(
+      q => q.id === checkedQuestionnaire,
+    ); */
+    const componentState = {
+      id: checkedQuestionnaire,
+      name: externalQuestionnaire.name || externalQuestionnaire.Name,
+      parent: activeQuestionnaire.id,
+      weight: weight,
+      children: [],
+      declarations: '',
+      controls: '',
+      TargetMode: [''],
+      flowcontrol: [],
+      redirections: {},
+      dynamiqueSpecified: '',
+      label: externalQuestionnaire.label || externalQuestionnaire.Label[0],
+      type: EXTERNAL_ELEMENT,
+    };
+    createComponent(
+      componentState,
+      calculatedVariablesStore,
+      externalVariablesStore,
+      collectedVariablesStore,
+      codesListsStore,
+    )
+      .then(updateParentChildren)
+      .then(orderComponents)
+      .then(handleNewChildQuestionnaireRef(checkedQuestionnaire))
+      .then(handleCloseNewQuestionnaire);
   };
 
-  const fusionateQuestion = () => {
-    mergeQuestions(checkedQuestion, token);
-    handleCloseNewQuestion();
+  const handleAction = (id, label) => {
+    if (isComposition) return addQuestionnaireRef(id);
+    if (isFusion) return fusionateQuestionnaire(id);
+    return handleOpenPopup(id, label);
   };
 
   useEffect(() => {
@@ -48,18 +117,15 @@ const QuestionnaireList = props => {
   }, [token]);
 
   useEffect(() => {
-    setSelectedStamp(stamp || 'FAKEPERMISSION');
+    setSelectedStamp(isTcm ? TCM.owner : stamp || 'FAKEPERMISSION');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // TODO: Find why 2 calls
   useEffect(() => {
-    if (selectedStamp) {
-      setLoading(true);
-      loadQuestionnaireList(selectedStamp, token).then(() => {
-        setLoading(false);
-      });
-    } else deleteQuestionnaireList();
+    if (selectedStamp)
+      loadQuestionnaireList(selectedStamp, token).then(() => setLoading(false));
+    else deleteQuestionnaireList();
   }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
 
   const updateFilter = value => {
@@ -85,7 +151,9 @@ const QuestionnaireList = props => {
   const list = questionnaires
     .filter(q => {
       return (
-        currentQuestion !== q.id &&
+        activeQuestionnaire.id !== q.id &&
+        !activeQuestionnaire.childQuestionnaireRef?.includes(q.id) &&
+        (!isTcm || q.campaigns.some(campaign => campaign === TCM.id)) &&
         (filter === '' ||
           (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
           getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
@@ -103,16 +171,22 @@ const QuestionnaireList = props => {
     .map(q => {
       if (q) {
         return (
-          <Questionnaire
+          <QuestionnaireListItem
             key={q.id}
             id={q.id}
             label={q.label}
             lastUpdatedDate={q.lastUpdatedDate}
-            final={q.final}
-            handleOpenPopup={(id, label) => handleOpenPopup(id, label)}
-            fusion={!!fusion}
-            handelCheck={handelCheck}
-            fusionateQuestion={fusionateQuestion}
+            isHome={!isFusion && !isComposition}
+            handleAction={handleAction}
+            actionLabel={actionLabel}
+            activeQuestionnaireTargetMode={activeQuestionnaire.TargetMode}
+            questionnaireTargetMode={q.TargetMode}
+            sameFormulaLanguage={
+              activeQuestionnaire.formulaSpecified === q.formulaSpecified
+            }
+            sameDynamic={
+              activeQuestionnaire.dynamiqueSpecified === q.dynamiqueSpecified
+            }
           />
         );
       }
@@ -120,7 +194,18 @@ const QuestionnaireList = props => {
     });
 
   return (
-    <div>
+    <div className="home-questionnaires-container">
+      {(isFusion || isComposition) && (
+        <div className="questionList-cancel-zone">
+          <button
+            className="btn-grey glyphicon glyphicon-arrow-left questionList-cancel"
+            type="button"
+            onClick={() => handleCloseNewQuestionnaire()}
+          >
+            {Dictionary.cancel}
+          </button>
+        </div>
+      )}
       <div className="box home-questionnaires">
         <h5 style={{ fontWeight: 'bold' }}>{Dictionary.homeStampChoice}</h5>
         <Dropdown
@@ -132,8 +217,9 @@ const QuestionnaireList = props => {
         <h4>
           {Dictionary.stamp} {stamp}
         </h4>
-        {loading && <Loader />}
-        {!loading && (
+        {loading ? (
+          <Loader />
+        ) : (
           <div id="questionnaire-list">
             {questionnaires.length > 0 ? (
               <div>
@@ -147,7 +233,7 @@ const QuestionnaireList = props => {
                 </div>
                 <div className="questionnaire-list_header">
                   <div>{Dictionary.QUESTIONNAIRE}</div>
-                  <div>{Dictionary.state}</div>
+                  <div />
                   <div>{Dictionary.lastUpdate}</div>
                 </div>
                 {list}
@@ -160,26 +246,6 @@ const QuestionnaireList = props => {
           </div>
         )}
       </div>
-      {fusion ? (
-        <div className="footer_quesionList">
-          <button
-            className="footer_quesionList-validate"
-            type="submit"
-            onClick={() => fusionateQuestion()}
-          >
-            {Dictionary.validate}
-          </button>
-          <button
-            className="footer_quesionList-cancel"
-            type="button"
-            onClick={() => handleCloseNewQuestion()}
-          >
-            {Dictionary.cancel}
-          </button>
-        </div>
-      ) : (
-        false
-      )}
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
@@ -213,15 +279,27 @@ const QuestionnaireList = props => {
 
 QuestionnaireList.propTypes = {
   loadQuestionnaireList: PropTypes.func.isRequired,
+  activeQuestionnaire: PropTypes.object.isRequired,
+  selectedComponentId: PropTypes.string,
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
   stamp: PropTypes.string,
   token: PropTypes.string,
+  selectedStamp: PropTypes.string,
+  isFusion: PropTypes.bool,
+  isComposition: PropTypes.bool,
+  isTcm: PropTypes.bool,
+  handleNewChildQuestionnaireRef: PropTypes.func.isRequired,
 };
 
 QuestionnaireList.defaultProps = {
+  selectedComponentId: undefined,
   questionnaires: [],
   stamp: '',
   token: '',
+  selectedStamp: 'FAKEPERMISSION',
+  isFusion: false,
+  isComposition: false,
+  isTcm: false,
 };
 export default QuestionnaireList;

@@ -1,41 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import { CodesLists } from 'widgets/codes-lists';
 import { DIMENSION_FORMATS } from 'constants/pogues-constants';
 
-const { CODES_LIST } = DIMENSION_FORMATS;
+const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;
 
-class ResponseFormatTablePrincipalCodeslist extends Component {
-  static selectorPath = CODES_LIST;
+const ResponseFormatTablePrincipalCodeslist = ({ selectorPathParent }) => {
+  const selectorPathComposed = selectorPathParent
+    ? `${selectorPathParent}.${selectorPath}`
+    : selectorPath;
 
-  static propTypes = {
-    selectorPathParent: PropTypes.string,
-  };
+  return (
+    <div className="axis-primary__panel">
+      <FormSection name={selectorPath}>
+        <CodesLists selectorPathParent={selectorPathComposed} />
+      </FormSection>
+    </div>
+  );
+};
 
-  static defaultProps = {
-    selectorPathParent: undefined,
-  };
+ResponseFormatTablePrincipalCodeslist.propTypes = {
+  selectorPathParent: PropTypes.string,
+};
 
-  constructor(props) {
-    const { selectorPathParent } = props;
-    super(props);
-
-    this.selectorPathComposed = selectorPathParent
-      ? `${selectorPathParent}.${ResponseFormatTablePrincipalCodeslist.selectorPath}`
-      : ResponseFormatTablePrincipalCodeslist.selectorPath;
-  }
-
-  render() {
-    return (
-      <div className="axis-primary__panel">
-        <FormSection name={ResponseFormatTablePrincipalCodeslist.selectorPath}>
-          <CodesLists selectorPathParent={this.selectorPathComposed} />
-        </FormSection>
-      </div>
-    );
-  }
-}
+ResponseFormatTablePrincipalCodeslist.defaultProps = {
+  selectorPathParent: undefined,
+};
 
 export default ResponseFormatTablePrincipalCodeslist;

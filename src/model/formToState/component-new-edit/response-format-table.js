@@ -21,7 +21,7 @@ const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
-const { CHECKBOX } = DATATYPE_VIS_HINT;
+const { RADIO } = DATATYPE_VIS_HINT;
 
 export const defaultMeasureSimpleState = {
   mandatory: undefined,
@@ -69,7 +69,7 @@ export const defaultMeasureState = {
       cloneDeep(CodesListDefaultState),
       { id: uuid() },
     ),
-    visHint: CHECKBOX,
+    visHint: RADIO,
   },
 };
 
@@ -84,7 +84,7 @@ export const defaultMeasureForm = {
     specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: '',
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
-    visHint: CHECKBOX,
+    visHint: RADIO,
   },
 };
 
@@ -398,24 +398,18 @@ const Factory = (initialState = {}, codesListsStore) => {
     getCodesListStore: () => {
       let codesLists = {};
 
-      if (currentState[PRIMARY] && currentState[PRIMARY].type === CODES_LIST) {
+      if (currentState[PRIMARY]?.type === CODES_LIST) {
         codesLists = transformers.codesListPrimary.getStore();
       }
 
-      if (
-        currentState[SECONDARY] &&
-        currentState[SECONDARY].showSecondaryAxis
-      ) {
+      if (currentState[SECONDARY]?.showSecondaryAxis) {
         codesLists = {
           ...codesLists,
           ...transformers.codesListSecondary.getStore(),
         };
       }
 
-      if (
-        currentState[MEASURE] &&
-        currentState[MEASURE].type === SINGLE_CHOICE
-      ) {
+      if (currentState[MEASURE]?.type === SINGLE_CHOICE) {
         codesLists = {
           ...codesLists,
           ...transformers.codesListMeasure.getStore(),

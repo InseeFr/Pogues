@@ -6,12 +6,12 @@ import {
   loadOperationsIfNeeded,
   loadCampaignsIfNeeded,
 } from 'actions/metadata';
-import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
+import { STATISTICAL_CONTEXT_FORM_NAME, TCM } from 'constants/pogues-constants';
 import { filterStoreByProp } from 'utils/widget-utils';
 import { storeToArray } from 'utils/utils';
 
 import StatisticalContextCriteria from '../components/statistical-context-criteria';
-import { getToken } from 'reducers/selectors';
+import { getToken, getUser } from 'reducers/selectors';
 
 // PropTypes and defaultProps
 
@@ -43,6 +43,7 @@ export const mapStateToProps = (
   { showCampaigns, showOperations, formName, path },
 ) => {
   const selector = formValueSelector(formName);
+  const { stamp } = getUser(state);
   const conditionalProps = {};
 
   // Selected serie and operation in the form
@@ -53,26 +54,38 @@ export const mapStateToProps = (
     const selectedOperation = selector(state, `${path}operation`);
 
     conditionalProps.selectedOperation = selectedOperation;
-    conditionalProps.operations = filterStoreByProp(
-      state.metadataByType.operations,
-      'serie',
-      selectedSerie,
-    );
+    conditionalProps.operations =
+      selectedSerie === TCM.id
+        ? [{ id: TCM.id, value: TCM.value, label: TCM.label }]
+        : filterStoreByProp(
+            state.metadataByType.operations,
+            'serie',
+            selectedSerie,
+          );
 
     // Show or not the list of campaigns
     if (showCampaigns) {
-      conditionalProps.campaigns = filterStoreByProp(
-        state.metadataByType.campaigns,
-        'operation',
-        selectedOperation,
-      );
+      conditionalProps.campaigns =
+        selectedOperation === TCM.id
+          ? [{ id: TCM.id, value: TCM.value, label: TCM.label }]
+          : filterStoreByProp(
+              state.metadataByType.campaigns,
+              'operation',
+              selectedOperation,
+            );
     }
   }
 
   return {
     ...conditionalProps,
     token: getToken(state),
-    series: storeToArray(state.metadataByType.series),
+    series:
+      stamp === TCM.owner || stamp === 'FAKEPERMISSION'
+        ? [
+            { id: TCM.id, value: TCM.value, label: TCM.label },
+            ...storeToArray(state.metadataByType.series),
+          ]
+        : storeToArray(state.metadataByType.series),
     selectedSerie,
     path,
   };

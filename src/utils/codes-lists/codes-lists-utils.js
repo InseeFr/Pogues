@@ -7,7 +7,7 @@ import {
 } from 'constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
-const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 
@@ -15,7 +15,7 @@ function getMeasureCodesLists(measureFormat) {
   const codesListsIds = [];
   const { type, [type]: measure } = measureFormat;
 
-  if (type === SINGLE_CHOICE) {
+  if (type === SINGLE_CHOICE || type === PAIRING) {
     codesListsIds.push(measure[DEFAULT_CODES_LIST_SELECTOR_PATH].id);
   }
 
@@ -80,7 +80,7 @@ export function removeOrphansCodesLists(codesListsStore, componentsStore) {
       const { type, [type]: format } = componentsStore[key].responseFormat;
       let codesListsIds = [];
 
-      if (type === SINGLE_CHOICE) {
+      if (type === SINGLE_CHOICE || type === PAIRING) {
         codesListsIds = getSingleCodesLists(format);
       } else if (type === MULTIPLE_CHOICE) {
         codesListsIds = getMultipleCodesLists(format);

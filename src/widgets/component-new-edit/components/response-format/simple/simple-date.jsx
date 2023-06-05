@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormSection, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { date } from 'redux-form-validators';
@@ -10,82 +10,84 @@ import GenericOption from 'forms/controls/generic-option';
 
 const { DATE } = DATATYPE_NAME;
 
-class ResponseFormatDatatypeDate extends Component {
-  static defaultProps = {
-    name: DATE,
-    readOnly: false,
-    required: true,
-  };
-
-  render() {
-    let formatini = this.props.format;
-    if (this.props.type === 'TABLE' && !this.props.isCollectedVariables) {
-      formatini = this.props.formatTableList
-        ? this.props.formatTableList
-        : this.props.formatTable;
-    } else if (this.props.type === 'TABLE' && this.props.isCollectedVariables) {
-      formatini = this.props.formatCollectedVariables;
-    }
-    return (
-      <FormSection name={this.props.name}>
-        <div className="response-format-datatype-date">
+function ResponseFormatDatatypeDate({
+  format,
+  type,
+  isCollectedVariables,
+  formatTableList,
+  formatTable,
+  formatCollectedVariables,
+  name,
+  required,
+  readOnly,
+}) {
+  const formatInit =
+    (type !== 'TABLE' && format) ||
+    (type === 'TABLE' && isCollectedVariables
+      ? formatCollectedVariables
+      : formatTableList || formatTable);
+  return (
+    <FormSection name={name}>
+      <div className="response-format-datatype-date">
+        <Field
+          name="format"
+          id="date_format"
+          component={Select}
+          label={Dictionary.date_format}
+          required={required}
+          disabled={readOnly}
+        >
+          <GenericOption key="" value="">
+            {Dictionary.dateinitial}
+          </GenericOption>
+          <GenericOption key="YYYY-MM-DD" value="YYYY-MM-DD">
+            {Dictionary.dateddmmyyyy}
+          </GenericOption>
+          <GenericOption key="YYYY-MM" value="YYYY-MM">
+            {Dictionary.datemmyyyy}
+          </GenericOption>
+          <GenericOption key="YYYY" value="YYYY">
+            {Dictionary.dateyyyy}
+          </GenericOption>
+        </Field>
+        <div hidden={formatInit === ''}>
           <Field
-            name="format"
-            id="date_format"
-            component={Select}
-            label={Dictionary.date_format}
-            required={this.props.required}
-            disabled={this.props.readOnly}
-          >
-            <GenericOption key="" value="">
-              {Dictionary.dateinitial}
-            </GenericOption>
-
-            <GenericOption key="yyyy-mm-dd" value="yyyy-mm-dd">
-              {Dictionary.dateddmmyyyy}
-            </GenericOption>
-
-            <GenericOption key="yyyy-mm" value="yyyy-mm">
-              {Dictionary.datemmyyyy}
-            </GenericOption>
-
-            <GenericOption key="yyyy" value="yyyy">
-              {Dictionary.dateyyyy}
-            </GenericOption>
-          </Field>
-          <div hidden={formatini === ''}>
-            <Field
-              name="minimum"
-              type="text"
-              step="any"
-              component={Input}
-              label={Dictionary.minimum}
-              validate={date({
-                format: formatini,
-                message: Dictionary.formatDate ? Dictionary.formatDate : '',
-                allowBlank: true,
-              })}
-              disabled={this.props.readOnly}
-            />
-            <Field
-              name="maximum"
-              type="text"
-              step="any"
-              component={Input}
-              label={Dictionary.maximum}
-              validate={date({
-                format: formatini,
-                message: Dictionary.formatDate ? Dictionary.formatDate : '',
-                allowBlank: true,
-              })}
-              disabled={this.props.readOnly}
-            />
-          </div>
+            name="minimum"
+            type="text"
+            step="any"
+            component={Input}
+            label={Dictionary.minimum}
+            validate={date({
+              format: formatInit,
+              message: Dictionary.formatDate ? Dictionary.formatDate : '',
+              allowBlank: true,
+            })}
+            disabled={readOnly}
+          />
+          <Field
+            name="maximum"
+            type="text"
+            step="any"
+            component={Input}
+            label={Dictionary.maximum}
+            validate={date({
+              format: formatInit,
+              message: Dictionary.formatDate ? Dictionary.formatDate : '',
+              allowBlank: true,
+            })}
+            disabled={readOnly}
+          />
         </div>
-      </FormSection>
-    );
-  }
+      </div>
+    </FormSection>
+  );
 }
+
+ResponseFormatDatatypeDate.defaultProps = {
+  name: DATE,
+  readOnly: false,
+  required: true,
+};
 
 const mapStateToProps = state => {
   const selector = formValueSelector('component');

@@ -20,3 +20,19 @@
     z-index: -100;
   }
 }
+
+.actionBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-column-reverse{
+  display: flex;
+  flex-direction: column-reverse;
+}
