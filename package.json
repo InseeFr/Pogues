@@ -108,11 +108,11 @@
   "scripts": {
     "test": "react-scripts test --coverage -i",
     "testw": "react-scripts test --watch",
-    "start": "react-scripts --max-old-space-size=4096 start",
+    "start": "react-scripts start --max-old-space-size=4096",
     "start-insee": "cross-env REACT_APP_INSEE=true react-scripts start",
     "dev:server": "concurrently \"npm run server\" \"npm run start\"",
     "server": "node ./fake-server/server.js",
-    "build": "npm run generate-entrypoint && react-scripts --max-old-space-size=4096 build",
+    "build": "npm run generate-entrypoint && react-scripts build --max-old-space-size=4096",
     "build-insee": "cross-env REACT_APP_INSEE=true react-scripts build",
     "lint": "eslint ./src -f table || true",
     "lint:fix": "eslint ./src -f table --fix || true",
