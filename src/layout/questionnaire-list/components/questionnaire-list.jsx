@@ -6,7 +6,7 @@ import Dropdown from 'widgets/dropdown';
 import Loader from 'layout/loader';
 import Dictionary from 'utils/dictionary/dictionary';
 import { formatDate, getState } from 'utils/component/component-utils';
-import { getStampsList, getQuestionnaire } from 'utils/remote-api';
+import { getStampsList } from 'utils/remote-api';
 import { getWeight } from 'utils/component/generic-input-utils';
 import { COMPONENT_TYPE, TCM } from 'constants/pogues-constants';
 
@@ -59,8 +59,7 @@ const QuestionnaireList = props => {
     [handleCloseNewQuestionnaire, mergeQuestionnaires, token],
   );
 
-  // function addQuestionnaireRef (checkedQuestionnaire)  {
-  const addQuestionnaireRef = async checkedQuestionnaire => {
+  function addQuestionnaireRef(checkedQuestionnaire) {
     const weight = selectedComponentId
       ? getWeight(componentsStore, selectedComponentId)
       : Object.values(componentsStore).filter(
@@ -68,16 +67,12 @@ const QuestionnaireList = props => {
             (component.type === SEQUENCE && component.id !== 'idendquest') ||
             component.type === EXTERNAL_ELEMENT,
         ).length;
-    const externalQuestionnaire = await getQuestionnaire(
-      checkedQuestionnaire,
-      token,
-    );
-    /* const externalQuestionnaire = questionnaires.find(
+    const externalQuestionnaire = questionnaires.find(
       q => q.id === checkedQuestionnaire,
-    ); */
+    );
     const componentState = {
       id: checkedQuestionnaire,
-      name: externalQuestionnaire.name || externalQuestionnaire.Name,
+      name: externalQuestionnaire.name,
       parent: activeQuestionnaire.id,
       weight: weight,
       children: [],
@@ -87,7 +82,7 @@ const QuestionnaireList = props => {
       flowcontrol: [],
       redirections: {},
       dynamiqueSpecified: '',
-      label: externalQuestionnaire.label || externalQuestionnaire.Label[0],
+      label: externalQuestionnaire.label,
       type: EXTERNAL_ELEMENT,
     };
     createComponent(
@@ -101,7 +96,7 @@ const QuestionnaireList = props => {
       .then(orderComponents)
       .then(handleNewChildQuestionnaireRef(checkedQuestionnaire))
       .then(handleCloseNewQuestionnaire);
-  };
+  }
 
   const handleAction = (id, label) => {
     if (isComposition) return addQuestionnaireRef(id);
