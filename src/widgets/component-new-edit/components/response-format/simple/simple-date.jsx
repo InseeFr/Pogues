@@ -58,7 +58,7 @@ function ResponseFormatDatatypeDate({
             component={Input}
             label={Dictionary.minimum}
             validate={date({
-              format: formatInit,
+              format: formatInit.toLowerCase(),
               message: Dictionary.formatDate ? Dictionary.formatDate : '',
               allowBlank: true,
             })}
@@ -71,7 +71,7 @@ function ResponseFormatDatatypeDate({
             component={Input}
             label={Dictionary.maximum}
             validate={date({
-              format: formatInit,
+              format: formatInit.toLowerCase(),
               message: Dictionary.formatDate ? Dictionary.formatDate : '',
               allowBlank: true,
             })}
