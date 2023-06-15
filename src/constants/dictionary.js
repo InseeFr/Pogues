@@ -728,6 +728,14 @@ const dictionary = {
     fr: "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire",
     en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
   },
+  showErrorDuplicateVariables: {
+    fr: 'Voir les variables en doublon',
+    en: 'Show duplicate variables',
+  },
+  duplicateVariables: {
+    fr: 'Variables en doublon',
+    en: 'Duplicate variables',
+  },
   failMessage: {
     en: 'Error message',
     fr: "Message d'erreur",
