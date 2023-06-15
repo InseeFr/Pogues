@@ -8,6 +8,7 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
 import Loader from 'layout/loader';
+import { DuplicateVariables } from 'widgets/duplicate-variables';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
@@ -24,12 +25,14 @@ export const propTypes = {
   isQuestionnaireModified: PropTypes.bool.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
+  hasQuestionnaireDuplicateVariables: PropTypes.bool,
 };
 
 export const defaultProps = {
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
+  hasQuestionnaireDuplicateVariables: false,
 };
 
 // Components
@@ -90,12 +93,14 @@ function GenericInput(props) {
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
     visualizeActiveQuestionnaire,
+    hasQuestionnaireDuplicateVariables,
   } = props;
 
   const [showNewComponentModal, setShowNewComponentModal] = useState(false);
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
   const [typeNewComponent, setTypeNewComponent] = useState('');
+  const [showDuplicateVariables, setShowDuplicateVariables] = useState(false);
 
   const handleOpenNewComponent = componentType => {
     setShowNewComponentModal(true);
@@ -241,19 +246,28 @@ function GenericInput(props) {
           {Dictionary.save}
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
-        <VisualizeDropdown
-          top
-          typeDropDown={VISUALIZATION}
-          disabled={!isQuestionnaireValid}
-          visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
-          token={token}
-        />
+        {hasQuestionnaireDuplicateVariables ? (
+          <button
+            id="show-duplicate-variables"
+            className="btn-yellow"
+            onClick={() => setShowDuplicateVariables(true)}
+          >
+            {Dictionary.showErrorDuplicateVariables}
+          </button>
+        ) : (
+          <VisualizeDropdown
+            top
+            typeDropDown={VISUALIZATION}
+            disabled={!isQuestionnaireValid}
+            visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
+            token={token}
+          />
+        )}
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
           <span className="glyphicon glyphicon-share-alt" />
         </button>
       </div>
-
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
@@ -315,6 +329,19 @@ function GenericInput(props) {
       >
         <p>{Dictionary.loopNotSaved}</p>
         <button onClick={handleCloseModal} style={customModalbuttonStyles}>
+          {Dictionary.close}
+        </button>
+      </ReactModal>
+      <ReactModal
+        isOpen={showDuplicateVariables}
+        ariaHideApp={false}
+        style={customLoopModalStyles}
+      >
+        <DuplicateVariables />
+        <button
+          onClick={() => setShowDuplicateVariables(false)}
+          style={customModalbuttonStyles}
+        >
           {Dictionary.close}
         </button>
       </ReactModal>
