@@ -15,7 +15,6 @@ import {
 } from 'utils/component/generic-input-utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { getToken } from 'reducers/selectors';
-import { getAllVariables } from 'utils/variables/variables-utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -89,27 +88,13 @@ function isLoopsValid(
 // Container
 
 const mapStateToProps = state => {
-  const {
-    activeComponentsById,
-    selectedComponentId,
-    activeQuestionnaire,
-    activeExternalVariablesById,
-    activeCalculatedVariablesById,
-    collectedVariableByQuestion,
-  } = state.appState;
-  const { externalQuestionnairesLoops, externalQuestionnairesVariables } =
-    state.metadataByType;
+  const { activeComponentsById, selectedComponentId, activeQuestionnaire } =
+    state.appState;
+  const { externalQuestionnairesLoops } = state.metadataByType;
   const errors = state.errors || { errorsIntegrity: {} };
   const questionnaireErrors =
     errors.errorsIntegrity[activeQuestionnaire.id] || {};
   const selectedComponent = activeComponentsById[selectedComponentId];
-  const allVariables = getAllVariables(
-    activeExternalVariablesById,
-    activeCalculatedVariablesById,
-    collectedVariableByQuestion,
-    activeQuestionnaire,
-    externalQuestionnairesVariables,
-  );
 
   return {
     placeholders: getPlaceholders(
@@ -125,8 +110,6 @@ const mapStateToProps = state => {
       activeQuestionnaire,
       externalQuestionnairesLoops,
     ),
-    hasQuestionnaireDuplicateVariables:
-      allVariables.length !== new Set(allVariables).size,
     activeQuestionnaire: activeQuestionnaire,
     token: getToken(state),
     showVisualizationErrorPopup:

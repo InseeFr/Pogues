@@ -6,6 +6,7 @@ import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
 import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
 import { QuestionnaireNav } from 'layout/questionnaire-nav';
 import { GenericInput } from 'layout/generic-input';
+import { hasDuplicateVariables } from 'utils/variables/variables-utils';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
@@ -51,6 +52,7 @@ const PageQuestionnaire = props => {
     codeLists,
     calculatedVariables,
     externalVariables,
+    collectedVariablesById,
     collectedVariablesByQuestion,
     loading,
     loadQuestionnaire,
@@ -60,10 +62,15 @@ const PageQuestionnaire = props => {
     setActiveCodeLists,
     setActiveVariables,
     loadExternalQuestionnairesIfNeeded,
+    externalQuestionnairesVariables,
     appState,
   } = props;
 
   const [toInitialize, setToInitialize] = useState(false);
+  const [
+    hasQuestionnaireDuplicateVariables,
+    setHasQuestionnaireDuplicateVariables,
+  ] = useState(false);
 
   useEffect(() => {
     if (
@@ -110,6 +117,33 @@ const PageQuestionnaire = props => {
     token,
   ]);
 
+  useEffect(() => {
+    if (
+      !toInitialize &&
+      appState.activeQuestionnaire &&
+      appState.activeQuestionnaire?.childQuestionnaireRef?.length ===
+        Object.keys(externalQuestionnairesVariables || {})?.length
+    ) {
+      console.log('à la modif');
+      setHasQuestionnaireDuplicateVariables(
+        hasDuplicateVariables(
+          externalVariables,
+          calculatedVariables,
+          collectedVariablesById,
+          questionnaire,
+          externalQuestionnairesVariables,
+        ),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    toInitialize,
+    externalQuestionnairesVariables,
+    externalVariables,
+    calculatedVariables,
+    collectedVariablesById,
+  ]);
+
   return (
     <div id={COMPONENT_ID}>
       {loading ? (
@@ -118,7 +152,11 @@ const PageQuestionnaire = props => {
         <div>
           <QuestionnaireNav />
           <QuestionnaireListComponents navigate={props.history.push} />
-          <GenericInput />
+          <GenericInput
+            hasQuestionnaireDuplicateVariables={
+              hasQuestionnaireDuplicateVariables
+            }
+          />
         </div>
       )}
     </div>
