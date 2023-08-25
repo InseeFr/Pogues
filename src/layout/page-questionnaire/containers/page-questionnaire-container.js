@@ -75,10 +75,13 @@ const mapStateToProps = (
   codeLists: state.codeListByQuestionnaire[id],
   calculatedVariables: state.calculatedVariableByQuestionnaire[id],
   externalVariables: state.externalVariableByQuestionnaire[id],
+  collectedVariablesById: state.collectedVariableByQuestionnaire[id],
   collectedVariablesByQuestion: getCollectedVariablesByQuestionnaire(
     state.componentByQuestionnaire[id],
     state.collectedVariableByQuestionnaire[id],
   ),
+  externalQuestionnairesVariables:
+    state.metadataByType.externalQuestionnairesVariables,
   loading: state.questionnaireById.loader,
 });
 

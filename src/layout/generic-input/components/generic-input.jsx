@@ -2,13 +2,13 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
+import { Link } from 'react-router-dom';
 import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { ComponentNew } from 'layout/component-new';
 import Loader from 'layout/loader';
-import { DuplicateVariables } from 'widgets/duplicate-variables';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
@@ -100,7 +100,6 @@ function GenericInput(props) {
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
   const [typeNewComponent, setTypeNewComponent] = useState('');
-  const [showDuplicateVariables, setShowDuplicateVariables] = useState(false);
 
   const handleOpenNewComponent = componentType => {
     setShowNewComponentModal(true);
@@ -247,13 +246,13 @@ function GenericInput(props) {
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
         {hasQuestionnaireDuplicateVariables ? (
-          <button
-            id="show-duplicate-variables"
-            className="btn-yellow"
-            onClick={() => setShowDuplicateVariables(true)}
+          <Link
+            className="btn-white"
+            style={{ color: 'red' }}
+            to={`/questionnaire/${activeQuestionnaire.id}/duplicate-variables`}
           >
             {Dictionary.showErrorDuplicateVariables}
-          </button>
+          </Link>
         ) : (
           <VisualizeDropdown
             top
@@ -329,19 +328,6 @@ function GenericInput(props) {
       >
         <p>{Dictionary.loopNotSaved}</p>
         <button onClick={handleCloseModal} style={customModalbuttonStyles}>
-          {Dictionary.close}
-        </button>
-      </ReactModal>
-      <ReactModal
-        isOpen={showDuplicateVariables}
-        ariaHideApp={false}
-        style={customLoopModalStyles}
-      >
-        <DuplicateVariables />
-        <button
-          onClick={() => setShowDuplicateVariables(false)}
-          style={customModalbuttonStyles}
-        >
           {Dictionary.close}
         </button>
       </ReactModal>

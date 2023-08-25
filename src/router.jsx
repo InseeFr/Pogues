@@ -8,6 +8,7 @@ import { PageQuestionnaire } from 'layout/page-questionnaire';
 import { QuestionnaireComposition } from 'layout/questionnaire-composition';
 import { QuestionnaireTcmComposition } from 'layout/questionnaire-tcm-composition';
 import { QuestionnaireMerge } from 'layout/questionnaire-merge';
+import { DuplicateVariables } from 'layout/duplicate-variables';
 import { secure } from 'auth';
 
 function Router() {
@@ -35,6 +36,11 @@ function Router() {
           exact
           path="/questionnaire/:id/merge"
           component={secure(QuestionnaireMerge)}
+        />
+        <Route
+          exact
+          path="/questionnaire/:id/duplicate-variables"
+          component={secure(DuplicateVariables)}
         />
         <Route
           exact
