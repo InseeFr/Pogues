@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
 import { Link } from 'react-router-dom';
-import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
+import { ExternalQuestionnaireDropdown } from 'widgets/external-questionnaire-dropdown';
 import { ComponentNew } from 'layout/component-new';
 import Loader from 'layout/loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
-const { VISUALIZATION } = DROPDOWN_TYPE;
 
 // PropTypes and defaultProps
 
@@ -227,14 +227,13 @@ function GenericInput(props) {
             {Dictionary.filtre}
           </button>
         )}
-        <VisualizeDropdown
+        <ExternalQuestionnaireDropdown
           disabled={
             selectedComponent &&
             selectedComponent.type !== SEQUENCE &&
             selectedComponent.type !== EXTERNAL_ELEMENT
           }
           top
-          typeDropDown={EXTERNAL_ELEMENT}
         />
         <button
           className="btn-yellow"
@@ -256,7 +255,6 @@ function GenericInput(props) {
         ) : (
           <VisualizeDropdown
             top
-            typeDropDown={VISUALIZATION}
             disabled={!isQuestionnaireValid}
             visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
             token={token}

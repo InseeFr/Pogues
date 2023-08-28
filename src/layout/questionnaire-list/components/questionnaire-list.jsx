@@ -72,7 +72,9 @@ const QuestionnaireList = props => {
     );
     const componentState = {
       id: checkedQuestionnaire,
-      name: externalQuestionnaire.name,
+      name:
+        externalQuestionnaire.name ||
+        externalQuestionnaire.label.replace(' ', ''),
       parent: activeQuestionnaire.id,
       weight: weight,
       children: [],
