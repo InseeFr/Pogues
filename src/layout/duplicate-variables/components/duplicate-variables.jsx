@@ -4,7 +4,8 @@ import Dictionary from 'utils/dictionary/dictionary';
 import { questionnaireDuplicateVariables } from '../utils/duplicate-variables-utils';
 
 export function DuplicateVariables({
-  collectedVariableById,
+  id,
+  collectedVariableByQuestion,
   activeExternalVariablesById,
   activeCalculatedVariablesById,
   activeQuestionnaire,
@@ -13,12 +14,11 @@ export function DuplicateVariables({
 }) {
   const history = useHistory();
   const routeBackToQuestionnaire = useCallback(() => {
-    const path = `/questionnaire/${activeQuestionnaire.id}`;
+    const path = `/questionnaire/${id}`;
     history.push(path);
-  }, [history, activeQuestionnaire.id]);
-  console.log('par duplicateVariables');
+  }, [history, id]);
   const questDuplicateVariables = questionnaireDuplicateVariables(
-    collectedVariableById,
+    collectedVariableByQuestion,
     activeExternalVariablesById,
     activeCalculatedVariablesById,
     activeQuestionnaire,
