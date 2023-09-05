@@ -1,7 +1,7 @@
 import { getAllVariables } from 'utils/variables/variables-utils';
 
 export function questionnaireDuplicateVariables(
-  collectedVariableById,
+  collectedVariableByQuestion,
   activeExternalVariablesById,
   activeCalculatedVariablesById,
   activeQuestionnaire,
@@ -11,7 +11,7 @@ export function questionnaireDuplicateVariables(
   const allVariables = getAllVariables(
     activeExternalVariablesById,
     activeCalculatedVariablesById,
-    collectedVariableById,
+    collectedVariableByQuestion,
     activeQuestionnaire,
     externalQuestionnairesVariables,
   );
@@ -28,8 +28,12 @@ export function questionnaireDuplicateVariables(
   ];
   const duplicates = duplicateVariables.map(duplicateVariable => ({
     variable: duplicateVariable,
-    isCollected: Object.values(collectedVariableById).some(
-      variable => variable.name === duplicateVariable,
+    isCollected: Object.values(collectedVariableByQuestion).some(
+      question =>
+        typeof question === 'object' &&
+        Object.values(question).some(
+          variable => variable.name === duplicateVariable,
+        ),
     ),
     isExternal: Object.values(activeExternalVariablesById).some(
       element => element.name === duplicateVariable,

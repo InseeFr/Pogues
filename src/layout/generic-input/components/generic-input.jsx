@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { Link } from 'react-router-dom';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -25,14 +24,12 @@ export const propTypes = {
   isQuestionnaireModified: PropTypes.bool.isRequired,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
-  hasQuestionnaireDuplicateVariables: PropTypes.bool,
 };
 
 export const defaultProps = {
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
-  hasQuestionnaireDuplicateVariables: false,
 };
 
 // Components
@@ -93,7 +90,6 @@ function GenericInput(props) {
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
     visualizeActiveQuestionnaire,
-    hasQuestionnaireDuplicateVariables,
   } = props;
 
   const [showNewComponentModal, setShowNewComponentModal] = useState(false);
@@ -244,22 +240,13 @@ function GenericInput(props) {
           {Dictionary.save}
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
-        {hasQuestionnaireDuplicateVariables ? (
-          <Link
-            className="btn-white"
-            style={{ color: 'red' }}
-            to={`/questionnaire/${activeQuestionnaire.id}/duplicate-variables`}
-          >
-            {Dictionary.showErrorDuplicateVariables}
-          </Link>
-        ) : (
-          <VisualizeDropdown
-            top
-            disabled={!isQuestionnaireValid}
-            visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
-            token={token}
-          />
-        )}
+        <VisualizeDropdown
+          top
+          disabled={!isQuestionnaireValid}
+          visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
+          token={token}
+          questionnaireId={activeQuestionnaire.id}
+        />
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
           <span className="glyphicon glyphicon-share-alt" />

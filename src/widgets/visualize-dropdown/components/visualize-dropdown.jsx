@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
-
+import { Link } from 'react-router-dom';
 import Dictionary from 'utils/dictionary/dictionary';
+import { hasDuplicateVariables } from 'utils/variables/variables-utils';
 
 /**
  * Component used in the actions toolbar and on each
@@ -16,8 +17,17 @@ function VisualizeDropdown({
   disabled,
   top,
   visualizeActiveQuestionnaire,
+  externalVariables,
+  calculatedVariables,
+  collectedVariableByQuestion,
+  questionnaire,
+  externalQuestionnairesVariables,
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [
+    hasQuestionnaireDuplicateVariables,
+    setHasQuestionnaireDuplicateVariables,
+  ] = useState(undefined);
   const wrapperRef = useRef(null);
 
   const handleClickOutside = useCallback(event => {
@@ -39,6 +49,15 @@ function VisualizeDropdown({
   const openDropDown = e => {
     e.preventDefault();
     e.stopPropagation();
+    setHasQuestionnaireDuplicateVariables(
+      hasDuplicateVariables(
+        externalVariables,
+        calculatedVariables,
+        collectedVariableByQuestion,
+        questionnaire,
+        externalQuestionnairesVariables,
+      ),
+    );
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -96,15 +115,25 @@ function VisualizeDropdown({
       </button>
 
       <ul className={classDropDownList}>
-        {links.map(link => {
-          return (
-            <li key={link.actionLabel}>
-              <a href="#" onClick={e => visualize(e, link.actionType)}>
-                {link.actionLabel}
-              </a>
-            </li>
-          );
-        })}
+        {componentId === '' && hasQuestionnaireDuplicateVariables ? (
+          <Link
+            className="btn-white"
+            style={{ color: 'red' }}
+            to={`/questionnaire/${questionnaire?.id}/duplicate-variables`}
+          >
+            {Dictionary.showErrorDuplicateVariables}
+          </Link>
+        ) : (
+          links.map(link => {
+            return (
+              <li key={link.actionLabel}>
+                <a href="#" onClick={e => visualize(e, link.actionType)}>
+                  {link.actionLabel}
+                </a>
+              </li>
+            );
+          })
+        )}
       </ul>
     </div>
   );
@@ -117,12 +146,22 @@ VisualizeDropdown.propTypes = {
   disabled: PropTypes.bool.isRequired,
   top: PropTypes.bool.isRequired,
   componentId: PropTypes.string,
+  externalVariables: PropTypes.object,
+  calculatedVariables: PropTypes.object,
+  collectedVariableByQuestion: PropTypes.object,
+  questionnaire: PropTypes.object,
+  externalQuestionnairesVariables: PropTypes.object,
 };
 VisualizeDropdown.defaultProps = {
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,
   componentId: '',
+  externalVariables: undefined,
+  calculatedVariables: undefined,
+  collectedVariableByQuestion: undefined,
+  questionnaire: undefined,
+  externalQuestionnairesVariables: undefined,
 };
 
 export default VisualizeDropdown;

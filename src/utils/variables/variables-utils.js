@@ -29,21 +29,23 @@ export function getCollectedVariablesIdsFromComponents(componentsStore) {
 export function getAllVariables(
   activeExternalVariablesById,
   activeCalculatedVariablesById,
-  collectedVariablesById,
+  collectedVariableByQuestion,
   activeQuestionnaire,
   externalQuestionnairesVariables,
 ) {
-  console.log('il a recalculé la liste des variables');
   const externalVariables = Object.values(
     activeExternalVariablesById || {},
   ).map(element => element.name);
   const calculatedVariables = Object.values(
     activeCalculatedVariablesById || {},
   ).map(element => element.name);
-  const collectedVariables = Object.values(collectedVariablesById || {}).map(
-    variable => variable.name,
-  );
-
+  const collectedVariables = Object.values(collectedVariableByQuestion || {})
+    .map(
+      question =>
+        typeof question === 'object' &&
+        Object.values(question).map(variable => variable.name),
+    )
+    .flat();
   const externalQuestionnaires =
     activeQuestionnaire?.childQuestionnaireRef || [];
   const referencedQuestionnairesVariables =
@@ -68,14 +70,14 @@ export function getAllVariables(
 export function hasDuplicateVariables(
   activeExternalVariablesById,
   activeCalculatedVariablesById,
-  collectedVariablesById,
+  collectedVariableByQuestion,
   activeQuestionnaire,
   externalQuestionnairesVariables,
 ) {
   const allVariables = getAllVariables(
     activeExternalVariablesById,
     activeCalculatedVariablesById,
-    collectedVariablesById,
+    collectedVariableByQuestion,
     activeQuestionnaire,
     externalQuestionnairesVariables,
   );
