@@ -32,9 +32,6 @@
     > div:nth-child(3) {
       @include make-xs-column(2);
     }
-    > div:nth-child(3) {
-      @include make-xs-column(2);
-    }
   }
 }
 .duplicate-variables_row {
@@ -61,9 +58,6 @@
       @include make-xs-column(6);
     }
     > div:nth-child(2) {
-      @include make-xs-column(2);
-    }
-    > div:nth-child(3) {
       @include make-xs-column(2);
     }
     > div:nth-child(3) {
