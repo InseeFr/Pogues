@@ -67,15 +67,9 @@ export function DuplicateVariables({
                   ([extKey, extValue]) => (
                     <div className="duplicate-variables_use" key={extKey}>
                       <div>{extKey}</div>
-                      <div>
-                        {extValue === 'CollectedVariableType' ? 'X' : ' '}
-                      </div>
-                      <div>
-                        {extValue === 'CalculatedVariableType' ? 'X' : ' '}
-                      </div>
-                      <div>
-                        {extValue === 'ExternalVariableType' ? 'X' : ' '}
-                      </div>
+                      <div>{extValue.isCollected ? 'X' : ' '}</div>
+                      <div>{extValue.isCalculated ? 'X' : ' '}</div>
+                      <div>{extValue.isExternal ? 'X' : ' '}</div>
                     </div>
                   ),
                 )}

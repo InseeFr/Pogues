@@ -119,6 +119,7 @@ const QuestionnaireListComponents = props => {
               }
               moveComponent={props.dragComponent}
               removeComponent={props.removeComponent}
+              removeQuestionnaireRef={props.removeQuestionnaireRef}
               integrityErrorsByType={props.errorsIntegrity[key]}
               parentType={props.componentsStore[component.parent].type}
               actions={actions}
@@ -297,6 +298,7 @@ QuestionnaireListComponents.propTypes = {
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  removeQuestionnaireRef: PropTypes.func.isRequired,
   dragComponent: PropTypes.func.isRequired,
   duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeQuestionnaire: PropTypes.func.isRequired,

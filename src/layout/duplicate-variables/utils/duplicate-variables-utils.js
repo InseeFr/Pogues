@@ -46,12 +46,25 @@ export function questionnaireDuplicateVariables(
         externalQuestionnaires.includes(questionnaire.id),
       )
       .reduce((acc, quest) => {
-        const variableType = Object.values(quest.variables).find(
-          variable => variable.Name === duplicateVariable,
-        )?.type;
-        if (variableType === undefined) return acc;
+        const referencedQuestionnaireVariables = Object.values(
+          quest.variables,
+        ).filter(variable => variable.Name === duplicateVariable);
+        if (referencedQuestionnaireVariables.length === 0) return acc;
         const qRefName = activeComponentsById[quest.id]?.name;
-        return { ...acc, [qRefName]: variableType };
+        return {
+          ...acc,
+          [qRefName]: {
+            isCollected: referencedQuestionnaireVariables.some(
+              ({ type }) => type === 'CollectedVariableType',
+            ),
+            isExternal: referencedQuestionnaireVariables.some(
+              ({ type }) => type === 'ExternalVariableType',
+            ),
+            isCalculated: referencedQuestionnaireVariables.some(
+              ({ type }) => type === 'CalculatedVariableType',
+            ),
+          },
+        };
       }, {}),
   }));
   return duplicates;
