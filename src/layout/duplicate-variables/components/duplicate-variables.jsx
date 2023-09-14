@@ -37,7 +37,7 @@ export function DuplicateVariables({
           {Dictionary.cancel}
         </button>
       </div>
-      <p>{Dictionary.duplicateVariables}</p>
+      <h3>{Dictionary.duplicateVariables}</h3>
       <div>
         <div className="duplicate-variables_header">
           <div>Variables</div>
