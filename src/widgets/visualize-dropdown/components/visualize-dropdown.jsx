@@ -2,8 +2,13 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 import { Link } from 'react-router-dom';
+import ReactModal from 'react-modal';
 import Dictionary from 'utils/dictionary/dictionary';
 import { hasDuplicateVariables } from 'utils/variables/variables-utils';
+import {
+  customModalStyles,
+  /* customModalbuttonStyles, */
+} from 'layout/generic-input/components/generic-input';
 
 /**
  * Component used in the actions toolbar and on each
@@ -28,6 +33,8 @@ function VisualizeDropdown({
     hasQuestionnaireDuplicateVariables,
     setHasQuestionnaireDuplicateVariables,
   ] = useState(undefined);
+  const [allowDuplicateVariablesModal, setAllowDuplicateVariablesModal] =
+    useState(false);
   const wrapperRef = useRef(null);
 
   const handleClickOutside = useCallback(event => {
@@ -58,6 +65,7 @@ function VisualizeDropdown({
         externalQuestionnairesVariables,
       ),
     );
+    setAllowDuplicateVariablesModal(true);
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -70,6 +78,8 @@ function VisualizeDropdown({
     visualizeActiveQuestionnaire(type, componentId, token);
     setDropdownOpen(false);
   };
+
+  const handleCloseModal = () => setAllowDuplicateVariablesModal(false);
 
   const classDropDown = classSet({
     'btn-group': true,
@@ -135,6 +145,22 @@ function VisualizeDropdown({
           })
         )}
       </ul>
+      <ReactModal
+        isOpen={
+          allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
+        }
+        ariaHideApp={false}
+        style={customModalStyles}
+      >
+        <p>{Dictionary.duplicateVariablesComment}</p>
+        <Link
+          className="btn-grey"
+          to={`/questionnaire/${questionnaire?.id}/duplicate-variables`}
+        >
+          {Dictionary.showErrorDuplicateVariables}
+        </Link>
+        <button onClick={handleCloseModal}>{Dictionary.close}</button>
+      </ReactModal>
     </div>
   );
 }

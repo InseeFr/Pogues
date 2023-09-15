@@ -728,6 +728,10 @@ const dictionary = {
     fr: "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire",
     en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
   },
+  duplicateVariablesComment: {
+    fr: 'Certaines variables de votre questionnaire sont présentes plusieurs fois. Pour identifier lesquelles, cliquez sur le bouton ci-dessous :',
+    en: 'Some variables in your questionnaire appear more than once. To identify which ones, click on the button below:',
+  },
   showErrorDuplicateVariables: {
     fr: 'Voir les variables en doublon',
     en: 'Show duplicate variables',
