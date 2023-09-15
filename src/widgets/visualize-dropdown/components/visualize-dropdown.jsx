@@ -125,25 +125,15 @@ function VisualizeDropdown({
       </button>
 
       <ul className={classDropDownList}>
-        {componentId === '' && hasQuestionnaireDuplicateVariables ? (
-          <Link
-            className="btn-white"
-            style={{ color: 'red' }}
-            to={`/questionnaire/${questionnaire?.id}/duplicate-variables`}
-          >
-            {Dictionary.showErrorDuplicateVariables}
-          </Link>
-        ) : (
-          links.map(link => {
-            return (
-              <li key={link.actionLabel}>
-                <a href="#" onClick={e => visualize(e, link.actionType)}>
-                  {link.actionLabel}
-                </a>
-              </li>
-            );
-          })
-        )}
+        {links.map(link => {
+          return (
+            <li key={link.actionLabel}>
+              <a href="#" onClick={e => visualize(e, link.actionType)}>
+                {link.actionLabel}
+              </a>
+            </li>
+          );
+        })}
       </ul>
       <ReactModal
         isOpen={
@@ -153,11 +143,10 @@ function VisualizeDropdown({
         style={customModalStyles}
       >
         <p>{Dictionary.duplicateVariablesComment}</p>
-        <Link
-          className="btn-grey"
-          to={`/questionnaire/${questionnaire?.id}/duplicate-variables`}
-        >
-          {Dictionary.showErrorDuplicateVariables}
+        <Link to={`/questionnaire/${questionnaire?.id}/duplicate-variables`}>
+          <button style={{ color: 'black' }}>
+            {Dictionary.showErrorDuplicateVariables}
+          </button>
         </Link>
         <button onClick={handleCloseModal}>{Dictionary.close}</button>
       </ReactModal>

@@ -26,46 +26,66 @@ export function questionnaireDuplicateVariables(
       ),
     ),
   ];
-  const duplicates = duplicateVariables.map(duplicateVariable => ({
-    variable: duplicateVariable,
-    isCollected: Object.values(collectedVariableByQuestion).some(
-      question =>
-        typeof question === 'object' &&
-        Object.values(question).some(
-          variable => variable.name === duplicateVariable,
-        ),
-    ),
-    isExternal: Object.values(activeExternalVariablesById).some(
-      element => element.name === duplicateVariable,
-    ),
-    isCalculated: Object.values(activeCalculatedVariablesById).some(
-      element => element.name === duplicateVariable,
-    ),
-    referenced: Object.values(externalQuestionnairesVariables)
-      .filter(questionnaire =>
-        externalQuestionnaires.includes(questionnaire.id),
-      )
-      .reduce((acc, quest) => {
-        const referencedQuestionnaireVariables = Object.values(
-          quest.variables,
-        ).filter(variable => variable.Name === duplicateVariable);
-        if (referencedQuestionnaireVariables.length === 0) return acc;
-        const qRefName = activeComponentsById[quest.id]?.name;
-        return {
-          ...acc,
-          [qRefName]: {
-            isCollected: referencedQuestionnaireVariables.some(
-              ({ type }) => type === 'CollectedVariableType',
-            ),
-            isExternal: referencedQuestionnaireVariables.some(
-              ({ type }) => type === 'ExternalVariableType',
-            ),
-            isCalculated: referencedQuestionnaireVariables.some(
-              ({ type }) => type === 'CalculatedVariableType',
-            ),
-          },
-        };
-      }, {}),
-  }));
-  return duplicates;
+  const currentDuplicateCollected = Object.values(
+    collectedVariableByQuestion,
+  ).reduce(
+    (accQuest, question) => [
+      ...accQuest,
+      ...Object.values(question).reduce(
+        (accVar, variable) =>
+          duplicateVariables.includes(variable.name)
+            ? [
+                ...accVar,
+                {
+                  questionnaire: 'current',
+                  variableName: variable.name,
+                  variableType: 'CollectedVariableType',
+                },
+              ]
+            : accVar,
+        [],
+      ),
+    ],
+    [],
+  );
+  const currentDuplicateExternal = Object.values(activeExternalVariablesById)
+    .filter(variable => duplicateVariables.includes(variable.name))
+    .map(variable => ({
+      questionnaire: 'current',
+      variableName: variable.name,
+      variableType: 'ExternalVariableType',
+    }));
+  const currentDuplicateCalculated = Object.values(
+    activeCalculatedVariablesById,
+  )
+    .filter(variable => duplicateVariables.includes(variable.name))
+    .map(variable => ({
+      questionnaire: 'current',
+      variableName: variable.name,
+      variableType: 'CalculatedVariableType',
+    }));
+  const externalQuestionnaireDuplicate = Object.values(
+    externalQuestionnairesVariables,
+  )
+    .filter(questionnaire => externalQuestionnaires.includes(questionnaire.id))
+    .reduce((accQuest, quest) => {
+      const qRefName = activeComponentsById[quest.id]?.name;
+      return [
+        ...accQuest,
+        ...Object.values(quest.variables)
+          .filter(variable => duplicateVariables.includes(variable.Name))
+          .map(variable => ({
+            questionnaire: qRefName,
+            variableName: variable.Name,
+            variableType: variable.type,
+          })),
+      ];
+    }, []);
+
+  return [
+    ...currentDuplicateCollected,
+    ...currentDuplicateExternal,
+    ...currentDuplicateCalculated,
+    ...externalQuestionnaireDuplicate,
+  ];
 }

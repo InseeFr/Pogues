@@ -40,42 +40,32 @@ export function DuplicateVariables({
       <h3>{Dictionary.duplicateVariables}</h3>
       <div>
         <div className="duplicate-variables_header">
-          <div>Variables</div>
-          <div>
-            <div>Questionnaire</div>
-            <div>Collectée</div>
-            <div>Calculée</div>
-            <div>Externe</div>
-          </div>
+          <div>{Dictionary.duplicateVariablesHeader}</div>
+          <div>{Dictionary.duplicateVariablesSource}</div>
         </div>
         <div className="duplicate-variables_body">
-          {Object.values(questDuplicateVariables).map(duplicated => (
-            <div className="duplicate-variables_row" key={duplicated.variable}>
-              <div>{duplicated.variable}</div>
-              <div className="duplicate-variables_questionnaire">
-                {(duplicated.isCollected ||
-                  duplicated.isExternal ||
-                  duplicated.isCalculated) && (
-                  <div className="duplicate-variables_use" key="current">
-                    <div>Questionnaire courant</div>
-                    <div>{duplicated.isCollected ? 'X' : ' '}</div>
-                    <div>{duplicated.isCalculated ? 'X' : ' '}</div>
-                    <div>{duplicated.isExternal ? 'X' : ' '}</div>
-                  </div>
-                )}
-                {Object.entries(duplicated.referenced).map(
-                  ([extKey, extValue]) => (
-                    <div className="duplicate-variables_use" key={extKey}>
-                      <div>{extKey}</div>
-                      <div>{extValue.isCollected ? 'X' : ' '}</div>
-                      <div>{extValue.isCalculated ? 'X' : ' '}</div>
-                      <div>{extValue.isExternal ? 'X' : ' '}</div>
-                    </div>
-                  ),
-                )}
+          {questDuplicateVariables
+            .sort(
+              (a, b) =>
+                a.variableName > b.variableName ||
+                (a.variableName === b.variableName &&
+                  a.questionnaire > b.questionnaire) ||
+                (a.variableName === b.variableName &&
+                  a.questionnaire === b.questionnaire &&
+                  a.variableType > b.variableType),
+            )
+            .map(duplicateVariable => (
+              <div className="duplicate-variables_row">
+                <div>{duplicateVariable.variableName}</div>
+                <div>
+                  {duplicateVariable.questionnaire === 'current'
+                    ? Dictionary.currentQuestionnaire
+                    : duplicateVariable.questionnaire}
+                  {' ('}
+                  {Dictionary[duplicateVariable.variableType]})
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>

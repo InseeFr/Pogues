@@ -729,8 +729,8 @@ const dictionary = {
     en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
   },
   duplicateVariablesComment: {
-    fr: 'Certaines variables de votre questionnaire sont présentes plusieurs fois. Pour identifier lesquelles, cliquez sur le bouton ci-dessous :',
-    en: 'Some variables in your questionnaire appear more than once. To identify which ones, click on the button below:',
+    fr: 'Certaines variables de votre questionnaire sont présentes plusieurs fois.',
+    en: 'Some variables in your questionnaire appear more than once.',
   },
   showErrorDuplicateVariables: {
     fr: 'Voir les variables en doublon',
@@ -739,6 +739,30 @@ const dictionary = {
   duplicateVariables: {
     fr: 'Variables en doublon',
     en: 'Duplicate variables',
+  },
+  duplicateVariablesHeader: {
+    fr: 'Variables',
+    en: 'Variables',
+  },
+  duplicateVariablesSource: {
+    fr: 'Origine',
+    en: 'Origin',
+  },
+  currentQuestionnaire: {
+    fr: 'Questionnaire courant',
+    en: 'Current questionnaire',
+  },
+  CollectedVariableType: {
+    fr: 'Collecté',
+    en: 'Collected',
+  },
+  CalculatedVariableType: {
+    fr: 'Calculé',
+    en: 'Calculated',
+  },
+  ExternalVariableType: {
+    fr: 'Externe',
+    en: 'External',
   },
   failMessage: {
     en: 'Error message',
