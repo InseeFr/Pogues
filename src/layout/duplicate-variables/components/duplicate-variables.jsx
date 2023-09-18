@@ -25,6 +25,9 @@ export function DuplicateVariables({
     externalQuestionnairesVariables,
     activeComponentsById,
   );
+  const duplicateVariablesSet = [
+    ...new Set(questDuplicateVariables.map(qdv => qdv.variableName)),
+  ];
 
   return (
     <div className="duplicate-variables">
@@ -44,28 +47,25 @@ export function DuplicateVariables({
           <div>{Dictionary.duplicateVariablesSource}</div>
         </div>
         <div className="duplicate-variables_body">
-          {questDuplicateVariables
-            .sort(
-              (a, b) =>
-                a.variableName > b.variableName ||
-                (a.variableName === b.variableName &&
-                  a.questionnaire > b.questionnaire) ||
-                (a.variableName === b.variableName &&
-                  a.questionnaire === b.questionnaire &&
-                  a.variableType > b.variableType),
-            )
-            .map(duplicateVariable => (
-              <div className="duplicate-variables_row">
-                <div>{duplicateVariable.variableName}</div>
-                <div>
-                  {duplicateVariable.questionnaire === 'current'
-                    ? Dictionary.currentQuestionnaire
-                    : duplicateVariable.questionnaire}
-                  {' ('}
-                  {Dictionary[duplicateVariable.variableType]})
-                </div>
+          {duplicateVariablesSet.map(duplicateVariable => (
+            <div className="duplicate-variables_row">
+              <div>{duplicateVariable}</div>
+              <div className="duplicate-variables_questionnaire">
+                {questDuplicateVariables
+                  .filter(qdv => qdv.variableName === duplicateVariable)
+                  .map(dv => (
+                    <div>
+                      {dv.questionnaire === 'current'
+                        ? Dictionary.currentQuestionnaire
+                        : dv.questionnaire}
+                      {' ('}
+                      {Dictionary[dv.variableType]}
+                      {') '}
+                    </div>
+                  ))}
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
