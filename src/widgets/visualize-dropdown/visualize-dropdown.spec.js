@@ -48,11 +48,11 @@ describe('Visualize Dropdown Component: ', () => {
     const wrapper = shallow(<VisualizeDropdown {...props} />);
     expect(wrapper.find('div').hasClass('open')).toBeFalsy();
     wrapper
-      .find('button')
+      .find('button[id="visualize"]')
       .simulate('click', { preventDefault() {}, stopPropagation() {} });
     expect(wrapper.find('div').hasClass('open')).toBeTruthy();
     wrapper
-      .find('button')
+      .find('button[id="visualize"]')
       .simulate('click', { preventDefault() {}, stopPropagation() {} });
     expect(wrapper.find('div').hasClass('open')).toBeFalsy();
   });

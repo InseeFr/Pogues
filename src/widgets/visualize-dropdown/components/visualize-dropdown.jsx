@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import Dictionary from 'utils/dictionary/dictionary';
 import { hasDuplicateVariables } from 'utils/variables/variables-utils';
-import {
-  customModalStyles,
-  /* customModalbuttonStyles, */
-} from 'layout/generic-input/components/generic-input';
 
 /**
  * Component used in the actions toolbar and on each
@@ -81,23 +77,6 @@ function VisualizeDropdown({
 
   const handleCloseModal = () => setAllowDuplicateVariablesModal(false);
 
-  const classDropDown = classSet({
-    'btn-group': true,
-    dropup: top,
-    'flex-column': !top,
-    'flex-column-reverse': top,
-    open: dropdownOpen,
-  });
-  const classDropDownTrigger = classSet({
-    btn: true,
-    'dropdown-toggle': true,
-    'btn-yellow': true,
-    'btn-white': false,
-    disabled: disabled,
-  });
-  const classDropDownList = classSet({
-    'dropdown-menu': true,
-  });
   const links = [
     { actionType: 'html', actionLabel: Dictionary.VISUALIZE_WEB },
     {
@@ -111,9 +90,25 @@ function VisualizeDropdown({
     { actionType: 'ddi', actionLabel: Dictionary.VISUALIZE_DDI },
   ];
   return (
-    <div className={classDropDown} ref={wrapperRef}>
+    <div
+      className={classSet({
+        'btn-group': true,
+        dropup: top,
+        'flex-column': !top,
+        'flex-column-reverse': top,
+        open: dropdownOpen,
+      })}
+      ref={wrapperRef}
+    >
       <button
-        className={classDropDownTrigger}
+        id="visualize"
+        className={classSet({
+          btn: true,
+          'dropdown-toggle': true,
+          'btn-yellow': true,
+          'btn-white': false,
+          disabled: disabled,
+        })}
         disabled={disabled}
         data-toggle="dropdown"
         aria-haspopup="true"
@@ -124,7 +119,7 @@ function VisualizeDropdown({
         <span className="caret" />
       </button>
 
-      <ul className={classDropDownList}>
+      <ul className="dropdown-menu">
         {links.map(link => {
           return (
             <li key={link.actionLabel}>
@@ -139,16 +134,18 @@ function VisualizeDropdown({
         isOpen={
           allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
         }
+        className="custom-modal"
         ariaHideApp={false}
-        style={customModalStyles}
       >
         <p>{Dictionary.duplicateVariablesComment}</p>
         <Link to={`/questionnaire/${questionnaire?.id}/duplicate-variables`}>
-          <button style={{ color: 'black' }}>
+          <button className="modal-button">
             {Dictionary.showErrorDuplicateVariables}
           </button>
         </Link>
-        <button onClick={handleCloseModal}>{Dictionary.close}</button>
+        <button className="modal-button" onClick={handleCloseModal}>
+          {Dictionary.close}
+        </button>
       </ReactModal>
     </div>
   );
@@ -172,11 +169,11 @@ VisualizeDropdown.defaultProps = {
   disabled: false,
   top: false,
   componentId: '',
-  externalVariables: undefined,
-  calculatedVariables: undefined,
-  collectedVariableByQuestion: undefined,
-  questionnaire: undefined,
-  externalQuestionnairesVariables: undefined,
+  externalVariables: {},
+  calculatedVariables: {},
+  collectedVariableByQuestion: {},
+  questionnaire: {},
+  externalQuestionnairesVariables: {},
 };
 
 export default VisualizeDropdown;

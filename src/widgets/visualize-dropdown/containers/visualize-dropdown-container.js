@@ -6,7 +6,6 @@ import VisualizeDropdown from '../components/visualize-dropdown';
 const mapStateToProps = state => {
   return {
     questionnaire: state.appState.activeQuestionnaire,
-    components: state.appState.activeComponentById,
     calculatedVariables: state.appState.activeCalculatedVariablesById,
     externalVariables: state.appState.activeExternalVariablesById,
     collectedVariableByQuestion: state.appState.collectedVariableByQuestion,
@@ -15,13 +14,13 @@ const mapStateToProps = state => {
   };
 };
 
-const PageQuestionnaireContainer = connect(mapStateToProps)(VisualizeDropdown);
+const VisualizeDropdownContainer = connect(mapStateToProps)(VisualizeDropdown);
 
-PageQuestionnaireContainer.propTypes = {
+VisualizeDropdownContainer.propTypes = {
   questionnaireId: PropTypes.string,
 };
-PageQuestionnaireContainer.defaultProps = {
+VisualizeDropdownContainer.defaultProps = {
   questionnaireId: undefined,
 };
 
-export default PageQuestionnaireContainer;
+export default VisualizeDropdownContainer;

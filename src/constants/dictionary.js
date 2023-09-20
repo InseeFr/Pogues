@@ -753,11 +753,11 @@ const dictionary = {
     en: 'Current questionnaire',
   },
   CollectedVariableType: {
-    fr: 'Collecté',
+    fr: 'Collectée',
     en: 'Collected',
   },
   CalculatedVariableType: {
-    fr: 'Calculé',
+    fr: 'Calculée',
     en: 'Calculated',
   },
   ExternalVariableType: {

@@ -34,26 +34,11 @@ export const defaultProps = {
 
 // Components
 
-export const customModalStyles = {
-  content: {
-    display: 'absolute',
-    textAlign: 'center',
-    verticAlalign: 'middle',
-    top: '40%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    width: '400px',
-    alignItems: 'center',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 export const customLoopModalStyles = {
   content: {
     display: 'absolute',
     textAlign: 'center',
-    verticAlalign: 'middle',
+    verticalAlign: 'middle',
     top: '25%',
     left: '50%',
     right: 'auto',
@@ -153,13 +138,13 @@ function GenericInput(props) {
                 isOpen
                 ariaHideApp={false}
                 shouldCloseOnOverlayClick={false}
-                style={customModalStyles}
+                className="custom-modal"
               >
                 <p>{Dictionary.modification}</p>
-                <button onClick={onCancel} style={customModalbuttonStyles}>
+                <button onClick={onCancel} className="modal-button">
                   {Dictionary.no}
                 </button>
-                <button onClick={onConfirm} style={customModalbuttonStyles}>
+                <button onClick={onConfirm} className="modal-button">
                   {Dictionary.yes}
                 </button>
               </ReactModal>
@@ -286,33 +271,30 @@ function GenericInput(props) {
       <ReactModal
         isOpen={showNewUnsavedModal}
         ariaHideApp={false}
-        style={customModalStyles}
+        className="custom-modal"
       >
         <p>{Dictionary.notSaved}</p>
-        <button onClick={handleCloseModal} style={customModalbuttonStyles}>
+        <button onClick={handleCloseModal} className="modal-button">
           {Dictionary.close}
         </button>
       </ReactModal>
       <ReactModal
         isOpen={showVisualizationErrorPopup}
         ariaHideApp={false}
-        style={customModalStyles}
+        className="custom-modal"
       >
         <p>{Dictionary.visualizationError}</p>
-        <button
-          onClick={removeVisualizationError}
-          style={customModalbuttonStyles}
-        >
+        <button onClick={removeVisualizationError} className="modal-button">
           {Dictionary.close}
         </button>
       </ReactModal>
       <ReactModal
         isOpen={showNewLoopModal}
         ariaHideApp={false}
-        style={customLoopModalStyles}
+        className="custom-modal"
       >
         <p>{Dictionary.loopNotSaved}</p>
-        <button onClick={handleCloseModal} style={customModalbuttonStyles}>
+        <button onClick={handleCloseModal} className="modal-button">
           {Dictionary.close}
         </button>
       </ReactModal>

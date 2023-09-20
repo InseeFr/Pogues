@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import classSet from 'react-classset';
+import ClassSet from 'react-classset';
 import { Link } from 'react-router-dom';
 
 import Dictionary from 'utils/dictionary/dictionary';
@@ -37,23 +37,6 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const classDropDown = classSet({
-    'btn-group': true,
-    dropup: top,
-    'flex-column': !top,
-    'flex-column-reverse': top,
-    open: dropdownOpen,
-  });
-  const classDropDownTrigger = classSet({
-    btn: true,
-    'dropdown-toggle': true,
-    'btn-yellow': false,
-    'btn-white': true,
-    disabled: disabled,
-  });
-  const classDropDownList = classSet({
-    'dropdown-menu': true,
-  });
   const linksQuestionnaire = [
     {
       actionType: 'tcmRef',
@@ -72,9 +55,24 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
     },
   ];
   return (
-    <div className={classDropDown} ref={wrapperRef}>
+    <div
+      className={ClassSet({
+        'btn-group': true,
+        dropup: top,
+        'flex-column': !top,
+        'flex-column-reverse': top,
+        open: dropdownOpen,
+      })}
+      ref={wrapperRef}
+    >
       <button
-        className={classDropDownTrigger}
+        className={ClassSet({
+          btn: true,
+          'dropdown-toggle': true,
+          'btn-yellow': false,
+          'btn-white': true,
+          disabled: disabled,
+        })}
         disabled={disabled}
         data-toggle="dropdown"
         aria-haspopup="true"
@@ -85,7 +83,7 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
         <span className="caret" />
       </button>
 
-      <ul className={classDropDownList}>
+      <ul className="dropdown-menu">
         {linksQuestionnaire.map(link => {
           return (
             <li key={link.actionLabel}>
