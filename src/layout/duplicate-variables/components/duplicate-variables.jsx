@@ -48,13 +48,15 @@ export function DuplicateVariables({
         </div>
         <div className="duplicate-variables_body">
           {duplicateVariablesSet.map(duplicateVariable => (
-            <div className="duplicate-variables_row">
+            <div key={duplicateVariable} className="duplicate-variables_row">
               <div>{duplicateVariable}</div>
               <div className="duplicate-variables_questionnaire">
                 {questDuplicateVariables
                   .filter(qdv => qdv.variableName === duplicateVariable)
                   .map(dv => (
-                    <div>
+                    <div
+                      key={`${duplicateVariable}-${dv.questionnaire}-${dv.variableType}`}
+                    >
                       {dv.questionnaire === 'current'
                         ? Dictionary.currentQuestionnaire
                         : dv.questionnaire}
