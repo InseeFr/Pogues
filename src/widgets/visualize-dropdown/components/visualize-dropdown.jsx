@@ -118,18 +118,21 @@ function VisualizeDropdown({
         {Dictionary.visualise}
         <span className="caret" />
       </button>
-
-      <ul className="dropdown-menu">
-        {links.map(link => {
-          return (
-            <li key={link.actionLabel}>
-              <a href="#" onClick={e => visualize(e, link.actionType)}>
-                {link.actionLabel}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+      {!(
+        allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
+      ) && (
+        <ul className="dropdown-menu">
+          {links.map(link => {
+            return (
+              <li key={link.actionLabel}>
+                <a href="#" onClick={e => visualize(e, link.actionType)}>
+                  {link.actionLabel}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
       <ReactModal
         isOpen={
           allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
