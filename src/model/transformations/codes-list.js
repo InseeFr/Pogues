@@ -70,9 +70,9 @@ export function remoteToStore(remote, variableclarification) {
       id,
       Label: label,
       Code: codes,
-      Name: name,
-      Urn: urn,
-      SuggesterParameters: suggesterParameters,
+      urn,
+      suggesterParameters,
+      codesMaxlength,
     } = codesList;
     return {
       ...acc,
@@ -80,15 +80,16 @@ export function remoteToStore(remote, variableclarification) {
         ? {
             id,
             label,
-            name,
+            name: '',
             urn,
             suggesterParameters,
+            codesMaxlength,
           }
         : {
             id,
             label,
             codes: remoteToCodesState(codes),
-            name: name || '',
+            name: '',
           },
     };
   }, {});
@@ -120,16 +121,17 @@ export function storeToRemote(store) {
     const {
       id,
       label,
-      name = '',
       codes = [],
       urn = '',
       suggesterParameters = {},
+      codesMaxlength = 0,
     } = store[key];
     const code =
       urn === ''
         ? {
             id,
             Label: label,
+            Name: '',
             Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
               const { label: labelCode, value, parent } = codes[keyCode];
               return {
@@ -141,10 +143,11 @@ export function storeToRemote(store) {
           }
         : {
             id,
-            Urn: urn,
-            Name: name,
+            name: id,
             Label: label,
-            SuggesterParameters: suggesterParameters,
+            urn,
+            suggesterParameters,
+            codesMaxlength,
           };
     return [...acc, code];
   }, []);

@@ -261,13 +261,81 @@ export const getSearchResults = async (
 };
 
 export const getNomenclatures = async () => {
-  return getNomenclaturesContent;
+  return {
+    nomenclatures: [
+      {
+        name: 'naf-rev2',
+        parameters: {
+          fields: [
+            {
+              name: 'label',
+              rules: ['[\\w]+'],
+              language: 'French',
+              min: 2,
+            },
+            { name: 'id' },
+          ],
+          queryParser: {
+            type: 'tokenized',
+            params: { language: 'French', pattern: '[\\w.]+' },
+          },
+        },
+        urn: 'naf-rev2:1',
+      },
+      {
+        name: 'naf-rev2-stop',
+        parameters: {
+          fields: [
+            {
+              name: 'label',
+              rules: ['[\\w]+'],
+              language: 'French',
+              min: 2,
+            },
+            { name: 'id' },
+          ],
+          queryParser: {
+            type: 'tokenized',
+            params: { language: 'French', pattern: '[\\w.]+' },
+          },
+        },
+        urn: 'naf-rev2-stop:1',
+      },
+      {
+        name: 'cog-communes',
+        parameters: {
+          fields: [
+            { name: 'label', rules: 'soft' },
+            { name: 'nccenr', rules: 'soft' },
+            { name: 'id', rules: 'soft' },
+          ],
+          queryParser: { type: 'soft' },
+        },
+        urn: 'cog-communes:1',
+      },
+      {
+        id: 'in-error',
+        name: 'in-error',
+        parameters: {
+          fields: [{ name: 'id', rules: 'soft' }],
+          queryParser: { type: 'soft' },
+        },
+        urn: 'in-error:1',
+      },
+    ],
+  };
 };
 
-export const getNomenclature = async id => {
-  if (id === 'cog-communes') return getNomenclatureCogCommunes;
-  if (id === 'in-error') return getNomenclatureInError;
-  if (id === 'naf-rev2-stop') return getNomenclatureNafRef2Stop;
-  if (id === 'naf-rev2') return getNomenclatureNafRef2;
-  return {};
-};
+export const getNomenclature = async id => ({
+  id: id,
+  name: id,
+  parameters: {
+    fields: [{ name: 'id', rules: 'soft' }],
+    queryParser: { type: 'soft' },
+  },
+  urn: 'in-error:1',
+  codes: [
+    { id: 'un', label: '1' },
+    { id: 'deux', label: '2' },
+  ],
+});

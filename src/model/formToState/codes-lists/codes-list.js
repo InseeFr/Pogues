@@ -24,9 +24,9 @@ export function formToState(form) {
     id,
     label,
     codes = [],
-    name = '',
     urn = '',
     suggesterParameters = {},
+    codesMaxlength = 0,
   } = form;
   const codesStore = codes.reduce((acc, c) => {
     return {
@@ -42,28 +42,28 @@ export function formToState(form) {
       }
     : {
         id,
-        name,
         label,
         urn,
         suggesterParameters,
+        codesMaxlength,
       };
 }
 
 export function stateComponentToForm({
   id = '',
-  name = '',
   label = '',
   codes = {},
   urn = '',
   suggesterParameters = {},
+  codesMaxlength = 0,
 }) {
   return urn !== ''
     ? {
         id,
-        name,
         label,
         urn,
         suggesterParameters,
+        codesMaxlength,
       }
     : merge(cloneDeep(defaultForm), {
         id,
