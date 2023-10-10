@@ -808,9 +808,9 @@ const dictionary = {
     fr: 'Dupliquer la liste de codes',
     en: 'Duplicate the code list',
   },
-  selectCodesList: {
-    fr: 'Sélectionner une liste de codes',
-    en: 'Select a code list',
+  selectSuggesterList: {
+    fr: 'Sélectionner une liste',
+    en: 'Select a list',
   },
   newCodesList: {
     fr: 'Créer une liste',
@@ -1090,6 +1090,10 @@ const dictionary = {
   checkbox: {
     fr: 'Case à cocher',
     en: 'Checkbox',
+  },
+  suggester: {
+    fr: 'Recherche sur liste',
+    en: 'Suggester',
   },
   enterURL: {
     fr: 'Entrez une url',

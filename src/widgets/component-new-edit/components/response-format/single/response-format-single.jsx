@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { FormSection, Field } from 'redux-form';
+import { change, FormSection, Field, formValueSelector } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,17 +8,23 @@ import {
   QUESTION_TYPE_ENUM,
   COMPONENT_TYPE,
   DIMENSION_FORMATS,
+  CODES_LIST_INPUT_ENUM,
+  DEFAULT_FORM_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from 'constants/pogues-constants';
 import { CodesLists } from 'widgets/codes-lists';
+import { getCurrentSelectorPath } from 'utils/widget-utils';
 import Dictionary from 'utils/dictionary/dictionary';
 import GenericOption from 'forms/controls/generic-option';
 import ListRadios from 'forms/controls/list-radios';
 import Select from 'forms/controls/select';
+import SuggesterLists from 'widgets/codes-lists/containers/suggester-lists-container';
 
 const { SINGLE_CHOICE, PAIRING, TABLE } = QUESTION_TYPE_ENUM;
-const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
+const { CHECKBOX, RADIO, DROPDOWN, SUGGESTER } = DATATYPE_VIS_HINT;
 const { QUESTION, LOOP } = COMPONENT_TYPE;
 const { LIST } = DIMENSION_FORMATS;
+const { REF } = CODES_LIST_INPUT_ENUM;
 
 function ResponseFormatSingle({
   selectorPathParent,
@@ -26,6 +32,9 @@ function ResponseFormatSingle({
   showMandatory,
   componentsStore,
   collectedVariablesStore,
+  visHint,
+  path,
+  formName,
 }) {
   const selectorPath = responseFormatType;
 
@@ -96,6 +105,12 @@ function ResponseFormatSingle({
     [],
   );
 
+  useEffect(() => {
+    if (visHint === SUGGESTER) {
+      change(formName, `${path}${DEFAULT_CODES_LIST_SELECTOR_PATH}.panel`, REF);
+    }
+  }, [formName, path, visHint]);
+
   return (
     <FormSection name={selectorPath} className="response-format__single">
       <div className="ctrl-checkbox" style={styleMandatory}>
@@ -109,7 +124,7 @@ function ResponseFormatSingle({
           />
         </div>
       </div>
-      {responseFormatType === PAIRING && (
+      {responseFormatType === PAIRING ? (
         <Field
           name="scope"
           component={Select}
@@ -121,24 +136,32 @@ function ResponseFormatSingle({
           </GenericOption>
           {pairingSourceVariable}
         </Field>
+      ) : (
+        <Field
+          name="visHint"
+          component={ListRadios}
+          label={Dictionary.visHint}
+          required
+        >
+          <GenericOption key={RADIO} value={RADIO}>
+            {Dictionary.radio}
+          </GenericOption>
+          <GenericOption key={DROPDOWN} value={DROPDOWN}>
+            {Dictionary.dropdown}
+          </GenericOption>
+          <GenericOption key={CHECKBOX} value={CHECKBOX}>
+            {Dictionary.checkbox}
+          </GenericOption>
+          <GenericOption key={SUGGESTER} value={SUGGESTER}>
+            {Dictionary.suggester}
+          </GenericOption>
+        </Field>
       )}
-      <Field
-        name="visHint"
-        component={ListRadios}
-        label={Dictionary.visHint}
-        required
-      >
-        <GenericOption key={RADIO} value={RADIO}>
-          {Dictionary.radio}
-        </GenericOption>
-        <GenericOption key={DROPDOWN} value={DROPDOWN}>
-          {Dictionary.dropdown}
-        </GenericOption>
-        <GenericOption key={CHECKBOX} value={CHECKBOX}>
-          {Dictionary.checkbox}
-        </GenericOption>
-      </Field>
-      <CodesLists selectorPathParent={selectorPathComposed} />
+      {visHint === SUGGESTER ? (
+        <SuggesterLists selectorPathParent={selectorPathComposed} />
+      ) : (
+        <CodesLists selectorPathParent={selectorPathComposed} />
+      )}
     </FormSection>
   );
 }
@@ -149,6 +172,7 @@ ResponseFormatSingle.propTypes = {
   showMandatory: PropTypes.bool,
   componentsStore: PropTypes.object,
   collectedVariablesStore: PropTypes.object,
+  formName: PropTypes.string,
 };
 
 ResponseFormatSingle.defaultProps = {
@@ -157,12 +181,19 @@ ResponseFormatSingle.defaultProps = {
   showMandatory: true,
   componentsStore: {},
   collectedVariablesStore: {},
+  formName: DEFAULT_FORM_NAME,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, { selectorPathParent, responseFormatType }) => {
+  const selector = formValueSelector('component');
+  const path = `${getCurrentSelectorPath(selectorPathParent)}${
+    responseFormatType ?? SINGLE_CHOICE
+  }.`;
   return {
     componentsStore: state.appState.activeComponentsById,
     collectedVariablesStore: state.appState.collectedVariableByQuestion,
+    visHint: selector(state, `${path}visHint`),
+    path,
   };
 };
 

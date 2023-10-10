@@ -122,8 +122,8 @@ export function nameSize(value) {
     : undefined;
 }
 
-export function emptyCodes(codes = []) {
-  return codes.length === 0 ? 'No codes' : undefined;
+export function emptyCodes(codes = [], urn = '') {
+  return codes.length === 0 && urn === '' ? 'No codes' : undefined;
 }
 
 export function emptyMeasures(measures) {
@@ -140,14 +140,14 @@ export function uniqueCodeAttr(value, { editing, previousValue, codes }) {
 }
 
 export function validCodesList(codesList) {
-  const { id, label, codes, panel } = codesList;
+  const { id, label, codes, panel, urn } = codesList;
   const errors = [];
   let errorRequired;
   let errorNoCodes;
 
   if (panel === NEW) {
     errorRequired = required(label);
-    errorNoCodes = emptyCodes(codes);
+    errorNoCodes = emptyCodes(codes, urn);
   } else {
     errorRequired = required(id);
   }
