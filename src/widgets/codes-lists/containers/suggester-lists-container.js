@@ -40,7 +40,6 @@ const mapStateToProps = (
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
   const currentId = selector(state, `${path}id`);
   const currentLabel = selector(state, `${path}label`);
-  const currentName = selector(state, `${path}name`);
   const currentUrn = selector(state, `${path}urn`);
   const currentSuggesterParameters = selector(
     state,
@@ -53,7 +52,6 @@ const mapStateToProps = (
           ...codesListsStore,
           [currentId]: {
             ...codesListsStore[currentId],
-            name: currentName,
             label: currentLabel,
             urn: currentUrn,
             suggesterParameters: currentSuggesterParameters,

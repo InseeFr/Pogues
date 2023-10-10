@@ -41,11 +41,15 @@ export function SuggesterLists({
       change(formName, `${path}label`, codesListsStore[currentId].label);
       change(
         formName,
-        `${path}suggesterParameters`,
+        `${path}suggester-parameters`,
         codesListsStore[currentId].suggesterParameters,
       );
-      change(formName, `${path}name`, codesListsStore[currentId].name);
       change(formName, `${path}urn`, codesListsStore[currentId].urn);
+      change(
+        formName,
+        `${path}codesMaxlength`,
+        codesListsStore[currentId].codesMaxlength,
+      );
       setCurrentIdState(currentId);
     }
 
@@ -61,8 +65,15 @@ export function SuggesterLists({
         `${path}suggesterParameters`,
         nomenclatures[currentId].suggesterParameters,
       );
-      change(formName, `${path}name`, nomenclatures[currentId].name);
       change(formName, `${path}urn`, nomenclatures[currentId].urn);
+      change(
+        formName,
+        `${path}codesMaxlength`,
+        nomenclatures[currentId].codes.reduce(
+          (acc, code) => (code.id.length > acc ? code.id.length : acc),
+          0,
+        ),
+      );
       setCurrentIdState(currentId);
     }
 
@@ -112,7 +123,6 @@ SuggesterLists.propTypes = {
   path: PropTypes.string.isRequired,
   codesListsStore: PropTypes.object,
   loadNomenclaturesIfNeeded: PropTypes.func.isRequired,
-  loadNomenclature: PropTypes.func.isRequired,
   token: PropTypes.string,
   nomenclatures: PropTypes.object,
   selectorPath: PropTypes.string.isRequired,
