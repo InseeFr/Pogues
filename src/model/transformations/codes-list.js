@@ -66,15 +66,31 @@ export function remoteToStore(remote, variableclarification) {
     variableclarification,
   );
   return remotecode.reduce((acc, codesList) => {
-    const { id, Label: label, Code: codes } = codesList;
+    const {
+      id,
+      Label: label,
+      Code: codes,
+      urn,
+      suggesterParameters,
+      codesMaxlength,
+    } = codesList;
     return {
       ...acc,
-      [id]: {
-        id,
-        label,
-        codes: remoteToCodesState(codes),
-        name: '',
-      },
+      [id]: urn
+        ? {
+            id,
+            label,
+            name: '',
+            urn,
+            suggesterParameters,
+            codesMaxlength,
+          }
+        : {
+            id,
+            label,
+            codes: remoteToCodesState(codes),
+            name: '',
+          },
     };
   }, {});
 }
@@ -102,20 +118,37 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
 }
 export function storeToRemote(store) {
   return Object.keys(store).reduce((acc, key) => {
-    const { id, label, codes } = store[key];
-    const code = {
+    const {
       id,
-      Label: label,
-      Name: '',
-      Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-        const { label: labelCode, value, parent } = codes[keyCode];
-        return {
-          Label: labelCode,
-          Value: value,
-          Parent: parent,
-        };
-      }),
-    };
+      label,
+      codes = [],
+      urn = '',
+      suggesterParameters = {},
+      codesMaxlength = 0,
+    } = store[key];
+    const code =
+      urn === ''
+        ? {
+            id,
+            Label: label,
+            Name: '',
+            Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
+              const { label: labelCode, value, parent } = codes[keyCode];
+              return {
+                Label: labelCode,
+                Value: value,
+                Parent: parent,
+              };
+            }),
+          }
+        : {
+            id,
+            name: id,
+            Label: label,
+            urn,
+            suggesterParameters,
+            codesMaxlength,
+          };
     return [...acc, code];
   }, []);
 }
