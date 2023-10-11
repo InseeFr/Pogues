@@ -123,6 +123,7 @@ SuggesterLists.propTypes = {
   path: PropTypes.string.isRequired,
   codesListsStore: PropTypes.object,
   loadNomenclaturesIfNeeded: PropTypes.func.isRequired,
+  loadNomenclature: PropTypes.func.isRequired,
   token: PropTypes.string,
   nomenclatures: PropTypes.object,
   selectorPath: PropTypes.string.isRequired,
