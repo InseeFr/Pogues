@@ -38,16 +38,16 @@ function getSelectorOptions(panels) {
 export const propTypes = {
   selectorPath: PropTypes.string.isRequired,
   selectorPathParent: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
-  activePanel: PropTypes.string,
+  path: PropTypes.string.isRequired,
   currentId: PropTypes.string,
-  codesListsStore: PropTypes.object,
   currentCodesListsStore: PropTypes.object,
-  change: PropTypes.func.isRequired,
-  arrayPush: PropTypes.func.isRequired,
-  arrayRemoveAll: PropTypes.func.isRequired,
+  codesListsStore: PropTypes.object,
+  isSearchDisable: PropTypes.bool.isRequired,
+  activePanel: PropTypes.string,
   clearSearchResult: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired,
+  arrayRemoveAll: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -57,22 +57,20 @@ export const defaultProps = {
   currentCodesListsStore: {},
 };
 
-const CodesList = props => {
-  const {
-    change,
-    arrayRemoveAll,
-    formName,
-    path,
-    currentId,
-    codesListsStore,
-    clearSearchResult,
-    selectorPathParent,
-    selectorPath,
-    activePanel,
-    currentCodesListsStore,
-    isSearchDisable,
-  } = props;
-
+const CodesList = ({
+  selectorPath,
+  selectorPathParent,
+  formName,
+  path,
+  currentId,
+  currentCodesListsStore,
+  codesListsStore,
+  isSearchDisable,
+  activePanel,
+  clearSearchResult,
+  change,
+  arrayRemoveAll,
+}) => {
   const refDiv = useRef(null);
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
@@ -205,5 +203,8 @@ const CodesList = props => {
     </FormSection>
   );
 };
+
+CodesList.propTypes = propTypes;
+CodesList.defaultProps = defaultProps;
 
 export default CodesList;
