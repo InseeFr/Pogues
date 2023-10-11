@@ -180,6 +180,8 @@ ResponseFormatSingle.propTypes = {
   showMandatory: PropTypes.bool,
   componentsStore: PropTypes.object,
   collectedVariablesStore: PropTypes.object,
+  visHint: PropTypes.string,
+  path: PropTypes.string,
   formName: PropTypes.string,
 };
 
@@ -189,6 +191,8 @@ ResponseFormatSingle.defaultProps = {
   showMandatory: true,
   componentsStore: {},
   collectedVariablesStore: {},
+  visHint: undefined,
+  path: SINGLE_CHOICE,
   formName: DEFAULT_FORM_NAME,
 };
 
