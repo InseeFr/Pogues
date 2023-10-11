@@ -206,3 +206,5 @@ const CodesLists = ({
 
 CodesLists.propTypes = propTypes;
 CodesLists.defaultProps = defaultProps;
+
+export default CodesLists;
