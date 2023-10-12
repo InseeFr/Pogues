@@ -425,26 +425,13 @@ const ComponentNewEdit = props => {
   };
 
   const scopes = [
-    getQuestionnaireScope(componentsStore).map(questionnaireIteration => {
-      return (
-        <GenericOption
-          key={`scope-${questionnaireIteration.id}`}
-          value={questionnaireIteration.id}
-        >
-          {questionnaireIteration.nameLoop}
+    getQuestionnaireScope(componentsStore, externalLoopsStore).map(
+      iteration => (
+        <GenericOption key={`scope-${iteration.id}`} value={iteration.id}>
+          {iteration.name}
         </GenericOption>
-      );
-    }),
-    externalLoopsStore.map(externalIteration => {
-      return (
-        <GenericOption
-          key={`scope-${externalIteration.id}`}
-          value={externalIteration.id}
-        >
-          {externalIteration.Name}
-        </GenericOption>
-      );
-    }),
+      ),
+    ),
   ];
 
   const associatedFieldsProps = {
@@ -540,7 +527,7 @@ const ComponentNewEdit = props => {
                   <GenericOption key="selectFinalMember" value="">
                     {Dictionary.selectFinalMembre}
                   </GenericOption>
-                  {getFinalOptions(componentsStore)}
+                  {InitialMember && getFinalOptions(componentsStore)}
                 </Field>
               </>
             )}
