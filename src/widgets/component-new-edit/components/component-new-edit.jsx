@@ -67,9 +67,7 @@ export const propTypes = {
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
-  submitErrors: {},
   componentsStore: {},
-  codesListsStoreStore: {},
   deleteComponent: undefined,
 };
 
