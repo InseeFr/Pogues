@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { formValueSelector, formPropTypes, Field } from 'redux-form';
+import { formPropTypes, Field } from 'redux-form';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
@@ -53,6 +52,17 @@ export const propTypes = {
   componentsStore: PropTypes.object,
   addSubformValidationErrors: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  deleteComponent: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  activeQuestionnaire: PropTypes.object.isRequired,
+  updateComponent: PropTypes.func.isRequired,
+  externalLoopsStore: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 export const defaultProps = {
@@ -60,6 +70,7 @@ export const defaultProps = {
   submitErrors: {},
   componentsStore: {},
   codesListsStoreStore: {},
+  deleteComponent: undefined,
 };
 
 const ComponentNewEdit = props => {
@@ -80,6 +91,7 @@ const ComponentNewEdit = props => {
     clearSubformValidationErrors,
     externalLoopsStore,
     InitialMember,
+    updateComponent,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -527,7 +539,7 @@ const ComponentNewEdit = props => {
                   <GenericOption key="selectFinalMember" value="">
                     {Dictionary.selectFinalMembre}
                   </GenericOption>
-                  {InitialMember && getFinalOptions(componentsStore)}
+                  {getFinalOptions(componentsStore)}
                 </Field>
               </>
             )}
@@ -627,7 +639,7 @@ const ComponentNewEdit = props => {
               handleCloseNestedFilter1={handleCloseNestedFilter}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}
-              updateComponent={props.updateComponent}
+              updateComponent={updateComponent}
               initialMemberFilter={InitialMember}
             />
           </div>
@@ -672,11 +684,8 @@ const ComponentNewEdit = props => {
     </div>
   );
 };
-const mapStateToProps = state => {
-  const selector = formValueSelector('component');
-  return {
-    InitialMember: selector(state, 'initialMember'),
-    filterImbriquer: selector(state, 'filterImbriquer'),
-  };
-};
-export default connect(mapStateToProps)(ComponentNewEdit);
+
+ComponentNewEdit.propTypes = propTypes;
+ComponentNewEdit.defaultProps = defaultProps;
+
+export default ComponentNewEdit;
