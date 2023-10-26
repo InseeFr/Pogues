@@ -1,6 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import { getUrlFromCriterias } from 'utils/utils';
 import { getEnvVar } from 'utils/env';
+import getNomenclaturesContent from 'utils/codes-lists/__mocks__/get-nomenclatures.json';
+import getNomenclatureCogCommunes from 'utils/codes-lists/__mocks__/cog-communes.json';
+import getNomenclatureInError from 'utils/codes-lists/__mocks__/in-error.json';
+import getNomenclatureNafRef2Stop from 'utils/codes-lists/__mocks__/naf-rev2-stop.json';
+import getNomenclatureNafRef2 from 'utils/codes-lists/__mocks__/naf-rev2.json';
 
 const configurationURL = `${window.location.origin}/configuration.json`;
 
@@ -256,81 +261,13 @@ export const getSearchResults = async (
 };
 
 export const getNomenclatures = async () => {
-  return {
-    nomenclatures: [
-      {
-        name: 'naf-rev2',
-        parameters: {
-          fields: [
-            {
-              name: 'label',
-              rules: ['[\\w]+'],
-              language: 'French',
-              min: 2,
-            },
-            { name: 'id' },
-          ],
-          queryParser: {
-            type: 'tokenized',
-            params: { language: 'French', pattern: '[\\w.]+' },
-          },
-        },
-        urn: 'naf-rev2:1',
-      },
-      {
-        name: 'naf-rev2-stop',
-        parameters: {
-          fields: [
-            {
-              name: 'label',
-              rules: ['[\\w]+'],
-              language: 'French',
-              min: 2,
-            },
-            { name: 'id' },
-          ],
-          queryParser: {
-            type: 'tokenized',
-            params: { language: 'French', pattern: '[\\w.]+' },
-          },
-        },
-        urn: 'naf-rev2-stop:1',
-      },
-      {
-        name: 'cog-communes',
-        parameters: {
-          fields: [
-            { name: 'label', rules: 'soft' },
-            { name: 'nccenr', rules: 'soft' },
-            { name: 'id', rules: 'soft' },
-          ],
-          queryParser: { type: 'soft' },
-        },
-        urn: 'cog-communes:1',
-      },
-      {
-        id: 'in-error',
-        name: 'in-error',
-        parameters: {
-          fields: [{ name: 'id', rules: 'soft' }],
-          queryParser: { type: 'soft' },
-        },
-        urn: 'in-error:1',
-      },
-    ],
-  };
+  return getNomenclaturesContent;
 };
 
-export const getNomenclature = async id => ({
-  id: id,
-  name: id,
-  parameters: {
-    fields: [{ name: 'id', rules: 'soft' }],
-    queryParser: { type: 'soft' },
-  },
-  urn: 'in-error:1',
-  codes: [
-    { id: 'un', label: '1' },
-    { id: 'deux', label: '2' },
-  ],
-});
+export const getNomenclature = async id => {
+  if (id === 'get-nomenclatures') return getNomenclatureCogCommunes;
+  if (id === 'in-error') return getNomenclatureInError;
+  if (id === 'naf-rev2-stop') return getNomenclatureNafRef2Stop;
+  if (id === 'naf-rev2') return getNomenclatureNafRef2;
+  return {};
+};
