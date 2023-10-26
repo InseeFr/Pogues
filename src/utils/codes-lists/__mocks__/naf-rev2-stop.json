@@ -1,0 +1,13 @@
+{
+  "id": "naf-rev2-stop",
+  "name": "naf-rev2-stop",
+  "parameters": {
+    "fields": [{ "name": "id", "rules": "soft" }],
+    "queryParser": { "type": "soft" }
+  },
+  "urn": "urn:ddi:fr.insee:naf-rev2-stop:1",
+  "codes": [
+    { "id": "un", "label": "1" },
+    { "id": "deux", "label": "2" }
+  ]
+}

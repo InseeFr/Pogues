@@ -1,0 +1,8 @@
+{
+  "nomenclatures": {
+    "naf-rev2": { "id": "naf-rev2", "Label": "naf-rev2" },
+    "naf-rev2-stop": { "id": "naf-rev2-stop", "Label": "naf-rev2-stop" },
+    "cog-communes": { "id": "cog-communes", "Label": "cog-communes" },
+    "in-error": { "id": "in-error", "Label": "in-error" }
+  }
+}
