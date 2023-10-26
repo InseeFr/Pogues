@@ -1,7 +1,6 @@
 {
   "id": "cog-communes",
   "name": "cog-communes",
-  "label": "nomenclature cog-communes",
   "parameters": {
     "fields": [{ "name": "id", "rules": "soft" }],
     "queryParser": { "type": "soft" }

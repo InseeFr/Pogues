@@ -45,11 +45,6 @@ export function SuggesterLists({
         codesListsStore[currentId].suggesterParameters,
       );
       change(formName, `${path}urn`, codesListsStore[currentId].urn);
-      change(
-        formName,
-        `${path}codesMaxlength`,
-        codesListsStore[currentId].codesMaxlength,
-      );
       setCurrentIdState(currentId);
     }
 
@@ -66,14 +61,6 @@ export function SuggesterLists({
         nomenclatures[currentId].suggesterParameters,
       );
       change(formName, `${path}urn`, nomenclatures[currentId].urn);
-      change(
-        formName,
-        `${path}codesMaxlength`,
-        nomenclatures[currentId].codes.reduce(
-          (acc, code) => (code.id.length > acc ? code.id.length : acc),
-          0,
-        ),
-      );
       setCurrentIdState(currentId);
     }
 

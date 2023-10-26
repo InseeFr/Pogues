@@ -315,8 +315,8 @@ export const loadNomenclatures = token => async dispatch => {
     const nomenclaturesMetadata = Object.values(
       nomenclatures.nomenclatures,
     ).map(nomenclature => ({
-      id: nomenclature.name,
-      label: nomenclature.name,
+      id: nomenclature.id,
+      label: nomenclature.Label,
     }));
     return dispatch(
       loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
@@ -345,7 +345,8 @@ export const loadNomenclature =
         ...nomenclatures,
         [id]: {
           id,
-          label: nomenclature.name,
+          name: nomenclature.name,
+          label: nomenclature.Label,
           urn: nomenclature.urn,
           suggesterParameters: nomenclature.parameters,
           codes: nomenclature.codes,
