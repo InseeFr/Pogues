@@ -70,9 +70,8 @@ export function remoteToStore(remote, variableclarification) {
       id,
       Label: label,
       Code: codes,
-      urn,
-      suggesterParameters,
-      codesMaxlength,
+      Urn: urn,
+      SuggesterParameters: suggesterParameters,
     } = codesList;
     return {
       ...acc,
@@ -83,7 +82,6 @@ export function remoteToStore(remote, variableclarification) {
             name: '',
             urn,
             suggesterParameters,
-            codesMaxlength,
           }
         : {
             id,
@@ -124,7 +122,6 @@ export function storeToRemote(store) {
       codes = [],
       urn = '',
       suggesterParameters = {},
-      codesMaxlength = 0,
     } = store[key];
     const code =
       urn === ''
@@ -145,9 +142,8 @@ export function storeToRemote(store) {
             id,
             name: id,
             Label: label,
-            urn,
-            suggesterParameters,
-            codesMaxlength,
+            Urn: urn,
+            SuggesterParameters: suggesterParameters,
           };
     return [...acc, code];
   }, []);
