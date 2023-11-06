@@ -1,8 +1,14 @@
 {
   "nomenclatures": {
-    "naf-rev2": { "id": "naf-rev2", "Label": "naf-rev2" },
-    "naf-rev2-stop": { "id": "naf-rev2-stop", "Label": "naf-rev2-stop" },
-    "cog-communes": { "id": "cog-communes", "Label": "cog-communes" },
-    "in-error": { "id": "in-error", "Label": "in-error" }
+    "naf-rev2": { "id": "naf-rev2", "label": "nomenclature naf-rev2" },
+    "naf-rev2-stop": {
+      "id": "naf-rev2-stop",
+      "label": "nomenclature naf-rev2-stop"
+    },
+    "cog-communes": {
+      "id": "cog-communes",
+      "label": "nomenclature cog-communes"
+    },
+    "in-error": { "id": "in-error", "label": "nomenclature in-error" }
   }
 }

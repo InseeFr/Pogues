@@ -1,6 +1,7 @@
 {
   "id": "naf-rev2-stop",
   "name": "naf-rev2-stop",
+  "label": "nomenclature naf-rev2-stop",
   "parameters": {
     "fields": [{ "name": "id", "rules": "soft" }],
     "queryParser": { "type": "soft" }
