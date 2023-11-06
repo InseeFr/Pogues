@@ -1,7 +1,7 @@
 {
   "id": "in-error",
   "name": "in-error",
-  "label": "in-error",
+  "label": "nomenclature in-error",
   "parameters": {
     "fields": [{ "name": "id", "rules": "soft" }],
     "queryParser": { "type": "soft" }
