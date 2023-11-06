@@ -20,7 +20,14 @@ export const defaultForm = {
 };
 
 export function formToState(form) {
-  const { id, label, codes = [], urn = '', suggesterParameters = {} } = form;
+  const {
+    id,
+    label,
+    codes = [],
+    name = '',
+    urn = '',
+    suggesterParameters = {},
+  } = form;
   const codesStore = codes.reduce((acc, c) => {
     return {
       ...acc,
@@ -35,6 +42,7 @@ export function formToState(form) {
       }
     : {
         id,
+        name,
         label,
         urn,
         suggesterParameters,
