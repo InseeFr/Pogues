@@ -371,7 +371,7 @@ export const getNomenclatures = async () => {
 };
 
 export const getNomenclature = async id => {
-  if (id === 'get-nomenclatures') return getNomenclatureCogCommunes;
+  if (id === 'cog-communes') return getNomenclatureCogCommunes;
   if (id === 'in-error') return getNomenclatureInError;
   if (id === 'naf-rev2-stop') return getNomenclatureNafRef2Stop;
   if (id === 'naf-rev2') return getNomenclatureNafRef2;
