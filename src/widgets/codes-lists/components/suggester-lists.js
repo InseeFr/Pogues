@@ -41,7 +41,7 @@ export function SuggesterLists({
       change(formName, `${path}label`, codesListsStore[currentId].label);
       change(
         formName,
-        `${path}suggester-parameters`,
+        `${path}suggesterParameters`,
         codesListsStore[currentId].suggesterParameters,
       );
       change(formName, `${path}urn`, codesListsStore[currentId].urn);
