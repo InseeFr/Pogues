@@ -130,7 +130,6 @@ export function storeToRemote(store) {
         ? {
             id,
             Label: label,
-            Name: name,
             Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
               const { label: labelCode, value, parent } = codes[keyCode];
               return {
@@ -142,9 +141,9 @@ export function storeToRemote(store) {
           }
         : {
             id,
+            Urn: urn,
             Name: name,
             Label: label,
-            Urn: urn,
             SuggesterParameters: suggesterParameters,
           };
     return [...acc, code];
