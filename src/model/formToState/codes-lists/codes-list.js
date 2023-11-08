@@ -51,6 +51,7 @@ export function formToState(form) {
 
 export function stateComponentToForm({
   id = '',
+  name = '',
   label = '',
   codes = {},
   urn = '',
@@ -59,6 +60,7 @@ export function stateComponentToForm({
   return urn !== ''
     ? {
         id,
+        name,
         label,
         urn,
         suggesterParameters,
