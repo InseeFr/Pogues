@@ -44,6 +44,7 @@ export function SuggesterLists({
         `${path}suggesterParameters`,
         codesListsStore[currentId].suggesterParameters,
       );
+      change(formName, `${path}name`, codesListsStore[currentId].name);
       change(formName, `${path}urn`, codesListsStore[currentId].urn);
       setCurrentIdState(currentId);
     }
@@ -60,6 +61,7 @@ export function SuggesterLists({
         `${path}suggesterParameters`,
         nomenclatures[currentId].suggesterParameters,
       );
+      change(formName, `${path}name`, nomenclatures[currentId].name);
       change(formName, `${path}urn`, nomenclatures[currentId].urn);
       setCurrentIdState(currentId);
     }
