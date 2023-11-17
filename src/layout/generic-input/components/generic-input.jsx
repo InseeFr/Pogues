@@ -17,19 +17,31 @@ const { COMPONENT_ID } = GENERIC_INPUT;
 // PropTypes and defaultProps
 
 export const propTypes = {
+  activeQuestionnaire: PropTypes.object,
   placeholders: PropTypes.object.isRequired,
-
+  isLoadingVisualization: PropTypes.bool,
   saveActiveQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func,
-  isQuestionnaireModified: PropTypes.bool.isRequired,
+  isQuestionnaireHaveError: PropTypes.bool,
+  isQuestionnaireModified: PropTypes.bool,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
+  token: PropTypes.string,
+  selectedComponent: PropTypes.object,
+  removeVisualizationError: PropTypes.func,
+  showVisualizationErrorPopup: PropTypes.func,
 };
 
 export const defaultProps = {
+  activeQuestionnaire: {},
+  isLoadingVisualization: false,
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
+  token: undefined,
+  selectedComponent: undefined,
+  removeVisualizationError: undefined,
+  showVisualizationErrorPopup: undefined,
 };
 
 // Components
