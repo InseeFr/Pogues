@@ -158,14 +158,15 @@ function VisualizeDropdown({
 
 VisualizeDropdown.propTypes = {
   visualizeActiveQuestionnaire: PropTypes.func,
-  disabled: PropTypes.bool.isRequired,
-  top: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
+  top: PropTypes.bool,
   componentId: PropTypes.string,
   externalVariables: PropTypes.object,
   calculatedVariables: PropTypes.object,
   collectedVariableByQuestion: PropTypes.object,
   questionnaire: PropTypes.object,
   externalQuestionnairesVariables: PropTypes.object,
+  token: PropTypes.string,
 };
 VisualizeDropdown.defaultProps = {
   visualizeActiveQuestionnaire: undefined,
@@ -177,6 +178,7 @@ VisualizeDropdown.defaultProps = {
   collectedVariableByQuestion: {},
   questionnaire: {},
   externalQuestionnairesVariables: {},
+  token: '',
 };
 
 export default VisualizeDropdown;

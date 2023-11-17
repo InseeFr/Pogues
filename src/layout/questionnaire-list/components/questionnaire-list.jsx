@@ -287,6 +287,18 @@ QuestionnaireList.propTypes = {
   isComposition: PropTypes.bool,
   isTcm: PropTypes.bool,
   handleNewChildQuestionnaireRef: PropTypes.func.isRequired,
+  handleCloseNewQuestionnaire: PropTypes.func.isRequired,
+  mergeQuestionnaires: PropTypes.func.isRequired,
+  deleteQuestionnaireList: PropTypes.func.isRequired,
+  setSelectedStamp: PropTypes.func.isRequired,
+  createComponent: PropTypes.func.isRequired,
+  updateParentChildren: PropTypes.func.isRequired,
+  orderComponents: PropTypes.func.isRequired,
+  componentsStore: PropTypes.object.isRequired,
+  codesListsStore: PropTypes.object.isRequired,
+  calculatedVariablesStore: PropTypes.object.isRequired,
+  externalVariablesStore: PropTypes.object.isRequired,
+  collectedVariablesStore: PropTypes.object.isRequired,
 };
 
 QuestionnaireList.defaultProps = {

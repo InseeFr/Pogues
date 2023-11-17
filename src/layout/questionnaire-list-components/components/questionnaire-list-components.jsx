@@ -304,12 +304,16 @@ QuestionnaireListComponents.propTypes = {
   removeQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
+  activeCalculatedVariables: PropTypes.object,
+  calculatedVariables: PropTypes.object,
 };
 
 QuestionnaireListComponents.defaultProps = {
   token: '',
   componentsStore: {},
   errorsIntegrity: {},
+  activeCalculatedVariables: {},
+  calculatedVariables: {},
 };
 
 export default DragDropContext(HTML5Backend)(QuestionnaireListComponents);

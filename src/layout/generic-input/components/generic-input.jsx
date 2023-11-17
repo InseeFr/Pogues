@@ -302,4 +302,7 @@ function GenericInput(props) {
   );
 }
 
+GenericInput.propTypes = propTypes;
+GenericInput.defaultProps = defaultProps;
+
 export default GenericInput;
